@@ -19,10 +19,6 @@
 import type { Plugin } from "vite";
 import { allRows, withClient, DATABASE_URL } from "../scripts/db/lib/pg";
 
-const ROW_CAP_DEFAULT = 1000;
-const ROW_CAP_MAX = 5000;
-const STATEMENT_TIMEOUT = "20s";
-
 interface ColumnInfo {
   name: string;
   type: string;
@@ -66,6 +62,13 @@ const { classifyRelation, SCHEMA_SQL } = require_(
 ) as {
   classifyRelation: (name: string, schema?: string) => RelationVisibility;
   SCHEMA_SQL: { tables: string; columns: string; primaryKeys: string };
+};
+const { runWithClient } = require_("../functions/sql_execution.js") as {
+  runWithClient: (
+    client: { query: (sql: string, values?: unknown[]) => Promise<unknown> },
+    sql: string,
+    limit?: number,
+  ) => Promise<unknown>;
 };
 type RelationVisibility = "data" | "derived" | "internal";
 
@@ -152,53 +155,14 @@ const readSchema = async (): Promise<unknown> => {
   };
 };
 
-// Single SELECT-like statements are capped server-side via a cursor; EXPLAIN and
-// multi-statement scripts run directly (then slice) — they don't buffer 1M rows.
-const cursorable = (s: string): boolean =>
-  !s.includes(";") && /^(select|with|table|values)\b/i.test(s);
+export const runSqlBrowserQuery = (
+  client: { query: (sql: string, values?: unknown[]) => Promise<unknown> },
+  sql: string,
+  limit?: number,
+): Promise<unknown> => runWithClient(client, sql, limit);
 
-const runQuery = async (sql: string, limit?: number): Promise<unknown> => {
-  const cap = Math.min(
-    Math.max(1, Number(limit) || ROW_CAP_DEFAULT),
-    ROW_CAP_MAX,
-  );
-  const s = sql.trim().replace(/;+\s*$/, "");
-  return withClient(async (c) => {
-    const t0 = performance.now();
-    await c.query("BEGIN TRANSACTION READ ONLY");
-    await c.query(`SET LOCAL statement_timeout = '${STATEMENT_TIMEOUT}'`);
-    try {
-      let rows: Array<Record<string, unknown>>;
-      let columns: string[];
-      let truncated: boolean;
-      if (cursorable(s)) {
-        await c.query(`DECLARE _b NO SCROLL CURSOR FOR ${s}`);
-        const r = await c.query(`FETCH ${cap + 1} FROM _b`);
-        truncated = r.rows.length > cap;
-        rows = truncated ? r.rows.slice(0, cap) : r.rows;
-        columns = r.fields.map((f) => f.name);
-      } else {
-        // A multi-statement script returns an array of results; take the last.
-        type QR = {
-          fields?: Array<{ name: string }>;
-          rows?: Array<Record<string, unknown>>;
-        };
-        const res = (await c.query(sql)) as unknown as QR | QR[];
-        const last = Array.isArray(res) ? res[res.length - 1] : res;
-        const all = (last?.rows ?? []) as Array<Record<string, unknown>>;
-        truncated = all.length > cap;
-        rows = truncated ? all.slice(0, cap) : all;
-        columns =
-          last?.fields?.map((f) => f.name) ??
-          (rows.length ? Object.keys(rows[0]) : []);
-      }
-      const elapsedMs = Math.round((performance.now() - t0) * 10) / 10;
-      return { columns, rows, rowCount: rows.length, truncated, elapsedMs };
-    } finally {
-      await c.query("ROLLBACK");
-    }
-  });
-};
+const runQuery = async (sql: string, limit?: number): Promise<unknown> =>
+  withClient((client) => runSqlBrowserQuery(client, sql, limit));
 
 // BigInt → string so JSON.stringify never throws (pg returns int8/numeric as
 // strings already, but be safe).

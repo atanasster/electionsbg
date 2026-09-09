@@ -10,6 +10,7 @@ const NON_SYSTEM = "table_schema NOT IN ('pg_catalog','information_schema')";
 // Schema tree for the explorer: user tables/views + columns, PKs, indexes,
 // estimated row counts.
 const { classifyRelation, SCHEMA_SQL } = require("./db_catalog");
+const { runWithClient } = require("./sql_execution");
 
 async function readSchema(pool) {
   const q = (sql) => pool.query(sql).then((r) => r.rows);
@@ -36,7 +37,8 @@ async function readSchema(pool) {
     const k = key(r.schema, r.tbl);
     if (!idxByTable.has(k)) idxByTable.set(k, new Map());
     const m = idxByTable.get(k);
-    if (!m.has(r.idx)) m.set(r.idx, { name: r.idx, unique: r.uniq, columns: [] });
+    if (!m.has(r.idx))
+      m.set(r.idx, { name: r.idx, unique: r.uniq, columns: [] });
     m.get(r.idx).columns.push(r.col);
     if (!indexedCols.has(k)) indexedCols.set(k, new Set());
     indexedCols.get(k).add(r.col);
@@ -80,48 +82,11 @@ async function readSchema(pool) {
   };
 }
 
-// Single SELECT-like statements are capped server-side via a cursor; EXPLAIN /
-// multi-statement scripts run directly then slice.
-const cursorable = (s) =>
-  !s.includes(";") && /^(select|with|table|values)\b/i.test(s);
-
 async function runQuery(pool, sql, limit, opts) {
-  const rowCapMax = opts?.rowCapMax ?? 2000;
-  const timeout = opts?.statementTimeout ?? "8s";
-  const cap = Math.min(Math.max(1, Number(limit) || 1000), rowCapMax);
-  const s = String(sql || "").trim().replace(/;+\s*$/, "");
-  if (!s) throw new Error("empty query");
   const client = await pool.connect();
-  const t0 = Date.now();
   try {
-    await client.query("BEGIN TRANSACTION READ ONLY");
-    await client.query("SELECT set_config('statement_timeout', $1, true)", [
-      String(timeout),
-    ]);
-    let rows, columns, truncated;
-    if (cursorable(s)) {
-      await client.query(`DECLARE _b NO SCROLL CURSOR FOR ${s}`);
-      const r = await client.query(`FETCH ${cap + 1} FROM _b`);
-      truncated = r.rows.length > cap;
-      rows = truncated ? r.rows.slice(0, cap) : r.rows;
-      columns = r.fields.map((f) => f.name);
-    } else {
-      const res = await client.query(s);
-      const last = Array.isArray(res) ? res[res.length - 1] : res;
-      const all = last?.rows ?? [];
-      truncated = all.length > cap;
-      rows = truncated ? all.slice(0, cap) : all;
-      columns =
-        last?.fields?.map((f) => f.name) ??
-        (rows.length ? Object.keys(rows[0]) : []);
-    }
-    return { columns, rows, rowCount: rows.length, truncated, elapsedMs: Date.now() - t0 };
+    return await runWithClient(client, sql, limit, opts);
   } finally {
-    try {
-      await client.query("ROLLBACK");
-    } catch {
-      /* connection may be dead after a timeout; releasing is enough */
-    }
     client.release();
   }
 }

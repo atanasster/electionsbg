@@ -69,6 +69,7 @@ export default defineConfig({
           include: [
             "scripts/**/*.test.ts",
             "ai/**/*.test.ts",
+            "functions/**/*.test.ts",
             "vite/**/*.test.ts",
             "video/**/*.test.ts",
             "news/scripts/**/*.test.mjs",

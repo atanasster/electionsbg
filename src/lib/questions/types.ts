@@ -28,6 +28,7 @@ export interface QuestionParameter {
 export interface QuestionSurfaceCapability {
   status: QuestionSurfaceStatus;
   capabilityId?: string;
+  version?: number;
   reason?: LocalizedText;
 }
 

@@ -8,6 +8,8 @@
 // `amount_eur`). Two more returned zero rows, which teaches nothing.
 import { describe, expect, it } from "vitest";
 import { ALL_QUERIES, LIBRARY } from "../../../src/screens/dev/sqlLibrary";
+import { SQL_RECIPES } from "../../../src/lib/questions/sql/recipes";
+import { renderSqlQuestion } from "../../../src/lib/questions/sql/render";
 import { LINKS } from "../../data_map/model";
 import { getPool, pinLocalDatabase, dbReachable } from "../lib/pg";
 
@@ -120,6 +122,31 @@ describe.skipIf(!reachable)("the documented traps are load-bearing", () => {
     );
     expect(Number(r.rows[0].n)).toBeGreaterThan(0);
   });
+});
+
+describe.skipIf(!reachable)("reviewed SQL recipe contracts", () => {
+  const variants: Array<[string, Record<string, unknown>]> = [
+    ...SQL_RECIPES.map(
+      (recipe) => [recipe.id, {}] as [string, Record<string, unknown>],
+    ),
+    ["contractors-ranked-and-scoped", { scope: "y:2025" }],
+    ["what-changed-recently", { days: 30, limit: 80 }],
+    ["a-day-in-the-chamber", { from: "2026-01-01" }],
+  ];
+
+  it.each(variants)(
+    "%s returns its declared columns",
+    async (id, parameters) => {
+      const rendered = renderSqlQuestion(id, parameters);
+      const result = await getPool().query(rendered.sql);
+      const last = Array.isArray(result) ? result[result.length - 1] : result;
+      expect(
+        last.fields.map((field: { name: string }) => field.name),
+        id,
+      ).toEqual(rendered.outputColumns);
+    },
+    20_000,
+  );
 });
 
 describe("library shape (no database needed)", () => {
