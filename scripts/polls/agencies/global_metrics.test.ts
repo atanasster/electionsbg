@@ -45,6 +45,20 @@ describe("globalMetrics lister", () => {
     expect(isElectoral(hr)).toBe(false);
   });
 
+  it("excludes an exit-poll title even when it contains избори (decision 17)", async () => {
+    const { isElectoral } = await import("./global_metrics");
+    expect(
+      isElectoral({
+        id: 700,
+        url: "x",
+        title: "Екзит пол от президентските избори",
+        publishedAt: null,
+        kind: "html" as const,
+        attachments: [],
+      }),
+    ).toBe(false);
+  });
+
   it("is registered under the GM agency id", async () => {
     const { globalMetrics } = await import("./global_metrics");
     expect(globalMetrics.agencyId).toBe("GM");

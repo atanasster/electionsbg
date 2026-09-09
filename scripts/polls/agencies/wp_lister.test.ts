@@ -174,3 +174,38 @@ describe("listWpPosts", () => {
     expect(posts).toEqual([]);
   });
 });
+
+describe("isExitPollTitle / titleContainsAny", () => {
+  it("isExitPollTitle matches the shared exit-poll vocabulary", async () => {
+    const { isExitPollTitle } = await import("./wp_lister");
+    expect(isExitPollTitle("Екзит пол от изборите")).toBe(true);
+    expect(isExitPollTitle("Паралелно преброяване — балотаж")).toBe(true);
+    expect(
+      isExitPollTitle("Електорални нагласи спрямо предстоящите избори"),
+    ).toBe(false);
+  });
+
+  it("titleContainsAny refuses an exit-poll title even when it matches the term list", async () => {
+    const { titleContainsAny } = await import("./wp_lister");
+    const rule = titleContainsAny(["избори", "партии"]);
+    const pub = (title: string) => ({
+      id: 1,
+      url: "x",
+      title,
+      publishedAt: null,
+      kind: "html" as const,
+      attachments: [],
+    });
+    // Would otherwise match on the bare "избори" substring inside
+    // "изборите" — the real Trend false positive this gate exists for.
+    expect(
+      rule(
+        pub("Профил на избирателя (екзит пол от изборите за Народно събрание)"),
+      ),
+    ).toBe(false);
+    expect(rule(pub("Електорални нагласи спрямо предстоящите избори"))).toBe(
+      true,
+    );
+    expect(rule(pub("Употреба на наркотични вещества"))).toBe(false);
+  });
+});

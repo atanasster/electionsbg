@@ -453,6 +453,277 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     expect(contents[0].equals(contents[1])).toBe(false);
   });
 
+  it("saves the page and every attachment that DID succeed when one attachment 403s (Market Links, live)", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body>
+        <a href="/blocked.pdf">blocked</a>
+        <a href="/ok.pdf">ok</a>
+      </body></html>`,
+    );
+    fetchSpy.mockImplementation(async (input: unknown) => {
+      const url = String(input);
+      if (url.endsWith("/blocked.pdf"))
+        return new Response(null, { status: 403 }) as unknown as Response;
+      return new Response(new Uint8Array([1, 2, 3]), {
+        status: 200,
+      }) as unknown as Response;
+    });
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await main(["--agency", "TR"]);
+
+    const dir = path.join(scratchRoot, "raw_data/polls/trend/10");
+    // The page and the ok.pdf attachment both survive.
+    expect(fs.existsSync(path.join(dir, "page.html"))).toBe(true);
+    expect(fs.existsSync(path.join(dir, "ok.pdf"))).toBe(true);
+    expect(fs.existsSync(path.join(dir, "blocked.pdf"))).toBe(false);
+    // The stamp records WHICH attachment failed rather than silently
+    // looking like a complete capture.
+    const stamp = JSON.parse(
+      fs.readFileSync(path.join(dir, "SOURCE.json"), "utf8"),
+    );
+    expect(stamp.attachmentFailures).toEqual([
+      "https://rctrend.bg/blocked.pdf",
+    ]);
+    // A failed attachment inside a bulk capture is logged, not thrown —
+    // the run itself still succeeds for this target.
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("attachment FAILED"),
+    );
+
+    errorSpy.mockRestore();
+  });
+
+  it("still captures the page when EVERY discovered attachment fails", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body><a href="/a.pdf">a</a><a href="/b.pdf">b</a></body></html>`,
+    );
+    fetchSpy.mockImplementation(
+      async () => new Response(null, { status: 403 }) as unknown as Response,
+    );
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await main(["--agency", "TR"]);
+
+    const dir = path.join(scratchRoot, "raw_data/polls/trend/10");
+    expect(fs.existsSync(path.join(dir, "page.html"))).toBe(true);
+    const stamp = JSON.parse(
+      fs.readFileSync(path.join(dir, "SOURCE.json"), "utf8"),
+    );
+    // bytes reflect ONLY the page — no attachment made it to disk.
+    expect(stamp.bytes).toBe(
+      Buffer.byteLength(
+        fs.readFileSync(path.join(dir, "page.html"), "utf8"),
+        "utf8",
+      ),
+    );
+    expect(stamp.attachmentFailures).toEqual([
+      "https://rctrend.bg/a.pdf",
+      "https://rctrend.bg/b.pdf",
+    ]);
+
+    errorSpy.mockRestore();
+  });
+
+  it("does not retry a definite 403 (only a transient 5xx gets a second attempt)", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body><a href="/blocked.pdf">blocked</a></body></html>`,
+    );
+    let calls = 0;
+    fetchSpy.mockImplementation(async () => {
+      calls++;
+      return new Response(null, { status: 403 }) as unknown as Response;
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await main(["--agency", "TR"]);
+
+    expect(calls).toBe(1); // a 403 is permanent — never worth a second attempt
+  });
+
+  it("retries once on a transient 5xx, then succeeds", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body><a href="/flaky.pdf">flaky</a></body></html>`,
+    );
+    let calls = 0;
+    fetchSpy.mockImplementation(async () => {
+      calls++;
+      if (calls === 1)
+        return new Response(null, { status: 503 }) as unknown as Response;
+      return new Response(new Uint8Array([1]), {
+        status: 200,
+      }) as unknown as Response;
+    });
+
+    await main(["--agency", "TR"]);
+
+    expect(calls).toBe(2);
+    expect(
+      fs.existsSync(
+        path.join(scratchRoot, "raw_data/polls/trend/10", "flaky.pdf"),
+      ),
+    ).toBe(true);
+  });
+
+  it("stays unchanged across --force when the SAME attachment keeps 403ing", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body>
+        <a href="/blocked.pdf">blocked</a>
+        <a href="/ok.pdf">ok</a>
+      </body></html>`,
+    );
+    fetchSpy.mockImplementation(async (input: unknown) => {
+      const url = String(input);
+      if (url.endsWith("/blocked.pdf"))
+        return new Response(null, { status: 403 }) as unknown as Response;
+      return new Response(new Uint8Array([1, 2, 3]), {
+        status: 200,
+      }) as unknown as Response;
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await main(["--agency", "TR"]); // first run: mints the base capture
+    await main(["--agency", "TR", "--force"]); // re-check: same failure, same success
+
+    expect(
+      fs.existsSync(path.join(scratchRoot, "raw_data/polls/trend/10.v2")),
+    ).toBe(false);
+  });
+
+  it("carries no attachmentFailures key at all when every attachment succeeds", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue("<html>no attachments</html>");
+
+    await main(["--agency", "TR"]);
+
+    const stamp = JSON.parse(
+      fs.readFileSync(
+        path.join(scratchRoot, "raw_data/polls/trend/10", "SOURCE.json"),
+        "utf8",
+      ),
+    );
+    expect("attachmentFailures" in stamp).toBe(false);
+  });
+
   it("continues walking other agencies' --since backlogs when one agency's listing throws", async () => {
     const { trend } = await import("./agencies/trend");
     const { alphaResearch } = await import("./agencies/alpha_research");
@@ -499,6 +770,59 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     ).toBe(true);
 
     spies.forEach((s) => s.mockRestore());
+  });
+
+  it("isolates a failed Sova Harris bulletin image the same way as a PDF", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_sova_harris"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://sovaharris.com/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body>
+        <img src="https://sovaharris.com/wp-content/Buletin_x_page-0001.jpg">
+        <img src="https://sovaharris.com/wp-content/Buletin_x_page-0002.jpg">
+      </body></html>`,
+    );
+    fetchSpy.mockImplementation(async (input: unknown) => {
+      const url = String(input);
+      if (url.endsWith("page-0001.jpg"))
+        return new Response(null, { status: 403 }) as unknown as Response;
+      return new Response(new Uint8Array([1, 2]), {
+        status: 200,
+      }) as unknown as Response;
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await main(["--agency", "SH"]);
+
+    const dir = path.join(scratchRoot, "raw_data/polls/sova_harris/10");
+    expect(fs.existsSync(path.join(dir, "page.html"))).toBe(true);
+    expect(fs.existsSync(path.join(dir, "Buletin_x_page-0002.jpg"))).toBe(true);
+    expect(fs.existsSync(path.join(dir, "Buletin_x_page-0001.jpg"))).toBe(
+      false,
+    );
+    const stamp = JSON.parse(
+      fs.readFileSync(path.join(dir, "SOURCE.json"), "utf8"),
+    );
+    expect(stamp.attachmentFailures).toEqual([
+      "https://sovaharris.com/wp-content/Buletin_x_page-0001.jpg",
+    ]);
   });
 
   it("lists pending press notices without attempting to fetch them", async () => {

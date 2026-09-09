@@ -104,6 +104,11 @@ describe("alphaResearch lister", () => {
     expect(t("19 Април 2026: Избори за Народно събрание")).toBe(false);
     // Neither term present.
     expect(t("ВНИМАНИЕ! ФАЛШИВИ НОВИНИ!")).toBe(false);
+    // Exit-poll analysis, even though it carries BOTH "нагласи" and "избор"
+    // (decision 17) — the same false positive measured live on Trend.
+    expect(t("Нагласи на българите в деня на изборите (екзит пол)")).toBe(
+      false,
+    );
   });
 
   it("is registered under the AR agency id", async () => {

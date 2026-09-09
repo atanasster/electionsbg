@@ -109,14 +109,35 @@ export const listWpPosts = async (
 };
 
 /**
+ * Terms marking a publication as EXIT-POLL analysis rather than a
+ * pre-election poll — decision 17: "An exit poll is not a pre-election
+ * poll" and never enters either corpus (it measures who actually voted,
+ * not who intends to — a different question). Shared so a new agency's
+ * title rule cannot silently omit the exclusion the way a bare "избори"
+ * substring match did in practice: Trend's own listing carries "Профил на
+ * избирателя (екзит пол от изборите за Народно събрание през април
+ * 2026)" — a post-election voter-profile retrospective — which
+ * false-matched on "избори" alone (measured 2026-09-09, live).
+ */
+export const EXIT_POLL_TERMS = ["екзит", "паралелно преброяване"];
+
+export const isExitPollTitle = (title: string): boolean => {
+  const t = title.toLowerCase();
+  return EXIT_POLL_TERMS.some((term) => t.includes(term));
+};
+
+/**
  * The shared shape of most `isElectoral` rules: a lowercased-substring match
- * against a term list. Used where an agency's rule is exactly this (Trend,
- * Global Metrics, Gallup); Sova Harris adds an exit-poll exclusion and Мяра's
- * whole population is already electoral-scoped, so neither uses it.
+ * against a term list, with the exit-poll exclusion above applied first.
+ * Used where an agency's rule is exactly this — Trend, Global Metrics,
+ * Gallup, AND Sova Harris (its own `ELECTORAL_TERMS` list happens to differ
+ * from the other three's, not the RULE shape, which is identical). Мяра's
+ * whole population is already electoral-scoped, so it uses neither.
  */
 export const titleContainsAny =
   (terms: string[]) =>
   (p: Publication): boolean => {
+    if (isExitPollTitle(p.title)) return false;
     const title = p.title.toLowerCase();
     return terms.some((t) => title.includes(t));
   };

@@ -4,7 +4,7 @@
 // rather than hardcoded (they would otherwise go stale every year).
 
 import type { AgencyLister, ListOpts, Publication } from "./types";
-import { listWpPosts, resolveCategoryIds } from "./wp_lister";
+import { listWpPosts, resolveCategoryIds, titleContainsAny } from "./wp_lister";
 
 const SITE = "https://sovaharris.com";
 
@@ -34,8 +34,8 @@ export const listPublications = async (
 // Exit polls are excluded (decision 17): "Изборите за Президент … — балотаж"
 // and the round-1-day posts measure who actually voted, not who intends to —
 // a different question from a pre-election poll, and neither corpus scores
-// it.
-const EXIT_POLL_TERMS = ["екзит", "паралелно преброяване"];
+// it. The exclusion is `titleContainsAny`'s own (wp_lister.ts), not a
+// private copy — Trend, Global Metrics and Gallup need the SAME one.
 const ELECTORAL_TERMS = [
   "политически нагласи",
   "електорални",
@@ -43,11 +43,7 @@ const ELECTORAL_TERMS = [
   "президент",
 ];
 
-export const isElectoral = (p: Publication): boolean => {
-  const title = p.title.toLowerCase();
-  if (EXIT_POLL_TERMS.some((t) => title.includes(t))) return false;
-  return ELECTORAL_TERMS.some((t) => title.includes(t));
-};
+export const isElectoral = titleContainsAny(ELECTORAL_TERMS);
 
 export const sovaHarris: AgencyLister = {
   agencyId: "SH",

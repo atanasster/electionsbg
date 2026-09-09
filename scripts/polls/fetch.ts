@@ -63,34 +63,82 @@ interface SourceStamp {
   sha256: string;
   bytes: number;
   archiveUrl?: string;
+  /** Attachment URLs `discoverPdfLinks`/`discoverSovaHarrisBulletinImages`
+   *  found but could not fetch — e.g. Market Links' `/storage/` PDFs
+   *  currently answer every request (curl, Node, no UA/Referer variation
+   *  helped) with a bare WAF `403`, measured live 2026-09-09. Present only
+   *  when non-empty, so a capture with every attachment fetched carries no
+   *  such key at all and cannot be mistaken for "checked, found none". */
+  attachmentFailures?: string[];
 }
 
 // `fetchText` (scripts/watch/fingerprint.ts) times out and retries transient
 // 5xx failures; a bare `fetch()` here would let one hung PDF connection block
 // the whole capture indefinitely (every attachment is awaited via
 // `Promise.all`) or one transient 5xx abort an otherwise-good capture. Same
-// 30 s ceiling, one retry — attachments are a courtesy fetch alongside the
-// page that already succeeded, not worth the page's own 3-retry budget.
+// 30 s ceiling, one retry for a transient 5xx — attachments are a courtesy
+// fetch alongside the page that already succeeded, not worth the page's own
+// 3-retry budget.
+//
+// ⚠️ A NON-5xx failure and a genuine timeout must NOT retry. A 403 (Market
+// Links' `/storage/` PDFs — a bare WAF block, measured live 2026-09-09: curl,
+// Node, with or without Referer/browser headers, all get the identical
+// response) is PERMANENT — retrying just hits the same block twice on a site
+// already documented elsewhere as sensitive to repeated requests. And an
+// `AbortSignal.timeout` firing means the server is unresponsive, not
+// transiently failing — the same distinction `fetchText` already makes.
 const FETCH_BINARY_TIMEOUT_MS = 30_000;
 
 const fetchBinary = async (url: string): Promise<Uint8Array> => {
   for (let attempt = 0; attempt <= 1; attempt++) {
+    // The fetch CALL itself (network error, DNS failure, a genuine timeout)
+    // is the only thing this try/catch guards — deliberately narrower than
+    // wrapping the whole iteration, because throwing for a PERMANENT
+    // response status (below, outside this block) must propagate straight
+    // out on attempt 0 rather than being caught by this same catch and
+    // silently retried, which is the exact bug a wider try introduced here
+    // once (a 403 got fetched twice before this was narrowed).
+    let res: Response;
     try {
-      const res = await fetch(url, {
+      res = await fetch(url, {
         headers: { "User-Agent": UA },
         signal: AbortSignal.timeout(FETCH_BINARY_TIMEOUT_MS),
       });
-      if (!res.ok) {
-        if (res.status >= 500 && attempt === 0) continue;
-        throw new Error(`HTTP ${res.status} fetching ${url}`);
-      }
-      return new Uint8Array(await res.arrayBuffer());
     } catch (e) {
+      if (e instanceof Error && e.name === "AbortError") throw e; // never retry a timeout
       if (attempt === 1) throw e;
+      continue; // a network-level error — retry once
     }
+    if (res.ok) return new Uint8Array(await res.arrayBuffer());
+    if (res.status >= 500 && attempt === 0) continue; // transient — retry once
+    throw new Error(`HTTP ${res.status} fetching ${url}`); // permanent — fail now
   }
   throw new Error(`unreachable: ${url}`); // satisfies the return type; the loop above always returns or throws
 };
+
+interface AttachmentResult {
+  url: string;
+  bytes: Uint8Array | null;
+  error?: string;
+}
+
+/** Fetches every URL independently — one failed attachment (a dead link, a
+ *  WAF block) must not lose the page HTML and every OTHER attachment that
+ *  DID succeed. */
+const fetchAttachments = (urls: string[]): Promise<AttachmentResult[]> =>
+  Promise.all(
+    urls.map(async (url): Promise<AttachmentResult> => {
+      try {
+        return { url, bytes: await fetchBinary(url) };
+      } catch (e) {
+        return {
+          url,
+          bytes: null,
+          error: e instanceof Error ? e.message : String(e),
+        };
+      }
+    }),
+  );
 
 /** A basename derived from `url`, disambiguated against every name already
  *  used IN THIS CAPTURE — two distinct attachments (e.g. `/2025/report.pdf`
@@ -161,9 +209,20 @@ const captureOne = async (
   const pdfUrls = discoverPdfLinks(html, target.fetchUrl);
   const imageUrls =
     target.agencyId === "SH" ? discoverSovaHarrisBulletinImages(html) : [];
-  const pdfBytes = await Promise.all(pdfUrls.map(fetchBinary));
-  const imageBytes = await Promise.all(imageUrls.map(fetchBinary));
-  const newHash = combinedSha256(html, [...pdfBytes, ...imageBytes]);
+  const [pdfResults, imageResults] = await Promise.all([
+    fetchAttachments(pdfUrls),
+    fetchAttachments(imageUrls),
+  ]);
+  const failures = [...pdfResults, ...imageResults].filter((r) => r.error);
+  for (const f of failures)
+    console.error(`  attachment FAILED: ${f.url} — ${f.error}`);
+
+  const okBytes = (rs: AttachmentResult[]): Uint8Array[] =>
+    rs.filter((r) => r.bytes !== null).map((r) => r.bytes!);
+  const newHash = combinedSha256(html, [
+    ...okBytes(pdfResults),
+    ...okBytes(imageResults),
+  ]);
 
   if (latest !== null && readStamp(`${baseDir}${latest}`)?.sha256 === newHash) {
     console.log(
@@ -177,29 +236,34 @@ const captureOne = async (
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, "page.html"), html, "utf8");
   const usedNames = new Set<string>(["page.html", "SOURCE.json"]);
-  pdfUrls.forEach((u, i) =>
+  let attachmentBytes = 0;
+  pdfResults.forEach((r, i) => {
+    if (!r.bytes) return;
     fs.writeFileSync(
-      path.join(outDir, filenameFor(u, "pdf", i, usedNames)),
-      pdfBytes[i],
-    ),
-  );
-  imageUrls.forEach((u, i) =>
+      path.join(outDir, filenameFor(r.url, "pdf", i, usedNames)),
+      r.bytes,
+    );
+    attachmentBytes += r.bytes.byteLength;
+  });
+  imageResults.forEach((r, i) => {
+    if (!r.bytes) return;
     fs.writeFileSync(
-      path.join(outDir, filenameFor(u, "image", i, usedNames)),
-      imageBytes[i],
-    ),
-  );
+      path.join(outDir, filenameFor(r.url, "image", i, usedNames)),
+      r.bytes,
+    );
+    attachmentBytes += r.bytes.byteLength;
+  });
 
-  const totalBytes =
-    Buffer.byteLength(html, "utf8") +
-    pdfBytes.reduce((sum, b) => sum + b.byteLength, 0) +
-    imageBytes.reduce((sum, b) => sum + b.byteLength, 0);
+  const totalBytes = Buffer.byteLength(html, "utf8") + attachmentBytes;
   const stamp: SourceStamp = {
     url: target.originalUrl,
     fetchedAt: new Date().toISOString(),
     sha256: newHash,
     bytes: totalBytes,
     ...(target.archiveUrl ? { archiveUrl: target.archiveUrl } : {}),
+    ...(failures.length > 0
+      ? { attachmentFailures: failures.map((f) => f.url) }
+      : {}),
   };
   fs.writeFileSync(
     path.join(outDir, "SOURCE.json"),
@@ -207,8 +271,12 @@ const captureOne = async (
     "utf8",
   );
 
+  const pdfOk = pdfResults.length - pdfResults.filter((r) => r.error).length;
+  const imageOk =
+    imageResults.length - imageResults.filter((r) => r.error).length;
   console.log(
-    `captured ${target.agencyId} ${target.pubId}${suffix} — ${pdfUrls.length} pdf(s), ${imageUrls.length} image(s), ${totalBytes} bytes`,
+    `captured ${target.agencyId} ${target.pubId}${suffix} — ${pdfOk}/${pdfResults.length} pdf(s), ${imageOk}/${imageResults.length} image(s), ${totalBytes} bytes` +
+      (failures.length > 0 ? ` (${failures.length} attachment FAILED)` : ""),
   );
 };
 

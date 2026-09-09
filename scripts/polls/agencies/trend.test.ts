@@ -71,6 +71,24 @@ describe("trend lister", () => {
     expect(isElectoral(electoral)).toBe(true);
   });
 
+  it("excludes an exit-poll voter-profile retrospective, even though its title contains избори (decision 17)", async () => {
+    // Measured live 2026-09-09: Trend's own listing carries exactly this
+    // title, and the bare "избори" substring in "изборите" used to
+    // false-match it as a pre-election poll.
+    const { isElectoral } = await import("./trend");
+    expect(
+      isElectoral({
+        id: 212779,
+        url: "x",
+        title:
+          "Профил на избирателя (екзит пол от изборите за Народно събрание през април 2026)",
+        publishedAt: null,
+        kind: "html" as const,
+        attachments: [],
+      }),
+    ).toBe(false);
+  });
+
   it("is registered under the TR agency id", async () => {
     const { trend } = await import("./trend");
     expect(trend.agencyId).toBe("TR");

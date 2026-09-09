@@ -15,7 +15,7 @@
 
 import * as cheerio from "cheerio";
 import { fetchText } from "../../watch/fingerprint";
-import { UA } from "./wp_lister";
+import { UA, isExitPollTitle } from "./wp_lister";
 import type { AgencyLister, ListOpts, Publication } from "./types";
 
 const SITE = "https://alpharesearch.bg";
@@ -99,6 +99,13 @@ export const listPublications = async (
 const ELECTORAL_TERMS = ["електорал", "избор", "партии", "президент"];
 
 export const isElectoral = (p: Publication): boolean => {
+  // Shared with Trend/Global Metrics/Gallup/Sova Harris (wp_lister.ts) — a
+  // bare "избор" substring here is even broader than Trend's "избори" (it
+  // also matches "изборен", "изборник", ...), so this is exposed to the
+  // SAME exit-poll false positive decision 17 forbids: measured live on
+  // Trend, "Профил на избирателя (екзит пол от изборите …)" false-matched
+  // on the bare substring alone before this guard existed anywhere.
+  if (isExitPollTitle(p.title)) return false;
   const title = p.title.toLowerCase();
   if (!title.includes("нагласи")) return false;
   return ELECTORAL_TERMS.some((t) => title.includes(t));
