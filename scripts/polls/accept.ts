@@ -34,7 +34,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { flagReader } from "./lib/argv";
-import type { InboxDraft } from "./lib/draft";
+import type { InboxDraft, ParliamentaryInboxDraft } from "./lib/draft";
 import type { Poll, PollDetail } from "../../src/data/polls/pollsTypes";
 
 const PROD_REPO_ROOT = path.resolve(
@@ -159,7 +159,7 @@ const isNonEmptyString = (v: unknown): v is string =>
  *  this module's own header for why that matters. Returns every problem
  *  found rather than just the first, since a failing draft is handed back
  *  to the operator to fix by hand in one pass. */
-const validateDraft = (draft: InboxDraft): string[] => {
+const validateDraft = (draft: ParliamentaryInboxDraft): string[] => {
   const errors: string[] = [];
   if (!isNonEmptyString(draft.poll.fieldwork))
     errors.push("poll.fieldwork is missing or blank");

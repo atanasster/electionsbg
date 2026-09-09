@@ -321,4 +321,37 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
       ),
     ).toBe(true);
   });
+
+  it("refuses a presidential-titled capture via the title-only fast path, and still extracts a parliamentary one in the same batch", async () => {
+    // Title alone states the race outright ("президентски избори") — the
+    // fast path in extractTrend/extractAlphaResearch (added to skip the
+    // OCR/PDF acquisition pass for an obviously non-parliamentary
+    // capture) must reject this BEFORE any of that work runs, with its
+    // own distinct message, rather than falling through to the later
+    // body-text-informed guard.
+    const TR_PRESIDENTIAL_HTML =
+      "<html><head><title>Президентски избори 2026 — ТРЕНД</title></head>" +
+      '<body><div class="et_pb_text_inner">...</div></body></html>';
+    writeSyntheticCapture("trend", "666", TR_PRESIDENTIAL_HTML);
+    writeSyntheticCapture("trend", "555", TR_HTML);
+
+    await main(["--agency", "TR"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(
+      errorSpy.mock.calls.some(
+        (c: unknown[]) =>
+          String(c[0]).includes("FAILED TR 666") &&
+          String(c[0]).includes(
+            "title alone resolves to a non-parliamentary race",
+          ),
+      ),
+    ).toBe(true);
+    // The parliamentary capture in the same batch is unaffected.
+    expect(
+      fs.existsSync(
+        path.join(scratchRoot, "data/polls/_inbox/tr-pub-555.json"),
+      ),
+    ).toBe(true);
+  });
 });

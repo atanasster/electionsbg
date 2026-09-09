@@ -202,7 +202,15 @@ describe("main", () => {
   });
 
   it("refuses a presidential draft — not supported yet", () => {
-    writeDraft("gm-x.json", { ...BASE_DRAFT, race: "presidential" });
+    // accept.ts refuses on `race` alone, before ever inspecting `details`
+    // or `runoffs` — the presidential shape's exact contents don't matter
+    // for this test, only that the race check fires first.
+    writeDraft("gm-x.json", {
+      ...BASE_DRAFT,
+      race: "presidential",
+      details: [],
+      runoffs: [],
+    });
     writeCorpus([], []);
 
     main(["gm-x"]);

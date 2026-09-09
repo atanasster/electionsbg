@@ -8,7 +8,8 @@ import type {
   PollDetail,
   PollGenre,
   PollResidual,
-  Race,
+  PresidentialPollDetail,
+  Runoff,
 } from "../../../src/data/polls/pollsTypes";
 import type { Refusal } from "./evidence_gate";
 
@@ -26,13 +27,8 @@ import type { Refusal } from "./evidence_gate";
 export type DraftPoll = Partial<Omit<Poll, "locked" | "id" | "agencyId">> &
   Pick<Poll, "id" | "agencyId">;
 
-export interface InboxDraft {
-  race: Race;
+interface InboxDraftCommon {
   poll: DraftPoll;
-  details: PollDetail[];
-  /** Presidential-only (decision 10/16) — Tier 4 has not shipped its shape
-   *  yet, so this stays untyped rather than guessing one. */
-  runoffs?: unknown[];
   residual: PollResidual | null;
   genre: PollGenre;
   /** The agency id (a deterministic extractor) or "gemini-flash" (the LLM
@@ -46,3 +42,24 @@ export interface InboxDraft {
    *  this list rather than being told nothing was found. */
   refused: Refusal[];
 }
+
+export interface ParliamentaryInboxDraft extends InboxDraftCommon {
+  race: "parliamentary";
+  details: PollDetail[];
+}
+
+export interface PresidentialInboxDraft extends InboxDraftCommon {
+  race: "presidential";
+  details: PresidentialPollDetail[];
+  /** Decision 10 — several runoff pairings per poll are normal (an agency
+   *  testing more than one hypothetical second round); `[]`, never
+   *  omitted, when a publication states none. */
+  runoffs: Runoff[];
+}
+
+/** A discriminated union on `race` — `accept.ts`'s own existing
+ *  `if (draft.race !== "parliamentary") { refuse; return; }` guard
+ *  narrows `draft` to `ParliamentaryInboxDraft` for everything after it,
+ *  with no code changes needed there; a future presidential `accept`
+ *  arm gets the symmetric narrowing to `PresidentialInboxDraft`. */
+export type InboxDraft = ParliamentaryInboxDraft | PresidentialInboxDraft;
