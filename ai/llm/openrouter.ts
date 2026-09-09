@@ -33,11 +33,13 @@ import type {
   ResponseMeta,
 } from "./provider";
 
-// Same-origin proxy by default (hosting rewrite → the `llm` function). Override
-// in dev with VITE_LLM_PROXY_URL pointing at the deployed function / emulator.
-const PROXY_URL =
-  (import.meta as unknown as { env?: Record<string, string> }).env
-    ?.VITE_LLM_PROXY_URL || "/api/llm";
+import {
+  PROXY_URL,
+  questionAccess,
+  setAiNotice,
+  type QuestionAccess,
+} from "./session";
+import { HeuristicProvider } from "./provider";
 
 // Dev-only console trace of the assembled conversation context (for tuning).
 const DEV = !!(import.meta as unknown as { env?: { DEV?: boolean } }).env?.DEV;
@@ -72,7 +74,13 @@ export class OpenRouterProvider implements LLMProvider {
   // serve a stale summary to a different conversation that reached the same size).
   private summaryCache?: { key: string; text: string };
 
-  constructor(model: ModelOption) {
+  private credentials?: { sessionToken: string; questionId: string };
+  private busy = false;
+
+  constructor(
+    model: ModelOption,
+    private access: QuestionAccess = questionAccess,
+  ) {
     this.model = model;
     this.id = `cloud:${model.id}`;
     this.label = model.label;
@@ -98,10 +106,14 @@ export class OpenRouterProvider implements LLMProvider {
     },
     usage: Usage,
   ): Promise<string> {
+    if (!this.credentials) throw new Error("verification_required");
     const res = await fetch(PROXY_URL, {
+      signal: AbortSignal.timeout(40000),
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        action: "complete",
+        ...this.credentials,
         model: this.model.id,
         messages,
         temperature: opts.temperature,
@@ -116,6 +128,13 @@ export class OpenRouterProvider implements LLMProvider {
       // before the silent fallback to the rules engine kicks in.
       const body = await res.text().catch(() => "");
       console.warn(`[cloud] /api/llm ${res.status}: ${body.slice(0, 300)}`);
+      let code = "ai_unavailable";
+      try {
+        code = JSON.parse(body).error || code;
+      } catch {
+        /* non-JSON failure */
+      }
+      setAiNotice(code);
       throw new Error(`proxy ${res.status}`);
     }
     // Streaming path — only when we asked AND the proxy actually returns SSE
@@ -307,7 +326,52 @@ export class OpenRouterProvider implements LLMProvider {
     }
   }
 
-  async respond(
+  private async authorized(
+    run: () => Promise<ChatResponse>,
+    fallback: () => Promise<ChatResponse>,
+  ): Promise<ChatResponse> {
+    if (this.busy) return fallback();
+    this.busy = true;
+    try {
+      try {
+        this.credentials = await this.access.start();
+      } catch {
+        return await fallback();
+      }
+      return await run();
+    } finally {
+      if (this.credentials)
+        await this.access.finish(this.credentials).catch(() => {});
+      this.credentials = undefined;
+      this.busy = false;
+    }
+  }
+
+  respond(
+    question: string,
+    ctx: ToolContext,
+    onDelta?: (partial: string) => void,
+    opts?: RespondOpts,
+  ): Promise<ChatResponse> {
+    return this.authorized(
+      () => this.respondAuthorized(question, ctx, onDelta, opts),
+      () => new HeuristicProvider().respond(question, ctx, undefined, opts),
+    );
+  }
+
+  runChoice(
+    tool: string,
+    args: ToolArgs,
+    ctx: ToolContext,
+    onDelta?: (partial: string) => void,
+  ): Promise<ChatResponse> {
+    return this.authorized(
+      () => this.runChoiceAuthorized(tool, args, ctx, onDelta),
+      () => new HeuristicProvider().runChoice(tool, args, ctx),
+    );
+  }
+
+  private async respondAuthorized(
     question: string,
     ctx: ToolContext,
     onDelta?: (partial: string) => void,
@@ -320,9 +384,8 @@ export class OpenRouterProvider implements LLMProvider {
     // into one natural sentence by a cheap (cached) call.
     const mem = buildContext(opts?.history ?? [], CLOUD_BUDGET);
     if (mem.summary && (mem.olderCount ?? 0) > LLM_COMPACT_THRESHOLD) {
-      // a one-off background summarization — keep its tokens OUT of this answer's
-      // reported count (it's amortized across later turns, not part of this reply)
-      const sumUsage: Usage = { input: 0, output: 0 };
+      // Include every billed call in this question's reported usage.
+      const sumUsage = usage;
       mem.summary = await this.compactSummary(mem.summary, ctx.lang, sumUsage);
     }
     const routingCtx = renderRoutingContext(mem, ctx.lang);
@@ -393,7 +456,7 @@ export class OpenRouterProvider implements LLMProvider {
 
   // A disambiguation pick: run the pinned tool (no routing) and let the model
   // narrate the result, falling back to the template on any failure.
-  async runChoice(
+  private async runChoiceAuthorized(
     tool: string,
     args: ToolArgs,
     ctx: ToolContext,

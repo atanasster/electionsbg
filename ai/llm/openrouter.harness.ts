@@ -98,7 +98,10 @@ const ctx: ToolContext = { lang: "bg", election: "2026_04_19" };
 
 const run = async () => {
   console.log("=== [cloud] OpenRouterProvider (mocked proxy) ===");
-  const p = new OpenRouterProvider(MODEL);
+  const p = new OpenRouterProvider(MODEL, {
+    start: async () => ({ sessionToken: "test", questionId: "test" }),
+    finish: async () => {},
+  });
 
   // 1. model routes + narrates (BG prose accepted)
   setFetch(
@@ -324,6 +327,71 @@ const run = async () => {
     compactionCalls === 1,
     "a different conversation of the same size is re-compacted (cache keyed by content, not count)",
   );
+
+  // Verification/quota failures must never make an upstream completion.
+  let upstream = 0;
+  setFetch(async () => {
+    upstream++;
+    throw new Error("unexpected upstream");
+  });
+  const denied = new OpenRouterProvider(MODEL, {
+    start: async () => {
+      throw new Error("budget_limit");
+    },
+    finish: async () => {
+      throw new Error("no reservation to finish");
+    },
+  });
+  const noAi = await denied.respond("какви са резултатите", ctx);
+  assert(upstream === 0, "denied question makes zero model calls");
+  assert(
+    noAi.meta?.model.bg === "Без AI",
+    "denied question returns No AI result",
+  );
+  let finished = 0;
+  const allowed = new OpenRouterProvider(MODEL, {
+    start: async () => ({ sessionToken: "s", questionId: "q" }),
+    finish: async () => {
+      finished++;
+    },
+  });
+  await allowed.respond("какви са резултатите", ctx);
+  assert(finished === 1, "upstream failure still releases question once");
+
+  let starts = 0;
+  const sent: { sessionToken: string; questionId: string }[] = [];
+  const normalMock = mockFetch({
+    routeContent: '{"tool":"results","args":{}}',
+  });
+  setFetch(async (url: string, init: { body: string }) => {
+    sent.push(JSON.parse(init.body));
+    return normalMock(url, init);
+  });
+  const shared = new OpenRouterProvider(MODEL, {
+    start: async () => {
+      starts++;
+      return { sessionToken: "shared", questionId: "shared-q" };
+    },
+    finish: async () => {
+      finished++;
+    },
+  });
+  await Promise.all([
+    shared.respond("какви са резултатите", ctx),
+    shared.respond("какви са резултатите", ctx),
+  ]);
+  assert(
+    starts === 1,
+    "concurrent responses share only one active reservation",
+  );
+  assert(
+    sent.length >= 2 &&
+      sent.every(
+        (b) => b.sessionToken === "shared" && b.questionId === "shared-q",
+      ),
+    "routing and narration carry same reserved credentials",
+  );
+  assert(finished === 2, "successful question finishes exactly once");
 
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — cloud provider`,

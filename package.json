@@ -356,7 +356,7 @@
     "deploy:news:promote": "tsx scripts/news_promote.ts",
     "functions:test": "cd functions && npm test",
     "emulator": "firebase --config firebase.main-functions.json emulators:start --only functions,firestore -P default",
-    "emulator:ai": "firebase --config firebase.ai-functions.json emulators:start --only functions -P ai",
+    "emulator:ai": "firebase --config firebase.ai-functions.json emulators:start --only functions,firestore -P ai",
     "emulator:news:evals": "npm --prefix news-functions run build && NEWS_EVAL_EMULATOR_ADAPTERS=true NEWS_EVAL_LOCAL_ORIGINS=http://127.0.0.1:5002 npx --yes firebase-tools@15.18.0 --config firebase.news-evals-emulator.json emulators:start --only functions,firestore,hosting --project demo-news-evals",
     "news:evals:test:emulator": "npm --prefix news-functions run build && NEWS_EVAL_EMULATOR_ADAPTERS=true NEWS_EVAL_LOCAL_ORIGINS=http://127.0.0.1:5002 npx --yes firebase-tools@15.18.0 --config firebase.news-evals-emulator.json emulators:exec --only functions,firestore,hosting --project demo-news-evals \"node news-functions/test/emulator.integration.mjs\"",
     "news:evals:test": "npm --prefix news-functions test",

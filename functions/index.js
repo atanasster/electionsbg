@@ -15,8 +15,8 @@
 //    Deploy:  firebase deploy --only functions:scenarios -P default
 //
 // Cost-abuse guards (both endpoints are public): origin allowlists, strict
-// input validation, per-IP rate limits / token caps. For production hardening
-// also enable Firebase App Check.
+// input validation and limits. AI additionally requires verified Turnstile
+// sessions and shared transactional quotas/budgets (see functions/README.md).
 
 const crypto = require("crypto");
 const { onRequest } = require("firebase-functions/v2/https");
@@ -38,131 +38,35 @@ const {
   FALLBACK_SHELL,
 } = require("./spa_page.js");
 
-// Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
-// with the cloud entries in ai/llm/models.ts.
-const ALLOWED_MODELS = new Set([
-  "google/gemini-3.1-flash-lite",
-]);
-
-// Origins allowed to use the proxy (the AI app + local dev).
-const ALLOWED_ORIGINS = [
+// AI authorization is independent of the other public endpoints.
+const { createSecurity } = require("./llm_security");
+const { createLlmHandler } = require("./llm_http");
+const AI_ALLOWED_ORIGINS = [
   /^https:\/\/electionsbg-ai\.web\.app$/,
   /^https:\/\/electionsbg-ai\.firebaseapp\.com$/,
   /^https:\/\/ai\.electionsbg\.com$/,
   /^http:\/\/localhost:\d+$/,
   /^http:\/\/127\.0\.0\.1:\d+$/,
 ];
-
-const MAX_TOKENS = 512; // per-call output cap (routing ~30, narration ~160)
-const MAX_MESSAGES = 12;
-
-// The llm endpoint is constructed lazily and exported ONLY outside the
-// elections-bg project: the deploy CLI resolves the secrets of every
-// exported function against the TARGET project, so an unconditional export
-// would make `--only functions:scenarios -P default` demand the OpenRouter
-// secret in elections-bg, where it deliberately doesn't exist.
 const makeLlm = () => {
-  // The secret param is declared HERE, not at module top: the deploy CLI
-  // resolves every declared secret against the target project, so a
-  // top-level defineSecret would break `--only functions:scenarios -P
-  // default` (no such secret in elections-bg).
-  const OPENROUTER_API_KEY = defineSecret("OPENROUTER_API_KEY");
-  return onRequest(
-  { secrets: [OPENROUTER_API_KEY], region: "us-central1", maxInstances: 10 },
-  async (req, res) => {
-    // Same-origin requests via the hosting rewrite often arrive with NO Origin
-    // header (the proxy drops it), so a missing origin is allowed; a PRESENT
-    // foreign origin is rejected. (The real anti-abuse is App Check + the model
-    // allowlist + the max_tokens cap, not this spoofable header.)
-    const origin = req.headers.origin || "";
-    const originOk = !origin || ALLOWED_ORIGINS.some((re) => re.test(origin));
-    if (origin && originOk) res.set("Access-Control-Allow-Origin", origin);
-    res.set("Vary", "Origin");
-
-    if (req.method === "OPTIONS") {
-      res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-      res.set("Access-Control-Allow-Headers", "Content-Type");
-      res.set("Access-Control-Max-Age", "3600");
-      return res.status(204).send("");
+  const apiKey = defineSecret("OPENROUTER_API_KEY");
+  const turnstile = defineSecret("AI_TURNSTILE_SECRET");
+  const signing = defineSecret("AI_SESSION_SECRET");
+  let handler;
+  return onRequest({ secrets: [apiKey, turnstile, signing], region: "us-central1", maxInstances: 10, timeoutSeconds: 60 }, async (req, res) => {
+    if (!handler) {
+      const { initializeApp, getApps } = require("firebase-admin/app");
+      const { getFirestore } = require("firebase-admin/firestore");
+      const app = getApps().find(a => a.name === "ai-chat") || initializeApp(undefined, "ai-chat");
+      handler = createLlmHandler({
+        security: createSecurity({ db: getFirestore(app), secret: signing.value(), turnstileSecret: turnstile.value() }),
+        apiKey: apiKey.value(), allowedOrigins: AI_ALLOWED_ORIGINS,
+      });
     }
-    if (req.method !== "POST")
-      return res.status(405).json({ error: "POST only" });
-    if (!originOk) return res.status(403).json({ error: "forbidden origin" });
-
-    const body = req.body || {};
-    if (!ALLOWED_MODELS.has(body.model))
-      return res.status(400).json({ error: "model not allowed" });
-    if (!Array.isArray(body.messages) || body.messages.length === 0)
-      return res.status(400).json({ error: "messages required" });
-
-    // Streaming is opt-in (the narration call) and incompatible with a forced
-    // JSON response_format (the routing call), so it's disabled when one is set.
-    const stream = body.stream === true && !body.response_format;
-
-    const payload = {
-      model: body.model,
-      messages: body.messages.slice(0, MAX_MESSAGES),
-      temperature:
-        typeof body.temperature === "number"
-          ? Math.min(Math.max(0, body.temperature), 2)
-          : 0,
-      max_tokens: Math.min(
-        Math.max(1, Number(body.max_tokens) || 256),
-        MAX_TOKENS,
-      ),
-    };
-    if (body.response_format) payload.response_format = body.response_format;
-    if (body.tools) payload.tools = body.tools;
-    if (body.tool_choice) payload.tool_choice = body.tool_choice;
-    if (stream) {
-      payload.stream = true;
-      // ask OpenRouter to emit a final usage chunk so token counts survive
-      payload.stream_options = { include_usage: true };
-    }
-
-    try {
-      const upstream = await fetch(
-        "https://openrouter.ai/api/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${OPENROUTER_API_KEY.value()}`,
-            "Content-Type": "application/json",
-            "HTTP-Referer": SITE_ORIGIN,
-            "X-Title": "Naiasno AI",
-          },
-          body: JSON.stringify(payload),
-        },
-      );
-
-      // Non-stream (routing, or upstream error before the body): forward JSON.
-      if (!stream || !upstream.ok || !upstream.body) {
-        const data = await upstream.json();
-        return res.status(upstream.status).json(data);
-      }
-
-      // Stream: pipe the upstream Server-Sent Events through to the client. The
-      // browser provider parses these `data:` lines incrementally.
-      res.status(200);
-      res.set("Content-Type", "text/event-stream; charset=utf-8");
-      res.set("Cache-Control", "no-cache, no-transform");
-      res.set("Connection", "keep-alive");
-      for await (const chunk of upstream.body) {
-        res.write(chunk);
-      }
-      return res.end();
-    } catch (e) {
-      if (res.headersSent) return res.end();
-      return res
-        .status(502)
-        .json({ error: "upstream error", detail: String(e) });
-    }
-  },
-  );
+    return handler(req, res);
+  });
 };
-
-if ((process.env.GCLOUD_PROJECT || "") !== "elections-bg")
-  exports.llm = makeLlm();
+if ((process.env.GCLOUD_PROJECT || "") !== "elections-bg") exports.llm = makeLlm();
 
 // ---------------------------------------------------------------------------
 // `scenarios` — the budget simulator's public tally ("what the public chose").

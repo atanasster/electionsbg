@@ -1,104 +1,91 @@
-# Наясно AI — cloud-LLM proxy (`functions/`)
+# Наясно AI proxy
 
-A single Firebase Function (`llm`) that lets the chat use **hosted** models
-(Gemini 3.1 Flash-Lite, Gemma 4 31B) via OpenRouter without putting the API key
-in the browser. The chat is a static SPA, so the key must live server-side.
+The public chat offers **No AI** and one hosted **AI assistant**. Historical browser
+models remain in development evaluations only. Tools compute the numbers; the
+model selects a tool and narrates its returned facts. Missing verification,
+quota exhaustion and provider failures fall back to deterministic answers.
 
-The model still only picks `{tool, args}` and writes prose from the tool's
-**computed** facts — the numbers never come from the model. Rules (offline) and
-the in-browser WebGPU models are unchanged; cloud is just extra options in the
-picker. If the function is missing/unreachable, the chat falls back to the
-deterministic router (proven in `ai/llm/openrouter.harness.ts`).
+## Security and spending
 
-## How it's wired
+`llm_http.js` is the public boundary; `llm_security.js` owns shared Firestore
+transactions. POST actions are `session` (Turnstile Siteverify), `start` (reserve
+a question), `complete` (consume one call), and `finish` (refund proven savings).
+CORS is supplementary; calling the function directly does not bypass verification.
+Siteverify validates hostname, action `ai_chat`, challenge age and replay. Signed
+sessions expire after one hour and bind to a keyed hash of the platform client IP.
+Tokens stay in browser memory. The database stores counters and hashes, not prompts.
 
-- `functions/index.js` — the `llm` HTTPS function: origin allowlist, **model
-  allowlist** (`ALLOWED_MODELS`), `max_tokens` cap, POST-only. Forwards to
-  `https://openrouter.ai/api/v1/chat/completions` with the key.
-- `firebase.json` — the `ai` hosting target rewrites `/api/llm` → the `llm`
-  function, so the browser calls it **same-origin** (no CORS in prod).
-- `ai/llm/openrouter.ts` — the browser provider; POSTs to `/api/llm`.
-- `ai/llm/models.ts` — the two cloud entries (`runtime: "cloud"`). **Keep their
-  ids in sync with `ALLOWED_MODELS` in `index.js`.**
+Defaults: 20 questions/session/day, 60/IP/day, 3/session/minute, one active question
+per session, 3 upstream calls/question, 120-second question lifetime. Session issuance
+is limited to 5/IP/minute and 30/IP/day. Each call allows at most 96,000 UTF-8 bytes
+of text messages and 512 output tokens; it has a 30-second timeout and no automatic
+retry. The large input cap accommodates the actual Bulgarian tool catalog (~58 KB).
 
-## One-time enablement (operator)
+Before a question starts, transactions reserve $0.093 against **$5/day and $50/month**
+UTC limits across all instances. Successful usage refunds savings against conservative
+provider ceilings ($0.30/M input, $2.50/M output); failed/abandoned requests retain
+uncertain costs. The reservation assumes at most one token per UTF-8 byte plus framing.
+This is an application safeguard, not a cap on Firebase/Firestore charges or an
+absolute billing guarantee. Use a dedicated OpenRouter key with its own spending
+limit as the independent backstop. Provider pricing changes require reviewing bounds.
 
-The `electionsbg-ai` project must be on the **Blaze** plan (functions require it).
+The browser cannot choose a different model, paid plugin, token budget or provider
+price. The allowlisted model in `llm_security.js` must match `ai/llm/models.ts`.
+Missing secrets, database failure, or `AI_ENABLED=false` fail closed for paid calls.
+
+## Production setup (not performed by committing code)
+
+Use the `electionsbg-ai` Firebase project, on Blaze. Create its default Firestore
+database in a suitable region if absent. Deploy the deny-all client rules using the
+AI-specific config; Admin SDK access uses IAM and bypasses those rules.
 
 ```bash
-cd functions && npm install && cd ..
-
-# 1. set the OpenRouter key as a secret (paste the key when prompted)
 firebase functions:secrets:set OPENROUTER_API_KEY -P ai
-
-# 2. deploy the function (+ the /api/llm hosting rewrite)
-npm run deploy:ai:functions                  # = firebase deploy --only functions:llm -P ai
-npm run deploy:ai                            # = firebase deploy --only hosting:ai -P ai
+firebase functions:secrets:set AI_TURNSTILE_SECRET -P ai
+firebase functions:secrets:set AI_SESSION_SECRET -P ai
 ```
 
-> The sibling `scenarios` function lives in the **same codebase** but deploys to
-> the **`elections-bg`** project (the project gate in `index.js` exports exactly
-> one function per target). Deploy it with `npm run deploy:functions`
-> (= `firebase deploy --only functions:scenarios -P default`, gated behind the
-> `functions/` unit tests).
+Generate a random session secret of at least 32 bytes; never use a human password.
+Create a Cloudflare Turnstile widget for the actual AI hostnames. Put its public
+site key in the AI build environment as `VITE_AI_TURNSTILE_SITE_KEY`. Set these
+nonsecret values in `functions/.env.electionsbg-ai` (ignored):
 
-Then in the chat, open the model picker and choose **Gemini 3.1 Flash-Lite** or
-**Gemma 4 31B (free)**.
-
-### Cost & abuse
-
-The endpoint is public (it's behind a public SPA), so it can spend your
-OpenRouter credits. Mitigations already in `index.js`: origin allowlist, model
-allowlist, `max_tokens` cap (512), POST-only. **Strongly recommended on top:**
-
-- Set a **hard monthly spend cap** on the OpenRouter key (or use a dedicated
-  low-limit key just for this proxy).
-- Enable **Firebase App Check** and verify the token in `index.js` — the real
-  defence against scripted abuse.
-
-Routing is ~1.5K input + ~30 output tokens; narration ~200. On Flash-Lite
-(~$0.10/M in, $0.40/M out) that's ≈ $0.0002/question. Gemma 4 31B free is $0.
-
-### Local dev
-
-`npm run dev:ai` serves on :5180 with no function, so cloud models gracefully
-fall back to rules. To exercise the live cloud path locally, set
-`VITE_LLM_PROXY_URL` to the deployed function URL (its CORS allowlist includes
-`localhost`), or run the Firebase emulator.
-
-**Emulator scripts** (the project gate means each one loads exactly one
-function — run them in separate terminals if you need both):
+```dotenv
+AI_ENABLED=true
+AI_DAILY_BUDGET_USD=5
+AI_MONTHLY_BUDGET_USD=50
+AI_TURNSTILE_HOSTNAMES=ai.electionsbg.com,electionsbg-ai.web.app,electionsbg-ai.firebaseapp.com
+```
 
 ```bash
-npm run emulator        # scenarios + Firestore, elections-bg project
-                        #   → http://127.0.0.1:5001/elections-bg/us-central1/scenarios
-                        #   emulator UI on http://127.0.0.1:4000
-npm run emulator:ai     # llm only, electionsbg-ai project
-                        #   → http://127.0.0.1:5001/electionsbg-ai/us-central1/llm
+firebase --config firebase.ai-functions.json deploy --only firestore:rules -P ai
+gcloud firestore fields ttls update expiresAt --collection-group=ai_usage --database='(default)' --enable-ttl --project=electionsbg-ai
+npm run functions:test
+npm run deploy:ai:functions
+npm run build:ai
+npm run deploy:ai
 ```
 
-Ports (in `firebase.json` → `emulators`): functions `5001`, Firestore `8080`,
-UI `4000`, hosting `5002`.
+Deploy backend protection before the matching frontend. Old open-proxy clients will
+then stop making paid calls. Smoke-test valid verification, blocked direct calls,
+expiry, allowance exhaustion and No AI fallback before announcing availability.
+Configure a dedicated provider-key limit and billing alerts separately. Rotating
+`AI_SESSION_SECRET` invalidates existing sessions and changes IP hashes; do not use
+rotation to reset budget documents. Global day/month budgets remain unchanged.
 
-For `emulator:ai`, the `llm` function needs the OpenRouter key at call time.
-The emulator reads it from **`functions/.secret.local`** (git-ignored), one
-`KEY=value` per line:
+## Local development and tests
 
-```
-OPENROUTER_API_KEY=sk-or-...
-```
+`npm run dev:ai` works in No AI mode without configuration. For cloud development,
+run `npm run emulator:ai` (functions and Firestore), set `VITE_LLM_PROXY_URL` to
+`http://127.0.0.1:5001/electionsbg-ai/us-central1/llm`, and use a development
+Turnstile widget permitting localhost plus `AI_TURNSTILE_HOSTNAMES=localhost`.
+Keep local secrets in ignored `functions/.secret.local` using the three secret
+names above. Never configure a test Turnstile secret on the production function.
 
-Without it the function still loads, but a request fails when it reads the
-secret. To point the AI SPA at the emulator instead of prod, set
-`VITE_LLM_PROXY_URL=http://127.0.0.1:5001/electionsbg-ai/us-central1/llm`.
+`node --test functions/llm_security.test.js` tests verification, replay, quotas,
+atomic reservations, refunds and the HTTP boundary using a transactional test store.
+`node --import tsx ai/llm/openrouter.harness.ts` tests routing, context and fallback
+with a mocked provider. These do not prove production IAM or widget configuration.
 
-The `scenarios` emulator writes to the **local** Firestore emulator (no prod
-data touched); state resets on each restart. Unit-test the pure helpers with
-`npm run functions:test`.
-
-### Adding a cloud model
-
-1. Add an entry to `ALLOWED_MODELS` in `index.js` (the OpenRouter model id).
-2. Add a `{ runtime: "cloud", id: "<same id>", ... }` entry to
-   `ai/llm/models.ts`.
-3. Redeploy the function.
+Provider routing semantics: https://openrouter.ai/docs/guides/routing/provider-selection
+Turnstile validation: https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
