@@ -607,10 +607,14 @@ describe("the lateral-links tour", () => {
     // prose's 5,609 — so this gate was already red when it was last re-pinned, and only the
     // procurement pair was updated. Read all three out of `data/data_map.json` when re-pinning,
     // not just the one the failure names.
+    //
+    // ⚠ Re-pinned 2026-09-09 against `data/data_map.json` as committed: connections↔procurement
+    // 18,729 → 18,730 and connections↔officials 5,602 → 5,604, with connections↔funds unmoved
+    // at 40,271.
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18729],
+      ["connections", "procurement", "eik", 18730],
       ["connections", "funds", "eik", 40271],
-      ["connections", "officials", "person_id", 5602],
+      ["connections", "officials", "person_id", 5604],
     ];
     const drifted = quoted
       .filter(([a, b, k, n]) => overlapOf(a, b, k) !== n)
