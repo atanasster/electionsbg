@@ -6311,8 +6311,10 @@ const DB_ROUTES = {
   // Person↔person edges (shared company, association-noise-guarded) → the Connections
   // component (§8) + the future personConnections AI tool. Reads the unified graph (128/084).
   // Public-safe endpoints only by default; ?private=1 opts into the Tier-V verified-owner view
-  // (relaxes endpoint eligibility to identity_confidence='verified', guard unchanged). The
-  // payload carries its own "лид, не доказателство" disclaimer.
+  // (relaxes endpoint eligibility to identity_confidence='verified' AND switches the
+  // association-noise guard from public_officer_count to coowner_count — 084's header — so a
+  // default edge bridged only by a >6-co-owner company legitimately drops under ?private=1).
+  // The payload carries its own "лид, не доказателство" disclaimer.
   "person-connections": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: null };

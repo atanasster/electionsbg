@@ -38,9 +38,11 @@ CREATE INDEX IF NOT EXISTS idx_graph_edge_eik    ON graph_edge (eik, person_id);
 -- company with >6 PUBLIC co-owners is a board / professional association, not a business tie. It is the
 -- precomputed replacement for 084's per-request public_officer_count(eik) — provably identical to it
 -- (co-ownership edges ARE person_role source tr/ngo, and every graph person is active), now a stored
--- O(1) column instead of a whole-corpus scan. The guard keys on the PUBLIC count in BOTH toggle states
--- (mass-membership is a public-official phenomenon); the private toggle only relaxes which endpoints
--- are admitted, never the classification.
+-- O(1) column instead of a whole-corpus scan. It is the guard for the DEFAULT (public) view ONLY — the
+-- private toggle switches to coowner_count (next paragraph), so a company can be a bridge by default
+-- and NOT under the toggle, and a default edge bridged only by such companies legitimately drops there.
+-- ("The toggle only relaxes endpoints, never the classification" was the pre-FINDING-001 rule; it is
+-- what made person_connections.data.test.ts assert a false "toggle only ADDS" subset until 2026-09-09.)
 -- `coowner_count` = distinct CO-OWNERSHIP officers who are ELIGIBLE persons (public figures ∪ verified
 -- Tier-V privates — the whole toggle-visible universe, which is exactly what graph_person_node holds).
 -- It is the guard for the PRIVATE (?private=1) toggle: public_officer_count bounds only PUBLIC officers,

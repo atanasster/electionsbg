@@ -297,90 +297,194 @@ test.skipIf(skip)(
     }
 
     // And on a public subject sharing a GENUINELY SMALL company (coowner_count 2-6) that also carries
-    // verified private co-owners, the toggle admits AT LEAST as many direct edges as the default — never
-    // fewer — and the default set is a subset (the toggle only ADDS verified endpoints).
+    // verified private co-owners, the toggle keeps every default edge that survives BOTH guards, drops
+    // every default edge that survives only the public one, and may add verified endpoints on top.
+    //
+    // ⚠️ "THE TOGGLE ONLY ADDS" IS NOT THE CONTRACT, and this test asserted it until 2026-09-09. Per
+    // 084's header the guard population FOLLOWS the toggle: the DEFAULT view bounds a bridge company by
+    // public_officer_count <= 6, the PRIVATE view by coowner_count <= 6 — so a 1-public + 123-verified
+    // кооперация cannot fan a subject out to scores of named private individuals (the over-link test
+    // below). A company with coowner_count > 6 AND public_officer_count <= 6 is therefore a bridge by
+    // DEFAULT and NOT under the toggle, and a default edge whose every bridge is such a company
+    // legitimately vanishes. Measured 2026-09-08 on local: 1,507 companies sit in that band, and the old
+    // picker's top subject (zlatko-zlatanov-dm4zqj) reached its one default edge through exactly one of
+    // them (ЕИК 112577345, 7 co-owners / 2 public) — green on 2026-09-07 only because the picker had
+    // chosen someone else. Both directions below are the function's real contract, and the second is
+    // the over-link guard applied to an ordinary subject rather than to the worst offender.
+    //
+    // Why the subset/superset reasoning is sound: coowner_count >= public_officer_count on every company
+    // node (asserted below — 0 of 88,953 violate it), so the toggle's bridge set is a SUBSET of the
+    // default's, and an edge's toggle bridges are a subset of its default bridges.
+    //
+    // The picker requires a both-guard company that carries ANOTHER public officer (so at least one
+    // default edge is guaranteed to survive — the subset check cannot go vacuous) and a non-public
+    // eligible co-owner (so the toggle has something to add). 1,098 subjects qualify on the 2026-09-08
+    // corpus.
+    const [inv] = await allRows<{ n: string }>(
+      `SELECT count(*) AS n FROM graph_company_node WHERE coowner_count < public_officer_count`,
+    );
+    assert.equal(
+      Number(inv?.n ?? 0),
+      0,
+      `${inv?.n} company nodes have coowner_count < public_officer_count — the toggle's bridge set is ` +
+        `no longer a subset of the default's, and the assertions below no longer follow from 084`,
+    );
     const pslug = await pickSlug(
       `SELECT gp.slug
          FROM graph_person_node gp
          JOIN graph_edge e ON e.person_id = gp.person_id AND e.kind IN ('tr_role','tr_owner')
          JOIN graph_company_node cn ON cn.eik = e.eik AND cn.coowner_count BETWEEN 2 AND 6
-          AND cn.public_officer_count < cn.coowner_count
+          AND cn.public_officer_count BETWEEN 2 AND cn.coowner_count - 1
         WHERE gp.is_public_figure
         GROUP BY gp.slug ORDER BY count(*) DESC, gp.slug LIMIT 1`,
     );
-    if (pslug) {
-      const def = await connections(pslug, false);
-      const tog = await connections(pslug, true);
-      assert.ok(def && tog, `person_connections returned null for ${pslug}`);
+    assert.ok(
+      pslug,
+      "no public subject on a 2-6 co-owner company with another public officer AND a private co-owner — fixture pool is empty",
+    );
+    const def = await connections(pslug, false);
+    const tog = await connections(pslug, true);
+    assert.ok(def && tog, `person_connections returned null for ${pslug}`);
+    const togSet = new Set(tog.related.map((e) => e.slug));
+
+    // Partition the default edges by whether ANY of their bridge companies satisfies BOTH guards.
+    const bridgeEiks = [
+      ...new Set(
+        def.related.flatMap((e) => (e.companies ?? []).map((c) => c.eik)),
+      ),
+    ];
+    const bothGuard = new Set(
+      (
+        await allRows<{ eik: string }>(
+          `SELECT eik FROM graph_company_node WHERE eik = ANY($1) AND coowner_count <= 6`,
+          [bridgeEiks],
+        )
+      ).map((r) => r.eik),
+    );
+    const hasBothGuardBridge = (e: Edge) =>
+      (e.companies ?? []).some((c) => bothGuard.has(c.eik));
+    const survivors = def.related.filter(hasBothGuardBridge);
+    const mustVanish = def.related.filter((e) => !hasBothGuardBridge(e));
+    assert.ok(
+      survivors.length > 0,
+      `${pslug} has no default edge through a coowner_count <= 6 company — the picker no longer ` +
+        `guarantees a non-vacuous subset check`,
+    );
+    for (const e of survivors)
       assert.ok(
-        (tog.related.length ?? 0) >= (def.related.length ?? 0),
-        `toggle gave FEWER related (${tog.related.length}) than default (${def.related.length}) for ${pslug}`,
+        togSet.has(e.slug),
+        `default edge ${e.slug} (bridged by a coowner_count <= 6 company) vanished under the toggle for ${pslug}`,
       );
-      const defSet = new Set(def.related.map((e) => e.slug));
-      const togSet = new Set(tog.related.map((e) => e.slug));
-      for (const s of defSet)
-        assert.ok(togSet.has(s), `default edge ${s} vanished under the toggle`);
-    }
+    // The other direction — the guard FOLLOWS the toggle. An edge whose every bridge is a >6-co-owner
+    // company has no admissible bridge in the private view and must not be kept there; keeping it is
+    // the public-only guard leaking into the toggle path, i.e. the FINDING-001 over-link.
+    for (const e of mustVanish)
+      assert.ok(
+        !togSet.has(e.slug),
+        `default edge ${e.slug} survived the toggle for ${pslug} although every bridge company ` +
+          `(${(e.companies ?? []).map((c) => c.eik).join(", ")}) has coowner_count > 6 — the private ` +
+          `view is bounding public_officer_count instead of coowner_count`,
+      );
   },
 );
 
 // OVER-LINK GUARD (the FINDING-001 regression). The private toggle bounds TOTAL co-owners
 // (coowner_count), not just the public count — so a few-public-officer mass-ownership vehicle
-// (кооперация: 1 public + scores of verified) must NEVER bridge an edge, in EITHER toggle state. Bounds
-// the defamation-sensitive fan-out that named ~123 private individuals through one company before the fix.
+// (кооперация: 1 public + scores of verified) must NEVER bridge an edge UNDER THE TOGGLE. Bounds the
+// defamation-sensitive fan-out that named ~123 private individuals through one company before the fix.
+//
+// ⚠️ "IN EITHER TOGGLE STATE" WAS THE OLD CLAIM AND IT IS NOT WHAT 084 IMPLEMENTS — it never fired only
+// because the picker above was vacuous. The DEFAULT view bounds public_officer_count, so a 97-co-owner
+// кооперация with 2 public officers IS a default bridge, by design: it names 2 public figures, which is
+// a small public tie, not a fan-out. The harm this guard exists to prevent is naming SCORES OF PRIVATE
+// INDIVIDUALS, and that is reachable only through the private view. Measured 2026-09-08: on the default
+// path no admitted bridge company names more than MAX_CO_OFFICERS people (max 6, and 0 of 88,953 exceed
+// it), while ЕИК 204133950 and 811202228 would name 88 and 114 people respectively if the private view
+// bounded the public count instead of coowner_count. So the two arms below assert DIFFERENT properties:
+// private = must not bridge at all; default = may bridge, but the fan-out stays bounded.
 test.skipIf(skip)(
   "the toggle does not over-link through mass-ownership companies",
   async (ctx) => {
-    // The worst offender: many total co-owners, few public officers (passes the OLD public-only guard).
+    // The worst offender THAT IS ACTUALLY QUERYABLE: many total co-owners, few public officers (passes
+    // the OLD public-only guard), AND carrying a public member so the default path can reach it as a
+    // subject.
+    //
+    // ⚠️ THE PUBLIC-MEMBER REQUIREMENT MUST BE IN THE PICKER, NOT A SKIP AFTER IT. Picking the global
+    // worst offender first and skipping when it has no public member made this gate VACUOUS ON EVERY
+    // RUN: the corpus-wide maximum is ЕИК 811202228 at 123 co-owners and **0** public officers, so it
+    // can never have one, and the FINDING-001 over-link guard — the defamation-sensitive one — had
+    // simply stopped executing while reporting a tidy skip reason. Measured 2026-09-08: 1,507 companies
+    // sit in the band and 849 of them DO carry a public member, the worst being ШИЙП ГРУП – 2016
+    // (ЕИК 204133950, 97 co-owners / 2 public). The skip below now fires only when NONE is queryable,
+    // which is the genuinely-not-exercisable case.
     const [big] = await allRows<{
       eik: string;
       coowners: string;
       pub: string;
+      slug: string;
     }>(`
-      SELECT eik, coowner_count AS coowners, public_officer_count AS pub
-        FROM graph_company_node
-       WHERE coowner_count > 6 AND public_officer_count <= 6
-       ORDER BY coowner_count DESC, eik LIMIT 1`);
+      SELECT cn.eik, cn.coowner_count AS coowners, cn.public_officer_count AS pub, m.slug
+        FROM graph_company_node cn
+        JOIN LATERAL (
+          SELECT p.slug FROM person p
+            JOIN graph_edge e ON e.person_id = p.person_id AND e.kind IN ('tr_role','tr_owner')
+           WHERE e.eik = cn.eik AND p.status = 'active' AND p.is_public_figure
+           ORDER BY p.slug LIMIT 1) m ON true
+       WHERE cn.coowner_count > 6 AND cn.public_officer_count <= 6
+       ORDER BY cn.coowner_count DESC, cn.eik LIMIT 1`);
     if (!big) {
       {
         reportSkip(
           import.meta.url,
-          "no few-public-officer mass-ownership company — over-link not exercisable",
+          "no few-public-officer mass-ownership company with a public member — over-link not exercisable",
         );
         ctx.skip();
       }
       return;
     }
-    // A public member of that company, so the default path can reach it as a subject.
-    const slug = await pickSlug(
-      `SELECT p.slug FROM person p
-         JOIN graph_edge e ON e.person_id = p.person_id AND e.kind IN ('tr_role','tr_owner')
-        WHERE e.eik = $1 AND p.status = 'active' AND p.is_public_figure
-        ORDER BY p.slug LIMIT 1`,
-      [big.eik],
-    );
-    if (!slug) {
-      {
-        reportSkip(
-          import.meta.url,
-          `mass-ownership company ${big.eik} has no public member to query from`,
-        );
-        ctx.skip();
-      }
-      return;
-    }
-    for (const priv of [false, true]) {
+    const slug = big.slug;
+    const bridgesFor = async (priv: boolean) => {
       const r = await connections(slug, priv);
-      const bridges = [
-        ...(r?.related ?? []).flatMap((e) =>
-          (e.companies ?? []).map((c) => c.eik),
-        ),
-        ...(r?.indirect ?? []).flatMap((e) => [e.c1?.eik, e.c2?.eik]),
-      ].filter(Boolean);
+      return {
+        r,
+        bridges: [
+          ...(r?.related ?? []).flatMap((e) =>
+            (e.companies ?? []).map((c) => c.eik),
+          ),
+          ...(r?.indirect ?? []).flatMap((e) => [e.c1?.eik, e.c2?.eik]),
+        ].filter(Boolean) as string[],
+      };
+    };
+
+    // PRIVATE — the FINDING-001 regression proper. coowner_count > 6, so it must not bridge at all.
+    const priv = await bridgesFor(true);
+    assert.ok(
+      !priv.bridges.includes(big.eik),
+      `company ${big.eik} (${big.coowners} co-owners, ${big.pub} public) bridged an edge for ` +
+        `${slug} with private=true — the toggle guard does not bound total co-ownership degree, so ` +
+        `this subject is being fanned out to named private individuals`,
+    );
+
+    // DEFAULT — it may bridge (public_officer_count <= 6 is the default guard), but the fan-out through
+    // it must stay bounded by that same count. This is the property that makes the asymmetry safe; an
+    // unbounded default fan-out would be the over-link arriving through the other door.
+    const def = await bridgesFor(false);
+    if (def.bridges.includes(big.eik)) {
+      const named = new Set(
+        [
+          ...(def.r?.related ?? [])
+            .filter((e) => (e.companies ?? []).some((c) => c.eik === big.eik))
+            .map((e) => e.slug),
+          ...(def.r?.indirect ?? [])
+            .filter((e) => e.c1?.eik === big.eik || e.c2?.eik === big.eik)
+            .map((e) => e.slug),
+        ].filter(Boolean),
+      );
       assert.ok(
-        !bridges.includes(big.eik),
-        `company ${big.eik} (${big.coowners} co-owners, ${big.pub} public) bridged an edge for ` +
-          `${slug} with private=${priv} — the toggle guard does not bound total co-ownership degree`,
+        named.size <= 6,
+        `company ${big.eik} (${big.coowners} co-owners, ${big.pub} public) named ${named.size} people ` +
+          `for ${slug} on the DEFAULT path — the public-officer guard is no longer bounding the ` +
+          `fan-out, so a mass-ownership vehicle is over-linking through the public view`,
       );
     }
   },
