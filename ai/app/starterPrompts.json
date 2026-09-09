@@ -3033,5 +3033,125 @@
       "bg": {},
       "en": {}
     }
+  },
+  {
+    "id": "budgetVariance",
+    "category": "public-money",
+    "subcategory": "budget",
+    "tool": "budgetVariance",
+    "bg": "Къде изпълнението на бюджета се различава от закона и актуализирания план? (2024 г.)",
+    "en": "Where does budget execution differ from the law and amended plan? (2024)",
+    "args": {
+      "bg": {
+        "year": 2024
+      },
+      "en": {
+        "year": 2024
+      }
+    }
+  },
+  {
+    "id": "budgetPersonnel",
+    "category": "public-money",
+    "subcategory": "personnel",
+    "tool": "budgetPersonnel",
+    "bg": "Как се променят щатните бройки и заетите в администрацията?",
+    "en": "How have established posts and employment in the administration changed?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "budgetPersonnelByMinistry",
+    "category": "public-money",
+    "subcategory": "personnel",
+    "tool": "budgetPersonnelByMinistry",
+    "bg": "Какви са разходите за персонал по министерства? (2024 г.)",
+    "en": "What are personnel costs by ministry? (2024)",
+    "args": {
+      "bg": {
+        "year": 2024
+      },
+      "en": {
+        "year": 2024
+      }
+    }
+  },
+  {
+    "id": "budgetDocuments",
+    "category": "public-money",
+    "subcategory": "documents",
+    "tool": "budgetDocuments",
+    "bg": "Къде са бюджетните закони и приложенията за годината? (2026 г.)",
+    "en": "Where are the budget laws and annexes for the year? (2026)",
+    "args": {
+      "bg": {
+        "year": 2026
+      },
+      "en": {
+        "year": 2026
+      }
+    }
+  },
+  {
+    "id": "budgetMinistries",
+    "category": "public-money",
+    "subcategory": "ministries",
+    "tool": "budgetMinistries",
+    "bg": "Какъв е бюджетът на всяко министерство? (2024 г.)",
+    "en": "What is each ministry’s budget? (2024)",
+    "args": {
+      "bg": {
+        "year": 2024
+      },
+      "en": {
+        "year": 2024
+      }
+    }
+  },
+  {
+    "id": "budgetMunicipalTransfers",
+    "category": "public-money",
+    "subcategory": "municipal",
+    "tool": "budgetMunicipalTransfers",
+    "bg": "Как се разпределят бюджетните трансфери между общините? (2024 г.)",
+    "en": "How are budget transfers distributed across municipalities? (2024)",
+    "args": {
+      "bg": {
+        "year": 2024
+      },
+      "en": {
+        "year": 2024
+      }
+    }
+  },
+  {
+    "id": "budgetCapitalByMunicipality",
+    "category": "public-money",
+    "subcategory": "capital",
+    "tool": "budgetCapitalByMunicipality",
+    "bg": "Какви капиталови проекти и източници на финансиране имат общините? (2025 г.)",
+    "en": "What capital projects and financing sources do municipalities have? (2025)",
+    "args": {
+      "bg": {
+        "year": 2025
+      },
+      "en": {
+        "year": 2025
+      }
+    }
+  },
+  {
+    "id": "budgetInvestmentPayments",
+    "category": "public-money",
+    "subcategory": "capital",
+    "tool": "budgetInvestmentPayments",
+    "bg": "Колко е платено по инвестиционната програма за общините?",
+    "en": "How much has been paid under the municipal investment programme?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
   }
 ]

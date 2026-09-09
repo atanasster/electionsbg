@@ -1,3 +1,4 @@
+import { BUDGET_TOOLS } from "./budgetServing";
 // The tool registry: the single surface the orchestrator (and the dropdown
 // harness) sees. The grammar-constrained LLM picks a tool name + args from here.
 // Tools are grouped by `domain` for routing + the Explorer dropdown.
@@ -277,6 +278,7 @@ import type {
 } from "./types";
 
 export const TOOLS: ToolDef[] = [
+  ...BUDGET_TOOLS,
   // ---- parliamentary elections ----------------------------------------------
   {
     name: "nationalResults",

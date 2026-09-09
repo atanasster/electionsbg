@@ -1,6 +1,6 @@
 /** Read-only local integration probe. Never infers readiness from row estimates. */
 import fs from "node:fs";
-import { runTool } from "../../ai/tools/registry";
+import { HeuristicProvider } from "../../ai/llm/provider";
 import { latestElection } from "../../ai/tools/dataset";
 import { setFetcher, setDbFetcher } from "../../ai/tools/dataClient";
 import { nodeDbFetcher } from "../../ai/tools/dbFetcherNode";
@@ -10,6 +10,7 @@ setFetcher(async (path) =>
   JSON.parse(fs.readFileSync(`data/${path.replace(/^\//, "")}`, "utf8")),
 );
 setDbFetcher(nodeDbFetcher);
+const provider = new HeuristicProvider();
 const results = [];
 const filter = new Set(process.argv.slice(2));
 for (const q of QUESTION_CATALOG.questions.filter(
@@ -24,10 +25,14 @@ for (const q of QUESTION_CATALOG.questions.filter(
   try {
     if (routed?.tool !== q.chat.capabilityId)
       throw new Error(`Wrong route: ${routed?.tool}`);
-    const e = await runTool(routed.tool, args, {
+    const response = await provider.respond(q.question.bg, {
       lang: "bg",
       election: latestElection(),
     });
+    if (!response.env) throw new Error(response.text);
+    if (response.tool !== q.chat.capabilityId)
+      throw new Error(`Wrong provider route: ${response.tool}`);
+    const e = response.env;
     results.push({
       id: q.id,
       args,

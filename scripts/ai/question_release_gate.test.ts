@@ -52,10 +52,12 @@ describe("question release coverage gate", () => {
     );
   });
 
-  it("pins every dual-ready question to a parity contract and fixture", () => {
+  it("pins national election parity to independent official fixtures", () => {
     const dualReady = QUESTION_DEFINITIONS.filter(
       (question) =>
-        question.chat.status === "ready" && question.sql.status === "ready",
+        question.chat.status === "ready" &&
+        question.sql.status === "ready" &&
+        ["nationalResults", "presidentialResults"].includes(question.id),
     );
     expect(parity.version).toBe(2);
     expect(parity.questions.map((row) => row.id)).toEqual(
@@ -77,6 +79,46 @@ describe("question release coverage gate", () => {
       expect(SQL_RECIPES_BY_ID.get(row.id)?.relations, row.id).toContain(
         row.relation,
       );
+    }
+  });
+
+  it("renders every exposed parameter of every dual-ready question", () => {
+    for (const question of QUESTION_DEFINITIONS.filter(
+      (q) => q.chat.status === "ready" && q.sql.status === "ready",
+    )) {
+      const recipe = SQL_RECIPES_BY_ID.get(question.sql.capabilityId!)!;
+      expect(recipe, question.id).toBeDefined();
+      expect(question.parameters.map((p) => p.id).sort(), question.id).toEqual(
+        recipe.parameters.map((p) => p.id).sort(),
+      );
+      const parameters = resolveQuestionSelection(
+        question,
+        Object.fromEntries(
+          recipe.parameters
+            .filter((p) => p.default !== undefined)
+            .map((p) => [p.id, p.default]),
+        ),
+      ).parameters;
+      expect(
+        () => renderSqlQuestion(recipe.id, parameters),
+        question.id,
+      ).not.toThrow();
+      for (const parameter of question.parameters) {
+        for (const value of [
+          parameter.min,
+          parameter.max,
+          ...(parameter.values ?? []),
+        ].filter((v) => v !== undefined)) {
+          expect(
+            () =>
+              renderSqlQuestion(recipe.id, {
+                ...parameters,
+                [parameter.id]: value!,
+              }),
+            question.id + "." + parameter.id,
+          ).not.toThrow();
+        }
+      }
     }
   });
 

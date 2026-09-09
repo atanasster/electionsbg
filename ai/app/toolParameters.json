@@ -1,4 +1,72 @@
 {
+  "budgetVariance": [
+    {
+      "name": "year",
+      "type": "year",
+      "default": 2024,
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "budgetPersonnel": [],
+  "budgetPersonnelByMinistry": [
+    {
+      "name": "year",
+      "type": "year",
+      "default": 2024,
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "budgetDocuments": [
+    {
+      "name": "year",
+      "type": "year",
+      "default": 2026,
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "budgetMinistries": [
+    {
+      "name": "year",
+      "type": "year",
+      "default": 2024,
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "budgetMunicipalTransfers": [
+    {
+      "name": "year",
+      "type": "year",
+      "default": 2024,
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "budgetCapitalByMunicipality": [
+    {
+      "name": "year",
+      "type": "year",
+      "default": 2025,
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "budgetInvestmentPayments": [],
   "nationalResults": [
     {
       "name": "election",

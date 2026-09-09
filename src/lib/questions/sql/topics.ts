@@ -1,5 +1,15 @@
+import { EXTRA_SQL_QUESTIONS, TABLE_SQL_QUESTIONS } from "./expanded";
 /** Canonical classification of stable SQL question IDs. */
 export const SQL_TOPICS: Record<string, [string, string]> = {
+  ...Object.fromEntries(
+    EXTRA_SQL_QUESTIONS.map((s) => [
+      s.id,
+      [s.category, s.leaf] as [string, string],
+    ]),
+  ),
+  ...Object.fromEntries(
+    TABLE_SQL_QUESTIONS.map(([id, c, s]) => [id, [c, s] as [string, string]]),
+  ),
   "top-contractors": ["procurement", "contracts"],
   "companies-by-all-public-money": ["business", "ownership"],
   "contractors-ranked-and-scoped": ["procurement", "contracts"],

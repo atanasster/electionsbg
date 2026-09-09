@@ -1,3 +1,4 @@
+import { BUDGET_SQL_RECIPES, EXPANDED_SQL_RECIPES } from "./expanded";
 import { LIBRARY as LEGACY_LIBRARY } from "./legacy";
 import { sqlCode, sqlDate, sqlInteger, sqlText } from "./literals";
 import type { SqlRecipe, SqlRecipeParameter } from "./types";
@@ -588,6 +589,7 @@ export const LEGACY_SQL_RECIPES = SQL_RECIPE_GROUPS.flatMap(
 );
 
 export const CHAT_SQL_RECIPES: SqlRecipe[] = [
+  ...BUDGET_SQL_RECIPES,
   {
     id: "nationalResults",
     questionId: "nationalResults",
@@ -776,7 +778,12 @@ LIMIT ${sqlInteger(parameters.count ?? 25, "count", 1, MUNICIPAL_FISCAL_MAX_RESU
         default: "Бойко Борисов",
       },
     ],
-    relations: ["person", "person_wealth_series"],
+    relations: [
+      "person_by_slug",
+      "person_by_name",
+      "person_search",
+      "person_wealth_series",
+    ],
     outputColumns: [
       "status",
       "matches",
@@ -790,11 +797,20 @@ LIMIT ${sqlInteger(parameters.count ?? 25, "count", 1, MUNICIPAL_FISCAL_MAX_RESU
     build: (
       parameters,
     ) => `-- Declared to the Court of Audit, not audited. Resolution status is explicit.
-WITH hit AS (
-  SELECT slug, display_name AS name
-  FROM person
-  WHERE status = 'active' AND is_public_figure
-    AND name_fold = translit_bg_latin(${sqlText(parameters.name, "name")})
+WITH direct AS MATERIALIZED (
+  SELECT COALESCE(person_by_slug(${sqlText(parameters.name, "name")}),
+                  person_by_name(${sqlText(parameters.name, "name")})) AS profile
+), hit AS (
+  SELECT profile->>'slug' AS slug, profile->>'name' AS name
+  FROM direct WHERE profile->>'slug' IS NOT NULL
+  UNION ALL
+  SELECT candidate->>'slug', candidate->>'name'
+  FROM direct, LATERAL jsonb_array_elements(
+    CASE WHEN profile->>'slug' IS NULL
+      THEN COALESCE(person_search(${sqlText(parameters.name, "name")}, 10), '[]'::jsonb)
+      ELSE '[]'::jsonb END
+  ) candidate
+  WHERE candidate->>'slug' IS NOT NULL AND candidate->>'name' IS NOT NULL
 ), resolution AS (
   SELECT count(*)::int AS matches FROM hit
 )
@@ -859,7 +875,11 @@ LIMIT 12;`,
   },
 ];
 
-export const SQL_RECIPES = [...LEGACY_SQL_RECIPES, ...CHAT_SQL_RECIPES];
+export const SQL_RECIPES = [
+  ...LEGACY_SQL_RECIPES,
+  ...CHAT_SQL_RECIPES,
+  ...EXPANDED_SQL_RECIPES,
+];
 export const SQL_RECIPES_BY_ID = new Map(
   SQL_RECIPES.map((recipe) => [recipe.id, recipe]),
 );

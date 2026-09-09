@@ -1,3 +1,4 @@
+import { BUDGET_QUESTIONS } from "./contracts/budget";
 import { parameterLabels as labels } from "./parameterLabels";
 import rawToolParameters from "../../../ai/app/toolParameters.json";
 import rawCategories from "../../../ai/app/starterCategories.json";
@@ -114,7 +115,9 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
   const ids = [
     ...new Set([
       ...Object.values(prompt.args).flatMap((args) => Object.keys(args)),
-      ...(toolParameters[prompt.tool] ?? []).map((p) => p.name),
+      ...(toolParameters[prompt.tool] ?? [])
+        .filter((p) => p.required || !REVIEWED_CHAT_SQL_ADAPTERS[prompt.tool])
+        .map((p) => p.name),
     ]),
   ];
   if (prompt.tool === "nationalResults" && !ids.includes("election"))
@@ -141,6 +144,8 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
       ...(kind === "year" ? { min: 1900, max: 2100 } : {}),
       ...(/^(years|n|count|limit)$/.test(id) ? { min: 1, max: 5000 } : {}),
     };
+    if (id === "year" && BUDGET_QUESTIONS.some((s) => s.id === prompt.tool))
+      return { ...base, min: 1990, max: 2100 };
     if (prompt.tool === "municipalFiscalRanking" && id === "count")
       return { ...base, max: MUNICIPAL_FISCAL_MAX_RESULTS };
     if (prompt.tool === "municipalFiscalRanking" && id === "year")

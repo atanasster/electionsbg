@@ -23,6 +23,32 @@ export const routeCivicQuestion = (
       cycle: q.match(/20\d{2}/)?.[0],
       round: Number(q.match(/(?:кръг|round)\s*([12])/)?.[1]),
     });
+  const budgetYear = q.match(/20\d{2}/)?.[0];
+  const fiscalArgs = budgetYear ? { year: Number(budgetYear) } : {};
+  if (hit(/бюджетните закони|budget laws.*annex/))
+    return result("budgetDocuments", fiscalArgs);
+  if (
+    hit(
+      /изпълнението.*(?:закона|актуализиран)|budget execution.*(?:law|amended)/,
+    )
+  )
+    return result("budgetVariance", fiscalArgs);
+  if (hit(/щатните бройки.*администраци|established posts.*administration/))
+    return result("budgetPersonnel", fiscalArgs);
+  if (hit(/разходите за персонал по министерств|personnel costs by ministr/))
+    return result("budgetPersonnelByMinistry", fiscalArgs);
+  if (hit(/бюджетът на всяко министерство|each ministry.*budget/))
+    return result("budgetMinistries", fiscalArgs);
+  if (
+    hit(/трансфери между общините|transfers distributed across municipalities/)
+  )
+    return result("budgetMunicipalTransfers", fiscalArgs);
+  if (
+    hit(/капиталови проекти.*финансиране|capital projects.*financing sources/)
+  )
+    return result("budgetCapitalByMunicipality", fiscalArgs);
+  if (hit(/платено.*инвестиционната програма|paid under.*municipal investment/))
+    return result("budgetInvestmentPayments");
   if (hit(/дигитални умения|digital skills/)) return result("digitalSkills");
   if (hit(/нощувк|туризм|guest nights|touris/)) {
     if (hit(/държав|от кои|countries|source market/))

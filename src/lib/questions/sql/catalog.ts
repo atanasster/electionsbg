@@ -1,3 +1,4 @@
+import { EXPANDED_SQL_RECIPES, expandedSqlText } from "./expanded";
 import { SQL_TOPICS } from "./topics";
 import { QUESTION_CATEGORIES, QUESTION_DEFINITIONS } from "../catalog";
 import type {
@@ -108,45 +109,48 @@ const questionKind = (
                 ? "enum"
                 : "string";
 
-export const SQL_QUESTION_DEFINITIONS: QuestionDefinition[] =
-  LEGACY_SQL_RECIPES.map((recipe) => {
-    const [categoryId, subcategoryId] = SQL_TOPICS[recipe.id];
-    return {
-      id: recipe.questionId,
-      categoryId,
-      subcategoryId,
-      question: {
-        bg: bgQuestions[recipe.id] ?? recipe.answers,
-        en: recipe.answers,
-      },
-      aliases: { en: [recipe.label] },
-      parameters: recipe.parameters.map((parameter) => ({
-        id: parameter.id,
-        kind: questionKind(recipe.id, parameter.id, parameter.kind),
-        required: parameter.required,
-        label: parameterLabel(parameter.id),
-        min: parameter.min,
-        max: parameter.max,
-        values: parameter.values?.map(String),
-      })),
-      defaults: Object.fromEntries(
-        recipe.parameters.flatMap((parameter) =>
-          parameter.default === undefined
-            ? []
-            : [[parameter.id, parameter.default]],
-        ),
+export const SQL_QUESTION_DEFINITIONS: QuestionDefinition[] = [
+  ...LEGACY_SQL_RECIPES,
+  ...EXPANDED_SQL_RECIPES,
+].map((recipe) => {
+  const [categoryId, subcategoryId] = SQL_TOPICS[recipe.id];
+  return {
+    id: recipe.questionId,
+    categoryId,
+    subcategoryId,
+    question: {
+      bg:
+        bgQuestions[recipe.id] ?? expandedSqlText(recipe.id) ?? recipe.answers,
+      en: recipe.answers,
+    },
+    aliases: { en: [recipe.label] },
+    parameters: recipe.parameters.map((parameter) => ({
+      id: parameter.id,
+      kind: questionKind(recipe.id, parameter.id, parameter.kind),
+      required: parameter.required,
+      label: parameterLabel(parameter.id),
+      min: parameter.min,
+      max: parameter.max,
+      values: parameter.values?.map(String),
+    })),
+    defaults: Object.fromEntries(
+      recipe.parameters.flatMap((parameter) =>
+        parameter.default === undefined
+          ? []
+          : [[parameter.id, parameter.default]],
       ),
-      chat: {
-        status: "unavailable",
-        reason: {
-          bg: "Въпросът е наличен в браузъра за данни.",
-          en: "This question is available in the data browser.",
-        },
+    ),
+    chat: {
+      status: "unavailable",
+      reason: {
+        bg: "Въпросът е наличен в браузъра за данни.",
+        en: "This question is available in the data browser.",
       },
-      sql: { status: "ready", capabilityId: recipe.id, version: 1 },
-      sourceIds: recipe.relations,
-    };
-  });
+    },
+    sql: { status: "ready", capabilityId: recipe.id, version: 1 },
+    sourceIds: recipe.relations,
+  };
+});
 
 export const SQL_QUESTION_CATALOG: QuestionCatalog = {
   categories: QUESTION_CATEGORIES,

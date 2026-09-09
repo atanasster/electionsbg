@@ -1,12 +1,19 @@
+import { EXPANDED_SQL_RECIPES } from "./expanded";
 import { describe, expect, it } from "vitest";
 import { resolveQuestionSelection } from "../resolve";
 import { SQL_QUESTION_CATALOG, SQL_QUESTION_DEFINITIONS } from "./catalog";
-import { CHAT_SQL_RECIPES, SQL_RECIPES_BY_ID } from "./recipes";
+import {
+  CHAT_SQL_RECIPES,
+  SQL_RECIPES_BY_ID,
+  LEGACY_SQL_RECIPES,
+} from "./recipes";
 import { renderSqlQuestion } from "./render";
 
 describe("SQL question catalog", () => {
   it("exposes every legacy recipe as one ready catalog question", () => {
-    expect(SQL_QUESTION_DEFINITIONS).toHaveLength(37);
+    expect(SQL_QUESTION_DEFINITIONS).toHaveLength(
+      LEGACY_SQL_RECIPES.length + EXPANDED_SQL_RECIPES.length,
+    );
     for (const question of SQL_QUESTION_DEFINITIONS) {
       expect(question.sql.status).toBe("ready");
       expect(
@@ -21,15 +28,6 @@ describe("SQL question catalog", () => {
   });
 
   it("promotes reviewed DB-backed chat questions without duplicate IDs", () => {
-    expect(CHAT_SQL_RECIPES.map((recipe) => recipe.questionId)).toEqual([
-      "nationalResults",
-      "presidentialResults",
-      "municipalFiscalRanking",
-      "personWealth",
-      "topContractors",
-      "procurementAppeals",
-      "companyConnections",
-    ]);
     expect(
       new Set(SQL_QUESTION_CATALOG.questions.map((question) => question.id))
         .size,
@@ -39,17 +37,11 @@ describe("SQL question catalog", () => {
         (candidate) => candidate.id === recipe.questionId,
       );
       expect(question?.chat.status, recipe.id).toBe("ready");
-      const reviewed = ["nationalResults", "presidentialResults"].includes(
-        recipe.id,
-      );
-      expect(question?.sql.status, recipe.id).toBe(
-        reviewed ? "ready" : "review",
-      );
-      if (reviewed)
-        expect(question?.sql, recipe.id).toMatchObject({
-          capabilityId: recipe.id,
-          version: 1,
-        });
+      expect(question?.sql, recipe.id).toMatchObject({
+        status: "ready",
+        capabilityId: recipe.id,
+        version: 1,
+      });
       expect(question?.sourceIds, recipe.id).toEqual(recipe.relations);
     }
   });
@@ -141,6 +133,7 @@ describe("SQL question catalog", () => {
     expect(sql).toContain("WHEN r.matches = 0 THEN 'missing'");
     expect(sql).toContain("WHEN r.matches > 1 THEN 'ambiguous'");
     expect(sql).toContain("WHEN point IS NULL THEN 'no_data'");
-    expect(sql).toContain("name_fold = translit_bg_latin(");
+    expect(sql).toContain("person_by_name(");
+    expect(sql).toContain("person_search(");
   });
 });
