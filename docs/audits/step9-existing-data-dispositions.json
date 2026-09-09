@@ -1,0 +1,301 @@
+{
+  "generatedAt": "2026-09-09",
+  "scope": "Tier 4 Step 9 existing-data families. Ready means an existing shared question has both a reviewed chat adapter and deterministic SQL recipe; review rows name the serving contract still required.",
+  "families": [
+    {
+      "id": "procurement-registers",
+      "capabilities": [
+        {
+          "id": "top-contractors",
+          "chat": "ready",
+          "sql": "ready",
+          "sources": ["top_contractors"],
+          "prerequisite": null,
+          "chatCapability": "topContractors",
+          "sqlRecipe": "topContractors",
+          "reviewEvidence": "tier3-step7-shared-adapter-tests"
+        },
+        {
+          "id": "procurement-appeals",
+          "chat": "ready",
+          "sql": "ready",
+          "sources": ["procurement_appeals"],
+          "prerequisite": null,
+          "chatCapability": "procurementAppeals",
+          "sqlRecipe": "procurementAppeals",
+          "reviewEvidence": "tier3-step7-shared-adapter-tests"
+        },
+        {
+          "id": "company-registry-connections",
+          "chat": "ready",
+          "sql": "ready",
+          "sources": ["person_company_connections"],
+          "prerequisite": null,
+          "chatCapability": "companyConnections",
+          "sqlRecipe": "companyConnections",
+          "reviewEvidence": "tier3-step7-shared-adapter-tests"
+        },
+        {
+          "id": "ted-notice-lineage",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["tender", "tender_notice", "src:ted"],
+          "prerequisite": "Publish a canonical tender_notice_lineage(tender_id) function with notice type, publication date, TED identifier, predecessor/successor links and official URL."
+        },
+        {
+          "id": "cprs-registration",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["cprs_company", "src:cprs"],
+          "prerequisite": "Expose a current-as-of-date CPRS registration lookup by canonical company EIK, including registration groups, validity period and unmatched status."
+        },
+        {
+          "id": "aop-experts",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["aop_expert", "src:aop-experts"],
+          "prerequisite": "Contract stable expert and expertise-area identities with validity dates on each expert-area relationship, an explicit as-of rule, organization and source date, plus unresolved and ambiguous person states."
+        },
+        {
+          "id": "contract-benchmark-and-criteria",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["contracts", "tenders", "procurement_normalcy"],
+          "prerequisite": "Define one comparable CPV, period and value-basis cohort and expose award criterion, bid count, concentration denominator and per-contract benchmark without treating contracted value as paid."
+        }
+      ]
+    },
+    {
+      "id": "eu-funding",
+      "capabilities": [
+        {
+          "id": "open-calls-current-conditions",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["open_call", "open_call_document", "src:eufunds"],
+          "prerequisite": "Promote only after one serving query returns crawl time, deadline, beneficiary eligibility, aid rate, grant range and official condition URL from the same current procedure version."
+        },
+        {
+          "id": "isun-procedure-fit",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["funds_fit", "procedure"],
+          "prerequisite": "Expose a canonical procedure-fit result with eligible beneficiary type, geography, activity, amount bounds and quoted official evidence; absence of rejected applications forbids approval-rate claims."
+        },
+        {
+          "id": "isun-procedure-rate",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["procedure", "open_call"],
+          "prerequisite": "Expose the aid or co-financing rate, eligible-cost denominator, applicable procedure version and effective date from quoted official conditions; do not infer applicant approval rates without rejected applications."
+        },
+        {
+          "id": "project-completion-and-payments",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["fund_project", "fund_contract"],
+          "prerequisite": "Contract project status, contracted amount and verified paid amount at one dated snapshot, keeping financial correction and completion status separate."
+        },
+        {
+          "id": "interreg-operation-programme-partner",
+          "chat": "review",
+          "sql": "review",
+          "sources": [
+            "interreg_programme",
+            "interreg_operation",
+            "interreg_partner"
+          ],
+          "prerequisite": "Publish programme title, countries, funding period and coverage beside stable programme, operation and partner identifiers, roles, amounts and source URLs; deduplicate Interreg rows already included in unified EU-funds totals."
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "capabilities": [
+        {
+          "id": "hospital-payment-history",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["nzok_hospital_payment", "hospital"],
+          "prerequisite": "Resolve one hospital identity and return comparable monthly or annual NZOK payments with coverage start/end, ownership and explicit missing months."
+        },
+        {
+          "id": "hospital-financials-and-activity",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["nzok_hospital_financial", "nzok_activity"],
+          "prerequisite": "Join hospital financial statements and reported activity only on canonical hospital and compatible periods, exposing units and coverage rather than implying payments equal activity."
+        },
+        {
+          "id": "drug-pack-quarter-price",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["nzok_drug_quarterly", "nzok_drug_price"],
+          "prerequisite": "Expose one INN and pack identity with reimbursed units, paid amount, unit-price basis and quarter; compare only matching dosage, pack and period."
+        },
+        {
+          "id": "drug-molecule-detail",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["nzok_drug_overpay", "nzok_drug_overpay_by_inn"],
+          "prerequisite": "Publish the molecule-level comparison denominator, reference price, hospital price, quantity and caveats behind potential-savings estimates before dual-output promotion."
+        }
+      ]
+    },
+    {
+      "id": "local-accountability-courts",
+      "capabilities": [
+        {
+          "id": "council-resolution-detail",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["council_resolution", "council_source"],
+          "prerequisite": "Expose stable municipality, meeting and resolution identifiers with decision text, date, official source URL and corpus coverage interval."
+        },
+        {
+          "id": "named-councillor-votes",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["council_vote", "councillor"],
+          "prerequisite": "Resolve councillor identity by mandate and retain yes, no, abstain, absent and unpublished states for councils that publish named votes."
+        },
+        {
+          "id": "magistrate-filings-relationships",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["magistrate_filing", "declaration", "person"],
+          "prerequisite": "Join magistrate identity, court role and declaration filing by covered year, preserving relationship scope, filing type and unresolved names."
+        },
+        {
+          "id": "court-detail-and-coverage",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["court_load", "judiciary_caseload"],
+          "prerequisite": "Contract one court identity and comparable year/case-type workload series with reporting coverage, disposition denominator and absent-year semantics."
+        }
+      ]
+    },
+    {
+      "id": "transport-security-geography",
+      "capabilities": [
+        {
+          "id": "transport-project-map",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["transport_project_map", "fund_project"],
+          "prerequisite": "Expose project-site geometry separately from beneficiary registered seat, with project identifier, observed period, funding programme and location confidence."
+        },
+        {
+          "id": "transport-facility-map",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["transport_facility_map"],
+          "prerequisite": "Publish stable facility identity, facility type, physical coordinates, operator and observed-validity period before map questions become ready."
+        },
+        {
+          "id": "security-directorate-map",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["mvr_directorate_map"],
+          "prerequisite": "Keep directorate service territory, headquarters point and incident geography as separate grains and publish the official coverage version."
+        },
+        {
+          "id": "road-safety-hotspots",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["road_safety", "src:mvr"],
+          "prerequisite": "Ingest geocoded dated crash records with severity and road segment; national fatalities cannot support a local hotspot claim."
+        }
+      ]
+    },
+    {
+      "id": "broader-tools",
+      "capabilities": [
+        {
+          "id": "energy-generation-series",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["energy_generation"],
+          "prerequisite": "Expose generation by technology with physical unit, observation interval, source publication date and missing intervals in one canonical SQL serving series."
+        },
+        {
+          "id": "energy-price-series",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["energy_prices"],
+          "prerequisite": "Expose household and non-household price basis, consumption band, taxes, currency, observation period and source freshness without joining incompatible series."
+        },
+        {
+          "id": "power-plant-capacity",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["power_plants"],
+          "prerequisite": "Resolve each facility and technology with installed versus available capacity, physical location, validity date and source version before map or ranking promotion."
+        },
+        {
+          "id": "culture-grants",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["culture_grant"],
+          "prerequisite": "Resolve applicant identity and preserve requested, awarded and paid amount bases, programme, commission decision date and grant-corpus coverage."
+        },
+        {
+          "id": "culture-films",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["culture_film"],
+          "prerequisite": "Resolve film and producer identities with production year, subsidy programme, requested and awarded amounts, commission decision and NFC source version."
+        },
+        {
+          "id": "social-benefits-series",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["social_benefits"],
+          "prerequisite": "Expose benefit programme, recipient-count denominator, paid amount, period and geographic grain without merging distinct allowance schemes."
+        },
+        {
+          "id": "retail-prices-comparison",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["retail_price", "price_observation"],
+          "prerequisite": "Compare the same product definition, package unit, store and observation date; retain missing observations and source collection time."
+        },
+        {
+          "id": "macro-series",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["macro"],
+          "prerequisite": "Expose indicator code, unit, price basis, national period and revision date; forbid comparisons between nominal, real and percentage measures without conversion."
+        },
+        {
+          "id": "regional-series",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["regional"],
+          "prerequisite": "Expose NUTS version, regional code, indicator unit, observation period and missing regions, and compare only the same geographic classification version."
+        },
+        {
+          "id": "census-population",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["census"],
+          "prerequisite": "Expose resident-population measure, Census 2021 reference date and settlement or municipality grain without presenting it as current registered population."
+        },
+        {
+          "id": "grao-registered-population",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["grao_population"],
+          "prerequisite": "Expose permanent-address and current-address registered populations separately with quarterly observation date and stable settlement or municipality identity."
+        },
+        {
+          "id": "poll-series",
+          "chat": "review",
+          "sql": "review",
+          "sources": ["polls", "poll_details"],
+          "prerequisite": "Expose poll fieldwork dates, sample, methodology, election target and source lock; compare agencies only within the same election and preserve undecided treatment."
+        }
+      ]
+    }
+  ]
+}
