@@ -3,13 +3,15 @@
 // (written by `polls:fetch`): run that agency's deterministic extractor
 // and write the resulting `InboxDraft` (pretty-printed, decision 7) to
 // `data/polls/_inbox/<pollId>.json`. Only agencies with a built
-// extractor participate — TR and AR today; the rest of §6.2's table
-// (ML/GM's aligned-row rule, MY, SH's OCR+table rule, GIB, press) is not
-// yet built and this file has no fallback for them.
+// extractor participate — TR, AR and GM (Tier 4 T4.1, presidential only
+// — see `extractGlobalMetrics`'s own header) today; the rest of §6.2's
+// table (ML's aligned-row rule, MY, SH's OCR+table rule, GIB, press) is
+// not yet built and this file has no fallback for them.
 //
 //   npm run polls:extract                    # every capture, every built extractor
 //   npm run polls:extract -- --agency TR      # just Trend
 //   npm run polls:extract -- --agency TR --pub 212750
+//   npm run polls:extract -- --agency GM      # just Global Metrics
 //
 // Walks the FILESYSTEM, not watch state — watch state's `meta.items`
 // tracks only what is NEW since the last watcher run, but extraction is
@@ -24,6 +26,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { extractAlphaResearch } from "./extractors/alpha_research";
+import { extractGlobalMetrics } from "./extractors/global_metrics";
 import { extractTrend } from "./extractors/trend";
 import { flagReader } from "./lib/argv";
 import { dirSlugFor, latestVersionSuffix } from "./lib/capture";
@@ -48,6 +51,7 @@ type Extractor = (captureDir: string, pubId: string) => Promise<InboxDraft>;
 const EXTRACTORS: Record<string, Extractor> = {
   TR: extractTrend,
   AR: extractAlphaResearch,
+  GM: extractGlobalMetrics,
 };
 
 /** Every distinct pubId with at least one capture directory for

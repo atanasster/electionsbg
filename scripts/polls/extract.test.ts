@@ -354,4 +354,31 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
       ),
     ).toBe(true);
   });
+
+  it("GM (Tier 4 T4.1, presidential-only) is wired into --agency dispatch, via its title-only fast path", async () => {
+    // Title explicitly states "parliamentary" — extractGlobalMetrics's
+    // OWN title-only fast path (classifyTitle(title) === "parliamentary")
+    // fires before acquireText, so this synthetic capture needs no PDF
+    // attachments at all and still proves two things at once: GM reaches
+    // its real extractor through main()'s dispatch, and that fast path
+    // itself is exercised somewhere (it otherwise has no coverage — a
+    // capture whose title is merely AMBIGUOUS, like a bare agency name,
+    // falls through to the slower classifyRace-default guard instead,
+    // which is what global_metrics.test.ts's own "throws when classifyRace
+    // resolves parliamentary" case covers).
+    const GM_PARLIAMENTARY_HTML =
+      "<html><head><title>Парламентарни избори 2026 — Global Metrics</title></head><body></body></html>";
+    writeSyntheticCapture("global_metrics", "777", GM_PARLIAMENTARY_HTML);
+
+    await main(["--agency", "GM"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(
+      errorSpy.mock.calls.some(
+        (c: unknown[]) =>
+          String(c[0]).includes("FAILED GM 777") &&
+          String(c[0]).includes('title alone resolves to "parliamentary"'),
+      ),
+    ).toBe(true);
+  });
 });
