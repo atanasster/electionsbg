@@ -8,32 +8,26 @@
         {
           "id": "top-contractors",
           "chat": "ready",
-          "sql": "ready",
+          "sql": "review",
           "sources": ["top_contractors"],
-          "prerequisite": null,
-          "chatCapability": "topContractors",
-          "sqlRecipe": "topContractors",
-          "reviewEvidence": "tier3-step7-shared-adapter-tests"
+          "prerequisite": "Add an executed chat-versus-SQL parity fixture for identical resolved inputs, independently expected facts and a machine-readable source version before restoring dual-ready promotion.",
+          "chatCapability": "topContractors"
         },
         {
           "id": "procurement-appeals",
           "chat": "ready",
-          "sql": "ready",
+          "sql": "review",
           "sources": ["procurement_appeals"],
-          "prerequisite": null,
-          "chatCapability": "procurementAppeals",
-          "sqlRecipe": "procurementAppeals",
-          "reviewEvidence": "tier3-step7-shared-adapter-tests"
+          "prerequisite": "Add an executed chat-versus-SQL parity fixture for identical resolved inputs, independently expected facts and a machine-readable source version before restoring dual-ready promotion.",
+          "chatCapability": "procurementAppeals"
         },
         {
           "id": "company-registry-connections",
           "chat": "ready",
-          "sql": "ready",
+          "sql": "review",
           "sources": ["person_company_connections"],
-          "prerequisite": null,
-          "chatCapability": "companyConnections",
-          "sqlRecipe": "companyConnections",
-          "reviewEvidence": "tier3-step7-shared-adapter-tests"
+          "prerequisite": "Add an executed chat-versus-SQL parity fixture for identical resolved inputs, independently expected facts and a machine-readable source version before restoring dual-ready promotion.",
+          "chatCapability": "companyConnections"
         },
         {
           "id": "ted-notice-lineage",

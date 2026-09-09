@@ -3,11 +3,6 @@
 export const REVIEWED_CHAT_SQL_ADAPTERS: Record<string, string> = {
   nationalResults: "nationalResults",
   presidentialResults: "presidentialResults",
-  topContractors: "topContractors",
-  procurementAppeals: "procurementAppeals",
-  companyConnections: "companyConnections",
-  municipalFiscalRanking: "municipalFiscalRanking",
-  personWealth: "personWealth",
 };
 
 /** Canonical relations/functions behind each dual-ready capability. Keep this

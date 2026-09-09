@@ -48,14 +48,13 @@ export const LIBRARY: LibraryGroup[] = [
         answers:
           "Which companies hold the largest awarded contract value in this corpus",
         cost: "medium",
-        sql: `-- tag = 'contract' matters: amendments carry their own rows and
--- summing all tags double-counts the amended contracts.
-SELECT contractor_eik, MIN(contractor_name) AS contractor_name,
-       ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
-FROM contracts
-WHERE tag = 'contract'
-GROUP BY contractor_eik
-ORDER BY eur DESC NULLS LAST
+        sql: `-- contractor_rank is the refreshed tag='contract' rollup. The ALL
+-- division keeps one row per contractor and avoids rescanning the raw corpus.
+SELECT eik AS contractor_eik, name AS contractor_name,
+       ROUND(total_eur) AS eur, contract_count AS n
+FROM contractor_rank
+WHERE scope_key = 'all' AND division = 'ALL'
+ORDER BY total_eur DESC NULLS LAST, eik
 LIMIT 25;`,
       },
       {
@@ -100,12 +99,13 @@ LIMIT 25;`,
         label: "Top awarders",
         answers: "Which public bodies award the most money",
         cost: "medium",
-        sql: `SELECT awarder_eik, MIN(awarder_name) AS awarder_name,
-       ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
-FROM contracts
-WHERE tag = 'contract'
-GROUP BY awarder_eik
-ORDER BY eur DESC NULLS LAST
+        sql: `-- awarder_search stores the tag='contract' totals at load time;
+-- aliases repeat one EIK's totals, so group them before ranking.
+SELECT eik AS awarder_eik, COALESCE(MAX(primary_name), MIN(name)) AS awarder_name,
+       ROUND(MAX(contracts_eur)) AS eur, MAX(contracts) AS n
+FROM awarder_search
+GROUP BY eik
+ORDER BY eur DESC NULLS LAST, eik
 LIMIT 25;`,
       },
       {
@@ -140,18 +140,25 @@ LIMIT 50;`,
         answers:
           "How the announced value compares with what was eventually awarded",
         cost: "medium",
-        sql: `-- The join key is УНП, not ocid: a procedure and its contracts share the
--- УНП, while ocid lineage differs per feed. Summing at tag = 'contract' keeps
--- amendments from double-counting the award.
+        sql: `-- Compare the 50 largest announced procedures. The join key is УНП,
+-- and tag='contract' excludes amendment rows from the awarded value.
+WITH announced AS (
+  SELECT unp, buyer_name, subject, estimated_value_eur
+  FROM tenders
+  WHERE estimated_value_eur IS NOT NULL
+  ORDER BY estimated_value_eur DESC
+  LIMIT 50
+)
 SELECT t.buyer_name, t.subject,
        ROUND(t.estimated_value_eur) AS forecast_eur,
-       ROUND(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract')) AS awarded_eur
-FROM tenders t
-JOIN contracts c ON c.unp = t.unp
-WHERE t.estimated_value_eur IS NOT NULL
-GROUP BY t.unp, t.buyer_name, t.subject, t.estimated_value_eur
-ORDER BY awarded_eur DESC NULLS LAST
-LIMIT 50;`,
+       ROUND(a.awarded_eur) AS awarded_eur
+FROM announced t
+LEFT JOIN LATERAL (
+  SELECT SUM(c.amount_eur) AS awarded_eur
+  FROM contracts c
+  WHERE c.unp = t.unp AND c.tag = 'contract'
+) a ON true
+ORDER BY forecast_eur DESC NULLS LAST;`,
       },
       {
         id: "one-buyer-s-procurement-profile",
@@ -489,14 +496,13 @@ LIMIT 30;`,
           "Procurement winners matched to their Commerce Registry record — the ЕИК link",
         cost: "medium",
         walks: { a: "connections", b: "procurement", key: "eik" },
-        sql: `-- The ЕИК link: contracts.contractor_eik × tr_companies.uic.
+        sql: `-- The ЕИК link: contractor_rank.eik × tr_companies.uic.
 SELECT co.uic, co.name, co.legal_form, co.status,
-       ROUND(SUM(c.amount_eur)) AS eur, COUNT(*) AS contracts
-FROM contracts c
-JOIN tr_companies co ON co.uic = c.contractor_eik
-WHERE c.tag = 'contract'
-GROUP BY co.uic, co.name, co.legal_form, co.status
-ORDER BY eur DESC NULLS LAST
+       ROUND(r.total_eur) AS eur, r.contract_count AS contracts
+FROM contractor_rank r
+JOIN tr_companies co ON co.uic = r.eik
+WHERE r.scope_key = 'all' AND r.division = 'ALL'
+ORDER BY r.total_eur DESC NULLS LAST, co.uic
 LIMIT 25;`,
       },
       {

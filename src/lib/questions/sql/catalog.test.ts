@@ -39,11 +39,17 @@ describe("SQL question catalog", () => {
         (candidate) => candidate.id === recipe.questionId,
       );
       expect(question?.chat.status, recipe.id).toBe("ready");
-      expect(question?.sql, recipe.id).toMatchObject({
-        status: "ready",
-        capabilityId: recipe.id,
-        version: 1,
-      });
+      const reviewed = ["nationalResults", "presidentialResults"].includes(
+        recipe.id,
+      );
+      expect(question?.sql.status, recipe.id).toBe(
+        reviewed ? "ready" : "review",
+      );
+      if (reviewed)
+        expect(question?.sql, recipe.id).toMatchObject({
+          capabilityId: recipe.id,
+          version: 1,
+        });
       expect(question?.sourceIds, recipe.id).toEqual(recipe.relations);
     }
   });

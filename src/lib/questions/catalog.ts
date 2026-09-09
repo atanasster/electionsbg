@@ -14,12 +14,15 @@ import {
 } from "./sql/availability";
 import {
   MUNICIPAL_FISCAL_MAX_RESULTS,
+  MUNICIPAL_FISCAL_MAX_YEAR,
   MUNICIPAL_FISCAL_METRICS,
+  MUNICIPAL_FISCAL_MIN_YEAR,
 } from "./contracts/municipalFiscal";
 import {
   ELECTION_ROUND_MAX,
   ELECTION_ROUND_MIN,
   LATEST_PARLIAMENTARY_CONTEST,
+  LATEST_PRESIDENTIAL_CONTEST,
   PRESIDENTIAL_CONTESTS,
 } from "./contracts/elections";
 
@@ -131,10 +134,22 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
     };
     if (prompt.tool === "municipalFiscalRanking" && id === "count")
       return { ...base, max: MUNICIPAL_FISCAL_MAX_RESULTS };
+    if (prompt.tool === "municipalFiscalRanking" && id === "year")
+      return {
+        ...base,
+        min: MUNICIPAL_FISCAL_MIN_YEAR,
+        max: MUNICIPAL_FISCAL_MAX_YEAR,
+      };
     if (prompt.tool === "municipalFiscalRanking" && id === "metric")
       return { ...base, kind: "enum", values: [...MUNICIPAL_FISCAL_METRICS] };
-    if (prompt.tool === "presidentialResults" && id === "cycle")
-      return { ...base, kind: "enum", values: [...PRESIDENTIAL_CONTESTS] };
+    if (prompt.tool === "presidentialResults" && id === "cycle") {
+      const { min: _min, max: _max, ...withoutNumericBounds } = base;
+      return {
+        ...withoutNumericBounds,
+        kind: "enum",
+        values: [...PRESIDENTIAL_CONTESTS],
+      };
+    }
     if (prompt.tool === "presidentialResults" && id === "round")
       return {
         ...base,
@@ -155,6 +170,9 @@ const canonicalDefaults = (prompt: RawPrompt): Record<string, unknown> => ({
   ),
   ...(prompt.tool === "nationalResults"
     ? { election: LATEST_PARLIAMENTARY_CONTEST }
+    : {}),
+  ...(prompt.tool === "presidentialResults"
+    ? { cycle: LATEST_PRESIDENTIAL_CONTEST }
     : {}),
 });
 

@@ -7,10 +7,13 @@ describe("chat question adapter", () => {
   it.each(rawPrompts)("preserves $id chat intent", (prompt) => {
     for (const lang of ["bg", "en"] as const) {
       const intent = toChatQuestionIntent(prompt.id, lang, prompt.args[lang]);
-      const expectedArgs = {
+      const expectedArgs: Record<string, unknown> = {
         ...prompt.args[lang],
         ...(prompt.id === "openTenders" ? { year: 2025 } : {}),
+        ...(prompt.id === "nationalResults" ? { election: "2026_04_19" } : {}),
       };
+      if (prompt.id === "presidentialResults")
+        expectedArgs.cycle = Number(expectedArgs.cycle);
       expect(intent).toEqual({
         questionId: prompt.id,
         text: prompt[lang],
@@ -25,10 +28,15 @@ describe("chat question adapter", () => {
     (prompt) => {
       for (const lang of ["bg", "en"] as const) {
         const intent = toChatQuestionIntent(prompt.id, lang, {});
-        const expectedArgs = {
+        const expectedArgs: Record<string, unknown> = {
           ...prompt.args[lang],
           ...(prompt.id === "openTenders" ? { year: 2025 } : {}),
+          ...(prompt.id === "nationalResults"
+            ? { election: "2026_04_19" }
+            : {}),
         };
+        if (prompt.id === "presidentialResults")
+          expectedArgs.cycle = Number(expectedArgs.cycle);
         expect(intent.args).toEqual(expectedArgs);
       }
     },

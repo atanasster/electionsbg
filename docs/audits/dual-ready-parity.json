@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "questions": [
+    {
+      "id": "nationalResults",
+      "chatCapability": "nationalResults",
+      "sqlRecipe": "nationalResults",
+      "parameters": { "election": "2026_04_19" },
+      "grainKey": "result_grain=national",
+      "periodKey": "contest_key=2026_04_19",
+      "sourceVersionField": "source_sha256",
+      "relation": "election_national_results",
+      "migration": "scripts/db/schema/pg/195_election_national_results.sql",
+      "signature": "election_national_results(text, text, integer)",
+      "caseId": "parliamentary-2026-national-parity",
+      "fixture": "scripts/db/tests/election_national_results.data.test.ts",
+      "expected": {
+        "choiceKey": "party:p_20",
+        "votes": 1444920,
+        "seats": 131,
+        "percentageBasis": "party_votes_excluding_none_of_above"
+      }
+    },
+    {
+      "id": "presidentialResults",
+      "chatCapability": "presidentialResults",
+      "sqlRecipe": "presidentialResults",
+      "parameters": { "cycle": "2021_11_14_pvr", "round": 2 },
+      "grainKey": "result_grain=national",
+      "periodKey": "contest_key=2021_11_14_pvr+round=2",
+      "sourceVersionField": "source_sha256",
+      "relation": "election_national_results",
+      "migration": "scripts/db/schema/pg/195_election_national_results.sql",
+      "signature": "election_national_results(text, text, integer)",
+      "caseId": "presidential-2021-runoff-parity",
+      "fixture": "scripts/db/tests/election_national_results.data.test.ts",
+      "expected": {
+        "choiceKey": "ticket:2021_11_14_pvr:6",
+        "votes": 1539650,
+        "round": 2,
+        "percentageBasis": "valid_votes_including_none_of_above"
+      }
+    }
+  ]
+}

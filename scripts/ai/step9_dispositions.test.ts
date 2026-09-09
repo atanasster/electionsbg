@@ -90,27 +90,28 @@ describe("Step 9 existing-data dispositions", () => {
       expect(row.sources.length, row.id).toBeGreaterThan(0);
       if (row.chat !== "ready" || row.sql !== "ready")
         expect(row.prerequisite?.length, row.id).toBeGreaterThan(80);
-      expect(row.chat === "ready", row.id).toBe(row.sql === "ready");
+      if (row.sql === "ready") expect(row.chat, row.id).toBe("ready");
     }
   });
 
-  it("ties every ready decision to both shared adapters", () => {
+  it("keeps candidate SQL recipes in review until parity evidence exists", () => {
     const sharedIds: Record<string, string> = {
       "top-contractors": "topContractors",
       "procurement-appeals": "procurementAppeals",
       "company-registry-connections": "companyConnections",
     };
     expect(
-      outcomes.filter((row) => row.chat === "ready").map((row) => row.id),
-    ).toEqual(Object.keys(sharedIds));
+      outcomes
+        .filter((row) => row.chat === "ready" && row.sql === "ready")
+        .map((row) => row.id),
+    ).toEqual([]);
     for (const [outcomeId, questionId] of Object.entries(sharedIds)) {
       const outcome = outcomes.find((row) => row.id === outcomeId)!;
-      expect(outcome.sql).toBe("ready");
+      expect(outcome.chat).toBe("ready");
+      expect(outcome.sql).toBe("review");
       expect(outcome.chatCapability).toBe(questionId);
-      expect(outcome.sqlRecipe).toBe(questionId);
-      expect(outcome.reviewEvidence).toMatch(/^tier3-step7-/);
       expect(questionById(questionId)?.chat.status).toBe("ready");
-      expect(questionById(questionId)?.sql.status).toBe("ready");
+      expect(questionById(questionId)?.sql.status).toBe("review");
       expect(SQL_RECIPES_BY_ID.has(questionId)).toBe(true);
     }
   });

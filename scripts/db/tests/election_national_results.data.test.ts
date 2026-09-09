@@ -46,7 +46,7 @@ describe.skipIf(!reachable)("normalized national election results", () => {
     expect(incomplete.rows).toEqual([]);
   });
 
-  it("serves the exact parliamentary contest with reconciled semantics", async () => {
+  it("parliamentary-2026-national-parity serves the exact contest with reconciled semantics", async () => {
     const result = await getPool().query(
       `SELECT *, sum(votes) OVER () AS total_votes
          FROM election_national_results('parliamentary', '2026_04_19', NULL)`,
@@ -75,7 +75,7 @@ describe.skipIf(!reachable)("normalized national election results", () => {
     );
   });
 
-  it("selects one presidential contest and round without fallback", async () => {
+  it("presidential-2021-runoff-parity selects one contest and round without fallback", async () => {
     const result = await getPool().query(
       "SELECT * FROM election_national_results('presidential', '2021_11_14_pvr', 2)",
     );

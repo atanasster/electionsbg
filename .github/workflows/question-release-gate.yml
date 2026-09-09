@@ -1,0 +1,49 @@
+name: question-release-gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  catalog:
+    name: question catalog and DB evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: electionsbg
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d electionsbg"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/electionsbg
+      REQUIRE_QUESTION_DB: "1"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Hermetic catalog and coverage decisions
+        run: npx vitest run scripts/ai/question_release_gate.test.ts scripts/ai/editorial_dispositions.test.ts scripts/ai/step7_dispositions.test.ts scripts/ai/step8_dispositions.test.ts scripts/ai/step9_dispositions.test.ts ai/app/starters.test.ts ai/app/questionAdapter.test.ts src/lib/questions/catalog.test.ts src/lib/questions/selector/model.test.ts src/lib/questions/selector/QuestionSelector.test.tsx src/lib/questions/sql/catalog.test.ts src/lib/questions/sql/render.test.ts src/lib/questions/sql/url.test.ts
+      - name: Typecheck both applications
+        run: npx tsc --noEmit && npm run typecheck:ai
+      - name: Build both applications
+        run: npm run build && npm run build:ai
+        env:
+          VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com
+      - name: Load seeded national election serving data
+        run: npm run db:load:election-national:pg
+      - name: Required DB parity evidence
+        run: npx vitest run scripts/db/tests/election_national_results.data.test.ts scripts/db/tests/question_release_required.data.test.ts

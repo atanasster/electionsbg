@@ -17,8 +17,11 @@ const intentText = (
   args: ToolArgs,
 ): string => {
   const legacy = question.legacyChatArgs?.[lang] ?? {};
+  const baseline: Record<string, unknown> = { ...question.defaults, ...legacy };
+  if (question.id === "presidentialResults" && baseline.cycle)
+    baseline.cycle = String(baseline.cycle).slice(0, 4);
   const changed = Object.entries(args).filter(
-    ([key, value]) => JSON.stringify(value) !== JSON.stringify(legacy[key]),
+    ([key, value]) => JSON.stringify(value) !== JSON.stringify(baseline[key]),
   );
   if (!changed.length) return question.question[lang];
   let rendered = question.question[lang];
@@ -56,14 +59,26 @@ export const toChatQuestionIntent = (
   if (!question) throw new Error(`Unknown question: ${questionId}`);
   if (question.chat.status !== "ready" || !question.chat.capabilityId)
     throw new Error(`Question is not ready for chat: ${questionId}`);
-  const resolved = resolveQuestionSelection(question, {
+  const selected = {
     ...(question.legacyChatArgs?.[lang] ?? {}),
     ...(values ?? {}),
-  });
-  const args = validateToolArgs(
-    question.chat.capabilityId,
-    resolved.parameters,
-  );
+  };
+  if (
+    questionId === "presidentialResults" &&
+    /^\d{4}$/.test(String(selected.cycle ?? ""))
+  )
+    selected.cycle = question.parameters
+      .find((parameter) => parameter.id === "cycle")
+      ?.values?.find((cycle) => cycle.startsWith(`${selected.cycle}_`));
+  const resolved = resolveQuestionSelection(question, selected);
+  const toolParameters =
+    questionId === "presidentialResults"
+      ? {
+          ...resolved.parameters,
+          cycle: String(resolved.parameters.cycle).slice(0, 4),
+        }
+      : resolved.parameters;
+  const args = validateToolArgs(question.chat.capabilityId, toolParameters);
   if (!args)
     throw new Error(`Invalid chat arguments for question: ${questionId}`);
   return {

@@ -62,7 +62,9 @@ describe("shared question catalog", () => {
       expect(() =>
         resolveQuestionSelection(
           question,
-          question.legacyChatArgs?.bg ?? question.defaults,
+          question.id === "presidentialResults"
+            ? question.defaults
+            : (question.legacyChatArgs?.bg ?? question.defaults),
         ),
       ).not.toThrow();
     }

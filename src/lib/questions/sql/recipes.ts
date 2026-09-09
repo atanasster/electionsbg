@@ -4,7 +4,9 @@ import type { SqlRecipe, SqlRecipeParameter } from "./types";
 import {
   MUNICIPAL_FISCAL_LATEST_VALIDATED_YEAR,
   MUNICIPAL_FISCAL_MAX_RESULTS,
+  MUNICIPAL_FISCAL_MAX_YEAR,
   MUNICIPAL_FISCAL_METRICS,
+  MUNICIPAL_FISCAL_MIN_YEAR,
   type MunicipalFiscalMetric,
 } from "../contracts/municipalFiscal";
 import {
@@ -708,8 +710,8 @@ export const CHAT_SQL_RECIPES: SqlRecipe[] = [
         kind: "year",
         required: true,
         default: MUNICIPAL_FISCAL_LATEST_VALIDATED_YEAR,
-        min: 2000,
-        max: 2100,
+        min: MUNICIPAL_FISCAL_MIN_YEAR,
+        max: MUNICIPAL_FISCAL_MAX_YEAR,
       },
       {
         id: "count",
@@ -753,7 +755,7 @@ export const CHAT_SQL_RECIPES: SqlRecipe[] = [
 SELECT obshtina, name_bg, name_en, fiscal_year, quarter,
        commitments_eur, expense_obligations_eur, arrears_eur, debt_stock_eur,
        meets_threshold, criteria_evaluable
-FROM municipal_fiscal_ranking(${sqlInteger(parameters.year, "year", 2000, 2100)}, 1000)
+FROM municipal_fiscal_ranking(${sqlInteger(parameters.year, "year", MUNICIPAL_FISCAL_MIN_YEAR, MUNICIPAL_FISCAL_MAX_YEAR)}, 1000)
 ORDER BY ${orderColumn} DESC NULLS LAST, obshtina
 LIMIT ${sqlInteger(parameters.count ?? 25, "count", 1, MUNICIPAL_FISCAL_MAX_RESULTS)};`;
     },

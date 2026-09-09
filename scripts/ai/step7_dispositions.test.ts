@@ -34,11 +34,17 @@ describe("Step 7 capability dispositions", () => {
     }
   });
 
-  it("does not promote a one-surface Step 7 capability", () => {
+  it("does not call a one-surface capability dual-ready", () => {
     for (const outcome of audit.outcomes)
-      expect(outcome.chat === "ready", outcome.id).toBe(
-        outcome.sql === "ready",
-      );
+      if (outcome.sql === "ready")
+        expect(outcome.chat, outcome.id).toBe("ready");
+    expect(
+      audit.outcomes
+        .filter(
+          (outcome) => outcome.chat === "ready" && outcome.sql === "ready",
+        )
+        .map((outcome) => outcome.id),
+    ).toEqual([]);
   });
 
   it("keeps actual execution evidence unavailable until it is ingested", () => {

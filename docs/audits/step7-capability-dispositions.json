@@ -6,9 +6,9 @@
       "id": "municipal-fiscal-ranking",
       "question": "Rank municipalities by commitments, expense obligations or arrears for a year",
       "chat": "ready",
-      "sql": "ready",
+      "sql": "review",
       "sources": ["municipal_fiscal_ranking"],
-      "prerequisite": null
+      "prerequisite": "Add one executed parity fixture that resolves the same parameters, runs the chat adapter and SQL recipe, compares independently expected facts, and exposes a stable source version before restoring dual-ready status."
     },
     {
       "id": "municipal-fiscal-profile",
@@ -86,9 +86,9 @@
       "id": "person-declared-wealth-series",
       "question": "Show a uniquely resolved public person's declared assets, debts and net value by year",
       "chat": "ready",
-      "sql": "ready",
+      "sql": "review",
       "sources": ["person", "person_wealth_series"],
-      "prerequisite": null
+      "prerequisite": "Add one executed parity fixture that resolves the same parameters, runs the chat adapter and SQL recipe, compares independently expected facts, and exposes a stable source version before restoring dual-ready status."
     },
     {
       "id": "declaration-detail",
