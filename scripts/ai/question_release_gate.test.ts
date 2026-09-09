@@ -100,11 +100,13 @@ describe("question release coverage gate", () => {
         expect(sql?.values, `${row.id}.${parameter.id}`).toEqual(
           parameter.values,
         );
-        const expectedSqlKind: Record<string, string> = {
-          election: "code",
-          enum: "enum",
-          number: "integer",
-        }[parameter.kind];
+        const expectedSqlKind = (
+          {
+            election: "code",
+            enum: "enum",
+            number: "integer",
+          } as Partial<Record<string, string>>
+        )[parameter.kind];
         if (expectedSqlKind)
           expect(sql?.kind, `${row.id}.${parameter.id}`).toBe(expectedSqlKind);
         if (question.defaults[parameter.id] !== undefined)

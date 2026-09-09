@@ -91,7 +91,7 @@ const percentage = (source: string, field: string, value: unknown): number => {
     value > 100
   )
     fail(source, field, "must be a finite percentage from 0 to 100");
-  return value;
+  return Number(value);
 };
 
 const entriesOf = (source: string, raw: Buffer): VoteEntry[] => {
@@ -101,7 +101,7 @@ const entriesOf = (source: string, raw: Buffer): VoteEntry[] => {
   const entries = Array.isArray(parsed) ? parsed : parsed.entries;
   if (!Array.isArray(entries) || entries.length === 0)
     fail(source, "entries", "must be a non-empty array");
-  return entries;
+  return entries as VoteEntry[];
 };
 
 const granularTotals = (source: string, entries: VoteEntry[]) => {
@@ -192,7 +192,7 @@ export const readNationalElectionSources = (
       if (!Array.isArray(rounds) || rounds.length === 0)
         fail(sourcePath, "rounds", "must be a non-empty array");
       const seenRounds = new Set<number>();
-      for (const [roundIndex, rawRound] of rounds.entries()) {
+      for (const [roundIndex, rawRound] of (rounds as unknown[]).entries()) {
         const round = rawRound as Record<string, unknown>;
         const roundNumber = integer(
           sourcePath,
@@ -224,7 +224,9 @@ export const readNationalElectionSources = (
         const voteMeta = (round.votes ?? {}) as Record<string, unknown>;
         const expected = new Map<number, number>();
         const contestId = `${folder}:r${roundNumber}`;
-        for (const [choiceIndex, rawChoice] of ranking.entries()) {
+        for (const [choiceIndex, rawChoice] of (
+          ranking as unknown[]
+        ).entries()) {
           const choice = rawChoice as Record<string, unknown>;
           const number = integer(
             sourcePath,
@@ -271,10 +273,10 @@ export const readNationalElectionSources = (
             choiceKind: "presidential_ticket",
             choiceNumber: number,
             canonicalPartyId: null,
-            presidentName: choice.president,
-            vicePresidentName: choice.vicePresident,
+            presidentName: choice.president as string,
+            vicePresidentName: choice.vicePresident as string,
             choiceName: `${choice.president} / ${choice.vicePresident}`,
-            choiceShort: choice.president,
+            choiceShort: choice.president as string,
             votes,
             pct: share,
             seats: null,
@@ -309,7 +311,7 @@ export const readNationalElectionSources = (
           contestKey: folder,
           electionType: "presidential",
           resultGrain: "national",
-          electionDate: round.date,
+          electionDate: round.date as string,
           cycleYear: Number(folder.slice(0, 4)),
           round: roundNumber,
           registeredVoters: registered,
@@ -357,7 +359,7 @@ export const readNationalElectionSources = (
       fail(sourcePath, "parties", "must be a non-empty array");
     const turnout = (parsed.turnout ?? {}) as Record<string, unknown>;
     const expected = new Map<number, number>();
-    for (const [partyIndex, rawParty] of parties.entries()) {
+    for (const [partyIndex, rawParty] of (parties as unknown[]).entries()) {
       const party = rawParty as Record<string, unknown>;
       const number = integer(
         sourcePath,
@@ -395,7 +397,7 @@ export const readNationalElectionSources = (
         canonicalPartyId: canonicalId,
         presidentName: null,
         vicePresidentName: null,
-        choiceName: party.name,
+        choiceName: party.name as string,
         choiceShort: nickname || null,
         votes,
         pct: percentage(sourcePath, `parties[${partyIndex}].pct`, party.pct),

@@ -1,0 +1,139 @@
+{
+  "recordedAt": "2026-09-09T21:24:00+03:00",
+  "testedRevision": "56d6aa434c plus the uncommitted Step 12 worktree",
+  "releaseScope": "shared question selector and deterministic SQL recipes",
+  "builds": {
+    "ai": {
+      "command": "npm run build:ai",
+      "status": "passed",
+      "output": "dist-ai",
+      "size": "40M",
+      "requiredAssets": [
+        "fonts/fonts.css",
+        "favicon.svg",
+        "site.webmanifest",
+        "og.png",
+        "evals-og.png",
+        "tools-og.png",
+        "robots.txt",
+        "sitemap.xml",
+        "llms.txt",
+        "evals.html",
+        "tools.html"
+      ],
+      "outputPolicy": "exact top-level allowlist asserted during build; data and main-site prerender output rejected"
+    },
+    "main": {
+      "command": "npm run build",
+      "status": "passed",
+      "output": "dist",
+      "size": "7.1G",
+      "prerenderedRoutes": 91554,
+      "englishMirrors": 62450,
+      "ogCards": 6778,
+      "imageFilesConvertedToWebp": 627
+    }
+  },
+  "localSmoke": {
+    "command": "node /tmp/question-ui-smoke.cjs (Playwright against local Vite hosts)",
+    "status": "passed",
+    "viewports": [
+      { "name": "desktop", "width": 1440, "height": 900 },
+      { "name": "mobile", "width": 390, "height": 844 }
+    ],
+    "ai": "nationalResults selection dispatched directly",
+    "db": "nationalResults selection generated editable election_national_results('parliamentary', ...) SQL without executing it",
+    "horizontalOverflow": false
+  },
+  "localCapabilities": {
+    "command": "readQuestionCapabilities(new Pool({ connectionString: 'postgres://postgres:postgres@localhost:5433/electionsbg' }))",
+    "contractVersion": 1,
+    "schemaVersion": 195,
+    "sourceVersionSha256": "f4496952cafef723f01842939931024564e554b74f2f9c32031b5bb5f72342ad",
+    "latestPeriod": "2026-04-19",
+    "capabilities": [
+      {
+        "id": "nationalResults",
+        "recipeVersion": 1,
+        "sourceVersionSha256": "3662f5f627cef8de5d5fe1047b5a904db952dfab8c4fb558fe551b2b2a2d1dfe",
+        "latestPeriod": "2026-04-19",
+        "ready": true
+      },
+      {
+        "id": "presidentialResults",
+        "recipeVersion": 1,
+        "sourceVersionSha256": "1a82017be301eb27d45c5fcb3cab5e284f9927abf2688ddeb5c4930e9759d266",
+        "latestPeriod": "2021-11-21",
+        "ready": true
+      }
+    ]
+  },
+  "factParity": [
+    {
+      "case": "parliamentary-2026-winner",
+      "localSqlCommand": "docker compose exec -T postgres psql -U postgres -d electionsbg -Atc SELECT ... FROM election_national_results('parliamentary','2026_04_19',NULL) ORDER BY votes DESC LIMIT 1",
+      "expected": {
+        "choice": "ПРОГРЕСИВНА БЪЛГАРИЯ",
+        "votes": 1444920,
+        "seats": 131
+      },
+      "actual": {
+        "choice": "ПРОГРЕСИВНА БЪЛГАРИЯ",
+        "votes": 1444920,
+        "seats": 131
+      },
+      "sourcePath": "2026_04_19/national_summary.json",
+      "localDecodedSha256": "7b973aac27e9e537bbc0f5e539c82b3ca80de3d20792fdd3fd654eb6cffd44b3",
+      "productionDecodedSha256": "7b973aac27e9e537bbc0f5e539c82b3ca80de3d20792fdd3fd654eb6cffd44b3",
+      "granularSha256": "9913c88b0dedeabcaa5a00cab9564e8b8499f93b8d79341162e12ac90ba0630c"
+    },
+    {
+      "case": "presidential-2021-runoff-winner",
+      "localSqlCommand": "docker compose exec -T postgres psql -U postgres -d electionsbg -Atc SELECT ... FROM election_national_results('presidential','2021_11_14_pvr',2) ORDER BY votes DESC LIMIT 1",
+      "expected": {
+        "choice": "Румен Георгиев Радев / Илияна Малинова Йотова",
+        "votes": 1539650,
+        "round": 2
+      },
+      "actual": {
+        "choice": "Румен Георгиев Радев / Илияна Малинова Йотова",
+        "votes": 1539650,
+        "round": 2
+      },
+      "sourcePath": "2021_11_14_pvr/national_summary.json",
+      "localDecodedSha256": "99bcd51ea54ac80ede672fa4c8823189f342d8e96da21a9eec107e93dd779fdf",
+      "productionDecodedSha256": "99bcd51ea54ac80ede672fa4c8823189f342d8e96da21a9eec107e93dd779fdf",
+      "granularSha256": "5c38deed47c8713456812100188978557742a9273caf9f76ff3838f938d65d9d"
+    }
+  ],
+  "productionSample": {
+    "readOnly": true,
+    "commands": [
+      "curl -fsS -o /tmp/question-parliamentary.json https://storage.googleapis.com/data-electionsbg-com/2026_04_19/national_summary.json",
+      "gzip -dc /tmp/question-parliamentary.json | shasum -a 256",
+      "curl -fsS -o /tmp/question-presidential.json https://storage.googleapis.com/data-electionsbg-com/2021_11_14_pvr/national_summary.json",
+      "gzip -dc /tmp/question-presidential.json | shasum -a 256",
+      "curl -fsS https://electionsbg.com/api/sql/schema"
+    ],
+    "hosts": {
+      "https://ai.electionsbg.com/": 200,
+      "https://electionsbg.com/db": 200
+    },
+    "schemaTableCount": 265,
+    "serverCapabilities": null,
+    "electionRelationsPresent": [],
+    "sqlEndToEndStatus": "pending migration, loader, and function deployment"
+  },
+  "rollout": {
+    "state": "prepared-not-deployed",
+    "order": [
+      "apply migration 195",
+      "run the election national-results loader",
+      "deploy the SQL function endpoint with capability contract 1",
+      "verify schema 195, populated reconciled data, exact function result columns, runtime EXECUTE privilege, and both recipe versions",
+      "run production parliamentary and presidential fact parity",
+      "deploy the main and AI UIs"
+    ],
+    "staggeredDeployBehavior": "Without the exact, structurally valid server capability contract and populated reconciled sources, the two guarded election recipes remain review-only and generated deep links cannot run. Their SQL text, legacy links, saved SQL, and manually edited read-only SQL remain readable."
+  }
+}

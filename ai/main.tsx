@@ -6,6 +6,7 @@ import "@/index.css";
 import "@/App.css";
 import { ThemeContextProvider } from "@/theme/ThemeContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryProvider } from "@/data/QueryProvider";
 import { App } from "./App";
 import { EvalsScreen } from "./app/EvalsScreen";
 
@@ -25,7 +26,9 @@ const screen = /^\/evals\/?$/.test(pathname) ? (
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeContextProvider>
-      <TooltipProvider>{screen}</TooltipProvider>
+      <QueryProvider>
+        <TooltipProvider>{screen}</TooltipProvider>
+      </QueryProvider>
     </ThemeContextProvider>
   </React.StrictMode>,
 );

@@ -8,10 +8,17 @@
 import react from "@vitejs/plugin-react-swc";
 import fs from "node:fs";
 import path from "path";
-import type { Connect, Plugin } from "vite";
+import type { Connect, Plugin, ResolvedConfig } from "vite";
 import { defineConfig, loadEnv } from "vite";
 
 import { dbApi } from "./vite/db-api";
+import {
+  assertAiOutput,
+  AI_PUBLIC_ASSETS,
+  copyAiPublicAssets,
+  copyAiSeoImages,
+  isAiPublicAsset,
+} from "./vite/ai-public-assets";
 
 const DATA_DIR = path.resolve(__dirname, "data");
 
@@ -23,6 +30,9 @@ const CONTENT_TYPES: Record<string, string> = {
   ".webp": "image/webp",
   ".xml": "application/xml",
   ".txt": "text/plain; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".ico": "image/x-icon",
+  ".woff2": "font/woff2",
 };
 
 const serveDataMiddleware: Connect.NextHandleFunction = (req, res, next) => {
@@ -49,50 +59,87 @@ const serveDataDir = (): Plugin => ({
   name: "serve-data-dir-ai",
   configureServer(server) {
     server.middlewares.use(serveDataMiddleware);
+    server.middlewares.use(serveAiPublicAssetMiddleware);
   },
   configurePreviewServer(server) {
     server.middlewares.use(serveDataMiddleware);
   },
 });
 
-// publicDir copies ALL of public/ (parliament prerender, articles, images, og,
-// sitemaps, llms…) into dist-ai. The chat needs almost none of it, so after the
-// build we prune dist-ai down to the build outputs + the few static assets the
-// AI index.html actually references. Keeps the deploy small + well under the
-// Firebase file ceiling. (Dev still serves all of public/ via publicDir.)
-const KEEP = new Set([
-  "index.html",
-  "assets",
-  "fonts",
-  "favicon.svg",
-  "favicon.ico",
-  "favicon-16x16.png",
-  "favicon-32x32.png",
-  "apple-touch-icon.png",
-  "icon-192.png",
-  "icon-512.png",
-  "icon-512-maskable.png",
-  "site.webmanifest",
-]);
-const pruneDistAi = (): Plugin => ({
-  name: "prune-dist-ai",
-  apply: "build",
-  closeBundle() {
-    const out = path.resolve(__dirname, "dist-ai");
-    if (!fs.existsSync(out)) return;
-    for (const entry of fs.readdirSync(out)) {
-      if (!KEEP.has(entry)) {
-        // tolerate races (e.g. Spotlight re-creating .DS_Store mid-prune) so a
-        // deploy's predeploy build never flakes on cleanup
-        try {
-          fs.rmSync(path.join(out, entry), { recursive: true, force: true });
-        } catch {
-          /* already gone / being written — ignore */
+// The main app's public/ tree contains its prerendered site and data symlinks.
+// Giving that directory to Vite makes the AI build copy gigabytes only to
+// delete them in closeBundle. Keep the AI package explicit and small instead.
+const serveAiPublicAssetMiddleware: Connect.NextHandleFunction = (
+  req,
+  res,
+  next,
+) => {
+  if (req.method !== "GET" && req.method !== "HEAD") return next();
+  const relative = decodeURIComponent((req.url ?? "").split("?")[0]).replace(
+    /^\/+/,
+    "",
+  );
+  if (!isAiPublicAsset(relative)) return next();
+  const resolved = path.resolve(__dirname, "public", relative);
+  const publicRoot = path.resolve(__dirname, "public");
+  if (!resolved.startsWith(`${publicRoot}${path.sep}`)) return next();
+  fs.stat(resolved, (err, stat) => {
+    if (err || !stat.isFile()) return next();
+    res.setHeader(
+      "Content-Type",
+      CONTENT_TYPES[path.extname(resolved).toLowerCase()] ||
+        "application/octet-stream",
+    );
+    res.setHeader("Cache-Control", "no-cache");
+    if (req.method === "HEAD") return res.end();
+    fs.createReadStream(resolved).pipe(res);
+  });
+};
+
+const resolvedBuildOutput = (config: ResolvedConfig): string =>
+  path.resolve(config.root, config.build.outDir);
+
+const copyRequiredAiAssets = (): Plugin => {
+  let out = "";
+  const publicRoot = path.resolve(__dirname, "public");
+  return {
+    name: "copy-required-public-assets-ai",
+    apply: "build",
+    configResolved(config) {
+      out = resolvedBuildOutput(config);
+    },
+    closeBundle() {
+      if (!fs.existsSync(out)) return;
+      copyAiPublicAssets(publicRoot, out);
+    },
+  };
+};
+
+const KEEP = new Set(["index.html", "assets", ...AI_PUBLIC_ASSETS]);
+const pruneDistAi = (): Plugin => {
+  let out = "";
+  return {
+    name: "prune-dist-ai",
+    apply: "build",
+    configResolved(config) {
+      out = resolvedBuildOutput(config);
+    },
+    closeBundle() {
+      if (!fs.existsSync(out)) return;
+      for (const entry of fs.readdirSync(out)) {
+        if (!KEEP.has(entry)) {
+          // A concurrent cleanup may already have removed the entry. Any other
+          // filesystem error must fail packaging so undeclared output cannot ship.
+          try {
+            fs.rmSync(path.join(out, entry), { recursive: true, force: true });
+          } catch (error) {
+            if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+          }
         }
       }
-    }
-  },
-});
+    },
+  };
+};
 
 const SITE = "https://ai.electionsbg.com";
 
@@ -206,60 +253,59 @@ const derivePage = (
 // Write the SEO/AIO files into dist-ai after the prune (so they aren't removed)
 // and copy the prebuilt OG image. robots/sitemap/llms are AI-app-specific, so
 // they can't live in the shared public/ dir.
-const writeSeoFiles = (): Plugin => ({
-  name: "write-seo-files-ai",
-  apply: "build",
-  enforce: "post",
-  closeBundle() {
-    const out = path.resolve(__dirname, "dist-ai");
-    if (!fs.existsSync(out)) return;
-    fs.writeFileSync(path.join(out, "robots.txt"), ROBOTS_TXT);
-    fs.writeFileSync(path.join(out, "sitemap.xml"), SITEMAP_XML);
-    fs.writeFileSync(path.join(out, "llms.txt"), LLMS_TXT);
-    const og = path.resolve(__dirname, "ai/assets/og.png");
-    if (fs.existsSync(og)) fs.copyFileSync(og, path.join(out, "og.png"));
-    // Eval-specific OG image (generated by scripts/brand/generate_evals_og.ts).
-    const evalsOg = path.resolve(__dirname, "ai/assets/evals-og.png");
-    if (fs.existsSync(evalsOg))
-      fs.copyFileSync(evalsOg, path.join(out, "evals-og.png"));
-    // Tools-page OG image (generated by scripts/brand/generate_tools_og.ts).
-    const toolsOg = path.resolve(__dirname, "ai/assets/tools-og.png");
-    if (fs.existsSync(toolsOg))
-      fs.copyFileSync(toolsOg, path.join(out, "tools-og.png"));
-    // Emit the per-page static shells from the built index.html — same hashed
-    // JS bundle (main.tsx picks the screen/view by path), each with its own
-    // <head>. Written here (post-prune) so pruneDistAi doesn't remove them;
-    // served via the firebase.json rewrites (/evals, /tools).
-    const indexPath = path.join(out, "index.html");
-    if (fs.existsSync(indexPath)) {
-      const indexHtml = fs.readFileSync(indexPath, "utf8");
-      fs.writeFileSync(
-        path.join(out, "evals.html"),
-        derivePage(indexHtml, {
-          title: EVALS_TITLE,
-          desc: EVALS_DESC,
-          canonical: `${SITE}/evals`,
-          image: `${SITE}/evals-og.png`,
-        }),
-      );
-      fs.writeFileSync(
-        path.join(out, "tools.html"),
-        derivePage(indexHtml, {
-          title: TOOLS_TITLE,
-          desc: TOOLS_DESC,
-          canonical: `${SITE}/tools`,
-          image: `${SITE}/tools-og.png`,
-        }),
-      );
-    }
-  },
-});
+const writeSeoFiles = (): Plugin => {
+  let out = "";
+  return {
+    name: "write-seo-files-ai",
+    apply: "build",
+    enforce: "post",
+    configResolved(config) {
+      out = resolvedBuildOutput(config);
+    },
+    closeBundle() {
+      if (!fs.existsSync(out)) return;
+      fs.writeFileSync(path.join(out, "robots.txt"), ROBOTS_TXT);
+      fs.writeFileSync(path.join(out, "sitemap.xml"), SITEMAP_XML);
+      fs.writeFileSync(path.join(out, "llms.txt"), LLMS_TXT);
+      copyAiSeoImages(path.resolve(__dirname, "ai/assets"), out);
+      // Emit the per-page static shells from the built index.html — same hashed
+      // JS bundle (main.tsx picks the screen/view by path), each with its own
+      // <head>. Written here (post-prune) so pruneDistAi doesn't remove them;
+      // served via the firebase.json rewrites (/evals, /tools).
+      const indexPath = path.join(out, "index.html");
+      if (fs.existsSync(indexPath)) {
+        const indexHtml = fs.readFileSync(indexPath, "utf8");
+        fs.writeFileSync(
+          path.join(out, "evals.html"),
+          derivePage(indexHtml, {
+            title: EVALS_TITLE,
+            desc: EVALS_DESC,
+            canonical: `${SITE}/evals`,
+            image: `${SITE}/evals-og.png`,
+          }),
+        );
+        fs.writeFileSync(
+          path.join(out, "tools.html"),
+          derivePage(indexHtml, {
+            title: TOOLS_TITLE,
+            desc: TOOLS_DESC,
+            canonical: `${SITE}/tools`,
+            image: `${SITE}/tools-og.png`,
+          }),
+        );
+      }
+      assertAiOutput(out);
+    },
+  };
+};
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, ".", "");
   return {
     root: path.resolve(__dirname, "ai"),
-    publicDir: path.resolve(__dirname, "public"),
+    // Dev data has its own middleware; build assets are copied from the
+    // allowlist above. Never traverse the main site's public/ tree here.
+    publicDir: false,
     envDir: path.resolve(__dirname),
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
@@ -267,7 +313,14 @@ export default defineConfig(({ mode }) => {
     // dbApi mounts /api/db/* on the dev/preview server (same handlers as prod)
     // so migrated tools work locally; in the prod build the AI app reaches the
     // deployed function cross-origin via VITE_DB_API_ORIGIN instead.
-    plugins: [react(), serveDataDir(), dbApi(), pruneDistAi(), writeSeoFiles()],
+    plugins: [
+      react(),
+      serveDataDir(),
+      dbApi(),
+      pruneDistAi(),
+      copyRequiredAiAssets(),
+      writeSeoFiles(),
+    ],
     resolve: {
       alias: { "@": path.resolve(__dirname, "./src") },
       // Force a single React instance, same as the main app (vite.config.ts).

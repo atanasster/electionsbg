@@ -107,6 +107,9 @@ describe("data-map model", () => {
     );
     expect(routeOf("/{cycle}/index.json")).toBe("local");
     expect(routeOf("/{election}/national_summary.json")).toBe("elections");
+    expect(routeOf("/2024_10_27/national_summary.json")).toBe("elections");
+    expect(routeOf("/2024_10_27/municipalities/by/VAR.json")).toBe("elections");
+    expect(routeOf("/opencalls/index.json")).toBe("opencalls");
     // …and the presidential rule precedes the local one, which is what makes the first two
     // assertions above true rather than lucky.
     const idx = (needle: string) =>

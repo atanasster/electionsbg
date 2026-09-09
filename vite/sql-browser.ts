@@ -70,6 +70,13 @@ const { runWithClient } = require_("../functions/sql_execution.js") as {
     limit?: number,
   ) => Promise<unknown>;
 };
+const { readQuestionCapabilities } = require_(
+  "../functions/question_capabilities.js",
+) as {
+  readQuestionCapabilities: (pool: {
+    query: (sql: string, values?: unknown[]) => Promise<{ rows: unknown[] }>;
+  }) => Promise<unknown>;
+};
 type RelationVisibility = "data" | "derived" | "internal";
 
 const readSchema = async (): Promise<unknown> => {
@@ -152,6 +159,11 @@ const readSchema = async (): Promise<unknown> => {
   return {
     databases: schemas.map((name) => ({ name, file: dsnLabel() })),
     tables: tablesOut,
+    questionCapabilities: await readQuestionCapabilities({
+      query: async (sql: string, values?: unknown[]) => ({
+        rows: await allRows(sql, values),
+      }),
+    }),
   };
 };
 

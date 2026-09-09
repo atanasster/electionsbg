@@ -11,6 +11,7 @@ const NON_SYSTEM = "table_schema NOT IN ('pg_catalog','information_schema')";
 // estimated row counts.
 const { classifyRelation, SCHEMA_SQL } = require("./db_catalog");
 const { runWithClient } = require("./sql_execution");
+const { readQuestionCapabilities } = require("./question_capabilities");
 
 async function readSchema(pool) {
   const q = (sql) => pool.query(sql).then((r) => r.rows);
@@ -79,6 +80,7 @@ async function readSchema(pool) {
   return {
     databases: schemas.map((name) => ({ name, file: "electionsbg" })),
     tables: tablesOut,
+    questionCapabilities: await readQuestionCapabilities(pool),
   };
 }
 

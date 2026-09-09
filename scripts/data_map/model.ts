@@ -176,9 +176,21 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   // been attributed to the LOCAL corpus. The build fails on an UNMATCHED path and never on a
   // wrongly matched one, so that edge would have been silently false on the published map.
   { pattern: /^\/\{pvrCycle\}\//, dataset: "presidential" },
+  {
+    pattern: /^\/\d{4}_\d{2}_\d{2}_pvr\//,
+    dataset: "presidential",
+  },
   { pattern: /^\/\{cycle\}\//, dataset: "local" },
   { pattern: /^\/local_chmi_history/, dataset: "local" },
   { pattern: /^\/\{e(lection|\.name)?\}\//, dataset: "elections" },
+  {
+    // Integrity fixtures use a concrete parliamentary contest instead of a
+    // template expression. Keep this narrow so a dated local-election path is
+    // not silently credited to the national corpus.
+    pattern:
+      /^\/\d{4}_\d{2}_\d{2}\/(national_summary\.json|municipalities\/by\/)/,
+    dataset: "elections",
+  },
   { pattern: /^\/transitions\//, dataset: "elections" },
   { pattern: /^\/transitions_local\//, dataset: "local" },
   { pattern: /^\/transitions_prevote\//, dataset: "local" },
@@ -242,6 +254,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/procurement\//, dataset: "procurement" },
   { pattern: /^\/ngo\//, dataset: "ngo" },
   { pattern: /^\/funds\//, dataset: "funds" },
+  { pattern: /^\/opencalls\//, dataset: "opencalls" },
   // The per-município "recent activity" feed (data/myarea/alerts/) is a derived
   // place-governance digest — built from council/procurement/funds/budget data
   // that already feed AI on their own edges. The model has no dataset→dataset
@@ -1854,20 +1867,25 @@ export const DATASETS: DatasetDef[] = [
   },
   {
     id: "elections",
-    label: { bg: "Парламентарни избори", en: "Parliamentary elections" },
+    label: { bg: "Национални избори", en: "National elections" },
     detail: {
       bg: "2005–2026, до ниво секция",
       en: "2005–2026, down to section level",
     },
     desc: {
-      bg: "Резултатите от всеки парламентарен вот от 2005 г. насам — по секция, населено място, община и област, с машинно/хартиено разделение, преференции и деривирания рисков индекс.",
-      en: "Every parliamentary vote since 2005 — by section, settlement, municipality and region, with machine/paper splits, preferences and the derived risk index.",
+      bg: "Резултатите от всеки парламентарен вот от 2005 г. насам — по секция, населено място, община и област, с машинно/хартиено разделение, преференции и деривирания рисков индекс. Нормализираните национални обобщения в Postgres включват и президентските турове.",
+      en: "Every parliamentary vote since 2005 — by section, settlement, municipality and region, with machine/paper splits, preferences and the derived risk index. The normalized national summaries in Postgres also include presidential rounds.",
     },
     // `public/` is where these were BUILT to years ago; the served tree — and
     // what dataUrl() resolves — is data/{election}/. `ls public/20*` is empty.
     path: "data/{election}/",
     serving: "both",
-    tables: ["candidate_person", "person_election_stats"],
+    tables: [
+      "candidate_person",
+      "person_election_stats",
+      "election_contest",
+      "election_national_result",
+    ],
     tags: ["elections"],
   },
   {

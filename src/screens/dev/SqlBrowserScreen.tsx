@@ -29,6 +29,11 @@ import { QuestionSelector } from "@/lib/questions/selector";
 import { SQL_QUESTION_CATALOG } from "@/lib/questions/sql/catalog";
 import { renderSqlQuestion } from "@/lib/questions/sql/render";
 import {
+  catalogForServerCapabilities,
+  isGuardedSqlExecutionBlocked,
+  parseSqlServerCapabilities,
+} from "@/lib/questions/sql/capabilities";
+import {
   parseSqlQuestionUrl,
   writeSqlQuestionUrl,
 } from "@/lib/questions/sql/url";
@@ -65,6 +70,7 @@ interface TableInfo {
 interface SchemaResponse {
   databases: Array<{ name: string; file: string }>;
   tables: TableInfo[];
+  questionCapabilities?: unknown;
 }
 interface QueryResult {
   columns: string[];
@@ -234,6 +240,14 @@ export const SqlBrowserScreen = () => {
   );
   const [activeRendered, setActiveRendered] =
     useState<RenderedSqlQuestion | null>(seeded ?? null);
+  const serverCapabilities = useMemo(
+    () => parseSqlServerCapabilities(schema?.questionCapabilities),
+    [schema?.questionCapabilities],
+  );
+  const activeCapabilityBlocked = isGuardedSqlExecutionBlocked(
+    activeRendered,
+    serverCapabilities,
+  );
   const viewRef = useRef<EditorView | null>(null);
 
   /**
@@ -316,6 +330,15 @@ export const SqlBrowserScreen = () => {
     async (text: string, plan: boolean) => {
       const trimmed = text.trim().replace(/;\s*$/, "");
       if (!trimmed) return;
+      if (activeCapabilityBlocked) {
+        setError(
+          lang === "bg"
+            ? "Тази справка ще може да се изпълнява, след като сървърът потвърди точната версия на схемата и данните."
+            : "This query can run after the server confirms the exact schema and data version.",
+        );
+        setResult(null);
+        return;
+      }
       const finalSql = plan ? `EXPLAIN ${trimmed}` : trimmed;
       setLoading(true);
       setError(null);
@@ -350,7 +373,7 @@ export const SqlBrowserScreen = () => {
         setLoading(false);
       }
     },
-    [limit],
+    [activeCapabilityBlocked, lang, limit],
   );
 
   // Run the current selection if any, else the whole editor.
@@ -432,6 +455,11 @@ export const SqlBrowserScreen = () => {
     const v = t.visibility ?? "data";
     return v === "internal" || (v === "derived" && !showDerived);
   }).length;
+  const serverQuestionCatalog = useMemo(
+    () =>
+      catalogForServerCapabilities(SQL_QUESTION_CATALOG, serverCapabilities),
+    [serverCapabilities],
+  );
 
   // Sorted view of result rows.
   const displayRows = useMemo(() => {
@@ -475,6 +503,7 @@ export const SqlBrowserScreen = () => {
   const tabBtn = (id: typeof tab, label: string) => (
     <button
       onClick={() => setTab(id)}
+      aria-pressed={tab === id}
       className={`rounded px-2 py-1 text-xs ${
         tab === id
           ? "bg-accent-strong text-accent-strong-foreground"
@@ -486,10 +515,14 @@ export const SqlBrowserScreen = () => {
   );
 
   return (
-    <div className="flex h-[calc(100dvh-8rem)] min-h-[540px] w-full bg-background text-foreground">
+    <div className="flex min-h-[540px] w-full flex-col bg-background text-foreground lg:h-[calc(100dvh-8rem)] lg:flex-row">
       {/* Sidebar */}
-      <aside className="flex w-80 shrink-0 flex-col border-r border-border bg-muted/20">
-        <div className="flex items-center gap-1 border-b border-border p-2">
+      <aside className="flex max-h-72 w-full shrink-0 flex-col border-b border-border bg-muted/20 lg:max-h-none lg:w-80 lg:border-b-0 lg:border-r">
+        <div
+          className="flex items-center gap-1 border-b border-border p-2"
+          role="group"
+          aria-label={lang === "bg" ? "Панели с данни" : "Data panels"}
+        >
           {tabBtn("schema", "Schema")}
           {tabBtn(
             "history",
@@ -687,7 +720,7 @@ export const SqlBrowserScreen = () => {
         <div className="border-b border-border p-2">
           <QuestionSelector
             key={`${seeded?.recipeId ?? "new"}:${JSON.stringify(seeded?.parameters ?? {})}`}
-            catalog={SQL_QUESTION_CATALOG}
+            catalog={serverQuestionCatalog}
             surface="sql"
             lang={lang}
             lookupAdapters={questionLookupAdapters}
@@ -695,8 +728,17 @@ export const SqlBrowserScreen = () => {
             initialParameterValues={seeded?.parameters}
             onSelect={generateSql}
           />
-          <p className="mt-1 text-[11px] text-muted-foreground">
+          <p
+            id="sql-capability-status"
+            className="mt-1 text-[11px] text-muted-foreground"
+            role="status"
+            aria-live="polite"
+          >
             {ALL_QUERIES.length} {lang === "bg" ? "SQL справки" : "SQL queries"}
+            {serverCapabilities &&
+              ` · ${lang === "bg" ? "схема" : "schema"} ${serverCapabilities.schemaVersion ?? (lang === "bg" ? "стара" : "legacy")} · ${lang === "bg" ? "данни" : "data"} ${serverCapabilities.sourceVersion?.slice(0, 8) ?? (lang === "bg" ? "неизвестни" : "unknown")}`}
+            {activeCapabilityBlocked &&
+              ` · ${lang === "bg" ? "изпълнението на избраната справка изчаква потвърждение от сървъра" : "the selected query is waiting for server confirmation"}`}
           </p>
         </div>
 
@@ -721,14 +763,16 @@ export const SqlBrowserScreen = () => {
         <div className="flex flex-wrap items-center gap-3 border-b border-border p-2">
           <Button
             onClick={() => runCurrent(false)}
-            disabled={loading}
+            disabled={loading || activeCapabilityBlocked}
+            aria-describedby="sql-capability-status"
             size="sm"
           >
             {loading ? "Running…" : "Run"}
           </Button>
           <Button
             onClick={() => runCurrent(true)}
-            disabled={loading}
+            disabled={loading || activeCapabilityBlocked}
+            aria-describedby="sql-capability-status"
             size="sm"
             variant="outline"
           >
