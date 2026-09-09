@@ -45,7 +45,8 @@ export const LIBRARY: LibraryGroup[] = [
       {
         id: "top-contractors",
         label: "Top contractors",
-        answers: "Which companies have been paid the most across all contracts",
+        answers:
+          "Which companies hold the largest awarded contract value in this corpus",
         cost: "medium",
         sql: `-- tag = 'contract' matters: amendments carry their own rows and
 -- summing all tags double-counts the amended contracts.
@@ -345,7 +346,7 @@ SELECT * FROM open_calls_list('open', 'call', NULL, NULL, 50);`,
         id: "base-rates-for-a-procedure",
         label: "Base rates for a procedure",
         answers:
-          "How many applicants a procedure funded before, and the median grant",
+          "How many projects a procedure disbursed to before, and the median grant",
         cost: "fast",
         sql: `-- paid_project_count is DISBURSEMENT, not approval. ИСУН publishes no
 -- rejected applications, so an approval rate has no denominator and cannot be
