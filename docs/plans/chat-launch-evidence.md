@@ -12,7 +12,7 @@ Checked 2026-09-10. This records observations, not promises about untested behav
 - [x] T5 bilingual article
 - [x] T6 release validation and rollout preparation
 - [ ] Production publication and legacy transition rollout — pending editorial approval
-- [ ] T7 subsequent rebranding handoff
+- [x] T7 subsequent rebranding handoff
 
 Review report for this run: `CODE_REVIEW_REPORT_20260910-122538-chat-launch.md` (transient, never committed).
 
@@ -139,3 +139,8 @@ Five explicit permanent page rules are retained as a candidate JSON file, not ac
 `chat-launch-release.md` records live rollback versions, the complete editorial review links, the main Hosting → DB → Hosting order, a proposed minimum 14-day transition, distinct cached-redirect recovery, and sanitized manual observation. Production article/promotion, legacy notice deployment and permanent redirects remain pending the plan's complete rendered editorial review and subsequent gates. No domain change or automation has occurred.
 
 Standalone typecheck/build and strict output packaging pass after resolving a macOS filename-case collision. Seven route/asset unit cases and two redirect-probe cases pass. Browser recovery passes in BG/EN at 1280px and 390px: task-owned saved conversation preserved, downloaded Markdown includes the answer, English PDF has a valid PDF header, migration links retain language, no horizontal overflow, composer reachable. The emitted recovery HTML has one noindex directive and its own canonical. Scoped lint and source/repair review pass with zero findings. The complete main build, required functions suites, AI harness/non-AI regression, integrated browser and entry-performance evidence are recorded in T1–T5; no unverified production rollout is claimed.
+
+
+## T7 subsequent domain handoff
+
+`chat-launch-rebrand-handoff.md` preserves all six screen paths and the bilingual article slug, identifies additive origins/Turnstile capacity work, retains the existing AI quota ledger, and coordinates canonical/static-origin checks with the broader rebrand. It explicitly requires a second recovery route on electionsbg.com before that origin is redirected: the old AI-origin recovery cannot read main-origin history. Final-domain redirects must be re-proven with query state and avoid chains. Domain configuration, DNS, publication and recurring monitoring were not performed.

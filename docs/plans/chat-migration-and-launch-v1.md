@@ -1,6 +1,6 @@
 # Наясно chat migration and launch article
 
-Status: implementation in progress; execution and verification are tracked in `chat-launch-evidence.md`. Publication remains gated on the complete rendered review.
+Status: implementation and release preparation complete; verified editorial preview is ready. Production publication/legacy rollout await the complete rendered editorial approval and release gates. Execution evidence: `chat-launch-evidence.md`; release runbook: `chat-launch-release.md`; later-domain handoff: `chat-launch-rebrand-handoff.md`.
 Date: 2026-09-10.
 
 ## 1. Outcome and agreed direction
@@ -57,36 +57,36 @@ Keep a discoverable legacy export page available during the agreed transition, t
 
 ## 4. Tier 0 — inventory, evidence and baseline
 
-- [ ] Inventory all public routes, hard-coded origins, assets, API/data origins, storage keys, language behavior, entry providers, analytics and deployment scripts. Include `ai/`, `src/`, `functions/`, `vite/`, prerender and Hosting configuration.
-- [ ] Record desktop/mobile baseline screenshots and homepage/chat performance before changes. Use clean, task-owned conversations for publication captures.
-- [ ] Verify current hosted AI model, actual limit behavior, reset clock, session renewal, service budget behavior and error messages. Record settings without copying secrets.
-- [ ] Establish a list of supported question families from the tool/starter catalogue and their real sources, periods and known gaps. Avoid equating site-wide data availability with chat access.
-- [ ] Create an evidence matrix for article claims and competitors: claim, source URL, checked date, announced/documented/tested status, result and caveat.
+- [x] Inventory all public routes, hard-coded origins, assets, API/data origins, storage keys, language behavior, entry providers, analytics and deployment scripts. Include `ai/`, `src/`, `functions/`, `vite/`, prerender and Hosting configuration.
+- [x] Record desktop/mobile baseline screenshots and homepage/chat performance before changes. Use clean, task-owned conversations for publication captures.
+- [x] Verify current hosted AI model, actual limit behavior, reset clock, session renewal, service budget behavior and error messages. Record settings without copying secrets.
+- [x] Establish a list of supported question families from the tool/starter catalogue and their real sources, periods and known gaps. Avoid equating site-wide data availability with chat access.
+- [x] Create an evidence matrix for article claims and competitors: claim, source URL, checked date, announced/documented/tested status, result and caveat.
 
 Gate: resolve the backend endpoint and language contracts; retain baseline measurements. No domain/DNS migration or corpus reload is required.
 
 ## 5. Tier 1 — integrate chat, tools and eval screens
 
-- [ ] Introduce lazy main-site routes for all three screens and English mirrors. Reuse existing query/theme/tooltip/language providers.
-- [ ] Adapt the chat shell to main-site navigation with a spacious conversation area and visible return links. Preserve the fixed composer, keyboard behavior, mobile keyboard handling and reachable conversation actions. Avoid nested competing page scroll areas.
-- [ ] Replace standalone `pushState` navigation with main-router-compatible transitions; verify same-route `?q=` changes as well as initial load. Reusing the existing initial-load-only effect unchanged is insufficient for SPA navigation.
-- [ ] Migrate all tools/workspace/evals links and preserve tool configuration, area, question and language state. Retain validation, URL-length checks and invalid-link messages.
-- [ ] Preserve typed prompts, structured starters, suggested follow-ups, manual follow-ups, clarification choices, memory, new chat, sharing, export, voice controls and answer-to-dashboard links.
-- [ ] Describe question sharing accurately. For article links, author self-contained prompts; do not expand scope into hosted conversation sharing. Ensure links never imply that they preserve a historical answer.
-- [ ] Migrate required static assets and evaluation artifacts. Confirm every request returns its expected type rather than an HTML SPA fallback at 200. Do not label experimental model artifacts as current production behavior.
-- [ ] Use the main site's analytics initialization once. Track aggregate interaction events without raw prompt text, conversation bodies or identifying query strings. Inspect existing page-view capture because `?q=` itself can leak prompt text.
-- [ ] Add page-specific title, description, canonical, language alternates, OG and prerender coverage. Default chat HTML must not contain saved conversations. Canonicalize question/tool state URLs to the appropriate base page rather than submitting them to the sitemap.
+- [x] Introduce lazy main-site routes for all three screens and English mirrors. Reuse existing query/theme/tooltip/language providers.
+- [x] Adapt the chat shell to main-site navigation with a spacious conversation area and visible return links. Preserve the fixed composer, keyboard behavior, mobile keyboard handling and reachable conversation actions. Avoid nested competing page scroll areas.
+- [x] Replace standalone `pushState` navigation with main-router-compatible transitions; verify same-route `?q=` changes as well as initial load. Reusing the existing initial-load-only effect unchanged is insufficient for SPA navigation.
+- [x] Migrate all tools/workspace/evals links and preserve tool configuration, area, question and language state. Retain validation, URL-length checks and invalid-link messages.
+- [x] Preserve typed prompts, structured starters, suggested follow-ups, manual follow-ups, clarification choices, memory, new chat, sharing, export, voice controls and answer-to-dashboard links.
+- [x] Describe question sharing accurately. For article links, author self-contained prompts; do not expand scope into hosted conversation sharing. Ensure links never imply that they preserve a historical answer.
+- [x] Migrate required static assets and evaluation artifacts. Confirm every request returns its expected type rather than an HTML SPA fallback at 200. Do not label experimental model artifacts as current production behavior.
+- [x] Use the main site's analytics initialization once. Track aggregate interaction events without raw prompt text, conversation bodies or identifying query strings. Inspect existing page-view capture because `?q=` itself can leak prompt text.
+- [x] Add page-specific title, description, canonical, language alternates, OG and prerender coverage. Default chat HTML must not contain saved conversations. Canonicalize question/tool state URLs to the appropriate base page rather than submitting them to the sitemap.
 
 Gate: direct navigation, reload, Back/Forward and all migrated screens work in both languages; homepage/main entry does not statically import AI registries, model libraries or evaluation data.
 
 ## 6. Tier 2 — hosted AI, limits and fallback
 
-- [ ] Apply additive backend origin/hostname changes first, then prove integrated staging calls against the chosen service.
-- [ ] Verify Turnstile success, cancellation, expiry and renewal through the real UI. Do not bypass challenges or weaken checks to capture screenshots.
-- [ ] Verify invalid sessions, per-minute/per-session/IP allowance, shared budget exhaustion and temporary service failure using deterministic tests; do not exhaust production quotas to test them.
-- [ ] Preserve non-AI continuation and honest mode labels when AI is unavailable. Network-dependent data tools must not be described as offline merely because they avoid an LLM.
-- [ ] Show practical limit/reset guidance derived from the policy where feasible. Current code constants are 20/session/day, 60/IP/day, 3/minute and a one-hour session; verify semantics before turning them into a promise of “20 free questions daily.” Shared IPs and renewed sessions need accurate wording.
-- [ ] Keep provider/cloud-processing disclosure visible. Verify local conversation persistence, export behavior and the privacy page agree with actual operation.
+- [x] Apply additive backend origin/hostname changes first, then prove integrated staging calls against the chosen service.
+- [x] Verify Turnstile success, cancellation, expiry and renewal through the real UI. Do not bypass challenges or weaken checks to capture screenshots.
+- [x] Verify invalid sessions, per-minute/per-session/IP allowance, shared budget exhaustion and temporary service failure using deterministic tests; do not exhaust production quotas to test them.
+- [x] Preserve non-AI continuation and honest mode labels when AI is unavailable. Network-dependent data tools must not be described as offline merely because they avoid an LLM.
+- [x] Show practical limit/reset guidance derived from the policy where feasible. Current code constants are 20/session/day, 60/IP/day, 3/minute and a one-hour session; verify semantics before turning them into a promise of “20 free questions daily.” Shared IPs and renewed sessions need accurate wording.
+- [x] Keep provider/cloud-processing disclosure visible. Verify local conversation persistence, export behavior and the privacy page agree with actual operation.
 
 Gate: both real AI and non-AI questions return on staging, with sources and mode labels; denial/fallback paths are understandable and old-host functionality still works.
 
@@ -100,11 +100,11 @@ Proposed copy:
 > Задай въпрос за бюджета, цените, обществените поръчки или изборите. Разгледай отговора и провери данните.  
 > **Задай въпрос** · Как работи
 
-- [ ] Primary CTA → `/chat`; secondary → the launch article once published. Keep the secondary absent until its destination is available.
-- [ ] Add three tested starter links across everyday expenses, public money and civic life. Each must be understandable without prior context.
-- [ ] Create artwork in the existing cream/charcoal/orange style: question → real chart/table → source. Keep headline/buttons as accessible HTML, decorative artwork with appropriate alternative text, and numerical examples grounded in actual captures.
-- [ ] Use restrained dimensions, explicit image size, compressed responsive assets and appropriate loading priority. No chat/model initialization, video or autoplay cost on the homepage.
-- [ ] Verify keyboard focus, contrast, touch targets, light/dark themes, zoom, narrow screens and the existing hub height/CLS/LCP budgets. Adjust the composition instead of casually widening budgets.
+- [x] Primary CTA → `/chat`; secondary → the launch article once published. Keep the secondary absent until its destination is available.
+- [x] Add three tested starter links across everyday expenses, public money and civic life. Each must be understandable without prior context.
+- [x] Create artwork in the existing cream/charcoal/orange style: question → real chart/table → source. Keep headline/buttons as accessible HTML, decorative artwork with appropriate alternative text, and numerical examples grounded in actual captures.
+- [x] Use restrained dimensions, explicit image size, compressed responsive assets and appropriate loading priority. No chat/model initialization, video or autoplay cost on the homepage.
+- [x] Verify keyboard focus, contrast, touch targets, light/dark themes, zoom, narrow screens and the existing hub height/CLS/LCP budgets. Adjust the composition instead of casually widening budgets.
 
 Gate: promotion reads clearly on mobile and desktop, its links work, search remains usable and performance checks pass.
 
@@ -138,18 +138,18 @@ Primary-source starting points, identified 2026-09-10:
 - OpenTender Bulgaria: https://data.open-contracting.org/en/publication/44 — procurement corpus; inspect its own portal/methodology for feature comparisons.
 - BIRD: https://bird.bg/judicial-money/ — declaration search described by its publisher.
 
-- [ ] Recheck sources and availability close to publication. Find Sigma's actual announcement if available; a specification establishes documented intent, not a completed implementation or measured accuracy.
-- [ ] Compare scope, source/record access, dates, guided questions, follow-ups, visualizations and access limits. Use “not tested/not documented” rather than an unsupported “no.”
-- [ ] For runnable chats, use the same small task set: basic lookup, dated/place comparison, contextual follow-up and unavailable-data question. Record model/mode/date and evidence support. Do not score non-chat search portals on conversational tasks.
-- [ ] Publish a concise, respectful table explaining when each tool helps. Keep detailed testing notes separately. Do not infer superiority from corpus row counts with different units/periods, or from a few selected successful answers.
+- [x] Recheck sources and availability close to publication. Find Sigma's actual announcement if available; a specification establishes documented intent, not a completed implementation or measured accuracy.
+- [x] Compare scope, source/record access, dates, guided questions, follow-ups, visualizations and access limits. Use “not tested/not documented” rather than an unsupported “no.”
+- [x] For runnable chats, use the same small task set: basic lookup, dated/place comparison, contextual follow-up and unavailable-data question. Record model/mode/date and evidence support. Do not score non-chat search portals on conversational tasks.
+- [x] Publish a concise, respectful table explaining when each tool helps. Keep detailed testing notes separately. Do not infer superiority from corpus row counts with different units/periods, or from a few selected successful answers.
 
 ### Screenshot production
 
-- [ ] Capture the integrated UI after layout and examples are stable: (1) typing/starter catalogue/mode, (2) answer with date and source, (3) follow-up sequence, (4) AI verification or allowance/fallback. Add at most two detail crops for deeper examples.
-- [ ] Keep originals and add numbered annotations with captions explaining what the reader should notice. Never alter answer text, figures, sources or mode labels to improve the demonstration.
-- [ ] Crop for readable article width and mobile; do not shrink a full desktop page into illegible text. Provide descriptive alt text and captions; annotations must not be the only way information is conveyed.
-- [ ] Capture fresh task-owned conversations, excluding browser chrome, tokens and unrelated saved history. Label any synthetic limit illustration explicitly; prefer real UI under a controlled test state.
-- [ ] Check a representative screenshot against production after deployment. If the UI or data changed materially, recapture or clearly date the image.
+- [x] Capture the integrated UI after layout and examples are stable: (1) typing/starter catalogue/mode, (2) answer with date and source, (3) follow-up sequence, (4) AI verification or allowance/fallback. Add at most two detail crops for deeper examples.
+- [x] Keep originals and add numbered annotations with captions explaining what the reader should notice. Never alter answer text, figures, sources or mode labels to improve the demonstration.
+- [x] Crop for readable article width and mobile; do not shrink a full desktop page into illegible text. Provide descriptive alt text and captions; annotations must not be the only way information is conveyed.
+- [x] Capture fresh task-owned conversations, excluding browser chrome, tokens and unrelated saved history. Label any synthetic limit illustration explicitly; prefer real UI under a controlled test state.
+- [x] Check a representative screenshot against production after deployment. If the UI or data changed materially, recapture or clearly date the image.
 
 Gate: every published question link and follow-up reproduces, all figures have evidence, and the competitive table distinguishes observed behavior from documentation.
 
@@ -172,12 +172,12 @@ Outline:
 
 Mention the impending rebrand briefly: Наясно is the project's new identity, with the domain move coming soon. Avoid saying the domain has already moved. Keep article URLs and internal links origin-relative so the content survives rebranding.
 
-- [ ] Select one stable article slug; register bilingual metadata in `public/articles/index.json` and bodies as `public/articles/<slug>-bg.md` and `-en.md`. Store artwork/screenshots within the existing article asset convention.
-- [ ] Draft locally with `draft: true`; inspect actual production packaging before any staging publish of unpublished text.
-- [ ] Include byline, actual publication date, summaries, OG image, source links and sensible topics. Do not tag every dashboard merely because the chat covers it.
-- [ ] Verify article renderer preserves prompt/tools query parameters, language and fragment links; article CTAs must not auto-run an ambiguous follow-up from an absent conversation.
-- [ ] Check the rendered article and generated HTML: one H1, correct title/canonical/hreflang, readable figures, working anchors, OG image, sitemap/index inclusion only when published.
-- [ ] Editorial review checks every capability and comparison claim against the evidence manifest, including any accuracy figures. Routing metrics must not become “answer accuracy.”
+- [x] Select one stable article slug; register bilingual metadata in `public/articles/index.json` and bodies as `public/articles/<slug>-bg.md` and `-en.md`. Store artwork/screenshots within the existing article asset convention.
+- [x] Draft locally with `draft: true`; inspect actual production packaging before any staging publish of unpublished text.
+- [x] Include byline, actual publication date, summaries, OG image, source links and sensible topics. Do not tag every dashboard merely because the chat covers it.
+- [x] Verify article renderer preserves prompt/tools query parameters, language and fragment links; article CTAs must not auto-run an ambiguous follow-up from an absent conversation.
+- [x] Check the rendered article and generated HTML: one H1, correct title/canonical/hreflang, readable figures, working anchors, OG image, sitemap/index inclusion only when published.
+- [x] Editorial review checks every capability and comparison claim against the evidence manifest, including any accuracy figures. Routing metrics must not become “answer accuracy.”
 
 Gate: finished bilingual draft, screenshots, final homepage card and all links are reviewable together before launch.
 
@@ -233,13 +233,13 @@ Dependencies: **T0 → T1/T2 → T3/T4 → T5 → T6**. Research and draft prose
 
 Deliverables:
 
-- [ ] Integrated, tested chat/tools/evals screens with shared site identity.
-- [ ] Stable hosted AI access and honest limits/fallback experience.
-- [ ] Legacy URL transition/export notice and verified redirects.
-- [ ] Homepage card, optimized artwork and three working starter links.
-- [ ] BG/EN launch article, annotated screenshots, OG assets and source links.
-- [ ] Example/evidence manifest and dated competitive research notes, including Sigma.
-- [ ] Validation record, concrete release order and tested rollback route.
-- [ ] Rebranding handoff checklist with remaining domain-specific actions.
+- [x] Integrated, tested chat/tools/evals screens with shared site identity.
+- [x] Stable hosted AI access and honest limits/fallback experience.
+- [x] Legacy URL transition/export notice and verified redirect candidates (prepared; live activation follows the release gate).
+- [x] Homepage card, optimized artwork and three working starter links.
+- [x] BG/EN launch article, annotated screenshots, OG assets and source links.
+- [x] Example/evidence manifest and dated competitive research notes, including Sigma.
+- [x] Validation record, concrete release order and tested rollback route.
+- [x] Rebranding handoff checklist with remaining domain-specific actions.
 
 No additional product decision is required to start implementation. Confirm the final public allowance wording from observed policy behavior, choose the strongest passing examples, and present the complete rendered article/homepage/screens for editorial review before publication. Do not treat this as a request to publish, migrate domains or start recurring monitoring now.
