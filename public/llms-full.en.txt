@@ -1423,7 +1423,7 @@ The likely reason is who each group is: the machine is preferred by younger, urb
 - Fujiwara, T. (2015). [Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA11520). *Econometrica* 83(2).
 - Zucco, C. & Nicolau, J. (2016). [Trading old errors for new errors? The impact of electronic voting technology on party label votes in Brazil](https://www.sciencedirect.com/science/article/abs/pii/S0261379416301238). *Electoral Studies* 43.
 
-*Data: per-section protocols from the Central Election Commission, as processed by Наясно. This is an analytical scenario, not a forecast.*
+*Data: per-section protocols from the Central Election Commission, as processed by Naiasno. This is an analytical scenario, not a forecast.*
 
 ### Budget 2026 in focus: the record deficit, the critics, and a check against the numbers
 
@@ -1623,7 +1623,7 @@ _Methodology and sources. The framework figures are from the draft ЗДБРБ-20
 
 [^sega]: "The government presented a 2026 budget with an over-deficit of 5.7%," Sega, 24.06.2026 — https://www.segabg.com/hot/category-economy/pravitelstvoto-predstavi-byudzhet-za-2026-g-svruhdeficit-57
 
-[^cik]: Results of the election for the 52nd National Assembly, 19 April 2026 — Central Election Commission; summarised in [the 19.04.2026 results on Наясно](/?elections=2026_04_19) (Progressive Bulgaria 1,444,920 votes / 44.59% / 131 seats; turnout 51.11%).
+[^cik]: Results of the election for the 52nd National Assembly, 19 April 2026 — Central Election Commission; summarised in [the 19.04.2026 results on Naiasno](/?elections=2026_04_19) (Progressive Bulgaria 1,444,920 votes / 44.59% / 131 seats; turnout 51.11%).
 
 [^econ-gov]: "Bulgaria officially has a new regular government," economic.bg, 08.05.2026 — https://www.economic.bg/bg/a/view/bylgarija-oficialno-ima-novo-redovno-pravitelstvo
 
@@ -1952,7 +1952,7 @@ The gauge shows where the deficit is "today", where your scenario takes it, and 
 
 Couldn't the deficit just be covered from the BNB's currency reserve instead of taxes and cuts? It's a common expectation — but the reserve is not a state piggy bank, and the euro does not "free it up". [We explain why in a separate analysis](/articles/2026-06-13-bnb-reserve-after-euro) — which is why, in the simulator, the deficit moves only through the revenue and spending levers.
 
-> Built a scenario that brings the deficit under 3%? Share it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121) — we're curious which lever you pull first.
+> Built a scenario that brings the deficit under 3%? Share it in the [Naiasno Facebook group](https://www.facebook.com/groups/1982841819785121) — we're curious which lever you pull first.
 
 ## How each lever is scored
 
@@ -2060,7 +2060,7 @@ We compared some of the scenarios computed through our simulator against the off
 
 The takeaway: static scoring matches the official _static_ numbers (МФ's own menu is static per-pp on the then-current base). And for the bigger moves — corporate tax at 15%, food and medicines at the reduced rate — it is the dynamic estimate that lands near the published figures: which is why it is the default mode. The clearest case is the dividend: +€75M static vs the Fiscal Council's ≤€50M — precisely because the Council's number embeds a behavioral response, the same one dynamic mode reproduces.
 
-> Spotted a discrepancy, or know a better source? Post it in the [Наясно group](https://www.facebook.com/groups/1982841819785121) — the methodology improves through exactly this kind of scrutiny.
+> Spotted a discrepancy, or know a better source? Post it in the [Naiasno group](https://www.facebook.com/groups/1982841819785121) — the methodology improves through exactly this kind of scrutiny.
 
 ## Limitations and assumptions
 
@@ -2092,7 +2092,7 @@ We have filed a request under the [Access to Public Information Act](https://www
 
 The whole tool is open source at [github.com/atanasster/electionsbg](https://github.com/atanasster/electionsbg). The static scoring engine lives in `src/lib/bgTaxPolicy.ts`, the dynamic layer in `src/lib/bgBehavioral.ts`, the five-year projection in `src/lib/bgFiscalProjection.ts`, and the offline baseline is assembled by `scripts/budget/run_policy_baseline.ts`. Each part is locked by smoke tests that assert the identities (for example, that at zero elasticity dynamic equals static, and that the dividend lever stays within the Fiscal Council's ceiling). The research notes and full source list are in `docs/budget_simulator_grounding.md`.
 
-Finally — [open the simulator](/budget/simulator) and build your own scenario. You can add it to the public tally ("what the public chose") — voluntarily, with no personal data — and then defend it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121), where we discuss what the data shows and the most interesting scenarios become the next analyses.
+Finally — [open the simulator](/budget/simulator) and build your own scenario. You can add it to the public tally ("what the public chose") — voluntarily, with no personal data — and then defend it in the [Naiasno Facebook group](https://www.facebook.com/groups/1982841819785121), where we discuss what the data shows and the most interesting scenarios become the next analyses.
 
 ---
 
@@ -2275,7 +2275,7 @@ Markdown (EN): https://naiasno.bg/articles/2026-06-02-local-councils-data-en.md
 Published: 2026-06-02
 Category: data_analysis
 
-**Summary:** An audit of all 16 municipalities with council-votes data and 26 with capital-programme data on Наясно. Data tables, gaps grouped by issue (publication policy, Cloudflare/TSPD bot guards, scanned PDFs, stale CMSes), and the eight oblast capitals where readers can ask their councils to publish what their bigger peers already do.
+**Summary:** An audit of all 16 municipalities with council-votes data and 26 with capital-programme data on Naiasno. Data tables, gaps grouped by issue (publication policy, Cloudflare/TSPD bot guards, scanned PDFs, stale CMSes), and the eight oblast capitals where readers can ask their councils to publish what their bigger peers already do.
 
 ---
 keywords:
@@ -2297,7 +2297,7 @@ keywords:
   - Article 53 transfers
   - Чл.53 ЗДБРБ
   - municipal data Bulgaria
-  - Наясно local government
+  - Naiasno local government
   - municipal local taxes
   - property tax for individuals
   - waste collection fee Bulgaria
@@ -2308,11 +2308,11 @@ keywords:
   - obshtini.bg JSON API
 ---
 
-# How Bulgarian municipal council voting and budget data are integrated into Наясно
+# How Bulgarian municipal council voting and budget data are integrated into Naiasno
 
 ![The "Municipal council" tile on a place's Governance dashboard — Veliko Tarnovo. Each decision carries its adopted/rejected outcome, the за–против–въздържал tally, and — where the protocol publishes it — every councillor's individual vote as a colour-ringed avatar (ring colour = how they voted, fill = party).](/articles/images/local_government/01-council-tile.png)
 
-Everything described below surfaces in one place: the **[Governance](/my-area)** view — the local-government dashboard on Наясно that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
+Everything described below surfaces in one place: the **[Governance](/my-area)** view — the local-government dashboard on Naiasno that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
 
 The data behind both tiles has to be assembled municipality by municipality, because none of it exists as a national dataset. The rest of this article is an audit of how far we've got — and an honest map of what's still missing, and why.
 
@@ -2681,7 +2681,7 @@ keywords:
 
 Between August 2005 and May 2026 Bulgaria had **18 cabinets**: 10 regular and 8 caretaker. The average regular cabinet ran for under two years. Only two — [Stanishev](/governments/stanishev) and [Borisov III](/governments/borisov-3) — completed the full parliamentary term (3 years 11 months and 4 years, respectively). Over the same period the four headline macro indicators — GDP, inflation, unemployment and government debt — passed through three clearly distinct cycles: **catch-up growth and pre-crisis overheating (2005–2008)**, **crisis and stagnation (2009–2014)**, and **best-in-region positioning (2017–2025)** — the last achieved against the backdrop of the most politically unstable stretch in post-1990 Bulgarian history.
 
-This article is not a policy evaluation. It is an **analysis of the numbers** from [indicators](/indicators) and [governments](/governments) on Наясно. We walk each cabinet through its macro footprint — what the data shows on its watch, and what lags forward into the next mandate. A larger weight is given to the last ~4.5 years — the Petkov → Donev → Denkov → Glavchev → Zhelyazkov → Gyurov chain, six parliamentary elections (Nov 2021 → Apr 2026) that culminated in the country joining the eurozone.
+This article is not a policy evaluation. It is an **analysis of the numbers** from [indicators](/indicators) and [governments](/governments) on Naiasno. We walk each cabinet through its macro footprint — what the data shows on its watch, and what lags forward into the next mandate. A larger weight is given to the last ~4.5 years — the Petkov → Donev → Denkov → Glavchev → Zhelyazkov → Gyurov chain, six parliamentary elections (Nov 2021 → Apr 2026) that culminated in the country joining the eurozone.
 
 ![Timeline of Bulgaria's cabinets since 2005 against the macro backdrop.](/og/governments.png)
 
@@ -3372,7 +3372,7 @@ keywords:
   - section risk screening
   - Benford's law Bulgaria
   - 19 April 2026 election
-  - Наясно
+  - Naiasno
 ---
 # Election risk screening — new tools for the 19.04.2026 vote
 

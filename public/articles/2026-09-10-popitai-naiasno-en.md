@@ -4,13 +4,13 @@ updatedAt: 2026-09-10
 schemaType: Article
 ---
 
-# Ask Наясно: a new way to explore Bulgaria’s public data
+# Ask Naiasno: a new way to explore Bulgaria’s public data
 
-What do basic groceries cost in Plovdiv? What did the state plan to spend, and what has it reported so far? How do you move from a procurement total to a particular procedure? **Ask Наясно** lets you start with a question and brings together ready-made queries, tables and charts from the site’s data.
+What do basic groceries cost in Plovdiv? What did the state plan to spend, and what has it reported so far? How do you move from a procurement total to a particular procedure? **Ask Naiasno** lets you start with a question and brings together ready-made queries, tables and charts from the site’s data.
 
 [Ask your first question](/chat). You can start without AI or an AI access check. Choose a starter question or type your own. When you want more flexible wording and an explanation, select the AI assistant from the mode menu.
 
-The chat is now part of the main site, alongside its tools and detailed dashboards. Наясно is the project’s new name; the move to naiasno.bg is still ahead. The chat’s path remains `/chat`.
+The chat is now part of the main site, alongside its tools and detailed dashboards. Naiasno is the project’s new name; the move to naiasno.bg is still ahead. The chat’s path remains `/chat`.
 
 ## What can you ask about?
 
@@ -80,7 +80,7 @@ Different tools suit different tasks. This comparison was checked on **10 Septem
 
 | Tool | Useful approach and checked status |
 | --- | --- |
-| **Ask Наясно** | Dedicated queries over the loaded Bulgarian datasets, with tables, charts and dashboard links. The examples here have specific coverage; free-text questions have limitations. |
+| **Ask Naiasno** | Dedicated queries over the loaded Bulgarian datasets, with tables, charts and dashboard links. The examples here have specific coverage; free-text questions have limitations. |
 | **[ChatGPT](https://help.openai.com/en/articles/9237897)** | Broader web search and explanation with source controls. In our small test it retained follow-up context and displayed a table and chart. This does not certify every answer’s accuracy. |
 | **[Perplexity](https://www.perplexity.ai/help-center/en/articles/10352895-how-does-perplexity-work)** | Documents web search, cited answers and contextual follow-ups. Our anonymous session requested sign-up before answering; conversational tasks were not assessed. |
 | **[Data Commons](https://www.datacommons.org/faq)** | Maps natural language to sourced structured statistics. We received dated charts; the short “and in 2023?” in its search field did not resolve a place. It also offers suggested related questions. |
@@ -88,6 +88,6 @@ Different tools suit different tasks. This comparison was checked on **10 Septem
 
 Specialist search tools such as [OpenTender Bulgaria](https://opentender.eu/bg) and [BIRD’s declaration search](https://bird.bg/judicial-money/) can help with particular checks too. Compare periods, units and original sources before comparing totals between sites.
 
-[Open Ask Наясно](/chat) and begin with one concrete question. If an answer is unclear or wrong, use the community link beneath it and identify the question, mode and mismatch with the source—without personal or confidential information.
+[Open Ask Naiasno](/chat) and begin with one concrete question. If an answer is unclear or wrong, use the community link beneath it and identify the question, mode and mismatch with the source—without personal or confidential information.
 
 To report a bug or suggest a feature, [open an issue in the project’s GitHub repository](https://github.com/atanasster/electionsbg/issues/new).

@@ -52,7 +52,7 @@ The gauge shows where the deficit is "today", where your scenario takes it, and 
 
 Couldn't the deficit just be covered from the BNB's currency reserve instead of taxes and cuts? It's a common expectation — but the reserve is not a state piggy bank, and the euro does not "free it up". [We explain why in a separate analysis](/articles/2026-06-13-bnb-reserve-after-euro) — which is why, in the simulator, the deficit moves only through the revenue and spending levers.
 
-> Built a scenario that brings the deficit under 3%? Share it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121) — we're curious which lever you pull first.
+> Built a scenario that brings the deficit under 3%? Share it in the [Naiasno Facebook group](https://www.facebook.com/groups/1982841819785121) — we're curious which lever you pull first.
 
 ## How each lever is scored
 
@@ -160,7 +160,7 @@ We compared some of the scenarios computed through our simulator against the off
 
 The takeaway: static scoring matches the official _static_ numbers (МФ's own menu is static per-pp on the then-current base). And for the bigger moves — corporate tax at 15%, food and medicines at the reduced rate — it is the dynamic estimate that lands near the published figures: which is why it is the default mode. The clearest case is the dividend: +€75M static vs the Fiscal Council's ≤€50M — precisely because the Council's number embeds a behavioral response, the same one dynamic mode reproduces.
 
-> Spotted a discrepancy, or know a better source? Post it in the [Наясно group](https://www.facebook.com/groups/1982841819785121) — the methodology improves through exactly this kind of scrutiny.
+> Spotted a discrepancy, or know a better source? Post it in the [Naiasno group](https://www.facebook.com/groups/1982841819785121) — the methodology improves through exactly this kind of scrutiny.
 
 ## Limitations and assumptions
 
@@ -192,7 +192,7 @@ We have filed a request under the [Access to Public Information Act](https://www
 
 The whole tool is open source at [github.com/atanasster/electionsbg](https://github.com/atanasster/electionsbg). The static scoring engine lives in `src/lib/bgTaxPolicy.ts`, the dynamic layer in `src/lib/bgBehavioral.ts`, the five-year projection in `src/lib/bgFiscalProjection.ts`, and the offline baseline is assembled by `scripts/budget/run_policy_baseline.ts`. Each part is locked by smoke tests that assert the identities (for example, that at zero elasticity dynamic equals static, and that the dividend lever stays within the Fiscal Council's ceiling). The research notes and full source list are in `docs/budget_simulator_grounding.md`.
 
-Finally — [open the simulator](/budget/simulator) and build your own scenario. You can add it to the public tally ("what the public chose") — voluntarily, with no personal data — and then defend it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121), where we discuss what the data shows and the most interesting scenarios become the next analyses.
+Finally — [open the simulator](/budget/simulator) and build your own scenario. You can add it to the public tally ("what the public chose") — voluntarily, with no personal data — and then defend it in the [Naiasno Facebook group](https://www.facebook.com/groups/1982841819785121), where we discuss what the data shows and the most interesting scenarios become the next analyses.
 
 ---
 

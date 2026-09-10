@@ -6,7 +6,7 @@ keywords:
   - section risk screening
   - Benford's law Bulgaria
   - 19 April 2026 election
-  - Наясно
+  - Naiasno
 ---
 # Election risk screening — new tools for the 19.04.2026 vote
 

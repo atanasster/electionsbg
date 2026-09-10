@@ -186,7 +186,7 @@ _Methodology and sources. The framework figures are from the draft ЗДБРБ-20
 
 [^sega]: "The government presented a 2026 budget with an over-deficit of 5.7%," Sega, 24.06.2026 — https://www.segabg.com/hot/category-economy/pravitelstvoto-predstavi-byudzhet-za-2026-g-svruhdeficit-57
 
-[^cik]: Results of the election for the 52nd National Assembly, 19 April 2026 — Central Election Commission; summarised in [the 19.04.2026 results on Наясно](/?elections=2026_04_19) (Progressive Bulgaria 1,444,920 votes / 44.59% / 131 seats; turnout 51.11%).
+[^cik]: Results of the election for the 52nd National Assembly, 19 April 2026 — Central Election Commission; summarised in [the 19.04.2026 results on Naiasno](/?elections=2026_04_19) (Progressive Bulgaria 1,444,920 votes / 44.59% / 131 seats; turnout 51.11%).
 
 [^econ-gov]: "Bulgaria officially has a new regular government," economic.bg, 08.05.2026 — https://www.economic.bg/bg/a/view/bylgarija-oficialno-ima-novo-redovno-pravitelstvo
 
