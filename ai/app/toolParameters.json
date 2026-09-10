@@ -263,7 +263,6 @@
     {
       "name": "n",
       "type": "count",
-      "default": 7,
       "description": {
         "bg": "Брой избори",
         "en": "Number of elections"
@@ -282,7 +281,6 @@
     {
       "name": "n",
       "type": "count",
-      "default": 7,
       "description": {
         "bg": "Брой избори",
         "en": "Number of elections"
@@ -325,6 +323,8 @@
   "agencyPolls": [
     {
       "name": "years",
+      "min": 1,
+      "max": 100,
       "type": "count",
       "description": {
         "bg": "Период назад в години",
@@ -333,6 +333,8 @@
     },
     {
       "name": "n",
+      "min": 1,
+      "max": 1000,
       "type": "count",
       "description": {
         "bg": "Последни N проучвания",
@@ -1144,6 +1146,9 @@
   "nzokDrugs": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой лекарства",
@@ -1155,6 +1160,9 @@
   "nzokHospitals": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой болници",
@@ -1165,6 +1173,9 @@
   "nzokActivities": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой процедури",
@@ -1175,6 +1186,9 @@
   "nzokDrugSavings": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой болници",
@@ -1203,6 +1217,9 @@
     },
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой болници",
@@ -1222,6 +1239,9 @@
     },
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой болници",
@@ -1240,6 +1260,9 @@
     },
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой лекарства",
@@ -1251,6 +1274,9 @@
   "topContractors": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой",
@@ -1261,6 +1287,9 @@
   "procurementAppeals": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 10,
       "type": "count",
       "description": {
         "bg": "Брой възложители",
@@ -1279,6 +1308,9 @@
   "contractSearch": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 12,
       "type": "count",
       "description": {
         "bg": "Брой договори (до 25)",
@@ -1287,7 +1319,7 @@
     },
     {
       "name": "company",
-      "type": "person",
+      "type": "company",
       "required": true,
       "description": {
         "bg": "Име на фирма или ЕИК",
@@ -1433,7 +1465,7 @@
   "subsidiesForEntity": [
     {
       "name": "company",
-      "type": "person",
+      "type": "company",
       "description": {
         "bg": "Име или ЕИК на получателя",
         "en": "Recipient name or EIK"
@@ -1506,6 +1538,8 @@
   "municipalFiscalRanking": [
     {
       "name": "year",
+      "min": 2000,
+      "max": 2100,
       "type": "year",
       "required": true,
       "description": {
@@ -1515,6 +1549,9 @@
     },
     {
       "name": "count",
+      "min": 1,
+      "max": 100,
+      "default": 25,
       "type": "count",
       "description": {
         "bg": "Брой общини",
@@ -1554,6 +1591,9 @@
   "kfnFunds": [
     {
       "name": "count",
+      "min": 1,
+      "max": 25,
+      "default": 10,
       "type": "count",
       "description": {
         "bg": "Брой фондове",
@@ -1660,7 +1700,7 @@
   "companyConnections": [
     {
       "name": "company",
-      "type": "person",
+      "type": "company",
       "required": true,
       "description": {
         "bg": "ЕИК на фирмата",
@@ -1767,6 +1807,9 @@
     },
     {
       "name": "n",
+      "min": 3,
+      "max": 20,
+      "default": 8,
       "type": "count",
       "description": {
         "bg": "Брой",
@@ -1912,6 +1955,9 @@
     },
     {
       "name": "n",
+      "min": 3,
+      "max": 20,
+      "default": 8,
       "type": "count",
       "description": {
         "bg": "Брой",

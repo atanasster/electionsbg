@@ -39,6 +39,8 @@ type ParameterMetadata = {
   type: string;
   required?: boolean;
   default?: string | number;
+  min?: number;
+  max?: number;
   values?: (string | number)[];
   description: LocalizedText;
 };
@@ -138,7 +140,9 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
       ? "enum"
       : metadata?.type === "count"
         ? "number"
-        : parameterKind(prompt.tool, id);
+        : metadata?.type === "company"
+          ? "company"
+          : parameterKind(prompt.tool, id);
     const base: QuestionParameter = {
       id,
       kind,
@@ -147,6 +151,8 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
       ...(metadata?.values ? { values: metadata.values.map(String) } : {}),
       ...(kind === "year" ? { min: 1900, max: 2100 } : {}),
       ...(/^(years|n|count|limit)$/.test(id) ? { min: 1, max: 5000 } : {}),
+      ...(metadata?.min !== undefined ? { min: metadata.min } : {}),
+      ...(metadata?.max !== undefined ? { max: metadata.max } : {}),
     };
     if (id === "year" && BUDGET_QUESTIONS.some((s) => s.id === prompt.tool))
       return { ...base, min: 1990, max: 2100 };

@@ -142,6 +142,7 @@ export type ParamType =
   | "count"
   | "party"
   | "person"
+  | "company"
   | "metric"
   | "region"
   | "cycle"
@@ -165,6 +166,8 @@ export type ToolParam = {
   type: ParamType;
   required?: boolean;
   default?: string | number;
+  min?: number;
+  max?: number;
   values?: readonly (string | number)[];
   description: { bg: string; en: string };
 };

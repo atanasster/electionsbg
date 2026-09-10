@@ -8,21 +8,31 @@
 
 import { TOOLS, TOOLS_BY_NAME } from "../tools/registry";
 import { ALL_ELECTIONS } from "../tools/dataset";
+import {
+  validateArguments,
+  parameterBounds,
+  localCycleValues,
+} from "./validateArguments";
 import type { ToolArgs, ToolParam } from "../tools/types";
 import type { Route } from "./router";
 
-const parameterSchema = (param: ToolParam): Record<string, unknown> => {
+export const toolParameterSchema = (
+  param: ToolParam,
+): Record<string, unknown> => {
   const numericValues = param.values?.every(
     (value) => typeof value === "number",
   );
   if (param.type === "count" || param.type === "year" || numericValues)
     return {
       type: "integer",
+      minimum: parameterBounds(param).min,
+      maximum: parameterBounds(param).max,
       ...(param.values ? { enum: param.values } : {}),
     };
   if (param.type === "electionList")
     return {
       type: "array",
+      minItems: 1,
       items: { type: "string", enum: ALL_ELECTIONS.map((e) => e.name) },
     };
   if (param.type === "election")
@@ -30,9 +40,11 @@ const parameterSchema = (param: ToolParam): Record<string, unknown> => {
       type: "string",
       anyOf: [
         { enum: ALL_ELECTIONS.map((e) => e.name) },
-        { pattern: "^20\\d{2}$" },
+        { enum: [...new Set(ALL_ELECTIONS.map((e) => e.name.slice(0, 4)))] },
       ],
     };
+  if (param.type === "cycle" && !param.values)
+    return { type: "string", enum: localCycleValues() };
   return {
     type: "string",
     ...(param.values ? { enum: param.values } : {}),
@@ -54,11 +66,15 @@ export const toolSelectionSchema = (): string =>
     allOf: TOOLS.map((tool) => ({
       if: { properties: { tool: { const: tool.name } } },
       then: {
+        ...(tool.params.some((p) => p.required) ? { required: ["args"] } : {}),
         properties: {
           args: {
             type: "object",
             properties: Object.fromEntries(
-              tool.params.map((param) => [param.name, parameterSchema(param)]),
+              tool.params.map((param) => [
+                param.name,
+                toolParameterSchema(param),
+              ]),
             ),
             required: tool.params
               .filter((param) => param.required)
@@ -70,96 +86,16 @@ export const toolSelectionSchema = (): string =>
     })),
   });
 
-// Numeric arg names that should be coerced from strings the model may emit.
-const NUMERIC_TYPES = new Set<ToolParam["type"]>(["count", "year"]);
-
-const validNumber = (param: ToolParam, value: unknown): number | undefined => {
-  if (typeof value === "boolean" || value === null || value === "")
-    return undefined;
-  const n = typeof value === "number" ? value : Number(value);
-  if (!Number.isFinite(n) || !Number.isInteger(n)) return undefined;
-  if (param.name === "round" && n !== 1 && n !== 2) return undefined;
-  if (param.type === "count" && (n < 1 || n > 1000)) return undefined;
-  if (param.type === "year" && (n < 1900 || n > 2100)) return undefined;
-  if (param.values && !param.values.includes(n)) return undefined;
-  return n;
-};
-
-const coerceArgs = (toolName: string, raw: unknown): ToolArgs => {
-  const tool = TOOLS_BY_NAME[toolName];
-  const out: ToolArgs = {};
-  if (!tool || typeof raw !== "object" || raw === null) return out;
-  const rawObj = raw as Record<string, unknown>;
-  // accept only the params the tool declares (plus the compare a/b aliases)
-  const params = new Map(tool.params.map((p) => [p.name, p]));
-  for (const key of Object.keys(rawObj)) {
-    const param = params.get(key);
-    if (!param) continue;
-    const v = rawObj[key];
-    if (v == null) continue;
-    if (param.type === "electionList") {
-      if (Array.isArray(v)) {
-        const values = v.filter(
-          (item): item is string =>
-            typeof item === "string" &&
-            ALL_ELECTIONS.some((election) => election.name === item.trim()),
-        );
-        if (values.length === v.length && values.length)
-          out[key] = values.map((item) => item.trim());
-      }
-    } else if (
-      NUMERIC_TYPES.has(param.type) ||
-      param.values?.every((value) => typeof value === "number")
-    ) {
-      const n = validNumber(param, v);
-      if (n !== undefined) out[key] = n;
-    } else if (typeof v === "string" && v.trim()) {
-      const value = v.trim();
-      const allowed =
-        !param.values ||
-        param.values.some((candidate) => String(candidate) === value);
-      const year = value.match(/^20\d{2}$/)?.[0];
-      const electionValid =
-        param.type !== "election" ||
-        ALL_ELECTIONS.some(
-          (candidate) =>
-            candidate.name === value ||
-            (!!year && candidate.name.startsWith(`${year}_`)),
-        );
-      if (allowed && electionValid) out[key] = value;
-    }
-  }
-  return out;
-};
-
+// Compatibility facade for provider/router callers: normalize the same contract,
+// retain their null-on-error API, and continue ignoring unrecognized model keys.
 export const validateToolArgs = (
   toolName: string,
   raw: unknown,
 ): ToolArgs | null => {
-  const tool = TOOLS_BY_NAME[toolName];
-  if (!tool) return null;
-  const args = coerceArgs(toolName, raw);
-  const rawObj =
-    typeof raw === "object" && raw !== null
-      ? (raw as Record<string, unknown>)
-      : {};
-  if (
-    tool.params.some(
-      (param) =>
-        Object.prototype.hasOwnProperty.call(rawObj, param.name) &&
-        rawObj[param.name] != null &&
-        rawObj[param.name] !== "" &&
-        args[param.name] === undefined,
-    )
-  )
-    return null;
-  if (
-    tool.params.some(
-      (param) => param.required && args[param.name] === undefined,
-    )
-  )
-    return null;
-  return args;
+  const result = validateArguments(toolName, raw ?? {}, {
+    ignoreUnknown: true,
+  });
+  return Object.keys(result.errors).length ? null : result.args;
 };
 
 // Parse a model tool-call (raw text or object) into a validated Route, or null.

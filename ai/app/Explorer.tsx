@@ -62,6 +62,7 @@ const PARAM_TYPE_LABELS: Record<ParamType, { bg: string; en: string }> = {
   electionList: { bg: "списък избори", en: "election list" },
   count: { bg: "число", en: "number" },
   party: { bg: "партия", en: "party" },
+  company: { bg: "фирма / ЕИК", en: "company / EIK" },
   person: { bg: "лице (име)", en: "person (name)" },
   metric: { bg: "текст", en: "text" },
   region: { bg: "регион", en: "region" },

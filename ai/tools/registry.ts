@@ -617,7 +617,6 @@ export const TOOLS: ToolDef[] = [
       {
         name: "n",
         type: "count",
-        default: 7,
         description: { bg: "Брой избори", en: "Number of elections" },
       },
       {
@@ -652,7 +651,6 @@ export const TOOLS: ToolDef[] = [
       {
         name: "n",
         type: "count",
-        default: 7,
         description: { bg: "Брой избори", en: "Number of elections" },
       },
       {
@@ -780,11 +778,15 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "years",
+        min: 1,
+        max: 100,
         type: "count",
         description: { bg: "Период назад в години", en: "Window in years" },
       },
       {
         name: "n",
+        min: 1,
+        max: 1000,
         type: "count",
         description: { bg: "Последни N проучвания", en: "Last N polls" },
       },
@@ -2774,6 +2776,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой лекарства", en: "Number of medicines" },
       },
@@ -2820,6 +2825,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой болници", en: "Number of hospitals" },
       },
@@ -2846,6 +2854,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой процедури", en: "Number of procedures" },
       },
@@ -2872,6 +2883,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой болници", en: "Number of hospitals" },
       },
@@ -2935,6 +2949,9 @@ export const TOOLS: ToolDef[] = [
       },
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой болници", en: "Number of hospitals" },
       },
@@ -2989,6 +3006,9 @@ export const TOOLS: ToolDef[] = [
       },
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой болници", en: "Number of hospitals" },
       },
@@ -3023,6 +3043,9 @@ export const TOOLS: ToolDef[] = [
       },
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой лекарства", en: "Number of medicines" },
       },
@@ -3065,6 +3088,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: { bg: "Брой", en: "How many" },
       },
@@ -3091,6 +3117,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 10,
         type: "count",
         description: { bg: "Брой възложители", en: "How many buyers" },
       },
@@ -3132,6 +3161,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 12,
         type: "count",
         description: {
           bg: "Брой договори (до 25)",
@@ -3140,7 +3172,7 @@ export const TOOLS: ToolDef[] = [
       },
       {
         name: "company",
-        type: "person",
+        type: "company",
         required: true,
         description: { bg: "Име на фирма или ЕИК", en: "Company name or EIK" },
       },
@@ -3571,7 +3603,7 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "company",
-        type: "person",
+        type: "company",
         description: {
           bg: "Име или ЕИК на получателя",
           en: "Recipient name or EIK",
@@ -3835,12 +3867,17 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "year",
+        min: 2000,
+        max: 2100,
         type: "year",
         required: true,
         description: { bg: "Отчетна година", en: "Reporting year" },
       },
       {
         name: "count",
+        min: 1,
+        max: 100,
+        default: 25,
         type: "count",
         description: { bg: "Брой общини", en: "Number of municipalities" },
       },
@@ -3982,6 +4019,9 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "count",
+        min: 1,
+        max: 25,
+        default: 10,
         type: "count",
         description: { bg: "Брой фондове", en: "Number of funds" },
       },
@@ -4362,7 +4402,7 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "company",
-        type: "person",
+        type: "company",
         required: true,
         description: { bg: "ЕИК на фирмата", en: "Company EIK" },
       },
@@ -4564,7 +4604,14 @@ export const TOOLS: ToolDef[] = [
         required: true,
         description: { bg: "Показател + посока", en: "Indicator + direction" },
       },
-      { name: "n", type: "count", description: { bg: "Брой", en: "How many" } },
+      {
+        name: "n",
+        min: 3,
+        max: 20,
+        default: 8,
+        type: "count",
+        description: { bg: "Брой", en: "How many" },
+      },
     ],
     examples: [
       {
@@ -4846,7 +4893,14 @@ export const TOOLS: ToolDef[] = [
           en: "Direction: cheapest / biggest rise; level: places / oblasts",
         },
       },
-      { name: "n", type: "count", description: { bg: "Брой", en: "How many" } },
+      {
+        name: "n",
+        min: 3,
+        max: 20,
+        default: 8,
+        type: "count",
+        description: { bg: "Брой", en: "How many" },
+      },
     ],
     examples: [
       {
