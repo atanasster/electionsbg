@@ -115,6 +115,25 @@ export const MACRO_ALIASES: Record<string, string> = {
   корупц: "cpi",
 };
 
+/** A shortened source label can omit the measure's age band, cadence or units.
+ * Do not let broad retail/election keywords reinterpret that incomplete name. */
+export const isIncompleteMacroLabel = (raw: string): boolean => {
+  const quoted = raw.match(
+    /(?:покажи показателя|show the indicator)\s*[„“"]([^„“”"]+)[“”"]/i,
+  )?.[1];
+  const text = (quoted ?? raw)
+    .toLowerCase()
+    .replace(/[?.]+$/, "")
+    .trim();
+  const labels = Object.values(macroLabels).flatMap((labels) =>
+    Object.values(labels).map((label) => label.toLowerCase()),
+  );
+  if (labels.includes(text)) return false;
+  return labels.some(
+    (label) => label.replace(/\s*\([^)]*\)/g, "").trim() === text,
+  );
+};
+
 /** Source indicator names are a vocabulary, independent of starter IDs/text. */
 export const resolveMacroLabel = (raw: string): string | undefined => {
   const q = raw.toLocaleLowerCase();

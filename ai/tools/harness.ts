@@ -1398,7 +1398,7 @@ const run = async () => {
     ["Кошницата спрямо ХИПЦ инфлацията", "basketVsInflation"],
     ["По-скъпа ли е храната у нас от ЕС?", "euFoodPriceLevels"],
     ["Is food more expensive here than the EU?", "euFoodPriceLevels"],
-    ["Какви обществени поръчки печели Кауфланд?", "chainProfile"],
+    ["Какви обществени поръчки печели Кауфланд?", "contractSearch"],
     ["Профил на веригата Метро", "chainProfile"],
     // guard: a subway question must NOT hit chainProfile (метро namesake) — the
     // chain gate excludes ticket/station cues, so it falls to the price read.

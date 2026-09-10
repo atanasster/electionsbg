@@ -194,7 +194,11 @@ export const followUps = (
       value(env, "company") ??
       value(env, "chain");
     if (eik && /^\d{9,13}$/.test(eik) && name) {
-      if (env.tool !== "contractSearch")
+      if (
+        env.tool !== "contractSearch" &&
+        (env.tool !== "chainProfile" ||
+          Number(env.facts?.as_supplier_contracts) > 0)
+      )
         add(
           "contractSearch",
           { company: eik },

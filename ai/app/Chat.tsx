@@ -59,6 +59,7 @@ import {
   type ChatMsg,
 } from "./export";
 import { SuggestionButton } from "./SuggestionButton";
+import { dispatchPrompt } from "./dispatchPrompt";
 import { followUps } from "./followups";
 import { EmptyHero } from "./hero/EmptyHero";
 import { ModelPicker } from "./ModelPicker";
@@ -495,21 +496,14 @@ export const Chat = ({
       setMessages((m) =>
         m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
       );
-    const res = intent
-      ? engine.provider.runChoice
-        ? await engine.provider.runChoice(
-            intent.tool,
-            intent.args,
-            ctx,
-            onDelta,
-          )
-        : await runToolChoice(
-            { bg: "Без AI (офлайн)", en: "Basic (offline)" },
-            intent.tool,
-            intent.args,
-            ctx,
-          )
-      : await engine.provider.respond(q, ctx, onDelta, { prev, history });
+    const res = await dispatchPrompt(
+      engine.provider,
+      q,
+      ctx,
+      onDelta,
+      { prev, history },
+      intent,
+    );
     setMessages((m) =>
       m.map((x) =>
         x.id === aId

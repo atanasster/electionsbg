@@ -26,11 +26,7 @@ const PARTIES = [
 
 // Additional parties dispatch directly to partyResult. Names remain Cyrillic
 // in both labels and are resolved against the selected election's roster.
-const SMALLER_PARTIES = [
-  "Синя България",
-  "Демократична България",
-  "Партия Атака",
-];
+const SMALLER_PARTIES = ["Синя България", "Демократична България"];
 
 const AGENCIES = [
   "Алфа Рисърч",

@@ -113,3 +113,20 @@ it("replaces a catalog fiscal year when inheriting a different year", () => {
   expect(next!.bg).not.toContain("2024");
   expect(next!.en).toContain("2025");
 });
+
+it("does not advertise contracts for a chain without recorded supplier contracts", () => {
+  expect(
+    followUps(
+      envelope("chainProfile", { chain: "Example", eik: "123456789" }),
+    ).some((s) => s.questionId === "contractSearch"),
+  ).toBe(false);
+  expect(
+    followUps(
+      envelope("chainProfile", {
+        chain: "Example",
+        eik: "123456789",
+        as_supplier_contracts: 3,
+      }),
+    ).some((s) => s.questionId === "contractSearch"),
+  ).toBe(true);
+});
