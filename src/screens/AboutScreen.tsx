@@ -16,6 +16,69 @@ const SectionHeading: React.FC<{ children: React.ReactNode }> = ({
   </h2>
 );
 
+/**
+ * The nine modules, in the order a reader is most likely to want them: the
+ * thing the site is known for first, then the money, then the people, then the
+ * context.
+ *
+ * ⚠️ Every key is a LITERAL rather than a `` t(`about_area_${id}_title`) ``
+ * template. `scripts/i18n/key_usage.test.ts` can resolve a built template, but
+ * `prune_translations.ts` deletes what the scan cannot reach — and a pruned
+ * key here renders as its own identifier on the About page at a 200. Literals
+ * cost two lines each and cannot go wrong.
+ *
+ * ⚠️ No counts in the copy. "410,000 contracts" is true on the day it is
+ * written and quietly false a month later, on the one page whose whole claim
+ * is that our numbers are checkable.
+ */
+const AREAS: { to: string; title: string; body: string }[] = [
+  {
+    to: "/elections",
+    title: "about_area_elections_title",
+    body: "about_area_elections_body",
+  },
+  {
+    to: "/parliament",
+    title: "about_area_parliament_title",
+    body: "about_area_parliament_body",
+  },
+  {
+    to: "/budget",
+    title: "about_area_budget_title",
+    body: "about_area_budget_body",
+  },
+  {
+    to: "/procurement",
+    title: "about_area_procurement_title",
+    body: "about_area_procurement_body",
+  },
+  {
+    to: "/funds",
+    title: "about_area_funds_title",
+    body: "about_area_funds_body",
+  },
+  {
+    to: "/persons",
+    title: "about_area_people_title",
+    body: "about_area_people_body",
+  },
+  {
+    to: "/governance",
+    title: "about_area_local_title",
+    body: "about_area_local_body",
+  },
+  {
+    to: "/consumption",
+    title: "about_area_prices_title",
+    body: "about_area_prices_body",
+  },
+  {
+    to: "/indicators/economy",
+    title: "about_area_context_title",
+    body: "about_area_context_body",
+  },
+];
+
 export const AboutScreen = () => {
   const { t } = useTranslation();
   return (
@@ -50,6 +113,35 @@ export const AboutScreen = () => {
             {t("about_my_area")}
           </p>
         </header>
+
+        {/* What the platform actually covers. The hero says "it started with
+            elections and grew"; without this a reader has to take that on
+            trust, and the nine modules are the whole answer to "what is
+            Наясно". Each card links to that module's hub, so the About page
+            doubles as the site map it never had. */}
+        <section className="mb-12 md:mb-16">
+          <SectionHeading>{t("about_inside_title")}</SectionHeading>
+          <p className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground">
+            {t("about_inside_intro")}
+          </p>
+          <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {AREAS.map((a) => (
+              <li key={a.to}>
+                <Link
+                  to={a.to}
+                  className="group flex h-full flex-col rounded-lg border border-border bg-card p-5 transition-colors hover:border-accent"
+                >
+                  <h3 className="font-display text-lg font-bold text-foreground group-hover:text-accent">
+                    {t(a.title)}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {t(a.body)}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         {/* AI chat — the "Наясно AI" assistant. Its selling point is honesty:
             every figure it returns is computed from this platform's data, not
