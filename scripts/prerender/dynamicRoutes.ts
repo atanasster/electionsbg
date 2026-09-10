@@ -73,6 +73,7 @@ import {
   type CandidateCardData,
 } from "../og/candidateData";
 import {
+  agencyHasPresidentialPoll,
   buildElectionLandingBody,
   buildElectionLandingBodyEn,
   buildOblastBody,
@@ -2669,15 +2670,19 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
   const result: PrerenderRoute[] = [
     {
       path: "polls",
+      // ⚠ WIDENED FROM „преди парламентарни избори" — Tier 4 T4.4 Increment C. The page now
+      // also carries decision 10's presidential-polls band (`buildPollsBody`'s own presidential
+      // section below), so a title naming parliamentary elections alone declares a narrower
+      // scope than the page shows.
       title:
-        "Социологически проучвания преди парламентарни избори | electionsbg.com",
+        "Социологически проучвания — парламентарни и президентски избори | electionsbg.com",
       description:
-        "Точност на социологическите агенции преди българските парламентарни избори — средна абсолютна грешка по партии, профил на отклоненията и предупреждения по агенции.",
+        "Точност на социологическите агенции преди българските парламентарни и президентски избори — средна абсолютна грешка по партии, профил на отклоненията и предупреждения по агенции.",
       ogImage: "/og/polls.png",
       bodyHtml: buildPollsBody(publicFolder),
       jsonLd: [
         buildDatasetLd({
-          name: "Точност на социологическите проучвания за парламентарни избори в България",
+          name: "Точност на социологическите проучвания за парламентарни и президентски избори в България",
           description:
             "Сравнителен анализ на агенциите за социологически проучвания спрямо реалните резултати от вотовете.",
           url: `${SITE_URL}/polls`,
@@ -2685,6 +2690,7 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
           keywords: [
             "социологически проучвания",
             "парламентарни избори",
+            "президентски избори",
             "точност",
             "агенции",
           ],
@@ -2701,6 +2707,18 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
               url: `${DATA_URL}/polls/analysis.json`,
               name: "Анализ на агенции (JSON)",
             },
+            {
+              url: `${DATA_URL}/polls/presidential/polls.json`,
+              name: "Президентски проучвания (JSON)",
+            },
+            {
+              url: `${DATA_URL}/polls/presidential/polls_details.json`,
+              name: "Президентски проучвания по кандидат (JSON)",
+            },
+            {
+              url: `${DATA_URL}/polls/presidential/accuracy.json`,
+              name: "Грешки по президентско проучване (JSON)",
+            },
           ],
         }),
         buildBreadcrumbLd([
@@ -2713,7 +2731,15 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
   for (const a of agencies) {
     const url = `${SITE_URL}/polls/${encodeURIComponent(a.id)}`;
     const title = `${a.name_bg} — точност на социологическите проучвания | electionsbg.com`;
-    const description = `Точност, систематични отклонения (lean) и предупреждения за социологическата агенция ${a.name_bg} спрямо реалните резултати от парламентарните избори в България.`;
+    // ⚠ WIDENED FOR A PRESIDENTIAL-ONLY AGENCY — Tier 4 T4.4 Increment C. `buildPollsAgencyBody`
+    // unconditionally appends a presidential-polls section whenever this agency has one
+    // (independent of whether it has a scored parliamentary `analysis.json` take), so a
+    // description naming „парламентарните избори" alone is a false claim about a page whose
+    // only content may be presidential — GM's own real case, decision 11. Same trap the plan
+    // named for the `/polls` hub above, fixed here for its per-agency sibling.
+    const description = agencyHasPresidentialPoll(publicFolder, a.id)
+      ? `Точност, систематични отклонения (lean) и предупреждения за социологическата агенция ${a.name_bg} спрямо реалните резултати от българските избори.`
+      : `Точност, систематични отклонения (lean) и предупреждения за социологическата агенция ${a.name_bg} спрямо реалните резултати от парламентарните избори в България.`;
     result.push({
       path: `polls/${a.id}`,
       title,

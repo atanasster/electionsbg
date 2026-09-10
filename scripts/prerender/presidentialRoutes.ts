@@ -187,6 +187,76 @@ const readCycleUncached = (
   };
 };
 
+// ─── the polling band — Tier 4 T4.4 Increment C ─────────────────────────────────────────────
+//
+// ⚠ ONE FILE FOR EVERY CYCLE, unlike `national_summary.json` above — decision 10's
+// `data/polls/presidential/accuracy.json` covers every presidential cycle at once (the same
+// "polls span elections" shape the parliamentary `accuracy.json` has), so this reads it ONCE
+// per build and slices to the cycle being rendered, mirroring
+// `usePresidentialCycleAccuracy`'s client-side split of "loading" (not applicable at build
+// time) / "ready" / "unscored".
+
+type PresidentialAgencyErrorFacts = {
+  agencyId: string;
+  mae: number;
+  daysBefore: number;
+};
+
+type PresidentialAccuracyFile = {
+  cycles: { cycle: string; agencies: PresidentialAgencyErrorFacts[] }[];
+};
+
+/** ⚠ MEMOISED PER ROOT, not per cycle — there is one file, read once. */
+const accuracyCache = new Map<string, PresidentialAccuracyFile | null>();
+
+const readPresidentialAccuracy = (
+  projectRoot: string,
+): PresidentialAccuracyFile | null => {
+  const hit = accuracyCache.get(projectRoot);
+  if (hit !== undefined) return hit;
+  const built = readJson<PresidentialAccuracyFile>(
+    path.join(projectRoot, "data", "polls", "presidential", "accuracy.json"),
+  );
+  accuracyCache.set(projectRoot, built);
+  return built;
+};
+
+/** Test-only: the cache above is module state, matching `__resetPresidentialCycleCache`. */
+export const __resetPresidentialAccuracyCache = (): void =>
+  accuracyCache.clear();
+
+/** ⚠ NEVER AN EMPTY BAND, matching `PresidentialPollsTile.tsx`'s own rule — a cycle with no
+ *  scored poll (decision 11's `cycle: null` window, or Tier 4b's historical backfill not yet
+ *  landed for this cycle) renders an honest "not verified yet" sentence, never nothing. */
+const buildPresidentialPollsBand = (
+  projectRoot: string,
+  cycle: string,
+): { bg: string; en: string } => {
+  const entry = readPresidentialAccuracy(projectRoot)?.cycles.find(
+    (c) => c.cycle === cycle,
+  );
+  // ⚠ RE-SORTED DEFENSIVELY — `computeCycleAccuracy` (analyze_accuracy.ts) already emits
+  // `agencies` ascending by MAE, so this is redundant against today's producer. Kept because
+  // this file should not assume a sort order it does not own; not load-bearing today.
+  const agencies = entry
+    ? [...entry.agencies].sort((a, b) => a.mae - b.mae)
+    : [];
+  if (agencies.length === 0) {
+    return {
+      bg: `<h2>Социологически проучвания</h2><p>За този вот все още няма проверени социологически проучвания.</p>`,
+      en: `<h2>Opinion polls</h2><p>No polls have been verified for this vote yet.</p>`,
+    };
+  }
+  const row = (a: PresidentialAgencyErrorFacts) =>
+    `<tr><td>${esc(a.agencyId)}</td><td>${a.mae.toFixed(2)}</td><td>${a.daysBefore}</td></tr>`;
+  const table = (head: [string, string, string]) =>
+    `<table><thead><tr><th>${head[0]}</th><th>${head[1]}</th><th>${head[2]}</th></tr></thead><tbody>${agencies.map(row).join("")}</tbody></table>`;
+  return {
+    bg: `<h2>Социологически проучвания</h2>${table(["Агенция", "MAE", "Дни преди вота"])}`,
+    en: `<h2>Opinion polls</h2>${table(["Agency", "MAE", "Days before"])}`,
+  };
+};
+
 /** `/presidential/:cycle` — one page per cycle, both rounds on it (the runoff is a toggle). */
 export const buildPresidentialCycleRoutes = (
   projectRoot: string,
@@ -219,6 +289,7 @@ export const buildPresidentialCycleRoutes = (
       r1.turnout.pct === null
         ? ""
         : ` First-round turnout: ${pct(r1.turnout.pct)}.`;
+    const pollsBand = buildPresidentialPollsBand(projectRoot, cycle);
     out.push({
       path: `presidential/${cycle}`,
       title,
@@ -227,12 +298,12 @@ export const buildPresidentialCycleRoutes = (
       // the same cut the local family makes. A municipality `ogImage` naming a file nothing
       // renders would serve a 404 to every social preview.
       ogImage: `/og/presidential/${cycle}.png`,
-      bodyHtml: `<h1>Президентски избори ${f.date}</h1><p>${r1.ranking.length} двойки на първи тур, ${int(r1.votes.valid)} действителни гласа.${turnout} Избрани: ${esc(w.president)} и ${esc(w.vicePresident)}.</p>`,
+      bodyHtml: `<h1>Президентски избори ${f.date}</h1><p>${r1.ranking.length} двойки на първи тур, ${int(r1.votes.valid)} действителни гласа.${turnout} Избрани: ${esc(w.president)} и ${esc(w.vicePresident)}.</p>${pollsBand.bg}`,
       jsonLd: [buildWebPageLd({ title, description, url })],
       english: {
         title: titleEn,
         description: descriptionEn,
-        bodyHtml: `<h1>Bulgarian presidential election ${f.date}</h1><p>${r1.ranking.length} tickets in the first round, ${intEn(r1.votes.valid)} valid votes.${turnoutEn} Elected: ${esc(w.president)} and ${esc(w.vicePresident)}.</p>`,
+        bodyHtml: `<h1>Bulgarian presidential election ${f.date}</h1><p>${r1.ranking.length} tickets in the first round, ${intEn(r1.votes.valid)} valid votes.${turnoutEn} Elected: ${esc(w.president)} and ${esc(w.vicePresident)}.</p>${pollsBand.en}`,
         jsonLd: [
           buildWebPageLd({
             title: titleEn,

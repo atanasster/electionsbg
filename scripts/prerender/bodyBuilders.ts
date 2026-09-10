@@ -12,6 +12,12 @@ import {
   oblastLabel,
   type OblastLabelForm,
 } from "@/lib/oblastName";
+import {
+  groupByPollSortedBySupport,
+  latestPollPerAgency,
+} from "@/data/polls/pollRows";
+import { sortByFieldworkDesc } from "@/data/polls/fieldwork";
+import type { Poll, PresidentialPollDetail } from "@/data/polls/pollsTypes";
 
 // ── Site-wide section navigation ──────────────────────────────────────────
 // A crawlable link block appended to the (hidden) #ssg-content body of EVERY
@@ -579,6 +585,93 @@ type PollAnalysisAgency = {
   warning?: { bg?: string; en?: string };
 };
 
+const PRESIDENTIAL_TOP_CANDIDATES = 3;
+
+type PresidentialPollsCorpus = {
+  polls: Poll[];
+  details: PresidentialPollDetail[];
+};
+
+/** ⚠ MEMOISED PER ROOT, matching `presidentialRoutes.ts`'s `accuracyCache` in this same
+ *  increment — both presidential-polls sections below read this file pair, and
+ *  `buildPresidentialAgencyPollsSection` is called once PER AGENCY from `buildPollsRoutes`'s
+ *  loop, so an unmemoised read parses the same two files (up to 15 times today, more as the
+ *  corpus and agency count grow) to produce the same object every time. */
+const presidentialPollsCache = new Map<string, PresidentialPollsCorpus>();
+
+const readPresidentialPolls = (
+  publicFolder: string,
+): PresidentialPollsCorpus => {
+  const hit = presidentialPollsCache.get(publicFolder);
+  if (hit) return hit;
+  const pollsFile = path.join(
+    publicFolder,
+    "polls",
+    "presidential",
+    "polls.json",
+  );
+  const polls: Poll[] = fs.existsSync(pollsFile)
+    ? JSON.parse(fs.readFileSync(pollsFile, "utf-8"))
+    : [];
+  const detailsFile = path.join(
+    publicFolder,
+    "polls",
+    "presidential",
+    "polls_details.json",
+  );
+  const details: PresidentialPollDetail[] = fs.existsSync(detailsFile)
+    ? JSON.parse(fs.readFileSync(detailsFile, "utf-8"))
+    : [];
+  const built = { polls, details };
+  presidentialPollsCache.set(publicFolder, built);
+  return built;
+};
+
+/** Tier 4 T4.4 Increment C — mirrors `PresidentialPollsSection.tsx`'s client-side band, one row
+ *  per agency's LATEST presidential poll (no accuracy scoring exists yet to rank by), with its
+ *  top-3 candidates by polled support. Decision 10's presidential file family is a separate
+ *  file from the parliamentary `polls.json` this body otherwise reads, and is absent entirely
+ *  until Tier 4's first accepted poll — an absent or empty file renders nothing, never an
+ *  empty heading. */
+const buildPresidentialPollsSection = (publicFolder: string): string => {
+  const { polls, details } = readPresidentialPolls(publicFolder);
+  const latest = latestPollPerAgency(polls);
+  if (latest.length === 0) return "";
+  const detailsByPoll = groupByPollSortedBySupport(details);
+  const parts: string[] = [`<h2>Президентски проучвания</h2>`];
+  parts.push(
+    `<table><thead><tr><th>Агенция</th><th>Проучване</th><th>Водещи кандидати</th></tr></thead><tbody>`,
+  );
+  for (const p of latest) {
+    const link = `<a href="${SITE_URL}/polls/${encodeURIComponent(p.agencyId)}">${escapeHtml(p.agencyId)}</a>`;
+    const top = (detailsByPoll.get(p.id) ?? []).slice(
+      0,
+      PRESIDENTIAL_TOP_CANDIDATES,
+    );
+    const candidates = top
+      .map((d) => `${escapeHtml(d.candidateName_bg)} ${d.support.toFixed(1)}%`)
+      .join(", ");
+    parts.push(
+      `<tr><td>${link}</td><td>${escapeHtml(p.fieldwork)}</td><td>${candidates}</td></tr>`,
+    );
+  }
+  parts.push(`</tbody></table>`);
+  return parts.join("\n");
+};
+
+/** Whether this agency has at least one presidential poll — the same signal
+ *  `buildPresidentialAgencyPollsSection` renders on, exposed so the per-agency route's own
+ *  `<title>`/description (`dynamicRoutes.ts`) can avoid the „narrower scope than shown" trap
+ *  the plan named for the `/polls` hub: a presidential-only agency (GM, decision 11) must not
+ *  be described as being about parliamentary results alone. */
+export const agencyHasPresidentialPoll = (
+  publicFolder: string,
+  agencyId: string,
+): boolean =>
+  readPresidentialPolls(publicFolder).polls.some(
+    (p) => p.agencyId === agencyId,
+  );
+
 export const buildPollsBody = (publicFolder: string): string => {
   const agenciesFile = path.join(publicFolder, "polls", "agencies.json");
   const analysisFile = path.join(publicFolder, "polls", "analysis.json");
@@ -594,7 +687,12 @@ export const buildPollsBody = (publicFolder: string): string => {
     (analysis.agencyTakes ?? []).map((a) => [a.agencyId, a]),
   );
   const parts: string[] = [];
-  parts.push(`<h1>Социологически проучвания преди парламентарни избори</h1>`);
+  // ⚠ WIDENED FROM „преди парламентарни избори" — Tier 4 T4.4 Increment C, matching the
+  // widened `<title>`/JSON-LD in `dynamicRoutes.ts`'s `buildPollsRoutes`: this body now also
+  // carries the presidential-polls section appended below.
+  parts.push(
+    `<h1>Социологически проучвания — парламентарни и президентски избори</h1>`,
+  );
   parts.push(
     `<p>Точност на агенциите по предишни вотове, профил на отклоненията и предупреждения. Източник на проучванията: българска Уикипедия и сайтовете на агенциите.</p>`,
   );
@@ -611,6 +709,41 @@ export const buildPollsBody = (publicFolder: string): string => {
     );
   }
   parts.push(`</tbody></table>`);
+  const presidentialSection = buildPresidentialPollsSection(publicFolder);
+  if (presidentialSection) parts.push(presidentialSection);
+  return parts.join("\n");
+};
+
+/** Tier 4 T4.4 Increment C — mirrors `AgencyPresidentialPollsList.tsx`'s client-side list: this
+ *  agency's own presidential polls, newest fieldwork first, polled support only (no
+ *  actual-vs-polled comparison — the presidential corpus has no scored/accepted cycle yet).
+ *  Independent of `analysis.json` (a parliamentary-only enrichment file) so a presidential-only
+ *  agency — GM's own real case, decision 11 — is never held hostage to a file that has nothing
+ *  to say about it. */
+const buildPresidentialAgencyPollsSection = (
+  publicFolder: string,
+  agencyId: string,
+): string => {
+  const { polls: allPolls, details } = readPresidentialPolls(publicFolder);
+  const polls = sortByFieldworkDesc(
+    allPolls.filter((p) => p.agencyId === agencyId),
+  );
+  if (polls.length === 0) return "";
+  const detailsByPoll = groupByPollSortedBySupport(details);
+  const parts: string[] = [`<h2>Президентски проучвания</h2>`];
+  for (const p of polls) {
+    parts.push(`<h3>${escapeHtml(p.fieldwork)}</h3>`);
+    const rows = detailsByPoll.get(p.id) ?? [];
+    parts.push(
+      `<table><thead><tr><th>Кандидат</th><th>Дял</th></tr></thead><tbody>`,
+    );
+    for (const d of rows) {
+      parts.push(
+        `<tr><td>${escapeHtml(d.candidateName_bg)}</td><td>${d.support.toFixed(1)}%</td></tr>`,
+      );
+    }
+    parts.push(`</tbody></table>`);
+  }
   return parts.join("\n");
 };
 
@@ -619,13 +752,20 @@ export const buildPollsAgencyBody = (
   agency: PollAgency,
 ): string => {
   const analysisFile = path.join(publicFolder, "polls", "analysis.json");
-  if (!fs.existsSync(analysisFile)) return "";
-  const analysis: { agencyTakes?: PollAnalysisAgency[] } = JSON.parse(
-    fs.readFileSync(analysisFile, "utf-8"),
-  );
-  const take = (analysis.agencyTakes ?? []).find(
-    (a) => a.agencyId === agency.id,
-  );
+  // ⚠ NOT AN EARLY RETURN ON A MISSING FILE, unlike before Increment C. `analysis.json` is a
+  // PARLIAMENTARY-only enrichment (a Claude-generated narrative for the 14 scored agencies),
+  // and bailing out here on its absence used to silently blank the presidential section below
+  // too — a presidential-only agency page (GM's own real case, decision 11) has nothing to do
+  // with whether that file exists.
+  const take = fs.existsSync(analysisFile)
+    ? (
+        (
+          JSON.parse(fs.readFileSync(analysisFile, "utf-8")) as {
+            agencyTakes?: PollAnalysisAgency[];
+          }
+        ).agencyTakes ?? []
+      ).find((a) => a.agencyId === agency.id)
+    : undefined;
   const parts: string[] = [];
   parts.push(
     `<h1>${escapeHtml(agency.name_bg)} — точност на проучванията</h1>`,
@@ -635,6 +775,11 @@ export const buildPollsAgencyBody = (
       `<p>Сайт: <a href="${escapeAttr(agency.website)}" rel="nofollow noopener">${escapeHtml(agency.website)}</a></p>`,
     );
   }
+  const presidentialSection = buildPresidentialAgencyPollsSection(
+    publicFolder,
+    agency.id,
+  );
+  if (presidentialSection) parts.push(presidentialSection);
   if (!take) return parts.join("\n");
   if (take.summary?.bg) {
     parts.push(`<h2>Резюме</h2>`);

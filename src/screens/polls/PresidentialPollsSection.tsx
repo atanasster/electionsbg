@@ -17,17 +17,16 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ListOrdered, Target } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import { Agency, Poll } from "@/data/polls/pollsTypes";
+import { Agency } from "@/data/polls/pollsTypes";
 import {
   usePresidentialPollDetails,
   usePresidentialPollsList,
 } from "@/data/presidential/usePresidentialPolls";
+import { localizeFieldwork } from "@/data/polls/fieldwork";
 import {
-  fieldworkEndMs,
-  localizeFieldwork,
-  sortByFieldworkDesc,
-} from "@/data/polls/fieldwork";
-import { groupByPollSortedBySupport } from "@/data/polls/pollRows";
+  groupByPollSortedBySupport,
+  latestPollPerAgency,
+} from "@/data/polls/pollRows";
 import { isNamedCandidateRow } from "@/data/polls/presidentialRow";
 import { PresidentialPersonName } from "@/screens/presidential/PresidentialPersonName";
 import { PollsSectionHeader } from "./PollsSectionHeader";
@@ -36,27 +35,13 @@ type Props = { agencies: Agency[] };
 
 const TOP_CANDIDATES = 3;
 
-const latestPerAgency = (polls: Poll[]): Poll[] => {
-  const byAgency = new Map<string, Poll>();
-  for (const p of polls) {
-    const cur = byAgency.get(p.agencyId);
-    if (
-      !cur ||
-      (fieldworkEndMs(p.fieldwork) ?? -Infinity) >
-        (fieldworkEndMs(cur.fieldwork) ?? -Infinity)
-    )
-      byAgency.set(p.agencyId, p);
-  }
-  return sortByFieldworkDesc([...byAgency.values()]);
-};
-
 export const PresidentialPollsSection: FC<Props> = ({ agencies }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const { data: polls } = usePresidentialPollsList();
   const { data: details } = usePresidentialPollDetails();
 
-  const latest = useMemo(() => latestPerAgency(polls ?? []), [polls]);
+  const latest = useMemo(() => latestPollPerAgency(polls ?? []), [polls]);
   const detailsByPoll = useMemo(
     () => groupByPollSortedBySupport(details ?? []),
     [details],
