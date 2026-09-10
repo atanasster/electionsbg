@@ -478,24 +478,28 @@ __pycache__/
 /news/data/evals/feedback-target-registries/
 /news/data/evals/entity-link-benchmark/
 
-# Polls agency captures (docs/plans/polls-agency-watchers-v1.md decisions
-# 13 and 18). raw_data/polls/ is TRACKED BY DEFAULT — unlike every other
-# raw_data/ subtree above, the HTML/PDF/SOURCE.json here ARE the provenance
-# a locked poll rests on, not a regenerable cache. Images are the one
-# exception, EXCEPT for the three agencies that publish data ONLY inside an
-# image, with no text/PDF alternative — Sova Harris's whole bulletin scan;
-# Trend's passport (sample size, fieldwork dates); Alpha Research's party
-# shares on roughly half its real posts (decision 18) — see
-# scripts/polls/lib/capture.ts's `discoverAgencyImages`.
-/raw_data/polls/**/*.png
-/raw_data/polls/**/*.jpg
-/raw_data/polls/**/*.jpeg
-!/raw_data/polls/sova_harris/**/*.png
-!/raw_data/polls/sova_harris/**/*.jpg
-!/raw_data/polls/sova_harris/**/*.jpeg
-!/raw_data/polls/trend/**/*.png
-!/raw_data/polls/trend/**/*.jpg
-!/raw_data/polls/trend/**/*.jpeg
-!/raw_data/polls/alpha_research/**/*.png
-!/raw_data/polls/alpha_research/**/*.jpg
-!/raw_data/polls/alpha_research/**/*.jpeg
+# Polls agency captures. [2026-09-10] REVERSED from decision 13
+# (docs/plans/polls-agency-watchers-v1.md) — that decision tracked
+# raw_data/polls/ by default (the HTML/PDF/SOURCE.json here were meant to
+# be the provenance a locked poll rests on, not a regenerable cache, with
+# an image exception for the three agencies that publish data only inside
+# an image). Operator decision: raw_data/polls/ now follows the same
+# gitignored-cache convention every other raw_data/ subtree in this file
+# already uses. Already-committed captures (a63a09b7af8f2976,
+# a19cfbc0c6dad528, 212637, etc.) stay in git history and the working
+# tree; this only stops NEW/changed ones from being tracked going forward.
+/raw_data/polls/
+
+# [2026-09-10] Operator decision: video/ (the Remotion video-generation
+# subproject — remotion.config.ts, tsconfig.json, src/*.ts(x), fonts) stops
+# being tracked going forward, despite being source code rather than
+# generated output. Already-committed files stay in git history and the
+# working tree; only new/changed ones are affected.
+/video/
+
+# [2026-09-10] Operator decision: brand/ (Naiasno rebrand social-media
+# asset set — profile/cover images, ads/channels/posts/videos subfolders)
+# stops being tracked, and the previously-committed files are untracked
+# from the index in the same change (removed from the tree going forward;
+# still recoverable from git history, and untouched on disk locally).
+/brand/
