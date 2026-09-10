@@ -540,6 +540,31 @@
       ],
       "redirects": [
         {
+          "source": "/",
+          "destination": "https://naiasno.bg/chat",
+          "type": 301
+        },
+        {
+          "source": "/tools",
+          "destination": "https://naiasno.bg/chat/tools",
+          "type": 301
+        },
+        {
+          "source": "/tools/",
+          "destination": "https://naiasno.bg/chat/tools",
+          "type": 301
+        },
+        {
+          "source": "/evals",
+          "destination": "https://naiasno.bg/chat/evals",
+          "type": 301
+        },
+        {
+          "source": "/evals/",
+          "destination": "https://naiasno.bg/chat/evals",
+          "type": 301
+        },
+        {
           "source": "/api/llm",
           "destination": "https://elections-bg.web.app/api/llm",
           "type": 307
