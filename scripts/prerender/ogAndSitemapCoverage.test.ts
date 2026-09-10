@@ -25,6 +25,7 @@
 // that scans nothing passes.
 
 import { describe, expect, it } from "vitest";
+import { BRAND_NAME, BRAND_NAME_LATIN } from "@/lib/brand";
 import {
   ANALYSIS_BAND,
   REPORTS_BAND,
@@ -114,6 +115,38 @@ try {
 }
 
 // ---------------------------------------------------------------------------
+
+describe("no prerendered title names the brand twice", () => {
+  // ⚠️ FOUND LIVE, ON THE FOUR TITLES THAT MATTER MOST. The rename appended
+  // `| Наясно` to every title, including the ones that already OPENED with the
+  // brand — both homepages and both halves of the launch article shipped as
+  // „Наясно — България в данни… | Наясно" and „Попитай Наясно: … | Наясно".
+  // Google shows about sixty characters; eighteen of them were a word already
+  // in the first three.
+  //
+  // Reads the ROUTE TABLE rather than dist/, so it runs in CI and on a checkout
+  // that has never built. `withBrandSuffix` is the fix at the append sites; this
+  // is what catches a title that hard-codes the suffix beside its own brand.
+  it("no title carries the brand more than once", () => {
+    const twice = prerenderRoutes
+      .flatMap((r) => [
+        [r.path, r.title] as const,
+        [`en/${r.path}`, r.english?.title] as const,
+      ])
+      .filter(([, t]) => {
+        if (!t) return false;
+        const n =
+          t.split(BRAND_NAME).length - 1 + (t.split(BRAND_NAME_LATIN).length - 1);
+        return n > 1;
+      })
+      .map(([p, t]) => `${p}: ${t}`);
+    expect(
+      twice,
+      "these titles name Наясно/Naiasno more than once — use `withBrandSuffix`, " +
+        "which appends only when the title does not already carry the brand",
+    ).toEqual([]);
+  });
+});
 
 describe("every prerendered page has an og:image of its own", () => {
   // Empty on purpose. A page added here needs a REASON, because the fallback is

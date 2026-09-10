@@ -573,9 +573,13 @@ const homeBodies = (() => {
 // `html.length` < HOME_HTML_MAX_BYTES — UTF-16 CODE UNITS, not bytes, which on a Cyrillic
 // page is ~4.6 kB less room than the constant's name suggests. Measured before this change:
 // 17,624 units against 18,000. Every sentence here is paying for itself.
-const GLOBAL_HOME_TITLE = `Наясно — България в данни: цени, бюджет, поръчки, избори | Наясно`;
+// ⚠️ NO SUFFIX: the title already OPENS with the brand. It carried „| Наясно"
+// as well until 2026-09-11 — the rename appended it blindly — so the site's
+// single most valuable title spent eighteen of Google's ~sixty characters
+// repeating a word already in its first three.
+const GLOBAL_HOME_TITLE = `Наясно — България в данни: цени, бюджет, поръчки, избори`;
 const GLOBAL_HOME_DESCRIPTION = `Инфлация, безработица, растеж и държавен дълг, цени по магазини, бюджет и обществени поръчки, еврофондове, избори и общини — обединени от отворени данни.`;
-const GLOBAL_HOME_TITLE_EN = `Naiasno — Bulgaria in Data: Prices, Budget, Procurement, Elections | Naiasno`;
+const GLOBAL_HOME_TITLE_EN = `Naiasno — Bulgaria in Data: Prices, Budget, Procurement, Elections`;
 const GLOBAL_HOME_DESCRIPTION_EN = `Inflation, unemployment, growth and government debt, shop prices, the state budget and public procurement, EU funds, elections and municipalities — from open data.`;
 
 /** The eight primary destinations, for the body and the ItemList. One list, so the two
@@ -2026,7 +2030,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "about",
-    title: "За проекта",
+    title: "За проекта | Наясно",
     description:
       "За екипа, методологията и източниците на Наясно — независима платформа с отворени данни за изборите, бюджета, обществените поръчки, еврофондовете, декларациите и цените в България.",
     breadcrumbName: "За проекта",
@@ -2051,7 +2055,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Какво числото не означава.</strong> Декларирано пред Сметна палата, не одитирано. Наследство, дарение, реституция, продажба на притежаван актив, доходи на съпруг/а и погасени заеми променят имуществото, без да се появяват като доход. Имоти без обявена стойност се броят за €0 и техният брой се показва до числото — тогава разликата не е точна величина. Страницата не твърди нарушение.</p>
 <p><strong>Право на отговор.</strong> Всяко засегнато лице може да оспори или допълни числото. Пишете ни през <a href="https://www.facebook.com/naiasno" rel="nofollow noopener">страницата на „Наясно“</a>; обоснована поправка (документиран източник, който декларацията не съдържа) се публикува до самото число.</p>`.trim(),
     english: {
-      title: "About",
+      title: "About | Naiasno",
       description:
         "About the team, methodology, and data sources behind Naiasno — an independent open-data platform covering Bulgaria's elections, state budget, public procurement, EU funds, asset declarations and prices.",
       breadcrumbName: "About",

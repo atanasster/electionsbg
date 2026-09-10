@@ -20,6 +20,7 @@
 // through to the index.json values + the standard inferred keywords.
 
 import fs from "fs";
+import { withBrandSuffix } from "@/lib/brand";
 import publication from "../../src/lib/chatLaunchPublication.json";
 import path from "path";
 import { EN_HOME, PrerenderRoute, SITE_URL } from "./routes";
@@ -291,7 +292,7 @@ export const buildArticleRoutes = async (
 
     routes.push({
       path: path_,
-      title: `${bgTitle} | Наясно`,
+      title: withBrandSuffix(bgTitle, "bg"),
       description: bgDescription,
       ogImage,
       bodyHtml: bgBody,
@@ -316,7 +317,7 @@ export const buildArticleRoutes = async (
         ]),
       ],
       english: {
-        title: `${enTitle} | Naiasno`,
+        title: withBrandSuffix(enTitle, "en"),
         description: enDescription,
         bodyHtml: enBody,
         jsonLd: [

@@ -102,3 +102,22 @@ export const brandName = (lang?: string) =>
 /** The document-title suffix for the active locale. */
 export const brandTitleSuffix = (lang?: string) =>
   isBrandCyrillic(lang) ? BRAND_TITLE_SUFFIX : BRAND_TITLE_SUFFIX_EN;
+
+/**
+ * Append the suffix — unless the title already names the brand.
+ *
+ * ⚠️ THE GUARD IS THE POINT. A blanket append is what the rename did, and it
+ * produced four live titles that said the brand TWICE: both homepages
+ * („Наясно — България в данни… | Наясно") and both halves of the launch article
+ * („Попитай Наясно: … | Наясно"). Those are the two most valuable titles the
+ * site has, and Google shows about sixty characters — eighteen of which were a
+ * word already in the first three.
+ *
+ * Checks BOTH scripts regardless of locale: an English title may legitimately
+ * carry the Cyrillic form (a product name quoted as-is) and must not then be
+ * given a Latin suffix on top of it.
+ */
+export const withBrandSuffix = (title: string, lang?: string): string =>
+  title.includes(BRAND_NAME) || title.includes(BRAND_NAME_LATIN)
+    ? title
+    : `${title}${brandTitleSuffix(lang)}`;
