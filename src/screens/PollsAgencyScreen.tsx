@@ -11,8 +11,14 @@ import {
   usePollsAccuracy,
   usePollsAnalysis,
 } from "@/data/polls/usePolls";
+import {
+  usePresidentialPollDetails,
+  usePresidentialPollsList,
+  usePresidentialRunoffs,
+} from "@/data/presidential/usePresidentialPolls";
 import { AgencyProfileCard } from "./polls/AgencyProfileCard";
 import { AgencyPollsList } from "./polls/AgencyPollsList";
+import { AgencyPresidentialPollsList } from "./polls/AgencyPresidentialPollsList";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -35,8 +41,24 @@ export const PollsAgencyScreen: FC = () => {
   const { data: accuracy } = usePollsAccuracy();
   const { data: analysis } = usePollsAnalysis();
   const { data: agencies } = useAgencies();
+  // ⚠ CHECKED ON `isPending`, NEVER ON `!!data` — decision 10's presidential family is a
+  // SEPARATE file family fetched in parallel with the parliamentary one above, and once
+  // resolved its `data` is legitimately `null` for most agencies (no presidential poll on
+  // file), which `!!data` cannot tell apart from "still loading". Gating `ready` on that
+  // would wait forever for an agency that will never have one.
+  const presPolls = usePresidentialPollsList();
+  const presDetails = usePresidentialPollDetails();
+  const presRunoffs = usePresidentialRunoffs();
 
-  const ready = !!polls && !!details && !!accuracy && !!analysis && !!agencies;
+  const ready =
+    !!polls &&
+    !!details &&
+    !!accuracy &&
+    !!analysis &&
+    !!agencies &&
+    !presPolls.isPending &&
+    !presDetails.isPending &&
+    !presRunoffs.isPending;
 
   const agency = useMemo(
     () => agencies?.find((a) => a.id === agencyId),
@@ -57,6 +79,18 @@ export const PollsAgencyScreen: FC = () => {
   const agencyDetails = useMemo(
     () => details?.filter((d) => d.agencyId === agencyId) ?? [],
     [details, agencyId],
+  );
+  const agencyPresidentialPolls = useMemo(
+    () => presPolls.data?.filter((p) => p.agencyId === agencyId) ?? [],
+    [presPolls.data, agencyId],
+  );
+  const agencyPresidentialDetails = useMemo(
+    () => presDetails.data?.filter((d) => d.agencyId === agencyId) ?? [],
+    [presDetails.data, agencyId],
+  );
+  const agencyPresidentialRunoffs = useMemo(
+    () => presRunoffs.data?.filter((r) => r.agencyId === agencyId) ?? [],
+    [presRunoffs.data, agencyId],
   );
 
   // Cross-agency mean MAE — used as the "consensus" reference line on the per-agency
@@ -166,6 +200,19 @@ export const PollsAgencyScreen: FC = () => {
               elections={accuracy.elections}
             />
           </div>
+
+          {/* Tier 4 T4.4 Increment B — never rendered on zero, exactly like the presidential
+              cycle page's own polling band; this is the branch the comment above this block
+              anticipated ("a presidential-only publication"). */}
+          {agencyPresidentialPolls.length > 0 ? (
+            <div className="mt-3">
+              <AgencyPresidentialPollsList
+                polls={agencyPresidentialPolls}
+                details={agencyPresidentialDetails}
+                runoffs={agencyPresidentialRunoffs}
+              />
+            </div>
+          ) : null}
         </section>
       </>
     );
@@ -192,6 +239,18 @@ export const PollsAgencyScreen: FC = () => {
             elections={accuracy.elections}
           />
         </div>
+
+        {/* Tier 4 T4.4 Increment B — an agency with a scored parliamentary profile can ALSO
+            carry a presidential poll (GM does); never rendered on zero. */}
+        {agencyPresidentialPolls.length > 0 ? (
+          <div className="mt-3">
+            <AgencyPresidentialPollsList
+              polls={agencyPresidentialPolls}
+              details={agencyPresidentialDetails}
+              runoffs={agencyPresidentialRunoffs}
+            />
+          </div>
+        ) : null}
 
         <div className="text-[10px] text-muted-foreground text-center mt-6">
           {t("polls_data_source")}

@@ -4,6 +4,7 @@ import {
   formatFieldwork,
   isFuzzyFieldwork,
   isRealIsoDate,
+  localizeFieldwork,
   parseFieldworkEnd,
   pollId,
 } from "./fieldwork";
@@ -251,5 +252,22 @@ describe("fieldworkEndMs", () => {
       "Oct 11-17 2024",
       "May 8 2013 (per Wikipedia table — single-date entry)",
     ]);
+  });
+});
+
+describe("localizeFieldwork", () => {
+  it("returns the stored EN-month string unchanged for an English reader", () => {
+    expect(localizeFieldwork("through Jul 05 2021", false)).toBe(
+      "through Jul 05 2021",
+    );
+    expect(localizeFieldwork("Mar 12-20 2026", false)).toBe("Mar 12-20 2026");
+  });
+
+  it("translates only the leading 'through' for a Bulgarian reader", () => {
+    expect(localizeFieldwork("through Jul 05 2021", true)).toBe(
+      "до Jul 05 2021",
+    );
+    // No leading "through" — nothing to translate, the range stays as-is.
+    expect(localizeFieldwork("Mar 12-20 2026", true)).toBe("Mar 12-20 2026");
   });
 });

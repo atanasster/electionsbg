@@ -15,8 +15,11 @@ import { MemoryRouter } from "react-router-dom";
 import { initTestI18n } from "./dashboard/testI18n";
 import type {
   Agency,
+  Poll,
   PollsAccuracy,
   PollsAnalysis,
+  PresidentialPollDetail,
+  Runoff,
 } from "@/data/polls/pollsTypes";
 
 const agenciesRef = vi.hoisted(() => ({
@@ -29,6 +32,16 @@ const analysisRef = vi.hoisted(() => ({
   current: undefined as PollsAnalysis | undefined,
 }));
 const agencyIdRef = vi.hoisted(() => ({ current: "GM" }));
+// The presidential family — separate from the parliamentary mocks below, and
+// defaulted to an empty, RESOLVED (never `isPending`) result so `ready`
+// settles: `PollsAgencyScreen` gates on `isPending`, not `!!data`, because a
+// real `data: []` (no presidential poll for this agency, the ordinary case)
+// must not read as "still loading".
+const presPollsRef = vi.hoisted(() => ({ current: [] as Poll[] }));
+const presDetailsRef = vi.hoisted(() => ({
+  current: [] as PresidentialPollDetail[],
+}));
+const presRunoffsRef = vi.hoisted(() => ({ current: [] as Runoff[] }));
 
 vi.mock("@/data/polls/usePolls", () => ({
   useAgencies: () => ({ data: agenciesRef.current }),
@@ -36,6 +49,20 @@ vi.mock("@/data/polls/usePolls", () => ({
   usePollDetails: () => ({ data: [] }),
   usePollsAccuracy: () => ({ data: accuracyRef.current }),
   usePollsAnalysis: () => ({ data: analysisRef.current }),
+}));
+vi.mock("@/data/presidential/usePresidentialPolls", () => ({
+  usePresidentialPollsList: () => ({
+    data: presPollsRef.current,
+    isPending: false,
+  }),
+  usePresidentialPollDetails: () => ({
+    data: presDetailsRef.current,
+    isPending: false,
+  }),
+  usePresidentialRunoffs: () => ({
+    data: presRunoffsRef.current,
+    isPending: false,
+  }),
 }));
 vi.mock("react-router-dom", async () => {
   const actual =
@@ -60,6 +87,9 @@ afterEach(() => {
   agenciesRef.current = undefined;
   accuracyRef.current = undefined;
   analysisRef.current = undefined;
+  presPollsRef.current = [];
+  presDetailsRef.current = [];
+  presRunoffsRef.current = [];
 });
 
 const AGENCY_GM: Agency = {
@@ -142,6 +172,52 @@ describe("PollsAgencyScreen", () => {
     expect(
       screen.queryByText("Все още няма оценени проучвания за тази агенция."),
     ).not.toBeInTheDocument();
+  });
+
+  it("renders AgencyPresidentialPollsList once the agency has a presidential poll, in the no-profile branch", () => {
+    // The real-world case Tier 4 T4.4 Increment B exists for: GM has zero
+    // SCORED parliamentary polls (the no-profile branch above) but one real,
+    // accepted presidential poll — the two lists must render side by side,
+    // never one hiding the other.
+    agencyIdRef.current = "GM";
+    agenciesRef.current = [AGENCY_GM];
+    accuracyRef.current = emptyAccuracy();
+    analysisRef.current = emptyAnalysis();
+    presPollsRef.current = [
+      {
+        id: "gm-2026-07-11",
+        agencyId: "GM",
+        fieldwork: "through Jul 11 2026",
+        electionDate: "2026-11-08",
+        respondents: 1503,
+        methodology: { bg: "Метод", en: "Method" },
+        source: "https://globalmetrics.eu/example",
+        race: "presidential",
+        cycle: null,
+      },
+    ];
+    presDetailsRef.current = [
+      {
+        pollId: "gm-2026-07-11",
+        agencyId: "GM",
+        candidateKey: "provisional:илияна-йотова",
+        candidateName_bg: "Илияна Йотова",
+        candidateName_en: "Iliana Yotova",
+        nominator: null,
+        placeholderFor: null,
+        support: 30,
+      },
+    ];
+
+    renderScreen();
+
+    // The parliamentary empty-state stays (unaffected by the presidential data)...
+    expect(
+      screen.getByText("Все още няма проучвания за тази агенция."),
+    ).toBeInTheDocument();
+    // ...and the presidential list renders alongside it, never suppressing it.
+    expect(screen.getByText("Президентски проучвания (1)")).toBeInTheDocument();
+    expect(screen.getByText("Илияна Йотова")).toBeInTheDocument();
   });
 
   it("surfaces the agency's own resolved eik as a /company link in the no-profile panel", () => {

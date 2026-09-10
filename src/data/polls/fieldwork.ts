@@ -188,6 +188,24 @@ export const fieldworkEndMs = (fieldwork: string): number | null => {
 };
 
 /**
+ * Sorts a list of polls newest-fieldwork-first, with an unreadable fieldwork
+ * sorted to the bottom rather than to 1970 (see `fieldworkEndMs`'s own header).
+ * Lives here — not beside any one caller — because every poll-list view
+ * (parliamentary and presidential) needs the identical comparator; a
+ * per-screen copy is exactly how `AgencyPollsList` used to disagree with
+ * itself, the same reason `localizeFieldwork` above is shared rather than
+ * copied.
+ */
+export const sortByFieldworkDesc = <T extends { fieldwork: string }>(
+  items: T[],
+): T[] =>
+  [...items].sort(
+    (a, b) =>
+      (fieldworkEndMs(b.fieldwork) ?? -Infinity) -
+      (fieldworkEndMs(a.fieldwork) ?? -Infinity),
+  );
+
+/**
  * True when the string only resolves through the mid-month fallback — i.e. the
  * day is invented rather than recorded.
  *
@@ -276,6 +294,18 @@ export const formatFieldwork = (
     return `${endMonth} ${end.d} ${end.y}`;
   if (start.m === end.m) return `${endMonth} ${start.d}-${end.d} ${end.y}`;
   return `${MONTH_EN_SHORT[start.m]} ${start.d} - ${endMonth} ${end.d} ${end.y}`;
+};
+
+/**
+ * Localised display of a stored fieldwork string. The data is always stored
+ * in EN-month form ("Mar 13-19 2026", "through Apr 16 2026") so the
+ * analyzer can parse it uniformly; for BG readers this translates the
+ * "through" prefix. Shared by every poll-list view (parliamentary and
+ * presidential) so the two cannot silently disagree on the wording.
+ */
+export const localizeFieldwork = (fw: string, isBg: boolean): string => {
+  if (!isBg) return fw;
+  return fw.replace(/^through\s+/i, "до ");
 };
 
 /**

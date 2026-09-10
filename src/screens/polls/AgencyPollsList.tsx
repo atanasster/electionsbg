@@ -5,7 +5,12 @@ import { ExternalLink, ListOrdered } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { ElectionAccuracy, Poll, PollDetail } from "@/data/polls/pollsTypes";
 import { resolveActualKey } from "@/data/polls/aliases";
-import { fieldworkEndMs } from "@/data/polls/fieldwork";
+import {
+  fieldworkEndMs,
+  localizeFieldwork,
+  sortByFieldworkDesc,
+} from "@/data/polls/fieldwork";
+import { groupByPollSortedBySupport } from "@/data/polls/pollRows";
 import { localDate } from "@/data/utils";
 import { partyHref } from "@/lib/utils";
 
@@ -20,14 +25,6 @@ const isoToLocalDate = (iso: string | null): string => {
   return localDate(iso.replace(/-/g, "_"));
 };
 
-// Localised display of the fieldwork string. The data is stored in EN-month
-// form ("Mar 13-19 2026", "through Apr 16 2026") so the analyzer can parse it
-// uniformly; for BG users we translate the "through" prefix.
-const localizeFieldwork = (fw: string, isBg: boolean): string => {
-  if (!isBg) return fw;
-  return fw.replace(/^through\s+/i, "до ");
-};
-
 // normKey / POLL_TO_ACTUAL / stripCoalitionPrefix / resolveActualKey live in
 // @/data/polls/aliases so the analyzer script and this view can't drift.
 // `fieldworkEndMs` is imported for the same reason, and it arrived later: this
@@ -40,16 +37,10 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
 
-  const detailsByPoll = useMemo(() => {
-    const m = new Map<string, PollDetail[]>();
-    for (const d of details) {
-      const arr = m.get(d.pollId);
-      if (arr) arr.push(d);
-      else m.set(d.pollId, [d]);
-    }
-    for (const arr of m.values()) arr.sort((a, b) => b.support - a.support);
-    return m;
-  }, [details]);
+  const detailsByPoll = useMemo(
+    () => groupByPollSortedBySupport(details),
+    [details],
+  );
 
   // For each election, both the pct map AND the set of valid keys (used by the
   // poll-label resolver to disambiguate ДПС / ДПС-НН etc.).
@@ -92,18 +83,7 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
     return null;
   };
 
-  const sortedPolls = useMemo(
-    () =>
-      [...polls].sort(
-        // Unreadable fieldwork sorts to the bottom of this newest-first list
-        // rather than to 1970 — explicit, so a future ascending sort does not
-        // silently promote it to the top.
-        (a, b) =>
-          (fieldworkEndMs(b.fieldwork) ?? -Infinity) -
-          (fieldworkEndMs(a.fieldwork) ?? -Infinity),
-      ),
-    [polls],
-  );
+  const sortedPolls = useMemo(() => sortByFieldworkDesc(polls), [polls]);
 
   if (sortedPolls.length === 0) {
     return (

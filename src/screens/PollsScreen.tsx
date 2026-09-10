@@ -1,7 +1,6 @@
-import { FC, ReactNode, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Info, Globe2, CalendarDays, Activity } from "lucide-react";
-import { Hint } from "@/ux/Hint";
 import { Title } from "@/ux/Title";
 import { useElectionContext } from "@/data/ElectionContext";
 import { localDate } from "@/data/utils";
@@ -16,6 +15,8 @@ import { PollsHeadlinesTile } from "./polls/PollsHeadlinesTile";
 import { PollsLeaderboardTile } from "./polls/PollsLeaderboardTile";
 import { PollsLatestElectionTile } from "./polls/PollsLatestElectionTile";
 import { PollsMethodologyTile } from "./polls/PollsMethodologyTile";
+import { PollsSectionHeader } from "./polls/PollsSectionHeader";
+import { PresidentialPollsSection } from "./polls/PresidentialPollsSection";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -27,31 +28,6 @@ const SkeletonCard: FC<{ className?: string }> = ({
     <div className="h-7 w-32 bg-muted rounded" />
   </div>
 );
-
-const SectionHeader: FC<{
-  icon: ReactNode;
-  label: ReactNode;
-  hint?: string;
-}> = ({ icon, label, hint }) => {
-  const content = (
-    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-      {icon}
-      <span>{label}</span>
-    </div>
-  );
-  return (
-    <div className="flex items-center gap-3 mt-6 mb-2 first:mt-0">
-      {hint ? (
-        <Hint text={hint} underline={false}>
-          {content}
-        </Hint>
-      ) : (
-        content
-      )}
-      <div className="flex-1 h-px bg-border" />
-    </div>
-  );
-};
 
 export const PollsScreen: FC = () => {
   const { t } = useTranslation();
@@ -100,7 +76,7 @@ export const PollsScreen: FC = () => {
       <Title description={t("polls_description")}>{title}</Title>
       <section className="pb-12">
         {/* All-time section: cross-election aggregate stats */}
-        <SectionHeader
+        <PollsSectionHeader
           icon={<Globe2 className="h-3.5 w-3.5" />}
           label={t("polls_section_all_time")}
           hint={t("polls_section_all_time_hint")}
@@ -155,7 +131,7 @@ export const PollsScreen: FC = () => {
         </div>
 
         {/* Accuracy over time — shared with the dashboard tile */}
-        <SectionHeader
+        <PollsSectionHeader
           icon={<Activity className="h-3.5 w-3.5" />}
           label={t("dashboard_accuracy_trends")}
           hint={t("dashboard_accuracy_trends_hint")}
@@ -169,7 +145,7 @@ export const PollsScreen: FC = () => {
         </div>
 
         {/* Selected-election section: narrative + final-poll errors */}
-        <SectionHeader
+        <PollsSectionHeader
           icon={<CalendarDays className="h-3.5 w-3.5" />}
           label={t("polls_section_selected_election", {
             date: selected ? localDate(selected) : "",
@@ -200,6 +176,14 @@ export const PollsScreen: FC = () => {
             </div>
           )}
         </div>
+
+        {/* Tier 4 T4.4 Increment B — kept as a SECTION on the shared hub, not its own route,
+            per the plan's own recommendation (decision 10/11, §11 item 3): a dedicated
+            `/polls/presidential` route is worth minting only once the 2026 cycle carries
+            ≥5 polls. `PresidentialPollsSection` renders its OWN header as part of the same
+            self-hiding unit — never mounted here unconditionally — so this never orphans a
+            header above an empty corpus while the family is still thin. */}
+        <PresidentialPollsSection agencies={agencies} />
 
         <div className="text-[10px] text-muted-foreground text-center mt-6">
           {t("polls_data_source")}
