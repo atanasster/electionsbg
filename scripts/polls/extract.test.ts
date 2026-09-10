@@ -10,6 +10,13 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { __setExtractRootForTests, main, parseArgv } from "./extract";
+import { assertCommitted } from "../lib/assert_committed";
+
+// These path literals mirror the REAL committed corpus shape (extract.ts is
+// redirected to a scratch root for every test below, so nothing here reads
+// them) — asserted so a renamed/removed committed directory is caught here
+// rather than only by a fixture silently drifting from reality.
+assertCommitted("raw_data/polls", "data/polls/_inbox");
 
 describe("parseArgv", () => {
   it("reads --agency and --pub", () => {

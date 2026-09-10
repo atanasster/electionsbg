@@ -18,8 +18,12 @@ const EXT = new Set([".ts", ".tsx", ".js", ".mjs"]);
 
 /** Strings that look like a model id and are not one. `gemini-api` is a PROVIDER
  *  label in a union type (`source: "cloud-live" | "gemini-api" | …`), not something
- *  you can pass to the SDK. */
-const NOT_A_MODEL = new Set(["gemini-api"]);
+ *  you can pass to the SDK. `gemini-flash` is a documented `extractor` DISCRIMINATOR
+ *  value (the not-yet-built LLM-fallback extractor, decision 5's "< 3 shares"
+ *  trigger, in `scripts/polls/lib/draft.ts` and `src/data/polls/pollsTypes.ts`) —
+ *  distinct from the versioned model id (`GEMINI_FLASH` above) it will eventually
+ *  call, which is never itself pinned at either site. */
+const NOT_A_MODEL = new Set(["gemini-api", "gemini-flash"]);
 
 const sources = (): { file: string; text: string }[] => {
   const out: { file: string; text: string }[] = [];

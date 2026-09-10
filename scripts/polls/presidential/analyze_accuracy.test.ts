@@ -13,6 +13,13 @@ import {
   computeCycleAccuracy,
   main,
 } from "./analyze_accuracy";
+import { assertCommitted } from "../../lib/assert_committed";
+
+// Mirrors the REAL committed corpus shape (analyze_accuracy.ts is redirected
+// to a scratch root for every test below, so nothing here reads it) —
+// asserted so a renamed/removed committed directory is caught here rather
+// than only by a fixture silently drifting from reality.
+assertCommitted("data/polls/presidential");
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

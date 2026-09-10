@@ -10,6 +10,18 @@ import {
   parseArgv,
 } from "./restamp";
 import type { Poll } from "../../src/data/polls/pollsTypes";
+import { assertCommitted } from "../lib/assert_committed";
+
+// These path literals mirror the REAL committed corpus shape (restamp.ts is
+// redirected to a scratch root for every test below, so nothing here reads
+// them) — asserted so a renamed/removed committed directory is caught here
+// rather than only by a fixture silently drifting from reality.
+assertCommitted(
+  "data/polls",
+  "data/polls/polls.json",
+  "data/polls/presidential",
+  "data/polls/presidential/polls.json",
+);
 
 describe("parseArgv", () => {
   it("reads --race and --to", () => {

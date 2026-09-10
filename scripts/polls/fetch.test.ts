@@ -18,9 +18,16 @@ vi.mock("../watch/state", () => ({ readState: vi.fn() }));
 import { fetchText } from "../watch/fingerprint";
 import { readState } from "../watch/state";
 import { __setCaptureRootForTests, main, parseArgv } from "./fetch";
+import { assertCommitted } from "../lib/assert_committed";
 
 const mockedFetchText = vi.mocked(fetchText);
 const mockedReadState = vi.mocked(readState);
+
+// This path literal mirrors a REAL committed capture directory (fetch.ts is
+// redirected to a scratch root for every test below, so nothing here reads
+// it) — asserted so a renamed/removed committed directory is caught here
+// rather than only by a fixture silently drifting from reality.
+assertCommitted("raw_data/polls/alpha_research");
 
 describe("parseArgv", () => {
   it("reads every value flag and the boolean --force", () => {
