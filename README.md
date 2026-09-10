@@ -1,29 +1,58 @@
-# electionsbg.com
+# Наясно — Bulgaria in open data
 
-[electionsbg.com](https://electionsbg.com) is an open-source platform for
-exploring how Bulgaria votes and is governed. It began with parliamentary
-election results from 2005 onward and now connects elections with Parliament,
-public officials, declared interests and assets, public spending, economic and
-regional indicators, and the everyday cost of living.
+[naiasno.bg](https://naiasno.bg) is an open-source platform for exploring how
+Bulgaria votes and how it is governed. It began with parliamentary election
+results from 2005 onward and has grown into nine connected modules that share
+one rule: every figure comes from a public source, and every page links back to
+it.
 
 The interface is available in Bulgarian and English.
 
 ## What the platform covers
 
-- **Elections** — parliamentary and local results from national level down to
-  municipalities, settlements, and polling sections; turnout, candidate
-  preferences, comparisons, vote flows, and election-risk screening.
-- **Parliament and public life** — MPs, roll-call votes, governments, parties,
-  campaign finance, public officials, declarations, companies, and a unified
-  person layer linking public records without relying on name-only guesses.
-- **Public money** — the state budget, public procurement, EU and Interreg
-  funding, agricultural subsidies, municipal finance, healthcare spending, and
-  other sector dashboards.
-- **Indicators and daily life** — macroeconomic and regional indicators,
-  demographics, education, air quality, land use, pensions, retail prices, and
-  cost-of-living comparisons.
-- **Methods and provenance** — source links, refresh history, coverage notes,
-  reproducible transformations, and explicit caveats for derived indicators.
+- **Elections** — [parliamentary, presidential and local results](https://naiasno.bg/elections)
+  from the national total down to the individual polling section; turnout,
+  candidate preferences, vote flows, comparisons across cycles, the
+  officials-vs-CEC reconciliation, and an election-risk screening index.
+- **Parliament** — [roll-call votes](https://naiasno.bg/parliament) of the
+  National Assembly with per-MP attendance, party cohesion, dissent and
+  vote-similarity metrics, bills, governments and party history.
+- **The state budget** — [revenue and spending](https://naiasno.bg/budget) by
+  ministry, programme and month, the consolidated fiscal programme, municipal
+  finance, and a [tax-policy simulator](https://naiasno.bg/budget/simulator)
+  that scores a rate change against both budget revenue and one worked payslip.
+- **Public procurement** — [contracts and tender procedures](https://naiasno.bg/procurement)
+  from four source feeds, reconciled and de-duplicated, with amendments,
+  supplier and buyer profiles, CPV and settlement breakdowns, a per-contract
+  risk index, and the appeals filed with the competition authority.
+- **EU funds and subsidies** — [ISUN and Interreg projects](https://naiasno.bg/funds),
+  agricultural payouts, currently open calls, and base rates for what a project
+  of a given kind typically receives.
+- **People and connections** — [public figures](https://naiasno.bg/persons),
+  their asset and interest declarations, their roles in the Commerce Registry,
+  and the [links between them](https://naiasno.bg/connections) — resolved
+  through a unified person layer that refuses a shared name rather than grading
+  it.
+- **Local government** — [municipal council decisions](https://naiasno.bg/council),
+  capital programmes, local taxes, mayor pay, and a
+  [per-settlement dashboard](https://naiasno.bg/my-area) that gathers everything
+  about one place.
+- **Prices and consumption** — [retail prices](https://naiasno.bg/consumption)
+  by chain, product and town, fuel, electricity and gas, and comparisons against
+  the rest of the EU.
+- **Indicators and context** — [macroeconomic and regional series](https://naiasno.bg/indicators/economy)
+  from Eurostat, the World Bank and the national statistics institute, plus
+  demographics, education, healthcare and sector dashboards.
+
+Two more things are part of the product rather than the data:
+
+- **[Наясно AI](https://naiasno.bg/chat)** — a chat interface over the same
+  corpora. It answers from tool calls against the real data, so the figures it
+  returns are computed rather than generated, and each one carries a link to the
+  page it came from.
+- **[The data map](https://naiasno.bg/data)** — every source traced to the
+  datasets built from it and the features they power, with downloads, refresh
+  cadence and an update log.
 
 Risk flags are screening signals, not findings of wrongdoing. See
 [METHODOLOGY.md](METHODOLOGY.md) and [LICENSE](LICENSE) for the methodology and
@@ -156,17 +185,15 @@ to be a single unattended network command.
 
 ## Data sources
 
-The project combines official and open sources including the Central Election
-Commission, National Assembly, National Audit Office, `data.egov.bg`, the
-National Statistical Institute, GRAO, Eurostat, the World Bank, the Consumer
-Protection Commission, and other public registers.
+Every source, what is built from it, and which features it powers are published
+and kept current at **[naiasno.bg/data](https://naiasno.bg/data)** — the
+interactive data map, with the full source list, original publishers, downloads,
+refresh cadence and the recent-update log behind it.
 
-The maintained source of truth is the
-[interactive data map at electionsbg.com/data](https://electionsbg.com/data).
-It traces sources to processed datasets and site features, and links onward to
-the full source list, original publishers, downloads, refresh cadence, and
-recent-update log. Republished public data retains the terms of its original
-publisher.
+That page is the maintained source of truth, and this file deliberately does not
+restate it: a source list duplicated into a README goes stale silently, on the
+one claim this project cannot afford to get wrong. Republished public data
+retains the terms of its original publisher.
 
 ## Deployment
 
