@@ -43,6 +43,16 @@ export const ENGLISH_STATIC_PAGES = [
   "subsidies/political",
   "subsidies/cross-programme",
   "about",
+  // The chat and its two supporting screens. All three prerender in both
+  // languages and all three were MISSING from this file — so the flagship
+  // feature shipped indexable, prerendered, and undiscoverable, which
+  // `ogAndSitemapCoverage.test.ts` reported as three missing <loc>s.
+  //
+  // The base pages only: a question URL carries ?q= and canonicalises back to
+  // the page it came from, so it is deliberately not a sitemap entry.
+  "chat",
+  "chat/tools",
+  "chat/evals",
   "sverka",
   "local/chmi",
   "data",
@@ -239,6 +249,12 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "elections", file: "src/data/json/elections.json" },
   { path: "parliamentary", file: `data/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
+  // `file:` is what dates the entry, and ⚠ a path that does not exist skips the
+  // entry SILENTLY — so each of these points at a committed source file that
+  // actually moves when the page changes.
+  { path: "chat", file: `src/screens/ChatScreen.tsx` },
+  { path: "chat/tools", file: `ai/app/Explorer.tsx` },
+  { path: "chat/evals", file: `ai/app/EvalsScreen.tsx` },
   { path: "data", file: `src/screens/DataMapScreen.tsx` },
   { path: "data/links", file: `src/screens/DataLinksScreen.tsx` },
   { path: "data/sources", file: `src/screens/DataSourcesScreen.tsx` },

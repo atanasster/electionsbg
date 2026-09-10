@@ -682,7 +682,10 @@ export const homePreviewParagraph = (
 ): string => {
   if (!chatEnabled) return flyoverParagraph(lang);
   const prefix = lang === "en" ? "/en" : "";
-  const title = lang === "bg" ? "Попитай Наясно" : "Ask Наясно";
+  // Latin on /en, like every other English-facing form of the name — see
+  // BRAND_TITLE_SUFFIX_EN. This is the homepage's own chat invitation, so a
+  // Cyrillic heading here sat directly under an English <h1>.
+  const title = lang === "bg" ? "Попитай Наясно" : "Ask Naiasno";
   return (
     `<section><h2><a href="${SITE_URL}${prefix}/chat">${title}</a></h2>` +
     `<img src="${SITE_URL}/images/chat/invitation.webp" alt="" width="720" height="480" decoding="async">` +
@@ -1765,39 +1768,55 @@ const exciseFacts = (() => {
 export const prerenderRoutes: PrerenderRoute[] = [
   {
     path: "chat",
+    ogImage: "/og/chat.png",
     title: "Попитай Наясно",
     description:
       "Въпроси и отговори с източници за публичните данни за България.",
     bodyHtml:
       '<h1>Попитай Наясно</h1><p>Изберете готов въпрос или напишете свой. Проверявайте периода и източниците зад отговора.</p><a href="/chat/tools">Инструменти и данни</a>',
     english: {
-      title: "Ask Наясно",
+      title: "Ask Naiasno",
       description:
         "Questions and sourced answers about Bulgaria’s public data.",
       bodyHtml:
-        '<h1>Ask Наясно</h1><p>Choose a starter or type your question. Check the period and sources behind each answer.</p><a href="/en/chat/tools">Tools and data</a>',
+        '<h1>Ask Naiasno</h1><p>Choose a starter or type your question. Check the period and sources behind each answer.</p><a href="/en/chat/tools">Tools and data</a>',
     },
   },
   {
+    // ⚠️ `bodyHtml` is not optional on these two, and the reason is a gate
+    // rather than a preference: `distHeadings.data.test.ts` fails a prerendered
+    // page with no <h1>, and both of these shipped without one. A route with no
+    // body prerenders to the SPA shell's markup, so a crawler arriving here got
+    // a page with a correct <title> and nothing under it.
     path: "chat/tools",
+    ogImage: "/og/chat-tools.png",
     title: "Инструменти и данни | Наясно",
     description:
       "Разгледайте въпросите, параметрите и данните, които асистентът може да използва.",
+    bodyHtml:
+      '<h1>Инструменти и данни</h1><p>Всеки отговор в чата се сглобява от заявка към данните на платформата, не от езиков модел. Тази страница показва кои заявки съществуват, какви параметри приемат и кои набори от данни стоят зад тях.</p><a href="/chat">Обратно към чата</a>',
     english: {
       title: "Tools and data | Naiasno",
       description:
         "Explore the questions, parameters and data available to the assistant.",
+      bodyHtml:
+        '<h1>Tools and data</h1><p>Every answer in the chat is assembled from a query against this platform\'s data rather than from a language model. This page lists the queries that exist, the parameters each one takes, and the datasets behind them.</p><a href="/en/chat">Back to the chat</a>',
     },
   },
   {
     path: "chat/evals",
+    ogImage: "/og/chat-evals.png",
     title: "Оценка на асистента | Наясно",
     description:
       "Измервания на избора на инструменти и аргументи. Това не е оценка на фактическата точност на всеки отговор.",
+    bodyHtml:
+      '<h1>Оценка на асистента</h1><p>Измерва се едно нещо: дали асистентът избира правилната заявка и правилните аргументи за зададения въпрос. Това не е оценка на фактическата точност на всеки отговор — числата идват от самите данни, а тази страница проверява дали въпросът е стигнал до тях.</p><a href="/chat">Обратно към чата</a>',
     english: {
       title: "Assistant evaluation | Naiasno",
       description:
         "Measurements of tool and argument selection, not the factual accuracy of every answer.",
+      bodyHtml:
+        '<h1>Assistant evaluation</h1><p>One thing is measured here: whether the assistant picks the right query and the right arguments for the question asked. It is not a score for the factual accuracy of every answer — the figures come from the data itself, and this page checks whether the question reached it.</p><a href="/en/chat">Back to the chat</a>',
     },
   },
   ...sectorStaticPages(),

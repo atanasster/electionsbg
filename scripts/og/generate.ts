@@ -300,16 +300,60 @@ const main = async () => {
   // /declarations/crypto sibling — so no job is queued here; one would overwrite the
   // screenshot in dist/og/ during postbuild.
 
+  // ⚠️ The subtitle used to read "платформа за анализ на парламентарните избори",
+  // which is what the site was in 2024. It is the card every share of /about
+  // carries, so it was introducing a nine-module platform as an election site
+  // on Facebook — the same stale-scope defect the prerendered About copy had.
   renderStaticPageCard(
     "За проекта",
-    "Независима платформа за анализ на парламентарните избори в България",
+    "Независима платформа с отворени данни за България",
     [
       { label: "тип", value: "open source" },
-      { label: "източник", value: "ЦИК" },
       { label: "обхват", value: yearSpan },
+      { label: "модули", value: "9" },
       { label: "език", value: "BG / EN" },
     ],
     "about.png",
+  );
+
+  // The chat family. All three were falling through to the site-wide card, so a
+  // shared /chat link advertised the homepage rather than the feature — which
+  // matters more here than elsewhere, because the chat is the thing being
+  // launched and the link is how it spreads.
+  renderStaticPageCard(
+    "Попитай Наясно",
+    "Въпроси и отговори с източници за публичните данни за България",
+    [
+      { label: "отговори", value: "от данните" },
+      { label: "източник", value: "на всяко число" },
+      { label: "начало", value: "без AI" },
+      { label: "език", value: "BG / EN" },
+    ],
+    "chat.png",
+  );
+
+  renderStaticPageCard(
+    "Инструменти и данни",
+    "Кои заявки съществуват, какви параметри приемат и какво стои зад тях",
+    [
+      { label: "заявки", value: "по тема" },
+      { label: "параметри", value: "видими" },
+      { label: "данни", value: "публични" },
+      { label: "език", value: "BG / EN" },
+    ],
+    "chat-tools.png",
+  );
+
+  renderStaticPageCard(
+    "Оценка на асистента",
+    "Измерва избора на заявка и аргументи — не фактическата точност на отговора",
+    [
+      { label: "измерва", value: "избор на заявка" },
+      { label: "не измерва", value: "точност" },
+      { label: "метод", value: "публичен" },
+      { label: "език", value: "BG / EN" },
+    ],
+    "chat-evals.png",
   );
 
   // /risk-analysis, /risk-score, /benford, /persistence, /wasted-vote and
