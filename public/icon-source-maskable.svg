@@ -1,16 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="electionsBG">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Наясно">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2A2218"/>
-      <stop offset="1" stop-color="#15110C"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b16"/>
+      <stop offset="1" stop-color="#0b1224"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="64" height="64" fill="url(#bg)"/>
-  <rect x="11" y="49" width="42" height="2.2" fill="#FFFFFF"/>
-  <rect x="11" y="51.2" width="42" height="2.2" fill="#00966E"/>
-  <rect x="11" y="53.4" width="42" height="2.2" fill="#D62612"/>
-  <path d="M19 31 L28 40 L45 21"
-        stroke="#DF6B43" stroke-width="6"
-        stroke-linecap="round" stroke-linejoin="round"
-        fill="none"/>
+  <rect x="0" y="0" width="64" height="64" rx="0" fill="url(#bg)"/>
+  <text x="32" y="38" text-anchor="middle" fill="#f2f5f8"
+        font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+        font-size="27" font-weight="800" letter-spacing="-0.5">на</text>
+  <rect x="17" y="42" width="30" height="5" rx="2.5" fill="#df6b43"/>
 </svg>
