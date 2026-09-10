@@ -1,3 +1,4 @@
+import { normalizeRanking, RANKING_METRICS } from "./rankingContract";
 // Phase B — place-based governance tools (sub-national + regional indicators,
 // LISI transparency, local taxes). All resolve a place via place.ts.
 
@@ -397,47 +398,64 @@ export const localTaxes = async (
 // "which oblast/município has the highest/lowest X", "top 5 by Y". Covers oblast
 // (regional.json), município (indicators.json) and LISI transparency.
 
-const RANK_ASC =
-  /най-ниск|най-нисъ|най-малк|най-слаб|най-малко|най-бедн|най-непрозрач|lowest|least|worst|smallest|poorest|bottom/;
-const RANK_OBLAST = /област|региони|region|oblast|нутс|nuts/;
-
 export const rankPlaces = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const lang = ctx.lang;
-  const q = String(args.indicator ?? "").toLowerCase();
-  const asc = RANK_ASC.test(q);
-  const n = Math.max(3, Math.min(Number(args.n) || 8, 20));
-  const isGdpWord = /богат|rich|беден|бедн|poor|wealth/.test(q);
-  const isTransparency = /прозрачн|transparency|lisi|интегритет/.test(q);
-  const wantOblast = RANK_OBLAST.test(q);
-
-  // resolve dataset + indicator key
-  let dataset: "muni" | "oblast" | "lisi";
-  let key = "";
-  if (isTransparency) {
-    dataset = "lisi";
-  } else if (wantOblast) {
-    dataset = "oblast";
-    // an explicit oblast ranking with no other indicator defaults to GDP/capita
-    key = resolveRegionKey(q) || "gdpPerCapita";
-  } else {
-    const muniKey = resolveSubnatKey(q);
-    if (muniKey) {
-      dataset = "muni";
-      key = muniKey;
-    } else {
-      const regKey = resolveRegionKey(q) || (isGdpWord ? "gdpPerCapita" : "");
-      if (regKey) {
-        dataset = "oblast";
-        key = regKey;
-      } else {
-        dataset = "muni";
-        key = "unemployment";
-      }
-    }
+  args = normalizeRanking(args);
+  const metric = Object.prototype.hasOwnProperty.call(
+    RANKING_METRICS,
+    String(args.indicator),
+  )
+    ? RANKING_METRICS[args.indicator as keyof typeof RANKING_METRICS]
+    : undefined;
+  if (
+    !metric ||
+    (args.order != null && !["asc", "desc"].includes(String(args.order)))
+  ) {
+    const prompt =
+      ctx.lang === "bg"
+        ? "По кой поддържан показател да подредя местата?"
+        : "Which supported metric should I rank places by?";
+    return {
+      tool: "rankPlaces",
+      kind: "table",
+      title: prompt,
+      viz: "none",
+      facts: {},
+      provenance: [],
+      clarify: {
+        prompt,
+        options: [
+          {
+            label: ctx.lang === "bg" ? "Безработица" : "Unemployment",
+            tool: "rankPlaces",
+            args: { indicator: "unemployment" },
+          },
+          {
+            label:
+              ctx.lang === "bg"
+                ? "Европейски средства на човек"
+                : "EU funds per resident",
+            tool: "regionalInvestment",
+            args: {},
+          },
+          {
+            label:
+              ctx.lang === "bg"
+                ? "Кошница спрямо БВП"
+                : "Basket relative to GDP",
+            tool: "basketAffordability",
+            args: {},
+          },
+        ],
+      },
+    };
   }
+  const lang = ctx.lang;
+  const asc = args.order === "asc";
+  const n = Math.max(3, Math.min(Number(args.n) || 8, 20));
+  const { dataset, key } = metric;
 
   const latest = (pts: IndPoint[]): number | null =>
     pts.length ? pts[pts.length - 1].value : null;

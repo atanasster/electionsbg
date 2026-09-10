@@ -1,6 +1,7 @@
 // Reviewed legacy spellings used by heuristic routes. These are not extra form
 // controls: the public field on the right already accepts the same input.
 export const ARGUMENT_ALIASES: Record<string, Record<string, string>> = {
+  municipalFiscalRanking: { n: "count" },
   municipalityBreakdown: { place: "oblast" },
   municipalityWinners: { place: "oblast" },
   regionResults: { place: "oblast" },

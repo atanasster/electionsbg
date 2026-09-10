@@ -1,169 +1,124 @@
-// Benchmark page (ai.electionsbg.com/evals) — the published EN/BG function-calling
-// eval. A standalone page (the chat app has no router); it fetches the artifact
-// data/ai/evals/fc_eval.json (shipped to the GCS data bucket) and renders the
-// headline table + methodology + per-model detail. Bilingual via a local toggle,
-// matching App.tsx (no i18next in this app).
-
-import { useContext, useEffect, useMemo, useState } from "react";
+// Current production-router measurements; historical experiments stay explicitly separate.
+import { useContext, useEffect, useState } from "react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { fetchData } from "../tools/dataClient";
 import type { Lang } from "../tools/types";
-
-type LangMetrics = {
-  toolAcc: number;
+import type { EvalCase, EvalScore } from "../llm/currentEval";
+type Metrics = {
+  n: number;
+  toolAcc: number | null;
+  callAcc: number | null;
+  argN: number;
   argAcc: number | null;
-  jsonValidRate: number;
+  jsonValidRate: number | null;
   irrelevanceAcc: number | null;
+  errors: number;
 };
-type PerCase = {
-  id: string;
-  domain?: string;
-  expectedTool: string | null;
-  en?: { toolOk: boolean; got: string | null };
-  bg?: { toolOk: boolean; got: string | null };
-};
-type ModelResult = {
-  id: string;
+type Run = {
   label: string;
-  runtime: "cloud" | "webllm";
-  params: string;
-  via?: string;
-  toolMode?: string;
-  note?: string;
-  reason?: string;
-  status: "measured" | "unavailable" | "missing-capture";
-  perLang: { en: LangMetrics; bg: LangMetrics } | null;
-  degradation: { toolAcc: number; argAcc: number | null } | null;
-  perCase: PerCase[];
-};
-type Artifact = {
-  generatedAt: string;
-  harness: string;
-  method: {
-    toolCount: number;
-    caseCount: number;
-    relevantCases: number;
-    irrelevanceCases: number;
-    promptStrategy: { cloud: string; gemini: string; webllm: string };
-    scoring: string;
-    coverageNote: string;
+  model: string;
+  provider: string;
+  startedAt: string;
+  finishedAt: string;
+  toolCount: number;
+  caseCount: number;
+  retriedErrors?: number;
+  promptHash: string;
+  suiteHash: string;
+  registryHash: string;
+  scoringHash?: string;
+  replaySource?: string;
+  settings: {
+    max_tokens: number;
+    temperature: number;
+    reasoning_effort: string;
   };
-  tools: {
-    name: string;
-    domain?: string;
-    description: string;
-    params: string[];
-  }[];
-  cases: {
-    id: string;
-    domain?: string;
-    en: string;
-    bg: string;
-    expectedTool: string | null;
-  }[];
-  models: ModelResult[];
+  metrics: Record<Lang, Metrics>;
+  groups: Record<string, Record<Lang, Metrics>>;
+  cases: EvalCase[];
+  rows: EvalScore[];
 };
-
-// Companion artifact: the retriever-recall comparison (data/ai/evals/retriever_recall.json,
-// built by ai/llm/retrieverEval.artifact.ts). The constrained in-browser router
-// routes among the tools the RETRIEVER supplies, so retriever recall is the ceiling.
-type RecallRow = {
-  id: string;
-  label: Record<Lang, string>;
-  runtime: "cloud" | "webllm";
-  size: Record<Lang, string>;
-  method: Record<Lang, string>;
-  ours?: boolean;
-  shipped?: boolean;
-  all: Record<string, number>;
-  declined: Record<string, number>;
-};
-type RetrieverArtifact = {
+type Legacy = {
   generatedAt: string;
-  queries: { total: number; declined: number; langs: string[] };
-  method: Record<Lang, string>;
-  caveat: Record<Lang, string>;
-  rows: RecallRow[];
+  method: { toolCount: number; caseCount: number };
+  models: {
+    id: string;
+    label: string;
+    toolMode?: string;
+    perLang: Record<Lang, { toolAcc: number }> | null;
+  }[];
 };
-
-const pct = (x: number | null | undefined) =>
-  x == null ? "—" : `${Math.round(x * 100)}%`;
-
-const runtimeLabel = (r: string, lang: Lang) =>
-  r === "webllm"
-    ? lang === "bg"
-      ? "в браузъра"
-      : "in-browser"
-    : lang === "bg"
-      ? "облачен"
-      : "cloud";
-
-// BG labels for the model rows (the artifact's labels are English-only). Falls
-// back to the English label for any id not listed (e.g. Gemini, the baseline).
-const MODEL_LABEL_BG: Record<string, string> = {
-  "google/gemma-4-31b-it": "Gemma 4 31B (бюджет: 640 токена)",
-  "google/gemma-4-31b-it-1536": "Gemma 4 31B (бюджет: 1536 токена)",
-  "functiongemma-270m-it-q4f32_1-MLC.k3-free":
-    "FunctionGemma 270M — облекчена подкана (k=3, свободно декодиране)",
-  "functiongemma-270m-it-q4f32_1-MLC.k3-grammar":
-    "FunctionGemma 270M — с граматика (k=3)",
-  "functiongemma-270m-it-q4f32_1-MLC.k8-compact-grammar":
-    "FunctionGemma 270M — избор измежду 8 (k=8, сбита подкана + граматика)",
+type Recall = {
+  generatedAt: string;
+  rows: {
+    id: string;
+    label: Record<Lang, string>;
+    declined: Record<string, number>;
+  }[];
 };
-
-const modelLabel = (m: { id: string; label: string }, lang: Lang) =>
-  lang === "bg" ? (MODEL_LABEL_BG[m.id] ?? m.label) : m.label;
-
+const pct = (v: number | null | undefined) =>
+  v == null ? "—" : `${(v * 100).toFixed(1)}%`;
 export const EvalsScreen = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [lang, setLang] = useState<Lang>("bg");
-  const [data, setData] = useState<Artifact | null>(null);
-  const [retr, setRetr] = useState<RetrieverArtifact | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const isDark = theme === themeDark;
+  const [run, setRun] = useState<Run | null>(null),
+    [baseline, setBaseline] = useState<Run | null>(null);
+  const [legacy, setLegacy] = useState<Legacy | null>(null),
+    [recall, setRecall] = useState<Recall | null>(null);
+  const [error, setError] = useState(false),
+    [failuresOnly, setFailuresOnly] = useState(true);
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
-
   useEffect(() => {
-    fetchData<Artifact>("/ai/evals/fc_eval.json")
-      .then(setData)
-      .catch((e) => setError(String(e)));
-    fetchData<RetrieverArtifact>("/ai/evals/retriever_recall.json")
-      .then(setRetr)
+    fetchData<Run>("/ai/evals/current_revised.json")
+      .then(setRun)
+      .catch(() => setError(true));
+    fetchData<Run>("/ai/evals/current_baseline.json")
+      .then(setBaseline)
+      .catch(() => {});
+    fetchData<Legacy>("/ai/evals/fc_eval.json")
+      .then(setLegacy)
+      .catch(() => {});
+    fetchData<Recall>("/ai/evals/retriever_recall.json")
+      .then(setRecall)
       .catch(() => {});
   }, []);
-
-  const generated = useMemo(() => {
-    if (!data) return "";
-    try {
-      return new Date(data.generatedAt).toLocaleDateString(
-        lang === "bg" ? "bg-BG" : "en-GB",
-        { year: "numeric", month: "long", day: "numeric" },
-      );
-    } catch {
-      return data.generatedAt.slice(0, 10);
-    }
-  }, [data, lang]);
-
+  const date = (s: string) =>
+    new Date(s).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB");
+  const groupLabel = (g: string) =>
+    ({
+      registry: t(
+        "Прегледани примери от регистъра",
+        "Reviewed registry examples",
+      ),
+      realistic: t("Ежедневни въпроси", "Everyday questions"),
+      conversation: t("Разговорни продължения", "Conversation follow-ups"),
+      clarification: t(
+        "Уточнение / неподдържано действие",
+        "Clarification / unsupported action",
+      ),
+      challenge: t(
+        "Авторски задачи за диагностика",
+        "Authored diagnostic cases",
+      ),
+      holdout: t("Отделени контролни задачи", "Held-out checks"),
+      unsupported: t("Неподдържани заявки", "Unsupported requests"),
+    })[g] ?? g;
+  const comparable =
+    baseline &&
+    run &&
+    baseline.suiteHash === run.suiteHash &&
+    baseline.scoringHash === run.scoringHash;
   return (
     <div className="flex min-h-dvh flex-col bg-card text-foreground">
-      <header className="flex w-full shrink-0 flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-2 py-2.5 shadow-sm sm:px-4">
-        <a
-          href="/"
-          className="flex shrink-0 items-center gap-2 text-xl text-primary"
-          aria-label="Наясно AI"
-        >
+      <header className="flex flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-4 py-2.5 shadow-sm">
+        <a href="/" className="flex items-center gap-2 text-xl text-primary">
           <Logo className="size-7" />
-          <span className="font-title">
-            <span className="text-popover-foreground">Наясно</span>
-            <span className="pl-1 font-semibold uppercase text-primary">
-              AI
-            </span>
-          </span>
+          <span className="font-title">Наясно AI</span>
         </a>
-        <div className="flex flex-wrap items-center justify-end gap-2 text-sm">
+        <div className="flex gap-2">
           <Button
             variant="outline"
             size="sm"
@@ -175,406 +130,413 @@ export const EvalsScreen = () => {
           <Button
             variant="outline"
             size="icon"
-            onClick={() => setTheme(isDark ? themeLight : themeDark)}
+            onClick={() =>
+              setTheme(theme === themeDark ? themeLight : themeDark)
+            }
             aria-label={t("Тема", "Theme")}
           >
-            {isDark ? "☀" : "☾"}
+            {theme === themeDark ? "☀" : "☾"}
           </Button>
         </div>
       </header>
-
-      <main className="flex-1 overflow-y-auto">
-        <div className="container mx-auto flex min-h-full flex-col px-2 py-6 sm:px-4">
-          <h1 className="font-title text-2xl font-semibold text-popover-foreground sm:text-3xl">
+      <main className="container mx-auto flex-1 space-y-8 px-4 py-8">
+        <div>
+          <h1 className="font-title text-3xl font-semibold text-popover-foreground">
             {t(
-              "Оценка на извикването на функции (EN/BG)",
-              "Function-calling evaluation (EN/BG)",
+              "Оценка на AI инструментите (EN/BG)",
+              "AI tool evaluation (EN/BG)",
             )}
           </h1>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
+          <p className="mt-3 max-w-3xl text-muted-foreground">
             {t(
-              "Може ли малък отворен модел сам да задвижва инструментите на Наясно (tool calling)? И влошава ли се изборът на инструмент, когато въпросът е на български, а не на английски? Всеки модел решава едни и същи задачи и на двата езика.",
-              "Can a small/open model drive Наясно's tools — and does tool selection degrade when the question is in Bulgarian rather than English? Each model gets the same tasks in both languages.",
+              "Избира ли текущият модел правилния инструмент и подава ли използваеми аргументи? Измерваме Gemini 3.5 Flash-Lite с реалната подкана и валидатора на Наясно, на български и английски.",
+              "Does the current model choose the right tool and supply usable arguments? We measure Gemini 3.5 Flash-Lite with Наясно’s actual prompt and validator, in Bulgarian and English.",
             )}
           </p>
-
-          {/* ---- retriever-recall comparison (the binding ceiling) ---- */}
-          {retr && (
-            <section className="mt-8">
-              <h2 className="font-title text-xl font-semibold text-popover-foreground">
-                {t(
-                  "Извличане на инструменти (recall)",
-                  "Tool retrieval recall",
-                )}
+        </div>
+        {error && (
+          <p role="alert">
+            {t(
+              "Текущите резултати не можаха да се заредят.",
+              "Current results could not be loaded.",
+            )}
+          </p>
+        )}
+        {!run && !error && <p>{t("Зареждане…", "Loading…")}</p>}
+        {run && (
+          <>
+            <section aria-label={t("Текущ модел", "Current model")}>
+              <h2 className="font-title text-2xl text-popover-foreground">
+                Gemini 3.5 Flash-Lite
               </h2>
-              <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-                {t(
-                  "В браузъра малкият модел избира само измежду шепата инструменти, които му подава РЕТРИВЪРЪТ. Ако правилният не е сред тях, никой модел не може да го открие — затова обхватът (recall) на ретривъра опъва тавана на цялата система. По-долу е делът на въпросите, при които правилният инструмент попада сред първите k — пресметнат върху това, което реално стига до модела.",
-                  "In-browser, the small model picks among the few tools the RETRIEVER hands it. If the right one isn't there, no model can recover it — so retriever recall is the ceiling on the whole system. Below: share of queries whose correct tool is in the top-k, over the model's real input.",
-                )}
+              <p className="mt-2 text-sm text-muted-foreground">
+                {date(run.finishedAt)} · {run.toolCount}{" "}
+                {t("инструмента", "tools")} · {run.caseCount}{" "}
+                {t("двуезични задачи", "paired cases")} ·{" "}
+                {run.caseCount * 2 + (run.retriedErrors ?? 0)}{" "}
+                {t("реални API извиквания", "real API calls")}
               </p>
               <div className="mt-4 overflow-x-auto">
-                <table className="w-full border-collapse text-sm">
+                <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b-2 text-left text-muted-foreground">
-                      <th className="py-2 pr-3 font-medium">
-                        {t("Ретривър", "Retriever")}
+                    <tr className="border-b-2">
+                      <th className="p-2">{t("Измерване", "Measurement")}</th>
+                      <th className="p-2">
+                        {t("Избор EN / BG", "Selection EN / BG")}
                       </th>
-                      <th className="px-2 py-2 font-medium">
-                        {t("Режим", "Mode")}
+                      <th className="p-2">
+                        {t(
+                          "Използваемо извикване EN / BG",
+                          "Usable call EN / BG",
+                        )}
                       </th>
-                      <th className="px-2 py-2 text-right font-medium">@1</th>
-                      <th className="px-2 py-2 text-right font-medium">@3</th>
-                      <th className="px-2 py-2 text-right font-medium">@5</th>
-                      <th className="px-2 py-2 text-right font-medium">@8</th>
+                      <th className="p-2">
+                        {t("Аргументи EN / BG", "Arguments EN / BG")}
+                      </th>
+                      <th className="p-2">JSON EN / BG</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {retr.rows.map((row) => (
-                      <tr
-                        key={row.id}
-                        className={`border-b align-top ${row.ours ? "bg-primary/5" : ""}`}
-                      >
-                        <td className="py-2 pr-3">
-                          <div className="font-medium text-popover-foreground">
-                            {row.label[lang]}
-                            {row.ours && (
-                              <span className="ml-1.5 rounded bg-primary/15 px-1 text-[10px] font-semibold uppercase text-primary">
-                                {t("наш", "ours")}
-                              </span>
-                            )}
-                            {row.shipped && (
-                              <span className="ml-1.5 rounded bg-muted px-1 text-[10px] font-semibold uppercase text-muted-foreground">
-                                {t("активен", "live")}
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            {row.size[lang]} · {row.method[lang]}
-                          </div>
+                    {(comparable ? [baseline!, run] : [run]).map((r) => (
+                      <tr key={r.label} className="border-b">
+                        <th className="p-2 font-medium">
+                          {r.label === "baseline"
+                            ? t("Предишна инструкция", "Earlier prompt")
+                            : t("След корекциите", "After fixes")}
+                        </th>
+                        <td className="p-2 tabular-nums">
+                          {pct(r.metrics.en.toolAcc)} /{" "}
+                          {pct(r.metrics.bg.toolAcc)}
                         </td>
-                        <td className="px-2 py-2 text-xs text-muted-foreground">
-                          {runtimeLabel(row.runtime, lang)}
+                        <td className="p-2 tabular-nums">
+                          {pct(r.metrics.en.callAcc)} /{" "}
+                          {pct(r.metrics.bg.callAcc)}
                         </td>
-                        <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
-                          {pct(row.declined["1"])}
+                        <td className="p-2 tabular-nums">
+                          {pct(r.metrics.en.argAcc)} /{" "}
+                          {pct(r.metrics.bg.argAcc)}
                         </td>
-                        <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
-                          {pct(row.declined["3"])}
-                        </td>
-                        <td className="px-2 py-2 text-right tabular-nums">
-                          {pct(row.declined["5"])}
-                        </td>
-                        <td className="px-2 py-2 text-right font-medium tabular-nums text-popover-foreground">
-                          {pct(row.declined["8"])}
+                        <td className="p-2 tabular-nums">
+                          {pct(r.metrics.en.jsonValidRate)} /{" "}
+                          {pct(r.metrics.bg.jsonValidRate)}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <p className="mt-2 text-xs text-muted-foreground">
-                {retr.method[lang]}
-              </p>
-              <p className="mt-1 text-xs italic text-muted-foreground">
-                {t("Уточнение: ", "Caveat: ")}
-                {retr.caveat[lang]}
+              <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
+                {t(
+                  "Избор = точно име на инструмента. Използваемо извикване = правилен инструмент след проверените поправки на обхвата и аргументите, приет от реалния валидатор, и правилни стойности при анотираните задачи. Аргументите се оценяват върху всички анотирани задачи, включително грешно избраните инструменти.",
+                  "Selection = exact tool name. Usable call = correct tool after reviewed scope/argument normalization, accepted by the real validator, plus correct values on annotated cases. Arguments are scored over every annotated case, including wrong-tool selections.",
+                )}{" "}
+                {t(
+                  "Анотирани задачи на език:",
+                  "Annotated cases per language:",
+                )}{" "}
+                {run.metrics.en.argN}.
+                {baseline?.replaySource && (
+                  <span>
+                    {" "}
+                    {t(
+                      "Отговорите от предишната инструкция са преоценени със същия текущ валидатор, без нови API извиквания.",
+                      "Responses from the earlier prompt are re-scored with the same current validator, without new API calls.",
+                    )}
+                  </span>
+                )}
               </p>
             </section>
-          )}
-
-          {error && (
-            <p className="mt-6 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
-              {t("Грешка при зареждане: ", "Failed to load: ")}
-              {error}
-            </p>
-          )}
-          {!data && !error && (
-            <p className="mt-6 text-muted-foreground">
-              {t("Зареждане…", "Loading…")}
-            </p>
-          )}
-
-          {data && (
-            <>
-              {/* ---- headline table ---- */}
-              <section className="mt-8 overflow-x-auto">
-                <table className="w-full border-collapse text-sm">
+            <section>
+              <h2 className="font-title text-xl text-popover-foreground">
+                {t("Покритие и ограничения", "Coverage and limits")}
+              </h2>
+              <div className="mt-3 overflow-x-auto">
+                <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b-2 text-left text-muted-foreground">
-                      <th className="py-2 pr-3 font-medium">
-                        {t("Модел", "Model")}
+                    <tr className="border-b-2">
+                      <th className="p-2">{t("Група", "Group")}</th>
+                      <th className="p-2">
+                        {t("Задачи на език", "Cases per language")}
                       </th>
-                      <th className="px-2 py-2 font-medium">
-                        {t("Режим", "Mode")}
+                      <th className="p-2">
+                        {t("Използваемо извикване EN", "Usable call EN")}
                       </th>
-                      <th className="px-2 py-2 text-right font-medium">EN</th>
-                      <th className="px-2 py-2 text-right font-medium">BG</th>
-                      <th className="px-2 py-2 text-right font-medium">
-                        {t("Аргументи", "Args")}
-                      </th>
-                      <th className="px-2 py-2 text-right font-medium">JSON</th>
-                      <th className="px-2 py-2 text-right font-medium">
-                        {t("Разлика (EN vs BG)", "BG drop")}
+                      <th className="p-2">
+                        {t("Използваемо извикване BG", "Usable call BG")}
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {data.models.map((m) => (
-                      <tr key={m.id} className="border-b align-top">
-                        <td className="py-2 pr-3">
-                          <div className="font-medium text-popover-foreground">
-                            {modelLabel(m, lang)}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            {m.params !== "—" ? `${m.params} · ` : ""}
-                            {runtimeLabel(m.runtime, lang)}
-                            {m.via ? ` · ${m.via}` : ""}
-                          </div>
-                        </td>
-                        {m.perLang ? (
-                          <>
-                            <td className="px-2 py-2 text-xs text-muted-foreground">
-                              {m.toolMode ?? runtimeLabel(m.runtime, lang)}
-                            </td>
-                            <td className="px-2 py-2 text-right tabular-nums">
-                              {pct(m.perLang.en.toolAcc)}
-                            </td>
-                            <td className="px-2 py-2 text-right tabular-nums">
-                              {pct(m.perLang.bg.toolAcc)}
-                            </td>
-                            <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
-                              {pct(m.perLang.bg.argAcc)}
-                            </td>
-                            <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
-                              {pct(m.perLang.bg.jsonValidRate)}
-                            </td>
-                            <td className="px-2 py-2 text-right tabular-nums">
-                              {m.degradation
-                                ? `${Math.round(m.degradation.toolAcc * 100)} pt`
-                                : "—"}
-                            </td>
-                          </>
-                        ) : (
-                          <td
-                            className="px-2 py-2 text-xs italic text-muted-foreground"
-                            colSpan={6}
-                          >
-                            {t("не е измерено — ", "not measured — ")}
-                            {m.reason}
-                          </td>
-                        )}
+                    {Object.entries(run.groups).map(([g, m]) => (
+                      <tr key={g} className="border-b">
+                        <th className="p-2 font-medium">{groupLabel(g)}</th>
+                        <td className="p-2">{m.en.n}</td>
+                        <td className="p-2">{pct(m.en.callAcc)}</td>
+                        <td className="p-2">{pct(m.bg.callAcc)}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-                <p className="mt-2 text-xs text-muted-foreground">
+              </div>
+              <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
+                {t(
+                  "Всички примери от регистъра са включени. Те са близки до описанията и не са независима оценка на реалния трафик. Авторските задачи проверяват аргументи, сходни инструменти, последващи въпроси и неподдържани действия. Малкият контролен набор не е използван за редактиране на описанията.",
+                  "All registry examples are included. They are close to the descriptions and are not an independent estimate of real traffic. Authored cases test arguments, overlapping tools, follow-ups and unsupported actions. The small held-out set was not used to edit descriptions.",
+                )}
+              </p>
+              <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+                {t(
+                  "Това е изолиран тест на маршрутизацията от модела: не изпълнява инструментите и не оценява крайния отговор или резервния маршрутизатор. При примери без анотации валидаторът проверява формата, но не доказва смисловата точност на аргументите. Едно измерване на вариант; разликите могат да включват вариация на модела.",
+                  "This isolates model routing: it does not execute tools or evaluate final answers or the fallback router. On unannotated examples, validation checks argument shape, not semantic correctness. One run per variant; differences can include model variation.",
+                )}
+              </p>
+            </section>
+            <section>
+              <h2 className="font-title text-xl text-popover-foreground">
+                {t("Резултати по задачи", "Case results")}
+              </h2>
+              <label className="my-3 flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={failuresOnly}
+                  onChange={(e) => setFailuresOnly(e.target.checked)}
+                />
+                {t("Само неуспешните", "Failures only")}
+              </label>
+              <div className="max-h-[36rem] overflow-auto rounded border">
+                <table className="w-full text-left text-sm">
+                  <thead>
+                    <tr className="border-b bg-muted">
+                      <th className="p-2">{t("Въпрос", "Question")}</th>
+                      <th className="p-2">
+                        {t("Очакван → избран", "Expected → selected")}
+                      </th>
+                      <th className="p-2">{t("Резултат", "Result")}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {run.rows
+                      .filter(
+                        (r) => r.lang === lang && (!failuresOnly || !r.callOk),
+                      )
+                      .map((r) => (
+                        <tr key={r.id} className="border-b align-top">
+                          <td className="max-w-lg whitespace-pre-line p-2">
+                            {run.cases.find((c) => c.id === r.id)?.[lang]}
+                            {run.cases.find((c) => c.id === r.id)?.history && (
+                              <details className="mt-1 text-xs text-muted-foreground">
+                                <summary className="cursor-pointer">
+                                  {t("Предишен контекст", "Previous context")}
+                                </summary>
+                                <pre className="whitespace-pre-wrap break-words">
+                                  {JSON.stringify(
+                                    run.cases.find((c) => c.id === r.id)
+                                      ?.history?.[lang],
+                                    null,
+                                    2,
+                                  )}
+                                </pre>
+                              </details>
+                            )}
+                            {run.cases.find((c) => c.id === r.id)?.review && (
+                              <div className="mt-1 text-xs text-muted-foreground">
+                                {t(
+                                  "Прегледан етикет / уточнен въпрос (v2)",
+                                  "Reviewed label / clarified question (v2)",
+                                )}
+                              </div>
+                            )}
+                            <div className="mt-1 text-xs text-muted-foreground">
+                              {groupLabel(r.group)} · {r.id}
+                            </div>
+                          </td>
+                          <td className="p-2 font-mono text-xs">
+                            {r.expectedTool ?? "∅"} → {r.selected ?? "∅"}
+                            {r.parsed && r.parsed.tool !== r.selected && (
+                              <div>
+                                {t("След проверка", "After validation")}:{" "}
+                                {r.parsed.tool}
+                              </div>
+                            )}
+                          </td>
+                          <td className="p-2">
+                            <span>
+                              {r.callOk
+                                ? "✓"
+                                : r.error
+                                  ? t("API грешка", "API error")
+                                  : !r.toolOk
+                                    ? t(
+                                        "Различен инструмент / без извикване",
+                                        "Different tool / no call",
+                                      )
+                                    : t(
+                                        "Аргументи / валидация",
+                                        "Arguments / validation",
+                                      )}
+                            </span>
+                            <details className="mt-1 text-xs">
+                              <summary className="cursor-pointer">
+                                {t("Отговор на модела", "Model response")}
+                              </summary>
+                              <pre className="max-w-md whitespace-pre-wrap break-words py-2">
+                                {r.raw || r.error}
+                              </pre>
+                            </details>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <section className="max-w-3xl text-sm">
+              <h2 className="font-title text-xl text-popover-foreground">
+                {t(
+                  "Обхват и оставащи ограничения",
+                  "Coverage and remaining limitations",
+                )}
+              </h2>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-muted-foreground">
+                <li>
                   {t(
-                    "EN/BG = дял на правилно избраните инструменти (вкл. случаите, в които моделът разпознава, че никой инструмент не подхожда). Разлика (EN vs BG) = EN − BG (положителна стойност = по-слабо представяне на български).",
-                    "EN/BG = share of correctly selected tools (incl. recognising when no tool fits). BG drop = EN−BG (positive = worse in Bulgarian).",
+                    "Версия 2 уточнява шест двусмислени въпроса и изисква уточнение при единадесет примера без посочено лице или фирма. Старите измервания са запазени отделно.",
+                    "Version 2 narrows six ambiguous questions and expects clarification for eleven examples without a named person or company. Earlier measurements are preserved separately.",
+                  )}
+                </li>
+                <li>
+                  {t(
+                    "Добавени са 40 двойки ръчно написани ежедневни въпроси, включително осем разговорни продължения. Това са симулирани въпроси, не реални потребителски разговори. Те не са независим тестов набор, след като се използват за диагностика.",
+                    "Added 40 hand-written pairs of everyday questions, including eight conversation follow-ups. These simulate users; they are not collected user conversations or an independent holdout once used for diagnosis.",
+                  )}
+                </li>
+                <li>
+                  {t(
+                    "Класациите приемат ограничен набор показатели; неподдържаният показател не се заменя с безработица. Има проверки за типовете на изборния цикъл и за календарна година срещу подвижен период.",
+                    "Rankings use a closed set of metrics; unsupported metrics no longer become unemployment. Validation checks election-cycle types and calendar-year versus rolling-window scope.",
+                  )}
+                </li>
+                <li>
+                  {t(
+                    "API оценките измерват избора и аргументите. Отделни автоматизирани тестове с фиксирани данни проверяват изпълнение, липсващи данни, източници и защита на числата. Те не доказват коректността на всички живи крайни точки или на всеки генериран отговор.",
+                    "API scores measure routing and arguments. Separate automated tests with fixed data check execution, missing data, sources and number grounding. They do not establish correctness of every live endpoint or generated answer.",
+                  )}
+                </li>
+              </ul>
+            </section>
+            <details className="rounded border p-3 text-sm">
+              <summary className="cursor-pointer font-medium">
+                {t("Възпроизводимост", "Reproducibility")}
+              </summary>
+              <div className="mt-3 space-y-2 break-all text-xs text-muted-foreground">
+                <p>{run.provider}</p>
+                <p>
+                  {run.model} · temperature {run.settings.temperature} ·
+                  max_tokens {run.settings.max_tokens} · reasoning{" "}
+                  {run.settings.reasoning_effort}
+                </p>
+                <p>
+                  {t("Хеш на задачите", "Suite hash")}: {run.suiteHash}
+                </p>
+                <p>
+                  {t("Хеш на подканите", "Prompt hash")}: {run.promptHash}
+                </p>
+                <p>
+                  {t("Хеш на регистъра", "Registry hash")}: {run.registryHash}
+                </p>
+                <p>
+                  {t("Грешки на API EN / BG", "API errors EN / BG")}:{" "}
+                  {run.metrics.en.errors} / {run.metrics.bg.errors}
+                </p>
+                <p>
+                  {t(
+                    "Повторени временни API грешки",
+                    "Retried transient API errors",
+                  )}
+                  : {run.retriedErrors ?? 0}.{" "}
+                  {t(
+                    "Първите отговори и грешки са запазени в архива.",
+                    "Original responses and errors are retained in the run archive.",
                   )}
                 </p>
-              </section>
-
-              {/* ---- takeaway ---- */}
-              <section className="mt-8 rounded-lg border bg-muted/40 p-4 text-sm">
-                <h2 className="mb-2 font-semibold text-popover-foreground">
-                  {t("Какво показват резултатите?", "What this shows")}
-                </h2>
-                <p className="text-muted-foreground">
-                  {t(
-                    "Облачните модели се справят отлично с избора измежду всички налични инструменти: Gemini 3.1 Flash-Lite (в JSON-режим) познава правилния инструмент в ~96–97% от случаите и на двата езика, без никакъв спад при българския. Отвореният 31B модел (Gemma 4) през Gemini API стига едва до ~55% при таван от 640 изходни токена — но виновна е орязаната верига от разсъждения (chain of thought), а не самият модел: вдигнем ли тавана до 1536 токена, точността скача до ~82% (EN 81% / BG 83%) с ~87% валиден JSON, а изоставането при българския дори се обръща. Тоест начинът на извикване (бюджетът за изход, ограниченото декодиране) тежи колкото размера на модела.",
-                    "A capable cloud model handles selection among all the tools: Gemini 3.1 Flash-Lite (with JSON mode) picks the right tool ~96–97% in both languages, with no Bulgarian degradation. An open 31B model (Gemma 4) via the Gemini API scores ~55% at a 640-token output budget — but that's chain-of-thought truncation, not the model: raise the budget to 1536 and it jumps to ~82% (EN 81% / BG 83%), valid JSON ~87%, with the Bulgarian gap reversing. So the calling method (output budget / constrained decoding) can matter as much as model size.",
-                  )}
-                </p>
-                <p className="mt-3 text-muted-foreground">
-                  {t(
-                    "Малкият FunctionGemma 270M (в браузъра, без дообучение) е показан като стълбица от варианти на ЕДИН и същ модел. Базовият ред е 0% — но не защото моделът не умее да насочва заявките: при k=8 пълните декларации на функциите запушват ~68% от случаите, защото подканата прелива контекстния прозорец от 512 токена („KV cache is full“) още преди моделът да е изписал и един токен. Свиването до k=3 премахва тези технически засичания; а ограниченото декодиране (XGrammar — изходът ЗАДЪЛЖИТЕЛНО е един от кандидатите) вдига разпознаването до 37% при k=3 (срещу ~33% на случаен принцип) и 18% при k=8 (срещу ~12,5%). Тоест публикуваните „0%“ бяха дефект на инфраструктурата, не на модела; с побираща се подкана и ограничено декодиране дори необученият модел вече бие случайния избор — а дообучението за домейна е пътят към реална употреба.",
-                    "The small FunctionGemma 270M (in-browser, untuned) is shown as a LADDER of variants of the SAME model. The baseline row is 0% — but not because it can't route: at k=8 with full declarations the wasm traps ~68% of the time ('KV cache is full' — the prompt overflows the 512-token context window) before the model emits a single token. Shrinking to k=3 removes the traps; adding constrained decoding (XGrammar — the output MUST be one of the candidates) lifts routing to 37% at k=3 (vs ~33% chance) and 18% at k=8 (vs ~12.5%). So the published '0%' was an infrastructure artifact; with a fitting prompt + constrained decoding the untuned model already beats chance — and a domain fine-tune is the path to usable.",
-                  )}
-                </p>
-              </section>
-
-              {/* ---- per-model detail ---- */}
-              <section className="mt-8">
-                <h2 className="mb-3 font-semibold text-popover-foreground">
-                  {t("Детайли по задачите", "Per-case detail")}
-                </h2>
-                {data.models
-                  .filter((m) => m.perLang)
-                  .map((m) => (
-                    <details key={m.id} className="mb-2 rounded-md border">
-                      <summary className="cursor-pointer px-3 py-2 text-sm font-medium">
-                        {modelLabel(m, lang)}
-                      </summary>
-                      <div className="overflow-x-auto px-3 pb-3">
-                        {(m.note || m.reason) && (
-                          <p className="mb-2 mt-1 text-xs text-muted-foreground">
-                            {m.note ? <span>{m.note} </span> : null}
-                            {m.reason}
-                          </p>
-                        )}
-                        <table className="w-full border-collapse text-xs">
-                          <thead>
-                            <tr className="border-b text-left text-muted-foreground">
-                              <th className="py-1 pr-2 font-medium">
-                                {t("Задача", "Case")}
-                              </th>
-                              <th className="px-2 py-1 font-medium">
-                                {t("Очакван инструмент", "Expected tool")}
-                              </th>
-                              <th className="px-2 py-1 text-center font-medium">
-                                EN
-                              </th>
-                              <th className="px-2 py-1 text-center font-medium">
-                                BG
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {m.perCase.map((c) => {
-                              const mark = (r?: { toolOk: boolean }) =>
-                                !r ? "—" : r.toolOk ? "✓" : "✗";
-                              return (
-                                <tr
-                                  key={c.id}
-                                  className="border-b last:border-0"
-                                >
-                                  <td className="py-1 pr-2 font-mono text-[11px]">
-                                    {c.id}
-                                  </td>
-                                  <td className="px-2 py-1 font-mono text-[11px] text-muted-foreground">
-                                    {c.expectedTool ?? t("(никой)", "(none)")}
-                                  </td>
-                                  <td className="px-2 py-1 text-center">
-                                    {mark(c.en)}
-                                  </td>
-                                  <td className="px-2 py-1 text-center">
-                                    {mark(c.bg)}
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                        <p className="mt-1 text-[11px] text-muted-foreground">
-                          {t(
-                            "✓ правилен инструмент · ✗ грешен/липсва",
-                            "✓ correct tool · ✗ wrong/missing",
-                          )}
-                        </p>
-                      </div>
-                    </details>
-                  ))}
-              </section>
-
-              {/* ---- methodology ---- */}
-              <section className="mt-8 text-sm">
-                <h2 className="mb-2 font-semibold text-popover-foreground">
-                  {t("Методология", "Methodology")}
-                </h2>
-                <ul className="list-inside list-disc space-y-1 text-muted-foreground">
-                  <li>
-                    {t(
-                      `${data.method.relevantCases} реални инструмента, всеки с двуезичен пример (EN+BG) от регистъра — точността на избора се мери спрямо всичките ${data.method.toolCount}.`,
-                      `${data.method.relevantCases} real tools, each with a bilingual example (EN+BG) from the registry — tool selection is scored against all ${data.method.toolCount}.`,
-                    )}
-                  </li>
-                  <li>
-                    {t(
-                      "Задачите са първият двуезичен пример (EN+BG) за всеки инструмент от регистъра. Облачните модели виждат ЦЕЛИЯ списък с инструменти в контекста (избор измежду всички възможности), докато малките модели в браузъра получават само предварително отсят набор от кандидати (реалистичната двустъпкова схема).",
-                      data.method.coverageNote,
-                    )}
-                  </li>
-                  <li>
-                    {t("Облачни модели: ", "Cloud models: ")}
-                    {t(
-                      "JSON-режим + системна подкана със списъка на инструментите (точно като маршрутизатора в реалния продукт)",
-                      data.method.promptStrategy.cloud,
-                    )}
-                    {t("; в браузъра: ", "; in-browser: ")}
-                    {t(
-                      "вградените токени на FunctionGemma за деклариране на функции",
-                      data.method.promptStrategy.webllm,
-                    )}
-                  </li>
-                  <li>
-                    {t("Оценяване: ", "Scoring: ")}
-                    {t(
-                      "точност на ИЗБОРА на инструмент — точното име на инструмента от регистъра (приведено към обща форма); ако никой инструмент не подхожда, правилно е да няма извикване. Примерите в регистъра нямат описани аргументи, затова точността на аргументите не се мери (n/a).",
-                      data.method.scoring,
-                    )}
-                  </li>
-                  <li>
-                    {t("Генерирано на ", "Generated ")}
-                    {generated} ·{" "}
-                    {t(
-                      data.harness.replace(
-                        "suite derived from",
-                        "комплектът е изведен от",
-                      ),
-                      data.harness,
-                    )}
-                  </li>
-                </ul>
-              </section>
-
-              {/* ---- catalogue ---- */}
-              <details className="mt-6 rounded-md border text-sm">
-                <summary className="cursor-pointer px-3 py-2 font-medium">
-                  {t(
-                    `Инструменти (${data.tools.length}) и задачи (${data.cases.length})`,
-                    `Tools (${data.tools.length}) and cases (${data.cases.length})`,
-                  )}
-                </summary>
-                <div className="px-3 pb-3">
-                  <h3 className="mb-1 mt-2 font-medium text-popover-foreground">
-                    {t("Инструменти", "Tools")}
-                  </h3>
-                  <ul className="space-y-0.5 text-xs text-muted-foreground">
-                    {data.tools.map((tool) => (
-                      <li key={tool.name}>
-                        <span className="font-mono text-popover-foreground">
-                          {tool.name}
-                        </span>
-                        {tool.params.length
-                          ? `(${tool.params.join(", ")})`
-                          : "()"}{" "}
-                        — {tool.description}
-                      </li>
+                <p>ai/llm/currentEval.run.ts · data/ai/evals/runs/</p>
+              </div>
+            </details>
+          </>
+        )}
+        <details className="rounded border p-4">
+          <summary className="cursor-pointer font-medium">
+            {t(
+              "Архив: предишни модели и ретривъри",
+              "Archive: previous models and retrievers",
+            )}
+          </summary>
+          <p className="my-3 max-w-3xl text-sm text-muted-foreground">
+            {t(
+              "Тези експерименти са с по-стар регистър и различни подкани. Не са пряко сравними с текущия тест. Моделите в браузъра и ретривърите не са текущият облачен маршрутизатор.",
+              "These experiments used an older registry and different prompts. They are not directly comparable with the current test. Browser models and retrievers are not the current cloud router.",
+            )}
+          </p>
+          {legacy && (
+            <>
+              <p className="text-sm">
+                {date(legacy.generatedAt)} · {legacy.method.toolCount}{" "}
+                {t("инструмента", "tools")} · {legacy.method.caseCount}{" "}
+                {t("задачи", "cases")}
+              </p>
+              <div className="overflow-x-auto">
+                <table className="mt-3 w-full text-left text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="p-2">{t("Модел", "Model")}</th>
+                      <th className="p-2">
+                        {t("Исторически режим", "Historical mode")}
+                      </th>
+                      <th className="p-2">EN</th>
+                      <th className="p-2">BG</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {legacy.models.map((m) => (
+                      <tr key={m.id} className="border-b">
+                        <th className="p-2 font-medium">{m.label}</th>
+                        <td className="p-2">{m.toolMode}</td>
+                        <td className="p-2">{pct(m.perLang?.en.toolAcc)}</td>
+                        <td className="p-2">{pct(m.perLang?.bg.toolAcc)}</td>
+                      </tr>
                     ))}
-                  </ul>
-                  <h3 className="mb-1 mt-3 font-medium text-popover-foreground">
-                    {t("Задачи", "Cases")}
-                  </h3>
-                  <ul className="space-y-1 text-xs text-muted-foreground">
-                    {data.cases.map((c) => (
-                      <li key={c.id}>
-                        <span className="font-mono">{c.id}</span>:{" "}
-                        {lang === "bg" ? c.bg : c.en}{" "}
-                        <span className="opacity-70">
-                          →{" "}
-                          {c.expectedTool ??
-                            t("(никой инструмент)", "(no tool)")}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </details>
+                  </tbody>
+                </table>
+              </div>
             </>
           )}
-        </div>
+          {recall && (
+            <details className="mt-4">
+              <summary className="cursor-pointer">
+                {t("Исторически recall@8", "Historical recall@8")} ·{" "}
+                {date(recall.generatedAt)}
+              </summary>
+              <ul className="mt-2 space-y-1 text-sm">
+                {recall.rows.map((r) => (
+                  <li key={r.id}>
+                    {r.label[lang].replace(/ — current| — текущ/g, "")} —{" "}
+                    {pct(r.declined["8"])}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {t(
+                  "Въпроси, останали след правилата; синтетичен набор. Резултатите от дообучението споделят генератор с теста и могат да са оптимистични.",
+                  "Queries left after rules; synthetic dataset. Fine-tuning and test data share a generator and may give optimistic results.",
+                )}
+              </p>
+            </details>
+          )}
+        </details>
       </main>
-
-      <footer className="border-t bg-muted px-4 py-4 text-center text-xs text-muted-foreground">
-        <a href="https://electionsbg.com" className="hover:text-primary">
-          electionsbg.com
-        </a>
-        {" · "}
-        <a href="/" className="hover:text-primary">
-          {t("Наясно AI", "Наясно AI")}
-        </a>
+      <footer className="border-t bg-muted p-4 text-center text-xs">
+        <a href="/">{t("Към чата", "Back to chat")}</a> ·{" "}
+        <a href="https://electionsbg.com">electionsbg.com</a>
       </footer>
     </div>
   );

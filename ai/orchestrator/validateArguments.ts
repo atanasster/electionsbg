@@ -1,3 +1,4 @@
+import { normalizeRanking } from "../tools/rankingContract";
 import { ALL_ELECTIONS } from "../tools/dataset";
 import { LOCAL_CYCLES } from "../tools/localDataset";
 import {
@@ -51,6 +52,7 @@ export const validateArguments = (
   const errors: Record<string, ArgumentIssue> = Object.create(null);
   if (!tool || !raw || typeof raw !== "object" || Array.isArray(raw))
     return { args, errors: { _form: "unknown" } };
+  if (toolName === "rankPlaces") raw = normalizeRanking(raw as ToolArgs);
   const input: Record<string, unknown> = {
     ...(raw as Record<string, unknown>),
   };
@@ -86,6 +88,14 @@ export const validateArguments = (
         continue;
       }
     }
+    // Lossless local-cycle year coercion only; membership is still checked below.
+    if (
+      p.type === "cycle" &&
+      !p.values &&
+      typeof value === "number" &&
+      Number.isSafeInteger(value)
+    )
+      value = String(value);
     if (numericParameter(p)) {
       const n =
         typeof value === "number" || typeof value === "string"

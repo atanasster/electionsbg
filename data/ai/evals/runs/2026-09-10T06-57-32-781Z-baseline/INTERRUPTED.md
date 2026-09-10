@@ -1,0 +1,1 @@
+This run was stopped after a local setup command failed (`python` was unavailable; `python3` was required), which left the runner on the old suite. It was never published as current results. The checkpoint preserves completed requests; it is not a complete evaluation. The expanded-suite run starts at 06:58:03Z.

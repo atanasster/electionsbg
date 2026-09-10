@@ -103,6 +103,30 @@ const run = async () => {
     finish: async () => {},
   });
 
+  // Semantic failures must not execute a plausible but unrelated fallback.
+  for (const [question, routeContent] of [
+    [
+      "Which oblast gets most EU money?",
+      '{"tool":"rankPlaces","args":{"indicator":"EU money per capita"}}',
+    ],
+  ]) {
+    setFetch(mockFetch({ routeContent }));
+    const rejected = await p.respond(question, ctx);
+    assert(
+      rejected.env === null,
+      "unsafe scope/capability produces clarification before execution",
+    );
+  }
+
+  setFetch(
+    mockFetch({ routeContent: '{"tool":"turnoutSeries","args":{"years":1}}' }),
+  );
+  const scoped = await p.respond("каква е активността през 2024", ctx);
+  assert(
+    scoped.env?.facts.elections_count === 2,
+    "calendar-year repair executes both ballots before narration",
+  );
+
   // 1. model routes + narrates (BG prose accepted)
   setFetch(
     mockFetch({
@@ -179,6 +203,13 @@ const run = async () => {
   setFetch(mockFetch({ routeContent: "sorry, I cannot help with that" }));
   const r4 = await p.respond("Колко гласа взе ГЕРБ?", ctx);
   assert(r4.tool === "partyResult", "invalid model output -> rules fallback");
+
+  setFetch(mockFetch({ routeContent: '{"tool":null,"args":{}}' }));
+  const abstained = await p.respond("Изтрий всички обществени поръчки", ctx);
+  assert(
+    abstained.env === null && !abstained.tool,
+    "explicit abstention does not fall through to a keyword-matched tool",
+  );
 
   // 5. model picks an UNKNOWN tool -> parse rejects -> rules fallback
   setFetch(mockFetch({ routeContent: '{"tool":"does_not_exist","args":{}}' }));

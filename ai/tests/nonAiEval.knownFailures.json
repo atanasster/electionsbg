@@ -1,0 +1,1567 @@
+{
+  "nationalResults:2:en": {
+    "expectedTool": "nationalResults",
+    "observedRoute": {
+      "tool": "voteSearch",
+      "args": {
+        "query": "Show the national vote totals and percentages for every party in the latest parliamentary election."
+      }
+    }
+  },
+  "presidentialResults:2:en": {
+    "expectedTool": "presidentialResults",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "presidentialResults:2:bg": {
+    "expectedTool": "presidentialResults",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "regionWinners:2:en": {
+    "expectedTool": "regionWinners",
+    "observedRoute": null
+  },
+  "regionWinners:2:bg": {
+    "expectedTool": "regionWinners",
+    "observedRoute": null
+  },
+  "parliamentSeats:2:bg": {
+    "expectedTool": "parliamentSeats",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "settlementHistory:2:en": {
+    "expectedTool": "settlementHistory",
+    "observedRoute": {
+      "tool": "settlementResults",
+      "args": {
+        "place": "inovo",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "voteTransitions:1:en": {
+    "expectedTool": "voteTransitions",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "voteTransitions:3:en": {
+    "expectedTool": "voteTransitions",
+    "observedRoute": {
+      "tool": "regionBreakdown",
+      "args": {
+        "party": "gerb",
+        "geography": "oblast",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "localPrevoteFlow:2:en": {
+    "expectedTool": "localPrevoteFlow",
+    "observedRoute": {
+      "tool": "voteSearch",
+      "args": {
+        "query": "Parliament to municipal council vote flow"
+      }
+    }
+  },
+  "localPlaceTrend:1:en": {
+    "expectedTool": "localPlaceTrend",
+    "observedRoute": {
+      "tool": "localSubMayors",
+      "args": {
+        "place": "район sredets for"
+      }
+    }
+  },
+  "localPlaceTrend:1:bg": {
+    "expectedTool": "localPlaceTrend",
+    "observedRoute": {
+      "tool": "localSubMayors",
+      "args": {
+        "place": "район средец общинския"
+      }
+    }
+  },
+  "localPlaceTrend:2:en": {
+    "expectedTool": "localPlaceTrend",
+    "observedRoute": {
+      "tool": "localCouncil",
+      "args": {
+        "place": "bansko"
+      }
+    }
+  },
+  "localPlaceTrend:2:bg": {
+    "expectedTool": "localPlaceTrend",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "localMayorSections:2:en": {
+    "expectedTool": "localMayorSections",
+    "observedRoute": {
+      "tool": "localSubMayors",
+      "args": {
+        "place": "where was sredets district strongest"
+      }
+    }
+  },
+  "localMayorSections:2:bg": {
+    "expectedTool": "localMayorSections",
+    "observedRoute": {
+      "tool": "localSubMayors",
+      "args": {
+        "place": "къде беше най-силен район средец"
+      }
+    }
+  },
+  "chmiEvents:2:en": {
+    "expectedTool": "chmiEvents",
+    "observedRoute": {
+      "tool": "turnoutSeries",
+      "args": {}
+    }
+  },
+  "ngoOverview:2:en": {
+    "expectedTool": "ngoOverview",
+    "observedRoute": {
+      "tool": "ngoTopFunded",
+      "args": {}
+    }
+  },
+  "ngoOverview:2:bg": {
+    "expectedTool": "ngoOverview",
+    "observedRoute": {
+      "tool": "ngoTopFunded",
+      "args": {}
+    }
+  },
+  "ngoOverview:3:en": {
+    "expectedTool": "ngoOverview",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "ngoRiskSignals:2:en": {
+    "expectedTool": "ngoRiskSignals",
+    "observedRoute": {
+      "tool": "contractSearch",
+      "args": {
+        "company": "NGOs flagged for contracts and funding"
+      }
+    }
+  },
+  "ngoRiskSignals:2:bg": {
+    "expectedTool": "ngoRiskSignals",
+    "observedRoute": {
+      "tool": "ngoBySignal",
+      "args": {
+        "code": "public_contracts"
+      }
+    }
+  },
+  "ngoBySignal:2:en": {
+    "expectedTool": "ngoBySignal",
+    "observedRoute": null
+  },
+  "institutionMaintenance:2:en": {
+    "expectedTool": "institutionMaintenance",
+    "observedRoute": {
+      "tool": "budgetOverview",
+      "args": {
+        "year": 2026
+      }
+    }
+  },
+  "budgetFunction:2:en": {
+    "expectedTool": "budgetFunction",
+    "observedRoute": {
+      "tool": "defenseSpending",
+      "args": {}
+    }
+  },
+  "nzokBudget:2:en": {
+    "expectedTool": "nzokBudget",
+    "observedRoute": {
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF07"
+      }
+    }
+  },
+  "judiciaryWorkload:2:en": {
+    "expectedTool": "judiciaryWorkload",
+    "observedRoute": null
+  },
+  "judiciaryWorkload:2:bg": {
+    "expectedTool": "judiciaryWorkload",
+    "observedRoute": null
+  },
+  "judiciaryCourtLoad:2:en": {
+    "expectedTool": "judiciaryCourtLoad",
+    "observedRoute": null
+  },
+  "judiciaryDeclarations:2:en": {
+    "expectedTool": "judiciaryDeclarations",
+    "observedRoute": null
+  },
+  "defenseSpending:1:en": {
+    "expectedTool": "defenseSpending",
+    "observedRoute": {
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF02"
+      }
+    }
+  },
+  "defenseSpending:2:en": {
+    "expectedTool": "defenseSpending",
+    "observedRoute": {
+      "tool": "simulateTaxChange",
+      "args": {
+        "change": "have we reached 2% of gdp on defence?"
+      }
+    }
+  },
+  "defenseSpending:2:bg": {
+    "expectedTool": "defenseSpending",
+    "observedRoute": {
+      "tool": "simulateTaxChange",
+      "args": {
+        "change": "достигнахме ли 2% от бвп за отбрана?"
+      }
+    }
+  },
+  "armsExports:2:en": {
+    "expectedTool": "armsExports",
+    "observedRoute": null
+  },
+  "defenseProgram:2:en": {
+    "expectedTool": "defenseProgram",
+    "observedRoute": null
+  },
+  "defenseProgram:2:bg": {
+    "expectedTool": "defenseProgram",
+    "observedRoute": {
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "000695324"
+      }
+    }
+  },
+  "transportSpending:1:en": {
+    "expectedTool": "transportSpending",
+    "observedRoute": null
+  },
+  "transportEuFunds:1:en": {
+    "expectedTool": "transportEuFunds",
+    "observedRoute": null
+  },
+  "socialBenefits:2:en": {
+    "expectedTool": "socialBenefits",
+    "observedRoute": {
+      "tool": "partyTimeline",
+      "args": {
+        "party": "pp"
+      }
+    }
+  },
+  "socialBenefits:3:en": {
+    "expectedTool": "socialBenefits",
+    "observedRoute": null
+  },
+  "socialPovertyImpact:2:en": {
+    "expectedTool": "socialPovertyImpact",
+    "observedRoute": {
+      "tool": "euComparison",
+      "args": {
+        "indicator": "how do transfers cut poverty vs the eu?"
+      }
+    }
+  },
+  "socialPovertyImpact:2:bg": {
+    "expectedTool": "socialPovertyImpact",
+    "observedRoute": {
+      "tool": "euComparison",
+      "args": {
+        "indicator": "как трансферите свалят бедността спрямо ес?"
+      }
+    }
+  },
+  "environmentSpending:2:en": {
+    "expectedTool": "environmentSpending",
+    "observedRoute": {
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF05"
+      }
+    }
+  },
+  "environmentFunds:2:en": {
+    "expectedTool": "environmentFunds",
+    "observedRoute": {
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF05"
+      }
+    }
+  },
+  "defensePeerCompare:1:en": {
+    "expectedTool": "defensePeerCompare",
+    "observedRoute": {
+      "tool": "comparePlaces",
+      "args": {
+        "a": "How",
+        "b": "Bulgaria"
+      }
+    }
+  },
+  "defensePeerCompare:1:bg": {
+    "expectedTool": "defensePeerCompare",
+    "observedRoute": {
+      "tool": "comparePlaces",
+      "args": {
+        "a": "Как",
+        "b": "България"
+      }
+    }
+  },
+  "powerPlants:3:bg": {
+    "expectedTool": "powerPlants",
+    "observedRoute": null
+  },
+  "nzokActivities:2:en": {
+    "expectedTool": "nzokActivities",
+    "observedRoute": {
+      "tool": "nzokBudget",
+      "args": {}
+    }
+  },
+  "nzokActivities:2:bg": {
+    "expectedTool": "nzokActivities",
+    "observedRoute": {
+      "tool": "nzokBudget",
+      "args": {}
+    }
+  },
+  "nzokDrugSavings:2:en": {
+    "expectedTool": "nzokDrugSavings",
+    "observedRoute": {
+      "tool": "nzokDrugMolecule",
+      "args": {
+        "inn": "Which hospitals overpay the most for medicines vs the median?"
+      }
+    }
+  },
+  "nzokDrugSavings:2:bg": {
+    "expectedTool": "nzokDrugSavings",
+    "observedRoute": {
+      "tool": "nzokDrugMolecule",
+      "args": {
+        "inn": "Кои болници надплащат най-много за лекарства спрямо медианата?"
+      }
+    }
+  },
+  "nzokHospitalScorecard:2:en": {
+    "expectedTool": "nzokHospitalScorecard",
+    "observedRoute": null
+  },
+  "nzokHospitalScorecard:2:bg": {
+    "expectedTool": "nzokHospitalScorecard",
+    "observedRoute": null
+  },
+  "nzokPathwayHospitals:2:en": {
+    "expectedTool": "nzokPathwayHospitals",
+    "observedRoute": {
+      "tool": "partyResult",
+      "args": {
+        "party": "db",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "nzokPathwayHospitals:2:bg": {
+    "expectedTool": "nzokPathwayHospitals",
+    "observedRoute": null
+  },
+  "nzokPublicPrivate:2:en": {
+    "expectedTool": "nzokPublicPrivate",
+    "observedRoute": {
+      "tool": "nzokHospitals",
+      "args": {}
+    }
+  },
+  "topContractors:2:en": {
+    "expectedTool": "topContractors",
+    "observedRoute": null
+  },
+  "topContractors:2:bg": {
+    "expectedTool": "topContractors",
+    "observedRoute": null
+  },
+  "contractSearch:2:bg": {
+    "expectedTool": "contractSearch",
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "procurementRedFlags:2:en": {
+    "expectedTool": "procurementRedFlags",
+    "observedRoute": {
+      "tool": "partyResult",
+      "args": {
+        "party": "pp",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "procurementRedFlags:2:bg": {
+    "expectedTool": "procurementRedFlags",
+    "observedRoute": {
+      "tool": "census",
+      "args": {
+        "place": "възложители са концентрирани върху един изпълнител"
+      }
+    }
+  },
+  "procurementDebarred:1:en": {
+    "expectedTool": "procurementDebarred",
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "mpProcurement:1:en": {
+    "expectedTool": "mpProcurement",
+    "observedRoute": null
+  },
+  "awarderProcurement:2:bg": {
+    "expectedTool": "awarderProcurement",
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "procurementNormalcy:2:en": {
+    "expectedTool": "procurementNormalcy",
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "procurementNormalcy:2:bg": {
+    "expectedTool": "procurementNormalcy",
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "openTenders:2:en": {
+    "expectedTool": "openTenders",
+    "observedRoute": null
+  },
+  "projectLifecycle:2:en": {
+    "expectedTool": "projectLifecycle",
+    "observedRoute": {
+      "tool": "machineVoteSeries",
+      "args": {}
+    }
+  },
+  "projectLifecycle:2:bg": {
+    "expectedTool": "projectLifecycle",
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "subsidiesOverview:2:en": {
+    "expectedTool": "subsidiesOverview",
+    "observedRoute": {
+      "tool": "cultureOverview",
+      "args": {}
+    }
+  },
+  "subsidiesByScheme:2:en": {
+    "expectedTool": "subsidiesByScheme",
+    "observedRoute": null
+  },
+  "subsidiesByScheme:2:bg": {
+    "expectedTool": "subsidiesByScheme",
+    "observedRoute": null
+  },
+  "cultureOverview:1:en": {
+    "expectedTool": "cultureOverview",
+    "observedRoute": null
+  },
+  "cultureOverview:1:bg": {
+    "expectedTool": "cultureOverview",
+    "observedRoute": null
+  },
+  "cultureGrantSuccess:2:en": {
+    "expectedTool": "cultureGrantSuccess",
+    "observedRoute": {
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF08"
+      }
+    }
+  },
+  "cultureGrantSuccess:2:bg": {
+    "expectedTool": "cultureGrantSuccess",
+    "observedRoute": null
+  },
+  "cultureMunicipal:1:en": {
+    "expectedTool": "cultureMunicipal",
+    "observedRoute": {
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF08"
+      }
+    }
+  },
+  "revenueBreakdown:1:en": {
+    "expectedTool": "revenueBreakdown",
+    "observedRoute": {
+      "tool": "budgetOverview",
+      "args": {}
+    }
+  },
+  "exciseWarehouses:2:en": {
+    "expectedTool": "exciseWarehouses",
+    "observedRoute": {
+      "tool": "govDebt",
+      "args": {}
+    }
+  },
+  "exciseWarehouses:2:bg": {
+    "expectedTool": "exciseWarehouses",
+    "observedRoute": null
+  },
+  "fundsProjects:2:en": {
+    "expectedTool": "fundsProjects",
+    "observedRoute": null
+  },
+  "fundsProjects:2:bg": {
+    "expectedTool": "fundsProjects",
+    "observedRoute": null
+  },
+  "govDebt:1:en": {
+    "expectedTool": "govDebt",
+    "observedRoute": {
+      "tool": "governments",
+      "args": {}
+    }
+  },
+  "govDebt:1:bg": {
+    "expectedTool": "govDebt",
+    "observedRoute": {
+      "tool": "macroIndicator",
+      "args": {
+        "indicator": "какъв е държавният дълг?"
+      }
+    }
+  },
+  "personProfile:2:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "mpConnectionsTop",
+      "args": {}
+    }
+  },
+  "personProfile:3:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "governanceProfile",
+      "args": {
+        "place": "всичко едно лице — длъжности и фирми"
+      }
+    }
+  },
+  "personWealth:3:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "did a given declare entering vs leaving office"
+      }
+    }
+  },
+  "personWealth:4:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "macroIndicator",
+      "args": {
+        "indicator": "show a person's assets and debts by year."
+      }
+    }
+  },
+  "partyFinance:2:en": {
+    "expectedTool": "partyFinance",
+    "observedRoute": {
+      "tool": "partyResult",
+      "args": {
+        "party": "pp-db",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "companyConnections:2:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "mpConnectionsTop",
+      "args": {}
+    }
+  },
+  "companyConnections:2:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "mpConnectionsTop",
+      "args": {}
+    }
+  },
+  "euComparison:1:en": {
+    "expectedTool": "euComparison",
+    "observedRoute": {
+      "tool": "comparePlaces",
+      "args": {
+        "a": "How",
+        "b": "Bulgaria"
+      }
+    }
+  },
+  "schoolMatura:1:en": {
+    "expectedTool": "schoolMatura",
+    "observedRoute": null
+  },
+  "schoolMatura:2:en": {
+    "expectedTool": "schoolMatura",
+    "observedRoute": null
+  },
+  "schoolMatura:2:bg": {
+    "expectedTool": "schoolMatura",
+    "observedRoute": null
+  },
+  "rankPlaces:3:en": {
+    "expectedTool": "rankPlaces",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "which most transparent"
+      }
+    }
+  },
+  "priceIndex:2:en": {
+    "expectedTool": "priceIndex",
+    "observedRoute": {
+      "tool": "settlementPrices",
+      "args": {
+        "place": "did rise after euro",
+        "product": "did prices rise after the euro?"
+      }
+    }
+  },
+  "priceIndex:2:bg": {
+    "expectedTool": "priceIndex",
+    "observedRoute": {
+      "tool": "settlementPrices",
+      "args": {
+        "place": "ли след"
+      }
+    }
+  },
+  "localDeals:2:en": {
+    "expectedTool": "localDeals",
+    "observedRoute": null
+  },
+  "productPrice:1:en": {
+    "expectedTool": "productPrice",
+    "observedRoute": {
+      "tool": "settlementPrices",
+      "args": {
+        "place": "lavazza",
+        "product": "how much is lavazza coffee?"
+      }
+    }
+  },
+  "productPrice:1:bg": {
+    "expectedTool": "productPrice",
+    "observedRoute": {
+      "tool": "settlementPrices",
+      "args": {
+        "place": "лаваца",
+        "product": "колко струва кафе лаваца?"
+      }
+    }
+  },
+  "productPrice:2:en": {
+    "expectedTool": "productPrice",
+    "observedRoute": null
+  },
+  "productPrice:2:bg": {
+    "expectedTool": "productPrice",
+    "observedRoute": null
+  },
+  "basketAffordability:2:en": {
+    "expectedTool": "basketAffordability",
+    "observedRoute": {
+      "tool": "rankPlaces",
+      "args": {
+        "indicator": "gdp per capita by oblast",
+        "n": 20
+      }
+    }
+  },
+  "basketAffordability:2:bg": {
+    "expectedTool": "basketAffordability",
+    "observedRoute": {
+      "tool": "rankPlaces",
+      "args": {
+        "indicator": "gdp per capita by oblast",
+        "n": 20
+      }
+    }
+  },
+  "census:1:en": {
+    "expectedTool": "census",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "was vidin s population census",
+        "cycle": "2021"
+      }
+    }
+  },
+  "placeEuProjects:2:bg": {
+    "expectedTool": "placeEuProjects",
+    "observedRoute": null
+  },
+  "procurementByOblast:2:en": {
+    "expectedTool": "procurementByOblast",
+    "observedRoute": {
+      "tool": "procurementBySettlement",
+      "args": {
+        "place": "procurement varna oblast"
+      }
+    }
+  },
+  "procurementByOblast:2:bg": {
+    "expectedTool": "procurementByOblast",
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "graoPopulation:1:en": {
+    "expectedTool": "graoPopulation",
+    "observedRoute": {
+      "tool": "census",
+      "args": {
+        "place": "many people live gabrovo"
+      }
+    }
+  },
+  "graoPopulation:1:bg": {
+    "expectedTool": "graoPopulation",
+    "observedRoute": {
+      "tool": "census",
+      "args": {
+        "place": "души живеят габрово"
+      }
+    }
+  },
+  "romaVoteTrend:2:bg": {
+    "expectedTool": "romaVoteTrend",
+    "observedRoute": {
+      "tool": "census",
+      "args": {
+        "place": "ромският"
+      }
+    }
+  },
+  "wastedVotesTrend:2:en": {
+    "expectedTool": "wastedVotesTrend",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "voterPersistence:1:en": {
+    "expectedTool": "voterPersistence",
+    "observedRoute": {
+      "tool": "turnoutSeries",
+      "args": {}
+    }
+  },
+  "mpLoyalty:2:en": {
+    "expectedTool": "mpLoyalty",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "mpLoyalty:2:bg": {
+    "expectedTool": "mpLoyalty",
+    "observedRoute": null
+  },
+  "administrationOverview:2:bg": {
+    "expectedTool": "administrationOverview",
+    "observedRoute": {
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF01"
+      }
+    }
+  },
+  "administrationOverview:3:en": {
+    "expectedTool": "administrationOverview",
+    "observedRoute": {
+      "tool": "euComparison",
+      "args": {
+        "indicator": "how does bulgaria compare on e-government vs the eu?"
+      }
+    }
+  },
+  "administrationOverview:3:bg": {
+    "expectedTool": "administrationOverview",
+    "observedRoute": {
+      "tool": "euComparison",
+      "args": {
+        "indicator": "как е българия по електронно управление спрямо ес?"
+      }
+    }
+  },
+  "digitalSkills:2:bg": {
+    "expectedTool": "digitalSkills",
+    "observedRoute": null
+  },
+  "tourismSeasonality:2:en": {
+    "expectedTool": "tourismSeasonality",
+    "observedRoute": null
+  },
+  "tourismSourceMarkets:1:en": {
+    "expectedTool": "tourismSourceMarkets",
+    "observedRoute": null
+  },
+  "tourismSourceMarkets:1:bg": {
+    "expectedTool": "tourismSourceMarkets",
+    "observedRoute": null
+  },
+  "tourismSourceMarkets:2:bg": {
+    "expectedTool": "tourismSourceMarkets",
+    "observedRoute": null
+  },
+  "authored:1:en": {
+    "expectedTool": "contractSearch",
+    "observedRoute": {
+      "tool": "companyConnections",
+      "args": {
+        "company": "831646048"
+      }
+    }
+  },
+  "authored:1:bg": {
+    "expectedTool": "contractSearch",
+    "observedRoute": {
+      "tool": "companyConnections",
+      "args": {
+        "company": "831646048"
+      }
+    }
+  },
+  "authored:3:en": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "rank by overdue liabilities",
+        "cycle": "2024"
+      }
+    }
+  },
+  "authored:3:bg": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": null
+  },
+  "authored:4:en": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": null
+  },
+  "authored:4:bg": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": null
+  },
+  "authored:5:en": {
+    "expectedTool": "regionWinners",
+    "observedRoute": null
+  },
+  "authored:5:bg": {
+    "expectedTool": "regionWinners",
+    "observedRoute": null
+  },
+  "authored:10:en": {
+    "expectedTool": "nzokPrivateHospitals",
+    "observedRoute": {
+      "tool": "nzokPrivateHospitals",
+      "args": {
+        "filter": "notenders"
+      }
+    }
+  },
+  "authored:10:bg": {
+    "expectedTool": "nzokPrivateHospitals",
+    "observedRoute": {
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "Кои 6 частни болници нямат обществени поръчки?"
+      }
+    }
+  },
+  "authored:11:en": {
+    "expectedTool": "mpAttendance",
+    "observedRoute": {
+      "tool": "candidateResult",
+      "args": {
+        "name": "National Assembly",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "authored:11:bg": {
+    "expectedTool": "mpAttendance",
+    "observedRoute": {
+      "tool": "mpAttendance",
+      "args": {}
+    }
+  },
+  "authored:13:en": {
+    "expectedTool": "budgetMinistries",
+    "observedRoute": {
+      "tool": "compareElections",
+      "args": {
+        "a": "2024",
+        "b": "2026_04_19"
+      }
+    }
+  },
+  "authored:13:bg": {
+    "expectedTool": "budgetMinistries",
+    "observedRoute": {
+      "tool": "compareElections",
+      "args": {
+        "a": "2024",
+        "b": "2026_04_19"
+      }
+    }
+  },
+  "authored:15:en": {
+    "expectedTool": "openCalls",
+    "observedRoute": {
+      "tool": "ngoTopFunded",
+      "args": {}
+    }
+  },
+  "authored:15:bg": {
+    "expectedTool": "openCalls",
+    "observedRoute": {
+      "tool": "ngoTopFunded",
+      "args": {}
+    }
+  },
+  "authored:16:en": {
+    "expectedTool": "personWealth",
+    "observedRoute": {
+      "tool": "candidateResult",
+      "args": {
+        "name": "Asen Vasilev",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "authored:17:en": {
+    "expectedTool": "councilResolutions",
+    "observedRoute": {
+      "tool": "councilResolutions",
+      "args": {
+        "place": "i need decisions adopted by ruse municipal"
+      }
+    }
+  },
+  "authored:17:bg": {
+    "expectedTool": "councilResolutions",
+    "observedRoute": {
+      "tool": "councilResolutions",
+      "args": {
+        "place": "трябват ми решенията приети от общинския русе"
+      }
+    }
+  },
+  "authored:18:en": {
+    "expectedTool": "schoolScores",
+    "observedRoute": {
+      "tool": "schoolScores",
+      "args": {
+        "place": "compare matura schools burgas"
+      }
+    }
+  },
+  "authored:18:bg": {
+    "expectedTool": "schoolScores",
+    "observedRoute": {
+      "tool": "schoolScores",
+      "args": {
+        "place": "сравни от матурите училища бургас"
+      }
+    }
+  },
+  "authored:19:en": {
+    "expectedTool": "municipalityResults",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "and varna"
+      }
+    }
+  },
+  "authored:20:en": {
+    "expectedTool": "localTaxes",
+    "observedRoute": {
+      "tool": "localTaxes",
+      "args": {
+        "place": "are local tax rates pleven"
+      }
+    }
+  },
+  "authored:20:bg": {
+    "expectedTool": "localTaxes",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "какви са данъчни ставки плевен"
+      }
+    }
+  },
+  "authored:22:en": {
+    "expectedTool": "topContractors",
+    "observedRoute": {
+      "tool": "topContractors",
+      "args": {}
+    }
+  },
+  "authored:22:bg": {
+    "expectedTool": "topContractors",
+    "observedRoute": {
+      "tool": "topContractors",
+      "args": {}
+    }
+  },
+  "authored:23:bg": {
+    "expectedTool": "budgetVariance",
+    "observedRoute": {
+      "tool": "compareElections",
+      "args": {
+        "a": "2023_04_02",
+        "b": "2026_04_19"
+      }
+    }
+  },
+  "authored:24:en": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": null
+  },
+  "authored:24:bg": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": {
+      "tool": "municipalFiscalRanking",
+      "args": {
+        "year": 2023,
+        "count": 25,
+        "metric": "commitments"
+      }
+    }
+  },
+  "authored:26:en": {
+    "expectedTool": "regionResults",
+    "observedRoute": null
+  },
+  "unsupported:3:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "изпрати имейл до от мое име"
+      }
+    }
+  },
+  "unsupported:4:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "partyTimeline",
+      "args": {
+        "party": "pp"
+      }
+    }
+  },
+  "unsupported:4:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "partyTimeline",
+      "args": {
+        "party": "pp"
+      }
+    }
+  },
+  "unsupported:5:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "unsupported:5:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "procurementTotals",
+      "args": {}
+    }
+  },
+  "unsupported:6:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "presidentialResults",
+      "args": {}
+    }
+  },
+  "unsupported:6:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "presidentialResults",
+      "args": {
+        "place": "САЩ"
+      }
+    }
+  },
+  "realistic:1:en": {
+    "expectedTool": "regionalInvestment",
+    "observedRoute": {
+      "tool": "fundsOverview",
+      "args": {}
+    }
+  },
+  "realistic:1:bg": {
+    "expectedTool": "regionalInvestment",
+    "observedRoute": {
+      "tool": "macroIndicator",
+      "args": {
+        "indicator": "европарите главно в софия ли отиват, или други области получават повече на човек?"
+      }
+    }
+  },
+  "realistic:2:en": {
+    "expectedTool": "basketAffordability",
+    "observedRoute": {
+      "tool": "settlementPrices",
+      "args": {
+        "place": "where does cost least compared with s gdp person"
+      }
+    }
+  },
+  "realistic:3:en": {
+    "expectedTool": "rankPlaces",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "which five lowest unemployment"
+      }
+    }
+  },
+  "realistic:3:bg": {
+    "expectedTool": "rankPlaces",
+    "observedRoute": {
+      "tool": "rankPlaces",
+      "args": {
+        "indicator": "кои пет общини имат най-ниска безработица?"
+      }
+    }
+  },
+  "realistic:6:en": {
+    "expectedTool": "turnout",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2024_06_09"
+      }
+    }
+  },
+  "realistic:6:bg": {
+    "expectedTool": "turnout",
+    "observedRoute": null
+  },
+  "realistic:7:en": {
+    "expectedTool": "turnoutSeries",
+    "observedRoute": {
+      "tool": "turnoutSeries",
+      "args": {}
+    }
+  },
+  "realistic:7:bg": {
+    "expectedTool": "turnoutSeries",
+    "observedRoute": {
+      "tool": "turnoutSeries",
+      "args": {}
+    }
+  },
+  "realistic:8:en": {
+    "expectedTool": "localMayorsWon",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "which local elections",
+        "cycle": "2023"
+      }
+    }
+  },
+  "realistic:8:bg": {
+    "expectedTool": "localMayorsWon",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "спечелиха кметски",
+        "cycle": "2023"
+      }
+    }
+  },
+  "realistic:9:en": {
+    "expectedTool": "localTaxes",
+    "observedRoute": {
+      "tool": "localTaxes",
+      "args": {
+        "place": "i m buying a flat ruse are local tax rates there"
+      }
+    }
+  },
+  "realistic:9:bg": {
+    "expectedTool": "localTaxes",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "купувам апартамент русе какви са данъчни ставки там"
+      }
+    }
+  },
+  "realistic:10:en": {
+    "expectedTool": "schoolScores",
+    "observedRoute": {
+      "tool": "comparePlaces",
+      "args": {
+        "a": "We",
+        "b": "Burgas"
+      }
+    }
+  },
+  "realistic:10:bg": {
+    "expectedTool": "schoolScores",
+    "observedRoute": {
+      "tool": "comparePlaces",
+      "args": {
+        "a": "Избираме",
+        "b": "Бургас"
+      }
+    }
+  },
+  "realistic:11:en": {
+    "expectedTool": "councilResolutions",
+    "observedRoute": {
+      "tool": "councilResolutions",
+      "args": {
+        "place": "municipal pleven actually decided recently"
+      }
+    }
+  },
+  "realistic:11:bg": {
+    "expectedTool": "councilResolutions",
+    "observedRoute": {
+      "tool": "councilResolutions",
+      "args": {
+        "place": "всъщност решил плевен напоследък"
+      }
+    }
+  },
+  "realistic:12:en": {
+    "expectedTool": "personWealth",
+    "observedRoute": {
+      "tool": "candidateResult",
+      "args": {
+        "name": "Asen Vasilev",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "realistic:14:en": {
+    "expectedTool": "contractSearch",
+    "observedRoute": {
+      "tool": "sectionResults",
+      "args": {
+        "section": "831646048",
+        "election": "2024"
+      }
+    }
+  },
+  "realistic:14:bg": {
+    "expectedTool": "contractSearch",
+    "observedRoute": {
+      "tool": "sectionResults",
+      "args": {
+        "section": "831646048",
+        "election": "2024"
+      }
+    }
+  },
+  "realistic:16:en": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "which ten had biggest overdue bills",
+        "cycle": "2024"
+      }
+    }
+  },
+  "realistic:16:bg": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": {
+      "tool": "municipalFiscalRanking",
+      "args": {
+        "year": 2024,
+        "count": 25,
+        "metric": "arrears"
+      }
+    }
+  },
+  "realistic:17:en": {
+    "expectedTool": "budgetVariance",
+    "observedRoute": {
+      "tool": "budgetOverview",
+      "args": {
+        "year": 2023
+      }
+    }
+  },
+  "realistic:17:bg": {
+    "expectedTool": "budgetVariance",
+    "observedRoute": {
+      "tool": "budgetOverview",
+      "args": {
+        "year": 2023
+      }
+    }
+  },
+  "realistic:18:en": {
+    "expectedTool": "budgetPersonnelByMinistry",
+    "observedRoute": null
+  },
+  "realistic:18:bg": {
+    "expectedTool": "budgetPersonnelByMinistry",
+    "observedRoute": null
+  },
+  "realistic:19:en": {
+    "expectedTool": "openCalls",
+    "observedRoute": {
+      "tool": "ngoTopFunded",
+      "args": {}
+    }
+  },
+  "realistic:19:bg": {
+    "expectedTool": "openCalls",
+    "observedRoute": {
+      "tool": "ngoTopFunded",
+      "args": {}
+    }
+  },
+  "realistic:20:en": {
+    "expectedTool": "mpAttendance",
+    "observedRoute": {
+      "tool": "voteSearch",
+      "args": {
+        "query": "Who missed the most parliamentary votes in the 51st assembly?"
+      }
+    }
+  },
+  "realistic:20:bg": {
+    "expectedTool": "mpAttendance",
+    "observedRoute": {
+      "tool": "nationalResults",
+      "args": {
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "realistic:23:en": {
+    "expectedTool": "topContractors",
+    "observedRoute": {
+      "tool": "topContractors",
+      "args": {}
+    }
+  },
+  "realistic:23:bg": {
+    "expectedTool": "topContractors",
+    "observedRoute": {
+      "tool": "topContractors",
+      "args": {}
+    }
+  },
+  "realistic:27:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "localTaxes",
+      "args": {
+        "place": "are taxes here"
+      }
+    }
+  },
+  "realistic:27:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "localTaxes",
+      "args": {
+        "place": "какви са данъците тук"
+      }
+    }
+  },
+  "realistic:29:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "partyResult",
+      "args": {
+        "party": "pp",
+        "election": "2026_04_19"
+      }
+    }
+  },
+  "realistic:30:bg": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "localTaxes",
+      "args": {
+        "place": "плати данъка ми имота варна"
+      }
+    }
+  },
+  "realistic:31:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "book me an appointment"
+      }
+    }
+  },
+  "realistic:32:en": {
+    "expectedTool": null,
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "rank by tomorrow s rainfall"
+      }
+    }
+  },
+  "conversation:1:en": {
+    "expectedTool": "companyConnections",
+    "observedRoute": null
+  },
+  "conversation:1:bg": {
+    "expectedTool": "companyConnections",
+    "observedRoute": null
+  },
+  "conversation:2:en": {
+    "expectedTool": "personWealth",
+    "observedRoute": null
+  },
+  "conversation:2:bg": {
+    "expectedTool": "personWealth",
+    "observedRoute": null
+  },
+  "conversation:3:en": {
+    "expectedTool": "municipalityResults",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "and varna"
+      }
+    }
+  },
+  "conversation:4:en": {
+    "expectedTool": "regionResults",
+    "observedRoute": null
+  },
+  "conversation:5:en": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": null
+  },
+  "conversation:5:bg": {
+    "expectedTool": "municipalFiscalRanking",
+    "observedRoute": null
+  },
+  "conversation:6:en": {
+    "expectedTool": "localTaxes",
+    "observedRoute": {
+      "tool": "localTaxes",
+      "args": {
+        "place": "topic: are local taxes ruse"
+      }
+    }
+  },
+  "conversation:6:bg": {
+    "expectedTool": "localTaxes",
+    "observedRoute": {
+      "tool": "localMunicipality",
+      "args": {
+        "place": "смени темата: какви са данъци русе"
+      }
+    }
+  },
+  "conversation:7:en": {
+    "expectedTool": "contractSearch",
+    "observedRoute": null
+  },
+  "conversation:7:bg": {
+    "expectedTool": "contractSearch",
+    "observedRoute": null
+  },
+  "conversation:8:en": {
+    "expectedTool": "presidentialResults",
+    "observedRoute": null
+  },
+  "conversation:8:bg": {
+    "expectedTool": "presidentialResults",
+    "observedRoute": null
+  }
+}

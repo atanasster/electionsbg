@@ -1,3 +1,4 @@
+import { selectHeuristicRoute } from "./heuristicRoute";
 // The provider abstraction the chat talks to. Today the only implementation is
 // the deterministic HeuristicProvider (router + tools + template narrator). In
 // M3 a WebLLMProvider implements the same interface: it emits {tool,args} under
@@ -6,12 +7,7 @@
 
 import type { TurnMemory } from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
-import {
-  followOnScopeNotice,
-  pinElectionContext,
-  resolveFollowOn,
-  route,
-} from "../orchestrator/router";
+import { pinElectionContext } from "../orchestrator/router";
 import { runTool } from "../tools/registry";
 import type { Envelope, ToolArgs, ToolContext } from "../tools/types";
 import { clarify } from "./lang";
@@ -144,14 +140,8 @@ export class HeuristicProvider implements LLMProvider {
       durationMs: performance.now() - t0,
       narratedBy: "rules",
     });
-    const scopeNotice = followOnScopeNotice(question, opts?.prev, ctx.lang);
-    if (scopeNotice) return { text: scopeNotice, env: null, meta: meta() };
-    // A bare follow-on ("а ДПС?") reuses the previous tool with the new entity;
-    // otherwise route the question on its own.
-    const r = pinElectionContext(
-      resolveFollowOn(question, opts?.prev) ?? route(question, ctx),
-      ctx,
-    );
+    const { notice, route: r } = selectHeuristicRoute(question, ctx, opts);
+    if (notice) return { text: notice, env: null, meta: meta() };
     if (!r) return { text: clarify(ctx.lang), env: null, meta: meta() };
     try {
       const env = await runTool(r.tool, r.args, ctx);

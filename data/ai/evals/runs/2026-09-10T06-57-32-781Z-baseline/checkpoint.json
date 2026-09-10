@@ -1,0 +1,2976 @@
+[
+  {
+    "id": "budgetVariance:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetVariance",
+    "selected": "budgetVariance",
+    "parsed": {
+      "tool": "budgetVariance",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetVariance\",\"args\":{}}",
+    "ms": 789,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 11753,
+      "total_tokens": 11763
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetVariance:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetVariance",
+    "selected": "budgetVariance",
+    "parsed": {
+      "tool": "budgetVariance",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetVariance\",\"args\":{}}",
+    "ms": 796,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15733,
+      "total_tokens": 15743
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetPersonnel:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetPersonnel",
+    "selected": "budgetPersonnel",
+    "parsed": {
+      "tool": "budgetPersonnel",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"budgetPersonnel\", \"args\": {}}",
+    "ms": 923,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 11752,
+      "total_tokens": 11764
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetPersonnel:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetPersonnel",
+    "selected": "budgetPersonnel",
+    "parsed": {
+      "tool": "budgetPersonnel",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"budgetPersonnel\", \"args\": {}}",
+    "ms": 1009,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 15730,
+      "total_tokens": 15742
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetPersonnelByMinistry:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetPersonnelByMinistry",
+    "selected": "budgetPersonnelByMinistry",
+    "parsed": {
+      "tool": "budgetPersonnelByMinistry",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"budgetPersonnelByMinistry\", \"args\": {}}",
+    "ms": 691,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11748,
+      "total_tokens": 11762
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetPersonnelByMinistry:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetPersonnelByMinistry",
+    "selected": "budgetPersonnelByMinistry",
+    "parsed": {
+      "tool": "budgetPersonnelByMinistry",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetPersonnelByMinistry\",\"args\":{}}",
+    "ms": 728,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 15723,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetDocuments:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetDocuments",
+    "selected": "budgetDocuments",
+    "parsed": {
+      "tool": "budgetDocuments",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetDocuments\",\"args\":{}}",
+    "ms": 590,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 11753,
+      "total_tokens": 11763
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetDocuments:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetDocuments",
+    "selected": "budgetDocuments",
+    "parsed": {
+      "tool": "budgetDocuments",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetDocuments\",\"args\":{}}",
+    "ms": 773,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15727,
+      "total_tokens": 15737
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetMinistries:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetMinistries",
+    "selected": "budgetMinistries",
+    "parsed": {
+      "tool": "budgetMinistries",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetMinistries\",\"args\":{}}",
+    "ms": 592,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 11749,
+      "total_tokens": 11760
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetMinistries:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetMinistries",
+    "selected": "budgetMinistries",
+    "parsed": {
+      "tool": "budgetMinistries",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetMinistries\",\"args\":{}}",
+    "ms": 603,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 15724,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetMunicipalTransfers:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetMunicipalTransfers",
+    "selected": "budgetMunicipalTransfers",
+    "parsed": {
+      "tool": "budgetMunicipalTransfers",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetMunicipalTransfers\",\"args\":{}}",
+    "ms": 611,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 11749,
+      "total_tokens": 11761
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetMunicipalTransfers:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetMunicipalTransfers",
+    "selected": "budgetMunicipalTransfers",
+    "parsed": {
+      "tool": "budgetMunicipalTransfers",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetMunicipalTransfers\",\"args\":{}}",
+    "ms": 628,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 15727,
+      "total_tokens": 15739
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetCapitalByMunicipality:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetCapitalByMunicipality",
+    "selected": "budgetCapitalByMunicipality",
+    "parsed": {
+      "tool": "budgetCapitalByMunicipality",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetCapitalByMunicipality\",\"args\":{}}",
+    "ms": 591,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11751,
+      "total_tokens": 11765
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetCapitalByMunicipality:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetCapitalByMunicipality",
+    "selected": "budgetCapitalByMunicipality",
+    "parsed": {
+      "tool": "budgetCapitalByMunicipality",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetCapitalByMunicipality\",\"args\":{}}",
+    "ms": 709,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15729,
+      "total_tokens": 15743
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetInvestmentPayments:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "budgetInvestmentPayments",
+    "selected": "budgetInvestmentPayments",
+    "parsed": {
+      "tool": "budgetInvestmentPayments",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetInvestmentPayments\",\"args\":{}}",
+    "ms": 573,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 11752,
+      "total_tokens": 11763
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "budgetInvestmentPayments:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "budgetInvestmentPayments",
+    "selected": "budgetInvestmentPayments",
+    "parsed": {
+      "tool": "budgetInvestmentPayments",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"budgetInvestmentPayments\",\"args\":{}}",
+    "ms": 706,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 15728,
+      "total_tokens": 15739
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "waterServices:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "waterServices",
+    "selected": "waterServices",
+    "parsed": {
+      "tool": "waterServices",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"waterServices\",\"args\":{}}",
+    "ms": 574,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 11752,
+      "total_tokens": 11762
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "waterServices:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "waterServices",
+    "selected": "waterServices",
+    "parsed": {
+      "tool": "waterServices",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"waterServices\",\"args\":{}}",
+    "ms": 681,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15728,
+      "total_tokens": 15738
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "nationalResults:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "nationalResults",
+    "selected": "parliamentSeats",
+    "parsed": {
+      "tool": "parliamentSeats",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": false,
+    "argScored": false,
+    "argsOk": false,
+    "callOk": false,
+    "raw": "{\"tool\": \"parliamentSeats\", \"args\": {}}",
+    "ms": 611,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 11751,
+      "total_tokens": 11764
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "nationalResults:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "nationalResults",
+    "selected": "nationalResults",
+    "parsed": {
+      "tool": "nationalResults",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"nationalResults\",\"args\":{}}",
+    "ms": 576,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15725,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "nationalResults:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "nationalResults",
+    "selected": "parliamentSeats",
+    "parsed": {
+      "tool": "parliamentSeats",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": false,
+    "argScored": false,
+    "argsOk": false,
+    "callOk": false,
+    "raw": "{\"tool\":\"parliamentSeats\",\"args\":{}}",
+    "ms": 654,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 11753,
+      "total_tokens": 11764
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "nationalResults:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "nationalResults",
+    "selected": "parliamentSeats",
+    "parsed": {
+      "tool": "parliamentSeats",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": false,
+    "argScored": false,
+    "argsOk": false,
+    "callOk": false,
+    "raw": "{\"tool\":\"parliamentSeats\",\"args\":{}}",
+    "ms": 694,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 15728,
+      "total_tokens": 15739
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "cycle": 2021
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"presidentialResults\", \"args\": {\"cycle\": 2021}}",
+    "ms": 609,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 11755,
+      "total_tokens": 11775
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "cycle": 2021
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"presidentialResults\",\"args\":{\"cycle\":2021}}",
+    "ms": 712,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15730,
+      "total_tokens": 15746
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "cycle": 2016,
+        "round": 1
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"presidentialResults\",\"args\":{\"cycle\":2016,\"round\":1}}",
+    "ms": 610,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 11758,
+      "total_tokens": 11778
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "cycle": 2016,
+        "round": 1
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"presidentialResults\",\"args\":{\"cycle\":2016,\"round\":1}}",
+    "ms": 687,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 15731,
+      "total_tokens": 15751
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:3",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "round": 2,
+        "place": "Пловдив"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"presidentialResults\",\"args\":{\"place\":\"Пловдив\",\"round\":2}}",
+    "ms": 556,
+    "usage": {
+      "completion_tokens": 19,
+      "prompt_tokens": 11749,
+      "total_tokens": 11768
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:3",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "cycle": 2021,
+        "round": 2,
+        "place": "Пловдив"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"presidentialResults\",\"args\":{\"cycle\":2021,\"round\":2,\"place\":\"Пловдив\"}}",
+    "ms": 668,
+    "usage": {
+      "completion_tokens": 27,
+      "prompt_tokens": 15726,
+      "total_tokens": 15753
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:4",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "place": "Варна"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"presidentialResults\",\"args\":{\"place\":\"Варна\"}}",
+    "ms": 562,
+    "usage": {
+      "completion_tokens": 15,
+      "prompt_tokens": 11752,
+      "total_tokens": 11767
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "presidentialResults:4",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "presidentialResults",
+    "selected": "presidentialResults",
+    "parsed": {
+      "tool": "presidentialResults",
+      "args": {
+        "oblast": "Врна"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"presidentialResults\",\"args\":{\"oblast\":\"Врна\"}}",
+    "ms": 610,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15726,
+      "total_tokens": 15740
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "regionWinners:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "regionWinners",
+    "selected": "regionWinners",
+    "parsed": {
+      "tool": "regionWinners",
+      "args": {
+        "geography": "mir"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"regionWinners\",\"args\":{\"geography\":\"mir\"}}",
+    "ms": 559,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 11748,
+      "total_tokens": 11761
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "regionWinners:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "regionWinners",
+    "selected": "regionWinners",
+    "parsed": {
+      "tool": "regionWinners",
+      "args": {
+        "geography": "mir"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"regionWinners\",\"args\":{\"geography\":\"mir\"}}",
+    "ms": 657,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 15722,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "regionWinners:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "regionWinners",
+    "selected": "regionWinners",
+    "parsed": {
+      "tool": "regionWinners",
+      "args": {
+        "geography": "mir"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"regionWinners\",\"args\":{\"geography\":\"mir\"}}",
+    "ms": 580,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 11749,
+      "total_tokens": 11762
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "regionWinners:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "regionWinners",
+    "selected": "regionWinners",
+    "parsed": {
+      "tool": "regionWinners",
+      "args": {
+        "geography": "mir"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"regionWinners\",\"args\":{\"geography\":\"mir\"}}",
+    "ms": 655,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 15722,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "parliamentSeats:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "parliamentSeats",
+    "selected": "parliamentSeats",
+    "parsed": {
+      "tool": "parliamentSeats",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"parliamentSeats\",\"args\":{}}",
+    "ms": 576,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 11751,
+      "total_tokens": 11762
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "parliamentSeats:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "parliamentSeats",
+    "selected": "parliamentSeats",
+    "parsed": {
+      "tool": "parliamentSeats",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"parliamentSeats\", \"args\": {}}",
+    "ms": 643,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 15722,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "parliamentSeats:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "parliamentSeats",
+    "selected": "parliamentSeats",
+    "parsed": {
+      "tool": "parliamentSeats",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"parliamentSeats\",\"args\":{}}",
+    "ms": 519,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 11747,
+      "total_tokens": 11758
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "parliamentSeats:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "parliamentSeats",
+    "selected": "parliamentSeats",
+    "parsed": {
+      "tool": "parliamentSeats",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"parliamentSeats\",\"args\":{}}",
+    "ms": 625,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 15724,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "seatsHistory:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "seatsHistory",
+    "selected": "seatsHistory",
+    "parsed": {
+      "tool": "seatsHistory",
+      "args": {
+        "years": 5
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"seatsHistory\",\"args\":{\"years\":5}}",
+    "ms": 591,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 11757,
+      "total_tokens": 11769
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "seatsHistory:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "seatsHistory",
+    "selected": "seatsHistory",
+    "parsed": {
+      "tool": "seatsHistory",
+      "args": {
+        "years": 5
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"seatsHistory\",\"args\":{\"years\":5}}",
+    "ms": 646,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 15727,
+      "total_tokens": 15739
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "seatsHistory:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "seatsHistory",
+    "selected": "seatsHistory",
+    "parsed": {
+      "tool": "seatsHistory",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"seatsHistory\",\"args\":{}}",
+    "ms": 594,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 11750,
+      "total_tokens": 11760
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "seatsHistory:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "seatsHistory",
+    "selected": "seatsHistory",
+    "parsed": {
+      "tool": "seatsHistory",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"seatsHistory\",\"args\":{}}",
+    "ms": 598,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15726,
+      "total_tokens": 15736
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "partyResult:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "partyResult",
+    "selected": "partyResult",
+    "parsed": {
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"partyResult\",\"args\":{\"party\":\"ГЕРБ\"}}",
+    "ms": 558,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11749,
+      "total_tokens": 11763
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "partyResult:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "partyResult",
+    "selected": "partyResult",
+    "parsed": {
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"partyResult\",\"args\":{\"party\":\"ГЕРБ\"}}",
+    "ms": 660,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15721,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "candidateResult:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "candidateResult",
+    "selected": "candidateResult",
+    "parsed": {
+      "tool": "candidateResult",
+      "args": {
+        "name": "Божидар Божанов"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"candidateResult\",\"args\":{\"name\":\"Божидар Божанов\"}}",
+    "ms": 558,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 11749,
+      "total_tokens": 11766
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "candidateResult:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "candidateResult",
+    "selected": "candidateResult",
+    "parsed": {
+      "tool": "candidateResult",
+      "args": {
+        "name": "Божидар Божанов"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"candidateResult\",\"args\":{\"name\":\"Божидар Божанов\"}}",
+    "ms": 652,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 15721,
+      "total_tokens": 15738
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "candidateResult:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "candidateResult",
+    "selected": "candidateResult",
+    "parsed": {
+      "tool": "candidateResult",
+      "args": {
+        "name": "Делян Пеевски"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"candidateResult\", \"args\": {\"name\": \"Делян Пеевски\"}}",
+    "ms": 624,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 11751,
+      "total_tokens": 11771
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "candidateResult:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "candidateResult",
+    "selected": "candidateResult",
+    "parsed": {
+      "tool": "candidateResult",
+      "args": {
+        "name": "Делян Пеевски"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"candidateResult\",\"args\":{\"name\":\"Делян Пеевски\"}}",
+    "ms": 641,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15721,
+      "total_tokens": 15737
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "machineVoteShare:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "machineVoteShare",
+    "selected": "machineVoteShare",
+    "parsed": {
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"machineVoteShare\",\"args\":{\"election\":\"2023\"}}",
+    "ms": 712,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 11750,
+      "total_tokens": 11766
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "machineVoteShare:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "machineVoteShare",
+    "selected": "machineVoteShare",
+    "parsed": {
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"machineVoteShare\",\"args\":{\"election\":\"2023\"}}",
+    "ms": 655,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15725,
+      "total_tokens": 15741
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "turnout:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "turnout",
+    "selected": "turnout",
+    "parsed": {
+      "tool": "turnout",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"turnout\",\"args\":{}}",
+    "ms": 728,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 11748,
+      "total_tokens": 11758
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "turnout:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "turnout",
+    "selected": "turnout",
+    "parsed": {
+      "tool": "turnout",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"turnout\",\"args\":{}}",
+    "ms": 730,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15723,
+      "total_tokens": 15733
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "compareElections:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "compareElections",
+    "selected": "compareElections",
+    "parsed": {
+      "tool": "compareElections",
+      "args": {
+        "a": "2022",
+        "b": "2024"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"compareElections\",\"args\":{\"a\":\"2022\",\"b\":\"2024\"}}",
+    "ms": 680,
+    "usage": {
+      "completion_tokens": 23,
+      "prompt_tokens": 11753,
+      "total_tokens": 11776
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "compareElections:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "compareElections",
+    "selected": "compareElections",
+    "parsed": {
+      "tool": "compareElections",
+      "args": {
+        "a": "2022",
+        "b": "2024"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"compareElections\",\"args\":{\"a\":\"2022\",\"b\":\"2024\"}}",
+    "ms": 613,
+    "usage": {
+      "completion_tokens": 23,
+      "prompt_tokens": 15725,
+      "total_tokens": 15748
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "machineVoteSeries:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "machineVoteSeries",
+    "selected": "machineVoteSeries",
+    "parsed": {
+      "tool": "machineVoteSeries",
+      "args": {
+        "n": 7
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"machineVoteSeries\",\"args\":{\"n\":7}}",
+    "ms": 550,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 11750,
+      "total_tokens": 11763
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "machineVoteSeries:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "machineVoteSeries",
+    "selected": "machineVoteSeries",
+    "parsed": {
+      "tool": "machineVoteSeries",
+      "args": {
+        "n": 7
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"machineVoteSeries\",\"args\":{\"n\":7}}",
+    "ms": 624,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 15726,
+      "total_tokens": 15739
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "machineVoteSeries:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "machineVoteSeries",
+    "selected": "machineVoteSeries",
+    "parsed": {
+      "tool": "machineVoteSeries",
+      "args": {
+        "years": 7
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"machineVoteSeries\", \"args\": {\"years\": 7}}",
+    "ms": 616,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 11756,
+      "total_tokens": 11773
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "machineVoteSeries:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "machineVoteSeries",
+    "selected": "machineVoteSeries",
+    "parsed": {
+      "tool": "machineVoteSeries",
+      "args": {
+        "years": 7
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"machineVoteSeries\",\"args\":{\"years\":7}}",
+    "ms": 611,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 15730,
+      "total_tokens": 15743
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "turnoutSeries:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "turnoutSeries",
+    "selected": "turnoutSeries",
+    "parsed": {
+      "tool": "turnoutSeries",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"turnoutSeries\",\"args\":{}}",
+    "ms": 574,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 11749,
+      "total_tokens": 11760
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "turnoutSeries:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "turnoutSeries",
+    "selected": "turnoutSeries",
+    "parsed": {
+      "tool": "turnoutSeries",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"turnoutSeries\",\"args\":{}}",
+    "ms": 613,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 15722,
+      "total_tokens": 15733
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "turnoutSeries:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "turnoutSeries",
+    "selected": "turnoutSeries",
+    "parsed": {
+      "tool": "turnoutSeries",
+      "args": {
+        "years": 7
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"turnoutSeries\",\"args\":{\"years\":7}}",
+    "ms": 576,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 11753,
+      "total_tokens": 11766
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "turnoutSeries:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "turnoutSeries",
+    "selected": "turnoutSeries",
+    "parsed": {
+      "tool": "turnoutSeries",
+      "args": {
+        "years": 7
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"turnoutSeries\",\"args\":{\"years\":7}}",
+    "ms": 680,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 15724,
+      "total_tokens": 15737
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "partyTimeline:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "partyTimeline",
+    "selected": "partyTimeline",
+    "parsed": {
+      "tool": "partyTimeline",
+      "args": {
+        "party": "ГЕРБ"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"partyTimeline\",\"args\":{\"party\":\"ГЕРБ\"}}",
+    "ms": 610,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11750,
+      "total_tokens": 11764
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "partyTimeline:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "partyTimeline",
+    "selected": "partyTimeline",
+    "parsed": {
+      "tool": "partyTimeline",
+      "args": {
+        "party": "ГЕРБ"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"partyTimeline\",\"args\":{\"party\":\"ГЕРБ\"}}",
+    "ms": 619,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15723,
+      "total_tokens": 15737
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "pollAccuracy:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "pollAccuracy",
+    "selected": "pollAccuracy",
+    "parsed": {
+      "tool": "pollAccuracy",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"pollAccuracy\",\"args\":{}}",
+    "ms": 608,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 11748,
+      "total_tokens": 11758
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "pollAccuracy:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "pollAccuracy",
+    "selected": "pollAccuracy",
+    "parsed": {
+      "tool": "pollAccuracy",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"pollAccuracy\",\"args\":{}}",
+    "ms": 607,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15725,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "agencyProfile:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "agencyProfile",
+    "selected": "agencyProfile",
+    "parsed": {
+      "tool": "agencyProfile",
+      "args": {
+        "agency": "Алфа Рисърч"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"agencyProfile\",\"args\":{\"agency\":\"Алфа Рисърч\"}}",
+    "ms": 730,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 11747,
+      "total_tokens": 11764
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "agencyProfile:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "agencyProfile",
+    "selected": "agencyProfile",
+    "parsed": {
+      "tool": "agencyProfile",
+      "args": {
+        "agency": "Алфа Рисърч"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"agencyProfile\",\"args\":{\"agency\":\"Алфа Рисърч\"}}",
+    "ms": 608,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 15724,
+      "total_tokens": 15741
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "latestPolls:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "latestPolls",
+    "selected": "latestPolls",
+    "parsed": {
+      "tool": "latestPolls",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"latestPolls\", \"args\": {}}",
+    "ms": 620,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 11748,
+      "total_tokens": 11761
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "latestPolls:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "latestPolls",
+    "selected": "latestPolls",
+    "parsed": {
+      "tool": "latestPolls",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"latestPolls\",\"args\":{}}",
+    "ms": 615,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 15722,
+      "total_tokens": 15733
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "latestPresidentialPoll:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "latestPresidentialPoll",
+    "selected": "latestPresidentialPoll",
+    "parsed": {
+      "tool": "latestPresidentialPoll",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"latestPresidentialPoll\",\"args\":{}}",
+    "ms": 591,
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 11749,
+      "total_tokens": 11761
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "latestPresidentialPoll:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "latestPresidentialPoll",
+    "selected": "latestPresidentialPoll",
+    "parsed": {
+      "tool": "latestPresidentialPoll",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"latestPresidentialPoll\", \"args\": {}}",
+    "ms": 600,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15724,
+      "total_tokens": 15738
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "agencyPolls:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "agencyPolls",
+    "selected": "agencyPolls",
+    "parsed": {
+      "tool": "agencyPolls",
+      "args": {
+        "agency": "Market Links"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"agencyPolls\",\"args\":{\"agency\":\"Market Links\"}}",
+    "ms": 636,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11745,
+      "total_tokens": 11759
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "agencyPolls:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "agencyPolls",
+    "selected": "agencyPolls",
+    "parsed": {
+      "tool": "agencyPolls",
+      "args": {
+        "agency": "Маркет Линкс"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"agencyPolls\",\"args\":{\"agency\":\"Маркет Линкс\"}}",
+    "ms": 674,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 15724,
+      "total_tokens": 15741
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "agencyAccuracyHistory:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "agencyAccuracyHistory",
+    "selected": "agencyAccuracyHistory",
+    "parsed": {
+      "tool": "agencyAccuracyHistory",
+      "args": {
+        "agency": "Алфа Рисърч"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"agencyAccuracyHistory\",\"args\":{\"agency\":\"Алфа Рисърч\"}}",
+    "ms": 566,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 11752,
+      "total_tokens": 11770
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "agencyAccuracyHistory:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "agencyAccuracyHistory",
+    "selected": "agencyAccuracyHistory",
+    "parsed": {
+      "tool": "agencyAccuracyHistory",
+      "args": {
+        "agency": "Алфа Рисърч"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"agencyAccuracyHistory\",\"args\":{\"agency\":\"Алфа Рисърч\"}}",
+    "ms": 605,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 15729,
+      "total_tokens": 15747
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "accuracyTrend:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "accuracyTrend",
+    "selected": "accuracyTrend",
+    "parsed": {
+      "tool": "accuracyTrend",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"accuracyTrend\",\"args\":{}}",
+    "ms": 607,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 11751,
+      "total_tokens": 11761
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "accuracyTrend:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "accuracyTrend",
+    "selected": "accuracyTrend",
+    "parsed": {
+      "tool": "accuracyTrend",
+      "args": {}
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"accuracyTrend\",\"args\":{}}",
+    "ms": 636,
+    "usage": {
+      "completion_tokens": 10,
+      "prompt_tokens": 15726,
+      "total_tokens": 15736
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "regionBreakdown:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "regionBreakdown",
+    "selected": "regionBreakdown",
+    "parsed": {
+      "tool": "regionBreakdown",
+      "args": {
+        "party": "GERB"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"regionBreakdown\", \"args\": {\"party\": \"GERB\"}}",
+    "ms": 645,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 11747,
+      "total_tokens": 11765
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "regionBreakdown:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "regionBreakdown",
+    "selected": "regionBreakdown",
+    "parsed": {
+      "tool": "regionBreakdown",
+      "args": {
+        "party": "ГЕРБ"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"regionBreakdown\",\"args\":{\"party\":\"ГЕРБ\"}}",
+    "ms": 620,
+    "usage": {
+      "completion_tokens": 15,
+      "prompt_tokens": 15722,
+      "total_tokens": 15737
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityBreakdown:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "municipalityBreakdown",
+    "selected": "municipalityBreakdown",
+    "parsed": {
+      "tool": "municipalityBreakdown",
+      "args": {
+        "party": "GERB",
+        "oblast": "Варна"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityBreakdown\",\"args\":{\"party\":\"GERB\",\"oblast\":\"Варна\"}}",
+    "ms": 615,
+    "usage": {
+      "completion_tokens": 22,
+      "prompt_tokens": 11748,
+      "total_tokens": 11770
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityBreakdown:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "municipalityBreakdown",
+    "selected": "municipalityBreakdown",
+    "parsed": {
+      "tool": "municipalityBreakdown",
+      "args": {
+        "party": "ГЕРБ",
+        "oblast": "Варна"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityBreakdown\",\"args\":{\"party\":\"ГЕРБ\",\"oblast\":\"Варна\"}}",
+    "ms": 679,
+    "usage": {
+      "completion_tokens": 23,
+      "prompt_tokens": 15721,
+      "total_tokens": 15744
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityWinners:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "municipalityWinners",
+    "selected": "municipalityWinners",
+    "parsed": {
+      "tool": "municipalityWinners",
+      "args": {
+        "oblast": "Благоевград"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityWinners\",\"args\":{\"oblast\":\"Благоевград\"}}",
+    "ms": 583,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 11751,
+      "total_tokens": 11767
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityWinners:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "municipalityWinners",
+    "selected": "municipalityWinners",
+    "parsed": {
+      "tool": "municipalityWinners",
+      "args": {
+        "oblast": "Благоевград"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityWinners\",\"args\":{\"oblast\":\"Благоевград\"}}",
+    "ms": 764,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15724,
+      "total_tokens": 15740
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityWinners:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "municipalityWinners",
+    "selected": "municipalityWinners",
+    "parsed": {
+      "tool": "municipalityWinners",
+      "args": {
+        "oblast": "Бургас"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityWinners\",\"args\":{\"oblast\":\"Бургас\"}}",
+    "ms": 588,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 11751,
+      "total_tokens": 11767
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityWinners:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "municipalityWinners",
+    "selected": "municipalityWinners",
+    "parsed": {
+      "tool": "municipalityWinners",
+      "args": {
+        "oblast": "Бургас"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityWinners\",\"args\":{\"oblast\":\"Бургас\"}}",
+    "ms": 623,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15728,
+      "total_tokens": 15744
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementWinners:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "settlementWinners",
+    "selected": "settlementWinners",
+    "parsed": {
+      "tool": "settlementWinners",
+      "args": {
+        "place": "Банско"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"settlementWinners\", \"args\": {\"place\": \"Банско\"}}",
+    "ms": 622,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 11749,
+      "total_tokens": 11767
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementWinners:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "settlementWinners",
+    "selected": "settlementWinners",
+    "parsed": {
+      "tool": "settlementWinners",
+      "args": {
+        "place": "Банско"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"settlementWinners\", \"args\": {\"place\": \"Банско\"}}",
+    "ms": 598,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 15726,
+      "total_tokens": 15744
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementWinners:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "settlementWinners",
+    "selected": "settlementWinners",
+    "parsed": {
+      "tool": "settlementWinners",
+      "args": {
+        "place": "Самоков"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementWinners\",\"args\":{\"place\":\"Самоков\"}}",
+    "ms": 614,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11752,
+      "total_tokens": 11766
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementWinners:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "settlementWinners",
+    "selected": "settlementWinners",
+    "parsed": {
+      "tool": "settlementWinners",
+      "args": {
+        "place": "Самоков"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementWinners\",\"args\":{\"place\":\"Самоков\"}}",
+    "ms": 573,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15725,
+      "total_tokens": 15739
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionWinners:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "sectionWinners",
+    "selected": "sectionWinners",
+    "parsed": {
+      "tool": "sectionWinners",
+      "args": {
+        "place": "Банско"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionWinners\",\"args\":{\"place\":\"Банско\"}}",
+    "ms": 567,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 11750,
+      "total_tokens": 11763
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionWinners:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "sectionWinners",
+    "selected": "sectionWinners",
+    "parsed": {
+      "tool": "sectionWinners",
+      "args": {
+        "place": "Банско"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionWinners\",\"args\":{\"place\":\"Банско\"}}",
+    "ms": 675,
+    "usage": {
+      "completion_tokens": 13,
+      "prompt_tokens": 15723,
+      "total_tokens": 15736
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionResults:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "sectionResults",
+    "selected": "sectionResults",
+    "parsed": {
+      "tool": "sectionResults",
+      "args": {
+        "section": "050900092"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"sectionResults\", \"args\": {\"section\": \"050900092\"}}",
+    "ms": 603,
+    "usage": {
+      "completion_tokens": 24,
+      "prompt_tokens": 11754,
+      "total_tokens": 11778
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionResults:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "sectionResults",
+    "selected": "sectionResults",
+    "parsed": {
+      "tool": "sectionResults",
+      "args": {
+        "section": "050900092"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionResults\",\"args\":{\"section\":\"050900092\"}}",
+    "ms": 641,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 15728,
+      "total_tokens": 15748
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionResults:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "sectionResults",
+    "selected": "sectionResults",
+    "parsed": {
+      "tool": "sectionResults",
+      "args": {
+        "section": "234600045"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionResults\",\"args\":{\"section\":\"234600045\"}}",
+    "ms": 744,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 11756,
+      "total_tokens": 11776
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionResults:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "sectionResults",
+    "selected": "sectionResults",
+    "parsed": {
+      "tool": "sectionResults",
+      "args": {
+        "section": "234600045"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"sectionResults\", \"args\": {\"section\": \"234600045\"}}",
+    "ms": 615,
+    "usage": {
+      "completion_tokens": 24,
+      "prompt_tokens": 15729,
+      "total_tokens": 15753
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionHistory:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "sectionHistory",
+    "selected": "sectionHistory",
+    "parsed": {
+      "tool": "sectionHistory",
+      "args": {
+        "section": "050900092"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionHistory\",\"args\":{\"section\":\"050900092\"}}",
+    "ms": 573,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 11759,
+      "total_tokens": 11779
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionHistory:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "sectionHistory",
+    "selected": "sectionHistory",
+    "parsed": {
+      "tool": "sectionHistory",
+      "args": {
+        "section": "050900092"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionHistory\",\"args\":{\"section\":\"050900092\"}}",
+    "ms": 677,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 15733,
+      "total_tokens": 15753
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionHistory:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "sectionHistory",
+    "selected": "sectionHistory",
+    "parsed": {
+      "tool": "sectionHistory",
+      "args": {
+        "section": "234600045"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionHistory\",\"args\":{\"section\":\"234600045\"}}",
+    "ms": 599,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 11754,
+      "total_tokens": 11774
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionHistory:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "sectionHistory",
+    "selected": "sectionHistory",
+    "parsed": {
+      "tool": "sectionHistory",
+      "args": {
+        "section": "234600045"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionHistory\",\"args\":{\"section\":\"234600045\"}}",
+    "ms": 617,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 15727,
+      "total_tokens": 15747
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionRiskHistory:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "sectionRiskHistory",
+    "selected": "sectionRiskHistory",
+    "parsed": {
+      "tool": "sectionRiskHistory",
+      "args": {
+        "section": "162202002"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionRiskHistory\",\"args\":{\"section\":\"162202002\"}}",
+    "ms": 612,
+    "usage": {
+      "completion_tokens": 21,
+      "prompt_tokens": 11760,
+      "total_tokens": 11781
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionRiskHistory:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "sectionRiskHistory",
+    "selected": "sectionRiskHistory",
+    "parsed": {
+      "tool": "sectionRiskHistory",
+      "args": {
+        "section": "162202002"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionRiskHistory\",\"args\":{\"section\":\"162202002\"}}",
+    "ms": 665,
+    "usage": {
+      "completion_tokens": 21,
+      "prompt_tokens": 15733,
+      "total_tokens": 15754
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionRiskHistory:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "sectionRiskHistory",
+    "selected": "sectionRiskHistory",
+    "parsed": {
+      "tool": "sectionRiskHistory",
+      "args": {
+        "section": "162202002"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionRiskHistory\",\"args\":{\"section\":\"162202002\"}}",
+    "ms": 554,
+    "usage": {
+      "completion_tokens": 21,
+      "prompt_tokens": 11761,
+      "total_tokens": 11782
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "sectionRiskHistory:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "sectionRiskHistory",
+    "selected": "sectionRiskHistory",
+    "parsed": {
+      "tool": "sectionRiskHistory",
+      "args": {
+        "section": "162202002"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"sectionRiskHistory\",\"args\":{\"section\":\"162202002\"}}",
+    "ms": 630,
+    "usage": {
+      "completion_tokens": 21,
+      "prompt_tokens": 15735,
+      "total_tokens": 15756
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementResults:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "settlementResults",
+    "selected": "settlementResults",
+    "parsed": {
+      "tool": "settlementResults",
+      "args": {
+        "place": "Иново"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementResults\",\"args\":{\"place\":\"Иново\"}}",
+    "ms": 558,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11748,
+      "total_tokens": 11762
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementResults:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "settlementResults",
+    "selected": "settlementResults",
+    "parsed": {
+      "tool": "settlementResults",
+      "args": {
+        "place": "Иново"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementResults\",\"args\":{\"place\":\"Иново\"}}",
+    "ms": 688,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15720,
+      "total_tokens": 15734
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementResults:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "settlementResults",
+    "selected": "settlementResults",
+    "parsed": {
+      "tool": "settlementResults",
+      "args": {
+        "place": "Банско"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementResults\",\"args\":{\"place\":\"Банско\"}}",
+    "ms": 603,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 11750,
+      "total_tokens": 11764
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementResults:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "settlementResults",
+    "selected": "settlementResults",
+    "parsed": {
+      "tool": "settlementResults",
+      "args": {
+        "place": "Банско"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementResults\",\"args\":{\"place\":\"Банско\"}}",
+    "ms": 632,
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 15721,
+      "total_tokens": 15735
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementHistory:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "settlementHistory",
+    "selected": "settlementHistory",
+    "parsed": {
+      "tool": "settlementHistory",
+      "args": {
+        "place": "Иново",
+        "years": 5
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementHistory\",\"args\":{\"place\":\"Иново\",\"years\":5}}",
+    "ms": 597,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 11754,
+      "total_tokens": 11772
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementHistory:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "settlementHistory",
+    "selected": "settlementHistory",
+    "parsed": {
+      "tool": "settlementHistory",
+      "args": {
+        "place": "Иново",
+        "years": 5
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementHistory\",\"args\":{\"place\":\"Иново\",\"years\":5}}",
+    "ms": 718,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 15726,
+      "total_tokens": 15744
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementHistory:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "settlementHistory",
+    "selected": "settlementHistory",
+    "parsed": {
+      "tool": "settlementHistory",
+      "args": {
+        "place": "Иново"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\": \"settlementHistory\", \"args\": {\"place\": \"\\u0418\\u043d\\u043e\\u0432\\u043e\"}}",
+    "ms": 702,
+    "usage": {
+      "completion_tokens": 45,
+      "prompt_tokens": 11753,
+      "total_tokens": 11798
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "settlementHistory:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "settlementHistory",
+    "selected": "settlementHistory",
+    "parsed": {
+      "tool": "settlementHistory",
+      "args": {
+        "place": "с. Иново"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"settlementHistory\",\"args\":{\"place\":\"с. Иново\"}}",
+    "ms": 686,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15724,
+      "total_tokens": 15740
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityResults:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "municipalityResults",
+    "selected": "municipalityResults",
+    "parsed": {
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityResults\",\"args\":{\"place\":\"Пловдив\"}}",
+    "ms": 602,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 11747,
+      "total_tokens": 11763
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityResults:1",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "municipalityResults",
+    "selected": "municipalityResults",
+    "parsed": {
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityResults\",\"args\":{\"place\":\"Пловдив\"}}",
+    "ms": 729,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15721,
+      "total_tokens": 15737
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityResults:2",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "municipalityResults",
+    "selected": "municipalityResults",
+    "parsed": {
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Варна"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityResults\",\"args\":{\"place\":\"Варна\"}}",
+    "ms": 644,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 11748,
+      "total_tokens": 11764
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityResults:2",
+    "group": "registry",
+    "lang": "bg",
+    "expectedTool": "municipalityResults",
+    "selected": "municipalityResults",
+    "parsed": {
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Варна"
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityResults\",\"args\":{\"place\":\"Варна\"}}",
+    "ms": 645,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 15721,
+      "total_tokens": 15737
+    },
+    "finishReason": "stop"
+  },
+  {
+    "id": "municipalityHistory:1",
+    "group": "registry",
+    "lang": "en",
+    "expectedTool": "municipalityHistory",
+    "selected": "municipalityHistory",
+    "parsed": {
+      "tool": "municipalityHistory",
+      "args": {
+        "place": "Plovdiv",
+        "years": 5
+      }
+    },
+    "jsonValid": true,
+    "toolOk": true,
+    "argScored": false,
+    "argsOk": true,
+    "callOk": true,
+    "raw": "{\"tool\":\"municipalityHistory\",\"args\":{\"place\":\"Plovdiv\",\"years\":5}}",
+    "ms": 580,
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 11753,
+      "total_tokens": 11773
+    },
+    "finishReason": "stop"
+  }
+]

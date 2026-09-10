@@ -1,3 +1,4 @@
+import { RANKING_VALUES } from "./rankingContract";
 import { WATER_TOOL } from "./water";
 import { BUDGET_TOOLS } from "./budgetServing";
 // The tool registry: the single surface the orchestrator (and the dropdown
@@ -701,8 +702,8 @@ export const TOOLS: ToolDef[] = [
     name: "pollAccuracy",
     domain: "elections",
     description: {
-      bg: "Точност на социологическите агенции (средна грешка спрямо изборния резултат).",
-      en: "Polling-agency accuracy (mean error vs the election result).",
+      bg: "Класация на социологическите агенции по точност (средна грешка спрямо изборния резултат): коя е най-точна. За промяна на точността във времето използвайте accuracyTrend.",
+      en: "Rank polling agencies by accuracy (mean error vs the election result): which pollster is most accurate. For changes in accuracy over time use accuracyTrend.",
     },
     params: [],
     examples: [
@@ -2034,8 +2035,8 @@ export const TOOLS: ToolDef[] = [
         name: "code",
         type: "text",
         description: {
-          bg: "Код на сигнала (напр. eu_funds, public_contracts, foreign_funded).",
-          en: "Signal code (e.g. eu_funds, public_contracts, foreign_funded).",
+          bg: "Код: eu_funds = средства от ЕС; public_contracts = обществени поръчки; foreign_funded = външно/чуждестранно финансиране.",
+          en: "Code: eu_funds = EU funds; public_contracts = public contracts; foreign_funded = external/foreign funding.",
         },
       },
     ],
@@ -3494,8 +3495,8 @@ export const TOOLS: ToolDef[] = [
     name: "fundsOverview",
     domain: "fiscal",
     description: {
-      bg: "Европейски средства — топ бенефициенти (ИСУН).",
-      en: "EU funds — top beneficiaries (ISUN).",
+      bg: "Класация на организациите бенефициенти по получени средства от ЕС (ИСУН). За общо усвояване и класация на програмите използвайте fundsProjects.",
+      en: "Rank beneficiary organisations by EU funding received (ISUN). For overall absorption or programme rankings use fundsProjects.",
     },
     params: [],
     examples: [
@@ -3841,8 +3842,8 @@ export const TOOLS: ToolDef[] = [
     name: "fundsProjects",
     domain: "fiscal",
     description: {
-      bg: "Европейски средства на ниво проекти (ИСУН) — общо договорено, реално изплатено (усвояване) и топ програми.",
-      en: "EU funds at project grain (ISUN) — total contracted, actually paid (absorption) and top programmes.",
+      bg: "Усвояване на европейски средства (ИСУН): колко е договорено и реално изплатено общо, и кои програми усвояват най-много. За класация на бенефициенти използвайте fundsOverview.",
+      en: "EU funding absorption (ISUN): total contracted versus actually paid, and which programmes absorb the most. For beneficiary rankings use fundsOverview.",
     },
     params: [],
     examples: [
@@ -3887,8 +3888,8 @@ export const TOOLS: ToolDef[] = [
         required: true,
         values: [...MUNICIPAL_FISCAL_METRICS],
         description: {
-          bg: "Показател за подреждане",
-          en: "Metric used for ranking",
+          bg: "Код: commitments = поети ангажименти; expense_obligations = задължения за разходи; arrears = просрочени задължения.",
+          en: "Code: commitments = commitments; expense_obligations = expense obligations; arrears = overdue liabilities.",
         },
       },
     ],
@@ -4127,6 +4128,7 @@ export const TOOLS: ToolDef[] = [
       {
         name: "name",
         type: "person",
+        required: true,
         description: {
           bg: "Пълно име на лицето (публична личност).",
           en: "Full name of the person (a public figure).",
@@ -4176,6 +4178,7 @@ export const TOOLS: ToolDef[] = [
       {
         name: "name",
         type: "person",
+        required: true,
         description: {
           bg: "Пълно име на лицето (публична личност).",
           en: "Full name of the person (a public figure).",
@@ -4213,6 +4216,7 @@ export const TOOLS: ToolDef[] = [
       {
         name: "name",
         type: "person",
+        required: true,
         description: {
           bg: "Пълно име на лицето (публична личност).",
           en: "Full name of the person (a public figure).",
@@ -4594,15 +4598,29 @@ export const TOOLS: ToolDef[] = [
     name: "rankPlaces",
     domain: "indicators",
     description: {
-      bg: "Класация на области/общини по показател (най-високи/най-ниски, топ N).",
-      en: "Rank oblasts/municipalities by an indicator (highest/lowest, top N).",
+      bg: "Класация по безработица, матури, население, миграция, БВП, смъртност, болнични легла или прозрачност. За средства от ЕС на човек използвайте regionalInvestment; за кошница спрямо БВП — basketAffordability.",
+      en: "Rank oblasts/municipalities by unemployment, matura, population, migration, GDP, mortality, hospital beds or transparency. For EU funds per capita use regionalInvestment; for basket cost relative to GDP use basketAffordability.",
     },
     params: [
       {
+        name: "order",
+        type: "text",
+        values: ["asc", "desc"],
+        default: "desc",
+        description: {
+          bg: "asc за най-ниски, desc за най-високи",
+          en: "asc for lowest, desc for highest",
+        },
+      },
+      {
         name: "indicator",
         type: "indicator",
+        values: RANKING_VALUES,
         required: true,
-        description: { bg: "Показател + посока", en: "Indicator + direction" },
+        description: {
+          bg: "Точен код на поддържания показател; municipal = общини, regional = области. Без произволни съотношения.",
+          en: "Exact supported metric code; municipal = municipalities, regional = provinces. No arbitrary ratios.",
+        },
       },
       {
         name: "n",
@@ -5100,8 +5118,8 @@ export const TOOLS: ToolDef[] = [
     name: "procurementBySettlement",
     domain: "place",
     description: {
-      bg: "Обществени поръчки, договорени в едно населено място.",
-      en: "Public procurement awarded in one settlement.",
+      bg: "Обществени поръчки, договорени в едно населено място. Име на град без уточнение „област“ означава населено място; за изрично посочена област използвайте procurementByOblast.",
+      en: "Public procurement awarded in one settlement. A bare city name means the settlement; use procurementByOblast only for an explicit province/oblast request.",
     },
     params: [
       {

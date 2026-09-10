@@ -3,11 +3,27 @@
 import { TOOLS } from "../tools/registry";
 import type { Envelope, Lang } from "../tools/types";
 
-// A compact catalogue: "name(param1, param2) — description".
+// Names and parameter contracts are separate: parentheses in a tool name are invalid.
+// Include the descriptions/closed values the real validator requires.
 const toolCatalogue = (lang: Lang): string =>
   TOOLS.map((t) => {
-    const params = t.params.map((p) => p.name).join(", ");
-    return `- ${t.name}(${params}) — ${t.description[lang]}`;
+    const params = t.params
+      .map((p) =>
+        [
+          p.name,
+          p.required ? "required" : "optional",
+          p.type,
+          p.values ? `values=${JSON.stringify(p.values)}` : "",
+          p.min != null ? `min=${p.min}` : "",
+          p.max != null ? `max=${p.max}` : "",
+          p.default != null ? `default=${JSON.stringify(p.default)}` : "",
+          p.description[lang],
+        ]
+          .filter(Boolean)
+          .join("; "),
+      )
+      .join(" | ");
+    return `- ${t.name} — ${t.description[lang]}${params ? `\n  args: ${params}` : ""}`;
   }).join("\n");
 
 // Curated few-shot examples spanning the arg patterns (party, election, place,
@@ -66,6 +82,7 @@ export const buildToolTrainSystemPrompt = (lang: Lang): string =>
     "You are the intent router for a Bulgarian elections & governance assistant.",
     'Output a single JSON object {"tool": <name>, "args": {...}} choosing one tool from the catalogue. JSON only.',
     "",
+    "A calendar year is not a rolling duration. For turnout during a named year use turnout(election=year), never turnoutSeries(years=1). years means a rolling window ending at the latest election. Ranking tools only support their declared metric codes: EU money per resident uses regionalInvestment; basket/GDP uses basketAffordability. If the metric is unsupported, abstain.",
     "Tools:",
     toolCatalogue(lang),
   ].join("\n");
@@ -74,11 +91,14 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
   const shots = FEW_SHOT.map((s) => `Q: ${s.q}\nA: ${s.call}`).join("\n");
   return [
     "You are the intent router for a Bulgarian elections & governance assistant.",
-    'Pick exactly ONE tool that best answers the user\'s question and output a single JSON object {"tool": <name>, "args": {...}}.',
+    'Pick at most ONE tool that directly answers the user\'s question and output a single JSON object {"tool": <name>, "args": {...}}.',
+    'If the request is outside the catalogue, asks for an unsupported action (send, buy, delete), or lacks a required entity that context cannot resolve, output {"tool":null,"args":{}}. Never substitute an unrelated tool. The tools cover Bulgarian civic data, not foreign elections.',
+    'Use the exact bare tool name, without parentheses. Put ALL parameters inside "args", never at the top level. Use the declared parameter names, types, bounds and exact case-sensitive values. Do not translate enum codes. Omit unspecified optional parameters; do not invent a required entity.',
     "Only use tool names from the catalogue. Put the relevant entity (party, place, oblast, election — a year like 2023 or a YYYY_MM_DD date, indicator, agency, ministry) in args. Always include the election when the question names a year; omit it only when no specific election is meant. Use {} when no args are needed. Output JSON only — no prose.",
     'If a conversation is included, route the line labelled the current question; use the earlier turns only to resolve references in it (an ellipsis, a pronoun, "the same", "that one", a carried-over place or party).',
     "",
     "Preserve the previous tool's explicit arguments on an elliptical follow-up. A party result followed by a city uses municipalityResults with BOTH party and place; an explicit province uses regionResults with party and oblast. Do not drop the party. A bare year is a year scope: never invent a month or date, especially 2021 or 2024. A new complete question may change topic and must not inherit unrelated filters.",
+    "A calendar year is not a rolling duration. For turnout during a named year use turnout(election=year), never turnoutSeries(years=1). years means a rolling window ending at the latest election. Ranking tools only support their declared metric codes: EU money per resident uses regionalInvestment; basket/GDP uses basketAffordability. If the metric is unsupported, abstain.",
     "Tools:",
     toolCatalogue(lang),
     "",

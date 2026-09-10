@@ -1,3 +1,4 @@
+import { parseModelRoute } from "../orchestrator/routeScope";
 // Cloud provider — a hosted model (via the Firebase Function proxy → Gemini API)
 // drives tool selection AND narration. It implements the same LLMProvider
 // interface as the rules + WebGPU providers, so it's just another option in the
@@ -24,7 +25,6 @@ import {
   route,
   type Route,
 } from "../orchestrator/router";
-import { parseToolCall } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { numbersGrounded } from "./grounding";
@@ -240,8 +240,35 @@ export class OpenRouterProvider implements LLMProvider {
         { json: true, maxTokens: 120, temperature: 0 },
         usage,
       );
-      const parsed = parseToolCall(content);
-      return parsed ? { route: parsed, byModel: true } : fallback();
+      // An explicit abstention is a decision, not a parser/API failure. Falling
+      // back here could turn "delete contracts" into a procurement data answer.
+      try {
+        const decision = JSON.parse(content);
+        if (decision && decision.tool === null)
+          return { route: null, byModel: true };
+      } catch {
+        /* malformed output still uses the deterministic fallback */
+      }
+      const parsed = parseModelRoute(content, userContent);
+      if (parsed) return { route: parsed, byModel: true };
+      // A rejected ranking capability is a clarification, not permission to
+      // replace it with the keyword router's guessed metric.
+      try {
+        if (
+          [
+            "rankPlaces",
+            "personWealth",
+            "personProfile",
+            "personConnections",
+            "turnoutSeries",
+            "machineVoteSeries",
+          ].includes(JSON.parse(content)?.tool)
+        )
+          return { route: null, byModel: true };
+      } catch {
+        /* malformed response retains transport-style fallback */
+      }
+      return fallback();
     } catch {
       return fallback();
     }
