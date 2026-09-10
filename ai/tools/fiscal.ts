@@ -857,6 +857,7 @@ export const topContractors = async (
     viz: "none",
     facts: {
       top_contractor: top[0]?.name ?? "—",
+      top_contractor_eik: top[0]?.eik ?? "—",
       top_value: top[0] ? fmtEurCompact(top[0].totalEur, ctx.lang) : "—",
       mp_tied_in_top: mpTied,
     },

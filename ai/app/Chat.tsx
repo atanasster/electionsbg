@@ -794,7 +794,15 @@ export const Chat = ({
   const last = messages[messages.length - 1];
   const followups =
     !busy && last?.role === "assistant" && last.env && !last.env.clarify
-      ? followUps(last.env)
+      ? followUps(
+          last.env,
+          last.args,
+          messages.flatMap((m) =>
+            m.role === "assistant" && m.tool
+              ? [{ tool: m.tool, args: m.args }]
+              : [],
+          ),
+        )
       : [];
 
   const suggestions = busy ? [] : matchSuggestions(input, lang);
