@@ -120,7 +120,20 @@ distributed on the same footing as their inputs.
 4. BRAND, LIKENESS AND PHOTOGRAPHS — all rights reserved
 --------------------------------------------------------------------------------
 
-    brand/**          the Наясно logo, wordmark, ad creative and channel art
+    brand/**          the Наясно logo, wordmark, ad creative and channel art.
+                      As of 2026-09-10 this tree is no longer tracked in git; it
+                      stays on the maintainers' disks and in history. The
+                      reservation is over the WORK, not over where the repo
+                      happens to keep it, so it stands either way.
+
+    public/favicon.svg, public/favicon.ico, public/favicon-*.png,
+    public/icon-*.png, public/icon-source-*.svg,
+    public/apple-touch-icon.png, public/images/og_image.webp
+                      the same mark as it SHIPS — the tab icon, the PWA and
+                      Apple touch icons, the two icon sources and the share
+                      card. All are generated from the wordmark above by
+                      scripts/brand/generate_site_icons.ts, and generated is not
+                      the same as unencumbered: these ARE the logo.
     assets/**         photographs of identifiable people
     public/images/IMG_*.png
                       the same, as shipped

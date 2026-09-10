@@ -25,6 +25,18 @@
  *  docs/plans/gfo-ocr-engine-v1.md. */
 export const GEMINI_FLASH = "gemini-3.7-flash";
 
+/** The CHEAPEST tier — flash-lite, not flash. It is what the public AI chat's
+ *  LLM proxy runs on (`functions/llm_security.js`), where every question is
+ *  budgeted in micro-USD against a per-visitor allowance, so the price gap from
+ *  FLASH is the whole reason the tier is different rather than a version behind.
+ *  Bumping this to FLASH is a cost change, not a model bump.
+ *
+ *  ⚠️ `functions/` is a separate deploy package that cannot import from
+ *  `scripts/`, so it keeps its OWN copy — see FOREIGN_COPIES in the gate, which
+ *  asserts the two agree rather than forbidding the second one. Same shape as
+ *  `functions/site_origin.js`. */
+export const GEMINI_FLASH_LITE = "gemini-3.5-flash-lite";
+
 /** Higher-capability tier, materially more expensive. One call site. */
 export const GEMINI_PRO = "gemini-2.5-pro";
 
@@ -42,6 +54,7 @@ export const GEMINI_EMBEDDING = "gemini-embedding-001";
  *  `gemini_models.test.ts` fails if a constant is missing from it. */
 export const GEMINI_MODELS = [
   GEMINI_FLASH,
+  GEMINI_FLASH_LITE,
   GEMINI_PRO,
   GEMINI_FLASH_IMAGE,
   GEMINI_TTS,

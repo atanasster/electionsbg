@@ -9,7 +9,7 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-import { GEMINI_MODELS } from "./gemini_models";
+import { GEMINI_FLASH_LITE, GEMINI_MODELS } from "./gemini_models";
 
 const ROOT = path.resolve(__dirname, "../..");
 const MODULE = path.join("scripts", "lib", "gemini_models.ts");
@@ -23,7 +23,31 @@ const EXT = new Set([".ts", ".tsx", ".js", ".mjs"]);
  *  trigger, in `scripts/polls/lib/draft.ts` and `src/data/polls/pollsTypes.ts`) —
  *  distinct from the versioned model id (`GEMINI_FLASH` above) it will eventually
  *  call, which is never itself pinned at either site. */
-const NOT_A_MODEL = new Set(["gemini-api", "gemini-flash"]);
+const NOT_A_MODEL = new Set([
+  "gemini-api",
+  "gemini-flash",
+  // A fake API KEY in functions/llm_security.test.js, not a model — it is
+  // asserted against as `Bearer gemini-test-key`. It matches the id shape by
+  // accident, which is exactly what this set is for.
+  "gemini-test-key",
+]);
+
+/**
+ * Files that may hold their OWN copy of a model id, and which one.
+ *
+ * `functions/` is deployed to Cloud Functions as its own npm package with its
+ * own package.json, so it cannot import from `scripts/` — the same constraint
+ * `functions/site_origin.js` documents. Bundling the app source into the
+ * function deploy to avoid one string is a bad trade there and here.
+ *
+ * So the gate does not FORBID the literal in these files; it REQUIRES it to be
+ * the declared constant. A drifted copy fails the arm below by name, which is
+ * strictly stronger than an exemption.
+ */
+const FOREIGN_COPIES: Record<string, string> = {
+  "functions/llm_security.js": GEMINI_FLASH_LITE,
+  "functions/llm_security.test.js": GEMINI_FLASH_LITE,
+};
 
 const sources = (): { file: string; text: string }[] => {
   const out: { file: string; text: string }[] = [];
@@ -60,9 +84,11 @@ describe("gemini model ids live in exactly one place", () => {
     const offenders: string[] = [];
     for (const { file, text } of files) {
       if (file === MODULE) continue;
-      for (const m of GEMINI_MODELS)
+      for (const m of GEMINI_MODELS) {
+        if (FOREIGN_COPIES[file] === m) continue; // the arm below owns it
         if (text.includes(`"${m}"`) || text.includes(`'${m}'`))
           offenders.push(`${file} → ${m}`);
+      }
     }
     expect(
       offenders,
@@ -81,6 +107,7 @@ describe("gemini model ids live in exactly one place", () => {
       for (const m of text.matchAll(re)) {
         const id = m[1];
         if (NOT_A_MODEL.has(id)) continue;
+        if (FOREIGN_COPIES[file] === id) continue; // the foreign-copy arm owns it
         if ((GEMINI_MODELS as readonly string[]).includes(id)) continue; // arm above owns it
         offenders.push(`${file} → ${id}`);
       }
@@ -91,6 +118,20 @@ describe("gemini model ids live in exactly one place", () => {
         "constant (and to GEMINI_MODELS), or to NOT_A_MODEL if it is not a model",
     ).toEqual([]);
   });
+
+  it.each(Object.entries(FOREIGN_COPIES))(
+    "%s carries the declared id, not a drifted one",
+    (file, expected) => {
+      const src = files.find((f) => f.file === file);
+      expect(src, `${file} is not in the scanned tree`).toBeTruthy();
+      expect(
+        src!.text.includes(`"${expected}"`) ||
+          src!.text.includes(`'${expected}'`),
+        `${file} must pin ${expected} — it cannot import the constant, so this ` +
+          "is the only thing keeping the two in step",
+      ).toBe(true);
+    },
+  );
 
   it("GEMINI_MODELS lists every exported id — the list cannot rot", () => {
     // A constant missing from the array is exempt from both arms above, silently.

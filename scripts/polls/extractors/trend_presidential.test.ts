@@ -5,7 +5,16 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { latestVersionSuffix } from "../lib/capture";
+import { assertCommitted } from "../../lib/assert_committed";
 import { extractTrendPresidential } from "./trend_presidential";
+
+// The real-capture suites below resolve their fixtures out of this tree with
+// `existsSync`, so a missing tree does not fail them — `latestVersionSuffix`
+// simply finds no version and the bare path is used. 31 files are tracked here,
+// and CI does a full checkout, so absence is a broken working copy rather than
+// a supported state. Asserted at module scope, OUTSIDE the tesseract gate, so
+// it still runs on a machine that skips every OCR test.
+assertCommitted("raw_data/polls/trend");
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

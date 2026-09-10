@@ -46,6 +46,11 @@ const CARVE_OUTS: Array<{
   section: 2 | 3 | 4;
   label: string;
   match: (p: string) => boolean;
+  /** Set, with the reason, when the carve-out covers a tree git deliberately
+   *  does NOT track — so the staleness arm cannot read "removed from the index"
+   *  as "the tree is gone". A carve-out is a claim about the work; the index is
+   *  a claim about the repo, and the two can legitimately disagree. */
+  untracked?: string;
 }> = [
   { section: 2, label: "data/**", match: (p) => p.startsWith("data/") },
   { section: 2, label: "raw_data/**", match: (p) => p.startsWith("raw_data/") },
@@ -64,7 +69,29 @@ const CARVE_OUTS: Array<{
     label: "vendor/*.tgz",
     match: (p) => p.startsWith("vendor/") && p.endsWith(".tgz"),
   },
-  { section: 4, label: "brand/**", match: (p) => p.startsWith("brand/") },
+  {
+    section: 4,
+    label: "brand/**",
+    match: (p) => p.startsWith("brand/"),
+    // ⚠️ DELIBERATELY UNTRACKED since 2026-09-10 (see .gitignore's own note): the
+    // rebrand's social-asset set was removed from the index and kept on disk. So
+    // this carve-out matches nothing `git ls-files` returns, and the staleness arm
+    // would read that as "the tree is gone" — which is the one thing it is not.
+    //
+    // The reservation is over the WORK, not over a path the repo happens to hold,
+    // so it stays in LICENSE. What closed the actual gap is the entry BELOW: the
+    // generated marks under public/ are tracked, they ARE the logo, and until this
+    // was written the default MIT rule swept every one of them in.
+    untracked: "removed from the index 2026-09-10; the work is still reserved",
+  },
+  {
+    section: 4,
+    label: "public/ icons + og card",
+    match: (p) =>
+      /^public\/(favicon\.(svg|ico)|favicon-\d+x\d+\.png|icon-[\w-]+\.(png|svg)|apple-touch-icon\.png|images\/og_image\.webp)$/.test(
+        p,
+      ),
+  },
   { section: 4, label: "assets/**", match: (p) => p.startsWith("assets/") },
   {
     section: 4,
@@ -117,9 +144,9 @@ describe("LICENSE covers the tracked tree", () => {
 
   test("every carve-out still matches at least one tracked file", () => {
     const files = tracked();
-    const stale = CARVE_OUTS.filter((c) => !files.some(c.match)).map(
-      (c) => `§${c.section} ${c.label}`,
-    );
+    const stale = CARVE_OUTS.filter(
+      (c) => !c.untracked && !files.some(c.match),
+    ).map((c) => `§${c.section} ${c.label}`);
     expect(stale, "carve-outs naming trees that no longer exist").toEqual([]);
   });
 
