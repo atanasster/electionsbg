@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
-import { brandTitleSuffix } from "@/lib/brand";
+import { withBrandSuffix } from "@/lib/brand";
 
 export const SEO: FC<{
   title: string;
@@ -26,7 +26,11 @@ export const SEO: FC<{
   // `i18n?.` — SEO is rendered by nearly every screen, and a component test
   // that stubs `react-i18next` typically returns `{ t }` and no `i18n` at all.
   // Reading through it unguarded turned five BudgetExplorerScreen tests red.
-  const suffix = brandTitleSuffix(i18n?.language);
+  // `withBrandSuffix`, not a bare append: it skips the suffix when the title
+  // already names the brand. /chat hydrated to „Попитай Наясно | Наясно" on the
+  // live site — the prerendered head said it once and the runtime added it
+  // again, so the tab changed under the reader a second after the page painted.
+  const applyBrand = (t: string) => withBrandSuffix(t, i18n?.language);
 
   // Dynamically inject canonical URL
   useEffect(() => {
@@ -61,7 +65,7 @@ export const SEO: FC<{
             Googlebot indexed.
             It used to prefix every page with "Избори", which named one section
             of a site that long ago outgrew it. */}
-        {fullTitle ?? `${title}${suffix}`}
+        {fullTitle ?? applyBrand(title)}
       </title>
       <meta name="description" content={description} />
       {/* Facebook tags */}
