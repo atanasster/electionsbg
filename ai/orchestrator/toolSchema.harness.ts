@@ -51,11 +51,7 @@ const cases: [string, string | null, Record<string, unknown> | null][] = [
   ],
   ['{"tool":"budgetOverview"}', "budgetOverview", {}],
   ['{"tool":"regionBreakdown","args":{}}', null, null],
-  [
-    '{"tool":"presidentialResults","args":{"cycle":2025}}',
-    null,
-    null,
-  ],
+  ['{"tool":"presidentialResults","args":{"cycle":2025}}', null, null],
   [
     '{"tool":"presidentialResults","args":{"cycle":2021,"round":3}}',
     null,
@@ -66,21 +62,13 @@ const cases: [string, string | null, Record<string, unknown> | null][] = [
     null,
     null,
   ],
-  [
-    '{"tool":"voteTransitions","args":{"direction":"sideways"}}',
-    null,
-    null,
-  ],
+  ['{"tool":"voteTransitions","args":{"direction":"sideways"}}', null, null],
   [
     '{"tool":"partyResult","args":{"party":"GERB","election":"2025_01_01"}}',
     null,
     null,
   ],
-  [
-    '{"tool":"rankPlaces","args":{"indicator":"GDP","n":"7x"}}',
-    null,
-    null,
-  ],
+  ['{"tool":"rankPlaces","args":{"indicator":"GDP","n":"7x"}}', null, null],
   ['{"tool":"rankPlaces","args":{"indicator":false}}', null, null],
   ['{"tool":"does_not_exist","args":{}}', null, null],
   ["this is not json", null, null],

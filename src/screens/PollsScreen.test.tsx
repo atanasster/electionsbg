@@ -13,7 +13,9 @@ import type {
   PresidentialPollDetail,
 } from "@/data/polls/pollsTypes";
 
-const pollsRef = vi.hoisted(() => ({ current: undefined as Poll[] | undefined }));
+const pollsRef = vi.hoisted(() => ({
+  current: undefined as Poll[] | undefined,
+}));
 const accuracyRef = vi.hoisted(() => ({
   current: undefined as PollsAccuracy | undefined,
 }));
@@ -170,9 +172,7 @@ describe("PollsScreen", () => {
     // The title mounts even while loading, but none of the ready-state
     // sections do — the skeleton branch returns before the stat cards.
     expect(screen.getByText("Точност на проучванията")).toBeInTheDocument();
-    expect(
-      screen.queryByText("Общо проучвания"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Общо проучвания")).not.toBeInTheDocument();
     expect(screen.queryByTestId("leaderboard-tile")).not.toBeInTheDocument();
   });
 

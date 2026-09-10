@@ -6,6 +6,8 @@ import "@/index.css";
 import "@/App.css";
 import { ThemeContextProvider } from "@/theme/ThemeContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
+// This provider only imports TanStack Query; it does not load translated data hooks.
+// eslint-disable-next-line no-restricted-imports
 import { QueryProvider } from "@/data/QueryProvider";
 import { App } from "./App";
 import { EvalsScreen } from "./app/EvalsScreen";

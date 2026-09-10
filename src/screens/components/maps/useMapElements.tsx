@@ -142,6 +142,7 @@ export function useMapElements<DType extends GeoJSONProps>({
       findVotes,
       findInfo,
       findShift,
+      featureLabel,
       path,
       onClick,
       tooltipEvents,
