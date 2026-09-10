@@ -10,7 +10,7 @@ What do basic groceries cost in Plovdiv? What did the state plan to spend, and w
 
 [Ask your first question](/chat). You can start without AI or an AI access check. Choose a starter question or type your own. When you want more flexible wording and an explanation, select the AI assistant from the mode menu.
 
-The chat is now part of the main site, alongside its tools and detailed dashboards. Naiasno is the project’s new name; the move to naiasno.bg is still ahead. The chat’s path remains `/chat`.
+The chat is now part of the main site, alongside its tools and detailed dashboards. Naiasno is the project’s new name, and since 11 September the site lives at naiasno.bg — old electionsbg.com addresses redirect automatically. The chat’s path remains `/chat`.
 
 ## What can you ask about?
 
