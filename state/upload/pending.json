@@ -24,7 +24,6 @@
     "customs",
     "administration",
     "judiciary",
-    "prices/product_slugs.json",
     "data_map.json",
     "data-changes.json",
     "myarea"
@@ -54,5 +53,5 @@
     "npm run db:load:election-national:pg:cloud",
     "npm run prices:ingest:cloud"
   ],
-  "notes": "8 skills; polls PARTIAL (11 drafts unaccepted, not stamped). Home posters changed -> hosting deploy pending."
+  "notes": "8 skills; polls PARTIAL (11 drafts unaccepted, not stamped). Home posters changed -> hosting deploy pending. | prices/product_slugs.json removed from paths: guard-refused, PG-served tree, read locally at build time."
 }
