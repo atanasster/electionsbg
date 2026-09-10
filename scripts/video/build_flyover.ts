@@ -15,18 +15,34 @@ import type { FlyoverWorld } from "../../src/lib/flyover/types";
 export const SOURCE = resolve("data/home/flyover.json");
 export const OUT = resolve("video/src/generated/flyover.json");
 
+/**
+ * Every quantitative claim the E3 script shows or speaks, pinned.
+ *
+ * ⚠️ Re-measured 2026-09-10 against `data/home/flyover.json` as the 2026-09-08
+ * watch ingest left it (341084fb99). FIVE values moved and they are all the same
+ * event — an ordinary contracts reload: the date, the row count (407,512 →
+ * 407,690), the procurement total (€93.979bn → €94.004bn), the flow denominator
+ * and both-placed euros, and the top arc's count (1,580 → 1,582).
+ *
+ * **Not one narrated PERCENTAGE moved** — 56.6 / 46.6 / 56.5 / 23.9 / 11.8 /
+ * 47.8 are all unchanged, as are every EU-funds and farm-subsidy figure. That is
+ * what makes this a re-pin rather than a re-cut: the video says the shares out
+ * loud and quotes no raw counter, so nothing it claims has stopped being true.
+ * Check that before re-pinning again — a percentage moving is a different
+ * decision from a counter moving, and this file cannot tell them apart.
+ */
 const EXPECTED = {
-  computedAt: "2026-09-04",
-  contracts: 407_512,
-  procurementEur: 93_979_268_978,
+  computedAt: "2026-09-08",
+  contracts: 407_690,
+  procurementEur: 94_004_235_922,
   sofiaBuyerPct: 56.6,
-  flowTotalEur: 94_189_514_880,
-  bothPlacedEur: 43_915_446_808,
+  flowTotalEur: 94_214_511_441,
+  bothPlacedEur: 43_933_435_085,
   bothPlacedPct: 46.6,
   samePct: 56.5,
   intoSofiaPct: 23.9,
   outOfSofiaPct: 11.8,
-  topFlow: ["PDV", "SOF", 1_580] as const,
+  topFlow: ["PDV", "SOF", 1_582] as const,
   fundsPlacedEur: 16_096_493_169,
   fundsTotalEur: 33_656_640_175,
   fundsPlacedPct: 47.8,

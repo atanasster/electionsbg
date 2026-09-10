@@ -162,11 +162,15 @@ describe("the committed corpus", () => {
   // The plan's headline figures, pinned against the artifact rather than a
   // throwaway script (plan §5.1).
   it("reproduces the T0 gate's measured totals", () => {
-    // Re-measured 2026-09-04 against the watch-run re-import (9f68471bb4):
-    // 12,015 → 12,114 partnerships, 1,494 → 1,497 BG rows, €401.77m → €402.20m,
-    // with the operation count unmoved at 1,958. Previously re-measured
-    // 2026-08-15 against ccae86938c (1,954 → 1,958 operations, 12,141 → 12,015
-    // partnerships, 1,493 → 1,494 BG rows, €396.39m → €401.77m).
+    // Re-measured 2026-09-10 against the 2026-09-08 watch re-import (50ff5eb7aa):
+    // 1,958 → 1,959 operations, 12,114 → 12,120 partnerships, 1,497 → 1,498 BG
+    // rows, €402.20m → €402.42m. The integrity test ABOVE was green through it,
+    // which is what says the corpus moved rather than broke — read that
+    // sentence below before re-pinning again. Previously re-measured 2026-09-04
+    // against 9f68471bb4 (12,015 → 12,114 partnerships, 1,494 → 1,497 BG rows,
+    // €401.77m → €402.20m, operations unmoved at 1,958), and 2026-08-15 against
+    // ccae86938c (1,954 → 1,958 operations, 12,141 → 12,015 partnerships,
+    // 1,493 → 1,494 BG rows, €396.39m → €401.77m).
     //
     // The pins are DELIBERATELY exact — a re-import that moves the headline
     // figures should have to say so here — so update them with the vintage when
@@ -176,16 +180,16 @@ describe("the committed corpus", () => {
     // rows themselves, so a drift here with that one green is a corpus that
     // moved, and a drift here with that one RED is a corpus that broke. Read
     // them together before re-pinning.
-    expect(index.operationCount).toBe(1958);
-    expect(index.partnerCount).toBe(12114);
-    expect(index.bgPartnerCount).toBe(1497);
+    expect(index.operationCount).toBe(1959);
+    expect(index.partnerCount).toBe(12120);
+    expect(index.bgPartnerCount).toBe(1498);
     const bgMoney = partners
       .filter(isBulgarianPartner)
       .reduce(
         (a: number, p: { budgetEur: number | null }) => a + (p.budgetEur ?? 0),
         0,
       );
-    expect(bgMoney / 1e6).toBeCloseTo(402.2, 1);
+    expect(bgMoney / 1e6).toBeCloseTo(402.42, 1);
   });
 
   it("splits the money the way §5.1 records — Tier P is the larger half", () => {

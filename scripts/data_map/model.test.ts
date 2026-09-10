@@ -614,8 +614,13 @@ describe("the lateral-links tour", () => {
     // ⚠ Re-pinned 2026-09-09 against `data/data_map.json` as committed: connections↔procurement
     // 18,729 → 18,730 and connections↔officials 5,602 → 5,604, with connections↔funds unmoved
     // at 40,271.
+    //
+    // ⚠ Re-pinned 2026-09-10, same source: connections↔procurement 18,730 → 18,731, with
+    // connections↔funds (40,271) and connections↔officials (5,604) unmoved. All three were
+    // read out of the manifest, not only the one the failure named — see the 2026-09-07
+    // note above for why that distinction is the whole point of this clause.
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18730],
+      ["connections", "procurement", "eik", 18731],
       ["connections", "funds", "eik", 40271],
       ["connections", "officials", "person_id", 5604],
     ];
