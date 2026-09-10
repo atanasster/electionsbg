@@ -19,6 +19,15 @@
  *  an unanchored block starts at any slash-star inside a string or a regex and
  *  swallows code up to the next star-slash.
  *
+ *  A JSX comment (`{/* ... *\/}`) is stripped UNCONDITIONALLY, not behind
+ *  `trailing` — `{` immediately before `/*` has no other meaning in TSX (it is
+ *  never a division expression), so it carries none of the unanchored-`//`
+ *  risk the option below exists to gate. Skipping it left `.tsx` files — most
+ *  of this codebase's UI — free to write exactly this comment shape and defeat
+ *  a scan silently, which is how `consumer_race_isolation.test.ts` found it:
+ *  15 of its 18 targets are `.tsx`, and inline `{/* ... *\/}` prose is this
+ *  codebase's own established idiom for explaining a non-obvious choice.
+ *
  *  `trailing` additionally removes a same-line `//` comment. That is NOT safe
  *  in general — it is the unanchored form above — so it is opt-in, and a caller
  *  may only set it when a `//` inside a string cannot precede what it scans for
@@ -31,6 +40,7 @@ export const stripComments = (
 ): string => {
   const out = code
     .replace(/^[ \t]*\/\*[\s\S]*?\*\//gm, " ")
-    .replace(/^[ \t]*\/\/.*$/gm, " ");
+    .replace(/^[ \t]*\/\/.*$/gm, " ")
+    .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, " ");
   return trailing ? out.replace(/\/\/.*$/gm, " ") : out;
 };

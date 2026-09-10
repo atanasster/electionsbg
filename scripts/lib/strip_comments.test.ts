@@ -51,4 +51,24 @@ describe("stripComments", () => {
       "pp_reg_seat_",
     );
   });
+
+  it("removes a JSX comment unconditionally, default options included", () => {
+    // `{` immediately before `/*` is never a division expression in TSX, so this
+    // carries none of the unanchored-`//` risk `trailing` gates — found missing by
+    // consumer_race_isolation.test.ts, whose 15 `.tsx` targets use exactly this shape
+    // to explain a non-obvious choice inline.
+    const code =
+      "return (\n  <div>\n    {/* unlike the presidential band, this stays parliamentary */}\n    <Real />\n  </div>\n);";
+    const out = stripComments(code);
+    expect(out).not.toContain("presidential");
+    expect(out).toContain("<Real />");
+  });
+
+  it("does not let a JSX comment swallow the code after it on the same line", () => {
+    const code = "const a = 1; {/* note */} const b = 2;";
+    const out = stripComments(code);
+    expect(out).toContain("const a = 1;");
+    expect(out).toContain("const b = 2;");
+    expect(out).not.toContain("note");
+  });
 });
