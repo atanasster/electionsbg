@@ -1,8 +1,37 @@
 # Наясно flip — the finalization runbook (v1)
 
-**Status: local work COMPLETE, nothing deployed.** `SITE_ORIGIN` is
-`https://naiasno.bg` in the repo; production still serves `electionsbg.com` and
-`naiasno.bg` is still parked as a 301 pointing the other way.
+> ## ✅ FLIPPED 2026-09-11, ~01:45 local (22:45Z on 09-10)
+>
+> `naiasno.bg` and `www.naiasno.bg` serve; `electionsbg.com` is the console
+> redirect pointing at `naiasno.bg`. Verified the same hour, against the live
+> hosts and not the emulator:
+>
+> - Console redirect: 301, one hop, path + query + percent-encoding intact, `/en`
+>   without a slash — every probe from §2.5's table, now in the forward direction.
+> - **Top-1,000 ranked URLs replayed against the old domain: 1,000/1,000 land on
+>   a 200 at naiasno.bg.** 795 in one hop; 205 in two, every one of them a
+>   documented accepted shape (trailing-slash normalisation, or a pre-existing
+>   `/officials/*` → `/person/*` slug retirement plus the domain hop). Zero 404s,
+>   zero 302s, zero chains of three.
+> - Three-step deploy complete; `/`, `/person/**`, `/company/**` and
+>   `/funds/contract/**` all serve one bundle hash.
+> - `/api/db` same-origin from naiasno.bg: 200. Bucket fetch from naiasno.bg: 200.
+>   LLM proxy from naiasno.bg: reached, `403 invalid_verification` on a fake token
+>   — i.e. CORS passes and only the Turnstile step is unproven headlessly.
+> - Step 11 done: ai.electionsbg.com → naiasno.bg/chat (5 rules, query preserved
+>   verbatim, `/legacy-export` still 200). `.env.production` flipped before the
+>   `dist-ai` rebuild.
+> - Step 15 done: robots.txt resolves through the old domain and names the new
+>   sitemap index.
+>
+> **Still open:** B4 (Turnstile hostnames — confirm by asking one AI question on
+> naiasno.bg in a browser), GSC sitemap submission on the naiasno.bg property
+> (§4 step 12 — do it now), off-site profile links (step 13), Change of Address
+> at T+7 (§6), and `www.electionsbg.com`, which has never had a certificate.
+
+**Status at authoring: local work COMPLETE, nothing deployed.** `SITE_ORIGIN` was
+`https://naiasno.bg` in the repo; production still served `electionsbg.com` and
+`naiasno.bg` was still parked as a 301 pointing the other way.
 
 This is the operational sequence. It supersedes §7 of
 [`naiasno-rebrand-v1.md`](naiasno-rebrand-v1.md), which was written before the
