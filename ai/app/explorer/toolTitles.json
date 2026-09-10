@@ -1,0 +1,914 @@
+{
+  "budgetVariance": {
+    "bg": "Отклонения от бюджета",
+    "en": "Budget deviations"
+  },
+  "budgetPersonnel": {
+    "bg": "Как се променят щатните бройки и заетите в администрацията?",
+    "en": "How have established posts and employment in the administration changed?"
+  },
+  "budgetPersonnelByMinistry": {
+    "bg": "Какви са разходите за персонал по министерства?",
+    "en": "What are personnel costs by ministry?"
+  },
+  "budgetDocuments": {
+    "bg": "Къде са бюджетните закони и приложенията за годината?",
+    "en": "Where are the budget laws and annexes for the year?"
+  },
+  "budgetMinistries": {
+    "bg": "Какъв е бюджетът на всяко министерство?",
+    "en": "What is each ministry’s budget?"
+  },
+  "budgetMunicipalTransfers": {
+    "bg": "Как се разпределят бюджетните трансфери между общините?",
+    "en": "How are budget transfers distributed across municipalities?"
+  },
+  "budgetCapitalByMunicipality": {
+    "bg": "Капиталови проекти на общините",
+    "en": "Municipal capital projects"
+  },
+  "budgetInvestmentPayments": {
+    "bg": "Колко е платено по инвестиционната програма за общините?",
+    "en": "How much has been paid under the municipal investment programme?"
+  },
+  "waterServices": {
+    "bg": "Водоснабдяване, пречистване и воден режим",
+    "en": "Water supply, treatment and rationing"
+  },
+  "nationalResults": {
+    "bg": "Национални резултати за един избор",
+    "en": "National results for one election"
+  },
+  "presidentialResults": {
+    "bg": "Резултати от президентски избор",
+    "en": "Presidential election results"
+  },
+  "regionWinners": {
+    "bg": "Водещи партии по области и МИР",
+    "en": "Leading parties by oblast and district"
+  },
+  "parliamentSeats": {
+    "bg": "Разпределение на местата в парламента по партия",
+    "en": "Seat composition of parliament per party"
+  },
+  "seatsHistory": {
+    "bg": "Тренд на местата",
+    "en": "Trend of each party's seats"
+  },
+  "partyResult": {
+    "bg": "Резултатът на една партия за един избор",
+    "en": "One party's result in one election"
+  },
+  "candidateResult": {
+    "bg": "Преференциални резултати на кандидат по име",
+    "en": "A candidate's preferential-vote results by name"
+  },
+  "machineVoteShare": {
+    "bg": "Дял на машинното гласуване за един избор",
+    "en": "Machine-voting share for one election"
+  },
+  "turnout": {
+    "bg": "Избирателна активност за един избор",
+    "en": "Voter turnout for one election"
+  },
+  "compareElections": {
+    "bg": "Сравнение на два избора",
+    "en": "Compare two elections"
+  },
+  "machineVoteSeries": {
+    "bg": "Дял на машинното гласуване през последните N избора",
+    "en": "Machine-voting share across the last N elections"
+  },
+  "turnoutSeries": {
+    "bg": "Избирателна активност през последните N избора",
+    "en": "Voter turnout across the last N elections"
+  },
+  "partyTimeline": {
+    "bg": "Дял на една партия през всички избори",
+    "en": "One party's vote share across all elections"
+  },
+  "pollAccuracy": {
+    "bg": "Точност на социологическите агенции",
+    "en": "Polling-agency accuracy"
+  },
+  "agencyProfile": {
+    "bg": "Профил на социологическа агенция",
+    "en": "A pollster's profile"
+  },
+  "latestPolls": {
+    "bg": "Последното социологическо проучване по партии",
+    "en": "The latest poll by party"
+  },
+  "latestPresidentialPoll": {
+    "bg": "Последното президентско социологическо проучване по кандидати",
+    "en": "The latest presidential poll by candidate"
+  },
+  "agencyPolls": {
+    "bg": "История на проучванията на една агенция",
+    "en": "One agency's poll history"
+  },
+  "agencyAccuracyHistory": {
+    "bg": "Точност на една агенция през годините",
+    "en": "One agency's accuracy over time"
+  },
+  "accuracyTrend": {
+    "bg": "Сравнение на точността на социологическите агенции през изборите",
+    "en": "Pollster accuracy compared across elections over time"
+  },
+  "regionBreakdown": {
+    "bg": "Резултат на партия по области за един избор",
+    "en": "A party's result by oblast in one election"
+  },
+  "municipalityBreakdown": {
+    "bg": "Резултат на партия по общини в една област",
+    "en": "A party's result by municipality within one oblast"
+  },
+  "municipalityWinners": {
+    "bg": "Резултати по общини в една област",
+    "en": "Results by municipality in one oblast"
+  },
+  "settlementWinners": {
+    "bg": "Резултати по населени места в една община",
+    "en": "Results by settlement in one municipality"
+  },
+  "sectionWinners": {
+    "bg": "Резултати по избирателни секции в населено място",
+    "en": "Results by polling section in a settlement"
+  },
+  "sectionResults": {
+    "bg": "Резултати в една избирателна секция",
+    "en": "Results in one polling section"
+  },
+  "sectionHistory": {
+    "bg": "История на вота в секция",
+    "en": "Polling-section voting history"
+  },
+  "sectionRiskHistory": {
+    "bg": "Риск-профил на една секция",
+    "en": "Risk profile of one polling section"
+  },
+  "settlementResults": {
+    "bg": "Резултати в едно населено място",
+    "en": "Results in one settlement"
+  },
+  "settlementHistory": {
+    "bg": "Как гласува едно населено място през годините",
+    "en": "How one settlement voted over time"
+  },
+  "municipalityResults": {
+    "bg": "Резултати в една община",
+    "en": "Results in one municipality"
+  },
+  "municipalityHistory": {
+    "bg": "Как гласува една община през годините",
+    "en": "How one municipality voted over time"
+  },
+  "regionResults": {
+    "bg": "Резултати в една област/МИР, по избор за една партия",
+    "en": "Results in one region/oblast, optionally filtered to one party"
+  },
+  "regionResultsTrend": {
+    "bg": "Как гласува една област/МИР през годините",
+    "en": "How one region/oblast voted over time"
+  },
+  "settlementBreakdown": {
+    "bg": "Резултат на партия по населени места в една община",
+    "en": "A party's result by settlement within one municipality"
+  },
+  "electionAnomalies": {
+    "bg": "Сигнали и нередности за един избор",
+    "en": "Anomaly signals for one election"
+  },
+  "flashMemoryByParty": {
+    "bg": "Машинни гласове спрямо флаш памет по партия",
+    "en": "Machine counts versus flash memory by party"
+  },
+  "machineVoteByParty": {
+    "bg": "Дял на машинното спрямо хартиеното гласуване по партия",
+    "en": "Machine vs paper voting share by party"
+  },
+  "wastedVotesByParty": {
+    "bg": "Прахосани гласове по партия",
+    "en": "Wasted votes by party"
+  },
+  "recountByParty": {
+    "bg": "Промяна в гласовете по партия след ръчно преброяване наново",
+    "en": "Per-party vote change after a manual recount"
+  },
+  "regionHistory": {
+    "bg": "Избирателна активност в една област през всички избори",
+    "en": "Voter turnout in one oblast across all elections"
+  },
+  "voteTransitions": {
+    "bg": "Оценени потоци на гласове",
+    "en": "Estimated vote flows"
+  },
+  "localCouncilVoteShare": {
+    "bg": "Дял на гласовете за общински съвет по партия",
+    "en": "Municipal council vote share by party"
+  },
+  "localMayorsWon": {
+    "bg": "Спечелени кметски места по партия",
+    "en": "Mayors won by party"
+  },
+  "localCouncilTrend": {
+    "bg": "Вот за общински съвети през годините",
+    "en": "Council voting over time"
+  },
+  "localVoteFlows": {
+    "bg": "Преливане на гласове между местни избори",
+    "en": "Vote transitions between local elections"
+  },
+  "localPrevoteFlow": {
+    "bg": "От парламентарен към местен вот",
+    "en": "From parliamentary to local voting"
+  },
+  "localPlaceTrend": {
+    "bg": "Местният вот през годините",
+    "en": "Local voting over time"
+  },
+  "localMayorsTrend": {
+    "bg": "Спечелени кметски места през годините",
+    "en": "Mayoral seats won over time"
+  },
+  "localOblastMayors": {
+    "bg": "Спечелени кметски места по партия в една област/провинция",
+    "en": "Mayors won by party within a single province"
+  },
+  "localMunicipality": {
+    "bg": "Местни изборни резултати в община",
+    "en": "Municipal local-election results"
+  },
+  "localMayorRace": {
+    "bg": "Пълно класиране на кандидатите за кмет в община",
+    "en": "Full mayoral candidate ranking in a município"
+  },
+  "localMayorSections": {
+    "bg": "Къде избраният кмет е най-силен и най-слаб по избирателни секции",
+    "en": "Where the elected mayor ran strongest and weakest, by polling station"
+  },
+  "localMayorHistory": {
+    "bg": "Избраните кметове на община през местните цикли",
+    "en": "A município's elected mayors across local cycles"
+  },
+  "localSubMayors": {
+    "bg": "Кметове на райони и кметства",
+    "en": "District and settlement mayors"
+  },
+  "localCouncil": {
+    "bg": "Състав на общинския съвет по партии",
+    "en": "Municipal council seats by party"
+  },
+  "chmiEvents": {
+    "bg": "Извънредни местни избори",
+    "en": "Extraordinary local elections"
+  },
+  "budgetOverview": {
+    "bg": "Държавен бюджет",
+    "en": "State budget"
+  },
+  "ngoOverview": {
+    "bg": "Организации с нестопанска цел",
+    "en": "Non-profit organisations"
+  },
+  "ngoTopFunded": {
+    "bg": "Най-финансираните НПО",
+    "en": "Best-funded NGOs"
+  },
+  "ngoConflictAwarders": {
+    "bg": "Възложители с конфликтни НПО връзки",
+    "en": "Awarders with NGO conflict links"
+  },
+  "ngoRiskSignals": {
+    "bg": "НПО по публично-значими сигнали",
+    "en": "NGOs by public-interest signal"
+  },
+  "ngoBySignal": {
+    "bg": "Топ НПО с конкретен сигнал",
+    "en": "Top NGOs carrying a specific signal"
+  },
+  "budgetTrend": {
+    "bg": "Тренд на държавния бюджет",
+    "en": "State-budget trend"
+  },
+  "institutionMaintenance": {
+    "bg": "Издръжка на институциите",
+    "en": "Institution operating costs"
+  },
+  "simulateTaxChange": {
+    "bg": "Какво става с бюджета при данъчна промяна",
+    "en": "Budget effect of a tax change"
+  },
+  "budgetByFunction": {
+    "bg": "Отчетени разходи на държавното управление по функция",
+    "en": "Historical general-government expenditure by function"
+  },
+  "budgetFunction": {
+    "bg": "Разходите за една бюджетна функция",
+    "en": "Spending on one budget function"
+  },
+  "nzokBudget": {
+    "bg": "Бюджет на НЗОК",
+    "en": "National Health Insurance Fund budget"
+  },
+  "judiciaryBudget": {
+    "bg": "Бюджет на съдебната власт по органи",
+    "en": "The judiciary's budget by spending body"
+  },
+  "judiciaryCaseload": {
+    "bg": "Движение на делата в българските съдилища",
+    "en": "The movement of cases through Bulgaria's courts"
+  },
+  "riverbedCleaning": {
+    "bg": "Поръчки за речни корита",
+    "en": "Riverbed procurement"
+  },
+  "judiciaryWorkload": {
+    "bg": "Натовареност на съдиите по съдебен ред",
+    "en": "Judges' workload by court tier"
+  },
+  "judiciaryCourtLoad": {
+    "bg": "Действителна натовареност по КОНКРЕТЕН съд",
+    "en": "Actual workload of an INDIVIDUAL court"
+  },
+  "judiciaryDeclarations": {
+    "bg": "Имуществените декларации на съдии, прокурори и следователи",
+    "en": "Magistrates' asset declarations"
+  },
+  "defenseSpending": {
+    "bg": "Разходи за отбрана спрямо целите на НАТО",
+    "en": "Defence spending and NATO targets"
+  },
+  "armsExports": {
+    "bg": "Износът на България на отбранителна продукция по години",
+    "en": "Bulgaria's defence-product exports by year"
+  },
+  "defenseProgram": {
+    "bg": "Големите оръжейни програми на България",
+    "en": "Bulgaria's flagship defence programs"
+  },
+  "defenseReadiness": {
+    "bg": "Готовността на Българската армия",
+    "en": "Bulgarian Army readiness"
+  },
+  "securityRoadSafety": {
+    "bg": "Загинали на пътя в България по години",
+    "en": "Road-traffic deaths in Bulgaria by year"
+  },
+  "transportSpending": {
+    "bg": "Обществените поръчки на държавния транспорт",
+    "en": "State transport procurement"
+  },
+  "transportEuFunds": {
+    "bg": "Европейските средства за транспорт",
+    "en": "EU funds for transport"
+  },
+  "railSubsidy": {
+    "bg": "Държавната субсидия за железниците",
+    "en": "The state rail subsidy"
+  },
+  "socialSpending": {
+    "bg": "Обществените поръчки на групата за социално подпомагане",
+    "en": "The social-assistance group's procurement"
+  },
+  "socialBenefits": {
+    "bg": "Социални помощи от АСП",
+    "en": "Social Assistance Agency benefits"
+  },
+  "socialPovertyImpact": {
+    "bg": "Социални трансфери и бедност",
+    "en": "Social transfers and poverty"
+  },
+  "mrrbSpending": {
+    "bg": "Обществените поръчки на групата на МРРБ",
+    "en": "The МРРБ group's procurement"
+  },
+  "cohesionAbsorption": {
+    "bg": "Усвояване на кохезионните средства за регионите",
+    "en": "Absorption of the regional cohesion funds"
+  },
+  "regionalInvestment": {
+    "bg": "Регионални инвестиции от еврофондове",
+    "en": "Regional investment from EU funds"
+  },
+  "environmentSpending": {
+    "bg": "Обществените поръчки на държавната система по околна среда",
+    "en": "Procurement of the state environment system"
+  },
+  "environmentFunds": {
+    "bg": "Европейските средства по ОП/Програма „Околна среда“",
+    "en": "EU funds under ОП/Programme „Околна среда“"
+  },
+  "wasteRecycling": {
+    "bg": "Рециклиране спрямо целите на ЕС",
+    "en": "Recycling and EU targets"
+  },
+  "defensePeerCompare": {
+    "bg": "Разходите за отбрана като дял от БВП",
+    "en": "Defence spending as a share of GDP"
+  },
+  "generationMix": {
+    "bg": "Производството на електроенергия в България по източник",
+    "en": "Bulgaria's electricity generation mix by source"
+  },
+  "electricityPrices": {
+    "bg": "Цената на тока за домакинствата в България спрямо средното за ЕС",
+    "en": "The household electricity price in Bulgaria vs the EU average"
+  },
+  "gasPrices": {
+    "bg": "Цени на газа в България и ЕС",
+    "en": "Gas prices in Bulgaria and the EU"
+  },
+  "powerPlants": {
+    "bg": "Електроцентралите в България",
+    "en": "Bulgaria's power plants"
+  },
+  "nzokDrugs": {
+    "bg": "За кои лекарства плаща най-много НЗОК",
+    "en": "Which medicines the NHIF reimburses most"
+  },
+  "nzokDrugGrowth": {
+    "bg": "Най-бързо растящи и новореимбурсирани лекарства на НЗОК",
+    "en": "Fastest-rising and newly-reimbursed NHIF medicines"
+  },
+  "nzokHospitals": {
+    "bg": "Кои болници получават най-много от НЗОК",
+    "en": "Which hospitals the NHIF pays most"
+  },
+  "nzokActivities": {
+    "bg": "Най-чести дейности, платени от НЗОК",
+    "en": "Most frequent NHIF-funded procedures"
+  },
+  "nzokDrugSavings": {
+    "bg": "Потенциални икономии от лекарства",
+    "en": "Potential medicine savings"
+  },
+  "nzokHospitalScorecard": {
+    "bg": "Как се представя една болница спрямо останалите",
+    "en": "How one hospital compares to its peers"
+  },
+  "nzokPathwayHospitals": {
+    "bg": "Кои болници отчитат дадена клинична пътека и колко случая всяка",
+    "en": "Which hospitals bill a given clinical pathway and how many cases each"
+  },
+  "nzokPublicPrivate": {
+    "bg": "Публични срещу частни болници",
+    "en": "Public vs private hospitals"
+  },
+  "nzokPrivateHospitals": {
+    "bg": "Частни болници по годишен приход",
+    "en": "Private hospitals ranked by annual revenue"
+  },
+  "nzokDrugMolecule": {
+    "bg": "Кои болници плащат над медианната цена за едно и също лекарство",
+    "en": "Which hospitals pay above the median price for the same medicine"
+  },
+  "procurementTotals": {
+    "bg": "Обществени поръчки",
+    "en": "Public procurement totals"
+  },
+  "topContractors": {
+    "bg": "Водещи изпълнители по стойност",
+    "en": "Largest contractors by value"
+  },
+  "procurementAppeals": {
+    "bg": "Жалби пред КЗК срещу обществени поръчки",
+    "en": "КЗК appeals against public procurement"
+  },
+  "contractSearch": {
+    "bg": "Договорите на конкретна фирма-изпълнител по обществени поръчки",
+    "en": "A specific contractor's public-procurement contracts"
+  },
+  "procurementRedFlags": {
+    "bg": "Сигнали за риск в обществените поръчки",
+    "en": "Public-procurement red flags"
+  },
+  "procurementDebarred": {
+    "bg": "Изпълнители в черния списък",
+    "en": "Debarred suppliers"
+  },
+  "procurementSingleBidSectors": {
+    "bg": "Сектори с един кандидат в поръчките",
+    "en": "Single-bid procurement sectors"
+  },
+  "mpProcurement": {
+    "bg": "Обществени поръчки към фирми, свързани с политическата класа",
+    "en": "Public procurement going to companies tied to the political class"
+  },
+  "awarderProcurement": {
+    "bg": "Обществени поръчки на един възложител",
+    "en": "Public procurement for one contracting authority"
+  },
+  "procurementNormalcy": {
+    "bg": "Сравнение със сходни договори",
+    "en": "Comparison with similar contracts"
+  },
+  "roadsSpending": {
+    "bg": "Разходи на Агенция „Пътна инфраструктура“",
+    "en": "Road Infrastructure Agency spending"
+  },
+  "openTenders": {
+    "bg": "Обявени обществени поръчки",
+    "en": "Announced public-procurement tenders"
+  },
+  "tenderLookup": {
+    "bg": "Детайли за една обявена поръчка",
+    "en": "Details of one announced tender"
+  },
+  "openCalls": {
+    "bg": "Отворени процедури по еврофондове",
+    "en": "Open EU-funds calls"
+  },
+  "fundsOverview": {
+    "bg": "Европейски средства",
+    "en": "EU funds"
+  },
+  "projectLifecycle": {
+    "bg": "Проектно досие",
+    "en": "Curated project file"
+  },
+  "subsidiesOverview": {
+    "bg": "Земеделски субсидии",
+    "en": "Farm subsidies"
+  },
+  "subsidiesByScheme": {
+    "bg": "Земеделски субсидии по схема/интервенция",
+    "en": "Farm subsidies by scheme/intervention"
+  },
+  "subsidiesForEntity": {
+    "bg": "Земеделски субсидии за конкретна фирма/получател",
+    "en": "Farm subsidies for a specific company/recipient"
+  },
+  "cultureOverview": {
+    "bg": "Държавна субсидия за кино",
+    "en": "State film subsidy"
+  },
+  "topCultureGrantees": {
+    "bg": "Най-финансираните продуценти от Националния филмов център",
+    "en": "Top-funded producers from the National Film Center"
+  },
+  "filmSubsidyForProducer": {
+    "bg": "Държавна филмова субсидия за конкретен продуцент",
+    "en": "State film subsidy for a specific producer"
+  },
+  "cultureGrantSuccess": {
+    "bg": "Успеваемост на грантовете на Национален фонд „Култура“",
+    "en": "National Culture Fund grant success rate"
+  },
+  "cultureCommissions": {
+    "bg": "Съставите на националните художествени комисии на НФЦ",
+    "en": "The НФЦ national artistic-commission compositions"
+  },
+  "cultureMunicipal": {
+    "bg": "Общинска и читалищна култура",
+    "en": "Municipal & community-centre culture"
+  },
+  "revenueBreakdown": {
+    "bg": "Структура на данъчните приходи",
+    "en": "Tax-revenue breakdown"
+  },
+  "exciseRegister": {
+    "bg": "Лицензирани акцизни складодържатели",
+    "en": "Licensed excise warehouse keepers"
+  },
+  "exciseWarehouses": {
+    "bg": "Къде са данъчните складове",
+    "en": "Where the excise warehouses are"
+  },
+  "fundsProjects": {
+    "bg": "Европейски средства на ниво проекти",
+    "en": "EU funds at project grain"
+  },
+  "municipalFiscalRanking": {
+    "bg": "Финансови показатели на общините",
+    "en": "Municipal financial indicators"
+  },
+  "municipalTransfers": {
+    "bg": "Трансфери от държавата към общините по вид",
+    "en": "State transfers to municipalities by type"
+  },
+  "govDebt": {
+    "bg": "Държавен дълг",
+    "en": "Government debt"
+  },
+  "noiFunds": {
+    "bg": "Социалноосигурителни фондове",
+    "en": "Social-security funds"
+  },
+  "noiPensionDistribution": {
+    "bg": "Разпределение на пенсиите по размер",
+    "en": "The pension-size distribution"
+  },
+  "noiPensionByOblast": {
+    "bg": "Средна пенсия по област",
+    "en": "Average pension by oblast"
+  },
+  "noiPensionSeries": {
+    "bg": "Заплати, осигурителен доход и пенсии",
+    "en": "Wages, insurable income and pensions"
+  },
+  "kfnFunds": {
+    "bg": "Частни пенсионни фондове",
+    "en": "Private pension funds"
+  },
+  "budgetExecution": {
+    "bg": "Месечно изпълнение на държавния бюджет",
+    "en": "Monthly state-budget execution"
+  },
+  "ministryBudget": {
+    "bg": "Бюджет на конкретно министерство/ведомство по програми",
+    "en": "A specific ministry's or agency's budget by programme"
+  },
+  "investmentProjects": {
+    "bg": "Инвестиционна програма",
+    "en": "Investment programme"
+  },
+  "personProfile": {
+    "bg": "Обединен профил на едно лице по име",
+    "en": "One person's unified profile by name"
+  },
+  "personConnections": {
+    "bg": "Свързани лица на един човек",
+    "en": "A person's connected people"
+  },
+  "personWealth": {
+    "bg": "Декларираното имущество на публична личност през годините",
+    "en": "A public figure's declared wealth over time"
+  },
+  "governments": {
+    "bg": "Правителства от 2005",
+    "en": "Governments since 2005"
+  },
+  "mpAssetsTop": {
+    "bg": "Депутати с най-големи декларирани активи",
+    "en": "MPs ranked by declared assets"
+  },
+  "mpConnectionsTop": {
+    "bg": "Депутати с най-много бизнес връзки",
+    "en": "MPs with the most business connections"
+  },
+  "mpAssetsByParty": {
+    "bg": "Декларирани активи на депутатите, обобщени по партия",
+    "en": "MP declared assets aggregated by party"
+  },
+  "mpConnectionsByParty": {
+    "bg": "Бизнес връзки на депутатите, обобщени по партия",
+    "en": "MP business connections aggregated by party"
+  },
+  "officialsAssetsTop": {
+    "bg": "Висши служители по декларирани активи",
+    "en": "Officials ranked by declared assets"
+  },
+  "financingOverview": {
+    "bg": "Партийни финансови отчети",
+    "en": "Party financial reports"
+  },
+  "partyFinance": {
+    "bg": "Кампанийни приходи и разходи на конкретна партия за избори",
+    "en": "Campaign income and expenses for a specific party in an election"
+  },
+  "companyConnections": {
+    "bg": "Връзки на фирма",
+    "en": "A company's connections"
+  },
+  "macroIndicator": {
+    "bg": "Макроикономически показател през времето",
+    "en": "A macro indicator over time"
+  },
+  "fdiFlows": {
+    "bg": "Преки чуждестранни инвестиции в България",
+    "en": "Foreign direct investment in Bulgaria"
+  },
+  "macroOverview": {
+    "bg": "Преглед на ключови макроикономически показатели",
+    "en": "Snapshot of key macro indicators"
+  },
+  "macroByCategory": {
+    "bg": "Показатели по тема",
+    "en": "Indicators by theme"
+  },
+  "euComparison": {
+    "bg": "Сравнение на показател между България, ЕС-27 и съседи",
+    "en": "Compare an indicator across Bulgaria, the EU-27 and CEE peers"
+  },
+  "subnationalIndicator": {
+    "bg": "Показател по община през времето",
+    "en": "A per-município indicator over time"
+  },
+  "schoolMatura": {
+    "bg": "Матури в конкретно училище",
+    "en": "School matriculation results"
+  },
+  "rankPlaces": {
+    "bg": "Класация на области/общини по показател",
+    "en": "Rank oblasts/municipalities by an indicator"
+  },
+  "regionIndicator": {
+    "bg": "Регионални показатели",
+    "en": "Regional indicators"
+  },
+  "transparencyScore": {
+    "bg": "Индекс на местна прозрачност",
+    "en": "Local transparency index"
+  },
+  "localTaxes": {
+    "bg": "Местни данъци и такси за община спрямо средното",
+    "en": "Local tax rates for a município vs the national average"
+  },
+  "landUse": {
+    "bg": "Земеползване по тип територия",
+    "en": "Land use by category"
+  },
+  "priceIndex": {
+    "bg": "Колко поскъпна потребителската кошница от въвеждането на еврото",
+    "en": "How much the consumer basket has risen since the euro"
+  },
+  "settlementPrices": {
+    "bg": "Цени на дребно в едно населено място",
+    "en": "Retail prices in one place"
+  },
+  "localDeals": {
+    "bg": "Текущи промоции",
+    "en": "Current promotions"
+  },
+  "productPrice": {
+    "bg": "Цена на конкретен продукт по вериги в цялата страна",
+    "en": "Price of a specific product across chains nationwide"
+  },
+  "cheapestChains": {
+    "bg": "Класация на търговските вериги по цена на кошницата",
+    "en": "Retail chains ranked by basket cost"
+  },
+  "priceRanking": {
+    "bg": "Класация на местата по цени",
+    "en": "Places ranked by prices"
+  },
+  "basketAffordability": {
+    "bg": "Цена на потребителската кошница спрямо БВП на човек по области",
+    "en": "Consumer-basket cost relative to regional GDP per capita"
+  },
+  "basketVsInflation": {
+    "bg": "Потребителска кошница спрямо инфлацията",
+    "en": "Consumer basket versus inflation"
+  },
+  "euFoodPriceLevels": {
+    "bg": "Цените на храните в България спрямо средното за ЕС",
+    "en": "Bulgarian food prices vs the EU average"
+  },
+  "fuelPrices": {
+    "bg": "Цените на горивата в България спрямо средното за ЕС",
+    "en": "Fuel prices in Bulgaria vs the EU average"
+  },
+  "chainProfile": {
+    "bg": "Профил на търговска верига",
+    "en": "A retail chain's profile"
+  },
+  "governanceProfile": {
+    "bg": "Обобщен профил на населено място",
+    "en": "Composite place profile"
+  },
+  "comparePlaces": {
+    "bg": "Сравнява две населени места по управленски показатели",
+    "en": "Compares two places across governance indicators"
+  },
+  "census": {
+    "bg": "Демография",
+    "en": "Demographics"
+  },
+  "procurementBySettlement": {
+    "bg": "Обществени поръчки, договорени в едно населено място",
+    "en": "Public procurement awarded in one settlement"
+  },
+  "myAreaAlerts": {
+    "bg": "Скорошна активност в едно място",
+    "en": "Recent activity in one place"
+  },
+  "placeEuProjects": {
+    "bg": "Проекти от еврофондове в едно място",
+    "en": "EU-funds projects in one place"
+  },
+  "procurementByOblast": {
+    "bg": "Местни обществени поръчки, обобщени за една област",
+    "en": "Local public procurement rolled up to one oblast"
+  },
+  "airQuality": {
+    "bg": "Качество на въздуха по места",
+    "en": "Local air quality"
+  },
+  "graoPopulation": {
+    "bg": "Регистрирано население",
+    "en": "Registered population"
+  },
+  "councilResolutions": {
+    "bg": "Решения на общинския съвет",
+    "en": "Municipal council resolutions"
+  },
+  "problemSections": {
+    "bg": "Наблюдавани ромски квартали",
+    "en": "Tracked Roma neighbourhoods"
+  },
+  "romaVoteTrend": {
+    "bg": "Кой печели ромския вот през годините",
+    "en": "Who wins the Roma vote over time"
+  },
+  "riskIndex": {
+    "bg": "Статистически индекс за скрининг на изборния риск",
+    "en": "Statistical election-risk screening index"
+  },
+  "riskScore": {
+    "bg": "Секционен скрининг на риска",
+    "en": "Section risk screening"
+  },
+  "riskClusters": {
+    "bg": "Клъстери на риска",
+    "en": "Risk clusters"
+  },
+  "clusterPersistence": {
+    "bg": "Устойчиви рискови огнища",
+    "en": "Persistent risk loci"
+  },
+  "benfordAnomalies": {
+    "bg": "Изборни отклонения по теста на Бенфорд",
+    "en": "Election anomalies under Benford’s law"
+  },
+  "wastedVotes": {
+    "bg": "Прахосани гласове",
+    "en": "Wasted votes"
+  },
+  "wastedVotesTrend": {
+    "bg": "Тренд на прахосаните гласове",
+    "en": "Wasted-votes trend"
+  },
+  "suspiciousSettlements": {
+    "bg": "Съмнителни населени места",
+    "en": "Suspicious settlements"
+  },
+  "diasporaVote": {
+    "bg": "Гласове в чужбина",
+    "en": "Out-of-country vote"
+  },
+  "diasporaVoteTrend": {
+    "bg": "Тренд на гласа в чужбина",
+    "en": "Diaspora vote"
+  },
+  "voterPersistence": {
+    "bg": "Устойчивост на вота",
+    "en": "Voter persistence"
+  },
+  "partyDemographics": {
+    "bg": "Демографски корелации на една партия",
+    "en": "A party's demographic correlations"
+  },
+  "demographicCleavages": {
+    "bg": "Демографски разделения",
+    "en": "Demographic cleavages"
+  },
+  "mpLoyalty": {
+    "bg": "Партийна лоялност на депутатите",
+    "en": "MP party loyalty"
+  },
+  "mpAttendance": {
+    "bg": "Присъствие на депутатите при гласуванията",
+    "en": "MP attendance at roll-call votes"
+  },
+  "factionCohesion": {
+    "bg": "Сплотеност на парламентарните групи",
+    "en": "Faction cohesion"
+  },
+  "mpVotingProfile": {
+    "bg": "Парламентарен профил на депутат по име",
+    "en": "An MP's roll-call profile by name"
+  },
+  "mpSimilarity": {
+    "bg": "Кои депутати гласуват най-подобно на даден депутат",
+    "en": "Which MPs vote most similarly to a given MP"
+  },
+  "voteSearch": {
+    "bg": "Търсене на парламентарни гласувания по тема/дума",
+    "en": "Search parliamentary votes by topic/keyword"
+  },
+  "partyMps": {
+    "bg": "Депутати по партия",
+    "en": "MPs by party"
+  },
+  "schoolScores": {
+    "bg": "Училища в община по среден успех на матурата",
+    "en": "Schools in a município by average matura"
+  },
+  "administrationOverview": {
+    "bg": "Държавната администрация като институция",
+    "en": "The state administration as an institution"
+  },
+  "digitalSkills": {
+    "bg": "Дигиталните умения на гражданите спрямо ЕС",
+    "en": "Citizen digital skills vs the EU"
+  },
+  "tourismSeasonality": {
+    "bg": "Сезонност на туризма в България",
+    "en": "Bulgaria tourism seasonality"
+  },
+  "tourismSourceMarkets": {
+    "bg": "Пазари на произход на туристите в България",
+    "en": "Tourist source markets for Bulgaria"
+  }
+}

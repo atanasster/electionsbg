@@ -5,16 +5,14 @@
 // returned Envelope (kind, facts, columns/series, data sources) — the actual
 // contract the chat's narration reads from, so docs never drift from output.
 
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -27,31 +25,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { electionNames, latestElection } from "../tools/dataset";
-import {
-  DOMAIN_LABELS,
-  runTool,
-  TOOLS,
-  TOOLS_BY_NAME,
-} from "../tools/registry";
+import { DOMAIN_LABELS, runTool, TOOLS_BY_NAME } from "../tools/registry";
 import type {
-  Domain,
   Envelope,
   EnvelopeKind,
   Lang,
   ParamType,
   ToolArgs,
 } from "../tools/types";
+import { ToolLibrary } from "./explorer/ToolLibrary";
+import { WelcomeGallery } from "./explorer/WelcomeGallery";
+import { LIBRARY } from "./explorer/library";
 import { AnswerView } from "../render/AnswerView";
 
 const ELECTIONS = electionNames();
-const DOMAIN_ORDER: Domain[] = [
-  "elections",
-  "local",
-  "fiscal",
-  "people",
-  "indicators",
-  "place",
-];
 // Radix Select forbids an empty-string value, so the "(latest)" choice uses a
 // sentinel that maps back to "" (which tools read as "use the default election").
 const LATEST = "__latest__";
@@ -81,9 +68,16 @@ const KIND_LABELS: Record<EnvelopeKind, { bg: string; en: string }> = {
   series: { bg: "времеви ред", en: "time series" },
 };
 
-export const Explorer = ({ lang }: { lang: Lang }) => {
-  const [toolName, setToolName] = useState(TOOLS[0].name);
-  const [args, setArgs] = useState<ToolArgs>({});
+const ToolRunner = ({
+  lang,
+  toolName,
+  initialArgs,
+}: {
+  lang: Lang;
+  toolName: string;
+  initialArgs: ToolArgs;
+}) => {
+  const [args, setArgs] = useState<ToolArgs>(initialArgs);
   const [env, setEnv] = useState<Envelope | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -112,50 +106,7 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="font-title text-2xl text-popover-foreground">
-          {t("Инструменти и данни", "Tools & data")}
-        </h1>
-        <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-          {t(
-            "Това са детерминистичните инструменти, които асистентът използва, за да отговаря само с реални данни. Изберете инструмент, за да видите неговата функционалност, очакваните параметри и върнатия резултат.",
-            "These are the deterministic tools the assistant uses to answer with real data only. Pick a tool to see what it does, the parameters it takes, and what it returns.",
-          )}
-        </p>
-      </div>
-
       <div className="flex flex-wrap items-end gap-3 rounded-xl border border-border bg-card p-4">
-        <label className="flex flex-col gap-1 text-sm">
-          <span className="text-muted-foreground">
-            {t("Инструмент", "Tool")}
-          </span>
-          <Select
-            value={toolName}
-            onValueChange={(v) => {
-              setToolName(v);
-              setArgs({});
-              setEnv(null);
-              setError(null);
-            }}
-          >
-            <SelectTrigger className="min-w-56 max-w-[28rem]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {DOMAIN_ORDER.map((d) => (
-                <SelectGroup key={d}>
-                  <SelectLabel>{DOMAIN_LABELS[d][lang]}</SelectLabel>
-                  {TOOLS.filter((tl) => tl.domain === d).map((tl) => (
-                    <SelectItem key={tl.name} value={tl.name}>
-                      {tl.name} — {tl.description[lang]}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              ))}
-            </SelectContent>
-          </Select>
-        </label>
-
         {tool.params.map((p) => {
           if (p.type === "election") {
             return (
@@ -391,6 +342,75 @@ const ReturnShape = ({ env, lang }: { env: Envelope; lang: Lang }) => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+const SqlLibrary = lazy(() => import("./explorer/SqlLibrary"));
+export const Explorer = ({ lang }: { lang: Lang }) => {
+  const [selection, setSelection] = useState<{
+    name: string;
+    args: ToolArgs;
+    key: number;
+  } | null>(null);
+  const [recent, setRecent] = useState<string[]>([]);
+  const [sql, setSql] = useState(false);
+  const select = (name: string, args: ToolArgs = {}) => {
+    setSql(false);
+    setSelection((s) => ({ name, args, key: (s?.key ?? 0) + 1 }));
+    setRecent((r) => [name, ...r.filter((n) => n !== name)].slice(0, 8));
+  };
+  return (
+    <div className="space-y-6">
+      <header>
+        <h1 className="font-title text-3xl">
+          {lang === "bg" ? "Инструменти и данни" : "Tools & data"}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {lang === "bg"
+            ? "Изберете въпрос и проверете данните зад отговора."
+            : "Choose a question and explore the data behind the answer."}
+        </p>
+      </header>
+      <div className="grid items-start gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+        <ToolLibrary
+          lang={lang}
+          selected={selection?.name}
+          recent={recent}
+          onSelect={select}
+          sql={sql}
+          onSql={() => setSql(true)}
+        />
+        <div className="min-w-0">
+          {sql ? (
+            <Suspense
+              fallback={
+                <p role="status">{lang === "bg" ? "Зареждане…" : "Loading…"}</p>
+              }
+            >
+              <SqlLibrary lang={lang} />
+            </Suspense>
+          ) : selection ? (
+            <>
+              <h2 className="mb-4 font-title text-2xl">
+                {
+                  LIBRARY.find((e) => e.tool.name === selection.name)?.title[
+                    lang
+                  ]
+                }
+              </h2>
+              <ToolRunner
+                key={selection.key}
+                lang={lang}
+                toolName={selection.name}
+                initialArgs={selection.args}
+              />
+            </>
+          ) : (
+            <WelcomeGallery lang={lang} onSelect={select} />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
