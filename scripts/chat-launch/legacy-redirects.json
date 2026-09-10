@@ -1,0 +1,27 @@
+[
+  {
+    "source": "/",
+    "destination": "https://electionsbg.com/chat",
+    "type": 301
+  },
+  {
+    "source": "/tools",
+    "destination": "https://electionsbg.com/chat/tools",
+    "type": 301
+  },
+  {
+    "source": "/tools/",
+    "destination": "https://electionsbg.com/chat/tools",
+    "type": 301
+  },
+  {
+    "source": "/evals",
+    "destination": "https://electionsbg.com/chat/evals",
+    "type": 301
+  },
+  {
+    "source": "/evals/",
+    "destination": "https://electionsbg.com/chat/evals",
+    "type": 301
+  }
+]

@@ -30,6 +30,7 @@ export const AI_EXPECTED_OUTPUT_ENTRIES = [
   "llms.txt",
   "evals.html",
   "tools.html",
+  "legacy-export.html",
 ] as const;
 
 export const isAiPublicAsset = (relative: string): boolean =>
@@ -68,7 +69,12 @@ export const assertAiOutput = (outputDir: string): void => {
       `Invalid AI build output (missing: ${missing.join(", ") || "none"}; unexpected: ${unexpected.join(", ") || "none"})`,
     );
   }
-  for (const htmlName of ["index.html", "evals.html", "tools.html"]) {
+  for (const htmlName of [
+    "index.html",
+    "evals.html",
+    "tools.html",
+    "legacy-export.html",
+  ]) {
     const html = fs.readFileSync(path.join(outputDir, htmlName), "utf8");
     const referencedImages = [
       ...html.matchAll(/https:\/\/ai\.electionsbg\.com\/([^"'<>\s?]+\.png)/g),

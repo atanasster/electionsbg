@@ -192,8 +192,7 @@ const LLMS_TXT = `# Наясно AI (ai.electionsbg.com)
 ## Data & method
 - Source data: https://electionsbg.com (open data; code: https://github.com/atanasster/electionsbg)
 - Numbers are computed by deterministic tools, not generated. The language layer
-  only selects a tool and narrates the computed facts, so figures cannot be
-  hallucinated.
+  only selects a tool and narrates the computed facts, but its explanation can still be wrong. Check the source, period and scope.
 
 ## Use
 - App: ${SITE}/
@@ -275,6 +274,22 @@ const writeSeoFiles = (): Plugin => {
       const indexPath = path.join(out, "index.html");
       if (fs.existsSync(indexPath)) {
         const indexHtml = fs.readFileSync(indexPath, "utf8");
+        fs.writeFileSync(
+          path.join(out, "legacy-export.html"),
+          derivePage(indexHtml, {
+            title: "Запазен разговор — изтегляне / Saved chat export",
+            desc: "Изтегли разговора, запазен в този браузър на стария адрес. Export the conversation saved in this browser on the old origin.",
+            canonical: `${SITE}/legacy-export`,
+          })
+            .replace(
+              /<meta\s+name="robots"[^>]*>/,
+              '<meta name="robots" content="noindex,nofollow" />',
+            )
+            .replace(
+              /<script type="application\/ld\+json">[\s\S]*?<\/script>/g,
+              "",
+            ),
+        );
         fs.writeFileSync(
           path.join(out, "evals.html"),
           derivePage(indexHtml, {

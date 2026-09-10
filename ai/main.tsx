@@ -11,15 +11,20 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryProvider } from "@/data/QueryProvider";
 import { App } from "./App";
 import { EvalsScreen } from "./app/EvalsScreen";
+import { LegacyTransition } from "./app/LegacyTransition";
+import { isLegacyPage } from "./app/legacyRoutes";
 
-// One SPA bundle, three entry points. /evals renders the benchmark page; /tools
-// opens the chat app on its Tools & data view; everything else is the chat. In
-// prod the build emits static dist-ai/evals.html + tools.html (same bundle,
-// per-page <head>) via vite.config.ai.ts → writeSeoFiles, and firebase.json
-// rewrites /evals → /evals.html and /tools → /tools.html. In dev the SPA
-// fallback serves index.html and these checks pick the screen/view.
+// Keep this old-origin entry while browser-local conversations need export.
+// Unknown page paths deliberately render a fallback rather than invent a redirect.
 const pathname = window.location.pathname;
-const screen = /^\/evals\/?$/.test(pathname) ? (
+const screen = !isLegacyPage(pathname) ? (
+  <main className="p-6">
+    <h1>Няма такава страница / Page not found</h1>
+    <a href="/legacy-export" className="underline">
+      Възстанови разговор / Recover conversation
+    </a>
+  </main>
+) : /^\/evals\/?$/.test(pathname) ? (
   <EvalsScreen />
 ) : (
   <App initialView={/^\/tools\/?$/.test(pathname) ? "tools" : "chat"} />
@@ -29,29 +34,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeContextProvider>
       <QueryProvider>
-        <TooltipProvider>{screen}</TooltipProvider>
+        <TooltipProvider>
+          <LegacyTransition>{screen}</LegacyTransition>
+        </TooltipProvider>
       </QueryProvider>
     </ThemeContextProvider>
   </React.StrictMode>,
 );
 
-// Google Analytics for the dedicated `electionsbg-ai` GA4 property. Wired here
-// (not in App.tsx) so it covers both entry screens — the chat and /evals.
-// Lazy-loaded after first paint to keep it off the critical path, and skipped
-// in dev + for WebDriver-controlled browsers, mirroring the main site
-// (src/App.tsx).
-const initAnalytics = () => {
-  if (import.meta.env.DEV) return;
-  if (typeof navigator !== "undefined" && navigator.webdriver) return;
-  void import("react-ga4").then(({ default: ReactGA }) => {
-    ReactGA.initialize("G-B08ZG0J9LV");
-  });
-};
-const w = window as Window & {
-  requestIdleCallback?: (cb: () => void) => number;
-};
-if (typeof w.requestIdleCallback === "function") {
-  w.requestIdleCallback(initAnalytics);
-} else {
-  setTimeout(initAnalytics, 2000);
-}
+// Legacy analytics are retired: prompt URLs and recovered conversations must
+// never be sent to the former standalone GA property. Main-site analytics owns
+// the integrated screens and applies its prompt privacy guard.

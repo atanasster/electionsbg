@@ -10,7 +10,8 @@ Checked 2026-09-10. This records observations, not promises about untested behav
 - [x] T3 homepage invitation
 - [x] T4 tested examples, research and screenshots
 - [x] T5 bilingual article
-- [ ] T6 release validation and rollout
+- [x] T6 release validation and rollout preparation
+- [ ] Production publication and legacy transition rollout — pending editorial approval
 - [ ] T7 subsequent rebranding handoff
 
 Review report for this run: `CODE_REVIEW_REPORT_20260910-122538-chat-launch.md` (transient, never committed).
@@ -128,3 +129,13 @@ The launch draft uses the stable `2026-09-10-popitai-naiasno` slug, about 1,500 
 Article-body fetching now waits for visible metadata, preventing a hidden draft or unknown slug from rendering a raw SPA fallback. Prerender checks confirm normal exclusion, four bilingual annotated figures, one H1 and preserved English prompt URLs; packaging checks cover exclusion, shared assets, preview rejection and reintroduced draft bodies. Local browser checks at 1280px and 390px confirm one H1, four figures, six correct prompt links, no horizontal overflow and a working final invitation/article link in both languages. Main typecheck and scoped lint pass. The full preview build/postbuild passed, including 635 optimized images and the dangling-reference gate. The final optimized BG/EN articles pass desktop/390px checks: four visible figures, one visible H1, six correctly localized question links, no horizontal overflow, and complete image loads. Static HTML has one H1, correct canonicals and WebP references; the preview sends noindex. Desktop homepage height remains 516.625px. Five final entry/preload/HTML performance checks pass. Full lint passes with one pre-existing InterregTile fast-refresh warning; the budget suite and AI harness pass. Four packaging and four renderer cases pass, and the real preview artifact is rejected by the production guard. The preview expires 2026-09-17 unless refreshed. Source review and repair verification found no outstanding issues.
 
 A further real English Gemini 3.5 Flash-Lite budget question completed after normal Turnstile reverification: 2.8 seconds, 12,224 input / 140 output tokens, correct 2026-07-31 period and matching rounded figures. An expired session first returned an explicitly labelled No AI answer and renewal notice. This independently confirms the mode/fallback disclosure; the article retains its narrower Bulgarian-test wording.
+
+## T6 release preparation and legacy recovery
+
+The standalone entry now has a bilingual move/export notice, a noindex `/legacy-export` HTML route using the same browser-local conversation key, and an intentional unknown-page recovery fallback. Its former GA initialization is removed. The integrated entry does not import this wrapper. The legacy frontend must remain available while the recovery route depends on it.
+
+Five explicit permanent page rules are retained as a candidate JSON file, not activated in live Hosting. A real one-day isolated Hosting proof preserved question punctuation, JSON arguments, language and area; the local emulator's double-encoded question mark is caught by the probe regression. The proof used static API/recovery fixtures, not real AI calls. Actual live AI API behavior remains covered by T2/T4/T5 and must be rechecked after any eventual redirect rollout.
+
+`chat-launch-release.md` records live rollback versions, the complete editorial review links, the main Hosting → DB → Hosting order, a proposed minimum 14-day transition, distinct cached-redirect recovery, and sanitized manual observation. Production article/promotion, legacy notice deployment and permanent redirects remain pending the plan's complete rendered editorial review and subsequent gates. No domain change or automation has occurred.
+
+Standalone typecheck/build and strict output packaging pass after resolving a macOS filename-case collision. Seven route/asset unit cases and two redirect-probe cases pass. Browser recovery passes in BG/EN at 1280px and 390px: task-owned saved conversation preserved, downloaded Markdown includes the answer, English PDF has a valid PDF header, migration links retain language, no horizontal overflow, composer reachable. The emitted recovery HTML has one noindex directive and its own canonical. Scoped lint and source/repair review pass with zero findings. The complete main build, required functions suites, AI harness/non-AI regression, integrated browser and entry-performance evidence are recorded in T1–T5; no unverified production rollout is claimed.
