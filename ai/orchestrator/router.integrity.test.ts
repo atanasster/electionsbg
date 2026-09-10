@@ -22,6 +22,25 @@ describe("election routing integrity", () => {
     expect(resolved?.args).toMatchObject(expected);
   });
 
+  // T4.6 — a poll-shaped presidential question must route past `presidentialResults`
+  // to the poll-specific tool, even though it also matches the „президент" guard
+  // above it. Regression for the exact bug found while wiring this: before the
+  // carve-out, every one of these fell into `presidentialResults` since the
+  // top-level guard only checked for "президент"/"балотаж", never for poll context.
+  it.each([
+    "Какво показват последните президентски проучвания?",
+    "What do the latest presidential polls show?",
+    "Какво би станало ако изборите за президент бяха сега?",
+  ])(
+    "routes a presidential poll question past presidentialResults: %s",
+    (question) => {
+      expect(route(question, ctx)).toEqual({
+        tool: "latestPresidentialPoll",
+        args: {},
+      });
+    },
+  );
+
   it("does not silently turn a multi-ballot year into October", () => {
     const resolved = route("Сравни изборите от 2022 и 2024", ctx);
     expect(resolved).toEqual({

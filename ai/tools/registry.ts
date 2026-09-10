@@ -228,6 +228,7 @@ import {
   agencyProfile,
   latestPolls,
 } from "./pollsDepth";
+import { latestPresidentialPoll } from "./presidentialPollsDepth";
 import { machineVoteSeries, turnoutSeries } from "./series";
 import {
   benfordAnomalies,
@@ -752,6 +753,22 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: latestPolls,
+  },
+  {
+    name: "latestPresidentialPoll",
+    domain: "elections",
+    description: {
+      bg: "Последното президентско социологическо проучване по кандидати (отделен корпус от парламентарните проучвания).",
+      en: "The latest presidential poll by candidate (a separate corpus from the parliamentary polls).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Какво показват последните президентски проучвания?",
+        en: "What do the latest presidential polls show?",
+      },
+    ],
+    run: latestPresidentialPoll,
   },
   {
     name: "agencyPolls",

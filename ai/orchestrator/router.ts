@@ -3920,7 +3920,16 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       "what do the polls",
       "what would",
     ) &&
-      has(q, "социолог", "анкет", "проучван", " poll", "polls", "сондаж"))
+      has(
+        q,
+        "социолог",
+        "pollster",
+        "анкет",
+        "проучван",
+        " poll",
+        "polls",
+        "сондаж",
+      ))
   )
     return { tool: "latestPolls", args: {} };
 

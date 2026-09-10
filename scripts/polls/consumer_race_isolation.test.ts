@@ -79,6 +79,7 @@ const PRESIDENTIAL_ONLY_CONSUMERS = [
   "src/screens/polls/PresidentialPollsSection.tsx",
   "src/screens/polls/AgencyPresidentialPollsList.tsx",
   "scripts/prerender/presidentialRoutes.ts",
+  "ai/tools/presidentialPollsDepth.ts",
 ];
 
 /** The deliberate exception: pages/builders that compose BOTH corpora's bands side by side

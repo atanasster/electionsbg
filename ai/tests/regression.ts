@@ -1074,6 +1074,20 @@ const CASES: Case[] = [
     facts: { leader: /%/ },
   },
   { q: "Какво би станало ако изборите бяха сега?", tool: "latestPolls" },
+  // presidential polls — a separate corpus from the parliamentary ones above
+  // (T4.6). Must route past `presidentialResults` (which also matches
+  // „президентски") to the poll-specific tool, and must never surface the
+  // capture's placeholder-only rows as if they named a person: GM's real
+  // July 2026 poll carries both, and the leader by raw support is in fact a
+  // placeholder row ("Кандидат на Прогресивна България"), which is the
+  // correct, honest answer here — the gate T4.6 exists for is refusing a poll
+  // with NO named row at all, not refusing every placeholder row within one.
+  {
+    q: "Какво показват последните президентски проучвания?",
+    tool: "latestPresidentialPoll",
+    kind: "table",
+    facts: { leader: /%/, agency: "Глобал" },
+  },
   // poll-history trend — the query that used to fall through to a candidate
   // lookup ("Маркет Линкс not found"); now plots the agency's poll trajectory.
   {
