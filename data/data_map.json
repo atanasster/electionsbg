@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-09T17:20:40.902Z",
+  "generatedAt": "2026-09-10T05:34:13.772Z",
   "nodes": [
     {
       "id": "src:water",
@@ -124,7 +124,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-04T21:37:50.904Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -135,7 +135,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-09-04T21:37:50.904Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "parliament_mps",
@@ -468,7 +468,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-08T21:39:31.890Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -490,7 +490,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-09-08T21:39:31.890Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "egov_budget_execution",
@@ -578,7 +578,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-08T21:39:31.890Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-procurement"
       ],
@@ -588,7 +588,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-09-08T21:39:31.890Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         }
       ],
       "x": 28,
@@ -979,7 +979,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-08T21:39:31.890Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -1035,7 +1035,7 @@
           "label": "Агенция \"Митници\" — регистър на лицензираните акцизни складодържатели",
           "url": "http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing",
           "cadence": "monthly",
-          "freshness": "2026-08-11T06:09:08.095Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "nap_annual",
@@ -1431,7 +1431,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-09-07T21:39:01.375Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1443,7 +1443,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-09-07T21:39:01.375Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "eurostat_policy",
@@ -1758,7 +1758,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-08T21:39:31.890Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-prices"
       ],
@@ -1768,7 +1768,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-09-08T21:39:31.890Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         }
       ],
       "issue": {
@@ -1892,7 +1892,7 @@
       "url": "https://vss.justice.bg/page/view/1082",
       "origin": "state",
       "cadence": "monthly",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-judiciary"
       ],
@@ -1909,7 +1909,7 @@
           "label": "ИВСС — декларации на магистрати",
           "url": "https://www.inspectoratvss.bg/bg/page/129",
           "cadence": "monthly",
-          "freshness": "2026-08-11T06:09:08.095Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         }
       ],
       "issue": {
@@ -2303,7 +2303,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-09-08T21:39:31.890Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-procurement"
       ],
@@ -2313,7 +2313,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-09-08T21:39:31.890Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         }
       ],
       "issue": {
@@ -2619,6 +2619,7 @@
       "url": "https://alpharesearch.bg/",
       "origin": "community",
       "cadence": "daily",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-polls"
       ],
@@ -2627,49 +2628,57 @@
           "id": "polls_trend",
           "label": "Polls — Тренд (rctrend.bg)",
           "url": "https://rctrend.bg",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "polls_alpha_research",
           "label": "Polls — Алфа Рисърч",
           "url": "https://alpharesearch.bg",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "polls_market_links",
           "label": "Polls — Маркет ЛИНКС",
           "url": "https://www.marketlinks.bg",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "polls_sova_harris",
           "label": "Polls — Сова Харис",
           "url": "https://sovaharris.com",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "polls_myara",
           "label": "Polls — Мяра",
           "url": "https://myara.bg",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "polls_global_metrics",
           "label": "Polls — Глобал Метрикс",
           "url": "https://globalmetrics.eu",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "polls_gallup",
           "label": "Polls — Галъп (site + press)",
           "url": "https://www.gallup-international.bg",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "polls_press",
           "label": "Polls — press discovery (agencies without a site)",
           "url": "https://news.google.com/",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-09-09T21:39:12.719Z"
         }
       ],
       "x": 28,
@@ -2699,7 +2708,7 @@
       "url": "https://bg.wikipedia.org/",
       "origin": "community",
       "cadence": "daily",
-      "freshness": "2026-06-30T06:08:57.757Z",
+      "freshness": "2026-09-09T21:39:12.719Z",
       "skills": [
         "update-polls"
       ],
@@ -2709,7 +2718,7 @@
           "label": "BG Wikipedia polls (cross-check only)",
           "url": "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2026)",
           "cadence": "daily",
-          "freshness": "2026-05-11T01:54:54.905Z"
+          "freshness": "2026-09-09T21:39:12.719Z"
         },
         {
           "id": "wiki_governments",
@@ -7504,7 +7513,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18730,
+      "overlap": 18731,
       "query": "contractors-in-the-registry"
     },
     {

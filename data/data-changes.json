@@ -1,6 +1,68 @@
 {
-  "updatedAt": "2026-09-09T00:10:30.639Z",
+  "updatedAt": "2026-09-10T05:33:24.823Z",
   "entries": [
+    {
+      "timestamp": "2026-09-10T05:33:24.823Z",
+      "date": "2026-09-10",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-09 (+1 daily archive; 817,048 store rows, 168 settlements, 79 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-09"
+    },
+    {
+      "timestamp": "2026-09-10T05:23:56.116Z",
+      "date": "2026-09-10",
+      "skill": "update-judiciary",
+      "summary": "ИВСС списъци за неподадени декларации: +3 души (annual_late 2026)",
+      "source": "ИВСС — декларации на магистрати"
+    },
+    {
+      "timestamp": "2026-09-10T05:22:21.352Z",
+      "date": "2026-09-10",
+      "skill": "update-macro",
+      "summary": "Eurostat: обновени БВП, производителност и промишлено производство; ЕС сравнения и ценови нива 2025",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-10T05:21:04.237Z",
+      "date": "2026-09-10",
+      "skill": "customs_excise_register",
+      "summary": "Регистър на акцизните складове: 566 оператора (295 активни), 356 склада",
+      "source": "Агенция Митници — BACIS регистър"
+    },
+    {
+      "timestamp": "2026-09-10T05:20:48.973Z",
+      "date": "2026-09-10",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: +89 договора от 47 възложителя; поръчки 238,688; TED 219,197 обявления",
+      "source": "data.egov.bg АОП / ЦАИС ЕОП / TED"
+    },
+    {
+      "timestamp": "2026-09-09T23:24:36.226Z",
+      "date": "2026-09-09",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 932 лица, 125 072 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-09T22:04:20.808Z",
+      "date": "2026-09-09",
+      "skill": "update-rollcall",
+      "summary": "1 new session (2026-09-09): 17 items, 4,080 casts",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-09T00:10:30.639Z",
       "date": "2026-09-09",

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-19T12:03:03.793Z",
+  "generatedAt": "2026-09-10T05:20:50.721Z",
   "source": {
     "publisher": "Агенция „Митници“",
     "register": "Регистър на лицензираните складодържатели и данъчните складове",
     "url": "http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing"
   },
-  "totalOperators": 565,
+  "totalOperators": 566,
   "activeOperators": 295,
   "operators": [
     {
@@ -17,8 +17,8 @@
       ],
       "warehouses": 9,
       "active": true,
-      "procurementEur": 834021116.24,
-      "contractCount": 697
+      "procurementEur": 834057116.24,
+      "contractCount": 698
     },
     {
       "eik": "831496285",
@@ -28,8 +28,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 512950100.36,
-      "contractCount": 2176
+      "procurementEur": 513001200.36,
+      "contractCount": 2177
     },
     {
       "eik": "131245283",
@@ -51,8 +51,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 140958978.87,
-      "contractCount": 60
+      "procurementEur": 152700375.23,
+      "contractCount": 61
     },
     {
       "eik": "115624227",
@@ -85,8 +85,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 32688944.7,
-      "contractCount": 279
+      "procurementEur": 33333688.03,
+      "contractCount": 283
     },
     {
       "eik": "824033568",
@@ -107,8 +107,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 19598299.83,
-      "contractCount": 57
+      "procurementEur": 19888723.63,
+      "contractCount": 60
     },
     {
       "eik": "121759222",
@@ -184,8 +184,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 4956676.01,
-      "contractCount": 191
+      "procurementEur": 5037755.29,
+      "contractCount": 193
     },
     {
       "eik": "106067341",
@@ -1757,18 +1757,6 @@
       "contractCount": 0
     },
     {
-      "eik": "207488255",
-      "name": "Дъ Ликуидс Лаб ЕООД",
-      "categories": [
-        "tobacco",
-        "other"
-      ],
-      "warehouses": 1,
-      "active": true,
-      "procurementEur": 0,
-      "contractCount": 0
-    },
-    {
       "eik": "206865244",
       "name": "ДЮФРИ СОФИЯ ООД",
       "categories": [
@@ -2474,6 +2462,17 @@
       "name": "ОБЕРЬОСТЕРАЙХИШЕ БИОДИЗЕЛ-БЪЛГАРИЯ ЕООД",
       "categories": [
         "energy"
+      ],
+      "warehouses": 1,
+      "active": true,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
+      "eik": "106625344",
+      "name": "ОДИТ КЪМПАНИ ООД",
+      "categories": [
+        "alcohol"
       ],
       "warehouses": 1,
       "active": true,
@@ -3388,15 +3387,6 @@
       "contractCount": 75
     },
     {
-      "eik": "113507403",
-      "name": "ПЕТРОЛ ДРАГИЧЕВО ЕООД",
-      "categories": [],
-      "warehouses": 0,
-      "active": false,
-      "procurementEur": 6094208.97,
-      "contractCount": 71
-    },
-    {
       "eik": "131037446",
       "name": "ИНТЕРСПИЙД ЕООД",
       "categories": [
@@ -3404,8 +3394,17 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 6078177.88,
-      "contractCount": 23
+      "procurementEur": 6236894.68,
+      "contractCount": 25
+    },
+    {
+      "eik": "113507403",
+      "name": "ПЕТРОЛ ДРАГИЧЕВО ЕООД",
+      "categories": [],
+      "warehouses": 0,
+      "active": false,
+      "procurementEur": 6094208.97,
+      "contractCount": 71
     },
     {
       "eik": "115824651",
@@ -4802,6 +4801,18 @@
       "eik": "118043216",
       "name": "ДРАЦИЯ ЕООД",
       "categories": [],
+      "warehouses": 0,
+      "active": false,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
+      "eik": "207488255",
+      "name": "Дъ Ликуидс Лаб ЕООД",
+      "categories": [
+        "tobacco",
+        "other"
+      ],
       "warehouses": 0,
       "active": false,
       "procurementEur": 0,

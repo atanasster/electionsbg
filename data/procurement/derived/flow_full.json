@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T22:31:58.240Z",
+  "generatedAt": "2026-09-09T22:32:13.027Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -1160,6 +1160,16 @@
       "id": "contractor:206533975",
       "type": "contractor",
       "label": "Златия ЕКО ООД"
+    },
+    {
+      "id": "awarder:000320694",
+      "type": "awarder",
+      "label": "Община Георги дамяново"
+    },
+    {
+      "id": "contractor:131070268",
+      "type": "contractor",
+      "label": "ВОДОКАНАЛПРОЕКТ-СОФИЯ ЕООД"
     },
     {
       "id": "awarder:000320840",
@@ -3880,11 +3890,6 @@
       "id": "awarder:115246756",
       "type": "awarder",
       "label": "Община Перущица"
-    },
-    {
-      "id": "contractor:131070268",
-      "type": "contractor",
-      "label": "ВОДОКАНАЛПРОЕКТ-СОФИЯ ЕООД"
     },
     {
       "id": "contractor:204169900",
@@ -8542,6 +8547,11 @@
       "label": "Ива Енчева Ботева"
     },
     {
+      "id": "official:ivan-mladenov-sokolov-08933d",
+      "type": "official",
+      "label": "Иван Младенов Соколов"
+    },
+    {
       "id": "official:anna-prvanova-mancheva-dimova-a9acc3",
       "type": "official",
       "label": "Анна Първанова Манчева-Димова"
@@ -8555,11 +8565,6 @@
       "id": "official:solomon-eliya-moskona-9c99c2",
       "type": "official",
       "label": "Соломон Елия Москона"
-    },
-    {
-      "id": "official:ivan-mladenov-sokolov-08933d",
-      "type": "official",
-      "label": "Иван Младенов Соколов"
     },
     {
       "id": "official:angel-petrov-uchikov-2af55e",
@@ -9332,6 +9337,11 @@
       "label": "Ганчо Койчев Пенчев"
     },
     {
+      "id": "official:tanya-tsvyatkova-igneva-danova-64bef6",
+      "type": "official",
+      "label": "Таня Цвяткова Игнева-Данова"
+    },
+    {
       "id": "contractor:000715054",
       "type": "contractor",
       "label": "Университетска многопрофилна болница за активно лечение \"СВ. Иван Рилски\" ЕАД"
@@ -9395,11 +9405,6 @@
       "id": "official:vladimira-petrova-kostova-44dc31",
       "type": "official",
       "label": "Владимира Петрова Костова"
-    },
-    {
-      "id": "official:tanya-tsvyatkova-igneva-danova-64bef6",
-      "type": "official",
-      "label": "Таня Цвяткова Игнева-Данова"
     },
     {
       "id": "contractor:130995143",
@@ -12989,6 +12994,11 @@
       "valueEur": 4310.19
     },
     {
+      "source": "awarder:000320694",
+      "target": "contractor:131070268",
+      "valueEur": 35790.43
+    },
+    {
       "source": "awarder:000320840",
       "target": "contractor:201503138",
       "valueEur": 1517526.56
@@ -13400,13 +13410,13 @@
     },
     {
       "source": "awarder:000472200",
-      "target": "contractor:121699202",
-      "valueEur": 269450.82
+      "target": "contractor:115013766",
+      "valueEur": 289892.43
     },
     {
       "source": "awarder:000472200",
-      "target": "contractor:115013766",
-      "valueEur": 245732.43
+      "target": "contractor:121699202",
+      "valueEur": 269450.82
     },
     {
       "source": "awarder:000472385",
@@ -19231,7 +19241,7 @@
     {
       "source": "awarder:180680495",
       "target": "contractor:831641791",
-      "valueEur": 81523612.81
+      "valueEur": 81982839.45
     },
     {
       "source": "awarder:180680495",
@@ -20411,7 +20421,7 @@
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 358432240.91
+      "valueEur": 358891467.55
     },
     {
       "source": "contractor:121396123",
@@ -21066,32 +21076,32 @@
     {
       "source": "contractor:831641791",
       "target": "official:diyana-georgieva-tomova-704486",
-      "valueEur": 358432240.91
+      "valueEur": 358891467.55
     },
     {
       "source": "contractor:831641791",
       "target": "official:ivailo-borisov-filipov-65173d",
-      "valueEur": 358432240.91
+      "valueEur": 358891467.55
     },
     {
       "source": "contractor:831641791",
       "target": "official:nikolina-todorova-naidenova-640c03",
-      "valueEur": 358432240.91
+      "valueEur": 358891467.55
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-7e7aff",
-      "valueEur": 358432240.91
+      "valueEur": 358891467.55
     },
     {
       "source": "contractor:831641791",
       "target": "official:valeri-petrov-borisov-0ec362",
-      "valueEur": 358432240.91
+      "valueEur": 358891467.55
     },
     {
       "source": "contractor:831641791",
       "target": "official:yuliyana-petrova-kalcheva-9ed43d",
-      "valueEur": 358432240.91
+      "valueEur": 358891467.55
     },
     {
       "source": "contractor:130800278",
@@ -22709,6 +22719,11 @@
       "valueEur": 1660151.87
     },
     {
+      "source": "contractor:115013766",
+      "target": "official:ivan-mladenov-sokolov-08933d",
+      "valueEur": 1585152.37
+    },
+    {
       "source": "contractor:121003449",
       "target": "official:anna-prvanova-mancheva-dimova-a9acc3",
       "valueEur": 1561015.58
@@ -22722,11 +22737,6 @@
       "source": "contractor:207360939",
       "target": "official:solomon-eliya-moskona-9c99c2",
       "valueEur": 1544154.9
-    },
-    {
-      "source": "contractor:115013766",
-      "target": "official:ivan-mladenov-sokolov-08933d",
-      "valueEur": 1540992.37
     },
     {
       "source": "contractor:115576405",
@@ -23206,7 +23216,7 @@
     {
       "source": "contractor:204030861",
       "target": "official:boryana-sashova-aleksova-424bb6",
-      "valueEur": 587689.25
+      "valueEur": 598937.67
     },
     {
       "source": "contractor:123681594",
@@ -23534,6 +23544,11 @@
       "valueEur": 300772.44
     },
     {
+      "source": "contractor:131070268",
+      "target": "official:tanya-tsvyatkova-igneva-danova-64bef6",
+      "valueEur": 298988.72
+    },
+    {
       "source": "contractor:000715054",
       "target": "official:atanas-ivanov-kundurdzhiev-3093b4",
       "valueEur": 298078.05
@@ -23592,11 +23607,6 @@
       "source": "contractor:102274111",
       "target": "official:vladimira-petrova-kostova-44dc31",
       "valueEur": 278206.82
-    },
-    {
-      "source": "contractor:131070268",
-      "target": "official:tanya-tsvyatkova-igneva-danova-64bef6",
-      "valueEur": 263198.29
     },
     {
       "source": "contractor:130995143",

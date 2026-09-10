@@ -1,0 +1,89 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2025-01-30",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5/",
+    "electionDate": null,
+    "respondents": 1003,
+    "genre": "raw_attitudes",
+    "fieldwork": "Jan 24-30 2025",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5/",
+      "fetchedAt": "2026-09-09T22:04:36.330Z",
+      "sha256": "8c6fd68b4f710a1c260e730845d7271bdc79e981223567c16f78c79a0ce09efa",
+      "extractor": "TR",
+      "fieldworkStart": "2025-01-24",
+      "fieldworkEnd": "2025-01-30",
+      "basePhrase": "подкрепата на 6.9% от гласуващите, а партията на Трифонов с 5",
+      "quotes": {
+        "share:БСП": "БСП положителната оценка е малко над 80%, а две трети от привържениците на „",
+        "share:ГЕРБ": "ГЕРБ запазват лидерската си позиция с 26.6% от гласуващите",
+        "share:ПП-ДБ": "ПП-ДБ (13.2%) и ",
+        "share:Възраждане": "Възраждане (13%)",
+        "share:МЕЧ": "МЕЧ, за сметка на това, бележки лек ръст до 5.6%",
+        "share:Величие": "Величие запазва нива, които са близки до парламентарната бариера (3.8%)",
+        "sampleSize": "1003 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 24-30 януари 2025 г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2025-01-30",
+      "agencyId": "TR",
+      "support": 80,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-01-30",
+      "agencyId": "TR",
+      "support": 26.6,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-01-30",
+      "agencyId": "TR",
+      "support": 13.2,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-01-30",
+      "agencyId": "TR",
+      "support": 13,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-01-30",
+      "agencyId": "TR",
+      "support": 5.6,
+      "nickName_bg": "МЕЧ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-01-30",
+      "agencyId": "TR",
+      "support": 3.8,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:БСП": "БСП положителната оценка е малко над 80%, а две трети от привържениците на „",
+    "share:ГЕРБ": "ГЕРБ запазват лидерската си позиция с 26.6% от гласуващите",
+    "share:ПП-ДБ": "ПП-ДБ (13.2%) и ",
+    "share:Възраждане": "Възраждане (13%)",
+    "share:МЕЧ": "МЕЧ, за сметка на това, бележки лек ръст до 5.6%",
+    "share:Величие": "Величие запазва нива, които са близки до парламентарната бариера (3.8%)",
+    "sampleSize": "1003 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 24-30 януари 2025 г"
+  },
+  "refused": []
+}

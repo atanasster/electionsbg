@@ -1,0 +1,113 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2025-09-20",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-4/",
+    "electionDate": null,
+    "respondents": 1004,
+    "genre": "unclear",
+    "fieldwork": "Sep 13-20 2025",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-4/",
+      "fetchedAt": "2026-09-09T22:04:32.562Z",
+      "sha256": "b347544d747805f21212089d3ef90565b91de30f61989bb07dd312f03c84b730",
+      "extractor": "TR",
+      "fieldworkStart": "2025-09-13",
+      "fieldworkEnd": "2025-09-20",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ с 26.4% от гласуващите",
+        "share:Възраждане": "Възраждане“ (13.9%), ",
+        "share:ДПС-Ново начало": "ДПС-Ново начало (13.5%) и ",
+        "share:ПП-ДБ": "ПП-ДБ (13.3%)",
+        "share:БСП-ОЛ": "БСП-ОЛ със 7.2%, ",
+        "share:МЕЧ": "МЕЧ с 6.5% и ",
+        "share:Величие": "Величие се задържа около парламентарната бариера с 4.1%, а ",
+        "share:АПС": "АПС остава трайно под нея – с 2.5%",
+        "sampleSize": "1004 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 13-20 септември 2025 г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 26.4,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 13.9,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 13.5,
+      "nickName_bg": "ДПС-Ново начало",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 13.3,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 7.2,
+      "nickName_bg": "БСП-ОЛ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 6.5,
+      "nickName_bg": "МЕЧ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 4.1,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-09-20",
+      "agencyId": "TR",
+      "support": 2.5,
+      "nickName_bg": "АПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "TR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ с 26.4% от гласуващите",
+    "share:Възраждане": "Възраждане“ (13.9%), ",
+    "share:ДПС-Ново начало": "ДПС-Ново начало (13.5%) и ",
+    "share:ПП-ДБ": "ПП-ДБ (13.3%)",
+    "share:БСП-ОЛ": "БСП-ОЛ със 7.2%, ",
+    "share:МЕЧ": "МЕЧ с 6.5% и ",
+    "share:Величие": "Величие се задържа около парламентарната бариера с 4.1%, а ",
+    "share:АПС": "АПС остава трайно под нея – с 2.5%",
+    "sampleSize": "1004 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 13-20 септември 2025 г"
+  },
+  "refused": [
+    {
+      "field": "share:ИТН",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ИТН с 5.7%"
+    }
+  ]
+}

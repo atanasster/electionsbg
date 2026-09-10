@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-08",
+  "computedAt": "2026-09-09",
   "thresholds": {
     "basketPids": [
       1,
@@ -55,34 +55,34 @@
   ],
   "promotions": [
     {
-      "slug": "kartofi-chetkani-na-kg",
-      "title": "КАРТОФИ ЧЕТКАНИ НА КГ",
-      "atOrBelowSince": "2026-09-08",
-      "promoEur": 0.39,
-      "regularEur": 0.79,
-      "discountPct": 51,
-      "stores": 210,
-      "chains": 2
-    },
-    {
-      "slug": "svinski-but-bez-kost",
-      "title": "СВИНСКИ БУТ БЕЗ КОСТ",
-      "atOrBelowSince": "2026-09-08",
-      "promoEur": 2.99,
-      "regularEur": 6.15,
-      "discountPct": 51,
-      "stores": 28,
-      "chains": 2
-    },
-    {
-      "slug": "krastavitsi",
-      "title": "КРАСТАВИЦИ",
-      "atOrBelowSince": "2026-09-08",
-      "promoEur": 0.99,
-      "regularEur": 1.99,
+      "slug": "maslo-vitoria-krave-250gr",
+      "title": "МАСЛО ВИТОРИА КРАВЕ 250ГР",
+      "atOrBelowSince": "2026-08-21",
+      "promoEur": 2.19,
+      "regularEur": 4.34,
       "discountPct": 50,
-      "stores": 41,
-      "chains": 4
+      "stores": 3,
+      "chains": 3
+    },
+    {
+      "slug": "kromid-luk",
+      "title": "Кромид Лук",
+      "atOrBelowSince": "2026-09-02",
+      "promoEur": 0.44,
+      "regularEur": 0.85,
+      "discountPct": 48,
+      "stores": 47,
+      "chains": 2
+    },
+    {
+      "slug": "kafe-mlyano-eduscho-intenso-250gr",
+      "title": "кафе мляно EDUSCHO intenso 250гр",
+      "atOrBelowSince": "2026-09-07",
+      "promoEur": 2.99,
+      "regularEur": 5.49,
+      "discountPct": 46,
+      "stores": 37,
+      "chains": 2
     }
   ]
 }

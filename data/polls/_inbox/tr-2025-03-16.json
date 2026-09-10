@@ -1,0 +1,95 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2025-03-16",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-2/",
+    "electionDate": null,
+    "respondents": 1020,
+    "genre": "unclear",
+    "fieldwork": "Mar 10-16 2025",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-2/",
+      "fetchedAt": "2026-09-09T22:04:35.120Z",
+      "sha256": "6e5671aa701430529eb368fdc5d356c23f4f22bc530f44f42d30135b2528d47c",
+      "extractor": "TR",
+      "fieldworkStart": "2025-03-10",
+      "fieldworkEnd": "2025-03-16",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ запазва първото място с 26,7% от гласуващите",
+        "share:ПП-ДБ": "ПП-ДБ с 13,6%, следвани от ",
+        "share:Възраждане": "Възраждане с 12,5%",
+        "share:ДПС-Ново начало": "ДПС-Ново начало с 10,9%",
+        "share:ИТН": "ИТН (5,9%) и ",
+        "share:Величие": "Величие“ запазва нива около парламентарната бариера (3,9%)",
+        "sampleSize": "1020 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 10-16 март 2025 г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2025-03-16",
+      "agencyId": "TR",
+      "support": 26.7,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-03-16",
+      "agencyId": "TR",
+      "support": 13.6,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-03-16",
+      "agencyId": "TR",
+      "support": 12.5,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-03-16",
+      "agencyId": "TR",
+      "support": 10.9,
+      "nickName_bg": "ДПС-Ново начало",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-03-16",
+      "agencyId": "TR",
+      "support": 5.9,
+      "nickName_bg": "ИТН",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-03-16",
+      "agencyId": "TR",
+      "support": 3.9,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "TR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ запазва първото място с 26,7% от гласуващите",
+    "share:ПП-ДБ": "ПП-ДБ с 13,6%, следвани от ",
+    "share:Възраждане": "Възраждане с 12,5%",
+    "share:ДПС-Ново начало": "ДПС-Ново начало с 10,9%",
+    "share:ИТН": "ИТН (5,9%) и ",
+    "share:Величие": "Величие“ запазва нива около парламентарната бариера (3,9%)",
+    "sampleSize": "1020 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 10-16 март 2025 г"
+  },
+  "refused": [
+    {
+      "field": "share:МЕЧ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "МЕЧ (5,7%)"
+    }
+  ]
+}

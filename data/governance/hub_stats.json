@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-09-08T23:19:06.583Z",
+  "computedAt": "2026-09-09T23:31:38.832Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 93997134360,
+      "value": 94004235922,
       "basis": "contracts"
     },
     "sectors": {
@@ -50,7 +50,7 @@
     },
     "connections": {
       "kind": "count",
-      "value": 203810,
+      "value": 203865,
       "basis": "edges"
     }
   },
@@ -122,21 +122,21 @@
     "52": {
       "parliament": {
         "kind": "count",
-        "value": 46,
+        "value": 47,
         "basis": "sessions",
-        "extra": 1283
+        "extra": 1298
       }
     }
   },
   "coverage": [
     {
       "id": "contracts",
-      "value": 411110,
+      "value": 411178,
       "to": "/procurement/contracts?pscope=all"
     },
     {
       "id": "tenders",
-      "value": 238646,
+      "value": 238688,
       "to": "/procurement/tenders?pscope=all"
     },
     {

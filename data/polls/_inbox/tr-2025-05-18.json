@@ -1,0 +1,104 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2025-05-18",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-3/",
+    "electionDate": null,
+    "respondents": 1001,
+    "genre": "raw_attitudes",
+    "fieldwork": "May 12-18 2025",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-3/",
+      "fetchedAt": "2026-09-09T22:04:33.865Z",
+      "sha256": "c73e276069f933dfdff558b75b97a2a24a7cd6f33298aca4f8b5405690961c7e",
+      "extractor": "TR",
+      "fieldworkStart": "2025-05-12",
+      "fieldworkEnd": "2025-05-18",
+      "basePhrase": "подкрепа сред гласуващите",
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ запазва първата си позиция с 26.2% от гласуващите",
+        "share:ПП-ДБ": "ПП-ДБ (13.8%) и ",
+        "share:Възраждане": "Възраждане (13.5%)",
+        "share:ДПС-Ново начало": "ДПС-Ново начало до 11.6% сред гласуващите",
+        "share:БСП-ОЛ": "БСП-ОЛ задържа нивата си от 6.8%",
+        "share:МЕЧ": "МЕЧ – 5.9%, а при ",
+        "share:Величие": "Величие остават близо до ръба на парламентарната бариера с 3.9% подкрепа сред гласуващите",
+        "sampleSize": "1001 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 12-18 май 2025 г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2025-05-18",
+      "agencyId": "TR",
+      "support": 26.2,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-05-18",
+      "agencyId": "TR",
+      "support": 13.8,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-05-18",
+      "agencyId": "TR",
+      "support": 13.5,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-05-18",
+      "agencyId": "TR",
+      "support": 11.6,
+      "nickName_bg": "ДПС-Ново начало",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-05-18",
+      "agencyId": "TR",
+      "support": 6.8,
+      "nickName_bg": "БСП-ОЛ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-05-18",
+      "agencyId": "TR",
+      "support": 5.9,
+      "nickName_bg": "МЕЧ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2025-05-18",
+      "agencyId": "TR",
+      "support": 3.9,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ запазва първата си позиция с 26.2% от гласуващите",
+    "share:ПП-ДБ": "ПП-ДБ (13.8%) и ",
+    "share:Възраждане": "Възраждане (13.5%)",
+    "share:ДПС-Ново начало": "ДПС-Ново начало до 11.6% сред гласуващите",
+    "share:БСП-ОЛ": "БСП-ОЛ задържа нивата си от 6.8%",
+    "share:МЕЧ": "МЕЧ – 5.9%, а при ",
+    "share:Величие": "Величие остават близо до ръба на парламентарната бариера с 3.9% подкрепа сред гласуващите",
+    "sampleSize": "1001 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 12-18 май 2025 г"
+  },
+  "refused": [
+    {
+      "field": "share:ИТН",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ИТН с 6%, "
+    }
+  ]
+}
