@@ -1,4 +1,4 @@
-// Cloud provider — a hosted model (via the Firebase Function proxy → OpenRouter)
+// Cloud provider — a hosted model (via the Firebase Function proxy → Gemini API)
 // drives tool selection AND narration. It implements the same LLMProvider
 // interface as the rules + WebGPU providers, so it's just another option in the
 // model dropdown; the rules engine stays the default. Every model step falls

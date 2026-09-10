@@ -48,13 +48,12 @@ function createLlmHandler({
       let usage;
       try {
         const response = await fetchImpl(
-          "https://openrouter.ai/api/v1/chat/completions",
+          "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
           {
             method: "POST",
             headers: {
               Authorization: `Bearer ${apiKey}`,
               "Content-Type": "application/json",
-              "X-Title": "Naiasno AI",
             },
             body: JSON.stringify(upstreamBody),
             signal: AbortSignal.timeout(30000),

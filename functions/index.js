@@ -1,12 +1,12 @@
 // Наясно cloud functions — two independent endpoints in one codebase:
 //
 //  - `llm` (deployed to the electionsbg-ai project): the cloud-LLM proxy for
-//    the AI chat. The chat is a static SPA, so it cannot hold the OpenRouter
+//    the AI chat. The chat is a static SPA, so it cannot hold the Gemini
 //    API key in the browser; this function holds it (a Firebase secret) and
 //    forwards a single chat-completion request. Reached same-origin via the
 //    `/api/llm` hosting rewrite on ai.electionsbg.com.
 //    Deploy:  firebase deploy --only functions:llm -P ai
-//    Secret:  firebase functions:secrets:set OPENROUTER_API_KEY -P ai
+//    Secret:  firebase functions:secrets:set GEMINI_API_KEY -P ai
 //
 //  - `scenarios` (deployed to the elections-bg project): the public scenario
 //    tally for /budget/simulator ("what the public chose"). Reached
@@ -49,7 +49,7 @@ const AI_ALLOWED_ORIGINS = [
   /^http:\/\/127\.0\.0\.1:\d+$/,
 ];
 const makeLlm = () => {
-  const apiKey = defineSecret("OPENROUTER_API_KEY");
+  const apiKey = defineSecret("GEMINI_API_KEY");
   const turnstile = defineSecret("AI_TURNSTILE_SECRET");
   const signing = defineSecret("AI_SESSION_SECRET");
   let handler;

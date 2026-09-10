@@ -1,6 +1,6 @@
 {
   "name": "naiasno-functions",
-  "description": "Наясно cloud functions: the LLM proxy for the AI chat (keeps the OpenRouter key server-side) and the public scenario tally for the budget simulator",
+  "description": "Наясно cloud functions: the LLM proxy for the AI chat (keeps the Gemini key server-side) and the public scenario tally for the budget simulator",
   "private": true,
   "main": "index.js",
   "scripts": {

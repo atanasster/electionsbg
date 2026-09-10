@@ -26,8 +26,11 @@ UTC limits across all instances. Successful usage refunds savings against conser
 provider ceilings ($0.30/M input, $2.50/M output); failed/abandoned requests retain
 uncertain costs. The reservation assumes at most one token per UTF-8 byte plus framing.
 This is an application safeguard, not a cap on Firebase/Firestore charges or an
-absolute billing guarantee. Use a dedicated OpenRouter key with its own spending
-limit as the independent backstop. Provider pricing changes require reviewing bounds.
+absolute billing guarantee. Use a dedicated Gemini API key from the paid elections-bg AI Studio project
+(gen-lang-client-0866766809). Its billing account owns any eligible credits; the
+Firebase function still runs in electionsbg-ai. Provider pricing changes require
+reviewing bounds. Credit eligibility and expiry must be checked in AI Studio billing;
+the application accounts for list-price usage even when credits cover the bill.
 
 The browser cannot choose a different model, paid plugin, token budget or provider
 price. The allowlisted model in `llm_security.js` must match `ai/llm/models.ts`.
@@ -40,7 +43,7 @@ database in a suitable region if absent. Deploy the deny-all client rules using 
 AI-specific config; Admin SDK access uses IAM and bypasses those rules.
 
 ```bash
-firebase functions:secrets:set OPENROUTER_API_KEY -P ai
+firebase functions:secrets:set GEMINI_API_KEY -P ai
 firebase functions:secrets:set AI_TURNSTILE_SECRET -P ai
 firebase functions:secrets:set AI_SESSION_SECRET -P ai
 ```
@@ -69,7 +72,7 @@ npm run deploy:ai
 Deploy backend protection before the matching frontend. Old open-proxy clients will
 then stop making paid calls. Smoke-test valid verification, blocked direct calls,
 expiry, allowance exhaustion and No AI fallback before announcing availability.
-Configure a dedicated provider-key limit and billing alerts separately. Rotating
+Configure Google billing alerts separately; alerts are not hard spending caps. Rotating
 `AI_SESSION_SECRET` invalidates existing sessions and changes IP hashes; do not use
 rotation to reset budget documents. Global day/month budgets remain unchanged.
 
@@ -87,5 +90,10 @@ atomic reservations, refunds and the HTTP boundary using a transactional test st
 `node --import tsx ai/llm/openrouter.harness.ts` tests routing, context and fallback
 with a mocked provider. These do not prove production IAM or widget configuration.
 
-Provider routing semantics: https://openrouter.ai/docs/guides/routing/provider-selection
+The backend calls Google directly through its OpenAI-compatible endpoint, with
+`gemini-3.5-flash-lite` and `reasoning_effort: minimal`. The browser keeps its
+existing `google/gemini-3.5-flash-lite` ID for compatibility with deployed clients.
+No OpenRouter credits or key are used.
+
+Gemini API compatibility: https://ai.google.dev/gemini-api/docs/openai
 Turnstile validation: https://developers.cloudflare.com/turnstile/get-started/server-side-validation/

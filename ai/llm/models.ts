@@ -25,7 +25,7 @@ export type ModelOption = {
   ready: boolean; // false => requires the M0 compile before it can load
   // Which engine runs this model. "webllm" (default) = @mlc-ai/web-llm (in-browser,
   // needs an MLC build). "cloud" = a hosted model reached via the Firebase Function
-  // proxy → OpenRouter (NOT in-browser; the question is sent to a server). `id` is
+  // proxy → Gemini API (NOT in-browser; the question is sent to a server). `id` is
   // the OpenRouter model id for cloud models.
   runtime?: "webllm" | "cloud";
   appConfig?: AppConfig; // for custom (HF-hosted) WebLLM models

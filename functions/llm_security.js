@@ -113,19 +113,16 @@ function payload(body) {
   if (!Number.isFinite(temp) || temp < 0 || temp > 1)
     fail(400, "invalid_temperature");
   return {
-    model: MODEL,
+    // Keep the browser model ID stable; Google uses the unprefixed API ID.
+    model: "gemini-3.5-flash-lite",
     messages,
     temperature: temp,
     max_tokens: max,
     ...(body.response_format
       ? { response_format: { type: "json_object" } }
       : {}),
-    // No paid plugins, fallback models, or unrestricted provider pricing.
-    provider: {
-      max_price: { prompt: 0.3, completion: 2.5 },
-      allow_fallbacks: false,
-    },
-    reasoning: { effort: "minimal" },
+    // Direct Gemini OpenAI compatibility API; no paid tools or fallback models.
+    reasoning_effort: "minimal",
     stream: false,
   };
 }

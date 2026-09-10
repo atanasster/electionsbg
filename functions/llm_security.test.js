@@ -93,6 +93,10 @@ test("only bounded text for the one model reaches upstream", () => {
     stream: true,
   };
   assert.equal(payload(body).stream, false);
+  assert.equal(payload(body).model, "gemini-3.5-flash-lite");
+  assert.equal(payload(body).reasoning_effort, "minimal");
+  assert.equal(payload(body).provider, undefined);
+  assert.equal(payload(body).reasoning, undefined);
   for (const change of [
     { model: "expensive" },
     { max_tokens: 513 },
@@ -323,6 +327,60 @@ test("HTTP failures settle conservatively and never retry paid upstream", async 
   assert.equal(calls, 1);
   await f.security.finish(token, "ip", questionId);
   assert.equal(f.db.rows.get("day:2026-09-10").reserved, POLICY.callReserve);
+});
+
+test("verified completion uses direct Gemini and settles its compatible usage", async () => {
+  const f = fixture();
+  const { token } = await f.security.issue("t", "ip");
+  const { questionId } = await f.security.start(token, "ip");
+  const data = {
+    choices: [{ message: { content: '{"tool":"turnout","args":{}}' } }],
+    usage: { prompt_tokens: 1000, completion_tokens: 100 },
+  };
+  let calls = 0;
+  const handler = createLlmHandler({
+    security: f.security,
+    apiKey: "gemini-test-key",
+    allowedOrigins: [],
+    fetchImpl: async (url, options) => {
+      calls++;
+      assert.equal(
+        url,
+        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      );
+      assert.equal(options.headers.Authorization, "Bearer gemini-test-key");
+      const body = JSON.parse(options.body);
+      assert.equal(body.model, "gemini-3.5-flash-lite");
+      assert.equal(body.reasoning_effort, "minimal");
+      assert.deepEqual(body.response_format, { type: "json_object" });
+      assert.equal(body.provider, undefined);
+      assert.equal(body.service_tier, undefined);
+      return { ok: true, json: async () => data };
+    },
+  });
+  const res = response();
+  await handler(
+    {
+      method: "POST",
+      headers: {},
+      ip: "ip",
+      body: {
+        action: "complete",
+        sessionToken: token,
+        questionId,
+        model: MODEL,
+        messages: [{ role: "user", content: "Return JSON" }],
+        response_format: { type: "json_object" },
+        provider: { order: ["other"] },
+        service_tier: "priority",
+      },
+    },
+    res,
+  );
+  assert.deepEqual(res.body, data);
+  assert.equal(calls, 1);
+  await f.security.finish(token, "ip", questionId);
+  assert.equal(f.db.rows.get("day:2026-09-10").reserved, 550);
 });
 
 test("last-moment call keeps session locked through handler timeout", async () => {
