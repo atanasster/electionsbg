@@ -1,0 +1,146 @@
+{
+  "start": {
+    "bg": [
+      [
+        59,
+        "Готов въпрос",
+        "Изберете тема, подтема и въпрос."
+      ],
+      [
+        68,
+        "Собствен въпрос",
+        "Напишете конкретен въпрос с място или година."
+      ],
+      [
+        73,
+        "Режим",
+        "„Без AI“ е началният режим; AI се избира от менюто."
+      ]
+    ],
+    "en": [
+      [
+        59,
+        "Starter question",
+        "Choose a topic, subtopic and question."
+      ],
+      [
+        68,
+        "Your own question",
+        "Type a specific question with a place or year."
+      ],
+      [
+        73,
+        "Mode",
+        "No AI is the initial mode; select AI from the menu."
+      ]
+    ]
+  },
+  "budget": {
+    "bg": [
+      [
+        26,
+        "Период и обхват",
+        "Изпълнението е до 31 юли 2026, не за цялата година."
+      ],
+      [
+        36,
+        "Две различни колони",
+        "Годишният план и отчетеното изпълнение не са едно и също."
+      ],
+      [
+        51,
+        "Проверка",
+        "Отворете бюджетния екран и страницата с източници."
+      ]
+    ],
+    "en": [
+      [
+        26,
+        "Period and scope",
+        "Actual spending runs to 31 July 2026, not the full year."
+      ],
+      [
+        36,
+        "Two different columns",
+        "Annual plan and recorded execution are different measures."
+      ],
+      [
+        51,
+        "Check the evidence",
+        "Open the budget dashboard and data sources page."
+      ]
+    ]
+  },
+  "followup": {
+    "bg": [
+      [
+        25,
+        "Следващ въпрос",
+        "Натиснат е предложеният въпрос за конкретната процедура."
+      ],
+      [
+        58,
+        "Какво означава сумата",
+        "Показана е прогнозна стойност, не извършено плащане."
+      ],
+      [
+        71,
+        "Към записа",
+        "Линкът отваря детайлите на процедурата."
+      ]
+    ],
+    "en": [
+      [
+        25,
+        "Next question",
+        "The suggested question opened a particular procedure."
+      ],
+      [
+        58,
+        "Meaning of the amount",
+        "This is an estimated value, not a payment."
+      ],
+      [
+        71,
+        "Open the record",
+        "The link opens the procedure details."
+      ]
+    ]
+  },
+  "limits": {
+    "bg": [
+      [
+        8,
+        "Избор на режим",
+        "AI обработва въпроса и контекста в облака."
+      ],
+      [
+        23,
+        "Общи ограничения",
+        "Сесията и IP адресът имат отделни лимити."
+      ],
+      [
+        52,
+        "История и споделяне",
+        "Историята е в браузъра; линкът задава последния въпрос отново."
+      ]
+    ],
+    "en": [
+      [
+        8,
+        "Choose a mode",
+        "AI processes the question and context in the cloud."
+      ],
+      [
+        23,
+        "Shared limits",
+        "Session and IP allowances are separate."
+      ],
+      [
+        52,
+        "History and sharing",
+        "History stays in the browser; a link re-asks the last question."
+      ]
+    ]
+  }
+}

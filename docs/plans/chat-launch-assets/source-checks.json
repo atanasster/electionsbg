@@ -1,0 +1,231 @@
+{
+  "checked": "2026-09-10",
+  "scope": "UI-to-serving-payload checks; not an independent audit of the entire upstream corpus",
+  "sources": {
+    "budget": "https://storage.googleapis.com/data-electionsbg-com/budget/index.json",
+    "seats": "https://storage.googleapis.com/data-electionsbg-com/2026_04_19/national_summary.json",
+    "prices": "https://elections-bg--chat-launch-gu0gkopz.web.app/api/db/price-payload?kind=place&key=56784",
+    "tender": "https://elections-bg--chat-launch-gu0gkopz.web.app/api/db/tender?unp=00044-2025-0125"
+  },
+  "budget": {
+    "actual": {
+      "balance": {
+        "amount": -1927382939,
+        "amountEur": -1927382939,
+        "currency": "EUR"
+      },
+      "euContribution": {
+        "amount": 661723909,
+        "amountEur": 661723909,
+        "currency": "EUR"
+      },
+      "expenditure": {
+        "amount": 16516289946,
+        "amountEur": 16516289946,
+        "currency": "EUR"
+      },
+      "financing": {
+        "amount": 1927382939,
+        "amountEur": 1927382939,
+        "currency": "EUR"
+      },
+      "revenue": {
+        "amount": 15250630916,
+        "amountEur": 15250630916,
+        "currency": "EUR"
+      }
+    },
+    "asOf": "2026-07-31",
+    "complete": false,
+    "currency": "EUR",
+    "firstPeriod": "2026-01",
+    "fiscalYear": 2026,
+    "gdpEur": 128155604775,
+    "lastPeriod": "2026-07",
+    "monthsAvailable": 7,
+    "planned": {
+      "balance": {
+        "amount": -7319804000,
+        "amountEur": -7319804000,
+        "currency": "EUR"
+      },
+      "euContribution": {
+        "amount": 1282158200,
+        "amountEur": 1282158200,
+        "currency": "EUR"
+      },
+      "expenditure": {
+        "amount": 34498492900,
+        "amountEur": 34498492900,
+        "currency": "EUR"
+      },
+      "financing": {
+        "amount": 7319804000,
+        "amountEur": 7319804000,
+        "currency": "EUR"
+      },
+      "revenue": {
+        "amount": 28460847100,
+        "amountEur": 28460847100,
+        "currency": "EUR"
+      }
+    },
+    "projected": {
+      "balance": {
+        "amount": -3242431399,
+        "amountEur": -3242431399,
+        "currency": "EUR"
+      },
+      "euContribution": {
+        "amount": 1154065723,
+        "amountEur": 1154065723,
+        "currency": "EUR"
+      },
+      "expenditure": {
+        "amount": 29333528566,
+        "amountEur": 29333528566,
+        "currency": "EUR"
+      },
+      "financing": {
+        "amount": 3242431399,
+        "amountEur": 3242431399,
+        "currency": "EUR"
+      },
+      "revenue": {
+        "amount": 27245162890,
+        "amountEur": 27245162890,
+        "currency": "EUR"
+      }
+    },
+    "projectionBasis": 2025
+  },
+  "seatAllocation": [
+    {
+      "party": "ПрБ",
+      "seats": 131
+    },
+    {
+      "party": "ГЕРБ-СДС",
+      "seats": 39
+    },
+    {
+      "party": "ПП-ДБ",
+      "seats": 37
+    },
+    {
+      "party": "ДПС",
+      "seats": 21
+    },
+    {
+      "party": "Възраждане",
+      "seats": 12
+    }
+  ],
+  "prices": {
+    "asOf": "2026-09-08",
+    "rows": [
+      {
+        "id": 1,
+        "avg": 1.26,
+        "max": 3.06,
+        "min": 0.76,
+        "median": 1.07,
+        "stores": 97,
+        "promoMin": 0.69,
+        "cheapestEik": "131071587",
+        "cheapestChain": "Лидл България",
+        "cheapestStore": "133 - Пловдив/бул. Македония 97А"
+      },
+      {
+        "id": 6,
+        "avg": 1.69,
+        "max": 3.69,
+        "min": 1,
+        "median": 1.68,
+        "stores": 100,
+        "promoMin": 1.18,
+        "cheapestEik": "201029124",
+        "cheapestChain": "БЕРЬОЗКА",
+        "cheapestStore": "Пловдив улица Брезовско шосе 158"
+      },
+      {
+        "id": 9,
+        "avg": 5.99,
+        "max": 16.64,
+        "min": 2.29,
+        "median": 5.2,
+        "stores": 100,
+        "promoMin": 2.39,
+        "cheapestEik": "131071587",
+        "cheapestChain": "Лидл България",
+        "cheapestStore": "133 - Пловдив/бул. Македония 97А"
+      },
+      {
+        "id": 16,
+        "avg": 7.84,
+        "max": 11.57,
+        "min": 4.7,
+        "median": 7.46,
+        "stores": 31,
+        "promoMin": 4,
+        "cheapestEik": "202923636",
+        "cheapestChain": "KAM",
+        "cheapestStore": "МАГАЗИН 126 ПЛОВДИВ"
+      },
+      {
+        "id": 31,
+        "avg": 2.39,
+        "max": 3.39,
+        "min": 1.68,
+        "median": 2.5,
+        "stores": 91,
+        "promoMin": 1.49,
+        "cheapestEik": "131129282",
+        "cheapestChain": "Кауфланд България",
+        "cheapestStore": "Кауфланд Пловдив-Гагарин -  rp.Пловдив,ул. Брезовско шосе 127"
+      },
+      {
+        "id": 42,
+        "avg": 2.12,
+        "max": 5.11,
+        "min": 1.22,
+        "median": 1.81,
+        "stores": 97,
+        "promoMin": 1.42,
+        "cheapestEik": "131071587",
+        "cheapestChain": "Лидл България",
+        "cheapestStore": "133 - Пловдив/бул. Македония 97А"
+      },
+      {
+        "id": 52,
+        "avg": 1.97,
+        "max": 2.49,
+        "min": 1.7,
+        "median": 1.89,
+        "stores": 36,
+        "promoMin": 1.37,
+        "cheapestEik": "206255903",
+        "cheapestChain": "ФАНТАСТИКО",
+        "cheapestStore": "Ф50 - Палата № 10, ул. Цар Борис III Обединител № 37"
+      },
+      {
+        "id": 61,
+        "avg": 1.48,
+        "max": 3.19,
+        "min": 0.49,
+        "median": 0.81,
+        "stores": 34,
+        "promoMin": 0.39,
+        "cheapestEik": "131071587",
+        "cheapestChain": "Лидл България",
+        "cheapestStore": "133 - Пловдив/бул. Македония 97А"
+      }
+    ]
+  },
+  "tender": {
+    "unp": "00044-2025-0125",
+    "estimatedValueEur": 490840205.95,
+    "lots": 6,
+    "sourceUrl": "https://storage.eop.bg/open-data-2025-09-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%BF%D0%BE%D1%80%D1%8A%D1%87%D0%BA%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.09.2025.json"
+  }
+}

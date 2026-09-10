@@ -1,0 +1,2394 @@
+{
+  "checked": "2026-09-10",
+  "preview": "https://elections-bg--chat-launch-gu0gkopz.web.app",
+  "examples": [
+    {
+      "id": "prices",
+      "lang": "bg",
+      "prompt": "Какви са цените в Пловдив?",
+      "href": "/chat?q=%D0%9A%D0%B0%D0%BA%D0%B2%D0%B8+%D1%81%D0%B0+%D1%86%D0%B5%D0%BD%D0%B8%D1%82%D0%B5+%D0%B2+%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Какви са цените в Пловдив?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Цени — Пловдив",
+          "env": {
+            "tool": "settlementPrices",
+            "domain": "indicators",
+            "kind": "table",
+            "title": "Цени — Пловдив",
+            "subtitle": "Кошницата −2.5% от въвеждането на еврото · Мониторингов индекс на КЗП, не официален ИПЦ.",
+            "columns": [
+              {
+                "key": "product",
+                "label": "Продукт"
+              },
+              {
+                "key": "min",
+                "label": "Най-ниска",
+                "numeric": true
+              },
+              {
+                "key": "avg",
+                "label": "Средна",
+                "numeric": true
+              },
+              {
+                "key": "chain",
+                "label": "Най-евтино в"
+              }
+            ],
+            "rows": [
+              {
+                "product": "Бял хляб от 500 г до 1 кг",
+                "min": "0,76 €",
+                "avg": "1,26 €",
+                "chain": "Лидл България"
+              },
+              {
+                "product": "Прясно мляко от 2% до 3,6% 1 л",
+                "min": "1,00 €",
+                "avg": "1,69 €",
+                "chain": "БЕРЬОЗКА"
+              },
+              {
+                "product": "Яйца размер М (подово отглеждане) от 6 бр. до 10 бр.",
+                "min": "1,68 €",
+                "avg": "2,39 €",
+                "chain": "Кауфланд България"
+              },
+              {
+                "product": "Слънчогледово олио 1 л",
+                "min": "1,22 €",
+                "avg": "2,12 €",
+                "chain": "Лидл България"
+              },
+              {
+                "product": "Сирене от краве мляко, пакетирано от 200 г до 1 кг",
+                "min": "2,29 €",
+                "avg": "5,99 €",
+                "chain": "Лидл България"
+              },
+              {
+                "product": "Пилешко филе, охладено 1 кг",
+                "min": "4,70 €",
+                "avg": "7,84 €",
+                "chain": "KAM"
+              },
+              {
+                "product": "Банани 1 кг",
+                "min": "1,70 €",
+                "avg": "1,97 €",
+                "chain": "ФАНТАСТИКО"
+              },
+              {
+                "product": "Картофи, насипни 1 кг",
+                "min": "0,49 €",
+                "avg": "1,48 €",
+                "chain": "Лидл България"
+              }
+            ],
+            "viz": "none",
+            "geo": {
+              "level": "settlement",
+              "mode": "locator",
+              "source": "/maps/municipalities/PDV22.json",
+              "joinKey": "ekatte",
+              "metricLabel": "Пловдив",
+              "areas": [
+                {
+                  "code": "56784",
+                  "label": "Пловдив"
+                }
+              ],
+              "focus": [
+                "56784"
+              ]
+            },
+            "facts": {
+              "place": "Пловдив",
+              "basket_change_since_euro": "−2.5%",
+              "as_of": "2026-09-08",
+              "note": "Мониторингов индекс на КЗП, не официален ИПЦ.",
+              "cheapest_rank": "16-о най-евтино от 111 места",
+              "core_basket_cost": "13,79 €",
+              "biggest_riser": "Риба охладена (скумрия, пъстърва, лаврак, ципура) 1 кг: +39.4%",
+              "biggest_faller": "Краставици, насипни 1 кг: −40.1%",
+              "on_promo": "Млечен шоколад от 80 г до 100 г (0,43 €), Сухи колбаси (Шпек, Бургас, Деликатесен) от 250 г до 1 кг (0,89 €), Краве масло от 125 г до 250 г (0,67 €)"
+            },
+            "provenance": [
+              "price_payloads (PG)",
+              "kolkostruva.bg (КЗП)"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 111.19999998807907,
+            "narratedBy": "rules"
+          },
+          "tool": "settlementPrices",
+          "args": {
+            "place": "какви са пловдив"
+          },
+          "lang": "bg"
+        }
+      ],
+      "links": [
+        {
+          "text": "Обсъди в групата",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "+",
+          "href": "#"
+        },
+        {
+          "text": "−",
+          "href": "#"
+        },
+        {
+          "text": "OSM",
+          "href": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "text": "CARTO",
+          "href": "https://carto.com/attributions"
+        },
+        {
+          "text": "Показатели ↗",
+          "href": "https://electionsbg.com/indicators"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:21.416Z",
+      "mode": "No AI",
+      "screenshot": "originals/prices-bg.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Observation 2026-09-08, not capture date. Product rows cover variable package ranges; monitoring basket is not official CPI. Date is in envelope facts, not the overview table subtitle.",
+      "screenshotPublication": "excluded: map-provider API KEY REQUIRED watermark; do not publish this screenshot"
+    },
+    {
+      "id": "budget",
+      "lang": "bg",
+      "prompt": "Какъв е държавният бюджет — план и изпълнение?",
+      "href": "/chat?q=%D0%9A%D0%B0%D0%BA%D1%8A%D0%B2+%D0%B5+%D0%B4%D1%8A%D1%80%D0%B6%D0%B0%D0%B2%D0%BD%D0%B8%D1%8F%D1%82+%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82+%E2%80%94+%D0%BF%D0%BB%D0%B0%D0%BD+%D0%B8+%D0%B8%D0%B7%D0%BF%D1%8A%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Какъв е държавният бюджет — план и изпълнение?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Държавен бюджет 2026: отчетени приходи 15,3 млрд €, разходи 16,5 млрд € при годишен план 34,5 млрд €, салдо -1,9 млрд €.",
+          "env": {
+            "tool": "budgetOverview",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "Държавен бюджет — план и изпълнение 2026",
+            "subtitle": "Касово изпълнение на държавния бюджет към 2026-07-31. Непълна година. Не обхваща целия сектор „Държавно управление“ (COFOG).",
+            "columns": [
+              {
+                "key": "metric",
+                "label": "Показател"
+              },
+              {
+                "key": "planned",
+                "label": "План за годината",
+                "numeric": true
+              },
+              {
+                "key": "value",
+                "label": "Изпълнение",
+                "numeric": true
+              }
+            ],
+            "rows": [
+              {
+                "metric": "Приходи",
+                "value": "15,3 млрд €",
+                "planned": "28,5 млрд €"
+              },
+              {
+                "metric": "Разходи",
+                "value": "16,5 млрд €",
+                "planned": "34,5 млрд €"
+              },
+              {
+                "metric": "Салдо",
+                "value": "-1,9 млрд €",
+                "planned": "-7,3 млрд €"
+              },
+              {
+                "metric": "Принос към бюджета на ЕС",
+                "value": "661,7 млн €",
+                "planned": "1,3 млрд €"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "year": 2026,
+              "coverage": "Касово изпълнение на държавния бюджет към 2026-07-31. Непълна година. Не обхваща целия сектор „Държавно управление“ (COFOG).",
+              "planned_expenditure": "34,5 млрд €",
+              "revenue": "15,3 млрд €",
+              "expenditure": "16,5 млрд €",
+              "eu_contribution": "661,7 млн €",
+              "balance": "-1,9 млрд €",
+              "reconciliation": "салдо = приходи − разходи − принос към бюджета на ЕС",
+              "basis": "изпълнение на държавния бюджет"
+            },
+            "provenance": [
+              "budget/index.json"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 34.69999998807907,
+            "narratedBy": "rules"
+          },
+          "tool": "budgetOverview",
+          "args": {},
+          "lang": "bg"
+        }
+      ],
+      "links": [
+        {
+          "text": "Обсъди в групата",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "Държавен бюджет ↗",
+          "href": "https://electionsbg.com/budget"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:22.775Z",
+      "mode": "No AI",
+      "screenshot": "originals/budget-bg.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately"
+    },
+    {
+      "id": "seats",
+      "lang": "bg",
+      "prompt": "Колко места има всяка партия в парламента?",
+      "href": "/chat?q=%D0%9A%D0%BE%D0%BB%D0%BA%D0%BE+%D0%BC%D0%B5%D1%81%D1%82%D0%B0+%D0%B8%D0%BC%D0%B0+%D0%B2%D1%81%D1%8F%D0%BA%D0%B0+%D0%BF%D0%B0%D1%80%D1%82%D0%B8%D1%8F+%D0%B2+%D0%BF%D0%B0%D1%80%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Колко места има всяка партия в парламента?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "19 апр 2026: 240 места между 5 партии; най-голяма ПрБ (131), ПрБ има самостоятелно мнозинство (мнозинство 121).",
+          "env": {
+            "tool": "parliamentSeats",
+            "kind": "table",
+            "title": "Места в парламента — 19 апр 2026",
+            "subtitle": "240 мандата · мнозинство 121",
+            "columns": [
+              {
+                "key": "party",
+                "label": "Партия"
+              },
+              {
+                "key": "seats",
+                "label": "Места",
+                "numeric": true,
+                "format": "int"
+              },
+              {
+                "key": "pct",
+                "label": "%",
+                "numeric": true,
+                "format": "pct"
+              }
+            ],
+            "rows": [
+              {
+                "party": "ПрБ",
+                "seats": 131,
+                "pct": 44.59,
+                "color": "#034a3f"
+              },
+              {
+                "party": "ГЕРБ-СДС",
+                "seats": 39,
+                "pct": 13.39,
+                "color": "rgb(12, 69, 135)"
+              },
+              {
+                "party": "ПП-ДБ",
+                "seats": 37,
+                "pct": 12.62,
+                "color": "rgb(66, 0, 255)"
+              },
+              {
+                "party": "ДПС",
+                "seats": 21,
+                "pct": 7.12,
+                "color": "rgb(33, 125, 223)"
+              },
+              {
+                "party": "Възраждане",
+                "seats": 12,
+                "pct": 4.26,
+                "color": "rgb(51, 51, 51)"
+              }
+            ],
+            "viz": "hemicycle",
+            "facts": {
+              "election": "19 апр 2026",
+              "total_seats": 240,
+              "majority": 121,
+              "parties_seated": 5,
+              "leader": "ПрБ (131)",
+              "majority_status": "ПрБ има самостоятелно мнозинство",
+              "ПрБ": "131 места (44,59%)",
+              "ГЕРБ-СДС": "39 места (13,39%)",
+              "ПП-ДБ": "37 места (12,62%)",
+              "ДПС": "21 места (7,12%)",
+              "Възраждане": "12 места (4,26%)"
+            },
+            "provenance": [
+              "2026_04_19/national_summary.json"
+            ],
+            "domain": "elections"
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 81.10000002384186,
+            "narratedBy": "rules"
+          },
+          "tool": "parliamentSeats",
+          "args": {
+            "election": "2026_04_19"
+          },
+          "lang": "bg"
+        }
+      ],
+      "links": [
+        {
+          "text": "Обсъди в групата",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "Народно събрание ↗",
+          "href": "https://electionsbg.com/parliament"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:24.173Z",
+      "mode": "No AI",
+      "screenshot": "originals/seats-bg.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Election allocation dated 2026-04-19, not a live faction-membership register."
+    },
+    {
+      "id": "tenders",
+      "lang": "bg",
+      "prompt": "Покажи ми всички търгове за пътни предпазни съоръжения през 2025",
+      "href": "/chat?q=%D0%9F%D0%BE%D0%BA%D0%B0%D0%B6%D0%B8+%D0%BC%D0%B8+%D0%B2%D1%81%D0%B8%D1%87%D0%BA%D0%B8+%D1%82%D1%8A%D1%80%D0%B3%D0%BE%D0%B2%D0%B5+%D0%B7%D0%B0+%D0%BF%D1%8A%D1%82%D0%BD%D0%B8+%D0%BF%D1%80%D0%B5%D0%B4%D0%BF%D0%B0%D0%B7%D0%BD%D0%B8+%D1%81%D1%8A%D0%BE%D1%80%D1%8A%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F+%D0%BF%D1%80%D0%B5%D0%B7+2025",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Покажи ми всички търгове за пътни предпазни съоръжения през 2025"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Намерих 2 обявени поръчки за „Пътни предпазни (ограничителни) съоръжения / мантинели“ през 2025, обща прогнозна стойност 491,1 млн €; най-голямата е 490,8 млн €. Прогнозни (обявени) стойности — не са похарчени средства.",
+          "env": {
+            "tool": "openTenders",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "Обявени поръчки — Пътни предпазни (ограничителни) съоръжения / мантинели (2025)",
+            "subtitle": "Прогнозни (обявени) стойности — не са похарчени средства.",
+            "columns": [
+              {
+                "key": "buyer",
+                "label": "Възложител"
+              },
+              {
+                "key": "subject",
+                "label": "Предмет"
+              },
+              {
+                "key": "estimate",
+                "label": "Прогнозна ст.",
+                "numeric": true
+              },
+              {
+                "key": "lots",
+                "label": "Обос. позиции",
+                "numeric": true
+              },
+              {
+                "key": "status",
+                "label": "Статус"
+              }
+            ],
+            "rows": [
+              {
+                "buyer": "Агенция \"Пътна инфраструктура\"",
+                "subject": "Изграждане, ремонт и възстановяване на ограничителни системи",
+                "estimate": "490,8 млн €",
+                "lots": 6,
+                "status": "обявена"
+              },
+              {
+                "buyer": "Община Шумен",
+                "subject": "Изпълнение на пътна маркировка, сигнализация с пътни знаци и",
+                "estimate": "255,6 хил €",
+                "lots": 0,
+                "status": "обявена"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "scope": "Пътни предпазни (ограничителни) съоръжения / мантинели",
+              "year": 2025,
+              "matches": 2,
+              "total_estimated": "491,1 млн €",
+              "cancelled": 0,
+              "biggest": "Изграждане, ремонт и възстановяване на ограничителни системи",
+              "biggest_estimate": "490,8 млн €",
+              "value_type": "прогнозна (forecast)",
+              "link_topic": "guardrails"
+            },
+            "provenance": [
+              "db:tender-corpus-search"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 34.30000001192093,
+            "narratedBy": "rules"
+          },
+          "tool": "openTenders",
+          "args": {
+            "topic": "guardrails",
+            "year": "2025"
+          },
+          "lang": "bg"
+        }
+      ],
+      "links": [
+        {
+          "text": "Обсъди в групата",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "Обявени поръчки ↗",
+          "href": "https://electionsbg.com/procurement/tenders?topic=guardrails&year=2025"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:25.492Z",
+      "mode": "No AI",
+      "screenshot": "originals/tenders-bg.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Corpus snapshot; estimated announced value, not payments. No award in the returned detail does not prove no contract exists elsewhere."
+    },
+    {
+      "id": "followup",
+      "lang": "bg",
+      "prompt": "Покажи поръчката 00044-2025-0125",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Покажи ми всички търгове за пътни предпазни съоръжения през 2025"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Намерих 2 обявени поръчки за „Пътни предпазни (ограничителни) съоръжения / мантинели“ през 2025, обща прогнозна стойност 491,1 млн €; най-голямата е 490,8 млн €. Прогнозни (обявени) стойности — не са похарчени средства.",
+          "env": {
+            "tool": "openTenders",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "Обявени поръчки — Пътни предпазни (ограничителни) съоръжения / мантинели (2025)",
+            "subtitle": "Прогнозни (обявени) стойности — не са похарчени средства.",
+            "columns": [
+              {
+                "key": "buyer",
+                "label": "Възложител"
+              },
+              {
+                "key": "subject",
+                "label": "Предмет"
+              },
+              {
+                "key": "estimate",
+                "label": "Прогнозна ст.",
+                "numeric": true
+              },
+              {
+                "key": "lots",
+                "label": "Обос. позиции",
+                "numeric": true
+              },
+              {
+                "key": "status",
+                "label": "Статус"
+              }
+            ],
+            "rows": [
+              {
+                "buyer": "Агенция \"Пътна инфраструктура\"",
+                "subject": "Изграждане, ремонт и възстановяване на ограничителни системи",
+                "estimate": "490,8 млн €",
+                "lots": 6,
+                "status": "обявена"
+              },
+              {
+                "buyer": "Община Шумен",
+                "subject": "Изпълнение на пътна маркировка, сигнализация с пътни знаци и",
+                "estimate": "255,6 хил €",
+                "lots": 0,
+                "status": "обявена"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "scope": "Пътни предпазни (ограничителни) съоръжения / мантинели",
+              "year": 2025,
+              "matches": 2,
+              "total_estimated": "491,1 млн €",
+              "cancelled": 0,
+              "biggest": "Изграждане, ремонт и възстановяване на ограничителни системи",
+              "biggest_estimate": "490,8 млн €",
+              "value_type": "прогнозна (forecast)",
+              "link_topic": "guardrails"
+            },
+            "provenance": [
+              "db:tender-corpus-search"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 34.30000001192093,
+            "narratedBy": "rules"
+          },
+          "tool": "openTenders",
+          "args": {
+            "topic": "guardrails",
+            "year": "2025"
+          },
+          "lang": "bg"
+        },
+        {
+          "id": 3,
+          "role": "user",
+          "text": "Покажи поръчката 00044-2025-0125"
+        },
+        {
+          "id": 4,
+          "role": "assistant",
+          "text": "Поръчка 00044-2025-0125 на Агенция \"Пътна инфраструктура\": прогнозна стойност 490,8 млн €, 6 обособени позиции, статус „обявена“ (обявена на 2025-09-23). Прогнозна (обявена) стойност — не е похарчена.",
+          "env": {
+            "tool": "tenderLookup",
+            "domain": "fiscal",
+            "kind": "scalar",
+            "title": "Изграждане, ремонт и възстановяване на ограничителни системи",
+            "subtitle": "Прогнозни (обявени) стойности — не са похарчени средства.",
+            "viz": "none",
+            "facts": {
+              "unp": "00044-2025-0125",
+              "buyer": "Агенция \"Пътна инфраструктура\"",
+              "estimated_value": "490,8 млн €",
+              "lots": 6,
+              "status": "обявена",
+              "announced": "2025-09-23",
+              "procedure_id": "ocds-e82gsb-518491",
+              "value_type": "прогнозна (forecast)"
+            },
+            "provenance": [
+              "db:tender"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 29.700000017881393,
+            "narratedBy": "rules"
+          },
+          "tool": "tenderLookup",
+          "args": {
+            "unp": "00044-2025-0125"
+          },
+          "lang": "bg"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:26.129Z",
+      "mode": "No AI",
+      "screenshot": "originals/followup-bg.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Corpus snapshot; estimated announced value, not payments. No award in the returned detail does not prove no contract exists elsewhere."
+    },
+    {
+      "id": "section",
+      "lang": "bg",
+      "prompt": "Как е гласувала секция 050900092 през годините?",
+      "href": "/chat?q=%D0%9A%D0%B0%D0%BA+%D0%B5+%D0%B3%D0%BB%D0%B0%D1%81%D1%83%D0%B2%D0%B0%D0%BB%D0%B0+%D1%81%D0%B5%D0%BA%D1%86%D0%B8%D1%8F+050900092+%D0%BF%D1%80%D0%B5%D0%B7+%D0%B3%D0%BE%D0%B4%D0%B8%D0%BD%D0%B8%D1%82%D0%B5%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Как е гласувала секция 050900092 през годините?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Секция 050900092 (с.Иново) през 12 избора: най-често води ГЕРБ-СДС (7/12); последно ПрБ (55,3%, апр 2026).",
+          "env": {
+            "tool": "sectionHistory",
+            "domain": "elections",
+            "kind": "series",
+            "title": "Секция 050900092 — с.Иново през годините",
+            "subtitle": "Дял на гласовете по партия през 12 избора",
+            "categories": [
+              "юли 2009",
+              "май 2013",
+              "окт 2014",
+              "мар 2017",
+              "апр 2021",
+              "юли 2021",
+              "ное 2021",
+              "окт 2022",
+              "апр 2023",
+              "юни 2024",
+              "окт 2024",
+              "апр 2026"
+            ],
+            "series": [
+              {
+                "key": "s0",
+                "label": "ПрБ",
+                "color": "#034a3f",
+                "points": [
+                  {
+                    "x": "юли 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "май 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "мар 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "юли 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "ное 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2022",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2023",
+                    "y": null
+                  },
+                  {
+                    "x": "юни 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2026",
+                    "y": 55.3
+                  }
+                ]
+              },
+              {
+                "key": "s1",
+                "label": "БСП-ОЛ",
+                "color": "rgb(237, 28, 36)",
+                "points": [
+                  {
+                    "x": "юли 2009",
+                    "y": 29.5
+                  },
+                  {
+                    "x": "май 2013",
+                    "y": 30.1
+                  },
+                  {
+                    "x": "окт 2014",
+                    "y": 21.5
+                  },
+                  {
+                    "x": "мар 2017",
+                    "y": 48.2
+                  },
+                  {
+                    "x": "апр 2021",
+                    "y": 27.6
+                  },
+                  {
+                    "x": "юли 2021",
+                    "y": 26.5
+                  },
+                  {
+                    "x": "ное 2021",
+                    "y": 15.6
+                  },
+                  {
+                    "x": "окт 2022",
+                    "y": 14.1
+                  },
+                  {
+                    "x": "апр 2023",
+                    "y": 14.1
+                  },
+                  {
+                    "x": "юни 2024",
+                    "y": 8.8
+                  },
+                  {
+                    "x": "окт 2024",
+                    "y": 8.8
+                  },
+                  {
+                    "x": "апр 2026",
+                    "y": 1.4
+                  }
+                ]
+              },
+              {
+                "key": "s2",
+                "label": "ГЕРБ-СДС",
+                "color": "rgb(12, 69, 135)",
+                "points": [
+                  {
+                    "x": "юли 2009",
+                    "y": 33.4
+                  },
+                  {
+                    "x": "май 2013",
+                    "y": 29.8
+                  },
+                  {
+                    "x": "окт 2014",
+                    "y": 24.7
+                  },
+                  {
+                    "x": "мар 2017",
+                    "y": 26.1
+                  },
+                  {
+                    "x": "апр 2021",
+                    "y": 27.9
+                  },
+                  {
+                    "x": "юли 2021",
+                    "y": 25.6
+                  },
+                  {
+                    "x": "ное 2021",
+                    "y": 22.2
+                  },
+                  {
+                    "x": "окт 2022",
+                    "y": 29.3
+                  },
+                  {
+                    "x": "апр 2023",
+                    "y": 32.4
+                  },
+                  {
+                    "x": "юни 2024",
+                    "y": 25.3
+                  },
+                  {
+                    "x": "окт 2024",
+                    "y": 24.1
+                  },
+                  {
+                    "x": "апр 2026",
+                    "y": 12
+                  }
+                ]
+              },
+              {
+                "key": "s3",
+                "label": "ПП",
+                "color": "rgb(66, 0, 255)",
+                "points": [
+                  {
+                    "x": "юли 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "май 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "мар 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "юли 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "ное 2021",
+                    "y": 31.1
+                  },
+                  {
+                    "x": "окт 2022",
+                    "y": 23
+                  },
+                  {
+                    "x": "апр 2023",
+                    "y": null
+                  },
+                  {
+                    "x": "юни 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2026",
+                    "y": null
+                  }
+                ]
+              },
+              {
+                "key": "s4",
+                "label": "ИТН",
+                "color": "rgb(75, 185, 222)",
+                "points": [
+                  {
+                    "x": "юли 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "май 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "мар 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2021",
+                    "y": 10.4
+                  },
+                  {
+                    "x": "юли 2021",
+                    "y": 28.6
+                  },
+                  {
+                    "x": "ное 2021",
+                    "y": 10.6
+                  },
+                  {
+                    "x": "окт 2022",
+                    "y": 1.6
+                  },
+                  {
+                    "x": "апр 2023",
+                    "y": 2.3
+                  },
+                  {
+                    "x": "юни 2024",
+                    "y": 5.2
+                  },
+                  {
+                    "x": "окт 2024",
+                    "y": 3.2
+                  },
+                  {
+                    "x": "апр 2026",
+                    "y": 1.4
+                  }
+                ]
+              },
+              {
+                "key": "s5",
+                "label": "ПП-ДБ",
+                "color": "rgb(66, 0, 255)",
+                "points": [
+                  {
+                    "x": "юли 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "май 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "мар 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "юли 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "ное 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "окт 2022",
+                    "y": null
+                  },
+                  {
+                    "x": "апр 2023",
+                    "y": 23.9
+                  },
+                  {
+                    "x": "юни 2024",
+                    "y": 14.9
+                  },
+                  {
+                    "x": "окт 2024",
+                    "y": 18.1
+                  },
+                  {
+                    "x": "апр 2026",
+                    "y": 11.3
+                  }
+                ]
+              }
+            ],
+            "viz": "line",
+            "facts": {
+              "section": "050900092",
+              "settlement": "с.Иново",
+              "region": "Видин",
+              "elections_count": 12,
+              "parties_shown": 6,
+              "most_frequent_winner": "ГЕРБ-СДС (7/12)",
+              "latest": "ПрБ (55,3%, апр 2026)",
+              "ПрБ": "55.3%",
+              "БСП-ОЛ": "29.5% → 1.4%",
+              "ГЕРБ-СДС": "33.4% → 12%",
+              "ПП": "31.1% → 23%",
+              "ИТН": "10.4% → 1.4%",
+              "ПП-ДБ": "23.9% → 11.3%"
+            },
+            "provenance": [
+              "canonical_parties.json",
+              "2009_07_05/sections/by-oblast/05.json",
+              "2009_07_05/national_summary.json",
+              "2013_05_12/sections/by-oblast/05.json",
+              "2013_05_12/national_summary.json",
+              "2014_10_05/sections/by-oblast/05.json",
+              "2014_10_05/national_summary.json",
+              "2017_03_26/sections/by-oblast/05.json",
+              "2017_03_26/national_summary.json",
+              "2021_04_04/sections/by-oblast/05.json",
+              "2021_04_04/national_summary.json",
+              "2021_07_11/sections/by-oblast/05.json",
+              "2021_07_11/national_summary.json",
+              "2021_11_14/sections/by-oblast/05.json",
+              "2021_11_14/national_summary.json",
+              "2022_10_02/sections/by-oblast/05.json",
+              "2022_10_02/national_summary.json",
+              "2023_04_02/sections/by-oblast/05.json",
+              "2023_04_02/national_summary.json",
+              "2024_06_09/sections/by-oblast/05.json",
+              "2024_06_09/national_summary.json",
+              "2024_10_27/sections/by-oblast/05.json",
+              "2024_10_27/national_summary.json",
+              "2026_04_19/sections/by-oblast/05.json",
+              "2026_04_19/national_summary.json"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 686.7999999821186,
+            "narratedBy": "rules"
+          },
+          "tool": "sectionHistory",
+          "args": {
+            "section": "050900092"
+          },
+          "lang": "bg"
+        }
+      ],
+      "links": [
+        {
+          "text": "Обсъди в групата",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "Секция — пълни данни ↗",
+          "href": "https://electionsbg.com/section/050900092"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:28.102Z",
+      "mode": "No AI",
+      "screenshot": "originals/section-bg.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Section-code history does not prove the same residents voted or that boundaries/location remained unchanged. Party/coalition series can have gaps."
+    },
+    {
+      "id": "gap",
+      "lang": "bg",
+      "prompt": "Какъв е държавният бюджет през 2027?",
+      "href": "/chat?q=%D0%9A%D0%B0%D0%BA%D1%8A%D0%B2+%D0%B5+%D0%B4%D1%8A%D1%80%D0%B6%D0%B0%D0%B2%D0%BD%D0%B8%D1%8F%D1%82+%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82+%D0%BF%D1%80%D0%B5%D0%B7+2027%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Какъв е държавният бюджет през 2027?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Държавен бюджет 2026: отчетени приходи 15,3 млрд €, разходи 16,5 млрд € при годишен план 34,5 млрд €, салдо -1,9 млрд €.",
+          "env": {
+            "tool": "budgetOverview",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "Държавен бюджет — план и изпълнение 2026",
+            "subtitle": "Няма данни за 2027; показана е 2026. Касово изпълнение на държавния бюджет към 2026-07-31. Непълна година. Не обхваща целия сектор „Държавно управление“ (COFOG).",
+            "columns": [
+              {
+                "key": "metric",
+                "label": "Показател"
+              },
+              {
+                "key": "planned",
+                "label": "План за годината",
+                "numeric": true
+              },
+              {
+                "key": "value",
+                "label": "Изпълнение",
+                "numeric": true
+              }
+            ],
+            "rows": [
+              {
+                "metric": "Приходи",
+                "value": "15,3 млрд €",
+                "planned": "28,5 млрд €"
+              },
+              {
+                "metric": "Разходи",
+                "value": "16,5 млрд €",
+                "planned": "34,5 млрд €"
+              },
+              {
+                "metric": "Салдо",
+                "value": "-1,9 млрд €",
+                "planned": "-7,3 млрд €"
+              },
+              {
+                "metric": "Принос към бюджета на ЕС",
+                "value": "661,7 млн €",
+                "planned": "1,3 млрд €"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "year": 2026,
+              "coverage": "Касово изпълнение на държавния бюджет към 2026-07-31. Непълна година. Не обхваща целия сектор „Държавно управление“ (COFOG).",
+              "planned_expenditure": "34,5 млрд €",
+              "revenue": "15,3 млрд €",
+              "expenditure": "16,5 млрд €",
+              "eu_contribution": "661,7 млн €",
+              "balance": "-1,9 млрд €",
+              "reconciliation": "салдо = приходи − разходи − принос към бюджета на ЕС",
+              "basis": "изпълнение на държавния бюджет"
+            },
+            "provenance": [
+              "budget/index.json"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 38,
+            "narratedBy": "rules"
+          },
+          "tool": "budgetOverview",
+          "args": {
+            "year": 2027
+          },
+          "lang": "bg"
+        }
+      ],
+      "links": [
+        {
+          "text": "Обсъди в групата",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "Държавен бюджет ↗",
+          "href": "https://electionsbg.com/budget"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:29.453Z",
+      "mode": "No AI",
+      "screenshot": "originals/gap-bg.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "No data for 2027. The subtitle explicitly says 2026 is shown; the leading narration does not repeat that warning."
+    },
+    {
+      "id": "prices",
+      "lang": "en",
+      "prompt": "What are the prices in Plovdiv?",
+      "href": "/en/chat?q=What+are+the+prices+in+Plovdiv%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "What are the prices in Plovdiv?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Prices — Plovdiv",
+          "env": {
+            "tool": "settlementPrices",
+            "domain": "indicators",
+            "kind": "table",
+            "title": "Prices — Plovdiv",
+            "subtitle": "Basket −2.5% since the euro · CPC monitoring basket index, not official CPI.",
+            "columns": [
+              {
+                "key": "product",
+                "label": "Product"
+              },
+              {
+                "key": "min",
+                "label": "Lowest",
+                "numeric": true
+              },
+              {
+                "key": "avg",
+                "label": "Avg",
+                "numeric": true
+              },
+              {
+                "key": "chain",
+                "label": "Cheapest at"
+              }
+            ],
+            "rows": [
+              {
+                "product": "White bread 500g–1kg",
+                "min": "€0.76",
+                "avg": "€1.26",
+                "chain": "Лидл България"
+              },
+              {
+                "product": "Fresh milk 2–3.6% 1L",
+                "min": "€1.00",
+                "avg": "€1.69",
+                "chain": "БЕРЬОЗКА"
+              },
+              {
+                "product": "Eggs size M (6–10)",
+                "min": "€1.68",
+                "avg": "€2.39",
+                "chain": "Кауфланд България"
+              },
+              {
+                "product": "Sunflower oil 1L",
+                "min": "€1.22",
+                "avg": "€2.12",
+                "chain": "Лидл България"
+              },
+              {
+                "product": "Cow cheese, packaged",
+                "min": "€2.29",
+                "avg": "€5.99",
+                "chain": "Лидл България"
+              },
+              {
+                "product": "Chicken fillet 1kg",
+                "min": "€4.70",
+                "avg": "€7.84",
+                "chain": "KAM"
+              },
+              {
+                "product": "Bananas 1kg",
+                "min": "€1.70",
+                "avg": "€1.97",
+                "chain": "ФАНТАСТИКО"
+              },
+              {
+                "product": "Potatoes, loose 1kg",
+                "min": "€0.49",
+                "avg": "€1.48",
+                "chain": "Лидл България"
+              }
+            ],
+            "viz": "none",
+            "geo": {
+              "level": "settlement",
+              "mode": "locator",
+              "source": "/maps/municipalities/PDV22.json",
+              "joinKey": "ekatte",
+              "metricLabel": "Plovdiv",
+              "areas": [
+                {
+                  "code": "56784",
+                  "label": "Plovdiv"
+                }
+              ],
+              "focus": [
+                "56784"
+              ]
+            },
+            "facts": {
+              "place": "Plovdiv",
+              "basket_change_since_euro": "−2.5%",
+              "as_of": "2026-09-08",
+              "note": "CPC monitoring basket index, not official CPI.",
+              "cheapest_rank": "#16 cheapest of 111",
+              "core_basket_cost": "€13.79",
+              "biggest_riser": "Chilled fish 1kg: +39.4%",
+              "biggest_faller": "Cucumbers, loose 1kg: −40.1%",
+              "on_promo": "Milk chocolate 80–100g (€0.43), Dry sausages 250g–1kg (€0.89), Butter 125–250g (€0.67)"
+            },
+            "provenance": [
+              "price_payloads (PG)",
+              "kolkostruva.bg (КЗП)"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 81.09999999403954,
+            "narratedBy": "rules"
+          },
+          "tool": "settlementPrices",
+          "args": {
+            "place": "are plovdiv"
+          },
+          "lang": "en"
+        }
+      ],
+      "links": [
+        {
+          "text": "Discuss in the group",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "+",
+          "href": "#"
+        },
+        {
+          "text": "−",
+          "href": "#"
+        },
+        {
+          "text": "OSM",
+          "href": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "text": "CARTO",
+          "href": "https://carto.com/attributions"
+        },
+        {
+          "text": "Indicators ↗",
+          "href": "https://electionsbg.com/indicators"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:33.048Z",
+      "mode": "No AI",
+      "screenshot": "originals/prices-en.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Observation 2026-09-08, not capture date. Product rows cover variable package ranges; monitoring basket is not official CPI. Date is in envelope facts, not the overview table subtitle.",
+      "screenshotPublication": "excluded: map-provider API KEY REQUIRED watermark; do not publish this screenshot"
+    },
+    {
+      "id": "budget",
+      "lang": "en",
+      "prompt": "What is the state budget — plan and actual spending?",
+      "href": "/en/chat?q=What+is+the+state+budget+%E2%80%94+plan+and+actual+spending%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "What is the state budget — plan and actual spending?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "State budget 2026: actual revenue €15.3bn, expenditure €16.5bn against an annual plan of €34.5bn, balance €-1.9bn.",
+          "env": {
+            "tool": "budgetOverview",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "State budget — 2026 plan and execution",
+            "subtitle": "State-budget cash execution as of 2026-07-31. Partial year. Does not cover the entire general-government sector (COFOG).",
+            "columns": [
+              {
+                "key": "metric",
+                "label": "Metric"
+              },
+              {
+                "key": "planned",
+                "label": "Annual plan",
+                "numeric": true
+              },
+              {
+                "key": "value",
+                "label": "Actual",
+                "numeric": true
+              }
+            ],
+            "rows": [
+              {
+                "metric": "Revenue",
+                "value": "€15.3bn",
+                "planned": "€28.5bn"
+              },
+              {
+                "metric": "Expenditure",
+                "value": "€16.5bn",
+                "planned": "€34.5bn"
+              },
+              {
+                "metric": "Balance",
+                "value": "€-1.9bn",
+                "planned": "€-7.3bn"
+              },
+              {
+                "metric": "Contribution to the EU budget",
+                "value": "€661.7m",
+                "planned": "€1.3bn"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "year": 2026,
+              "coverage": "State-budget cash execution as of 2026-07-31. Partial year. Does not cover the entire general-government sector (COFOG).",
+              "planned_expenditure": "€34.5bn",
+              "revenue": "€15.3bn",
+              "expenditure": "€16.5bn",
+              "eu_contribution": "€661.7m",
+              "balance": "€-1.9bn",
+              "reconciliation": "balance = revenue − expenditure − contribution to the EU budget",
+              "basis": "state-budget execution"
+            },
+            "provenance": [
+              "budget/index.json"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 78.80000001192093,
+            "narratedBy": "rules"
+          },
+          "tool": "budgetOverview",
+          "args": {},
+          "lang": "en"
+        }
+      ],
+      "links": [
+        {
+          "text": "Discuss in the group",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "State budget ↗",
+          "href": "https://electionsbg.com/budget"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:34.408Z",
+      "mode": "No AI",
+      "screenshot": "originals/budget-en.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately"
+    },
+    {
+      "id": "seats",
+      "lang": "en",
+      "prompt": "How many seats does each party hold in parliament?",
+      "href": "/en/chat?q=How+many+seats+does+each+party+hold+in+parliament%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "How many seats does each party hold in parliament?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Apr 19, 2026: 240 seats across 5 parties; largest ПрБ (131), ПрБ holds an outright majority (majority 121).",
+          "env": {
+            "tool": "parliamentSeats",
+            "kind": "table",
+            "title": "Seats in parliament — Apr 19, 2026",
+            "subtitle": "240 seats · majority 121",
+            "columns": [
+              {
+                "key": "party",
+                "label": "Party"
+              },
+              {
+                "key": "seats",
+                "label": "Seats",
+                "numeric": true,
+                "format": "int"
+              },
+              {
+                "key": "pct",
+                "label": "%",
+                "numeric": true,
+                "format": "pct"
+              }
+            ],
+            "rows": [
+              {
+                "party": "ПрБ",
+                "seats": 131,
+                "pct": 44.59,
+                "color": "#034a3f"
+              },
+              {
+                "party": "ГЕРБ-СДС",
+                "seats": 39,
+                "pct": 13.39,
+                "color": "rgb(12, 69, 135)"
+              },
+              {
+                "party": "ПП-ДБ",
+                "seats": 37,
+                "pct": 12.62,
+                "color": "rgb(66, 0, 255)"
+              },
+              {
+                "party": "ДПС",
+                "seats": 21,
+                "pct": 7.12,
+                "color": "rgb(33, 125, 223)"
+              },
+              {
+                "party": "Възраждане",
+                "seats": 12,
+                "pct": 4.26,
+                "color": "rgb(51, 51, 51)"
+              }
+            ],
+            "viz": "hemicycle",
+            "facts": {
+              "election": "Apr 19, 2026",
+              "total_seats": 240,
+              "majority": 121,
+              "parties_seated": 5,
+              "leader": "ПрБ (131)",
+              "majority_status": "ПрБ holds an outright majority",
+              "ПрБ": "131 seats (44.59%)",
+              "ГЕРБ-СДС": "39 seats (13.39%)",
+              "ПП-ДБ": "37 seats (12.62%)",
+              "ДПС": "21 seats (7.12%)",
+              "Възраждане": "12 seats (4.26%)"
+            },
+            "provenance": [
+              "2026_04_19/national_summary.json"
+            ],
+            "domain": "elections"
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 80.90000000596046,
+            "narratedBy": "rules"
+          },
+          "tool": "parliamentSeats",
+          "args": {
+            "election": "2026_04_19"
+          },
+          "lang": "en"
+        }
+      ],
+      "links": [
+        {
+          "text": "Discuss in the group",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "National Assembly ↗",
+          "href": "https://electionsbg.com/parliament"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:35.733Z",
+      "mode": "No AI",
+      "screenshot": "originals/seats-en.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Election allocation dated 2026-04-19, not a live faction-membership register."
+    },
+    {
+      "id": "tenders",
+      "lang": "en",
+      "prompt": "Show me all road-guardrail tenders in 2025",
+      "href": "/en/chat?q=Show+me+all+road-guardrail+tenders+in+2025",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Show me all road-guardrail tenders in 2025"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Found 2 announced tenders for “Road safety barriers / guardrails” in 2025, total estimated €491.1m; the largest is €490.8m. Estimated (announced) values — not money spent.",
+          "env": {
+            "tool": "openTenders",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "Tenders — Road safety barriers / guardrails (2025)",
+            "subtitle": "Estimated (announced) values — a forecast, not money spent.",
+            "columns": [
+              {
+                "key": "buyer",
+                "label": "Buyer"
+              },
+              {
+                "key": "subject",
+                "label": "Subject"
+              },
+              {
+                "key": "estimate",
+                "label": "Estimated",
+                "numeric": true
+              },
+              {
+                "key": "lots",
+                "label": "Lots",
+                "numeric": true
+              },
+              {
+                "key": "status",
+                "label": "Status"
+              }
+            ],
+            "rows": [
+              {
+                "buyer": "Агенция \"Пътна инфраструктура\"",
+                "subject": "Изграждане, ремонт и възстановяване на ограничителни системи",
+                "estimate": "€490.8m",
+                "lots": 6,
+                "status": "announced"
+              },
+              {
+                "buyer": "Община Шумен",
+                "subject": "Изпълнение на пътна маркировка, сигнализация с пътни знаци и",
+                "estimate": "€255.6k",
+                "lots": 0,
+                "status": "announced"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "scope": "Road safety barriers / guardrails",
+              "year": 2025,
+              "matches": 2,
+              "total_estimated": "€491.1m",
+              "cancelled": 0,
+              "biggest": "Изграждане, ремонт и възстановяване на ограничителни системи",
+              "biggest_estimate": "€490.8m",
+              "value_type": "estimated (forecast)",
+              "link_topic": "guardrails"
+            },
+            "provenance": [
+              "db:tender-corpus-search"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 40.30000001192093,
+            "narratedBy": "rules"
+          },
+          "tool": "openTenders",
+          "args": {
+            "topic": "guardrails",
+            "year": "2025"
+          },
+          "lang": "en"
+        }
+      ],
+      "links": [
+        {
+          "text": "Discuss in the group",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "Announced tenders ↗",
+          "href": "https://electionsbg.com/procurement/tenders?topic=guardrails&year=2025"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:37.073Z",
+      "mode": "No AI",
+      "screenshot": "originals/tenders-en.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Corpus snapshot; estimated announced value, not payments. No award in the returned detail does not prove no contract exists elsewhere."
+    },
+    {
+      "id": "followup",
+      "lang": "en",
+      "prompt": "Show tender 00044-2025-0125",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "Show me all road-guardrail tenders in 2025"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Found 2 announced tenders for “Road safety barriers / guardrails” in 2025, total estimated €491.1m; the largest is €490.8m. Estimated (announced) values — not money spent.",
+          "env": {
+            "tool": "openTenders",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "Tenders — Road safety barriers / guardrails (2025)",
+            "subtitle": "Estimated (announced) values — a forecast, not money spent.",
+            "columns": [
+              {
+                "key": "buyer",
+                "label": "Buyer"
+              },
+              {
+                "key": "subject",
+                "label": "Subject"
+              },
+              {
+                "key": "estimate",
+                "label": "Estimated",
+                "numeric": true
+              },
+              {
+                "key": "lots",
+                "label": "Lots",
+                "numeric": true
+              },
+              {
+                "key": "status",
+                "label": "Status"
+              }
+            ],
+            "rows": [
+              {
+                "buyer": "Агенция \"Пътна инфраструктура\"",
+                "subject": "Изграждане, ремонт и възстановяване на ограничителни системи",
+                "estimate": "€490.8m",
+                "lots": 6,
+                "status": "announced"
+              },
+              {
+                "buyer": "Община Шумен",
+                "subject": "Изпълнение на пътна маркировка, сигнализация с пътни знаци и",
+                "estimate": "€255.6k",
+                "lots": 0,
+                "status": "announced"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "scope": "Road safety barriers / guardrails",
+              "year": 2025,
+              "matches": 2,
+              "total_estimated": "€491.1m",
+              "cancelled": 0,
+              "biggest": "Изграждане, ремонт и възстановяване на ограничителни системи",
+              "biggest_estimate": "€490.8m",
+              "value_type": "estimated (forecast)",
+              "link_topic": "guardrails"
+            },
+            "provenance": [
+              "db:tender-corpus-search"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 40.30000001192093,
+            "narratedBy": "rules"
+          },
+          "tool": "openTenders",
+          "args": {
+            "topic": "guardrails",
+            "year": "2025"
+          },
+          "lang": "en"
+        },
+        {
+          "id": 3,
+          "role": "user",
+          "text": "Show tender 00044-2025-0125"
+        },
+        {
+          "id": 4,
+          "role": "assistant",
+          "text": "Tender 00044-2025-0125 by Агенция \"Пътна инфраструктура\": estimated €490.8m, 6 lots, status “announced” (announced 2025-09-23). Estimated (announced) value — not money spent.",
+          "env": {
+            "tool": "tenderLookup",
+            "domain": "fiscal",
+            "kind": "scalar",
+            "title": "Изграждане, ремонт и възстановяване на ограничителни системи",
+            "subtitle": "Estimated (announced) values — a forecast, not money spent.",
+            "viz": "none",
+            "facts": {
+              "unp": "00044-2025-0125",
+              "buyer": "Агенция \"Пътна инфраструктура\"",
+              "estimated_value": "€490.8m",
+              "lots": 6,
+              "status": "announced",
+              "announced": "2025-09-23",
+              "procedure_id": "ocds-e82gsb-518491",
+              "value_type": "estimated (forecast)"
+            },
+            "provenance": [
+              "db:tender"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 37.19999998807907,
+            "narratedBy": "rules"
+          },
+          "tool": "tenderLookup",
+          "args": {
+            "unp": "00044-2025-0125"
+          },
+          "lang": "en"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:37.737Z",
+      "mode": "No AI",
+      "screenshot": "originals/followup-en.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Corpus snapshot; estimated announced value, not payments. No award in the returned detail does not prove no contract exists elsewhere."
+    },
+    {
+      "id": "section",
+      "lang": "en",
+      "prompt": "How has section 050900092 voted over the years?",
+      "href": "/en/chat?q=How+has+section+050900092+voted+over+the+years%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "How has section 050900092 voted over the years?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "Section 050900092 (с.Иново) across 12 elections: most often led by GERB-SDS (7/12); latest PB (55.3%, Apr 2026).",
+          "env": {
+            "tool": "sectionHistory",
+            "domain": "elections",
+            "kind": "series",
+            "title": "Section 050900092 — с.Иново over time",
+            "subtitle": "Vote share per party across 12 elections",
+            "categories": [
+              "Jul 2009",
+              "May 2013",
+              "Oct 2014",
+              "Mar 2017",
+              "Apr 2021",
+              "Jul 2021",
+              "Nov 2021",
+              "Oct 2022",
+              "Apr 2023",
+              "Jun 2024",
+              "Oct 2024",
+              "Apr 2026"
+            ],
+            "series": [
+              {
+                "key": "s0",
+                "label": "PB",
+                "color": "#034a3f",
+                "points": [
+                  {
+                    "x": "Jul 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "May 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "Mar 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Jul 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Nov 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2022",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2023",
+                    "y": null
+                  },
+                  {
+                    "x": "Jun 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2026",
+                    "y": 55.3
+                  }
+                ]
+              },
+              {
+                "key": "s1",
+                "label": "BSP-UL",
+                "color": "rgb(237, 28, 36)",
+                "points": [
+                  {
+                    "x": "Jul 2009",
+                    "y": 29.5
+                  },
+                  {
+                    "x": "May 2013",
+                    "y": 30.1
+                  },
+                  {
+                    "x": "Oct 2014",
+                    "y": 21.5
+                  },
+                  {
+                    "x": "Mar 2017",
+                    "y": 48.2
+                  },
+                  {
+                    "x": "Apr 2021",
+                    "y": 27.6
+                  },
+                  {
+                    "x": "Jul 2021",
+                    "y": 26.5
+                  },
+                  {
+                    "x": "Nov 2021",
+                    "y": 15.6
+                  },
+                  {
+                    "x": "Oct 2022",
+                    "y": 14.1
+                  },
+                  {
+                    "x": "Apr 2023",
+                    "y": 14.1
+                  },
+                  {
+                    "x": "Jun 2024",
+                    "y": 8.8
+                  },
+                  {
+                    "x": "Oct 2024",
+                    "y": 8.8
+                  },
+                  {
+                    "x": "Apr 2026",
+                    "y": 1.4
+                  }
+                ]
+              },
+              {
+                "key": "s2",
+                "label": "GERB-SDS",
+                "color": "rgb(12, 69, 135)",
+                "points": [
+                  {
+                    "x": "Jul 2009",
+                    "y": 33.4
+                  },
+                  {
+                    "x": "May 2013",
+                    "y": 29.8
+                  },
+                  {
+                    "x": "Oct 2014",
+                    "y": 24.7
+                  },
+                  {
+                    "x": "Mar 2017",
+                    "y": 26.1
+                  },
+                  {
+                    "x": "Apr 2021",
+                    "y": 27.9
+                  },
+                  {
+                    "x": "Jul 2021",
+                    "y": 25.6
+                  },
+                  {
+                    "x": "Nov 2021",
+                    "y": 22.2
+                  },
+                  {
+                    "x": "Oct 2022",
+                    "y": 29.3
+                  },
+                  {
+                    "x": "Apr 2023",
+                    "y": 32.4
+                  },
+                  {
+                    "x": "Jun 2024",
+                    "y": 25.3
+                  },
+                  {
+                    "x": "Oct 2024",
+                    "y": 24.1
+                  },
+                  {
+                    "x": "Apr 2026",
+                    "y": 12
+                  }
+                ]
+              },
+              {
+                "key": "s3",
+                "label": "PP",
+                "color": "rgb(66, 0, 255)",
+                "points": [
+                  {
+                    "x": "Jul 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "May 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "Mar 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Jul 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Nov 2021",
+                    "y": 31.1
+                  },
+                  {
+                    "x": "Oct 2022",
+                    "y": 23
+                  },
+                  {
+                    "x": "Apr 2023",
+                    "y": null
+                  },
+                  {
+                    "x": "Jun 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2024",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2026",
+                    "y": null
+                  }
+                ]
+              },
+              {
+                "key": "s4",
+                "label": "ITN",
+                "color": "rgb(75, 185, 222)",
+                "points": [
+                  {
+                    "x": "Jul 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "May 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "Mar 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2021",
+                    "y": 10.4
+                  },
+                  {
+                    "x": "Jul 2021",
+                    "y": 28.6
+                  },
+                  {
+                    "x": "Nov 2021",
+                    "y": 10.6
+                  },
+                  {
+                    "x": "Oct 2022",
+                    "y": 1.6
+                  },
+                  {
+                    "x": "Apr 2023",
+                    "y": 2.3
+                  },
+                  {
+                    "x": "Jun 2024",
+                    "y": 5.2
+                  },
+                  {
+                    "x": "Oct 2024",
+                    "y": 3.2
+                  },
+                  {
+                    "x": "Apr 2026",
+                    "y": 1.4
+                  }
+                ]
+              },
+              {
+                "key": "s5",
+                "label": "PP-DB",
+                "color": "rgb(66, 0, 255)",
+                "points": [
+                  {
+                    "x": "Jul 2009",
+                    "y": null
+                  },
+                  {
+                    "x": "May 2013",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2014",
+                    "y": null
+                  },
+                  {
+                    "x": "Mar 2017",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Jul 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Nov 2021",
+                    "y": null
+                  },
+                  {
+                    "x": "Oct 2022",
+                    "y": null
+                  },
+                  {
+                    "x": "Apr 2023",
+                    "y": 23.9
+                  },
+                  {
+                    "x": "Jun 2024",
+                    "y": 14.9
+                  },
+                  {
+                    "x": "Oct 2024",
+                    "y": 18.1
+                  },
+                  {
+                    "x": "Apr 2026",
+                    "y": 11.3
+                  }
+                ]
+              }
+            ],
+            "viz": "line",
+            "facts": {
+              "section": "050900092",
+              "settlement": "с.Иново",
+              "region": "Vidin",
+              "elections_count": 12,
+              "parties_shown": 6,
+              "most_frequent_winner": "GERB-SDS (7/12)",
+              "latest": "PB (55.3%, Apr 2026)",
+              "PB": "55.3%",
+              "BSP-UL": "29.5% → 1.4%",
+              "GERB-SDS": "33.4% → 12%",
+              "PP": "31.1% → 23%",
+              "ITN": "10.4% → 1.4%",
+              "PP-DB": "23.9% → 11.3%"
+            },
+            "provenance": [
+              "canonical_parties.json",
+              "2009_07_05/sections/by-oblast/05.json",
+              "2009_07_05/national_summary.json",
+              "2013_05_12/sections/by-oblast/05.json",
+              "2013_05_12/national_summary.json",
+              "2014_10_05/sections/by-oblast/05.json",
+              "2014_10_05/national_summary.json",
+              "2017_03_26/sections/by-oblast/05.json",
+              "2017_03_26/national_summary.json",
+              "2021_04_04/sections/by-oblast/05.json",
+              "2021_04_04/national_summary.json",
+              "2021_07_11/sections/by-oblast/05.json",
+              "2021_07_11/national_summary.json",
+              "2021_11_14/sections/by-oblast/05.json",
+              "2021_11_14/national_summary.json",
+              "2022_10_02/sections/by-oblast/05.json",
+              "2022_10_02/national_summary.json",
+              "2023_04_02/sections/by-oblast/05.json",
+              "2023_04_02/national_summary.json",
+              "2024_06_09/sections/by-oblast/05.json",
+              "2024_06_09/national_summary.json",
+              "2024_10_27/sections/by-oblast/05.json",
+              "2024_10_27/national_summary.json",
+              "2026_04_19/sections/by-oblast/05.json",
+              "2026_04_19/national_summary.json"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 726.4000000059605,
+            "narratedBy": "rules"
+          },
+          "tool": "sectionHistory",
+          "args": {
+            "section": "050900092"
+          },
+          "lang": "en"
+        }
+      ],
+      "links": [
+        {
+          "text": "Discuss in the group",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "Section — full data ↗",
+          "href": "https://electionsbg.com/section/050900092"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:39.759Z",
+      "mode": "No AI",
+      "screenshot": "originals/section-en.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "Section-code history does not prove the same residents voted or that boundaries/location remained unchanged. Party/coalition series can have gaps."
+    },
+    {
+      "id": "gap",
+      "lang": "en",
+      "prompt": "What is the state budget in 2027?",
+      "href": "/en/chat?q=What+is+the+state+budget+in+2027%3F",
+      "messages": [
+        {
+          "id": 1,
+          "role": "user",
+          "text": "What is the state budget in 2027?"
+        },
+        {
+          "id": 2,
+          "role": "assistant",
+          "text": "State budget 2026: actual revenue €15.3bn, expenditure €16.5bn against an annual plan of €34.5bn, balance €-1.9bn.",
+          "env": {
+            "tool": "budgetOverview",
+            "domain": "fiscal",
+            "kind": "table",
+            "title": "State budget — 2026 plan and execution",
+            "subtitle": "No data for 2027; showing 2026. State-budget cash execution as of 2026-07-31. Partial year. Does not cover the entire general-government sector (COFOG).",
+            "columns": [
+              {
+                "key": "metric",
+                "label": "Metric"
+              },
+              {
+                "key": "planned",
+                "label": "Annual plan",
+                "numeric": true
+              },
+              {
+                "key": "value",
+                "label": "Actual",
+                "numeric": true
+              }
+            ],
+            "rows": [
+              {
+                "metric": "Revenue",
+                "value": "€15.3bn",
+                "planned": "€28.5bn"
+              },
+              {
+                "metric": "Expenditure",
+                "value": "€16.5bn",
+                "planned": "€34.5bn"
+              },
+              {
+                "metric": "Balance",
+                "value": "€-1.9bn",
+                "planned": "€-7.3bn"
+              },
+              {
+                "metric": "Contribution to the EU budget",
+                "value": "€661.7m",
+                "planned": "€1.3bn"
+              }
+            ],
+            "viz": "none",
+            "facts": {
+              "year": 2026,
+              "coverage": "State-budget cash execution as of 2026-07-31. Partial year. Does not cover the entire general-government sector (COFOG).",
+              "planned_expenditure": "€34.5bn",
+              "revenue": "€15.3bn",
+              "expenditure": "€16.5bn",
+              "eu_contribution": "€661.7m",
+              "balance": "€-1.9bn",
+              "reconciliation": "balance = revenue − expenditure − contribution to the EU budget",
+              "basis": "state-budget execution"
+            },
+            "provenance": [
+              "budget/index.json"
+            ]
+          },
+          "meta": {
+            "model": {
+              "bg": "Без AI",
+              "en": "No AI"
+            },
+            "durationMs": 36.69999998807907,
+            "narratedBy": "rules"
+          },
+          "tool": "budgetOverview",
+          "args": {
+            "year": 2027
+          },
+          "lang": "en"
+        }
+      ],
+      "links": [
+        {
+          "text": "Discuss in the group",
+          "href": "https://www.facebook.com/groups/1982841819785121"
+        },
+        {
+          "text": "State budget ↗",
+          "href": "https://electionsbg.com/budget"
+        }
+      ],
+      "capturedAt": "2026-09-10T11:22:41.073Z",
+      "mode": "No AI",
+      "screenshot": "originals/gap-en.png",
+      "status": "verified against returned tool envelope; selected source payloads checked separately",
+      "caveat": "No data for 2027. The subtitle explicitly says 2026 is shown; the leading narration does not repeat that warning."
+    }
+  ]
+}

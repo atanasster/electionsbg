@@ -8,7 +8,7 @@ Checked 2026-09-10. This records observations, not promises about untested behav
 - [x] T1 integrated screens
 - [x] T2 hosted AI access and limits
 - [x] T3 homepage invitation
-- [ ] T4 tested examples, research and screenshots
+- [x] T4 tested examples, research and screenshots
 - [ ] T5 bilingual article
 - [ ] T6 release validation and rollout
 - [ ] T7 subsequent rebranding handoff
@@ -106,3 +106,15 @@ The built-in imagegen illustration is symbolic rather than a numerical example. 
 Measured in both BG/EN, light/dark at 1280px: header 516.625px against the unchanged 520px budget; four KPI cells remain. At 320px there is no horizontal overflow. Every invitation link is at least 44 × 44px. Text contrast: title 12.20:1 light / 15.50:1 dark; subtitle 4.52:1 / 7.61:1; starter 12.74:1 / 13.79:1. Keyboard focus has a 2px solid ring with minimum 3.00:1 light / 9.36:1 dark contrast against adjoining surfaces.
 
 Six BG/EN starter URLs were exercised against the hosted preview. Semantic inspection found that English “prices” matched the unbounded rice alias. The alias is now word-bounded; three overview regressions and one explicit-rice preservation case pass, and the corrected English development answer returns the full city basket. Local and hosted price values differ, so publication captures must use the hosted data and record its observation date. Budget and seats returned their expected scoped answers in both languages. Eleven focused tests pass, plus the non-AI suite (731 passed / 213 expected failures out of 944) and all 1,828 regression cases. These counts measure routing behavior, not factual answer accuracy. The full build/postbuild and main/AI typechecks passed. The refreshed hosted English link now returns the eight-product city basket rather than rice. Five initial performance checks passed; the remaining preload check exposed a parser mismatch with Vite’s namespace-selector wrapper. The parser now accepts that emitted form while retaining exact route names and adjacent dependency lists. Its new collision/missing-route fixture and all three real preload checks pass; no budget or forbidden dependency was relaxed. Scoped lint, diff checks and tier review pass with no outstanding findings.
+
+## T4 examples, research and figures
+
+Three everyday examples (Plovdiv prices, state budget, dated parliamentary seats), two deeper examples (2025 guardrail tenders with an actual detail follow-up, section 050900092 election history), and a missing-2027-budget example completed in both languages on the refreshed preview. Exact questions, arguments, envelopes, narration, dates, links and caveats are retained in `chat-launch-assets/examples.json`. Price observation date is 2026-09-08; budget execution ends 2026-07-31; seats are the 2026-04-19 allocation. The budget's balance reconciles after subtracting the EU contribution; seat counts sum to 240. Tender estimated value and six lots match the served detail. These checks verify UI-to-payload agreement, not the entire upstream corpus.
+
+A real verified AI budget explanation matched its period and figures. The earlier AI seat narration remains excluded. Far-future free-text questions exposed routing limits and are documented as excluded trials. The 2027 budget example explicitly reports missing data in its subtitle while showing 2026; the article must explain that behavior rather than present the fallback as a future budget.
+
+Four bilingual main figures use original preview screenshots with separate numbered HTML gutter annotations and captions, preserving all screenshot pixels. Supporting screenshots include the deeper and missing-data cases. `chat-launch-assets/review.html` is the local visual review composition; T5 will reuse its annotation data in the article.
+
+Competitor checks used primary documentation and anonymous public interfaces. ChatGPT completed four small tasks, Data Commons provided sourced charts but did not resolve the short fragment or future-observation query, and Perplexity asked for sign-up before answering. СИГМА's public procurement site and official launch announcement were inspected; its assistant is documented in a design specification, not certified as a live tested feature. Detailed observations and limits are in `chat-launch-assets/research.md`; no accuracy ranking is claimed.
+
+T4 review identified two figure issues: full-resolution links are now provided for narrow-screen reading, and the price-map watermark captures are explicitly excluded from publication. Only the four selected, watermark-free figures will enter the article. Capture-script syntax and diff checks pass.
