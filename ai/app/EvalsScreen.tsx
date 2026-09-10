@@ -1,4 +1,5 @@
 import { useChatNavigation } from "./navigation";
+import { SITE_ORIGIN, SITE_HOST } from "@/lib/siteOrigin";
 import { chatPath } from "./navigationPaths";
 // Current production-router measurements; historical experiments stay explicitly separate.
 import { useContext, useEffect, useState } from "react";
@@ -561,7 +562,7 @@ export const EvalsScreen = ({
           <a href={chatPath("chat", navigation.pathname)}>
             {t("Към чата", "Back to chat")}
           </a>{" "}
-          · <a href="https://electionsbg.com">electionsbg.com</a>
+          · <a href={SITE_ORIGIN}>{SITE_HOST}</a>
         </footer>
       )}
     </div>

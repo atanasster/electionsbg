@@ -18,7 +18,7 @@ keywords:
   - Article 53 transfers
   - Чл.53 ЗДБРБ
   - municipal data Bulgaria
-  - electionsbg.com local government
+  - Наясно local government
   - municipal local taxes
   - property tax for individuals
   - waste collection fee Bulgaria
@@ -29,11 +29,11 @@ keywords:
   - obshtini.bg JSON API
 ---
 
-# How Bulgarian municipal council voting and budget data are integrated into electionsbg.com
+# How Bulgarian municipal council voting and budget data are integrated into Наясно
 
 ![The "Municipal council" tile on a place's Governance dashboard — Veliko Tarnovo. Each decision carries its adopted/rejected outcome, the за–против–въздържал tally, and — where the protocol publishes it — every councillor's individual vote as a colour-ringed avatar (ring colour = how they voted, fill = party).](/articles/images/local_government/01-council-tile.png)
 
-Everything described below surfaces in one place: the **[Governance](/my-area)** view — the local-government dashboard on electionsbg.com that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
+Everything described below surfaces in one place: the **[Governance](/my-area)** view — the local-government dashboard on Наясно that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
 
 The data behind both tiles has to be assembled municipality by municipality, because none of it exists as a national dataset. The rest of this article is an audit of how far we've got — and an honest map of what's still missing, and why.
 

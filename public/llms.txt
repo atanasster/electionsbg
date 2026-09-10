@@ -1,4 +1,4 @@
-# Elections Bulgaria — electionsbg.com
+# Наясно (Naiasno) — Bulgaria in open data
 
 > Open-source platform for visualizing and analyzing every Bulgarian parliamentary election since 2005 — broken down by region (oblast), municipality (obshtina), settlement, and polling section — plus dashboards for the resulting parliament, the state budget, public procurement, MP business connections and declared assets, polling-agency accuracy, and an electoral-risk screening index. Source data comes from the Central Election Commission (ЦИК), Sofia's Сметна палата (campaign finance + assets), parliament.bg, Eurostat, World Bank WGI, the Bulgarian Court of Audit and АОП. Everything is reprocessed offline into static JSON served from a JAMstack SPA.
 
@@ -96,7 +96,7 @@ Raw inputs are CSV/ZIP/HTML releases from the Central Election Commission (ЦИ�
 
 ## Citation
 
-If you cite results or visualizations from this site, please link to the specific page (e.g. the settlement, party, or article URL) and credit "electionsbg.com". The source code lives at https://github.com/atanasster/data-bg.
+If you cite results or visualizations from this site, please link to the specific page (e.g. the settlement, party, or article URL) and credit "Наясно (naiasno.bg)". The source code lives at https://github.com/atanasster/data-bg.
 
 ## Contact
 

@@ -210,4 +210,50 @@ describe("no stray origin literals in the SEO-critical paths", () => {
         `${f} hardcodes ${origin} — import SITE_ORIGIN instead`,
       ).toBe(false);
   });
+
+  // ⚠️ THE RULE ABOVE MATCHES A QUOTED **ORIGIN**, SO IT IS BLIND TO A BARE HOST
+  // IN PROSE — and that is the hole the Наясно rename fell through. `routes.ts`
+  // carried 23 `electionsbg.com` mentions (the About page's title, its <h1> and
+  // its lead paragraph; the datasets catalogue; the budget methodology; the data
+  // map; and a `/data/updates` title reading "Промени в данните на
+  // electionsbg.com | Наясно", naming BOTH brands at once) and `buildFull.ts`
+  // five more, through a green gate — because not one of them is preceded by a
+  // quote character.
+  //
+  // These files are the ones that decide what a crawler is TOLD, so a stale
+  // brand name in their copy is the same defect as a stale canonical: the pages
+  // Google is being asked to carry across the migration introduce themselves
+  // under the name being retired.
+  //
+  // Comments are exempt. They mislead the next reader, not the crawler, and
+  // including them would make this gate churn on every historical note.
+  const RETIRED_HOSTS = ["electionsbg.com"];
+
+  /**
+   * Lines that may keep a retired host, each with the reason.
+   *
+   * `alternateName` is the ONE place the old name belongs: it is the
+   * entity-continuity signal that tells Google the organisation behind
+   * naiasno.bg is the one it indexed as electionsbg.com. Removing it is the
+   * opposite of the migration.
+   */
+  const RETIRED_HOST_ALLOWED = [/alternateName:/];
+
+  it.each(FILES)("%s carries no retired brand name in its copy", (f) => {
+    const offenders = read(f)
+      .split("\n")
+      .map((line, i) => [i + 1, line] as const)
+      .filter(([, line]) => {
+        const code = line.replace(/^\s*(\/\/|\*|\/\*).*$/, "");
+        return (
+          RETIRED_HOSTS.some((h) => code.includes(h)) &&
+          !RETIRED_HOST_ALLOWED.some((re) => re.test(code))
+        );
+      })
+      .map(([n, line]) => `${f}:${n}: ${line.trim().slice(0, 100)}`);
+    expect(
+      offenders,
+      "these tell a crawler the site is still called electionsbg.com",
+    ).toEqual([]);
+  });
 });

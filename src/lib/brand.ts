@@ -37,7 +37,6 @@ export const BRAND_NAME = "Наясно";
 /** Latin transliteration, for contexts that cannot carry Cyrillic. */
 export const BRAND_NAME_LATIN = "Naiasno";
 
-/** Appended to every document title. Leading separator included. */
 /** Appended to every Bulgarian document title. Leading separator included. */
 export const BRAND_TITLE_SUFFIX = ` | ${BRAND_NAME}`;
 

@@ -65,4 +65,4 @@ The likely reason is who each group is: the machine is preferred by younger, urb
 - Fujiwara, T. (2015). [Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA11520). *Econometrica* 83(2).
 - Zucco, C. & Nicolau, J. (2016). [Trading old errors for new errors? The impact of electronic voting technology on party label votes in Brazil](https://www.sciencedirect.com/science/article/abs/pii/S0261379416301238). *Electoral Studies* 43.
 
-*Data: per-section protocols from the Central Election Commission, as processed by electionsbg.com. This is an analytical scenario, not a forecast.*
+*Data: per-section protocols from the Central Election Commission, as processed by Наясно. This is an analytical scenario, not a forecast.*

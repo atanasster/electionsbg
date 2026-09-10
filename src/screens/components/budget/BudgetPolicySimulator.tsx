@@ -15,6 +15,7 @@
 // pins the static view, the goal gauge target travels via `goal=`.
 
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
+import { SITE_HOST } from "@/lib/siteOrigin";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -2647,7 +2648,9 @@ export const BudgetPolicySimulator: FC = () => {
       },
       deciles: deciles?.means ?? [],
       decileLabel: t("budget_policy_decile_title"),
-      url: "electionsbg.com/budget/simulator",
+      // Drawn verbatim on the share card's footer, so it names the LIVE host
+      // and is derived — the same rule as the OG cards in scripts/og.
+      url: `${SITE_HOST}/budget/simulator`,
     });
   };
 

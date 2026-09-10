@@ -27,6 +27,7 @@ import {
   judicialNum,
   judicialTierAdjective,
 } from "@/lib/judicialKind";
+import { BRAND_NAME, BRAND_NAME_LATIN } from "@/lib/brand";
 import { kfnFundName } from "@/lib/kfnFundSlug";
 import { kfnSharePct } from "@/lib/kfnPeriod";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
@@ -37,7 +38,7 @@ const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 // Source data lives in /data/ post-GCS migration; the llms-full.txt output
 // still belongs in /public/ so search/LLM crawlers can fetch it from the
-// site root (electionsbg.com/llms-full.txt).
+// site root (naiasno.bg/llms-full.txt).
 const DATA = path.join(PROJECT_ROOT, "data");
 const PUBLIC = path.join(PROJECT_ROOT, "public");
 const SITE_URL = SITE_ORIGIN;
@@ -146,9 +147,9 @@ const latest = elections[0]?.name;
 
 const COPY = {
   bg: {
-    heading: "electionsbg.com — пълен дългоформатен корпус",
+    heading: `${BRAND_NAME} (${BRAND_NAME_LATIN}) — пълен дългоформатен корпус`,
     intro: (siteUrl: string) =>
-      `Дългоформатно българско съдържание от electionsbg.com — национално резюме, ретроспективен анализ на партиите, анализ на агенциите за социологически проучвания и пълните аналитични статии. Опресняване при всеки билд. По-кратък преглед: ${siteUrl}/llms.txt. Английски корпус: ${siteUrl}/llms-full.en.txt.`,
+      `Дългоформатно българско съдържание от ${BRAND_NAME} — национално резюме, ретроспективен анализ на партиите, анализ на агенциите за социологически проучвания и пълните аналитични статии. Опресняване при всеки билд. По-кратък преглед: ${siteUrl}/llms.txt. Английски корпус: ${siteUrl}/llms-full.en.txt.`,
     site: "Сайт",
     sitemapIndex: "Сайтмап индекс",
     nationalSummaryHeading: (dateLabel: string) =>
@@ -217,9 +218,9 @@ const COPY = {
       `Изгледът „Управление" е стълба от места: ${siteUrl}/governance (страна) → ${siteUrl}/governance/region/{област} → ${siteUrl}/governance/{код} за община (код на община) или населено място (ЕКАТТЕ). Всеки възел показва как се управлява мястото — депутати и декларации, кмет и общински съвет, общинско финансиране (Чл. 53), капиталови програми, еврофондове, обществени поръчки, местни данъци, преброяване, прозрачност (LISI) и качество на средата. Страниците за община и населено място са само на български; страниците за област имат и английски версии. Връзки към областните възли:`,
   },
   en: {
-    heading: "electionsbg.com — full long-form corpus",
+    heading: `${BRAND_NAME_LATIN} — full long-form corpus`,
     intro: (siteUrl: string) =>
-      `English long-form content from electionsbg.com — national summary, per-party retrospects, polling-agency analysis, and the full analytical articles. Refreshed on each build. Shorter overview: ${siteUrl}/llms.txt. Bulgarian corpus: ${siteUrl}/llms-full.txt.`,
+      `English long-form content from ${BRAND_NAME_LATIN} — national summary, per-party retrospects, polling-agency analysis, and the full analytical articles. Refreshed on each build. Shorter overview: ${siteUrl}/llms.txt. Bulgarian corpus: ${siteUrl}/llms-full.txt.`,
     site: "Site",
     sitemapIndex: "Sitemap index",
     nationalSummaryHeading: (dateLabel: string) =>

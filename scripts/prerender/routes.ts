@@ -58,7 +58,7 @@ export const EN_HOME = `${SITE_URL}/en`;
 // Per-election data JSON ships from the GCS bucket (post-migration), not
 // from the site origin. JSON-LD Dataset distribution URLs need to point at
 // the bucket so Google Dataset Search can actually fetch the data — pointing
-// at electionsbg.com/2026_04_19/...json would 404 since those files are no
+// at naiasno.bg/2026_04_19/...json would 404 since those files are no
 // longer served by Firebase Hosting.
 export const DATA_URL = "https://storage.googleapis.com/data-electionsbg-com";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og_image.webp`;
@@ -1694,8 +1694,8 @@ export const buildDataCatalog = (lang: "bg" | "en") =>
         : "Open data on Bulgarian elections and governance",
     description:
       lang === "bg"
-        ? "Каталог на наборите от данни, които electionsbg.com публикува за свободно изтегляне — резултати от избори, гласувания, декларации, финансиране, бюджет и индикатори."
-        : "Catalog of the datasets electionsbg.com publishes for free download — election results, roll-call votes, declarations, financing, budget, and indicators.",
+        ? "Каталог на наборите от данни, които Наясно публикува за свободно изтегляне — резултати от избори, гласувания, декларации, финансиране, бюджет и индикатори."
+        : "Catalog of the datasets Naiasno publishes for free download — election results, roll-call votes, declarations, financing, budget, and indicators.",
     url: `${SITE_URL}/${lang === "en" ? "en/data" : "data"}`,
     datasets: CATALOG_SPECS.map((s) =>
       buildDatasetLd({
@@ -2007,14 +2007,14 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "about",
-    title: "За проекта — electionsbg.com",
+    title: "За проекта",
     description:
-      "За екипа, методологията и източниците на electionsbg.com — независима платформа за анализ на парламентарните избори в България.",
+      "За екипа, методологията и източниците на Наясно — независима платформа с отворени данни за изборите, бюджета, обществените поръчки, еврофондовете, декларациите и цените в България.",
     breadcrumbName: "За проекта",
     ogImage: "/og/about.png",
     bodyHtml: `
-<h1>За проекта electionsbg.com</h1>
-<p>electionsbg.com е независима платформа с отворен код за визуализация и анализ на парламентарните избори в България от 2005 г. насам. Целта е суровите данни на ЦИК и Сметната палата да станат достъпни и сравними — по области, общини, населени места и секции.</p>
+<h1>За проекта Наясно</h1>
+<p>Наясно е независима платформа с отворен код, която прави публичните данни за България проверими: изборите от 2005 г. насам, държавният бюджет, обществените поръчки, еврофондовете, имуществените декларации и потребителските цени. Целта е суровите данни на ЦИК, Сметната палата, АОП, ИСУН и Министерство на финансите да станат достъпни и сравними — по области, общини, населени места и секции.</p>
 <h2>Източници на данни</h2>
 <ul>
 <li>Резултати от <strong>Централната избирателна комисия (ЦИК)</strong> — протоколи на СИК и национално резюме.</li>
@@ -2032,13 +2032,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Какво числото не означава.</strong> Декларирано пред Сметна палата, не одитирано. Наследство, дарение, реституция, продажба на притежаван актив, доходи на съпруг/а и погасени заеми променят имуществото, без да се появяват като доход. Имоти без обявена стойност се броят за €0 и техният брой се показва до числото — тогава разликата не е точна величина. Страницата не твърди нарушение.</p>
 <p><strong>Право на отговор.</strong> Всяко засегнато лице може да оспори или допълни числото. Пишете ни през <a href="https://www.facebook.com/naiasno" rel="nofollow noopener">страницата на „Наясно“</a>; обоснована поправка (документиран източник, който декларацията не съдържа) се публикува до самото число.</p>`.trim(),
     english: {
-      title: "About — electionsbg.com",
+      title: "About",
       description:
-        "About the team, methodology, and data sources behind electionsbg.com — an independent platform analysing Bulgaria's parliamentary elections.",
+        "About the team, methodology, and data sources behind Naiasno — an independent open-data platform covering Bulgaria's elections, state budget, public procurement, EU funds, asset declarations and prices.",
       breadcrumbName: "About",
       bodyHtml: `
-<h1>About electionsbg.com</h1>
-<p>electionsbg.com is an independent open-source platform for visualising and analysing Bulgaria's parliamentary elections since 2005. The goal is to make raw data from the Central Electoral Commission and the National Audit Office accessible and comparable — by region, municipality, settlement, and polling section.</p>
+<h1>About Naiasno</h1>
+<p>Naiasno is an independent open-source platform that makes Bulgaria's public data checkable: elections since 2005, the state budget, public procurement, EU funds, asset declarations and consumer prices. The goal is to make raw data from the Central Electoral Commission, the National Audit Office, the Public Procurement Agency, ISUN and the Ministry of Finance accessible and comparable — by region, municipality, settlement, and polling section.</p>
 <h2>Data sources</h2>
 <ul>
 <li>Results from the <strong>Central Electoral Commission (CEC/ЦИК)</strong> — section-level protocols and national summaries.</li>
@@ -4586,11 +4586,11 @@ export const prerenderRoutes: PrerenderRoute[] = [
     ogImage: "/og/budget-methodology.png",
     title: "Методология — Държавен бюджет на България | Наясно",
     description:
-      "Откъде идват данните за държавния бюджет на electionsbg.com и как се обработват — КФП на Министерство на финансите, Закон за държавния бюджет и годишните отчети на първостепенните разпоредители.",
+      "Откъде идват данните за държавния бюджет на Наясно и как се обработват — КФП на Министерство на финансите, Закон за държавния бюджет и годишните отчети на първостепенните разпоредители.",
     breadcrumbName: "Методология — Бюджет",
     bodyHtml: `
 <h1>Методология — държавен бюджет</h1>
-<p>Описание на източниците, обработката и обхвата на бюджетните данни на electionsbg.com.</p>
+<p>Описание на източниците, обработката и обхвата на бюджетните данни на Наясно.</p>
 <h2>Източник на данните</h2>
 <p>Стойностите идват от набора „Изпълнение на държавния бюджет по основни бюджетни показатели" на Министерство на финансите, публикуван в националния портал за отворени данни <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> под публичен лиценз CC0. Министерството публикува отделен ресурс за всяка месечна снимка на касовото изпълнение, в който са описани петте основни раздела на държавния бюджет — план по закона и изпълнено към момента в съответната фискална година.</p>
 <h2>Какво се показва</h2>
@@ -4610,11 +4610,11 @@ export const prerenderRoutes: PrerenderRoute[] = [
     english: {
       title: "Methodology — Bulgarian State Budget | Naiasno",
       description:
-        "Where electionsbg.com's state-budget data comes from and how it is processed — the Ministry of Finance KFP feed, the State Budget Law, and per-ministry program-execution reports.",
+        "Where Naiasno's state-budget data comes from and how it is processed — the Ministry of Finance KFP feed, the State Budget Law, and per-ministry program-execution reports.",
       breadcrumbName: "Methodology — Budget",
       bodyHtml: `
 <h1>Methodology — state budget</h1>
-<p>This page describes the sources, processing and scope of the state-budget data on electionsbg.com.</p>
+<p>This page describes the sources, processing and scope of the state-budget data on Naiasno.</p>
 <h2>Data source</h2>
 <p>The figures come from the Ministry of Finance dataset "state budget execution by major budget indicators", published on the national open-data portal <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> under a public-domain (CC0) licence. The Ministry publishes one resource per monthly cash-execution snapshot; each lists, for the five top-level sections of the state budget, the amount set by the budget law and the amount executed so far that fiscal year.</p>
 <h2>What is shown</h2>
@@ -4700,7 +4700,7 @@ ${buildDataLinksBody("en")}`.trim(),
     path: "data",
     title: "Карта на данните — източници, масиви и функции | Наясно",
     description:
-      "Интерактивна карта на всички източници, които electionsbg.com обработва — кои масиви от данни се изграждат от тях и кои функции на сайта ги използват.",
+      "Интерактивна карта на всички източници, които Наясно обработва — кои масиви от данни се изграждат от тях и кои функции на сайта ги използват.",
     breadcrumbName: "Данни",
     ogImage: "/og/data-map.png",
     extraJsonLd: [buildDataCatalog("bg")],
@@ -4727,7 +4727,7 @@ ${buildDataDirectory("bg")}`.trim(),
     english: {
       title: "Data map — sources, datasets and features | Naiasno",
       description:
-        "An interactive map of every source electionsbg.com ingests — the datasets built from them and the site features they power.",
+        "An interactive map of every source Naiasno ingests — the datasets built from them and the site features they power.",
       breadcrumbName: "Data",
       extraJsonLd: [buildDataCatalog("en")],
       bodyHtml: `
@@ -4756,7 +4756,7 @@ ${buildDataDirectory("en")}`.trim(),
     path: "data/sources",
     title: "Източници на данни и изтегляне | Наясно",
     description:
-      "Пълният списък с източниците на данни зад electionsbg.com — групирани по тема, с връзки към оригиналните данни и условия за изтегляне и преизползване.",
+      "Пълният списък с източниците на данни зад Наясно — групирани по тема, с връзки към оригиналните данни и условия за изтегляне и преизползване.",
     breadcrumbName: "Източници на данни",
     ogImage: "/og/data-map.png",
     bodyHtml: `
@@ -4768,7 +4768,7 @@ ${buildDataDirectory("en")}`.trim(),
     english: {
       title: "Data sources and downloads | Naiasno",
       description:
-        "The full list of data sources behind electionsbg.com — grouped by theme, with links to the original data and the terms for downloading and reuse.",
+        "The full list of data sources behind Naiasno — grouped by theme, with links to the original data and the terms for downloading and reuse.",
       breadcrumbName: "Data sources",
       bodyHtml: `
 <h1>Data sources</h1>
@@ -4802,14 +4802,14 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "data-changes",
-    title: "Промени в данните на electionsbg.com | Наясно",
+    title: "Промени в данните | Наясно",
     description:
       "Дневник на обновяванията — кога и какво е обновено в наборите от данни на сайта: парламентарни гласувания, имуществени декларации, социологически проучвания, макро и регионални индикатори.",
     breadcrumbName: "Промени в данните",
     ogImage: "/og/data-map.png",
     canonicalUrl: `${SITE_URL}/data/updates`,
     bodyHtml: `
-<h1>Промени в данните на electionsbg.com</h1>
+<h1>Промени в данните на Наясно</h1>
 <p>Сайтът публикува редовно нови или актуализирани набори от данни — от парламентарни гласувания и имуществени декларации на народните представители до макроикономически и регионални индикатори. Тази страница е публичният дневник на тези обновявания: коя дата кое е било подменено и накъде може да се отиде, за да се види то в действие.</p>
 <h2>Какво се проследява</h2>
 <ul>
@@ -4822,13 +4822,13 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Записите се добавят автоматично от скриптовете в pipeline-а — всеки път, когато един от тях успешно обнови съответната част от данните.</p>`.trim(),
     english: {
-      title: "Data Changes on electionsbg.com | Naiasno",
+      title: "Data changes | Naiasno",
       description:
         "Public update log — when and what was refreshed in the site's datasets: roll-call votes, MP property declarations, polling, macro and regional indicators.",
       breadcrumbName: "Data changes",
       canonicalUrl: `${SITE_URL}/en/data`,
       bodyHtml: `
-<h1>Data changes on electionsbg.com</h1>
+<h1>Data changes on Naiasno</h1>
 <p>The site regularly publishes new or updated datasets — from parliamentary roll-call votes and MP property declarations through macroeconomic and regional indicators. This page is the public log of those refreshes: on which date what was replaced, and where to look to see it in action.</p>
 <h2>What is tracked</h2>
 <ul>

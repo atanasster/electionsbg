@@ -1,6 +1,6 @@
-# electionsbg.com — full long-form corpus
+# Naiasno — full long-form corpus
 
-> English long-form content from electionsbg.com — national summary, per-party retrospects, polling-agency analysis, and the full analytical articles. Refreshed on each build. Shorter overview: https://naiasno.bg/llms.txt. Bulgarian corpus: https://naiasno.bg/llms-full.txt.
+> English long-form content from Naiasno — national summary, per-party retrospects, polling-agency analysis, and the full analytical articles. Refreshed on each build. Shorter overview: https://naiasno.bg/llms.txt. Bulgarian corpus: https://naiasno.bg/llms-full.txt.
 
 Site: https://naiasno.bg
 Sitemap index: https://naiasno.bg/sitemap_index.xml
@@ -1423,7 +1423,7 @@ The likely reason is who each group is: the machine is preferred by younger, urb
 - Fujiwara, T. (2015). [Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA11520). *Econometrica* 83(2).
 - Zucco, C. & Nicolau, J. (2016). [Trading old errors for new errors? The impact of electronic voting technology on party label votes in Brazil](https://www.sciencedirect.com/science/article/abs/pii/S0261379416301238). *Electoral Studies* 43.
 
-*Data: per-section protocols from the Central Election Commission, as processed by electionsbg.com. This is an analytical scenario, not a forecast.*
+*Data: per-section protocols from the Central Election Commission, as processed by Наясно. This is an analytical scenario, not a forecast.*
 
 ### Budget 2026 in focus: the record deficit, the critics, and a check against the numbers
 
@@ -1623,7 +1623,7 @@ _Methodology and sources. The framework figures are from the draft ЗДБРБ-20
 
 [^sega]: "The government presented a 2026 budget with an over-deficit of 5.7%," Sega, 24.06.2026 — https://www.segabg.com/hot/category-economy/pravitelstvoto-predstavi-byudzhet-za-2026-g-svruhdeficit-57
 
-[^cik]: Results of the election for the 52nd National Assembly, 19 April 2026 — Central Election Commission; summarised in [the 19.04.2026 results on electionsbg](/?elections=2026_04_19) (Progressive Bulgaria 1,444,920 votes / 44.59% / 131 seats; turnout 51.11%).
+[^cik]: Results of the election for the 52nd National Assembly, 19 April 2026 — Central Election Commission; summarised in [the 19.04.2026 results on Наясно](/?elections=2026_04_19) (Progressive Bulgaria 1,444,920 votes / 44.59% / 131 seats; turnout 51.11%).
 
 [^econ-gov]: "Bulgaria officially has a new regular government," economic.bg, 08.05.2026 — https://www.economic.bg/bg/a/view/bylgarija-oficialno-ima-novo-redovno-pravitelstvo
 
@@ -1850,7 +1850,7 @@ The module has other tools that extend the picture beyond the signed contract �
 - **[Roads (АПИ)](/sector/roads)** and **[What the state buys](/procurement/sectors)** — thematic cuts: road construction with a €/km benchmark, and a deeper breakdown by CPV sector.
 - **Universal search and connection paths** — the dashboard search finds a company, politician or official; on a company page you can check whether a given person is tied to it, even several hops away.
 
-Open the [Public Procurement](/procurement) module, or ask the [assistant](https://ai.electionsbg.com) a question like *"show the procurement red flags"* — and follow the money.
+Open the [Public Procurement](/procurement) module, or ask the [assistant](/chat) a question like *"show the procurement red flags"* — and follow the money.
 
 ## What's new
 
@@ -2275,7 +2275,7 @@ Markdown (EN): https://naiasno.bg/articles/2026-06-02-local-councils-data-en.md
 Published: 2026-06-02
 Category: data_analysis
 
-**Summary:** An audit of all 16 municipalities with council-votes data and 26 with capital-programme data on electionsbg.com. Data tables, gaps grouped by issue (publication policy, Cloudflare/TSPD bot guards, scanned PDFs, stale CMSes), and the eight oblast capitals where readers can ask their councils to publish what their bigger peers already do.
+**Summary:** An audit of all 16 municipalities with council-votes data and 26 with capital-programme data on Наясно. Data tables, gaps grouped by issue (publication policy, Cloudflare/TSPD bot guards, scanned PDFs, stale CMSes), and the eight oblast capitals where readers can ask their councils to publish what their bigger peers already do.
 
 ---
 keywords:
@@ -2297,7 +2297,7 @@ keywords:
   - Article 53 transfers
   - Чл.53 ЗДБРБ
   - municipal data Bulgaria
-  - electionsbg.com local government
+  - Наясно local government
   - municipal local taxes
   - property tax for individuals
   - waste collection fee Bulgaria
@@ -2308,11 +2308,11 @@ keywords:
   - obshtini.bg JSON API
 ---
 
-# How Bulgarian municipal council voting and budget data are integrated into electionsbg.com
+# How Bulgarian municipal council voting and budget data are integrated into Наясно
 
 ![The "Municipal council" tile on a place's Governance dashboard — Veliko Tarnovo. Each decision carries its adopted/rejected outcome, the за–против–въздържал tally, and — where the protocol publishes it — every councillor's individual vote as a colour-ringed avatar (ring colour = how they voted, fill = party).](/articles/images/local_government/01-council-tile.png)
 
-Everything described below surfaces in one place: the **[Governance](/my-area)** view — the local-government dashboard on electionsbg.com that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
+Everything described below surfaces in one place: the **[Governance](/my-area)** view — the local-government dashboard on Наясно that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
 
 The data behind both tiles has to be assembled municipality by municipality, because none of it exists as a national dataset. The rest of this article is an audit of how far we've got — and an honest map of what's still missing, and why.
 
@@ -2681,7 +2681,7 @@ keywords:
 
 Between August 2005 and May 2026 Bulgaria had **18 cabinets**: 10 regular and 8 caretaker. The average regular cabinet ran for under two years. Only two — [Stanishev](/governments/stanishev) and [Borisov III](/governments/borisov-3) — completed the full parliamentary term (3 years 11 months and 4 years, respectively). Over the same period the four headline macro indicators — GDP, inflation, unemployment and government debt — passed through three clearly distinct cycles: **catch-up growth and pre-crisis overheating (2005–2008)**, **crisis and stagnation (2009–2014)**, and **best-in-region positioning (2017–2025)** — the last achieved against the backdrop of the most politically unstable stretch in post-1990 Bulgarian history.
 
-This article is not a policy evaluation. It is an **analysis of the numbers** from [indicators](/indicators) and [governments](/governments) on electionsbg.com. We walk each cabinet through its macro footprint — what the data shows on its watch, and what lags forward into the next mandate. A larger weight is given to the last ~4.5 years — the Petkov → Donev → Denkov → Glavchev → Zhelyazkov → Gyurov chain, six parliamentary elections (Nov 2021 → Apr 2026) that culminated in the country joining the eurozone.
+This article is not a policy evaluation. It is an **analysis of the numbers** from [indicators](/indicators) and [governments](/governments) on Наясно. We walk each cabinet through its macro footprint — what the data shows on its watch, and what lags forward into the next mandate. A larger weight is given to the last ~4.5 years — the Petkov → Donev → Denkov → Glavchev → Zhelyazkov → Gyurov chain, six parliamentary elections (Nov 2021 → Apr 2026) that culminated in the country joining the eurozone.
 
 ![Timeline of Bulgaria's cabinets since 2005 against the macro backdrop.](/og/governments.png)
 
@@ -3372,7 +3372,7 @@ keywords:
   - section risk screening
   - Benford's law Bulgaria
   - 19 April 2026 election
-  - electionsbg.com
+  - Наясно
 ---
 # Election risk screening — new tools for the 19.04.2026 vote
 
@@ -3651,7 +3651,7 @@ The numbers update with the scope filter (described below). Below the sentence, 
 
 ### The filter rail
 
-Sitting under the hero block is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `electionsbg.com/connections?ns=52&crossParty=1` directly into a tweet, and the same chip set drives both the strongest-connections card below and the orbital graph, so toggling a chip reshuffles both views in lockstep:
+Sitting under the hero block is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `naiasno.bg/connections?ns=52&crossParty=1` directly into a tweet, and the same chip set drives both the strongest-connections card below and the orbital graph, so toggling a chip reshuffles both views in lockstep:
 
 - **Smart entity search** — type any MP or company name; suggestions resolve as you type and selecting one navigates straight to the profile page. Backed by a precomputed search index of 581 MPs + 1,957 companies.
 - **Scope chip** (always visible) — defaults to the parliament selected in the global header. Click it to switch to a specific NS folder or the "All parliaments" lifetime view. Once you've picked an explicit scope it sticks even when you change elections in the global header.

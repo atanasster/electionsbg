@@ -24,6 +24,7 @@ import {
   type Tile,
 } from "./cardRenderer";
 import { formatElectionDateBg, type CandidateCardData } from "./candidateData";
+import { SITE_HOST } from "@/lib/siteOrigin";
 
 const formatThousands = (n: number): string =>
   n.toLocaleString("bg-BG").replace(/\s/g, ",");
@@ -204,7 +205,8 @@ export const renderCandidateCard = async (
 
   drawFooter(
     ctx,
-    "electionsbg.com",
+    // See the note on renderCard's own footer: the live host, derived.
+    SITE_HOST,
     card.facts ? formatElectionDateBg(card.facts.electionDate) : "",
   );
 

@@ -159,7 +159,7 @@ The numbers update with the scope filter (described below). Below the sentence, 
 
 ### The filter rail
 
-Sitting under the hero block is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `electionsbg.com/connections?ns=52&crossParty=1` directly into a tweet, and the same chip set drives both the strongest-connections card below and the orbital graph, so toggling a chip reshuffles both views in lockstep:
+Sitting under the hero block is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `naiasno.bg/connections?ns=52&crossParty=1` directly into a tweet, and the same chip set drives both the strongest-connections card below and the orbital graph, so toggling a chip reshuffles both views in lockstep:
 
 - **Smart entity search** — type any MP or company name; suggestions resolve as you type and selecting one navigates straight to the profile page. Backed by a precomputed search index of 581 MPs + 1,957 companies.
 - **Scope chip** (always visible) — defaults to the parliament selected in the global header. Click it to switch to a specific NS folder or the "All parliaments" lifetime view. Once you've picked an explicit scope it sticks even when you change elections in the global header.

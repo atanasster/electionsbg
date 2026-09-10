@@ -167,7 +167,7 @@ The module has other tools that extend the picture beyond the signed contract �
 - **[Roads (АПИ)](/sector/roads)** and **[What the state buys](/procurement/sectors)** — thematic cuts: road construction with a €/km benchmark, and a deeper breakdown by CPV sector.
 - **Universal search and connection paths** — the dashboard search finds a company, politician or official; on a company page you can check whether a given person is tied to it, even several hops away.
 
-Open the [Public Procurement](/procurement) module, or ask the [assistant](https://ai.electionsbg.com) a question like *"show the procurement red flags"* — and follow the money.
+Open the [Public Procurement](/procurement) module, or ask the [assistant](/chat) a question like *"show the procurement red flags"* — and follow the money.
 
 ## What's new
 

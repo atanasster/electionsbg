@@ -39,3 +39,14 @@
  * `CLAUDE.md` and `tests/seo.spec.ts`.
  */
 export const SITE_ORIGIN = "https://naiasno.bg";
+
+/**
+ * The bare host — `naiasno.bg` — for the places that show a domain to a reader
+ * rather than linking to one: the footer stamp on every OG share card, the
+ * citation line in `llms.txt`.
+ *
+ * Derived rather than typed, because the two must never disagree: a card
+ * stamped with one domain while its `og:url` names another is a card that
+ * advertises a host the reader cannot reach.
+ */
+export const SITE_HOST = SITE_ORIGIN.replace(/^https:\/\//, "");

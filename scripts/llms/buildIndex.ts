@@ -9,7 +9,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { SITE_ORIGIN, SITE_HOST } from "@/lib/siteOrigin";
+import { BRAND_NAME } from "@/lib/brand";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,7 +19,6 @@ const PUBLIC = path.join(PROJECT_ROOT, "public");
 const SITE_URL = SITE_ORIGIN;
 // Host only, for prose that names the site rather than links to it. Derived so it
 // cannot disagree with the origin across the domain migration.
-const SITE_HOST = SITE_ORIGIN.replace(/^https:\/\//, "");
 
 type ArticleMeta = {
   slug: string;
@@ -374,7 +374,7 @@ const buildLlmsTxt = (): string => {
   lines.push(`## Citation`);
   lines.push("");
   lines.push(
-    `If you cite results or visualizations from this site, please link to the specific page (e.g. the settlement, party, or article URL) and credit "Наясно (${SITE_HOST})". The source code lives at https://github.com/atanasster/data-bg.`,
+    `If you cite results or visualizations from this site, please link to the specific page (e.g. the settlement, party, or article URL) and credit "${BRAND_NAME} (${SITE_HOST})". The source code lives at https://github.com/atanasster/data-bg.`,
   );
   lines.push("");
 

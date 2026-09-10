@@ -65,4 +65,4 @@ votes_p(d)     = machineVotes_p + (1 − d) · (paperTotal · machineShare_p + i
 - Fujiwara, T. (2015). [Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA11520). *Econometrica* 83(2).
 - Zucco, C. & Nicolau, J. (2016). [Trading old errors for new errors? The impact of electronic voting technology on party label votes in Brazil](https://www.sciencedirect.com/science/article/abs/pii/S0261379416301238). *Electoral Studies* 43.
 
-*Данни: протоколите по секции от ЦИК, обработени от electionsbg.com. Това е аналитичен сценарий, а не прогноза.*
+*Данни: протоколите по секции от ЦИК, обработени от Наясно. Това е аналитичен сценарий, а не прогноза.*

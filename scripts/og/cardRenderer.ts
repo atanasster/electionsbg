@@ -1,4 +1,5 @@
 import { Canvas, createCanvas, type SKRSContext2D } from "@napi-rs/canvas";
+import { SITE_HOST } from "@/lib/siteOrigin";
 
 // 1200x630 — Twitter Summary Large Image / OG default. Mirrors the browser
 // renderer in src/ux/cardExport/dashboardCard.ts so the site has a single
@@ -175,7 +176,11 @@ export const renderCard = (spec: CardSpec): Canvas => {
     drawTile(ctx, x, top, tileW, innerH, tile);
   });
 
-  drawFooter(ctx, spec.footerLeft ?? "electionsbg.com", spec.footerRight ?? "");
+  // The footer stamp is the only branding a card carries once it is loose on
+  // Facebook or Telegram, so it names the LIVE host and is derived rather than
+  // typed — a card advertising a domain that 301s away is the one piece of a
+  // rebrand a reader can neither correct nor ignore.
+  drawFooter(ctx, spec.footerLeft ?? SITE_HOST, spec.footerRight ?? "");
 
   return canvas;
 };

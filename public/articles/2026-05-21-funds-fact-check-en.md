@@ -21,7 +21,7 @@ This article is that check, run as an experiment. We took **ten published invest
 
 ## What the system holds
 
-electionsbg.com is built from open Bulgarian datasets, pre-processed into static files and served as a single-page app. Alongside election results it now carries several public-money and public-record features:
+Наясно is built from open Bulgarian datasets, pre-processed into static files and served as a single-page app. Alongside election results it now carries several public-money and public-record features:
 
 - **EU funds (ИСУН).** Every organisation that has signed an EU-funds contract recorded in ИСУН 2020 — **52,780 beneficiaries, 80,706 contracts, €43.5 billion contracted**, spanning the 2014-2020 and 2021-2027 operational programmes and the Recovery and Resilience Plan. The [funds page](/funds) is the overview; it also flags 98 companies (€168.5M contracted) tied to 86 MPs through their asset declarations.
 - **Per-company pages.** Each company has a page at `/company/{EIK}` that unifies what the procurement register and the EU-funds register hold for that single firm.
