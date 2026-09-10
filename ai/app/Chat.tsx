@@ -1,3 +1,4 @@
+import type { ToolIntent } from "./explorer/workspace";
 // The chat surface. Provider-agnostic: it calls provider.respond() and renders
 // the returned narration + Envelope. Swapping HeuristicProvider for a WebLLM
 // provider requires no change here.
@@ -343,14 +344,22 @@ export const Chat = ({
   lang,
   election,
   actionSlot,
+  initialIntent,
+  onIntentConsumed,
 }: {
   engine: ModelEngine;
   lang: Lang;
   election: string;
   actionSlot: HTMLElement | null;
+  initialIntent?: ToolIntent | null;
+  onIntentConsumed?: () => void;
 }) => {
   const [messages, setMessages] = useState<Msg[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(initialIntent?.text ?? "");
+  const [workspaceIntent, setWorkspaceIntent] = useState(initialIntent);
+  useEffect(() => {
+    onIntentConsumed?.();
+  }, [onIntentConsumed]);
   // Past prompts the user submitted, newest first, for Up/Down recall.
   const [promptHistory, setPromptHistory] = useState<string[]>([]);
   // Position within promptHistory while browsing: -1 = live draft (not
@@ -465,6 +474,8 @@ export const Chat = ({
   ) => {
     const q = text.trim();
     if (!q || busy) return;
+    if (!intent && workspaceIntent?.text === text) intent = workspaceIntent;
+    setWorkspaceIntent(null);
     setSelectedQuestion(null);
     speech.stop();
     pinned.current = true; // a fresh question always follows to the foot

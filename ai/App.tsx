@@ -13,6 +13,7 @@ import {
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { Chat } from "./app/Chat";
+import { navigationPath, type ToolIntent } from "./app/explorer/workspace";
 import { Explorer } from "./app/Explorer";
 import { useModelEngine } from "./llm/useModelEngine";
 import { latestElection } from "./tools/dataset";
@@ -30,6 +31,7 @@ export const App = ({
   // control: a question names its own year (and a multi-election year fans out
   // into a comparison); anything unqualified means the latest election.
   const election = latestElection();
+  const [handoff, setHandoff] = useState<ToolIntent | null>(null);
   const [view, setView] = useState<"chat" | "tools">(initialView);
   // Slot in the fixed header where Chat portals its conversation actions (new
   // chat, share, export). Kept here so they stay reachable however far the
@@ -49,8 +51,8 @@ export const App = ({
   // per-page <head> from tools.html.
   const navigate = (next: "chat" | "tools") => {
     setView(next);
-    const path = next === "tools" ? "/tools" : "/";
-    if (window.location.pathname !== path) {
+    const path = navigationPath(next, window.location.search);
+    if (window.location.pathname + window.location.search !== path) {
       window.history.pushState(null, "", path);
     }
   };
@@ -173,9 +175,17 @@ export const App = ({
               lang={lang}
               election={election}
               actionSlot={actionSlot}
+              initialIntent={handoff}
+              onIntentConsumed={() => setHandoff(null)}
             />
           ) : (
-            <Explorer lang={lang} />
+            <Explorer
+              lang={lang}
+              onOpenChat={(intent) => {
+                setHandoff(intent);
+                navigate("chat");
+              }}
+            />
           )}
         </div>
       </main>
