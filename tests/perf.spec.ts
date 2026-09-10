@@ -135,7 +135,10 @@ const mapDepsOf = (code: string, chunk: string): string[] | undefined => {
   const table = [...code.matchAll(/"(assets\/[^"]+)"/g)].map((m) => m[1]);
   const call = code.match(
     new RegExp(
-      `"\\./${chunk}-[A-Za-z0-9_-]+\\.js"\\),__vite__mapDeps\\(\\[([0-9,]+)\\]\\)`,
+      // Rollup may select a namespace export before handing the promise to
+      // Vite's preload helper: import("./Chunk.js").then(e=>e.H).
+      // Keep the exact ./Chunk anchor and the adjacent preload call.
+      `"\\./${chunk}-[A-Za-z0-9_-]+\\.js"\\)(?:\\.then\\([\\w$]+=>[\\w$]+\\.[\\w$]+\\))?,__vite__mapDeps\\(\\[([0-9,]+)\\]\\)`,
     ),
   );
   return call?.[1].split(",").map((i) => table[Number(i)]);
@@ -154,6 +157,23 @@ const requestsFor = async (page: Page, path: string): Promise<string[]> => {
 };
 
 test.describe("performance", () => {
+  test("preload parser handles namespace wrappers and exact route names", () => {
+    const code =
+      'const deps=["assets/HomeDashboardScreen-home.js","assets/vendor-react-r.js","assets/DashboardScreen-country.js","assets/vendor-leaflet-l.js"];' +
+      'load(()=>import("./HomeDashboardScreen-home.js").then(e=>e.H),__vite__mapDeps([0,1]));' +
+      'load(()=>import("./DashboardScreen-country.js"),__vite__mapDeps([2,1,3]));';
+    expect(mapDepsOf(code, "HomeDashboardScreen")).toEqual([
+      "assets/HomeDashboardScreen-home.js",
+      "assets/vendor-react-r.js",
+    ]);
+    expect(mapDepsOf(code, "DashboardScreen")).toEqual([
+      "assets/DashboardScreen-country.js",
+      "assets/vendor-react-r.js",
+      "assets/vendor-leaflet-l.js",
+    ]);
+    expect(mapDepsOf(code, "MissingScreen")).toBeUndefined();
+  });
+
   test("home HTML is under size budget", async ({ request }) => {
     const res = await request.get("/");
     const html = await res.text();

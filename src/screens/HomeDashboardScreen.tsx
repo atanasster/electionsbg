@@ -42,6 +42,8 @@ import { HomeChangeFeed } from "./home/HomeChangeFeed";
 import { HOME_BANDS } from "./home/homeRegistry";
 import { HOME_SCENES } from "./home/homeScenes";
 import { HomeFlyoverSlot } from "./home/flyover/HomeFlyoverSlot";
+import { ChatInvitation } from "./home/ChatInvitation";
+import { CHAT_LAUNCH_PUBLISHED } from "@/lib/chatLaunch";
 
 export const HomeDashboardScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -133,29 +135,34 @@ export const HomeDashboardScreen: FC = () => {
         seoDescription={t("home_hub_seo_description")}
         deck={t("home_hub_deck")}
         search={
-          <HubSearch
-            sources={searchSources}
-            idPrefix="home-search"
-            onArm={() => setArmed(true)}
-            title={{ bg: "Търсене", en: "Search" }}
-            // ⚠️ „процедура", NOT „поръчка", and „продукт" is back. „Обществени поръчки" is
-            // the umbrella the whole ЗОП corpus sits under — homeSearch names its two halves
-            // „Договори по ЗОП" and „Процедури по ЗОП" for exactly that reason — so inviting a
-            // reader to type looking for a „поръчка" offers them no group by that name. And
-            // products was dropped from this line in the same pass that promoted the group up
-            // the box for visibility.
-            placeholder={{
-              bg: "място, човек, фирма, продукт, договор или процедура…",
-              en: "a place, a person, a company, a product, a contract or a procedure…",
-            }}
-            // Says what the box covers, in the order the groups appear. Deliberately names
-            // the CORPORA rather than the ten group headings: a reader who has not opened
-            // the box needs to know whether their subject is in it at all.
-            hint={{
-              bg: "Места; публични лица и лица от Търговския регистър; продукти; възложители и фирми; договори и процедури по ЗОП; проекти по еврофондове и Interreg.",
-              en: "Places; people in public life and in the company register; products; state buyers and companies; procurement contracts and procedures; EU-funds and Interreg projects.",
-            }}
-          />
+          <>
+            <HubSearch
+              sources={searchSources}
+              idPrefix="home-search"
+              onArm={() => setArmed(true)}
+              title={{ bg: "Търсене", en: "Search" }}
+              // ⚠️ „процедура", NOT „поръчка", and „продукт" is back. „Обществени поръчки" is
+              // the umbrella the whole ЗОП corpus sits under — homeSearch names its two halves
+              // „Договори по ЗОП" and „Процедури по ЗОП" for exactly that reason — so inviting a
+              // reader to type looking for a „поръчка" offers them no group by that name. And
+              // products was dropped from this line in the same pass that promoted the group up
+              // the box for visibility.
+              placeholder={{
+                bg: "място, човек, фирма, продукт, договор или процедура…",
+                en: "a place, a person, a company, a product, a contract or a procedure…",
+              }}
+              // Says what the box covers, in the order the groups appear. Deliberately names
+              // the CORPORA rather than the ten group headings: a reader who has not opened
+              // the box needs to know whether their subject is in it at all.
+              hint={{
+                bg: "Места; публични лица и лица от Търговския регистър; продукти; възложители и фирми; договори и процедури по ЗОП; проекти по еврофондове и Interreg.",
+                en: "Places; public figures and people in company records; products; buyers and companies; procurement contracts and procedures; EU and Interreg projects.",
+              }}
+            />
+            {(import.meta.env.DEV || CHAT_LAUNCH_PUBLISHED) && (
+              <ChatInvitation lang={bg ? "bg" : "en"} />
+            )}
+          </>
         }
         searchPreview={<HomeFlyoverSlot />}
         kpis={kpis}

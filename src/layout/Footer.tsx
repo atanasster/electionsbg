@@ -48,12 +48,13 @@ export const Footer = () => {
           </Link>
         </li>
         <li className="whitespace-nowrap">
-          <Anchor
-            href="https://ai.electionsbg.com"
+          <Link
+            to="/chat"
+            underline={false}
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
             Наясно AI
-          </Anchor>
+          </Link>
         </li>
         <li className="whitespace-nowrap">
           <Anchor

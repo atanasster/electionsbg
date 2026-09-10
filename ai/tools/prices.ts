@@ -188,7 +188,8 @@ const PRODUCT_ALIASES: [RegExp, number][] = [
   [/масло|butter/, 12],
   [/брашно|flour/, 40],
   [/захар|sugar/, 38],
-  [/ориз|rice/, 35],
+  // Without word boundaries, an ordinary “prices” query selects rice.
+  [/ориз|\brice\b/, 35],
   [/пилешко филе|chicken fillet/, 16],
   [/пиле|chicken/, 15],
   [/свинско|pork/, 18],

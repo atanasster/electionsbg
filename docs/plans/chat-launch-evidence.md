@@ -7,7 +7,7 @@ Checked 2026-09-10. This records observations, not promises about untested behav
 - [x] T0 inventory and baseline
 - [x] T1 integrated screens
 - [x] T2 hosted AI access and limits
-- [ ] T3 homepage invitation
+- [x] T3 homepage invitation
 - [ ] T4 tested examples, research and screenshots
 - [ ] T5 bilingual article
 - [ ] T6 release validation and rollout
@@ -96,3 +96,13 @@ The full T2 build passed. For review, a reduced package copied its exact assets,
 Real Managed Turnstile verification passed in Chrome and the in-app browser, including reverification after reload. A real Gemini 3.5 Flash-Lite call completed in 3.2 seconds with a sourced seat chart. Its narration placed vote percentages next to seat counts without a clear label and inferred a governing majority; this response is **not approved for article use**. Selected article examples must be independently checked in T4. Expiry and cancellation are covered by controlled UI/session tests; live verification completed automatically before the attempted manual cancellation.
 
 The selected production environment explicitly sets `VITE_DB_API_ORIGIN=https://electionsbg.com`. The main-only lazy chat entry now overrides this to same-origin before mounting; standalone keeps the environment configuration. This prevents cross-origin DB requests on previews and the later domain. The regression verifies destination switching and cache invalidation (1 case); the existing data-cache and entry-graph checks pass (15 cases). Final full build/postbuild, AI typecheck, scoped lint and all 12 desktop/mobile/metadata browser cases pass. The refreshed preview answered “Какви са цените в Пловдив?” in No AI mode; both price-payload requests returned HTTP 200 JSON from the preview's own origin. Source review remained at zero actionable findings.
+
+## T3 homepage invitation
+
+The compact invitation sits immediately below the search hint and preserves the flyover. It links to chat plus self-contained price, budget and parliamentary-seat questions in both languages. The main footer now links to integrated `/chat`. A small publication flag keeps the invitation development-only until the article is reviewed; the article link is absent until publication. Aggregate click events carry only entry type and starter id, never prompt text.
+
+The built-in imagegen illustration is symbolic rather than a numerical example. Its retained original, optimized derivative and prompt are in `chat-launch-assets/`; the page consumes a 20,474-byte 720 × 480 WebP with explicit display dimensions and decorative alt text. Headline and links are HTML. Desktop and narrow dark-mode review captures are saved alongside the original.
+
+Measured in both BG/EN, light/dark at 1280px: header 516.625px against the unchanged 520px budget; four KPI cells remain. At 320px there is no horizontal overflow. Every invitation link is at least 44 × 44px. Text contrast: title 12.20:1 light / 15.50:1 dark; subtitle 4.52:1 / 7.61:1; starter 12.74:1 / 13.79:1. Keyboard focus has a 2px solid ring with minimum 3.00:1 light / 9.36:1 dark contrast against adjoining surfaces.
+
+Six BG/EN starter URLs were exercised against the hosted preview. Semantic inspection found that English “prices” matched the unbounded rice alias. The alias is now word-bounded; three overview regressions and one explicit-rice preservation case pass, and the corrected English development answer returns the full city basket. Local and hosted price values differ, so publication captures must use the hosted data and record its observation date. Budget and seats returned their expected scoped answers in both languages. Eleven focused tests pass, plus the non-AI suite (731 passed / 213 expected failures out of 944) and all 1,828 regression cases. These counts measure routing behavior, not factual answer accuracy. The full build/postbuild and main/AI typechecks passed. The refreshed hosted English link now returns the eight-product city basket rather than rice. Five initial performance checks passed; the remaining preload check exposed a parser mismatch with Vite’s namespace-selector wrapper. The parser now accepts that emitted form while retaining exact route names and adjacent dependency lists. Its new collision/missing-route fixture and all three real preload checks pass; no budget or forbidden dependency was relaxed. Scoped lint, diff checks and tier review pass with no outstanding findings.
