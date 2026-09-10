@@ -140,11 +140,28 @@ const writeVariant = (
       "dist/index.html is missing the <!-- BODY --> ... <!-- /BODY --> block.",
     );
   }
-  let html = template.replace(
-    SEO_BLOCK_RE,
+  // ⚠️ REPLACER FUNCTIONS, NOT STRINGS, AND THIS IS NOT STYLE. Both markers capture
+  // (`([\s\S]*?)`), so with a string replacement `String.prototype.replace` reads `$1`,
+  // `$2`, `$&`, `` $` `` and `$'` INSIDE THE PAGE BODY as references into the match —
+  // silently, on any page whose prose contains a dollar sign followed by a digit.
+  //
+  // It was live: `/en/defense` and `/en/awarder/000695324` say „Stryker (~$1.38bn)", and
+  // that `$1` expanded to the SHELL's own placeholder body. Both pages shipped truncated
+  // mid-sentence at „Stryker (~" with the HOMEPAGE's `<h1>България в данни</h1>` spliced
+  // in after it — a second, competing, wrong-language heading on an English page, and the
+  // rest of the section silently gone. `distHeadings.data.test.ts`'s two-h1 arm is what
+  // caught it; nothing else could, because the route definition is correct and the defect
+  // exists only in the emitted file.
+  //
+  // The BG twin was fine purely because Bulgarian writes the unit last („2,6 млрд. $"),
+  // so its dollar sign is followed by `)`. That is luck, not encoding.
+  //
+  // A function replacement is passed the text verbatim, so no `$` sequence is special.
+  // It covers the SEO block too, where the same body would corrupt a description.
+  let html = template.replace(SEO_BLOCK_RE, () =>
     renderSeoBlock(route, variant, DATA_BASE, cardExists),
   );
-  html = html.replace(BODY_BLOCK_RE, renderBodyBlock(variant));
+  html = html.replace(BODY_BLOCK_RE, () => renderBodyBlock(variant));
   // Swap the document language attribute when emitting an English variant.
   if (variant.lang === "en") {
     html = html.replace(/<html\s+lang="[^"]*"/, '<html lang="en"');
