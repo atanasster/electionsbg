@@ -902,6 +902,7 @@ const COMPANY_STOP_SET = new Set([
   "договори",
   "договор",
   "поръчките",
+  "обществени",
   "поръчки",
   "поръчка",
   "на",
@@ -953,6 +954,7 @@ const COMPANY_STOP_SET = new Set([
   "company",
   "firm",
   "procurement",
+  "public",
 ]);
 export const cleanCompany = (raw: string): string =>
   raw
@@ -979,10 +981,16 @@ export const contractSearch = async (
   if (/^\d{9,13}$/.test(raw)) eik = raw;
   else if (/^\d{9,13}$/.test(cleaned)) eik = cleaned; // "ЕИК 1234…" → the digits
   if (!eik && cleaned) {
-    const sr = await fetchDb<{ companies: { eik: string; name: string }[] }>(
-      "procurement-search",
-      { q: cleaned, limit: 1 },
-    );
+    const search = (query: string) =>
+      fetchDb<{ companies: { eik: string; name: string }[] }>(
+        "procurement-search",
+        { q: query, limit: 1 },
+      );
+    let sr = await search(cleaned);
+    // English "Trading" is often registered as Bulgarian „Трейдинг“.
+    // Retry its transliterated spelling only after the original has no match.
+    if (!sr.companies?.length && /\btrading\b/i.test(cleaned))
+      sr = await search(cleaned.replace(/\btrading\b/gi, "treyding"));
     const hit = sr.companies?.[0];
     if (hit) {
       eik = hit.eik;

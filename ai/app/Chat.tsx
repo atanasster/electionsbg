@@ -58,11 +58,12 @@ import {
   downloadPdf,
   type ChatMsg,
 } from "./export";
+import { SuggestionButton } from "./SuggestionButton";
 import { followUps } from "./followups";
 import { EmptyHero } from "./hero/EmptyHero";
 import { ModelPicker } from "./ModelPicker";
 import { toChatQuestionIntent } from "./questionAdapter";
-import { matchSuggestions } from "./suggestions";
+import { matchSuggestions, type Suggestion } from "./suggestions";
 import { useSpeech } from "./useSpeech";
 import { useVoiceInput } from "./voice";
 
@@ -457,7 +458,10 @@ export const Chat = ({
     },
   });
 
-  const send = async (text: string) => {
+  const send = async (
+    text: string,
+    intent?: { tool: string; args: ToolArgs },
+  ) => {
     const q = text.trim();
     if (!q || busy) return;
     setSelectedQuestion(null);
@@ -486,15 +490,26 @@ export const Chat = ({
     setBusy(true);
     // stream the narration into the placeholder assistant message; the env
     // (chart/table) is attached when the answer is finalized
-    const res = await engine.provider.respond(
-      q,
-      { lang, election, area: readArea() },
-      (partial) =>
-        setMessages((m) =>
-          m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
-        ),
-      { prev, history },
-    );
+    const ctx = { lang, election, area: readArea() };
+    const onDelta = (partial: string) =>
+      setMessages((m) =>
+        m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
+      );
+    const res = intent
+      ? engine.provider.runChoice
+        ? await engine.provider.runChoice(
+            intent.tool,
+            intent.args,
+            ctx,
+            onDelta,
+          )
+        : await runToolChoice(
+            { bg: "Без AI (офлайн)", en: "Basic (offline)" },
+            intent.tool,
+            intent.args,
+            ctx,
+          )
+      : await engine.provider.respond(q, ctx, onDelta, { prev, history });
     setMessages((m) =>
       m.map((x) =>
         x.id === aId
@@ -525,8 +540,17 @@ export const Chat = ({
       lang,
       "parameters" in selection ? selection.parameters : undefined,
     );
-    await send(intent.text);
+    await send(intent.text, intent);
     setSelectedQuestion("parameters" in selection ? selection : null);
+  };
+
+  const sendSuggestion = (suggestion: Suggestion) => {
+    const intent = toChatQuestionIntent(
+      suggestion.questionId,
+      lang,
+      suggestion.parameters,
+    );
+    return send(suggestion[lang], intent);
   };
 
   const selectCatalogQuestion = (selection: ResolvedQuestionSelection) => {
@@ -931,7 +955,7 @@ export const Chat = ({
             {followups.map((s) => (
               <button
                 key={s.en}
-                onClick={() => send(s[lang])}
+                onClick={() => sendSuggestion(s)}
                 className={cn(CHIP, "shrink-0 whitespace-nowrap")}
               >
                 {s[lang]}
@@ -946,18 +970,14 @@ export const Chat = ({
         {suggestions.length > 0 && (
           <div className="mb-2 overflow-hidden rounded-lg border border-input bg-popover text-sm shadow-md">
             {suggestions.map((s) => (
-              <button
-                key={s.en}
-                // onMouseDown (not onClick) fires before the input blur so the
-                // suggestion list doesn't close first
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  void send(s[lang]);
+              <SuggestionButton
+                key={`${s.questionId}:${s.en}`}
+                suggestion={s}
+                lang={lang}
+                onPick={(suggestion) => {
+                  void sendSuggestion(suggestion);
                 }}
-                className="block w-full px-3 py-2.5 text-left hover:bg-muted sm:py-1.5"
-              >
-                {s[lang]}
-              </button>
+              />
             ))}
           </div>
         )}

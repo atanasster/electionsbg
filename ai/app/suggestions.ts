@@ -1,11 +1,17 @@
 // Entity-driven query autocomplete. A curated bank of questions built from the
-// real party / oblast / agency entities, each phrased to route to a real tool.
+// real party / oblast / agency entities, each bound to a catalog intent.
 // Substring-matched against the input as the user types.
 
 import { OBLASTS } from "../tools/place";
+import { STARTERS } from "./starters";
 import type { Lang } from "../tools/types";
 
-export type Suggestion = { bg: string; en: string };
+export type Suggestion = {
+  bg: string;
+  en: string;
+  questionId: string;
+  parameters?: Record<string, unknown>;
+};
 
 const PARTIES = [
   "ГЕРБ-СДС",
@@ -18,14 +24,8 @@ const PARTIES = [
   "Величие",
 ];
 
-// Smaller parties / coalitions whose names aren't hardcoded router tokens. The
-// router takes a multi-word capitalized name for a person, so these route to the
-// candidate tool, which resolves them against the selected election's party
-// roster (the candidate→party fallback). Phrasing is limited to the plain
-// "result of X" template — the per-region / over-time / demographic templates
-// below need a recognised party TOKEN to keep their intent, which these lack.
-// Names stay Cyrillic even in the EN string (matchParty romanizes), matching the
-// PARTIES convention above.
+// Additional parties dispatch directly to partyResult. Names remain Cyrillic
+// in both labels and are resolved against the selected election's roster.
 const SMALLER_PARTIES = [
   "Синя България",
   "Демократична България",
@@ -108,218 +108,168 @@ const CANDIDATES: { bg: string; en: string }[] = [
   { bg: "Божидар Божанов", en: "Bozhidar Bozhanov" },
 ];
 
-const BASE: Suggestion[] = [
-  {
-    bg: "Какви са резултатите от последните избори?",
-    en: "Results of the latest election?",
-  },
-  {
-    bg: "Как се променя избирателната активност през годините?",
-    en: "How has turnout changed over the years?",
-  },
-  {
-    bg: "Какъв е процентът машинно гласуване в последните избори?",
-    en: "Machine-voting share in the latest election?",
-  },
-  { bg: "Сравни последните избори", en: "Compare the recent elections" },
-  {
-    bg: "Имаше ли нередности на последните избори?",
-    en: "Were there irregularities in the latest election?",
-  },
-  { bg: "Какъв е държавният бюджет?", en: "What is the state budget?" },
-  {
-    bg: "Какъв е държавният бюджет — план и изпълнение?",
-    en: "What is the state budget — plan and actual spending?",
-  },
-  {
-    bg: "Какво става, ако ДДС стане 22%?",
-    en: "What if VAT goes to 22%?",
-  },
-  {
-    bg: "Какво става, ако подоходният данък стане 15%?",
-    en: "What if income tax goes to 15%?",
-  },
-  {
-    bg: "Кои са най-големите инвестиционни проекти?",
-    en: "Biggest investment projects?",
-  },
-  { bg: "Кои депутати са най-богати?", en: "Which MPs are richest?" },
-  { bg: "Кои са правителствата от 2005?", en: "Governments since 2005?" },
-  {
-    bg: "Коя социологическа агенция е най-точна?",
-    en: "Which polling agency is most accurate?",
-  },
-  {
-    bg: "Колко места има всяка партия в парламента?",
-    en: "How many seats does each party hold in parliament?",
-  },
-  {
-    bg: "Как се променят местата по партии последните 5 години?",
-    en: "How have seats per party changed over the last 5 years?",
-  },
-  {
-    bg: "Кой печели гласа в чужбина последните години?",
-    en: "Who wins the diaspora vote over recent years?",
-  },
-  {
-    bg: "Как се променят прахосаните гласове през годините?",
-    en: "How have wasted votes changed over time?",
-  },
-  {
-    bg: "Как се променя вотът за общинските съвети през годините?",
-    en: "How has the council vote changed across cycles?",
-  },
-  {
-    bg: "Как се променят кметовете по партии през годините?",
-    en: "How have mayoralties per party changed across cycles?",
-  },
-  {
-    bg: "Как се променя бюджетът през годините?",
-    en: "How has the budget changed over the years?",
-  },
-  {
-    bg: "Кой спечели общинските съвети?",
-    en: "Who won the municipal councils?",
-  },
-  {
-    bg: "Кои общини са с най-висока безработица?",
-    en: "Which municipalities have the highest unemployment?",
-  },
-  {
-    bg: "Коя област е с най-висок БВП на човек?",
-    en: "Which oblast has the highest GDP per capita?",
-  },
-  {
-    bg: "Как гласуват ромските квартали?",
-    en: "How do the Roma neighbourhoods vote?",
-  },
-  {
-    bg: "Коя партия печели ромските гласове последните 5 години?",
-    en: "Which party wins the Roma vote over the last 5 years?",
-  },
-  {
-    bg: "Какъв е индексът на изборния риск?",
-    en: "What is the election risk index?",
-  },
-  {
-    bg: "Колко критични секции има?",
-    en: "How many critical sections?",
-  },
-  {
-    bg: "Колко гласове са прахосани под прага?",
-    en: "How many votes were wasted below the threshold?",
-  },
-  { bg: "Как гласува диаспората?", en: "How did the diaspora vote?" },
-  {
-    bg: "Какво показва тестът на Бенфорд?",
-    en: "What does the Benford test show?",
-  },
-  { bg: "Кои депутати са най-лоялни?", en: "Which MPs are most loyal?" },
-  {
-    bg: "Коя група гласува най-единно?",
-    en: "Which group votes most cohesively?",
-  },
-  {
-    bg: "Какво разделя гласоподавателите?",
-    en: "What divides the electorate?",
-  },
-];
-
 export const SUGGESTIONS: Suggestion[] = [
-  ...BASE,
+  ...STARTERS.map((s) => ({ bg: s.bg, en: s.en, questionId: s.id })),
   ...PARTIES.flatMap((p) => [
-    { bg: `Колко гласа взе ${p}?`, en: `How many votes did ${p} get?` },
-    { bg: `Къде е силна ${p}?`, en: `Where is ${p} strongest?` },
     {
+      questionId: "partyResult",
+      parameters: { party: p },
+      bg: `Колко гласа взе ${p}?`,
+      en: `How many votes did ${p} get?`,
+    },
+    {
+      questionId: "regionBreakdown",
+      parameters: { party: p },
+      bg: `Къде е силна ${p}?`,
+      en: `Where is ${p} strongest?`,
+    },
+    {
+      questionId: "municipalityBreakdown",
+      parameters: { party: p, oblast: "PDV" },
       bg: `${p} по общини в Пловдив`,
       en: `${p} by municipality in Plovdiv`,
     },
     {
+      questionId: "partyTimeline",
+      parameters: { party: p },
       bg: `Как се представя ${p} през годините?`,
       en: `How has ${p} done over the years?`,
     },
-    { bg: `Кой гласува за ${p}?`, en: `Who votes for ${p}?` },
+    {
+      questionId: "partyDemographics",
+      parameters: { party: p },
+      bg: `Кой гласува за ${p}?`,
+      en: `Who votes for ${p}?`,
+    },
   ]),
   ...SMALLER_PARTIES.flatMap((p) => [
-    { bg: `Колко гласа взе ${p}?`, en: `How many votes did ${p} get?` },
-    { bg: `Резултати за ${p}`, en: `Results for ${p}` },
+    {
+      questionId: "partyResult",
+      parameters: { party: p },
+      bg: `Колко гласа взе ${p}?`,
+      en: `How many votes did ${p} get?`,
+    },
+    {
+      questionId: "partyResult",
+      parameters: { party: p },
+      bg: `Резултати за ${p}`,
+      en: `Results for ${p}`,
+    },
   ]),
   ...PG_PARTIES.map((p) => ({
+    questionId: "partyMps",
+    parameters: { party: p },
     bg: `Кои са депутатите от ${p}?`,
     en: `Who are the MPs from ${p}?`,
   })),
   ...Object.values(OBLASTS).map((o) => ({
+    questionId: "regionHistory",
+    parameters: { oblast: o.bg },
     bg: `Каква е активността в ${o.bg}?`,
     en: `What is the turnout in ${o.en}?`,
   })),
   ...WINNER_OBLASTS.map((o) => ({
+    questionId: "municipalityWinners",
+    parameters: { oblast: o.bg },
     bg: `Резултати по общини в ${o.bg}`,
     en: `Results by municipality in ${o.en}`,
   })),
   ...WINNER_MUNIS.map((m) => ({
+    questionId: "settlementWinners",
+    parameters: { place: m.bg },
     bg: `Резултати по населени места в община ${m.bg}`,
     en: `Results by settlement in ${m.en}`,
   })),
   ...WINNER_MUNIS.map((m) => ({
+    questionId: "sectionWinners",
+    parameters: { place: m.bg },
     bg: `Резултати по секции в ${m.bg}`,
     en: `Results by polling station in ${m.en}`,
   })),
   ...SETTLEMENTS.map((s) => ({
+    questionId: "settlementResults",
+    parameters: { place: s.bg },
     bg: `Резултатите в с. ${s.bg}`,
     en: `Results in the village of ${s.en}`,
   })),
   ...SETTLEMENTS.map((s) => ({
+    questionId: "settlementHistory",
+    parameters: { place: s.bg, years: 5 },
     bg: `Резултатите в с. ${s.bg} за последните 5 години`,
     en: `Results in the village of ${s.en} over the last 5 years`,
   })),
   // one município's own results / trend
   ...RESULT_MUNIS.map((m) => ({
+    questionId: "municipalityResults",
+    parameters: { place: m.bg },
     bg: `Резултатите в община ${m.bg}`,
     en: `Results in ${m.en} municipality`,
   })),
   ...RESULT_MUNIS.map((m) => ({
+    questionId: "municipalityHistory",
+    parameters: { place: m.bg, years: 5 },
     bg: `Резултатите в община ${m.bg} за последните 5 години`,
     en: `Results in ${m.en} municipality over the last 5 years`,
   })),
   // one oblast's own results / trend
   ...WINNER_OBLASTS.map((o) => ({
+    questionId: "regionResults",
+    parameters: { oblast: o.bg },
     bg: `Резултатите в област ${o.bg}`,
     en: `Results in ${o.en} region`,
   })),
   ...WINNER_OBLASTS.map((o) => ({
+    questionId: "regionResultsTrend",
+    parameters: { oblast: o.bg, years: 5 },
     bg: `Резултатите в област ${o.bg} за последните 5 години`,
     en: `Results in ${o.en} region over the last 5 years`,
   })),
   // Sofia city (the 3 МИР combined) + abroad (diaspora), each with a trend
   {
+    questionId: "regionResults",
+    parameters: { oblast: "SOF_CITY" },
     bg: "Резултатите в София",
     en: "Results in Sofia",
   },
   {
+    questionId: "regionResultsTrend",
+    parameters: { oblast: "SOF_CITY", years: 5 },
     bg: "Резултатите в София за последните 5 години",
     en: "Results in Sofia over the last 5 years",
   },
   {
+    questionId: "diasporaVote",
+    parameters: {},
     bg: "Резултатите в чужбина",
     en: "Results abroad",
   },
   {
+    questionId: "diasporaVoteTrend",
+    parameters: { years: 5 },
     bg: "Резултатите в чужбина за последните 5 години",
     en: "Results abroad over the last 5 years",
   },
   ...AGENCIES.map((a) => ({
+    questionId: "agencyAccuracyHistory",
+    parameters: { agency: a },
     bg: `Колко е точна ${a}?`,
     en: `How accurate is ${a}?`,
   })),
   ...COUNCIL_CITIES.map((c) => ({
+    questionId: "localCouncil",
+    parameters: { place: c.bg },
     bg: `Какъв е общинският съвет на ${c.bg}?`,
     en: `What is the ${c.en} municipal council?`,
   })),
   ...CANDIDATES.map((c) => ({
+    questionId: "candidateResult",
+    parameters: { name: c.bg },
     bg: `Резултати за ${c.bg}`,
     en: `Results for ${c.en}`,
   })),
   ...CANDIDATES.map((c) => ({
+    questionId: "mpVotingProfile",
+    parameters: { name: c.bg },
     bg: `Как гласува ${c.bg} в парламента?`,
     en: `How does ${c.en} vote in parliament?`,
   })),

@@ -17,6 +17,7 @@ import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
 import {
   detectPriceProduct,
   detectChain,
+  resolveChainEik,
   detectPriceDeal,
 } from "../tools/prices";
 import { detectTaxChange } from "../tools/taxPolicy";
@@ -945,6 +946,55 @@ const routeText = (question: string, ctx: ToolContext): Route => {
 
   const party = detectParty(q);
   const election = detectElection(q);
+  // Specific discovery intents must win over broad cabinet, retail, and
+  // local-election keywords. The same rules apply to manually typed variants.
+  if (/by municipality in/.test(q) && party) {
+    const oblast = findOblastInText(q)?.code;
+    if (oblast)
+      return {
+        tool: "municipalityBreakdown",
+        args: { party, oblast, ...(election ? { election } : {}) },
+      };
+  }
+  if (/by settlement in/.test(q) && party) {
+    const place = q.match(
+      /by settlement in (.+?)(?: municipality)?[?!.]*$/,
+    )?.[1];
+    if (place)
+      return {
+        tool: "settlementBreakdown",
+        args: { party, place, ...(election ? { election } : {}) },
+      };
+  }
+  if (party && /done over the years/.test(q))
+    return { tool: "partyTimeline", args: { party } };
+  if (/irregularities.*election/.test(q))
+    return { tool: "electionAnomalies", args: election ? { election } : {} };
+  if (/diaspora.*over recent years/.test(q))
+    return { tool: "diasporaVoteTrend", args: {} };
+  if (/cohesion funds.*absorbed/.test(q))
+    return { tool: "cohesionAbsorption", args: {} };
+  if (/which ministers are richest/.test(q))
+    return { tool: "officialsAssetsTop", args: { category: "министри" } };
+  if (/council results at the local elections/.test(q))
+    return { tool: "localCouncilVoteShare", args: {} };
+  if (/ромския вот.*последните 5 години/.test(q))
+    return { tool: "romaVoteTrend", args: { years: 5 } };
+  if (
+    /(?:европейски (?:средства|пари)|eu (?:funds|money))/.test(q) &&
+    /област|oblast/.test(q)
+  )
+    return { tool: "regionalInvestment", args: {} };
+  if (/(?:бвп на човек|gdp per capita) (?:по области|by oblast)/.test(q))
+    return {
+      tool: "rankPlaces",
+      args: { indicator: "gdp per capita by oblast", n: 20 },
+    };
+  if (/public contracts.*win|обществени поръчки.*печели/.test(q))
+    return {
+      tool: "contractSearch",
+      args: { company: resolveChainEik(q) ?? question },
+    };
   const count = detectCount(q);
   const isTrend = has(q, ...TREND) || (count !== undefined && count >= 2);
   const isMachine = has(q, "машин", "machine", "суемг", "suemg");
@@ -975,6 +1025,34 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   // declared argument instead of letting a year/place disappear into the
   // nationalResults fallback.
   if (has(q, "президент", "president", "балотаж", "runoff")) {
+    // Presidential POLLS (decision 10) are a THIRD corpus, separate from both
+    // the results handled below and the parliamentary polls handled further
+    // down — checked first, inside this same presidential-first guard, or
+    // "какво показват последните президентски проучвания" would fall through
+    // to `presidentialResults` just because it also says „президентски" (T4.6).
+    if (
+      has(q, "ако изборите", "if elections", "if the election") ||
+      (has(
+        q,
+        "последн",
+        "latest",
+        "какво показват",
+        "what do the polls",
+        "what would",
+      ) &&
+        has(
+          q,
+          "социолог",
+          "pollster",
+          "анкет",
+          "проучван",
+          " poll",
+          "polls",
+          "сондаж",
+        ))
+    )
+      return { tool: "latestPresidentialPoll", args: {} };
+
     const args: ToolArgs = {};
     const cycle = q.match(/\b(2001|2006|2011|2016|2021)\b/)?.[1];
     if (cycle) args.cycle = cycle;

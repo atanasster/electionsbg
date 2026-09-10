@@ -804,7 +804,7 @@ export const localDeals = async (
 // =============================================================================
 
 const ROSE =
-  /поскъп|поскъпна|rose|increase|по-скъп|най-голямо поскъпване|risen/;
+  /поскъп|поскъпна|rose|increase|по-скъп|най-голямо поскъпване|risen|rise/;
 const RANK_OBLAST = /област|region|oblast/;
 
 export const priceRanking = async (
@@ -1464,6 +1464,14 @@ const CHAIN_MATCH: { re: RegExp; eik: string }[] = [
   { re: /метро|metro/i, eik: "121644736" },
   { re: /софармаси|sopharmacy/i, eik: "175334310" },
 ];
+
+export const resolveChainEik = (q: string): string | undefined =>
+  CHAIN_MATCH.find((m) =>
+    new RegExp(
+      `(?<![\\p{L}\\p{N}])(?:${m.re.source})(?![\\p{L}\\p{N}])`,
+      "iu",
+    ).test(q),
+  )?.eik;
 
 export const detectChain = (q: string): boolean =>
   CHAIN_MATCH.some((m) => m.re.test(q));
