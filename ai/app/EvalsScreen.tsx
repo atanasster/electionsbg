@@ -77,6 +77,7 @@ export const EvalsScreen = ({
   const [error, setError] = useState(false),
     [failuresOnly, setFailuresOnly] = useState(true);
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  const Content = integrated ? "div" : "main";
   useEffect(() => {
     fetchData<Run>("/ai/evals/current_revised.json")
       .then(setRun)
@@ -160,7 +161,7 @@ export const EvalsScreen = ({
           </div>
         </header>
       )}
-      <main className="container mx-auto flex-1 space-y-8 px-4 py-8">
+      <Content className="container mx-auto flex-1 space-y-8 px-4 py-8">
         <div>
           <h1 className="font-title text-3xl font-semibold text-popover-foreground">
             {t(
@@ -554,7 +555,7 @@ export const EvalsScreen = ({
             </details>
           )}
         </details>
-      </main>
+      </Content>
       {!integrated && (
         <footer className="border-t bg-muted p-4 text-center text-xs">
           <a href={chatPath("chat", navigation.pathname)}>

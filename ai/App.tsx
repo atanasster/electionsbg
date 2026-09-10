@@ -58,6 +58,7 @@ export const App = ({
   };
 
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  const Content = integrated ? "div" : "main";
 
   return (
     // Fixed app shell: header + footer stay put, only <main> scrolls. Using an
@@ -201,7 +202,7 @@ export const App = ({
         </header>
       )}
 
-      <main className="flex-1 overflow-y-auto">
+      <Content className="flex-1 overflow-y-auto">
         <div className="container mx-auto flex min-h-full flex-col px-2 py-6 sm:px-4">
           {integrated && (
             <div
@@ -230,7 +231,7 @@ export const App = ({
             />
           </div>
         </div>
-      </main>
+      </Content>
 
       {!integrated && (
         <footer className="flex shrink-0 flex-wrap items-center justify-between gap-2 bg-muted p-4 text-sm">

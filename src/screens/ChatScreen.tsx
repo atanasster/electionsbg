@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { App as ChatApp } from "../../ai/App";
 import { EvalsScreen } from "../../ai/app/EvalsScreen";
 import { ChatNavigationContext } from "../../ai/app/navigation";
-import { Header } from "@/layout/header/Header";
+import { Layout } from "@/layout/Layout";
 import { SEO } from "@/ux/SEO";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 import { ChatToolbar } from "../../ai/app/ChatToolbar";
@@ -85,8 +85,7 @@ export const ChatScreen = () => {
         canonical={`${SITE_ORIGIN}${prefix}${location.pathname.replace(/\/+$/, "")}`}
       />
       {!evals && !tools && <h1 className="sr-only">{title}</h1>}
-      <Header />
-      <div className="pt-[var(--header-height,70px)]">
+      <Layout>
         <ChatToolbar
           onNewChat={() => {
             clearSavedChat();
@@ -108,7 +107,7 @@ export const ChatScreen = () => {
             initialView={tools ? "tools" : "chat"}
           />
         )}
-      </div>
+      </Layout>
     </ChatNavigationContext.Provider>
   );
 };
