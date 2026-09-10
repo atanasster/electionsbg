@@ -64,6 +64,14 @@ export const fetchData = <T>(path: string): Promise<T> => {
 export type DbParams = Record<string, string | number | null | undefined>;
 type DbFetcher = (route: string, params: DbParams) => Promise<unknown>;
 
+let dbOriginOverride: string | undefined;
+/** The integrated entry uses its own Hosting rewrite. Standalone builds retain
+ * their configured cross-origin endpoint. Set before mounting chat/tools. */
+export const setDbOrigin = (origin: string): void => {
+  dbOriginOverride = origin;
+  dbCache.clear();
+};
+
 const browserDbFetcher: DbFetcher = async (route, params) => {
   const qs = new URLSearchParams(
     Object.entries(params)
@@ -77,8 +85,7 @@ const browserDbFetcher: DbFetcher = async (route, params) => {
   // the data bucket. VITE_DB_API_ORIGIN carries that base in the AI prod build;
   // empty (same-origin) everywhere else, so the main app / AI dev keep hitting
   // the local /api/db plugin.
-  const env = (import.meta as unknown as { env?: Record<string, string> }).env;
-  const base = env?.VITE_DB_API_ORIGIN ?? "";
+  const base = dbOriginOverride ?? import.meta.env?.VITE_DB_API_ORIGIN ?? "";
   const url = `${base}/api/db/${route}${qs ? `?${qs}` : ""}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`db ${url} -> ${res.status}`);

@@ -6,7 +6,7 @@ Checked 2026-09-10. This records observations, not promises about untested behav
 
 - [x] T0 inventory and baseline
 - [x] T1 integrated screens
-- [ ] T2 hosted AI access and limits
+- [x] T2 hosted AI access and limits
 - [ ] T3 homepage invitation
 - [ ] T4 tested examples, research and screenshots
 - [ ] T5 bilingual article
@@ -19,7 +19,7 @@ Review report for this run: `CODE_REVIEW_REPORT_20260910-122538-chat-launch.md` 
 
 The three standalone entry screens live in `ai/main.tsx`: chat `/`, tools `/tools`, evaluation `/evals`. Main destinations are `/chat`, `/chat/tools`, `/chat/evals`, with `/en` mirrors. The main router owns language; normalize legacy `lang` parameters once and preserve question/tool parameters. The chat's initial-load effect must also handle SPA changes to `q` without re-running a question on ordinary re-renders.
 
-Use the existing endpoint `https://ai.electionsbg.com/api/llm` for the integrated frontend. A public OPTIONS request from the old origin returned HTTP 204 with the expected CORS headers on 2026-09-10. Keep this API path outside all page redirects. This retains the AI project's secrets and single Firestore allowance ledger. The main origin still needs an additive CORS allowlist change. No cross-project Hosting rewrite is required.
+Use the existing endpoint `https://ai.electionsbg.com/api/llm` for the integrated frontend. A public OPTIONS request from the old origin returned HTTP 204 with the expected CORS headers on 2026-09-10. Keep this API path outside all page redirects. This retains the AI project's secrets and single Firestore allowance ledger. The main origin's required additive CORS change is recorded in T2 below. No cross-project Hosting rewrite is required.
 
 `functions/index.js` excludes `llm` from exports for elections-bg. Do not change this for a screen migration. Session/start/finish calls use `ai/llm/session.ts`; provider calls must use the same endpoint. Turnstile requires both the widget hostname configuration and the server-side hostname allowlist.
 
@@ -33,7 +33,7 @@ Articles are Hosting content under `public/articles`, not GCS data. Draft metada
 
 ## Policy evidence
 
-`functions/llm_security.js` pins google/gemini-3.5-flash-lite; configured policy is 20 starts per session/day, 60 per IP/day and 3 per session/minute. Sessions expire in one hour; daily/monthly ledger keys use UTC. Reverification creates a new session id but does not clear IP or service budgets. Reserved requests may consume allowance even when completion fails. Therefore “20 questions per person per day” would be inaccurate. Deployment and live policy parity remain to verify.
+`functions/llm_security.js` pins google/gemini-3.5-flash-lite; configured policy is 20 starts per session/day, 60 per IP/day and 3 per session/minute. Sessions expire in one hour; daily/monthly ledger keys use UTC. Reverification creates a new session id but does not clear IP or service budgets. Reserved requests may consume allowance even when completion fails. Therefore “20 questions per person per day” would be inaccurate. T2 records deployment and browser verification; production quotas were not deliberately exhausted.
 
 Non-AI routing baseline: `docs/plans/non-ai-evals-2026-09-10.md` records 729/942 expected prompt routes and 213 known gaps. These are routing/argument results, not end-to-end factual accuracy. Structured catalogue questions and free-text equivalents must be tested separately.
 
@@ -80,3 +80,19 @@ All six desktop/mobile browser checks and six static metadata checks pass. Unit 
 Full build and postbuild passed; image optimization converted 627 images and verified references. The final active-tools guard was subsequently checked by its focused unit test and lint; deployment will use a fresh final build after the remaining tiers.
 
 Analytics only emits mode, entry type, follow-up boolean and result class for chat interactions. Prompt/tool-state URLs disable GA collection for the rest of that document before history mutation; incoming prompt-bearing referrers also disable it. This intentionally undercounts linked-question sessions. Google's documentation confirms that `send_page_view: false` alone does not stop Enhanced Measurement history events: https://developers.google.com/analytics/devguides/collection/ga4/views. Do not remove this safeguard without verifying the property's Enhanced Measurement configuration and actual network payloads.
+
+## T2 hosted access and policy
+
+The integrated client retains `https://ai.electionsbg.com/api/llm`. The AI function was deployed with additive exact origins and Turnstile hostnames; the Cloudflare “Naiasno AI Chat” widget was updated without changing its key, Managed mode or no-pre-clearance setting. Main-origin preflight now returns 204 (baseline 403). The preview origin also returns 204. The same AI project and quota ledger remain in use.
+
+The separate staging project does not provide the required DB rewrites. The isolated main-project Hosting channel is therefore `https://elections-bg--chat-launch-gu0gkopz.web.app`, initially expiring 2026-09-17. Its exact hostname is included in the server and widget lists. This avoids deploying the main DB function with an unpublished main HTML shell. Main production Hosting and DB were not deployed during T2.
+
+Public session/day/minute constants now have one JSON source shared by the server and disclosure. The disclosure explains shared IPs, UTC renewal, one-hour sessions, budget exhaustion, interrupted requests, local origin-specific history, last-question sharing and Google Gemini processing. “No AI” no longer implies offline data access. Rejected sessions clear credentials; network failures replace stale allowance notices.
+
+Validation: 15 security cases pass, including exact-host acceptance/lookalike rejection and shared IP allowance across renewed sessions; 2 client session cases pass (expiry, invalid credentials and stale-error replacement); 2 controlled verification UI cases pass (expiry/retry and closing during a pending request); full functions suite passes 613 tests with 1 skipped plus 17 Vitest cases. Standalone AI typecheck and scoped lint pass. Source review found no actionable issues.
+
+The full T2 build passed. For review, a reduced package copied its exact assets, fonts, icons and six chat HTML pages into the isolated channel, retaining existing API rewrites and adding `X-Robots-Tag: noindex, nofollow`. No full production release occurred. Initial real-browser data fetches exposed the bucket's missing preview origin; the deployed CORS policy was read and preserved, including two news origins absent from the local file, then the exact preview origin was added for GET/HEAD. A fresh browser subsequently returned the sourced 240-seat chart. The legacy chat also still returned that chart. Browser-cached pre-change CORS responses took longer to clear than a fresh context.
+
+Real Managed Turnstile verification passed in Chrome and the in-app browser, including reverification after reload. A real Gemini 3.5 Flash-Lite call completed in 3.2 seconds with a sourced seat chart. Its narration placed vote percentages next to seat counts without a clear label and inferred a governing majority; this response is **not approved for article use**. Selected article examples must be independently checked in T4. Expiry and cancellation are covered by controlled UI/session tests; live verification completed automatically before the attempted manual cancellation.
+
+The selected production environment explicitly sets `VITE_DB_API_ORIGIN=https://electionsbg.com`. The main-only lazy chat entry now overrides this to same-origin before mounting; standalone keeps the environment configuration. This prevents cross-origin DB requests on previews and the later domain. The regression verifies destination switching and cache invalidation (1 case); the existing data-cache and entry-graph checks pass (15 cases). Final full build/postbuild, AI typecheck, scoped lint and all 12 desktop/mobile/metadata browser cases pass. The refreshed preview answered “Какви са цените в Пловдив?” in No AI mode; both price-payload requests returned HTTP 200 JSON from the preview's own origin. Source review remained at zero actionable findings.

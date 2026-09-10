@@ -41,13 +41,7 @@ const {
 // AI authorization is independent of the other public endpoints.
 const { createSecurity } = require("./llm_security");
 const { createLlmHandler } = require("./llm_http");
-const AI_ALLOWED_ORIGINS = [
-  /^https:\/\/electionsbg-ai\.web\.app$/,
-  /^https:\/\/electionsbg-ai\.firebaseapp\.com$/,
-  /^https:\/\/ai\.electionsbg\.com$/,
-  /^http:\/\/localhost:\d+$/,
-  /^http:\/\/127\.0\.0\.1:\d+$/,
-];
+const { AI_ALLOWED_ORIGINS } = require("./llm_origins");
 const makeLlm = () => {
   const apiKey = defineSecret("GEMINI_API_KEY");
   const turnstile = defineSecret("AI_TURNSTILE_SECRET");

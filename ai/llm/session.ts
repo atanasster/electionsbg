@@ -1,6 +1,7 @@
 // Session tokens stay in memory. Reloading requires fresh verification; a
 // server-side IP/day allowance prevents that from resetting the daily quota.
-export const PROXY_URL = import.meta.env?.VITE_LLM_PROXY_URL || "/api/llm";
+export const PROXY_URL =
+  import.meta.env?.VITE_LLM_PROXY_URL || "https://ai.electionsbg.com/api/llm";
 let token = "";
 let expiresAt = 0;
 let notice = "";
@@ -18,6 +19,7 @@ export const setAiNotice = (value: string) => {
 };
 export const hasAiSession = () => !!token && expiresAt > Date.now();
 export async function sessionRequest(body: Record<string, unknown>) {
+  let serverError = false;
   try {
     const response = await fetch(PROXY_URL, {
       method: "POST",
@@ -27,6 +29,7 @@ export async function sessionRequest(body: Record<string, unknown>) {
     });
     const data = await response.json();
     if (!response.ok) {
+      serverError = true;
       const code =
         typeof data.error === "string" ? data.error : "ai_unavailable";
       if (response.status === 401) {
@@ -38,7 +41,7 @@ export async function sessionRequest(body: Record<string, unknown>) {
     }
     return data;
   } catch (error) {
-    if (!notice) setAiNotice("ai_unavailable");
+    if (!serverError) setAiNotice("ai_unavailable");
     throw error;
   }
 }

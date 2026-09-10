@@ -13,6 +13,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { AiVerification } from "./AiVerification";
+import { ChatPolicy } from "./ChatPolicy";
 import {
   hasAiSession,
   aiSessionNotice,
@@ -70,7 +71,7 @@ export const ModelPicker = ({
         <PopoverContent
           side="top"
           align="end"
-          className="w-[min(92vw,20rem)] p-2"
+          className="max-h-[70dvh] w-[min(92vw,24rem)] overflow-y-auto p-2"
         >
           {choices.map((choice) => (
             <button
@@ -104,6 +105,7 @@ export const ModelPicker = ({
               "AI sends questions and conversation context to a server for cloud processing.",
             )}
           </p>
+          <ChatPolicy lang={lang} />
         </PopoverContent>
       </Popover>
       <Dialog
@@ -137,8 +139,8 @@ export const ModelPicker = ({
               )
             : /limit/.test(notice)
               ? t(
-                  "AI лимитът е достигнат. Продължете без AI.",
-                  "AI allowance reached. Continue without AI.",
+                  "AI лимитът е достигнат. При кратко ограничение опитайте след минута; дневните квоти се подновяват в 00:00 UTC. Можете да продължите без AI.",
+                  "AI allowance reached. For a short-term limit, retry after a minute; daily allowances renew at 00:00 UTC. You can continue without AI.",
                 )
               : t(
                   "AI временно не е достъпен. Продължете без AI.",

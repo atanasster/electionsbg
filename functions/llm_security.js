@@ -1,18 +1,17 @@
 // All monetary values are integer micro-USD. Reserve the worst case BEFORE a
 // question starts; failed/abandoned calls retain their reservation.
 const crypto = require("node:crypto");
+const PUBLIC_POLICY = require("./llm_public_policy.json");
+const { AI_HOSTNAMES } = require("./llm_origins");
 const MODEL = "google/gemini-3.5-flash-lite";
 const POLICY = Object.freeze({
+  ...PUBLIC_POLICY,
   inputBytes: 96000,
   outputTokens: 512,
   calls: 3,
   callReserve: 31000,
-  sessionDaily: 20,
-  ipDaily: 60,
-  perMinute: 3,
   questionMs: 120000,
   handlerMs: 60000,
-  sessionMs: 3600000,
 });
 class LlmError extends Error {
   constructor(status, code) {
@@ -33,10 +32,7 @@ function config(env = process.env) {
   return {
     daily: dollars("AI_DAILY_BUDGET_USD", 5),
     monthly: dollars("AI_MONTHLY_BUDGET_USD", 50),
-    hosts: (
-      env.AI_TURNSTILE_HOSTNAMES ||
-      "ai.electionsbg.com,electionsbg-ai.web.app,electionsbg-ai.firebaseapp.com"
-    )
+    hosts: (env.AI_TURNSTILE_HOSTNAMES || AI_HOSTNAMES.join(","))
       .split(",")
       .map((s) => s.trim()),
     enabled: env.AI_ENABLED !== "false",

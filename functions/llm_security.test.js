@@ -395,3 +395,60 @@ test("last-moment call keeps session locked through handler timeout", async () =
   await f.security.finish(token, "ip", questionId);
   await f.security.start(token, "ip");
 });
+
+test("main and staging origins are additive and hostname lookalikes stay rejected", async () => {
+  const { AI_HOSTNAMES, AI_ALLOWED_ORIGINS } = require("./llm_origins");
+  for (const host of AI_HOSTNAMES) {
+    assert.ok(
+      AI_ALLOWED_ORIGINS.some((pattern) => pattern.test(`https://${host}`)),
+    );
+    const f = fixture();
+    f.result({
+      success: true,
+      hostname: host,
+      action: "ai_chat",
+      challenge_ts: "2026-09-10T10:00:00Z",
+    });
+    assert.ok((await f.security.issue(`challenge-${host}`, "ip")).token);
+  }
+  for (const origin of [
+    "https://electionsbg.com.evil.test",
+    "https://evil-electionsbg.com",
+    "http://electionsbg.com",
+    "https://random.web.app",
+  ])
+    assert.equal(
+      AI_ALLOWED_ORIGINS.some((pattern) => pattern.test(origin)),
+      false,
+    );
+});
+
+test("renewing sessions does not clear the shared IP day cap", async () => {
+  const f = fixture({
+    policy: config({
+      AI_DAILY_BUDGET_USD: "100",
+      AI_MONTHLY_BUDGET_USD: "1000",
+    }),
+  });
+  for (let session = 0; session < 3; session++) {
+    const { token } = await f.security.issue(
+      `challenge-${session}`,
+      "shared-ip",
+    );
+    for (let i = 0; i < POLICY.sessionDaily; i++) {
+      if (i && i % POLICY.perMinute === 0) f.advance(60001);
+      const { questionId } = await f.security.start(token, "shared-ip");
+      await f.security.finish(token, "shared-ip", questionId);
+    }
+  }
+  const renewed = await f.security.issue("challenge-renewed", "shared-ip");
+  await assert.rejects(
+    f.security.start(renewed.token, "shared-ip"),
+    code("question_limit"),
+  );
+  const other = await f.security.issue("challenge-other", "other-ip");
+  assert.ok((await f.security.start(other.token, "other-ip")).questionId);
+  f.advance(24 * 60 * 60 * 1000);
+  const nextDay = await f.security.issue("challenge-next-day", "shared-ip");
+  assert.ok((await f.security.start(nextDay.token, "shared-ip")).questionId);
+});

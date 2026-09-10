@@ -606,12 +606,11 @@ export const Chat = ({
           { lang, election, area: readArea() },
           onDelta,
         )
-      : await runToolChoice(
-          { bg: "Без AI (офлайн)", en: "Basic (offline)" },
-          opt.tool,
-          opt.args,
-          { lang, election, area: readArea() },
-        );
+      : await runToolChoice({ bg: "Без AI", en: "No AI" }, opt.tool, opt.args, {
+          lang,
+          election,
+          area: readArea(),
+        });
     setMessages((m) =>
       m.map((x) =>
         x.id === aId

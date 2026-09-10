@@ -8,6 +8,11 @@ import { ChatNavigationContext } from "../../ai/app/navigation";
 import { Header } from "@/layout/header/Header";
 import { SEO } from "@/ux/SEO";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { setDbOrigin } from "../../ai/tools/dataClient";
+
+// This lazy entry is only used by the main app. Its Hosting project owns /api/db;
+// the standalone AI entry keeps the environment's cross-origin configuration.
+setDbOrigin("");
 
 export const ChatScreen = () => {
   const location = useLocation();

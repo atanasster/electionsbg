@@ -1,4 +1,5 @@
 import { useChatNavigation } from "./navigation";
+import { ChatPolicy } from "./ChatPolicy";
 import { Button } from "@/components/ui/button";
 import { parseToolsLocation, toolsHref, recentIds } from "./explorer/urlState";
 import { lazy, Suspense, useState, useEffect, useRef } from "react";
@@ -108,6 +109,7 @@ export const Explorer = ({
   };
   return (
     <div ref={root} className="space-y-6">
+      <ChatPolicy lang={lang} id="privacy" />
       <header>
         <h1 className="font-title text-3xl">
           {lang === "bg" ? "Инструменти и данни" : "Tools & data"}
