@@ -2,8 +2,16 @@ import React from "react";
 import { Footer } from "@/layout/Footer";
 import { CommunityCtaStrip } from "@/screens/components/CommunityCtaStrip";
 import { Header } from "./header/Header";
+import { cn } from "@/lib/utils";
 
-export const Layout = (props: React.PropsWithChildren) => {
+export const Layout = ({
+  children,
+  fullWidth = false,
+  showCommunity = true,
+}: React.PropsWithChildren<{
+  fullWidth?: boolean;
+  showCommunity?: boolean;
+}>) => {
   return (
     <>
       <Header />
@@ -35,9 +43,15 @@ export const Layout = (props: React.PropsWithChildren) => {
           AboutScreen) already self-center with `mx-auto max-w-*`, so
           dropping items-center doesn't widen them visually.
         */}
-        <div className="container flex flex-col justify-center items-stretch p-2 pt-[var(--header-height,70px)]">
-          <CommunityCtaStrip />
-          {props.children}
+        <div
+          className={cn(
+            "flex flex-col justify-center items-stretch",
+            !fullWidth && "container p-2",
+            "pt-[var(--header-height,70px)]",
+          )}
+        >
+          {showCommunity && <CommunityCtaStrip />}
+          {children}
         </div>
       </main>
       <Footer />

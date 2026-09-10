@@ -85,7 +85,7 @@ export const ChatScreen = () => {
         canonical={`${SITE_ORIGIN}${prefix}${location.pathname.replace(/\/+$/, "")}`}
       />
       {!evals && !tools && <h1 className="sr-only">{title}</h1>}
-      <Layout>
+      <Layout fullWidth showCommunity={false}>
         <ChatToolbar
           onNewChat={() => {
             clearSavedChat();
