@@ -503,3 +503,8 @@ __pycache__/
 # from the index in the same change (removed from the tree going forward;
 # still recoverable from git history, and untouched on disk locally).
 /brand/
+
+# `npm run test:coverage` output — vitest.config.ts's `reportsDirectory`. A
+# generated report of a local run, so it says nothing a reviewer can act on and
+# everything about which machine produced it.
+/coverage/
