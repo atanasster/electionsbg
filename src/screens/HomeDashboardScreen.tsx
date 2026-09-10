@@ -159,12 +159,15 @@ export const HomeDashboardScreen: FC = () => {
                 en: "Places; public figures and people in company records; products; buyers and companies; procurement contracts and procedures; EU and Interreg projects.",
               }}
             />
-            {CHAT_LAUNCH_REVIEWABLE && (
-              <ChatInvitation lang={bg ? "bg" : "en"} />
-            )}
           </>
         }
-        searchPreview={<HomeFlyoverSlot />}
+        searchPreview={
+          CHAT_LAUNCH_REVIEWABLE ? (
+            <ChatInvitation lang={bg ? "bg" : "en"} />
+          ) : (
+            <HomeFlyoverSlot />
+          )
+        }
         kpis={kpis}
         // Reserve the band's REAL height while the artifact is in flight. Without it the
         // slot is 0 cells and then jumps to four — a layout shift on the site's most-visited

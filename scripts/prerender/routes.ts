@@ -1,3 +1,4 @@
+import chatPublication from "../../src/lib/chatLaunchPublication.json";
 // Routes for which we emit a per-route static HTML file with route-specific
 // <title> and OG/Twitter meta tags. The Vite SPA build only produces a single
 // index.html, but social-preview crawlers (Twitter, Telegram, Facebook,
@@ -674,10 +675,26 @@ export const flyoverParagraph = (lang: "bg" | "en"): string => {
   );
 };
 
+export const homePreviewParagraph = (
+  lang: "bg" | "en",
+  chatEnabled = chatPublication.published ||
+    process.env.VITE_CHAT_LAUNCH_PREVIEW === "true",
+): string => {
+  if (!chatEnabled) return flyoverParagraph(lang);
+  const prefix = lang === "en" ? "/en" : "";
+  const title = lang === "bg" ? "Попитай Наясно" : "Ask Наясно";
+  return (
+    `<section><h2><a href="${SITE_URL}${prefix}/chat">${title}</a></h2>` +
+    `<img src="${SITE_URL}/images/chat/invitation.webp" alt="" width="720" height="480" decoding="async">` +
+    `<p><a href="${SITE_URL}${prefix}/chat">${lang === "bg" ? "Задай въпрос" : "Ask a question"}</a> · ` +
+    `<a href="${SITE_URL}${prefix}/articles/${chatPublication.slug}">${lang === "bg" ? "Как работи" : "How it works"}</a></p></section>`
+  );
+};
+
 const GLOBAL_HOME_BODY_BG = `
 <h1>България в данни</h1>
 <p>Какво се случва в България, измерено с отворени данни: инфлация, безработица, растеж на БВП и държавен дълг по данни на Евростат, цени по магазини, държавният бюджет и изпълнението му, обществените поръчки, еврофондовете, изборите от 2005 г. насам и профил на всяка община.</p>
-${flyoverParagraph("bg")}
+${homePreviewParagraph("bg")}
 <h2>Основни раздели</h2>
 ${homeDestinationList("bg")}
 <h2>Как се четат числата</h2>
@@ -686,7 +703,7 @@ ${homeDestinationList("bg")}
 const GLOBAL_HOME_BODY_EN = `
 <h1>Bulgaria in data</h1>
 <p>What is happening in Bulgaria, measured from open data: inflation, unemployment, GDP growth and government debt from Eurostat, shop prices, the state budget and its execution, public procurement, EU funds, every election since 2005, and a profile of each municipality.</p>
-${flyoverParagraph("en")}
+${homePreviewParagraph("en")}
 <h2>Main sections</h2>
 ${homeDestinationList("en")}
 <h2>How to read the numbers</h2>

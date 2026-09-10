@@ -11,31 +11,31 @@ export const ChatInvitation = ({ lang }: { lang: "bg" | "en" }) => (
   <section
     aria-label={lang === "bg" ? "Попитай Наясно" : "Ask Наясно"}
     data-chat-invitation=""
-    className="mt-1 flex flex-wrap items-center gap-x-2 rounded-lg border border-border bg-card px-2 py-1 lg:flex-nowrap"
+    className="flex flex-col gap-2 rounded-xl border border-border bg-card p-3"
   >
-    <img
-      src="/images/chat/invitation.webp"
-      alt=""
-      width={78}
-      height={52}
-      decoding="async"
-      className="h-[52px] w-[78px] shrink-0 rounded object-contain"
-    />
     <Link
       to="/chat"
       onClick={() => trackEvent("chat_invitation", { entry: "primary" })}
       className="flex min-h-11 shrink-0 flex-col justify-center rounded px-1 text-foreground hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
     >
-      <h2 className="text-base font-semibold leading-5">
+      <h2 className="font-title text-lg font-semibold leading-6">
         {lang === "bg" ? "Попитай Наясно" : "Ask Наясно"}
       </h2>
       <span className="text-xs leading-5 text-muted-foreground">
         {lang === "bg" ? "Задай въпрос →" : "Ask a question →"}
       </span>
     </Link>
+    <img
+      src="/images/chat/invitation.webp"
+      alt=""
+      width={720}
+      height={480}
+      decoding="async"
+      className="h-32 w-full rounded object-contain"
+    />
     <nav
       aria-label={lang === "bg" ? "Готови въпроси" : "Starter questions"}
-      className="flex flex-wrap items-center gap-1 lg:ml-auto lg:flex-nowrap"
+      className="flex flex-wrap items-center gap-1"
     >
       {CHAT_LAUNCH_STARTERS.map((starter) => (
         <Link
@@ -48,7 +48,7 @@ export const ChatInvitation = ({ lang }: { lang: "bg" | "en" }) => (
               starter: starter.id,
             })
           }
-          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md bg-muted px-2 text-xs font-medium text-foreground hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md bg-muted px-1.5 text-xs font-medium text-foreground hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
         >
           {starter.label[lang]}
         </Link>
@@ -57,7 +57,7 @@ export const ChatInvitation = ({ lang }: { lang: "bg" | "en" }) => (
         <Link
           to={`/articles/${CHAT_LAUNCH_SLUG}`}
           onClick={() => trackEvent("chat_invitation", { entry: "article" })}
-          className="inline-flex min-h-11 items-center rounded px-2 text-xs text-foreground underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+          className="inline-flex min-h-11 items-center rounded px-1.5 text-xs text-foreground underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
         >
           {lang === "bg" ? "Как работи" : "How it works"}
         </Link>

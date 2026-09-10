@@ -7,6 +7,13 @@ import { LOCALE_BUNDLES } from "../src/locales/bundles";
 // Note: `path` is deliberately NOT imported — the CLS loops below bind `path`
 // as a per-route variable and would shadow it.
 const DIST_DIR = fileURLToPath(new URL("../dist", import.meta.url));
+// The launch card replaces the flyover only in preview/published builds.
+const homePreviewSelector = () =>
+  fs
+    .readFileSync(`${DIST_DIR}/index.html`, "utf8")
+    .includes("/images/chat/invitation.webp")
+    ? "[data-chat-invitation]"
+    : "[data-flyover-band]";
 
 // Static imports of a built chunk, as emitted by Rollup. Matches BOTH the
 // binding form (`from"./chunk.js"`) and the side-effect form
@@ -376,12 +383,12 @@ test.describe("performance", () => {
     // passes as „no Cloud SQL". Both readings are about the wrong site. This happened twice
     // while these gates were being written, and cost more than the gates did. Anchor on
     // something only this build serves, so a squatter reports itself.
-    expect(
-      await page.locator("[data-flyover-band]").count(),
-      "no flyover band on `/` — if this is a local run, check that 127.0.0.1:5002 is THIS " +
+    await expect(
+      page.locator(homePreviewSelector()),
+      "no expected home preview on `/` — if this is a local run, check that 127.0.0.1:5002 is THIS " +
         "repo's emulator and not another project's (playwright.config.ts reuses whatever " +
         "is already listening)",
-    ).toBe(1);
+    ).toHaveCount(1);
     // ⚠️ Sorted on a COPY. `sort()` mutates, and the arguments of `expect` are
     // evaluated left to right — sorting in place would make the failure message
     // report alphabetical order on a test whose diagnostic value is arrival
@@ -431,6 +438,16 @@ test.describe("performance", () => {
     // the same picture every run. It does not affect the request: one artifact
     // serves all three programmes.
     await page.goto("/?scene=arcs", { waitUntil: "networkidle" });
+    if (homePreviewSelector() === "[data-chat-invitation]") {
+      await expect(page.locator("[data-chat-invitation]")).toBeVisible();
+      await expect(page.locator("[data-flyover-band]")).toHaveCount(0);
+      expect(
+        urls.filter((u) => /HomeFlyover-|\/home\/flyover\.json/.test(u)),
+      ).toEqual([]);
+      expect(urls.filter((u) => u.includes("/api/db/"))).toEqual([]);
+      return;
+    }
+
     await page.locator("[data-flyover-band]").scrollIntoViewIfNeeded();
     const flyoverRequests = () =>
       urls.filter((u) => u.includes("/home/flyover.json"));
@@ -466,7 +483,7 @@ test.describe("performance", () => {
       const urls: string[] = [];
       page.on("request", (r) => urls.push(r.url()));
       await page.goto("/", { waitUntil: "networkidle" });
-      await page.locator("[data-flyover-band]").scrollIntoViewIfNeeded();
+      await page.locator(homePreviewSelector()).scrollIntoViewIfNeeded();
       await page.waitForTimeout(3_000);
       expect(
         urls.filter((u) => u.includes("/home/flyover.json")),

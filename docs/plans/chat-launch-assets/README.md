@@ -10,9 +10,14 @@ Prompt:
 
 > Use case: ads-marketing. Create a polished editorial illustration for a Bulgarian civic public-data website Наясно, a compact homepage chat invitation. Wide 3:2 composition. Warm cream paper backdrop, charcoal fine ink outlines, restrained burnt-orange accents, subtle paper texture. One speech bubble with a simple question mark connects to a tidy abstract bar-chart card and then an official paper/source document with a small check symbol. Friendly, clear, intelligent, contemporary editorial illustration; ample breathing room, no robot, no brain, no glowing AI effects. No written words, no logos, no numbers or purported real data. The decorative chart is symbolic, not a factual visualization. All three elements form one balanced compact composition readable at 240px wide. No border or drop shadow.
 
-The homepage invitation is visible in development for review. Production is
-gated by `CHAT_LAUNCH_PUBLISHED` in `src/lib/chatLaunch.ts`; enable it together
-with the reviewed article. Its secondary article link is absent until then.
+The homepage invitation replaces the slideshow beside search in development and
+isolated preview builds, with no duplicate strip. Normal production retains the
+slideshow until `src/lib/chatLaunchPublication.json` is published together with
+the reviewed article. The preview includes the article link for editorial review.
+
+`homepage-bg.png` and `homepage-en-dark-mobile.png` were refreshed on 2026-09-10
+from the actual localhost UI at 1280px light and 390px dark respectively. They
+show the replacement card, not article evidence for the displayed live metrics.
 
 ## Article example evidence (T4)
 

@@ -5,7 +5,7 @@ Date: 2026-09-10.
 
 ## 1. Outcome and agreed direction
 
-Launch the existing chat as an integrated part of electionsbg.com shortly before the move to naiasno.bg. Migrate all three public AI screens, introduce a prominent homepage invitation below search, and publish an illustrated Bulgarian launch article with an English counterpart. The primary audience is ordinary citizens; include a few deeper examples for journalists and researchers. Name comparable tools, including СИГМА's documented AI assistant, with dated evidence and a clear distinction between announced and tested capabilities.
+Launch the existing chat as an integrated part of electionsbg.com shortly before the move to naiasno.bg. Migrate all three public AI screens, replace the homepage slideshow beside search with a prominent chat invitation, and publish an illustrated Bulgarian launch article with an English counterpart. The primary audience is ordinary citizens; include a few deeper examples for journalists and researchers. Name comparable tools, including СИГМА's documented AI assistant, with dated evidence and a clear distinction between announced and tested capabilities.
 
 The launch destination is `/chat`, later retained unchanged on naiasno.bg. Brand the invitation **Попитай Наясно**. Keep the existing data tools and chat behavior; this is an integration and communication project, not a model replacement or a rewrite of the data layer.
 
@@ -92,7 +92,7 @@ Gate: both real AI and non-AI questions return on staging, with sources and mode
 
 ## 7. Tier 3 — homepage promotion and artwork
 
-Place a compact promotional card directly below the search bar/hint, coordinated with the existing flyover preview. It must not obscure search results or displace essential navigation below an oversized hero.
+Replace the slideshow beside the search bar with an illustrated Попитай Наясно card; on mobile it follows search. Remove the duplicate invitation strip beneath search. Keep the existing slideshow only in unpublished production builds until launch approval. It must not obscure search results or displace essential navigation below an oversized hero.
 
 Proposed copy:
 
