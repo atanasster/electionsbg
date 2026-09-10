@@ -14,7 +14,6 @@ import heroLight from "../../assets/hero-bg-light.webp";
 import heroDark from "../../assets/hero-bg-dark.webp";
 import {
   MiniBarCard,
-  MiniDonutCard,
   MiniHemicycleCard,
   MiniLineCard,
   MiniMapCard,
@@ -95,13 +94,13 @@ export const EmptyHero = ({
             ariaLabel={question("parliamentSeats")}
             onClick={q("parliamentSeats")}
           />
-          <MiniDonutCard
+          <MiniBarCard
             rotate={-3}
             className="hidden sm:block"
             title={t("Бюджет", "Budget")}
             source={t("Министерство на финансите", "Ministry of Finance")}
-            ariaLabel={question("budgetByFunction")}
-            onClick={q("budgetByFunction")}
+            ariaLabel={question("budgetOverview")}
+            onClick={q("budgetOverview")}
           />
         </div>
 

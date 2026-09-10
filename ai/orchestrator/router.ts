@@ -3201,6 +3201,14 @@ const routeText = (question: string, ctx: ToolContext): Route => {
     has(q, "бюджет", "budget", "харчи", "spend", "колко пари", "разходи")
   )
     return { tool: "ministryBudget", args: { ministry: q } };
+  if (
+    has(q, "по функции", "по функция", "by function") &&
+    has(q, "разход", "бюджет", "spend", "expenditure", "budget")
+  )
+    return {
+      tool: "budgetByFunction",
+      args: promptYear ? { year: promptYear } : {},
+    };
   const gf = resolveBudgetFunction(q);
   if (gf && !has(q, "поръчк", "procurement", "аоп", " aop"))
     return {

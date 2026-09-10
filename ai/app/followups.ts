@@ -2,6 +2,7 @@
 // tool + entities. Every suggestion is phrased so the router maps it to a real
 // tool (so clicking it always works). Falls back to broad starters.
 
+import { STARTERS } from "./starters";
 import type { Envelope } from "../tools/types";
 
 export type FollowUp = { bg: string; en: string };
@@ -753,16 +754,16 @@ export const followUps = (env: Envelope): FollowUp[] => {
   }
 
   if (out.length === 0) {
-    out.push(
-      {
-        bg: "Какви са резултатите от последните избори?",
-        en: "Results of the latest election?",
-      },
-      {
-        bg: "Как се променя активността през годините?",
-        en: "How has turnout changed over time?",
-      },
-    );
+    const source = STARTERS.find((s) => s.tool === env.tool);
+    if (source) {
+      const related = STARTERS.filter(
+        (s) =>
+          s.tool !== env.tool &&
+          s.category === source.category &&
+          s.subcategory === source.subcategory,
+      );
+      out.push(...related.slice(0, 3).map(({ bg, en }) => ({ bg, en })));
+    }
   }
   return out.slice(0, 3);
 };
