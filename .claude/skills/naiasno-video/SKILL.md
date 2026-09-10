@@ -22,6 +22,9 @@ review and publish by hand** — this skill never uploads to YouTube or Facebook
 Sibling of `naiasno-post`. Same brand, same discipline, same refusal to publish.
 Plan and full rationale: `docs/plans/explainer-video-v1.md`.
 
+Use `https://naiasno.bg` for all links to our site in video descriptions and
+companion posts; the rebranding is complete. Keep external source URLs unchanged.
+
 ## Build state — the whole chain runs
 
 The `video/` Remotion project exists and T1 renders end to end (phase 1, 2026-08-08).
@@ -442,7 +445,7 @@ this sketch if the two disagree.
   "topic": "Изборен риск",                // persistent header chrome
   "period": "юли 2021 — април 2026 · 7 сравними избора",
   "sourceLine": "Източник: ЦИК … · naiasno.bg",
-  "link": "https://electionsbg.com/risk-analysis?elections=2026_04_19",
+  "link": "https://naiasno.bg/risk-analysis?elections=2026_04_19",
   "postSlug": "…",                        // when a card carries the same finding
   "sources": ["data/…json", "https://results.cik.bg/…"],
   "voice": { "provider": "gemini", "voiceId": "Rasalgethi" },

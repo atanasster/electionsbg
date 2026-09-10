@@ -260,7 +260,7 @@ via the `versus` key the gate emitted. Say so explicitly when handing off, or
 the bar-card default wins and you publish a chart of two numbers instead of a
 comparison.
 
-Deep link: `/person/<slug>` for either person. Sources: the `gate.sourceUrls`
+Deep link: `/person/<slug>` (base: `https://naiasno.bg`; rebranding is complete) for either person. Sources: the `gate.sourceUrls`
 entries are direct `register.cacbg.bg` filing URLs, which satisfies
 `naiasno-post`'s rule 2 exactly rather than by web search.
 

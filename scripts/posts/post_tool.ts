@@ -80,7 +80,7 @@ export type PostEntry = {
   tags: string[];
   entities: string[]; // parties/people/municipalities/institutions referenced
   keyFact: string; // the single headline claim
-  link: string; // on-site deep link (electionsbg.com now, naiasno.bg later)
+  link: string; // on-site deep link (https://naiasno.bg; rebranding complete)
   sources: string[]; // our-data source + public confirmation source(s)
   image: string | null; // rendered card path, a referenced path, or null (link auto-preview)
   pin: boolean; // keep featured/pinned after launch

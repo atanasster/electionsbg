@@ -457,7 +457,7 @@ Also:
 
 Invoke the `naiasno-post` skill with the assembled facts. It owns: the duplicate
 check (`post_tool.ts check`), public-source confirmation (rule 2), BG/EN copy,
-`post_tool.ts save`, and the review step. Deep link is `/governance/<ekatte>`
+`post_tool.ts save`, and the review step. Deep link is `/governance/<ekatte>` (base: `https://naiasno.bg`; rebranding is complete)
 for the place, `/school/<id>` when the post is about the school.
 
 **The card spec is the ONE thing that does not transfer.** `naiasno-post` says

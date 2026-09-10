@@ -18,6 +18,15 @@ brand: a native 1080×1080 card (navy + coral, the site theme) plus BG (and
 optional EN) copy, with the deep link and sources. Output is a **draft** for the
 operator to review and post by hand — this skill never publishes to Facebook.
 
+## Site links
+
+The rebranding is complete. Use **https://naiasno.bg** for every link to our
+site in new or revised post copy, first comments, spec `link` fields and card
+CTAs. Preserve the destination path, query and fragment. The integrated chat
+is **https://naiasno.bg/chat**; do not link to the retired standalone AI site.
+Keep external source URLs unchanged. This also applies to drafts handed off
+by the settlement and person-comparison posting skills.
+
 ## Post kinds
 
 Pass `kind` in the spec (default `data`):
@@ -26,7 +35,7 @@ Pass `kind` in the spec (default `data`):
   our data + independently confirmed). Native image; link in the first comment.
   Steps 1–7 below are written for this kind.
 - **`feature`** — announce a new feature / product launch (e.g. the AI chat at
-  ai.electionsbg.com). No external stat to confirm, so **skip rules 1–2**; instead
+  naiasno.bg/chat). No external stat to confirm, so **skip rules 1–2**; instead
   describe the feature ACCURATELY and without hype (verify what it does + its live
   URL) and add an honest "ранна версия" caveat where apt. If the target site has an
   `og:image`, post the **link in the body** and let Facebook pull the preview
@@ -105,7 +114,7 @@ existing post. Do not proceed on a near-duplicate.
 
 Find the exact figure in the data and the on-site deep link. Data homes:
 
-| Vein | Data | Deep link (base: electionsbg.com — naiasno.bg later) |
+| Vein | Data | Deep link (base: https://naiasno.bg) |
 |---|---|---|
 | Important NS votes | `data/parliament/votes/derived/important_votes/{ns}.json`, `…/sessions/{date}.json` | `/votes/:date/:slug`, `/votes/:date` |
 | NS dissent / party splits | `…/derived/dissents.json`, `…/party_pair_breaks.json` | `/votes/between/:pair`, `/votes/:date/:slug` |
@@ -341,7 +350,7 @@ Spec shape:
   "tags": ["procurement", "пари"],
   "entities": ["АОП"],
   "keyFact": "2,4 млрд. лв. обществени поръчки възложени без конкуренция през 2024",
-  "link": "https://electionsbg.com/procurement",
+  "link": "https://naiasno.bg/procurement",
   "sources": ["data/procurement/summary.json", "https://www.aop.bg/..."],
   "bg": "…BG post body (Facebook — the canonical body)…",
   "en": "…optional EN (Facebook)…",
@@ -381,7 +390,7 @@ the `renderBarCard` renderer):
   "slug": "2026-06-01-eu-prices-vs-peers",
   "date": "<today YYYY-MM-DD>",
   "title": "…",
-  "link": "https://electionsbg.com/indicators/compare",
+  "link": "https://naiasno.bg/indicators/compare",
   "sources": ["data/macro_peers.json", "https://ec.europa.eu/eurostat/..."],
   "bg": "…", "en": "…",
   "card": {
@@ -412,8 +421,8 @@ existing file e.g. `ai/assets/og.png`, or `null` for link auto-preview).
   "kind": "feature",
   "title": "Наясно AI вече е онлайн",
   "keyFact": "Наясно AI — AI асистент за изборите и данните, вече онлайн",
-  "link": "https://ai.electionsbg.com",
-  "sources": ["ai/ app; og:image = ai/assets/og.png"],
+  "link": "https://naiasno.bg/chat",
+  "sources": ["Integrated /chat page; verify its current og:image"],
   "image": null,
   "bg": "…", "en": "…"
 }
