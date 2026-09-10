@@ -70,7 +70,7 @@ export const ChatScreen = () => {
         ? "Assistant evaluation"
         : tools
           ? "Tools and data"
-          : "Ask Наясно";
+          : "Ask Naiasno";
   const description =
     lang === "bg"
       ? "Задайте въпрос за публичните данни за България и проверете източниците зад отговора."
@@ -78,9 +78,13 @@ export const ChatScreen = () => {
   if (needsNormalization) return null;
   return (
     <ChatNavigationContext.Provider value={navigation}>
+      {/* No `fullTitle`: SEO's own rule appends the locale suffix only when the
+          title does not already name the brand, so „Попитай Наясно" stays as it
+          is and „Инструменти и данни" gains „| Наясно". A hard-coded
+          `${title} | Наясно` here bypassed that — it doubled the brand on /chat
+          and put a Cyrillic suffix on every /en variant. */}
       <SEO
         title={title}
-        fullTitle={`${title} | Наясно`}
         description={description}
         canonical={`${SITE_ORIGIN}${prefix}${location.pathname.replace(/\/+$/, "")}`}
       />
