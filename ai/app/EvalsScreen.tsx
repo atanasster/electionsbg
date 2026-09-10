@@ -119,45 +119,47 @@ export const EvalsScreen = ({
     baseline.scoringHash === run.scoringHash;
   return (
     <div className="flex min-h-dvh flex-col bg-card text-foreground">
-      <header className="flex flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-4 py-2.5 shadow-sm">
-        <a
-          href={chatPath("chat", navigation.pathname)}
-          className="flex items-center gap-2 text-xl text-primary"
-        >
-          <Logo className="size-7" />
-          <span className="font-title">Наясно AI</span>
-        </a>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              const next = lang === "bg" ? "en" : "bg";
-              if (!integrated) {
-                setLang(next);
-                return;
+      {!integrated && (
+        <header className="flex flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-4 py-2.5 shadow-sm">
+          <a
+            href={chatPath("chat", navigation.pathname)}
+            className="flex items-center gap-2 text-xl text-primary"
+          >
+            <Logo className="size-7" />
+            <span className="font-title">Наясно AI</span>
+          </a>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                const next = lang === "bg" ? "en" : "bg";
+                if (!integrated) {
+                  setLang(next);
+                  return;
+                }
+                const path = navigation.pathname.replace(/^\/en/, "");
+                window.location.assign(
+                  `${next === "en" ? "/en" : ""}${path}${navigation.search}`,
+                );
+              }}
+              aria-label={t("Език", "Language")}
+            >
+              {lang === "bg" ? "EN" : "BG"}
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() =>
+                setTheme(theme === themeDark ? themeLight : themeDark)
               }
-              const path = navigation.pathname.replace(/^\/en/, "");
-              window.location.assign(
-                `${next === "en" ? "/en" : ""}${path}${navigation.search}`,
-              );
-            }}
-            aria-label={t("Език", "Language")}
-          >
-            {lang === "bg" ? "EN" : "BG"}
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() =>
-              setTheme(theme === themeDark ? themeLight : themeDark)
-            }
-            aria-label={t("Тема", "Theme")}
-          >
-            {theme === themeDark ? "☀" : "☾"}
-          </Button>
-        </div>
-      </header>
+              aria-label={t("Тема", "Theme")}
+            >
+              {theme === themeDark ? "☀" : "☾"}
+            </Button>
+          </div>
+        </header>
+      )}
       <main className="container mx-auto flex-1 space-y-8 px-4 py-8">
         <div>
           <h1 className="font-title text-3xl font-semibold text-popover-foreground">
@@ -553,12 +555,14 @@ export const EvalsScreen = ({
           )}
         </details>
       </main>
-      <footer className="border-t bg-muted p-4 text-center text-xs">
-        <a href={chatPath("chat", navigation.pathname)}>
-          {t("Към чата", "Back to chat")}
-        </a>{" "}
-        · <a href="https://electionsbg.com">electionsbg.com</a>
-      </footer>
+      {!integrated && (
+        <footer className="border-t bg-muted p-4 text-center text-xs">
+          <a href={chatPath("chat", navigation.pathname)}>
+            {t("Към чата", "Back to chat")}
+          </a>{" "}
+          · <a href="https://electionsbg.com">electionsbg.com</a>
+        </footer>
+      )}
     </div>
   );
 };

@@ -68,7 +68,7 @@ Gate: resolve the backend endpoint and language contracts; retain baseline measu
 ## 5. Tier 1 — integrate chat, tools and eval screens
 
 - [x] Introduce lazy main-site routes for all three screens and English mirrors. Reuse existing query/theme/tooltip/language providers.
-- [x] Adapt the chat shell to main-site navigation with a spacious conversation area and visible return links. Preserve the fixed composer, keyboard behavior, mobile keyboard handling and reachable conversation actions. Avoid nested competing page scroll areas.
+- [x] Adapt the chat shell to main-site navigation with a spacious conversation area and visible return links. Per editorial review, use only the site logo/theme/language controls and a sticky local toolbar for New chat, Tools and Accuracy; keep sharing/export in the conversation area. Preserve the fixed composer, keyboard behavior, mobile keyboard handling and reachable conversation actions. Avoid nested competing page scroll areas.
 - [x] Replace standalone `pushState` navigation with main-router-compatible transitions; verify same-route `?q=` changes as well as initial load. Reusing the existing initial-load-only effect unchanged is insufficient for SPA navigation.
 - [x] Migrate all tools/workspace/evals links and preserve tool configuration, area, question and language state. Retain validation, URL-length checks and invalid-link messages.
 - [x] Preserve typed prompts, structured starters, suggested follow-ups, manual follow-ups, clarification choices, memory, new chat, sharing, export, voice controls and answer-to-dashboard links.

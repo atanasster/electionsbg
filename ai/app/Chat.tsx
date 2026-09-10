@@ -1,3 +1,4 @@
+import { CHAT_STORAGE_KEY } from "./chatStorage";
 import { useLinkedQuestion } from "./useLinkedQuestion";
 import { trackEvent } from "@/lib/analytics";
 import { useChatNavigation } from "./navigation";
@@ -89,7 +90,7 @@ const prevContext = (
   return undefined;
 };
 
-const STORAGE_KEY = "naiasno.chat.v1";
+const STORAGE_KEY = CHAT_STORAGE_KEY;
 
 // Shell-style recall of past prompts (Up/Down in the composer). Kept separate
 // from the conversation so it survives "New chat", deduped against the newest
@@ -347,6 +348,7 @@ export const Chat = ({
   lang,
   election,
   actionSlot,
+  showNewChatAction = true,
   initialIntent,
   onIntentConsumed,
 }: {
@@ -354,6 +356,7 @@ export const Chat = ({
   lang: Lang;
   election: string;
   actionSlot: HTMLElement | null;
+  showNewChatAction?: boolean;
   initialIntent?: ToolIntent | null;
   onIntentConsumed?: () => void;
 }) => {
@@ -866,33 +869,34 @@ export const Chat = ({
         onPick={choose}
         onClose={() => setClarify(null)}
       />
-      {/* Conversation actions live in the fixed header (portaled into actionSlot)
-          so they stay reachable however far the messages scroll — they used to
-          sit atop the scroll area and scrolled out of reach in a long chat.
-          New chat stays a standalone control; the share/export family collapses
-          into one labelled dropdown to keep the header compact. */}
+      {/* Conversation actions use the host-provided slot (header on the legacy site,
+          conversation area on the integrated site)
+          and sharing/export stay grouped in one labelled dropdown. The main
+          site toolbar owns New chat; the legacy header retains its own action. */}
       {actionSlot &&
         hasChat &&
         createPortal(
           <>
             {canNarrate && <MemoryPill turns={memoryTurns} lang={lang} />}
-            <Button
-              variant="outline"
-              size="sm"
-              // h-9 to match the App header's icon buttons (Info/EN/theme) so
-              // the portaled chat actions line up as one even-height toolbar.
-              className="h-9"
-              onClick={() => {
-                setMessages([]);
-                setSelectedQuestion(null);
-              }}
-              title={t("Нов чат", "New chat")}
-            >
-              <Plus />
-              <span className="hidden sm:inline">
-                {t("Нов чат", "New chat")}
-              </span>
-            </Button>
+            {showNewChatAction && (
+              <Button
+                variant="outline"
+                size="sm"
+                // h-9 to match the App header's icon buttons (Info/EN/theme) so
+                // the portaled chat actions line up as one even-height toolbar.
+                className="h-9"
+                onClick={() => {
+                  setMessages([]);
+                  setSelectedQuestion(null);
+                }}
+                title={t("Нов чат", "New chat")}
+              >
+                <Plus />
+                <span className="hidden sm:inline">
+                  {t("Нов чат", "New chat")}
+                </span>
+              </Button>
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button

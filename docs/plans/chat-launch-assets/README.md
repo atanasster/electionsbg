@@ -23,3 +23,10 @@ with the reviewed article. Its secondary article link is absent until then.
 To repeat the capture, run `node scripts/chat-launch/capture-examples.cjs` from the repository root after refreshing the isolated preview. It replaces task-owned originals and writes a candidate manifest to `/tmp/chat-launch-final-examples.json`; verify that candidate before replacing `examples.json`. It does not deploy. The preview hostname expires and must be refreshed when repeating this later.
 
 Review repairs: each figure links to its original at full resolution for narrow-screen inspection; T5 must retain that explicit action. The two supporting `prices-*.png` captures contain map-provider “API KEY REQUIRED” watermarks and are **excluded from publication**. Their numerical table was checked, but the images are diagnostic evidence only. The four selected article figures contain no such map watermark.
+
+
+## Toolbar revision (2026-09-10)
+
+The eight selected article originals and their public copies were refreshed after removing the integrated screens' duplicate branding/preferences/footer. The actual UI was captured at localhost:5173; only public data GETs were forwarded to the existing hosted DB and GCS sources. `toolbar-captures.json` records this provenance and timestamps. Each budget/follow-up answer's narration and full envelope exactly matched the previously reviewed hosted evidence. The screenshots contain no fabricated responses or edited answer pixels. Main-region images remain 800 × 1024; the limits views are 800 × 1200. Gutter positions were adjusted to the new layout.
+
+`node scripts/chat-launch/refresh-article-figures.cjs` refreshes only these four bilingual figures. Its default is the hosted preview; `CHAT_CAPTURE_ORIGIN` optionally selects the local UI with real hosted read-through data. It fails if the reviewed narration or envelope changes. Review new data before updating that baseline. The candidate capture manifest is written to `/tmp/chat-toolbar-figure-captures.json`.

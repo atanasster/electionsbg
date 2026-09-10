@@ -1,0 +1,486 @@
+[
+  {
+    "id": "start",
+    "lang": "bg",
+    "uiOrigin": "http://localhost:5173",
+    "dataOrigin": "https://elections-bg--chat-launch-gu0gkopz.web.app",
+    "capturedAt": "2026-09-10T12:33:31.921Z"
+  },
+  {
+    "id": "limits",
+    "lang": "bg",
+    "uiOrigin": "http://localhost:5173",
+    "capturedAt": "2026-09-10T12:33:32.245Z"
+  },
+  {
+    "id": "budget",
+    "lang": "bg",
+    "uiOrigin": "http://localhost:5173",
+    "dataOrigin": "https://elections-bg--chat-launch-gu0gkopz.web.app",
+    "messages": [
+      {
+        "id": 1,
+        "role": "user",
+        "text": "Какъв е държавният бюджет — план и изпълнение?"
+      },
+      {
+        "id": 2,
+        "role": "assistant",
+        "text": "Държавен бюджет 2026: отчетени приходи 15,3 млрд €, разходи 16,5 млрд € при годишен план 34,5 млрд €, салдо -1,9 млрд €.",
+        "env": {
+          "tool": "budgetOverview",
+          "domain": "fiscal",
+          "kind": "table",
+          "title": "Държавен бюджет — план и изпълнение 2026",
+          "subtitle": "Касово изпълнение на държавния бюджет към 2026-07-31. Непълна година. Не обхваща целия сектор „Държавно управление“ (COFOG).",
+          "columns": [
+            {
+              "key": "metric",
+              "label": "Показател"
+            },
+            {
+              "key": "planned",
+              "label": "План за годината",
+              "numeric": true
+            },
+            {
+              "key": "value",
+              "label": "Изпълнение",
+              "numeric": true
+            }
+          ],
+          "rows": [
+            {
+              "metric": "Приходи",
+              "value": "15,3 млрд €",
+              "planned": "28,5 млрд €"
+            },
+            {
+              "metric": "Разходи",
+              "value": "16,5 млрд €",
+              "planned": "34,5 млрд €"
+            },
+            {
+              "metric": "Салдо",
+              "value": "-1,9 млрд €",
+              "planned": "-7,3 млрд €"
+            },
+            {
+              "metric": "Принос към бюджета на ЕС",
+              "value": "661,7 млн €",
+              "planned": "1,3 млрд €"
+            }
+          ],
+          "viz": "none",
+          "facts": {
+            "year": 2026,
+            "coverage": "Касово изпълнение на държавния бюджет към 2026-07-31. Непълна година. Не обхваща целия сектор „Държавно управление“ (COFOG).",
+            "planned_expenditure": "34,5 млрд €",
+            "revenue": "15,3 млрд €",
+            "expenditure": "16,5 млрд €",
+            "eu_contribution": "661,7 млн €",
+            "balance": "-1,9 млрд €",
+            "reconciliation": "салдо = приходи − разходи − принос към бюджета на ЕС",
+            "basis": "изпълнение на държавния бюджет"
+          },
+          "provenance": [
+            "budget/index.json"
+          ]
+        },
+        "meta": {
+          "model": {
+            "bg": "Без AI",
+            "en": "No AI"
+          },
+          "durationMs": 304.19999998807907,
+          "narratedBy": "rules"
+        },
+        "tool": "budgetOverview",
+        "args": {},
+        "lang": "bg"
+      }
+    ],
+    "capturedAt": "2026-09-10T12:33:33.215Z"
+  },
+  {
+    "id": "followup",
+    "lang": "bg",
+    "uiOrigin": "http://localhost:5173",
+    "dataOrigin": "https://elections-bg--chat-launch-gu0gkopz.web.app",
+    "messages": [
+      {
+        "id": 1,
+        "role": "user",
+        "text": "Покажи ми всички търгове за пътни предпазни съоръжения през 2025"
+      },
+      {
+        "id": 2,
+        "role": "assistant",
+        "text": "Намерих 2 обявени поръчки за „Пътни предпазни (ограничителни) съоръжения / мантинели“ през 2025, обща прогнозна стойност 491,1 млн €; най-голямата е 490,8 млн €. Прогнозни (обявени) стойности — не са похарчени средства.",
+        "env": {
+          "tool": "openTenders",
+          "domain": "fiscal",
+          "kind": "table",
+          "title": "Обявени поръчки — Пътни предпазни (ограничителни) съоръжения / мантинели (2025)",
+          "subtitle": "Прогнозни (обявени) стойности — не са похарчени средства.",
+          "columns": [
+            {
+              "key": "buyer",
+              "label": "Възложител"
+            },
+            {
+              "key": "subject",
+              "label": "Предмет"
+            },
+            {
+              "key": "estimate",
+              "label": "Прогнозна ст.",
+              "numeric": true
+            },
+            {
+              "key": "lots",
+              "label": "Обос. позиции",
+              "numeric": true
+            },
+            {
+              "key": "status",
+              "label": "Статус"
+            }
+          ],
+          "rows": [
+            {
+              "buyer": "Агенция \"Пътна инфраструктура\"",
+              "subject": "Изграждане, ремонт и възстановяване на ограничителни системи",
+              "estimate": "490,8 млн €",
+              "lots": 6,
+              "status": "обявена"
+            },
+            {
+              "buyer": "Община Шумен",
+              "subject": "Изпълнение на пътна маркировка, сигнализация с пътни знаци и",
+              "estimate": "255,6 хил €",
+              "lots": 0,
+              "status": "обявена"
+            }
+          ],
+          "viz": "none",
+          "facts": {
+            "scope": "Пътни предпазни (ограничителни) съоръжения / мантинели",
+            "year": 2025,
+            "matches": 2,
+            "total_estimated": "491,1 млн €",
+            "cancelled": 0,
+            "biggest": "Изграждане, ремонт и възстановяване на ограничителни системи",
+            "biggest_estimate": "490,8 млн €",
+            "value_type": "прогнозна (forecast)",
+            "link_topic": "guardrails"
+          },
+          "provenance": [
+            "db:tender-corpus-search"
+          ]
+        },
+        "meta": {
+          "model": {
+            "bg": "Без AI",
+            "en": "No AI"
+          },
+          "durationMs": 822.1999999880791,
+          "narratedBy": "rules"
+        },
+        "tool": "openTenders",
+        "args": {
+          "topic": "guardrails",
+          "year": "2025"
+        },
+        "lang": "bg"
+      },
+      {
+        "id": 3,
+        "role": "user",
+        "text": "Покажи поръчката 00044-2025-0125"
+      },
+      {
+        "id": 4,
+        "role": "assistant",
+        "text": "Поръчка 00044-2025-0125 на Агенция \"Пътна инфраструктура\": прогнозна стойност 490,8 млн €, 6 обособени позиции, статус „обявена“ (обявена на 2025-09-23). Прогнозна (обявена) стойност — не е похарчена.",
+        "env": {
+          "tool": "tenderLookup",
+          "domain": "fiscal",
+          "kind": "scalar",
+          "title": "Изграждане, ремонт и възстановяване на ограничителни системи",
+          "subtitle": "Прогнозни (обявени) стойности — не са похарчени средства.",
+          "viz": "none",
+          "facts": {
+            "unp": "00044-2025-0125",
+            "buyer": "Агенция \"Пътна инфраструктура\"",
+            "estimated_value": "490,8 млн €",
+            "lots": 6,
+            "status": "обявена",
+            "announced": "2025-09-23",
+            "procedure_id": "ocds-e82gsb-518491",
+            "value_type": "прогнозна (forecast)"
+          },
+          "provenance": [
+            "db:tender"
+          ]
+        },
+        "meta": {
+          "model": {
+            "bg": "Без AI",
+            "en": "No AI"
+          },
+          "durationMs": 165.89999997615814,
+          "narratedBy": "rules"
+        },
+        "tool": "tenderLookup",
+        "args": {
+          "unp": "00044-2025-0125"
+        },
+        "lang": "bg"
+      }
+    ],
+    "capturedAt": "2026-09-10T12:33:34.847Z"
+  },
+  {
+    "id": "start",
+    "lang": "en",
+    "uiOrigin": "http://localhost:5173",
+    "dataOrigin": "https://elections-bg--chat-launch-gu0gkopz.web.app",
+    "capturedAt": "2026-09-10T12:33:35.673Z"
+  },
+  {
+    "id": "limits",
+    "lang": "en",
+    "uiOrigin": "http://localhost:5173",
+    "capturedAt": "2026-09-10T12:33:35.961Z"
+  },
+  {
+    "id": "budget",
+    "lang": "en",
+    "uiOrigin": "http://localhost:5173",
+    "dataOrigin": "https://elections-bg--chat-launch-gu0gkopz.web.app",
+    "messages": [
+      {
+        "id": 1,
+        "role": "user",
+        "text": "What is the state budget — plan and actual spending?"
+      },
+      {
+        "id": 2,
+        "role": "assistant",
+        "text": "State budget 2026: actual revenue €15.3bn, expenditure €16.5bn against an annual plan of €34.5bn, balance €-1.9bn.",
+        "env": {
+          "tool": "budgetOverview",
+          "domain": "fiscal",
+          "kind": "table",
+          "title": "State budget — 2026 plan and execution",
+          "subtitle": "State-budget cash execution as of 2026-07-31. Partial year. Does not cover the entire general-government sector (COFOG).",
+          "columns": [
+            {
+              "key": "metric",
+              "label": "Metric"
+            },
+            {
+              "key": "planned",
+              "label": "Annual plan",
+              "numeric": true
+            },
+            {
+              "key": "value",
+              "label": "Actual",
+              "numeric": true
+            }
+          ],
+          "rows": [
+            {
+              "metric": "Revenue",
+              "value": "€15.3bn",
+              "planned": "€28.5bn"
+            },
+            {
+              "metric": "Expenditure",
+              "value": "€16.5bn",
+              "planned": "€34.5bn"
+            },
+            {
+              "metric": "Balance",
+              "value": "€-1.9bn",
+              "planned": "€-7.3bn"
+            },
+            {
+              "metric": "Contribution to the EU budget",
+              "value": "€661.7m",
+              "planned": "€1.3bn"
+            }
+          ],
+          "viz": "none",
+          "facts": {
+            "year": 2026,
+            "coverage": "State-budget cash execution as of 2026-07-31. Partial year. Does not cover the entire general-government sector (COFOG).",
+            "planned_expenditure": "€34.5bn",
+            "revenue": "€15.3bn",
+            "expenditure": "€16.5bn",
+            "eu_contribution": "€661.7m",
+            "balance": "€-1.9bn",
+            "reconciliation": "balance = revenue − expenditure − contribution to the EU budget",
+            "basis": "state-budget execution"
+          },
+          "provenance": [
+            "budget/index.json"
+          ]
+        },
+        "meta": {
+          "model": {
+            "bg": "Без AI",
+            "en": "No AI"
+          },
+          "durationMs": 117.5,
+          "narratedBy": "rules"
+        },
+        "tool": "budgetOverview",
+        "args": {},
+        "lang": "en"
+      }
+    ],
+    "capturedAt": "2026-09-10T12:33:36.680Z"
+  },
+  {
+    "id": "followup",
+    "lang": "en",
+    "uiOrigin": "http://localhost:5173",
+    "dataOrigin": "https://elections-bg--chat-launch-gu0gkopz.web.app",
+    "messages": [
+      {
+        "id": 1,
+        "role": "user",
+        "text": "Show me all road-guardrail tenders in 2025"
+      },
+      {
+        "id": 2,
+        "role": "assistant",
+        "text": "Found 2 announced tenders for “Road safety barriers / guardrails” in 2025, total estimated €491.1m; the largest is €490.8m. Estimated (announced) values — not money spent.",
+        "env": {
+          "tool": "openTenders",
+          "domain": "fiscal",
+          "kind": "table",
+          "title": "Tenders — Road safety barriers / guardrails (2025)",
+          "subtitle": "Estimated (announced) values — a forecast, not money spent.",
+          "columns": [
+            {
+              "key": "buyer",
+              "label": "Buyer"
+            },
+            {
+              "key": "subject",
+              "label": "Subject"
+            },
+            {
+              "key": "estimate",
+              "label": "Estimated",
+              "numeric": true
+            },
+            {
+              "key": "lots",
+              "label": "Lots",
+              "numeric": true
+            },
+            {
+              "key": "status",
+              "label": "Status"
+            }
+          ],
+          "rows": [
+            {
+              "buyer": "Агенция \"Пътна инфраструктура\"",
+              "subject": "Изграждане, ремонт и възстановяване на ограничителни системи",
+              "estimate": "€490.8m",
+              "lots": 6,
+              "status": "announced"
+            },
+            {
+              "buyer": "Община Шумен",
+              "subject": "Изпълнение на пътна маркировка, сигнализация с пътни знаци и",
+              "estimate": "€255.6k",
+              "lots": 0,
+              "status": "announced"
+            }
+          ],
+          "viz": "none",
+          "facts": {
+            "scope": "Road safety barriers / guardrails",
+            "year": 2025,
+            "matches": 2,
+            "total_estimated": "€491.1m",
+            "cancelled": 0,
+            "biggest": "Изграждане, ремонт и възстановяване на ограничителни системи",
+            "biggest_estimate": "€490.8m",
+            "value_type": "estimated (forecast)",
+            "link_topic": "guardrails"
+          },
+          "provenance": [
+            "db:tender-corpus-search"
+          ]
+        },
+        "meta": {
+          "model": {
+            "bg": "Без AI",
+            "en": "No AI"
+          },
+          "durationMs": 139.60000002384186,
+          "narratedBy": "rules"
+        },
+        "tool": "openTenders",
+        "args": {
+          "topic": "guardrails",
+          "year": "2025"
+        },
+        "lang": "en"
+      },
+      {
+        "id": 3,
+        "role": "user",
+        "text": "Show tender 00044-2025-0125"
+      },
+      {
+        "id": 4,
+        "role": "assistant",
+        "text": "Tender 00044-2025-0125 by Агенция \"Пътна инфраструктура\": estimated €490.8m, 6 lots, status “announced” (announced 2025-09-23). Estimated (announced) value — not money spent.",
+        "env": {
+          "tool": "tenderLookup",
+          "domain": "fiscal",
+          "kind": "scalar",
+          "title": "Изграждане, ремонт и възстановяване на ограничителни системи",
+          "subtitle": "Estimated (announced) values — a forecast, not money spent.",
+          "viz": "none",
+          "facts": {
+            "unp": "00044-2025-0125",
+            "buyer": "Агенция \"Пътна инфраструктура\"",
+            "estimated_value": "€490.8m",
+            "lots": 6,
+            "status": "announced",
+            "announced": "2025-09-23",
+            "procedure_id": "ocds-e82gsb-518491",
+            "value_type": "estimated (forecast)"
+          },
+          "provenance": [
+            "db:tender"
+          ]
+        },
+        "meta": {
+          "model": {
+            "bg": "Без AI",
+            "en": "No AI"
+          },
+          "durationMs": 25.19999998807907,
+          "narratedBy": "rules"
+        },
+        "tool": "tenderLookup",
+        "args": {
+          "unp": "00044-2025-0125"
+        },
+        "lang": "en"
+      }
+    ],
+    "capturedAt": "2026-09-10T12:33:37.515Z"
+  }
+]
