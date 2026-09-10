@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { ChatLaunchFigure } from "@/components/article/ChatLaunchFigure";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
@@ -176,15 +177,21 @@ export const ArticleScreen: FC = () => {
                   {children}
                 </blockquote>
               ),
-              img: ({ src, alt }) => (
-                <img
-                  src={src}
-                  alt={alt ?? ""}
-                  loading="lazy"
-                  decoding="async"
-                  className={proseClasses.img}
-                />
-              ),
+              img: ({ src, alt }) =>
+                src &&
+                /\/articles\/images\/chat-launch\/(start|budget|followup|limits)-(bg|en)\.(?:png|webp)$/.test(
+                  src,
+                ) ? (
+                  <ChatLaunchFigure src={src} alt={alt ?? ""} />
+                ) : (
+                  <img
+                    src={src}
+                    alt={alt ?? ""}
+                    loading="lazy"
+                    decoding="async"
+                    className={proseClasses.img}
+                  />
+                ),
             }}
           >
             {bodyWithoutH1}

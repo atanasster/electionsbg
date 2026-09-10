@@ -20,6 +20,7 @@
 // through to the index.json values + the standard inferred keywords.
 
 import fs from "fs";
+import publication from "../../src/lib/chatLaunchPublication.json";
 import path from "path";
 import { EN_HOME, PrerenderRoute, SITE_URL } from "./routes";
 import { escapeHtml } from "./html";
@@ -116,10 +117,19 @@ const buildArticleBody = (
   const date = meta.publishedAt;
   const updated = fm.updatedAt ?? meta.updatedAt;
 
-  const bodyHtml = renderMarkdownToHtml(md, {
+  let bodyHtml = renderMarkdownToHtml(md, {
     stripFirstH1: true,
     imageDimensions,
   });
+  // The SPA router supplies /en. Preserve it in this launch article's static
+  // links too, while full-size screenshot URLs remain language-neutral assets.
+  if (lang === "en" && meta.slug === publication.slug) {
+    bodyHtml = bodyHtml.replace(
+      /href="(\/(?!\/|en(?:\/|[?#"]))[^"]*)"/g,
+      (whole, href: string) =>
+        href.startsWith("/articles/images/") ? whole : `href="/en${href}"`,
+    );
+  }
 
   const dateLine =
     updated && updated !== date
@@ -195,8 +205,12 @@ export const buildArticleRoutes = async (
   const allArticles: ArticleMeta[] = JSON.parse(
     fs.readFileSync(indexFile, "utf-8"),
   );
-  // Skip drafts — never prerender unfinished material into static HTML.
-  const articles = allArticles.filter((a) => !a.draft);
+  // Only the explicit isolated preview may render this one draft. The build
+  // marker prevents deploying that artifact through the main Hosting target.
+  const preview = process.env.VITE_CHAT_LAUNCH_PREVIEW === "true";
+  const articles = allArticles.filter(
+    (a) => !a.draft || (preview && a.slug === publication.slug),
+  );
   // Unlisted articles keep their own prerendered page (Google + direct
   // links must still resolve) but drop out of the /articles index body.
   const listedArticles = articles.filter((a) => !a.unlisted);

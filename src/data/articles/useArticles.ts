@@ -1,3 +1,4 @@
+import { CHAT_LAUNCH_PREVIEW, CHAT_LAUNCH_SLUG } from "@/lib/chatLaunch";
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
 
 // Articles are site content (markdown + same-origin images), not data —
@@ -30,7 +31,7 @@ export type ArticleMeta = {
   ogImage?: string;
   author?: string;
   /** When true, the entry is editorial draft material. Loaded only on a
-   *  Vite dev server (import.meta.env.DEV === true). Production builds
+   *  Vite dev server (import.meta.env.DEV === true). Normal production builds
    *  silently drop these — they never reach the prerender/sitemap/llms
    *  index either, see scripts/prerender/articleRoutes.ts. */
   draft?: boolean;
@@ -42,6 +43,8 @@ export type ArticleMeta = {
    *  URLs already in the wild. Distinct from `draft`, which drops the
    *  article from production entirely. */
   unlisted?: boolean;
+  /** Dedicated assets removed from normal production builds while draft. */
+  draftAssetDirectory?: string;
 };
 
 const indexQueryFn = async (): Promise<ArticleMeta[]> => {
@@ -57,7 +60,9 @@ const indexQueryFn = async (): Promise<ArticleMeta[]> => {
   // against import.meta.env.DEV (which is `false` for `vite preview`)
   // gives us the clean dev-only behaviour the editor wants.
   if (import.meta.env.DEV) return all;
-  return all.filter((a) => !a.draft);
+  return all.filter(
+    (a) => !a.draft || (CHAT_LAUNCH_PREVIEW && a.slug === CHAT_LAUNCH_SLUG),
+  );
 };
 
 export const useArticles = () =>
@@ -93,9 +98,11 @@ const bodyQueryFn = async ({
   return stripFrontmatter(raw);
 };
 
-export const useArticleBody = (slug: string | undefined, lang: "bg" | "en") =>
-  useQuery({
+export const useArticleBody = (slug: string | undefined, lang: "bg" | "en") => {
+  const { data: articles } = useArticles();
+  return useQuery({
     queryKey: ["article_body", slug ?? "", lang] as [string, string, string],
     queryFn: bodyQueryFn,
-    enabled: !!slug,
+    enabled: !!slug && !!articles?.some((article) => article.slug === slug),
   });
+};

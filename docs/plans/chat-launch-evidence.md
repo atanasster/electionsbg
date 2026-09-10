@@ -9,7 +9,7 @@ Checked 2026-09-10. This records observations, not promises about untested behav
 - [x] T2 hosted AI access and limits
 - [x] T3 homepage invitation
 - [x] T4 tested examples, research and screenshots
-- [ ] T5 bilingual article
+- [x] T5 bilingual article
 - [ ] T6 release validation and rollout
 - [ ] T7 subsequent rebranding handoff
 
@@ -118,3 +118,13 @@ Four bilingual main figures use original preview screenshots with separate numbe
 Competitor checks used primary documentation and anonymous public interfaces. ChatGPT completed four small tasks, Data Commons provided sourced charts but did not resolve the short fragment or future-observation query, and Perplexity asked for sign-up before answering. СИГМА's public procurement site and official launch announcement were inspected; its assistant is documented in a design specification, not certified as a live tested feature. Detailed observations and limits are in `chat-launch-assets/research.md`; no accuracy ranking is claimed.
 
 T4 review identified two figure issues: full-resolution links are now provided for narrow-screen reading, and the price-map watermark captures are explicitly excluded from publication. Only the four selected, watermark-free figures will enter the article. Capture-script syntax and diff checks pass.
+
+## T5 bilingual draft and publication safeguards
+
+The launch draft uses the stable `2026-09-10-popitai-naiasno` slug, about 1,500 Bulgarian words and a faithful English counterpart. Its six self-contained question links reproduce the T4 manifest. Four figures retain the original pixels and use translated HTML annotations, alt text and explicit full-size links. The static article renderer also includes the captions. The excluded price maps are not public article assets.
+
+`VITE_CHAT_LAUNCH_PREVIEW=true` exposes only this draft and the invitation on the isolated preview build. Normal builds remove every draft Markdown body and the launch draft's declared dedicated image directory from `dist`; source files remain intact. Packaging rejects a draft asset directory shared by a visible article. A hidden build manifest records the preview state, and an unconditional main Hosting predeploy check rejects preview artifacts even when routine predeploy checks are skipped. The invitation publication flag and article draft status must agree.
+
+Article-body fetching now waits for visible metadata, preventing a hidden draft or unknown slug from rendering a raw SPA fallback. Prerender checks confirm normal exclusion, four bilingual annotated figures, one H1 and preserved English prompt URLs; packaging checks cover exclusion, shared assets, preview rejection and reintroduced draft bodies. Local browser checks at 1280px and 390px confirm one H1, four figures, six correct prompt links, no horizontal overflow and a working final invitation/article link in both languages. Main typecheck and scoped lint pass. The full preview build/postbuild passed, including 635 optimized images and the dangling-reference gate. The final optimized BG/EN articles pass desktop/390px checks: four visible figures, one visible H1, six correctly localized question links, no horizontal overflow, and complete image loads. Static HTML has one H1, correct canonicals and WebP references; the preview sends noindex. Desktop homepage height remains 516.625px. Five final entry/preload/HTML performance checks pass. Full lint passes with one pre-existing InterregTile fast-refresh warning; the budget suite and AI harness pass. Four packaging and four renderer cases pass, and the real preview artifact is rejected by the production guard. The preview expires 2026-09-17 unless refreshed. Source review and repair verification found no outstanding issues.
+
+A further real English Gemini 3.5 Flash-Lite budget question completed after normal Turnstile reverification: 2.8 seconds, 12,224 input / 140 output tokens, correct 2026-07-31 period and matching rounded figures. An expired session first returned an explicitly labelled No AI answer and renewal notice. This independently confirms the mode/fallback disclosure; the article retains its narrower Bulgarian-test wording.

@@ -1,3 +1,4 @@
+import chatAnnotations from "../../src/components/article/chatLaunchAnnotations.json";
 // Minimal frontmatter + Markdown → HTML utility used by the prerender step
 // to inline article bodies into the static HTML shell. Kept dependency-free
 // (no `gray-matter` / `marked`) since the article corpus is small and the
@@ -159,7 +160,21 @@ const renderImage = (alt: string, url: string, title?: string): string => {
   const titleAttr = title ? ` title="${escapeHtml(title)}"` : "";
   const dim = activeDimensions?.get(safeUrl);
   const sizeAttrs = dim ? ` width="${dim.width}" height="${dim.height}"` : "";
-  return `<img src="${escapeHtml(safeUrl)}" alt="${escapeHtml(alt)}"${titleAttr}${sizeAttrs} loading="lazy" decoding="async" />`;
+  const image = `<img src="${escapeHtml(safeUrl)}" alt="${escapeHtml(alt)}"${titleAttr}${sizeAttrs} loading="lazy" decoding="async" />`;
+  const figure = safeUrl.match(
+    /\/articles\/images\/chat-launch\/(start|budget|followup|limits)-(bg|en)\.(?:png|webp)$/,
+  );
+  if (!figure) return image;
+  const id = figure[1] as keyof typeof chatAnnotations;
+  const lang = figure[2] as "bg" | "en";
+  const notes = chatAnnotations[id][lang];
+  const captions = notes
+    .map(
+      ([, title, text], i) =>
+        `<span role="listitem"><strong>${i + 1}. ${escapeHtml(String(title))}</strong> ${escapeHtml(String(text))}</span>`,
+    )
+    .join(" ");
+  return `<span role="figure" aria-label="${escapeHtml(alt)}"><a href="${escapeHtml(safeUrl)}">${image}</a><span role="list">${captions}</span><a href="${escapeHtml(safeUrl)}">${lang === "bg" ? "Отвори в пълен размер" : "Open full size"}</a></span>`;
 };
 
 const renderLink = (txt: string, url: string): string => {

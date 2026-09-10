@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { trackEvent } from "@/lib/analytics";
 import {
-  CHAT_LAUNCH_PUBLISHED,
+  CHAT_LAUNCH_REVIEWABLE,
   CHAT_LAUNCH_SLUG,
   CHAT_LAUNCH_STARTERS,
   chatQuestionPath,
@@ -53,7 +53,7 @@ export const ChatInvitation = ({ lang }: { lang: "bg" | "en" }) => (
           {starter.label[lang]}
         </Link>
       ))}
-      {CHAT_LAUNCH_PUBLISHED && (
+      {CHAT_LAUNCH_REVIEWABLE && (
         <Link
           to={`/articles/${CHAT_LAUNCH_SLUG}`}
           onClick={() => trackEvent("chat_invitation", { entry: "article" })}

@@ -43,7 +43,7 @@ import { HOME_BANDS } from "./home/homeRegistry";
 import { HOME_SCENES } from "./home/homeScenes";
 import { HomeFlyoverSlot } from "./home/flyover/HomeFlyoverSlot";
 import { ChatInvitation } from "./home/ChatInvitation";
-import { CHAT_LAUNCH_PUBLISHED } from "@/lib/chatLaunch";
+import { CHAT_LAUNCH_REVIEWABLE } from "@/lib/chatLaunch";
 
 export const HomeDashboardScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -159,7 +159,7 @@ export const HomeDashboardScreen: FC = () => {
                 en: "Places; public figures and people in company records; products; buyers and companies; procurement contracts and procedures; EU and Interreg projects.",
               }}
             />
-            {(import.meta.env.DEV || CHAT_LAUNCH_PUBLISHED) && (
+            {CHAT_LAUNCH_REVIEWABLE && (
               <ChatInvitation lang={bg ? "bg" : "en"} />
             )}
           </>
