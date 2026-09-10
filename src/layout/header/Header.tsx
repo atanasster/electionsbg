@@ -43,6 +43,7 @@ import { Search } from "../search/Search";
 import { FollowingHeaderLink } from "./FollowingHeaderLink";
 import { ElectionsSelect } from "./ElectionsSelect";
 import { Logo } from "./Logo";
+import { brandWordmark } from "@/lib/brand";
 import { CabinetAnchorPill } from "./CabinetAnchorPill";
 import { AreaSniperButton } from "./AreaSniperButton";
 import { AreaPill } from "./AreaPill";
@@ -101,6 +102,7 @@ const MenuSub: FC<{
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
   const { t, i18n } = useTranslation();
+  const wordmark = brandWordmark(i18n.language);
   const { electionStats, selected } = useElectionContext();
   const { data: articles } = useArticles();
   const navRef = useRef<HTMLElement>(null);
@@ -380,12 +382,41 @@ export const Header = () => {
               header. */}
           <span className="sr-only">{t("nav_logo_home_label")}</span>
           <Logo className="size-7" />
-          <div className="hidden pl-2 font-title text-2xl transition-all duration-200 sm:flex">
-            <div className="lowercase text-popover-foreground">
-              {t("elections")}
-            </div>
-            <div className="font-semibold uppercase">{t("bg")}</div>
-          </div>
+          {/* The wordmark, matching `drawWordmark` in scripts/brand/lib/brandMark.ts:
+              "наясно" set in Inter 800 with a coral swipe under the "ясно" half —
+              the pun the name is built on (на + ясно).
+
+              ⚠️ NOT `font-title`, which is Fraunces. The header used to be a
+              serif "избориБГ", but every generated brand asset — favicon, share
+              card, channel art, the social avatars — draws the wordmark in Inter,
+              so a serif header would be the one surface disagreeing with the
+              tab icon sitting directly above it.
+
+              ⚠️ It is TRANSLITERATED, never translated — "наясно" in Bulgarian,
+              "naiasno" on /en, split at the same seam so the swipe lands on the
+              same morpheme (brand.ts owns both halves). The name itself does not
+              change; only the alphabet does, for the reason
+              BRAND_TITLE_SUFFIX_EN exists: /en carried a Cyrillic wordmark beside
+              a "| Naiasno" title until 2026-09-10 — one lockup in two alphabets.
+
+              The accessible name is on the sr-only span above; this span is
+              aria-hidden so a screen reader is not read the letters twice.
+
+              The word is ONE colour with the swipe carrying the accent, which is
+              what brandMark.ts draws. `text-foreground` rather than the old
+              `text-popover-foreground` (a dark coral, which competed with the
+              swipe) or the inherited `text-primary` (mint in dark mode, so the
+              wordmark would stop being the brand's). */}
+          <span
+            aria-hidden
+            className="hidden pl-2 text-2xl font-extrabold lowercase leading-none tracking-tight text-foreground transition-all duration-200 sm:inline-block"
+          >
+            {wordmark.head}
+            <span className="relative">
+              {wordmark.tail}
+              <span className="absolute -inset-x-[0.03em] -bottom-[0.02em] h-[0.17em] rounded-full bg-[hsl(var(--logo-swipe))]" />
+            </span>
+          </span>
         </Link>
         <div aria-hidden className="hidden lg:block h-6 w-px bg-border/70" />
         <ElectionsSelect />

@@ -1,7 +1,8 @@
 import { FC, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
-import { BRAND_TITLE_SUFFIX } from "@/lib/brand";
+import { brandTitleSuffix } from "@/lib/brand";
 
 export const SEO: FC<{
   title: string;
@@ -15,6 +16,17 @@ export const SEO: FC<{
   fullTitle?: string;
 }> = ({ title, description, type = "website", canonical, fullTitle }) => {
   const location = useLocation();
+  const { i18n } = useTranslation();
+  // ⚠️ PER-LOCALE, and it was not until 2026-09-10: this wrapper appended the
+  // Cyrillic suffix on every page in both languages, so an /en page hydrated to
+  // "About | Наясно" while the PRERENDERED head of that same URL said
+  // "| Naiasno". The prerender has always split the two (see brand.ts, and
+  // personRoutesEn.test.ts for why an /en title must not carry Cyrillic); the
+  // runtime is what disagreed with it, on every page, after hydration.
+  // `i18n?.` — SEO is rendered by nearly every screen, and a component test
+  // that stubs `react-i18next` typically returns `{ t }` and no `i18n` at all.
+  // Reading through it unguarded turned five BudgetExplorerScreen tests red.
+  const suffix = brandTitleSuffix(i18n?.language);
 
   // Dynamically inject canonical URL
   useEffect(() => {
@@ -44,11 +56,12 @@ export const SEO: FC<{
   return (
     <>
       <title>
-        {/* Mirrors the PRERENDERED form — "<page> | Наясно" — so the tab a
-            visitor sees after hydration matches the title Googlebot indexed.
+        {/* Mirrors the PRERENDERED form — "<page> | Наясно", "<page> | Naiasno"
+            on /en — so the tab a visitor sees after hydration matches the title
+            Googlebot indexed.
             It used to prefix every page with "Избори", which named one section
             of a site that long ago outgrew it. */}
-        {fullTitle ?? `${title}${BRAND_TITLE_SUFFIX}`}
+        {fullTitle ?? `${title}${suffix}`}
       </title>
       <meta name="description" content={description} />
       {/* Facebook tags */}

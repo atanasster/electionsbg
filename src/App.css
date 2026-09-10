@@ -60,8 +60,15 @@
     --chart-4: 200 60% 38%;
     --chart-5: 280 50% 55%;
 
-    --logo-card: 30 25% 11%; /* warm dark card */
-    --logo-check: 16 75% 55%; /* coral check */
+    /* The Наясно mark — the SAME lockup as public/favicon.svg and the social
+       avatars: a navy tile, the "на" monogram in near-white, a coral swipe
+       under it. Kept as tokens (rather than literals in Logo.tsx) only so the
+       tile can lighten in dark mode; the ink and the swipe are brand colours
+       and do NOT follow the theme. See scripts/brand/lib/brandMark.ts. */
+    --logo-card: 224 47% 8%; /* #0B1224 deep navy — the tile */
+    --logo-card-2: 225 48% 6%; /* #070B16 — the tile gradient's dark end */
+    --logo-ink: 210 25% 96%; /* #F2F5F8 — the monogram */
+    --logo-swipe: 16 75% 55%; /* #DF6B43 coral — the swipe */
   }
 
   /* Dark theme — Windsurf-inspired deep navy + mint accent */
@@ -110,8 +117,14 @@
     --chart-4: 280 65% 70%;
     --chart-5: 340 75% 65%;
 
-    --logo-card: 158 60% 68%; /* mint card (matches dark primary) */
-    --logo-check: 224 47% 8%; /* navy check on mint */
+    /* Only the TILE moves: the page background IS #0B1224 here, so a tile
+       painted in it would vanish. Ink and swipe stay brand-fixed — the dark
+       theme's own --accent is mint, and a mint swipe would be a different
+       brand from the favicon in the same browser tab. */
+    --logo-card: 223 38% 18%; /* a lighter navy, so the tile still reads */
+    --logo-card-2: 223 38% 13%;
+    --logo-ink: 210 25% 96%;
+    --logo-swipe: 16 75% 55%;
   }
 
   * {
