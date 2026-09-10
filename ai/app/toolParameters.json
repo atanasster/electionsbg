@@ -1005,8 +1005,8 @@
       "name": "code",
       "type": "text",
       "description": {
-        "bg": "Код на сигнала (напр. eu_funds, public_contracts, foreign_funded).",
-        "en": "Signal code (e.g. eu_funds, public_contracts, foreign_funded)."
+        "bg": "Код: eu_funds = средства от ЕС; public_contracts = обществени поръчки; foreign_funded = външно/чуждестранно финансиране.",
+        "en": "Code: eu_funds = EU funds; public_contracts = public contracts; foreign_funded = external/foreign funding."
       }
     }
   ],
@@ -1568,8 +1568,8 @@
         "arrears"
       ],
       "description": {
-        "bg": "Показател за подреждане",
-        "en": "Metric used for ranking"
+        "bg": "Код: commitments = поети ангажименти; expense_obligations = задължения за разходи; arrears = просрочени задължения.",
+        "en": "Code: commitments = commitments; expense_obligations = expense obligations; arrears = overdue liabilities."
       }
     }
   ],
@@ -1636,6 +1636,7 @@
     {
       "name": "name",
       "type": "person",
+      "required": true,
       "description": {
         "bg": "Пълно име на лицето (публична личност).",
         "en": "Full name of the person (a public figure)."
@@ -1646,6 +1647,7 @@
     {
       "name": "name",
       "type": "person",
+      "required": true,
       "description": {
         "bg": "Пълно име на лицето (публична личност).",
         "en": "Full name of the person (a public figure)."
@@ -1656,6 +1658,7 @@
     {
       "name": "name",
       "type": "person",
+      "required": true,
       "description": {
         "bg": "Пълно име на лицето (публична личност).",
         "en": "Full name of the person (a public figure)."
@@ -1797,12 +1800,38 @@
   ],
   "rankPlaces": [
     {
+      "name": "order",
+      "type": "text",
+      "values": [
+        "asc",
+        "desc"
+      ],
+      "default": "desc",
+      "description": {
+        "bg": "asc за най-ниски, desc за най-високи",
+        "en": "asc for lowest, desc for highest"
+      }
+    },
+    {
       "name": "indicator",
       "type": "indicator",
+      "values": [
+        "unemployment",
+        "matura",
+        "populationChange",
+        "municipalMigration",
+        "gdpPerCapita",
+        "population",
+        "regionalMigration",
+        "longTermUnemployment",
+        "mortality",
+        "hospitalBeds",
+        "transparency"
+      ],
       "required": true,
       "description": {
-        "bg": "Показател + посока",
-        "en": "Indicator + direction"
+        "bg": "Точен код на поддържания показател; municipal = общини, regional = области. Без произволни съотношения.",
+        "en": "Exact supported metric code; municipal = municipalities, regional = provinces. No arbitrary ratios."
       }
     },
     {

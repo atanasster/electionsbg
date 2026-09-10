@@ -57,3 +57,17 @@ it("keeps a clarified old request stale against edited inputs", () => {
   expect(resultIsStale(result, { place: "Sofia" }, "en")).toBe(true);
   expect(resultIsStale(result, { place: "Banya" }, "en")).toBe(false);
 });
+
+it("marks an area-anchored result stale when the navigation anchor changes", () => {
+  const result = {
+    tool: "localDeals",
+    args: {},
+    context: { lang: "en" as const, election: "2024_10_27", area: "68134" },
+    requestedAt: "now",
+    envelope: {} as Envelope,
+    draftKey: draftKey({}),
+  };
+  expect(resultIsStale(result, {}, "en", "68134")).toBe(false);
+  expect(resultIsStale(result, {}, "en", "56784")).toBe(true);
+  expect(resultIsStale(result, {}, "en")).toBe(true);
+});

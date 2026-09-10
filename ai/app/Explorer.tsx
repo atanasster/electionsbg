@@ -35,6 +35,9 @@ export const Explorer = ({
     }
   });
   const [sql, setSql] = useState(false);
+  const [area, setArea] = useState(
+    () => new URLSearchParams(window.location.search).get("area") ?? undefined,
+  );
   const root = useRef<HTMLDivElement>(null);
   const detail = useRef<HTMLDivElement>(null);
   const previous = useRef<string | undefined>(undefined);
@@ -65,6 +68,9 @@ export const Explorer = ({
   useEffect(() => {
     const restore = () => {
       const parsed = parseToolsLocation(window.location.search);
+      setArea(
+        new URLSearchParams(window.location.search).get("area") ?? undefined,
+      );
       setSelection(parsed.tool);
       setLinkError(!!parsed.error);
       setSql(false);
@@ -158,6 +164,7 @@ export const Explorer = ({
               key={selection}
               lang={lang}
               name={selection}
+              area={area}
               state={workspaces[selection] ?? { draft: {} }}
               onChange={(state) =>
                 setWorkspaces((w) => ({ ...w, [selection]: state }))

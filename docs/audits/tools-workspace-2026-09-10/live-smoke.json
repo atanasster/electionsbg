@@ -1,0 +1,134 @@
+{
+  "checkedAt": "2026-09-10T07:04:04.291Z",
+  "source": "Local data/ corpus and local Postgres via production route handlers; no stubbed fallback",
+  "rows": [
+    {
+      "tool": "budgetVariance",
+      "domain": "fiscal",
+      "args": {
+        "year": 2024
+      },
+      "status": "success",
+      "title": "Where does budget execution differ from the law and amended plan?",
+      "rows": 8,
+      "provenance": [
+        "budget_variance"
+      ],
+      "elapsedMs": 44
+    },
+    {
+      "tool": "nationalResults",
+      "domain": "elections",
+      "args": {
+        "election": "2026_04_19"
+      },
+      "status": "success",
+      "title": "National results — Apr 19, 2026",
+      "rows": 12,
+      "provenance": [
+        "2026_04_19/national_summary.json",
+        "2026_04_19/region_votes.json"
+      ],
+      "elapsedMs": 16
+    },
+    {
+      "tool": "localCouncil",
+      "domain": "local",
+      "args": {
+        "place": "s burgas"
+      },
+      "status": "success",
+      "title": "Burgas municipal council — 2023",
+      "rows": 13,
+      "provenance": [
+        "2023_10_29_mi/municipalities/BGS04.json"
+      ],
+      "elapsedMs": 5
+    },
+    {
+      "tool": "companyConnections",
+      "domain": "people",
+      "args": {
+        "company": "831646048"
+      },
+      "status": "success",
+      "title": "Links to public office — АВТОМАГИСТРАЛИ",
+      "rows": 15,
+      "provenance": [
+        "company_political_links (158_company_political_links.sql)"
+      ],
+      "elapsedMs": 72
+    },
+    {
+      "tool": "macroOverview",
+      "domain": "indicators",
+      "args": {},
+      "status": "success",
+      "title": "Macro snapshot",
+      "rows": 5,
+      "provenance": [
+        "macro.json"
+      ],
+      "elapsedMs": 30
+    },
+    {
+      "tool": "graoPopulation",
+      "domain": "place",
+      "args": {
+        "place": "Gabrovo"
+      },
+      "status": "success",
+      "title": "Registered population (GRAO) — Gabrovo",
+      "provenance": [
+        "grao_population.json"
+      ],
+      "elapsedMs": 3
+    },
+    {
+      "tool": "contractSearch",
+      "domain": "fiscal",
+      "args": {
+        "company": "Show the contracts won by Sofarma Trading"
+      },
+      "status": "success",
+      "title": "Contracts won by Софарма трейдинг АД",
+      "rows": 12,
+      "provenance": [
+        "db:procurement-search",
+        "db:table/contracts"
+      ],
+      "elapsedMs": 846
+    },
+    {
+      "tool": "presidentialResults",
+      "domain": "elections",
+      "args": {
+        "cycle": 2021,
+        "round": 2
+      },
+      "status": "success",
+      "title": "Presidential election — 2021, runoff",
+      "rows": 2,
+      "provenance": [
+        "2021_11_14_pvr/national_summary.json",
+        "2021_11_14_pvr/tickets.json",
+        "2021_11_14_pvr/tur2/region_votes.json"
+      ],
+      "elapsedMs": 12
+    },
+    {
+      "tool": "personProfile",
+      "domain": "people",
+      "args": {
+        "name": "Boyko Borisov"
+      },
+      "status": "clarification",
+      "title": "Which person \"Boyko Borisov\" do you mean?",
+      "provenance": [
+        "person-lookup",
+        "person_by_slug (082_person_api.sql)"
+      ],
+      "elapsedMs": 3913
+    }
+  ]
+}

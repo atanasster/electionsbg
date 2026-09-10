@@ -2791,10 +2791,12 @@
     "en": "Which municipalities have the highest unemployment?",
     "args": {
       "bg": {
-        "indicator": "кои общини са с най-висока безработица?"
+        "indicator": "unemployment",
+        "order": "desc"
       },
       "en": {
-        "indicator": "which municipalities have the highest unemployment?"
+        "indicator": "unemployment",
+        "order": "desc"
       }
     }
   },

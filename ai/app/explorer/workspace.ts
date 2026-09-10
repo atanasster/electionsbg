@@ -54,4 +54,8 @@ export const resultIsStale = (
   result: RunSnapshot,
   draft: ToolArgs,
   lang: Lang,
-) => result.draftKey !== draftKey(draft) || result.context.lang !== lang;
+  area?: string,
+) =>
+  result.draftKey !== draftKey(draft) ||
+  result.context.lang !== lang ||
+  result.context.area !== area;

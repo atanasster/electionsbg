@@ -32,7 +32,11 @@ export default defineConfig({
           // collected by nothing and passed by never running, which is the
           // exact case the node project's comment block below describes for
           // vite/**, video/** and news/scripts/**.
-          include: ["src/**/*.test.{ts,tsx}", "newsapp/**/*.test.{ts,tsx}"],
+          include: [
+            "src/**/*.test.{ts,tsx}",
+            "newsapp/**/*.test.{ts,tsx}",
+            "ai/app/**/*.test.tsx",
+          ],
           // jest-dom matchers + Testing Library auto-cleanup.
           setupFiles: ["./vitest.setup.ts"],
         },

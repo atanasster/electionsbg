@@ -34,12 +34,14 @@ import {
 const SqlAlternative = lazy(() => import("./SqlAlternative"));
 export const ToolWorkspace = ({
   name,
+  area = new URLSearchParams(window.location.search).get("area") ?? undefined,
   lang,
   state,
   onChange,
   onOpenChat,
 }: {
   name: string;
+  area?: string;
   lang: Lang;
   state: WorkspaceState;
   onChange: (state: WorkspaceState) => void;
@@ -78,8 +80,7 @@ export const ToolWorkspace = ({
     const context = originalContext ?? {
       lang,
       election: latestElection(),
-      area:
-        new URLSearchParams(window.location.search).get("area") ?? undefined,
+      area,
     };
     const requestedAt = new Date().toISOString();
     setRunning(true);
@@ -118,7 +119,7 @@ export const ToolWorkspace = ({
     if (args) void execute(name, args, draftKey(state.draft));
   };
   const result = state.result;
-  const stale = !!result && resultIsStale(result, state.draft, lang);
+  const stale = !!result && resultIsStale(result, state.draft, lang, area);
   return (
     <section className="min-w-0 space-y-5" aria-label={entry.title[lang]}>
       <header>

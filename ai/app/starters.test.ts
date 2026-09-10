@@ -1,3 +1,4 @@
+import { validateToolArgs } from "../orchestrator/toolSchema";
 import { describe, expect, it } from "vitest";
 import { projectChatStarters, STARTERS, STARTER_CATEGORIES } from "./starters";
 import { route } from "../orchestrator/router";
@@ -58,7 +59,13 @@ describe("starter intent contracts", () => {
           election: latestElection(),
         });
         expect(result?.tool).toBe(starter.tool);
-        expect(result?.args).toEqual(starter.args[lang]);
+        // Ranking routes retain compatibility prose; execution normalizes it to
+        // the same closed metric/direction contract used by structured presets.
+        expect(
+          result?.tool === "rankPlaces"
+            ? validateToolArgs(result.tool, result.args)
+            : result?.args,
+        ).toEqual(starter.args[lang]);
         for (const param of tool!.params.filter((p) => p.required)) {
           expect(
             result?.args[param.name],
