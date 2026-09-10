@@ -556,6 +556,20 @@ the content lives in `about_p_1..4` / `about_ai*` / `project_about` in
 
 ## 7. The flip — ordered runbook
 
+> ## ➡️ SUPERSEDED 2026-09-10 — execute
+> **[`naiasno-flip-runbook-v1.md`](naiasno-flip-runbook-v1.md)** instead.
+>
+> This section was written before three things happened, each of which changes
+> the order: the AI chat launched as an in-site route (so it has its own
+> pre-flip blockers and its own legacy redirects to time), the LLM backend moved
+> to `elections-bg`, and §2.5's console redirect was measured — so there is no
+> `legacy` site and step 10 below is wrong about the mechanism. The runbook also
+> carries the two steps this section never had: the **three-step** deploy
+> ordering the bundle-hash/edge-cache interaction forces, and the gitignored
+> `.env.production` edit that no commit and no gate can see.
+>
+> Kept as the design record. The reasoning is still right; the sequence is not.
+
 Do not start until §1 (baseline), §3 (constant + **bucket CORS**) and §4–§6 (rename) are
 deployed and green.
 
