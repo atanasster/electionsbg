@@ -11,6 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
+import { BRAND_NAME_LATIN } from "@/lib/brand";
 import {
   Table,
   TableBody,
@@ -75,7 +76,9 @@ export const DataTable = <TData, TValue>({
   pageSize = 10,
   stickyColumn,
   getSubRows,
-  title = "electionsbg",
+  // The download filename when a caller names no table. Latin and
+  // lowercased because it becomes `<title>.csv` on the reader's disk.
+  title = BRAND_NAME_LATIN.toLowerCase(),
   initialSort = [],
   sorting: controlledSorting,
   onSortingChange,

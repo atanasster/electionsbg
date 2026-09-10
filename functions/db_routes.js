@@ -15,6 +15,7 @@ const {
   MAX_SEARCH_TERM,
 } = require("./db_table.js");
 const { interregQueryFor } = require("./interreg_topics.js");
+const { SITE_ORIGIN } = require("./site_origin.js");
 
 // Shared by the fit resolver's three queries. 42883 FIRST — the arms are FUNCTIONS, so a database
 // without 143 raises undefined_function and never 42P01. 55000 is a matview created WITH NO DATA,
@@ -2335,7 +2336,7 @@ const DB_ROUTES = {
           headers: {
             "Content-Type": "application/json",
             Origin: "https://app.eop.bg",
-            "User-Agent": "electionsbg.com (procurement/tender-document)",
+            "User-Agent": `${SITE_ORIGIN.replace(/^https:\/\//, "")} (procurement/tender-document)`,
           },
           body: JSON.stringify({ documentId: Number(raw) }),
           signal: AbortSignal.timeout(8000),

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 import { ArrowUpRight, Database } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { SQL_QUESTION_DEFINITIONS } from "../../../src/lib/questions/sql/catalog";
@@ -45,7 +46,7 @@ export default function SqlLibrary({ lang }: { lang: Lang }) {
           <a
             key={q.id}
             className="flex items-center justify-between gap-3 rounded-xl border border-border bg-background p-4 text-sm hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
-            href={`https://electionsbg.com${sqlQuestionHref(q.id, {})}`}
+            href={`${SITE_ORIGIN}${sqlQuestionHref(q.id, {})}`}
           >
             <span>
               {q.question[lang]}

@@ -3,6 +3,7 @@
 // deps + ~300 KB font never touch the main bundle).
 
 import type { ResponseMeta } from "../llm/provider";
+import { SITE_HOST } from "@/lib/siteOrigin";
 import type { Envelope, GeoOverlay, Lang, ToolArgs } from "../tools/types";
 
 export type ChatMsg = {
@@ -77,8 +78,8 @@ export const conversationToMarkdown = (msgs: ChatMsg[], lang: Lang): string => {
   }
   out.push(
     lang === "bg"
-      ? "_Данни: electionsbg.com · числата са изчислени, не генерирани._"
-      : "_Data: electionsbg.com · figures are computed, not generated._",
+      ? `_Данни: ${SITE_HOST} · числата са изчислени, не генерирани._`
+      : `_Data: ${SITE_HOST} · figures are computed, not generated._`,
   );
   return out.join("\n");
 };
@@ -203,8 +204,8 @@ export const downloadAnswerImage = async (
   footer.style.cssText = "margin-top:16px;font-size:12px;";
   footer.textContent =
     lang === "bg"
-      ? "electionsbg.com · изчислено от официални данни, не генерирано"
-      : "electionsbg.com · computed from official data, not generated";
+      ? `${SITE_HOST} · изчислено от официални данни, не генерирано`
+      : `${SITE_HOST} · computed from official data, not generated`;
 
   frame.append(header, q, clone, footer);
   document.body.appendChild(frame);
