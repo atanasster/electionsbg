@@ -1,5 +1,23 @@
 import { expect, it } from "vitest";
 import { parseToolsLocation, toolsHref, recentIds } from "./urlState";
+import { navigationPath } from "./workspace";
+it("uses integrated language routes while retaining area and typed settings", () => {
+  const href = toolsHref(
+    "contractSearch",
+    "en",
+    "?area=68134",
+    { company: "Test & Co" },
+    "/en/chat",
+  );
+  expect(href.startsWith("/en/chat/tools?")).toBe(true);
+  const query = href.slice(href.indexOf("?"));
+  expect(new URLSearchParams(query).has("lang")).toBe(false);
+  expect(parseToolsLocation(query).args?.company).toBe("Test & Co");
+  expect(navigationPath("chat", "?area=68134&lang=en", "/en/chat/tools")).toBe(
+    "/en/chat?area=68134",
+  );
+  expect(navigationPath("tools", "?lang=en", "/")).toBe("/tools?lang=en");
+});
 it("round trips typed settings, language and area", () => {
   const href = toolsHref("contractSearch", "en", "?area=68134", {
     company: "Test & Co",

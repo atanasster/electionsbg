@@ -5,6 +5,9 @@ import { useEffect } from "react";
 
 import "./App.css";
 import { AuthRoutes } from "@/routes";
+import { GA_ID, installChatAnalyticsPrivacy } from "@/lib/chatAnalyticsPrivacy";
+
+if (typeof window !== "undefined") installChatAnalyticsPrivacy();
 
 let gaInitialized = false;
 const initAnalytics = () => {
@@ -16,7 +19,14 @@ const initAnalytics = () => {
   if (typeof navigator !== "undefined" && navigator.webdriver) return;
   gaInitialized = true;
   import("react-ga4").then(({ default: ReactGA }) => {
-    ReactGA.initialize("G-NWEG367BN9");
+    ReactGA.initialize(GA_ID, {
+      gtagOptions: {
+        page_location: `${window.location.origin}${window.location.pathname}`,
+        page_referrer: document.referrer
+          ? new URL(document.referrer).origin
+          : "",
+      },
+    });
   });
 };
 

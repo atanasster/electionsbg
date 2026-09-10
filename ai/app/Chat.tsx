@@ -1,3 +1,6 @@
+import { useLinkedQuestion } from "./useLinkedQuestion";
+import { trackEvent } from "@/lib/analytics";
+import { useChatNavigation } from "./navigation";
 import type { ToolIntent } from "./explorer/workspace";
 // The chat surface. Provider-agnostic: it calls provider.respond() and renders
 // the returned narration + Envelope. Swapping HeuristicProvider for a WebLLM
@@ -354,6 +357,7 @@ export const Chat = ({
   initialIntent?: ToolIntent | null;
   onIntentConsumed?: () => void;
 }) => {
+  const navigation = useChatNavigation();
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState(initialIntent?.text ?? "");
   const [workspaceIntent, setWorkspaceIntent] = useState(initialIntent);
@@ -500,6 +504,11 @@ export const Chat = ({
       { id: aId, role: "assistant", text: "", env: null },
     ]);
     setBusy(true);
+    trackEvent("chat_question", {
+      mode: engine.provider.id,
+      entry: intent ? "starter" : "typed",
+      follow_up: !!prev,
+    });
     // stream the narration into the placeholder assistant message; the env
     // (chart/table) is attached when the answer is finalized
     const ctx = { lang, election, area: readArea() };
@@ -531,6 +540,10 @@ export const Chat = ({
       ),
     );
     setBusy(false);
+    trackEvent("chat_answer", {
+      mode: engine.provider.id,
+      result: res.env?.clarify ? "clarification" : res.env ? "data" : "text",
+    });
     // the tool couldn't resolve to one entity — pop the chooser modal
     if (res.env?.clarify) setClarify(res.env.clarify);
     taRef.current?.focus();
@@ -696,10 +709,7 @@ export const Chat = ({
     if (ranInitial.current) return;
     ranInitial.current = true;
     const q = new URLSearchParams(window.location.search).get("q");
-    if (q) {
-      void send(q);
-      return;
-    }
+    if (q) return;
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       const arr = saved ? (JSON.parse(saved) as Msg[]) : [];
@@ -710,8 +720,9 @@ export const Chat = ({
     } catch {
       /* corrupt storage — ignore */
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useLinkedQuestion(navigation.search, busy, send);
 
   // persist the conversation across reloads (skip the initial empty render so a
   // restore isn't clobbered)
@@ -772,7 +783,7 @@ export const Chat = ({
   // Permalink that re-asks the last question on load (?q=…). Prefers the native
   // share sheet on mobile, falling back to copying the link.
   const permalink = () =>
-    `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(lastUserText ?? "")}`;
+    `${window.location.origin}${window.location.pathname}?${new URLSearchParams({ q: lastUserText ?? "", ...(readArea() ? { area: readArea()! } : {}), ...(!/^\/(en\/)?chat/.test(window.location.pathname) ? { lang } : {}) })}`;
 
   const share = async () => {
     if (!lastUserText) return;

@@ -5,7 +5,7 @@ Checked 2026-09-10. This records observations, not promises about untested behav
 ## Execution checklist
 
 - [x] T0 inventory and baseline
-- [ ] T1 integrated screens
+- [x] T1 integrated screens
 - [ ] T2 hosted AI access and limits
 - [ ] T3 homepage invitation
 - [ ] T4 tested examples, research and screenshots
@@ -68,3 +68,15 @@ Full `npm run build` completed successfully, including postbuild image optimizat
 The catalogue's 18 families are elections; parliament/government; budget/taxes; procurement; companies/interests/assets; EU funds/agriculture; prices/household spending; economy/work; healthcare; pensions/social support; education; population/my area; justice/security; energy; water/environment; transport/housing; culture/tourism; media/public attitudes. Their presence is not a guarantee that arbitrary questions in each family are supported. Select publication examples against actual tool outputs in T4.
 
 Storage inventory: `naiasno.chat.v1`, `naiasno.chat.history.v1`, `naiasno.tools.recent.v1`, `naiasno.model.v1`. JSON tools use VITE_DATA_BASE_URL; DB tools use VITE_DB_API_ORIGIN (same-origin on the main site). Preserve these seams and check returned content types after migration.
+
+## T1 integration verification
+
+The main router lazily mounts chat/tools/evals with the shared header and existing providers. A navigation context adapts the retained standalone components; tool selection and area state use the host router. URL-question consumption waits for active responses and handles later SPA queries once. Legacy language parameters and trailing slashes normalize before rendering. Review's two verified routing findings were repaired with regression tests; there are no unresolved review findings.
+
+Local browser checks: a parliamentary-seats starter produced a sourced chart in `/chat`; tools navigation rendered the catalogue; `/en/chat` reused local history with English controls; `/en/chat/evals` loaded the actual evaluation tables. Publication captures will use fresh conversations instead of reused language-switch history.
+
+All six desktop/mobile browser checks and six static metadata checks pass. Unit checks cover 22 initial cases, the two route-normalization cases and two navigation cases; the linked-question case was repeated with the route repairs. Main and standalone AI type checks and scoped lint pass. The production main entry is 294.20 kB raw / 76.96 kB gzip (baseline 76.17 kB gzip); the 296.80 kB gzip chat chunk is lazy and raises Vite's informational chunk-size warning. No bundle budget was relaxed. The first parallel browser run exceeded the five-second cold-load expectation; a twenty-second readiness timeout and two workers passed, with navigation cases completing in two to three seconds.
+
+Full build and postbuild passed; image optimization converted 627 images and verified references. The final active-tools guard was subsequently checked by its focused unit test and lint; deployment will use a fresh final build after the remaining tiers.
+
+Analytics only emits mode, entry type, follow-up boolean and result class for chat interactions. Prompt/tool-state URLs disable GA collection for the rest of that document before history mutation; incoming prompt-bearing referrers also disable it. This intentionally undercounts linked-question sessions. Google's documentation confirms that `send_page_view: false` alone does not stop Enhanced Measurement history events: https://developers.google.com/analytics/devguides/collection/ga4/views. Do not remove this safeguard without verifying the property's Enhanced Measurement configuration and actual network payloads.

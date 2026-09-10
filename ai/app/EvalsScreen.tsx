@@ -1,3 +1,5 @@
+import { useChatNavigation } from "./navigation";
+import { chatPath } from "./navigationPaths";
 // Current production-router measurements; historical experiments stay explicitly separate.
 import { useContext, useEffect, useState } from "react";
 import { Logo } from "@/layout/header/Logo";
@@ -61,9 +63,13 @@ type Recall = {
 };
 const pct = (v: number | null | undefined) =>
   v == null ? "—" : `${(v * 100).toFixed(1)}%`;
-export const EvalsScreen = () => {
+export const EvalsScreen = ({
+  integrated = false,
+}: { integrated?: boolean } = {}) => {
+  const navigation = useChatNavigation();
   const { theme, setTheme } = useContext(ThemeContext);
-  const [lang, setLang] = useState<Lang>("bg");
+  const [localLang, setLang] = useState<Lang>(navigation.lang);
+  const lang = integrated ? navigation.lang : localLang;
   const [run, setRun] = useState<Run | null>(null),
     [baseline, setBaseline] = useState<Run | null>(null);
   const [legacy, setLegacy] = useState<Legacy | null>(null),
@@ -114,7 +120,10 @@ export const EvalsScreen = () => {
   return (
     <div className="flex min-h-dvh flex-col bg-card text-foreground">
       <header className="flex flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-4 py-2.5 shadow-sm">
-        <a href="/" className="flex items-center gap-2 text-xl text-primary">
+        <a
+          href={chatPath("chat", navigation.pathname)}
+          className="flex items-center gap-2 text-xl text-primary"
+        >
           <Logo className="size-7" />
           <span className="font-title">Наясно AI</span>
         </a>
@@ -122,7 +131,17 @@ export const EvalsScreen = () => {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setLang(lang === "bg" ? "en" : "bg")}
+            onClick={() => {
+              const next = lang === "bg" ? "en" : "bg";
+              if (!integrated) {
+                setLang(next);
+                return;
+              }
+              const path = navigation.pathname.replace(/^\/en/, "");
+              window.location.assign(
+                `${next === "en" ? "/en" : ""}${path}${navigation.search}`,
+              );
+            }}
             aria-label={t("Език", "Language")}
           >
             {lang === "bg" ? "EN" : "BG"}
@@ -535,8 +554,10 @@ export const EvalsScreen = () => {
         </details>
       </main>
       <footer className="border-t bg-muted p-4 text-center text-xs">
-        <a href="/">{t("Към чата", "Back to chat")}</a> ·{" "}
-        <a href="https://electionsbg.com">electionsbg.com</a>
+        <a href={chatPath("chat", navigation.pathname)}>
+          {t("Към чата", "Back to chat")}
+        </a>{" "}
+        · <a href="https://electionsbg.com">electionsbg.com</a>
       </footer>
     </div>
   );

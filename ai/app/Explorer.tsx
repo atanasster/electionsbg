@@ -1,3 +1,4 @@
+import { useChatNavigation } from "./navigation";
 import { Button } from "@/components/ui/button";
 import { parseToolsLocation, toolsHref, recentIds } from "./explorer/urlState";
 import { lazy, Suspense, useState, useEffect, useRef } from "react";
@@ -14,6 +15,7 @@ export const Explorer = ({
   lang: Lang;
   onOpenChat: (intent: ToolIntent) => void;
 }) => {
+  const navigation = useChatNavigation();
   const initial = useRef(parseToolsLocation(window.location.search));
   const [selection, setSelection] = useState<string | undefined>(
     initial.current.tool,
@@ -51,10 +53,8 @@ export const Explorer = ({
     setSelection(name);
     previous.current = name;
     setRecent((r) => [name, ...r.filter((n) => n !== name)].slice(0, 8));
-    window.history.pushState(
-      null,
-      "",
-      toolsHref(name, lang, window.location.search),
+    navigation.navigate(
+      toolsHref(name, lang, navigation.search, args, navigation.pathname),
     );
     focusDetail();
   };
@@ -80,16 +80,19 @@ export const Explorer = ({
         setWorkspaces((w) => ({ ...w, [name]: { ...w[name], draft } }));
       }
     };
-    window.addEventListener("popstate", restore);
-    return () => window.removeEventListener("popstate", restore);
-  }, []);
+    restore();
+  }, [navigation.search]);
   const back = () => {
     setSelection(undefined);
     setSql(false);
-    window.history.pushState(
-      null,
-      "",
-      toolsHref(undefined, lang, window.location.search),
+    navigation.navigate(
+      toolsHref(
+        undefined,
+        lang,
+        navigation.search,
+        undefined,
+        navigation.pathname,
+      ),
     );
     requestAnimationFrame(() => {
       const buttons = root.current?.querySelectorAll<HTMLButtonElement>(

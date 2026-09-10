@@ -1,6 +1,6 @@
 # Наясно chat migration and launch article
 
-Status: implementation plan; no application changes or publication performed.
+Status: implementation in progress; execution and verification are tracked in `chat-launch-evidence.md`. Publication remains gated on the complete rendered review.
 Date: 2026-09-10.
 
 ## 1. Outcome and agreed direction

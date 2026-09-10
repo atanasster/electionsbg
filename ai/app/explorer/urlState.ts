@@ -1,3 +1,5 @@
+import { chatPath } from "../navigationPaths";
+import type { ChatNavigation } from "../navigation";
 import { navigationPath } from "./workspace";
 import { TOOLS_BY_NAME } from "../../tools/registry";
 import { validateArguments } from "../../orchestrator/validateArguments";
@@ -34,8 +36,11 @@ export const toolsHref = (
   lang: Lang,
   search: string,
   args?: ToolArgs,
+  pathname = typeof window === "undefined" ? "/" : window.location.pathname,
 ) => {
-  const params = new URLSearchParams({ lang });
+  const params = new URLSearchParams(
+    /^\/(en\/)?chat(?:\/|$)/.test(pathname) ? {} : { lang },
+  );
   const area = new URLSearchParams(search).get("area");
   if (area) params.set("area", area);
   if (tool) {
@@ -51,7 +56,7 @@ export const toolsHref = (
   const query = `?${params}`;
   if (query.length > URL_LIMIT || parseToolsLocation(query).error)
     throw new Error("Invalid or oversized link");
-  return `/tools${query}`;
+  return `${chatPath("tools", pathname)}${query}`;
 };
 export const recentIds = (raw: unknown): string[] =>
   Array.isArray(raw)
@@ -69,8 +74,15 @@ export const recentIds = (raw: unknown): string[] =>
 export const navigateView = (
   current: "chat" | "tools",
   next: "chat" | "tools",
+  navigation?: ChatNavigation,
 ) => {
   if (current === next) return;
+  if (navigation) {
+    navigation.navigate(
+      navigationPath(next, navigation.search, navigation.pathname),
+    );
+    return;
+  }
   window.history.pushState(
     null,
     "",

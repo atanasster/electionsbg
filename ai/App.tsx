@@ -1,5 +1,7 @@
 import { navigateView } from "./app/explorer/urlState";
-import { useContext, useEffect, useState } from "react";
+import { useChatNavigation } from "./app/navigation";
+import { chatPath } from "./app/navigationPaths";
+import { useContext, useState } from "react";
 import { Database, Info, Target, Wrench } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
@@ -18,26 +20,23 @@ import type { ToolIntent } from "./app/explorer/workspace";
 import { Explorer } from "./app/Explorer";
 import { useModelEngine } from "./llm/useModelEngine";
 import { latestElection } from "./tools/dataset";
-import type { Lang } from "./tools/types";
 import { GROUP_URL } from "./app/community";
 
 export const App = ({
-  initialView = "chat",
+  integrated = false,
 }: {
   initialView?: "chat" | "tools";
+  integrated?: boolean;
 } = {}) => {
   const { theme, setTheme } = useContext(ThemeContext);
-  const [lang, setLang] = useState<Lang>(() =>
-    new URLSearchParams(window.location.search).get("lang") === "en"
-      ? "en"
-      : "bg",
-  );
+  const navigation = useChatNavigation();
+  const lang = navigation.lang;
   // The default election for questions that don't name one. No longer a user
   // control: a question names its own year (and a multi-election year fans out
   // into a comparison); anything unqualified means the latest election.
   const election = latestElection();
   const [handoff, setHandoff] = useState<ToolIntent | null>(null);
-  const [view, setView] = useState<"chat" | "tools">(initialView);
+  const view = /\/tools\/?$/.test(navigation.pathname) ? "tools" : "chat";
   // Slot in the fixed header where Chat portals its conversation actions (new
   // chat, share, export). Kept here so they stay reachable however far the
   // messages scroll — they used to live atop the scroll area and scrolled away.
@@ -55,17 +54,8 @@ export const App = ({
   // this component with initialView="tools" (see main.tsx); prod serves a
   // per-page <head> from tools.html.
   const navigate = (next: "chat" | "tools") => {
-    navigateView(view, next);
+    navigateView(view, next, navigation);
   };
-  useEffect(() => {
-    const onPopState = () => {
-      const language = new URLSearchParams(window.location.search).get("lang");
-      if (language === "bg" || language === "en") setLang(language);
-      setView(/^\/tools\/?$/.test(window.location.pathname) ? "tools" : "chat");
-    };
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
 
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
 
@@ -75,11 +65,13 @@ export const App = ({
     // scroll-locks the body via react-remove-scroll — can't break a sticky header
     // or shove the dropdown off-screen. Also the correct mobile layout (h-dvh
     // handles the dynamic browser chrome).
-    <div className="flex h-dvh flex-col overflow-hidden bg-card text-foreground">
+    <div
+      className={`flex ${integrated ? "h-[calc(100dvh-var(--header-height,70px))]" : "h-dvh"} flex-col overflow-hidden bg-card text-foreground`}
+    >
       <header className="flex w-full shrink-0 flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-2 py-2.5 shadow-sm sm:px-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <a
-            href="/"
+            href={chatPath("chat", navigation.pathname)}
             onClick={(e) => {
               e.preventDefault();
               navigate("chat");
@@ -154,13 +146,19 @@ export const App = ({
                 {t("Инструменти", "Tools")}
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <a href="/evals">
+                <a href={chatPath("evals", navigation.pathname)}>
                   <Target />
                   {t("Точност на моделите", "Models accuracy")}
                 </a>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <a href="https://electionsbg.com/data">
+                <a
+                  href={
+                    integrated
+                      ? `${lang === "en" ? "/en" : ""}/data/sources`
+                      : "https://electionsbg.com/data/sources"
+                  }
+                >
                   <Database />
                   {t("Данни", "Data")}
                 </a>
@@ -175,10 +173,16 @@ export const App = ({
             className="h-9"
             onClick={() => {
               const next = lang === "bg" ? "en" : "bg";
-              setLang(next);
               const url = new URL(window.location.href);
               url.searchParams.set("lang", next);
-              window.history.replaceState(null, "", url);
+              if (integrated) {
+                url.pathname =
+                  next === "en"
+                    ? `/en${url.pathname.replace(/^\/en/, "")}`
+                    : url.pathname.replace(/^\/en/, "");
+                url.searchParams.delete("lang");
+                window.location.assign(url);
+              } else navigation.navigate(url.pathname + url.search);
             }}
             aria-label={t("Език", "Language")}
           >
@@ -225,8 +229,20 @@ export const App = ({
         </div>
         <ul className="flex flex-wrap items-center gap-1">
           {[
-            ["https://electionsbg.com", "electionsbg.com"],
-            ["https://electionsbg.com/about", t("за нас", "about")],
+            [
+              integrated
+                ? lang === "en"
+                  ? "/en"
+                  : "/"
+                : "https://electionsbg.com",
+              t("Начало", "Home"),
+            ],
+            [
+              integrated
+                ? `${lang === "en" ? "/en" : ""}/about`
+                : "https://electionsbg.com/about",
+              t("за нас", "about"),
+            ],
             [
               "https://github.com/atanasster/electionsbg",
               t("отворен код", "open source"),

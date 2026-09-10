@@ -66,6 +66,9 @@ const withBundle = (bundle: LocaleBundle, load: LazyLoader) =>
 // the `sectorPacks` precedent put ~265 KB of reference data on every page through one such
 // edge. The eager `DashboardSkeleton` below is the index route's Suspense fallback and is
 // reused, so the home route needs no second eager import.
+const ChatScreen = lazy(() =>
+  import("@/screens/ChatScreen").then((m) => ({ default: m.ChatScreen })),
+);
 const HomeDashboardScreen = lazy(() =>
   import("@/screens/HomeDashboardScreen").then((m) => ({
     default: m.HomeDashboardScreen,
@@ -1837,6 +1840,30 @@ export const AuthRoutes = () => {
           because it depends on useSearchParams. */}
       <AreaAnchorProvider>
         <Routes>
+          <Route
+            path="chat"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <ChatScreen />
+              </Suspense>
+            }
+          />
+          <Route
+            path="chat/tools"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <ChatScreen />
+              </Suspense>
+            }
+          />
+          <Route
+            path="chat/evals"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <ChatScreen />
+              </Suspense>
+            }
+          />
           {/* THE GLOBAL HOME. This index used to render the parliamentary country result;
               that page is preserved at `/parliamentary` (added in the previous phase) and
               every election link, breadcrumb and menu already points there. */}

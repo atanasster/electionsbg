@@ -74,6 +74,9 @@ const chainTo = (file: string, importedBy: Map<string, string>) =>
 describe("the entry chunk's static import graph", () => {
   const { seen, importedBy } = walk([path.join(SRC, "main.tsx")]);
   const rel = [...seen].map((f) => path.relative(ROOT, f));
+  it("does not put the chat application or tool registry on the entry path", () => {
+    expect(rel.filter((file) => file.startsWith("ai/"))).toEqual([]);
+  });
 
   // DERIVED, not listed. The predecessor was a naming-convention regex —
   // `\w+ReferenceData` plus four hardcoded escapes from that convention, which

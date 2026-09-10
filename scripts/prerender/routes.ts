@@ -1746,6 +1746,43 @@ const exciseFacts = (() => {
 })();
 
 export const prerenderRoutes: PrerenderRoute[] = [
+  {
+    path: "chat",
+    title: "Попитай Наясно",
+    description:
+      "Въпроси и отговори с източници за публичните данни за България.",
+    bodyHtml:
+      '<h1>Попитай Наясно</h1><p>Изберете готов въпрос или напишете свой. Проверявайте периода и източниците зад отговора.</p><a href="/chat/tools">Инструменти и данни</a>',
+    english: {
+      title: "Ask Наясно",
+      description:
+        "Questions and sourced answers about Bulgaria’s public data.",
+      bodyHtml:
+        '<h1>Ask Наясно</h1><p>Choose a starter or type your question. Check the period and sources behind each answer.</p><a href="/en/chat/tools">Tools and data</a>',
+    },
+  },
+  {
+    path: "chat/tools",
+    title: "Инструменти и данни | Наясно",
+    description:
+      "Разгледайте въпросите, параметрите и данните, които асистентът може да използва.",
+    english: {
+      title: "Tools and data | Наясно",
+      description:
+        "Explore the questions, parameters and data available to the assistant.",
+    },
+  },
+  {
+    path: "chat/evals",
+    title: "Оценка на асистента | Наясно",
+    description:
+      "Измервания на избора на инструменти и аргументи. Това не е оценка на фактическата точност на всеки отговор.",
+    english: {
+      title: "Assistant evaluation | Наясно",
+      description:
+        "Measurements of tool and argument selection, not the factual accuracy of every answer.",
+    },
+  },
   ...sectorStaticPages(),
   {
     path: "",

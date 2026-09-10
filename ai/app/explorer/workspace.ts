@@ -1,3 +1,4 @@
+import { chatPath } from "../navigationPaths";
 import { validateArguments } from "../../orchestrator/validateArguments";
 import type { Envelope, Lang, ToolArgs, ToolContext } from "../../tools/types";
 import { LIBRARY } from "./library";
@@ -39,16 +40,19 @@ export const emptyEnvelope = (env: Envelope) =>
       : env.value === undefined && !Object.keys(env.facts).length);
 
 // Navigation preserves the explicit area anchor used by deterministic execution.
-export const navigationPath = (view: "chat" | "tools", search: string) => {
+export const navigationPath = (
+  view: "chat" | "tools",
+  search: string,
+  pathname = "/",
+) => {
   const source = new URLSearchParams(search);
   const target = new URLSearchParams();
   for (const key of ["area", "lang"]) {
     const value = source.get(key);
-    if (value) target.set(key, value);
+    if (value && !(key === "lang" && /^\/(en\/)?chat(?:\/|$)/.test(pathname)))
+      target.set(key, value);
   }
-  return (
-    (view === "tools" ? "/tools" : "/") + (target.size ? `?${target}` : "")
-  );
+  return chatPath(view, pathname) + (target.size ? `?${target}` : "");
 };
 export const resultIsStale = (
   result: RunSnapshot,
