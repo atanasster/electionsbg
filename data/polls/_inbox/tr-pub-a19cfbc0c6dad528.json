@@ -1,0 +1,129 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "tr-pub-a19cfbc0c6dad528",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8-%D0%BD%D0%B0-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B5-%D1%81%D0%BF%D1%80%D1%8F%D0%BC%D0%BE-%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%BE%D1%8F-8/",
+    "electionDate": null,
+    "cycle": null,
+    "respondents": 1013,
+    "genre": "raw_attitudes",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8-%D0%BD%D0%B0-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B5-%D1%81%D0%BF%D1%80%D1%8F%D0%BC%D0%BE-%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%BE%D1%8F-8/",
+      "fetchedAt": "2026-09-10T05:53:50.931Z",
+      "sha256": "e5147d87c9c9681ecdd4e28a0f7b2f1c516472b9f8f435538d53c04ab9d800c8",
+      "extractor": "TR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": "от гласуващите",
+      "quotes": {
+        "share:Румен Радев": "Румен Радев-Илияна Йотова заема лидерската позиция в подреждането с 46.8%, следвана от ",
+        "share:Анастас Герджиков": "Анастас Герджиков-Невяна Митева с 24.4% от гласуващите",
+        "share:Мустафа Карадайъ": "Мустафа Карадайъ-Искра Михайлова (9.9%), които успяват да мобилизират целия електорат на ДПС",
+        "share:Лозан Панов": "Лозан Панов-Мария Касимова-Моасе с 6.4% от гласуващите",
+        "share:Костадин Костадинов": "Костадин Костадинов-Елена Гунчева с 3.1%, ",
+        "share:Милен Михов": "Милен Михов-Мария Цветкова с 1.6% и ",
+        "share:Луна Йорданова": "Луна Йорданова-Иглена Илиева с 1%",
+        "sampleSize": "1013 ефективни интервюта"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-pub-a19cfbc0c6dad528",
+      "agencyId": "TR",
+      "candidateKey": "provisional:румен-радев",
+      "candidateName_bg": "Румен Радев",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 46.8
+    },
+    {
+      "pollId": "tr-pub-a19cfbc0c6dad528",
+      "agencyId": "TR",
+      "candidateKey": "provisional:анастас-герджиков",
+      "candidateName_bg": "Анастас Герджиков",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 24.4
+    },
+    {
+      "pollId": "tr-pub-a19cfbc0c6dad528",
+      "agencyId": "TR",
+      "candidateKey": "provisional:мустафа-карадайъ",
+      "candidateName_bg": "Мустафа Карадайъ",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 9.9
+    },
+    {
+      "pollId": "tr-pub-a19cfbc0c6dad528",
+      "agencyId": "TR",
+      "candidateKey": "provisional:лозан-панов",
+      "candidateName_bg": "Лозан Панов",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 6.4
+    },
+    {
+      "pollId": "tr-pub-a19cfbc0c6dad528",
+      "agencyId": "TR",
+      "candidateKey": "provisional:костадин-костадинов",
+      "candidateName_bg": "Костадин Костадинов",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 3.1
+    },
+    {
+      "pollId": "tr-pub-a19cfbc0c6dad528",
+      "agencyId": "TR",
+      "candidateKey": "provisional:милен-михов",
+      "candidateName_bg": "Милен Михов",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 1.6
+    },
+    {
+      "pollId": "tr-pub-a19cfbc0c6dad528",
+      "agencyId": "TR",
+      "candidateKey": "provisional:луна-йорданова",
+      "candidateName_bg": "Луна Йорданова",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 1
+    }
+  ],
+  "runoffs": [],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:Румен Радев": "Румен Радев-Илияна Йотова заема лидерската позиция в подреждането с 46.8%, следвана от ",
+    "share:Анастас Герджиков": "Анастас Герджиков-Невяна Митева с 24.4% от гласуващите",
+    "share:Мустафа Карадайъ": "Мустафа Карадайъ-Искра Михайлова (9.9%), които успяват да мобилизират целия електорат на ДПС",
+    "share:Лозан Панов": "Лозан Панов-Мария Касимова-Моасе с 6.4% от гласуващите",
+    "share:Костадин Костадинов": "Костадин Костадинов-Елена Гунчева с 3.1%, ",
+    "share:Милен Михов": "Милен Михов-Мария Цветкова с 1.6% и ",
+    "share:Луна Йорданова": "Луна Йорданова-Иглена Илиева с 1%",
+    "sampleSize": "1013 ефективни интервюта"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"> 1-/ ноември 2021г\"",
+      "quote": "Период на провеждане: > 1-/ ноември 2021г"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

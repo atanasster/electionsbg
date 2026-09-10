@@ -1,0 +1,145 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "tr-2016-10-26",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8-2016/",
+    "electionDate": "2016-11-06",
+    "cycle": "2016_11_06_pvr",
+    "respondents": 1004,
+    "genre": "raw_attitudes",
+    "fieldwork": "Oct 19-26 2016",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8-2016/",
+      "fetchedAt": "2026-09-10T05:53:37.713Z",
+      "sha256": "d6bf837502686b7b2d0a89ea253c38ec17e6dc0e4dcd66f16715b735cab01b4d",
+      "extractor": "TR",
+      "fieldworkStart": "2016-10-19",
+      "fieldworkEnd": "2016-10-26",
+      "basePhrase": "от заявилите, че ще гласуват",
+      "quotes": {
+        "share:Цецка Цачева": "Цецка Цачева с 27,3% от заявилите, че ще гласуват",
+        "share:Румен Радев": " След нея с 24% се нарежда подкрепеният от БСП претендент Румен Радев",
+        "share:Красимир Каракачанов": "Красимир Каракачанов (12,1%), ",
+        "share:Ивайло Калфин": "Ивайло Калфин (6,7%), ",
+        "share:Веселин Марешки": "Веселин Марешки (6,3%), ",
+        "share:Трайчо Трайков": "Трайчо Трайков (5,4%), ",
+        "share:Пламен Орешарски": "Пламен Орешарски (3,2%) и ",
+        "share:Татяна Дончева": "Татяна Дончева (2,2%)",
+        "share:Не подкрепям никого": "не подкрепям никого“ е с дял от 7,1%",
+        "sampleSize": "сред 1004 души",
+        "fieldwork": "между 19 и 26 октомври 2016 г."
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "provisional:цецка-цачева",
+      "candidateName_bg": "Цецка Цачева",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 27.3
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "румен георгиев радев",
+      "candidateName_bg": "Румен Радев",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 24
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "красимир дончев каракачанов",
+      "candidateName_bg": "Красимир Каракачанов",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 12.1
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "ивайло георгиев калфин",
+      "candidateName_bg": "Ивайло Калфин",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 6.7
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "веселин найденов марешки",
+      "candidateName_bg": "Веселин Марешки",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 6.3
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "трайчо димитров трайков",
+      "candidateName_bg": "Трайчо Трайков",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 5.4
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "пламен василев орешарски",
+      "candidateName_bg": "Пламен Орешарски",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 3.2
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "provisional:татяна-дончева",
+      "candidateName_bg": "Татяна Дончева",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 2.2
+    },
+    {
+      "pollId": "tr-2016-10-26",
+      "agencyId": "TR",
+      "candidateKey": "none",
+      "candidateName_bg": "Не подкрепям никого",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 7.1
+    }
+  ],
+  "runoffs": [],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:Цецка Цачева": "Цецка Цачева с 27,3% от заявилите, че ще гласуват",
+    "share:Румен Радев": " След нея с 24% се нарежда подкрепеният от БСП претендент Румен Радев",
+    "share:Красимир Каракачанов": "Красимир Каракачанов (12,1%), ",
+    "share:Ивайло Калфин": "Ивайло Калфин (6,7%), ",
+    "share:Веселин Марешки": "Веселин Марешки (6,3%), ",
+    "share:Трайчо Трайков": "Трайчо Трайков (5,4%), ",
+    "share:Пламен Орешарски": "Пламен Орешарски (3,2%) и ",
+    "share:Татяна Дончева": "Татяна Дончева (2,2%)",
+    "share:Не подкрепям никого": "не подкрепям никого“ е с дял от 7,1%",
+    "sampleSize": "сред 1004 души",
+    "fieldwork": "между 19 и 26 октомври 2016 г."
+  },
+  "refused": []
+}
