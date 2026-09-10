@@ -59,6 +59,7 @@ export type DashboardSectionIdProp =
   | "presidential-swing"
   | "presidential-transfer"
   | "presidential-split"
+  | "presidential-polls"
   | "sources"
   | "changes"
   | "downloads"

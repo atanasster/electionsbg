@@ -592,6 +592,52 @@ describe("the presidential country page", () => {
   });
 });
 
+// ⚠ THE ORPHANED-HEADER TRAP THIS SECTION EXISTS TO AVOID: `DashboardSection`'s own
+// `isRenderable` cannot see through a component boundary, so mounting it unconditionally while
+// `PresidentialPollsTile` returns `null` during its own `"loading"` state would render the
+// heading above nothing — the exact anti-pattern this file otherwise gates against for every
+// other query-backed section (geography, anomalies, risk-votes, the runoff-transfer section
+// below). Found by review; regression-tested here.
+describe("the presidential-polls section", () => {
+  it("renders NO heading while poll accuracy is still loading — never an orphaned header", async () => {
+    let resolveAccuracy: (() => void) | undefined;
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      if (u.includes("national_summary.json"))
+        return new Response(JSON.stringify(SUMMARY), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      if (u.includes("polls/presidential/accuracy.json"))
+        return new Promise<Response>((resolve) => {
+          resolveAccuracy = () => resolve(new Response("", { status: 404 }));
+        });
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    expect(screen.queryByText(bgCorpus.presidential_polls_heading)).toBeNull();
+
+    resolveAccuracy?.();
+    await waitFor(() =>
+      expect(
+        screen.getByText(bgCorpus.presidential_polls_heading),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it("renders the heading and the 'not verified' message once accuracy.json resolves (a 404, the honest CI state)", async () => {
+    mount(SUMMARY);
+    expect(
+      await screen.findByText(bgCorpus.presidential_polls_heading),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(bgCorpus.presidential_polls_unscored),
+    ).toBeInTheDocument();
+  });
+});
+
 // ⚠ THE TRANSFER SECTION HAS THREE STATES AND TWO OF THEM DRAW NOTHING — which is why every
 // other test in this file passes without ever having rendered it: their mocks 404 the transfer,
 // so `absent` (correct, and the ordinary state of this corpus) is all they ever exercise.

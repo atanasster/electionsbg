@@ -12,6 +12,7 @@ import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
 import { StatCard } from "./StatCard";
 import { partyHref } from "@/lib/utils";
+import { agencyMaeBarStyle, missColorClass, missSign } from "./agencyMaeBar";
 
 export const PollsTile: FC = () => {
   const { t, i18n } = useTranslation();
@@ -88,11 +89,9 @@ export const PollsTile: FC = () => {
         {entry.agencies.map((a) => {
           const ag = agencyById.get(a.agencyId);
           const name = ag ? (isBg ? ag.name_bg : ag.name_en) : a.agencyId;
-          const widthPct = Math.max(2, (a.mae / maxMae) * 100);
-          const hue = Math.max(0, 140 - a.mae * 30);
-          const sign = a.biggestMiss.error > 0 ? "+" : "";
-          const missColor =
-            a.biggestMiss.error > 0 ? "text-emerald-600" : "text-rose-600";
+          const { widthPct, hue } = agencyMaeBarStyle(a.mae, maxMae);
+          const sign = missSign(a.biggestMiss.error);
+          const missColor = missColorClass(a.biggestMiss.error);
           return (
             <div className="contents" key={a.agencyId}>
               <Link
