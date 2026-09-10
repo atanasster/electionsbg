@@ -165,6 +165,7 @@ export const ToolLibrary = ({
         {entries.map((entry) => (
           <li key={entry.tool.name}>
             <button
+              data-tool-id={entry.tool.name}
               aria-current={
                 !sql && selected === entry.tool.name ? "true" : undefined
               }

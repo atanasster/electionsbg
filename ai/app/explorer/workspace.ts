@@ -40,10 +40,14 @@ export const emptyEnvelope = (env: Envelope) =>
 
 // Navigation preserves the explicit area anchor used by deterministic execution.
 export const navigationPath = (view: "chat" | "tools", search: string) => {
-  const area = new URLSearchParams(search).get("area");
+  const source = new URLSearchParams(search);
+  const target = new URLSearchParams();
+  for (const key of ["area", "lang"]) {
+    const value = source.get(key);
+    if (value) target.set(key, value);
+  }
   return (
-    (view === "tools" ? "/tools" : "/") +
-    (area ? `?${new URLSearchParams({ area })}` : "")
+    (view === "tools" ? "/tools" : "/") + (target.size ? `?${target}` : "")
   );
 };
 export const resultIsStale = (

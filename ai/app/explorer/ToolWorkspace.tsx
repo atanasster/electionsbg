@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { toolsHref } from "./urlState";
+import { Input } from "@/components/ui/input";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
@@ -29,6 +31,7 @@ import {
   type ToolIntent,
   type WorkspaceState,
 } from "./workspace";
+const SqlAlternative = lazy(() => import("./SqlAlternative"));
 export const ToolWorkspace = ({
   name,
   lang,
@@ -47,6 +50,7 @@ export const ToolWorkspace = ({
   const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [clarify, setClarify] = useState<ClarifyRequest | null>(null);
+  const [share, setShare] = useState("");
   const [tab, setTab] = useState("result");
   const generation = useRef(0);
   const current = useRef(state);
@@ -179,6 +183,57 @@ export const ToolWorkspace = ({
           </p>
         )}
       </form>
+      <Button
+        variant="ghost"
+        onClick={() => {
+          const args = validate();
+          if (args) {
+            try {
+              setShare(
+                window.location.origin +
+                  toolsHref(name, lang, window.location.search, args),
+              );
+              setError(null);
+            } catch {
+              setShare("");
+              setError(
+                t(
+                  "Настройките са твърде дълги за връзка. Съкратете въведения текст.",
+                  "These settings are too long for a link. Shorten the entered text.",
+                ),
+              );
+            }
+          }
+        }}
+      >
+        {t("Сподели текущите настройки", "Share current settings")}
+      </Button>
+      {share && (
+        <div className="space-y-2 rounded-lg border p-3">
+          <label htmlFor="tool-share" className="text-sm">
+            {t(
+              "Копирайте връзката — включва въведените настройки.",
+              "Copy this link — it includes the entered settings.",
+            )}
+          </label>
+          <Input
+            id="tool-share"
+            readOnly
+            value={share}
+            onFocus={(e) => e.target.select()}
+          />
+          <Button variant="ghost" onClick={() => setShare("")}>
+            {t("Затвори", "Close")}
+          </Button>
+        </div>
+      )}
+      {entry.questions
+        .filter((q) => q.sql.status === "ready")
+        .map((q) => (
+          <Suspense key={q.id} fallback={null}>
+            <SqlAlternative id={q.id} lang={lang} />
+          </Suspense>
+        ))}
       <details>
         <summary className="cursor-pointer py-2 text-sm font-medium">
           {t("Примерни въпроси", "Example questions")} ({entry.questions.length}

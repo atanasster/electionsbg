@@ -1,3 +1,4 @@
+import { navigateView } from "./app/explorer/urlState";
 import { useContext, useEffect, useState } from "react";
 import { Database, Info, Target, Wrench } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
@@ -13,7 +14,7 @@ import {
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { Chat } from "./app/Chat";
-import { navigationPath, type ToolIntent } from "./app/explorer/workspace";
+import type { ToolIntent } from "./app/explorer/workspace";
 import { Explorer } from "./app/Explorer";
 import { useModelEngine } from "./llm/useModelEngine";
 import { latestElection } from "./tools/dataset";
@@ -26,7 +27,11 @@ export const App = ({
   initialView?: "chat" | "tools";
 } = {}) => {
   const { theme, setTheme } = useContext(ThemeContext);
-  const [lang, setLang] = useState<Lang>("bg");
+  const [lang, setLang] = useState<Lang>(() =>
+    new URLSearchParams(window.location.search).get("lang") === "en"
+      ? "en"
+      : "bg",
+  );
   // The default election for questions that don't name one. No longer a user
   // control: a question names its own year (and a multi-election year fans out
   // into a comparison); anything unqualified means the latest election.
@@ -50,14 +55,12 @@ export const App = ({
   // this component with initialView="tools" (see main.tsx); prod serves a
   // per-page <head> from tools.html.
   const navigate = (next: "chat" | "tools") => {
-    setView(next);
-    const path = navigationPath(next, window.location.search);
-    if (window.location.pathname + window.location.search !== path) {
-      window.history.pushState(null, "", path);
-    }
+    navigateView(view, next);
   };
   useEffect(() => {
     const onPopState = () => {
+      const language = new URLSearchParams(window.location.search).get("lang");
+      if (language === "bg" || language === "en") setLang(language);
       setView(/^\/tools\/?$/.test(window.location.pathname) ? "tools" : "chat");
     };
     window.addEventListener("popstate", onPopState);
@@ -96,6 +99,25 @@ export const App = ({
             </span>
           </a>
         </div>
+        <nav
+          aria-label={t("Основна навигация", "Main navigation")}
+          className="flex items-center gap-1"
+        >
+          <Button
+            variant={view === "chat" ? "secondary" : "ghost"}
+            aria-current={view === "chat" ? "page" : undefined}
+            onClick={() => navigate("chat")}
+          >
+            {t("Чат", "Chat")}
+          </Button>
+          <Button
+            variant={view === "tools" ? "secondary" : "ghost"}
+            aria-current={view === "tools" ? "page" : undefined}
+            onClick={() => navigate("tools")}
+          >
+            {t("Инструменти", "Tools")}
+          </Button>
+        </nav>
         <div className="flex flex-wrap items-center justify-end gap-2 text-sm">
           {/* Chat fills this with the conversation actions (new chat, share,
               export) via a portal; empty:hidden drops the stray flex gap when
@@ -151,7 +173,13 @@ export const App = ({
             // h-9 to match the icon buttons either side so the toolbar reads
             // as one even-height row.
             className="h-9"
-            onClick={() => setLang(lang === "bg" ? "en" : "bg")}
+            onClick={() => {
+              const next = lang === "bg" ? "en" : "bg";
+              setLang(next);
+              const url = new URL(window.location.href);
+              url.searchParams.set("lang", next);
+              window.history.replaceState(null, "", url);
+            }}
             aria-label={t("Език", "Language")}
           >
             {lang === "bg" ? "EN" : "BG"}
@@ -178,7 +206,8 @@ export const App = ({
               initialIntent={handoff}
               onIntentConsumed={() => setHandoff(null)}
             />
-          ) : (
+          ) : null}
+          <div hidden={view !== "tools"}>
             <Explorer
               lang={lang}
               onOpenChat={(intent) => {
@@ -186,7 +215,7 @@ export const App = ({
                 navigate("chat");
               }}
             />
-          )}
+          </div>
         </div>
       </main>
 
