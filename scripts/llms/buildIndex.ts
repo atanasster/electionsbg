@@ -16,6 +16,9 @@ const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const PUBLIC = path.join(PROJECT_ROOT, "public");
 const SITE_URL = SITE_ORIGIN;
+// Host only, for prose that names the site rather than links to it. Derived so it
+// cannot disagree with the origin across the domain migration.
+const SITE_HOST = SITE_ORIGIN.replace(/^https:\/\//, "");
 
 type ArticleMeta = {
   slug: string;
@@ -301,7 +304,7 @@ const buildFeaturedAnalyses = (): string[] => {
 
 const buildLlmsTxt = (): string => {
   const lines: string[] = [];
-  lines.push(`# Elections Bulgaria — electionsbg.com`);
+  lines.push(`# Наясно (Naiasno) — Bulgaria in open data`);
   lines.push("");
   lines.push(
     `> Open-source platform for visualizing and analyzing every Bulgarian parliamentary election since 2005 — broken down by region (oblast), municipality (obshtina), settlement, and polling section — plus dashboards for the resulting parliament, the state budget, public procurement, MP business connections and declared assets, polling-agency accuracy, and an electoral-risk screening index. Source data comes from the Central Election Commission (ЦИК), Sofia's Сметна палата (campaign finance + assets), parliament.bg, Eurostat, World Bank WGI, the Bulgarian Court of Audit and АОП. Everything is reprocessed offline into static JSON served from a JAMstack SPA.`,
@@ -371,7 +374,7 @@ const buildLlmsTxt = (): string => {
   lines.push(`## Citation`);
   lines.push("");
   lines.push(
-    `If you cite results or visualizations from this site, please link to the specific page (e.g. the settlement, party, or article URL) and credit "electionsbg.com". The source code lives at https://github.com/atanasster/data-bg.`,
+    `If you cite results or visualizations from this site, please link to the specific page (e.g. the settlement, party, or article URL) and credit "Наясно (${SITE_HOST})". The source code lives at https://github.com/atanasster/data-bg.`,
   );
   lines.push("");
 

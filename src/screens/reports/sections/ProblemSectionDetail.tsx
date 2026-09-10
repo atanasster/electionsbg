@@ -36,14 +36,6 @@ export const ProblemSectionDetail: FC = () => {
       <SEO
         title={`${name} — ${t("problem_sections")}`}
         description={`${name}, ${city}: ${t("problem_sections_description")}`}
-        keywords={[
-          name,
-          city,
-          "roma",
-          "vote buying",
-          "problem sections",
-          "купен вот",
-        ]}
       />
       <H1>{title}</H1>
       <div className="flex items-center gap-3 pb-2 text-sm text-muted-foreground">

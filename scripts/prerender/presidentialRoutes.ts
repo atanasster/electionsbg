@@ -269,13 +269,13 @@ export const buildPresidentialCycleRoutes = (
     const lead = r1.ranking[0];
     const w = f.summary.winner;
     const url = `${SITE_URL}/presidential/${cycle}`;
-    const title = `Президентски избори ${f.date} — резултати | electionsbg.com`;
+    const title = `Президентски избори ${f.date} — резултати | Наясно`;
     // ⚠ THE DESCRIPTION NAMES THE ROUND THE FIGURE IS FROM. „49.42%" without „на първи тур"
     // reads as the final result, which in every one of these five cycles it is not.
     const description = `Резултати от президентските избори на ${f.date} — избран: ${w.president} и ${w.vicePresident}${
       f.summary.decidedInRound === 2 ? " (на балотаж)" : " (на първи тур)"
     }. На първи тур води ${lead.president} с ${pct(lead.shareOfValid)} от действителните гласове.`;
-    const titleEn = `Bulgarian Presidential Election ${f.date} — Results | electionsbg.com`;
+    const titleEn = `Bulgarian Presidential Election ${f.date} — Results | Naiasno`;
     const descriptionEn = `Results of the ${f.date} Bulgarian presidential election — elected: ${w.president} and ${w.vicePresident}${
       f.summary.decidedInRound === 2
         ? " (in the runoff)"
@@ -317,9 +317,9 @@ export const buildPresidentialCycleRoutes = (
     // `/presidential/:cycle/abroad` — one page, not a fan-out: the route takes no id.
     const a = r1.abroad;
     const abroadUrl = `${SITE_URL}/presidential/${cycle}/abroad`;
-    const abroadTitle = `Президентски избори ${f.date} — секции в чужбина | electionsbg.com`;
+    const abroadTitle = `Президентски избори ${f.date} — секции в чужбина | Наясно`;
     const abroadDescription = `Резултати от секциите в чужбина на президентските избори ${f.date} — ${a.sections} секции в ${a.countries} държави, ${int(a.ballotsFound)} намерени бюлетини.`;
-    const abroadTitleEn = `Bulgarian Presidential Election ${f.date} — Sections Abroad | electionsbg.com`;
+    const abroadTitleEn = `Bulgarian Presidential Election ${f.date} — Sections Abroad | Naiasno`;
     const abroadDescriptionEn = `Results from sections abroad in the ${f.date} Bulgarian presidential election — ${a.sections} sections in ${a.countries} countries, ${intEn(a.ballotsFound)} ballots found.`;
     out.push({
       path: `presidential/${cycle}/abroad`,
@@ -377,9 +377,9 @@ export const buildPresidentialRegionRoutes = (
       if (!t) continue;
       const nameEn = nameEnOf.get(code) ?? name;
       const url = `${SITE_URL}/presidential/${cycle}/region/${code}`;
-      const title = `Президентски избори ${f.date} — ${name} | electionsbg.com`;
+      const title = `Президентски избори ${f.date} — ${name} | Наясно`;
       const description = `Резултати от президентските избори ${f.date} в ${name} — на първи тур води ${t.president} с ${int(lead.votes)} гласа (${pct(lead.share, 1)} от гласовете за двойки).`;
-      const titleEn = `Bulgarian Presidential Election ${f.date} — ${nameEn} | electionsbg.com`;
+      const titleEn = `Bulgarian Presidential Election ${f.date} — ${nameEn} | Naiasno`;
       const descriptionEn = `Results of the ${f.date} Bulgarian presidential election in ${nameEn} — ${t.president} led the first round with ${intEn(lead.votes)} votes (${pct(lead.share, 1)} of the votes cast for a ticket).`;
       out.push({
         path: `presidential/${cycle}/region/${code}`,
@@ -429,9 +429,9 @@ export const buildPresidentialMunicipalityRoutes = (
       if (!t) continue;
       const nameEn = nameEnOf.get(code) ?? name;
       const url = `${SITE_URL}/presidential/${cycle}/municipality/${code}`;
-      const title = `Президентски избори ${f.date} — община ${name} | electionsbg.com`;
+      const title = `Президентски избори ${f.date} — община ${name} | Наясно`;
       const description = `Резултати от президентските избори ${f.date} в община ${name} — на първи тур води ${t.president} с ${int(lead.votes)} гласа (${pct(lead.share, 1)} от гласовете за двойки).`;
-      const titleEn = `Bulgarian Presidential Election ${f.date} — ${nameEn} Municipality | electionsbg.com`;
+      const titleEn = `Bulgarian Presidential Election ${f.date} — ${nameEn} Municipality | Naiasno`;
       const descriptionEn = `Results of the ${f.date} Bulgarian presidential election in ${nameEn} municipality — ${t.president} led the first round with ${intEn(lead.votes)} votes (${pct(lead.share, 1)} of the votes cast for a ticket).`;
       out.push({
         path: `presidential/${cycle}/municipality/${code}`,

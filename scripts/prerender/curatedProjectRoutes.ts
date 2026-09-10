@@ -53,8 +53,8 @@ export const buildCuratedProjectRoutes = (
     const summaryEn =
       f.summary?.en ||
       `Project file: ${nameEn} — announced vs contracted, how it was awarded, and where the money trail stops.`;
-    const title = `${nameBg} — проектно досие | electionsbg.com`;
-    const titleEn = `${nameEn} — project file | electionsbg.com`;
+    const title = `${nameBg} — проектно досие | Наясно`;
+    const titleEn = `${nameEn} — project file | Naiasno`;
     result.push({
       path: `procurement/project/${f.slug}`,
       title,

@@ -1,6 +1,10 @@
 // Exact first-party hosts only. The AI project's function and allowance ledger
 // remain in place while the user-facing screens move to the main site.
 const AI_HOSTNAMES = Object.freeze([
+  "naiasno.bg",
+  "www.naiasno.bg",
+  "ai.naiasno.bg",
+  "news.naiasno.bg",
   "ai.electionsbg.com",
   "electionsbg-ai.web.app",
   "electionsbg-ai.firebaseapp.com",

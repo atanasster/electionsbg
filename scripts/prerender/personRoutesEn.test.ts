@@ -22,6 +22,7 @@ import path from "path";
 import { buildCandidateRoutes, buildPersonRoutes } from "./dynamicRoutes";
 import { transliterateName } from "@/data/candidates/transliterateName";
 import { assertCommitted } from "../lib/assert_committed";
+import { BRAND_TITLE_SUFFIX_EN } from "@/lib/brand";
 
 const ROOT = path.resolve(__dirname, "../..");
 const CYRILLIC = /[Ѐ-ӿ]/;
@@ -110,15 +111,21 @@ describe("buildPersonRoutes — the /en half", () => {
       (r) => r.path === "person/ivan-georgiev-takuchev-c39f00",
     );
     expect(sample?.title).toBe(
-      "Иван Георгиев Такучев — Главен архитект в Ивайловград | electionsbg.com",
+      "Иван Георгиев Такучев — Главен архитект в Ивайловград | Наясно",
     );
     expect(sample?.english?.title).toBe(
-      "Ivan Georgiev Takuchev — Chief architect in Ivaylovgrad | electionsbg.com",
+      "Ivan Georgiev Takuchev — Chief architect in Ivaylovgrad | Naiasno",
     );
   });
 
+  // Partitions the corpus rather than asserting a value, so it reads the
+  // constant: a rename that silently stops matching does not fail here, it
+  // INVERTS both populations — officials land in the local half, whose
+  // descriptions legitimately carry Cyrillic, and every assertion below then
+  // fails for a reason unrelated to what it tests. Which is what happened at
+  // the electionsbg.com → Наясно rename, when this was a pinned literal.
   const isOfficial = (t: string | undefined) =>
-    /declared assets \| electionsbg\.com$/.test(t ?? "");
+    (t ?? "").endsWith(`declared assets${BRAND_TITLE_SUFFIX_EN}`);
 
   // The local branch is the half where "fully English" is actually achievable — it has no
   // untranslatable field — so its description is pinned too. Unpinned, a future card field
@@ -249,10 +256,10 @@ describe("buildCandidateRoutes — the /en half", () => {
       // the two mirrors have to differ in the NAME slot, which is what the defect collapsed.
       const sample = routes.find((r) => r.path === `candidate/${NAMES[0]}`);
       expect(sample?.title).toBe(
-        "Иван Георгиев Такучев — кандидат за народен представител (2026) | electionsbg.com",
+        "Иван Георгиев Такучев — кандидат за народен представител (2026) | Наясно",
       );
       expect(sample?.english?.title).toBe(
-        "Ivan Georgiev Takuchev — Parliamentary candidate (2026) | electionsbg.com",
+        "Ivan Georgiev Takuchev — Parliamentary candidate (2026) | Naiasno",
       );
     });
 

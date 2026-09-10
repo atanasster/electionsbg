@@ -57,9 +57,9 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     nameBg: 'Агенция "Пътна инфраструктура"',
     nameEn: "Road Infrastructure Agency (АПИ)",
     titleBg:
-      'Агенция "Пътна инфраструктура" (АПИ) — обществени поръчки за пътища | electionsbg.com',
+      'Агенция "Пътна инфраструктура" (АПИ) — обществени поръчки за пътища | Наясно',
     titleEn:
-      "Road Infrastructure Agency (АПИ) — public procurement for roads | electionsbg.com",
+      "Road Infrastructure Agency (АПИ) — public procurement for roads | Наясно",
     descriptionBg:
       "Обществените поръчки на Агенция „Пътна инфраструктура“ (ЕИК 000695089) — магистрали и пътища на карта, цена на километър, вид строителство, тръжен поток, повтарящи се изпълнители и конкуренция спрямо праговете на ЕС. По данни от АОП.",
     descriptionEn:
@@ -87,9 +87,9 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     nameBg: "Национален осигурителен институт",
     nameEn: "National Social Security Institute (НОИ)",
     titleBg:
-      "Национален осигурителен институт (НОИ) — обществени поръчки и ДОО | electionsbg.com",
+      "Национален осигурителен институт (НОИ) — обществени поръчки и ДОО | Наясно",
     titleEn:
-      "National Social Security Institute (НОИ) — procurement and the DOO fund | electionsbg.com",
+      "National Social Security Institute (НОИ) — procurement and the DOO fund | Наясно",
     descriptionBg:
       "Обществените поръчки на Националния осигурителен институт (ЕИК 121082521), поставени в мащаба на фонд „Пенсии“ (ДОО), който институтът администрира — изплатени пенсии, разходи за администрация спрямо изплатеното, категории поръчки и стратегически доставчици. По данни от АОП и отчетите на НОИ.",
     descriptionEn:
@@ -110,10 +110,9 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     slug: "nzok",
     nameBg: "Национална здравноосигурителна каса",
     nameEn: "National Health Insurance Fund (НЗОК)",
-    titleBg:
-      "НЗОК — бюджет, плащания към болниците и лекарствата | electionsbg.com",
+    titleBg: "НЗОК — бюджет, плащания към болниците и лекарствата | Наясно",
     titleEn:
-      "НЗОК — Bulgaria's health fund: budget, hospital & drug payments | electionsbg.com",
+      "НЗОК — Bulgaria's health fund: budget, hospital & drug payments | Наясно",
     descriptionBg:
       "Къде отиват €5,26 млрд. на Националната здравноосигурителна каса (НЗОК): бюджет по пера, плащания към болниците по области и на човек, реимбурсация на лекарства по молекула (INN) и обществените поръчки на касата.",
     descriptionEn:
@@ -145,9 +144,9 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     nameBg: 'Държавен фонд "Земеделие"',
     nameEn: "State Fund Agriculture (ДФЗ)",
     titleBg:
-      "Държавен фонд „Земеделие“ (ДФЗ) — земеделски субсидии и поръчки | electionsbg.com",
+      "Държавен фонд „Земеделие“ (ДФЗ) — земеделски субсидии и поръчки | Наясно",
     titleEn:
-      "State Fund Agriculture (ДФЗ) — farm subsidies and procurement | electionsbg.com",
+      "State Fund Agriculture (ДФЗ) — farm subsidies and procurement | Наясно",
     descriptionBg:
       "Държавен фонд „Земеделие“ (ЕИК 121100421) е разплащателната агенция по Общата селскостопанска политика. Виж кой получава земеделските субсидии — по схема, по област и по получател — плюс обществените поръчки на самия фонд. По данни от ДФЗ и АОП.",
     descriptionEn:
@@ -170,10 +169,8 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     slug: "vss",
     nameBg: "Висш съдебен съвет",
     nameEn: "Supreme Judicial Council (ВСС)",
-    titleBg:
-      "Съдебна власт (ВСС) — бюджет и обществени поръчки | electionsbg.com",
-    titleEn:
-      "The judiciary (ВСС) — budget and public procurement | electionsbg.com",
+    titleBg: "Съдебна власт (ВСС) — бюджет и обществени поръчки | Наясно",
+    titleEn: "The judiciary (ВСС) — budget and public procurement | Наясно",
     descriptionBg:
       "Бюджетът на съдебната власт по органи (съдилища, прокуратура, ВКС, ВАС, ВСС, ИВСС) и обществените поръчки на Висшия съдебен съвет (ЕИК 121513231) — съдебни сгради, електронно правосъдие, енергия и застраховане. Плюс колко от разходите си съдебната власт покрива сама със съдебни такси. По данни от ЗДБРБ и АОП.",
     descriptionEn:
@@ -197,9 +194,9 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     nameBg: "Министерство на образованието и науката",
     nameEn: "Ministry of Education and Science (МОН)",
     titleBg:
-      "Министерство на образованието и науката (МОН) — учебници и обществени поръчки | electionsbg.com",
+      "Министерство на образованието и науката (МОН) — учебници и обществени поръчки | Наясно",
     titleEn:
-      "Ministry of Education and Science (МОН) — textbooks and procurement | electionsbg.com",
+      "Ministry of Education and Science (МОН) — textbooks and procurement | Наясно",
     descriptionBg:
       "Министерство на образованието и науката (ЕИК 000695114) — обществените поръчки на министерството плюс пазарът на учебници за €51 млн., в който два издателя (Клет и Просвета) държат около 74%. Свободните учебници за 1–12 клас се купуват от самите училища. По данни от АОП/ЦАИС ЕОП.",
     descriptionEn:
@@ -228,9 +225,8 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     slug: "defence",
     nameBg: "Министерство на отбраната",
     nameEn: "Ministry of Defence (МО)",
-    titleBg:
-      "Министерство на отбраната (МО) — обществени поръчки | electionsbg.com",
-    titleEn: "Ministry of Defence (МО) — public procurement | electionsbg.com",
+    titleBg: "Министерство на отбраната (МО) — обществени поръчки | Наясно",
+    titleEn: "Ministry of Defence (МО) — public procurement | Наясно",
     descriptionBg:
       "Обществените поръчки на ${MO_ENTITIES.length}-те структури на Министерството на отбраната (ЕИК 000695324) — над 2 млрд. € за поддръжка на авиацията, горива, техника и военна медицина, с концентрация на изпълнителите и дял на договорите с една оферта. Придобиването на F-16 и Stryker е по US FMS и не е в регистъра. По данни от АОП/ЦАИС ЕОП.",
     descriptionEn:
@@ -254,9 +250,9 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     nameBg: "Национална агенция за приходите",
     nameEn: "National Revenue Agency (НАП)",
     titleBg:
-      "НАП — откъде идват данъчните приходи: ДДС, ДДФЛ, акцизи и данъчна пропаст | electionsbg.com",
+      "НАП — откъде идват данъчните приходи: ДДС, ДДФЛ, акцизи и данъчна пропаст | Наясно",
     titleEn:
-      "National Revenue Agency (НАП) — where Bulgaria's tax revenue comes from | electionsbg.com",
+      "National Revenue Agency (НАП) — where Bulgaria's tax revenue comes from | Наясно",
     descriptionBg:
       "Национална агенция за приходите (ЕИК 131063188) е събирачът, не разходващият. Виж откъде идват данъчните приходи по вид — ДДС, ДДФЛ, корпоративен данък, акцизи, мита — по данни от Консолидираната фискална програма, плюс данъчната пропаст спрямо ЕС.",
     descriptionEn:
@@ -284,9 +280,9 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     nameBg: 'Агенция "Митници"',
     nameEn: "Customs Agency (Агенция „Митници“)",
     titleBg:
-      "Агенция „Митници“ — акцизи, ДДС при внос и мита: откъде идват приходите | electionsbg.com",
+      "Агенция „Митници“ — акцизи, ДДС при внос и мита: откъде идват приходите | Наясно",
     titleEn:
-      "Bulgarian Customs Agency — excise, import VAT and duties: where revenue comes from | electionsbg.com",
+      "Bulgarian Customs Agency — excise, import VAT and duties: where revenue comes from | Naiasno",
     descriptionBg:
       "Агенция „Митници“ (ЕИК 000627597) събира над €7 млрд. годишно — акцизи (горива, тютюн, алкохол), ДДС при внос, мита и глоби. Виж състава на приходите по година, разбивката на акциза за 2025 г. и водещите държави по събрано мито.",
     descriptionEn:

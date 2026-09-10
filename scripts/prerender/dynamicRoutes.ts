@@ -106,6 +106,7 @@ import { transliterateName } from "@/data/candidates/transliterateName";
 import { buildArticleRoutes } from "./articleRoutes";
 import { INSTITUTION_PACKS } from "./institutions";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
+import { BRAND_TITLE_SUFFIX, BRAND_TITLE_SUFFIX_EN } from "@/lib/brand";
 
 const BG_MONTHS = [
   "януари",
@@ -219,9 +220,9 @@ export const buildPartyRoutes = (
         : p.nickName;
     const url = `${SITE_URL}/party/${p.nickName}`;
     const enUrl = `${SITE_URL}/en/party/${p.nickName}`;
-    const title = `${label} — резултати на парламентарните избори${yearSuffix} | electionsbg.com`;
+    const title = `${label} — резултати на парламентарните избори${yearSuffix} | Наясно`;
     const description = `Резултати за ${label} на парламентарните избори${yearSuffix} и всеки вот от 2005 г. насам — по области, общини и секции, плюс декларирано финансиране.`;
-    const titleEn = `${label} — Bulgarian Parliamentary Election${yearSuffix} Results | electionsbg.com`;
+    const titleEn = `${label} — Bulgarian Parliamentary Election${yearSuffix} Results | Naiasno`;
     const descriptionEn = `Results of ${label} in the${yearSuffix} Bulgarian parliamentary election and every vote since 2005 — by region, municipality and section, plus declared campaign financing.`;
     const bodyHtml = buildPartyBody(publicFolder, latestElection, p, summary);
     // Distribution links point at the structured data files the party page
@@ -322,7 +323,7 @@ export const buildOblastRoutes = (
     .map((r) => {
       const displayName = oblastDisplayName(r);
       const url = `${SITE_URL}/municipality/${r.oblast}`;
-      const title = `Резултати в ${oblastLabel(displayName, "bg", "prose", r.oblast)} — Парламентарни избори | electionsbg.com`;
+      const title = `Резултати в ${oblastLabel(displayName, "bg", "prose", r.oblast)} — Парламентарни избори | Наясно`;
       const description = `Подробни резултати, машинно гласуване, повторно преброяване и отклонения по секции в ${oblastLabel(displayName, "bg", "prose", r.oblast)} на парламентарните избори в България.`;
       return {
         path: `municipality/${r.oblast}`,
@@ -388,12 +389,11 @@ export const buildDiasporaRoutes = (
   const url = `${SITE_URL}/municipality/32`;
   const enUrl = `${SITE_URL}/en/municipality/32`;
 
-  const title =
-    "Гласуване в чужбина — избирателни секции по държави | electionsbg.com";
+  const title = "Гласуване в чужбина — избирателни секции по държави | Наясно";
   const description =
     "Къде гласуват българите в чужбина — избирателни секции, адреси и резултати по държави на парламентарните избори, плюс отговори на често задавани въпроси за вота извън страната.";
   const titleEn =
-    "Voting Abroad — Bulgarian Polling Sections by Country | electionsbg.com";
+    "Voting Abroad — Bulgarian Polling Sections by Country | Naiasno";
   const descriptionEn =
     "Where Bulgarians abroad vote — polling sections, addresses and results by country in the parliamentary elections, plus answers to frequently asked questions about voting outside Bulgaria.";
 
@@ -480,7 +480,7 @@ export const buildSettlementRoutes = (
       // weights the head of the <title> (and truncates ~60 chars, so the name must
       // survive). The "резултати … по секции" framing keeps this door distinct from
       // the /governance/{ekatte} door on the same place.
-      const title = `${labelWithOblast} — резултати от изборите по секции | electionsbg.com`;
+      const title = `${labelWithOblast} — резултати от изборите по секции | Наясно`;
       const description = `Резултати по секции в ${labelWithOblast} на парламентарните избори в България — гласове, машинно гласуване и отклонения.`;
       const breadcrumb = oblastName
         ? [
@@ -558,7 +558,7 @@ export const buildGovernancePlaceRoutes = (
       // Entity-first title (place name at the head) — the governance door leads
       // with "управление" to stay distinct from the /settlement/{ekatte} results
       // door on the same place.
-      const title = `${labelWithOblast} — управление, бюджет и представители | electionsbg.com`;
+      const title = `${labelWithOblast} — управление, бюджет и представители | Наясно`;
       const description = `Обобщено табло за управлението на ${labelWithOblast}: народни представители, кмет и общински съвет, бюджет, еврофондове, преброяване и още — всичко за вашия район на едно място.`;
       const breadcrumb = oblastName
         ? [
@@ -663,7 +663,7 @@ export const buildGovernanceMuniRoutes = (
     seen.add(m.obshtina);
     const oblastName = m.oblast ? oblastNames.get(m.oblast) : undefined;
     const url = `${SITE_URL}/governance/${m.obshtina}`;
-    const title = `Община ${m.name} — управление, бюджет и представители | electionsbg.com`;
+    const title = `Община ${m.name} — управление, бюджет и представители | Наясно`;
     const description = `Обобщено табло за управлението на община ${m.name}: депутати и декларации, кмет и общински съвет, общинско финансиране, еврофондове, обществени поръчки, местни данъци, преброяване и прозрачност.`;
     const breadcrumb = oblastName
       ? [
@@ -741,7 +741,7 @@ export const buildGovernanceRayonRoutes = (
       const name = f.properties?.name;
       if (!id || !name) continue;
       const url = `${SITE_URL}/governance/${id}`;
-      const title = `Район ${name}, община ${city.bg} — управление и избори | electionsbg.com`;
+      const title = `Район ${name}, община ${city.bg} — управление и избори | Наясно`;
       const description = `Резултати от парламентарни избори и районен кмет за административен район ${name} в община ${city.bg} (${city.mir.replace(/^0+/, "")} МИР).`;
       const breadcrumb = [
         { name: "Начало", url: `${SITE_URL}/` },
@@ -771,7 +771,7 @@ export const buildGovernanceRayonRoutes = (
       // Parliamentary results node of the same район (/settlement/<id>) — the
       // other tab of the район place; reuses MunicipalityDashboardCards.
       const pUrl = `${SITE_URL}/settlement/${id}`;
-      const pTitle = `Район ${name}, община ${city.bg} — резултати от изборите | electionsbg.com`;
+      const pTitle = `Район ${name}, община ${city.bg} — резултати от изборите | Наясно`;
       const pDesc = `Резултати от парламентарни избори по партии за административен район ${name} в община ${city.bg} (${city.mir.replace(/^0+/, "")} МИР).`;
       result.push({
         path: `settlement/${id}`,
@@ -852,9 +852,9 @@ export const buildGovernanceRegionRoutes = (
         );
       const url = `${SITE_URL}/governance/region/${r.oblast}`;
       const enUrl = `${SITE_URL}/en/governance/region/${r.oblast}`;
-      const title = `Управление — ${bg("prose")} | electionsbg.com`;
+      const title = `Управление — ${bg("prose")} | Наясно`;
       const description = `Регионален разрез на управлението в ${bg("prose")}: депутати и декларации, средства по Чл. 53, регионални индикатори, преброяване и поземлено покритие.`;
-      const titleEn = `Governance — ${en("prose")} | electionsbg.com`;
+      const titleEn = `Governance — ${en("prose")} | Naiasno`;
       const descriptionEn = `A regional cut of governance in ${en("prose")}: MPs and declarations, Article 53 transfers, regional indicators, census and land-use.`;
       const munis = munisByOblast.get(r.oblast) ?? [];
       return {
@@ -919,7 +919,7 @@ export const buildProcurementSettlementRoutes = async (): Promise<
     const place =
       s.province && s.province !== s.name ? `${s.name}, ${s.province}` : s.name;
     const url = `${SITE_URL}/procurement/settlement/${s.ekatte}`;
-    const title = `Обществени поръчки — ${place} | electionsbg.com`;
+    const title = `Обществени поръчки — ${place} | Наясно`;
     const description = `Обществени поръчки на възложители със седалище в ${place} — брой договори, обща стойност и водещи възложители по данни от АОП.`;
     result.push({
       path: `procurement/settlement/${s.ekatte}`,
@@ -1013,7 +1013,7 @@ export const buildFundsThemeRoutes = (
     const names = topBeneficiaryNames(themeRows, 3);
     const url = `${SITE_URL}/funds/focus/${th.slug}`;
     const enUrl = `${SITE_URL}/en/funds/focus/${th.slug}`;
-    const title = `Европейски средства — ${th.labelBg} | electionsbg.com`;
+    const title = `Европейски средства — ${th.labelBg} | Наясно`;
     // The curated editorial summary stays the lead — it is the one thing a
     // generated sentence cannot supply — with the names appended, because an
     // entity in the snippet is what earns the click.
@@ -1022,7 +1022,7 @@ export const buildFundsThemeRoutes = (
         ? `${th.summaryBg} Най-големи получатели: ${names.join(", ")}.`
         : th.summaryBg ||
           `Тематичен разрез на европейските средства: ${th.labelBg} — поръчки, бенефициенти и програми по данни от ИСУН 2020.`;
-    const titleEn = `EU funds — ${th.labelEn} | electionsbg.com`;
+    const titleEn = `EU funds — ${th.labelEn} | Naiasno`;
     const descriptionEn =
       th.summaryEn && names.length
         ? `${th.summaryEn} Largest recipients: ${names.join(", ")}.`
@@ -1089,9 +1089,9 @@ export const buildProductRoutes = (projectRoot: string): PrerenderRoute[] => {
   return products.map((p) => {
     const url = `${SITE_URL}/product/${p.slug}`;
     const enUrl = `${SITE_URL}/en/product/${p.slug}`;
-    const title = `${p.title} — цени по вериги | electionsbg.com`;
+    const title = `${p.title} — цени по вериги | Наясно`;
     const description = `Цена на ${p.title} по вериги в България от въвеждането на еврото (${EURO_ADOPTION.bg}) — къде е най-евтино и как се е променила. Мониторингов индекс на КЗП, не официален ИПЦ.`;
-    const titleEn = `${p.title} — price by chain | electionsbg.com`;
+    const titleEn = `${p.title} — price by chain | Naiasno`;
     const descriptionEn = `Price of ${p.title} across retail chains in Bulgaria since euro adoption (${EURO_ADOPTION.en}) — where it is cheapest and how it has changed. CPC monitoring index, not official CPI.`;
     // Feed-derived titles contain `&` (SENSODYNE REPAIR&PROTECT) and can carry
     // `<`/`>`; escape them, like every other free-text body in this file.
@@ -1320,8 +1320,8 @@ export const buildSectionsListRoutes = (
     const url = `${SITE_URL}/sections/${ekatte}`;
     const sectionCount = sortedSections.length;
     const title = agg.isDiaspora
-      ? `Избирателни секции в ${displayName} ${electionYear} — Парламентарни избори в България | electionsbg.com`
-      : `Избирателни секции в ${placeLabel} — Парламентарни избори ${electionYear} | electionsbg.com`;
+      ? `Избирателни секции в ${displayName} ${electionYear} — Парламентарни избори в България | Наясно`
+      : `Избирателни секции в ${placeLabel} — Парламентарни избори ${electionYear} | Наясно`;
     const description = agg.isDiaspora
       ? `Списък на ${sectionCount} избирателни секции за гласуване в ${displayName} на парламентарния вот ${electionDateLabel} — градове, адреси и резултати.`
       : `${sectionCount} избирателни секции в ${placeLabel} с адреси и резултати по партии за парламентарния вот ${electionDateLabel}.`;
@@ -1991,7 +1991,7 @@ export const buildCandidateRoutes = (
         ? "народен представител"
         : "бивш народен представител"
       : "кандидат за народен представител";
-    const title = `${name} — ${titleRole}${yearSpan ? ` (${yearSpan})` : ""} | electionsbg.com`;
+    const title = `${name} — ${titleRole}${yearSpan ? ` (${yearSpan})` : ""} | Наясно`;
     const descRole = isMp
       ? `${titleRole}${indexEntry.currentPartyGroup ? ` от ${indexEntry.currentPartyGroup}` : partyClause}`
       : `${titleRole}${partyClause}`;
@@ -2005,7 +2005,7 @@ export const buildCandidateRoutes = (
     const descRoleEn = isMp
       ? `${titleRoleEn}${indexEntry.currentPartyGroup ? ` from ${indexEntry.currentPartyGroup}` : partyClauseEn}`
       : `${titleRoleEn}${partyClauseEn}`;
-    const titleEn = `${nameEn} — ${titleRoleEn}${yearSpan ? ` (${yearSpan})` : ""} | electionsbg.com`;
+    const titleEn = `${nameEn} — ${titleRoleEn}${yearSpan ? ` (${yearSpan})` : ""} | Naiasno`;
     const descriptionEn = `${nameEn} — ${descRoleEn} in Bulgaria's parliamentary elections.${factsClauseEn} Preference votes by region, municipality, settlement and polling section${profile?.A_ns_MPL_Prof ? `. Profession: ${profile.A_ns_MPL_Prof.trim()}` : ""}.`;
 
     const personLd = buildPersonLd({
@@ -2156,10 +2156,23 @@ const CANDIDATE_SUB_TABS: Array<{ slug: string; bg: string; en: string }> = [
   { slug: "assets", bg: "имущество", en: "assets" },
 ];
 
-const TITLE_SUFFIX = " | electionsbg.com";
+const TITLE_SUFFIX = BRAND_TITLE_SUFFIX;
 
-const stripTitleSuffix = (t: string): string =>
-  t.endsWith(TITLE_SUFFIX) ? t.slice(0, -TITLE_SUFFIX.length) : t;
+/**
+ * ⚠️ Strips EITHER locale's suffix, and it has to.
+ *
+ * A parent's English title ends in the Latin form while its Bulgarian twin ends
+ * in the Cyrillic one, and this runs over both. Stripping only one leaves the
+ * other embedded in the MIDDLE of every composed child title
+ * ("… (2026) | Naiasno — assets | Наясно") — which does not throw, does not
+ * move a row count, and puts Cyrillic into an /en title, the one thing
+ * `personRoutesEn.test.ts` exists to prevent.
+ */
+const stripTitleSuffix = (t: string): string => {
+  for (const suffix of [BRAND_TITLE_SUFFIX, BRAND_TITLE_SUFFIX_EN])
+    if (t.endsWith(suffix)) return t.slice(0, -suffix.length);
+  return t;
+};
 
 const encodeUrlPath = (p: string): string =>
   p.split("/").map(encodeURIComponent).join("/");
@@ -2192,7 +2205,7 @@ export const buildCandidateSubTabRoutes = (
         ...(parent.english
           ? {
               english: {
-                title: `${parentTitleEn} — ${tab.en}${TITLE_SUFFIX}`,
+                title: `${parentTitleEn} — ${tab.en}${BRAND_TITLE_SUFFIX_EN}`,
                 description: parent.english.description,
                 canonicalUrl: parentEnUrl,
               },
@@ -2371,7 +2384,7 @@ export const buildSectionRoutes = (
     const placeLabel = oblastName
       ? `${settlement}, ${oblastLabel(oblastName, "bg", "compact")}`
       : settlement;
-    const title = `Избирателна секция №${section} — ${placeLabel} | electionsbg.com`;
+    const title = `Избирателна секция №${section} — ${placeLabel} | Наясно`;
     const description = address
       ? `Резултати по партии в избирателна секция №${section} — ${placeLabel}. Адрес: ${address}.`
       : `Резултати по партии в избирателна секция №${section} — ${placeLabel}.`;
@@ -2475,7 +2488,7 @@ const buildPartySubTabRoutes = (
       const enUrl = `${SITE_URL}/en/party/${p.nickName}/${tab.slug}`;
       result.push({
         path: `party/${p.nickName}/${tab.slug}`,
-        title: `${label} — ${tab.bg} | electionsbg.com`,
+        title: `${label} — ${tab.bg} | Наясно`,
         description: `Резултати на ${label} ${tab.bg} на парламентарните избори в България.`,
         ogImage: parent.ogImage,
         bodyHtml: parent.bodyHtml,
@@ -2487,7 +2500,7 @@ const buildPartySubTabRoutes = (
           ]),
         ],
         english: {
-          title: `${label} — ${tab.en} | electionsbg.com`,
+          title: `${label} — ${tab.en} | Naiasno`,
           description: `Results of ${label} ${tab.en} in Bulgaria's parliamentary elections.`,
           bodyHtml: parent.bodyHtml,
           jsonLd: [
@@ -2517,7 +2530,7 @@ const buildOblastSubTabRoutes = (
       const url = `${SITE_URL}/municipality/${r.oblast}/${tab.slug}`;
       result.push({
         path: `municipality/${r.oblast}/${tab.slug}`,
-        title: `${oblastLabel(displayName, "bg", "leading", r.oblast)} — ${tab.bg} | Парламентарни избори | electionsbg.com`,
+        title: `${oblastLabel(displayName, "bg", "leading", r.oblast)} — ${tab.bg} | Парламентарни избори | Наясно`,
         description: `Резултати ${tab.bg} в ${oblastLabel(displayName, "bg", "prose", r.oblast)} на парламентарните избори в България.`,
         ogImage: parent.ogImage,
         bodyHtml: parent.bodyHtml,
@@ -2553,9 +2566,9 @@ export const buildElectionLandingRoutes = (
       const dateLabelEn = formatElectionDateEn(date);
       const url = `${SITE_URL}/elections/${date}`;
       const enUrl = `${SITE_URL}/en/elections/${date}`;
-      const title = `Парламентарни избори ${dateLabel} в България — резултати | electionsbg.com`;
+      const title = `Парламентарни избори ${dateLabel} в България — резултати | Наясно`;
       const description = `Резултати от парламентарните избори в България на ${dateLabel} — избирателна активност, разпределение на гласове и мандати по партии, машинно и хартиено гласуване, отклонения по секции.`;
-      const titleEn = `Bulgarian parliamentary elections ${dateLabelEn} — results | electionsbg.com`;
+      const titleEn = `Bulgarian parliamentary elections ${dateLabelEn} — results | Naiasno`;
       const descriptionEn = `Results of the Bulgarian parliamentary elections on ${dateLabelEn} — turnout, vote and seat distribution by party, paper vs. machine voting, section-level anomalies.`;
       const distribution = [
         {
@@ -2675,7 +2688,7 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
       // section below), so a title naming parliamentary elections alone declares a narrower
       // scope than the page shows.
       title:
-        "Социологически проучвания — парламентарни и президентски избори | electionsbg.com",
+        "Социологически проучвания — парламентарни и президентски избори | Наясно",
       description:
         "Точност на социологическите агенции преди българските парламентарни и президентски избори — средна абсолютна грешка по партии, профил на отклоненията и предупреждения по агенции.",
       ogImage: "/og/polls.png",
@@ -2730,7 +2743,7 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
   ];
   for (const a of agencies) {
     const url = `${SITE_URL}/polls/${encodeURIComponent(a.id)}`;
-    const title = `${a.name_bg} — точност на социологическите проучвания | electionsbg.com`;
+    const title = `${a.name_bg} — точност на социологическите проучвания | Наясно`;
     // ⚠ WIDENED FOR A PRESIDENTIAL-ONLY AGENCY — Tier 4 T4.4 Increment C. `buildPollsAgencyBody`
     // unconditionally appends a presidential-polls section whenever this agency has one
     // (independent of whether it has a scored parliamentary `analysis.json` take), so a
@@ -3028,7 +3041,7 @@ export const buildReportRoutes = (): PrerenderRoute[] => {
       .join(", ");
     return {
       path: `reports/${grain}/${type}`,
-      title: `${r.bgTitle} — Парламентарни избори | electionsbg.com`,
+      title: `${r.bgTitle} — Парламентарни избори | Наясно`,
       description: r.bgDesc,
       ogImage:
         r.ogImage ??
@@ -3135,7 +3148,7 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
     {
       path: "votes",
       title:
-        "Поименни гласувания в Народното събрание — данни по точки | electionsbg.com",
+        "Поименни гласувания в Народното събрание — данни по точки | Наясно",
       description: `Поименни гласувания в Народното събрание на България. ${idx.sessions.length} заседания, общо ${totalItems} точки. Разбивка по депутат и парламентарна група за всяка точка.`,
       ogImage: "/og/votes.png",
       bodyHtml: `
@@ -3146,7 +3159,7 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
       jsonLd: [crumbsBg([])],
       english: {
         title:
-          "Roll-call votes in the National Assembly — per-item data | electionsbg.com",
+          "Roll-call votes in the National Assembly — per-item data | Naiasno",
         description: `Roll-call votes in Bulgaria's National Assembly. ${idx.sessions.length} sittings, ${totalItems} items in total, with a per-MP and per-group breakdown for each item.`,
         bodyHtml: `
 <h1>Roll-call votes in the National Assembly</h1>
@@ -3236,11 +3249,11 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
       .join(" · ");
 
     const headline = top[0];
-    const title = `Поименно гласуване — ${dateBg} | electionsbg.com`;
+    const title = `Поименно гласуване — ${dateBg} | Наясно`;
     const description = headline
       ? `Поименно гласуване в Народното събрание на ${dateBg}: ${s.items} точки, сред които „${headline.title.slice(0, 70)}“ — ${tallyClause(headline, "bg")}.`
       : `Поименно гласуване в Народното събрание на ${dateBg}: ${s.items} точки с разбивка по депутат и парламентарна група.`;
-    const titleEn = `Roll-call vote — ${dateEn} | electionsbg.com`;
+    const titleEn = `Roll-call vote — ${dateEn} | Naiasno`;
     const descriptionEn = headline
       ? `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: ${s.items} items, including "${headline.title.slice(0, 70)}" — ${tallyClause(headline, "en")}.`
       : `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: ${s.items} items with per-MP and per-party breakdowns.`;
@@ -3302,9 +3315,9 @@ ${factsEn}
     for (const f of top) {
       const itemUrl = `${url}/${encodeUrlPath(f.slug)}`;
       const itemEnUrl = `${enUrl}/${encodeUrlPath(f.slug)}`;
-      const itemTitleBg = `${f.title.slice(0, 80)} — гласуване на ${dateBg} | electionsbg.com`;
+      const itemTitleBg = `${f.title.slice(0, 80)} — гласуване на ${dateBg} | Наясно`;
       const itemDescBg = `Поименно гласуване в Народното събрание на ${dateBg}: „${f.title.slice(0, 90)}“ — ${tallyClause(f, "bg")}. Виж как гласува всеки депутат.`;
-      const itemTitleEn = `${f.title.slice(0, 80)} — vote on ${dateEn} | electionsbg.com`;
+      const itemTitleEn = `${f.title.slice(0, 80)} — vote on ${dateEn} | Naiasno`;
       const itemDescEn = `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: "${f.title.slice(0, 90)}" — ${tallyClause(f, "en")}. See how every MP voted.`;
       result.push({
         path: `votes/${s.date}/${f.slug}`,
@@ -3387,9 +3400,9 @@ export const buildParliamentSeedRoutes = (
   const seedId = headline?.byNs?.[ns]?.seedId;
   if (seedId != null) {
     const url = `${SITE_URL}/parliament/similarity/${seedId}`;
-    const title = `Сходство между депутати — ${ns}-то Народно събрание | electionsbg.com`;
+    const title = `Сходство между депутати — ${ns}-то Народно събрание | Наясно`;
     const description = `Кои народни представители гласуват най-сходно помежду си в ${ns}-то Народно събрание, включително през границите на парламентарните групи.`;
-    const titleEn = `MP voting similarity — ${ns}th National Assembly | electionsbg.com`;
+    const titleEn = `MP voting similarity — ${ns}th National Assembly | Naiasno`;
     const descriptionEn = `Which members of the Bulgarian National Assembly vote most alike in the ${ns}th parliament, including across parliamentary-group lines.`;
     routes.push({
       path: `parliament/similarity/${seedId}`,
@@ -3429,9 +3442,9 @@ export const buildParliamentSeedRoutes = (
   if (pair && pairNames) {
     const [a, b] = pairNames;
     const url = `${SITE_URL}/votes/between/${pair}`;
-    const title = `${a} срещу ${b} — къде се разминават | electionsbg.com`;
+    const title = `${a} срещу ${b} — къде се разминават | Наясно`;
     const description = `Точките, по които ${a} и ${b} гласуват различно в ${ns}-то Народно събрание — двете парламентарни групи с най-малко съвпадение.`;
-    const titleEn = `${a} vs ${b} — where they diverge | electionsbg.com`;
+    const titleEn = `${a} vs ${b} — where they diverge | Naiasno`;
     const descriptionEn = `The items on which ${a} and ${b} vote differently in the ${ns}th National Assembly — the two parliamentary groups that agree least.`;
     routes.push({
       path: `votes/between/${pair}`,
@@ -3490,9 +3503,9 @@ export const buildBudgetMinistryRoutes = (
     const path_ = `budget/ministry/${slug}`;
     const url = `${SITE_URL}/${path_}`;
     const enUrl = `${SITE_URL}/en/${path_}`;
-    const title = `${nameBg} — държавен бюджет | electionsbg.com`;
+    const title = `${nameBg} — държавен бюджет | Наясно`;
     const description = `Годишен план срещу изпълнение на ${nameBg} от Закона за държавния бюджет и програмния отчет, плюс обществените поръчки на ведомството.`;
-    const titleEn = `${nameEn} — Bulgarian state budget | electionsbg.com`;
+    const titleEn = `${nameEn} — Bulgarian state budget | Naiasno`;
     const descriptionEn = `Annual planned-versus-actual figures for ${nameEn} from the State Budget Law and program-execution report, plus the ministry's public-procurement footprint.`;
     out.push({
       path: path_,
@@ -3619,8 +3632,8 @@ export const buildSchoolRoutes = (projectRoot: string): PrerenderRoute[] => {
         ? ` Maths matura (${math.year}): ${s2(math.score)}.`
         : "";
 
-      const titleBg = `${rec.name} — резултати от матурата (ДЗИ) | electionsbg.com`;
-      const titleEn = `${rec.name} — state matura (ДЗИ) results | electionsbg.com`;
+      const titleBg = `${rec.name} — резултати от матурата (ДЗИ) | Наясно`;
+      const titleEn = `${rec.name} — state matura (ДЗИ) results | Наясно`;
       const descBg = `Среден успех от държавната зрелостна матура по БЕЛ за ${nm}${place ? ` (${place})` : ""}: ${s2(bel.score)} през ${bel.year} г. — спрямо социално-икономическата среда на общината. По данни на МОН.`;
       const descEn = `State matura (Bulgarian) average for ${nm}${place ? ` (${place})` : ""}: ${s2(bel.score)} in ${bel.year} — set against the municipality's socioeconomic context. Sourced from the Ministry of Education.`;
 
@@ -3765,8 +3778,8 @@ export const buildCourtRoutes = async (): Promise<PrerenderRoute[]> => {
       ? ` ${b.magistrates} ${pl(b.magistrates, "magistrate files their declarations", "magistrates file their declarations")} with the Judicial Inspectorate from this body.`
       : "";
 
-    const titleBg = `${b.name} — натовареност и магистрати | electionsbg.com`;
-    const titleEn = `${b.name} — caseload and magistrates | electionsbg.com`;
+    const titleBg = `${b.name} — натовареност и магистрати | Наясно`;
+    const titleEn = `${b.name} — caseload and magistrates | Naiasno`;
     const magsPhraseBg = hasMags
       ? `${b.magistrates} ${pl(b.magistrates, "магистрат", "магистрати")} с декларации`
       : "";
@@ -3964,8 +3977,8 @@ export const buildCouncilRoutes = async (): Promise<PrerenderRoute[]> => {
     )
     .join("");
 
-  const hubTitleBg = `Общински съвети — решения и поименни гласувания | electionsbg.com`;
-  const hubTitleEn = `Municipal councils — decisions and named votes | electionsbg.com`;
+  const hubTitleBg = `Общински съвети — решения и поименни гласувания | Наясно`;
+  const hubTitleEn = `Municipal councils — decisions and named votes | Naiasno`;
   const hubDescBg = `${bgNum(resolutions)} решения от ${covered} общински съвета, ${withNamed.length} от които публикуват и кой съветник как е гласувал (${bgNum(namedVotes)} поименни вота).`;
   const hubDescEn = `${enNum(resolutions)} decisions from ${covered} municipal councils, ${withNamed.length} of which also publish how each councillor voted (${enNum(namedVotes)} named votes).`;
 
@@ -4029,8 +4042,8 @@ export const buildCouncilRoutes = async (): Promise<PrerenderRoute[]> => {
       const url = `${SITE_URL}/${path_}`;
       const enUrl = `${SITE_URL}/en/${path_}`;
 
-      const titleBg = `${c.name} — решения на общинския съвет | electionsbg.com`;
-      const titleEn = `${c.name} — municipal council decisions | electionsbg.com`;
+      const titleBg = `${c.name} — решения на общинския съвет | Наясно`;
+      const titleEn = `${c.name} — municipal council decisions | Naiasno`;
       const descBg =
         `${bgNum(c.resolutions)} решения на ${c.name}` +
         (c.hasNamedVotes
@@ -4190,8 +4203,8 @@ export const buildPensionFundRoutes = (
           ? ` The archive holds a single quarter for this fund; older ones are added as they are ingested.`
           : "";
 
-    const titleBg = `${rawBg} — нетни активи и осигурени лица | electionsbg.com`;
-    const titleEn = `${rawEn} — net assets and insured persons | electionsbg.com`;
+    const titleBg = `${rawBg} — нетни активи и осигурени лица | Наясно`;
+    const titleEn = `${rawEn} — net assets and insured persons | Naiasno`;
     const descBg = insuredBg
       ? `${rawBg}: ${assetsBg} нетни активи и ${insuredBg} осигурени лица към ${f.latestPeriodLabel}, по тримесечни данни на КФН.`
       : `${rawBg}: ${assetsBg} нетни активи към ${f.latestPeriodLabel}, по тримесечни данни на КФН.`;
@@ -4403,8 +4416,8 @@ const localPersonRoute = (
     c.placeCode,
     placeEnSafe,
   );
-  const title = `${c.name} — ${officeBg} | electionsbg.com`;
-  const titleEn = `${nameEn} — ${officeEn} | electionsbg.com`;
+  const title = `${c.name} — ${officeBg} | Наясно`;
+  const titleEn = `${nameEn} — ${officeEn} | Naiasno`;
   const description = `Профил на ${c.name}, ${officeBg}: резултати от местните избори, свързани лица и обществени поръчки. Източник: ЦИК.`;
   const descriptionEn = `Profile of ${nameEn}, ${officeEn}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
   return {
@@ -4499,8 +4512,8 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
     const netWorth =
       c.netWorthEur == null ? null : formatEurForPrerender(c.netWorthEur);
     const yearBg = c.year ? ` (${c.year})` : "";
-    const title = `${c.name} — декларирано имущество | electionsbg.com`;
-    const titleEn = `${nameEn} — declared assets | electionsbg.com`;
+    const title = `${c.name} — декларирано имущество | Наясно`;
+    const titleEn = `${nameEn} — declared assets | Naiasno`;
     const instBg = institution ? ` в ${institution}` : "";
     // The institution and the position title stay Bulgarian on /en: there are 785 distinct
     // institutions and 140 position titles in this corpus and no English source for any of
@@ -4638,11 +4651,11 @@ export const buildLocalCycleRoutes = (
     ).length;
     const topMayor = (index.mayorsByCanonical ?? [])[0];
     const url = `${SITE_URL}/local/${cycle}`;
-    const title = `Местни избори ${date} — резултати | electionsbg.com`;
+    const title = `Местни избори ${date} — резултати | Наясно`;
     const description = `Резултати от местните избори на ${date} в България — кметове на общини и общински съветници по области и общини${
       topMayor ? `. Водеща партия по кметове: ${topMayor.displayName}` : ""
     }.`;
-    const titleEn = `Bulgarian Local Elections ${date} — Results | electionsbg.com`;
+    const titleEn = `Bulgarian Local Elections ${date} — Results | Naiasno`;
     const descriptionEn = `Results of the ${date} Bulgarian local elections — municipal mayors and councillors by region and municipality.`;
     const bodyHtml = `<h1>Местни избори ${date}</h1><p>Резултати по ${muniCount} общини — кметове на общини, общински съветници, кметове на кметства и районни кметове. Разгледайте по области и общини.</p>`;
     const bodyHtmlEn = `<h1>Bulgarian local elections ${date}</h1><p>Results across ${muniCount} municipalities — municipal mayors, councillors, village mayors and district mayors. Browse by region and municipality.</p>`;
@@ -4705,9 +4718,9 @@ export const buildLocalRegionRoutes = (
       const en = (form: OblastLabelForm) =>
         oblastLabel(nameEnOf.get(r.oblast) ?? r.oblast, "en", form, r.oblast);
       const url = `${SITE_URL}/local/${cycle}/region/${r.oblast}`;
-      const title = `Местни избори ${date} — ${bg("prose")} | electionsbg.com`;
+      const title = `Местни избори ${date} — ${bg("prose")} | Наясно`;
       const description = `Резултати от местните избори на ${date} в ${bg("prose")} — кметове по общини и места в общинските съвети по партии.`;
-      const titleEn = `Local Elections ${date} — ${en("prose")} | electionsbg.com`;
+      const titleEn = `Local Elections ${date} — ${en("prose")} | Naiasno`;
       const descriptionEn = `${date} Bulgarian local-election results in ${en("prose")} — mayors by municipality and council seats by party.`;
       out.push({
         path: `local/${cycle}/region/${r.oblast}`,
@@ -4761,9 +4774,9 @@ export const buildLocalMunicipalityRoutes = (
     const date = formatLocalCycleDate(cycle);
     for (const m of index.municipalities ?? []) {
       const url = `${SITE_URL}/local/${cycle}/${m.obshtinaCode}`;
-      const title = `Местни избори ${date} — ${m.name} | electionsbg.com`;
+      const title = `Местни избори ${date} — ${m.name} | Наясно`;
       const description = `Резултати от местните избори на ${date} в община ${m.name} — кмет на община, общински съвет с избрани съветници и кметове на кметства.`;
-      const titleEn = `Local Elections ${date} — ${m.name} | electionsbg.com`;
+      const titleEn = `Local Elections ${date} — ${m.name} | Naiasno`;
       const descriptionEn = `${date} Bulgarian local-election results in ${m.name} municipality — municipal mayor, council with elected councillors, and village mayors.`;
       out.push({
         path: `local/${cycle}/${m.obshtinaCode}`,

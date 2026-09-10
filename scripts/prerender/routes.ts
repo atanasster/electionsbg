@@ -573,9 +573,9 @@ const homeBodies = (() => {
 // `html.length` < HOME_HTML_MAX_BYTES — UTF-16 CODE UNITS, not bytes, which on a Cyrillic
 // page is ~4.6 kB less room than the constant's name suggests. Measured before this change:
 // 17,624 units against 18,000. Every sentence here is paying for itself.
-const GLOBAL_HOME_TITLE = `Наясно — България в данни: цени, бюджет, поръчки, избори | electionsbg.com`;
+const GLOBAL_HOME_TITLE = `Наясно — България в данни: цени, бюджет, поръчки, избори | Наясно`;
 const GLOBAL_HOME_DESCRIPTION = `Инфлация, безработица, растеж и държавен дълг, цени по магазини, бюджет и обществени поръчки, еврофондове, избори и общини — обединени от отворени данни.`;
-const GLOBAL_HOME_TITLE_EN = `Naiasno — Bulgaria in Data: Prices, Budget, Procurement, Elections | electionsbg.com`;
+const GLOBAL_HOME_TITLE_EN = `Naiasno — Bulgaria in Data: Prices, Budget, Procurement, Elections | Naiasno`;
 const GLOBAL_HOME_DESCRIPTION_EN = `Inflation, unemployment, growth and government debt, shop prices, the state budget and public procurement, EU funds, elections and municipalities — from open data.`;
 
 /** The eight primary destinations, for the body and the ItemList. One list, so the two
@@ -709,9 +709,9 @@ ${homeDestinationList("en")}
 <h2>How to read the numbers</h2>
 <p>Every figure carries its period and its basis. The four headline numbers come from four different Eurostat datasets at different frequencies and are not comparable with each other: growth and inflation are change on a year earlier, unemployment is a level, and debt is a share of GDP. The procurement, budget and EU-funds totals come from separate, overlapping corpora and are never summed.</p>`.trim();
 
-const HOME_TITLE = `Парламентарни избори${YEAR_SUFFIX} — резултати и анализ от 2005 | electionsbg.com`;
+const HOME_TITLE = `Парламентарни избори${YEAR_SUFFIX} — резултати и анализ от 2005 | Наясно`;
 const HOME_DESCRIPTION = `Пълни резултати от парламентарните избори${YEAR_SUFFIX} и всеки вот от 2005 г. насам — по области, общини, населени места и секции. Отворени данни за гласовете, машинното гласуване и отклоненията.`;
-const HOME_TITLE_EN = `Bulgarian Parliamentary Elections${YEAR_SUFFIX} — Results and Analysis Since 2005 | electionsbg.com`;
+const HOME_TITLE_EN = `Bulgarian Parliamentary Elections${YEAR_SUFFIX} — Results and Analysis Since 2005 | Naiasno`;
 const HOME_DESCRIPTION_EN = `Full results of Bulgaria's${YEAR_SUFFIX} parliamentary election and every vote since 2005 — by region, municipality, settlement, and polling section. Open data on votes, machine voting, and anomalies.`;
 
 // Reused as the body for /sofia and all /sofia/* sub-tabs so non-JS crawlers
@@ -1005,7 +1005,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "security",
     eik: "000695235",
     bg: {
-      title: "Сигурност — обществените поръчки на МВР | electionsbg.com",
+      title: "Сигурност — обществените поръчки на МВР | Наясно",
       description:
         "Обществените поръчки на Министерството на вътрешните работи (МВР): полиция, гранична полиция, пожарна безопасност — общо възложени по 74 структури, изпълнители и разбивка по функция и структура.",
       breadcrumb: "Сигурност",
@@ -1014,7 +1014,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "МВР харчи ~2,1 млрд. € годишно, но около 90% са заплати, а част от доставките за сигурност са класифицирани — видимите обществени поръчки са върхът на айсберга. Тази страница консолидира поръчките на 74 структури на МВР (полиция, граница, пожарна, Медицински институт) по избрания парламент или за цялата история.",
     },
     en: {
-      title: "Security — the Ministry of Interior's procurement | electionsbg.com", // prettier-ignore
+      title: "Security — the Ministry of Interior's procurement | Naiasno", // prettier-ignore
       description:
         "The public procurement of Bulgaria's Ministry of Interior (МВР): police, border police and fire safety — total awarded across 74 units, contractors and the breakdown by function and unit.",
       breadcrumb: "Security",
@@ -1035,7 +1035,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "tourism",
     eik: "176789478",
     bg: {
-      title: "Туризъм — обществените поръчки на МТ | electionsbg.com",
+      title: "Туризъм — обществените поръчки на МТ | Наясно",
       description:
         "Обществените поръчки на Министерството на туризма: реклама на дестинацията, медиа и кампании — общо възложени, изпълнители и разбивка по договори.",
       breadcrumb: "Туризъм",
@@ -1044,7 +1044,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Министерството на туризма е предимно рекламодател: около половината от неговите ~28,8 млн. € обществени поръчки са реклама и медиа по CPV — медиа баинг, телевизионен ефир и PR. Тази страница обобщава поръчките му по избрания парламент или за цялата история.",
     },
     en: {
-      title: "Tourism — the Ministry of Tourism's procurement | electionsbg.com", // prettier-ignore
+      title: "Tourism — the Ministry of Tourism's procurement | Naiasno", // prettier-ignore
       description:
         "The public procurement of Bulgaria's Ministry of Tourism: destination marketing, media and campaigns — total awarded, contractors and the breakdown by contracts.",
       breadcrumb: "Tourism",
@@ -1057,7 +1057,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "health",
     eik: "121858220",
     bg: {
-      title: "Здравеопазване — обществените поръчки на НЗОК | electionsbg.com",
+      title: "Здравеопазване — обществените поръчки на НЗОК | Наясно",
       description:
         "Обществените поръчки на Националната здравноосигурителна каса (НЗОК): общо възложени, изпълнители и разбивка по договори, категории и процедури.",
       breadcrumb: "Здравеопазване",
@@ -1066,7 +1066,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Националната здравноосигурителна каса администрира ~5,26 млрд. € за 2026 г.; обществените поръчки са ~1,5% от тях — останалото (болници, лекарства, лекари) се плаща извън ЗОП. Тази страница обобщава поръчките на касата.",
     },
     en: {
-      title: "Health — the NHIF's public procurement | electionsbg.com",
+      title: "Health — the NHIF's public procurement | Naiasno",
       description:
         "The public procurement of Bulgaria's National Health Insurance Fund (NHIF): total awarded, contractors and the breakdown by contracts, categories and procedures.",
       breadcrumb: "Health",
@@ -1079,7 +1079,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "roads",
     eik: "000695089",
     bg: {
-      title: "Пътища — обществените поръчки на АПИ | electionsbg.com",
+      title: "Пътища — обществените поръчки на АПИ | Наясно",
       description:
         "Обществените поръчки на Агенция „Пътна инфраструктура“ (АПИ): общо възложени, изпълнители и разбивка по договори за строителство и поддръжка на пътища.",
       breadcrumb: "Пътища",
@@ -1088,7 +1088,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Агенция „Пътна инфраструктура“ е най-големият възложител в пътния сектор. Тази страница обобщава нейните поръчки — строителство, рехабилитация и поддръжка — по избрания парламент или за цялата история.",
     },
     en: {
-      title: "Roads — the Road Infrastructure Agency's procurement | electionsbg.com", // prettier-ignore
+      title: "Roads — the Road Infrastructure Agency's procurement | Naiasno", // prettier-ignore
       description:
         "The public procurement of Bulgaria's Road Infrastructure Agency (АПИ): total awarded, contractors and the breakdown of road construction and maintenance contracts.",
       breadcrumb: "Roads",
@@ -1102,7 +1102,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     eik: "831373560",
     bg: {
       title:
-        "Енергетика — обществените поръчки на държавната енергетика (БЕХ) | electionsbg.com",
+        "Енергетика — обществените поръчки на държавната енергетика (БЕХ) | Наясно",
       description:
         "Обществените поръчки на държавната енергийна група (Български енергиен холдинг — АЕЦ Козлодуй, ЕСО, Булгартрансгаз, НЕК, ТЕЦ и Мини „Марица изток“): общо възложени, изпълнители, единствен участник, производство на ток и цена за домакинствата.",
       breadcrumb: "Енергетика",
@@ -1112,7 +1112,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     },
     en: {
       title:
-        "Energy — the state energy group's procurement (БЕХ) | electionsbg.com", // prettier-ignore
+        "Energy — the state energy group's procurement (БЕХ) | Наясно", // prettier-ignore
       description:
         "The public procurement of Bulgaria's state energy group (Bulgarian Energy Holding — Kozloduy NPP, ESO, Bulgartransgaz, NEK, the Maritsa East plants and mines): total awarded, contractors, single-bid share, the electricity generation mix and household prices.",
       breadcrumb: "Energy",
@@ -1125,7 +1125,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "transport",
     eik: "000695388",
     bg: {
-      title: "Транспорт — парите на държавата за железници, пристанища и БДЖ | electionsbg.com", // prettier-ignore
+      title: "Транспорт — парите на държавата за железници, пристанища и БДЖ | Наясно", // prettier-ignore
       description:
         "Обществените поръчки на държавния транспорт — МТС, НКЖИ, БДЖ, пристанищата, БУЛАТСА и регулаторите (~€7,3 млрд.): по вид транспорт, европейски средства (усвояване), субсидията за влака на пътник и къде отиват парите. Пътищата (АПИ) са отделен сектор.",
       breadcrumb: "Транспорт",
@@ -1134,7 +1134,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Държавната транспортна група — Министерството на транспорта и съобщенията, НКЖИ, БДЖ (пътнически и товарни превози), Пристанищна инфраструктура, БУЛАТСА (ръководството на въздушното движение), Летище София, агенцията за река Дунав и морската, въздушната и железопътната администрация — е сред най-големите възложители в страната. Тази страница показва обществените ѝ поръчки по вид транспорт (железници, въздух, пристанища и Дунав, автомобилен), усвояването на европейските средства, държавната субсидия за железниците на пътник и картата на структурите по град. Железниците водят. Пътната инфраструктура (АПИ) е отделен сектор.",
     },
     en: {
-      title: "Transport — Bulgaria's spending on rail, ports and БДЖ | electionsbg.com", // prettier-ignore
+      title: "Transport — Bulgaria's spending on rail, ports and БДЖ | Наясно", // prettier-ignore
       description:
         "State-transport procurement — МТС, НКЖИ, БДЖ, the ports, air navigation (БУЛАТСА) and the regulators (~€7.3bn): by mode, EU-funds absorption, the state rail subsidy per passenger and where the money goes. Roads (АПИ) are a separate sector.",
       breadcrumb: "Transport",
@@ -1147,7 +1147,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "environment",
     eik: "000697371",
     bg: {
-      title: "Околна среда — парите на държавата за чист въздух, отпадъци и природа | electionsbg.com", // prettier-ignore
+      title: "Околна среда — парите на държавата за чист въздух, отпадъци и природа | Наясно", // prettier-ignore
       description:
         "Обществените поръчки на МОСВ, ИАОС, ПУДООС, НДЕФ, националните паркове и 16-те РИОСВ (~€257 млн.): парите за мониторинг на въздуха до измереното качество на въздуха (ФПЧ10/ФПЧ2.5), усвояването на ОП „Околна среда“ и разходът за околна среда спрямо ЕС (COFOG GF05).",
       breadcrumb: "Околна среда",
@@ -1156,7 +1156,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Опазването на околната среда (COFOG GF05) е единствената голяма държавна функция, при която Наясно измерва и резултата — качеството на въздуха. Тази страница слага парите до резултата: обществените поръчки на Министерството на околната среда и водите, Изпълнителната агенция по околна среда (ИАОС — тя произвежда самите данни за ФПЧ10), фонд ПУДООС, Националния доверителен екофонд, дирекциите на националните паркове Рила, Пирин и Централен Балкан, НИМХ, четирите басейнови дирекции и 16-те регионални инспекции (РИОСВ) — до измереното качество на въздуха по станции, усвояването на ОП „Околна среда“ 2014-2020 срещу Програма „Околна среда“ 2021-2027, бюджета на министерството и разхода за околна среда спрямо ЕС. ИАОС — агенцията, която мери въздуха — сама е сред най-големите възложители, почти колкото цялото министерство.",
     },
     en: {
-      title: "Environment — Bulgaria's spending on clean air, waste and nature | electionsbg.com", // prettier-ignore
+      title: "Environment — Bulgaria's spending on clean air, waste and nature | Naiasno", // prettier-ignore
       description:
         "Procurement of МОСВ, ИАОС, ПУДООС, НДЕФ, the national parks and the 16 РИОСВ (~€257M): the money for air monitoring next to the measured air quality (PM10/PM2.5), ОП „Околна среда“ absorption, and environment spending vs the EU (COFOG GF05).",
       breadcrumb: "Environment",
@@ -1169,7 +1169,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "regional",
     eik: "831661388",
     bg: {
-      title: "Регионално развитие — парите за регионите, кохезия и кадастър | electionsbg.com", // prettier-ignore
+      title: "Регионално развитие — парите за регионите, кохезия и кадастър | Наясно", // prettier-ignore
       description:
         "МРРБ управлява ~€1,06 млрд./година, но през собствени поръчки минават само ~€100 млн. — останалото са капиталови трансфери към общините и европейско съфинансиране. Усвояване на ОПРР и „Развитие на регионите“, кохезия по области, кадастър (АГКК) и стигат ли парите до най-бедните области. Пътищата (АПИ) и ВиК са отделни сектори.",
       breadcrumb: "Регионално развитие",
@@ -1178,7 +1178,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Министерството на регионалното развитие и благоустройството (МРРБ) е министерство-разпределител: то насочва около €1,06 милиарда годишно, но през собствените си обществени поръчки минават едва ~€100 милиона — останалото напуска като капиталови трансфери към общините и съфинансиране на европейската кохезионна политика. Тази страница следва парите дотам, където реално стигат, по области: усвояването на ОП „Региони в растеж“ 2014-2020 (затворена, ~96%) срещу Програма „Развитие на регионите“ 2021-2027 (~20% — рискът от неусвояване: разходите са допустими до 31 декември 2029 г., а правилото n+3 отнема неусвоеното на траншове всяка година), кохезионните пари на човек по области, разходът за жилищно строителство и благоустройство спрямо ЕС (COFOG GF06), Агенцията по геодезия, картография и кадастър (АГКК), Дирекцията за национален строителен контрол (ДНСК) и 28-те областни администрации. Стигат ли парите до най-бедните области (Кърджали, Монтана, Видин, Силистра) или се концентрират там, където вече има капацитет? Пътищата (АПИ) и ВиК са отделни сектори.",
     },
     en: {
-      title: "Regional development — the money for the regions, cohesion and cadastre | electionsbg.com", // prettier-ignore
+      title: "Regional development — the money for the regions, cohesion and cadastre | Naiasno", // prettier-ignore
       description:
         "МРРБ directs ~€1.06bn/year but procures only ~€100M through its own tenders — the rest leaves as capital transfers to municipalities and EU-cohesion co-financing. ОПРР and „Развитие на регионите“ absorption, cohesion per oblast, cadastre (АГКК) and whether the money reaches the poorest oblasts. Roads (АПИ) and water (ВиК) are separate sectors.",
       breadcrumb: "Regional development",
@@ -1191,7 +1191,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "social",
     eik: "000695395",
     bg: {
-      title: "Социално подпомагане — парите на държавата за помощи и бедност (МТСП/АСП) | electionsbg.com", // prettier-ignore
+      title: "Социално подпомагане — парите на държавата за помощи и бедност (МТСП/АСП) | Наясно", // prettier-ignore
       description:
         "Социалната защита е 37% от разхода на държавата (€15 млрд.), а е и най-невидимата. Тук: бюджетът на МТСП по вид помощ, детските надбавки, помощите за хора с увреждания, целевата помощ за отопление и ГМД, и намаляват ли социалните трансфери бедността спрямо ЕС. Пенсиите (НОИ) са отделен изглед.",
       breadcrumb: "Социално подпомагане",
@@ -1200,7 +1200,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Социалната защита е най-големият разход на държавата — €15,09 млрд. (37% от бюджета, 2024). Пенсиите (НОИ) са едната половина и имат собствен изглед; другата — помощите, които Агенцията за социално подпомагане (АСП) плаща на домакинствата: месечни помощи за деца, помощи за хора с увреждания (бюджетът им се утрои за 5 години), целева помощ за отопление и гарантиран минимален доход. Тази страница показва бюджета на МТСП по вид помощ, обществените поръчки на групата (МТСП, АСП, Агенцията по заетостта, Главната инспекция по труда) и дали социалните трансфери намаляват бедността спрямо средното за ЕС. Обществените поръчки са около 1% от бюджета — цялата история е в изплатените помощи и техния ефект.",
     },
     en: {
-      title: "Social assistance — Bulgaria's spending on benefits and poverty (МТСП/АСП) | electionsbg.com", // prettier-ignore
+      title: "Social assistance — Bulgaria's spending on benefits and poverty (МТСП/АСП) | Наясно", // prettier-ignore
       description:
         "Social protection is 37% of government spending (€15bn) and the least visible. Here: the МТСП budget by benefit type, child allowances, disability support, targeted heating aid and guaranteed minimum income, and whether social transfers cut poverty vs the EU. Pensions (НОИ) are a separate view.",
       breadcrumb: "Social assistance",
@@ -1213,7 +1213,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "revenue",
     eik: "131063188",
     bg: {
-      title: "Приходи — обществените поръчки на НАП | electionsbg.com",
+      title: "Приходи — обществените поръчки на НАП | Наясно",
       description:
         "Обществените поръчки на Националната агенция за приходите (НАП): общо възложени, изпълнители и разбивка по договори.",
       breadcrumb: "Приходи",
@@ -1222,7 +1222,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Националната агенция за приходите събира данъците и осигуровките. Тази страница обобщава нейните обществени поръчки — по избрания парламент или за цялата история.",
     },
     en: {
-      title: "Revenue — the National Revenue Agency's procurement | electionsbg.com", // prettier-ignore
+      title: "Revenue — the National Revenue Agency's procurement | Naiasno", // prettier-ignore
       description:
         "The public procurement of Bulgaria's National Revenue Agency (НАП): total awarded, contractors and the breakdown by contracts.",
       breadcrumb: "Revenue",
@@ -1235,7 +1235,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "customs",
     eik: "000627597",
     bg: {
-      title: "Митници — обществените поръчки на Агенция „Митници“ | electionsbg.com", // prettier-ignore
+      title: "Митници — обществените поръчки на Агенция „Митници“ | Наясно", // prettier-ignore
       description:
         "Обществените поръчки на Агенция „Митници“: общо възложени, изпълнители и разбивка по договори.",
       breadcrumb: "Митници",
@@ -1244,7 +1244,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Агенция „Митници“ събира митата и акцизите. Тази страница обобщава нейните обществени поръчки — по избрания парламент или за цялата история.",
     },
     en: {
-      title: "Customs — the Customs Agency's procurement | electionsbg.com",
+      title: "Customs — the Customs Agency's procurement | Naiasno",
       description:
         "The public procurement of Bulgaria's Customs Agency (АМ): total awarded, contractors and the breakdown by contracts.",
       breadcrumb: "Customs",
@@ -1257,7 +1257,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "administration",
     eik: "180680495",
     bg: {
-      title: "Администрация — обществените поръчки на МЕУ | electionsbg.com",
+      title: "Администрация — обществените поръчки на МЕУ | Наясно",
       description:
         "Обществените поръчки на Министерството на електронното управление (МЕУ): общо възложени, изпълнители и разбивка по договори.",
       breadcrumb: "Администрация",
@@ -1266,7 +1266,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Министерството на електронното управление изгражда държавните информационни системи. Тази страница обобщава неговите обществени поръчки.",
     },
     en: {
-      title: "Administration — the Ministry of e-Government's procurement | electionsbg.com", // prettier-ignore
+      title: "Administration — the Ministry of e-Government's procurement | Naiasno", // prettier-ignore
       description:
         "The public procurement of Bulgaria's Ministry of e-Government (МЕУ): total awarded, contractors and the breakdown by contracts.",
       breadcrumb: "Administration",
@@ -1298,14 +1298,14 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "edu",
     eik: "000695114",
     bg: {
-      title: "Образование и наука — обществените поръчки | electionsbg.com",
+      title: "Образование и наука — обществените поръчки | Наясно",
       description: `Обществените поръчки в образованието и науката: ${EDU_INSTITUTION_COUNT} институции — МОН и неговите агенции и дружества, държавните висши училища с принципал МОН, БАН и Селскостопанската академия — общо възложени, изпълнители и разбивка по договори.`,
       breadcrumb: "Образование",
       h1: "Образование и наука — обществените поръчки",
       intro: `Тази страница обобщава обществените поръчки на ${EDU_INSTITUTION_COUNT} институции в образованието и науката: МОН, неговите агенции и дружества, държавните висши училища с бюджетен принципал МОН, БАН и Селскостопанската академия — по избрания парламент или за цялата история. Извън нея остават ${EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length} държавни висши училища, чийто бюджетен принципал е МО, съответно МВР — те се отчитат в „Отбрана“ и „Сигурност“.`,
     },
     en: {
-      title: "Education & science — public procurement | electionsbg.com",
+      title: "Education & science — public procurement | Naiasno",
       description: `Public procurement across Bulgarian education and science: ${EDU_INSTITUTION_COUNT} institutions — the ministry (МОН) with its agencies and state companies, the state universities under МОН, БАН and the Agricultural Academy — total awarded, contractors and the breakdown by contracts.`,
       breadcrumb: "Education",
       h1: "Education & science — public procurement",
@@ -1316,7 +1316,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "agri",
     eik: "121100421",
     bg: {
-      title: "Земеделие — обществените поръчки на ДФ „Земеделие“ | electionsbg.com", // prettier-ignore
+      title: "Земеделие — обществените поръчки на ДФ „Земеделие“ | Наясно", // prettier-ignore
       description:
         "Обществените поръчки на Държавен фонд „Земеделие“ (ДФЗ): общо възложени, изпълнители и разбивка по договори. Земеделските субсидии са отделно на /subsidies.",
       breadcrumb: "Земеделие",
@@ -1325,7 +1325,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "Държавен фонд „Земеделие“ администрира земеделските субсидии (виж /subsidies) и същевременно е възложител на обществени поръчки. Тази страница обобщава поръчките му.",
     },
     en: {
-      title: "Agriculture — State Fund Agriculture's procurement | electionsbg.com", // prettier-ignore
+      title: "Agriculture — State Fund Agriculture's procurement | Naiasno", // prettier-ignore
       description:
         "The public procurement of Bulgaria's State Fund Agriculture (ДФЗ): total awarded, contractors and the breakdown by contracts. Farm subsidies are separate, at /subsidies.",
       breadcrumb: "Agriculture",
@@ -1784,7 +1784,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description:
       "Разгледайте въпросите, параметрите и данните, които асистентът може да използва.",
     english: {
-      title: "Tools and data | Наясно",
+      title: "Tools and data | Naiasno",
       description:
         "Explore the questions, parameters and data available to the assistant.",
     },
@@ -1795,7 +1795,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description:
       "Измервания на избора на инструменти и аргументи. Това не е оценка на фактическата точност на всеки отговор.",
     english: {
-      title: "Assistant evaluation | Наясно",
+      title: "Assistant evaluation | Naiasno",
       description:
         "Measurements of tool and argument selection, not the factual accuracy of every answer.",
     },
@@ -1882,15 +1882,14 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "elections",
     ogImage: "/og/elections.png",
-    title:
-      "Избори в България — парламентарни, президентски и местни | electionsbg.com",
+    title: "Избори в България — парламентарни, президентски и местни | Наясно",
     description:
       "Входна точка към всички избори в България: парламентарни резултати по секции от 2005 г., президентски от 2001 г., местни избори за кметове и общински съвети, частични избори и анализи.",
     breadcrumbName: "Избори",
     bodyHtml: electionsHubBody("bg"),
     english: {
       title:
-        "Elections in Bulgaria — parliamentary, presidential and local | electionsbg.com",
+        "Elections in Bulgaria — parliamentary, presidential and local | Naiasno",
       description:
         "The entry point to every election in Bulgaria: parliamentary results by polling section since 2005, presidential results since 2001, local elections for mayors and municipal councils, partial elections and analyses.",
       breadcrumbName: "Elections",
@@ -1945,15 +1944,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "sverka",
     ogImage: "/og/sverka.png",
-    title:
-      "Сверка на местните избори — длъжностни лица срещу ЦИК | electionsbg.com",
+    title: "Сверка на местните избори — длъжностни лица срещу ЦИК | Наясно",
     description:
       "Национална сверка на избраните на местните избори срещу настоящите длъжностни лица — кметове на общини и общински съветници по общини.",
     breadcrumbName: "Сверка",
     bodyHtml: `<h1>Сверка на местните избори с настоящи длъжностни лица</h1><p>Съпоставка между избраните кметове и общински съветници по ЦИК и настоящия състав на длъжностните лица по общини, с маркиране на разминаванията и замените след извънредни избори.</p>`,
     english: {
-      title:
-        "Local-Elections Reconciliation — Officials vs. CIK | electionsbg.com",
+      title: "Local-Elections Reconciliation — Officials vs. CIK | Naiasno",
       description:
         "National reconciliation of local-election winners against the sitting officials — municipal mayors and councillors by municipality.",
       breadcrumbName: "Reconciliation",
@@ -1963,13 +1960,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "customs/warehouses",
     ogImage: "/og/customs-warehouses.png",
-    title: "Лицензирани акцизни складодържатели — регистър | electionsbg.com",
+    title: "Лицензирани акцизни складодържатели — регистър | Наясно",
     description:
       "Пълен регистър на лицензираните акцизни складодържатели в България — фирмите с лиценз да държат горива, тютюн и алкохол под отложено плащане на акциз, по категория, брой складове и обществени поръчки.",
     breadcrumbName: "Акцизни складодържатели",
     bodyHtml: `<h1>Лицензирани акцизни складодържатели</h1><p>${exciseFacts.active ? `${exciseFacts.active} действащи фирми` : "Фирмите"} с лиценз от Агенция „Митници“ да държат акцизни стоки — горива, тютюн и алкохол — под режим на отложено плащане на акциз. За всяка са показани категорията акцизни стоки, броят складове, статусът и стойността на спечелените обществени поръчки, с връзка към страницата на дружеството. По данни от регистъра на Агенция „Митници“ (BACIS).</p>`,
     english: {
-      title: "Licensed Excise Warehouse Keepers — Register | electionsbg.com",
+      title: "Licensed Excise Warehouse Keepers — Register | Naiasno",
       description:
         "The full register of Bulgaria's licensed excise warehouse keepers — companies licensed to hold fuels, tobacco and alcohol under excise-duty suspension, by category, warehouse count and public procurement.",
       breadcrumbName: "Excise warehouse keepers",
@@ -1979,13 +1976,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "local/chmi",
     ogImage: "/og/local-chmi.png",
-    title: "Извънредни местни избори в България | electionsbg.com",
+    title: "Извънредни местни избори в България | Наясно",
     description:
       "Хронологичен преглед на всички извънредни (частични и нови) местни избори за кметове на общини, кметства и райони.",
     breadcrumbName: "Извънредни местни избори",
     bodyHtml: `<h1>Извънредни местни избори</h1><p>Хронология на частичните и новите местни избори между редовните цикли — кметове на общини, кметове на кметства и районни кметове.</p>`,
     english: {
-      title: "Extraordinary Local Elections in Bulgaria | electionsbg.com",
+      title: "Extraordinary Local Elections in Bulgaria | Naiasno",
       description:
         "Chronological feed of all extraordinary (partial and new) local elections for municipal, village and district mayors.",
       breadcrumbName: "Extraordinary local elections",
@@ -1994,14 +1991,14 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "sofia",
-    title: `София — резултати от парламентарните избори${YEAR_SUFFIX} | electionsbg.com`,
+    title: `София — резултати от парламентарните избори${YEAR_SUFFIX} | Наясно`,
     description:
       "Подробни резултати, обхват на машинното гласуване и отклонения по секции в трите столични района (23, 24 и 25 МИР).",
     breadcrumbName: "София",
     ogImage: "/og/sofia.png",
     bodyHtml: SOFIA_BODY_BG,
     english: {
-      title: `Sofia — Bulgarian Parliamentary Election${YEAR_SUFFIX} Results | electionsbg.com`,
+      title: `Sofia — Bulgarian Parliamentary Election${YEAR_SUFFIX} Results | Naiasno`,
       description:
         "Detailed results, machine-voting coverage, and section-level anomalies across the three Sofia electoral districts (MIR 23, 24, and 25).",
       breadcrumbName: "Sofia",
@@ -2062,7 +2059,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "financing",
-    title: "Финансиране на партии и предизборни кампании | electionsbg.com",
+    title: "Финансиране на партии и предизборни кампании | Наясно",
     description:
       "Декларирани приходи и разходи на политическите партии за всеки парламентарен вот — дарители, кандидати, агенции и изпълнители, медийни и други разходи, с концентрация на дарителите.",
     breadcrumbName: "Финансиране",
@@ -2083,7 +2080,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://www.bulnao.government.bg" rel="nofollow noopener">Сметна палата на Република България</a> (ЕРИК).</p>`.trim(),
     english: {
       title:
-        "Party and Campaign Financing — Bulgarian Parliamentary Elections | electionsbg.com",
+        "Party and Campaign Financing — Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Declared income and expenditures of Bulgarian political parties for each parliamentary vote — donors, candidates, hired agencies and contractors, media and other spending, with donor concentration.",
       breadcrumbName: "Financing",
@@ -2105,7 +2102,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "financing/annual-reports",
-    title: "Годишни финансови отчети на партиите | electionsbg.com",
+    title: "Годишни финансови отчети на партиите | Наясно",
     description:
       "Кои политически партии са подали годишните си финансови отчети в Сметната палата в срок, със закъснение, с нередности или изобщо — по години от 2011 г.",
     breadcrumbName: "Годишни отчети",
@@ -2123,7 +2120,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://gfopp.bulnao.government.bg" rel="nofollow noopener">регистър на Сметната палата</a>.</p>`.trim(),
     english: {
       title:
-        "Party Annual Financial Reports — Court of Audit Filing Status | electionsbg.com",
+        "Party Annual Financial Reports — Court of Audit Filing Status | Naiasno",
       description:
         "Which Bulgarian political parties filed their statutory annual financial reports on time, late, with deficiencies, or not at all — by year since 2011.",
       breadcrumbName: "Annual reports",
@@ -2142,7 +2139,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "simulator",
-    title: "Симулатор на коалиции и разпределение на мандати | electionsbg.com",
+    title: "Симулатор на коалиции и разпределение на мандати | Наясно",
     description:
       "Изследвайте как промяната на избирателния праг променя разпределението на 240-те мандата и кои коалиции могат да формират мнозинство от 121.",
     breadcrumbName: "Симулатор",
@@ -2157,7 +2154,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Симулаторът използва истинските регионални резултати — не пропорционално мащабиране, а същия алгоритъм на разпределение, който прилага ЦИК.</p>`.trim(),
     english: {
-      title: "Coalition and Seat-Allocation Simulator | electionsbg.com",
+      title: "Coalition and Seat-Allocation Simulator | Naiasno",
       description:
         "Explore how changes to the electoral threshold reshape the allocation of the 240 parliamentary seats and which coalitions can form a 121-vote majority.",
       breadcrumbName: "Simulator",
@@ -2174,7 +2171,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "compare",
-    title: "Сравнение на парламентарни избори в България | electionsbg.com",
+    title: "Сравнение на парламентарни избори в България | Наясно",
     description:
       "Сравнете рамо до рамо два парламентарни вота — избирателна активност, дял на партиите, мандати и брой секции с отклонения.",
     breadcrumbName: "Сравнение на избори",
@@ -2190,7 +2187,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li>Брой секции с отклонения от стандартните доклади (повторно преброяване, концентрация на гласове, дописване на избиратели).</li>
 </ul>`.trim(),
     english: {
-      title: "Compare Bulgarian Parliamentary Elections | electionsbg.com",
+      title: "Compare Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Side-by-side comparison of any two parliamentary votes — turnout, party shares, seats, and section-level anomaly counts.",
       breadcrumbName: "Compare elections",
@@ -2209,7 +2206,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "parties",
     ogImage: "/og/parties.png",
-    title: `Партии на парламентарните избори${YEAR_SUFFIX} — резултати и мандати | electionsbg.com`,
+    title: `Партии на парламентарните избори${YEAR_SUFFIX} — резултати и мандати | Наясно`,
     description:
       "Пълен списък на партиите и коалициите, участвали в последния парламентарен вот — гласове, проценти и мандати, плюс линкове към подробни профили.",
     breadcrumbName: "Партии",
@@ -2218,7 +2215,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Пълен списък на партиите и коалициите, участвали в последния парламентарен вот в България. За всяка партия са показани общите гласове, процентен дял и брой мандати, ако е преминала избирателния праг от 4%.</p>
 <p>Кликнете името на партия, за да видите профила ѝ — резултати по области, общини и населени места, преференции, дарители и разходи за кампанията.</p>`.trim(),
     english: {
-      title: `Parties — Bulgarian Parliamentary Election${YEAR_SUFFIX} Results & Seats | electionsbg.com`,
+      title: `Parties — Bulgarian Parliamentary Election${YEAR_SUFFIX} Results & Seats | Naiasno`,
       description:
         "Full list of parties and coalitions running in the latest parliamentary vote — votes, percentages, seats, and links to detailed profiles.",
       breadcrumbName: "Parties",
@@ -2230,8 +2227,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "education",
-    title:
-      "Училища и матури в България — успех спрямо средата | electionsbg.com",
+    title: "Училища и матури в България — успех спрямо средата | Наясно",
     description:
       "Резултатите от държавните зрелостни изпити (матура) по училища, общини и области — с карта, национален тренд и справедливо сравнение спрямо социално-икономическата среда на общината. По данни на МОН и НСИ.",
     breadcrumbName: "Училища и матури",
@@ -2242,8 +2238,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Не показваме гола класация. За всяко училище сравняваме успеха му с <strong>очаквания за неговата среда</strong> — социално-икономически индекс на общината (образование и безработица от Преброяване 2021). Така училище в по-бедна община, което постига повече от очакваното, се вижда като силно, а не като „слабо“. Данните са начало на разговор, не присъда.</p>
 <p>Виж и <a href="${SITE_URL}/awarder/000695114">Министерството на образованието и пазара на учебници</a>.</p>`.trim(),
     english: {
-      title:
-        "Schools & matura in Bulgaria — score versus context | electionsbg.com",
+      title: "Schools & matura in Bulgaria — score versus context | Naiasno",
       description:
         "State matura (ДЗИ) results by school, municipality and province — with a map, the national trend, and a fair comparison against each municipality's socioeconomic context. Sourced from the Ministry of Education and the census.",
       breadcrumbName: "Schools & matura",
@@ -2257,7 +2252,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "regions",
     ogImage: "/og/regions.png",
-    title: `Резултати по области — парламентарни избори${YEAR_SUFFIX} в България | electionsbg.com`,
+    title: `Резултати по области — парламентарни избори${YEAR_SUFFIX} в България | Наясно`,
     description:
       "Резултати на парламентарните избори в България по области (28 МИР) — победител, гласове и активност за всяка област.",
     breadcrumbName: "Области",
@@ -2266,7 +2261,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Резултатите от последния парламентарен вот по 28 многомандатни избирателни района (МИР) в България. За всяка област се вижда коя партия е първа, броят гласове и процентният дял, плюс избирателната активност спрямо предходния вот.</p>
 <p>Кликнете името на област, за да видите подробен разрез по общини, населени места, преференции и отклонения по секции.</p>`.trim(),
     english: {
-      title: `Results by Region — Bulgarian Parliamentary Election${YEAR_SUFFIX} | electionsbg.com`,
+      title: `Results by Region — Bulgarian Parliamentary Election${YEAR_SUFFIX} | Naiasno`,
       description:
         "Bulgarian parliamentary election results across the 28 multi-member districts (MIR) — winner, votes and turnout per region.",
       breadcrumbName: "Regions",
@@ -2279,7 +2274,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "governments",
     title:
-      "Български правителства от 2005 г. — макроикономика и наблюдения | electionsbg.com",
+      "Български правителства от 2005 г. — макроикономика и наблюдения | Наясно",
     description:
       "Всички български кабинети от 2005 г. на фона на БВП, инфлацията, безработицата, индексите за управление и доверие, плюс наблюденията на ОССЕ/ОДИХР за всеки парламентарен вот.",
     breadcrumbName: "Правителства",
@@ -2299,7 +2294,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>, <a href="https://www.osce.org/odihr/elections/bulgaria" rel="nofollow noopener">ОССЕ/ОДИХР</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgarian Governments Since 2005 — Macro Backdrop and Observations | electionsbg.com",
+        "Bulgarian Governments Since 2005 — Macro Backdrop and Observations | Naiasno",
       description:
         "Every Bulgarian cabinet since 2005 set against GDP, inflation, unemployment, governance and trust indices, with OSCE/ODIHR observation reports for each parliamentary vote.",
       breadcrumbName: "Governments",
@@ -2321,7 +2316,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators",
     title:
-      "Индикатори за България — KPI табло, фискални, управление, общество | electionsbg.com",
+      "Индикатори за България — KPI табло, фискални, управление, общество | Наясно",
     description:
       "KPI табло с 12 основни макроикономически, фискални, управленски и социални индикатора за България от 2005 г., с YoY стрелки, позиция в ЕС-27, спарклайн с цветна ивица за всеки кабинет и обобщени средни стойности по правителства.",
     breadcrumbName: "Индикатори",
@@ -2342,7 +2337,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">Европейска комисия</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria Indicators — KPI Dashboard, Fiscal, Governance, Society | electionsbg.com",
+        "Bulgaria Indicators — KPI Dashboard, Fiscal, Governance, Society | Naiasno",
       description:
         "12-tile KPI dashboard of Bulgaria's macroeconomic, fiscal, governance and social indicators since 2005, with YoY arrows, EU27 rank badges, cabinet-shaded sparklines and per-cabinet averaged summaries.",
       breadcrumbName: "Indicators",
@@ -2365,7 +2360,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "prices",
     title:
-      "Цени в България — кошница от въвеждането на еврото, по вериги и градове | electionsbg.com",
+      "Цени в България — кошница от въвеждането на еврото, по вериги и градове | Наясно",
     description:
       "Цените на голямата потребителска кошница (101 продукта) от въвеждането на еврото — дневен индекс, разбивка по категории, най-евтини търговски вериги, класация на най-евтините градове и области и карта на цените по общини. Мониторингов индекс на КЗП, не официален ИПЦ.",
     breadcrumbName: "Цени",
@@ -2385,7 +2380,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва“ (отворени данни)</a>.</p>`.trim(),
     english: {
       title:
-        "Prices in Bulgaria — the consumer basket since the euro, by chain and town | electionsbg.com",
+        "Prices in Bulgaria — the consumer basket since the euro, by chain and town | Naiasno",
       description:
         "Retail prices of the 101-product large consumer basket since the euro changeover — a daily index, category breakdown, cheapest retail chains, a ranking of the cheapest towns and oblasts, and a municipality price map. CPC monitoring index, not official CPI.",
       breadcrumbName: "Prices",
@@ -2407,7 +2402,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "consumption",
     title:
-      "Потребление в България — цени и издръжка на живота по места | electionsbg.com",
+      "Потребление в България — цени и издръжка на живота по места | Наясно",
     description:
       "Изгледът „Потребление“ показва издръжката на живота в България — цените на потребителската кошница от въвеждането на еврото по продукти, вериги, области и населени места. Мониторингов индекс на КЗП, не официален ИПЦ.",
     breadcrumbName: "Потребление",
@@ -2426,7 +2421,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва“ (отворени данни)</a>.</p>`.trim(),
     english: {
       title:
-        "Consumption in Bulgaria — prices and cost of living by place | electionsbg.com",
+        "Consumption in Bulgaria — prices and cost of living by place | Naiasno",
       description:
         "The Consumption view shows the cost of living in Bulgaria — consumer-basket prices since the euro changeover by product, retail chain, region and settlement. CPC monitoring index, not official CPI.",
       breadcrumbName: "Consumption",
@@ -2446,7 +2441,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/eu",
-    title: "Храната в България спрямо ЕС — цени по категории | electionsbg.com",
+    title: "Храната в България спрямо ЕС — цени по категории | Наясно",
     description:
       "Цените на храните в България спрямо средното за ЕС по официалните индекси на ценовото равнище на Евростат (ЕС=100). Млечни продукти и олио над средното, месо, хляб и плодове под него.",
     breadcrumbName: "Храната спрямо ЕС",
@@ -2458,7 +2453,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Това е официална статистика от програмата за паритети на покупателната способност (PPP) на Евростат и ОИСР — отчита ДДС и качеството и не зависи от отделни магазини. Виж и <a href="${SITE_URL}/consumption">изгледа „Потребление“</a>.</p>
 <p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1" rel="nofollow noopener">Евростат — prc_ppp_ind_1</a>.</p>`.trim(),
     english: {
-      title: "Bulgarian food prices vs the EU — by category | electionsbg.com",
+      title: "Bulgarian food prices vs the EU — by category | Naiasno",
       description:
         "Bulgarian food prices vs the EU average by official Eurostat price level indices (EU=100). Dairy and oils above the average; meat, bread and produce below.",
       breadcrumbName: "Food vs the EU",
@@ -2472,8 +2467,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/overview",
-    title:
-      "Потребление — анализ: еврото, инфлацията и достъпността | electionsbg.com",
+    title: "Потребление — анализ: еврото, инфлацията и достъпността | Наясно",
     description:
       "Аналитичният изглед на потреблението в България — поскъпна ли храната заради еврото, официалната инфлация (ХИПЦ на Евростат) спрямо кошницата, и достъпността на кошницата спрямо доходите по области.",
     breadcrumbName: "Потребление — анализ",
@@ -2485,7 +2479,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва“ (отворени данни)</a>.</p>`.trim(),
     english: {
       title:
-        "Consumption analysis — the euro, inflation and affordability | electionsbg.com",
+        "Consumption analysis — the euro, inflation and affordability | Naiasno",
       description:
         "The analytical view of Bulgarian consumption — whether the euro raised food prices, official inflation (Eurostat HICP) vs the basket, and the basket's affordability by oblast.",
       breadcrumbName: "Consumption analysis",
@@ -2498,7 +2492,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/chains",
-    title: "Най-евтини вериги в България — кошница по вериги | electionsbg.com",
+    title: "Най-евтини вериги в България — кошница по вериги | Наясно",
     description:
       "Класация на търговските вериги в България по цена на съпоставима кошница от въвеждането на еврото. Всяка верига води към профила на фирмата — обществени поръчки, връзки, собственост.",
     breadcrumbName: "Вериги",
@@ -2509,8 +2503,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Всяка верига е и фирма с ЕИК, затова от профила ѝ може да се стигне до <strong>обществените поръчки</strong>, които печели като изпълнител, връзките и собствеността ѝ. <strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong></p>
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
     english: {
-      title:
-        "Cheapest retail chains in Bulgaria — basket by chain | electionsbg.com",
+      title: "Cheapest retail chains in Bulgaria — basket by chain | Naiasno",
       description:
         "A ranking of Bulgaria's retail chains by comparable-basket cost since the euro. Each chain links to its company profile — public procurement, connections, ownership.",
       breadcrumbName: "Chains",
@@ -2523,7 +2516,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/categories",
-    title: "Цени по категории храни в България — от еврото | electionsbg.com",
+    title: "Цени по категории храни в България — от еврото | Наясно",
     description:
       "Промяната в цените по 14-те категории храни в България от въвеждането на еврото — мониторинговата кошница на КЗП. Плодове и риба нагоре, масла и захар надолу.",
     breadcrumbName: "Категории",
@@ -2534,8 +2527,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> За всяка категория има отделна страница с тренда и продуктите в нея.</p>
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
     english: {
-      title:
-        "Food-category prices in Bulgaria — since the euro | electionsbg.com",
+      title: "Food-category prices in Bulgaria — since the euro | Naiasno",
       description:
         "Price change across Bulgaria's 14 food categories since the euro — the CPC monitoring basket. Fruit and fish up, oils and sugar down.",
       breadcrumbName: "Categories",
@@ -2548,7 +2540,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/fuel",
-    title: "Цени на горивата в България спрямо ЕС | electionsbg.com",
+    title: "Цени на горивата в България спрямо ЕС | Наясно",
     description:
       "Цените на бензин А95 и дизел в България спрямо средното за ЕС — потребителски цени с ДДС от Седмичния нефтен бюлетин на Европейската комисия. Българските горива са трайно под средното за ЕС.",
     breadcrumbName: "Горива",
@@ -2559,7 +2551,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Това е единственият чист показател за издръжката на живота извън хранителната кошница. Виж и целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
 <p>Източник: <a href="https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en" rel="nofollow noopener">Европейска комисия — Седмичен нефтен бюлетин</a>.</p>`.trim(),
     english: {
-      title: "Fuel prices in Bulgaria vs the EU | electionsbg.com",
+      title: "Fuel prices in Bulgaria vs the EU | Naiasno",
       description:
         "Petrol 95 and diesel prices in Bulgaria against the EU average — consumer prices incl. VAT from the European Commission Weekly Oil Bulletin. Bulgarian fuel is consistently below the EU average.",
       breadcrumbName: "Fuel",
@@ -2572,8 +2564,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/electricity",
-    title:
-      "Цена на тока за домакинствата в България спрямо ЕС | electionsbg.com",
+    title: "Цена на тока за домакинствата в България спрямо ЕС | Наясно",
     description:
       "Цената на електроенергията за домакинствата в България спрямо средното за ЕС и съседните държави (Румъния, Гърция, Унгария, Хърватия) — с всички данъци (EUR/kWh) по данни на Евростат. България е сред най-ниските в съюза (около половината от средното за ЕС).",
     breadcrumbName: "Ток",
@@ -2584,8 +2575,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/consumption/gas">цената на природния газ</a> и целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
 <p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table" rel="nofollow noopener">Евростат — nrg_pc_204</a>.</p>`.trim(),
     english: {
-      title:
-        "Household electricity prices in Bulgaria vs the EU | electionsbg.com",
+      title: "Household electricity prices in Bulgaria vs the EU | Naiasno",
       description:
         "Household electricity prices in Bulgaria against the EU average and its neighbours (Romania, Greece, Hungary, Croatia) — all taxes (EUR/kWh) from Eurostat. Bulgaria is among the lowest in the union (about half the EU average).",
       breadcrumbName: "Electricity",
@@ -2599,7 +2589,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "consumption/gas",
     title:
-      "Цена на природния газ за домакинствата в България спрямо ЕС | electionsbg.com",
+      "Цена на природния газ за домакинствата в България спрямо ЕС | Наясно",
     description:
       "Цената на природния газ за домакинствата в България спрямо средното за ЕС и съседните държави (Румъния, Гърция, Унгария, Хърватия) — с всички данъци (EUR/kWh) по данни на Евростат. България е сред най-ниските в съюза.",
     breadcrumbName: "Природен газ",
@@ -2610,8 +2600,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/consumption/electricity">цената на тока</a> и целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
 <p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_202/default/table" rel="nofollow noopener">Евростат — nrg_pc_202</a>.</p>`.trim(),
     english: {
-      title:
-        "Household natural-gas prices in Bulgaria vs the EU | electionsbg.com",
+      title: "Household natural-gas prices in Bulgaria vs the EU | Naiasno",
       description:
         "Household natural-gas prices in Bulgaria against the EU average and its neighbours (Romania, Greece, Hungary, Croatia) — all taxes (EUR/kWh) from Eurostat. Bulgaria is among the lowest in the union.",
       breadcrumbName: "Natural gas",
@@ -2624,7 +2613,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/products",
-    title: "Продукти и цени в България — каталог от еврото | electionsbg.com",
+    title: "Продукти и цени в България — каталог от еврото | Наясно",
     description:
       "Търси и сравни цените на хиляди продукти в България от въвеждането на еврото — по вериги и населени места, с история на цените. Мониторингова кошница на КЗП.",
     breadcrumbName: "Продукти",
@@ -2635,7 +2624,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
     english: {
-      title: "Products and prices in Bulgaria — catalogue | electionsbg.com",
+      title: "Products and prices in Bulgaria — catalogue | Naiasno",
       description:
         "Search and compare the prices of thousands of products in Bulgaria since the euro — by chain and settlement, with price history. The CPC monitoring basket.",
       breadcrumbName: "Products",
@@ -2648,7 +2637,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/deals",
-    title: "Най-големите намаления на цени в България | electionsbg.com",
+    title: "Най-големите намаления на цени в България | Наясно",
     description:
       "Най-големите текущи намаления в потребителската кошница в България — по вериги и продукти, от ежедневния портал на КЗП „Колко струва“.",
     breadcrumbName: "Промоции",
@@ -2659,7 +2648,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
     english: {
-      title: "The biggest price cuts in Bulgaria | electionsbg.com",
+      title: "The biggest price cuts in Bulgaria | Naiasno",
       description:
         'The biggest current price cuts in the Bulgarian consumer basket — by chain and product, from the CPC "How Much Does It Cost" daily portal.',
       breadcrumbName: "Deals",
@@ -2673,7 +2662,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "prices/map",
     title:
-      "Карта на цените в България — кошница по общини, най-евтина верига | electionsbg.com",
+      "Карта на цените в България — кошница по общини, най-евтина верига | Наясно",
     description:
       "Карта на потребителската кошница по общини — цена на кошницата, промяна от въвеждането на еврото и коя търговска верига е най-евтина във всяка община. Мониторингов индекс на КЗП, не официален ИПЦ.",
     breadcrumbName: "Карта на цените",
@@ -2685,7 +2674,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
     english: {
       title:
-        "Price map of Bulgaria — the basket by municipality, cheapest chain | electionsbg.com",
+        "Price map of Bulgaria — the basket by municipality, cheapest chain | Naiasno",
       description:
         "A map of the consumer basket by municipality — basket cost, change since the euro, and which retail chain is cheapest in each municipality. CPC monitoring index, not official CPI.",
       breadcrumbName: "Price map",
@@ -2698,8 +2687,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "consumption/unit-prices",
-    title:
-      "€ на килограм — цена на кг и литър по категории храни | electionsbg.com",
+    title: "€ на килограм — цена на кг и литър по категории храни | Наясно",
     description:
       "Нормализирана цена на 1 кг и 1 л по категории храни в България — за да сравниш опаковки с различен грамаж и да видиш кои продукти дават най-много за парите. Мониторингов индекс на КЗП, не официален ИПЦ.",
     breadcrumbName: "€ на килограм",
@@ -2710,8 +2698,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
     english: {
-      title:
-        "€ per kilo — price per kg and litre by food category | electionsbg.com",
+      title: "€ per kilo — price per kg and litre by food category | Naiasno",
       description:
         "Price normalized to 1 kg and 1 L by food category in Bulgaria — so packs of different sizes are comparable and you can see which products give the most for your money. CPC monitoring index, not official CPI.",
       breadcrumbName: "€ per kilo",
@@ -2725,7 +2712,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/economy",
     title:
-      "Икономически показатели — БВП, инфлация, безработица, нагласи | electionsbg.com",
+      "Икономически показатели — БВП, инфлация, безработица, нагласи | Наясно",
     description:
       "Реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство, потребителско доверие и Economic Sentiment Indicator за България от 2005 г., разположени по мандати на правителствата.",
     breadcrumbName: "Икономически показатели",
@@ -2767,7 +2754,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/indicators/fiscal">фискалните показатели</a>, <a href="${SITE_URL}/indicators/governance">индикаторите за управление</a> и <a href="${SITE_URL}/indicators/society">социалните индикатори</a>. Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>.</p>`.trim(),
     english: {
       title:
-        "Economic indicators — GDP, Inflation, Unemployment, Sentiment | electionsbg.com",
+        "Economic indicators — GDP, Inflation, Unemployment, Sentiment | Naiasno",
       description:
         "Real GDP growth, HICP inflation, unemployment, labour income, industrial production, consumer confidence and the Economic Sentiment Indicator for Bulgaria since 2005, set against each cabinet's term.",
       breadcrumbName: "Economic indicators",
@@ -2788,7 +2775,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/fiscal",
     title:
-      "Фискални показатели на България — дълг, бюджет, резерв, ЕС средства | electionsbg.com",
+      "Фискални показатели на България — дълг, бюджет, резерв, ЕС средства | Наясно",
     description:
       "Държавен дълг, бюджетен баланс, текуща сметка, фискален резерв, държавни приходи и разходи, FDI, емисии държавен дълг и потоци със средства от ЕС за България от 2005 г., разположени по мандати на правителствата.",
     breadcrumbName: "Фискални показатели",
@@ -2808,7 +2795,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> за изпълнението по КФП и министерства. Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://www.bnb.bg/" rel="nofollow noopener">БНБ</a>, <a href="https://www.minfin.bg/" rel="nofollow noopener">МФ</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">Европейска комисия</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria Fiscal Indicators — Debt, Balance, Reserve, EU Funds | electionsbg.com",
+        "Bulgaria Fiscal Indicators — Debt, Balance, Reserve, EU Funds | Naiasno",
       description:
         "Government debt, budget balance, current account, fiscal reserve, revenue and expenditure, FDI, sovereign debt emissions and EU-funds flows for Bulgaria since 2005, set against each cabinet's term.",
       breadcrumbName: "Fiscal indicators",
@@ -2830,7 +2817,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/budgets",
     title:
-      "Бюджети по кабинети — салдо, просрочия и резерв по премиер и финансов министър | electionsbg.com",
+      "Бюджети по кабинети — салдо, просрочия и резерв по премиер и финансов министър | Наясно",
     description:
       "Коя двойка премиер и финансов министър управлява най-добре държавния бюджет: бюджетно салдо (начислено по ЕСС и касово по КФП), просрочени задължения и фискален резерв по години и кабинети от 2005 г., с праг на ЕС от −3% от БВП.",
     breadcrumbName: "Бюджети",
@@ -2848,7 +2835,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> за изпълнението по КФП и министерства и <a href="${SITE_URL}/indicators/fiscal">фискалните индикатори</a>. Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://www.minfin.bg/" rel="nofollow noopener">Министерство на финансите</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria Budgets by Cabinet — Balance, Arrears, Reserve by PM & Finance Minister | electionsbg.com",
+        "Bulgaria Budgets by Cabinet — Balance, Arrears, Reserve by PM & Finance Minister | Naiasno",
       description:
         "Which PM / finance-minister duo ran the state budget best: budget balance (accrual ESA + cash КФП), overdue obligations and the fiscal reserve by year and cabinet since 2005, with the EU −3% deficit line.",
       breadcrumbName: "Budgets",
@@ -2868,7 +2855,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/governance",
     title:
-      "Индикатори за управление — CPI, WGI, доверие в институциите | electionsbg.com",
+      "Индикатори за управление — CPI, WGI, доверие в институциите | Наясно",
     description:
       "Индекс за възприятие на корупцията (Transparency International), Worldwide Governance Indicators (Световна банка) и доверие в Народното събрание, правителството и ЕС (Евробарометър) за България от 2005 г.",
     breadcrumbName: "Управление",
@@ -2884,8 +2871,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж и <a href="${SITE_URL}/governance">управленското табло</a> за обобщено представяне на същите теми. Източници: <a href="https://www.transparency.org/en/countries/bulgaria" rel="nofollow noopener">Transparency International</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>.</p>`.trim(),
     english: {
-      title:
-        "Bulgaria Governance — CPI, WGI, Trust in Institutions | electionsbg.com",
+      title: "Bulgaria Governance — CPI, WGI, Trust in Institutions | Naiasno",
       description:
         "Corruption Perceptions Index (Transparency International), Worldwide Governance Indicators (World Bank) and Eurobarometer trust in parliament, government and the EU for Bulgaria since 2005.",
       breadcrumbName: "Governance",
@@ -2904,7 +2890,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/society",
     title:
-      "Социални показатели за България — младежка безработица, неравенство, бедност | electionsbg.com",
+      "Социални показатели за България — младежка безработица, неравенство, бедност | Наясно",
     description:
       "Младежка безработица (15-24), годишна промяна на индекса на жилищните цени, коефициент на Джини и риск от бедност за България от 2005 г., разположени по мандати на правителствата.",
     breadcrumbName: "Социални показатели",
@@ -2922,7 +2908,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Бутонът „Сравни със страните от ЕС“ показва как България се позиционира спрямо ЕС-27 и съседите. Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria Society — Youth Unemployment, Inequality, Poverty | electionsbg.com",
+        "Bulgaria Society — Youth Unemployment, Inequality, Poverty | Naiasno",
       description:
         "Youth unemployment (15-24), house-price index YoY, Gini coefficient and at-risk-of-poverty rate for Bulgaria since 2005, set against each cabinet's term.",
       breadcrumbName: "Social indicators",
@@ -2942,7 +2928,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/compare",
     title:
-      "Сравнение на България със страните от ЕС — управление, бюджет, доходи | electionsbg.com",
+      "Сравнение на България със страните от ЕС — управление, бюджет, доходи | Наясно",
     description:
       "Многослойно сравнение на България с ЕС-27 и четири съседа (Румъния, Гърция, Унгария, Хърватия): радиограма на WGI, бюджетна композиция (COFOG), неравенство (SILC), разход срещу резултат — с избор на държави в URL.",
     breadcrumbName: "Сравни",
@@ -2962,7 +2948,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a> (макро, COFOG, SILC, демография) и <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">Световна банка WGI</a>. Средното за ЕС-27 в радиограмата за WGI е невзвешена средна стойност на 27-те държави членки.</p>`.trim(),
     english: {
       title:
-        "Bulgaria vs EU Peers — Governance, Budget, Income Dashboard | electionsbg.com",
+        "Bulgaria vs EU Peers — Governance, Budget, Income Dashboard | Naiasno",
       description:
         "Multi-panel comparison of Bulgaria against EU27 and four CEE peers (Romania, Greece, Hungary, Croatia): WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters — with country selection persisted in the URL.",
       breadcrumbName: "Compare",
@@ -2984,7 +2970,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "governance",
     title:
-      "Управление на държавата — парламент, бюджет, обществени поръчки | electionsbg.com",
+      "Управление на държавата — парламент, бюджет, обществени поръчки | Наясно",
     description:
       "Управленско табло за България: поименни гласувания в Народното събрание, имуществени декларации на депутатите, изпълнение на държавния бюджет, обществени поръчки, финансиране на партии и макроикономически контекст.",
     breadcrumbName: "Управление",
@@ -3003,8 +2989,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/education">Училища и матури</a> — среден успех на матурата по училища, общини и области, спрямо средата.</li>
 </ul>${governanceRegionBrowseHtml}`.trim(),
     english: {
-      title:
-        "Governance Dashboard — Parliament, Budget, Procurement | electionsbg.com",
+      title: "Governance Dashboard — Parliament, Budget, Procurement | Naiasno",
       description:
         "Bulgaria governance dashboard: roll-call votes, MP property declarations, state budget execution, public procurement, party financing, and macroeconomic context — alongside the elections dashboard.",
       breadcrumbName: "Governance",
@@ -3025,13 +3010,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "governance/overview",
-    title: "Национален преглед — управление на държавата | electionsbg.com",
+    title: "Национален преглед — управление на държавата | Наясно",
     description:
       "Националното управленско табло за България: действащ кабинет, изпълнение на държавния бюджет, обществени поръчки, макроикономически контекст и парламентарна активност на едно място.",
     breadcrumbName: "Национален преглед",
     ogImage: "/og/governance-overview.png",
     english: {
-      title: "National governance overview | electionsbg.com",
+      title: "National governance overview | Naiasno",
       description:
         "Bulgaria's national governance dashboard: the sitting cabinet, state-budget execution, public procurement, macroeconomic context and parliamentary activity in one place.",
       breadcrumbName: "National overview",
@@ -3050,13 +3035,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // автомобили/имущество, фирми) plus the evidence rail's net-worth ranking. It does NOT
     // name the „публични фигури" cell, and that is the one thing to reconsider if this line
     // is ever rewritten — the band leads with it.
-    title: "Декларации на депутати и длъжностни лица | electionsbg.com",
+    title: "Декларации на депутати и длъжностни лица | Наясно",
     description:
       "Имущество, интереси и връзки на властта: декларации на депутатите (имущество, автомобили, фирми), бизнес връзки и класация на длъжностните лица по нетно състояние от регистъра на Сметната палата.",
     breadcrumbName: "Декларации",
     ogImage: "/og/governance-declarations.png",
     english: {
-      title: "MP and official declarations | electionsbg.com",
+      title: "MP and official declarations | Naiasno",
       description:
         "Assets, interests and ties of those in power: MP declarations (assets, cars, companies), business connections and an officials net-worth ranking from the Court of Audit register.",
       breadcrumbName: "Declarations",
@@ -3068,12 +3053,12 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // Firebase ceiling on file COUNT. The picker is the crawlable entry point.
     path: "parliament/similarity",
     ogImage: "/og/parliament-similarity.png",
-    title: "Гласово сходство между депутатите | electionsbg.com",
+    title: "Гласово сходство между депутатите | Наясно",
     description:
       "Кой народен представител гласува най-близо до кого — избери депутат и виж пълното класиране по сходство на вота, изчислено от поименните гласувания.",
     breadcrumbName: "Гласово сходство",
     english: {
-      title: "Voting similarity between MPs | electionsbg.com",
+      title: "Voting similarity between MPs | Naiasno",
       description:
         "Which MP votes closest to which — pick a member and see the full similarity ranking derived from the roll-call votes.",
       breadcrumbName: "Voting similarity",
@@ -3083,12 +3068,12 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // The group-pair picker. /votes/between/:pair stays SPA-only for the same reason.
     path: "votes/between",
     ogImage: "/og/votes-between.png",
-    title: "Сравни две парламентарни групи | electionsbg.com",
+    title: "Сравни две парламентарни групи | Наясно",
     description:
       "Избери две парламентарни групи и виж точките, по които са гласували срещуположно — от поименните гласувания в Народното събрание.",
     breadcrumbName: "Сравни две групи",
     english: {
-      title: "Compare two parliamentary groups | electionsbg.com",
+      title: "Compare two parliamentary groups | Naiasno",
       description:
         "Pick two parliamentary groups and see the items they voted opposite ways on, from the National Assembly roll-call votes.",
       breadcrumbName: "Compare two groups",
@@ -3100,12 +3085,12 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // tags rather than the SPA shell.
     path: "parliament/correlation",
     ogImage: "/og/parliament-correlation.png",
-    title: "Корелация на гласуването в НС | electionsbg.com",
+    title: "Корелация на гласуването в НС | Наясно",
     description:
       "Кои парламентарни групи гласуват еднакво и кои се разминават — матрица на съвпаденията между вотовете на мнозинството във всяка двойка групи по поименните гласувания.",
     breadcrumbName: "Корелация на гласуването",
     english: {
-      title: "Voting correlation in the National Assembly | electionsbg.com",
+      title: "Voting correlation in the National Assembly | Naiasno",
       description:
         "Which parliamentary groups vote alike and which diverge — an agreement matrix between each pair of groups across the roll-call votes.",
       breadcrumbName: "Voting correlation",
@@ -3113,13 +3098,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "parliament/attendance",
-    title: "Посещаемост на депутатите | electionsbg.com",
+    title: "Посещаемост на депутатите | Наясно",
     description:
       "Кои народни представители присъстват и гласуват най-често — посещаемост по депутат и парламентарна група, извлечена от поименните гласувания на parliament.bg.",
     breadcrumbName: "Посещаемост",
     ogImage: "/og/parliament-attendance.png",
     english: {
-      title: "Parliamentary attendance | electionsbg.com",
+      title: "Parliamentary attendance | Naiasno",
       description:
         "Which MPs show up and vote most often — attendance per MP and parliamentary group, derived from the roll-call votes on parliament.bg.",
       breadcrumbName: "Attendance",
@@ -3128,8 +3113,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "governance/municipal-finance",
     ogImage: "/og/governance-municipal-finance.png",
-    title:
-      "Общински финанси — какво е договорено за следващи години | electionsbg.com",
+    title: "Общински финанси — какво е договорено за следващи години | Наясно",
     description:
       "Колко е договорила всяка от 265-те общини за следващи бюджетни години, колко дължи по фактури и колко е просрочила — по тримесечните отчети на Министерството на финансите (чл. 130г ал. 2 ЗПФ).",
     breadcrumbName: "Общински финанси",
@@ -3154,7 +3138,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Националната картина е на <a href="${SITE_URL}/indicators/fiscal">фискалните показатели</a>, а за всяка община — на нейното <a href="${SITE_URL}/governance">управленско табло</a>.</p>`.trim(),
     english: {
       title:
-        "Municipal finances — what is contracted for later years | electionsbg.com",
+        "Municipal finances — what is contracted for later years | Naiasno",
       description:
         "How much each of Bulgaria's 265 municipalities has contracted for later budget years, how much it has been invoiced for, and how much is overdue — from quarterly Ministry of Finance returns (ЗПФ art. 130г(2)).",
       breadcrumbName: "Municipal finances",
@@ -3163,8 +3147,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "governance/mayor-pay",
     ogImage: "/og/governance-mayor-pay.png",
-    title:
-      "Заплати на кметовете — деклариран доход по общини | electionsbg.com",
+    title: "Заплати на кметовете — деклариран доход по общини | Наясно",
     description:
       "Декларираният годишен доход от трудово възнаграждение на кметовете на българските общини, съпоставен с населението на всяка община — по подадените имуществени декларации пред Сметната палата.",
     breadcrumbName: "Заплати на кметовете",
@@ -3188,8 +3171,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Годината не е една и съща за всички: таблицата взима най-новата декларация на всеки кмет, а редовете, чиято декларация е от по-стара година, са отбелязани.</p>
 <p>Виж и <a href="${SITE_URL}/governance/municipal-finance">финансовото състояние на общините</a> и <a href="${SITE_URL}/governance">управленското табло</a> на всяка община.</p>`.trim(),
     english: {
-      title:
-        "Mayor pay — declared income across municipalities | electionsbg.com",
+      title: "Mayor pay — declared income across municipalities | Naiasno",
       description:
         "The declared annual salary income of Bulgaria's municipal mayors, set against each municipality's population — from the asset declarations filed with the National Audit Office.",
       breadcrumbName: "Mayor pay",
@@ -3197,8 +3179,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "governance/sectors",
-    title:
-      "Държавни сектори — пари, договори и институции по сектори | electionsbg.com",
+    title: "Държавни сектори — пари, договори и институции по сектори | Наясно",
     description:
       "Един вход към всяка държавна структура: пътища (АПИ), води (ВиК), транспорт, пенсии и осигуряване (НОИ), здравна каса (НЗОК), образование (МОН), приходи (НАП), митници, администрация (МЕУ), отбрана (МО), съдебна власт (ВСС), земеделие (ДФЗ) и култура — договори, разходи и отговорни институции.",
     breadcrumbName: "Държавни сектори",
@@ -3237,7 +3218,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>`.trim(),
     english: {
       title:
-        "State sectors — money, contracts and institutions by sector | electionsbg.com",
+        "State sectors — money, contracts and institutions by sector | Naiasno",
       description:
         "One entry to every state body: roads (АПИ), water (ВиК), transport, pensions and social security (НОИ), health fund (НЗОК), education (МОН), revenue (НАП), customs, administration (МЕУ), defense (МО), judiciary (ВСС), agriculture (ДФЗ) and culture — contracts, spending and the institutions responsible.",
       breadcrumbName: "State sectors",
@@ -3278,7 +3259,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget",
     title:
-      "Държавен бюджет на България — изпълнение, разпоредители, поръчки | electionsbg.com",
+      "Държавен бюджет на България — изпълнение, разпоредители, поръчки | Наясно",
     description:
       "Изпълнение на държавния бюджет на България — приходи, разходи, дефицит и финансиране, разпоредители по министерства и програмен бюджет, по данни от data.egov.bg и Държавен вестник.",
     breadcrumbName: "Държавен бюджет",
@@ -3299,7 +3280,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източници: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (Министерство на финансите — КФП), <a href="https://dv.parliament.bg/" rel="nofollow noopener">Държавен вестник</a> (Закон за държавния бюджет), индивидуални „Отчет за изпълнението на програмния бюджет" на всеки първостепенен разпоредител.</p>`.trim(),
     english: {
       title:
-        "Bulgarian State Budget — Execution, Ministries, Procurement | electionsbg.com",
+        "Bulgarian State Budget — Execution, Ministries, Procurement | Naiasno",
       description:
         "Bulgarian state budget execution — revenue, expenditure, deficit and financing, broken down by ministry and program, with cross-links into public procurement. Sourced from data.egov.bg and Държавен вестник.",
       breadcrumbName: "State budget",
@@ -3321,8 +3302,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "judiciary",
-    title:
-      "Съдебна власт — дела, срокове и натовареност на съдиите | electionsbg.com",
+    title: "Съдебна власт — дела, срокове и натовареност на съдиите | Наясно",
     description:
       "Колко дела постъпват в българските съдилища, колко се решават, колко остават висящи, какъв дял приключват в 3-месечния срок и с каква натовареност работят съдиите — по данните на Висшия съдебен съвет от 2018 г. насам.",
     breadcrumbName: "Съдебна власт",
@@ -3343,7 +3323,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://vss.justice.bg/page/view/1082" rel="nofollow noopener">Висш съдебен съвет — съдебна статистика</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria's Judiciary — Caseload, Delays and Judges' Workload | electionsbg.com",
+        "Bulgaria's Judiciary — Caseload, Delays and Judges' Workload | Naiasno",
       description:
         "How many cases enter Bulgaria's courts, how many are resolved, how many stay pending, what share close inside the statutory three-month deadline, and how heavily judges are loaded — from the Supreme Judicial Council's own statistics since 2018.",
       breadcrumbName: "Judiciary",
@@ -3366,7 +3346,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "judiciary/magistrates",
     ogImage: "/og/judiciary-magistrates.png",
-    title: "Магистрати с декларирани дружества (ИВСС) | electionsbg.com",
+    title: "Магистрати с декларирани дружества (ИВСС) | Наясно",
     description:
       "Съдиите, прокурорите и следователите, посочили търговско дружество (дялове/акции/участие) в имуществената си декларация по чл. 175а ЗСВ — разпознати по име в Търговския регистър. Търсеща и сортируема таблица.",
     breadcrumbName: "Магистрати с дружества",
@@ -3376,8 +3356,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Таблицата е търсеща (по магистрат или по дружество) и сортируема по брой декларирани дружества. Магистратите не са изборни лица; показва се само каквото публикува ИВСС, разпознато по име — следа, не доказателство.</p>
 <p>Виж и <a href="${SITE_URL}/judiciary">таблото на съдебната власт</a> — натовареност на съдиите, движение на делата и имуществените декларации.</p>`.trim(),
     english: {
-      title:
-        "Magistrates with declared companies (Inspectorate) | electionsbg.com",
+      title: "Magistrates with declared companies (Inspectorate) | Naiasno",
       description:
         "The judges, prosecutors and investigators who named a commercial company (shares/holdings/participation) in their art. 175a ЗСВ asset declaration — matched by name to the Commerce Registry. A searchable, sortable table.",
       breadcrumbName: "Magistrates with companies",
@@ -3391,7 +3370,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "defense",
     title:
-      "Отбрана — разходите на България за отбрана, F-16, износ на оръжие | electionsbg.com",
+      "Отбрана — разходите на България за отбрана, F-16, износ на оръжие | Наясно",
     description: `Разходите на България за отбрана: ${defenseFacts.latestPct}% от БВП през ${defenseFacts.latestYear} г. по пътя към целта от ${defenseFacts.targetPct}% до ${defenseFacts.targetYear} г., техника срещу заплати, големите програми (F-16, Stryker), рекордният износ на оръжие (${defenseFacts.exportBnBg} млрд. € за ${defenseFacts.exportYear} г.) и готовността на армията.`,
     breadcrumbName: "Отбрана",
     ogImage: "/og/defense.png",
@@ -3409,8 +3388,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Обществените поръчки на ${MO_ENTITIES.length}-те структури на Министерството на отбраната са на <a href="${SITE_URL}/awarder/000695324">страницата на МО</a>. Виж и <a href="${SITE_URL}/indicators">показателите</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
 <p>Източници: НАТО, Министерство на икономиката, Министерство на отбраната.</p>`.trim(),
     english: {
-      title:
-        "Bulgaria's Defence — spending, F-16, arms exports | electionsbg.com",
+      title: "Bulgaria's Defence — spending, F-16, arms exports | Naiasno",
       description: `Bulgaria's defence spending: ${defenseFacts.latestPct}% of GDP in ${defenseFacts.latestYear} on the road to the ${defenseFacts.targetPct}% target by ${defenseFacts.targetYear}, equipment vs personnel, the flagship programs (F-16, Stryker), record arms exports (€${defenseFacts.exportBnEn}bn in ${defenseFacts.exportYear}) and force readiness.`,
       breadcrumbName: "Defense",
       bodyHtml: `
@@ -3438,8 +3416,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // does not inherit a narrower one's traffic, and everything this URL ranked
     // for is about film money.
     path: "culture",
-    title:
-      "Култура — публичните пари за култура и кой ги получава | electionsbg.com",
+    title: "Култура — публичните пари за култура и кой ги получава | Наясно",
     description: `Всички публични пари за култура на едно място: бюджетът на Министерството на културата, обществените поръчки на държавните културни институти, филмовите субсидии на НФЦ (${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта) и еврофондовете — кой получава, от кого и с каква конкуренция.`,
     breadcrumbName: "Култура",
     ogImage: "/og/culture-hub.png",
@@ -3457,7 +3434,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източници: Национален филмов център, АОП/ЦАИС ЕОП, Министерство на финансите.</p>`.trim(),
     english: {
       title:
-        "Culture — Bulgaria's public culture money and who gets it | electionsbg.com",
+        "Culture — Bulgaria's public culture money and who gets it | Naiasno",
       description: `Bulgaria's public culture money in one place: the Ministry of Culture's budget, the public contracts of the state cultural institutes, the National Film Center's subsidies (${cultureFacts.totalEn} across ${cultureFacts.filmsEn} projects) and EU funds — who receives, from whom, and with how much competition.`,
       breadcrumbName: "Culture",
       bodyHtml: `
@@ -3492,7 +3469,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // card, which depicts them exactly.
     ogImage: "/og/culture-hub.png",
     title:
-      "Поръчките на културата — кой купува, от кого и с каква конкуренция | electionsbg.com",
+      "Поръчките на културата — кой купува, от кого и с каква конкуренция | Наясно",
     description:
       "Обществените поръчки на държавните културни институти, националните училища по изкуствата и Министерството на културата: стойност, изпълнители и делът на договорите с една оферта — с националната база до всяка цифра.",
     breadcrumbName: "Поръчки в културата",
@@ -3509,7 +3486,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: АОП/ЦАИС ЕОП.</p>`.trim(),
     english: {
       title:
-        "Culture's public contracts — who buys, from whom, with what competition | electionsbg.com",
+        "Culture's public contracts — who buys, from whom, with what competition | Naiasno",
       description:
         "The public contracts of Bulgaria's state cultural institutes, national art schools and Ministry of Culture: value, contractors and the single-bidder share — each figure beside the national baseline.",
       breadcrumbName: "Culture contracts",
@@ -3544,7 +3521,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // card, which depicts them exactly.
     ogImage: "/og/culture-hub.png",
     title:
-      "Еврофондове за култура — ИСУН, ДФЗ и Interreg, всяко с основата си | electionsbg.com",
+      "Еврофондове за култура — ИСУН, ДФЗ и Interreg, всяко с основата си | Наясно",
     description:
       "Европейските и националните пари, които стигат до културата извън обществените поръчки: ИСУН по ЕИК и по име, субсидиите на ДФЗ за читалищата и Interreg — с основата и покритието на всяко число.",
     breadcrumbName: "Еврофондове за култура",
@@ -3563,7 +3540,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източници: ИСУН 2020, ДФ „Земеделие“, keep.eu (Interreg).</p>`.trim(),
     english: {
       title:
-        "EU funds for culture — ИСУН, ДФЗ and Interreg, each with its basis | electionsbg.com",
+        "EU funds for culture — ИСУН, ДФЗ and Interreg, each with its basis | Наясно",
       description:
         "The European and national money reaching culture outside public procurement: ИСУН by EIK and by name, ДФЗ subsidies to читалища, and Interreg — each figure with its basis and its coverage.",
       breadcrumbName: "EU funds for culture",
@@ -3615,7 +3592,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // landed with the page.
     ogImage: "/og/culture-funds-isun-eik.png",
     title:
-      "ИСУН по ЕИК — европейските проекти на културните институции | electionsbg.com",
+      "ИСУН по ЕИК — европейските проекти на културните институции | Наясно",
     description:
       "Европейските проекти на институциите от регистъра на културата, намерени по точно съвпадение на ЕИК — възпроизводимият ред, с това, което не покрива.",
     breadcrumbName: "ИСУН по ЕИК",
@@ -3628,7 +3605,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: ИСУН 2020.</p>`.trim(),
     english: {
       title:
-        "ИСУН by EIK — the EU projects of Bulgaria's culture institutions | electionsbg.com",
+        "ИСУН by EIK — the EU projects of Bulgaria's culture institutions | Наясно",
       description:
         "The EU projects of the institutions in Bulgaria's culture register, found by exact EIK match — the reproducible arm, with what it does not cover.",
       breadcrumbName: "ИСУН by EIK",
@@ -3650,8 +3627,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // capture entry and a `data-og` anchor land together"; for these four, both
     // landed with the page.
     ogImage: "/og/culture-funds-isun-name.png",
-    title:
-      "ИСУН по име — еврофондовете за читалищата и културата | electionsbg.com",
+    title: "ИСУН по име — еврофондовете за читалищата и културата | Наясно",
     description:
       "Всичко в ИСУН, чието име на бенефициента носи културна дума — предимно читалища, и предимно по една програма. Долна граница с размита граница.",
     breadcrumbName: "ИСУН по име",
@@ -3665,8 +3641,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Другите потоци — <a href="${SITE_URL}/culture/funds/isun-eik">ИСУН по ЕИК</a>, <a href="${SITE_URL}/culture/funds/interreg">Interreg</a> и <a href="${SITE_URL}/culture/funds/dfz">ДФЗ</a> — не се събират с този. Виж <a href="${SITE_URL}/culture/funds">прегледа</a>.</p>
 <p>Източник: ИСУН 2020.</p>`.trim(),
     english: {
-      title:
-        "ИСУН by name — EU funds reaching читалища and culture | electionsbg.com",
+      title: "ИСУН by name — EU funds reaching читалища and culture | Наясно",
       description:
         "Everything in ИСУН whose beneficiary name carries a culture word — mostly читалища, and mostly one programme. A floor with a fuzzy edge.",
       breadcrumbName: "ИСУН by name",
@@ -3690,8 +3665,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // capture entry and a `data-og` anchor land together"; for these four, both
     // landed with the page.
     ogImage: "/og/culture-funds-interreg.png",
-    title:
-      "Interreg за култура и наследство — българските партньори | electionsbg.com",
+    title: "Interreg за култура и наследство — българските партньори | Наясно",
     description:
       "Българските партньори по трансгранични проекти, чиято тема е култура или наследство — публикуван бюджет на партньора, не стойност на договор.",
     breadcrumbName: "Interreg",
@@ -3704,7 +3678,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: keep.eu (INTERACT).</p>`.trim(),
     english: {
       title:
-        "Interreg for culture and heritage — the Bulgarian partners | electionsbg.com",
+        "Interreg for culture and heritage — the Bulgarian partners | Naiasno",
       description:
         "The Bulgarian partners in cross-border projects themed on culture or heritage — a partner's published budget, not a contract value.",
       breadcrumbName: "Interreg",
@@ -3727,7 +3701,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // landed with the page.
     ogImage: "/og/culture-funds-dfz.png",
     title:
-      "ДФЗ за народните читалища — земеделските субсидии за култура | electionsbg.com",
+      "ДФЗ за народните читалища — земеделските субсидии за култура | Наясно",
     description:
       "Земеделските субсидии, изплатени на народни читалища. Нито един държавен културен институт не получава такива — и се стига до тях само по име.",
     breadcrumbName: "ДФЗ — читалища",
@@ -3742,7 +3716,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: ДФ „Земеделие“.</p>`.trim(),
     english: {
       title:
-        "ДФЗ for народни читалища — farm subsidies reaching culture | electionsbg.com",
+        "ДФЗ for народни читалища — farm subsidies reaching culture | Наясно",
       description:
         "The farm subsidies paid to народни читалища. No state cultural institution receives one — and they are reachable only by name.",
       breadcrumbName: "ДФЗ — читалища",
@@ -3774,8 +3748,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // better one than film. /culture/subsidies and /culture/films keep the film
     // card, which depicts them exactly.
     ogImage: "/og/culture-hub.png",
-    title:
-      "Културните институции — регистърът и кой ги плаща | electionsbg.com",
+    title: "Културните институции — регистърът и кой ги плаща | Наясно",
     description:
       "Държавните културни институти и националните училища по изкуствата с принципал Министерството на културата, културните тела с друг принципал (МОН, БАН, МО) и тези с неизяснен — целият регистър, разделен по принципал.",
     breadcrumbName: "Институциите",
@@ -3792,7 +3765,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/culture">обзора на сектора</a> и <a href="${SITE_URL}/culture/procurement">поръчките им</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria's cultural institutions — the register and who pays | electionsbg.com",
+        "Bulgaria's cultural institutions — the register and who pays | Naiasno",
       description:
         "The state cultural institutes and national art schools whose principal is the Ministry of Culture, the cultural bodies answering to someone else (МОН, БАН, МО), and those unresolved — the whole register, split by principal.",
       breadcrumbName: "The institutions",
@@ -3817,7 +3790,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // feeds every figure below.
     path: "culture/subsidies",
     title:
-      "Филмови субсидии — държавните пари за кино и кой ги получава | electionsbg.com",
+      "Филмови субсидии — държавните пари за кино и кой ги получава | Наясно",
     description: `Държавната субсидия на Националния филмов център за кино (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта на ${cultureFacts.producersBg} продуценти, по вид и по година, с концентрацията у най-финансираните.`,
     breadcrumbName: "Филмови субсидии",
     ogImage: "/og/culture.png",
@@ -3836,7 +3809,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">Национален филмов център — Единен публичен регистър</a>.</p>`.trim(),
     english: {
       title:
-        "Film subsidies — Bulgaria's State Film Money and Who Gets It | electionsbg.com",
+        "Film subsidies — Bulgaria's State Film Money and Who Gets It | Naiasno",
       description: `The National Film Center's state subsidy for film (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.totalEn} across ${cultureFacts.filmsEn} projects and ${cultureFacts.producersEn} producers, by discipline and year, with the concentration among the most-funded.`,
       breadcrumbName: "Film subsidies",
       bodyHtml: `
@@ -3856,7 +3829,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "culture/films",
-    title: "Всички филмови субсидии — регистър на НФЦ | electionsbg.com",
+    title: "Всички филмови субсидии — регистър на НФЦ | Наясно",
     description: `Пълният регистър на държавните субсидии за кино на Националния филмов център (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.filmsBg} проекта с търсене, сортиране и филтри по вид и година, с износ на данните.`,
     breadcrumbName: "Всички филмови субсидии",
     ogImage: "/og/culture.png",
@@ -3866,7 +3839,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж обобщението и анализа на <a href="${SITE_URL}/culture">страницата Култура</a>.</p>
 <p>Източник: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">Национален филмов център — Единен публичен регистър</a>.</p>`.trim(),
     english: {
-      title: "All Film Subsidies — НФЦ register | electionsbg.com",
+      title: "All Film Subsidies — НФЦ register | Наясно",
       description: `The full register of the National Film Center's state film subsidies (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.filmsEn} projects with search, sort and filters by discipline and year, with data export.`,
       breadcrumbName: "All film subsidies",
       bodyHtml: `
@@ -3879,8 +3852,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "water/operators",
     ogImage: "/og/water-operators.png",
-    title:
-      "ВиК оператори — поръчки, конкуренция и еврофондове | electionsbg.com",
+    title: "ВиК оператори — поръчки, конкуренция и еврофондове | Наясно",
     description:
       "Всички ВиК оператори в България — обществени поръчки, дял с една оферта и европейски средства (ИСУН, договорени срещу усвоени), по дружество и област.",
     breadcrumbName: "ВиК оператори",
@@ -3890,7 +3862,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/water">обзора на водния сектор</a> и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг</a>.</p>`.trim(),
     english: {
       title:
-        "Water operators — procurement, competition and EU funds | electionsbg.com",
+        "Water operators — procurement, competition and EU funds | Naiasno",
       description:
         "Every water operator in Bulgaria — public procurement, single-bidder share and EU funds (ИСУН, contracted vs absorbed), by company and region.",
       breadcrumbName: "Water operators",
@@ -3902,8 +3874,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "water",
-    title:
-      "Води (ВиК) — обществените поръчки на водния сектор | electionsbg.com",
+    title: "Води (ВиК) — обществените поръчки на водния сектор | Наясно",
     description: `Консолидиран изглед на обществените поръчки на ${waterFacts.operatorCount} оператора във водния сектор — регионалните ВиК дружества, общинските оператори, концесията за София, Напоителни системи и язовирите — плюс ${waterFacts.floodEurMln} млн. € за почистване и корекция на речни корита и дерета, по данни от регистъра на обществените поръчки (АОП/ЦАИС ЕОП).`,
     breadcrumbName: "Води (ВиК)",
     ogImage: "/og/water.png",
@@ -3919,8 +3890,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Предстои: показателите на КЕВР (загуби на вода, цени по области), водният режим (НСИ), нивата на язовирите (МОСВ) и картата на риска от наводнения (РЗПРН).</p>
 <p>Виж и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг като възложител</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
     english: {
-      title:
-        "Water (ВиК) — public procurement of the water sector | electionsbg.com",
+      title: "Water (ВиК) — public procurement of the water sector | Наясно",
       description: `A consolidated view of the public procurement of ${waterFacts.operatorCount} operators in Bulgaria's water sector — the regional water companies, the municipal operators, the Sofia concession, the irrigation enterprise and the dams — plus €${waterFacts.floodEurMln}M on cleaning and regulating riverbeds and gullies, from the public-procurement register (АОП/ЦАИС ЕОП).`,
       breadcrumbName: "Water (ВиК)",
       bodyHtml: `
@@ -3939,7 +3909,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "pensions",
     title:
-      "Пенсии — кой плаща, разпределение и средна пенсия по области | electionsbg.com",
+      "Пенсии — кой плаща, разпределение и средна пенсия по области | Наясно",
     description: `Кой плаща пенсиите в България (вноски срещу трансфер от бюджета), как са разпределени — ${pensionFacts.minSharePct}% получават минимална пенсия или по-малко — средна пенсия и плащания в брой по области, по данни от статистическия годишник на НОИ.`,
     breadcrumbName: "Пенсии",
     ogImage: "/og/pensions.png",
@@ -3958,7 +3928,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източник: <a href="https://www.nssi.bg/" rel="nofollow noopener">НОИ — статистически годишник „Пенсии"</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria's Pensions — Who Pays, the Distribution, and Average by Oblast | electionsbg.com",
+        "Bulgaria's Pensions — Who Pays, the Distribution, and Average by Oblast | Naiasno",
       description: `Who pays for Bulgaria's pensions (contributions vs the state-budget transfer), how they are distributed — ${pensionFacts.minSharePct}% get the minimum pension or less — average pension and cash payment by oblast, from the NSSI statistical yearbook.`,
       breadcrumbName: "Pensions",
       bodyHtml: `
@@ -3979,8 +3949,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/mod",
     ogImage: "/og/budget-mod.png",
-    title:
-      "Минимален осигурителен доход по професия (МОД) 2026 | electionsbg.com",
+    title: "Минимален осигурителен доход по професия (МОД) 2026 | Наясно",
     description:
       "Какъв е законовият минимален осигурителен доход за вашата икономическа дейност и квалификационна група? Приложение 1 и 1А на ЗБДОО за 2026 г. — 86 дейности по КИД-2025 × 9 групи професии, за двата периода на годината, плюс вноската за трудова злополука.",
     breadcrumbName: "Минимален осигурителен доход",
@@ -3993,8 +3962,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Приложение № 2 и № 2А определят диференцираната вноска за фонд „Трудова злополука и професионална болест“ по същите икономически дейности — между 0,4% и 1,1%, за сметка на работодателя. И тя е разделена на същите два периода.</p>
 <p>Виж и <a href="${SITE_URL}/budget/tax-calculator">данъчния калкулатор</a>, <a href="${SITE_URL}/pensions">пенсиите</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>`.trim(),
     english: {
-      title:
-        "Minimum Insurable Income by Profession (МОД) 2026 | electionsbg.com",
+      title: "Minimum Insurable Income by Profession (МОД) 2026 | Наясно",
       description:
         "What is the legal minimum your employer must insure you on? Annexes 1 and 1А of Bulgaria's 2026 Social Security Budget Act — 86 economic activities (КИД-2025) × 9 occupational groups, for both periods of the year, plus the work-injury contribution.",
       breadcrumbName: "Minimum insurable income",
@@ -4010,8 +3978,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "budget/tax-calculator",
-    title:
-      "Данъчен калкулатор — какво купуват вашите данъци? | electionsbg.com",
+    title: "Данъчен калкулатор — какво купуват вашите данъци? | Наясно",
     description:
       "Изчислете данъка върху доходите, осигуровките и ДДС за работник, самоосигуряващ се или собственик на фирма — и вижте кои функции на държавното управление финансира вашата данъчна сметка.",
     breadcrumbName: "Данъчен калкулатор",
@@ -4031,7 +3998,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
     english: {
-      title: "Tax Calculator — What Did Your Taxes Buy? | electionsbg.com",
+      title: "Tax Calculator — What Did Your Taxes Buy? | Naiasno",
       description:
         "Estimate income tax, social-security contributions and VAT for an employee, self-employed person or company owner — and see which government functions your tax bill funds.",
       breadcrumbName: "Tax calculator",
@@ -4053,8 +4020,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "budget/simulator",
-    title:
-      "Бюджетен симулатор — какво става, ако данък се промени? | electionsbg.com",
+    title: "Бюджетен симулатор — какво става, ако данък се промени? | Наясно",
     description:
       "Какво се случва с приходите в бюджета, ако се промени ДДС, плоският данък, корпоративният данък, данъкът върху дивидентите или таванът на осигурителния доход (МОД)? Преместете плъзгач и вижте статичната оценка — и ефекта върху един примерен фиш за заплата.",
     breadcrumbName: "Бюджетен симулатор",
@@ -4071,7 +4037,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a>, <a href="${SITE_URL}/budget/tax-calculator">данъчния калкулатор</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
     english: {
-      title: "Budget Simulator — What if a Tax Rate Changes? | electionsbg.com",
+      title: "Budget Simulator — What if a Tax Rate Changes? | Naiasno",
       description:
         "What happens to Bulgaria's budget revenue if VAT, the flat income tax, corporate tax, the dividend tax or the МОД insurance cap changes? Move a slider and see the static estimate — and the effect on a worked payslip.",
       breadcrumbName: "Budget simulator",
@@ -4092,7 +4058,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "budget/ministries",
     ogImage: "/og/budget-ministries.png",
     title:
-      "Разпоредители с бюджет — всички първостепенни разпоредители | electionsbg.com",
+      "Разпоредители с бюджет — всички първостепенни разпоредители | Наясно",
     description:
       "Всички първостепенни разпоредители по държавния бюджет: колко е разпределено на всеки и кои са публикували отчет за изпълнението.",
     breadcrumbName: "Разпоредители",
@@ -4103,7 +4069,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>За всеки разпоредител законът определя план. Отчет за изпълнението публикуват далеч по-малко от тях — затова страницата казва изрично колко са отчели и колко имат само план. Липсата на отчет е мълчание на съответното ведомство, а не празнота в данните тук.</p>
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
     english: {
-      title: "Budget Spending Units — Every First-Level Unit | electionsbg.com",
+      title: "Budget Spending Units — Every First-Level Unit | Naiasno",
       description:
         "Every first-level spending unit in Bulgaria's State Budget Law: what each was appropriated, and which published an execution report.",
       breadcrumbName: "Spending units",
@@ -4118,7 +4084,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/revenue",
     ogImage: "/og/budget-revenue.png",
-    title: "Откъде идват парите на държавата | electionsbg.com",
+    title: "Откъде идват парите на държавата | Наясно",
     description:
       "Приходите на държавния бюджет по източник — данъчни, неданъчни и помощи — за всяка бюджетна година, с движението през годините и сравнение с ЕС.",
     breadcrumbName: "Откъде идват парите",
@@ -4133,7 +4099,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
     english: {
-      title: "Where Bulgaria's State Revenue Comes From | electionsbg.com",
+      title: "Where Bulgaria's State Revenue Comes From | Naiasno",
       description:
         "State budget revenue by source — tax, non-tax and grants — for each fiscal year, with the trend over time and an EU comparison.",
       breadcrumbName: "Where the money comes from",
@@ -4152,7 +4118,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/spending",
     ogImage: "/og/budget-spending.png",
-    title: "За какво харчи държавата | electionsbg.com",
+    title: "За какво харчи държавата | Наясно",
     description:
       "Разходите на държавния бюджет по вид — текущи, капиталови, лихви и трансфери — за всяка бюджетна година, с движението през годините и сравнение с ЕС.",
     breadcrumbName: "За какво харчи държавата",
@@ -4168,7 +4134,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж и <a href="${SITE_URL}/budget/revenue">откъде идват парите</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
     english: {
-      title: "What Bulgaria's State Budget Is Spent On | electionsbg.com",
+      title: "What Bulgaria's State Budget Is Spent On | Naiasno",
       description:
         "State budget expenditure by type — current, capital, interest and transfers — for each fiscal year, with the trend over time and an EU comparison.",
       breadcrumbName: "What the state spends on",
@@ -4188,7 +4154,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/deviations",
     ogImage: "/og/budget-deviations.png",
-    title: "План срещу отчет по разпоредители | electionsbg.com",
+    title: "План срещу отчет по разпоредители | Наясно",
     description:
       "Колко е гласувал парламентът на всеки първостепенен разпоредител, колко е бил изменен планът и колко е похарчено — с двете разлики, показани поотделно.",
     breadcrumbName: "План срещу отчет",
@@ -4201,7 +4167,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Малка част от разпоредителите публикуват отчет за изпълнението. Страницата започва с това колко от тях са го направили за избраната година, защото класация без този ред би твърдяла нещо, което данните не поддържат. Липсващият отчет е на съответното ведомство, а не пропуск в данните тук — а за текуща година отчетите още не са дължими.</p>
 <p>Виж и <a href="${SITE_URL}/budget/ministries">разпоредителите</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
     english: {
-      title: "Plan Versus Outturn by Spending Unit | electionsbg.com",
+      title: "Plan Versus Outturn by Spending Unit | Naiasno",
       description:
         "What parliament voted each first-level spending unit, how the plan was amended, and what was spent — with the two differences shown separately.",
       breadcrumbName: "Plan versus outturn",
@@ -4228,7 +4194,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // no card is the /funds/calls 404; a card no page points at is the
     // /funds/focus orphan. Both were confirmed still live by breaking them.
     ogImage: "/og/budget-deep-dive.png",
-    title: "Бюджетът на едно място — потокът на парите | electionsbg.com",
+    title: "Бюджетът на едно място — потокът на парите | Наясно",
     description:
       "Целият държавен бюджет в една страница: откъде идват парите, къде отиват и колко е изпълнено — с диаграма на потока и разбивки по приходи, персонал, капиталови разходи, общини и осигурителни фондове.",
     breadcrumbName: "Бюджетът на едно място",
@@ -4245,7 +4211,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p><strong>Това е дълбокото гмуркане, не входът.</strong> Ако търсиш конкретно число, започни от <a href="${SITE_URL}/budget">държавния бюджет</a> — там всяка тема има собствена страница и се зарежда много по-бързо. Виж и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
     english: {
-      title: "The Budget on One Page — the Flow of the Money | electionsbg.com",
+      title: "The Budget on One Page — the Flow of the Money | Naiasno",
       description:
         "The whole state budget in a single page: where the money comes from, where it goes and how much is executed — with a flow diagram and breakdowns by revenue, personnel, capital, municipalities and the social funds.",
       breadcrumbName: "The budget on one page",
@@ -4266,7 +4232,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/explorer",
     ogImage: "/og/budget-explorer.png",
-    title: "Разгледай бюджета — по разпоредител и по функция | electionsbg.com",
+    title: "Разгледай бюджета — по разпоредител и по функция | Наясно",
     description:
       "Пропътувай държавния бюджет ниво по ниво: по първостепенен разпоредител (МФ) или по функция (COFOG, Евростат). Всяко ниво показва своя сбор и дела си от предходното.",
     breadcrumbName: "Разгледай бюджета",
@@ -4281,8 +4247,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Всяка сума може да се чете в евро, като процент от БВП или като дял от нивото, в което се намираш.</p>
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
     english: {
-      title:
-        "Explore the Budget — by Spending Unit and by Function | electionsbg.com",
+      title: "Explore the Budget — by Spending Unit and by Function | Naiasno",
       description:
         "Travel Bulgaria's state budget one level at a time: by first-level spending unit (Ministry of Finance) or by function (COFOG, Eurostat). Every level shows its own total and its share of the one above.",
       breadcrumbName: "Explore the budget",
@@ -4301,7 +4266,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/execution",
     ogImage: "/og/budget-execution.png",
-    title: "Изпълнение на бюджета — план срещу отчет | electionsbg.com",
+    title: "Изпълнение на бюджета — план срещу отчет | Наясно",
     description:
       "Мина ли бюджетната година така, както я разписа законът — приходи, разходи, вноската в ЕС, салдото и финансирането, план до отчет за всяка година.",
     breadcrumbName: "Изпълнение",
@@ -4319,7 +4284,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Година, която върви по удължителен закон, няма приет план по нито една позиция. Страницата показва прогнозата, а не празна колона, и я обозначава като прогноза.</p>
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a>, <a href="${SITE_URL}/budget/deviations">план срещу отчет по разпоредители</a> и <a href="${SITE_URL}/budget/law">бюджетния процес</a>.</p>`.trim(),
     english: {
-      title: "Budget Execution — Plan Against Outturn | electionsbg.com",
+      title: "Budget Execution — Plan Against Outturn | Naiasno",
       description:
         "Did the fiscal year go the way the law said it would — revenue, expenditure, the EU contribution, the balance and financing, plan against outturn for every year.",
       breadcrumbName: "Execution",
@@ -4341,7 +4306,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/functional",
     ogImage: "/og/budget-functional.png",
-    title: "За какво се харчат парите — по функции (COFOG) | electionsbg.com",
+    title: "За какво се харчат парите — по функции (COFOG) | Наясно",
     description:
       "Разходите на сектор „Държавно управление“ по функция — здравеопазване, образование, отбрана, социална закрила — по класификацията COFOG на Евростат, 2010–2024.",
     breadcrumbName: "По функции",
@@ -4356,8 +4321,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>COFOG върви 2010–2024, докато касовият отчет по КФП стига до 2026 г. За най-новите години тук няма функционален разрез — това е обхват на източника, а не нулеви разходи.</p>
 <p>Виж и <a href="${SITE_URL}/budget/spending">за какво отиват парите</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
     english: {
-      title:
-        "What the Money Is Spent On — by Function (COFOG) | electionsbg.com",
+      title: "What the Money Is Spent On — by Function (COFOG) | Naiasno",
       description:
         "General government expenditure by function — health, education, defence, social protection — on Eurostat's COFOG classification, 2010–2024.",
       breadcrumbName: "By function",
@@ -4376,7 +4340,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/personnel",
     ogImage: "/og/budget-personnel.png",
-    title: "Държавната администрация — щат и заети | electionsbg.com",
+    title: "Държавната администрация — щат и заети | Наясно",
     description:
       "Колко души работят в държавната администрация: утвърдени щатни бройки, заети и незаети, и отделно декемврийската численост на НСИ — 2017–2025, по Доклада за състоянието на администрацията.",
     breadcrumbName: "Администрация",
@@ -4394,8 +4358,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Докладът не публикува разходи за заплати, затова на тази страница няма нито едно число в евро. Показани като 0 те биха твърдели, че администрацията не струва нищо.</p>
 <p>Виж и <a href="${SITE_URL}/budget/spending">за какво отиват парите</a> и <a href="${SITE_URL}/sector/administration">сектор „Администрация“</a>.</p>`.trim(),
     english: {
-      title:
-        "Bulgaria's State Administration — Posts and Staff | electionsbg.com",
+      title: "Bulgaria's State Administration — Posts and Staff | Naiasno",
       description:
         "How many people work in the state administration: approved posts, filled and vacant, and separately the NSI December headcount — 2017–2025, from the annual Administration Report.",
       breadcrumbName: "Administration",
@@ -4417,7 +4380,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/investments",
     ogImage: "/og/budget-investments.png",
-    title: "Инвестиционна програма на държавата | electionsbg.com",
+    title: "Инвестиционна програма на държавата | Наясно",
     description:
       "Проектите, за които Законът за държавния бюджет отпуска пари — Приложение III, 3 065 обекта за 2025 г. Това е план, не отчет за похарчено.",
     breadcrumbName: "Инвестиции",
@@ -4433,7 +4396,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж и <a href="${SITE_URL}/budget/spending">за какво отиват парите</a> и <a href="${SITE_URL}/budget/municipal/capital">капиталовите програми на общините</a>.</p>`.trim(),
     english: {
-      title: "Bulgaria's State Investment Programme | electionsbg.com",
+      title: "Bulgaria's State Investment Programme | Naiasno",
       description:
         "The projects the State Budget Law appropriates money for — Annex III, 3,065 projects for 2025. This is a plan, not a record of money spent.",
       breadcrumbName: "Investments",
@@ -4453,7 +4416,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/social-funds",
     ogImage: "/og/budget-social-funds.png",
-    title: "Социалните фондове — ДОО, Учителски и ФГВРС | electionsbg.com",
+    title: "Социалните фондове — ДОО, Учителски и ФГВРС | Наясно",
     description:
       "Приходи, разходи и салдо на трите фонда на НОИ — ДОО, Учителския пенсионен фонд и Фонда за гарантирани вземания — и колко от разходите им покрива трансферът от държавния бюджет.",
     breadcrumbName: "Социални фондове",
@@ -4469,7 +4432,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Година получава разбивка по фондове едва след като НОИ публикува месечните си отчети. Дотогава се показва само годишният агрегат — три фонда с нули във всяка колона биха били невярно твърдение.</p>
 <p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/pensions">пенсиите</a>.</p>`.trim(),
     english: {
-      title: "Bulgaria's Social Security Funds | electionsbg.com",
+      title: "Bulgaria's Social Security Funds | Naiasno",
       description:
         "Revenue, expenditure and balance of the three NSSI funds — the state pension fund, the Teachers' Pension Fund and the Guaranteed Employee Claims Fund — and how much of their spending the state budget transfer covers.",
       breadcrumbName: "Social funds",
@@ -4489,7 +4452,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/law",
     ogImage: "/og/budget-law.png",
-    title: "Бюджетният процес и документите | electionsbg.com",
+    title: "Бюджетният процес и документите | Наясно",
     description:
       "Кои от осемте ключови бюджетни документа по международния стандарт на Open Budget Survey са налични тук, и какво публикува конкретната бюджетна година.",
     breadcrumbName: "Бюджетен процес",
@@ -4504,7 +4467,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Връзката между бюджетен документ и поименно гласуване не е налична в данните — нито един от документите не носи препратка към конкретно гласуване. Извеждането ѝ от заглавието би било предположение: заглавие, което съдържа „второ гласуване“ в процедурна позиция, е първо четене. Непостроена секция е по-добра от съчинена.</p>
 <p>Виж и <a href="${SITE_URL}/budget/execution">изпълнението</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
     english: {
-      title: "The Budget Process and Its Documents | electionsbg.com",
+      title: "The Budget Process and Its Documents | Naiasno",
       description:
         "Which of the eight key budget documents in the international Open Budget Survey standard are available here, and what a given fiscal year actually published.",
       breadcrumbName: "Budget process",
@@ -4523,7 +4486,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/municipal",
     ogImage: "/og/budget-municipal.png",
-    title: "Какво държавата изпраща на общините | electionsbg.com",
+    title: "Какво държавата изпраща на общините | Наясно",
     description:
       "Трансферите по чл. 53 от Закона за държавния бюджет — колко получава всяка от 265-те общини, общо и на жител, за всяка година от 2018 г. насам.",
     breadcrumbName: "Общините",
@@ -4536,7 +4499,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Отделно от тази страница сайтът показва какво общините <strong>дължат</strong> — поети ангажименти, задължения и просрочия по чл. 130г от Закона за публичните финанси. Това е различен корпус с различна зърнистост; събирането на двете дава число, което не означава нищо.</p>
 <p>Виж и <a href="${SITE_URL}/governance/municipal-finance">финансовото състояние на общините</a> и <a href="${SITE_URL}/budget/municipal/investments">общинската инвестиционна програма</a>.</p>`.trim(),
     english: {
-      title: "What the State Sends Bulgaria's Municipalities | electionsbg.com",
+      title: "What the State Sends Bulgaria's Municipalities | Naiasno",
       description:
         "Article 53 transfers from the State Budget Law — how much each of the 265 municipalities receives, in total and per resident, for every year since 2018.",
       breadcrumbName: "Municipalities",
@@ -4553,7 +4516,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/municipal/investments",
     ogImage: "/og/budget-municipal-investments.png",
-    title: "ИПОП — общинската инвестиционна програма | electionsbg.com",
+    title: "ИПОП — общинската инвестиционна програма | Наясно",
     description:
       "3 492 общински проекта в 264 общини: 2,98 млрд. евро договорени срещу 0,99 млрд. изплатени, с проектите под 5% плащане и колко от тях вече имат подадено искане.",
     breadcrumbName: "ИПОП",
@@ -4570,8 +4533,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж и <a href="${SITE_URL}/budget/municipal">трансферите към общините</a> и <a href="${SITE_URL}/budget/municipal/capital">капиталовите им програми</a>.</p>`.trim(),
     english: {
-      title:
-        "Bulgaria's Municipal Investment Programme (IPOP) | electionsbg.com",
+      title: "Bulgaria's Municipal Investment Programme (IPOP) | Naiasno",
       description:
         "3,492 municipal projects across 264 municipalities: €2.98bn agreed against €0.99bn paid, with the projects under 5% paid and how many already have a claim in.",
       breadcrumbName: "IPOP",
@@ -4592,7 +4554,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/municipal/capital",
     ogImage: "/og/budget-municipal-capital.png",
-    title: "Капиталовите програми на общините | electionsbg.com",
+    title: "Капиталовите програми на общините | Наясно",
     description:
       "Поименните списъци за капиталови разходи на общините, които ги публикуват — какво строят и с чии пари. Покритието е малка част от 265-те общини и се назовава на всяка страница.",
     breadcrumbName: "Капиталови програми",
@@ -4605,7 +4567,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>За <strong>източниците на финансиране</strong>. Поименният списък разделя всеки обект по произход на парите — държавна субсидия, собствени средства, дълг, европейски средства, преходен остатък — а това е разрез, който трансферите по чл. 53 не показват. Клопката е в знаменателя, и той е по-тесен, отколкото изглежда: разбивка по източник публикуват само част от вече малкото обхванати общини — <strong>2 от 24 за 2025 г.</strong>, една от 13 за 2024 г. и нито една за 2022 и 2026 г. Тоест делът на всеки източник се смята върху тези няколко общини, не върху обхванатите и още по-малко върху страната.</p>
 <p>Виж и <a href="${SITE_URL}/budget/municipal">трансферите към общините</a> и <a href="${SITE_URL}/budget/investments">държавната инвестиционна програма</a>.</p>`.trim(),
     english: {
-      title: "Bulgarian Municipalities' Capital Programmes | electionsbg.com",
+      title: "Bulgarian Municipalities' Capital Programmes | Naiasno",
       description:
         "The itemised capital-spending lists of those municipalities that publish them — what they build and with whose money. Coverage is a small share of the 265 and is named on every figure.",
       breadcrumbName: "Capital programmes",
@@ -4622,7 +4584,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "budget/methodology",
     ogImage: "/og/budget-methodology.png",
-    title: "Методология — Държавен бюджет на България | electionsbg.com",
+    title: "Методология — Държавен бюджет на България | Наясно",
     description:
       "Откъде идват данните за държавния бюджет на electionsbg.com и как се обработват — КФП на Министерство на финансите, Закон за държавния бюджет и годишните отчети на първостепенните разпоредители.",
     breadcrumbName: "Методология — Бюджет",
@@ -4646,7 +4608,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h2>Кръстосана връзка с обществените поръчки</h2>
 <p>Всяко министерство е свързано с агрегата си от обществени поръчки в АОП, така че от страницата на ведомството може директно да се преглежда какво то поръчва и на кого.</p>`.trim(),
     english: {
-      title: "Methodology — Bulgarian State Budget | electionsbg.com",
+      title: "Methodology — Bulgarian State Budget | Naiasno",
       description:
         "Where electionsbg.com's state-budget data comes from and how it is processed — the Ministry of Finance KFP feed, the State Budget Law, and per-ministry program-execution reports.",
       breadcrumbName: "Methodology — Budget",
@@ -4674,7 +4636,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "observations",
     title:
-      "Доклади на ОССЕ/ОДИХР за парламентарните избори в България | electionsbg.com",
+      "Доклади на ОССЕ/ОДИХР за парламентарните избори в България | Наясно",
     description:
       "Резюмета на международните доклади за наблюдение на парламентарните избори в България след 2005 г. — констатации, повтарящи се препоръки и връзки към пълните доклади на ОССЕ/ОДИХР.",
     breadcrumbName: "Доклади ОССЕ/ОДИХР",
@@ -4692,7 +4654,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Резюметата са генерирани от Claude AI на база публичните доклади. За официалните оценки винаги се обръщайте към оригиналните документи на <a href="https://www.osce.org/odihr/elections/bulgaria" rel="nofollow noopener">www.osce.org/odihr/elections/bulgaria</a>.</p>`.trim(),
     english: {
       title:
-        "OSCE/ODIHR Reports on Bulgarian Parliamentary Elections | electionsbg.com",
+        "OSCE/ODIHR Reports on Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Summaries of international election-observation reports for every Bulgarian parliamentary vote since 2005 — findings, recurring recommendations, and links to the full OSCE/ODIHR publications.",
       breadcrumbName: "OSCE/ODIHR reports",
@@ -4711,8 +4673,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "data/links",
-    title:
-      "Как се свързват данните — общи ключове между масивите | electionsbg.com",
+    title: "Как се свързват данните — общи ключове между масивите | Наясно",
     description:
       "Кои масиви данни се свързват помежду си и през какъв ключ — ЕИК, лице, ЕКАТТЕ, процедура, програма — с измерения брой съвпадения за всяка двойка.",
     breadcrumbName: "Връзки между данните",
@@ -4725,7 +4686,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 ${buildDataLinksBody("bg")}`.trim(),
     english: {
       title:
-        "How the data connects — shared keys between the datasets | electionsbg.com",
+        "How the data connects — shared keys between the datasets | Naiasno",
       description:
         "Which datasets join to which, and on what key — company number, person, settlement, procedure, programme — with the measured number of shared keys for every pair.",
       breadcrumbName: "How the data connects",
@@ -4737,7 +4698,7 @@ ${buildDataLinksBody("en")}`.trim(),
   }),
   staticPage({
     path: "data",
-    title: "Карта на данните — източници, масиви и функции | electionsbg.com",
+    title: "Карта на данните — източници, масиви и функции | Наясно",
     description:
       "Интерактивна карта на всички източници, които electionsbg.com обработва — кои масиви от данни се изграждат от тях и кои функции на сайта ги използват.",
     breadcrumbName: "Данни",
@@ -4764,7 +4725,7 @@ ${buildDataLinksBody("en")}`.trim(),
 </ul>
 ${buildDataDirectory("bg")}`.trim(),
     english: {
-      title: "Data map — sources, datasets and features | electionsbg.com",
+      title: "Data map — sources, datasets and features | Naiasno",
       description:
         "An interactive map of every source electionsbg.com ingests — the datasets built from them and the site features they power.",
       breadcrumbName: "Data",
@@ -4793,7 +4754,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "data/sources",
-    title: "Източници на данни и изтегляне | electionsbg.com",
+    title: "Източници на данни и изтегляне | Наясно",
     description:
       "Пълният списък с източниците на данни зад electionsbg.com — групирани по тема, с връзки към оригиналните данни и условия за изтегляне и преизползване.",
     breadcrumbName: "Източници на данни",
@@ -4805,7 +4766,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Обработените данни са свободни за преизползване под лиценз Creative Commons BY 4.0, а целият pipeline за обработка е с отворен код. Готовите JSON файлове се сервират публично.</p>
 <p>Как източниците се превръщат във функции на сайта показва <a href="${SITE_URL}/data">интерактивната карта на данните</a>; кога какво е обновено — <a href="${SITE_URL}/data/updates">дневникът на промените</a>.</p>`.trim(),
     english: {
-      title: "Data sources and downloads | electionsbg.com",
+      title: "Data sources and downloads | Naiasno",
       description:
         "The full list of data sources behind electionsbg.com — grouped by theme, with links to the original data and the terms for downloading and reuse.",
       breadcrumbName: "Data sources",
@@ -4819,7 +4780,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "data/updates",
-    title: "Скорошни промени в данните | electionsbg.com",
+    title: "Скорошни промени в данните | Наясно",
     description:
       "Дневник на обновяванията — кога и какво е обновено в наборите от данни на сайта: гласувания, декларации, бюджет, поръчки, еврофондове, цени и индикатори.",
     breadcrumbName: "Скорошни промени",
@@ -4829,7 +4790,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Публичният дневник на обновяванията: коя дата кой набор от данни е бил подновен — парламентарни гласувания, имуществени декларации, бюджетно изпълнение, обществени поръчки, еврофондове, цени, социологически проучвания и индикатори — и накъде може да се отиде, за да се види промяната в действие.</p>
 <p>Откъде идват данните показва <a href="${SITE_URL}/data">картата на данните</a>, а пълният списък с източници е на <a href="${SITE_URL}/data/sources">страницата с източници</a>.</p>`.trim(),
     english: {
-      title: "Recent data updates | electionsbg.com",
+      title: "Recent data updates | Naiasno",
       description:
         "The public refresh log — when and what was updated across the site's datasets: roll-call votes, declarations, budget, procurement, EU funds, prices and indicators.",
       breadcrumbName: "Recent updates",
@@ -4841,7 +4802,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "data-changes",
-    title: "Промени в данните на electionsbg.com | electionsbg.com",
+    title: "Промени в данните на electionsbg.com | Наясно",
     description:
       "Дневник на обновяванията — кога и какво е обновено в наборите от данни на сайта: парламентарни гласувания, имуществени декларации, социологически проучвания, макро и регионални индикатори.",
     breadcrumbName: "Промени в данните",
@@ -4861,7 +4822,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Записите се добавят автоматично от скриптовете в pipeline-а — всеки път, когато един от тях успешно обнови съответната част от данните.</p>`.trim(),
     english: {
-      title: "Data Changes on electionsbg.com | electionsbg.com",
+      title: "Data Changes on electionsbg.com | Naiasno",
       description:
         "Public update log — when and what was refreshed in the site's datasets: roll-call votes, MP property declarations, polling, macro and regional indicators.",
       breadcrumbName: "Data changes",
@@ -4884,7 +4845,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "demographics",
     title:
-      "Демография на България — Преброяване 2021 и резултати по области | electionsbg.com",
+      "Демография на България — Преброяване 2021 и резултати по области | Наясно",
     description:
       "Преброяването 2021 на НСИ наложено върху регионалните изборни данни — етнос, вероизповедание, образование, възраст и заетост по 28-те области и 265 общини, плюс корелации с резултатите на партиите.",
     breadcrumbName: "Демография",
@@ -4903,7 +4864,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Източник: <a href="https://census2021.bg/" rel="nofollow noopener">Преброяване на населението и жилищния фонд 2021 г. на НСИ</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria Demographics — Census 2021 vs. Election Results by Oblast | electionsbg.com",
+        "Bulgaria Demographics — Census 2021 vs. Election Results by Oblast | Naiasno",
       description:
         "NSI Census 2021 mapped onto Bulgaria's regional electoral data — ethnicity, religion, education, age and employment across 28 oblasts and 265 municipalities, with party-level correlation crosstabs.",
       breadcrumbName: "Demographics",
@@ -4924,7 +4885,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "demographics/regions",
     ogImage: "/og/demographics-regions.png",
-    title: "Демография на 28-те области — Преброяване 2021 | electionsbg.com",
+    title: "Демография на 28-те области — Преброяване 2021 | Наясно",
     description:
       "Сортируема таблица с демографските показатели на 28-те административни области от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост.",
     breadcrumbName: "Области — демография",
@@ -4933,7 +4894,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Преброяване 2021 на НСИ за 28-те административни области на България — население, етнически състав, вероизповедание, образование, възрастова структура и заетост, в сортируема таблица. София-град е представена като една област; областните данни не следят разделението на трите столични МИР, които съществуват само в електоралната статистика.</p>
 <p>Източник: <a href="https://census2021.bg/" rel="nofollow noopener">Преброяване на населението и жилищния фонд 2021 г. на НСИ</a>.</p>`.trim(),
     english: {
-      title: "Bulgaria oblast demographics — Census 2021 | electionsbg.com",
+      title: "Bulgaria oblast demographics — Census 2021 | Naiasno",
       description:
         "Sortable table with Census 2021 demographics for Bulgaria's 28 administrative oblasts — population, ethnicity, religion, education, age and employment.",
       breadcrumbName: "Oblast demographics",
@@ -4946,7 +4907,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "demographics/municipalities",
     ogImage: "/og/demographics-municipalities.png",
-    title: "Демография на 265-те общини — Преброяване 2021 | electionsbg.com",
+    title: "Демография на 265-те общини — Преброяване 2021 | Наясно",
     description:
       "Сортируема таблица с демографските показатели на 265-те общини на България от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост, с филтър по име.",
     breadcrumbName: "Общини — демография",
@@ -4955,8 +4916,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Преброяване 2021 на НСИ за 265-те общини на България — население, етнически състав, вероизповедание, образование, възрастова структура и заетост. Таблицата поддържа сортиране по всяка колона, филтър по име на общината и страниране (по 30 общини на страница).</p>
 <p>Източник: <a href="https://census2021.bg/" rel="nofollow noopener">Преброяване на населението и жилищния фонд 2021 г. на НСИ</a>.</p>`.trim(),
     english: {
-      title:
-        "Bulgaria municipality demographics — Census 2021 | electionsbg.com",
+      title: "Bulgaria municipality demographics — Census 2021 | Naiasno",
       description:
         "Sortable table with Census 2021 demographics for Bulgaria's 265 municipalities — population, ethnicity, religion, education, age and employment, with a name filter.",
       breadcrumbName: "Municipality demographics",
@@ -4968,7 +4928,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "parliamentary/reports",
-    title: "Доклади за парламентарните избори — аномалии | electionsbg.com",
+    title: "Доклади за парламентарните избори — аномалии | Наясно",
     description:
       "Доклади за аномалии при парламентарните избори: скрининг на риска, проблемни секции, концентрация на вота, невалидни бюлетини, най-голям ръст и спад, повторно преброяване и флаш памет от машините (СУЕМГ).",
     breadcrumbName: "Доклади",
@@ -4995,7 +4955,7 @@ ${buildDataDirectory("en")}`.trim(),
 <li><a href="${SITE_URL}/reports/section/missing_flash_memory">Флаш памет (СУЕМГ)</a> — липсваща, добавена или разместена.</li>
 </ul>`.trim(),
     english: {
-      title: "Parliamentary election reports — anomalies | electionsbg.com",
+      title: "Parliamentary election reports — anomalies | Naiasno",
       description:
         "Parliamentary election anomaly reports: risk screening, problem sections, vote concentration, invalid ballots, biggest gainers and losers, recount differences and machine flash memory (СУЕМГ).",
       breadcrumbName: "Reports",
@@ -5025,7 +4985,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "parliamentary/analysis",
     title:
-      "Анализи на парламентарните избори — риск, Бенфорд, изгубени гласове | electionsbg.com",
+      "Анализи на парламентарните избори — риск, Бенфорд, изгубени гласове | Наясно",
     description:
       "Всички анализи на парламентарните избори на едно място: риск по секции, законът на Бенфорд, изгубени гласове, лоялност на гласоподавателите, сравнение на избори, симулатор на коалиции, точност на проучванията и финансиране на кампаниите.",
     breadcrumbName: "Анализи",
@@ -5049,7 +5009,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>`.trim(),
     english: {
       title:
-        "Parliamentary election analyses — risk, Benford, wasted votes | electionsbg.com",
+        "Parliamentary election analyses — risk, Benford, wasted votes | Naiasno",
       description:
         "Every parliamentary election analysis in one place: section-level risk, Benford's law, wasted votes, voter loyalty, election comparison, a coalition simulator, polling accuracy and campaign financing.",
       breadcrumbName: "Analyses",
@@ -5075,7 +5035,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "party-demographics",
     title:
-      "Демографски профил на партиите — етнос, религия, образование | electionsbg.com",
+      "Демографски профил на партиите — етнос, религия, образование | Наясно",
     description:
       "Как резултатът на всяка партия по общини се свързва с етническия, религиозния, образователния и възрастовия състав от Преброяване 2021 — корелация на Пирсън за всяка партия над 4%.",
     breadcrumbName: "Демографски профил",
@@ -5087,7 +5047,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Корелацията показва връзка, не причинно-следствена зависимост.</p>`.trim(),
     english: {
       title:
-        "Party demographic profile — ethnicity, religion, education | electionsbg.com",
+        "Party demographic profile — ethnicity, religion, education | Naiasno",
       description:
         "How each party's result by municipality correlates with the ethnic, religious, educational and age make-up from the 2021 Census — a Pearson correlation for every party above 4%.",
       breadcrumbName: "Demographic profile",
@@ -5100,7 +5060,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "risk-analysis",
-    title: "Анализ на изборния риск — обобщен скрининг | electionsbg.com",
+    title: "Анализ на изборния риск — обобщен скрининг | Наясно",
     description:
       "Композитен индекс на изборния риск плюс шест независими статистически сигнала: секционен скрининг, тест на Бенфорд, разлики с флаш паметта, концентрация на гласове, рискови махали и съответствие със социологията.",
     breadcrumbName: "Анализ на риска",
@@ -5119,8 +5079,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Това е инструмент за <strong>скрининг</strong>, не присъда. Всеки сигнал има невинни обяснения и трябва да се чете в контекст. Виж <a href="${SITE_URL}/risk-analysis/methodology">пълната методология</a> за детайли.</p>`.trim(),
     english: {
-      title:
-        "Election Risk Analysis — Consolidated Screening | electionsbg.com",
+      title: "Election Risk Analysis — Consolidated Screening | Naiasno",
       description:
         "Composite Election Risk Index plus six independent statistical signals: section-level risk score, Benford digit distributions, flash-memory drift, vote concentration, at-risk neighborhoods, and polling expectation gap.",
       breadcrumbName: "Risk analysis",
@@ -5141,7 +5100,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/methodology",
-    title: "Обществени поръчки — методология на сигналите | electionsbg.com",
+    title: "Обществени поръчки — методология на сигналите | Наясно",
     description:
       "Спецификацията зад всеки сигнал за риск при обществените поръчки: прагове, правно основание, кога проверката изобщо е приложима, и какво числото НЕ казва.",
     breadcrumbName: "Методология на сигналите",
@@ -5159,7 +5118,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p><strong>Сигналът не е присъда.</strong> Задействана проверка значи, че поведението заслужава втори поглед — може да е напълно законно, може да е законно но неизгодно, може и да е нарушение. Машинно четимият каталог е на <a href="https://github.com/atanasster/electionsbg/blob/main/public/risk-flags.json">risk-flags.json</a>; виж и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
     english: {
-      title: "Public procurement — red-flag methodology | electionsbg.com",
+      title: "Public procurement — red-flag methodology | Naiasno",
       description:
         "The specification behind every procurement risk flag: thresholds, legal basis, when each check is evaluable at all, and what the number does not say.",
       breadcrumbName: "Red-flag methodology",
@@ -5179,7 +5138,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "risk-analysis/methodology",
-    title: "Индекс на изборния риск — методология | electionsbg.com",
+    title: "Индекс на изборния риск — методология | Наясно",
     description:
       "Как се изчислява композитният индекс на изборния риск: тегла на шестте сигнала, скали, бенчмаркове и ограничения.",
     breadcrumbName: "Методология на анализа",
@@ -5196,7 +5155,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Виж самата страница <a href="${SITE_URL}/risk-analysis">Анализ на изборния риск</a> за приложение върху последните избори.</p>`.trim(),
     english: {
-      title: "Election Risk Index — Methodology | electionsbg.com",
+      title: "Election Risk Index — Methodology | Naiasno",
       description:
         "How the composite Election Risk Index is built: weights on six signals, normalization, benchmarks, and limitations.",
       breadcrumbName: "Risk analysis methodology",
@@ -5215,8 +5174,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "risk-score",
-    title:
-      "Скрининг на риска по секции — парламентарни избори | electionsbg.com",
+    title: "Скрининг на риска по секции — парламентарни избори | Наясно",
     description:
       "Композитна оценка 0–100 за всяка избирателна секция, която обединява шест независими сигнала: разлики при преброяване, разминаване с флаш паметта, дял невалидни бюлетини, допълнително вписани, концентрация и отклонение спрямо съседни секции.",
     breadcrumbName: "Скрининг на секциите",
@@ -5236,7 +5194,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Виж <a href="${SITE_URL}/risk-score/methodology">пълната методология</a> за прагове, формули и категории.</p>`.trim(),
     english: {
       title:
-        "Section-level Risk Screening — Bulgarian Parliamentary Elections | electionsbg.com",
+        "Section-level Risk Screening — Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Composite 0–100 score per polling section, combining six independent signals: recount delta, flash-memory mismatch, invalid-ballot share, additional voters, single-party concentration, and outlier vs. peer sections.",
       breadcrumbName: "Section risk screening",
@@ -5257,7 +5215,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "risk-score/methodology",
-    title: "Скрининг на секциите — методология | electionsbg.com",
+    title: "Скрининг на секциите — методология | Наясно",
     description:
       "Точните дефиниции, прагове и формули зад секционния скрининг — как всеки от шестте сигнала се изчислява и как се обединяват в обща оценка.",
     breadcrumbName: "Методология на скрининга",
@@ -5276,7 +5234,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>За резюме виж главната страница <a href="${SITE_URL}/risk-score">Скрининг на риска по секции</a>.</p>`.trim(),
     english: {
-      title: "Section Risk Screening — Methodology | electionsbg.com",
+      title: "Section Risk Screening — Methodology | Naiasno",
       description:
         "Exact definitions, thresholds, and formulas behind the section-level risk screening — how each of the six signals is computed and how they are combined into a single score.",
       breadcrumbName: "Risk screening methodology",
@@ -5297,8 +5255,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "benford",
-    title:
-      "Законът на Бенфорд по партии — парламентарни избори | electionsbg.com",
+    title: "Законът на Бенфорд по партии — парламентарни избори | Наясно",
     description:
       "Разпределение на първата и втората цифра в броя гласове по секции, по партии. Сравнява наблюдаваните дялове с очакваната крива на Бенфорд, с обяснение защо отклонението не е доказателство за фалшификация.",
     breadcrumbName: "Закон на Бенфорд",
@@ -5310,7 +5267,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p><strong>Това не е доказателство за фалшификация.</strong> Много чисти изборни данни не преминават теста за първа цифра. Виж <a href="${SITE_URL}/benford/methodology">пълната методология</a> за нюансите.</p>`.trim(),
     english: {
       title:
-        "Benford's Law by Party — Bulgarian Parliamentary Elections | electionsbg.com",
+        "Benford's Law by Party — Bulgarian Parliamentary Elections | Naiasno",
       description:
         "First- and second-digit distributions of per-section vote counts, by party. Compares observed shares against the Benford-expected curve, with the caveats explaining why deviation is not evidence of fraud.",
       breadcrumbName: "Benford's law",
@@ -5323,7 +5280,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "benford/methodology",
-    title: "Законът на Бенфорд — методология | electionsbg.com",
+    title: "Законът на Бенфорд — методология | Наясно",
     description:
       "Защо съществува тестът на Бенфорд, какво показват резултатите му, защо предпочитаме теста за втора цифра (2BL) и кога отклоненията не бива да ни подвеждат.",
     breadcrumbName: "Методология на Бенфорд",
@@ -5340,7 +5297,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>За приложението виж <a href="${SITE_URL}/benford">Закон на Бенфорд по партии</a>.</p>`.trim(),
     english: {
-      title: "Benford's Law — Methodology | electionsbg.com",
+      title: "Benford's Law — Methodology | Naiasno",
       description:
         "Why this test exists, what its results actually tell us, why we prefer the second-digit test (2BL), and when deviations should not mislead us.",
       breadcrumbName: "Benford methodology",
@@ -5359,8 +5316,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "persistence",
-    title:
-      "Лоялност на гласоподавателите — парламентарни избори | electionsbg.com",
+    title: "Лоялност на гласоподавателите — парламентарни избори | Наясно",
     description:
       "Дял на гласоподавателите за идентифицирани партии, които остават при същата партия между два последователни избора — измерено по секции с регресия Goodman и мащабиране RAS.",
     breadcrumbName: "Лоялност",
@@ -5377,8 +5333,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Лоялността е оценена от поток на гласовете по секции (NNLS Goodman регресия + RAS мащабиране). Сигналът е устойчив на регионално ниво, но е <strong>агрегирана оценка</strong>, не индивидуално измерване.</p>`.trim(),
     english: {
-      title:
-        "Voter Persistence — Bulgarian Parliamentary Elections | electionsbg.com",
+      title: "Voter Persistence — Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Share of named-party voters who stayed with the same party across two consecutive elections — estimated from per-section vote flow with NNLS Goodman regression and RAS scaling.",
       breadcrumbName: "Voter persistence",
@@ -5397,8 +5352,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "wasted-vote",
-    title:
-      "Изгубени гласове за партии под 4% — парламентарни избори | electionsbg.com",
+    title: "Изгубени гласове за партии под 4% — парламентарни избори | Наясно",
     description:
       "Дял на действителните гласове, подадени за партии под прага от 4% — гласове, които не са избрали никого. Разбивка национално и по МИР.",
     breadcrumbName: "Изгубени гласове",
@@ -5416,7 +5370,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Изчисление: сума на гласовете за партии под 4% национален праг, разделена на общия брой действителни гласове.</p>`.trim(),
     english: {
       title:
-        "Wasted Votes — Sub-4% Parties in Bulgarian Parliamentary Elections | electionsbg.com",
+        "Wasted Votes — Sub-4% Parties in Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Share of valid votes cast for parties below the 4% national threshold — votes that elected nobody. National and per-region breakdown.",
       breadcrumbName: "Wasted votes",
@@ -5435,8 +5389,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "wasted-vote/regions",
-    title:
-      "Изгубени гласове по области — парламентарни избори | electionsbg.com",
+    title: "Изгубени гласове по области — парламентарни избори | Наясно",
     description:
       "Сортируема таблица с дела на изгубените гласове за всеки от 28-те многомандатни района — гласове за партии под 4% национален праг.",
     breadcrumbName: "Изгубени гласове по МИР",
@@ -5447,7 +5400,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Виж и <a href="${SITE_URL}/wasted-vote">обобщеното представяне</a> на национално ниво с карта и топ партии под прага.</p>`.trim(),
     english: {
       title:
-        "Wasted Votes by Region — Bulgarian Parliamentary Elections | electionsbg.com",
+        "Wasted Votes by Region — Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Sortable table of wasted-vote share across all 28 Bulgarian multi-mandate districts (MIR) — votes cast for parties below the 4% national threshold.",
       breadcrumbName: "Wasted votes by region",
@@ -5459,7 +5412,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "where-did-votes-go/methodology",
-    title: "Къде отидоха гласовете — методология | electionsbg.com",
+    title: "Къде отидоха гласовете — методология | Наясно",
     description:
       "Методология на анализа на потока на гласовете между две парламентарни сесии — NNLS Goodman регресия по секции, RAS мащабиране и ограниченията на агрегираната оценка.",
     breadcrumbName: "Методология на потока на гласовете",
@@ -5476,7 +5429,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Виж също <a href="${SITE_URL}/persistence">Лоялност на гласоподавателите</a>, която използва същия метод за измерване на партийната устойчивост.</p>`.trim(),
     english: {
-      title: "Where Did Votes Go — Methodology | electionsbg.com",
+      title: "Where Did Votes Go — Methodology | Naiasno",
       description:
         "Methodology behind the vote-flow analysis between two parliamentary cycles — per-section NNLS Goodman regression, RAS scaling, and the limits of an aggregate estimate.",
       breadcrumbName: "Vote-flow methodology",
@@ -5495,7 +5448,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "connections",
-    title: "Бизнес-връзки между народните представители | electionsbg.com",
+    title: "Бизнес-връзки между народните представители | Наясно",
     description:
       "Графика на бизнес-връзките между действащите народни представители — общи фирми, имуществени декларации и пътища между депутати от различни партии.",
     breadcrumbName: "Бизнес-връзки",
@@ -5515,7 +5468,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата) и <a href="https://www.registryagency.bg" rel="nofollow noopener">Търговски регистър</a>.</p>`.trim(),
     english: {
-      title: "MP Business Connections — Bulgarian Parliament | electionsbg.com",
+      title: "MP Business Connections — Bulgarian Parliament | Naiasno",
       description:
         "Network graph of business connections among sitting Bulgarian MPs — shared companies, asset declarations, and paths between MPs from different parties.",
       breadcrumbName: "MP business connections",
@@ -5537,7 +5490,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "companies",
-    title: "Търсене на фирми — Търговски регистър | electionsbg.com",
+    title: "Търсене на фирми — Търговски регистър | Наясно",
     description:
       "Търсене на всяка фирма или организация в Търговския регистър по име или ЕИК — над милион вписвания, с публични средства, връзки с лица в публичния живот и данни за обществени поръчки където има такива.",
     breadcrumbName: "Фирми",
@@ -5549,7 +5502,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Филтърът „свързана с публично лице" показва организациите, в които лице в публичния живот — кандидат на избори, общински съветник, кмет, министър, народен представител, магистрат или член на регулаторен орган — фигурира като собственик или в управлението според Търговския регистър, или е декларирало дял пред Сметната палата. Изброяването следва големината на групите: най-многобройни са кандидатите и общинските съветници, а депутатите са малка част от набора. Свързването е по идентичност, а не по съвпадение на име: име, което Търговският регистър приписва на повече от един човек, се отхвърля. Където всички вписвания на лицето при дадена организация са заличени, ролята е отбелязана като бивша.</p>
 <p>За мрежовия изглед виж <a href="${SITE_URL}/connections">Бизнес-връзки между депутатите</a>.</p>`.trim(),
     english: {
-      title: "Company Search — Bulgarian Commerce Registry | electionsbg.com",
+      title: "Company Search — Bulgarian Commerce Registry | Naiasno",
       description:
         "Search every company or organisation in the Bulgarian Commerce Registry by name or EIK — over a million entries, with public money, links to people in public life, and procurement data where it exists.",
       breadcrumbName: "Companies",
@@ -5563,7 +5516,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "mp-assets",
-    title: "Народни представители по декларирани активи | electionsbg.com",
+    title: "Народни представители по декларирани активи | Наясно",
     description:
       "Класиране на действащите народни представители по декларирано имущество — недвижими имоти, превозни средства, парични средства, инвестиции и дялове във фирми (всички титуляри в декларацията).",
     breadcrumbName: "Активи на депутати",
@@ -5573,7 +5526,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Класиране на действащите народни представители по нетното имущество, декларирано в последната подадена декларация пред Сметната палата. Нетното имущество се изчислява като сума на декларираните недвижими имоти, превозни средства, парични средства и банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (всички титуляри в декларацията), намалена с декларираните задължения.</p>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
-      title: "MPs by Declared Assets — Bulgarian Parliament | electionsbg.com",
+      title: "MPs by Declared Assets — Bulgarian Parliament | Naiasno",
       description:
         "Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit (all holders named in the declaration, minus declared debts).",
       breadcrumbName: "MPs by assets",
@@ -5585,7 +5538,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "officials/assets",
-    title: "Длъжностни лица по декларирано имущество | electionsbg.com",
+    title: "Длъжностни лица по декларирано имущество | Наясно",
     description:
       "Министри, ръководители на държавни агенции и областни управители, подредени по нетен имот според най-новата декларация пред Сметната палата.",
     breadcrumbName: "Активи на длъжностните лица",
@@ -5596,7 +5549,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Кметове и магистрати са в отделни регистри и не са включени тук.</p>
 <p>Виж и <a href="${SITE_URL}/mp-assets">депутатите по декларирано имущество</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
-      title: "Officials by Declared Assets — Bulgaria | electionsbg.com",
+      title: "Officials by Declared Assets — Bulgaria | Naiasno",
       description:
         "Bulgarian cabinet members, state-agency heads, and regional governors ranked by net worth from their most recent property/interest declaration with the Court of Audit.",
       breadcrumbName: "Officials by assets",
@@ -5609,7 +5562,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "mp-cars",
-    title: "Коли, декларирани от народните представители | electionsbg.com",
+    title: "Коли, декларирани от народните представители | Наясно",
     description:
       "Всеки лек автомобил или джип, деклариран от действащ депутат (или от друг титуляр в неговата декларация), от последната подадена декларация — подреден по декларирана стойност.",
     breadcrumbName: "Коли на депутати",
@@ -5619,7 +5572,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Всеки лек автомобил или джип, деклариран от действащ народен представител — или от друг титуляр, посочен в неговата декларация — в последната подадена пред Сметната палата декларация, подреден по декларирана стойност. Декларацията посочва титуляря, но не и роднинската връзка.</p>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
-      title: "Cars Declared by MPs — Bulgarian Parliament | electionsbg.com",
+      title: "Cars Declared by MPs — Bulgarian Parliament | Naiasno",
       description:
         "Every passenger car or jeep declared by a sitting Bulgarian MP (or by another holder named in their declaration), sorted by declared value.",
       breadcrumbName: "MP cars",
@@ -5631,7 +5584,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "declarations/crypto",
-    title: "Декларирани криптоактиви — кой какво притежава | electionsbg.com",
+    title: "Декларирани криптоактиви — кой какво притежава | Наясно",
     description:
       "Всеки криптоактив, деклариран пред Сметната палата — от депутати, министри, кметове и ръководители на агенции. Монета, количество и декларирана стойност.",
     breadcrumbName: "Криптоактиви",
@@ -5644,7 +5597,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Стойността е тази, посочена от декларатора към момента на подаване, а не текуща пазарна цена. Един и същ актив се вписва наново във всяка декларация, която го покрива — затова изгледът по подразбиране показва по една година на човек, а „всички години“ дава цялата история.</p>
 <p>Виж и <a href="${SITE_URL}/mp-assets">депутатите по декларирано имущество</a>, <a href="${SITE_URL}/officials/assets">класацията на длъжностните лица</a> и <a href="${SITE_URL}/persons">указателя на публичните лица</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
-      title: "Declared Crypto Assets — Bulgarian Officials | electionsbg.com",
+      title: "Declared Crypto Assets — Bulgarian Officials | Naiasno",
       description:
         "Every crypto asset declared to the Bulgarian Court of Audit — by MPs, ministers, mayors and agency heads. Coin, quantity and declared value.",
       breadcrumbName: "Crypto assets",
@@ -5657,7 +5610,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "declarations/abroad",
-    title: "Пари в чужбина — декларирани от властта | electionsbg.com",
+    title: "Пари в чужбина — декларирани от властта | Наясно",
     description:
       "Колко от парите, които българската власт декларира по банкови сметки и инвестиции, стоят извън страната — и в кои държави, когато декларацията ги посочва.",
     breadcrumbName: "Пари в чужбина",
@@ -5672,7 +5625,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Държава е посочена само при малка част от записите — регистърът често приема отметка „в чужбина“ без име на държава — затова разбивката по държави описва по-малко пари, отколкото общата сума.</p>
 <p>Виж и <a href="${SITE_URL}/declarations/crypto">декларираните криптоактиви</a>, <a href="${SITE_URL}/officials/assets">класацията на длъжностните лица</a> и <a href="${SITE_URL}/persons">указателя на публичните лица</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
-      title: "Money Held Abroad — Bulgarian Officials | electionsbg.com",
+      title: "Money Held Abroad — Bulgarian Officials | Naiasno",
       description:
         "How much of the money Bulgarian officials declare in bank accounts and investments is held outside the country — and where, when the filing names a country.",
       breadcrumbName: "Money held abroad",
@@ -5686,8 +5639,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement",
-    title:
-      "Обществени поръчки — договори и народни представители | electionsbg.com",
+    title: "Обществени поръчки — договори и народни представители | Наясно",
     description:
       "Агрегирани данни за обществените поръчки от data.egov.bg — топ изпълнители, възложители и народни представители с бизнес-интереси в спечелили фирми.",
     breadcrumbName: "Обществени поръчки",
@@ -5709,7 +5661,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Източник: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, двуседмични пакети).</p>`.trim(),
     english: {
-      title: "Public Procurement — Contracts and MPs | electionsbg.com",
+      title: "Public Procurement — Contracts and MPs | Naiasno",
       description:
         "Aggregated public-procurement data from data.egov.bg — top contractors, awarders, and MPs whose connected companies won contracts.",
       breadcrumbName: "Public procurement",
@@ -5736,8 +5688,7 @@ ${buildDataDirectory("en")}`.trim(),
   // Firebase rewrite, and this is one static shell, not a per-person page.
   staticPage({
     path: "persons",
-    title:
-      "Хора във властта — търсене по роля, партия и област | electionsbg.com",
+    title: "Хора във властта — търсене по роля, партия и област | Наясно",
     description:
       "Търсете всеки, когото сайтът разпознава — народни представители, кметове, общински съветници, магистрати, държавна администрация и управители на фирми. По име, институция, роля, партия, област или съд.",
     breadcrumbName: "Хора",
@@ -5752,7 +5703,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Виж и <a href="${SITE_URL}/officials/assets">класацията по декларирано имущество</a>, <a href="${SITE_URL}/connections">свързаните лица</a> и <a href="${SITE_URL}/governance/declarations">декларациите</a>.</p>`.trim(),
     english: {
       title:
-        "People in Public Life — search by role, party and province | electionsbg.com",
+        "People in Public Life — search by role, party and province | Naiasno",
       description:
         "Search everyone the site can identify — MPs, mayors, councillors, magistrates, state administration and company officers. By name, institution, role, party, province or court.",
       breadcrumbName: "People",
@@ -5768,7 +5719,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/contracts",
-    title: "Договори за обществени поръчки — търсене | electionsbg.com",
+    title: "Договори за обществени поръчки — търсене | Наясно",
     description:
       "Пълна сортируема и филтрируема таблица на договорите за обществени поръчки — възложител, изпълнител, сума, дата и сигнали за риск, с връзка към всеки отделен договор.",
     breadcrumbName: "Договори",
@@ -5779,7 +5730,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Маркирани са договорите със сигнали за риск (концентрация върху един изпълнител, единствен участник, фирма в черен списък). Може да филтрирате само маркираните.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/sectors">секторите (CPV)</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
     english: {
-      title: "Public Procurement Contracts — Search | electionsbg.com",
+      title: "Public Procurement Contracts — Search | Naiasno",
       description:
         "Full sortable, filterable table of public-procurement contracts — awarder, contractor, amount, date and risk flags, with a link to every individual contract.",
       breadcrumbName: "Contracts",
@@ -5793,7 +5744,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "procurement/ngos",
     title:
-      "Организации с нестопанска цел — сдружения, фондации, читалища | electionsbg.com",
+      "Организации с нестопанска цел — сдружения, фондации, читалища | Наясно",
     description:
       "Търсене в регистъра на юридическите лица с нестопанска цел (ЮЛНЦ) — сдружения, фондации и читалища, техните управителни органи, публично и външно финансиране и сигнали за конфликт на интереси.",
     breadcrumbName: "НПО",
@@ -5804,8 +5755,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>За всяка организация се показват управителните органи (управителен съвет, представляващи, настоятелства), целите и статутът за обществена полза, полученото публично и външно финансиране (държавни субсидии, пряко управлявани средства от ЕС), както и сигнали за конфликт на интереси, когато член на властта е в управата на НПО, спечелило обществени поръчки или субсидии.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a> и <a href="${SITE_URL}/procurement/mps">депутатите и длъжностните лица с връзки</a>.</p>`.trim(),
     english: {
-      title:
-        "Non-profit organisations — associations, foundations | electionsbg.com",
+      title: "Non-profit organisations — associations, foundations | Naiasno",
       description:
         "Search the register of non-profit legal entities (NPOs) — associations, foundations and community centres, their governing bodies, public and external funding, and conflict-of-interest flags.",
       breadcrumbName: "NPOs",
@@ -5818,7 +5768,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/sectors",
-    title: "Какво купува държавата — сектори (CPV) | electionsbg.com",
+    title: "Какво купува държавата — сектори (CPV) | Наясно",
     description:
       "Пълна класация на CPV секторите по обща стойност на обществените поръчки — брой договори и дял от общия разход, с връзка към договорите във всеки сектор.",
     breadcrumbName: "Какво купува държавата",
@@ -5828,7 +5778,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Пълна класация на секторите на обществените поръчки по CPV (Common Procurement Vocabulary) код, подредени по обща стойност в избрания период. Всеки сектор показва дял от общия разход и брой договори, с връзка към филтрираните договори в сектора.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a> и <a href="${SITE_URL}/procurement/contracts">пълната таблица с договори</a>.</p>`.trim(),
     english: {
-      title: "What Does the State Buy — CPV Sectors | electionsbg.com",
+      title: "What Does the State Buy — CPV Sectors | Naiasno",
       description:
         "Full ranking of CPV procurement sectors by total value — contract count and share of total spend, with a link to the contracts in every sector.",
       breadcrumbName: "What does the state buy",
@@ -5840,7 +5790,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/flags",
-    title: "Сигнали за риск в обществените поръчки | electionsbg.com",
+    title: "Сигнали за риск в обществените поръчки | Наясно",
     description:
       "Концентрация на разход върху един изпълнител, фирми в черен списък и изпълнители, свързани с депутати — сигнали за риск от данните на АОП.",
     breadcrumbName: "Сигнали за риск",
@@ -5850,7 +5800,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Сигнали, които заслужават повторен поглед: възложители, чийто разход е концентриран върху един изпълнител, фирми в черния списък на АОП и най-големите изпълнители, свързани с народни представители. Всеки е факт от публичен регистър, а не обвинение.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед</a>.</p>`.trim(),
     english: {
-      title: "Public-Procurement Red Flags | electionsbg.com",
+      title: "Public-Procurement Red Flags | Naiasno",
       description:
         "Single-supplier spend concentration, debarred suppliers, and MP-tied contractors — procurement red flags from AOP data.",
       breadcrumbName: "Red flags",
@@ -5862,7 +5812,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/overview",
-    title: "Обществени поръчки — обзор | electionsbg.com",
+    title: "Обществени поръчки — обзор | Наясно",
     description:
       "Обзор на обществените поръчки за избрания парламент — брой договори, общо възложена сума, изпълнители и възложители, и парите, стигнали до фирми, свързани с публични лица.",
     breadcrumbName: "Обзор",
@@ -5879,7 +5829,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Отделен ред следи парите, стигнали до фирми, свързани с народни представители и длъжностни лица. Връзката е роля в Търговския регистър, а не твърдение за нарушение.</p>
 <p>Виж и <a href="${SITE_URL}/procurement/contracts">договорите</a>, <a href="${SITE_URL}/procurement/tenders">обявените процедури</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
     english: {
-      title: "Public Procurement — Overview | electionsbg.com",
+      title: "Public Procurement — Overview | Naiasno",
       description:
         "An overview of public procurement for the selected parliament — contract count, total awarded, contractors and buyers, and the money reaching companies linked to people in public life.",
       breadcrumbName: "Overview",
@@ -5893,7 +5843,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/tenders",
-    title: "Обявени обществени поръчки (процедури) | electionsbg.com",
+    title: "Обявени обществени поръчки (процедури) | Наясно",
     description:
       "Обявените процедури по обществени поръчки от ЦАИС ЕОП — възложител, предмет, вид процедура, прогнозна стойност и обособени позиции. Прогнозна, а не разходвана стойност.",
     breadcrumbName: "Поръчки (процедури)",
@@ -5904,7 +5854,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p><strong>Прогнозна, а не разходвана стойност.</strong> Тук е това, което възложителят е обявил, че възнамерява да похарчи. Какво е договорено в крайна сметка — стойността при сключване и текущата след анексите — се вижда при <a href="${SITE_URL}/procurement/contracts">договорите</a>, които се свързват с процедурата по уникалния номер (УНП).</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/appeals">жалбите пред КЗК</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
     english: {
-      title: "Announced Public-Procurement Procedures | electionsbg.com",
+      title: "Announced Public-Procurement Procedures | Naiasno",
       description:
         "Announced public-procurement procedures from the ЦАИС ЕОП register — buyer, subject, procedure type, estimated value and lots. Estimated value, not money spent.",
       breadcrumbName: "Tenders (procedures)",
@@ -5917,7 +5867,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/appeals",
-    title: "Жалби по обществени поръчки (КЗК) | electionsbg.com",
+    title: "Жалби по обществени поръчки (КЗК) | Наясно",
     description:
       "Жалби пред Комисията за защита на конкуренцията (КЗК) срещу обществени поръчки — възложител, жалбоподател, предмет и изход, свързани с процедурата по УНП. Преглед, не доказателство за нарушение.",
     breadcrumbName: "Жалби (КЗК)",
@@ -5928,7 +5878,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Жалбата е преглед на процедурата от независим орган, а не доказателство за нарушение. Данните са от публичния регистър на КЗК и се обновяват периодично.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/tenders">обявените процедури</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
     english: {
-      title: "Public-Procurement Appeals (КЗК) | electionsbg.com",
+      title: "Public-Procurement Appeals (КЗК) | Наясно",
       description:
         "Appeals to the Commission for Protection of Competition (КЗК) against public-procurement procedures — buyer, complainant, subject and outcome, joined to the procedure by its UNP. A review, not proof of wrongdoing.",
       breadcrumbName: "Appeals (КЗК)",
@@ -5941,7 +5891,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/contractors",
-    title: "Топ изпълнители на обществени поръчки | electionsbg.com",
+    title: "Топ изпълнители на обществени поръчки | Наясно",
     description:
       "Пълна сортируема таблица на фирмите, спечелили най-много обществени поръчки — обща сума, брой договори и дали фирмата е свързана с народен представител.",
     breadcrumbName: "Топ изпълнители",
@@ -5951,7 +5901,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Пълна сортируема таблица на фирмите, спечелили най-много обществени поръчки от публичния регистър на АОП. Изпълнителите, свързани с народен представител, са маркирани.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a> и <a href="${SITE_URL}/procurement/mps">депутатите с бизнес-интереси</a>.</p>`.trim(),
     english: {
-      title: "Top Public Procurement Contractors | electionsbg.com",
+      title: "Top Public Procurement Contractors | Naiasno",
       description:
         "Full sortable table of companies that won the most public-procurement contracts — total value, contract count, and whether the company is MP-connected.",
       breadcrumbName: "Top contractors",
@@ -5963,7 +5913,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/awarders",
-    title: "Топ възложители на обществени поръчки | electionsbg.com",
+    title: "Топ възложители на обществени поръчки | Наясно",
     description:
       "Държавни органи с най-голям обем възложени обществени поръчки — обща сума в евро, брой договори и период на активност.",
     breadcrumbName: "Топ възложители",
@@ -5973,7 +5923,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Държавни органи и общини, наредили най-много обществени поръчки в рамките на мандата на избраното Народно събрание — подредени по обща стойност на договорите в евро.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед</a> и <a href="${SITE_URL}/procurement/contractors">топ изпълнителите</a>.</p>`.trim(),
     english: {
-      title: "Top Public Procurement Awarders | electionsbg.com",
+      title: "Top Public Procurement Awarders | Naiasno",
       description:
         "State bodies with the highest total awarded in public procurement — total EUR value, contract count, and the period covered.",
       breadcrumbName: "Top awarders",
@@ -5985,7 +5935,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "procurement/by-settlement",
-    title: "Обществени поръчки по населено място | electionsbg.com",
+    title: "Обществени поръчки по населено място | Наясно",
     description:
       "Сумите от обществените поръчки, разпределени по населено място според адреса на седалището на възложителя — общини, училища, болници, университети, регионални администрации. Министерствата и националните държавни компании са обобщени отделно.",
     breadcrumbName: "Поръчки по населено място",
@@ -5996,7 +5946,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Покрита е сума от ~€36 млрд. в местни договори (~388 населени места) плюс ~€34,7 млрд. в национални поръчки. <a href="${SITE_URL}/about">Прочети методологията</a>.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/contractors">топ изпълнителите</a> и <a href="${SITE_URL}/procurement/awarders">топ възложителите</a>.</p>`.trim(),
     english: {
-      title: "Public Procurement by Settlement | electionsbg.com",
+      title: "Public Procurement by Settlement | Naiasno",
       description:
         "Public-procurement totals broken down by settlement based on the buyer's HQ address — municipalities, schools, hospitals, universities and regional offices. Central ministries and national state companies are aggregated separately.",
       breadcrumbName: "Procurement by settlement",
@@ -6010,7 +5960,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "procurement/mps",
     title:
-      "Депутати и длъжностни лица с обществени поръчки на свързани фирми | electionsbg.com",
+      "Депутати и длъжностни лица с обществени поръчки на свързани фирми | Наясно",
     description:
       "Народни представители и държавни/местни служители, чиито декларирани бизнес-интереси съвпадат с фирми, спечелили обществени поръчки — обща сума, брой фирми и договори.",
     breadcrumbName: "Свързани депутати и длъжностни лица",
@@ -6021,8 +5971,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Данните за поръчките са от АОП (data.egov.bg); бизнес-интересите — от имуществените декларации (register.cacbg.bg) и Търговския регистър.</p>
 <p>Виж и <a href="${SITE_URL}/procurement">общия преглед</a> и <a href="${SITE_URL}/connections">бизнес-връзките между депутатите</a>.</p>`.trim(),
     english: {
-      title:
-        "MPs & Officials with Connected-Company Procurement | electionsbg.com",
+      title: "MPs & Officials with Connected-Company Procurement | Naiasno",
       description:
         "Bulgarian MPs and public officials whose declared business interests overlap with companies that won public-procurement contracts — total value, company count, and contract count.",
       breadcrumbName: "Connected MPs and officials",
@@ -6036,8 +5985,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "preferences",
     ogImage: "/og/preferences.png",
-    title:
-      "Преференциален вот по партии — парламентарни избори | electionsbg.com",
+    title: "Преференциален вот по партии — парламентарни избори | Наясно",
     description:
       "Топ кандидати с преференциален вот в българските парламентарни избори — преподредени листи и разлика спрямо подреждането на партията.",
     breadcrumbName: "Преференции",
@@ -6049,7 +5997,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "flash-memory",
     ogImage: "/og/flash-memory.png",
-    title: "Машинно гласуване — обхват и отклонения | electionsbg.com",
+    title: "Машинно гласуване — обхват и отклонения | Наясно",
     description:
       "Доклад за машинното гласуване в България — секции с/без флашка, добавени и липсващи СУЕМГ устройства, хартиен заместител.",
     breadcrumbName: "Машинно гласуване",
@@ -6061,7 +6009,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "recount",
     ogImage: "/og/recount.png",
-    title: "Повторно преброяване — отклонения по партии | electionsbg.com",
+    title: "Повторно преброяване — отклонения по партии | Наясно",
     description:
       "Доклад за повторното преброяване на бюлетините в българските парламентарни избори — секции с разлика между първо и второ броене.",
     breadcrumbName: "Повторно преброяване",
@@ -6080,7 +6028,7 @@ ${buildDataDirectory("en")}`.trim(),
     // tiles are still that corpus. So the head names the specific thing first and the wider
     // scope second, while the page's own chrome says „Субсидии".
     title:
-      "Субсидии в България — земеделски, общински, транспортни и филмови | electionsbg.com",
+      "Субсидии в България — земеделски, общински, транспортни и филмови | Наясно",
     description: `Кой получава публичните субсидии в България. Земеделските на ДФ „Земеделие" — по схема, област, година и получател, за финансови години ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR} — плюс трансферите към общините, субсидията за железниците, филмовите на НФЦ и партийните по ЗПП.`,
     breadcrumbName: "Субсидии",
     ogImage: "/og/subsidies.png",
@@ -6109,8 +6057,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Собствените обществени поръчки на фонда са на <a href="${SITE_URL}/awarder/121100421">страницата на ДФ „Земеделие"</a>. Виж и <a href="${SITE_URL}/funds">европейските средства</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>
 <p>Източници: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (ДФ „Земеделие" — отворени данни за плащанията) и публичният регистър на <a href="https://seu.dfz.bg/" rel="nofollow noopener">Системата за електронни услуги на ДФЗ</a> за текущите години.</p>`.trim(),
     english: {
-      title:
-        "Subsidies in Bulgaria — Farm, Municipal, Rail, Film | electionsbg.com",
+      title: "Subsidies in Bulgaria — Farm, Municipal, Rail, Film | Naiasno",
       description: `Who receives Bulgaria's public subsidies. The farm ones from the State Fund Agriculture — by scheme, province, year and recipient, for financial years ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR} — plus transfers to municipalities, the railway subsidy, НФЦ film money and the party envelope under the ЗПП.`,
       breadcrumbName: "Subsidies",
       bodyHtml: `
@@ -6142,7 +6089,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds",
     title:
-      "Европейски средства за България — бенефициенти, договори, политически връзки | electionsbg.com",
+      "Европейски средства за България — бенефициенти, договори, политически връзки | Наясно",
     description:
       "Над 80 000 договора за €43 млрд. европейско финансиране от ИСУН 2020 — карта по общини, топ бенефициенти, програми и възложители, потоци пари към свързани с депутати фирми и редфлагове за почтеност.",
     breadcrumbName: "Европейски средства",
@@ -6164,7 +6111,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Източник: <a href="https://2020.eufunds.bg/bg/0/0/Beneficiary" rel="nofollow noopener">ИСУН 2020 — публичен модул, Бенефициенти</a>. Свързаните политически фигури идват от <a href="${SITE_URL}/connections">граф на бизнес-връзките на депутатите</a> (декларации в Сметна палата + Търговския регистър).</p>`.trim(),
     english: {
       title:
-        "EU Funds for Bulgaria — Beneficiaries, Contracts, Political Links | electionsbg.com",
+        "EU Funds for Bulgaria — Beneficiaries, Contracts, Political Links | Naiasno",
       description:
         "Over 80,000 contracts for €43B of EU funding from ИСУН 2020 — choropleth by municipality, top beneficiaries, programmes and awarders, money flows to MP-connected companies, and integrity red flags.",
       breadcrumbName: "EU funds",
@@ -6188,7 +6135,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/focus",
     ogImage: "/og/funds-focus-index.png",
-    title: "Тематични досиета по европейските средства | electionsbg.com",
+    title: "Тематични досиета по европейските средства | Наясно",
     description:
       "Досиета по теми — къщи за гости, пътища, земеделие, училища, общинска инфраструктура: какво показват договорите по всяка.",
     breadcrumbName: "Фокус",
@@ -6197,7 +6144,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Всяко досие събира договорите по една тема и показва какво се вижда в тях.</p>
 <p>Темите са <strong>подбрани, не изчерпателни</strong>. Досието е начало на проверка, не заключение: то показва кой е получил колко по дадена тема, а не дали нещо е нередно.</p>`.trim(),
     english: {
-      title: "Thematic EU-funds dossiers | electionsbg.com",
+      title: "Thematic EU-funds dossiers | Naiasno",
       description:
         "Dossiers by theme — guest houses, roads, agriculture, schools, municipal infrastructure: what the contracts show under each.",
       breadcrumbName: "Focus",
@@ -6210,8 +6157,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/interreg",
     ogImage: "/og/funds-interreg.png",
-    title:
-      "Interreg — трансграничните проекти, които ИСУН не съдържа | electionsbg.com",
+    title: "Interreg — трансграничните проекти, които ИСУН не съдържа | Наясно",
     description:
       "Трансграничните проекти по Interreg: колко са, кои български организации участват и защо тези пари падат основно по границите.",
     breadcrumbName: "Interreg",
@@ -6224,8 +6170,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>По ИСУН показваме <strong>договорена стойност</strong>; тук — <strong>публикувания бюджет на българския партньор</strong>. Различни величини, затова никъде няма общ сбор.</p>
 <p>Понеже Interreg е трансграничен по определение, парите му падат почти изцяло върху <strong>граничните общини</strong> — същите, които класация само по ИСУН подценява.</p>`.trim(),
     english: {
-      title:
-        "Interreg — the cross-border projects ИСУН does not hold | electionsbg.com",
+      title: "Interreg — the cross-border projects ИСУН does not hold | Наясно",
       description:
         "Interreg cross-border projects: how many, which Bulgarian organisations take part, and why this money lands on the borders.",
       breadcrumbName: "Interreg",
@@ -6242,7 +6187,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/dual-corpus",
     ogImage: "/og/funds-dual-corpus.png",
-    title: "Фирми с обществени поръчки и европейски грантове | electionsbg.com",
+    title: "Фирми с обществени поръчки и европейски грантове | Наясно",
     description:
       "Кои фирми печелят и обществени поръчки, и европейски средства — подредени по сбора на двете, със сигнала за връзка с депутат.",
     breadcrumbName: "Договори и грантове",
@@ -6253,7 +6198,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Съвпадението е точно по ЕИК, а не по име. Организациите без вписан ЕИК не могат да бъдат сверени и затова изобщо не участват в тази класация — присъствието в нея е факт за фирмата, отсъствието не е.</p>
 <p>Етикетът „свързан с депутат“ е <strong>сигнал за проверка, не заключение</strong>.</p>`.trim(),
     english: {
-      title: "Firms with both public contracts and EU grants | electionsbg.com",
+      title: "Firms with both public contracts and EU grants | Naiasno",
       description:
         "Which firms win both public procurement and EU funds — ranked by the sum of the two, with the MP-link signal.",
       breadcrumbName: "Contracts and grants",
@@ -6268,8 +6213,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/places",
     ogImage: "/og/funds-places.png",
-    title:
-      "Европейските средства по места — общини и области | electionsbg.com",
+    title: "Европейските средства по места — общини и области | Наясно",
     description:
       "Къде са стигнали договорите по ИСУН 2020 — карта по общини, разпределение по области, и защо картата покрива около половината от парите.",
     breadcrumbName: "По място",
@@ -6281,7 +6225,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Затова сборът на картата е по-малък от общия за корпуса, и затова покритието е изписано в пари, а не в брой договори — „4,6% липсващи договори“ е вярно и подвеждащо едновременно.</p>
 <p>Столична община се брои като едно място. ИСУН я разделя на четири районни кода; тук те са сгънати, за да не изглежда столицата като четири различни области.</p>`.trim(),
     english: {
-      title: "EU funds by place — municipalities and oblasti | electionsbg.com",
+      title: "EU funds by place — municipalities and oblasti | Naiasno",
       description:
         "Where ИСУН 2020 contracts landed — a municipal choropleth, the oblast split, and why the map covers about half the money.",
       breadcrumbName: "By place",
@@ -6297,8 +6241,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/absorption",
     ogImage: "/og/funds-absorption.png",
-    title:
-      "Усвояване на европейските средства — колко е изплатено | electionsbg.com",
+    title: "Усвояване на европейските средства — колко е изплатено | Наясно",
     description:
       "Каква част от договорената безвъзмездна помощ е реално изплатена, по програмни периоди, и по какъв път парите стигат до получателя.",
     breadcrumbName: "Усвояване",
@@ -6310,8 +6253,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>И двете са верни изречения за един и същ корпус. В българския публичен дебат „усвояване“ означава първото, затова то е водещото тук; второто стои до него, а не се оставя на читателя да го извади сам и да реши, че страницата греши.</p>
 <p>Планът за възстановяване е най-новият инструмент, затова усвояването по него е под средното за корпуса — това е възраст, а не изпълнение.</p>`.trim(),
     english: {
-      title:
-        "EU-funds absorption — how much has actually been paid | electionsbg.com",
+      title: "EU-funds absorption — how much has actually been paid | Naiasno",
       description:
         "What share of the contracted grant has actually been disbursed, by programming period, and by what route the money reaches the recipient.",
       breadcrumbName: "Absorption",
@@ -6327,8 +6269,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/beneficiaries",
     ogImage: "/og/funds-beneficiaries.png",
-    title:
-      "Бенефициенти по европейските програми (ИСУН 2020) | electionsbg.com",
+    title: "Бенефициенти по европейските програми (ИСУН 2020) | Наясно",
     description:
       "Кои организации имат договори по ИСУН 2020 — най-големите получатели по договорена стойност, колко от тях са с ЕИК и колко са свързани с политици.",
     breadcrumbName: "Бенефициенти",
@@ -6340,7 +6281,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Част от бенефициентите са вписани само по име, без ЕИК. За тях няма фирмена страница, към която да препратим, и не могат да бъдат сверени с търговския регистър.</p>
 <p>Етикетът „свързан с депутат“ е <strong>сигнал за проверка, не заключение</strong>: означава съвпадение по ЕИК с деклариран интерес, а не че договорът е нередовен.</p>`.trim(),
     english: {
-      title: "EU-funds beneficiaries (ИСУН 2020) | electionsbg.com",
+      title: "EU-funds beneficiaries (ИСУН 2020) | Наясно",
       description:
         "Which organisations hold ИСУН 2020 contracts — the largest recipients by contracted value, how many carry an EIK, and how many are linked to politicians.",
       breadcrumbName: "Beneficiaries",
@@ -6356,8 +6297,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/programmes",
     ogImage: "/og/funds-programmes.png",
-    title:
-      "Оперативни програми в ИСУН 2020 — договорено и усвоено | electionsbg.com",
+    title: "Оперативни програми в ИСУН 2020 — договорено и усвоено | Наясно",
     description:
       "Всички програми в ИСУН 2020 — по колко е договорено по всяка, какъв дял е изплатен и къде стои Планът за възстановяване.",
     breadcrumbName: "Програми",
@@ -6369,7 +6309,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Корпусът включва оперативните програми 2014-2020 и 2021-2027, Плана за възстановяване, ЕИП/Норвежкия финансов механизъм и няколко национални фонда — затова „договори в ИСУН 2020“, а не „европейски средства“.</p>`.trim(),
     english: {
       title:
-        "Operational programmes in ИСУН 2020 — contracted and absorbed | electionsbg.com",
+        "Operational programmes in ИСУН 2020 — contracted and absorbed | Наясно",
       description:
         "Every programme in ИСУН 2020 — how much is contracted under each, what share has been paid, and where the Recovery Plan sits.",
       breadcrumbName: "Programmes",
@@ -6393,7 +6333,7 @@ ${buildDataDirectory("en")}`.trim(),
     // has no page here — every row links out to ИСУН or ДФЗ, which is where you apply.
     path: "funds/calls",
     title:
-      "Отворени процедури по европейски програми и ДФ „Земеделие“ | electionsbg.com",
+      "Отворени процедури по европейски програми и ДФ „Земеделие“ | Наясно",
     description:
       "Кои процедури по европейските програми (ИСУН) приемат проекти сега — краен срок, бюджет и допустими кандидати, плюс индикативния график на приемите по Стратегическия план на ДФ „Земеделие“.",
     breadcrumbName: "Отворени процедури",
@@ -6414,7 +6354,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Кандидатстването става в съответния регистър — всеки ред води към него. Източници: <a href="https://eumis2020.government.bg/bg/s/Procedure/Active" rel="nofollow noopener">ИСУН 2020</a> и <a href="https://sp2023.bg" rel="nofollow noopener">sp2023.bg</a> (ДФ „Земеделие“).</p>`.trim(),
     english: {
       title:
-        "Open Calls — EU Programmes and the Bulgarian Agriculture Fund | electionsbg.com",
+        "Open Calls — EU Programmes and the Bulgarian Agriculture Fund | Naiasno",
       description:
         "Which EU-programme calls (ИСУН) are accepting applications right now — deadline, budget and eligible applicants — plus the indicative intake schedule under the Bulgarian CAP Strategic Plan.",
       breadcrumbName: "Open calls",
@@ -6436,7 +6376,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/political",
     title:
-      "Политическа икономия на европейските средства — фирми с депутатска връзка | electionsbg.com",
+      "Политическа икономия на европейските средства — фирми с депутатска връзка | Наясно",
     description:
       "Бенефициенти на ЕС-средства, чиито собственици или управители са депутати, министри или висши официални лица — обща сума, брой фирми и съответните политически фигури.",
     breadcrumbName: "Политическа икономия",
@@ -6453,7 +6393,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Източник на бизнес-връзките: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (имуществени декларации) + Търговски регистър. Източник на договорите: ИСУН 2020.</p>`.trim(),
     english: {
       title:
-        "Political Economy of EU Funds — MP-Connected Beneficiaries | electionsbg.com",
+        "Political Economy of EU Funds — MP-Connected Beneficiaries | Naiasno",
       description:
         "EU-funds beneficiaries whose owners or directors are sitting Bulgarian MPs, ministers or senior officials — totals, company counts, and the corresponding political figures.",
       breadcrumbName: "Political economy",
@@ -6472,7 +6412,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "funds/integrity",
     title:
-      "Почтеност на европейските средства — HHI, серийни победители, дебарирани | electionsbg.com",
+      "Почтеност на европейските средства — HHI, серийни победители, дебарирани | Наясно",
     description:
       "Редфлагове в разпределението на ЕС-средствата: концентрация по програма (HHI), бенефициенти с подозрително висок дял на договорите, и фирми, фигуриращи в регистъра на дебарираните по АОП.",
     breadcrumbName: "Почтеност",
@@ -6489,7 +6429,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Източници: ИСУН 2020 (договори), АОП — регистър на дебарираните по чл. 55 от ЗОП. Резултатите не са обвинение, а индикатори за по-задълбочена проверка.</p>`.trim(),
     english: {
       title:
-        "Integrity of EU Funds — HHI, Serial Winners, Debarred Contractors | electionsbg.com",
+        "Integrity of EU Funds — HHI, Serial Winners, Debarred Contractors | Naiasno",
       description:
         "Structural red flags in EU-funds allocation: per-programme concentration (HHI), beneficiaries with a suspiciously high contract share, and matches against the АОП debarred-supplier register.",
       breadcrumbName: "Integrity",
@@ -6507,8 +6447,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "funds/rrf",
-    title:
-      "ПВУ — План за възстановяване и устойчивост на България | electionsbg.com",
+    title: "ПВУ — План за възстановяване и устойчивост на България | Наясно",
     description:
       "Дашборд на Плана за възстановяване и устойчивост (ПВУ / RRF) — стълбове, реформи и инвестиции, договорени и изплатени средства, контекст спрямо ЕС.",
     breadcrumbName: "ПВУ (RRF)",
@@ -6525,7 +6464,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Източници: ИСУН 2020 (договори по фонд "ПВУ"), Европейска комисия — RRF Scoreboard.</p>`.trim(),
     english: {
-      title: "Recovery and Resilience Plan — Bulgaria's RRF | electionsbg.com",
+      title: "Recovery and Resilience Plan — Bulgaria's RRF | Naiasno",
       description:
         "Dashboard for Bulgaria's National Recovery and Resilience Plan (RRF) — pillars, reforms and investments, contracted and paid amounts, with EU peer context.",
       breadcrumbName: "RRF",
@@ -6544,8 +6483,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "parliament",
-    title:
-      "Народно събрание — анализ на поименните гласувания | electionsbg.com",
+    title: "Народно събрание — анализ на поименните гласувания | Наясно",
     description:
       "Анализ на поименните гласувания в българското Народно събрание — архив на заседанията, присъствие, единство на групите, сходство между депутати и карта на гласуването.",
     breadcrumbName: "Народно събрание",
@@ -6633,7 +6571,7 @@ ${buildDataDirectory("en")}`.trim(),
     ],
     english: {
       title:
-        "National Assembly — Bulgarian roll-call voting analytics | electionsbg.com",
+        "National Assembly — Bulgarian roll-call voting analytics | Naiasno",
       description:
         "Roll-call voting analytics for the Bulgarian National Assembly — session archive, attendance, group cohesion, MP similarity and a map of voting behaviour.",
       breadcrumbName: "National Assembly",
@@ -6672,7 +6610,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "parliament/embedding",
     title:
-      "Гласовото пространство на Народното събрание — UMAP визуализация | electionsbg.com",
+      "Гласовото пространство на Народното събрание — UMAP визуализация | Наясно",
     description:
       "2D проекция (UMAP) на гласуванията на всеки действащ народен представител. Депутати, които гласуват сходно, се появяват близо един до друг — клъстерите разкриват неформални блокове.",
     breadcrumbName: "Гласово пространство",
@@ -6683,7 +6621,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Подредбата е UMAP проекция на векторите от поименните гласувания (за / против / въздържал се) на всеки депутат. Цветът показва парламентарната група. Клъстерите разкриват неформалните блокове.</p>
 <p>Виж и <a href="${SITE_URL}/parliament/cohesion">партийната дисциплина</a> и <a href="${SITE_URL}/votes">архива на поименните гласувания</a>.</p>`.trim(),
     english: {
-      title: "MP Voting Space — UMAP Embedding | electionsbg.com",
+      title: "MP Voting Space — UMAP Embedding | Naiasno",
       description:
         "2D UMAP projection of every sitting Bulgarian MP's roll-call vote vector. MPs who vote similarly appear close together; clusters reveal informal blocs.",
       breadcrumbName: "Voting space",
@@ -6697,7 +6635,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "parliament/cohesion",
     title:
-      "Партийна дисциплина в Народното събрание — обединеност при гласуване | electionsbg.com",
+      "Партийна дисциплина в Народното събрание — обединеност при гласуване | Наясно",
     description:
       "Колко обединени гласуват парламентарните групи в българското Народно събрание — средна и медианна обединеност по точки, размер на групата и брой обхванати гласувания.",
     breadcrumbName: "Партийна дисциплина",
@@ -6709,7 +6647,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Виж и <a href="${SITE_URL}/votes">архива на поименните гласувания</a> и <a href="${SITE_URL}/connections">бизнес-връзките между депутатите</a>.</p>`.trim(),
     english: {
       title:
-        "Parliamentary Group Cohesion — Bulgarian National Assembly | electionsbg.com",
+        "Parliamentary Group Cohesion — Bulgarian National Assembly | Naiasno",
       description:
         "How unified the parliamentary groups vote in Bulgaria's National Assembly — mean and median cohesion per item, group size, and items covered.",
       breadcrumbName: "Group cohesion",
@@ -6722,8 +6660,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "subsidies/political",
-    title:
-      "Земеделски субсидии и публични фигури — вписани роли | electionsbg.com",
+    title: "Земеделски субсидии и публични фигури — вписани роли | Наясно",
     description: `Земеделски получатели, при които публична фигура заема ВПИСАНА РОЛЯ в търговския регистър или в регистъра на ЮЛНЦ — не собственост и не нарушение (${AGRI_YEAR_RANGES}).`,
     breadcrumbName: "Публични фигури",
     breadcrumbParent: {
@@ -6742,8 +6679,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Списъкът разделя „чрез фирма" от „чрез сдружение", защото това са различни факти. 64 от 568 се стигат само по втория път — а <strong>местните инициативни групи (МИГ)</strong> сред тях са сдружения по устройство и са официалният канал за парите за развитие на селските райони, а не бизнес интерес.</p>
 <p>Виж и <a href="${SITE_URL}/subsidies/cross-programme">получателите и по други програми</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
     english: {
-      title:
-        "Farm Subsidies and Public Figures — Recorded Roles | electionsbg.com",
+      title: "Farm Subsidies and Public Figures — Recorded Roles | Naiasno",
       description: `Farm recipients where a public figure holds a RECORDED ROLE in the Commerce Registry or the non-profit register — not ownership and not wrongdoing (${AGRI_YEAR_RANGES}).`,
       breadcrumbName: "Public figures",
       bodyHtml: `
@@ -6760,7 +6696,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "subsidies/cross-programme",
     title:
-      "Земеделски получатели и по други програми — поръчки и еврофондове | electionsbg.com",
+      "Земеделски получатели и по други програми — поръчки и еврофондове | Наясно",
     description: `Земеделски получатели, които държат и обществени поръчки или европейски грантове. Трите вида пари се показват поотделно — те са на различна основа и не се събират.`,
     breadcrumbName: "И по други програми",
     breadcrumbParent: {
@@ -6780,7 +6716,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Виж и <a href="${SITE_URL}/subsidies/political">получателите с публична фигура</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
     english: {
       title:
-        "Farm Recipients Across Other Programmes — Contracts and EU Funds | electionsbg.com",
+        "Farm Recipients Across Other Programmes — Contracts and EU Funds | Naiasno",
       description: `Farm recipients that also hold public contracts or EU grants. The three kinds of money are shown separately — they are on different bases and are never summed.`,
       breadcrumbName: "Across other programmes",
       bodyHtml: `
@@ -6796,8 +6732,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "subsidies/untraceable",
-    title:
-      "Непроследими земеделски субсидии — парите без ЕИК | electionsbg.com",
+    title: "Непроследими земеделски субсидии — парите без ЕИК | Наясно",
     description: `Около 40% от земеделските субсидии на ДФ „Земеделие" стоят на редове без ЕИК — без стабилен идентификатор, така че не могат да бъдат приписани на получател (${AGRI_YEAR_RANGES}).`,
     breadcrumbName: "Непроследими получатели",
     breadcrumbParent: {
@@ -6816,8 +6751,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Делът расте от 33% през 2015 до 49% през 2025, но скокът е между 2023 и 2024 — точно там, където поредицата сменя регистъра. Съставът също се променя: явните фирми без ЕИК са под 4 хил. евро годишно до 2023, а през 2024 и 2025 са €149 млн. и €196 млн. Поне част от „новите" непроследими пари са фирми, които по-старият източник е публикувал с ЕИК.</p>
 <p>Виж и <a href="${SITE_URL}/subsidies/coverage">обхвата и източниците</a>, <a href="${SITE_URL}/subsidies/recipients">класацията на получателите</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
     english: {
-      title:
-        "Untraceable Farm Subsidies — the Money With No ЕИК | electionsbg.com",
+      title: "Untraceable Farm Subsidies — the Money With No ЕИК | Наясно",
       description: `Around 40% of the State Fund Agriculture's farm subsidy sits on rows with no ЕИК — no stable identifier, so it cannot be attributed to a recipient (${AGRI_YEAR_RANGES}).`,
       breadcrumbName: "Untraceable recipients",
       bodyHtml: `
@@ -6833,7 +6767,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "governance/sectors/methodology",
-    title: "Цена за единица резултат — методология | electionsbg.com",
+    title: "Цена за единица резултат — методология | Наясно",
     description:
       "Как смятаме разхода за едно свършено дело, за един километър път и за един болничен случай — съвпадащ обхват, сложност на случаите, и защо това число не е присъда.",
     breadcrumbName: "Цена за единица резултат",
@@ -6869,7 +6803,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Няма общ „индекс на ефективността" между секторите. Цената на дело, цената на километър и цената на болничен случай не са съизмерими; осредняването им би произвело число, което не отговаря на нищо. Семейството е споделен <strong>метод</strong>, не споделена скала.</p>
 <p>Виж и <a href="${SITE_URL}/judiciary">съдебната власт</a>, <a href="${SITE_URL}/governance/sectors">секторите</a> и <a href="${SITE_URL}/articles/2026-08-17-paying-for-outcomes">защо в България не се плаща за резултат</a>.</p>`.trim(),
     english: {
-      title: "Cost per Unit of Service — Methodology | electionsbg.com",
+      title: "Cost per Unit of Service — Methodology | Naiasno",
       description:
         "How we compute the cost of one resolved court case, one kilometre of road and one hospital case — matching scope, case mix, and why the number is not a verdict.",
       breadcrumbName: "Cost per unit of service",
@@ -6902,7 +6836,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "subsidies/coverage",
-    title: "Земеделски субсидии — обхват и източници | electionsbg.com",
+    title: "Земеделски субсидии — обхват и източници | Наясно",
     description: `Кои финансови години покрива корпусът със земеделски субсидии (${AGRI_YEAR_RANGES}), кои липсват в източника и къде поредицата сменя регистъра.`,
     breadcrumbName: "Обхват и източници",
     breadcrumbParent: {
@@ -6926,7 +6860,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Виж и <a href="${SITE_URL}/subsidies">общия преглед</a> и <a href="${SITE_URL}/subsidies/browse">пълната таблица на плащанията</a>.</p>`.trim(),
     english: {
-      title: "Farm Subsidies — Coverage and Sources | electionsbg.com",
+      title: "Farm Subsidies — Coverage and Sources | Naiasno",
       description: `Which financial years the farm-subsidy corpus covers (${AGRI_YEAR_RANGES}), which are missing at source, and where the series changes register.`,
       breadcrumbName: "Coverage and sources",
       bodyHtml: `
@@ -6947,7 +6881,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "subsidies/recipients",
-    title: "Най-големи получатели — земеделски субсидии | electionsbg.com",
+    title: "Най-големи получатели — земеделски субсидии | Наясно",
     description: `Класация на фирмите с най-много земеделски субсидии от ДФ „Земеделие" за финансови години ${AGRI_YEAR_RANGES} — с област, брой плащания и обща изплатена сума.`,
     breadcrumbName: "Най-големи получатели",
     breadcrumbParent: {
@@ -6964,7 +6898,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Самият Фонд е изключен: неговите „субсидии" са техническа помощ и публично складиране, а не получена земеделска подкрепа.</p>
 <p>Виж и <a href="${SITE_URL}/subsidies">общия преглед</a>, <a href="${SITE_URL}/subsidies/concentration">концентрацията</a> и <a href="${SITE_URL}/subsidies/browse">пълната таблица на плащанията</a>.</p>`.trim(),
     english: {
-      title: "Largest recipients — Farm Subsidies | electionsbg.com",
+      title: "Largest recipients — Farm Subsidies | Naiasno",
       description: `A ranking of the companies receiving the most State Fund Agriculture farm subsidy for financial years ${AGRI_YEAR_RANGES} — with province, payment count and total paid.`,
       breadcrumbName: "Largest recipients",
       bodyHtml: `
@@ -6978,7 +6912,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "subsidies/schemes",
-    title: "По схема — земеделски субсидии | electionsbg.com",
+    title: "По схема — земеделски субсидии | Наясно",
     description: `Всички мерки, по които ДФ „Земеделие" е платил през ${AGRI_YEAR_RANGES} — с разбивка по трите фонда на ОСП и по програмен период.`,
     breadcrumbName: "По схема",
     breadcrumbParent: {
@@ -6996,7 +6930,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Трите фонда разделят <strong>парите</strong> точно: <strong>ЕФГЗ-ДП</strong> (директни плащания на площ), <strong>ЕЗФРСР</strong> (развитие на селските райони — инвестиции, млади фермери, ЛИДЕР/МИГ) и <strong>ЕФГЗ</strong> (пазарни мерки). Те обаче не разделят <strong>схемите</strong>: 49 от 481 мерки теглят от повече от един фонд, така че една схема може да се появи в две от групите.</p>
 <p>Виж и <a href="${SITE_URL}/subsidies">общия преглед</a> и <a href="${SITE_URL}/subsidies/recipients">най-големите получатели</a>.</p>`.trim(),
     english: {
-      title: "By scheme — Farm Subsidies | electionsbg.com",
+      title: "By scheme — Farm Subsidies | Naiasno",
       description: `Every measure the State Fund Agriculture paid under across ${AGRI_YEAR_RANGES} — split by the three CAP funds and by programme period.`,
       breadcrumbName: "By scheme",
       bodyHtml: `
@@ -7011,7 +6945,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "subsidies/concentration",
-    title: "Концентрация — земеделски субсидии | electionsbg.com",
+    title: "Концентрация — земеделски субсидии | Наясно",
     description: `Колко от земеделските субсидии взимат най-големите стопанства — по групи и с крива на Лоренц, върху парите за юридически лица (${AGRI_YEAR_RANGES}).`,
     breadcrumbName: "Концентрация",
     breadcrumbParent: {
@@ -7027,7 +6961,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Всички дялове на страницата са от сумата, изплатена на <strong>фирми</strong>, а не от общата. Разликата е съществена: за целия период същият числител, разделен на всички изплатени пари, дава около 7,5% вместо 12,6% за топ 100 — а за отделните години съотношението е различно, затова страницата го изчислява за избрания период. Плащанията без ЕИК не могат да бъдат подредени по получател, така че концентрацията върху тях е неизмерима — виж <a href="${SITE_URL}/subsidies/untraceable">колко са те</a>.</p>
 <p>Виж и <a href="${SITE_URL}/subsidies/recipients">класацията на получателите</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
     english: {
-      title: "Concentration — Farm Subsidies | electionsbg.com",
+      title: "Concentration — Farm Subsidies | Naiasno",
       description: `How much of the farm subsidy the largest holdings take — by tier and as a Lorenz curve, over the legal-entity money (${AGRI_YEAR_RANGES}).`,
       breadcrumbName: "Concentration",
       bodyHtml: `
@@ -7040,7 +6974,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "subsidies/places",
-    title: "Земеделски субсидии по област — карта и класация | electionsbg.com",
+    title: "Земеделски субсидии по област — карта и класация | Наясно",
     description: `Областта е на ПОЛУЧАТЕЛЯ, не на земята: земеделските субсидии на ДФ „Земеделие" по 28-те области — карта, класация и дял за финансови години ${AGRI_YEAR_RANGES}.`,
     breadcrumbName: "По област",
     breadcrumbParent: {
@@ -7062,7 +6996,7 @@ ${buildDataDirectory("en")}`.trim(),
 </ul>
 <p>Виж и <a href="${SITE_URL}/subsidies">общия преглед на земеделските субсидии</a>, <a href="${SITE_URL}/subsidies/browse">пълната таблица на плащанията</a> и <a href="${SITE_URL}/sector/agri">сектор „Земеделие"</a>.</p>`.trim(),
     english: {
-      title: "Farm Subsidies by Province — Map and Ranking | electionsbg.com",
+      title: "Farm Subsidies by Province — Map and Ranking | Naiasno",
       description: `The province is the RECIPIENT's, not the land's: State Fund Agriculture farm subsidies across Bulgaria's 28 provinces — map, ranking and shares for financial years ${AGRI_YEAR_RANGES}.`,
       breadcrumbName: "By province",
       bodyHtml: `
@@ -7082,7 +7016,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "subsidies/browse",
     title:
-      "Земеделски субсидии — пълна таблица по получател, схема и година | electionsbg.com",
+      "Земеделски субсидии — пълна таблица по получател, схема и година | Наясно",
     description: `Изплатените субсидии от ДФ „Земеделие" за финансови години ${AGRI_YEAR_RANGES} — по получател, област, схема на подпомагане и година, в евро. Сортируема и филтрируема таблица.`,
     breadcrumbName: "Данни",
     breadcrumbParent: {
@@ -7099,7 +7033,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Виж и <a href="${SITE_URL}/subsidies">общия преглед на земеделските субсидии</a> и <a href="${SITE_URL}/sector/agri">сектор „Земеделие"</a>.</p>`.trim(),
     english: {
       title:
-        "Farm Subsidies — Full Table by Recipient, Scheme and Year | electionsbg.com",
+        "Farm Subsidies — Full Table by Recipient, Scheme and Year | Naiasno",
       description: `Subsidies paid out by the State Fund Agriculture (ДФ „Земеделие") for financial years ${AGRI_YEAR_RANGES} — by recipient, oblast, support scheme and year, in euro. Sortable and filterable.`,
       breadcrumbName: "Data",
       bodyHtml: `
@@ -7113,7 +7047,7 @@ ${buildDataDirectory("en")}`.trim(),
   staticPage({
     path: "sector/administration/services",
     title:
-      "Административни услуги — регистър ИИСДА | Държавна администрация | electionsbg.com",
+      "Административни услуги — регистър ИИСДА | Държавна администрация | Наясно",
     description:
       "Пълният регистър на административните услуги в България по ИИСДА — услуга, номер и ниво на администрацията, която я предоставя (централна, областна, общинска, специализирана териториална).",
     breadcrumbName: "Административни услуги",
@@ -7125,7 +7059,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Виж и <a href="${SITE_URL}/sector/administration">сектор „Държавна администрация"</a> и <a href="${SITE_URL}/governance/sectors">всички държавни сектори</a>.</p>`.trim(),
     english: {
       title:
-        "Administrative Services — the ИИСДА Register | Public Administration | electionsbg.com",
+        "Administrative Services — the ИИСДА Register | Public Administration | Наясно",
       description:
         "The full register of Bulgaria's administrative services from ИИСДА — service, number and the tier of administration that provides it (central, regional, municipal, specialised territorial).",
       breadcrumbName: "Administrative services",
@@ -7138,8 +7072,7 @@ ${buildDataDirectory("en")}`.trim(),
   }),
   staticPage({
     path: "sofia/companies",
-    title:
-      "София — фирми и организации, свързани с публични лица | electionsbg.com",
+    title: "София — фирми и организации, свързани с публични лица | Наясно",
     description:
       "Фирми и организации с регистриран адрес в София, при които публично лице — избрано, назначено или кандидатирало се — има вписана роля в Търговския регистър или в регистъра на ЮЛНЦ.",
     breadcrumbName: "фирми и организации, свързани с публични лица",
@@ -7152,7 +7085,7 @@ ${buildDataDirectory("en")}`.trim(),
   <p>Виж и <a href="${SITE_URL}/sofia">резултатите за София</a>, <a href="${SITE_URL}/connections">графа на свързаните лица</a> и <a href="${SITE_URL}/persons">указателя на публичните лица</a>.</p>`.trim(),
     english: {
       title:
-        "Sofia — Companies and Organisations Linked to People in Public Life | electionsbg.com",
+        "Sofia — Companies and Organisations Linked to People in Public Life | Naiasno",
       description:
         "Companies and organisations registered in Sofia where someone in public life — elected, appointed or standing for office — holds a role recorded in the Commerce Registry or the non-profit register.",
       breadcrumbName:
@@ -7215,13 +7148,13 @@ for (const tab of sofiaSubTabs) {
   prerenderRoutes.push(
     staticPage({
       path: `sofia/${tab.slug}`,
-      title: `София — ${tab.bgLabel} | Парламентарни избори | electionsbg.com`,
+      title: `София — ${tab.bgLabel} | Парламентарни избори | Наясно`,
       description: tab.bgDesc,
       breadcrumbName: tab.bgLabel,
       ogImage: "/og/sofia.png",
       bodyHtml: SOFIA_BODY_BG,
       english: {
-        title: `Sofia — ${tab.enLabel} | Bulgarian Parliamentary Elections | electionsbg.com`,
+        title: `Sofia — ${tab.enLabel} | Bulgarian Parliamentary Elections | Naiasno`,
         description: tab.enDesc,
         breadcrumbName: tab.enLabel,
         bodyHtml: SOFIA_BODY_EN,
@@ -7322,7 +7255,7 @@ if (fs.existsSync(GOVERNMENTS_FILE)) {
       prerenderRoutes.push(
         staticPage({
           path: `governments/${c.id}`,
-          title: `Кабинет ${pmBgLabel} — макро профил | electionsbg.com`,
+          title: `Кабинет ${pmBgLabel} — макро профил | Наясно`,
           description: `Профил на мандата на ${pmBgLabel} (${typeBg}, ${tenureBg}): основни макроикономически и управленски показатели, средни стойности за периода и графика.`,
           breadcrumbName: pmBgLabel,
           // Per-cabinet OG card emitted by scripts/og/generate.ts from the
@@ -7336,7 +7269,7 @@ if (fs.existsSync(GOVERNMENTS_FILE)) {
 <p>Профил на мандата с показатели в началото и края, средни стойности за периода и графика на БВП, инфлация и безработица в рамките на мандата ±1 година.</p>
 <p>Виж и <a href="${SITE_URL}/governments">всички кабинети</a> или <a href="${SITE_URL}/indicators/compare?cabinet=${encodeURIComponent(c.id)}">сравнението с ЕС</a> към края на този мандат.</p>`.trim(),
           english: {
-            title: `${pmEnLabel} cabinet — macro profile | electionsbg.com`,
+            title: `${pmEnLabel} cabinet — macro profile | Naiasno`,
             description: `Profile of ${pmEnLabel}'s cabinet (${typeEn}, ${tenureEn}): headline macroeconomic and governance indicators, tenure averages and macro chart.`,
             breadcrumbName: pmEnLabel,
             bodyHtml: `
@@ -7382,7 +7315,7 @@ if (fs.existsSync(FUNDS_THEMES_FILE)) {
       prerenderRoutes.push(
         staticPage({
           path: `funds/focus/${th.slug}`,
-          title: `${labelBg} — европейско финансиране | electionsbg.com`,
+          title: `${labelBg} — европейско финансиране | Наясно`,
           description:
             (th.summaryBg && th.summaryBg.slice(0, 240)) ||
             `Тематичен фокус върху европейските средства: ${labelBg}. Топ бенефициенти, програми, география и журналистически източници.`,
@@ -7394,7 +7327,7 @@ ${th.summaryBg ? `<p>${th.summaryBg}</p>` : ""}
 <p>Тематична извадка от корпуса на ИСУН 2020 за <strong>${labelBg.toLowerCase()}</strong>. Страницата показва топ бенефициенти и договори, разбивка по програма и общини, плюс препратки към разследваща журналистика по темата.</p>
 <p>Виж и <a href="${SITE_URL}/funds">общия преглед на европейските средства</a> или <a href="${SITE_URL}/funds/political">политическата икономия</a>.</p>`.trim(),
           english: {
-            title: `${labelEn} — EU funding focus | electionsbg.com`,
+            title: `${labelEn} — EU funding focus | Naiasno`,
             description:
               (th.summaryEn && th.summaryEn.slice(0, 240)) ||
               `Editorial focus on EU funds: ${labelEn}. Top beneficiaries, programmes, geography, and investigative-journalism sources.`,
@@ -7522,7 +7455,7 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
     prerenderRoutes.push(
       staticPage({
         path: `funds/programme/${code}`,
-        // No "| electionsbg.com": the brand costs 18 of the ~60 characters
+        // No "| Наясно": the brand costs 18 of the ~60 characters
         // Google shows, and the figures are what a reader is deciding on.
         title: `${nameBg} (${code}) — ${numFmtBg.format(contracts)} ${contracts === 1 ? "договор" : "договора"}, ${compactEur(totalEur, "bg")}`,
         description: buildFundsDescription("bg", {

@@ -20,7 +20,7 @@ export const AboutScreen = () => {
   const { t } = useTranslation();
   return (
     <div className="text-foreground w-full">
-      <SEO title={t("about")} description="About page" />
+      <SEO title={t("about")} description={t("about_seo_description")} />
       <article className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 md:py-16">
         {/* Hero */}
         <header className="mb-12 md:mb-16">

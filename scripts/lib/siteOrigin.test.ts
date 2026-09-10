@@ -88,6 +88,22 @@ describe("copies that cannot import the constant", () => {
     expect(lines).toEqual([`Sitemap: ${SITE_ORIGIN}/sitemap_index.xml`]);
   });
 
+  it("the LLM proxy's CORS allowlist covers the site origin", () => {
+    // ⚠️ A SECOND allowlist, and the gate was blind to it until 2026-09-10.
+    // `functions/llm_origins.js` is what the AI chat's LLM proxy checks; the
+    // bucket CORS above governs data fetches. Miss THIS one and the site
+    // renders every number correctly and the chat refuses every question —
+    // a different failure from the blank page, and an easier one to ship,
+    // because nothing about the page looks wrong.
+    //
+    // It stores HOSTS, not origins, so the scheme is stripped before compare.
+    const host = SITE_ORIGIN.replace(/^https:\/\//, "");
+    const src = read("functions/llm_origins.js");
+    expect(src, `functions/llm_origins.js must allow ${host}`).toContain(
+      `"${host}"`,
+    );
+  });
+
   it("the GCS CORS config allows the site origin", () => {
     // Miss this and the new domain serves a perfectly indexed blank page.
     //

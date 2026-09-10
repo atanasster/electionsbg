@@ -80,7 +80,6 @@ export const ProblemSections = () => {
       <SEO
         title={title}
         description="Polling sections in Bulgarian Roma neighborhoods widely reported as vote-buying risk areas"
-        keywords={["roma", "vote buying", "problem sections", "купен вот"]}
       />
       <H1>{title}</H1>
       <p className="max-w-3xl pb-4 text-sm text-muted-foreground">

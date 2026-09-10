@@ -233,7 +233,7 @@ export const buildArticleRoutes = async (
   const indexEnUrl = `${SITE_URL}/en/articles`;
   routes.push({
     path: "articles",
-    title: "Анализи на данни — парламентарни избори | electionsbg.com",
+    title: "Анализи на данни — парламентарни избори | Наясно",
     description:
       "Задълбочен анализ на парламентарните избори в България — активност, разминавания между протокол и флаш памет, рискови махали, точност на социологията.",
     bodyHtml: buildIndexBody(listedArticles, "bg"),
@@ -244,8 +244,7 @@ export const buildArticleRoutes = async (
       ]),
     ],
     english: {
-      title:
-        "Data Analysis — Bulgarian Parliamentary Elections | electionsbg.com",
+      title: "Data Analysis — Bulgarian Parliamentary Elections | Naiasno",
       description:
         "Long-form data analysis of Bulgarian parliamentary elections — turnout, machine flash discrepancies, risk neighborhoods, polling accuracy.",
       bodyHtml: buildIndexBody(listedArticles, "en"),
@@ -292,7 +291,7 @@ export const buildArticleRoutes = async (
 
     routes.push({
       path: path_,
-      title: `${bgTitle} | electionsbg.com`,
+      title: `${bgTitle} | Наясно`,
       description: bgDescription,
       ogImage,
       bodyHtml: bgBody,
@@ -317,7 +316,7 @@ export const buildArticleRoutes = async (
         ]),
       ],
       english: {
-        title: `${enTitle} | electionsbg.com`,
+        title: `${enTitle} | Naiasno`,
         description: enDescription,
         bodyHtml: enBody,
         jsonLd: [

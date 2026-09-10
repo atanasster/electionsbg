@@ -1,12 +1,11 @@
 import { FC, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { BRAND_TITLE_SUFFIX } from "@/lib/brand";
 
 export const SEO: FC<{
   title: string;
   description: string;
-  keywords?: string[];
   type?: string;
   canonical?: string;
   // When set, used verbatim as the document <title> (bypassing the "Избори | "
@@ -14,23 +13,7 @@ export const SEO: FC<{
   // prerendered crawler HTML. og:/twitter: keep the short `title` so social
   // cards stay clean. See placeResultsTitle.
   fullTitle?: string;
-}> = ({
-  title,
-  description,
-  keywords = [],
-  type = "website",
-  canonical,
-  fullTitle,
-}) => {
-  const allKeywords = [
-    "bulgaria",
-    "elections",
-    "izbori",
-    "парламентарни избори",
-    "избори",
-    "избори 2024",
-  ].concat(keywords);
-  const { t } = useTranslation();
+}> = ({ title, description, type = "website", canonical, fullTitle }) => {
   const location = useLocation();
 
   // Dynamically inject canonical URL
@@ -61,19 +44,18 @@ export const SEO: FC<{
   return (
     <>
       <title>
-        {fullTitle ??
-          `${
-            t("elections").charAt(0).toUpperCase() + t("elections").slice(1)
-          } | ${title}`}
+        {/* Mirrors the PRERENDERED form — "<page> | Наясно" — so the tab a
+            visitor sees after hydration matches the title Googlebot indexed.
+            It used to prefix every page with "Избори", which named one section
+            of a site that long ago outgrew it. */}
+        {fullTitle ?? `${title}${BRAND_TITLE_SUFFIX}`}
       </title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={allKeywords.join()} />
       {/* Facebook tags */}
       <meta property="og:type" content={type} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       {/* Twitter tags */}
-      <meta name="twitter:creator" content="electionsbg.com" />
       <meta name="twitter:card" content={type} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />

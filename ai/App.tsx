@@ -21,6 +21,7 @@ import { Explorer } from "./app/Explorer";
 import { useModelEngine } from "./llm/useModelEngine";
 import { latestElection } from "./tools/dataset";
 import { GROUP_URL } from "./app/community";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 export const App = ({
   integrated = false,
@@ -156,7 +157,7 @@ export const App = ({
                     href={
                       integrated
                         ? `${lang === "en" ? "/en" : ""}/data/sources`
-                        : "https://electionsbg.com/data/sources"
+                        : `${SITE_ORIGIN}/data/sources`
                     }
                   >
                     <Database />
@@ -239,17 +240,13 @@ export const App = ({
           <ul className="flex flex-wrap items-center gap-1">
             {[
               [
-                integrated
-                  ? lang === "en"
-                    ? "/en"
-                    : "/"
-                  : "https://electionsbg.com",
+                integrated ? (lang === "en" ? "/en" : "/") : SITE_ORIGIN,
                 t("Начало", "Home"),
               ],
               [
                 integrated
                   ? `${lang === "en" ? "/en" : ""}/about`
-                  : "https://electionsbg.com/about",
+                  : `${SITE_ORIGIN}/about`,
                 t("за нас", "about"),
               ],
               [

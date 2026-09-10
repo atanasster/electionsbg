@@ -1,4 +1,6 @@
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { BRAND_NAME, BRAND_NAME_LATIN } from "@/lib/brand";
+import { BRAND_PROFILES } from "@/lib/community";
 const SITE_URL = SITE_ORIGIN;
 
 // Stable @id URIs so crawlers reconcile the WebSite + Organization nodes
@@ -12,10 +14,16 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
 const ORG = {
   "@type": "Organization",
   "@id": ORG_ID,
-  name: "Elections Bulgaria",
-  alternateName: "electionsbg.com",
+  name: BRAND_NAME,
+  // ⚠️ The OLD names stay here, and that is the point rather than politeness.
+  // `alternateName` plus `sameAs` are how a search engine is told that the
+  // entity behind naiasno.bg is the one it has indexed as electionsbg.com for
+  // years. Dropping them at the rename severs exactly the link the migration
+  // depends on. Keep them for at least a year past the domain flip.
+  alternateName: [BRAND_NAME_LATIN, "Elections Bulgaria", "electionsbg.com"],
   url: SITE_URL,
   logo: `${SITE_URL}/images/og_image.webp`,
+  sameAs: [...BRAND_PROFILES],
 };
 
 // Reference shape used wherever another schema entity needs to point at the
@@ -31,8 +39,8 @@ export const buildWebSiteLd = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": WEBSITE_ID,
-  name: "Elections Bulgaria",
-  alternateName: "electionsbg.com",
+  name: BRAND_NAME,
+  alternateName: [BRAND_NAME_LATIN, "Elections Bulgaria", "electionsbg.com"],
   url: SITE_URL,
   inLanguage: ["bg", "en"],
   publisher: ORG_REF,
