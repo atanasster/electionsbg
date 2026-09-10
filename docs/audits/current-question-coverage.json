@@ -3,10 +3,10 @@
   "totals": {
     "categories": 19,
     "leaves": 83,
-    "chat": 282,
+    "chat": 283,
     "sql": 74,
     "dual": 15,
-    "tools": 227,
+    "tools": 228,
     "recipes": 74
   },
   "missingToolStarters": [],
@@ -41,7 +41,8 @@
         "en": "Elections / Presidential"
       },
       "chat": [
-        "presidentialResults"
+        "presidentialResults",
+        "latestPresidentialPoll"
       ],
       "sql": [
         "presidentialResults"

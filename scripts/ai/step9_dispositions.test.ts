@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { REVIEWED_CHAT_SQL_ADAPTERS } from "../../src/lib/questions/sql/availability";
 import { questionById } from "../../src/lib/questions/catalog";
 import { SQL_RECIPES_BY_ID } from "../../src/lib/questions/sql/recipes";
 
@@ -111,7 +112,11 @@ describe("Step 9 existing-data dispositions", () => {
       expect(outcome.sql).toBe("review");
       expect(outcome.chatCapability).toBe(questionId);
       expect(questionById(questionId)?.chat.status).toBe("ready");
-      expect(questionById(questionId)?.sql.status).toBe("review");
+      // The dated disposition remains historical; reviewed runtime adapters
+      // can subsequently graduate without rewriting the original assessment.
+      expect(questionById(questionId)?.sql.status).toBe(
+        REVIEWED_CHAT_SQL_ADAPTERS[questionId] ? "ready" : "review",
+      );
       expect(SQL_RECIPES_BY_ID.has(questionId)).toBe(true);
     }
   });

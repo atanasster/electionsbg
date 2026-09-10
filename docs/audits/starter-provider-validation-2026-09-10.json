@@ -12507,5 +12507,45 @@
       "water/water_stats.json"
     ],
     "clarify": false
+  },
+  {
+    "id": "latestPresidentialPoll",
+    "lang": "bg",
+    "text": "Какво показват последните президентски проучвания?",
+    "tool": "latestPresidentialPoll",
+    "args": {},
+    "title": "Последно президентско проучване — Глобал Метрикс",
+    "rows": 13,
+    "facts": {
+      "agency": "Глобал Метрикс",
+      "date": "2026-07-11",
+      "respondents": "1503",
+      "leader": "Прогресивна България (39,7%)"
+    },
+    "provenance": [
+      "polls/presidential/polls.json",
+      "polls/presidential/polls_details.json"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "latestPresidentialPoll",
+    "lang": "en",
+    "text": "What do the latest presidential polls show?",
+    "tool": "latestPresidentialPoll",
+    "args": {},
+    "title": "Latest presidential poll — Global Metrics",
+    "rows": 13,
+    "facts": {
+      "agency": "Global Metrics",
+      "date": "2026-07-11",
+      "respondents": "1,503",
+      "leader": "Прогресивна България (39.7%)"
+    },
+    "provenance": [
+      "polls/presidential/polls.json",
+      "polls/presidential/polls_details.json"
+    ],
+    "clarify": false
   }
 ]

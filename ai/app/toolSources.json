@@ -489,5 +489,10 @@
     "2024_10_27/reports/region/wasted_votes.json",
     "2026_04_19/reports/region/wasted_votes.json"
   ],
-  "waterServices": ["water/water_stats.json"]
+  "waterServices": ["water/water_stats.json"],
+  "latestPresidentialPoll": [
+    "polls/presidential/polls.json",
+    "polls/presidential/polls_details.json",
+    "polls/agencies.json"
+  ]
 }

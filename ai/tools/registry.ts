@@ -779,6 +779,16 @@ export const TOOLS: ToolDef[] = [
     },
     params: [
       {
+        name: "years",
+        type: "count",
+        description: { bg: "Период назад в години", en: "Window in years" },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Последни N проучвания", en: "Last N polls" },
+      },
+      {
         name: "agency",
         type: "metric",
         required: true,
@@ -1834,6 +1844,11 @@ export const TOOLS: ToolDef[] = [
       en: "District mayors (Sofia) or settlement (kmetstvo) mayors of a município.",
     },
     params: [
+      {
+        name: "cycle",
+        type: "cycle",
+        description: { bg: "Местен изборен цикъл", en: "Local election cycle" },
+      },
       {
         name: "place",
         type: "place",
@@ -3116,8 +3131,17 @@ export const TOOLS: ToolDef[] = [
     },
     params: [
       {
+        name: "count",
+        type: "count",
+        description: {
+          bg: "Брой договори (до 25)",
+          en: "Number of contracts (up to 25)",
+        },
+      },
+      {
         name: "company",
         type: "person",
+        required: true,
         description: { bg: "Име на фирма или ЕИК", en: "Company name or EIK" },
       },
       {

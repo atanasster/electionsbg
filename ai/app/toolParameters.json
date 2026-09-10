@@ -67,6 +67,7 @@
     }
   ],
   "budgetInvestmentPayments": [],
+  "waterServices": [],
   "nationalResults": [
     {
       "name": "election",
@@ -81,7 +82,13 @@
     {
       "name": "cycle",
       "type": "cycle",
-      "values": [2001, 2006, 2011, 2016, 2021],
+      "values": [
+        2001,
+        2006,
+        2011,
+        2016,
+        2021
+      ],
       "description": {
         "bg": "Година или цикъл (2001, 2006, 2011, 2016, 2021); по подразбиране последният.",
         "en": "Year or cycle (2001, 2006, 2011, 2016, 2021); defaults to the latest."
@@ -90,7 +97,10 @@
     {
       "name": "round",
       "type": "count",
-      "values": [1, 2],
+      "values": [
+        1,
+        2
+      ],
       "description": {
         "bg": "1 или 2 (балотаж). По подразбиране турът, в който е избран президентът.",
         "en": "1 or 2 (the runoff). Defaults to the round that elected the president."
@@ -134,7 +144,10 @@
       "name": "geography",
       "type": "metric",
       "default": "oblast",
-      "values": ["oblast", "mir"],
+      "values": [
+        "oblast",
+        "mir"
+      ],
       "description": {
         "bg": "Административна област или МИР",
         "en": "Administrative oblast or electoral district"
@@ -308,7 +321,24 @@
     }
   ],
   "latestPolls": [],
+  "latestPresidentialPoll": [],
   "agencyPolls": [
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Период назад в години",
+        "en": "Window in years"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Последни N проучвания",
+        "en": "Last N polls"
+      }
+    },
     {
       "name": "agency",
       "type": "metric",
@@ -353,7 +383,10 @@
       "name": "geography",
       "type": "metric",
       "default": "oblast",
-      "values": ["oblast", "mir"],
+      "values": [
+        "oblast",
+        "mir"
+      ],
       "description": {
         "bg": "Административна област или МИР",
         "en": "Administrative oblast or electoral district"
@@ -534,6 +567,25 @@
   ],
   "municipalityResults": [
     {
+      "name": "metric",
+      "type": "metric",
+      "values": [
+        "turnout"
+      ],
+      "description": {
+        "bg": "Само местна активност (по избор)",
+        "en": "Local turnout only (optional)"
+      }
+    },
+    {
+      "name": "party",
+      "type": "party",
+      "description": {
+        "bg": "Само тази партия (по избор)",
+        "en": "Only this party (optional)"
+      }
+    },
+    {
       "name": "place",
       "type": "place",
       "required": true,
@@ -579,6 +631,25 @@
     }
   ],
   "regionResults": [
+    {
+      "name": "metric",
+      "type": "metric",
+      "values": [
+        "turnout"
+      ],
+      "description": {
+        "bg": "Само местна активност (по избор)",
+        "en": "Local turnout only (optional)"
+      }
+    },
+    {
+      "name": "party",
+      "type": "party",
+      "description": {
+        "bg": "Само тази партия (по избор)",
+        "en": "Only this party (optional)"
+      }
+    },
     {
       "name": "oblast",
       "type": "oblast",
@@ -733,7 +804,10 @@
     {
       "name": "direction",
       "type": "metric",
-      "values": ["in", "out"],
+      "values": [
+        "in",
+        "out"
+      ],
       "description": {
         "bg": "Входящи или изходящи потоци",
         "en": "Incoming or outgoing flows"
@@ -863,6 +937,14 @@
     }
   ],
   "localSubMayors": [
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен изборен цикъл",
+        "en": "Local election cycle"
+      }
+    },
     {
       "name": "place",
       "type": "place",
@@ -1196,8 +1278,17 @@
   ],
   "contractSearch": [
     {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой договори (до 25)",
+        "en": "Number of contracts (up to 25)"
+      }
+    },
+    {
       "name": "company",
       "type": "person",
+      "required": true,
       "description": {
         "bg": "Име на фирма или ЕИК",
         "en": "Company name or EIK"
@@ -1434,7 +1525,11 @@
       "name": "metric",
       "type": "metric",
       "required": true,
-      "values": ["commitments", "expense_obligations", "arrears"],
+      "values": [
+        "commitments",
+        "expense_obligations",
+        "arrears"
+      ],
       "description": {
         "bg": "Показател за подреждане",
         "en": "Metric used for ranking"
@@ -2268,6 +2363,5 @@
   "administrationOverview": [],
   "digitalSkills": [],
   "tourismSeasonality": [],
-  "tourismSourceMarkets": [],
-  "waterServices": []
+  "tourismSourceMarkets": []
 }

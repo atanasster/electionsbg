@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { STARTERS } from "../../ai/app/starters";
+import { ALL_QUERIES } from "../../src/screens/dev/sqlLibrary";
 import { buildQuestionCapabilityMatrix } from "./audit_question_coverage";
 
 const matrix = buildQuestionCapabilityMatrix();
@@ -6,13 +8,15 @@ const matrix = buildQuestionCapabilityMatrix();
 describe("question capability matrix", () => {
   it("accounts for every current source and question origin", () => {
     expect(matrix.summary).toMatchObject({
-      rows: 444,
-      chatStarters: 150,
+      rows: STARTERS.length + 257 + ALL_QUERIES.length,
+      chatStarters: STARTERS.length,
       editorialQuestions: 257,
-      sqlQueries: 37,
+      sqlQueries: ALL_QUERIES.length,
       sourceGroups: 47,
     });
-    expect(new Set(matrix.questions.map((q) => q.id)).size).toBe(444);
+    expect(new Set(matrix.questions.map((q) => q.id)).size).toBe(
+      matrix.summary.rows,
+    );
   });
 
   it("does not infer cross-surface readiness from a related capability", () => {
