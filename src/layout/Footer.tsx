@@ -17,8 +17,12 @@ export const Footer = () => {
       <div className="text-sm font-medium lowercase text-secondary-foreground hidden sm:flex whitespace-nowrap">
         {`© ${new Date().getFullYear()}. ${t("all_rights_reserved")}.`}
       </div>
-      {/* Six links do not fit a 375px row, and without these the row does not wrap — each
-          LINK does, mid-label ("за / нас", "наясно / ai"). Wrap between items instead. */}
+      {/* Five links do not fit a 375px row, and without these the row does not wrap —
+          each LINK does, mid-label ("за / нас"). Wrap between items instead.
+
+          There were six: "Наясно AI" → /chat was removed 2026-09-10, because the
+          chat is now invited from the homepage itself and a footer link is where
+          a feature goes to be missed. */}
       <ul className="flex flex-wrap items-center justify-end gap-y-1 sm:mt-0">
         <li className="whitespace-nowrap">
           <Link
@@ -45,15 +49,6 @@ export const Footer = () => {
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
             db
-          </Link>
-        </li>
-        <li className="whitespace-nowrap">
-          <Link
-            to="/chat"
-            underline={false}
-            className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
-          >
-            Наясно AI
           </Link>
         </li>
         <li className="whitespace-nowrap">
