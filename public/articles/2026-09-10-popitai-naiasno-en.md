@@ -18,7 +18,7 @@ Starter questions are grouped around practical interests: prices and household s
 
 This does not mean that every question about these subjects has an answer. Each query has a particular dataset, period and geographical scope. Information being available somewhere on the site also does not mean that the chat can already retrieve it from any wording.
 
-Explore the [tools catalogue](/chat/tools) and [data sources page](/data/sources). They provide the starting point for checking where information comes from—for example, the Central Election Commission, Ministry of Finance, National Statistical Institute and Public Procurement Agency. The chat helps you find a query; its source and methodology explain what it measures.
+Explore the [tools catalogue](/chat/tools) and [data sources page](/data/sources). There you can see where the information comes from—for example, the Central Election Commission, Ministry of Finance, National Statistical Institute and Public Procurement Agency. The chat helps you find a query; its source and methodology explain what it measures.
 
 ## Starters, your own questions and follow-ups
 
@@ -26,7 +26,7 @@ The easiest starting point is **Topics → Subtopic → Question**. Choose what 
 
 ![The starting screen with guided questions, the composer and mode selection.](/articles/images/chat-launch/start-en.png)
 
-Suggested questions below an answer help you continue to another query. You can type a follow-up too, but a short “and there?” or “and before that?” is not always understood correctly. If the answer changes the place or period, repeat them explicitly. When in doubt, choose a starter or open the corresponding dashboard.
+Below each answer are several suggested follow-up or clarifying questions. They help you continue to another query. You can type a follow-up too, but a short “and there?” or “and before that?” is not always understood correctly. If the answer changes the place or period, repeat them explicitly. When in doubt, choose a starter or open the corresponding dashboard.
 
 ## Three questions to begin with
 
@@ -44,17 +44,17 @@ This query covers the state budget, not the whole general-government sector. Its
 
 ## No AI and the AI assistant
 
-In **No AI** mode, starters and recognized wording invoke predefined tools. These retrieve data, perform calculations and arrange the results. The short explanation follows a template. No language model is used for that response, but fetching data still needs an internet connection.
+In **No AI** mode, starters and recognized wording invoke purpose-built tools. These retrieve data, perform calculations and arrange the results. The short explanation follows a template. No language model (AI) is used for that response, but fetching data still needs an internet connection.
 
-In **AI mode**, the model helps interpret the question and explain the tools’ results. Your question and conversation context are processed in the cloud through Google Gemini. Tables and charts come from the tools; the free-form narrative around them needs a separate check. AI can miss a qualification, choose an unsuitable query or make an unsupported inference.
+In **AI mode**, the model helps interpret the question and explain the tools’ results. Your question and conversation context are processed in the cloud with Google Gemini. Tables and charts come from the tools; the free-form narrative around them needs a separate check. AI can miss a qualification, choose an unsuitable query or make an unsupported inference.
 
-For example, add this to the budget question: “State the reporting period and explain the difference between plan and execution.” In our Bulgarian test, AI identified the correct period and figures. That is one useful explanation, not a guarantee that every later response will be correct. Compare the numbers with the table and open the source when in doubt.
+For example, you can ask about the budget: [“State the reporting period and explain the difference between plan and execution.”](/chat?q=What+is+the+state+budget+%E2%80%94+plan+and+actual+spending%3F+State+the+reporting+period+and+explain+the+difference+between+plan+and+execution.) In our Bulgarian [test](/chat/evals), AI identified the correct period and figures. That is one useful explanation, not a guarantee that every later response will be correct. Compare the numbers with the table and open the source when in doubt.
 
 ## Two deeper checks
 
 **From a topic to a procedure.** [“Show me all road-guardrail tenders in 2025”](/chat?q=Show+me+all+road-guardrail+tenders+in+2025) searches the available corpus for that topic and year. “All” in the starter does not guarantee completeness outside the corpus’s coverage. Our checked response contained two procedures.
 
-Select the suggested **“Show tender 00044-2025-0125”**. Its details include the buyer, date, six lots and an estimated value of approximately €490.8m. This is an **announced estimate, not a payment**. The status is also the one held in the available data, not an independent confirmation of today’s position.
+Select the suggested **[“Show tender 00044-2025-0125”](/chat?q=Show+tender+00044-2025-0125)**. Its details include the buyer, date, six lots and an estimated value of approximately €490.8m. This is an **announced estimate, not a payment**. The status is also the one held in the available data, not an independent confirmation of today’s position.
 
 ![A suggested follow-up opens a specific procedure with an estimate, date and detailed-record link.](/articles/images/chat-launch/followup-en.png)
 
@@ -70,11 +70,11 @@ AI access uses **Cloudflare Turnstile** to check for automated abuse. Verificati
 
 ![The mode menu with its explanation of limits, cloud processing and conversation history.](/articles/images/chat-launch/limits-en.png)
 
-This is not a personal daily allowance: people sharing a network share the IP limit. Reverification does not clear that limit or the service’s shared budget. Failed or interrupted requests can consume allowance, and the shared budget may temporarily stop AI earlier. You can continue with **No AI**, although data or network failures can prevent that mode from returning a query too.
+This is not a personal daily allowance: people sharing a network share the IP limit. Reverification does not reset that limit or the service’s shared budget. Failed or interrupted requests can consume allowance, and the shared budget may temporarily stop AI earlier. When the AI request limit is exceeded, you can continue in **No AI** mode, although data or network failures can prevent that mode from returning a query too.
 
-Conversation and prompt history stay in the browser for the current domain. If you used the separate old chat, export conversations you need from there: they do not transfer automatically. A shared link contains the last question and asks it again; it does not preserve the whole conversation or a historical answer. Do not share a context-dependent question such as “and in 2023?” on its own.
+The chat conversation and prompt history stay in the browser for the current domain. A shared link contains the last question and asks it again; it does not preserve the whole conversation or a historical answer. Do not share a context-dependent question such as “and in 2023?” on its own.
 
-## How it compares with other tools
+## How it compares with other AI systems
 
 Different tools suit different tasks. This comparison was checked on **10 September 2026** and is not an accuracy ranking.
 
@@ -89,3 +89,5 @@ Different tools suit different tasks. This comparison was checked on **10 Septem
 Specialist search tools such as [OpenTender Bulgaria](https://opentender.eu/bg) and [BIRD’s declaration search](https://bird.bg/judicial-money/) can help with particular checks too. Compare periods, units and original sources before comparing totals between sites.
 
 [Open Ask Наясно](/chat) and begin with one concrete question. If an answer is unclear or wrong, use the community link beneath it and identify the question, mode and mismatch with the source—without personal or confidential information.
+
+To report a bug or suggest a feature, [open an issue in the project’s GitHub repository](https://github.com/atanasster/electionsbg/issues/new).
