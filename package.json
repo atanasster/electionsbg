@@ -350,7 +350,7 @@
     "deploy:db": "cd functions && npm test && cd .. && firebase deploy --only functions:db -P default",
     "deploy:ai": "firebase deploy --only hosting:ai -P ai",
     "deploy:ai:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:ai -P ai",
-    "deploy:ai:functions": "firebase deploy --only functions:llm -P ai",
+    "deploy:ai:functions": "npm run deploy:llm",
     "deploy:news": "firebase deploy --only hosting:news -P news",
     "deploy:news:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:news -P news",
     "deploy:news:evals": "npm --prefix news-functions test && npx --yes firebase-tools@15.18.0 --config firebase.news-evals.json deploy --only functions:news-evals,firestore:rules -P news",
@@ -410,7 +410,8 @@
     "video:data-risk": "tsx scripts/video/build_risk.ts",
     "video:gate1": "tsx scripts/video/gate1.ts",
     "video:screens": "tsx scripts/video/capture_screens.ts",
-    "news:test": "python3 news/scripts/run_tests.py && vitest run news/scripts"
+    "news:test": "python3 news/scripts/run_tests.py && vitest run news/scripts",
+    "deploy:llm": "npm run functions:test && firebase deploy --only functions:llm -P default"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

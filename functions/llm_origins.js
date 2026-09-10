@@ -1,5 +1,5 @@
-// Exact first-party hosts only. The AI project's function and allowance ledger
-// remain in place while the user-facing screens move to the main site.
+// Exact first-party hosts only. Legacy clients remain allowed during migration
+// to the main project; verification still checks the widget hostname and action.
 const AI_HOSTNAMES = Object.freeze([
   "naiasno.bg",
   "www.naiasno.bg",

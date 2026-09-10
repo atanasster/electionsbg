@@ -27,7 +27,9 @@
       "source": "news-functions",
       "codebase": "news-evals",
       "runtime": "nodejs22",
-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
     }
   ],
   "firestore": {
@@ -119,6 +121,13 @@
         }
       ],
       "rewrites": [
+        {
+          "source": "/api/llm",
+          "function": {
+            "functionId": "llm",
+            "region": "us-central1"
+          }
+        },
         {
           "source": "/api/scenarios",
           "function": {
@@ -480,13 +489,6 @@
       ],
       "rewrites": [
         {
-          "source": "/api/llm",
-          "function": {
-            "functionId": "llm",
-            "region": "us-central1"
-          }
-        },
-        {
           "source": "/legacy-export",
           "destination": "/legacy-export.html"
         },
@@ -535,6 +537,13 @@
       "predeploy": [
         "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run ai:harness",
         "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build:ai"
+      ],
+      "redirects": [
+        {
+          "source": "/api/llm",
+          "destination": "https://elections-bg.web.app/api/llm",
+          "type": 307
+        }
       ]
     },
     {

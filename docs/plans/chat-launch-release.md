@@ -1,5 +1,7 @@
 # Chat launch: review, release and recovery
 
+Backend update (2026-09-10): the LLM function, secrets and usage ledger have moved to elections-bg. The stable API is `https://elections-bg.web.app/api/llm`; legacy Hosting redirects its API and the old function stays disabled. See [the migration record](llm-main-project-migration.md). Earlier statements below about retaining the backend/ledger in electionsbg-ai describe the pre-migration state and are superseded. No article publication or project deletion occurred.
+
 Prepared 2026-09-10. Owner: Atanas / the operator carrying out the approved release. This is a runbook, not a record that production was released.
 
 ## Current state and review links

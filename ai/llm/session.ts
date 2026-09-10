@@ -1,7 +1,8 @@
+// Stable main-project Hosting origin: marketing-domain redirects must not rewrite POSTs.
 // Session tokens stay in memory. Reloading requires fresh verification; a
 // server-side IP/day allowance prevents that from resetting the daily quota.
 export const PROXY_URL =
-  import.meta.env?.VITE_LLM_PROXY_URL || "https://ai.electionsbg.com/api/llm";
+  import.meta.env?.VITE_LLM_PROXY_URL || "https://elections-bg.web.app/api/llm";
 let token = "";
 let expiresAt = 0;
 let notice = "";
