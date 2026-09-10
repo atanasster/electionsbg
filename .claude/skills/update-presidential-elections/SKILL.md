@@ -148,10 +148,15 @@ npx vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/
 
 ```bash
 npm run bucket:sync:paths -- <cycle>          # e.g. 2026_11_08_pvr — the id ALREADY ends in _pvr
+npm run db:load:election-national:pg:cloud    # the national summary → migration 195's tables
 npm run build && npm run deploy               # prerendered pages + og cards + the sitemap
 ```
 
-⚠ **NO POSTGRES.** Nothing in this family loads into a database, so there is no `db:load:*:cloud` step and no `person:slugs` — unlike every other election ingest. The person layer does not read presidential results in v1 (plan T8.1 is where a ticket becomes a `person_role`).
+⚠ **THE POSTGRES STEP IS NEW, AND THIS SECTION SAID THERE WAS NONE.** It read „NO POSTGRES — nothing in this family loads into a database" until 2026-09-10, which was true when it was written and stopped being true when migration 195 landed: `db:load:election-national:pg` reads `data/<cycle>/national_summary.json` for EVERY election folder, `_pvr` included, so a presidential ingest now moves a corpus that reaches production only through that command. Skip it and prod serves the previous vintage of the national results at a 200, with every row count reconciling — while local is correct.
+
+⚠ **Its input is GITIGNORED.** `national_summary.json` lives under `data/<cycle>/`, which is not tracked, so the file only exists on a machine that ran the ingest. That is why the loader has to be run from here rather than picked up by a chain: nothing else on the cloud side can see the corpus.
+
+⚠ Still **no `person:slugs`** — unlike every other election ingest. The person layer does not read presidential results in v1 (plan T8.1 is where a ticket becomes a `person_role`).
 
 ### 7. Record the change
 
