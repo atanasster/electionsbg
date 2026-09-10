@@ -639,6 +639,21 @@ export const Chat = ({
       return;
     }
     if (e.nativeEvent.isComposing) return;
+    if (
+      e.key === "Tab" &&
+      !e.shiftKey &&
+      !e.altKey &&
+      !e.ctrlKey &&
+      !e.metaKey &&
+      input === "" &&
+      followUpPlaceholder
+    ) {
+      e.preventDefault();
+      histIdx.current = -1;
+      setInput(followUpPlaceholder);
+      caretToEnd();
+      return;
+    }
     const el = e.currentTarget;
     if (e.key === "ArrowUp") {
       const atFirstLine =
@@ -799,6 +814,7 @@ export const Chat = ({
         )
       : [];
 
+  const followUpPlaceholder = followups[0]?.[lang];
   const suggestions = busy ? [] : matchSuggestions(input, lang);
   const hasChat = messages.length > 0;
   // how many prior exchanges the assistant is carrying as context (for the pill)
@@ -994,7 +1010,11 @@ export const Chat = ({
               ref={taRef}
               rows={1}
               className="max-h-40 min-h-[2.25rem] min-w-0 flex-1 resize-none bg-transparent px-2 py-2 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none"
-              placeholder={t("Попитайте за данните…", "Ask about the data…")}
+              aria-label={t("Попитайте за данните…", "Ask about the data…")}
+              placeholder={
+                followUpPlaceholder ??
+                t("Попитайте за данните…", "Ask about the data…")
+              }
               value={input}
               onChange={(e) => {
                 // typing leaves history-browsing; the edit becomes the new draft
