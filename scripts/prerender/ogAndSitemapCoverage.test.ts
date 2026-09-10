@@ -1324,11 +1324,25 @@ describe("a hub's og capture anchors on its head", () => {
       }
     > = {
       [HEAD]: {
-        sha: "cf9c4f957bc0fcd12af033034c81fc32f4cc9118",
+        sha: "61071a74371e45812bb8988ae474e60ce408af98",
         why:
-          "useHeadHref switched from a `?`-split to `parsePath` — it alters the hrefs the " +
-          "head builds and draws nothing. Verified: re-shooting governance-declarations " +
-          "produced an identical md5 (4738a7bb9af3358ef031ccfc828ea401).",
+          "61071a7437 (`home: compact the money map beside search`) adds an OPTIONAL " +
+          "`searchPreview` slot, rendered only when a caller passes one. `HomeDashboardScreen` " +
+          "is the only caller that does — every other hub renders `null` there, so the node " +
+          "does not exist in their DOM at all. `home` is therefore NOT exempted by this entry " +
+          "and is re-shot on its own merits; its own screen dates it. " +
+          "Verified 2026-09-10 by re-shooting all seventeen head cards: these five came back " +
+          "BYTE-IDENTICAL (md5s below), and the twelve that moved did so because their " +
+          "PAYLOADS moved, not because of this commit — they were re-shot and committed " +
+          "rather than exempted. The previous entry (cf9c4f9578, useHeadHref's `parsePath` " +
+          "switch) had already expired, which is the sha doing its job.",
+        verifiedCardMd5: {
+          elections: "7f3d468b6b5926020f6406e7d264d230",
+          subsidies: "bbbcbae84bcb772138f1743fb5bccb64",
+          "analysis-hub": "079c108c8da62782bd870470365c8c49",
+          "reports-hub": "84755eef0ef715b93def925a5a808efd",
+          "governance-sectors": "f26e9c36e6cd54262430cef77c380f86",
+        },
       },
       // ⚠️ THE TWO DATA ENTRIES THAT USED TO SIT HERE ARE GONE, and deliberately not
       // replaced. `data/macro.json`, `data/macro_peers.json` and
@@ -1680,7 +1694,18 @@ describe("a hub's og capture anchors on its head", () => {
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
       project: indicatorsFigures,
-      md5: "7a49f8898e5e2d3659006777115b10ac",
+      md5: "fb7c826fc50fc55886e8150d252a2362",
+      // ⚠️ RE-SHOT 2026-09-10 — the SAME row again, a FOURTH time, and once more exactly as
+      // the note below predicts. A 26th member state has reported 2026-Q2, so the rail reads
+      // „9 от 26" against „9 от 25", and Bulgaria's own growth print moved 2.7% → 2.8% with
+      // it. LOOKED AT: both values are on the card, and the other three KPIs and their three
+      // ranks are byte-for-byte what they were.
+      //
+      // The card was re-shot as one of seventeen whose commit dates had fallen behind
+      // `HubHead.tsx`; this clause is what caught that the FIGURES had moved too, which the
+      // age clause could not see — `macro.json` and `macro_peers.json` are rewritten nightly
+      // without touching a pixel, which is the whole reason the two clauses are separate.
+      //
       // ⚠️ RE-SHOT 2026-09-03 — the SAME row moving for the SAME reason, a third time.
       // The rail read „7 от 22" on 08-26, „8 от 24" on 08-31 and is „9 от 25" now: a
       // 25th member state has reported 2026-Q2, which moves Bulgaria's growth rank AND its
@@ -1695,16 +1720,16 @@ describe("a hub's og capture anchors on its head", () => {
       // lands on, because its 2026-Q2 return is the one still coming in. Expect it again
       // until the band clamps past 2026-Q2, at which point the capture entry's own
       // „THIS CLAUSE HAS AN EXPIRY" note takes over and the rail drops out entirely.
-      shot: "2026-09-03",
+      shot: "2026-09-10",
       figures:
-        "gdpGrowth=2.7% [Растеж на реалния БВП · % спрямо същия период предходна " +
+        "gdpGrowth=2.8% [Растеж на реалния БВП · % спрямо същия период предходна " +
         "година (реален, SCA) · 2026-Q2] " +
         "inflation=5.8% [Инфлация (ХИПЦ) · % спрямо предходната година (ХИПЦ, " +
         "тримес. ср.) · 2026-Q2] " +
         "unemployment=3.0% [Безработица · % от активното население (сезонно " +
         "изгладено) · 2026-Q1] " +
         "govDebt=28.5% [Брутен държавен дълг · % от БВП · 2026-Q1] " +
-        "| gdpGrowth=9/25 inflation=26/27 unemployment=1/27 govDebt=3/27",
+        "| gdpGrowth=9/26 inflation=26/27 unemployment=1/27 govDebt=3/27",
     },
   };
 
