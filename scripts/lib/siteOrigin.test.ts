@@ -239,7 +239,15 @@ describe("no stray origin literals in the SEO-critical paths", () => {
    */
   const RETIRED_HOST_ALLOWED = [/alternateName:/];
 
-  it.each(FILES)("%s carries no retired brand name in its copy", (f) => {
+  // index.html is in THIS list and not in FILES above: it cannot import the
+  // constant, so it spells `https://naiasno.bg` out in its canonical and
+  // og:url by necessity (the dedicated test near the top of this file is what
+  // keeps those honest) — but it is also the head of the served shell, so a
+  // retired brand name in its <title> is on every un-prerendered page at once.
+  // It was: the homepage title and og:title both ended "| electionsbg.com".
+  const COPY_FILES = [...FILES, "index.html"];
+
+  it.each(COPY_FILES)("%s carries no retired brand name in its copy", (f) => {
     const offenders = read(f)
       .split("\n")
       .map((line, i) => [i + 1, line] as const)
