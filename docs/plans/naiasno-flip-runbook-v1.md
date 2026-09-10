@@ -28,7 +28,8 @@ one wins on chat details.
 | `functions/llm_origins.js` | carries all four naiasno hosts + every old one |
 | `functions/index.js` `SCENARIO_ALLOWED_ORIGINS` / `DB_ALLOWED_ORIGINS` | carry naiasno |
 | Icons, favicon, `og_image.webp`, manifest, `theme-color` | regenerated from `brandMark.ts` |
-| Articles (14 + `index.json`), About page, chat exports, CSV filenames | Наясно |
+| Articles (14 + `index.json`), chat exports, CSV filenames | Наясно |
+| Header lockup, About page, README | Наясно — and Latin on `/en` |
 | `scripts/chat-launch/legacy-redirects.json` + its probe | expect `naiasno.bg` |
 | `ai/app/legacyRoutes.test.ts` | expects `naiasno.bg` |
 
@@ -50,7 +51,19 @@ allowlisted everywhere for a later move, but no DNS is being pointed at it here.
 These are not flip steps. They are things that are wrong today and would be
 launched onto a new domain as if they were the new site's own defects.
 
-**B1 — the three `/chat` routes are prerendered but have no sitemap `<loc>`.**
+> **✅ B1, B2 and B3 are DONE (2026-09-10, `65ff364c4d`).** The three `/chat`
+> routes are in `route_defs.ts` and the sitemap; `chat/tools` and `chat/evals`
+> have a `bodyHtml` with an `<h1>`; all three have their own `og:image` (they
+> were falling through to the site-wide card — found while fixing the other
+> two); and `session.test.ts` pins the moved LLM endpoint.
+>
+> **B4 is still open, and it is the one nobody here can close** — it lives in the
+> Cloudflare console, not the repo.
+>
+> `distHeadings.data.test.ts` reads `dist/`, so it stays red until the next
+> build. That is the gate working, not a residue.
+
+**B1 — ✅ FIXED — the three `/chat` routes were prerendered with no sitemap `<loc>`.**
 `scripts/prerender/ogAndSitemapCoverage.test.ts` fails on `chat`, `chat/tools`,
 `chat/evals` in both languages. Launching a domain whose flagship new feature is
 undiscoverable is the opposite of the point.
@@ -61,16 +74,16 @@ undiscoverable is the opposite of the point.
 > then diff the `<loc>` COUNT against the committed file before staging. If it
 > fell, the corpus is short, not the sitemap.
 
-**B2 — `chat/tools` and `chat/evals` carry no `<h1>`** (`distHeadings.data.test.ts`,
+**B2 — ✅ FIXED — `chat/tools` and `chat/evals` carried no `<h1>`** (`distHeadings.data.test.ts`,
 4 pages counting the `/en` mirrors). Either give the route a `bodyHtml` heading
 or list it in `NO_H1_ROUTES` with a reason.
 
-**B3 — `ai/llm/session.test.ts` pins `https://ai.electionsbg.com/api/llm`** and
+**B3 — ✅ FIXED — `ai/llm/session.test.ts` pinned `https://ai.electionsbg.com/api/llm`** and
 the endpoint is now `https://elections-bg.web.app/api/llm`. A stale fixture from
 the LLM migration, not from the rebrand — left for that work stream, but it must
 be green before a release.
 
-**B4 — Cloudflare Turnstile hostnames.** The **Naiasno AI Chat** managed widget
+**B4 — ⛔ OPEN — Cloudflare Turnstile hostnames.** The **Naiasno AI Chat** managed widget
 held 9 hostnames on 2026-09-10 and the UI allows 10; `naiasno.bg` and
 `www.naiasno.bg` need TWO slots. Remove the expired chat-launch preview host
 first, and verify the live list rather than trusting this line. Get this wrong
