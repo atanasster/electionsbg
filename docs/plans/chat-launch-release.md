@@ -1,5 +1,18 @@
 # Chat launch: review, release and recovery
 
+## Production release — 2026-09-11
+
+The user approved Hosting deployment and publication of the article and homepage card. This release supersedes the earlier pending-publication notes below.
+
+- Publication commit: `e3b03755be` (article `draft: false`, invitation `published: true`).
+- Previous Hosting version: `7b562cd3deaae777`; first release: `36a9bce56bfb5b01`; final release: `a6d31a59c74c585b`.
+- Completed Hosting → DB function → identical Hosting sequence; DB revision `db-00142-sag`, ACTIVE.
+- Verified entry `/assets/index-duKUsvYg.js`, SHA-256 `0ccd3cbf751bdadf4437fbf12fc23b318900234ce990a96a509d4f030827accd`, against local output on the homepage, chat/tools/evals, article, function-served company page and direct DB function shell. All returned 200 and referenced the same JavaScript asset.
+- Build, production packaging guard, budget tests, AI regression suite and tools harness, and 614 function tests passed. Lint had no errors and one existing Fast Refresh warning in `InterregTile.tsx`.
+- Browser checks passed for the published homepage card, BG/EN article and GitHub issue link, chat/tools/evals full-width toolbar and footer. A non-AI budget starter returned the period 2026-07-31; a real Gemini follow-up completed in 5.1 seconds. All eight article screenshots matched local SHA-256 hashes.
+- `naiasno.bg` still redirects to `electionsbg.com`; no DNS or standalone-site changes were made in this release.
+
+
 Backend update (2026-09-10): the LLM function, secrets and usage ledger have moved to elections-bg. The stable API is `https://elections-bg.web.app/api/llm`; legacy Hosting redirects its API and the old function stays disabled. See [the migration record](llm-main-project-migration.md). Earlier statements below about retaining the backend/ledger in electionsbg-ai describe the pre-migration state and are superseded. No article publication or project deletion occurred.
 
 Prepared 2026-09-10. Owner: Atanas / the operator carrying out the approved release. This is a runbook, not a record that production was released.
