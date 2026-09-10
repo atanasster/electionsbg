@@ -26,7 +26,15 @@ const PRESIDENTIAL_RE =
 // suffix — a literal "парламентарни?" misses the definite plural
 // "парламентарните избори" ("THE parliamentary elections"), an ordinary,
 // common phrasing that isn't merely the indefinite form plus one letter.
-const PARLIAMENTARY_RE =
+//
+// Exported (Tier 4b) — `trend_presidential.ts` reuses this exact pattern to
+// find where a JOINT parliamentary+presidential release's presidential
+// section begins (right after the LAST sentence naming the parliamentary
+// race), so the phrase definition lives in exactly one place rather than a
+// second, drifting copy. `raceStatedBy` below still lower-cases its own
+// input before testing — a caller reusing this export directly needs an
+// `i` flag (or its own lower-casing) since this pattern carries none.
+export const PARLIAMENTARY_RE =
   /парламентарн[\p{L}\p{N}]*\s+избор|народн[\p{L}\p{N}]*\s+събрани/u;
 
 /** `null` when `text` states neither race explicitly — never a default. */

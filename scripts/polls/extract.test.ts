@@ -329,13 +329,14 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
     ).toBe(true);
   });
 
-  it("refuses a presidential-titled capture via the title-only fast path, and still extracts a parliamentary one in the same batch", async () => {
-    // Title alone states the race outright ("президентски избори") — the
-    // fast path in extractTrend/extractAlphaResearch (added to skip the
-    // OCR/PDF acquisition pass for an obviously non-parliamentary
-    // capture) must reject this BEFORE any of that work runs, with its
-    // own distinct message, rather than falling through to the later
-    // body-text-informed guard.
+  it("routes a presidential-titled TR capture to extractTrendPresidential via the title-only fast path, and still extracts a parliamentary one in the same batch", async () => {
+    // Tier 4b: `extractTrendDispatch`'s own title-only fast path
+    // (`classifyTitle`, no OCR/PDF acquisition paid) routes a title that
+    // states the race outright ("президентски избори") straight to
+    // `extractTrendPresidential` — this used to be the refusal path
+    // (presidential extraction "not built for TR yet"), and this test's
+    // own name/assertions changed WITH that feature landing rather than
+    // pinning the now-obsolete refusal behavior.
     const TR_PRESIDENTIAL_HTML =
       "<html><head><title>Президентски избори 2026 — ТРЕНД</title></head>" +
       '<body><div class="et_pb_text_inner">...</div></body></html>';
@@ -344,22 +345,56 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
 
     await main(["--agency", "TR"]);
 
-    expect(process.exitCode).toBe(1);
     expect(
-      errorSpy.mock.calls.some(
-        (c: unknown[]) =>
-          String(c[0]).includes("FAILED TR 666") &&
-          String(c[0]).includes(
-            "title alone resolves to a non-parliamentary race",
-          ),
+      errorSpy.mock.calls.some((c: unknown[]) =>
+        String(c[0]).includes("FAILED TR 666"),
+      ),
+    ).toBe(false);
+    expect(
+      fs.existsSync(
+        path.join(scratchRoot, "data/polls/_inbox/tr-pub-666.json"),
       ),
     ).toBe(true);
+    const presidentialDraft = JSON.parse(
+      fs.readFileSync(
+        path.join(scratchRoot, "data/polls/_inbox/tr-pub-666.json"),
+        "utf8",
+      ),
+    );
+    expect(presidentialDraft.race).toBe("presidential");
     // The parliamentary capture in the same batch is unaffected.
     expect(
       fs.existsSync(
         path.join(scratchRoot, "data/polls/_inbox/tr-pub-555.json"),
       ),
     ).toBe(true);
+  });
+
+  it("routes a TITLE-ambiguous TR capture via the body-text-informed fallback (acquireText + classifyRace), not just the title-only fast path", async () => {
+    // Neither classifyTitle branch fires for this title — the dispatcher's
+    // THIRD branch (acquireText + classifyRace over the article body) is
+    // what has to resolve this one, exercising a code path the two
+    // title-only tests above never reach.
+    const TR_AMBIGUOUS_TITLE_PRESIDENTIAL_HTML =
+      "<html><head><title>Ноемврийско проучване — ТРЕНД</title></head><body>" +
+      '<div class="et_pb_text_inner">Резултати от допитването за предстоящите президентски избори.</div>' +
+      "</body></html>";
+    writeSyntheticCapture("trend", "777", TR_AMBIGUOUS_TITLE_PRESIDENTIAL_HTML);
+
+    await main(["--agency", "TR"]);
+
+    expect(
+      errorSpy.mock.calls.some((c: unknown[]) =>
+        String(c[0]).includes("FAILED TR 777"),
+      ),
+    ).toBe(false);
+    const draft = JSON.parse(
+      fs.readFileSync(
+        path.join(scratchRoot, "data/polls/_inbox/tr-pub-777.json"),
+        "utf8",
+      ),
+    );
+    expect(draft.race).toBe("presidential");
   });
 
   it("GM (Tier 4 T4.1, presidential-only) is wired into --agency dispatch, via its title-only fast path", async () => {

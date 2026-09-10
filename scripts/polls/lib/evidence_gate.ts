@@ -93,6 +93,71 @@ export const shareSupportedByQuote = (
   );
 };
 
+/**
+ * The mirror image of `shareSupportedByQuote`, for phrasing that states
+ * the value BEFORE the label — "... с 24% се нарежда подкрепеният от БСП
+ * претендент Румен Радев." (measured live in Trend's real 2016
+ * presidential capture, Tier 4b's `candidate_name_rule.ts`). Bulgarian
+ * presidential-race prose uses both orders in the same article — a
+ * leader stated "Name с X%", a runner-up stated "с X% ... Name" — which
+ * is why `shareSupportedByQuote` itself stays forward-only rather than
+ * becoming bidirectional and silently loosening the guarantee every
+ * EXISTING caller (party-share extraction, measured forward-only) relies
+ * on; this is a separate, additive check for a genuinely different real
+ * phrasing, not a relaxation of that one.
+ *
+ * The value must occur BEHIND the label's own occurrence, no further
+ * back than the nearest `otherLabels` entry preceding it — the mirror of
+ * `shareSupportedByQuote`'s own forward boundary, for the identical
+ * misattribution reason.
+ *
+ * ⚠️ That boundary only excludes the OTHER label's own NAME span, not
+ * wherever ITS number happens to sit — correct when every candidate in
+ * the combined quote uses this same before-label shape (the other
+ * label's number is then necessarily even further back, past its own
+ * name), but not a general guarantee against a PRECEDING candidate whose
+ * OWN mention uses the opposite (`shareSupportedByQuote`) shape.
+ *
+ * `candidate_name_rule.ts`'s own caller keeps each claim's `quote`
+ * narrowly bounded to that ONE candidate's own sentence/window at
+ * extraction time — which rules out a WIDE quote naming a sibling
+ * candidate reaching this function at all, but is NOT a general defense
+ * against misattribution on its own: a real defect found reviewing that
+ * caller (Tier 4b) had a narrow, single-candidate quote whose own number
+ * had ALREADY been consumed by an adjacent, earlier forward claim in the
+ * same sentence, and this check — seeing no sibling name to bound
+ * against inside its own too-narrow quote — accepted the reused number
+ * unconditionally. That specific hole is closed in
+ * `candidate_name_rule.ts` itself (a "consumed-until" cursor spanning the
+ * whole extraction pass, not something this function can see from one
+ * claim's quote alone) — this function's own contract stays exactly what
+ * it says above: correct within a single quote whose candidates share one
+ * before-label ordering, and no more than that.
+ */
+export const shareSupportedByQuoteBeforeLabel = (
+  label: string,
+  value: number,
+  quote: string,
+  otherLabels: string[] = [],
+): boolean => {
+  const q = normalise(quote);
+  const normLabel = normalise(label);
+  const labelIdx = q.indexOf(normLabel);
+  if (labelIdx === -1) return false;
+  let boundary = 0;
+  for (const other of otherLabels) {
+    const normOther = normalise(other);
+    if (!normOther || normOther === normLabel) continue;
+    const idx = q.lastIndexOf(normOther, labelIdx);
+    if (idx === -1) continue;
+    const otherEnd = idx + normOther.length;
+    if (otherEnd > boundary) boundary = otherEnd;
+  }
+  return numbersIn(q.slice(boundary, labelIdx)).some(
+    (n) => n === value || Math.abs(n - value) <= Math.abs(value) * 1e-9,
+  );
+};
+
 const groundingRefusal = (
   field: string,
   quote: string,
@@ -136,6 +201,46 @@ export const gateShares = (
     }
     const otherLabels = allLabels.filter((l) => l !== c.label);
     if (!shareSupportedByQuote(c.label, c.value, c.quote, otherLabels)) {
+      refused.push({
+        field,
+        reason: `the quote does not state ${c.value}% beside "${c.label}"`,
+        quote: c.quote,
+      });
+      continue;
+    }
+    accepted.push(c);
+  }
+  return { accepted, refused };
+};
+
+/**
+ * Same as `gateShares`, but accepts a claim whose quote states the value
+ * EITHER before or after the label — `candidate_name_rule.ts`'s own
+ * forward/backward extraction (Tier 4b) can produce either shape for a
+ * candidate name, unlike the party-share prose `gateShares` was built
+ * for, which is forward-only. Tries the forward check first (the common
+ * case), then the backward one, and only refuses when neither holds.
+ */
+export const gateSharesEitherDirection = (
+  claims: ShareClaim[],
+  docText: string,
+): GateResult<ShareClaim> => {
+  const normalisedDoc = normalise(docText);
+  const accepted: ShareClaim[] = [];
+  const refused: Refusal[] = [];
+  const allLabels = claims.map((c) => c.label);
+  for (const c of claims) {
+    const field = `share:${c.label}`;
+    const groundingFail = groundingRefusal(field, c.quote, normalisedDoc);
+    if (groundingFail) {
+      refused.push(groundingFail);
+      continue;
+    }
+    const otherLabels = allLabels.filter((l) => l !== c.label);
+    if (
+      !shareSupportedByQuote(c.label, c.value, c.quote, otherLabels) &&
+      !shareSupportedByQuoteBeforeLabel(c.label, c.value, c.quote, otherLabels)
+    ) {
       refused.push({
         field,
         reason: `the quote does not state ${c.value}% beside "${c.label}"`,

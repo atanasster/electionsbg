@@ -21,6 +21,15 @@
 // carries that same version suffix in its own filename, so a re-fetch
 // that changed content produces a distinct draft rather than silently
 // overwriting the one for an earlier version.
+//
+// TR (Tier 4b) is the one agency publishing BOTH races, so its single
+// `EXTRACTORS` slot is a small DISPATCHER (`extractTrendDispatch` below)
+// rather than either race-specific function directly — it reads the
+// title first (cheap, no OCR/PDF acquisition paid unless the title is
+// genuinely ambiguous) and routes to `extractTrend` (parliamentary) or
+// `extractTrendPresidential` (presidential), mirroring
+// `extractTrend`'s/`extractGlobalMetrics`'s own title-then-body
+// two-stage race check rather than inventing a third one.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -28,9 +37,12 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { extractAlphaResearch } from "./extractors/alpha_research";
 import { extractGlobalMetrics } from "./extractors/global_metrics";
 import { extractTrend } from "./extractors/trend";
+import { extractTrendPresidential } from "./extractors/trend_presidential";
 import { flagReader } from "./lib/argv";
 import { dirSlugFor, latestVersionSuffix } from "./lib/capture";
+import { classifyRace, classifyTitle } from "./lib/classify_race";
 import type { InboxDraft } from "./lib/draft";
+import { acquireText, extractPageTitle } from "./lib/text_acquisition";
 
 const PROD_REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -47,9 +59,51 @@ export const __setExtractRootForTests = (root?: string): void => {
 
 type Extractor = (captureDir: string, pubId: string) => Promise<InboxDraft>;
 
+/** Reads `page.html` here to resolve the title cheaply, THEN resolves
+ *  which race this capture is for before choosing an extractor.
+ *  `classifyTitle` first — an explicit, unambiguous title needs no
+ *  `acquireText` (OCR/PDF acquisition) at all, the same fast path both
+ *  race-specific extractors' own guards already assume; only a genuinely
+ *  title-ambiguous capture pays for full acquisition, mirroring
+ *  `extractTrend`'s own body-text-informed backstop.
+ *
+ *  ⚠️ This does NOT make `page.html` a single-read file end to end:
+ *  whichever extractor this delegates to (`extractTrend` /
+ *  `extractTrendPresidential`) reads it again on its own via their own
+ *  `readCaptureFile`, and the ambiguous-title branch reads it a THIRD
+ *  time inside `acquireText`. Redundant, but harmless — it is a small,
+ *  static, already-fetched file, and this dispatcher's own read is what
+ *  keeps the common (unambiguous-title) case from paying for a full
+ *  `acquireText` pass just to learn the title. */
+const extractTrendDispatch: Extractor = async (captureDir, pubId) => {
+  let html: string;
+  try {
+    html = fs.readFileSync(path.join(captureDir, "page.html"), "utf8");
+  } catch (e) {
+    // Same "clear, capture-scoped" shape both race-specific extractors'
+    // own `readCaptureFile` produces — this read happens BEFORE either of
+    // them runs, so a missing capture must not surface a bare Node ENOENT
+    // instead.
+    throw new Error(
+      `extractTrendDispatch(${pubId}): missing or unreadable page.html in ${captureDir} ` +
+        `(a partial polls:fetch run?): ${e instanceof Error ? e.message : String(e)}`,
+    );
+  }
+  const title = extractPageTitle(html);
+  const titleRace = classifyTitle(title);
+  if (titleRace === "presidential")
+    return extractTrendPresidential(captureDir, pubId);
+  if (titleRace === "parliamentary") return extractTrend(captureDir, pubId);
+  const acquired = await acquireText(captureDir, "TR");
+  const race = classifyRace(title, acquired.articleText);
+  return race === "presidential"
+    ? extractTrendPresidential(captureDir, pubId)
+    : extractTrend(captureDir, pubId);
+};
+
 /** Every agency with a built deterministic extractor. */
 const EXTRACTORS: Record<string, Extractor> = {
-  TR: extractTrend,
+  TR: extractTrendDispatch,
   AR: extractAlphaResearch,
   GM: extractGlobalMetrics,
 };

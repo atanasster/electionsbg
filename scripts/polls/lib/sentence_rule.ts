@@ -47,10 +47,15 @@ const LABEL_RE = new RegExp(
 // would treat "3 милиона" or "1004 интервюта" as a candidate share.
 const PERCENT_RE = /(\d+(?:[.,]\d+)?)\s*%/g;
 
-const parsePercent = (raw: string): number => Number(raw.replace(",", "."));
+// Exported (Tier 4b) — `candidate_name_rule.ts` shares this exact
+// definition of "what a percentage token looks like" rather than a second
+// copy that could drift (e.g. accepting a bare digit run with no "%").
+export const parsePercent = (raw: string): number =>
+  Number(raw.replace(",", "."));
 
-/** Every percentage-shaped match in `window`, in order. */
-const percentMatchesIn = (window: string): RegExpExecArray[] => {
+/** Every percentage-shaped match in `window`, in order. Exported
+ *  (Tier 4b) for the same reason `parsePercent` is. */
+export const percentMatchesIn = (window: string): RegExpExecArray[] => {
   const out: RegExpExecArray[] = [];
   PERCENT_RE.lastIndex = 0;
   let m: RegExpExecArray | null;
@@ -66,7 +71,12 @@ const percentMatchesIn = (window: string): RegExpExecArray[] => {
 // candidates found, no refusal recorded either) or, worse, leaving
 // exactly one OTHER percent-shaped number in the truncated window that
 // then gets confidently — and wrongly — attributed to the label.
-const SENTENCE_END_RE = /[!?]|\.(?!\d)/g;
+// Exported (Tier 4b) — `candidate_name_rule.ts` reuses this exact
+// "period-not-a-decimal-point" distinction for its own BACKWARD sentence
+// boundary search, so the two never drift apart on what counts as a
+// sentence end. Each caller mints its own `new RegExp(SENTENCE_END_RE.source,
+// "g")` rather than sharing this module's own stateful `lastIndex`.
+export const SENTENCE_END_RE = /[!?]|\.(?!\d)/g;
 
 /** The position of the first sentence-ending punctuation at or after
  *  `from`, or `text.length` when the label's sentence runs to the end of

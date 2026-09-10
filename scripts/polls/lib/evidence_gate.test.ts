@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { gateFields, gateShares, shareSupportedByQuote } from "./evidence_gate";
+import {
+  gateFields,
+  gateShares,
+  gateSharesEitherDirection,
+  shareSupportedByQuote,
+  shareSupportedByQuoteBeforeLabel,
+} from "./evidence_gate";
 
 // The real Trend sentence measured 2026-09-09 (raw_data/polls/trend/212750).
 const TR_DOC =
@@ -211,5 +217,118 @@ describe("gateFields", () => {
     );
     expect(result.accepted).toEqual([]);
     expect(result.refused).toHaveLength(1);
+  });
+});
+
+// The real 2016 Trend sentence measured 2026-09-10
+// (raw_data/polls/trend/a63a09b7af8f2976) — the shape
+// `shareSupportedByQuote` cannot verify at all, since the value sits
+// BEFORE the label rather than after it.
+const TR_BEFORE_LABEL_QUOTE =
+  "След нея с 24% се нарежда подкрепеният от БСП претендент Румен Радев";
+
+describe("shareSupportedByQuoteBeforeLabel", () => {
+  it("accepts a real quote stating the value BEFORE the label", () => {
+    expect(
+      shareSupportedByQuoteBeforeLabel(
+        "Румен Радев",
+        24,
+        TR_BEFORE_LABEL_QUOTE,
+      ),
+    ).toBe(true);
+  });
+
+  it("refuses when the label is absent from the quote", () => {
+    expect(
+      shareSupportedByQuoteBeforeLabel(
+        "Цецка Цачева",
+        24,
+        TR_BEFORE_LABEL_QUOTE,
+      ),
+    ).toBe(false);
+  });
+
+  it("refuses when no number behind the label matches the claimed value", () => {
+    expect(
+      shareSupportedByQuoteBeforeLabel(
+        "Румен Радев",
+        27.3,
+        TR_BEFORE_LABEL_QUOTE,
+      ),
+    ).toBe(false);
+  });
+
+  it("does not reach back past an `otherLabels` entry that ALSO uses the before-label shape", () => {
+    const twoCandidateQuote =
+      "с 27,3% е Цецка Цачева. След нея с 24% се нарежда Румен Радев.";
+    // Цачева's own 27,3% must not be read as Radev's number just because
+    // it is somewhere earlier in the same combined quote.
+    expect(
+      shareSupportedByQuoteBeforeLabel("Румен Радев", 27.3, twoCandidateQuote, [
+        "Цецка Цачева",
+      ]),
+    ).toBe(false);
+    expect(
+      shareSupportedByQuoteBeforeLabel("Румен Радев", 24, twoCandidateQuote, [
+        "Цецка Цачева",
+      ]),
+    ).toBe(true);
+  });
+});
+
+describe("gateSharesEitherDirection", () => {
+  it("accepts a claim in the FORWARD shape (same as gateShares)", () => {
+    const result = gateSharesEitherDirection(
+      [
+        {
+          label: "Прогресивна България",
+          value: 33.2,
+          quote: "Прогресивна България остава лидер с 33,2% подкрепа",
+        },
+      ],
+      TR_DOC,
+    );
+    expect(result.accepted).toHaveLength(1);
+    expect(result.refused).toEqual([]);
+  });
+
+  it("accepts a claim in the BACKWARD shape, which gateShares alone refuses", () => {
+    const claim = {
+      label: "Румен Радев",
+      value: 24,
+      quote: TR_BEFORE_LABEL_QUOTE,
+    };
+    expect(gateShares([claim], TR_BEFORE_LABEL_QUOTE).accepted).toEqual([]);
+    const either = gateSharesEitherDirection([claim], TR_BEFORE_LABEL_QUOTE);
+    expect(either.accepted).toEqual([claim]);
+    expect(either.refused).toEqual([]);
+  });
+
+  it("still refuses a claim whose quote supports NEITHER direction", () => {
+    const result = gateSharesEitherDirection(
+      [
+        {
+          label: "Румен Радев",
+          value: 99,
+          quote: TR_BEFORE_LABEL_QUOTE,
+        },
+      ],
+      TR_BEFORE_LABEL_QUOTE,
+    );
+    expect(result.accepted).toEqual([]);
+    expect(result.refused[0].reason).toContain(
+      'does not state 99% beside "Румен Радев"',
+    );
+  });
+
+  it("still refuses on ungrounded/too-short quotes exactly like gateShares", () => {
+    const result = gateSharesEitherDirection(
+      [{ label: "Румен Радев", value: 24, quote: "не е в текста" }],
+      TR_BEFORE_LABEL_QUOTE,
+    );
+    expect(result.accepted).toEqual([]);
+    expect(result.refused[0].reason).toBe(
+      "quote not found in the extracted text",
+    );
   });
 });
