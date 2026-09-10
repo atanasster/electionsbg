@@ -136,7 +136,9 @@ describe("no prerendered title names the brand twice", () => {
       .filter(([, t]) => {
         if (!t) return false;
         const n =
-          t.split(BRAND_NAME).length - 1 + (t.split(BRAND_NAME_LATIN).length - 1);
+          t.split(BRAND_NAME).length -
+          1 +
+          (t.split(BRAND_NAME_LATIN).length - 1);
         return n > 1;
       })
       .map(([p, t]) => `${p}: ${t}`);
