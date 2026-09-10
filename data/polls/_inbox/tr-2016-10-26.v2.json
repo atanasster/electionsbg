@@ -11,8 +11,8 @@
     "fieldwork": "Oct 19-26 2016",
     "provenance": {
       "url": "https://rctrend.bg/project/%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8-2016/",
-      "fetchedAt": "2026-09-10T05:53:37.713Z",
-      "sha256": "d6bf837502686b7b2d0a89ea253c38ec17e6dc0e4dcd66f16715b735cab01b4d",
+      "fetchedAt": "2026-09-10T08:21:11.271Z",
+      "sha256": "ef6b7a44e6fc3e1986d8f6ee6a93dfe3d49e853eece4304fc9015c1a36dd1016",
       "extractor": "TR",
       "fieldworkStart": "2016-10-19",
       "fieldworkEnd": "2016-10-26",
@@ -141,5 +141,11 @@
     "sampleSize": "сред 1004 души",
     "fieldwork": "между 19 и 26 октомври 2016 г."
   },
-  "refused": []
+  "refused": [
+    {
+      "field": "residual.otherNamedMinor",
+      "reason": "the passport/chart image mentions a \"Други\" (Others) residual row whose value cannot be reliably read from OCR — a human should confirm the real percentage from the source image and set residual.otherNamedMinor (the draft's own top-level field) before accepting",
+      "quote": "райчо Пламен Татяна Други Не\nЦачева Радев > К"
+    }
+  ]
 }

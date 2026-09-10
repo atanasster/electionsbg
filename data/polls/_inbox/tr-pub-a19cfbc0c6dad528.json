@@ -116,6 +116,11 @@
   },
   "refused": [
     {
+      "field": "residual.otherNamedMinor",
+      "reason": "the passport/chart image mentions a \"Други\" (Others) residual row whose value cannot be reliably read from OCR — a human should confirm the real percentage from the source image and set residual.otherNamedMinor (the draft's own top-level field) before accepting",
+      "quote": "български граждани\nДруги 6.896\n(\nгепе"
+    },
+    {
       "field": "fieldwork",
       "reason": "could not parse a date range from \"> 1-/ ноември 2021г\"",
       "quote": "Период на провеждане: > 1-/ ноември 2021г"

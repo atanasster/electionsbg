@@ -365,6 +365,23 @@ describe("discoverAgencyImages", () => {
     ]);
   });
 
+  it("TR: also extracts the OLDER zadl<N>.png chart-image naming convention (Tier 4b, 2016-era posts)", () => {
+    const html = `<img src="https://rctrend.bg/wp-content/uploads/2016/11/zadl.png">
+      <img src="https://rctrend.bg/wp-content/uploads/2016/11/zadl2.png">
+      <img src="https://rctrend.bg/wp-content/uploads/2016/11/zadl11.png">
+      <img src="https://rctrend.bg/wp-content/uploads/2019/04/trend_logo.svg">`;
+    const images = discoverAgencyImages(
+      "TR",
+      html,
+      "https://rctrend.bg/project/x/",
+    );
+    expect(images).toEqual([
+      "https://rctrend.bg/wp-content/uploads/2016/11/zadl.png",
+      "https://rctrend.bg/wp-content/uploads/2016/11/zadl2.png",
+      "https://rctrend.bg/wp-content/uploads/2016/11/zadl11.png",
+    ]);
+  });
+
   it("AR: extracts GraphN.jpg images (party shares on chart-only posts — decision 18), RESOLVED against the page (relative srcs)", () => {
     const html = `<img src="../api/uploads/Articles%202026/24%20Mar/Graph01.jpg">
       <img src="../api/uploads/Articles%202026/24%20Mar/Graph2.jpg">

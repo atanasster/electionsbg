@@ -303,6 +303,83 @@ export const extractTrendPresidential = async (
   // from what `trend.ts`'s own decision-18 convention assumes.
   const ocrText = acquired.imageTexts.map((t) => t.text).join("\n");
 
+  // A "Други" (Others/residual) row exists in TR's own passport/chart image
+  // for BOTH real captures measured — 2016's bar chart (zadl8.png; the
+  // article's candidate paragraph sums to only 94.3% without it) and 2021's
+  // OCR'd list (Slide4.png; the article's 7 candidates sum to only 93.2%)
+  // — but neither article's own PROSE ever states it, so the candidate-
+  // share scan above (prose-only, plus 2021's list-shaped article text)
+  // cannot see it and would otherwise silently under-report the true
+  // candidate set with nothing flagging the gap.
+  //
+  // ⚠️ This is a REFUSAL, deliberately never a number. Verified live against
+  // both real captures: 2016's bar-chart OCR renders each row's own value as
+  // unreliable, differently-corrupted digit noise no consistent regex can
+  // decode without already knowing the expected answer (e.g. "24.49" for a
+  // real 24.4%, next to "9.996" for a real 9.9%, whose trailing digit counts
+  // disagree — the underlying "%" → \d{1,2} substitution is not the SAME
+  // substitution row to row). 2021's list-style OCR is individually cleaner
+  // per row, but "Други"'s own OWN value ("6.896") is exactly as unverifiable
+  // as 2016's — the only reason a human could read it as "≈6.8%" is by
+  // already knowing the other 7 candidates' real values and subtracting from
+  // 100%, an assumption (that the poll's own categories close to exactly
+  // 100%) this extractor has no source text confirming. A human reviewing
+  // the source image can confirm the real value and set
+  // `residual.otherNamedMinor` (the draft's own top-level field, alongside
+  // `poll`/`details`) by hand before accepting — the same "extractor
+  // refuses, human fills in what it cannot verify" contract `methodology`
+  // already has.
+  //
+  // ⚠️ SCOPED PER-IMAGE, requiring the SAME image to also name at least one
+  // of THIS race's own accepted candidates — never a bare search over the
+  // concatenated `ocrText`. 2021's joint capture carries a PARLIAMENTARY
+  // chart (Slide3.png) with its OWN, unrelated "Други 5.9%," row (a small-
+  // party residual), and `listAttachments`' plain filename sort does not
+  // reliably put images in DOCUMENT order (2016's zadl.png/zadl2.png/…
+  // sorts "zadl11.png" ahead of "zadl2.png" — lexicographic, not numeric) —
+  // so neither "first match" nor "last match" over the joined text is a
+  // safe way to land on the right image. Requiring a co-located candidate
+  // name is what actually distinguishes "this image is about OUR race"
+  // from "this image mentions the same fixed BG polling-industry phrase
+  // for a DIFFERENT race's chart" — the exact cross-corpus bleed
+  // `presidentialSection()` exists to rule out for prose, mirrored here
+  // for images.
+  // The boundary is `(?![\p{L}\p{N}])`, never `\b` (ASCII-only, silently
+  // fails after a Cyrillic letter — this repo's own documented trap) —
+  // without it this also matches inside "Другите" ("the others", a common
+  // unrelated word), which neither real capture's OCR happens to contain
+  // today but a future one plausibly could, among the many unrelated
+  // survey-question charts these TR posts carry.
+  const OTHERS_LABEL_RE = /Други(?![\p{L}\p{N}])/iu;
+  const acceptedCandidateFirstNames = dedupedShares.accepted
+    .filter((c) => !isAbstentionLabel(c.label))
+    .map((c) => c.label.split(/\s+/)[0].toLowerCase())
+    .filter((tok) => tok.length > 0);
+  const othersImage = acquired.imageTexts.find((img) => {
+    const lower = img.text.toLowerCase();
+    return (
+      OTHERS_LABEL_RE.test(img.text) &&
+      acceptedCandidateFirstNames.some((name) => lower.includes(name))
+    );
+  });
+  if (othersImage) {
+    const othersMatch = OTHERS_LABEL_RE.exec(othersImage.text)!;
+    const contextStart = Math.max(0, othersMatch.index - 20);
+    const contextEnd = Math.min(
+      othersImage.text.length,
+      othersMatch.index + othersMatch[0].length + 20,
+    );
+    refused.push({
+      field: "residual.otherNamedMinor",
+      reason:
+        'the passport/chart image mentions a "Други" (Others) residual row ' +
+        "whose value cannot be reliably read from OCR — a human should " +
+        "confirm the real percentage from the source image and set " +
+        "residual.otherNamedMinor (the draft's own top-level field) before accepting",
+      quote: othersImage.text.slice(contextStart, contextEnd).trim(),
+    });
+  }
+
   const proseSample = PROSE_SAMPLE_SIZE_RE.exec(acquired.articleText);
   const ocrSample = proseSample
     ? null

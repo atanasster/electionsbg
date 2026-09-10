@@ -273,7 +273,13 @@ export const discoverPdfLinks = (html: string, pageUrl: string): string[] => {
  *    support tables, this agency's ONLY primary (sova_harris.ts's header).
  *  - TR: `SlideN.png` — the passport (sample size, fieldwork dates) is
  *    published ONLY this way; the party shares themselves are ordinary
- *    `.et_pb_text_inner` text (measured 2026-09-09, decision 18).
+ *    `.et_pb_text_inner` text (measured 2026-09-09, decision 18). Also
+ *    `zadl<N>.png` (bare `zadl.png` for the first) — an OLDER, pre-Slide-era
+ *    chart-image naming convention TR's 2016 presidential post uses (Tier
+ *    4b's historical backfill), one image per survey question including a
+ *    "Други" (Others/residual) bar the article's own prose never states in
+ *    words. Both patterns coexist rather than one replacing the other,
+ *    since a real capture may need either depending on the post's era.
  *  - AR: `GraphN.jpg` (`N` sometimes omitted a leading zero — "Graph1.jpg"
  *    and "Graph01.jpg" both occur) — roughly half of AR's real posts carry
  *    every party share ONLY this way, no narrative text at all (decision 18).
@@ -292,7 +298,7 @@ export const discoverPdfLinks = (html: string, pageUrl: string): string[] => {
  */
 const AGENCY_IMAGE_PATTERNS: Record<string, RegExp> = {
   SH: /Buletin_[^/?#]*?page-\d+(?:-\d+)?\.jpe?g$/i,
-  TR: /Slide\d+(?:-\d+)?\.png$/i,
+  TR: /(?:Slide\d+|zadl\d*)(?:-\d+)?\.png$/i,
   AR: /Graph\d*(?:-\d+)?\.jpe?g$/i,
 };
 
