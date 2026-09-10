@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 import { assertCommitted } from "./assert_committed";
@@ -104,6 +104,35 @@ describe("copies that cannot import the constant", () => {
     );
   });
 
+  it("every CORS allowlist in functions/index.js admits the site origin", () => {
+    // ⚠️ A THIRD allowlist family, and the one that hid best: these are REGEX
+    // literals (/^https:\/\/electionsbg\.com$/), so the string sweep below
+    // — which looks for a quoted or backticked origin — never saw them, and
+    // neither did three separate hand greps. At the naiasno.bg flip
+    // DB_ALLOWED_ORIGINS had been updated and SCENARIO_ALLOWED_ORIGINS had
+    // not, which would have CORS-refused every budget-simulator submission
+    // from the new domain while the rest of the site worked.
+    //
+    // So this EVALUATES the patterns rather than grepping for them: a gate that
+    // matched text would have passed on the half-updated file.
+    const src = read("functions/index.js");
+    const blocks = [
+      ...src.matchAll(/const (\w*ALLOWED_ORIGINS) = \[([\s\S]*?)\n\];/g),
+    ];
+    expect(blocks.length, "no *_ALLOWED_ORIGINS arrays found").toBeGreaterThan(
+      1,
+    );
+    for (const [, name, body] of blocks) {
+      const patterns = [...body.matchAll(/\/\^(.+?)\$\//g)].map(
+        (m) => new RegExp(`^${m[1]}$`),
+      );
+      expect(
+        patterns.some((re) => re.test(SITE_ORIGIN)),
+        `${name} does not admit ${SITE_ORIGIN}`,
+      ).toBe(true);
+    }
+  });
+
   it("the GCS CORS config allows the site origin", () => {
     // Miss this and the new domain serves a perfectly indexed blank page.
     //
@@ -126,6 +155,32 @@ describe("copies that cannot import the constant", () => {
     expect(origins, `${f} must allow the hot-data news origin`).toContain(
       "https://news.electionsbg.com",
     );
+  });
+});
+
+describe("no hardcoded canonical anywhere in src/", () => {
+  // A `canonical={\`https://…\`}` literal is the SEO-critical class the FILES
+  // list below cannot see: it lives in a screen component, not in the prerender.
+  // Four existed at the naiasno.bg flip — three pinned to the OLD domain and one
+  // to the NEW, which had been declaring a canonical on a host that 301s away
+  // for as long as it shipped. Both directions are the same defect: a canonical
+  // naming anything but the live origin points every crawler at a redirect.
+  it("every canonical is built from SITE_ORIGIN", () => {
+    const offenders: string[] = [];
+    const walk = (dir: string) => {
+      for (const e of readdirSync(resolve(ROOT, dir), {
+        withFileTypes: true,
+      })) {
+        const rel = `${dir}/${e.name}`;
+        if (e.isDirectory()) walk(rel);
+        else if (/\.tsx?$/.test(e.name) && !/\.test\./.test(e.name)) {
+          const src = readFileSync(resolve(ROOT, rel), "utf-8");
+          if (/canonical=\{`https:\/\//.test(src)) offenders.push(rel);
+        }
+      }
+    };
+    walk("src");
+    expect(offenders, "use `${SITE_ORIGIN}/…` instead").toEqual([]);
   });
 });
 

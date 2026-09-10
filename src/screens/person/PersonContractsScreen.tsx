@@ -34,6 +34,7 @@ import { usePersonProfile } from "./usePersonProfile";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useScope } from "@/data/scope/useScope";
 import { useElectionContext } from "@/data/ElectionContext";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 // Both parties shown — a person spans many buyers and firms, so neither side is implied by the
 // page (same column set as the settlement browser).
@@ -97,7 +98,7 @@ export const PersonContractsScreen: FC = () => {
         // 301s, and a declared canonical that redirects is exactly what tests/seo.spec.ts
         // forbids elsewhere. profile.slug is the live identity when we have one; the param
         // is the only thing to point at when we do not (a legacy name link, or a miss).
-        canonical={`https://electionsbg.com/person/${encodeURIComponent(
+        canonical={`${SITE_ORIGIN}/person/${encodeURIComponent(
           profile?.slug ?? name,
         )}`}
       />

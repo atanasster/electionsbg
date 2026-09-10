@@ -38,4 +38,4 @@
  * `/en/`). That asymmetry lives at the call sites, not here; see
  * `CLAUDE.md` and `tests/seo.spec.ts`.
  */
-export const SITE_ORIGIN = "https://electionsbg.com";
+export const SITE_ORIGIN = "https://naiasno.bg";

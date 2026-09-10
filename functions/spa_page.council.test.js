@@ -1,3 +1,4 @@
+const { SITE_ORIGIN } = require("./site_origin");
 // /council/resolution/:id — the function-served municipal-council decisions.
 //
 // The routing cases are derived FROM THE COMMITTED CORPUS rather than from a
@@ -103,11 +104,11 @@ test("selfUrlFor round-trips both languages", () => {
   const id = "BGS01-2025-prot23-r16891";
   assert.equal(
     selfUrlFor(matchSpaPage(`/council/resolution/${id}`)),
-    `https://electionsbg.com/council/resolution/${id}`,
+    `${SITE_ORIGIN}/council/resolution/${id}`,
   );
   assert.equal(
     selfUrlFor(matchSpaPage(`/en/council/resolution/${id}`)),
-    `https://electionsbg.com/en/council/resolution/${id}`,
+    `${SITE_ORIGIN}/en/council/resolution/${id}`,
   );
 });
 
@@ -135,7 +136,7 @@ const row = (over = {}) => ({
 });
 
 test("the breadcrumb links the FRONTEND code, never the internal key", () => {
-  const p = councilResolutionPage(row(), "bg", "https://electionsbg.com/x");
+  const p = councilResolutionPage(row(), "bg", `${SITE_ORIGIN}/x`);
   assert.match(p.bodyHtml, /\/council\/BGS04/);
   // BGS01 is Бургас's council key AND Айтос's obshtina code — linking it sends
   // a reader from Бургас's own decision to "we do not track this council".
@@ -149,20 +150,20 @@ test("an unlinkable council renders plain text rather than a broken link", () =>
   const p = councilResolutionPage(
     row({ councilFrontendCode: null }),
     "bg",
-    "https://electionsbg.com/x",
+    `${SITE_ORIGIN}/x`,
   );
   assert.ok(!/\/council\/(BGS01|null|undefined)/.test(p.bodyHtml));
   assert.match(p.bodyHtml, /Община Бургас/);
 });
 
 test("vote labels are localised, never the raw enum", () => {
-  const bg = councilResolutionPage(row(), "bg", "https://electionsbg.com/x");
+  const bg = councilResolutionPage(row(), "bg", `${SITE_ORIGIN}/x`);
   assert.match(bg.bodyHtml, /За<\/span>|— За|>За</);
   assert.ok(
     !/—\s*(for|against|abstain)\b/.test(bg.bodyHtml),
     "raw enum leaked onto the Bulgarian page",
   );
-  const en = councilResolutionPage(row(), "en", "https://electionsbg.com/x");
+  const en = councilResolutionPage(row(), "en", `${SITE_ORIGIN}/x`);
   assert.ok(!/—\s*(for|against|abstain)\b/.test(en.bodyHtml));
   assert.match(en.bodyHtml, /For|Against/);
 });
@@ -171,7 +172,7 @@ test("a council with no named vote gets a DASH, never a zero", () => {
   const p = councilResolutionPage(
     row({ hasNamedVotes: false, namedVoteTally: {}, votes: [] }),
     "bg",
-    "https://electionsbg.com/x",
+    `${SITE_ORIGIN}/x`,
   );
   assert.match(p.bodyHtml, /&mdash;/);
   // 11 of the 16 councils publish an aggregate only; "против 0" there would
@@ -183,12 +184,12 @@ test("a council with no named vote gets a DASH, never a zero", () => {
 });
 
 test("both tallies are present and labelled", () => {
-  const p = councilResolutionPage(row(), "bg", "https://electionsbg.com/x");
+  const p = councilResolutionPage(row(), "bg", `${SITE_ORIGIN}/x`);
   assert.match(p.bodyHtml, /Гласуване по протокол/);
   assert.match(p.bodyHtml, /Гласуване по имена/);
   assert.match(p.bodyHtml, /БГ основание/);
   assert.match(
-    councilResolutionPage(row(), "en", "https://electionsbg.com/x").bodyHtml,
+    councilResolutionPage(row(), "en", `${SITE_ORIGIN}/x`).bodyHtml,
     /EN basis/,
   );
 });
@@ -199,13 +200,13 @@ test("`unknown` is not rendered as a result", () => {
   const p = councilResolutionPage(
     row({ result: "unknown" }),
     "bg",
-    "https://electionsbg.com/x",
+    `${SITE_ORIGIN}/x`,
   );
   assert.ok(!/>unknown</.test(p.bodyHtml), "raw enum rendered as a result");
 });
 
 test("person links use the slug and only the slug", () => {
-  const p = councilResolutionPage(row(), "bg", "https://electionsbg.com/x");
+  const p = councilResolutionPage(row(), "bg", `${SITE_ORIGIN}/x`);
   assert.match(p.bodyHtml, /\/person\/ivan-ivanov-1/);
   // Петър has a person_id but no servable page — linking on the id would 404.
   assert.ok(!/\/person\/2\b/.test(p.bodyHtml));
@@ -226,7 +227,7 @@ test("the untitled fallback matches the React screen byte for byte", () => {
   const p = councilResolutionPage(
     row({ title: "(no title parsed)" }),
     "bg",
-    "https://electionsbg.com/x",
+    `${SITE_ORIGIN}/x`,
   );
   const day = new Intl.DateTimeFormat("bg-BG", {
     day: "numeric",
@@ -244,7 +245,7 @@ test("a null number uses the same placeholder on both sides", () => {
   const p = councilResolutionPage(
     row({ title: "(no title parsed)", number: null }),
     "bg",
-    "https://electionsbg.com/x",
+    `${SITE_ORIGIN}/x`,
   );
   // The screen substitutes an em dash; an ASCII hyphen here would change the
   // <h1> on hydration for any badly-parsed protokol.
@@ -263,7 +264,7 @@ test("the function's labels agree with the locale files", () => {
     );
   for (const lang of ["bg", "en"]) {
     const loc = load(lang);
-    const p = councilResolutionPage(row(), lang, "https://electionsbg.com/x");
+    const p = councilResolutionPage(row(), lang, `${SITE_ORIGIN}/x`);
     for (const key of ["for", "against", "abstain"]) {
       const label = loc[`council_vote_${key}`];
       assert.ok(label, `missing council_vote_${key} in ${lang}`);

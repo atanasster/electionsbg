@@ -81,6 +81,9 @@ if ((process.env.GCLOUD_PROJECT || "") !== "elections-bg") exports.llm = makeLlm
 // ---------------------------------------------------------------------------
 
 const SCENARIO_ALLOWED_ORIGINS = [
+  /^https:\/\/naiasno\.bg$/,
+  /^https:\/\/www\.naiasno\.bg$/,
+  /^https:\/\/ai\.naiasno\.bg$/,
   /^https:\/\/electionsbg\.com$/,
   /^https:\/\/www\.electionsbg\.com$/,
   /^https:\/\/elections-bg\.web\.app$/,
@@ -302,6 +305,7 @@ const DB_ALLOWED_ORIGINS = [
   /^https:\/\/www\.electionsbg\.com$/,
   /^https:\/\/naiasno\.bg$/,
   /^https:\/\/www\.naiasno\.bg$/,
+  /^https:\/\/ai\.naiasno\.bg$/,
   // Standalone AI app (electionsbg-ai project) — no db function of its own, so
   // it calls this one cross-origin (VITE_DB_API_ORIGIN in ai/tools/dataClient).
   /^https:\/\/ai\.electionsbg\.com$/,

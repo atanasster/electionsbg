@@ -23,6 +23,7 @@ import {
 } from "./bodyBuilders";
 import bg from "../../src/locales/bg/translation.json";
 import en from "../../src/locales/en/translation.json";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const varna = {
   name: "Варна",
@@ -175,7 +176,7 @@ describe("presidential polls section (buildPollsBody / buildPollsAgencyBody)", (
     );
     const out = buildPollsBody(root);
     expect(out).toContain("Президентски проучвания");
-    expect(out).toContain('href="https://electionsbg.com/polls/GM"');
+    expect(out).toContain(`href="${SITE_ORIGIN}/polls/GM"`);
     expect(out).toContain("Илияна Йотова");
   });
 

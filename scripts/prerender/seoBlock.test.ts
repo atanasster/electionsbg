@@ -8,6 +8,7 @@ import {
 import { DEFAULT_OG_IMAGE, PrerenderRoute, prerenderRoutes } from "./routes";
 import { PreloadPathError } from "./dataPreload";
 import { findResidualRefs } from "../images/optimize";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const GCS = "https://storage.googleapis.com/data-electionsbg-com";
 
@@ -15,7 +16,7 @@ const variant = (over: Partial<RenderVariant> = {}): RenderVariant => ({
   lang: "bg",
   title: "T",
   description: "D",
-  selfUrl: "https://electionsbg.com/x",
+  selfUrl: `${SITE_ORIGIN}/x`,
   ...over,
 });
 
@@ -76,22 +77,20 @@ describe("renderSeoBlock", () => {
   it("keeps the canonical and hreflang contract intact", () => {
     const out = renderSeoBlock(
       route(),
-      variant({ altUrl: "https://electionsbg.com/en/x" }),
+      variant({ altUrl: `${SITE_ORIGIN}/en/x` }),
       GCS,
     );
-    expect(out).toContain(
-      '<link rel="canonical" href="https://electionsbg.com/x" />',
-    );
+    expect(out).toContain(`<link rel="canonical" href="${SITE_ORIGIN}/x" />`);
     expect(out).toContain('hreflang="x-default"');
   });
 
   it("suppresses hreflang alternates when the page canonicalizes elsewhere", () => {
     const out = renderSeoBlock(
       route(),
-      variant({ canonicalUrl: "https://electionsbg.com/parent" }),
+      variant({ canonicalUrl: `${SITE_ORIGIN}/parent` }),
       GCS,
     );
-    expect(out).toContain('href="https://electionsbg.com/parent"');
+    expect(out).toContain(`href="${SITE_ORIGIN}/parent"`);
     expect(out).not.toContain("hreflang");
   });
 
@@ -102,9 +101,7 @@ describe("renderSeoBlock", () => {
       GCS,
       () => true,
     );
-    expect(declared).toContain(
-      'content="https://electionsbg.com/og/region/RSE.png"',
-    );
+    expect(declared).toContain(`content="${SITE_ORIGIN}/og/region/RSE.png"`);
     const fallen = renderSeoBlock(
       route({ ogImage: "/og/region/RSE.png" }),
       variant(),
@@ -138,7 +135,7 @@ describe("resolveOgImage", () => {
 
   it("keeps a card that is on disk", () => {
     expect(resolveOgImage("/og/region/RSE.png", all)).toBe(
-      "https://electionsbg.com/og/region/RSE.png",
+      `${SITE_ORIGIN}/og/region/RSE.png`,
     );
   });
 
@@ -151,7 +148,7 @@ describe("resolveOgImage", () => {
   it("accepts an already-optimized webp sibling and names it", () => {
     expect(
       resolveOgImage("/og/culture.png", (rel) => rel.endsWith(".webp")),
-    ).toBe("https://electionsbg.com/og/culture.webp");
+    ).toBe(`${SITE_ORIGIN}/og/culture.webp`);
   });
 
   it("does not invent a sibling for a card declared as webp", () => {
@@ -191,7 +188,7 @@ describe("resolveOgImage", () => {
   // coverage gate) must keep reading the route as their only input.
   it("assumes the card exists when no probe is supplied", () => {
     expect(resolveOgImage("/og/region/RSE.png")).toBe(
-      "https://electionsbg.com/og/region/RSE.png",
+      `${SITE_ORIGIN}/og/region/RSE.png`,
     );
   });
 });

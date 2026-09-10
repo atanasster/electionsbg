@@ -32,6 +32,7 @@ import {
 import { reportSkip } from "../lib/report_skip";
 import regions from "../../src/data/json/regions.json";
 import type { RegionInfo } from "../../src/data/dataTypes";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const ROOT = process.cwd();
 const SHARD = path.join(ROOT, "public", "sitemap_presidential.xml");
@@ -59,7 +60,7 @@ const shardPaths = (): { bg: string[]; en: string[] } => {
   const bg: string[] = [];
   const en: string[] = [];
   for (const m of xml.matchAll(
-    /<loc>https:\/\/electionsbg\.com\/([^<]+)<\/loc>/g,
+    new RegExp(`<loc>${SITE_ORIGIN}/([^<]+)</loc>`, "g"),
   ))
     (m[1].startsWith("en/") ? en : bg).push(m[1].replace(/^en\//, ""));
   return { bg, en };

@@ -36,6 +36,7 @@ import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import { PriceHistoryChart } from "@/screens/components/prices/PriceHistoryChart";
 import type { ChainLadderRow } from "@/data/prices/fetchPricePayload";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const CONFIDENCE_MIN = 55; // gate the cross-chain ladder
 
@@ -176,7 +177,7 @@ export const ProductScreen: FC = () => {
           `Цена на ${p.title} по вериги в България от въвеждането на еврото. Мониторингов индекс на КЗП.`,
           `Price of ${p.title} across retail chains in Bulgaria since the euro. CPC monitoring data.`,
         )}
-        canonical={`https://naiasno.bg/product/${slug}`}
+        canonical={`${SITE_ORIGIN}/product/${slug}`}
       />
 
       <ConsumptionBreadcrumb

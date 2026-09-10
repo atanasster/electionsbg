@@ -17,6 +17,7 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
 import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 export const RegionConsumptionScreen: FC = () => {
   const { oblast } = useParams<{ oblast: string }>();
@@ -43,7 +44,7 @@ export const RegionConsumptionScreen: FC = () => {
         // (shares its basket tile) — consolidate signal there rather than be
         // indexed as a near-duplicate. Region/place consumption nodes are
         // SPA-only (not prerendered / not in the sitemap).
-        canonical={`https://electionsbg.com/governance/region/${oblast}`}
+        canonical={`${SITE_ORIGIN}/governance/region/${oblast}`}
       />
       <section className="my-4 space-y-6">
         <PlaceHeader

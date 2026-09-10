@@ -1,3 +1,4 @@
+const { SITE_ORIGIN } = require("./site_origin");
 const test = require("node:test");
 const assert = require("node:assert");
 const {
@@ -100,7 +101,7 @@ test("matchSpaPage claims nothing else", () => {
 test("renderIntoShell replaces the head and body, keeping the bundle", () => {
   const html = renderIntoShell(
     SHELL,
-    contractPage(CONTRACT, "bg", "https://electionsbg.com/funds/contract/x"),
+    contractPage(CONTRACT, "bg", `${SITE_ORIGIN}/funds/contract/x`),
   );
   // The homepage's identity is gone …
   assert.ok(!html.includes("Парламентарни избори 2026"));
@@ -108,7 +109,7 @@ test("renderIntoShell replaces the head and body, keeping the bundle", () => {
   assert.ok(!html.includes('href="https://electionsbg.com/" />'));
   // … replaced by this page's, and the SPA bundle survives.
   assert.ok(html.includes("<title>НК &quot;ЖИ&quot; ЕАД — договор BG16RFOP002-2.089-0001"));
-  assert.ok(html.includes('canonical" href="https://electionsbg.com/funds/contract/x"'));
+  assert.ok(html.includes(`canonical" href="${SITE_ORIGIN}/funds/contract/x"`));
   assert.ok(html.includes("/assets/index-abc123.js"));
   assert.ok(html.includes('<div id="root">'));
   assert.ok(html.includes("BG16RFOP002-2.089-0001"));
@@ -117,7 +118,7 @@ test("renderIntoShell replaces the head and body, keeping the bundle", () => {
 test("the English page does not claim lang=bg", () => {
   const html = renderIntoShell(
     SHELL,
-    contractPage(CONTRACT, "en", "https://electionsbg.com/en/funds/contract/x"),
+    contractPage(CONTRACT, "en", `${SITE_ORIGIN}/en/funds/contract/x`),
   );
   assert.ok(html.includes('<html lang="en"'));
   assert.ok(!html.includes('<html lang="bg"'));
@@ -154,8 +155,8 @@ test("a hyphenated company name reaches the SERP whole, not as its tail", () => 
   // reads as a different company. Both languages, through the full shell
   // splice, since that is what the crawler is served.
   for (const [lang, url] of [
-    ["bg", "https://electionsbg.com/funds/contract/BG16RFPR001-1.004-2616"],
-    ["en", "https://electionsbg.com/en/funds/contract/BG16RFPR001-1.004-2616"],
+    ["bg", `${SITE_ORIGIN}/funds/contract/BG16RFPR001-1.004-2616`],
+    ["en", `${SITE_ORIGIN}/en/funds/contract/BG16RFPR001-1.004-2616`],
   ]) {
     const html = renderIntoShell(
       SHELL,
@@ -193,7 +194,7 @@ test("the scheme label never leads the contract <title>", () => {
         "Преодоляване недостига на средства и липсата на ликвидност, настъпили в резултат от епидемичния взрив от COVID-19",
     },
     "bg",
-    "https://electionsbg.com/funds/contract/x",
+    `${SITE_ORIGIN}/funds/contract/x`,
   );
   assert.ok(!page.title.startsWith("Преодоляване"));
   assert.ok(page.title.slice(0, 60).includes('НК "ЖИ" ЕАД'));
@@ -206,7 +207,7 @@ test("a beneficiary name long enough to bury the contract number is cut", () => 
   const page = contractPage(
     { ...CONTRACT, beneficiaryName: "Сдружение ".repeat(20).trim() },
     "bg",
-    "https://electionsbg.com/funds/contract/x",
+    `${SITE_ORIGIN}/funds/contract/x`,
   );
   assert.ok(page.title.includes("…"));
   assert.ok(page.title.includes("договор BG16RFOP002-2.089-0001"));
@@ -219,7 +220,7 @@ test("ИСУН text is escaped — names routinely carry quotes", () => {
     contractPage(
       { ...CONTRACT, title: hostile },
       "bg",
-      "https://electionsbg.com/funds/contract/x",
+      `${SITE_ORIGIN}/funds/contract/x`,
     ),
   );
   // Nothing hostile survives as markup in the head or the body …
@@ -250,7 +251,7 @@ test("the company head names the money when there is any", () => {
     },
     { contracts: 3, contractsEur: 1000, fundsEur: 2000 },
     "bg",
-    "https://electionsbg.com/company/203740812",
+    `${SITE_ORIGIN}/company/203740812`,
   );
   assert.ok(page.title.includes("203740812"));
   assert.ok(page.description.includes("3 обществени поръчки"));
@@ -268,7 +269,7 @@ test("a company with no public money still gets its own description", () => {
     },
     { contracts: 0, contractsEur: 0, fundsEur: 0 },
     "bg",
-    "https://electionsbg.com/company/203740812",
+    `${SITE_ORIGIN}/company/203740812`,
   );
   assert.ok(page.description.includes("Тиха ЕООД"));
   assert.ok(!page.description.includes("undefined"));
@@ -385,7 +386,7 @@ test("an enriched page keeps the shell's single indexable robots tag", () => {
   // page and must stay indexable, with the shell's one tag untouched.
   const html = renderIntoShell(
     SHELL,
-    contractPage(CONTRACT, "bg", "https://electionsbg.com/funds/contract/x"),
+    contractPage(CONTRACT, "bg", `${SITE_ORIGIN}/funds/contract/x`),
   );
   const robots = html.match(/<meta\b[^>]*\bname="robots"[^>]*>/g) ?? [];
   assert.equal(robots.length, 1, robots.join(" | "));
@@ -435,7 +436,7 @@ test("a $-pattern in ИСУН text cannot splice the homepage back in", () => {
     contractPage(
       { ...CONTRACT, title: "цена $& и $` и $' и $1" },
       "bg",
-      "https://electionsbg.com/funds/contract/x",
+      `${SITE_ORIGIN}/funds/contract/x`,
     ),
   );
   assert.ok(!html.includes("Парламентарни избори 2026"));
@@ -450,7 +451,7 @@ test("a marker-less shell throws rather than serving the homepage head", () => {
     () =>
       renderIntoShell(
         "<html><head></head><body></body></html>",
-        contractPage(CONTRACT, "bg", "https://electionsbg.com/x"),
+        contractPage(CONTRACT, "bg", `${SITE_ORIGIN}/x`),
       ),
     /marker blocks/,
   );
@@ -459,18 +460,18 @@ test("a marker-less shell throws rather than serving the homepage head", () => {
 test("the canonical page advertises hreflang; the /en duplicate does not", () => {
   const bg = renderIntoShell(
     SHELL,
-    contractPage(CONTRACT, "bg", "https://electionsbg.com/funds/contract/x"),
+    contractPage(CONTRACT, "bg", `${SITE_ORIGIN}/funds/contract/x`),
   );
   assert.ok(bg.includes('hreflang="bg"'));
   assert.ok(bg.includes('hreflang="x-default"'));
   const en = renderIntoShell(
     SHELL,
-    contractPage(CONTRACT, "en", "https://electionsbg.com/en/funds/contract/x"),
+    contractPage(CONTRACT, "en", `${SITE_ORIGIN}/en/funds/contract/x`),
   );
   // It canonicalises back to BG, so it is not an alternate of anything.
   assert.ok(!en.includes("hreflang="));
   assert.ok(
-    en.includes('canonical" href="https://electionsbg.com/funds/contract/x"'),
+    en.includes(`canonical" href="${SITE_ORIGIN}/funds/contract/x"`),
   );
 });
 
@@ -479,7 +480,7 @@ test("the social card survives the block replacement", () => {
   // og:image against today.
   const html = renderIntoShell(
     SHELL,
-    contractPage(CONTRACT, "bg", "https://electionsbg.com/funds/contract/x"),
+    contractPage(CONTRACT, "bg", `${SITE_ORIGIN}/funds/contract/x`),
   );
   assert.ok(html.includes('property="og:image"'));
   assert.ok(html.includes('name="twitter:image"'));

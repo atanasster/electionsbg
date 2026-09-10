@@ -20,6 +20,7 @@ import { allRows, dbReachable, end } from "../lib/pg";
 import { readSeoCourts } from "../lib/seo_courts";
 import { buildCourtRoutes } from "../../prerender/dynamicRoutes";
 import { reportSkip } from "../../lib/report_skip";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const haveDb = await dbReachable();
 const bodies = haveDb
@@ -134,7 +135,7 @@ test.skipIf(skipBodies)(
     for (const r of routes) {
       const enLd = JSON.stringify(r.english?.jsonLd ?? []);
       assert.ok(
-        !/"https:\/\/electionsbg\.com\/en\/"/.test(enLd),
+        !enLd.includes(`"${SITE_ORIGIN}/en/"`),
         `${r.path}: JSON-LD names /en/, which 301s to /en`,
       );
     }

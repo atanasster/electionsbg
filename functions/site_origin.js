@@ -15,6 +15,6 @@
  * non-prerendered `/person` URLs) and `index.js` (the OpenRouter
  * `HTTP-Referer`, and the origin the SPA shell is fetched from).
  */
-const SITE_ORIGIN = "https://electionsbg.com";
+const SITE_ORIGIN = "https://naiasno.bg";
 
 module.exports = { SITE_ORIGIN };

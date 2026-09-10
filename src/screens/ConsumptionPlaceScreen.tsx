@@ -30,6 +30,7 @@ import { ConsumptionPriceLevelTile } from "@/screens/consumption/ConsumptionPric
 import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
 import { isSofiaCityObshtina } from "@/data/local/placeViews";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 export const ConsumptionPlaceScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -116,7 +117,7 @@ export const ConsumptionPlaceScreen: FC = () => {
         // Thin place-tier variant of the prerendered governance place page
         // (shares its price tile) — canonical there so it isn't indexed as a
         // near-duplicate. These nodes are SPA-only (not prerendered / sitemap).
-        canonical={`https://electionsbg.com/governance/${id}`}
+        canonical={`${SITE_ORIGIN}/governance/${id}`}
       />
       <section
         aria-label={`${t("consumption_title")} — ${areaName}`}

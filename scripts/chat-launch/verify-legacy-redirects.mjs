@@ -32,7 +32,7 @@ export async function verifyLegacyRedirects(base, fetcher = fetch) {
     );
     assert.equal(response.status, 301, route);
     const destination = new URL(response.headers.get("location"));
-    assert.equal(destination.origin, "https://electionsbg.com");
+    assert.equal(destination.origin, "https://naiasno.bg");
     assert.equal(destination.pathname, target);
     assert.deepEqual(
       [...destination.searchParams].sort(),

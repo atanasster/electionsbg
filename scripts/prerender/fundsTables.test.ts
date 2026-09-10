@@ -293,7 +293,7 @@ describe("beneficiaryItemList", () => {
       paidEur: totalEur,
     })),
   });
-  const URL = "https://electionsbg.com/funds/programme/X";
+  const URL = `${SITE_ORIGIN}/funds/programme/X`;
 
   it("states the ranking as Organizations with their EIK", () => {
     const [list] = beneficiaryItemList(mk([900, 500, 100]), URL) as [
@@ -331,7 +331,7 @@ describe("beneficiaryItemList", () => {
     ];
     // Absolute: a JSON-LD consumer reading the script block has no base IRI.
     expect(list.itemListElement[0].item.url).toBe(
-      "https://electionsbg.com/en/company/100000000",
+      `${SITE_ORIGIN}/en/company/100000000`,
     );
   });
 });
