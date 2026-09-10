@@ -4920,8 +4920,8 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [
       {
-        bg: "Какви обществени поръчки печели Кауфланд?",
-        en: "What public contracts does Kaufland win?",
+        bg: "Профил на търговската верига Кауфланд",
+        en: "Retail chain profile of Kaufland",
       },
       {
         bg: "Профил на веригата Метро",

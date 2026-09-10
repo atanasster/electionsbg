@@ -5742,18 +5742,16 @@
   {
     "id": "chainProfile",
     "lang": "bg",
-    "text": "Какви обществени поръчки печели Кауфланд?",
+    "text": "Профил на търговската верига Кауфланд",
     "tool": "chainProfile",
     "args": {
-      "chain": "какви обществени поръчки печели кауфланд?"
+      "chain": "профил на търговската верига кауфланд"
     },
-    "title": "Кауфланд България",
-    "rows": 2,
+    "title": "КАУФЛАНД БЪЛГАРИЯ ЕООД ЕНД КО",
+    "rows": 1,
     "facts": {
-      "chain": "Кауфланд България",
+      "chain": "КАУФЛАНД БЪЛГАРИЯ ЕООД ЕНД КО",
       "eik": "131129282",
-      "basket": "18,82 €",
-      "rank_by_price": "40/53",
       "note": "Мониторингов индекс на КЗП, не официален ИПЦ."
     },
     "provenance": [
@@ -5766,18 +5764,16 @@
   {
     "id": "chainProfile",
     "lang": "en",
-    "text": "What public contracts does Kaufland win?",
+    "text": "Retail chain profile of Kaufland",
     "tool": "chainProfile",
     "args": {
-      "chain": "what public contracts does kaufland win?"
+      "chain": "retail chain profile of kaufland"
     },
-    "title": "Кауфланд България",
-    "rows": 2,
+    "title": "КАУФЛАНД БЪЛГАРИЯ ЕООД ЕНД КО",
+    "rows": 1,
     "facts": {
-      "chain": "Кауфланд България",
+      "chain": "КАУФЛАНД БЪЛГАРИЯ ЕООД ЕНД КО",
       "eik": "131129282",
-      "basket": "€18.82",
-      "rank_by_price": "40/53",
       "note": "CPC monitoring basket index, not official CPI."
     },
     "provenance": [

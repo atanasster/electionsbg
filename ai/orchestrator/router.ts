@@ -17,6 +17,7 @@ import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
 import {
   detectPriceProduct,
   detectChain,
+  resolveChainEik,
   detectPriceDeal,
 } from "../tools/prices";
 import { detectTaxChange } from "../tools/taxPolicy";
@@ -989,40 +990,15 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       tool: "rankPlaces",
       args: { indicator: "gdp per capita by oblast", n: 20 },
     };
-  // A known retail-chain name defers to the chainProfile block below (0a3),
-  // which resolves by EIK and answers with both the retail rank AND the
-  // procurement footprint — "какви поръчки печели Метро" must not be
-  // shortcut into a bare contractSearch here. Same reasoning for a
-  // politically-connected-firm framing ("фирми, свързани с депутат/кмет X,
-  // печелят поръчки") — that belongs to the mpProcurement gate below, which
-  // resolves the named person. The "печели" test is a plain substring match,
-  // so it also fires on "спечелили" ("...фирми, свързани с Х, са спечелили
-  // поръчки"), and would hijack the connected-firms framing before that gate
-  // is ever reached.
   if (
-    /public contracts.*win|обществени поръчки.*печели/.test(q) &&
-    !detectChain(q) &&
-    !has(
+    /public contracts.*win|обществени поръчки.*\sпечели(?:\s|[?!.]|$)/.test(
       q,
-      "депутат",
-      " mp",
-      " mps",
-      "свързан",
-      "connected",
-      "tied",
-      "кмет",
-      "съветник",
-      "министър",
-      "управител",
-      "официал",
-      "official",
-      "mayor",
-      "councillor",
-    )
+    ) &&
+    !/свързан|депутат|\b(?:mps?|connected)\b/.test(q)
   )
     return {
       tool: "contractSearch",
-      args: { company: question },
+      args: { company: resolveChainEik(q) ?? question },
     };
   const count = detectCount(q);
   const isTrend = has(q, ...TREND) || (count !== undefined && count >= 2);

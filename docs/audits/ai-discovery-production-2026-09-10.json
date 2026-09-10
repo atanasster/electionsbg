@@ -1,0 +1,2079 @@
+{
+  "generatedAt": "2026-09-10T05:58:24.968Z",
+  "target": "production",
+  "total": 62,
+  "failures": 0,
+  "clarifications": 0,
+  "results": [
+    {
+      "questionId": "budgetByFunction",
+      "lang": "bg",
+      "text": "Разходи на държавното управление по функции (COFOG)?",
+      "expected": {
+        "questionId": "budgetByFunction",
+        "text": "Разходи на държавното управление по функции (COFOG)?",
+        "tool": "budgetByFunction",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetByFunction",
+      "args": {},
+      "title": "Бюджет по функция (COFOG, 2024)",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "fn": "Социална защита",
+        "amount": "15,1 млрд €",
+        "pct": 36.76
+      },
+      "facts": {
+        "year": 2024,
+        "total": "41,1 млрд €",
+        "coverage": "Последни налични данни COFOG: 2024. Отчетени разходи на сектор „Държавно управление“ по методология ESA; не е текущият бюджетен план. Публикуват се с приблизително 14 месеца закъснение.",
+        "covered_functions": 10,
+        "missing_functions": 0,
+        "top_function": "Социална защита",
+        "Социална защита": "15,1 млрд €",
+        "Икономически дейности": "6,1 млрд €",
+        "Здравеопазване": "5,6 млрд €"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetTrend",
+      "parent": "budgetByFunction",
+      "lang": "bg",
+      "text": "Как се променя бюджетът през годините?",
+      "expected": {
+        "questionId": "budgetTrend",
+        "text": "Как се променя бюджетът през годините?",
+        "tool": "budgetTrend",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetTrend",
+      "args": {},
+      "title": "Държавен бюджет — приходи и разходи (2021–2025)",
+      "kind": "series",
+      "facts": {
+        "2021": "15,8 млрд € / 17,2 млрд €",
+        "2022": "17,9 млрд € / 19,9 млрд €",
+        "2023": "20,3 млрд € / 22,1 млрд €",
+        "2024": "22,3 млрд € / 24,8 млрд €",
+        "2025": "26,3 млрд € / 28,4 млрд €",
+        "years": 5,
+        "span": "2021–2025",
+        "latest_year": 2025,
+        "latest_revenue": "26,3 млрд €",
+        "latest_expenditure": "28,4 млрд €",
+        "latest_balance": "-3,1 млрд €"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetFunction",
+      "parent": "budgetByFunction",
+      "lang": "bg",
+      "text": "Колко пари отиват за здравеопазване?",
+      "expected": {
+        "questionId": "budgetFunction",
+        "text": "Колко пари отиват за здравеопазване?",
+        "tool": "budgetFunction",
+        "args": {
+          "category": "GF07"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF07"
+      },
+      "title": "Разходи за „Здравеопазване“ (COFOG)",
+      "kind": "series",
+      "facts": {
+        "function": "Здравеопазване",
+        "year": 2024,
+        "coverage": "Последни налични данни COFOG: 2024. Отчетени разходи на сектор „Държавно управление“ по методология ESA; не е текущият бюджетен план. Публикуват се с приблизително 14 месеца закъснение.",
+        "amount": "5,6 млрд €",
+        "share_of_budget": "13.68%",
+        "rank": 3,
+        "total": "41,1 млрд €"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetExecution",
+      "parent": "budgetByFunction",
+      "lang": "bg",
+      "text": "Покажи изпълнението на бюджета по месеци",
+      "expected": {
+        "questionId": "budgetExecution",
+        "text": "Покажи изпълнението на бюджета по месеци",
+        "tool": "budgetExecution",
+        "args": {
+          "series": "покажи изпълнението на бюджета по месеци"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetExecution",
+      "args": {
+        "series": "покажи изпълнението на бюджета по месеци"
+      },
+      "title": "Изпълнение на бюджета — Приходи (месечно)",
+      "kind": "series",
+      "facts": {
+        "series": "Приходи",
+        "latest_period": "2026-07",
+        "latest": "15,3 млрд €",
+        "unit": "млн €"
+      },
+      "provenance": [
+        "budget/kfp.json"
+      ]
+    },
+    {
+      "questionId": "budgetByFunction",
+      "lang": "en",
+      "text": "Government spending by function (COFOG)?",
+      "expected": {
+        "questionId": "budgetByFunction",
+        "text": "Government spending by function (COFOG)?",
+        "tool": "budgetByFunction",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetByFunction",
+      "args": {},
+      "title": "Budget by function (COFOG, 2024)",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "fn": "Social protection",
+        "amount": "€15.1bn",
+        "pct": 36.76
+      },
+      "facts": {
+        "year": 2024,
+        "total": "€41.1bn",
+        "coverage": "Latest available COFOG data: 2024. General-government expenditure on an ESA basis; not the current budget plan. Published with an approximately 14-month lag.",
+        "covered_functions": 10,
+        "missing_functions": 0,
+        "top_function": "Social protection",
+        "Social protection": "€15.1bn",
+        "Economic affairs": "€6.1bn",
+        "Health": "€5.6bn"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetTrend",
+      "parent": "budgetByFunction",
+      "lang": "en",
+      "text": "How has the budget changed over the years?",
+      "expected": {
+        "questionId": "budgetTrend",
+        "text": "How has the budget changed over the years?",
+        "tool": "budgetTrend",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetTrend",
+      "args": {},
+      "title": "State budget — revenue and spending (2021–2025)",
+      "kind": "series",
+      "facts": {
+        "2021": "€15.8bn / €17.2bn",
+        "2022": "€17.9bn / €19.9bn",
+        "2023": "€20.3bn / €22.1bn",
+        "2024": "€22.3bn / €24.8bn",
+        "2025": "€26.3bn / €28.4bn",
+        "years": 5,
+        "span": "2021–2025",
+        "latest_year": 2025,
+        "latest_revenue": "€26.3bn",
+        "latest_expenditure": "€28.4bn",
+        "latest_balance": "€-3.1bn"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetFunction",
+      "parent": "budgetByFunction",
+      "lang": "en",
+      "text": "How much goes to health?",
+      "expected": {
+        "questionId": "budgetFunction",
+        "text": "How much goes to health?",
+        "tool": "budgetFunction",
+        "args": {
+          "category": "GF07"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF07"
+      },
+      "title": "Spending on \"Health\" (COFOG)",
+      "kind": "series",
+      "facts": {
+        "function": "Health",
+        "year": 2024,
+        "coverage": "Latest available COFOG data: 2024. General-government expenditure on an ESA basis; not the current budget plan. Published with an approximately 14-month lag.",
+        "amount": "€5.6bn",
+        "share_of_budget": "13.68%",
+        "rank": 3,
+        "total": "€41.1bn"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetExecution",
+      "parent": "budgetByFunction",
+      "lang": "en",
+      "text": "Show monthly budget execution",
+      "expected": {
+        "questionId": "budgetExecution",
+        "text": "Show monthly budget execution",
+        "tool": "budgetExecution",
+        "args": {
+          "series": "show monthly budget execution"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetExecution",
+      "args": {
+        "series": "show monthly budget execution"
+      },
+      "title": "Budget execution — Revenue (monthly)",
+      "kind": "series",
+      "facts": {
+        "series": "Revenue",
+        "latest_period": "2026-07",
+        "latest": "€15.3bn",
+        "unit": "€m"
+      },
+      "provenance": [
+        "budget/kfp.json"
+      ]
+    },
+    {
+      "questionId": "budgetExecution",
+      "lang": "bg",
+      "text": "Покажи изпълнението на бюджета по месеци",
+      "expected": {
+        "questionId": "budgetExecution",
+        "text": "Покажи изпълнението на бюджета по месеци",
+        "tool": "budgetExecution",
+        "args": {
+          "series": "покажи изпълнението на бюджета по месеци"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetExecution",
+      "args": {
+        "series": "покажи изпълнението на бюджета по месеци"
+      },
+      "title": "Изпълнение на бюджета — Приходи (месечно)",
+      "kind": "series",
+      "facts": {
+        "series": "Приходи",
+        "latest_period": "2026-07",
+        "latest": "15,3 млрд €",
+        "unit": "млн €"
+      },
+      "provenance": [
+        "budget/kfp.json"
+      ]
+    },
+    {
+      "questionId": "budgetTrend",
+      "parent": "budgetExecution",
+      "lang": "bg",
+      "text": "Как се променя бюджетът през годините?",
+      "expected": {
+        "questionId": "budgetTrend",
+        "text": "Как се променя бюджетът през годините?",
+        "tool": "budgetTrend",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetTrend",
+      "args": {},
+      "title": "Държавен бюджет — приходи и разходи (2021–2025)",
+      "kind": "series",
+      "facts": {
+        "2021": "15,8 млрд € / 17,2 млрд €",
+        "2022": "17,9 млрд € / 19,9 млрд €",
+        "2023": "20,3 млрд € / 22,1 млрд €",
+        "2024": "22,3 млрд € / 24,8 млрд €",
+        "2025": "26,3 млрд € / 28,4 млрд €",
+        "years": 5,
+        "span": "2021–2025",
+        "latest_year": 2025,
+        "latest_revenue": "26,3 млрд €",
+        "latest_expenditure": "28,4 млрд €",
+        "latest_balance": "-3,1 млрд €"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetByFunction",
+      "parent": "budgetExecution",
+      "lang": "bg",
+      "text": "Разходи на държавното управление по функции (COFOG)?",
+      "expected": {
+        "questionId": "budgetByFunction",
+        "text": "Разходи на държавното управление по функции (COFOG)?",
+        "tool": "budgetByFunction",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetByFunction",
+      "args": {},
+      "title": "Бюджет по функция (COFOG, 2024)",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "fn": "Социална защита",
+        "amount": "15,1 млрд €",
+        "pct": 36.76
+      },
+      "facts": {
+        "year": 2024,
+        "total": "41,1 млрд €",
+        "coverage": "Последни налични данни COFOG: 2024. Отчетени разходи на сектор „Държавно управление“ по методология ESA; не е текущият бюджетен план. Публикуват се с приблизително 14 месеца закъснение.",
+        "covered_functions": 10,
+        "missing_functions": 0,
+        "top_function": "Социална защита",
+        "Социална защита": "15,1 млрд €",
+        "Икономически дейности": "6,1 млрд €",
+        "Здравеопазване": "5,6 млрд €"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetFunction",
+      "parent": "budgetExecution",
+      "lang": "bg",
+      "text": "Колко пари отиват за здравеопазване?",
+      "expected": {
+        "questionId": "budgetFunction",
+        "text": "Колко пари отиват за здравеопазване?",
+        "tool": "budgetFunction",
+        "args": {
+          "category": "GF07"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF07"
+      },
+      "title": "Разходи за „Здравеопазване“ (COFOG)",
+      "kind": "series",
+      "facts": {
+        "function": "Здравеопазване",
+        "year": 2024,
+        "coverage": "Последни налични данни COFOG: 2024. Отчетени разходи на сектор „Държавно управление“ по методология ESA; не е текущият бюджетен план. Публикуват се с приблизително 14 месеца закъснение.",
+        "amount": "5,6 млрд €",
+        "share_of_budget": "13.68%",
+        "rank": 3,
+        "total": "41,1 млрд €"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetExecution",
+      "lang": "en",
+      "text": "Show monthly budget execution",
+      "expected": {
+        "questionId": "budgetExecution",
+        "text": "Show monthly budget execution",
+        "tool": "budgetExecution",
+        "args": {
+          "series": "show monthly budget execution"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetExecution",
+      "args": {
+        "series": "show monthly budget execution"
+      },
+      "title": "Budget execution — Revenue (monthly)",
+      "kind": "series",
+      "facts": {
+        "series": "Revenue",
+        "latest_period": "2026-07",
+        "latest": "€15.3bn",
+        "unit": "€m"
+      },
+      "provenance": [
+        "budget/kfp.json"
+      ]
+    },
+    {
+      "questionId": "budgetTrend",
+      "parent": "budgetExecution",
+      "lang": "en",
+      "text": "How has the budget changed over the years?",
+      "expected": {
+        "questionId": "budgetTrend",
+        "text": "How has the budget changed over the years?",
+        "tool": "budgetTrend",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetTrend",
+      "args": {},
+      "title": "State budget — revenue and spending (2021–2025)",
+      "kind": "series",
+      "facts": {
+        "2021": "€15.8bn / €17.2bn",
+        "2022": "€17.9bn / €19.9bn",
+        "2023": "€20.3bn / €22.1bn",
+        "2024": "€22.3bn / €24.8bn",
+        "2025": "€26.3bn / €28.4bn",
+        "years": 5,
+        "span": "2021–2025",
+        "latest_year": 2025,
+        "latest_revenue": "€26.3bn",
+        "latest_expenditure": "€28.4bn",
+        "latest_balance": "€-3.1bn"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetByFunction",
+      "parent": "budgetExecution",
+      "lang": "en",
+      "text": "Government spending by function (COFOG)?",
+      "expected": {
+        "questionId": "budgetByFunction",
+        "text": "Government spending by function (COFOG)?",
+        "tool": "budgetByFunction",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetByFunction",
+      "args": {},
+      "title": "Budget by function (COFOG, 2024)",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "fn": "Social protection",
+        "amount": "€15.1bn",
+        "pct": 36.76
+      },
+      "facts": {
+        "year": 2024,
+        "total": "€41.1bn",
+        "coverage": "Latest available COFOG data: 2024. General-government expenditure on an ESA basis; not the current budget plan. Published with an approximately 14-month lag.",
+        "covered_functions": 10,
+        "missing_functions": 0,
+        "top_function": "Social protection",
+        "Social protection": "€15.1bn",
+        "Economic affairs": "€6.1bn",
+        "Health": "€5.6bn"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetFunction",
+      "parent": "budgetExecution",
+      "lang": "en",
+      "text": "How much goes to health?",
+      "expected": {
+        "questionId": "budgetFunction",
+        "text": "How much goes to health?",
+        "tool": "budgetFunction",
+        "args": {
+          "category": "GF07"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF07"
+      },
+      "title": "Spending on \"Health\" (COFOG)",
+      "kind": "series",
+      "facts": {
+        "function": "Health",
+        "year": 2024,
+        "coverage": "Latest available COFOG data: 2024. General-government expenditure on an ESA basis; not the current budget plan. Published with an approximately 14-month lag.",
+        "amount": "€5.6bn",
+        "share_of_budget": "13.68%",
+        "rank": 3,
+        "total": "€41.1bn"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "priceRanking",
+      "lang": "bg",
+      "text": "Кой град е най-евтин за пазаруване?",
+      "expected": {
+        "questionId": "priceRanking",
+        "text": "Кой град е най-евтин за пазаруване?",
+        "tool": "priceRanking",
+        "args": {
+          "metric": "кой град е най-евтин за пазаруване?"
+        }
+      },
+      "status": "ok",
+      "tool": "priceRanking",
+      "args": {
+        "metric": "кой град е най-евтин за пазаруване?"
+      },
+      "title": "Класация на цените: най-евтини (места)",
+      "kind": "table",
+      "rows": 8,
+      "firstRow": {
+        "rank": 1,
+        "place": "Бургас",
+        "value": "12,39 €"
+      },
+      "facts": {
+        "order": "най-евтини",
+        "tier": "места",
+        "leader": "Бургас: 12,39 €",
+        "ranked": 111,
+        "note": "Мониторингов индекс на КЗП, не официален ИПЦ."
+      },
+      "provenance": [
+        "price_payloads (PG)",
+        "kolkostruva.bg (КЗП)"
+      ]
+    },
+    {
+      "questionId": "productPrice",
+      "parent": "priceRanking",
+      "lang": "bg",
+      "text": "Цена на продукт: Лаваца",
+      "expected": {
+        "questionId": "productPrice",
+        "text": "Цена на продукт: Лаваца",
+        "tool": "productPrice",
+        "args": {
+          "product": "Лаваца"
+        }
+      },
+      "status": "ok",
+      "tool": "productPrice",
+      "args": {
+        "product": "Лаваца"
+      },
+      "title": "Лаваца Роса 1кг",
+      "kind": "table",
+      "rows": 2,
+      "firstRow": {
+        "chain": "Чери Маркет",
+        "price": "26,69 €"
+      },
+      "facts": {
+        "product": "Лаваца Роса 1кг",
+        "slug": "lavatsa-rosa-1kg",
+        "lowest_price": "26,69 €",
+        "chains": 2,
+        "since_euro": "0.0% от еврото",
+        "cheapest_chain": "Чери Маркет",
+        "note": "Мониторингов индекс на КЗП, не официален ИПЦ."
+      },
+      "provenance": [
+        "price_payloads (PG)",
+        "kolkostruva.bg (КЗП)"
+      ]
+    },
+    {
+      "questionId": "priceRanking",
+      "lang": "en",
+      "text": "Which town is cheapest to shop in?",
+      "expected": {
+        "questionId": "priceRanking",
+        "text": "Which town is cheapest to shop in?",
+        "tool": "priceRanking",
+        "args": {
+          "metric": "which town is cheapest to shop in?"
+        }
+      },
+      "status": "ok",
+      "tool": "priceRanking",
+      "args": {
+        "metric": "which town is cheapest to shop in?"
+      },
+      "title": "Price ranking: cheapest (places)",
+      "kind": "table",
+      "rows": 8,
+      "firstRow": {
+        "rank": 1,
+        "place": "Бургас",
+        "value": "€12.39"
+      },
+      "facts": {
+        "order": "cheapest",
+        "tier": "places",
+        "leader": "Бургас: €12.39",
+        "ranked": 111,
+        "note": "CPC monitoring basket index, not official CPI."
+      },
+      "provenance": [
+        "price_payloads (PG)",
+        "kolkostruva.bg (КЗП)"
+      ]
+    },
+    {
+      "questionId": "productPrice",
+      "parent": "priceRanking",
+      "lang": "en",
+      "text": "Product price: Lavazza",
+      "expected": {
+        "questionId": "productPrice",
+        "text": "Product price: Lavazza",
+        "tool": "productPrice",
+        "args": {
+          "product": "Lavazza"
+        }
+      },
+      "status": "ok",
+      "tool": "productPrice",
+      "args": {
+        "product": "Lavazza"
+      },
+      "title": "1КГ КАФЕ/ЗЪР LAVAZZA",
+      "kind": "table",
+      "rows": 1,
+      "firstRow": {
+        "chain": "Метро България",
+        "price": "€19.12"
+      },
+      "facts": {
+        "product": "1КГ КАФЕ/ЗЪР LAVAZZA",
+        "slug": "1kg-kafe-zar-lavazza",
+        "lowest_price": "€28.68",
+        "chains": 1,
+        "since_euro": "−15.0% since the euro",
+        "cheapest_chain": "Метро България",
+        "note": "CPC monitoring basket index, not official CPI."
+      },
+      "provenance": [
+        "price_payloads (PG)",
+        "kolkostruva.bg (КЗП)"
+      ]
+    },
+    {
+      "questionId": "budgetOverview",
+      "lang": "bg",
+      "text": "Какъв е държавният бюджет — план и изпълнение?",
+      "expected": {
+        "questionId": "budgetOverview",
+        "text": "Какъв е държавният бюджет — план и изпълнение?",
+        "tool": "budgetOverview",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetOverview",
+      "args": {},
+      "title": "Държавен бюджет — план и изпълнение 2026",
+      "kind": "table",
+      "rows": 4,
+      "firstRow": {
+        "metric": "Приходи",
+        "value": "15,3 млрд €",
+        "planned": "28,5 млрд €"
+      },
+      "facts": {
+        "year": 2026,
+        "coverage": "Касово изпълнение на държавния бюджет към 2026-07-31. Непълна година. Не обхваща целия сектор „Държавно управление“ (COFOG).",
+        "planned_expenditure": "34,5 млрд €",
+        "revenue": "15,3 млрд €",
+        "expenditure": "16,5 млрд €",
+        "eu_contribution": "661,7 млн €",
+        "balance": "-1,9 млрд €",
+        "reconciliation": "салдо = приходи − разходи − принос към бюджета на ЕС",
+        "basis": "изпълнение на държавния бюджет"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetTrend",
+      "parent": "budgetOverview",
+      "lang": "bg",
+      "text": "Как се променя бюджетът през годините?",
+      "expected": {
+        "questionId": "budgetTrend",
+        "text": "Как се променя бюджетът през годините?",
+        "tool": "budgetTrend",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetTrend",
+      "args": {},
+      "title": "Държавен бюджет — приходи и разходи (2021–2025)",
+      "kind": "series",
+      "facts": {
+        "2021": "15,8 млрд € / 17,2 млрд €",
+        "2022": "17,9 млрд € / 19,9 млрд €",
+        "2023": "20,3 млрд € / 22,1 млрд €",
+        "2024": "22,3 млрд € / 24,8 млрд €",
+        "2025": "26,3 млрд € / 28,4 млрд €",
+        "years": 5,
+        "span": "2021–2025",
+        "latest_year": 2025,
+        "latest_revenue": "26,3 млрд €",
+        "latest_expenditure": "28,4 млрд €",
+        "latest_balance": "-3,1 млрд €"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetByFunction",
+      "parent": "budgetOverview",
+      "lang": "bg",
+      "text": "Разходи на държавното управление по функции (COFOG)?",
+      "expected": {
+        "questionId": "budgetByFunction",
+        "text": "Разходи на държавното управление по функции (COFOG)?",
+        "tool": "budgetByFunction",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetByFunction",
+      "args": {},
+      "title": "Бюджет по функция (COFOG, 2024)",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "fn": "Социална защита",
+        "amount": "15,1 млрд €",
+        "pct": 36.76
+      },
+      "facts": {
+        "year": 2024,
+        "total": "41,1 млрд €",
+        "coverage": "Последни налични данни COFOG: 2024. Отчетени разходи на сектор „Държавно управление“ по методология ESA; не е текущият бюджетен план. Публикуват се с приблизително 14 месеца закъснение.",
+        "covered_functions": 10,
+        "missing_functions": 0,
+        "top_function": "Социална защита",
+        "Социална защита": "15,1 млрд €",
+        "Икономически дейности": "6,1 млрд €",
+        "Здравеопазване": "5,6 млрд €"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetFunction",
+      "parent": "budgetOverview",
+      "lang": "bg",
+      "text": "Колко пари отиват за здравеопазване?",
+      "expected": {
+        "questionId": "budgetFunction",
+        "text": "Колко пари отиват за здравеопазване?",
+        "tool": "budgetFunction",
+        "args": {
+          "category": "GF07"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF07"
+      },
+      "title": "Разходи за „Здравеопазване“ (COFOG)",
+      "kind": "series",
+      "facts": {
+        "function": "Здравеопазване",
+        "year": 2024,
+        "coverage": "Последни налични данни COFOG: 2024. Отчетени разходи на сектор „Държавно управление“ по методология ESA; не е текущият бюджетен план. Публикуват се с приблизително 14 месеца закъснение.",
+        "amount": "5,6 млрд €",
+        "share_of_budget": "13.68%",
+        "rank": 3,
+        "total": "41,1 млрд €"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetOverview",
+      "lang": "en",
+      "text": "What is the state budget — plan and actual spending?",
+      "expected": {
+        "questionId": "budgetOverview",
+        "text": "What is the state budget — plan and actual spending?",
+        "tool": "budgetOverview",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetOverview",
+      "args": {},
+      "title": "State budget — 2026 plan and execution",
+      "kind": "table",
+      "rows": 4,
+      "firstRow": {
+        "metric": "Revenue",
+        "value": "€15.3bn",
+        "planned": "€28.5bn"
+      },
+      "facts": {
+        "year": 2026,
+        "coverage": "State-budget cash execution as of 2026-07-31. Partial year. Does not cover the entire general-government sector (COFOG).",
+        "planned_expenditure": "€34.5bn",
+        "revenue": "€15.3bn",
+        "expenditure": "€16.5bn",
+        "eu_contribution": "€661.7m",
+        "balance": "€-1.9bn",
+        "reconciliation": "balance = revenue − expenditure − contribution to the EU budget",
+        "basis": "state-budget execution"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetTrend",
+      "parent": "budgetOverview",
+      "lang": "en",
+      "text": "How has the budget changed over the years?",
+      "expected": {
+        "questionId": "budgetTrend",
+        "text": "How has the budget changed over the years?",
+        "tool": "budgetTrend",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetTrend",
+      "args": {},
+      "title": "State budget — revenue and spending (2021–2025)",
+      "kind": "series",
+      "facts": {
+        "2021": "€15.8bn / €17.2bn",
+        "2022": "€17.9bn / €19.9bn",
+        "2023": "€20.3bn / €22.1bn",
+        "2024": "€22.3bn / €24.8bn",
+        "2025": "€26.3bn / €28.4bn",
+        "years": 5,
+        "span": "2021–2025",
+        "latest_year": 2025,
+        "latest_revenue": "€26.3bn",
+        "latest_expenditure": "€28.4bn",
+        "latest_balance": "€-3.1bn"
+      },
+      "provenance": [
+        "budget/index.json"
+      ]
+    },
+    {
+      "questionId": "budgetByFunction",
+      "parent": "budgetOverview",
+      "lang": "en",
+      "text": "Government spending by function (COFOG)?",
+      "expected": {
+        "questionId": "budgetByFunction",
+        "text": "Government spending by function (COFOG)?",
+        "tool": "budgetByFunction",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "budgetByFunction",
+      "args": {},
+      "title": "Budget by function (COFOG, 2024)",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "fn": "Social protection",
+        "amount": "€15.1bn",
+        "pct": 36.76
+      },
+      "facts": {
+        "year": 2024,
+        "total": "€41.1bn",
+        "coverage": "Latest available COFOG data: 2024. General-government expenditure on an ESA basis; not the current budget plan. Published with an approximately 14-month lag.",
+        "covered_functions": 10,
+        "missing_functions": 0,
+        "top_function": "Social protection",
+        "Social protection": "€15.1bn",
+        "Economic affairs": "€6.1bn",
+        "Health": "€5.6bn"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "budgetFunction",
+      "parent": "budgetOverview",
+      "lang": "en",
+      "text": "How much goes to health?",
+      "expected": {
+        "questionId": "budgetFunction",
+        "text": "How much goes to health?",
+        "tool": "budgetFunction",
+        "args": {
+          "category": "GF07"
+        }
+      },
+      "status": "ok",
+      "tool": "budgetFunction",
+      "args": {
+        "category": "GF07"
+      },
+      "title": "Spending on \"Health\" (COFOG)",
+      "kind": "series",
+      "facts": {
+        "function": "Health",
+        "year": 2024,
+        "coverage": "Latest available COFOG data: 2024. General-government expenditure on an ESA basis; not the current budget plan. Published with an approximately 14-month lag.",
+        "amount": "€5.6bn",
+        "share_of_budget": "13.68%",
+        "rank": 3,
+        "total": "€41.1bn"
+      },
+      "provenance": [
+        "cofog.json"
+      ]
+    },
+    {
+      "questionId": "regionalInvestment",
+      "lang": "bg",
+      "text": "Какви са регионалните инвестиции по области?",
+      "expected": {
+        "questionId": "regionalInvestment",
+        "text": "Какви са регионалните инвестиции по области?",
+        "tool": "regionalInvestment",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "regionalInvestment",
+      "args": {},
+      "title": "Европейски средства (ИСУН + Interreg) по област",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "oblast": "Ямбол",
+        "per_capita": "5,5 хил €/жит.",
+        "total": "598,9 млн €",
+        "interreg": "2,9 млн €"
+      },
+      "facts": {
+        "highest_per_capita": "Ямбол (5,5 хил €/жит.)",
+        "lowest_per_capita": "Кърджали (1,7 хил €/жит.)",
+        "note": "Всички фондове по ИСУН (вкл. ПВУ), отнесени към декларираното място на изпълнение по общини и обобщени по област; проектите с национален обхват не се разпределят по области. Двете регионални програми на МРРБ поотделно са в cohesionAbsorption. Колоната „Общо“ включва и Interreg, но на друга основа: сумите по ИСУН са разпределени между общините на проекта, а по Interreg е собственият бюджет на българския партньор.",
+        "interreg_note": "Включва 307 млн € по Interreg (keep.eu) — трансгранични проекти, които не са в ИСУН, защото Interreg се управлява на отделна система. Сумата е бюджетът на българските партньори, не общият бюджет на проектите."
+      },
+      "provenance": [
+        "db:fund-payload (ИСУН muni-map)",
+        "db:interreg-overview (keep.eu)"
+      ]
+    },
+    {
+      "questionId": "mrrbSpending",
+      "parent": "regionalInvestment",
+      "lang": "bg",
+      "text": "Колко харчи МРРБ за поръчки?",
+      "expected": {
+        "questionId": "mrrbSpending",
+        "text": "Колко харчи МРРБ за поръчки?",
+        "tool": "mrrbSpending",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mrrbSpending",
+      "args": {},
+      "title": "Регионално развитие — поръчките на групата (МРРБ, АГКК, ДНСК, области)",
+      "kind": "table",
+      "rows": 8,
+      "firstRow": {
+        "function": "Проектиране и строителен надзор",
+        "amount": "70,4 млн €",
+        "share": "31%"
+      },
+      "facts": {
+        "total_value": "227,1 млн €",
+        "contracts": "2149",
+        "top_function": "Проектиране и строителен надзор (70,4 млн €)",
+        "single_bid_share": "28%",
+        "direct_award_share": "5%",
+        "top_contractor": "Хидрострой АД (9,5 млн €)",
+        "note": "Това са само обществените поръчки на групата на МРРБ (министерство + АГКК + ДНСК + 28 областни администрации). Пътищата (АПИ, ~€6,3 млрд.) и ВиК са отделни сектори и не са тук."
+      },
+      "provenance": [
+        "db:awarder-group-model"
+      ]
+    },
+    {
+      "questionId": "cohesionAbsorption",
+      "parent": "regionalInvestment",
+      "lang": "bg",
+      "text": "Усвоени ли са парите по „Развитие на регионите“?",
+      "expected": {
+        "questionId": "cohesionAbsorption",
+        "text": "Усвоени ли са парите по „Развитие на регионите“?",
+        "tool": "cohesionAbsorption",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "cohesionAbsorption",
+      "args": {},
+      "title": "Усвояване на кохезионните средства за регионите",
+      "kind": "table",
+      "rows": 2,
+      "firstRow": {
+        "programme": "Програма \"Развитие на регионите\" 2021-2027 (2021-27)",
+        "contracted": "2,6 млрд €",
+        "paid": "540,5 млн €",
+        "absorption": "21%"
+      },
+      "facts": {
+        "opr_absorption": "96%",
+        "rr_absorption": "21%",
+        "rr_at_risk": "2 млрд €",
+        "eligibility_end": "31.12.2029",
+        "n3_last_tranche": "2026 → 31.12.2029",
+        "note": "Бенефициентите са общините. „Развитие на регионите“ е усвоена едва ~20%. Разходите трябва да са извършени и платени до 31 декември 2029 г., за да са допустими (чл. 63, ал. 2 от Регламент (ЕС) 2021/1060). А по правилото n+3 (чл. 105) неусвоеното се губи на траншове всяка година — ангажиментите за 2021-2026 г.; траншът за 2027 г. се урежда при закриването.",
+        "scope": "Само по ИСУН. Interreg няма публикуван показател за изплатени средства (keep.eu не публикува разходи), затова трансграничните проекти не влизат в процента усвояване — нито в числителя, нито в знаменателя."
+      },
+      "provenance": [
+        "db:fund-payload (ИСУН absorption)"
+      ]
+    },
+    {
+      "questionId": "macro-euFunds",
+      "parent": "regionalInvestment",
+      "lang": "bg",
+      "text": "Покажи показателя „Средства от ЕС, получени от България“.",
+      "expected": {
+        "questionId": "macro-euFunds",
+        "text": "Покажи показателя „Средства от ЕС, получени от България“.",
+        "tool": "macroIndicator",
+        "args": {
+          "indicator": "euFunds"
+        }
+      },
+      "status": "ok",
+      "tool": "macroIndicator",
+      "args": {
+        "indicator": "euFunds"
+      },
+      "title": "Средства от ЕС, получени от България (млрд. евро (годишно, бруто))",
+      "kind": "series",
+      "facts": {
+        "indicator": "Средства от ЕС, получени от България",
+        "latest_period": "2024",
+        "latest_value": 2.07
+      },
+      "provenance": [
+        "macro.json"
+      ]
+    },
+    {
+      "questionId": "regionalInvestment",
+      "lang": "en",
+      "text": "What are regional investments by province?",
+      "expected": {
+        "questionId": "regionalInvestment",
+        "text": "What are regional investments by province?",
+        "tool": "regionalInvestment",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "regionalInvestment",
+      "args": {},
+      "title": "EU funds (ИСУН + Interreg) by oblast",
+      "kind": "table",
+      "rows": 10,
+      "firstRow": {
+        "oblast": "Yambol",
+        "per_capita": "€5.5k/cap",
+        "total": "€598.9m",
+        "interreg": "€2.9m"
+      },
+      "facts": {
+        "highest_per_capita": "Yambol (€5.5k/cap)",
+        "lowest_per_capita": "Kardzhali (€1.7k/cap)",
+        "note": "All ИСУН funds (incl. the RRF), attributed to the declared place of implementation by municipality and aggregated to oblast; nationally-scoped projects are not apportioned to any oblast. The two МРРБ regional programmes specifically are in cohesionAbsorption. The Total column also includes Interreg, on a different basis: ИСУН amounts are split across the municipalities a contract names, while an Interreg figure is the Bulgarian partner's own budget.",
+        "interreg_note": "Includes €307m of Interreg (keep.eu) — cross-border projects absent from ИСУН because Interreg is run on a separate system. The amount is the Bulgarian partners' own budgets, not the whole-project totals."
+      },
+      "provenance": [
+        "db:fund-payload (ИСУН muni-map)",
+        "db:interreg-overview (keep.eu)"
+      ]
+    },
+    {
+      "questionId": "mrrbSpending",
+      "parent": "regionalInvestment",
+      "lang": "en",
+      "text": "How much does МРРБ spend on procurement?",
+      "expected": {
+        "questionId": "mrrbSpending",
+        "text": "How much does МРРБ spend on procurement?",
+        "tool": "mrrbSpending",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mrrbSpending",
+      "args": {},
+      "title": "Regional development — the group's procurement (МРРБ, АГКК, ДНСК, oblasts)",
+      "kind": "table",
+      "rows": 8,
+      "firstRow": {
+        "function": "Design & construction supervision",
+        "amount": "€70.4m",
+        "share": "31%"
+      },
+      "facts": {
+        "total_value": "€227.1m",
+        "contracts": "2,149",
+        "top_function": "Design & construction supervision (€70.4m)",
+        "single_bid_share": "28%",
+        "direct_award_share": "5%",
+        "top_contractor": "Хидрострой АД (€9.5m)",
+        "note": "This is only the МРРБ group's procurement (ministry + АГКК + ДНСК + 28 regional governors). Roads (АПИ, ~€6.3bn) and water (ВиК) are separate sectors and are not here."
+      },
+      "provenance": [
+        "db:awarder-group-model"
+      ]
+    },
+    {
+      "questionId": "cohesionAbsorption",
+      "parent": "regionalInvestment",
+      "lang": "en",
+      "text": "Are the „Развитие на регионите“ funds absorbed?",
+      "expected": {
+        "questionId": "cohesionAbsorption",
+        "text": "Are the „Развитие на регионите“ funds absorbed?",
+        "tool": "cohesionAbsorption",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "cohesionAbsorption",
+      "args": {},
+      "title": "Absorption of the regional cohesion funds",
+      "kind": "table",
+      "rows": 2,
+      "firstRow": {
+        "programme": "Програма \"Развитие на регионите\" 2021-2027 (2021-27)",
+        "contracted": "€2.6bn",
+        "paid": "€540.5m",
+        "absorption": "21%"
+      },
+      "facts": {
+        "opr_absorption": "96%",
+        "rr_absorption": "21%",
+        "rr_at_risk": "€2bn",
+        "eligibility_end": "31.12.2029",
+        "n3_last_tranche": "2026 → 31.12.2029",
+        "note": "The beneficiaries are the municipalities. „Развитие на регионите“ is only ~20% absorbed. Expenditure must be incurred and paid by 31 December 2029 to be eligible (Art. 63(2) of Reg. (EU) 2021/1060). And under the n+3 rule (Art. 105) unspent money is forfeited tranche by tranche each year — commitments 2021-2026; the 2027 tranche settles at closure.",
+        "scope": "ИСУН only. Interreg publishes no expenditure figure at all (keep.eu has none), so cross-border projects are outside this absorption rate — neither in the numerator nor the denominator."
+      },
+      "provenance": [
+        "db:fund-payload (ИСУН absorption)"
+      ]
+    },
+    {
+      "questionId": "macro-euFunds",
+      "parent": "regionalInvestment",
+      "lang": "en",
+      "text": "Show the indicator “EU funds received by Bulgaria”.",
+      "expected": {
+        "questionId": "macro-euFunds",
+        "text": "Show the indicator “EU funds received by Bulgaria”.",
+        "tool": "macroIndicator",
+        "args": {
+          "indicator": "euFunds"
+        }
+      },
+      "status": "ok",
+      "tool": "macroIndicator",
+      "args": {
+        "indicator": "euFunds"
+      },
+      "title": "EU funds received by Bulgaria (EUR billions (annual, gross receipts))",
+      "kind": "series",
+      "facts": {
+        "indicator": "EU funds received by Bulgaria",
+        "latest_period": "2024",
+        "latest_value": 2.07
+      },
+      "provenance": [
+        "macro.json"
+      ]
+    },
+    {
+      "questionId": "contractSearch",
+      "lang": "bg",
+      "text": "Покажи договорите на Софарма трейдинг",
+      "expected": {
+        "questionId": "contractSearch",
+        "text": "Покажи договорите на Софарма трейдинг",
+        "tool": "contractSearch",
+        "args": {
+          "company": "Покажи договорите на Софарма трейдинг"
+        }
+      },
+      "status": "ok",
+      "tool": "contractSearch",
+      "args": {
+        "company": "Покажи договорите на Софарма трейдинг"
+      },
+      "title": "Договори на Софарма трейдинг АД",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "date": "2025-09-12",
+        "awarder": "Министерство на здравеопазването - централен орган за покупки",
+        "subject": "“Сключване на рамково споразумение за доставка на лекарствени продукти за нужди…",
+        "bids": 55,
+        "amount": "81,7 млн €"
+      },
+      "facts": {
+        "company": "Софарма трейдинг АД",
+        "eik_id": "103267194",
+        "contracts": "8544",
+        "total_value": "2,5 млрд €",
+        "single_bidder": 1310,
+        "biggest_awarder": "Министерство на здравеопазването - централен орган за покупки",
+        "biggest_value": "81,7 млн €",
+        "contract_id": "0325e41fabfd"
+      },
+      "provenance": [
+        "db:procurement-search",
+        "db:table/contracts"
+      ]
+    },
+    {
+      "questionId": "companyConnections",
+      "parent": "contractSearch",
+      "lang": "bg",
+      "text": "Свързана ли е Софарма трейдинг АД с депутати?",
+      "expected": {
+        "questionId": "companyConnections",
+        "text": "Какви политически връзки има ЕИК 103267194?",
+        "tool": "companyConnections",
+        "args": {
+          "company": "103267194"
+        }
+      },
+      "status": "ok",
+      "tool": "companyConnections",
+      "args": {
+        "company": "103267194"
+      },
+      "title": "Връзки с публични длъжности — СОФАРМА ТРЕЙДИНГ",
+      "kind": "table",
+      "rows": 1,
+      "firstRow": {
+        "person": "Димитър Стефанов Гугутков",
+        "office": "Изпълнителна власт",
+        "link": "чрез Борис Анчев Борисов (15 фирми) → МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-ДОВЕРИЕ",
+        "basis": "2-ра степен"
+      },
+      "facts": {
+        "eik": "103267194",
+        "company": "СОФАРМА ТРЕЙДИНГ",
+        "officer_rows": 12,
+        "direct_links": 0,
+        "bridged_links": 1,
+        "first_connection": "Димитър Стефанов Гугутков"
+      },
+      "provenance": [
+        "company_political_links (158_company_political_links.sql)"
+      ]
+    },
+    {
+      "questionId": "procurementTotals",
+      "parent": "contractSearch",
+      "lang": "bg",
+      "text": "Колко са обществените поръчки?",
+      "expected": {
+        "questionId": "procurementTotals",
+        "text": "Колко са обществените поръчки?",
+        "tool": "procurementTotals",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "procurementTotals",
+      "args": {},
+      "title": "Обществени поръчки — общо (АОП)",
+      "kind": "scalar",
+      "facts": {
+        "contracts": "407 690",
+        "total_value": "94 млрд €",
+        "contractors": "29 691",
+        "buyers": "4421",
+        "mp_connected_value": "2,2 млрд €",
+        "mp_connected_count": 99,
+        "official_connected_value": "6,5 млрд €",
+        "official_connected_count": 796
+      },
+      "provenance": [
+        "db:procurement-overview"
+      ]
+    },
+    {
+      "questionId": "topContractors",
+      "parent": "contractSearch",
+      "lang": "bg",
+      "text": "Кои са най-големите изпълнители по обществени поръчки?",
+      "expected": {
+        "questionId": "topContractors",
+        "text": "Кои са най-големите изпълнители по обществени поръчки?",
+        "tool": "topContractors",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "topContractors",
+      "args": {},
+      "title": "Най-големи изпълнители по обществени поръчки (АОП)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "contractor": "СОФАРМА ТРЕЙДИНГ",
+        "amount": "2,5 млрд €",
+        "contracts": 8510,
+        "mp": "—"
+      },
+      "facts": {
+        "top_contractor": "СОФАРМА ТРЕЙДИНГ",
+        "top_contractor_eik": "103267194",
+        "top_value": "2,5 млрд €",
+        "mp_tied_in_top": 1
+      },
+      "provenance": [
+        "db:procurement-rankings"
+      ]
+    },
+    {
+      "questionId": "contractSearch",
+      "lang": "en",
+      "text": "Show the contracts won by Sofarma Trading",
+      "expected": {
+        "questionId": "contractSearch",
+        "text": "Show the contracts won by Sofarma Trading",
+        "tool": "contractSearch",
+        "args": {
+          "company": "Show the contracts won by Sofarma Trading"
+        }
+      },
+      "status": "ok",
+      "tool": "contractSearch",
+      "args": {
+        "company": "Show the contracts won by Sofarma Trading"
+      },
+      "title": "Contracts won by Софарма трейдинг АД",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "date": "2025-09-12",
+        "awarder": "Министерство на здравеопазването - централен орган за покупки",
+        "subject": "“Сключване на рамково споразумение за доставка на лекарствени продукти за нужди…",
+        "bids": 55,
+        "amount": "€81.7m"
+      },
+      "facts": {
+        "company": "Софарма трейдинг АД",
+        "eik_id": "103267194",
+        "contracts": "8,544",
+        "total_value": "€2.5bn",
+        "single_bidder": 1310,
+        "biggest_awarder": "Министерство на здравеопазването - централен орган за покупки",
+        "biggest_value": "€81.7m",
+        "contract_id": "0325e41fabfd"
+      },
+      "provenance": [
+        "db:procurement-search",
+        "db:table/contracts"
+      ]
+    },
+    {
+      "questionId": "companyConnections",
+      "parent": "contractSearch",
+      "lang": "en",
+      "text": "Is Софарма трейдинг АД connected to MPs?",
+      "expected": {
+        "questionId": "companyConnections",
+        "text": "What political connections does EIK 103267194 have?",
+        "tool": "companyConnections",
+        "args": {
+          "company": "103267194"
+        }
+      },
+      "status": "ok",
+      "tool": "companyConnections",
+      "args": {
+        "company": "103267194"
+      },
+      "title": "Links to public office — СОФАРМА ТРЕЙДИНГ",
+      "kind": "table",
+      "rows": 1,
+      "firstRow": {
+        "person": "Димитър Стефанов Гугутков",
+        "office": "Изпълнителна власт",
+        "link": "via Борис Анчев Борисов (15 companies) → МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-ДОВЕРИЕ",
+        "basis": "second-degree"
+      },
+      "facts": {
+        "eik": "103267194",
+        "company": "СОФАРМА ТРЕЙДИНГ",
+        "officer_rows": 12,
+        "direct_links": 0,
+        "bridged_links": 1,
+        "first_connection": "Димитър Стефанов Гугутков"
+      },
+      "provenance": [
+        "company_political_links (158_company_political_links.sql)"
+      ]
+    },
+    {
+      "questionId": "procurementTotals",
+      "parent": "contractSearch",
+      "lang": "en",
+      "text": "How much public procurement is there?",
+      "expected": {
+        "questionId": "procurementTotals",
+        "text": "How much public procurement is there?",
+        "tool": "procurementTotals",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "procurementTotals",
+      "args": {},
+      "title": "Public procurement — totals (AOP)",
+      "kind": "scalar",
+      "facts": {
+        "contracts": "407,690",
+        "total_value": "€94bn",
+        "contractors": "29,691",
+        "buyers": "4,421",
+        "mp_connected_value": "€2.2bn",
+        "mp_connected_count": 99,
+        "official_connected_value": "€6.5bn",
+        "official_connected_count": 796
+      },
+      "provenance": [
+        "db:procurement-overview"
+      ]
+    },
+    {
+      "questionId": "topContractors",
+      "parent": "contractSearch",
+      "lang": "en",
+      "text": "Who are the biggest public-procurement contractors?",
+      "expected": {
+        "questionId": "topContractors",
+        "text": "Who are the biggest public-procurement contractors?",
+        "tool": "topContractors",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "topContractors",
+      "args": {},
+      "title": "Largest public-procurement contractors (AOP)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "contractor": "СОФАРМА ТРЕЙДИНГ",
+        "amount": "€2.5bn",
+        "contracts": 8510,
+        "mp": "—"
+      },
+      "facts": {
+        "top_contractor": "СОФАРМА ТРЕЙДИНГ",
+        "top_contractor_eik": "103267194",
+        "top_value": "€2.5bn",
+        "mp_tied_in_top": 1
+      },
+      "provenance": [
+        "db:procurement-rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsTop",
+      "lang": "bg",
+      "text": "Кои депутати декларират най-много активи?",
+      "expected": {
+        "questionId": "mpAssetsTop",
+        "text": "Кои депутати декларират най-много активи?",
+        "tool": "mpAssetsTop",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "title": "Депутати с най-големи декларирани активи",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "mp": "Делян Славчев Пеевски",
+        "group": "ПГ на ДПС",
+        "assets": "9,8 млн €"
+      },
+      "facts": {
+        "richest": "Делян Славчев Пеевски",
+        "richest_assets": "9,8 млн €"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsByParty",
+      "parent": "mpAssetsTop",
+      "lang": "bg",
+      "text": "Коя партия има най-високи средни декларирани активи на депутат?",
+      "expected": {
+        "questionId": "mpAssetsByParty",
+        "text": "Коя партия има най-високи средни декларирани активи на депутат?",
+        "tool": "mpAssetsByParty",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsByParty",
+      "args": {},
+      "title": "Декларирани активи по партия (средно на депутат)",
+      "kind": "table",
+      "rows": 6,
+      "firstRow": {
+        "party": "ДПС",
+        "mps": 21,
+        "avg": "600,1 хил €",
+        "total": "12,6 млн €"
+      },
+      "facts": {
+        "richest_party": "ДПС (600,1 хил €)"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "officialsAssetsTop",
+      "parent": "mpAssetsTop",
+      "lang": "bg",
+      "text": "Кои министри декларират най-много активи?",
+      "expected": {
+        "questionId": "officialsAssetsTop",
+        "text": "Кои министри декларират най-много активи?",
+        "tool": "officialsAssetsTop",
+        "args": {
+          "category": "кои министри декларират най-много активи?"
+        }
+      },
+      "status": "ok",
+      "tool": "officialsAssetsTop",
+      "args": {
+        "category": "кои министри декларират най-много активи?"
+      },
+      "title": "Висши служители с най-големи активи (министри)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "name": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "inst": "Министерство на транспорта и съобщенията",
+        "assets": "9,5 млн €"
+      },
+      "facts": {
+        "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "richest_assets": "9,5 млн €"
+      },
+      "provenance": [
+        "db:officials_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsTop",
+      "lang": "en",
+      "text": "Which MPs declare the most assets?",
+      "expected": {
+        "questionId": "mpAssetsTop",
+        "text": "Which MPs declare the most assets?",
+        "tool": "mpAssetsTop",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "title": "MPs by declared assets",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "mp": "Делян Славчев Пеевски",
+        "group": "ПГ на ДПС",
+        "assets": "€9.8m"
+      },
+      "facts": {
+        "richest": "Делян Славчев Пеевски",
+        "richest_assets": "€9.8m"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsByParty",
+      "parent": "mpAssetsTop",
+      "lang": "en",
+      "text": "Which party's MPs have the highest average declared assets?",
+      "expected": {
+        "questionId": "mpAssetsByParty",
+        "text": "Which party's MPs have the highest average declared assets?",
+        "tool": "mpAssetsByParty",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsByParty",
+      "args": {},
+      "title": "Declared assets by party (average per MP)",
+      "kind": "table",
+      "rows": 6,
+      "firstRow": {
+        "party": "ДПС",
+        "mps": 21,
+        "avg": "€600.1k",
+        "total": "€12.6m"
+      },
+      "facts": {
+        "richest_party": "ДПС (€600.1k)"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "officialsAssetsTop",
+      "parent": "mpAssetsTop",
+      "lang": "en",
+      "text": "Which cabinet officials declare the most assets?",
+      "expected": {
+        "questionId": "officialsAssetsTop",
+        "text": "Which cabinet officials declare the most assets?",
+        "tool": "officialsAssetsTop",
+        "args": {
+          "category": "which cabinet officials declare the most assets?"
+        }
+      },
+      "status": "ok",
+      "tool": "officialsAssetsTop",
+      "args": {
+        "category": "which cabinet officials declare the most assets?"
+      },
+      "title": "Officials by declared assets (cabinet)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "name": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "inst": "Министерство на транспорта и съобщенията",
+        "assets": "€9.5m"
+      },
+      "facts": {
+        "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "richest_assets": "€9.5m"
+      },
+      "provenance": [
+        "db:officials_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsByParty",
+      "lang": "bg",
+      "text": "Коя партия има най-високи средни декларирани активи на депутат?",
+      "expected": {
+        "questionId": "mpAssetsByParty",
+        "text": "Коя партия има най-високи средни декларирани активи на депутат?",
+        "tool": "mpAssetsByParty",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsByParty",
+      "args": {},
+      "title": "Декларирани активи по партия (средно на депутат)",
+      "kind": "table",
+      "rows": 6,
+      "firstRow": {
+        "party": "ДПС",
+        "mps": 21,
+        "avg": "600,1 хил €",
+        "total": "12,6 млн €"
+      },
+      "facts": {
+        "richest_party": "ДПС (600,1 хил €)"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsTop",
+      "parent": "mpAssetsByParty",
+      "lang": "bg",
+      "text": "Кои депутати декларират най-много активи?",
+      "expected": {
+        "questionId": "mpAssetsTop",
+        "text": "Кои депутати декларират най-много активи?",
+        "tool": "mpAssetsTop",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "title": "Депутати с най-големи декларирани активи",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "mp": "Делян Славчев Пеевски",
+        "group": "ПГ на ДПС",
+        "assets": "9,8 млн €"
+      },
+      "facts": {
+        "richest": "Делян Славчев Пеевски",
+        "richest_assets": "9,8 млн €"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "officialsAssetsTop",
+      "parent": "mpAssetsByParty",
+      "lang": "bg",
+      "text": "Кои министри декларират най-много активи?",
+      "expected": {
+        "questionId": "officialsAssetsTop",
+        "text": "Кои министри декларират най-много активи?",
+        "tool": "officialsAssetsTop",
+        "args": {
+          "category": "кои министри декларират най-много активи?"
+        }
+      },
+      "status": "ok",
+      "tool": "officialsAssetsTop",
+      "args": {
+        "category": "кои министри декларират най-много активи?"
+      },
+      "title": "Висши служители с най-големи активи (министри)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "name": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "inst": "Министерство на транспорта и съобщенията",
+        "assets": "9,5 млн €"
+      },
+      "facts": {
+        "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "richest_assets": "9,5 млн €"
+      },
+      "provenance": [
+        "db:officials_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsByParty",
+      "lang": "en",
+      "text": "Which party's MPs have the highest average declared assets?",
+      "expected": {
+        "questionId": "mpAssetsByParty",
+        "text": "Which party's MPs have the highest average declared assets?",
+        "tool": "mpAssetsByParty",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsByParty",
+      "args": {},
+      "title": "Declared assets by party (average per MP)",
+      "kind": "table",
+      "rows": 6,
+      "firstRow": {
+        "party": "ДПС",
+        "mps": 21,
+        "avg": "€600.1k",
+        "total": "€12.6m"
+      },
+      "facts": {
+        "richest_party": "ДПС (€600.1k)"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsTop",
+      "parent": "mpAssetsByParty",
+      "lang": "en",
+      "text": "Which MPs declare the most assets?",
+      "expected": {
+        "questionId": "mpAssetsTop",
+        "text": "Which MPs declare the most assets?",
+        "tool": "mpAssetsTop",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "title": "MPs by declared assets",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "mp": "Делян Славчев Пеевски",
+        "group": "ПГ на ДПС",
+        "assets": "€9.8m"
+      },
+      "facts": {
+        "richest": "Делян Славчев Пеевски",
+        "richest_assets": "€9.8m"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "officialsAssetsTop",
+      "parent": "mpAssetsByParty",
+      "lang": "en",
+      "text": "Which cabinet officials declare the most assets?",
+      "expected": {
+        "questionId": "officialsAssetsTop",
+        "text": "Which cabinet officials declare the most assets?",
+        "tool": "officialsAssetsTop",
+        "args": {
+          "category": "which cabinet officials declare the most assets?"
+        }
+      },
+      "status": "ok",
+      "tool": "officialsAssetsTop",
+      "args": {
+        "category": "which cabinet officials declare the most assets?"
+      },
+      "title": "Officials by declared assets (cabinet)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "name": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "inst": "Министерство на транспорта и съобщенията",
+        "assets": "€9.5m"
+      },
+      "facts": {
+        "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "richest_assets": "€9.5m"
+      },
+      "provenance": [
+        "db:officials_rankings"
+      ]
+    },
+    {
+      "questionId": "officialsAssetsTop",
+      "lang": "bg",
+      "text": "Кои министри декларират най-много активи?",
+      "expected": {
+        "questionId": "officialsAssetsTop",
+        "text": "Кои министри декларират най-много активи?",
+        "tool": "officialsAssetsTop",
+        "args": {
+          "category": "кои министри декларират най-много активи?"
+        }
+      },
+      "status": "ok",
+      "tool": "officialsAssetsTop",
+      "args": {
+        "category": "кои министри декларират най-много активи?"
+      },
+      "title": "Висши служители с най-големи активи (министри)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "name": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "inst": "Министерство на транспорта и съобщенията",
+        "assets": "9,5 млн €"
+      },
+      "facts": {
+        "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "richest_assets": "9,5 млн €"
+      },
+      "provenance": [
+        "db:officials_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsTop",
+      "parent": "officialsAssetsTop",
+      "lang": "bg",
+      "text": "Кои депутати декларират най-много активи?",
+      "expected": {
+        "questionId": "mpAssetsTop",
+        "text": "Кои депутати декларират най-много активи?",
+        "tool": "mpAssetsTop",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "title": "Депутати с най-големи декларирани активи",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "mp": "Делян Славчев Пеевски",
+        "group": "ПГ на ДПС",
+        "assets": "9,8 млн €"
+      },
+      "facts": {
+        "richest": "Делян Славчев Пеевски",
+        "richest_assets": "9,8 млн €"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsByParty",
+      "parent": "officialsAssetsTop",
+      "lang": "bg",
+      "text": "Коя партия има най-високи средни декларирани активи на депутат?",
+      "expected": {
+        "questionId": "mpAssetsByParty",
+        "text": "Коя партия има най-високи средни декларирани активи на депутат?",
+        "tool": "mpAssetsByParty",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsByParty",
+      "args": {},
+      "title": "Декларирани активи по партия (средно на депутат)",
+      "kind": "table",
+      "rows": 6,
+      "firstRow": {
+        "party": "ДПС",
+        "mps": 21,
+        "avg": "600,1 хил €",
+        "total": "12,6 млн €"
+      },
+      "facts": {
+        "richest_party": "ДПС (600,1 хил €)"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "officialsAssetsTop",
+      "lang": "en",
+      "text": "Which cabinet officials declare the most assets?",
+      "expected": {
+        "questionId": "officialsAssetsTop",
+        "text": "Which cabinet officials declare the most assets?",
+        "tool": "officialsAssetsTop",
+        "args": {
+          "category": "which cabinet officials declare the most assets?"
+        }
+      },
+      "status": "ok",
+      "tool": "officialsAssetsTop",
+      "args": {
+        "category": "which cabinet officials declare the most assets?"
+      },
+      "title": "Officials by declared assets (cabinet)",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "name": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "inst": "Министерство на транспорта и съобщенията",
+        "assets": "€9.5m"
+      },
+      "facts": {
+        "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+        "richest_assets": "€9.5m"
+      },
+      "provenance": [
+        "db:officials_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsTop",
+      "parent": "officialsAssetsTop",
+      "lang": "en",
+      "text": "Which MPs declare the most assets?",
+      "expected": {
+        "questionId": "mpAssetsTop",
+        "text": "Which MPs declare the most assets?",
+        "tool": "mpAssetsTop",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "title": "MPs by declared assets",
+      "kind": "table",
+      "rows": 12,
+      "firstRow": {
+        "mp": "Делян Славчев Пеевски",
+        "group": "ПГ на ДПС",
+        "assets": "€9.8m"
+      },
+      "facts": {
+        "richest": "Делян Славчев Пеевски",
+        "richest_assets": "€9.8m"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    },
+    {
+      "questionId": "mpAssetsByParty",
+      "parent": "officialsAssetsTop",
+      "lang": "en",
+      "text": "Which party's MPs have the highest average declared assets?",
+      "expected": {
+        "questionId": "mpAssetsByParty",
+        "text": "Which party's MPs have the highest average declared assets?",
+        "tool": "mpAssetsByParty",
+        "args": {}
+      },
+      "status": "ok",
+      "tool": "mpAssetsByParty",
+      "args": {},
+      "title": "Declared assets by party (average per MP)",
+      "kind": "table",
+      "rows": 6,
+      "firstRow": {
+        "party": "ДПС",
+        "mps": 21,
+        "avg": "€600.1k",
+        "total": "€12.6m"
+      },
+      "facts": {
+        "richest_party": "ДПС (€600.1k)"
+      },
+      "provenance": [
+        "db:mp_assets_rankings"
+      ]
+    }
+  ]
+}
