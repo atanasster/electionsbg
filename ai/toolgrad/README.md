@@ -38,3 +38,37 @@ All runtime figures continue to come from tools.
 
 Reference: [ToolGrad paper](https://arxiv.org/html/2508.04086v3) and
 [official implementation](https://github.com/zhongyi-zhou/toolgrad).
+
+## Question generation and review
+
+```sh
+node --env-file=.env.local --import tsx ai/toolgrad/generate.run.ts data/ai/toolgrad/corpus.json /tmp/toolgrad-new
+# Resume into another new directory (prior successful completions are reused):
+node --env-file=.env.local --import tsx ai/toolgrad/generate.run.ts data/ai/toolgrad/corpus.json /tmp/toolgrad-resumed /tmp/toolgrad-new
+```
+
+The operator client uses the production Gemini model and payload limits. Each
+invocation has a maximum of 96 requests, with two attempts per unfinished batch.
+`generation.json` retains raw responses, prompts, usage and failed validation.
+The reservation ceiling is not a bill; absent provider cost remains unknown.
+
+Only generic tool contracts and placeholder arguments go to Gemini. Captured
+facts, names and identifiers stay local; placeholders are restored after generation.
+This is a privacy-preserving adaptation of execution-first generation, not a full
+ToolGrad textual-gradient reproduction. Local semantic critique corrects questions
+against captured envelopes; no model training or remote fact-judging happens.
+
+Committed artifacts: `questions.raw.json` preserves the final generation output;
+`generation.json` consolidates all attempts from the three runs; `questions.json`
+has 144 locally agent-reviewed questions (24 workflows × 2 languages × 3 styles).
+`question-review.json` records every local correction and three authored replacements
+for a rejected batch. This is agent review, not human sign-off or independent fact checking.
+The non-typo styles favor ordinary language; proper names may remain in Cyrillic
+inside English questions. Generated prose can reflect the catalogue's vocabulary.
+
+The split was fixed before generation: 108 development questions and 36 held-out
+questions from six entire workflows. Related paraphrases and language variants
+never cross the split. Semantic curation may inspect held-out questions for validity;
+prompt development must use development failures only. Existing hand-written
+`ai/llm/currentEval.realistic.ts` cases provide a separate reference set, although
+it predates this pilot and may already have influenced the production prompt.

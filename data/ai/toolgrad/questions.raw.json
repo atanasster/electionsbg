@@ -1,0 +1,1975 @@
+{
+  "version": 1,
+  "model": "google/gemini-3.5-flash-lite",
+  "corpusHash": "33ef774fb97daa822ce865f5999b81bc44bdf3e14046cdd25f24db079f793b56",
+  "startedAt": "2026-09-11T10:23:06.484Z",
+  "commit": "50b9a908802b6a4c05ecf7d3e07af9154b17a7a2",
+  "maxCalls": 96,
+  "resumedFrom": "data/ai/toolgrad/generated-resumed",
+  "priorTraceCount": 17,
+  "status": "incomplete-needs-repair",
+  "samples": [
+    {
+      "style": "natural",
+      "question": "Каква беше избирателната активност на изборите на 2 април 2023 г.?",
+      "id": "election-turnout:bg:natural",
+      "workflow": "election-turnout",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "turnout",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "a1cec8ea73a7f8db8bc884f631f5193cb19df522eb7a024c6edc19df8923c0bd"
+    },
+    {
+      "style": "terse",
+      "question": "Избирателна активност 2 април 2023 г.",
+      "id": "election-turnout:bg:terse",
+      "workflow": "election-turnout",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "turnout",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "a1cec8ea73a7f8db8bc884f631f5193cb19df522eb7a024c6edc19df8923c0bd"
+    },
+    {
+      "style": "typo",
+      "question": "Каква бше избирателната активност за избора на 2 април 2023 г.?",
+      "id": "election-turnout:bg:typo",
+      "workflow": "election-turnout",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "turnout",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "a1cec8ea73a7f8db8bc884f631f5193cb19df522eb7a024c6edc19df8923c0bd"
+    },
+    {
+      "style": "natural",
+      "question": "What was the voter turnout for 2 April 2023?",
+      "id": "election-turnout:en:natural",
+      "workflow": "election-turnout",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "turnout",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "1b0b86acc0c8d2118421acef3579a0513e3e66d3a1347e3eaabeb2f464d5f773"
+    },
+    {
+      "style": "terse",
+      "question": "turnout 2 April 2023",
+      "id": "election-turnout:en:terse",
+      "workflow": "election-turnout",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "turnout",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "1b0b86acc0c8d2118421acef3579a0513e3e66d3a1347e3eaabeb2f464d5f773"
+    },
+    {
+      "style": "typo",
+      "question": "What was the voter turnut for 2 April 2023?",
+      "id": "election-turnout:en:typo",
+      "workflow": "election-turnout",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "turnout",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "1b0b86acc0c8d2118421acef3579a0513e3e66d3a1347e3eaabeb2f464d5f773"
+    },
+    {
+      "style": "natural",
+      "question": "Какъв е дял на машинното гласуване за избор 2 април 2023 г.?",
+      "id": "election-machine:bg:natural",
+      "workflow": "election-machine",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "01ebfd7c43513ffd2a4821c7f31ad86181d783b73060c1d3db3325183558347c"
+    },
+    {
+      "style": "terse",
+      "question": "дял на машинното гласуване 2 април 2023 г.",
+      "id": "election-machine:bg:terse",
+      "workflow": "election-machine",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "01ebfd7c43513ffd2a4821c7f31ad86181d783b73060c1d3db3325183558347c"
+    },
+    {
+      "style": "typo",
+      "question": "Какъв е дялл на машинното гласуване за избор 2 април 2023 г.?",
+      "id": "election-machine:bg:typo",
+      "workflow": "election-machine",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "01ebfd7c43513ffd2a4821c7f31ad86181d783b73060c1d3db3325183558347c"
+    },
+    {
+      "style": "natural",
+      "question": "What was the machine-voting share for 2 April 2023?",
+      "id": "election-machine:en:natural",
+      "workflow": "election-machine",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "1061f0bd6f775c24289064ff174924770c19b57a63ca17bff3379cf581026259"
+    },
+    {
+      "style": "terse",
+      "question": "2 April 2023 machine vote share",
+      "id": "election-machine:en:terse",
+      "workflow": "election-machine",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "1061f0bd6f775c24289064ff174924770c19b57a63ca17bff3379cf581026259"
+    },
+    {
+      "style": "typo",
+      "question": "What was the machne-voting share for 2 April 2023?",
+      "id": "election-machine:en:typo",
+      "workflow": "election-machine",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "machineVoteShare",
+      "args": {
+        "election": "2023_04_02"
+      },
+      "captureHash": "1061f0bd6f775c24289064ff174924770c19b57a63ca17bff3379cf581026259"
+    },
+    {
+      "style": "natural",
+      "question": "Кои са националните резултати от изборите на 27 октомври 2024 г., включително броя гласове, процентите и разпределението на мандатите?",
+      "id": "election-national:bg:natural",
+      "workflow": "election-national",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "nationalResults",
+      "args": {
+        "election": "2024_10_27"
+      },
+      "captureHash": "a3bd0edaabe383236416d1d3b2a360d615a7c88a0726c2b0196ab543b6cd7fcf"
+    },
+    {
+      "style": "terse",
+      "question": "национални резултати 27 октомври 2024 г. гласове проценти мандати",
+      "id": "election-national:bg:terse",
+      "workflow": "election-national",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "nationalResults",
+      "args": {
+        "election": "2024_10_27"
+      },
+      "captureHash": "a3bd0edaabe383236416d1d3b2a360d615a7c88a0726c2b0196ab543b6cd7fcf"
+    },
+    {
+      "style": "typo",
+      "question": "Какви са национлните резултати по партии, брой гласове и мандати за изборите проведени на 27 октомври 2024 г.?",
+      "id": "election-national:bg:typo",
+      "workflow": "election-national",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "nationalResults",
+      "args": {
+        "election": "2024_10_27"
+      },
+      "captureHash": "a3bd0edaabe383236416d1d3b2a360d615a7c88a0726c2b0196ab543b6cd7fcf"
+    },
+    {
+      "style": "natural",
+      "question": "Can you show me the national results for the 27 October 2024 election?",
+      "id": "election-national:en:natural",
+      "workflow": "election-national",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "nationalResults",
+      "args": {
+        "election": "2024_10_27"
+      },
+      "captureHash": "21602c75309a82ceb868ad97b11146d0d0918be30b7e2035c94a9d0864df54f1"
+    },
+    {
+      "style": "terse",
+      "question": "national results 27 October 2024",
+      "id": "election-national:en:terse",
+      "workflow": "election-national",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "nationalResults",
+      "args": {
+        "election": "2024_10_27"
+      },
+      "captureHash": "21602c75309a82ceb868ad97b11146d0d0918be30b7e2035c94a9d0864df54f1"
+    },
+    {
+      "style": "typo",
+      "question": "Can you show me the nationl results for the 27 October 2024 election?",
+      "id": "election-national:en:typo",
+      "workflow": "election-national",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "nationalResults",
+      "args": {
+        "election": "2024_10_27"
+      },
+      "captureHash": "21602c75309a82ceb868ad97b11146d0d0918be30b7e2035c94a9d0864df54f1"
+    },
+    {
+      "style": "natural",
+      "question": "Какъв е изборният резултат за ГЕРБ на изборите на 2 април 2023 г.?",
+      "id": "election-party:bg:natural",
+      "workflow": "election-party",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ",
+        "election": "2023_04_02"
+      },
+      "captureHash": "0d806dc8a6df044b6f5d4645feb1c29c80965e6e3c50e067ca8c62a2eaa01707"
+    },
+    {
+      "style": "terse",
+      "question": "Резултат за ГЕРБ от 2 април 2023 г.",
+      "id": "election-party:bg:terse",
+      "workflow": "election-party",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ",
+        "election": "2023_04_02"
+      },
+      "captureHash": "0d806dc8a6df044b6f5d4645feb1c29c80965e6e3c50e067ca8c62a2eaa01707"
+    },
+    {
+      "style": "typo",
+      "question": "Колкo е резултатът на ГЕРБ за вота на 2 април 2023 г.?",
+      "id": "election-party:bg:typo",
+      "workflow": "election-party",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ",
+        "election": "2023_04_02"
+      },
+      "captureHash": "0d806dc8a6df044b6f5d4645feb1c29c80965e6e3c50e067ca8c62a2eaa01707"
+    },
+    {
+      "style": "natural",
+      "question": "What was the outcome for ГЕРБ in the 2 April 2023 election?",
+      "id": "election-party:en:natural",
+      "workflow": "election-party",
+      "domain": "elections",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ",
+        "election": "2023_04_02"
+      },
+      "captureHash": "27206aa57c76ed140a64deb18eeb36d5c8592d842d7b9dce0a6e5ec9f5499a3d"
+    },
+    {
+      "style": "terse",
+      "question": "ГЕРБ 2 April 2023 result",
+      "id": "election-party:en:terse",
+      "workflow": "election-party",
+      "domain": "elections",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ",
+        "election": "2023_04_02"
+      },
+      "captureHash": "27206aa57c76ed140a64deb18eeb36d5c8592d842d7b9dce0a6e5ec9f5499a3d"
+    },
+    {
+      "style": "typo",
+      "question": "What was the outome for ГЕРБ in the 2 April 2023 election?",
+      "id": "election-party:en:typo",
+      "workflow": "election-party",
+      "domain": "elections",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "partyResult",
+      "args": {
+        "party": "ГЕРБ",
+        "election": "2023_04_02"
+      },
+      "captureHash": "27206aa57c76ed140a64deb18eeb36d5c8592d842d7b9dce0a6e5ec9f5499a3d"
+    },
+    {
+      "style": "natural",
+      "question": "Може ли да направите сравнение между 2 октомври 2022 г. и 27 октомври 2024 г.? Уж няма разлика, ама искам да видя.",
+      "id": "election-compare:bg:natural",
+      "workflow": "election-compare",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "compareElections",
+      "args": {
+        "a": "2022_10_02",
+        "b": "2024_10_27"
+      },
+      "captureHash": "e90bc48acfd7de35830fdef5bd661e18fde6c819bb4b0c69dbde8ee8627b1be5"
+    },
+    {
+      "style": "terse",
+      "question": "Сравни 2 октомври 2022 г. и 27 октомври 2024 г..",
+      "id": "election-compare:bg:terse",
+      "workflow": "election-compare",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "compareElections",
+      "args": {
+        "a": "2022_10_02",
+        "b": "2024_10_27"
+      },
+      "captureHash": "e90bc48acfd7de35830fdef5bd661e18fde6c819bb4b0c69dbde8ee8627b1be5"
+    },
+    {
+      "style": "typo",
+      "question": "Моля те да сравнииш 2 октомври 2022 г. и 27 октомври 2024 г..",
+      "id": "election-compare:bg:typo",
+      "workflow": "election-compare",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "development",
+      "tool": "compareElections",
+      "args": {
+        "a": "2022_10_02",
+        "b": "2024_10_27"
+      },
+      "captureHash": "e90bc48acfd7de35830fdef5bd661e18fde6c819bb4b0c69dbde8ee8627b1be5"
+    },
+    {
+      "style": "natural",
+      "question": "Can you compare 2 October 2022 and 27 October 2024?",
+      "id": "election-compare:en:natural",
+      "workflow": "election-compare",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "compareElections",
+      "args": {
+        "a": "2022_10_02",
+        "b": "2024_10_27"
+      },
+      "captureHash": "bed8356e5293c73a16acf6cd5d35e4ee924a11898c846263b392e7b6c07792dc"
+    },
+    {
+      "style": "terse",
+      "question": "Compare 2 October 2022 and 27 October 2024.",
+      "id": "election-compare:en:terse",
+      "workflow": "election-compare",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "compareElections",
+      "args": {
+        "a": "2022_10_02",
+        "b": "2024_10_27"
+      },
+      "captureHash": "bed8356e5293c73a16acf6cd5d35e4ee924a11898c846263b392e7b6c07792dc"
+    },
+    {
+      "style": "typo",
+      "question": "Cmpare 2 October 2022 and 27 October 2024?",
+      "id": "election-compare:en:typo",
+      "workflow": "election-compare",
+      "domain": "elections",
+      "lang": "en",
+      "split": "development",
+      "tool": "compareElections",
+      "args": {
+        "a": "2022_10_02",
+        "b": "2024_10_27"
+      },
+      "captureHash": "bed8356e5293c73a16acf6cd5d35e4ee924a11898c846263b392e7b6c07792dc"
+    },
+    {
+      "style": "natural",
+      "question": "Какви са резултатите в една община: гласове и % по партия + активност за Пловдив на изборите на 2 април 2023 г.?",
+      "id": "election-municipality:bg:natural",
+      "workflow": "election-municipality",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив",
+        "election": "2023_04_02"
+      },
+      "captureHash": "f60f4ab2f3fe8fc3637ac7cd4511bbef9ca9d7378508476b9f58cd4d3d77c58e"
+    },
+    {
+      "style": "terse",
+      "question": "Резултати в една община: гласове и % по партия + активност в Пловдив за 2 април 2023 г.",
+      "id": "election-municipality:bg:terse",
+      "workflow": "election-municipality",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив",
+        "election": "2023_04_02"
+      },
+      "captureHash": "f60f4ab2f3fe8fc3637ac7cd4511bbef9ca9d7378508476b9f58cd4d3d77c58e"
+    },
+    {
+      "style": "typo",
+      "question": "Какви са резлетутите в една община: гласове и % по партия + активност в Пловдив на 2 април 2023 г.?",
+      "id": "election-municipality:bg:typo",
+      "workflow": "election-municipality",
+      "domain": "elections",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив",
+        "election": "2023_04_02"
+      },
+      "captureHash": "f60f4ab2f3fe8fc3637ac7cd4511bbef9ca9d7378508476b9f58cd4d3d77c58e"
+    },
+    {
+      "style": "natural",
+      "question": "What are the party vote percentages and voter turnout in Пловдив for the 2 April 2023 election?",
+      "id": "election-municipality:en:natural",
+      "workflow": "election-municipality",
+      "domain": "elections",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив",
+        "election": "2023_04_02"
+      },
+      "captureHash": "dac1394327b62d009df3f551e1b8c7eef03492089732755422d08b151c70aec4"
+    },
+    {
+      "style": "terse",
+      "question": "Municipality results Пловдив 2 April 2023",
+      "id": "election-municipality:en:terse",
+      "workflow": "election-municipality",
+      "domain": "elections",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив",
+        "election": "2023_04_02"
+      },
+      "captureHash": "dac1394327b62d009df3f551e1b8c7eef03492089732755422d08b151c70aec4"
+    },
+    {
+      "style": "typo",
+      "question": "What were the votal results in Пловдив during the 2 April 2023?",
+      "id": "election-municipality:en:typo",
+      "workflow": "election-municipality",
+      "domain": "elections",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "municipalityResults",
+      "args": {
+        "place": "Пловдив",
+        "election": "2023_04_02"
+      },
+      "captureHash": "dac1394327b62d009df3f551e1b8c7eef03492089732755422d08b151c70aec4"
+    },
+    {
+      "style": "natural",
+      "question": "Колко е общата стойност и брой на всички обществени поръчки по данни от АОП?",
+      "id": "procurement-total:bg:natural",
+      "workflow": "procurement-total",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementTotals",
+      "args": {},
+      "captureHash": "7ddb136b751fd7ca16d8d9c2504b1268ecbd3aebc37a24a6d8b91bb6587fa4b0"
+    },
+    {
+      "style": "terse",
+      "question": "Обща сума и брой обществени поръчки АОП?",
+      "id": "procurement-total:bg:terse",
+      "workflow": "procurement-total",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementTotals",
+      "args": {},
+      "captureHash": "7ddb136b751fd7ca16d8d9c2504b1268ecbd3aebc37a24a6d8b91bb6587fa4b0"
+    },
+    {
+      "style": "typo",
+      "question": "Колко е общата стойноста и брой на всички обществени поръчки по данни от АОП?",
+      "id": "procurement-total:bg:typo",
+      "workflow": "procurement-total",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementTotals",
+      "args": {},
+      "captureHash": "7ddb136b751fd7ca16d8d9c2504b1268ecbd3aebc37a24a6d8b91bb6587fa4b0"
+    },
+    {
+      "style": "natural",
+      "question": "What are the public procurement totals (AOP)?",
+      "id": "procurement-total:en:natural",
+      "workflow": "procurement-total",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementTotals",
+      "args": {},
+      "captureHash": "9fb9ea665aee7435cdddc3188c157664ac52af3d1f9dd5064bd41d53a5d1ffca"
+    },
+    {
+      "style": "terse",
+      "question": "public procurement totals (AOP)",
+      "id": "procurement-total:en:terse",
+      "workflow": "procurement-total",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementTotals",
+      "args": {},
+      "captureHash": "9fb9ea665aee7435cdddc3188c157664ac52af3d1f9dd5064bd41d53a5d1ffca"
+    },
+    {
+      "style": "typo",
+      "question": "What are the pulic procurement totals (AOP)?",
+      "id": "procurement-total:en:typo",
+      "workflow": "procurement-total",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementTotals",
+      "args": {},
+      "captureHash": "9fb9ea665aee7435cdddc3188c157664ac52af3d1f9dd5064bd41d53a5d1ffca"
+    },
+    {
+      "style": "natural",
+      "question": "Кои са топ 5 най-големи изпълнители по обществени поръчки по обща стойност, включително маркер за свързаните с депутати?",
+      "id": "procurement-contractors:bg:natural",
+      "workflow": "procurement-contractors",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "topContractors",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "38d265894e997a139b074131433b7df4e422ca826593dd482939980954ec4034"
+    },
+    {
+      "style": "terse",
+      "question": "Топ 5 изпълнители обществени поръчки обща стойност",
+      "id": "procurement-contractors:bg:terse",
+      "workflow": "procurement-contractors",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "topContractors",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "38d265894e997a139b074131433b7df4e422ca826593dd482939980954ec4034"
+    },
+    {
+      "style": "typo",
+      "question": "Кои са топ 5 най-големи изпълнители по обществне поръчки по обща стойност?",
+      "id": "procurement-contractors:bg:typo",
+      "workflow": "procurement-contractors",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "topContractors",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "38d265894e997a139b074131433b7df4e422ca826593dd482939980954ec4034"
+    },
+    {
+      "style": "natural",
+      "question": "Who are the top 5 public-procurement contractors by total value, and which ones are tied to the MP?",
+      "id": "procurement-contractors:en:natural",
+      "workflow": "procurement-contractors",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "topContractors",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "220b781f7ea1698b73a93cb84291593f57fd10219ab2a237e27b04addbf8e78e"
+    },
+    {
+      "style": "terse",
+      "question": "Show the top 5 public procurement contractors and their MP ties.",
+      "id": "procurement-contractors:en:terse",
+      "workflow": "procurement-contractors",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "topContractors",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "220b781f7ea1698b73a93cb84291593f57fd10219ab2a237e27b04addbf8e78e"
+    },
+    {
+      "style": "typo",
+      "question": "Who are the top 5 public-procurement contrators by total value, including MP-tied ones?",
+      "id": "procurement-contractors:en:typo",
+      "workflow": "procurement-contractors",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "topContractors",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "220b781f7ea1698b73a93cb84291593f57fd10219ab2a237e27b04addbf8e78e"
+    },
+    {
+      "style": "natural",
+      "question": "Кои са 5 възложители, които се обжалват най-често с жалби пред КЗК срещу обществени поръчки, включително колко от тях са уважени или отхвърлени?",
+      "id": "procurement-appeals:bg:natural",
+      "workflow": "procurement-appeals",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "procurementAppeals",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "1f2c37a144283e5dc2b85bf05cc89001e0320760d16acb207359b63172165b4f"
+    },
+    {
+      "style": "terse",
+      "question": "Показвай най-често обжалваните 5 възложители пред КЗК, общ брой и уважени жалби.",
+      "id": "procurement-appeals:bg:terse",
+      "workflow": "procurement-appeals",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "procurementAppeals",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "1f2c37a144283e5dc2b85bf05cc89001e0320760d16acb207359b63172165b4f"
+    },
+    {
+      "style": "typo",
+      "question": "Кои са най-често обжалваните 5 възложители в КЗК и техният ообщ брой уважени жалби?",
+      "id": "procurement-appeals:bg:typo",
+      "workflow": "procurement-appeals",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "procurementAppeals",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "1f2c37a144283e5dc2b85bf05cc89001e0320760d16acb207359b63172165b4f"
+    },
+    {
+      "style": "natural",
+      "question": "How many public procurement appeals are there and which 5 buyers face the most challenges?",
+      "id": "procurement-appeals:en:natural",
+      "workflow": "procurement-appeals",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "procurementAppeals",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "28e68975724217e4a1dc100dea88ea85bbcd5d79771a69328143ac21d03bf956"
+    },
+    {
+      "style": "terse",
+      "question": "Show procurement appeals count and top 5 most appealed buyers.",
+      "id": "procurement-appeals:en:terse",
+      "workflow": "procurement-appeals",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "procurementAppeals",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "28e68975724217e4a1dc100dea88ea85bbcd5d79771a69328143ac21d03bf956"
+    },
+    {
+      "style": "typo",
+      "question": "How many public procurement appeals are there and which 5 byers face the most challenges?",
+      "id": "procurement-appeals:en:typo",
+      "workflow": "procurement-appeals",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "procurementAppeals",
+      "args": {
+        "count": 5
+      },
+      "captureHash": "28e68975724217e4a1dc100dea88ea85bbcd5d79771a69328143ac21d03bf956"
+    },
+    {
+      "style": "natural",
+      "question": "Кои са сигналите за риск в обществените поръчки свързани с концентрация на разход върху един изпълнител и изпълнители в черен списък?",
+      "id": "procurement-flags:bg:natural",
+      "workflow": "procurement-flags",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementRedFlags",
+      "args": {},
+      "captureHash": "6fbd5c3d36f91c38915b4f7d22cb46e2bdf6acf3ded3ce3e382d13dfa063fcb6"
+    },
+    {
+      "style": "terse",
+      "question": "Сигнали за риск в обществените поръчки при концентрация на разход върху един изпълнител и изпълнители в черен списък?",
+      "id": "procurement-flags:bg:terse",
+      "workflow": "procurement-flags",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementRedFlags",
+      "args": {},
+      "captureHash": "6fbd5c3d36f91c38915b4f7d22cb46e2bdf6acf3ded3ce3e382d13dfa063fcb6"
+    },
+    {
+      "style": "typo",
+      "question": "Какви са сигналите за риск в общeствените поръчки поради концентрация на разход върху един изпълнител и изпълнители в черен списък?",
+      "id": "procurement-flags:bg:typo",
+      "workflow": "procurement-flags",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementRedFlags",
+      "args": {},
+      "captureHash": "6fbd5c3d36f91c38915b4f7d22cb46e2bdf6acf3ded3ce3e382d13dfa063fcb6"
+    },
+    {
+      "style": "natural",
+      "question": "Can you check for any public-procurement red flags related to single-supplier spend concentration and debarred suppliers?",
+      "id": "procurement-flags:en:natural",
+      "workflow": "procurement-flags",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementRedFlags",
+      "args": {},
+      "captureHash": "2a32d4686a1a2f2e2c3a8528b288605eb8c434c4587c6e64cc25fe9d057350d4"
+    },
+    {
+      "style": "terse",
+      "question": "Show public-procurement red flags regarding debarred suppliers and single-supplier spend concentration.",
+      "id": "procurement-flags:en:terse",
+      "workflow": "procurement-flags",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementRedFlags",
+      "args": {},
+      "captureHash": "2a32d4686a1a2f2e2c3a8528b288605eb8c434c4587c6e64cc25fe9d057350d4"
+    },
+    {
+      "style": "typo",
+      "question": "Can you chech for any public-procurement red flags related to single-supplier spend concentration and debarred suppliers?",
+      "id": "procurement-flags:en:typo",
+      "workflow": "procurement-flags",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementRedFlags",
+      "args": {},
+      "captureHash": "2a32d4686a1a2f2e2c3a8528b288605eb8c434c4587c6e64cc25fe9d057350d4"
+    },
+    {
+      "style": "natural",
+      "question": "Кои са секторите раздели по CPV, в които един участник е обичайното положение и затова сигналът един участник се потиска?",
+      "id": "procurement-single-bid:bg:natural",
+      "workflow": "procurement-single-bid",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementSingleBidSectors",
+      "args": {},
+      "captureHash": "ad5136d9514d30032ba112dba8c3729c608110039bc7392c9af88102b48507c0"
+    },
+    {
+      "style": "terse",
+      "question": "Сектори раздели по CPV с потиснат сигнал за един участник",
+      "id": "procurement-single-bid:bg:terse",
+      "workflow": "procurement-single-bid",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementSingleBidSectors",
+      "args": {},
+      "captureHash": "ad5136d9514d30032ba112dba8c3729c608110039bc7392c9af88102b48507c0"
+    },
+    {
+      "style": "typo",
+      "question": "Кои са сектори раздели по CPV, в които един участник е обичайното положние и затова сигналът един участник се потиска?",
+      "id": "procurement-single-bid:bg:typo",
+      "workflow": "procurement-single-bid",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "procurementSingleBidSectors",
+      "args": {},
+      "captureHash": "ad5136d9514d30032ba112dba8c3729c608110039bc7392c9af88102b48507c0"
+    },
+    {
+      "style": "natural",
+      "question": "Which procurement sectors have single bidders as the market norm where the single-bidder red flag is suppressed?",
+      "id": "procurement-single-bid:en:natural",
+      "workflow": "procurement-single-bid",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementSingleBidSectors",
+      "args": {},
+      "captureHash": "9330297e2c19f2acbf84d1f9c7fbbbb283cce68b4945dcf8ac5443bd545cafc5"
+    },
+    {
+      "style": "terse",
+      "question": "Show sectors where single-bidder red flags are suppressed.",
+      "id": "procurement-single-bid:en:terse",
+      "workflow": "procurement-single-bid",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementSingleBidSectors",
+      "args": {},
+      "captureHash": "9330297e2c19f2acbf84d1f9c7fbbbb283cce68b4945dcf8ac5443bd545cafc5"
+    },
+    {
+      "style": "typo",
+      "question": "Which procurement sektors have single bidders as the market norm where the single-bidder red flag is suppressed?",
+      "id": "procurement-single-bid:en:typo",
+      "workflow": "procurement-single-bid",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "procurementSingleBidSectors",
+      "args": {},
+      "captureHash": "9330297e2c19f2acbf84d1f9c7fbbbb283cce68b4945dcf8ac5443bd545cafc5"
+    },
+    {
+      "style": "natural",
+      "question": "Колко средства е изразходвал 000695324 за обществени поръчки и кои са най-големите му изпълнители?",
+      "id": "procurement-buyer:bg:natural",
+      "workflow": "procurement-buyer",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "000695324"
+      },
+      "captureHash": "c25b2afb01844caa2510d719005048988f2cf12113416c487d02edcd684c3248"
+    },
+    {
+      "style": "terse",
+      "question": "Разходите и топ изпълнителите на 000695324 по обществени поръчки",
+      "id": "procurement-buyer:bg:terse",
+      "workflow": "procurement-buyer",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "000695324"
+      },
+      "captureHash": "c25b2afb01844caa2510d719005048988f2cf12113416c487d02edcd684c3248"
+    },
+    {
+      "style": "typo",
+      "question": "Колко средства е изразходвал 000695324 за обществени поръчки и кои са най-голeмите му изпълнители?",
+      "id": "procurement-buyer:bg:typo",
+      "workflow": "procurement-buyer",
+      "domain": "procurement",
+      "lang": "bg",
+      "split": "development",
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "000695324"
+      },
+      "captureHash": "c25b2afb01844caa2510d719005048988f2cf12113416c487d02edcd684c3248"
+    },
+    {
+      "style": "natural",
+      "question": "What is the total public procurement spending and trend by year for 000695324?",
+      "id": "procurement-buyer:en:natural",
+      "workflow": "procurement-buyer",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "000695324"
+      },
+      "captureHash": "36c4baa72ceab28e368a3d3f436548878c237b53748a94e39d0444fb7c1d8b85"
+    },
+    {
+      "style": "terse",
+      "question": "Suppliers and spending for 000695324",
+      "id": "procurement-buyer:en:terse",
+      "workflow": "procurement-buyer",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "000695324"
+      },
+      "captureHash": "36c4baa72ceab28e368a3d3f436548878c237b53748a94e39d0444fb7c1d8b85"
+    },
+    {
+      "style": "typo",
+      "question": "Show me the largest supliers and procurement spend for 000695324.",
+      "id": "procurement-buyer:en:typo",
+      "workflow": "procurement-buyer",
+      "domain": "procurement",
+      "lang": "en",
+      "split": "development",
+      "tool": "awarderProcurement",
+      "args": {
+        "org": "000695324"
+      },
+      "captureHash": "36c4baa72ceab28e368a3d3f436548878c237b53748a94e39d0444fb7c1d8b85"
+    },
+    {
+      "style": "natural",
+      "question": "Какво е пълното досие и свързаните фирми и длъжности на Бойко Методиев Борисов?",
+      "id": "people-profile:bg:natural",
+      "workflow": "people-profile",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personProfile",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "e9bc90758029046950382ce0a11c01fcf2b846f1d063e15580eb2f238f7dfc6e"
+    },
+    {
+      "style": "terse",
+      "question": "Профил на Бойко Методиев Борисов",
+      "id": "people-profile:bg:terse",
+      "workflow": "people-profile",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personProfile",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "e9bc90758029046950382ce0a11c01fcf2b846f1d063e15580eb2f238f7dfc6e"
+    },
+    {
+      "style": "typo",
+      "question": "Инормация за длъжносите и фирмите на Бойко Методиев Борисов в регистрите?",
+      "id": "people-profile:bg:typo",
+      "workflow": "people-profile",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personProfile",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "e9bc90758029046950382ce0a11c01fcf2b846f1d063e15580eb2f238f7dfc6e"
+    },
+    {
+      "style": "natural",
+      "question": "Can you provide the unified profile for Бойко Методиев Борисов including their offices, companies, and state security dossier?",
+      "id": "people-profile:en:natural",
+      "workflow": "people-profile",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personProfile",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "2121dafd98d41134720481886ca1b8aa05cd29e74291890128510573cdd84475"
+    },
+    {
+      "style": "terse",
+      "question": "Show profile for Бойко Методиев Борисов.",
+      "id": "people-profile:en:terse",
+      "workflow": "people-profile",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personProfile",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "2121dafd98d41134720481886ca1b8aa05cd29e74291890128510573cdd84475"
+    },
+    {
+      "style": "typo",
+      "question": "Plese show the unified profile for Бойко Методиев Борисов.",
+      "id": "people-profile:en:typo",
+      "workflow": "people-profile",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personProfile",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "2121dafd98d41134720481886ca1b8aa05cd29e74291890128510573cdd84475"
+    },
+    {
+      "style": "natural",
+      "question": "Кои са свързаните лица и съсобственици в обща фирма сБойко Методиев Борисовспоред Търговския регистър?",
+      "id": "people-connections:bg:natural",
+      "workflow": "people-connections",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personConnections",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "ebae040eb412268034d7b28f35f799348c167e490532c4540829771f91259eea"
+    },
+    {
+      "style": "terse",
+      "question": "Свързани лица наБойко Методиев Борисов",
+      "id": "people-connections:bg:terse",
+      "workflow": "people-connections",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personConnections",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "ebae040eb412268034d7b28f35f799348c167e490532c4540829771f91259eea"
+    },
+    {
+      "style": "typo",
+      "question": "Кои са свързаните лица наБойко Методиев Борисовв търгоския регистър?",
+      "id": "people-connections:bg:typo",
+      "workflow": "people-connections",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personConnections",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "ebae040eb412268034d7b28f35f799348c167e490532c4540829771f91259eea"
+    },
+    {
+      "style": "natural",
+      "question": "Which public figures co-own or co-manage a company with Бойко Методиев Борисов according to the commerce registry?",
+      "id": "people-connections:en:natural",
+      "workflow": "people-connections",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personConnections",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "97ed051809984bae82f5f772b6c3ba25a7f1314991bc8fcbb34386964c0e0924"
+    },
+    {
+      "style": "terse",
+      "question": "Who shares company ownership or management with Бойко Методиев Борисов?",
+      "id": "people-connections:en:terse",
+      "workflow": "people-connections",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personConnections",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "97ed051809984bae82f5f772b6c3ba25a7f1314991bc8fcbb34386964c0e0924"
+    },
+    {
+      "style": "typo",
+      "question": "Which public figuers co-own or co-manage a company with Бойко Методиев Борисов?",
+      "id": "people-connections:en:typo",
+      "workflow": "people-connections",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personConnections",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "97ed051809984bae82f5f772b6c3ba25a7f1314991bc8fcbb34386964c0e0924"
+    },
+    {
+      "style": "natural",
+      "question": "Какво е декларираното имущество и нетна стойност на Бойко Методиев Борисов през годините според Сметната палата?",
+      "id": "people-wealth:bg:natural",
+      "workflow": "people-wealth",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personWealth",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "c37c1891f2102f7a0059309035d47ff5d15b2eb9cf5fe6ea2ce03fddcbf70c48"
+    },
+    {
+      "style": "terse",
+      "question": "Покажи активи и задължения за Бойко Методиев Борисов",
+      "id": "people-wealth:bg:terse",
+      "workflow": "people-wealth",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personWealth",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "c37c1891f2102f7a0059309035d47ff5d15b2eb9cf5fe6ea2ce03fddcbf70c48"
+    },
+    {
+      "style": "typo",
+      "question": "Какво е декларираното имъщество на Бойко Методиев Борисов по години според Сметна палата?",
+      "id": "people-wealth:bg:typo",
+      "workflow": "people-wealth",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "personWealth",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "c37c1891f2102f7a0059309035d47ff5d15b2eb9cf5fe6ea2ce03fddcbf70c48"
+    },
+    {
+      "style": "natural",
+      "question": "What is the declared wealth, including assets, debts, and net worth by year, for Бойко Методиев Борисов?",
+      "id": "people-wealth:en:natural",
+      "workflow": "people-wealth",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personWealth",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "6cef0a233ade465bb88d3d66b1b2eb25fbd5985319dc708c6a5d867baf0a5b91"
+    },
+    {
+      "style": "terse",
+      "question": "Бойко Методиев Борисов wealth declared assets debts net worth",
+      "id": "people-wealth:en:terse",
+      "workflow": "people-wealth",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personWealth",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "6cef0a233ade465bb88d3d66b1b2eb25fbd5985319dc708c6a5d867baf0a5b91"
+    },
+    {
+      "style": "typo",
+      "question": "What is the declared wealth, including assets, debts, and net worth by yeer, for Бойко Методиев Борисов?",
+      "id": "people-wealth:en:typo",
+      "workflow": "people-wealth",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "personWealth",
+      "args": {
+        "name": "Бойко Методиев Борисов"
+      },
+      "captureHash": "6cef0a233ade465bb88d3d66b1b2eb25fbd5985319dc708c6a5d867baf0a5b91"
+    },
+    {
+      "style": "natural",
+      "question": "Кои са най-богатите депутати според декларираното им имущество?",
+      "id": "people-assets-top:bg:natural",
+      "workflow": "people-assets-top",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "captureHash": "9d365db52e8a80c0bcd3e4301d3cf0cc57b76419df6e57c2ca3dc22090a79b74"
+    },
+    {
+      "style": "terse",
+      "question": "Най-богати народни представители по имущество.",
+      "id": "people-assets-top:bg:terse",
+      "workflow": "people-assets-top",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "captureHash": "9d365db52e8a80c0bcd3e4301d3cf0cc57b76419df6e57c2ca3dc22090a79b74"
+    },
+    {
+      "style": "typo",
+      "question": "Кои са най-богатите депутации според декларираното им имущество?",
+      "id": "people-assets-top:bg:typo",
+      "workflow": "people-assets-top",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "captureHash": "9d365db52e8a80c0bcd3e4301d3cf0cc57b76419df6e57c2ca3dc22090a79b74"
+    },
+    {
+      "style": "natural",
+      "question": "Can you show me a ranked list of the richest MPs based on their declared net worth?",
+      "id": "people-assets-top:en:natural",
+      "workflow": "people-assets-top",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "captureHash": "d0cbb9a771c26509abfc29e948bf0bffdc53c841900d83b8aa68240a651b571a"
+    },
+    {
+      "style": "terse",
+      "question": "Richest MPs by net worth",
+      "id": "people-assets-top:en:terse",
+      "workflow": "people-assets-top",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "captureHash": "d0cbb9a771c26509abfc29e948bf0bffdc53c841900d83b8aa68240a651b571a"
+    },
+    {
+      "style": "typo",
+      "question": "Cna you show me a ranked list of the richest MPs based on their declared net worth?",
+      "id": "people-assets-top:en:typo",
+      "workflow": "people-assets-top",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "mpAssetsTop",
+      "args": {},
+      "captureHash": "d0cbb9a771c26509abfc29e948bf0bffdc53c841900d83b8aa68240a651b571a"
+    },
+    {
+      "style": "natural",
+      "question": "Колко е присъствието на депутатите при гласуванията за 51?",
+      "id": "people-attendance:bg:natural",
+      "workflow": "people-attendance",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "mpAttendance",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "d29e8e6144a606c98882ef20c7fb425e5120999eae56585a654ace9f67db86b0"
+    },
+    {
+      "style": "terse",
+      "question": "Присъствие на депутатите гласувания 51",
+      "id": "people-attendance:bg:terse",
+      "workflow": "people-attendance",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "mpAttendance",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "d29e8e6144a606c98882ef20c7fb425e5120999eae56585a654ace9f67db86b0"
+    },
+    {
+      "style": "typo",
+      "question": "Колко е присътствието на депутатите при гласуванията за 51?",
+      "id": "people-attendance:bg:typo",
+      "workflow": "people-attendance",
+      "domain": "people",
+      "lang": "bg",
+      "split": "development",
+      "tool": "mpAttendance",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "d29e8e6144a606c98882ef20c7fb425e5120999eae56585a654ace9f67db86b0"
+    },
+    {
+      "style": "natural",
+      "question": "How often do MPs attend roll-call votes in national assembly 51?",
+      "id": "people-attendance:en:natural",
+      "workflow": "people-attendance",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "mpAttendance",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "b3d786093ecb6439ef6b60556cbb79ce7760baf8227b46eb36ea3d9df05437f1"
+    },
+    {
+      "style": "terse",
+      "question": "mp attendance roll-call votes ns 51",
+      "id": "people-attendance:en:terse",
+      "workflow": "people-attendance",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "mpAttendance",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "b3d786093ecb6439ef6b60556cbb79ce7760baf8227b46eb36ea3d9df05437f1"
+    },
+    {
+      "style": "typo",
+      "question": "How oftne do MPs attend roll-call votes in national assembly 51?",
+      "id": "people-attendance:en:typo",
+      "workflow": "people-attendance",
+      "domain": "people",
+      "lang": "en",
+      "split": "development",
+      "tool": "mpAttendance",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "b3d786093ecb6439ef6b60556cbb79ce7760baf8227b46eb36ea3d9df05437f1"
+    },
+    {
+      "style": "natural",
+      "question": "Каква е партийната лоялност на депутатите според дела на гласовете, съвпадащи с групата в 51?",
+      "id": "people-loyalty:bg:natural",
+      "workflow": "people-loyalty",
+      "domain": "people",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "mpLoyalty",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "6fdc2245b6806361f46068ff3b8fe6de17213c8355953dd9034d9dfef3226377"
+    },
+    {
+      "style": "terse",
+      "question": "Партийна лоялност дял на гласовете съвпадащи с групата 51?",
+      "id": "people-loyalty:bg:terse",
+      "workflow": "people-loyalty",
+      "domain": "people",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "mpLoyalty",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "6fdc2245b6806361f46068ff3b8fe6de17213c8355953dd9034d9dfef3226377"
+    },
+    {
+      "style": "typo",
+      "question": "Каква е партийната лоялност на депустатите според дела на гласовете, съвпадащи с групата в 51?",
+      "id": "people-loyalty:bg:typo",
+      "workflow": "people-loyalty",
+      "domain": "people",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "mpLoyalty",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "6fdc2245b6806361f46068ff3b8fe6de17213c8355953dd9034d9dfef3226377"
+    },
+    {
+      "style": "natural",
+      "question": "What was the MP party loyalty score for National Assembly number 51?",
+      "id": "people-loyalty:en:natural",
+      "workflow": "people-loyalty",
+      "domain": "people",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "mpLoyalty",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "dfcec4e636a8b3e6a8f550d38ae0eb15512a6ce8bff08edd4ee1d562b621fa60"
+    },
+    {
+      "style": "terse",
+      "question": "MP party loyalty 51",
+      "id": "people-loyalty:en:terse",
+      "workflow": "people-loyalty",
+      "domain": "people",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "mpLoyalty",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "dfcec4e636a8b3e6a8f550d38ae0eb15512a6ce8bff08edd4ee1d562b621fa60"
+    },
+    {
+      "style": "typo",
+      "question": "What was the MP party loyalty score for National Assembly numbr 51?",
+      "id": "people-loyalty:en:typo",
+      "workflow": "people-loyalty",
+      "domain": "people",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "mpLoyalty",
+      "args": {
+        "ns": 51
+      },
+      "captureHash": "dfcec4e636a8b3e6a8f550d38ae0eb15512a6ce8bff08edd4ee1d562b621fa60"
+    },
+    {
+      "style": "natural",
+      "question": "Кой е кметът и каква е избирателната активност за община Пловдив през 2023?",
+      "id": "municipal-mayor:bg:natural",
+      "workflow": "municipal-mayor",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localMunicipality",
+      "args": {
+        "place": "Пловдив",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "c735cc6098a81263a63e7c26c910dea8f760336226ef060c284a4586c9124e89"
+    },
+    {
+      "style": "terse",
+      "question": "община Пловдив 2023 резултати",
+      "id": "municipal-mayor:bg:terse",
+      "workflow": "municipal-mayor",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localMunicipality",
+      "args": {
+        "place": "Пловдив",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "c735cc6098a81263a63e7c26c910dea8f760336226ef060c284a4586c9124e89"
+    },
+    {
+      "style": "typo",
+      "question": "Кой е кмета на община Пловдив в цикъл 2023?",
+      "id": "municipal-mayor:bg:typo",
+      "workflow": "municipal-mayor",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localMunicipality",
+      "args": {
+        "place": "Пловдив",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "c735cc6098a81263a63e7c26c910dea8f760336226ef060c284a4586c9124e89"
+    },
+    {
+      "style": "natural",
+      "question": "Can you tell me the elected mayor, council, and turnout for Пловдив during 2023?",
+      "id": "municipal-mayor:en:natural",
+      "workflow": "municipal-mayor",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localMunicipality",
+      "args": {
+        "place": "Пловдив",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "7e4cf578925aee86d04d1b0eb5e52b96b5904cbba0701593d1d8e105ccfd604c"
+    },
+    {
+      "style": "terse",
+      "question": "Show mayor, council, and turnout for Пловдив in 2023.",
+      "id": "municipal-mayor:en:terse",
+      "workflow": "municipal-mayor",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localMunicipality",
+      "args": {
+        "place": "Пловдив",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "7e4cf578925aee86d04d1b0eb5e52b96b5904cbba0701593d1d8e105ccfd604c"
+    },
+    {
+      "style": "typo",
+      "question": "What was the elcted mayor, council, and turnout in Пловдив for 2023?",
+      "id": "municipal-mayor:en:typo",
+      "workflow": "municipal-mayor",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localMunicipality",
+      "args": {
+        "place": "Пловдив",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "7e4cf578925aee86d04d1b0eb5e52b96b5904cbba0701593d1d8e105ccfd604c"
+    },
+    {
+      "style": "natural",
+      "question": "Какъв е съставът на общинския съвет по партии (места) в Варна за цикъл 2023?",
+      "id": "municipal-council:bg:natural",
+      "workflow": "municipal-council",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localCouncil",
+      "args": {
+        "place": "Варна",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "115cae883325e82c462cf26c6f01d9e4a98bc0256a81c97a426c91fe29d7ed17"
+    },
+    {
+      "style": "terse",
+      "question": "Състав на общинския съвет по партии (места) за Варна 2023",
+      "id": "municipal-council:bg:terse",
+      "workflow": "municipal-council",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localCouncil",
+      "args": {
+        "place": "Варна",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "115cae883325e82c462cf26c6f01d9e4a98bc0256a81c97a426c91fe29d7ed17"
+    },
+    {
+      "style": "typo",
+      "question": "Какъв е съставт на общинския съвет по партии (места) в Варна за цикъл 2023?",
+      "id": "municipal-council:bg:typo",
+      "workflow": "municipal-council",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localCouncil",
+      "args": {
+        "place": "Варна",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "115cae883325e82c462cf26c6f01d9e4a98bc0256a81c97a426c91fe29d7ed17"
+    },
+    {
+      "style": "natural",
+      "question": "What is the breakdown of municipal council seats by party in Варна for 2023?",
+      "id": "municipal-council:en:natural",
+      "workflow": "municipal-council",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localCouncil",
+      "args": {
+        "place": "Варна",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "5670e68f8177184b61556e7157c1a8e0534485bdb06beb0ba1f304b731d94b9f"
+    },
+    {
+      "style": "terse",
+      "question": "Council seats by party Варна 2023",
+      "id": "municipal-council:en:terse",
+      "workflow": "municipal-council",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localCouncil",
+      "args": {
+        "place": "Варна",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "5670e68f8177184b61556e7157c1a8e0534485bdb06beb0ba1f304b731d94b9f"
+    },
+    {
+      "style": "typo",
+      "question": "What is the breakdown of munipal council seats by party in Варна for 2023?",
+      "id": "municipal-council:en:typo",
+      "workflow": "municipal-council",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localCouncil",
+      "args": {
+        "place": "Варна",
+        "cycle": "2023_10_29_mi"
+      },
+      "captureHash": "5670e68f8177184b61556e7157c1a8e0534485bdb06beb0ba1f304b731d94b9f"
+    },
+    {
+      "style": "natural",
+      "question": "Какви са местните данъци и такси за община Русе спрямо средното ниво?",
+      "id": "municipal-tax:bg:natural",
+      "workflow": "municipal-tax",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localTaxes",
+      "args": {
+        "place": "Русе"
+      },
+      "captureHash": "3b35dfd34e66e4312c2da82080d0f37b59897336d76b5e0dc5d6d791d25fb344"
+    },
+    {
+      "style": "terse",
+      "question": "Местни данъци и такси Русе спрямо средното",
+      "id": "municipal-tax:bg:terse",
+      "workflow": "municipal-tax",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localTaxes",
+      "args": {
+        "place": "Русе"
+      },
+      "captureHash": "3b35dfd34e66e4312c2da82080d0f37b59897336d76b5e0dc5d6d791d25fb344"
+    },
+    {
+      "style": "typo",
+      "question": "Какви са месните данъци и такси за община Русе спрямо средното ниво?",
+      "id": "municipal-tax:bg:typo",
+      "workflow": "municipal-tax",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "development",
+      "tool": "localTaxes",
+      "args": {
+        "place": "Русе"
+      },
+      "captureHash": "3b35dfd34e66e4312c2da82080d0f37b59897336d76b5e0dc5d6d791d25fb344"
+    },
+    {
+      "style": "natural",
+      "question": "How do the local tax rates for Русе compare to the national average?_style_natural",
+      "id": "municipal-tax:en:natural",
+      "workflow": "municipal-tax",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localTaxes",
+      "args": {
+        "place": "Русе"
+      },
+      "captureHash": "69f2f51dd14279b06547d9ba5e891a8714d9201b23f76950928a193a5857bcfc"
+    },
+    {
+      "style": "terse",
+      "question": "Русе local taxes vs national average_style_terse",
+      "id": "municipal-tax:en:terse",
+      "workflow": "municipal-tax",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localTaxes",
+      "args": {
+        "place": "Русе"
+      },
+      "captureHash": "69f2f51dd14279b06547d9ba5e891a8714d9201b23f76950928a193a5857bcfc"
+    },
+    {
+      "style": "typo",
+      "question": "How do the local tax rates for Русе compare to the nationl average?_style_typo",
+      "id": "municipal-tax:en:typo",
+      "workflow": "municipal-tax",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "localTaxes",
+      "args": {
+        "place": "Русе"
+      },
+      "captureHash": "69f2f51dd14279b06547d9ba5e891a8714d9201b23f76950928a193a5857bcfc"
+    },
+    {
+      "style": "natural",
+      "question": "Какви са държавните трансфери към общините по вид за 2025 година? моля",
+      "id": "municipal-transfers:bg:natural",
+      "workflow": "municipal-transfers",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": 2025
+      },
+      "captureHash": "b057eedcb79f5b14c75f1435731e4a66f363bf4746a8027a744f742ef7e247b2"
+    },
+    {
+      "style": "terse",
+      "question": "общински трансфери 2025",
+      "id": "municipal-transfers:bg:terse",
+      "workflow": "municipal-transfers",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": 2025
+      },
+      "captureHash": "b057eedcb79f5b14c75f1435731e4a66f363bf4746a8027a744f742ef7e247b2"
+    },
+    {
+      "style": "typo",
+      "question": "Кои са трансферите от държавата към обшщините по вид за 2025?",
+      "id": "municipal-transfers:bg:typo",
+      "workflow": "municipal-transfers",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": 2025
+      },
+      "captureHash": "b057eedcb79f5b14c75f1435731e4a66f363bf4746a8027a744f742ef7e247b2"
+    },
+    {
+      "style": "natural",
+      "question": "What are the state transfers to municipalities by type in 2025?",
+      "id": "municipal-transfers:en:natural",
+      "workflow": "municipal-transfers",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": 2025
+      },
+      "captureHash": "e45d3908935cbdcbdf03e8bbdacdd67a441d0d7413c1e9e9a5fa27094babf1f7"
+    },
+    {
+      "style": "terse",
+      "question": "municipal transfers by type 2025",
+      "id": "municipal-transfers:en:terse",
+      "workflow": "municipal-transfers",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": 2025
+      },
+      "captureHash": "e45d3908935cbdcbdf03e8bbdacdd67a441d0d7413c1e9e9a5fa27094babf1f7"
+    },
+    {
+      "style": "typo",
+      "question": "What are the state transfers to munipalities by type in 2025?",
+      "id": "municipal-transfers:en:typo",
+      "workflow": "municipal-transfers",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": 2025
+      },
+      "captureHash": "e45d3908935cbdcbdf03e8bbdacdd67a441d0d7413c1e9e9a5fa27094babf1f7"
+    },
+    {
+      "style": "natural",
+      "question": "Can you show me the municipal fiscal ranking for 2024 containing 5 entries based on overdue liabilities?",
+      "id": "municipal-arrears:en:natural",
+      "workflow": "municipal-arrears",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "municipalFiscalRanking",
+      "args": {
+        "year": 2024,
+        "count": 5,
+        "metric": "arrears"
+      },
+      "captureHash": "b1eff4e5a00f76ba31260834c86e2054488ae3a3e5d1cd52cc92dc51bcf4841d"
+    },
+    {
+      "style": "terse",
+      "question": "municipal fiscal ranking 2024 5 overdue liabilities",
+      "id": "municipal-arrears:en:terse",
+      "workflow": "municipal-arrears",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "municipalFiscalRanking",
+      "args": {
+        "year": 2024,
+        "count": 5,
+        "metric": "arrears"
+      },
+      "captureHash": "b1eff4e5a00f76ba31260834c86e2054488ae3a3e5d1cd52cc92dc51bcf4841d"
+    },
+    {
+      "style": "typo",
+      "question": "Cdn you show me the municipal fiscal ranking for 2024 containing 5 entries based on overdue liabilities?",
+      "id": "municipal-arrears:en:typo",
+      "workflow": "municipal-arrears",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "development",
+      "tool": "municipalFiscalRanking",
+      "args": {
+        "year": 2024,
+        "count": 5,
+        "metric": "arrears"
+      },
+      "captureHash": "b1eff4e5a00f76ba31260834c86e2054488ae3a3e5d1cd52cc92dc51bcf4841d"
+    },
+    {
+      "style": "natural",
+      "question": "Какъв е обобщеният профил на Габрово според данните за управлението и местната власт?",
+      "id": "municipal-profile:bg:natural",
+      "workflow": "municipal-profile",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "governanceProfile",
+      "args": {
+        "place": "Габрово"
+      },
+      "captureHash": "4b0d4c50337826c853091cc3c3a991e05716e789e304d1ccc9916d39f5213158"
+    },
+    {
+      "style": "terse",
+      "question": "Профил управление Габрово",
+      "id": "municipal-profile:bg:terse",
+      "workflow": "municipal-profile",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "governanceProfile",
+      "args": {
+        "place": "Габрово"
+      },
+      "captureHash": "4b0d4c50337826c853091cc3c3a991e05716e789e304d1ccc9916d39f5213158"
+    },
+    {
+      "style": "typo",
+      "question": "Какъв е оббщеният профил на Габрово според данните за управлението и местната власт?",
+      "id": "municipal-profile:bg:typo",
+      "workflow": "municipal-profile",
+      "domain": "municipal",
+      "lang": "bg",
+      "split": "holdout",
+      "tool": "governanceProfile",
+      "args": {
+        "place": "Габрово"
+      },
+      "captureHash": "4b0d4c50337826c853091cc3c3a991e05716e789e304d1ccc9916d39f5213158"
+    },
+    {
+      "style": "natural",
+      "question": "Can you give me the governance profile for Габрово?",
+      "id": "municipal-profile:en:natural",
+      "workflow": "municipal-profile",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "governanceProfile",
+      "args": {
+        "place": "Габрово"
+      },
+      "captureHash": "f44f7fc4085add60376025f1b5bbb9eb4c4dfd0bbdfbf8a95251cbf35a95ef62"
+    },
+    {
+      "style": "terse",
+      "question": "governanceProfile Габрово",
+      "id": "municipal-profile:en:terse",
+      "workflow": "municipal-profile",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "governanceProfile",
+      "args": {
+        "place": "Габрово"
+      },
+      "captureHash": "f44f7fc4085add60376025f1b5bbb9eb4c4dfd0bbdfbf8a95251cbf35a95ef62"
+    },
+    {
+      "style": "typo",
+      "question": "Can you give me the governane profile for Габрово?",
+      "id": "municipal-profile:en:typo",
+      "workflow": "municipal-profile",
+      "domain": "municipal",
+      "lang": "en",
+      "split": "holdout",
+      "tool": "governanceProfile",
+      "args": {
+        "place": "Габрово"
+      },
+      "captureHash": "f44f7fc4085add60376025f1b5bbb9eb4c4dfd0bbdfbf8a95251cbf35a95ef62"
+    }
+  ]
+}

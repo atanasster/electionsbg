@@ -1,0 +1,262 @@
+{
+  "review": {
+    "reviewer": "Codex local semantic review; not human review",
+    "generatedSamples": 141,
+    "finalSamples": 144,
+    "changes": 41,
+    "criteria": [
+      "Question answerable from captured envelope and seed scope",
+      "No claim of current office, paid money, audited wealth or proven wrongdoing",
+      "No exposed tool names or generation artifacts; explicit dates and assembly scope"
+    ],
+    "limitations": "Synthetic contract-derived questions, not user traffic. Human and source-fact review still recommended."
+  },
+  "edits": [
+    {
+      "id": "election-compare:bg:natural",
+      "before": "Може ли да направите сравнение между 2 октомври 2022 г. и 27 октомври 2024 г.? Уж няма разлика, ама искам да видя.",
+      "after": "Може ли да сравните резултатите от изборите на 2 октомври 2022 г. и 27 октомври 2024 г.?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "election-compare:bg:terse",
+      "before": "Сравни 2 октомври 2022 г. и 27 октомври 2024 г..",
+      "after": "Сравни изборите на 2 октомври 2022 г. и 27 октомври 2024 г.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "election-compare:bg:typo",
+      "before": "Моля те да сравнииш 2 октомври 2022 г. и 27 октомври 2024 г..",
+      "after": "Сравнии изборите на 2 октомври 2022 г. и 27 октомври 2024 г.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "election-compare:en:natural",
+      "before": "Can you compare 2 October 2022 and 27 October 2024?",
+      "after": "Can you compare the election results from 2 October 2022 and 27 October 2024?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "election-compare:en:terse",
+      "before": "Compare 2 October 2022 and 27 October 2024.",
+      "after": "Compare elections: 2 October 2022 and 27 October 2024.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "election-compare:en:typo",
+      "before": "Cmpare 2 October 2022 and 27 October 2024?",
+      "after": "Cmpare the elections on 2 October 2022 and 27 October 2024.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "procurement-appeals:bg:natural",
+      "before": "Кои са 5 възложители, които се обжалват най-често с жалби пред КЗК срещу обществени поръчки, включително колко от тях са уважени или отхвърлени?",
+      "after": "Кои са петте най-често обжалвани възложители пред КЗК и колко от жалбите им са уважени?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "procurement-buyer:bg:natural",
+      "before": "Колко средства е изразходвал 000695324 за обществени поръчки и кои са най-големите му изпълнители?",
+      "after": "Каква е общата стойност на договорите за обществени поръчки на възложител с ЕИК 000695324 и кои са основните му изпълнители?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "procurement-buyer:bg:terse",
+      "before": "Разходите и топ изпълнителите на 000695324 по обществени поръчки",
+      "after": "Стойност на договорите и водещи изпълнители на възложител с ЕИК 000695324",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "procurement-buyer:bg:typo",
+      "before": "Колко средства е изразходвал 000695324 за обществени поръчки и кои са най-голeмите му изпълнители?",
+      "after": "Каква е стойността на договорите и кои са основните изпълнтели на възложител с ЕИК 000695324?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "procurement-buyer:en:natural",
+      "before": "What is the total public procurement spending and trend by year for 000695324?",
+      "after": "What is the total awarded contract value and annual trend for the buyer with EIK 000695324?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "procurement-buyer:en:terse",
+      "before": "Suppliers and spending for 000695324",
+      "after": "Contract values and suppliers for buyer EIK 000695324",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "procurement-buyer:en:typo",
+      "before": "Show me the largest supliers and procurement spend for 000695324.",
+      "after": "Show the largest supliers and awarded contract value for buyer EIK 000695324.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-profile:bg:natural",
+      "before": "Какво е пълното досие и свързаните фирми и длъжности на Бойко Методиев Борисов?",
+      "after": "Какви публични длъжности и изборни кандидатури има Бойко Методиев Борисов?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-profile:bg:typo",
+      "before": "Инормация за длъжносите и фирмите на Бойко Методиев Борисов в регистрите?",
+      "after": "Покажи профила и публичните длъжнсоти на Бойко Методиев Борисов.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-profile:en:natural",
+      "before": "Can you provide the unified profile for Бойко Методиев Борисов including their offices, companies, and state security dossier?",
+      "after": "Show the public profile, offices and electoral candidacies of Бойко Методиев Борисов.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-connections:bg:natural",
+      "before": "Кои са свързаните лица и съсобственици в обща фирма сБойко Методиев Борисовспоред Търговския регистър?",
+      "after": "Кои са свързаните лица и съсобственици в обща фирма с Бойко Методиев Борисов според Търговския регистър?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-connections:bg:terse",
+      "before": "Свързани лица наБойко Методиев Борисов",
+      "after": "Свързани лица на Бойко Методиев Борисов",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-connections:bg:typo",
+      "before": "Кои са свързаните лица наБойко Методиев Борисовв търгоския регистър?",
+      "after": "Кои са свързаните лица на Бойко Методиев Борисов в търгоския регистър?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-assets-top:bg:natural",
+      "before": "Кои са най-богатите депутати според декларираното им имущество?",
+      "after": "Кои са най-богатите депутати по декларирана нетна стойност?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-assets-top:bg:terse",
+      "before": "Най-богати народни представители по имущество.",
+      "after": "Най-богати депутати по декларирана нетна стойност",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-assets-top:bg:typo",
+      "before": "Кои са най-богатите депутации според декларираното им имущество?",
+      "after": "Кои са най-богатите депуатти по декларирана нетна стойност?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-attendance:bg:natural",
+      "before": "Колко е присъствието на депутатите при гласуванията за 51?",
+      "after": "Колко е присъствието на депутатите при гласуванията за 51-вото Народно събрание?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-attendance:bg:terse",
+      "before": "Присъствие на депутатите гласувания 51",
+      "after": "Присъствие на депутатите гласувания 51-вото Народно събрание",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-attendance:bg:typo",
+      "before": "Колко е присътствието на депутатите при гласуванията за 51?",
+      "after": "Колко е присътствието на депутатите при гласуванията за 51-вото Народно събрание?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-loyalty:bg:natural",
+      "before": "Каква е партийната лоялност на депутатите според дела на гласовете, съвпадащи с групата в 51?",
+      "after": "Каква е партийната лоялност на депутатите според дела на гласовете, съвпадащи с групата в 51-вото Народно събрание?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-loyalty:bg:terse",
+      "before": "Партийна лоялност дял на гласовете съвпадащи с групата 51?",
+      "after": "Партийна лоялност дял на гласовете съвпадащи с групата 51-вото Народно събрание?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "people-loyalty:bg:typo",
+      "before": "Каква е партийната лоялност на депустатите според дела на гласовете, съвпадащи с групата в 51?",
+      "after": "Каква е партийната лоялност на депустатите според дела на гласовете, съвпадащи с групата в 51-вото Народно събрание?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-mayor:bg:natural",
+      "before": "Кой е кметът и каква е избирателната активност за община Пловдив през 2023?",
+      "after": "Кой е избран за кмет на Пловдив на местните избори през 2023 г. и каква е активността?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-mayor:bg:terse",
+      "before": "община Пловдив 2023 резултати",
+      "after": "Избран кмет в Пловдив на местните избори през 2023 г.",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-mayor:bg:typo",
+      "before": "Кой е кмета на община Пловдив в цикъл 2023?",
+      "after": "Кой е избраан за кмет на Пловдив на местните избори през 2023 г.?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-mayor:en:natural",
+      "before": "Can you tell me the elected mayor, council, and turnout for Пловдив during 2023?",
+      "after": "Who was elected mayor of Пловдив in the 2023 local elections, and what was turnout?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-mayor:en:terse",
+      "before": "Show mayor, council, and turnout for Пловдив in 2023.",
+      "after": "Elected mayor and turnout in Пловдив, 2023 local elections",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-mayor:en:typo",
+      "before": "What was the elcted mayor, council, and turnout in Пловдив for 2023?",
+      "after": "Who was elcted mayor of Пловдив in the 2023 local elections?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-tax:en:natural",
+      "before": "How do the local tax rates for Русе compare to the national average?_style_natural",
+      "after": "How do the local tax rates for Русе compare to the national average?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-tax:en:terse",
+      "before": "Русе local taxes vs national average_style_terse",
+      "after": "Русе local taxes vs national average",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-tax:en:typo",
+      "before": "How do the local tax rates for Русе compare to the nationl average?_style_typo",
+      "after": "How do the local tax rates for Русе compare to the nationl average?",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-profile:en:terse",
+      "before": "governanceProfile Габрово",
+      "after": "Governance profile for Габрово",
+      "reason": "Local execution-scope/language review: clarify scope, remove unsupported output request or generation artifact."
+    },
+    {
+      "id": "municipal-arrears:bg:natural",
+      "before": null,
+      "after": "Кои пет общини имат най-много просрочени задължения през 2024 г.?",
+      "reason": "Locally authored replacement after both generation attempts failed duplicate/shape validation."
+    },
+    {
+      "id": "municipal-arrears:bg:terse",
+      "before": null,
+      "after": "Пет общини с най-много просрочени задължения през 2024 г.",
+      "reason": "Locally authored replacement after both generation attempts failed duplicate/shape validation."
+    },
+    {
+      "id": "municipal-arrears:bg:typo",
+      "before": null,
+      "after": "Кои пет общини имат най-много просрчени задължения през 2024 г.?",
+      "reason": "Locally authored replacement after both generation attempts failed duplicate/shape validation."
+    }
+  ]
+}
