@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "split": "primary",
+  "startedAt": "2026-09-11T11:52:32.324Z",
+  "commit": "d18aa8fe47e12df3d31676ab91d469551fea6624",
+  "manifestHash": "e7ce2ffe83339c09bc1b84b7e80a0f379e4b40f258cc72f0927d1f2a58fc4201",
+  "sourceHashes": {
+    "ai/llm/semanticGrounding.ts": "c609586f808bca2f7a1ad94ac333d12c68741a001fb70547fae13cb7e3374978",
+    "ai/llm/openrouter.ts": "82a95c341d26f123cb86840fba43c6812ade6473ecccb8d24ee293eb2cff8ded",
+    "ai/orchestrator/prompts.ts": "eb78863383cc646dcecd5f07d1282d6c1c81e96170d8369f06a8d9c3a0b777dd",
+    "ai/orchestrator/router.ts": "c78234c446831ac34338fbdf7f9d3c0002a3d7632aec5b60f4ca6c9a0c3479d9",
+    "ai/toolgrad/release/harness.ts": "3a73120a3325696c8f1663110d63c754f1f0ee1c94d615a0147141e4f583fe82",
+    "ai/toolgrad/release/client.ts": "6cd35deb9a6d5e53c61c852d36da27323b1bfff4f25eceac7f222a663f2f37fb"
+  }
+}

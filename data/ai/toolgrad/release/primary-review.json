@@ -1,0 +1,457 @@
+{
+  "version": 1,
+  "reportHash": "77cd01d8df9d3737f0e17d314f3b0db64e1f1dbf0bce6f54e3fd26b1ba79fe9b",
+  "method": "Local coding-agent assessment against frozen rubric, not blinded human judgment. All failed/withheld answers retained. Complete-answer quality includes factual binding and language, not only number membership.",
+  "rows": [
+    {
+      "id": "city-ballot:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "city-ballot:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "city-participation:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "city-participation:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "province-ballot:bg",
+      "routePass": false,
+      "toolDataPass": false,
+      "completeAnswerPass": false,
+      "findings": [
+        "Bulgarian province alias does not resolve; narration withheld by the fixture boundary."
+      ]
+    },
+    {
+      "id": "province-ballot:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "'turnout reached 40% out of a total of 1,200 votes' conflates the party-vote total with turnout's registered-voter denominator (4,000)."
+      ]
+    },
+    {
+      "id": "province-participation:bg",
+      "routePass": false,
+      "toolDataPass": false,
+      "completeAnswerPass": false,
+      "findings": [
+        "Bulgarian province prefix does not resolve; narration withheld by the fixture boundary."
+      ]
+    },
+    {
+      "id": "province-participation:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "national-resident:bg",
+      "routePass": false,
+      "toolDataPass": false,
+      "completeAnswerPass": false,
+      "findings": [
+        "Explicit all-Bulgaria request was changed to Plovdiv city despite a correct national model selection."
+      ]
+    },
+    {
+      "id": "national-resident:en",
+      "routePass": false,
+      "toolDataPass": false,
+      "completeAnswerPass": false,
+      "findings": [
+        "Explicit all-Bulgaria request was changed to Plovdiv city despite a correct national model selection."
+      ]
+    },
+    {
+      "id": "varna-ballot:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Mixed-script place spelling 'Варna' is not fluent Bulgarian or the supplied name."
+      ]
+    },
+    {
+      "id": "varna-ballot:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "'turnout reached 42% out of 200 total votes' misstates the turnout denominator (500 registered)."
+      ]
+    },
+    {
+      "id": "transfer-2022:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "transfer-2022:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "transfer-2024:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "transfer-2024:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "transfer-category:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "transfer-category:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "transfer-recipient:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Exposes internal provenance identifier budget_muni_list in prose."
+      ]
+    },
+    {
+      "id": "transfer-recipient:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Exposes internal provenance identifier budget_muni_list in prose."
+      ]
+    },
+    {
+      "id": "transfer-ranking:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Exposes internal provenance identifier budget_muni_list in prose."
+      ]
+    },
+    {
+      "id": "transfer-ranking:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Exposes internal provenance identifier budget_muni_list in prose.",
+        "Mislabels two municipality records as two transfers."
+      ]
+    },
+    {
+      "id": "tax-plovdiv:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "tax-plovdiv:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Guard correctly rejected an invented year 2022; final fallback has '1 rates' and a Cyrillic place name in English prose. The table retains the correct rates."
+      ]
+    },
+    {
+      "id": "tax-varna:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "tax-varna:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-bare-city:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-bare-city:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "'300 total votes cast' overstates party-vote counts as all cast ballots; the source separately supplies 320 actual voters."
+      ]
+    },
+    {
+      "id": "follow-explicit-province:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-explicit-province:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "'turnout reached 40% out of a total of 1,200 votes' misstates the turnout denominator."
+      ]
+    },
+    {
+      "id": "follow-transfer-type:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-transfer-type:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-transfer-recipient:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Exposes internal provenance identifier budget_muni_list in prose."
+      ]
+    },
+    {
+      "id": "follow-transfer-recipient:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": false,
+      "findings": [
+        "Exposes internal provenance identifier budget_muni_list in prose.",
+        "Mislabels two municipality records as two transfers."
+      ]
+    },
+    {
+      "id": "follow-transfer-date:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-transfer-date:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-topic-tax:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "follow-topic-tax:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-delete:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-delete:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-payment:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-payment:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-email:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-email:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-reference:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-reference:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-prediction:bg",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    },
+    {
+      "id": "unsupported-prediction:en",
+      "routePass": true,
+      "toolDataPass": true,
+      "completeAnswerPass": true,
+      "findings": []
+    }
+  ],
+  "summary": {
+    "questions": 48,
+    "routePass": 44,
+    "toolDataPass": 44,
+    "completeAnswerPass": 32,
+    "guardProbes": 20,
+    "guardCorrect": 13
+  },
+  "guardFailures": [
+    {
+      "id": "missing-en",
+      "facts": {
+        "payment": "unknown",
+        "note": "No payment records were supplied."
+      },
+      "text": "The payment amount is unknown because no payment records were supplied.",
+      "accept": true,
+      "actual": false
+    },
+    {
+      "id": "missing-bg",
+      "facts": {
+        "payment": "неизвестно",
+        "note": "Няма данни за плащания."
+      },
+      "text": "Платената сума е неизвестна поради липса на данни за плащания.",
+      "accept": true,
+      "actual": false
+    },
+    {
+      "id": "negated-risk-en",
+      "facts": {
+        "screening_signals": 4,
+        "note": "No benchmark or classification."
+      },
+      "text": "Four signals do not establish high risk.",
+      "accept": true,
+      "actual": false
+    },
+    {
+      "id": "negated-risk-bg",
+      "facts": {
+        "screening_signals": 4,
+        "note": "Няма база за сравнение или класификация."
+      },
+      "text": "Четири сигнала не доказват висок риск.",
+      "accept": true,
+      "actual": false
+    },
+    {
+      "id": "binding-en",
+      "facts": {
+        "assets": 81000,
+        "debts": 17000
+      },
+      "text": "Assets are 17000 and debts are 81000.",
+      "accept": false,
+      "actual": true
+    },
+    {
+      "id": "binding-bg",
+      "facts": {
+        "assets": 81000,
+        "debts": 17000
+      },
+      "text": "Активите са 17000, а задълженията са 81000.",
+      "accept": false,
+      "actual": true
+    },
+    {
+      "id": "unknown-zero",
+      "facts": {
+        "paid": "unknown",
+        "awarded": 0
+      },
+      "text": "The paid amount was 0.",
+      "accept": false,
+      "actual": true
+    }
+  ]
+}
