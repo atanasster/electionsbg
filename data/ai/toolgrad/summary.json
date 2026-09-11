@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "decision": "do-not-promote",
+  "gates": {
+    "developmentImproved": false,
+    "holdoutImproved": false,
+    "referenceNotWorse": true,
+    "clarificationNotWorse": true
+  },
+  "runtimeChanged": false,
+  "calls": {
+    "generation": 57,
+    "routing": 448,
+    "narration": 8
+  },
+  "reservationCeilingUSD": 15.902999999999999,
+  "billedUSD": null,
+  "costNote": "Provider omitted billed cost; reservation ceiling is conservative accounting, not actual spend.",
+  "comparison": {
+    "development": {
+      "baseline": {
+        "n": 108,
+        "toolCorrect": 107,
+        "callCorrect": 107,
+        "argumentN": 108,
+        "argumentCorrect": 107,
+        "clarificationN": 0,
+        "clarificationCorrect": 0,
+        "errors": 0,
+        "masked": 24,
+        "medianMs": 685.2532500000002,
+        "p95Ms": 902.7765830000001,
+        "promptTokens": 1502194,
+        "outputTokens": 2037,
+        "billedUSD": null
+      },
+      "candidate": {
+        "n": 108,
+        "toolCorrect": 107,
+        "callCorrect": 107,
+        "argumentN": 108,
+        "argumentCorrect": 107,
+        "clarificationN": 0,
+        "clarificationCorrect": 0,
+        "errors": 0,
+        "masked": 24,
+        "medianMs": 686.1447920000003,
+        "p95Ms": 899.8168330000001,
+        "promptTokens": 1508890,
+        "outputTokens": 2035,
+        "billedUSD": null
+      }
+    },
+    "holdout": {
+      "baseline": {
+        "n": 36,
+        "toolCorrect": 33,
+        "callCorrect": 33,
+        "argumentN": 36,
+        "argumentCorrect": 33,
+        "clarificationN": 0,
+        "clarificationCorrect": 0,
+        "errors": 0,
+        "masked": 0,
+        "medianMs": 745.8403330000001,
+        "p95Ms": 965.9248749999999,
+        "promptTokens": 500744,
+        "outputTokens": 824,
+        "billedUSD": null
+      },
+      "candidate": {
+        "n": 36,
+        "toolCorrect": 31,
+        "callCorrect": 31,
+        "argumentN": 36,
+        "argumentCorrect": 31,
+        "clarificationN": 0,
+        "clarificationCorrect": 0,
+        "errors": 0,
+        "masked": 0,
+        "medianMs": 714.1873330000008,
+        "p95Ms": 1144.2279580000004,
+        "promptTokens": 502976,
+        "outputTokens": 880,
+        "billedUSD": null
+      }
+    },
+    "reference": {
+      "baseline": {
+        "n": 80,
+        "toolCorrect": 74,
+        "callCorrect": 73,
+        "argumentN": 56,
+        "argumentCorrect": 52,
+        "clarificationN": 16,
+        "clarificationCorrect": 15,
+        "errors": 0,
+        "masked": 14,
+        "medianMs": 698.503458000001,
+        "p95Ms": 824.3261249999996,
+        "promptTokens": 1112876,
+        "outputTokens": 1442,
+        "billedUSD": null
+      },
+      "candidate": {
+        "n": 80,
+        "toolCorrect": 76,
+        "callCorrect": 77,
+        "argumentN": 56,
+        "argumentCorrect": 53,
+        "clarificationN": 16,
+        "clarificationCorrect": 16,
+        "errors": 0,
+        "masked": 14,
+        "medianMs": 665.1404999999995,
+        "p95Ms": 840.1088329999984,
+        "promptTokens": 1117836,
+        "outputTokens": 1430,
+        "billedUSD": null
+      }
+    }
+  },
+  "interpretation": {
+    "syntheticCases": 8,
+    "numberGatePassed": 8,
+    "languageGatePassed": 8,
+    "locallyReviewedSemanticPassed": 5
+  },
+  "limitations": [
+    "One stochastic run per variant; paraphrases are clustered in24 workflows, not144 independent tasks.",
+    "Generated wording comes from contracts. Masked entity tasks do not test real entity resolution.",
+    "Reference questions predate the pilot but may have influenced the existing prompt; their argument checks are partial.",
+    "Frozen gold remains unchanged after evaluation. Some city/province and transfer-type/ranking wording is ambiguous; exact-workflow accuracy is not adjudicated user-answer quality.",
+    "Synthetic narration smoke checks are not live factual-accuracy measurements; local agent review is not human review.",
+    "No fine-tuning, serving change or deployment. Rejected candidate is retained for reproducibility."
+  ]
+}

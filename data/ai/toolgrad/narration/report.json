@@ -1,0 +1,287 @@
+{
+  "version": 1,
+  "model": "google/gemini-3.5-flash-lite",
+  "synthetic": true,
+  "fixtureHash": "afc579a777009d4ed71227d80b4426ea60fa1e76050cc5b219530a5318269db6",
+  "finishedAt": "2026-09-11T10:33:26.353Z",
+  "calls": 8,
+  "reservationCeilingUSD": 0.248,
+  "rows": [
+    {
+      "id": "direction:bg",
+      "lang": "bg",
+      "rubric": "Describe turnout falling from40% in2024 to30% in2025; never reverse the years/values or compute a difference.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример за проверка",
+        "facts": {
+          "turnout_2024": "40%",
+          "turnout_2025": "30%"
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример за проверка\nFacts (JSON): {\"turnout_2024\":\"40%\",\"turnout_2025\":\"30%\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "Измислен пример за проверка: Избирателната активност намалява. Данните показват спад от 40% през 2024 година до 30% през 2025 година. Това показва намаляващ интерес на гражданите към изборния процес през този период.",
+      "text": "Измислен пример за проверка: Избирателната активност намалява. Данните показват спад от 40% през 2024 година до 30% през 2025 година. Това показва намаляващ интерес на гражданите към изборния процес през този период.",
+      "finishReason": "stop",
+      "elapsedMs": 746.109791,
+      "usage": {
+        "completion_tokens": 68,
+        "prompt_tokens": 207,
+        "total_tokens": 275
+      },
+      "numberGate": true,
+      "languageGate": true
+    },
+    {
+      "id": "direction:en",
+      "lang": "en",
+      "rubric": "Describe turnout falling from40% in2024 to30% in2025; never reverse the years/values or compute a difference.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional verification example",
+        "facts": {
+          "turnout_2024": "40%",
+          "turnout_2025": "30%"
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional verification example\nFacts (JSON): {\"turnout_2024\":\"40%\",\"turnout_2025\":\"30%\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "**Fictional verification example**\n\nVoter turnout shifted from forty percent in 2024 to thirty percent in 2025, representing a downward trend with a ten percentage point decrease over the one-year period. This drop indicates a decline in civic participation between the two years according to the synthetic pilot fixture.",
+      "text": "**Fictional verification example**\n\nVoter turnout shifted from forty percent in 2024 to thirty percent in 2025, representing a downward trend with a ten percentage point decrease over the one-year period. This drop indicates a decline in civic participation between the two years according to the synthetic pilot fixture.",
+      "finishReason": "stop",
+      "elapsedMs": 668.566,
+      "usage": {
+        "completion_tokens": 67,
+        "prompt_tokens": 203,
+        "total_tokens": 270
+      },
+      "numberGate": true,
+      "languageGate": true
+    },
+    {
+      "id": "contract-value:bg",
+      "lang": "bg",
+      "rubric": "200000 EUR is awarded contract value; paid money is unknown. Do not describe it as an actual payment or spending already incurred.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример за проверка",
+        "facts": {
+          "awarded_contract_value_eur": "200000",
+          "paid_amount": "unknown",
+          "note": "Awarded contract value is not proof of payment."
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример за проверка\nFacts (JSON): {\"awarded_contract_value_eur\":\"200000\",\"paid_amount\":\"unknown\",\"note\":\"Awarded contract value is not proof of payment.\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "Стойността на възложения договор възлиза на 200 000 евро, докато изплатената сума остава неизвестна. Отбелязано е, че стойността на възложения договор не е доказателство за извършено плащане. Тази информация показва финансовия мащаб на ангажимента без да потвърждава реално преведени средства.",
+      "text": "Стойността на възложения договор възлиза на 200 000 евро, докато изплатената сума остава неизвестна. Отбелязано е, че стойността на възложения договор не е доказателство за извършено плащане. Тази информация показва финансовия мащаб на ангажимента без да потвърждава реално преведени средства.",
+      "finishReason": "stop",
+      "elapsedMs": 855.3962910000002,
+      "usage": {
+        "completion_tokens": 88,
+        "prompt_tokens": 219,
+        "total_tokens": 307
+      },
+      "numberGate": true,
+      "languageGate": true
+    },
+    {
+      "id": "contract-value:en",
+      "lang": "en",
+      "rubric": "200000 EUR is awarded contract value; paid money is unknown. Do not describe it as an actual payment or spending already incurred.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional verification example",
+        "facts": {
+          "awarded_contract_value_eur": "200000",
+          "paid_amount": "unknown",
+          "note": "Awarded contract value is not proof of payment."
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional verification example\nFacts (JSON): {\"awarded_contract_value_eur\":\"200000\",\"paid_amount\":\"unknown\",\"note\":\"Awarded contract value is not proof of payment.\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "Awarded contract value stands at 200,000 EUR for the fictional verification example, while the paid amount is unknown. The notable pattern is that the awarded contract value is fully stated, contrasting with the completely missing payment amount. This discrepancy highlights that the awarded contract value is not proof of payment.",
+      "text": "Awarded contract value stands at 200,000 EUR for the fictional verification example, while the paid amount is unknown. The notable pattern is that the awarded contract value is fully stated, contrasting with the completely missing payment amount. This discrepancy highlights that the awarded contract value is not proof of payment.",
+      "finishReason": "stop",
+      "elapsedMs": 1024.619916,
+      "usage": {
+        "completion_tokens": 63,
+        "prompt_tokens": 215,
+        "total_tokens": 278
+      },
+      "numberGate": true,
+      "languageGate": true
+    },
+    {
+      "id": "risk:bg",
+      "lang": "bg",
+      "rubric": "Two screening signals are leads for review; never establish corruption or guilt.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример за проверка",
+        "facts": {
+          "screening_signals": 2,
+          "note": "Risk indicators only; no finding of wrongdoing or proven corruption."
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример за проверка\nFacts (JSON): {\"screening_signals\":2,\"note\":\"Risk indicators only; no finding of wrongdoing or proven corruption.\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "**Преглед на гражданските данни: Сигнали за проверка**\n\nСпоред данните са регистрирани общо 2 индикатора за риск в категорията сигнални маркери за проверка. Тези стойности отразяват единствено индикатори за риск, без да съдържат констатации за неправомерни действия или доказана корупция. Настоящата информация служи само като предварителен ориентир и не представлява доказателство за нарушение.",
+      "text": "**Преглед на гражданските данни: Сигнали за проверка**\n\nСпоред данните са регистрирани общо 2 индикатора за риск в категорията сигнални маркери за проверка. Тези стойности отразяват единствено индикатори за риск, без да съдържат констатации за неправомерни действия или доказана корупция. Настоящата информация служи само като предварителен ориентир и не представлява доказателство за нарушение.",
+      "finishReason": "stop",
+      "elapsedMs": 1200.9817079999998,
+      "usage": {
+        "completion_tokens": 103,
+        "prompt_tokens": 205,
+        "total_tokens": 308
+      },
+      "numberGate": true,
+      "languageGate": true
+    },
+    {
+      "id": "risk:en",
+      "lang": "en",
+      "rubric": "Two screening signals are leads for review; never establish corruption or guilt.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional verification example",
+        "facts": {
+          "screening_signals": 2,
+          "note": "Risk indicators only; no finding of wrongdoing or proven corruption."
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional verification example\nFacts (JSON): {\"screening_signals\":2,\"note\":\"Risk indicators only; no finding of wrongdoing or proven corruption.\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "**Fictional verification example**\n\nThe synthetic pilot fixture records exactly two screening signals, while noting that these represent risk indicators only with no finding of wrongdoing or proven corruption. This single data point establishes a baseline metric for the pilot fixture. The low count indicates a minimal level of flagged activity within this preliminary test dataset.",
+      "text": "**Fictional verification example**\n\nThe synthetic pilot fixture records exactly two screening signals, while noting that these represent risk indicators only with no finding of wrongdoing or proven corruption. This single data point establishes a baseline metric for the pilot fixture. The low count indicates a minimal level of flagged activity within this preliminary test dataset.",
+      "finishReason": "stop",
+      "elapsedMs": 772.8366249999999,
+      "usage": {
+        "completion_tokens": 64,
+        "prompt_tokens": 201,
+        "total_tokens": 265
+      },
+      "numberGate": true,
+      "languageGate": true
+    },
+    {
+      "id": "declarations:bg",
+      "lang": "bg",
+      "rubric": "600000 EUR assets and100000 EUR debts are declared, not independently audited; do not infer salary or compute net wealth.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример за проверка",
+        "facts": {
+          "declared_assets_eur": "600000",
+          "declared_debts_eur": "100000",
+          "note": "Self-declared, not independently audited. Income and salary not supplied."
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример за проверка\nFacts (JSON): {\"declared_assets_eur\":\"600000\",\"declared_debts_eur\":\"100000\",\"note\":\"Self-declared, not independently audited. Income and salary not supplied.\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "**Декларирани активи и задължения**\nОбявените активи в размер на 600 000 евро значително надвишават декларираните задължения от 100 000 евро. Тези данни са самодекларирани и не са независимо одитирани, като същевременно не са предоставени данни за доход и заплата. Тази информация представя финансовото състояние въз основа единствено на самооценката на лицето.",
+      "text": "**Декларирани активи и задължения**\nОбявените активи в размер на 600 000 евро значително надвишават декларираните задължения от 100 000 евро. Тези данни са самодекларирани и не са независимо одитирани, като същевременно не са предоставени данни за доход и заплата. Тази информация представя финансовото състояние въз основа единствено на самооценката на лицето.",
+      "finishReason": "stop",
+      "elapsedMs": 952.8982080000005,
+      "usage": {
+        "completion_tokens": 110,
+        "prompt_tokens": 228,
+        "total_tokens": 338
+      },
+      "numberGate": true,
+      "languageGate": true
+    },
+    {
+      "id": "declarations:en",
+      "lang": "en",
+      "rubric": "600000 EUR assets and100000 EUR debts are declared, not independently audited; do not infer salary or compute net wealth.",
+      "env": {
+        "tool": "syntheticFixture",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional verification example",
+        "facts": {
+          "declared_assets_eur": "600000",
+          "declared_debts_eur": "100000",
+          "note": "Self-declared, not independently audited. Income and salary not supplied."
+        },
+        "provenance": [
+          "synthetic pilot fixture; not real civic data"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional verification example\nFacts (JSON): {\"declared_assets_eur\":\"600000\",\"declared_debts_eur\":\"100000\",\"note\":\"Self-declared, not independently audited. Income and salary not supplied.\"}\nSource: synthetic pilot fixture; not real civic data"
+      },
+      "raw": "**Self-Declared Assets and Debts Overview**  \nThe civic record shows declared assets of 600,000 EUR against declared debts of 100,000 EUR, with the assets standing significantly higher than the liabilities. This self-declared financial snapshot lacks independent audit verification, and both income and salary details were not supplied. Consequently, these figures provide a preliminary and unverified account of the individual's declared financial standing.",
+      "text": "**Self-Declared Assets and Debts Overview**  \nThe civic record shows declared assets of 600,000 EUR against declared debts of 100,000 EUR, with the assets standing significantly higher than the liabilities. This self-declared financial snapshot lacks independent audit verification, and both income and salary details were not supplied. Consequently, these figures provide a preliminary and unverified account of the individual's declared financial standing.",
+      "finishReason": "stop",
+      "elapsedMs": 917.4387079999997,
+      "usage": {
+        "completion_tokens": 93,
+        "prompt_tokens": 224,
+        "total_tokens": 317
+      },
+      "numberGate": true,
+      "languageGate": true
+    }
+  ]
+}

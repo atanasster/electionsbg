@@ -1,0 +1,19 @@
+{
+  "reviewer": "Codex local semantic review, not a human or independent model judge",
+  "synthetic": true,
+  "scope": "Eight synthetic smoke cases; not a population estimate of factual accuracy. Existing numeric and script gates are reported separately from meaning.",
+  "criteria": "Preserve supplied entity/value/year bindings and direction; no new arithmetic, causal explanation, comparative threshold or attribution unsupported by facts. Preserve declared/paid/risk distinctions.",
+  "numberGatePassed": 8,
+  "languageGatePassed": 8,
+  "semanticPassed": 5,
+  "rows": [
+    {"id":"direction:bg","pass":false,"evidence":"намаляващ интерес на гражданите","reason":"Lower turnout alone does not establish declining interest; the model inferred motivation."},
+    {"id":"direction:en","pass":false,"evidence":"ten percentage point decrease","reason":"Computes an unsupplied difference and spells it out, bypassing the digit-only grounding gate. Direction and dates themselves are correct."},
+    {"id":"contract-value:bg","pass":true,"reason":"Preserves awarded versus paid distinction; explicitly says payment is unknown."},
+    {"id":"contract-value:en","pass":true,"reason":"Preserves awarded versus paid distinction; explicitly says payment is unknown."},
+    {"id":"risk:bg","pass":true,"reason":"Describes indicators as leads, not proof of wrongdoing."},
+    {"id":"risk:en","pass":false,"evidence":"minimal level of flagged activity","reason":"Two signals has no denominator or reference threshold. Calling the level minimal is unsupported even though the text disclaims proven corruption."},
+    {"id":"declarations:bg","pass":true,"reason":"Preserves declared assets and debts, unaudited status and missing salary. Does not compute net wealth."},
+    {"id":"declarations:en","pass":true,"reason":"Preserves declared assets and debts, unaudited status and missing salary. Does not compute net wealth."}
+  ]
+}

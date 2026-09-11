@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "basedOn": "development-baseline/report.json: people-wealth:en:terse",
+  "routing": "A named individual's declared wealth, assets, debts or net worth uses personWealth with that person's name, even in a terse keyword question. mpAssetsTop is for a ranking of the richest MPs, not for a named person's declaration. Wealth keywords alone do not imply a ranking.",
+  "frozenBeforeValidation": true,
+  "promotionGate": "Fix the development miss, improve held-out call accuracy, and do not reduce overall hand-written reference or clarification accuracy. A tie is insufficient for changing production. No further candidate tuning after validation.",
+  "note": "Experimental appendix only. Not loaded by the public chat."
+}

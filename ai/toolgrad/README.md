@@ -72,3 +72,37 @@ never cross the split. Semantic curation may inspect held-out questions for vali
 prompt development must use development failures only. Existing hand-written
 `ai/llm/currentEval.realistic.ts` cases provide a separate reference set, although
 it predates this pilot and may already have influenced the production prompt.
+
+## Evaluation and decision
+
+```sh
+node --env-file=.env.local --import tsx ai/toolgrad/evaluate.run.ts development baseline /tmp/tg-dev-base
+# Freeze data/ai/toolgrad/candidate.json using development failures only, then:
+node --env-file=.env.local --import tsx ai/toolgrad/evaluate.run.ts development candidate /tmp/tg-dev-candidate
+node --env-file=.env.local --import tsx ai/toolgrad/evaluate.run.ts validation baseline /tmp/tg-val-base
+node --env-file=.env.local --import tsx ai/toolgrad/evaluate.run.ts validation candidate /tmp/tg-val-candidate
+node --env-file=.env.local --import tsx ai/toolgrad/narration.run.ts /tmp/tg-narration
+```
+
+Evaluation has no retries: model mistakes and API failures stay in the denominator.
+Each invocation writes to a new directory with a request cap equal to suite size.
+Reports preserve prompts, task/score hashes, outputs, token usage and request timings.
+Development uses 108 questions; validation uses 36 held-out questions plus 80
+language variants of pre-existing hand-written cases. Private entities are replaced
+with explicit synthetic identities before transmission; this does not evaluate real
+name resolution. Real corpus envelopes are never sent for evaluation.
+
+Generated calls are compared in full after argument validation/defaults, including
+supported date/place aliases; unknown raw keys are rejected before the production
+parser can remove them. Reference scoring intentionally reuses the existing scorer
+and its partial argument annotations. `toolCorrect` counts exact selected tool names;
+reference `callCorrect` allows the production parser's narrow supported tool aliases,
+so normalized call success can exceed exact tool-name success.
+
+`rescore.run.ts <report.json> [...]` updates scores from retained model outputs without
+new API calls; original/current scoring hashes and the reason remain in the artifact.
+The committed reports were rescored to catch unknown raw argument keys, without
+changing any labels or the resulting aggregate counts. `summarize.run.ts` regenerates
+`summary.json` from the four completed reports and local narration review; it does not
+promote anything. See [RESULTS.md](RESULTS.md) for this pilot's measured outcome and
+limitations. The candidate is **not** imported by the production chat.
