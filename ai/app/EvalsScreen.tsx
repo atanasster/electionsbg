@@ -1,6 +1,7 @@
 import { useChatNavigation } from "./navigation";
 import { SITE_ORIGIN, SITE_HOST } from "@/lib/siteOrigin";
 import { chatPath } from "./navigationPaths";
+import { ToolGradSection } from "./ToolGradSection";
 // Current production-router measurements; historical experiments stay explicitly separate.
 import { useContext, useEffect, useState } from "react";
 import { Logo } from "@/layout/header/Logo";
@@ -177,6 +178,7 @@ export const EvalsScreen = ({
             )}
           </p>
         </div>
+        <ToolGradSection lang={lang} />
         {error && (
           <p role="alert">
             {t(
