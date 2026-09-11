@@ -8,7 +8,11 @@ import { presidentialResults } from "../../../ai/tools/presidential";
 import type { ToolContext } from "../../../ai/tools/types";
 import { dbReachable, end, getPool, pinLocalDatabase } from "../lib/pg";
 
-pinLocalDatabase();
+// Ordinary data-gate runs are defined against the repository's local Docker
+// database. The release workflow is the exception: it supplies a fresh service
+// database through DATABASE_URL and requires this evidence instead of allowing a
+// skip, so do not replace that explicit target with localhost:5433.
+if (process.env.REQUIRE_QUESTION_DB !== "1") pinLocalDatabase();
 const reachable = await dbReachable();
 const DATA_ROOT = path.join(process.cwd(), "data");
 const local = async (source: string): Promise<unknown> =>

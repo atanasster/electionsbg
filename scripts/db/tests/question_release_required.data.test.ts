@@ -1,7 +1,10 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { dbReachable, end, getPool, pinLocalDatabase } from "../lib/pg";
 
-pinLocalDatabase();
+// The release workflow supplies its own virgin Postgres service on DATABASE_URL.
+// Keep the developer-only localhost:5433 pin everywhere else, but let the
+// required release gate verify the database it just loaded.
+if (process.env.REQUIRE_QUESTION_DB !== "1") pinLocalDatabase();
 const reachable = await dbReachable();
 
 afterAll(async () => end());

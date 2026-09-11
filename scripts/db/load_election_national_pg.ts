@@ -20,6 +20,17 @@ const SCHEMA = path.join(
 );
 
 const run = async () => {
+  // This loader is the first database step in question-release-gate.yml, whose
+  // Postgres service starts without extensions. exec() deliberately preloads
+  // pg_trgm through similarity(), so make that shared executor usable before
+  // applying this otherwise extension-free migration. On the normal refresh and
+  // Cloud SQL paths the extension already exists and this is a read-only probe.
+  await withClient(async (client) => {
+    const { rows } = await client.query<{ present: boolean }>(
+      "SELECT to_regprocedure('similarity(text,text)') IS NOT NULL AS present",
+    );
+    if (!rows[0].present) await client.query("CREATE EXTENSION pg_trgm");
+  });
   await exec(readFileSync(SCHEMA, "utf8"));
   const { contests, results } = readNationalElectionSources(
     path.join(ROOT, "data"),
