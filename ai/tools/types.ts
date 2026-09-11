@@ -33,6 +33,16 @@ export type Column = {
 
 export type Row = Record<string, string | number | null>;
 
+// Optional links inside table cells. Tools keep their printable rows primitive (which makes
+// CSV/PDF export and LLM grounding predictable) and attach navigation separately. `text` must
+// be an exact substring of the rendered cell; the renderer leaves unmatched metadata inert.
+export type TableCellLink = {
+  row: number;
+  column: string;
+  text: string;
+  href: string;
+};
+
 export type EnvelopeKind = "scalar" | "table" | "series";
 
 // ---- geographic overlay (optional Leaflet map on an answer) ------------------
@@ -106,6 +116,7 @@ export type Envelope = {
   // table payload
   columns?: Column[];
   rows?: Row[];
+  cellLinks?: TableCellLink[];
   // series payload (line/bar). `categories` are the shared x-axis values.
   categories?: (string | number)[];
   series?: Series[];

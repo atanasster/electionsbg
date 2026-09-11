@@ -24,6 +24,7 @@ import {
 import { Info, ListChecks } from "lucide-react";
 import { lazy, Suspense, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/ux/Link";
 import {
   Table,
   TableBody,
@@ -39,6 +40,7 @@ import type {
   Envelope,
   Lang,
   SeriesPoint,
+  TableCellLink,
 } from "../tools/types";
 import { factLabel } from "./factLabels";
 import { siteLinks } from "./links";
@@ -61,6 +63,40 @@ const fmtCell = (value: string | number | null, col: Column): string => {
     return value.toLocaleString();
   }
   return value;
+};
+
+const linkedCell = (
+  value: string | number | null,
+  col: Column,
+  links: TableCellLink[],
+): ReactNode => {
+  const rendered = fmtCell(value, col);
+  if (typeof value !== "string" || links.length === 0) return rendered;
+
+  const matches = links
+    .map((link) => ({ ...link, start: value.indexOf(link.text) }))
+    .filter((link) => link.text && link.start >= 0)
+    .sort((a, b) => a.start - b.start || b.text.length - a.text.length);
+  if (!matches.length) return rendered;
+
+  const parts: ReactNode[] = [];
+  let cursor = 0;
+  for (const match of matches) {
+    if (match.start < cursor) continue;
+    if (match.start > cursor) parts.push(value.slice(cursor, match.start));
+    parts.push(
+      <Link
+        key={`${match.start}:${match.href}`}
+        to={match.href}
+        className="font-medium underline underline-offset-2"
+      >
+        {match.text}
+      </Link>,
+    );
+    cursor = match.start + match.text.length;
+  }
+  if (cursor < value.length) parts.push(value.slice(cursor));
+  return parts;
 };
 
 // Compact y-axis ticks so euro charts read "2,9 млрд" / "€2.9B" instead of
@@ -403,7 +439,13 @@ const DataTable = ({ env }: { env: Envelope }) => {
                     c.numeric ? "text-right font-mono tabular-nums" : ""
                   }
                 >
-                  {fmtCell(r[c.key], c)}
+                  {linkedCell(
+                    r[c.key],
+                    c,
+                    (env.cellLinks ?? []).filter(
+                      (link) => link.row === i && link.column === c.key,
+                    ),
+                  )}
                 </TableCell>
               ))}
             </TableRow>

@@ -61,6 +61,7 @@
   "companyConnections": [
     "company_political_links (158_company_political_links.sql)"
   ],
+  "companyProfile": ["db:company", "db:table/companies"],
   "compareElections": ["elections.json"],
   "comparePlaces": [
     "2023_10_29_mi/municipalities/VAR06.json",
@@ -275,7 +276,12 @@
   "partyResult": ["2026_04_19/national_summary.json"],
   "partyTimeline": ["canonical_parties.json", "elections.json"],
   "personConnections": ["person-lookup", "person_by_slug (082_person_api.sql)"],
-  "personProfile": ["person-lookup", "person_by_slug (082_person_api.sql)"],
+  "personProfile": [
+    "person-lookup",
+    "person_by_slug (082_person_api.sql)",
+    "person_roles / person_procurement",
+    "person_search (126)"
+  ],
   "personWealth": ["person-lookup", "person_by_slug (082_person_api.sql)"],
   "placeEuProjects": [
     "db:interreg-place (keep.eu VAR06)",

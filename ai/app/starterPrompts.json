@@ -1456,6 +1456,22 @@
     }
   },
   {
+    "id": "companyProfile",
+    "category": "business",
+    "subcategory": "ownership",
+    "tool": "companyProfile",
+    "bg": "Кажи ми за фирма Провиотик",
+    "en": "Tell me about company Proviotic",
+    "args": {
+      "bg": {
+        "company": "Провиотик"
+      },
+      "en": {
+        "company": "Proviotic"
+      }
+    }
+  },
+  {
     "id": "companyConnections",
     "category": "business",
     "subcategory": "ownership",

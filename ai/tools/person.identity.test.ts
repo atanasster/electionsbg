@@ -28,6 +28,7 @@ describe("person identity resolution", () => {
   it("resolves one Latin-script lookup hit through its stable slug", async () => {
     setDbFetcher(async (route, params) => {
       if (route === "person-profile" && params.name) return null;
+      if (route === "person-search") return null;
       if (route === "person-lookup")
         return [{ slug: "ivan-ivanov", name: "Иван Иванов" }];
       if (route === "person-profile" && params.slug)
@@ -46,6 +47,7 @@ describe("person identity resolution", () => {
   ] as const)("preserves ambiguity for %s", async (run, tool) => {
     setDbFetcher(async (route) => {
       if (route === "person-profile") return null;
+      if (route === "person-search") return null;
       if (route === "person-lookup")
         return [
           { slug: "ivan-a", name: "Иван Иванов А" },
@@ -65,6 +67,7 @@ describe("person identity resolution", () => {
   it("distinguishes a missing person from an ambiguous one", async () => {
     setDbFetcher(async (route) => {
       if (route === "person-profile") return null;
+      if (route === "person-search") return null;
       if (route === "person-lookup") return [];
       throw new Error(`unexpected ${route}`);
     });

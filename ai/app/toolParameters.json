@@ -1638,8 +1638,8 @@
       "type": "person",
       "required": true,
       "description": {
-        "bg": "Пълно име на лицето (публична личност).",
-        "en": "Full name of the person (a public figure)."
+        "bg": "Пълно име на лицето.",
+        "en": "Full name of the person."
       }
     }
   ],
@@ -1697,6 +1697,17 @@
       "description": {
         "bg": "Избори",
         "en": "Election"
+      }
+    }
+  ],
+  "companyProfile": [
+    {
+      "name": "company",
+      "type": "company",
+      "required": true,
+      "description": {
+        "bg": "Име на фирма или ЕИК",
+        "en": "Company name or EIK"
       }
     }
   ],

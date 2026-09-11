@@ -4970,6 +4970,52 @@
     "clarify": false
   },
   {
+    "id": "companyProfile",
+    "lang": "bg",
+    "text": "Кажи ми за фирма Провиотик",
+    "tool": "companyProfile",
+    "args": {
+      "company": "Провиотик"
+    },
+    "title": "Провиотик",
+    "rows": 6,
+    "facts": {
+      "company": "Провиотик",
+      "eik_id": "202930997",
+      "legal_form": "АД",
+      "status": "активна",
+      "registered_seat": "—",
+      "active_officers": 5,
+      "public_contracts": 0,
+      "public_contract_value": "0 €",
+      "eu_programme_contracts": 1,
+      "farm_subsidies": "0 €"
+    },
+    "provenance": [
+      "db:table/companies",
+      "db:company"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "companyProfile",
+    "lang": "en",
+    "text": "Tell me about company Proviotic",
+    "tool": "companyProfile",
+    "args": {
+      "company": "Proviotic"
+    },
+    "title": "No company matching “Proviotic”",
+    "rows": null,
+    "facts": {
+      "query": "Proviotic"
+    },
+    "provenance": [
+      "db:table/companies"
+    ],
+    "clarify": false
+  },
+  {
     "id": "companyConnections",
     "lang": "bg",
     "text": "Какви политически връзки има ЕИК 831646048?",

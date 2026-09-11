@@ -157,6 +157,7 @@ describe("personProfile run()", () => {
     const env = await personProfile({ name: "Юруков" }, ctx);
     expect(env.tool).toBe("personProfile");
     expect(env.title).toContain("Георги Владимиров Юруков");
+    expect(env.facts.person_id).toBe("mp-2258");
     // Grounded facts: exact counts + the named company, never computed prose.
     expect(env.facts["фирми (брой)"]).toBe(1);
     expect(env.facts["кандидатури (брой)"]).toBe(2);
@@ -236,6 +237,81 @@ describe("personProfile run()", () => {
       "ВТОРА",
     );
     expect(env.facts).not.toHaveProperty("фирми");
+  });
+
+  it("auto-selects an exact match from the complete person index", async () => {
+    setDbFetcher(async (route) => {
+      if (route === "person-profile") return null;
+      if (route === "person-search")
+        return {
+          power: [
+            {
+              key: "slug:other-person",
+              name: "Явор Чавдаров Александров",
+              tier: "P",
+            },
+          ],
+          money: [
+            {
+              key: "fold:yavor chavdarov stefanov",
+              name: "Явор Чавдаров Стефанов",
+              tier: "V",
+              position_type: "private_sector",
+              firms_count: 9,
+            },
+          ],
+          others: [],
+        };
+      if (route === "person")
+        return {
+          name: "Явор Чавдаров Стефанов",
+          roles: [
+            {
+              uic: "121669745",
+              company: "БУЛВЕСТ ПРИНТ",
+              role: "director",
+              active: true,
+            },
+            {
+              uic: "131084887",
+              company: "ИЗДАТЕЛСТВО АТЛАСИ",
+              role: "partner",
+              active: true,
+            },
+          ],
+          procurement: { totalEur: 96958.59, contractCount: 87 },
+        };
+      return null;
+    });
+
+    const env = await personProfile({ name: "Явор Чавдаров Стефанов" }, ctx);
+
+    expect(env.clarify).toBeUndefined();
+    expect(env.title).toContain("Явор Чавдаров Стефанов");
+    expect(env.facts.person_id).toBe("Явор Чавдаров Стефанов");
+    expect(env.facts["фирми (брой)"]).toBe(2);
+    expect(env.facts["обществени поръчки (брой)"]).toBe(87);
+    expect(String(env.facts["бележка"])).toContain("точно съвпадение");
+  });
+
+  it("searches every person tier before offering fuzzy choices", async () => {
+    setDbFetcher(async (route) => {
+      if (route === "person-profile") return null;
+      if (route === "person-search")
+        return {
+          power: [{ key: "slug:one", name: "Георги Стефанов Чавдаров" }],
+          money: [{ key: "fold:two", name: "Явор Чавдаров Стефанов" }],
+          others: [{ key: "fold:three", name: "Чавдар Тодоров Стефанов" }],
+        };
+      return null;
+    });
+
+    const env = await personProfile({ name: "Чавдаров Стефанов" }, ctx);
+    expect(env.clarify?.options.map((option) => option.label)).toEqual([
+      "Георги Стефанов Чавдаров",
+      "Явор Чавдаров Стефанов",
+      "Чавдар Тодоров Стефанов",
+    ]);
   });
 
   it("returns a clean not-found for an unknown name", async () => {

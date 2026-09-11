@@ -7,7 +7,14 @@ import { fmtEurCompact, fmtInt } from "./format";
 import { ALL_ELECTIONS } from "./dataset";
 import { matchParty } from "./matchParty";
 import { officeLabel } from "./officeLabel";
-import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
+import type {
+  Column,
+  Envelope,
+  Row,
+  TableCellLink,
+  ToolArgs,
+  ToolContext,
+} from "./types";
 
 // ---- MP declared assets -----------------------------------------------------
 
@@ -837,6 +844,7 @@ export const companyConnections = async (
       viz: "none",
       facts: {
         eik,
+        eik_id: eik,
         company: coLabel,
         officer_rows: data?.officerRowCount ?? 0,
         bridges_too_busy: busy,
@@ -846,24 +854,56 @@ export const companyConnections = async (
   }
   const basis = (b: string): string => BASIS_LABEL[b]?.[ctx.lang] ?? b;
   const rows: Row[] = [];
-  for (const d of data.direct)
+  const cellLinks: TableCellLink[] = [];
+  for (const d of data.direct) {
+    const row = rows.length;
     rows.push({
       person: d.name,
       office: officeLabel(d.officeSource, d.officeRole, d.office, bg),
       link: bg ? "пряко (служител)" : "direct (officer)",
       basis: basis(d.linkBasis),
     });
-  for (const b of data.bridged)
+    cellLinks.push({
+      row,
+      column: "person",
+      text: d.name,
+      href: `/person/${encodeURIComponent(d.slug)}`,
+    });
+  }
+  for (const b of data.bridged) {
+    const row = rows.length;
+    const company = b.viaCompany ?? b.viaEik;
     rows.push({
       person: b.name,
       office: officeLabel(b.officeSource, b.officeRole, b.office, bg),
       // The bridge person's whole footprint rides in the cell, because it IS the reader's
       // tightness signal: a 2-company bridge is a tie, a 25-company one is barely one.
       link: bg
-        ? `чрез ${b.bridgeName} (${fmtInt(b.bridgeCompanies, ctx.lang)} фирми) → ${b.viaCompany ?? b.viaEik}`
-        : `via ${b.bridgeName} (${fmtInt(b.bridgeCompanies, ctx.lang)} companies) → ${b.viaCompany ?? b.viaEik}`,
+        ? `чрез ${b.bridgeName} (${fmtInt(b.bridgeCompanies, ctx.lang)} фирми) → ${company}`
+        : `via ${b.bridgeName} (${fmtInt(b.bridgeCompanies, ctx.lang)} companies) → ${company}`,
       basis: bg ? "2-ра степен" : "second-degree",
     });
+    cellLinks.push(
+      {
+        row,
+        column: "person",
+        text: b.name,
+        href: `/person/${encodeURIComponent(b.slug)}`,
+      },
+      {
+        row,
+        column: "link",
+        text: b.bridgeName,
+        href: `/person/${encodeURIComponent(b.bridgeName)}`,
+      },
+      {
+        row,
+        column: "link",
+        text: company,
+        href: `/company/${encodeURIComponent(b.viaEik)}`,
+      },
+    );
+  }
   const first = data.direct[0]?.name ?? data.bridged[0]?.name ?? "—";
   return {
     tool: "companyConnections",
@@ -884,9 +924,11 @@ export const companyConnections = async (
       { key: "basis", label: bg ? "Основание" : "Basis" },
     ],
     rows: rows.slice(0, 15),
+    cellLinks: cellLinks.filter((link) => link.row < 15),
     viz: "none",
     facts: {
       eik,
+      eik_id: eik,
       company: coLabel,
       officer_rows: data.officerRowCount,
       direct_links: data.directCount,

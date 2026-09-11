@@ -382,6 +382,25 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         });
       break;
     }
+    case "companyProfile":
+    case "companyConnections": {
+      const eik = fact(env, "eik_id");
+      if (eik)
+        out.push({
+          label: { bg: "Фирма — пълни данни", en: "Company — full profile" },
+          href: url(`/company/${encodeURIComponent(eik)}`),
+        });
+      break;
+    }
+    case "personProfile": {
+      const person = fact(env, "person_id");
+      if (person)
+        out.push({
+          label: { bg: "Лице — пълен профил", en: "Person — full profile" },
+          href: url(`/person/${encodeURIComponent(person)}`),
+        });
+      break;
+    }
     // Top hospitals paid by НЗОК → the biggest hospital's own company page, when
     // it is confidently matched to a Commerce-Register EIK (hidden facts.eik_id).
     // The TOOL_SECTION mapping still adds the health-fund page as the category link.

@@ -102,6 +102,45 @@ expect(
   ["/parliament/similarity/3606"],
 );
 
+// ---- person/company profiles (hidden ids, including a name-keyed person) ---
+expect(
+  "personProfile (resolved slug)",
+  mk({
+    tool: "personProfile",
+    domain: "people",
+    kind: "scalar",
+    facts: { person_id: "chavdar-todorov-stefanov-5d0831" },
+  }),
+  ["/person/chavdar-todorov-stefanov-5d0831"],
+);
+expect(
+  "personProfile (name-keyed)",
+  mk({
+    tool: "personProfile",
+    domain: "people",
+    kind: "scalar",
+    facts: { person_id: "Явор Чавдаров Стефанов" },
+  }),
+  [
+    "/person/%D0%AF%D0%B2%D0%BE%D1%80%20%D0%A7%D0%B0%D0%B2%D0%B4%D0%B0%D1%80%D0%BE%D0%B2%20%D0%A1%D1%82%D0%B5%D1%84%D0%B0%D0%BD%D0%BE%D0%B2",
+  ],
+);
+for (const tool of ["companyProfile", "companyConnections"]) {
+  expect(tool, mk({ tool, domain: "people", facts: { eik_id: "202930997" } }), [
+    "/company/202930997",
+  ]);
+}
+expect(
+  "companyProfile (known EIK without profile payload)",
+  mk({
+    tool: "companyProfile",
+    domain: "people",
+    kind: "scalar",
+    facts: { eik: "202930997", eik_id: "202930997" },
+  }),
+  ["/company/202930997"],
+);
+
 // ---- polling agency (deep link + the polls overview, like its siblings) -----
 for (const tool of ["agencyProfile", "agencyPolls", "agencyAccuracyHistory"]) {
   expect(tool, mk({ tool, domain: "elections", facts: { agency_id: "AR" } }), [

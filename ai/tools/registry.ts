@@ -180,6 +180,7 @@ import {
   partyFinance,
   pollAccuracy,
 } from "./people";
+import { companyProfile } from "./company";
 import {
   comparePlaces,
   governanceProfile,
@@ -4121,8 +4122,8 @@ export const TOOLS: ToolDef[] = [
     name: "personProfile",
     domain: "people",
     description: {
-      bg: "Обединен профил на едно лице по име: длъжности (депутат, кмет, съветник, магистрат), фирми в Търговския регистър (собственик/управител), кандидатури, дарения, санкции и досие в Държавна сигурност (Комисия по досиетата) — всичко събрано в един човек.",
-      en: "One person's unified profile by name: offices (MP, mayor, councillor, magistrate), Commerce-Registry companies (owner/manager), candidacies, donations, sanctions and State Security dossier (Dossier Commission) — all resolved to one individual.",
+      bg: "Профил на лице по име от целия регистър на хората: публични личности и частни лица с фирмени участия. При точно име отваря профила директно; включва длъжности, фирми, кандидатури, дарения, санкции и досие в Държавна сигурност, когато са налични.",
+      en: "A person profile by name from the complete people registry: public figures and private people with company roles. An exact name opens directly; available details include offices, companies, candidacies, donations, sanctions and State Security records.",
     },
     params: [
       {
@@ -4130,8 +4131,8 @@ export const TOOLS: ToolDef[] = [
         type: "person",
         required: true,
         description: {
-          bg: "Пълно име на лицето (публична личност).",
-          en: "Full name of the person (a public figure).",
+          bg: "Пълно име на лицето.",
+          en: "Full name of the person.",
         },
       },
     ],
@@ -4163,6 +4164,10 @@ export const TOOLS: ToolDef[] = [
       {
         bg: "В кой независим орган или регулатор членува това лице?",
         en: "Which independent body or regulator does this person sit on?",
+      },
+      {
+        bg: "Кой е Явор Чавдаров Стефанов?",
+        en: "Who is Yavor Chavdarov Stefanov?",
       },
     ],
     run: personProfile,
@@ -4395,6 +4400,33 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: partyFinance,
+  },
+  {
+    name: "companyProfile",
+    domain: "people",
+    description: {
+      bg: "Профил на фирма или организация от целия Търговски регистър по име или ЕИК — правна форма, състояние, седалище, предмет на дейност и налични публични средства.",
+      en: "A company or organisation profile from the full Commerce Registry by name or EIK — legal form, status, registered seat, activity and available public-money records.",
+    },
+    params: [
+      {
+        name: "company",
+        type: "company",
+        required: true,
+        description: { bg: "Име на фирма или ЕИК", en: "Company name or EIK" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кажи ми за фирма Провиотик",
+        en: "Tell me about company Proviotic",
+      },
+      {
+        bg: "Покажи профила на фирма с ЕИК 202930997",
+        en: "Show the company profile for EIK 202930997",
+      },
+    ],
+    run: companyProfile,
   },
   {
     name: "companyConnections",

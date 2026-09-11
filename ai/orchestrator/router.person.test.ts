@@ -23,6 +23,8 @@ describe("person-tool routing", () => {
 
   // personProfile — a name + a profile / business cue.
   it.each([
+    "Кой е Явор Чавдаров Стефанов?",
+    "Who is Yavor Chavdarov Stefanov?",
     "Какъв е профилът на Бойко Борисов?",
     "Какви фирми притежава Делян Пеевски?",
     "Покажи фирмите на Бойко Борисов",

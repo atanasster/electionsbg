@@ -12,6 +12,7 @@
 // surface a private co-owner or a review-status link and never invents an edge.
 
 import { isNameMatch } from "../../src/screens/components/linkBasis";
+import { transliterateName } from "../../src/data/candidates/transliterateName";
 import { isOfficialSource } from "../../src/lib/officialSources";
 import { clarifyEnvelope } from "./clarify";
 import { fetchDb } from "./dataClient";
@@ -81,23 +82,111 @@ type ConnectionsPayload = {
 } | null;
 
 type PersonLookupHit = { slug?: string; name?: string };
+type AllPersonHit = {
+  key?: string;
+  name?: string;
+  tier?: "P" | "V" | "N";
+  position_type?: string | null;
+  primary_role?: string | null;
+  place_label?: string | null;
+  firms_count?: number | null;
+  identity_confidence?: string | null;
+  href?: string;
+};
+type AllPersonSearchPayload = {
+  power?: AllPersonHit[];
+  money?: AllPersonHit[];
+  others?: AllPersonHit[];
+} | null;
+type PortfolioRole = {
+  uic: string;
+  company: string | null;
+  role: string | null;
+  active: boolean;
+};
+type PortfolioPayload = {
+  name: string;
+  roles: PortfolioRole[];
+  procurement: { totalEur?: number; contractCount?: number } | null;
+} | null;
 type ResolvedPerson = NonNullable<PersonProfilePayload>;
 type PersonResolution =
   | { kind: "found"; profile: ResolvedPerson }
-  | { kind: "ambiguous"; hits: { slug: string; name: string }[] }
+  | { kind: "portfolio"; portfolio: NonNullable<PortfolioPayload> }
+  | {
+      kind: "ambiguous";
+      hits: { value: string; name: string; detail?: string }[];
+    }
   | { kind: "missing" };
 
-// person_by_name deliberately requires a unique folded full name. For a Latin
-// two-part query, resolve through the shared transliterating person search and
-// then load the stable slug. We only accept a single leading identity; a tie is
-// left unresolved instead of attaching the question to an arbitrary person.
+const exactNameFold = (name: string): string =>
+  transliterateName(name)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+// Prefer the resolved public-person profile, then widen profile questions to the same
+// three-tier index used by /persons (public people + private company participants). An exact
+// script-independent full-name hit wins over fuzzy candidates; only a genuine tie asks the
+// reader to choose. Connections and wealth deliberately retain the public-person-only path.
 const resolvePersonProfile = async (
   query: string,
+  includeAllPeople = false,
 ): Promise<PersonResolution> => {
   const direct = await fetchDb<PersonProfilePayload>("person-profile", {
     name: query,
   });
   if (direct?.slug) return { kind: "found", profile: direct };
+
+  if (includeAllPeople) {
+    const result = await fetchDb<AllPersonSearchPayload>("person-search", {
+      q: query,
+      limit: 20,
+    });
+    const all = [
+      ...(result?.power ?? []),
+      ...(result?.money ?? []),
+      ...(result?.others ?? []),
+    ].filter(
+      (hit): hit is AllPersonHit & { key: string; name: string } =>
+        !!hit.key && !!hit.name,
+    );
+    const exact = all.filter(
+      (hit) => exactNameFold(hit.name) === exactNameFold(query),
+    );
+    const candidates = exact.length ? exact : all;
+    if (candidates.length > 1)
+      return {
+        kind: "ambiguous",
+        hits: candidates.map((hit) => ({
+          value: hit.key.startsWith("slug:")
+            ? hit.key.slice("slug:".length)
+            : hit.name,
+          name: hit.name,
+          detail: [hit.primary_role ?? hit.position_type, hit.place_label]
+            .filter(Boolean)
+            .join(" · "),
+        })),
+      };
+    if (candidates.length === 1) {
+      const hit = candidates[0];
+      if (hit.key.startsWith("slug:")) {
+        const profile = await fetchDb<PersonProfilePayload>("person-profile", {
+          slug: hit.key.slice("slug:".length),
+        });
+        if (profile?.slug) return { kind: "found", profile };
+      } else {
+        const portfolio = await fetchDb<PortfolioPayload>("person", {
+          name: hit.name,
+        });
+        if (portfolio?.name) return { kind: "portfolio", portfolio };
+      }
+    }
+    if (all.length) return { kind: "missing" };
+  }
+
   const hits = await fetchDb<PersonLookupHit[]>("person-lookup", {
     q: query,
     limit: 10,
@@ -105,7 +194,14 @@ const resolvePersonProfile = async (
   const unique = (hits ?? []).filter(
     (hit): hit is { slug: string; name: string } => !!hit.slug && !!hit.name,
   );
-  if (unique.length > 1) return { kind: "ambiguous", hits: unique };
+  if (unique.length > 1)
+    return {
+      kind: "ambiguous",
+      hits: unique.map((hit) => ({
+        value: hit.slug,
+        name: hit.name,
+      })),
+    };
   if (unique.length === 0) return { kind: "missing" };
   const profile = await fetchDb<PersonProfilePayload>("person-profile", {
     slug: unique[0].slug,
@@ -117,7 +213,7 @@ const ambiguousPerson = (
   query: string,
   bg: boolean,
   tool: "personProfile" | "personConnections" | "personWealth",
-  hits: { slug: string; name: string }[],
+  hits: { value: string; name: string; detail?: string }[],
 ): Envelope =>
   clarifyEnvelope(
     bg
@@ -125,13 +221,55 @@ const ambiguousPerson = (
       : `Which person "${query}" do you mean?`,
     hits.map((hit) => ({
       label: hit.name,
-      sublabel: hit.slug,
+      sublabel: hit.detail ?? hit.value,
       tool,
-      args: { name: hit.slug },
+      args: { name: hit.value },
     })),
     ["person-lookup", "person_by_slug (082_person_api.sql)"],
     "people",
   );
+
+const portfolioEnvelope = (
+  p: NonNullable<PortfolioPayload>,
+  ctx: ToolContext,
+): Envelope => {
+  const bg = ctx.lang === "bg";
+  const companies = [
+    ...new Map(
+      p.roles.map((role) => [role.uic, role.company ?? role.uic]),
+    ).values(),
+  ];
+  const activeRoles = p.roles.filter((role) => role.active).length;
+  const contracts = Number(p.procurement?.contractCount ?? 0);
+  const contractEur = Number(p.procurement?.totalEur ?? 0);
+  const facts: Record<string, string | number> = {
+    [bg ? "име" : "name"]: p.name,
+    person_id: p.name,
+    [bg ? "фирми (брой)" : "companies"]: companies.length,
+    [bg ? "активни участия" : "active company roles"]: activeRoles,
+  };
+  if (companies.length)
+    facts[bg ? "фирми" : "company names"] = companies.slice(0, 10).join(", ");
+  if (contracts > 0)
+    facts[bg ? "обществени поръчки (брой)" : "public contracts"] = contracts;
+  if (contractEur > 0)
+    facts[bg ? "обществени поръчки (EUR)" : "public contracts (EUR)"] =
+      Math.round(contractEur);
+  facts[bg ? "бележка" : "note"] = bg
+    ? "Профилът е обединен по точно съвпадение на име в Търговския регистър. Това е насока, не потвърдена самоличност; при съименници записите може да се отнасят за повече от едно лице."
+    : "This profile groups Commerce Registry records by exact name. It is a lead, not a verified identity; namesakes may be combined.";
+  return {
+    tool: "personProfile",
+    domain: "people",
+    kind: "scalar",
+    viz: "none",
+    title: bg
+      ? `${p.name} — ${companies.length} фирми`
+      : `${p.name} — ${companies.length} companies`,
+    facts,
+    provenance: ["person_search (126)", "person_roles / person_procurement"],
+  };
+};
 
 const notFound = (
   query: string,
@@ -169,10 +307,12 @@ export const personProfile = async (
   const query = String(args.name ?? args.person ?? "").trim();
   if (!query) return notFound(query, bg);
 
-  const resolved = await resolvePersonProfile(query);
+  const resolved = await resolvePersonProfile(query, true);
   if (resolved.kind === "ambiguous")
     return ambiguousPerson(query, bg, "personProfile", resolved.hits);
   if (resolved.kind === "missing") return notFound(query, bg);
+  if (resolved.kind === "portfolio")
+    return portfolioEnvelope(resolved.portfolio, ctx);
   const p = resolved.profile;
 
   const offices = p.roles.filter(
@@ -215,6 +355,7 @@ export const personProfile = async (
 
   const facts: Record<string, string | number> = {
     [bg ? "име" : "name"]: p.name,
+    person_id: p.slug,
   };
   // Official sanctions FIRST — the highest-stakes fact, verbatim from the government finding.
   if (p.sanctions?.length)
@@ -317,7 +458,7 @@ export const personConnections = async (
   const resolved = await resolvePersonProfile(query);
   if (resolved.kind === "ambiguous")
     return ambiguousPerson(query, bg, "personConnections", resolved.hits);
-  if (resolved.kind === "missing")
+  if (resolved.kind === "missing" || resolved.kind === "portfolio")
     return notFound(query, bg, "personConnections");
   const prof = resolved.profile;
 
@@ -431,7 +572,8 @@ export const personWealth = async (
   const resolved = await resolvePersonProfile(query);
   if (resolved.kind === "ambiguous")
     return ambiguousPerson(query, bg, "personWealth", resolved.hits);
-  if (resolved.kind === "missing") return notFound(query, bg, "personWealth");
+  if (resolved.kind === "missing" || resolved.kind === "portfolio")
+    return notFound(query, bg, "personWealth");
   const prof = resolved.profile;
 
   const wealth = await fetchDb<WealthPayload>("person-wealth", {

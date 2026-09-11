@@ -74,6 +74,13 @@ const extractPersonName = (raw: string): string | undefined => {
   return m ? m[0].trim() : undefined;
 };
 
+const extractCompanyName = (raw: string): string | undefined => {
+  const m = raw.match(
+    /(?:фирма(?:та)?|компания(?:та)?|дружество(?:то)?|company|firm)(?:\s+(?:с\s+име|named))?\s+[„“"']?(.+?)[„“"']?[?!.]*$/iu,
+  );
+  return m?.[1]?.trim();
+};
+
 // Capitalized place candidates from a compare question ("Сравни Варна и Бургас"
 // -> ["Варна","Бургас"]), dropping the compare verb and any party token.
 const COMPARE_VERBS = new Set([
@@ -274,6 +281,23 @@ const seriesArgs = (q: string, count: number | undefined): ToolArgs => {
 };
 
 const has = (q: string, ...words: string[]) => words.some((w) => q.includes(w));
+
+const hasCompanyProfileCue = (q: string): boolean =>
+  has(
+    q,
+    "кажи ми за фирм",
+    "разкажи ми за фирм",
+    "информация за фирм",
+    "данни за фирм",
+    "профил на фирм",
+    "профила на фирм",
+    "кажи ми за компани",
+    "разкажи ми за компани",
+    "tell me about company",
+    "tell me about firm",
+    "company profile",
+    "profile of company",
+  );
 
 // Electricity-context cue (for the /sector/energy tools). `has` is substring
 // matching, and "ток" (electricity) is a substring of поток/проток (flow),
@@ -884,17 +908,54 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   // explicit cross-election cue ("през годините"/"trend") asks for the history;
   // otherwise it's that section's results (year resolved from the rest of the q).
   // company → political connections (Commerce Registry). MUST precede the 9-digit
-  // section-id route below, since EIKs are often 9 digits too — gate on an
-  // explicit ЕИК / фирма cue so a plain polling-station id still hits sections.
+  // section-id route below, since EIKs are often 9 digits too. Preserve the
+  // existing EIK fallback, but let explicit profile questions reach companyProfile.
   {
     const eik = q.match(/\b\d{9,13}\b/)?.[0];
+    const connectionCue = has(
+      q,
+      "връзк",
+      "connection",
+      "свързан",
+      "connected",
+      "political link",
+      "links for company",
+    );
     if (
       eik &&
-      (has(q, "еик", "eik") ||
-        (has(q, "връзк", "connection", "свързан", "connected") &&
-          has(q, "фирм", "компани", "company")))
+      ((connectionCue && has(q, "фирм", "компани", "company", "еик", "eik")) ||
+        (has(q, "еик", "eik") && !hasCompanyProfileCue(q)))
     )
       return { tool: "companyConnections", args: { company: eik } };
+  }
+
+  // A general company profile, resolved against the WHOLE Commerce Registry. This must sit
+  // before the bare 9-digit polling-section branch: an EIK is commonly 9 digits too. Narrow
+  // procurement, subsidy, price and political-link questions keep their dedicated tools.
+  {
+    const explicitEik = q.match(/\b\d{9,13}\b/)?.[0];
+    const company = explicitEik ?? extractCompanyName(question);
+    const profileCue = hasCompanyProfileCue(q);
+    const specificIntent = has(
+      q,
+      "поръчк",
+      "договор",
+      "субсиди",
+      "еврофонд",
+      "европейск",
+      "цена",
+      "връзк",
+      "свързан",
+      "procurement",
+      "contract",
+      "subsid",
+      "eu fund",
+      "price",
+      "connection",
+      "connected",
+    );
+    if (company && profileCue && !specificIntent)
+      return { tool: "companyProfile", args: { company } };
   }
 
   const sectionId = q.match(/\b\d{9}\b/)?.[0];
@@ -1557,6 +1618,9 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   // (offices + companies + candidacies). The 2-3-word personName gate excludes one-word
   // pollster/party names; guarded off the roll-call and pollster "профил" senses (those
   // route to mpVotingProfile above / agencyProfile below).
+  const whoIsPerson =
+    has(q, "кой е", "коя е", "who is") &&
+    !has(q, "кандидат", "избор", "лист", "candidate", "election", "ballot");
   if (
     personName &&
     !has(
@@ -1570,41 +1634,42 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       "roll call",
       "roll-call",
     ) &&
-    has(
-      q,
-      "профил", // профил / профилът / профила (Bulgarian definite article)
-      "profile",
-      "фирми на",
-      "фирмите на",
-      "дружества на",
-      "дружества притежава",
-      "бизнес на",
-      "бизнеса на",
-      "companies of",
-      "притежава",
-      "санкц", // санкции / санкциониран — the profile carries the OFAC/EU sanctions facet
-      "sanction",
-      "magnitsky",
-      "магнитски",
-      "ofac",
-      "досие", // досие / досието — the profile carries the ДС/COMDOS affiliation facet
-      " дс", // "агент на дс" / "към дс" — space-bounded so it can't match председател/средства
-      "държавна сигурност",
-      "агент на",
-      "comdos",
-      "комисия по досиетата",
-      "state security",
-      "регулатор", // the profile carries the `regulator` (независими органи) "кой решава" facet
-      "regulator",
-      "независим орган",
-      "кой решава",
-      "всс",
-      "конституционен съд",
-      "конституционен съдия",
-      "кевр",
-      "кфн",
-      "бнб",
-    )
+    (whoIsPerson ||
+      has(
+        q,
+        "профил", // профил / профилът / профила (Bulgarian definite article)
+        "profile",
+        "фирми на",
+        "фирмите на",
+        "дружества на",
+        "дружества притежава",
+        "бизнес на",
+        "бизнеса на",
+        "companies of",
+        "притежава",
+        "санкц", // санкции / санкциониран — the profile carries the OFAC/EU sanctions facet
+        "sanction",
+        "magnitsky",
+        "магнитски",
+        "ofac",
+        "досие", // досие / досието — the profile carries the ДС/COMDOS affiliation facet
+        " дс", // "агент на дс" / "към дс" — space-bounded so it can't match председател/средства
+        "държавна сигурност",
+        "агент на",
+        "comdos",
+        "комисия по досиетата",
+        "state security",
+        "регулатор", // the profile carries the `regulator` (независими органи) "кой решава" facet
+        "regulator",
+        "независим орган",
+        "кой решава",
+        "всс",
+        "конституционен съд",
+        "конституционен съдия",
+        "кевр",
+        "кфн",
+        "бнб",
+      ))
   )
     return { tool: "personProfile", args: { name: personName } };
   if (
