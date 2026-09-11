@@ -386,6 +386,18 @@ export const localTaxes = async (
     facts: {
       place: place.name,
       indicators: rows.length,
+      ...Object.fromEntries(
+        rows.flatMap((row) => [
+          [
+            `${String(row.tax)} — ${ctx.lang === "bg" ? "местна ставка" : "local rate"}`,
+            String(row.value),
+          ],
+          [
+            `${String(row.tax)} — ${ctx.lang === "bg" ? "средно за страната" : "national average"}`,
+            String(row.avg),
+          ],
+        ]),
+      ),
     },
     provenance: [
       "local_taxes/index.json",

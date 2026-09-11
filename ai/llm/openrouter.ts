@@ -27,7 +27,7 @@ import {
 } from "../orchestrator/router";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
-import { numbersGrounded } from "./grounding";
+import { semanticGrounded } from "./semanticGrounding";
 import { clarify, matchesLang, stripControl } from "./lang";
 import type { ModelOption } from "./models";
 import type {
@@ -332,26 +332,19 @@ export class OpenRouterProvider implements LLMProvider {
           maxTokens: 420,
           temperature: 0.3,
           stream: true,
-          onDelta,
+          // Buffer until every narration gate passes.
         },
         usage,
       );
       const text = stripControl(raw);
-      // Two deterministic post-checks before the model's prose is trusted:
-      //  - language guard — never surface wrong-script prose;
-      //  - grounded-number gate — every material number in the prose must trace
-      //    to a facts value (title/provenance the model saw). A hallucinated OR
-      //    rounded figure fails this and we fall back to the template narrator.
-      // Streaming note: narrateEnv runs with stream:true, so partial prose was
-      // shown via onDelta before this gate ran. That's safe — the caller (Chat)
-      // overwrites the streamed buffer with THIS returned text once respond()
-      // resolves, so a rejected number is replaced by the template on completion.
+      // Validate before exposing prose: language, numeric support and the
+      // conservative semantic checks share the deterministic template fallback.
       const reject: NarrationReject | undefined =
         text.length === 0
           ? "empty"
           : !matchesLang(text, lang)
             ? "language"
-            : !numbersGrounded(
+            : !semanticGrounded(
                   text,
                   env.facts,
                   [env.title, ...env.provenance].join(" "),
@@ -365,6 +358,7 @@ export class OpenRouterProvider implements LLMProvider {
           );
         return { text: template, fromModel: false, reject };
       }
+      onDelta?.(text);
       return { text, fromModel: true };
     } catch {
       return { text: template, fromModel: false, reject: "error" };

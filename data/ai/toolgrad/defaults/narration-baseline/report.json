@@ -1,0 +1,751 @@
+{
+  "version": 1,
+  "variant": "baseline",
+  "model": "google/gemini-3.5-flash-lite",
+  "synthetic": true,
+  "startedAt": "2026-09-11T11:08:08.971Z",
+  "commit": "5968ddf92627f821c6d06397dfa660d7199c1100",
+  "cases": [
+    {
+      "id": "turnout",
+      "split": "development",
+      "facts": {
+        "turnout_2024": "40%",
+        "turnout_2025": "30%"
+      },
+      "rubric": "Turnout falls; no computed difference and no claim about interest/motivation."
+    },
+    {
+      "id": "contract",
+      "split": "development",
+      "facts": {
+        "awarded_contract_value_eur": "200000",
+        "paid_amount": "unknown",
+        "note": "Awarded contract value is not proof of payment."
+      },
+      "rubric": "Contract value is200000, actual payment unknown; no spending claim."
+    },
+    {
+      "id": "risk",
+      "split": "development",
+      "facts": {
+        "screening_signals": 2,
+        "note": "Signals are not proven wrongdoing."
+      },
+      "rubric": "Two signals; no inferred high/low/minimal risk or corruption."
+    },
+    {
+      "id": "assets",
+      "split": "development",
+      "facts": {
+        "declared_assets_eur": "600000",
+        "declared_debts_eur": "100000",
+        "note": "Self-declared; no independent audit or salary supplied."
+      },
+      "rubric": "Declared assets/debts only; no computed net worth or salary."
+    },
+    {
+      "id": "turnout-rise",
+      "split": "validation",
+      "facts": {
+        "turnout_2022": "28%",
+        "turnout_2023": "42%"
+      },
+      "rubric": "Turnout rises; years and values remain correctly attributed; no computed difference, ratio or public-interest inference."
+    },
+    {
+      "id": "unpaid-unknown",
+      "split": "validation",
+      "facts": {
+        "awarded_contract_value_eur": "900000",
+        "paid_amount": "unknown",
+        "note": "Payment data is not available."
+      },
+      "rubric": "Award value is900000, payment unknown not zero; no implication that award value was paid."
+    },
+    {
+      "id": "risk-eight",
+      "split": "validation",
+      "facts": {
+        "screening_signals": 8,
+        "note": "No denominator, risk classification or finding of wrongdoing is provided."
+      },
+      "rubric": "Eight signals; no high/low/minimal/severe classification, causality or proven wrongdoing."
+    },
+    {
+      "id": "assets-small",
+      "split": "validation",
+      "facts": {
+        "declared_assets_eur": "90000",
+        "declared_debts_eur": "20000",
+        "note": "Self-declared, not audited. Salary not available."
+      },
+      "rubric": "Assets90000 debts20000 are declarations; no computed70000 net worth and no salary inference."
+    },
+    {
+      "id": "tax-rates",
+      "split": "validation",
+      "baseFacts": {
+        "place": "Example City",
+        "indicators": 1
+      },
+      "facts": {
+        "place": "Example City",
+        "indicators": 1,
+        "Property tax — local rate": "3 %",
+        "Property tax — national average": "2 %"
+      },
+      "rubric": "Candidate can state3% local versus2% average; no calculated difference or causal claim. Baseline has no supplied rates and must not invent them. Rate visibility is a separate usefulness check."
+    }
+  ],
+  "suiteHash": "46c3bcc41d32cfd81648d9027010753f7efb36e8aff08e6bdf412861cbdce371",
+  "settings": {
+    "temperature": 0.3,
+    "tokens": 420
+  },
+  "scope": "Baseline retained prompt and numeric/script guards versus revised prompt, conservative semantic guard and tax fact coverage. Local semantic review is separate; synthetic data only.",
+  "finishedAt": "2026-09-11T11:08:25.250Z",
+  "complete": true,
+  "calls": 18,
+  "reservationCeilingUSD": 0.558,
+  "rows": [
+    {
+      "id": "turnout:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "turnout_2024": "40%",
+          "turnout_2025": "30%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"turnout_2024\":\"40%\",\"turnout_2025\":\"30%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Измислен пример: Избирателната активност бележи спад от 2024 до 2025 година. Активността намалява от 40% през 2024 година до 30% през 2025 година. Тази промяна показва понижение на участието в събитието между двете години.",
+      "finishReason": "stop",
+      "elapsedMs": 1057.4748749999999,
+      "usage": {
+        "completion_tokens": 83,
+        "prompt_tokens": 200,
+        "total_tokens": 283
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Измислен пример: Избирателната активност бележи спад от 2024 до 2025 година. Активността намалява от 40% през 2024 година до 30% през 2025 година. Тази промяна показва понижение на участието в събитието между двете години."
+    },
+    {
+      "id": "turnout:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "turnout_2024": "40%",
+          "turnout_2025": "30%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"turnout_2024\":\"40%\",\"turnout_2025\":\"30%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Fictional example shows voting participation dropping over a one-year period. Turnout fell from 40% in 2024 to 30% in 2025. This decrease indicates a shrinking share of eligible voters casting ballots in the fictional evaluation fixture.",
+      "finishReason": "stop",
+      "elapsedMs": 881.7936250000002,
+      "usage": {
+        "completion_tokens": 58,
+        "prompt_tokens": 197,
+        "total_tokens": 255
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": false,
+      "accepted": true,
+      "finalText": "Fictional example shows voting participation dropping over a one-year period. Turnout fell from 40% in 2024 to 30% in 2025. This decrease indicates a shrinking share of eligible voters casting ballots in the fictional evaluation fixture."
+    },
+    {
+      "id": "contract:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "awarded_contract_value_eur": "200000",
+          "paid_amount": "unknown",
+          "note": "Awarded contract value is not proof of payment."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"awarded_contract_value_eur\":\"200000\",\"paid_amount\":\"unknown\",\"note\":\"Awarded contract value is not proof of payment.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Измислен пример\n\nСтойността на възложената обществена поръчка е 200 000 евро, като платената сума е неизвестна. Забележката уточнява, че стойността на възложената поръчка не е доказателство за извършено плащане. Тези данни показват разликата между договорената стойност и реално преведените средства по сделката.",
+      "finishReason": "stop",
+      "elapsedMs": 974.4512920000002,
+      "usage": {
+        "completion_tokens": 97,
+        "prompt_tokens": 212,
+        "total_tokens": 309
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Измислен пример\n\nСтойността на възложената обществена поръчка е 200 000 евро, като платената сума е неизвестна. Забележката уточнява, че стойността на възложената поръчка не е доказателство за извършено плащане. Тези данни показват разликата между договорената стойност и реално преведените средства по сделката."
+    },
+    {
+      "id": "contract:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "awarded_contract_value_eur": "200000",
+          "paid_amount": "unknown",
+          "note": "Awarded contract value is not proof of payment."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"awarded_contract_value_eur\":\"200000\",\"paid_amount\":\"unknown\",\"note\":\"Awarded contract value is not proof of payment.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Fictional example: The awarded contract value is recorded as 200,000 EUR, while the paid amount remains unknown. This record highlights that the awarded contract value itself does not serve as proof of payment. Such documentation tracks the financial commitment made rather than the actual disbursement of funds.",
+      "finishReason": "stop",
+      "elapsedMs": 807.9845829999995,
+      "usage": {
+        "completion_tokens": 61,
+        "prompt_tokens": 209,
+        "total_tokens": 270
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Fictional example: The awarded contract value is recorded as 200,000 EUR, while the paid amount remains unknown. This record highlights that the awarded contract value itself does not serve as proof of payment. Such documentation tracks the financial commitment made rather than the actual disbursement of funds."
+    },
+    {
+      "id": "risk:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "screening_signals": 2,
+          "note": "Signals are not proven wrongdoing."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"screening_signals\":2,\"note\":\"Signals are not proven wrongdoing.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Заглавие: Измислен пример. Данните показват наличието на 2 сигнала за скрининг, като се отбелязва, че тези сигнали не представляват доказано нарушение. Това означава, че регистрираните индикатори изискват допълнителна проверка и не са доказателство за извършено нарушение.",
+      "finishReason": "stop",
+      "elapsedMs": 798.895125,
+      "usage": {
+        "completion_tokens": 71,
+        "prompt_tokens": 192,
+        "total_tokens": 263
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Заглавие: Измислен пример. Данните показват наличието на 2 сигнала за скрининг, като се отбелязва, че тези сигнали не представляват доказано нарушение. Това означава, че регистрираните индикатори изискват допълнителна проверка и не са доказателство за извършено нарушение."
+    },
+    {
+      "id": "risk:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "screening_signals": 2,
+          "note": "Signals are not proven wrongdoing."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"screening_signals\":2,\"note\":\"Signals are not proven wrongdoing.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "**Fictional example**\n\nThe screening signals total two, with the caveat that these signals are not proven wrongdoing. This evaluation fixture provides a baseline count for the fictional example. Ultimately, this single recorded figure offers a quantified measure of signals flagged for review.",
+      "finishReason": "stop",
+      "elapsedMs": 986.0187080000005,
+      "usage": {
+        "completion_tokens": 52,
+        "prompt_tokens": 189,
+        "total_tokens": 241
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "**Fictional example**\n\nThe screening signals total two, with the caveat that these signals are not proven wrongdoing. This evaluation fixture provides a baseline count for the fictional example. Ultimately, this single recorded figure offers a quantified measure of signals flagged for review."
+    },
+    {
+      "id": "assets:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "declared_assets_eur": "600000",
+          "declared_debts_eur": "100000",
+          "note": "Self-declared; no independent audit or salary supplied."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"declared_assets_eur\":\"600000\",\"declared_debts_eur\":\"100000\",\"note\":\"Self-declared; no independent audit or salary supplied.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Декларирани активи и пасиви: преглед на финансовото състояние. Обявените активи в размер на 600 000 евро значително надхвърлят декларираните задължения от 100 000 евро. Тези данни са самообявени и липсват независим одит или данни за заплата. Това означава, че информацията се основава единствено на лична декларация без официална проверка от трета страна.",
+      "finishReason": "stop",
+      "elapsedMs": 1003.8181250000007,
+      "usage": {
+        "completion_tokens": 109,
+        "prompt_tokens": 218,
+        "total_tokens": 327
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Декларирани активи и пасиви: преглед на финансовото състояние. Обявените активи в размер на 600 000 евро значително надхвърлят декларираните задължения от 100 000 евро. Тези данни са самообявени и липсват независим одит или данни за заплата. Това означава, че информацията се основава единствено на лична декларация без официална проверка от трета страна."
+    },
+    {
+      "id": "assets:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "declared_assets_eur": "600000",
+          "declared_debts_eur": "100000",
+          "note": "Self-declared; no independent audit or salary supplied."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"declared_assets_eur\":\"600000\",\"declared_debts_eur\":\"100000\",\"note\":\"Self-declared; no independent audit or salary supplied.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Financial Disclosure Overview: A Fictional Example. The self-declared civic data shows 600,000 euros in declared assets compared to 100,000 euros in declared debts. This results in a positive net balance of assets over debts, though the figures carry a note stating they lack independent audit or salary support.",
+      "finishReason": "stop",
+      "elapsedMs": 754.2083749999983,
+      "usage": {
+        "completion_tokens": 71,
+        "prompt_tokens": 215,
+        "total_tokens": 286
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Financial Disclosure Overview: A Fictional Example. The self-declared civic data shows 600,000 euros in declared assets compared to 100,000 euros in declared debts. This results in a positive net balance of assets over debts, though the figures carry a note stating they lack independent audit or salary support."
+    },
+    {
+      "id": "turnout-rise:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "turnout_2022": "28%",
+          "turnout_2023": "42%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"turnout_2022\":\"28%\",\"turnout_2023\":\"42%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Измислен пример\nИзбирателната активност бележи значително увеличение, като през 2023 година достига 42% спрямо 28% през 2022 година. Този ръст показва повишено участие на гражданите в изборния процес през втория отчетен период.",
+      "finishReason": "stop",
+      "elapsedMs": 816.3162499999999,
+      "usage": {
+        "completion_tokens": 70,
+        "prompt_tokens": 200,
+        "total_tokens": 270
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Измислен пример\nИзбирателната активност бележи значително увеличение, като през 2023 година достига 42% спрямо 28% през 2022 година. Този ръст показва повишено участие на гражданите в изборния процес през втория отчетен период."
+    },
+    {
+      "id": "turnout-rise:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "turnout_2022": "28%",
+          "turnout_2023": "42%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"turnout_2022\":\"28%\",\"turnout_2023\":\"42%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Voter turnout in the fictional example. Voter turnout rose from 28% in 2022 to 42% in 2023. This upward trend indicates increased civic participation between the two years.",
+      "finishReason": "stop",
+      "elapsedMs": 736.3829999999998,
+      "usage": {
+        "completion_tokens": 46,
+        "prompt_tokens": 197,
+        "total_tokens": 243
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": false,
+      "accepted": true,
+      "finalText": "Voter turnout in the fictional example. Voter turnout rose from 28% in 2022 to 42% in 2023. This upward trend indicates increased civic participation between the two years."
+    },
+    {
+      "id": "unpaid-unknown:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "awarded_contract_value_eur": "900000",
+          "paid_amount": "unknown",
+          "note": "Payment data is not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"awarded_contract_value_eur\":\"900000\",\"paid_amount\":\"unknown\",\"note\":\"Payment data is not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Измислен пример\n\nСтойността на възложената обществена поръчка е 900 000 евро, докато платената сума е отбелязана като неизвестна поради липса на данни за плащанията. Тези данни показват финансовия ангажимент по договора без налична информация за текущото му изпълнение или изплатените средства.",
+      "finishReason": "stop",
+      "elapsedMs": 665.3677079999998,
+      "usage": {
+        "completion_tokens": 86,
+        "prompt_tokens": 208,
+        "total_tokens": 294
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": false,
+      "accepted": true,
+      "finalText": "Измислен пример\n\nСтойността на възложената обществена поръчка е 900 000 евро, докато платената сума е отбелязана като неизвестна поради липса на данни за плащанията. Тези данни показват финансовия ангажимент по договора без налична информация за текущото му изпълнение или изплатените средства."
+    },
+    {
+      "id": "unpaid-unknown:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "awarded_contract_value_eur": "900000",
+          "paid_amount": "unknown",
+          "note": "Payment data is not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"awarded_contract_value_eur\":\"900000\",\"paid_amount\":\"unknown\",\"note\":\"Payment data is not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "**Fictional example**  \nThe awarded contract value is 900000 EUR, while the paid amount is unknown because payment data is not available. This lack of payment data means the actual amount disbursed for the contract cannot be determined from the records.",
+      "finishReason": "stop",
+      "elapsedMs": 629.8333340000008,
+      "usage": {
+        "completion_tokens": 55,
+        "prompt_tokens": 205,
+        "total_tokens": 260
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": false,
+      "accepted": true,
+      "finalText": "**Fictional example**  \nThe awarded contract value is 900000 EUR, while the paid amount is unknown because payment data is not available. This lack of payment data means the actual amount disbursed for the contract cannot be determined from the records."
+    },
+    {
+      "id": "risk-eight:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "screening_signals": 8,
+          "note": "No denominator, risk classification or finding of wrongdoing is provided."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"screening_signals\":8,\"note\":\"No denominator, risk classification or finding of wrongdoing is provided.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Заглавие: Измислен пример. Наблюдава се показател за скринингови сигнали, чиято стойност възлиза на 8. Липсват знаменател, класификация на риска или констатация за нарушение, което означава, че данните са само информативни и не съдържат оценка за нарушения.",
+      "finishReason": "stop",
+      "elapsedMs": 897.9004170000007,
+      "usage": {
+        "completion_tokens": 72,
+        "prompt_tokens": 198,
+        "total_tokens": 270
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Заглавие: Измислен пример. Наблюдава се показател за скринингови сигнали, чиято стойност възлиза на 8. Липсват знаменател, класификация на риска или констатация за нарушение, което означава, че данните са само информативни и не съдържат оценка за нарушения."
+    },
+    {
+      "id": "risk-eight:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "screening_signals": 8,
+          "note": "No denominator, risk classification or finding of wrongdoing is provided."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"screening_signals\":8,\"note\":\"No denominator, risk classification or finding of wrongdoing is provided.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "**Screening Signals Evaluation**\nThe evaluation recorded exactly eight screening signals. No denominator, risk classification, or finding of wrongdoing is provided. This count offers a baseline indicator without further context on severity or outcome.",
+      "finishReason": "stop",
+      "elapsedMs": 625.9910419999997,
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 195,
+        "total_tokens": 237
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "**Screening Signals Evaluation**\nThe evaluation recorded exactly eight screening signals. No denominator, risk classification, or finding of wrongdoing is provided. This count offers a baseline indicator without further context on severity or outcome."
+    },
+    {
+      "id": "assets-small:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "declared_assets_eur": "90000",
+          "declared_debts_eur": "20000",
+          "note": "Self-declared, not audited. Salary not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"declared_assets_eur\":\"90000\",\"declared_debts_eur\":\"20000\",\"note\":\"Self-declared, not audited. Salary not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Заглавие: Декларирани активи и задължения. \nОбявените активи са в размер на 90000 евро, докато декларираните задължения възлизат на 20000 евро, като тези данни са самообявени и неодитирани, а информация за заплата липсва. \nТова съотношение показва финансовото състояние на лицето въз основа на неговите собствени ненадеждни декларации.",
+      "finishReason": "stop",
+      "elapsedMs": 955.497625,
+      "usage": {
+        "completion_tokens": 108,
+        "prompt_tokens": 216,
+        "total_tokens": 324
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Заглавие: Декларирани активи и задължения. \nОбявените активи са в размер на 90000 евро, докато декларираните задължения възлизат на 20000 евро, като тези данни са самообявени и неодитирани, а информация за заплата липсва. \nТова съотношение показва финансовото състояние на лицето въз основа на неговите собствени ненадеждни декларации."
+    },
+    {
+      "id": "assets-small:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "declared_assets_eur": "90000",
+          "declared_debts_eur": "20000",
+          "note": "Self-declared, not audited. Salary not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"declared_assets_eur\":\"90000\",\"declared_debts_eur\":\"20000\",\"note\":\"Self-declared, not audited. Salary not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "**Fictional Financial Self-Declaration**\nThe self-declared records show declared assets of 90,000 euros compared to declared debts of 20,000 euros, resulting in assets exceeding debts by 70,000 euros. These figures are explicitly noted as self-declared and unaudited, with salary information entirely unavailable. This indicates that the reported financial standing relies solely on unverified personal disclosures without official salary context.",
+      "finishReason": "stop",
+      "elapsedMs": 917.3635830000003,
+      "usage": {
+        "completion_tokens": 95,
+        "prompt_tokens": 213,
+        "total_tokens": 308
+      },
+      "numeric": false,
+      "language": true,
+      "semantic": false,
+      "accepted": false,
+      "finalText": "Fictional example"
+    },
+    {
+      "id": "tax-rates:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "place": "Example City",
+          "indicators": 1
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"place\":\"Example City\",\"indicators\":1}\nSource: invented evaluation fixture"
+      },
+      "text": "Пример за граждански данни в Примерния град: Анализът на индикаторите показва специфични стойности за региона. Данните разкриват състоянието на градската среда според изготвената оценка. Тази информация спомага за по-доброто разбиране на местните процеси и развитието на общността.",
+      "finishReason": "stop",
+      "elapsedMs": 891.4510839999984,
+      "usage": {
+        "completion_tokens": 74,
+        "prompt_tokens": 186,
+        "total_tokens": 260
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Пример за граждански данни в Примерния град: Анализът на индикаторите показва специфични стойности за региона. Данните разкриват състоянието на градската среда според изготвената оценка. Тази информация спомага за по-доброто разбиране на местните процеси и развитието на общността."
+    },
+    {
+      "id": "tax-rates:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "place": "Example City",
+          "indicators": 1
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means. Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half). Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"place\":\"Example City\",\"indicators\":1}\nSource: invented evaluation fixture"
+      },
+      "text": "Example City Indicator Report. The dataset shows a single indicator for Example City with a value of one. This isolated entry provides a baseline metric for the fictional evaluation fixture.",
+      "finishReason": "stop",
+      "elapsedMs": 717.9660839999979,
+      "usage": {
+        "completion_tokens": 33,
+        "prompt_tokens": 183,
+        "total_tokens": 216
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Example City Indicator Report. The dataset shows a single indicator for Example City with a value of one. This isolated entry provides a baseline metric for the fictional evaluation fixture."
+    }
+  ]
+}

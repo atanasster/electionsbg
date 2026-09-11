@@ -1,0 +1,755 @@
+{
+  "version": 1,
+  "variant": "candidate",
+  "model": "google/gemini-3.5-flash-lite",
+  "synthetic": true,
+  "startedAt": "2026-09-11T11:08:12.168Z",
+  "commit": "5968ddf92627f821c6d06397dfa660d7199c1100",
+  "cases": [
+    {
+      "id": "turnout",
+      "split": "development",
+      "facts": {
+        "turnout_2024": "40%",
+        "turnout_2025": "30%"
+      },
+      "rubric": "Turnout falls; no computed difference and no claim about interest/motivation."
+    },
+    {
+      "id": "contract",
+      "split": "development",
+      "facts": {
+        "awarded_contract_value_eur": "200000",
+        "paid_amount": "unknown",
+        "note": "Awarded contract value is not proof of payment."
+      },
+      "rubric": "Contract value is200000, actual payment unknown; no spending claim."
+    },
+    {
+      "id": "risk",
+      "split": "development",
+      "facts": {
+        "screening_signals": 2,
+        "note": "Signals are not proven wrongdoing."
+      },
+      "rubric": "Two signals; no inferred high/low/minimal risk or corruption."
+    },
+    {
+      "id": "assets",
+      "split": "development",
+      "facts": {
+        "declared_assets_eur": "600000",
+        "declared_debts_eur": "100000",
+        "note": "Self-declared; no independent audit or salary supplied."
+      },
+      "rubric": "Declared assets/debts only; no computed net worth or salary."
+    },
+    {
+      "id": "turnout-rise",
+      "split": "validation",
+      "facts": {
+        "turnout_2022": "28%",
+        "turnout_2023": "42%"
+      },
+      "rubric": "Turnout rises; years and values remain correctly attributed; no computed difference, ratio or public-interest inference."
+    },
+    {
+      "id": "unpaid-unknown",
+      "split": "validation",
+      "facts": {
+        "awarded_contract_value_eur": "900000",
+        "paid_amount": "unknown",
+        "note": "Payment data is not available."
+      },
+      "rubric": "Award value is900000, payment unknown not zero; no implication that award value was paid."
+    },
+    {
+      "id": "risk-eight",
+      "split": "validation",
+      "facts": {
+        "screening_signals": 8,
+        "note": "No denominator, risk classification or finding of wrongdoing is provided."
+      },
+      "rubric": "Eight signals; no high/low/minimal/severe classification, causality or proven wrongdoing."
+    },
+    {
+      "id": "assets-small",
+      "split": "validation",
+      "facts": {
+        "declared_assets_eur": "90000",
+        "declared_debts_eur": "20000",
+        "note": "Self-declared, not audited. Salary not available."
+      },
+      "rubric": "Assets90000 debts20000 are declarations; no computed70000 net worth and no salary inference."
+    },
+    {
+      "id": "tax-rates",
+      "split": "validation",
+      "baseFacts": {
+        "place": "Example City",
+        "indicators": 1
+      },
+      "facts": {
+        "place": "Example City",
+        "indicators": 1,
+        "Property tax — local rate": "3 %",
+        "Property tax — national average": "2 %"
+      },
+      "rubric": "Candidate can state3% local versus2% average; no calculated difference or causal claim. Baseline has no supplied rates and must not invent them. Rate visibility is a separate usefulness check."
+    }
+  ],
+  "suiteHash": "46c3bcc41d32cfd81648d9027010753f7efb36e8aff08e6bdf412861cbdce371",
+  "settings": {
+    "temperature": 0.3,
+    "tokens": 420
+  },
+  "scope": "Baseline retained prompt and numeric/script guards versus revised prompt, conservative semantic guard and tax fact coverage. Local semantic review is separate; synthetic data only.",
+  "finishedAt": "2026-09-11T11:09:07.908Z",
+  "complete": true,
+  "calls": 18,
+  "reservationCeilingUSD": 0.558,
+  "rows": [
+    {
+      "id": "turnout:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "turnout_2024": "40%",
+          "turnout_2025": "30%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"turnout_2024\":\"40%\",\"turnout_2025\":\"30%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "През 2024 г. избирателната активност е 40%, докато през 2025 г. тя е спаднала до 30%. Стойността за 2025 г. е по-ниска в сравнение с тази от 2024 година.",
+      "finishReason": "stop",
+      "elapsedMs": 870.56675,
+      "usage": {
+        "completion_tokens": 68,
+        "prompt_tokens": 320,
+        "total_tokens": 388
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "През 2024 г. избирателната активност е 40%, докато през 2025 г. тя е спаднала до 30%. Стойността за 2025 г. е по-ниска в сравнение с тази от 2024 година."
+    },
+    {
+      "id": "turnout:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "turnout_2024": "40%",
+          "turnout_2025": "30%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"turnout_2024\":\"40%\",\"turnout_2025\":\"30%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "In the fictional example, voter turnout fell from 40% in 2024 to 30% in 2025.",
+      "finishReason": "stop",
+      "elapsedMs": 644.17325,
+      "usage": {
+        "completion_tokens": 31,
+        "prompt_tokens": 317,
+        "total_tokens": 348
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "In the fictional example, voter turnout fell from 40% in 2024 to 30% in 2025."
+    },
+    {
+      "id": "contract:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "awarded_contract_value_eur": "200000",
+          "paid_amount": "unknown",
+          "note": "Awarded contract value is not proof of payment."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"awarded_contract_value_eur\":\"200000\",\"paid_amount\":\"unknown\",\"note\":\"Awarded contract value is not proof of payment.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Стойността на спечеления договор е 200000 евро, а изплатената сума е неизвестна. В данните се отбелязва, че стойността на спечеления договор не е доказателство за плащане.",
+      "finishReason": "stop",
+      "elapsedMs": 882.9624160000001,
+      "usage": {
+        "completion_tokens": 56,
+        "prompt_tokens": 332,
+        "total_tokens": 388
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Стойността на спечеления договор е 200000 евро, а изплатената сума е неизвестна. В данните се отбелязва, че стойността на спечеления договор не е доказателство за плащане."
+    },
+    {
+      "id": "contract:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "awarded_contract_value_eur": "200000",
+          "paid_amount": "unknown",
+          "note": "Awarded contract value is not proof of payment."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"awarded_contract_value_eur\":\"200000\",\"paid_amount\":\"unknown\",\"note\":\"Awarded contract value is not proof of payment.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "The awarded contract value for the fictional example is 200000 EUR, while the paid amount is unknown. The source notes that the awarded contract value is not proof of payment.",
+      "finishReason": "stop",
+      "elapsedMs": 557.811209,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 329,
+        "total_tokens": 368
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "The awarded contract value for the fictional example is 200000 EUR, while the paid amount is unknown. The source notes that the awarded contract value is not proof of payment."
+    },
+    {
+      "id": "risk:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "screening_signals": 2,
+          "note": "Signals are not proven wrongdoing."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"screening_signals\":2,\"note\":\"Signals are not proven wrongdoing.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Измисленият пример отчете 2 screening_signals според източника invented evaluation fixture. Сигналите не са доказано нарушение.",
+      "finishReason": "stop",
+      "elapsedMs": 710.0524169999999,
+      "usage": {
+        "completion_tokens": 31,
+        "prompt_tokens": 312,
+        "total_tokens": 343
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Измисленият пример отчете 2 screening_signals според източника invented evaluation fixture. Сигналите не са доказано нарушение."
+    },
+    {
+      "id": "risk:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "screening_signals": 2,
+          "note": "Signals are not proven wrongdoing."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"screening_signals\":2,\"note\":\"Signals are not proven wrongdoing.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "The invented evaluation fixture reports 2 screening signals for the fictional example. As the note clarifies, these signals do not constitute proven wrongdoing.",
+      "finishReason": "stop",
+      "elapsedMs": 616.7092079999998,
+      "usage": {
+        "completion_tokens": 27,
+        "prompt_tokens": 309,
+        "total_tokens": 336
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "The invented evaluation fixture reports 2 screening signals for the fictional example. As the note clarifies, these signals do not constitute proven wrongdoing."
+    },
+    {
+      "id": "assets:bg",
+      "split": "development",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "declared_assets_eur": "600000",
+          "declared_debts_eur": "100000",
+          "note": "Self-declared; no independent audit or salary supplied."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"declared_assets_eur\":\"600000\",\"declared_debts_eur\":\"100000\",\"note\":\"Self-declared; no independent audit or salary supplied.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Декларираните активи в евро през измисления пример са 600000, а декларираните пасиви в евро са 100000. Данните са самодекларирани, като липсват независим одит или заплата.",
+      "finishReason": "stop",
+      "elapsedMs": 726.3886250000005,
+      "usage": {
+        "completion_tokens": 63,
+        "prompt_tokens": 338,
+        "total_tokens": 401
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Декларираните активи в евро през измисления пример са 600000, а декларираните пасиви в евро са 100000. Данните са самодекларирани, като липсват независим одит или заплата."
+    },
+    {
+      "id": "assets:en",
+      "split": "development",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "declared_assets_eur": "600000",
+          "declared_debts_eur": "100000",
+          "note": "Self-declared; no independent audit or salary supplied."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"declared_assets_eur\":\"600000\",\"declared_debts_eur\":\"100000\",\"note\":\"Self-declared; no independent audit or salary supplied.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "In the fictional example, self-declared assets are recorded at 600000 eur and declared debts at 100000 eur. The note specifies that these values are self-declared with no independent audit or salary supplied.",
+      "finishReason": "stop",
+      "elapsedMs": 679.7084580000001,
+      "usage": {
+        "completion_tokens": 51,
+        "prompt_tokens": 335,
+        "total_tokens": 386
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "In the fictional example, self-declared assets are recorded at 600000 eur and declared debts at 100000 eur. The note specifies that these values are self-declared with no independent audit or salary supplied."
+    },
+    {
+      "id": "turnout-rise:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "turnout_2022": "28%",
+          "turnout_2023": "42%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"turnout_2022\":\"28%\",\"turnout_2023\":\"42%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Избирателната активност в измисления пример е 28% през 2022 г. и нараства до 42% през 2023 г. През 2023 г. активността е по-висока в сравнение с 2022 г.",
+      "finishReason": "stop",
+      "elapsedMs": 642.5415000000003,
+      "usage": {
+        "completion_tokens": 68,
+        "prompt_tokens": 320,
+        "total_tokens": 388
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Избирателната активност в измисления пример е 28% през 2022 г. и нараства до 42% през 2023 г. През 2023 г. активността е по-висока в сравнение с 2022 г."
+    },
+    {
+      "id": "turnout-rise:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "turnout_2022": "28%",
+          "turnout_2023": "42%"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"turnout_2022\":\"28%\",\"turnout_2023\":\"42%\"}\nSource: invented evaluation fixture"
+      },
+      "text": "In the fictional example, turnout was 28% in 2022 and rose to 42% in 2023.",
+      "finishReason": "stop",
+      "elapsedMs": 492.26850000000013,
+      "usage": {
+        "completion_tokens": 31,
+        "prompt_tokens": 317,
+        "total_tokens": 348
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "In the fictional example, turnout was 28% in 2022 and rose to 42% in 2023."
+    },
+    {
+      "id": "unpaid-unknown:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "awarded_contract_value_eur": "900000",
+          "paid_amount": "unknown",
+          "note": "Payment data is not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"awarded_contract_value_eur\":\"900000\",\"paid_amount\":\"unknown\",\"note\":\"Payment data is not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Стойността на спечеления договор е 900000 EUR. Изплатената сума е неизвестна, тъй като данните за плащането не са налични.",
+      "finishReason": "stop",
+      "elapsedMs": 44104.887625,
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 328,
+        "total_tokens": 370
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Стойността на спечеления договор е 900000 EUR. Изплатената сума е неизвестна, тъй като данните за плащането не са налични."
+    },
+    {
+      "id": "unpaid-unknown:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "awarded_contract_value_eur": "900000",
+          "paid_amount": "unknown",
+          "note": "Payment data is not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"awarded_contract_value_eur\":\"900000\",\"paid_amount\":\"unknown\",\"note\":\"Payment data is not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "The awarded contract value for the fictional example is 900000 EUR, while the paid amount is unknown because payment data is not available.",
+      "finishReason": "stop",
+      "elapsedMs": 635.2723750000005,
+      "usage": {
+        "completion_tokens": 31,
+        "prompt_tokens": 325,
+        "total_tokens": 356
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": false,
+      "accepted": false,
+      "finalText": "Fictional example"
+    },
+    {
+      "id": "risk-eight:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "screening_signals": 8,
+          "note": "No denominator, risk classification or finding of wrongdoing is provided."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"screening_signals\":8,\"note\":\"No denominator, risk classification or finding of wrongdoing is provided.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Измисленият примерен източник показва 8 скринингови сигнала. Не са предоставени знаменател, класификация на риска или констатация за нарушение. Данните не съдържат допълнителни стойности за сравнение.",
+      "finishReason": "stop",
+      "elapsedMs": 752.5816669999986,
+      "usage": {
+        "completion_tokens": 53,
+        "prompt_tokens": 318,
+        "total_tokens": 371
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Измисленият примерен източник показва 8 скринингови сигнала. Не са предоставени знаменател, класификация на риска или констатация за нарушение. Данните не съдържат допълнителни стойности за сравнение."
+    },
+    {
+      "id": "risk-eight:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "screening_signals": 8,
+          "note": "No denominator, risk classification or finding of wrongdoing is provided."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"screening_signals\":8,\"note\":\"No denominator, risk classification or finding of wrongdoing is provided.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "The screening signals count is 8, according to the invented evaluation fixture. No denominator, risk classification, or finding of wrongdoing is provided.",
+      "finishReason": "stop",
+      "elapsedMs": 611.7181249999994,
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 315,
+        "total_tokens": 343
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "The screening signals count is 8, according to the invented evaluation fixture. No denominator, risk classification, or finding of wrongdoing is provided."
+    },
+    {
+      "id": "assets-small:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "declared_assets_eur": "90000",
+          "declared_debts_eur": "20000",
+          "note": "Self-declared, not audited. Salary not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"declared_assets_eur\":\"90000\",\"declared_debts_eur\":\"20000\",\"note\":\"Self-declared, not audited. Salary not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "Декларираните активи са 90000 евро, а декларираните задължения са 20000 евро съгласно самодекларираните и неодитирани данни. Заплатата е посочена като неналична. Тези данни идват от измислена оценка.",
+      "finishReason": "stop",
+      "elapsedMs": 783.8107500000042,
+      "usage": {
+        "completion_tokens": 69,
+        "prompt_tokens": 336,
+        "total_tokens": 405
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "Декларираните активи са 90000 евро, а декларираните задължения са 20000 евро съгласно самодекларираните и неодитирани данни. Заплатата е посочена като неналична. Тези данни идват от измислена оценка."
+    },
+    {
+      "id": "assets-small:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "declared_assets_eur": "90000",
+          "declared_debts_eur": "20000",
+          "note": "Self-declared, not audited. Salary not available."
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"declared_assets_eur\":\"90000\",\"declared_debts_eur\":\"20000\",\"note\":\"Self-declared, not audited. Salary not available.\"}\nSource: invented evaluation fixture"
+      },
+      "text": "In the invented evaluation fixture, the self-declared, unaudited assets were 90000 EUR and declared debts were 20000 EUR. The salary is not available.",
+      "finishReason": "stop",
+      "elapsedMs": 611.9714999999997,
+      "usage": {
+        "completion_tokens": 41,
+        "prompt_tokens": 333,
+        "total_tokens": 374
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "In the invented evaluation fixture, the self-declared, unaudited assets were 90000 EUR and declared debts were 20000 EUR. The salary is not available."
+    },
+    {
+      "id": "tax-rates:bg",
+      "split": "validation",
+      "lang": "bg",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Измислен пример",
+        "facts": {
+          "place": "Example City",
+          "indicators": 1,
+          "Property tax — local rate": "3 %",
+          "Property tax — national average": "2 %"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Измислен пример\nFacts (JSON): {\"place\":\"Example City\",\"indicators\":1,\"Property tax — local rate\":\"3 %\",\"Property tax — national average\":\"2 %\"}\nSource: invented evaluation fixture"
+      },
+      "text": "В Example City данните за местния данък върху недвижимите имоти показват стойност от 3 %, докато националната средна стойност е 2 %. Местната ставка е по-висока от националната средна стойност.",
+      "finishReason": "stop",
+      "elapsedMs": 731.1656250000015,
+      "usage": {
+        "completion_tokens": 54,
+        "prompt_tokens": 324,
+        "total_tokens": 378
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "В Example City данните за местния данък върху недвижимите имоти показват стойност от 3 %, докато националната средна стойност е 2 %. Местната ставка е по-висока от националната средна стойност."
+    },
+    {
+      "id": "tax-rates:en",
+      "split": "validation",
+      "lang": "en",
+      "env": {
+        "tool": "syntheticFixture",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Fictional example",
+        "facts": {
+          "place": "Example City",
+          "indicators": 1,
+          "Property tax — local rate": "3 %",
+          "Property tax — national average": "2 %"
+        },
+        "provenance": [
+          "invented evaluation fixture"
+        ]
+      },
+      "prompt": {
+        "system": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+        "user": "Title: Fictional example\nFacts (JSON): {\"place\":\"Example City\",\"indicators\":1,\"Property tax — local rate\":\"3 %\",\"Property tax — national average\":\"2 %\"}\nSource: invented evaluation fixture"
+      },
+      "text": "In Example City, the local property tax rate was 3 %, while the national average property tax was 2 %.",
+      "finishReason": "stop",
+      "elapsedMs": 619.5197499999995,
+      "usage": {
+        "completion_tokens": 23,
+        "prompt_tokens": 321,
+        "total_tokens": 344
+      },
+      "numeric": true,
+      "language": true,
+      "semantic": true,
+      "accepted": true,
+      "finalText": "In Example City, the local property tax rate was 3 %, while the national average property tax was 2 %."
+    }
+  ]
+}

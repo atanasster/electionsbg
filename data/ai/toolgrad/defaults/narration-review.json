@@ -1,0 +1,355 @@
+{
+  "version": 1,
+  "method": "Coding-agent local rubric assessment, not blinded human review or model grading. Outputs and pre-call cases preserved. Replay uses the current guard after fixing an observed false rejection; it is not fresh validation of that repair.",
+  "guardSourceHash": "c609586f808bca2f7a1ad94ac333d12c68741a001fb70547fae13cb7e3374978",
+  "limitations": [
+    "Lexical guards are not entailment checks and can miss unsupported claims or reject valid paraphrases.",
+    "Bilingual pairs are correlated; one small run cannot establish statistical significance.",
+    "Tax cases change supplied fact coverage as well as the prompt; their benefit cannot be attributed to prompt tuning alone.",
+    "Original runs predate guardSourceHash metadata; their recorded acceptance is retained, not relabeled as the repaired guard."
+  ],
+  "reports": [
+    {
+      "variant": "baseline",
+      "reportHash": "2f105cc034d943515581c2d5ef7af156ca8cdb43a7031545ca83cc37325b2344",
+      "rows": [
+        {
+          "id": "turnout:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "turnout:en",
+          "split": "development",
+          "rubricPass": false,
+          "reason": "Strict rubric violation: 'one-year period' computes a duration not supplied as a fact; mathematically correct, not a factual hallucination.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": false
+        },
+        {
+          "id": "contract:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": "Final sentence about the difference between awarded and paid is ambiguous, but the preceding text explicitly states payment is unknown.",
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "contract:en",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk:en",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets:en",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "turnout-rise:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "turnout-rise:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": false
+        },
+        {
+          "id": "unpaid-unknown:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": false
+        },
+        {
+          "id": "unpaid-unknown:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk-eight:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk-eight:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected; directional comparisons without computed amounts are allowed.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets-small:bg",
+          "split": "validation",
+          "rubricPass": false,
+          "reason": "Calls unaudited declarations 'ненадеждни' (unreliable), an unsupported reliability judgment.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets-small:en",
+          "split": "validation",
+          "rubricPass": false,
+          "reason": "Computes 70,000 euros net difference, absent from the supplied facts.",
+          "editorialNote": null,
+          "originalAccepted": false,
+          "replayAccepted": false
+        },
+        {
+          "id": "tax-rates:bg",
+          "split": "validation",
+          "rubricPass": false,
+          "reason": "Claims an assessment of the urban environment and regional values despite receiving only a place and indicator count.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "tax-rates:en",
+          "split": "validation",
+          "rubricPass": false,
+          "reason": "Misattributes the indicator count as an indicator 'value of one'.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        }
+      ],
+      "rubricPass": 13,
+      "originalAccepted": 17,
+      "replayAccepted": 14
+    },
+    {
+      "variant": "candidate",
+      "reportHash": "7bdfd6246f079e735c9ebdaed37f755a2fa45e1019e6b20c8308791fbe2dc6ab",
+      "rows": [
+        {
+          "id": "turnout:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "turnout:en",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "contract:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "contract:en",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": "Untranslated screening_signals and fixture provenance; script guard does not ensure idiomatic Bulgarian.",
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk:en",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets:bg",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets:en",
+          "split": "development",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "turnout-rise:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "turnout-rise:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "unpaid-unknown:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "unpaid-unknown:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": false,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk-eight:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "risk-eight:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets-small:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "assets-small:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "tax-rates:bg",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        },
+        {
+          "id": "tax-rates:en",
+          "split": "validation",
+          "rubricPass": true,
+          "reason": "Supplied facts and rubric respected.",
+          "editorialNote": null,
+          "originalAccepted": true,
+          "replayAccepted": true
+        }
+      ],
+      "rubricPass": 18,
+      "originalAccepted": 17,
+      "replayAccepted": 18
+    }
+  ]
+}

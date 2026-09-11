@@ -128,16 +128,17 @@ export const buildNarrationPrompt = (
   const language = lang === "bg" ? "Bulgarian" : "English";
   const script = lang === "bg" ? "Cyrillic" : "Latin";
   const length =
-    "Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means.";
+    "Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota.";
   return {
     system: [
       `You MUST write your entire answer in ${language} (${script} script) only.`,
       `Do not use any other language. Explain the civic data in ${language}.`,
       length,
-      "Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half).",
+      "Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic.",
       context
         ? "You may briefly connect this to the previous answer for continuity, but every number MUST come from the Facts below — never reuse or recompute a figure mentioned earlier in the conversation."
         : "",
+      "Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values.",
       "Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
     ]
       .filter(Boolean)
