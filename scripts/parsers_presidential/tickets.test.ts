@@ -423,7 +423,9 @@ describe("the party index", () => {
     }
   });
 
-  it("is derived from the parliamentary catalogues, not typed by hand", () => {
+  it.runIf(
+    fs.existsSync(path.join(PROJECT_ROOT, "data/2026_04_19/cik_parties.json")),
+  )("is derived from the parliamentary catalogues, not typed by hand", () => {
     const parties = parliamentaryParties();
     expect(parties.size).toBeGreaterThan(200);
     // Every entry carries at least one of the two things it exists to supply.

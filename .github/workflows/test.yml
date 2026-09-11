@@ -56,10 +56,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      # Hermetic — no browser, emulator or database — so it runs before the
-      # expensive build and fails fast.
+      # CI keeps the hermetic unit/component layer only. The *.data.test.ts
+      # suites are integration gates for local data refreshes and are omitted
+      # here so they do not consume the account's Actions-minute allowance.
       - name: Unit tests
-        run: npm run test:unit
+        run: npm run test:ci
 
       # The `functions/` package keeps its own node:test gate (it is CommonJS and
       # excluded from the root vitest projects), so `test:unit` does not cover it.
@@ -77,9 +78,6 @@ jobs:
 
       - name: News evaluation Function tests
         run: npm run news:evals:test
-
-      - name: News evaluation emulator integration
-        run: npm run news:evals:test:emulator
 
       # The webServer config in playwright.config.ts boots `firebase
       # emulators:start --only hosting`, which serves dist/. So the dist

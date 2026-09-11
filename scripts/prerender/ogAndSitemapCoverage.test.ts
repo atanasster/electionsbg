@@ -1729,7 +1729,10 @@ describe("a hub's og capture anchors on its head", () => {
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
       project: indicatorsFigures,
-      md5: "fb7c826fc50fc55886e8150d252a2362",
+      md5: "3ffec74c70da2f9bdc452879a4bb55c9",
+      // ⚠️ RE-SHOT 2026-09-11 — unemployment advanced from 2026-Q1 to Q2,
+      // moving 3.0% / rank 1 of 27 to 3.4% / rank 3 of 27. Visually
+      // inspected after capture; the other three headline figures are unchanged.
       // ⚠️ RE-SHOT 2026-09-10 — the SAME row again, a FOURTH time, and once more exactly as
       // the note below predicts. A 26th member state has reported 2026-Q2, so the rail reads
       // „9 от 26" against „9 от 25", and Bulgaria's own growth print moved 2.7% → 2.8% with
@@ -1755,16 +1758,16 @@ describe("a hub's og capture anchors on its head", () => {
       // lands on, because its 2026-Q2 return is the one still coming in. Expect it again
       // until the band clamps past 2026-Q2, at which point the capture entry's own
       // „THIS CLAUSE HAS AN EXPIRY" note takes over and the rail drops out entirely.
-      shot: "2026-09-10",
+      shot: "2026-09-11",
       figures:
         "gdpGrowth=2.8% [Растеж на реалния БВП · % спрямо същия период предходна " +
         "година (реален, SCA) · 2026-Q2] " +
         "inflation=5.8% [Инфлация (ХИПЦ) · % спрямо предходната година (ХИПЦ, " +
         "тримес. ср.) · 2026-Q2] " +
-        "unemployment=3.0% [Безработица · % от активното население (сезонно " +
-        "изгладено) · 2026-Q1] " +
+        "unemployment=3.4% [Безработица · % от активното население (сезонно " +
+        "изгладено) · 2026-Q2] " +
         "govDebt=28.5% [Брутен държавен дълг · % от БВП · 2026-Q1] " +
-        "| gdpGrowth=9/26 inflation=26/27 unemployment=1/27 govDebt=3/27",
+        "| gdpGrowth=9/26 inflation=26/27 unemployment=3/27 govDebt=3/27",
     },
   };
 
@@ -1809,12 +1812,23 @@ describe("a hub's og capture anchors on its head", () => {
           "fingerprint and update `figures`, `shot` and `md5` together",
       ).toBe(spec.md5);
       if (!shallow) {
-        const cardAt =
-          Number(
-            execFileSync("git", ["log", "-1", "--format=%ct", "--", rel], {
-              encoding: "utf8",
-            }).trim(),
-          ) * 1000;
+        // Before the re-shot PNG is committed, `git log` can only name the
+        // previous bytes. Use the new file's mtime while it is dirty; CI uses
+        // the commit timestamp after checkout, preserving the provenance gate.
+        const dirty = execFileSync(
+          "git",
+          ["status", "--porcelain", "--", rel],
+          {
+            encoding: "utf8",
+          },
+        ).trim();
+        const cardAt = dirty
+          ? fs.statSync(path.join(REPO, rel)).mtimeMs
+          : Number(
+              execFileSync("git", ["log", "-1", "--format=%ct", "--", rel], {
+                encoding: "utf8",
+              }).trim(),
+            ) * 1000;
         expect(cardAt, `no commit found for ${rel}`).toBeGreaterThan(0);
         expect(
           cardAt,

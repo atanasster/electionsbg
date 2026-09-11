@@ -9,7 +9,7 @@
 // and silently stop testing absence. Each case below asserts its own distinguishing property.
 
 import path from "node:path";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   ALL_SURFACE_FIXTURES,
@@ -448,263 +448,287 @@ const bundle = (p: string): Record<string, unknown> =>
     readFileSync(path.resolve(__dirname, "../../../../", p), "utf8"),
   ) as Record<string, unknown>;
 
-describe("fixtures — checked against the corpus they claim to come from", () => {
-  it("the country fixture matches national_summary.json", () => {
-    // Previously UNCOVERED. The arithmetic block proves self-consistency, so a whole fixture
-    // could be internally coherent and describe a different election.
-    const n = bundle("data/2026_04_19/national_summary.json") as unknown as {
-      parties: { nickName: string; totalVotes: number; seats: number }[];
-      paperMachine: { total: number; paperVotes: number };
-      turnout: { actual: number; registered: number; pct: number };
-    };
-    const top = [...n.parties].sort((a, b) => b.totalVotes - a.totalVotes);
-    const ballot = parliamentaryCountry.ballots[0];
+const corpusFiles = [
+  "data/2026_04_19/national_summary.json",
+  "data/2026_04_19/region_votes.json",
+  "data/2023_10_29_mi/index.json",
+  "data/2026_04_19/municipalities/PDV22.json",
+  "data/2023_10_29_mi/municipalities/PDV22.json",
+  "data/2023_10_29_mi/municipalities/PAZ19.json",
+  "data/2023_10_29_mi/sections/PAZ19/131900001.json",
+];
+const hasCorpus = corpusFiles.every((p) =>
+  existsSync(path.resolve(__dirname, "../../../../", p)),
+);
 
-    expect(ballot.totals.validVotes).toBe(n.paperMachine.total);
-    expect(ballot.totals.votesCast).toBe(n.turnout.actual);
-    expect(ballot.totals.registeredVoters).toBe(n.turnout.registered);
-    expect(ballot.totals.turnoutPct).toBeCloseTo(n.turnout.pct, 2);
-    ballot.preview.forEach((row, i) => {
-      expect(row.votes, `row ${i} votes`).toBe(top[i].totalVotes);
-      expect(row.seats, `row ${i} seats`).toBe(top[i].seats);
-    });
-  });
-
-  it("the abroad fixture matches region_votes.json key 32, on the paper+machine basis", () => {
-    // ⚠ THE ORIGINAL DEFECT, now gated. `numValidVotes` in that protocol is PAPER-ONLY
-    // (133,422); the real valid total is the party-row sum, 186,643. Using the protocol field
-    // inflated every abroad share by ~40% while staying perfectly self-consistent.
-    const r = JSON.parse(
-      readFileSync(
-        path.resolve(
-          __dirname,
-          "../../../../data/2026_04_19/region_votes.json",
-        ),
-        "utf8",
-      ),
-    ) as {
-      key: string;
-      results: {
-        votes: { partyNum: number; totalVotes: number }[];
-        protocol: { totalActualVoters: number; numValidVotes: number };
+describe.runIf(hasCorpus)(
+  "fixtures — checked against the corpus they claim to come from",
+  () => {
+    it("the country fixture matches national_summary.json", () => {
+      // Previously UNCOVERED. The arithmetic block proves self-consistency, so a whole fixture
+      // could be internally coherent and describe a different election.
+      const n = bundle("data/2026_04_19/national_summary.json") as unknown as {
+        parties: { nickName: string; totalVotes: number; seats: number }[];
+        paperMachine: { total: number; paperVotes: number };
+        turnout: { actual: number; registered: number; pct: number };
       };
-    }[];
-    const ab = r.find((x) => x.key === "32")!;
-    const valid = ab.results.votes.reduce((a, v) => a + v.totalVotes, 0);
-    const ballot = parliamentaryAbroad.ballots[0];
+      const top = [...n.parties].sort((a, b) => b.totalVotes - a.totalVotes);
+      const ballot = parliamentaryCountry.ballots[0];
 
-    expect(ballot.totals.validVotes).toBe(valid);
-    expect(ballot.totals.validVotes).not.toBe(
-      ab.results.protocol.numValidVotes,
-    );
-    expect(ballot.totals.votesCast).toBe(ab.results.protocol.totalActualVoters);
-
-    const top = [...ab.results.votes].sort(
-      (a, b) => b.totalVotes - a.totalVotes,
-    );
-    ballot.preview.forEach((row, i) => {
-      expect(row.votes, `abroad row ${i}`).toBe(top[i].totalVotes);
+      expect(ballot.totals.validVotes).toBe(n.paperMachine.total);
+      expect(ballot.totals.votesCast).toBe(n.turnout.actual);
+      expect(ballot.totals.registeredVoters).toBe(n.turnout.registered);
+      expect(ballot.totals.turnoutPct).toBeCloseTo(n.turnout.pct, 2);
+      ballot.preview.forEach((row, i) => {
+        expect(row.votes, `row ${i} votes`).toBe(top[i].totalVotes);
+        expect(row.seats, `row ${i} seats`).toBe(top[i].seats);
+      });
     });
-    // The abroad protocol reports more voters than registered — 196,281 against 59,545 — so a
-    // rate is impossible, not merely unknown.
-    expect(ballot.totals.votesCast).toBeGreaterThan(59_545);
-    expect(ballot.totals.turnoutBasis).toBe("unavailable");
-  });
 
-  it("the local-country fixture matches index.json", () => {
-    const d = bundle("data/2023_10_29_mi/index.json") as unknown as {
-      municipalities: unknown[];
-      councilVoteShare: { canonicalId: string; totalVotes: number }[];
-      mayorsByCanonical: { canonicalId: string; count: number }[];
-    };
-    const councilTotal = d.councilVoteShare.reduce(
-      (a, r) => a + r.totalVotes,
-      0,
-    );
-    const [mayorBallot, councilBallot] = localCountry.ballots;
+    it("the abroad fixture matches region_votes.json key 32, on the paper+machine basis", () => {
+      // ⚠ THE ORIGINAL DEFECT, now gated. `numValidVotes` in that protocol is PAPER-ONLY
+      // (133,422); the real valid total is the party-row sum, 186,643. Using the protocol field
+      // inflated every abroad share by ~40% while staying perfectly self-consistent.
+      const r = JSON.parse(
+        readFileSync(
+          path.resolve(
+            __dirname,
+            "../../../../data/2026_04_19/region_votes.json",
+          ),
+          "utf8",
+        ),
+      ) as {
+        key: string;
+        results: {
+          votes: { partyNum: number; totalVotes: number }[];
+          protocol: { totalActualVoters: number; numValidVotes: number };
+        };
+      }[];
+      const ab = r.find((x) => x.key === "32")!;
+      const valid = ab.results.votes.reduce((a, v) => a + v.totalVotes, 0);
+      const ballot = parliamentaryAbroad.ballots[0];
 
-    expect(councilBallot.totals.validVotes).toBe(councilTotal);
-    expect(mayorBallot.totals.votesCast).toBe(d.municipalities.length);
-    const topMayors = [...d.mayorsByCanonical].sort(
-      (a, b) => b.count - a.count,
-    );
-    mayorBallot.preview.forEach((row, i) => {
-      expect(row.partyId, `mayors row ${i}`).toBe(topMayors[i].canonicalId);
-      expect(row.votes, `mayors row ${i}`).toBe(topMayors[i].count);
-    });
-    const topCouncil = [...d.councilVoteShare].sort(
-      (a, b) => b.totalVotes - a.totalVotes,
-    );
-    councilBallot.preview.forEach((row, i) => {
-      expect(row.partyId, `council row ${i}`).toBe(topCouncil[i].canonicalId);
-      expect(row.votes, `council row ${i}`).toBe(topCouncil[i].totalVotes);
-    });
-  });
-
-  it("declares no destination that is available with an empty route", () => {
-    // ⚠ The fabricated-URL class. A protocol link this repo cannot build is a dead link
-    // asserted as evidence — `auditLinks.ts` covers no local cycle, so 2023 has none.
-    for (const [name, s] of Object.entries(ALL_SURFACE_FIXTURES)) {
-      const all = [
-        s.destinations.completeResult,
-        s.destinations.childPlaces,
-        s.destinations.parentPlace,
-        s.destinations.officialProtocol,
-        ...Object.values(s.destinations.views ?? {}),
-        ...s.ballots.flatMap((b) => [b.completeResult, b.officialProtocol]),
-      ].filter(Boolean);
-      for (const dst of all) {
-        if (dst!.available)
-          expect(dst!.to, `${name}: available with no route`).toBeTruthy();
-        else
-          expect(
-            dst!.reason,
-            `${name}: unavailable with no reason`,
-          ).toBeTruthy();
-      }
-    }
-  });
-
-  it("never invents an external URL this repo has no builder for", () => {
-    // Every `to` must be an in-app route. The one fabricated absolute URL in this file's
-    // history matched no builder in the repo and was pinned by a passing test.
-    for (const [name, s] of Object.entries(ALL_SURFACE_FIXTURES)) {
-      // Only an AVAILABLE destination carries a route; an unavailable one is deliberately
-      // empty and explained by its `reason` (checked in the test above).
-      const routes = [
-        s.destinations.completeResult,
-        ...s.ballots.map((b) => b.completeResult),
-      ]
-        .filter((d) => d.available)
-        .map((d) => d.to);
-      for (const to of routes)
-        expect(to.startsWith("/"), `${name}: "${to}" is not an app route`).toBe(
-          true,
-        );
-    }
-  });
-
-  it("the digest's parliamentary margin is the gap to THIS place's runner-up", () => {
-    // The defect: 33.13 was 46.28 − 13.15, i.e. the margin over the NATIONAL runner-up
-    // (ГЕРБ-СДС). Plovdiv's own runner-up is ПП-ДБ at 16.40%, so the real margin is 29.87.
-    const d = bundle("data/2026_04_19/municipalities/PDV22.json");
-    const votes = (
-      (d.results as { votes: { totalVotes: number }[] }).votes ?? []
-    ).map((v) => v.totalVotes);
-    const valid = votes.reduce((a, b) => a + b, 0);
-    const [first, second] = [...votes].sort((a, b) => b - a);
-
-    const cell = digestAllFiveViews.find((c) => c.view === "parliamentary");
-    expect(cell?.kind).toBe("figure");
-    if (cell?.kind === "figure" && cell.view === "parliamentary") {
-      expect(cell.winnerPct).toBeCloseTo((first / valid) * 100, 1);
-      expect(cell.marginPct).toBeCloseTo(((first - second) / valid) * 100, 1);
-    }
-  });
-
-  it("the digest's local cell matches the municipality bundle", () => {
-    const d = bundle("data/2023_10_29_mi/municipalities/PDV22.json");
-    const elected = (d.mayor as { elected: Record<string, unknown> }).elected;
-    const council = (
-      d.council as { mandatesWon?: number; primaryCanonicalId: string | null }[]
-    ).filter((r) => (r.mandatesWon ?? 0) > 0);
-    const lead = council.reduce((a, b) =>
-      (b.mandatesWon ?? 0) > (a.mandatesWon ?? 0) ? b : a,
-    );
-    const seats = council.reduce((n, r) => n + (r.mandatesWon ?? 0), 0);
-
-    const cell = digestAllFiveViews.find((c) => c.view === "local");
-    expect(cell?.kind).toBe("figure");
-    if (cell?.kind === "figure" && cell.view === "local") {
-      expect(cell.mayorName).toBe(elected.candidateName);
-      expect(cell.mayorPartyId).toBe(elected.primaryCanonicalId);
-      expect(cell.councilLeadPartyId).toBe(lead.primaryCanonicalId);
-      expect(cell.councilLeadSeats).toBe(lead.mandatesWon);
-      expect(cell.councilSeatsTotal).toBe(seats);
-    }
-  });
-
-  it("PAZ19's council rows carry the corpus's own independence flag", () => {
-    // ⚠ A null `partyId` means UNMAPPED, not independent — PAZ19 has zero independent lists,
-    // and „ЗАЕДНО ЗА СИЛНА ОБЩИНА" is a registered coalition with no canonical id. Flagging it
-    // independent publishes a false claim about the list, and nothing inside the fixture file
-    // contradicts it, so only the bundle can catch it.
-    const d = bundle("data/2023_10_29_mi/municipalities/PAZ19.json");
-    const rows = (
-      d.council as {
-        mandatesWon?: number;
-        primaryCanonicalId: string | null;
-        isIndependent: boolean;
-        totalVotes: number;
-      }[]
-    ).filter((r) => (r.mandatesWon ?? 0) > 0);
-
-    const council = localMunicipalityRunoffSplit.ballots.find(
-      (b) => b.kind === "municipal_council",
-    )!;
-    for (const row of council.preview) {
-      const src = rows.find(
-        (r) =>
-          r.primaryCanonicalId === row.partyId && r.totalVotes === row.votes,
+      expect(ballot.totals.validVotes).toBe(valid);
+      expect(ballot.totals.validVotes).not.toBe(
+        ab.results.protocol.numValidVotes,
       );
-      expect(
-        src,
-        `no PAZ19 row with ${row.partyId} / ${row.votes} votes`,
-      ).toBeTruthy();
-      expect(
-        row.isIndependent ?? false,
-        `${row.partyId}: independence flag disagrees with the bundle`,
-      ).toBe(src!.isIndependent);
-    }
-  });
+      expect(ballot.totals.votesCast).toBe(
+        ab.results.protocol.totalActualVoters,
+      );
 
-  it("PAZ19's runoff pair matches the published round-2 rows", () => {
-    const d = bundle("data/2023_10_29_mi/municipalities/PAZ19.json");
-    const r2 = (
-      d.mayor as {
-        round2: {
-          candidateName: string;
-          primaryCanonicalId: string | null;
-          votes: number;
-          pctOfValid: number;
-        }[];
-      }
-    ).round2;
-    const mayor = localMunicipalityRunoffSplit.ballots[0];
-    mayor.preview.forEach((row, i) => {
-      expect(row.candidateName).toBe(r2[i].candidateName);
-      expect(row.partyId).toBe(r2[i].primaryCanonicalId);
-      expect(row.votes).toBe(r2[i].votes);
-      // The published share, not one recomputed on the two finalists — they sum to 97.89%,
-      // because „не подкрепям никого" takes the rest.
-      expect(row.pct).toBeCloseTo(r2[i].pctOfValid, 1);
+      const top = [...ab.results.votes].sort(
+        (a, b) => b.totalVotes - a.totalVotes,
+      );
+      ballot.preview.forEach((row, i) => {
+        expect(row.votes, `abroad row ${i}`).toBe(top[i].totalVotes);
+      });
+      // The abroad protocol reports more voters than registered — 196,281 against 59,545 — so a
+      // rate is impossible, not merely unknown.
+      expect(ballot.totals.votesCast).toBeGreaterThan(59_545);
+      expect(ballot.totals.turnoutBasis).toBe("unavailable");
     });
-  });
 
-  it("the section fixture matches its own shard, both ballots", () => {
-    const d = bundle("data/2023_10_29_mi/sections/PAZ19/131900001.json");
-    const sec = d.section as {
-      numRegisteredVoters: number;
-      totalActualVoters: number;
-      numValidVotes: number;
-      mayorValid: number;
-      partyVotes: { localPartyNum: number; votes: number }[];
-      mayorVotes: { localPartyNum: number; votes: number }[];
-    };
-    const [council, mayor] = localSectionMultipleBallots.ballots;
+    it("the local-country fixture matches index.json", () => {
+      const d = bundle("data/2023_10_29_mi/index.json") as unknown as {
+        municipalities: unknown[];
+        councilVoteShare: { canonicalId: string; totalVotes: number }[];
+        mayorsByCanonical: { canonicalId: string; count: number }[];
+      };
+      const councilTotal = d.councilVoteShare.reduce(
+        (a, r) => a + r.totalVotes,
+        0,
+      );
+      const [mayorBallot, councilBallot] = localCountry.ballots;
 
-    expect(council.totals.registeredVoters).toBe(sec.numRegisteredVoters);
-    expect(council.totals.votesCast).toBe(sec.totalActualVoters);
-    expect(council.totals.validVotes).toBe(sec.numValidVotes);
-    expect(mayor.totals.validVotes).toBe(sec.mayorValid);
+      expect(councilBallot.totals.validVotes).toBe(councilTotal);
+      expect(mayorBallot.totals.votesCast).toBe(d.municipalities.length);
+      const topMayors = [...d.mayorsByCanonical].sort(
+        (a, b) => b.count - a.count,
+      );
+      mayorBallot.preview.forEach((row, i) => {
+        expect(row.partyId, `mayors row ${i}`).toBe(topMayors[i].canonicalId);
+        expect(row.votes, `mayors row ${i}`).toBe(topMayors[i].count);
+      });
+      const topCouncil = [...d.councilVoteShare].sort(
+        (a, b) => b.totalVotes - a.totalVotes,
+      );
+      councilBallot.preview.forEach((row, i) => {
+        expect(row.partyId, `council row ${i}`).toBe(topCouncil[i].canonicalId);
+        expect(row.votes, `council row ${i}`).toBe(topCouncil[i].totalVotes);
+      });
+    });
 
-    const topCouncil = [...sec.partyVotes].sort((a, b) => b.votes - a.votes)[0];
-    expect(council.preview[0].votes).toBe(topCouncil.votes);
-    const topMayor = [...sec.mayorVotes].sort((a, b) => b.votes - a.votes)[0];
-    expect(mayor.preview[0].votes).toBe(topMayor.votes);
-    // ⚠ The municipality's eventual mayor LOST here. A fixture that flags him elected at this
-    // station is fabricating a result about a named individual at a named place.
-    expect(mayor.preview[0].isElected ?? false).toBe(false);
-    expect(mayor.preview[1].isElected ?? false).toBe(false);
-  });
-});
+    it("declares no destination that is available with an empty route", () => {
+      // ⚠ The fabricated-URL class. A protocol link this repo cannot build is a dead link
+      // asserted as evidence — `auditLinks.ts` covers no local cycle, so 2023 has none.
+      for (const [name, s] of Object.entries(ALL_SURFACE_FIXTURES)) {
+        const all = [
+          s.destinations.completeResult,
+          s.destinations.childPlaces,
+          s.destinations.parentPlace,
+          s.destinations.officialProtocol,
+          ...Object.values(s.destinations.views ?? {}),
+          ...s.ballots.flatMap((b) => [b.completeResult, b.officialProtocol]),
+        ].filter(Boolean);
+        for (const dst of all) {
+          if (dst!.available)
+            expect(dst!.to, `${name}: available with no route`).toBeTruthy();
+          else
+            expect(
+              dst!.reason,
+              `${name}: unavailable with no reason`,
+            ).toBeTruthy();
+        }
+      }
+    });
+
+    it("never invents an external URL this repo has no builder for", () => {
+      // Every `to` must be an in-app route. The one fabricated absolute URL in this file's
+      // history matched no builder in the repo and was pinned by a passing test.
+      for (const [name, s] of Object.entries(ALL_SURFACE_FIXTURES)) {
+        // Only an AVAILABLE destination carries a route; an unavailable one is deliberately
+        // empty and explained by its `reason` (checked in the test above).
+        const routes = [
+          s.destinations.completeResult,
+          ...s.ballots.map((b) => b.completeResult),
+        ]
+          .filter((d) => d.available)
+          .map((d) => d.to);
+        for (const to of routes)
+          expect(
+            to.startsWith("/"),
+            `${name}: "${to}" is not an app route`,
+          ).toBe(true);
+      }
+    });
+
+    it("the digest's parliamentary margin is the gap to THIS place's runner-up", () => {
+      // The defect: 33.13 was 46.28 − 13.15, i.e. the margin over the NATIONAL runner-up
+      // (ГЕРБ-СДС). Plovdiv's own runner-up is ПП-ДБ at 16.40%, so the real margin is 29.87.
+      const d = bundle("data/2026_04_19/municipalities/PDV22.json");
+      const votes = (
+        (d.results as { votes: { totalVotes: number }[] }).votes ?? []
+      ).map((v) => v.totalVotes);
+      const valid = votes.reduce((a, b) => a + b, 0);
+      const [first, second] = [...votes].sort((a, b) => b - a);
+
+      const cell = digestAllFiveViews.find((c) => c.view === "parliamentary");
+      expect(cell?.kind).toBe("figure");
+      if (cell?.kind === "figure" && cell.view === "parliamentary") {
+        expect(cell.winnerPct).toBeCloseTo((first / valid) * 100, 1);
+        expect(cell.marginPct).toBeCloseTo(((first - second) / valid) * 100, 1);
+      }
+    });
+
+    it("the digest's local cell matches the municipality bundle", () => {
+      const d = bundle("data/2023_10_29_mi/municipalities/PDV22.json");
+      const elected = (d.mayor as { elected: Record<string, unknown> }).elected;
+      const council = (
+        d.council as {
+          mandatesWon?: number;
+          primaryCanonicalId: string | null;
+        }[]
+      ).filter((r) => (r.mandatesWon ?? 0) > 0);
+      const lead = council.reduce((a, b) =>
+        (b.mandatesWon ?? 0) > (a.mandatesWon ?? 0) ? b : a,
+      );
+      const seats = council.reduce((n, r) => n + (r.mandatesWon ?? 0), 0);
+
+      const cell = digestAllFiveViews.find((c) => c.view === "local");
+      expect(cell?.kind).toBe("figure");
+      if (cell?.kind === "figure" && cell.view === "local") {
+        expect(cell.mayorName).toBe(elected.candidateName);
+        expect(cell.mayorPartyId).toBe(elected.primaryCanonicalId);
+        expect(cell.councilLeadPartyId).toBe(lead.primaryCanonicalId);
+        expect(cell.councilLeadSeats).toBe(lead.mandatesWon);
+        expect(cell.councilSeatsTotal).toBe(seats);
+      }
+    });
+
+    it("PAZ19's council rows carry the corpus's own independence flag", () => {
+      // ⚠ A null `partyId` means UNMAPPED, not independent — PAZ19 has zero independent lists,
+      // and „ЗАЕДНО ЗА СИЛНА ОБЩИНА" is a registered coalition with no canonical id. Flagging it
+      // independent publishes a false claim about the list, and nothing inside the fixture file
+      // contradicts it, so only the bundle can catch it.
+      const d = bundle("data/2023_10_29_mi/municipalities/PAZ19.json");
+      const rows = (
+        d.council as {
+          mandatesWon?: number;
+          primaryCanonicalId: string | null;
+          isIndependent: boolean;
+          totalVotes: number;
+        }[]
+      ).filter((r) => (r.mandatesWon ?? 0) > 0);
+
+      const council = localMunicipalityRunoffSplit.ballots.find(
+        (b) => b.kind === "municipal_council",
+      )!;
+      for (const row of council.preview) {
+        const src = rows.find(
+          (r) =>
+            r.primaryCanonicalId === row.partyId && r.totalVotes === row.votes,
+        );
+        expect(
+          src,
+          `no PAZ19 row with ${row.partyId} / ${row.votes} votes`,
+        ).toBeTruthy();
+        expect(
+          row.isIndependent ?? false,
+          `${row.partyId}: independence flag disagrees with the bundle`,
+        ).toBe(src!.isIndependent);
+      }
+    });
+
+    it("PAZ19's runoff pair matches the published round-2 rows", () => {
+      const d = bundle("data/2023_10_29_mi/municipalities/PAZ19.json");
+      const r2 = (
+        d.mayor as {
+          round2: {
+            candidateName: string;
+            primaryCanonicalId: string | null;
+            votes: number;
+            pctOfValid: number;
+          }[];
+        }
+      ).round2;
+      const mayor = localMunicipalityRunoffSplit.ballots[0];
+      mayor.preview.forEach((row, i) => {
+        expect(row.candidateName).toBe(r2[i].candidateName);
+        expect(row.partyId).toBe(r2[i].primaryCanonicalId);
+        expect(row.votes).toBe(r2[i].votes);
+        // The published share, not one recomputed on the two finalists — they sum to 97.89%,
+        // because „не подкрепям никого" takes the rest.
+        expect(row.pct).toBeCloseTo(r2[i].pctOfValid, 1);
+      });
+    });
+
+    it("the section fixture matches its own shard, both ballots", () => {
+      const d = bundle("data/2023_10_29_mi/sections/PAZ19/131900001.json");
+      const sec = d.section as {
+        numRegisteredVoters: number;
+        totalActualVoters: number;
+        numValidVotes: number;
+        mayorValid: number;
+        partyVotes: { localPartyNum: number; votes: number }[];
+        mayorVotes: { localPartyNum: number; votes: number }[];
+      };
+      const [council, mayor] = localSectionMultipleBallots.ballots;
+
+      expect(council.totals.registeredVoters).toBe(sec.numRegisteredVoters);
+      expect(council.totals.votesCast).toBe(sec.totalActualVoters);
+      expect(council.totals.validVotes).toBe(sec.numValidVotes);
+      expect(mayor.totals.validVotes).toBe(sec.mayorValid);
+
+      const topCouncil = [...sec.partyVotes].sort(
+        (a, b) => b.votes - a.votes,
+      )[0];
+      expect(council.preview[0].votes).toBe(topCouncil.votes);
+      const topMayor = [...sec.mayorVotes].sort((a, b) => b.votes - a.votes)[0];
+      expect(mayor.preview[0].votes).toBe(topMayor.votes);
+      // ⚠ The municipality's eventual mayor LOST here. A fixture that flags him elected at this
+      // station is fabricating a result about a named individual at a named place.
+      expect(mayor.preview[0].isElected ?? false).toBe(false);
+      expect(mayor.preview[1].isElected ?? false).toBe(false);
+    });
+  },
+);

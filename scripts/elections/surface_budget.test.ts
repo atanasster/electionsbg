@@ -52,10 +52,14 @@ const cycles = (): { kind: ElectionKind; cycle: string }[] => {
   const dirs = fs.readdirSync(DATA_ROOT);
   const parl = dirs
     .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
+    .filter((d) =>
+      fs.existsSync(path.join(DATA_ROOT, d, "national_summary.json")),
+    )
     .sort()
     .at(-1);
   const locals = dirs
     .filter((d) => /^\d{4}_\d{2}_\d{2}_mi$/.test(d))
+    .filter((d) => fs.existsSync(path.join(DATA_ROOT, d, "index.json")))
     .sort()
     .slice(-2);
   // ⚠ EVERY presidential cycle, matching `surface_budget.ts`'s own arm. The two halves of
@@ -63,7 +67,12 @@ const cycles = (): { kind: ElectionKind; cycle: string }[] => {
   // this gate's hand-written list did not, so a wrong `measuredMaxBytes` on those six rows
   // was undetectable — which is exactly how one reached a commit, measured on the 2011
   // `_unplaced` residue bucket instead of on a place.
-  const pres = dirs.filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d)).sort();
+  const pres = dirs
+    .filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d))
+    .filter((d) =>
+      fs.existsSync(path.join(DATA_ROOT, d, "national_summary.json")),
+    )
+    .sort();
   return [
     ...(parl ? [{ kind: "parliamentary" as const, cycle: parl }] : []),
     ...locals.map((cycle) => ({ kind: "local" as const, cycle })),

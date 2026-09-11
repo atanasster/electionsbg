@@ -3411,8 +3411,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:connections",
         text: {
-          bg: "Този ЕИК е ключът към Търговския регистър — 18 731 изпълнителя се намират там като фирми със собственици и управители.",
-          en: "That company number is the key into the Commerce Registry — 18,731 contractors are found there as companies with owners and directors.",
+          bg: "Този ЕИК е ключът към Търговския регистър — 18 734 изпълнителя се намират там като фирми със собственици и управители.",
+          en: "That company number is the key into the Commerce Registry — 18,734 contractors are found there as companies with owners and directors.",
         },
       },
       {

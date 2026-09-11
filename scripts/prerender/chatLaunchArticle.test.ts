@@ -5,13 +5,13 @@ import { renderMarkdownToHtml } from "./articleMarkdown";
 import publication from "../../src/lib/chatLaunchPublication.json";
 
 afterEach(() => vi.unstubAllEnvs());
-describe("chat launch draft", () => {
-  it("is absent from normal prerender routes", async () => {
+describe("chat launch article", () => {
+  it("follows its publication flag in normal prerender routes", async () => {
     vi.stubEnv("VITE_CHAT_LAUNCH_PREVIEW", "");
     const routes = await buildArticleRoutes(path.join(process.cwd(), "public"));
     expect(
       routes.some((route) => route.path === `articles/${publication.slug}`),
-    ).toBe(false);
+    ).toBe(publication.published);
   });
   it("has complete bilingual figures, metadata and language-preserving query links in isolated preview", async () => {
     vi.stubEnv("VITE_CHAT_LAUNCH_PREVIEW", "true");

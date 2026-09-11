@@ -94,6 +94,7 @@ export const presidentialCycles = (root = DATA_ROOT): string[] =>
     ? fs
         .readdirSync(root)
         .filter((d) => PRESIDENTIAL_FOLDER_RE.test(d))
+        .filter((d) => fs.existsSync(path.join(root, d, "tickets.json")))
         .sort()
     : [];
 

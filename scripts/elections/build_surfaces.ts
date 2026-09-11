@@ -87,10 +87,15 @@ export const coveredCycles = (
   const dirs = fs.readdirSync(root);
   const parl = dirs
     .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
+    // A fresh clone can contain a cycle directory solely because its curated
+    // `parties/assessment` subtree is committed while generated election data
+    // is intentionally ignored. Such a directory is not an election corpus.
+    .filter((d) => fs.existsSync(path.join(root, d, "region_votes.json")))
     .sort()
     .at(-1);
   const locals = dirs
     .filter((d) => /^\d{4}_\d{2}_\d{2}_mi$/.test(d))
+    .filter((d) => fs.existsSync(path.join(root, d, "index.json")))
     .sort()
     .slice(-2);
   // ⚠ EVERY presidential cycle, not the latest two. There are five, they are historical and
@@ -98,7 +103,12 @@ export const coveredCycles = (
   // arriving at 2021.
   const pres = withheld.includes("presidential")
     ? []
-    : dirs.filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d)).sort();
+    : dirs
+        .filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d))
+        .filter((d) =>
+          fs.existsSync(path.join(root, d, "national_summary.json")),
+        )
+        .sort();
   return [
     ...(parl ? [{ kind: "parliamentary" as const, cycle: parl }] : []),
     ...locals.map((cycle) => ({ kind: "local" as const, cycle })),

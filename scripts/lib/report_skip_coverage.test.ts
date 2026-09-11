@@ -164,6 +164,11 @@ const EXEMPT: Record<string, string> = {
   // early for it. Asserting on it would turn a planned state into a red build.
   "scripts/db/tests/person_prerender_set.data.test.ts → unasserted-committed-input: data/officials/assets-rankings.json":
     "absence is a documented post-T1.5 state rather than a broken tree",
+  // This path is created under a per-test temporary root. The test deliberately
+  // asserts its absence to cover main()'s no-corpus error, so it is not a gate on
+  // the repository's committed presidential-poll corpus.
+  "scripts/polls/presidential/rekey.test.ts → unasserted-committed-input: data/polls/presidential":
+    "synthetic scratch path whose absence is the behavior under test",
 };
 
 /**
