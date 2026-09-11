@@ -1,0 +1,5588 @@
+{
+  "version": 1,
+  "capturedAt": "2026-09-11T10:14:40.334Z",
+  "commit": "aa2848dbda2ee12aa58161dc484c0b3e70dc7a47",
+  "seedHash": "9192c269288eaa2c6fe0b5d29c32167b2783ec8b73851c94d5e43fcae4639b31",
+  "inputs": [
+    {
+      "source": "src/data/json/elections.json",
+      "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+    },
+    {
+      "source": "data/2024_10_27/national_summary.json",
+      "sha256": "53bcf3ff46ea61171baa8cf1b776ef6476ef177a43f8ee14d0e1334180f27c50"
+    },
+    {
+      "source": "data/2024_10_27/region_votes.json",
+      "sha256": "5fcfc29593eb6d90d6100a31ac3c925dd9b27802c8176c589ae96f5bb5d3ea53"
+    },
+    {
+      "source": "data/2023_04_02/national_summary.json",
+      "sha256": "5309ae72da90dde5ea7df55605963af3fadacadcd4575b270c13333038095fff"
+    },
+    {
+      "source": "data/municipalities.json",
+      "sha256": "35b91f3321151c9e374de5cafa9d0261ca0560a5b97e8e1db8cced2f4ed496e0"
+    },
+    {
+      "source": "data/2023_04_02/municipalities/by/PDV-00.json",
+      "sha256": "01d1003a045a633ab0d9421ac8f7d2df047841365f490b27382f722a3e1be4db"
+    },
+    {
+      "source": "local-pg:/api/db/procurement-overview?{}",
+      "sha256": "2ecb8bbcdd5907bba984964d405740ffa6fc0c18275356891275fc5b8aef5492"
+    },
+    {
+      "source": "local-pg:/api/db/procurement-rankings?{}",
+      "sha256": "57e9e3a00ebfea24c36a3287d2e907e272f815ed16e0fe7f769968841546344a"
+    },
+    {
+      "source": "local-pg:/api/db/kzk-appeals-summary?{}",
+      "sha256": "f2857d9e8f2f7bd72b72e15a6f96d2623a2c69dcbc00b28683f8ed5c502c316a"
+    },
+    {
+      "source": "local-pg:/api/db/procurement-risk-feed?{}",
+      "sha256": "36d3f30992eaebf2c42a9d9880cd32c8893dd6910535fe82fe79af776537d9ef"
+    },
+    {
+      "source": "local-pg:/api/db/debarred?{}",
+      "sha256": "5a07e6f41dd5faae69ab239536bd06d63baa0a356062e239c1dada4d304ed7e6"
+    },
+    {
+      "source": "local-pg:/api/db/procurement-risk-indexes?{}",
+      "sha256": "a4dbf2b4f02e1886811c13157843622967c15e987f93aa6f259b16f39aa1cddb"
+    },
+    {
+      "source": "local-pg:/api/db/awarder-procurement?{\"eik\":\"000695324\"}",
+      "sha256": "c8bced76fe53de8291afa56b4558d1925afdc4b9eb702397682f53ee6225ed25"
+    },
+    {
+      "source": "local-pg:/api/db/person-profile?{\"name\":\"Бойко Методиев Борисов\"}",
+      "sha256": "2e9d94e763362b54d30d39611dd67f2342c6fdcd160cf8620cf2f17c88cea2e3"
+    },
+    {
+      "source": "local-pg:/api/db/person-connections?{\"slug\":\"mp-5186\"}",
+      "sha256": "407501321661f3e4f79b1975930058353930af9822fe03af78676995dcc423c4"
+    },
+    {
+      "source": "local-pg:/api/db/person-wealth?{\"slug\":\"mp-5186\"}",
+      "sha256": "fe25002f0b1322568e63fa8fe406a18de213a99603d4d240fba3705df9edb4f7"
+    },
+    {
+      "source": "local-pg:/api/db/table?{\"q\":\"{\\\"resource\\\":\\\"mp_assets_rankings\\\",\\\"page\\\":0,\\\"pageSize\\\":12,\\\"sort\\\":[{\\\"id\\\":\\\"net_worth_eur\\\",\\\"desc\\\":true}]}\"}",
+      "sha256": "983c9f553a3183fd9a9ae22a54feca57618cd4be2a88aecba75f05c519b1111b"
+    },
+    {
+      "source": "data/parliament/votes/index.json",
+      "sha256": "ff97f96f6ecce28361629331e08cc1b631a2063d544945cf5b1cdae2f623582a"
+    },
+    {
+      "source": "data/parliament/votes/derived/attendance.json",
+      "sha256": "720ec40eaa6f2daac2b2a3687f02f8484dcd35ee4685cd2a5653577bda1cfcce"
+    },
+    {
+      "source": "data/parliament/votes/derived/loyalty.json",
+      "sha256": "eca5189b02fa6cb6c31a4cccff581deee2b405e87751a4a95900f3cc2a45d5c7"
+    },
+    {
+      "source": "data/2023_10_29_mi/municipalities/PDV22.json",
+      "sha256": "2fcb740b707900cea901a3f6e7b6f4d32df8707936683db6f63faa8906a7c41a"
+    },
+    {
+      "source": "data/2023_10_29_mi/municipalities/VAR06.json",
+      "sha256": "d8f44748daf7ff5c06ff42ea2d9ef20c21a621a7797fe9326fc574dcf3b14b8e"
+    },
+    {
+      "source": "data/canonical_parties.json",
+      "sha256": "3e6ca0baf272f366bc3c15d68fba84b8986e910e69b5908f9098720a9586e7ea"
+    },
+    {
+      "source": "data/local_taxes/index.json",
+      "sha256": "382158f4b1e33132f0421ef4ff522bbfacd67e0e39af6c55e2733ca4ef6554df"
+    },
+    {
+      "source": "data/local_taxes/RSE27.json",
+      "sha256": "dd6d8a0a9b665710665d24f20f131c9e802da0ca00102504b305bb9f5f984b50"
+    },
+    {
+      "source": "data/budget/municipal_transfers/index.json",
+      "sha256": "5f2f28dd71a1ff2805adb6005c52e29f4c87949fd5664aab57c076b93e766bb1"
+    },
+    {
+      "source": "data/budget/municipal_transfers/2025/totals.json",
+      "sha256": "ea452c7e0d0f670f08238dd8355affbf2fbdb89dfd6014bb8aecd7ed5197e631"
+    },
+    {
+      "source": "local-pg:/api/db/municipal-fiscal-ranking?{\"year\":2024,\"limit\":1000}",
+      "sha256": "9adffaac5e09d12dc2faa5dc9d0adb26521f43a43a3c4d4b11a3ffc6857711da"
+    },
+    {
+      "source": "data/census/municipalities/GAB05.json",
+      "sha256": "b40b660d71aa86d6ec11c619ea9eac4211c2bdcebfb0bacb133d51ae4ac43310"
+    },
+    {
+      "source": "data/municipal_transparency/index.json",
+      "sha256": "992ef4439e7c3e3190a994d32fda2f95e0e255168f64cc572161220a565ea4dc"
+    },
+    {
+      "source": "data/indicators.json",
+      "sha256": "c8ec251673c273101447b2599ce81f29caf5014a0eb322b9d145e8a7d2a281e4"
+    },
+    {
+      "source": "data/2023_10_29_mi/municipalities/GAB05.json",
+      "sha256": "7d338de91d6b7280eaac64bf208db7fe03fd2c054fe0ac54611bee76bad1153d"
+    },
+    {
+      "source": "data/air/index.json",
+      "sha256": "1fe06b06934314e11a9eef60a729c39992ad46c45a70b6e4944b7e8cf15a9669"
+    },
+    {
+      "source": "data/grao_population.json",
+      "sha256": "e1b178bf30b66f0431bed14f9d7342d320b35e0b5436738c792c9610a075a74f"
+    },
+    {
+      "source": "local-pg:/api/db/procurement-settlement?{\"ekatte\":\"14218\",\"slim\":\"1\"}",
+      "sha256": "1cf527abbf792b42b27fd21befd6371a9095f349215f8968237bea06eca04959"
+    },
+    {
+      "source": "local-pg:/api/db/council-muni?{\"code\":\"GAB05\",\"limit\":1}",
+      "sha256": "60c14e3c0b4b17930eead8dad62e6cc099d94621063ea66a53d08c6d19e72caf"
+    }
+  ],
+  "captures": [
+    {
+      "seed": {
+        "id": "election-turnout",
+        "domain": "elections",
+        "tool": "turnout",
+        "args": {
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "election",
+          "turnout",
+          "voters"
+        ],
+        "scope": "National voter turnout in the 2 April 2023 parliamentary election; not a rolling trend."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "turnout",
+        "kind": "scalar",
+        "title": "Избирателна активност — 2 апр 2023",
+        "viz": "none",
+        "value": 40.51,
+        "valueFormat": "pct",
+        "facts": {
+          "election": "2 апр 2023",
+          "turnout": "40,51%",
+          "voters": "2 682 338",
+          "registered": "6 622 013"
+        },
+        "provenance": [
+          "elections.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        }
+      ],
+      "elapsedMs": 8.244332999999983
+    },
+    {
+      "seed": {
+        "id": "election-turnout",
+        "domain": "elections",
+        "tool": "turnout",
+        "args": {
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "election",
+          "turnout",
+          "voters"
+        ],
+        "scope": "National voter turnout in the 2 April 2023 parliamentary election; not a rolling trend."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "turnout",
+        "kind": "scalar",
+        "title": "Voter turnout — Apr 2, 2023",
+        "viz": "none",
+        "value": 40.51,
+        "valueFormat": "pct",
+        "facts": {
+          "election": "Apr 2, 2023",
+          "turnout": "40.51%",
+          "voters": "2,682,338",
+          "registered": "6,622,013"
+        },
+        "provenance": [
+          "elections.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        }
+      ],
+      "elapsedMs": 0.10291599999999335
+    },
+    {
+      "seed": {
+        "id": "election-machine",
+        "domain": "elections",
+        "tool": "machineVoteShare",
+        "args": {
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "election",
+          "machine_share"
+        ],
+        "scope": "Machine-voting share in the 2 April 2023 parliamentary election; not turnout."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "machineVoteShare",
+        "kind": "scalar",
+        "title": "Машинно гласуване — 2 апр 2023",
+        "viz": "none",
+        "value": 58.39,
+        "valueFormat": "pct",
+        "facts": {
+          "election": "2 апр 2023",
+          "machine_share": "58,39%",
+          "machine_votes": "1 477 206",
+          "paper_votes": "1 052 495"
+        },
+        "provenance": [
+          "elections.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        }
+      ],
+      "elapsedMs": 0.08204200000000128
+    },
+    {
+      "seed": {
+        "id": "election-machine",
+        "domain": "elections",
+        "tool": "machineVoteShare",
+        "args": {
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "election",
+          "machine_share"
+        ],
+        "scope": "Machine-voting share in the 2 April 2023 parliamentary election; not turnout."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "machineVoteShare",
+        "kind": "scalar",
+        "title": "Machine voting — Apr 2, 2023",
+        "viz": "none",
+        "value": 58.39,
+        "valueFormat": "pct",
+        "facts": {
+          "election": "Apr 2, 2023",
+          "machine_share": "58.39%",
+          "machine_votes": "1,477,206",
+          "paper_votes": "1,052,495"
+        },
+        "provenance": [
+          "elections.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        }
+      ],
+      "elapsedMs": 0.04245800000001054
+    },
+    {
+      "seed": {
+        "id": "election-national",
+        "domain": "elections",
+        "tool": "nationalResults",
+        "args": {
+          "election": "2024_10_27"
+        },
+        "requiredFacts": [
+          "election",
+          "parties_over_threshold"
+        ],
+        "scope": "National party results in the 27 October 2024 parliamentary election, not the June ballot."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "nationalResults",
+        "kind": "table",
+        "title": "Национални резултати — 27 окт 2024",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          },
+          {
+            "key": "seats",
+            "label": "Мандати",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "party": "ГЕРБ-СДС",
+            "votes": 642521,
+            "pct": 26.39,
+            "seats": 66
+          },
+          {
+            "party": "ПП-ДБ",
+            "votes": 346074,
+            "pct": 14.21,
+            "seats": 36
+          },
+          {
+            "party": "Възраждане",
+            "votes": 325358,
+            "pct": 13.36,
+            "seats": 33
+          },
+          {
+            "party": "ДПС-НН",
+            "votes": 280246,
+            "pct": 11.51,
+            "seats": 29
+          },
+          {
+            "party": "БСП",
+            "votes": 184361,
+            "pct": 7.57,
+            "seats": 19
+          },
+          {
+            "party": "АПС",
+            "votes": 182254,
+            "pct": 7.49,
+            "seats": 19
+          },
+          {
+            "party": "ИТН",
+            "votes": 165191,
+            "pct": 6.78,
+            "seats": 17
+          },
+          {
+            "party": "МЕЧ",
+            "votes": 111993,
+            "pct": 4.6,
+            "seats": 11
+          },
+          {
+            "party": "Величие",
+            "votes": 97497,
+            "pct": 4,
+            "seats": 10
+          },
+          {
+            "party": "СБ",
+            "votes": 26045,
+            "pct": 1.07,
+            "seats": 0
+          },
+          {
+            "party": "БВ",
+            "votes": 10311,
+            "pct": 0.42,
+            "seats": 0
+          },
+          {
+            "party": "КП-РзБ",
+            "votes": 8855,
+            "pct": 0.36,
+            "seats": 0
+          }
+        ],
+        "categories": [
+          "ГЕРБ-СДС",
+          "ПП-ДБ",
+          "Възраждане",
+          "ДПС-НН",
+          "БСП",
+          "АПС",
+          "ИТН",
+          "МЕЧ",
+          "Величие",
+          "СБ",
+          "БВ",
+          "КП-РзБ"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "ГЕРБ-СДС",
+                "y": 642521
+              },
+              {
+                "x": "ПП-ДБ",
+                "y": 346074
+              },
+              {
+                "x": "Възраждане",
+                "y": 325358
+              },
+              {
+                "x": "ДПС-НН",
+                "y": 280246
+              },
+              {
+                "x": "БСП",
+                "y": 184361
+              },
+              {
+                "x": "АПС",
+                "y": 182254
+              },
+              {
+                "x": "ИТН",
+                "y": 165191
+              },
+              {
+                "x": "МЕЧ",
+                "y": 111993
+              },
+              {
+                "x": "Величие",
+                "y": 97497
+              },
+              {
+                "x": "СБ",
+                "y": 26045
+              },
+              {
+                "x": "БВ",
+                "y": 10311
+              },
+              {
+                "x": "КП-РзБ",
+                "y": 8855
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "choropleth",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Първа партия",
+          "colorMode": "explicit",
+          "areas": [
+            {
+              "code": "BLG",
+              "label": "Благоевград",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "BGS",
+              "label": "Бургас",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VAR",
+              "label": "Варна",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VTR",
+              "label": "Велико Търново",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VID",
+              "label": "Видин",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VRC",
+              "label": "Враца",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "GAB",
+              "label": "Габрово",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "DOB",
+              "label": "Добрич",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "KRZ",
+              "label": "Кърджали",
+              "color": "rgb(33, 125, 223)",
+              "display": "ДПС-НН"
+            },
+            {
+              "code": "KNL",
+              "label": "Кюстендил",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "LOV",
+              "label": "Ловеч",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "MON",
+              "label": "Монтана",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PAZ",
+              "label": "Пазарджик",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PER",
+              "label": "Перник",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PVN",
+              "label": "Плевен",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PDV",
+              "label": "Пловдив (област)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PDV-00",
+              "label": "Пловдив (град)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "RAZ",
+              "label": "Разград",
+              "color": "rgb(33, 161,223)",
+              "display": "АПС"
+            },
+            {
+              "code": "RSE",
+              "label": "Русе",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SLS",
+              "label": "Силистра",
+              "color": "rgb(33, 161,223)",
+              "display": "АПС"
+            },
+            {
+              "code": "SLV",
+              "label": "Сливен",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SML",
+              "label": "Смолян",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SFO",
+              "label": "София (област)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "S23",
+              "label": "София (23 МИР)",
+              "color": "rgb(66, 0, 255)",
+              "display": "ПП-ДБ"
+            },
+            {
+              "code": "S24",
+              "label": "София (24 МИР)",
+              "color": "rgb(66, 0, 255)",
+              "display": "ПП-ДБ"
+            },
+            {
+              "code": "S25",
+              "label": "София (25 МИР)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SZR",
+              "label": "Стара Загора",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "TGV",
+              "label": "Търговище",
+              "color": "rgb(33, 125, 223)",
+              "display": "ДПС-НН"
+            },
+            {
+              "code": "HKV",
+              "label": "Хасково",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SHU",
+              "label": "Шумен",
+              "color": "rgb(33, 125, 223)",
+              "display": "ДПС-НН"
+            },
+            {
+              "code": "JAM",
+              "label": "Ямбол",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "32",
+              "label": "Чужбина",
+              "color": "rgb(33, 161,223)",
+              "display": "АПС"
+            }
+          ]
+        },
+        "facts": {
+          "election": "27 окт 2024",
+          "parties_over_threshold": 9,
+          "ГЕРБ-СДС": "642 521 (26,39%), 66 мандата",
+          "ПП-ДБ": "346 074 (14,21%), 36 мандата",
+          "Възраждане": "325 358 (13,36%), 33 мандата",
+          "ДПС-НН": "280 246 (11,51%), 29 мандата",
+          "БСП": "184 361 (7,57%), 19 мандата"
+        },
+        "provenance": [
+          "2024_10_27/national_summary.json",
+          "2024_10_27/region_votes.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2024_10_27/national_summary.json",
+          "sha256": "53bcf3ff46ea61171baa8cf1b776ef6476ef177a43f8ee14d0e1334180f27c50"
+        },
+        {
+          "source": "data/2024_10_27/region_votes.json",
+          "sha256": "5fcfc29593eb6d90d6100a31ac3c925dd9b27802c8176c589ae96f5bb5d3ea53"
+        }
+      ],
+      "elapsedMs": 2.879292000000021
+    },
+    {
+      "seed": {
+        "id": "election-national",
+        "domain": "elections",
+        "tool": "nationalResults",
+        "args": {
+          "election": "2024_10_27"
+        },
+        "requiredFacts": [
+          "election",
+          "parties_over_threshold"
+        ],
+        "scope": "National party results in the 27 October 2024 parliamentary election, not the June ballot."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "nationalResults",
+        "kind": "table",
+        "title": "National results — Oct 27, 2024",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          },
+          {
+            "key": "seats",
+            "label": "Seats",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "party": "ГЕРБ-СДС",
+            "votes": 642521,
+            "pct": 26.39,
+            "seats": 66
+          },
+          {
+            "party": "ПП-ДБ",
+            "votes": 346074,
+            "pct": 14.21,
+            "seats": 36
+          },
+          {
+            "party": "Възраждане",
+            "votes": 325358,
+            "pct": 13.36,
+            "seats": 33
+          },
+          {
+            "party": "ДПС-НН",
+            "votes": 280246,
+            "pct": 11.51,
+            "seats": 29
+          },
+          {
+            "party": "БСП",
+            "votes": 184361,
+            "pct": 7.57,
+            "seats": 19
+          },
+          {
+            "party": "АПС",
+            "votes": 182254,
+            "pct": 7.49,
+            "seats": 19
+          },
+          {
+            "party": "ИТН",
+            "votes": 165191,
+            "pct": 6.78,
+            "seats": 17
+          },
+          {
+            "party": "МЕЧ",
+            "votes": 111993,
+            "pct": 4.6,
+            "seats": 11
+          },
+          {
+            "party": "Величие",
+            "votes": 97497,
+            "pct": 4,
+            "seats": 10
+          },
+          {
+            "party": "СБ",
+            "votes": 26045,
+            "pct": 1.07,
+            "seats": 0
+          },
+          {
+            "party": "БВ",
+            "votes": 10311,
+            "pct": 0.42,
+            "seats": 0
+          },
+          {
+            "party": "КП-РзБ",
+            "votes": 8855,
+            "pct": 0.36,
+            "seats": 0
+          }
+        ],
+        "categories": [
+          "ГЕРБ-СДС",
+          "ПП-ДБ",
+          "Възраждане",
+          "ДПС-НН",
+          "БСП",
+          "АПС",
+          "ИТН",
+          "МЕЧ",
+          "Величие",
+          "СБ",
+          "БВ",
+          "КП-РзБ"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "ГЕРБ-СДС",
+                "y": 642521
+              },
+              {
+                "x": "ПП-ДБ",
+                "y": 346074
+              },
+              {
+                "x": "Възраждане",
+                "y": 325358
+              },
+              {
+                "x": "ДПС-НН",
+                "y": 280246
+              },
+              {
+                "x": "БСП",
+                "y": 184361
+              },
+              {
+                "x": "АПС",
+                "y": 182254
+              },
+              {
+                "x": "ИТН",
+                "y": 165191
+              },
+              {
+                "x": "МЕЧ",
+                "y": 111993
+              },
+              {
+                "x": "Величие",
+                "y": 97497
+              },
+              {
+                "x": "СБ",
+                "y": 26045
+              },
+              {
+                "x": "БВ",
+                "y": 10311
+              },
+              {
+                "x": "КП-РзБ",
+                "y": 8855
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "choropleth",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Leading party",
+          "colorMode": "explicit",
+          "areas": [
+            {
+              "code": "BLG",
+              "label": "Blagoevgrad",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "BGS",
+              "label": "Burgas",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VAR",
+              "label": "Varna",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VTR",
+              "label": "Veliko Tarnovo",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VID",
+              "label": "Vidin",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "VRC",
+              "label": "Vratsa",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "GAB",
+              "label": "Gabrovo",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "DOB",
+              "label": "Dobrich",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "KRZ",
+              "label": "Kardzhali",
+              "color": "rgb(33, 125, 223)",
+              "display": "ДПС-НН"
+            },
+            {
+              "code": "KNL",
+              "label": "Kyustendil",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "LOV",
+              "label": "Lovech",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "MON",
+              "label": "Montana",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PAZ",
+              "label": "Pazardzhik",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PER",
+              "label": "Pernik",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PVN",
+              "label": "Pleven",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PDV",
+              "label": "Plovdiv (province)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "PDV-00",
+              "label": "Plovdiv (city)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "RAZ",
+              "label": "Razgrad",
+              "color": "rgb(33, 161,223)",
+              "display": "АПС"
+            },
+            {
+              "code": "RSE",
+              "label": "Ruse",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SLS",
+              "label": "Silistra",
+              "color": "rgb(33, 161,223)",
+              "display": "АПС"
+            },
+            {
+              "code": "SLV",
+              "label": "Sliven",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SML",
+              "label": "Smolyan",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SFO",
+              "label": "Sofia (province)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "S23",
+              "label": "Sofia (MIR 23)",
+              "color": "rgb(66, 0, 255)",
+              "display": "ПП-ДБ"
+            },
+            {
+              "code": "S24",
+              "label": "Sofia (MIR 24)",
+              "color": "rgb(66, 0, 255)",
+              "display": "ПП-ДБ"
+            },
+            {
+              "code": "S25",
+              "label": "Sofia (MIR 25)",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SZR",
+              "label": "Stara Zagora",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "TGV",
+              "label": "Targovishte",
+              "color": "rgb(33, 125, 223)",
+              "display": "ДПС-НН"
+            },
+            {
+              "code": "HKV",
+              "label": "Haskovo",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "SHU",
+              "label": "Shumen",
+              "color": "rgb(33, 125, 223)",
+              "display": "ДПС-НН"
+            },
+            {
+              "code": "JAM",
+              "label": "Yambol",
+              "color": "rgb(12, 69, 135)",
+              "display": "ГЕРБ-СДС"
+            },
+            {
+              "code": "32",
+              "label": "Abroad",
+              "color": "rgb(33, 161,223)",
+              "display": "АПС"
+            }
+          ]
+        },
+        "facts": {
+          "election": "Oct 27, 2024",
+          "parties_over_threshold": 9,
+          "ГЕРБ-СДС": "642,521 (26.39%), 66 seats",
+          "ПП-ДБ": "346,074 (14.21%), 36 seats",
+          "Възраждане": "325,358 (13.36%), 33 seats",
+          "ДПС-НН": "280,246 (11.51%), 29 seats",
+          "БСП": "184,361 (7.57%), 19 seats"
+        },
+        "provenance": [
+          "2024_10_27/national_summary.json",
+          "2024_10_27/region_votes.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2024_10_27/national_summary.json",
+          "sha256": "53bcf3ff46ea61171baa8cf1b776ef6476ef177a43f8ee14d0e1334180f27c50"
+        },
+        {
+          "source": "data/2024_10_27/region_votes.json",
+          "sha256": "5fcfc29593eb6d90d6100a31ac3c925dd9b27802c8176c589ae96f5bb5d3ea53"
+        }
+      ],
+      "elapsedMs": 1.164041999999995
+    },
+    {
+      "seed": {
+        "id": "election-party",
+        "domain": "elections",
+        "tool": "partyResult",
+        "args": {
+          "party": "ГЕРБ",
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "party",
+          "votes",
+          "election"
+        ],
+        "scope": "GERB's result in the 2 April 2023 parliamentary election; preserve party and ballot."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "partyResult",
+        "kind": "scalar",
+        "title": "ГЕРБ-СДС — 2 апр 2023",
+        "subtitle": "ГЕРБ-СДС",
+        "viz": "none",
+        "facts": {
+          "party": "ГЕРБ-СДС",
+          "votes": "670 033",
+          "pct": "26,49%",
+          "seats": 69,
+          "passed_threshold": "да",
+          "election": "2 апр 2023"
+        },
+        "provenance": [
+          "2023_04_02/national_summary.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2023_04_02/national_summary.json",
+          "sha256": "5309ae72da90dde5ea7df55605963af3fadacadcd4575b270c13333038095fff"
+        }
+      ],
+      "elapsedMs": 1.1496250000000146
+    },
+    {
+      "seed": {
+        "id": "election-party",
+        "domain": "elections",
+        "tool": "partyResult",
+        "args": {
+          "party": "ГЕРБ",
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "party",
+          "votes",
+          "election"
+        ],
+        "scope": "GERB's result in the 2 April 2023 parliamentary election; preserve party and ballot."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "partyResult",
+        "kind": "scalar",
+        "title": "ГЕРБ-СДС — Apr 2, 2023",
+        "subtitle": "ГЕРБ-СДС",
+        "viz": "none",
+        "facts": {
+          "party": "ГЕРБ-СДС",
+          "votes": "670,033",
+          "pct": "26.49%",
+          "seats": 69,
+          "passed_threshold": "yes",
+          "election": "Apr 2, 2023"
+        },
+        "provenance": [
+          "2023_04_02/national_summary.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2023_04_02/national_summary.json",
+          "sha256": "5309ae72da90dde5ea7df55605963af3fadacadcd4575b270c13333038095fff"
+        }
+      ],
+      "elapsedMs": 0.35545900000005304
+    },
+    {
+      "seed": {
+        "id": "election-compare",
+        "domain": "elections",
+        "tool": "compareElections",
+        "args": {
+          "a": "2022_10_02",
+          "b": "2024_10_27"
+        },
+        "requiredFacts": [
+          "a",
+          "b",
+          "turnout_a",
+          "turnout_b"
+        ],
+        "scope": "Compare the 2 October 2022 and 27 October 2024 parliamentary elections in that order."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "compareElections",
+        "kind": "table",
+        "title": "Сравнение: 2 окт 2022 срещу 27 окт 2024",
+        "columns": [
+          {
+            "key": "metric",
+            "label": "Показател"
+          },
+          {
+            "key": "a",
+            "label": "2 окт 2022"
+          },
+          {
+            "key": "b",
+            "label": "27 окт 2024"
+          }
+        ],
+        "rows": [
+          {
+            "metric": "Активност",
+            "a": "39,17%",
+            "b": "38,83%"
+          },
+          {
+            "metric": "Машинно гласуване",
+            "a": "90,23%",
+            "b": "38,04%"
+          },
+          {
+            "metric": "Първа партия",
+            "a": "ГЕРБ-СДС (634 627)",
+            "b": "ГЕРБ-СДС (642 521)"
+          },
+          {
+            "metric": "Действителни гласове",
+            "a": "2 505 271",
+            "b": "2 434 761"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "a": "2 окт 2022",
+          "b": "27 окт 2024",
+          "turnout_a": "39,17%",
+          "turnout_b": "38,83%",
+          "machine_a": "90,23%",
+          "machine_b": "38,04%"
+        },
+        "provenance": [
+          "elections.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        }
+      ],
+      "elapsedMs": 0.18175000000002228
+    },
+    {
+      "seed": {
+        "id": "election-compare",
+        "domain": "elections",
+        "tool": "compareElections",
+        "args": {
+          "a": "2022_10_02",
+          "b": "2024_10_27"
+        },
+        "requiredFacts": [
+          "a",
+          "b",
+          "turnout_a",
+          "turnout_b"
+        ],
+        "scope": "Compare the 2 October 2022 and 27 October 2024 parliamentary elections in that order."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "compareElections",
+        "kind": "table",
+        "title": "Compare: Oct 2, 2022 vs Oct 27, 2024",
+        "columns": [
+          {
+            "key": "metric",
+            "label": "Metric"
+          },
+          {
+            "key": "a",
+            "label": "Oct 2, 2022"
+          },
+          {
+            "key": "b",
+            "label": "Oct 27, 2024"
+          }
+        ],
+        "rows": [
+          {
+            "metric": "Turnout",
+            "a": "39.17%",
+            "b": "38.83%"
+          },
+          {
+            "metric": "Machine voting",
+            "a": "90.23%",
+            "b": "38.04%"
+          },
+          {
+            "metric": "Top party",
+            "a": "ГЕРБ-СДС (634,627)",
+            "b": "ГЕРБ-СДС (642,521)"
+          },
+          {
+            "metric": "Valid votes",
+            "a": "2,505,271",
+            "b": "2,434,761"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "a": "Oct 2, 2022",
+          "b": "Oct 27, 2024",
+          "turnout_a": "39.17%",
+          "turnout_b": "38.83%",
+          "machine_a": "90.23%",
+          "machine_b": "38.04%"
+        },
+        "provenance": [
+          "elections.json"
+        ],
+        "domain": "elections"
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        }
+      ],
+      "elapsedMs": 0.08712500000001455
+    },
+    {
+      "seed": {
+        "id": "election-municipality",
+        "domain": "elections",
+        "tool": "municipalityResults",
+        "args": {
+          "place": "Пловдив",
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "municipality",
+          "election",
+          "total_votes"
+        ],
+        "scope": "All-party parliamentary results in Plovdiv municipality on 2 April 2023; not mayoral results."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — община Пловдив (2 апр 2023)",
+        "subtitle": "Пловдив (град)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "ПП-ДБ",
+            "votes": 36072,
+            "pct": 31.43
+          },
+          {
+            "party": "ГЕРБ-СДС",
+            "votes": 30996,
+            "pct": 27.01
+          },
+          {
+            "party": "Възраждане",
+            "votes": 18294,
+            "pct": 15.94
+          },
+          {
+            "party": "БСП",
+            "votes": 9136,
+            "pct": 7.96
+          },
+          {
+            "party": "ИТН",
+            "votes": 5664,
+            "pct": 4.94
+          },
+          {
+            "party": "БВ",
+            "votes": 4809,
+            "pct": 4.19
+          },
+          {
+            "party": "ДПС",
+            "votes": 3728,
+            "pct": 3.25
+          },
+          {
+            "party": "Левицата",
+            "votes": 2244,
+            "pct": 1.96
+          },
+          {
+            "party": "КНБ",
+            "votes": 585,
+            "pct": 0.51
+          },
+          {
+            "party": "ПП НПИСИ",
+            "votes": 470,
+            "pct": 0.41
+          },
+          {
+            "party": "Заедно",
+            "votes": 466,
+            "pct": 0.41
+          },
+          {
+            "party": "КОД",
+            "votes": 434,
+            "pct": 0.38
+          }
+        ],
+        "categories": [
+          "ПП-ДБ",
+          "ГЕРБ-СДС",
+          "Възраждане",
+          "БСП",
+          "ИТН",
+          "БВ",
+          "ДПС",
+          "Левицата",
+          "КНБ",
+          "ПП НПИСИ",
+          "Заедно",
+          "КОД"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "ПП-ДБ",
+                "y": 36072
+              },
+              {
+                "x": "ГЕРБ-СДС",
+                "y": 30996
+              },
+              {
+                "x": "Възраждане",
+                "y": 18294
+              },
+              {
+                "x": "БСП",
+                "y": 9136
+              },
+              {
+                "x": "ИТН",
+                "y": 5664
+              },
+              {
+                "x": "БВ",
+                "y": 4809
+              },
+              {
+                "x": "ДПС",
+                "y": 3728
+              },
+              {
+                "x": "Левицата",
+                "y": 2244
+              },
+              {
+                "x": "КНБ",
+                "y": 585
+              },
+              {
+                "x": "ПП НПИСИ",
+                "y": 470
+              },
+              {
+                "x": "Заедно",
+                "y": 466
+              },
+              {
+                "x": "КОД",
+                "y": 434
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Пловдив",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Пловдив"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Пловдив",
+          "region": "Пловдив (град)",
+          "election": "2 апр 2023",
+          "leading_party": "ПП-ДБ",
+          "leading_pct": "31,43%",
+          "total_votes": "114 767",
+          "turnout": "40,68%",
+          "ПП-ДБ": "36 072 (31,43%)",
+          "ГЕРБ-СДС": "30 996 (27,01%)",
+          "Възраждане": "18 294 (15,94%)",
+          "БСП": "9136 (7,96%)",
+          "ИТН": "5664 (4,94%)"
+        },
+        "provenance": [
+          "2023_04_02/municipalities/by/PDV-00.json",
+          "2023_04_02/national_summary.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/municipalities.json",
+          "sha256": "35b91f3321151c9e374de5cafa9d0261ca0560a5b97e8e1db8cced2f4ed496e0"
+        },
+        {
+          "source": "data/2023_04_02/municipalities/by/PDV-00.json",
+          "sha256": "01d1003a045a633ab0d9421ac8f7d2df047841365f490b27382f722a3e1be4db"
+        },
+        {
+          "source": "data/2023_04_02/national_summary.json",
+          "sha256": "5309ae72da90dde5ea7df55605963af3fadacadcd4575b270c13333038095fff"
+        }
+      ],
+      "elapsedMs": 2.275541999999973
+    },
+    {
+      "seed": {
+        "id": "election-municipality",
+        "domain": "elections",
+        "tool": "municipalityResults",
+        "args": {
+          "place": "Пловдив",
+          "election": "2023_04_02"
+        },
+        "requiredFacts": [
+          "municipality",
+          "election",
+          "total_votes"
+        ],
+        "scope": "All-party parliamentary results in Plovdiv municipality on 2 April 2023; not mayoral results."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Plovdiv municipality (Apr 2, 2023)",
+        "subtitle": "Plovdiv (city)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "ПП-ДБ",
+            "votes": 36072,
+            "pct": 31.43
+          },
+          {
+            "party": "ГЕРБ-СДС",
+            "votes": 30996,
+            "pct": 27.01
+          },
+          {
+            "party": "Възраждане",
+            "votes": 18294,
+            "pct": 15.94
+          },
+          {
+            "party": "БСП",
+            "votes": 9136,
+            "pct": 7.96
+          },
+          {
+            "party": "ИТН",
+            "votes": 5664,
+            "pct": 4.94
+          },
+          {
+            "party": "БВ",
+            "votes": 4809,
+            "pct": 4.19
+          },
+          {
+            "party": "ДПС",
+            "votes": 3728,
+            "pct": 3.25
+          },
+          {
+            "party": "Левицата",
+            "votes": 2244,
+            "pct": 1.96
+          },
+          {
+            "party": "КНБ",
+            "votes": 585,
+            "pct": 0.51
+          },
+          {
+            "party": "ПП НПИСИ",
+            "votes": 470,
+            "pct": 0.41
+          },
+          {
+            "party": "Заедно",
+            "votes": 466,
+            "pct": 0.41
+          },
+          {
+            "party": "КОД",
+            "votes": 434,
+            "pct": 0.38
+          }
+        ],
+        "categories": [
+          "ПП-ДБ",
+          "ГЕРБ-СДС",
+          "Възраждане",
+          "БСП",
+          "ИТН",
+          "БВ",
+          "ДПС",
+          "Левицата",
+          "КНБ",
+          "ПП НПИСИ",
+          "Заедно",
+          "КОД"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "ПП-ДБ",
+                "y": 36072
+              },
+              {
+                "x": "ГЕРБ-СДС",
+                "y": 30996
+              },
+              {
+                "x": "Възраждане",
+                "y": 18294
+              },
+              {
+                "x": "БСП",
+                "y": 9136
+              },
+              {
+                "x": "ИТН",
+                "y": 5664
+              },
+              {
+                "x": "БВ",
+                "y": 4809
+              },
+              {
+                "x": "ДПС",
+                "y": 3728
+              },
+              {
+                "x": "Левицата",
+                "y": 2244
+              },
+              {
+                "x": "КНБ",
+                "y": 585
+              },
+              {
+                "x": "ПП НПИСИ",
+                "y": 470
+              },
+              {
+                "x": "Заедно",
+                "y": 466
+              },
+              {
+                "x": "КОД",
+                "y": 434
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Plovdiv",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Plovdiv"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Plovdiv",
+          "region": "Plovdiv (city)",
+          "election": "Apr 2, 2023",
+          "leading_party": "ПП-ДБ",
+          "leading_pct": "31.43%",
+          "total_votes": "114,767",
+          "turnout": "40.68%",
+          "ПП-ДБ": "36,072 (31.43%)",
+          "ГЕРБ-СДС": "30,996 (27.01%)",
+          "Възраждане": "18,294 (15.94%)",
+          "БСП": "9,136 (7.96%)",
+          "ИТН": "5,664 (4.94%)"
+        },
+        "provenance": [
+          "2023_04_02/municipalities/by/PDV-00.json",
+          "2023_04_02/national_summary.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2023_04_02/municipalities/by/PDV-00.json",
+          "sha256": "01d1003a045a633ab0d9421ac8f7d2df047841365f490b27382f722a3e1be4db"
+        },
+        {
+          "source": "data/2023_04_02/national_summary.json",
+          "sha256": "5309ae72da90dde5ea7df55605963af3fadacadcd4575b270c13333038095fff"
+        }
+      ],
+      "elapsedMs": 0.5162500000000136
+    },
+    {
+      "seed": {
+        "id": "procurement-total",
+        "domain": "procurement",
+        "tool": "procurementTotals",
+        "args": {},
+        "requiredFacts": [
+          "contracts"
+        ],
+        "scope": "Overall AOP procurement corpus totals. Contracted value is not proof of disbursement; no unsupported time filter."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementTotals",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "title": "Обществени поръчки — общо (АОП)",
+        "viz": "none",
+        "facts": {
+          "contracts": "407 771",
+          "total_value": "94 млрд €",
+          "contractors": "29 694",
+          "buyers": "4421",
+          "mp_connected_value": "2,2 млрд €",
+          "mp_connected_count": 101,
+          "official_connected_value": "6,5 млрд €",
+          "official_connected_count": 796
+        },
+        "provenance": [
+          "db:procurement-overview"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-overview?{}",
+          "sha256": "2ecb8bbcdd5907bba984964d405740ffa6fc0c18275356891275fc5b8aef5492"
+        }
+      ],
+      "elapsedMs": 23.59866599999998
+    },
+    {
+      "seed": {
+        "id": "procurement-total",
+        "domain": "procurement",
+        "tool": "procurementTotals",
+        "args": {},
+        "requiredFacts": [
+          "contracts"
+        ],
+        "scope": "Overall AOP procurement corpus totals. Contracted value is not proof of disbursement; no unsupported time filter."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementTotals",
+        "domain": "fiscal",
+        "kind": "scalar",
+        "title": "Public procurement — totals (AOP)",
+        "viz": "none",
+        "facts": {
+          "contracts": "407,771",
+          "total_value": "€94bn",
+          "contractors": "29,694",
+          "buyers": "4,421",
+          "mp_connected_value": "€2.2bn",
+          "mp_connected_count": 101,
+          "official_connected_value": "€6.5bn",
+          "official_connected_count": 796
+        },
+        "provenance": [
+          "db:procurement-overview"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-overview?{}",
+          "sha256": "2ecb8bbcdd5907bba984964d405740ffa6fc0c18275356891275fc5b8aef5492"
+        }
+      ],
+      "elapsedMs": 2.181208999999967
+    },
+    {
+      "seed": {
+        "id": "procurement-contractors",
+        "domain": "procurement",
+        "tool": "topContractors",
+        "args": {
+          "count": 5
+        },
+        "requiredFacts": [
+          "top_contractor",
+          "top_value"
+        ],
+        "scope": "Top five contractors by total public-contract value across the corpus, not buyers or a single year."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "topContractors",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Най-големи изпълнители по обществени поръчки (АОП)",
+        "subtitle": "По обща стойност на договорите; „Депутат“ = свързан със заседаващ депутат",
+        "columns": [
+          {
+            "key": "contractor",
+            "label": "Изпълнител"
+          },
+          {
+            "key": "amount",
+            "label": "Стойност",
+            "numeric": true
+          },
+          {
+            "key": "contracts",
+            "label": "Договори",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "mp",
+            "label": "Депутат"
+          }
+        ],
+        "rows": [
+          {
+            "contractor": "СОФАРМА ТРЕЙДИНГ",
+            "amount": "2,5 млрд €",
+            "contracts": 8510,
+            "mp": "—"
+          },
+          {
+            "contractor": "ФЬОНИКС Фарма",
+            "amount": "1,1 млрд €",
+            "contracts": 3693,
+            "mp": "—"
+          },
+          {
+            "contractor": "Обединение Консорциум Аркад",
+            "amount": "1,1 млрд €",
+            "contracts": 1,
+            "mp": "—"
+          },
+          {
+            "contractor": "АВТОМАГИСТРАЛИ",
+            "amount": "983,3 млн €",
+            "contracts": 23,
+            "mp": "да"
+          },
+          {
+            "contractor": "&quot;БДЖ-ПЪТНИЧЕСКИ ПРЕВОЗИ&quot; съкратено &quot;БДЖ - ПП&quot;",
+            "amount": "980,6 млн €",
+            "contracts": 1,
+            "mp": "—"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "top_contractor": "СОФАРМА ТРЕЙДИНГ",
+          "top_contractor_eik": "103267194",
+          "top_value": "2,5 млрд €",
+          "mp_tied_in_top": 1
+        },
+        "provenance": [
+          "db:procurement-rankings"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-rankings?{}",
+          "sha256": "57e9e3a00ebfea24c36a3287d2e907e272f815ed16e0fe7f769968841546344a"
+        }
+      ],
+      "elapsedMs": 9.539499999999975
+    },
+    {
+      "seed": {
+        "id": "procurement-contractors",
+        "domain": "procurement",
+        "tool": "topContractors",
+        "args": {
+          "count": 5
+        },
+        "requiredFacts": [
+          "top_contractor",
+          "top_value"
+        ],
+        "scope": "Top five contractors by total public-contract value across the corpus, not buyers or a single year."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "topContractors",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Largest public-procurement contractors (AOP)",
+        "subtitle": "By total contract value; “MP-tied” = linked to a sitting MP",
+        "columns": [
+          {
+            "key": "contractor",
+            "label": "Contractor"
+          },
+          {
+            "key": "amount",
+            "label": "Value",
+            "numeric": true
+          },
+          {
+            "key": "contracts",
+            "label": "Contracts",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "mp",
+            "label": "MP-tied"
+          }
+        ],
+        "rows": [
+          {
+            "contractor": "СОФАРМА ТРЕЙДИНГ",
+            "amount": "€2.5bn",
+            "contracts": 8510,
+            "mp": "—"
+          },
+          {
+            "contractor": "ФЬОНИКС Фарма",
+            "amount": "€1.1bn",
+            "contracts": 3693,
+            "mp": "—"
+          },
+          {
+            "contractor": "Обединение Консорциум Аркад",
+            "amount": "€1.1bn",
+            "contracts": 1,
+            "mp": "—"
+          },
+          {
+            "contractor": "АВТОМАГИСТРАЛИ",
+            "amount": "€983.3m",
+            "contracts": 23,
+            "mp": "yes"
+          },
+          {
+            "contractor": "&quot;БДЖ-ПЪТНИЧЕСКИ ПРЕВОЗИ&quot; съкратено &quot;БДЖ - ПП&quot;",
+            "amount": "€980.6m",
+            "contracts": 1,
+            "mp": "—"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "top_contractor": "СОФАРМА ТРЕЙДИНГ",
+          "top_contractor_eik": "103267194",
+          "top_value": "€2.5bn",
+          "mp_tied_in_top": 1
+        },
+        "provenance": [
+          "db:procurement-rankings"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-rankings?{}",
+          "sha256": "57e9e3a00ebfea24c36a3287d2e907e272f815ed16e0fe7f769968841546344a"
+        }
+      ],
+      "elapsedMs": 8.366541999999981
+    },
+    {
+      "seed": {
+        "id": "procurement-appeals",
+        "domain": "procurement",
+        "tool": "procurementAppeals",
+        "args": {
+          "count": 5
+        },
+        "requiredFacts": [
+          "total_complaints"
+        ],
+        "scope": "Procurement appeals and five most-appealed buyers. Upheld means the buyer decision was annulled, not proven corruption."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementAppeals",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Жалби пред КЗК по обществени поръчки",
+        "subtitle": "Обжалвания пред Комисията за защита на конкуренцията; „Уважени“ = отменено решение на възложителя (не доказателство за нарушение)",
+        "columns": [
+          {
+            "key": "buyer",
+            "label": "Възложител"
+          },
+          {
+            "key": "appeals",
+            "label": "Жалби",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "upheld",
+            "label": "Уважени",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "buyer": "Столична Община",
+            "appeals": 382,
+            "upheld": 60
+          },
+          {
+            "buyer": "Агенция \"Пътна инфраструктура\"",
+            "appeals": 374,
+            "upheld": 33
+          },
+          {
+            "buyer": "Община Пловдив",
+            "appeals": 210,
+            "upheld": 14
+          },
+          {
+            "buyer": "Национална компания \"Железопътна инфраструктура\" ДП",
+            "appeals": 172,
+            "upheld": 18
+          },
+          {
+            "buyer": "Община Варна",
+            "appeals": 112,
+            "upheld": 7
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "total_complaints": "8046",
+          "resolved_to_tender": "7286",
+          "with_outcome": "4735",
+          "upheld": "986",
+          "rejected": "2096",
+          "suspended": "4",
+          "most_appealed_buyer": "Столична Община",
+          "since_year": "2020"
+        },
+        "provenance": [
+          "db:kzk-appeals-summary"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/kzk-appeals-summary?{}",
+          "sha256": "f2857d9e8f2f7bd72b72e15a6f96d2623a2c69dcbc00b28683f8ed5c502c316a"
+        }
+      ],
+      "elapsedMs": 1.2938330000000065
+    },
+    {
+      "seed": {
+        "id": "procurement-appeals",
+        "domain": "procurement",
+        "tool": "procurementAppeals",
+        "args": {
+          "count": 5
+        },
+        "requiredFacts": [
+          "total_complaints"
+        ],
+        "scope": "Procurement appeals and five most-appealed buyers. Upheld means the buyer decision was annulled, not proven corruption."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementAppeals",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "КЗК procurement appeals",
+        "subtitle": "Appeals to the Competition Protection Commission; “Upheld” = the buyer's decision was annulled (not proof of wrongdoing)",
+        "columns": [
+          {
+            "key": "buyer",
+            "label": "Buyer"
+          },
+          {
+            "key": "appeals",
+            "label": "Appeals",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "upheld",
+            "label": "Upheld",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "buyer": "Столична Община",
+            "appeals": 382,
+            "upheld": 60
+          },
+          {
+            "buyer": "Агенция \"Пътна инфраструктура\"",
+            "appeals": 374,
+            "upheld": 33
+          },
+          {
+            "buyer": "Община Пловдив",
+            "appeals": 210,
+            "upheld": 14
+          },
+          {
+            "buyer": "Национална компания \"Железопътна инфраструктура\" ДП",
+            "appeals": 172,
+            "upheld": 18
+          },
+          {
+            "buyer": "Община Варна",
+            "appeals": 112,
+            "upheld": 7
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "total_complaints": "8,046",
+          "resolved_to_tender": "7,286",
+          "with_outcome": "4,735",
+          "upheld": "986",
+          "rejected": "2,096",
+          "suspended": "4",
+          "most_appealed_buyer": "Столична Община",
+          "since_year": "2020"
+        },
+        "provenance": [
+          "db:kzk-appeals-summary"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/kzk-appeals-summary?{}",
+          "sha256": "f2857d9e8f2f7bd72b72e15a6f96d2623a2c69dcbc00b28683f8ed5c502c316a"
+        }
+      ],
+      "elapsedMs": 0.7388339999999971
+    },
+    {
+      "seed": {
+        "id": "procurement-flags",
+        "domain": "procurement",
+        "tool": "procurementRedFlags",
+        "args": {},
+        "requiredFacts": [
+          "active_debarred",
+          "top_share"
+        ],
+        "scope": "Procurement screening signals and concentration; signals do not establish corruption."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementRedFlags",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Сигнали за риск в обществените поръчки",
+        "subtitle": "Възложители с концентрация на разхода върху един изпълнител",
+        "columns": [
+          {
+            "key": "awarder",
+            "label": "Възложител"
+          },
+          {
+            "key": "contractor",
+            "label": "Изпълнител"
+          },
+          {
+            "key": "share",
+            "label": "Дял",
+            "numeric": true
+          },
+          {
+            "key": "amount",
+            "label": "Стойност",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "awarder": "ВН Инвестзон ООД",
+            "contractor": "ХИМРЕМОНТСТРОЙ",
+            "share": "100%",
+            "amount": "12,5 млн €"
+          },
+          {
+            "awarder": "Министерство на държавната администрация и административната реформа /МДААР/",
+            "contractor": "ЦАПК-ПРОГРЕС",
+            "share": "100%",
+            "amount": "6,4 млн €"
+          },
+          {
+            "awarder": "Регионален Исторически музей - софия",
+            "contractor": "Обединение: Интерхолд ЕООД, \"Минерална баня \"Овча купел\"\", Фрибул ООД",
+            "share": "100%",
+            "amount": "3,8 млн €"
+          },
+          {
+            "awarder": "Троут фарм ЕООД, гр. София",
+            "contractor": "ХОРИЗОНТ - ИВАНОВ",
+            "share": "100%",
+            "amount": "2,7 млн €"
+          },
+          {
+            "awarder": "Национален Студентски ДОМ",
+            "contractor": "СТРОЙЕКСПРЕС-НН",
+            "share": "100%",
+            "amount": "2,3 млн €"
+          },
+          {
+            "awarder": "Детска Градина \"Пролетна дъга\"",
+            "contractor": "ИНФРАСТРОЙ 76",
+            "share": "100%",
+            "amount": "2,1 млн €"
+          },
+          {
+            "awarder": "Многопрофилна болница за активно лечение /МБАЛ/ \"Мед Лайн Клиник\" АД - Пловдив",
+            "contractor": "ФАРМА ХОСПИТАЛ",
+            "share": "100%",
+            "amount": "2,1 млн €"
+          },
+          {
+            "awarder": "Акваресурс ЕООД",
+            "contractor": "З М ГРУП 3",
+            "share": "100%",
+            "amount": "1,6 млн €"
+          },
+          {
+            "awarder": "Регионален Исторически музей - благоевград",
+            "contractor": "МИЛЕ ИНЖЕНЕРИНГ",
+            "share": "100%",
+            "amount": "1,2 млн €"
+          },
+          {
+            "awarder": "Народно читалище \"НАПРЕДЪК-1908 г.\" НЧ",
+            "contractor": "СИТИ ГРУП ГмбХ",
+            "share": "100%",
+            "amount": "840,8 хил €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "active_debarred": 2,
+          "top_share": "100%"
+        },
+        "provenance": [
+          "db:procurement-risk-feed",
+          "db:debarred"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-risk-feed?{}",
+          "sha256": "36d3f30992eaebf2c42a9d9880cd32c8893dd6910535fe82fe79af776537d9ef"
+        },
+        {
+          "source": "local-pg:/api/db/debarred?{}",
+          "sha256": "5a07e6f41dd5faae69ab239536bd06d63baa0a356062e239c1dada4d304ed7e6"
+        }
+      ],
+      "elapsedMs": 1662.892084
+    },
+    {
+      "seed": {
+        "id": "procurement-flags",
+        "domain": "procurement",
+        "tool": "procurementRedFlags",
+        "args": {},
+        "requiredFacts": [
+          "active_debarred",
+          "top_share"
+        ],
+        "scope": "Procurement screening signals and concentration; signals do not establish corruption."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementRedFlags",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Public-procurement red flags",
+        "subtitle": "Buyers whose spending is concentrated on a single supplier",
+        "columns": [
+          {
+            "key": "awarder",
+            "label": "Buyer"
+          },
+          {
+            "key": "contractor",
+            "label": "Supplier"
+          },
+          {
+            "key": "share",
+            "label": "Share",
+            "numeric": true
+          },
+          {
+            "key": "amount",
+            "label": "Value",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "awarder": "ВН Инвестзон ООД",
+            "contractor": "ХИМРЕМОНТСТРОЙ",
+            "share": "100%",
+            "amount": "€12.5m"
+          },
+          {
+            "awarder": "Министерство на държавната администрация и административната реформа /МДААР/",
+            "contractor": "ЦАПК-ПРОГРЕС",
+            "share": "100%",
+            "amount": "€6.4m"
+          },
+          {
+            "awarder": "Регионален Исторически музей - софия",
+            "contractor": "Обединение: Интерхолд ЕООД, \"Минерална баня \"Овча купел\"\", Фрибул ООД",
+            "share": "100%",
+            "amount": "€3.8m"
+          },
+          {
+            "awarder": "Троут фарм ЕООД, гр. София",
+            "contractor": "ХОРИЗОНТ - ИВАНОВ",
+            "share": "100%",
+            "amount": "€2.7m"
+          },
+          {
+            "awarder": "Национален Студентски ДОМ",
+            "contractor": "СТРОЙЕКСПРЕС-НН",
+            "share": "100%",
+            "amount": "€2.3m"
+          },
+          {
+            "awarder": "Детска Градина \"Пролетна дъга\"",
+            "contractor": "ИНФРАСТРОЙ 76",
+            "share": "100%",
+            "amount": "€2.1m"
+          },
+          {
+            "awarder": "Многопрофилна болница за активно лечение /МБАЛ/ \"Мед Лайн Клиник\" АД - Пловдив",
+            "contractor": "ФАРМА ХОСПИТАЛ",
+            "share": "100%",
+            "amount": "€2.1m"
+          },
+          {
+            "awarder": "Акваресурс ЕООД",
+            "contractor": "З М ГРУП 3",
+            "share": "100%",
+            "amount": "€1.6m"
+          },
+          {
+            "awarder": "Регионален Исторически музей - благоевград",
+            "contractor": "МИЛЕ ИНЖЕНЕРИНГ",
+            "share": "100%",
+            "amount": "€1.2m"
+          },
+          {
+            "awarder": "Народно читалище \"НАПРЕДЪК-1908 г.\" НЧ",
+            "contractor": "СИТИ ГРУП ГмбХ",
+            "share": "100%",
+            "amount": "€840.8k"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "active_debarred": 2,
+          "top_share": "100%"
+        },
+        "provenance": [
+          "db:procurement-risk-feed",
+          "db:debarred"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-risk-feed?{}",
+          "sha256": "36d3f30992eaebf2c42a9d9880cd32c8893dd6910535fe82fe79af776537d9ef"
+        },
+        {
+          "source": "local-pg:/api/db/debarred?{}",
+          "sha256": "5a07e6f41dd5faae69ab239536bd06d63baa0a356062e239c1dada4d304ed7e6"
+        }
+      ],
+      "elapsedMs": 929.2063749999998
+    },
+    {
+      "seed": {
+        "id": "procurement-single-bid",
+        "domain": "procurement",
+        "tool": "procurementSingleBidSectors",
+        "args": {},
+        "requiredFacts": [
+          "suppressed_divisions",
+          "total_divisions"
+        ],
+        "scope": "CPV sectors where a single bidder is the market norm; not a list of criminal conduct."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementSingleBidSectors",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Сектори, в които един участник е нормално",
+        "subtitle": "Раздели по CPV с дял на едноучастниковите поръчки ≥ 80% — там сигналът „един участник“ се потиска, за да няма фалшив сигнал",
+        "columns": [
+          {
+            "key": "sector",
+            "label": "Сектор (CPV)"
+          },
+          {
+            "key": "share",
+            "label": "Дял с един участник",
+            "numeric": true
+          },
+          {
+            "key": "contracts",
+            "label": "Договори",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "sector": "Събрана и пречистена вода (CPV 41)",
+            "share": "91%",
+            "contracts": "1270"
+          },
+          {
+            "sector": "Комунални услуги (ток, газ, вода, парно) (CPV 65)",
+            "share": "86%",
+            "contracts": "668"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "threshold": "80%",
+          "suppressed_divisions": 2,
+          "total_divisions": 45
+        },
+        "provenance": [
+          "db:procurement-risk-indexes"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-risk-indexes?{}",
+          "sha256": "a4dbf2b4f02e1886811c13157843622967c15e987f93aa6f259b16f39aa1cddb"
+        }
+      ],
+      "elapsedMs": 33.534999999999854
+    },
+    {
+      "seed": {
+        "id": "procurement-single-bid",
+        "domain": "procurement",
+        "tool": "procurementSingleBidSectors",
+        "args": {},
+        "requiredFacts": [
+          "suppressed_divisions",
+          "total_divisions"
+        ],
+        "scope": "CPV sectors where a single bidder is the market norm; not a list of criminal conduct."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "procurementSingleBidSectors",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Sectors where a single bidder is the norm",
+        "subtitle": "CPV divisions with a single-bid share ≥ 80% — the single-bidder red flag is suppressed there so it doesn't cry wolf",
+        "columns": [
+          {
+            "key": "sector",
+            "label": "Sector (CPV)"
+          },
+          {
+            "key": "share",
+            "label": "Single-bid share",
+            "numeric": true
+          },
+          {
+            "key": "contracts",
+            "label": "Contracts",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "sector": "Collected & purified water (CPV 41)",
+            "share": "91%",
+            "contracts": "1,270"
+          },
+          {
+            "sector": "Public utilities (electricity, gas, water, heating) (CPV 65)",
+            "share": "86%",
+            "contracts": "668"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "threshold": "80%",
+          "suppressed_divisions": 2,
+          "total_divisions": 45
+        },
+        "provenance": [
+          "db:procurement-risk-indexes"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-risk-indexes?{}",
+          "sha256": "a4dbf2b4f02e1886811c13157843622967c15e987f93aa6f259b16f39aa1cddb"
+        }
+      ],
+      "elapsedMs": 22.75912500000004
+    },
+    {
+      "seed": {
+        "id": "procurement-buyer",
+        "domain": "procurement",
+        "tool": "awarderProcurement",
+        "args": {
+          "org": "000695324"
+        },
+        "requiredFacts": [
+          "buyer",
+          "eik"
+        ],
+        "scope": "Procurement of the institution with EIK 000695324; preserve this identifier, no invented year restriction."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "awarderProcurement",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Обществени поръчки — Министерство на отбраната /МО/",
+        "subtitle": "Като възложител: най-големи изпълнители (АОП / ЦАИС ЕОП)",
+        "columns": [
+          {
+            "key": "supplier",
+            "label": "Изпълнител"
+          },
+          {
+            "key": "amount",
+            "label": "Стойност",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "supplier": "Сакса ООД",
+            "amount": "127,2 млн €"
+          },
+          {
+            "supplier": "Leonardo S.p.A.",
+            "amount": "116,2 млн €"
+          },
+          {
+            "supplier": "Бент ойл Aд - София",
+            "amount": "90 млн €"
+          },
+          {
+            "supplier": "Терем ЕАД - София",
+            "amount": "84,4 млн €"
+          },
+          {
+            "supplier": "Мото Пфое ЕООД",
+            "amount": "45,5 млн €"
+          },
+          {
+            "supplier": "\"Авиостарт\" ООД",
+            "amount": "39,3 млн €"
+          },
+          {
+            "supplier": "AERO Vodochody AEROSPACE a.s.",
+            "amount": "38,4 млн €"
+          },
+          {
+            "supplier": "Интендантско обслужване ЕАД",
+            "amount": "37,2 млн €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "buyer": "Министерство на отбраната /МО/",
+          "eik": "000695324",
+          "total_value": "1,2 млрд €",
+          "contracts": "1692",
+          "suppliers": 50,
+          "years": "2011–2026",
+          "top_supplier": "Сакса ООД"
+        },
+        "provenance": [
+          "db:procurement-search",
+          "db:awarder-procurement"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/awarder-procurement?{\"eik\":\"000695324\"}",
+          "sha256": "c8bced76fe53de8291afa56b4558d1925afdc4b9eb702397682f53ee6225ed25"
+        }
+      ],
+      "elapsedMs": 14.557166000000052
+    },
+    {
+      "seed": {
+        "id": "procurement-buyer",
+        "domain": "procurement",
+        "tool": "awarderProcurement",
+        "args": {
+          "org": "000695324"
+        },
+        "requiredFacts": [
+          "buyer",
+          "eik"
+        ],
+        "scope": "Procurement of the institution with EIK 000695324; preserve this identifier, no invented year restriction."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "awarderProcurement",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Public procurement — Министерство на отбраната /МО/",
+        "subtitle": "As a buyer: largest suppliers (AOP / CAIS EOP)",
+        "columns": [
+          {
+            "key": "supplier",
+            "label": "Supplier"
+          },
+          {
+            "key": "amount",
+            "label": "Value",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "supplier": "Сакса ООД",
+            "amount": "€127.2m"
+          },
+          {
+            "supplier": "Leonardo S.p.A.",
+            "amount": "€116.2m"
+          },
+          {
+            "supplier": "Бент ойл Aд - София",
+            "amount": "€90m"
+          },
+          {
+            "supplier": "Терем ЕАД - София",
+            "amount": "€84.4m"
+          },
+          {
+            "supplier": "Мото Пфое ЕООД",
+            "amount": "€45.5m"
+          },
+          {
+            "supplier": "\"Авиостарт\" ООД",
+            "amount": "€39.3m"
+          },
+          {
+            "supplier": "AERO Vodochody AEROSPACE a.s.",
+            "amount": "€38.4m"
+          },
+          {
+            "supplier": "Интендантско обслужване ЕАД",
+            "amount": "€37.2m"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "buyer": "Министерство на отбраната /МО/",
+          "eik": "000695324",
+          "total_value": "€1.2bn",
+          "contracts": "1,692",
+          "suppliers": 50,
+          "years": "2011–2026",
+          "top_supplier": "Сакса ООД"
+        },
+        "provenance": [
+          "db:procurement-search",
+          "db:awarder-procurement"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/awarder-procurement?{\"eik\":\"000695324\"}",
+          "sha256": "c8bced76fe53de8291afa56b4558d1925afdc4b9eb702397682f53ee6225ed25"
+        }
+      ],
+      "elapsedMs": 9.213209000000006
+    },
+    {
+      "seed": {
+        "id": "people-profile",
+        "domain": "people",
+        "tool": "personProfile",
+        "args": {
+          "name": "Бойко Методиев Борисов"
+        },
+        "requiredFacts": [
+          "name|име"
+        ],
+        "scope": "Unified public profile of Boyko Metodiev Borisov, not just wealth or a corruption verdict."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "personProfile",
+        "domain": "people",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Бойко Методиев Борисов — Изпълнителна власт, Кмет, Народни представители",
+        "facts": {
+          "име": "Бойко Методиев Борисов",
+          "длъжности": "Изпълнителна власт, Кмет, Народни представители",
+          "кандидатури (брой)": 10,
+          "бележка": "Връзките са по съвпадение на име — насока, не категорично доказателство."
+        },
+        "provenance": [
+          "person_by_slug (082_person_api.sql)"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/person-profile?{\"name\":\"Бойко Методиев Борисов\"}",
+          "sha256": "2e9d94e763362b54d30d39611dd67f2342c6fdcd160cf8620cf2f17c88cea2e3"
+        }
+      ],
+      "elapsedMs": 9.814249999999902
+    },
+    {
+      "seed": {
+        "id": "people-profile",
+        "domain": "people",
+        "tool": "personProfile",
+        "args": {
+          "name": "Бойко Методиев Борисов"
+        },
+        "requiredFacts": [
+          "name|име"
+        ],
+        "scope": "Unified public profile of Boyko Metodiev Borisov, not just wealth or a corruption verdict."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "personProfile",
+        "domain": "people",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Бойко Методиев Борисов — Изпълнителна власт, Mayor, Народни представители",
+        "facts": {
+          "name": "Бойко Методиев Борисов",
+          "positions": "Изпълнителна власт, Mayor, Народни представители",
+          "candidacies": 10,
+          "note": "Links are by name match — a lead, not definitive proof."
+        },
+        "provenance": [
+          "person_by_slug (082_person_api.sql)"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/person-profile?{\"name\":\"Бойко Методиев Борисов\"}",
+          "sha256": "2e9d94e763362b54d30d39611dd67f2342c6fdcd160cf8620cf2f17c88cea2e3"
+        }
+      ],
+      "elapsedMs": 4.662250000000313
+    },
+    {
+      "seed": {
+        "id": "people-connections",
+        "domain": "people",
+        "tool": "personConnections",
+        "args": {
+          "name": "Бойко Методиев Борисов"
+        },
+        "requiredFacts": [
+          "name|име"
+        ],
+        "scope": "Other public figures connected to Boyko Metodiev Borisov through registry company roles. A name-match lead is not proof."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "personConnections",
+        "domain": "people",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Няма намерени публични връзки за Бойко Методиев Борисов",
+        "facts": {
+          "име": "Бойко Методиев Борисов",
+          "свързани лица (брой)": 0
+        },
+        "provenance": [
+          "person_connections (084_person_connections.sql)"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/person-profile?{\"name\":\"Бойко Методиев Борисов\"}",
+          "sha256": "2e9d94e763362b54d30d39611dd67f2342c6fdcd160cf8620cf2f17c88cea2e3"
+        },
+        {
+          "source": "local-pg:/api/db/person-connections?{\"slug\":\"mp-5186\"}",
+          "sha256": "407501321661f3e4f79b1975930058353930af9822fe03af78676995dcc423c4"
+        }
+      ],
+      "elapsedMs": 6.726583000000119
+    },
+    {
+      "seed": {
+        "id": "people-connections",
+        "domain": "people",
+        "tool": "personConnections",
+        "args": {
+          "name": "Бойко Методиев Борисов"
+        },
+        "requiredFacts": [
+          "name|име"
+        ],
+        "scope": "Other public figures connected to Boyko Metodiev Borisov through registry company roles. A name-match lead is not proof."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "personConnections",
+        "domain": "people",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "No public connections found for Бойко Методиев Борисов",
+        "facts": {
+          "name": "Бойко Методиев Борисов",
+          "connected people": 0
+        },
+        "provenance": [
+          "person_connections (084_person_connections.sql)"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/person-profile?{\"name\":\"Бойко Методиев Борисов\"}",
+          "sha256": "2e9d94e763362b54d30d39611dd67f2342c6fdcd160cf8620cf2f17c88cea2e3"
+        },
+        {
+          "source": "local-pg:/api/db/person-connections?{\"slug\":\"mp-5186\"}",
+          "sha256": "407501321661f3e4f79b1975930058353930af9822fe03af78676995dcc423c4"
+        }
+      ],
+      "elapsedMs": 6.142749999999978
+    },
+    {
+      "seed": {
+        "id": "people-wealth",
+        "domain": "people",
+        "tool": "personWealth",
+        "args": {
+          "name": "Бойко Методиев Борисов"
+        },
+        "requiredFacts": [
+          "name|име"
+        ],
+        "scope": "Boyko Metodiev Borisov's declared wealth over time. Declared assets and liabilities, not audited or market-valued wealth; no single-year filter."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "personWealth",
+        "domain": "people",
+        "kind": "table",
+        "viz": "line",
+        "title": "Бойко Методиев Борисов — декларирано имущество по години",
+        "columns": [
+          {
+            "key": "year",
+            "label": "Година"
+          },
+          {
+            "key": "net",
+            "label": "Нетно (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "assets",
+            "label": "Активи (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "debts",
+            "label": "Задължения (€)",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "year": 2017,
+            "net": 27231,
+            "assets": 27231,
+            "debts": 0
+          },
+          {
+            "year": 2018,
+            "net": 138806,
+            "assets": 138806,
+            "debts": 0
+          },
+          {
+            "year": 2019,
+            "net": 159976,
+            "assets": 159976,
+            "debts": 0
+          },
+          {
+            "year": 2021,
+            "net": 242098,
+            "assets": 242098,
+            "debts": 0
+          },
+          {
+            "year": 2022,
+            "net": 277288,
+            "assets": 277288,
+            "debts": 0
+          },
+          {
+            "year": 2023,
+            "net": 364357,
+            "assets": 364357,
+            "debts": 0
+          },
+          {
+            "year": 2024,
+            "net": 463648,
+            "assets": 463648,
+            "debts": 0
+          },
+          {
+            "year": 2025,
+            "net": 574370,
+            "assets": 574370,
+            "debts": 0
+          }
+        ],
+        "facts": {
+          "име": "Бойко Методиев Борисов",
+          "декларирани години": 8,
+          "най-нова година": 2025,
+          "нетно (последно)": 574370,
+          "нетно (първо)": 27231,
+          "период": "2017–2025",
+          "бележка": "Декларирано пред Сметна палата, не одитирано. Недвижими имоти без обявена стойност се броят за 0."
+        },
+        "provenance": [
+          "person_wealth_series (090_person_wealth.sql)"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/person-profile?{\"name\":\"Бойко Методиев Борисов\"}",
+          "sha256": "2e9d94e763362b54d30d39611dd67f2342c6fdcd160cf8620cf2f17c88cea2e3"
+        },
+        {
+          "source": "local-pg:/api/db/person-wealth?{\"slug\":\"mp-5186\"}",
+          "sha256": "fe25002f0b1322568e63fa8fe406a18de213a99603d4d240fba3705df9edb4f7"
+        }
+      ],
+      "elapsedMs": 6.12362499999972
+    },
+    {
+      "seed": {
+        "id": "people-wealth",
+        "domain": "people",
+        "tool": "personWealth",
+        "args": {
+          "name": "Бойко Методиев Борисов"
+        },
+        "requiredFacts": [
+          "name|име"
+        ],
+        "scope": "Boyko Metodiev Borisov's declared wealth over time. Declared assets and liabilities, not audited or market-valued wealth; no single-year filter."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "personWealth",
+        "domain": "people",
+        "kind": "table",
+        "viz": "line",
+        "title": "Бойко Методиев Борисов — declared wealth by year",
+        "columns": [
+          {
+            "key": "year",
+            "label": "Year"
+          },
+          {
+            "key": "net",
+            "label": "Net (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "assets",
+            "label": "Assets (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "debts",
+            "label": "Debts (€)",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "year": 2017,
+            "net": 27231,
+            "assets": 27231,
+            "debts": 0
+          },
+          {
+            "year": 2018,
+            "net": 138806,
+            "assets": 138806,
+            "debts": 0
+          },
+          {
+            "year": 2019,
+            "net": 159976,
+            "assets": 159976,
+            "debts": 0
+          },
+          {
+            "year": 2021,
+            "net": 242098,
+            "assets": 242098,
+            "debts": 0
+          },
+          {
+            "year": 2022,
+            "net": 277288,
+            "assets": 277288,
+            "debts": 0
+          },
+          {
+            "year": 2023,
+            "net": 364357,
+            "assets": 364357,
+            "debts": 0
+          },
+          {
+            "year": 2024,
+            "net": 463648,
+            "assets": 463648,
+            "debts": 0
+          },
+          {
+            "year": 2025,
+            "net": 574370,
+            "assets": 574370,
+            "debts": 0
+          }
+        ],
+        "facts": {
+          "name": "Бойко Методиев Борисов",
+          "declared years": 8,
+          "latest year": 2025,
+          "net worth (latest)": 574370,
+          "net worth (first)": 27231,
+          "span": "2017–2025",
+          "note": "Declared to the Court of Audit, not audited. Real estate with no declared value counts as €0."
+        },
+        "provenance": [
+          "person_wealth_series (090_person_wealth.sql)"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/person-profile?{\"name\":\"Бойко Методиев Борисов\"}",
+          "sha256": "2e9d94e763362b54d30d39611dd67f2342c6fdcd160cf8620cf2f17c88cea2e3"
+        },
+        {
+          "source": "local-pg:/api/db/person-wealth?{\"slug\":\"mp-5186\"}",
+          "sha256": "fe25002f0b1322568e63fa8fe406a18de213a99603d4d240fba3705df9edb4f7"
+        }
+      ],
+      "elapsedMs": 5.397791999999754
+    },
+    {
+      "seed": {
+        "id": "people-assets-top",
+        "domain": "people",
+        "tool": "mpAssetsTop",
+        "args": {},
+        "requiredFacts": [
+          "richest"
+        ],
+        "scope": "Richest MPs: the tool ranks by declared net worth and displays declared assets. Do not claim the displayed assets column is the ordering key; not audited wealth or salary."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "mpAssetsTop",
+        "domain": "people",
+        "kind": "table",
+        "title": "Депутати с най-големи декларирани активи",
+        "columns": [
+          {
+            "key": "mp",
+            "label": "Депутат"
+          },
+          {
+            "key": "group",
+            "label": "Група"
+          },
+          {
+            "key": "assets",
+            "label": "Активи",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "mp": "Делян Славчев Пеевски",
+            "group": "ПГ на ДПС",
+            "assets": "9,8 млн €"
+          },
+          {
+            "mp": "Николай Йорданов Събев",
+            "group": "—",
+            "assets": "9,5 млн €"
+          },
+          {
+            "mp": "Станислав Тодоров Трифонов",
+            "group": "—",
+            "assets": "8,2 млн €"
+          },
+          {
+            "mp": "Владислав Панчев Панев",
+            "group": "ПГ на Демократична България",
+            "assets": "3,8 млн €"
+          },
+          {
+            "mp": "Лъчезар Богомилов Иванов",
+            "group": "ПГ на ГЕРБ – СДС",
+            "assets": "3,6 млн €"
+          },
+          {
+            "mp": "Георги Владов Григоров",
+            "group": "ПГ \"Прогресивна България\"",
+            "assets": "3,2 млн €"
+          },
+          {
+            "mp": "Петър Георгиев Кънев",
+            "group": "—",
+            "assets": "2,9 млн €"
+          },
+          {
+            "mp": "Константин Василев Проданов",
+            "group": "ПГ \"Прогресивна България\"",
+            "assets": "2,8 млн €"
+          },
+          {
+            "mp": "Константин Любенов Пенчев",
+            "group": "—",
+            "assets": "2,7 млн €"
+          },
+          {
+            "mp": "Георги Валентинов Георгиев",
+            "group": "—",
+            "assets": "2,8 млн €"
+          },
+          {
+            "mp": "Здравко Марков Марков",
+            "group": "ПГ \"Прогресивна България\"",
+            "assets": "3,1 млн €"
+          },
+          {
+            "mp": "Константин Живков Бачийски",
+            "group": "—",
+            "assets": "2 млн €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "richest": "Делян Славчев Пеевски",
+          "richest_assets": "9,8 млн €"
+        },
+        "provenance": [
+          "db:mp_assets_rankings"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/table?{\"q\":\"{\\\"resource\\\":\\\"mp_assets_rankings\\\",\\\"page\\\":0,\\\"pageSize\\\":12,\\\"sort\\\":[{\\\"id\\\":\\\"net_worth_eur\\\",\\\"desc\\\":true}]}\"}",
+          "sha256": "983c9f553a3183fd9a9ae22a54feca57618cd4be2a88aecba75f05c519b1111b"
+        }
+      ],
+      "elapsedMs": 2.465292000000318
+    },
+    {
+      "seed": {
+        "id": "people-assets-top",
+        "domain": "people",
+        "tool": "mpAssetsTop",
+        "args": {},
+        "requiredFacts": [
+          "richest"
+        ],
+        "scope": "Richest MPs: the tool ranks by declared net worth and displays declared assets. Do not claim the displayed assets column is the ordering key; not audited wealth or salary."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "mpAssetsTop",
+        "domain": "people",
+        "kind": "table",
+        "title": "MPs by declared assets",
+        "columns": [
+          {
+            "key": "mp",
+            "label": "MP"
+          },
+          {
+            "key": "group",
+            "label": "Group"
+          },
+          {
+            "key": "assets",
+            "label": "Assets",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "mp": "Делян Славчев Пеевски",
+            "group": "ПГ на ДПС",
+            "assets": "€9.8m"
+          },
+          {
+            "mp": "Николай Йорданов Събев",
+            "group": "—",
+            "assets": "€9.5m"
+          },
+          {
+            "mp": "Станислав Тодоров Трифонов",
+            "group": "—",
+            "assets": "€8.2m"
+          },
+          {
+            "mp": "Владислав Панчев Панев",
+            "group": "ПГ на Демократична България",
+            "assets": "€3.8m"
+          },
+          {
+            "mp": "Лъчезар Богомилов Иванов",
+            "group": "ПГ на ГЕРБ – СДС",
+            "assets": "€3.6m"
+          },
+          {
+            "mp": "Георги Владов Григоров",
+            "group": "ПГ \"Прогресивна България\"",
+            "assets": "€3.2m"
+          },
+          {
+            "mp": "Петър Георгиев Кънев",
+            "group": "—",
+            "assets": "€2.9m"
+          },
+          {
+            "mp": "Константин Василев Проданов",
+            "group": "ПГ \"Прогресивна България\"",
+            "assets": "€2.8m"
+          },
+          {
+            "mp": "Константин Любенов Пенчев",
+            "group": "—",
+            "assets": "€2.7m"
+          },
+          {
+            "mp": "Георги Валентинов Георгиев",
+            "group": "—",
+            "assets": "€2.8m"
+          },
+          {
+            "mp": "Здравко Марков Марков",
+            "group": "ПГ \"Прогресивна България\"",
+            "assets": "€3.1m"
+          },
+          {
+            "mp": "Константин Живков Бачийски",
+            "group": "—",
+            "assets": "€2m"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "richest": "Делян Славчев Пеевски",
+          "richest_assets": "€9.8m"
+        },
+        "provenance": [
+          "db:mp_assets_rankings"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/table?{\"q\":\"{\\\"resource\\\":\\\"mp_assets_rankings\\\",\\\"page\\\":0,\\\"pageSize\\\":12,\\\"sort\\\":[{\\\"id\\\":\\\"net_worth_eur\\\",\\\"desc\\\":true}]}\"}",
+          "sha256": "983c9f553a3183fd9a9ae22a54feca57618cd4be2a88aecba75f05c519b1111b"
+        }
+      ],
+      "elapsedMs": 1.2922499999999673
+    },
+    {
+      "seed": {
+        "id": "people-attendance",
+        "domain": "people",
+        "tool": "mpAttendance",
+        "args": {
+          "ns": 51
+        },
+        "requiredFacts": [
+          "ns",
+          "best_attendance",
+          "worst_attendance"
+        ],
+        "scope": "Attendance at roll-call votes in the 51st National Assembly, not all parliamentary work."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "mpAttendance",
+        "domain": "people",
+        "kind": "table",
+        "title": "Присъствие на депутатите (51-о НС)",
+        "subtitle": "Дял на гласуванията, в които депутатът е участвал",
+        "columns": [
+          {
+            "key": "mp",
+            "label": "Депутат"
+          },
+          {
+            "key": "party",
+            "label": "Група"
+          },
+          {
+            "key": "present",
+            "label": "Присъствие",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "mp": "Небие Исмет Кабак",
+            "party": "ДПС - НН",
+            "present": 93.6
+          },
+          {
+            "mp": "Валерия Тодорова Славова",
+            "party": "ГЕРБ - СДС",
+            "present": 91.97
+          },
+          {
+            "mp": "Даниела Кирилова Дженева",
+            "party": "ГЕРБ - СДС",
+            "present": 91.81
+          },
+          {
+            "mp": "Христина Иванова Георгиева",
+            "party": "ГЕРБ - СДС",
+            "present": 91.81
+          },
+          {
+            "mp": "Ябленка Димитрова Трайкова",
+            "party": "ГЕРБ - СДС",
+            "present": 91.76
+          },
+          {
+            "mp": "Красен Георгиев Кръстев",
+            "party": "ГЕРБ - СДС",
+            "present": 91.62
+          },
+          {
+            "mp": "Александър Стайков Марков",
+            "party": "ИТН",
+            "present": 91.58
+          },
+          {
+            "mp": "Фиданка Иванова Кацарева",
+            "party": "ГЕРБ - СДС",
+            "present": 91.14
+          },
+          {
+            "mp": "Иван Йовков Червенков",
+            "party": "ГЕРБ - СДС",
+            "present": 90.9
+          },
+          {
+            "mp": "Илиана Петкова Жекова",
+            "party": "ГЕРБ - СДС",
+            "present": 90.83
+          },
+          {
+            "mp": "Любомир Христов Загоров",
+            "party": "ГЕРБ - СДС",
+            "present": 90.76
+          },
+          {
+            "mp": "Павлин Йовков Йотов",
+            "party": "ГЕРБ - СДС",
+            "present": 90.64
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "ns": "51",
+          "best_attendance": "Небие Исмет Кабак (93.6%)",
+          "worst_attendance": "Едис Рухиев Даудов (0%)"
+        },
+        "provenance": [
+          "parliament/votes/derived/attendance.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/parliament/votes/index.json",
+          "sha256": "ff97f96f6ecce28361629331e08cc1b631a2063d544945cf5b1cdae2f623582a"
+        },
+        {
+          "source": "data/parliament/votes/derived/attendance.json",
+          "sha256": "720ec40eaa6f2daac2b2a3687f02f8484dcd35ee4685cd2a5653577bda1cfcce"
+        }
+      ],
+      "elapsedMs": 8.22833300000002
+    },
+    {
+      "seed": {
+        "id": "people-attendance",
+        "domain": "people",
+        "tool": "mpAttendance",
+        "args": {
+          "ns": 51
+        },
+        "requiredFacts": [
+          "ns",
+          "best_attendance",
+          "worst_attendance"
+        ],
+        "scope": "Attendance at roll-call votes in the 51st National Assembly, not all parliamentary work."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "mpAttendance",
+        "domain": "people",
+        "kind": "table",
+        "title": "MP attendance (51th National Assembly)",
+        "subtitle": "Share of votes the MP took part in",
+        "columns": [
+          {
+            "key": "mp",
+            "label": "MP"
+          },
+          {
+            "key": "party",
+            "label": "Group"
+          },
+          {
+            "key": "present",
+            "label": "Present",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "mp": "Небие Исмет Кабак",
+            "party": "ДПС - НН",
+            "present": 93.6
+          },
+          {
+            "mp": "Валерия Тодорова Славова",
+            "party": "ГЕРБ - СДС",
+            "present": 91.97
+          },
+          {
+            "mp": "Даниела Кирилова Дженева",
+            "party": "ГЕРБ - СДС",
+            "present": 91.81
+          },
+          {
+            "mp": "Христина Иванова Георгиева",
+            "party": "ГЕРБ - СДС",
+            "present": 91.81
+          },
+          {
+            "mp": "Ябленка Димитрова Трайкова",
+            "party": "ГЕРБ - СДС",
+            "present": 91.76
+          },
+          {
+            "mp": "Красен Георгиев Кръстев",
+            "party": "ГЕРБ - СДС",
+            "present": 91.62
+          },
+          {
+            "mp": "Александър Стайков Марков",
+            "party": "ИТН",
+            "present": 91.58
+          },
+          {
+            "mp": "Фиданка Иванова Кацарева",
+            "party": "ГЕРБ - СДС",
+            "present": 91.14
+          },
+          {
+            "mp": "Иван Йовков Червенков",
+            "party": "ГЕРБ - СДС",
+            "present": 90.9
+          },
+          {
+            "mp": "Илиана Петкова Жекова",
+            "party": "ГЕРБ - СДС",
+            "present": 90.83
+          },
+          {
+            "mp": "Любомир Христов Загоров",
+            "party": "ГЕРБ - СДС",
+            "present": 90.76
+          },
+          {
+            "mp": "Павлин Йовков Йотов",
+            "party": "ГЕРБ - СДС",
+            "present": 90.64
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "ns": "51",
+          "best_attendance": "Небие Исмет Кабак (93.6%)",
+          "worst_attendance": "Едис Рухиев Даудов (0%)"
+        },
+        "provenance": [
+          "parliament/votes/derived/attendance.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/parliament/votes/index.json",
+          "sha256": "ff97f96f6ecce28361629331e08cc1b631a2063d544945cf5b1cdae2f623582a"
+        },
+        {
+          "source": "data/parliament/votes/derived/attendance.json",
+          "sha256": "720ec40eaa6f2daac2b2a3687f02f8484dcd35ee4685cd2a5653577bda1cfcce"
+        }
+      ],
+      "elapsedMs": 6.00525000000016
+    },
+    {
+      "seed": {
+        "id": "people-loyalty",
+        "domain": "people",
+        "tool": "mpLoyalty",
+        "args": {
+          "ns": 51
+        },
+        "requiredFacts": [
+          "ns",
+          "most_loyal",
+          "least_loyal"
+        ],
+        "scope": "Voting with one's parliamentary group in the 51st National Assembly, not attendance."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "mpLoyalty",
+        "domain": "people",
+        "kind": "table",
+        "title": "Партийна лоялност на депутатите (51-о НС)",
+        "subtitle": "Дял на гласовете, съвпадащи с групата",
+        "columns": [
+          {
+            "key": "mp",
+            "label": "Депутат"
+          },
+          {
+            "key": "party",
+            "label": "Група"
+          },
+          {
+            "key": "loyalty",
+            "label": "Лоялност",
+            "numeric": true,
+            "format": "pct"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "mp": "Небие Исмет Кабак",
+            "party": "ДПС - НН",
+            "loyalty": 100,
+            "votes": 161
+          },
+          {
+            "mp": "Метин Ялзер Качан",
+            "party": "ДПС - НН",
+            "loyalty": 100,
+            "votes": 574
+          },
+          {
+            "mp": "Танер Мюмюн Емин",
+            "party": "ДПС - НН",
+            "loyalty": 100,
+            "votes": 574
+          },
+          {
+            "mp": "Самуил Борисов Славов",
+            "party": "МЕЧ",
+            "loyalty": 100,
+            "votes": 6
+          },
+          {
+            "mp": "Александър Велиславов Тодоров",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Венцислав Иванов Петков",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Виолета Колева Комитова",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Кирил Атанасов Веселински",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Красимир Димчев Дончев",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 8
+          },
+          {
+            "mp": "Красимир Цветков Манов",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 8
+          },
+          {
+            "mp": "Николай Стефанов Радулов",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Пламен Ангелов Петков",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 1
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "ns": "51",
+          "most_loyal": "Небие Исмет Кабак (ДПС - НН, 100%)",
+          "least_loyal": "Андрей Иванов Чорбанов (НЕЧЛ В ПГ, 32.51%)"
+        },
+        "provenance": [
+          "parliament/votes/derived/loyalty.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/parliament/votes/index.json",
+          "sha256": "ff97f96f6ecce28361629331e08cc1b631a2063d544945cf5b1cdae2f623582a"
+        },
+        {
+          "source": "data/parliament/votes/derived/loyalty.json",
+          "sha256": "eca5189b02fa6cb6c31a4cccff581deee2b405e87751a4a95900f3cc2a45d5c7"
+        }
+      ],
+      "elapsedMs": 6.039249999999811
+    },
+    {
+      "seed": {
+        "id": "people-loyalty",
+        "domain": "people",
+        "tool": "mpLoyalty",
+        "args": {
+          "ns": 51
+        },
+        "requiredFacts": [
+          "ns",
+          "most_loyal",
+          "least_loyal"
+        ],
+        "scope": "Voting with one's parliamentary group in the 51st National Assembly, not attendance."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "mpLoyalty",
+        "domain": "people",
+        "kind": "table",
+        "title": "MP party loyalty (51th National Assembly)",
+        "subtitle": "Share of votes cast with the MP's group",
+        "columns": [
+          {
+            "key": "mp",
+            "label": "MP"
+          },
+          {
+            "key": "party",
+            "label": "Group"
+          },
+          {
+            "key": "loyalty",
+            "label": "Loyalty",
+            "numeric": true,
+            "format": "pct"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "mp": "Небие Исмет Кабак",
+            "party": "ДПС - НН",
+            "loyalty": 100,
+            "votes": 161
+          },
+          {
+            "mp": "Метин Ялзер Качан",
+            "party": "ДПС - НН",
+            "loyalty": 100,
+            "votes": 574
+          },
+          {
+            "mp": "Танер Мюмюн Емин",
+            "party": "ДПС - НН",
+            "loyalty": 100,
+            "votes": 574
+          },
+          {
+            "mp": "Самуил Борисов Славов",
+            "party": "МЕЧ",
+            "loyalty": 100,
+            "votes": 6
+          },
+          {
+            "mp": "Александър Велиславов Тодоров",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Венцислав Иванов Петков",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Виолета Колева Комитова",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Кирил Атанасов Веселински",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Красимир Димчев Дончев",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 8
+          },
+          {
+            "mp": "Красимир Цветков Манов",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 8
+          },
+          {
+            "mp": "Николай Стефанов Радулов",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 9
+          },
+          {
+            "mp": "Пламен Ангелов Петков",
+            "party": "НЕЧЛ ПГ",
+            "loyalty": 100,
+            "votes": 1
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "ns": "51",
+          "most_loyal": "Небие Исмет Кабак (ДПС - НН, 100%)",
+          "least_loyal": "Андрей Иванов Чорбанов (НЕЧЛ В ПГ, 32.51%)"
+        },
+        "provenance": [
+          "parliament/votes/derived/loyalty.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/parliament/votes/index.json",
+          "sha256": "ff97f96f6ecce28361629331e08cc1b631a2063d544945cf5b1cdae2f623582a"
+        },
+        {
+          "source": "data/parliament/votes/derived/loyalty.json",
+          "sha256": "eca5189b02fa6cb6c31a4cccff581deee2b405e87751a4a95900f3cc2a45d5c7"
+        }
+      ],
+      "elapsedMs": 7.107584000000315
+    },
+    {
+      "seed": {
+        "id": "municipal-mayor",
+        "domain": "municipal",
+        "tool": "localMunicipality",
+        "args": {
+          "place": "Пловдив",
+          "cycle": "2023_10_29_mi"
+        },
+        "requiredFacts": [
+          "mayor",
+          "cycle_id"
+        ],
+        "scope": "Mayor elected in Plovdiv in the 2023 local elections; not a claim about who holds office today."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "localMunicipality",
+        "domain": "local",
+        "kind": "scalar",
+        "title": "Пловдив — Местни избори 2023",
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Пловдив",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Пловдив"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "obshtina_id": "PDV22",
+          "cycle_id": "2023_10_29_mi",
+          "municipality": "Пловдив",
+          "mayor": "Костадин Димитров Димитров (ПП ГЕРБ)",
+          "mayor_pct": "54,15%",
+          "top_council_party": "ПП ГЕРБ (13 места)",
+          "turnout": "34,02%"
+        },
+        "provenance": [
+          "2023_10_29_mi/municipalities/PDV22.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2023_10_29_mi/municipalities/PDV22.json",
+          "sha256": "2fcb740b707900cea901a3f6e7b6f4d32df8707936683db6f63faa8906a7c41a"
+        }
+      ],
+      "elapsedMs": 2.2155840000000353
+    },
+    {
+      "seed": {
+        "id": "municipal-mayor",
+        "domain": "municipal",
+        "tool": "localMunicipality",
+        "args": {
+          "place": "Пловдив",
+          "cycle": "2023_10_29_mi"
+        },
+        "requiredFacts": [
+          "mayor",
+          "cycle_id"
+        ],
+        "scope": "Mayor elected in Plovdiv in the 2023 local elections; not a claim about who holds office today."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "localMunicipality",
+        "domain": "local",
+        "kind": "scalar",
+        "title": "Plovdiv — 2023 local elections",
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Plovdiv",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Plovdiv"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "obshtina_id": "PDV22",
+          "cycle_id": "2023_10_29_mi",
+          "municipality": "Пловдив",
+          "mayor": "Костадин Димитров Димитров (ПП ГЕРБ)",
+          "mayor_pct": "54.15%",
+          "top_council_party": "ПП ГЕРБ (13 seats)",
+          "turnout": "34.02%"
+        },
+        "provenance": [
+          "2023_10_29_mi/municipalities/PDV22.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2023_10_29_mi/municipalities/PDV22.json",
+          "sha256": "2fcb740b707900cea901a3f6e7b6f4d32df8707936683db6f63faa8906a7c41a"
+        }
+      ],
+      "elapsedMs": 1.3638750000000073
+    },
+    {
+      "seed": {
+        "id": "municipal-council",
+        "domain": "municipal",
+        "tool": "localCouncil",
+        "args": {
+          "place": "Варна",
+          "cycle": "2023_10_29_mi"
+        },
+        "requiredFacts": [
+          "total_seats",
+          "cycle_id"
+        ],
+        "scope": "Varna municipal council seats from the 2023 local election; not parliamentary seats."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "localCouncil",
+        "domain": "local",
+        "kind": "table",
+        "title": "Общински съвет на Варна — 2023",
+        "subtitle": "51 места · мнозинство 26",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "seats",
+            "label": "Места",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+            "seats": 8,
+            "votes": 14438,
+            "pct": 14.64,
+            "color": "rgb(66, 0, 255)"
+          },
+          {
+            "party": "ПП ГЕРБ",
+            "seats": 8,
+            "votes": 14156,
+            "pct": 14.36,
+            "color": "rgb(12, 69, 135)"
+          },
+          {
+            "party": "ВЪЗРАЖДАНЕ",
+            "seats": 7,
+            "votes": 12062,
+            "pct": 12.23,
+            "color": "rgb(51, 51, 51)"
+          },
+          {
+            "party": "КОАЛИЦИЯ АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
+            "seats": 6,
+            "votes": 10457,
+            "pct": 10.6,
+            "color": null
+          },
+          {
+            "party": "МК Български гласъ (Съюз на свободните демократи, Земеделски народен съюз, Обединен блок на труда български лейбъристи, Социалдемократическа партия)",
+            "seats": 5,
+            "votes": 9492,
+            "pct": 9.63,
+            "color": null
+          },
+          {
+            "party": "Земеделски съюз Ал. Стамболийски",
+            "seats": 5,
+            "votes": 8815,
+            "pct": 8.94,
+            "color": null
+          },
+          {
+            "party": "Движение за права и свободи – ДПС",
+            "seats": 3,
+            "votes": 5473,
+            "pct": 5.55,
+            "color": "rgb(33, 125, 223)"
+          },
+          {
+            "party": "БСП ЗА БЪЛГАРИЯ",
+            "seats": 3,
+            "votes": 4938,
+            "pct": 5.01,
+            "color": "rgb(237, 28, 36)"
+          },
+          {
+            "party": "ЛЕВИЦАТА!",
+            "seats": 2,
+            "votes": 3758,
+            "pct": 3.81,
+            "color": "rgb(186, 19, 60)"
+          },
+          {
+            "party": "ПП ИМА ТАКЪВ НАРОД",
+            "seats": 2,
+            "votes": 3679,
+            "pct": 3.73,
+            "color": "rgb(75, 185, 222)"
+          },
+          {
+            "party": "СДС",
+            "seats": 1,
+            "votes": 2684,
+            "pct": 2.72,
+            "color": "rgb(8, 70, 159)"
+          },
+          {
+            "party": "МК Свобода (ВМРО-БНД; Консервативна България, Бъдеще за родината)",
+            "seats": 1,
+            "votes": 2614,
+            "pct": 2.65,
+            "color": "lightslategrey"
+          }
+        ],
+        "viz": "hemicycle",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Варна",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Варна"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "obshtina_id": "VAR06",
+          "cycle_id": "2023_10_29_mi",
+          "municipality": "Варна",
+          "total_seats": 51,
+          "majority": 26,
+          "leader": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ (8)",
+          "control": "няма самостоятелно мнозинство"
+        },
+        "provenance": [
+          "2023_10_29_mi/municipalities/VAR06.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2023_10_29_mi/municipalities/VAR06.json",
+          "sha256": "d8f44748daf7ff5c06ff42ea2d9ef20c21a621a7797fe9326fc574dcf3b14b8e"
+        },
+        {
+          "source": "data/canonical_parties.json",
+          "sha256": "3e6ca0baf272f366bc3c15d68fba84b8986e910e69b5908f9098720a9586e7ea"
+        }
+      ],
+      "elapsedMs": 2.9942909999999756
+    },
+    {
+      "seed": {
+        "id": "municipal-council",
+        "domain": "municipal",
+        "tool": "localCouncil",
+        "args": {
+          "place": "Варна",
+          "cycle": "2023_10_29_mi"
+        },
+        "requiredFacts": [
+          "total_seats",
+          "cycle_id"
+        ],
+        "scope": "Varna municipal council seats from the 2023 local election; not parliamentary seats."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "localCouncil",
+        "domain": "local",
+        "kind": "table",
+        "title": "Varna municipal council — 2023",
+        "subtitle": "51 seats · majority 26",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "seats",
+            "label": "Seats",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+            "seats": 8,
+            "votes": 14438,
+            "pct": 14.64,
+            "color": "rgb(66, 0, 255)"
+          },
+          {
+            "party": "ПП ГЕРБ",
+            "seats": 8,
+            "votes": 14156,
+            "pct": 14.36,
+            "color": "rgb(12, 69, 135)"
+          },
+          {
+            "party": "ВЪЗРАЖДАНЕ",
+            "seats": 7,
+            "votes": 12062,
+            "pct": 12.23,
+            "color": "rgb(51, 51, 51)"
+          },
+          {
+            "party": "КОАЛИЦИЯ АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
+            "seats": 6,
+            "votes": 10457,
+            "pct": 10.6,
+            "color": null
+          },
+          {
+            "party": "МК Български гласъ (Съюз на свободните демократи, Земеделски народен съюз, Обединен блок на труда български лейбъристи, Социалдемократическа партия)",
+            "seats": 5,
+            "votes": 9492,
+            "pct": 9.63,
+            "color": null
+          },
+          {
+            "party": "Земеделски съюз Ал. Стамболийски",
+            "seats": 5,
+            "votes": 8815,
+            "pct": 8.94,
+            "color": null
+          },
+          {
+            "party": "Движение за права и свободи – ДПС",
+            "seats": 3,
+            "votes": 5473,
+            "pct": 5.55,
+            "color": "rgb(33, 125, 223)"
+          },
+          {
+            "party": "БСП ЗА БЪЛГАРИЯ",
+            "seats": 3,
+            "votes": 4938,
+            "pct": 5.01,
+            "color": "rgb(237, 28, 36)"
+          },
+          {
+            "party": "ЛЕВИЦАТА!",
+            "seats": 2,
+            "votes": 3758,
+            "pct": 3.81,
+            "color": "rgb(186, 19, 60)"
+          },
+          {
+            "party": "ПП ИМА ТАКЪВ НАРОД",
+            "seats": 2,
+            "votes": 3679,
+            "pct": 3.73,
+            "color": "rgb(75, 185, 222)"
+          },
+          {
+            "party": "СДС",
+            "seats": 1,
+            "votes": 2684,
+            "pct": 2.72,
+            "color": "rgb(8, 70, 159)"
+          },
+          {
+            "party": "МК Свобода (ВМРО-БНД; Консервативна България, Бъдеще за родината)",
+            "seats": 1,
+            "votes": 2614,
+            "pct": 2.65,
+            "color": "lightslategrey"
+          }
+        ],
+        "viz": "hemicycle",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Varna",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Varna"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "obshtina_id": "VAR06",
+          "cycle_id": "2023_10_29_mi",
+          "municipality": "Варна",
+          "total_seats": 51,
+          "majority": 26,
+          "leader": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ (8)",
+          "control": "no single-party majority"
+        },
+        "provenance": [
+          "2023_10_29_mi/municipalities/VAR06.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/2023_10_29_mi/municipalities/VAR06.json",
+          "sha256": "d8f44748daf7ff5c06ff42ea2d9ef20c21a621a7797fe9326fc574dcf3b14b8e"
+        },
+        {
+          "source": "data/canonical_parties.json",
+          "sha256": "3e6ca0baf272f366bc3c15d68fba84b8986e910e69b5908f9098720a9586e7ea"
+        }
+      ],
+      "elapsedMs": 2.054124999999658
+    },
+    {
+      "seed": {
+        "id": "municipal-tax",
+        "domain": "municipal",
+        "tool": "localTaxes",
+        "args": {
+          "place": "Русе"
+        },
+        "requiredFacts": [
+          "place",
+          "indicators"
+        ],
+        "scope": "Published local tax rates for Ruse versus the national average; not personal tax advice or a payment action."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Местни данъци — Русе",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Данък"
+          },
+          {
+            "key": "value",
+            "label": "Ставка",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Средно",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Място",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Данък върху недвижимите имоти (юридически лица)",
+            "value": "3 ‰",
+            "avg": "2.539 ‰",
+            "rank": 208
+          },
+          {
+            "tax": "Данък при придобиване на имущество",
+            "value": "3 %",
+            "avg": "2.758 %",
+            "rank": 222
+          },
+          {
+            "tax": "Данък върху превозните средства (74–110 kW)",
+            "value": "0.844 €/kW",
+            "avg": "0.766 €/kW",
+            "rank": 197
+          },
+          {
+            "tax": "Патентен данък (търговия на дребно ≤ 100 м²)",
+            "value": "8.69 €",
+            "avg": "4.261 €",
+            "rank": 244
+          },
+          {
+            "tax": "Патентен данък (такси)",
+            "value": "257.69 €",
+            "avg": "154.42 €",
+            "rank": 256
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/RSE.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Русе",
+          "areas": [
+            {
+              "code": "RSE27",
+              "label": "Русе"
+            }
+          ],
+          "focus": [
+            "RSE27"
+          ]
+        },
+        "facts": {
+          "place": "Русе",
+          "indicators": 5
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/RSE27.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/local_taxes/index.json",
+          "sha256": "382158f4b1e33132f0421ef4ff522bbfacd67e0e39af6c55e2733ca4ef6554df"
+        },
+        {
+          "source": "data/local_taxes/RSE27.json",
+          "sha256": "dd6d8a0a9b665710665d24f20f131c9e802da0ca00102504b305bb9f5f984b50"
+        }
+      ],
+      "elapsedMs": 0.7267500000002656
+    },
+    {
+      "seed": {
+        "id": "municipal-tax",
+        "domain": "municipal",
+        "tool": "localTaxes",
+        "args": {
+          "place": "Русе"
+        },
+        "requiredFacts": [
+          "place",
+          "indicators"
+        ],
+        "scope": "Published local tax rates for Ruse versus the national average; not personal tax advice or a payment action."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Local taxes — Ruse",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Tax"
+          },
+          {
+            "key": "value",
+            "label": "Rate",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Avg",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Rank",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Property tax (legal entities)",
+            "value": "3 ‰",
+            "avg": "2.539 ‰",
+            "rank": 208
+          },
+          {
+            "tax": "Property-transfer tax",
+            "value": "3 %",
+            "avg": "2.758 %",
+            "rank": 222
+          },
+          {
+            "tax": "Vehicle tax (74–110 kW)",
+            "value": "0.844 €/kW",
+            "avg": "0.766 €/kW",
+            "rank": 197
+          },
+          {
+            "tax": "Patent tax (retail ≤ 100 m²)",
+            "value": "8.69 €",
+            "avg": "4.261 €",
+            "rank": 244
+          },
+          {
+            "tax": "Patent tax (taxi)",
+            "value": "257.69 €",
+            "avg": "154.42 €",
+            "rank": 256
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/RSE.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Ruse",
+          "areas": [
+            {
+              "code": "RSE27",
+              "label": "Ruse"
+            }
+          ],
+          "focus": [
+            "RSE27"
+          ]
+        },
+        "facts": {
+          "place": "Русе",
+          "indicators": 5
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/RSE27.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/local_taxes/index.json",
+          "sha256": "382158f4b1e33132f0421ef4ff522bbfacd67e0e39af6c55e2733ca4ef6554df"
+        },
+        {
+          "source": "data/local_taxes/RSE27.json",
+          "sha256": "dd6d8a0a9b665710665d24f20f131c9e802da0ca00102504b305bb9f5f984b50"
+        }
+      ],
+      "elapsedMs": 0.2842080000000351
+    },
+    {
+      "seed": {
+        "id": "municipal-transfers",
+        "domain": "municipal",
+        "tool": "municipalTransfers",
+        "args": {
+          "year": 2025
+        },
+        "requiredFacts": [
+          "year",
+          "total",
+          "municipalities"
+        ],
+        "scope": "State transfers to municipalities by category in 2025, not municipal tax revenues."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Трансфери държава → общини (2025)",
+        "subtitle": "По вид трансфер (Чл. 53 ЗДБРБ)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Вид"
+          },
+          {
+            "key": "amount",
+            "label": "Сума",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Делегирани държавни дейности",
+            "amount": "4 млрд €"
+          },
+          {
+            "category": "Изравнителна субсидия",
+            "amount": "235,2 млн €"
+          },
+          {
+            "category": "Целева капиталова субсидия",
+            "amount": "232,1 млн €"
+          },
+          {
+            "category": "Други целеви трансфери",
+            "amount": "35,8 млн €"
+          },
+          {
+            "category": "Зимно поддържане на пътища",
+            "amount": "25,1 млн €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2025,
+          "total": "4,6 млрд €",
+          "municipalities": 265,
+          "biggest": "Делегирани държавни дейности"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2025/totals.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/budget/municipal_transfers/index.json",
+          "sha256": "5f2f28dd71a1ff2805adb6005c52e29f4c87949fd5664aab57c076b93e766bb1"
+        },
+        {
+          "source": "data/budget/municipal_transfers/2025/totals.json",
+          "sha256": "ea452c7e0d0f670f08238dd8355affbf2fbdb89dfd6014bb8aecd7ed5197e631"
+        }
+      ],
+      "elapsedMs": 0.7275829999998678
+    },
+    {
+      "seed": {
+        "id": "municipal-transfers",
+        "domain": "municipal",
+        "tool": "municipalTransfers",
+        "args": {
+          "year": 2025
+        },
+        "requiredFacts": [
+          "year",
+          "total",
+          "municipalities"
+        ],
+        "scope": "State transfers to municipalities by category in 2025, not municipal tax revenues."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "State → municipality transfers (2025)",
+        "subtitle": "By transfer type (Art. 53 of the State Budget Law)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Type"
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Delegated state activities",
+            "amount": "€4bn"
+          },
+          {
+            "category": "Equalization subsidy",
+            "amount": "€235.2m"
+          },
+          {
+            "category": "Capital subsidy",
+            "amount": "€232.1m"
+          },
+          {
+            "category": "Other targeted transfers",
+            "amount": "€35.8m"
+          },
+          {
+            "category": "Winter road maintenance",
+            "amount": "€25.1m"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2025,
+          "total": "€4.6bn",
+          "municipalities": 265,
+          "biggest": "Delegated state activities"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2025/totals.json"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/budget/municipal_transfers/index.json",
+          "sha256": "5f2f28dd71a1ff2805adb6005c52e29f4c87949fd5664aab57c076b93e766bb1"
+        },
+        {
+          "source": "data/budget/municipal_transfers/2025/totals.json",
+          "sha256": "ea452c7e0d0f670f08238dd8355affbf2fbdb89dfd6014bb8aecd7ed5197e631"
+        }
+      ],
+      "elapsedMs": 0.3109999999996944
+    },
+    {
+      "seed": {
+        "id": "municipal-arrears",
+        "domain": "municipal",
+        "tool": "municipalFiscalRanking",
+        "args": {
+          "year": 2024,
+          "count": 5,
+          "metric": "arrears"
+        },
+        "requiredFacts": [
+          "period|период"
+        ],
+        "scope": "Five municipalities with largest year-end 2024 overdue liabilities (arrears), not commitments or total debt. Missing is not zero."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "municipalFiscalRanking",
+        "domain": "fiscal",
+        "kind": "table",
+        "viz": "bar",
+        "title": "Общини по просрочени задължения — 2024 г.",
+        "columns": [
+          {
+            "key": "municipality",
+            "label": "Община"
+          },
+          {
+            "key": "commitments",
+            "label": "Поети ангажименти (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "obligations",
+            "label": "Задължения за разходи (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "arrears",
+            "label": "Просрочия (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "debt",
+            "label": "Общински дълг (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "criteria",
+            "label": "Оценени критерии"
+          },
+          {
+            "key": "threshold",
+            "label": "Праг по чл. 130а"
+          }
+        ],
+        "rows": [
+          {
+            "municipality": "Пазарджик",
+            "commitments": 36851448.99607839,
+            "obligations": 15736234.596053846,
+            "arrears": 11037801.342652481,
+            "debt": 11124865.658058217,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "не"
+          },
+          {
+            "municipality": "Велинград",
+            "commitments": 31740526.54883093,
+            "obligations": 12576948.83502145,
+            "arrears": 10347428.457483524,
+            "debt": 2276189.6483845734,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "да"
+          },
+          {
+            "municipality": "Пловдив",
+            "commitments": 200742943.50736007,
+            "obligations": 26065262.384767592,
+            "arrears": 4171670.33944668,
+            "debt": 53256912.921879716,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "не"
+          },
+          {
+            "municipality": "Велико Търново",
+            "commitments": 26136661.913356483,
+            "obligations": 8030831.473083042,
+            "arrears": 3140795.9792006463,
+            "debt": 3664876.292929345,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "не"
+          },
+          {
+            "municipality": "Доспат",
+            "commitments": 3719794.608938405,
+            "obligations": 5409133.002357055,
+            "arrears": 3059039.3848136086,
+            "debt": 896284.4418993471,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "да"
+          }
+        ],
+        "facts": {
+          "период": "2024-Q4",
+          "показани общини": 5,
+          "общини в набора": 265,
+          "без публикувана стойност": 0,
+          "липсващо": "NULL означава непубликувана стойност, не нула"
+        },
+        "provenance": [
+          "municipal_fiscal_ranking() — Ministry of Finance, year-end Q4"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/municipal-fiscal-ranking?{\"year\":2024,\"limit\":1000}",
+          "sha256": "9adffaac5e09d12dc2faa5dc9d0adb26521f43a43a3c4d4b11a3ffc6857711da"
+        }
+      ],
+      "elapsedMs": 6.413166000000274
+    },
+    {
+      "seed": {
+        "id": "municipal-arrears",
+        "domain": "municipal",
+        "tool": "municipalFiscalRanking",
+        "args": {
+          "year": 2024,
+          "count": 5,
+          "metric": "arrears"
+        },
+        "requiredFacts": [
+          "period|период"
+        ],
+        "scope": "Five municipalities with largest year-end 2024 overdue liabilities (arrears), not commitments or total debt. Missing is not zero."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "municipalFiscalRanking",
+        "domain": "fiscal",
+        "kind": "table",
+        "viz": "bar",
+        "title": "Municipalities by arrears — 2024",
+        "columns": [
+          {
+            "key": "municipality",
+            "label": "Municipality"
+          },
+          {
+            "key": "commitments",
+            "label": "Commitments (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "obligations",
+            "label": "Expense obligations (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "arrears",
+            "label": "Arrears (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "debt",
+            "label": "Municipal debt (€)",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "criteria",
+            "label": "Criteria evaluated"
+          },
+          {
+            "key": "threshold",
+            "label": "Art. 130a threshold"
+          }
+        ],
+        "rows": [
+          {
+            "municipality": "Pazardzhik",
+            "commitments": 36851448.99607839,
+            "obligations": 15736234.596053846,
+            "arrears": 11037801.342652481,
+            "debt": 11124865.658058217,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "no"
+          },
+          {
+            "municipality": "Velingrad",
+            "commitments": 31740526.54883093,
+            "obligations": 12576948.83502145,
+            "arrears": 10347428.457483524,
+            "debt": 2276189.6483845734,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "yes"
+          },
+          {
+            "municipality": "Plovdiv",
+            "commitments": 200742943.50736007,
+            "obligations": 26065262.384767592,
+            "arrears": 4171670.33944668,
+            "debt": 53256912.921879716,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "no"
+          },
+          {
+            "municipality": "Veliko Tarnovo",
+            "commitments": 26136661.913356483,
+            "obligations": 8030831.473083042,
+            "arrears": 3140795.9792006463,
+            "debt": 3664876.292929345,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "no"
+          },
+          {
+            "municipality": "Dospat",
+            "commitments": 3719794.608938405,
+            "obligations": 5409133.002357055,
+            "arrears": 3059039.3848136086,
+            "debt": 896284.4418993471,
+            "criteria": "1, 2, 3, 4, 5, 6, 7",
+            "threshold": "yes"
+          }
+        ],
+        "facts": {
+          "period": "2024-Q4",
+          "municipalities shown": 5,
+          "eligible municipalities": 265,
+          "without published value": 0,
+          "missing values": "NULL means unpublished, not zero"
+        },
+        "provenance": [
+          "municipal_fiscal_ranking() — Ministry of Finance, year-end Q4"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "local-pg:/api/db/municipal-fiscal-ranking?{\"year\":2024,\"limit\":1000}",
+          "sha256": "9adffaac5e09d12dc2faa5dc9d0adb26521f43a43a3c4d4b11a3ffc6857711da"
+        }
+      ],
+      "elapsedMs": 2.9922499999997854
+    },
+    {
+      "seed": {
+        "id": "municipal-profile",
+        "domain": "municipal",
+        "tool": "governanceProfile",
+        "args": {
+          "place": "Габрово"
+        },
+        "requiredFacts": [
+          "place",
+          "population"
+        ],
+        "scope": "Composite governance profile of Gabrovo using latest available observations; different metrics can have different dates."
+      },
+      "context": {
+        "lang": "bg",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "governanceProfile",
+        "domain": "place",
+        "kind": "scalar",
+        "title": "Профил на Габрово",
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/GAB.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Габрово",
+          "areas": [
+            {
+              "code": "GAB05",
+              "label": "Габрово"
+            }
+          ],
+          "focus": [
+            "GAB05"
+          ]
+        },
+        "facts": {
+          "place": "Габрово",
+          "oblast": "Габрово",
+          "population": "51 881",
+          "mayor": "Таня Венкова Христова (ПП ГЕРБ)",
+          "council_leader": "ПП ГЕРБ (15)",
+          "local_turnout": "31,25% (2023)",
+          "unemployment": "4.14% (2025)",
+          "transparency": "3.26 (място 15)",
+          "local_procurement": "465,4 млн €",
+          "registered_population": "57 742",
+          "council_resolutions": 497
+        },
+        "provenance": [
+          "municipalities.json",
+          "census/municipalities/GAB05.json",
+          "2023_10_29_mi/municipalities/GAB05.json",
+          "indicators.json",
+          "municipal_transparency/index.json",
+          "db:procurement-settlement",
+          "grao_population.json",
+          "db:council-muni"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/census/municipalities/GAB05.json",
+          "sha256": "b40b660d71aa86d6ec11c619ea9eac4211c2bdcebfb0bacb133d51ae4ac43310"
+        },
+        {
+          "source": "data/municipal_transparency/index.json",
+          "sha256": "992ef4439e7c3e3190a994d32fda2f95e0e255168f64cc572161220a565ea4dc"
+        },
+        {
+          "source": "data/indicators.json",
+          "sha256": "c8ec251673c273101447b2599ce81f29caf5014a0eb322b9d145e8a7d2a281e4"
+        },
+        {
+          "source": "data/2023_10_29_mi/municipalities/GAB05.json",
+          "sha256": "7d338de91d6b7280eaac64bf208db7fe03fd2c054fe0ac54611bee76bad1153d"
+        },
+        {
+          "source": "data/air/index.json",
+          "sha256": "1fe06b06934314e11a9eef60a729c39992ad46c45a70b6e4944b7e8cf15a9669"
+        },
+        {
+          "source": "data/grao_population.json",
+          "sha256": "e1b178bf30b66f0431bed14f9d7342d320b35e0b5436738c792c9610a075a74f"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-settlement?{\"ekatte\":\"14218\",\"slim\":\"1\"}",
+          "sha256": "1cf527abbf792b42b27fd21befd6371a9095f349215f8968237bea06eca04959"
+        },
+        {
+          "source": "local-pg:/api/db/council-muni?{\"code\":\"GAB05\",\"limit\":1}",
+          "sha256": "60c14e3c0b4b17930eead8dad62e6cc099d94621063ea66a53d08c6d19e72caf"
+        }
+      ],
+      "elapsedMs": 25.95570799999996
+    },
+    {
+      "seed": {
+        "id": "municipal-profile",
+        "domain": "municipal",
+        "tool": "governanceProfile",
+        "args": {
+          "place": "Габрово"
+        },
+        "requiredFacts": [
+          "place",
+          "population"
+        ],
+        "scope": "Composite governance profile of Gabrovo using latest available observations; different metrics can have different dates."
+      },
+      "context": {
+        "lang": "en",
+        "election": "2026_04_19"
+      },
+      "envelope": {
+        "tool": "governanceProfile",
+        "domain": "place",
+        "kind": "scalar",
+        "title": "Gabrovo — governance profile",
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/GAB.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Gabrovo",
+          "areas": [
+            {
+              "code": "GAB05",
+              "label": "Gabrovo"
+            }
+          ],
+          "focus": [
+            "GAB05"
+          ]
+        },
+        "facts": {
+          "place": "Габрово",
+          "oblast": "Gabrovo",
+          "population": "51,881",
+          "mayor": "Таня Венкова Христова (ПП ГЕРБ)",
+          "council_leader": "ПП ГЕРБ (15)",
+          "local_turnout": "31.25% (2023)",
+          "unemployment": "4.14% (2025)",
+          "transparency": "3.26 (rank 15)",
+          "local_procurement": "€465.4m",
+          "registered_population": "57,742",
+          "council_resolutions": 497
+        },
+        "provenance": [
+          "municipalities.json",
+          "census/municipalities/GAB05.json",
+          "2023_10_29_mi/municipalities/GAB05.json",
+          "indicators.json",
+          "municipal_transparency/index.json",
+          "db:procurement-settlement",
+          "grao_population.json",
+          "db:council-muni"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "src/data/json/elections.json",
+          "sha256": "aea7d4db8b791e2493cefedb3dd5ead4e330913dac34d3cc0308869a4beac396"
+        },
+        {
+          "source": "data/census/municipalities/GAB05.json",
+          "sha256": "b40b660d71aa86d6ec11c619ea9eac4211c2bdcebfb0bacb133d51ae4ac43310"
+        },
+        {
+          "source": "data/2023_10_29_mi/municipalities/GAB05.json",
+          "sha256": "7d338de91d6b7280eaac64bf208db7fe03fd2c054fe0ac54611bee76bad1153d"
+        },
+        {
+          "source": "data/air/index.json",
+          "sha256": "1fe06b06934314e11a9eef60a729c39992ad46c45a70b6e4944b7e8cf15a9669"
+        },
+        {
+          "source": "data/grao_population.json",
+          "sha256": "e1b178bf30b66f0431bed14f9d7342d320b35e0b5436738c792c9610a075a74f"
+        },
+        {
+          "source": "data/municipal_transparency/index.json",
+          "sha256": "992ef4439e7c3e3190a994d32fda2f95e0e255168f64cc572161220a565ea4dc"
+        },
+        {
+          "source": "data/indicators.json",
+          "sha256": "c8ec251673c273101447b2599ce81f29caf5014a0eb322b9d145e8a7d2a281e4"
+        },
+        {
+          "source": "local-pg:/api/db/procurement-settlement?{\"ekatte\":\"14218\",\"slim\":\"1\"}",
+          "sha256": "1cf527abbf792b42b27fd21befd6371a9095f349215f8968237bea06eca04959"
+        },
+        {
+          "source": "local-pg:/api/db/council-muni?{\"code\":\"GAB05\",\"limit\":1}",
+          "sha256": "60c14e3c0b4b17930eead8dad62e6cc099d94621063ea66a53d08c6d19e72caf"
+        }
+      ],
+      "elapsedMs": 7.311416000000008
+    }
+  ]
+}
