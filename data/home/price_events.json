@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-10",
+  "computedAt": "2026-09-11",
   "thresholds": {
     "basketPids": [
       1,
@@ -55,23 +55,23 @@
   ],
   "promotions": [
     {
-      "slug": "luk",
-      "title": "ЛУК",
-      "atOrBelowSince": "2026-09-10",
-      "promoEur": 0.35,
-      "regularEur": 0.85,
-      "discountPct": 59,
-      "stores": 161,
-      "chains": 3
-    },
-    {
       "slug": "krastavitsi",
       "title": "КРАСТАВИЦИ",
       "atOrBelowSince": "2026-09-10",
       "promoEur": 0.99,
-      "regularEur": 2.13,
-      "discountPct": 53,
-      "stores": 183,
+      "regularEur": 2.52,
+      "discountPct": 61,
+      "stores": 186,
+      "chains": 4
+    },
+    {
+      "slug": "luk",
+      "title": "ЛУК",
+      "atOrBelowSince": "2026-09-10",
+      "promoEur": 0.35,
+      "regularEur": 0.89,
+      "discountPct": 60,
+      "stores": 161,
       "chains": 3
     },
     {

@@ -1,6 +1,48 @@
 {
-  "updatedAt": "2026-09-11T00:19:23.674Z",
+  "updatedAt": "2026-09-11T23:15:39.528Z",
   "entries": [
+    {
+      "timestamp": "2026-09-11T23:15:39.528Z",
+      "date": "2026-09-11",
+      "skill": "update-open-calls",
+      "summary": "ИСУН open calls: 55 open, 0 consultations (1 closed since last crawl)",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-11T23:13:48.439Z",
+      "date": "2026-09-11",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-11 (+1 daily archive; 819,541 store rows, 168 settlements, 77 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-11"
+    },
+    {
+      "timestamp": "2026-09-11T22:57:40.064Z",
+      "date": "2026-09-11",
+      "skill": "update-procurement",
+      "summary": "EOP gap-fill +133 contracts (64 buyers) + 25 annexes through 2026-09-10; TED +84 BG notices (219,281 total)",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-09-11T22:42:58.326Z",
+      "date": "2026-09-11",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 932 лица, 125 072 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-11T22:02:56.863Z",
+      "date": "2026-09-11",
+      "skill": "update-rollcall",
+      "summary": "1 new session through 2026-09-11 (id 11169: 1 item, 240 rows)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-11T00:19:23.674Z",
       "date": "2026-09-11",

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-10T23:59:59.999Z",
+  "computedAt": "2026-09-11T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:luk",
+      "id": "prices:promotion:krastavitsi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-10T00:00:00.000Z",
-      "firstSeenAt": "2026-09-10T00:00:00.000Z",
+      "occurredAt": "2026-09-11T00:00:00.000Z",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,18 +22,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/luk",
+      "route": "/product/krastavitsi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛУК",
-        "pct": 59,
-        "promoEur": "0.35",
-        "regularEur": "0.85",
-        "chains": 3
+        "title": "КРАСТАВИЦИ",
+        "pct": 61,
+        "promoEur": "0.99",
+        "regularEur": "2.52",
+        "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8428571428571429,
+      "materiality": 0.8714285714285714,
       "actionability": 0.85
     },
     {
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krastavitsi",
+      "id": "prices:promotion:luk",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-10T00:00:00.000Z",
-      "firstSeenAt": "2026-09-10T00:00:00.000Z",
+      "occurredAt": "2026-09-11T00:00:00.000Z",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krastavitsi",
+      "route": "/product/luk",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАСТАВИЦИ",
-        "pct": 53,
-        "promoEur": "0.99",
-        "regularEur": "2.13",
+        "title": "ЛУК",
+        "pct": 60,
+        "promoEur": "0.35",
+        "regularEur": "0.89",
         "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7571428571428571,
+      "materiality": 0.8571428571428571,
       "actionability": 0.85
     },
     {
@@ -194,8 +194,8 @@
       "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-10T00:00:00.000Z",
-      "firstSeenAt": "2026-09-10T00:00:00.000Z",
+      "occurredAt": "2026-09-11T00:00:00.000Z",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -337,6 +337,34 @@
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.475,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-11",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-11T00:00:00.000Z",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-11",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 1
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.025,
       "actionability": 0.4
     },
     {
@@ -994,20 +1022,20 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-08-09",
-      "observedAt": "2026-09-08",
+      "observedAt": "2026-09-11",
       "staleAfterDays": 45,
       "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-09-10",
+      "asOf": "2026-09-11",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-10",
-      "observedAt": "2026-09-10",
+      "asOf": "2026-09-11",
+      "observedAt": "2026-09-11",
       "staleAfterDays": 5,
       "stale": false
     }
