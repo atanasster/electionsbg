@@ -4816,7 +4816,9 @@ export const resolveFollowOn = (
       return valid("municipalTransfers", { ...prev.args });
     if (
       transferDistribution(bare) &&
-      /^(?:by |across |between |among |по |между |сред )/i.test(bare)
+      /^(?:(?:by|across|between|among)\s+(?:(?:the|recipient|individual)\s+)?municipalit(?:y|ies)|(?:по|между|сред)\s+(?:отделните\s+)?общин(?:и|ите)|rank(?:\s+the)?\s+municipalities|(?:подреди|класирай)\s+общините)$/i.test(
+        bare,
+      )
     )
       return valid("budgetMunicipalTransfers", { ...prev.args });
     if (year) return valid(prev.tool, { ...prev.args, year: Number(year) });
@@ -4838,11 +4840,20 @@ export const resolveFollowOn = (
       return valid(prev.tool, args);
     }
   }
-  const regionExplicit = /^(?:област|province|region|oblast)\s+/i.test(entity);
-  const placeName = entity.replace(
-    /^(?:област|община|град|province|region|oblast|municipality|city)\s+/i,
-    "",
-  );
+  const regionExplicit =
+    /^(?:the\s+)?(?:област|province|region|oblast)\s+|\s+(?:province|region|oblast)$/i.test(
+      entity,
+    ) || plovdivScope(entity) === "province";
+  const cityExplicit =
+    /^(?:the\s+)?(?:община|град|municipality|city)\s+|\s+(?:municipality|city)$/i.test(
+      entity,
+    );
+  const placeName = entity
+    .replace(
+      /^(?:the\s+)?(?:област|община|град|province|region|oblast|municipality|city)\s+(?:of\s+)?/i,
+      "",
+    )
+    .replace(/\s+(?:province|region|oblast|municipality|city)$/i, "");
   const hit = findOblastInText(placeName);
   const known =
     hit &&
@@ -4867,9 +4878,7 @@ export const resolveFollowOn = (
   ) {
     const regional =
       regionExplicit ||
-      (prev.tool === "regionResults" &&
-        !plovdivScope(entity) &&
-        !/^(?:община|град|municipality|city)\s+/i.test(entity));
+      (prev.tool === "regionResults" && !plovdivScope(entity) && !cityExplicit);
     return valid(regional ? "regionResults" : "municipalityResults", {
       ...(prev.args.party ? { party: prev.args.party } : {}),
       ...(prev.args.metric ? { metric: prev.args.metric } : {}),

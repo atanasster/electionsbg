@@ -74,8 +74,17 @@ export const routeCivicQuestion = (
     return result("budgetPersonnelByMinistry", fiscalArgs);
   if (hit(/бюджетът на всяко министерство|each ministry.*budget/))
     return result("budgetMinistries", fiscalArgs);
-  if (hit(/трансфер|transfer/) && transferDistribution(q))
-    return result("budgetMunicipalTransfers", fiscalArgs);
+  if (
+    hit(/трансфер|transfer/) &&
+    hit(/общин|municipal/) &&
+    !hit(/vote|глас|мандат|mandate/)
+  )
+    return result(
+      transferDistribution(q)
+        ? "budgetMunicipalTransfers"
+        : "municipalTransfers",
+      fiscalArgs,
+    );
   if (
     hit(/капиталови проекти.*финансиране|capital projects.*financing sources/)
   )

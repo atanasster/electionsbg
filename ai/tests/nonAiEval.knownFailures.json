@@ -1042,15 +1042,6 @@
       }
     }
   },
-  "authored:19:en": {
-    "expectedTool": "municipalityResults",
-    "observedRoute": {
-      "tool": "localMunicipality",
-      "args": {
-        "place": "and varna"
-      }
-    }
-  },
   "authored:20:en": {
     "expectedTool": "localTaxes",
     "observedRoute": {
@@ -1107,10 +1098,6 @@
         "metric": "commitments"
       }
     }
-  },
-  "authored:26:en": {
-    "expectedTool": "regionResults",
-    "observedRoute": null
   },
   "unsupported:3:bg": {
     "expectedTool": null,
@@ -1507,19 +1494,6 @@
   },
   "conversation:2:bg": {
     "expectedTool": "personWealth",
-    "observedRoute": null
-  },
-  "conversation:3:en": {
-    "expectedTool": "municipalityResults",
-    "observedRoute": {
-      "tool": "localMunicipality",
-      "args": {
-        "place": "and varna"
-      }
-    }
-  },
-  "conversation:4:en": {
-    "expectedTool": "regionResults",
     "observedRoute": null
   },
   "conversation:5:en": {
