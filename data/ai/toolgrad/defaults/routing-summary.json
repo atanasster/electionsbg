@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "suiteHash": "d9be1f878ce46c9397113df8ba8010e2e1a991ea089742a2ecb8a6d4337fb34c",
+  "baseline": {
+    "all": {
+      "n": 50,
+      "rawCorrect": 39,
+      "policyCorrect": 50,
+      "ruleCorrect": 35,
+      "medianMs": 705.4115830000001,
+      "p95Ms": 1029.290875,
+      "promptTokens": 695611,
+      "completionTokens": 1015
+    },
+    "city": {
+      "n": 12,
+      "rawCorrect": 11,
+      "policyCorrect": 12,
+      "ruleCorrect": 9,
+      "medianMs": 864.9215829999999,
+      "p95Ms": 1373.5290420000001,
+      "promptTokens": 166890,
+      "completionTokens": 306
+    },
+    "transfers": {
+      "n": 12,
+      "rawCorrect": 7,
+      "policyCorrect": 12,
+      "ruleCorrect": 12,
+      "medianMs": 705.4115830000001,
+      "p95Ms": 831.4661669999996,
+      "promptTokens": 166856,
+      "completionTokens": 223
+    },
+    "control": {
+      "n": 14,
+      "rawCorrect": 14,
+      "policyCorrect": 14,
+      "ruleCorrect": 4,
+      "medianMs": 664.8974159999998,
+      "p95Ms": 773.3313330000001,
+      "promptTokens": 194643,
+      "completionTokens": 259
+    },
+    "conversation": {
+      "n": 12,
+      "rawCorrect": 7,
+      "policyCorrect": 12,
+      "ruleCorrect": 10,
+      "medianMs": 694.0832499999997,
+      "p95Ms": 884.8798330000009,
+      "promptTokens": 167222,
+      "completionTokens": 227
+    }
+  },
+  "candidate": {
+    "all": {
+      "n": 50,
+      "rawCorrect": 40,
+      "policyCorrect": 50,
+      "ruleCorrect": 35,
+      "medianMs": 647.2266670000008,
+      "p95Ms": 882.6504170000007,
+      "promptTokens": 701211,
+      "completionTokens": 993
+    },
+    "city": {
+      "n": 12,
+      "rawCorrect": 12,
+      "policyCorrect": 12,
+      "ruleCorrect": 9,
+      "medianMs": 709.7597089999999,
+      "p95Ms": 1014.4706249999999,
+      "promptTokens": 168234,
+      "completionTokens": 325
+    },
+    "transfers": {
+      "n": 12,
+      "rawCorrect": 6,
+      "policyCorrect": 12,
+      "ruleCorrect": 12,
+      "medianMs": 655.6359579999998,
+      "p95Ms": 881.114208,
+      "promptTokens": 168200,
+      "completionTokens": 228
+    },
+    "control": {
+      "n": 14,
+      "rawCorrect": 14,
+      "policyCorrect": 14,
+      "ruleCorrect": 4,
+      "medianMs": 635.9686670000001,
+      "p95Ms": 882.6504170000007,
+      "promptTokens": 196211,
+      "completionTokens": 222
+    },
+    "conversation": {
+      "n": 12,
+      "rawCorrect": 8,
+      "policyCorrect": 12,
+      "ruleCorrect": 10,
+      "medianMs": 579.0872920000002,
+      "p95Ms": 857.3149580000008,
+      "promptTokens": 168566,
+      "completionTokens": 218
+    }
+  },
+  "calls": 100,
+  "reservationCeilingUSD": 3.1,
+  "billedUSD": null,
+  "scope": "Raw model selection and current parser/follow-on scores are separate. Both policy columns use current code; do not interpret them as an old/new runtime comparison. Rule-only failures include unsupported actions and are not claims that an action executes.",
+  "limitations": [
+    "Fifty new hand-written questions, not real traffic or statistically independent task families.",
+    "Same coding agent authored the suite; independent of the old synthetic dataset, not independent blinded authorship.",
+    "Single run per prompt; no claims of statistical significance or end-to-end answer accuracy.",
+    "Labels frozen before calls and unchanged after seeing outputs. Misses are retained."
+  ]
+}
