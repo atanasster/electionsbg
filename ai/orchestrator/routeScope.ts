@@ -1,3 +1,4 @@
+import { applyProductDefaults } from "./productDefaults";
 import { route as heuristicRoute, type Route } from "./router";
 import { parseToolCall } from "./toolSchema";
 // Preserve explicit calendar scope using the existing deterministic election
@@ -55,5 +56,5 @@ export function parseModelRoute(raw: string, question: string): Route {
       /eu (?:funds|money)|европейски (?:средства|пари)|европар/i.test(current))
   )
     return null; // A valid metric code still cannot answer a different question.
-  return validateRouteScope(parsed, question);
+  return applyProductDefaults(validateRouteScope(parsed, question), question);
 }

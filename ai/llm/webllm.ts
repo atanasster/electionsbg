@@ -1,3 +1,4 @@
+import { parseModelRoute } from "../orchestrator/routeScope";
 // M3 — the WebLLM provider: a small open model runs in the browser (WebGPU) and
 // drives tool selection + narration. It implements the same LLMProvider
 // interface as the heuristic provider, so the chat UI is unchanged. Every model
@@ -21,7 +22,7 @@ import {
   buildToolSystemPrompt,
 } from "../orchestrator/prompts";
 import { resolveFollowOn, route, type Route } from "../orchestrator/router";
-import { parseToolCall, toolSelectionSchema } from "../orchestrator/toolSchema";
+import { toolSelectionSchema } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { retrieveTools } from "./retrieve";
@@ -184,7 +185,7 @@ export class WebLLMProvider implements LLMProvider {
       });
       addUsage(usage, res);
       const content = res.choices?.[0]?.message?.content ?? "";
-      return parseToolCall(content) ?? ruleRoute;
+      return parseModelRoute(content, userContent) ?? ruleRoute;
     } catch {
       return ruleRoute;
     }

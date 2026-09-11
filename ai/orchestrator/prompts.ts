@@ -1,3 +1,4 @@
+import { PRODUCT_DEFAULTS } from "./productDefaults";
 // M3 — prompts for the model provider: tool selection + narration.
 
 import { TOOLS } from "../tools/registry";
@@ -83,6 +84,7 @@ export const buildToolTrainSystemPrompt = (lang: Lang): string =>
     'Output a single JSON object {"tool": <name>, "args": {...}} choosing one tool from the catalogue. JSON only.',
     "",
     "A calendar year is not a rolling duration. For turnout during a named year use turnout(election=year), never turnoutSeries(years=1). years means a rolling window ending at the latest election. Ranking tools only support their declared metric codes: EU money per resident uses regionalInvestment; basket/GDP uses basketAffordability. If the metric is unsupported, abstain.",
+    PRODUCT_DEFAULTS,
     "Tools:",
     toolCatalogue(lang),
   ].join("\n");
@@ -99,6 +101,7 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
     "",
     "Preserve the previous tool's explicit arguments on an elliptical follow-up. A party result followed by a city uses municipalityResults with BOTH party and place; an explicit province uses regionResults with party and oblast. Do not drop the party. A bare year is a year scope: never invent a month or date, especially 2021 or 2024. A new complete question may change topic and must not inherit unrelated filters.",
     "A calendar year is not a rolling duration. For turnout during a named year use turnout(election=year), never turnoutSeries(years=1). years means a rolling window ending at the latest election. Ranking tools only support their declared metric codes: EU money per resident uses regionalInvestment; basket/GDP uses basketAffordability. If the metric is unsupported, abstain.",
+    PRODUCT_DEFAULTS,
     "Tools:",
     toolCatalogue(lang),
     "",

@@ -1,3 +1,8 @@
+import {
+  applyProductDefaults,
+  plovdivScope,
+  transferDistribution,
+} from "./productDefaults";
 import { parameterLabels } from "@/lib/questions/parameterLabels";
 import { validateToolArgs } from "./toolSchema";
 import { routeCivicQuestion } from "./civicRoutes";
@@ -946,6 +951,13 @@ const routeText = (question: string, ctx: ToolContext): Route => {
 
   const party = detectParty(q);
   const election = detectElection(q);
+  if (
+    !party &&
+    !isAggregation(q) &&
+    /national (?:election )?results|националн[а-я]* резултат/iu.test(q) &&
+    !/compare|сравн|trend|тенденц/iu.test(q)
+  )
+    return { tool: "nationalResults", args: election ? { election } : {} };
   // Specific discovery intents must win over broad cabinet, retail, and
   // local-election keywords. The same rules apply to manually typed variants.
   if (/by municipality in/.test(q) && party) {
@@ -1953,8 +1965,13 @@ const routeText = (question: string, ctx: ToolContext): Route => {
               : { oblast: SOFIA_CITY },
           };
     // single município ("община X")
-    if (hasMuniMarker(q)) {
-      const place = extractPlace(q);
+    if (hasMuniMarker(q) || plovdivScope(q) === "city") {
+      const place =
+        plovdivScope(q) === "city"
+          ? /plovdiv/i.test(q)
+            ? "plovdiv"
+            : "пловдив"
+          : extractPlace(q);
       if (place)
         return trend
           ? {
@@ -2200,7 +2217,7 @@ const routeText = (question: string, ctx: ToolContext): Route => {
         return { tool: "localMayorsTrend", args: {} };
     }
     // oblast/province-wide mayors-by-party rollup. Gated on the "област"/province
-    // qualifier + a named oblast, so a bare município name ("Пловдив") still
+    // qualifier + a named oblast, so a bare município name ("пловдив") still
     // falls through to the município tools below.
     if (has(q, "област", "province", "oblast") && has(q, "кмет", "mayor")) {
       const obl = findOblastInText(q);
@@ -4473,6 +4490,20 @@ const routeText = (question: string, ctx: ToolContext): Route => {
 
   // 3. turnout
   if (isTurnout) {
+    const scope = plovdivScope(q);
+    if (scope) {
+      if (isTrend && !election && scope === "city") return null; // No municipal turnout-series tool.
+      if (!isTrend || election)
+        return {
+          tool: scope === "city" ? "municipalityResults" : "regionResults",
+          args: {
+            [scope === "city" ? "place" : "oblast"]:
+              scope === "city" ? "пловдив" : "PDV",
+            metric: "turnout",
+            ...(election ? { election } : {}),
+          },
+        };
+    }
     // per-oblast turnout history if an oblast is named (e.g. "активността в Хасково")
     const oblHit = findOblastInText(q);
     if (oblHit) return { tool: "regionHistory", args: { oblast: oblHit.code } };
@@ -4776,6 +4807,20 @@ export const resolveFollowOn = (
     )
       return valid("turnout", { election: prev.args.election });
   }
+  if (["municipalTransfers", "budgetMunicipalTransfers"].includes(prev.tool)) {
+    if (
+      /^(?:by type|by transfer type|totals by type|по вид|по видове|по вид трансфер|общо по видове)$/i.test(
+        bare,
+      )
+    )
+      return valid("municipalTransfers", { ...prev.args });
+    if (
+      transferDistribution(bare) &&
+      /^(?:by |across |between |among |по |между |сред )/i.test(bare)
+    )
+      return valid("budgetMunicipalTransfers", { ...prev.args });
+    if (year) return valid(prev.tool, { ...prev.args, year: Number(year) });
+  }
   const entity = bare.replace(/^(?:in|for|в|във|за)\s+/i, "");
   const remainder = normEntity(entity);
   // Check ALL compatible fields, not only the first (party used to hide place).
@@ -4823,6 +4868,7 @@ export const resolveFollowOn = (
     const regional =
       regionExplicit ||
       (prev.tool === "regionResults" &&
+        !plovdivScope(entity) &&
         !/^(?:община|град|municipality|city)\s+/i.test(entity));
     return valid(regional ? "regionResults" : "municipalityResults", {
       ...(prev.args.party ? { party: prev.args.party } : {}),
@@ -4869,7 +4915,7 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return null;
-  const selected = routeText(subject, ctx);
+  const selected = applyProductDefaults(routeText(subject, ctx), subject);
   if (!selected || !context.length) return selected;
   const params = TOOLS_BY_NAME[selected.tool]?.params ?? [];
   const args: Record<string, unknown> = { ...selected.args };

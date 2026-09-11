@@ -1,3 +1,4 @@
+import { transferDistribution } from "./productDefaults";
 import { resolveMacroLabel } from "../tools/macro";
 /** Specific civic intents before broad budget, place and election fallbacks.
  * These rules inspect ordinary user text; they do not import the starter catalog.
@@ -73,9 +74,7 @@ export const routeCivicQuestion = (
     return result("budgetPersonnelByMinistry", fiscalArgs);
   if (hit(/бюджетът на всяко министерство|each ministry.*budget/))
     return result("budgetMinistries", fiscalArgs);
-  if (
-    hit(/трансфери между общините|transfers distributed across municipalities/)
-  )
+  if (hit(/трансфер|transfer/) && transferDistribution(q))
     return result("budgetMunicipalTransfers", fiscalArgs);
   if (
     hit(/капиталови проекти.*финансиране|capital projects.*financing sources/)
