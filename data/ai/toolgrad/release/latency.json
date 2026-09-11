@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "reportHash": "77cd01d8df9d3737f0e17d314f3b0db64e1f1dbf0bce6f54e3fd26b1ba79fe9b",
+  "method": "Median averages the middle two samples; p95 uses nearest rank. No new requests. Provider duration starts after harness preparation; data fetches use in-memory fictional fixtures.",
+  "allQuestions": {
+    "n": 48,
+    "medianMs": 1390.2945414999995,
+    "p95Ms": 1593.4818339999983,
+    "maxMs": 1729.3480000000002
+  },
+  "usableDataAnswers": {
+    "n": 34,
+    "medianMs": 1411.0407085000006,
+    "p95Ms": 1615.7503750000005,
+    "maxMs": 1729.3480000000002
+  },
+  "clarifications": {
+    "n": 10,
+    "medianMs": 653.8683955000015,
+    "p95Ms": 737.3506669999988,
+    "maxMs": 737.3506669999988
+  },
+  "withheldFailures": {
+    "n": 4,
+    "medianMs": 729.1182710000003,
+    "p95Ms": 783.6684590000004,
+    "maxMs": 783.6684590000004
+  },
+  "acceptedNarrationValidationTail": {
+    "n": 33,
+    "medianMs": 0.1321250000037253,
+    "p95Ms": 1.0214580000028946,
+    "maxMs": 6.190916999999899
+  },
+  "upstreamRequests": {
+    "n": 82,
+    "medianMs": 713.1740625000002,
+    "p95Ms": 827.4020000000019,
+    "maxMs": 895.630917
+  },
+  "streamingRequests": 0,
+  "firstTokenLatency": null,
+  "limits": [
+    "Operator direct-to-model requests exclude Firebase proxy, public authentication, browser rendering and live-data latency.",
+    "Validation tail includes local promise/callback overhead, not isolated CPU profiling.",
+    "Withheld failures are separated, not counted as fast successful answers.",
+    "Single sequential sample; no SLO or production latency claim."
+  ]
+}
