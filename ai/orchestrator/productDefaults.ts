@@ -4,15 +4,15 @@ import type { Route } from "./router";
 export const PRODUCT_DEFAULTS =
   "Unless the user explicitly says province/oblast/region (област), Plovdiv/Пловдив means the city: use municipalityResults(place=Пловдив) for its election results, not province results. A new bare Plovdiv follow-up also means the city. Municipal transfers (общински трансфери) means totals by transfer type: municipalTransfers. Use budgetMunicipalTransfers only for explicit distribution/ranking across municipalities. Preserve an explicit province request or municipality-distribution request; retain dates and other applicable arguments.";
 
+export const hasNationalScope = (question: string): boolean =>
+  /националн|за цялата страна|цял(?:а|ата)\s+българия|national|nationwide|countrywide|(?:all|whole)(?: of)? (?:bulgaria|the country)/iu.test(
+    question,
+  );
+
 export const plovdivScope = (
   question: string,
 ): "city" | "province" | undefined => {
-  if (
-    /националн|за цялата страна|national|nationwide|countrywide/iu.test(
-      question,
-    )
-  )
-    return undefined;
+  if (hasNationalScope(question)) return undefined;
   const place = "(?:пловдив|plovdiv)";
   if (!new RegExp(`(?<![\\p{L}])${place}(?![\\p{L}])`, "iu").test(question))
     return undefined;

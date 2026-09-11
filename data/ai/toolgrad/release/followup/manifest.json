@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "frozenAt": "2026-09-11T12:08:55.239Z",
+  "cases": [
+    {
+      "id": "followup-city-2024",
+      "group": "conversation",
+      "split": "confirmation",
+      "bg": "А същото за община Варна?",
+      "en": "And the same in Varna municipality?",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Варна",
+          "Varna"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "prev": {
+        "tool": "regionResults",
+        "args": {
+          "oblast": "PDV",
+          "election": "2024_10_27"
+        }
+      },
+      "rubric": "Explicit municipality overrides previous province; retain the election, use Varna fixture votes and correct turnout denominator; fluent labels and no invented quantities."
+    },
+    {
+      "id": "followup-province-2024",
+      "group": "conversation",
+      "split": "confirmation",
+      "bg": "А същото за област Пловдив?",
+      "en": "And the same in the province of Plovdiv?",
+      "tool": "regionResults",
+      "args": {
+        "oblast": [
+          "PDV",
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "prev": {
+        "tool": "municipalityResults",
+        "args": {
+          "place": "Варна",
+          "election": "2024_10_27"
+        }
+      },
+      "rubric": "Explicit province overrides previous city; retain the election, use province fixture votes and correct turnout denominator; fluent labels and no invented quantities."
+    }
+  ],
+  "sourceHash": "b0b17ad91d14411e5b1b0f68dc0201ef35b15390ec736393f5b55742e9ac1fc6",
+  "synthetic": true,
+  "scope": "Four new targeted follow-ups after observing the original confirmation failure; not a replacement holdout.",
+  "sourceHashes": {
+    "ai/orchestrator/router.ts": "5f21d4242b2611a119ae4e081a81817a8b1c7157f580dc8507b0e4b16e546542",
+    "ai/orchestrator/prompts.ts": "a64a1ce6ef0e3b2b7778f06a8c034c60f43bb69c51a447c879bc6e5e44e2d892",
+    "ai/llm/semanticGrounding.ts": "b1eeec4ac44774f79373c4940930ae81a4e0b606048041f28b8706d360c79c2f",
+    "ai/llm/factBindings.ts": "597ac12aca27ed4539ec1ef36b5428d5c136728530d4ca250881c273e0908578",
+    "ai/toolgrad/release/harness.ts": "3a73120a3325696c8f1663110d63c754f1f0ee1c94d615a0147141e4f583fe82"
+  }
+}

@@ -139,7 +139,8 @@ export const buildNarrationPrompt = (
         ? "You may briefly connect this to the previous answer for continuity, but every number MUST come from the Facts below — never reuse or recompute a figure mentioned earlier in the conversation."
         : "",
       "Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values.",
-      "Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
+      "Use readable labels in the requested language; never emit raw field keys, source table identifiers or filenames. Proper names must retain a consistent spelling. A municipality record is not an individual transfer. Party-vote totals are not all cast ballots or turnout denominators: turnout uses registered voters. Do not supply a year when the facts do not provide one.",
+      "Be neutral and specific. Summarize the supported values without adding an interpretation. Do not add a preamble like 'Based on the data'.",
     ]
       .filter(Boolean)
       .join(" "),

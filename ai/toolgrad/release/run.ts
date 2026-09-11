@@ -36,6 +36,13 @@ const meta = {
   sourceHashes: Object.fromEntries(
     [
       "ai/llm/semanticGrounding.ts",
+      "ai/llm/factBindings.ts",
+      "ai/tools/place.ts",
+      "ai/tools/areaResults.ts",
+      "ai/tools/budgetServing.ts",
+      "ai/tools/placesGov.ts",
+      "ai/orchestrator/narrate.ts",
+      "ai/orchestrator/productDefaults.ts",
       "ai/llm/openrouter.ts",
       "ai/orchestrator/prompts.ts",
       "ai/orchestrator/router.ts",

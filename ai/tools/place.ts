@@ -319,9 +319,21 @@ export const resolveOblast = (
   query: string,
 ): { code: string; name: { bg: string; en: string } } | undefined => {
   if (!query) return undefined;
-  const raw = query.trim().toUpperCase();
+  if (/^(?:област|обл\.?)\s+софия$/iu.test(query.trim()))
+    return { code: "SFO", name: OBLASTS.SFO };
+  // Preserve city qualifiers, while accepting ordinary province prefixes and
+  // the Bulgarian adjectival name returned by the model.
+  const normalizedQuery = /^пловдивска(?:та)?\s+област$/iu.test(query.trim())
+    ? "PDV"
+    : query
+        .trim()
+        .replace(
+          /^(?:област|обл\.?|(?:the )?(?:province|region|oblast)(?: of)?)\s+/iu,
+          "",
+        );
+  const raw = normalizedQuery.toUpperCase();
   if (OBLASTS[raw]) return { code: raw, name: OBLASTS[raw] };
-  const q = norm(query);
+  const q = norm(normalizedQuery);
   // Sofia city defaults to MIR 23; Plovdiv defaults to the province
   if (["софияград", "sofiacity"].includes(q))
     return { code: "S23", name: OBLASTS.S23 };

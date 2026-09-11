@@ -81,6 +81,20 @@ export const BUDGET_TOOLS: ToolDef[] = BUDGET_QUESTIONS.map((spec) => ({
       ),
     );
     const facts: Record<string, string | number> = { records: rows.length };
+    if (spec.id === "budgetMunicipalTransfers") {
+      facts.municipalities = rows.length;
+      facts.record_basis =
+        ctx.lang === "bg"
+          ? "Всеки ред е община, не отделен трансфер."
+          : "Each row is a municipality, not an individual transfer.";
+      for (const row of rows.slice(0, 5)) {
+        const name = row[ctx.lang === "bg" ? "nameBg" : "nameEn"];
+        if (typeof name === "string" && typeof row.totalEur === "number")
+          facts[
+            `${name} — ${ctx.lang === "bg" ? "общо трансфери (€)" : "total transfers (€)"}`
+          ] = row.totalEur;
+      }
+    }
     for (const key of [
       "fiscalYear",
       "coveredUnits",

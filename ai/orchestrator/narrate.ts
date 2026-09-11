@@ -20,7 +20,19 @@ const seriesScope = (e: Envelope, lang: Lang): string => {
 
 export const narrate = (env: Envelope, lang: Lang): string => {
   if (env.clarify) return env.clarify.prompt;
+  if (
+    ["municipalityResults", "regionResults"].includes(env.tool) &&
+    env.facts.turnout &&
+    !env.facts.leading_party
+  )
+    return `${env.title}: ${f(env, "turnout")}.`;
   switch (env.tool) {
+    case "budgetMunicipalTransfers":
+      if (!env.facts.fiscalYear || env.facts.municipalities === undefined)
+        return env.title;
+      return lang === "bg"
+        ? `Трансфери за ${f(env, "fiscalYear")}: ${f(env, "municipalities")} общини; сумите по общини са в таблицата.`
+        : `Transfers for ${f(env, "fiscalYear")}: ${f(env, "municipalities")} municipalities; amounts by municipality are in the table.`;
     case "machineVoteSeries": {
       const last = f(env, "latest");
       const ch = env.facts.change_pts;
@@ -645,8 +657,8 @@ export const narrate = (env: Envelope, lang: Lang): string => {
     case "localTaxes":
       if (!env.facts.place) return env.title;
       return lang === "bg"
-        ? `Местни данъци за ${f(env, "place")} — ${f(env, "indicators")} ставки спрямо средното (виж таблицата).`
-        : `Local taxes for ${f(env, "place")} — ${f(env, "indicators")} rates vs the national average (see table).`;
+        ? `Местни данъци за ${f(env, "place")} — ${f(env, "indicators")} ${Number(env.facts.indicators) === 1 ? "ставка" : "ставки"} спрямо средното (виж таблицата).`
+        : `Local taxes for ${f(env, "place")} — ${f(env, "indicators")} ${Number(env.facts.indicators) === 1 ? "rate" : "rates"} vs the national average (see table).`;
     case "census":
       if (!env.facts.population) return env.title;
       return lang === "bg"

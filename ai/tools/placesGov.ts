@@ -340,7 +340,7 @@ export const localTaxes = async (
           ? `Няма данъчни данни за ${place.name}`
           : `No tax data for ${place.nameEn}`,
       viz: "none",
-      facts: { place: place.name },
+      facts: { place: ctx.lang === "bg" ? place.name : place.nameEn },
       provenance: [`local_taxes/${govCode(place.obshtina)}.json`],
     };
   }
@@ -384,7 +384,7 @@ export const localTaxes = async (
       ctx.lang === "bg" ? place.name : place.nameEn,
     ),
     facts: {
-      place: place.name,
+      place: ctx.lang === "bg" ? place.name : place.nameEn,
       indicators: rows.length,
       ...Object.fromEntries(
         rows.flatMap((row) => [

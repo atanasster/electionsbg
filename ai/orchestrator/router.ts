@@ -1,5 +1,6 @@
 import {
   applyProductDefaults,
+  hasNationalScope,
   plovdivScope,
   transferDistribution,
 } from "./productDefaults";
@@ -954,7 +955,8 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   if (
     !party &&
     !isAggregation(q) &&
-    /national (?:election )?results|националн[а-я]* резултат/iu.test(q) &&
+    hasNationalScope(q) &&
+    /result|резултат/iu.test(q) &&
     !/compare|сравн|trend|тенденц/iu.test(q)
   )
     return { tool: "nationalResults", args: election ? { election } : {} };
@@ -4823,7 +4825,10 @@ export const resolveFollowOn = (
       return valid("budgetMunicipalTransfers", { ...prev.args });
     if (year) return valid(prev.tool, { ...prev.args, year: Number(year) });
   }
-  const entity = bare.replace(/^(?:in|for|в|във|за)\s+/i, "");
+  const entity = bare.replace(
+    /^(?:(?:(?:the\s+)?same|същото)\s+)?(?:in|for|в|във|за)\s+/i,
+    "",
+  );
   const remainder = normEntity(entity);
   // Check ALL compatible fields, not only the first (party used to hide place).
   for (const param of tool.params.filter((p) =>

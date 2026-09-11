@@ -1,0 +1,613 @@
+{
+  "version": 1,
+  "method": "Coding-agent local review of all final response content against frozen inputs and rubric, not blinded human review. Content signatures bind text/tool/args/envelope; timing changes cannot attach judgments to different answers. Data checks compare rows, geographic scope and original numeric facts against pre-call captures; new fact fields remain covered by unit tests and review.",
+  "reports": [
+    {
+      "path": "replay",
+      "reportHash": "e383a3149ea18290beb066065f648e10b9f02f69d01a54b7fcdbe7671fe35037",
+      "assessedContentHash": "43ea83a913343bf807e00d35ec231035ccdee3399791021d3c58757237021faa",
+      "questions": 48,
+      "routePass": 48,
+      "dataPass": 48,
+      "completeAnswerPass": 48,
+      "templateDataAnswers": 16,
+      "rows": [
+        {
+          "id": "city-ballot:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "city-ballot:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "city-participation:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "city-participation:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "province-ballot:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "province-ballot:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "province-participation:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "province-participation:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "national-resident:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "national-resident:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "varna-ballot:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "varna-ballot:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "transfer-2022:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "transfer-2022:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "transfer-2024:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "transfer-2024:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "transfer-category:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "transfer-category:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "transfer-recipient:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "transfer-recipient:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "transfer-ranking:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "transfer-ranking:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "tax-plovdiv:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "tax-plovdiv:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "tax-varna:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "tax-varna:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-bare-city:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-bare-city:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "follow-explicit-province:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-explicit-province:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "follow-transfer-type:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-transfer-type:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-transfer-recipient:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "follow-transfer-recipient:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "follow-transfer-date:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-transfer-date:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-topic-tax:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "follow-topic-tax:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "unsupported-delete:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-delete:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-payment:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-payment:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-email:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-email:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-reference:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-reference:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-prediction:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "unsupported-prediction:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        }
+      ]
+    },
+    {
+      "path": "confirmation/report",
+      "reportHash": "03e3c0c9cd7961c5bebeadf12d57e2f32779f7fca454627f3b4bdee78bdd0801",
+      "assessedContentHash": "729b63ea025e365bee3af3bacec618443b3d5d688fa6e967cff32ec551192957",
+      "questions": 8,
+      "routePass": 7,
+      "dataPass": 7,
+      "completeAnswerPass": 7,
+      "templateDataAnswers": 2,
+      "rows": [
+        {
+          "id": "confirm-city:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-city:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-transfers:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-transfers:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-follow-city:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "confirm-follow-city:en",
+          "routePass": false,
+          "dataPass": false,
+          "completeAnswerPass": false,
+          "issue": "Explicit Varna city inherited province scope; payload withheld. Fixed only after this run; original failure retained.",
+          "narratedBy": "rules"
+        },
+        {
+          "id": "confirm-tax:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "confirm-tax:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        }
+      ]
+    },
+    {
+      "path": "confirmation-replay",
+      "reportHash": "cd720d5a563dfc8f447d60e58a96daa34cf04758f5d8b58b6f2b97f40c1dd71c",
+      "assessedContentHash": "2bdbb81d9f970737957b11e60b0cc69b7c827fb7d66f37c9c83141d0729b7f56",
+      "questions": 8,
+      "routePass": 8,
+      "dataPass": 8,
+      "completeAnswerPass": 8,
+      "templateDataAnswers": 3,
+      "rows": [
+        {
+          "id": "confirm-city:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-city:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-transfers:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-transfers:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "confirm-follow-city:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "confirm-follow-city:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "confirm-tax:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "confirm-tax:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        }
+      ]
+    },
+    {
+      "path": "followup/report",
+      "reportHash": "06f0fb24dd97c04696cacd188187d17c2469d154a066441960bbb5d546cd36fb",
+      "assessedContentHash": "8d9ba8853f9a621b3e013211f04591de8631c40f317cca7dcf5e4e7e8a3634e8",
+      "questions": 4,
+      "routePass": 4,
+      "dataPass": 4,
+      "completeAnswerPass": 4,
+      "templateDataAnswers": 1,
+      "rows": [
+        {
+          "id": "followup-city-2024:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "rules"
+        },
+        {
+          "id": "followup-city-2024:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "followup-province-2024:bg",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        },
+        {
+          "id": "followup-province-2024:en",
+          "routePass": true,
+          "dataPass": true,
+          "completeAnswerPass": true,
+          "issue": null,
+          "narratedBy": "model"
+        }
+      ]
+    }
+  ],
+  "guardRegression": {
+    "correct": 20,
+    "total": 20
+  },
+  "network": {
+    "calls": 101,
+    "reservationCeilingUSD": 3.131,
+    "billedUSD": null
+  },
+  "decision": {
+    "localRepairsAccepted": true,
+    "publicDeploymentRecommended": false,
+    "nextStage": "Staging smoke validation of public auth/proxy, browser rendering and live-data correctness",
+    "reason": "Original holdout had a scope failure; repair now passes regressions and four targeted fresh questions, but this is a narrow synthetic operator evaluation. Lexical guards still do not prove general entailment."
+  }
+}

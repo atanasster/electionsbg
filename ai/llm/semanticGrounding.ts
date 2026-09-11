@@ -1,4 +1,5 @@
 import { digitRuns, numbersGrounded } from "./grounding";
+import { factBindingsGrounded } from "./factBindings";
 
 // Conservative checks for the concrete semantic failures found by the pilot.
 // This is not a general entailment checker: attribution, negation and every
@@ -86,9 +87,17 @@ const NUMBER_WORDS: Record<string, number> = {
 const MOTIVATION =
   /interest|motivat|apathy|trust|confidence|интерес|мотивац|апати|довери/iu;
 const CAUSE = /because|due to|caused|driven by|поради|дължи|причин/iu;
-// Permit a literal explanation of missing data, not a causal inference about it.
-const MISSING_EXPLANATION =
-  /because (?:the )?([\p{L} ]+? (?:is|are) (?:not available|unavailable|missing))(?=[.,;!?]|$)/giu;
+// A supplied causal clause may be paraphrased only by these narrow absence forms.
+const SUPPLIED_CAUSE = /(?:because|поради) ([^.!?;]+)/giu;
+const foldClause = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/липса на /g, "няма ")
+    .replace(/[.,;!?]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+const NEGATED_RISK =
+  /(?:do(?:es)? not (?:establish|prove|indicate)|не (?:доказват|доказва|означават|означава))\s+(?:high|low|висок|нисък)\s+(?:risk|риск)/giu;
 const RISK = /risk|screening|signal|риск|сигнал/iu;
 const RISK_LEVEL =
   /minimal|negligible|severe|low (?:level|risk|count)|high (?:level|risk)|(?:small|few) (?:number|signal)|минимал|незначител|(?:нисък|ниско|висок|малък|малко)\s+(?:риск|ниво|брой|сигнал)/iu;
@@ -97,7 +106,14 @@ export function semanticGrounded(
   facts: unknown,
   extra = "",
 ): boolean {
-  if (!numbersGrounded(prose, facts, extra)) return false;
+  if (
+    !prose.trim() ||
+    !numbersGrounded(prose, facts, extra) ||
+    !factBindingsGrounded(prose, facts)
+  )
+    return false;
+  // Model prose should use readable labels, not implementation identifiers.
+  if (/[\p{L}][\p{L}\d]*_[\p{L}\d_]+/u.test(prose)) return false;
   const source = JSON.stringify(facts) ?? "";
   const tokens = new Set(digitRuns(source));
   const sourceWords = new Set(source.toLowerCase().match(/[\p{L}]+/gu) ?? []);
@@ -113,6 +129,12 @@ export function semanticGrounded(
   for (const phrase of prose.match(compounds) ?? [])
     if (!source.toLowerCase().includes(phrase.toLowerCase())) return false;
   for (const word of words) {
+    if (
+      /\p{Script=Cyrillic}/u.test(word) &&
+      /\p{Script=Latin}/u.test(word) &&
+      !sourceWords.has(word)
+    )
+      return false;
     const value = NUMBER_WORDS[word];
     // Exact source words are quotations. Compound verbal numerals without exact
     // support deliberately fall back; prompts ask models to write digits.
@@ -120,13 +142,15 @@ export function semanticGrounded(
       return false;
   }
   if (MOTIVATION.test(prose) && !MOTIVATION.test(source)) return false;
-  const causalProse = prose.replace(
-    MISSING_EXPLANATION,
-    (phrase, fact: string) =>
-      source.toLowerCase().includes(fact.toLowerCase()) ? "" : phrase,
+  const causalProse = prose.replace(SUPPLIED_CAUSE, (phrase, clause: string) =>
+    foldClause(source).includes(foldClause(clause)) ? "" : phrase,
   );
   if (CAUSE.test(causalProse) && !CAUSE.test(source)) return false;
-  if (RISK.test(source) && RISK_LEVEL.test(prose) && !RISK_LEVEL.test(source))
-    return false;
+  const riskProse = prose.replace(NEGATED_RISK, "");
+  if (RISK.test(source)) {
+    for (const level of riskProse.match(new RegExp(RISK_LEVEL.source, "giu")) ??
+      [])
+      if (!source.toLowerCase().includes(level.toLowerCase())) return false;
+  }
   return true;
 }

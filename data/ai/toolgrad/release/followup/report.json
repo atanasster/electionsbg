@@ -1,0 +1,1080 @@
+{
+  "version": 1,
+  "frozenAt": "2026-09-11T12:08:55.239Z",
+  "cases": [
+    {
+      "id": "followup-city-2024",
+      "group": "conversation",
+      "split": "confirmation",
+      "bg": "А същото за община Варна?",
+      "en": "And the same in Varna municipality?",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Варна",
+          "Varna"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "prev": {
+        "tool": "regionResults",
+        "args": {
+          "oblast": "PDV",
+          "election": "2024_10_27"
+        }
+      },
+      "rubric": "Explicit municipality overrides previous province; retain the election, use Varna fixture votes and correct turnout denominator; fluent labels and no invented quantities."
+    },
+    {
+      "id": "followup-province-2024",
+      "group": "conversation",
+      "split": "confirmation",
+      "bg": "А същото за област Пловдив?",
+      "en": "And the same in the province of Plovdiv?",
+      "tool": "regionResults",
+      "args": {
+        "oblast": [
+          "PDV",
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "prev": {
+        "tool": "municipalityResults",
+        "args": {
+          "place": "Варна",
+          "election": "2024_10_27"
+        }
+      },
+      "rubric": "Explicit province overrides previous city; retain the election, use province fixture votes and correct turnout denominator; fluent labels and no invented quantities."
+    }
+  ],
+  "sourceHash": "b0b17ad91d14411e5b1b0f68dc0201ef35b15390ec736393f5b55742e9ac1fc6",
+  "synthetic": true,
+  "scope": "Four new targeted follow-ups after observing the original confirmation failure; not a replacement holdout.",
+  "sourceHashes": {
+    "ai/orchestrator/router.ts": "5f21d4242b2611a119ae4e081a81817a8b1c7157f580dc8507b0e4b16e546542",
+    "ai/orchestrator/prompts.ts": "a64a1ce6ef0e3b2b7778f06a8c034c60f43bb69c51a447c879bc6e5e44e2d892",
+    "ai/llm/semanticGrounding.ts": "b1eeec4ac44774f79373c4940930ae81a4e0b606048041f28b8706d360c79c2f",
+    "ai/llm/factBindings.ts": "597ac12aca27ed4539ec1ef36b5428d5c136728530d4ca250881c273e0908578",
+    "ai/toolgrad/release/harness.ts": "3a73120a3325696c8f1663110d63c754f1f0ee1c94d615a0147141e4f583fe82"
+  },
+  "complete": true,
+  "calls": 4,
+  "reservationCeilingUSD": 0.124,
+  "rows": [
+    {
+      "blockedNarration": false,
+      "expectedEnv": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — община Варна (27 окт 2024)",
+        "subtitle": "Варна",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия Б",
+            "votes": 110,
+            "pct": 55
+          },
+          {
+            "party": "Партия А",
+            "votes": 90,
+            "pct": 45
+          }
+        ],
+        "categories": [
+          "Партия Б",
+          "Партия А"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия Б",
+                "y": 110
+              },
+              {
+                "x": "Партия А",
+                "y": 90
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Варна",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Варна"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "municipality": "Варна",
+          "region": "Варна",
+          "election": "27 окт 2024",
+          "leading_party": "Партия Б",
+          "leading_pct": "55%",
+          "total_votes": "200",
+          "registered_voters": "500",
+          "actual_voters": "210",
+          "vote_basis": "Гласове по партии; не брой гласували или всички бюлетини. Активността е спрямо регистрираните избиратели.",
+          "turnout": "42%",
+          "Партия Б": "110 (55%)",
+          "Партия А": "90 (45%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/VAR.json",
+          "2024_10_27/national_summary.json"
+        ]
+      },
+      "id": "followup-city-2024:bg",
+      "split": "confirmation",
+      "group": "conversation",
+      "question": "А същото за община Варна?",
+      "lang": "bg",
+      "response": {
+        "text": "Община Варна (27 окт 2024): води Партия Б с 55%; общо 200 гласа, активност 42%.",
+        "env": {
+          "tool": "municipalityResults",
+          "domain": "elections",
+          "kind": "table",
+          "title": "Резултати — община Варна (27 окт 2024)",
+          "subtitle": "Варна",
+          "columns": [
+            {
+              "key": "party",
+              "label": "Партия"
+            },
+            {
+              "key": "votes",
+              "label": "Гласове",
+              "numeric": true,
+              "format": "int"
+            },
+            {
+              "key": "pct",
+              "label": "%",
+              "numeric": true,
+              "format": "pct"
+            }
+          ],
+          "rows": [
+            {
+              "party": "Партия Б",
+              "votes": 110,
+              "pct": 55
+            },
+            {
+              "party": "Партия А",
+              "votes": 90,
+              "pct": 45
+            }
+          ],
+          "categories": [
+            "Партия Б",
+            "Партия А"
+          ],
+          "series": [
+            {
+              "key": "votes",
+              "label": "Гласове",
+              "points": [
+                {
+                  "x": "Партия Б",
+                  "y": 110
+                },
+                {
+                  "x": "Партия А",
+                  "y": 90
+                }
+              ]
+            }
+          ],
+          "viz": "bar",
+          "geo": {
+            "level": "municipality",
+            "mode": "locator",
+            "source": "/maps/regions/VAR.json",
+            "joinKey": "nuts4",
+            "metricLabel": "Варна",
+            "areas": [
+              {
+                "code": "VAR06",
+                "label": "Варна"
+              }
+            ],
+            "focus": [
+              "VAR06"
+            ]
+          },
+          "facts": {
+            "municipality": "Варна",
+            "region": "Варна",
+            "election": "27 окт 2024",
+            "leading_party": "Партия Б",
+            "leading_pct": "55%",
+            "total_votes": "200",
+            "registered_voters": "500",
+            "actual_voters": "210",
+            "vote_basis": "Гласове по партии; не брой гласували или всички бюлетини. Активността е спрямо регистрираните избиратели.",
+            "turnout": "42%",
+            "Партия Б": "110 (55%)",
+            "Партия А": "90 (45%)"
+          },
+          "provenance": [
+            "2024_10_27/municipalities/by/VAR.json",
+            "2024_10_27/national_summary.json"
+          ]
+        },
+        "tool": "municipalityResults",
+        "args": {
+          "place": "Варна",
+          "election": "2024_10_27"
+        },
+        "meta": {
+          "model": {
+            "bg": "Без AI",
+            "en": "No AI"
+          },
+          "durationMs": 1137.253334,
+          "inputTokens": 548,
+          "outputTokens": 111,
+          "narratedBy": "rules",
+          "narrationReject": "grounding"
+        }
+      },
+      "requests": [
+        "/2024_10_27/municipalities/by/VAR.json",
+        "/2024_10_27/national_summary.json"
+      ],
+      "calls": [
+        {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Use readable labels in the requested language; never emit raw field keys, source table identifiers or filenames. Proper names must retain a consistent spelling. A municipality record is not an individual transfer. Party-vote totals are not all cast ballots or turnout denominators: turnout uses registered voters. Do not supply a year when the facts do not provide one. Be neutral and specific. Summarize the supported values without adding an interpretation. Do not add a preamble like 'Based on the data'."
+            },
+            {
+              "role": "user",
+              "content": "Title: Резултати — община Варна (27 окт 2024)\nFacts (JSON): {\"municipality\":\"Варна\",\"region\":\"Варна\",\"election\":\"27 окт 2024\",\"leading_party\":\"Партия Б\",\"leading_pct\":\"55%\",\"total_votes\":\"200\",\"registered_voters\":\"500\",\"actual_voters\":\"210\",\"vote_basis\":\"Гласове по партии; не брой гласували или всички бюлетини. Активността е спрямо регистрираните избиратели.\",\"turnout\":\"42%\",\"Партия Б\":\"110 (55%)\",\"Партия А\":\"90 (45%)\"}\nSource: 2024_10_27/municipalities/by/VAR.json, 2024_10_27/national_summary.json"
+            }
+          ],
+          "options": {
+            "json": false,
+            "maxTokens": 420,
+            "temperature": 0.3,
+            "stream": true
+          },
+          "startedMs": 4.286333000000013,
+          "sample": {
+            "text": "На изборите на 27 окт 2024 г. в община Варna, област Варna, водещата партия е Партия Б с 110 гласа или 55%, докато Партия А получава 90 гласа или 45%. Регистрираните избиратели са 500, действителните гласуващи са 210, а общият брой гласове е 200 при избирателна активност 42%.",
+            "finishReason": "stop",
+            "elapsedMs": 1121.280833,
+            "usage": {
+              "completion_tokens": 111,
+              "prompt_tokens": 548,
+              "total_tokens": 659
+            },
+            "firstTokenMs": null,
+            "stream": false
+          }
+        }
+      ],
+      "deltas": [],
+      "elapsedMs": 1137.59675,
+      "routePass": true
+    },
+    {
+      "blockedNarration": false,
+      "expectedEnv": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Varna municipality (Oct 27, 2024)",
+        "subtitle": "Varna",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия Б",
+            "votes": 110,
+            "pct": 55
+          },
+          {
+            "party": "Партия А",
+            "votes": 90,
+            "pct": 45
+          }
+        ],
+        "categories": [
+          "Партия Б",
+          "Партия А"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия Б",
+                "y": 110
+              },
+              {
+                "x": "Партия А",
+                "y": 90
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Varna",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Varna"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "municipality": "Varna",
+          "region": "Varna",
+          "election": "Oct 27, 2024",
+          "leading_party": "Партия Б",
+          "leading_pct": "55%",
+          "total_votes": "200",
+          "registered_voters": "500",
+          "actual_voters": "210",
+          "vote_basis": "Party votes, not the number of voters or all ballots. Turnout uses registered voters as its denominator.",
+          "turnout": "42%",
+          "Партия Б": "110 (55%)",
+          "Партия А": "90 (45%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/VAR.json",
+          "2024_10_27/national_summary.json"
+        ]
+      },
+      "id": "followup-city-2024:en",
+      "split": "confirmation",
+      "group": "conversation",
+      "question": "And the same in Varna municipality?",
+      "lang": "en",
+      "response": {
+        "text": "In the Varna municipality in the Varna region for the Oct 27, 2024 election, turnout was 42% based on 500 registered voters and 210 actual voters. The leading party was Партия Б with 110 (55%) votes out of a total of 200 party votes, while Партия А received 90 (45%) votes.",
+        "env": {
+          "tool": "municipalityResults",
+          "domain": "elections",
+          "kind": "table",
+          "title": "Results — Varna municipality (Oct 27, 2024)",
+          "subtitle": "Varna",
+          "columns": [
+            {
+              "key": "party",
+              "label": "Party"
+            },
+            {
+              "key": "votes",
+              "label": "Votes",
+              "numeric": true,
+              "format": "int"
+            },
+            {
+              "key": "pct",
+              "label": "%",
+              "numeric": true,
+              "format": "pct"
+            }
+          ],
+          "rows": [
+            {
+              "party": "Партия Б",
+              "votes": 110,
+              "pct": 55
+            },
+            {
+              "party": "Партия А",
+              "votes": 90,
+              "pct": 45
+            }
+          ],
+          "categories": [
+            "Партия Б",
+            "Партия А"
+          ],
+          "series": [
+            {
+              "key": "votes",
+              "label": "Votes",
+              "points": [
+                {
+                  "x": "Партия Б",
+                  "y": 110
+                },
+                {
+                  "x": "Партия А",
+                  "y": 90
+                }
+              ]
+            }
+          ],
+          "viz": "bar",
+          "geo": {
+            "level": "municipality",
+            "mode": "locator",
+            "source": "/maps/regions/VAR.json",
+            "joinKey": "nuts4",
+            "metricLabel": "Varna",
+            "areas": [
+              {
+                "code": "VAR06",
+                "label": "Varna"
+              }
+            ],
+            "focus": [
+              "VAR06"
+            ]
+          },
+          "facts": {
+            "municipality": "Varna",
+            "region": "Varna",
+            "election": "Oct 27, 2024",
+            "leading_party": "Партия Б",
+            "leading_pct": "55%",
+            "total_votes": "200",
+            "registered_voters": "500",
+            "actual_voters": "210",
+            "vote_basis": "Party votes, not the number of voters or all ballots. Turnout uses registered voters as its denominator.",
+            "turnout": "42%",
+            "Партия Б": "110 (55%)",
+            "Партия А": "90 (45%)"
+          },
+          "provenance": [
+            "2024_10_27/municipalities/by/VAR.json",
+            "2024_10_27/national_summary.json"
+          ]
+        },
+        "tool": "municipalityResults",
+        "args": {
+          "place": "Varna",
+          "election": "2024_10_27"
+        },
+        "meta": {
+          "model": {
+            "bg": "Gemini 3.5 Flash-Lite",
+            "en": "Gemini 3.5 Flash-Lite"
+          },
+          "durationMs": 890.3396249999998,
+          "inputTokens": 533,
+          "outputTokens": 89,
+          "narratedBy": "model"
+        }
+      },
+      "requests": [
+        "/2024_10_27/municipalities/by/VAR.json",
+        "/2024_10_27/national_summary.json"
+      ],
+      "calls": [
+        {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Use readable labels in the requested language; never emit raw field keys, source table identifiers or filenames. Proper names must retain a consistent spelling. A municipality record is not an individual transfer. Party-vote totals are not all cast ballots or turnout denominators: turnout uses registered voters. Do not supply a year when the facts do not provide one. Be neutral and specific. Summarize the supported values without adding an interpretation. Do not add a preamble like 'Based on the data'."
+            },
+            {
+              "role": "user",
+              "content": "Title: Results — Varna municipality (Oct 27, 2024)\nFacts (JSON): {\"municipality\":\"Varna\",\"region\":\"Varna\",\"election\":\"Oct 27, 2024\",\"leading_party\":\"Партия Б\",\"leading_pct\":\"55%\",\"total_votes\":\"200\",\"registered_voters\":\"500\",\"actual_voters\":\"210\",\"vote_basis\":\"Party votes, not the number of voters or all ballots. Turnout uses registered voters as its denominator.\",\"turnout\":\"42%\",\"Партия Б\":\"110 (55%)\",\"Партия А\":\"90 (45%)\"}\nSource: 2024_10_27/municipalities/by/VAR.json, 2024_10_27/national_summary.json"
+            }
+          ],
+          "options": {
+            "json": false,
+            "maxTokens": 420,
+            "temperature": 0.3,
+            "stream": true
+          },
+          "startedMs": 1.2953339999999116,
+          "sample": {
+            "text": "In the Varna municipality in the Varna region for the Oct 27, 2024 election, turnout was 42% based on 500 registered voters and 210 actual voters. The leading party was Партия Б with 110 (55%) votes out of a total of 200 party votes, while Партия А received 90 (45%) votes.",
+            "finishReason": "stop",
+            "elapsedMs": 885.8185420000002,
+            "usage": {
+              "completion_tokens": 89,
+              "prompt_tokens": 533,
+              "total_tokens": 622
+            },
+            "firstTokenMs": null,
+            "stream": false
+          }
+        }
+      ],
+      "deltas": [
+        {
+          "atMs": 890.4439999999997,
+          "text": "In the Varna municipality in the Varna region for the Oct 27, 2024 election, turnout was 42% based on 500 registered voters and 210 actual voters. The leading party was Партия Б with 110 (55%) votes out of a total of 200 party votes, while Партия А received 90 (45%) votes."
+        }
+      ],
+      "elapsedMs": 890.471792,
+      "routePass": true
+    },
+    {
+      "blockedNarration": false,
+      "expectedEnv": {
+        "tool": "regionResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — Пловдив (област) (27 окт 2024)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 720,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 480,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 720
+              },
+              {
+                "x": "Партия Б",
+                "y": 480
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Пловдив (област)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Пловдив (област)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Пловдив (област)",
+          "election": "27 окт 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "1200",
+          "registered_voters": "4000",
+          "actual_voters": "1600",
+          "vote_basis": "Гласове по партии; не брой гласували или всички бюлетини. Активността е спрямо регистрираните избиратели.",
+          "turnout": "40%",
+          "Партия А": "720 (60%)",
+          "Партия Б": "480 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ]
+      },
+      "id": "followup-province-2024:bg",
+      "split": "confirmation",
+      "group": "conversation",
+      "question": "А същото за област Пловдив?",
+      "lang": "bg",
+      "response": {
+        "text": "В област Пловдив на изборите от 27 окт 2024 водеща е Партия А с 720 гласа или 60%. Избирателната активност е 40%, при 4000 регистрирани избиратели и 1600 действителни гласували. Партия Б получава 480 гласа или 40%. Общият брой гласове е 1200, като базата са гласове по партии.",
+        "env": {
+          "tool": "regionResults",
+          "domain": "elections",
+          "kind": "table",
+          "title": "Резултати — Пловдив (област) (27 окт 2024)",
+          "columns": [
+            {
+              "key": "party",
+              "label": "Партия"
+            },
+            {
+              "key": "votes",
+              "label": "Гласове",
+              "numeric": true,
+              "format": "int"
+            },
+            {
+              "key": "pct",
+              "label": "%",
+              "numeric": true,
+              "format": "pct"
+            }
+          ],
+          "rows": [
+            {
+              "party": "Партия А",
+              "votes": 720,
+              "pct": 60
+            },
+            {
+              "party": "Партия Б",
+              "votes": 480,
+              "pct": 40
+            }
+          ],
+          "categories": [
+            "Партия А",
+            "Партия Б"
+          ],
+          "series": [
+            {
+              "key": "votes",
+              "label": "Гласове",
+              "points": [
+                {
+                  "x": "Партия А",
+                  "y": 720
+                },
+                {
+                  "x": "Партия Б",
+                  "y": 480
+                }
+              ]
+            }
+          ],
+          "viz": "bar",
+          "geo": {
+            "level": "oblast",
+            "mode": "locator",
+            "source": "/regions_map.json",
+            "joinKey": "nuts3",
+            "metricLabel": "Пловдив (област)",
+            "areas": [
+              {
+                "code": "PDV",
+                "label": "Пловдив (област)"
+              }
+            ],
+            "focus": [
+              "PDV"
+            ]
+          },
+          "facts": {
+            "region": "Пловдив (област)",
+            "election": "27 окт 2024",
+            "leading_party": "Партия А",
+            "leading_pct": "60%",
+            "total_votes": "1200",
+            "registered_voters": "4000",
+            "actual_voters": "1600",
+            "vote_basis": "Гласове по партии; не брой гласували или всички бюлетини. Активността е спрямо регистрираните избиратели.",
+            "turnout": "40%",
+            "Партия А": "720 (60%)",
+            "Партия Б": "480 (40%)"
+          },
+          "provenance": [
+            "2024_10_27/region_votes.json",
+            "2024_10_27/national_summary.json"
+          ]
+        },
+        "tool": "regionResults",
+        "args": {
+          "oblast": "Пловдив",
+          "election": "2024_10_27"
+        },
+        "meta": {
+          "model": {
+            "bg": "Gemini 3.5 Flash-Lite",
+            "en": "Gemini 3.5 Flash-Lite"
+          },
+          "durationMs": 778.3937080000001,
+          "inputTokens": 550,
+          "outputTokens": 112,
+          "narratedBy": "model"
+        }
+      },
+      "requests": [
+        "/2024_10_27/region_votes.json",
+        "/2024_10_27/national_summary.json"
+      ],
+      "calls": [
+        {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You MUST write your entire answer in Bulgarian (Cyrillic script) only. Do not use any other language. Explain the civic data in Bulgarian. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Use readable labels in the requested language; never emit raw field keys, source table identifiers or filenames. Proper names must retain a consistent spelling. A municipality record is not an individual transfer. Party-vote totals are not all cast ballots or turnout denominators: turnout uses registered voters. Do not supply a year when the facts do not provide one. Be neutral and specific. Summarize the supported values without adding an interpretation. Do not add a preamble like 'Based on the data'."
+            },
+            {
+              "role": "user",
+              "content": "Title: Резултати — Пловдив (област) (27 окт 2024)\nFacts (JSON): {\"region\":\"Пловдив (област)\",\"election\":\"27 окт 2024\",\"leading_party\":\"Партия А\",\"leading_pct\":\"60%\",\"total_votes\":\"1200\",\"registered_voters\":\"4000\",\"actual_voters\":\"1600\",\"vote_basis\":\"Гласове по партии; не брой гласували или всички бюлетини. Активността е спрямо регистрираните избиратели.\",\"turnout\":\"40%\",\"Партия А\":\"720 (60%)\",\"Партия Б\":\"480 (40%)\"}\nSource: 2024_10_27/region_votes.json, 2024_10_27/national_summary.json"
+            }
+          ],
+          "options": {
+            "json": false,
+            "maxTokens": 420,
+            "temperature": 0.3,
+            "stream": true
+          },
+          "startedMs": 0.7480829999999514,
+          "sample": {
+            "text": "В област Пловдив на изборите от 27 окт 2024 водеща е Партия А с 720 гласа или 60%. Избирателната активност е 40%, при 4000 регистрирани избиратели и 1600 действителни гласували. Партия Б получава 480 гласа или 40%. Общият брой гласове е 1200, като базата са гласове по партии.",
+            "finishReason": "stop",
+            "elapsedMs": 777.0932090000001,
+            "usage": {
+              "completion_tokens": 112,
+              "prompt_tokens": 550,
+              "total_tokens": 662
+            },
+            "firstTokenMs": null,
+            "stream": false
+          }
+        }
+      ],
+      "deltas": [
+        {
+          "atMs": 778.3989999999999,
+          "text": "В област Пловдив на изборите от 27 окт 2024 водеща е Партия А с 720 гласа или 60%. Избирателната активност е 40%, при 4000 регистрирани избиратели и 1600 действителни гласували. Партия Б получава 480 гласа или 40%. Общият брой гласове е 1200, като базата са гласове по партии."
+        }
+      ],
+      "elapsedMs": 778.4152499999996,
+      "routePass": true
+    },
+    {
+      "blockedNarration": false,
+      "expectedEnv": {
+        "tool": "regionResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Plovdiv (province) (Oct 27, 2024)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 720,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 480,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 720
+              },
+              {
+                "x": "Партия Б",
+                "y": 480
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Plovdiv (province)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Plovdiv (province)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Plovdiv (province)",
+          "election": "Oct 27, 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "1,200",
+          "registered_voters": "4,000",
+          "actual_voters": "1,600",
+          "vote_basis": "Party votes, not the number of voters or all ballots. Turnout uses registered voters as its denominator.",
+          "turnout": "40%",
+          "Партия А": "720 (60%)",
+          "Партия Б": "480 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ]
+      },
+      "id": "followup-province-2024:en",
+      "split": "confirmation",
+      "group": "conversation",
+      "question": "And the same in the province of Plovdiv?",
+      "lang": "en",
+      "response": {
+        "text": "In Plovdiv (province) on Oct 27, 2024, the leading party was Партия А with 720 votes, representing 60% of the total 1,200 votes. Партия Б received 480 votes, which is 40% of the total votes. Out of 4,000 registered voters, 1,600 actual voters participated, resulting in a turnout of 40%.",
+        "env": {
+          "tool": "regionResults",
+          "domain": "elections",
+          "kind": "table",
+          "title": "Results — Plovdiv (province) (Oct 27, 2024)",
+          "columns": [
+            {
+              "key": "party",
+              "label": "Party"
+            },
+            {
+              "key": "votes",
+              "label": "Votes",
+              "numeric": true,
+              "format": "int"
+            },
+            {
+              "key": "pct",
+              "label": "%",
+              "numeric": true,
+              "format": "pct"
+            }
+          ],
+          "rows": [
+            {
+              "party": "Партия А",
+              "votes": 720,
+              "pct": 60
+            },
+            {
+              "party": "Партия Б",
+              "votes": 480,
+              "pct": 40
+            }
+          ],
+          "categories": [
+            "Партия А",
+            "Партия Б"
+          ],
+          "series": [
+            {
+              "key": "votes",
+              "label": "Votes",
+              "points": [
+                {
+                  "x": "Партия А",
+                  "y": 720
+                },
+                {
+                  "x": "Партия Б",
+                  "y": 480
+                }
+              ]
+            }
+          ],
+          "viz": "bar",
+          "geo": {
+            "level": "oblast",
+            "mode": "locator",
+            "source": "/regions_map.json",
+            "joinKey": "nuts3",
+            "metricLabel": "Plovdiv (province)",
+            "areas": [
+              {
+                "code": "PDV",
+                "label": "Plovdiv (province)"
+              }
+            ],
+            "focus": [
+              "PDV"
+            ]
+          },
+          "facts": {
+            "region": "Plovdiv (province)",
+            "election": "Oct 27, 2024",
+            "leading_party": "Партия А",
+            "leading_pct": "60%",
+            "total_votes": "1,200",
+            "registered_voters": "4,000",
+            "actual_voters": "1,600",
+            "vote_basis": "Party votes, not the number of voters or all ballots. Turnout uses registered voters as its denominator.",
+            "turnout": "40%",
+            "Партия А": "720 (60%)",
+            "Партия Б": "480 (40%)"
+          },
+          "provenance": [
+            "2024_10_27/region_votes.json",
+            "2024_10_27/national_summary.json"
+          ]
+        },
+        "tool": "regionResults",
+        "args": {
+          "oblast": "Plovdiv",
+          "election": "2024_10_27"
+        },
+        "meta": {
+          "model": {
+            "bg": "Gemini 3.5 Flash-Lite",
+            "en": "Gemini 3.5 Flash-Lite"
+          },
+          "durationMs": 797.7080420000002,
+          "inputTokens": 537,
+          "outputTokens": 100,
+          "narratedBy": "model"
+        }
+      },
+      "requests": [
+        "/2024_10_27/region_votes.json",
+        "/2024_10_27/national_summary.json"
+      ],
+      "calls": [
+        {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You MUST write your entire answer in English (Latin script) only. Do not use any other language. Explain the civic data in English. Write one short paragraph of 1–4 sentences. State the supported finding and, only when the facts support it, a direct comparison. Sparse facts deserve a short answer; do not add an interpretation just to fill a sentence quota. Use ONLY the provided facts. Preserve which entity, year, unit and measure each value belongs to. Write quantities in digits as supplied. Never calculate or introduce a difference, ratio, percentage-point change, total or net amount unless that result is explicitly a provided fact, including numbers written in words. You may compare supplied values as higher/lower or rose/fell, without new arithmetic. Do not infer motives, interest, trust, causes or consequences from a numerical pattern. Do not call a risk level high, low, minimal or severe without an explicit benchmark/classification in the facts. A count alone supplies no denominator or threshold. Preserve declared versus audited assets, awarded versus paid amounts, and screening signals versus findings of wrongdoing. Missing data is unknown, never zero. If table rows are not supplied as facts, do not claim to know their values. Use readable labels in the requested language; never emit raw field keys, source table identifiers or filenames. Proper names must retain a consistent spelling. A municipality record is not an individual transfer. Party-vote totals are not all cast ballots or turnout denominators: turnout uses registered voters. Do not supply a year when the facts do not provide one. Be neutral and specific. Summarize the supported values without adding an interpretation. Do not add a preamble like 'Based on the data'."
+            },
+            {
+              "role": "user",
+              "content": "Title: Results — Plovdiv (province) (Oct 27, 2024)\nFacts (JSON): {\"region\":\"Plovdiv (province)\",\"election\":\"Oct 27, 2024\",\"leading_party\":\"Партия А\",\"leading_pct\":\"60%\",\"total_votes\":\"1,200\",\"registered_voters\":\"4,000\",\"actual_voters\":\"1,600\",\"vote_basis\":\"Party votes, not the number of voters or all ballots. Turnout uses registered voters as its denominator.\",\"turnout\":\"40%\",\"Партия А\":\"720 (60%)\",\"Партия Б\":\"480 (40%)\"}\nSource: 2024_10_27/region_votes.json, 2024_10_27/national_summary.json"
+            }
+          ],
+          "options": {
+            "json": false,
+            "maxTokens": 420,
+            "temperature": 0.3,
+            "stream": true
+          },
+          "startedMs": 0.1422090000000935,
+          "sample": {
+            "text": "In Plovdiv (province) on Oct 27, 2024, the leading party was Партия А with 720 votes, representing 60% of the total 1,200 votes. Партия Б received 480 votes, which is 40% of the total votes. Out of 4,000 registered voters, 1,600 actual voters participated, resulting in a turnout of 40%.",
+            "finishReason": "stop",
+            "elapsedMs": 797.3714580000001,
+            "usage": {
+              "completion_tokens": 100,
+              "prompt_tokens": 537,
+              "total_tokens": 637
+            },
+            "firstTokenMs": null,
+            "stream": false
+          }
+        }
+      ],
+      "deltas": [
+        {
+          "atMs": 797.713209,
+          "text": "In Plovdiv (province) on Oct 27, 2024, the leading party was Партия А with 720 votes, representing 60% of the total 1,200 votes. Партия Б received 480 votes, which is 40% of the total votes. Out of 4,000 registered voters, 1,600 actual voters participated, resulting in a turnout of 40%."
+        }
+      ],
+      "elapsedMs": 797.725625,
+      "routePass": true
+    }
+  ]
+}

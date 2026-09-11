@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "split": "confirmation",
+  "startedAt": "2026-09-11T12:06:39.839Z",
+  "commit": "8355da11e8a9ed694f1e7e7937ff5a479cd690f7",
+  "manifestHash": "e7ce2ffe83339c09bc1b84b7e80a0f379e4b40f258cc72f0927d1f2a58fc4201",
+  "sourceHashes": {
+    "ai/llm/semanticGrounding.ts": "b1eeec4ac44774f79373c4940930ae81a4e0b606048041f28b8706d360c79c2f",
+    "ai/llm/factBindings.ts": "ada4b4365c58f1425a942e229b81f186843c3be868f088408648a9ecc8663bf8",
+    "ai/tools/place.ts": "92a6ba45cc99b0c617b41a217ea5dd8b26a8daed88ecd4f2cdb164d843d015d1",
+    "ai/tools/areaResults.ts": "be9ab81ee5ee0336fcfac2f2eb77ad980e3ce79f2cf91d1be4d396b991e2466c",
+    "ai/tools/budgetServing.ts": "9dd67f68bdffc5816efbef85e0b7a9f41dedec73f67759b4b696ba95f3f55433",
+    "ai/tools/placesGov.ts": "f1cc0353f1c83e4e2b378512986e65a3cc8550bd1b649861ae51cc3a9fc31489",
+    "ai/orchestrator/narrate.ts": "7e1f43a169e9c4a9948254119c16d675c92aa677e9042ff4fefd1ba17542be93",
+    "ai/orchestrator/productDefaults.ts": "748322a24f594907952b219b1c1444fba60ee2682291828f525b151367cb9b07",
+    "ai/llm/openrouter.ts": "82a95c341d26f123cb86840fba43c6812ade6473ecccb8d24ee293eb2cff8ded",
+    "ai/orchestrator/prompts.ts": "a64a1ce6ef0e3b2b7778f06a8c034c60f43bb69c51a447c879bc6e5e44e2d892",
+    "ai/orchestrator/router.ts": "570a5ebd2d9a068d12e37483b2b6cdc8e8a5e96aac4f00b0b52d88e471c1684e",
+    "ai/toolgrad/release/harness.ts": "3a73120a3325696c8f1663110d63c754f1f0ee1c94d615a0147141e4f583fe82",
+    "ai/toolgrad/release/client.ts": "6cd35deb9a6d5e53c61c852d36da27323b1bfff4f25eceac7f222a663f2f37fb"
+  }
+}

@@ -204,6 +204,15 @@ const resultsEnvelope = (opts: {
     leading_party: top[0]?.party ?? "—",
     leading_pct: top[0] ? fmtPct(top[0].pct, opts.lang) : "—",
     total_votes: fmtInt(opts.total, opts.lang),
+    ...(opts.reg > 0
+      ? {
+          registered_voters: fmtInt(opts.reg, opts.lang),
+          actual_voters: fmtInt(opts.act, opts.lang),
+        }
+      : {}),
+    vote_basis: bg
+      ? "Гласове по партии; не брой гласували или всички бюлетини. Активността е спрямо регистрираните избиратели."
+      : "Party votes, not the number of voters or all ballots. Turnout uses registered voters as its denominator.",
   };
   if (turnout != null) facts.turnout = fmtPct(turnout, opts.lang);
   top.slice(0, 5).forEach((r) => {
