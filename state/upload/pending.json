@@ -1,8 +1,30 @@
 {
   "session": "20260911T215335Z-cb25",
   "createdAt": "2026-09-11T23:19:32.866Z",
-  "skills": [],
-  "paths": [],
+  "commit": "7c837a7be8",
+  "skills": [
+    "update-rollcall",
+    "update-procurement",
+    "tr-daily-refresh",
+    "update-prices",
+    "update-open-calls",
+    "update-macro",
+    "update-polls"
+  ],
+  "paths": [
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "culture/derived/hub_stats.json",
+    "culture/derived/fund_sources.json",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "parliament/votes/derived/hub_stats.json",
+    "home",
+    "prices/product_slugs.json",
+    "security",
+    "data_map.json",
+    "data-changes.json"
+  ],
   "cloudCommands": [
     "npm run db:load:rollcall:pg:cloud",
     "npm run db:load:rollcall-derived:pg:cloud",
@@ -27,5 +49,6 @@
     "npm run db:load:agri-hub-stats:pg:cloud",
     "npm run prices:ingest:cloud",
     "npm run db:load:open-calls:pg:cloud"
-  ]
+  ],
+  "notes": "1 plenary day (registration only); +133 EOP contracts +84 TED notices; TR daily; КЗП prices 2026-09-11; 55 open calls; home subtree needs bucket:gz after sync; posters in public/ need a hosting deploy"
 }
