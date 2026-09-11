@@ -194,7 +194,9 @@ const CADENCE_RANK: Record<Cadence, number> = {
 // a dataset the assistant already reads — while never under-reporting.
 
 const AI_DIR = path.join(ROOT, "ai");
-const AI_SKIP = /(\.harness\.ts$|\.d\.ts$|\/tests\/|\/m0\/)/;
+// ToolGrad runners and fictional fixtures are offline evaluation inputs, not
+// production data dependencies. Keep their path literals out of the serving map.
+const AI_SKIP = /(\.harness\.ts$|\.d\.ts$|\/tests\/|\/m0\/|\/toolgrad\/)/;
 const PATH_RE = /(["'`])(\/[^"'`\s]+?\.(?:geo)?json)\1/g;
 
 const walkTs = (dir: string, out: string[] = []): string[] => {
