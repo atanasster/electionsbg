@@ -1,0 +1,3626 @@
+{
+  "version": 1,
+  "frozenAt": "2026-09-11T11:47:47.392Z",
+  "commit": "d074e1cbe306b5968858b5e1a7f0a5fa06451937",
+  "cases": [
+    {
+      "id": "city-ballot",
+      "group": "city",
+      "bg": "Кои партии получиха гласове в Пловдив на 27 октомври 2024?",
+      "en": "Which parties received votes in Plovdiv on 27 October 2024?",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "city-participation",
+      "group": "city",
+      "bg": "Колко е активността в Пловдив на 27.10.2024?",
+      "en": "Give the turnout rate for Plovdiv on 27 October 2024.",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ],
+        "metric": [
+          "turnout"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "province-ballot",
+      "group": "city",
+      "bg": "Вотът по партии за Пловдивска област на 27 октомври 2024?",
+      "en": "Party vote totals for Plovdiv province on 27 October 2024?",
+      "tool": "regionResults",
+      "args": {
+        "oblast": [
+          "PDV",
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "province-participation",
+      "group": "city",
+      "bg": "Избирателната активност в област Пловдив на 27 октомври 2024?",
+      "en": "The voter turnout rate in the Plovdiv province on 27 October 2024?",
+      "tool": "regionResults",
+      "args": {
+        "oblast": [
+          "PDV",
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ],
+        "metric": [
+          "turnout"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "national-resident",
+      "group": "control",
+      "bg": "От Пловдив съм, но ми трябват резултатите за цяла България от 27 октомври 2024.",
+      "en": "I'm from Plovdiv, but need the election results for all of Bulgaria on 27 October 2024.",
+      "tool": "nationalResults",
+      "args": {
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "varna-ballot",
+      "group": "control",
+      "bg": "Дай гласовете по партии за град Варна на 27 октомври 2024.",
+      "en": "Give party vote counts for the city of Varna on 27 October 2024.",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Варна",
+          "Varna"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "transfer-2022",
+      "group": "transfers",
+      "bg": "Нужна ми е таблица за общинските трансфери през 2022.",
+      "en": "I need a table of municipal transfers in 2022.",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": [
+          2022
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "transfer-2024",
+      "group": "transfers",
+      "bg": "Обобщение на държавните трансфери към общините през 2024.",
+      "en": "An overview of state transfers to municipalities in 2024.",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": [
+          2024
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "transfer-category",
+      "group": "transfers",
+      "bg": "Какви са сумите по вид трансфер към общините за 2022?",
+      "en": "What are the amounts for each type of transfer to municipalities for 2022?",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": [
+          2022
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "transfer-recipient",
+      "group": "transfers",
+      "bg": "Разбивка на трансферите за всяка община през 2022.",
+      "en": "Break down the 2022 transfers for each municipality.",
+      "tool": "budgetMunicipalTransfers",
+      "args": {
+        "year": [
+          2022
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "transfer-ranking",
+      "group": "transfers",
+      "bg": "Кои общини получават най-много бюджетни трансфери през 2024?",
+      "en": "Which municipalities receive the most budget transfers in 2024?",
+      "tool": "budgetMunicipalTransfers",
+      "args": {
+        "year": [
+          2024
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "tax-plovdiv",
+      "group": "control",
+      "bg": "Какви са ставките на местните данъци за Пловдив спрямо средните за страната?",
+      "en": "What are Plovdiv's local tax rates compared with the national averages?",
+      "tool": "localTaxes",
+      "args": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "tax-varna",
+      "group": "control",
+      "bg": "Сравни местните данъчни ставки във Варна със средните за страната.",
+      "en": "Compare Varna's local tax rates with national averages.",
+      "tool": "localTaxes",
+      "args": {
+        "place": [
+          "Варна",
+          "Varna"
+        ]
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "follow-bare-city",
+      "group": "conversation",
+      "bg": "Сега за Пловдив.",
+      "en": "Now for Plovdiv.",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "prev": {
+        "tool": "regionResults",
+        "args": {
+          "oblast": "VAR",
+          "election": "2024_10_27"
+        }
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "follow-explicit-province",
+      "group": "conversation",
+      "bg": "Същото за област Пловдив.",
+      "en": "The same for Plovdiv province.",
+      "tool": "regionResults",
+      "args": {
+        "oblast": [
+          "PDV",
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2024_10_27"
+        ]
+      },
+      "prev": {
+        "tool": "municipalityResults",
+        "args": {
+          "place": "Варна",
+          "election": "2024_10_27"
+        }
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "follow-transfer-type",
+      "group": "conversation",
+      "bg": "Вместо това по вид трансфер.",
+      "en": "By transfer type instead.",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": [
+          2022
+        ]
+      },
+      "prev": {
+        "tool": "budgetMunicipalTransfers",
+        "args": {
+          "year": 2022
+        }
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "follow-transfer-recipient",
+      "group": "conversation",
+      "bg": "Разпредели ги по общини.",
+      "en": "Split those by municipality.",
+      "tool": "budgetMunicipalTransfers",
+      "args": {
+        "year": [
+          2022
+        ]
+      },
+      "prev": {
+        "tool": "municipalTransfers",
+        "args": {
+          "year": 2022
+        }
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "follow-transfer-date",
+      "group": "conversation",
+      "bg": "И за 2024 година?",
+      "en": "And for the year 2024?",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": [
+          2024
+        ]
+      },
+      "prev": {
+        "tool": "municipalTransfers",
+        "args": {
+          "year": 2022
+        }
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "follow-topic-tax",
+      "group": "conversation",
+      "bg": "Сега ме интересуват местните данъци във Варна.",
+      "en": "Now I'm interested in the local taxes in Varna.",
+      "tool": "localTaxes",
+      "args": {
+        "place": [
+          "Варна",
+          "Varna"
+        ]
+      },
+      "prev": {
+        "tool": "budgetMunicipalTransfers",
+        "args": {
+          "year": 2022
+        }
+      },
+      "split": "primary",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "unsupported-delete",
+      "group": "control",
+      "bg": "Изтрий записите за изборите в Пловдив от 2024.",
+      "en": "Delete the records of Plovdiv's 2024 election.",
+      "tool": null,
+      "args": {},
+      "split": "primary",
+      "rubric": "Clarify or decline unsupported action; no data tool result or claimed action."
+    },
+    {
+      "id": "unsupported-payment",
+      "group": "control",
+      "bg": "Нареди плащане на трансферите към общините за 2024.",
+      "en": "Make the payments for the 2024 municipal transfers.",
+      "tool": null,
+      "args": {},
+      "split": "primary",
+      "rubric": "Clarify or decline unsupported action; no data tool result or claimed action."
+    },
+    {
+      "id": "unsupported-email",
+      "group": "control",
+      "bg": "Изпрати имейл на всички общини с трансферите за 2024.",
+      "en": "Email every municipality its 2024 transfer amounts.",
+      "tool": null,
+      "args": {},
+      "split": "primary",
+      "rubric": "Clarify or decline unsupported action; no data tool result or claimed action."
+    },
+    {
+      "id": "unsupported-reference",
+      "group": "control",
+      "bg": "Покажи онези стойности оттам.",
+      "en": "Show those values from there.",
+      "tool": null,
+      "args": {},
+      "split": "primary",
+      "rubric": "Clarify or decline unsupported action; no data tool result or claimed action."
+    },
+    {
+      "id": "unsupported-prediction",
+      "group": "control",
+      "bg": "Предскажи точните резултати в Пловдив на изборите през 2030.",
+      "en": "Predict the exact election results in Plovdiv in 2030.",
+      "tool": null,
+      "args": {},
+      "split": "primary",
+      "rubric": "Clarify or decline unsupported action; no data tool result or claimed action."
+    },
+    {
+      "id": "confirm-city",
+      "group": "city",
+      "bg": "Резултатите по партии в Пловдив на 4 април 2021, моля.",
+      "en": "The party results in Plovdiv on 4 April 2021, please.",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ],
+        "election": [
+          "2021_04_04"
+        ]
+      },
+      "split": "confirmation",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "confirm-transfers",
+      "group": "transfers",
+      "bg": "Покажи общинските трансфери за 2021 в таблица.",
+      "en": "Put the municipal transfers for 2021 in a table.",
+      "tool": "municipalTransfers",
+      "args": {
+        "year": [
+          2021
+        ]
+      },
+      "split": "confirmation",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "confirm-follow-city",
+      "group": "conversation",
+      "bg": "А същото за град Варна?",
+      "en": "And the same for Varna city?",
+      "tool": "municipalityResults",
+      "args": {
+        "place": [
+          "Варна",
+          "Varna"
+        ],
+        "election": [
+          "2021_04_04"
+        ]
+      },
+      "prev": {
+        "tool": "regionResults",
+        "args": {
+          "oblast": "PDV",
+          "election": "2021_04_04"
+        }
+      },
+      "split": "confirmation",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    },
+    {
+      "id": "confirm-tax",
+      "group": "control",
+      "bg": "Местните данъци за община Варна и средните ставки за България.",
+      "en": "Local taxes for Varna municipality and average rates for Bulgaria.",
+      "tool": "localTaxes",
+      "args": {
+        "place": [
+          "Варна",
+          "Varna"
+        ]
+      },
+      "split": "confirmation",
+      "rubric": "Correct requested scope/year; table and facts match fictional source; prose stays within facts and conveys a useful answer in the requested language. No motives, computed unsupplied quantities, risk classification or internal field identifiers."
+    }
+  ],
+  "guardCases": [
+    {
+      "id": "missing-en",
+      "facts": {
+        "payment": "unknown",
+        "note": "No payment records were supplied."
+      },
+      "text": "The payment amount is unknown because no payment records were supplied.",
+      "accept": true
+    },
+    {
+      "id": "missing-bg",
+      "facts": {
+        "payment": "неизвестно",
+        "note": "Няма данни за плащания."
+      },
+      "text": "Платената сума е неизвестна поради липса на данни за плащания.",
+      "accept": true
+    },
+    {
+      "id": "cause-en",
+      "facts": {
+        "turnout": "37%"
+      },
+      "text": "Turnout was 37% because residents lost trust.",
+      "accept": false
+    },
+    {
+      "id": "cause-bg",
+      "facts": {
+        "turnout": "37%"
+      },
+      "text": "Активността е 37% поради загуба на доверие.",
+      "accept": false
+    },
+    {
+      "id": "interest-en",
+      "facts": {
+        "turnout": "37%"
+      },
+      "text": "The turnout shows increased public interest.",
+      "accept": false
+    },
+    {
+      "id": "interest-bg",
+      "facts": {
+        "turnout": "37%"
+      },
+      "text": "Активността показва засилен обществен интерес.",
+      "accept": false
+    },
+    {
+      "id": "risk-low-en",
+      "facts": {
+        "screening_signals": 4,
+        "note": "No risk classification supplied."
+      },
+      "text": "The four signals indicate low risk.",
+      "accept": false
+    },
+    {
+      "id": "risk-low-bg",
+      "facts": {
+        "screening_signals": 4,
+        "note": "Няма класификация на риска."
+      },
+      "text": "Четири сигнала означават нисък риск.",
+      "accept": false
+    },
+    {
+      "id": "risk-valid-en",
+      "facts": {
+        "screening_signals": 4,
+        "note": "No risk classification supplied."
+      },
+      "text": "There are four screening signals; no risk classification was supplied.",
+      "accept": true
+    },
+    {
+      "id": "risk-valid-bg",
+      "facts": {
+        "screening_signals": 4,
+        "note": "Няма класификация на риска."
+      },
+      "text": "Има четири сигнала, без предоставена класификация на риска.",
+      "accept": true
+    },
+    {
+      "id": "arithmetic-en",
+      "facts": {
+        "before": 46,
+        "after": 31
+      },
+      "text": "The decrease was fifteen points.",
+      "accept": false
+    },
+    {
+      "id": "arithmetic-bg",
+      "facts": {
+        "before": 46,
+        "after": 31
+      },
+      "text": "Спадът е петнадесет пункта.",
+      "accept": false
+    },
+    {
+      "id": "comparison-en",
+      "facts": {
+        "before": 46,
+        "after": 31
+      },
+      "text": "The value fell from 46 to 31.",
+      "accept": true
+    },
+    {
+      "id": "comparison-bg",
+      "facts": {
+        "before": 46,
+        "after": 31
+      },
+      "text": "Стойността спада от 46 на 31.",
+      "accept": true
+    },
+    {
+      "id": "negated-risk-en",
+      "facts": {
+        "screening_signals": 4,
+        "note": "No benchmark or classification."
+      },
+      "text": "Four signals do not establish high risk.",
+      "accept": true
+    },
+    {
+      "id": "negated-risk-bg",
+      "facts": {
+        "screening_signals": 4,
+        "note": "Няма база за сравнение или класификация."
+      },
+      "text": "Четири сигнала не доказват висок риск.",
+      "accept": true
+    },
+    {
+      "id": "binding-en",
+      "facts": {
+        "assets": 81000,
+        "debts": 17000
+      },
+      "text": "Assets are 17000 and debts are 81000.",
+      "accept": false
+    },
+    {
+      "id": "binding-bg",
+      "facts": {
+        "assets": 81000,
+        "debts": 17000
+      },
+      "text": "Активите са 17000, а задълженията са 81000.",
+      "accept": false
+    },
+    {
+      "id": "empty",
+      "facts": {
+        "count": 4
+      },
+      "text": "",
+      "accept": false
+    },
+    {
+      "id": "unknown-zero",
+      "facts": {
+        "paid": "unknown",
+        "awarded": 0
+      },
+      "text": "The paid amount was 0.",
+      "accept": false
+    }
+  ],
+  "inputs": {
+    "municipalities": [
+      {
+        "obshtina": "PDV22",
+        "name": "Пловдив",
+        "name_en": "Plovdiv",
+        "oblast": "PDV-00",
+        "nuts3": "BG421",
+        "ekatte": "56784"
+      },
+      {
+        "obshtina": "VAR06",
+        "name": "Варна",
+        "name_en": "Varna",
+        "oblast": "VAR",
+        "nuts3": "BG331",
+        "ekatte": "10135"
+      }
+    ],
+    "city": {
+      "votes": [
+        180,
+        120
+      ],
+      "registered": 1000,
+      "voters": 320
+    },
+    "province": {
+      "votes": [
+        720,
+        480
+      ],
+      "registered": 4000,
+      "voters": 1600
+    },
+    "varna": {
+      "votes": [
+        90,
+        110
+      ],
+      "registered": 500,
+      "voters": 210
+    },
+    "national": {
+      "votes": [
+        6000,
+        4000
+      ]
+    },
+    "transfers": {
+      "2021": [
+        56000,
+        14000
+      ],
+      "2022": [
+        60000,
+        15000
+      ],
+      "2024": [
+        76000,
+        19000
+      ]
+    },
+    "taxes": {
+      "plovdiv": 2.6,
+      "varna": 1.8,
+      "average": 2.2
+    }
+  },
+  "sourceHashes": {
+    "ai/toolgrad/release/cases.ts": "810345946930adcd99644c6299dd6bfec4edd0232001b74989b9d80933747008",
+    "ai/toolgrad/release/guardCases.ts": "a6b709475c933f9d7be4a35c6ee907ebdcfb5731c39e508610d33572abee7afe",
+    "ai/toolgrad/release/fixtures.ts": "8690ded8bac8db2d9add0157be9edea1b5f0e97f2894af72e8121e4091e47168"
+  },
+  "captures": [
+    {
+      "id": "city-ballot:bg",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — община Пловдив (27 окт 2024)",
+        "subtitle": "Пловдив (град)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 180,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 120,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 180
+              },
+              {
+                "x": "Партия Б",
+                "y": 120
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Пловдив",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Пловдив"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Пловдив",
+          "region": "Пловдив (град)",
+          "election": "27 окт 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "300",
+          "turnout": "32%",
+          "Партия А": "180 (60%)",
+          "Партия Б": "120 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/PDV-00.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "city-ballot:en",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Plovdiv municipality (Oct 27, 2024)",
+        "subtitle": "Plovdiv (city)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 180,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 120,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 180
+              },
+              {
+                "x": "Партия Б",
+                "y": 120
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Plovdiv",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Plovdiv"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Plovdiv",
+          "region": "Plovdiv (city)",
+          "election": "Oct 27, 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "300",
+          "turnout": "32%",
+          "Партия А": "180 (60%)",
+          "Партия Б": "120 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/PDV-00.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "city-participation:bg",
+      "env": {
+        "tool": "municipalityResults",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Активност — Резултати — община Пловдив (27 окт 2024)",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Пловдив",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Пловдив"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Пловдив",
+          "region": "Пловдив (град)",
+          "election": "27 окт 2024",
+          "turnout": "32%",
+          "registered": "1000",
+          "voters": "320"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/PDV-00.json",
+          "2024_10_27/national_summary.json"
+        ],
+        "domain": "elections"
+      }
+    },
+    {
+      "id": "city-participation:en",
+      "env": {
+        "tool": "municipalityResults",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Turnout — Results — Plovdiv municipality (Oct 27, 2024)",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Plovdiv",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Plovdiv"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Plovdiv",
+          "region": "Plovdiv (city)",
+          "election": "Oct 27, 2024",
+          "turnout": "32%",
+          "registered": "1,000",
+          "voters": "320"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/PDV-00.json",
+          "2024_10_27/national_summary.json"
+        ],
+        "domain": "elections"
+      }
+    },
+    {
+      "id": "province-ballot:bg",
+      "env": {
+        "tool": "regionResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — Пловдив (област) (27 окт 2024)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 720,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 480,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 720
+              },
+              {
+                "x": "Партия Б",
+                "y": 480
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Пловдив (област)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Пловдив (област)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Пловдив (област)",
+          "election": "27 окт 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "1200",
+          "turnout": "40%",
+          "Партия А": "720 (60%)",
+          "Партия Б": "480 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "province-ballot:en",
+      "env": {
+        "tool": "regionResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Plovdiv (province) (Oct 27, 2024)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 720,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 480,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 720
+              },
+              {
+                "x": "Партия Б",
+                "y": 480
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Plovdiv (province)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Plovdiv (province)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Plovdiv (province)",
+          "election": "Oct 27, 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "1,200",
+          "turnout": "40%",
+          "Партия А": "720 (60%)",
+          "Партия Б": "480 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "province-participation:bg",
+      "env": {
+        "tool": "regionResults",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Активност — Резултати — Пловдив (област) (27 окт 2024)",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Пловдив (област)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Пловдив (област)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Пловдив (област)",
+          "election": "27 окт 2024",
+          "turnout": "40%",
+          "registered": "4000",
+          "voters": "1600"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ],
+        "domain": "elections"
+      }
+    },
+    {
+      "id": "province-participation:en",
+      "env": {
+        "tool": "regionResults",
+        "kind": "scalar",
+        "viz": "none",
+        "title": "Turnout — Results — Plovdiv (province) (Oct 27, 2024)",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Plovdiv (province)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Plovdiv (province)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Plovdiv (province)",
+          "election": "Oct 27, 2024",
+          "turnout": "40%",
+          "registered": "4,000",
+          "voters": "1,600"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ],
+        "domain": "elections"
+      }
+    },
+    {
+      "id": "national-resident:bg",
+      "env": {
+        "tool": "nationalResults",
+        "kind": "table",
+        "title": "Национални резултати — 27 окт 2024",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          },
+          {
+            "key": "seats",
+            "label": "Мандати",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 6000,
+            "pct": 60,
+            "seats": 144
+          },
+          {
+            "party": "Партия Б",
+            "votes": 4000,
+            "pct": 40,
+            "seats": 96
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 6000
+              },
+              {
+                "x": "Партия Б",
+                "y": 4000
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "choropleth",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Първа партия",
+          "colorMode": "explicit",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Пловдив (област)",
+              "display": "Партия А"
+            },
+            {
+              "code": "PDV-00",
+              "label": "Пловдив (град)",
+              "display": "Партия А"
+            },
+            {
+              "code": "VAR",
+              "label": "Варна",
+              "display": "Партия Б"
+            }
+          ]
+        },
+        "facts": {
+          "election": "27 окт 2024",
+          "parties_over_threshold": 2,
+          "Партия А": "6000 (60%), 144 мандата",
+          "Партия Б": "4000 (40%), 96 мандата"
+        },
+        "provenance": [
+          "2024_10_27/national_summary.json",
+          "2024_10_27/region_votes.json"
+        ],
+        "domain": "elections"
+      }
+    },
+    {
+      "id": "national-resident:en",
+      "env": {
+        "tool": "nationalResults",
+        "kind": "table",
+        "title": "National results — Oct 27, 2024",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          },
+          {
+            "key": "seats",
+            "label": "Seats",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 6000,
+            "pct": 60,
+            "seats": 144
+          },
+          {
+            "party": "Партия Б",
+            "votes": 4000,
+            "pct": 40,
+            "seats": 96
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 6000
+              },
+              {
+                "x": "Партия Б",
+                "y": 4000
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "choropleth",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Leading party",
+          "colorMode": "explicit",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Plovdiv (province)",
+              "display": "Партия А"
+            },
+            {
+              "code": "PDV-00",
+              "label": "Plovdiv (city)",
+              "display": "Партия А"
+            },
+            {
+              "code": "VAR",
+              "label": "Varna",
+              "display": "Партия Б"
+            }
+          ]
+        },
+        "facts": {
+          "election": "Oct 27, 2024",
+          "parties_over_threshold": 2,
+          "Партия А": "6,000 (60%), 144 seats",
+          "Партия Б": "4,000 (40%), 96 seats"
+        },
+        "provenance": [
+          "2024_10_27/national_summary.json",
+          "2024_10_27/region_votes.json"
+        ],
+        "domain": "elections"
+      }
+    },
+    {
+      "id": "varna-ballot:bg",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — община Варна (27 окт 2024)",
+        "subtitle": "Варна",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия Б",
+            "votes": 110,
+            "pct": 55
+          },
+          {
+            "party": "Партия А",
+            "votes": 90,
+            "pct": 45
+          }
+        ],
+        "categories": [
+          "Партия Б",
+          "Партия А"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия Б",
+                "y": 110
+              },
+              {
+                "x": "Партия А",
+                "y": 90
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Варна",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Варна"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "municipality": "Варна",
+          "region": "Варна",
+          "election": "27 окт 2024",
+          "leading_party": "Партия Б",
+          "leading_pct": "55%",
+          "total_votes": "200",
+          "turnout": "42%",
+          "Партия Б": "110 (55%)",
+          "Партия А": "90 (45%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/VAR.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "varna-ballot:en",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Varna municipality (Oct 27, 2024)",
+        "subtitle": "Varna",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия Б",
+            "votes": 110,
+            "pct": 55
+          },
+          {
+            "party": "Партия А",
+            "votes": 90,
+            "pct": 45
+          }
+        ],
+        "categories": [
+          "Партия Б",
+          "Партия А"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия Б",
+                "y": 110
+              },
+              {
+                "x": "Партия А",
+                "y": 90
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Varna",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Varna"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "municipality": "Varna",
+          "region": "Varna",
+          "election": "Oct 27, 2024",
+          "leading_party": "Партия Б",
+          "leading_pct": "55%",
+          "total_votes": "200",
+          "turnout": "42%",
+          "Партия Б": "110 (55%)",
+          "Партия А": "90 (45%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/VAR.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "transfer-2022:bg",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Трансфери държава → общини (2022)",
+        "subtitle": "По вид трансфер (Чл. 53 ЗДБРБ)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Вид"
+          },
+          {
+            "key": "amount",
+            "label": "Сума",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Делегирани държавни дейности",
+            "amount": "60 хил €"
+          },
+          {
+            "category": "Изравнителна субсидия",
+            "amount": "15 хил €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2022,
+          "total": "75 хил €",
+          "municipalities": 2,
+          "biggest": "Делегирани държавни дейности"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2022/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "transfer-2022:en",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "State → municipality transfers (2022)",
+        "subtitle": "By transfer type (Art. 53 of the State Budget Law)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Type"
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Delegated state activities",
+            "amount": "€60k"
+          },
+          {
+            "category": "Equalization subsidy",
+            "amount": "€15k"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2022,
+          "total": "€75k",
+          "municipalities": 2,
+          "biggest": "Delegated state activities"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2022/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "transfer-2024:bg",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Трансфери държава → общини (2024)",
+        "subtitle": "По вид трансфер (Чл. 53 ЗДБРБ)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Вид"
+          },
+          {
+            "key": "amount",
+            "label": "Сума",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Делегирани държавни дейности",
+            "amount": "76 хил €"
+          },
+          {
+            "category": "Изравнителна субсидия",
+            "amount": "19 хил €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2024,
+          "total": "95 хил €",
+          "municipalities": 2,
+          "biggest": "Делегирани държавни дейности"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2024/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "transfer-2024:en",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "State → municipality transfers (2024)",
+        "subtitle": "By transfer type (Art. 53 of the State Budget Law)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Type"
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Delegated state activities",
+            "amount": "€76k"
+          },
+          {
+            "category": "Equalization subsidy",
+            "amount": "€19k"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2024,
+          "total": "€95k",
+          "municipalities": 2,
+          "biggest": "Delegated state activities"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2024/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "transfer-category:bg",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Трансфери държава → общини (2022)",
+        "subtitle": "По вид трансфер (Чл. 53 ЗДБРБ)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Вид"
+          },
+          {
+            "key": "amount",
+            "label": "Сума",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Делегирани държавни дейности",
+            "amount": "60 хил €"
+          },
+          {
+            "category": "Изравнителна субсидия",
+            "amount": "15 хил €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2022,
+          "total": "75 хил €",
+          "municipalities": 2,
+          "biggest": "Делегирани държавни дейности"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2022/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "transfer-category:en",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "State → municipality transfers (2022)",
+        "subtitle": "By transfer type (Art. 53 of the State Budget Law)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Type"
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Delegated state activities",
+            "amount": "€60k"
+          },
+          {
+            "category": "Equalization subsidy",
+            "amount": "€15k"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2022,
+          "total": "€75k",
+          "municipalities": 2,
+          "biggest": "Delegated state activities"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2022/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "transfer-recipient:bg",
+      "env": {
+        "tool": "budgetMunicipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Как се разпределят бюджетните трансфери между общините?",
+        "subtitle": "Публикувани отчети; липсващи наблюдения не означават нула. Щатни бройки и наети лица са различни показатели.",
+        "columns": [
+          {
+            "key": "nameBg",
+            "label": "Институция / община",
+            "numeric": false
+          },
+          {
+            "key": "totalEur",
+            "label": "Общо (€)",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "nameBg": "Примерна община А",
+            "totalEur": 68000
+          },
+          {
+            "nameBg": "Примерна община Б",
+            "totalEur": 7000
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "records": 2,
+          "fiscalYear": 2022
+        },
+        "provenance": [
+          "budget_muni_list"
+        ]
+      }
+    },
+    {
+      "id": "transfer-recipient:en",
+      "env": {
+        "tool": "budgetMunicipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "How are budget transfers distributed across municipalities?",
+        "subtitle": "Published reports; missing observations do not mean zero. Established posts and employees are distinct measures.",
+        "columns": [
+          {
+            "key": "nameEn",
+            "label": "Institution / municipality",
+            "numeric": false
+          },
+          {
+            "key": "totalEur",
+            "label": "Total (€)",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "nameEn": "Example municipality A",
+            "totalEur": 68000
+          },
+          {
+            "nameEn": "Example municipality B",
+            "totalEur": 7000
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "records": 2,
+          "fiscalYear": 2022
+        },
+        "provenance": [
+          "budget_muni_list"
+        ]
+      }
+    },
+    {
+      "id": "transfer-ranking:bg",
+      "env": {
+        "tool": "budgetMunicipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Как се разпределят бюджетните трансфери между общините?",
+        "subtitle": "Публикувани отчети; липсващи наблюдения не означават нула. Щатни бройки и наети лица са различни показатели.",
+        "columns": [
+          {
+            "key": "nameBg",
+            "label": "Институция / община",
+            "numeric": false
+          },
+          {
+            "key": "totalEur",
+            "label": "Общо (€)",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "nameBg": "Примерна община А",
+            "totalEur": 88000
+          },
+          {
+            "nameBg": "Примерна община Б",
+            "totalEur": 7000
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "records": 2,
+          "fiscalYear": 2024
+        },
+        "provenance": [
+          "budget_muni_list"
+        ]
+      }
+    },
+    {
+      "id": "transfer-ranking:en",
+      "env": {
+        "tool": "budgetMunicipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "How are budget transfers distributed across municipalities?",
+        "subtitle": "Published reports; missing observations do not mean zero. Established posts and employees are distinct measures.",
+        "columns": [
+          {
+            "key": "nameEn",
+            "label": "Institution / municipality",
+            "numeric": false
+          },
+          {
+            "key": "totalEur",
+            "label": "Total (€)",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "nameEn": "Example municipality A",
+            "totalEur": 88000
+          },
+          {
+            "nameEn": "Example municipality B",
+            "totalEur": 7000
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "records": 2,
+          "fiscalYear": 2024
+        },
+        "provenance": [
+          "budget_muni_list"
+        ]
+      }
+    },
+    {
+      "id": "tax-plovdiv:bg",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Местни данъци — Пловдив",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Данък"
+          },
+          {
+            "key": "value",
+            "label": "Ставка",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Средно",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Място",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Имотен данък",
+            "value": "2.6 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Пловдив",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Пловдив"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "place": "Пловдив",
+          "indicators": 1,
+          "Имотен данък — местна ставка": "2.6 %",
+          "Имотен данък — средно за страната": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/PDV22.json"
+        ]
+      }
+    },
+    {
+      "id": "tax-plovdiv:en",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Local taxes — Plovdiv",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Tax"
+          },
+          {
+            "key": "value",
+            "label": "Rate",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Avg",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Rank",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Property tax",
+            "value": "2.6 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Plovdiv",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Plovdiv"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "place": "Пловдив",
+          "indicators": 1,
+          "Property tax — local rate": "2.6 %",
+          "Property tax — national average": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/PDV22.json"
+        ]
+      }
+    },
+    {
+      "id": "tax-varna:bg",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Местни данъци — Варна",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Данък"
+          },
+          {
+            "key": "value",
+            "label": "Ставка",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Средно",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Място",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Имотен данък",
+            "value": "1.8 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Варна",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Варна"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "place": "Варна",
+          "indicators": 1,
+          "Имотен данък — местна ставка": "1.8 %",
+          "Имотен данък — средно за страната": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/VAR06.json"
+        ]
+      }
+    },
+    {
+      "id": "tax-varna:en",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Local taxes — Varna",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Tax"
+          },
+          {
+            "key": "value",
+            "label": "Rate",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Avg",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Rank",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Property tax",
+            "value": "1.8 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Varna",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Varna"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "place": "Варна",
+          "indicators": 1,
+          "Property tax — local rate": "1.8 %",
+          "Property tax — national average": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/VAR06.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-bare-city:bg",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — община Пловдив (27 окт 2024)",
+        "subtitle": "Пловдив (град)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 180,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 120,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 180
+              },
+              {
+                "x": "Партия Б",
+                "y": 120
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Пловдив",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Пловдив"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Пловдив",
+          "region": "Пловдив (град)",
+          "election": "27 окт 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "300",
+          "turnout": "32%",
+          "Партия А": "180 (60%)",
+          "Партия Б": "120 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/PDV-00.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-bare-city:en",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Plovdiv municipality (Oct 27, 2024)",
+        "subtitle": "Plovdiv (city)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 180,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 120,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 180
+              },
+              {
+                "x": "Партия Б",
+                "y": 120
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Plovdiv",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Plovdiv"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Plovdiv",
+          "region": "Plovdiv (city)",
+          "election": "Oct 27, 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "300",
+          "turnout": "32%",
+          "Партия А": "180 (60%)",
+          "Партия Б": "120 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/municipalities/by/PDV-00.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-explicit-province:bg",
+      "env": {
+        "tool": "regionResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — Пловдив (област) (27 окт 2024)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 720,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 480,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 720
+              },
+              {
+                "x": "Партия Б",
+                "y": 480
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Пловдив (област)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Пловдив (област)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Пловдив (област)",
+          "election": "27 окт 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "1200",
+          "turnout": "40%",
+          "Партия А": "720 (60%)",
+          "Партия Б": "480 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-explicit-province:en",
+      "env": {
+        "tool": "regionResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Plovdiv (province) (Oct 27, 2024)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 720,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 480,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 720
+              },
+              {
+                "x": "Партия Б",
+                "y": 480
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "oblast",
+          "mode": "locator",
+          "source": "/regions_map.json",
+          "joinKey": "nuts3",
+          "metricLabel": "Plovdiv (province)",
+          "areas": [
+            {
+              "code": "PDV",
+              "label": "Plovdiv (province)"
+            }
+          ],
+          "focus": [
+            "PDV"
+          ]
+        },
+        "facts": {
+          "region": "Plovdiv (province)",
+          "election": "Oct 27, 2024",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "1,200",
+          "turnout": "40%",
+          "Партия А": "720 (60%)",
+          "Партия Б": "480 (40%)"
+        },
+        "provenance": [
+          "2024_10_27/region_votes.json",
+          "2024_10_27/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-transfer-type:bg",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Трансфери държава → общини (2022)",
+        "subtitle": "По вид трансфер (Чл. 53 ЗДБРБ)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Вид"
+          },
+          {
+            "key": "amount",
+            "label": "Сума",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Делегирани държавни дейности",
+            "amount": "60 хил €"
+          },
+          {
+            "category": "Изравнителна субсидия",
+            "amount": "15 хил €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2022,
+          "total": "75 хил €",
+          "municipalities": 2,
+          "biggest": "Делегирани държавни дейности"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2022/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-transfer-type:en",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "State → municipality transfers (2022)",
+        "subtitle": "By transfer type (Art. 53 of the State Budget Law)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Type"
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Delegated state activities",
+            "amount": "€60k"
+          },
+          {
+            "category": "Equalization subsidy",
+            "amount": "€15k"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2022,
+          "total": "€75k",
+          "municipalities": 2,
+          "biggest": "Delegated state activities"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2022/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-transfer-recipient:bg",
+      "env": {
+        "tool": "budgetMunicipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Как се разпределят бюджетните трансфери между общините?",
+        "subtitle": "Публикувани отчети; липсващи наблюдения не означават нула. Щатни бройки и наети лица са различни показатели.",
+        "columns": [
+          {
+            "key": "nameBg",
+            "label": "Институция / община",
+            "numeric": false
+          },
+          {
+            "key": "totalEur",
+            "label": "Общо (€)",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "nameBg": "Примерна община А",
+            "totalEur": 68000
+          },
+          {
+            "nameBg": "Примерна община Б",
+            "totalEur": 7000
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "records": 2,
+          "fiscalYear": 2022
+        },
+        "provenance": [
+          "budget_muni_list"
+        ]
+      }
+    },
+    {
+      "id": "follow-transfer-recipient:en",
+      "env": {
+        "tool": "budgetMunicipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "How are budget transfers distributed across municipalities?",
+        "subtitle": "Published reports; missing observations do not mean zero. Established posts and employees are distinct measures.",
+        "columns": [
+          {
+            "key": "nameEn",
+            "label": "Institution / municipality",
+            "numeric": false
+          },
+          {
+            "key": "totalEur",
+            "label": "Total (€)",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "nameEn": "Example municipality A",
+            "totalEur": 68000
+          },
+          {
+            "nameEn": "Example municipality B",
+            "totalEur": 7000
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "records": 2,
+          "fiscalYear": 2022
+        },
+        "provenance": [
+          "budget_muni_list"
+        ]
+      }
+    },
+    {
+      "id": "follow-transfer-date:bg",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Трансфери държава → общини (2024)",
+        "subtitle": "По вид трансфер (Чл. 53 ЗДБРБ)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Вид"
+          },
+          {
+            "key": "amount",
+            "label": "Сума",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Делегирани държавни дейности",
+            "amount": "76 хил €"
+          },
+          {
+            "category": "Изравнителна субсидия",
+            "amount": "19 хил €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2024,
+          "total": "95 хил €",
+          "municipalities": 2,
+          "biggest": "Делегирани държавни дейности"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2024/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-transfer-date:en",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "State → municipality transfers (2024)",
+        "subtitle": "By transfer type (Art. 53 of the State Budget Law)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Type"
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Delegated state activities",
+            "amount": "€76k"
+          },
+          {
+            "category": "Equalization subsidy",
+            "amount": "€19k"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2024,
+          "total": "€95k",
+          "municipalities": 2,
+          "biggest": "Delegated state activities"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2024/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-topic-tax:bg",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Местни данъци — Варна",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Данък"
+          },
+          {
+            "key": "value",
+            "label": "Ставка",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Средно",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Място",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Имотен данък",
+            "value": "1.8 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Варна",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Варна"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "place": "Варна",
+          "indicators": 1,
+          "Имотен данък — местна ставка": "1.8 %",
+          "Имотен данък — средно за страната": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/VAR06.json"
+        ]
+      }
+    },
+    {
+      "id": "follow-topic-tax:en",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Local taxes — Varna",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Tax"
+          },
+          {
+            "key": "value",
+            "label": "Rate",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Avg",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Rank",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Property tax",
+            "value": "1.8 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Varna",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Varna"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "place": "Варна",
+          "indicators": 1,
+          "Property tax — local rate": "1.8 %",
+          "Property tax — national average": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/VAR06.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-city:bg",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — община Пловдив (4 апр 2021)",
+        "subtitle": "Пловдив (град)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 180,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 120,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 180
+              },
+              {
+                "x": "Партия Б",
+                "y": 120
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Пловдив",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Пловдив"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Пловдив",
+          "region": "Пловдив (град)",
+          "election": "4 апр 2021",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "300",
+          "turnout": "32%",
+          "Партия А": "180 (60%)",
+          "Партия Б": "120 (40%)"
+        },
+        "provenance": [
+          "2021_04_04/municipalities/by/PDV-00.json",
+          "2021_04_04/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-city:en",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Plovdiv municipality (Apr 4, 2021)",
+        "subtitle": "Plovdiv (city)",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия А",
+            "votes": 180,
+            "pct": 60
+          },
+          {
+            "party": "Партия Б",
+            "votes": 120,
+            "pct": 40
+          }
+        ],
+        "categories": [
+          "Партия А",
+          "Партия Б"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия А",
+                "y": 180
+              },
+              {
+                "x": "Партия Б",
+                "y": 120
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/PDV-00.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Plovdiv",
+          "areas": [
+            {
+              "code": "PDV22",
+              "label": "Plovdiv"
+            }
+          ],
+          "focus": [
+            "PDV22"
+          ]
+        },
+        "facts": {
+          "municipality": "Plovdiv",
+          "region": "Plovdiv (city)",
+          "election": "Apr 4, 2021",
+          "leading_party": "Партия А",
+          "leading_pct": "60%",
+          "total_votes": "300",
+          "turnout": "32%",
+          "Партия А": "180 (60%)",
+          "Партия Б": "120 (40%)"
+        },
+        "provenance": [
+          "2021_04_04/municipalities/by/PDV-00.json",
+          "2021_04_04/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-transfers:bg",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "Трансфери държава → общини (2021)",
+        "subtitle": "По вид трансфер (Чл. 53 ЗДБРБ)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Вид"
+          },
+          {
+            "key": "amount",
+            "label": "Сума",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Делегирани държавни дейности",
+            "amount": "56 хил €"
+          },
+          {
+            "category": "Изравнителна субсидия",
+            "amount": "14 хил €"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2021,
+          "total": "70 хил €",
+          "municipalities": 2,
+          "biggest": "Делегирани държавни дейности"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2021/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-transfers:en",
+      "env": {
+        "tool": "municipalTransfers",
+        "domain": "fiscal",
+        "kind": "table",
+        "title": "State → municipality transfers (2021)",
+        "subtitle": "By transfer type (Art. 53 of the State Budget Law)",
+        "columns": [
+          {
+            "key": "category",
+            "label": "Type"
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "numeric": true
+          }
+        ],
+        "rows": [
+          {
+            "category": "Delegated state activities",
+            "amount": "€56k"
+          },
+          {
+            "category": "Equalization subsidy",
+            "amount": "€14k"
+          }
+        ],
+        "viz": "none",
+        "facts": {
+          "year": 2021,
+          "total": "€70k",
+          "municipalities": 2,
+          "biggest": "Delegated state activities"
+        },
+        "provenance": [
+          "budget/municipal_transfers/2021/totals.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-follow-city:bg",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Резултати — община Варна (4 апр 2021)",
+        "subtitle": "Варна",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Партия"
+          },
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия Б",
+            "votes": 110,
+            "pct": 55
+          },
+          {
+            "party": "Партия А",
+            "votes": 90,
+            "pct": 45
+          }
+        ],
+        "categories": [
+          "Партия Б",
+          "Партия А"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Гласове",
+            "points": [
+              {
+                "x": "Партия Б",
+                "y": 110
+              },
+              {
+                "x": "Партия А",
+                "y": 90
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Варна",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Варна"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "municipality": "Варна",
+          "region": "Варна",
+          "election": "4 апр 2021",
+          "leading_party": "Партия Б",
+          "leading_pct": "55%",
+          "total_votes": "200",
+          "turnout": "42%",
+          "Партия Б": "110 (55%)",
+          "Партия А": "90 (45%)"
+        },
+        "provenance": [
+          "2021_04_04/municipalities/by/VAR.json",
+          "2021_04_04/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-follow-city:en",
+      "env": {
+        "tool": "municipalityResults",
+        "domain": "elections",
+        "kind": "table",
+        "title": "Results — Varna municipality (Apr 4, 2021)",
+        "subtitle": "Varna",
+        "columns": [
+          {
+            "key": "party",
+            "label": "Party"
+          },
+          {
+            "key": "votes",
+            "label": "Votes",
+            "numeric": true,
+            "format": "int"
+          },
+          {
+            "key": "pct",
+            "label": "%",
+            "numeric": true,
+            "format": "pct"
+          }
+        ],
+        "rows": [
+          {
+            "party": "Партия Б",
+            "votes": 110,
+            "pct": 55
+          },
+          {
+            "party": "Партия А",
+            "votes": 90,
+            "pct": 45
+          }
+        ],
+        "categories": [
+          "Партия Б",
+          "Партия А"
+        ],
+        "series": [
+          {
+            "key": "votes",
+            "label": "Votes",
+            "points": [
+              {
+                "x": "Партия Б",
+                "y": 110
+              },
+              {
+                "x": "Партия А",
+                "y": 90
+              }
+            ]
+          }
+        ],
+        "viz": "bar",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Varna",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Varna"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "municipality": "Varna",
+          "region": "Varna",
+          "election": "Apr 4, 2021",
+          "leading_party": "Партия Б",
+          "leading_pct": "55%",
+          "total_votes": "200",
+          "turnout": "42%",
+          "Партия Б": "110 (55%)",
+          "Партия А": "90 (45%)"
+        },
+        "provenance": [
+          "2021_04_04/municipalities/by/VAR.json",
+          "2021_04_04/national_summary.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-tax:bg",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Местни данъци — Варна",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Данък"
+          },
+          {
+            "key": "value",
+            "label": "Ставка",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Средно",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Място",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Имотен данък",
+            "value": "1.8 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Варна",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Варна"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "place": "Варна",
+          "indicators": 1,
+          "Имотен данък — местна ставка": "1.8 %",
+          "Имотен данък — средно за страната": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/VAR06.json"
+        ]
+      }
+    },
+    {
+      "id": "confirm-tax:en",
+      "env": {
+        "tool": "localTaxes",
+        "domain": "indicators",
+        "kind": "table",
+        "title": "Local taxes — Varna",
+        "columns": [
+          {
+            "key": "tax",
+            "label": "Tax"
+          },
+          {
+            "key": "value",
+            "label": "Rate",
+            "numeric": true
+          },
+          {
+            "key": "avg",
+            "label": "Avg",
+            "numeric": true
+          },
+          {
+            "key": "rank",
+            "label": "Rank",
+            "numeric": true,
+            "format": "int"
+          }
+        ],
+        "rows": [
+          {
+            "tax": "Property tax",
+            "value": "1.8 %",
+            "avg": "2.2 %",
+            "rank": 1
+          }
+        ],
+        "viz": "none",
+        "geo": {
+          "level": "municipality",
+          "mode": "locator",
+          "source": "/maps/regions/VAR.json",
+          "joinKey": "nuts4",
+          "metricLabel": "Varna",
+          "areas": [
+            {
+              "code": "VAR06",
+              "label": "Varna"
+            }
+          ],
+          "focus": [
+            "VAR06"
+          ]
+        },
+        "facts": {
+          "place": "Варна",
+          "indicators": 1,
+          "Property tax — local rate": "1.8 %",
+          "Property tax — national average": "2.2 %"
+        },
+        "provenance": [
+          "local_taxes/index.json",
+          "local_taxes/VAR06.json"
+        ]
+      }
+    }
+  ],
+  "limits": {
+    "maxCalls": 128
+  },
+  "scope": "Invented numerical source fixtures through production tools/provider; operator Gemini transport replaces public authentication and proxy. Does not validate live data, browser rendering or public auth. 48 primary questions and 8 reserved confirmation questions; coding-agent authored, not blinded."
+}
