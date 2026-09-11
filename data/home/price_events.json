@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-09",
+  "computedAt": "2026-09-10",
   "thresholds": {
     "basketPids": [
       1,
@@ -55,33 +55,33 @@
   ],
   "promotions": [
     {
-      "slug": "maslo-vitoria-krave-250gr",
-      "title": "МАСЛО ВИТОРИА КРАВЕ 250ГР",
-      "atOrBelowSince": "2026-08-21",
-      "promoEur": 2.19,
-      "regularEur": 4.34,
-      "discountPct": 50,
-      "stores": 3,
+      "slug": "luk",
+      "title": "ЛУК",
+      "atOrBelowSince": "2026-09-10",
+      "promoEur": 0.35,
+      "regularEur": 0.85,
+      "discountPct": 59,
+      "stores": 161,
       "chains": 3
     },
     {
-      "slug": "kromid-luk",
-      "title": "Кромид Лук",
-      "atOrBelowSince": "2026-09-02",
-      "promoEur": 0.44,
-      "regularEur": 0.85,
-      "discountPct": 48,
-      "stores": 47,
-      "chains": 2
+      "slug": "krastavitsi",
+      "title": "КРАСТАВИЦИ",
+      "atOrBelowSince": "2026-09-10",
+      "promoEur": 0.99,
+      "regularEur": 2.13,
+      "discountPct": 53,
+      "stores": 183,
+      "chains": 3
     },
     {
-      "slug": "kafe-mlyano-eduscho-intenso-250gr",
-      "title": "кафе мляно EDUSCHO intenso 250гр",
-      "atOrBelowSince": "2026-09-07",
-      "promoEur": 2.99,
-      "regularEur": 5.49,
-      "discountPct": 46,
-      "stores": 37,
+      "slug": "shokolad-lacmi-mlechen-90-gr",
+      "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
+      "atOrBelowSince": "2026-09-10",
+      "promoEur": 0.79,
+      "regularEur": 1.69,
+      "discountPct": 53,
+      "stores": 48,
       "chains": 2
     }
   ]

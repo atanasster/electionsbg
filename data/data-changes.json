@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-09-10T05:33:24.823Z",
+  "updatedAt": "2026-09-11T00:19:23.674Z",
   "entries": [
+    {
+      "timestamp": "2026-09-11T00:19:23.674Z",
+      "date": "2026-09-11",
+      "skill": "update-council-minutes",
+      "summary": "Перник: +25 нови решения; 5,173 решения / 51,672 поименни гласа",
+      "source": "Общински съвети — протоколи"
+    },
+    {
+      "timestamp": "2026-09-11T00:07:25.781Z",
+      "date": "2026-09-11",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-10 (+1 daily archive; 813,349 store rows, 168 settlements, 78 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-10"
+    },
+    {
+      "timestamp": "2026-09-11T00:03:11.795Z",
+      "date": "2026-09-11",
+      "skill": "update-procurement",
+      "summary": "EOP gap-fill +103 contracts/56 buyers (to 2026-09-09); tenders 238,755; TED 219,281 notices",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-09-10T23:49:11.512Z",
+      "date": "2026-09-10",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 932 лица, 125 072 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-10T23:16:25.632Z",
+      "date": "2026-09-10",
+      "skill": "update-macro",
+      "summary": "5 Eurostat releases: 2026-Q2 employment/activity/unemployment landed; peers 10 quarterly + 9 annual + WGI; PLI 2025",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-10T22:55:30.590Z",
+      "date": "2026-09-10",
+      "skill": "update-rollcall",
+      "summary": "1 new session 2026-09-10 (id 11168): 23 items, 5520 rows; 622 plenary days",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-10T05:33:24.823Z",
       "date": "2026-09-10",

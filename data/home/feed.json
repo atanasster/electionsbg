@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-09T23:59:59.999Z",
+  "computedAt": "2026-09-10T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:maslo-vitoria-krave-250gr",
+      "id": "prices:promotion:luk",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-09T00:00:00.000Z",
-      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "occurredAt": "2026-09-10T00:00:00.000Z",
+      "firstSeenAt": "2026-09-10T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,27 +22,27 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/maslo-vitoria-krave-250gr",
+      "route": "/product/luk",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "МАСЛО ВИТОРИА КРАВЕ 250ГР",
-        "pct": 50,
-        "promoEur": "2.19",
-        "regularEur": "4.34",
+        "title": "ЛУК",
+        "pct": 59,
+        "promoEur": "0.35",
+        "regularEur": "0.85",
         "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7142857142857143,
+      "materiality": 0.8428571428571429,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-09",
+      "id": "parliament:sitting:2026-09-10",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-09-09T00:00:00.000Z",
-      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "occurredAt": "2026-09-10T00:00:00.000Z",
+      "firstSeenAt": "2026-09-10T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -54,14 +54,14 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-09-09",
+      "route": "/votes/2026-09-10",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 17
+        "items": 23
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.425,
+      "materiality": 0.575,
       "actionability": 0.4
     },
     {
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kromid-luk",
+      "id": "prices:promotion:krastavitsi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-09T00:00:00.000Z",
-      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "occurredAt": "2026-09-10T00:00:00.000Z",
+      "firstSeenAt": "2026-09-10T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,19 +115,47 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kromid-luk",
+      "route": "/product/krastavitsi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "Кромид Лук",
-        "pct": 48,
-        "promoEur": "0.44",
-        "regularEur": "0.85",
-        "chains": 2
+        "title": "КРАСТАВИЦИ",
+        "pct": 53,
+        "promoEur": "0.99",
+        "regularEur": "2.13",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-09",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-09T00:00:00.000Z",
+      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-09",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 17
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.425,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -163,39 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-03",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-03T00:00:00.000Z",
-      "firstSeenAt": "2026-09-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-03",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 20
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.5,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:kafe-mlyano-eduscho-intenso-250gr",
+      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-09T00:00:00.000Z",
-      "firstSeenAt": "2026-09-09T00:00:00.000Z",
+      "occurredAt": "2026-09-10T00:00:00.000Z",
+      "firstSeenAt": "2026-09-10T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kafe-mlyano-eduscho-intenso-250gr",
+      "route": "/product/shokolad-lacmi-mlechen-90-gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "кафе мляно EDUSCHO intenso 250гр",
-        "pct": 46,
-        "promoEur": "2.99",
-        "regularEur": "5.49",
+        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
+        "pct": 53,
+        "promoEur": "0.79",
+        "regularEur": "1.69",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6571428571428571,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -282,6 +282,34 @@
       "verification": "automatic",
       "materiality": 0.495,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-03",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-03T00:00:00.000Z",
+      "firstSeenAt": "2026-09-03T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-03",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 20
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -711,15 +739,15 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2027",
+      "id": "council:resolution:PER32-2026-prot8-r1134",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "SZR01"
+        "id": "PER32"
       },
       "source": {
         "id": "council_minutes",
@@ -729,29 +757,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/SZR01-2026-prot45-r2027",
+      "route": "/council/resolution/PER32-2026-prot8-r1134",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Т.9 на Решение № 1968 от 30.07.2026г. на Общински съвет Стара Загора, върнато за ново обсъждане със Заповед № АК 01-31-1",
-        "council": "SZR01",
-        "number": "2027"
+        "title": "ПРИЕМАНЕ НА ГОДИШЕН ПЛАН НА ДЕЙНОСТИТЕ ЗА ПОДКРЕПА ЗА ЛИЧНОСТНО РАЗВИТИЕ НА ДЕЦАТА И УЧЕНИЦИТЕ В ОБЩИНА ПЕРНИК",
+        "council": "PER32",
+        "number": "1134"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6,
+      "materiality": 0.49,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2028",
+      "id": "council:resolution:PER32-2026-prot8-r1142",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "SZR01"
+        "id": "PER32"
       },
       "source": {
         "id": "council_minutes",
@@ -761,29 +789,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/SZR01-2026-prot45-r2028",
+      "route": "/council/resolution/PER32-2026-prot8-r1142",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Продажба на поземлен имот с идентификатор 68850.63.967 /номер по предходен план - 000967/ - частна общинска собственост,",
-        "council": "SZR01",
-        "number": "2028"
+        "title": "ПРЕКРАТЯВАНЕ НА СЪСОБСТВЕНОСТ ЧРЕЗ ПОКУПКО - ПРОДАЖБА НА ЧАСТ ОТ НЕДВИЖИМ ИМОТ - ЧАСТНА ОБЩИНСКА СОБСТВЕНОСТ",
+        "council": "PER32",
+        "number": "1142"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6,
+      "materiality": 0.49,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2030",
+      "id": "council:resolution:PER32-2026-prot8-r1143",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "SZR01"
+        "id": "PER32"
       },
       "source": {
         "id": "council_minutes",
@@ -793,29 +821,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/SZR01-2026-prot45-r2030",
+      "route": "/council/resolution/PER32-2026-prot8-r1143",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Продажба на поземлени имоти с идентификатори 05431.16.82 /номер по предходен план: 000632/, 05431.19.33 /номер по предхо",
-        "council": "SZR01",
-        "number": "2030"
+        "title": "ПРЕКРАТЯВАНЕ НА СЪСОБСТВЕНОСТ ЧРЕЗ ПОКУПКО - ПРОДАЖБА НА ЧАСТ ОТ НЕДВИЖИМ ИМОТ - ЧАСТНА ОБЩИНСКА СОБСТВЕНОСТ",
+        "council": "PER32",
+        "number": "1143"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6,
+      "materiality": 0.49,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2031",
+      "id": "council:resolution:PER32-2026-prot8-r1121",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "SZR01"
+        "id": "PER32"
       },
       "source": {
         "id": "council_minutes",
@@ -825,29 +853,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/SZR01-2026-prot45-r2031",
+      "route": "/council/resolution/PER32-2026-prot8-r1121",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Продажба на поземлени имоти с идентификатори 31276.85.45 /номер по предходен план: 085045/, 31276.87.2 /номер по предход",
-        "council": "SZR01",
-        "number": "2031"
+        "title": "ПОПРАВКА НА ОЧЕВИДНА ФАКТИЧЕСКА ГРЕШКА В РЕШЕНИЕ №1096/21.07.2026Г. НА ОБЩИНСКИ СЪВЕТ ПЕРНИК",
+        "council": "PER32",
+        "number": "1121"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6,
+      "materiality": 0.48000000000000004,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2032",
+      "id": "council:resolution:PER32-2026-prot8-r1133",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "SZR01"
+        "id": "PER32"
       },
       "source": {
         "id": "council_minutes",
@@ -857,29 +885,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/SZR01-2026-prot45-r2032",
+      "route": "/council/resolution/PER32-2026-prot8-r1133",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Продажба на поземлени имоти с идентификатори 52252.10.5 /номер по предходен план: 000096/, 52252.10.9 /номер по предходе",
-        "council": "SZR01",
-        "number": "2032"
+        "title": "ПРИЕМАНЕ НА ОБЩИНСКА СТРАТЕГИЯ ЗА ПОДКРЕПА ЗА ЛИЧНОСТНО РАЗВИТИЕ НА ДЕЦАТА И УЧЕНИЦИТЕ В ОБЩИНА ПЕРНИК ЗА 2026 - 2028 Г.",
+        "council": "PER32",
+        "number": "1133"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6,
+      "materiality": 0.48000000000000004,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2033",
+      "id": "council:resolution:PER32-2026-prot8-r1136",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "SZR01"
+        "id": "PER32"
       },
       "source": {
         "id": "council_minutes",
@@ -889,16 +917,16 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/SZR01-2026-prot45-r2033",
+      "route": "/council/resolution/PER32-2026-prot8-r1136",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Продажба на поземлени имоти с идентификатори 58743.12.2 /номер по предходен план: 012002/, 58743.57.75 /номер по предход",
-        "council": "SZR01",
-        "number": "2033"
+        "title": "ГФО НА \"ПЕРНИК- ИНВЕСТ\" ЕООД ЗА 2025Г, ЗАВЕРЕН ОТ РЕГИСТРИРАН ОДИТОР",
+        "council": "PER32",
+        "number": "1136"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6,
+      "materiality": 0.48000000000000004,
       "actionability": 0.3
     },
     {
@@ -928,38 +956,6 @@
       "verification": "automatic",
       "materiality": 0.025,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:5023bcbb-36a8-441e-91ff-b92abdb79b9f",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-08-11T13:30:00.000Z",
-      "deadlineAt": "2026-11-10T14:30:00.000Z",
-      "firstSeenAt": "2026-08-11T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/5023bcbb-36a8-441e-91ff-b92abdb79b9f"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Въвеждане на зелени технологии в МСП",
-        "programme": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
     }
   ],
   "sourceCoverage": {
@@ -1004,14 +1000,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-09-09",
+      "asOf": "2026-09-10",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-09",
-      "observedAt": "2026-09-09",
+      "asOf": "2026-09-10",
+      "observedAt": "2026-09-10",
       "staleAfterDays": 5,
       "stale": false
     }

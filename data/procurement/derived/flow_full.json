@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T22:32:13.027Z",
+  "generatedAt": "2026-09-10T23:10:35.874Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -7877,6 +7877,21 @@
       "label": "Милена Димитрова Митева"
     },
     {
+      "id": "official:chavdar-kirilov-trendafilov-315173",
+      "type": "official",
+      "label": "Чавдар Кирилов Трендафилов"
+    },
+    {
+      "id": "official:dian-nikolov-boev-7fa310",
+      "type": "official",
+      "label": "Диан Николов Боев"
+    },
+    {
+      "id": "official:hristiyan-borislavov-krstev-4b8dc1",
+      "type": "official",
+      "label": "Християн Бориславов Кръстев"
+    },
+    {
       "id": "official:valeri-stoyanov-manov-3f6d6f",
       "type": "official",
       "label": "Валери Стоянов Манов"
@@ -7895,21 +7910,6 @@
       "id": "official:nikolai-nikolaev-stoinov-fbc472",
       "type": "official",
       "label": "Николай Николаев Стойнов"
-    },
-    {
-      "id": "official:chavdar-kirilov-trendafilov-315173",
-      "type": "official",
-      "label": "Чавдар Кирилов Трендафилов"
-    },
-    {
-      "id": "official:dian-nikolov-boev-7fa310",
-      "type": "official",
-      "label": "Диан Николов Боев"
-    },
-    {
-      "id": "official:hristiyan-borislavov-krstev-4b8dc1",
-      "type": "official",
-      "label": "Християн Бориславов Кръстев"
     },
     {
       "id": "official:ekaterina-angelova-stefanova-a6a92a",
@@ -8237,6 +8237,11 @@
       "label": "Илия Иванов Благоев"
     },
     {
+      "id": "official:branimira-konstantinova-marinova-44f135",
+      "type": "official",
+      "label": "Бранимира Константинова Маринова"
+    },
+    {
       "id": "official:zhivko-danailov-dachev-8cc46d",
       "type": "official",
       "label": "Живко Данаилов Дачев"
@@ -8265,11 +8270,6 @@
       "id": "official:yurii-todorov-voev-b5db78",
       "type": "official",
       "label": "Юрий Тодоров Воев"
-    },
-    {
-      "id": "official:branimira-konstantinova-marinova-44f135",
-      "type": "official",
-      "label": "Бранимира Константинова Маринова"
     },
     {
       "id": "official:anastasiya-grigorova-boneva-25ff22",
@@ -14471,7 +14471,7 @@
     {
       "source": "awarder:000694037",
       "target": "contractor:201374120",
-      "valueEur": 23321855.8
+      "valueEur": 23365435.8
     },
     {
       "source": "awarder:000694037",
@@ -15786,7 +15786,7 @@
     {
       "source": "awarder:103562052",
       "target": "contractor:103761360",
-      "valueEur": 2823012.91
+      "valueEur": 3249089.48
     },
     {
       "source": "awarder:103600001",
@@ -18031,7 +18031,7 @@
     {
       "source": "awarder:129010171",
       "target": "contractor:175403856",
-      "valueEur": 122704.36
+      "valueEur": 1622704.36
     },
     {
       "source": "awarder:129010171",
@@ -21801,12 +21801,12 @@
     {
       "source": "contractor:201374120",
       "target": "official:elitsa-velizarova-nikolova-22507d",
-      "valueEur": 23576116.15
+      "valueEur": 23619696.15
     },
     {
       "source": "contractor:201374120",
       "target": "official:lyudmila-krsteva-elkova-616631",
-      "valueEur": 23576116.15
+      "valueEur": 23619696.15
     },
     {
       "source": "contractor:175040885",
@@ -22049,6 +22049,21 @@
       "valueEur": 11110560.56
     },
     {
+      "source": "contractor:175403856",
+      "target": "official:chavdar-kirilov-trendafilov-315173",
+      "valueEur": 11054819.74
+    },
+    {
+      "source": "contractor:175403856",
+      "target": "official:dian-nikolov-boev-7fa310",
+      "valueEur": 11054819.74
+    },
+    {
+      "source": "contractor:175403856",
+      "target": "official:hristiyan-borislavov-krstev-4b8dc1",
+      "valueEur": 11054819.74
+    },
+    {
       "source": "contractor:109513731",
       "target": "official:valeri-stoyanov-manov-3f6d6f",
       "valueEur": 10886751.52
@@ -22067,21 +22082,6 @@
       "source": "contractor:833066624",
       "target": "official:nikolai-nikolaev-stoinov-fbc472",
       "valueEur": 10100107.14
-    },
-    {
-      "source": "contractor:175403856",
-      "target": "official:chavdar-kirilov-trendafilov-315173",
-      "valueEur": 9554819.74
-    },
-    {
-      "source": "contractor:175403856",
-      "target": "official:dian-nikolov-boev-7fa310",
-      "valueEur": 9554819.74
-    },
-    {
-      "source": "contractor:175403856",
-      "target": "official:hristiyan-borislavov-krstev-4b8dc1",
-      "valueEur": 9554819.74
     },
     {
       "source": "contractor:202218735",
@@ -22404,6 +22404,11 @@
       "valueEur": 3295885.04
     },
     {
+      "source": "contractor:103761360",
+      "target": "official:branimira-konstantinova-marinova-44f135",
+      "valueEur": 3249089.48
+    },
+    {
       "source": "contractor:834052321",
       "target": "official:zhivko-danailov-dachev-8cc46d",
       "valueEur": 3135791.04
@@ -22432,11 +22437,6 @@
       "source": "contractor:206785563",
       "target": "official:yurii-todorov-voev-b5db78",
       "valueEur": 2855566.41
-    },
-    {
-      "source": "contractor:103761360",
-      "target": "official:branimira-konstantinova-marinova-44f135",
-      "valueEur": 2823012.91
     },
     {
       "source": "contractor:831643269",

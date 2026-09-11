@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T22:32:08.058Z",
+  "generatedAt": "2026-09-10T23:10:29.029Z",
   "total": 868,
   "officialCount": 796,
   "entries": [
@@ -17354,9 +17354,9 @@
       "role": "central_bank",
       "contractorEik": "201374120",
       "contractorName": "Монетен двор ЕАД",
-      "totalEur": 23576116.15,
+      "totalEur": 23619696.15,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -17403,8 +17403,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 47934,
+          "contractCount": 2,
+          "totalEur": 91514,
           "totalOther": {}
         }
       ],
@@ -17412,8 +17412,8 @@
         {
           "eik": "000694037",
           "name": "Българска народна банка",
-          "contractCount": 8,
-          "totalEur": 23321855.8,
+          "contractCount": 9,
+          "totalEur": 23365435.8,
           "totalOther": {}
         },
         {
@@ -17446,9 +17446,9 @@
       "role": "central_bank",
       "contractorEik": "201374120",
       "contractorName": "Монетен двор ЕАД",
-      "totalEur": 23576116.15,
+      "totalEur": 23619696.15,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -17499,8 +17499,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 47934,
+          "contractCount": 2,
+          "totalEur": 91514,
           "totalOther": {}
         }
       ],
@@ -17508,8 +17508,8 @@
         {
           "eik": "000694037",
           "name": "Българска народна банка",
-          "contractCount": 8,
-          "totalEur": 23321855.8,
+          "contractCount": 9,
+          "totalEur": 23365435.8,
           "totalOther": {}
         },
         {
@@ -22769,6 +22769,339 @@
       ]
     },
     {
+      "slug": "chavdar-kirilov-trendafilov-315173",
+      "name": "Чавдар Кирилов Трендафилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "175403856",
+      "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
+      "totalEur": 11054819.74,
+      "totalOther": {},
+      "contractCount": 40,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 8,
+          "totalEur": 1506241.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 8,
+          "totalEur": 1815527.93,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 8,
+          "totalEur": 1868447.83,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 8,
+          "totalEur": 3227274.35,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 40403.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 67183.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 61348.82,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 651738.99,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 1816653,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "109513731",
+          "name": "ТЕЦ \"Бобов дол",
+          "contractCount": 32,
+          "totalEur": 8417491.41,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010171",
+          "name": "Сухопътни Войски - военно формирование 22450",
+          "contractCount": 4,
+          "totalEur": 1622704.36,
+          "totalOther": {}
+        },
+        {
+          "eik": "129011031",
+          "name": "Командване за логистична поддръжка (Военно формирование 48960) - София",
+          "contractCount": 1,
+          "totalEur": 651738.48,
+          "totalOther": {}
+        },
+        {
+          "eik": "175405647",
+          "name": "\"БДЖ-ПЪТНИЧЕСКИ Превози\" съкратено \"БДЖ - ПП\" ЕООД",
+          "contractCount": 1,
+          "totalEur": 316653,
+          "totalOther": {}
+        },
+        {
+          "eik": "833017552",
+          "name": "Мини \"Марица Изток\" ЕАД - Раднево",
+          "contractCount": 2,
+          "totalEur": 46232.49,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "dian-nikolov-boev-7fa310",
+      "name": "Диан Николов Боев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "175403856",
+      "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
+      "totalEur": 11054819.74,
+      "totalOther": {},
+      "contractCount": 40,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 8,
+          "totalEur": 1506241.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 8,
+          "totalEur": 1815527.93,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 8,
+          "totalEur": 1868447.83,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 8,
+          "totalEur": 3227274.35,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 40403.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 67183.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 61348.82,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 651738.99,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 1816653,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "109513731",
+          "name": "ТЕЦ \"Бобов дол",
+          "contractCount": 32,
+          "totalEur": 8417491.41,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010171",
+          "name": "Сухопътни Войски - военно формирование 22450",
+          "contractCount": 4,
+          "totalEur": 1622704.36,
+          "totalOther": {}
+        },
+        {
+          "eik": "129011031",
+          "name": "Командване за логистична поддръжка (Военно формирование 48960) - София",
+          "contractCount": 1,
+          "totalEur": 651738.48,
+          "totalOther": {}
+        },
+        {
+          "eik": "175405647",
+          "name": "\"БДЖ-ПЪТНИЧЕСКИ Превози\" съкратено \"БДЖ - ПП\" ЕООД",
+          "contractCount": 1,
+          "totalEur": 316653,
+          "totalOther": {}
+        },
+        {
+          "eik": "833017552",
+          "name": "Мини \"Марица Изток\" ЕАД - Раднево",
+          "contractCount": 2,
+          "totalEur": 46232.49,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "hristiyan-borislavov-krstev-4b8dc1",
+      "name": "Християн Бориславов Кръстев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "175403856",
+      "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
+      "totalEur": 11054819.74,
+      "totalOther": {},
+      "contractCount": 40,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 8,
+          "totalEur": 1506241.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 8,
+          "totalEur": 1815527.93,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 8,
+          "totalEur": 1868447.83,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 8,
+          "totalEur": 3227274.35,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 40403.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 67183.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 61348.82,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 651738.99,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 1816653,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "109513731",
+          "name": "ТЕЦ \"Бобов дол",
+          "contractCount": 32,
+          "totalEur": 8417491.41,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010171",
+          "name": "Сухопътни Войски - военно формирование 22450",
+          "contractCount": 4,
+          "totalEur": 1622704.36,
+          "totalOther": {}
+        },
+        {
+          "eik": "129011031",
+          "name": "Командване за логистична поддръжка (Военно формирование 48960) - София",
+          "contractCount": 1,
+          "totalEur": 651738.48,
+          "totalOther": {}
+        },
+        {
+          "eik": "175405647",
+          "name": "\"БДЖ-ПЪТНИЧЕСКИ Превози\" съкратено \"БДЖ - ПП\" ЕООД",
+          "contractCount": 1,
+          "totalEur": 316653,
+          "totalOther": {}
+        },
+        {
+          "eik": "833017552",
+          "name": "Мини \"Марица Изток\" ЕАД - Раднево",
+          "contractCount": 2,
+          "totalEur": 46232.49,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "valeri-stoyanov-manov-3f6d6f",
       "name": "Валери Стоянов Манов",
       "tier": "municipal",
@@ -23091,339 +23424,6 @@
           "name": "Община Казанлък",
           "contractCount": 4,
           "totalEur": 10100107.14,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "chavdar-kirilov-trendafilov-315173",
-      "name": "Чавдар Кирилов Трендафилов",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "175403856",
-      "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
-      "totalEur": 9554819.74,
-      "totalOther": {},
-      "contractCount": 39,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 8,
-          "totalEur": 1506241.3,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 8,
-          "totalEur": 1815527.93,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 8,
-          "totalEur": 1868447.83,
-          "totalOther": {}
-        },
-        {
-          "year": "2014",
-          "contractCount": 8,
-          "totalEur": 3227274.35,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 1,
-          "totalEur": 40403.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 2,
-          "totalEur": 67183.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 1,
-          "totalEur": 61348.82,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 2,
-          "totalEur": 651738.99,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 316653,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "109513731",
-          "name": "ТЕЦ \"Бобов дол",
-          "contractCount": 32,
-          "totalEur": 8417491.41,
-          "totalOther": {}
-        },
-        {
-          "eik": "129011031",
-          "name": "Командване за логистична поддръжка (Военно формирование 48960) - София",
-          "contractCount": 1,
-          "totalEur": 651738.48,
-          "totalOther": {}
-        },
-        {
-          "eik": "175405647",
-          "name": "\"БДЖ-ПЪТНИЧЕСКИ Превози\" съкратено \"БДЖ - ПП\" ЕООД",
-          "contractCount": 1,
-          "totalEur": 316653,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010171",
-          "name": "Сухопътни Войски - военно формирование 22450",
-          "contractCount": 3,
-          "totalEur": 122704.36,
-          "totalOther": {}
-        },
-        {
-          "eik": "833017552",
-          "name": "Мини \"Марица Изток\" ЕАД - Раднево",
-          "contractCount": 2,
-          "totalEur": 46232.49,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "dian-nikolov-boev-7fa310",
-      "name": "Диан Николов Боев",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "175403856",
-      "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
-      "totalEur": 9554819.74,
-      "totalOther": {},
-      "contractCount": 39,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 8,
-          "totalEur": 1506241.3,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 8,
-          "totalEur": 1815527.93,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 8,
-          "totalEur": 1868447.83,
-          "totalOther": {}
-        },
-        {
-          "year": "2014",
-          "contractCount": 8,
-          "totalEur": 3227274.35,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 1,
-          "totalEur": 40403.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 2,
-          "totalEur": 67183.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 1,
-          "totalEur": 61348.82,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 2,
-          "totalEur": 651738.99,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 316653,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "109513731",
-          "name": "ТЕЦ \"Бобов дол",
-          "contractCount": 32,
-          "totalEur": 8417491.41,
-          "totalOther": {}
-        },
-        {
-          "eik": "129011031",
-          "name": "Командване за логистична поддръжка (Военно формирование 48960) - София",
-          "contractCount": 1,
-          "totalEur": 651738.48,
-          "totalOther": {}
-        },
-        {
-          "eik": "175405647",
-          "name": "\"БДЖ-ПЪТНИЧЕСКИ Превози\" съкратено \"БДЖ - ПП\" ЕООД",
-          "contractCount": 1,
-          "totalEur": 316653,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010171",
-          "name": "Сухопътни Войски - военно формирование 22450",
-          "contractCount": 3,
-          "totalEur": 122704.36,
-          "totalOther": {}
-        },
-        {
-          "eik": "833017552",
-          "name": "Мини \"Марица Изток\" ЕАД - Раднево",
-          "contractCount": 2,
-          "totalEur": 46232.49,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "hristiyan-borislavov-krstev-4b8dc1",
-      "name": "Християн Бориславов Кръстев",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "175403856",
-      "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
-      "totalEur": 9554819.74,
-      "totalOther": {},
-      "contractCount": 39,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 8,
-          "totalEur": 1506241.3,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 8,
-          "totalEur": 1815527.93,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 8,
-          "totalEur": 1868447.83,
-          "totalOther": {}
-        },
-        {
-          "year": "2014",
-          "contractCount": 8,
-          "totalEur": 3227274.35,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 1,
-          "totalEur": 40403.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 2,
-          "totalEur": 67183.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 1,
-          "totalEur": 61348.82,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 2,
-          "totalEur": 651738.99,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 316653,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "109513731",
-          "name": "ТЕЦ \"Бобов дол",
-          "contractCount": 32,
-          "totalEur": 8417491.41,
-          "totalOther": {}
-        },
-        {
-          "eik": "129011031",
-          "name": "Командване за логистична поддръжка (Военно формирование 48960) - София",
-          "contractCount": 1,
-          "totalEur": 651738.48,
-          "totalOther": {}
-        },
-        {
-          "eik": "175405647",
-          "name": "\"БДЖ-ПЪТНИЧЕСКИ Превози\" съкратено \"БДЖ - ПП\" ЕООД",
-          "contractCount": 1,
-          "totalEur": 316653,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010171",
-          "name": "Сухопътни Войски - военно формирование 22450",
-          "contractCount": 3,
-          "totalEur": 122704.36,
-          "totalOther": {}
-        },
-        {
-          "eik": "833017552",
-          "name": "Мини \"Марица Изток\" ЕАД - Раднево",
-          "contractCount": 2,
-          "totalEur": 46232.49,
           "totalOther": {}
         }
       ]
@@ -30103,6 +30103,77 @@
       ]
     },
     {
+      "slug": "branimira-konstantinova-marinova-44f135",
+      "name": "Бранимира Константинова Маринова",
+      "tier": "public_sector",
+      "role": "medical_center",
+      "contractorEik": "103761360",
+      "contractorName": "Света Марина трейдинг ЕООД",
+      "totalEur": 3249089.48,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 607414.75,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 511291.88,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 426076.57,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 426076.57,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 426076.57,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 426076.57,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 426076.57,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "103562052",
+          "name": "Университетска многопрофилна болница за активно лечение \"Света Марина ЕАД",
+          "contractCount": 7,
+          "totalEur": 3249089.48,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "zhivko-danailov-dachev-8cc46d",
       "name": "Живко Данаилов Дачев",
       "tier": "executive",
@@ -30738,71 +30809,6 @@
           "name": "Община Благоевград",
           "contractCount": 111,
           "totalEur": 2855566.41,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "branimira-konstantinova-marinova-44f135",
-      "name": "Бранимира Константинова Маринова",
-      "tier": "public_sector",
-      "role": "medical_center",
-      "contractorEik": "103761360",
-      "contractorName": "Света Марина трейдинг ЕООД",
-      "totalEur": 2823012.91,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2012",
-          "contractCount": 1,
-          "totalEur": 607414.75,
-          "totalOther": {}
-        },
-        {
-          "year": "2020",
-          "contractCount": 1,
-          "totalEur": 511291.88,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 1,
-          "totalEur": 426076.57,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 1,
-          "totalEur": 426076.57,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 1,
-          "totalEur": 426076.57,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 1,
-          "totalEur": 426076.57,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "103562052",
-          "name": "Университетска многопрофилна болница за активно лечение \"Света Марина ЕАД",
-          "contractCount": 6,
-          "totalEur": 2823012.91,
           "totalOther": {}
         }
       ]

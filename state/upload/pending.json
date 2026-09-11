@@ -1,5 +1,5 @@
 {
-  "session": "20260909T215143Z-4ad9",
+  "session": "20260910T224408Z-9cc1",
   "createdAt": "2026-09-10T05:38:34.283Z",
   "commit": "341084fb99",
   "skills": [
@@ -51,7 +51,10 @@
     "npm run db:load:tr-company-place:pg:cloud",
     "npm run db:refresh:risk:cloud",
     "npm run db:load:election-national:pg:cloud",
-    "npm run prices:ingest:cloud"
+    "npm run prices:ingest:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:council:pg:cloud"
   ],
   "notes": "8 skills; polls PARTIAL (11 drafts unaccepted, not stamped). Home posters changed -> hosting deploy pending. | prices/product_slugs.json removed from paths: guard-refused, PG-served tree, read locally at build time."
 }
