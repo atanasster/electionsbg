@@ -38,9 +38,10 @@ npm run home:health -- --public   # …and confirm the bucket now serves what we
 `db:refresh` carries the first three at the end of its chain — but **not** the health check and
 **not** the publish, so a full refresh still needs the last three.
 
-The automated path is different and does not publish: `process-watch-report` runs the three
-generators and `home:health` as **Final post-step 7b**, then records `home` in
-`state/upload/pending.json` for `/upload-watch-changes`. `home:publish` above is the operator's
+The automated path runs no sync of its own: `process-watch-report` runs the three
+generators and `home:health` as **Final post-step 7b**, records `home` in
+`state/upload/pending.json`, and invokes `/upload-watch-changes` as its last step unless the run
+hit a major issue (a red `home:health` is one). `home:publish` above is the operator's
 one-liner for working by hand.
 
 ### Ordering, and why each one is silent when wrong

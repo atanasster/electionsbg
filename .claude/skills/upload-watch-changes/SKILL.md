@@ -1,6 +1,6 @@
 ---
 name: upload-watch-changes
-description: Publish what /process-watch-report ingested — push the touched data/ subtrees to the GCS bucket and run the ordered db:load:*:cloud commands against Cloud SQL, timing every step into an append-only trace. Reads state/upload/pending.json (the manifest the ingest run wrote) so nothing is guessed. Use when the user says "upload the changes", "publish to cloud", "sync the bucket", "push the data live", "качи промените", or answers yes to the orchestrator's "upload to cloud now?" prompt.
+description: Publish what /process-watch-report ingested — push the touched data/ subtrees to the GCS bucket and run the ordered db:load:*:cloud commands against Cloud SQL, timing every step into an append-only trace. Reads state/upload/pending.json (the manifest the ingest run wrote) so nothing is guessed. Use when the user says "upload the changes", "publish to cloud", "sync the bucket", "push the data live", "качи промените", or when /process-watch-report invokes it as the last step of a run that hit no major issue.
 allowed-tools:
   - Read
   - Bash
@@ -12,8 +12,11 @@ allowed-tools:
 commits. Nothing it does reaches a reader. This skill is the PUBLISH half — the bucket the SPA
 fetches (`gs://data-electionsbg-com`) and the Cloud SQL instance `/api/db` serves.
 
-**Both targets are PRODUCTION.** That is why they are a separate, user-invoked skill rather than
-the tail of the orchestrator: the operator decides when the site changes.
+**Both targets are PRODUCTION.** That is why the publish is a separate skill with its own trace,
+its own gate and its own commit, rather than commands inlined into the orchestrator. It is reached
+two ways: the operator invokes it directly, or `/process-watch-report` invokes it as its step 14
+after a run with no major issue — in which case the operator's yes to that run's plan (which
+names the publish) is the authorisation, and step 0 does not re-ask.
 
 ## Inputs
 
@@ -89,7 +92,10 @@ npx tsx scripts/upload_manifest.ts show
 git log --oneline -1
 ```
 
-Print the plan and **wait for a yes** (unless the user already said "publish it" / "go"):
+Print the plan and **wait for a yes** — unless the user already said "publish it" / "go", or
+the invocation came from `/process-watch-report` with "proceed without re-asking" in its args
+(that orchestrator's step-3 plan named the publish and the operator approved it; do not make them
+say yes twice). The plan is printed either way:
 
 > Publishing the ingest committed as `<sha>` (`update-procurement`, `update-funds`):
 >

@@ -1,6 +1,6 @@
 ---
 name: process-watch-report
-description: Compare state/watch/* (what the daily watcher discovered) against state/ingest/* (what each downstream skill last ingested) and invoke every skill whose mapped sources have changed since its last successful run, timing every step into an append-only trace, then committing the result and handing the publish off to /upload-watch-changes. Use when the user says "process today's watch report", "sync data based on the watcher", "refresh everything that changed", "run the right skills for what changed", or otherwise asks to act on what the daily watcher found. Robust to multi-day gaps between orchestrator runs — never misses an intermediate-day change.
+description: Compare state/watch/* (what the daily watcher discovered) against state/ingest/* (what each downstream skill last ingested) and invoke every skill whose mapped sources have changed since its last successful run, timing every step into an append-only trace, then committing the result and following up with /upload-watch-changes to publish it — unless the run hit a major issue, in which case the manifest is left pending and the operator is asked. Use when the user says "process today's watch report", "sync data based on the watcher", "refresh everything that changed", "run the right skills for what changed", or otherwise asks to act on what the daily watcher found. Robust to multi-day gaps between orchestrator runs — never misses an intermediate-day change.
 allowed-tools:
   - Read
   - Bash
@@ -590,8 +590,9 @@ npm run db:gen-home-feed          # the „what changed" rows
 npm run home:health               # exits non-zero on missing/corrupt/unbuilt/unavailable/stale
 ```
 
-⚠️ **PUBLISHING IS NOT THIS SKILL'S JOB.** This orchestrator publishes nothing — it records the
-touched subtrees in `state/upload/pending.json` and hands off to `/upload-watch-changes`. Add
+⚠️ **PUBLISHING IS NOT THIS STEP'S JOB.** This orchestrator runs no sync of its own — it records
+the touched subtrees in `state/upload/pending.json` and, at the end of a run with no major issue,
+invokes `/upload-watch-changes` (Procedure step 14), which is what actually pushes them. Add
 `home` there like any other subtree, and note that it needs `npm run bucket:gz` after the sync.
 `npm run home:publish` is that pair as one command and exists for an operator working by hand.
 
@@ -825,9 +826,17 @@ first, then re-run the orchestrator.
    >
    > - `update-macro` ← `eurostat` (changed 2026-05-09, last ingest 2026-05-07) — ~30s
    > - `update-financing` ← `smetna_palata` (changed 2026-05-11, never ingested) — first run, ~10s
+   > - then `/upload-watch-changes` publishes the result (bucket + Cloud SQL) — withheld
+   >   automatically if anything above fails; say "hold the publish" to keep it manual.
    >   Proceed?
 
    Wait for user confirmation (or proceed automatically if they already said "go" / "run all" / "yes proceed"). If the queue is empty, print "Nothing to ingest — every changed source has already been processed since its last change" and stop.
+
+   **The "yes" here covers the publish.** Step 14 invokes `/upload-watch-changes` on the
+   strength of this confirmation, and that skill does not re-ask when the orchestrator hands it
+   a clean run — so the plan MUST name the publish, every time. A "hold the publish" / "don't
+   upload" answer is remembered for step 12's gate: the manifest is still written, only the
+   invocation is withheld.
 
 4. **Invoke each skill in sequence — and time each one.** Use the `Skill` tool, one skill at a
    time. Don't parallelise — they can conflict on `data/` writes. Capture each invocation's actual
@@ -1042,7 +1051,7 @@ first, then re-run the orchestrator.
 
    ⚠️ **Do NOT paste the emitted command blind.** Several of these files open with `DROP MATERIALIZED VIEW` and rebuild WITH DATA in one transaction (156), so applying them blocks that matview's readers — off-peak only — and where a LOADER is the documented path because it also REFRESHes, use the loader (156 → `npm run db:load:budget-hub:pg:cloud`). Order matters: a `LANGUAGE sql` body is validated at CREATE, so a file reading another file's object must follow it.
 
-9. **Resolve the Cloud SQL publish set — and RECORD it, do not run it.** Most skills write static JSON under `data/` and ship via `bucket:sync` — those need **no** Cloud SQL step. But a few datasets are ALSO served live from Postgres (local Docker **and** Cloud SQL). Each PG-backed skill reloads the LOCAL Postgres tables inside its own run (procurement/tenders/awarder-seats via `update-procurement`'s `db:refresh`; TR + NGO register via `tr-daily-refresh`'s chained `db:load:tr:pg`; NGO funding via `db:load:ngo-funding:pg`; EU funds via `db:load:funds:pg`). Cloud SQL is a **production** target, so this skill never touches it.
+9. **Resolve the Cloud SQL publish set — and RECORD it, do not run it.** Most skills write static JSON under `data/` and ship via `bucket:sync` — those need **no** Cloud SQL step. But a few datasets are ALSO served live from Postgres (local Docker **and** Cloud SQL). Each PG-backed skill reloads the LOCAL Postgres tables inside its own run (procurement/tenders/awarder-seats via `update-procurement`'s `db:refresh`; TR + NGO register via `tr-daily-refresh`'s chained `db:load:tr:pg`; NGO funding via `db:load:ngo-funding:pg`; EU funds via `db:load:funds:pg`). Cloud SQL is a **production** target, so no command in this skill's own procedure touches it — the loaders below are RECORDED here and RUN by `/upload-watch-changes`, which step 14 invokes after a run with no major issue.
 
    **Since 2026-08-29 the resolved set is WRITTEN DOWN rather than printed.** Append each command to the upload manifest as you determine it (step 12 finishes the file; `write` merges, so calling it repeatedly is how the list is built):
 
@@ -1259,12 +1268,12 @@ npm run db:load:employer-links:pg:cloud     # 165+168 — a pure derivation over
 
     Capture the sha for the manifest: `COMMIT=$(git rev-parse --short HEAD)`.
 
-12. **Hand off to the upload, then ASK.** The commit is the end of the INGEST half. Nothing has
-    reached production: the bucket still serves the previous vintage of every file this run wrote,
-    and Cloud SQL still holds the previous vintage of every PG-backed dataset.
+12. **Finish the manifest, then decide whether the run earned its publish.** The commit is the
+    end of the INGEST half. Nothing has reached production yet: the bucket still serves the
+    previous vintage of every file this run wrote, and Cloud SQL still holds the previous vintage
+    of every PG-backed dataset.
 
-    Finish the manifest — the bucket subtrees this run touched, the skills that ran, the commit —
-    and then ask:
+    Finish the manifest — the bucket subtrees this run touched, the skills that ran, the commit:
 
     ```bash
     npx tsx scripts/upload_manifest.ts write --session "$S" --commit "$COMMIT" \
@@ -1278,22 +1287,45 @@ npm run db:load:employer-links:pg:cloud     # 165+168 — a pure derivation over
     derived from step 11's `git status`, never a guess. `data_map.json` and `data-changes.json` are
     almost always among them. PG-served trees do NOT go here (see step 9).
 
-    Then put the question to the user plainly, and **stop**:
+    Then apply the gate. **The publish follows automatically (step 14) unless the run hit a
+    MAJOR ISSUE**, which means any of:
+
+    - a queued skill ended in `error` — including one the operator chose to skip past under the
+      Data-integrity contract's "(a) skip and continue"; the corpus that skill owns is unstamped
+      and unverified, and half a publish beside it looks like a whole one;
+    - a post-step exited non-zero: `myarea:alerts` / `myarea:alerts:cloud` (6), `data:map` (7),
+      any home generator or **`home:health`** (7b — its own rule says red means DO NOT publish);
+    - a `perf:chain` (`db:refresh`, `tr-daily-refresh`) aborted part-way — the corpus a loader
+      failed to update is unverified, and `test:data` at the end of the chain never ran;
+    - the commit at step 11 failed, or a path this run wrote was already staged by another
+      session and had to be left out — the manifest would then name a commit that does not
+      carry what it claims;
+    - the manifest is malformed — a `--paths` entry the sync guard refuses, or a PG-backed skill
+      ran and its `--cloud` set could not be resolved (the proxy being DOWN is not this: the
+      publish skill checks that itself);
+    - the operator said "hold the publish" / "don't upload" at step 3, or at any point since.
+
+    Not a major issue, and not a reason to hold: a skill that ran and found nothing; a `partial`
+    status (anomalies go in the summary's Notes); a skill skipped for a still-missing manual
+    download (step 0); the watcher's own `## Errors` section; a `STALE` from `db:check-generated`
+    (the upload is what fixes it); schema drift from `db:check-cloud` (surfaced, never applied).
+
+    When the gate HOLDS, say so plainly in the summary's Next steps and stop there:
 
     > Ingest committed as `<sha>`. Nothing is live yet — the bucket and Cloud SQL are both still
-    > on the previous vintage.
-    >
-    > Upload to cloud now? Run **`/upload-watch-changes`** — it reads the manifest this run just
-    > wrote (N bucket path(s), M cloud command(s)) and times every step into
-    > `state/perf/upload-watch-changes.jsonl`.
+    > on the previous vintage. **Not publishing**: <the major issue, one line>. The manifest
+    > (N bucket path(s), M cloud command(s)) stays pending — run `/upload-watch-changes` once
+    > that is resolved.
 
-    ⚠️ **Do NOT invoke `/upload-watch-changes` yourself.** The bucket and Cloud SQL are production
-    and the publish is the operator's call — the same rule that has always kept `bucket:sync` out
-    of this skill's own run. Wait for them to say yes.
+    ⚠️ **Never run `bucket:sync` or a `:cloud` loader from this skill.** Whether the publish
+    happens now (step 14) or later (the operator), it happens through `/upload-watch-changes`
+    reading this manifest — the one path that records what was published and clears the debt.
+    (Step 6's `myarea:alerts:cloud` is the standing exception: a derived feed that lives only in
+    Postgres, documented there.)
 
-    ⚠️ **A pending manifest is a DEBT, and it survives across runs on purpose.** If the operator
-    defers the upload, the file stays on disk and the NEXT orchestrator run merges into it rather
-    than replacing it, so the first run's subtrees cannot be lost. Read it at the top of every run
+    ⚠️ **A pending manifest is a DEBT, and it survives across runs on purpose.** When the publish
+    is held — by the gate or by the operator — the file stays on disk and the NEXT orchestrator
+    run merges into it rather than replacing it, so the first run's subtrees cannot be lost. Read it at the top of every run
     (`npx tsx scripts/upload_manifest.ts show`) and say so in the plan when one is already
     pending — "yesterday's ingest is still unpublished" is a fact the operator needs before
     deciding what to run today.
@@ -1346,7 +1378,10 @@ Default to asking unless the user said "bootstrap markers" or "run all" or simil
    ## Next steps
 
    - **Committed**: `<sha>` — <N> files. (Or: "nothing to commit" when the five trees were clean.)
-   - **Not yet live**: run `/upload-watch-changes` — <N> bucket path(s), <M> cloud command(s).
+   - **Publishing now**: `/upload-watch-changes` follows this summary — <N> bucket path(s),
+     <M> cloud command(s). (Or, when step 12's gate held: **Not publishing** — <the major
+     issue>; the manifest stays pending, run `/upload-watch-changes` once resolved. Or:
+     "nothing to publish" when no manifest was written.)
    - Whether to `git push` or hold
    ```
 
@@ -1364,17 +1399,18 @@ Default to asking unless the user said "bootstrap markers" or "run all" or simil
 
    **Quote concrete numbers from skill stdout.** If `update-rollcall` printed `+ 2026-05-09 (id 11124): 11 item(s), 2640 rows · 37 unresolved id(s) → sessions/2026-05-09.json`, that's the kind of detail that belongs in **Captured**. If `update-macro` printed `Loading gdpGrowth (eurostat)... 84 points (latest 2025 Q4)` for 22 indicators, summarise: "22 indicators refreshed; latest period 2025 Q4 (quarterly), 2025 (annual)" — but if any indicator's count changed, name it.
 
-   ### Publishing is a SEPARATE skill now
+   ### Publishing is a SEPARATE skill — invoked from here, never re-implemented here
 
    After committing, `data/` lives in two places: the git repo (history, audit) and
    `gs://data-electionsbg-com` (what the live SPA fetches). The bucket is the one users see, and
-   Cloud SQL is the one `/api/db` serves. **Neither is touched by this skill.**
+   Cloud SQL is the one `/api/db` serves. **Neither is touched by this skill's own commands.**
 
-   Both are published by **`/upload-watch-changes`**, which reads the manifest step 12 wrote —
-   so this skill's job at the end is to have named the right `--paths` and `--cloud` entries, not
-   to print sync commands. The mechanics that used to live here (scoped vs whole-tree sync, the
-   refused PG-served trees, deletions, gzip transport encoding, the Cloud SQL proxy) moved to that
-   skill's own procedure, where they are executed rather than quoted.
+   Both are published by **`/upload-watch-changes`**, which reads the manifest step 12 wrote and
+   which step 14 invokes after a run with no major issue — so this skill's job is to have named
+   the right `--paths` and `--cloud` entries and to have judged the gate honestly, not to print
+   sync commands. The mechanics (scoped vs whole-tree sync, the refused PG-served trees,
+   deletions, gzip transport encoding, the Cloud SQL proxy) live in that skill's own procedure,
+   where they are executed rather than quoted.
 
    Two things stay this skill's responsibility, because only it knows them:
 
@@ -1387,6 +1423,36 @@ Default to asking unless the user said "bootstrap markers" or "run all" or simil
 
    Code/UI changes are out of scope for this orchestrator (`npm run deploy` deploys the Firebase
    bundle and is not needed for pure-data refresh).
+
+14. **Follow up with `/upload-watch-changes` — unless step 12's gate held.** This is the LAST
+    thing the run does, after the summary above has been printed: the ingest summary is this
+    skill's deliverable and must not wait behind a publish that can take tens of minutes.
+
+    Invoke it with the `Skill` tool, and tell it where it came from:
+
+    ```
+    Skill(upload-watch-changes, args: "invoked by /process-watch-report after a clean run —
+      ingest session <S>, commit <sha>; proceed without re-asking")
+    ```
+
+    Three things about the hand-off:
+
+    - **The step-3 confirmation is the authorisation.** The plan named the publish and the
+      operator said yes to it; the publish skill's own "Proceed?" at its step 0 is answered by
+      that, which is why the args say so. Without that phrase it asks again and waits — the
+      right behaviour when a human invokes it cold, and the wrong one at the tail of a run the
+      operator already approved.
+    - **It is a separate run with its own trace and its own commit.** It mints its own perf
+      session under its own run name, commits `state/perf/upload-watch-changes.jsonl` +
+      `state/upload/history.jsonl` + the manifest's deletion itself, and prints its own summary.
+      Do not re-summarise its output here, do not record its steps under THIS run's session, and
+      do not commit on its behalf — step 11 already committed everything this skill wrote.
+    - **A publish failure is that skill's to report, and it leaves the manifest pending.** If a
+      loader fails or the proxy is down, the publish skill halts, keeps `pending.json`, and says
+      which entries went live; the next orchestrator run reads the debt at step 1. Do not retry
+      the publish from here.
+
+    When the gate HELD, do not invoke it — the summary already said why, and what to run.
 
 ## Examples
 
@@ -1501,7 +1567,7 @@ git commit -m "macro: refresh through 2026 Q1 (7 new Eurostat releases)" \
      state/perf/process-watch-report.jsonl state/upload/pending.json
 ````
 
-- **Not yet live**: run `/upload-watch-changes` — 3 bucket path(s)
+- **Publishing now**: `/upload-watch-changes` follows this summary — 3 bucket path(s)
   (`macro.json`, `data_map.json`, `data-changes.json`), 0 cloud command(s). Neither
   `update-macro` nor `update-financing` is a Postgres-backed dataset, so the manifest
   carries no `:cloud` entries; had a PG-backed skill run (`update-procurement`,
@@ -1535,11 +1601,13 @@ This orchestrator MUST NOT claim success it didn't earn. Specifically:
 
 8. **Manual skill invocations don't stamp.** If the user runs `/update-rollcall` directly (outside the orchestrator), no marker is written. The orchestrator's next run will see `source.lastChanged > skill.lastSuccessfulIngest` and re-queue the skill. Since every tier-2 skill is idempotent on no-op input (rollcall walker finds no new sessions, financing scraper writes the same 15 years, etc.), this is wasteful at most — never wrong. The user can manually stamp after a direct run: `npx tsx scripts/stamp-ingest.ts <skill-name>`.
 
+9. **The publish follow-up inherits every halt above.** Step 14 invokes `/upload-watch-changes` only for a run with no major issue (step 12's list). A run that halted on a failed skill, skipped past one, lost a post-step, or could not commit leaves the manifest pending and ASKS — it never publishes a corpus whose ingest it could not vouch for.
+
 ## What this skill does NOT do
 
 - **Does not re-run the watcher.** State files are the input. If you want fresh fingerprints, run `npm run watch` first.
 - **Does not PUSH.** It DOES commit — automatically, by explicit pathspec, at step 11 (that is this repo's one pre-authorised commit; everywhere else the rule is "commit only when asked"). Pushing stays the user's call. It never sweeps the index and never commits outside `data/`, `state/watch/`, `state/ingest/`, `state/perf/` and `state/upload/`.
-- **Does not publish anything.** Neither the bucket nor Cloud SQL — both are production. It reloads LOCAL Postgres (inside each PG-backed skill), then RECORDS the ordered `db:load:*:cloud` set and the touched bucket subtrees into `state/upload/pending.json` and asks the user to run `/upload-watch-changes`. It never invokes that skill itself.
+- **Does not publish with its own commands.** Neither the bucket nor Cloud SQL — both are production — is touched by anything this procedure runs (step 6's `myarea:alerts:cloud` is the one exception: a derived feed that lives only in Postgres). It reloads LOCAL Postgres (inside each PG-backed skill), RECORDS the ordered `db:load:*:cloud` set and the touched bucket subtrees into `state/upload/pending.json`, and then — after the summary, and only when the run hit no major issue — invokes `/upload-watch-changes` (step 14), the ONLY path that publishes. On a run with a major issue it leaves the manifest pending and asks instead.
 - **Does not judge its own timings.** It measures every step into `state/perf/process-watch-report.jsonl` and reports what is slower than usual; it never skips or reorders work to go faster. Optimisation is a separate decision made from the accumulated trace.
 - **Does not auto-retry the watcher's Errors section.** Surfaced to the user only.
 - **Does not silently skip failed skills.** A downstream failure halts the orchestrator until the user decides how to proceed (see Data-integrity contract above).
@@ -1569,7 +1637,8 @@ npm run -s perf:chain -- db:refresh --dry-run                       # list the l
 npx tsx scripts/upload_manifest.ts show       # is yesterday's ingest still unpublished?
 npx tsx scripts/upload_manifest.ts write --session "$S" --commit "$COMMIT" \
   --skills update-procurement --paths myarea,data_map.json --cloud "npm run db:load:pg:cloud"
-# then: /upload-watch-changes  ← the user runs it; this skill never does
+# then: Skill(upload-watch-changes)  ← step 14 invokes it after a run with no major issue;
+#       a run WITH one leaves the manifest pending and asks the user instead
 
 # Cloud SQL commands the manifest carries — /upload-watch-changes runs them.
 # Listed here because step 9 is where the set is RESOLVED (proxy on :5434 + .pgpass).

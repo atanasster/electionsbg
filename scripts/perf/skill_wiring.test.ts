@@ -100,12 +100,27 @@ describe("the ingest → publish handoff", () => {
     expect(read(PUBLISH_SKILL)).toMatch(/upload_manifest\.ts done/);
   });
 
-  it("the ingest skill hands off rather than publishing itself", () => {
+  it("the ingest skill publishes ONLY through the publish skill", () => {
     const md = read(INGEST_SKILL);
     expect(md).toContain("/upload-watch-changes");
-    // It must ASK. An orchestrator that syncs the bucket or Cloud SQL on its
-    // own is the thing this split exists to prevent.
-    expect(md).toMatch(/Do NOT invoke `\/upload-watch-changes` yourself/);
+    // It must never sync the bucket or run a `:cloud` loader itself — that is
+    // the thing this split exists to prevent. Since 2026-09-11 it MUST also
+    // invoke the publish skill at the end of a clean run, gated on "no major
+    // issue" — an orchestrator that stops and asks every time leaves the
+    // manifest pending for days. Both halves are prose; both are asserted.
+    expect(md).toMatch(
+      /Never run `bucket:sync` or a `:cloud` loader from this skill/,
+    );
+    expect(md).toMatch(/Skill\(upload-watch-changes/);
+    expect(md).toMatch(/unless the run hit a\s+MAJOR ISSUE/);
+  });
+
+  it("the publish skill accepts the orchestrator's hand-off without re-asking", () => {
+    // The orchestrator's step-3 "Proceed?" names the publish. If the publish
+    // skill asked again, the automatic follow-up would stall on every run —
+    // and the args phrase the orchestrator passes is what it keys on.
+    expect(read(INGEST_SKILL)).toMatch(/proceed without re-asking/);
+    expect(read(PUBLISH_SKILL)).toMatch(/proceed without re-asking/);
   });
 
   it("the ingest skill commits by pathspec and forbids sweeping the index", () => {
