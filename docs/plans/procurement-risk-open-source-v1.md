@@ -42,8 +42,9 @@ There is also a plain maintenance argument, independent of any audience: the fla
 live in six places today (§1b) and are kept in step by hand. A published spec that is *generated*
 from one source is cheaper to keep true than an unpublished one kept in step by memory.
 
-For where this sits relative to other platforms in the field, see
-[competitive-review-2026.md](../../competitive-review-2026.md) — as context, not as a deadline.
+The cross-platform context that informed this work is preserved in
+[cross-linking-strategy-v2.md](cross-linking-strategy-v2.md) §3. Treat it as a dated comparison,
+not as a deadline.
 
 ## 1. What exists today, and why "open-source" is currently aspirational
 
@@ -739,4 +740,5 @@ operator-run — say so, rather than implying CI covers it.
 - EC Single Market Scoreboard, public procurement, 01/2024–12/2024.
 - OECD (2024), Hungary public procurement review, p. 65.
 - Repo: `docs/plans/procurement-risk-v2.md` (the methodology), `docs/plans/nkid-cpv-mismatch-v1.md`,
-  `docs/plans/cross-linking-strategy-v2.md` §3 move 3, `competitive-review-2026.md`.
+  `docs/plans/cross-linking-strategy-v2.md` §3 move 3. The standalone competitive-review
+  snapshot was retired after its durable comparison was condensed there.

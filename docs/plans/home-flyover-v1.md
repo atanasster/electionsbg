@@ -4,7 +4,7 @@
 **Scope:** one dependency-free 3D-like scene engine over pre-projected Bulgaria geometry; three programmes (money columns, money arcs, guided tour) rotating in ONE slot on `/`; then a scroll-driven article built from the same scenes; then a Remotion explainer rendered from the same engine
 **Version:** v1 — oblast grain, three money layers plus elections and prices, no terrain, no municipality zoom
 **Decided:** 2026-09-05 from the concept gallery (concepts 1 + 2 + 6 chosen; 3, 4, 5, 7, 8 not in scope except where noted)
-**Related:** [home-dashboard-implementation-v1.md](./home-dashboard-implementation-v1.md) (the home contract this plan amends), [explainer-video-v1.md](./explainer-video-v1.md) (the video pipeline this plan reuses), [cr-deeds-capture-v1.md](./cr-deeds-capture-v1.md) (the contractor-seat gap this plan closes part of)
+**Related:** [home-dashboard-implementation-v1.md](./home-dashboard-implementation-v1.md) (the home contract this plan amends), the retired explainer-video plan (the video pipeline this plan reused; recoverable from Git history), [cr-deeds-capture-v1.md](./cr-deeds-capture-v1.md) (the contractor-seat gap this plan closes part of)
 
 > **User-directed visual revision — 2026-09-07.** The home view is now a 280px preview
 > beside search (a shallow row on mobile), superseding the full-width band below. Refresh

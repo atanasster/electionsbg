@@ -52,7 +52,7 @@ quoted elsewhere as arguments:
 
 - **`person_role.source` is 16, not 17** — and v1's own enumerated list also counts 16 against
   its own "17" header, so the error is inherited rather than introduced. Both this plan and
-  `competitive-review-2026.md` lead with "17 role sources" as the differentiator. The 16:
+  the retired competitive-review snapshot led with "17 role sources" as the differentiator. The 16:
   `tr` 192,374 · `candidate` 67,065 · `local` 25,319 · `official_exec` 9,842 · `ngo` 7,162 ·
   `official_muni` 6,647 · `public_sector` 6,023 · `mp` 3,852 · `magistrate` 3,594 · `donor`
   1,283 · `diplomat` 203 · `mep` 35 · `regulator` 32 · `ds` 12 · `president` 6 · `sanctions` 1.
@@ -174,9 +174,9 @@ register is three curated designees).
 
 ## 3. Competitive review
 
-The full, citation-backed sweep is [competitive-review-2026.md](../../competitive-review-2026.md)
-(research snapshot Aug 2026, ~20 platforms). This section carries the condensed table and the
-four moves worth adopting; v1's table is the base.
+The standalone August 2026 competitive-review snapshot has been retired. This section preserves
+the condensed findings that informed the strategy and the four moves worth adopting; v1's table
+is the base.
 
 ### Bulgaria
 

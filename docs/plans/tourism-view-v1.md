@@ -70,7 +70,7 @@ All 5 findings implemented + stabilized (lint → tsc → build → test all gre
 - **TEST-001** — `scripts/db/tests/tourism_classifier.data.test.ts` (node `--test`) locks the CPV→bucket
   mapping (advertising/events/research/digital/production/other). Passes 3/3 standalone.
 Verified live: source-markets, seasonality and ROI tiles still render (Румъния 22%, peak август) — the
-refactor is behavior-preserving. `CODE_REVIEW_REPORT.md` left in the repo root (reviewer artifact).
+refactor is behavior-preserving. The reviewer artifact was later retired and remains available in Git history.
 
 ### Self-audit (2026-07-15)
 

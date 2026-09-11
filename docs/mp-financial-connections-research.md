@@ -88,7 +88,7 @@ Format is **PDFs with a standardized table layout** (fixed by ordinance). For ~2
 
 Start with **Path A** (declaration PDFs) as the primary source — already structured by law, self-declared, defensible. Optionally enrich/cross-validate with **Path B** (TR open-data join by name) for current roles. Skip commercial APIs.
 
-**Effort:** ~1–2 weeks for a one-shot pipeline producing JSON like `{ mpId, currentRoles: [{eik, name, role}], formerRoles: [...], source: { url, date } }`. Fits cleanly alongside existing financing data in [scripts/smetna_palata/](scripts/smetna_palata/).
+**Effort:** ~1–2 weeks for a one-shot pipeline producing JSON like `{ mpId, currentRoles: [{eik, name, role}], formerRoles: [...], source: { url, date } }`. Fits cleanly alongside existing financing data in [scripts/smetna_palata/](../scripts/smetna_palata/).
 
 **Main risks:** PDF format drift between declaration cycles; name collisions if joining with TR. Mitigate by always linking back to the source PDF and only displaying self-declared data.
 

@@ -27,7 +27,9 @@ of someone else's document — say so in the PR and name its licence. It belongs
   `.claude/skills/process-watch-report/SKILL.md` for the orchestrator's full source→skill
   mapping and per-skill data-integrity contracts.
 
-Open PRDs and roadmap items live under `docs/plans/`.
+PRDs and dated design records live under `docs/plans/`. Check the status at the
+top of a file before treating it as open work; completed records remain only
+when they carry rationale or operating constraints not captured elsewhere.
 
 ## Changes to the risk methodology
 

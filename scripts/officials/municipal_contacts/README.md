@@ -57,8 +57,8 @@ across the country · Sofia's SOF00 entry holds the city-wide mayor +
 
 ## Skill + watcher
 
-- Skill: `update-municipal-contacts` —
-  [one-off-backfill pattern](feedback_one_off_backfills.md). The
+- Skill: [`update-municipal-contacts`](../../../.agents/skills/update-municipal-contacts/SKILL.md) —
+  follow its one-off backfill pattern. The
   iisda mayor-list pagination count is the daily watch signal;
   refresh-on-change is the workflow.
 - Watch source: `state/watch/iisda_mayors.json`.

@@ -2,7 +2,7 @@
 
 Date: 2026-09-09. Status: ready to implement in ordered milestones; no application changes made by this planning task.
 
-This is the execution plan for [the architecture and product specification](auth-membership-dashboard-v1.md) and [the code audit](../../CODE_REVIEW_REPORT.md). That specification defines the migration inventory, data model, access control, billing-state policy and account lifecycle. This document adds bounded work packages, dependencies, component reuse and acceptance gates. Checkboxes are evidence-based; the two completed external Auth setup items cite their source below.
+This is the execution plan for [the architecture and product specification](auth-membership-dashboard-v1.md). The focused code-audit findings were folded into that specification before the standalone review report was retired. That specification defines the migration inventory, data model, access control, billing-state policy and account lifecycle. This document adds bounded work packages, dependencies, component reuse and acceptance gates. Checkboxes are evidence-based; the two completed external Auth setup items cite their source below.
 
 ## Scope and delivery order
 

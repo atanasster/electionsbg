@@ -14,7 +14,7 @@ The user has chosen Firebase, Google/email sign-in, Stripe, registered-user owne
 
 ## 2. Audit scope and current architecture
 
-Repository-wide searches covered browser persistence and authentication/payment references, followed by inspection of the relevant stores, screens, routes, backend handlers, deployment configuration and tests. This is an auth/persistence/alerts architecture audit, not a claim that every election parser or SQL function was reviewed. See `CODE_REVIEW_REPORT.md` for findings.
+Repository-wide searches covered browser persistence and authentication/payment references, followed by inspection of the relevant stores, screens, routes, backend handlers, deployment configuration and tests. This is an auth/persistence/alerts architecture audit, not a claim that every election parser or SQL function was reviewed. The focused review findings are incorporated into this specification; the standalone review report has been retired.
 
 Verified foundations:
 
