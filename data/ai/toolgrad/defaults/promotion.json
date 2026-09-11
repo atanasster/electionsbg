@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "date": "2026-09-11",
+  "scope": "Local implementation decisions, not deployment authorization or production validation.",
+  "evidence": {
+    "routingSummaryHash": "3a4395435c59802331eea0fffeac5f7cb2eca5c8c20f6f720f5387150afb00d5",
+    "narrationReviewHash": "3e4ecb8bac14bcf21be847b95b5db51e100a9825c3c39d3b5bdbc6ee7467737e"
+  },
+  "routing": {
+    "decision": "retain-local-policy",
+    "promptOnlyPromotion": false,
+    "learnedAppendixPromoted": false,
+    "baselineRaw": 39,
+    "candidateRaw": 40,
+    "total": 50,
+    "currentPolicyCorrect": 50,
+    "controlsCorrect": 14,
+    "controlsTotal": 14,
+    "reason": "Both prompts reach 50/50 with the current policy; raw transfer selection declines, so retain deterministic enforcement and do not attribute reliable improvement to the prompt alone."
+  },
+  "narration": {
+    "decision": "accept-local-candidate",
+    "baselineRubricPass": 13,
+    "candidateRubricPass": 18,
+    "total": 18,
+    "validationBaselinePass": 6,
+    "validationCandidatePass": 10,
+    "validationTotal": 10,
+    "repairedGuardReplayAccepted": 18,
+    "freshValidationOfRepairedGuard": false,
+    "editorialDefects": 1,
+    "reason": "Improved fixed-rubric results and tax fact coverage; guard repair replay is not fresh validation, and Bulgarian wording still has a known defect."
+  },
+  "deployment": {
+    "performed": false,
+    "productionReadinessEstablished": false,
+    "nextChecks": [
+      "Fresh unseen evaluation of repaired guard",
+      "Bulgarian prose quality",
+      "Real provider latency with validated-output buffering"
+    ]
+  },
+  "verification": {
+    "fullAiPassed": 3223,
+    "expectedFailures": 209,
+    "skipped": 23,
+    "repairFocusedPassed": 14,
+    "lintPassed": true,
+    "typecheckPassed": true,
+    "buildPassed": true
+  },
+  "newEvaluation": {
+    "calls": 136,
+    "reservationCeilingUSD": 4.216,
+    "billedUSD": null,
+    "syntheticOrGenericOnly": true
+  }
+}
