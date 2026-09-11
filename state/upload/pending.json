@@ -1,7 +1,7 @@
 {
   "session": "20260910T224408Z-9cc1",
   "createdAt": "2026-09-10T05:38:34.283Z",
-  "commit": "341084fb99",
+  "commit": "8ed7484a0c",
   "skills": [
     "update-rollcall",
     "tr-daily-refresh",
@@ -9,7 +9,9 @@
     "customs_excise_register",
     "update-macro",
     "update-judiciary",
-    "update-prices"
+    "update-prices",
+    "update-council-minutes",
+    "update-persons"
   ],
   "paths": [
     "procurement/derived/hub_stats.json",
@@ -26,7 +28,10 @@
     "judiciary",
     "data_map.json",
     "data-changes.json",
-    "myarea"
+    "myarea",
+    "culture/derived/fund_sources.json",
+    "council",
+    "local_place_trends"
   ],
   "cloudCommands": [
     "npm run db:load:pg:cloud",
@@ -56,5 +61,5 @@
     "npm run db:load:grant-links:pg:cloud",
     "npm run db:load:council:pg:cloud"
   ],
-  "notes": "8 skills; polls PARTIAL (11 drafts unaccepted, not stamped). Home posters changed -> hosting deploy pending. | prices/product_slugs.json removed from paths: guard-refused, PG-served tree, read locally at build time."
+  "notes": "2026-09-10 run merged onto unpublished 2026-09-09 manifest. Home posters + money-map og images changed -> hosting deploy pending. TR 2026-09-09 egov resource 0 bytes, not ingested. Polls: 14 inbox drafts await review."
 }
