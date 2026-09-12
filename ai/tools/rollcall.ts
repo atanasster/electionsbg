@@ -98,10 +98,75 @@ export async function rollcallQuery(
   if (!parsed.ok) return failed("scope", ctx);
   const q = parsed.query;
   let result: RollcallResult;
+  const coverageRegister =
+    q.operation === "methodology" &&
+    q.metric === "records" &&
+    !q.from &&
+    !q.key &&
+    !q.parentQuery &&
+    !q.sessionKey &&
+    !q.seatIds &&
+    !q.councilCastKeys &&
+    !q.factionIds &&
+    !q.topicIds &&
+    !q.keyword &&
+    !q.choice &&
+    !q.outcome &&
+    !q.named &&
+    !q.tallyMethod &&
+    !q.latestN &&
+    !q.groupBy;
   try {
-    result = await fetchDb<RollcallResult>("rollcall-query", {
-      query: JSON.stringify(q),
-    });
+    if (coverageRegister) {
+      const cap = await fetchDb<{
+        assemblies?: Record<string, unknown>[];
+        councils?: Record<string, unknown>[];
+        revision?: string;
+      }>("rollcall-capabilities", {});
+      const rows = (
+        q.corpus.startsWith("council")
+          ? cap.councils || []
+          : cap.assemblies || []
+      )
+        .filter(
+          (r) =>
+            !(q.councilIds || q.assemblyIds) ||
+            (q.councilIds || q.assemblyIds)!.includes(String(r.id)),
+        )
+        .map((r) =>
+          primitive({
+            ...r,
+            ...(r.year_only
+              ? {
+                  first: String(r.first ?? "").slice(0, 4),
+                  latest: String(r.latest ?? "").slice(0, 4),
+                  precision: ctx.lang === "bg" ? "Само година" : "Year only",
+                }
+              : {}),
+            name: r.name || `${r.id} ${ctx.lang === "bg" ? "НС" : "Assembly"}`,
+            records: r.resolutions ?? r.sessions,
+          }),
+        );
+      result = {
+        status:
+          q.expectedRevision && q.expectedRevision !== cap.revision
+            ? "stale"
+            : rows.length
+              ? "success"
+              : "unavailable",
+        ...(q.expectedRevision && q.expectedRevision !== cap.revision
+          ? { reason: "revision_changed" }
+          : {}),
+        query: q,
+        rows,
+        totals: { records: rows.length, cohortRecords: rows.length },
+        revision: cap.revision,
+        coverage: {},
+      };
+    } else
+      result = await fetchDb<RollcallResult>("rollcall-query", {
+        query: JSON.stringify(q),
+      });
   } catch {
     return failed("unavailable", ctx);
   }
@@ -128,7 +193,7 @@ export async function rollcallQuery(
     available = ["success", "partial", "empty"].includes(result.status);
   const value = result.metrics?.percentage;
   const answer = available
-    ? `${value !== undefined ? (value === null ? (bg ? "Неизчислим дял" : "Unknown share") : `${Number(value).toLocaleString(bg ? "bg-BG" : "en-GB", { maximumFractionDigits: 2 })}%`) : `${result.totals?.records ?? 0} ${bg ? "индексирани записа" : "indexed records"}`}${result.status === "partial" ? (bg ? " · Непълно покритие" : " · Partial coverage") : ""}`
+    ? `${value !== undefined ? (value === null ? (bg ? "Неизчислим дял" : "Unknown share") : `${Number(value).toLocaleString(bg ? "bg-BG" : "en-GB", { maximumFractionDigits: 2 })}%`) : `${result.totals?.records ?? 0} ${coverageRegister ? (bg ? "органа в регистъра за покритие" : "bodies in the coverage register") : bg ? "индексирани записа" : "indexed records"}`}${result.status === "partial" ? (bg ? " · Непълно покритие" : " · Partial coverage") : ""}`
     : rollcallMessage(result.reason, ctx.lang);
   const rows = (query.groupBy ? result.groups || [] : result.rows || []).map(
     (r) => rollcallDisplayRow(r, ctx.lang),
@@ -172,6 +237,16 @@ export async function rollcallQuery(
           "records",
           "key",
           "percentage",
+          "item_count",
+          "yes",
+          "no",
+          "abstain",
+          "outcome",
+          "revote",
+          "first",
+          "latest",
+          "named",
+          "precision",
         ].includes(k),
       )
       .map((key) => ({ key, label: rollcallColumn(key, ctx.lang) })),

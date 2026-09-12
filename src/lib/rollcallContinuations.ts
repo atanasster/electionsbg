@@ -74,7 +74,9 @@ export function rollcallContinuation(
       }),
     );
   if (/по месеци|by month/i.test(t))
-    return finish({ ...base, operation: "trend", groupBy: "month" });
+    return ["agreement", "alignment", "contested"].includes(q.metric)
+      ? { reason: "unsupported" }
+      : finish({ ...base, operation: "trend", groupBy: "month" });
   if (/знаменател|denominator|липсва.*поимен|named roll missing/i.test(t))
     return finish({ ...base, operation: "summary" });
   if (/предходната година|previous year/i.test(t)) {
@@ -146,6 +148,10 @@ export function rollcallContinuation(
       expectedRevision: q.expectedRevision,
     });
   }
+  if (/само решенията.*поимен|only resolutions.*named/i.test(t))
+    return q.corpus === "councilResolutions"
+      ? finish({ ...base, named: "yes" })
+      : { reason: "scope" };
   const explicit =
     rollcallCorpus(t) ||
     (/council|общински.*съвет/i.test(t) ? "councilResolutions" : null);
@@ -221,3 +227,42 @@ export function rollcallContinuation(
   }
   return null;
 }
+
+export const ROLLCALL_FOLLOWUPS: [string, string, string][] = [
+  ["F01", "А през 2025?", "And in 2025?"],
+  ["F02", "Само от април до юни 2026.", "Only April through June 2026."],
+  ["F03", "А за Бойко Рашков?", "And for Boyko Rashkov?"],
+  ["F04", "Само за здравеопазването.", "Only healthcare."],
+  ["F05", "Само гласовете „против“.", "Only votes against."],
+  [
+    "F06",
+    "Покажи всички гласували по второто.",
+    "Show everyone who voted on the second one.",
+  ],
+  [
+    "F07",
+    "А гласуванията от това заседание?",
+    "And the votes from that sitting?",
+  ],
+  ["F08", "Покажи оригиналния документ.", "Show the original document."],
+  ["F09", "Включи и прегласуванията.", "Include re-votes too."],
+  ["F10", "Само окончателните гласувания.", "Only the standing votes."],
+  ["F11", "А по месеци?", "And by month?"],
+  ["F12", "Сравни с предходната година.", "Compare with the previous year."],
+  ["F13", "Колко от тях са „за“?", "How many of those were for?"],
+  ["F14", "А в общинския съвет в Русе?", "And in Ruse council?"],
+  [
+    "F15",
+    "А как гласува съветникът {name}?",
+    "And how did councillor {name} vote?",
+  ],
+  [
+    "F16",
+    "Само решенията с публикуван поименен вот.",
+    "Only resolutions with published named votes.",
+  ],
+  ["F17", "Покажи следващите 10.", "Show the next 10."],
+  ["F18", "Защо липсва поименният вот?", "Why is the named roll missing?"],
+  ["F19", "Махни ограничението за темата.", "Remove the topic filter."],
+  ["F20", "Какъв е знаменателят?", "What is the denominator?"],
+];

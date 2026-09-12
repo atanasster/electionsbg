@@ -1,3 +1,4 @@
+import { useRollcallCapabilities } from "./useRollcallCapabilities";
 import {
   validateRollcallQuery,
   encodeRollcallQuery,
@@ -513,8 +514,8 @@ export const Chat = ({
     },
   });
 
-  const procurementCatalog = useFundingCapabilities(
-    useProcurementCapabilities(QUESTION_CATALOG),
+  const procurementCatalog = useRollcallCapabilities(
+    useFundingCapabilities(useProcurementCapabilities(QUESTION_CATALOG)),
   );
   const procurementRequestId = useRef(0);
   const send = async (

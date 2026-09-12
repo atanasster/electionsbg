@@ -1,3 +1,4 @@
+import { rollcallTemplate } from "../../src/lib/questions/contracts/rollcall";
 import { fundingTemplate } from "../../src/lib/questions/contracts/funding";
 import { procurementTemplateQuery } from "../../src/lib/questions/contracts/procurement";
 // The runtime starter library. Keep this module independent of React and the
@@ -34,9 +35,11 @@ export const projectChatStarters = (
   questions.flatMap((question) => {
     const tool = question.chat.capabilityId;
     if (question.chat.status !== "ready" || !tool) return [];
-    const funding = question.id.startsWith("funding-query-")
-      ? fundingTemplate(question.id, "bg").args
-      : undefined;
+    const funding = question.id.startsWith("rollcall-query-")
+      ? rollcallTemplate(question.id, "bg").args
+      : question.id.startsWith("funding-query-")
+        ? fundingTemplate(question.id, "bg").args
+        : undefined;
     const procurement = question.id.startsWith("procurement-query-")
       ? procurementTemplateQuery(question.id, Number(question.defaults.year))
       : undefined;
@@ -56,12 +59,14 @@ export const projectChatStarters = (
               question.defaults),
           },
           en: {
-            ...(question.id.startsWith("funding-query-")
-              ? fundingTemplate(question.id, "en").args
-              : (funding ??
-                procurement ??
-                question.legacyChatArgs?.en ??
-                question.defaults)),
+            ...(question.id.startsWith("rollcall-query-")
+              ? rollcallTemplate(question.id, "en").args
+              : question.id.startsWith("funding-query-")
+                ? fundingTemplate(question.id, "en").args
+                : (funding ??
+                  procurement ??
+                  question.legacyChatArgs?.en ??
+                  question.defaults)),
           },
         },
       },

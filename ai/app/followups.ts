@@ -1,3 +1,4 @@
+import { rollcallContinuations } from "./rollcallContinuations";
 import { fundingContinuations } from "./fundingContinuations";
 import { procurementContinuations } from "./procurementContinuations";
 // A continuation is a catalog intent, never a question for the text router to
@@ -153,6 +154,7 @@ export const followUps = (
   answered: AnsweredIntent[] = [],
 ): FollowUp[] => {
   if (env.clarify) return [];
+  if (env.rollcall) return rollcallContinuations(env);
   if (env.funding) return fundingContinuations(env);
   if (env.procurement) return procurementContinuations(env);
   const out: FollowUp[] = [];

@@ -15,7 +15,9 @@ describe("shared question catalog", () => {
       new Set(QUESTION_DEFINITIONS.map((q) => q.chat.capabilityId)),
     ).toEqual(
       new Set(
-        TOOLS.filter((t) => t.name !== "subsidiesForEntity").map((t) => t.name),
+        TOOLS.filter(
+          (t) => !["subsidiesForEntity", "rollcallQuery"].includes(t.name),
+        ).map((t) => t.name),
       ),
     );
     expect(QUESTION_CATEGORIES).toHaveLength(19);
@@ -60,12 +62,15 @@ describe("shared question catalog", () => {
       expect(tool, question.id).toBeDefined();
       if (
         question.id.startsWith("procurement-query-") ||
-        question.id.startsWith("funding-query-")
+        question.id.startsWith("funding-query-") ||
+        question.id.startsWith("rollcall-query-")
       ) {
         const intent = toChatQuestionIntent(
           question.id,
           "bg",
-          question.defaults,
+          question.id.startsWith("rollcall-query-")
+            ? undefined
+            : question.defaults,
         );
         for (const required of tool!.params.filter((p) => p.required))
           expect(
@@ -82,6 +87,17 @@ describe("shared question catalog", () => {
             ),
             `${question.id}.${required.name}`,
           ).toMatchObject({ required: true });
+      if (
+        question.id.startsWith("rollcall-query-") &&
+        question.parameters.some(
+          (p) => p.required && question.defaults?.[p.id] == null,
+        )
+      ) {
+        expect(() => resolveQuestionSelection(question)).toThrow(
+          "Required parameter missing",
+        );
+        continue;
+      }
       expect(() =>
         resolveQuestionSelection(
           question,

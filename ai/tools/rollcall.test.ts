@@ -157,3 +157,29 @@ it("a continuation guard cannot fall through into a broad query", async () => {
   expect(env.facts.status).toBe("unsupported");
   expect(mock).not.toHaveBeenCalled();
 });
+it("coverage discovery preserves year-only boundaries and limitation", async () => {
+  mock.mockResolvedValue({
+    revision: "r",
+    councils: [
+      {
+        id: "HKV34",
+        name: "Хасково",
+        first: "2022-01-01",
+        latest: "2022-01-01",
+        year_only: true,
+        resolutions: 387,
+        named: 0,
+      },
+    ],
+  });
+  const env = await rollcallQuery(
+    { corpus: "councilResolutions", operation: "methodology" },
+    ctx,
+  );
+  expect(JSON.stringify(env.rows)).not.toContain("2022-01-01");
+  expect(env.rows?.[0]).toMatchObject({
+    first: "2022",
+    latest: "2022",
+    precision: "Само година",
+  });
+});

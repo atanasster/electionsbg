@@ -14,6 +14,9 @@ import {
 import { CHAT_STORAGE_KEY } from "./chatStorage";
 const dispatch = vi.hoisted(() => vi.fn());
 vi.mock("./dispatchPrompt", () => ({ dispatchPrompt: dispatch }));
+vi.mock("./useRollcallCapabilities", () => ({
+  useRollcallCapabilities: (x: unknown) => x,
+}));
 vi.mock("./useFundingCapabilities", () => ({
   useFundingCapabilities: (x: unknown) => x,
 }));

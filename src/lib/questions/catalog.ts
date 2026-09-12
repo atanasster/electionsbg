@@ -1,3 +1,4 @@
+import { ROLLCALL_QUESTIONS } from "./contracts/rollcall";
 import { FUNDING_QUESTIONS } from "./contracts/funding";
 import { PROCUREMENT_QUESTIONS } from "./contracts/procurement";
 import toolSourcesJson from "../../../ai/app/toolSources.json";
@@ -258,7 +259,11 @@ export const QUESTION_DEFINITIONS: QuestionDefinition[] = rawPrompts.map(
   },
 );
 
-QUESTION_DEFINITIONS.push(...PROCUREMENT_QUESTIONS, ...FUNDING_QUESTIONS);
+QUESTION_DEFINITIONS.push(
+  ...PROCUREMENT_QUESTIONS,
+  ...FUNDING_QUESTIONS,
+  ...ROLLCALL_QUESTIONS,
+);
 
 export const QUESTION_CATALOG: QuestionCatalog = {
   categories: QUESTION_CATEGORIES,

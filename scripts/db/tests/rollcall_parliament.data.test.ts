@@ -32,6 +32,23 @@ INSERT INTO person_role VALUES(10,'mp','7:52','exact_id'),(11,'mp','7:51','exact
         (await c.query(sql, p)).rows;
       const run = async (q: Record<string, unknown>) =>
         (await runRollcallQuery(db, q)).body;
+      const attempts = await run({
+        corpus: "parliamentVotes",
+        assemblyIds: ["52"],
+        basis: "attempts",
+      });
+      expect(
+        attempts.rows.find((r: { key: string }) => r.key === "52:2026-01-01:1")
+          .revote,
+      ).toBe("linked");
+      expect(
+        attempts.rows.find((r: { key: string }) => r.key === "52:2026-01-01:2")
+          .revote,
+      ).toBe("linked");
+      expect(
+        attempts.rows.find((r: { key: string }) => r.key === "52:2026-01-02:1")
+          .revote,
+      ).toBe("none");
       const share = await run({
         corpus: "parliamentCasts",
         seatIds: ["52:7"],

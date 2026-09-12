@@ -1,5 +1,7 @@
 // Adds aggregates over the compiler's complete cohort, never its visible page.
 function compileMetrics(q, depth, { compileRollcallQuery, RollcallError }) {
+  if (q.metric === "contested" && q.groupBy)
+    throw new RollcallError("metric_grouping_unsupported", 422);
   if (q.operation === "compare") {
     const a = {
       ...q,

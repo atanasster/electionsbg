@@ -13,6 +13,11 @@ export const rollcallColumn = (key: string, lang: "bg" | "en"): string =>
     yes: ["За (общо)", "For (aggregate)"],
     no: ["Против (общо)", "Against (aggregate)"],
     abstain: ["Въздържали се (общо)", "Abstain (aggregate)"],
+    first: ["Първи индексиран запис", "First indexed record"],
+    latest: ["Последен индексиран запис", "Latest indexed record"],
+    named: ["Решения с поименен вот", "Resolutions with named rolls"],
+    precision: ["Точност на датите", "Date precision"],
+    revote: ["Свързано прегласуване", "Linked re-vote"],
     outcome: ["Публикуван резултат", "Published outcome"],
   })[key]?.[lang === "bg" ? 0 : 1] || key;
 export const rollcallChoice = (value: string, lang: "bg" | "en") =>
@@ -38,6 +43,15 @@ export function rollcallDisplayRow(
   if ("title" in r && !r.title)
     r.title = lang === "bg" ? "Без заглавие в източника" : "No title in source";
   if (row.year_only && typeof r.date === "string") r.date = r.date.slice(0, 4);
+  if (r.revote)
+    r.revote =
+      r.revote === "linked"
+        ? lang === "bg"
+          ? "Има свързан запис"
+          : "Linked attempt recorded"
+        : lang === "bg"
+          ? "Няма свързан запис"
+          : "No linked attempt indexed";
   for (const field of ["choice", "outcome"])
     if (typeof r[field] === "string")
       r[field] = rollcallChoice(r[field] as string, lang);

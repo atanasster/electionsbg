@@ -1,3 +1,4 @@
+import { matchRollcallTemplate } from "../../src/lib/questions/contracts/rollcall";
 import {
   validateRollcallQuery,
   ROLLCALL_TOPICS,
@@ -30,6 +31,8 @@ const excluded = (question: string) =>
     question.replace(/изборн(?:ия|ият|и) кодекс|election code/gi, ""),
   );
 export function rollcallCorpus(question: string): RollcallCorpus | null {
+  const template = matchRollcallTemplate(question);
+  if (template) return template.draft.corpus;
   if (
     excluded(question) ||
     /votes? did .+ get|гласове.*получи|гласува като|votes? like|voting profile|профил.*гласув/i.test(
@@ -221,8 +224,25 @@ export function understandRollcall(
   const corpus =
     options.corpus || rollcallCorpus(question) || options.previous?.corpus;
   if (!corpus || excluded(question)) return { kind: "none" };
+  const template = matchRollcallTemplate(question);
   const q: RollcallArgs = { ...(options.previous || {}), corpus, offset: 0 };
 
+  if (template) {
+    Object.assign(q, template.draft);
+    if (template.draft.topicIds) delete q.keyword;
+    else if (template.draft.keyword) delete q.topicIds;
+    if (template.missing)
+      return {
+        kind: "scope",
+        draft: q,
+        names: [],
+        needs: template.missing as "scope" | "dates" | "record",
+      };
+    if (!template.municipality && !q.corpus.startsWith("council"))
+      return { kind: "scope", draft: q, names: template.names };
+    if (q.operation === "methodology")
+      return { kind: "scope", draft: q, names: [] };
+  }
   let text = question.replace(/[–—]/g, "-");
   const names: string[] = [];
   const reference = question.match(
@@ -271,10 +291,13 @@ export function understandRollcall(
       ...(c.id === "SOF" ? ["София", "Sofia", "Столична община"] : []),
     ];
     const councils = (options.catalog?.councils || []).filter((c) =>
-      aliases(c).some((alias) =>
-        new RegExp(`(?:^|\\s)${foldWords(alias)}(?:$|\\s|[.,?!])`).test(
-          foldWords(text),
-        ),
+      aliases(c).some(
+        (alias) =>
+          (template?.municipality &&
+            foldSearch(template.municipality) === foldSearch(alias)) ||
+          new RegExp(`(?:^|\\s)${foldWords(alias)}(?:$|\\s|[.,?!])`).test(
+            foldWords(text),
+          ),
       ),
     );
     if (councils.length > 1) {
@@ -288,7 +311,7 @@ export function understandRollcall(
     } else if (/(?:\sв\s|\sin\s)[\p{L}]/iu.test(text) && !q.assemblyIds) {
       delete q.councilIds;
     }
-    if (!q.councilIds)
+    if (!q.councilIds && !q.key && !q.parentQuery)
       return { kind: "scope", draft: q, names, needs: "council" };
   }
   const namePatterns = [
@@ -323,7 +346,10 @@ export function understandRollcall(
         new RegExp(t.en, "i").test(text),
     )
     .map(([id]) => id);
-  if (topicIds.length) q.topicIds = topicIds;
+  if (topicIds.length) {
+    q.topicIds = topicIds;
+    delete q.keyword;
+  }
   const quoted = text.match(/[„“"]([^„“"]{2,200})[“”"]/);
   if (quoted) q.keyword = quoted[1];
   if (/против|against/i.test(text)) q.choice = "against";
@@ -398,6 +424,12 @@ export function understandRollcall(
   }
   if (/решение\s+\d|resolution\s+\d|протокол|protocol/i.test(text) && !q.key)
     return { kind: "scope", draft: q, names, needs: "record" };
+  if (template)
+    return {
+      kind: "scope",
+      draft: { ...q, ...template.draft, councilIds: q.councilIds },
+      names: template.names,
+    };
   if (names.length) return { kind: "scope", draft: q, names };
   if (/кой гласува|who voted/i.test(question) && !q.key && !q.parentQuery)
     return { kind: "scope", draft: q, names, needs: "record" };
