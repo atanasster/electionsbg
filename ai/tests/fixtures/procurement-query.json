@@ -1,0 +1,28 @@
+{
+  "version": "procurement-records-v1",
+  "asOf": "2026-09-12T12:00:00+03:00",
+  "contracts": [
+    {"key":"a1","date":"2026-01-01","buyer":"H","cpv":"33100000","bids":1,"amount":100,"signingAmount":80,"signed":"2025-12-31","role":null,"tag":"contract","weak":true,"pep":true,"direct":false},
+    {"key":"a2","date":"2026-01-31","buyer":"H","cpv":"33100000","bids":3,"amount":200,"signingAmount":200,"signed":"2026-01-30","role":null,"tag":"contract","weak":false,"pep":false,"direct":false},
+    {"key":"a3","date":"2026-02-01","buyer":"R","cpv":"45233100","bids":1,"amount":300,"signingAmount":300,"signed":"2026-02-01","role":null,"tag":"contract","weak":false,"pep":false,"direct":true},
+    {"key":"a4","date":"2026-12-31","buyer":"R","cpv":"45233200","bids":null,"amount":null,"signingAmount":null,"signed":null,"role":null,"tag":"contract","weak":null,"pep":true,"direct":false},
+    {"key":"a5","date":"2026-06-30","buyer":"H","cpv":"15800000","bids":0,"amount":50,"signingAmount":50,"signed":"2026-06-30","role":null,"tag":"contract","weak":null,"pep":false,"direct":false},
+    {"key":"a6","date":"2026-07-01","buyer":"H","cpv":"33100000","bids":1,"amount":400,"signingAmount":400,"signed":"2026-07-01","role":"carrier","tag":"contract","weak":true,"pep":false,"direct":false},
+    {"key":"m1","date":"2026-07-01","buyer":"H","cpv":"33100000","bids":1,"amount":0,"signingAmount":0,"signed":"2026-07-01","role":"member","tag":"contract","weak":true,"pep":false,"direct":false},
+    {"key":"am1","date":"2026-08-01","buyer":"H","cpv":"33100000","bids":1,"amount":1000,"signingAmount":null,"signed":null,"role":null,"tag":"contractAmendment","weak":true,"pep":false,"direct":false},
+    {"key":"pre","date":"2025-12-31","buyer":"H","cpv":"33100000","bids":3,"amount":700,"signingAmount":700,"signed":"2025-12-30","role":null,"tag":"contract","weak":false,"pep":false,"direct":false},
+    {"key":"next","date":"2027-01-01","buyer":"H","cpv":"33100000","bids":1,"amount":800,"signingAmount":800,"signed":"2027-01-01","role":null,"tag":"contract","weak":true,"pep":false,"direct":false}
+  ],
+  "expected2026": {"records":6,"currentEur":1050,"signingEur":1030,"oneBid":3,"positiveKnown":4,"zero":1,"missingBids":1,"missingAmount":1},
+  "appeals": [
+    {"id":"c1","unp":"t1","act":"d1","date":"2025-12-20","outcome":"уважена","suspended":false,"requested":false},
+    {"id":"c2","unp":"t1","act":"d1","date":"2026-01-02","outcome":"отхвърлена","suspended":false,"requested":true},
+    {"id":"c3","unp":"t2","act":"d2","date":"2026-01-03","outcome":null,"status":"отказано производство","suspended":false,"requested":false},
+    {"id":"c4","unp":null,"act":null,"date":"2026-01-04","outcome":null,"status":"спряно производство","suspended":null,"requested":true}
+  ],
+  "decisions": [
+    {"id":"d1","date":"2026-01-10","kind":"решения"},
+    {"id":"d2","date":"2026-01-11","kind":"определения"},
+    {"id":"d3","date":"2026-01-12","kind":null}
+  ]
+}

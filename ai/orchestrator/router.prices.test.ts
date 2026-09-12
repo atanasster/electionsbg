@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { route } from "./router";
 import type { ToolContext } from "../tools/types";
-import type { Envelope } from "../tools/types";
 import { followUps } from "../app/followups";
 
 const ctx = { lang: "bg", election: "2026_04_19" } as ToolContext;
@@ -22,12 +21,16 @@ describe("chain contract follow-up routing", () => {
   it("routes the actual generated follow-up in both languages", () => {
     const suggestion = followUps({
       tool: "chainProfile",
+      kind: "table",
+      title: "Метро България",
+      viz: "none",
+      provenance: [],
       facts: {
         chain: "Метро България",
         eik: "121644736",
         as_supplier_contracts: 2,
       },
-    } as Envelope).find((s) => s.questionId === "contractSearch")!;
+    }).find((s) => s.questionId === "contractSearch")!;
     expect(suggestion).toBeDefined();
     for (const q of [suggestion.bg, suggestion.en]) {
       expect(route(q, ctx)).toEqual({
