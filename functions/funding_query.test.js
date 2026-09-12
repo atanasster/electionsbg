@@ -16,7 +16,7 @@ test("unsupported dates and unimplemented corpora cannot run a broad fallback", 
   let calls = 0;
   for (const raw of [
     { corpus: "isunProjects", dateBasis: "signed" },
-    { corpus: "agriPayments" },
+    { corpus: "interregOperations" },
   ]) {
     assert.equal(
       (
@@ -77,4 +77,14 @@ test("capabilities suppress missing optional evidence while basic counts stay re
     "unidentified",
     "serialWinner",
   ]);
+});
+test("DFZ pushes both explicit years into the indexed source predicate", () => {
+  const q = compileFundingQuery({
+    corpus: "agriPayments",
+    operation: "compare",
+    financialYears: ["2025"],
+    compareFinancialYears: ["2026"],
+  });
+  assert.match(q.sql, /c\.year=ANY\(\$\d+::int\[\]\)/);
+  assert(q.params.some((x) => Array.isArray(x) && x.join(",") === "2025,2026"));
 });

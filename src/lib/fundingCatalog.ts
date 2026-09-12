@@ -189,3 +189,11 @@ export const FUNDING_OPERATION_METRICS: Record<string, readonly string[]> = {
     "topShare",
   ],
 };
+// Existing canonical oblast names; DFZ's two Sofia labels are source-specific.
+import { OBLAST_NAME } from "./regionalOblast";
+export const FUNDING_RECIPIENT_PLACES = Object.fromEntries(
+  Object.entries(OBLAST_NAME).map(([id, n]) => [
+    id === "SOFIA_CITY" ? "SFO_CITY" : id,
+    id === "SFO" ? "София (област)" : n.bg,
+  ]),
+);

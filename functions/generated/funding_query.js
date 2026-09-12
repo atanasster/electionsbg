@@ -28,6 +28,7 @@ __export(fundingQuery_exports, {
   FUNDING_MAX_ENCODED_SIZE: () => FUNDING_MAX_ENCODED_SIZE,
   FUNDING_OPERATIONS: () => FUNDING_OPERATIONS,
   FUNDING_OPERATION_METRICS: () => FUNDING_OPERATION_METRICS,
+  FUNDING_RECIPIENT_PLACES: () => FUNDING_RECIPIENT_PLACES,
   FUNDING_SIGNAL_LABELS: () => FUNDING_SIGNAL_LABELS,
   FUNDING_STATUSES: () => FUNDING_STATUSES,
   FUNDING_VERSION: () => FUNDING_VERSION,
@@ -56,6 +57,38 @@ function queryInstant(value) {
   const ms = Date.parse(value);
   return Number.isFinite(ms) ? new Date(ms).toISOString() : null;
 }
+
+// src/lib/regionalOblast.ts
+var OBLAST_NAME = {
+  BGS: { bg: "\u0411\u0443\u0440\u0433\u0430\u0441", en: "Burgas" },
+  BLG: { bg: "\u0411\u043B\u0430\u0433\u043E\u0435\u0432\u0433\u0440\u0430\u0434", en: "Blagoevgrad" },
+  DOB: { bg: "\u0414\u043E\u0431\u0440\u0438\u0447", en: "Dobrich" },
+  GAB: { bg: "\u0413\u0430\u0431\u0440\u043E\u0432\u043E", en: "Gabrovo" },
+  HKV: { bg: "\u0425\u0430\u0441\u043A\u043E\u0432\u043E", en: "Haskovo" },
+  JAM: { bg: "\u042F\u043C\u0431\u043E\u043B", en: "Yambol" },
+  KNL: { bg: "\u041A\u044E\u0441\u0442\u0435\u043D\u0434\u0438\u043B", en: "Kyustendil" },
+  KRZ: { bg: "\u041A\u044A\u0440\u0434\u0436\u0430\u043B\u0438", en: "Kardzhali" },
+  LOV: { bg: "\u041B\u043E\u0432\u0435\u0447", en: "Lovech" },
+  MON: { bg: "\u041C\u043E\u043D\u0442\u0430\u043D\u0430", en: "Montana" },
+  PAZ: { bg: "\u041F\u0430\u0437\u0430\u0440\u0434\u0436\u0438\u043A", en: "Pazardzhik" },
+  PDV: { bg: "\u041F\u043B\u043E\u0432\u0434\u0438\u0432", en: "Plovdiv" },
+  PER: { bg: "\u041F\u0435\u0440\u043D\u0438\u043A", en: "Pernik" },
+  PVN: { bg: "\u041F\u043B\u0435\u0432\u0435\u043D", en: "Pleven" },
+  RAZ: { bg: "\u0420\u0430\u0437\u0433\u0440\u0430\u0434", en: "Razgrad" },
+  RSE: { bg: "\u0420\u0443\u0441\u0435", en: "Ruse" },
+  SFO: { bg: "\u0421\u043E\u0444\u0438\u0439\u0441\u043A\u0430 \u043E\u0431\u043B\u0430\u0441\u0442", en: "Sofia Province" },
+  SHU: { bg: "\u0428\u0443\u043C\u0435\u043D", en: "Shumen" },
+  SLS: { bg: "\u0421\u0438\u043B\u0438\u0441\u0442\u0440\u0430", en: "Silistra" },
+  SLV: { bg: "\u0421\u043B\u0438\u0432\u0435\u043D", en: "Sliven" },
+  SML: { bg: "\u0421\u043C\u043E\u043B\u044F\u043D", en: "Smolyan" },
+  SZR: { bg: "\u0421\u0442\u0430\u0440\u0430 \u0417\u0430\u0433\u043E\u0440\u0430", en: "Stara Zagora" },
+  TGV: { bg: "\u0422\u044A\u0440\u0433\u043E\u0432\u0438\u0449\u0435", en: "Targovishte" },
+  VAR: { bg: "\u0412\u0430\u0440\u043D\u0430", en: "Varna" },
+  VID: { bg: "\u0412\u0438\u0434\u0438\u043D", en: "Vidin" },
+  VRC: { bg: "\u0412\u0440\u0430\u0446\u0430", en: "Vratsa" },
+  VTR: { bg: "\u0412\u0435\u043B\u0438\u043A\u043E \u0422\u044A\u0440\u043D\u043E\u0432\u043E", en: "Veliko Tarnovo" },
+  SOFIA_CITY: { bg: "\u0421\u043E\u0444\u0438\u044F (\u0441\u0442\u043E\u043B\u0438\u0446\u0430)", en: "Sofia (capital)" }
+};
 
 // src/lib/fundingCatalog.ts
 var FUNDING_VERSION = "funding-records-v1";
@@ -236,6 +269,12 @@ var FUNDING_OPERATION_METRICS = {
     "topShare"
   ]
 };
+var FUNDING_RECIPIENT_PLACES = Object.fromEntries(
+  Object.entries(OBLAST_NAME).map(([id, n]) => [
+    id === "SOFIA_CITY" ? "SFO_CITY" : id,
+    id === "SFO" ? "\u0421\u043E\u0444\u0438\u044F (\u043E\u0431\u043B\u0430\u0441\u0442)" : n.bg
+  ])
+);
 
 // src/lib/fundingQuery.ts
 var FUNDING_MAX_ENCODED_SIZE = 16e3;
@@ -584,6 +623,7 @@ function decodeFundingQuery(value) {
   FUNDING_MAX_ENCODED_SIZE,
   FUNDING_OPERATIONS,
   FUNDING_OPERATION_METRICS,
+  FUNDING_RECIPIENT_PLACES,
   FUNDING_SIGNAL_LABELS,
   FUNDING_STATUSES,
   FUNDING_VERSION,

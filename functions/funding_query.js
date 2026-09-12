@@ -16,12 +16,13 @@ function compileFundingQuery(raw) {
     params.push(v);
     return `$${params.length}`;
   };
-  if (q.corpus !== "isunProjects")
+  const agri = q.corpus === "agriPayments";
+  if (!["isunProjects", "agriPayments"].includes(q.corpus))
     throw new FundingQueryError("corpus_not_ready", 422);
   if (q.parentQuery) throw new FundingQueryError("relationship_not_ready", 422);
-  if (q.placeBasis && q.placeBasis !== "implementation")
+  if (q.placeBasis && q.placeBasis !== (agri ? "recipient" : "implementation"))
     throw new FundingQueryError("geography_basis_unavailable", 422);
-  if (q.entityClass === "individual")
+  if (!agri && q.entityClass === "individual")
     throw new FundingQueryError("individual_identity_not_recorded", 422);
   const predicates = [
     ...(q.basePredicates || []),
@@ -33,7 +34,7 @@ function compileFundingQuery(raw) {
     projectCost: ["total_eur", 1],
     ownCofinance: ["own_cofinance_eur", 4],
     paid: ["paid_eur", 8],
-  }[q.amountBasis];
+  }[q.amountBasis] || ["paid_eur", 8];
   // Evidence with missing cells compares to the legacy normalized zero, but the mask
   // remains authoritative: missing values are never exposed as published zeros.
   const evidenceJoin = [
@@ -69,7 +70,9 @@ function compileFundingQuery(raw) {
     q.dateBasis === "observed"
       ? "(SELECT (min(f.first_seen_at) AT TIME ZONE 'Europe/Sofia')::date FROM ingest_first_seen f WHERE f.source='fund_project' AND f.key=c.contract_number)"
       : "NULL::date";
-  const source = `SELECT c.contract_number AS key,NULLIF(c.beneficiary_eik,'') AS entity,c.beneficiary_name AS name,c.title,c.program_code AS programme,
+  const source = agri
+    ? require("./funding_query_agri").agriSource(q, has, bind)
+    : `SELECT c.contract_number AS key,NULLIF(c.beneficiary_eik,'') AS entity,c.beneficiary_name AS name,c.title,c.program_code AS programme,
  ${known(money[0], money[1])} AS amount,${known("paid_eur", 8)} AS paid,${date} AS date,
  CASE WHEN c.status LIKE 'Приключен%' THEN 'completed' WHEN c.status LIKE 'В изпълнение%' THEN 'in-progress' WHEN c.status='Сключен' THEN 'signed' WHEN c.status LIKE 'Прекратен%' THEN 'terminated' WHEN NULLIF(c.status,'') IS NULL THEN 'unknown' ELSE 'other' END AS status,
  c.location_json AS location,c.ekatte,c.oblast,jsonb_build_object(${signalSql}) AS signals,
@@ -81,6 +84,18 @@ function compileFundingQuery(raw) {
     if (values?.length) where.push(`${col}=ANY(${bind(values)}::text[])`);
   };
   inList("s.entity", q.entityIds);
+  if (agri) {
+    inList("s.programme", q.schemeIds);
+    if (q.entityClass === "individual") where.push("s.entity IS NULL");
+    if (q.schemeIds?.length)
+      checks.push(
+        `NOT EXISTS(SELECT 1 FROM unnest(${bind(q.schemeIds)}::text[]) x WHERE NOT EXISTS(SELECT 1 FROM agri_subsidies WHERE scheme=x))`,
+      );
+  }
+  if (agri && q.placeIds?.some((id) => !contract.FUNDING_RECIPIENT_PLACES[id]))
+    throw new FundingQueryError("DFZ_geography_requires_oblast", 422);
+  if (agri && q.operation === "detail" && !q.expectedRevision)
+    throw new FundingQueryError("annual_record_requires_revision", 422);
   inList("s.programme", q.programmeIds);
   inList("s.status", q.statusIds);
   if (q.entityClass === "legal") where.push("s.entity IS NOT NULL");
@@ -117,7 +132,7 @@ function compileFundingQuery(raw) {
         `NOT EXISTS(SELECT 1 FROM unnest(${bind(q[field])}::text[]) x WHERE NOT EXISTS(SELECT 1 FROM ${table} WHERE ${col}=x ${extra}))`,
       );
   if (q.placeIds?.length) {
-    const ids = q.placeIds.map((x) => (x === "SFO_CITY" ? "S22" : x));
+    const ids = q.placeIds.map((x) => (!agri && x === "SFO_CITY" ? "S22" : x));
     where.push(
       `(s.ekatte=ANY(${bind(ids)}::text[]) OR s.oblast=ANY(${bind(ids)}::text[]) OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(COALESCE(s.location->'munis','[]')) p WHERE p=ANY(${bind(ids)}::text[])) OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(COALESCE(s.location->'oblasts','[]')) p WHERE p=ANY(${bind(ids)}::text[])) OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(COALESCE(s.location->'nutsCodes','[]')) p WHERE p=ANY(${bind(ids)}::text[])))`,
     );
@@ -134,10 +149,20 @@ function compileFundingQuery(raw) {
       from ? `s.date>=${bind(from)}::date` : "TRUE",
       to ? `s.date<${bind(to)}::date` : "TRUE",
     ].join(" AND ");
-  const current = period(q.from, q.toExclusive),
+  const financialPeriod = (years) =>
+    years?.length
+      ? `to_char(s.date,'YYYY')=ANY(${bind(years)}::text[])`
+      : "TRUE";
+  const current = agri
+      ? q.operation === "compare"
+        ? financialPeriod(q.financialYears)
+        : "TRUE"
+      : period(q.from, q.toExclusive),
     comparison =
       q.operation === "compare"
-        ? period(q.compareFrom, q.compareToExclusive)
+        ? agri
+          ? financialPeriod(q.compareFinancialYears)
+          : period(q.compareFrom, q.compareToExclusive)
         : "FALSE";
   const predicate = (raw) =>
     `${raw.startsWith("!") ? "NOT " : ""}((s.signals->>'${raw.replace(/^!/, "")}')::boolean)`;
@@ -153,6 +178,8 @@ function compileFundingQuery(raw) {
       : {
           entity: "COALESCE(entity,'unknown:'||key)",
           programme: "COALESCE(programme,'unknown')",
+          scheme: "COALESCE(programme,'unknown')",
+          financialYear: "to_char(date,'YYYY')",
           place: "COALESCE(oblast,'unknown')",
           month: "to_char(date,'YYYY-MM')",
           year: "to_char(date,'YYYY')",
@@ -181,12 +208,12 @@ function compileFundingQuery(raw) {
     q.operation === "share" && !["paidRatio", "topShare"].includes(q.metric)
       ? "share"
       : metric;
-  const sql = `WITH source AS MATERIALIZED (${source}), candidates AS MATERIALIZED(SELECT s.*,(${current}) AS current,(${comparison}) AS comparison,(${base}) AS base,(${numerator}) AS matched,(${amountConditions.join(" AND ") || "TRUE"}) AS amount_match FROM source s WHERE ${where.join(" AND ") || "TRUE"}),
+  const sql = `WITH source AS NOT MATERIALIZED (${source}), candidates AS MATERIALIZED(SELECT s.*,(${current}) AS current,(${comparison}) AS comparison,(${base}) AS base,(${numerator}) AS matched,(${amountConditions.join(" AND ") || "TRUE"}) AS amount_match FROM source s WHERE ${where.join(" AND ") || "TRUE"}),
  scoped AS MATERIALIZED(SELECT * FROM candidates WHERE amount_match IS TRUE),
  base_cohorts AS MATERIALIZED(SELECT s.*,w.cohort_window FROM scoped s CROSS JOIN LATERAL (SELECT 'current'::text AS cohort_window WHERE s.current UNION ALL SELECT 'comparison' WHERE s.comparison) w WHERE s.base IS TRUE),
  cohorts AS MATERIALIZED(SELECT * FROM base_cohorts ${selectMatches ? "WHERE matched IS TRUE" : ""}),
- grouped AS (SELECT *,${group} AS group_key FROM cohorts UNION ALL SELECT *,'__total'::text AS group_key FROM cohorts),
- entity_money AS (SELECT cohort_window,group_key,entity,sum(amount) AS amount FROM grouped WHERE entity IS NOT NULL AND amount IS NOT NULL GROUP BY cohort_window,group_key,entity),
+ grouped AS (${q.groupBy ? `SELECT *,${group} AS group_key FROM cohorts UNION ALL ` : ""}SELECT *,'__total'::text AS group_key FROM cohorts),
+ entity_money AS (SELECT cohort_window,group_key,entity,sum(amount) AS amount FROM grouped WHERE ${["hhi", "topShare"].includes(q.metric) ? "TRUE" : "FALSE"} AND entity IS NOT NULL AND amount IS NOT NULL GROUP BY cohort_window,group_key,entity),
  concentration AS (SELECT cohort_window,group_key,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 10000*sum(amount*amount)/power(sum(amount),2) END AS hhi,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 100*sum(amount) FILTER(WHERE rn<=${bind(q.topN || 10)})/sum(amount) END AS top_share FROM (SELECT *,row_number() OVER(PARTITION BY cohort_window,group_key ORDER BY amount DESC NULLS LAST,entity) rn FROM entity_money) e GROUP BY cohort_window,group_key),
  summaries AS (SELECT cohort_window,group_key,${stats} FROM grouped GROUP BY cohort_window,group_key),
  empty_stats AS (SELECT ${stats} FROM cohorts WHERE FALSE),
@@ -199,6 +226,7 @@ function compileFundingQuery(raw) {
  SELECT jsonb_build_object('totals',(SELECT to_jsonb(t) FROM measured t WHERE group_key='__total' AND cohort_window='current'),'rows',COALESCE((SELECT jsonb_agg(page) FROM page),'[]'::jsonb),'groups',COALESCE((SELECT jsonb_agg(group_page) FROM group_page),'[]'::jsonb),
  'comparisons',COALESCE((SELECT jsonb_agg(t ORDER BY cohort_window) FROM measured t WHERE group_key='__total'),'[]'::jsonb),
  'groupCount',(SELECT count(*) FROM groups),'catalogValid',${checks.join(" AND ") || "TRUE"},'catalogVersion',(SELECT value->>'version' FROM funding_query_meta WHERE key='catalog'),
+ 'yearsAvailable',${agri ? `(WITH RECURSIVE years(y) AS (SELECT min(year) FROM agri_subsidies UNION ALL SELECT (SELECT min(year) FROM agri_subsidies WHERE year>years.y) FROM years WHERE y IS NOT NULL) SELECT jsonb_agg(y::text ORDER BY y) FROM years WHERE y IS NOT NULL)` : "null::jsonb"},
  'candidateRecords',(SELECT count(*) FROM candidates),
  'dateUnknown',(SELECT count(*) FROM candidates WHERE ${q.dateBasis !== "none" ? "date IS NULL" : "FALSE"}),
  'amountUnknown',(SELECT count(*) FROM candidates WHERE ${amountConditions.length ? "amount IS NULL" : "FALSE"}),
@@ -252,6 +280,21 @@ async function runFundingQuery(dbRows, raw) {
           revision: r.revision,
         },
       };
+    if (
+      c.query.corpus === "agriPayments" &&
+      [
+        ...(c.query.financialYears || []),
+        ...(c.query.compareFinancialYears || []),
+      ].some((y) => !r.yearsAvailable?.includes(y))
+    )
+      return {
+        body: {
+          status: "unavailable",
+          reason: "financial_year_unavailable",
+          query: c.query,
+          yearsAvailable: r.yearsAvailable,
+        },
+      };
     const t = r.totals;
     const periods = c.query.operation === "compare" ? r.comparisons : [t];
     const missing =
@@ -285,13 +328,25 @@ async function runFundingQuery(dbRows, raw) {
             : !periods.some((x) => x.records)
               ? "empty"
               : "success",
-        warnings: [
-          "current_source_snapshot",
-          "cumulative_paid_not_period_cash",
-          "whole_project_geographic_inclusion",
-          "source_double_precision",
-          "current_identity_evidence",
-        ],
+        warnings:
+          c.query.corpus === "agriPayments"
+            ? [
+                "financial_year_not_calendar_year",
+                "annual_records_not_transactions",
+                "source_person_groupings_not_verified_people",
+                "net_published_amounts",
+                "current_identity_evidence",
+                c.query.population === "attributable"
+                  ? "payer_121100421_excluded"
+                  : "gross_source_population",
+              ]
+            : [
+                "current_source_snapshot",
+                "cumulative_paid_not_period_cash",
+                "whole_project_geographic_inclusion",
+                "source_double_precision",
+                "current_identity_evidence",
+              ],
         populationVersion: contract.FUNDING_VERSION,
       },
     };
@@ -382,11 +437,51 @@ async function fundingCapabilities(dbRows) {
       )
         descriptor.amounts.push(amount);
   }
+  const agriProbe = await runFundingQuery(dbRows, {
+    corpus: "agriPayments",
+    entityIds: ["000000000"],
+    limit: 1,
+  });
+  const agriReady = ["success", "partial", "empty"].includes(
+    agriProbe.body.status,
+  );
+  const agriDescriptor = {
+    ...contract.FUNDING_CAPABILITIES.agriPayments,
+    ready: agriReady,
+    dates: agriReady ? ["financialYear"] : [],
+    amounts: [],
+    predicates: agriReady ? ["unidentified"] : [],
+    financialYears: agriProbe.body.yearsAvailable || [],
+    latestAvailableFinancialYear: agriProbe.body.yearsAvailable?.at(-1) || null,
+    geography: ["recipientOblast"],
+  };
+  if (agriReady) {
+    for (const [basis, col] of [
+      ["paid", "total_eur"],
+      ["direct", "dp_eur"],
+      ["market", "market_eur"],
+      ["rural", "rural_eur"],
+    ])
+      if (
+        await probe(
+          `SELECT EXISTS(SELECT 1 FROM agri_subsidies WHERE ${col} IS NOT NULL) AS ready`,
+        )
+      )
+        agriDescriptor.amounts.push(basis);
+    if (await probe("SELECT count(*)>=0 AS ready FROM funding_political_eiks"))
+      agriDescriptor.predicates.push("political");
+    if (
+      await probe(
+        "SELECT EXISTS(SELECT 1 FROM fund_projects) AND EXISTS(SELECT 1 FROM interreg_partners) AS ready",
+      )
+    )
+      agriDescriptor.predicates.push("otherFunding");
+  }
   return {
     body: {
       version: contract.FUNDING_VERSION,
       catalogVersion: contract.FUNDING_CATALOG_VERSION,
-      corpora: { isunProjects: descriptor },
+      corpora: { isunProjects: descriptor, agriPayments: agriDescriptor },
       revision: base.body.revision,
     },
   };
