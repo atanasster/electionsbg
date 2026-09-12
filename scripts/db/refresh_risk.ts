@@ -1,3 +1,4 @@
+import { installProcurementQuery } from "./lib/installProcurementQuery";
 // Refresh the procurement risk caches without running a full loader.
 //
 //   npm run db:refresh:risk          # local
@@ -51,6 +52,7 @@ const main = async () => {
         : "  ⚠ not stamped (112 predates contract_risk_meta)"),
   );
 
+  await installProcurementQuery();
   const [dist] = await allRows<{ summary: string }>(
     `SELECT string_agg(grade || ':' || n, '  ' ORDER BY grade) AS summary
        FROM (SELECT grade, count(*)::text AS n

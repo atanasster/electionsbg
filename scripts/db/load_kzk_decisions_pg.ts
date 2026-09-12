@@ -1,3 +1,4 @@
+import { installProcurementQuery } from "./lib/installProcurementQuery";
 // Load the КЗК decisions corpus into `kzk_decisions` (migration 130).
 //
 //   npm run db:load:kzk-decisions:pg                    (needs `npm run db:pg:up`)
@@ -230,6 +231,7 @@ const main = async (): Promise<void> => {
     });
   });
 
+  await installProcurementQuery();
   const newest = clean.reduce((a, d) => (d.ddate > a ? d.ddate : a), "");
   console.log(
     `✓ kzk_decisions: ${clean.length} acts, newest ${newest}.\n` +

@@ -14,3 +14,7 @@ Implementation decision record for plan step 0. Version `procurement-records-v1`
 Independent fixtures live in `ai/tests/fixtures/procurement-query.json`. Their arithmetic is asserted before serving implementation; production metrics are never hardcoded from the audit snapshot. Road prefixes were checked against the local 2026 tender shards: 45233142 is road repair, 45233161 sidewalks, 45233162 cycle paths and 45233262 pedestrian zones. The broad subject label must therefore include streets, paving and pedestrian/cycle works; “road repair” specifically uses 45233142. Missing/mismatched mapping coverage is unavailable rather than guessed.
 
 Implementation detail: signing-date queries follow `realSignedDate`: a date equal to record date is treated as unavailable because ingestion backfills it. This conservatively excludes genuinely same-day signatures too. Signing-value queries retain the existing current-value fallback and must disclose it.
+
+Tender award-over-estimate follows the existing scorer: awarded sum / estimate strictly greater than 1.10. Equality does not fire. Its SQL projection is checked against the TypeScript scorer at the threshold. The served cache and source-revision stamp rebuild in one SQL snapshot; queries reject a stale source revision.
+
+Open/closed-at-instant queries require publication by that instant and a known deadline. Cancellation is the currently recorded state; the corpus does not reconstruct historical cancellation transitions. Every such response carries this limitation.

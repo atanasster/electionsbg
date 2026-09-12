@@ -50,7 +50,7 @@ Expected counts: **4 complaints, 2 linked appealed procedures, 3 distinct acts**
 
 Set c1 complaint date 2025-12-20 and d1 act date 2026-01-10. A 2026 complaint cohort excludes c1; a 2026 act cohort includes d1. Set c2 `vm_requested=true` and effective suspension false; set c4 raw suspension null/status `спряно производство`, producing effective suspension true. Keep refused c3 unsuspended. Requested and granted measures must remain different counts. Add missing/invalid act-date fixtures and unknown historical act kind. Add a separate mixed/partial act fixture proving that current risk classification cannot establish fully successful complaints, plus protected manual/date-only outcomes that a derived rebuild must leave byte-for-byte unchanged.
 
-Use independent tender-risk fixtures for duration 11/12 days, award delays 0/1/4/5 days, and awarded-to-estimate ratios 1.0999/1.10. Include cancelled/expired/future-deadline tenders, unknown status/deadline, fallback signing dates, zero estimate, multiple awards and consortium member rows. Every published percentage needs the matching availability denominator.
+Use independent tender-risk fixtures for duration 11/12 days, award delays 0/1/4/5 days, and awarded-to-estimate ratios 1.10/1.1001. Include cancelled/expired/future-deadline tenders, unknown status/deadline, fallback signing dates, zero estimate, multiple awards and consortium member rows. Every published percentage needs the matching availability denominator.
 
 ## Acceptance matrix
 
@@ -147,7 +147,7 @@ The following **160 named cases** are minimum acceptance scenarios, including 40
 | D05 | Non-open tender type | Known procedure semantics; unknown is unavailable |
 | D06 | Rushed deadline 11/12 days | Current threshold boundary and competitive tier gating |
 | D07 | Award delay 0/1/4/5 days | Only 1 and 4 fire; genuine dates required |
-| D08 | Award/estimate 1.0999/1.10 | Exact threshold and positive denominator |
+| D08 | Award/estimate 1.10/1.1001 | Exact threshold and positive denominator |
 | D09 | Zero estimate/missing awards/duplicate member | Availability and nonduplicated award amounts |
 | D10 | UNP plus appeal or risk aspect | Detail retains requested aspect |
 | D11 | KZK fixture totals | 4 complaints / 2 linked procedures / 3 acts |

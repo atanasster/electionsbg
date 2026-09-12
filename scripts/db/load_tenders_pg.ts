@@ -1,3 +1,4 @@
+import { installProcurementQuery } from "./lib/installProcurementQuery";
 // Load the tenders (procedures) corpus into Postgres — the tender-stage sibling
 // of load_pg.ts. Full rebuild from the month shards (data/procurement/tenders/
 // YYYY/YYYY-MM.json), which stay the ingest artifact; PG becomes the queryable +
@@ -378,6 +379,7 @@ export const loadTendersPg = async (): Promise<{
   // scan was ever possible for it (5 buffers either way).
   await vacuumAfterReload("tenders", "tender_normalcy_cache");
 
+  await installProcurementQuery();
   return { rows: rows.length, years: [...years].sort() };
 };
 

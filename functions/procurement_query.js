@@ -147,7 +147,7 @@ function compileContractQuery(query) {
       if (bit < 0) throw new ProcurementQueryError("Unknown risk");
       expression = `CASE WHEN (r.available_mask & ${1 << bit}) <> 0 THEN (r.fired_mask & ${1 << bit}) <> 0 ELSE NULL END`;
     } else if (["appealed", "upheld", "suspended"].includes(id))
-      expression = `CASE WHEN c.unp IS NOT NULL AND c.unp <> '' THEN ${appealWhere(id)} ELSE NULL END`;
+      expression = `CASE WHEN c.unp IS NOT NULL AND c.unp <> '' THEN ${appealWhere(id, Boolean(q.relatedCorpus))} ELSE NULL END`;
     else throw new ProcurementQueryError("Unsupported predicate");
     return negated ? `NOT (${expression})` : `(${expression})`;
   }
@@ -263,7 +263,12 @@ function compileContractQuery(query) {
 async function runProcurementQuery(dbRows, raw) {
   let compiled;
   try {
-    compiled = compileContractQuery(raw);
+    const parsed = contract.validateProcurementQuery(raw);
+    if (!parsed.ok)
+      throw new ProcurementQueryError(JSON.stringify(parsed.errors));
+    compiled = ["contracts", "amendments"].includes(parsed.query.corpus)
+      ? compileContractQuery(parsed.query)
+      : require("./procurement_query_corpora").compileOtherQuery(parsed.query);
   } catch (error) {
     if (error instanceof ProcurementQueryError)
       return {
@@ -292,6 +297,11 @@ async function runProcurementQuery(dbRows, raw) {
         ...result,
         query: compiled.query,
         populationVersion: contract.PROCUREMENT_QUERY_VERSION,
+        warnings:
+          compiled.query.status &&
+          ["open", "closed"].includes(compiled.query.status)
+            ? ["current_cancellation_state"]
+            : [],
         status: !result.totals.records
           ? "empty"
           : compiled.requiresRisk && result.totals.evaluable === 0
@@ -301,7 +311,7 @@ async function runProcurementQuery(dbRows, raw) {
     };
   } catch (error) {
     if (
-      ["42P01", "42883", "55000", "42501", "57014", "55P03"].includes(
+      ["42P01", "42703", "42883", "55000", "42501", "57014", "55P03"].includes(
         error.code,
       )
     )
