@@ -1,6 +1,6 @@
 # Funding chat release record
 
-Implementation: all nine steps completed and verified locally, 2026-09-12. No production deployment or paid/live-provider requests have been performed.
+Implementation: all nine steps completed and verified locally, 2026-09-12. Production deployment and representative UI checks subsequently completed on the same date; see the [deployed verification record](ai-funding-chat-deployed-ui-v1.md) for release gates, repairs, results and limits. Scoped AI-mode checks used the deterministic data path; no live model-generation test is claimed.
 
 ## Delivered behavior
 
@@ -32,7 +32,7 @@ The final isolated benchmark exercised 11 query shapes with six samples each, pl
 
 An initial simultaneous build + benchmark + database-suite run hit the 20-second DFZ timeout. The isolated DFZ fixture passed afterward. Performance measurements must therefore be read as local measurements on a shared developer machine, not a production latency guarantee.
 
-## Rollout and rollback
+## Rollout and rollback procedure
 
 1. Apply migration 198 and publish the funding catalog/observation projections atomically using the existing local-tested loader hooks; verify the exact source revision and app_readonly grants on the target environment.
 2. Deploy the compatible generated validators and funding endpoints before enabling capability-gated UI templates. Old/future encodings fail closed.
