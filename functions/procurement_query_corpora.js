@@ -21,6 +21,8 @@ function compileOtherQuery(q) {
     q.minRiskCount !== undefined ||
     q.maxRiskCount !== undefined;
   const terms = [];
+  if(q.actKind)terms.push(q.actKind==="unknown"?"c.kind IS NULL":`c.kind=${bind(q.actKind)}`);
+  if(q.parentQuery) terms.push(q.corpus==="decisions" ? "EXISTS(SELECT 1 FROM kzk_appeals pa JOIN procurement_parent_keys pk ON pk.unp=pa.unp WHERE pa.decision_act_no=c.act_no)" : "EXISTS(SELECT 1 FROM procurement_parent_keys pk WHERE pk.unp=c.unp)");
   const key = tender ? "c.unp" : appeal ? "c.complaint_no" : "c.act_no";
   const dateField = tender
     ? q.dateBasis === "deadline"
@@ -287,9 +289,10 @@ function compileOtherQuery(q) {
   const grouped = groupField
     ? `, groups AS(SELECT ${groupField} AS group_key,${aggregate} FROM scoped WHERE period='primary' GROUP BY ${groupField}), ranked_groups AS(SELECT * FROM groups WHERE ${q.minGroupCountBasis === "evaluable" ? "evaluable" : "records"}>=${bind(q.minGroupCount || 0)} ORDER BY ${q.operation === "trend" ? "group_key ASC" : `${sort} ${order} NULLS LAST,group_key`} LIMIT ${bind(q.limit)} OFFSET ${bind(q.offset)})`
     : "";
-  return {
+  const compiled = {
     query: q,
     requiresRisk: risks,
+    riskCatalogSql:risks ? "(SELECT CASE WHEN revision=(SELECT COALESCE(jsonb_object_agg(resource,generation::text),'{}'::jsonb) FROM procurement_query_revisions WHERE resource IN ('contracts','tenders')) THEN catalog_version END FROM procurement_tender_risk_meta WHERE only_row)" : "NULL::text",
     params,
     sql: `WITH base AS(SELECT ${key} AS key,${subject} AS title,(${date} AT TIME ZONE 'Europe/Sofia')::date::text AS date,${buyer || "NULL::text"} AS buyer_id,${tender ? "c.buyer_name" : appeal ? "c.respondent" : "c.respondent"} AS buyer,${tender ? "c.cpv" : appeal ? "t.cpv" : "NULL::text"} AS cpv,${unp || "NULL::text"} AS unp,
  ${tender ? "c.estimated_value_eur" : "NULL::numeric"} AS amount,${outcome || "NULL::text"} AS outcome,${merits} AS merits,${appeal ? "c.vm_requested" : "NULL::boolean"} AS requested,
@@ -305,5 +308,6 @@ function compileOtherQuery(q) {
  page AS(SELECT key,title,date,buyer_id,buyer,cpv,unp,amount::numeric::text AS amount_eur,outcome,outcome_basis,act_kind,source_url,fired,available,cri,fired_mask,available_mask FROM scoped WHERE period='primary' ${numIds.length ? "AND matched IS TRUE" : ""} ORDER BY ${q.metric === "value" ? `amount ${order} NULLS LAST` : q.metric === "riskCount" ? `fired ${order} NULLS LAST` : "date DESC NULLS LAST"},key LIMIT ${bind(q.limit)} OFFSET ${bind(q.offset)}) ${grouped}
  SELECT jsonb_build_object('totals',(SELECT to_jsonb(t) FROM totals t),'comparison',(SELECT to_jsonb(c) FROM comparison c),'rows',COALESCE((SELECT jsonb_agg(p) FROM page p),'[]'::jsonb),'groups',${groupField ? "COALESCE((SELECT jsonb_agg(g) FROM ranked_groups g),'[]'::jsonb)" : "'[]'::jsonb"},'revision',(SELECT COALESCE(jsonb_object_agg(resource,generation::text),'{}'::jsonb) FROM procurement_query_revisions),'riskCatalog',${risks ? "(SELECT CASE WHEN revision=(SELECT COALESCE(jsonb_object_agg(resource,generation::text),'{}'::jsonb) FROM procurement_query_revisions WHERE resource IN ('contracts','tenders')) THEN catalog_version END FROM procurement_tender_risk_meta WHERE only_row)" : "NULL::text"}) AS result`,
   };
+  return q.parentQuery ? require("./procurement_query_parent").withParentQuery(compiled) : compiled;
 }
 module.exports = { compileOtherQuery };

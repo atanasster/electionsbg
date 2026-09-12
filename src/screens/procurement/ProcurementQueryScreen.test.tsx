@@ -34,12 +34,12 @@ const envelope = (revision = "1", length = 2) => ({
     },
   },
 });
-const mount = () =>
+const mount = (requested = q) =>
   render(
     <MemoryRouter
       initialEntries={[
         "/procurement/query?" +
-          new URLSearchParams({ query: encodeProcurementQuery(q) }),
+          new URLSearchParams({ query: encodeProcurementQuery(requested) }),
       ]}
     >
       <ProcurementQueryScreen />
@@ -102,4 +102,22 @@ it("resolved unavailable envelope offers retry", async () => {
   fireEvent.click(screen.getByRole("button", { name: "Retry" }));
   await screen.findByText("Buyer 0");
   expect(run).toHaveBeenCalledTimes(2);
+});
+
+it("G20 open-now refresh advances the clock even when data revision is unchanged", async () => {
+  const parsed = validateProcurementQuery({
+    corpus: "tenders",
+    status: "open",
+    asOf: "2026-01-01T00:00:00Z",
+  });
+  if (!parsed.ok) throw Error();
+  run.mockResolvedValue(envelope());
+  mount(parsed.query);
+  await screen.findByText("Buyer 0");
+  const before = Date.now();
+  fireEvent.click(screen.getByRole("button", { name: "Refresh open now" }));
+  await waitFor(() => expect(run).toHaveBeenCalledTimes(2));
+  expect(Date.parse(run.mock.calls[1][0].asOf)).toBeGreaterThanOrEqual(before);
+  expect(run.mock.calls[1][0].status).toBe("open");
+  expect(run.mock.calls[1][0].offset).toBe(0);
 });

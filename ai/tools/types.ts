@@ -1,3 +1,5 @@
+import type { ProcurementQuery } from "../../src/lib/procurementQuery";
+import type { ProcurementResult } from "./procurement";
 // Shared types for the AI-chat deterministic tools layer ("Brain 1").
 //
 // Every tool returns a normalized `Envelope`. The renderer maps the envelope to
@@ -121,6 +123,7 @@ export type ClarifyRequest = {
 };
 
 export type Envelope = {
+  procurementBundle?: { query: ProcurementQuery; result: ProcurementResult }[];
   procurement?: {
     query: import("../../src/lib/procurementQuery").ProcurementQuery;
     result: import("./procurement").ProcurementResult;

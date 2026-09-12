@@ -1,6 +1,9 @@
+import { ALL_ELECTIONS } from "../tools/dataset";
+import { parliamentWindow } from "../../src/data/scope/windows";
 import { resolveChainEik } from "../tools/chainIdentity";
 import {
   validateProcurementQuery,
+  encodeProcurementQuery,
   type ProcurementQuery,
   PROCUREMENT_BUYER_SECTORS,
 } from "../../src/lib/procurementQuery";
@@ -9,6 +12,7 @@ import type { ToolArgs, Lang } from "../tools/types";
 export type ProcurementUnderstanding =
   | { kind: "none" }
   | { kind: "query"; query: ProcurementQuery }
+  | { kind: "bundle"; queries: ProcurementQuery[] }
   | {
       kind: "clarification" | "unsupported";
       message: { bg: string; en: string };
@@ -24,7 +28,7 @@ export const PROCUREMENT_RISK_ALIASES: Record<string, RegExp> = {
   pepConnected:
     /длъжностни лица|политически свързан|pep.connected|public officials/i,
   awarderConcentration: /концентраци|concentration/i,
-  amendment: /с анекс|с изменение|with amendments/i,
+  amendment: /(?:с|без) анекс|(?:с|без) изменение|(?:with|without) amendments/i,
   annexGrowth:
     /ръст.*анекс|увеличен.*анекс|голямо увеличение на стойността|large value.increase|annex growth|amendment growth/i,
   newFirmWinner:
@@ -81,13 +85,18 @@ export const isProcurementQuestion = (text: string): boolean => {
     !/(?:зоп|обществен.*поръч|procurement)/i.test(text)
   )
     return false;
-  return /обществен.*поръч|поръчк|договор|анекс|жалб|complaint|процедур|procedure|\btenders?\b|\bcontracts?\b|procurement|\bkzk\b|кзк|\bcpv\b|цпв|търг(?:ове|овете|ът|а)?(?:\s|$|[?.,])/iu.test(
+  return /обществен.*поръч|поръчк|договор|анекс|amendment|жалб|complaint|процедур|procedure|\btenders?\b|\bcontracts?\b|procurement|\bkzk\b|кзк|\bcpv\b|цпв|търг(?:ове|овете|ът|а)?(?:\s|$|[?.,])/iu.test(
     text,
   );
 };
 export function understandProcurement(
   text: string,
-  options: { now?: Date; previous?: ProcurementQuery; lang?: Lang } = {},
+  options: {
+    now?: Date;
+    previous?: ProcurementQuery;
+    lang?: Lang;
+    election?: string;
+  } = {},
 ): ProcurementUnderstanding {
   const original = text.trim();
   if (original.length > 2048)
@@ -96,9 +105,35 @@ export function understandProcurement(
       "The question is too long.",
       "unsupported",
     );
+  const clauses = original
+    .split(/[?;]\s*|\s+(?:и (?=колко)|and (?=how many))/i)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (clauses.length > 1 && clauses.some(isProcurementQuestion)) {
+    if (clauses.length > 2)
+      return fail(
+        "Изберете най-много два въпроса.",
+        "Choose at most two questions.",
+        "unsupported",
+      );
+    const parts = clauses.map((text) =>
+      understandProcurement(text, { ...options, previous: undefined }),
+    );
+    if (parts.every((p) => p.kind === "query"))
+      return {
+        kind: "bundle",
+        queries: parts.map(
+          (p) => (p as { kind: "query"; query: ProcurementQuery }).query,
+        ),
+      };
+    return fail(
+      "Уточнете всеки от двата въпроса отделно.",
+      "Clarify each of the two questions separately.",
+    );
+  }
   const follow =
     Boolean(options.previous) &&
-    /^(?:а\s|и\s|and\s|what about\s|а?\s*(?:за |през )?20\d{2}|покажи ги|изброй ги|show them|list them|по възложител|by buyer|сравни|compare|само |only |без |clear |махни |добави )/i.test(
+    /^(?:а\s|и\s|and\s|what about\s|а?\s*(?:за |през )?20\d{2}|покажи свързан|show their|show linked|покажи ги|изброй ги|show them|list them|по възложител|by buyer|сравни|compare|само |only |без |clear |махни |добави )/i.test(
       original,
     );
   if (!isProcurementQuestion(original) && !follow) return { kind: "none" };
@@ -112,8 +147,32 @@ export function understandProcurement(
       "This tool supports read-only queries.",
       "unsupported",
     );
+  if (
+    /[?;].*\S.*[?;]/.test(original) ||
+    /(?:както е било известно|historical snapshot|окончателно съдебно|legally final|cash payments|реално платени)/i.test(
+      original,
+    )
+  )
+    return fail(
+      "Тази справка изисква отделни въпроси или неподдържани исторически/платежни данни.",
+      "This request needs separate questions or unsupported historical/payment evidence.",
+      "unsupported",
+    );
+  if (
+    /(?:\sи\s|\sand\s).*(?:\sили\s|\sor\s)|(?:\sили\s|\sor\s).*(?:\sи\s|\sand\s)/i.test(
+      original,
+    )
+  )
+    return fail(
+      "Уточнете групирането на условията И/ИЛИ.",
+      "Clarify the grouping of AND/OR conditions.",
+    );
   let s = original
     .toLocaleLowerCase("bg")
+    .replace(/\b\d{1,3}(?:[ \u00a0]\d{3})+(?:,\d+)?\b/g, (m) =>
+      m.replace(/[ \u00a0]/g, ""),
+    )
+    .replace(/(?:не|not)\s+20\d{2}\s*,?\s*(?:а|but)\s+(20\d{2})/g, "$1")
     .replace(/\b(20\d{2})-(\d{2})-(\d{2})\b/g, "$3.$2.$1")
     .replace(/(?:два|двама|two)\s+(участни[а-я]*|bidders)/g, "2 $1");
   for (const [i, names] of MONTHS.entries())
@@ -122,7 +181,7 @@ export function understandProcurement(
         new RegExp(`${name}\\s+(20\\d{2})`, "g"),
         `${pad(i + 1)}/$1`,
       );
-  const q: ToolArgs = follow
+  let q: ToolArgs = follow
     ? { ...options.previous, offset: 0 }
     : { corpus: "contracts" };
   const chain = /метро\s*станц|subway|metro station/i.test(original)
@@ -150,19 +209,32 @@ export function understandProcurement(
   if (primaryKind) q.corpus = primaryKind.corpus;
   else if (/кзк|\bkzk\b/.test(s)) q.corpus = "appeals";
   if (
-    /(?:решения|актове|decisions|acts).*?(?:кзк|kzk)|(?:кзк|kzk).*?(?:решения|актове|decisions|acts)/.test(
+    /(?:решения|актове|акта|определения|разпореждания|decisions|acts|orders).*?(?:кзк|kzk)|(?:кзк|kzk).*?(?:решения|актове|акта|определения|разпореждания|decisions|acts|orders)/.test(
       s,
     )
   )
     q.corpus = "decisions";
   if (
     /анекс|amendment/.test(s) &&
-    !/(?:договор|contract|с анекс|with amendment)/.test(s)
+    !/(?:договор|contract|с анекс|без анекс|with amendment|without amendment)/.test(
+      s,
+    )
   )
     q.corpus = "amendments";
   if (/измененията на договор|contract amendment events/.test(s))
     q.corpus = "amendments";
-  if (follow && q.corpus !== options.previous!.corpus)
+  if (
+    follow &&
+    ["contracts", "tenders"].includes(options.previous!.corpus) &&
+    ["appeals", "decisions"].includes(String(q.corpus)) &&
+    /свързан|тези|тях|their|linked|those/.test(s)
+  ) {
+    q = {
+      corpus: q.corpus,
+      parentQuery: encodeProcurementQuery(options.previous!),
+    };
+  }
+  if (follow && !q.parentQuery && q.corpus !== options.previous!.corpus)
     return fail(
       "Уточнете дали периодът се отнася до процедурата, жалбата или решението.",
       "Specify whether the period applies to the procedure, complaint or decision.",
@@ -174,6 +246,23 @@ export function understandProcurement(
     !PROCUREMENT_RISK_ALIASES.rushedDeadline.test(s)
   )
     q.dateBasis = "deadline";
+  if (q.corpus === "decisions") {
+    if (
+      [/решения|decisions/, /определения|orders/, /разпореждания/].filter(
+        (pattern) => pattern.test(s),
+      ).length > 1 ||
+      /(?:без|не|not|without)\s+(?:решения|decisions|определения|orders|разпореждания)/.test(
+        s,
+      )
+    )
+      return fail(
+        "Изберете един вид акт или всички актове на КЗК.",
+        "Select one act kind or all KZK acts.",
+      );
+    if (/решения|decisions/.test(s)) q.actKind = "решения";
+    else if (/определения|orders/.test(s)) q.actKind = "определения";
+    else if (/разпореждания/.test(s)) q.actKind = "разпореждания";
+  }
   if (/(?:дата на решени|decision date)/.test(s) && q.corpus === "appeals")
     q.dateBasis = "decision";
   if (/процент|дял|percent|share|rate/.test(s)) q.operation = "share";
@@ -287,6 +376,25 @@ export function understandProcurement(
   const predicates: string[] = adding
     ? [...((q.numeratorPredicates as string[]) || [])]
     : [];
+  const amongIndex = s.search(/(?:сред|among)\s+/);
+  const appendPredicate = (id: string, match: RegExpMatchArray) => {
+    const preceding = s.slice(Math.max(0, match.index! - 20), match.index);
+    const value =
+      (/(?:без|не|not|without)\s*$/.test(preceding) ||
+      (id === "risk:amendment" && /^(?:без|without)/.test(match[0]))
+        ? "!"
+        : "") + id;
+    if (amongIndex >= 0 && match.index! > amongIndex) {
+      q.basePredicates = [
+        ...((q.basePredicates as string[]) || []).filter(
+          (p) => p.replace(/^!/, "") !== id,
+        ),
+        value,
+      ];
+      q.baseMode = /\sили\s|\sor\s/.test(s.slice(amongIndex)) ? "any" : "all";
+      if (q.metric === id) delete q.metric;
+    } else predicates.push(value);
+  };
   for (const [id, pattern] of [
     [
       "oneBid",
@@ -302,10 +410,7 @@ export function understandProcurement(
       (id !== "oneBid" || one) &&
       (id !== "upheld" || !PROCUREMENT_RISK_ALIASES.appealUpheld.test(s))
     ) {
-      const preceding = s.slice(Math.max(0, match.index! - 20), match.index);
-      predicates.push(
-        (/(?:без|не|not|without)\s*$/.test(preceding) ? "!" : "") + id,
-      );
+      appendPredicate(id, match);
     }
   }
   for (const [id, pattern] of Object.entries(PROCUREMENT_RISK_ALIASES))
@@ -317,11 +422,7 @@ export function understandProcurement(
         /annex growth|ръст.*анекс|увеличен.*анекс/.test(s)
       )
         continue;
-      const match = s.match(pattern)!;
-      const preceding = s.slice(Math.max(0, match.index! - 12), match.index);
-      predicates.push(
-        (/(?:без|not|without)\s*$/.test(preceding) ? "!" : "") + "risk:" + id,
-      );
+      appendPredicate("risk:" + id, s.match(pattern)!);
     }
   if (predicates.length) {
     q.numeratorPredicates = predicates;
@@ -329,7 +430,11 @@ export function understandProcurement(
       q.metric = "risk";
       if (q.operation === "sum") q.operation = "summary";
     }
-    q.numeratorMode = /\sили\s|\sor\s/.test(s) ? "any" : "all";
+    q.numeratorMode = /\sили\s|\sor\s/.test(
+      amongIndex >= 0 ? s.slice(0, amongIndex) : s,
+    )
+      ? "any"
+      : "all";
   }
   if (/нямат.*връзка|няма.*връзка|unlinked/.test(s)) {
     q.metric = "records";
@@ -346,7 +451,48 @@ export function understandProcurement(
     q.denominator = "positiveKnown";
   if (/оценим|evaluable/.test(s)) q.denominator = "evaluable";
   if (/всички|of all/.test(s)) q.denominator = "all";
-  if (/отменен|отменени|прекратен|cancelled/.test(s)) q.status = "cancelled";
+  if (["appeals", "decisions"].includes(String(q.corpus))) {
+    if (
+      [
+        /отхвърлен|rejected/,
+        /отказан|отказано|refused/,
+        /прекратен|terminated/,
+        /неизвестен изход|unknown outcome|unclassified/,
+        /уважен|upheld/,
+      ].filter((pattern) => pattern.test(s)).length > 1
+    )
+      return fail(
+        "Изберете един изход или отделни въпроси за сравнение.",
+        "Select one outcome or separate questions for comparison.",
+      );
+    const outcome = /отхвърлен|rejected/.test(s)
+      ? "отхвърлена"
+      : /отказан|отказано|refused/.test(s)
+        ? "отказана"
+        : /прекратен|terminated/.test(s)
+          ? "прекратена"
+          : /неизвестен изход|unknown outcome|unclassified/.test(s)
+            ? "unknown"
+            : undefined;
+    if (outcome) {
+      if (
+        /(?:без|не|not|without)\s+(?:отхвърлен|отказан|отказано|прекратен|rejected|refused|terminated|unknown|unclassified)/.test(
+          s,
+        )
+      )
+        return fail(
+          "Уточнете кои изходи да включа; неизвестният изход не е отрицателен резултат.",
+          "Specify which outcomes to include; unknown outcomes are not negative results.",
+        );
+      if (q.operation === "share")
+        return fail(
+          "За този изход е наличен брой/списък; уточнете знаменател за процент.",
+          "Count/list is available for this outcome; specify a denominator for a percentage.",
+        );
+      q.outcome = outcome;
+    }
+  } else if (/отменен|отменени|прекратен|cancelled/.test(s))
+    q.status = "cancelled";
   if (/неотменен|not cancelled/.test(s)) q.status = "notCancelled";
   if (/активни|отворени|open now|open tenders/.test(s)) {
     q.status = "open";
@@ -540,8 +686,10 @@ export function understandProcurement(
     else if (/тази година|this year/.test(s))
       setPeriod(date(year), date(year + 1));
     else if (/последните 12 месеца|last 12 months/.test(s)) {
-      const start = new Date(today + "T00:00:00Z");
+      const start = new Date(nextDay(today) + "T00:00:00Z");
+      const month = start.getUTCMonth();
       start.setUTCFullYear(start.getUTCFullYear() - 1);
+      if (start.getUTCMonth() !== month) start.setUTCDate(0);
       setPeriod(start.toISOString().slice(0, 10), nextDay(today));
     } else {
       const month = s.match(/(\d{1,2})\/(20\d{2})/),
@@ -587,11 +735,13 @@ export function understandProcurement(
     delete q.from;
     delete q.toExclusive;
   }
-  if (/за този парламент|this parliament/.test(s))
-    return fail(
-      "Посочете начална и крайна дата за парламентарния период.",
-      "Specify the start and end dates of the parliamentary period.",
+  if (/за този парламент|this parliament/.test(s)) {
+    const window = parliamentWindow(
+      ALL_ELECTIONS,
+      options.election || ALL_ELECTIONS[0].name,
     );
+    setPeriod(window.from || undefined, window.to || undefined);
+  }
   if (/махни.*период|clear.*period|всички години|all years/.test(s))
     setPeriod();
   if (/махни.*сектор|clear.*sector/.test(s)) {
@@ -722,6 +872,44 @@ export function understandProcurement(
   ) {
     q.operation = "methodology";
     if (q.metric === "risk" && !q.numeratorPredicates) q.metric = "records";
+  }
+  const allPredicates = [
+    ...predicates,
+    ...((q.basePredicates as string[]) || []),
+  ];
+  if (
+    q.corpus === "contracts" &&
+    allPredicates.some((p) => p.replace(/^!/, "") === "risk:amendment")
+  ) {
+    if (allPredicates.some((p) => p !== "risk:amendment"))
+      return fail(
+        "Този анексен показател описва отделни изменения, а не договори със или без анекс. Уточнете отделна справка за измененията.",
+        "This amendment indicator describes amendment events, not contracts with or without amendments. Specify a separate amendment-event query.",
+      );
+    const event = validateProcurementQuery({
+      ...q,
+      corpus: "amendments",
+      metric: "records",
+      numeratorPredicates: undefined,
+      basePredicates: undefined,
+      numeratorMode: undefined,
+      operation: q.operation === "share" ? "count" : q.operation || "list",
+    });
+    return {
+      kind: "clarification",
+      message: {
+        bg: "Показателят отчита анексни записи, а не основни договори с анекс. Да покажем измененията?",
+        en: "This indicator counts amendment records, not base contracts with amendments. Show amendment events?",
+      },
+      options: event.ok
+        ? [
+            {
+              label: { bg: "Изменения на договори", en: "Amendment events" },
+              query: event.query,
+            },
+          ]
+        : [],
+    };
   }
   const parsed = validateProcurementQuery(q);
   return parsed.ok

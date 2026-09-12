@@ -1,6 +1,6 @@
 # Procurement chat: implementation plan
 
-Status: proposed, 2026-09-12. This document specifies future work; application behavior has not been changed. Read with the [code audit](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-audit-v1.md) and [test and prompt specification](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-tests-prompts-v1.md).
+Status: implemented locally, 2026-09-12; release verification is recorded in [the release record](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-release-v1.md). This document retains the original design requirements; the release record identifies concrete implementation choices and deployment limits. Read with the [code audit](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-audit-v1.md) and [test and prompt specification](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-tests-prompts-v1.md).
 
 Plan review incorporated on 2026-09-12: the query representation, deployment boundary, KZK evidence semantics, query/history lifecycle and release gates below include the second-pass corrections. The audit records the gaps and their disposition.
 
@@ -171,7 +171,7 @@ Use [riskFlagCatalog.ts](/Users/atanasster/data-bg/src/lib/riskFlagCatalog.ts) f
 | `nonOpenProcedure` | Tender check using known procedure type; no invented “competition” for missing types. |
 | `rushedDeadline` | Tender competitive tiers only, valid duration below 12 days according to the current catalog. |
 | `shortDecisionPeriod` | Tender award-dependent check: earliest genuine signing date after deadline, 1–4 days inclusive; preserve rejection of fallback dates/day zero. |
-| `awardOverEstimate` | Tender award-dependent check: aggregate awarded value at least 110% of positive estimate; count/amount attribution prevents duplicated consortium value. |
+| `awardOverEstimate` | Tender award-dependent check: aggregate awarded value strictly greater than 110% of positive estimate; count/amount attribution prevents duplicated consortium value. |
 
 Expose available/fired/unavailable counts for every requested check. SQL mask checks must reference stable catalog IDs/positions and served `contract_risk_meta`, not simply the newest bundled catalog version. Missing/stale incompatible risk caches produce capability-unavailable status until rebuilt. Never change bit meanings in place.
 

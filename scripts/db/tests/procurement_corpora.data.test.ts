@@ -8,6 +8,7 @@ import fixture from "../../../ai/tests/fixtures/procurement-query.json";
 const require = createRequire(import.meta.url);
 const {
   validateProcurementQuery,
+  encodeProcurementQuery,
 } = require("../../../functions/generated/procurement_query");
 const {
   compileOtherQuery,
@@ -139,6 +140,62 @@ test.skipIf(Boolean(skip))(
             }>(built.sql, built.params)
           ).rows[0].result;
         };
+        const parent = validateProcurementQuery({
+          corpus: "tenders",
+          cpvPrefixes: ["33"],
+          from: "2026-01-01",
+          toExclusive: "2027-01-01",
+          limit: 1,
+        });
+        expect(parent.ok).toBe(true);
+        const parentQuery = encodeProcurementQuery(parent.query);
+        const linked = await run({ corpus: "appeals", parentQuery });
+        expect(linked.totals.records).toBe(2);
+        expect(
+          (
+            await run({
+              corpus: "appeals",
+              parentQuery,
+              from: "2026-01-01",
+              toExclusive: "2027-01-01",
+            })
+          ).totals.records,
+        ).toBe(1);
+        expect(
+          (await run({ corpus: "decisions", parentQuery })).totals.records,
+        ).toBe(1);
+        await client.query("UPDATE tenders SET cpv='33100000' WHERE unp='t2'");
+        expect(
+          (await run({ corpus: "appeals", parentQuery })).totals.records,
+        ).toBe(3);
+        await client.query("UPDATE tenders SET cpv='45233100' WHERE unp='t2'");
+        const riskParent = validateProcurementQuery({
+          corpus: "tenders",
+          basePredicates: ["risk:rushedDeadline"],
+          from: "2026-01-01",
+          toExclusive: "2027-01-01",
+        });
+        expect(riskParent.ok).toBe(true);
+        const child = {
+          corpus: "appeals",
+          parentQuery: encodeProcurementQuery(riskParent.query),
+        };
+        const service =
+          require("../../../functions/procurement_query").runProcurementQuery;
+        const dbRows = async (sql: string, params: unknown[]) =>
+          (await client.query(sql, params)).rows;
+        await client.query(
+          "UPDATE procurement_tender_risk_cache SET available_mask=0,available=0",
+        );
+        expect((await service(dbRows, child)).body.status).toBe("unavailable");
+        await client.query(
+          "UPDATE procurement_tender_risk_cache SET available_mask=15,available=4 WHERE unp='t1'",
+        );
+        const partial = await service(dbRows, child);
+        expect(partial.body.status).toBe("partial");
+        expect(partial.body.parentRecords).toBe(3);
+        expect(partial.body.parentEvaluable).toBe(1);
+        await client.query("SELECT rebuild_procurement_tender_risk()");
         const masks = (
           await client.query<{
             unp: string;
@@ -265,6 +322,18 @@ test.skipIf(Boolean(skip))(
           unlinked: 1,
           linked_procedures: 2,
         });
+        expect(
+          (await run({ corpus: "decisions", actKind: "решения" })).totals
+            .records,
+        ).toBe(1);
+        expect(
+          (await run({ corpus: "decisions", actKind: "определения" })).totals
+            .records,
+        ).toBe(1);
+        expect(
+          (await run({ corpus: "decisions", actKind: "unknown" })).totals
+            .records,
+        ).toBe(1);
         expect(
           (await run({ corpus: "decisions", buyerIds: ["123456789"] })).totals
             .records,

@@ -1,6 +1,6 @@
 # Procurement chat: tests and prompt catalog
 
-Status: proposed acceptance specification, 2026-09-12. These are tests to implement, not tests reported as already passing. See the [implementation plan](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-implementation-v1.md) and [executed audit checks](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-audit-v1.md).
+Status: acceptance specification, 2026-09-12. Executed suites and limitations are recorded in [the release record](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-release-v1.md). The 160 named cases are a design matrix, not an assertion that 160 separately identified automated cases passed. See the [implementation plan](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-implementation-v1.md) and [executed audit checks](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-audit-v1.md).
 
 ## Independent fixture oracle
 

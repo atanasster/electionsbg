@@ -3,13 +3,14 @@ import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   decodeProcurementQuery,
+  encodeProcurementQuery,
   validateProcurementQuery,
 } from "@/lib/procurementQuery";
 import { procurementPageCsv } from "@/lib/procurementExport";
 import { procurementQuery } from "../../../ai/tools/procurement";
 import type { Envelope } from "../../../ai/tools/types";
 export const ProcurementQueryScreen = () => {
-  const [params] = useSearchParams(),
+  const [params, setParams] = useSearchParams(),
     { i18n } = useTranslation(),
     lang = i18n.language.startsWith("bg") ? "bg" : "en",
     bg = lang === "bg";
@@ -115,6 +116,26 @@ export const ProcurementQueryScreen = () => {
           (bg ? "Обществени поръчки — справка" : "Procurement query")}
       </h1>
       <p>{env?.subtitle}</p>
+      {decoded.query.status === "open" && (
+        <button
+          disabled={busy}
+          onClick={() => {
+            const next = new URLSearchParams(params);
+            next.set(
+              "query",
+              encodeProcurementQuery({
+                ...decoded.query,
+                offset: 0,
+                asOf: new Date().toISOString(),
+              }),
+            );
+            next.delete("revision");
+            setParams(next);
+          }}
+        >
+          {bg ? "Обнови отворените към момента" : "Refresh open now"}
+        </button>
+      )}
       {updated && (
         <p role="status">
           {bg

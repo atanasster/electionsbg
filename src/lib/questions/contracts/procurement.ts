@@ -73,8 +73,8 @@ const base: Template[] = [
   },
   {
     id: "decisions",
-    bg: "Колко решения на КЗК има през {year}?",
-    en: "How many KZK decisions in {year}?",
+    bg: "Колко акта на КЗК има през {year}?",
+    en: "How many KZK acts in {year}?",
     query: { corpus: "decisions", operation: "count" },
   },
   {
@@ -138,6 +138,13 @@ const base: Template[] = [
 export const PROCUREMENT_TEMPLATES: Template[] = [
   ...base,
   ...Object.entries(PROCUREMENT_RISK_WORDS).map(([id, words]) => {
+    if (id === "amendment")
+      return {
+        id: "risk-amendment",
+        bg: "Покажи анекси през {year}",
+        en: "Show amendment events in {year}",
+        query: { corpus: "amendments", operation: "list", metric: "records" },
+      };
     const tender = [
       "nonOpenProcedure",
       "rushedDeadline",

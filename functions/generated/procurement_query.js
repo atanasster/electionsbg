@@ -2621,6 +2621,7 @@ var PROCUREMENT_FIELDS = {
   valueBasis: text(["current", "signing", "estimate"]),
   procedure: text(),
   status: text(["all", "cancelled", "notCancelled", "open", "closed"]),
+  actKind: text(["\u0440\u0435\u0448\u0435\u043D\u0438\u044F", "\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F", "\u0440\u0430\u0437\u043F\u043E\u0440\u0435\u0436\u0434\u0430\u043D\u0438\u044F", "unknown"]),
   outcome: text(["\u0443\u0432\u0430\u0436\u0435\u043D\u0430", "\u043E\u0442\u0445\u0432\u044A\u0440\u043B\u0435\u043D\u0430", "\u043F\u0440\u0435\u043A\u0440\u0430\u0442\u0435\u043D\u0430", "\u043E\u0442\u043A\u0430\u0437\u0430\u043D\u0430", "unknown"]),
   funding: text(["eu", "notEu", "unknown"]),
   framework: text(["yes", "no", "unknown"]),
@@ -2630,6 +2631,7 @@ var PROCUREMENT_FIELDS = {
   minGroupCountBasis: text(["population", "evaluable"]),
   limit: number(1, 100),
   offset: number(0, 1e4),
+  parentQuery: text(),
   relatedCorpus: text(["appeals", "decisions"]),
   relatedFrom: text(),
   relatedToExclusive: text(),
@@ -2689,7 +2691,7 @@ function validateProcurementQuery(raw) {
         errors[key] = "invalid list";
       else if (value.length)
         args[key] = [...new Set(value.map((v) => v.trim()))].sort();
-    } else if (typeof value !== "string" || !validUnicode(value) || !value.trim() || value.length > 256 || field.values && !field.values.includes(value))
+    } else if (typeof value !== "string" || !validUnicode(value) || !value.trim() || value.length > (key === "parentQuery" ? 8e3 : 256) || field.values && !field.values.includes(value))
       errors[key] = "invalid value";
     else args[key] = value.trim();
   }
@@ -2697,6 +2699,24 @@ function validateProcurementQuery(raw) {
     errors.corpus = "corpus required";
   const corpus = args.corpus ?? "contracts";
   if (errors.corpus) return { ok: false, errors };
+  if (args.parentQuery) {
+    try {
+      const rawParent = JSON.parse(
+        decodeURIComponent(String(args.parentQuery))
+      );
+      if (rawParent.parentQuery || !["contracts", "tenders"].includes(rawParent.corpus) || !["appeals", "decisions", "tenders"].includes(corpus) || rawParent.corpus === corpus || rawParent.groupBy || rawParent.minGroupCount || ["compare", "methodology", "rank", "trend"].includes(
+        rawParent.operation
+      ))
+        throw Error();
+      const parent = validateProcurementQuery(rawParent);
+      if (!parent.ok) throw Error();
+      args.parentQuery = encodeURIComponent(procurementQueryKey(parent.query));
+    } catch {
+      errors.parentQuery = "invalid or unsupported parent cohort";
+    }
+  }
+  if (args.actKind && corpus !== "decisions")
+    errors.actKind = "act kind requires decisions corpus";
   args.version ??= PROCUREMENT_QUERY_VERSION;
   args.operation ??= "summary";
   args.metric ??= args.operation === "sum" ? "value" : "records";

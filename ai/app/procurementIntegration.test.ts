@@ -48,7 +48,9 @@ it("followups and links preserve scope and numerator", () => {
       result: { status: "success", revision: { contracts: "7" } },
     },
   };
-  for (const follow of procurementContinuations(env))
+  for (const follow of procurementContinuations(env).filter(
+    (f) => !f.intent?.args.parentQuery,
+  ))
     expect(follow.intent?.args).toMatchObject({
       from: "2026-01-01",
       subjectSectors: ["roads"],

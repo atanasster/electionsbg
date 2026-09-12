@@ -1,0 +1,263 @@
+{
+  "environment": "Local PostgreSQL, current working database; warm cache measurements, not production p95",
+  "targetMs": 2000,
+  "results": [
+    {
+      "name": "contracts-one-bid",
+      "firstMs": 10865,
+      "warmMs": [
+        992,
+        625,
+        182,
+        213,
+        178,
+        182,
+        211,
+        222,
+        235,
+        376
+      ],
+      "warmP95Ms": 992,
+      "totals": {
+        "one_bid": 12177,
+        "records": 25089,
+        "mean_cri": null,
+        "evaluable": 24652,
+        "last_date": "2026-09-10",
+        "numerator": 12177,
+        "value_eur": "9092539793.89",
+        "zero_bids": 434,
+        "first_date": "2026-01-03",
+        "invalid_bids": 0,
+        "missing_bids": 3,
+        "missing_risk": 25089,
+        "missing_value": 5,
+        "positive_known": 24652,
+        "mean_risk_count": null,
+        "numerator_value_eur": "5022655592.58"
+      },
+      "revision": {
+        "tenders": "0",
+        "contracts": "0",
+        "kzk_appeals": "0",
+        "kzk_decisions": "0",
+        "contract_risk_cache": "0"
+      }
+    },
+    {
+      "name": "contracts-direct",
+      "firstMs": 2154,
+      "warmMs": [
+        454,
+        214,
+        378,
+        283,
+        231,
+        323,
+        269,
+        271,
+        217,
+        254
+      ],
+      "warmP95Ms": 454,
+      "totals": {
+        "one_bid": 12177,
+        "records": 25089,
+        "mean_cri": "7.4517119056160070",
+        "evaluable": 25089,
+        "last_date": "2026-09-10",
+        "numerator": 3972,
+        "value_eur": "9092539793.89",
+        "zero_bids": 434,
+        "first_date": "2026-01-03",
+        "invalid_bids": 0,
+        "missing_bids": 3,
+        "missing_risk": 0,
+        "missing_value": 5,
+        "positive_known": 24652,
+        "mean_risk_count": "0.74861493084618757224",
+        "numerator_value_eur": "1272297003.57"
+      },
+      "revision": {
+        "tenders": "0",
+        "contracts": "0",
+        "kzk_appeals": "0",
+        "kzk_decisions": "0",
+        "contract_risk_cache": "0"
+      }
+    },
+    {
+      "name": "tenders",
+      "firstMs": 1172,
+      "warmMs": [
+        121,
+        121,
+        167,
+        133,
+        158,
+        120,
+        107,
+        107,
+        92,
+        96
+      ],
+      "warmP95Ms": 167,
+      "totals": {
+        "merits": 0,
+        "upheld": 0,
+        "records": 13792,
+        "refused": 0,
+        "rejected": 0,
+        "unlinked": 0,
+        "evaluable": 13792,
+        "last_date": "2026-09-10",
+        "numerator": 13792,
+        "value_eur": "9611239118.97",
+        "first_date": "2026-01-02",
+        "terminated": 0,
+        "missing_value": 5,
+        "mean_risk_count": null,
+        "unknown_outcome": 13792,
+        "interim_requested": 0,
+        "linked_procedures": 13792
+      },
+      "revision": {
+        "tenders": "0",
+        "contracts": "0",
+        "kzk_appeals": "0",
+        "kzk_decisions": "0",
+        "contract_risk_cache": "0"
+      }
+    },
+    {
+      "name": "tenders-risk",
+      "firstMs": 612,
+      "warmMs": [
+        160,
+        131,
+        116,
+        150,
+        245,
+        285,
+        223,
+        185,
+        149,
+        159
+      ],
+      "warmP95Ms": 285,
+      "totals": {
+        "merits": 0,
+        "upheld": 0,
+        "records": 13792,
+        "refused": 0,
+        "rejected": 0,
+        "unlinked": 0,
+        "evaluable": 8406,
+        "last_date": "2026-09-10",
+        "numerator": 56,
+        "value_eur": "9611239118.97",
+        "first_date": "2026-01-02",
+        "terminated": 0,
+        "missing_value": 5,
+        "mean_risk_count": "0.17285382830626450116",
+        "unknown_outcome": 13792,
+        "interim_requested": 0,
+        "linked_procedures": 13792
+      },
+      "revision": {
+        "tenders": "0",
+        "contracts": "0",
+        "kzk_appeals": "0",
+        "kzk_decisions": "0",
+        "contract_risk_cache": "0"
+      }
+    },
+    {
+      "name": "complaints",
+      "firstMs": 338,
+      "warmMs": [
+        15,
+        16,
+        18,
+        16,
+        20,
+        21,
+        17,
+        19,
+        16,
+        22
+      ],
+      "warmP95Ms": 22,
+      "totals": {
+        "merits": 230,
+        "upheld": 67,
+        "records": 932,
+        "refused": 154,
+        "rejected": 163,
+        "unlinked": 20,
+        "evaluable": 230,
+        "last_date": "2026-09-04",
+        "numerator": 67,
+        "value_eur": null,
+        "first_date": "2026-01-05",
+        "terminated": 0,
+        "missing_value": 932,
+        "mean_risk_count": null,
+        "unknown_outcome": 548,
+        "interim_requested": 149,
+        "linked_procedures": 689
+      },
+      "revision": {
+        "tenders": "0",
+        "contracts": "0",
+        "kzk_appeals": "0",
+        "kzk_decisions": "0",
+        "contract_risk_cache": "0"
+      }
+    },
+    {
+      "name": "decisions",
+      "firstMs": 219,
+      "warmMs": [
+        21,
+        22,
+        24,
+        23,
+        22,
+        24,
+        27,
+        21,
+        21,
+        25
+      ],
+      "warmP95Ms": 27,
+      "totals": {
+        "merits": 63,
+        "upheld": 45,
+        "records": 737,
+        "refused": 0,
+        "rejected": 115,
+        "unlinked": 577,
+        "evaluable": 737,
+        "last_date": "2026-08-20",
+        "numerator": 737,
+        "value_eur": null,
+        "first_date": "2026-01-15",
+        "terminated": 0,
+        "missing_value": 737,
+        "mean_risk_count": null,
+        "unknown_outcome": 577,
+        "interim_requested": 0,
+        "linked_procedures": 158
+      },
+      "revision": {
+        "tenders": "0",
+        "contracts": "0",
+        "kzk_appeals": "0",
+        "kzk_decisions": "0",
+        "contract_risk_cache": "0"
+      }
+    }
+  ],
+  "concurrentThreeMs": 663
+}

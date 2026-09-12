@@ -371,6 +371,21 @@
       }
     },
     {
+      "name": "actKind",
+      "type": "text",
+      "required": false,
+      "values": [
+        "решения",
+        "определения",
+        "разпореждания",
+        "unknown"
+      ],
+      "description": {
+        "bg": "actKind",
+        "en": "actKind"
+      }
+    },
+    {
       "name": "outcome",
       "type": "text",
       "required": false,
@@ -488,6 +503,15 @@
       "description": {
         "bg": "offset",
         "en": "offset"
+      }
+    },
+    {
+      "name": "parentQuery",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "parentQuery",
+        "en": "parentQuery"
       }
     },
     {

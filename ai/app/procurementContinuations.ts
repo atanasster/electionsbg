@@ -1,5 +1,6 @@
 import {
   validateProcurementQuery,
+  encodeProcurementQuery,
   procurementQueryKey,
 } from "../../src/lib/procurementQuery";
 import type { Envelope } from "../tools/types";
@@ -53,13 +54,36 @@ export function procurementContinuations(env: Envelope): Suggestion[] {
       },
     },
   ];
+  if (
+    ["contracts", "tenders"].includes(original.corpus) &&
+    !original.parentQuery &&
+    !original.groupBy &&
+    original.operation !== "compare"
+  )
+    variants.push({
+      bg: "Покажи свързаните жалби",
+      en: "Show linked complaints",
+      patch: {
+        operation: "list",
+        groupBy: undefined,
+        compareFrom: undefined,
+        compareToExclusive: undefined,
+      },
+    });
   const seen = new Set([procurementQueryKey(original)]);
   return variants.flatMap((v) => {
-    const args = Object.fromEntries(
-      Object.entries({ ...original, ...v.patch, offset: 0 }).filter(
-        ([, v]) => v !== undefined,
-      ),
-    );
+    const parentHop = v.en === "Show linked complaints";
+    const args = parentHop
+      ? {
+          corpus: "appeals",
+          operation: "list",
+          parentQuery: encodeProcurementQuery(original),
+        }
+      : Object.fromEntries(
+          Object.entries({ ...original, ...v.patch, offset: 0 }).filter(
+            ([, v]) => v !== undefined,
+          ),
+        );
     const parsed = validateProcurementQuery(args);
     if (!parsed.ok) return [];
     const key = procurementQueryKey(parsed.query);

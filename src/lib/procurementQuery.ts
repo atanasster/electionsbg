@@ -161,6 +161,7 @@ export const PROCUREMENT_FIELDS: Record<string, QueryField> = {
   valueBasis: text(["current", "signing", "estimate"]),
   procedure: text(),
   status: text(["all", "cancelled", "notCancelled", "open", "closed"]),
+  actKind: text(["решения", "определения", "разпореждания", "unknown"]),
   outcome: text(["уважена", "отхвърлена", "прекратена", "отказана", "unknown"]),
   funding: text(["eu", "notEu", "unknown"]),
   framework: text(["yes", "no", "unknown"]),
@@ -170,6 +171,7 @@ export const PROCUREMENT_FIELDS: Record<string, QueryField> = {
   minGroupCountBasis: text(["population", "evaluable"]),
   limit: number(1, 100),
   offset: number(0, 10000),
+  parentQuery: text(),
   relatedCorpus: text(["appeals", "decisions"]),
   relatedFrom: text(),
   relatedToExclusive: text(),
@@ -206,6 +208,7 @@ export interface ProcurementQuery extends ProcurementWireArgs {
   compareToExclusive?: string;
   relatedFrom?: string;
   relatedToExclusive?: string;
+  parentQuery?: string;
   relatedCorpus?: "appeals" | "decisions";
   topic?: string;
   keyword?: string;
@@ -308,7 +311,7 @@ export function validateProcurementQuery(raw: unknown): ProcurementValidation {
       typeof value !== "string" ||
       !validUnicode(value) ||
       !value.trim() ||
-      value.length > 256 ||
+      value.length > (key === "parentQuery" ? 8000 : 256) ||
       (field.values && !field.values.includes(value))
     )
       errors[key] = "invalid value";
@@ -318,6 +321,32 @@ export function validateProcurementQuery(raw: unknown): ProcurementValidation {
     errors.corpus = "corpus required";
   const corpus = (args.corpus ?? "contracts") as ProcurementCorpus;
   if (errors.corpus) return { ok: false, errors };
+  if (args.parentQuery) {
+    try {
+      const rawParent = JSON.parse(
+        decodeURIComponent(String(args.parentQuery)),
+      );
+      if (
+        rawParent.parentQuery ||
+        !["contracts", "tenders"].includes(rawParent.corpus) ||
+        !["appeals", "decisions", "tenders"].includes(corpus) ||
+        rawParent.corpus === corpus ||
+        rawParent.groupBy ||
+        rawParent.minGroupCount ||
+        ["compare", "methodology", "rank", "trend"].includes(
+          rawParent.operation,
+        )
+      )
+        throw Error();
+      const parent = validateProcurementQuery(rawParent);
+      if (!parent.ok) throw Error();
+      args.parentQuery = encodeURIComponent(procurementQueryKey(parent.query));
+    } catch {
+      errors.parentQuery = "invalid or unsupported parent cohort";
+    }
+  }
+  if (args.actKind && corpus !== "decisions")
+    errors.actKind = "act kind requires decisions corpus";
   args.version ??= PROCUREMENT_QUERY_VERSION;
   args.operation ??= "summary";
   args.metric ??= args.operation === "sum" ? "value" : "records";

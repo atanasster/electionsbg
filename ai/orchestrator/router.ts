@@ -5163,7 +5163,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return legacyProcurement;
-  const procurement = understandProcurement(question);
+  const procurement = understandProcurement(question, {
+    election: ctx.election,
+  });
   if (procurement.kind === "query") {
     if (
       legacyProcurement?.tool === "openTenders" &&

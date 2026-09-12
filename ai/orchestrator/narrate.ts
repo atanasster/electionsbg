@@ -21,7 +21,7 @@ const seriesScope = (e: Envelope, lang: Lang): string => {
 export const narrate = (env: Envelope, lang: Lang): string => {
   if (env.clarify) return env.clarify.prompt;
   if (["procurementQuery", "procurementQuestion"].includes(env.tool))
-    return `${f(env, "answer")} ${f(env, "scope")}`.trim();
+    return `${f(env, "answer")} ${f(env, "scope")} ${f(env, "coverage_note")}`.trim();
   if (
     ["municipalityResults", "regionResults"].includes(env.tool) &&
     env.facts.turnout &&

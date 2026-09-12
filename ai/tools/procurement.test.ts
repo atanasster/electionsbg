@@ -139,3 +139,32 @@ it("empty groups stay empty even with raw rows", async () => {
   );
   expect(env.rows).toEqual([]);
 });
+it("G10 executes two bounded queries with distinct scope and status", async () => {
+  fetchDb
+    .mockResolvedValueOnce({
+      status: "success",
+      totals: { records: 6, numerator: 6 },
+    })
+    .mockResolvedValueOnce({ status: "unavailable" });
+  const env = await procurementQuestion(
+    { question: "Колко договори през 2025? Колко жалби по ЗОП през 2026?" },
+    ctx,
+  );
+  expect(env.procurementBundle?.map((p) => p.query.corpus)).toEqual([
+    "contracts",
+    "appeals",
+  ]);
+  expect(env.procurementBundle?.map((p) => p.result.status)).toEqual([
+    "success",
+    "unavailable",
+  ]);
+  expect(fetchDb).toHaveBeenCalledTimes(2);
+});
+
+it("negated recorded outcome never executes its positive filter", async () => {
+  await procurementQuestion(
+    { question: "Покажи жалби по ЗОП без отказан изход през 2026" },
+    ctx,
+  );
+  expect(fetchDb).not.toHaveBeenCalled();
+});

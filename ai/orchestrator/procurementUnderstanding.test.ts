@@ -27,7 +27,7 @@ describe("procurement interpretation", () => {
     ["Търгове Q2 2026", "2026-04-01", "2026-07-01"],
     ["Търгове второ тримесечие 2026", "2026-04-01", "2026-07-01"],
     ["Contracts last year", "2025-01-01", "2026-01-01"],
-    ["Contracts last 12 months", "2025-09-12", "2026-09-13"],
+    ["Contracts last 12 months", "2025-09-13", "2026-09-13"],
     ["Договори на 29.02.2024", "2024-02-29", "2024-03-01"],
     ["Договори от април 2025", "2025-04-01", undefined],
     ["Договори до януари 2026", undefined, "2026-02-01"],
@@ -228,6 +228,10 @@ it.each([
     (tender ? "Tenders " : "Contracts ") + en,
   ]) {
     const r = route(text, ctx);
+    if (id === "amendment") {
+      expect(r?.tool).toBe("procurementQuestion");
+      continue;
+    }
     if (r?.tool === "openTenders") {
       const decoded = decodeProcurementQuery(String(r.args.canonical));
       expect(decoded.ok, text).toBe(true);
@@ -250,3 +254,149 @@ it("invalid saved scope cannot become an unscoped follow-up", () => {
     args: { previous: "invalid-saved-scope" },
   });
 });
+it("G05 correction replaces the rejected year", () =>
+  expect(query("Договори не 2026, а 2025").from).toBe("2025-01-01"));
+it("A17 selected parliament uses the existing window", () => {
+  const result = understandProcurement("Договори за този парламент", {
+    now,
+    election: "2024_06_09",
+  });
+  expect(result).toMatchObject({
+    kind: "query",
+    query: { from: "2024-06-09", toExclusive: "2024-10-27" },
+  });
+});
+it("E13/G03 linked complaints carry a portable parent cohort", () => {
+  const previous = query("Покажи търгове за медицинско оборудване през 2026");
+  const result = understandProcurement("Покажи свързаните жалби", {
+    previous,
+    now,
+  });
+  expect(result.kind).toBe("query");
+  if (result.kind !== "query") throw Error();
+  expect(result.query.corpus).toBe("appeals");
+  expect(result.query.from).toBeUndefined();
+  expect(decodeProcurementQuery(result.query.parentQuery!)).toEqual({
+    ok: true,
+    query: previous,
+  });
+});
+it("G07 nested Boolean intent requires grouping clarification", () =>
+  expect(
+    understandProcurement(
+      "Договори с 1 участник и пряко възлагане или слаба конкуренция през 2026",
+    ).kind,
+  ).toBe("clarification"));
+it("C03 among-direct-awards is a base filter rather than a numerator", () => {
+  const q = query(
+    "Процент договори с 1 участник сред пряко възлагане през 2026",
+  );
+  expect(q.basePredicates).toEqual(["risk:directAward"]);
+  expect(q.numeratorPredicates).toEqual(["oneBid"]);
+});
+it("G10 two questions stay separate and three require selection", () => {
+  const r = understandProcurement(
+    "Колко договори през 2025? Колко жалби по ЗОП през 2026?",
+    { now },
+  );
+  expect(r.kind).toBe("bundle");
+  if (r.kind === "bundle")
+    expect(r.queries.map((q) => [q.corpus, q.from])).toEqual([
+      ["contracts", "2025-01-01"],
+      ["appeals", "2026-01-01"],
+    ]);
+  expect(
+    understandProcurement(
+      "Договори през 2025? Търгове през 2026? Жалби през 2026?",
+    ).kind,
+  ).toBe("unsupported");
+});
+it.each([
+  [
+    "Процент договори с 1 участник сред договори без пряко възлагане през 2026",
+    ["!risk:directAward"],
+    ["oneBid"],
+  ],
+  [
+    "Процент договори с пряко възлагане сред договорите с 1 участник през 2026",
+    ["oneBid"],
+    ["risk:directAward"],
+  ],
+])(
+  "base and numerator retain independent conditions: %s",
+  (text, base, numerator) => {
+    const q = query(text);
+    expect(q.basePredicates).toEqual(base);
+    expect(q.numeratorPredicates).toEqual(numerator);
+  },
+);
+it("amendment base conditions require explicit interpretation", () => {
+  expect(
+    understandProcurement(
+      "Процент договори с 1 участник сред договори с анекс през 2026",
+    ).kind,
+  ).toBe("clarification");
+  expect(
+    understandProcurement("Contracts without amendments in 2026").kind,
+  ).toBe("clarification");
+});
+
+it.each([
+  ["Колко решения на КЗК през 2026", "решения"],
+  ["How many KZK decisions in 2026", "решения"],
+  ["Колко определения на КЗК през 2026", "определения"],
+  ["Колко акта на КЗК през 2026", undefined],
+])("KZK act kind is explicit: %s", (text, actKind) => {
+  const q = query(text);
+  expect(q.corpus).toBe("decisions");
+  expect(q.actKind).toBe(actKind);
+});
+it.each([
+  ["Колко отхвърлени жалби по ЗОП през 2026", "отхвърлена"],
+  ["How many refused KZK complaints in 2026", "отказана"],
+  ["Колко прекратени жалби по ЗОП през 2026", "прекратена"],
+])("KZK recorded outcome is preserved: %s", (text, outcome) => {
+  expect(query(text).outcome).toBe(outcome);
+});
+
+it("among OR does not change the numerator's Boolean mode", () => {
+  const q = query(
+    "Процент договори с 1 участник сред договори с пряко възлагане или слаба конкуренция през 2026",
+  );
+  expect(q.baseMode).toBe("any");
+  expect(q.basePredicates).toEqual(
+    expect.arrayContaining(["risk:directAward", "risk:weakCompetition"]),
+  );
+  expect(q.numeratorPredicates).toEqual(["oneBid"]);
+  expect(q.numeratorMode).toBe("all");
+});
+it.each([
+  "Покажи жалби по ЗОП без отказан изход през 2026",
+  "Show KZK complaints without refused outcomes in 2026",
+])("negated outcome requires clarification: %s", (text) => {
+  expect(understandProcurement(text).kind).toBe("clarification");
+});
+
+it("English among OR keeps its union denominator", () => {
+  const q = query(
+    "Percentage of contracts with one bid among contracts with direct award or weak competition in 2026",
+  );
+  expect(q.baseMode).toBe("any");
+  expect(q.basePredicates).toEqual(
+    expect.arrayContaining(["risk:directAward", "risk:weakCompetition"]),
+  );
+  expect(q.numeratorPredicates).toEqual(["oneBid"]);
+  expect(q.numeratorMode).toBe("all");
+});
+
+it.each([
+  "Show rejected or refused KZK complaints in 2026",
+  "Покажи отхвърлени или отказани жалби по ЗОП през 2026",
+  "Show KZK decisions and orders in 2026",
+  "Покажи актове на КЗК без решения през 2026",
+])(
+  "multiple or excluded act/outcome categories never silently narrow: %s",
+  (text) => {
+    expect(understandProcurement(text).kind).toBe("clarification");
+  },
+);

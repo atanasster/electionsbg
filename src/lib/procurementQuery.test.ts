@@ -299,3 +299,29 @@ it("validates numeric bound relations with their values", () => {
     }).ok,
   ).toBe(false);
 });
+it("G03/G04 portable parent query validates and rejects recursive or grouped scopes", () => {
+  const parent = validateProcurementQuery({
+    corpus: "contracts",
+    metric: "oneBid",
+    from: "2026-01-01",
+  });
+  if (!parent.ok) throw Error();
+  const child = validateProcurementQuery({
+    corpus: "appeals",
+    parentQuery: encodeProcurementQuery(parent.query),
+  });
+  expect(child.ok).toBe(true);
+  if (child.ok)
+    expect(
+      validateProcurementQuery({
+        corpus: "decisions",
+        parentQuery: encodeProcurementQuery(child.query),
+      }).ok,
+    ).toBe(false);
+  expect(
+    validateProcurementQuery({
+      corpus: "contracts",
+      parentQuery: encodeProcurementQuery(parent.query),
+    }).ok,
+  ).toBe(false);
+});

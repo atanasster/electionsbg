@@ -238,6 +238,7 @@ function compileContractQuery(query) {
   return {
     query: q,
     requiresRisk: risk,
+    riskCatalogSql:meta,
     params,
     sql: `WITH base AS (
     SELECT c.key, c.title, ${date} AS date, c.awarder_eik AS buyer_id, c.awarder_name AS buyer,
@@ -283,6 +284,7 @@ async function runProcurementQuery(dbRows, raw) {
     const result = row?.result;
     if (!result) throw new Error("Missing analytics result");
     if (
+(compiled.parentRequiresRisk && result.parentRiskCatalog !== contract.PROCUREMENT_CAPABILITY.catalogVersion) ||
       compiled.requiresRisk &&
       result.riskCatalog !== contract.PROCUREMENT_CAPABILITY.catalogVersion
     )
@@ -293,6 +295,7 @@ async function runProcurementQuery(dbRows, raw) {
           query: compiled.query,
         },
       };
+    if (compiled.parentRequiresRisk && Number(result.parentRecords)>0 && Number(result.parentEvaluable)===0) return {body:{status:"unavailable",reason:"parent_risk_unobserved",query:compiled.query}};
     return {
       body: {
         ...result,
@@ -303,9 +306,9 @@ async function runProcurementQuery(dbRows, raw) {
           ["open", "closed"].includes(compiled.query.status)
             ? ["current_cancellation_state"]
             : [],
-        status: !result.totals.records
+        status: compiled.parentRequiresRisk && Number(result.parentEvaluable)<Number(result.parentRecords) ? "partial" : !result.totals.records
           ? "empty"
-          : compiled.requiresRisk && result.totals.evaluable === 0
+          : (compiled.parentRequiresRisk && Number(result.parentEvaluable)<Number(result.parentRecords)) || compiled.requiresRisk && result.totals.evaluable === 0
             ? "partial"
             : "success",
       },

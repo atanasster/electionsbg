@@ -17,6 +17,8 @@ export type ProcurementResult = {
   reason?: string;
   revision?: Record<string, string>;
   riskCatalog?: string;
+  parentRecords?: number;
+  parentEvaluable?: number;
   warnings?: string[];
   totals?: Record<string, number | string | null>;
   comparison?: Record<string, number | string | null>;
@@ -52,9 +54,10 @@ export const procurementScope = (
   ctx: ToolContext,
 ): string => {
   const bg = ctx.lang === "bg";
+  const parent = q.parentQuery ? decodeProcurementQuery(q.parentQuery) : null;
   return [
     units[q.corpus][ctx.lang],
-    `${q.from || "…"} ≤ ${q.dateBasis} < ${q.toExclusive || "…"}`,
+    `${q.from || "…"} ≤ ${({ record: bg ? "дата на записа" : "record date", signed: bg ? "проверена дата на подписване" : "verified signing date", published: bg ? "дата на обявяване" : "publication date", deadline: bg ? "краен срок" : "submission deadline", complaint: bg ? "дата на жалбата" : "complaint date", decision: bg ? "дата на акта" : "act date" } as Record<string, string>)[q.dateBasis]} < ${q.toExclusive || "…"}`,
     ...(q.buyerSectors || []).map(
       (id) => PROCUREMENT_BUYER_SECTORS[id].label[ctx.lang],
     ),
@@ -68,6 +71,9 @@ export const procurementScope = (
       ? `${bg ? "Изпълнител" : "Supplier"}: ${q.supplierIds.join(", ")}`
       : "",
     q.cpvPrefixes?.length ? "CPV " + q.cpvPrefixes.join(", ") : "",
+    parent?.ok
+      ? `${bg ? "Свързана съвкупност" : "Parent cohort"}: [${procurementScope(parent.query, ctx)}]`
+      : "",
     q.topic || "",
     q.keyword || "",
     ...(q.basePredicates || []).map(
@@ -79,8 +85,25 @@ export const procurementScope = (
         ? "поне едно условие"
         : "any condition"
       : "",
-    q.status || "",
-    q.funding || "",
+    q.status ? `${bg ? "Състояние" : "Status"}: ${q.status}` : "",
+    q.funding
+      ? `${bg ? "Европейско финансиране" : "EU funding"}: ${q.funding}`
+      : "",
+    q.actKind ? `${bg ? "Вид акт" : "Act kind"}: ${q.actKind}` : "",
+    q.outcome ? `${bg ? "Изход" : "Outcome"}: ${q.outcome}` : "",
+    q.key ? `${bg ? "Запис" : "Record"}: ${q.key}` : "",
+    q.procedureType
+      ? `${bg ? "Вид процедура" : "Procedure type"}: ${q.procedureType}`
+      : "",
+    q.minRiskCount != null
+      ? `${bg ? "Поне рискови сигнали" : "Minimum fired checks"}: ${q.minRiskCount}`
+      : "",
+    q.maxRiskCount != null
+      ? `${bg ? "Най-много рискови сигнали" : "Maximum fired checks"}: ${q.maxRiskCount}`
+      : "",
+    q.minGroupCount != null
+      ? `${bg ? "Минимална извадка" : "Minimum sample"}: ${q.minGroupCount} (${q.minGroupCountBasis})`
+      : "",
     q.framework ? `${bg ? "Рамково" : "Framework"}: ${q.framework}` : "",
     q.amountMin != null
       ? `${bg ? "Стойност" : "Value"} ${q.amountMinRelation === "gt" ? ">" : "≥"} ${q.amountMin} ${q.currency}`
@@ -226,7 +249,16 @@ export async function procurementQuery(
   base.facts = {
     ...base.facts,
     status: result.status,
-    answer,
+    answer:
+      result.status === "partial"
+        ? `${bg ? "Наблюдавани резултати (непълен обхват)" : "Observed results (partial coverage)"}: ${answer}`
+        : answer,
+    ...(result.parentRecords != null
+      ? {
+          parent_records: result.parentRecords,
+          parent_evaluable: result.parentEvaluable ?? 0,
+        }
+      : {}),
     records: Number(t.records),
     ...(q.operation === "share"
       ? { numerator: n, denominator: den, denominator_basis: q.denominator }
@@ -244,6 +276,23 @@ export async function procurementQuery(
       ? { interim_requested: Number(t.interim_requested) }
       : {}),
     value_basis: q.valueBasis,
+    money_note: bg
+      ? "Стойностите не са плащания. Рамковите стойности може да са тавани; обща ДДС основа не е потвърдена."
+      : "Values are not cash payments. Framework values may be ceilings; a common VAT basis is not verified.",
+    ...(q.buyerSectors?.length
+      ? {
+          roster_basis: bg
+            ? "Текуща одитирана принадлежност, приложена към избрания период"
+            : "Current audited roster applied to the selected period",
+        }
+      : {}),
+    ...(q.cpvPrefixes?.length || q.subjectSectors?.length
+      ? {
+          subject_basis: bg
+            ? "Основен CPV на записа; допълнителните позиции не са пълно покритие"
+            : "Primary record CPV; additional lot codes are not full coverage",
+        }
+      : {}),
     population: "procurement-records-v1",
     coverage_note: bg
       ? "Пълнотата на периода не е потвърдена. Класификациите, връзките и рисковете отразяват текущите данни; историческият период избира записи."
@@ -404,8 +453,39 @@ export async function procurementQuestion(
   const result = understandProcurement(String(args.question || ""), {
     previous: previous?.ok ? previous.query : undefined,
     lang: ctx.lang,
+    election: ctx.election,
   });
   if (result.kind === "query") return procurementQuery(result.query, ctx);
+  if (result.kind === "bundle") {
+    const answers = await Promise.all(
+      result.queries.map((q) => procurementQuery(q, ctx)),
+    );
+    return {
+      tool: "procurementQuestion",
+      kind: "table",
+      title: ctx.lang === "bg" ? "Две отделни справки" : "Two separate queries",
+      viz: "none",
+      facts: {
+        answer: answers
+          .map((a) => `${a.title}: ${a.facts.answer} — ${a.subtitle}`)
+          .join("\n"),
+      },
+      provenance: ["db:procurement-query"],
+      procurementBundle: answers.flatMap((a) =>
+        a.procurement ? [a.procurement] : [],
+      ),
+      rows: answers.map((a) => ({
+        scope: a.subtitle || a.title,
+        answer: String(a.facts.answer),
+        status: String(a.facts.status || "success"),
+      })),
+      columns: [
+        { key: "scope", label: ctx.lang === "bg" ? "Обхват" : "Scope" },
+        { key: "answer", label: ctx.lang === "bg" ? "Отговор" : "Answer" },
+        { key: "status", label: ctx.lang === "bg" ? "Състояние" : "Status" },
+      ],
+    };
+  }
   const message =
     result.kind === "none"
       ? {

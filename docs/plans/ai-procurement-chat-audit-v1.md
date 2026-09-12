@@ -1,6 +1,6 @@
 # Procurement chat audit
 
-Audit date: 2026-09-12. Status: audit completed; implementation proposed in [the implementation plan](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-implementation-v1.md). No application changes, migrations or data refreshes were made by this audit.
+Audit date: 2026-09-12. Status: historical pre-implementation audit; implementation is now recorded in [the release record](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-release-v1.md), following [the implementation plan](/Users/atanasster/data-bg/docs/plans/ai-procurement-chat-implementation-v1.md). No application changes, migrations or data refreshes were made by this audit.
 
 ## Conclusion
 

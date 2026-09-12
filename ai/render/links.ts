@@ -624,6 +624,17 @@ pages(
 
 export const siteLinks = (env: Envelope): SiteLink[] => {
   if (env.clarify) return [];
+  if (env.procurementBundle)
+    return env.procurementBundle.flatMap((item, i) =>
+      siteLinks({
+        ...env,
+        procurementBundle: undefined,
+        procurement: item,
+      }).map((link) => ({
+        ...link,
+        label: { bg: `Справка ${i + 1}`, en: `Query ${i + 1}` },
+      })),
+    );
   if (env.procurement) {
     const parsed = validateProcurementQuery(env.procurement.query);
     if (!parsed.ok) return [];
