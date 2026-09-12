@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-11T21:48:08.100Z",
+  "generatedAt": "2026-09-12T15:44:38.340Z",
   "nodes": [
     {
       "id": "src:water",
@@ -3126,6 +3126,7 @@
         "tender_document_text",
         "tender_search_text",
         "tender_normalcy_cache",
+        "procurement_tender_risk_cache",
         "nace_cpv_allow",
         "nace_cpv_opinion",
         "nace_cpv_universal",
@@ -3205,6 +3206,10 @@
       "serving": "pg",
       "tables": [
         "funds_hub_stats_cache",
+        "funding_isun_observations",
+        "funding_programmes",
+        "funding_themes",
+        "funding_sectors",
         "fund_projects",
         "fund_beneficiaries",
         "fund_payloads",

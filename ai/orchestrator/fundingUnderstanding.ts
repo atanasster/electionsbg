@@ -244,6 +244,18 @@ export function understandFunding(
       }
     }
     const legacyDiscovery = [
+      "Кой получава европейски средства?",
+      "Колко европейски средства са усвоени по програма?",
+      "Регионално развитие — европейски средства по области",
+      "Премахване на партийните субсидии",
+      "Колко европейски пари усвоява транспортът?",
+      "What is the БДЖ subsidy per passenger?",
+      "Каква е субсидията за БДЖ на пътник?",
+      "Коя област получава най-много европейски пари на човек?",
+      "Европейски пари за околна среда",
+      "Колко субсидии раздава ДФ Земеделие?",
+      "Break down state transfers to municipalities by type: delegated activities, equalisation and capital subsidies.",
+      "Разпредели държавните трансфери към общините по вид: делегирани дейности, изравнителна и капиталова субсидия.",
       "EU funds by oblast",
       "Европейски средства по области",
       "Кой получава най-много европейски средства?",
@@ -629,7 +641,8 @@ export function understandFunding(
     }
   }
   if (!compare) {
-    if (/покажи|списък|show|list/.test(text)) q.operation = "list";
+    if (/покажи|списък|show|list|who received|кой получи/.test(text))
+      q.operation = "list";
     else if (/най-|top |largest|highest|lowest|rank/.test(text))
       q.operation = "rank";
     else if (/процент|дял|share|percent/.test(text)) q.operation = "share";

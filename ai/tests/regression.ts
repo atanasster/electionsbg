@@ -26,6 +26,7 @@ import type {
   Lang,
   ToolContext,
 } from "../tools/types";
+import { decodeProcurementQuery } from "../../src/lib/procurementQuery";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 setFetcher(async (path: string) => {
@@ -77,6 +78,8 @@ type Case = {
   // tools should deep-link to that entity's own page (see ai/render/links.ts);
   // aggregates keep the generic section page.
   links?: string[];
+  procurementScope?: Record<string, unknown>;
+  firstRow?: Record<string, FactExp>;
 };
 
 // stripped-digits compare so "51 881" / "51 881" / 51 all equal 51881
@@ -1304,19 +1307,21 @@ const CASES: Case[] = [
   // ---- tenders (announced procedures, ESTIMATED/forecast value) --------------
   // The "мантинели за 1 млрд" acceptance case: a topic-aliased keyword + year
   // routes to the corpus search, finds the 2 guardrail procedures (€490.8M the
-  // biggest), and deep-links to the SAME pre-filtered /procurement/tenders set.
+  // biggest), and deep-links to the SAME canonical query and revision on /procurement/query.
   {
     q: "Покажи ми всички търгове за пътни предпазни съоръжения през 2025",
     tool: "openTenders",
     kind: "table",
     minRows: 2,
-    facts: {
-      scope: "мантинели",
-      year: /2025/,
-      matches: { num: 2 },
-      biggest_estimate: /490/,
+    facts: { scope: /2025-01-01.*2026-01-01.*guardrails/, records: { num: 2 } },
+    firstRow: { amount_eur: /490/ },
+    procurementScope: {
+      corpus: "tenders",
+      topic: "guardrails",
+      from: "2025-01-01",
+      toExclusive: "2026-01-01",
+      operation: "list",
     },
-    links: ["/procurement/tenders?topic=guardrails&pscope=y%3A2025"],
   },
   {
     q: "Show me all road-guardrail tenders in 2025",
@@ -1324,8 +1329,15 @@ const CASES: Case[] = [
     tool: "openTenders",
     kind: "table",
     minRows: 2,
-    facts: { matches: { num: 2 }, biggest_estimate: /490/ },
-    links: ["/procurement/tenders?topic=guardrails&pscope=y%3A2025"],
+    facts: { records: { num: 2 } },
+    firstRow: { amount_eur: /490/ },
+    procurementScope: {
+      corpus: "tenders",
+      topic: "guardrails",
+      from: "2025-01-01",
+      toExclusive: "2026-01-01",
+      operation: "list",
+    },
   },
   // one procedure by УНП -> its detail page (/tenders/:unp) + the ocid lineage
   {
@@ -2997,9 +3009,16 @@ const CASES: Case[] = [
     // Temporal filler ("имаше", "през") must be stop-words, not a phantom
     // awarder "имаше през" → national aggregate (FINDING-003).
     q: "Колко жалби по поръчки имаше през 2025?",
-    tool: "procurementAppeals",
-    kind: "table",
-    minRows: 5,
+    tool: "procurementQuery",
+    kind: "scalar",
+    facts: { records: /\d/ },
+    procurementScope: {
+      corpus: "appeals",
+      dateBasis: "complaint",
+      from: "2025-01-01",
+      toExclusive: "2026-01-01",
+      operation: "count",
+    },
   },
   {
     // EN exonym: "Sofia" must alias to Столична община (FINDING-012), not miss.
@@ -3130,9 +3149,16 @@ const CASES: Case[] = [
     // the residual is empty → NO awarder, so the NATIONAL aggregate table returns
     // (not a scalar buyer answer). Guards the stop-list edge (TEST-001).
     q: "жалби по поръчки 2026",
-    tool: "procurementAppeals",
-    kind: "table",
-    minRows: 5,
+    tool: "procurementQuery",
+    kind: "scalar",
+    facts: { records: /\d/ },
+    procurementScope: {
+      corpus: "appeals",
+      dateBasis: "complaint",
+      from: "2026-01-01",
+      toExclusive: "2027-01-01",
+      operation: "count",
+    },
   },
   {
     // National aggregate ("how many are upheld?") — the status word "уважени"
@@ -3491,6 +3517,34 @@ const run = async () => {
           c.q,
           `fact "${k}"=${JSON.stringify(env.facts[k])} did not match ${JSON.stringify(exp)}`,
         );
+      }
+    }
+    for (const [k, rawExp] of Object.entries(c.firstRow ?? {})) {
+      if (!matchFact(env.rows?.[0]?.[k], await resolveExp(rawExp)))
+        fail(c.q, `First row ${k} failed its independent expectation`);
+    }
+    if (c.procurementScope) {
+      const links = siteLinks(env);
+      const url = links.length === 1 ? new URL(links[0].href) : null;
+      const decoded = url?.searchParams.get("query")
+        ? decodeProcurementQuery(url.searchParams.get("query")!)
+        : null;
+      if (
+        url?.pathname !== "/procurement/query" ||
+        !decoded?.ok ||
+        !url.searchParams.get("revision")
+      )
+        fail(c.q, "Missing canonical query/revision result link");
+      for (const [k, v] of Object.entries(c.procurementScope)) {
+        if (
+          JSON.stringify(env.procurement?.query[k]) !== JSON.stringify(v) ||
+          !decoded?.ok ||
+          JSON.stringify(decoded.query[k]) !== JSON.stringify(v)
+        )
+          fail(
+            c.q,
+            `Applied and linked procurement scope must retain ${k}=${JSON.stringify(v)}`,
+          );
       }
     }
     if (c.geo === false) {

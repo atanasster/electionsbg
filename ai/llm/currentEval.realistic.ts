@@ -125,10 +125,10 @@ const rows: [string | null, string, string, EvalCase["args"]?][] = [
     { cycle: [2021], round: [2], oblast: ["Varna", "Варна"] },
   ],
   [
-    "subsidiesOverview",
+    "fundingQuery",
     "Who received farm subsidies in financial year 2023?",
     "Кой получи земеделски субсидии за финансова 2023 година?",
-    { year: [2023] },
+    { corpus: ["agriPayments"], financialYears: ["2023"], operation: ["list"] },
   ],
   [
     "topContractors",

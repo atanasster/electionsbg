@@ -1832,6 +1832,13 @@ export const UNCLAIMED: Record<string, string> = {
     "UNLOGGED staging table for the contracts merge — dropped when the load commits, so its presence means one is in flight or was interrupted",
 
   // ── ingest plumbing: about HOW data arrived, not about any dataset ─────────
+  funding_query_revisions:
+    "cross-corpus funding query revision tokens; invalidate results after source refresh",
+  funding_query_meta:
+    "funding catalog version and publication evidence bookkeeping",
+  procurement_query_revisions: "cross-corpus procurement query revision tokens",
+  procurement_tender_risk_meta:
+    "tender risk projection version and source-revision bookkeeping",
   meta: "ingest bookkeeping (schema/corpus version markers)",
   ingest_batches: "per-load changelog rows behind recent_updates()",
   ingest_first_seen: "first-seen timestamps behind recent_updates()",
@@ -2106,6 +2113,7 @@ export const DATASETS: DatasetDef[] = [
       "tender_document_text",
       "tender_search_text",
       "tender_normalcy_cache",
+      "procurement_tender_risk_cache",
       "nace_cpv_allow",
       "nace_cpv_opinion",
       "nace_cpv_universal",
@@ -2163,6 +2171,10 @@ export const DATASETS: DatasetDef[] = [
     serving: "pg",
     tables: [
       "funds_hub_stats_cache",
+      "funding_isun_observations",
+      "funding_programmes",
+      "funding_themes",
+      "funding_sectors",
       "fund_projects",
       "fund_beneficiaries",
       "fund_payloads",

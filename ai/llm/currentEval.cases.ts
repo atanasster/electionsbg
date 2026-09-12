@@ -69,10 +69,10 @@ const rows: [string, string, string, Record<string, (string | number)[]>?][] = [
     { ns: [51] },
   ],
   [
-    "subsidiesOverview",
+    "fundingQuery",
     "Show agricultural subsidy recipients for financial year 2023.",
     "Покажи получателите на земеделски субсидии за финансова 2023 година.",
-    { year: [2023] },
+    { corpus: ["agriPayments"], financialYears: ["2023"], operation: ["list"] },
   ],
   [
     "budgetMinistries",

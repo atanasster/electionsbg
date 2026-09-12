@@ -40,6 +40,15 @@ const missingEntity = new Set([
   "companyConnections:2",
 ]);
 export function reviewCase(c: EvalCase): EvalCase {
+  // Funding v1 resolves ambiguous/missing recipient identity before execution.
+  // The legacy unscoped recipient tool remains callable for saved history only.
+  if (c.id === "subsidiesForEntity:1" || c.id === "subsidiesForEntity:2")
+    return {
+      ...c,
+      tool: "fundingQuestion",
+      review:
+        "Funding v1 requires recipient identity clarification; never infer an EIK from an ambiguous name or missing input.",
+    };
   if (missingEntity.has(c.id))
     return {
       ...c,
