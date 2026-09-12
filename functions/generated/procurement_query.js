@@ -35,13 +35,32 @@ __export(procurementQuery_exports, {
   PROCUREMENT_TOPICS: () => PROCUREMENT_TOPICS,
   decodeProcurementQuery: () => decodeProcurementQuery,
   encodeProcurementQuery: () => encodeProcurementQuery,
-  isProcurementDate: () => isProcurementDate,
-  procurementInstant: () => procurementInstant,
+  isProcurementDate: () => isQueryDate,
+  procurementInstant: () => queryInstant,
   procurementPredicateIds: () => procurementPredicateIds,
   procurementQueryKey: () => procurementQueryKey,
   validateProcurementQuery: () => validateProcurementQuery
 });
 module.exports = __toCommonJS(procurementQuery_exports);
+
+// src/lib/queryDates.ts
+var isQueryDate = (value) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = /* @__PURE__ */ new Date(`${value}T00:00:00Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
+};
+function queryInstant(value) {
+  const match = /^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?(Z|[+-]\d{2}:\d{2})$/.exec(
+    value
+  );
+  if (!match || !isQueryDate(match[1]) || Number(match[2]) > 23 || Number(match[3]) > 59 || Number(match[4] ?? 0) > 59)
+    return null;
+  const zone = match[6];
+  if (zone !== "Z" && (Number(zone.slice(1, 3)) > 14 || Number(zone.slice(4)) > 59 || Number(zone.slice(1, 3)) === 14 && Number(zone.slice(4)) !== 0))
+    return null;
+  const ms = Date.parse(value);
+  return Number.isFinite(ms) ? new Date(ms).toISOString() : null;
+}
 
 // src/lib/riskFlagCatalog.ts
 var CATALOG_VERSION = "1.0.0";
@@ -2641,23 +2660,6 @@ var PROCUREMENT_FIELDS = {
   asOf: text(),
   key: text()
 };
-var isProcurementDate = (value) => {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = /* @__PURE__ */ new Date(`${value}T00:00:00Z`);
-  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
-};
-function procurementInstant(value) {
-  const match = /^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?(Z|[+-]\d{2}:\d{2})$/.exec(
-    value
-  );
-  if (!match || !isProcurementDate(match[1]) || Number(match[2]) > 23 || Number(match[3]) > 59 || Number(match[4] ?? 0) > 59)
-    return null;
-  const zone = match[6];
-  if (zone !== "Z" && (Number(zone.slice(1, 3)) > 14 || Number(zone.slice(4)) > 59 || Number(zone.slice(1, 3)) === 14 && Number(zone.slice(4)) !== 0))
-    return null;
-  const ms = Date.parse(value);
-  return Number.isFinite(ms) ? new Date(ms).toISOString() : null;
-}
 var procurementPredicateIds = (corpus) => [
   ...corpus === "contracts" || corpus === "amendments" ? ["oneBid"] : [],
   ...corpus !== "decisions" ? ["appealed"] : [],
@@ -2742,7 +2744,7 @@ function validateProcurementQuery(raw) {
     ["compareFrom", "compareToExclusive"]
   ]) {
     for (const key of [fromKey, toKey])
-      if (args[key] !== void 0 && !isProcurementDate(String(args[key])))
+      if (args[key] !== void 0 && !isQueryDate(String(args[key])))
         errors[key] = "invalid calendar date";
     if (args[fromKey] && args[toKey] && String(args[fromKey]) >= String(args[toKey]))
       errors[toKey] = "end must follow start";
@@ -2848,7 +2850,7 @@ function validateProcurementQuery(raw) {
       errors.relatedDateBasis = "incompatible related date basis";
   }
   if (args.asOf !== void 0) {
-    const instant = typeof args.asOf === "string" ? procurementInstant(args.asOf) : null;
+    const instant = typeof args.asOf === "string" ? queryInstant(args.asOf) : null;
     if (!instant) errors.asOf = "valid ISO timestamp with timezone required";
     else args.asOf = instant;
   }
