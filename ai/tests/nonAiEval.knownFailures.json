@@ -698,26 +698,6 @@
     "expectedTool": "localDeals",
     "observedRoute": null
   },
-  "productPrice:1:en": {
-    "expectedTool": "productPrice",
-    "observedRoute": {
-      "tool": "settlementPrices",
-      "args": {
-        "place": "lavazza",
-        "product": "how much is lavazza coffee?"
-      }
-    }
-  },
-  "productPrice:1:bg": {
-    "expectedTool": "productPrice",
-    "observedRoute": {
-      "tool": "settlementPrices",
-      "args": {
-        "place": "лаваца",
-        "product": "колко струва кафе лаваца?"
-      }
-    }
-  },
   "productPrice:2:en": {
     "expectedTool": "productPrice",
     "observedRoute": null

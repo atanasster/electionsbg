@@ -3130,7 +3130,7 @@ const CASES: Case[] = [
     tool: "contractSearch",
     kind: "table",
     minRows: 3,
-    facts: { company: /Софарма/ },
+    facts: { company: /Софарма/i },
   },
   {
     // Long-tail contractor outside the top-1000 leaderboard — exercises the
