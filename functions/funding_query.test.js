@@ -16,7 +16,7 @@ test("unsupported dates and unimplemented corpora cannot run a broad fallback", 
   let calls = 0;
   for (const raw of [
     { corpus: "isunProjects", dateBasis: "signed" },
-    { corpus: "interregOperations" },
+    { corpus: "agriPayments", dateBasis: "start" },
   ]) {
     assert.equal(
       (
@@ -87,4 +87,42 @@ test("DFZ pushes both explicit years into the indexed source predicate", () => {
   });
   assert.match(q.sql, /c\.year=ANY\(\$\d+::int\[\]\)/);
   assert(q.params.some((x) => Array.isArray(x) && x.join(",") === "2025,2026"));
+});
+test("Interreg capability arms are independently visible", async () => {
+  const { fundingCapabilities } = require("./funding_query");
+  const r = await fundingCapabilities(async (sql) => {
+    if (sql.startsWith("WITH")) {
+      if (sql.includes("JOIN interreg_partners p ON"))
+        throw Object.assign(new Error(), { code: "42P01" });
+      return [
+        {
+          result: {
+            catalogValid: true,
+            catalogVersion: "1.0.0",
+            revision: "r",
+            identityValid: true,
+            totals: {
+              records: 1,
+              known_amount: 1,
+              known_paid: 0,
+              beneficiaries: 0,
+            },
+            candidateRecords: 1,
+            dateUnknown: 0,
+            amountUnknown: 0,
+            scopeRecords: 1,
+            baseEvaluable: 1,
+            numeratorScope: 1,
+            numeratorEvaluable: 1,
+          },
+        },
+      ];
+    }
+    return [{ ready: true }];
+  });
+  assert.equal(r.body.corpora.interregOperations.ready, true);
+  assert(r.body.corpora.interregOperations.dates.includes("overlap"));
+  assert(r.body.corpora.interregOperations.amounts.includes("operationBudget"));
+  assert.equal(r.body.corpora.interregPartners.ready, false);
+  assert.deepEqual(r.body.corpora.interregPartners.dates, []);
 });

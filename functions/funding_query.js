@@ -7,7 +7,7 @@ class FundingQueryError extends Error {
   }
 }
 const like = (s) => s.replace(/[\\%_]/g, "\\$&");
-function compileFundingQuery(raw) {
+function compileFundingQuery(raw, internal = false) {
   const parsed = contract.validateFundingQuery(raw);
   if (!parsed.ok) throw new FundingQueryError(JSON.stringify(parsed.errors));
   const q = parsed.query,
@@ -16,11 +16,20 @@ function compileFundingQuery(raw) {
     params.push(v);
     return `$${params.length}`;
   };
-  const agri = q.corpus === "agriPayments";
-  if (!["isunProjects", "agriPayments"].includes(q.corpus))
+  const agri = q.corpus === "agriPayments",
+    interreg = q.corpus.startsWith("interreg"),
+    partners = q.corpus === "interregPartners";
+  if (!contract.FUNDING_CORPORA.includes(q.corpus))
     throw new FundingQueryError("corpus_not_ready", 422);
-  if (q.parentQuery) throw new FundingQueryError("relationship_not_ready", 422);
-  if (q.placeBasis && q.placeBasis !== (agri ? "recipient" : "implementation"))
+  const parent = q.parentQuery
+    ? compileFundingQuery(JSON.parse(decodeURIComponent(q.parentQuery)), true)
+    : null;
+  if (parent) params.push(...parent.params);
+  if (
+    q.placeBasis &&
+    !interreg &&
+    q.placeBasis !== (agri ? "recipient" : "implementation")
+  )
     throw new FundingQueryError("geography_basis_unavailable", 422);
   if (!agri && q.entityClass === "individual")
     throw new FundingQueryError("individual_identity_not_recorded", 422);
@@ -70,9 +79,11 @@ function compileFundingQuery(raw) {
     q.dateBasis === "observed"
       ? "(SELECT (min(f.first_seen_at) AT TIME ZONE 'Europe/Sofia')::date FROM ingest_first_seen f WHERE f.source='fund_project' AND f.key=c.contract_number)"
       : "NULL::date";
-  const source = agri
-    ? require("./funding_query_agri").agriSource(q, has, bind)
-    : `SELECT c.contract_number AS key,NULLIF(c.beneficiary_eik,'') AS entity,c.beneficiary_name AS name,c.title,c.program_code AS programme,
+  const source = interreg
+    ? require("./funding_query_interreg").interregSource(q, has)
+    : agri
+      ? require("./funding_query_agri").agriSource(q, has, bind)
+      : `SELECT c.contract_number AS key,NULLIF(c.beneficiary_eik,'') AS entity,c.beneficiary_name AS name,c.title,c.program_code AS programme,
  ${known(money[0], money[1])} AS amount,${known("paid_eur", 8)} AS paid,${date} AS date,
  CASE WHEN c.status LIKE 'Приключен%' THEN 'completed' WHEN c.status LIKE 'В изпълнение%' THEN 'in-progress' WHEN c.status='Сключен' THEN 'signed' WHEN c.status LIKE 'Прекратен%' THEN 'terminated' WHEN NULLIF(c.status,'') IS NULL THEN 'unknown' ELSE 'other' END AS status,
  c.location_json AS location,c.ekatte,c.oblast,jsonb_build_object(${signalSql}) AS signals,
@@ -83,6 +94,10 @@ function compileFundingQuery(raw) {
   const inList = (col, values) => {
     if (values?.length) where.push(`${col}=ANY(${bind(values)}::text[])`);
   };
+  if (parent)
+    where.push(
+      `s.${partners ? "operation_key" : "key"} IN (SELECT jsonb_array_elements_text(parent_result.result->'cohortKeys') FROM parent_result)`,
+    );
   inList("s.entity", q.entityIds);
   if (agri) {
     inList("s.programme", q.schemeIds);
@@ -109,7 +124,7 @@ function compileFundingQuery(raw) {
   ])
     if (q[field]?.length)
       where.push(
-        `EXISTS(SELECT 1 FROM funding_programmes fp WHERE fp.corpus='isunProjects' AND fp.code=s.programme AND fp.${col}=ANY(${bind(q[field])}::text[]))`,
+        `EXISTS(SELECT 1 FROM funding_programmes fp WHERE fp.corpus='${interreg ? "interregOperations" : "isunProjects"}' AND fp.code=s.programme AND fp.${col}=ANY(${bind(q[field])}::text[]))`,
       );
   if (q.themeIds?.length) where.push(`s.themes && ${bind(q.themeIds)}::text[]`);
   if (q.beneficiarySectors?.length)
@@ -117,12 +132,17 @@ function compileFundingQuery(raw) {
       `EXISTS(SELECT 1 FROM funding_sectors fs WHERE fs.id=ANY(${bind(q.beneficiarySectors)}::text[]) AND s.entity=ANY(fs.eiks))`,
     );
   for (const [field, table, col, extra] of [
-    ["programmeIds", "funding_programmes", "code", "AND corpus='isunProjects'"],
+    [
+      "programmeIds",
+      "funding_programmes",
+      "code",
+      `AND corpus='${interreg ? "interregOperations" : "isunProjects"}'`,
+    ],
     [
       "fundTypes",
       "funding_programmes",
       "fund_type",
-      "AND corpus='isunProjects'",
+      `AND corpus='${interreg ? "interregOperations" : "isunProjects"}'`,
     ],
     ["themeIds", "funding_themes", "id", ""],
     ["beneficiarySectors", "funding_sectors", "id", ""],
@@ -131,7 +151,13 @@ function compileFundingQuery(raw) {
       checks.push(
         `NOT EXISTS(SELECT 1 FROM unnest(${bind(q[field])}::text[]) x WHERE NOT EXISTS(SELECT 1 FROM ${table} WHERE ${col}=x ${extra}))`,
       );
-  if (q.placeIds?.length) {
+  if (interreg && q.placeBasis === "eligible" && q.placeIds?.length) {
+    if (q.placeIds.some((id) => !/^BG\d{2,3}$/.test(id)))
+      throw new FundingQueryError("eligible_area_requires_NUTS", 422);
+    where.push(
+      `EXISTS(SELECT 1 FROM funding_programmes fp WHERE fp.corpus='interregOperations' AND fp.code=s.programme AND (fp.eligible_nuts IS NULL OR EXISTS(SELECT 1 FROM unnest(fp.eligible_nuts) n CROSS JOIN unnest(${bind(q.placeIds)}::text[]) wanted WHERE wanted LIKE n||'%' OR n LIKE wanted||'%')))`,
+    );
+  } else if (q.placeIds?.length) {
     const ids = q.placeIds.map((x) => (!agri && x === "SFO_CITY" ? "S22" : x));
     where.push(
       `(s.ekatte=ANY(${bind(ids)}::text[]) OR s.oblast=ANY(${bind(ids)}::text[]) OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(COALESCE(s.location->'munis','[]')) p WHERE p=ANY(${bind(ids)}::text[])) OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(COALESCE(s.location->'oblasts','[]')) p WHERE p=ANY(${bind(ids)}::text[])) OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(COALESCE(s.location->'nutsCodes','[]')) p WHERE p=ANY(${bind(ids)}::text[])))`,
@@ -145,10 +171,19 @@ function compileFundingQuery(raw) {
     if (q[field] !== undefined)
       amountConditions.push(`s.amount ${op} ${bind(q[field])}::numeric`);
   const period = (from, to) =>
-    [
-      from ? `s.date>=${bind(from)}::date` : "TRUE",
-      to ? `s.date<${bind(to)}::date` : "TRUE",
-    ].join(" AND ");
+    q.dateBasis === "overlap"
+      ? [
+          `s.date<=s.end_date`,
+          from ? `s.end_date>=${bind(from)}::date` : "TRUE",
+          to ? `s.date<${bind(to)}::date` : "TRUE",
+          q.asOf
+            ? `s.date<=(${bind(q.asOf)}::timestamptz AT TIME ZONE 'Europe/Sofia')::date AND s.end_date>=(${bind(q.asOf)}::timestamptz AT TIME ZONE 'Europe/Sofia')::date`
+            : "TRUE",
+        ].join(" AND ")
+      : [
+          from ? `s.date>=${bind(from)}::date` : "TRUE",
+          to ? `s.date<${bind(to)}::date` : "TRUE",
+        ].join(" AND ");
   const financialPeriod = (years) =>
     years?.length
       ? `to_char(s.date,'YYYY')=ANY(${bind(years)}::text[])`
@@ -176,7 +211,9 @@ function compileFundingQuery(raw) {
     q.groupBy === "theme"
       ? "unnest(themes)"
       : {
-          entity: "COALESCE(entity,'unknown:'||key)",
+          entity: partners
+            ? "COALESCE(organisation,'unknown:'||key)"
+            : "COALESCE(entity,'unknown:'||key)",
           programme: "COALESCE(programme,'unknown')",
           scheme: "COALESCE(programme,'unknown')",
           financialYear: "to_char(date,'YYYY')",
@@ -187,19 +224,21 @@ function compileFundingQuery(raw) {
   const metric =
     q.metric === "amount"
       ? "amount"
-      : q.metric === "beneficiaries"
-        ? "beneficiaries"
-        : q.metric === "paidRatio"
-          ? "paid_ratio"
-          : q.metric === "hhi"
-            ? "hhi"
-            : q.metric === "topShare"
-              ? "top_share"
-              : "records";
+      : q.metric === "organisations"
+        ? "organisations"
+        : q.metric === "beneficiaries"
+          ? "beneficiaries"
+          : q.metric === "paidRatio"
+            ? "paid_ratio"
+            : q.metric === "hhi"
+              ? "hhi"
+              : q.metric === "topShare"
+                ? "top_share"
+                : "records";
   const selectMatches =
     q.numeratorPredicates?.length &&
     !["share", "summary", "methodology"].includes(q.operation);
-  const stats = `count(key)::int AS records,count(DISTINCT entity)::int AS beneficiaries,count(amount)::int AS known_amount,count(paid)::int AS known_paid,count(key) FILTER(WHERE entity IS NULL)::int AS unidentified,sum(amount) AS amount,sum(paid) AS paid,count(key) FILTER(WHERE matched IS NOT NULL)::int AS evaluable,count(key) FILTER(WHERE matched)::int AS numerator_records,CASE WHEN count(key) FILTER(WHERE matched)>0 THEN sum(amount) FILTER(WHERE matched) WHEN count(key) FILTER(WHERE matched IS NOT NULL)>0 THEN 0::numeric END AS numerator_amount,100*sum(paid) FILTER(WHERE amount IS NOT NULL)/NULLIF(sum(amount) FILTER(WHERE paid IS NOT NULL),0) AS paid_ratio`;
+  const stats = `count(key)::int AS records,count(DISTINCT entity)::int AS beneficiaries,${partners ? "count(DISTINCT organisation)" : "0"}::int AS organisations,count(amount)::int AS known_amount,count(paid)::int AS known_paid,${partners ? "count(organisation)" : "0"}::int AS known_organisation,count(key) FILTER(WHERE entity IS NULL)::int AS unidentified,sum(amount) AS amount,sum(paid) AS paid,count(key) FILTER(WHERE matched IS NOT NULL)::int AS evaluable,count(key) FILTER(WHERE matched)::int AS numerator_records,CASE WHEN count(key) FILTER(WHERE matched)>0 THEN sum(amount) FILTER(WHERE matched) WHEN count(key) FILTER(WHERE matched IS NOT NULL)>0 THEN 0::numeric END AS numerator_amount,100*sum(paid) FILTER(WHERE amount IS NOT NULL)/NULLIF(sum(amount) FILTER(WHERE paid IS NOT NULL),0) AS paid_ratio`;
   const shareExpr =
     q.denominator === "amount"
       ? "100*numerator_amount/NULLIF(amount,0)"
@@ -208,12 +247,12 @@ function compileFundingQuery(raw) {
     q.operation === "share" && !["paidRatio", "topShare"].includes(q.metric)
       ? "share"
       : metric;
-  const sql = `WITH source AS NOT MATERIALIZED (${source}), candidates AS MATERIALIZED(SELECT s.*,(${current}) AS current,(${comparison}) AS comparison,(${base}) AS base,(${numerator}) AS matched,(${amountConditions.join(" AND ") || "TRUE"}) AS amount_match FROM source s WHERE ${where.join(" AND ") || "TRUE"}),
+  const sql = `WITH ${parent ? `parent_result AS MATERIALIZED (${parent.sql}),` : ""}source AS NOT MATERIALIZED (${source}), candidates AS MATERIALIZED(SELECT s.*,(${current}) AS current,(${comparison}) AS comparison,(${base}) AS base,(${numerator}) AS matched,(${amountConditions.join(" AND ") || "TRUE"}) AS amount_match FROM source s WHERE ${where.join(" AND ") || "TRUE"}),
  scoped AS MATERIALIZED(SELECT * FROM candidates WHERE amount_match IS TRUE),
  base_cohorts AS MATERIALIZED(SELECT s.*,w.cohort_window FROM scoped s CROSS JOIN LATERAL (SELECT 'current'::text AS cohort_window WHERE s.current UNION ALL SELECT 'comparison' WHERE s.comparison) w WHERE s.base IS TRUE),
  cohorts AS MATERIALIZED(SELECT * FROM base_cohorts ${selectMatches ? "WHERE matched IS TRUE" : ""}),
  grouped AS (${q.groupBy ? `SELECT *,${group} AS group_key FROM cohorts UNION ALL ` : ""}SELECT *,'__total'::text AS group_key FROM cohorts),
- entity_money AS (SELECT cohort_window,group_key,entity,sum(amount) AS amount FROM grouped WHERE ${["hhi", "topShare"].includes(q.metric) ? "TRUE" : "FALSE"} AND entity IS NOT NULL AND amount IS NOT NULL GROUP BY cohort_window,group_key,entity),
+ entity_money AS (SELECT cohort_window,group_key,${partners ? "organisation" : "entity"} AS entity,sum(amount) AS amount FROM grouped WHERE ${["hhi", "topShare"].includes(q.metric) ? "TRUE" : "FALSE"} AND ${partners ? "organisation" : "entity"} IS NOT NULL AND amount IS NOT NULL GROUP BY cohort_window,group_key,${partners ? "organisation" : "entity"}),
  concentration AS (SELECT cohort_window,group_key,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 10000*sum(amount*amount)/power(sum(amount),2) END AS hhi,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 100*sum(amount) FILTER(WHERE rn<=${bind(q.topN || 10)})/sum(amount) END AS top_share FROM (SELECT *,row_number() OVER(PARTITION BY cohort_window,group_key ORDER BY amount DESC NULLS LAST,entity) rn FROM entity_money) e GROUP BY cohort_window,group_key),
  summaries AS (SELECT cohort_window,group_key,${stats} FROM grouped GROUP BY cohort_window,group_key),
  empty_stats AS (SELECT ${stats} FROM cohorts WHERE FALSE),
@@ -227,8 +266,11 @@ function compileFundingQuery(raw) {
  'comparisons',COALESCE((SELECT jsonb_agg(t ORDER BY cohort_window) FROM measured t WHERE group_key='__total'),'[]'::jsonb),
  'groupCount',(SELECT count(*) FROM groups),'catalogValid',${checks.join(" AND ") || "TRUE"},'catalogVersion',(SELECT value->>'version' FROM funding_query_meta WHERE key='catalog'),
  'yearsAvailable',${agri ? `(WITH RECURSIVE years(y) AS (SELECT min(year) FROM agri_subsidies UNION ALL SELECT (SELECT min(year) FROM agri_subsidies WHERE year>years.y) FROM years WHERE y IS NOT NULL) SELECT jsonb_agg(y::text ORDER BY y) FROM years WHERE y IS NOT NULL)` : "null::jsonb"},
+ 'parent',${parent ? "(SELECT result-'cohortKeys' FROM parent_result)" : "null::jsonb"},
+ 'cohortKeys',${internal ? `(SELECT COALESCE(jsonb_agg(DISTINCT ${partners ? "operation_key" : "key"}),'[]'::jsonb) FROM cohorts ${q.numeratorPredicates?.length ? "WHERE matched IS TRUE" : ""})` : "null::jsonb"},
+ 'identityValid',${partners ? "(SELECT count(*)=count(key) AND count(*)=count(DISTINCT key) FROM source)" : "TRUE"},
  'candidateRecords',(SELECT count(*) FROM candidates),
- 'dateUnknown',(SELECT count(*) FROM candidates WHERE ${q.dateBasis !== "none" ? "date IS NULL" : "FALSE"}),
+ 'dateUnknown',(SELECT count(*) FROM candidates WHERE ${q.dateBasis === "overlap" ? "date IS NULL OR end_date IS NULL OR date>end_date" : q.dateBasis !== "none" ? "date IS NULL" : "FALSE"}),
  'amountUnknown',(SELECT count(*) FROM candidates WHERE ${amountConditions.length ? "amount IS NULL" : "FALSE"}),
  'scopeRecords',(SELECT count(*) FROM scoped WHERE current OR comparison),'baseEvaluable',(SELECT count(*) FROM scoped WHERE (current OR comparison) AND base IS NOT NULL),
  'numeratorScope',(SELECT count(*) FROM base_cohorts),'numeratorEvaluable',(SELECT count(*) FROM base_cohorts WHERE matched IS NOT NULL),
@@ -295,9 +337,54 @@ async function runFundingQuery(dbRows, raw) {
           yearsAvailable: r.yearsAvailable,
         },
       };
+    const parentRevision = c.query.parentQuery
+      ? JSON.parse(decodeURIComponent(c.query.parentQuery)).expectedRevision
+      : null;
+    if (parentRevision && parentRevision !== r.parent?.revision)
+      return {
+        status: 409,
+        body: {
+          status: "unavailable",
+          reason: "revision_changed",
+          query: c.query,
+          revision: r.parent?.revision,
+        },
+      };
+    if (r.identityValid === false)
+      return {
+        body: {
+          status: "unavailable",
+          reason: "source_identity_invalid",
+          query: c.query,
+        },
+      };
+    if (
+      r.parent &&
+      (r.parent.catalogValid !== true ||
+        r.parent.catalogVersion !== contract.FUNDING_CATALOG_VERSION ||
+        r.parent.identityValid === false ||
+        r.parent.baseEvaluable < r.parent.scopeRecords ||
+        r.parent.dateUnknown > 0 ||
+        r.parent.amountUnknown > 0 ||
+        r.parent.numeratorEvaluable < r.parent.numeratorScope)
+    )
+      return {
+        body: {
+          status: "unavailable",
+          reason: "parent_evidence_incomplete",
+          query: c.query,
+        },
+      };
+    delete r.cohortKeys;
     const t = r.totals;
     const periods = c.query.operation === "compare" ? r.comparisons : [t];
+    const needsOrganisation =
+      c.query.corpus === "interregPartners" &&
+      (["organisations", "hhi", "topShare"].includes(c.query.metric) ||
+        c.query.groupBy === "entity");
     const missing =
+      (needsOrganisation &&
+        periods.some((x) => x.known_organisation < x.records)) ||
       r.dateUnknown > 0 ||
       r.amountUnknown > 0 ||
       r.baseEvaluable < r.scopeRecords ||
@@ -309,6 +396,8 @@ async function runFundingQuery(dbRows, raw) {
           (c.query.metric === "paidRatio" && x.known_paid < x.records),
       );
     const unavailable =
+      (needsOrganisation &&
+        periods.some((x) => x.records > 0 && x.known_organisation === 0)) ||
       (r.candidateRecords > 0 &&
         (r.dateUnknown === r.candidateRecords ||
           r.amountUnknown === r.candidateRecords)) ||
@@ -328,8 +417,14 @@ async function runFundingQuery(dbRows, raw) {
             : !periods.some((x) => x.records)
               ? "empty"
               : "success",
-        warnings:
-          c.query.corpus === "agriPayments"
+        warnings: c.query.corpus.startsWith("interreg")
+          ? [
+              "whole_operation_and_partner_budgets_are_distinct",
+              "published_budget_not_cash_received",
+              "schedule_not_historical_administrative_status",
+              "current_identity_evidence",
+            ]
+          : c.query.corpus === "agriPayments"
             ? [
                 "financial_year_not_calendar_year",
                 "annual_records_not_transactions",
@@ -477,11 +572,81 @@ async function fundingCapabilities(dbRows) {
     )
       agriDescriptor.predicates.push("otherFunding");
   }
+  const interregDescriptors = {};
+  for (const corpus of ["interregOperations", "interregPartners"]) {
+    const r = await runFundingQuery(dbRows, { corpus, limit: 1 });
+    const ready = ["success", "partial", "empty"].includes(r.body.status);
+    const d = {
+      ...contract.FUNDING_CAPABILITIES[corpus],
+      ready,
+      dates: ready ? ["none"] : [],
+      amounts: [],
+      predicates: [],
+      coverage: r.body.totals || null,
+    };
+    if (ready) {
+      for (const [basis, condition] of [
+        ["start", "start_date IS NOT NULL"],
+        ["end", "end_date IS NOT NULL"],
+        ["overlap", "start_date<=end_date"],
+      ])
+        if (
+          await probe(
+            `SELECT EXISTS(SELECT 1 FROM interreg_operations WHERE ${condition}) AS ready`,
+          )
+        )
+          d.dates.push(basis);
+      const partners = corpus === "interregPartners",
+        table = partners ? "interreg_partners" : "interreg_operations";
+      for (const [basis, column] of partners
+        ? [
+            ["partnerBudget", "budget_eur"],
+            ["partnerEu", "eu_funding_eur"],
+          ]
+        : [
+            ["operationBudget", "total_budget_eur"],
+            ["operationEu", "eu_funding_eur"],
+          ])
+        if (
+          await probe(
+            `SELECT EXISTS(SELECT 1 FROM ${table} WHERE ${column} IS NOT NULL) AS ready`,
+          )
+        )
+          d.amounts.push(basis);
+      d.predicates = partners
+        ? [
+            "unpublishedBudget",
+            "publishedZero",
+            "unidentified",
+            "unplaced",
+            "lead",
+            "bulgarian",
+          ]
+        : ["unpublishedBudget", "reversedDates"];
+      if (partners) {
+        if (
+          await probe("SELECT count(*)>=0 AS ready FROM funding_political_eiks")
+        )
+          d.predicates.push("political");
+        if (
+          await probe(
+            "SELECT EXISTS(SELECT 1 FROM fund_projects) AND EXISTS(SELECT 1 FROM agri_subsidies) AS ready",
+          )
+        )
+          d.predicates.push("otherFunding");
+      }
+    }
+    interregDescriptors[corpus] = d;
+  }
   return {
     body: {
       version: contract.FUNDING_VERSION,
       catalogVersion: contract.FUNDING_CATALOG_VERSION,
-      corpora: { isunProjects: descriptor, agriPayments: agriDescriptor },
+      corpora: {
+        isunProjects: descriptor,
+        agriPayments: agriDescriptor,
+        ...interregDescriptors,
+      },
       revision: base.body.revision,
     },
   };
