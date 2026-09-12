@@ -22,7 +22,7 @@ import { MemoryRouter } from "react-router-dom";
 import { bgCorpus as bg } from "@/locales/allKeys";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import { GOVERNANCE_INTERREG_ANCHOR } from "@/screens/funds/InterregTile";
+import { GOVERNANCE_INTERREG_ANCHOR } from "@/lib/interreg";
 import { MyAreaInterregTile } from "./MyAreaInterregTile";
 
 beforeAll(async () => {

@@ -27,7 +27,7 @@ import { formatEur, formatInt } from "@/lib/currency";
 import { useInterregProgramme } from "@/data/funds/useInterreg";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { InterregOperationRow } from "./InterregOperationRow";
-import { GOVERNANCE_INTERREG_ANCHOR, interregMuniName } from "./InterregTile";
+import { GOVERNANCE_INTERREG_ANCHOR, interregMuniName } from "@/lib/interreg";
 
 export const FundsInterregProgrammeScreen: FC = () => {
   const { code } = useParams<{ code: string }>();

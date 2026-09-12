@@ -25,7 +25,7 @@ import { Card } from "@/components/ui/card";
 import { formatEur } from "@/lib/currency";
 import type { InterregListedOperation } from "@/data/funds/types";
 import { InterregOperationRow } from "@/screens/funds/InterregOperationRow";
-import { GOVERNANCE_INTERREG_ANCHOR } from "@/screens/funds/InterregTile";
+import { GOVERNANCE_INTERREG_ANCHOR } from "@/lib/interreg";
 
 const OPS_SHOWN = 6;
 

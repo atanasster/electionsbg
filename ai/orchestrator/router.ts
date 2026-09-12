@@ -672,14 +672,23 @@ const PLACE_STOP = new Set([
   "voting",
 ]);
 
-const extractPlace = (q: string): string | undefined => {
+const extractPlace = (
+  q: string,
+  subjectWords: string[] = [],
+): string | undefined => {
   const words = q
     .replace(/[?.,!„“”"'`]/g, " ")
     .split(/\s+/)
     // a bare number is a date/count selector, never a place — drop it so
     // "съветите през 2019" or "...за последните 5 години" don't leak a digit
     // token into the município name
-    .filter((w) => w && !PLACE_STOP.has(w) && !/^\d+$/.test(w));
+    .filter(
+      (w) =>
+        w &&
+        !PLACE_STOP.has(w) &&
+        !subjectWords.includes(w) &&
+        !/^\d+$/.test(w),
+    );
   const cand = words.join(" ").trim();
   return cand.length > 1 ? cand : undefined;
 };
@@ -2346,15 +2355,27 @@ const routeText = (question: string, ctx: ToolContext): Route => {
     }
     // районни / кметствени кметове (Sofia districts or settlement mayors) —
     // more specific than the mayor-history rule below, so it goes first
+    const subMayorPlace = extractPlace(q, [
+      "районните",
+      "district",
+      "mayors",
+      "s",
+    ]);
     if (
-      place &&
+      subMayorPlace &&
       has(q, "район", "district", "кметств", "кметства", "settlement")
     )
-      return { tool: "localSubMayors", args: withCyc({ place }) };
+      return {
+        tool: "localSubMayors",
+        args: withCyc({
+          place: subMayorPlace,
+        }),
+      };
+    const mayorHistoryPlace = extractPlace(q, ["mayors"]);
     // mayors of a NAMED place over time ("последните кметове на София") -> history;
     // "кметове"/"mayors won" with no place -> the national mayors-by-party rollup
     if (
-      place &&
+      mayorHistoryPlace &&
       has(
         q,
         "кметове",
@@ -2367,7 +2388,10 @@ const routeText = (question: string, ctx: ToolContext): Route => {
         "досега",
       )
     )
-      return { tool: "localMayorHistory", args: { place } };
+      return {
+        tool: "localMayorHistory",
+        args: { place: mayorHistoryPlace },
+      };
     if (has(q, "кметове", "кметск", "mayors won") && !place)
       return { tool: "localMayorsWon", args: withCyc({}) };
     // council: per-place full breakdown if a place is named, else national share
@@ -3483,7 +3507,18 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       "capital project",
     )
   ) {
-    const obl = extractPlace(q);
+    const obl = extractPlace(q, [
+      "най-големите",
+      "инвестиционни",
+      "инвестиционните",
+      "проекти",
+      "капиталови",
+      "biggest",
+      "largest",
+      "investment",
+      "capital",
+      "projects",
+    ]);
     return { tool: "investmentProjects", args: obl ? { oblast: obl } : {} };
   }
   // (КЗК procurement-appeals corpus is gated as "0d" above, before the compare
@@ -4255,6 +4290,7 @@ const routeText = (question: string, ctx: ToolContext): Route => {
             /промоц[а-яё]*|намален[а-яё]*|оферт[а-яё]*|отстъпк[а-яё]*|край мен|около мен|near me|deal[a-z]*|discount[a-z]*| sale|on sale/gi,
             " ",
           ),
+        ["има"],
       );
       // promotions/deals — before the chain/ranking/place branches so a
       // deal query with a place ("промоции в Пловдив") routes to localDeals
@@ -4391,7 +4427,14 @@ const routeText = (question: string, ctx: ToolContext): Route => {
     if (place) return { tool: "transparencyScore", args: { place } };
   }
   if (has(q, "данъц", "данък", "такс", " tax", "taxes")) {
-    const place = extractPlace(q);
+    const place = extractPlace(q, [
+      "данъците",
+      "данъци",
+      "данък",
+      "такси",
+      "tax",
+      "taxes",
+    ]);
     if (place) return { tool: "localTaxes", args: { place } };
   }
   if (
