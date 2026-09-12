@@ -1,3 +1,4 @@
+import { installFundingQuery } from "./lib/installFundingQuery";
 // Load the committed Interreg corpus into Postgres (schema: 137_interreg.sql),
 // resolving each Bulgarian partner to a place on the way in.
 //
@@ -595,6 +596,8 @@ export const loadInterregPg = async (): Promise<{
     "interreg_partners",
     "interreg_programmes",
   );
+
+  await installFundingQuery();
 
   return {
     programmes: INTERREG_PROGRAMMES.length,

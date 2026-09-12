@@ -1,3 +1,4 @@
+import { installFundingQuery } from "../db/lib/installFundingQuery";
 // Ingest the ДФ „Земеделие" (CAP paying agency) subsidy corpus straight into
 // Postgres — the single source of truth. No JSON intermediary on disk: the raw
 // per-year sheets are pulled from data.egov.bg (cached under raw_data/agri/ by
@@ -882,6 +883,8 @@ export const runAgriIngest = async ({
       console.log(`  agri_hub_stats_cache refreshed → ${hub[0].n} scopes`);
     }
   });
+
+  await installFundingQuery();
 
   // The visibility map this ingest has been discarding since it was written.
   //

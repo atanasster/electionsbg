@@ -1,3 +1,4 @@
+import { installFundingQuery } from "./lib/installFundingQuery";
 // Load the ИСУН EU-funds corpus into Postgres so the whole /funds surface is
 // DB-served (no GCS static-JSON fetch) — mirrors the procurement PG migration.
 //
@@ -616,6 +617,8 @@ export const loadFundsPg = async (
   // 145 needs `canon_oblast` (143) — which lands one step LATER in `db:refresh`, so applying it
   // here failed with `function canon_oblast(text) does not exist` and rolled back a 57-step
   // chain at step 10. Its applier is `load_funds_fit_pg.ts`; see 145's header for the cycle.
+
+  await installFundingQuery();
 
   return { rows: rows.length, projects, payloads: payloadRows.length };
 };

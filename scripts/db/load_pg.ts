@@ -769,6 +769,12 @@ export const loadPg = async (): Promise<{
   // „nothing happened" — and separate calls give that up between them while opening a
   // connection each.
   await installProcurementQuery();
+  await exec(
+    readFileSync(
+      path.join(SCHEMA_DIR, "198_funding_query_catalogs.sql"),
+      "utf8",
+    ),
+  );
   await vacuumAfterReload(
     "procurement_normalcy_cache",
     "contractor_search",
