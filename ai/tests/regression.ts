@@ -2708,9 +2708,9 @@ const CASES: Case[] = [
     kind: "scalar",
   },
   {
-    // a vote-search term that matches no title -> graceful "not found" scalar
+    // The scoped roll-call executor owns free title searches; no match remains a scalar.
     q: "как гласува парламентът за еднорози",
-    tool: "voteSearch",
+    tool: "rollcallQuestion",
     kind: "scalar",
   },
   // ---- negative --------------------------------------------------------------

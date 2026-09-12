@@ -60,6 +60,30 @@ INSERT INTO person_role VALUES(10,'mp','7:52','exact_id'),(11,'mp','7:51','exact
       });
       expect(share.metrics).toMatchObject({ numerator: 2, denominator: 3 });
       expect(share.metrics.percentage).toBeCloseTo(200 / 3);
+      await c.query(
+        "UPDATE vote_item SET no=10 WHERE item_id=3; UPDATE vote_day SET pdf_url=NULL WHERE ns=52 AND date='2026-01-02'",
+      );
+      const qualityShare = await run({
+        corpus: "parliamentCasts",
+        seatIds: ["52:7"],
+        basis: "attempts",
+        metric: "choiceShare",
+        operation: "share",
+        choice: "for",
+        limit: 1,
+      });
+      expect(qualityShare.metrics).toMatchObject({
+        numerator: 2,
+        denominator: 3,
+      });
+      expect(qualityShare.coverage).toMatchObject({
+        tallyMismatches: 1,
+        sourceMissing: 1,
+      });
+      expect(qualityShare.status).toBe("partial");
+      await c.query(
+        "UPDATE vote_item SET no=1 WHERE item_id=3; UPDATE vote_day SET pdf_url='https://example.test/52' WHERE ns=52 AND date='2026-01-02'",
+      );
       const agreement = await run({
         corpus: "parliamentCasts",
         seatIds: ["52:7"],
@@ -436,6 +460,16 @@ INSERT INTO person_role VALUES(10,'mp','7:52','exact_id'),(11,'mp','7:51','exact
           })
         ).status,
       ).toBe("stale");
+      await c.query("UPDATE vote_item SET yes=yes+10 WHERE item_id=1");
+      const offPage = await run({
+        corpus: "parliamentVotes",
+        assemblyIds: ["52"],
+        basis: "attempts",
+        limit: 1,
+      });
+      expect(offPage.rows[0].key).not.toBe("52:2026-01-01:1");
+      expect(offPage.coverage.tallyMismatches).toBeGreaterThan(0);
+      expect(offPage.status).toBe("partial");
     } finally {
       await c.query("ROLLBACK");
     }

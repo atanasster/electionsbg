@@ -32,6 +32,32 @@ INSERT INTO council_vote VALUES('a','ivan_petrov','Иван Петров','for',
         (await c.query(sql, p)).rows;
       const run = async (q: Record<string, unknown>) =>
         (await runRollcallQuery(db, q)).body;
+      const shareScope = {
+        corpus: "councilCasts",
+        councilIds: ["BGS01", "SOF"],
+        named: "yes",
+        metric: "choiceShare",
+        operation: "share",
+        choice: "for",
+        limit: 1,
+      };
+      expect((await run(shareScope)).status).toBe("success");
+      await c.query(
+        "UPDATE council_resolution SET tally_against=10,source_url=NULL WHERE id='c'",
+      );
+      const qualityShare = await run(shareScope);
+      expect(qualityShare.metrics).toMatchObject({
+        numerator: 1,
+        denominator: 3,
+      });
+      expect(qualityShare.coverage).toMatchObject({
+        tallyMismatches: 1,
+        sourceMissing: 1,
+      });
+      expect(qualityShare.status).toBe("partial");
+      await c.query(
+        "UPDATE council_resolution SET tally_against=1,source_url='https://example.test/c' WHERE id='c'",
+      );
       const a = await run({
         corpus: "councilResolutions",
         councilIds: ["BGS01"],

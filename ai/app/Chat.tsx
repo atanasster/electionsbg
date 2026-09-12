@@ -105,9 +105,11 @@ const prevContext = (
         args: {
           query: p.ok ? encodeRollcallQuery(p.query) : "invalid-saved-scope",
           records: JSON.stringify(
-            p.ok && !p.query.groupBy
-              ? (m.env.rollcall.result.rows || []).filter((r) =>
-                  m.env?.rows?.some((visible) => visible.key === r.key),
+            p.ok && !p.query.groupBy && p.query.operation !== "methodology"
+              ? (m.env.rollcall.result.rows || []).filter(
+                  (r) =>
+                    typeof r.key === "string" &&
+                    m.env?.rows?.some((visible) => visible.key === r.key),
                 )
               : [],
           ),

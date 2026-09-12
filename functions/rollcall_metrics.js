@@ -40,7 +40,11 @@ function compileMetrics(q, depth, { compileRollcallQuery, RollcallError }) {
     operation: "list",
     comparatorSeatIds: undefined,
   };
-  const compiled = compileRollcallQuery(base, depth);
+  const compiled = compileRollcallQuery(
+    base,
+    depth,
+    q.metric === "choiceShare",
+  );
   const params = compiled.params;
   const bind = (v) => {
     params.push(v);

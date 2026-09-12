@@ -226,7 +226,11 @@ export function rollcallTemplate(
   const text = t[lang].replace(/\{(\w+)\}/g, (_, k) =>
     String(params[k] ?? `{${k}}`),
   );
-  return { text, tool: "rollcallQuestion", args: { question: text } };
+  return {
+    text,
+    tool: "rollcallQuestion",
+    args: { question: text, corpus: t.corpus },
+  };
 }
 export function matchRollcallTemplate(text: string): {
   draft: RollcallArgs;

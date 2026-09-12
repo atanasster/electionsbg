@@ -37,3 +37,53 @@ it("source absence and comparison status use human labels", () => {
   });
   expect(rollcallStatus("partial", "bg")).toBe("Непълно покритие");
 });
+it("drill-down scope exposes its inherited body, dates and choice", async () => {
+  const { rollcallDisplayScope } = await import("./rollcallPresentation");
+  const { validateRollcallQuery, encodeRollcallQuery } =
+    await import("./rollcallQuery");
+  const parent = validateRollcallQuery({
+    corpus: "councilResolutions",
+    councilIds: ["RSE01"],
+    from: "2025-01-01",
+    toExclusive: "2026-01-01",
+  });
+  if (!parent.ok) throw Error();
+  const child = validateRollcallQuery({
+    corpus: "councilCasts",
+    choice: "against",
+    parentQuery: encodeRollcallQuery(parent.query),
+    relationship: "voteCasts",
+  });
+  if (!child.ok) throw Error();
+  const scope = rollcallDisplayScope(child.query, "en", [
+    { body: "RSE01", body_name: "Община Русе" },
+  ]);
+  expect(scope).toContain("Община Русе");
+  expect(scope).toContain("2025-01-01");
+  expect(scope).toContain("Against");
+  expect(scope).not.toContain("All indexed dates");
+});
+it("a child roll labels parent person constraints only with matching identity evidence", async () => {
+  const { rollcallDisplayScope } = await import("./rollcallPresentation");
+  const { validateRollcallQuery, encodeRollcallQuery } =
+    await import("./rollcallQuery");
+  const parent = validateRollcallQuery({
+    corpus: "parliamentVotes",
+    seatIds: ["52:7"],
+  });
+  if (!parent.ok) throw Error();
+  const child = validateRollcallQuery({
+    corpus: "parliamentCasts",
+    parentQuery: encodeRollcallQuery(parent.query),
+    relationship: "voteCasts",
+  });
+  if (!child.ok) throw Error();
+  const rows = [
+    { person_key: "52:7", name: "Person A" },
+    { person_key: "52:8", name: "Person B" },
+  ];
+  const scope = rollcallDisplayScope(child.query, "en", rows);
+  expect(scope).toContain("Person A");
+  expect(scope).not.toContain("Person B");
+  expect(rollcallDisplayScope(parent.query, "en", [rows[1]])).toContain("52:7");
+});

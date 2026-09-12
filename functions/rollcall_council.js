@@ -5,7 +5,7 @@ const sessionKey =
 function compileCouncilQuery(
   q,
   depth,
-  { RollcallError, revisionSql, compileRollcallQuery },
+  { RollcallError, revisionSql, compileRollcallQuery, qualityCohort },
 ) {
   if (q.metric !== "records" || q.groupBy || q.operation === "compare")
     throw new RollcallError("metric_not_ready", 422);
@@ -97,6 +97,7 @@ function compileCouncilQuery(
         .replace("v.vote", "NULL::text")
         .replace("JOIN council_vote v ON v.resolution_id=r.id", "")
     : source;
+  const qualitySource = qualityCohort ? "cohort" : "selected";
   const sql = `WITH ${parent ? `parent_result AS MATERIALIZED(${parent.sql}),` : ""}source AS NOT MATERIALIZED(${source}),
  evidence_source AS NOT MATERIALIZED(${evidenceSource}),
  resolution_coverage AS MATERIALIZED(SELECT DISTINCT s.vote_key FROM evidence_source s WHERE ${evidenceFilters.join(" AND ") || "TRUE"} AND (${subject})),
@@ -107,11 +108,11 @@ function compileCouncilQuery(
  cohort AS MATERIALIZED(SELECT * FROM matches ORDER BY date DESC,key ${q.latestN ? "LIMIT " + bind(q.latestN) : ""}),
  selected AS MATERIALIZED(SELECT * FROM cohort WHERE ${q.choice ? "choice=" + bind(q.choice) : "TRUE"}),
  page AS (SELECT * FROM selected ORDER BY date ${q.order.toUpperCase()},key LIMIT ${bind(q.limit)} OFFSET ${bind(q.offset)}),
- tally AS (SELECT v.resolution_id AS vote_key,count(*) FILTER(WHERE vote='for') AS named_for,count(*) FILTER(WHERE vote='against') AS named_against,count(*) FILTER(WHERE vote='abstain') AS named_abstain FROM council_vote v WHERE resolution_id IN (SELECT vote_key FROM page) GROUP BY resolution_id)
+ tally AS (SELECT v.resolution_id AS vote_key,count(*) FILTER(WHERE vote='for') AS named_for,count(*) FILTER(WHERE vote='against') AS named_against,count(*) FILTER(WHERE vote='abstain') AS named_abstain FROM council_vote v WHERE resolution_id IN (SELECT vote_key FROM ${qualitySource}) GROUP BY resolution_id)
  SELECT jsonb_build_object('query',${bind(JSON.stringify(q))}::jsonb,'revision',${revisionSql},
- 'rows',COALESCE((SELECT jsonb_agg(to_jsonb(p)||jsonb_build_object('named_for',t.named_for,'named_against',t.named_against,'named_abstain',t.named_abstain,'tally_mismatch',CASE WHEN t.vote_key IS NULL THEN NULL ELSE (p.yes,p.no,p.abstain) IS DISTINCT FROM (t.named_for,t.named_against,t.named_abstain) END) ORDER BY p.date ${q.order.toUpperCase()},p.key) FROM page p LEFT JOIN tally t USING(vote_key)),'[]'::jsonb),
+ 'rows',COALESCE((SELECT jsonb_agg(to_jsonb(p)||jsonb_build_object('body_name',(SELECT m.name FROM council_muni m WHERE m.obshtina_code=p.body),'named_for',t.named_for,'named_against',t.named_against,'named_abstain',t.named_abstain,'tally_mismatch',CASE WHEN t.vote_key IS NULL THEN NULL ELSE (p.yes,p.no,p.abstain) IS DISTINCT FROM (t.named_for,t.named_against,t.named_abstain) END) ORDER BY p.date ${q.order.toUpperCase()},p.key) FROM page p LEFT JOIN tally t USING(vote_key)),'[]'::jsonb),
  'totals',jsonb_build_object('records',(SELECT count(*) FROM selected),'cohortRecords',(SELECT count(*) FROM cohort)),
- 'coverage',jsonb_build_object('indexedDays',(SELECT count(DISTINCT decided_on) FROM body_coverage),'namedResolutions',(SELECT count(*) FROM roll_coverage WHERE published),'resolutionRecords',(SELECT count(*) FROM roll_coverage),'missingRolls',(SELECT count(*) FROM roll_coverage WHERE NOT published),'publishedCasts',(SELECT count(*) FROM cohort),'candidates',(SELECT count(*) FROM candidates),'untitled',(SELECT count(*) FROM body_coverage WHERE title IS NULL OR title='' OR title='(no title parsed)'),'latestIndexed',(SELECT max(date) FROM candidates),'sourceMissing',(SELECT count(*) FROM selected WHERE source_url IS NULL),'bodies',(SELECT jsonb_agg(DISTINCT body) FROM candidates),'yearOnly',(SELECT count(*) FROM body_coverage r WHERE ${unknownDate})),
+ 'coverage',jsonb_build_object('tallyMismatches',(SELECT count(*) FROM (SELECT DISTINCT vote_key,yes,no,abstain FROM ${qualitySource}) s JOIN tally t USING(vote_key) WHERE (s.yes,s.no,s.abstain) IS DISTINCT FROM (t.named_for,t.named_against,t.named_abstain)),'indexedDays',(SELECT count(DISTINCT decided_on) FROM body_coverage),'namedResolutions',(SELECT count(*) FROM roll_coverage WHERE published),'resolutionRecords',(SELECT count(*) FROM roll_coverage),'missingRolls',(SELECT count(*) FROM roll_coverage WHERE NOT published),'publishedCasts',(SELECT count(*) FROM cohort),'candidates',(SELECT count(*) FROM candidates),'untitled',(SELECT count(*) FROM body_coverage WHERE title IS NULL OR title='' OR title='(no title parsed)'),'latestIndexed',(SELECT max(date) FROM candidates),'sourceMissing',(SELECT count(*) FROM ${qualitySource} WHERE source_url IS NULL),'bodies',(SELECT jsonb_agg(DISTINCT body) FROM candidates),'yearOnly',(SELECT count(*) FROM body_coverage r WHERE ${unknownDate})),
  'dateQualityUnsupported',${parent ? "COALESCE((SELECT (result->>'dateQualityUnsupported')::boolean FROM parent_result),FALSE) OR " : ""}${sessions || (q.from && (!q.from.endsWith("-01-01") || !q.toExclusive.endsWith("-01-01"))) ? `EXISTS(SELECT 1 FROM council_resolution r WHERE ${body.join(" AND ") || "TRUE"} AND ${unknownDate}${q.from ? ` AND r.decided_on>=date_trunc('year',${bind(q.from)}::date) AND r.decided_on<${bind(q.toExclusive)}::date` : ""})` : "FALSE"},
  'keys',${depth ? "(SELECT COALESCE(jsonb_agg(key),'[]'::jsonb) FROM selected)" : "'[]'::jsonb"},'voteKeys',${depth ? "(SELECT COALESCE(jsonb_agg(DISTINCT vote_key),'[]'::jsonb) FROM selected)" : "'[]'::jsonb"}) AS result`;
   return {

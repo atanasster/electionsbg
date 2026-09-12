@@ -1,3 +1,9 @@
+import { procurementPageCsv } from "@/lib/procurementExport";
+vi.mock("@/lib/procurementExport", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("@/lib/procurementExport")>();
+  return { ...actual, procurementPageCsv: vi.fn(actual.procurementPageCsv) };
+});
 import {
   render,
   screen,
@@ -232,4 +238,36 @@ it("an older response cannot overwrite a newer URL scope", async () => {
   await act(async () => finish({ ...envelope(), title: "OLD RESPONSE" }));
   expect(screen.queryByText("OLD RESPONSE")).toBeNull();
   expect(screen.getByText("New scope")).toBeInTheDocument();
+});
+it("exports only visible localized columns while retaining group labels", async () => {
+  const e = envelope("r", 1);
+  e.rows = [
+    {
+      group_key: "2026-01",
+      key: "opaque-2022-01-01",
+      session_key: "private-key",
+    } as (typeof e.rows)[number],
+  ];
+  run.mockResolvedValue(e);
+  mount();
+  await screen.findByText("2026-01");
+  const create = URL.createObjectURL,
+    revoke = URL.revokeObjectURL;
+  URL.createObjectURL = vi.fn(() => "blob:test");
+  URL.revokeObjectURL = vi.fn();
+  const click = vi
+    .spyOn(HTMLAnchorElement.prototype, "click")
+    .mockImplementation(() => {});
+  try {
+    fireEvent.click(
+      screen.getByRole("button", { name: "Export this page (CSV)" }),
+    );
+    expect(vi.mocked(procurementPageCsv).mock.calls.at(-1)?.[0]).toEqual([
+      { Assembly: "2026-01" },
+    ]);
+  } finally {
+    URL.createObjectURL = create;
+    URL.revokeObjectURL = revoke;
+    click.mockRestore();
+  }
 });

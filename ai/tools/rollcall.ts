@@ -133,6 +133,11 @@ export async function rollcallQuery(
             !(q.councilIds || q.assemblyIds) ||
             (q.councilIds || q.assemblyIds)!.includes(String(r.id)),
         )
+        .sort(
+          (a, b) =>
+            String(a.id).localeCompare(String(b.id), "en", { numeric: true }) *
+            (q.order === "asc" ? 1 : -1),
+        )
         .map((r) =>
           primitive({
             ...r,
@@ -158,7 +163,10 @@ export async function rollcallQuery(
           ? { reason: "revision_changed" }
           : {}),
         query: q,
-        rows,
+        rows:
+          q.expectedRevision && q.expectedRevision !== cap.revision
+            ? []
+            : rows.slice(q.offset, q.offset + q.limit),
         totals: { records: rows.length, cohortRecords: rows.length },
         revision: cap.revision,
         coverage: {},
@@ -226,28 +234,18 @@ export async function rollcallQuery(
         : "Latest indexed records. Topics match source titles; a missing cast does not mean against.",
     },
     rows,
-    columns: Object.keys(rows[0] || {})
-      .filter((k) =>
-        [
-          "date",
-          "title",
-          "name",
-          "choice",
-          "faction",
-          "records",
-          "key",
-          "percentage",
-          "item_count",
-          "yes",
-          "no",
-          "abstain",
-          "outcome",
-          "revote",
-          "first",
-          "latest",
-          "named",
-          "precision",
-        ].includes(k),
+    columns: (coverageRegister
+      ? ["name", "first", "latest", "records", "named", "precision"]
+      : query.groupBy
+        ? ["key", "records", "percentage"]
+        : query.corpus.endsWith("Sessions")
+          ? ["date", "item_count"]
+          : query.corpus.endsWith("Casts")
+            ? ["date", "title", "name", "choice", "faction", "revote"]
+            : ["date", "title", "yes", "no", "abstain", "outcome", "revote"]
+    )
+      .filter((key) =>
+        rows.some((row) => row[key] !== null && row[key] !== undefined),
       )
       .map((key) => ({ key, label: rollcallColumn(key, ctx.lang) })),
     provenance: ["db:rollcall-query"],

@@ -33,18 +33,43 @@ const excluded = (question: string) =>
 export function rollcallCorpus(question: string): RollcallCorpus | null {
   const template = matchRollcallTemplate(question);
   if (template) return template.draft.corpus;
-  if (
-    excluded(question) ||
-    /votes? did .+ get|гласове.*получи|гласува като|votes? like|voting profile|профил.*гласув/i.test(
+  const explicitBody =
+    /парламент|народно.*събрание|общинск.*съвет|съветник|parliament|assembly|council/i.test(
       question,
-    ) ||
-    /^Как гласува [А-Я][а-я]+(?: [А-Я][а-я]+){1,2} в парламента\??$/u.test(
+    );
+  if (
+    !explicitBody &&
+    /(?:\b(?:town|city|village|municipality|province|neighbou?rhoods?|turnout|presidential|runoff)\b|гр\.|с\.\s|община|област|квартал|ромск|\bRoma\b|президент|балотаж|под прага|votes come from|от кои партии идват|къде отидоха гласовете)/i.test(
       question,
     )
   )
     return null;
   if (
-    !/гласува|гласуван|гласов|решени|поимен|заседани|votes?|votings?|roll.call|resolutions?|sittings?|sessions?|покритие|coverage|which periods|which municipalities|кои периоди|кои общини/i.test(
+    /^(?:What were the most contested votes|Кои са най-оспорваните гласувания)\??$/i.test(
+      question,
+    )
+  )
+    return null;
+  if (
+    excluded(question) ||
+    /прахос|wasted|диаспор|diaspora|out-of-country|council vote.*(?:cycles|changed)|parliamentary votes go|transition model|how does .+ vote in parliament|секция\s+\d|section\s+\d|най-единно|cohesiv|моята община|^кой гласува за |^who votes for /i.test(
+      question,
+    ) ||
+    (/машин|machine/i.test(question) &&
+      !/парламент|закон|parliament|legislat/i.test(question)) ||
+    /^(?:Как гласува парламентът за бюджета|How did parliament vote on the budget)\??$/i.test(
+      question,
+    ) ||
+    /votes? did .+ get|гласове.*получи|гласува като|votes? like|voting profile|профил.*гласув/i.test(
+      question,
+    ) ||
+    /^Как гласува [А-Я][а-я]+(?: [А-Я][а-я]+){1,2} в парламента\??$/iu.test(
+      question,
+    )
+  )
+    return null;
+  if (
+    !/гласува|гласуван|гласов|гласа\s+на|решени|поимен|заседани|votes?|votings?|roll.call|resolutions?|sittings?|sessions?|покритие|coverage|which periods|which municipalities|кои периоди|кои общини/i.test(
       question,
     )
   )
@@ -52,7 +77,7 @@ export function rollcallCorpus(question: string): RollcallCorpus | null {
   const council = /общинск|съветник|council|councillor/i.test(question);
   if (
     !council &&
-    !/парламент|народно.*събрание|\bНС\b|parliament|assembly|гласува|гласуван|гласов|\bvotes?\b|sittings?/i.test(
+    !/парламент|народно.*събрание|\bНС\b|parliament|assembly|гласува|гласуван|гласов|гласа\s+на|\bvotes?\b|sittings?/i.test(
       question,
     )
   )
@@ -62,7 +87,7 @@ export function rollcallCorpus(question: string): RollcallCorpus | null {
     !/как гласува (?:парламент|общинск|съвет(?:ът)?(?:\s|$))|how did (?:the )?(?:parliament|council) vote/i.test(
       question,
     ) &&
-    /гласов.+на [А-Я]|колко често|how often|съветник|councillor|кой гласува|who voted|как гласува|how did .+ vote|гласувания на (?!парламента|народното)|[’']s.*votes|votes (?:of|by) /i.test(
+    /(?:гласов.+|гласа\s+)на [А-Я]|колко често|how often|съветник|councillor|кой гласува|who voted|как гласува|how did .+ vote|гласувания на (?!парламента|народното)|[’']s.*votes|votes (?:of|by) /i.test(
       question,
     );
   return council
@@ -315,7 +340,7 @@ export function understandRollcall(
       return { kind: "scope", draft: q, names, needs: "council" };
   }
   const namePatterns = [
-    /гласов.+?на\s+(.+?)(?=\s+(?:през|от|по|за)(?:\s|$)|[?!.]|$)/i,
+    /(?:гласов.+?|гласа\s+)на\s+(.+?)(?=\s+(?:през|от|по|за)(?:\s|$)|[?!.]|$)/i,
     /(?:колко често|how often)\s+(.+?)(?=\s+(?:гласуват|vote))/i,
     /(?:как гласува(?:ха)?\s+(?:съветникът\s+)?|how did\s+(?:councillor\s+)?)(.+?)(?=\s+(?:vote|по|за|в|през|от|on|in|from)(?:\s|$)|[?!.]|$)/i,
     /(?:гласувания(?:та)? на|votes (?:of|by))\s+(.+?)(?=\s+(?:по|за|в|през|от|on|in|from)(?:\s|$)|[?!.]|$)/i,

@@ -49,8 +49,12 @@ export const projectChatStarters = (
         category: question.categoryId,
         subcategory: question.subcategoryId,
         tool,
-        bg: question.question.bg,
-        en: question.question.en,
+        bg: question.id.startsWith("rollcall-query-")
+          ? rollcallTemplate(question.id, "bg").text
+          : question.question.bg,
+        en: question.id.startsWith("rollcall-query-")
+          ? rollcallTemplate(question.id, "en").text
+          : question.question.en,
         args: {
           bg: {
             ...(funding ??

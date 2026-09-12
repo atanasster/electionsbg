@@ -8,7 +8,7 @@ class RollcallError extends Error {
 }
 const revisionSql =
   "(SELECT md5(COALESCE(string_agg(resource||':'||generation::text,',' ORDER BY resource),'')) FROM rollcall_query_revisions)";
-function compileRollcallQuery(raw, depth = 0) {
+function compileRollcallQuery(raw, depth = 0, qualityCohort = false) {
   const p = contract.validateRollcallQuery(raw, depth);
   if (!p.ok) throw new RollcallError(p.errors.join(","));
   const q = p.query,
@@ -29,6 +29,7 @@ function compileRollcallQuery(raw, depth = 0) {
   if (!q.corpus.startsWith("parliament"))
     return require("./rollcall_council").compileCouncilQuery(q, depth, {
       RollcallError,
+      qualityCohort,
       revisionSql,
       compileRollcallQuery,
     });
@@ -98,7 +99,7 @@ function compileRollcallQuery(raw, depth = 0) {
       : "";
   const source = sessions
     ? `SELECT d.ns::text||':'||d.date::text AS key,d.ns::text||':'||d.date::text AS session_key,NULL::text AS vote_key,NULL::int AS item_id,d.ns::text AS body,d.date,0 AS ordinal,NULL::text AS title,NULL::text AS person_key,NULL::text AS name,NULL::text AS faction,NULL::text AS choice,TRUE AS standing,d.pdf_url AS source_url,d.scraped_at AS scraped_at,(SELECT count(*)::int FROM vote_item v WHERE v.ns=d.ns AND v.date=d.date ${q.basis === "standing" ? "AND v.superseded_by IS NULL" : ""}) AS item_count,NULL::int AS yes,NULL::int AS no,NULL::int AS abstain,NULL::int AS absent,NULL::text AS superseded_by,NULL::numeric AS contested,NULL::text AS revote FROM vote_day d`
-    : `SELECT ${itemKey}${casts ? "||'::'||c.mp_id::text" : ""} AS key,i.ns::text||':'||i.date::text AS session_key,${itemKey} AS vote_key,i.item_id,i.ns::text AS body,i.date,i.item_no AS ordinal,i.title,${casts ? "c.ns::text||':'||c.mp_id::text" : "NULL::text"} AS person_key,${casts ? "m.name" : "NULL::text"} AS name,${casts ? "pd.short" : "NULL::text"} AS faction,${casts ? "CASE c.vote WHEN 'y' THEN 'for' WHEN 'n' THEN 'against' WHEN 'a' THEN 'abstain' WHEN 'x' THEN 'recordedAbsent' END" : "NULL::text"} AS choice,i.superseded_by IS NULL AS standing,d.pdf_url AS source_url,d.scraped_at,NULL::int AS item_count,i.yes::int,i.no::int,i.abstain::int,i.absent::int,(SELECT v.ns::text||':'||v.date::text||':'||v.item_no::text FROM vote_item v WHERE v.item_id=i.superseded_by) AS superseded_by,CASE WHEN i.yes+i.no+i.abstain>0 THEN 100.0*LEAST(i.yes,i.no+i.abstain)/(i.yes+i.no+i.abstain) WHEN i.yes+i.no+i.abstain=0 THEN 0::numeric END AS contested,CASE WHEN i.superseded_by IS NOT NULL OR EXISTS(SELECT 1 FROM vote_item prior WHERE prior.superseded_by=i.item_id) THEN 'linked' ELSE 'none' END AS revote FROM vote_item i LEFT JOIN vote_day d ON d.ns=i.ns AND d.date=i.date ${casts ? "JOIN vote_cast c ON c.item_id=i.item_id AND c.ns=i.ns JOIN mp_seat m ON m.ns=c.ns AND m.mp_id=c.mp_id LEFT JOIN party_dim pd ON pd.party_id=c.party_id" : ""}${castPushdown}`;
+    : `SELECT ${itemKey}${casts ? "||'::'||c.mp_id::text" : ""} AS key,i.ns::text||':'||i.date::text AS session_key,${itemKey} AS vote_key,i.item_id,i.ns::text AS body,i.date,i.item_no AS ordinal,i.title,${casts ? "c.ns::text||':'||c.mp_id::text" : "NULL::text"} AS person_key,${casts ? "m.name" : "NULL::text"} AS name,${casts ? "pd.short" : "NULL::text"} AS faction,${casts ? "CASE c.vote WHEN 'y' THEN 'for' WHEN 'n' THEN 'against' WHEN 'a' THEN 'abstain' WHEN 'x' THEN 'recordedAbsent' END" : "NULL::text"} AS choice,i.superseded_by IS NULL AS standing,d.pdf_url AS source_url,d.scraped_at,NULL::int AS item_count,i.yes::int,i.no::int,i.abstain::int,i.absent::int,(SELECT v.ns::text||':'||v.date::text||':'||v.item_no::text FROM vote_item v WHERE v.item_id=i.superseded_by) AS superseded_by,CASE WHEN i.yes+i.no+i.abstain>0 THEN 100.0*LEAST(i.yes,i.no+i.abstain)/(i.yes+i.no+i.abstain) WHEN i.yes+i.no+i.abstain=0 THEN 0::numeric END AS contested,CASE WHEN i.superseded_by IS NOT NULL OR linked.revote_id IS NOT NULL THEN 'linked' ELSE 'none' END AS revote FROM ${parent && casts ? "parent_items" : "vote_item"} i LEFT JOIN (SELECT DISTINCT superseded_by AS revote_id FROM vote_item WHERE superseded_by IS NOT NULL) linked ON linked.revote_id=i.item_id LEFT JOIN vote_day d ON d.ns=i.ns AND d.date=i.date ${casts ? "JOIN vote_cast c ON c.item_id=i.item_id AND c.ns=i.ns JOIN mp_seat m ON m.ns=c.ns AND m.mp_id=c.mp_id LEFT JOIN party_dim pd ON pd.party_id=c.party_id" : ""}${castPushdown}`;
   const topics = [];
   if (q.keyword)
     topics.push(
@@ -125,17 +126,18 @@ function compileRollcallQuery(raw, depth = 0) {
   const choice = q.choice ? `choice=${bind(q.choice)}` : "TRUE";
   const sort = q.metric === "contested" ? "contested DESC NULLS LAST," : "";
   const parentCte = parent
-    ? `parent_result AS MATERIALIZED(${parent.sql}),`
+    ? `parent_result AS MATERIALIZED(${parent.sql}),${casts ? "parent_items AS MATERIALIZED(SELECT i.* FROM vote_item i WHERE " + itemKey + " IN (SELECT jsonb_array_elements_text(result->'voteKeys') FROM parent_result))," : ""}`
     : "";
+  const qualitySource = qualityCohort ? "cohort" : "selected";
   const sql = `WITH ${parentCte}source AS NOT MATERIALIZED(${source}),body_coverage AS (SELECT s.* FROM (SELECT ns::text AS body,date FROM vote_day) s WHERE ${bodyDateWhere.join(" AND ") || "TRUE"}),candidates AS MATERIALIZED(SELECT s.* FROM source s WHERE ${where.join(" AND ") || "TRUE"}),
- matches AS MATERIALIZED(SELECT * FROM candidates s WHERE ${subject}),
- cohort AS MATERIALIZED(SELECT * FROM matches ORDER BY date DESC,ordinal DESC,key ${q.latestN ? "LIMIT " + bind(q.latestN) : ""}),
- selected AS MATERIALIZED(SELECT * FROM cohort WHERE ${choice}),
+ matches AS NOT MATERIALIZED(SELECT * FROM candidates s WHERE ${subject}),
+ cohort AS NOT MATERIALIZED(SELECT * FROM matches ${q.latestN ? "ORDER BY date DESC,ordinal DESC,key LIMIT " + bind(q.latestN) : ""}),
+ selected AS NOT MATERIALIZED(SELECT * FROM cohort WHERE ${choice}),
  page AS (SELECT * FROM selected ORDER BY ${sort}date ${q.order.toUpperCase()},ordinal ${q.order.toUpperCase()},key LIMIT ${bind(q.limit)} OFFSET ${bind(q.offset)}),
- tally AS (SELECT c.item_id,count(*) FILTER(WHERE c.vote='y') AS named_for,count(*) FILTER(WHERE c.vote='n') AS named_against,count(*) FILTER(WHERE c.vote='a') AS named_abstain,count(*) FILTER(WHERE c.vote='x') AS named_absent FROM vote_cast c WHERE c.item_id IN (SELECT item_id FROM page) GROUP BY c.item_id)
+ tally AS (SELECT c.item_id,count(*) FILTER(WHERE c.vote='y') AS named_for,count(*) FILTER(WHERE c.vote='n') AS named_against,count(*) FILTER(WHERE c.vote='a') AS named_abstain,count(*) FILTER(WHERE c.vote='x') AS named_absent FROM vote_cast c WHERE c.item_id IN (SELECT item_id FROM ${qualitySource}) GROUP BY c.item_id)
  SELECT jsonb_build_object('query',${bind(JSON.stringify(q))}::jsonb,'revision',${revisionSql},'rows',COALESCE((SELECT jsonb_agg(to_jsonb(p)||jsonb_build_object('named_for',t.named_for,'named_against',t.named_against,'named_abstain',t.named_abstain,'named_absent',t.named_absent,'tally_mismatch',CASE WHEN p.item_id IS NULL THEN NULL ELSE (p.yes,p.no,p.abstain,p.absent) IS DISTINCT FROM (t.named_for,t.named_against,t.named_abstain,t.named_absent) END) ORDER BY ${q.metric === "contested" ? "p.contested DESC NULLS LAST," : ""}p.date ${q.order.toUpperCase()},p.ordinal ${q.order.toUpperCase()},p.key) FROM page p LEFT JOIN tally t USING(item_id)),'[]'::jsonb),
  'totals',jsonb_build_object('records',(SELECT count(*) FROM selected),'cohortRecords',(SELECT count(*) FROM cohort)),
- 'coverage',jsonb_build_object('indexedDays',(SELECT count(*) FROM body_coverage),'candidates',(SELECT count(*) FROM candidates),'untitled',(SELECT count(*) FROM candidates s WHERE ${sessions ? "EXISTS(SELECT 1 FROM vote_item v WHERE v.ns::text=s.body AND v.date=s.date AND (v.title IS NULL OR v.title=''))" : "title IS NULL OR title=''"}),'latestIndexed',(SELECT max(date) FROM candidates),'sourceMissing',(SELECT count(*) FROM selected WHERE source_url IS NULL),'bodies',(SELECT jsonb_agg(DISTINCT body) FROM candidates)),
+ 'coverage',jsonb_build_object('tallyMismatches',(SELECT count(*) FROM (SELECT DISTINCT item_id,yes,no,abstain,absent FROM ${qualitySource}) s LEFT JOIN tally t USING(item_id) WHERE s.item_id IS NOT NULL AND (s.yes,s.no,s.abstain,s.absent) IS DISTINCT FROM (t.named_for,t.named_against,t.named_abstain,t.named_absent)),'indexedDays',(SELECT count(*) FROM body_coverage),'candidates',(SELECT count(*) FROM candidates),'untitled',(SELECT count(*) FROM candidates s WHERE ${sessions ? "EXISTS(SELECT 1 FROM vote_item v WHERE v.ns::text=s.body AND v.date=s.date AND (v.title IS NULL OR v.title=''))" : "title IS NULL OR title=''"}),'latestIndexed',(SELECT max(date) FROM candidates),'sourceMissing',(SELECT count(*) FROM ${qualitySource} WHERE source_url IS NULL),'bodies',(SELECT jsonb_agg(DISTINCT body) FROM candidates)),
  'keys',${depth ? "(SELECT COALESCE(jsonb_agg(key),'[]'::jsonb) FROM selected)" : "'[]'::jsonb"},'voteKeys',${depth ? "(SELECT COALESCE(jsonb_agg(DISTINCT vote_key),'[]'::jsonb) FROM selected)" : "'[]'::jsonb"}) AS result`;
   return {
     query: q,
@@ -236,6 +238,7 @@ function classifyResult(r) {
       reason: "named_roll_not_published",
     };
   const partial =
+    r.coverage.tallyMismatches > 0 ||
     r.coverage.sourceMissing > 0 ||
     r.coverage.yearOnly > 0 ||
     (q.corpus === "councilCasts" && r.coverage.missingRolls > 0) ||

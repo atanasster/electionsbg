@@ -183,3 +183,70 @@ it("coverage discovery preserves year-only boundaries and limitation", async () 
     precision: "Само година",
   });
 });
+it("sessions expose ordered meaningful columns rather than null cast/tally fields", async () => {
+  mock.mockResolvedValue({
+    status: "success",
+    revision: "r",
+    rows: [
+      {
+        key: "52:2026-09-11",
+        date: "2026-09-11",
+        item_count: 1,
+        title: null,
+        name: null,
+        choice: null,
+        yes: null,
+        no: null,
+      },
+    ],
+    totals: { records: 1, cohortRecords: 1 },
+    coverage: {},
+  });
+  const env = await rollcallQuery({ corpus: "parliamentSessions" }, ctx);
+  expect(env.columns?.map((c) => c.key)).toEqual(["date", "item_count"]);
+});
+it("coverage discovery respects revision guards", async () => {
+  mock.mockResolvedValue({
+    revision: "new",
+    assemblies: [{ id: "52", sessions: 1 }],
+  });
+  const env = await rollcallQuery(
+    {
+      corpus: "parliamentSessions",
+      operation: "methodology",
+      expectedRevision: "old",
+    },
+    ctx,
+  );
+  expect(env.rollcall?.result.status).toBe("stale");
+});
+it("coverage register pages deterministically without repeating all bodies", async () => {
+  mock.mockResolvedValue({
+    revision: "r",
+    councils: Array.from({ length: 16 }, (_, i) => ({
+      id: "C" + i,
+      name: "Council " + i,
+      resolutions: 1,
+    })),
+  });
+  const first = await rollcallQuery(
+    { corpus: "councilResolutions", operation: "methodology", limit: 10 },
+    ctx,
+  );
+  const next = await rollcallQuery(
+    {
+      corpus: "councilResolutions",
+      operation: "methodology",
+      limit: 10,
+      offset: 10,
+      expectedRevision: "r",
+    },
+    ctx,
+  );
+  expect(first.rows).toHaveLength(10);
+  expect(next.rows).toHaveLength(6);
+  expect(new Set([...first.rows!, ...next.rows!].map((r) => r.id)).size).toBe(
+    16,
+  );
+  expect(next.rollcall?.result.totals?.records).toBe(16);
+});

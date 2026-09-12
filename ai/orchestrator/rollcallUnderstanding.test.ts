@@ -184,3 +184,17 @@ it("an explicit city replaces a previous council", () => {
   );
   expect(second).toMatchObject({ draft: { councilIds: ["RSE01"] } });
 });
+it("routes latest гласа wording to named legislative casts rather than election preferences", () => {
+  const r = understandRollcall("какви са последните 10 гласа на Бойко Рашков");
+  expect(r.kind).toBe("scope");
+  if (r.kind !== "scope") throw Error();
+  expect(r.draft.corpus).toBe("parliamentCasts");
+  expect(r.names).toEqual(["Бойко Рашков"]);
+  expect(r.draft.latestN).toBe(10);
+});
+it("free unknown legislative topics remain explicit source-title filters", () => {
+  const r = understandRollcall("как гласува парламентът за еднорози");
+  expect(r.kind).toBe("scope");
+  if (r.kind !== "scope") throw Error();
+  expect(r.draft.keyword).toBe("еднорози");
+});

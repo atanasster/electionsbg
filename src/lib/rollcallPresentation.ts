@@ -1,4 +1,8 @@
-import { rollcallScope, type RollcallQuery } from "./rollcallQuery";
+import {
+  rollcallScope,
+  decodeRollcallQuery,
+  type RollcallQuery,
+} from "./rollcallQuery";
 export const rollcallColumn = (key: string, lang: "bg" | "en"): string =>
   ({
     date: ["Дата", "Date"],
@@ -63,15 +67,57 @@ export function rollcallDisplayScope(
   rows: Record<string, unknown>[] = [],
 ) {
   let scope = rollcallScope(q, lang);
-  const names = [
-    ...new Set(
-      rows.flatMap((r) => (typeof r.name === "string" ? [r.name] : [])),
-    ),
-  ];
-  if (names.length && q.seatIds)
-    scope = scope.replace(q.seatIds.join(", "), names.join(", "));
-  if (names.length && q.councilCastKeys)
-    scope = scope.replace(q.councilCastKeys.join(", "), names.join(", "));
+  for (const ids of [q.seatIds, q.councilCastKeys]) {
+    if (!ids) continue;
+    const labels = ids.map((id) => {
+      const names = [
+        ...new Set(
+          rows
+            .filter((r) => r.person_key === id && typeof r.name === "string")
+            .map((r) => String(r.name)),
+        ),
+      ];
+      return names.length === 1 ? names[0] : id;
+    });
+    scope = scope.replace(ids.join(", "), [...new Set(labels)].join(", "));
+  }
+  if (q.councilIds)
+    scope = scope.replace(
+      q.councilIds.join(", "),
+      q.councilIds
+        .map(
+          (id) =>
+            rows.find((r) => r.body === id && typeof r.body_name === "string")
+              ?.body_name || id,
+        )
+        .join(", "),
+    );
+  if (q.choice) scope += " · " + rollcallChoice(q.choice, lang);
+  if (q.named)
+    scope +=
+      " · " +
+      (q.named === "yes"
+        ? lang === "bg"
+          ? "С поименен вот"
+          : "With named rolls"
+        : lang === "bg"
+          ? "Без публикуван поименен вот"
+          : "Without published named rolls");
+  if (q.outcome) scope += " · " + rollcallChoice(q.outcome, lang);
+  if (q.key) scope += " · " + q.key;
+  if (q.parentQuery) {
+    const parent = decodeRollcallQuery(q.parentQuery);
+    if (parent.ok) {
+      if (!q.from)
+        scope = scope.replace(
+          lang === "bg" ? "Всички индексирани дати" : "All indexed dates",
+          lang === "bg" ? "В наследения обхват" : "Within inherited scope",
+        );
+      scope +=
+        (lang === "bg" ? " · В рамките на: " : " · Within: ") +
+        rollcallDisplayScope(parent.query, lang, rows);
+    }
+  }
   return scope;
 }
 export const rollcallDateLabel = (date: unknown, yearOnly: unknown) =>

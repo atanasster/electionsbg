@@ -241,3 +241,31 @@ it("followups respect final pages, result status, group totals and metric suppor
     ),
   ).not.toContain("rollcall-followup-F11");
 });
+it("coverage register rows cannot become motion references or vote filters", () => {
+  const p = validateRollcallQuery({
+    corpus: "councilResolutions",
+    operation: "methodology",
+  });
+  if (!p.ok) throw Error();
+  const env = {
+    tool: "rollcallQuery",
+    kind: "table",
+    title: "Coverage",
+    viz: "none",
+    facts: {},
+    provenance: [],
+    rows: [{ id: "SOF" }, { id: "RSE01" }],
+    rollcall: {
+      query: p.query,
+      result: {
+        status: "success",
+        revision: "r",
+        rows: [{ id: "SOF" }, { id: "RSE01" }],
+        totals: { records: 16, cohortRecords: 16 },
+      },
+    },
+  } as Envelope;
+  expect(rollcallContinuations(env).map((s) => s.questionId)).toEqual([
+    "rollcall-followup-F17",
+  ]);
+});

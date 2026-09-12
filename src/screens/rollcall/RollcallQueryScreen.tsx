@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import {
   decodeRollcallQuery,
   encodeRollcallQuery,
-  validateRollcallQuery,
   rollcallScope,
+  validateRollcallQuery,
 } from "@/lib/rollcallQuery";
 import { procurementPageCsv } from "@/lib/procurementExport";
 import { rollcallQuery, rollcallMessage } from "../../../ai/tools/rollcall";
@@ -88,7 +88,16 @@ export function RollcallQueryScreen() {
   };
   const exportPage = () => {
     if (!ready || busy || stale) return;
-    const content = procurementPageCsv(rows, rollcallScope(q, lang), revision);
+    const publicRows = rows.map((row) =>
+      Object.fromEntries(
+        (env?.columns || []).map((column) => [column.label, row[column.key]]),
+      ),
+    );
+    const content = procurementPageCsv(
+      publicRows,
+      rollcallDisplayScope(q, lang, result?.rows),
+      revision,
+    );
     const url = URL.createObjectURL(
       new Blob(["\uFEFF", content], { type: "text/csv;charset=utf-8" }),
     );

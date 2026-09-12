@@ -15,14 +15,20 @@ export function rollcallContinuations(env: Envelope): Suggestion[] {
     expectedRevision: env.rollcall.result.revision,
   });
   if (!p.ok) return [];
-  const focus = p.query.groupBy
-    ? []
-    : (env.rollcall.result.rows || [])
-        .filter((r) => env.rows?.some((v) => v.key === r.key))
-        .map((r) => ({ key: String(r.key) }));
+  const focus =
+    p.query.groupBy || p.query.operation === "methodology"
+      ? []
+      : (env.rollcall.result.rows || [])
+          .filter(
+            (r) =>
+              typeof r.key === "string" &&
+              env.rows?.some((v) => v.key === r.key),
+          )
+          .map((r) => ({ key: String(r.key) }));
   const result = env.rollcall.result;
   const usable = ["success", "partial"].includes(result.status);
   return ROLLCALL_FOLLOWUPS.flatMap(([id, originalBg, originalEn]) => {
+    if (p.query.operation === "methodology" && id !== "F17") return [];
     let bg = originalBg,
       en = originalEn;
     if (!usable && !["F18", "F20"].includes(id)) return [];
@@ -45,6 +51,15 @@ export function rollcallContinuations(env: Envelope): Suggestion[] {
       bg = `Покажи следващите ${p.query.limit}.`;
       en = `Show the next ${p.query.limit}.`;
     }
+    if (id === "F06" && p.query.corpus.endsWith("Sessions")) return [];
+    if (id === "F07" && !p.query.corpus.endsWith("Sessions")) return [];
+    if (
+      id === "F18" &&
+      (!p.query.corpus.startsWith("council") ||
+        !["partial", "unavailable"].includes(result.status))
+    )
+      return [];
+    if (id === "F20" && result.metrics?.denominator === undefined) return [];
     if (/\{/.test(en)) return [];
     const r = rollcallContinuation(en, p.query, focus);
     if (!r || r.reason) return [];

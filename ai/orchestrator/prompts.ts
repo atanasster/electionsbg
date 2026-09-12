@@ -12,7 +12,7 @@ const toolCatalogue = (lang: Lang): string =>
       .map((p) =>
         [
           p.name,
-          p.required ? "required" : "optional",
+          p.required ? "required" : "?",
           p.type,
           p.values ? `values=${JSON.stringify(p.values)}` : "",
           p.min != null ? `min=${p.min}` : "",
