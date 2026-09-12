@@ -1,3 +1,8 @@
+import { rollcallContinuation } from "../../src/lib/rollcallContinuations";
+import {
+  decodeRollcallQuery,
+  encodeRollcallQuery,
+} from "../../src/lib/rollcallQuery";
 import { rollcallCorpus } from "./rollcallUnderstanding";
 import {
   validateFundingQuery,
@@ -4953,6 +4958,46 @@ export const resolveFollowOn = (
   prev: { tool: string; args: ToolArgs } | undefined,
 ): Route => {
   if (!prev) return null;
+  if (prev.tool === "rollcallQuery") {
+    const p =
+      typeof prev.args.query === "string"
+        ? decodeRollcallQuery(prev.args.query)
+        : null;
+    if (!p?.ok)
+      return {
+        tool: "rollcallQuestion",
+        args: { question, previous: "invalid-saved-scope" },
+      };
+    let records = [];
+    try {
+      records = JSON.parse(String(prev.args.records || "[]"));
+    } catch {
+      /* No ordinal focus. */
+    }
+    const c = rollcallContinuation(
+      question,
+      p.query,
+      Array.isArray(records) ? records : [],
+    );
+    if (c?.query)
+      return {
+        tool: "rollcallQuery",
+        args: {
+          query: encodeRollcallQuery(c.query),
+          ...(c.notice ? { notice: c.notice } : {}),
+        },
+      };
+    if (c)
+      return {
+        tool: "rollcallQuestion",
+        args: {
+          question: c.question || question,
+          previous: encodeRollcallQuery(c.previous || p.query),
+          notice: c.notice,
+          issue: c.reason,
+        },
+      };
+  }
   if (
     (prev.tool === "fundingQuestion" &&
       prev.args.previous === "ambiguous-bundle") ||

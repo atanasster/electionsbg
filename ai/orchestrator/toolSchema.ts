@@ -115,13 +115,20 @@ export const validateToolArgs = (
       !raw ||
       typeof raw !== "object" ||
       Array.isArray(raw) ||
-      Object.keys(raw).some((k) => k !== "query")
+      Object.keys(raw).some((k) => !["query", "notice"].includes(k))
     )
       return null;
     const encoded = (raw as Record<string, unknown>).query;
     if (typeof encoded !== "string") return null;
     const parsed = decodeRollcallQuery(encoded);
-    return parsed.ok ? { query: encodeRollcallQuery(parsed.query) } : null;
+    return parsed.ok
+      ? {
+          query: encodeRollcallQuery(parsed.query),
+          ...((raw as Record<string, unknown>).notice === "record_scope_cleared"
+            ? { notice: "record_scope_cleared" }
+            : {}),
+        }
+      : null;
   }
   if (toolName === "fundingQuery") return validatedFundingArgs(raw);
   if (toolName === "procurementQuery") return validatedProcurementArgs(raw);

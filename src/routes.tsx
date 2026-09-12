@@ -646,6 +646,11 @@ const ProcurementSettlementDetailScreen = lazy(() =>
     }),
   ),
 );
+const RollcallQueryScreen = lazy(() =>
+  import("./screens/rollcall/RollcallQueryScreen").then((m) => ({
+    default: m.RollcallQueryScreen,
+  })),
+);
 const FundingQueryScreen = lazy(() =>
   import("./screens/funding/FundingQueryScreen").then((m) => ({
     default: m.FundingQueryScreen,
@@ -2929,6 +2934,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="rollcall/query"
+            element={
+              <LayoutScreen>
+                <RollcallQueryScreen />
               </LayoutScreen>
             }
           />

@@ -1,4 +1,8 @@
 import {
+  encodeRollcallQuery,
+  validateRollcallQuery,
+} from "../../src/lib/rollcallQuery";
+import {
   encodeFundingQuery,
   validateFundingQuery,
 } from "../../src/lib/fundingQuery";
@@ -628,6 +632,26 @@ pages(
 
 export const siteLinks = (env: Envelope): SiteLink[] => {
   if (env.clarify) return [];
+  if (env.rollcall) {
+    const q = validateRollcallQuery({
+      ...env.rollcall.query,
+      expectedRevision: env.rollcall.result.revision,
+    });
+    return q.ok
+      ? [
+          {
+            label: {
+              bg: "Същата справка и първоизточници",
+              en: "This query and primary sources",
+            },
+            href: url(
+              "/rollcall/query?" +
+                new URLSearchParams({ query: encodeRollcallQuery(q.query) }),
+            ),
+          },
+        ]
+      : [];
+  }
   if (env.fundingBundle)
     return env.fundingBundle.flatMap((item) =>
       siteLinks({ ...env, fundingBundle: undefined, funding: item }),

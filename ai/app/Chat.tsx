@@ -1,3 +1,7 @@
+import {
+  validateRollcallQuery,
+  encodeRollcallQuery,
+} from "../../src/lib/rollcallQuery";
 import { useFundingCapabilities } from "./useFundingCapabilities";
 import { validateFundingQuery } from "../../src/lib/fundingQuery";
 import { useProcurementCapabilities } from "./useProcurementCapabilities";
@@ -90,6 +94,25 @@ const prevContext = (
 ): { tool: string; args: ToolArgs } | undefined => {
   for (let i = beforeIndex - 1; i >= 0; i--) {
     const m = msgs[i];
+    if (m.role === "assistant" && m.env?.rollcall) {
+      const p = validateRollcallQuery({
+        ...m.env.rollcall.query,
+        expectedRevision: m.env.rollcall.result.revision,
+      });
+      return {
+        tool: "rollcallQuery",
+        args: {
+          query: p.ok ? encodeRollcallQuery(p.query) : "invalid-saved-scope",
+          records: JSON.stringify(
+            p.ok && !p.query.groupBy
+              ? (m.env.rollcall.result.rows || []).filter((r) =>
+                  m.env?.rows?.some((visible) => visible.key === r.key),
+                )
+              : [],
+          ),
+        },
+      };
+    }
     if (m.role === "assistant" && m.env?.funding) {
       const p = validateFundingQuery(m.env.funding.query);
       return {

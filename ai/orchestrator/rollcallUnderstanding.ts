@@ -249,7 +249,6 @@ export function understandRollcall(
   if (date.from) {
     q.from = date.from;
     q.toExclusive = date.toExclusive;
-    delete q.latestN;
   }
   for (const m of date.matched) text = text.replace(m, " ");
   const n = text.match(/(?:последните|last|latest)\s+(\d+)/i);

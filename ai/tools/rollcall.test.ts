@@ -141,3 +141,19 @@ it("chooser carries identity revision", async () => {
   );
   expect(String(env.clarify?.options[0].args.previous)).toContain("choice-r");
 });
+it("a continuation guard cannot fall through into a broad query", async () => {
+  const { resolveFollowOn } = await import("../orchestrator/router");
+  const p = validateRollcallQuery({
+    corpus: "parliamentVotes",
+    expectedRevision: "r",
+  });
+  if (!p.ok) throw Error();
+  const route = resolveFollowOn("Show everyone who voted on the second one.", {
+    tool: "rollcallQuery",
+    args: { query: encodeRollcallQuery(p.query), records: "[]" },
+  });
+  expect(route?.args.issue).toBe("record");
+  const env = await rollcallQuestion(route!.args, ctx);
+  expect(env.facts.status).toBe("unsupported");
+  expect(mock).not.toHaveBeenCalled();
+});

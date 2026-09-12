@@ -1,8 +1,13 @@
 import {
+  rollcallDisplayRow,
+  rollcallDisplayScope,
+  rollcallColumn,
+  rollcallDateLabel,
+} from "../../src/lib/rollcallPresentation";
+import {
   validateRollcallQuery,
   decodeRollcallQuery,
   encodeRollcallQuery,
-  rollcallScope,
   type RollcallQuery,
 } from "../../src/lib/rollcallQuery";
 import {
@@ -44,6 +49,10 @@ export function rollcallMessage(
     scope_not_indexed: [
       "Няма индексирани данни за този обхват.",
       "This scope has no indexed coverage.",
+    ],
+    record: [
+      "Изберете конкретно гласуване или заседание от показаните записи.",
+      "Choose a specific vote or sitting from the displayed records.",
     ],
     record_not_found: ["Записът не е намерен.", "The record was not found."],
     dates: [
@@ -115,14 +124,14 @@ export async function rollcallQuery(
   if (encodeRollcallQuery(expected) !== encodeRollcallQuery(query))
     return failed("scope", ctx);
   const bg = ctx.lang === "bg",
-    scope = rollcallScope(query, ctx.lang),
+    scope = rollcallDisplayScope(query, ctx.lang, result.rows),
     available = ["success", "partial", "empty"].includes(result.status);
   const value = result.metrics?.percentage;
   const answer = available
     ? `${value !== undefined ? (value === null ? (bg ? "Неизчислим дял" : "Unknown share") : `${Number(value).toLocaleString(bg ? "bg-BG" : "en-GB", { maximumFractionDigits: 2 })}%`) : `${result.totals?.records ?? 0} ${bg ? "индексирани записа" : "indexed records"}`}${result.status === "partial" ? (bg ? " · Непълно покритие" : " · Partial coverage") : ""}`
     : rollcallMessage(result.reason, ctx.lang);
-  const rows = (result.groups?.length ? result.groups : result.rows || []).map(
-    primitive,
+  const rows = (query.groupBy ? result.groups || [] : result.rows || []).map(
+    (r) => rollcallDisplayRow(r, ctx.lang),
   );
   return {
     tool: "rollcallQuery",
@@ -136,7 +145,17 @@ export async function rollcallQuery(
       status: result.status,
       scope,
       ...(result.metrics ? primitive(result.metrics) : {}),
-      latestIndexed: String(result.coverage?.latestIndexed || ""),
+      latestIndexed: rollcallDateLabel(
+        result.coverage?.latestIndexed,
+        result.coverage?.yearOnly,
+      ),
+      ...(args.notice === "record_scope_cleared"
+        ? {
+            scope_changes: bg
+              ? "Периодът е променен; изчистен е несъвместимият конкретен запис или заседание."
+              : "Period changed; incompatible record or sitting focus cleared.",
+          }
+        : {}),
       coverage_note: bg
         ? "Последни индексирани записи. Темите се търсят в изходните заглавия; липсващ вот не означава вот против."
         : "Latest indexed records. Topics match source titles; a missing cast does not mean against.",
@@ -155,7 +174,7 @@ export async function rollcallQuery(
           "percentage",
         ].includes(k),
       )
-      .map((key) => ({ key, label: key })),
+      .map((key) => ({ key, label: rollcallColumn(key, ctx.lang) })),
     provenance: ["db:rollcall-query"],
     rollcall: { query, result },
   };
@@ -164,6 +183,7 @@ export async function rollcallQuestion(
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> {
+  if (args.issue) return failed(String(args.issue), ctx);
   let catalog: RollcallCatalog = {};
   try {
     catalog = await fetchDb<RollcallCatalog>("rollcall-catalog", {});
@@ -282,7 +302,13 @@ export async function rollcallQuestion(
     };
     return env;
   }
-  return rollcallQuery(draft, ctx);
+  const env = await rollcallQuery(draft, ctx);
+  if (args.notice === "body_changed")
+    env.facts.scope_changes =
+      ctx.lang === "bg"
+        ? "Сменен орган: запазени са датите и темата; изчистени са лицата, групите и връзките към предишни записи."
+        : "Body changed: dates and topic retained; people, factions and prior record relationships cleared.";
+  return env;
 }
 export const ROLLCALL_TOOLS: ToolDef[] = [
   {
@@ -308,6 +334,19 @@ export const ROLLCALL_TOOLS: ToolDef[] = [
         },
       },
       {
+        name: "issue",
+        type: "text",
+        description: {
+          bg: "Необходимо уточнение",
+          en: "Clarification required",
+        },
+      },
+      {
+        name: "notice",
+        type: "text",
+        description: { bg: "Промяна на обхвата", en: "Scope change" },
+      },
+      {
         name: "resolvedNames",
         type: "text",
         description: { bg: "Избрани имена", en: "Resolved names" },
@@ -329,6 +368,11 @@ export const ROLLCALL_TOOLS: ToolDef[] = [
       en: "Executes a validated canonical roll-call scope.",
     },
     params: [
+      {
+        name: "notice",
+        type: "text",
+        description: { bg: "Промяна на обхвата", en: "Scope change" },
+      },
       {
         name: "query",
         type: "text",
