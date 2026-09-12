@@ -1,0 +1,179 @@
+{
+  "version": "funding-records-v1",
+  "isun": [
+    {
+      "key": "I1",
+      "eik": "111111111",
+      "theme": "health",
+      "cost": 100,
+      "grant": 80,
+      "own": 20,
+      "paid": 40,
+      "programme": "P21",
+      "period": "2021-2027",
+      "signed": null
+    },
+    {
+      "key": "I2",
+      "eik": "111111111",
+      "theme": "roads",
+      "cost": 200,
+      "grant": 150,
+      "own": 50,
+      "paid": 150,
+      "programme": "P21",
+      "period": "2021-2027",
+      "signed": null
+    },
+    {
+      "key": "I3",
+      "eik": "222222222",
+      "theme": "health",
+      "cost": 0,
+      "grant": 0,
+      "own": 0,
+      "paid": 0,
+      "programme": "P21",
+      "period": "2021-2027",
+      "signed": null
+    },
+    {
+      "key": "I4",
+      "eik": null,
+      "theme": null,
+      "cost": null,
+      "grant": null,
+      "own": null,
+      "paid": null,
+      "programme": "P21",
+      "period": "2021-2027",
+      "signed": null
+    }
+  ],
+  "agri": [
+    {
+      "key": "A1",
+      "year": 2025,
+      "eik": "111111111",
+      "scheme": "S1",
+      "amount": 100
+    },
+    {
+      "key": "A2",
+      "year": 2025,
+      "eik": "111111111",
+      "scheme": "S2",
+      "amount": 50
+    },
+    {
+      "key": "A3",
+      "year": 2025,
+      "eik": "222222222",
+      "scheme": "S1",
+      "amount": 25
+    },
+    {
+      "key": "A4",
+      "year": 2025,
+      "eik": null,
+      "scheme": "S1",
+      "amount": 20
+    },
+    {
+      "key": "A5",
+      "year": 2025,
+      "eik": "121100421",
+      "scheme": "S1",
+      "amount": 500
+    },
+    {
+      "key": "A6",
+      "year": 2026,
+      "eik": "111111111",
+      "scheme": "S1",
+      "amount": 40
+    },
+    {
+      "key": "A7",
+      "year": 2026,
+      "eik": "111111111",
+      "scheme": "S1",
+      "amount": -5
+    }
+  ],
+  "operations": [
+    {
+      "id": 1,
+      "period": "2021-2027",
+      "budget": 1000
+    },
+    {
+      "id": 2,
+      "period": "2021-2027",
+      "budget": 500
+    },
+    {
+      "id": 3,
+      "period": "2014-2020",
+      "budget": 200
+    }
+  ],
+  "partners": [
+    {
+      "id": 11,
+      "operation": 1,
+      "organisation": 1,
+      "country": "Bulgaria",
+      "budget": 100,
+      "basis": "published"
+    },
+    {
+      "id": 12,
+      "operation": 1,
+      "organisation": 2,
+      "country": "Bulgaria",
+      "budget": null,
+      "basis": "unpublished"
+    },
+    {
+      "id": 13,
+      "operation": 1,
+      "organisation": 3,
+      "country": "Romania",
+      "budget": 900,
+      "basis": "published"
+    },
+    {
+      "id": 21,
+      "operation": 2,
+      "organisation": 1,
+      "country": "Bulgaria",
+      "budget": 0,
+      "basis": "published_zero"
+    },
+    {
+      "id": 22,
+      "operation": 2,
+      "organisation": 4,
+      "country": "Romania",
+      "budget": 500,
+      "basis": "published"
+    },
+    {
+      "id": 31,
+      "operation": 3,
+      "organisation": 5,
+      "country": "Bulgaria",
+      "budget": 50,
+      "basis": "published"
+    },
+    {
+      "id": 32,
+      "operation": 3,
+      "organisation": 6,
+      "country": "Romania",
+      "budget": 150,
+      "basis": "published"
+    }
+  ]
+}

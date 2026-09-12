@@ -1,0 +1,542 @@
+{
+  "checkedAt": "2026-09-12T13:10:33.938Z",
+  "role": "app_readonly",
+  "isolation": "repeatable read",
+  "environment": "local",
+  "columns": [
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "id",
+      "data_type": "bigint"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "year",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "eik",
+      "data_type": "text"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "name",
+      "data_type": "text"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "oblast",
+      "data_type": "text"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "scheme",
+      "data_type": "text"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "scheme_desc",
+      "data_type": "text"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "dp_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "market_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "rural_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "agri_subsidies",
+      "column_name": "total_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "contract_number",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "beneficiary_eik",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "beneficiary_name",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "program_code",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "program_name",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "title",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "total_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "grant_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "own_cofinance_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "paid_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "duration_months",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "status",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "org_type",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "location_raw",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "ekatte",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "oblast",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "org_kind",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "org_form",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "hq_address",
+      "data_type": "text"
+    },
+    {
+      "table_name": "fund_projects",
+      "column_name": "location_json",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "keep_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "operation_id",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "programme_code",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "period",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "title_en",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "title_lang",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "title_bg",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "summary_en",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "status",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "start_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "end_date",
+      "data_type": "date"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "total_budget_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "eu_funding_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "co_financing_rate",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "partner_count",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "partner_budget_sum_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "partner_budget_published_count",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "countries",
+      "data_type": "ARRAY"
+    },
+    {
+      "table_name": "interreg_operations",
+      "column_name": "source_fetched_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "keep_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "partner_seq",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "keep_partnership_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "keep_partner_id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "is_lead",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "country",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "country_department",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "partner_name",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "partner_name_en",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "eik",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "pic",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "org_type",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "legal_status",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "budget_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "eu_funding_eur",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "budget_basis",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "location_raw",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "postcode",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "lat",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "lng",
+      "data_type": "double precision"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "ekatte",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "obshtina",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "oblast",
+      "data_type": "text"
+    },
+    {
+      "table_name": "interreg_partners",
+      "column_name": "place_basis",
+      "data_type": "text"
+    }
+  ],
+  "identities": [
+    {
+      "corpus": "interregOperations",
+      "records": "1959",
+      "duplicate_or_null_key": "0"
+    },
+    {
+      "corpus": "interregPartners",
+      "records": "12120",
+      "duplicate_or_null_key": "0"
+    },
+    {
+      "corpus": "isun",
+      "records": "82309",
+      "duplicate_or_null_key": "0"
+    },
+    {
+      "corpus": "agri",
+      "records": "2481857",
+      "duplicate_or_null_key": "0"
+    }
+  ],
+  "partnerIdentity": [
+    {
+      "missing_partnership_id": "0",
+      "missing_organisation_id": "0",
+      "organisations": "7359",
+      "partnerships": "12120"
+    }
+  ],
+  "keyConstraints": [
+    {
+      "relation": "agri_subsidies",
+      "conname": "agri_subsidies_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "fund_projects",
+      "conname": "fund_projects_pkey",
+      "definition": "PRIMARY KEY (contract_number)"
+    },
+    {
+      "relation": "interreg_operations",
+      "conname": "interreg_operations_pkey",
+      "definition": "PRIMARY KEY (keep_id)"
+    },
+    {
+      "relation": "interreg_partners",
+      "conname": "interreg_partners_pkey",
+      "definition": "PRIMARY KEY (keep_id, partner_seq)"
+    }
+  ],
+  "isun": [
+    {
+      "records": "82309",
+      "eiks": "46210",
+      "missing_eik": "7240",
+      "missing_total": "0",
+      "missing_paid": "0",
+      "programmes": "47"
+    }
+  ],
+  "agri": [
+    {
+      "year": 2015,
+      "records": "307997",
+      "eiks": "9387",
+      "person_records": "283523",
+      "payer_records": "1",
+      "negative_records": "0"
+    },
+    {
+      "year": 2016,
+      "records": "312981",
+      "eiks": "9472",
+      "person_records": "273250",
+      "payer_records": "2",
+      "negative_records": "0"
+    },
+    {
+      "year": 2017,
+      "records": "365619",
+      "eiks": "9267",
+      "person_records": "319019",
+      "payer_records": "1",
+      "negative_records": "0"
+    },
+    {
+      "year": 2021,
+      "records": "407109",
+      "eiks": "10632",
+      "person_records": "342815",
+      "payer_records": "2",
+      "negative_records": "0"
+    },
+    {
+      "year": 2022,
+      "records": "334480",
+      "eiks": "10257",
+      "person_records": "281916",
+      "payer_records": "2",
+      "negative_records": "0"
+    },
+    {
+      "year": 2023,
+      "records": "295266",
+      "eiks": "10338",
+      "person_records": "250017",
+      "payer_records": "2",
+      "negative_records": "0"
+    },
+    {
+      "year": 2024,
+      "records": "228191",
+      "eiks": "8339",
+      "person_records": "171793",
+      "payer_records": "0",
+      "negative_records": "0"
+    },
+    {
+      "year": 2025,
+      "records": "230214",
+      "eiks": "8396",
+      "person_records": "171916",
+      "payer_records": "0",
+      "negative_records": "0"
+    }
+  ],
+  "interreg": [
+    {
+      "period": "2014-2020",
+      "operations": "1251",
+      "missing_start": "0",
+      "missing_end": "0",
+      "reversed_dates": "3"
+    },
+    {
+      "period": "2021-2027",
+      "operations": "708",
+      "missing_start": "0",
+      "missing_end": "0",
+      "reversed_dates": "0"
+    }
+  ],
+  "partners": [
+    {
+      "budget_basis": "published",
+      "records": "1470",
+      "missing_eik": "1129",
+      "missing_place": "24"
+    },
+    {
+      "budget_basis": "published_zero",
+      "records": "7",
+      "missing_eik": "7",
+      "missing_place": "0"
+    },
+    {
+      "budget_basis": "unpublished",
+      "records": "21",
+      "missing_eik": "21",
+      "missing_place": "0"
+    }
+  ]
+}
