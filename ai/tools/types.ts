@@ -165,6 +165,8 @@ export type Envelope = {
 // ---- tool definitions -------------------------------------------------------
 
 export type ParamType =
+  | "stringList"
+  | "decimal"
   | "election"
   | "electionList"
   | "count"

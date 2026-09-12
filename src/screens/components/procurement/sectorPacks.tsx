@@ -1,3 +1,4 @@
+import { PROCUREMENT_BUYER_SECTORS } from "@/lib/procurementBuyerSectors";
 // Sector-pack registry — the seam that lets the generic awarder dashboard
 // (/awarder/:eik) grow domain-specific analytics for a handful of high-profile
 // buyers without special-casing the screen. A pack is a lazily-loaded component
@@ -19,31 +20,24 @@ import { lazy, type ComponentType } from "react";
 // every import below into the ENTRY chunk. See src/entryGraph.test.ts.
 import { API_EIK } from "@/lib/roadsAwarder";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
-import { NZOK_EIK, HEALTH_SECTOR_EIKS } from "@/lib/healthReferenceData";
-import { VSS_EIK, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
+import { NZOK_EIK } from "@/lib/healthReferenceData";
+import { VSS_EIK } from "@/lib/vssReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
-import { EDU_SECTOR_EIKS } from "@/lib/educationReferenceData";
-import { KULTURA_EIK, CULTURE_GROUP_EIKS } from "@/lib/kulturaReferenceData";
-import { VIK_HOLDING_EIK, WATER_SECTOR_EIKS } from "@/lib/vikReferenceData";
-import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
+
+import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
+import { VIK_HOLDING_EIK } from "@/lib/vikReferenceData";
+import { MOD_EIK } from "@/lib/defenseReferenceData";
 import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
-import { AGRI_SECTOR_EIKS, AGRI_LEAD_EIK } from "@/lib/agriReferenceData";
-import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
-import {
-  TRANSPORT_EIK,
-  TRANSPORT_SECTOR_EIKS,
-} from "@/lib/transportReferenceData";
-import { MOSV_EIK, ENV_SECTOR_EIKS } from "@/lib/environmentReferenceData";
-import {
-  REGIONAL_EIK,
-  REGIONAL_SECTOR_EIKS,
-} from "@/lib/regionalReferenceData";
-import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
-import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
-import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
-import { SOCIAL_LEAD_EIK, SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
+import { AGRI_LEAD_EIK } from "@/lib/agriReferenceData";
+
+import { TRANSPORT_EIK } from "@/lib/transportReferenceData";
+import { MOSV_EIK } from "@/lib/environmentReferenceData";
+import { REGIONAL_EIK } from "@/lib/regionalReferenceData";
+
+import { MVR_EIK } from "@/lib/securityReferenceData";
+import { SOCIAL_LEAD_EIK } from "@/lib/socialReferenceData";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
@@ -285,18 +279,18 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   water: {
     id: "water",
     label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
-    eiks: WATER_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.water.eiks,
     Section: VikBrowseSection,
   },
   roads: {
     id: "roads",
     label: { bg: "Пътища (АПИ)", en: "Roads (АПИ)" },
-    eiks: [API_EIK],
+    eiks: PROCUREMENT_BUYER_SECTORS.roads.eiks,
   },
   noi: {
     id: "noi",
     label: { bg: "Осигуряване (НОИ)", en: "Social security (НОИ)" },
-    eiks: [NOI_EIK],
+    eiks: PROCUREMENT_BUYER_SECTORS.noi.eiks,
   },
   // The pack id stays `nzok` even though the set is now НЗОК + МЗ: it is a URL
   // value (`?sector=nzok`) carried by live deep links, so renaming it would
@@ -307,7 +301,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
       bg: "Здравеопазване (МЗ + НЗОК)",
       en: "Health (МЗ + НЗОК)",
     },
-    eiks: [...HEALTH_SECTOR_EIKS],
+    eiks: PROCUREMENT_BUYER_SECTORS.nzok.eiks,
   },
   // The 2026-08-20 audit widened this from ДФЗ alone to the 66-EIK МЗХ roster
   // (agriReferenceData.ts): БАБХ (€217.6M), the ministry (€107.6M) and the whole
@@ -319,7 +313,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   agri: {
     id: "agri",
     label: { bg: "Земеделие (МЗХ)", en: "Agriculture (МЗХ)" },
-    eiks: AGRI_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.agri.eiks,
   },
   // JUDICIAL_EIKS ALREADY carries VSS_EIK and its alias, so the old
   // `[VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS]` shipped two DUPLICATE
@@ -330,18 +324,18 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   judiciary: {
     id: "judiciary",
     label: { bg: "Съдебна власт (ВСС)", en: "Judiciary (ВСС)" },
-    eiks: JUDICIAL_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.judiciary.eiks,
   },
   defense: {
     id: "defense",
     label: { bg: "Отбрана (МО)", en: "Defense (МО)" },
-    eiks: DEFENSE_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.defense.eiks,
     Section: DefenseBrowseSection,
   },
   security: {
     id: "security",
     label: { bg: "Сигурност (МВР)", en: "Security (МВР)" },
-    eiks: SECURITY_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.security.eiks,
   },
   // Single-EIK sectors graduated to the generic /sector/:id dashboard — their
   // ?sector= filter narrows the browse table to the one awarder seat. Widen the
@@ -351,22 +345,22 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   revenue: {
     id: "revenue",
     label: { bg: "Приходи (НАП)", en: "Revenue (НАП)" },
-    eiks: [NAP_EIK],
+    eiks: PROCUREMENT_BUYER_SECTORS.revenue.eiks,
   },
   customs: {
     id: "customs",
     label: { bg: "Митници (АМ)", en: "Customs (АМ)" },
-    eiks: [CUSTOMS_EIK],
+    eiks: PROCUREMENT_BUYER_SECTORS.customs.eiks,
   },
   edu: {
     id: "edu",
     label: { bg: "Образование и наука", en: "Education & science" },
-    eiks: EDU_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.edu.eiks,
   },
   transport: {
     id: "transport",
     label: { bg: "Транспорт (МТС)", en: "Transport (МТС)" },
-    eiks: TRANSPORT_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.transport.eiks,
   },
   social: {
     id: "social",
@@ -374,12 +368,12 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
       bg: "Социално подпомагане (МТСП)",
       en: "Social assistance (МТСП)",
     },
-    eiks: SOCIAL_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.social.eiks,
   },
   environment: {
     id: "environment",
     label: { bg: "Околна среда (МОСВ)", en: "Environment (МОСВ)" },
-    eiks: ENV_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.environment.eiks,
   },
   regional: {
     id: "regional",
@@ -387,22 +381,22 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
       bg: "Регионално развитие (МРРБ)",
       en: "Regional development (МРРБ)",
     },
-    eiks: REGIONAL_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.regional.eiks,
   },
   administration: {
     id: "administration",
     label: { bg: "Администрация (е-управление)", en: "Administration (e-gov)" },
-    eiks: [...ADMIN_SECTOR_EIKS],
+    eiks: PROCUREMENT_BUYER_SECTORS.administration.eiks,
   },
   energy: {
     id: "energy",
     label: { bg: "Енергетика (МЕ)", en: "Energy (МЕ)" },
-    eiks: ENERGY_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.energy.eiks,
   },
   tourism: {
     id: "tourism",
     label: { bg: "Туризъм (МТ)", en: "Tourism (МТ)" },
-    eiks: TOURISM_SECTOR_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.tourism.eiks,
   },
   // Culture was the one sector with a curated EIK register and no browse pack,
   // so `?sector=culture` — a param the other eighteen have had all along —
@@ -414,7 +408,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   culture: {
     id: "culture",
     label: { bg: "Култура (МК)", en: "Culture (МК)" },
-    eiks: CULTURE_GROUP_EIKS,
+    eiks: PROCUREMENT_BUYER_SECTORS.culture.eiks,
     // ИСУН only — see beneficiaryCorpora. ДФЗ and Interreg culture money is real
     // but is not reachable through these EIKs.
     beneficiaryCorpora: ["fund_projects"],

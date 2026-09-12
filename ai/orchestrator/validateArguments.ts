@@ -25,6 +25,7 @@ export type ArgumentValidation = {
   errors: Record<string, ArgumentIssue>;
 };
 export const numericParameter = (p: ToolParam) =>
+  p.type === "decimal" ||
   p.type === "count" ||
   p.type === "year" ||
   !!p.values?.every((v) => typeof v === "number");
@@ -102,11 +103,30 @@ export const validateArguments = (
           ? Number(value)
           : NaN;
       const { min, max } = parameterBounds(p);
-      if (!Number.isSafeInteger(n)) errors[p.name] = "number";
+      if (
+        !Number.isFinite(n) ||
+        (p.type !== "decimal" && !Number.isSafeInteger(n))
+      )
+        errors[p.name] = "number";
       else if ((min !== undefined && n < min) || (max !== undefined && n > max))
         errors[p.name] = "range";
       else if (p.values && !p.values.includes(n)) errors[p.name] = "choice";
       else args[p.name] = n;
+    } else if (p.type === "stringList") {
+      if (
+        !Array.isArray(value) ||
+        value.length > 200 ||
+        value.some(
+          (v) =>
+            typeof v !== "string" ||
+            !v.trim() ||
+            v.length > 256 ||
+            (p.values && !p.values.includes(v)),
+        )
+      )
+        errors[p.name] = "choice";
+      else
+        args[p.name] = [...new Set(value.map((v: string) => v.trim()))].sort();
     } else if (p.type === "electionList") {
       if (
         !Array.isArray(value) ||

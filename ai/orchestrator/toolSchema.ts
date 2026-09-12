@@ -15,6 +15,7 @@ import {
 } from "./validateArguments";
 import type { ToolArgs, ToolParam } from "../tools/types";
 import type { Route } from "./router";
+import { validatedProcurementArgs } from "../tools/procurementQueryContract";
 
 export const toolParameterSchema = (
   param: ToolParam,
@@ -22,6 +23,18 @@ export const toolParameterSchema = (
   const numericValues = param.values?.every(
     (value) => typeof value === "number",
   );
+  if (param.type === "decimal")
+    return { type: "number", minimum: param.min, maximum: param.max };
+  if (param.type === "stringList")
+    return {
+      type: "array",
+      maxItems: 200,
+      items: {
+        type: "string",
+        maxLength: 256,
+        ...(param.values ? { enum: param.values } : {}),
+      },
+    };
   if (param.type === "count" || param.type === "year" || numericValues)
     return {
       type: "integer",
@@ -92,6 +105,7 @@ export const validateToolArgs = (
   toolName: string,
   raw: unknown,
 ): ToolArgs | null => {
+  if (toolName === "procurementQuery") return validatedProcurementArgs(raw);
   const result = validateArguments(toolName, raw ?? {}, {
     ignoreUnknown: true,
   });
