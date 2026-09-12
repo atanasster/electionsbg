@@ -521,6 +521,42 @@
               "value": "no-store"
             }
           ]
+        },
+        {
+          "source": "/api/db/rollcall-query",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
+        },
+        {
+          "source": "/api/db/rollcall-capabilities",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
+        },
+        {
+          "source": "/api/db/rollcall-catalog",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
+        },
+        {
+          "source": "/api/db/rollcall-entities",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
         }
       ],
       "predeploy": [

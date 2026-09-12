@@ -135,7 +135,7 @@ function validateRollcallQuery(raw, depth = 0) {
       if (typeof v !== "number" || !Number.isInteger(v) || v < (k === "offset" ? 0 : 1) || v > (k === "offset" ? 1e4 : 100))
         errors.push(k);
       else out[k] = v;
-    } else if (Object.hasOwn(enums, k)) {
+    } else if (Object.prototype.hasOwnProperty.call(enums, k)) {
       if (typeof v !== "string" || !enums[k].includes(v)) errors.push(k);
       else out[k] = v;
     } else if (strings.includes(k)) {
@@ -181,7 +181,9 @@ function validateRollcallQuery(raw, depth = 0) {
     (key) => !/^[A-Za-z0-9_-]+::[^:]{1,200}$/u.test(key)
   ))
     errors.push("council_source_key_required");
-  if (q.topicIds?.some((s) => !Object.hasOwn(ROLLCALL_TOPICS, s)))
+  if (q.topicIds?.some(
+    (s) => !Object.prototype.hasOwnProperty.call(ROLLCALL_TOPICS, s)
+  ))
     errors.push("topicIds");
   for (const [a, b] of [
     ["from", "toExclusive"],

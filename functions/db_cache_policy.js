@@ -1,5 +1,9 @@
 // Revision-bound analytics must reach the current snapshot on every request.
 const LIVE_QUERY_ROUTES = new Set([
+  "rollcall-query",
+  "rollcall-capabilities",
+  "rollcall-catalog",
+  "rollcall-entities",
   "funding-query",
   "funding-capabilities",
   "funding-catalog",

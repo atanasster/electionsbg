@@ -878,6 +878,14 @@ const DB_ROUTES = {
     console.info(JSON.stringify({event:"funding_query",corpus:body.query?.corpus||"unknown",operation:body.query?.operation||"unknown",status:body.status,reason:typeof body.reason==="string"&&/^[a-z_]+$/.test(body.reason)?body.reason:body.reason?"validation_rejected":undefined,durationMs:Date.now()-started}));
     return result;
   },
+  "rollcall-query": async (dbRows,q) => {
+    if(typeof q.query!=="string"||q.query.length>16000)return {status:400,body:{status:"unsupported",reason:"invalid_query_size"}};
+    let raw;try{raw=typeof q.query === "string" ? JSON.parse(q.query) : q.query;}catch{return {status:400,body:{status:"unsupported",reason:"invalid_query"}};}
+    return require("./rollcall_query").runRollcallQuery(dbRows,raw);
+  },
+  "rollcall-capabilities": async dbRows => require("./rollcall_query").rollcallCapabilities(dbRows),
+  "rollcall-entities": async (dbRows,q) => require("./rollcall_query").rollcallEntities(dbRows,q),
+  "rollcall-catalog": async () => ({body:{version:require("./generated/rollcall_query").ROLLCALL_VERSION,topics:require("./generated/rollcall_query").ROLLCALL_TOPICS}}),
   "funding-capabilities": async (dbRows) => require("./funding_query").fundingCapabilities(dbRows),
   "procurement-capabilities": async (dbRows) => {
     const { runProcurementQuery } = require("./procurement_query.js");
