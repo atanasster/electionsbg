@@ -677,12 +677,13 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
     }
     case "chainProfile": {
       const eik = fact(env, "eik");
+      const chain = fact(env, "chain");
       if (eik)
         out.push(
           page(
             `/consumption/chain/${encodeURIComponent(eik)}`,
-            "Верига — пълен профил",
-            "Chain — full profile",
+            `${chain || "Верига"} — пълен профил`,
+            `${chain || "Chain"} — full profile`,
           ),
         );
       break;

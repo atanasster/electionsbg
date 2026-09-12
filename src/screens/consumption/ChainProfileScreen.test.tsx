@@ -15,7 +15,7 @@
 //
 // See docs/plans/prices-chain-absence-v1.md T2c.
 
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { ChainProductsFile } from "@/data/prices/usePrices";
@@ -39,6 +39,12 @@ const product = (
 });
 
 let payload: ChainProductsFile;
+let companyProfile:
+  | { company: { name: string }; officers: []; politicians: [] }
+  | undefined;
+beforeEach(() => {
+  companyProfile = undefined;
+});
 
 vi.mock("@/data/prices/usePrices", async () => {
   const actual = await vi.importActual<
@@ -59,7 +65,7 @@ vi.mock("react-i18next", () => ({
   useTranslation: () => ({ i18n: { language: "bg" }, t: (k: string) => k }),
 }));
 vi.mock("@/data/procurement/useCompanyProfile", () => ({
-  useCompanyProfile: () => ({ data: undefined }),
+  useCompanyProfile: () => ({ data: companyProfile }),
 }));
 
 const { ChainProfileScreen } = await import("./ChainProfileScreen");
@@ -72,6 +78,45 @@ const draw = () =>
   );
 
 describe("ChainProfileScreen — staleness", () => {
+  it("uses the company name for a legacy payload without chain metadata", () => {
+    companyProfile = {
+      company: { name: "БИЛЛА БЪЛГАРИЯ" },
+      officers: [],
+      politicians: [],
+    };
+    payload = { products: [] };
+    draw();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "БИЛЛА БЪЛГАРИЯ" }),
+    ).toBeTruthy();
+  });
+  it("prefers the chain's display name to its legal company name", () => {
+    companyProfile = {
+      company: { name: "БИЛЛА БЪЛГАРИЯ" },
+      officers: [],
+      politicians: [],
+    };
+    payload = { chain: "Билла", products: [] };
+    draw();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Билла" }),
+    ).toBeTruthy();
+  });
+  it("names an unranked chain and explains a source identity conflict", () => {
+    payload = {
+      chain: "Билла",
+      sourceConflict: "chain-store-mismatch",
+      products: [product()],
+      asOf: LATEST,
+    };
+    draw();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Билла" }),
+    ).toBeTruthy();
+    expect(screen.getByRole("status").textContent).toContain("НОВЕ");
+    expect(screen.queryByText("Хляб бял 650 г")).toBeNull();
+  });
+
   it("a chain that filed today shows the comparison and no notice", () => {
     payload = {
       products: [product()],

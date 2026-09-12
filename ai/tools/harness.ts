@@ -1381,9 +1381,31 @@ const run = async () => {
     ctxEn,
   )) as Envelope;
   printEnvelope(cprof);
+  const metroChains = (await nodeDbFetcher("price-payload", {
+    kind: "chains",
+  })) as {
+    national: { eik: string; comparable?: boolean; basket: number }[];
+  };
+  const comparableChains = metroChains.national
+    .filter((c) => c.comparable)
+    .sort((a, b) => a.basket - b.basket || a.eik.localeCompare(b.eik));
+  const metroRank = comparableChains.findIndex((c) => c.eik === "121644736");
   assert(
-    !!cprof.facts.chain && !!cprof.facts.basket,
-    "chainProfile resolves a chain and returns its basket + rank",
+    !!cprof.facts.chain &&
+      cprof.facts.eik === "121644736" &&
+      (metroRank >= 0
+        ? cprof.facts.rank_by_price ===
+            `${metroRank + 1}/${comparableChains.length}` &&
+          !!cprof.facts.basket
+        : cprof.facts.rank_by_price === undefined &&
+          cprof.facts.basket === undefined),
+    "chainProfile resolves a chain and ranks only a comparable basket",
+  );
+  assert(
+    Number(cprof.facts.shown_products) > 0 &&
+      !!cprof.facts.prices_as_of &&
+      Number(cprof.facts.as_supplier_contracts) > 0,
+    "chainProfile includes dated product prices and the supplier footprint",
   );
 
   console.log("\n=== [router] consumption questions ===");

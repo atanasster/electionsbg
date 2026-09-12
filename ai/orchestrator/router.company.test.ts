@@ -31,3 +31,22 @@ describe("company-profile routing", () => {
     expect(route(question, ctx)?.tool).toBe(expected);
   });
 });
+
+it.each([
+  "Свързана ли е Метро кеш енд кери България ЕООД - София с лица от властта?",
+  "Is Metro Cash and Carry Bulgaria connected to public officials?",
+])("resolves a typed chain connections follow-up by EIK: %s", (q) => {
+  expect(route(q, ctx)).toEqual({
+    tool: "companyConnections",
+    args: { company: "121644736" },
+  });
+});
+
+it("prefers an explicit company EIK over a chain alias for political connections", () => {
+  expect(
+    route("Свързана ли е фирма Метро ЕИК 202930997 с лица от властта?", ctx),
+  ).toEqual({
+    tool: "companyConnections",
+    args: { company: "202930997" },
+  });
+});

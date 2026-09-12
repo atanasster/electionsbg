@@ -243,3 +243,48 @@ it("does not offer public-person tools for a name-only business portfolio", () =
     ),
   ).toEqual([]);
 });
+
+it("preserves the chain → contracts → connections intent when typed or Tab-completed", async () => {
+  const { followUpIntent } = await import("./followups");
+  const chain = followUps(
+    envelope("chainProfile", {
+      chain: "Метро България",
+      eik: "121644736",
+      as_supplier_contracts: 118,
+    }),
+  );
+  const contracts = chain.find((s) => s.questionId === "contractSearch")!;
+  const next = followUps(
+    envelope("contractSearch", {
+      company: "Метро кеш енд кери България ЕООД - София",
+      eik_id: "121644736",
+    }),
+  );
+  const connections = next.find((s) => s.questionId === "companyConnections")!;
+  for (const lang of ["bg", "en"] as const) {
+    expect(followUpIntent(contracts[lang], lang, chain)).toMatchObject({
+      tool: "contractSearch",
+      args: { company: "121644736" },
+    });
+    expect(followUpIntent(` ${connections[lang]} `, lang, next)).toMatchObject({
+      tool: "companyConnections",
+      args: { company: "121644736" },
+    });
+    expect(
+      followUpIntent(connections[lang].replace("Метро", "БИЛЛА"), lang, next),
+    ).toBeUndefined();
+  }
+});
+
+it("keeps an arbitrary company's EIK without requiring a known-chain alias", async () => {
+  const { followUpIntent } = await import("./followups");
+  const suggestions = followUps(
+    envelope("contractSearch", { company: "Example Ltd", eik_id: "123456789" }),
+  );
+  const s = suggestions.find((s) => s.questionId === "companyConnections")!;
+  expect(followUpIntent(s.bg, "bg", suggestions)).toMatchObject({
+    tool: "companyConnections",
+    args: { company: "123456789" },
+  });
+  expect(followUpIntent(s.bg, "bg", [])).toBeUndefined();
+});

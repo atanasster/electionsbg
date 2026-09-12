@@ -67,7 +67,7 @@ import {
 } from "./export";
 import { SuggestionButton } from "./SuggestionButton";
 import { dispatchPrompt } from "./dispatchPrompt";
-import { followUps } from "./followups";
+import { followUps, followUpIntent } from "./followups";
 import { EmptyHero } from "./hero/EmptyHero";
 import { ModelPicker } from "./ModelPicker";
 import { toChatQuestionIntent } from "./questionAdapter";
@@ -472,6 +472,7 @@ export const Chat = ({
     const q = text.trim();
     if (!q || busy) return;
     if (!intent && workspaceIntent?.text === text) intent = workspaceIntent;
+    if (!intent) intent = followUpIntent(q, lang, followups);
     setWorkspaceIntent(null);
     setSelectedQuestion(null);
     speech.stop();

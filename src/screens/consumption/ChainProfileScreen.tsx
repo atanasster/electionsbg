@@ -59,12 +59,16 @@ export const ChainProfileScreen: FC = () => {
       : { row: sorted[idx], rank: idx + 1, total: sorted.length };
   }, [data, eik]);
 
-  const name = info?.row?.chain ?? T("Верига", "Chain");
+  const { data: profile } = useCompanyProfile(eik);
+  const name =
+    chainProducts?.chain ??
+    info?.row?.chain ??
+    profile?.company?.name ??
+    T("Верига", "Chain");
   const title = `${name} · ${T("Потребление", "Consumption")}`;
 
   // The company behind the chain — a compact cross-corpus summary (money-flows),
   // with the full profile one click away at /company/:eik.
-  const { data: profile } = useCompanyProfile(eik);
   const chips: string[] = [];
   if (profile) {
     const p = profile.procurement;
@@ -119,6 +123,15 @@ export const ChainProfileScreen: FC = () => {
           <h1 className="text-2xl font-bold">{name}</h1>
         </div>
 
+        {chainProducts?.sourceConflict ? (
+          <Card className="my-4 p-4 text-sm" role="status">
+            {T(
+              "Файлът на КЗП за тази верига съдържа обекти на друга верига (НОВЕ). Не показваме тези цени като цени на БИЛЛА. Очакваме корекция от източника.",
+              "The КЗП file for this chain contains stores from another chain (NOVE). We do not present these as BILLA prices. A source correction is needed.",
+            )}
+          </Card>
+        ) : null}
+
         <DashboardSection
           id="prices"
           title={T("Кошница на веригата", "Chain basket")}
@@ -129,7 +142,7 @@ export const ChainProfileScreen: FC = () => {
           icon={Store}
         >
           <Card className="flex flex-wrap items-end gap-x-10 gap-y-3 p-4">
-            {info?.row ? (
+            {info?.row && !chainProducts?.sourceConflict ? (
               <>
                 <div>
                   <div className="text-3xl font-bold tabular-nums">
@@ -180,6 +193,7 @@ export const ChainProfileScreen: FC = () => {
         </DashboardSection>
 
         {chainProducts &&
+        !chainProducts.sourceConflict &&
         (chainProducts.products.length > 0 || chainProducts.asOf) ? (
           <DashboardSection
             id="products"

@@ -8,6 +8,18 @@ import type { Suggestion } from "./suggestions";
 import { toChatQuestionIntent } from "./questionAdapter";
 
 export type FollowUp = Suggestion;
+/** Tab-completed or copied follow-ups retain the same identity as chip clicks.
+ * Only an exact visible-text match is safe; an edited company is a new query. */
+export const followUpIntent = (
+  text: string,
+  lang: "bg" | "en",
+  suggestions: FollowUp[],
+) => {
+  const hit = suggestions.find((s) => s[lang].trim() === text.trim());
+  return hit
+    ? toChatQuestionIntent(hit.questionId, lang, hit.parameters)
+    : undefined;
+};
 export type AnsweredIntent = { tool: string; args?: ToolArgs };
 export type FollowUpPolicy = {
   kind: "related" | "none";

@@ -937,6 +937,13 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       "political link",
       "links for company",
     );
+    const chainEik = resolveChainEik(q);
+    if (
+      chainEik &&
+      connectionCue &&
+      has(q, "лица от властта", "политическ", "public officials", "political")
+    )
+      return { tool: "companyConnections", args: { company: eik ?? chainEik } };
     if (
       eik &&
       ((connectionCue && has(q, "фирм", "компани", "company", "еик", "eik")) ||
@@ -1261,6 +1268,12 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       "station",
     )
   ) {
+    // A chain name must not swallow the contract-list follow-up emitted by
+    // chainProfile. Resolve to its EIK so the procurement search receives the
+    // supplier identity rather than the entire conversational prompt.
+    const chainEik = resolveChainEik(q);
+    if (chainEik && has(q, "договор", "contract"))
+      return { tool: "contractSearch", args: { company: chainEik } };
     return { tool: "chainProfile", args: { chain: q } };
   }
 

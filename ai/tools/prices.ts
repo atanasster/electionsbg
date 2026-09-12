@@ -28,6 +28,7 @@ import type {
 import type { FuelFile, FuelPoint } from "../../src/data/prices/useFuel";
 // The ONE headline rule, shared with the pages. A pure function, no React.
 import { headlineIndex } from "../../src/data/prices/usePrices";
+import type { ChainProductsFile } from "../../src/data/prices/usePrices";
 
 // ---- shared shapes ----------------------------------------------------------
 
@@ -1632,15 +1633,20 @@ export const chainProfile = async (
   const eik = hit.eik;
 
   // Retail basket + rank IF the chain prices the comparable basket (not all do).
-  const chains = await pricePayload<ChainsFile>("chains");
+  const [chains, products] = await Promise.all([
+    pricePayload<ChainsFile>("chains"),
+    pricePayload<ChainProductsFile | null>("chain-products", eik),
+  ]);
   let basketInfo: {
     chain: string;
     basket: number;
     rank: number;
     total: number;
   } | null = null;
-  if (chains) {
-    const sorted = [...chains.national].sort((a, b) => a.basket - b.basket);
+  if (chains && !products?.sourceConflict) {
+    const sorted = chains.national
+      .filter((c) => c.comparable)
+      .sort((a, b) => a.basket - b.basket || a.eik.localeCompare(b.eik));
     const idx = sorted.findIndex((c) => c.eik === eik);
     if (idx >= 0)
       basketInfo = {
@@ -1654,9 +1660,42 @@ export const chainProfile = async (
   // Money-flows footprint by EIK (procurement won as a state supplier).
   const company = await fetchDb<CompanyLite | null>("company", { eik });
   const proc = company?.procurement;
-  const name = basketInfo?.chain ?? company?.company?.name ?? q;
+  const name =
+    products?.chain ?? basketInfo?.chain ?? company?.company?.name ?? q;
 
   const rows: Row[] = [];
+  const priceNote = products?.sourceConflict
+    ? T(
+        "Файлът на КЗП за БИЛЛА съдържа обекти на друга верига (НОВЕ). Не показваме тези цени като цени на БИЛЛА. Очакваме корекция от източника.",
+        "The КЗП file for BILLA contains stores from another chain (NOVE). We do not present these as BILLA prices. A source correction is needed.",
+      )
+    : products?.beyondCeiling
+      ? T(
+          "Последните подадени цени са твърде стари за показване.",
+          "The last filed prices are too old to display.",
+        )
+      : products?.stale
+        ? T(
+            "Последно подадени цени, не текущи оферти.",
+            "Last filed prices, not current offers.",
+          )
+        : null;
+  if (priceNote)
+    rows.push({ metric: T("Данни за цените", "Price data"), value: priceNote });
+  if (products?.asOf)
+    rows.push({
+      metric: T("Последно подаване към КЗП", "Last filing to КЗП"),
+      value: products.asOf,
+    });
+  const sample =
+    !products?.sourceConflict && !products?.beyondCeiling
+      ? (products?.products ?? []).slice(0, 8)
+      : [];
+  for (const p of sample)
+    rows.push({
+      metric: p.title,
+      value: `${eur(p.price, lang)}${p.asOf ? ` · ${p.asOf}` : ""}`,
+    });
   if (basketInfo) {
     rows.push({
       metric: T("Кошница", "Basket"),
@@ -1679,8 +1718,8 @@ export const chainProfile = async (
     rows.push({
       metric: T("Профил", "Profile"),
       value: T(
-        "няма съпоставима кошница · не печели поръчки",
-        "not in the comparable basket · wins no contracts",
+        "Няма налични продуктови цени или съпоставима кошница в мониторинга.",
+        "No product prices or comparable basket are available in the monitor.",
       ),
     });
 
@@ -1704,6 +1743,9 @@ export const chainProfile = async (
     facts: {
       chain: name,
       eik,
+      ...(priceNote ? { price_note: priceNote } : {}),
+      ...(products?.asOf ? { prices_as_of: products.asOf } : {}),
+      ...(sample.length ? { shown_products: sample.length } : {}),
       ...(basketInfo
         ? {
             basket: eur(basketInfo.basket, lang),

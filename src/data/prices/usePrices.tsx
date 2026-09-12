@@ -445,6 +445,8 @@ export interface ChainProduct {
   asOf?: string;
 }
 export interface ChainProductsFile {
+  chain?: string;
+  sourceConflict?: "chain-store-mismatch" | null;
   products: ChainProduct[];
   /** The day the CHAIN last filed anything, from the dimension rather than from
    *  the product slice. Optional/null: absent on a blob built before T2c, which

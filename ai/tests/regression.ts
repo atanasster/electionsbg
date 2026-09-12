@@ -2893,7 +2893,31 @@ const CASES: Case[] = [
     kind: "table",
     facts: { eik_id: "121644736", contracts: /\d/ },
   },
-  // Kaufland isn't in the comparable-basket set — resolves by EIK to a table anyway.
+  {
+    q: "Покажи договорите на Метро България",
+    tool: "contractSearch",
+    kind: "table",
+    facts: { eik_id: "121644736", contracts: /\d/ },
+  },
+  {
+    q: "Свързана ли е Метро кеш енд кери България ЕООД - София с лица от властта?",
+    tool: "companyConnections",
+    facts: { eik: "121644736" },
+  },
+  {
+    q: "Show contracts won by Metro Bulgaria",
+    lang: "en",
+    tool: "contractSearch",
+    kind: "table",
+    facts: { eik_id: "121644736", contracts: /\d/ },
+  },
+  {
+    q: "какви са цените във верига БИЛЛА",
+    tool: "chainProfile",
+    kind: "table",
+    facts: { eik: "130007884", chain: /[Бб][Ии]л/ },
+  },
+  // Kaufland is not in the comparable-basket set but still has a profile.
   { q: "Профил на веригата Кауфланд", tool: "chainProfile", kind: "table" },
   {
     q: "Profile of the Metro chain",

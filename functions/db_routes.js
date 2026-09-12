@@ -4150,6 +4150,34 @@ const DB_ROUTES = {
     const kind = s(q, "kind");
     if (!kind) return { status: 400, body: { error: "missing kind" } };
     const key = s(q, "key");
+    if (kind === "chain-products") {
+      // Identity comes from the chain dimension, never the comparable-basket
+      // subset. Inspect the source store labels before attributing prices:
+      // the 2026-09-11 archive's BILLA CSV actually contains NOVE pharmacies.
+      // Keep this evidence-based guard conditional so a corrected feed heals.
+      const rows = await dbRows(
+        `SELECT c.name AS chain, p.payload,
+                EXISTS (SELECT 1 FROM price_stores st
+                         WHERE st.eik = c.eik
+                           AND st.last_seen::text >= COALESCE(p.payload->>'asOf', c.last_seen::text)
+                           AND st.label_norm ~ '^НОВЕ( |$)')
+                  AND c.eik = '130007884' AS "sourceConflict"
+           FROM price_chains c
+           LEFT JOIN price_payloads p ON p.kind = 'chain-products' AND p.key = c.eik
+          WHERE c.eik = $1`,
+        [key],
+      ).catch(missingMigrationEmpty);
+      const row = rows[0];
+      if (!row) return { body: null };
+      return {
+        body: {
+          ...row.payload,
+          chain: row.chain,
+          products: row.sourceConflict ? [] : (row.payload?.products ?? []),
+          sourceConflict: row.sourceConflict ? "chain-store-mismatch" : null,
+        },
+      };
+    }
     const rows = await dbRows(
       "SELECT payload FROM price_payloads WHERE kind = $1 AND key = $2",
       [kind, key],
