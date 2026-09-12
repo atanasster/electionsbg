@@ -1,3 +1,4 @@
+import { understandFunding } from "./fundingUnderstanding";
 import { understandProcurement } from "./procurementUnderstanding";
 import { applyProductDefaults } from "./productDefaults";
 import { route as heuristicRoute, type Route } from "./router";
@@ -50,12 +51,19 @@ export function parseModelRoute(raw: string, question: string): Route {
   } catch {
     /* parser handles malformed JSON */
   }
+  const funding = understandFunding(current);
+  if (funding.kind !== "none")
+    return funding.kind === "query"
+      ? { tool: "fundingQuery", args: funding.query }
+      : { tool: "fundingQuestion", args: { question: current } };
   const procurement = understandProcurement(current);
   if (procurement.kind !== "none")
     return procurement.kind === "query"
       ? { tool: "procurementQuery", args: procurement.query }
       : { tool: "procurementQuestion", args: { question: current } };
   const parsed = parseToolCall(raw);
+  if (parsed && ["fundingQuery", "fundingQuestion"].includes(parsed.tool))
+    return null; // No funding intent was established above.
   if (
     parsed?.tool === "rankPlaces" &&
     ((/basket|кошниц/i.test(current) && /gdp|бвп/i.test(current)) ||

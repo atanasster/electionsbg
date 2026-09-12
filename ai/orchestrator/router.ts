@@ -1,3 +1,4 @@
+import { understandFunding } from "./fundingUnderstanding";
 import {
   understandProcurement,
   PROCUREMENT_RISK_ALIASES,
@@ -5112,6 +5113,11 @@ export const resolveFollowOn = (
  * Route its subject first; context can only change that tool's declared inputs.
  */
 export const route = (question: string, ctx: ToolContext): Route => {
+  const funding = understandFunding(question);
+  if (funding.kind !== "none")
+    return funding.kind === "query"
+      ? { tool: "fundingQuery", args: funding.query }
+      : { tool: "fundingQuestion", args: { question } };
   const legacyProcurement = routeText(question, ctx);
   const explicitPeriod =
     /\b20\d{2}\b|last year|this year|last 12 months|миналата година|тази година|последните 12 месеца/i.test(

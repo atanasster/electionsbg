@@ -269,7 +269,14 @@ export class WebLLMProvider implements LLMProvider {
     narrationCtx = "",
   ): Promise<{ text: string; fromModel: boolean; reject?: NarrationReject }> {
     const template = narrate(env, lang);
-    if (["procurementQuery", "procurementQuestion"].includes(env.tool))
+    if (
+      [
+        "fundingQuery",
+        "fundingQuestion",
+        "procurementQuery",
+        "procurementQuestion",
+      ].includes(env.tool)
+    )
       return { text: template, fromModel: false };
     if (!this.engine) return { text: template, fromModel: false };
     const maxTokens = 320;

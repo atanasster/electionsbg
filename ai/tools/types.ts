@@ -123,6 +123,14 @@ export type ClarifyRequest = {
 };
 
 export type Envelope = {
+  funding?: {
+    query: import("../../src/lib/fundingQuery").FundingQuery;
+    result: import("./funding").FundingResult;
+  };
+  fundingBundle?: {
+    query: import("../../src/lib/fundingQuery").FundingQuery;
+    result: import("./funding").FundingResult;
+  }[];
   procurementBundle?: { query: ProcurementQuery; result: ProcurementResult }[];
   procurement?: {
     query: import("../../src/lib/procurementQuery").ProcurementQuery;

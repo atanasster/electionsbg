@@ -219,9 +219,13 @@ export class OpenRouterProvider implements LLMProvider {
     // let an otherwise valid model call discard a named party/place or ballot.
     if (
       deterministic &&
-      (["procurementQuery", "procurementQuestion", "compareElections"].includes(
-        deterministic.tool,
-      ) ||
+      ([
+        "fundingQuery",
+        "fundingQuestion",
+        "procurementQuery",
+        "procurementQuestion",
+        "compareElections",
+      ].includes(deterministic.tool) ||
         (["municipalityResults", "regionResults"].includes(
           deterministic.tool,
         ) &&
@@ -318,7 +322,14 @@ export class OpenRouterProvider implements LLMProvider {
     onDelta?: (partial: string) => void,
   ): Promise<{ text: string; fromModel: boolean; reject?: NarrationReject }> {
     const template = narrate(env, lang);
-    if (env.tool === "procurementQuery" || env.tool === "procurementQuestion")
+    if (
+      [
+        "fundingQuery",
+        "fundingQuestion",
+        "procurementQuery",
+        "procurementQuestion",
+      ].includes(env.tool)
+    )
       return { text: template, fromModel: false };
     try {
       const { system, user } = buildNarrationPrompt(

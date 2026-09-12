@@ -1,3 +1,4 @@
+import { validatedFundingArgs } from "../tools/fundingQueryContract";
 // M3 — the tool-selection contract for the model provider.
 //
 // Builds the JSON schema the model is constrained to (a tool name from the
@@ -105,6 +106,7 @@ export const validateToolArgs = (
   toolName: string,
   raw: unknown,
 ): ToolArgs | null => {
+  if (toolName === "fundingQuery") return validatedFundingArgs(raw);
   if (toolName === "procurementQuery") return validatedProcurementArgs(raw);
   const result = validateArguments(toolName, raw ?? {}, {
     ignoreUnknown: true,

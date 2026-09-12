@@ -614,6 +614,583 @@
       }
     }
   ],
+  "fundingQuery": [
+    {
+      "name": "version",
+      "type": "text",
+      "required": false,
+      "values": [
+        "funding-records-v1"
+      ],
+      "description": {
+        "bg": "version",
+        "en": "version"
+      }
+    },
+    {
+      "name": "corpus",
+      "type": "text",
+      "required": true,
+      "values": [
+        "isunProjects",
+        "agriPayments",
+        "interregOperations",
+        "interregPartners"
+      ],
+      "description": {
+        "bg": "corpus",
+        "en": "corpus"
+      }
+    },
+    {
+      "name": "operation",
+      "type": "text",
+      "required": false,
+      "values": [
+        "summary",
+        "count",
+        "sum",
+        "share",
+        "list",
+        "rank",
+        "trend",
+        "compare",
+        "detail",
+        "methodology"
+      ],
+      "description": {
+        "bg": "operation",
+        "en": "operation"
+      }
+    },
+    {
+      "name": "metric",
+      "type": "text",
+      "required": false,
+      "values": [
+        "records",
+        "amount",
+        "paidRatio",
+        "hhi",
+        "topShare",
+        "beneficiaries",
+        "organisations"
+      ],
+      "description": {
+        "bg": "metric",
+        "en": "metric"
+      }
+    },
+    {
+      "name": "dateBasis",
+      "type": "text",
+      "required": false,
+      "values": [
+        "none",
+        "financialYear",
+        "observed",
+        "start",
+        "end",
+        "overlap"
+      ],
+      "description": {
+        "bg": "dateBasis",
+        "en": "dateBasis"
+      }
+    },
+    {
+      "name": "from",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "from",
+        "en": "from"
+      }
+    },
+    {
+      "name": "toExclusive",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "toExclusive",
+        "en": "toExclusive"
+      }
+    },
+    {
+      "name": "compareFrom",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "compareFrom",
+        "en": "compareFrom"
+      }
+    },
+    {
+      "name": "compareToExclusive",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "compareToExclusive",
+        "en": "compareToExclusive"
+      }
+    },
+    {
+      "name": "asOf",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "asOf",
+        "en": "asOf"
+      }
+    },
+    {
+      "name": "financialYears",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "financialYears",
+        "en": "financialYears"
+      }
+    },
+    {
+      "name": "compareFinancialYears",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "compareFinancialYears",
+        "en": "compareFinancialYears"
+      }
+    },
+    {
+      "name": "programmingPeriods",
+      "type": "stringList",
+      "required": false,
+      "values": [
+        "2007-2013",
+        "2014-2020",
+        "2021-2027",
+        "unknown"
+      ],
+      "description": {
+        "bg": "programmingPeriods",
+        "en": "programmingPeriods"
+      }
+    },
+    {
+      "name": "programmeIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "programmeIds",
+        "en": "programmeIds"
+      }
+    },
+    {
+      "name": "schemeIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "schemeIds",
+        "en": "schemeIds"
+      }
+    },
+    {
+      "name": "entityIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "entityIds",
+        "en": "entityIds"
+      }
+    },
+    {
+      "name": "entityClass",
+      "type": "text",
+      "required": false,
+      "values": [
+        "all",
+        "legal",
+        "individual"
+      ],
+      "description": {
+        "bg": "entityClass",
+        "en": "entityClass"
+      }
+    },
+    {
+      "name": "fundingMechanisms",
+      "type": "stringList",
+      "required": false,
+      "values": [
+        "EU",
+        "EEA-Norway",
+        "RRP",
+        "other",
+        "unknown"
+      ],
+      "description": {
+        "bg": "fundingMechanisms",
+        "en": "fundingMechanisms"
+      }
+    },
+    {
+      "name": "fundTypes",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "fundTypes",
+        "en": "fundTypes"
+      }
+    },
+    {
+      "name": "themeIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "themeIds",
+        "en": "themeIds"
+      }
+    },
+    {
+      "name": "beneficiarySectors",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "beneficiarySectors",
+        "en": "beneficiarySectors"
+      }
+    },
+    {
+      "name": "keyword",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "keyword",
+        "en": "keyword"
+      }
+    },
+    {
+      "name": "statusIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "statusIds",
+        "en": "statusIds"
+      }
+    },
+    {
+      "name": "placeIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "placeIds",
+        "en": "placeIds"
+      }
+    },
+    {
+      "name": "placeBasis",
+      "type": "text",
+      "required": false,
+      "values": [
+        "implementation",
+        "recipient",
+        "partner",
+        "eligible"
+      ],
+      "description": {
+        "bg": "placeBasis",
+        "en": "placeBasis"
+      }
+    },
+    {
+      "name": "amountBasis",
+      "type": "text",
+      "required": false,
+      "values": [
+        "grant",
+        "projectCost",
+        "ownCofinance",
+        "paid",
+        "direct",
+        "market",
+        "rural",
+        "operationBudget",
+        "operationEu",
+        "partnerBudget",
+        "partnerEu"
+      ],
+      "description": {
+        "bg": "amountBasis",
+        "en": "amountBasis"
+      }
+    },
+    {
+      "name": "amountMin",
+      "type": "decimal",
+      "required": false,
+      "min": -9007199254740991,
+      "max": 9007199254740991,
+      "description": {
+        "bg": "amountMin",
+        "en": "amountMin"
+      }
+    },
+    {
+      "name": "amountMax",
+      "type": "decimal",
+      "required": false,
+      "min": -9007199254740991,
+      "max": 9007199254740991,
+      "description": {
+        "bg": "amountMax",
+        "en": "amountMax"
+      }
+    },
+    {
+      "name": "amountMinRelation",
+      "type": "text",
+      "required": false,
+      "values": [
+        "gt",
+        "gte"
+      ],
+      "description": {
+        "bg": "amountMinRelation",
+        "en": "amountMinRelation"
+      }
+    },
+    {
+      "name": "amountMaxRelation",
+      "type": "text",
+      "required": false,
+      "values": [
+        "lt",
+        "lte"
+      ],
+      "description": {
+        "bg": "amountMaxRelation",
+        "en": "amountMaxRelation"
+      }
+    },
+    {
+      "name": "currency",
+      "type": "text",
+      "required": false,
+      "values": [
+        "EUR"
+      ],
+      "description": {
+        "bg": "currency",
+        "en": "currency"
+      }
+    },
+    {
+      "name": "basePredicates",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "basePredicates",
+        "en": "basePredicates"
+      }
+    },
+    {
+      "name": "numeratorPredicates",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "numeratorPredicates",
+        "en": "numeratorPredicates"
+      }
+    },
+    {
+      "name": "baseMode",
+      "type": "text",
+      "required": false,
+      "values": [
+        "all",
+        "any"
+      ],
+      "description": {
+        "bg": "baseMode",
+        "en": "baseMode"
+      }
+    },
+    {
+      "name": "numeratorMode",
+      "type": "text",
+      "required": false,
+      "values": [
+        "all",
+        "any"
+      ],
+      "description": {
+        "bg": "numeratorMode",
+        "en": "numeratorMode"
+      }
+    },
+    {
+      "name": "denominator",
+      "type": "text",
+      "required": false,
+      "values": [
+        "records",
+        "evaluable",
+        "amount"
+      ],
+      "description": {
+        "bg": "denominator",
+        "en": "denominator"
+      }
+    },
+    {
+      "name": "population",
+      "type": "text",
+      "required": false,
+      "values": [
+        "attributable",
+        "gross"
+      ],
+      "description": {
+        "bg": "population",
+        "en": "population"
+      }
+    },
+    {
+      "name": "groupBy",
+      "type": "text",
+      "required": false,
+      "values": [
+        "entity",
+        "programme",
+        "scheme",
+        "financialYear",
+        "theme",
+        "place",
+        "month",
+        "year"
+      ],
+      "description": {
+        "bg": "groupBy",
+        "en": "groupBy"
+      }
+    },
+    {
+      "name": "order",
+      "type": "text",
+      "required": false,
+      "values": [
+        "asc",
+        "desc"
+      ],
+      "description": {
+        "bg": "order",
+        "en": "order"
+      }
+    },
+    {
+      "name": "limit",
+      "type": "count",
+      "required": false,
+      "min": 1,
+      "max": 100,
+      "description": {
+        "bg": "limit",
+        "en": "limit"
+      }
+    },
+    {
+      "name": "offset",
+      "type": "count",
+      "required": false,
+      "min": 0,
+      "max": 10000,
+      "description": {
+        "bg": "offset",
+        "en": "offset"
+      }
+    },
+    {
+      "name": "topN",
+      "type": "count",
+      "required": false,
+      "min": 1,
+      "max": 1000,
+      "description": {
+        "bg": "topN",
+        "en": "topN"
+      }
+    },
+    {
+      "name": "minGroupCount",
+      "type": "count",
+      "required": false,
+      "min": 1,
+      "max": 100000000,
+      "description": {
+        "bg": "minGroupCount",
+        "en": "minGroupCount"
+      }
+    },
+    {
+      "name": "key",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "key",
+        "en": "key"
+      }
+    },
+    {
+      "name": "expectedRevision",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "expectedRevision",
+        "en": "expectedRevision"
+      }
+    },
+    {
+      "name": "parentQuery",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "parentQuery",
+        "en": "parentQuery"
+      }
+    },
+    {
+      "name": "relationship",
+      "type": "text",
+      "required": false,
+      "values": [
+        "operationsToPartners",
+        "partnersToOperations"
+      ],
+      "description": {
+        "bg": "relationship",
+        "en": "relationship"
+      }
+    }
+  ],
+  "fundingQuestion": [
+    {
+      "name": "question",
+      "type": "text",
+      "required": true,
+      "description": {
+        "bg": "Въпрос",
+        "en": "Question"
+      }
+    },
+    {
+      "name": "previous",
+      "type": "text",
+      "description": {
+        "bg": "Предишен обхват",
+        "en": "Previous scope"
+      }
+    }
+  ],
   "budgetVariance": [
     {
       "name": "year",

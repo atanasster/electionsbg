@@ -853,6 +853,19 @@ const entitySearchSql = (fn, lim) => `
       LIMIT ${lim}`;
 
 const DB_ROUTES = {
+  "funding-catalog": async(dbRows,q)=>{
+    if(!['isunProjects','agriPayments','interregOperations','interregPartners'].includes(q.corpus))return {status:400,body:{error:'invalid_corpus'}};
+    if(q.corpus!=='agriPayments')return {body:{programmes:await dbRows("SELECT corpus,code,label_bg,label_en,period FROM funding_programmes WHERE corpus=$1 ORDER BY code",[q.corpus.startsWith('interreg')?'interregOperations':q.corpus])}};
+    const [schemes,years]=await Promise.all([
+      dbRows("SELECT scheme AS code,min(scheme_desc) AS label FROM agri_subsidies WHERE scheme IS NOT NULL GROUP BY scheme ORDER BY scheme",[]),
+      dbRows("WITH RECURSIVE years(y) AS (SELECT min(year) FROM agri_subsidies UNION ALL SELECT (SELECT min(year) FROM agri_subsidies WHERE year>years.y) FROM years WHERE y IS NOT NULL) SELECT y::text AS year FROM years WHERE y IS NOT NULL ORDER BY y",[])
+    ]);
+    return {body:{schemes,financialYears:years.map(y=>y.year)}};
+  },
+  "funding-entities": async(dbRows,q)=>{
+    if(typeof q.name!=="string"||q.name.length<2||q.name.length>120)return {status:400,body:{error:"invalid_name"}};
+    return {body:await dbRows("SELECT eik,min(name) AS name FROM (SELECT beneficiary_eik AS eik,beneficiary_name AS name FROM fund_projects UNION ALL SELECT eik,name FROM agri_subsidies UNION ALL SELECT eik,partner_name AS name FROM interreg_partners) e WHERE eik ~ '^[0-9]{9}([0-9]{4})?$' AND lower(name)=lower($1) GROUP BY eik ORDER BY eik LIMIT 21",[q.name])};
+  },
   "funding-query": async (dbRows,q) => {
     if(typeof q.query!=="string" || q.query.length>16000)return {status:400,body:{status:"unsupported",reason:"invalid_query_size"}};
     let raw;try{raw=JSON.parse(q.query);}catch{return {status:400,body:{status:"unsupported",reason:"invalid_query_json"}};}

@@ -1,3 +1,4 @@
+import { FUNDING_TOOLS } from "./funding";
 import { PROCUREMENT_TOOLS } from "./procurement";
 import { RANKING_VALUES } from "./rankingContract";
 import { WATER_TOOL } from "./water";
@@ -284,6 +285,7 @@ import type {
 
 export const TOOLS: ToolDef[] = [
   ...PROCUREMENT_TOOLS,
+  ...FUNDING_TOOLS,
   ...BUDGET_TOOLS,
   WATER_TOOL,
   // ---- parliamentary elections ----------------------------------------------
