@@ -1832,6 +1832,9 @@ export const UNCLAIMED: Record<string, string> = {
     "UNLOGGED staging table for the contracts merge — dropped when the load commits, so its presence means one is in flight or was interrupted",
 
   // ── ingest plumbing: about HOW data arrived, not about any dataset ─────────
+  rollcall_query_revisions: "legislative source and identity revision tokens",
+  rollcall_query_meta:
+    "legislative topic catalog and source date-quality policy",
   funding_query_revisions:
     "cross-corpus funding query revision tokens; invalidate results after source refresh",
   funding_query_meta:

@@ -1,3 +1,4 @@
+import { installRollcallQuery } from "./lib/installRollcallQuery";
 // Load the National Assembly roll-call corpus into Postgres — schema 134_rollcall.sql.
 //
 // Source: data/parliament/votes/sessions/*.json (613 files, 288 MB), the same tree the
@@ -402,6 +403,7 @@ const run = async (): Promise<void> => {
   // this loader is the only thing that can FILL it — the values exist solely in the day
   // files this script already reads.
   await exec(readFileSync(DAY_SCHEMA, "utf8"));
+  await installRollcallQuery();
   await withClient(async (c) => {
     for (const r of (
       await c.query<{ bill_id: number; ns: number; stem: string }>(

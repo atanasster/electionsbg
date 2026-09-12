@@ -1,3 +1,4 @@
+import { installRollcallQuery } from "./lib/installRollcallQuery";
 // Load the municipal-council corpus into council_muni / council_muni_code /
 // council_resolution / council_vote (migration 160).
 //
@@ -300,6 +301,7 @@ const main = async (): Promise<void> => {
   // exist wherever this loader has run, EMPTY if there was nothing to fill them.
   await exec(readFileSync(SCHEMA, "utf8"));
   await exec(readFileSync(SERVING, "utf8"));
+  await installRollcallQuery();
 
   if (!existsSync(COUNCIL_DIR)) {
     console.warn(
