@@ -853,6 +853,12 @@ const entitySearchSql = (fn, lim) => `
       LIMIT ${lim}`;
 
 const DB_ROUTES = {
+  "funding-query": async (dbRows,q) => {
+    if(typeof q.query!=="string" || q.query.length>16000)return {status:400,body:{status:"unsupported",reason:"invalid_query_size"}};
+    let raw;try{raw=JSON.parse(q.query);}catch{return {status:400,body:{status:"unsupported",reason:"invalid_query_json"}};}
+    return require("./funding_query").runFundingQuery(dbRows,raw);
+  },
+  "funding-capabilities": async (dbRows) => require("./funding_query").fundingCapabilities(dbRows),
   "procurement-capabilities": async (dbRows) => {
     const { runProcurementQuery } = require("./procurement_query.js");
     const shared = require("./generated/procurement_query.js");
