@@ -18,6 +18,7 @@ test("ISUN independent cohort arithmetic, money evidence, themes, dates and revi
  CREATE TABLE fund_projects(contract_number text PRIMARY KEY,beneficiary_eik text,beneficiary_name text,title text,program_code text,total_eur float8,grant_eur float8,own_cofinance_eur float8,paid_eur float8,status text,location_json jsonb,ekatte text,oblast text);
  CREATE TABLE ingest_first_seen(source text,key text,first_seen_at timestamptz);
  CREATE TABLE agri_subsidies(eik text);CREATE TABLE interreg_partners(eik text);CREATE TABLE interreg_operations(keep_id int);CREATE TABLE interreg_programmes(code text);CREATE TABLE contracts(key text);
+ CREATE TABLE debarred(name_norm text);
  CREATE TABLE person(person_id text,status text,is_public_figure bool);CREATE TABLE person_role(person_id text,ref text,source text,confidence text);
  INSERT INTO fund_projects VALUES
  ('I1','111111111','A','health','P1',100,80,20,40,'В изпълнение','{"munis":["BGS01","BGS02"]}',null,'BGS'),
@@ -97,6 +98,56 @@ test("ISUN independent cohort arithmetic, money evidence, themes, dates and revi
       await c.query(
         "UPDATE funding_query_meta SET value='{\"version\":\"1.0.0\"}' WHERE key='catalog'",
       );
+      for (const [amountMin, amountMinRelation, records] of [
+        [80, "gt", 1],
+        [80, "gte", 2],
+        [149.99, "gt", 1],
+      ] as const)
+        expect(
+          (await run({ amountMin, amountMinRelation })).totals.records,
+        ).toBe(records);
+      const beforeSignals = (await run()).revision;
+      await c.query("SAVEPOINT signals");
+      await c.query(
+        "INSERT INTO person VALUES('p1','active',true);INSERT INTO person_role VALUES('p1','111111111','tr','high')",
+      );
+      expect((await run({ expectedRevision: beforeSignals })).reason).toBe(
+        "revision_changed",
+      );
+      for (const [numeratorMode, numerator_records, share] of [
+        ["all", 0, 0],
+        ["any", 3, 75],
+      ] as const)
+        expect(
+          (
+            await run({
+              operation: "share",
+              numeratorPredicates: ["political", "zeroPaid"],
+              numeratorMode,
+            })
+          ).totals,
+        ).toMatchObject({ records: 4, evaluable: 3, numerator_records, share });
+      expect(
+        (await run({ basePredicates: ["!political"] })).totals.records,
+      ).toBe(1);
+      expect(
+        (
+          await run({
+            operation: "share",
+            basePredicates: ["!political"],
+            numeratorPredicates: ["zeroPaid"],
+          })
+        ).totals,
+      ).toMatchObject({ records: 1, numerator_records: 1, share: 100 });
+      await c.query("ROLLBACK TO SAVEPOINT signals");
+      expect((await run()).revision).toBe(beforeSignals);
+      await c.query("SAVEPOINT debarred_revision");
+      await c.query("INSERT INTO debarred VALUES('a')");
+      expect((await run({ expectedRevision: beforeSignals })).reason).toBe(
+        "revision_changed",
+      );
+      await c.query("ROLLBACK TO SAVEPOINT debarred_revision");
+      expect((await run()).revision).toBe(beforeSignals);
       const all = await run();
       expect(all.status).toBe("partial");
       expect(all.totals).toMatchObject({
@@ -106,6 +157,34 @@ test("ISUN independent cohort arithmetic, money evidence, themes, dates and revi
         paid: 190,
         known_amount: 3,
       });
+      expect((await run({ amountBasis: "projectCost" })).totals.amount).toBe(
+        300,
+      );
+      expect((await run({ amountBasis: "ownCofinance" })).totals.amount).toBe(
+        70,
+      );
+      expect(
+        (await run({ metric: "paidRatio", amountBasis: "projectCost" })).totals
+          .paid_ratio,
+      ).toBeCloseTo((190 / 300) * 100);
+      expect((await run({ metric: "paidRatio" })).totals).toMatchObject({
+        ratio_numerator: 190,
+        ratio_denominator: 230,
+      });
+      await c.query("SAVEPOINT overpaid");
+      await c.query(
+        "UPDATE fund_projects SET paid_eur=200 WHERE contract_number='I1';UPDATE funding_isun_observations SET paid_eur=200 WHERE contract_number='I1'",
+      );
+      expect(
+        (
+          await run({
+            metric: "paidRatio",
+            entityIds: ["111111111"],
+            programmeIds: ["P1"],
+          })
+        ).totals.paid_ratio,
+      ).toBe(250);
+      await c.query("ROLLBACK TO SAVEPOINT overpaid");
       expect(
         (await run({ metric: "paidRatio" })).totals.paid_ratio,
       ).toBeCloseTo((190 / 230) * 100);
@@ -266,6 +345,16 @@ test("ISUN independent cohort arithmetic, money evidence, themes, dates and revi
       const top = await run({ metric: "topShare", topN: 1 });
       expect(top.totals.top_share).toBeCloseTo((230 / 300) * 100);
       expect(top.status).toBe("partial");
+      expect(top.totals).toMatchObject({
+        top_amount: 230,
+        concentration_amount: 300,
+      });
+      expect((await run({ metric: "hhi" })).totals.hhi).toBeCloseTo(
+        6422.2222222,
+      );
+      expect(
+        (await run({ metric: "hhi", entityIds: ["111111111"] })).totals.hhi,
+      ).toBeNull();
     } finally {
       await c.query("ROLLBACK");
     }

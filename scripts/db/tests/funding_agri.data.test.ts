@@ -45,6 +45,9 @@ INSERT INTO person VALUES('p','active',true);INSERT INTO person_role VALUES('p',
           )
         ).body;
       const all = await run();
+      expect((await run({ amountBasis: "direct" })).totals.amount).toBe(145);
+      expect((await run({ amountBasis: "market" })).totals.amount).toBe(0);
+      expect((await run({ amountBasis: "rural" })).totals.amount).toBe(50);
       expect(all.totals).toMatchObject({
         records: 4,
         amount: 195,

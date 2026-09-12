@@ -7,20 +7,23 @@ import { translitKey } from "../../tools/translit";
 import type { Lang } from "../../tools/types";
 import rawTitles from "./toolTitles.json";
 const titles: Record<string, Record<Lang, string>> = rawTitles;
-export const LIBRARY = TOOLS.map((tool) => {
-  const questions = QUESTION_DEFINITIONS.filter(
-    (q) => q.chat.capabilityId === tool.name,
-  );
-  const categoryId = questions[0]?.categoryId ?? "data-coverage";
-  const subcategoryId = questions[0]?.subcategoryId ?? "coverage";
-  return {
-    tool,
-    questions,
-    categoryId,
-    subcategoryId,
-    title: titles[tool.name] ?? tool.description,
-  };
-});
+// Keep the retired name-first subsidy executor for saved history, without advertising it.
+export const LIBRARY = TOOLS.filter((t) => t.name !== "subsidiesForEntity").map(
+  (tool) => {
+    const questions = QUESTION_DEFINITIONS.filter(
+      (q) => q.chat.capabilityId === tool.name,
+    );
+    const categoryId = questions[0]?.categoryId ?? "data-coverage";
+    const subcategoryId = questions[0]?.subcategoryId ?? "coverage";
+    return {
+      tool,
+      questions,
+      categoryId,
+      subcategoryId,
+      title: titles[tool.name] ?? tool.description,
+    };
+  },
+);
 export type LibraryEntry = (typeof LIBRARY)[number];
 export { QUESTION_CATEGORIES };
 export const filterLibrary = (

@@ -126,3 +126,7 @@ test("Interreg capability arms are independently visible", async () => {
   assert.equal(r.body.corpora.interregPartners.ready, false);
   assert.deepEqual(r.body.corpora.interregPartners.dates, []);
 });
+test('I09 disable rollback exposes no ready analytics and never broadens scope',async()=>{
+ const before=process.env.FUNDING_QUERY_DISABLED;process.env.FUNDING_QUERY_DISABLED='1';
+ try{let calls=0;const db=()=>{calls++;throw Error('must not query disabled analytics')};const r=await runFundingQuery(db,{corpus:'isunProjects',themeIds:['health']});assert.equal(r.body.status,'unavailable');const caps=await require('./funding_query').fundingCapabilities(db);assert(Object.values(caps.body.corpora).every(c=>!c.ready));assert.equal(calls,0);}finally{if(before===undefined)delete process.env.FUNDING_QUERY_DISABLED;else process.env.FUNDING_QUERY_DISABLED=before;}
+});

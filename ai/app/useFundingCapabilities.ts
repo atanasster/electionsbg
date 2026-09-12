@@ -27,7 +27,11 @@ export function fundingTemplateReady(
   if (!t) return true;
   if (t.id === "S13")
     return (
-      cap?.version === FUNDING_VERSION && !!cap.corpora.agriPayments?.ready
+      cap?.version === FUNDING_VERSION &&
+      !!cap.corpora.agriPayments?.ready &&
+      cap.corpora.agriPayments.dates.includes("financialYear") &&
+      cap.corpora.agriPayments.amounts.includes("paid") &&
+      !!cap.corpora.agriPayments.financialYears?.length
     );
   if (!t.query) return false;
   const parsed = validateFundingQuery(t.query);
@@ -38,7 +42,11 @@ export function fundingTemplateReady(
     cap?.version === FUNDING_VERSION &&
     !!c?.ready &&
     c.dates.includes(q.dateBasis) &&
-    c.amounts.includes(q.amountBasis) &&
+    (q.metric !== "paidRatio" || c.amounts.includes("paid")) &&
+    ((q.metric === "records" &&
+      q.amountMin === undefined &&
+      q.amountMax === undefined) ||
+      c.amounts.includes(q.amountBasis)) &&
     [
       ...((q.basePredicates as string[] | undefined) || []),
       ...((q.numeratorPredicates as string[] | undefined) || []),

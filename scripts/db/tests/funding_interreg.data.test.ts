@@ -46,6 +46,15 @@ test("Interreg operation and partnership units, publication, dates and whole par
           )
         ).body;
       expect((await run()).totals).toMatchObject({ records: 2, amount: 1500 });
+      const beforeOrder = (
+        await run({ corpus: "interregPartners", operation: "list" })
+      ).rows.map((r: { key: string }) => r.key);
+      await c.query("UPDATE interreg_partners SET partner_seq=100-partner_seq");
+      expect(
+        (await run({ corpus: "interregPartners", operation: "list" })).rows.map(
+          (r: { key: string }) => r.key,
+        ),
+      ).toEqual(beforeOrder);
       const bg = { corpus: "interregPartners", basePredicates: ["bulgarian"] };
       expect((await run(bg)).totals).toMatchObject({
         records: 3,
@@ -54,6 +63,16 @@ test("Interreg operation and partnership units, publication, dates and whole par
         organisations: 2,
       });
       expect((await run(bg)).status).toBe("partial");
+      const leads = await run({
+        ...bg,
+        operation: "list",
+        basePredicates: ["bulgarian", "lead"],
+      });
+      expect(leads.totals).toMatchObject({ records: 2, amount: 100 });
+      expect(leads.rows.map((r: { key: string }) => r.key).sort()).toEqual([
+        "11",
+        "21",
+      ]);
       expect(
         (await run({ ...bg, basePredicates: ["bulgarian", "publishedZero"] }))
           .totals.records,

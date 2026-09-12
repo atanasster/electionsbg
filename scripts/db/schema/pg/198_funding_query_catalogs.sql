@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS funding_sectors(id text PRIMARY KEY,label_bg text NOT
 CREATE TABLE IF NOT EXISTS funding_isun_observations(contract_number text PRIMARY KEY,total_eur double precision,grant_eur double precision,own_cofinance_eur double precision,paid_eur double precision,observed_mask int NOT NULL CHECK(observed_mask BETWEEN 0 AND 15),source_hash text NOT NULL);
 CREATE TABLE IF NOT EXISTS funding_query_meta(key text PRIMARY KEY,value jsonb NOT NULL);
 DO $$ DECLARE rel text; BEGIN
- FOREACH rel IN ARRAY ARRAY['fund_projects','agri_subsidies','interreg_operations','interreg_partners','interreg_programmes','funding_programmes','funding_themes','funding_sectors','funding_isun_observations','funding_query_meta','person','person_role','ingest_first_seen','contracts'] LOOP
+ FOREACH rel IN ARRAY ARRAY['fund_projects','agri_subsidies','interreg_operations','interreg_partners','interreg_programmes','funding_programmes','funding_themes','funding_sectors','funding_isun_observations','funding_query_meta','person','person_role','ingest_first_seen','contracts','debarred'] LOOP
   IF EXISTS(SELECT 1 FROM pg_class WHERE oid=to_regclass(rel) AND relkind IN ('r','p')) THEN
    INSERT INTO funding_query_revisions(resource) VALUES(rel) ON CONFLICT DO NOTHING;
    EXECUTE format('DROP TRIGGER IF EXISTS funding_query_revision ON %I',rel);

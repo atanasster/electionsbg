@@ -863,13 +863,20 @@ const DB_ROUTES = {
     return {body:{schemes,financialYears:years.map(y=>y.year)}};
   },
   "funding-entities": async(dbRows,q)=>{
-    if(typeof q.name!=="string"||q.name.length<2||q.name.length>120)return {status:400,body:{error:"invalid_name"}};
-    return {body:await dbRows("SELECT eik,min(name) AS name FROM (SELECT beneficiary_eik AS eik,beneficiary_name AS name FROM fund_projects UNION ALL SELECT eik,name FROM agri_subsidies UNION ALL SELECT eik,partner_name AS name FROM interreg_partners) e WHERE eik ~ '^[0-9]{9}([0-9]{4})?$' AND lower(name)=lower($1) GROUP BY eik ORDER BY eik LIMIT 21",[q.name])};
+    const sources={isunProjects:["fund_projects","beneficiary_eik","beneficiary_name"],agriPayments:["agri_subsidies","eik","name"],interregPartners:["interreg_partners","eik","partner_name"]};
+    const source=Object.prototype.hasOwnProperty.call(sources,q.corpus)?sources[q.corpus]:undefined;
+    if(!source||typeof q.name!=="string"||q.name.length<2||q.name.length>120)return {status:400,body:{error:"invalid_entity_lookup"}};
+    const [table,id,name]=source;
+    return {body:await dbRows(`SELECT ${id} AS eik,min(${name}) AS name FROM ${table} WHERE ${id} ~ '^[0-9]{9}([0-9]{4})?$' AND lower(${name})=lower($1) GROUP BY ${id} ORDER BY ${id} LIMIT 21`,[q.name])};
   },
   "funding-query": async (dbRows,q) => {
     if(typeof q.query!=="string" || q.query.length>16000)return {status:400,body:{status:"unsupported",reason:"invalid_query_size"}};
     let raw;try{raw=JSON.parse(q.query);}catch{return {status:400,body:{status:"unsupported",reason:"invalid_query_json"}};}
-    return require("./funding_query").runFundingQuery(dbRows,raw);
+    const started=Date.now();
+    const result=await require("./funding_query").runFundingQuery(dbRows,raw);
+    const body=result.body||{};
+    console.info(JSON.stringify({event:"funding_query",corpus:body.query?.corpus||"unknown",operation:body.query?.operation||"unknown",status:body.status,reason:typeof body.reason==="string"&&/^[a-z_]+$/.test(body.reason)?body.reason:body.reason?"validation_rejected":undefined,durationMs:Date.now()-started}));
+    return result;
   },
   "funding-capabilities": async (dbRows) => require("./funding_query").fundingCapabilities(dbRows),
   "procurement-capabilities": async (dbRows) => {

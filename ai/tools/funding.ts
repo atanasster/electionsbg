@@ -202,6 +202,7 @@ export function fundingScope(
       "numeratorPredicates",
       ...(q.corpus === "agriPayments" ? ["population"] : []),
     ].flatMap((k) =>
+      !(k === "denominator" && ["paidRatio", "topShare"].includes(q.metric)) &&
       q[k] !== undefined
         ? [
             `${label[k]}: ${Array.isArray(q[k]) ? (q[k] as string[]).map(value).join(", ") : value(String(q[k]))}`,
@@ -305,12 +306,20 @@ export async function fundingQuery(
           `${r.cohort_window === "current" ? (bg ? "Основен период" : "Current period") : bg ? "Сравняван период" : "Comparison period"}: ${formatMeasure(r[metric])}${metric === "amount" ? " EUR" : ["share", "paid_ratio", "top_share"].includes(metric) ? "%" : ""}`,
       )
       .join("; ");
+  const ratioEvidence =
+    q.metric === "paidRatio"
+      ? [totals.ratio_numerator, totals.ratio_denominator]
+      : q.metric === "topShare"
+        ? [totals.top_amount, totals.concentration_amount]
+        : null;
   const evidence = available
     ? [
         `${bg ? "Записи" : "Records"}: ${totals.records ?? 0}`,
-        q.operation === "share"
-          ? `${bg ? "Числител / знаменател" : "Numerator / denominator"}: ${formatMeasure(q.denominator === "amount" ? totals.numerator_amount : totals.numerator_records)} / ${formatMeasure(q.denominator === "amount" ? totals.amount : q.denominator === "evaluable" ? totals.evaluable : totals.records)}`
-          : "",
+        ratioEvidence
+          ? `${bg ? "Числител / знаменател (EUR)" : "Numerator / denominator (EUR)"}: ${formatMeasure(value == null ? null : ratioEvidence[0])} / ${formatMeasure(value == null ? null : ratioEvidence[1])}${q.metric === "topShare" ? (bg ? " — известни суми на идентифицирани получатели" : " — known amounts of identified recipients") : ""}`
+          : q.operation === "share"
+            ? `${bg ? "Числител / знаменател" : "Numerator / denominator"}: ${formatMeasure(q.denominator === "amount" ? totals.numerator_amount : totals.numerator_records)} / ${formatMeasure(q.denominator === "amount" ? totals.amount : q.denominator === "evaluable" ? totals.evaluable : totals.records)}`
+            : "",
         q.numeratorPredicates?.length
           ? `${bg ? "Оценим показател" : "Evaluable signal"}: ${totals.evaluable ?? 0}/${totals.records ?? 0}`
           : "",
@@ -448,6 +457,7 @@ export async function fundingQuestion(
       try {
         catalog.entities = await fetchDb("funding-entities", {
           name: named[1],
+          corpus: String(r.draft.corpus || ""),
         });
         r = understandFunding(question, {
           previous: previous?.ok ? previous.query : undefined,

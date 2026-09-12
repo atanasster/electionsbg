@@ -2,12 +2,17 @@ import {
   FUNDING_FOLLOWUPS,
   fundingContinuation,
 } from "../../src/lib/fundingContinuations";
-import { encodeFundingQuery } from "../../src/lib/fundingQuery";
+import {
+  encodeFundingQuery,
+  validateFundingQuery,
+} from "../../src/lib/fundingQuery";
 import type { Envelope } from "../tools/types";
 import type { Suggestion } from "./suggestions";
 export function fundingContinuations(env: Envelope): Suggestion[] {
   if (!env.funding) return [];
-  const q = env.funding.query;
+  const p = validateFundingQuery(env.funding.query);
+  if (!p.ok) return [];
+  const q = p.query;
   return FUNDING_FOLLOWUPS.flatMap(([id, bg, en]) => {
     const r = fundingContinuation(en, q);
     if (!r) return [];

@@ -208,3 +208,65 @@ it.each([
       kind: "none",
     });
 });
+it("a fully restated query can recover from invalid or bundled history", () => {
+  for (const prev of [
+    { tool: "fundingQuestion", args: { previous: "ambiguous-bundle" } },
+    { tool: "fundingQuery", args: { version: "future" } },
+  ])
+    expect(
+      resolveFollowOn(
+        "How many ISUN projects are in 2021–2027 programmes?",
+        prev,
+      ),
+    ).toMatchObject({
+      tool: "fundingQuery",
+      args: { corpus: "isunProjects", programmingPeriods: ["2021-2027"] },
+    });
+});
+
+it("starter readiness requires every ratio and annual-payment prerequisite", () => {
+  const cap = {
+    version: "funding-records-v1",
+    corpora: {
+      isunProjects: {
+        ready: true,
+        dates: ["none"],
+        amounts: ["grant", "paid"],
+        predicates: [],
+      },
+      agriPayments: {
+        ready: true,
+        dates: ["financialYear"],
+        amounts: ["paid"],
+        predicates: [],
+        financialYears: ["2025"],
+      },
+    },
+  };
+  expect(fundingTemplateReady("funding-query-S05", cap)).toBe(true);
+  for (const amounts of [["grant"], ["paid"], []])
+    expect(
+      fundingTemplateReady("funding-query-S05", {
+        ...cap,
+        corpora: {
+          ...cap.corpora,
+          isunProjects: { ...cap.corpora.isunProjects, amounts },
+        },
+      }),
+    ).toBe(false);
+  expect(fundingTemplateReady("funding-query-S13", cap)).toBe(true);
+  for (const missing of [
+    { amounts: [] },
+    { dates: [] },
+    { financialYears: [] },
+  ])
+    expect(
+      fundingTemplateReady("funding-query-S13", {
+        ...cap,
+        corpora: {
+          ...cap.corpora,
+          agriPayments: { ...cap.corpora.agriPayments, ...missing },
+        },
+      }),
+    ).toBe(false);
+});

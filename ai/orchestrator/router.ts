@@ -4952,6 +4952,15 @@ export const resolveFollowOn = (
   prev: { tool: string; args: ToolArgs } | undefined,
 ): Route => {
   if (!prev) return null;
+  if (
+    (prev.tool === "fundingQuestion" &&
+      prev.args.previous === "ambiguous-bundle") ||
+    (prev.tool === "fundingQuery" && !validateFundingQuery(prev.args).ok)
+  ) {
+    const fresh = understandFunding(question);
+    if (fresh.kind === "query")
+      return { tool: "fundingQuery", args: fresh.query };
+  }
   if (prev.tool === "fundingQuery") {
     const p = validateFundingQuery(prev.args);
     if (!p.ok)

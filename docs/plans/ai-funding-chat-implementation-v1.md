@@ -1,6 +1,6 @@
 # EU funds, farm subsidies and Interreg chat — implementation plan
 
-Status: implementation started, 2026-09-12. Step 0 adds a local read-only coverage audit and arithmetic fixtures; application behavior and source data are unchanged at this stage. See [semantics and audit decisions](ai-funding-chat-semantics-v1.md). Subsequent steps below remain planned. Read with [tests and prompts](ai-funding-chat-tests-prompts-v1.md) and the implemented [procurement query reference](ai-procurement-chat-release-v1.md).
+Status: steps 0–8 implemented and locally verified, 2026-09-12. See [release record](ai-funding-chat-release-v1.md), [acceptance ledger](ai-funding-chat-acceptance-v1.md), and [semantics and audit decisions](ai-funding-chat-semantics-v1.md).
 
 ## Outcome and scope
 

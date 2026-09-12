@@ -9,7 +9,9 @@ import { TOOLS } from "../../tools/registry";
 import titles from "./toolTitles.json";
 import { toChatQuestionIntent } from "../questionAdapter";
 it("covers every executable ID with bilingual titles and valid categories", () => {
-  expect(LIBRARY.map((e) => e.tool.name)).toEqual(TOOLS.map((t) => t.name));
+  expect(LIBRARY.map((e) => e.tool.name)).toEqual(
+    TOOLS.filter((t) => t.name !== "subsidiesForEntity").map((t) => t.name),
+  );
   expect(Object.keys(titles).sort()).toEqual(TOOLS.map((t) => t.name).sort());
   for (const e of LIBRARY) {
     expect(e.questions.length).toBeGreaterThan(0);

@@ -1,6 +1,6 @@
 # Funding chat — tests, starters and follow-ups
 
-Status: proposed specification, 2026-09-12. Step 0 now has three executed independent arithmetic fixture tests in `ai/tests/fundingFixture.test.ts`; the 100-case matrix below remains an acceptance specification, not an assertion that those cases have executed. Companion to [implementation plan](ai-funding-chat-implementation-v1.md). Each case requires an implementation test path/assertion and recorded result before release. Conditional capabilities must remain hidden until source-backed verification succeeds.
+Status: implementation and tests are recorded in the [100-case acceptance ledger](ai-funding-chat-acceptance-v1.md) and [release record](ai-funding-chat-release-v1.md). The matrix below is the specification; it is not itself an executed-test count. Conditional capabilities remain gated on source evidence.
 
 ## Independent arithmetic fixtures
 

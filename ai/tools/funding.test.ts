@@ -134,3 +134,25 @@ it("renders signal numerator, denominator and evidence coverage", async () => {
     "records with known evidence",
   );
 });
+
+it.each([
+  [
+    "paidRatio",
+    { paid_ratio: 50, ratio_numerator: 100, ratio_denominator: 200 },
+  ],
+  ["topShare", { top_share: 50, top_amount: 100, concentration_amount: 200 }],
+])("%s evidence uses the actual money ratio", async (metric, ratio) => {
+  setDbFetcher(async (_r, p) => ({
+    status: "success",
+    query: JSON.parse(String(p.query)),
+    totals: { records: 10, numerator_records: 10, ...ratio },
+  }));
+  const e = await fundingQuery(
+    { corpus: "isunProjects", operation: "share", metric },
+    ctx,
+  );
+  expect(e.facts.coverage_note).toContain(
+    "Numerator / denominator (EUR): 100 / 200",
+  );
+  expect(e.subtitle).not.toContain("Denominator: records");
+});

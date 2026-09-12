@@ -1,0 +1,199 @@
+{
+  "measuredAt": "2026-09-12T15:24:33.324Z",
+  "environment": "local PostgreSQL, app_readonly; shared developer machine",
+  "statementTimeoutMs": 20000,
+  "warmTargetMs": 2000,
+  "samplesPerQuery": 6,
+  "firstRequestIsNotColdDatabaseCache": true,
+  "results": [
+    {
+      "label": "isun-count",
+      "firstMs": 418,
+      "warmMs": [
+        412,
+        409,
+        410,
+        416,
+        417
+      ],
+      "warmP95Ms": 417,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 82309
+    },
+    {
+      "label": "isun-health",
+      "firstMs": 1335,
+      "warmMs": [
+        1329,
+        1283,
+        1283,
+        1301,
+        1401
+      ],
+      "warmP95Ms": 1401,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 297
+    },
+    {
+      "label": "isun-place",
+      "firstMs": 188,
+      "warmMs": [
+        191,
+        182,
+        183,
+        183,
+        182
+      ],
+      "warmP95Ms": 191,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 2084
+    },
+    {
+      "label": "isun-concentration",
+      "firstMs": 869,
+      "warmMs": [
+        875,
+        877,
+        871,
+        869,
+        868
+      ],
+      "warmP95Ms": 877,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 82309
+    },
+    {
+      "label": "dfz-year",
+      "firstMs": 1364,
+      "warmMs": [
+        1339,
+        1333,
+        1321,
+        1357,
+        1366
+      ],
+      "warmP95Ms": 1366,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 230214
+    },
+    {
+      "label": "dfz-schemes",
+      "firstMs": 1813,
+      "warmMs": [
+        1743,
+        1712,
+        1713,
+        1710,
+        1718
+      ],
+      "warmP95Ms": 1743,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 230214
+    },
+    {
+      "label": "interreg-operations",
+      "firstMs": 8,
+      "warmMs": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "warmP95Ms": 5,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 708
+    },
+    {
+      "label": "interreg-overlap",
+      "firstMs": 7,
+      "warmMs": [
+        6,
+        6,
+        6,
+        6,
+        7
+      ],
+      "warmP95Ms": 7,
+      "status": "partial",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 638
+    },
+    {
+      "label": "interreg-bg-partners",
+      "firstMs": 67,
+      "warmMs": [
+        66,
+        66,
+        66,
+        66,
+        68
+      ],
+      "warmP95Ms": 68,
+      "status": "partial",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 1498
+    },
+    {
+      "label": "isun-skewed-entity",
+      "firstMs": 23,
+      "warmMs": [
+        20,
+        19,
+        19,
+        19,
+        20
+      ],
+      "warmP95Ms": 20,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 331
+    },
+    {
+      "label": "isun-skewed-programme",
+      "firstMs": 218,
+      "warmMs": [
+        215,
+        200,
+        206,
+        205,
+        206
+      ],
+      "warmP95Ms": 215,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b",
+      "records": 35332
+    },
+    {
+      "label": "force_custom_plan",
+      "elapsedMs": 1371,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b"
+    },
+    {
+      "label": "force_generic_plan",
+      "elapsedMs": 1793,
+      "status": "success",
+      "revision": "eed1de1831d6f7ba8544155a931c4a5b"
+    }
+  ],
+  "concurrent": [
+    {
+      "label": "isun-count",
+      "elapsedMs": 425,
+      "status": "success"
+    },
+    {
+      "label": "dfz-year",
+      "elapsedMs": 1355,
+      "status": "success"
+    }
+  ]
+}

@@ -79,6 +79,10 @@ function compileFundingQuery(raw, internal = false) {
     q.dateBasis === "observed"
       ? "(SELECT (min(f.first_seen_at) AT TIME ZONE 'Europe/Sofia')::date FROM ingest_first_seen f WHERE f.source='fund_project' AND f.key=c.contract_number)"
       : "NULL::date";
+  const themeRestriction =
+    q.themeIds?.length && q.groupBy !== "theme"
+      ? `t.id=ANY(${bind(q.themeIds)}::text[]) AND `
+      : "";
   const source = interreg
     ? require("./funding_query_interreg").interregSource(q, has)
     : agri
@@ -87,7 +91,7 @@ function compileFundingQuery(raw, internal = false) {
  ${known(money[0], money[1])} AS amount,${known("paid_eur", 8)} AS paid,${date} AS date,
  CASE WHEN c.status LIKE 'Приключен%' THEN 'completed' WHEN c.status LIKE 'В изпълнение%' THEN 'in-progress' WHEN c.status='Сключен' THEN 'signed' WHEN c.status LIKE 'Прекратен%' THEN 'terminated' WHEN NULLIF(c.status,'') IS NULL THEN 'unknown' ELSE 'other' END AS status,
  c.location_json AS location,c.ekatte,c.oblast,jsonb_build_object(${signalSql}) AS signals,
- ${q.themeIds?.length || q.groupBy === "theme" ? `ARRAY(SELECT t.id FROM funding_themes t WHERE c.program_code=ANY(t.programme_ids) OR EXISTS(SELECT 1 FROM unnest(t.keywords) kw WHERE c.title ILIKE '%'||replace(replace(replace(kw,'\\','\\\\'),'%','\\%'),'_','\\_')||'%'))` : "ARRAY[]::text[]"} AS themes
+ ${q.themeIds?.length || q.groupBy === "theme" ? `ARRAY(SELECT t.id FROM funding_themes t WHERE ${themeRestriction}(c.program_code=ANY(t.programme_ids) OR EXISTS(SELECT 1 FROM unnest(t.keywords) kw WHERE c.title ILIKE '%'||replace(replace(replace(kw,'\\','\\\\'),'%','\\%'),'_','\\_')||'%')))` : "ARRAY[]::text[]"} AS themes
  FROM fund_projects c LEFT JOIN funding_isun_observations o ON o.contract_number=c.contract_number`;
   const where = [],
     checks = [];
@@ -238,7 +242,7 @@ function compileFundingQuery(raw, internal = false) {
   const selectMatches =
     q.numeratorPredicates?.length &&
     !["share", "summary", "methodology"].includes(q.operation);
-  const stats = `count(key)::int AS records,count(DISTINCT entity)::int AS beneficiaries,${partners ? "count(DISTINCT organisation)" : "0"}::int AS organisations,count(amount)::int AS known_amount,count(paid)::int AS known_paid,${partners ? "count(organisation)" : "0"}::int AS known_organisation,count(key) FILTER(WHERE entity IS NULL)::int AS unidentified,sum(amount) AS amount,sum(paid) AS paid,count(key) FILTER(WHERE matched IS NOT NULL)::int AS evaluable,count(key) FILTER(WHERE matched)::int AS numerator_records,CASE WHEN count(key) FILTER(WHERE matched)>0 THEN sum(amount) FILTER(WHERE matched) WHEN count(key) FILTER(WHERE matched IS NOT NULL)>0 THEN 0::numeric END AS numerator_amount,100*sum(paid) FILTER(WHERE amount IS NOT NULL)/NULLIF(sum(amount) FILTER(WHERE paid IS NOT NULL),0) AS paid_ratio`;
+  const stats = `count(key)::int AS records,count(DISTINCT entity)::int AS beneficiaries,${partners ? "count(DISTINCT organisation)" : "0"}::int AS organisations,count(amount)::int AS known_amount,count(paid)::int AS known_paid,${partners ? "count(organisation)" : "0"}::int AS known_organisation,count(key) FILTER(WHERE entity IS NULL)::int AS unidentified,sum(amount) AS amount,sum(paid) AS paid,count(key) FILTER(WHERE matched IS NOT NULL)::int AS evaluable,count(key) FILTER(WHERE matched)::int AS numerator_records,CASE WHEN count(key) FILTER(WHERE matched)>0 THEN sum(amount) FILTER(WHERE matched) WHEN count(key) FILTER(WHERE matched IS NOT NULL)>0 THEN 0::numeric END AS numerator_amount,sum(paid) FILTER(WHERE amount IS NOT NULL) AS ratio_numerator,sum(amount) FILTER(WHERE paid IS NOT NULL) AS ratio_denominator,100*sum(paid) FILTER(WHERE amount IS NOT NULL)/NULLIF(sum(amount) FILTER(WHERE paid IS NOT NULL),0) AS paid_ratio`;
   const shareExpr =
     q.denominator === "amount"
       ? "100*numerator_amount/NULLIF(amount,0)"
@@ -253,12 +257,12 @@ function compileFundingQuery(raw, internal = false) {
  cohorts AS MATERIALIZED(SELECT * FROM base_cohorts ${selectMatches ? "WHERE matched IS TRUE" : ""}),
  grouped AS (${q.groupBy ? `SELECT *,${group} AS group_key FROM cohorts UNION ALL ` : ""}SELECT *,'__total'::text AS group_key FROM cohorts),
  entity_money AS (SELECT cohort_window,group_key,${partners ? "organisation" : "entity"} AS entity,sum(amount) AS amount FROM grouped WHERE ${["hhi", "topShare"].includes(q.metric) ? "TRUE" : "FALSE"} AND ${partners ? "organisation" : "entity"} IS NOT NULL AND amount IS NOT NULL GROUP BY cohort_window,group_key,${partners ? "organisation" : "entity"}),
- concentration AS (SELECT cohort_window,group_key,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 10000*sum(amount*amount)/power(sum(amount),2) END AS hhi,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 100*sum(amount) FILTER(WHERE rn<=${bind(q.topN || 10)})/sum(amount) END AS top_share FROM (SELECT *,row_number() OVER(PARTITION BY cohort_window,group_key ORDER BY amount DESC NULLS LAST,entity) rn FROM entity_money) e GROUP BY cohort_window,group_key),
+ concentration AS (SELECT cohort_window,group_key,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 10000*sum(amount*amount)/power(sum(amount),2) END AS hhi,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 100*sum(amount) FILTER(WHERE rn<=${bind(q.topN || 10)})/sum(amount) END AS top_share,sum(amount) AS concentration_amount,sum(amount) FILTER(WHERE rn<=${bind(q.topN || 10)}) AS top_amount FROM (SELECT *,row_number() OVER(PARTITION BY cohort_window,group_key ORDER BY amount DESC NULLS LAST,entity) rn FROM entity_money) e GROUP BY cohort_window,group_key),
  summaries AS (SELECT cohort_window,group_key,${stats} FROM grouped GROUP BY cohort_window,group_key),
  empty_stats AS (SELECT ${stats} FROM cohorts WHERE FALSE),
  windows AS (SELECT 'current'::text AS cohort_window UNION ALL SELECT 'comparison' WHERE ${q.operation === "compare" ? "TRUE" : "FALSE"}),
  complete_summaries AS (SELECT * FROM summaries UNION ALL SELECT w.cohort_window,'__total',e.* FROM windows w CROSS JOIN empty_stats e WHERE NOT EXISTS(SELECT 1 FROM summaries s WHERE s.cohort_window=w.cohort_window AND s.group_key='__total')),
- measured AS (SELECT t.*,c.hhi,c.top_share,${shareExpr} AS share FROM complete_summaries t LEFT JOIN concentration c USING(cohort_window,group_key)),
+ measured AS (SELECT t.*,c.hhi,c.top_share,c.concentration_amount,c.top_amount,${shareExpr} AS share FROM complete_summaries t LEFT JOIN concentration c USING(cohort_window,group_key)),
  groups AS (SELECT * FROM measured WHERE group_key<>'__total' AND records>=${bind(q.minGroupCount || 1)}),
  page AS (SELECT key,entity,name,title,programme,amount,paid,date,status,signals FROM cohorts WHERE cohort_window='current' ${q.numeratorPredicates?.length ? "AND matched IS TRUE" : ""} ORDER BY amount ${q.order.toUpperCase()} NULLS LAST,key LIMIT ${bind(q.limit)} OFFSET ${bind(q.offset)}),
  group_page AS (SELECT * FROM groups ORDER BY ${selectedMetric} ${q.order.toUpperCase()} NULLS LAST,cohort_window,group_key LIMIT ${bind(q.limit)} OFFSET ${bind(q.offset)})

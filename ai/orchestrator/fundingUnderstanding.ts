@@ -244,6 +244,8 @@ export function understandFunding(
       }
     }
     const legacyDiscovery = [
+      "EU funds by oblast",
+      "Европейски средства по области",
       "Кой получава най-много европейски средства?",
       "Who gets the most EU funds?",
       "Кой получава най-много земеделски субсидии?",
@@ -400,6 +402,17 @@ export function understandFunding(
     )
   )
     return { kind: "none" };
+  if (
+    /per.capita|на глава от населението|на човек|headquarters|headquartered|седалище на бенефициент/.test(
+      text,
+    )
+  )
+    return issue(
+      "unsupported_measure_basis",
+      "Няма проверена база за този показател или местоположение. Уточнете поддържания обхват.",
+      "No verified denominator or location basis supports this request. Specify a supported scope.",
+      options.previous || { corpus: domains[0] },
+    );
   const corpus = domains[0] || options.previous!.corpus;
   const q: FundingArgs = options.previous
     ? { ...options.previous, limit: 20, offset: 0 }
@@ -628,6 +641,15 @@ export function understandFunding(
       q.operation = "sum";
   }
   if (!options.previous) q.operation ??= "summary";
+  if (
+    q.operation === "share" &&
+    /share of (?:grant |funding )?(?:value|amount)|дял от (?:стойността|сумата)/.test(
+      text,
+    )
+  ) {
+    q.metric = "amount";
+    q.denominator = "amount";
+  }
   if (/бенефициент|beneficiar/.test(text) && q.operation === "count")
     q.metric = "beneficiaries";
   if (
@@ -852,7 +874,13 @@ export function understandFunding(
     text.match(
       /(?:програма|programme|схема|scheme|фирма|company|бенефициент|beneficiary)\s+([a-zа-я][a-zа-я0-9 .-]*?)(?=\s+(?:за|по|с|от|над|под|през|in|for|with|above|below|grant|paid)\s|[?;,]|$)/,
     );
-  if (named && !/^(?=.*[a-z])(?=.*\d)[a-z0-9-]+$/.test(named[1])) {
+  if (
+    named &&
+    !(
+      /^(?=.*[a-z])(?=.*\d)[a-z0-9-]+(?:\s|$)/.test(named[1]) &&
+      /програма|programme|схема|scheme/.test(named[0])
+    )
+  ) {
     const company = /фирма|company|бенефициент|beneficiary/.test(named[0]),
       scheme = /схема|scheme/.test(named[0]);
     const rows = company

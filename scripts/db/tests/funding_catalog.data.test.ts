@@ -30,7 +30,7 @@ CREATE TABLE agri_subsidies(id int PRIMARY KEY);
 CREATE TABLE interreg_operations(keep_id int PRIMARY KEY);
 CREATE TABLE interreg_partners(keep_id int,partner_seq int);
 CREATE TABLE interreg_programmes(code text PRIMARY KEY);
-CREATE TABLE contracts(key text);
+CREATE TABLE contracts(key text);CREATE TABLE debarred(name_norm text);
 CREATE TABLE ingest_first_seen(source text,key text,first_seen_at timestamptz);
 CREATE TABLE person(person_id text PRIMARY KEY,status text,is_public_figure bool);
 CREATE TABLE person_role(ref text,person_id text,source text,confidence text,role text);
@@ -47,6 +47,39 @@ INSERT INTO person_role VALUES('111111111','p1','tr','high','owner'),('222222222
         expect(
           (await c.query("SELECT eik FROM funding_political_eiks")).rows,
         ).toEqual([{ eik: "111111111" }]);
+        await c.query("SAVEPOINT role_revision");
+        await c.query(
+          "UPDATE person_role SET confidence='low' WHERE ref='111111111'",
+        );
+        expect(
+          (await c.query("SELECT eik FROM funding_political_eiks")).rows,
+        ).toEqual([]);
+        expect(
+          (
+            await c.query(
+              "SELECT generation::int AS n FROM funding_query_revisions WHERE resource='person_role'",
+            )
+          ).rows[0].n,
+        ).toBe(1);
+        await c.query("ROLLBACK TO SAVEPOINT role_revision");
+        expect(
+          (
+            await c.query(
+              "SELECT generation::int AS n FROM funding_query_revisions WHERE resource='person_role'",
+            )
+          ).rows[0].n,
+        ).toBe(0);
+        expect(
+          (await c.query("SELECT eik FROM funding_political_eiks")).rows,
+        ).toEqual([{ eik: "111111111" }]);
+        await c.query("INSERT INTO debarred VALUES('example')");
+        expect(
+          (
+            await c.query(
+              "SELECT generation::int AS n FROM funding_query_revisions WHERE resource='debarred'",
+            )
+          ).rows[0].n,
+        ).toBe(1);
         await c.query("INSERT INTO fund_projects VALUES('I1'),('I2')");
         expect(
           (
