@@ -646,6 +646,11 @@ const ProcurementSettlementDetailScreen = lazy(() =>
     }),
   ),
 );
+const ProcurementQueryScreen = lazy(() =>
+  import("./screens/procurement/ProcurementQueryScreen").then((m) => ({
+    default: m.ProcurementQueryScreen,
+  })),
+);
 const ProcurementScreen = lazy(() =>
   import("./screens/ProcurementScreen").then((m) => ({
     default: m.ProcurementScreen,
@@ -2919,6 +2924,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/query"
+            element={
+              <LayoutScreen>
+                <ProcurementQueryScreen />
               </LayoutScreen>
             }
           />

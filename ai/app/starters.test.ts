@@ -1,3 +1,4 @@
+import { decodeProcurementQuery } from "../../src/lib/procurementQuery";
 import { validateToolArgs } from "../orchestrator/toolSchema";
 import { describe, expect, it } from "vitest";
 import { projectChatStarters, STARTERS, STARTER_CATEGORIES } from "./starters";
@@ -54,10 +55,21 @@ describe("starter intent contracts", () => {
       it(`${starter.id}: ${lang} reaches the intended tool AND arguments`, () => {
         const tool = TOOLS.find((t) => t.name === starter.tool);
         expect(tool).toBeDefined();
-        const result = route(starter[lang], {
+        let result = route(starter[lang], {
           lang,
           election: latestElection(),
         });
+        if (result?.tool === "openTenders" && result.args.canonical) {
+          const decoded = decodeProcurementQuery(String(result.args.canonical));
+          expect(decoded.ok).toBe(true);
+          if (starter.tool === "procurementQuery" && decoded.ok)
+            result = { tool: "procurementQuery", args: decoded.query };
+          else {
+            const { canonical: _canonical, ...legacy } = result.args;
+            void _canonical;
+            result = { ...result, args: legacy };
+          }
+        }
         expect(result?.tool).toBe(starter.tool);
         // Ranking routes retain compatibility prose; execution normalizes it to
         // the same closed metric/direction contract used by structured presets.

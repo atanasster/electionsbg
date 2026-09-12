@@ -31,8 +31,15 @@ export const filterLibrary = (
 ) => {
   const terms = translitKey(query).split(/\s+/).filter(Boolean);
   const matches = LIBRARY.filter((entry) => {
-    if (category && entry.categoryId !== category) return false;
-    if (subcategory && entry.subcategoryId !== subcategory) return false;
+    if (
+      (category || subcategory) &&
+      !entry.questions.some(
+        (q) =>
+          (!category || q.categoryId === category) &&
+          (!subcategory || q.subcategoryId === subcategory),
+      )
+    )
+      return false;
     if (recent && !recent.includes(entry.tool.name)) return false;
     const c = QUESTION_CATEGORIES.find((c) => c.id === entry.categoryId);
     const s = c?.subcategories.find((s) => s.id === entry.subcategoryId);

@@ -239,3 +239,14 @@ it.each([
     }
   }
 });
+it("invalid saved scope cannot become an unscoped follow-up", () => {
+  expect(
+    resolveFollowOn("А за 2025?", {
+      tool: "procurementQuery",
+      args: { version: "future" },
+    }),
+  ).toMatchObject({
+    tool: "procurementQuestion",
+    args: { previous: "invalid-saved-scope" },
+  });
+});

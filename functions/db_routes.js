@@ -853,6 +853,21 @@ const entitySearchSql = (fn, lim) => `
       LIMIT ${lim}`;
 
 const DB_ROUTES = {
+  "procurement-capabilities": async (dbRows) => {
+    const { runProcurementQuery } = require("./procurement_query.js");
+    const shared = require("./generated/procurement_query.js");
+    const corpora = {};
+    for (const corpus of ["contracts","amendments","tenders","appeals","decisions"]) {
+      const result = await runProcurementQuery(dbRows,{corpus,from:"2099-01-01",toExclusive:"2100-01-01",limit:1});
+      corpora[corpus] = {ready:["success","empty","partial"].includes(result.body.status),risks:[]};
+      const risks=shared.PROCUREMENT_RISKS[corpus==="amendments"?"contracts":corpus];
+      if (corpora[corpus].ready && risks?.length) {
+        const check=await runProcurementQuery(dbRows,{corpus,from:"2099-01-01",toExclusive:"2100-01-01",limit:1,metric:"risk",numeratorPredicates:["risk:"+risks[0]]});
+        if (["success","empty","partial"].includes(check.body.status)) corpora[corpus].risks=risks;
+      }
+    }
+    return {body:{version:shared.PROCUREMENT_QUERY_VERSION,corpora}};
+  },
   "procurement-query": async (dbRows, q) => {
     if (typeof q.query !== "string" || q.query.length > 16000) return { status: 400, body: { status: "unsupported", reason: "invalid_query_size" } };
     let query;

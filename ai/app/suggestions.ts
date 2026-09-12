@@ -7,6 +7,7 @@ import { STARTERS } from "./starters";
 import type { Lang } from "../tools/types";
 
 export type Suggestion = {
+  intent?: { tool: string; args: import("../tools/types").ToolArgs };
   bg: string;
   en: string;
   questionId: string;

@@ -1,3 +1,4 @@
+import { PROCUREMENT_RISK_WORDS } from "../../src/lib/questions/contracts/procurement";
 import { fetchDb } from "./dataClient";
 import { understandProcurement } from "../orchestrator/procurementUnderstanding";
 import {
@@ -29,6 +30,23 @@ const units = {
   appeals: { bg: "Жалби", en: "Complaints" },
   decisions: { bg: "Актове на КЗК", en: "KZK acts" },
 };
+const predicateLabel = (p: string, lang: "bg" | "en") => {
+  const id = p.replace(/^!/, "").replace(/^risk:/, "");
+  const label =
+    PROCUREMENT_RISK_WORDS[id]?.[lang] ||
+    (
+      {
+        oneBid: lang === "bg" ? "точно една оферта" : "exactly one bid",
+        appealed: lang === "bg" ? "обжалвани" : "appealed",
+        upheld: lang === "bg" ? "уважен изход" : "recorded upheld outcome",
+        suspended: lang === "bg" ? "спрени" : "suspended",
+      } as Record<string, string>
+    )[id] ||
+    id;
+  return (
+    (p.startsWith("!") ? (lang === "bg" ? "без " : "without ") : "") + label
+  );
+};
 export const procurementScope = (
   q: ProcurementQuery,
   ctx: ToolContext,
@@ -52,9 +70,34 @@ export const procurementScope = (
     q.cpvPrefixes?.length ? "CPV " + q.cpvPrefixes.join(", ") : "",
     q.topic || "",
     q.keyword || "",
-    ...(q.basePredicates || []),
-    ...(q.numeratorPredicates || []),
+    ...(q.basePredicates || []).map(
+      (p) => `${bg ? "Сред" : "Among"}: ${predicateLabel(p, ctx.lang)}`,
+    ),
+    ...(q.numeratorPredicates || []).map((p) => predicateLabel(p, ctx.lang)),
+    q.numeratorMode === "any"
+      ? bg
+        ? "поне едно условие"
+        : "any condition"
+      : "",
     q.status || "",
+    q.funding || "",
+    q.framework ? `${bg ? "Рамково" : "Framework"}: ${q.framework}` : "",
+    q.amountMin != null
+      ? `${bg ? "Стойност" : "Value"} ${q.amountMinRelation === "gt" ? ">" : "≥"} ${q.amountMin} ${q.currency}`
+      : "",
+    q.amountMax != null
+      ? `${bg ? "Стойност" : "Value"} ${q.amountMaxRelation === "lt" ? "<" : "≤"} ${q.amountMax} ${q.currency}`
+      : "",
+    q.bidderMin != null ? `${bg ? "Оферти" : "Bids"} ≥ ${q.bidderMin}` : "",
+    q.bidderMax != null ? `${bg ? "Оферти" : "Bids"} ≤ ${q.bidderMax}` : "",
+    q.relatedCorpus
+      ? `${bg ? "Свързани жалби/актове" : "Related complaints/acts"}: ${q.relatedFrom || "…"} – ${q.relatedToExclusive || "…"} (${bg ? "краят е изключен" : "end excluded"})`
+      : "",
+    q.compareFrom
+      ? `${bg ? "Сравнение" : "Compare"}: ${q.compareFrom} – ${q.compareToExclusive}`
+      : "",
+    q.asOf ? `${bg ? "Към" : "As of"}: ${q.asOf}` : "",
+    `${bg ? "Основа на стойността" : "Value basis"}: ${q.valueBasis}`,
   ]
     .filter(Boolean)
     .join(" · ");
@@ -82,6 +125,7 @@ export async function procurementQuery(
   if (q.operation === "methodology")
     return {
       ...base,
+      procurement: { query: q, result: { status: "success" } },
       facts: {
         ...base.facts,
         answer: bg
@@ -91,8 +135,23 @@ export async function procurementQuery(
     };
   const result = await fetchDb<ProcurementResult>("procurement-query", {
     query: JSON.stringify(q),
-  });
+  }).catch(
+    (): ProcurementResult => ({
+      status: "unavailable",
+      reason: "query_transport_unavailable",
+      query: q,
+    }),
+  );
   base.procurement = { query: q, result };
+  if (result.query && JSON.stringify(result.query) !== JSON.stringify(q)) {
+    const applied = validateProcurementQuery(result.query);
+    if (
+      !applied.ok ||
+      JSON.stringify(Object.entries(applied.query).sort()) !==
+        JSON.stringify(Object.entries(q).sort())
+    )
+      throw Error("Applied procurement scope differs from request");
+  }
   if (!result.totals || ["unavailable", "unsupported"].includes(result.status))
     return {
       ...base,
@@ -121,35 +180,47 @@ export async function procurementQuery(
     new Intl.NumberFormat(bg ? "bg-BG" : "en-GB", {
       maximumFractionDigits: 2,
     }).format(value);
-  const value =
-    q.operation === "share"
-      ? den > 0 && !(result.status === "partial" && Number(t.evaluable) === 0)
-        ? (100 * n) / den
-        : null
-      : q.metric === "value"
-        ? t.value_eur === null
-          ? null
-          : Number(t.value_eur)
+  const ratioMetric =
+    ["oneBid", "risk", "appealed", "upheld", "suspended"].includes(q.metric) ||
+    Boolean(q.numeratorPredicates?.length);
+  const isRate =
+    q.operation === "share" || (q.operation === "compare" && ratioMetric);
+  const denominatorKey =
+    q.denominator === "positiveKnown"
+      ? "positive_known"
+      : q.denominator === "evaluable"
+        ? "evaluable"
+        : q.denominator === "merits"
+          ? "merits"
+          : "records";
+  const measure = (
+    totals: Record<string, number | string | null>,
+    rate = isRate,
+  ): number | null => {
+    if (rate)
+      return Number(totals[denominatorKey]) > 0 &&
+        !(result.status === "partial" && Number(totals.evaluable) === 0)
+        ? (100 * Number(totals.numerator)) / Number(totals[denominatorKey])
+        : null;
+    const key =
+      q.metric === "value"
+        ? "value_eur"
         : q.metric === "cri"
-          ? t.mean_cri === null
-            ? null
-            : Number(t.mean_cri)
+          ? "mean_cri"
           : q.metric === "riskCount"
-            ? t.mean_risk_count === null
-              ? null
-              : Number(t.mean_risk_count)
-            : q.numeratorPredicates?.length ||
-                ["oneBid", "risk", "appealed", "upheld", "suspended"].includes(
-                  q.metric,
-                )
-              ? n
-              : Number(t.records);
+            ? "mean_risk_count"
+            : ratioMetric
+              ? "numerator"
+              : "records";
+    return totals[key] == null ? null : Number(totals[key]);
+  };
+  const value = measure(t);
   const answer =
     value === null
       ? bg
         ? "Няма достатъчно известни данни за показателя."
         : "Insufficient known data for this metric."
-      : q.operation === "share"
+      : isRate
         ? `${format(value)}% (${format(n)} / ${format(den)})`
         : `${format(value)}${q.metric === "value" ? " EUR" : ""}`;
   base.facts = {
@@ -174,6 +245,19 @@ export async function procurementQuery(
       : {}),
     value_basis: q.valueBasis,
     population: "procurement-records-v1",
+    coverage_note: bg
+      ? "Пълнотата на периода не е потвърдена. Класификациите, връзките и рисковете отразяват текущите данни; историческият период избира записи."
+      : "Period completeness is not verified. Classifications, links and risks reflect current data; the historical period selects records.",
+    ...(result.revision
+      ? { data_revision: JSON.stringify(result.revision) }
+      : {}),
+    ...(result.riskCatalog ? { risk_catalog: result.riskCatalog } : {}),
+    ...(q.metric === "oneBid" && Number(t.records) > 0
+      ? { share_all: (100 * n) / Number(t.records) }
+      : {}),
+    ...(q.metric === "oneBid" && Number(t.positive_known) > 0
+      ? { share_positive_known: (100 * n) / Number(t.positive_known) }
+      : {}),
   };
   if (result.warnings?.includes("current_cancellation_state"))
     base.facts.cancellation = bg
@@ -184,21 +268,109 @@ export async function procurementQuery(
       ? "Уважените изходи може да включват частични/смесени актове; не доказват пълен успех на всяка страна."
       : "Recorded upheld outcomes may include partial/mixed acts; they do not establish full success for each party.";
   if (value !== null) base.value = value;
+  if (q.operation === "compare" && result.comparison) {
+    const c = result.comparison,
+      other = measure(c);
+    base.kind = "table";
+    base.rows = [
+      {
+        period: `${q.from} – ${q.toExclusive}`,
+        value,
+        records: Number(t.records),
+        numerator: n,
+        denominator: den,
+      },
+      {
+        period: `${q.compareFrom} – ${q.compareToExclusive}`,
+        value: other,
+        records: Number(c.records),
+        numerator: Number(c.numerator),
+        denominator: Number(c[denominatorKey]),
+      },
+    ];
+    base.columns = [
+      {
+        key: "period",
+        label: bg ? "Период (краят е изключен)" : "Period (end excluded)",
+      },
+      {
+        key: "value",
+        label: isRate
+          ? "%"
+          : q.metric === "value"
+            ? "EUR"
+            : bg
+              ? "Показател"
+              : "Measure",
+        numeric: true,
+      },
+      { key: "records", label: bg ? "Записи" : "Records", numeric: true },
+      ...(isRate
+        ? [
+            {
+              key: "numerator",
+              label: bg ? "Съвпадения" : "Matches",
+              numeric: true,
+            },
+            {
+              key: "denominator",
+              label: bg ? "Знаменател" : "Denominator",
+              numeric: true,
+            },
+          ]
+        : []),
+    ];
+    if (value !== null && other !== null) {
+      base.facts[isRate ? "percentage_point_change" : "absolute_change"] =
+        other - value;
+      if (value !== 0)
+        base.facts.relative_percent_change = (100 * (other - value)) / value;
+    }
+  }
   const rows =
     q.groupBy || q.operation === "trend" ? result.groups : result.rows;
-  if (
-    ["list", "detail", "rank", "trend"].includes(q.operation) &&
-    rows?.length
-  ) {
+  if (["list", "detail", "rank", "trend"].includes(q.operation)) {
     base.kind = "table";
-    base.rows = rows;
+    base.rows =
+      q.groupBy || q.operation === "trend"
+        ? (rows || []).map((row) => ({
+            ...row,
+            measure: measure(
+              row as Record<string, number | string | null>,
+              ratioMetric,
+            ),
+            denominator: Number(row[denominatorKey]),
+          }))
+        : rows || [];
     const names =
       q.groupBy || q.operation === "trend"
-        ? ["group_key", "records", "numerator", "value_eur"]
+        ? [
+            "group_key",
+            "measure",
+            "records",
+            "numerator",
+            "denominator",
+            "value_eur",
+          ]
         : ["key", "title", "date", "buyer", "amount_eur"];
     base.columns = names.map((key) => ({
       key,
-      label: key,
+      label:
+        (
+          {
+            measure: ratioMetric ? "%" : bg ? "Показател" : "Measure",
+            denominator: bg ? "Знаменател" : "Denominator",
+            group_key: bg ? "Група" : "Group",
+            records: bg ? "Записи" : "Records",
+            numerator: bg ? "Съвпадения" : "Matches",
+            value_eur: bg ? "Стойност EUR" : "Value EUR",
+            key: bg ? "Идентификатор" : "Identifier",
+            title: bg ? "Предмет" : "Subject",
+            date: bg ? "Дата" : "Date",
+            buyer: bg ? "Възложител" : "Buyer",
+            amount_eur: bg ? "Стойност EUR" : "Value EUR",
+          } as Record<string, string>
+        )[key] || key,
       numeric: ["records", "numerator"].includes(key),
     }));
   }

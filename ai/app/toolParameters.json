@@ -1,4 +1,595 @@
 {
+  "procurementQuery": [
+    {
+      "name": "version",
+      "type": "text",
+      "required": false,
+      "values": [
+        "procurement-records-v1"
+      ],
+      "description": {
+        "bg": "version",
+        "en": "version"
+      }
+    },
+    {
+      "name": "corpus",
+      "type": "text",
+      "required": true,
+      "values": [
+        "contracts",
+        "amendments",
+        "tenders",
+        "appeals",
+        "decisions"
+      ],
+      "description": {
+        "bg": "corpus",
+        "en": "corpus"
+      }
+    },
+    {
+      "name": "operation",
+      "type": "text",
+      "required": false,
+      "values": [
+        "summary",
+        "count",
+        "share",
+        "sum",
+        "list",
+        "rank",
+        "trend",
+        "compare",
+        "detail",
+        "methodology"
+      ],
+      "description": {
+        "bg": "operation",
+        "en": "operation"
+      }
+    },
+    {
+      "name": "metric",
+      "type": "text",
+      "required": false,
+      "values": [
+        "records",
+        "value",
+        "oneBid",
+        "riskCount",
+        "cri",
+        "appealed",
+        "upheld",
+        "suspended",
+        "risk"
+      ],
+      "description": {
+        "bg": "metric",
+        "en": "metric"
+      }
+    },
+    {
+      "name": "from",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "from",
+        "en": "from"
+      }
+    },
+    {
+      "name": "toExclusive",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "toExclusive",
+        "en": "toExclusive"
+      }
+    },
+    {
+      "name": "dateBasis",
+      "type": "text",
+      "required": false,
+      "values": [
+        "record",
+        "published",
+        "signed",
+        "deadline",
+        "complaint",
+        "decision"
+      ],
+      "description": {
+        "bg": "dateBasis",
+        "en": "dateBasis"
+      }
+    },
+    {
+      "name": "buyerIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "buyerIds",
+        "en": "buyerIds"
+      }
+    },
+    {
+      "name": "supplierIds",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "supplierIds",
+        "en": "supplierIds"
+      }
+    },
+    {
+      "name": "buyerSectors",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "buyerSectors",
+        "en": "buyerSectors"
+      }
+    },
+    {
+      "name": "subjectSectors",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "subjectSectors",
+        "en": "subjectSectors"
+      }
+    },
+    {
+      "name": "cpvPrefixes",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "cpvPrefixes",
+        "en": "cpvPrefixes"
+      }
+    },
+    {
+      "name": "topic",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "topic",
+        "en": "topic"
+      }
+    },
+    {
+      "name": "keyword",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "keyword",
+        "en": "keyword"
+      }
+    },
+    {
+      "name": "basePredicates",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "basePredicates",
+        "en": "basePredicates"
+      }
+    },
+    {
+      "name": "baseMode",
+      "type": "text",
+      "required": false,
+      "values": [
+        "all",
+        "any"
+      ],
+      "description": {
+        "bg": "baseMode",
+        "en": "baseMode"
+      }
+    },
+    {
+      "name": "numeratorPredicates",
+      "type": "stringList",
+      "required": false,
+      "description": {
+        "bg": "numeratorPredicates",
+        "en": "numeratorPredicates"
+      }
+    },
+    {
+      "name": "numeratorMode",
+      "type": "text",
+      "required": false,
+      "values": [
+        "all",
+        "any"
+      ],
+      "description": {
+        "bg": "numeratorMode",
+        "en": "numeratorMode"
+      }
+    },
+    {
+      "name": "denominator",
+      "type": "text",
+      "required": false,
+      "values": [
+        "all",
+        "positiveKnown",
+        "evaluable",
+        "merits"
+      ],
+      "description": {
+        "bg": "denominator",
+        "en": "denominator"
+      }
+    },
+    {
+      "name": "bidderMin",
+      "type": "count",
+      "required": false,
+      "min": 0,
+      "max": 9007199254740991,
+      "description": {
+        "bg": "bidderMin",
+        "en": "bidderMin"
+      }
+    },
+    {
+      "name": "bidderMax",
+      "type": "count",
+      "required": false,
+      "min": 0,
+      "max": 9007199254740991,
+      "description": {
+        "bg": "bidderMax",
+        "en": "bidderMax"
+      }
+    },
+    {
+      "name": "minRiskCount",
+      "type": "count",
+      "required": false,
+      "min": 0,
+      "max": 17,
+      "description": {
+        "bg": "minRiskCount",
+        "en": "minRiskCount"
+      }
+    },
+    {
+      "name": "maxRiskCount",
+      "type": "count",
+      "required": false,
+      "min": 0,
+      "max": 17,
+      "description": {
+        "bg": "maxRiskCount",
+        "en": "maxRiskCount"
+      }
+    },
+    {
+      "name": "amountMin",
+      "type": "decimal",
+      "required": false,
+      "min": 0,
+      "max": 9007199254740991,
+      "description": {
+        "bg": "amountMin",
+        "en": "amountMin"
+      }
+    },
+    {
+      "name": "amountMax",
+      "type": "decimal",
+      "required": false,
+      "min": 0,
+      "max": 9007199254740991,
+      "description": {
+        "bg": "amountMax",
+        "en": "amountMax"
+      }
+    },
+    {
+      "name": "amountMinRelation",
+      "type": "text",
+      "required": false,
+      "values": [
+        "gte",
+        "gt"
+      ],
+      "description": {
+        "bg": "amountMinRelation",
+        "en": "amountMinRelation"
+      }
+    },
+    {
+      "name": "amountMaxRelation",
+      "type": "text",
+      "required": false,
+      "values": [
+        "lte",
+        "lt"
+      ],
+      "description": {
+        "bg": "amountMaxRelation",
+        "en": "amountMaxRelation"
+      }
+    },
+    {
+      "name": "currency",
+      "type": "text",
+      "required": false,
+      "values": [
+        "EUR",
+        "BGN"
+      ],
+      "description": {
+        "bg": "currency",
+        "en": "currency"
+      }
+    },
+    {
+      "name": "valueBasis",
+      "type": "text",
+      "required": false,
+      "values": [
+        "current",
+        "signing",
+        "estimate"
+      ],
+      "description": {
+        "bg": "valueBasis",
+        "en": "valueBasis"
+      }
+    },
+    {
+      "name": "procedure",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "procedure",
+        "en": "procedure"
+      }
+    },
+    {
+      "name": "status",
+      "type": "text",
+      "required": false,
+      "values": [
+        "all",
+        "cancelled",
+        "notCancelled",
+        "open",
+        "closed"
+      ],
+      "description": {
+        "bg": "status",
+        "en": "status"
+      }
+    },
+    {
+      "name": "outcome",
+      "type": "text",
+      "required": false,
+      "values": [
+        "уважена",
+        "отхвърлена",
+        "прекратена",
+        "отказана",
+        "unknown"
+      ],
+      "description": {
+        "bg": "outcome",
+        "en": "outcome"
+      }
+    },
+    {
+      "name": "funding",
+      "type": "text",
+      "required": false,
+      "values": [
+        "eu",
+        "notEu",
+        "unknown"
+      ],
+      "description": {
+        "bg": "funding",
+        "en": "funding"
+      }
+    },
+    {
+      "name": "framework",
+      "type": "text",
+      "required": false,
+      "values": [
+        "yes",
+        "no",
+        "unknown"
+      ],
+      "description": {
+        "bg": "framework",
+        "en": "framework"
+      }
+    },
+    {
+      "name": "groupBy",
+      "type": "text",
+      "required": false,
+      "values": [
+        "buyer",
+        "supplier",
+        "month",
+        "year",
+        "cpv",
+        "outcome"
+      ],
+      "description": {
+        "bg": "groupBy",
+        "en": "groupBy"
+      }
+    },
+    {
+      "name": "order",
+      "type": "text",
+      "required": false,
+      "values": [
+        "asc",
+        "desc"
+      ],
+      "description": {
+        "bg": "order",
+        "en": "order"
+      }
+    },
+    {
+      "name": "minGroupCount",
+      "type": "count",
+      "required": false,
+      "min": 0,
+      "max": 9007199254740991,
+      "description": {
+        "bg": "minGroupCount",
+        "en": "minGroupCount"
+      }
+    },
+    {
+      "name": "minGroupCountBasis",
+      "type": "text",
+      "required": false,
+      "values": [
+        "population",
+        "evaluable"
+      ],
+      "description": {
+        "bg": "minGroupCountBasis",
+        "en": "minGroupCountBasis"
+      }
+    },
+    {
+      "name": "limit",
+      "type": "count",
+      "required": false,
+      "min": 1,
+      "max": 100,
+      "description": {
+        "bg": "limit",
+        "en": "limit"
+      }
+    },
+    {
+      "name": "offset",
+      "type": "count",
+      "required": false,
+      "min": 0,
+      "max": 10000,
+      "description": {
+        "bg": "offset",
+        "en": "offset"
+      }
+    },
+    {
+      "name": "relatedCorpus",
+      "type": "text",
+      "required": false,
+      "values": [
+        "appeals",
+        "decisions"
+      ],
+      "description": {
+        "bg": "relatedCorpus",
+        "en": "relatedCorpus"
+      }
+    },
+    {
+      "name": "relatedFrom",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "relatedFrom",
+        "en": "relatedFrom"
+      }
+    },
+    {
+      "name": "relatedToExclusive",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "relatedToExclusive",
+        "en": "relatedToExclusive"
+      }
+    },
+    {
+      "name": "relatedDateBasis",
+      "type": "text",
+      "required": false,
+      "values": [
+        "complaint",
+        "decision"
+      ],
+      "description": {
+        "bg": "relatedDateBasis",
+        "en": "relatedDateBasis"
+      }
+    },
+    {
+      "name": "compareFrom",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "compareFrom",
+        "en": "compareFrom"
+      }
+    },
+    {
+      "name": "compareToExclusive",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "compareToExclusive",
+        "en": "compareToExclusive"
+      }
+    },
+    {
+      "name": "asOf",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "asOf",
+        "en": "asOf"
+      }
+    },
+    {
+      "name": "key",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "key",
+        "en": "key"
+      }
+    }
+  ],
+  "procurementQuestion": [
+    {
+      "name": "question",
+      "type": "text",
+      "required": true,
+      "description": {
+        "bg": "Въпрос",
+        "en": "Question"
+      }
+    },
+    {
+      "name": "previous",
+      "type": "text",
+      "description": {
+        "bg": "Предишен обхват",
+        "en": "Previous query"
+      }
+    }
+  ],
   "budgetVariance": [
     {
       "name": "year",
@@ -1370,6 +1961,14 @@
   ],
   "roadsSpending": [],
   "openTenders": [
+    {
+      "name": "canonical",
+      "type": "text",
+      "description": {
+        "bg": "Проверен обхват",
+        "en": "Validated query"
+      }
+    },
     {
       "name": "query",
       "type": "metric",

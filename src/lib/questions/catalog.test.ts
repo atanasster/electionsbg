@@ -1,3 +1,4 @@
+import { toChatQuestionIntent } from "../../../ai/app/questionAdapter";
 import { describe, expect, it } from "vitest";
 import {
   QUESTION_CATALOG,
@@ -52,15 +53,27 @@ describe("shared question catalog", () => {
         (candidate) => candidate.name === question.chat.capabilityId,
       );
       expect(tool, question.id).toBeDefined();
-      for (const required of tool!.params.filter(
-        (parameter) => parameter.required,
-      ))
-        expect(
-          question.parameters.find(
-            (parameter) => parameter.id === required.name,
-          ),
-          `${question.id}.${required.name}`,
-        ).toMatchObject({ required: true });
+      if (question.id.startsWith("procurement-query-")) {
+        const intent = toChatQuestionIntent(
+          question.id,
+          "bg",
+          question.defaults,
+        );
+        for (const required of tool!.params.filter((p) => p.required))
+          expect(
+            intent.args[required.name],
+            question.id + "." + required.name,
+          ).toBeDefined();
+      } else
+        for (const required of tool!.params.filter(
+          (parameter) => parameter.required,
+        ))
+          expect(
+            question.parameters.find(
+              (parameter) => parameter.id === required.name,
+            ),
+            `${question.id}.${required.name}`,
+          ).toMatchObject({ required: true });
       expect(() =>
         resolveQuestionSelection(
           question,

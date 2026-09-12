@@ -10,6 +10,8 @@ export const toolMetadata = () => ({
   ),
   "ai/app/toolTopics.json": Object.fromEntries(
     TOOLS.map((t) => {
+      if (["procurementQuery", "procurementQuestion"].includes(t.name))
+        return [t.name, ["procurement", "contracts"]]; // Tool directory fallback; query templates carry their own category/source metadata.
       const prompt = prompts.find((p) => p.tool === t.name);
       if (!prompt) throw new Error(`Missing discovery question: ${t.name}`);
       return [t.name, [prompt.category, prompt.subcategory]];

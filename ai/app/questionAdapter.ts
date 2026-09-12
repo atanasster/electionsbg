@@ -1,3 +1,4 @@
+import { procurementTemplate } from "../../src/lib/questions/contracts/procurement";
 import { questionById } from "../../src/lib/questions/catalog";
 import { resolveQuestionSelection } from "../../src/lib/questions/resolve";
 import type { Language } from "../../src/lib/questions/types";
@@ -75,6 +76,20 @@ export const toChatQuestionIntent = (
   if (!question) throw new Error(`Unknown question: ${questionId}`);
   if (question.chat.status !== "ready" || !question.chat.capabilityId)
     throw new Error(`Question is not ready for chat: ${questionId}`);
+  if (questionId.startsWith("procurement-query-")) {
+    const resolved = resolveQuestionSelection(question, values);
+    const template = procurementTemplate(
+      questionId,
+      Number(resolved.parameters.year),
+      lang,
+    );
+    return {
+      questionId,
+      text: template.text,
+      tool: "procurementQuery",
+      args: template.query,
+    };
+  }
   const selected = {
     ...(question.legacyChatArgs?.[lang] ?? {}),
     ...(values ?? {}),

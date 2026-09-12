@@ -86,3 +86,15 @@ test("registered endpoint rejects missing, oversized and malformed JSON", async 
     assert.equal(result.status, 400);
   }
 });
+test("rollback flag disables execution and advertised capabilities", async () => {
+  const old = process.env.PROCUREMENT_QUERY_DISABLED;
+  process.env.PROCUREMENT_QUERY_DISABLED = "1";
+  try {
+    const never = () => {throw Error("must not execute");};
+    assert.equal((await runProcurementQuery(never,query)).body.status,"unavailable");
+    const {DB_ROUTES}=require("./db_routes");
+    const capabilities=await DB_ROUTES["procurement-capabilities"](never,{});
+    assert.equal(Object.keys(capabilities.body.corpora).length,5);
+    assert(Object.values(capabilities.body.corpora).every(c=>!c.ready && c.risks.length===0));
+  } finally {if(old===undefined)delete process.env.PROCUREMENT_QUERY_DISABLED;else process.env.PROCUREMENT_QUERY_DISABLED=old;}
+});

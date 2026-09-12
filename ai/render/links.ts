@@ -1,3 +1,7 @@
+import {
+  encodeProcurementQuery,
+  validateProcurementQuery,
+} from "../../src/lib/procurementQuery";
 // Explicit subject destinations for chat answers. Prefer the resolved entity's
 // page; only use a reviewed subject page when no deep link is available. Never
 // infer a destination from the broad tool domain. IDs come from the answer.
@@ -620,6 +624,23 @@ pages(
 
 export const siteLinks = (env: Envelope): SiteLink[] => {
   if (env.clarify) return [];
+  if (env.procurement) {
+    const parsed = validateProcurementQuery(env.procurement.query);
+    if (!parsed.ok) return [];
+    const params = new URLSearchParams({
+      query: encodeProcurementQuery(parsed.query),
+      revision: JSON.stringify(env.procurement.result.revision || {}),
+    });
+    return [
+      {
+        label: {
+          bg: "Същата справка и записи",
+          en: "This query and its records",
+        },
+        href: url("/procurement/query?" + params.toString()),
+      },
+    ];
+  }
   const out: SiteLink[] = [];
 
   // Party-scoped tools get a deep link to the party's own page first.

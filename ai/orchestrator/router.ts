@@ -4953,7 +4953,8 @@ export const resolveFollowOn = (
       return {
         tool: "procurementQuestion",
         args: {
-          question: "Уточнете предишния обхват на обществените поръчки.",
+          question,
+          previous: "invalid-saved-scope",
         },
       };
     const result = understandProcurement(question, { previous: parsed.query });

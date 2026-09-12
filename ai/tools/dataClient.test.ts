@@ -73,3 +73,24 @@ describe("source-aware data cache", () => {
     expect(read).toHaveBeenCalledTimes(2);
   });
 });
+
+it("procurement responses are reused only while in flight", async () => {
+  clearDataCache();
+  let resolve!: (v: unknown) => void;
+  let calls = 0;
+  setDbFetcher(() => {
+    calls++;
+    return new Promise((r) => {
+      resolve = r;
+    });
+  });
+  const a = fetchDb("procurement-query", { query: "same" }),
+    b = fetchDb("procurement-query", { query: "same" });
+  expect(calls).toBe(1);
+  resolve({ status: "unavailable" });
+  await Promise.all([a, b]);
+  const c = fetchDb("procurement-query", { query: "same" });
+  expect(calls).toBe(2);
+  resolve({ status: "success" });
+  await c;
+});

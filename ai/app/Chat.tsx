@@ -1,3 +1,5 @@
+import { useProcurementCapabilities } from "./useProcurementCapabilities";
+import { validateProcurementQuery } from "../../src/lib/procurementQuery";
 import { scrollParent, shouldFollowChat } from "./chatScroll";
 import { CHAT_STORAGE_KEY } from "./chatStorage";
 import { InteractionNavigator } from "./InteractionNavigator";
@@ -86,6 +88,15 @@ const prevContext = (
 ): { tool: string; args: ToolArgs } | undefined => {
   for (let i = beforeIndex - 1; i >= 0; i--) {
     const m = msgs[i];
+    if (m.role === "assistant" && m.env?.procurement) {
+      const parsed = validateProcurementQuery(m.env.procurement.query);
+      return parsed.ok
+        ? { tool: "procurementQuery", args: parsed.query }
+        : {
+            tool: "procurementQuery",
+            args: { version: "invalid-saved-scope" },
+          };
+    }
     if (m.role === "assistant" && m.tool)
       return { tool: m.tool, args: m.args ?? {} };
   }
@@ -465,15 +476,19 @@ export const Chat = ({
     },
   });
 
+  const procurementCatalog = useProcurementCapabilities(QUESTION_CATALOG);
+  const procurementRequestId = useRef(0);
   const send = async (
     text: string,
     intent?: { tool: string; args: ToolArgs },
   ) => {
     const q = text.trim();
     if (!q || busy) return;
+    const requestId = ++procurementRequestId.current;
     if (!intent && workspaceIntent?.text === text) intent = workspaceIntent;
     if (!intent) intent = followUpIntent(q, lang, followups);
     setWorkspaceIntent(null);
+    setClarify(null);
     setSelectedQuestion(null);
     speech.stop();
     pinned.current = true; // a fresh question always follows to the foot
@@ -507,6 +522,7 @@ export const Chat = ({
     // (chart/table) is attached when the answer is finalized
     const ctx = { lang, election, area: readArea() };
     const onDelta = (partial: string) =>
+      requestId === procurementRequestId.current &&
       setMessages((m) =>
         m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
       );
@@ -518,6 +534,7 @@ export const Chat = ({
       { prev, history },
       intent,
     );
+    if (requestId !== procurementRequestId.current) return;
     setMessages((m) =>
       m.map((x) =>
         x.id === aId
@@ -557,11 +574,9 @@ export const Chat = ({
   };
 
   const sendSuggestion = (suggestion: Suggestion) => {
-    const intent = toChatQuestionIntent(
-      suggestion.questionId,
-      lang,
-      suggestion.parameters,
-    );
+    const intent =
+      suggestion.intent ??
+      toChatQuestionIntent(suggestion.questionId, lang, suggestion.parameters);
     return send(suggestion[lang], intent);
   };
 
@@ -576,6 +591,7 @@ export const Chat = ({
   // itself need another choice (e.g. comparing two same-name places), so a fresh
   // `clarify` env re-opens the modal.
   const choose = async (opt: ClarifyOption) => {
+    const requestId = ++procurementRequestId.current;
     setClarify(null);
     if (busy) return;
     setSelectedQuestion(null);
@@ -590,6 +606,7 @@ export const Chat = ({
     setBusy(true);
     const provider = engine.provider;
     const onDelta = (partial: string) =>
+      requestId === procurementRequestId.current &&
       setMessages((m) =>
         m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
       );
@@ -605,6 +622,7 @@ export const Chat = ({
           election,
           area: readArea(),
         });
+    if (requestId !== procurementRequestId.current) return;
     setMessages((m) =>
       m.map((x) =>
         x.id === aId
@@ -830,7 +848,13 @@ export const Chat = ({
       : [];
 
   const followUpPlaceholder = followups[0]?.[lang];
-  const suggestions = busy ? [] : matchSuggestions(input, lang);
+  const suggestions = busy
+    ? []
+    : matchSuggestions(input, lang).filter(
+        (s) =>
+          !s.questionId.startsWith("procurement-query-") ||
+          procurementCatalog.questions.some((q) => q.id === s.questionId),
+      );
   const hasChat = messages.length > 0;
   // how many prior exchanges the assistant is carrying as context (for the pill)
   const memoryTurns = useMemo(() => countExchanges(messages), [messages]);
@@ -877,6 +901,10 @@ export const Chat = ({
                 // the portaled chat actions line up as one even-height toolbar.
                 className="h-9"
                 onClick={() => {
+                  setWorkspaceIntent(null);
+                  setClarify(null);
+                  procurementRequestId.current++;
+                  setBusy(false);
                   setMessages([]);
                   setSelectedQuestion(null);
                 }}
@@ -944,7 +972,7 @@ export const Chat = ({
           />
           <QuestionSelector
             compact
-            catalog={QUESTION_CATALOG}
+            catalog={procurementCatalog}
             surface="chat"
             lang={lang}
             lookupAdapters={questionLookupAdapters}
@@ -1122,7 +1150,7 @@ export const Chat = ({
             )}
             <QuestionSelector
               compact
-              catalog={QUESTION_CATALOG}
+              catalog={procurementCatalog}
               surface="chat"
               lang={lang}
               lookupAdapters={questionLookupAdapters}

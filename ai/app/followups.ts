@@ -1,3 +1,4 @@
+import { procurementContinuations } from "./procurementContinuations";
 // A continuation is a catalog intent, never a question for the text router to
 // reinterpret. Missing context means omission, rather than an example entity.
 import { answerElection } from "../tools/answerContext";
@@ -16,6 +17,7 @@ export const followUpIntent = (
   suggestions: FollowUp[],
 ) => {
   const hit = suggestions.find((s) => s[lang].trim() === text.trim());
+  if (hit?.intent) return hit.intent;
   return hit
     ? toChatQuestionIntent(hit.questionId, lang, hit.parameters)
     : undefined;
@@ -150,6 +152,7 @@ export const followUps = (
   answered: AnsweredIntent[] = [],
 ): FollowUp[] => {
   if (env.clarify) return [];
+  if (env.procurement) return procurementContinuations(env);
   const out: FollowUp[] = [];
   const add = (
     questionId: string,

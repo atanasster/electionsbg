@@ -170,7 +170,8 @@ export function understandProcurement(
   if (/подписан|signature|signing date|signed/.test(s)) q.dateBasis = "signed";
   if (
     /(?:краен срок|deadline).*(?:през|от |за 20|in |from )/.test(s) &&
-    q.corpus === "tenders"
+    q.corpus === "tenders" &&
+    !PROCUREMENT_RISK_ALIASES.rushedDeadline.test(s)
   )
     q.dateBasis = "deadline";
   if (/(?:дата на решени|decision date)/.test(s) && q.corpus === "appeals")
@@ -296,7 +297,11 @@ export function understandProcurement(
     ["suspended", /спрян[а-я]*|спрени|suspended/],
   ] as const) {
     const match = s.match(pattern);
-    if (match && (id !== "oneBid" || one)) {
+    if (
+      match &&
+      (id !== "oneBid" || one) &&
+      (id !== "upheld" || !PROCUREMENT_RISK_ALIASES.appealUpheld.test(s))
+    ) {
       const preceding = s.slice(Math.max(0, match.index! - 20), match.index);
       predicates.push(
         (/(?:без|не|not|without)\s*$/.test(preceding) ? "!" : "") + id,
@@ -385,7 +390,11 @@ export function understandProcurement(
   )
     q.buyerIds = ["000695089"];
   if (/мз\s*(?:и|\+)\s*нзок/.test(s)) q.buyerSectors = ["nzok"];
-  else if (/\bнзок\b|nzok/.test(s)) q.buyerIds = ["121858220"];
+  else if (
+    /\bнзок\b|nzok/.test(s) &&
+    !/buyer sector|сектор възложители/.test(s)
+  )
+    q.buyerIds = ["121858220"];
   else if (/министерство на здравеопазването|мз(?:\s|$)/.test(s))
     q.buyerIds = ["000695317"];
   const identities = [...s.matchAll(/(?:еик|eik)\s*(\d{9,13})/g)].map(

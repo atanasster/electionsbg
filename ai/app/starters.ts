@@ -1,3 +1,4 @@
+import { procurementTemplateQuery } from "../../src/lib/questions/contracts/procurement";
 // The runtime starter library. Keep this module independent of React and the
 // tool registry so importing chips does not pull tool implementations into UI.
 // Each prompt has an explicit intent for the planned category picker. The
@@ -32,6 +33,9 @@ export const projectChatStarters = (
   questions.flatMap((question) => {
     const tool = question.chat.capabilityId;
     if (question.chat.status !== "ready" || !tool) return [];
+    const procurement = question.id.startsWith("procurement-query-")
+      ? procurementTemplateQuery(question.id, Number(question.defaults.year))
+      : undefined;
     return [
       {
         id: question.id,
@@ -41,8 +45,16 @@ export const projectChatStarters = (
         bg: question.question.bg,
         en: question.question.en,
         args: {
-          bg: { ...(question.legacyChatArgs?.bg ?? question.defaults) },
-          en: { ...(question.legacyChatArgs?.en ?? question.defaults) },
+          bg: {
+            ...(procurement ??
+              question.legacyChatArgs?.bg ??
+              question.defaults),
+          },
+          en: {
+            ...(procurement ??
+              question.legacyChatArgs?.en ??
+              question.defaults),
+          },
         },
       },
     ];

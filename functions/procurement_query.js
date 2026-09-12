@@ -261,6 +261,7 @@ function compileContractQuery(query) {
 }
 
 async function runProcurementQuery(dbRows, raw) {
+  if (process.env.PROCUREMENT_QUERY_DISABLED === "1") return {body:{status:"unavailable",reason:"capability_disabled"}};
   let compiled;
   try {
     const parsed = contract.validateProcurementQuery(raw);
