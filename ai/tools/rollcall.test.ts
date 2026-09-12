@@ -250,3 +250,33 @@ it("coverage register pages deterministically without repeating all bodies", asy
   );
   expect(next.rollcall?.result.totals?.records).toBe(16);
 });
+it.each(["bg", "en"] as const)(
+  "empty resolver results explain how to refine without an empty chooser (%s)",
+  async (lang) => {
+    for (const reason of ["too_many_people", undefined]) {
+      mock.mockReset();
+      mock.mockImplementation(async (route) =>
+        route === "rollcall-catalog" ? {} : { candidates: [], reason },
+      );
+      const r = await rollcallQuestion(
+        {
+          question: "Покажи последните гласувания на Иван Иванов в парламента",
+        },
+        { ...ctx, lang },
+      );
+      expect(r.clarify).toBeUndefined();
+      expect(r.facts.answer).toContain(
+        reason
+          ? lang === "bg"
+            ? "трите имена"
+            : "full name"
+          : lang === "bg"
+            ? "Няма съвпадащо лице"
+            : "No matching person",
+      );
+      expect(
+        mock.mock.calls.some(([route]) => route === "rollcall-query"),
+      ).toBe(false);
+    }
+  },
+);

@@ -60,6 +60,14 @@ export function rollcallMessage(
       "Specify a valid start and end date.",
     ],
     council: ["Изберете общински съвет.", "Choose a municipal council."],
+    too_many_people: [
+      "Има твърде много съвпадения. Посочете трите имена или конкретно Народно събрание.",
+      "There are too many matches. Specify the full name or a particular parliament.",
+    ],
+    person_not_found: [
+      "Няма съвпадащо лице в този обхват. Проверете името или посочете друг период или орган.",
+      "No matching person was found in this scope. Check the name or specify another period or body.",
+    ],
     scope: [
       "Уточнете въпроса, лицето, периода или записа.",
       "Clarify the question, person, period or record.",
@@ -337,6 +345,13 @@ export async function rollcallQuestion(
       identityRevision = people.revision;
       draft.expectedRevision = people.revision;
     }
+    if (!people.candidates?.length && !people.sourceRows?.length)
+      return failed(
+        people.reason === "too_many_people"
+          ? "too_many_people"
+          : "person_not_found",
+        ctx,
+      );
     if (people.candidates?.length === 1 && people.candidates[0].verified) {
       draft[i ? "comparatorSeatIds" : "seatIds"] = people.candidates[0].seatIds;
       continue;
@@ -348,21 +363,23 @@ export async function rollcallQuestion(
           ? "Изберете точното лице или конкретен публикуван глас."
           : "Choose the exact person or a specific published cast.",
       options:
-        people.candidates?.map((c) => ({
-          label: c.label,
-          sublabel: c.seatIds.join(", "),
-          tool: "rollcallQuestion",
-          args: {
-            question: args.question,
-            resolvedNames: result.names.slice(0, i + 1).join("|"),
-            previous: encodeRollcallQuery({
-              ...draft,
-              metric: "records",
-              operation: "list",
-              [i ? "comparatorSeatIds" : "seatIds"]: c.seatIds,
-            }),
-          },
-        })) ||
+        (people.candidates?.length ? people.candidates : undefined)?.map(
+          (c) => ({
+            label: c.label,
+            sublabel: c.seatIds.join(", "),
+            tool: "rollcallQuestion",
+            args: {
+              question: args.question,
+              resolvedNames: result.names.slice(0, i + 1).join("|"),
+              previous: encodeRollcallQuery({
+                ...draft,
+                metric: "records",
+                operation: "list",
+                [i ? "comparatorSeatIds" : "seatIds"]: c.seatIds,
+              }),
+            },
+          }),
+        ) ||
         people.sourceRows?.map((r) => ({
           label: r.name,
           sublabel: r.date,
