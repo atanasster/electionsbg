@@ -354,6 +354,7 @@ const getDbPool = async (password) => {
 // Shared route table (functions/db_routes.js) — also mounted by the Vite dev
 // plugin (vite/db-api.ts), so dev == prod by construction.
 const { DB_ROUTES } = require("./db_routes.js");
+const { dbCacheControl } = require("./db_cache_policy.js");
 
 // In-memory sliding-window rate limit per instance (same approach as /api/sql
 // below, which has a stricter 40/min). Generous: a busy page fires ~1-3 calls,
@@ -724,11 +725,10 @@ const makeDb = () => {
         // Purging is possible but coarse: a hosting deploy clears the CDN, and an
         // ingest does not redeploy hosting — so in the normal daily flow nothing
         // invalidates these, which is what makes the window the operative bound.
-        if (status === 200)
-          res.set(
-            "Cache-Control",
-            "public, max-age=300, s-maxage=3600, stale-while-revalidate=600",
-          );
+        // Scoped analytics and capability descriptors must observe current revisions.
+        // Matching hosting overrides also prevent browser/CDN caching of these routes.
+        const cacheControl = dbCacheControl(seg, status);
+        if (cacheControl) res.set("Cache-Control", cacheControl);
         return await sendJson(req, res, body, status);
       } catch (e) {
         console.error("db route error", e);
