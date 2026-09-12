@@ -12,8 +12,7 @@
 // for municipal_execution. So this is a pure load that works on a fresh clone
 // with no network and no operator action, which is exactly the shape that
 // belongs in the chain. Its sibling `db:load:budget:pg` is excluded on the
-// uncommitted-input axis; sorting either one onto the other's side is the
-// mis-sorting `db-refresh-loader-gaps-v1` §1a records.
+// uncommitted-input axis; cost is not the deciding criterion.
 //
 // ── THE BOUNDARY ─────────────────────────────────────────────────────────
 //

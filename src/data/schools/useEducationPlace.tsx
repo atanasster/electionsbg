@@ -2,7 +2,7 @@
 // ("Матура в областта" + "Над очакваното"). Fetches
 // `education-payload?kind=place&key=<code>` — a few KB — rather than the 647 KB
 // directory blob, which a dashboard rendering two tiles must never pull. Built
-// by scripts/db/lib/school_places.ts; see docs/plans/education-place-card-v1.md.
+// by scripts/db/lib/school_places.ts.
 
 import { useQuery } from "@tanstack/react-query";
 // The alias rule lives in a plain .ts module because the PRERENDER imports it

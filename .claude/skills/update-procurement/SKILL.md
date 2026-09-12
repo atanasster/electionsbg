@@ -127,7 +127,8 @@ read-only, one SELECT, safe on the serving database. Exit 1 on drift **and** on 
 comparison come back empty for one. The local half is also a
 gate — `scripts/db/tests/awarder_seats_freshness.data.test.ts`, which rides `test:data` — but
 **nothing automatic ever checks prod**, which is why the `:cloud` run belongs in the publish path
-below. See `docs/plans/awarder-seats-freshness-gate-v1.md`.
+below. The comparator and its vacuity guard live in
+`scripts/procurement/awarder_geo_merge.ts`.
 
 Tiers, in resolution order (most authoritative first; see `docs/plans/procurement-awarder-geo-v2.md`). `awarder_geo_map.ts` reads them all and the first that resolves wins:
 - **Tier R — МОН institution register crosswalk** (`derived/mon_ri_eik_crosswalk.json`, built by the SEPARATE headed-Playwright crawl `scripts/procurement/mon_ri_crawl.ts` — see below). Exact ЕИК→EKATTE from each institution's own registry card; **the top lever for schools/kindergartens — resolves ~1,285 buyers**, incl. the ambiguous shared-name schools (Паисий Хилендарски, Св. св. Кирил и Методий) no other tier can pin. Optional; skipped if the crosswalk file is absent.
@@ -221,7 +222,8 @@ npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent 
   and the pass is a silent no-op on a corpus it has no keys for.
 - It is idempotent and dry-run by default. A second run over its own output finds nothing; the
   permanently-unresolvable groups it prints (7 ambiguous + 5 blocked today) are expected output,
-  not failures. See `docs/plans/procurement-cross-source-dedup-v2.md`.
+  not failures. The exact refusal rules live beside the shared implementation in
+  `scripts/procurement/cross_source.ts`.
 - To publish the same to prod: **`npm run db:load:annexes:pg:cloud`**, after `db:load:pg:cloud`. Nothing runs it automatically, and the orphan below is exactly as real on Cloud SQL as it is locally.
 - Then **`db:load:annexes:pg` must follow the contracts reload**: an eviction orphans the evicted
   row's `procurement_annexes` rows (16 across 9 keys on the last run), and only that loader

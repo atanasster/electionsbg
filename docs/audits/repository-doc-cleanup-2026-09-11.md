@@ -1,14 +1,15 @@
-# Repository documentation cleanup — 2026-09-11
+# Repository documentation cleanup — 2026-09-11–12
 
 ## Executive summary
 
 The repository contained 213 top-level plan files and 524 tracked Markdown files before this
-pass. Most completed plans are not automatically stale: schema comments, data gates and
-`CLAUDE.md` still cite many of them for measured rationale, deploy ordering or recovery rules.
-This cleanup therefore removed only six self-contained records whose durable value is already
-represented by current code, tests, generated evidence or canonical guidance.
+cleanup. The first pass removed six plainly superseded records. A second pass adopted a stricter
+rule: a backlink from code or a test does not justify retaining a completed implementation plan.
+Durable rules now live beside the implementation, in `CLAUDE.md`, or in the owning skill; work
+that genuinely remains is consolidated in `docs/deferred-followups.md`.
 
-No application code, data corpus or generated reference image was changed.
+Across both passes, 24 completed plan files were removed, leaving 189. No application behavior,
+data corpus or generated reference image was changed.
 
 ## Removed records
 
@@ -28,6 +29,29 @@ No application code, data corpus or generated reference image was changed.
 
 All removed files remain recoverable from Git history.
 
+## Second pass — completed implementation plans retired
+
+The following 18 records described shipped work. Their current contracts are enforced by the
+implementation and focused tests, so retaining thousands of lines of build sequencing made the
+repository harder to navigate without improving operability:
+
+- Data and database gates: `awarder-seats-freshness-gate-v1.md`,
+  `db-refresh-loader-gaps-v1.md`, `db-route-timeouts-v1.md`,
+  `grant-role-guard-sweep-v1.md`, and `kzk-gate-d-ambiguity-v1.md`.
+- Person, company and education surfaces: `company-browse-dashboard-v1.md`,
+  `declaration-filed-position-serving-v1.md`, `education-place-card-v1.md`,
+  `person-candidate-merge-v1.md`, `person-connection-second-degree-v1.md`,
+  `person-connections-scan-v1.md`, and `tr-owner-share-v1.md`.
+- Product and procurement surfaces: `home-kpi-destination-continuity-v1.md`,
+  `hub-search-v1.md`, `products-browse-registry-v1.md`,
+  `procurement-cross-source-dedup-v2.md`, `procurement-dashboard-redesign-v1.md`, and
+  `procurement-normalcy-v1.md`.
+
+The still-actionable company, education, procurement and ownership questions were extracted into
+`docs/deferred-followups.md`. Historical source comments were shortened to state the invariant
+locally, and operational backlinks in `CLAUDE.md` and the update skills were replaced with current
+commands, helpers and tests.
+
 ## Restored canonical documentation and repaired stale references
 
 - Restored the deleted root `METHODOLOGY.md`. It is a licensed public index, is linked from
@@ -43,20 +67,21 @@ All removed files remain recoverable from Git history.
 - Clarified in `CONTRIBUTING.md` that `docs/plans/` contains both open PRDs and deliberately kept
   dated design records.
 
-## Retention rule used
+## Retention rule used after consolidation
 
-A completed plan was retained when any of these applied:
+A completed plan is not retained merely because another file cites it. Move the useful part to
+its durable owner, remove the backlink, then retire the plan. A record remains under `docs/plans/`
+only when at least one of these applies:
 
-- source, schema or test comments cite it;
-- it contains a deploy/recovery procedure not fully represented elsewhere;
-- it records a data interpretation or safety constraint whose rationale matters;
-- it contains named open or deferred work;
+- implementation or publication is incomplete;
+- it is an active research/design decision awaiting execution;
+- it contains a deploy/recovery procedure that cannot yet move into an owning runbook;
 - it is the only record of a failed feasibility investigation that prevents repeating costly work.
 
-The high-value cleanup still available is editorial consolidation of `CLAUDE.md` itself. At 4,881
-lines it repeats historical incidents alongside current operating rules, but changing that guide
-is higher risk than deleting uncited completion records and should be handled as a separate,
-section-by-section extraction into focused runbooks.
+The high-value cleanup still available is broader editorial consolidation of `CLAUDE.md` itself.
+At 4,881 lines before this pass it mixes historical incidents with current operating rules;
+rewriting whole sections remains higher risk than removing obsolete backlinks and should be
+handled section by section into focused runbooks.
 
 Many retained historical plans also use repository-root paths or `path:line` targets in Markdown
 links. Those are readable as source references but are not uniformly renderer-valid; they were

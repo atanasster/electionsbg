@@ -6,8 +6,8 @@ shipped in full (steps 1–15) between the two dates, which moves the migration 
 **Pattern:** `.claude/skills/dashboard-hub`. Reference implementations: `/parliament` (the shape),
 `/funds` (the PG-backed stat call).
 **Related:** [funds-hub-v1.md](funds-hub-v1.md), [parliament-hub-v1.md](parliament-hub-v1.md),
-[budget-package-2026-ingest-v1.md](budget-package-2026-ingest-v1.md),
-[hub-search-v1.md](hub-search-v1.md).
+[budget-package-2026-ingest-v1.md](budget-package-2026-ingest-v1.md); finder behavior is owned
+by `.claude/skills/dashboard-hub/SKILL.md` and `src/ux/search/HubSearch.tsx`.
 **Must be read before T2 and T6:**
 [municipal-fiscal-commitments-v1.md](municipal-fiscal-commitments-v1.md) — **shipped**, it owns
 migration 149, the four `/api/db/municipal-fiscal*` routes, `/governance/municipal-finance` and
@@ -551,9 +551,8 @@ the input, not the cost.**
 - **`db:load:budget:pg` is in `REFRESH_EXCLUSIONS`, axis `uncommitted-input`.** Its admin and
   programme grain lives in `data/budget/reconciliation/` and `data/budget/ministries/`, both
   gitignored — 0 tracked files against 24 and 55 on a machine that has run the pipeline. It is
-  **not** excluded on cost (~2 MB, seconds); recording the right axis matters, since
-  `db-refresh-loader-gaps-v1` §1a documents five loaders that were once mis-sorted by cost when
-  the operative constraint was the input.
+  **not** excluded on cost (~2 MB, seconds); recording the right axis matters because the
+  operative constraint is the input.
 - **`db:load:budget-muni:pg` stays IN the chain.** Its inputs are all COMMITTED — measured,
   `municipal_transfers` 47/47, `capital_programs` 112/112, `ipop` 265/265,
   `municipal_execution` 17/17 tracked. Excluding it would be the same mis-sorting in the other

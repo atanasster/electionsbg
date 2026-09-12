@@ -50,7 +50,7 @@ npm run db:pg:bootstrap  # Create the app_readonly role (step 2 of db:refresh)
                      # first of those 42704s and rolls its whole file back —
                      # measured, db:refresh died at db:load:pg applying 017.
                      # Invisible on any machine that ever ran the file by hand.
-                     # See docs/plans/grant-role-guard-sweep-v1.md (Tier 0).
+                     # bootstrap_roles.ts and grant_role_guard.test.ts pin this.
 npm run db:refresh   # Full reload: schema + every loader + resolve + generators
                      # + test:data
                      # "Every loader" is enforced: refresh_coverage.test.ts fails
@@ -649,7 +649,8 @@ in full — groups where a feed contributed more than one row (no 1:1 twin exist
 failing a supplier-set/completeness precondition. Those are expected output, not failures;
 `single_source_per_contract.data.test.ts` allowlists exactly them, and
 `scripts/procurement/measure_cross_source.ts` re-derives every figure read-only against either the
-shards or a database. Plan: `docs/plans/procurement-cross-source-dedup-v2.md`.
+shards or a database. The identity and refusal rules live beside the shared implementation in
+`scripts/procurement/cross_source.ts`.
 
 **SAME-feed duplication is a separate class, and the pass above is blind to it by construction** —
 every grouping it does requires `count(DISTINCT feed) > 1`. The harness measures it as **§6**, and
@@ -1599,7 +1600,7 @@ raw `holder_name <> declarant_name` count, which INVERTS the majority.
 `declared_label(p_filed, p_listed)` in `089_declarations.sql`** —
 `COALESCE(nullif(btrim(p_filed), ''), p_listed)`, IMMUTABLE, PARALLEL SAFE and deliberately
 **not** STRICT (STRICT would short-circuit the whole fallback). Shipped and deployed to Cloud
-SQL 2026-08-17; plan: `docs/plans/declaration-filed-position-serving-v1.md`.
+SQL 2026-08-17; the helper and its full-corpus gate are the current specification.
 
 **Never restate that COALESCE at a call site.** Twelve hand-copied copies is the shape that
 produced the six-way `magistrate_current` duplication where "someone missed one" fired twice
@@ -2411,7 +2412,7 @@ company registry browse behind `/companies` — one row per `tr_companies.uic`, 
 Registry corpus (~1.02M rows), superseding `official_companies` (178, now a tombstone). The old
 page's whole population — "linked to a person in public life" — is one boolean column here
 (`is_official_linked`, the `?political=1` filter `/governance/companies` 301s into), not a
-separate matview and a separate page. Plan: `docs/plans/company-browse-dashboard-v1.md`.
+separate matview and a separate page.
 
 **`has_signal` is a DEFAULT-VIEW FLOOR, never a population cut.** Every company is in the
 table; `db_table.js`'s `companies` resource applies `has_signal=true` as a client-side
@@ -4080,8 +4081,8 @@ projection, keyed on the seated count against the pre-projection 329,741.
 `tr_owner_share` (a VIEW in `003_tr_search.sql`) answers "what fraction of this company
 does this person own". FOUR serving surfaces read it and nothing else may read the stored
 `tr_person_roles.share`: `company_officers()` and `person_roles()` (008), the
-`company_person_roles` matview (022) and `mp_tr_roles()` (150). Plan:
-`docs/plans/tr-owner-share-v1.md`.
+`company_person_roles` matview (022) and `mp_tr_roles()` (150). The view definition and
+`tr_owner_share.data.test.ts` are the current specification.
 
 ⚠️ **`erased_at IS NULL` DOES NOT MEAN CURRENT.** The TR daily feed re-lists the WHOLE
 partner set on every capital change and never erases the prior vintage, so a denominator

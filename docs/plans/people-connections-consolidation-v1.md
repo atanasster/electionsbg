@@ -15,7 +15,7 @@ Prior art this builds on / supersedes:
 - [connections-pg-migration-v1.md](connections-pg-migration-v1.md) — design to move the
   MP-declaration graph to PG, keeping `company_politicians` separate. **This plan supersedes it**
   by unifying the two lineages (Phase 3).
-- [person-candidate-merge-v1.md](person-candidate-merge-v1.md), [governance-hub-v1.md](governance-hub-v1.md),
+- the shipped shared `PersonDashboard`, [governance-hub-v1.md](governance-hub-v1.md),
   [project_firebase_deploy_ceiling] — the 453k-file dist deploy ceiling constrains prerender scope.
 
 ---

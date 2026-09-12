@@ -11,7 +11,7 @@
 // that the two NULL-bearing scopes read the matview distinguishes "the fallback is working"
 // from "the fallback is all that is working" — and those two are `all` (what the AI tools send
 // and what /api/db/procurement-flow returned 500 on) and the newest parliament (open-ended
-// upper bound, the page default). See docs/plans/db-route-timeouts-v1.md §3.3.
+// upper bound, the page default).
 
 const { test, beforeEach } = require("node:test");
 const assert = require("node:assert/strict");

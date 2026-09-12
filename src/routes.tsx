@@ -1064,7 +1064,7 @@ const ConnectionsScreen = lazy(() =>
 // /companies — the general company registry browse (company_browse_table, 188). Supersedes
 // /governance/companies (OfficialCompaniesScreen, retired below): "linked to a person in
 // public life" is now one filter (?political=1) on the FULL corpus instead of a separate
-// page. Plan: docs/plans/company-browse-dashboard-v1.md.
+// page.
 const CompaniesBrowseDbScreen = lazy(() =>
   import("./screens/dev/CompaniesBrowseDbScreen").then((m) => ({
     default: m.CompaniesBrowseDbScreen,
@@ -3764,7 +3764,7 @@ export const AuthRoutes = () => {
           {/* Retired (188): official_companies' old population is now ?political=1 on the
               wider /companies browse. firebase.json 301s this at the edge; this client-side
               redirect covers in-app navigation and local dev, which the edge rule does not
-              reach. Plan: docs/plans/company-browse-dashboard-v1.md. */}
+              reach. */}
           <Route
             path="governance/companies"
             element={

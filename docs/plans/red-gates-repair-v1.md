@@ -178,12 +178,8 @@ It already passes arm 1 (named six times in `update-procurement/SKILL.md`). It f
 *"Read-only: it issues one SELECT and writes nothing."* Exit 1 on drift. It publishes nothing, so it
 can never "leave prod on the previous vintage at a 200".
 
-**Its owning plan already decided this**, `docs/plans/awarder-seats-freshness-gate-v1.md`:
-
-- §3.3 — "Wire it into `.claude/skills/update-procurement/SKILL.md` as the last line of the publish
-  path" — **done**.
-- §6 — "It does not make the cloud check automatic. §3.3 is a command someone runs. **Nothing in
-  this repo runs a `:cloud` verification on a schedule, and this spec does not change that.**"
+**The current contract already decides this:** the procurement update skill runs the command as
+the last line of the publish path, but nothing schedules a `:cloud` verification automatically.
 
 And §4 records a **benign divergence** (an awarder gaining a real OCDS address) that makes it exit 1
 with nothing wrong. A blind orchestrator emit would turn an expected event into an apparently failed

@@ -328,7 +328,7 @@ the case-mix adjustment this page's second law describes.
 No composite "efficiency index" across sectors. €/case, €/km and €/case-in-health
 are not commensurable, and averaging them would manufacture a number with no
 referent. The family is a **shared method**, not a shared scale. This mirrors the
-normalcy panel's rule (`procurement-normalcy-v1`): position, never verdict.
+normalcy implementation's rule in `src/lib/normalcy.ts`: position, never verdict.
 
 ### 3c. Effort
 

@@ -1,5 +1,5 @@
 // /candidate/:id — kept for its SEO value (the biggest organic-traffic draw), but the body
-// is now the shared person dashboard (person-candidate-merge-v1). The candidate slug resolves
+// is now the shared person dashboard. The candidate slug resolves
 // to its person via /api/db/candidate-person; on a hit we render <PersonDashboard> under the
 // candidate URL with candidate-framed SEO preserved. NO redirect.
 //

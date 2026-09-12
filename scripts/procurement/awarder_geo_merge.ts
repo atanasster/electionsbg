@@ -280,7 +280,6 @@ export interface SeatsDrift {
  * every existing gate passes, row counts reconcile, and the site keeps serving
  * the previous placements at a 200. Measured 2026-08-24: prod kept ЕИК
  * 106633686 in Дърманци for hours after the map said Мездра.
- * Plan: docs/plans/awarder-seats-freshness-gate-v1.md.
  *
  * It is an EQUALITY check, not a statistical one. Measured on a freshly
  * published corpus, all 2,174 map entries have a seats row and all 2,174 agree —

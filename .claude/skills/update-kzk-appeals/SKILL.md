@@ -166,7 +166,8 @@ a publish in which nothing served would have changed — and it was blind in the
 direction too, since breaking a name fold RAISES the count. `reached` (the candidate union,
 taken before the 1:1 test) is what growth cannot shrink. `matched` is still recorded beside
 it as an observation and may go DOWN; nothing asserts on it, so a fall in it alone is not a
-defect. Full argument and measurements: `docs/plans/kzk-gate-d-ambiguity-v1.md`.
+defect. `scripts/procurement/kzk_match.ts` documents the monotonicity argument beside the
+implementation, and its focused tests pin both the growth and regression cases.
 
 The ~2,098 rows with a **NULL `decision_act_no`** are still irreplaceable — produced
 interactively before any generator existed — and are protected by a fixed floor, not the

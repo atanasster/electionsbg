@@ -7,7 +7,7 @@
 //
 // ⚠️ IT IS NOW A REGISTRY BROWSER, on the shared shape /persons and /companies adopted — a
 // committed-term hero search field, a labelled filter bar OUTSIDE the table, removable chips,
-// and every narrowing in the URL. Plan: docs/plans/products-browse-registry-v1.md. What that
+// and every narrowing in the URL. What that
 // replaced: the term lived in `DbDataTable`'s own uncontrolled toolbar input and the group
 // picker was a bare `useState`, so a reader who filtered to a group and searched „верея" had a
 // URL that said `/consumption/products` and nothing else — unshareable, unlinkable from an

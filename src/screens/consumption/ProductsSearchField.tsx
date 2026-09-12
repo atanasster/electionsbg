@@ -8,7 +8,7 @@
 // ⚠️ THIS PAGE ALWAYS PASSES `tableVisible`, so it gets no example chips — the shared field
 // offers them only on the truly empty state (`!value && !tableVisible`), and this browser never
 // hides its table. The placeholder carries the examples instead, which is where they already
-// were. That trade is the price of §1 in docs/plans/products-browse-registry-v1.md; do not
+// were. That trade keeps product searches deterministic; do not
 // „fix" it by forking the component.
 
 import { FC } from "react";

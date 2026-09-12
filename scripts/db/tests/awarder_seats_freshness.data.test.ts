@@ -16,7 +16,7 @@
 // Measured 2026-08-24: prod kept ЕИК 106633686 in Дърманци (24668) for hours
 // after the map said Мездра (47714). The failure names a real place, which is
 // what makes it quiet: the wrong municipality looks exactly as plausible as the
-// right one. Plan: docs/plans/awarder-seats-freshness-gate-v1.md.
+// right one. The shared comparator rejects empty-on-both-sides as inconclusive.
 //
 // The rule itself is `compareSeatsToMap`, pure and unit-tested next to the
 // merge; this file is the thin Postgres caller.

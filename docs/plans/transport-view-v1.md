@@ -598,8 +598,8 @@ Buildable immediately off cached law HTML + one Eurostat fetch:
 > written, run against local Postgres — which is why local carries the table with its 11 rows
 > while prod has it empty (schema arrived via dump/restore) — and then discarded from the
 > working tree. The "Verified live" figures below were real measurements of that uncommitted
-> state, kept as the spec for the rebuild. **The rebuild is planned and tracked in
-> `docs/plans/db-refresh-loader-gaps-v1.md` §5 (T5.2–T5.9)**, with a new migration number.
+> state, kept as the spec for the rebuild. **The rebuild is now implemented by
+> `132_transport_facility_map.sql` and `load_transport_facility_map_pg.ts`.**
 
 The original section, now a build spec rather than a record:
 

@@ -12,7 +12,7 @@
 -- HISTORY: this is the REBUILD of work written 2026-07-16 under migration slot
 -- 076 and never committed (076 was since taken by transport_project_map); the
 -- orphan table it left on local/prod is adopted by the IF NOT EXISTS below.
--- See docs/plans/db-refresh-loader-gaps-v1.md §5 and transport-view-v1.md.
+-- See transport-view-v1.md for the still-open product work.
 --
 -- transport_facility_map() folds the windowed contracts corpus per entity
 -- (spend + contract count + single-bid share) onto those points. Mirrors

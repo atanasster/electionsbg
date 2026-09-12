@@ -12,7 +12,7 @@ Builds on / does not duplicate:
   connections graph (schema `041_connections.sql`, `load_connections_pg.ts`, 11-hook routes).
   Scheduled here as Tier 3; its design stands.
 - [persons-audit-gaps-v1.md](persons-audit-gaps-v1.md) — the `/person` prerender/SEO gap.
-- [person-identity-v1.md](person-identity-v1.md), [person-candidate-merge-v1.md](person-candidate-merge-v1.md).
+- [person-identity-v1.md](person-identity-v1.md) and the shipped shared `PersonDashboard`.
 
 ## Decisions (locked 2026-07-25)
 

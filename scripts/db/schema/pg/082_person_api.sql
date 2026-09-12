@@ -139,7 +139,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         'linkBasis', CASE WHEN ba.uic IS NOT NULL THEN 'declared' ELSE 'name_match' END,
         'procuredEur', pr.eur, 'contracts', pr.n,
         -- every public-money stream this company touches, keyed on the same EIK
-        -- (person-candidate-merge-v1): ЗОП contracts (above), ИСУН EU funds, ДФЗ subsidies.
+        -- on the merged dashboard: ЗОП contracts (above), ИСУН EU funds, ДФЗ subsidies.
         'fundsEur', fn.contracted, 'fundsPaidEur', fn.paid, 'fundProjects', fn.n,
         'subsidiesEur', ag.total
       ) ORDER BY
@@ -302,7 +302,7 @@ CREATE INDEX IF NOT EXISTS idx_person_alias_fold_trgm
 --
 -- THIS IS A POINT LOOKUP AND MUST PLAN AS ONE. It used to cost 318 ms and read 3,912
 -- buffers (~31 MB), because of two defects that compounded — see
--- docs/plans/db-route-timeouts-v1.md §1.1.
+-- Keep the candidate set bounded before joining the heavier person payload.
 --
 -- It matters more than the shape suggests: /api/db/person-profile calls person_by_slug
 -- FIRST and only lands here when that misses. A real /person/{slug} link therefore never
@@ -342,7 +342,7 @@ CREATE INDEX IF NOT EXISTS idx_person_alias_fold_trgm
 -- REACHES PROD ONLY VIA `apply_functions.ts 082_person_api.sql` or `db:resolve:persons:cloud`
 -- (which re-applies this file). Nothing on the cloud side is automatic, and — unlike
 -- migration 123's psp:not-built warning — a stale copy on Cloud SQL logs nothing and fails
--- nothing. It just keeps returning 500. See docs/plans/db-route-timeouts-v1.md §6.
+-- nothing. It just keeps returning 500.
 --
 -- LIMIT 2 moves from inside the scan to after the UNION and costs nothing: the UNION dedups
 -- into a HashAggregate before the limit, and the widest fold group in the corpus is 36
@@ -575,7 +575,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
 $$;
 
 -- The person's public-contract take bucketed by CABINET tenure (the "money vs power"
--- timeline on the merged dashboard, person-candidate-merge-v1). EIK-EXACT — driven from the
+-- timeline on the merged dashboard). EIK-EXACT — driven from the
 -- person's resolved `tr` company set, not a name fold (person_by_cabinet(text) is the legacy
 -- name-keyed twin). Served lazily via /api/db/person-money, NOT folded into person_by_slug:
 -- the contracts range-join over a hub person's EIKs is heavier than the profile's point

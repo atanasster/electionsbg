@@ -24,7 +24,7 @@
 // `ScrollToTop` in `src/routes.tsx` handles the same hashes app-wide with a MutationObserver
 // and its own nav-height offset. The two have coexisted for a while; consolidating them is a
 // deliberate change to behaviour on every route and does not belong in a per-screen fix. See
-// docs/plans/home-kpi-destination-continuity-v1.md.
+// Keep this behavior centralized so KPI and deep links agree.
 //
 // The target also gets `data-hash-target` for ~2.6s so the page can mark where the reader
 // landed; the styling is in `src/index.css` and says why it is an attribute, not `:target`.

@@ -20,7 +20,7 @@
 // with ~124 `aop`+`rop` groups that are NOT duplicates: aop and rop are the one pair that shares
 // contract numbering, and a buyer reusing a number across many framework call-offs looks
 // identical to a duplicate under that key. Only 4 of the 124 share both a total and a signing
-// date. See docs/plans/procurement-cross-source-dedup-v2.md §2.2.
+// date. The shared identity is defined beside `cross_source.ts`.
 //
 // So the gating test below keys on IDENTITY E — (УНП, contractor, rounded €, signing date, tag)
 // — the same identity `scripts/procurement/cross_source.ts` reconciles on, and identity A is
@@ -218,7 +218,7 @@ test.skipIf(skip)(
           .join("\n") +
         `\n  Resolve with \`npm run proc:reconcile\` (dry run first). If the pass refuses them, ` +
         `it prints why — a genuinely unpairable group belongs in ACCEPTED_CONFLICTS with its ` +
-        `reason, never deleted by hand. See docs/plans/procurement-cross-source-dedup-v2.md §5.`,
+        `reason, never deleted by hand.`,
     );
   },
 );

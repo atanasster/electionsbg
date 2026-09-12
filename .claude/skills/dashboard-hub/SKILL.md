@@ -545,7 +545,7 @@ tile contains their subject. Give the hub one search box over its own subjects.
 of sources, each either a client-side `EntityIndex` (`src/lib/entitySearchIndex.ts`) or a
 server `fetch`, and renders them through `EntitySearchTile` — which owns the card, the
 combobox/listbox ARIA, keyboard nav, highlight and the empty states. Declare the sources in a
-`<topic>Search.ts` beside the tile registry. Plan: `docs/plans/hub-search-v1.md`.
+`<topic>Search.ts` beside the tile registry.
 
 Live on `/governance/declarations` and `/parliament`. `/procurement` and `/consumption` have
 their own older boxes (`ProcurementSearchTile`, `ConsumptionSearchTile`) — not yet on this

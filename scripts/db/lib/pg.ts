@@ -151,8 +151,8 @@ let readonlyRolePresent: boolean | null = null;
 /**
  * Warn ONCE per process when DDL grants to `app_readonly` on a cluster that has no such role.
  *
- * This exists because the guard sweep (docs/plans/grant-role-guard-sweep-v1.md) INVERTED the
- * failure mode it fixed. A bare `GRANT` on a roleless cluster raised 42704 and rolled its whole
+ * This exists because role-guarding the migrations INVERTED the failure mode it fixed. A bare
+ * `GRANT` on a roleless cluster raised 42704 and rolled its whole
  * migration back — destructive, but loud and impossible to miss. Now every guard simply skips:
  * the load SUCCEEDS, the objects are created with no ACL, and the first symptom is 42501 on a
  * serving endpoint against a corpus that looks perfectly loaded. Measured, isolated and rolled

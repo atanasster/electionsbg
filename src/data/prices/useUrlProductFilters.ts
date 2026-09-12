@@ -23,7 +23,7 @@
 //
 // ⚠️ THERE IS NO `?browse` AND NO `?scope`, unlike the two sibling registries, because this
 // page has no landing and no population floor. The reasoning is in
-// docs/plans/products-browse-registry-v1.md §1; the short form is that `chain_count desc` over
+// The short form is that `chain_count desc` over
 // 48k rows is „the most widely stocked products in the basket", which is an answer, where
 // /companies' default was €2.43bn СОФАРМА ТРЕЙДИНГ on every arrival forever.
 

@@ -271,7 +271,6 @@ describe("matchDecisions", () => {
 // usable bar: it does not fall when corpus growth ambiguates a group (the false
 // positive that halted a correct publish on 2026-08-25), and it DOES fall when a
 // fold regresses (the false negative a `matches` ratchet has).
-// Plan: docs/plans/kzk-gate-d-ambiguity-v1.md §4.1, §7.
 describe("matchDecisions — reached", () => {
   const ONE = [appeal("ВХР-1", "А ЕООД", "ОБЩИНА Б", "2026-01-10")];
   const TWO = [...ONE, appeal("ВХР-2", "А ЕООД", "ОБЩИНА Б", "2026-02-10")];
@@ -421,7 +420,6 @@ describe("matchDecisions — reached", () => {
 // `unresolved` is what lets a gate ask WHY a match went away rather than only how
 // many did — the per-row half of the Gate D fix, and the one that needs no
 // baseline because the database's own `decision_act_no` is the snapshot.
-// Plan: docs/plans/kzk-gate-d-ambiguity-v1.md §4.2.
 describe("matchDecisions — unresolved", () => {
   it("names both appeals of a party collision, with the reason", () => {
     const r = matchDecisions(

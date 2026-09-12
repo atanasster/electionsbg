@@ -3728,10 +3728,9 @@ const DB_ROUTES = {
     const term = s(q, "q");
     if (!term) return { status: 400, body: { error: "missing q" } };
     // ⚠️ TOMBSTONE — THIS ROUTE HAS NO CONSUMER. Verified 2026-09-02: a repo-wide search
-    // for „company-search" finds this definition and four DOCUMENTS, and nothing in `src/`,
-    // `ai/`, `functions/` or any test. `docs/plans/procurement-dashboard-redesign-v1.md`
-    // records why — its `CompanySearchTile` was superseded by the combined
-    // `procurement-search`, and the route outlived the tile. Kept rather than deleted only
+    // for „company-search" finds this definition and documents, and nothing in `src/`,
+    // `ai/`, `functions/` or any test. Its `CompanySearchTile` was superseded by the
+    // combined `procurement-search`, and the route outlived the tile. Kept rather than deleted only
     // because an undocumented external caller cannot be ruled out from inside the repo; it
     // shares the SQL builder above so there is no second SELECT list to keep correct, and
     // deleting it should be one commit whenever somebody can confirm the outside is quiet.
@@ -3746,8 +3745,7 @@ const DB_ROUTES = {
   // person_procurement_index.json (bilingual token matching lives there).
   //
   // DEPLOY COUPLING: needs schema pg/035_procurement_search.sql applied and
-  // awarder_search / contracts.title_fold rebuilt before this route is live —
-  // see docs/plans/procurement-dashboard-redesign-v1.md for the checklist. The
+  // awarder_search / contracts.title_fold rebuilt before this route is live. The
   // ЕВРОФОНДОВЕ group additionally needs pg/086_search_fund_projects.sql (applied
   // by load_funds_pg); until then its query degrades to [] via the allSettled.
   //
@@ -6497,7 +6495,7 @@ const DB_ROUTES = {
     return { body: { entries: rows[0]?.r ?? [] } };
   },
   // Every election's re-keyed electoral summary for one person (newest first) → the electoral
-  // block on the merged person dashboard (person-candidate-merge-v1). The caller runs the
+  // block on the merged person dashboard. The caller runs the
   // existing candidate reducer over each cycle's raw `regions` + `topSettlements` /
   // `topSections`. ⚠️ `history` is the exception and is DERIVED per person inside
   // `person_elections()` (085) — identical on every row — because the shard array it replaced
@@ -6675,8 +6673,8 @@ const DB_ROUTES = {
     return { body: rows[0]?.r ?? [] };
   },
   // The person's public-contract take bucketed by cabinet tenure (the "money vs power"
-  // timeline) → lazily loaded by the money section, kept off person_by_slug's hot path
-  // (person-candidate-merge-v1). EIK-exact.
+  // timeline) → lazily loaded by the money section, kept off person_by_slug's hot path.
+  // EIK-exact.
   "person-money": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: [] };

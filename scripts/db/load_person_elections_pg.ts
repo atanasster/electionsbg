@@ -1,4 +1,4 @@
-// Re-key the candidate electoral shards by person_id (person-candidate-merge-v1).
+// Re-key the candidate electoral shards by person_id for the merged person dashboard.
 //
 // The shards under data/{election}/candidates/{NAME}/ are keyed by the candidate's display
 // NAME; save_preferences.ts writes one folder per name, so N same-name candidates in one

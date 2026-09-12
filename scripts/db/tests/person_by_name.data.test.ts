@@ -11,7 +11,7 @@
 // WHY THE PLAN TEST IS THE ONE THAT EARNS ITS PLACE. Every behavioural case below —
 // resolution, ambiguity, the §6 privacy gate — passed against the OLD body too, the one that
 // read all 58,152 person rows and returned 500 on prod at the 10 s statement_timeout
-// (docs/plans/db-route-timeouts-v1.md §1.1). Correct-but-quadratic is exactly what a
+// in production. Correct-but-quadratic is exactly what a
 // behavioural suite cannot see, so the last test asserts the buffer count and proves the
 // assertion still discriminates by restoring the old body inside a rolled-back transaction.
 
@@ -263,7 +263,7 @@ test.skipIf(skip)("resolves as an index lookup, not a table scan", async () => {
     current < BUFFER_CEILING,
     `person_by_name read ${current} buffers for a miss (ceiling ${BUFFER_CEILING}). ` +
       `It is scanning person instead of seeking idx_person_name_fold / idx_person_alias_fold ` +
-      `— see docs/plans/db-route-timeouts-v1.md §1.1.`,
+      `— the person_by_name query has regressed toward its former quadratic shape.`,
   );
 
   // Control: restore the pre-fix body and confirm this assertion would have caught it.

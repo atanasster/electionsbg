@@ -8,7 +8,7 @@ other tier is unstarted.
 **Screen:** `src/screens/dev/CompaniesBrowseDbScreen.tsx` (323 lines today — yes, `dev/`; it serves `/companies`)
 **Table:** `company_browse_table`, migration `scripts/db/schema/pg/188_company_browse.sql`
 **Resource:** the `companies` entry in `functions/db_table.js`
-**Predecessor:** `docs/plans/company-browse-dashboard-v1.md` (the browse this reworks)
+**Predecessor:** the shipped `/companies` registry browser this plan reworks
 **Sibling precedent:** `docs/plans/persons-search-first-v1.md` and its follow-up
 `docs/plans/persons-place-position-params-v1.md`. This plan mirrors their shape deliberately —
 rule module plus gate, chips over hidden state, a per-figure declared basis — and, like the

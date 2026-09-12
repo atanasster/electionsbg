@@ -369,7 +369,7 @@ const buildDirectory = () => {
   // Per-place blobs for the Governance place nodes ('place' kind, key = oblast
   // or obshtina code). Same argument as `risk` one grain down: /governance/
   // region/:oblast renders two tiles and must not fetch the 647 KB directory to
-  // do it. See docs/plans/education-place-card-v1.md §4.
+  // do it.
   const places = buildPlacePayloads(
     directory.schools,
     latestYear,

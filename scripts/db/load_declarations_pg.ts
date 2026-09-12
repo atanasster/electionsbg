@@ -118,7 +118,7 @@ const COMPANY_STAKES_SCHEMA = path.join(
 // earlier in db:refresh — but a CREATE MATERIALIZED VIEW resolves its whole query at
 // creation, so an ABSENT one is a hard failure rather than a NULL column, and this is
 // preflighted rather than assumed.
-// Plan: docs/plans/company-browse-dashboard-v1.md.
+// This refresh keeps the company browser's official-link filter current.
 const COMPANY_BROWSE_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/188_company_browse.sql",

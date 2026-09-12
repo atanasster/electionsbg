@@ -1,6 +1,6 @@
 // The regression gate that turns a silent `db:refresh` omission into a build
-// failure (docs/plans/db-refresh-loader-gaps-v1.md T6.1/T6.1a). CLAUDE.md
-// documents db:refresh as "schema + every loader + resolve + test:data"; this
+// failure. CLAUDE.md documents db:refresh as "schema + every loader + resolve +
+// test:data"; this
 // held 26/38 for months with nothing red. The contract now: every local
 // `db:load:*` / `db:resolve:*` script is either referenced by `db:refresh` or
 // carries an explicit entry in REFRESH_EXCLUSIONS — and the exclusion list
@@ -284,7 +284,7 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     after: "db:load:pg",
     before: "db:pg:bootstrap",
     why:
-      "grant-role-guard-sweep-v1: db:pg:bootstrap is the only thing in the repo that " +
+      "db:pg:bootstrap is the only thing in the repo that " +
       "creates app_readonly, and the migrations this loader applies GRANT to it. NOTE " +
       "the reason changed once Tier 1 guarded those grants, and the pair got MORE " +
       "necessary rather than less: before, a bare GRANT on a roleless cluster raised " +

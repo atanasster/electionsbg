@@ -1,5 +1,5 @@
 -- 085_person_elections.sql — the candidate → person_id bridge and the electoral
--- dashboard data re-keyed by person_id (person-candidate-merge-v1).
+-- dashboard data re-keyed by person_id for the merged person dashboard.
 --
 -- WHY: the electoral shards under data/{election}/candidates/{NAME}/ are keyed by the
 -- candidate's display NAME, so two same-name candidates in one election collide into one

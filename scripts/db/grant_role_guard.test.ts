@@ -1,7 +1,7 @@
 // Every GRANT in scripts/db/schema/pg/ is role-guarded.
 //
-// Plan: docs/plans/grant-role-guard-sweep-v1.md (§7). Without this the sweep decays — the
-// next migration is written against its neighbours, and 34 files' worth of bare-GRANT
+// Without this gate the sweep decays — the next migration is written against its neighbours,
+// and 34 files' worth of bare-GRANT
 // precedent is what a new file would have copied.
 //
 // WHAT A BARE GRANT COSTS. `exec()` sends a migration as ONE implicit transaction, so on a
@@ -163,8 +163,7 @@ describe("every GRANT in schema/pg is role-guarded", () => {
           `      <the GRANT>\n` +
           `    END IF;\n` +
           `  END $$;\n` +
-          `Inside a plpgsql body, use the bare IF EXISTS form instead. See ` +
-          `docs/plans/grant-role-guard-sweep-v1.md.`,
+          `Inside a plpgsql body, use the bare IF EXISTS form instead.`,
       ).toEqual([]);
     });
   }

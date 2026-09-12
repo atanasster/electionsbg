@@ -1,7 +1,7 @@
 // The pure reducer that turns a candidate's raw regions.json rows + preferences_stats into a
 // CandidateDashboardSummary. Extracted from useCandidateSummary so it can run over EITHER the
 // name-folder shards (useCandidateSummary) OR the person-keyed PG payload (usePersonElections,
-// person-candidate-merge-v1) — one computation, no divergence.
+// the merged person dashboard) — one computation, no divergence.
 
 import { CandidateStats, PreferencesInfo } from "../dataTypes";
 import { PaperMachineSummary } from "./dashboardTypes";

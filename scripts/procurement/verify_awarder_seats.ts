@@ -15,8 +15,6 @@
 //
 // Exits 1 on drift so it can gate a publish path; 0 when the two agree.
 //
-// Plan: docs/plans/awarder-seats-freshness-gate-v1.md.
-
 import {
   allRows,
   connectionUrl,

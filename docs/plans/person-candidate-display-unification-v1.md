@@ -1,7 +1,7 @@
 # Person ↔ candidate display unification
 
-Analysis + plan, 2026-09-03. Follows `person-candidate-merge-v1.md` (which shipped the shared
-`PersonDashboard`) and defers every identity decision to
+Analysis + plan, 2026-09-03. Builds on the shipped shared `PersonDashboard` and defers every
+identity decision to
 `person-cross-party-candidate-merge-v1.md`.
 
 Reported symptom: `/person/boyan-boychev-1a9q2r` and `/candidate/Боян Иванов Бойчев` are the

@@ -1,18 +1,16 @@
 // READ-ONLY measurement of cross-source duplication in the contracts corpus.
 //
-// There is no `--apply` and no write path anywhere in this file. It exists so that every number
-// in docs/plans/procurement-cross-source-dedup-v2.md (§1.1–§5.5), and the §1 table of
-// docs/plans/procurement-same-feed-dedup-v1.md (§6 below), can be re-derived by running one
-// command, against either the shards or a database, with THE SAME CODE the reconciliation pass
-// acts on (`cross_source.ts`) rather than a re-implementation.
+// There is no `--apply` and no write path anywhere in this file. It exists so the cross-source
+// and same-feed measurements can be re-derived by running one command, against either the shards
+// or a database, with THE SAME CODE the reconciliation pass acts on (`cross_source.ts`) rather
+// than a re-implementation.
 //
-// The same-feed plan's §3–§3.4 figures are NOT re-derivable here, and that is deliberate rather
+// The same-feed content-identity figures are NOT re-derivable here, and that is deliberate rather
 // than a gap: they key on full CONTENT identity with no УНП requirement, which is a different
 // measurement, not a wider one. §6 prints that plan's §1 reproduction, whose aop arm is a FLOOR.
 //
-// That is the whole point. v1 §6 records that the first draft's measurements were wrong because
-// a lookalike `canonicalEik` was measured instead of the real one, and §11 exists because §10.8's
-// headline was arrived at by inference rather than measurement and overstated the problem by 3×.
+// That is the whole point. Earlier measurements were wrong because a lookalike `canonicalEik`
+// was measured instead of the real one, and an inferred headline overstated the problem by 3×.
 // A committed harness importing the real helpers cannot drift from what the pass does.
 //
 //   npx tsx scripts/procurement/measure_cross_source.ts                 # shards (what the pass sees)

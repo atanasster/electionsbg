@@ -3,7 +3,7 @@
 **Status:** INVESTIGATION COMPLETE. No rows changed. Nothing deleted.
 **Measured:** 2026-08-04 against local Postgres `postgres://postgres:postgres@localhost:5433/electionsbg`
 (corpus 408,377 rows / €99,257,662,518.47) and against the shards.
-**Companion to:** [procurement-cross-source-dedup-v2.md](procurement-cross-source-dedup-v2.md), which
+**Companion to:** the shipped cross-source reconciliation pass, which
 closed the CROSS-source class. This plan covers what that pass structurally cannot see.
 
 ---

@@ -18,7 +18,7 @@
 // response to ambiguity is to withdraw a match. Growth and regression are
 // therefore indistinguishable in it. Gate D's bar is now `reached`, which no
 // growth on either side can shrink. Before adding a field here, ask what corpus
-// growth does to it — see docs/plans/kzk-gate-d-ambiguity-v1.md §3.
+// growth does to it; kzk_match.ts pins the reasoning beside the quantity.
 //
 // MONOTONIC ON PURPOSE — `recordBaselines` only ever moves a BAR upward. A run
 // against a half-loaded database, or with the decisions corpus missing, must not
@@ -91,7 +91,7 @@ export type KzkBaselines = {
    * from a bar of nothing, and Gate D FAILS on null with the mint command rather
    * than sailing through. That state is reachable: the file is committed, so a
    * checkout predating the swap has no such field.
-   * Plan: docs/plans/kzk-gate-d-ambiguity-v1.md §4.1, §8.1.
+   * The mint command is part of Gate D's failure message.
    */
   reached: number | null;
   /**

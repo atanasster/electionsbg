@@ -5,7 +5,7 @@
 -- straight from the DB. Requires 003 (tr tables), 006 (contracts), 000 (fold).
 -- See docs/plans/postgres-migration-v1.md.
 --
--- ⚠️ SHIPS WITH 003, AND 003 GOES FIRST. Since T2 (tr-owner-share-v1) both
+-- ⚠️ SHIPS WITH 003, AND 003 GOES FIRST. Since the ownership-share repair, both
 -- person_roles and company_officers read the `tr_owner_share` VIEW that 003
 -- owns — a view, not one of the "tr tables" above. They are LANGUAGE sql and
 -- this file does NOT set check_function_bodies = off, so both bodies are

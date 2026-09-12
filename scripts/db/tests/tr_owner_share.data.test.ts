@@ -38,7 +38,7 @@ import { allRows, dbReachable, withClient, end } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
 import { reportSkip } from "../../lib/report_skip";
 
-/** The report that opened docs/plans/tr-owner-share-v1.md — the VINTAGE defect. */
+/** Regression fixture for the ownership-vintage denominator defect. */
 const BILYANA = "104119056";
 /** Two partners of one company filing in different currencies in one vintage — the
  *  CURRENCY defect. 40 EUR vs 60 BGN; unfolded this reads 40/60 and names the wrong

@@ -31,7 +31,7 @@
 //     `matches` was the bar until 2026-08-25, and it was the wrong quantity:
 //     corpus growth withdraws matches, so the gate could not tell a worse matcher
 //     from a bigger corpus and failed a correct ingest
-//     (docs/plans/kzk-gate-d-ambiguity-v1.md). The other three counters are never
+//     (`reached`, documented below). The other three counters are never
 //     ratcheted and must not be: corpus growth legitimately raises collisions, so
 //     such a gate would fail on every healthy crawl. `KzkBaselines` has no field
 //     for them.
@@ -126,7 +126,7 @@ export type MatchReport = {
    * same from the decisions side. `reached` cannot fall that way: an appeal only
    * ever JOINS a group and an act only ever POINTS AT more groups. Measured over
    * 122 corpus sizes on both sides — `matches` violated monotonicity 3 times,
-   * `reached` zero. See docs/plans/kzk-gate-d-ambiguity-v1.md §2.2/§4.1.
+   * `reached` zero.
    *
    * It is also the STRICTLY better regression detector, which is the part that
    * is easy to disbelieve. Breaking a name fold destroys COLLISIONS faster than

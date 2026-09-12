@@ -27,7 +27,7 @@ const snakeToCamel = (s) =>
  * rejected in <10 ms before a single query ran — into the same bucket as a
  * statement_timeout, making it the third-largest source of 500s on the `db`
  * service. A 500 has to keep meaning "the server broke", or the bucket stops
- * being a signal. See docs/plans/db-route-timeouts-v1.md §9.2.
+ * being a signal.
  *
  * The split is by BLAME, not by call site: a bad `semiJoinSql` template or a
  * `defaultFilter` naming a missing column is a REGISTRY bug reached through the
@@ -1997,8 +1997,7 @@ const REGISTRY = {
   // The general company registry browse (matview company_browse_table, 188) — the /companies
   // browser. Supersedes official_companies (178): "linked to a person in public life" is now
   // `is_official_linked`, ONE filter on the FULL tr_companies corpus (~1.02M rows) rather than
-  // a separate ~17.6k-row matview and a separate page. Plan:
-  // docs/plans/company-browse-dashboard-v1.md.
+  // a separate ~17.6k-row matview and a separate page.
   // ── /culture/funds source pages — FOUR arms, on FOUR bases ─────────────────
   //
   // ⚠️⚠️ THESE MAY NEVER BE SUMMED, AND THE REGISTRY IS WHERE THAT IS EASIEST TO

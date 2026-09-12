@@ -1,4 +1,4 @@
-// The electoral block on the merged person dashboard (person-candidate-merge-v1): the same
+// The electoral block on the merged person dashboard: the same
 // body the /candidate/:id page renders (`CandidateElectoralBody`), fed from
 // person_election_stats (PG, re-keyed by person_id) instead of the name-folder shards. A
 // cycle selector (the person's own candidacy chips) picks which election to detail; it

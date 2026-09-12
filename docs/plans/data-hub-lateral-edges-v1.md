@@ -794,8 +794,8 @@ see §6.4a, which shows the trap is worse than "local hasn't loaded them yet".
 
 ### 6.4a The `db:refresh` defect is real — but the "26 empty relations" number was an artifact
 
-> **CORRECTED 2026-08-03** — see `docs/plans/db-refresh-loader-gaps-v1.md` §0, which supersedes
-> this section's classification table. The original table classified relations by
+> **CORRECTED 2026-08-03** — a follow-up audit superseded this section's classification table.
+> The original table classified relations by
 > `pg_stat_user_tables.n_live_tup`, the exact column consequence 1 below warns is stale. Re-read
 > with `count(*)`, every relation the table attributed to a **missing load** is populated locally
 > except `nzok_pathway_tariffs` (0 on both databases) — the four empty-by-design staging tables
@@ -831,8 +831,8 @@ Consequences that survive the correction:
    real `count(*)` for small relations, or label the number as an estimate and never let the UI
    act on it. (A "hide empty tables" rule keyed on `n_live_tup` would hide populated tables —
    curated rule, definitely.)
-2. **The repo fixes are planned and tracked in `db-refresh-loader-gaps-v1.md`**: the omitted
-   loaders join `db:refresh` or an explicit documented exclusion list (with a regression gate),
+2. **The repo fixes are implemented and enforced by `refresh_coverage.test.ts`**: loaders join
+   `db:refresh` or an explicit documented exclusion list (with a regression gate),
    and agri gets a `db:load:agri:pg` + `:cloud` pair so it stops being the one dataset that
    cannot be reloaded the way every other one is. One trap that plan documents: several of the
    omitted loaders read **gitignored** inputs and throw on absence, so adding them to the
@@ -1191,7 +1191,7 @@ What survives unchanged, re-verified against the current file:
 ### 10.8 Correction to §6.4a, recorded here because it changed a committed claim
 
 §6.4a's classification table was built on `pg_stat_user_tables.n_live_tup` and was wrong; the
-`db-refresh-loader-gaps-v1.md` T0 pass retracted it, and re-measurement with `count(*)`
+a follow-up audit retracted it, and re-measurement with `count(*)`
 confirms that retraction: `agri_subsidies` = 2,481,857, `agri_payloads` = 16,711,
 `ngo_funding` = 3,179, the `nzok_*` family loaded, `nzok_pathway_tariffs` = 410 (not 0),
 `transport_facility_geo` = 11 locally vs 0 on prod.

@@ -27,9 +27,11 @@ of someone else's document — say so in the PR and name its licence. It belongs
   `.claude/skills/process-watch-report/SKILL.md` for the orchestrator's full source→skill
   mapping and per-skill data-integrity contracts.
 
-PRDs and dated design records live under `docs/plans/`. Check the status at the
-top of a file before treating it as open work; completed records remain only
-when they carry rationale or operating constraints not captured elsewhere.
+Open PRDs live under `docs/plans/`. Completed implementation plans should be
+removed once any durable invariant has been moved beside the code, into
+`CLAUDE.md`, or into the owning skill. Do not keep a completed plan merely
+because source comments link back to it. Cross-cutting work that remains after
+a plan ships belongs in `docs/deferred-followups.md`.
 
 ## Changes to the risk methodology
 

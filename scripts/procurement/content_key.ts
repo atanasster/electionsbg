@@ -101,7 +101,7 @@ export const contentKeys = (r: Contract): string[] => {
 // below runs inside the ingest and needs exactly this binary question ("may I drop this
 // row?"); everything that has to RANK the feeds against each other uses `feedOf`/`feedRank`.
 // Conflating the two is what made the corpus blind to `aop`↔`rop` and `aop`↔`ocds` pairs,
-// where neither side is `eop-` — see docs/plans/procurement-cross-source-dedup-v2.md §2.
+// where neither side is `eop-`.
 export const isEopSourced = (r: Contract): boolean =>
   typeof r.releaseId === "string" && r.releaseId.startsWith("eop-");
 

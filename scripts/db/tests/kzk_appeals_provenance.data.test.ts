@@ -351,7 +351,7 @@ test.skipIf(skipDecisions)(
     // `reached` — the coarse candidate union, before the 1:1 test — is monotone
     // under growth of EITHER corpus (0 violations over 122 corpus sizes, against
     // 3 for `matches`) and catches all four regressions. Full argument and
-    // measurements: docs/plans/kzk-gate-d-ambiguity-v1.md §2–§4.
+    // measurements are reproduced by the matcher unit tests and committed baselines.
     assert.ok(
       baselines.reached != null,
       "the ratchet carries no `reached` bar, so Gate D has nothing to assert. " +

@@ -1542,7 +1542,7 @@ SHARED rather than reproduced:
 - **T8.1 Tickets ↔ persons.** Radev, Йотова, Цачева, Каракачанов, Карадайъ, Костадинов, Панов, Марешки,
   Плевнелиев, Калфин, Кунева, Първанов, Сидеров are all in the person layer through MP terms, cabinet posts
   or the declarations register. Link a ticket to `/person/<slug>` through the existing candidate→person
-  resolution (`docs/plans/person-candidate-merge-v1.md`), refusing a name that folds to more than one person
+  resolution in the shared person layer, refusing a name that folds to more than one person
   ([[feedback_name_match_not_identity]]). A presidential candidacy becomes a `person_role`
   (`source = 'pvr'`, `date_basis = 'term'`) only in a later PG tier.
 - **T8.2 ✅ DONE (the Sankey and an OBLAST map; the settlement map is REFUSED, measured).**

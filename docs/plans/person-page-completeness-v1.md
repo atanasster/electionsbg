@@ -18,8 +18,8 @@ Builds on / does not duplicate:
   weaker, clearly-labelled fallback for the people that plan's source cannot reach.
 - [persons-declarations-audit-v1.md](persons-declarations-audit-v1.md) — the unified
   declarations block (T3.3) whose renderer T1.1 stops suppressing.
-- [person-candidate-merge-v1.md](person-candidate-merge-v1.md) — why the MP sections are mounted
-  separately from the PG blocks in the first place (Phase 6).
+- the shipped shared `PersonDashboard` — MP sections remain mounted separately from the PG
+  blocks.
 
 ---
 

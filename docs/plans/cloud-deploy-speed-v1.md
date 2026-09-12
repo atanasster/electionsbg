@@ -50,7 +50,8 @@ evidence base it rests on.
 
 **Related:** [[reference_cloud_sql_deploy_perf]], [[reference_contracts_reload_lock]],
 [[reference_pg_bulk_load_copy]], [[reference_pg_payload_determinism]],
-`docs/plans/postgres-migration-v1.md`, `docs/plans/procurement-normalcy-v1.md`.
+`docs/plans/postgres-migration-v1.md`; the normalcy cache deployment constraints are recorded
+in this document's deployment DAG.
 
 ---
 
@@ -3991,4 +3992,3 @@ Two operational notes:
 - **A publish should not assume it is the only writer.** The F48 preflight above should
   arguably also check for other active non-idle sessions on the target and report them,
   rather than silently sharing the instance with a four-hour load.
-

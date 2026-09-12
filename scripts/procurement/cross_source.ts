@@ -6,7 +6,7 @@
 // draft's numbers were wrong because a *lookalike* re-implementation of `canonicalEik` was
 // measured instead of the real one. Two copies of this logic would reproduce that failure at a
 // larger scale: the harness would report a population the pass does not act on, and nothing
-// would notice. See docs/plans/procurement-cross-source-dedup-v2.md.
+// would notice. Keep the measurement harness importing this module directly.
 //
 // ── The identity ────────────────────────────────────────────────────────────────────────────
 //

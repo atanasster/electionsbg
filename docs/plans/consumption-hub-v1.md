@@ -12,7 +12,7 @@ links, and an **EU price comparison from official Eurostat price levels**. Fully
 watchers, README + `/data` docs, AI chat tools, sitemap, prerender, OG screenshots.
 
 Builds on: `docs/plans/consumption-pg-v1.md` (the KZP→PG migration that shipped the
-118k-product catalogue) and the procurement hub pattern (`procurement-dashboard-redesign-v1.md`).
+118k-product catalogue) and the live `/procurement` hub pattern.
 
 ---
 

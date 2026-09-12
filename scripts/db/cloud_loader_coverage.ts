@@ -142,7 +142,7 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
       "a READ-ONLY verifier, not a publish: verify_awarder_seats.ts issues one SELECT and writes " +
       "nothing, so it cannot leave prod on the previous vintage at a 200 — the harm this gate exists " +
       "to catch. It IS named in update-procurement, as the last line of the publish path, which is " +
-      "exactly where its own plan (docs/plans/awarder-seats-freshness-gate-v1.md §3.3) says to wire " +
+      "in the publication path immediately after the seats loader, exactly where the gate must run " +
       "it; that plan's §6 then states deliberately that nothing in this repo runs a :cloud " +
       "verification on a schedule. Emitting it blindly would also risk a false alarm: §4 documents a " +
       "BENIGN divergence (an awarder gaining a real OCDS address) on which it would correctly exit 1 " +

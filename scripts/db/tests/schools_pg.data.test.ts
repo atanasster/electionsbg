@@ -288,7 +288,7 @@ test.skipIf(skip)("matched ЕИК is resolvable and non-blank", async () => {
 });
 
 // ── 'place' blobs — the Governance place-node education tiles ────────────────
-// docs/plans/education-place-card-v1.md §8. These blobs are what
+// These place blobs are what
 // /governance/region/:oblast renders INSTEAD of the 647 KB directory, so the
 // two must agree by construction: a drift puts one matura average on /education
 // and a different one on the region page, both at a 200.

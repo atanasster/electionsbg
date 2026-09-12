@@ -140,7 +140,7 @@
 -- pool sets lock_timeout=2s (functions/index.js, added with 123) and the route treats the
 -- resulting lock error as a miss.
 --
--- See docs/plans/db-route-timeouts-v1.md.
+-- The matching route tests pin cache lookup and NULL-window behavior.
 
 DROP MATERIALIZED VIEW IF EXISTS procurement_payloads;
 -- WITH NO DATA: this file is applied inside one implicit transaction, so a populating CREATE

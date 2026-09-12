@@ -10,8 +10,7 @@
 // `db:load:pg` applying `017_company_relationships.sql`. It is invisible on any machine
 // that ever ran the file by hand, which is every machine this repo has been developed on.
 //
-// Plan: docs/plans/grant-role-guard-sweep-v1.md (Tier 0). The per-file guards in that
-// plan's later tiers are defense-in-depth UNDERNEATH this: they stop one file taking the
+// The per-file GRANT guards are defense-in-depth UNDERNEATH this: they stop one file taking the
 // rest down, and they do NOT make the role exist. Shipping them without this step would
 // turn a loud step-6 failure into a quiet 42501 on every /api/db endpoint.
 //

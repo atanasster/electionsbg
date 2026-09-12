@@ -1,6 +1,6 @@
 -- person_person_bridge(a, b) — SECOND-DEGREE connections for the „Проверка на връзка"
 -- block: two people who share no company, but whom ONE bridge person joins.
--- Plan: docs/plans/person-connection-second-degree-v1.md
+-- Serves the one-bridge connection check on the person dashboard.
 --
 -- ═══════════════════════════════════════════════════════════════════════════════════════
 -- WHY THIS BLOCK IS THE RIGHT HOME, AND WHY THE CURATED GRAPH IS NOT.

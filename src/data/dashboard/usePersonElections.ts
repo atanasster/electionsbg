@@ -1,7 +1,7 @@
 // One person's electoral history re-keyed by person_id (person_election_stats via
 // /api/db/person-elections) — the PG source for the merged dashboard's electoral block. Each
 // row carries the raw `regions` / `topSettlements` / `topSections` arrays so
-// computeCandidateSummary runs over them unchanged (person-candidate-merge-v1). Replaces the
+// computeCandidateSummary runs over them unchanged. Replaces the
 // name-folder shard fetch (useCandidateSummary) on the person page.
 //
 // ⚠️ `history` is the exception and is DERIVED, not raw: `person_elections()` builds the

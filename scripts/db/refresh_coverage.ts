@@ -3,14 +3,13 @@
 // `refresh_coverage.test.ts` enforces. Every local `db:load:*` / `db:resolve:*`
 // script in package.json must be either referenced by `db:refresh` or listed
 // here; adding a loader without deciding its side is a test failure, not a
-// silent omission (docs/plans/db-refresh-loader-gaps-v1.md §1, §6).
+// silent omission.
 //
 // CLAUDE.md's runbook points here rather than duplicating the list.
 
 /**
- * Why a loader is excluded. The axis matters more than the prose — §1a of the
- * gaps plan documents how five loaders were once mis-sorted by cost when the
- * operative constraint was a gitignored input:
+ * Why a loader is excluded. The axis matters more than the prose: loaders were once
+ * mis-sorted by cost when the operative constraint was a gitignored input:
  *   - "uncommitted-input": the loader reads a gitignored cache/corpus that a
  *     fresh clone does not have, and (unlike the absent-tolerant loaders in
  *     db:refresh) it either throws on absence or would load nothing useful;

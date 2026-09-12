@@ -37,7 +37,7 @@ import { allRows, dbReachable, withClient, end } from "../lib/pg";
 import { sumExecutionBuffers } from "../lib/explain_buffers";
 import { reportSkip } from "../../lib/report_skip";
 
-/** The reader's report that opened docs/plans/person-connection-second-degree-v1.md. The two
+/** Regression fixture for the one-bridge connection case. The two
  *  share no company; ИВАН ДИМИТРОВ НЕДЕЛЧЕВ is entered alongside both. */
 const REF_A = "Георги Винков Фърцов";
 const REF_B = "БЛАГОЙ АНГЕЛОВ АНГЕЛОВ";

@@ -12,7 +12,7 @@
 // 70 of them over 2026-07-28…07-31, the third-largest source of 500s on the `db` service
 // after the statement_timeout and lock_timeout families. Those two take real work to tell
 // apart; a malformed request sitting in the same bucket is pure noise in the one signal
-// that is supposed to mean the server broke. See docs/plans/db-route-timeouts-v1.md §9.2.
+// that is supposed to mean the server broke.
 //
 // THE TEST THAT EARNS ITS PLACE is "no query ran" (asserted on every 400 below). A status
 // assertion alone passes against a handler that resolves the semi-join, hits Postgres, and

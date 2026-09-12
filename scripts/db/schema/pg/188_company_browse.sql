@@ -4,7 +4,7 @@
 -- 2026-08), not a subset. Supersedes official_companies (178): "linked to a person in
 -- public life" becomes ONE boolean column here (is_official_linked) instead of the whole
 -- population of a separate matview and a separate page. See the DROP below and
--- docs/plans/company-browse-dashboard-v1.md.
+-- The live registry contract is pinned by the company browse tests.
 --
 -- ═══════════════════════════════════════════════════════════════════════════════════════
 -- `has_signal` IS A DEFAULT-VIEW FLOOR, NOT A POPULATION CUT.
