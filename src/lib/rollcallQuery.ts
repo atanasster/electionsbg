@@ -170,11 +170,13 @@ export function validateRollcallQuery(
     version: ROLLCALL_VERSION,
     operation,
     metric: "records",
-    basis: ["count", "summary", "rank", "share", "trend", "compare"].includes(
-      String(operation),
-    )
-      ? "standing"
-      : "attempts",
+    basis:
+      parliament &&
+      ["count", "summary", "rank", "share", "trend", "compare"].includes(
+        String(operation),
+      )
+        ? "standing"
+        : "attempts",
     topicMode: "all",
     searchField: "sourceTitle",
     denominator: "recorded",
@@ -199,6 +201,8 @@ export function validateRollcallQuery(
     (q.councilIds || q.councilCastKeys || q.tallyMethod || q.named || q.outcome)
   )
     errors.push("council_only_scope");
+  if (!parliament && q.basis === "standing")
+    errors.push("council_standing_unsupported");
   if (q.assemblyIds?.some((s) => !/^\d{1,2}$/.test(s) || Number(s) < 1))
     errors.push("assemblyIds");
   if (
@@ -356,13 +360,17 @@ export function rollcallScope(q: RollcallQuery, lang: "bg" | "en"): string {
       ?.map((t) => ROLLCALL_TOPICS[t as keyof typeof ROLLCALL_TOPICS][lang])
       .join(", "),
     q.keyword,
-    q.basis === "standing"
+    q.corpus.startsWith("council")
       ? bg
-        ? "Без заменените прегласувания"
-        : "Standing decisions"
-      : bg
-        ? "Всички записани опити"
-        : "All recorded attempts",
+        ? "Индексирани решения и публикувани гласове"
+        : "Indexed resolutions and published casts"
+      : q.basis === "standing"
+        ? bg
+          ? "Без заменените прегласувания"
+          : "Standing decisions"
+        : bg
+          ? "Всички записани опити"
+          : "All recorded attempts",
     q.latestN ? `${bg ? "Последни" : "Latest"} ${q.latestN}` : null,
   ]
     .filter(Boolean)

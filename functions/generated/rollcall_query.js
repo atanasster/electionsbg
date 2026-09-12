@@ -151,7 +151,7 @@ function validateRollcallQuery(raw, depth = 0) {
     version: ROLLCALL_VERSION,
     operation,
     metric: "records",
-    basis: ["count", "summary", "rank", "share", "trend", "compare"].includes(
+    basis: parliament && ["count", "summary", "rank", "share", "trend", "compare"].includes(
       String(operation)
     ) ? "standing" : "attempts",
     topicMode: "all",
@@ -167,6 +167,8 @@ function validateRollcallQuery(raw, depth = 0) {
     errors.push("parliament_only_scope");
   if (parliament && (q.councilIds || q.councilCastKeys || q.tallyMethod || q.named || q.outcome))
     errors.push("council_only_scope");
+  if (!parliament && q.basis === "standing")
+    errors.push("council_standing_unsupported");
   if (q.assemblyIds?.some((s) => !/^\d{1,2}$/.test(s) || Number(s) < 1))
     errors.push("assemblyIds");
   if ([...q.seatIds ?? [], ...q.comparatorSeatIds ?? []].some(
@@ -276,7 +278,7 @@ function rollcallScope(q, lang) {
     q.councilCastKeys?.join(", "),
     q.topicIds?.map((t) => ROLLCALL_TOPICS[t][lang]).join(", "),
     q.keyword,
-    q.basis === "standing" ? bg ? "\u0411\u0435\u0437 \u0437\u0430\u043C\u0435\u043D\u0435\u043D\u0438\u0442\u0435 \u043F\u0440\u0435\u0433\u043B\u0430\u0441\u0443\u0432\u0430\u043D\u0438\u044F" : "Standing decisions" : bg ? "\u0412\u0441\u0438\u0447\u043A\u0438 \u0437\u0430\u043F\u0438\u0441\u0430\u043D\u0438 \u043E\u043F\u0438\u0442\u0438" : "All recorded attempts",
+    q.corpus.startsWith("council") ? bg ? "\u0418\u043D\u0434\u0435\u043A\u0441\u0438\u0440\u0430\u043D\u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u0438 \u043F\u0443\u0431\u043B\u0438\u043A\u0443\u0432\u0430\u043D\u0438 \u0433\u043B\u0430\u0441\u043E\u0432\u0435" : "Indexed resolutions and published casts" : q.basis === "standing" ? bg ? "\u0411\u0435\u0437 \u0437\u0430\u043C\u0435\u043D\u0435\u043D\u0438\u0442\u0435 \u043F\u0440\u0435\u0433\u043B\u0430\u0441\u0443\u0432\u0430\u043D\u0438\u044F" : "Standing decisions" : bg ? "\u0412\u0441\u0438\u0447\u043A\u0438 \u0437\u0430\u043F\u0438\u0441\u0430\u043D\u0438 \u043E\u043F\u0438\u0442\u0438" : "All recorded attempts",
     q.latestN ? `${bg ? "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438" : "Latest"} ${q.latestN}` : null
   ].filter(Boolean).join(" \xB7 ");
 }

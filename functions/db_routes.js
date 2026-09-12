@@ -885,7 +885,7 @@ const DB_ROUTES = {
   },
   "rollcall-capabilities": async dbRows => require("./rollcall_query").rollcallCapabilities(dbRows),
   "rollcall-entities": async (dbRows,q) => require("./rollcall_query").rollcallEntities(dbRows,q),
-  "rollcall-catalog": async () => ({body:{version:require("./generated/rollcall_query").ROLLCALL_VERSION,topics:require("./generated/rollcall_query").ROLLCALL_TOPICS}}),
+  "rollcall-catalog": async dbRows => require("./rollcall_query").rollcallCatalog(dbRows),
   "funding-capabilities": async (dbRows) => require("./funding_query").fundingCapabilities(dbRows),
   "procurement-capabilities": async (dbRows) => {
     const { runProcurementQuery } = require("./procurement_query.js");

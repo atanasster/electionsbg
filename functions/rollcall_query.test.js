@@ -46,7 +46,7 @@ test("bad fields and unsupported metrics do not execute SQL", async () => {
   for (const q of [
     { corpus: "parliamentVotes", constructor: "x" },
     { corpus: "parliamentCasts", metric: "alignment" },
-    { corpus: "councilCasts" },
+    { corpus: "councilCasts", choice: "recordedAbsent" },
   ])
     assert.equal(
       (
@@ -74,4 +74,27 @@ test("resolver and capability revisions share their evidence statement", async (
   calls = 0;
   assert.equal((await rollcallCapabilities(db)).body.revision, "same-snapshot");
   assert.equal(calls, 1);
+});
+test("capability failure stays isolated to its source family", async () => {
+  for (const unavailable of ["council_muni", "vote_day"]) {
+    const result = await rollcallCapabilities(async (sql) => {
+      if (sql.includes(unavailable))
+        throw Object.assign(Error(), { code: "42P01" });
+      return [
+        {
+          rows: [{ id: "52" }],
+          has_votes: true,
+          has_casts: true,
+          councils: [{ id: "SOF", resolutions: 2, named: 1 }],
+          revision: "r",
+        },
+      ];
+    });
+    assert.equal(
+      result.body.corpora[
+        unavailable === "council_muni" ? "parliamentVotes" : "councilCasts"
+      ].ready,
+      true,
+    );
+  }
 });

@@ -18,7 +18,11 @@ function compileRollcallQuery(raw, depth = 0) {
     return "$" + params.length;
   };
   if (!q.corpus.startsWith("parliament"))
-    throw new RollcallError("corpus_not_ready", 422);
+    return require("./rollcall_council").compileCouncilQuery(q, depth, {
+      RollcallError,
+      revisionSql,
+      compileRollcallQuery,
+    });
   if (
     !["records", "contested"].includes(q.metric) ||
     q.operation === "compare" ||
@@ -164,8 +168,34 @@ async function runRollcallQuery(db, raw) {
       };
     if (c.defaultAssembly && r.coverage.bodies?.length)
       r.query.assemblyIds = r.coverage.bodies;
+    if (r.dateQualityUnsupported)
+      return {
+        body: {
+          status: "unsupported",
+          reason: "source_year_only",
+          query: c.query,
+          coverage: r.coverage,
+          revision: r.revision,
+        },
+      };
+    if (
+      c.query.corpus === "councilCasts" &&
+      !r.coverage.namedResolutions &&
+      r.coverage.resolutionRecords
+    )
+      return {
+        body: {
+          status: "unavailable",
+          reason: "named_roll_not_published",
+          query: c.query,
+          coverage: r.coverage,
+          revision: r.revision,
+        },
+      };
     const partial =
       r.coverage.sourceMissing > 0 ||
+      (c.query.corpus === "councilCasts" && r.coverage.missingRolls > 0) ||
+      r.coverage.yearOnly > 0 ||
       r.rows.some((row) => row.tally_mismatch) ||
       ((c.query.topicIds || c.query.keyword) && r.coverage.untitled > 0);
     delete r.keys;
@@ -205,7 +235,7 @@ async function rollcallEntities(db, args) {
   if (name.length < 2 || name.length > 150)
     return { status: 400, body: { error: "name_required" } };
   if (args.corpus && !String(args.corpus).startsWith("parliament"))
-    return { body: { candidates: [], status: "unsupported" } };
+    return require("./rollcall_council").councilEntities(db, args, revisionSql);
   const tokens = name.split(/\s+/).map(escapeLike);
   const params = tokens.map((t) => "%" + t + "%");
   const conditions = tokens.map(
@@ -251,52 +281,70 @@ async function rollcallEntities(db, args) {
 async function rollcallCapabilities(db) {
   if (process.env.ROLLCALL_QUERY_DISABLED === "1")
     return { body: { version: contract.ROLLCALL_VERSION, corpora: {} } };
+  const parliamentSql = `WITH assemblies AS (SELECT ns::text AS id,min(date)::text AS first,max(date)::text AS latest,count(*)::int AS sessions FROM vote_day GROUP BY ns ORDER BY ns) SELECT COALESCE((SELECT jsonb_agg(assemblies) FROM assemblies),'[]'::jsonb) AS rows,EXISTS(SELECT 1 FROM vote_item) AS has_votes,EXISTS(SELECT 1 FROM vote_cast) AS has_casts,${revisionSql} AS revision`;
+  const councilSql = `SELECT COALESCE((SELECT jsonb_agg(x) FROM (SELECT m.obshtina_code AS id,m.name,min(r.decided_on)::text AS first,max(r.decided_on)::text AS latest,count(r.id)::int AS resolutions,count(r.id) FILTER(WHERE r.has_named_votes)::int AS named, m.obshtina_code IN (SELECT jsonb_array_elements_text(value->'yearOnlyCouncils') FROM rollcall_query_meta WHERE key='catalog') AS year_only,(SELECT jsonb_agg(frontend_code) FROM council_muni_code b WHERE b.obshtina_code=m.obshtina_code) AS frontend_ids FROM council_muni m LEFT JOIN council_resolution r USING(obshtina_code) GROUP BY m.obshtina_code,m.name ORDER BY m.name) x),'[]'::jsonb) AS councils,${revisionSql} AS revision`;
+  const combinedSql = `WITH assemblies AS (SELECT ns::text AS id,min(date)::text AS first,max(date)::text AS latest,count(*)::int AS sessions FROM vote_day GROUP BY ns ORDER BY ns) SELECT COALESCE((SELECT jsonb_agg(assemblies) FROM assemblies),'[]'::jsonb) AS rows,EXISTS(SELECT 1 FROM vote_item) AS has_votes,EXISTS(SELECT 1 FROM vote_cast) AS has_casts,COALESCE((SELECT jsonb_agg(x) FROM (SELECT m.obshtina_code AS id,m.name,min(r.decided_on)::text AS first,max(r.decided_on)::text AS latest,count(r.id)::int AS resolutions,count(r.id) FILTER(WHERE r.has_named_votes)::int AS named, m.obshtina_code IN (SELECT jsonb_array_elements_text(value->'yearOnlyCouncils') FROM rollcall_query_meta WHERE key='catalog') AS year_only,(SELECT jsonb_agg(frontend_code) FROM council_muni_code b WHERE b.obshtina_code=m.obshtina_code) AS frontend_ids FROM council_muni m LEFT JOIN council_resolution r USING(obshtina_code) GROUP BY m.obshtina_code,m.name ORDER BY m.name) x),'[]'::jsonb) AS councils,${revisionSql} AS revision`;
+  let snapshot;
   try {
-    const snapshot = (
-      await db(
-        `WITH assemblies AS (SELECT ns::text AS id,min(date)::text AS first,max(date)::text AS latest,count(*)::int AS sessions FROM vote_day GROUP BY ns ORDER BY ns) SELECT COALESCE((SELECT jsonb_agg(assemblies) FROM assemblies),'[]'::jsonb) AS rows,EXISTS(SELECT 1 FROM vote_item) AS has_votes,EXISTS(SELECT 1 FROM vote_cast) AS has_casts,${revisionSql} AS revision`,
-        [],
-      )
-    )[0];
-    const rows = snapshot.rows,
-      rev = snapshot.revision;
-    return {
-      body: {
-        version: contract.ROLLCALL_VERSION,
-        revision: rev,
-        assemblies: rows,
-        corpora: Object.fromEntries(
-          ["parliamentSessions", "parliamentVotes", "parliamentCasts"].map(
-            (c) => [
-              c,
-              {
-                ready:
-                  c === "parliamentSessions"
-                    ? rows.length > 0
-                    : c === "parliamentVotes"
-                      ? !!snapshot.has_votes
-                      : !!snapshot.has_casts,
-                operations: [
-                  "list",
-                  "detail",
-                  "count",
-                  "summary",
-                  "methodology",
-                ],
-                metrics: ["records"],
-                dateBasis: "sitting",
-                basis: ["attempts", "standing"],
-              },
-            ],
-          ),
-        ),
-      },
-    };
+    snapshot = (await db(combinedSql, []))[0];
   } catch (e) {
-    if (["42P01", "42883", "42501"].includes(e.code))
-      return { body: { version: contract.ROLLCALL_VERSION, corpora: {} } };
-    throw e;
+    if (!["42P01", "42883", "42501", "57014"].includes(e.code)) throw e;
+    const probe = async (sql) => {
+      try {
+        return (await db(sql, []))[0];
+      } catch (error) {
+        if (!["42P01", "42883", "42501", "57014"].includes(error.code))
+          throw error;
+        return null;
+      }
+    };
+    const [p, c] = await Promise.all([probe(parliamentSql), probe(councilSql)]);
+    snapshot = {
+      ...p,
+      ...c,
+      parliamentRevision: p?.revision,
+      councilRevision: c?.revision,
+    };
   }
+  const rows = snapshot.rows || [],
+    councils = snapshot.councils || [];
+  return {
+    body: {
+      version: contract.ROLLCALL_VERSION,
+      revision: snapshot.revision,
+      assemblies: rows,
+      councils,
+      corpora: Object.fromEntries(
+        contract.ROLLCALL_CORPORA.map((c) => [
+          c,
+          {
+            ready: c.startsWith("council")
+              ? councils.some((b) =>
+                  c === "councilCasts"
+                    ? b.named > 0
+                    : c === "councilSessions"
+                      ? b.resolutions > 0 && !b.year_only
+                      : b.resolutions > 0,
+                )
+              : c === "parliamentSessions"
+                ? rows.length > 0
+                : c === "parliamentVotes"
+                  ? !!snapshot.has_votes
+                  : !!snapshot.has_casts,
+            revision: c.startsWith("council")
+              ? snapshot.councilRevision || snapshot.revision
+              : snapshot.parliamentRevision || snapshot.revision,
+            operations: ["list", "detail", "count", "summary", "methodology"],
+            metrics: ["records"],
+            dateBasis: c.startsWith("council") ? "decision" : "sitting",
+            basis: c.startsWith("council")
+              ? ["attempts"]
+              : ["attempts", "standing"],
+          },
+        ]),
+      ),
+    },
+  };
 }
 module.exports = {
   compileRollcallQuery,
@@ -304,3 +352,18 @@ module.exports = {
   rollcallEntities,
   rollcallCapabilities,
 };
+
+async function rollcallCatalog(db) {
+  const result = await rollcallCapabilities(db);
+  return {
+    body: {
+      ...result.body,
+      topics: contract.ROLLCALL_TOPICS,
+      choices: {
+        parliament: ["for", "against", "abstain", "recordedAbsent"],
+        council: ["for", "against", "abstain"],
+      },
+    },
+  };
+}
+module.exports.rollcallCatalog = rollcallCatalog;
