@@ -78,6 +78,16 @@ INSERT INTO council_vote VALUES('a','ivan_petrov','Иван Петров','for',
       expect(
         (await run({ corpus: "councilResolutions", basis: "standing" })).status,
       ).toBe("unsupported");
+      const comparison = await run({
+        corpus: "councilCasts",
+        operation: "compare",
+        from: "2026-01-03",
+        toExclusive: "2026-01-04",
+        compareFrom: "2026-01-01",
+        compareToExclusive: "2026-01-03",
+      });
+      expect(comparison.status).toBe("partial");
+      expect(comparison.comparisons[1].status).toBe("partial");
       const sessions = await run({
         corpus: "councilSessions",
         councilIds: ["BGS01"],

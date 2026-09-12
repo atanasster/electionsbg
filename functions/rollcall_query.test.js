@@ -45,7 +45,7 @@ test("bad fields and unsupported metrics do not execute SQL", async () => {
   let calls = 0;
   for (const q of [
     { corpus: "parliamentVotes", constructor: "x" },
-    { corpus: "parliamentCasts", metric: "alignment" },
+    { corpus: "parliamentCasts", metric: "agreement" },
     { corpus: "councilCasts", choice: "recordedAbsent" },
   ])
     assert.equal(

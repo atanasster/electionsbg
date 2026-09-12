@@ -17,6 +17,15 @@ function compileRollcallQuery(raw, depth = 0) {
     params.push(v);
     return "$" + params.length;
   };
+  if (
+    ["choiceShare", "agreement", "alignment"].includes(q.metric) ||
+    q.groupBy ||
+    q.operation === "compare"
+  )
+    return require("./rollcall_metrics").compileMetrics(q, depth, {
+      compileRollcallQuery,
+      RollcallError,
+    });
   if (!q.corpus.startsWith("parliament"))
     return require("./rollcall_council").compileCouncilQuery(q, depth, {
       RollcallError,
@@ -168,56 +177,30 @@ async function runRollcallQuery(db, raw) {
       };
     if (c.defaultAssembly && r.coverage.bodies?.length)
       r.query.assemblyIds = r.coverage.bodies;
-    if (r.dateQualityUnsupported)
+    if (r.comparisons) {
+      r.comparisons = r.comparisons.map(classifyResult);
+      const states = r.comparisons.map((x) => x.status);
+      const any = states.some((x) => ["success", "partial"].includes(x));
+      const limited = states.some((x) =>
+        ["partial", "unavailable", "unsupported"].includes(x),
+      );
+      const classified = classifyResult(r);
       return {
         body: {
-          status: "unsupported",
-          reason: "source_year_only",
-          query: c.query,
-          coverage: r.coverage,
-          revision: r.revision,
+          ...classified,
+          status: any
+            ? limited
+              ? "partial"
+              : "success"
+            : states.every((x) => x === "empty")
+              ? "empty"
+              : states.every((x) => x === "unsupported")
+                ? "unsupported"
+                : "unavailable",
         },
       };
-    if (
-      c.query.corpus === "councilCasts" &&
-      !r.coverage.namedResolutions &&
-      r.coverage.resolutionRecords
-    )
-      return {
-        body: {
-          status: "unavailable",
-          reason: "named_roll_not_published",
-          query: c.query,
-          coverage: r.coverage,
-          revision: r.revision,
-        },
-      };
-    const partial =
-      r.coverage.sourceMissing > 0 ||
-      (c.query.corpus === "councilCasts" && r.coverage.missingRolls > 0) ||
-      r.coverage.yearOnly > 0 ||
-      r.rows.some((row) => row.tally_mismatch) ||
-      ((c.query.topicIds || c.query.keyword) && r.coverage.untitled > 0);
-    delete r.keys;
-    delete r.voteKeys;
-    return {
-      body: {
-        ...r,
-        status: r.totals.records
-          ? partial
-            ? "partial"
-            : "success"
-          : r.coverage.indexedDays
-            ? "empty"
-            : "unavailable",
-        reason:
-          !r.totals.records && !r.coverage.indexedDays
-            ? "scope_not_indexed"
-            : !r.totals.records && c.query.key
-              ? "record_not_found"
-              : undefined,
-      },
-    };
+    }
+    return { body: classifyResult(r) };
   } catch (e) {
     if (["42P01", "42883", "42501", "57014"].includes(e.code))
       return {
@@ -229,6 +212,52 @@ async function runRollcallQuery(db, raw) {
       };
     throw e;
   }
+}
+function classifyResult(r) {
+  const q = r.query;
+  delete r.keys;
+  delete r.voteKeys;
+  if (r.dateQualityUnsupported)
+    return {
+      ...r,
+      rows: [],
+      status: "unsupported",
+      reason: "source_year_only",
+    };
+  if (
+    q.corpus === "councilCasts" &&
+    !r.coverage.namedResolutions &&
+    r.coverage.resolutionRecords
+  )
+    return {
+      ...r,
+      rows: [],
+      status: "unavailable",
+      reason: "named_roll_not_published",
+    };
+  const partial =
+    r.coverage.sourceMissing > 0 ||
+    r.coverage.yearOnly > 0 ||
+    (q.corpus === "councilCasts" && r.coverage.missingRolls > 0) ||
+    r.rows.some((row) => row.tally_mismatch) ||
+    ((q.topicIds || q.keyword) && r.coverage.untitled > 0);
+  const hasResult = r.totals.records > 0 || r.metrics?.denominator > 0;
+  return {
+    ...r,
+    status: hasResult
+      ? partial
+        ? "partial"
+        : "success"
+      : r.coverage.indexedDays
+        ? "empty"
+        : "unavailable",
+    reason:
+      !hasResult && !r.coverage.indexedDays
+        ? "scope_not_indexed"
+        : !hasResult && q.key
+          ? "record_not_found"
+          : undefined,
+  };
 }
 async function rollcallEntities(db, args) {
   const name = String(args.name || "").trim();
@@ -334,8 +363,25 @@ async function rollcallCapabilities(db) {
             revision: c.startsWith("council")
               ? snapshot.councilRevision || snapshot.revision
               : snapshot.parliamentRevision || snapshot.revision,
-            operations: ["list", "detail", "count", "summary", "methodology"],
-            metrics: ["records"],
+            operations: [
+              "list",
+              "detail",
+              "count",
+              "summary",
+              "trend",
+              "compare",
+              "rank",
+              "methodology",
+              ...(c.endsWith("Casts") ? ["share"] : []),
+            ],
+            metrics:
+              c === "parliamentCasts"
+                ? ["records", "choiceShare", "agreement", "alignment"]
+                : c === "councilCasts"
+                  ? ["records", "choiceShare"]
+                  : c === "parliamentVotes"
+                    ? ["records", "contested"]
+                    : ["records"],
             dateBasis: c.startsWith("council") ? "decision" : "sitting",
             basis: c.startsWith("council")
               ? ["attempts"]

@@ -32,6 +32,234 @@ INSERT INTO person_role VALUES(10,'mp','7:52','exact_id'),(11,'mp','7:51','exact
         (await c.query(sql, p)).rows;
       const run = async (q: Record<string, unknown>) =>
         (await runRollcallQuery(db, q)).body;
+      const share = await run({
+        corpus: "parliamentCasts",
+        seatIds: ["52:7"],
+        basis: "attempts",
+        metric: "choiceShare",
+        operation: "share",
+        choice: "for",
+        limit: 1,
+      });
+      expect(share.metrics).toMatchObject({ numerator: 2, denominator: 3 });
+      expect(share.metrics.percentage).toBeCloseTo(200 / 3);
+      const agreement = await run({
+        corpus: "parliamentCasts",
+        seatIds: ["52:7"],
+        comparatorSeatIds: ["52:8"],
+        basis: "attempts",
+        metric: "agreement",
+        minOverlap: 1,
+      });
+      expect(agreement.metrics).toMatchObject({ numerator: 1, denominator: 3 });
+      expect(
+        (
+          await run({
+            corpus: "parliamentCasts",
+            seatIds: ["52:7"],
+            comparatorSeatIds: ["52:8"],
+            metric: "agreement",
+            minOverlap: 5,
+          })
+        ).metrics.percentage,
+      ).toBeNull();
+      const alignment = await run({
+        corpus: "parliamentCasts",
+        seatIds: ["52:7"],
+        basis: "attempts",
+        metric: "alignment",
+        minOverlap: 1,
+      });
+      expect(alignment.metrics).toMatchObject({
+        numerator: 3,
+        denominator: 3,
+        percentage: 100,
+      });
+      const trend = await run({
+        corpus: "parliamentVotes",
+        assemblyIds: ["51", "52"],
+        operation: "trend",
+        order: "asc",
+      });
+      expect(trend.groups).toEqual([
+        { key: "2025-12", records: 1 },
+        { key: "2026-01", records: 2 },
+      ]);
+      const compare = await run({
+        corpus: "parliamentVotes",
+        operation: "compare",
+        from: "2026-01-01",
+        toExclusive: "2026-01-03",
+        compareFrom: "2025-12-01",
+        compareToExclusive: "2026-01-01",
+      });
+      expect(
+        compare.comparisons.map(
+          (r: { totals: { records: number } }) => r.totals.records,
+        ),
+      ).toEqual([2, 1]);
+      expect(
+        (
+          await run({
+            corpus: "parliamentCasts",
+            seatIds: ["52:7"],
+            from: "2026-01-03",
+            toExclusive: "2026-01-04",
+            metric: "choiceShare",
+            operation: "share",
+            choice: "for",
+          })
+        ).metrics.percentage,
+      ).toBeNull();
+      await c.query(
+        "INSERT INTO vote_item VALUES(5,52,'2026-01-03',1,'Отсъствие',null,1,0,0,1);INSERT INTO vote_cast VALUES(5,52,7,'x',2),(5,52,8,'y',1)",
+      );
+      const recorded = await run({
+        corpus: "parliamentCasts",
+        seatIds: ["52:7"],
+        basis: "attempts",
+        metric: "choiceShare",
+        choice: "for",
+        denominator: "recorded",
+      });
+      expect(recorded.metrics.denominator).toBe(4);
+      const participating = await run({
+        corpus: "parliamentCasts",
+        seatIds: ["52:7"],
+        basis: "attempts",
+        metric: "choiceShare",
+        choice: "for",
+        denominator: "participating",
+      });
+      expect(participating.metrics.denominator).toBe(3);
+      expect(
+        (
+          await run({
+            corpus: "parliamentCasts",
+            seatIds: ["52:7"],
+            comparatorSeatIds: ["52:8"],
+            basis: "attempts",
+            metric: "agreement",
+            minOverlap: 1,
+          })
+        ).metrics.denominator,
+      ).toBe(3);
+      expect(
+        (
+          await run({
+            corpus: "parliamentCasts",
+            seatIds: ["52:7"],
+            basis: "attempts",
+            metric: "alignment",
+            minOverlap: 1,
+          })
+        ).metrics.denominator,
+      ).toBe(3);
+      await c.query(
+        "DELETE FROM vote_cast WHERE item_id=5;DELETE FROM vote_item WHERE item_id=5",
+      );
+      expect(
+        (
+          await run({
+            corpus: "parliamentCasts",
+            seatIds: ["52:7"],
+            comparatorSeatIds: ["52:8"],
+            basis: "attempts",
+            choice: "against",
+            metric: "agreement",
+            minOverlap: 1,
+          })
+        ).metrics,
+      ).toMatchObject({ numerator: 0, denominator: 1, percentage: 0 });
+      const ranked = await run({
+        corpus: "parliamentVotes",
+        assemblyIds: ["51", "52"],
+        operation: "rank",
+        groupBy: "body",
+        limit: 1,
+      });
+      expect(ranked.groups).toEqual([{ key: "52", records: 2 }]);
+      expect(ranked.groupCount).toBe(2);
+      expect(
+        (
+          await run({
+            ...ranked.query,
+            offset: 1,
+            expectedRevision: ranked.revision,
+          })
+        ).groups,
+      ).toEqual([{ key: "51", records: 1 }]);
+      expect(
+        (
+          await run({
+            corpus: "parliamentCasts",
+            seatIds: ["52:7"],
+            comparatorSeatIds: ["51:7"],
+            metric: "agreement",
+            minOverlap: 1,
+          })
+        ).metrics,
+      ).toMatchObject({ denominator: 0, percentage: null });
+      await c.query("DELETE FROM vote_cast WHERE item_id=2 AND mp_id=8");
+      expect(
+        (
+          await run({
+            corpus: "parliamentCasts",
+            seatIds: ["52:7"],
+            comparatorSeatIds: ["52:8"],
+            basis: "attempts",
+            metric: "agreement",
+            minOverlap: 1,
+          })
+        ).metrics.denominator,
+      ).toBe(2);
+      await c.query("INSERT INTO vote_cast VALUES(2,52,8,'y',1)");
+      const uneven = await run({
+        corpus: "parliamentVotes",
+        operation: "compare",
+        from: "2030-01-01",
+        toExclusive: "2031-01-01",
+        compareFrom: "2026-01-01",
+        compareToExclusive: "2026-01-03",
+      });
+      expect(uneven.status).toBe("partial");
+      expect(
+        uneven.comparisons.map((x: { status: string }) => x.status),
+      ).toEqual(["unavailable", "success"]);
+      await c.query("UPDATE vote_day SET pdf_url=NULL WHERE ns=51");
+      const quality = await run({
+        corpus: "parliamentVotes",
+        operation: "compare",
+        from: "2026-01-01",
+        toExclusive: "2026-01-03",
+        compareFrom: "2025-12-01",
+        compareToExclusive: "2026-01-01",
+      });
+      expect(quality.status).toBe("partial");
+      expect(quality.comparisons[1].status).toBe("partial");
+      await c.query(
+        "UPDATE vote_day SET pdf_url='https://example.test/51' WHERE ns=51",
+      );
+      await c.query(
+        "INSERT INTO mp_seat VALUES(52,9,'Трети Човек');INSERT INTO vote_cast VALUES(1,52,9,'a',1)",
+      );
+      const tie = await run({
+        corpus: "parliamentCasts",
+        seatIds: ["52:7"],
+        key: "52:2026-01-01:1::7",
+        basis: "attempts",
+        metric: "alignment",
+        minOverlap: 1,
+      });
+      expect(tie.metrics).toMatchObject({
+        numerator: 1,
+        denominator: 1,
+        percentage: 100,
+        tiePolicy: "for_then_against_then_abstain",
+      });
+      await c.query(
+        "DELETE FROM vote_cast WHERE mp_id=9;DELETE FROM mp_seat WHERE mp_id=9",
+      );
       const recent = await run({ corpus: "parliamentVotes" });
       expect(recent.totals.records).toBe(3);
       expect(recent.rows.map((r: { key: string }) => r.key)).toEqual([
