@@ -853,6 +853,13 @@ const entitySearchSql = (fn, lim) => `
       LIMIT ${lim}`;
 
 const DB_ROUTES = {
+  "procurement-query": async (dbRows, q) => {
+    if (typeof q.query !== "string" || q.query.length > 16000) return { status: 400, body: { status: "unsupported", reason: "invalid_query_size" } };
+    let query;
+    try { query = JSON.parse(q.query || "{}"); }
+    catch { return { status: 400, body: { status: "unsupported", reason: "invalid_query_json" } }; }
+    return require("./procurement_query.js").runProcurementQuery(dbRows, query);
+  },
   async person(dbRows, q) {
     const name = s(q, "name");
     if (!name) return { status: 400, body: { error: "missing name" } };

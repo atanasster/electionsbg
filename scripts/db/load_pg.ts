@@ -1,3 +1,4 @@
+import { installProcurementQuery } from "./lib/installProcurementQuery";
 // Load the contract corpus into Postgres — the PG port of load_procurement.ts.
 // Reuses the shared column⇄field map (lib/procurement_schema) so the loaded rows
 // are identical to the SQLite loader's; the generators (source-agnostic) then
@@ -767,6 +768,7 @@ export const loadPg = async (): Promise<{
   // issuing any VACUUM — its own header's reason: so a caller cannot read the throw as
   // „nothing happened" — and separate calls give that up between them while opening a
   // connection each.
+  await installProcurementQuery();
   await vacuumAfterReload(
     "procurement_normalcy_cache",
     "contractor_search",
