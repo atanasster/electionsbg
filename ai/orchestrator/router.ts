@@ -591,6 +591,10 @@ const PLACE_STOP = new Set([
   "какъв",
   "каква",
   "какво",
+  "какви",
+  "са",
+  "are",
+  "were",
   "покажи",
   "герб",
   "бсп",
@@ -2077,6 +2081,39 @@ const routeText = (question: string, ctx: ToolContext): Route => {
               tool: "regionResults",
               args: election ? { oblast, election } : { oblast },
             };
+    }
+    // An unqualified "in X" still names a place. Resolve it as a settlement;
+    // explicit municipality/region requests above retain their wider scope.
+    // Do not interpret "in Bulgaria" or "in the last election" as local.
+    const namedPlace = q
+      .match(
+        /(?:^|\s)(?:в|във|in|at)\s+(?!\d)(.+?)(?=\s+(?:през|за|in|during|for|over)\s|\s+на\s+(?:последн|избор)|\s+20\d{2}|[?!.]|$)/i,
+      )?.[1]
+      ?.trim();
+    if (
+      namedPlace &&
+      /\p{L}/u.test(namedPlace) &&
+      !/(?:избор|парламент|election|parliament|last|latest|последн)/i.test(
+        namedPlace,
+      ) &&
+      !/^(?:българия|страната|bulgaria|the country)$/i.test(namedPlace)
+    ) {
+      const placeTrend =
+        !election &&
+        (overTimeCue(q) ||
+          has(q, "история", "history", "всички избори", "all elections") ||
+          (count !== undefined && count >= 2));
+      return placeTrend
+        ? {
+            tool: "settlementHistory",
+            args: { place: namedPlace, ...seriesArgs(q, count) },
+          }
+        : {
+            tool: "settlementResults",
+            args: election
+              ? { place: namedPlace, election }
+              : { place: namedPlace },
+          };
     }
   }
 
