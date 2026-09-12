@@ -1,0 +1,409 @@
+{
+  "measuredAt": "2026-09-12",
+  "environment": "local PostgreSQL; read-only audit",
+  "data": {
+    "parliament": [
+      {
+        "ns": 44,
+        "items": "1050",
+        "standing": "1036",
+        "min": "2020-10-28",
+        "max": "2021-03-25",
+        "untitled": "44"
+      },
+      {
+        "ns": 45,
+        "items": "231",
+        "standing": "207",
+        "min": "2021-04-21",
+        "max": "2021-05-07",
+        "untitled": "6"
+      },
+      {
+        "ns": 46,
+        "items": "599",
+        "standing": "560",
+        "min": "2021-07-21",
+        "max": "2021-09-15",
+        "untitled": "34"
+      },
+      {
+        "ns": 47,
+        "items": "2116",
+        "standing": "1933",
+        "min": "2021-12-03",
+        "max": "2022-07-29",
+        "untitled": "664"
+      },
+      {
+        "ns": 48,
+        "items": "1690",
+        "standing": "1435",
+        "min": "2022-10-19",
+        "max": "2023-02-02",
+        "untitled": "245"
+      },
+      {
+        "ns": 49,
+        "items": "4308",
+        "standing": "3855",
+        "min": "2023-04-12",
+        "max": "2024-06-02",
+        "untitled": "392"
+      },
+      {
+        "ns": 50,
+        "items": "797",
+        "standing": "685",
+        "min": "2024-06-19",
+        "max": "2024-09-26",
+        "untitled": "61"
+      },
+      {
+        "ns": 51,
+        "items": "4687",
+        "standing": "4187",
+        "min": "2024-11-11",
+        "max": "2026-04-01",
+        "untitled": "329"
+      },
+      {
+        "ns": 52,
+        "items": "1396",
+        "standing": "1320",
+        "min": "2026-04-30",
+        "max": "2026-09-11",
+        "untitled": "125"
+      }
+    ],
+    "rashkov": [
+      {
+        "ns": 48,
+        "mp_id": 5254,
+        "name": "БОЙКО ИЛИЕВ РАШКОВ"
+      },
+      {
+        "ns": 49,
+        "mp_id": 5254,
+        "name": "БОЙКО ИЛИЕВ РАШКОВ"
+      },
+      {
+        "ns": 50,
+        "mp_id": 5254,
+        "name": "БОЙКО ИЛИЕВ РАШКОВ"
+      },
+      {
+        "ns": 51,
+        "mp_id": 5254,
+        "name": "БОЙКО ИЛИЕВ РАШКОВ"
+      },
+      {
+        "ns": 52,
+        "mp_id": 5254,
+        "name": "БОЙКО ИЛИЕВ РАШКОВ"
+      }
+    ],
+    "councils": [
+      {
+        "obshtina_code": "BGS01",
+        "name": "Община Бургас",
+        "resolutions": "374",
+        "min": "2025-01-28",
+        "max": "2026-06-30",
+        "named": "88"
+      },
+      {
+        "obshtina_code": "DOB28",
+        "name": "Община град Добрич",
+        "resolutions": "50",
+        "min": "2023-11-08",
+        "max": "2023-12-19",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "GAB05",
+        "name": "Община Габрово",
+        "resolutions": "497",
+        "min": "2024-02-07",
+        "max": "2026-03-26",
+        "named": "206"
+      },
+      {
+        "obshtina_code": "HKV09",
+        "name": "Община Димитровград",
+        "resolutions": "607",
+        "min": "2024-01-25",
+        "max": "2026-07-30",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "HKV34",
+        "name": "Община Хасково",
+        "resolutions": "387",
+        "min": "2022-01-01",
+        "max": "2022-01-01",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "PDV01",
+        "name": "Община Пловдив",
+        "resolutions": "151",
+        "min": "2026-04-30",
+        "max": "2026-08-03",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "PER32",
+        "name": "Община Перник",
+        "resolutions": "588",
+        "min": "2025-01-16",
+        "max": "2026-08-27",
+        "named": "475"
+      },
+      {
+        "obshtina_code": "PVN01",
+        "name": "Община Плевен",
+        "resolutions": "168",
+        "min": "2026-03-26",
+        "max": "2026-08-27",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "RAZ26",
+        "name": "Община Разград",
+        "resolutions": "226",
+        "min": "2025-05-23",
+        "max": "2026-08-25",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "RSE01",
+        "name": "Община Русе",
+        "resolutions": "426",
+        "min": "2025-04-24",
+        "max": "2026-07-16",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "SLV01",
+        "name": "Община Сливен",
+        "resolutions": "238",
+        "min": "2026-02-26",
+        "max": "2026-07-30",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "SOF",
+        "name": "Столична община",
+        "resolutions": "416",
+        "min": "2026-04-30",
+        "max": "2026-08-20",
+        "named": "313"
+      },
+      {
+        "obshtina_code": "SZR01",
+        "name": "Община Стара Загора",
+        "resolutions": "138",
+        "min": "2026-04-30",
+        "max": "2026-09-01",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "SZR12",
+        "name": "Община Казанлък",
+        "resolutions": "359",
+        "min": "2020-03-23",
+        "max": "2026-06-01",
+        "named": "255"
+      },
+      {
+        "obshtina_code": "VAR01",
+        "name": "Община Варна",
+        "resolutions": "88",
+        "min": "2025-12-18",
+        "max": "2026-08-31",
+        "named": "0"
+      },
+      {
+        "obshtina_code": "VTR01",
+        "name": "Община Велико Търново",
+        "resolutions": "460",
+        "min": "2025-02-06",
+        "max": "2026-06-05",
+        "named": "406"
+      }
+    ],
+    "identity": [
+      {
+        "casts": "51672",
+        "linked": "48653"
+      }
+    ],
+    "days": [
+      {
+        "days": "623",
+        "pdfs": "623"
+      }
+    ]
+  },
+  "additionalProbes": {
+    "parliamentTallies": {
+      "sql": "WITH counts AS (SELECT item_id,count(*) FILTER(WHERE vote='y') y,count(*) FILTER(WHERE vote='n') n,count(*) FILTER(WHERE vote='a') a,count(*) FILTER(WHERE vote='x') x FROM vote_cast GROUP BY item_id) SELECT count(*) FILTER(WHERE c.item_id IS NULL) AS items_without_casts,count(*) FILTER(WHERE (i.yes,i.no,i.abstain,i.absent) IS DISTINCT FROM (c.y,c.n,c.a,c.x)) AS tally_disagreements FROM vote_item i LEFT JOIN counts c USING(item_id)",
+      "rows": [
+        {
+          "items_without_casts": "0",
+          "tally_disagreements": "12"
+        }
+      ]
+    },
+    "duplicateCasts": {
+      "sql": "SELECT count(*) AS duplicate_keys FROM (SELECT item_id,mp_id FROM vote_cast GROUP BY item_id,mp_id HAVING count(*)>1) x",
+      "rows": [
+        {
+          "duplicate_keys": "0"
+        }
+      ]
+    },
+    "councilTallies": {
+      "sql": "WITH named AS (SELECT resolution_id,count(*) FILTER(WHERE vote='for') y,count(*) FILTER(WHERE vote='against') n,count(*) FILTER(WHERE vote='abstain') a FROM council_vote GROUP BY resolution_id) SELECT count(*) FILTER(WHERE r.has_named_votes AND n.resolution_id IS NULL) AS named_flag_without_rows,count(*) FILTER(WHERE n.resolution_id IS NOT NULL AND (r.tally_for,r.tally_against,r.tally_abstain) IS DISTINCT FROM (n.y,n.n,n.a)) AS named_tally_disagreements,count(*) FILTER(WHERE r.source_url IS NULL OR r.source_url='') AS missing_sources,count(*) FILTER(WHERE r.session IS NULL OR r.session='') AS missing_session,count(DISTINCT (r.obshtina_code,r.decided_on,r.session)) AS derived_session_groups FROM council_resolution r LEFT JOIN named n ON n.resolution_id=r.id",
+      "rows": [
+        {
+          "named_flag_without_rows": "0",
+          "named_tally_disagreements": "773",
+          "missing_sources": "0",
+          "missing_session": "0",
+          "derived_session_groups": "220"
+        }
+      ]
+    },
+    "roles": {
+      "sql": "SELECT source,role,date_basis,count(*) AS rows,count(*) FILTER(WHERE start_date IS NOT NULL) AS starts,count(*) FILTER(WHERE end_date IS NOT NULL) AS ends FROM person_role WHERE role IN ('mp','councillor') GROUP BY source,role,date_basis ORDER BY source,role,date_basis",
+      "rows": [
+        {
+          "source": "local",
+          "role": "councillor",
+          "date_basis": "election",
+          "rows": "15530",
+          "starts": "15530",
+          "ends": "10483"
+        },
+        {
+          "source": "mp",
+          "role": "mp",
+          "date_basis": "term",
+          "rows": "2896",
+          "starts": "2896",
+          "ends": "2642"
+        },
+        {
+          "source": "mp",
+          "role": "mp",
+          "date_basis": null,
+          "rows": "956",
+          "starts": "0",
+          "ends": "0"
+        },
+        {
+          "source": "official_muni",
+          "role": "councillor",
+          "date_basis": "filing",
+          "rows": "94",
+          "starts": "43",
+          "ends": "51"
+        },
+        {
+          "source": "official_muni",
+          "role": "councillor",
+          "date_basis": null,
+          "rows": "4857",
+          "starts": "0",
+          "ends": "0"
+        }
+      ]
+    },
+    "recycled": {
+      "sql": "SELECT count(*) AS ids_with_distinct_names FROM (SELECT mp_id FROM mp_seat GROUP BY mp_id HAVING count(DISTINCT name)>1) x",
+      "rows": [
+        {
+          "ids_with_distinct_names": "26"
+        }
+      ]
+    },
+    "rosterColumns": {
+      "sql": "SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='official_roster' ORDER BY ordinal_position",
+      "rows": [
+        {
+          "column_name": "name"
+        },
+        {
+          "column_name": "slug"
+        },
+        {
+          "column_name": "role"
+        },
+        {
+          "column_name": "tier"
+        },
+        {
+          "column_name": "obshtina"
+        },
+        {
+          "column_name": "district"
+        },
+        {
+          "column_name": "sitting"
+        }
+      ]
+    },
+    "rashkovBridge": {
+      "sql": "SELECT s.ns,s.mp_id,s.name,r.ref,r.confidence,p.display_name,r.person_id::text FROM mp_seat s LEFT JOIN person_role r ON r.source='mp' AND r.ref=s.mp_id::text||':'||s.ns::text LEFT JOIN person p USING(person_id) WHERE s.name ILIKE '%РАШКОВ%' ORDER BY s.ns",
+      "rows": [
+        {
+          "ns": 48,
+          "mp_id": 5254,
+          "name": "БОЙКО ИЛИЕВ РАШКОВ",
+          "ref": "5254:48",
+          "confidence": "exact_id",
+          "display_name": "Бойко Илиев Рашков",
+          "person_id": "37517"
+        },
+        {
+          "ns": 49,
+          "mp_id": 5254,
+          "name": "БОЙКО ИЛИЕВ РАШКОВ",
+          "ref": "5254:49",
+          "confidence": "exact_id",
+          "display_name": "Бойко Илиев Рашков",
+          "person_id": "37517"
+        },
+        {
+          "ns": 50,
+          "mp_id": 5254,
+          "name": "БОЙКО ИЛИЕВ РАШКОВ",
+          "ref": "5254:50",
+          "confidence": "exact_id",
+          "display_name": "Бойко Илиев Рашков",
+          "person_id": "37517"
+        },
+        {
+          "ns": 51,
+          "mp_id": 5254,
+          "name": "БОЙКО ИЛИЕВ РАШКОВ",
+          "ref": "5254:51",
+          "confidence": "exact_id",
+          "display_name": "Бойко Илиев Рашков",
+          "person_id": "37517"
+        },
+        {
+          "ns": 52,
+          "mp_id": 5254,
+          "name": "БОЙКО ИЛИЕВ РАШКОВ",
+          "ref": "5254:52",
+          "confidence": "exact_id",
+          "display_name": "Бойко Илиев Рашков",
+          "person_id": "37517"
+        }
+      ]
+    }
+  }
+}
