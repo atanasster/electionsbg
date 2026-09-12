@@ -1460,8 +1460,8 @@
     "category": "business",
     "subcategory": "ownership",
     "tool": "companyProfile",
-    "bg": "Кажи ми за фирма Провиотик",
-    "en": "Tell me about company Proviotic",
+    "bg": "Фирма Провиотик",
+    "en": "Company Proviotic",
     "args": {
       "bg": {
         "company": "Провиотик"
@@ -2702,14 +2702,14 @@
     "category": "institutions",
     "subcategory": "cabinet",
     "tool": "personProfile",
-    "bg": "Какъв е профилът на Бойко Борисов?",
-    "en": "What is the profile of Boyko Borisov?",
+    "bg": "Кой е Явор Стефанов?",
+    "en": "Who is Yavor Stefanov?",
     "args": {
       "bg": {
-        "name": "Бойко Борисов"
+        "name": "Явор Стефанов"
       },
       "en": {
-        "name": "Boyko Borisov"
+        "name": "Yavor Stefanov"
       }
     }
   },
@@ -2786,14 +2786,14 @@
     "category": "education",
     "subcategory": "schools",
     "tool": "schoolMatura",
-    "bg": "Матура на училище: Константин Гълъбов",
-    "en": "Matura for school: Константин Гълъбов",
+    "bg": "Училище „Свети Свети Кирил и Методий“",
+    "en": "School “Свети Свети Кирил и Методий”",
     "args": {
       "bg": {
-        "school": "Константин Гълъбов"
+        "school": "Училище „Свети Свети Кирил и Методий“"
       },
       "en": {
-        "school": "Константин Гълъбов"
+        "school": "School “Свети Свети Кирил и Методий”"
       }
     }
   },
@@ -2848,14 +2848,14 @@
     "category": "cost-living",
     "subcategory": "basket",
     "tool": "productPrice",
-    "bg": "Цена на продукт: Лаваца",
-    "en": "Product price: Lavazza",
+    "bg": "Каква е цената на кафе Лаваца 500г?",
+    "en": "How much is Lavazza coffee 500g?",
     "args": {
       "bg": {
-        "product": "Лаваца"
+        "product": "Каква е цената на кафе Лаваца 500г?"
       },
       "en": {
-        "product": "Lavazza"
+        "product": "How much is Lavazza coffee 500g?"
       }
     }
   },

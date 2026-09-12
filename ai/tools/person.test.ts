@@ -157,6 +157,7 @@ describe("personProfile run()", () => {
     const env = await personProfile({ name: "Юруков" }, ctx);
     expect(env.tool).toBe("personProfile");
     expect(env.title).toContain("Георги Владимиров Юруков");
+    expect(env.title).toContain("1 фирма");
     expect(env.facts.person_id).toBe("mp-2258");
     // Grounded facts: exact counts + the named company, never computed prose.
     expect(env.facts["фирми (брой)"]).toBe(1);
@@ -186,6 +187,13 @@ describe("personProfile run()", () => {
       "СПАК ИНВЕСТ",
     );
     expect(env.facts).not.toHaveProperty("фирми");
+    expect(env.factLinks).toEqual([
+      {
+        fact: "фирми — по съвпадение на име",
+        text: "СПАК ИНВЕСТ",
+        href: "/company/207747409",
+      },
+    ]);
     // Office labels use the ROLE for local (Кмет), not the generic source label.
     expect(String(env.facts["длъжности"])).toContain("Народни представители");
     expect(String(env.facts["длъжности"])).toContain("Кмет");
@@ -294,6 +302,51 @@ describe("personProfile run()", () => {
     expect(String(env.facts["бележка"])).toContain("точно съвпадение");
   });
 
+  it("uses singular company wording and links a private portfolio company", async () => {
+    setDbFetcher(async (route) => {
+      if (route === "person-profile") return null;
+      if (route === "person-search")
+        return {
+          power: [],
+          money: [
+            {
+              key: "fold:veronika yavorova stefanova",
+              name: "ВЕРОНИКА ЯВОРОВА СТЕФАНОВА",
+              position_type: "private_sector",
+            },
+          ],
+          others: [],
+        };
+      if (route === "person")
+        return {
+          name: "ВЕРОНИКА ЯВОРОВА СТЕФАНОВА",
+          roles: [
+            {
+              uic: "123456789",
+              company: "БУЛГЕД",
+              role: "manager",
+              active: true,
+            },
+          ],
+          procurement: { totalEur: 1_026_850, contractCount: 1 },
+        };
+      return null;
+    });
+
+    const env = await personProfile(
+      { name: "ВЕРОНИКА ЯВОРОВА СТЕФАНОВА" },
+      ctx,
+    );
+    expect(env.title).toBe("ВЕРОНИКА ЯВОРОВА СТЕФАНОВА — 1 фирма");
+    expect(env.factLinks).toEqual([
+      {
+        fact: "фирми",
+        text: "БУЛГЕД",
+        href: "/company/123456789",
+      },
+    ]);
+  });
+
   it("searches every person tier before offering fuzzy choices", async () => {
     setDbFetcher(async (route) => {
       if (route === "person-profile") return null;
@@ -311,6 +364,47 @@ describe("personProfile run()", () => {
       "Георги Стефанов Чавдаров",
       "Явор Чавдаров Стефанов",
       "Чавдар Тодоров Стефанов",
+    ]);
+  });
+
+  it("keeps person role codes structured for localized disambiguation", async () => {
+    setDbFetcher(async (route) => {
+      if (route === "person-profile") return null;
+      if (route === "person-search")
+        return {
+          power: [
+            {
+              key: "slug:one",
+              name: "Ани Яворова Стефанова",
+              primary_role: "medical_center",
+              position_type: "public_sector",
+              place_label: "София",
+            },
+          ],
+          money: [
+            {
+              key: "fold:two",
+              name: "Явор Чавдаров Стефанов",
+              position_type: "private_sector",
+            },
+          ],
+          others: [],
+        };
+      return null;
+    });
+
+    const env = await personProfile({ name: "Явор Стефанов" }, ctx);
+    expect(env.clarify?.options.map((option) => option.personContext)).toEqual([
+      {
+        primaryRole: "medical_center",
+        positionType: "public_sector",
+        placeLabel: "София",
+      },
+      {
+        primaryRole: undefined,
+        positionType: "private_sector",
+        placeLabel: undefined,
+      },
     ]);
   });
 

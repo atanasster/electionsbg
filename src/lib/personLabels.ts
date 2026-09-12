@@ -36,6 +36,45 @@ import { useTranslation } from "react-i18next";
 import { trRoleLabel } from "@/lib/trRole";
 import { capitalizeFirstLetter } from "@/data/utils";
 
+/** `person_search.position_type` → localized broad role label. The search index uses
+ * `private_sector` for the person layer's `company` facet, so this vocabulary is wider
+ * than the `pp_facet_*` keys and remains the canonical labeler for search results. */
+const POSITION_LABEL: Record<"bg" | "en", Record<string, string>> = {
+  bg: {
+    politician: "Политик",
+    executive: "Изпълнителна власт",
+    public_sector: "Публичен сектор",
+    magistrate: "Магистрат",
+    regulator: "Регулатор",
+    private_sector: "Частен сектор",
+    ngo: "НПО",
+    donor: "Дарител",
+    ds: "Досие ДС",
+    sanctions: "Санкции",
+    media: "Медии",
+    professional: "Нотариус/ЧСИ",
+    other: "Друго",
+  },
+  en: {
+    politician: "Politician",
+    executive: "Executive",
+    public_sector: "Public sector",
+    magistrate: "Magistrate",
+    regulator: "Regulator",
+    private_sector: "Private sector",
+    ngo: "NGO",
+    donor: "Donor",
+    ds: "State Security file",
+    sanctions: "Sanctions",
+    media: "Media",
+    professional: "Notary/bailiff",
+    other: "Other",
+  },
+};
+
+export const positionLabel = (code: string | null, bg: boolean): string =>
+  (code && POSITION_LABEL[bg ? "bg" : "en"][code]) || code || "";
+
 /** Label a code against a `<prefix><code>` i18n key, falling back to the code itself when
  *  no key exists. `t()` returns the key when it is missing, which is what makes the
  *  pass-through detectable. */

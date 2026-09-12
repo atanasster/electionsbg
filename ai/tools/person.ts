@@ -17,7 +17,12 @@ import { isOfficialSource } from "../../src/lib/officialSources";
 import { clarifyEnvelope } from "./clarify";
 import { fetchDb } from "./dataClient";
 import { officeLabel } from "./officeLabel";
-import type { Envelope, ToolArgs, ToolContext } from "./types";
+import type {
+  Envelope,
+  PersonClarifyContext,
+  ToolArgs,
+  ToolContext,
+} from "./types";
 
 type ProfileRole = {
   source: string;
@@ -115,7 +120,12 @@ type PersonResolution =
   | { kind: "portfolio"; portfolio: NonNullable<PortfolioPayload> }
   | {
       kind: "ambiguous";
-      hits: { value: string; name: string; detail?: string }[];
+      hits: {
+        value: string;
+        name: string;
+        detail?: string;
+        personContext?: PersonClarifyContext;
+      }[];
     }
   | { kind: "missing" };
 
@@ -168,6 +178,11 @@ const resolvePersonProfile = async (
           detail: [hit.primary_role ?? hit.position_type, hit.place_label]
             .filter(Boolean)
             .join(" · "),
+          personContext: {
+            primaryRole: hit.primary_role,
+            positionType: hit.position_type,
+            placeLabel: hit.place_label,
+          },
         })),
       };
     if (candidates.length === 1) {
@@ -213,7 +228,12 @@ const ambiguousPerson = (
   query: string,
   bg: boolean,
   tool: "personProfile" | "personConnections" | "personWealth",
-  hits: { value: string; name: string; detail?: string }[],
+  hits: {
+    value: string;
+    name: string;
+    detail?: string;
+    personContext?: PersonClarifyContext;
+  }[],
 ): Envelope =>
   clarifyEnvelope(
     bg
@@ -222,6 +242,7 @@ const ambiguousPerson = (
     hits.map((hit) => ({
       label: hit.name,
       sublabel: hit.detail ?? hit.value,
+      personContext: hit.personContext,
       tool,
       args: { name: hit.value },
     })),
@@ -234,11 +255,16 @@ const portfolioEnvelope = (
   ctx: ToolContext,
 ): Envelope => {
   const bg = ctx.lang === "bg";
-  const companies = [
+  const companyEntries = [
     ...new Map(
-      p.roles.map((role) => [role.uic, role.company ?? role.uic]),
+      p.roles.map((role) => [
+        role.uic,
+        { eik: role.uic, name: role.company ?? role.uic },
+      ]),
     ).values(),
   ];
+  const companies = companyEntries.map((company) => company.name);
+  const companyFact = bg ? "фирми" : "company names";
   const activeRoles = p.roles.filter((role) => role.active).length;
   const contracts = Number(p.procurement?.contractCount ?? 0);
   const contractEur = Number(p.procurement?.totalEur ?? 0);
@@ -248,8 +274,7 @@ const portfolioEnvelope = (
     [bg ? "фирми (брой)" : "companies"]: companies.length,
     [bg ? "активни участия" : "active company roles"]: activeRoles,
   };
-  if (companies.length)
-    facts[bg ? "фирми" : "company names"] = companies.slice(0, 10).join(", ");
+  if (companies.length) facts[companyFact] = companies.slice(0, 10).join(", ");
   if (contracts > 0)
     facts[bg ? "обществени поръчки (брой)" : "public contracts"] = contracts;
   if (contractEur > 0)
@@ -263,13 +288,21 @@ const portfolioEnvelope = (
     domain: "people",
     kind: "scalar",
     viz: "none",
-    title: bg
-      ? `${p.name} — ${companies.length} фирми`
-      : `${p.name} — ${companies.length} companies`,
+    title: `${p.name} — ${companyCountLabel(companies.length, bg)}`,
     facts,
+    factLinks: companyEntries.slice(0, 10).map((company) => ({
+      fact: companyFact,
+      text: company.name,
+      href: `/company/${encodeURIComponent(company.eik)}`,
+    })),
     provenance: ["person_search (126)", "person_roles / person_procurement"],
   };
 };
+
+const companyCountLabel = (count: number, bg: boolean): string =>
+  bg
+    ? `${count} ${count === 1 ? "фирма" : "фирми"}`
+    : `${count} ${count === 1 ? "company" : "companies"}`;
 
 const notFound = (
   query: string,
@@ -352,6 +385,8 @@ export const personProfile = async (
     rows: { linkBasis?: "declared" | "name_match" }[],
   ): boolean => rows.some((r) => isNameMatch(r.linkBasis));
   const byName = bg ? " — по съвпадение на име" : " — matched by name";
+  const companyFact =
+    (bg ? "фирми" : "company names") + (nameMatched(p.companies) ? byName : "");
 
   const facts: Record<string, string | number> = {
     [bg ? "име" : "name"]: p.name,
@@ -383,10 +418,7 @@ export const personProfile = async (
     facts[bg ? "длъжности" : "positions"] = officeLabels.join(", ");
   if (companyNames.length) {
     facts[bg ? "фирми (брой)" : "companies"] = companyNames.length;
-    facts[
-      (bg ? "фирми" : "company names") +
-        (nameMatched(p.companies) ? byName : "")
-    ] = companyNames.slice(0, 8).join(", ");
+    facts[companyFact] = companyNames.slice(0, 8).join(", ");
   }
   const ngos = p.ngos ?? [];
   const ngoNames = ngos.map((n) => n.name ?? n.eik).filter(Boolean) as string[];
@@ -417,11 +449,7 @@ export const personProfile = async (
 
   const summaryBits = [
     officeLabels.length ? officeLabels.join(", ") : null,
-    companyNames.length
-      ? bg
-        ? `${companyNames.length} фирми`
-        : `${companyNames.length} companies`
-      : null,
+    companyNames.length ? companyCountLabel(companyNames.length, bg) : null,
   ].filter(Boolean);
 
   return {
@@ -433,6 +461,11 @@ export const personProfile = async (
       ? `${p.name} — ${summaryBits.join(" · ")}`
       : p.name,
     facts,
+    factLinks: p.companies.slice(0, 8).map((company) => ({
+      fact: companyFact,
+      text: company.name ?? company.eik,
+      href: `/company/${encodeURIComponent(company.eik)}`,
+    })),
     provenance: ["person_by_slug (082_person_api.sql)"],
   };
 };

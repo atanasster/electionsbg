@@ -401,6 +401,18 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         });
       break;
     }
+    case "schoolMatura": {
+      const school = fact(env, "school_id");
+      if (school)
+        out.push({
+          label: {
+            bg: "Училище — пълен профил",
+            en: "School — full profile",
+          },
+          href: url(`/school/${encodeURIComponent(school)}`),
+        });
+      break;
+    }
     // Top hospitals paid by НЗОК → the biggest hospital's own company page, when
     // it is confidently matched to a Commerce-Register EIK (hidden facts.eik_id).
     // The TOOL_SECTION mapping still adds the health-fund page as the category link.

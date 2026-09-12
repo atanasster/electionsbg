@@ -43,6 +43,13 @@ export type TableCellLink = {
   href: string;
 };
 
+/** Optional links inside a scalar fact value, kept separate so the fact remains printable. */
+export type FactLink = {
+  fact: string;
+  text: string;
+  href: string;
+};
+
 export type EnvelopeKind = "scalar" | "table" | "series";
 
 // ---- geographic overlay (optional Leaflet map on an answer) ------------------
@@ -92,9 +99,18 @@ export type GeoOverlay = {
 // exactly one entity. Produced inside the tools, so BOTH the offline router and
 // the LLM path get it for free (each just runs the tool and renders the env).
 
+export type PersonClarifyContext = {
+  primaryRole?: string | null;
+  positionType?: string | null;
+  placeLabel?: string | null;
+};
+
 export type ClarifyOption = {
   label: string; // primary line, resolved to ctx.lang (e.g. "гр. Баня")
   sublabel?: string; // disambiguating context (e.g. "общ. Карлово · обл. Пловдив")
+  /** Structured person-search context. The chooser localizes these existing role/facet
+   *  codes with the shared person-label helpers instead of displaying DB keys. */
+  personContext?: PersonClarifyContext;
   tool: string; // tool to re-run on pick (usually the same one)
   args: ToolArgs; // unambiguous args (carry the pin/id)
 };
@@ -117,6 +133,7 @@ export type Envelope = {
   columns?: Column[];
   rows?: Row[];
   cellLinks?: TableCellLink[];
+  factLinks?: FactLink[];
   // series payload (line/bar). `categories` are the shared x-axis values.
   categories?: (string | number)[];
   series?: Series[];

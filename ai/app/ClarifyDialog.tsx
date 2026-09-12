@@ -7,6 +7,7 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
+import { positionLabel, usePersonLabels } from "@/lib/personLabels";
 import type { ClarifyOption, ClarifyRequest, Lang } from "../tools/types";
 
 export const ClarifyDialog = ({
@@ -21,6 +22,17 @@ export const ClarifyDialog = ({
   onClose: () => void;
 }) => {
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  const { roleLabel } = usePersonLabels();
+  const optionSublabel = (option: ClarifyOption): string | undefined => {
+    if (!option.personContext) return option.sublabel;
+    const localizedRole = option.personContext.primaryRole
+      ? roleLabel(option.personContext.primaryRole)
+      : positionLabel(option.personContext.positionType ?? null, lang === "bg");
+    const localized = [localizedRole, option.personContext.placeLabel]
+      .filter(Boolean)
+      .join(" · ");
+    return localized || option.sublabel;
+  };
   return (
     <Dialog.Root
       open={!!request}
@@ -41,24 +53,27 @@ export const ClarifyDialog = ({
             )}
           </Dialog.Description>
           <ul className="mt-3 max-h-[60vh] space-y-1.5 overflow-auto">
-            {request?.options.map((o, i) => (
-              <li key={`${o.label}-${i}`}>
-                <button
-                  type="button"
-                  onClick={() => onPick(o)}
-                  className="w-full rounded-lg border border-input bg-background px-3 py-2 text-left transition-colors hover:bg-muted"
-                >
-                  <span className="block text-sm font-medium text-foreground">
-                    {o.label}
-                  </span>
-                  {o.sublabel && (
-                    <span className="block text-xs text-muted-foreground">
-                      {o.sublabel}
+            {request?.options.map((o, i) => {
+              const sublabel = optionSublabel(o);
+              return (
+                <li key={`${o.label}-${i}`}>
+                  <button
+                    type="button"
+                    onClick={() => onPick(o)}
+                    className="w-full rounded-lg border border-input bg-background px-3 py-2 text-left transition-colors hover:bg-muted"
+                  >
+                    <span className="block text-sm font-medium text-foreground">
+                      {o.label}
                     </span>
-                  )}
-                </button>
-              </li>
-            ))}
+                    {sublabel && (
+                      <span className="block text-xs text-muted-foreground">
+                        {sublabel}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
           <Dialog.Close
             aria-label={t("Затвори", "Close")}

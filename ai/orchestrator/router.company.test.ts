@@ -6,6 +6,7 @@ const ctx = { lang: "bg", election: "2026_04_19" } as ToolContext;
 
 describe("company-profile routing", () => {
   it.each([
+    ["Фирма провиотик", "провиотик"],
     ["Кажи ми за фирма ПроВиотик", "ПроВиотик"],
     ["Разкажи ми за компания Провиотик", "Провиотик"],
     ["Tell me about company Proviotic", "Proviotic"],

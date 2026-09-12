@@ -60,4 +60,32 @@ describe("chat question adapter", () => {
     expect(intent.text).toContain("000012345");
     expect(intent.text).not.toContain("831646048");
   });
+
+  it("keeps the reported company, person, school and product cases in starter prompts", () => {
+    expect(
+      rawPrompts
+        .filter((prompt) =>
+          [
+            "companyProfile",
+            "personProfile",
+            "schoolMatura",
+            "productPrice",
+          ].includes(prompt.id),
+        )
+        .map((prompt) => [prompt.id, prompt.bg, prompt.args.bg]),
+    ).toEqual([
+      ["companyProfile", "Фирма Провиотик", { company: "Провиотик" }],
+      ["personProfile", "Кой е Явор Стефанов?", { name: "Явор Стефанов" }],
+      [
+        "schoolMatura",
+        "Училище „Свети Свети Кирил и Методий“",
+        { school: "Училище „Свети Свети Кирил и Методий“" },
+      ],
+      [
+        "productPrice",
+        "Каква е цената на кафе Лаваца 500г?",
+        { product: "Каква е цената на кафе Лаваца 500г?" },
+      ],
+    ]);
+  });
 });

@@ -283,6 +283,9 @@ const seriesArgs = (q: string, count: number | undefined): ToolArgs => {
 const has = (q: string, ...words: string[]) => words.some((w) => q.includes(w));
 
 const hasCompanyProfileCue = (q: string): boolean =>
+  /^(?:фирма(?:та)?|компания(?:та)?|дружество(?:то)?|company|firm)\s+\S/u.test(
+    q,
+  ) ||
   has(
     q,
     "кажи ми за фирм",
@@ -1786,6 +1789,16 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   // --- schools / exam scores (per-município) ---
   if (has(q, "училищ", "гимназ", "school", "schools")) {
     const place = extractPlace(q);
+    // A short entity lookup ("училище \"Св. св. Кирил и Методий\"" or
+    // "гимназия Пейо Яворов") names a school even without an explicit exam cue.
+    // Keep this ahead of the place fallback, which otherwise treats the entire
+    // school phrase as a municipality query.
+    const namedSchool =
+      /^(?:(?:покажи|намери|търси|show|find)\s+)?(?:училище(?:то)?|гимназия(?:та)?|school|high school)\s+(?!в(?:\s|$)|in(?:\s|$))\S/iu.test(
+        question.trim(),
+      );
+    if (namedSchool)
+      return { tool: "schoolMatura", args: { school: question } };
     // A matura/score question that names no oblast is far more likely about ONE
     // named school ("матурата на СМГ") than a município rollup — route it to the
     // per-school lookup. extractPlace() returns any stopword residual without
@@ -4260,6 +4273,15 @@ const routeText = (question: string, ctx: ToolContext): Route => {
           tool: "priceRanking",
           args: count ? { metric: q, n: count } : { metric: q },
         };
+      // A product-only question is a catalogue/SKU lookup, not a settlement
+      // lookup. `extractPlace` deliberately accepts free-form residues and can
+      // therefore read a brand + pack size ("Лаваца 500г") as a place. Only
+      // keep the settlement path when the question contains an explicit
+      // location preposition and that place actually resolved.
+      const explicitPricePlace =
+        /(?:^|\s)(?:в|във|in|at)\s+/iu.test(q) && Boolean(place);
+      if (priceProduct && !explicitPricePlace)
+        return { tool: "productPrice", args: { product: q } };
       // a named place (and/or a single product) → that place's prices
       if (place || priceProduct)
         return {

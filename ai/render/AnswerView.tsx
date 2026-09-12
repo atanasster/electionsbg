@@ -38,6 +38,7 @@ import type {
   ClarifyRequest,
   Column,
   Envelope,
+  FactLink,
   Lang,
   SeriesPoint,
   TableCellLink,
@@ -68,7 +69,7 @@ const fmtCell = (value: string | number | null, col: Column): string => {
 const linkedCell = (
   value: string | number | null,
   col: Column,
-  links: TableCellLink[],
+  links: Pick<TableCellLink | FactLink, "text" | "href">[],
 ): ReactNode => {
   const rendered = fmtCell(value, col);
   if (typeof value !== "string" || links.length === 0) return rendered;
@@ -97,6 +98,18 @@ const linkedCell = (
   }
   if (cursor < value.length) parts.push(value.slice(cursor));
   return parts;
+};
+
+const linkedNarration = (text: string, env: Envelope): ReactNode => {
+  const eik = env.facts.eik_id;
+  if (eik == null) return text;
+  const value = String(eik);
+  return linkedCell(text, { key: "narration", label: "" }, [
+    {
+      text: value,
+      href: `/company/${encodeURIComponent(value)}`,
+    },
+  ]);
 };
 
 // Compact y-axis ticks so euro charts read "2,9 млрд" / "€2.9B" instead of
@@ -465,7 +478,13 @@ const Scalar = ({ env, lang }: { env: Envelope; lang: Lang }) => (
       .map(([k, v]) => (
         <div key={k} className="contents">
           <dt className="text-muted-foreground">{factLabel(k, lang)}</dt>
-          <dd className="font-medium">{String(v)}</dd>
+          <dd className="font-medium">
+            {linkedCell(
+              v,
+              { key: k, label: "" },
+              (env.factLinks ?? []).filter((link) => link.fact === k),
+            )}
+          </dd>
         </div>
       ))}
   </dl>
@@ -589,7 +608,9 @@ export const AnswerView = ({
       </div>
 
       {narration && (
-        <p className="text-sm leading-relaxed text-foreground">{narration}</p>
+        <p className="text-sm leading-relaxed text-foreground">
+          {linkedNarration(narration, env)}
+        </p>
       )}
 
       {controls && (

@@ -225,6 +225,14 @@ export const companyProfile = async (
       : `Commerce Registry · ${statusLabel(company.status, false)}`,
     columns,
     rows,
+    cellLinks: [
+      {
+        row: 0,
+        column: "value",
+        text: eik,
+        href: `/company/${encodeURIComponent(eik)}`,
+      },
+    ],
     viz: "none",
     facts: {
       company: company.name || eik,

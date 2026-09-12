@@ -53,6 +53,14 @@ describe("companyProfile", () => {
     expect(env.title).toBe("Провиотик");
     expect(env.facts.eik_id).toBe("202930997");
     expect(env.facts.legal_form).toBe("АД");
+    expect(env.cellLinks).toEqual([
+      {
+        row: 0,
+        column: "value",
+        text: "202930997",
+        href: "/company/202930997",
+      },
+    ]);
   });
 
   it("does not search when the input already contains an EIK", async () => {

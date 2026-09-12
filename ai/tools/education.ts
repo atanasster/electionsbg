@@ -7,6 +7,7 @@
 // `facts` is straight from that payload (the narrator never computes).
 
 import { fetchDb } from "./dataClient";
+import { clarifyEnvelope } from "./clarify";
 import type { Envelope, ToolArgs, ToolContext } from "./types";
 
 const MIN_RANK = 10;
@@ -30,7 +31,22 @@ const norm = (s: string): string =>
     .toLowerCase()
     .replace(/[.,"„“»«]/g, " ")
     .replace(/\s+/g, " ")
+    .replace(/(^|\s)св(?=\s|$)/gu, "$1свети")
     .trim();
+
+/** Remove the entity-kind wrapper from short lookup prompts while preserving longer
+ * matura questions, which the two-way matcher already understands. */
+export const cleanSchoolQuery = (raw: string): string => {
+  const quoted = raw.match(/[„“"']\s*([^„“"']{2,}?)\s*[„“"']/u)?.[1];
+  if (quoted) return quoted.trim();
+  return raw
+    .replace(
+      /^\s*(?:(?:покажи|намери|търси|show|find)\s+)?(?:училище(?:то)?|гимназия(?:та)?|school|high school)\s*[:—-]?\s*/iu,
+      "",
+    )
+    .replace(/^[„“"']+|[„“"'?!.,]+$/gu, "")
+    .trim();
+};
 
 // Name match, sorted best-score first. Tests BOTH directions of containment: a
 // clean school-name arg (LLM path) is a substring of the record name, while a
@@ -64,6 +80,8 @@ export const schoolMatura = async (
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
   const raw = String(args.school ?? args.place ?? args.query ?? "").trim();
+  const pinnedId = raw.match(/^school-id:(.+)$/u)?.[1];
+  const query = pinnedId ? raw : cleanSchoolQuery(raw);
   const fmt = (v: number) =>
     v.toLocaleString(bg ? "bg-BG" : "en-US", {
       minimumFractionDigits: 2,
@@ -75,8 +93,8 @@ export const schoolMatura = async (
     domain: "indicators",
     kind: "scalar",
     title: bg
-      ? `Не намерих училище „${raw}“ в данните за матурите`
-      : `No school “${raw}” found in the matura data`,
+      ? `Не намерих училище „${query}“ в данните за матурите`
+      : `No school “${query}” found in the matura data`,
     subtitle: bg
       ? "Търси по име на училище (напр. СМГ, Първа езикова Варна)."
       : "Search by school name (e.g. SMG, First Language School Varna).",
@@ -84,7 +102,7 @@ export const schoolMatura = async (
     viz: "none",
     provenance: ["education-payload"],
   });
-  if (!raw) return notFound();
+  if (!query) return notFound();
 
   const payload = await fetchDb<DirectoryPayload>("education-payload", {
     kind: "directory",
@@ -92,7 +110,34 @@ export const schoolMatura = async (
   if (!payload?.schools?.length) return notFound();
   const schools = payload.schools;
 
-  const hit = matchSchoolByName(schools, raw)[0];
+  const matches = pinnedId
+    ? schools.filter((school) => school.id === pinnedId)
+    : matchSchoolByName(schools, query);
+  if (matches.length > 1)
+    return clarifyEnvelope(
+      bg
+        ? `Кое училище „${query}“ имате предвид?`
+        : `Which school “${query}” do you mean?`,
+      matches.map((school) => ({
+        label: school.name,
+        sublabel: [
+          school.obshtinaName,
+          school.address,
+          school.latestYear
+            ? bg
+              ? `${school.latestYear} г.`
+              : String(school.latestYear)
+            : null,
+        ]
+          .filter(Boolean)
+          .join(" · "),
+        tool: "schoolMatura",
+        args: { school: `school-id:${school.id}` },
+      })),
+      ["education-payload"],
+      "indicators",
+    );
+  const hit = matches[0];
   if (!hit || hit.latestScore == null) return notFound();
   const score = hit.latestScore;
 
@@ -111,6 +156,7 @@ export const schoolMatura = async (
 
   const facts: Record<string, string | number> = {
     school: hit.name,
+    school_id: hit.id,
     matura_bel: fmt(score),
     year: hit.latestYear ?? "",
     graduates: hit.latestN ?? 0,
@@ -126,9 +172,6 @@ export const schoolMatura = async (
         ? "above average"
         : "below average";
   }
-  const matchCount = matchSchoolByName(schools, raw).length;
-  if (matchCount > 1) facts.other_matches = matchCount - 1;
-
   return {
     tool: "schoolMatura",
     domain: "indicators",

@@ -6,6 +6,7 @@
 // facts. See docs/plans/consumption-pg-v1.md.
 
 import { fetchData, fetchDb } from "./dataClient";
+import { clarifyEnvelope } from "./clarify";
 import { resolveSettlement, resolveMunicipality, OBLASTS } from "./place";
 import {
   settlementLocator,
@@ -1372,12 +1373,93 @@ interface LadderRow {
 const searchProduct = (q: string) =>
   fetchDb<ProductHit[]>("price-search", { q });
 
+const chainCountLabel = (count: number, lang: ToolContext["lang"]): string =>
+  `${count} ${
+    lang === "bg"
+      ? count === 1
+        ? "верига"
+        : "вериги"
+      : count === 1
+        ? "chain"
+        : "chains"
+  }`;
+
+const PRODUCT_PROMPT_PREFIX =
+  /^(?:(?:каква|какъв|какви)\s+е\s+)?(?:цената|цените|цена)\s+(?:на\s+)?|^колко\s+струва(?:т)?\s+|^къде\s+е\s+(?:най-)?евтин(?:о|а|ият|ата)?\s+|^how\s+much\s+(?:is|are|does|do)\s+|^(?:what(?:'s| is)\s+the\s+price\s+of|price\s+of)\s+/iu;
+
+/** Remove conversational price wording while preserving the catalogue name. */
+export const cleanProductQuery = (raw: string): string =>
+  raw
+    .trim()
+    .replace(PRODUCT_PROMPT_PREFIX, "")
+    .replace(/^[\s„“"']+|[\s„“"'?!]+$/gu, "")
+    .trim();
+
+const normalizeProductName = (value: string): string =>
+  value
+    .toLocaleLowerCase("bg")
+    .replace(
+      /(\d+)\s*(?:килограма?|килограм|кг)(?=\s|$|[^\p{L}\p{N}])/gu,
+      "$1кг",
+    )
+    .replace(/(\d+)\s*(?:грама?|грам|гр|г)(?=\s|$|[^\p{L}\p{N}])/gu, "$1гр")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+
+const PRODUCT_SEARCH_STOP = new Set([
+  "кафе",
+  "мляко",
+  "хляб",
+  "яйца",
+  "олио",
+  "зехтин",
+  "кашкавал",
+  "сирене",
+  "масло",
+  "брашно",
+  "захар",
+  "ориз",
+  "пиле",
+  "чай",
+  "бира",
+  "вино",
+  "coffee",
+  "milk",
+  "bread",
+  "eggs",
+  "oil",
+  "cheese",
+  "butter",
+  "tea",
+  "beer",
+  "wine",
+]);
+
+/**
+ * The DB typeahead is a contiguous-substring search. If a shopper supplies a
+ * broad name plus a pack size ("кафе Лаваца 500г"), use the meaningful brand
+ * tokens as a second, wider probe so close catalogue products can be offered.
+ */
+const productFallbackQuery = (query: string): string => {
+  const tokens = normalizeProductName(query)
+    .split(" ")
+    .filter(
+      (token) =>
+        token.length > 2 &&
+        !PRODUCT_SEARCH_STOP.has(token) &&
+        !/^\d+(?:гр|кг|г|ml|мл|l|л)?$/u.test(token),
+    );
+  return tokens.join(" ");
+};
+
 export const productPrice = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const lang = ctx.lang;
-  const q = typeof args.product === "string" ? args.product.trim() : "";
+  const raw = typeof args.product === "string" ? args.product.trim() : "";
+  const pinnedSlug = raw.match(/^product-slug:(.+)$/u)?.[1];
+  const q = pinnedSlug ? raw : cleanProductQuery(raw);
   if (q.length < 2)
     return noData(
       "productPrice",
@@ -1386,19 +1468,68 @@ export const productPrice = async (
       "price_payloads (PG)",
     );
 
-  const hits = await searchProduct(q);
-  if (!hits || !hits.length)
+  let hits = pinnedSlug ? [] : await searchProduct(q);
+  if (!pinnedSlug && !hits.length) {
+    const fallback = productFallbackQuery(q);
+    if (fallback && normalizeProductName(fallback) !== normalizeProductName(q))
+      hits = await searchProduct(fallback);
+  }
+  if (!pinnedSlug && (!hits || !hits.length))
     return noData(
       "productPrice",
       lang === "bg" ? `Няма продукт „${q}"` : `No product "${q}"`,
       { query: q, note: notCpi(lang) },
       "price_payloads (PG)",
     );
-  const top = hits[0];
+  const exact = hits.find(
+    (hit) => normalizeProductName(hit.title) === normalizeProductName(q),
+  );
+  if (!pinnedSlug && !exact)
+    return clarifyEnvelope(
+      lang === "bg"
+        ? `Кой продукт „${q}“ имате предвид?`
+        : `Which product did you mean by “${q}”?`,
+      hits.slice(0, 20).map((hit) => ({
+        label: hit.title,
+        sublabel: [
+          hit.current_min_eur != null
+            ? `${lang === "bg" ? "от" : "from"} ${eur(hit.current_min_eur, lang)}`
+            : null,
+          chainCountLabel(hit.chain_count, lang),
+        ]
+          .filter(Boolean)
+          .join(" · "),
+        tool: "productPrice",
+        args: { product: `product-slug:${hit.slug}` },
+      })),
+      ["price_payloads (PG)", PROV],
+      "indicators",
+    );
+
+  const top = exact ?? hits[0];
+  const slug = pinnedSlug ?? top?.slug;
+  if (!slug)
+    return noData(
+      "productPrice",
+      lang === "bg" ? `Няма продукт „${q}"` : `No product "${q}"`,
+      { query: q, note: notCpi(lang) },
+      "price_payloads (PG)",
+    );
   const detail = await fetchDb<{
     product: ProductHit & { confidence: number };
     chains: LadderRow[];
-  } | null>("price-product", { slug: top.slug });
+  } | null>("price-product", { slug });
+
+  const product = detail?.product ?? top;
+  if (!product)
+    return noData(
+      "productPrice",
+      lang === "bg"
+        ? "Продуктът вече не е наличен"
+        : "Product no longer available",
+      { note: notCpi(lang) },
+      "price_payloads (PG)",
+    );
 
   const ladder = (detail?.chains ?? []).slice(0, 8);
   const columns: Column[] = [
@@ -1411,30 +1542,32 @@ export const productPrice = async (
   }));
 
   const since =
-    top.pct_since_euro == null
+    product.pct_since_euro == null
       ? lang === "bg"
         ? "нов след еврото"
         : "new since the euro"
-      : `${pct(top.pct_since_euro / 100)} ${lang === "bg" ? "от еврото" : "since the euro"}`;
+      : `${pct(product.pct_since_euro / 100)} ${lang === "bg" ? "от еврото" : "since the euro"}`;
 
   return {
     tool: "productPrice",
     domain: "indicators",
     kind: "table",
-    title: top.title,
+    title: product.title,
     subtitle:
-      top.current_min_eur != null
-        ? `${lang === "bg" ? "от" : "from"} ${eur(top.current_min_eur, lang)} · ${top.chain_count} ${lang === "bg" ? "вериги" : "chains"} · ${since}`
+      product.current_min_eur != null
+        ? `${lang === "bg" ? "от" : "from"} ${eur(product.current_min_eur, lang)} · ${chainCountLabel(product.chain_count, lang)} · ${since}`
         : since,
     columns,
     rows,
     viz: "none",
     facts: {
-      product: top.title,
-      slug: top.slug,
+      product: product.title,
+      slug: product.slug,
       lowest_price:
-        top.current_min_eur != null ? eur(top.current_min_eur, lang) : "",
-      chains: top.chain_count,
+        product.current_min_eur != null
+          ? eur(product.current_min_eur, lang)
+          : "",
+      chains: product.chain_count,
       since_euro: since,
       cheapest_chain: ladder[0]?.chain ?? "",
       note: notCpi(lang),

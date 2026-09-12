@@ -25,6 +25,7 @@ import { Users, Coins, FileText } from "lucide-react";
 import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { isSharedNameIdentity } from "@/screens/person/sharedNameIdentity";
+import { positionLabel } from "@/lib/personLabels";
 
 /** One ranked person row — snake_case, as the route returns raw columns.
  *  tier P = public figure, V = money-linked private owner, N = other owner. */
@@ -190,42 +191,8 @@ export const personHref = (h: PersonHit): string =>
  *  extra entries cover the wider `person_source.facet` vocabulary in case that collapse is
  *  ever relaxed. An unmapped code falls back to ITSELF, which leaks raw English to a BG
  *  reader; that is the failure this map's completeness prevents, and it is why a new facet
- *  belongs here the day the loader stops folding it away. */
-const POSITION_LABEL: Record<"bg" | "en", Record<string, string>> = {
-  bg: {
-    politician: "Политик",
-    executive: "Изпълнителна власт",
-    public_sector: "Публичен сектор",
-    magistrate: "Магистрат",
-    regulator: "Регулатор",
-    private_sector: "Частен сектор",
-    ngo: "НПО",
-    donor: "Дарител",
-    ds: "Досие ДС",
-    sanctions: "Санкции",
-    media: "Медии",
-    professional: "Нотариус/ЧСИ",
-    other: "Друго",
-  },
-  en: {
-    politician: "Politician",
-    executive: "Executive",
-    public_sector: "Public sector",
-    magistrate: "Magistrate",
-    regulator: "Regulator",
-    private_sector: "Private sector",
-    ngo: "NGO",
-    donor: "Donor",
-    ds: "State Security file",
-    sanctions: "Sanctions",
-    media: "Media",
-    professional: "Notary/bailiff",
-    other: "Other",
-  },
-};
-
-export const positionLabel = (code: string | null, bg: boolean): string =>
-  (code && POSITION_LABEL[bg ? "bg" : "en"][code]) || code || "";
+ *  belongs in the shared `personLabels` map the day the loader stops folding it away. */
+export { positionLabel };
 
 /** Localizes a `person_role.role` code — `usePersonLabels().roleLabel`, passed in because this
  *  module is not a component and cannot call a hook. */
