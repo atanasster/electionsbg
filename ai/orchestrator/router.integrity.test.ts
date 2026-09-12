@@ -59,10 +59,10 @@ describe("election routing integrity", () => {
     expect(
       route("Как гласува парламентът за бюджета в 51-ото НС?", ctx),
     ).toEqual({
-      tool: "voteSearch",
+      tool: "rollcallQuestion",
       args: {
-        query: "Как гласува парламентът за бюджета в 51-ото НС?",
-        ns: 51,
+        question: "Как гласува парламентът за бюджета в 51-ото НС?",
+        corpus: "parliamentVotes",
       },
     });
   });

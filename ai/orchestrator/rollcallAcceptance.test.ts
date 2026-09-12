@@ -2,8 +2,8 @@ import { expect, it } from "vitest";
 import { route } from "./router";
 import type { ToolContext } from "../tools/types";
 const ctx = { lang: "bg", election: "2024_10_27" } as ToolContext;
-// Red acceptance specifications: convert to ordinary tests as scoped routing lands.
-it.fails.each([
+// Screenshot and identity regressions must use the scoped legislative route.
+it.each([
   ["покажи ми последните заседания на парламента", "parliamentSessions"],
   ["покажи ми последните гласувания в парламента", "parliamentVotes"],
   ["Кои са последните 10 гласувания на Бойко Рашков?", "parliamentCasts"],
@@ -16,7 +16,7 @@ it.fails.each([
   expect(result?.tool).toBe("rollcallQuestion");
   expect(result?.args).toMatchObject({ question: prompt, corpus });
 });
-it.fails.each([
+it.each([
   ["Show me the latest parliament sittings.", "parliamentSessions"],
   ["Show me the latest votes in parliament.", "parliamentVotes"],
   ["What are Boyko Rashkov's last 10 votes?", "parliamentCasts"],

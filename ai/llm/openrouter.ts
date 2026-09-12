@@ -220,6 +220,8 @@ export class OpenRouterProvider implements LLMProvider {
     if (
       deterministic &&
       ([
+        "rollcallQuery",
+        "rollcallQuestion",
         "fundingQuery",
         "fundingQuestion",
         "procurementQuery",
@@ -324,6 +326,8 @@ export class OpenRouterProvider implements LLMProvider {
     const template = narrate(env, lang);
     if (
       [
+        "rollcallQuery",
+        "rollcallQuestion",
         "fundingQuery",
         "fundingQuestion",
         "procurementQuery",

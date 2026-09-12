@@ -1,3 +1,4 @@
+import { rollcallCorpus } from "./rollcallUnderstanding";
 import { understandFunding } from "./fundingUnderstanding";
 import { understandProcurement } from "./procurementUnderstanding";
 import { applyProductDefaults } from "./productDefaults";
@@ -51,6 +52,12 @@ export function parseModelRoute(raw: string, question: string): Route {
   } catch {
     /* parser handles malformed JSON */
   }
+  const legislative = rollcallCorpus(current);
+  if (legislative)
+    return {
+      tool: "rollcallQuestion",
+      args: { question: current, corpus: legislative },
+    };
   const funding = understandFunding(current);
   if (funding.kind !== "none")
     return funding.kind === "query"
@@ -62,7 +69,15 @@ export function parseModelRoute(raw: string, question: string): Route {
       ? { tool: "procurementQuery", args: procurement.query }
       : { tool: "procurementQuestion", args: { question: current } };
   const parsed = parseToolCall(raw);
-  if (parsed && ["fundingQuery", "fundingQuestion"].includes(parsed.tool))
+  if (
+    parsed &&
+    [
+      "rollcallQuery",
+      "rollcallQuestion",
+      "fundingQuery",
+      "fundingQuestion",
+    ].includes(parsed.tool)
+  )
     return null; // No funding intent was established above.
   if (
     parsed?.tool === "rankPlaces" &&

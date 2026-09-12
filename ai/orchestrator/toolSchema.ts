@@ -1,3 +1,7 @@
+import {
+  decodeRollcallQuery,
+  encodeRollcallQuery,
+} from "../../src/lib/rollcallQuery";
 import { validatedFundingArgs } from "../tools/fundingQueryContract";
 // M3 — the tool-selection contract for the model provider.
 //
@@ -106,6 +110,19 @@ export const validateToolArgs = (
   toolName: string,
   raw: unknown,
 ): ToolArgs | null => {
+  if (toolName === "rollcallQuery") {
+    if (
+      !raw ||
+      typeof raw !== "object" ||
+      Array.isArray(raw) ||
+      Object.keys(raw).some((k) => k !== "query")
+    )
+      return null;
+    const encoded = (raw as Record<string, unknown>).query;
+    if (typeof encoded !== "string") return null;
+    const parsed = decodeRollcallQuery(encoded);
+    return parsed.ok ? { query: encodeRollcallQuery(parsed.query) } : null;
+  }
   if (toolName === "fundingQuery") return validatedFundingArgs(raw);
   if (toolName === "procurementQuery") return validatedProcurementArgs(raw);
   const result = validateArguments(toolName, raw ?? {}, {

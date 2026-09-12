@@ -22,6 +22,8 @@ export const narrate = (env: Envelope, lang: Lang): string => {
   if (env.clarify) return env.clarify.prompt;
   if (
     [
+      "rollcallQuery",
+      "rollcallQuestion",
       "fundingQuery",
       "fundingQuestion",
       "procurementQuery",

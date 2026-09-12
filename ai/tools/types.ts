@@ -123,6 +123,10 @@ export type ClarifyRequest = {
 };
 
 export type Envelope = {
+  rollcall?: {
+    query: import("../../src/lib/rollcallQuery").RollcallQuery;
+    result: import("./rollcall").RollcallResult;
+  };
   funding?: {
     query: import("../../src/lib/fundingQuery").FundingQuery;
     result: import("./funding").FundingResult;

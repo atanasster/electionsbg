@@ -1,3 +1,4 @@
+import { rollcallCorpus } from "./rollcallUnderstanding";
 import {
   validateFundingQuery,
   encodeFundingQuery,
@@ -5150,6 +5151,9 @@ export const resolveFollowOn = (
  * Route its subject first; context can only change that tool's declared inputs.
  */
 export const route = (question: string, ctx: ToolContext): Route => {
+  const rollcall = rollcallCorpus(question);
+  if (rollcall)
+    return { tool: "rollcallQuestion", args: { question, corpus: rollcall } };
   const funding = understandFunding(question);
   if (funding.kind !== "none")
     return funding.kind === "query"

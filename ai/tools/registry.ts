@@ -1,3 +1,4 @@
+import { ROLLCALL_TOOLS } from "./rollcall";
 import { FUNDING_TOOLS } from "./funding";
 import { PROCUREMENT_TOOLS } from "./procurement";
 import { RANKING_VALUES } from "./rankingContract";
@@ -285,6 +286,7 @@ import type {
 
 export const TOOLS: ToolDef[] = [
   ...PROCUREMENT_TOOLS,
+  ...ROLLCALL_TOOLS,
   ...FUNDING_TOOLS,
   ...BUDGET_TOOLS,
   WATER_TOOL,

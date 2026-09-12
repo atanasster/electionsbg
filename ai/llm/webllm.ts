@@ -271,6 +271,8 @@ export class WebLLMProvider implements LLMProvider {
     const template = narrate(env, lang);
     if (
       [
+        "rollcallQuery",
+        "rollcallQuestion",
         "fundingQuery",
         "fundingQuestion",
         "procurementQuery",
