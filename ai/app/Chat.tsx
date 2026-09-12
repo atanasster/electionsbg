@@ -1,4 +1,6 @@
+import { scrollParent, shouldFollowChat } from "./chatScroll";
 import { CHAT_STORAGE_KEY } from "./chatStorage";
+import { InteractionNavigator } from "./InteractionNavigator";
 import { useLinkedQuestion } from "./useLinkedQuestion";
 import { trackEvent } from "@/lib/analytics";
 import { useChatNavigation } from "./navigation";
@@ -103,23 +105,6 @@ const PROMPT_HISTORY_MAX = 50;
 // pointer is likelier and vertical room is scarcer.
 const CHIP =
   "inline-flex min-h-[40px] items-center rounded-full border border-input bg-card px-3 text-xs text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50 sm:min-h-0 sm:px-2.5 sm:py-1 sm:text-[11px]";
-
-// Nearest scrollable ancestor of `el` (the element that actually scrolls). Used
-// to auto-scroll the conversation: we scroll the scrollport itself to its foot
-// rather than scrollIntoView the end-marker, because the marker sits above the
-// sticky composer in the DOM — aligning it to the scrollport bottom would leave
-// the composer overlaying the tail of the answer + the follow-up chips. Matched
-// by overflow style alone (not current overflow) so it resolves before the
-// content has grown tall enough to scroll.
-const scrollParent = (el: HTMLElement | null): HTMLElement | null => {
-  let node = el?.parentElement ?? null;
-  while (node) {
-    const { overflowY } = getComputedStyle(node);
-    if (overflowY === "auto" || overflowY === "scroll") return node;
-    node = node.parentElement;
-  }
-  return null;
-};
 
 // Per-response export menu, rendered in the answer panel's header band. Image
 // rasterizes the live card (via cardRef); md/pdf/csv serialize this one answer.
@@ -386,6 +371,7 @@ export const Chat = ({
   const questionLookupAdapters = useQuestionLookupAdapters();
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
+  const conversationRef = useRef<HTMLDivElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
   const ranInitial = useRef(false);
   const firstPersist = useRef(true);
@@ -407,11 +393,15 @@ export const Chat = ({
   useEffect(() => {
     const scroller = scrollParent(endRef.current);
     if (!scroller) return;
-    const FOLLOW_SLACK = 80; // px from the foot that still counts as "following"
+    let previousTop = scroller.scrollTop;
     const onScroll = () => {
-      pinned.current =
-        scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight <=
-        FOLLOW_SLACK;
+      pinned.current = shouldFollowChat(
+        pinned.current,
+        previousTop,
+        scroller.scrollTop,
+        scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight,
+      );
+      previousTop = scroller.scrollTop;
     };
     scroller.addEventListener("scroll", onScroll, { passive: true });
     const content = scroller.firstElementChild ?? scroller;
@@ -965,48 +955,70 @@ export const Chat = ({
         </div>
       )}
 
-      <div className="flex flex-col gap-4">
-        {messages.map((m, i) =>
-          m.role === "user" ? (
-            <div key={m.id} className="max-w-[85%] self-end">
-              <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2 text-sm text-primary-foreground">
-                {m.text}
-              </div>
-            </div>
-          ) : (
-            <AssistantMessage
-              key={m.id}
-              msg={m}
-              lang={lang}
-              question={messages[i - 1]?.text ?? ""}
-              streaming={busy && i === messages.length - 1}
-              speech={speech}
-              onClarify={setClarify}
-            />
-          ),
-        )}
-        {followups.length > 0 && (
-          // Same treatment as the starters: a single horizontally scrollable
-          // row on a phone (so several follow-ups can't stack into many rows),
-          // wrapping normally from sm up. Label-free at every width.
-          <div
-            className={cn(
-              "flex items-center gap-1.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-x-visible sm:pb-0",
-              "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-            )}
-          >
-            {followups.map((s) => (
-              <button
-                key={s.en}
-                onClick={() => sendSuggestion(s)}
-                className={cn(CHIP, "shrink-0 whitespace-nowrap")}
+      <div className="relative">
+        <InteractionNavigator
+          messages={messages}
+          contentRef={conversationRef}
+          lang={lang}
+          onNavigate={() => {
+            pinned.current = false;
+          }}
+        />
+        <div
+          ref={conversationRef}
+          className={cn(
+            "flex flex-col gap-4",
+            messages.filter((message) => message.role === "user").length > 1 &&
+              "pl-8",
+          )}
+        >
+          {messages.map((m, i) =>
+            m.role === "user" ? (
+              <div
+                key={m.id}
+                data-interaction={m.id}
+                tabIndex={-1}
+                className="max-w-[85%] self-end scroll-mt-4 focus:outline-none"
               >
-                {s[lang]}
-              </button>
-            ))}
-          </div>
-        )}
-        <div ref={endRef} />
+                <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2 text-sm text-primary-foreground">
+                  {m.text}
+                </div>
+              </div>
+            ) : (
+              <AssistantMessage
+                key={m.id}
+                msg={m}
+                lang={lang}
+                question={messages[i - 1]?.text ?? ""}
+                streaming={busy && i === messages.length - 1}
+                speech={speech}
+                onClarify={setClarify}
+              />
+            ),
+          )}
+          {followups.length > 0 && (
+            // Same treatment as the starters: a single horizontally scrollable
+            // row on a phone (so several follow-ups can't stack into many rows),
+            // wrapping normally from sm up. Label-free at every width.
+            <div
+              className={cn(
+                "flex items-center gap-1.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-x-visible sm:pb-0",
+                "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+              )}
+            >
+              {followups.map((s) => (
+                <button
+                  key={s.en}
+                  onClick={() => sendSuggestion(s)}
+                  className={cn(CHIP, "shrink-0 whitespace-nowrap")}
+                >
+                  {s[lang]}
+                </button>
+              ))}
+            </div>
+          )}
+          <div ref={endRef} />
+        </div>
       </div>
 
       <div className="sticky bottom-0 -mx-2 bg-card/85 px-2 pb-3 pt-2 backdrop-blur sm:-mx-4 sm:px-4">
