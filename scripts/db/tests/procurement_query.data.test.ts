@@ -94,6 +94,32 @@ test.skipIf(Boolean(skipReason))(
             }>(built.sql, built.params)
           ).rows[0].result;
         };
+        const conjunction = await run({
+          metric: "risk",
+          numeratorPredicates: ["oneBid", "risk:directAward"],
+        });
+        expect(conjunction.totals.numerator).toBe(1);
+        const strict = await run({ amountMax: 100, amountMaxRelation: "lt" });
+        expect(strict.totals.records).toBe(1);
+        const inclusive = await run({
+          amountMax: 100,
+          amountMaxRelation: "lte",
+        });
+        expect(inclusive.totals.records).toBe(2);
+        await client.query(
+          "UPDATE contracts SET number_of_tenderers=11 WHERE key='a2'",
+        );
+        const eleven = await run({
+          operation: "list",
+          metric: "records",
+          bidderMin: 11,
+          bidderMax: 11,
+        });
+        expect(eleven.totals.records).toBe(1);
+        expect(eleven.rows).toHaveLength(1);
+        await client.query(
+          "UPDATE contracts SET number_of_tenderers=3 WHERE key='a2'",
+        );
         const all = await run({ limit: 1 });
         expect(all.totals).toMatchObject({
           records: 6,

@@ -1,3 +1,5 @@
+import { procurementQuery } from "./procurement";
+import { decodeProcurementQuery } from "../../src/lib/procurementQuery";
 // Governance — fiscal tools (budget, COFOG, procurement, EU funds). All read
 // headline index/rollup files; amounts are in EUR.
 
@@ -2515,6 +2517,11 @@ export const openTenders = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
+  if (typeof args.canonical === "string") {
+    const parsed = decodeProcurementQuery(args.canonical);
+    if (!parsed.ok) throw new Error("Invalid procurement query");
+    return procurementQuery(parsed.query, ctx);
+  }
   const bg = ctx.lang === "bg";
   const org = String(args.org ?? args.place ?? "").trim();
   const query = String(args.query ?? args.subject ?? args.metric ?? "").trim();

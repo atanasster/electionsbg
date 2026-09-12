@@ -1,4 +1,12 @@
 import {
+  understandProcurement,
+  PROCUREMENT_RISK_ALIASES,
+} from "./procurementUnderstanding";
+import {
+  encodeProcurementQuery,
+  validateProcurementQuery,
+} from "../../src/lib/procurementQuery";
+import {
   applyProductDefaults,
   hasNationalScope,
   plovdivScope,
@@ -4939,6 +4947,24 @@ export const resolveFollowOn = (
   prev: { tool: string; args: ToolArgs } | undefined,
 ): Route => {
   if (!prev) return null;
+  if (prev.tool === "procurementQuery") {
+    const parsed = validateProcurementQuery(prev.args);
+    if (!parsed.ok)
+      return {
+        tool: "procurementQuestion",
+        args: {
+          question: "Уточнете предишния обхват на обществените поръчки.",
+        },
+      };
+    const result = understandProcurement(question, { previous: parsed.query });
+    if (result.kind !== "none")
+      return result.kind === "query"
+        ? { tool: "procurementQuery", args: result.query }
+        : {
+            tool: "procurementQuestion",
+            args: { question, previous: encodeProcurementQuery(parsed.query) },
+          };
+  }
   const tool = TOOLS_BY_NAME[prev.tool];
   if (!tool) return null;
   if (followOnTopic(question) && localScope(prev)) {
@@ -5085,6 +5111,109 @@ export const resolveFollowOn = (
  * Route its subject first; context can only change that tool's declared inputs.
  */
 export const route = (question: string, ctx: ToolContext): Route => {
+  const legacyProcurement = routeText(question, ctx);
+  const explicitPeriod =
+    /\b20\d{2}\b|last year|this year|last 12 months|миналата година|тази година|последните 12 месеца/i.test(
+      question,
+    );
+  if (
+    !explicitPeriod &&
+    legacyProcurement &&
+    ((legacyProcurement.tool === "procurementDebarred" &&
+      !/договор|contract|търг|tender|процент|share|percent/i.test(question)) ||
+      (legacyProcurement.tool === "mpProcurement" &&
+        !/договор|contract|процент|share|percent|без|without/i.test(question)))
+  )
+    return legacyProcurement;
+  const legacyDiscovery = [
+    "ngoConflictAwarders",
+    "transportSpending",
+    "socialSpending",
+    "mrrbSpending",
+    "environmentSpending",
+    "nzokPrivateHospitals",
+    "topContractors",
+    "procurementAppeals",
+    "contractSearch",
+    "procurementRedFlags",
+    "procurementDebarred",
+    "procurementSingleBidSectors",
+    "mpProcurement",
+    "awarderProcurement",
+    "procurementNormalcy",
+    "projectLifecycle",
+    "procurementBySettlement",
+    "procurementByOblast",
+  ];
+  if (
+    legacyProcurement?.tool === "tenderLookup" &&
+    !/процент|дял|уважен|спрян|risk|share|upheld|suspended/i.test(question)
+  )
+    return legacyProcurement;
+  if (
+    !explicitPeriod &&
+    legacyProcurement &&
+    legacyDiscovery.includes(legacyProcurement.tool) &&
+    !Object.values(PROCUREMENT_RISK_ALIASES).some((pattern) =>
+      pattern.test(question.toLocaleLowerCase("bg")),
+    ) &&
+    !/процент|дял|share|percent|пряко възлагане|direct award|слаба конкуренция|weak competition|без |without |поне \d|at least|below|above|cpv\s*\d|отменен|cancelled/i.test(
+      question,
+    )
+  )
+    return legacyProcurement;
+  const procurement = understandProcurement(question);
+  if (procurement.kind === "query") {
+    if (
+      legacyProcurement?.tool === "openTenders" &&
+      procurement.query.corpus === "tenders"
+    )
+      return {
+        tool: "openTenders",
+        args: {
+          ...legacyProcurement.args,
+          canonical: encodeProcurementQuery(procurement.query),
+        },
+      };
+    const chain = /метро\s*станц|subway|metro station/i.test(question)
+      ? undefined
+      : resolveChainEik(question);
+    if (chain && /договор|contract/i.test(question)) {
+      if (
+        !procurement.query.from &&
+        !procurement.query.toExclusive &&
+        procurement.query.metric === "records"
+      )
+        return { tool: "contractSearch", args: { company: chain } };
+      procurement.query.supplierIds = [chain];
+    }
+    if (
+      !procurement.query.from &&
+      !procurement.query.toExclusive &&
+      !procurement.query.buyerIds &&
+      !procurement.query.supplierIds &&
+      !procurement.query.buyerSectors &&
+      !procurement.query.subjectSectors &&
+      !procurement.query.cpvPrefixes &&
+      !procurement.query.topic &&
+      !procurement.query.status &&
+      procurement.query.metric === "records" &&
+      procurement.query.operation === "count"
+    ) {
+      const legacy = routeText(question, ctx);
+      if (
+        legacy &&
+        ["procurementTotals", "procurementAppeals", "tenderLookup"].includes(
+          legacy.tool,
+        )
+      )
+        return legacy;
+    }
+  }
+  if (procurement.kind !== "none")
+    return procurement.kind === "query"
+      ? { tool: "procurementQuery", args: procurement.query }
+      : { tool: "procurementQuestion", args: { question } };
   const lines = question.split("\n");
   const subjectLines = lines.filter(
     (line, index) => index === 0 || !line.includes(":"),

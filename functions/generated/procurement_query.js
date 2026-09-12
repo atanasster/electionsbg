@@ -2615,6 +2615,8 @@ var PROCUREMENT_FIELDS = {
   maxRiskCount: number(0, 17),
   amountMin: number(0, Number.MAX_SAFE_INTEGER, false),
   amountMax: number(0, Number.MAX_SAFE_INTEGER, false),
+  amountMinRelation: text(["gte", "gt"]),
+  amountMaxRelation: text(["lte", "lt"]),
   currency: text(["EUR", "BGN"]),
   valueBasis: text(["current", "signing", "estimate"]),
   procedure: text(),
@@ -2659,6 +2661,8 @@ var procurementPredicateIds = (corpus) => [
   ...corpus !== "decisions" ? ["appealed"] : [],
   "upheld",
   "suspended",
+  ...["appeals", "decisions"].includes(corpus) ? ["unlinked"] : [],
+  ...corpus === "appeals" ? ["interimRequested"] : [],
   ...PROCUREMENT_RISKS[corpus].map((id) => `risk:${id}`)
 ];
 function validateProcurementQuery(raw) {
@@ -2730,6 +2734,10 @@ function validateProcurementQuery(raw) {
   ])
     if (args[min] !== void 0 && args[max] !== void 0 && Number(args[min]) > Number(args[max]))
       errors[max] = "maximum below minimum";
+  if (args.amountMinRelation && args.amountMin === void 0)
+    errors.amountMin = "lower bound required";
+  if (args.amountMaxRelation && args.amountMax === void 0)
+    errors.amountMax = "upper bound required";
   const allowed = procurementPredicateIds(corpus);
   for (const [key, catalog] of [
     ["buyerSectors", PROCUREMENT_BUYER_SECTORS],
@@ -2768,6 +2776,8 @@ function validateProcurementQuery(raw) {
     for (const key of [
       "amountMin",
       "amountMax",
+      "amountMinRelation",
+      "amountMaxRelation",
       "minRiskCount",
       "maxRiskCount",
       "procedure",

@@ -138,8 +138,16 @@ function compileOtherQuery(q) {
         `c.is_cancelled IS FALSE AND procurement_query_instant(c.submission_deadline) ${q.status === "open" ? ">" : "<="} ${bind(q.asOf)}::timestamptz`,
       );
     for (const [name, column, op] of [
-      ["amountMin", "c.estimated_value_eur", ">="],
-      ["amountMax", "c.estimated_value_eur", "<="],
+      [
+        "amountMin",
+        "c.estimated_value_eur",
+        q.amountMinRelation === "gt" ? ">" : ">=",
+      ],
+      [
+        "amountMax",
+        "c.estimated_value_eur",
+        q.amountMaxRelation === "lt" ? "<" : "<=",
+      ],
       ["minRiskCount", "r.fired", ">="],
       ["maxRiskCount", "r.fired", "<="],
     ])
@@ -201,6 +209,11 @@ function compileOtherQuery(q) {
         throw new ProcurementQueryError("Unsupported risk");
       sql = `CASE WHEN (r.available_mask & ${1 << bit})<>0 THEN (r.fired_mask & ${1 << bit})<>0 END`;
     } else if (tender) sql = `CASE WHEN c.unp<>'' THEN ${related(id)} END`;
+    else if (id === "unlinked")
+      sql = appeal
+        ? "t.unp IS NULL"
+        : "NOT EXISTS(SELECT 1 FROM kzk_appeals a WHERE a.decision_act_no=c.act_no)";
+    else if (id === "interimRequested" && appeal) sql = "c.vm_requested";
     else if (id === "appealed") sql = "TRUE";
     else if (id === "upheld")
       sql = `CASE WHEN (${outcome}) IN ('уважена','отхвърлена') ${decision ? "AND c.kind='решения'" : ""} THEN (${outcome})='уважена' END`;

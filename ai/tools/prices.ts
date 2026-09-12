@@ -1,3 +1,4 @@
+import { CHAIN_MATCH } from "./chainIdentity";
 // КЗП "Колко струва" retail-price tools (euro-adoption monitoring feed).
 // Served from Postgres (migration 048) via /api/db/price-payload — the
 // data/prices/*.json tree is gone. The payload SHAPES are unchanged (byte
@@ -1591,23 +1592,7 @@ export const productPrice = async (
 // the fairness-filtered `chains` set, but they DO have a company footprint). Long
 // alias stems keep false matches out; the метро=subway case is filtered in the
 // router by requiring a chain/retail/procurement context.
-const CHAIN_MATCH: { re: RegExp; eik: string }[] = [
-  { re: /кауфланд|kaufland/i, eik: "131129282" },
-  { re: /билла|billa/i, eik: "130007884" },
-  { re: /лидл|lidl/i, eik: "131071587" },
-  { re: /фантастико|fantastico/i, eik: "206255903" },
-  { re: /метро|metro/i, eik: "121644736" },
-  { re: /софармаси|sopharmacy/i, eik: "175334310" },
-];
-
-export const resolveChainEik = (q: string): string | undefined =>
-  CHAIN_MATCH.find((m) =>
-    new RegExp(
-      `(?<![\\p{L}\\p{N}])(?:${m.re.source})(?![\\p{L}\\p{N}])`,
-      "iu",
-    ).test(q),
-  )?.eik;
-
+export { resolveChainEik } from "./chainIdentity";
 export const detectChain = (q: string): boolean =>
   CHAIN_MATCH.some((m) => m.re.test(q));
 

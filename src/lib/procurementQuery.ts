@@ -155,6 +155,8 @@ export const PROCUREMENT_FIELDS: Record<string, QueryField> = {
   maxRiskCount: number(0, 17),
   amountMin: number(0, Number.MAX_SAFE_INTEGER, false),
   amountMax: number(0, Number.MAX_SAFE_INTEGER, false),
+  amountMinRelation: text(["gte", "gt"]),
+  amountMaxRelation: text(["lte", "lt"]),
   currency: text(["EUR", "BGN"]),
   valueBasis: text(["current", "signing", "estimate"]),
   procedure: text(),
@@ -191,6 +193,26 @@ export interface ProcurementQuery extends ProcurementWireArgs {
   currency: "EUR" | "BGN";
   limit: number;
   offset: number;
+  buyerIds?: string[];
+  supplierIds?: string[];
+  buyerSectors?: string[];
+  subjectSectors?: string[];
+  cpvPrefixes?: string[];
+  basePredicates?: string[];
+  numeratorPredicates?: string[];
+  from?: string;
+  toExclusive?: string;
+  compareFrom?: string;
+  compareToExclusive?: string;
+  relatedFrom?: string;
+  relatedToExclusive?: string;
+  relatedCorpus?: "appeals" | "decisions";
+  topic?: string;
+  keyword?: string;
+  status?: string;
+  groupBy?: string;
+  asOf?: string;
+  key?: string;
 }
 export type ProcurementValidation =
   | { ok: true; query: ProcurementQuery }
@@ -234,6 +256,8 @@ export const procurementPredicateIds = (
   ...(corpus !== "decisions" ? ["appealed"] : []),
   "upheld",
   "suspended",
+  ...(["appeals", "decisions"].includes(corpus) ? ["unlinked"] : []),
+  ...(corpus === "appeals" ? ["interimRequested"] : []),
   ...PROCUREMENT_RISKS[corpus].map((id) => `risk:${id}`),
 ];
 
@@ -343,6 +367,10 @@ export function validateProcurementQuery(raw: unknown): ProcurementValidation {
       Number(args[min]) > Number(args[max])
     )
       errors[max] = "maximum below minimum";
+  if (args.amountMinRelation && args.amountMin === undefined)
+    errors.amountMin = "lower bound required";
+  if (args.amountMaxRelation && args.amountMax === undefined)
+    errors.amountMax = "upper bound required";
   const allowed = procurementPredicateIds(corpus);
   for (const [key, catalog] of [
     ["buyerSectors", PROCUREMENT_BUYER_SECTORS],
@@ -390,6 +418,8 @@ export function validateProcurementQuery(raw: unknown): ProcurementValidation {
     for (const key of [
       "amountMin",
       "amountMax",
+      "amountMinRelation",
+      "amountMaxRelation",
       "minRiskCount",
       "maxRiskCount",
       "procedure",

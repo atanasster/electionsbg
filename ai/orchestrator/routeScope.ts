@@ -1,3 +1,4 @@
+import { understandProcurement } from "./procurementUnderstanding";
 import { applyProductDefaults } from "./productDefaults";
 import { route as heuristicRoute, type Route } from "./router";
 import { parseToolCall } from "./toolSchema";
@@ -49,6 +50,11 @@ export function parseModelRoute(raw: string, question: string): Route {
   } catch {
     /* parser handles malformed JSON */
   }
+  const procurement = understandProcurement(current);
+  if (procurement.kind !== "none")
+    return procurement.kind === "query"
+      ? { tool: "procurementQuery", args: procurement.query }
+      : { tool: "procurementQuestion", args: { question: current } };
   const parsed = parseToolCall(raw);
   if (
     parsed?.tool === "rankPlaces" &&

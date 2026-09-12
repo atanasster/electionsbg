@@ -1,3 +1,4 @@
+import { PROCUREMENT_TOOLS } from "./procurement";
 import { RANKING_VALUES } from "./rankingContract";
 import { WATER_TOOL } from "./water";
 import { BUDGET_TOOLS } from "./budgetServing";
@@ -282,6 +283,7 @@ import type {
 } from "./types";
 
 export const TOOLS: ToolDef[] = [
+  ...PROCUREMENT_TOOLS,
   ...BUDGET_TOOLS,
   WATER_TOOL,
   // ---- parliamentary elections ----------------------------------------------
@@ -3371,6 +3373,11 @@ export const TOOLS: ToolDef[] = [
       en: "Announced public-procurement tenders (PROCEDURES, estimated/forecast value — before any signed contract). Searches the WHOLE corpus by keyword/topic AND by year — answers 'show all tenders for X in YEAR' (e.g. road guardrails, asphalt). With no filters returns the biggest live tenders; optionally for one buyer. Shows estimated value, lot count, status (announced/cancelled).",
     },
     params: [
+      {
+        name: "canonical",
+        type: "text",
+        description: { bg: "Проверен обхват", en: "Validated query" },
+      },
       {
         name: "query",
         type: "metric",

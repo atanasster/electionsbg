@@ -278,3 +278,24 @@ describe("closed procurement query contract", () => {
     expect(decodeProcurementQuery("x".repeat(16001)).ok).toBe(false);
   });
 });
+
+it("validates numeric bound relations with their values", () => {
+  expect(
+    validateProcurementQuery({ corpus: "contracts", amountMinRelation: "gt" })
+      .ok,
+  ).toBe(false);
+  expect(
+    validateProcurementQuery({
+      corpus: "contracts",
+      amountMax: 100,
+      amountMaxRelation: "lt",
+    }).ok,
+  ).toBe(true);
+  expect(
+    validateProcurementQuery({
+      corpus: "appeals",
+      amountMax: 100,
+      amountMaxRelation: "lt",
+    }).ok,
+  ).toBe(false);
+});

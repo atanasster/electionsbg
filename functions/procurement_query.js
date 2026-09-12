@@ -93,8 +93,8 @@ function compileContractQuery(query) {
   for (const [key, expression, comparator] of [
     ["bidderMin", "c.number_of_tenderers", ">="],
     ["bidderMax", "c.number_of_tenderers", "<="],
-    ["amountMin", money, ">="],
-    ["amountMax", money, "<="],
+    ["amountMin", money, q.amountMinRelation === "gt" ? ">" : ">="],
+    ["amountMax", money, q.amountMaxRelation === "lt" ? "<" : "<="],
     ["minRiskCount", "r.fired", ">="],
     ["maxRiskCount", "r.fired", "<="],
   ]) {

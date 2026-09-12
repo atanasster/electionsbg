@@ -121,6 +121,10 @@ export type ClarifyRequest = {
 };
 
 export type Envelope = {
+  procurement?: {
+    query: import("../../src/lib/procurementQuery").ProcurementQuery;
+    result: import("./procurement").ProcurementResult;
+  };
   tool: string;
   domain?: Domain;
   kind: EnvelopeKind;
