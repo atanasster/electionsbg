@@ -1,3 +1,4 @@
+import { fundingTemplate } from "../../src/lib/questions/contracts/funding";
 import { procurementTemplateQuery } from "../../src/lib/questions/contracts/procurement";
 // The runtime starter library. Keep this module independent of React and the
 // tool registry so importing chips does not pull tool implementations into UI.
@@ -33,6 +34,9 @@ export const projectChatStarters = (
   questions.flatMap((question) => {
     const tool = question.chat.capabilityId;
     if (question.chat.status !== "ready" || !tool) return [];
+    const funding = question.id.startsWith("funding-query-")
+      ? fundingTemplate(question.id, "bg").args
+      : undefined;
     const procurement = question.id.startsWith("procurement-query-")
       ? procurementTemplateQuery(question.id, Number(question.defaults.year))
       : undefined;
@@ -46,14 +50,18 @@ export const projectChatStarters = (
         en: question.question.en,
         args: {
           bg: {
-            ...(procurement ??
+            ...(funding ??
+              procurement ??
               question.legacyChatArgs?.bg ??
               question.defaults),
           },
           en: {
-            ...(procurement ??
-              question.legacyChatArgs?.en ??
-              question.defaults),
+            ...(question.id.startsWith("funding-query-")
+              ? fundingTemplate(question.id, "en").args
+              : (funding ??
+                procurement ??
+                question.legacyChatArgs?.en ??
+                question.defaults)),
           },
         },
       },

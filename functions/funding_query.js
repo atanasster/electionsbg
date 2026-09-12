@@ -266,7 +266,8 @@ function compileFundingQuery(raw, internal = false) {
  'comparisons',COALESCE((SELECT jsonb_agg(t ORDER BY cohort_window) FROM measured t WHERE group_key='__total'),'[]'::jsonb),
  'groupCount',(SELECT count(*) FROM groups),'catalogValid',${checks.join(" AND ") || "TRUE"},'catalogVersion',(SELECT value->>'version' FROM funding_query_meta WHERE key='catalog'),
  'yearsAvailable',${agri ? `(WITH RECURSIVE years(y) AS (SELECT min(year) FROM agri_subsidies UNION ALL SELECT (SELECT min(year) FROM agri_subsidies WHERE year>years.y) FROM years WHERE y IS NOT NULL) SELECT jsonb_agg(y::text ORDER BY y) FROM years WHERE y IS NOT NULL)` : "null::jsonb"},
- 'parent',${parent ? "(SELECT result-'cohortKeys' FROM parent_result)" : "null::jsonb"},
+ 'parent',${parent ? "(SELECT result-'cohortKeys'-'cohortEiks' FROM parent_result)" : "null::jsonb"},
+ 'cohortEiks',${internal ? `(SELECT COALESCE(jsonb_agg(DISTINCT entity) FILTER(WHERE entity IS NOT NULL),'[]'::jsonb) FROM cohorts ${q.numeratorPredicates?.length ? "WHERE matched IS TRUE" : ""})` : "null::jsonb"},
  'cohortKeys',${internal ? `(SELECT COALESCE(jsonb_agg(DISTINCT ${partners ? "operation_key" : "key"}),'[]'::jsonb) FROM cohorts ${q.numeratorPredicates?.length ? "WHERE matched IS TRUE" : ""})` : "null::jsonb"},
  'identityValid',${partners ? "(SELECT count(*)=count(key) AND count(*)=count(DISTINCT key) FROM source)" : "TRUE"},
  'candidateRecords',(SELECT count(*) FROM candidates),
@@ -376,6 +377,7 @@ async function runFundingQuery(dbRows, raw) {
         },
       };
     delete r.cohortKeys;
+    delete r.cohortEiks;
     const t = r.totals;
     const periods = c.query.operation === "compare" ? r.comparisons : [t];
     const needsOrganisation =

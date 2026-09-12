@@ -27,7 +27,15 @@ function compileContractQuery(query) {
       "Corpus not available in this service",
       422,
     );
-  const params = [];
+  const fundingParent = q.fundingParentQuery
+    ? require("./funding_query").compileFundingQuery(
+        require("./generated/funding_query").decodeFundingQuery(
+          q.fundingParentQuery,
+        ).query,
+        true,
+      )
+    : null;
+  const params = fundingParent ? [...fundingParent.params] : [];
   const bind = (v) => {
     params.push(v);
     return `$${params.length}`;
@@ -37,6 +45,10 @@ function compileContractQuery(query) {
     `c.tag = ${bind(q.corpus === "contracts" ? "contract" : "contractAmendment")}`,
     "c.consortium_role IS DISTINCT FROM 'member'",
   ];
+  if (fundingParent)
+    where.push(
+      "c.contractor_eik IN (SELECT jsonb_array_elements_text(result->'cohortEiks') FROM funding_parent)",
+    );
   const dates =
     q.dateBasis === "signed" ? "NULLIF(c.date_signed, c.date)" : "c.date";
   const date = `CASE WHEN (${dates}) ~ '^\\d{4}-\\d{2}-\\d{2}$' AND pg_input_is_valid((${dates}), 'date') THEN (${dates}) ELSE NULL END`;
@@ -238,9 +250,9 @@ function compileContractQuery(query) {
   return {
     query: q,
     requiresRisk: risk,
-    riskCatalogSql:meta,
+    riskCatalogSql: meta,
     params,
-    sql: `WITH base AS (
+    sql: `WITH ${fundingParent ? `funding_parent AS MATERIALIZED (${fundingParent.sql}),` : ""}base AS (
     SELECT c.key, c.title, ${date} AS date, c.awarder_eik AS buyer_id, c.awarder_name AS buyer,
       c.contractor_eik AS supplier_id, c.contractor_name AS supplier, c.cpv, c.unp,
       c.number_of_tenderers AS bids, (${money}) AS amount, c.joint_kind,
@@ -254,7 +266,7 @@ function compileContractQuery(query) {
   page AS (SELECT key,title,date,buyer_id,buyer,supplier_id,supplier,cpv,unp,bids,amount::numeric::text AS amount_eur,joint_kind,fired,available,cri,fired_mask,available_mask
     FROM scoped WHERE period = 'primary' ${numeratorIds.length ? "AND matched IS TRUE" : ""}
     ORDER BY ${pageOrder}, key LIMIT ${bind(q.limit)} OFFSET ${bind(q.offset)}) ${groupSql}
-  SELECT jsonb_build_object('totals',(SELECT to_jsonb(t) FROM totals t),'comparison',(SELECT to_jsonb(t) FROM comparison t),
+  SELECT jsonb_build_object('fundingParent',${fundingParent ? "(SELECT result-'cohortEiks'-'cohortKeys' FROM funding_parent)" : "null::jsonb"},'totals',(SELECT to_jsonb(t) FROM totals t),'comparison',(SELECT to_jsonb(t) FROM comparison t),
     'rows',COALESCE((SELECT jsonb_agg(p) FROM page p),'[]'::jsonb),
     'groups',${groupField ? "COALESCE((SELECT jsonb_agg(g) FROM ranked_groups g),'[]'::jsonb)" : "'[]'::jsonb"},
     'revision',${revision},'riskCatalog',${meta}) AS result`,
@@ -262,7 +274,12 @@ function compileContractQuery(query) {
 }
 
 async function runProcurementQuery(dbRows, raw) {
-  if (process.env.PROCUREMENT_QUERY_DISABLED === "1") return {body:{status:"unavailable",reason:"capability_disabled"}};
+  if (process.env.PROCUREMENT_QUERY_DISABLED === "1")
+    return { body: { status: "unavailable", reason: "capability_disabled" } };
+  if (raw?.fundingParentQuery && process.env.FUNDING_QUERY_DISABLED === "1")
+    return {
+      body: { status: "unavailable", reason: "funding_capability_disabled" },
+    };
   let compiled;
   try {
     const parsed = contract.validateProcurementQuery(raw);
@@ -283,10 +300,48 @@ async function runProcurementQuery(dbRows, raw) {
     const [row] = await dbRows(compiled.sql, compiled.params);
     const result = row?.result;
     if (!result) throw new Error("Missing analytics result");
+    if (compiled.query.fundingParentQuery) {
+      const parentQuery =
+        require("./generated/funding_query").decodeFundingQuery(
+          compiled.query.fundingParentQuery,
+        ).query;
+      const p = result.fundingParent,
+        expected = require("./generated/funding_query").decodeFundingQuery(
+          compiled.query.fundingParentQuery,
+        ).query.expectedRevision;
+      if (
+        !p ||
+        p.catalogValid !== true ||
+        p.catalogVersion !==
+          require("./generated/funding_query").FUNDING_CATALOG_VERSION ||
+        (parentQuery.corpus === "agriPayments" &&
+          (parentQuery.financialYears || []).some(
+            (y) => !p.yearsAvailable?.includes(y),
+          )) ||
+        p.identityValid === false ||
+        p.dateUnknown > 0 ||
+        p.amountUnknown > 0 ||
+        p.baseEvaluable < p.scopeRecords ||
+        p.numeratorEvaluable < p.numeratorScope ||
+        p.totals.unidentified > 0 ||
+        (expected && expected !== p.revision)
+      )
+        return {
+          body: {
+            status: "unavailable",
+            reason: "funding_parent_evidence_or_revision_unavailable",
+            query: compiled.query,
+          },
+        };
+      result.revision = { ...result.revision, funding: p.revision };
+      result.relationship = "same_beneficiary_eik_not_proven_project_financing";
+    }
     if (
-(compiled.parentRequiresRisk && result.parentRiskCatalog !== contract.PROCUREMENT_CAPABILITY.catalogVersion) ||
-      compiled.requiresRisk &&
-      result.riskCatalog !== contract.PROCUREMENT_CAPABILITY.catalogVersion
+      (compiled.parentRequiresRisk &&
+        result.parentRiskCatalog !==
+          contract.PROCUREMENT_CAPABILITY.catalogVersion) ||
+      (compiled.requiresRisk &&
+        result.riskCatalog !== contract.PROCUREMENT_CAPABILITY.catalogVersion)
     )
       return {
         body: {
@@ -295,7 +350,18 @@ async function runProcurementQuery(dbRows, raw) {
           query: compiled.query,
         },
       };
-    if (compiled.parentRequiresRisk && Number(result.parentRecords)>0 && Number(result.parentEvaluable)===0) return {body:{status:"unavailable",reason:"parent_risk_unobserved",query:compiled.query}};
+    if (
+      compiled.parentRequiresRisk &&
+      Number(result.parentRecords) > 0 &&
+      Number(result.parentEvaluable) === 0
+    )
+      return {
+        body: {
+          status: "unavailable",
+          reason: "parent_risk_unobserved",
+          query: compiled.query,
+        },
+      };
     return {
       body: {
         ...result,
@@ -306,11 +372,18 @@ async function runProcurementQuery(dbRows, raw) {
           ["open", "closed"].includes(compiled.query.status)
             ? ["current_cancellation_state"]
             : [],
-        status: compiled.parentRequiresRisk && Number(result.parentEvaluable)<Number(result.parentRecords) ? "partial" : !result.totals.records
-          ? "empty"
-          : (compiled.parentRequiresRisk && Number(result.parentEvaluable)<Number(result.parentRecords)) || compiled.requiresRisk && result.totals.evaluable === 0
+        status:
+          compiled.parentRequiresRisk &&
+          Number(result.parentEvaluable) < Number(result.parentRecords)
             ? "partial"
-            : "success",
+            : !result.totals.records
+              ? "empty"
+              : (compiled.parentRequiresRisk &&
+                    Number(result.parentEvaluable) <
+                      Number(result.parentRecords)) ||
+                  (compiled.requiresRisk && result.totals.evaluable === 0)
+                ? "partial"
+                : "success",
       },
     };
   } catch (error) {

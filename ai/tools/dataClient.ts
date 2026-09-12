@@ -114,7 +114,14 @@ export const fetchDb = <T>(
     // Evict on rejection so a transient failure doesn't poison the session.
     entry = { value: p, expiresAt: now + ttlFor(route) };
     dbCache.set(key, entry);
-    if (route === "procurement-query" || route === "procurement-capabilities") {
+    if (
+      [
+        "procurement-query",
+        "procurement-capabilities",
+        "funding-query",
+        "funding-capabilities",
+      ].includes(route)
+    ) {
       const evict = () => {
         if (dbCache.get(key)?.value === p) dbCache.delete(key);
       };

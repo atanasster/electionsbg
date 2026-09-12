@@ -10,7 +10,11 @@ export const toolMetadata = () => ({
   ),
   "ai/app/toolTopics.json": Object.fromEntries(
     TOOLS.map((t) => {
-      if (["fundingQuery", "fundingQuestion"].includes(t.name))
+      if (
+        ["fundingQuery", "fundingQuestion", "subsidiesForEntity"].includes(
+          t.name,
+        )
+      )
         return [t.name, ["funds", "projects"]];
       if (["procurementQuery", "procurementQuestion"].includes(t.name))
         return [t.name, ["procurement", "contracts"]]; // Tool directory fallback; query templates carry their own category/source metadata.

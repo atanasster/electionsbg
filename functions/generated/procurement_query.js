@@ -62,6 +62,514 @@ function queryInstant(value) {
   return Number.isFinite(ms) ? new Date(ms).toISOString() : null;
 }
 
+// src/lib/regionalOblast.ts
+var OBLAST_NAME = {
+  BGS: { bg: "\u0411\u0443\u0440\u0433\u0430\u0441", en: "Burgas" },
+  BLG: { bg: "\u0411\u043B\u0430\u0433\u043E\u0435\u0432\u0433\u0440\u0430\u0434", en: "Blagoevgrad" },
+  DOB: { bg: "\u0414\u043E\u0431\u0440\u0438\u0447", en: "Dobrich" },
+  GAB: { bg: "\u0413\u0430\u0431\u0440\u043E\u0432\u043E", en: "Gabrovo" },
+  HKV: { bg: "\u0425\u0430\u0441\u043A\u043E\u0432\u043E", en: "Haskovo" },
+  JAM: { bg: "\u042F\u043C\u0431\u043E\u043B", en: "Yambol" },
+  KNL: { bg: "\u041A\u044E\u0441\u0442\u0435\u043D\u0434\u0438\u043B", en: "Kyustendil" },
+  KRZ: { bg: "\u041A\u044A\u0440\u0434\u0436\u0430\u043B\u0438", en: "Kardzhali" },
+  LOV: { bg: "\u041B\u043E\u0432\u0435\u0447", en: "Lovech" },
+  MON: { bg: "\u041C\u043E\u043D\u0442\u0430\u043D\u0430", en: "Montana" },
+  PAZ: { bg: "\u041F\u0430\u0437\u0430\u0440\u0434\u0436\u0438\u043A", en: "Pazardzhik" },
+  PDV: { bg: "\u041F\u043B\u043E\u0432\u0434\u0438\u0432", en: "Plovdiv" },
+  PER: { bg: "\u041F\u0435\u0440\u043D\u0438\u043A", en: "Pernik" },
+  PVN: { bg: "\u041F\u043B\u0435\u0432\u0435\u043D", en: "Pleven" },
+  RAZ: { bg: "\u0420\u0430\u0437\u0433\u0440\u0430\u0434", en: "Razgrad" },
+  RSE: { bg: "\u0420\u0443\u0441\u0435", en: "Ruse" },
+  SFO: { bg: "\u0421\u043E\u0444\u0438\u0439\u0441\u043A\u0430 \u043E\u0431\u043B\u0430\u0441\u0442", en: "Sofia Province" },
+  SHU: { bg: "\u0428\u0443\u043C\u0435\u043D", en: "Shumen" },
+  SLS: { bg: "\u0421\u0438\u043B\u0438\u0441\u0442\u0440\u0430", en: "Silistra" },
+  SLV: { bg: "\u0421\u043B\u0438\u0432\u0435\u043D", en: "Sliven" },
+  SML: { bg: "\u0421\u043C\u043E\u043B\u044F\u043D", en: "Smolyan" },
+  SZR: { bg: "\u0421\u0442\u0430\u0440\u0430 \u0417\u0430\u0433\u043E\u0440\u0430", en: "Stara Zagora" },
+  TGV: { bg: "\u0422\u044A\u0440\u0433\u043E\u0432\u0438\u0449\u0435", en: "Targovishte" },
+  VAR: { bg: "\u0412\u0430\u0440\u043D\u0430", en: "Varna" },
+  VID: { bg: "\u0412\u0438\u0434\u0438\u043D", en: "Vidin" },
+  VRC: { bg: "\u0412\u0440\u0430\u0446\u0430", en: "Vratsa" },
+  VTR: { bg: "\u0412\u0435\u043B\u0438\u043A\u043E \u0422\u044A\u0440\u043D\u043E\u0432\u043E", en: "Veliko Tarnovo" },
+  SOFIA_CITY: { bg: "\u0421\u043E\u0444\u0438\u044F (\u0441\u0442\u043E\u043B\u0438\u0446\u0430)", en: "Sofia (capital)" }
+};
+
+// src/lib/fundingCatalog.ts
+var FUNDING_VERSION = "funding-records-v1";
+var FUNDING_CORPORA = [
+  "isunProjects",
+  "agriPayments",
+  "interregOperations",
+  "interregPartners"
+];
+var FUNDING_OPERATIONS = [
+  "summary",
+  "count",
+  "sum",
+  "share",
+  "list",
+  "rank",
+  "trend",
+  "compare",
+  "detail",
+  "methodology"
+];
+var FUNDING_CAPABILITIES = {
+  isunProjects: {
+    dates: ["none", "observed"],
+    amounts: ["grant", "projectCost", "ownCofinance", "paid"],
+    groups: ["entity", "programme", "theme", "place", "month", "year"],
+    predicates: [
+      "political",
+      "debarredName",
+      "unidentified",
+      "zeroPaid",
+      "serialWinner",
+      "otherFunding"
+    ],
+    defaultAmount: "grant"
+  },
+  agriPayments: {
+    dates: ["financialYear"],
+    amounts: ["paid", "direct", "market", "rural"],
+    groups: ["entity", "scheme", "financialYear", "place"],
+    predicates: ["political", "unidentified", "otherFunding"],
+    defaultAmount: "paid"
+  },
+  interregOperations: {
+    dates: ["none", "start", "end", "overlap"],
+    amounts: ["operationBudget", "operationEu"],
+    groups: ["programme", "month", "year"],
+    predicates: ["unpublishedBudget", "reversedDates"],
+    defaultAmount: "operationBudget"
+  },
+  interregPartners: {
+    dates: ["none", "start", "end", "overlap"],
+    amounts: ["partnerBudget", "partnerEu"],
+    groups: ["entity", "programme", "place", "month", "year"],
+    predicates: [
+      "unpublishedBudget",
+      "publishedZero",
+      "unidentified",
+      "unplaced",
+      "lead",
+      "bulgarian",
+      "political",
+      "otherFunding"
+    ],
+    defaultAmount: "partnerBudget"
+  }
+};
+var FUNDING_STATUSES = {
+  isunProjects: [
+    "completed",
+    "in-progress",
+    "signed",
+    "terminated",
+    "other",
+    "unknown"
+  ],
+  agriPayments: [],
+  interregOperations: ["closed", "ongoing", "other", "unknown"],
+  interregPartners: ["closed", "ongoing", "other", "unknown"]
+};
+var FUNDING_OPERATION_METRICS = {
+  summary: [
+    "records",
+    "amount",
+    "beneficiaries",
+    "organisations",
+    "paidRatio",
+    "hhi",
+    "topShare"
+  ],
+  count: ["records", "beneficiaries", "organisations"],
+  sum: ["amount"],
+  share: ["records", "amount", "paidRatio", "topShare"],
+  list: ["records", "amount"],
+  detail: ["records", "amount"],
+  rank: [
+    "records",
+    "amount",
+    "beneficiaries",
+    "organisations",
+    "paidRatio",
+    "hhi",
+    "topShare"
+  ],
+  trend: [
+    "records",
+    "amount",
+    "beneficiaries",
+    "organisations",
+    "paidRatio",
+    "hhi",
+    "topShare"
+  ],
+  compare: [
+    "records",
+    "amount",
+    "beneficiaries",
+    "organisations",
+    "paidRatio",
+    "hhi",
+    "topShare"
+  ],
+  methodology: [
+    "records",
+    "amount",
+    "beneficiaries",
+    "organisations",
+    "paidRatio",
+    "hhi",
+    "topShare"
+  ]
+};
+var FUNDING_RECIPIENT_PLACES = Object.fromEntries(
+  Object.entries(OBLAST_NAME).map(([id, n]) => [
+    id === "SOFIA_CITY" ? "SFO_CITY" : id,
+    id === "SFO" ? "\u0421\u043E\u0444\u0438\u044F (\u043E\u0431\u043B\u0430\u0441\u0442)" : n.bg
+  ])
+);
+
+// src/lib/fundingQuery.ts
+var FUNDING_MAX_ENCODED_SIZE = 16e3;
+var text = (values) => ({ kind: "text", values });
+var list = (values) => ({ kind: "list", values });
+var num = (min, max, integer = true) => ({
+  kind: "number",
+  min,
+  max,
+  integer
+});
+var FUNDING_FIELDS = {
+  version: text([FUNDING_VERSION]),
+  corpus: text(FUNDING_CORPORA),
+  operation: text(FUNDING_OPERATIONS),
+  metric: text([
+    "records",
+    "amount",
+    "paidRatio",
+    "hhi",
+    "topShare",
+    "beneficiaries",
+    "organisations"
+  ]),
+  dateBasis: text([
+    "none",
+    "financialYear",
+    "observed",
+    "start",
+    "end",
+    "overlap"
+  ]),
+  from: text(),
+  toExclusive: text(),
+  compareFrom: text(),
+  compareToExclusive: text(),
+  asOf: text(),
+  financialYears: list(),
+  compareFinancialYears: list(),
+  programmingPeriods: list(["2007-2013", "2014-2020", "2021-2027", "unknown"]),
+  programmeIds: list(),
+  schemeIds: list(),
+  entityIds: list(),
+  entityClass: text(["all", "legal", "individual"]),
+  fundingMechanisms: list(["EU", "EEA-Norway", "RRP", "other", "unknown"]),
+  fundTypes: list(),
+  themeIds: list(),
+  beneficiarySectors: list(),
+  keyword: text(),
+  statusIds: list(),
+  placeIds: list(),
+  placeBasis: text(["implementation", "recipient", "partner", "eligible"]),
+  amountBasis: text([
+    "grant",
+    "projectCost",
+    "ownCofinance",
+    "paid",
+    "direct",
+    "market",
+    "rural",
+    "operationBudget",
+    "operationEu",
+    "partnerBudget",
+    "partnerEu"
+  ]),
+  amountMin: num(-Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, false),
+  amountMax: num(-Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, false),
+  amountMinRelation: text(["gt", "gte"]),
+  amountMaxRelation: text(["lt", "lte"]),
+  currency: text(["EUR"]),
+  basePredicates: list(),
+  numeratorPredicates: list(),
+  baseMode: text(["all", "any"]),
+  numeratorMode: text(["all", "any"]),
+  denominator: text(["records", "evaluable", "amount"]),
+  population: text(["attributable", "gross"]),
+  groupBy: text([
+    "entity",
+    "programme",
+    "scheme",
+    "financialYear",
+    "theme",
+    "place",
+    "month",
+    "year"
+  ]),
+  order: text(["asc", "desc"]),
+  limit: num(1, 100),
+  offset: num(0, 1e4),
+  topN: num(1, 1e3),
+  minGroupCount: num(1, 1e8),
+  key: text(),
+  expectedRevision: text(),
+  parentQuery: text(),
+  relationship: text(["operationsToPartners", "partnersToOperations"])
+};
+var cleanString = (v) => typeof v === "string" && v.length <= 256 && v.trim().length > 0 && ![...v].some((c) => c.charCodeAt(0) < 32) && (() => {
+  try {
+    encodeURIComponent(v);
+    return true;
+  } catch {
+    return false;
+  }
+})();
+function fundingQueryKey(q) {
+  return JSON.stringify(
+    Object.fromEntries(
+      Object.entries(q).filter(([, v]) => v !== void 0).sort(([a], [b]) => a.localeCompare(b))
+    )
+  );
+}
+function validateFundingQuery(raw) {
+  const errors = /* @__PURE__ */ Object.create(null), q = /* @__PURE__ */ Object.create(null);
+  if (!raw || typeof raw !== "object" || Array.isArray(raw))
+    return { ok: false, errors: { query: "object required" } };
+  for (const [key, v] of Object.entries(raw)) {
+    if (!Object.prototype.hasOwnProperty.call(FUNDING_FIELDS, key)) {
+      errors[key] = "unknown field";
+      continue;
+    }
+    if (v === void 0) continue;
+    const f = FUNDING_FIELDS[key];
+    if (f.kind === "number") {
+      const n = typeof v === "number" ? v : typeof v === "string" && v.trim() ? Number(v) : NaN;
+      if (!Number.isFinite(n) || n < f.min || n > f.max || f.integer && !Number.isSafeInteger(n))
+        errors[key] = "invalid number";
+      else q[key] = n;
+    } else if (f.kind === "list") {
+      if (!Array.isArray(v) || v.length === 0 || v.length > 200 || !v.every(cleanString) || v.some((x) => f.values && !f.values.includes(x.trim())))
+        errors[key] = "invalid list";
+      else if (v.length)
+        q[key] = [...new Set(v.map((x) => x.trim().normalize("NFC")))].sort();
+    } else if (key === "parentQuery" || key === "expectedRevision") {
+      if (typeof v !== "string" || v.length > (key === "parentQuery" ? 8e3 : 2e3) || !v.length)
+        errors[key] = "invalid encoding";
+      else q[key] = v;
+    } else if (!cleanString(v) || f.values && !f.values.includes(v.trim()))
+      errors[key] = "invalid value";
+    else q[key] = v.trim().normalize("NFC");
+  }
+  if (!FUNDING_CORPORA.includes(q.corpus))
+    errors.corpus = "required corpus";
+  if (Object.keys(errors).length) return { ok: false, errors };
+  const corpus = q.corpus, cap = FUNDING_CAPABILITIES[corpus], agri = corpus === "agriPayments", interreg = corpus.startsWith("interreg");
+  Object.assign(q, {
+    version: q.version ?? FUNDING_VERSION,
+    operation: q.operation ?? "summary",
+    metric: q.metric ?? (q.operation === "sum" ? "amount" : "records"),
+    dateBasis: q.dateBasis ?? (agri ? "financialYear" : "none"),
+    amountBasis: q.amountBasis ?? cap.defaultAmount,
+    currency: "EUR",
+    population: q.population ?? "attributable",
+    limit: q.limit ?? 20,
+    offset: q.offset ?? 0,
+    baseMode: q.baseMode ?? "all",
+    numeratorMode: q.numeratorMode ?? "all",
+    denominator: q.denominator ?? "records",
+    entityClass: q.entityClass ?? "all",
+    order: q.order ?? "desc"
+  });
+  const arr = (k) => q[k] || [];
+  const has = (k) => q[k] !== void 0;
+  const reject = (k, why) => {
+    errors[k] = why;
+  };
+  if (!FUNDING_OPERATION_METRICS[String(q.operation)].includes(String(q.metric)))
+    reject("metric", "metric incompatible with operation");
+  if (arr("statusIds").some(
+    (status) => !FUNDING_STATUSES[corpus].includes(status)
+  ))
+    reject("statusIds", "unsupported corpus status");
+  if (!cap.dates.includes(String(q.dateBasis)))
+    reject("dateBasis", "unsupported date basis");
+  if (!cap.amounts.includes(String(q.amountBasis)))
+    reject("amountBasis", "unsupported money basis");
+  for (const k of [
+    "from",
+    "toExclusive",
+    "compareFrom",
+    "compareToExclusive"
+  ]) {
+    if (has(k) && !isQueryDate(String(q[k])))
+      reject(k, "invalid calendar date");
+  }
+  for (const [start, end] of [
+    ["from", "toExclusive"],
+    ["compareFrom", "compareToExclusive"]
+  ])
+    if (has(start) && has(end) && String(q[start]) >= String(q[end]))
+      reject(start, "empty or reversed period");
+  if (["from", "toExclusive", "compareFrom", "compareToExclusive"].some(has) && ["none", "financialYear"].includes(String(q.dateBasis)))
+    reject("dateBasis", "calendar window needs supported event basis");
+  if (q.dateBasis === "overlap" && (!has("from") || !has("toExclusive")))
+    reject("dateBasis", "overlap needs both bounds");
+  for (const k of ["financialYears", "compareFinancialYears"]) {
+    if (has(k) && (!agri || !arr(k).every((y) => /^(?:19|20)\d{2}$/.test(y))))
+      reject(k, "financial-year scope requires DFZ years");
+  }
+  if (agri && has("programmingPeriods"))
+    reject("programmingPeriods", "DFZ uses financial years");
+  if (has("schemeIds") && !agri) reject("schemeIds", "schemes require DFZ");
+  if (agri && ["programmeIds", "fundingMechanisms", "fundTypes", "themeIds"].some(has))
+    reject("corpus", "unsupported DFZ classification");
+  if (interreg && ["fundingMechanisms", "fundTypes", "themeIds"].some(has))
+    reject(
+      "corpus",
+      "unsupported Interreg classification; use programme or explicit keyword"
+    );
+  if (corpus === "interregOperations" && ["entityIds", "beneficiarySectors"].some(has))
+    reject("entityIds", "partner identity requires partner corpus");
+  if (corpus === "interregOperations" && q.entityClass !== "all")
+    reject("entityClass", "partner classification requires partner corpus");
+  if (arr("entityIds").some((id) => !/^\d{9}(?:\d{4})?$/.test(id)))
+    reject(
+      "entityIds",
+      "verified EIK shape required; personal identifiers not accepted"
+    );
+  if (arr("placeIds").some(
+    (id) => !/^\d{5}$|^[A-Z]{3}(?:\d{2})?$|^S\d{4}$|^SFO_CITY$|^BG\d{2,3}$/.test(
+      id
+    )
+  ))
+    reject("placeIds", "invalid canonical place");
+  if (has("placeIds") && !has("placeBasis"))
+    reject("placeBasis", "geography basis required");
+  if (has("placeBasis")) {
+    const allowed = agri ? ["recipient"] : corpus === "isunProjects" ? ["implementation"] : corpus === "interregPartners" ? ["partner", "eligible"] : ["eligible"];
+    if (!allowed.includes(String(q.placeBasis)))
+      reject("placeBasis", "unsupported geography basis");
+  }
+  if (!agri && q.population === "gross")
+    reject("population", "gross source alternative only for DFZ");
+  for (const key of ["basePredicates", "numeratorPredicates"]) {
+    if (arr(key).length > 20 || arr(key).some(
+      (p) => !cap.predicates.includes(p.replace(/^!/, ""))
+    ))
+      reject(key, "unsupported predicate");
+  }
+  if (has("amountMinRelation") && !has("amountMin"))
+    reject("amountMinRelation", "minimum missing");
+  if (has("amountMaxRelation") && !has("amountMax"))
+    reject("amountMaxRelation", "maximum missing");
+  if (has("amountMin") && has("amountMax") && (Number(q.amountMin) > Number(q.amountMax) || q.amountMin === q.amountMax && (q.amountMinRelation === "gt" || q.amountMaxRelation === "lt")))
+    reject("amountMin", "empty amount interval");
+  if (has("amountMin")) q.amountMinRelation ??= "gte";
+  if (has("amountMax")) q.amountMaxRelation ??= "lte";
+  if (has("groupBy") && !cap.groups.includes(String(q.groupBy)))
+    reject("groupBy", "unsupported grouping");
+  if (["month", "year"].includes(String(q.groupBy)) && q.dateBasis === "none")
+    reject("groupBy", "time grouping requires date basis");
+  if (q.operation === "rank" && !has("groupBy"))
+    reject("groupBy", "rank requires group");
+  if (q.operation === "trend" && !has("groupBy"))
+    q.groupBy = agri ? "financialYear" : "month";
+  if (q.operation === "trend" && !(agri ? ["financialYear"] : ["month", "year"]).includes(String(q.groupBy)))
+    reject("groupBy", "trend requires compatible time axis");
+  if (q.operation === "trend" && q.dateBasis === "none")
+    reject("dateBasis", "trend requires date basis");
+  if (q.operation === "detail" && !has("key"))
+    reject("key", "detail requires key");
+  if (has("key") && q.operation !== "detail")
+    reject("key", "key requires detail");
+  if (q.operation === "compare") {
+    if (has("groupBy")) reject("groupBy", "comparison grouping unsupported");
+    if (agri ? !has("financialYears") || !has("compareFinancialYears") : !has("from") || !has("toExclusive") || !has("compareFrom") || !has("compareToExclusive"))
+      reject(
+        "operation",
+        "comparison requires two explicit compatible periods"
+      );
+  } else if (["compareFinancialYears", "compareFrom", "compareToExclusive"].some(has))
+    reject("operation", "comparison fields require compare");
+  if (q.metric === "paidRatio" && (corpus !== "isunProjects" || !["grant", "projectCost"].includes(String(q.amountBasis))))
+    reject(
+      "metric",
+      "paid ratio requires ISUN grant or project-cost denominator"
+    );
+  if (["hhi", "topShare"].includes(String(q.metric))) {
+    if (corpus === "interregOperations")
+      reject("metric", "concentration requires recipient/partner grain");
+    q.topN ??= 10;
+    q.minGroupCount ??= 2;
+  }
+  if (q.metric === "organisations" && corpus !== "interregPartners")
+    reject("metric", "organisation count requires source organisation IDs");
+  if (q.metric === "beneficiaries" && corpus === "interregOperations")
+    reject("metric", "beneficiary count requires partner grain");
+  if (q.operation === "share" && !arr("numeratorPredicates").length && !["paidRatio", "topShare"].includes(String(q.metric)))
+    reject("numeratorPredicates", "share requires numerator");
+  if (has("asOf")) {
+    const instant = queryInstant(String(q.asOf));
+    if (!instant) reject("asOf", "invalid instant");
+    else q.asOf = instant;
+    if (q.dateBasis !== "overlap")
+      reject(
+        "asOf",
+        "only schedule overlap supports asOf; no historical state snapshots"
+      );
+  }
+  if (has("parentQuery") || has("relationship")) {
+    try {
+      if (typeof q.parentQuery !== "string") throw Error();
+      const parentRaw = JSON.parse(decodeURIComponent(q.parentQuery));
+      if (parentRaw?.parentQuery) throw Error();
+      const parent = validateFundingQuery(parentRaw);
+      if (!parent.ok || parent.query.groupBy || ["compare", "rank", "trend", "methodology"].includes(
+        parent.query.operation
+      ))
+        throw Error();
+      const valid = q.relationship === "operationsToPartners" && parent.query.corpus === "interregOperations" && corpus === "interregPartners" || q.relationship === "partnersToOperations" && parent.query.corpus === "interregPartners" && corpus === "interregOperations";
+      if (!valid) throw Error();
+      q.parentQuery = encodeFundingQuery(parent.query);
+      if (q.parentQuery.length > 8e3) throw Error();
+    } catch {
+      reject("parentQuery", "invalid one-hop parent relationship");
+    }
+  }
+  if (!Object.keys(errors).length) {
+    try {
+      if (encodeURIComponent(fundingQueryKey(q)).length > FUNDING_MAX_ENCODED_SIZE)
+        reject("query", "query too large");
+    } catch {
+      reject("query", "invalid encoding");
+    }
+  }
+  return Object.keys(errors).length ? { ok: false, errors } : { ok: true, query: q };
+}
+function encodeFundingQuery(q) {
+  return encodeURIComponent(fundingQueryKey(q));
+}
+function decodeFundingQuery(value) {
+  if (value.length > FUNDING_MAX_ENCODED_SIZE)
+    return { ok: false, errors: { query: "query too large" } };
+  try {
+    return validateFundingQuery(JSON.parse(decodeURIComponent(value)));
+  } catch {
+    return { ok: false, errors: { query: "invalid query encoding" } };
+  }
+}
+
 // src/lib/riskFlagCatalog.ts
 var CATALOG_VERSION = "1.0.0";
 var CONTRACT_FLAGS = [
@@ -2587,12 +3095,12 @@ var PROCUREMENT_DATE_BASES = {
   appeals: ["complaint", "decision"],
   decisions: ["decision"]
 };
-var text = (values) => ({
+var text2 = (values) => ({
   kind: "text",
   values
 });
 var number = (min = 0, max = Number.MAX_SAFE_INTEGER, integer = true) => ({ kind: "number", min, max, integer });
-var list = () => ({ kind: "list" });
+var list2 = () => ({ kind: "list" });
 var validUnicode = (value) => {
   try {
     encodeURIComponent(value);
@@ -2602,13 +3110,13 @@ var validUnicode = (value) => {
   }
 };
 var PROCUREMENT_FIELDS = {
-  version: text([PROCUREMENT_QUERY_VERSION]),
-  corpus: text(PROCUREMENT_CORPORA),
-  operation: text(PROCUREMENT_OPERATIONS),
-  metric: text(PROCUREMENT_METRICS),
-  from: text(),
-  toExclusive: text(),
-  dateBasis: text([
+  version: text2([PROCUREMENT_QUERY_VERSION]),
+  corpus: text2(PROCUREMENT_CORPORA),
+  operation: text2(PROCUREMENT_OPERATIONS),
+  metric: text2(PROCUREMENT_METRICS),
+  from: text2(),
+  toExclusive: text2(),
+  dateBasis: text2([
     "record",
     "published",
     "signed",
@@ -2616,49 +3124,50 @@ var PROCUREMENT_FIELDS = {
     "complaint",
     "decision"
   ]),
-  buyerIds: list(),
-  supplierIds: list(),
-  buyerSectors: list(),
-  subjectSectors: list(),
-  cpvPrefixes: list(),
-  topic: text(),
-  keyword: text(),
-  basePredicates: list(),
-  baseMode: text(["all", "any"]),
-  numeratorPredicates: list(),
-  numeratorMode: text(["all", "any"]),
-  denominator: text(["all", "positiveKnown", "evaluable", "merits"]),
+  buyerIds: list2(),
+  supplierIds: list2(),
+  buyerSectors: list2(),
+  subjectSectors: list2(),
+  cpvPrefixes: list2(),
+  topic: text2(),
+  keyword: text2(),
+  basePredicates: list2(),
+  baseMode: text2(["all", "any"]),
+  numeratorPredicates: list2(),
+  numeratorMode: text2(["all", "any"]),
+  denominator: text2(["all", "positiveKnown", "evaluable", "merits"]),
   bidderMin: number(),
   bidderMax: number(),
   minRiskCount: number(0, 17),
   maxRiskCount: number(0, 17),
   amountMin: number(0, Number.MAX_SAFE_INTEGER, false),
   amountMax: number(0, Number.MAX_SAFE_INTEGER, false),
-  amountMinRelation: text(["gte", "gt"]),
-  amountMaxRelation: text(["lte", "lt"]),
-  currency: text(["EUR", "BGN"]),
-  valueBasis: text(["current", "signing", "estimate"]),
-  procedure: text(),
-  status: text(["all", "cancelled", "notCancelled", "open", "closed"]),
-  actKind: text(["\u0440\u0435\u0448\u0435\u043D\u0438\u044F", "\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F", "\u0440\u0430\u0437\u043F\u043E\u0440\u0435\u0436\u0434\u0430\u043D\u0438\u044F", "unknown"]),
-  outcome: text(["\u0443\u0432\u0430\u0436\u0435\u043D\u0430", "\u043E\u0442\u0445\u0432\u044A\u0440\u043B\u0435\u043D\u0430", "\u043F\u0440\u0435\u043A\u0440\u0430\u0442\u0435\u043D\u0430", "\u043E\u0442\u043A\u0430\u0437\u0430\u043D\u0430", "unknown"]),
-  funding: text(["eu", "notEu", "unknown"]),
-  framework: text(["yes", "no", "unknown"]),
-  groupBy: text(["buyer", "supplier", "month", "year", "cpv", "outcome"]),
-  order: text(["asc", "desc"]),
+  amountMinRelation: text2(["gte", "gt"]),
+  amountMaxRelation: text2(["lte", "lt"]),
+  currency: text2(["EUR", "BGN"]),
+  valueBasis: text2(["current", "signing", "estimate"]),
+  procedure: text2(),
+  status: text2(["all", "cancelled", "notCancelled", "open", "closed"]),
+  actKind: text2(["\u0440\u0435\u0448\u0435\u043D\u0438\u044F", "\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F", "\u0440\u0430\u0437\u043F\u043E\u0440\u0435\u0436\u0434\u0430\u043D\u0438\u044F", "unknown"]),
+  outcome: text2(["\u0443\u0432\u0430\u0436\u0435\u043D\u0430", "\u043E\u0442\u0445\u0432\u044A\u0440\u043B\u0435\u043D\u0430", "\u043F\u0440\u0435\u043A\u0440\u0430\u0442\u0435\u043D\u0430", "\u043E\u0442\u043A\u0430\u0437\u0430\u043D\u0430", "unknown"]),
+  funding: text2(["eu", "notEu", "unknown"]),
+  framework: text2(["yes", "no", "unknown"]),
+  groupBy: text2(["buyer", "supplier", "month", "year", "cpv", "outcome"]),
+  order: text2(["asc", "desc"]),
   minGroupCount: number(),
-  minGroupCountBasis: text(["population", "evaluable"]),
+  minGroupCountBasis: text2(["population", "evaluable"]),
   limit: number(1, 100),
   offset: number(0, 1e4),
-  parentQuery: text(),
-  relatedCorpus: text(["appeals", "decisions"]),
-  relatedFrom: text(),
-  relatedToExclusive: text(),
-  relatedDateBasis: text(["complaint", "decision"]),
-  compareFrom: text(),
-  compareToExclusive: text(),
-  asOf: text(),
-  key: text()
+  parentQuery: text2(),
+  fundingParentQuery: text2(),
+  relatedCorpus: text2(["appeals", "decisions"]),
+  relatedFrom: text2(),
+  relatedToExclusive: text2(),
+  relatedDateBasis: text2(["complaint", "decision"]),
+  compareFrom: text2(),
+  compareToExclusive: text2(),
+  asOf: text2(),
+  key: text2()
 };
 var procurementPredicateIds = (corpus) => [
   ...corpus === "contracts" || corpus === "amendments" ? ["oneBid"] : [],
@@ -2693,7 +3202,7 @@ function validateProcurementQuery(raw) {
         errors[key] = "invalid list";
       else if (value.length)
         args[key] = [...new Set(value.map((v) => v.trim()))].sort();
-    } else if (typeof value !== "string" || !validUnicode(value) || !value.trim() || value.length > (key === "parentQuery" ? 8e3 : 256) || field.values && !field.values.includes(value))
+    } else if (typeof value !== "string" || !validUnicode(value) || !value.trim() || value.length > (["parentQuery", "fundingParentQuery"].includes(key) ? 8e3 : 256) || field.values && !field.values.includes(value))
       errors[key] = "invalid value";
     else args[key] = value.trim();
   }
@@ -2701,6 +3210,17 @@ function validateProcurementQuery(raw) {
     errors.corpus = "corpus required";
   const corpus = args.corpus ?? "contracts";
   if (errors.corpus) return { ok: false, errors };
+  if (args.fundingParentQuery) {
+    const p = decodeFundingQuery(String(args.fundingParentQuery));
+    if (!p.ok || p.query.parentQuery || p.query.groupBy || p.query.minGroupCount || p.query.operation === "compare" || p.query.corpus === "interregOperations" || args.parentQuery || args.corpus !== "contracts")
+      errors.fundingParentQuery = "invalid funding beneficiary parent";
+    else {
+      const token = encodeFundingQuery(p.query);
+      if (token.length > 8e3)
+        errors.fundingParentQuery = "canonical parent exceeds size limit";
+      else args.fundingParentQuery = token;
+    }
+  }
   if (args.parentQuery) {
     try {
       const rawParent = JSON.parse(

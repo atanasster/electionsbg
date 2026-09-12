@@ -1,3 +1,5 @@
+import { useFundingCapabilities } from "./useFundingCapabilities";
+import { validateFundingQuery } from "../../src/lib/fundingQuery";
 import { useProcurementCapabilities } from "./useProcurementCapabilities";
 import { validateProcurementQuery } from "../../src/lib/procurementQuery";
 import { scrollParent, shouldFollowChat } from "./chatScroll";
@@ -88,6 +90,18 @@ const prevContext = (
 ): { tool: string; args: ToolArgs } | undefined => {
   for (let i = beforeIndex - 1; i >= 0; i--) {
     const m = msgs[i];
+    if (m.role === "assistant" && m.env?.funding) {
+      const p = validateFundingQuery(m.env.funding.query);
+      return {
+        tool: "fundingQuery",
+        args: p.ok ? p.query : { version: "invalid-saved-scope" },
+      };
+    }
+    if (m.role === "assistant" && m.env?.fundingBundle)
+      return {
+        tool: "fundingQuestion",
+        args: { previous: "ambiguous-bundle" },
+      };
     if (m.role === "assistant" && m.env?.procurement) {
       const parsed = validateProcurementQuery(m.env.procurement.query);
       return parsed.ok
@@ -476,7 +490,9 @@ export const Chat = ({
     },
   });
 
-  const procurementCatalog = useProcurementCapabilities(QUESTION_CATALOG);
+  const procurementCatalog = useFundingCapabilities(
+    useProcurementCapabilities(QUESTION_CATALOG),
+  );
   const procurementRequestId = useRef(0);
   const send = async (
     text: string,
@@ -852,7 +868,8 @@ export const Chat = ({
     ? []
     : matchSuggestions(input, lang).filter(
         (s) =>
-          !s.questionId.startsWith("procurement-query-") ||
+          (!s.questionId.startsWith("procurement-query-") &&
+            !s.questionId.startsWith("funding-query-")) ||
           procurementCatalog.questions.some((q) => q.id === s.questionId),
       );
   const hasChat = messages.length > 0;

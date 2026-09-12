@@ -1,3 +1,4 @@
+import { decodeFundingQuery, encodeFundingQuery } from "./fundingQuery";
 import {
   isQueryDate as isProcurementDate,
   queryInstant as procurementInstant,
@@ -177,6 +178,7 @@ export const PROCUREMENT_FIELDS: Record<string, QueryField> = {
   limit: number(1, 100),
   offset: number(0, 10000),
   parentQuery: text(),
+  fundingParentQuery: text(),
   relatedCorpus: text(["appeals", "decisions"]),
   relatedFrom: text(),
   relatedToExclusive: text(),
@@ -214,6 +216,7 @@ export interface ProcurementQuery extends ProcurementWireArgs {
   relatedFrom?: string;
   relatedToExclusive?: string;
   parentQuery?: string;
+  fundingParentQuery?: string;
   relatedCorpus?: "appeals" | "decisions";
   topic?: string;
   keyword?: string;
@@ -284,7 +287,8 @@ export function validateProcurementQuery(raw: unknown): ProcurementValidation {
       typeof value !== "string" ||
       !validUnicode(value) ||
       !value.trim() ||
-      value.length > (key === "parentQuery" ? 8000 : 256) ||
+      value.length >
+        (["parentQuery", "fundingParentQuery"].includes(key) ? 8000 : 256) ||
       (field.values && !field.values.includes(value))
     )
       errors[key] = "invalid value";
@@ -294,6 +298,26 @@ export function validateProcurementQuery(raw: unknown): ProcurementValidation {
     errors.corpus = "corpus required";
   const corpus = (args.corpus ?? "contracts") as ProcurementCorpus;
   if (errors.corpus) return { ok: false, errors };
+  if (args.fundingParentQuery) {
+    const p = decodeFundingQuery(String(args.fundingParentQuery));
+    if (
+      !p.ok ||
+      p.query.parentQuery ||
+      p.query.groupBy ||
+      p.query.minGroupCount ||
+      p.query.operation === "compare" ||
+      p.query.corpus === "interregOperations" ||
+      args.parentQuery ||
+      args.corpus !== "contracts"
+    )
+      errors.fundingParentQuery = "invalid funding beneficiary parent";
+    else {
+      const token = encodeFundingQuery(p.query);
+      if (token.length > 8000)
+        errors.fundingParentQuery = "canonical parent exceeds size limit";
+      else args.fundingParentQuery = token;
+    }
+  }
   if (args.parentQuery) {
     try {
       const rawParent = JSON.parse(

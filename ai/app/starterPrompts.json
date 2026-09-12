@@ -2625,15 +2625,15 @@
     "id": "subsidiesForEntity",
     "category": "funds",
     "subcategory": "agriculture",
-    "tool": "subsidiesForEntity",
+    "tool": "fundingQuestion",
     "bg": "Колко субсидии е получила Златия Агро?",
     "en": "How much in subsidies did Zlatia Agro receive?",
     "args": {
       "bg": {
-        "company": "Златия Агро"
+        "question": "Колко субсидии е получила Златия Агро?"
       },
       "en": {
-        "company": "Zlatia Agro"
+        "question": "How much in subsidies did Zlatia Agro receive?"
       }
     }
   },

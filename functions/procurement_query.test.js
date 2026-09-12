@@ -90,11 +90,48 @@ test("rollback flag disables execution and advertised capabilities", async () =>
   const old = process.env.PROCUREMENT_QUERY_DISABLED;
   process.env.PROCUREMENT_QUERY_DISABLED = "1";
   try {
-    const never = () => {throw Error("must not execute");};
-    assert.equal((await runProcurementQuery(never,query)).body.status,"unavailable");
-    const {DB_ROUTES}=require("./db_routes");
-    const capabilities=await DB_ROUTES["procurement-capabilities"](never,{});
-    assert.equal(Object.keys(capabilities.body.corpora).length,5);
-    assert(Object.values(capabilities.body.corpora).every(c=>!c.ready && c.risks.length===0));
-  } finally {if(old===undefined)delete process.env.PROCUREMENT_QUERY_DISABLED;else process.env.PROCUREMENT_QUERY_DISABLED=old;}
+    const never = () => {
+      throw Error("must not execute");
+    };
+    assert.equal(
+      (await runProcurementQuery(never, query)).body.status,
+      "unavailable",
+    );
+    const { DB_ROUTES } = require("./db_routes");
+    const capabilities = await DB_ROUTES["procurement-capabilities"](never, {});
+    assert.equal(Object.keys(capabilities.body.corpora).length, 5);
+    assert(
+      Object.values(capabilities.body.corpora).every(
+        (c) => !c.ready && c.risks.length === 0,
+      ),
+    );
+  } finally {
+    if (old === undefined) delete process.env.PROCUREMENT_QUERY_DISABLED;
+    else process.env.PROCUREMENT_QUERY_DISABLED = old;
+  }
+});
+test("funding parent missing financial year cannot become authoritative empty procurement", async () => {
+  const { encodeFundingQuery } = require("./generated/funding_query");
+  const parent = encodeFundingQuery({
+    corpus: "agriPayments",
+    financialYears: ["2019"],
+  });
+  const r = await runProcurementQuery(
+    async () => [
+      {
+        result: {
+          fundingParent: {
+            catalogValid: true,
+            catalogVersion: "1.0.0",
+            identityValid: true,
+            yearsAvailable: ["2025"],
+            totals: { unidentified: 0 },
+          },
+          totals: { records: 0 },
+        },
+      },
+    ],
+    { corpus: "contracts", fundingParentQuery: parent },
+  );
+  assert.equal(r.body.status, "unavailable");
 });

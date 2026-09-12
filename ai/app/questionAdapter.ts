@@ -1,3 +1,4 @@
+import { fundingTemplate } from "../../src/lib/questions/contracts/funding";
 import { procurementTemplate } from "../../src/lib/questions/contracts/procurement";
 import { questionById } from "../../src/lib/questions/catalog";
 import { resolveQuestionSelection } from "../../src/lib/questions/resolve";
@@ -76,6 +77,11 @@ export const toChatQuestionIntent = (
   if (!question) throw new Error(`Unknown question: ${questionId}`);
   if (question.chat.status !== "ready" || !question.chat.capabilityId)
     throw new Error(`Question is not ready for chat: ${questionId}`);
+  if (questionId.startsWith("funding-query-")) {
+    if (values && Object.keys(values).length)
+      resolveQuestionSelection(question, values);
+    return { questionId, ...fundingTemplate(questionId, lang, values) };
+  }
   if (questionId.startsWith("procurement-query-")) {
     const resolved = resolveQuestionSelection(question, values);
     const template = procurementTemplate(

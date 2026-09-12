@@ -1,3 +1,5 @@
+import { decodeFundingQuery } from "../../src/lib/fundingQuery";
+import { fundingScope } from "./funding";
 import { PROCUREMENT_RISK_WORDS } from "../../src/lib/questions/contracts/procurement";
 import { fetchDb } from "./dataClient";
 import { understandProcurement } from "../orchestrator/procurementUnderstanding";
@@ -55,7 +57,13 @@ export const procurementScope = (
 ): string => {
   const bg = ctx.lang === "bg";
   const parent = q.parentQuery ? decodeProcurementQuery(q.parentQuery) : null;
+  const fundingParent = q.fundingParentQuery
+    ? decodeFundingQuery(q.fundingParentQuery)
+    : null;
   return [
+    fundingParent?.ok
+      ? `${bg ? "Поръчки на бенефициентите по ЕИК; това не доказва финансиране от проекта" : "Beneficiary procurement by EIK; this does not prove project financing"}: (${fundingScope(fundingParent.query, ctx)})`
+      : "",
     units[q.corpus][ctx.lang],
     `${q.from || "…"} ≤ ${({ record: bg ? "дата на записа" : "record date", signed: bg ? "проверена дата на подписване" : "verified signing date", published: bg ? "дата на обявяване" : "publication date", deadline: bg ? "краен срок" : "submission deadline", complaint: bg ? "дата на жалбата" : "complaint date", decision: bg ? "дата на акта" : "act date" } as Record<string, string>)[q.dateBasis]} < ${q.toExclusive || "…"}`,
     ...(q.buyerSectors || []).map(

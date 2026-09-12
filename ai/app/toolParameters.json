@@ -515,6 +515,15 @@
       }
     },
     {
+      "name": "fundingParentQuery",
+      "type": "text",
+      "required": false,
+      "description": {
+        "bg": "fundingParentQuery",
+        "en": "fundingParentQuery"
+      }
+    },
+    {
       "name": "relatedCorpus",
       "type": "text",
       "required": false,
@@ -1173,6 +1182,14 @@
     }
   ],
   "fundingQuestion": [
+    {
+      "name": "handoff",
+      "type": "text",
+      "description": {
+        "bg": "Преход към отворени приеми",
+        "en": "Open-call handoff"
+      }
+    },
     {
       "name": "question",
       "type": "text",

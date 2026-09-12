@@ -1,4 +1,8 @@
 import {
+  encodeFundingQuery,
+  validateFundingQuery,
+} from "../../src/lib/fundingQuery";
+import {
   encodeProcurementQuery,
   validateProcurementQuery,
 } from "../../src/lib/procurementQuery";
@@ -624,6 +628,29 @@ pages(
 
 export const siteLinks = (env: Envelope): SiteLink[] => {
   if (env.clarify) return [];
+  if (env.fundingBundle)
+    return env.fundingBundle.flatMap((item) =>
+      siteLinks({ ...env, fundingBundle: undefined, funding: item }),
+    );
+  if (env.funding) {
+    const q = validateFundingQuery(env.funding.query);
+    if (!q.ok) return [];
+    return [
+      {
+        label: {
+          bg: "Същата справка и записи",
+          en: "This query and its records",
+        },
+        href: url(
+          "/funding/query?" +
+            new URLSearchParams({
+              query: encodeFundingQuery(q.query),
+              revision: env.funding.result.revision || "",
+            }).toString(),
+        ),
+      },
+    ];
+  }
   if (env.procurementBundle)
     return env.procurementBundle.flatMap((item, i) =>
       siteLinks({

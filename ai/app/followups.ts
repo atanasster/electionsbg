@@ -1,3 +1,4 @@
+import { fundingContinuations } from "./fundingContinuations";
 import { procurementContinuations } from "./procurementContinuations";
 // A continuation is a catalog intent, never a question for the text router to
 // reinterpret. Missing context means omission, rather than an example entity.
@@ -152,6 +153,7 @@ export const followUps = (
   answered: AnsweredIntent[] = [],
 ): FollowUp[] => {
   if (env.clarify) return [];
+  if (env.funding) return fundingContinuations(env);
   if (env.procurement) return procurementContinuations(env);
   const out: FollowUp[] = [];
   const add = (

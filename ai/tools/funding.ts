@@ -1,3 +1,5 @@
+import { validateProcurementQuery } from "../../src/lib/procurementQuery";
+import { encodeFundingQuery } from "../../src/lib/fundingQuery";
 import { loadMunis } from "./place";
 import { fetchDb } from "./dataClient";
 import {
@@ -375,6 +377,30 @@ export async function fundingQuestion(
       ? decodeFundingQuery(args.previous)
       : null;
   const invalid = previous && !previous.ok;
+  if (previous?.ok && args.handoff === "openCalls") {
+    const { openCalls } = await import("./fiscal");
+    const result = await openCalls(
+      {
+        audience:
+          previous.query.corpus === "agriPayments" ? "farmer" : undefined,
+      },
+      ctx,
+    );
+    const scope = fundingScope(previous.query, ctx);
+    return {
+      ...result,
+      tool: "fundingQuestion",
+      subtitle: scope,
+      facts: {
+        ...result.facts,
+        scope,
+        coverage_note:
+          ctx.lang === "bg"
+            ? "Отворени приеми сега. Периодът на отпуснатото финансиране не се прилага. Темата и мястото са контекст, не потвърдена допустимост. Interreg не е включен."
+            : "Open calls now. The award period is not applied. Theme and place are context, not confirmed eligibility. Interreg is not included.",
+      },
+    };
+  }
   let catalog: FundingCatalog = {};
   const question = String(args.question || "");
   if (/община|municipality/i.test(question)) {
@@ -463,6 +489,73 @@ export async function fundingQuestion(
       fundingBundle: answers.flatMap((a) => (a.funding ? [a.funding] : [])),
     };
   }
+  if (r?.kind === "clarification" && previous?.ok && r.reason === "P11") {
+    const year = new Date().getFullYear();
+    const child = validateProcurementQuery({
+      corpus: "contracts",
+      operation: "list",
+      fundingParentQuery: encodeFundingQuery(previous.query),
+      from: `${year}-01-01`,
+      toExclusive: `${year + 1}-01-01`,
+    });
+    const message =
+      ctx.lang === "bg"
+        ? `Поръчки на бенефициентите по ЕИК, не доказано финансирани от проекта. Изберете отделния период за поръчките (${year}) или го напишете в целия въпрос.`
+        : `Beneficiary procurement by EIK, without proof of project financing. Choose the independent procurement period (${year}) or specify it in a complete question.`;
+    return {
+      tool: "fundingQuestion",
+      kind: "scalar",
+      title: message,
+      viz: "none",
+      facts: { answer: message, scope: fundingScope(previous.query, ctx) },
+      provenance: [],
+      ...(child.ok
+        ? {
+            clarify: {
+              prompt: message,
+              options: [
+                {
+                  label: String(year),
+                  tool: "procurementQuery",
+                  args: child.query,
+                },
+              ],
+            },
+          }
+        : {}),
+    };
+  }
+  if (r?.kind === "clarification" && previous?.ok && r.reason === "P15") {
+    const message =
+      ctx.lang === "bg"
+        ? "Отворените приеми са възможности сега. Старият период на финансиране не се прилага; темата и мястото се запазват като контекст, не като проверена допустимост. Interreg не е включен."
+        : "Open calls are opportunities now. The prior award period does not apply; theme and place remain context, not verified eligibility. Interreg is not included.";
+    return {
+      tool: "fundingQuestion",
+      kind: "scalar",
+      title: message,
+      viz: "none",
+      facts: { answer: message, scope: fundingScope(previous.query, ctx) },
+      provenance: [],
+      clarify: {
+        prompt: message,
+        options: [
+          {
+            label:
+              ctx.lang === "bg"
+                ? "Покажи отворените приеми"
+                : "Show open calls",
+            tool: "fundingQuestion",
+            args: {
+              question: String(args.question),
+              previous: encodeFundingQuery(previous.query),
+              handoff: "openCalls",
+            },
+          },
+        ],
+      },
+    };
+  }
   const message =
     r?.kind === "clarification"
       ? r.message[ctx.lang]
@@ -511,6 +604,14 @@ export const FUNDING_TOOLS: ToolDef[] = [
       en: "Resolves or clarifies a complete funding question.",
     },
     params: [
+      {
+        name: "handoff",
+        type: "text",
+        description: {
+          bg: "Преход към отворени приеми",
+          en: "Open-call handoff",
+        },
+      },
       {
         name: "question",
         type: "text",

@@ -1,3 +1,8 @@
+import { fundingContinuation } from "../../src/lib/fundingContinuations";
+import {
+  FUNDING_TEMPLATES,
+  fundingTemplate,
+} from "../../src/lib/questions/contracts/funding";
 import {
   validateFundingQuery,
   type FundingQuery,
@@ -72,6 +77,185 @@ export function understandFunding(
     forcedCorpus?: FundingCorpus;
   } = {},
 ): FundingUnderstanding {
+  if (options.previous) {
+    const c = fundingContinuation(question, options.previous);
+    if (c?.query)
+      return {
+        kind: "query",
+        query: c.query,
+        captures: Object.entries(c.query).map(([field, value]) => ({
+          field,
+          value,
+        })),
+      };
+    if (c?.reason === "P16") {
+      const old = options.previous;
+      const incompatible = [
+        "from",
+        "toExclusive",
+        "financialYears",
+        "compareFinancialYears",
+        "compareFrom",
+        "compareToExclusive",
+        "asOf",
+        "programmeIds",
+        "schemeIds",
+        "basePredicates",
+        "numeratorPredicates",
+        "themeIds",
+        "beneficiarySectors",
+        "fundingMechanisms",
+        "fundTypes",
+        "statusIds",
+        "parentQuery",
+        "amountMin",
+        "amountMax",
+        "keyword",
+      ].some((k) => old[k] !== undefined);
+      if (
+        old.placeIds &&
+        old.placeBasis &&
+        ["implementation", "partner"].includes(String(old.placeBasis)) &&
+        !incompatible &&
+        ["records", "amount", "beneficiaries"].includes(old.metric)
+      ) {
+        const queries = ["isunProjects", "interregPartners"].map((corpus) =>
+          validateFundingQuery({
+            ...old,
+            corpus,
+            placeBasis:
+              corpus === "isunProjects" ? "implementation" : "partner",
+            amountBasis: corpus === "isunProjects" ? "grant" : "partnerBudget",
+            dateBasis: "none",
+            offset: 0,
+            expectedRevision: undefined,
+          }),
+        );
+        if (queries.every((p) => p.ok))
+          return {
+            kind: "bundle",
+            queries: queries.flatMap((p) => (p.ok ? [p.query] : [])),
+          };
+      }
+      return issue(
+        "P16",
+        "Запазете общината и задайте отделните периоди и условия за ИСУН и Interreg.",
+        "Retain the municipality and specify separate periods and conditions for ISUN and Interreg.",
+        old,
+      );
+    }
+    if (c?.reason === "P01") {
+      const choices =
+        options.previous.corpus === "isunProjects"
+          ? [
+              {
+                label: {
+                  bg: "Тема на проекта: здравеопазване",
+                  en: "Project theme: healthcare",
+                },
+                patch: { themeIds: ["health"] },
+              },
+              {
+                label: {
+                  bg: "Конкретни институции от регистъра МЗ/НЗОК",
+                  en: "Specific MZ/NHIF roster institutions",
+                },
+                patch: { beneficiarySectors: ["nzok"] },
+              },
+            ]
+          : [];
+      return issue(
+        "healthcare_basis",
+        "Изберете тема на проекта или конкретния регистър на институциите.",
+        "Choose project theme or the specific institution roster.",
+        options.previous,
+        choices.flatMap((c) => {
+          const p = validateFundingQuery({
+            ...options.previous,
+            ...c.patch,
+            offset: 0,
+          });
+          return p.ok ? [{ label: c.label, query: p.query }] : [];
+        }),
+      );
+    }
+    if (c?.reason)
+      return issue(
+        c.reason,
+        "Уточнете промяната, като запазите обхвата на предишния отговор.",
+        "Clarify the change while retaining the previous answer scope.",
+        options.previous,
+      );
+  }
+  if (!options.previous) {
+    for (const t of FUNDING_TEMPLATES) {
+      for (const lang of ["bg", "en"] as const) {
+        const years = [...question.matchAll(/20\d{2}/g)].map((m) => m[0]);
+        const values: Record<string, unknown> = {};
+        if (
+          t.query?.financialYears &&
+          !t.query.compareFinancialYears &&
+          years.length === 1
+        )
+          values.year = Number(years[0]);
+        const period = question.match(/(2007|2014|2021)[–-](2013|2020|2027)/);
+        if (t.query?.programmingPeriods && period)
+          values.period = period[1] + "-" + period[2];
+        if (t.id === "S13") {
+          const eik = question.match(/(?:ЕИК|EIK)\s+(\d{9}|\d{13})\b/i),
+            scheme = question.match(/(?:схема|scheme)\s+([a-zа-я0-9-]+)/i);
+          if (eik && scheme && years.length === 1) {
+            values.eik = eik[1];
+            values.scheme = scheme[1];
+            values.year = years[0];
+          }
+        }
+        const candidate = fundingTemplate(
+          "funding-query-" + t.id,
+          lang,
+          values,
+        );
+        if (normalize(candidate.text) === normalize(question)) {
+          if (!t.query && t.id !== "S13")
+            return issue(
+              "template_parameters",
+              "Посочете конкретните параметри на справката.",
+              "Specify concrete query parameters.",
+              {},
+            );
+          if (candidate.tool === "fundingQuestion")
+            return issue(
+              "template_parameters",
+              "Попълнете ЕИК, година и схема.",
+              "Provide EIK, year and scheme.",
+              {},
+            );
+          const p = validateFundingQuery(candidate.args);
+          if (p.ok)
+            return {
+              kind: "query",
+              query: p.query,
+              captures: Object.entries(p.query).map(([field, value]) => ({
+                field,
+                value,
+              })),
+            };
+        }
+      }
+    }
+    const legacyDiscovery = [
+      "Кой получава най-много европейски средства?",
+      "Who gets the most EU funds?",
+      "Кой получава най-много земеделски субсидии?",
+      "Who gets the most farm subsidies?",
+      "Земеделски субсидии по схема",
+      "Farm subsidies by scheme",
+      "Колко европейски средства са усвоени?",
+      "How much EU funding has actually been absorbed?",
+    ];
+    if (legacyDiscovery.some((s) => normalize(s) === normalize(question)))
+      return { kind: "none" };
+  }
   const clauses = question
     .split(
       /[?;]\s+(?=(?:how|what|show|count|колко|как|покажи|кои)\s)|\s+(?:and separately|и отделно)\s+/i,
@@ -104,6 +288,19 @@ export function understandFunding(
   const text = normalize(question),
     cat = options.catalog || {},
     now = options.now || new Date();
+  if (
+    /(?:покажи показателя|show the indicator)|(?:which ngos are flagged|кои нпо имат сигнал)/.test(
+      text,
+    )
+  )
+    return { kind: "none" };
+  if (
+    options.previous &&
+    /парламентар|parliamentary|election|избор|weather|времето|procurement|обществените поръчки|поръчки|tenders/.test(
+      text,
+    )
+  )
+    return { kind: "none" };
   const explicitIsun =
     /исун|isun|еврофонд|европейск(?:и|ите) (?:средства|фондове|пари)|eu funds|eu funding/.test(
       text,
@@ -120,10 +317,10 @@ export function understandFunding(
   )
     return { kind: "none" };
   if (
-    /филмов|film|железопът|railway|пенсии|pension|общински трансфери|municipal transfer/.test(
+    /филм|кино|читалищ|film|community centres|влак|железниц|железопът|railway|пенсии|pension|общински трансфери|municipal transfer/.test(
       text,
     ) &&
-    !explicitIsun &&
+    !/исун|isun/.test(text) &&
     !explicitInterreg &&
     !explicitAgri
   )
@@ -195,6 +392,14 @@ export function understandFunding(
       {},
     );
   }
+  if (
+    options.previous &&
+    !domains.length &&
+    !/^(?:(?:а|and|за|for|през|in|не|not) )?20\d{2}(?:[ ?.]*$)|grant|paid|programme|scheme|beneficiar|political|unpaid|health|road|municipality|финанс|изплат|безвъзмезд|програм|схем|бенефициент|политическ|здравеопаз|пътищ|община|еик|eik|largest|highest|lowest/.test(
+      text,
+    )
+  )
+    return { kind: "none" };
   const corpus = domains[0] || options.previous!.corpus;
   const q: FundingArgs = options.previous
     ? { ...options.previous, limit: 20, offset: 0 }

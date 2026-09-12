@@ -74,23 +74,26 @@ describe("source-aware data cache", () => {
   });
 });
 
-it("procurement responses are reused only while in flight", async () => {
-  clearDataCache();
-  let resolve!: (v: unknown) => void;
-  let calls = 0;
-  setDbFetcher(() => {
-    calls++;
-    return new Promise((r) => {
-      resolve = r;
+it.each(["procurement-query", "funding-query", "funding-capabilities"])(
+  "%s responses are reused only while in flight",
+  async (route) => {
+    clearDataCache();
+    let resolve!: (v: unknown) => void;
+    let calls = 0;
+    setDbFetcher(() => {
+      calls++;
+      return new Promise((r) => {
+        resolve = r;
+      });
     });
-  });
-  const a = fetchDb("procurement-query", { query: "same" }),
-    b = fetchDb("procurement-query", { query: "same" });
-  expect(calls).toBe(1);
-  resolve({ status: "unavailable" });
-  await Promise.all([a, b]);
-  const c = fetchDb("procurement-query", { query: "same" });
-  expect(calls).toBe(2);
-  resolve({ status: "success" });
-  await c;
-});
+    const a = fetchDb(route, { query: "same" }),
+      b = fetchDb(route, { query: "same" });
+    expect(calls).toBe(1);
+    resolve({ status: "unavailable" });
+    await Promise.all([a, b]);
+    const c = fetchDb(route, { query: "same" });
+    expect(calls).toBe(2);
+    resolve({ status: "success" });
+    await c;
+  },
+);

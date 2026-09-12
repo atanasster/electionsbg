@@ -646,6 +646,11 @@ const ProcurementSettlementDetailScreen = lazy(() =>
     }),
   ),
 );
+const FundingQueryScreen = lazy(() =>
+  import("./screens/funding/FundingQueryScreen").then((m) => ({
+    default: m.FundingQueryScreen,
+  })),
+);
 const ProcurementQueryScreen = lazy(() =>
   import("./screens/procurement/ProcurementQueryScreen").then((m) => ({
     default: m.ProcurementQueryScreen,
@@ -2924,6 +2929,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funding/query"
+            element={
+              <LayoutScreen>
+                <FundingQueryScreen />
               </LayoutScreen>
             }
           />

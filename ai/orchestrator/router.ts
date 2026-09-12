@@ -1,3 +1,7 @@
+import {
+  validateFundingQuery,
+  encodeFundingQuery,
+} from "../../src/lib/fundingQuery";
 import { understandFunding } from "./fundingUnderstanding";
 import {
   understandProcurement,
@@ -4948,6 +4952,30 @@ export const resolveFollowOn = (
   prev: { tool: string; args: ToolArgs } | undefined,
 ): Route => {
   if (!prev) return null;
+  if (prev.tool === "fundingQuery") {
+    const p = validateFundingQuery(prev.args);
+    if (!p.ok)
+      return {
+        tool: "fundingQuestion",
+        args: { question, previous: "invalid-saved-scope" },
+      };
+    const r = understandFunding(question, { previous: p.query });
+    if (r.kind !== "none")
+      return r.kind === "query"
+        ? { tool: "fundingQuery", args: r.query }
+        : {
+            tool: "fundingQuestion",
+            args: { question, previous: encodeFundingQuery(p.query) },
+          };
+  }
+  if (
+    prev.tool === "fundingQuestion" &&
+    prev.args.previous === "ambiguous-bundle"
+  )
+    return {
+      tool: "fundingQuestion",
+      args: { question, previous: "ambiguous-bundle" },
+    };
   if (prev.tool === "procurementQuery") {
     const parsed = validateProcurementQuery(prev.args);
     if (!parsed.ok)

@@ -325,3 +325,36 @@ it("G03/G04 portable parent query validates and rejects recursive or grouped sco
     }).ok,
   ).toBe(false);
 });
+it("funding parent canonical size and grouped scope remain closed under encoding", () => {
+  for (const n of [5, 110, 114]) {
+    const parent = encodeURIComponent(
+      JSON.stringify({
+        corpus: "interregPartners",
+        programmeIds: Array.from({ length: n }, (_, i) => "x".repeat(55) + i),
+      }),
+    );
+    const p = validateProcurementQuery({
+      corpus: "contracts",
+      fundingParentQuery: parent,
+    });
+    if (p.ok) {
+      expect(validateProcurementQuery(p.query).ok).toBe(true);
+      expect(() => encodeProcurementQuery(p.query)).not.toThrow();
+      expect(decodeProcurementQuery(encodeProcurementQuery(p.query))).toEqual(
+        p,
+      );
+    } else expect(p.errors.fundingParentQuery).toBeTruthy();
+  }
+  expect(
+    validateProcurementQuery({
+      corpus: "contracts",
+      fundingParentQuery: encodeURIComponent(
+        JSON.stringify({
+          corpus: "isunProjects",
+          groupBy: "entity",
+          minGroupCount: 5,
+        }),
+      ),
+    }).ok,
+  ).toBe(false);
+});

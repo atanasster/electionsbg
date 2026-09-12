@@ -24,6 +24,18 @@ describe("deployed procurement validator", () => {
       expect(shipped.PROCUREMENT_CAPABILITY).toEqual(PROCUREMENT_CAPABILITY);
       for (const raw of [
         { corpus: "contracts", from: "2026-01-01" },
+        ...[5, 110, 114].map((n) => ({
+          corpus: "contracts",
+          fundingParentQuery: encodeURIComponent(
+            JSON.stringify({
+              corpus: "interregPartners",
+              programmeIds: Array.from(
+                { length: n },
+                (_, i) => "x".repeat(55) + i,
+              ),
+            }),
+          ),
+        })),
         { corpus: "appeals", year: 2026 },
         { corpus: "tenders", basePredicates: ["risk:rushedDeadline"] },
       ])

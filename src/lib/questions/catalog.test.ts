@@ -9,10 +9,15 @@ import { resolveQuestionSelection } from "./resolve";
 import { TOOLS } from "../../../ai/tools/registry";
 
 describe("shared question catalog", () => {
+  // The legacy name-first subsidy tool remains callable for saved history, but is no longer advertised.
   it("preserves the original 150 and includes reviewed additions", () => {
     expect(
       new Set(QUESTION_DEFINITIONS.map((q) => q.chat.capabilityId)),
-    ).toEqual(new Set(TOOLS.map((t) => t.name)));
+    ).toEqual(
+      new Set(
+        TOOLS.filter((t) => t.name !== "subsidiesForEntity").map((t) => t.name),
+      ),
+    );
     expect(QUESTION_CATEGORIES).toHaveLength(19);
     expect(QUESTION_CATALOG.questions).toBe(QUESTION_DEFINITIONS);
   });
@@ -53,7 +58,10 @@ describe("shared question catalog", () => {
         (candidate) => candidate.name === question.chat.capabilityId,
       );
       expect(tool, question.id).toBeDefined();
-      if (question.id.startsWith("procurement-query-")) {
+      if (
+        question.id.startsWith("procurement-query-") ||
+        question.id.startsWith("funding-query-")
+      ) {
         const intent = toChatQuestionIntent(
           question.id,
           "bg",
@@ -77,9 +85,11 @@ describe("shared question catalog", () => {
       expect(() =>
         resolveQuestionSelection(
           question,
-          question.id === "presidentialResults"
-            ? question.defaults
-            : (question.legacyChatArgs?.bg ?? question.defaults),
+          question.id === "funding-query-S13"
+            ? { eik: "111111111", year: 2025, scheme: "S1" }
+            : question.id === "presidentialResults"
+              ? question.defaults
+              : (question.legacyChatArgs?.bg ?? question.defaults),
         ),
       ).not.toThrow();
     }

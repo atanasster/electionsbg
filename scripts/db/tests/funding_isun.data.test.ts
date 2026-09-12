@@ -1,3 +1,7 @@
+import {
+  encodeFundingQuery,
+  validateFundingQuery,
+} from "../../../src/lib/fundingQuery";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { afterAll, expect, test } from "vitest";
@@ -42,6 +46,57 @@ test("ISUN independent cohort arithmetic, money evidence, themes, dates and revi
             { corpus: "isunProjects", ...args },
           )
         ).body;
+      await c.query(`ALTER TABLE contracts ADD COLUMN title text, ADD COLUMN date text, ADD COLUMN date_signed text, ADD COLUMN awarder_eik text, ADD COLUMN awarder_name text, ADD COLUMN contractor_eik text, ADD COLUMN contractor_name text, ADD COLUMN cpv text, ADD COLUMN unp text, ADD COLUMN number_of_tenderers int, ADD COLUMN amount_eur numeric, ADD COLUMN signing_amount_eur numeric, ADD COLUMN joint_kind text, ADD COLUMN consortium_role text, ADD COLUMN tag text;
+ CREATE TABLE procurement_query_revisions(resource text,generation bigint,changed_at timestamptz);
+ INSERT INTO contracts(key,date,contractor_eik,amount_eur,tag)VALUES('C1','2026-01-01','111111111',100,'contract'),('C2','2026-02-01','222222222',200,'contract'),('C3','2025-01-01','222222222',400,'contract'),('C4','2026-01-01','333333333',800,'contract');`);
+      const {
+        runProcurementQuery,
+      } = require("../../../functions/procurement_query.js");
+      const bridge = async (parent: Record<string, unknown>) =>
+        (
+          await runProcurementQuery(
+            async (sql: string, params: unknown[]) =>
+              (await c.query(sql, params)).rows,
+            {
+              corpus: "contracts",
+              operation: "sum",
+              metric: "value",
+              from: "2026-01-01",
+              toExclusive: "2027-01-01",
+              fundingParentQuery: encodeFundingQuery(
+                (() => {
+                  const p = validateFundingQuery({
+                    corpus: "isunProjects",
+                    themeIds: ["health"],
+                    limit: 1,
+                    ...parent,
+                  });
+                  if (!p.ok) throw Error();
+                  return p.query;
+                })(),
+              ),
+            },
+          )
+        ).body;
+      const linked = await bridge({});
+      expect(linked.status).toBe("success");
+      expect(linked.totals.records).toBe(2);
+      expect(linked.totals.value_eur).toBe("300");
+      expect(linked.relationship).toContain("not_proven_project_financing");
+      expect(linked.revision.funding).toBeTruthy();
+      expect((await bridge({ expectedRevision: "stale" })).status).toBe(
+        "unavailable",
+      );
+      expect((await bridge({ programmeIds: ["ABSENT"] })).status).toBe(
+        "unavailable",
+      );
+      await c.query(
+        "UPDATE funding_query_meta SET value='{\"version\":\"stale\"}' WHERE key='catalog'",
+      );
+      expect((await bridge({})).status).toBe("unavailable");
+      await c.query(
+        "UPDATE funding_query_meta SET value='{\"version\":\"1.0.0\"}' WHERE key='catalog'",
+      );
       const all = await run();
       expect(all.status).toBe("partial");
       expect(all.totals).toMatchObject({
