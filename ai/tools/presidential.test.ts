@@ -6,6 +6,7 @@
 // be in the title, because a runoff is a different electorate a week later with two ballot lines
 // instead of 23; and „не подкрепям никого" must be ABSENT rather than 0 before 2016.
 
+import { siteLinks } from "../render/links";
 import { describe, it, expect, afterEach } from "vitest";
 import {
   presidentialResults,
@@ -289,6 +290,9 @@ describe("presidentialResults", () => {
   it("answers for one município, and says whose share the % is", async () => {
     serve();
     const env = await presidentialResults({ place: "Благоевград" }, ctx);
+    expect(new URL(siteLinks(env)[0].href).pathname).toBe(
+      "/presidential/2021_11_14_pvr/municipality/BLG01",
+    );
     expect(env.kind).toBe("table");
     // ⚠ THE PLACE'S OWN ORDER, not the national one — Герджиков leads this fixture's
     // município while Радев leads nationally, and a table that kept the national order would
@@ -305,6 +309,7 @@ describe("presidentialResults", () => {
     // the country, with the numbers one file away.
     serve();
     const env = await presidentialResults({ place: "София" }, ctx);
+    expect(siteLinks(env)).toEqual([]);
     expect(JSON.stringify(env.facts)).not.toMatch(/няма данни/);
     expect(env.kind).toBe("table");
     expect(env.title).toMatch(/София \(столична община — 3 МИР\)/);
@@ -319,6 +324,9 @@ describe("presidentialResults", () => {
     // about half the votes, under a title naming neither scope.
     serve();
     const env = await presidentialResults({ place: "област Благоевград" }, ctx);
+    expect(new URL(siteLinks(env)[0].href).pathname).toBe(
+      "/presidential/2021_11_14_pvr/region/BLG",
+    );
     expect(env.provenance.some((p) => p.includes("region_votes"))).toBe(true);
     expect(env.provenance.some((p) => p.includes("municipality_votes"))).toBe(
       false,
@@ -333,6 +341,9 @@ describe("presidentialResults", () => {
     // `provenance` is the citation surface, so listing it there is a small untruth.
     serve();
     const env = await presidentialResults({ place: "Благоевград" }, ctx);
+    expect(new URL(siteLinks(env)[0].href).pathname).toBe(
+      "/presidential/2021_11_14_pvr/municipality/BLG01",
+    );
     expect(env.provenance.some((p) => p.includes("tickets.json"))).toBe(false);
     expect(env.provenance.some((p) => p.includes("region_votes"))).toBe(false);
   });

@@ -1063,9 +1063,9 @@ const CASES: Case[] = [
     tool: "agencyProfile",
     kind: "scalar",
     facts: { grade: "A+" },
-    // single agency -> its own /polls/{agencyId} page (+ the polls overview),
+    // single agency -> its own /polls/{agencyId} page,
     // matching its agencyPolls / agencyAccuracyHistory siblings
-    links: ["/polls/AR", "/polls"],
+    links: ["/polls/AR"],
   },
   {
     q: "Какво показват последните проучвания?",
@@ -1316,7 +1316,7 @@ const CASES: Case[] = [
       matches: { num: 2 },
       biggest_estimate: /490/,
     },
-    links: ["/procurement/tenders?topic=guardrails&year=2025"],
+    links: ["/procurement/tenders?topic=guardrails&pscope=y%3A2025"],
   },
   {
     q: "Show me all road-guardrail tenders in 2025",
@@ -1325,7 +1325,7 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 2,
     facts: { matches: { num: 2 }, biggest_estimate: /490/ },
-    links: ["/procurement/tenders?topic=guardrails&year=2025"],
+    links: ["/procurement/tenders?topic=guardrails&pscope=y%3A2025"],
   },
   // one procedure by УНП -> its detail page (/tenders/:unp) + the ocid lineage
   {
@@ -1463,8 +1463,8 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 5,
     facts: { top_hospital: /\S/, national_total: /€/ },
-    // the biggest hospital -> its own company page + the health-fund category link
-    links: ["/company/115576405", "/awarder/121858220"],
+    // the hospital ranking -> health-fund overview + biggest-hospital drilldown
+    links: ["/awarder/121858220", "/company/115576405"],
   },
   {
     q: "top hospitals paid by NHIF",
@@ -1605,7 +1605,7 @@ const CASES: Case[] = [
       delta_static: /^\+/,
       share_of_gdp: /%/,
     },
-    links: ["/budget/simulator?dds=22", "/budget"],
+    links: ["/budget/simulator?dds=22"],
   },
   {
     q: "What if income tax goes to 15%?",
@@ -1617,7 +1617,7 @@ const CASES: Case[] = [
       delta_per_year: /^\+/,
       delta_static: /^\+/,
     },
-    links: ["/budget/simulator?pit=15", "/budget"],
+    links: ["/budget/simulator?pit=15"],
   },
   {
     // cost-of-policy framing with no amount -> the МРЗ preset (€620/mo),
@@ -1626,7 +1626,7 @@ const CASES: Case[] = [
     tool: "simulateTaxChange",
     kind: "scalar",
     facts: { change: /620/, delta_per_year: /^−/, delta_static: /^−/ },
-    links: ["/budget/simulator?nm=620", "/budget"],
+    links: ["/budget/simulator?nm=620"],
   },
   {
     // VAT category regime change (храни -> намалена ставка 9%)
@@ -1634,7 +1634,7 @@ const CASES: Case[] = [
     tool: "simulateTaxChange",
     kind: "scalar",
     facts: { change: "Храни", delta_per_year: /^−/, delta_static: /^−/ },
-    links: ["/budget/simulator?food=reduced", "/budget"],
+    links: ["/budget/simulator?food=reduced"],
   },
   {
     // МОД-cap removal — carries the Pareto-tail uncertainty band
@@ -1647,7 +1647,7 @@ const CASES: Case[] = [
       delta_static: /^\+/,
       range: /…/,
     },
-    links: ["/budget/simulator?nocap=1", "/budget"],
+    links: ["/budget/simulator?nocap=1"],
   },
   // expenditure levers — Δ is on the budget BALANCE (positive = improves),
   // parity with the same scenario on /budget/simulator
@@ -1660,7 +1660,7 @@ const CASES: Case[] = [
       delta_per_year: /^\+/,
       delta_static: /^\+/,
     },
-    links: ["/budget/simulator?pw=100", "/budget"],
+    links: ["/budget/simulator?pw=100"],
   },
   {
     q: "Ковид добавката да не се индексира",
@@ -1671,7 +1671,7 @@ const CASES: Case[] = [
       delta_per_year: /^\+/,
       delta_static: /^\+/,
     },
-    links: ["/budget/simulator?ks=0", "/budget"],
+    links: ["/budget/simulator?ks=0"],
   },
   {
     // the vacancy honesty note: most of a 10% cut falls on vacant positions
@@ -1683,7 +1683,7 @@ const CASES: Case[] = [
       delta_per_year: /^\+/,
       note: /незаети/,
     },
-    links: ["/budget/simulator?adm=10", "/budget"],
+    links: ["/budget/simulator?adm=10"],
   },
   {
     q: "Freeze the minimum wage",
@@ -1693,7 +1693,7 @@ const CASES: Case[] = [
     // Net of the forgone private SSC/PIT (−€229M) and the public-sector
     // payroll the budget avoids (+€114M) — see scoreMinWageFreeze.
     facts: { change: "minimum wage frozen", delta_per_year: /^−/ },
-    links: ["/budget/simulator?mrz=1", "/budget"],
+    links: ["/budget/simulator?mrz=1"],
   },
   // Phase-5 levers — same balance convention, simulator parity
   {
@@ -1707,7 +1707,7 @@ const CASES: Case[] = [
       delta_static: /^−/,
       note: /НАТО/,
     },
-    links: ["/budget/simulator?def=30", "/budget"],
+    links: ["/budget/simulator?def=30"],
   },
   {
     q: "Заплатите в публичния сектор +5%",
@@ -1720,7 +1720,7 @@ const CASES: Case[] = [
       delta_per_year: /^−/,
       delta_static: /^−/,
     },
-    links: ["/budget/simulator?wi=5", "/budget"],
+    links: ["/budget/simulator?wi=5"],
   },
   {
     // cash effect scales by the historical execution rate (the note)
@@ -1733,7 +1733,7 @@ const CASES: Case[] = [
       delta_static: /^\+/,
       note: /изпълняемост/,
     },
-    links: ["/budget/simulator?kap=-10", "/budget"],
+    links: ["/budget/simulator?kap=-10"],
   },
   {
     q: "Държавните служители да си плащат осигуровките",
@@ -1748,7 +1748,7 @@ const CASES: Case[] = [
       delta_per_year: /^\+/,
       delta_static: /^\+/,
     },
-    links: ["/budget/simulator?ssp=1", "/budget"],
+    links: ["/budget/simulator?ssp=1"],
   },
   {
     q: "Здравната вноска +1 пункт",
@@ -1760,7 +1760,7 @@ const CASES: Case[] = [
       delta_per_year: /^\+/,
       delta_static: /^\+/,
     },
-    links: ["/budget/simulator?hp=1", "/budget"],
+    links: ["/budget/simulator?hp=1"],
   },
   // June-2026 consolidation-debate levers — simulator parity (dynamic headline)
   {
@@ -1774,7 +1774,7 @@ const CASES: Case[] = [
       delta_static: /^\+/,
       note: /върнал/,
     },
-    links: ["/budget/simulator?mat=0", "/budget"],
+    links: ["/budget/simulator?mat=0"],
   },
   {
     // teachers' 125% peg — static net of the labour-tax feedback
@@ -1786,7 +1786,7 @@ const CASES: Case[] = [
       delta_per_year: /^−/,
       delta_static: /^−/,
     },
-    links: ["/budget/simulator?tp=125", "/budget"],
+    links: ["/budget/simulator?tp=125"],
   },
   {
     q: "Минималната пенсия на 400 €",
@@ -1797,7 +1797,7 @@ const CASES: Case[] = [
       delta_per_year: /^−/,
       delta_static: /^−/,
     },
-    links: ["/budget/simulator?mp=400", "/budget"],
+    links: ["/budget/simulator?mp=400"],
   },
   {
     q: "Замразяване на депутатските заплати",
@@ -1807,7 +1807,7 @@ const CASES: Case[] = [
       change: "замразени депутатски заплати",
       delta_per_year: /^\+/,
     },
-    links: ["/budget/simulator?mpf=1", "/budget"],
+    links: ["/budget/simulator?mpf=1"],
   },
   {
     q: "Премахване на партийните субсидии",
@@ -1817,7 +1817,7 @@ const CASES: Case[] = [
       change: "без партийни субсидии",
       delta_per_year: /^\+/,
     },
-    links: ["/budget/simulator?psub=0", "/budget"],
+    links: ["/budget/simulator?psub=0"],
   },
   // excise levers (commit 5790a3372) — revenue side; the dynamic headline leads
   // and the static central rides as a fact. Fuel/tobacco/alcohol = % change to
@@ -1835,7 +1835,7 @@ const CASES: Case[] = [
       delta_static: /^\+/,
       note: /Лафер/,
     },
-    links: ["/budget/simulator?exct=40", "/budget"],
+    links: ["/budget/simulator?exct=40"],
   },
   {
     // fuel is inelastic -> only a small behavioral haircut (≈+€111M vs +€144M)
@@ -1848,7 +1848,7 @@ const CASES: Case[] = [
       delta_per_year: /^\+/,
       delta_static: /^\+/,
     },
-    links: ["/budget/simulator?excf=10", "/budget"],
+    links: ["/budget/simulator?excf=10"],
   },
   {
     // wine is INTRODUCED from €0 in €/hl -> the home-production leakage note
@@ -1861,7 +1861,7 @@ const CASES: Case[] = [
       delta_static: /^\+/,
       note: /домашно/,
     },
-    links: ["/budget/simulator?winex=48", "/budget"],
+    links: ["/budget/simulator?winex=48"],
   },
   // gambling ЗХ GGR fee (commit ebc14cb16) — revenue side; a level lever, not a
   // % change. 40% = +€107M static; the dynamic headline (+€59M after Tier-2)
@@ -1876,7 +1876,7 @@ const CASES: Case[] = [
       delta_static: /^\+/,
       note: /Лафер/,
     },
-    links: ["/budget/simulator?haz=40", "/budget"],
+    links: ["/budget/simulator?haz=40"],
   },
   {
     // guard: a bare definitional "колко са акцизите" is NOT a what-if — it
@@ -2074,7 +2074,7 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 1,
     // -> Ruse's governance page (mounts the council tile), not /governance
-    links: ["/governance/RSE27"],
+    links: ["/council/RSE27"],
   },
   {
     q: "Колко гора има в България?",

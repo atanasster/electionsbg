@@ -1,3 +1,5 @@
+import { followUps } from "../app/followups";
+import { siteLinks } from "../render/links";
 import { afterEach, describe, expect, it } from "vitest";
 import { clearDataCache, setDbFetcher } from "./dataClient";
 import { personConnections, personProfile, personWealth } from "./person";
@@ -75,4 +77,82 @@ describe("person identity resolution", () => {
     expect(answer.clarify).toBeUndefined();
     expect(answer.title).toContain("No person found");
   });
+});
+
+describe("public-person navigation identity", () => {
+  for (const ctx of [bg, en]) {
+    for (const populated of [false, true]) {
+      it(`retains the subject in wealth answers (${ctx.lang}, data=${populated})`, async () => {
+        setDbFetcher(async (route) => {
+          if (route === "person-profile")
+            return profile("ivan-resolved", "Иван Иванов");
+          if (route === "person-wealth")
+            return {
+              slug: "ivan-resolved",
+              series: populated
+                ? [
+                    {
+                      year: 2025,
+                      assetsEur: 100,
+                      debtsEur: 10,
+                      netEur: 90,
+                      incomeEur: 20,
+                      filings: 1,
+                      tier: "P",
+                    },
+                  ]
+                : [],
+              markers: [],
+            };
+          throw new Error(`unexpected ${route}`);
+        });
+        const env = await personWealth({ name: "Иван" }, ctx);
+        expect(env.facts.person_id).toBe("ivan-resolved");
+        expect(env.facts.public_person_id).toBe("ivan-resolved");
+        expect(new URL(siteLinks(env)[0].href).pathname).toBe(
+          "/person/ivan-resolved",
+        );
+        expect(followUps(env)).toEqual([
+          expect.objectContaining({
+            questionId: "personConnections",
+            parameters: { name: "ivan-resolved" },
+          }),
+        ]);
+      });
+      it(`retains the subject in connection answers (${ctx.lang}, data=${populated})`, async () => {
+        setDbFetcher(async (route) => {
+          if (route === "person-profile")
+            return profile("ivan-resolved", "Иван Иванов");
+          if (route === "person-connections")
+            return {
+              subject: { slug: "ivan-resolved", name: "Иван Иванов" },
+              related: populated
+                ? [
+                    {
+                      slug: "petar",
+                      name: "Петър",
+                      sharedCount: 1,
+                      companies: [{ eik: "123456789", name: "Фирма" }],
+                    },
+                  ]
+                : [],
+              disclaimer: "Name match",
+            };
+          throw new Error(`unexpected ${route}`);
+        });
+        const env = await personConnections({ name: "Иван" }, ctx);
+        expect(env.facts.person_id).toBe("ivan-resolved");
+        expect(env.facts.public_person_id).toBe("ivan-resolved");
+        expect(new URL(siteLinks(env)[0].href).pathname).toBe(
+          "/person/ivan-resolved",
+        );
+        expect(followUps(env)).toEqual([
+          expect.objectContaining({
+            questionId: "personWealth",
+            parameters: { name: "ivan-resolved" },
+          }),
+        ]);
+      });
+    }
+  }
 });

@@ -1,3 +1,4 @@
+import { siteLinks } from "../render/links";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { fetchDb } from "./dataClient";
 import { cleanProductQuery, productPrice } from "./prices";
@@ -63,6 +64,9 @@ describe("productPrice catalogue resolution", () => {
 
     expect(env.clarify).toBeUndefined();
     expect(env.title).toBe(lavazza.title);
+    expect(siteLinks(env).map((l) => new URL(l.href).pathname)).toEqual([
+      `/product/${lavazza.slug}`,
+    ]);
     expect(fetchDb).toHaveBeenNthCalledWith(1, "price-search", {
       q: "МЛЯНО КАФЕ ЛАВАЦА КРЕМА Е ГУСТО 250ГР.",
     });
@@ -97,6 +101,9 @@ describe("productPrice catalogue resolution", () => {
 
     expect(env.clarify).toBeUndefined();
     expect(env.title).toBe(lavazza.title);
+    expect(siteLinks(env).map((l) => new URL(l.href).pathname)).toEqual([
+      `/product/${lavazza.slug}`,
+    ]);
     expect(fetchDb).toHaveBeenCalledOnce();
     expect(fetchDb).toHaveBeenCalledWith("price-product", {
       slug: lavazza.slug,

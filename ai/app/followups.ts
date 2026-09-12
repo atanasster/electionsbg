@@ -1,5 +1,6 @@
 // A continuation is a catalog intent, never a question for the text router to
 // reinterpret. Missing context means omission, rather than an example entity.
+import { answerElection } from "../tools/answerContext";
 import { STARTERS } from "./starters";
 import { questionById } from "../../src/lib/questions/catalog";
 import type { Envelope, ToolArgs } from "../tools/types";
@@ -15,6 +16,13 @@ export type FollowUpPolicy = {
 };
 
 const ENTITY_PARAMS = new Set([
+  "product",
+  "inn",
+  "eik",
+  "awarder",
+  "key",
+  "contract",
+  "producer",
   "party",
   "place",
   "oblast",
@@ -30,36 +38,84 @@ const ENTITY_PARAMS = new Set([
   "b",
 ]);
 
-// Every registered tool can be evaluated, including a newly added capability
-// without a catalog entry. No unrelated domain is used as a fallback.
+// Explicit subject groups. Sharing a catalog subcategory alone is not evidence
+// of relevance (a product, a chain and national shopping rankings share one).
+const RELATED_TOOLS = [
+  ["nationalResults", "parliamentSeats", "seatsHistory"],
+  ["turnout", "turnoutSeries", "machineVoteShare", "machineVoteSeries"],
+  ["pollAccuracy", "accuracyTrend", "latestPolls"],
+  [
+    "budgetOverview",
+    "budgetTrend",
+    "budgetByFunction",
+    "budgetExecution",
+    "budgetVariance",
+  ],
+  ["budgetPersonnel", "budgetPersonnelByMinistry", "institutionMaintenance"],
+  ["budgetCapitalByMunicipality", "budgetInvestmentPayments"],
+  ["municipalTransfers", "budgetMunicipalTransfers", "municipalFiscalRanking"],
+  [
+    "ngoOverview",
+    "ngoTopFunded",
+    "ngoConflictAwarders",
+    "ngoRiskSignals",
+    "ngoBySignal",
+  ],
+  [
+    "judiciaryBudget",
+    "judiciaryCaseload",
+    "judiciaryWorkload",
+    "judiciaryCourtLoad",
+  ],
+  ["defenseSpending", "defensePeerCompare", "armsExports", "defenseReadiness"],
+  ["transportSpending", "transportEuFunds", "railSubsidy"],
+  ["socialSpending", "socialPovertyImpact", "socialBenefits"],
+  ["environmentSpending", "environmentFunds"],
+  ["generationMix", "powerPlants"],
+  ["nzokDrugs", "nzokDrugGrowth", "nzokDrugSavings"],
+  ["nzokHospitals", "nzokPublicPrivate", "nzokPrivateHospitals"],
+  ["procurementTotals", "topContractors"],
+  ["procurementRedFlags", "procurementSingleBidSectors", "procurementNormalcy"],
+  ["subsidiesOverview", "subsidiesByScheme"],
+  [
+    "cultureOverview",
+    "topCultureGrantees",
+    "cultureGrantSuccess",
+    "cultureCommissions",
+    "cultureMunicipal",
+  ],
+  ["noiPensionDistribution", "noiPensionByOblast", "noiPensionSeries"],
+  ["mpAssetsTop", "mpAssetsByParty"],
+  ["priceIndex", "basketVsInflation", "euFoodPriceLevels"],
+  ["wastedVotes", "wastedVotesByParty", "wastedVotesTrend"],
+  ["diasporaVote", "diasporaVoteTrend"],
+  ["mpLoyalty", "mpAttendance", "factionCohesion"],
+  ["administrationOverview", "digitalSkills"],
+  ["tourismSeasonality", "tourismSourceMarkets"],
+];
+
 export const followUpPolicy = (tool: string): FollowUpPolicy => {
+  const related = RELATED_TOOLS.find((group) => group.includes(tool)) ?? [];
   const source = STARTERS.find((s) => s.tool === tool);
-  if (!source)
-    return {
-      kind: "none",
-      reason: "No catalog topic for this capability",
-      questionIds: [],
-    };
   const questionIds = STARTERS.filter((s) => {
     if (
       s.tool === tool ||
-      s.category !== source.category ||
-      s.subcategory !== source.subcategory
+      !related.includes(s.tool) ||
+      s.category !== source?.category ||
+      s.subcategory !== source?.subcategory
     )
       return false;
-    const question = questionById(s.id)!;
-    // A generic related question must not smuggle in the catalog's sample entity.
-    return !question.parameters.some(
+    return !questionById(s.id)!.parameters.some(
       (p) =>
         ENTITY_PARAMS.has(p.id) ||
-        ["person", "company", "place"].includes(p.kind),
+        ["string", "person", "company", "place"].includes(p.kind),
     );
   }).map((s) => s.id);
   return {
     kind: questionIds.length ? "related" : "none",
     reason: questionIds.length
-      ? "Related questions in the same subtopic"
-      : "No entity-free related question in this subtopic",
+      ? "Reviewed questions about the same subject"
+      : "No reviewed continuation without changing the subject",
     questionIds,
   };
 };
@@ -92,19 +148,48 @@ export const followUps = (
     if (!question || question.chat.status !== "ready") return;
     // Copy only compatible period parameters; make the period visible too.
     const context: ToolArgs = {};
-    if (args.election && question.parameters.some((p) => p.id === "election"))
-      context.election = args.election;
-    if (
-      env.tool.startsWith("budget") &&
-      question.chat.capabilityId?.startsWith("budget") &&
-      args.year &&
-      question.parameters.some((p) => p.id === "year")
-    )
-      context.year = args.year;
+    const election = answerElection(env, args);
+    if (question.parameters.some((p) => p.id === "election")) {
+      if (!election) return;
+      context.election = election;
+    }
     let bg = labels?.bg ?? question.question.bg;
     let en = labels?.en ?? question.question.en;
+    for (const id of ["ns", "cycle", "year"]) {
+      if (args[id] != null && question.parameters.some((p) => p.id === id))
+        context[id] = args[id];
+    }
+    const window =
+      args.years != null ? "years" : args.n != null ? "n" : undefined;
+    if (window && question.parameters.some((p) => p.id === window)) {
+      context[window] = args[window];
+      const bgWindow = `последните ${args[window]} ${window === "years" ? "години" : "избора"}`;
+      const enWindow = `last ${args[window]} ${window === "years" ? "years" : "elections"}`;
+      const bgPattern = /последните\s+\d+\s+(?:години|избора)/i;
+      const enPattern = /last\s+\d+\s+(?:years|elections)/i;
+      bg = bgPattern.test(bg)
+        ? bg.replace(bgPattern, bgWindow)
+        : `${bg} (${bgWindow})`;
+      en = enPattern.test(en)
+        ? en.replace(enPattern, enWindow)
+        : `${en} (${enWindow})`;
+    }
+    if (context.ns) {
+      bg += ` (${context.ns}-о НС)`;
+      en += ` (Assembly ${context.ns})`;
+    }
+    if (context.cycle) {
+      bg += ` (${context.cycle})`;
+      en += ` (${context.cycle})`;
+    }
     if (context.election) {
       const period = String(context.election).replace(/_/g, "-");
+      const replaceSampleDate = (text: string) =>
+        text.replace(/\b20\d{2}(?:[_-]\d{2}[_-]\d{2})?\b/g, (date) =>
+          date.length === 4 ? period.slice(0, 4) : period,
+        );
+      bg = replaceSampleDate(bg);
+      en = replaceSampleDate(en);
       bg = `${bg
         .replace(/последните\s+/gi, "")
         .replace(/последния вот/gi, "вота")
@@ -122,6 +207,32 @@ export const followUps = (
     }
     out.push({ questionId, parameters: { ...context, ...parameters }, bg, en });
   };
+  if (
+    ["personProfile", "personWealth", "personConnections"].includes(env.tool)
+  ) {
+    const person = value(env, "public_person_id");
+    const name = value(env, "name") ?? value(env, "име");
+    if (person && name) {
+      if (env.tool !== "personWealth")
+        add(
+          "personWealth",
+          { name: person },
+          {
+            bg: `Какво имущество декларира ${name}?`,
+            en: `What assets does ${name} declare?`,
+          },
+        );
+      if (env.tool !== "personConnections")
+        add(
+          "personConnections",
+          { name: person },
+          {
+            bg: `Какви публични връзки има ${name}?`,
+            en: `What public connections does ${name} have?`,
+          },
+        );
+    }
+  }
   const party = value(env, "party");
   if (
     party &&
@@ -211,20 +322,17 @@ export const followUps = (
         "companyConnections",
         { company: eik },
         {
-          bg: `Свързана ли е ${name} с депутати?`,
-          en: `Is ${name} connected to MPs?`,
+          bg: `Свързана ли е ${name} с лица от властта?`,
+          en: `Is ${name} connected to public officials?`,
         },
       );
     }
   }
   // Snapshot questions retain the selected contest; trend questions say so.
   if (
-    [
-      "nationalResults",
-      "regionBreakdown",
-      "machineVoteShare",
-      "machineVoteSeries",
-    ].includes(env.tool)
+    ["nationalResults", "machineVoteShare", "machineVoteSeries"].includes(
+      env.tool,
+    )
   )
     add("turnout", undefined, {
       bg: "Каква беше избирателната активност?",
@@ -235,7 +343,23 @@ export const followUps = (
       bg: "Какъв беше делът на машинното гласуване?",
       en: "What was the machine-voting share?",
     });
-  for (const id of followUpPolicy(env.tool).questionIds) add(id);
+  // A scoped answer must not silently widen to a national/default/example subject.
+  const scoped = Object.entries(args).some(
+    ([id, v]) =>
+      v !== undefined &&
+      v !== "" &&
+      ![
+        "election",
+        "ns",
+        "year",
+        "cycle",
+        "years",
+        "n",
+        "limit",
+        "top",
+      ].includes(id),
+  );
+  if (!scoped) for (const id of followUpPolicy(env.tool).questionIds) add(id);
 
   const seen = new Set(
     [...answered, { tool: env.tool, args }].map((a) => key(a.tool, a.args)),

@@ -145,7 +145,6 @@ expect(
 for (const tool of ["agencyProfile", "agencyPolls", "agencyAccuracyHistory"]) {
   expect(tool, mk({ tool, domain: "elections", facts: { agency_id: "AR" } }), [
     "/polls/AR",
-    "/polls",
   ]);
 }
 
@@ -210,7 +209,7 @@ expect(
     domain: "elections",
     facts: { place: "Банско", ekatte_id: "02676" },
   }),
-  ["/sections/02676", "/regions"],
+  ["/sections/02676"],
 );
 expect(
   "sectionWinners (município-scoped -> /settlement/:obshtina)",
@@ -219,7 +218,7 @@ expect(
     domain: "elections",
     facts: { place: "Пловдив", obshtina_id: "PDV22" },
   }),
-  ["/settlement/PDV22", "/regions"],
+  ["/settlement/PDV22"],
 );
 
 // ---- local single-município (obshtina + cycle from hidden _id facts, NOT geo,
@@ -309,7 +308,7 @@ expect(
     domain: "place",
     facts: { obshtina_id: "RSE27" },
   }),
-  ["/governance/RSE27"],
+  ["/council/RSE27"],
 );
 
 // ---- party deep links (pre-existing; guard against regressions) ------------
@@ -359,38 +358,38 @@ expect(
 );
 
 console.log("\nfallbacks when the deep-link id is unavailable:");
-// candidate "not found" -> no candidate_id -> elections domain landing
+// candidate "not found" -> no candidate_id -> no link
 expect(
-  "candidateResult (not found -> home)",
+  "candidateResult (not found -> no link)",
   mk({
     tool: "candidateResult",
     domain: "elections",
     kind: "scalar",
     facts: { query: "x" },
   }),
-  ["/"],
+  [],
 );
-// MP "not found" -> no mp_id -> people domain landing
+// MP "not found" -> no mp_id -> no link
 expect(
-  "mpVotingProfile (not found -> governments)",
+  "mpVotingProfile (not found -> no link)",
   mk({
     tool: "mpVotingProfile",
     domain: "people",
     kind: "scalar",
     facts: { query: "x" },
   }),
-  ["/governments"],
+  [],
 );
-// settlement "no data" -> no geo -> elections domain landing
+// settlement "no data" -> no geo -> no link
 expect(
-  "settlementResults (no data -> home)",
+  "settlementResults (no data -> no link)",
   mk({
     tool: "settlementResults",
     domain: "elections",
     kind: "scalar",
     facts: {},
   }),
-  ["/"],
+  [],
 );
 // a local tool that couldn't resolve a município (no _id facts) -> cycle landing
 expect(
@@ -403,16 +402,16 @@ expect(
   }),
   [`/local/${CYCLE}`],
 );
-// council resolutions with no município resolved -> generic governance landing
+// council resolutions with no município resolved -> council browse
 expect(
-  "councilResolutions (not indexed -> governance)",
+  "councilResolutions (not indexed -> council browse)",
   mk({
     tool: "councilResolutions",
     domain: "place",
     kind: "scalar",
     facts: { place: "x" },
   }),
-  ["/governance"],
+  ["/council"],
 );
 
 // ---- ?elections pinning: parliamentary pages open on the answer's election ---
@@ -527,15 +526,15 @@ expect(
   mk({ tool: "procurementTotals", domain: "fiscal", kind: "scalar" }),
   ["/procurement"],
 );
-// place-domain procurement: deep link to the place page + the map category link
+// place-domain procurement: deep link to the place page
 expect(
-  "procurementBySettlement -> settlement page + map",
+  "procurementBySettlement -> settlement page",
   mk({
     tool: "procurementBySettlement",
     domain: "place",
     geo: settlementLocator("32754", "VID09", "Иново"),
   }),
-  ["/procurement/settlement/32754", "/procurement/by-settlement"],
+  ["/procurement/settlement/32754"],
 );
 expect(
   "procurementByOblast -> /procurement/by-settlement",

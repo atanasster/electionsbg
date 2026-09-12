@@ -13,7 +13,7 @@ describe("specific product price routing", () => {
     (q) => {
       expect(route(q, ctx)).toEqual({
         tool: "productPrice",
-        args: { product: q.toLocaleLowerCase("bg") },
+        args: { product: q },
       });
     },
   );

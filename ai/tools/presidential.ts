@@ -448,6 +448,9 @@ export const presidentialResults = async (
         round2((100 * found.cast) / found.reg),
         lang,
       );
+    if (sofia) facts.obshtina_id = "SOF";
+    else if (ob) facts.oblast_id = ob.code;
+    else if (muni) facts.obshtina_id = muni.obshtina;
     const shown = found.rows.slice(0, MAX_ROWS);
     return {
       tool: "presidentialResults",

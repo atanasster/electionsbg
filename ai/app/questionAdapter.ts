@@ -79,6 +79,15 @@ export const toChatQuestionIntent = (
     ...(question.legacyChatArgs?.[lang] ?? {}),
     ...(values ?? {}),
   };
+  // Explicit trend windows replace the catalog example's alternate unit.
+  // Apply here so serialized chip parameters need no undefined sentinel.
+  if (values?.years != null && question.parameters.some((p) => p.id === "n"))
+    selected.n = undefined;
+  else if (
+    values?.n != null &&
+    question.parameters.some((p) => p.id === "years")
+  )
+    selected.years = undefined;
   if (
     questionId === "presidentialResults" &&
     /^\d{4}$/.test(String(selected.cycle ?? ""))

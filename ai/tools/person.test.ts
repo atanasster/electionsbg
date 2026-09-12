@@ -3,6 +3,8 @@
 // Asserts personProfile is retrieved for its own utterances AND that adding it did not
 // evict a sample of incumbents from their own top-k (no-regression on the retriever).
 
+import { followUps } from "../app/followups";
+import { siteLinks } from "../render/links";
 import { describe, it, expect, afterEach } from "vitest";
 import { retrieveToolNames } from "../llm/retrieve";
 import { personProfile, personConnections } from "./person";
@@ -155,6 +157,11 @@ describe("personProfile run()", () => {
   it("builds a grounded profile envelope", async () => {
     setDbFetcher(async () => payload);
     const env = await personProfile({ name: "Юруков" }, ctx);
+    expect(env.facts.public_person_id).toBe(payload.slug);
+    expect(followUps(env).map((s) => s.parameters?.name)).toEqual([
+      payload.slug,
+      payload.slug,
+    ]);
     expect(env.tool).toBe("personProfile");
     expect(env.title).toContain("Георги Владимиров Юруков");
     expect(env.title).toContain("1 фирма");
@@ -297,6 +304,10 @@ describe("personProfile run()", () => {
     expect(env.clarify).toBeUndefined();
     expect(env.title).toContain("Явор Чавдаров Стефанов");
     expect(env.facts.person_id).toBe("Явор Чавдаров Стефанов");
+    expect(followUps(env)).toEqual([]);
+    expect(siteLinks(env)[0].href).toContain(
+      encodeURIComponent("Явор Чавдаров Стефанов"),
+    );
     expect(env.facts["фирми (брой)"]).toBe(2);
     expect(env.facts["обществени поръчки (брой)"]).toBe(87);
     expect(String(env.facts["бележка"])).toContain("точно съвпадение");

@@ -4281,7 +4281,7 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       const explicitPricePlace =
         /(?:^|\s)(?:в|във|in|at)\s+/iu.test(q) && Boolean(place);
       if (priceProduct && !explicitPricePlace)
-        return { tool: "productPrice", args: { product: q } };
+        return { tool: "productPrice", args: { product: question.trim() } };
       // a named place (and/or a single product) → that place's prices
       if (place || priceProduct)
         return {

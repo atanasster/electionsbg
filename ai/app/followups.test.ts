@@ -76,16 +76,73 @@ it("does not invent an unrelated topic for uncataloged capabilities", () => {
   expect(followUps(envelope("unknown"))).toEqual([]);
 });
 
-it("historical continuation labels do not claim latest-election data", () => {
-  const suggestions = followUps(envelope("partyResult"), {
+it("historical party continuations retain the party instead of widening to national results", () => {
+  const suggestions = followUps(envelope("partyResult", { party: "ГЕРБ" }), {
+    party: "ГЕРБ",
     election: "2024_10_27",
   });
-  const next = suggestions.find((s) => s.questionId === "nationalResults");
-  expect(next).toBeDefined();
-  if (next) {
-    expect(next.en).not.toMatch(/latest|last election/i);
-    expect(next.bg).not.toMatch(/последн/i);
-    expect(next.en).toContain("2024-10-27");
+  expect(suggestions.some((s) => s.questionId === "nationalResults")).toBe(
+    false,
+  );
+  expect(
+    suggestions.find((s) => s.questionId === "regionBreakdown"),
+  ).toMatchObject({
+    parameters: { party: "ГЕРБ", election: "2024_10_27" },
+  });
+});
+
+it("does not pivot a specific product to national shopping rankings", () => {
+  expect(
+    followUps(
+      envelope("productPrice", { product: "Лаваца", slug: "lavazza" }),
+      {
+        product: "product-slug:lavazza",
+      },
+    ),
+  ).toEqual([]);
+});
+
+it("never offers a catalog example product, hospital, molecule or buyer as a generic continuation", () => {
+  for (const tool of TOOLS) {
+    expect(followUpPolicy(tool.name).questionIds).not.toEqual(
+      expect.arrayContaining(["productPrice"]),
+    );
+    for (const id of followUpPolicy(tool.name).questionIds) {
+      expect(
+        questionById(id)!.parameters.some((p) =>
+          ["string", "person", "company", "place"].includes(p.kind),
+        ),
+      ).toBe(false);
+    }
+  }
+});
+
+it("keeps a person's stable identity in bilingual continuations", () => {
+  const suggestions = followUps(
+    envelope("personProfile", {
+      person_id: "ivan-123",
+      public_person_id: "ivan-123",
+      name: "Иван Иванов",
+    }),
+  );
+  expect(suggestions.map((s) => s.questionId)).toEqual([
+    "personWealth",
+    "personConnections",
+  ]);
+  for (const s of suggestions) {
+    expect(s.parameters).toEqual({ name: "ivan-123" });
+    expect(s.bg).toContain("Иван Иванов");
+    expect(s.en).toContain("Иван Иванов");
+  }
+});
+
+it("does not lose a semantic filter or a selected assembly", () => {
+  expect(followUps(envelope("nzokDrugs"), { inn: "metformin" })).toEqual([]);
+  const next = followUps(envelope("mpAttendance"), { ns: 49 });
+  expect(next.length).toBeGreaterThan(0);
+  for (const s of next) {
+    expect(s.parameters).toMatchObject({ ns: 49 });
+    expect(s.en).toContain("49");
   }
 });
 
@@ -129,4 +186,60 @@ it("does not advertise contracts for a chain without recorded supplier contracts
       }),
     ).some((s) => s.questionId === "contractSearch"),
   ).toBe(true);
+});
+
+it("uses the answer election instead of the catalog example when arguments omit it", () => {
+  const env = {
+    ...envelope("turnout"),
+    provenance: ["2024_10_27/national_summary.json"],
+  };
+  const chip = followUps(env).find((s) => s.questionId === "machineVoteShare")!;
+  for (const lang of ["bg", "en"] as const) {
+    expect(
+      toChatQuestionIntent(chip.questionId, lang, chip.parameters).args
+        .election,
+    ).toBe("2024_10_27");
+    expect(chip[lang]).toContain("2024-10-27");
+    expect(chip[lang]).not.toContain("2023");
+  }
+});
+it("does not turn an unknown or multi-election period into a sample election", () => {
+  for (const provenance of [[], ["2024_10_27/a.json", "2023_04_02/a.json"]]) {
+    const suggestions = followUps({ ...envelope("turnoutSeries"), provenance });
+    expect(
+      suggestions.some((s) =>
+        ["turnout", "machineVoteShare"].includes(s.questionId!),
+      ),
+    ).toBe(false);
+  }
+});
+it.each([{ years: 3 }, { n: 4 }])(
+  "retains the series window %j without a competing sample default",
+  (args) => {
+    const chip = followUps(envelope("turnoutSeries"), args).find(
+      (s) => s.questionId === "machineVoteSeries",
+    )!;
+    expect(chip).toBeDefined();
+    for (const lang of ["bg", "en"] as const) {
+      expect(
+        toChatQuestionIntent(
+          chip.questionId,
+          lang,
+          JSON.parse(JSON.stringify(chip.parameters)),
+        ).args,
+      ).toEqual(args);
+    }
+    expect(chip.en).toContain(args.years ? "3 years" : "4 elections");
+    expect(chip.en).not.toContain("7");
+  },
+);
+it("does not offer public-person tools for a name-only business portfolio", () => {
+  expect(
+    followUps(
+      envelope("personProfile", {
+        person_id: "Иван Иванов",
+        name: "Иван Иванов",
+      }),
+    ),
+  ).toEqual([]);
 });

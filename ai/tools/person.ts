@@ -391,6 +391,7 @@ export const personProfile = async (
   const facts: Record<string, string | number> = {
     [bg ? "име" : "name"]: p.name,
     person_id: p.slug,
+    public_person_id: p.slug,
   };
   // Official sanctions FIRST — the highest-stakes fact, verbatim from the government finding.
   if (p.sanctions?.length)
@@ -510,6 +511,8 @@ export const personConnections = async (
         ? `Няма намерени публични връзки за ${prof.name}`
         : `No public connections found for ${prof.name}`,
       facts: {
+        person_id: prof.slug,
+        public_person_id: prof.slug,
         [bg ? "име" : "name"]: prof.name,
         [bg ? "свързани лица (брой)" : "connected people"]: 0,
       },
@@ -550,6 +553,8 @@ export const personConnections = async (
       via: r.companies.map((c) => c.name ?? c.eik).join(", "),
     })),
     facts: {
+      person_id: prof.slug,
+      public_person_id: prof.slug,
       [bg ? "име" : "name"]: prof.name,
       [bg ? "свързани лица (брой)" : "connected people"]: related.length,
       [bg ? "лица" : "people"]: names.join(", "),
@@ -628,6 +633,8 @@ export const personWealth = async (
         ? `Няма декларации за имущество за ${prof.name}`
         : `No asset declarations for ${prof.name}`,
       facts: {
+        person_id: prof.slug,
+        public_person_id: prof.slug,
         [bg ? "име" : "name"]: prof.name,
         [bg ? "декларирани години" : "declared years"]: 0,
         [bg ? "бележка" : "note"]: note,
@@ -674,6 +681,8 @@ export const personWealth = async (
       debts: p.debtsEur,
     })),
     facts: {
+      person_id: prof.slug,
+      public_person_id: prof.slug,
       [bg ? "име" : "name"]: prof.name,
       [bg ? "декларирани години" : "declared years"]: series.length,
       [bg ? "най-нова година" : "latest year"]: latest.year,

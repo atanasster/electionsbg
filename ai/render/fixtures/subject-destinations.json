@@ -1,0 +1,653 @@
+{
+  "budgetVariance": [
+    "/budget/deviations"
+  ],
+  "budgetPersonnel": [
+    "/budget/personnel"
+  ],
+  "budgetPersonnelByMinistry": [
+    "/budget/personnel"
+  ],
+  "budgetDocuments": [
+    "/budget/law"
+  ],
+  "budgetMinistries": [
+    "/budget/ministries"
+  ],
+  "budgetMunicipalTransfers": [
+    "/budget/municipal"
+  ],
+  "budgetCapitalByMunicipality": [
+    "/budget/municipal/capital"
+  ],
+  "budgetInvestmentPayments": [
+    "/budget/municipal/investments"
+  ],
+  "waterServices": [
+    "/water"
+  ],
+  "nationalResults": [
+    "/parties"
+  ],
+  "presidentialResults": [],
+  "regionWinners": [
+    "/regions"
+  ],
+  "parliamentSeats": [
+    "/parliament"
+  ],
+  "seatsHistory": [
+    "/parliament"
+  ],
+  "partyResult": [],
+  "candidateResult": [],
+  "machineVoteShare": [
+    "/parliamentary"
+  ],
+  "turnout": [
+    "/parliamentary"
+  ],
+  "compareElections": [
+    "/parties"
+  ],
+  "machineVoteSeries": [
+    "/parliamentary"
+  ],
+  "turnoutSeries": [
+    "/parliamentary"
+  ],
+  "partyTimeline": [],
+  "pollAccuracy": [
+    "/polls"
+  ],
+  "agencyProfile": [
+    "/polls"
+  ],
+  "latestPolls": [
+    "/polls"
+  ],
+  "latestPresidentialPoll": [
+    "/polls"
+  ],
+  "agencyPolls": [
+    "/polls"
+  ],
+  "agencyAccuracyHistory": [
+    "/polls"
+  ],
+  "accuracyTrend": [
+    "/polls"
+  ],
+  "regionBreakdown": [],
+  "municipalityBreakdown": [],
+  "municipalityWinners": [
+    "/regions"
+  ],
+  "settlementWinners": [
+    "/regions"
+  ],
+  "sectionWinners": [
+    "/regions"
+  ],
+  "sectionResults": [],
+  "sectionHistory": [],
+  "sectionRiskHistory": [],
+  "settlementResults": [],
+  "settlementHistory": [],
+  "municipalityResults": [
+    "/regions"
+  ],
+  "municipalityHistory": [
+    "/regions"
+  ],
+  "regionResults": [
+    "/regions"
+  ],
+  "regionResultsTrend": [
+    "/regions"
+  ],
+  "settlementBreakdown": [],
+  "electionAnomalies": [
+    "/risk-score"
+  ],
+  "flashMemoryByParty": [
+    "/flash-memory"
+  ],
+  "machineVoteByParty": [
+    "/parliamentary"
+  ],
+  "wastedVotesByParty": [
+    "/risk-analysis"
+  ],
+  "recountByParty": [
+    "/recount"
+  ],
+  "regionHistory": [
+    "/regions"
+  ],
+  "voteTransitions": [
+    "/parliamentary"
+  ],
+  "localCouncilVoteShare": [
+    "/local/2023_10_29_mi"
+  ],
+  "localMayorsWon": [
+    "/local/2023_10_29_mi"
+  ],
+  "localCouncilTrend": [
+    "/local/2023_10_29_mi"
+  ],
+  "localVoteFlows": [
+    "/local/2023_10_29_mi"
+  ],
+  "localPrevoteFlow": [
+    "/local/2023_10_29_mi"
+  ],
+  "localPlaceTrend": [
+    "/local/2023_10_29_mi"
+  ],
+  "localMayorsTrend": [
+    "/local/2023_10_29_mi"
+  ],
+  "localOblastMayors": [
+    "/local/2023_10_29_mi"
+  ],
+  "localMunicipality": [
+    "/local/2023_10_29_mi"
+  ],
+  "localMayorRace": [
+    "/local/2023_10_29_mi"
+  ],
+  "localMayorSections": [
+    "/local/2023_10_29_mi"
+  ],
+  "localMayorHistory": [
+    "/local/2023_10_29_mi"
+  ],
+  "localSubMayors": [
+    "/local/2023_10_29_mi"
+  ],
+  "localCouncil": [
+    "/local/2023_10_29_mi"
+  ],
+  "chmiEvents": [
+    "/local/chmi"
+  ],
+  "budgetOverview": [
+    "/budget"
+  ],
+  "ngoOverview": [
+    "/procurement/ngos"
+  ],
+  "ngoTopFunded": [
+    "/procurement/ngos"
+  ],
+  "ngoConflictAwarders": [
+    "/procurement/ngos"
+  ],
+  "ngoRiskSignals": [
+    "/procurement/ngos"
+  ],
+  "ngoBySignal": [
+    "/procurement/ngos"
+  ],
+  "budgetTrend": [
+    "/budget"
+  ],
+  "institutionMaintenance": [
+    "/budget/ministries"
+  ],
+  "simulateTaxChange": [
+    "/budget/simulator"
+  ],
+  "budgetByFunction": [
+    "/budget/functional"
+  ],
+  "budgetFunction": [
+    "/budget/functional"
+  ],
+  "nzokBudget": [
+    "/awarder/121858220"
+  ],
+  "judiciaryBudget": [
+    "/judiciary"
+  ],
+  "judiciaryCaseload": [
+    "/judiciary"
+  ],
+  "riverbedCleaning": [
+    "/water"
+  ],
+  "judiciaryWorkload": [
+    "/judiciary"
+  ],
+  "judiciaryCourtLoad": [
+    "/judiciary"
+  ],
+  "judiciaryDeclarations": [
+    "/judiciary/magistrates"
+  ],
+  "defenseSpending": [
+    "/defense"
+  ],
+  "armsExports": [
+    "/defense"
+  ],
+  "defenseProgram": [
+    "/defense"
+  ],
+  "defenseReadiness": [
+    "/defense"
+  ],
+  "securityRoadSafety": [
+    "/sector/security"
+  ],
+  "transportSpending": [
+    "/sector/transport"
+  ],
+  "transportEuFunds": [
+    "/sector/transport"
+  ],
+  "railSubsidy": [
+    "/sector/transport"
+  ],
+  "socialSpending": [
+    "/sector/social"
+  ],
+  "socialBenefits": [
+    "/sector/social"
+  ],
+  "socialPovertyImpact": [
+    "/sector/social"
+  ],
+  "mrrbSpending": [
+    "/sector/regional"
+  ],
+  "cohesionAbsorption": [
+    "/sector/regional"
+  ],
+  "regionalInvestment": [
+    "/sector/regional"
+  ],
+  "environmentSpending": [
+    "/sector/environment"
+  ],
+  "environmentFunds": [
+    "/sector/environment"
+  ],
+  "wasteRecycling": [
+    "/sector/environment"
+  ],
+  "defensePeerCompare": [
+    "/defense"
+  ],
+  "generationMix": [
+    "/sector/energy"
+  ],
+  "electricityPrices": [
+    "/consumption/electricity"
+  ],
+  "gasPrices": [
+    "/consumption/gas"
+  ],
+  "powerPlants": [
+    "/sector/energy"
+  ],
+  "nzokDrugs": [
+    "/awarder/121858220"
+  ],
+  "nzokDrugGrowth": [
+    "/awarder/121858220"
+  ],
+  "nzokHospitals": [
+    "/awarder/121858220"
+  ],
+  "nzokActivities": [
+    "/awarder/121858220"
+  ],
+  "nzokDrugSavings": [
+    "/awarder/121858220"
+  ],
+  "nzokHospitalScorecard": [
+    "/awarder/121858220"
+  ],
+  "nzokPathwayHospitals": [
+    "/awarder/121858220"
+  ],
+  "nzokPublicPrivate": [
+    "/awarder/121858220"
+  ],
+  "nzokPrivateHospitals": [
+    "/awarder/121858220"
+  ],
+  "nzokDrugMolecule": [
+    "/awarder/121858220"
+  ],
+  "procurementTotals": [
+    "/procurement"
+  ],
+  "topContractors": [
+    "/procurement/contractors"
+  ],
+  "procurementAppeals": [
+    "/procurement/appeals"
+  ],
+  "contractSearch": [
+    "/procurement/contracts"
+  ],
+  "procurementRedFlags": [
+    "/procurement/flags"
+  ],
+  "procurementDebarred": [
+    "/procurement/flags"
+  ],
+  "procurementSingleBidSectors": [
+    "/procurement/flags"
+  ],
+  "mpProcurement": [
+    "/procurement/mps"
+  ],
+  "awarderProcurement": [
+    "/procurement/awarders"
+  ],
+  "procurementNormalcy": [
+    "/procurement/flags"
+  ],
+  "roadsSpending": [
+    "/procurement/roads"
+  ],
+  "openTenders": [
+    "/procurement/tenders"
+  ],
+  "tenderLookup": [
+    "/procurement/tenders"
+  ],
+  "openCalls": [
+    "/funds/calls"
+  ],
+  "fundsOverview": [
+    "/funds"
+  ],
+  "projectLifecycle": [
+    "/procurement/projects"
+  ],
+  "subsidiesOverview": [
+    "/subsidies"
+  ],
+  "subsidiesByScheme": [
+    "/subsidies/schemes"
+  ],
+  "subsidiesForEntity": [
+    "/subsidies/recipients"
+  ],
+  "cultureOverview": [
+    "/culture"
+  ],
+  "topCultureGrantees": [
+    "/culture/films"
+  ],
+  "filmSubsidyForProducer": [
+    "/culture/films"
+  ],
+  "cultureGrantSuccess": [
+    "/culture"
+  ],
+  "cultureCommissions": [
+    "/culture"
+  ],
+  "cultureMunicipal": [
+    "/culture"
+  ],
+  "revenueBreakdown": [
+    "/budget/revenue"
+  ],
+  "exciseRegister": [
+    "/customs/warehouses"
+  ],
+  "exciseWarehouses": [
+    "/customs/warehouses"
+  ],
+  "fundsProjects": [
+    "/funds"
+  ],
+  "municipalFiscalRanking": [
+    "/governance/municipal-finance"
+  ],
+  "municipalTransfers": [
+    "/budget/municipal"
+  ],
+  "govDebt": [
+    "/indicators/fiscal"
+  ],
+  "noiFunds": [
+    "/pensions"
+  ],
+  "noiPensionDistribution": [
+    "/pensions"
+  ],
+  "noiPensionByOblast": [
+    "/pensions"
+  ],
+  "noiPensionSeries": [
+    "/pensions"
+  ],
+  "kfnFunds": [
+    "/pensions"
+  ],
+  "budgetExecution": [
+    "/budget/execution"
+  ],
+  "ministryBudget": [
+    "/budget/ministries"
+  ],
+  "investmentProjects": [
+    "/budget/investments"
+  ],
+  "personProfile": [],
+  "personConnections": [
+    "/connections"
+  ],
+  "personWealth": [
+    "/governance/declarations"
+  ],
+  "governments": [
+    "/governments"
+  ],
+  "mpAssetsTop": [
+    "/mp-assets"
+  ],
+  "mpConnectionsTop": [
+    "/connections"
+  ],
+  "mpAssetsByParty": [
+    "/mp-assets"
+  ],
+  "mpConnectionsByParty": [
+    "/connections"
+  ],
+  "officialsAssetsTop": [
+    "/governance/declarations"
+  ],
+  "financingOverview": [
+    "/financing"
+  ],
+  "partyFinance": [
+    "/financing"
+  ],
+  "companyProfile": [],
+  "companyConnections": [],
+  "macroIndicator": [
+    "/indicators"
+  ],
+  "fdiFlows": [
+    "/indicators/economy"
+  ],
+  "macroOverview": [
+    "/indicators"
+  ],
+  "macroByCategory": [
+    "/indicators"
+  ],
+  "euComparison": [
+    "/indicators/compare"
+  ],
+  "subnationalIndicator": [
+    "/governance"
+  ],
+  "schoolMatura": [],
+  "rankPlaces": [
+    "/governance"
+  ],
+  "regionIndicator": [
+    "/governance"
+  ],
+  "transparencyScore": [
+    "/governance"
+  ],
+  "localTaxes": [
+    "/governance"
+  ],
+  "landUse": [
+    "/sector/environment"
+  ],
+  "priceIndex": [
+    "/consumption/overview"
+  ],
+  "settlementPrices": [
+    "/consumption"
+  ],
+  "localDeals": [
+    "/consumption/deals"
+  ],
+  "productPrice": [
+    "/consumption/products"
+  ],
+  "cheapestChains": [
+    "/consumption/chains"
+  ],
+  "priceRanking": [
+    "/consumption"
+  ],
+  "basketAffordability": [
+    "/consumption"
+  ],
+  "basketVsInflation": [
+    "/consumption/overview"
+  ],
+  "euFoodPriceLevels": [
+    "/consumption/eu"
+  ],
+  "fuelPrices": [
+    "/consumption/fuel"
+  ],
+  "chainProfile": [
+    "/consumption/chains"
+  ],
+  "governanceProfile": [
+    "/governance"
+  ],
+  "comparePlaces": [
+    "/governance"
+  ],
+  "census": [
+    "/governance"
+  ],
+  "procurementBySettlement": [
+    "/procurement/by-settlement"
+  ],
+  "myAreaAlerts": [
+    "/governance"
+  ],
+  "placeEuProjects": [
+    "/funds/places"
+  ],
+  "procurementByOblast": [
+    "/procurement/by-settlement"
+  ],
+  "airQuality": [
+    "/governance"
+  ],
+  "graoPopulation": [
+    "/governance"
+  ],
+  "councilResolutions": [
+    "/council"
+  ],
+  "problemSections": [
+    "/risk-analysis"
+  ],
+  "romaVoteTrend": [
+    "/risk-analysis"
+  ],
+  "riskIndex": [
+    "/risk-analysis"
+  ],
+  "riskScore": [
+    "/risk-score"
+  ],
+  "riskClusters": [
+    "/risk-analysis"
+  ],
+  "clusterPersistence": [
+    "/risk-analysis"
+  ],
+  "benfordAnomalies": [
+    "/risk-analysis"
+  ],
+  "wastedVotes": [
+    "/risk-analysis"
+  ],
+  "wastedVotesTrend": [
+    "/reports/settlement/wasted-votes"
+  ],
+  "suspiciousSettlements": [
+    "/risk-analysis"
+  ],
+  "diasporaVote": [
+    "/municipality/32"
+  ],
+  "diasporaVoteTrend": [
+    "/municipality/32"
+  ],
+  "voterPersistence": [
+    "/parliamentary"
+  ],
+  "partyDemographics": [
+    "/party-demographics"
+  ],
+  "demographicCleavages": [
+    "/party-demographics"
+  ],
+  "mpLoyalty": [
+    "/votes"
+  ],
+  "mpAttendance": [
+    "/parliament/attendance"
+  ],
+  "factionCohesion": [
+    "/parliament/cohesion"
+  ],
+  "mpVotingProfile": [],
+  "mpSimilarity": [],
+  "voteSearch": [
+    "/votes"
+  ],
+  "partyMps": [
+    "/parliament"
+  ],
+  "schoolScores": [
+    "/education"
+  ],
+  "administrationOverview": [
+    "/sector/administration"
+  ],
+  "digitalSkills": [
+    "/sector/administration"
+  ],
+  "tourismSeasonality": [
+    "/sector/tourism"
+  ],
+  "tourismSourceMarkets": [
+    "/sector/tourism"
+  ]
+}
