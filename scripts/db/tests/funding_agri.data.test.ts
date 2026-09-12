@@ -130,6 +130,25 @@ INSERT INTO person VALUES('p','active',true);INSERT INTO person_role VALUES('p',
         (await run({ operation: "rank", groupBy: "entity", metric: "amount" }))
           .groups[0],
       ).toMatchObject({ group_key: "111111111", amount: 150 });
+      // Pagination and grouped aggregates must still use the full annual cohort
+      // when cheap cohort filters are inlined by the production query compiler.
+      const page2 = await run({ operation: "list", limit: 1, offset: 1 });
+      expect(page2.totals).toEqual(all.totals);
+      expect(page2.rows.map((row: { key: string }) => row.key)).toEqual(["2"]);
+      const schemes = await run({
+        operation: "rank",
+        groupBy: "scheme",
+        metric: "amount",
+      });
+      expect(
+        schemes.groups.map((group: { group_key: string; amount: number }) => [
+          group.group_key,
+          group.amount,
+        ]),
+      ).toEqual([
+        ["S1", 145],
+        ["S2", 50],
+      ]);
       await c.query("UPDATE agri_subsidies SET total_eur=NULL WHERE year=2026");
       expect((await run({ amountMin: 0 })).status).toBe("success");
       expect(

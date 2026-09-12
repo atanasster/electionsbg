@@ -251,11 +251,15 @@ function compileFundingQuery(raw, internal = false) {
     q.operation === "share" && !["paidRatio", "topShare"].includes(q.metric)
       ? "share"
       : metric;
+  // DFZ annual cohorts contain hundreds of thousands of wide rows. Keep the
+  // source evaluation shared, but inline its cheap filters to avoid repeatedly
+  // spilling identical rows to disk under the production statement timeout.
+  const cohortMaterialization = agri ? "NOT MATERIALIZED" : "MATERIALIZED";
   const sql = `WITH ${parent ? `parent_result AS MATERIALIZED (${parent.sql}),` : ""}source AS NOT MATERIALIZED (${source}), candidates AS MATERIALIZED(SELECT s.*,(${current}) AS current,(${comparison}) AS comparison,(${base}) AS base,(${numerator}) AS matched,(${amountConditions.join(" AND ") || "TRUE"}) AS amount_match FROM source s WHERE ${where.join(" AND ") || "TRUE"}),
- scoped AS MATERIALIZED(SELECT * FROM candidates WHERE amount_match IS TRUE),
- base_cohorts AS MATERIALIZED(SELECT s.*,w.cohort_window FROM scoped s CROSS JOIN LATERAL (SELECT 'current'::text AS cohort_window WHERE s.current UNION ALL SELECT 'comparison' WHERE s.comparison) w WHERE s.base IS TRUE),
- cohorts AS MATERIALIZED(SELECT * FROM base_cohorts ${selectMatches ? "WHERE matched IS TRUE" : ""}),
- grouped AS (${q.groupBy ? `SELECT *,${group} AS group_key FROM cohorts UNION ALL ` : ""}SELECT *,'__total'::text AS group_key FROM cohorts),
+ scoped AS ${cohortMaterialization}(SELECT * FROM candidates WHERE amount_match IS TRUE),
+ base_cohorts AS ${cohortMaterialization}(SELECT s.*,w.cohort_window FROM scoped s CROSS JOIN LATERAL (SELECT 'current'::text AS cohort_window WHERE s.current UNION ALL SELECT 'comparison' WHERE s.comparison) w WHERE s.base IS TRUE),
+ cohorts AS ${cohortMaterialization}(SELECT * FROM base_cohorts ${selectMatches ? "WHERE matched IS TRUE" : ""}),
+ grouped AS ${agri ? "NOT MATERIALIZED" : ""}(${q.groupBy ? `SELECT *,${group} AS group_key FROM cohorts UNION ALL ` : ""}SELECT *,'__total'::text AS group_key FROM cohorts),
  entity_money AS (SELECT cohort_window,group_key,${partners ? "organisation" : "entity"} AS entity,sum(amount) AS amount FROM grouped WHERE ${["hhi", "topShare"].includes(q.metric) ? "TRUE" : "FALSE"} AND ${partners ? "organisation" : "entity"} IS NOT NULL AND amount IS NOT NULL GROUP BY cohort_window,group_key,${partners ? "organisation" : "entity"}),
  concentration AS (SELECT cohort_window,group_key,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 10000*sum(amount*amount)/power(sum(amount),2) END AS hhi,CASE WHEN count(*)>=${bind(q.minGroupCount || 2)} AND min(amount)>=0 AND sum(amount)>0 THEN 100*sum(amount) FILTER(WHERE rn<=${bind(q.topN || 10)})/sum(amount) END AS top_share,sum(amount) AS concentration_amount,sum(amount) FILTER(WHERE rn<=${bind(q.topN || 10)}) AS top_amount FROM (SELECT *,row_number() OVER(PARTITION BY cohort_window,group_key ORDER BY amount DESC NULLS LAST,entity) rn FROM entity_money) e GROUP BY cohort_window,group_key),
  summaries AS (SELECT cohort_window,group_key,${stats} FROM grouped GROUP BY cohort_window,group_key),
