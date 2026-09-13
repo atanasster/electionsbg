@@ -2,11 +2,11 @@
   "basis": "Runtime question catalog; readiness does not assert complete data coverage or current production deployment.",
   "totals": {
     "categories": 19,
-    "leaves": 83,
-    "chat": 284,
+    "leaves": 87,
+    "chat": 367,
     "sql": 74,
     "dual": 15,
-    "tools": 229,
+    "tools": 235,
     "recipes": 74
   },
   "missingToolStarters": [],
@@ -273,6 +273,78 @@
       ]
     },
     {
+      "category": "institutions",
+      "subcategory": "parliament-records",
+      "label": {
+        "bg": "Парламент и управление / Парламентарни заседания и решения",
+        "en": "Parliament and government / Parliament sittings and decisions"
+      },
+      "chat": [
+        "rollcall-query-S01",
+        "rollcall-query-S02",
+        "rollcall-query-S03",
+        "rollcall-query-S04",
+        "rollcall-query-S07",
+        "rollcall-query-S08",
+        "rollcall-query-S11",
+        "rollcall-query-S12",
+        "rollcall-query-S16"
+      ],
+      "sql": []
+    },
+    {
+      "category": "institutions",
+      "subcategory": "member-votes",
+      "label": {
+        "bg": "Парламент и управление / Поименен вот на депутати",
+        "en": "Parliament and government / MP voting records"
+      },
+      "chat": [
+        "rollcall-query-S05",
+        "rollcall-query-S06",
+        "rollcall-query-S09",
+        "rollcall-query-S10",
+        "rollcall-query-S13",
+        "rollcall-query-S14",
+        "rollcall-query-S15"
+      ],
+      "sql": []
+    },
+    {
+      "category": "institutions",
+      "subcategory": "council-records",
+      "label": {
+        "bg": "Парламент и управление / Заседания и решения на общински съвети",
+        "en": "Parliament and government / Council sittings and resolutions"
+      },
+      "chat": [
+        "rollcall-query-S17",
+        "rollcall-query-S18",
+        "rollcall-query-S19",
+        "rollcall-query-S23",
+        "rollcall-query-S24",
+        "rollcall-query-S25",
+        "rollcall-query-S26",
+        "rollcall-query-S27",
+        "rollcall-query-S28"
+      ],
+      "sql": []
+    },
+    {
+      "category": "institutions",
+      "subcategory": "councillor-votes",
+      "label": {
+        "bg": "Парламент и управление / Поименен вот на съветници",
+        "en": "Parliament and government / Councillor named votes"
+      },
+      "chat": [
+        "rollcall-query-S20",
+        "rollcall-query-S21",
+        "rollcall-query-S22"
+      ],
+      "sql": []
+    },
+    {
       "category": "public-money",
       "subcategory": "budget",
       "label": {
@@ -440,7 +512,13 @@
       },
       "chat": [
         "openTenders",
-        "tenderLookup"
+        "tenderLookup",
+        "procurement-query-tenders",
+        "procurement-query-cancelled",
+        "procurement-query-risk-nonOpenProcedure",
+        "procurement-query-risk-rushedDeadline",
+        "procurement-query-risk-shortDecisionPeriod",
+        "procurement-query-risk-awardOverEstimate"
       ],
       "sql": [
         "biggest-tenders"
@@ -457,7 +535,29 @@
         "procurementTotals",
         "topContractors",
         "contractSearch",
-        "awarderProcurement"
+        "awarderProcurement",
+        "procurement-query-one-bid",
+        "procurement-query-contracts",
+        "procurement-query-value",
+        "procurement-query-roads",
+        "procurement-query-medical",
+        "procurement-query-health-buyers",
+        "procurement-query-api",
+        "procurement-query-monthly",
+        "procurement-query-risk-debarred",
+        "procurement-query-risk-mpConnected",
+        "procurement-query-risk-pepConnected",
+        "procurement-query-risk-awarderConcentration",
+        "procurement-query-risk-amendment",
+        "procurement-query-risk-annexGrowth",
+        "procurement-query-risk-newFirmWinner",
+        "procurement-query-risk-splitPurchase",
+        "procurement-query-risk-appealUpheld",
+        "procurement-query-risk-weakCompetition",
+        "procurement-query-risk-directAward",
+        "procurement-query-risk-shortTenderPeriod",
+        "procurement-query-risk-nkidMismatch",
+        "procurement-healthcare-clarification"
       ],
       "sql": [
         "topContractors",
@@ -493,7 +593,10 @@
       },
       "chat": [
         "procurementAppeals",
-        "procurementDebarred"
+        "procurementDebarred",
+        "procurement-query-appeals",
+        "procurement-query-decisions",
+        "procurement-query-upheld"
       ],
       "sql": [
         "procurementAppeals",
@@ -665,7 +768,31 @@
       "chat": [
         "fundsOverview",
         "fundsProjects",
-        "placeEuProjects"
+        "placeEuProjects",
+        "funding-query-S01",
+        "funding-query-S02",
+        "funding-query-S03",
+        "funding-query-S04",
+        "funding-query-S05",
+        "funding-query-S06",
+        "funding-query-S07",
+        "funding-query-S08",
+        "funding-query-S09",
+        "funding-query-S10",
+        "funding-query-S11",
+        "funding-query-S12",
+        "funding-query-S13",
+        "funding-query-S14",
+        "funding-query-S15",
+        "funding-query-S16",
+        "funding-query-S17",
+        "funding-query-S18",
+        "funding-query-S19",
+        "funding-query-S20",
+        "funding-query-S21",
+        "funding-query-S22",
+        "funding-query-S23",
+        "funding-query-S24"
       ],
       "sql": [
         "clean-delivery-register",

@@ -363,6 +363,14 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     //    same reason as the three above, and it carries the same useNoindex().
     db: "public SQL console; content is whatever the reader typed; useNoindex()",
 
+    // ── dynamic query screens: content is parameter-driven, no stable content to index.
+    "funding/query":
+      "dynamic query screen; content is reader-driven parameters",
+    "procurement/query":
+      "dynamic query screen; content is reader-driven parameters",
+    "rollcall/query":
+      "dynamic query screen; content is reader-driven parameters",
+
     // ── ⚠️ UNDECIDED — routed, undeclared, and not exempt on merit. It needs a
     //    decision from the module that owns it, which is not a hygiene call.
     //    Listed so the tripwire has a stable floor without implying anybody
@@ -479,7 +487,7 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     expect(
       undeclared.length,
       `undeclared routed pages:\n${undeclared.map((p) => `  ${p}: ${gapsFor(p).join(", ")}`).join("\n")}`,
-    ).toBe(7);
+    ).toBe(10);
     // Of the three the previous comment named as „LINKED from prerendered copy",
     // only the first was: measured over every `${SITE_URL}/…` href in
     // `scripts/prerender/`, `procurement/tenders` had 2 (BG+EN) and the other

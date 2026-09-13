@@ -52,6 +52,12 @@ export function rollcallCorpus(question: string): RollcallCorpus | null {
     return null;
   if (
     excluded(question) ||
+    /присъстви|отсъств|attendance|absent|най-рядко|участват най-рядко/i.test(
+      question,
+    ) ||
+    /received votes|получи.*гласов|партии.*гласов|parties.*votes/i.test(
+      question,
+    ) ||
     /прахос|wasted|диаспор|diaspora|out-of-country|council vote.*(?:cycles|changed)|parliamentary votes go|transition model|how does .+ vote in parliament|секция\s+\d|section\s+\d|най-единно|cohesiv|моята община|^кой гласува за |^who votes for /i.test(
       question,
     ) ||

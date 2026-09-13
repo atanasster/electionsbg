@@ -29,7 +29,9 @@ for (const prefix of ["", "/en"]) {
     await expect(
       page.getByRole("heading", {
         level: 1,
-        name: en ? "Sample Prompts for Naiasno AI" : "Примерни въпроси за Наясно AI",
+        name: en
+          ? "Sample Prompts for Naiasno AI"
+          : "Примерни въпроси за Наясно AI",
       }),
     ).toBeVisible();
     const tools = page.getByRole("button", {

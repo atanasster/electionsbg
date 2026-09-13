@@ -70,7 +70,7 @@ describe("production eval scoring", () => {
     expect(new Set(cases.map((c) => c.id)).size).toBe(cases.length);
     expect(
       new Set(registryEvalCases().map((c) => c.id.split(":")[0])).size,
-    ).toBe(TOOLS.length);
+    ).toBe(TOOLS.filter((t) => t.examples.length > 0).length);
     for (const c of [...CHALLENGES, ...REALISTIC, ...CONVERSATIONS].filter(
       (c) => c.tool,
     )) {

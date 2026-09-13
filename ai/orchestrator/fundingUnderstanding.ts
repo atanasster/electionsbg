@@ -262,6 +262,7 @@ export function understandFunding(
       "Who gets the most EU funds?",
       "Кой получава най-много земеделски субсидии?",
       "Who gets the most farm subsidies?",
+      "Кои са най-големите получатели на земеделски субсидии?",
       "Земеделски субсидии по схема",
       "Farm subsidies by scheme",
       "Колко европейски средства са усвоени?",

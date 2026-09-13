@@ -623,6 +623,76 @@
       }
     }
   ],
+  "rollcallQuestion": [
+    {
+      "name": "question",
+      "type": "text",
+      "required": true,
+      "description": {
+        "bg": "Целият въпрос",
+        "en": "Complete question"
+      }
+    },
+    {
+      "name": "previous",
+      "type": "text",
+      "description": {
+        "bg": "Кодиран предишен обхват",
+        "en": "Encoded previous scope"
+      }
+    },
+    {
+      "name": "issue",
+      "type": "text",
+      "description": {
+        "bg": "Необходимо уточнение",
+        "en": "Clarification required"
+      }
+    },
+    {
+      "name": "notice",
+      "type": "text",
+      "description": {
+        "bg": "Промяна на обхвата",
+        "en": "Scope change"
+      }
+    },
+    {
+      "name": "resolvedNames",
+      "type": "text",
+      "description": {
+        "bg": "Избрани имена",
+        "en": "Resolved names"
+      }
+    },
+    {
+      "name": "corpus",
+      "type": "text",
+      "description": {
+        "bg": "Източник",
+        "en": "Corpus"
+      }
+    }
+  ],
+  "rollcallQuery": [
+    {
+      "name": "notice",
+      "type": "text",
+      "description": {
+        "bg": "Промяна на обхвата",
+        "en": "Scope change"
+      }
+    },
+    {
+      "name": "query",
+      "type": "text",
+      "required": true,
+      "description": {
+        "bg": "Кодиран каноничен обхват",
+        "en": "Encoded canonical query"
+      }
+    }
+  ],
   "fundingQuery": [
     {
       "name": "version",

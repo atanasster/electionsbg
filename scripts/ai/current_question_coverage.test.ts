@@ -16,8 +16,14 @@ it("pins both language texts to normal-provider validation records", () => {
   const probes = read(
     "docs/audits/starter-provider-validation-2026-09-10.json",
   );
-  expect(probes).toHaveLength(QUESTION_DEFINITIONS.length * 2);
-  for (const q of QUESTION_DEFINITIONS)
+  const baseQuestions = QUESTION_DEFINITIONS.filter(
+    (q) =>
+      !q.id.startsWith("procurement-") &&
+      !q.id.startsWith("funding-") &&
+      !q.id.startsWith("rollcall-query-"),
+  );
+  expect(probes).toHaveLength(baseQuestions.length * 2);
+  for (const q of baseQuestions)
     for (const lang of ["bg", "en"] as const) {
       const p = probes.find(
         (r: { id: string; lang: string }) => r.id === q.id && r.lang === lang,

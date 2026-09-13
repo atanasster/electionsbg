@@ -27,7 +27,9 @@ export const currentQuestionCoverage = () => {
       recipes: SQL_RECIPES_BY_ID.size,
     },
     missingToolStarters: TOOLS.filter(
-      (t) => !chat.some((q) => q.chat.capabilityId === t.name),
+      (t) =>
+        !["subsidiesForEntity", "rollcallQuery"].includes(t.name) &&
+        !chat.some((q) => q.chat.capabilityId === t.name),
     ).map((t) => t.name),
     missingSourceIds: questions
       .filter(

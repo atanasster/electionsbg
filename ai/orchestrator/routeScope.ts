@@ -39,12 +39,14 @@ export function parseModelRoute(raw: string, question: string): Route {
     )
   )
     return null;
+  let obj: { tool?: string; args?: Record<string, unknown> } | undefined;
   try {
-    const obj = JSON.parse(raw);
+    obj = JSON.parse(raw);
     if (
       obj?.tool === "rankPlaces" &&
+      typeof obj.args?.indicator === "string" &&
       ["regionalInvestment", "basketAffordability"].includes(
-        obj.args?.indicator,
+        obj.args.indicator,
       ) &&
       Object.keys(obj.args).every((k) => ["indicator", "order"].includes(k))
     )
@@ -52,6 +54,13 @@ export function parseModelRoute(raw: string, question: string): Route {
   } catch {
     /* parser handles malformed JSON */
   }
+  const parsed = parseToolCall(raw);
+  if (
+    (parsed?.tool === "rankPlaces" || obj?.tool === "rankPlaces") &&
+    ((/basket|кошниц/i.test(current) && /gdp|бвп/i.test(current)) ||
+      /eu (?:funds|money)|европейски (?:средства|пари)|европар/i.test(current))
+  )
+    return null; // A valid metric code still cannot answer a different question.
   const legislative = rollcallCorpus(current);
   if (legislative)
     return {
@@ -68,7 +77,6 @@ export function parseModelRoute(raw: string, question: string): Route {
     return procurement.kind === "query"
       ? { tool: "procurementQuery", args: procurement.query }
       : { tool: "procurementQuestion", args: { question: current } };
-  const parsed = parseToolCall(raw);
   if (
     parsed &&
     [
@@ -79,11 +87,5 @@ export function parseModelRoute(raw: string, question: string): Route {
     ].includes(parsed.tool)
   )
     return null; // No funding intent was established above.
-  if (
-    parsed?.tool === "rankPlaces" &&
-    ((/basket|кошниц/i.test(current) && /gdp|бвп/i.test(current)) ||
-      /eu (?:funds|money)|европейски (?:средства|пари)|европар/i.test(current))
-  )
-    return null; // A valid metric code still cannot answer a different question.
   return applyProductDefaults(validateRouteScope(parsed, question), question);
 }

@@ -619,8 +619,11 @@ describe("the lateral-links tour", () => {
     // connections↔funds (40,271) and connections↔officials (5,604) unmoved. All three were
     // read out of the manifest, not only the one the failure named — see the 2026-09-07
     // note above for why that distinction is the whole point of this clause.
+    //
+    // ⚠ Re-pinned 2026-09-13: connections↔procurement 18,734 → 18,735, with
+    // connections↔funds (40,271) and connections↔officials (5,604) unmoved.
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18734],
+      ["connections", "procurement", "eik", 18735],
       ["connections", "funds", "eik", 40271],
       ["connections", "officials", "person_id", 5604],
     ];

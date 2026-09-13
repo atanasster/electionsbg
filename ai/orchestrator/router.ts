@@ -1743,7 +1743,16 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       args: assembly ? { ns: Number(assembly) } : {},
     };
   if (
-    has(q, "присъстви", "отсъств", "attendance", "absent", "absentee") &&
+    has(
+      q,
+      "присъстви",
+      "отсъств",
+      "attendance",
+      "absent",
+      "absentee",
+      "най-рядко",
+      "участват най-рядко",
+    ) &&
     has(
       q,
       "депутат",

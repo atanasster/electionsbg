@@ -254,7 +254,10 @@ export const QUESTION_DEFINITIONS: QuestionDefinition[] = rawPrompts.map(
             },
           },
       sourceIds:
-        REVIEWED_CHAT_SQL_SOURCES[prompt.id] ?? toolSources[prompt.tool] ?? [],
+        REVIEWED_CHAT_SQL_SOURCES[prompt.id] ??
+        toolSources[prompt.id] ??
+        toolSources[prompt.tool] ??
+        [],
     };
   },
 );

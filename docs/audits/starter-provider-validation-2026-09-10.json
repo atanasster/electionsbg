@@ -1785,7 +1785,7 @@
     "text": "Кои са последните кметове на София?",
     "tool": "localMayorHistory",
     "args": {
-      "place": "са софия"
+      "place": "софия"
     },
     "title": "Кметове на Столична община по мандати",
     "rows": 5,
@@ -1812,7 +1812,7 @@
     "text": "Who are the last mayors of Sofia?",
     "tool": "localMayorHistory",
     "args": {
-      "place": "are mayors sofia"
+      "place": "sofia"
     },
     "title": "Mayors of Sofia by term",
     "rows": 5,
@@ -1839,7 +1839,7 @@
     "text": "Кои са районните кметове на София?",
     "tool": "localSubMayors",
     "args": {
-      "place": "са районните софия"
+      "place": "софия"
     },
     "title": "Районни кметове — Столична община (2023)",
     "rows": 24,
@@ -1862,7 +1862,7 @@
     "text": "Who are Sofia's district mayors?",
     "tool": "localSubMayors",
     "args": {
-      "place": "are sofia s district mayors"
+      "place": "sofia"
     },
     "title": "District mayors — Sofia (2023)",
     "rows": 24,
@@ -3910,7 +3910,8 @@
     "tool": "openTenders",
     "args": {
       "topic": "guardrails",
-      "year": "2025"
+      "year": "2025",
+      "canonical": "%7B%22baseMode%22%3A%22all%22%2C%22corpus%22%3A%22tenders%22%2C%22currency%22%3A%22EUR%22%2C%22dateBasis%22%3A%22published%22%2C%22denominator%22%3A%22all%22%2C%22from%22%3A%222025-01-01%22%2C%22limit%22%3A20%2C%22metric%22%3A%22records%22%2C%22numeratorMode%22%3A%22all%22%2C%22offset%22%3A0%2C%22operation%22%3A%22list%22%2C%22toExclusive%22%3A%222026-01-01%22%2C%22topic%22%3A%22guardrails%22%2C%22valueBasis%22%3A%22estimate%22%2C%22version%22%3A%22procurement-records-v1%22%7D"
     },
     "title": "Обявени поръчки — Пътни предпазни (ограничителни) съоръжения / мантинели (2025)",
     "rows": 2,
@@ -3937,7 +3938,8 @@
     "tool": "openTenders",
     "args": {
       "topic": "guardrails",
-      "year": "2025"
+      "year": "2025",
+      "canonical": "%7B%22baseMode%22%3A%22all%22%2C%22corpus%22%3A%22tenders%22%2C%22currency%22%3A%22EUR%22%2C%22dateBasis%22%3A%22published%22%2C%22denominator%22%3A%22all%22%2C%22from%22%3A%222025-01-01%22%2C%22limit%22%3A20%2C%22metric%22%3A%22records%22%2C%22numeratorMode%22%3A%22all%22%2C%22offset%22%3A0%2C%22operation%22%3A%22list%22%2C%22toExclusive%22%3A%222026-01-01%22%2C%22topic%22%3A%22guardrails%22%2C%22valueBasis%22%3A%22estimate%22%2C%22version%22%3A%22procurement-records-v1%22%7D"
     },
     "title": "Tenders — Road safety barriers / guardrails (2025)",
     "rows": 2,
@@ -4786,9 +4788,7 @@
     "lang": "bg",
     "text": "Кои са най-големите инвестиционни проекти?",
     "tool": "investmentProjects",
-    "args": {
-      "oblast": "са най-големите инвестиционни проекти"
-    },
+    "args": {},
     "title": "Инвестиционна програма 2025",
     "rows": 10,
     "facts": {
@@ -4807,9 +4807,7 @@
     "lang": "en",
     "text": "What are the biggest investment projects?",
     "tool": "investmentProjects",
-    "args": {
-      "oblast": "are biggest investment projects"
-    },
+    "args": {},
     "title": "Investment programme 2025",
     "rows": 10,
     "facts": {
@@ -4972,7 +4970,7 @@
   {
     "id": "companyProfile",
     "lang": "bg",
-    "text": "Кажи ми за фирма Провиотик",
+    "text": "Фирма Провиотик",
     "tool": "companyProfile",
     "args": {
       "company": "Провиотик"
@@ -5000,7 +4998,7 @@
   {
     "id": "companyProfile",
     "lang": "en",
-    "text": "Tell me about company Proviotic",
+    "text": "Company Proviotic",
     "tool": "companyProfile",
     "args": {
       "company": "Proviotic"
@@ -5383,7 +5381,7 @@
     "text": "Какви са данъците в Пловдив?",
     "tool": "localTaxes",
     "args": {
-      "place": "какви са данъците пловдив"
+      "place": "пловдив"
     },
     "title": "Местни данъци — Пловдив",
     "rows": 5,
@@ -5403,7 +5401,7 @@
     "text": "What are the taxes in Plovdiv?",
     "tool": "localTaxes",
     "args": {
-      "place": "are taxes plovdiv"
+      "place": "plovdiv"
     },
     "title": "Local taxes — Plovdiv",
     "rows": 5,
@@ -5463,7 +5461,7 @@
     "text": "Какви са цените в Пловдив?",
     "tool": "settlementPrices",
     "args": {
-      "place": "какви са пловдив"
+      "place": "пловдив"
     },
     "title": "Цени — Пловдив",
     "rows": 8,
@@ -5490,7 +5488,7 @@
     "text": "What are the prices in Plovdiv?",
     "tool": "settlementPrices",
     "args": {
-      "place": "are plovdiv"
+      "place": "plovdiv"
     },
     "title": "Pearl rice 1kg — Plovdiv",
     "rows": null,
@@ -5518,7 +5516,7 @@
     "text": "Какви промоции има в Пловдив?",
     "tool": "localDeals",
     "args": {
-      "place": "какви има пловдив"
+      "place": "пловдив"
     },
     "title": "Промоции (Пловдив)",
     "rows": 12,
@@ -5541,7 +5539,7 @@
     "text": "What deals are in Plovdiv?",
     "tool": "localDeals",
     "args": {
-      "place": "are plovdiv"
+      "place": "plovdiv"
     },
     "title": "Promotions (Plovdiv)",
     "rows": 12,
@@ -8685,9 +8683,9 @@
     "id": "subsidiesForEntity",
     "lang": "bg",
     "text": "Колко субсидии е получила Златия Агро?",
-    "tool": "subsidiesForEntity",
+    "tool": "fundingQuestion",
     "args": {
-      "company": "Златия Агро"
+      "question": "Колко субсидии е получила Златия Агро?"
     },
     "title": "Златия Агро ЕООД — земеделски субсидии",
     "rows": null,
@@ -8709,9 +8707,9 @@
     "id": "subsidiesForEntity",
     "lang": "en",
     "text": "How much in subsidies did Zlatia Agro receive?",
-    "tool": "subsidiesForEntity",
+    "tool": "fundingQuestion",
     "args": {
-      "company": "Zlatia Agro"
+      "question": "How much in subsidies did Zlatia Agro receive?"
     },
     "title": "No farm subsidies found for “Zlatia Agro”",
     "rows": null,
@@ -8880,12 +8878,12 @@
   {
     "id": "personProfile",
     "lang": "bg",
-    "text": "Какъв е профилът на Бойко Борисов?",
+    "text": "Кой е Явор Стефанов?",
     "tool": "personProfile",
     "args": {
-      "name": "Бойко Борисов"
+      "name": "Явор Стефанов"
     },
-    "title": "Кое лице „Бойко Борисов“ имате предвид?",
+    "title": "Кое лице „Явор Стефанов“ имате предвид?",
     "rows": null,
     "facts": {},
     "provenance": [
@@ -8897,12 +8895,12 @@
   {
     "id": "personProfile",
     "lang": "en",
-    "text": "What is the profile of Boyko Borisov?",
+    "text": "Who is Yavor Stefanov?",
     "tool": "personProfile",
     "args": {
-      "name": "Boyko Borisov"
+      "name": "Yavor Stefanov"
     },
-    "title": "Which person \"Boyko Borisov\" do you mean?",
+    "title": "Which person \"Yavor Stefanov\" do you mean?",
     "rows": null,
     "facts": {},
     "provenance": [
@@ -9090,46 +9088,30 @@
   {
     "id": "schoolMatura",
     "lang": "bg",
-    "text": "Матура на училище: Константин Гълъбов",
+    "text": "Училище „Свети Свети Кирил и Методий“",
     "tool": "schoolMatura",
     "args": {
-      "school": "Константин Гълъбов"
+      "school": "Училище „Свети Свети Кирил и Методий“"
     },
-    "title": "91.НЕМСКА ЕЗИКОВА ГИМНАЗИЯ Професор Константин Гълъбов\" — среден успех на матурата по БЕЛ 5,78 (2026 г.)",
+    "title": "Кое училище „Свети Свети Кирил и Методий“ имате предвид?",
     "rows": null,
-    "facts": {
-      "school": "91.НЕМСКА ЕЗИКОВА ГИМНАЗИЯ Професор Константин Гълъбов\"",
-      "matura_bel": "5,78",
-      "year": 2026,
-      "graduates": 183,
-      "percentile": 100,
-      "context_index": "2.7",
-      "context": "над средната"
-    },
+    "facts": {},
     "provenance": [
       "education-payload"
     ],
-    "clarify": false
+    "clarify": true
   },
   {
     "id": "schoolMatura",
     "lang": "en",
-    "text": "Matura for school: Константин Гълъбов",
+    "text": "School “Свети Свети Кирил и Методий”",
     "tool": "schoolMatura",
     "args": {
-      "school": "Константин Гълъбов"
+      "school": "School “Свети Свети Кирил и Методий”"
     },
-    "title": "91.НЕМСКА ЕЗИКОВА ГИМНАЗИЯ Професор Константин Гълъбов\" — Bulgarian-matura average 5.78 (2026)",
+    "title": "No school “Свети Свети Кирил и Методий”” found in the matura data",
     "rows": null,
-    "facts": {
-      "school": "91.НЕМСКА ЕЗИКОВА ГИМНАЗИЯ Професор Константин Гълъбов\"",
-      "matura_bel": "5.78",
-      "year": 2026,
-      "graduates": 183,
-      "percentile": 100,
-      "context_index": "2.7",
-      "context": "above average"
-    },
+    "facts": {},
     "provenance": [
       "education-payload"
     ],
@@ -9274,50 +9256,36 @@
   {
     "id": "productPrice",
     "lang": "bg",
-    "text": "Цена на продукт: Лаваца",
+    "text": "Каква е цената на кафе Лаваца 500г?",
     "tool": "productPrice",
     "args": {
-      "product": "Лаваца"
+      "product": "Каква е цената на кафе Лаваца 500г?"
     },
-    "title": "Лаваца Роса 1кг",
-    "rows": 2,
-    "facts": {
-      "product": "Лаваца Роса 1кг",
-      "slug": "lavatsa-rosa-1kg",
-      "lowest_price": "26,69 €",
-      "chains": 2,
-      "since_euro": "0.0% от еврото",
-      "cheapest_chain": "Чери Маркет",
-      "note": "Мониторингов индекс на КЗП, не официален ИПЦ."
-    },
+    "title": "Кой продукт „кафе Лаваца 500г“ имате предвид?",
+    "rows": null,
+    "facts": {},
     "provenance": [
       "price_payloads (PG)",
       "kolkostruva.bg (КЗП)"
     ],
-    "clarify": false
+    "clarify": true
   },
   {
     "id": "productPrice",
     "lang": "en",
-    "text": "Product price: Lavazza",
+    "text": "How much is Lavazza coffee 500g?",
     "tool": "productPrice",
     "args": {
-      "product": "Lavazza"
+      "product": "How much is Lavazza coffee 500g?"
     },
-    "title": "1КГ КАФЕ/ЗЪР LAVAZZA",
-    "rows": 1,
+    "title": "No product \"Lavazza coffee 500g\"",
+    "rows": null,
     "facts": {
-      "product": "1КГ КАФЕ/ЗЪР LAVAZZA",
-      "slug": "1kg-kafe-zar-lavazza",
-      "lowest_price": "€28.68",
-      "chains": 1,
-      "since_euro": "−15.0% since the euro",
-      "cheapest_chain": "Метро България",
+      "query": "Lavazza coffee 500g",
       "note": "CPC monitoring basket index, not official CPI."
     },
     "provenance": [
-      "price_payloads (PG)",
-      "kolkostruva.bg (КЗП)"
+      "price_payloads (PG)"
     ],
     "clarify": false
   },

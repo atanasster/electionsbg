@@ -18,6 +18,8 @@ export const toolMetadata = () => ({
         return [t.name, ["funds", "projects"]];
       if (["procurementQuery", "procurementQuestion"].includes(t.name))
         return [t.name, ["procurement", "contracts"]]; // Tool directory fallback; query templates carry their own category/source metadata.
+      if (["rollcallQuery", "rollcallQuestion"].includes(t.name))
+        return [t.name, ["institutions", "parliament-records"]];
       const prompt = prompts.find((p) => p.tool === t.name);
       if (!prompt) throw new Error(`Missing discovery question: ${t.name}`);
       return [t.name, [prompt.category, prompt.subcategory]];

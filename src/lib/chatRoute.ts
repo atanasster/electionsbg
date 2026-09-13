@@ -20,4 +20,3 @@ export const chatView = (pathname: string) => {
         ? "prompts"
         : "chat";
 };
-
