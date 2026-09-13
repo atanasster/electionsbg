@@ -627,6 +627,7 @@ const PromptCard = ({
     <div
       role="article"
       tabIndex={0}
+      data-tool={starter.tool}
       onClick={() => onLaunch(promptText)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -668,11 +669,8 @@ const PromptCard = ({
         </p>
       </div>
 
-      {/* Footer Launch Action */}
-      <div className="mt-4 flex items-center justify-between pt-2 border-t border-border/40">
-        <span className="text-[11px] font-mono text-muted-foreground/70">
-          {starter.tool}
-        </span>
+      {/* Launch Action */}
+      <div className="mt-3 flex items-center">
         <a
           href={launchHref}
           onClick={(e) => {
@@ -680,9 +678,9 @@ const PromptCard = ({
             e.stopPropagation();
             onLaunch(promptText);
           }}
-          className="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:underline"
+          className="inline-flex items-center gap-1 text-xs font-medium text-popover-foreground hover:underline"
         >
-          <span>{en ? "Ask in chat" : "Попитай в чата"}</span>
+          <span>{en ? "Try in chat" : "Пробвай в чата"}</span>
           <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </a>
       </div>

@@ -27,11 +27,16 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     setup("bg");
 
     expect(
-      screen.getByRole("heading", { level: 1, name: /Примерни въпроси за Наясно AI/i }),
+      screen.getByRole("heading", {
+        level: 1,
+        name: /Примерни въпроси за Наясно AI/i,
+      }),
     ).toBeInTheDocument();
 
     expect(screen.getByRole("navigation")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Всички теми/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Всички теми/i }),
+    ).toBeInTheDocument();
 
     // Check that prompt cards are rendered
     const articles = screen.getAllByRole("article");
@@ -42,10 +47,15 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     setup("en");
 
     expect(
-      screen.getByRole("heading", { level: 1, name: /Sample Prompts for Naiasno AI/i }),
+      screen.getByRole("heading", {
+        level: 1,
+        name: /Sample Prompts for Naiasno AI/i,
+      }),
     ).toBeInTheDocument();
 
-    expect(screen.getByRole("button", { name: /All topics/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /All topics/i }),
+    ).toBeInTheDocument();
   });
 
   it("filters prompts when a topic category is clicked", () => {
@@ -57,7 +67,9 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     fireEvent.click(electionsBtn);
 
     // Active filter banner should show "Покажи всички" button
-    expect(screen.getByRole("button", { name: /Покажи всички/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Покажи всички/i }),
+    ).toBeInTheDocument();
   });
 
   it("filters prompts when search input is typed into", () => {
@@ -84,10 +96,14 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     const searchInput = screen.getByRole("searchbox", {
       name: /Търсене на въпроси/i,
     });
-    fireEvent.change(searchInput, { target: { value: "абвгдежзийклмнопрстуфхцчшщъьюяненамирасе" } });
+    fireEvent.change(searchInput, {
+      target: { value: "абвгдежзийклмнопрстуфхцчшщъьюяненамирасе" },
+    });
 
     expect(screen.getByText(/Няма намерени въпроси/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Изчисти филтрите/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Изчисти филтрите/i }),
+    ).toBeInTheDocument();
 
     // Click clear filters
     fireEvent.click(screen.getByRole("button", { name: /Изчисти филтрите/i }));
@@ -98,6 +114,12 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     const clearSpy = vi.spyOn(chatStorage, "clearSavedChat");
     const { navigate } = setup("bg");
 
+    const tryLinks = screen.getAllByText("Пробвай в чата");
+    expect(tryLinks.length).toBeGreaterThan(0);
+    expect(tryLinks[0].closest("a")?.className).toContain(
+      "text-popover-foreground",
+    );
+
     const firstPrompt = screen.getAllByRole("article")[0];
     const promptText = firstPrompt.querySelector("p")?.textContent ?? "";
     expect(promptText).toBeTruthy();
@@ -105,7 +127,9 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     fireEvent.click(firstPrompt);
 
     expect(clearSpy).toHaveBeenCalled();
-    expect(navigate).toHaveBeenCalledWith(`/chat?q=${encodeURIComponent(promptText)}`);
+    expect(navigate).toHaveBeenCalledWith(
+      `/chat?q=${encodeURIComponent(promptText)}`,
+    );
     clearSpy.mockRestore();
   });
 
@@ -113,6 +137,12 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     const clearSpy = vi.spyOn(chatStorage, "clearSavedChat");
     const { navigate } = setup("en");
 
+    const tryLinks = screen.getAllByText("Try in chat");
+    expect(tryLinks.length).toBeGreaterThan(0);
+    expect(tryLinks[0].closest("a")?.className).toContain(
+      "text-popover-foreground",
+    );
+
     const firstPrompt = screen.getAllByRole("article")[0];
     const promptText = firstPrompt.querySelector("p")?.textContent ?? "";
     expect(promptText).toBeTruthy();
@@ -120,7 +150,9 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     fireEvent.click(firstPrompt);
 
     expect(clearSpy).toHaveBeenCalled();
-    expect(navigate).toHaveBeenCalledWith(`/en/chat?q=${encodeURIComponent(promptText)}`);
+    expect(navigate).toHaveBeenCalledWith(
+      `/en/chat?q=${encodeURIComponent(promptText)}`,
+    );
     clearSpy.mockRestore();
   });
 });
