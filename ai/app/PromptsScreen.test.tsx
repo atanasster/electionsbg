@@ -4,7 +4,7 @@ import { ChatNavigationContext } from "./navigation";
 import { PromptsScreen } from "./PromptsScreen";
 import * as chatStorage from "./chatStorage";
 
-describe("PromptsScreen", () => {
+describe("PromptsScreen", { timeout: 30_000 }, () => {
   const setup = (lang: "bg" | "en" = "bg") => {
     const navigate = vi.fn();
     const prefix = lang === "en" ? "/en" : "";

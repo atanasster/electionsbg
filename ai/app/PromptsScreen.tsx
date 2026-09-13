@@ -144,7 +144,7 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
       totalPrompts: number;
     }[] = [];
 
-    const catMap = new Map<string, typeof groups[0]>();
+    const catMap = new Map<string, (typeof groups)[0]>();
 
     for (const starter of filteredPrompts) {
       let g = catMap.get(starter.category);
@@ -194,8 +194,10 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
       ? subcategoryLookup.get(`${selectedCategory}:${selectedSubcategory}`)
       : null;
 
+  const Content = integrated ? "div" : "main";
+
   return (
-    <div className="flex flex-1 flex-col overflow-y-auto bg-background text-foreground">
+    <div className="flex flex-1 flex-col overflow-y-auto bg-card text-foreground">
       {!integrated && (
         <header className="flex w-full shrink-0 items-center justify-between border-b bg-muted px-4 py-3">
           <div className="flex items-center gap-2">
@@ -205,7 +207,7 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
         </header>
       )}
 
-      <main className="container mx-auto max-w-7xl px-3 py-6 sm:px-6">
+      <Content className="container mx-auto flex min-h-full flex-col px-2 py-6 sm:px-4">
         {/* Page Hero Header */}
         <div className="mb-6 max-w-3xl space-y-2">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
@@ -213,7 +215,9 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
             <span>{en ? "Prompt Library" : "Каталог с въпроси"}</span>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            {en ? "Sample Prompts for Naiasno AI" : "Примерни въпроси за Наясно AI"}
+            {en
+              ? "Sample Prompts for Naiasno AI"
+              : "Примерни въпроси за Наясно AI"}
           </h1>
           <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
             {en
@@ -222,94 +226,14 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
           </p>
         </div>
 
-        {/* Live Search and Mobile Selector */}
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="relative w-full max-w-md">
-            <Search
-              aria-hidden
-              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-            />
-            <Input
-              type="search"
-              aria-label={en ? "Search prompts" : "Търсене на въпроси"}
-              placeholder={
-                en
-                  ? "Search prompts, topics, or keywords…"
-                  : "Търсене на въпроси, теми или ключови думи…"
-              }
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-10 pl-9 pr-8"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                aria-label={en ? "Clear search" : "Изчисти търсенето"}
-                onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-              >
-                <X className="size-4" />
-              </button>
-            )}
-          </div>
-
-          {/* Mobile topic dropdown (visible on screens < lg) */}
-          <div className="block lg:hidden">
-            <label htmlFor="mobile-topic-select" className="sr-only">
-              {en ? "Select topic" : "Изберете тема"}
-            </label>
-            <select
-              id="mobile-topic-select"
-              className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              value={
-                selectedSubcategory
-                  ? `${selectedCategory}:${selectedSubcategory}`
-                  : (selectedCategory ?? "")
-              }
-              onChange={(e) => {
-                const val = e.target.value;
-                if (!val) {
-                  handleSelectAll();
-                } else if (val.includes(":")) {
-                  const [c, s] = val.split(":");
-                  handleSelectSubcategory(c, s);
-                } else {
-                  handleSelectCategory(val);
-                }
-              }}
-            >
-              <option value="">
-                {en ? "All topics" : "Всички теми"} ({STARTERS.length})
-              </option>
-              {STARTER_CATEGORIES.map((cat) => (
-                <optgroup
-                  key={cat.id}
-                  label={`${cat[lang]} (${counts.catMap[cat.id] ?? 0})`}
-                >
-                  <option value={cat.id}>
-                    {cat[lang]} - {en ? "All" : "Всички"} (
-                    {counts.catMap[cat.id] ?? 0})
-                  </option>
-                  {cat.subcategories.map((sub) => (
-                    <option key={sub.id} value={`${cat.id}:${sub.id}`}>
-                      ↳ {sub[lang]} (
-                      {counts.subMap[`${cat.id}:${sub.id}`] ?? 0})
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
-          </div>
-        </div>
-
         {/* Layout Grid: TOC Sidebar (Desktop) + Prompts Content */}
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr]">
-          {/* Desktop Table of Contents (TOC) */}
+          {/* Table of Contents (TOC) Sidebar */}
           <aside
             aria-label={en ? "Topics table of contents" : "Съдържание по теми"}
-            className="hidden lg:sticky lg:top-[calc(var(--header-height,70px)+3.5rem)] lg:block lg:max-h-[calc(100dvh-9.5rem)] lg:overflow-y-auto lg:rounded-xl lg:border lg:border-border lg:bg-card lg:p-3.5 lg:shadow-sm"
+            className="space-y-3 rounded-xl border border-border bg-card p-3.5 shadow-sm lg:sticky lg:top-[calc(var(--header-height,70px)+3.5rem)] lg:max-h-[calc(100dvh-9.5rem)] lg:overflow-y-auto"
           >
-            <div className="mb-3 flex items-center justify-between border-b pb-2 px-1">
+            <div className="flex items-center justify-between border-b pb-2 px-1">
               <span className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <ListTree className="size-4 text-primary" />
                 {en ? "Topics & Subtopics" : "Теми и подтеми"}
@@ -319,7 +243,85 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
               </span>
             </div>
 
-            <nav className="space-y-1">
+            {/* Search Input inside sidebar */}
+            <div className="relative">
+              <Search
+                aria-hidden
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+              />
+              <Input
+                type="search"
+                aria-label={en ? "Search prompts" : "Търсене на въпроси"}
+                placeholder={
+                  en
+                    ? "Search prompts, topics, or keywords…"
+                    : "Търсене на въпроси, теми или ключови думи…"
+                }
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="h-9 pl-9 pr-8 text-sm"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  aria-label={en ? "Clear search" : "Изчисти търсенето"}
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="size-3.5" />
+                </button>
+              )}
+            </div>
+
+            {/* Mobile topic dropdown (visible on screens < lg) */}
+            <div className="block lg:hidden">
+              <label htmlFor="mobile-topic-select" className="sr-only">
+                {en ? "Select topic" : "Изберете тема"}
+              </label>
+              <select
+                id="mobile-topic-select"
+                className="h-9 w-full rounded-md border border-input bg-background px-2.5 text-xs text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                value={
+                  selectedSubcategory
+                    ? `${selectedCategory}:${selectedSubcategory}`
+                    : (selectedCategory ?? "")
+                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (!val) {
+                    handleSelectAll();
+                  } else if (val.includes(":")) {
+                    const [c, s] = val.split(":");
+                    handleSelectSubcategory(c, s);
+                  } else {
+                    handleSelectCategory(val);
+                  }
+                }}
+              >
+                <option value="">
+                  {en ? "All topics" : "Всички теми"} ({STARTERS.length})
+                </option>
+                {STARTER_CATEGORIES.map((cat) => (
+                  <optgroup
+                    key={cat.id}
+                    label={`${cat[lang]} (${counts.catMap[cat.id] ?? 0})`}
+                  >
+                    <option value={cat.id}>
+                      {cat[lang]} - {en ? "All" : "Всички"} (
+                      {counts.catMap[cat.id] ?? 0})
+                    </option>
+                    {cat.subcategories.map((sub) => (
+                      <option key={sub.id} value={`${cat.id}:${sub.id}`}>
+                        ↳ {sub[lang]} (
+                        {counts.subMap[`${cat.id}:${sub.id}`] ?? 0})
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+            </div>
+
+            <nav className="hidden lg:block space-y-1 pt-0.5">
               {/* All Topics Option */}
               <button
                 type="button"
@@ -446,8 +448,10 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
                   {selectedCategory === null ? (
                     searchQuery ? (
                       `${en ? "Search results for" : "Резултати от търсенето за"} "${searchQuery}"`
+                    ) : en ? (
+                      "All Prompts"
                     ) : (
-                      en ? "All Prompts" : "Всички примерни въпроси"
+                      "Всички примерни въпроси"
                     )
                   ) : (
                     <span className="flex items-center gap-1.5">
@@ -588,7 +592,7 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
             )}
           </section>
         </div>
-      </main>
+      </Content>
     </div>
   );
 };

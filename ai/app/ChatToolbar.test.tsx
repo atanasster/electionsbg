@@ -47,6 +47,51 @@ for (const lang of ["bg", "en"] as const) {
         `${prefix}/chat/evals?area=56784`,
       );
       expect(screen.queryByRole("img")).toBeNull();
+      // Ensure buttons contain only clean text without svg icons
+      for (const btn of screen.getAllByRole("button")) {
+        expect(btn.querySelector("svg")).toBeNull();
+      }
+    });
+
+    it("highlights active tab matching the current route", () => {
+      const prefix = lang === "en" ? "/en" : "";
+      const { rerender } = render(
+        <ChatNavigationContext.Provider
+          value={{
+            pathname: `${prefix}/chat/prompts`,
+            search: "",
+            lang,
+            navigate: vi.fn(),
+          }}
+        >
+          <ChatToolbar onNewChat={vi.fn()} />
+        </ChatNavigationContext.Provider>,
+      );
+
+      const promptBtn = screen.getByRole("button", {
+        name: lang === "en" ? "Prompts" : "Въпроси",
+      });
+      expect(promptBtn.getAttribute("aria-current")).toBe("page");
+      expect(promptBtn.className).toContain("border-primary/50");
+
+      rerender(
+        <ChatNavigationContext.Provider
+          value={{
+            pathname: `${prefix}/chat/tools`,
+            search: "",
+            lang,
+            navigate: vi.fn(),
+          }}
+        >
+          <ChatToolbar onNewChat={vi.fn()} />
+        </ChatNavigationContext.Provider>,
+      );
+
+      const toolsBtn = screen.getByRole("button", {
+        name: lang === "en" ? "Tools" : "Инструменти",
+      });
+      expect(toolsBtn.getAttribute("aria-current")).toBe("page");
+      expect(toolsBtn.className).toContain("border-primary/50");
     });
   });
 }

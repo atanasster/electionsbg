@@ -13,13 +13,25 @@ for (const prefix of ["", "/en"]) {
       }),
     ).toBeAttached({ timeout: 20_000 });
     const toolbar = page.locator("[data-chat-toolbar]");
-    await expect(toolbar.getByRole("button")).toHaveCount(3);
+    await expect(toolbar.getByRole("button")).toHaveCount(4);
     await expect(
       page.getByRole("link", { name: "Наясно AI", exact: true }),
     ).toHaveCount(0);
     await expect(
       page.getByRole("button", { name: en ? "Theme" : "Тема", exact: true }),
     ).toHaveCount(0);
+    const prompts = page.getByRole("button", {
+      name: en ? "Prompts" : "Въпроси",
+      exact: true,
+    });
+    await prompts.click();
+    await expect(page).toHaveURL(new RegExp(`${prefix}/chat/prompts$`));
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: en ? "Sample Prompts for Naiasno AI" : "Примерни въпроси за Наясно AI",
+      }),
+    ).toBeVisible();
     const tools = page.getByRole("button", {
       name: en ? "Tools" : "Инструменти",
       exact: true,
@@ -33,11 +45,7 @@ for (const prefix of ["", "/en"]) {
       }),
     ).toBeVisible();
     await page.goBack();
-    await expect(
-      page.getByRole("textbox", {
-        name: en ? "Ask about the data…" : "Попитайте за данните…",
-      }),
-    ).toBeVisible();
+    await expect(page).toHaveURL(new RegExp(`${prefix}/chat/prompts$`));
     await page.goForward();
     await expect(page).toHaveURL(new RegExp(`${prefix}/chat/tools$`));
     await toolbar
@@ -48,7 +56,7 @@ for (const prefix of ["", "/en"]) {
       en ? "AI tool evaluation" : "Оценка на AI инструментите",
     );
     await expect(page.locator("footer")).toHaveCount(0);
-    await expect(toolbar.getByRole("button")).toHaveCount(3);
+    await expect(toolbar.getByRole("button")).toHaveCount(4);
     await toolbar
       .getByRole("button", { name: en ? "New chat" : "Нов чат", exact: true })
       .click();
