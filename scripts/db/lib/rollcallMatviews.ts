@@ -124,6 +124,13 @@ export const refreshRollcallMatviews = async (
   // acceptable.
   await exec("BEGIN");
   try {
+    // Keep this rebuild on PostgreSQL's single-process executor. The quadratic
+    // mp_similarity self-join has crashed the local PostgreSQL 16 backend inside
+    // REFRESH (SIGSEGV), which terminates every connection while crash recovery runs.
+    // Connection/transaction-local settings avoid that unstable parallel/JIT path
+    // without slowing unrelated database work or requiring server-wide tuning.
+    await exec("SET LOCAL max_parallel_workers_per_gather = 0");
+    await exec("SET LOCAL jit = off");
     for (const mv of ROLLCALL_MATVIEWS) {
       if (!mv.inputs.some((i) => changed.includes(i))) continue;
       if (!(await exists(mv.name))) {
