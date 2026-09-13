@@ -30,7 +30,9 @@
 //
 // WHAT IT COMPARES. Definitions, not data: `pg_get_functiondef` for every public
 // function, `pg_get_viewdef` for every view and matview, and bare presence for
-// every relation. Data divergence between the two databases is EXPECTED and is
+// every relation. SQL/PLpgSQL comment-only body differences are informational:
+// quoted content and the surrounding function definition must still match.
+// Data divergence between the two databases is EXPECTED and is
 // deliberately not checked here — local and cloud legitimately hold different
 // person-layer vintages (CLAUDE.md's slug-lock section), and a checker that
 // flagged it would cry wolf on every run.
@@ -54,6 +56,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Pool } from "pg";
 import { LOCAL_DATABASE_URL } from "./lib/pg";
+import { isCommentOnlyDrift } from "./lib/sqlCommentDrift";
 
 const SCHEMA_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -68,13 +71,17 @@ interface Obj {
   name: string;
   kind: "function" | "view" | "matview" | "table" | "index";
   def: string;
+  body: string | null;
+  language: string | null;
 }
 
 const OBJECTS_SQL = `
   SELECT p.proname || '(' || pg_get_function_identity_arguments(p.oid) || ')' AS name,
          'function'::text AS kind,
-         md5(pg_get_functiondef(p.oid)) AS def
+         pg_get_functiondef(p.oid) AS def,
+         p.prosrc AS body, l.lanname AS language
     FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+    JOIN pg_language l ON l.oid = p.prolang
    WHERE n.nspname = 'public' AND p.prokind = 'f'
   UNION ALL
   SELECT c.relname,
@@ -84,7 +91,8 @@ const OBJECTS_SQL = `
          -- db_routes.js does NOT degrade on anywhere it has not been taught to) but it
          -- needs a different comparison, and claiming to cover it here would be worse
          -- than not covering it.
-         CASE WHEN c.relkind IN ('v', 'm') THEN md5(pg_get_viewdef(c.oid)) ELSE '' END
+         CASE WHEN c.relkind IN ('v', 'm') THEN md5(pg_get_viewdef(c.oid)) ELSE '' END,
+         NULL::text, NULL::text
     FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
    WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p', 'v', 'm')
   UNION ALL
@@ -98,7 +106,7 @@ const OBJECTS_SQL = `
   --
   -- The DEFINITION is compared, not just the name: a same-named index rebuilt over
   -- different columns, or without its partial WHERE, is the silent half of this.
-  SELECT i.indexname, 'index'::text, md5(i.indexdef)
+  SELECT i.indexname, 'index'::text, md5(i.indexdef), NULL::text, NULL::text
     FROM pg_indexes i
    WHERE i.schemaname = 'public'
 `;
@@ -154,6 +162,7 @@ const main = async (): Promise<number> => {
   const missing: { key: string; file: string }[] = [];
   const scratch: string[] = [];
   const differs: { key: string; file: string | undefined }[] = [];
+  const commentOnly: string[] = [];
 
   for (const [key] of local) {
     if (cloud.has(key)) continue;
@@ -163,7 +172,11 @@ const main = async (): Promise<number> => {
   }
   for (const [key, l] of local) {
     const c = cloud.get(key);
-    if (c && l.def !== c.def) differs.push({ key, file: creatorFile(key) });
+    if (c && l.def !== c.def) {
+      if (l.kind === "function" && isCommentOnlyDrift(l, c))
+        commentOnly.push(key);
+      else differs.push({ key, file: creatorFile(key) });
+    }
   }
   // An object on cloud that local does not have. Not the same defect and not
   // necessarily one at all (a retirement applied on one side only), but it means
@@ -182,13 +195,19 @@ const main = async (): Promise<number> => {
         `✗ BODY DIFFERS      ${key}   (${file ?? "no schema file creates this"})`,
       );
     for (const key of orphans) console.log(`? CLOUD-ONLY        ${key}`);
+    for (const key of commentOnly)
+      console.log(`· COMMENT ONLY      ${key} (no executable change)`);
     for (const key of scratch)
       console.log(`· local-only, no schema file creates it — scratch: ${key}`);
   }
 
   if (!missing.length && !differs.length && !orphans.length) {
     console.log(
-      `\nCloud SQL matches local on all ${local.size - scratch.length} schema-owned objects.`,
+      `\nCloud SQL matches local on all ${local.size - scratch.length} schema-owned objects` +
+        (commentOnly.length
+          ? ` (${commentOnly.length} comment-only difference(s))`
+          : "") +
+        ".",
     );
     return 0;
   }
