@@ -1,40 +1,60 @@
 {
   "obshtina": "SFO18",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0141",
-      "title": "\"Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Етрополе\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 55238.4,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Етрополе",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.022-0072",
-      "title": "Ново поколение местна политика за Община Етрополе",
+      "contractNumber": "BG-RRP-4.020-0066",
+      "title": "Енергийно обновяване сградата на Спортна зала 2 „Стоян Николов“ в гр. Етрополе, община Етрополе",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 26799.88,
-      "totalEur": 18233.44,
-      "paidEur": 0,
+      "prevTotalEur": 453438.01,
+      "totalEur": 449829.04,
+      "paidEur": 408541.19,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Етрополе",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0065",
+      "title": "Устойчиво енергийно обновяване на Спортна зала №1 „Чавдар“, гр. Етрополе",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 196030.15,
+      "totalEur": 195933.42,
+      "paidEur": 174643.16,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Етрополе",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0276",
+      "title": "Устойчиво енергийно обновяване на Административна сграда на РУ – Етрополе при ОДМВР – София",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 179089.55,
+      "totalEur": 172175.6,
+      "paidEur": 155855.15,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Областна дирекция на министерство на вътрешните работи - софия",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

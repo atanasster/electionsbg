@@ -1,25 +1,60 @@
 {
   "obshtina": "KRZ21",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.022-0049",
-      "title": "„КУЛТУРА С БЪДЕЩЕ“ - МОМЧИЛГРАД",
+      "contractNumber": "BG-RRP-4.020-0256",
+      "title": "Енергийно обновяване на сградата на читалище \"Нов живот-1926“, основен ремонт на сграда с идентификатор 48996.104.380.1 по КККР на гр. Момчилград",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 100068.82,
-      "totalEur": 100068.77,
-      "paidEur": 80055.04,
+      "prevTotalEur": 613429.98,
+      "totalEur": 600954.44,
+      "paidEur": 600954.44,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Момчилград",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0314",
+      "title": "Енергийно обновяване на сградата на Общинска администрация – Момчилград, обл. Кърджали - основен ремонт на сградата в ПИ №48996.104.87.1",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 361208.56,
+      "totalEur": 336881.29,
+      "paidEur": 336881.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Момчилград",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0285",
+      "title": "Енергийно обновяване на общински сгради за спорт – основен ремонт на сгради с идентификатори ПИ 48996.104.79.2, 48996,104.79.3 и 48996.106.933.1 по KKKP на гр. Момчилград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 345604.13,
+      "totalEur": 325331.39,
+      "paidEur": 325331.39,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Момчилград",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

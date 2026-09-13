@@ -1,59 +1,66 @@
 {
   "obshtina": "PAZ19",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-0573",
-      "title": "Изпълнение на мерки за енергийна ефективност в многофамилна жилищна сграда с адрес: гр. Пазарджик, бул. \"Георги Бенковски\" № 135, 137, 139",
+      "contractNumber": "BG-RRP-4.040-0068",
+      "title": "Изпълнение на мерки за енергийна ефективност в МЖС на ул. Виделина №2 в гр. Пазарджик",
+      "type": "new",
+      "totalEur": 332315.17,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пазарджик",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.040-0116",
+      "title": "Изпълнение на мерки за енергийна ефективност в многофамилна жилищна сграда с адрес: гр. Пазарджик, ул. „Стефан Захариев“ № 11 и ул. „Мусала“ № 11",
+      "type": "new",
+      "totalEur": 74674.85,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пазарджик",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-8.013-0004",
+      "title": "Изпълнение на мерки за подобряване на устойчивата градска мобилност на Община Пазарджик и Община Пещера“",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 670769.95,
-      "totalEur": 669561.86,
-      "paidEur": 667854.15,
+      "prevTotalEur": 4253927.81,
+      "totalEur": 4008943.86,
+      "paidEur": 3195720.13,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Пазарджик",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1833",
-      "title": "Подобряване на производствения капацитет на ФЕЛИЦИЯ-ИМПУЛС 2009 ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 89368.69,
-      "totalEur": 89368.71,
-      "paidEur": 35250.46,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ФЕЛИЦИЯ-ИМПУЛС 2009 ЕООД",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1491",
-      "title": "Адаптирана работна среда в \"Оги Инвест\" ЕООД",
+      "contractNumber": "BG05SFPR002-1.004-1563",
+      "title": "По-добри условия на труд в \"ММ Механикс\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 37612.23,
-      "totalEur": 36142.78,
-      "paidEur": 36142.78,
+      "prevTotalEur": 168623.44,
+      "totalEur": 167708.94,
+      "paidEur": 167708.94,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ОГИ-ИНВЕСТ ЕООД",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "ММ Механикс ООД",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

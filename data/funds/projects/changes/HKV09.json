@@ -1,60 +1,40 @@
 {
   "obshtina": "HKV09",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.024-0034",
-      "title": "Многофамилна жилищна сграда в гр. Димитровград,ул. \"МАРИЦА\", бл. №46",
+      "contractNumber": "BG16FFPR003-4.014-0019",
+      "title": "Подобряване на енергийна ефективност на обществена сграда, находяща в гр. Димитровград, бул. \"Г.С.Раковски\" 15",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 49380.37,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 1365820.4,
+      "totalEur": 1365820.4,
+      "paidEur": 478037.14,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Димитровград",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG-RRP-4.024-0112",
-      "title": "Многофамилна жилищна сграда в гр. Димитровград, ул. \"Груди Кирков\", бл. №3",
+      "contractNumber": "BG-RRP-4.021-0302",
+      "title": "Енергийно обновяване в Пролет ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 116291.28,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 447147.47,
+      "totalEur": 371836.33,
+      "paidEur": 204509.98,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Димитровград",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0029",
-      "title": "Многофамилна жилищна сграда на ул. \"Първи май\" 64, гр. Димитровград",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 88791.94,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Димитровград",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "Пролет ЕООД",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

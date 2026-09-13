@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-11",
+  "computedAt": "2026-09-12",
   "thresholds": {
     "basketPids": [
       1,
@@ -59,20 +59,10 @@
       "title": "КРАСТАВИЦИ",
       "atOrBelowSince": "2026-09-10",
       "promoEur": 0.99,
-      "regularEur": 2.52,
+      "regularEur": 2.57,
       "discountPct": 61,
-      "stores": 186,
+      "stores": 185,
       "chains": 4
-    },
-    {
-      "slug": "luk",
-      "title": "ЛУК",
-      "atOrBelowSince": "2026-09-10",
-      "promoEur": 0.35,
-      "regularEur": 0.89,
-      "discountPct": 60,
-      "stores": 161,
-      "chains": 3
     },
     {
       "slug": "shokolad-lacmi-mlechen-90-gr",
@@ -82,6 +72,16 @@
       "regularEur": 1.69,
       "discountPct": 53,
       "stores": 48,
+      "chains": 2
+    },
+    {
+      "slug": "400ml-sh-n-schauma-men",
+      "title": "400МЛ Ш-Н SCHAUMA MEN",
+      "atOrBelowSince": "2026-09-10",
+      "promoEur": 1.99,
+      "regularEur": 3.81,
+      "discountPct": 48,
+      "stores": 24,
       "chains": 2
     }
   ]

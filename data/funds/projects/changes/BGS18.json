@@ -1,38 +1,24 @@
 {
   "obshtina": "BGS18",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0249",
-      "title": "“ ТОПЪЛ ОБЯД ЗА ХОРАТА В НУЖДА ОТ ОБЩИНА РУЕН “",
+      "contractNumber": "BG-RRP-4.020-0130",
+      "title": "Енергийна ефективност и обновяване на сградата на ЧИТАЛИЩЕ \"ПРОСВЕТА -1929 Г.\", с. Люляково, общ. Руен, обл. Бургас",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 3483297.06,
-      "totalEur": 3483297.06,
-      "paidEur": 2881236.95,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 647933.9,
+      "totalEur": 638966.24,
+      "paidEur": 604795.08,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Руен",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG16FFPR002-3.011-0008",
-      "title": "„Подобряване състоянието на Черния лешояд (А079 Aegypius monachus), чрез извършване на подхранване в площадка в защитена зона BG0002044 „Камчийска планина“ - област Бургас, общ. Руен, с. Снежа.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 142886.36,
-      "totalEur": 142886.36,
-      "paidEur": 10818.26,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Национално ЛОВНО-РИБАРСКО сдружение \"Съюз на ловците и риболовците в българия\" (Нлрс - слрб)",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
     }
   ]
 }

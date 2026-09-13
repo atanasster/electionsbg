@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-11T23:59:59.999Z",
+  "computedAt": "2026-09-12T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:krastavitsi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-11T00:00:00.000Z",
-      "firstSeenAt": "2026-09-11T00:00:00.000Z",
+      "occurredAt": "2026-09-12T00:00:00.000Z",
+      "firstSeenAt": "2026-09-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -28,7 +28,7 @@
         "title": "КРАСТАВИЦИ",
         "pct": 61,
         "promoEur": "0.99",
-        "regularEur": "2.52",
+        "regularEur": "2.57",
         "chains": 4
       },
       "backfill": false,
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:luk",
+      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-11T00:00:00.000Z",
-      "firstSeenAt": "2026-09-11T00:00:00.000Z",
+      "occurredAt": "2026-09-12T00:00:00.000Z",
+      "firstSeenAt": "2026-09-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/luk",
+      "route": "/product/shokolad-lacmi-mlechen-90-gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛУК",
-        "pct": 60,
-        "promoEur": "0.35",
-        "regularEur": "0.89",
-        "chains": 3
+        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
+        "pct": 53,
+        "promoEur": "0.79",
+        "regularEur": "1.69",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8571428571428571,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
+      "id": "prices:promotion:400ml-sh-n-schauma-men",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-11T00:00:00.000Z",
-      "firstSeenAt": "2026-09-11T00:00:00.000Z",
+      "occurredAt": "2026-09-12T00:00:00.000Z",
+      "firstSeenAt": "2026-09-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-lacmi-mlechen-90-gr",
+      "route": "/product/400ml-sh-n-schauma-men",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
-        "pct": 53,
-        "promoEur": "0.79",
-        "regularEur": "1.69",
+        "title": "400МЛ Ш-Н SCHAUMA MEN",
+        "pct": 48,
+        "promoEur": "1.99",
+        "regularEur": "3.81",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7571428571428571,
+      "materiality": 0.6857142857142857,
       "actionability": 0.85
     },
     {
@@ -1034,8 +1034,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-11",
-      "observedAt": "2026-09-11",
+      "asOf": "2026-09-12",
+      "observedAt": "2026-09-12",
       "staleAfterDays": 5,
       "stale": false
     }

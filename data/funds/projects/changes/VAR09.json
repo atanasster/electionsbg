@@ -1,22 +1,42 @@
 {
   "obshtina": "VAR09",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0038",
-      "title": "Топъл обяд в Община Вълчи дол",
+      "contractNumber": "BG-RRP-4.020-0123",
+      "title": "Основен ремонт за енергийно обновяване сградата на Община Вълчи дол",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 854082.05,
-      "totalEur": 854082.05,
-      "paidEur": 617913.93,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 931304,
+      "totalEur": 915936.78,
+      "paidEur": 821059.41,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Вълчи ДОЛ",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0120",
+      "title": "Основен ремонт за енергийно обновяване сградата на НЧ \"Просвета - 1926 г.\", с. Михалич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 374761.16,
+      "totalEur": 367636.6,
+      "paidEur": 315749.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Вълчи ДОЛ",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

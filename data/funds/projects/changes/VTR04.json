@@ -1,202 +1,54 @@
 {
   "obshtina": "VTR04",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0111",
-      "title": "\"Зелена енергия за социалните услуги на територията на Община Велико Търново\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 704539.38,
-      "totalEur": 704539.38,
-      "paidEur": 565661.37,
+      "contractNumber": "BG05SFPR001-1.010-0301",
+      "title": "От сянка към светлина - изграждане на сигурна училищна среда без тормоз и агресия",
+      "type": "new",
+      "totalEur": 144056.49,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико Търново",
-      "detectedAt": "2026-09-06"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Емилиян Станев\"",
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0778",
-      "title": "Енергийно обновяване на жилищен сграден фонд в град Велико Търново, ул. Ниш № 6",
+      "contractNumber": "BG-RRP-4.020-0080",
+      "title": "ОБНОВЯВАНЕ И ВЪВЕЖДАНЕ НА МЕРКИ ЗА ЕНЕРГИЙНА ЕФЕКТИВНОСТ В СГРАДАТА НА ОДМВР - В.ТЪРНОВО - РАЙОННО УПРАВЛЕНИЕ ВЕЛИКО ТЪРНОВО",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 706042.22,
-      "totalEur": 704017.34,
-      "paidEur": 701771,
+      "prevTotalEur": 1068858.26,
+      "totalEur": 912029.2,
+      "paidEur": 828071.14,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "Одмвр велико търново",
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG-RRP-11.021-0015",
-      "title": "Мета-култура: Велико Търново",
+      "contractNumber": "BG05SFPR002-1.004-0480",
+      "title": "Подобряване условията на труд в ЕТ \"РУМЯНА ХИНКОВА - ИВО ТАБАКОВ\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 733935,
-      "totalEur": 663869.24,
-      "paidEur": 96879.42,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико Търново",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1664",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците \"Гр. Велико Търново, ул. \"Иларион Драгостинов\" 11, вх. А, Б, В\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 576407,
-      "totalEur": 574735.39,
-      "paidEur": 574735.39,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1220",
-      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново , ул. Ил. Драгостинов №15, бл. 26, вх. А, Б, В",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 517723.51,
-      "totalEur": 515562.04,
-      "paidEur": 515562.05,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1801",
-      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново, ул. Баба Мота №3",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 199881.08,
-      "totalEur": 198385.78,
-      "paidEur": 190418.48,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1796",
-      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново, кв. Картала, ул. Васил Петлешков №2",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 179078.99,
-      "totalEur": 178535.49,
-      "paidEur": 177640.06,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0090",
-      "title": "\"Златните български песни в Европа и по света\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 75453.84,
-      "totalEur": 70910.72,
+      "prevTotalEur": 127007.65,
+      "totalEur": 126921.66,
       "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ФАБЕР-ПРИНТ ООД",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.016-0048",
-      "title": "Представяне пред българската публика на произведенията на квартет \"Дестини\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 63103.64,
-      "totalEur": 55167.13,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "4 Дестини ЕООД",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.016-0044",
-      "title": "“Слънце - Земно зависими”",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 55310.02,
-      "totalEur": 52873.37,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Декидис Филмс ЕООД",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0037",
-      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска. 2. Изложба за Райна Кабаиванска. 3. Концерт на джаз/поп изпълнител 4. Изпълнение на танцов състав (народни танци). 5. Представяне на класически български филм за деца и възрастни.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8717.53,
-      "totalEur": 8323.1,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"Напредък - 1884\", гр. Килифарево",
-      "detectedAt": "2026-09-06"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЕТ Румяна Хинкова - ИВО Табаков",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

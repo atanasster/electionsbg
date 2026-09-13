@@ -1,42 +1,58 @@
 {
   "obshtina": "PDV26",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.022-0020",
-      "title": "Ново поколение местни политики за култура в Община Родопи",
+      "contractNumber": "BG-RRP-4.020-0040",
+      "title": "Устойчиво енергийно обновяване на сграда за култура и изкуство, находяща се в ПИ с идентификатор 59032.501.491 по КК на с. Първенец, община Родопи, област Пловдив",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 121974.4,
-      "totalEur": 121278.78,
-      "paidEur": 19515.9,
+      "prevTotalEur": 567902.93,
+      "totalEur": 561761.81,
+      "paidEur": 519426.83,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Родопи",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG-RRP-11.020-0101",
-      "title": "Създаване на сценично театрално представление с български фолклорни мотиви и легенди",
+      "contractNumber": "BG-RRP-4.020-0041",
+      "title": "Устойчиво енергийно обновяване на Спортна зала с идентификатор № 75188.501.181.1 в с. Устина, община Родопи, област Пловдив",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 64682.09,
-      "totalEur": 64651.61,
-      "paidEur": 0,
+      "prevTotalEur": 330835,
+      "totalEur": 323501.67,
+      "paidEur": 282851.15,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Театър хамелеон Фондация",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "Община Родопи",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0187",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги на територията на Община Родопи",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 58027.75,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Родопи",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

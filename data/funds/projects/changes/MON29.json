@@ -1,40 +1,76 @@
 {
   "obshtina": "MON29",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0115",
-      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност на територията на община Монтана и закупуване на електрически автомобил включително свързана зарядна станция за предоставяне на социални услуги\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 233986.09,
-      "totalEur": 233986.09,
-      "paidEur": 186539.28,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Монтана",
-      "detectedAt": "2026-09-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.016-0029",
-      "title": "Представяне пред българска публика на европейската продукция – италианският филм „ЗАВРЪЩАНЕ НА ИЗТОК“",
+      "contractNumber": "BG-RRP-8.013-0006",
+      "title": "Мобилност и зелен транспорт в общините Враца и Монтана",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 67856.14,
-      "totalEur": 66971.71,
-      "paidEur": 0,
+      "prevTotalEur": 5742693.21,
+      "totalEur": 4864119.94,
+      "paidEur": 4252459.28,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "БЪФ Пикчърс ЕООД",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "Община Враца",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG14MFPR001-2.002-0017",
+      "title": "Създаване на високотехнологично рибовъдно стопанство",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 529637.35,
+      "totalEur": 529637.35,
+      "paidEur": 317782.41,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "ФИШ Инвест ООД",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0401",
+      "title": "Адаптирана работна среда в ТРИАДА ИНЖЕНЕРИНГ ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 144594.74,
+      "totalEur": 143976.51,
+      "paidEur": 115675.79,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Триада инженеринг ООД",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0290",
+      "title": "Устойчиво енергийно обновяване на сгради в сферата на търговията и услугите",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 59552.53,
+      "totalEur": 43746.27,
+      "paidEur": 28214.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Ахат ООД",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

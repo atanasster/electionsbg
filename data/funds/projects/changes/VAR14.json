@@ -1,42 +1,36 @@
 {
   "obshtina": "VAR14",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2710",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, находяща се в град Девня, ул. Просвета бл. 3, вх А, вх. Б, вх. В и вх. Г",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 705134.58,
-      "totalEur": 705077.88,
-      "paidEur": 701832.89,
-      "status": "Приключен (към датата на приключване)",
+      "contractNumber": "BG-RRP-4.039-2755",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, находяща се в град Девня, ул. Райко Даскалов бл. 70",
+      "type": "new",
+      "totalEur": 346513.31,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Девня",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG-RRP-11.022-0052",
-      "title": "„Девня – Портите към историята“",
+      "contractNumber": "BG-RRP-4.021-0141",
+      "title": "Енергийно обновяване на складова сграда за търговски нужди в гр. Девня, собственост на „Глобъл Линкс“ ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 127565.28,
-      "totalEur": 124967.52,
-      "paidEur": 0,
+      "prevTotalEur": 439608.72,
+      "totalEur": 426694.19,
+      "paidEur": 227497.62,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Девня",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "Глобъл линкс ЕООД",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

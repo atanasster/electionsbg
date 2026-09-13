@@ -1,22 +1,24 @@
 {
   "obshtina": "SFO34",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0012",
-      "title": "Топъл обяд в Община Правец",
+      "contractNumber": "BG-RRP-4.020-0085",
+      "title": "„ЕНЕРГИЙНО ОБНОВЯВАНЕ ЧРЕЗ ПРИЛАГАНЕ НА МЕРКИ ЗА ЕНЕРГИЙНА ЕФЕКТИВНОСТ НА АДМИНИСТРАТИВНА СГРАДА НА РУ НА МВР, ГР.ПРАВЕЦ“",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 283657.4,
-      "totalEur": 283657.4,
-      "paidEur": 268934.34,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Правец",
-      "detectedAt": "2026-09-06"
+      "prevTotalEur": 302660.09,
+      "totalEur": 237509.42,
+      "paidEur": 231557.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Областна дирекция на министерство на вътрешните работи -софия",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

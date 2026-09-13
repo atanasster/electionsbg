@@ -1,6 +1,35 @@
 {
-  "updatedAt": "2026-09-13T01:50:22.791Z",
+  "updatedAt": "2026-09-13T02:49:00.034Z",
   "entries": [
+    {
+      "timestamp": "2026-09-13T02:49:00.034Z",
+      "date": "2026-09-13",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-12 (+1 daily archive; 775,512 store rows, 168 settlements, 77 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-12"
+    },
+    {
+      "timestamp": "2026-09-13T02:30:46.743Z",
+      "date": "2026-09-13",
+      "skill": "update-funds",
+      "summary": "53,142 beneficiaries and 82,449 projects; 140 new and 397 modified projects across 138 municipalities",
+      "source": "ИСУН EU funds"
+    },
+    {
+      "timestamp": "2026-09-13T02:22:19.239Z",
+      "date": "2026-09-13",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: 20 new complaints for 2026",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-09-13T02:18:41.205Z",
+      "date": "2026-09-13",
+      "skill": "update-procurement",
+      "summary": "94 new EOP rows across 49 buyers; rebuilt 411,446 contracts and 238,898 tenders",
+      "source": "ЦАИС ЕОП open data"
+    },
     {
       "timestamp": "2026-09-13T01:50:22.791Z",
       "date": "2026-09-13",

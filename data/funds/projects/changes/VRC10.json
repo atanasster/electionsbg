@@ -1,58 +1,123 @@
 {
   "obshtina": "VRC10",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.021-0014",
-      "title": "Ново поколение местни политики за култура за община Враца",
+      "contractNumber": "BG05SFPR001-1.010-0316",
+      "title": "„Изкуство за мир в училище: Заедно срещу тормоза“",
+      "type": "new",
+      "totalEur": 62914,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Отец Паисий\"",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-8.013-0006",
+      "title": "Мобилност и зелен транспорт в общините Враца и Монтана",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 1309400.14,
-      "totalEur": 860238.72,
-      "paidEur": 172840.82,
+      "prevTotalEur": 5742693.21,
+      "totalEur": 4864119.94,
+      "paidEur": 4252459.28,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Враца",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG-RRP-11.016-0040",
-      "title": "Киноразпространение на новия хърватския игрален филм \"Дражен\" в ключови окръжни градове в България.",
+      "contractNumber": "BG-RRP-4.020-0182",
+      "title": "Внедряване на мерки за енергийна ефективност в Регионална библиотека \"Христо Ботев\" - Враца",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 52854.17,
-      "totalEur": 52853.98,
-      "paidEur": 0,
+      "prevTotalEur": 1275638.07,
+      "totalEur": 1236187.2,
+      "paidEur": 1168083.11,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "А плюс филмс ЕООД",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "Община Враца",
+      "detectedAt": "2026-09-13"
     },
     {
-      "contractNumber": "BG-RRP-11.016-0034",
-      "title": "Представяне на българската детска публика на европейски анимационен филм \"Сироко\"",
+      "contractNumber": "BG-RRP-13.009-0068",
+      "title": "Енергийна независимост за социалните услуги на Община Враца",
       "type": "modified",
       "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 612188.43,
+      "totalEur": 612188.43,
+      "paidEur": 589240.8,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Враца",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0091",
+      "title": "ЕНЕРГИЙНО ОБНОВЯВАНЕ НА ШИВАШКИ ЦЕХ НА “ДИТЕКС-СМ ООД“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
         "status"
       ],
-      "prevTotalEur": 49247.81,
-      "totalEur": 49247.81,
-      "paidEur": 0,
+      "prevTotalEur": 559077.93,
+      "totalEur": 487290.51,
+      "paidEur": 219280.76,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "А плюс синема ЕООД",
-      "detectedAt": "2026-09-06"
+      "beneficiaryName": "ДИТЕКС-СМ ООД",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0128",
+      "title": "Енергийно обновяване на сгради в сферата на търговията",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 237638.54,
+      "totalEur": 234829.72,
+      "paidEur": 151953.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Генерал агрохимикали ООД",
+      "detectedAt": "2026-09-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0400",
+      "title": "Подобряване енергийната ефективност чрез енергийно обновяване на сградния фонд на Н.АЛЕКСИЕВ - 65 ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "status"
+      ],
+      "prevTotalEur": 50538.73,
+      "totalEur": 46727.73,
+      "paidEur": 22354.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Н.АЛЕКСИЕВ - 65 ЕООД",
+      "detectedAt": "2026-09-13"
     }
   ]
 }

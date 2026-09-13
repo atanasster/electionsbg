@@ -1,22 +1,23 @@
 {
   "obshtina": "PDV40",
-  "generatedAt": "2026-09-06T22:17:55.717Z",
+  "generatedAt": "2026-09-13T02:24:53.051Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0121",
-      "title": "Топъл обяд в Перущица",
+      "contractNumber": "BG06RDNP001-7.017-0022",
+      "title": "\"Възстановяване и рехабилитация на улична мрежа на град Перущица\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 168414.31,
-      "totalEur": 168414.31,
-      "paidEur": 148496.25,
+      "prevTotalEur": 903792.26,
+      "totalEur": 1744180.85,
+      "paidEur": 845702.74,
       "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "programCode": "2014BG06RDNP001",
+      "programName": "Програма за развитие на селските райони",
       "beneficiaryName": "Община Перущица",
-      "detectedAt": "2026-09-06"
+      "detectedAt": "2026-09-13"
     }
   ]
 }
