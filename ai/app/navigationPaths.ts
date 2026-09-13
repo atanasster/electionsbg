@@ -1,5 +1,5 @@
 export const chatPath = (
-  view: "chat" | "tools" | "evals",
+  view: "chat" | "tools" | "evals" | "prompts",
   pathname: string,
 ) => {
   const integrated = /^\/(en\/)?chat(?:\/|$)/.test(pathname);
@@ -11,7 +11,7 @@ export const chatPath = (
 
 /** View changes retain the selected area, not the old question or tool args. */
 export const chatToolbarPath = (
-  view: "chat" | "tools" | "evals",
+  view: "chat" | "tools" | "evals" | "prompts",
   pathname: string,
   search: string,
 ) => {

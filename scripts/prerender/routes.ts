@@ -1823,6 +1823,22 @@ export const prerenderRoutes: PrerenderRoute[] = [
         '<h1>Assistant evaluation</h1><p>One thing is measured here: whether the assistant picks the right query and the right arguments for the question asked. It is not a score for the factual accuracy of every answer — the figures come from the data itself, and this page checks whether the question reached it.</p><a href="/en/chat">Back to the chat</a>',
     },
   },
+  {
+    path: "chat/prompts",
+    ogImage: "/og/chat.png",
+    title: "Примерни въпроси | Наясно",
+    description:
+      "Разгледайте проверените примерни въпроси към асистента Наясно по теми за избори, бюджет, поръчки и институции.",
+    bodyHtml:
+      '<h1>Примерни въпроси за Наясно AI</h1><p>Разгледайте проверени примерни въпроси по теми и подтеми. Всеки въпрос черпи данни от официалните регистри и институции в България.</p><a href="/chat">Към чата</a>',
+    english: {
+      title: "Sample Prompts | Naiasno",
+      description:
+        "Browse verified starter prompts across civic topics and subtopics for the Naiasno assistant.",
+      bodyHtml:
+        '<h1>Sample Prompts for Naiasno AI</h1><p>Browse verified starter prompts across civic topics and subtopics. Every question draws data from official public registers and institutions in Bulgaria.</p><a href="/en/chat">Back to the chat</a>',
+    },
+  },
   ...sectorStaticPages(),
   {
     path: "",

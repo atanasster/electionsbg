@@ -1,4 +1,4 @@
-import { Plus, Target, Wrench } from "lucide-react";
+import { Plus, Sparkles, Target, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useChatNavigation } from "./navigation";
 import { chatToolbarPath } from "./navigationPaths";
@@ -19,6 +19,21 @@ export const ChatToolbar = ({ onNewChat }: { onNewChat: () => void }) => {
       >
         <Plus className="hidden size-4 sm:block" />
         {en ? "New chat" : "Нов чат"}
+      </Button>
+      <Button
+        variant="ghost"
+        className="min-h-11 px-2 sm:px-3"
+        aria-current={
+          navigation.pathname.endsWith("/prompts") ? "page" : undefined
+        }
+        onClick={() =>
+          navigation.navigate(
+            chatToolbarPath("prompts", navigation.pathname, navigation.search),
+          )
+        }
+      >
+        <Sparkles className="hidden size-4 sm:block" />
+        {en ? "Prompts" : "Въпроси"}
       </Button>
       <Button
         variant="ghost"

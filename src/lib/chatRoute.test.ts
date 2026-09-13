@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { chatView, normalizeChatUrl } from "./chatRoute";
 
 it("normalizes explicit legacy language both ways without losing question, tool or fragment state", () => {
-  for (const view of ["chat", "chat/tools", "chat/evals"]) {
+  for (const view of ["chat", "chat/tools", "chat/evals", "chat/prompts"]) {
     const state = "q=hello&area=68134&args=%7B%7D#source";
     expect(
       normalizeChatUrl(`https://electionsbg.com/en/${view}/?lang=bg&${state}`),
@@ -24,5 +24,6 @@ it("selects the same screen for slash and language variants", () => {
       expect(chatView(`${language}/chat${slash}`)).toBe("chat");
       expect(chatView(`${language}/chat/tools${slash}`)).toBe("tools");
       expect(chatView(`${language}/chat/evals${slash}`)).toBe("evals");
+      expect(chatView(`${language}/chat/prompts${slash}`)).toBe("prompts");
     }
 });

@@ -16,5 +16,8 @@ export const chatView = (pathname: string) => {
     ? "evals"
     : path.endsWith("/tools")
       ? "tools"
-      : "chat";
+      : path.endsWith("/prompts")
+        ? "prompts"
+        : "chat";
 };
+

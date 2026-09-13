@@ -24,8 +24,8 @@ for (const lang of ["bg", "en"] as const) {
       );
       const labels =
         lang === "en"
-          ? ["New chat", "Tools", "Accuracy"]
-          : ["Нов чат", "Инструменти", "Точност"];
+          ? ["New chat", "Prompts", "Tools", "Accuracy"]
+          : ["Нов чат", "Въпроси", "Инструменти", "Точност"];
       expect(screen.getAllByRole("button").map((b) => b.textContent)).toEqual(
         labels,
       );
@@ -36,9 +36,13 @@ for (const lang of ["bg", "en"] as const) {
       ).toBe(`${prefix}/chat?area=56784`);
       fireEvent.click(screen.getByRole("button", { name: labels[1] }));
       expect(navigate).toHaveBeenLastCalledWith(
-        `${prefix}/chat/tools?area=56784`,
+        `${prefix}/chat/prompts?area=56784`,
       );
       fireEvent.click(screen.getByRole("button", { name: labels[2] }));
+      expect(navigate).toHaveBeenLastCalledWith(
+        `${prefix}/chat/tools?area=56784`,
+      );
+      fireEvent.click(screen.getByRole("button", { name: labels[3] }));
       expect(navigate).toHaveBeenLastCalledWith(
         `${prefix}/chat/evals?area=56784`,
       );

@@ -1879,6 +1879,18 @@ export const AuthRoutes = () => {
               </Suspense>
             }
           />
+          <Route
+            path="chat/prompts"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <ChatScreen />
+              </Suspense>
+            }
+          />
+          <Route
+            path="prompts"
+            element={<Navigate to="/chat/prompts" replace />}
+          />
           {/* THE GLOBAL HOME. This index used to render the parliamentary country result;
               that page is preserved at `/parliamentary` (added in the previous phase) and
               every election link, breadcrumb and menu already points there. */}

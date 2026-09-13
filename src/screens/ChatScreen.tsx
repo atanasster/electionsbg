@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { App as ChatApp } from "../../ai/App";
 import { EvalsScreen } from "../../ai/app/EvalsScreen";
+import { PromptsScreen } from "../../ai/app/PromptsScreen";
 import { ChatNavigationContext } from "../../ai/app/navigation";
 import { Layout } from "@/layout/Layout";
 import { SEO } from "@/ux/SEO";
@@ -59,22 +60,39 @@ export const ChatScreen = () => {
   const view = chatView(location.pathname);
   const evals = view === "evals";
   const tools = view === "tools";
+  const prompts = view === "prompts";
   const title =
     lang === "bg"
       ? evals
         ? "Оценка на асистента"
         : tools
           ? "Инструменти и данни"
-          : "Попитай Наясно"
+          : prompts
+            ? "Примерни въпроси"
+            : "Попитай Наясно"
       : evals
         ? "Assistant evaluation"
         : tools
           ? "Tools and data"
-          : "Ask Naiasno";
+          : prompts
+            ? "Sample prompts"
+            : "Ask Naiasno";
   const description =
     lang === "bg"
-      ? "Задайте въпрос за публичните данни за България и проверете източниците зад отговора."
-      : "Ask about Bulgaria’s public data and check the sources behind the answer.";
+      ? evals
+        ? "Оценка на избора на инструменти и аргументи от асистента."
+        : tools
+          ? "Инструменти и данни, с които разполага асистентът."
+          : prompts
+            ? "Каталог с примерни въпроси по теми за избори, институции, финанси и обществени поръчки."
+            : "Задайте въпрос за публичните данни за България и проверете източниците зад отговора."
+      : evals
+        ? "Tool and argument accuracy evaluations for the assistant."
+        : tools
+          ? "Tools and data sources available to the assistant."
+          : prompts
+            ? "Directory of sample prompts by topic for elections, government, finance, and procurement."
+            : "Ask about Bulgaria’s public data and check the sources behind the answer.";
   if (needsNormalization) return null;
   return (
     <ChatNavigationContext.Provider value={navigation}>
@@ -88,7 +106,7 @@ export const ChatScreen = () => {
         description={description}
         canonical={`${SITE_ORIGIN}${prefix}${location.pathname.replace(/\/+$/, "")}`}
       />
-      {!evals && !tools && <h1 className="sr-only">{title}</h1>}
+      {!evals && !tools && !prompts && <h1 className="sr-only">{title}</h1>}
       <Layout fullWidth showCommunity={false}>
         <ChatToolbar
           onNewChat={() => {
@@ -104,6 +122,8 @@ export const ChatScreen = () => {
         />
         {resetTarget !== null ? null : evals ? (
           <EvalsScreen integrated />
+        ) : prompts ? (
+          <PromptsScreen integrated />
         ) : (
           <ChatApp
             key={conversationKey}
