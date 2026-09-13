@@ -46,6 +46,13 @@
 CREATE INDEX IF NOT EXISTS idx_ifs_source_seen
   ON ingest_first_seen (source, first_seen_at);
 
+-- funds_news resolves the small first-seen window by contract number and needs
+-- only these display columns. Keeping them on the index avoids one heap lookup
+-- per fresh project; that random-probe cost grows directly with each ingest.
+CREATE INDEX IF NOT EXISTS idx_fund_projects_news
+  ON fund_projects (contract_number)
+  INCLUDE (title, beneficiary_name, total_eur, oblast);
+
 -- ── The backfill rule, defined ONCE ────────────────────────────────────────────────────────
 --
 -- „A backfill is not news" (§3.2 rule 3) says to REUSE `007_query_builders.sql`'s `summarised`
@@ -167,7 +174,8 @@ LANGUAGE sql STABLE PARALLEL SAFE AS $$
   ),
   fresh AS (
     -- Same sargable form as the wire's — the range seeks `idx_ifs_seen`, the day set prunes.
-    SELECT f.*, s.first_seen_at
+    SELECT f.contract_number, f.title, f.beneficiary_name, f.total_eur,
+           f.oblast, s.first_seen_at
       FROM ingest_first_seen s
       JOIN fund_projects f ON f.contract_number = s.key
      WHERE s.source = 'fund_project'

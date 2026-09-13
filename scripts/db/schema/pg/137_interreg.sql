@@ -280,6 +280,12 @@ CREATE INDEX IF NOT EXISTS idx_interreg_partners_bg_place
   ON interreg_partners (ekatte) WHERE ekatte IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_interreg_partners_bg_obshtina
   ON interreg_partners (obshtina) WHERE obshtina IS NOT NULL;
+-- funds_fit_basis() counts the searchable Bulgarian operation set on every
+-- resolver request. Neither arm of the canonical OR predicate implies the
+-- other, so the place indexes above cannot serve that count.
+CREATE INDEX IF NOT EXISTS idx_interreg_partners_bg_keep
+  ON interreg_partners (keep_id)
+  WHERE country = 'Bulgaria' OR country_department = 'Bulgaria';
 -- Tier L lookups: /company/:eik and the company_public_money arm.
 CREATE INDEX IF NOT EXISTS idx_interreg_partners_eik
   ON interreg_partners (eik) WHERE eik IS NOT NULL;
