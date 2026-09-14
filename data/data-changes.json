@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-09-13T02:49:00.034Z",
+  "updatedAt": "2026-09-14T23:02:59.123Z",
   "entries": [
+    {
+      "timestamp": "2026-09-14T23:02:59.123Z",
+      "date": "2026-09-14",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-14 (+2 daily archives; 1,296,546 store rows, 169 settlements, 78 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-14"
+    },
+    {
+      "timestamp": "2026-09-14T22:55:04.159Z",
+      "date": "2026-09-14",
+      "skill": "update-open-calls",
+      "summary": "ИСУН open calls refreshed: 54 open procedures",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-14T22:52:19.445Z",
+      "date": "2026-09-14",
+      "skill": "update-procurement",
+      "summary": "EOP gap-fill + TED ingest + current-value annex fold; hub_stats/sector_stats regenerated",
+      "source": "ЦАИС ЕОП open data / TED"
+    },
     {
       "timestamp": "2026-09-13T02:49:00.034Z",
       "date": "2026-09-13",

@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-09-11T23:08:58.591Z",
+  "lastSuccessfulIngest": "2026-09-14T22:23:00.817Z",
   "skill": "tr-daily-refresh",
-  "summary": "TR daily filings through 2026-09-11 (1,703 days; 1,023,918 companies, 896,379 officers); PG tr/graph/place reloaded"
+  "summary": "TR reconstruct: 1,023,918 companies / 896,379 officers loaded to PG; CR Deeds projection 29,417 companies, 26,144 seat gaps filled; graph 203,873 edges; tr-company-place 99.6% placed. 4 daily-filing fetches failed upstream (2026-09-09..12, 0-byte responses) — index still advanced."
 }

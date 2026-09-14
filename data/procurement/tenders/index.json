@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-13T00:51:17.257Z",
+  "generatedAt": "2026-09-14T22:24:44.610Z",
   "source": "ЦАИС ЕОП (storage.eop.bg) — open-data поръчки feed; pre-2020 procedures backfilled from РОП (aop.bg cases register)",
   "valueSemantics": "estimatedValueEur is a FORECAST (прогнозна стойност), not contracted spend. Never sum it into contracted totals.",
   "coverage": {
     "firstDay": "2010-01-04",
-    "lastDay": "2026-09-11",
+    "lastDay": "2026-09-12",
     "months": [
       "2010-01",
       "2010-02",
@@ -210,11 +210,11 @@
     ]
   },
   "totals": {
-    "procedures": 238898,
+    "procedures": 238899,
     "lots": 203332,
     "cancelled": 19596,
-    "withEstimate": 216306,
-    "estimatedValueEur": 143765971603.99
+    "withEstimate": 216307,
+    "estimatedValueEur": 143766016603.99
   },
   "byYear": [
     {
@@ -315,9 +315,9 @@
     },
     {
       "year": "2026",
-      "procedures": 13871,
+      "procedures": 13872,
       "cancelled": 592,
-      "estimatedValueEur": 9656271951.74
+      "estimatedValueEur": 9656316951.74
     }
   ],
   "byProcedureType": [
@@ -378,8 +378,8 @@
     },
     {
       "type": "Покана до определени лица",
-      "procedures": 2236,
-      "estimatedValueEur": 62897764.38
+      "procedures": 2237,
+      "estimatedValueEur": 62942764.38
     },
     {
       "type": "Договаряне с предварителна покана за участие",
@@ -7058,6 +7058,13 @@
       "estimatedValueEur": 4688204.41
     },
     {
+      "eik": "101522447",
+      "name": "МБАЛ \"Югозападна болница\" ООД",
+      "procedures": 89,
+      "cancelled": 0,
+      "estimatedValueEur": 19555422.81
+    },
+    {
       "eik": "000455440",
       "name": "Университет по хранителни технологии - пловдив",
       "procedures": 88,
@@ -7070,13 +7077,6 @@
       "procedures": 88,
       "cancelled": 6,
       "estimatedValueEur": 3407609.02
-    },
-    {
-      "eik": "101522447",
-      "name": "МБАЛ \"Югозападна болница\" ООД",
-      "procedures": 88,
-      "cancelled": 0,
-      "estimatedValueEur": 19510422.81
     },
     {
       "eik": "000776331",

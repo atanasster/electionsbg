@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-12T23:59:59.999Z",
+  "computedAt": "2026-09-14T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krastavitsi",
+      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-12T00:00:00.000Z",
-      "firstSeenAt": "2026-09-12T00:00:00.000Z",
+      "occurredAt": "2026-09-14T00:00:00.000Z",
+      "firstSeenAt": "2026-09-14T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,18 +22,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krastavitsi",
+      "route": "/product/shokolad-lacmi-mlechen-90-gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАСТАВИЦИ",
-        "pct": 61,
-        "promoEur": "0.99",
-        "regularEur": "2.57",
-        "chains": 4
+        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
+        "pct": 53,
+        "promoEur": "0.79",
+        "regularEur": "1.69",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8714285714285714,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
+      "id": "prices:promotion:svinska-pleshka-bez-kost",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-12T00:00:00.000Z",
-      "firstSeenAt": "2026-09-12T00:00:00.000Z",
+      "occurredAt": "2026-09-14T00:00:00.000Z",
+      "firstSeenAt": "2026-09-14T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,13 +115,13 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-lacmi-mlechen-90-gr",
+      "route": "/product/svinska-pleshka-bez-kost",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
+        "title": "СВИНСКА ПЛЕШКА БЕЗ КОСТ",
         "pct": 53,
-        "promoEur": "0.79",
-        "regularEur": "1.69",
+        "promoEur": "2.99",
+        "regularEur": "6.40",
         "chains": 2
       },
       "backfill": false,
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:400ml-sh-n-schauma-men",
+      "id": "prices:promotion:kartofi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-12T00:00:00.000Z",
-      "firstSeenAt": "2026-09-12T00:00:00.000Z",
+      "occurredAt": "2026-09-14T00:00:00.000Z",
+      "firstSeenAt": "2026-09-14T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,19 +208,50 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/400ml-sh-n-schauma-men",
+      "route": "/product/kartofi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "400МЛ Ш-Н SCHAUMA MEN",
-        "pct": 48,
-        "promoEur": "1.99",
-        "regularEur": "3.81",
-        "chains": 2
+        "title": "КАРТОФИ",
+        "pct": 51,
+        "promoEur": "0.49",
+        "regularEur": "0.99",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.7285714285714285,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-09-13",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-09-13T00:00:00.000Z",
+      "firstSeenAt": "2026-09-13T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_up",
+      "factArgs": {
+        "pct": "1.7",
+        "costEur": "15.72",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.42975,
+      "actionability": 0.5
     },
     {
       "schemaVersion": 1,
@@ -1022,7 +1053,7 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-08-09",
-      "observedAt": "2026-09-11",
+      "observedAt": "2026-09-14",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -1034,8 +1065,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-12",
-      "observedAt": "2026-09-12",
+      "asOf": "2026-09-14",
+      "observedAt": "2026-09-14",
       "staleAfterDays": 5,
       "stale": false
     }
