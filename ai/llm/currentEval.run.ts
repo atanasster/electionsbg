@@ -1,6 +1,14 @@
 // node --env-file=.env.local --import tsx ai/llm/currentEval.run.ts baseline|revised
 // Real production prompt + Gemini compatibility endpoint + server payload settings.
 // Operator credentials; no public-proxy bypass. No cache; every run has unique provenance.
+//
+// Which groups run (default: the seven the published baselines cover):
+//   EVAL_CASE_GROUPS=starter node --env-file=.env.local --import tsx \
+//     ai/llm/currentEval.run.ts baseline
+// A group-subset run NEVER replaces data/ai/evals/current_{baseline,revised}.json —
+// that artifact is what ai/app/EvalsScreen.tsx renders as the product's routing
+// score, and a starter-only corpus would silently restate its caseCount and
+// metrics. Subset runs are written into their own run directory instead.
 import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from "node:fs";
@@ -8,6 +16,9 @@ import { execFileSync } from "node:child_process";
 import { buildToolSystemPrompt } from "../orchestrator/prompts";
 import { TOOLS } from "../tools/registry";
 import {
+  EVAL_GROUPS,
+  LEGACY_GROUPS,
+  type EvalGroup,
   registryEvalCases,
   evalUserContent,
   scoreProduction,
@@ -16,6 +27,7 @@ import {
 } from "./currentEval";
 import { CHALLENGES, UNSUPPORTED } from "./currentEval.cases";
 import { REALISTIC, CONVERSATIONS } from "./currentEval.realistic";
+import { STARTER_CASES } from "./currentEval.starters";
 const { payload, MODEL } = createRequire(import.meta.url)(
   "../../functions/llm_security.js",
 );
@@ -24,13 +36,37 @@ if (!key) throw new Error("GEMINI_API_KEY required; no evaluation performed");
 const label = process.argv[2];
 if (!["baseline", "revised"].includes(label))
   throw new Error("Specify baseline or revised");
+// Which groups to run. The default is EXACTLY the suite the published baselines
+// were measured on, for two reasons: the starter bank is 367 pairs, which would
+// push this harness past its own >1000-call budget guard below, and mixing it in
+// would move the denominator of the G1a accuracy threshold. Run the bank
+// separately with EVAL_CASE_GROUPS=starter.
+const FULL_GROUPS = LEGACY_GROUPS;
+const requested = (process.env.EVAL_CASE_GROUPS ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const unknown = requested.filter(
+  (g) => !(EVAL_GROUPS as readonly string[]).includes(g),
+);
+if (unknown.length)
+  throw new Error(
+    `Unknown EVAL_CASE_GROUPS: ${unknown.join(", ")} (known: ${EVAL_GROUPS.join(", ")})`,
+  );
+const caseGroups: EvalGroup[] = requested.length
+  ? (requested as EvalGroup[])
+  : [...FULL_GROUPS];
+const isFullSuite =
+  caseGroups.length === FULL_GROUPS.length &&
+  FULL_GROUPS.every((g) => caseGroups.includes(g));
 const cases = [
   ...registryEvalCases(),
   ...CHALLENGES,
   ...UNSUPPORTED,
   ...REALISTIC,
   ...CONVERSATIONS,
-];
+  ...STARTER_CASES,
+].filter((c) => caseGroups.includes(c.group));
 const referencePromptPath = process.env.EVAL_REFERENCE_PROMPTS;
 if (referencePromptPath && label !== "baseline")
   throw new Error("Reference prompts are baseline-only");
@@ -145,7 +181,9 @@ async function worker() {
 await Promise.all(Array.from({ length: 4 }, worker));
 const artifact = {
   schemaVersion: 2,
-  suiteVersion: "2026-09-10-v2-reviewed",
+  // Derived from the group set, so two artifacts covering different corpora are
+  // never indistinguishable. `caseGroups` alone would be advisory.
+  suiteVersion: `2026-09-10-v2-reviewed+${[...caseGroups].sort().join("+")}`,
   referencePromptPath,
   label,
   model: MODEL,
@@ -156,6 +194,9 @@ const artifact = {
   retriedErrors: rows.reduce((n, r) => n + (r.previousErrors?.length ?? 0), 0),
   toolCount: TOOLS.length,
   caseCount: cases.length,
+  // Which groups this run covers. Without it a starter-bank run (367 pairs, no
+  // published baseline) is indistinguishable from a G1a-eligible run.
+  caseGroups,
   promptHash: hash(prompts),
   suiteHash: hash(cases),
   scoringVersion: "v2-production-normalization",
@@ -206,10 +247,23 @@ console.log(
     2,
   ),
 );
-// Publication is deliberate: incomplete runs cannot replace the current page artifact.
-if (!rows.some((r) => r.error))
+// Publication is deliberate: incomplete runs cannot replace the current page
+// artifact, and NEITHER can a group-subset run. `current_{baseline,revised}.json`
+// is what EvalsScreen renders as the product's routing score, so a starter-only
+// corpus (caseCount 367, starter-only metrics) overwriting a full-suite artifact
+// would restate the score with nothing in the file to notice.
+if (rows.some((r) => r.error)) process.exitCode = 1;
+else if (!isFullSuite) {
+  writeFileSync(
+    `${dir}/subset-report.json`,
+    JSON.stringify(artifact, null, 2) + "\n",
+  );
+  console.log(
+    `Group-subset run (${caseGroups.join(",")}) written to ${dir}/subset-report.json — ` +
+      `NOT published over data/ai/evals/current_${label}.json.`,
+  );
+} else
   writeFileSync(
     `data/ai/evals/current_${label}.json`,
     JSON.stringify(artifact, null, 2) + "\n",
   );
-else process.exitCode = 1;

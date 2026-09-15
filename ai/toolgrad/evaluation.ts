@@ -4,6 +4,7 @@ import {
   scoreProduction,
   evalUserContent,
   type EvalCase,
+  type ExpectedValue,
 } from "../llm/currentEval";
 import { REALISTIC, CONVERSATIONS } from "../llm/currentEval.realistic";
 import type { Lang, ToolArgs } from "../tools/types";
@@ -57,11 +58,16 @@ export function referenceTasks(): Task[] {
     (["bg", "en"] as const).map((lang) => {
       const c: EvalCase = JSON.parse(JSON.stringify(original));
       let masked = false;
-      const replace = (key: string, values: (string | number)[]) => {
+      const replace = (key: string, values: ExpectedValue[]) => {
         if (!privateKey(key)) return;
         masked = true;
         const fake = replacement(key, lang);
-        for (const v of values) c[lang] = c[lang].split(String(v)).join(fake);
+        // A list-valued expectation (`stringList` params) must be masked
+        // element-wise: `String(["a","b"])` is "a,b", which appears nowhere in
+        // the question and would leave both originals unmasked.
+        for (const v of values)
+          for (const s of Array.isArray(v) ? v : [v])
+            c[lang] = c[lang].split(String(s)).join(fake);
         if (c.args?.[key]) c.args[key] = [fake];
         for (const h of c.history?.[lang] ?? [])
           if (h.args && h.args[key] !== undefined) h.args[key] = fake;

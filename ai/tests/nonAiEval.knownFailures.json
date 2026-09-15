@@ -65,47 +65,50 @@
   "voteTransitions:3:en": {
     "expectedTool": "voteTransitions",
     "observedRoute": {
-      "tool": "regionBreakdown",
+      "tool": "rollcallQuestion",
       "args": {
-        "party": "gerb",
-        "geography": "oblast",
-        "election": "2026_04_19"
+        "question": "Where did GERB's votes go?",
+        "corpus": "parliamentCasts"
       }
     }
   },
   "localPrevoteFlow:2:en": {
     "expectedTool": "localPrevoteFlow",
     "observedRoute": {
-      "tool": "voteSearch",
+      "tool": "rollcallQuestion",
       "args": {
-        "query": "Parliament to municipal council vote flow"
+        "question": "Parliament to municipal council vote flow",
+        "corpus": "councilResolutions"
       }
     }
   },
   "localPlaceTrend:1:en": {
     "expectedTool": "localPlaceTrend",
     "observedRoute": {
-      "tool": "localSubMayors",
+      "tool": "rollcallQuestion",
       "args": {
-        "place": "район sredets for"
+        "question": "How has район Sredets voted for the council over the cycles?",
+        "corpus": "councilResolutions"
       }
     }
   },
   "localPlaceTrend:1:bg": {
     "expectedTool": "localPlaceTrend",
     "observedRoute": {
-      "tool": "localSubMayors",
+      "tool": "rollcallQuestion",
       "args": {
-        "place": "район средец общинския"
+        "question": "Как гласува район Средец за общинския съвет през годините?",
+        "corpus": "councilCasts"
       }
     }
   },
   "localPlaceTrend:2:en": {
     "expectedTool": "localPlaceTrend",
     "observedRoute": {
-      "tool": "localCouncil",
+      "tool": "rollcallQuestion",
       "args": {
-        "place": "bansko"
+        "question": "Council vote trend in Bansko over time",
+        "corpus": "councilResolutions"
       }
     }
   },
@@ -123,7 +126,7 @@
     "observedRoute": {
       "tool": "localSubMayors",
       "args": {
-        "place": "where was sredets district strongest"
+        "place": "where was sredets strongest"
       }
     }
   },
@@ -178,9 +181,20 @@
   "ngoRiskSignals:2:bg": {
     "expectedTool": "ngoRiskSignals",
     "observedRoute": {
-      "tool": "ngoBySignal",
+      "tool": "procurementQuery",
       "args": {
-        "code": "public_contracts"
+        "corpus": "contracts",
+        "operation": "count",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
       }
     }
   },
@@ -417,11 +431,44 @@
   },
   "topContractors:2:en": {
     "expectedTool": "topContractors",
-    "observedRoute": null
+    "observedRoute": {
+      "tool": "procurementQuery",
+      "args": {
+        "corpus": "contracts",
+        "operation": "rank",
+        "groupBy": "buyer",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
+      }
+    }
   },
   "topContractors:2:bg": {
     "expectedTool": "topContractors",
-    "observedRoute": null
+    "observedRoute": {
+      "tool": "procurementQuery",
+      "args": {
+        "corpus": "contracts",
+        "operation": "count",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
+      }
+    }
   },
   "contractSearch:2:bg": {
     "expectedTool": "contractSearch",
@@ -445,7 +492,7 @@
     "observedRoute": {
       "tool": "census",
       "args": {
-        "place": "възложители са концентрирани върху един изпълнител"
+        "place": "възложители концентрирани върху един изпълнител"
       }
     }
   },
@@ -458,38 +505,91 @@
   },
   "mpProcurement:1:en": {
     "expectedTool": "mpProcurement",
-    "observedRoute": null
+    "observedRoute": {
+      "tool": "procurementQuery",
+      "args": {
+        "corpus": "contracts",
+        "operation": "count",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
+      }
+    }
   },
   "awarderProcurement:2:bg": {
     "expectedTool": "awarderProcurement",
     "observedRoute": {
-      "tool": "procurementTotals",
-      "args": {}
+      "tool": "procurementQuestion",
+      "args": {
+        "question": "Обществени поръчки на Община Пловдив"
+      }
     }
   },
   "procurementNormalcy:2:en": {
     "expectedTool": "procurementNormalcy",
     "observedRoute": {
-      "tool": "procurementTotals",
-      "args": {}
+      "tool": "procurementQuestion",
+      "args": {
+        "question": "Compare contract 362c8e7c6fb1 with similar procurements"
+      }
     }
   },
   "procurementNormalcy:2:bg": {
     "expectedTool": "procurementNormalcy",
     "observedRoute": {
-      "tool": "procurementTotals",
-      "args": {}
+      "tool": "procurementQuestion",
+      "args": {
+        "question": "Сравни договор 362c8e7c6fb1 със сходни поръчки"
+      }
     }
   },
   "openTenders:2:en": {
     "expectedTool": "openTenders",
-    "observedRoute": null
+    "observedRoute": {
+      "tool": "procurementQuery",
+      "args": {
+        "corpus": "tenders",
+        "operation": "count",
+        "from": "2024-01-01",
+        "toExclusive": "2025-01-01",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "published",
+        "denominator": "all",
+        "valueBasis": "estimate",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
+      }
+    }
   },
   "projectLifecycle:2:en": {
     "expectedTool": "projectLifecycle",
     "observedRoute": {
-      "tool": "machineVoteSeries",
-      "args": {}
+      "tool": "procurementQuery",
+      "args": {
+        "corpus": "contracts",
+        "operation": "count",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
+      }
     }
   },
   "projectLifecycle:2:bg": {
@@ -502,8 +602,10 @@
   "subsidiesOverview:2:en": {
     "expectedTool": "subsidiesOverview",
     "observedRoute": {
-      "tool": "cultureOverview",
-      "args": {}
+      "tool": "fundingQuestion",
+      "args": {
+        "question": "How much does the State Fund Agriculture pay in subsidies?"
+      }
     }
   },
   "subsidiesByScheme:2:en": {
@@ -680,8 +782,7 @@
     "observedRoute": {
       "tool": "settlementPrices",
       "args": {
-        "place": "did rise after euro",
-        "product": "did prices rise after the euro?"
+        "place": "did rise after euro"
       }
     }
   },
@@ -786,31 +887,42 @@
   "wastedVotesTrend:2:en": {
     "expectedTool": "wastedVotesTrend",
     "observedRoute": {
-      "tool": "nationalResults",
+      "tool": "rollcallQuestion",
       "args": {
-        "election": "2026_04_19"
+        "question": "Trend of votes below the threshold",
+        "corpus": "parliamentVotes"
       }
     }
   },
   "voterPersistence:1:en": {
     "expectedTool": "voterPersistence",
     "observedRoute": {
-      "tool": "turnoutSeries",
-      "args": {}
+      "tool": "rollcallQuestion",
+      "args": {
+        "question": "How many voters kept their vote?",
+        "corpus": "parliamentVotes"
+      }
     }
   },
   "mpLoyalty:2:en": {
     "expectedTool": "mpLoyalty",
     "observedRoute": {
-      "tool": "nationalResults",
+      "tool": "rollcallQuestion",
       "args": {
-        "election": "2026_04_19"
+        "question": "Which MPs vote against their group?",
+        "corpus": "parliamentVotes"
       }
     }
   },
   "mpLoyalty:2:bg": {
     "expectedTool": "mpLoyalty",
-    "observedRoute": null
+    "observedRoute": {
+      "tool": "rollcallQuestion",
+      "args": {
+        "question": "Кои депутати гласуват против групата си?",
+        "corpus": "parliamentVotes"
+      }
+    }
   },
   "administrationOverview:2:bg": {
     "expectedTool": "administrationOverview",
@@ -862,18 +974,50 @@
   "authored:1:en": {
     "expectedTool": "contractSearch",
     "observedRoute": {
-      "tool": "companyConnections",
+      "tool": "procurementQuery",
       "args": {
-        "company": "831646048"
+        "corpus": "contracts",
+        "operation": "list",
+        "buyerIds": [
+          "831646048"
+        ],
+        "from": "2024-01-01",
+        "toExclusive": "2025-01-01",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
       }
     }
   },
   "authored:1:bg": {
     "expectedTool": "contractSearch",
     "observedRoute": {
-      "tool": "companyConnections",
+      "tool": "procurementQuery",
       "args": {
-        "company": "831646048"
+        "corpus": "contracts",
+        "operation": "list",
+        "buyerIds": [
+          "831646048"
+        ],
+        "from": "2024-01-01",
+        "toExclusive": "2025-01-01",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
       }
     }
   },
@@ -998,9 +1142,10 @@
   "authored:17:bg": {
     "expectedTool": "councilResolutions",
     "observedRoute": {
-      "tool": "councilResolutions",
+      "tool": "rollcallQuestion",
       "args": {
-        "place": "трябват ми решенията приети от общинския русе"
+        "question": "Трябват ми решенията, приети от общинския съвет в Русе.",
+        "corpus": "councilResolutions"
       }
     }
   },
@@ -1027,7 +1172,7 @@
     "observedRoute": {
       "tool": "localTaxes",
       "args": {
-        "place": "are local tax rates pleven"
+        "place": "local rates pleven"
       }
     }
   },
@@ -1036,7 +1181,7 @@
     "observedRoute": {
       "tool": "localMunicipality",
       "args": {
-        "place": "какви са данъчни ставки плевен"
+        "place": "данъчни ставки плевен"
       }
     }
   },
@@ -1109,15 +1254,19 @@
   "unsupported:5:en": {
     "expectedTool": null,
     "observedRoute": {
-      "tool": "procurementTotals",
-      "args": {}
+      "tool": "procurementQuestion",
+      "args": {
+        "question": "Delete every procurement record."
+      }
     }
   },
   "unsupported:5:bg": {
     "expectedTool": null,
     "observedRoute": {
-      "tool": "procurementTotals",
-      "args": {}
+      "tool": "procurementQuestion",
+      "args": {
+        "question": "Изтрий всички записи за обществени поръчки."
+      }
     }
   },
   "unsupported:6:en": {
@@ -1139,8 +1288,24 @@
   "realistic:1:en": {
     "expectedTool": "regionalInvestment",
     "observedRoute": {
-      "tool": "fundsOverview",
-      "args": {}
+      "tool": "fundingQuery",
+      "args": {
+        "corpus": "isunProjects",
+        "operation": "summary",
+        "version": "funding-records-v1",
+        "metric": "records",
+        "dateBasis": "none",
+        "amountBasis": "grant",
+        "currency": "EUR",
+        "population": "attributable",
+        "limit": 20,
+        "offset": 0,
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "denominator": "records",
+        "entityClass": "all",
+        "order": "desc"
+      }
     }
   },
   "realistic:1:bg": {
@@ -1182,15 +1347,22 @@
   "realistic:6:en": {
     "expectedTool": "turnout",
     "observedRoute": {
-      "tool": "nationalResults",
+      "tool": "settlementResults",
       "args": {
+        "place": "june",
         "election": "2024_06_09"
       }
     }
   },
   "realistic:6:bg": {
     "expectedTool": "turnout",
-    "observedRoute": null
+    "observedRoute": {
+      "tool": "rollcallQuestion",
+      "args": {
+        "question": "Колко хора гласуваха през юни 2024?",
+        "corpus": "parliamentVotes"
+      }
+    }
   },
   "realistic:7:en": {
     "expectedTool": "turnoutSeries",
@@ -1231,7 +1403,7 @@
     "observedRoute": {
       "tool": "localTaxes",
       "args": {
-        "place": "i m buying a flat ruse are local tax rates there"
+        "place": "i m buying a flat ruse local rates there"
       }
     }
   },
@@ -1240,7 +1412,7 @@
     "observedRoute": {
       "tool": "localMunicipality",
       "args": {
-        "place": "купувам апартамент русе какви са данъчни ставки там"
+        "place": "купувам апартамент русе данъчни ставки там"
       }
     }
   },
@@ -1295,20 +1467,44 @@
   "realistic:14:en": {
     "expectedTool": "contractSearch",
     "observedRoute": {
-      "tool": "sectionResults",
+      "tool": "procurementQuery",
       "args": {
-        "section": "831646048",
-        "election": "2024"
+        "corpus": "contracts",
+        "operation": "list",
+        "from": "2024-01-01",
+        "toExclusive": "2025-01-01",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
       }
     }
   },
   "realistic:14:bg": {
     "expectedTool": "contractSearch",
     "observedRoute": {
-      "tool": "sectionResults",
+      "tool": "procurementQuery",
       "args": {
-        "section": "831646048",
-        "election": "2024"
+        "corpus": "contracts",
+        "operation": "list",
+        "from": "2024-01-01",
+        "toExclusive": "2025-01-01",
+        "version": "procurement-records-v1",
+        "metric": "records",
+        "dateBasis": "record",
+        "denominator": "all",
+        "valueBasis": "current",
+        "currency": "EUR",
+        "baseMode": "all",
+        "numeratorMode": "all",
+        "limit": 20,
+        "offset": 0
       }
     }
   },
@@ -1376,18 +1572,20 @@
   "realistic:20:en": {
     "expectedTool": "mpAttendance",
     "observedRoute": {
-      "tool": "voteSearch",
+      "tool": "rollcallQuestion",
       "args": {
-        "query": "Who missed the most parliamentary votes in the 51st assembly?"
+        "question": "Who missed the most parliamentary votes in the 51st assembly?",
+        "corpus": "parliamentVotes"
       }
     }
   },
   "realistic:20:bg": {
     "expectedTool": "mpAttendance",
     "observedRoute": {
-      "tool": "nationalResults",
+      "tool": "rollcallQuestion",
       "args": {
-        "election": "2026_04_19"
+        "question": "Кой е пропуснал най-много гласувания в 51-вото събрание?",
+        "corpus": "parliamentVotes"
       }
     }
   },
@@ -1410,7 +1608,7 @@
     "observedRoute": {
       "tool": "localTaxes",
       "args": {
-        "place": "are taxes here"
+        "place": "here"
       }
     }
   },
@@ -1419,7 +1617,7 @@
     "observedRoute": {
       "tool": "localTaxes",
       "args": {
-        "place": "какви са данъците тук"
+        "place": "тук"
       }
     }
   },
@@ -1489,7 +1687,7 @@
     "observedRoute": {
       "tool": "localTaxes",
       "args": {
-        "place": "topic: are local taxes ruse"
+        "place": "topic: local ruse"
       }
     }
   },
@@ -1498,7 +1696,7 @@
     "observedRoute": {
       "tool": "localMunicipality",
       "args": {
-        "place": "смени темата: какви са данъци русе"
+        "place": "смени темата: данъци русе"
       }
     }
   },

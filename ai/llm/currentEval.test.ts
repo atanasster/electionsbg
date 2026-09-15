@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   registryEvalCases,
   evalUserContent,
+  expectedArgs,
   scoreProduction,
   summarize,
   type EvalCase,
@@ -9,6 +10,7 @@ import {
 import { CHALLENGES, UNSUPPORTED } from "./currentEval.cases";
 import { REALISTIC, CONVERSATIONS } from "./currentEval.realistic";
 import { TOOLS } from "../tools/registry";
+import { STARTER_CASES } from "./currentEval.starters";
 describe("production eval scoring", () => {
   const c: EvalCase = {
     id: "arg",
@@ -111,4 +113,68 @@ it("keeps raw model selection separate from validated usable routing", () => {
   expect(result.callOk).toBe(true);
   expect(result.selected).toBe("rankPlaces");
   expect(result.parsed?.tool).toBe("regionalInvestment");
+});
+
+describe("argument expectations are per-language and value-shaped", () => {
+  // The real bank case: `fundingQuery.basePredicates` is a `stringList` parameter
+  // whose VALUE is `["bulgarian","lead"]`. Encoding it as a list of alternatives
+  // made it unpassable (`String(["bulgarian","lead"])` is "bulgarian,lead"), which
+  // is what recorded it as a router gap it never was. The route is re-derived from
+  // the question here, so what varies below is the EXPECTATION.
+  const s23 = STARTER_CASES.find((c) => c.id === "starter:funding-query-S23")!;
+  const withExpected = (basePredicates: (string | number)[]): EvalCase => ({
+    ...s23,
+    args: { ...(s23.args as object), basePredicates: [basePredicates] },
+    argsByLang: undefined,
+  });
+  it("matches a list-valued argument as ONE value, element-wise", () => {
+    expect(scoreProduction(s23, "en", "").argsOk).toBe(true);
+    // Each of these is wrong in exactly one way: a flipped element, a shorter
+    // list, and a reordered list. All three differ from the gold value.
+    for (const wrong of [
+      ["bulgarian", "zinc"],
+      ["bulgarian"],
+      ["lead", "bulgarian"],
+    ])
+      expect(
+        scoreProduction(withExpected(wrong), "en", "").argsOk,
+        `expected [${wrong}] to be rejected`,
+      ).toBe(false);
+  });
+  it("reports null, never true, for a case with no annotated arguments", () => {
+    const bare: EvalCase = {
+      id: "bare",
+      group: "starter",
+      tool: "turnout",
+      en: "turnout",
+      bg: "активност",
+    };
+    const s = scoreProduction(bare, "en", '{"tool":"turnout","args":{}}');
+    expect(s.argScored).toBe(false);
+    expect(s.argsOk).toBeNull();
+    expect(s.callOk).toBe(true);
+    // ...and it stays out of the argument denominator.
+    expect(summarize([s]).en.argN).toBe(0);
+    expect(summarize([s]).en.argAcc).toBeNull();
+  });
+  it("treats the per-language overlay as authoritative", () => {
+    // When the two languages disagree the overlay is the ONLY expectation: a
+    // language it omits is unscored, never graded against the other language's
+    // gold. The earlier `?? c.args` fallback did exactly that.
+    const split: EvalCase = {
+      id: "split",
+      group: "starter",
+      tool: "partyResult",
+      en: "GERB votes",
+      bg: "гласове ГЕРБ",
+      args: { n: [1] },
+      argsByLang: { bg: { party: ["герб"] } },
+    };
+    expect(expectedArgs(split, "bg")).toEqual({ party: ["герб"] });
+    expect(expectedArgs(split, "en")).toBeUndefined();
+    expect(
+      scoreProduction(split, "en", '{"tool":"partyResult","args":{}}')
+        .argScored,
+    ).toBe(false);
+  });
 });
