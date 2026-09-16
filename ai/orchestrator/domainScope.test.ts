@@ -187,7 +187,6 @@ describe("domain scope makes every gold tool reachable", () => {
       ],
       bg: [
         "conversation:5",
-        "starter:procurement-query-upheld",
         "starter:rollcall-query-S11",
         "starter:rollcall-query-S27",
       ],
@@ -209,6 +208,10 @@ describe("domain scope makes every gold tool reachable", () => {
       expect(rate(l), `${lang} reachability floor`).toBeGreaterThanOrEqual(
         lang === "en" ? 0.98 : 0.99,
       );
+      // `starter:procurement-query-upheld` ("Процент уважени жалби по ЗОП през
+      // 2026") was the one REAL question no arm reached, before the fiscal anchors
+      // gained жалб/обжалв/зоп: `procurementQuery` is now nominated for it. The
+      // remaining BG misses are all template or follow-up rows.
     }
   });
 
