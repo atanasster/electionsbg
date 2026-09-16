@@ -2074,7 +2074,7 @@ const CASES: Case[] = [
   {
     q: "Какво е регистрираното население на Габрово?",
     tool: "graoPopulation",
-    facts: { permanent: { num: 57742 } },
+    facts: { permanent: { num: 57582 } },
   },
   {
     q: "Какъв е въздухът в Перник?",
