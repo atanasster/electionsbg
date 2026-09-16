@@ -1,6 +1,6 @@
 // Re-score saved responses with today's production normalizer. No model calls.
 // Keep the original run immutable; output a separate current baseline artifact.
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import {
   scoreProduction,
@@ -55,8 +55,18 @@ const artifact = {
     run.scope +
     " Saved responses replayed through the current production normalizer; no new API calls. Raw selection remains scored separately from repaired usable calls.",
 };
-writeFileSync(
-  `data/ai/evals/current_${run.label}.json`,
-  JSON.stringify(artifact, null, 2) + "\n",
-);
+// A published artifact is a before/after record, so a replay must not replace one:
+// re-scoring the SAME raw outputs under a newer normalizer is a DIFFERENT measurement
+// (it is exactly how a scorer change shows up as a score change). The suffix keeps
+// both, so the old record and the re-scored one can be compared.
+const suffix = process.env.EVAL_REPLAY_SUFFIX ?? "";
+const out = `data/ai/evals/current_${run.label}${suffix}.json`;
+if (existsSync(out) && process.env.EVAL_ALLOW_OVERWRITE !== "1") {
+  console.error(
+    `REFUSING to overwrite ${out}. Set EVAL_ALLOW_OVERWRITE=1, or pass a different EVAL_REPLAY_SUFFIX.`,
+  );
+  process.exit(1);
+}
+writeFileSync(out, JSON.stringify(artifact, null, 2) + "\n");
+console.log(`wrote ${out}`);
 console.log(JSON.stringify(artifact.metrics, null, 2));
