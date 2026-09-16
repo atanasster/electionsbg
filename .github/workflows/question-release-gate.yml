@@ -43,6 +43,8 @@ jobs:
         run: npm run build && npm run build:ai
         env:
           VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com
+      - name: Bootstrap app_readonly role
+        run: npm run db:pg:bootstrap -- --yes-non-local
       - name: Load seeded national election serving data
         run: npm run db:load:election-national:pg
       - name: Required DB parity evidence
