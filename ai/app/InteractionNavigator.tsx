@@ -91,7 +91,7 @@ export const InteractionNavigator = ({
   if (interactions.length < 2) return null;
   return (
     <div
-      className="pointer-events-none sticky top-24 z-20 h-0"
+      className="pointer-events-none sticky top-24 z-[8] h-0"
       data-export-omit=""
     >
       <nav

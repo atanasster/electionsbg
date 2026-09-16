@@ -93,5 +93,26 @@ for (const lang of ["bg", "en"] as const) {
       expect(toolsBtn.getAttribute("aria-current")).toBe("page");
       expect(toolsBtn.className).toContain("border-primary/50");
     });
+
+    it("keeps z-index below the fixed header (z-10) so the search dropdown is not occluded", () => {
+      render(
+        <ChatNavigationContext.Provider
+          value={{
+            pathname: "/chat",
+            search: "",
+            lang,
+            navigate: vi.fn(),
+          }}
+        >
+          <ChatToolbar onNewChat={vi.fn()} />
+        </ChatNavigationContext.Provider>,
+      );
+      const toolbar = screen.getByRole("navigation", {
+        name: lang === "en" ? "Chat actions" : "Действия за чата",
+      });
+      expect(toolbar.className).toContain("z-[9]");
+      expect(toolbar.className).not.toContain("z-20");
+      expect(toolbar.className).not.toMatch(/\bz-(1\d|[2-9]\d)\b/);
+    });
   });
 }

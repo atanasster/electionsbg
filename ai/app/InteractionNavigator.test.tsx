@@ -99,4 +99,20 @@ describe("interaction navigator", () => {
     );
     expect(screen.queryByRole("navigation")).toBeNull();
   });
+
+  it("keeps a z-index below the sticky chat toolbar and fixed header", () => {
+    const contentRef = createRef<HTMLDivElement>();
+    const { container } = render(
+      <InteractionNavigator
+        messages={messages}
+        contentRef={contentRef}
+        lang="bg"
+        onNavigate={() => {}}
+      />,
+    );
+    const rail = container.firstElementChild as HTMLElement;
+    expect(rail.className).toContain("z-[8]");
+    expect(rail.className).not.toContain("z-20");
+    expect(rail.className).not.toMatch(/\bz-(1\d|[2-9]\d)\b/);
+  });
 });

@@ -289,9 +289,7 @@ export const EvalsScreen = ({
                   <tbody>
                     {(comparable ? [baseline!, run] : [run]).map((r) => (
                       <tr key={r.label} className="border-b">
-                        <th className="p-2 font-medium">
-                          {runLabel(r.label)}
-                        </th>
+                        <th className="p-2 font-medium">{runLabel(r.label)}</th>
                         <td className="p-2 tabular-nums">
                           {pct(r.metrics.en.toolAcc)} /{" "}
                           {pct(r.metrics.bg.toolAcc)}

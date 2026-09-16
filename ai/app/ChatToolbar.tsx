@@ -21,7 +21,7 @@ export const ChatToolbar = ({ onNewChat }: { onNewChat: () => void }) => {
     <nav
       aria-label={en ? "Chat actions" : "Действия за чата"}
       data-chat-toolbar
-      className="sticky top-[var(--header-height,70px)] z-20 flex h-11 shrink-0 items-center gap-1.5 overflow-x-auto border-b border-border bg-background/95 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/80 [scrollbar-width:none] sm:h-12 sm:gap-2 sm:px-4 [&::-webkit-scrollbar]:hidden"
+      className="sticky top-[var(--header-height,70px)] z-[9] flex h-11 shrink-0 items-center gap-1.5 overflow-x-auto border-b border-border bg-background/95 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/80 [scrollbar-width:none] sm:h-12 sm:gap-2 sm:px-4 [&::-webkit-scrollbar]:hidden"
     >
       <button type="button" className={itemClass(false)} onClick={onNewChat}>
         {en ? "New chat" : "Нов чат"}
