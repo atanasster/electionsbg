@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-14",
+  "computedAt": "2026-09-16",
   "thresholds": {
     "basketPids": [
       1,
@@ -34,7 +34,7 @@
   "basketMoves": [
     {
       "peakDay": "2026-08-16",
-      "startDay": "2026-08-14",
+      "startDay": "2026-08-16",
       "endDay": "2026-08-21",
       "pctChange": 3.23,
       "costEur": 16.596,
@@ -65,6 +65,16 @@
   ],
   "promotions": [
     {
+      "slug": "yabalki-gala",
+      "title": "ЯБЪЛКИ ГАЛА",
+      "atOrBelowSince": "2026-09-14",
+      "promoEur": 0.89,
+      "regularEur": 1.99,
+      "discountPct": 55,
+      "stores": 80,
+      "chains": 2
+    },
+    {
       "slug": "shokolad-lacmi-mlechen-90-gr",
       "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
       "atOrBelowSince": "2026-09-10",
@@ -79,20 +89,10 @@
       "title": "СВИНСКА ПЛЕШКА БЕЗ КОСТ",
       "atOrBelowSince": "2026-09-14",
       "promoEur": 2.99,
-      "regularEur": 6.4,
-      "discountPct": 53,
-      "stores": 127,
-      "chains": 2
-    },
-    {
-      "slug": "kartofi",
-      "title": "КАРТОФИ",
-      "atOrBelowSince": "2026-09-14",
-      "promoEur": 0.49,
-      "regularEur": 0.99,
+      "regularEur": 6.14,
       "discountPct": 51,
-      "stores": 387,
-      "chains": 3
+      "stores": 86,
+      "chains": 2
     }
   ]
 }

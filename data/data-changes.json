@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-09-16T00:32:17.506Z",
+  "updatedAt": "2026-09-16T23:25:19.629Z",
   "entries": [
+    {
+      "timestamp": "2026-09-16T23:25:19.629Z",
+      "date": "2026-09-16",
+      "skill": "update-rollcall",
+      "summary": "+1 plenary session 2026-09-16 (22 roll-call items); metrics rebuilt",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-16T23:19:07.482Z",
+      "date": "2026-09-16",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-16 (+2 daily archives; 940,471 store rows, 165 settlements, 78 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-16"
+    },
+    {
+      "timestamp": "2026-09-16T23:11:56.911Z",
+      "date": "2026-09-16",
+      "skill": "update-open-calls",
+      "summary": "ИСУН: 55 open procedures (1 new)",
+      "source": "ИСУН 2020 — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-16T23:09:24.842Z",
+      "date": "2026-09-16",
+      "skill": "update-macro",
+      "summary": "Eurostat release: COFOG peer bands, industrial production, retail, unemployment (2026 Q2)",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-16T23:08:20.206Z",
+      "date": "2026-09-16",
+      "skill": "update-procurement",
+      "summary": "EOP self-heal +190 rows (409,014 contracts); tenders 239,033; TED 219,726 notices",
+      "source": "ЦАИС ЕОП + TED"
+    },
+    {
+      "timestamp": "2026-09-16T22:51:57.646Z",
+      "date": "2026-09-16",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 941 лица, 125 072 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-09-16T00:32:17.506Z",
       "date": "2026-09-16",

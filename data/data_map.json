@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-16T00:33:47.412Z",
+  "generatedAt": "2026-09-16T23:26:18.898Z",
   "nodes": [
     {
       "id": "src:water",
@@ -124,7 +124,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-11T21:38:52.042Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -135,7 +135,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-09-11T21:38:52.042Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         },
         {
           "id": "parliament_mps",
@@ -468,7 +468,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -490,7 +490,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         },
         {
           "id": "egov_budget_execution",
@@ -578,7 +578,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-procurement"
       ],
@@ -588,7 +588,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         }
       ],
       "x": 28,
@@ -780,7 +780,7 @@
       "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-14T21:39:27.880Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-open-calls"
       ],
@@ -790,7 +790,7 @@
           "label": "ИСУН — отворени процедури",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
           "cadence": "daily",
-          "freshness": "2026-09-14T21:39:27.880Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         },
         {
           "id": "sp2023_indicative",
@@ -979,7 +979,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-09T21:39:12.719Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -1126,7 +1126,7 @@
           "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
           "url": "https://ipop.mrrb.bg/",
           "cadence": "daily",
-          "freshness": "2026-08-14T15:05:23.140Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         },
         {
           "id": "iisda_doklad",
@@ -1192,7 +1192,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-13T00:36:58.292Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1211,7 +1211,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-09-13T00:36:58.292Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         },
         {
           "id": "municipal_naredba",
@@ -1431,7 +1431,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1443,7 +1443,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         },
         {
           "id": "eurostat_policy",
@@ -1758,7 +1758,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-prices"
       ],
@@ -1768,7 +1768,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         }
       ],
       "issue": {
@@ -2303,7 +2303,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-16T21:39:21.832Z",
       "skills": [
         "update-procurement"
       ],
@@ -2313,7 +2313,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-16T21:39:21.832Z"
         }
       ],
       "issue": {
@@ -7518,7 +7518,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18736,
+      "overlap": 18737,
       "query": "contractors-in-the-registry"
     },
     {
@@ -7531,7 +7531,7 @@
         "bg": "кой е получил и обществени поръчки, и европейски средства",
         "en": "who received both public contracts and EU funds"
       },
-      "overlap": 5710,
+      "overlap": 5711,
       "query": "both-contracts-and-eu-funds"
     },
     {
@@ -7568,7 +7568,7 @@
         "bg": "земеделските бенефициенти като фирми в регистъра",
         "en": "farm-subsidy beneficiaries as registered companies"
       },
-      "overlap": 13399
+      "overlap": 13400
     },
     {
       "id": "health|procurement|eik",
@@ -7651,7 +7651,7 @@
         "bg": "отворените приеми и вече договореното по същата програма",
         "en": "open calls and what the same programme has already contracted"
       },
-      "overlap": 12
+      "overlap": 13
     },
     {
       "id": "geo|interreg|ekatte",
@@ -7707,7 +7707,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5604,
+      "overlap": 5602,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7720,7 +7720,7 @@
         "bg": "кой кандидат после заема публична длъжност",
         "en": "which candidates later hold public office"
       },
-      "overlap": 3217
+      "overlap": 3216
     },
     {
       "id": "connections|elections|person_id",
