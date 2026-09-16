@@ -63,6 +63,25 @@ describe("recall on surface variants", () => {
     expect(viaEdit[0].corrections[0].to).toBe("inflatsiya");
   });
 
+  it("never returns a hit that no correction accounts for", () => {
+    // The module's contract is that it fires only on SURFACE VARIATION. A tool
+    // whose example happens to contain the raw misspelled token was recorded with
+    // an empty correction list, i.e. a hit with no variation behind it — and it
+    // even displaced the right tool at rank 1 for "кошничка".
+    for (const q of [
+      "Каква е инфлацята?",
+      "Къде е най-скъпата кошничка?",
+      "Колко похарчи НЗОК за лекрства?",
+      "Каква е избирателната активнос?",
+      "Колко е безработноста?",
+    ]) {
+      const hits = typoMatches(q, 5);
+      expect(hits.length, q).toBeGreaterThan(0);
+      for (const h of hits)
+        expect(h.corrections.length, `${q} → ${h.tool}`).toBeGreaterThan(0);
+    }
+  });
+
   it("returns the correction alongside the suggestion, so it is explainable", () => {
     for (const [q] of VARIANTS)
       for (const h of typoMatches(q, 3))

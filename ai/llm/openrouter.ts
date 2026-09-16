@@ -28,7 +28,7 @@ import {
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { semanticGrounded } from "./semanticGrounding";
-import { clarify, matchesLang, stripControl } from "./lang";
+import { matchesLang, stripControl } from "./lang";
 import type { ModelOption } from "./models";
 import type {
   ChatResponse,
@@ -45,7 +45,7 @@ import {
   setAiNotice,
   type QuestionAccess,
 } from "./session";
-import { HeuristicProvider } from "./provider";
+import { declinedAnswer, HeuristicProvider } from "./provider";
 
 // Dev-only console trace of the assembled conversation context (for tuning).
 const DEV = !!(import.meta as unknown as { env?: { DEV?: boolean } }).env?.DEV;
@@ -471,12 +471,26 @@ export class OpenRouterProvider implements LLMProvider {
       outputTokens: usage.output || undefined,
       narratedBy,
     });
-    if (!r)
+    if (!r) {
+      // The cloud lane reaches a declined question too (the model abstained, or
+      // returned something unusable). The SAME shared decision as the rules lane,
+      // so a typo behaves identically whichever model is selected (plan C6). The
+      // answer carries no model involvement, so `usedModel` is false and the label
+      // is the rules label.
+      const declined = declinedAnswer(question, ctx);
+      // Deliberately NOT `baseMeta`: that would carry the routing call's token
+      // counts onto an answer labelled "No AI" and containing no model output. The
+      // tokens were spent on a call that produced nothing usable, so attributing
+      // them to this answer contradicts its own label.
       return {
-        text: clarify(ctx.lang),
-        env: null,
-        meta: baseMeta("rules", false),
+        ...declined,
+        meta: {
+          model: RULES_LABEL,
+          durationMs: performance.now() - t0,
+          narratedBy: "rules",
+        },
       };
+    }
     try {
       const env = await runTool(r.tool, r.args, ctx);
       // A chooser env needs no prose — show its prompt (template narration) and

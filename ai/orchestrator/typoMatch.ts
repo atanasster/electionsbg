@@ -41,7 +41,6 @@ import { stemPrefix, translitKey } from "../tools/translit";
 //   (d) NFC normalization now lives in the shared `translitKey`, so it applies here
 //       and to every other romanized comparison in the pipeline.
 
-const MIN_TOKEN = 4;
 // One edit, always. See note (b) above.
 const MAX_EDITS = 1;
 
@@ -72,6 +71,8 @@ const editDistance = (a: string, b: string, max: number): number => {
   }
   return prev[b.length];
 };
+
+const MIN_TOKEN = 4;
 
 // Question words and other generic tokens. They appear in hundreds of examples, so
 // a match on one is no evidence at all — before these were excluded, "Колко НПО има
@@ -168,7 +169,7 @@ export const typoTokens = (text: string): string[] =>
 export type ToolVocabulary = {
   // Every example question (registry + starter bank) that declares a tool, with
   // its romanized token set. Built once at module load.
-  entries: { tool: string; tokens: string[]; source: "registry" | "starter" }[];
+  entries: { tool: string; tokens: string[] }[];
   // IDF weight per token, and the weight of a token absent from the corpus.
   weight: Map<string, number>;
   defaultWeight: number;
@@ -187,14 +188,12 @@ const buildVocabulary = (): ToolVocabulary => {
     for (const ex of tool.examples)
       for (const text of [ex.bg, ex.en]) {
         const tokens = typoTokens(text);
-        if (tokens.length)
-          entries.push({ tool: tool.name, tokens, source: "registry" });
+        if (tokens.length) entries.push({ tool: tool.name, tokens });
       }
   for (const s of STARTERS)
     for (const text of [s.bg, s.en]) {
       const tokens = typoTokens(text.replace(/\{[a-zA-Z]+\}/g, " "));
-      if (tokens.length)
-        entries.push({ tool: s.tool, tokens, source: "starter" });
+      if (tokens.length) entries.push({ tool: s.tool, tokens });
     }
   // Document frequency per tool, so a query token's weight reflects how
   // discriminative it is.
@@ -237,7 +236,6 @@ const ALTERNATES: Record<string, string[]> = {
   // Diminutives and colloquialisms.
   koshnichka: ["koshnitsa"],
   medikament: ["lekarstva"],
-  lek: ["lekarstva"],
   // A different word for the same thing.
   uchenitsi: ["uchilishte"],
 };
@@ -254,6 +252,10 @@ const ALTERNATES: Record<string, string[]> = {
 //    honest behaviour is to correct nothing.
 //  - `ценичка` was removed because `tsena`/`tseni` prefix-match tokens in a dozen
 //    tools (gas, electricity, medicines), which is not a near miss.
+//  - `лек` was removed for the same reason at the other end of the scale: a
+//    three-character key is reachable through the one-edit fallback from the
+//    ordinary inflections `лека`/`леки` ("light/easy"), so a question about how
+//    light a procedure is fired all four drug tools.
 //
 // A general "correct anything within N edits" rule was tried and REJECTED on
 // measurement: on the 1444 corpus questions the deterministic router already
@@ -283,8 +285,15 @@ const correctedTo = (token: string): string[] | undefined => {
   // from a known variant. `editDistance` is called once, with the bound it is
   // tested against — an earlier version computed the distance twice under two
   // different bounds, so the length-dependent branch could never take effect.
+  // The KEY must clear the same length floor the query token does, or a short key
+  // reaches ordinary short words: a 3-character key matched `лека`/`леки` and
+  // corrected them to a drug name.
   for (const [key, targets] of alternateIndex)
-    if (editDistance(key, token, MAX_EDITS) <= MAX_EDITS) return targets;
+    if (
+      key.length >= MIN_TOKEN &&
+      editDistance(key, token, MAX_EDITS) <= MAX_EDITS
+    )
+      return targets;
   return undefined;
 };
 
@@ -292,13 +301,14 @@ const correctedTo = (token: string): string[] | undefined => {
  * Tools a question plausibly means when it contains a surface variant of a word
  * the corpus uses — a misspelling, a diminutive, an inflection, a synonym.
  *
- * RANKING is by the IDF weight of the corrected words, not by how many of the
- * question's corrections a tool happens to contain. The earlier coverage-only
- * score tied every tool whose examples mention the corrected word at 1.00 and fell
- * through to an ALPHABETICAL tie-break, so `typoMatch` returned a wrong tool first
- * on four of the module's own six variants and put the plan's named
- * `nzokDrugs` — the correct answer for "лекрства" — at rank 4, past the 3-option
- * chooser cap. A rare corrected word is the evidence; a common one is not.
+ * RANKING is Dice similarity over the corrected token sets, with the IDF weight of
+ * the corrected words as a TIE-BREAK only. Two weaker rankings were measured and
+ * rejected: coverage-of-question tied every tool whose examples mention the
+ * corrected word at 1.00 and fell through to an ALPHABETICAL tie-break (a wrong
+ * top-1 on four of the module's own variants, with the plan's named `nzokDrugs` at
+ * rank 4 — past the 3-option chooser cap), and Jaccard over-penalised the entries
+ * sharing the MOST of the query, so a long example matching both query tokens lost
+ * to a short one matching a single token.
  *
  * An empty result means no evidence: the caller keeps its existing behaviour
  * (the clarification), it does not guess.
@@ -342,6 +352,12 @@ export const typoMatches = (question: string, limit = 3): TypoHit[] => {
     const mine = corrections.filter((c) =>
       entry.tokens.some((t) => t === c.to || stemPrefix(t, c.to)),
     );
+    // A tool must be here BECAUSE of a correction. Without this gate a tool whose
+    // example happens to contain the raw (misspelled) token is recorded with an
+    // empty correction list — a hit with no surface variation behind it, which is
+    // exactly the "fires where it should stay silent" failure the caller's
+    // precedence depends on.
+    if (!mine.length) continue;
     // Rarity of the corrected words, used only to order near-ties: a correction
     // that a dozen tools could also claim is weaker evidence than a rare one.
     const evidence = [...new Set(mine.map((c) => c.to))].reduce(
@@ -349,7 +365,14 @@ export const typoMatches = (question: string, limit = 3): TypoHit[] => {
       0,
     );
     const prev = byTool.get(entry.tool);
-    if (!prev || similarity > prev.similarity || evidence > prev.evidence)
+    // Highest similarity wins, with evidence as a TIE-BREAK only — an earlier form
+    // let a lower similarity overwrite a higher one when its evidence was larger,
+    // which contradicted the comment and made `score` stop being the maximum.
+    if (
+      !prev ||
+      similarity > prev.similarity ||
+      (similarity === prev.similarity && evidence > prev.evidence)
+    )
       byTool.set(entry.tool, {
         tool: entry.tool,
         score: similarity,

@@ -8,9 +8,85 @@ import { selectHeuristicRoute } from "./heuristicRoute";
 import type { TurnMemory } from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
 import { pinElectionContext } from "../orchestrator/router";
-import { runTool } from "../tools/registry";
-import type { Envelope, ToolArgs, ToolContext } from "../tools/types";
+import { typoMatches } from "../orchestrator/typoMatch";
+import { clarifyEnvelope } from "../tools/clarify";
+import { TOOLS_BY_NAME, runTool } from "../tools/registry";
+import type {
+  ClarifyOption,
+  Envelope,
+  ToolArgs,
+  ToolContext,
+} from "../tools/types";
 import { clarify } from "./lang";
+
+// A question the keyword router DECLINED, but which contains a surface variant of
+// a word the tool vocabulary uses, must not dead-end into `clarify()`'s single
+// static sentence. This builds the near-miss chooser instead (plan C6).
+//
+// THE FILTER IS `params.length === 0`, not "declares no required param", and that
+// distinction is the whole safety property. `required` does not mean "this tool's
+// meaning is fixed without arguments": `macroIndicator.indicator` and
+// `priceRanking.metric` are optional and still choose WHICH metric is answered. A
+// chooser that admitted them passed `args: {}`, so picking the option offered for
+// "Колко е безработноста?" ran `macroIndicator({})` — which falls back to GDP
+// growth — and answered a different question than the sublabel promised. Offering
+// nothing is strictly better than offering that.
+//
+// Two consequences, both accepted deliberately:
+//  - The chooser only appears for tools whose whole answer is fixed, so today it is
+//    narrow (two tools). Widening it needs a per-tool arg map — the same entity
+//    extraction phase 2 adds — not a looser filter.
+//  - `null` means "keep the plain sentence", so an unhelpful question degrades to
+//    exactly the behaviour it had before this feature.
+export const nearMissEnvelope = (
+  question: string,
+  ctx: ToolContext,
+): Envelope | null => {
+  const options: ClarifyOption[] = [];
+  for (const hit of typoMatches(question, 3)) {
+    const tool = TOOLS_BY_NAME[hit.tool];
+    if (!tool || tool.params.length) continue;
+    // Show WHAT was corrected, so the suggestion is explainable rather than a
+    // silent guess: "инфлацята → инфлация".
+    const fixed = [
+      ...new Set(hit.corrections.map((c) => `${c.from} → ${c.to}`)),
+    ];
+    options.push({
+      label: tool.description[ctx.lang],
+      sublabel: fixed.join(", "),
+      tool: hit.tool,
+      args: {},
+    });
+  }
+  if (!options.length) return null;
+  const bg = ctx.lang === "bg";
+  return clarifyEnvelope(
+    bg
+      ? "Не съм сигурен какво питате. Имахте предвид някое от тези?"
+      : "I'm not sure what you're asking. Did you mean one of these?",
+    options,
+    // EMPTY, deliberately. Every other clarifyEnvelope caller passes a data file,
+    // and `AnswerView` renders a non-empty provenance in the "Източник на данните"
+    // slot — which would claim a data source for a chooser that shows no data. The
+    // suggestions come from the tool catalogue, not a corpus.
+    [],
+    TOOLS_BY_NAME[options[0].tool]?.domain,
+  );
+};
+
+// The ONE decision both lanes make when routing produced nothing: offer the
+// near-miss chooser, else fall back to the static sentence. Shared so the rules
+// lane and the cloud lane cannot drift — an earlier form repeated the pair in
+// `openrouter.ts`, where only one of the two branches was covered by a test.
+export const declinedAnswer = (
+  question: string,
+  ctx: ToolContext,
+): { text: string; env: Envelope | null } => {
+  const near = nearMissEnvelope(question, ctx);
+  return near
+    ? { text: narrate(near, ctx.lang), env: near }
+    : { text: clarify(ctx.lang), env: null };
+};
 
 // Per-request options shared by every provider.
 // - prev: the previous answer's tool + args, so a bare follow-on like "а ДПС?"
@@ -142,7 +218,12 @@ export class HeuristicProvider implements LLMProvider {
     });
     const { notice, route: r } = selectHeuristicRoute(question, ctx, opts);
     if (notice) return { text: notice, env: null, meta: meta() };
-    if (!r) return { text: clarify(ctx.lang), env: null, meta: meta() };
+    if (!r) {
+      const near = nearMissEnvelope(question, ctx);
+      if (near)
+        return { text: narrate(near, ctx.lang), env: near, meta: meta() };
+      return { text: clarify(ctx.lang), env: null, meta: meta() };
+    }
     try {
       const env = await runTool(r.tool, r.args, ctx);
       return {
