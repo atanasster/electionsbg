@@ -1,6 +1,6 @@
 import { TOOLS, TOOLS_BY_NAME } from "../tools/registry";
 import type { Domain, ToolDef } from "../tools/types";
-import { stemPrefix, translitKey } from "../tools/translit";
+import { translitKey } from "../tools/translit";
 import { retrieveTools } from "../llm/retrieve";
 import {
   domainScopeRanked,
@@ -49,17 +49,21 @@ export type Arm =
 
 // Higher wins. The gaps matter: everything above `pin` is question-specific
 // evidence, so a pin is only ever kept when there is room for it.
+// TOOL-LEVEL EVIDENCE OUTRANKS DOMAIN MEMBERSHIP, and that ordering was corrected on
+// measurement. A fuse hit is returned for THIS question; a domain claim is about a
+// GROUP that can hold 40-90 tools. With `domain-curated` above `lexical`, the top of
+// the ranking was filled almost entirely by one domain block, and measured candidate-set
+// recall@16 on the held-out residual was 0.462 — barely above the fuse baseline (0.491
+// @8) it contains, because the tool-level hits were pushed past the cap. Domain claims
+// still ADD candidates (the union is intact); they simply no longer outrank the
+// retriever on a question it actually matched.
 const ARM_STRENGTH: Record<Arm, number> = {
   verbatim: 6,
   typo: 5,
-  "domain-curated": 4,
-  // LEXICAL ABOVE DERIVED-DOMAIN, deliberately. A rank-i fuse hit is returned for
-  // THIS question, while a derived-domain candidate is only "in a domain the
-  // question's vocabulary touches" — `domainScope` describes its own derived layer
-  // as "deliberately unselective" (it unions to ~4.4 of 6 domains). With the older
-  // order, 313 of 1,632 corpus calls dropped a lexical-only candidate while
-  // keeping derived-only ones.
-  lexical: 3,
+  lexical: 4,
+  "domain-curated": 3,
+  // `domainScope` describes its own derived layer as "deliberately unselective" (it
+  // unions to ~4.4 of 6 domains), so it ranks below the curated one.
   "domain-derived": 2,
   pin: 1,
 };
@@ -143,19 +147,54 @@ const toolVocabulary: Map<string, string[]> = (() => {
 })();
 
 // Dice over the question's content tokens and the tool's vocabulary. Cheap,
-// deterministic, and only ever used to ORDER candidates — never to include or
-// exclude one, so an imperfect score cannot make a tool unreachable.
-const lexicalScore = (
+// deterministic, and only ever used to ORDER candidates — never to include or exclude
+// one, so an imperfect score cannot make a tool unreachable.
+//
+// Computed through an INVERTED INDEX rather than by scanning every tool's vocabulary
+// for every token: the naive form is O(tools x vocab x tokens) per call, measured at
+// 38.6 ms, which is real latency on the routing path and made a whole-corpus recall
+// measurement too slow to run as a test. The exact-token and 5-character-prefix maps
+// turn it into O(tokens) lookups — and the 5-character key IS the shared-prefix rule,
+// since two strings share a >=5-character prefix exactly when their first five
+// characters do.
+const vocabSize = new Map<string, number>();
+const tokenToTools = new Map<string, Set<string>>();
+const prefixToTools = new Map<string, Set<string>>();
+for (const [tool, tokens] of toolVocabulary) {
+  vocabSize.set(tool, tokens.length);
+  for (const token of tokens) {
+    const exact = tokenToTools.get(token) ?? new Set<string>();
+    exact.add(tool);
+    tokenToTools.set(token, exact);
+    if (token.length >= 5) {
+      const key = token.slice(0, 5);
+      const bucket = prefixToTools.get(key) ?? new Set<string>();
+      bucket.add(tool);
+      prefixToTools.set(key, bucket);
+    }
+  }
+}
+
+/** Dice scores for EVERY tool, in one pass. A tool absent from the map scores 0. */
+const lexicalScores = (
   questionTokens: readonly string[],
-  tool: string,
-): number => {
-  if (!questionTokens.length) return 0;
-  const list = toolVocabulary.get(tool);
-  if (!list) return 0;
-  const matched = questionTokens.filter((q) =>
-    list.some((v) => v === q || stemPrefix(v, q)),
-  );
-  return (2 * matched.length) / (questionTokens.length + list.length);
+): Map<string, number> => {
+  const out = new Map<string, number>();
+  if (!questionTokens.length) return out;
+  const matched = new Map<string, number>();
+  for (const q of questionTokens) {
+    const hits = new Set<string>([
+      ...(tokenToTools.get(q) ?? []),
+      ...(q.length >= 5 ? (prefixToTools.get(q.slice(0, 5)) ?? []) : []),
+    ]);
+    for (const tool of hits) matched.set(tool, (matched.get(tool) ?? 0) + 1);
+  }
+  for (const [tool, hits] of matched)
+    out.set(
+      tool,
+      (2 * hits) / (questionTokens.length + (vocabSize.get(tool) ?? 1)),
+    );
+  return out;
 };
 
 export type PreselectOptions = {
@@ -163,6 +202,12 @@ export type PreselectOptions = {
   // How many tools the lexical arm contributes. Raised for the fiscal overflow,
   // where one domain holds 90 tools.
   lexicalK?: number;
+  // Drop the `verbatim` arm. It exists so an OFFLINE RECALL MEASUREMENT can exclude
+  // the arm that matches the registry's own example strings: this arm indexes the same
+  // corpus the retriever does, so leaving it on would score a query that IS an example
+  // as "retrieved" and make the measurement measure leakage (plan G2). Production
+  // never sets it.
+  withoutVerbatim?: boolean;
 };
 
 /**
@@ -175,6 +220,7 @@ export const preselectCandidates = (
   opts: PreselectOptions = {},
 ): Candidate[] => {
   const questionTokens = tokensOf(question);
+  const scores = lexicalScores(questionTokens);
   const found = new Map<string, Candidate>();
   // `extra` may carry ONLY the evidence positions: if it could carry `tool`,
   // `arms` or `strength` a later nomination could overwrite an earlier one, and the
@@ -191,7 +237,7 @@ export const preselectCandidates = (
       found.set(tool, {
         tool,
         arms: [arm],
-        similarity: lexicalScore(questionTokens, tool),
+        similarity: scores.get(tool) ?? 0,
         ...extra,
       });
       return;
@@ -207,7 +253,9 @@ export const preselectCandidates = (
   };
 
   // 1. Verbatim: the question is a registry example.
-  const exact = exampleIndex.get(norm(question));
+  const exact = opts.withoutVerbatim
+    ? undefined
+    : exampleIndex.get(norm(question));
   if (exact) nominate(exact, "verbatim");
 
   // 2. Typo / alternate surface form.
