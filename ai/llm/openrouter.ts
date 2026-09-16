@@ -24,6 +24,11 @@ import {
   prunePrefixToBudget,
 } from "../orchestrator/toolPreselector";
 import {
+  extractEntities,
+  fillMissingArgs,
+  renderEntityHint,
+} from "../orchestrator/entityExtraction";
+import {
   followOnScopeNotice,
   pinElectionContext,
   resolveFollowOn,
@@ -273,11 +278,18 @@ export class OpenRouterProvider implements LLMProvider {
           deterministic.args.party))
     )
       return { route: deterministic, byModel: false };
-    // Prepend the conversation context (when there is any) so the model can
-    // resolve references the keyword router can't, then label the live question.
-    const userContent = routingCtx
+    // Prepend the conversation context (when there is any) so the model can resolve
+    // references the keyword router can't, then label the live question. Detected
+    // entities ride along as a hint (plan C8): a slot the question plainly carries is
+    // stated rather than left for the model to infer from prose. `fillMissingArgs`
+    // below is the only place the extraction is allowed to CHANGE a call, and it may
+    // only ADD what the model omitted.
+    const entities = extractEntities(question);
+    const entityHint = renderEntityHint(entities, ctx.lang);
+    const labelled = routingCtx
       ? `${routingCtx}\n\n${ctx.lang === "bg" ? "Текущ въпрос" : "Current question"}: ${question}`
       : question;
+    const userContent = entityHint ? `${labelled}\n\n${entityHint}` : labelled;
     // THE BYTE BUDGET (plan C3). The full catalogue serializes to 85,121 BG /
     // 56,632 EN bytes against a 96,000-byte proxy ceiling, and a saturated BG
     // conversation window pushes the request past the client budget — so this branch
@@ -313,7 +325,14 @@ export class OpenRouterProvider implements LLMProvider {
         userContent,
         allowedCandidates ? new Set(allowedCandidates) : undefined,
       );
-      if (parsed) return { route: parsed, byModel: true };
+      if (parsed)
+        return {
+          route: {
+            ...parsed,
+            args: fillMissingArgs(parsed.args ?? {}, entities),
+          },
+          byModel: true,
+        };
       // A rejected ranking capability is a clarification, not permission to
       // replace it with the keyword router's guessed metric.
       try {
