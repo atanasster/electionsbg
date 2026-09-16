@@ -203,7 +203,7 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
   it("hides the manifest sections when the current run cannot load", async () => {
     // The sections live inside the `run &&` branch, so this pins the coupling:
     // the manifest is never rendered without the run it annotates.
-    failPath = "/ai/evals/current_revised.json";
+    failPath = "/ai/evals/current_production.json";
     setup("bg");
     await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
     expect(

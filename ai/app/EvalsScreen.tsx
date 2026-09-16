@@ -122,10 +122,10 @@ export const EvalsScreen = ({
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const Content = integrated ? "div" : "main";
   useEffect(() => {
-    fetchData<Run>("/ai/evals/current_revised.json")
+    fetchData<Run>("/ai/evals/current_production.json")
       .then(setRun)
       .catch(() => setError(true));
-    fetchData<Run>("/ai/evals/current_baseline.json")
+    fetchData<Run>("/ai/evals/current_baseline_rescored.json")
       .then(setBaseline)
       .catch(() => {});
     fetchData<Legacy>("/ai/evals/fc_eval.json")
@@ -290,9 +290,7 @@ export const EvalsScreen = ({
                     {(comparable ? [baseline!, run] : [run]).map((r) => (
                       <tr key={r.label} className="border-b">
                         <th className="p-2 font-medium">
-                          {r.label === "baseline"
-                            ? t("Предишна инструкция", "Earlier prompt")
-                            : t("След корекциите", "After fixes")}
+                          {runLabel(r.label)}
                         </th>
                         <td className="p-2 tabular-nums">
                           {pct(r.metrics.en.toolAcc)} /{" "}
