@@ -46,6 +46,9 @@ export const ROUTING_BYTE_BUDGET = INPUT_BYTE_CEILING - ROUTING_MARGIN;
 // further, never licenses a larger prompt.
 export const K_MAX = 24;
 
+import { buildToolSystemPrompt } from "../orchestrator/prompts";
+import { TOOLS_BY_NAME } from "../tools/registry";
+
 export type BudgetMessage = {
   role: "system" | "user" | "assistant";
   content: string;
@@ -77,6 +80,37 @@ export const withinBudget = (messages: readonly BudgetMessage[]): boolean =>
 /** Does this request fit the proxy's hard limit (the margin's upper edge)? */
 export const withinCeiling = (messages: readonly BudgetMessage[]): boolean =>
   proxyMessageBytes(messages) <= INPUT_BYTE_CEILING;
+
+/**
+ * The routing request for a candidate set (or the FULL catalogue when `candidates` is
+ * undefined), as the proxy will see it. THE one place step 7's `fits` callback and
+ * `selectRoute` compose the request, so the two cannot measure different things — an
+ * earlier design had the caller assemble the label and the prompt itself, which would
+ * have let the measurement drift from what was sent.
+ */
+export type RoutingMessage = { role: "system" | "user"; content: string };
+
+export const routingMessages = (
+  lang: "bg" | "en",
+  candidates: readonly string[] | undefined,
+  userContent: string,
+): RoutingMessage[] => [
+  {
+    role: "system",
+    content: buildToolSystemPrompt(
+      lang,
+      candidates?.map((n) => TOOLS_BY_NAME[n]).filter(Boolean),
+    ),
+  },
+  { role: "user", content: userContent },
+];
+
+/** Plan C1's signature: the exact byte count of a routing request. */
+export const routingRequestBytes = (
+  lang: "bg" | "en",
+  candidates: readonly string[] | undefined,
+  userContent: string,
+): number => proxyMessageBytes(routingMessages(lang, candidates, userContent));
 
 /**
  * How many bytes of slack remain before the budget is exceeded. Negative means the

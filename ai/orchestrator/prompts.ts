@@ -2,30 +2,32 @@ import { PRODUCT_DEFAULTS } from "./productDefaults";
 // M3 — prompts for the model provider: tool selection + narration.
 
 import { TOOLS } from "../tools/registry";
-import type { Envelope, Lang } from "../tools/types";
+import type { Envelope, Lang, ToolDef } from "../tools/types";
 
 // Names and parameter contracts are separate: parentheses in a tool name are invalid.
 // Include the descriptions/closed values the real validator requires.
-const toolCatalogue = (lang: Lang): string =>
-  TOOLS.map((t) => {
-    const params = t.params
-      .map((p) =>
-        [
-          p.name,
-          p.required ? "required" : "?",
-          p.type,
-          p.values ? `values=${JSON.stringify(p.values)}` : "",
-          p.min != null ? `min=${p.min}` : "",
-          p.max != null ? `max=${p.max}` : "",
-          p.default != null ? `default=${JSON.stringify(p.default)}` : "",
-          p.description[lang],
-        ]
-          .filter(Boolean)
-          .join("; "),
-      )
-      .join(" | ");
-    return `- ${t.name} — ${t.description[lang]}${params ? `\n  args: ${params}` : ""}`;
-  }).join("\n");
+const toolCatalogue = (lang: Lang, tools: readonly ToolDef[] = TOOLS): string =>
+  tools
+    .map((t) => {
+      const params = t.params
+        .map((p) =>
+          [
+            p.name,
+            p.required ? "required" : "?",
+            p.type,
+            p.values ? `values=${JSON.stringify(p.values)}` : "",
+            p.min != null ? `min=${p.min}` : "",
+            p.max != null ? `max=${p.max}` : "",
+            p.default != null ? `default=${JSON.stringify(p.default)}` : "",
+            p.description[lang],
+          ]
+            .filter(Boolean)
+            .join("; "),
+        )
+        .join(" | ");
+      return `- ${t.name} — ${t.description[lang]}${params ? `\n  args: ${params}` : ""}`;
+    })
+    .join("\n");
 
 // Curated few-shot examples spanning the arg patterns (party, election, place,
 // oblast, count, series, ministry, agency, indicator).
@@ -76,6 +78,19 @@ const FEW_SHOT: { q: string; call: string }[] = [
   },
 ];
 
+// The six examples whose shapes the router must reproduce: a scalar, a series, a
+// count, an indicator, a date pair and a plain place. Two of them are ALWAYS kept
+// when the catalogue is narrowed, because they anchor the OUTPUT SHAPE (a bare
+// tool name, args nested, JSON only) rather than a particular tool, and a
+// candidate set can easily contain none of the other nine.
+// These MUST be exact `FEW_SHOT` questions: an earlier version named a question that
+// exists only in the registry's examples, so one of the two anchors silently never
+// matched and many candidate sets had no example at all.
+const FORMAT_ANCHOR_QUESTIONS = [
+  "Колко гласа взе ГЕРБ?", // scalar with an entity
+  "What's the machine-voting % in the last 7 elections?", // series with a count
+];
+
 // Leaner system prompt for *training* (M5): catalogue + instruction, no few-shot
 // — a fine-tuned model learns the mapping and doesn't need the exemplars.
 export const buildToolTrainSystemPrompt = (lang: Lang): string =>
@@ -89,13 +104,48 @@ export const buildToolTrainSystemPrompt = (lang: Lang): string =>
     toolCatalogue(lang),
   ].join("\n");
 
-export const buildToolSystemPrompt = (lang: Lang): string => {
-  const shots = FEW_SHOT.map((s) => `Q: ${s.q}\nA: ${s.call}`).join("\n");
+/**
+ * The routing system prompt. With no `candidates` it is the FULL catalogue — the
+ * shape every published eval baseline was measured against, and the shape the
+ * cloud path still uses whenever the request fits the byte budget.
+ *
+ * With `candidates` it is narrowed to those tools (plan C3). Two things change
+ * beyond the catalogue itself:
+ *  - the instruction says to choose only from the list, because the model can
+ *    otherwise name a tool it remembers from training;
+ *  - the few-shot set keeps two FORMAT anchors plus any example whose tool is in
+ *    the list, because filtering strictly by candidate leaves many sets with no
+ *    example at all (prices, health, local) and the anchors are what pin the
+ *    output shape. `response_format: json_object` guarantees valid JSON; the
+ *    anchors guide argument structure.
+ */
+export const buildToolSystemPrompt = (
+  lang: Lang,
+  candidates?: readonly ToolDef[],
+): string => {
+  const narrowed = candidates !== undefined;
+  const tools = candidates ?? TOOLS;
+  const allowed = new Set(tools.map((t) => t.name));
+  const shots = (
+    narrowed
+      ? FEW_SHOT.filter(
+          (s) =>
+            FORMAT_ANCHOR_QUESTIONS.includes(s.q) ||
+            // The example's tool is the first bare name in its call.
+            allowed.has(s.call.replace(/^\{"tool":"([^"]+)".*$/, "$1")),
+        )
+      : FEW_SHOT
+  )
+    .map((s) => `Q: ${s.q}\nA: ${s.call}`)
+    .join("\n");
   return [
     "You are the intent router for a Bulgarian elections & governance assistant.",
     'Pick at most ONE tool that directly answers the user\'s question and output a single JSON object {"tool": <name>, "args": {...}}.',
     'If the request is outside the catalogue, asks for an unsupported action (send, buy, delete), or lacks a required entity that context cannot resolve, output {"tool":null,"args":{}}. Never substitute an unrelated tool. The tools cover Bulgarian civic data, not foreign elections.',
     'Use the exact bare tool name, without parentheses. Put ALL parameters inside "args", never at the top level. Use the declared parameter names, types, bounds and exact case-sensitive values. Do not translate enum codes. Omit unspecified optional parameters; do not invent a required entity.',
+    narrowed
+      ? `IMPORTANT: this request lists only ${tools.length} of the available tools because the catalogue is long. Choose ONLY from the tool names listed under "Tools:" below.`
+      : null,
     "Only use tool names from the catalogue. Put the relevant entity (party, place, oblast, election — a year like 2023 or a YYYY_MM_DD date, indicator, agency, ministry) in args. Always include the election when the question names a year; omit it only when no specific election is meant. Use {} when no args are needed. Output JSON only — no prose.",
     'If a conversation is included, route the line labelled the current question; use the earlier turns only to resolve references in it (an ellipsis, a pronoun, "the same", "that one", a carried-over place or party).',
     "",
@@ -103,11 +153,17 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
     "A calendar year is not a rolling duration. For turnout during a named year use turnout(election=year), never turnoutSeries(years=1). years means a rolling window ending at the latest election. Ranking tools only support their declared metric codes: EU money per resident uses regionalInvestment; basket/GDP uses basketAffordability. If the metric is unsupported, abstain.",
     PRODUCT_DEFAULTS,
     "Tools:",
-    toolCatalogue(lang),
+    toolCatalogue(lang, tools),
     "",
     "Examples:",
     shots,
-  ].join("\n");
+    // Filter ONLY the optional entry: the array carries deliberate blank lines
+    // that separate the prompt's sections, and a blanket truthiness filter would
+    // silently drop them — which changes the FULL-catalogue prompt, the shape every
+    // published eval baseline was measured against (G1b).
+  ]
+    .filter((part): part is string => part !== null)
+    .join("\n");
 };
 
 // Narration: the model gets ONLY the tool's facts and must not invent numbers.

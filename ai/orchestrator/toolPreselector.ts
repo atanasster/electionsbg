@@ -296,18 +296,18 @@ export const pruneToBudget = (
   });
   if (fits([...keptSet])) return result();
 
-  // Weakest-last: the drop order, so the surviving set is the strongest evidence
-  // that fits. `dropped` records only an ACTUAL removal — an over-cap candidate is
-  // already reported above, and pushing it again made `dropped` a multiset with up
-  // to 198 duplicate entries for a 203-candidate question.
-  const order = [...candidates].sort(
-    (a, b) =>
-      candidateStrength(a) - candidateStrength(b) ||
-      a.similarity - b.similarity ||
-      (b.lexicalRank ?? -1) - (a.lexicalRank ?? -1) ||
-      (b.domainRank ?? -1) - (a.domainRank ?? -1) ||
-      (a.tool < b.tool ? 1 : -1),
-  );
+  // The drop order is the RANKING REVERSED, and that is deliberate rather than
+  // incidental: the ranking already sorts weakest-evidence-last, so reversing it is
+  // weakest-first AND it makes the kept set a PREFIX of the ranking. That identity is
+  // what lets `prunePrefixToBudget` binary-search the same answer instead of
+  // rebuilding an 85 KB prompt ~200 times. An earlier form re-sorted with a different
+  // comparator, so the two pruners could disagree — which they did, on the first test
+  // that compared them.
+  //
+  // `dropped` records only an ACTUAL removal: an over-cap candidate is already
+  // reported above, and pushing it again made `dropped` a multiset with up to 198
+  // duplicate entries for a 203-candidate question.
+  const order = [...candidates].reverse();
   for (const candidate of order) {
     if (keptSet.size < cap && fits([...keptSet])) break;
     if (keptSet.size <= 1) break; // never empty the prompt
@@ -315,6 +315,48 @@ export const pruneToBudget = (
     dropped.push(candidate.tool);
   }
   return result();
+};
+
+/**
+ * The same result as `pruneToBudget`, by BINARY SEARCH over the prefix length.
+ *
+ * Valid because dropping weakest-first is exactly truncating the ranking's tail: the
+ * kept set for any count is a prefix of `candidates`. That matters at the call site,
+ * where `fits` rebuilds an 85 KB prompt — the linear form would rebuild it ~200
+ * times (seconds of latency on the routing path) where this needs ~8.
+ *
+ * `fits` MUST be monotone in the prefix length (a longer prefix never fits when a
+ * shorter one did not), which is true of the byte bound it exists for. The unit test
+ * asserts this agrees with `pruneToBudget` on the same inputs, so the fast path
+ * cannot drift from the contract.
+ */
+export const prunePrefixToBudget = (
+  candidates: readonly Candidate[],
+  fits: (tools: readonly string[]) => boolean,
+  kMax = Number.MAX_SAFE_INTEGER,
+): PruneResult => {
+  const cap = Math.min(candidates.length, Math.max(1, kMax));
+  const names = (n: number) => candidates.slice(0, n).map((c) => c.tool);
+  let keep: number;
+  if (fits(names(cap))) keep = cap;
+  else {
+    let lo = 1,
+      hi = cap - 1;
+    keep = 1; // never empty the prompt, even if a single tool does not fit
+    while (lo <= hi) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (fits(names(mid))) {
+        keep = mid;
+        lo = mid + 1;
+      } else hi = mid - 1;
+    }
+  }
+  const kept = candidates.slice(0, keep);
+  return {
+    kept: kept.map((c) => c.tool),
+    dropped: candidates.slice(keep).map((c) => c.tool),
+    arms: Object.fromEntries(kept.map((c) => [c.tool, c.arms])),
+  };
 };
 
 /** The candidate ToolDefs, in ranking order, for a caller building a prompt. */

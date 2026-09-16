@@ -14,10 +14,12 @@ import {
   renderRoutingContext,
 } from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
+import { buildNarrationPrompt } from "../orchestrator/prompts";
+import { K_MAX, routingMessages, withinBudget } from "./promptBudget";
 import {
-  buildNarrationPrompt,
-  buildToolSystemPrompt,
-} from "../orchestrator/prompts";
+  preselectCandidates,
+  prunePrefixToBudget,
+} from "../orchestrator/toolPreselector";
 import {
   followOnScopeNotice,
   pinElectionContext,
@@ -58,6 +60,33 @@ type Completion = {
 };
 
 type Usage = { input: number; output: number };
+
+/**
+ * Narrow the tool catalogue when — and ONLY when — the full-catalogue request would
+ * exceed the client byte budget. `undefined` means "send everything", which is the
+ * path every request takes today except the longest BG threads.
+ *
+ * Exported rather than inlined into the provider so the decision can be tested
+ * directly: it is the one place the byte bound, the pre-selector and the prompt
+ * builder meet, and a test of the pieces separately would not catch them being
+ * composed wrongly (e.g. measuring a different request than the one sent).
+ *
+ * The pruner is the BINARY-SEARCH form: `fits` rebuilds the whole system prompt, so
+ * the linear form would rebuild it ~200 times on the routing path.
+ */
+export const narrowCatalogueForBudget = (
+  question: string,
+  lang: Lang,
+  userContent: string,
+): string[] | undefined => {
+  if (withinBudget(routingMessages(lang, undefined, userContent)))
+    return undefined;
+  return prunePrefixToBudget(
+    preselectCandidates(question),
+    (tools) => withinBudget(routingMessages(lang, tools, userContent)),
+    K_MAX,
+  ).kept;
+};
 
 // Shown in the answer header when the cloud model contributed NOTHING (both the
 // routing and narration calls failed/declined) — so a fallback answer is never
@@ -239,12 +268,20 @@ export class OpenRouterProvider implements LLMProvider {
     const userContent = routingCtx
       ? `${routingCtx}\n\n${ctx.lang === "bg" ? "Текущ въпрос" : "Current question"}: ${question}`
       : question;
+    // THE BYTE BUDGET (plan C3). The full catalogue serializes to 85,121 BG /
+    // 56,632 EN bytes against a 96,000-byte proxy ceiling, and a saturated BG
+    // conversation window pushes the request past the client budget — so this branch
+    // runs today, not only after the registry grows. Narrowing happens ONLY when the
+    // request would not fit; the full-catalogue prompt is otherwise byte-identical to
+    // what every published eval baseline was measured against.
+    const allowedCandidates = narrowCatalogueForBudget(
+      question,
+      ctx.lang,
+      userContent,
+    );
     try {
       const content = await this.call(
-        [
-          { role: "system", content: buildToolSystemPrompt(ctx.lang) },
-          { role: "user", content: userContent },
-        ],
+        routingMessages(ctx.lang, allowedCandidates, userContent),
         { json: true, maxTokens: 120, temperature: 0 },
         usage,
       );
