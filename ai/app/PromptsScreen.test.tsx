@@ -155,4 +155,19 @@ describe("PromptsScreen", { timeout: 30_000 }, () => {
     );
     clearSpy.mockRestore();
   });
+
+  it("keeps the sidebar sticky and does not trap scrolling in the outer container", () => {
+    const { renderResult } = setup("bg");
+    const container = renderResult.container.firstElementChild as HTMLElement;
+    expect(container.className).not.toContain("overflow-y-auto");
+
+    const aside = screen.getByRole("complementary", {
+      name: /Съдържание по теми/i,
+    });
+    expect(aside.className).toContain("lg:sticky");
+    expect(aside.className).toContain("lg:self-start");
+
+    const nav = screen.getByRole("navigation");
+    expect(nav.className).toContain("overflow-y-auto");
+  });
 });

@@ -197,7 +197,7 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
   const Content = integrated ? "div" : "main";
 
   return (
-    <div className="flex flex-1 flex-col overflow-y-auto bg-card text-foreground">
+    <div className="flex flex-1 flex-col bg-card text-foreground">
       {!integrated && (
         <header className="flex w-full shrink-0 items-center justify-between border-b bg-muted px-4 py-3">
           <div className="flex items-center gap-2">
@@ -231,9 +231,9 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
           {/* Table of Contents (TOC) Sidebar */}
           <aside
             aria-label={en ? "Topics table of contents" : "Съдържание по теми"}
-            className="space-y-3 rounded-xl border border-border bg-card p-3.5 shadow-sm lg:sticky lg:top-[calc(var(--header-height,70px)+3.5rem)] lg:max-h-[calc(100dvh-9.5rem)] lg:overflow-y-auto"
+            className="flex flex-col space-y-3 rounded-xl border border-border bg-card p-3.5 shadow-sm lg:sticky lg:top-[calc(var(--header-height,70px)+3.5rem)] lg:self-start lg:max-h-[calc(100dvh-var(--header-height,70px)-4.5rem)]"
           >
-            <div className="flex items-center justify-between border-b pb-2 px-1">
+            <div className="flex shrink-0 items-center justify-between border-b pb-2 px-1">
               <span className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <ListTree className="size-4 text-primary" />
                 {en ? "Topics & Subtopics" : "Теми и подтеми"}
@@ -244,7 +244,7 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
             </div>
 
             {/* Search Input inside sidebar */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <Search
                 aria-hidden
                 className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
@@ -274,7 +274,7 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
             </div>
 
             {/* Mobile topic dropdown (visible on screens < lg) */}
-            <div className="block lg:hidden">
+            <div className="block shrink-0 lg:hidden">
               <label htmlFor="mobile-topic-select" className="sr-only">
                 {en ? "Select topic" : "Изберете тема"}
               </label>
@@ -321,7 +321,7 @@ export const PromptsScreen = ({ integrated = true }: PromptsScreenProps) => {
               </select>
             </div>
 
-            <nav className="hidden lg:block space-y-1 pt-0.5">
+            <nav className="hidden lg:block min-h-0 flex-1 overflow-y-auto space-y-1 pt-0.5">
               {/* All Topics Option */}
               <button
                 type="button"
