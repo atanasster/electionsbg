@@ -19,9 +19,11 @@ import { fileURLToPath } from "node:url";
 import { drawWordmark, FONT, THEME } from "../posts/cardKit";
 import { DOMAIN_LABELS, TOOLS } from "../../ai/tools/registry";
 import type { Domain } from "../../ai/tools/types";
+import { SITE_HOST } from "../../src/lib/siteOrigin";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const OUT = join(ROOT, "ai/assets/tools-og.png");
+const OUT_PUBLIC = join(ROOT, "public/og/chat-tools.png");
 
 type Ctx = SKRSContext2D;
 const pal = THEME.dark;
@@ -141,14 +143,17 @@ const main = () => {
   ctx.font = `700 30px ${FONT}`;
   ctx.fillStyle = pal.accent;
   ctx.textAlign = "left";
-  ctx.fillText("ai.electionsbg.com/tools", PAD, H - 36);
+  ctx.fillText(`${SITE_HOST}/chat/tools`, PAD, H - 36);
   ctx.font = `500 24px ${FONT}`;
   ctx.fillStyle = pal.muted;
   ctx.textAlign = "right";
   ctx.fillText("отворен код · реални данни", W - PAD, H - 38);
 
-  writeFileSync(OUT, canvas.toBuffer("image/png"));
+  const buf = canvas.toBuffer("image/png");
+  writeFileSync(OUT, buf);
+  writeFileSync(OUT_PUBLIC, buf);
   console.error(`wrote ${OUT} (${count} tools, ${rows.length} domains)`);
+  console.error(`wrote ${OUT_PUBLIC}`);
 };
 
 // local rounded-rect (cardKit's is not exported)

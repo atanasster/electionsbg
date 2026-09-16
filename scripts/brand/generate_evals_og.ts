@@ -16,9 +16,11 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { drawWordmark, FONT, THEME } from "../posts/cardKit";
+import { SITE_HOST } from "../../src/lib/siteOrigin";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const OUT = join(ROOT, "ai/assets/evals-og.png");
+const OUT_PUBLIC = join(ROOT, "public/og/chat-evals.png");
 const ARTIFACT = join(ROOT, "data/ai/evals/fc_eval.json");
 
 type Ctx = SKRSContext2D;
@@ -146,14 +148,17 @@ const main = () => {
   ctx.font = `700 30px ${FONT}`;
   ctx.fillStyle = pal.accent;
   ctx.textAlign = "left";
-  ctx.fillText("ai.electionsbg.com/evals", PAD, H - 34);
+  ctx.fillText(`${SITE_HOST}/chat/evals`, PAD, H - 34);
   ctx.font = `500 24px ${FONT}`;
   ctx.fillStyle = pal.muted;
   ctx.textAlign = "right";
   ctx.fillText("отворен бенчмарк · отворен код", W - PAD, H - 36);
 
-  writeFileSync(OUT, canvas.toBuffer("image/png"));
+  const buf = canvas.toBuffer("image/png");
+  writeFileSync(OUT, buf);
+  writeFileSync(OUT_PUBLIC, buf);
   console.error(`wrote ${OUT} (${headline}, ${bars.length} models)`);
+  console.error(`wrote ${OUT_PUBLIC}`);
 };
 
 // local rounded-rect (cardKit's is not exported)

@@ -21,10 +21,12 @@ import {
 } from "@napi-rs/canvas";
 import sharp from "sharp";
 import { BG_OBLASTS } from "../../ai/app/hero/bgOblastPaths";
+import { SITE_HOST } from "../../src/lib/siteOrigin";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "../..");
 const OUT = resolve(ROOT, "ai/assets/og.png");
+const OUT_PUBLIC = resolve(ROOT, "public/og/chat.png");
 const BG = resolve(ROOT, "ai/assets/hero-bg-dark.webp");
 
 const W = 1200;
@@ -264,7 +266,7 @@ const main = async () => {
   ctx.textBaseline = "alphabetic";
   ctx.fillStyle = ACCENT;
   ctx.font = `600 22px ${FONT}`;
-  ctx.fillText("ai.electionsbg.com", W / 2, 72);
+  ctx.fillText(`${SITE_HOST}/chat`, W / 2, 72);
 
   // wordmark "Наясно AI" — Наясно in fg, AI in mint
   ctx.font = `800 58px ${FONT}`;
@@ -318,8 +320,12 @@ const main = async () => {
     );
   });
 
-  writeFileSync(OUT, canvas.toBuffer("image/png"));
+  mkdirSync(dirname(OUT_PUBLIC), { recursive: true });
+  const buf = canvas.toBuffer("image/png");
+  writeFileSync(OUT, buf);
+  writeFileSync(OUT_PUBLIC, buf);
   console.log(`-> ${OUT} (${W}x${H})`);
+  console.log(`-> ${OUT_PUBLIC} (${W}x${H})`);
 };
 
 main().catch((e) => {

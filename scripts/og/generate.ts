@@ -316,45 +316,13 @@ const main = async () => {
     "about.png",
   );
 
-  // The chat family. All three were falling through to the site-wide card, so a
-  // shared /chat link advertised the homepage rather than the feature — which
-  // matters more here than elsewhere, because the chat is the thing being
-  // launched and the link is how it spreads.
-  renderStaticPageCard(
-    "Попитай Наясно",
-    "Въпроси и отговори с източници за публичните данни за България",
-    [
-      { label: "отговори", value: "от данните" },
-      { label: "източник", value: "на всяко число" },
-      { label: "начало", value: "без AI" },
-      { label: "език", value: "BG / EN" },
-    ],
-    "chat.png",
-  );
-
-  renderStaticPageCard(
-    "Инструменти и данни",
-    "Кои заявки съществуват, какви параметри приемат и какво стои зад тях",
-    [
-      { label: "заявки", value: "по тема" },
-      { label: "параметри", value: "видими" },
-      { label: "данни", value: "публични" },
-      { label: "език", value: "BG / EN" },
-    ],
-    "chat-tools.png",
-  );
-
-  renderStaticPageCard(
-    "Оценка на асистента",
-    "Измерва избора на заявка и аргументи — не фактическата точност на отговора",
-    [
-      { label: "измерва", value: "избор на заявка" },
-      { label: "не измерва", value: "точност" },
-      { label: "метод", value: "публичен" },
-      { label: "език", value: "BG / EN" },
-    ],
-    "chat-evals.png",
-  );
+  // The chat family (/chat, /chat/tools, /chat/evals) uses custom branded OG
+  // cards (public/og/{chat,chat-tools,chat-evals}.png) rendered by their
+  // dedicated generators in scripts/brand/ (generate_ai_og.ts,
+  // generate_tools_og.ts, generate_evals_og.ts). They live under public/og/ and
+  // ship through the static-asset copy — no jobs are queued here so postbuild
+  // does not overwrite the custom collage and reference graphics with generic
+  // text cards.
 
   // /risk-analysis, /risk-score, /benford, /persistence, /wasted-vote and
   // /connections use Playwright screenshots of the live dashboards instead
