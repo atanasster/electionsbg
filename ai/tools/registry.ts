@@ -4177,8 +4177,8 @@ export const TOOLS: ToolDef[] = [
         en: "Which independent body or regulator does this person sit on?",
       },
       {
-        bg: "Кой е Явор Чавдаров Стефанов?",
-        en: "Who is Yavor Chavdarov Stefanov?",
+        bg: "Кой е Димитър Главчев?",
+        en: "Who is Dimitar Glavchev?",
       },
     ],
     run: personProfile,

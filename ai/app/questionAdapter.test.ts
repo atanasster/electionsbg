@@ -75,7 +75,7 @@ describe("chat question adapter", () => {
         .map((prompt) => [prompt.id, prompt.bg, prompt.args.bg]),
     ).toEqual([
       ["companyProfile", "Фирма Провиотик", { company: "Провиотик" }],
-      ["personProfile", "Кой е Явор Стефанов?", { name: "Явор Стефанов" }],
+      ["personProfile", "Кой е Димитър Главчев?", { name: "Димитър Главчев" }],
       [
         "schoolMatura",
         "Училище „Свети Свети Кирил и Методий“",

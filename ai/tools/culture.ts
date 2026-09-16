@@ -433,7 +433,12 @@ export const filmSubsidyForProducer = async (
     title: bg ? `Филмова субсидия за ${name}` : `Film subsidy for ${name}`,
     columns: [
       { key: "title", label: bg ? "Проект" : "Project" },
-      { key: "year", label: bg ? "Година" : "Year", numeric: true },
+      {
+        key: "year",
+        label: bg ? "Година" : "Year",
+        numeric: true,
+        format: "year",
+      },
       { key: "total", label: bg ? "Субсидия" : "Subsidy", numeric: true },
     ],
     rows: top.map((x) => ({

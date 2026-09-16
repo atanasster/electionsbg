@@ -625,7 +625,12 @@ export const judiciaryDeclarations = async (
   }));
   const columns: Column[] = [
     { key: "list", label: bg ? "Списък на ИВСС" : "Inspectorate list" },
-    { key: "year", label: bg ? "Година" : "Year", numeric: true },
+    {
+      key: "year",
+      label: bg ? "Година" : "Year",
+      numeric: true,
+      format: "year",
+    },
     { key: "ref", label: bg ? "Основание" : "Provision" },
     { key: "people", label: bg ? "Души" : "People", numeric: true },
   ];

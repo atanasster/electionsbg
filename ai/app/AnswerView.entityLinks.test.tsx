@@ -134,4 +134,78 @@ describe("AnswerView table entity links", () => {
       screen.getByRole("link", { name: "Да запазим Корал" }),
     ).toHaveAttribute("href", "/company/123456789");
   });
+
+  it("does not format years with thousands separators in tables or facts", () => {
+    const tableEnv: Envelope = {
+      tool: "personWealth",
+      domain: "people",
+      kind: "table",
+      title: "Георги Димитров Кандев — декларирано имущество по години",
+      columns: [
+        { key: "year", label: "Година", format: "year" },
+        { key: "net", label: "Нетно (€)", numeric: true, format: "int" },
+        { key: "assets", label: "Активи (€)", numeric: true, format: "int" },
+      ],
+      rows: [
+        { year: 2021, net: 15352, assets: 21060 },
+        { year: 2022, net: -67318, assets: 23008 },
+        { year: 2026, net: 15915, assets: 115333 },
+      ],
+      facts: {
+        "най-нова година": 2026,
+        "нетно (последно)": 15915,
+      },
+      viz: "none",
+      provenance: [],
+    };
+
+    const { container, unmount } = render(
+      <MemoryRouter>
+        <AnswerView env={tableEnv} />
+      </MemoryRouter>,
+    );
+
+    // Verify year cells in table are 2021, 2022, 2026 without separators
+    const cells = Array.from(container.querySelectorAll("td")).map(
+      (td) => td.textContent,
+    );
+    expect(cells).toContain("2021");
+    expect(cells).toContain("2022");
+    expect(cells).toContain("2026");
+    expect(cells).not.toContain("2,021");
+    expect(cells).not.toContain("2,022");
+    expect(cells).not.toContain("2,026");
+    expect(cells).not.toContain("2 021");
+    expect(cells).not.toContain("2 022");
+    expect(cells).not.toContain("2 026");
+
+    unmount();
+
+    // Verify scalar facts also do not format year as thousands
+    const scalarEnv: Envelope = {
+      tool: "personWealth",
+      domain: "people",
+      kind: "scalar",
+      title: "Декларации",
+      facts: {
+        "най-нова година": 2026,
+        "общо декларирано (€)": 115333,
+      },
+      viz: "none",
+      provenance: [],
+    };
+
+    const { container: scalarContainer } = render(
+      <MemoryRouter>
+        <AnswerView env={scalarEnv} />
+      </MemoryRouter>,
+    );
+
+    const dds = Array.from(scalarContainer.querySelectorAll("dd")).map(
+      (dd) => dd.textContent,
+    );
+    expect(dds).toContain("2026");
+    expect(dds).not.toContain("2,026");
+    expect(dds).not.toContain("2 026");
+  });
 });

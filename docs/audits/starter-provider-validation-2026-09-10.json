@@ -8878,36 +8878,36 @@
   {
     "id": "personProfile",
     "lang": "bg",
-    "text": "Кой е Явор Стефанов?",
+    "text": "Кой е Димитър Главчев?",
     "tool": "personProfile",
     "args": {
-      "name": "Явор Стефанов"
+      "name": "Димитър Главчев"
     },
-    "title": "Кое лице „Явор Стефанов“ имате предвид?",
+    "title": "Димитър Борисов Главчев",
     "rows": null,
     "facts": {},
     "provenance": [
       "person-lookup",
       "person_by_slug (082_person_api.sql)"
     ],
-    "clarify": true
+    "clarify": false
   },
   {
     "id": "personProfile",
     "lang": "en",
-    "text": "Who is Yavor Stefanov?",
+    "text": "Who is Dimitar Glavchev?",
     "tool": "personProfile",
     "args": {
-      "name": "Yavor Stefanov"
+      "name": "Dimitar Glavchev"
     },
-    "title": "Which person \"Yavor Stefanov\" do you mean?",
+    "title": "Dimitar Borisov Glavchev",
     "rows": null,
     "facts": {},
     "provenance": [
       "person-lookup",
       "person_by_slug (082_person_api.sql)"
     ],
-    "clarify": true
+    "clarify": false
   },
   {
     "id": "personConnections",

@@ -24,7 +24,7 @@ export type Series = {
   points: SeriesPoint[];
 };
 
-export type ColumnFormat = "int" | "pct" | "text";
+export type ColumnFormat = "int" | "pct" | "text" | "year";
 
 export type Column = {
   key: string;

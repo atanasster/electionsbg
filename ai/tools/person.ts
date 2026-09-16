@@ -680,7 +680,7 @@ export const personWealth = async (
       ? `${prof.name} — декларирано имущество по години`
       : `${prof.name} — declared wealth by year`,
     columns: [
-      { key: "year", label: bg ? "Година" : "Year" },
+      { key: "year", label: bg ? "Година" : "Year", format: "year" },
       {
         key: "net",
         label: bg ? "Нетно (€)" : "Net (€)",

@@ -57,10 +57,29 @@ const CHART_VARS = [
   "hsl(var(--chart-5))",
 ];
 
+const isYear = (value: number, col: Column): boolean => {
+  if (col.format === "year") return true;
+  if (col.format === "pct") return false;
+  const key = col.key.toLowerCase();
+  const label = col.label.toLowerCase();
+  if (
+    key === "year" ||
+    key === "година" ||
+    label === "year" ||
+    label === "година" ||
+    /(?:^|[_\s])(year|година)(?:[_\s]|$)/i.test(key) ||
+    /(?:^|[_\s])(year|година)(?:[_\s]|$)/i.test(label)
+  ) {
+    return Number.isInteger(value) && value >= 1000 && value <= 2100;
+  }
+  return false;
+};
+
 const fmtCell = (value: string | number | null, col: Column): string => {
   if (value == null) return "—";
   if (typeof value === "number") {
     if (col.format === "pct") return `${value.toLocaleString()}%`;
+    if (isYear(value, col)) return String(value);
     return value.toLocaleString();
   }
   return value;
