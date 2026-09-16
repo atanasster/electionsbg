@@ -1,6 +1,47 @@
 {
-  "updatedAt": "2026-09-14T23:02:59.123Z",
+  "updatedAt": "2026-09-16T00:32:17.506Z",
   "entries": [
+    {
+      "timestamp": "2026-09-16T00:32:17.506Z",
+      "date": "2026-09-16",
+      "skill": "update-funds",
+      "summary": "ИСУН clean-delivery register + keep.eu Interreg refreshed (URBACT-2127 re-import)",
+      "source": "ИСУН / keep.eu Interreg"
+    },
+    {
+      "timestamp": "2026-09-16T00:05:13.213Z",
+      "date": "2026-09-16",
+      "skill": "kzk_decisions",
+      "summary": "КЗК decisions register refreshed: 60 new acts for 2026 (решения+определения)",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-09-15T23:46:42.262Z",
+      "date": "2026-09-15",
+      "skill": "update-grao",
+      "summary": "ГРАО settlement population refreshed to 2026-09-15",
+      "source": "ГРАО: население по постоянен и настоящ адрес"
+    },
+    {
+      "timestamp": "2026-09-15T23:46:01.229Z",
+      "date": "2026-09-15",
+      "skill": "update-macro",
+      "summary": "Eurostat macro refresh through 2026 Q2 (GDP growth, inflation, unemployment)",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-15T23:30:37.239Z",
+      "date": "2026-09-15",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 932 лица, 125 072 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-09-14T23:02:59.123Z",
       "date": "2026-09-14",
