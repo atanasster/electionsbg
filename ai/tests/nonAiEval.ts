@@ -10,8 +10,8 @@ import { STARTER_CASES } from "../llm/currentEval.starters";
 import { selectHeuristicRoute } from "../llm/heuristicRoute";
 import { validateToolArgs } from "../orchestrator/toolSchema";
 import { decodeProcurementQuery } from "../../src/lib/procurementQuery";
-import type { Lang, Route } from "../orchestrator/router";
-import type { ToolArgs } from "../tools/types";
+import type { Route } from "../orchestrator/router";
+import type { Lang, ToolArgs } from "../tools/types";
 // Re-exported from currentEval so the group list, the billed harness's selector
 // and this floor denominator have one source of truth.
 export { LEGACY_GROUPS };

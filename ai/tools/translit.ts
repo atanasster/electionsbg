@@ -38,11 +38,27 @@ const CYR2LAT: Record<string, string> = {
 
 // Lowercase, romanize each Cyrillic letter (Latin passes through unchanged),
 // collapse separators to single spaces — the common key both scripts compare in.
+//
+// NFC FIRST, and it is not cosmetic: a decomposed `й` (NFD) is `и` + a combining
+// breve, which maps to "i" + the breve and splits the token, so the same word in
+// NFD and NFC form would produce different tokens and match nothing alike.
 export const translitKey = (s: string): string =>
   s
+    .normalize("NFC")
     .toLowerCase()
     .split("")
     .map((ch) => CYR2LAT[ch] ?? ch)
     .join("")
     .replace(/[\s.\-_]+/g, " ")
     .trim();
+
+// Is one romanized string a stem prefix of the other, and long enough to be
+// evidence? Shared so the pipeline has ONE prefix rule: `domainScope` uses it to
+// widen a token against the derived vocabulary, and `typoMatch` to land a
+// corrected word on an inflected example token. A 5-character floor is what keeps
+// a short stem from attaching unrelated words.
+export const MIN_STEM = 5;
+export const stemPrefix = (a: string, b: string, min = MIN_STEM): boolean => {
+  const [prefix, longer] = a.length <= b.length ? [a, b] : [b, a];
+  return prefix.length >= min && longer.startsWith(prefix);
+};

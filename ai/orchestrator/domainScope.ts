@@ -1,5 +1,5 @@
 import { TOOLS } from "../tools/registry";
-import { translitKey } from "../tools/translit";
+import { stemPrefix, translitKey } from "../tools/translit";
 import type { Domain } from "../tools/types";
 
 // The domain-scope trigger for candidate pre-selection (plan C2.2).
@@ -296,10 +296,6 @@ export const scopeTokens = (text: string): string[] =>
     .filter(Boolean);
 
 const MIN_TOKEN = 4;
-// A prefix must be at least this long, in EITHER direction — the rule below is
-// symmetric even though it reads as two conditions. With MIN_TOKEN = 4, a
-// 4-character derived token can therefore only ever match EXACTLY.
-const MIN_PREFIX = 5;
 
 // A SECOND, DERIVED vocabulary: every token the registry's own bilingual examples
 // use, mapped to the domain(s) of the tools that use it. The curated list above
@@ -343,15 +339,13 @@ const derivedByDomain: Map<Domain, string[]> = (() => {
   return m;
 })();
 
-// One token vs one domain's derived stems. A match is "the shorter string is a
-// prefix of the longer one", and the PREFIX must be at least MIN_PREFIX — one
-// rule, applied in either direction, so inflection is tolerated both ways (the
-// query "общината" reaches the stem "община"; the stem "общин" reaches "община").
+// One token vs one domain's derived stems: `stemPrefix` (shared with typoMatch),
+// applied in either direction so inflection is tolerated both ways — the query
+// "общината" reaches the stem "община", and the stem "общин" reaches "община". A
+// 4-character derived token can therefore only ever match EXACTLY, because the
+// shared rule requires a 5-character prefix.
 const derivedHit = (token: string, stems: readonly string[]): boolean =>
-  stems.some((s) => {
-    const [prefix, longer] = token.length <= s.length ? [token, s] : [s, token];
-    return prefix.length >= MIN_PREFIX && longer.startsWith(prefix);
-  });
+  stems.some((s) => stemPrefix(token, s));
 
 const matchesAnchor = (anchor: FlatAnchor, tokens: string[]): boolean => {
   if (anchor.kind === "stem")
