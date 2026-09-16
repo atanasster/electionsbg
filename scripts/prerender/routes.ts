@@ -1825,7 +1825,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   },
   {
     path: "chat/prompts",
-    ogImage: "/og/chat.png",
+    ogImage: "/og/chat-prompts.png",
     title: "Примерни въпроси | Наясно",
     description:
       "Разгледайте проверените примерни въпроси към асистента Наясно по теми за избори, бюджет, поръчки и институции.",

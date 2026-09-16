@@ -316,13 +316,13 @@ const main = async () => {
     "about.png",
   );
 
-  // The chat family (/chat, /chat/tools, /chat/evals) uses custom branded OG
-  // cards (public/og/{chat,chat-tools,chat-evals}.png) rendered by their
-  // dedicated generators in scripts/brand/ (generate_ai_og.ts,
-  // generate_tools_og.ts, generate_evals_og.ts). They live under public/og/ and
-  // ship through the static-asset copy — no jobs are queued here so postbuild
-  // does not overwrite the custom collage and reference graphics with generic
-  // text cards.
+  // The chat family (/chat, /chat/tools, /chat/evals, /chat/prompts) uses custom
+  // branded OG cards (public/og/{chat,chat-tools,chat-evals,chat-prompts}.png)
+  // rendered by their dedicated generators in scripts/brand/ (generate_ai_og.ts,
+  // generate_tools_og.ts, generate_evals_og.ts, generate_prompts_og.ts). They
+  // live under public/og/ and ship through the static-asset copy — no jobs are
+  // queued here so postbuild does not overwrite the custom collage and reference
+  // graphics with generic text cards.
 
   // /risk-analysis, /risk-score, /benford, /persistence, /wasted-vote and
   // /connections use Playwright screenshots of the live dashboards instead
