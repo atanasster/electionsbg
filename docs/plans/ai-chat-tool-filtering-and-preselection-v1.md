@@ -119,7 +119,7 @@ flowchart TD
     Measure --> Fits{"≤ ROUTING_BYTE_BUDGET<br/>(92,000 B)?"}
     Fits -- "Yes (every request today)" --> FullPrompt["Full 235-tool catalogue<br/>(byte-identical to today — G1b)"]
     Fits -- "No (the growth guard fires)" --> Select["3. Candidate selection — UNION ONLY<br/>a) domain scope + topic boost  b) lexical top-K<br/>c) verbatim example match  d) typo matcher  e) core pins"]
-    Select --> Sized{"4. Re-measure; rank, then cap at K_MAX=24"}
+    Select --> Sized{"4. Re-measure; rank, then keep the longest<br/>prefix that fits the byte budget"}
     Sized --> Constrained["Constrained catalogue (measured, not assumed)"]
     FullPrompt --> Gemini["Gemini 3.5 Flash-Lite via /api/llm"]
     Constrained --> Gemini
@@ -130,7 +130,7 @@ flowchart TD
 
 Design constraints:
 
-- **The binding constraint is bytes, not a tool count.** No fixed "K = 14" is promised; K falls out of the measurement, capped by `K_MAX`.
+- **The binding constraint is bytes, and there is NO tool-count cap.** An earlier revision specified `K_MAX = 24` as an attention bound; measurement removed it. It was the ONLY binding constraint in the live path — the pre-selected set for a saturated BG thread (203 tools) already fits at 83,343 B — and it cost the gold tool for 9.9% of the eval corpus (35.5% of non-verbatim calls) against 0.5% with the byte bound alone. G2 (§6) then measured candidate-set recall directly: 0.56 @16 against 0.86–0.91 at the depth the byte bound actually keeps. A count cap cannot come back without a ranker that clears those numbers.
 - **Every candidate arm only adds.** Arms are unioned; a later stage may *rank and prune* against the byte budget, but no arm may intersect away another arm's contribution. This is what Rev 3's fiscal subtopic rule violated (§7).
 - **The full-catalogue path is untouched.** When the budget is not exceeded the emitted prompt must be byte-identical to today's, asserted for free (G1b).
 - **The rules-first bypass box stays gone.** Rev 1 drew "Heuristic `route()` confident? (Score = 1.0) → bypass the cloud LLM". There is no score: `route()` returns `{tool,args} | null` (`router.ts:5207`, `Route` at `:54`), and the cloud path is deliberately model-first (`openrouter.ts:216-236` bypasses the model for exactly 7 pinned tools). Promoting a router measured at 200/776 above one measured at 97% is a large, unmeasured accuracy change and is out of scope.
@@ -143,7 +143,7 @@ Design constraints:
 
 - `routingRequestBytes(lang, candidates, userContent): number` — exact UTF-8 length of the proxy-equivalent serialization. Exact rather than estimated because the proxy re-serializes only `{role, content}` (`functions/llm_security.js:99-104`).
 - `ROUTING_BYTE_BUDGET = POLICY.inputBytes - MARGIN`, with `MARGIN = 4_000` and the margin's purpose stated in a comment (headroom for a future proxy framing addition; the count itself is exact, so this is not an estimation error budget). Rev 3's 8,000 B cost ~7,400 B of unnecessary narrowing — see §1.3.
-- `K_MAX = 24` — an attention bound for §1.4, applied on top of the byte bound, never instead of it.
+- **NO tool-count cap.** See §3: `K_MAX` was measured to be the only binding constraint and to cost reachability, so the byte bound is the sole pruner. Any future cap must be justified by a G2 measurement at that depth.
 
 ### C2 — `ai/orchestrator/toolPreselector.ts` (new): union-only candidate selection
 
@@ -154,12 +154,12 @@ Ordered by cost. No new committed artifact and no model download.
    - **The `indicators` hole (Rev 3) must be closed.** Measured: all 12 prices/basket/chain/macro tools live in `indicators` — `electricityPrices`, `gasPrices`, `priceIndex`, `settlementPrices`, `productPrice`, `cheapestChains`, `priceRanking`, `basketAffordability`, `basketVsInflation`, `euFoodPriceLevels`, `fuelPrices`, `chainProfile`. Rev 3 labelled prices "a sub-domain of fiscal/indicators" and gave `indicators` no anchor, leaving 40 tools (17% of the registry) to the lexical arm alone.
    - Triggers: EKATTE place/settlement → `local` + `place`; party token → `elections`; person/magistrate name → `people`; retail/chain/product/basket/macro/land token → `indicators`; ministry/budget/contract/tender/fund/subsidy token → `fiscal`.
    - **Unicode-aware boundaries are mandatory.** Write `(?![\p{L}\p{N}])` with the `u` flag, never `\b` — `\b` is ASCII-only and never matches after a Cyrillic letter, a rule this repo already documents in `CLAUDE.md` (the `tender_subcontracting` note). Named traps to test: `съд` also matches *съдържа / съдба / съдействие / съдружник*; `град` also matches *гражданин / виноградарство*; `съвет` matches **Министерски съвет** (national government, not `local`).
-   - **Within a domain, topic matches boost rank; they never exclude.** This replaces Rev 3's subtopic partition (§7) and is what handles `fiscal` (90 tools > `K_MAX`): boost bucket → lexical score → cap at `K_MAX`. Union semantics are preserved because nothing is removed from the arm, only pruned by the cap.
-3. **Lexical top-K** via the existing `retrieveTools()` (`ai/llm/retrieve.ts`, fuse.js). Already a dependency of the main bundle (`src/layout/search/*`), so reuse is free. Measured 49.1% @8 on the real input, so it rides as an *extra* arm and never as the sole one. For the `fiscal` overflow, K is raised to `K_MAX` rather than 8.
+   - **Within a domain, topic matches boost rank; they never exclude.** This replaces Rev 3's subtopic partition (§7) and is what orders `fiscal` (90 tools): boost bucket, then lexical score. Union semantics are preserved because nothing is removed from the arm — only the byte bound prunes, and it does so from the ranking's tail.
+3. **Lexical top-K** via the existing `retrieveTools()` (`ai/llm/retrieve.ts`, fuse.js). Already a dependency of the main bundle (`src/layout/search/*`), so reuse is free. Measured 49.1% @8 on the real input, so it rides as an *extra* arm and never as the sole one. **G2 measured this arm as the binding ceiling**: candidate-set recall on the held-out residual is 0.439 @8 and 0.561 @16, against 0.864 @150. The union ranks tool-level evidence ABOVE domain membership because the reverse order measured 0.462 @16 — a domain block of 40–90 tools otherwise fills the top of the ranking.
 4. **Typo / alternate-word matches** from C5.
 5. **Core pins**: `governanceProfile`, `macroIndicator`, `budgetOverview`.
 
-Then rank and prune until the re-measured request fits the budget, or `K_MAX` is reached.
+Then keep the longest prefix of that ranking whose re-measured request fits the budget. The kept set is a PREFIX of the ranking (the drop order is the ranking reversed), which is what lets the binary-search pruner return the same answer without rebuilding an 85 KB prompt ~200 times.
 
 ### C3 — `buildToolSystemPrompt(lang, candidates?)` (`ai/orchestrator/prompts.ts`)
 
@@ -290,7 +290,7 @@ Gates marked **free** require no API call; `npm run ai:test:non-ai` is self-cont
 
 - **Fiscal subtopic partitioning (Rev 3's C2.2), deleted.** Measured against the plan's own four topic names in `ai/app/toolTopics.json`: `procurement` covers **15** fiscal tools (not ~25), `budget` **7** + `ministries` **2** = **9** (not ~30), `funds` **11** (not ~18), and **`subsidies` is not a topic string at all — 0** (not ~10). That is 35 of 90 covered and **55 uncovered**; even generous topic-broadening reaches only 56 with **38 uncovered** and **4 tools double-assigned** (`roadsSpending`, `projectLifecycle`, `subsidiesOverview`, `subsidiesByScheme`), so it is not a partition.
   Worse, the rule "only that subtopic enters the candidate pool" **intersects** away up to 55 of 90 fiscal tools and contradicts the union semantics C2 depends on: "Разходите на НЗОК за лекарства" matches `разход` → budget (9 tools) → the 11 НЗОК tools are excluded and the model cannot pick them.
-  And it is unnecessary: the real fiscal topic histogram is long-tailed (`public-money` 23, `procurement` 15, `funds` 11, `health` 11, `projects` 7, `budget` 7, `pensions-support` 7, `contracts` 6, `business` 6, `culture-tourism` 6, …) — a correct partition needs ~15–20 groups, while even Rev 3's own optimistic counts exceed `K_MAX` by 2. Rev 4 keeps **boost-then-cap**, which is deterministic without a taxonomy. Note also that Rev 3 cited the wrong file: `toolTopics.json` is a *tool→topics* map, while the codified taxonomy is `starterCategories.json` (18 categories / 64 subcategories).
+  And it is unnecessary: the real fiscal topic histogram is long-tailed (`public-money` 23, `procurement` 15, `funds` 11, `health` 11, `projects` 7, `budget` 7, `pensions-support` 7, `contracts` 6, `business` 6, `culture-tourism` 6, …) — a correct partition needs ~15–20 groups, while Rev 3's own optimistic counts exceeded the (since-removed) count cap by 2. Rev 4+ keeps **boost-then-rank**, which is deterministic without a taxonomy. Note also that Rev 3 cited the wrong file: `toolTopics.json` is a *tool→topics* map, while the codified taxonomy is `starterCategories.json` (18 categories / 64 subcategories).
 - **A fixed-K hand-rolled BM25 + char-3-gram + Bulgarian stem list** (Rev 1's C1). The repo's own ranker table puts the lexical family at 49.1% @8 on the real input against **100.0% @8** for an already-measured fine-tuned `e5-small` (~45 MB q8), and it needs a committed artifact plus a G6 gate. Escalation order if G2 is insufficient: the committed `tool_vectors.json` (e5-base, 235×768) → the 45 MB fine-tuned `e5-small` → `gemini-embedding-001` (95.1%). The first two carry a real product cost (a model download on a path that needs none today), which is why they are not the default. C5's bounded edit distance is **not** this: it fixes surface variation, not recall.
 - **A second cloud call: domain hop, or a cloud embedding call.** Blocked by `POLICY.calls = 3` with route + narration already consuming two, and both need `functions/llm_security.js` changed (the model is pinned at `:6`/`:77`, `body.tools` rejected at `:93-98`). A separate workstream.
 - **Compressing the existing catalogue in place.** Parameter descriptions total only **11,899 B** of the 81,041 B BG catalogue; the bulk is tool descriptions **56,516 B** plus argument scaffolding. Trimming metadata buys ~15% and spends the disambiguation quality that makes the 97% possible.
