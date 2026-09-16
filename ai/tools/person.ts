@@ -137,6 +137,28 @@ const exactNameFold = (name: string): string =>
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 
+const nameTokensMatch = (personName: string, query: string): boolean => {
+  const pFold = exactNameFold(personName);
+  const qFold = exactNameFold(query);
+  if (pFold === qFold) return true;
+  const pTokens = pFold.split(/\s+/).filter(Boolean);
+  const qTokens = qFold.split(/\s+/).filter(Boolean);
+  if (qTokens.length === 0) return false;
+  if (qTokens.length === 1) return pTokens.includes(qTokens[0]);
+  if (qTokens.length === 2) {
+    return (
+      pTokens[0] === qTokens[0] && pTokens[pTokens.length - 1] === qTokens[1]
+    );
+  }
+  let pIdx = 0;
+  for (const qTok of qTokens) {
+    const found = pTokens.indexOf(qTok, pIdx);
+    if (found === -1) return false;
+    pIdx = found + 1;
+  }
+  return true;
+};
+
 // Prefer the resolved public-person profile, then widen profile questions to the same
 // three-tier index used by /persons (public people + private company participants). An exact
 // script-independent full-name hit wins over fuzzy candidates; only a genuine tie asks the
@@ -209,17 +231,21 @@ const resolvePersonProfile = async (
   const unique = (hits ?? []).filter(
     (hit): hit is { slug: string; name: string } => !!hit.slug && !!hit.name,
   );
-  if (unique.length > 1)
+  if (unique.length === 0) return { kind: "missing" };
+
+  const exact = unique.filter((hit) => nameTokensMatch(hit.name, query));
+  const candidates = exact.length ? exact : unique;
+
+  if (candidates.length > 1)
     return {
       kind: "ambiguous",
-      hits: unique.map((hit) => ({
+      hits: candidates.map((hit) => ({
         value: hit.slug,
         name: hit.name,
       })),
     };
-  if (unique.length === 0) return { kind: "missing" };
   const profile = await fetchDb<PersonProfilePayload>("person-profile", {
-    slug: unique[0].slug,
+    slug: candidates[0].slug,
   });
   return profile?.slug ? { kind: "found", profile } : { kind: "missing" };
 };

@@ -45,6 +45,8 @@ describe("person-tool routing", () => {
   // personWealth — a name + a declared-wealth cue. Must win over the generic profile.
   it.each([
     "Какво имущество е декларирал Бойко Борисов?",
+    "какво е имуществото на георги кандев",
+    "имуществото на георги кандев",
     "Каква е нетната стойност на Делян Пеевски?",
     "Покажи активите и задълженията на Кирил Петков",
     "Колко е декларирал Иван Демерджиев?",
@@ -56,12 +58,50 @@ describe("person-tool routing", () => {
     expect(r?.args.name).toBeTruthy();
   });
 
+  // Lowercase cues for other person tools
+  it.each([
+    ["кой е георги кандев", "personProfile"],
+    ["с кого е свързан георги кандев", "personConnections"],
+    ["фирмите на георги кандев", "personProfile"],
+  ])("routes lowercase query %s -> %s", (q, expectedTool) => {
+    const r = route(q, ctx);
+    expect(r?.tool).toBe(expectedTool);
+    expect(r?.args.name).toBeDefined();
+  });
+
+  // Feminine queries for person tools
+  it.each([
+    ["С кого е свързана Корнелия Нинова?", "personConnections"],
+    ["с кого е свързана корнелия нинова", "personConnections"],
+    ["Коя е Десислава Атанасова?", "personProfile"],
+    ["коя е десислава атанасова", "personProfile"],
+    ["Санкционирана ли е Десислава Атанасова?", "personProfile"],
+  ])("routes feminine query %s -> %s", (q, expectedTool) => {
+    const r = route(q, ctx);
+    expect(r?.tool).toBe(expectedTool);
+    expect(r?.args.name).toBeDefined();
+  });
+
+  // Mayoral questions for municipalities must not be hijacked by whoIsPerson
+  it("does not hijack mayoral question to personProfile", () => {
+    expect(tool("Кой е кмет на Горна Оряховица?")).not.toBe("personProfile");
+  });
+
   // A wealth-adjacent word must NOT hijack a procurement question — "спечелил от
   // поръчки" is public money won, not declared personal wealth.
   it("leaves a procurement question on its own branch", () => {
     expect(tool("Колко е спечелил от поръчки Бойко Борисов?")).not.toBe(
       "personWealth",
     );
+  });
+
+  // Words ending in -ството (e.g. имуществото, министерството) must not trigger nationalResults
+  it.each([
+    "Какво е имуществото на общината?",
+    "Какво работи министерството на правосъдието?",
+    "Какво реши правителството днес?",
+  ])("does not hijack -ството query to nationalResults: %s", (q) => {
+    expect(tool(q)).not.toBe("nationalResults");
   });
 });
 

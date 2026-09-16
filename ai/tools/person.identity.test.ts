@@ -42,6 +42,27 @@ describe("person identity resolution", () => {
     expect(answer.clarify).toBeUndefined();
   });
 
+  it("resolves a 2-word name to a unique 3-word person despite fuzzy candidates with different surnames", async () => {
+    setDbFetcher(async (route, params) => {
+      if (route === "person-profile" && params.name) return null;
+      if (route === "person-search") return null;
+      if (route === "person-lookup")
+        return [
+          { slug: "georgi-kalchev", name: "Георги Кънчев Калчев" },
+          { slug: "georgi-kandev", name: "Георги Димитров Кандев" },
+          { slug: "georgi-uzunov", name: "Георги Кънев Узунов" },
+        ];
+      if (route === "person-profile" && params.slug === "georgi-kandev")
+        return profile("georgi-kandev", "Георги Димитров Кандев");
+      if (route === "person-wealth" && params.slug === "georgi-kandev")
+        return { slug: "georgi-kandev", series: [], markers: [] };
+      throw new Error(`unexpected ${route}`);
+    });
+    const answer = await personWealth({ name: "Георги Кандев" }, bg);
+    expect(answer.clarify).toBeUndefined();
+    expect(answer.title).toContain("Георги Димитров Кандев");
+  });
+
   it.each([
     [personProfile, "personProfile"],
     [personConnections, "personConnections"],

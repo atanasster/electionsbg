@@ -88,9 +88,240 @@ const detectParty = (q: string): string | undefined =>
 // capitalized words (Възраждане) need a second word so they don't either.
 const NAME_BG = /[А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ][а-яё]+){1,2}/;
 const NAME_EN = /[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2}/;
+
+const EXCLUDED_NAME_WORDS = new Set([
+  "the",
+  "a",
+  "an",
+  "for",
+  "to",
+  "in",
+  "at",
+  "of",
+  "and",
+  "any",
+  "some",
+  "each",
+  "every",
+  "all",
+  "no",
+  "one",
+  "person",
+  "someone",
+  "anyone",
+  "mp",
+  "mps",
+  "owner",
+  "едно",
+  "някое",
+  "дадено",
+  "конкретно",
+  "всеки",
+  "всяко",
+  "всички",
+  "никое",
+  "лице",
+  "лицата",
+  "човек",
+  "хора",
+  "гражданин",
+  "граждани",
+  "собственик",
+  "собственика",
+  "собственикът",
+  "собственици",
+  "собствениците",
+  "акционер",
+  "акционера",
+  "акционерът",
+  "акционери",
+  "акционерите",
+  "кмет",
+  "кмета",
+  "кметът",
+  "кметове",
+  "кметовете",
+  "министър",
+  "министъра",
+  "министърът",
+  "министри",
+  "министрите",
+  "депутат",
+  "депутата",
+  "депутатът",
+  "депутати",
+  "депутатите",
+  "председател",
+  "директор",
+  "съдия",
+  "прокурор",
+  "управител",
+  "областен",
+  "лидер",
+  "mayor",
+  "minister",
+  "deputy",
+  "president",
+  "director",
+  "judge",
+  "governor",
+  "leader",
+  "медия",
+  "медии",
+  "медиите",
+  "media",
+  "парламент",
+  "парламента",
+  "парламентът",
+  "правителство",
+  "правителството",
+  "държава",
+  "държавата",
+  "министерство",
+  "министерството",
+  "агенция",
+  "агенцията",
+  "комисия",
+  "комисията",
+  "община",
+  "общината",
+  "съд",
+  "съда",
+  "прокуратура",
+  "прокуратурата",
+  "болница",
+  "болницата",
+  "университет",
+  "университета",
+  "училище",
+  "училището",
+  "партия",
+  "партията",
+  "коалиция",
+  "коалицията",
+  "фирма",
+  "фирмата",
+  "компания",
+  "компанията",
+  "дружество",
+  "дружеството",
+  "орган",
+  "органа",
+  "фондация",
+  "фондацията",
+  "сдружение",
+  "сдружението",
+  "народни",
+  "представители",
+  "съветници",
+  "съветниците",
+  "лица",
+  "лицата",
+  "партии",
+  "партиите",
+  "фирми",
+  "фирмите",
+  "обществени",
+  "обществените",
+  "поръчки",
+  "социологически",
+  "социологическите",
+  "агенции",
+  "европейски",
+  "съюз",
+  "български",
+  "българия",
+  "избори",
+  "изборите",
+  "активност",
+  "активността",
+  "субсидии",
+  "субсидиите",
+  "пари",
+  "парите",
+  "бюджет",
+  "бюджета",
+  "бюджетът",
+  "рецепта",
+  "рецептата",
+  "торта",
+  "тортата",
+  "шоколадова",
+  "шоколад",
+  "филмовите",
+]);
+
+const PREPOSITIONS_OR_CONJUNCTIONS = new Set([
+  "в",
+  "във",
+  "на",
+  "за",
+  "от",
+  "по",
+  "до",
+  "с",
+  "със",
+  "и",
+  "in",
+  "for",
+  "at",
+  "to",
+  "and",
+  "or",
+  "of",
+  "the",
+]);
+
+const PERSON_CUE_PATTERNS = [
+  /(?:имущество(?:то)?|активи(?:те)?|задължения(?:та)?|нетна(?:та)?\s+стойност|богатство(?:то)?|деклараци(?:я|ята|и|ите)|профил(?:ът|а)?|връзки(?:те)?|фирми(?:те)?|дружества(?:та)?|бизнес(?:ът|а)?|досие(?:то)?|кариера(?:та)?)\s+(?:на|of)\s+([а-яёa-z]{2,}(?:\s+[а-яёa-z]{2,}){1,2})/iu,
+  /(?:кой|коя|who)\s+(?:е|is)\s+([а-яёa-z]{2,}(?:\s+[а-яёa-z]{2,}){1,2})/iu,
+  /(?:с\s+кого\s+(?:е\s+свързан(?:а|о)?|са\s+свързани)|свързан(?:а|о|и)?\s+с|connected\s+(?:to|with))\s+([а-яёa-z]{2,}(?:\s+[а-яёa-z]{2,}){1,2})/iu,
+  /(?:какво\s+(?:е\s+)?декларира(?:л|ла)?|колко\s+пари\s+има|какво\s+притежава)\s+([а-яёa-z]{2,}(?:\s+[а-яёa-z]{2,}){1,2})/iu,
+  /(?:санкциониран(?:а|и)?|проверен(?:а|и)?|разследван(?:а|и)?)\s+(?:ли\s+(?:е|са)|is|are)\s+([а-яёa-z]{2,}(?:\s+[а-яёa-z]{2,}){1,2})/iu,
+];
+
+const toTitleCase = (s: string) =>
+  s
+    .split(/\s+/)
+    .map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : ""))
+    .join(" ");
+
+const cleanCandidate = (cand: string): string => {
+  const words = cand.trim().split(/\s+/);
+  while (
+    words.length > 0 &&
+    PREPOSITIONS_OR_CONJUNCTIONS.has(words[words.length - 1].toLowerCase())
+  ) {
+    words.pop();
+  }
+  return words.join(" ");
+};
+
+const isValidPersonCandidate = (cand: string): boolean => {
+  const words = cand.toLowerCase().split(/\s+/);
+  if (words.length < 2 || words.length > 3) return false;
+  if (words.some((w) => EXCLUDED_NAME_WORDS.has(w))) return false;
+  if (detectParty(cand.toLowerCase())) return false;
+  if (findOblastInText(cand)) return false;
+  return true;
+};
+
 const extractPersonName = (raw: string): string | undefined => {
   const m = raw.match(NAME_BG) ?? raw.match(NAME_EN);
-  return m ? m[0].trim() : undefined;
+  if (m) {
+    const cand = cleanCandidate(m[0].trim());
+    if (isValidPersonCandidate(cand)) return cand;
+  }
+  for (const re of PERSON_CUE_PATTERNS) {
+    const cm = raw.match(re);
+    if (cm?.[1]) {
+      const cand = cleanCandidate(cm[1].trim());
+      if (isValidPersonCandidate(cand)) {
+        return toTitleCase(cand);
+      }
+    }
+  }
+  return undefined;
 };
 
 const extractCompanyName = (raw: string): string | undefined => {
@@ -1653,7 +1884,11 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       "свързани лиц",
       "свързаните лиц",
       "свързан с",
+      "свързана с",
+      "свързани с",
       "с кого е свързан",
+      "с кого е свързана",
+      "с кого са свързани",
       "връзки на",
       "връзките на",
       "connected",
@@ -1668,7 +1903,17 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   // route to mpVotingProfile above / agencyProfile below).
   const whoIsPerson =
     has(q, "кой е", "коя е", "who is") &&
-    !has(q, "кандидат", "избор", "лист", "candidate", "election", "ballot");
+    !has(
+      q,
+      "кандидат",
+      "избор",
+      "лист",
+      "candidate",
+      "election",
+      "ballot",
+      "кмет",
+      "mayor",
+    );
   if (
     personName &&
     !has(
@@ -4867,7 +5112,11 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   // 6. catch-all: the question is clearly about an election but matched no
   // specific intent -> show the national results (a sensible default) rather
   // than declining. Keeps a weak/over-eager model from inventing a tool.
-  if (has(q, "избор", "election", "вот", " vote", "избирате")) {
+  if (
+    has(q, "избор", "election", "избирате") ||
+    /\bvote\b/i.test(q) ||
+    /(?:^|[^\p{L}])вот(?:а|ът|ове|овете)?(?:[^\p{L}]|$)/u.test(q)
+  ) {
     return { tool: "nationalResults", args: election ? { election } : {} };
   }
 
