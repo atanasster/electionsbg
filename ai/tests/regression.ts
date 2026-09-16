@@ -18,6 +18,8 @@ import { setFetcher, setDbFetcher } from "../tools/dataClient";
 import { nodeDbFetcher } from "../tools/dbFetcherNode";
 import { allRows } from "../../scripts/db/lib/pg";
 import { runTool } from "../tools/registry";
+import { buildNarrationPrompt } from "../orchestrator/prompts";
+import { proxyMessageBytes } from "../llm/promptBudget";
 import type {
   Envelope,
   EnvelopeKind,
@@ -3597,6 +3599,23 @@ const run = async () => {
         `tool threw: ${e instanceof Error ? e.message : String(e)}`,
       );
       continue;
+    }
+    // G3b: the OTHER request that inlines content under the proxy's 96,000-byte
+    // ceiling. `facts` is `Record<string, string | number>` by TYPE, so this can only
+    // trip if a tool starts putting a table into `facts` — a long string is still a
+    // string, which no type can catch. Checked here because this suite executes EVERY
+    // tool against real data, which a unit test cannot do without a data client.
+    for (const narrLang of ["bg", "en"] as const) {
+      const { system, user } = buildNarrationPrompt(env, narrLang);
+      const bytes = proxyMessageBytes([
+        { role: "system", content: system },
+        { role: "user", content: user },
+      ]);
+      if (bytes > 32_000)
+        fail(
+          c.label,
+          `narration request is ${bytes} bytes (${narrLang}) — a tool is inlining a table into facts`,
+        );
     }
     for (const [k, rawExp] of Object.entries(c.facts)) {
       const exp = await resolveExp(rawExp);
