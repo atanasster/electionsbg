@@ -26,25 +26,27 @@ export const ROUTING_MARGIN = 4_000;
 
 /**
  * The budget the CLIENT narrows against. Measured 2026-09-16 the truth is not
- * "nothing narrows yet": the BG catalogue alone serializes to 86,192 bytes, a
- * typical 6-turn window lands near 88,500, and a window saturated at the system's
- * own `CLOUD_BUDGET` of 1,200 tokens reaches ~92,500 — over this budget. So the
- * narrowing path is live today for the largest BG contexts, not only after the
- * registry grows. (An earlier revision of the plan claimed otherwise; the plan was
- * corrected to this measurement.)
+ * "nothing narrows yet": the BG catalogue alone serializes to 85,121 bytes, a typical
+ * 6-turn window lands at 88,901, and a window saturated at the system's own
+ * `CLOUD_BUDGET` of 1,200 tokens reaches 92,249 — over this budget. So the narrowing
+ * path is live today for the largest BG contexts, not only after the registry grows.
+ * (An earlier revision of the plan claimed otherwise; the plan was corrected.)
  *
- * ENFORCEMENT lives in the caller: this module measures, `pruneToBudget` chooses,
- * and step 7 wires both into `OpenRouterProvider.selectRoute`. Nothing imports this
- * yet, so it cannot by itself guarantee anything.
+ * ENFORCEMENT lives in the caller: this module measures and `narrowCatalogueForBudget`
+ * in `openrouter.ts` is what prunes, using `prunePrefixToBudget`.
  */
 export const ROUTING_BYTE_BUDGET = INPUT_BYTE_CEILING - ROUTING_MARGIN;
 
-// An attention bound, applied ON TOP of the byte bound and never instead of it:
-// beyond roughly this many tools in one prompt the model's selection quality is
-// expected to degrade (the "lost in the middle" effect). It is a hypothesis, not a
-// measurement — the byte bound is what is measured — so it only ever prunes
-// further, never licenses a larger prompt.
-export const K_MAX = 24;
+// THERE IS DELIBERATELY NO TOOL-COUNT CAP HERE, and removing the one that existed is
+// a measured decision. `K_MAX = 24` was intended as an attention bound on top of the
+// byte bound; measured 2026-09-16 it was the ONLY binding constraint — the
+// pre-selected set for a saturated BG thread (203 tools) already fits the budget at
+// 83,343 B, so the byte bound pruned nothing and the count cap did all of it. The
+// cost was the gold tool being unreachable for 9.9% of the eval corpus (35.5% of
+// non-verbatim calls) against 0.5% with the byte bound alone, for a "lost in the
+// middle" effect nobody has measured. The plan's own position is not to fund a design
+// on that argument, so the BYTE bound is the sole pruner and the only cap is the
+// request itself.
 
 import { buildToolSystemPrompt } from "../orchestrator/prompts";
 import { TOOLS_BY_NAME } from "../tools/registry";

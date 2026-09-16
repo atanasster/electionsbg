@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { createRequire } from "node:module";
 import {
   INPUT_BYTE_CEILING,
-  K_MAX,
   ROUTING_BYTE_BUDGET,
   ROUTING_MARGIN,
   budgetHeadroom,
@@ -168,21 +167,18 @@ describe("the budget mirrors the proxy's own measurement", () => {
     expect(withinBudget(messages)).toBe(true);
   });
 
-  it("bounds K_MAX against the real registry, not against a constant", () => {
-    // K_MAX is an ATTENTION bound, so the meaningful assertion is that it is not
-    // silently doing the byte bound's job: even the 24 largest tool blocks, taken
-    // from the production formatter, fit the budget.
+  it("keeps the largest tool blocks well inside the byte bound", () => {
+    // There is no tool-count cap (see promptBudget.ts for the measurement that
+    // removed it), so the meaningful assertion is that the byte bound is not at the
+    // mercy of one huge entry: the largest block is a small fraction of the budget.
     const catalogue = buildToolSystemPrompt("bg");
     const blocks = catalogue
       .split("\n- ")
       .map((block, i) => (i === 0 ? block : `- ${block}`))
       .map((block) => utf8Bytes(block))
       .sort((a, b) => b - a);
-    expect(blocks.length).toBeGreaterThan(K_MAX);
-    const largest = blocks.slice(0, K_MAX).reduce((a, b) => a + b, 0);
+    const largest = blocks.slice(0, 24).reduce((a, b) => a + b, 0);
     expect(largest).toBeLessThan(ROUTING_BYTE_BUDGET);
-    // And the single largest entry is a small fraction of the budget, so one huge
-    // tool cannot be mistaken for the binding constraint.
     expect(blocks[0]).toBeLessThan(ROUTING_BYTE_BUDGET / 10);
   });
 });

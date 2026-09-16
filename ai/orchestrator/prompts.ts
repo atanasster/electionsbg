@@ -91,6 +91,19 @@ const FORMAT_ANCHOR_QUESTIONS = [
   "What's the machine-voting % in the last 7 elections?", // series with a count
 ];
 
+// The TOOLS those anchors name. A narrowed prompt keeps the anchors, so their tools
+// must be IN the candidate set: otherwise the prompt's only worked examples name a
+// tool that its own instruction ("Choose ONLY from the tool names listed") forbids —
+// measured in 401 of 468 anchor instances, 85.7% of narrowed prompts.
+export const FORMAT_ANCHOR_TOOLS: string[] = FORMAT_ANCHOR_QUESTIONS.map(
+  (q) => {
+    const shot = FEW_SHOT.find((s) => s.q === q);
+    const tool = shot?.call.replace(/^\{"tool":"([^"]+)".*$/, "$1");
+    if (!shot || !tool) throw new Error(`no FORMAT anchor for ${q}`);
+    return tool;
+  },
+);
+
 // Leaner system prompt for *training* (M5): catalogue + instruction, no few-shot
 // — a fine-tuned model learns the mapping and doesn't need the exemplars.
 export const buildToolTrainSystemPrompt = (lang: Lang): string =>

@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { createHash } from "node:crypto";
-import { buildToolSystemPrompt } from "../orchestrator/prompts";
+import {
+  buildToolSystemPrompt,
+  FORMAT_ANCHOR_TOOLS,
+} from "../orchestrator/prompts";
 import { TOOLS, TOOLS_BY_NAME } from "../tools/registry";
 import {
   preselectCandidates,
@@ -8,13 +11,17 @@ import {
   pruneToBudget,
 } from "../orchestrator/toolPreselector";
 import {
-  K_MAX,
   proxyMessageBytes,
   routingMessages,
   routingRequestBytes,
   withinBudget,
 } from "./promptBudget";
-import { narrowCatalogueForBudget } from "./openrouter";
+import { narrowCatalogueForBudget, OpenRouterProvider } from "./openrouter";
+import { vi } from "vitest";
+import type { ToolContext } from "../tools/types";
+import * as registry from "../tools/registry";
+
+const ctxBg: ToolContext = { lang: "bg", election: "2026_04_19" };
 import {
   buildContext,
   CLOUD_BUDGET,
@@ -53,6 +60,10 @@ describe("the full-catalogue prompt is untouched (G1b)", () => {
         expect(prompt, `${lang} is missing ${tool.name}`).toContain(
           `- ${tool.name} —`,
         );
+      // G1b pins the BUILDER; this pins the request assembly too, so an accidental
+      // empty candidate list in `routingMessages` cannot send a 0-tool prompt while
+      // the builder stays byte-identical.
+      expect(routingMessages(lang, undefined, "x")[0].content).toBe(prompt);
     });
 });
 
@@ -67,12 +78,44 @@ describe("the narrowed catalogue", () => {
     const candidates = top(14);
     const prompt = buildToolSystemPrompt("bg", candidates);
     for (const tool of candidates) expect(prompt).toContain(`- ${tool.name} —`);
-    // No OTHER tool may appear: a leaked name is a tool the model can pick that the
-    // enforcement layer (step 8) would then reject.
-    const allowed = new Set(candidates.map((t) => t.name));
-    for (const tool of TOOLS)
-      if (!allowed.has(tool.name))
-        expect(prompt, `leaked ${tool.name}`).not.toContain(`- ${tool.name} —`);
+    // No OTHER tool may appear — in the catalogue OR in the worked examples. The
+    // earlier version of this test scanned only the "- name —" catalogue lines, which
+    // is why a prompt whose ONLY examples named non-candidate tools shipped green.
+    const allowed = new Set([
+      ...candidates.map((t) => t.name),
+      ...FORMAT_ANCHOR_TOOLS,
+    ]);
+    for (const tool of TOOLS) {
+      if (allowed.has(tool.name)) continue;
+      expect(prompt, `leaked ${tool.name} as a catalogue line`).not.toContain(
+        `- ${tool.name} —`,
+      );
+      expect(prompt, `leaked ${tool.name} in an example`).not.toContain(
+        `{"tool":"${tool.name}"`,
+      );
+    }
+  });
+
+  it("names a listed tool in every worked example it prints", () => {
+    // The prompt tells the model to choose ONLY from the tools it lists, so its own
+    // examples must not demonstrate the opposite. The two FORMAT anchors are kept
+    // unconditionally, so `narrowCatalogueForBudget` must add their tools to the kept
+    // set — this assertion pins that pairing, which is what was broken.
+    for (const n of [3, 8, 14, 30]) {
+      const listed = [
+        ...new Set([...top(n).map((t) => t.name), ...FORMAT_ANCHOR_TOOLS]),
+      ];
+      const prompt = buildToolSystemPrompt(
+        "bg",
+        listed.map((name) => TOOLS_BY_NAME[name]),
+      );
+      const examples = prompt.slice(prompt.indexOf("Examples:"));
+      expect(examples).toContain("Q:");
+      for (const m of examples.matchAll(/\{"tool":"([^"]+)"/g))
+        expect(listed.includes(m[1]), `example names unlisted ${m[1]}`).toBe(
+          true,
+        );
+    }
   });
 
   it("is dramatically smaller than the full catalogue", () => {
@@ -159,7 +202,9 @@ describe("the budget branch", () => {
     );
     expect(kept).toBeDefined();
     expect(kept!.length).toBeGreaterThan(0);
-    expect(kept!.length).toBeLessThanOrEqual(K_MAX);
+    // NO tool-count cap: the byte bound is the only constraint (a cap of 24 was
+    // measured to do all the pruning while costing 9.9% gold-tool reachability).
+    expect(kept!.length).toBeGreaterThan(24);
     // The narrowed request fits the budget, and every name is a real tool.
     expect(
       withinBudget(routingMessages("bg", kept, userContent)),
@@ -193,6 +238,132 @@ describe("the budget branch", () => {
   });
 });
 
+describe("the branch runs end to end through the provider", () => {
+  // The pieces were tested; nothing asserted that `selectRoute` narrows the PROMPT it
+  // sends and constrains the PARSE to the same set. Both halves are asserted here,
+  // because either one alone is advisory.
+  const QUESTION = "Каква е инфлацията?";
+  // The over-budget fixture is the one `promptBudget.test.ts` pins, gist included:
+  // the margin is a few hundred bytes, and a trimmed gist silently brings the request
+  // back UNDER the budget (measured: dropping "; дял: 25.3%; секции: 412" saved ~360 B
+  // and made this branch unreachable, which is why the precondition is asserted below).
+  const saturatedHistory = (): TurnMemory[] =>
+    Array.from({ length: 8 }, () => ({
+      question:
+        "Каква беше избирателната активност и колко гласа взе ГЕРБ в Русе на последните парламентарни избори? ".repeat(
+          4,
+        ),
+      tool: "partyResult",
+      args: { party: "ГЕРБ" },
+      gist: "Активност — 40.5%; ГЕРБ — гласове: 63,400; дял: 25.3%; секции: 412; област: Русе",
+      lang: "bg" as const,
+    }));
+  const saturatedContent = () =>
+    `${renderRoutingContext(buildContext(saturatedHistory(), CLOUD_BUDGET), "bg")}\n\nТекущ въпрос: ${QUESTION}`;
+
+  const respond = async (content: string) => {
+    const access = {
+      start: async () => ({ sessionToken: "t", questionId: "q" }),
+      finish: async () => {},
+    };
+    const provider = new OpenRouterProvider(
+      {
+        id: "google/gemini-3.5-flash-lite",
+        ready: true,
+        runtime: "cloud",
+      } as never,
+      access,
+    );
+    const bodies: unknown[] = [];
+    // The suite has no data client, so the tool RUN is stubbed: this test is about
+    // which route survives the parse, not about the tool's own output.
+    const run = vi
+      .spyOn(registry, "runTool")
+      .mockImplementation(async (name) => ({
+        tool: name,
+        kind: "scalar",
+        title: name,
+        viz: "none",
+        facts: { ok: 1 },
+        provenance: ["fixture"],
+      }));
+    const fetchMock = vi
+      .spyOn(globalThis, "fetch")
+      .mockImplementation(async (_url, init) => {
+        bodies.push(JSON.parse(String((init as RequestInit).body)));
+        return new Response(
+          JSON.stringify({
+            choices: [{ message: { content } }],
+            usage: { prompt_tokens: 10, completion_tokens: 2 },
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      });
+    try {
+      const res = await provider.respond(QUESTION, ctxBg, undefined, {
+        history: saturatedHistory(),
+      });
+      return { res, bodies };
+    } finally {
+      fetchMock.mockRestore();
+      run.mockRestore();
+    }
+  };
+
+  it("sends a NARROWED system prompt for a context that would not fit", async () => {
+    // PRECONDITION: this fixture really is over budget, or the test would be
+    // asserting the full-catalogue path while claiming to test narrowing.
+    expect(
+      withinBudget(routingMessages("bg", undefined, saturatedContent())),
+      "the fixture no longer exceeds the budget",
+    ).toBe(false);
+    const { bodies } = await respond('{"tool":"macroIndicator","args":{}}');
+    const sent = bodies[0] as { messages: { role: string; content: string }[] };
+    const system = sent.messages[0].content;
+    // Narrowed: it carries the instruction and not the whole catalogue.
+    expect(system).toContain("Choose ONLY from the tool names listed");
+    expect(Buffer.byteLength(system)).toBeLessThan(
+      Buffer.byteLength(buildToolSystemPrompt("bg")),
+    );
+    // ...and the request it built fits the budget it was measured against.
+    expect(withinBudget(sent.messages as never)).toBe(true);
+  });
+
+  it("rejects a tool the narrowed prompt never showed the model", async () => {
+    // The excluded tool is read out of the prompt the provider ACTUALLY SENT, not
+    // recomputed here: an earlier version computed its own kept set, which could
+    // differ from the provider's, so the test could assert about a tool the sent
+    // prompt did list.
+    const SHORT_CIRCUITED = new Set([
+      "rollcallQuery",
+      "rollcallQuestion",
+      "fundingQuery",
+      "fundingQuestion",
+      "procurementQuery",
+      "procurementQuestion",
+      "compareElections",
+    ]);
+    const first = await respond('{"tool":"macroIndicator","args":{}}');
+    const sent = (first.bodies[0] as { messages: { content: string }[] })
+      .messages[0].content;
+    expect(sent).toContain("Choose ONLY from the tool names listed");
+    const excluded = TOOLS.find(
+      (t) => !sent.includes(`- ${t.name} —`) && !SHORT_CIRCUITED.has(t.name),
+    );
+    expect(excluded, "the sent prompt lists every tool").toBeDefined();
+    const { res } = await respond(
+      JSON.stringify({ tool: excluded!.name, args: {} }),
+    );
+    // It did not execute: the deterministic route for the question answered instead.
+    expect(res.tool).toBe("macroIndicator");
+  });
+
+  it("still executes a candidate tool the model was shown", async () => {
+    const { res } = await respond('{"tool":"macroIndicator","args":{}}');
+    expect(res.tool).toBe("macroIndicator");
+  });
+});
+
 describe("the two pruners agree", () => {
   it("binary-search prefix pruning matches the linear contract", () => {
     // The fast path is what `selectRoute` uses because `fits` rebuilds an 85 KB
@@ -200,8 +371,11 @@ describe("the two pruners agree", () => {
     for (const q of ["Каква е инфлацията?", "Кой е кметът на Пловдив?", ""])
       for (const cap of [200, 40, 5]) {
         const candidates = preselectCandidates(q);
-        const budget = 900; // an artificial "byte" bound, so both prune
-        const fits = (tools: readonly string[]) => tools.length <= budget / 60;
+        // A real BYTE fits through the production composition, not an artificial
+        // count bound: the equivalence is only worth asserting for the callback the
+        // production path actually passes.
+        const fits = (tools: readonly string[]) =>
+          withinBudget(routingMessages("bg", tools, "Каква е инфлацията?"));
         const linear = pruneToBudget(candidates, fits, cap);
         const fast = prunePrefixToBudget(candidates, fits, cap);
         expect(fast.kept, q).toEqual(linear.kept);

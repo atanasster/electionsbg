@@ -72,16 +72,21 @@ export const toolParameterSchema = (
 // JSON schema (as a string) for grammar-constrained decoding. The top-level
 // enum remains convenient for providers while each tool condition constrains
 // its own argument names, required fields, and closed values.
-export const toolSelectionSchema = (): string =>
-  JSON.stringify({
+//
+// `allowed` narrows the enum to a candidate set, so a caller that has already
+// restricted the prompt can also restrict the GRAMMAR. Omitted, every tool is
+// permitted, which is what the in-browser and eval callers want.
+export const toolSelectionSchema = (allowed?: ReadonlySet<string>): string => {
+  const tools = allowed ? TOOLS.filter((t) => allowed.has(t.name)) : TOOLS;
+  return JSON.stringify({
     type: "object",
     properties: {
-      tool: { type: "string", enum: TOOLS.map((t) => t.name) },
+      tool: { type: "string", enum: tools.map((t) => t.name) },
       args: { type: "object" },
     },
     required: ["tool"],
     additionalProperties: false,
-    allOf: TOOLS.map((tool) => ({
+    allOf: tools.map((tool) => ({
       if: { properties: { tool: { const: tool.name } } },
       then: {
         ...(tool.params.some((p) => p.required) ? { required: ["args"] } : {}),
@@ -103,6 +108,7 @@ export const toolSelectionSchema = (): string =>
       },
     })),
   });
+};
 
 // Compatibility facade for provider/router callers: normalize the same contract,
 // retain their null-on-error API, and continue ignoring unrecognized model keys.
@@ -139,7 +145,17 @@ export const validateToolArgs = (
 };
 
 // Parse a model tool-call (raw text or object) into a validated Route, or null.
-export const parseToolCall = (raw: string | object): Route => {
+//
+// `allowed` is the ENFORCEMENT half of candidate narrowing (plan C4). Restricting
+// the prompt alone is advisory: `openrouter.ts` measures a request against the byte
+// budget, shows the model a candidate set, and would still EXECUTE any of the 235
+// names the model happened to emit. With `allowed` a non-candidate name returns null
+// and the caller falls back to the deterministic router, so the narrowed prompt and
+// the accepted answer agree.
+export const parseToolCall = (
+  raw: string | object,
+  allowed?: ReadonlySet<string>,
+): Route => {
   let obj: unknown = raw;
   if (typeof raw === "string") {
     // tolerate models that wrap JSON in prose / code fences
@@ -155,6 +171,7 @@ export const parseToolCall = (raw: string | object): Route => {
   const rec = obj as Record<string, unknown>;
   const toolName = typeof rec.tool === "string" ? rec.tool : undefined;
   if (!toolName || !TOOLS_BY_NAME[toolName]) return null;
+  if (allowed && !allowed.has(toolName)) return null;
   const args = validateToolArgs(toolName, rec.args);
   if (!args) return null;
   return { tool: toolName, args };

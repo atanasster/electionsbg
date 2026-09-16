@@ -24,13 +24,27 @@ export function validateRouteScope(selected: Route, question: string): Route {
 }
 // Two reviewed model spellings name an existing specialist explicitly. No fuzzy
 // tool matching and no fallback metric. Other undeclared indicators still fail.
-export function parseModelRoute(raw: string, question: string): Route {
+// `allowed` (optional) is the candidate set the prompt was narrowed to, threaded
+// through to `parseToolCall` so a tool the model was never shown cannot execute
+// (plan C4). Omitted by the eval and in-browser callers, which send the full
+// catalogue and must keep accepting any valid name.
+export function parseModelRoute(
+  raw: string,
+  question: string,
+  allowed?: ReadonlySet<string>,
+): Route {
   const current =
     question
       .split(/(?:Current question|Текущ въпрос):/i)
       .at(-1)
       ?.trim() ?? question;
   const hasHistory = current !== question.trim();
+  // A route derived from the QUESTION below (rather than from the model's output)
+  // must still respect the candidate set, or a narrowed prompt would be advisory:
+  // measured, `{"tool":"partyResult"}` was ACCEPTED while `partyResult` was not in
+  // the narrowed set, because these branches return before `parseToolCall` is
+  // consulted. `permitted` is the single test they all share.
+  const permitted = (tool: string) => !allowed || allowed.has(tool);
   // A bare personal pronoun supplies no identity. Never execute a model-invented name.
   if (
     !hasHistory &&
@@ -48,13 +62,14 @@ export function parseModelRoute(raw: string, question: string): Route {
       ["regionalInvestment", "basketAffordability"].includes(
         obj.args.indicator,
       ) &&
-      Object.keys(obj.args).every((k) => ["indicator", "order"].includes(k))
+      Object.keys(obj.args).every((k) => ["indicator", "order"].includes(k)) &&
+      permitted(obj.args.indicator as string)
     )
       return { tool: obj.args.indicator, args: {} };
   } catch {
     /* parser handles malformed JSON */
   }
-  const parsed = parseToolCall(raw);
+  const parsed = parseToolCall(raw, allowed);
   if (
     (parsed?.tool === "rankPlaces" || obj?.tool === "rankPlaces") &&
     ((/basket|кошниц/i.test(current) && /gdp|бвп/i.test(current)) ||
@@ -62,18 +77,18 @@ export function parseModelRoute(raw: string, question: string): Route {
   )
     return null; // A valid metric code still cannot answer a different question.
   const legislative = rollcallCorpus(current);
-  if (legislative)
+  if (legislative && permitted("rollcallQuestion"))
     return {
       tool: "rollcallQuestion",
       args: { question: current, corpus: legislative },
     };
   const funding = understandFunding(current);
-  if (funding.kind !== "none")
+  if (funding.kind !== "none" && permitted("fundingQuery"))
     return funding.kind === "query"
       ? { tool: "fundingQuery", args: funding.query }
       : { tool: "fundingQuestion", args: { question: current } };
   const procurement = understandProcurement(current);
-  if (procurement.kind !== "none")
+  if (procurement.kind !== "none" && permitted("procurementQuery"))
     return procurement.kind === "query"
       ? { tool: "procurementQuery", args: procurement.query }
       : { tool: "procurementQuestion", args: { question: current } };

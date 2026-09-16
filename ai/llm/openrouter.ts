@@ -14,8 +14,11 @@ import {
   renderRoutingContext,
 } from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
-import { buildNarrationPrompt } from "../orchestrator/prompts";
-import { K_MAX, routingMessages, withinBudget } from "./promptBudget";
+import {
+  buildNarrationPrompt,
+  FORMAT_ANCHOR_TOOLS,
+} from "../orchestrator/prompts";
+import { routingMessages, withinBudget } from "./promptBudget";
 import {
   preselectCandidates,
   prunePrefixToBudget,
@@ -81,11 +84,18 @@ export const narrowCatalogueForBudget = (
 ): string[] | undefined => {
   if (withinBudget(routingMessages(lang, undefined, userContent)))
     return undefined;
-  return prunePrefixToBudget(
-    preselectCandidates(question),
-    (tools) => withinBudget(routingMessages(lang, tools, userContent)),
-    K_MAX,
+  // NO TOOL-COUNT CAP: the byte bound is the only constraint. A cap of 24 was
+  // measured to do ALL of the pruning (the pre-selected set already fits at 203
+  // tools / 83,343 B) while making the gold tool unreachable for 9.9% of the eval
+  // corpus — 35.5% of non-verbatim calls — against 0.5% with the byte bound alone,
+  // in exchange for an unmeasured "lost in the middle" benefit.
+  const kept = prunePrefixToBudget(preselectCandidates(question), (tools) =>
+    withinBudget(routingMessages(lang, tools, userContent)),
   ).kept;
+  // The prompt keeps two FEW_SHOT format anchors, so their tools must be LISTED or
+  // its only worked examples name a tool its own instruction forbids (measured:
+  // 401 of 468 anchor instances, 85.7% of narrowed prompts). Two tools cost ~700 B.
+  return [...new Set([...kept, ...FORMAT_ANCHOR_TOOLS])];
 };
 
 // Shown in the answer header when the cloud model contributed NOTHING (both the
@@ -294,7 +304,15 @@ export class OpenRouterProvider implements LLMProvider {
       } catch {
         /* malformed output still uses the deterministic fallback */
       }
-      const parsed = parseModelRoute(content, userContent);
+      // Enforce the SAME candidate set the prompt was narrowed to (plan C4).
+      // Without it the narrowing is advisory: the model could name any of the 235
+      // registered tools and it would still parse and execute. `undefined` (the
+      // full-catalogue path) accepts any valid name, exactly as before.
+      const parsed = parseModelRoute(
+        content,
+        userContent,
+        allowedCandidates ? new Set(allowedCandidates) : undefined,
+      );
       if (parsed) return { route: parsed, byModel: true };
       // A rejected ranking capability is a clarification, not permission to
       // replace it with the keyword router's guessed metric.
