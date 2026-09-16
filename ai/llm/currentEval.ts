@@ -94,6 +94,10 @@ export function scoreProduction(
   lang: Lang,
   raw: string,
   error?: string,
+  // The candidate set the PROMPT was narrowed to. Production passes the same set to
+  // `parseModelRoute`, so an eval that omits it would accept a tool production rejects
+  // and would measure a path nobody runs. Omitted = the full catalogue (unchanged).
+  allowed?: ReadonlySet<string>,
 ) {
   let obj: Record<string, unknown> | undefined;
   try {
@@ -102,7 +106,7 @@ export function scoreProduction(
   } catch {
     /* invalid */
   }
-  const parsed = parseModelRoute(raw, evalUserContent(c, lang));
+  const parsed = parseModelRoute(raw, evalUserContent(c, lang), allowed);
   const selected = typeof obj?.tool === "string" ? obj.tool : null;
   const abstained = !!obj && obj.tool === null;
   const toolOk = !error && (c.tool === null ? abstained : selected === c.tool);

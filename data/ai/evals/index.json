@@ -1,0 +1,1008 @@
+{
+  "generatedAt": "2026-09-16T08:23:03.234Z",
+  "runs": [
+    {
+      "file": "current_starter.json",
+      "label": "starter",
+      "artifactLabel": "starter",
+      "model": "google/gemini-3.5-flash-lite",
+      "finishedAt": "2026-09-16T08:19:55.462Z",
+      "caseCount": 367,
+      "caseGroups": [
+        "starter"
+      ],
+      "routingBudget": 92000,
+      "forcedBudget": false,
+      "metrics": {
+        "en": {
+          "n": 367,
+          "toolAcc": 0.8256130790190735,
+          "callAcc": 0.5776566757493188,
+          "argN": 242,
+          "argAcc": 0.4214876033057851,
+          "jsonValid": 1,
+          "derived": 50
+        },
+        "bg": {
+          "n": 367,
+          "toolAcc": 0.8174386920980926,
+          "callAcc": 0.6730245231607629,
+          "argN": 241,
+          "argAcc": 0.5601659751037344,
+          "jsonValid": 1,
+          "derived": 52
+        }
+      },
+      "groups": {
+        "starter": {
+          "en": {
+            "n": 367,
+            "toolAcc": 0.8256130790190735,
+            "callAcc": 0.5776566757493188,
+            "argN": 242,
+            "argAcc": 0.4214876033057851,
+            "jsonValid": 1,
+            "derived": 50
+          },
+          "bg": {
+            "n": 367,
+            "toolAcc": 0.8174386920980926,
+            "callAcc": 0.6730245231607629,
+            "argN": 241,
+            "argAcc": 0.5601659751037344,
+            "jsonValid": 1,
+            "derived": 52
+          }
+        }
+      },
+      "goldInCandidates": {
+        "kept": 734,
+        "total": 734
+      },
+      "meanCandidatesKept": null
+    },
+    {
+      "file": "current_production.json",
+      "label": "production",
+      "artifactLabel": "production",
+      "model": "google/gemini-3.5-flash-lite",
+      "finishedAt": "2026-09-16T08:01:03.950Z",
+      "caseCount": 474,
+      "caseGroups": [
+        "registry",
+        "challenge",
+        "holdout",
+        "unsupported",
+        "realistic",
+        "clarification",
+        "conversation"
+      ],
+      "routingBudget": 92000,
+      "forcedBudget": false,
+      "metrics": {
+        "en": {
+          "n": 474,
+          "toolAcc": 0.959915611814346,
+          "callAcc": 0.8586497890295358,
+          "argN": 53,
+          "argAcc": 0.8113207547169812,
+          "jsonValid": 1,
+          "derived": 6
+        },
+        "bg": {
+          "n": 474,
+          "toolAcc": 0.959915611814346,
+          "callAcc": 0.869198312236287,
+          "argN": 53,
+          "argAcc": 0.7547169811320755,
+          "jsonValid": 1,
+          "derived": 7
+        }
+      },
+      "groups": {
+        "registry": {
+          "en": {
+            "n": 402,
+            "toolAcc": 0.9651741293532339,
+            "callAcc": 0.8631840796019901,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 4
+          },
+          "bg": {
+            "n": 402,
+            "toolAcc": 0.9676616915422885,
+            "callAcc": 0.8781094527363185,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 4
+          }
+        },
+        "challenge": {
+          "en": {
+            "n": 20,
+            "toolAcc": 0.95,
+            "callAcc": 0.85,
+            "argN": 19,
+            "argAcc": 0.8421052631578947,
+            "jsonValid": 1,
+            "derived": 1
+          },
+          "bg": {
+            "n": 20,
+            "toolAcc": 0.9,
+            "callAcc": 0.8,
+            "argN": 19,
+            "argAcc": 0.7894736842105263,
+            "jsonValid": 1,
+            "derived": 2
+          }
+        },
+        "holdout": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 0.8333333333333334,
+            "argN": 6,
+            "argAcc": 0.8333333333333334,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 0.8333333333333334,
+            "argN": 6,
+            "argAcc": 0.8333333333333334,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "unsupported": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "realistic": {
+          "en": {
+            "n": 24,
+            "toolAcc": 0.8333333333333334,
+            "callAcc": 0.6666666666666666,
+            "argN": 20,
+            "argAcc": 0.7,
+            "jsonValid": 1,
+            "derived": 1
+          },
+          "bg": {
+            "n": 24,
+            "toolAcc": 0.8333333333333334,
+            "callAcc": 0.6666666666666666,
+            "argN": 20,
+            "argAcc": 0.6,
+            "jsonValid": 1,
+            "derived": 1
+          }
+        },
+        "clarification": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "conversation": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 8,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 8,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        }
+      },
+      "goldInCandidates": {
+        "kept": 948,
+        "total": 948
+      },
+      "meanCandidatesKept": null
+    },
+    {
+      "file": "current_narrowed.json",
+      "label": "narrowed",
+      "artifactLabel": "narrowed",
+      "model": "google/gemini-3.5-flash-lite",
+      "finishedAt": "2026-09-16T07:58:08.877Z",
+      "caseCount": 474,
+      "caseGroups": [
+        "registry",
+        "challenge",
+        "holdout",
+        "unsupported",
+        "realistic",
+        "clarification",
+        "conversation"
+      ],
+      "routingBudget": 20000,
+      "forcedBudget": true,
+      "metrics": {
+        "en": {
+          "n": 474,
+          "toolAcc": 0.9746835443037974,
+          "callAcc": 0.8924050632911392,
+          "argN": 53,
+          "argAcc": 0.8867924528301887,
+          "jsonValid": 1,
+          "derived": 4
+        },
+        "bg": {
+          "n": 474,
+          "toolAcc": 0.9620253164556962,
+          "callAcc": 0.9514767932489452,
+          "argN": 53,
+          "argAcc": 0.8113207547169812,
+          "jsonValid": 1,
+          "derived": 3
+        }
+      },
+      "groups": {
+        "registry": {
+          "en": {
+            "n": 402,
+            "toolAcc": 0.9776119402985075,
+            "callAcc": 0.8930348258706468,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 2
+          },
+          "bg": {
+            "n": 402,
+            "toolAcc": 0.972636815920398,
+            "callAcc": 0.9676616915422885,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 2
+          }
+        },
+        "challenge": {
+          "en": {
+            "n": 20,
+            "toolAcc": 0.95,
+            "callAcc": 0.9,
+            "argN": 19,
+            "argAcc": 0.8947368421052632,
+            "jsonValid": 1,
+            "derived": 1
+          },
+          "bg": {
+            "n": 20,
+            "toolAcc": 0.9,
+            "callAcc": 0.8,
+            "argN": 19,
+            "argAcc": 0.7894736842105263,
+            "jsonValid": 1,
+            "derived": 1
+          }
+        },
+        "holdout": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 0.8333333333333334,
+            "argN": 6,
+            "argAcc": 0.8333333333333334,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 6,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "unsupported": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "realistic": {
+          "en": {
+            "n": 24,
+            "toolAcc": 0.9166666666666666,
+            "callAcc": 0.8333333333333334,
+            "argN": 20,
+            "argAcc": 0.9,
+            "jsonValid": 1,
+            "derived": 1
+          },
+          "bg": {
+            "n": 24,
+            "toolAcc": 0.7916666666666666,
+            "callAcc": 0.7916666666666666,
+            "argN": 20,
+            "argAcc": 0.75,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "clarification": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "conversation": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 0.875,
+            "argN": 8,
+            "argAcc": 0.875,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 0.875,
+            "argN": 8,
+            "argAcc": 0.875,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        }
+      },
+      "goldInCandidates": {
+        "kept": 941,
+        "total": 948
+      },
+      "meanCandidatesKept": 61.9
+    },
+    {
+      "file": "current_revised.json",
+      "label": "revised",
+      "artifactLabel": "revised",
+      "model": "google/gemini-3.5-flash-lite",
+      "finishedAt": "2026-09-10T07:11:31.369Z",
+      "caseCount": 471,
+      "caseGroups": null,
+      "routingBudget": null,
+      "forcedBudget": false,
+      "metrics": {
+        "en": {
+          "n": 471,
+          "toolAcc": 0.970276008492569,
+          "callAcc": 0.9723991507430998,
+          "argN": 53,
+          "argAcc": 0.9811320754716981,
+          "jsonValid": 1,
+          "derived": 0
+        },
+        "bg": {
+          "n": 471,
+          "toolAcc": 0.9596602972399151,
+          "callAcc": 0.9617834394904459,
+          "argN": 53,
+          "argAcc": 0.9433962264150944,
+          "jsonValid": 1,
+          "derived": 0
+        }
+      },
+      "groups": {
+        "registry": {
+          "en": {
+            "n": 399,
+            "toolAcc": 0.9724310776942355,
+            "callAcc": 0.9724310776942355,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 399,
+            "toolAcc": 0.9649122807017544,
+            "callAcc": 0.9649122807017544,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "challenge": {
+          "en": {
+            "n": 20,
+            "toolAcc": 0.95,
+            "callAcc": 1,
+            "argN": 19,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 20,
+            "toolAcc": 0.95,
+            "callAcc": 1,
+            "argN": 19,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "holdout": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 6,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 6,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "unsupported": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "realistic": {
+          "en": {
+            "n": 24,
+            "toolAcc": 0.9166666666666666,
+            "callAcc": 0.9166666666666666,
+            "argN": 20,
+            "argAcc": 0.95,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 24,
+            "toolAcc": 0.875,
+            "callAcc": 0.9166666666666666,
+            "argN": 20,
+            "argAcc": 0.9,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "clarification": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 0.875,
+            "callAcc": 0.875,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "conversation": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 8,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 0.875,
+            "argN": 8,
+            "argAcc": 0.875,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        }
+      },
+      "goldInCandidates": null,
+      "meanCandidatesKept": null
+    },
+    {
+      "file": "current_baseline.json",
+      "label": "baseline",
+      "artifactLabel": "baseline",
+      "model": "google/gemini-3.5-flash-lite",
+      "finishedAt": "2026-09-10T07:05:03.395Z",
+      "caseCount": 471,
+      "caseGroups": null,
+      "routingBudget": null,
+      "forcedBudget": false,
+      "metrics": {
+        "en": {
+          "n": 471,
+          "toolAcc": 0.9681528662420382,
+          "callAcc": 0.9660297239915074,
+          "argN": 53,
+          "argAcc": 0.9811320754716981,
+          "jsonValid": 1,
+          "derived": 0
+        },
+        "bg": {
+          "n": 471,
+          "toolAcc": 0.9723991507430998,
+          "callAcc": 0.9745222929936306,
+          "argN": 53,
+          "argAcc": 0.9811320754716981,
+          "jsonValid": 1,
+          "derived": 0
+        }
+      },
+      "groups": {
+        "registry": {
+          "en": {
+            "n": 399,
+            "toolAcc": 0.9674185463659147,
+            "callAcc": 0.9649122807017544,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 399,
+            "toolAcc": 0.9724310776942355,
+            "callAcc": 0.9724310776942355,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "challenge": {
+          "en": {
+            "n": 20,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 19,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 20,
+            "toolAcc": 0.95,
+            "callAcc": 1,
+            "argN": 19,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "holdout": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 6,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 6,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "unsupported": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "realistic": {
+          "en": {
+            "n": 24,
+            "toolAcc": 0.9166666666666666,
+            "callAcc": 0.9166666666666666,
+            "argN": 20,
+            "argAcc": 0.95,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 24,
+            "toolAcc": 0.9583333333333334,
+            "callAcc": 0.9583333333333334,
+            "argN": 20,
+            "argAcc": 0.95,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "clarification": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "conversation": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 8,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 8,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        }
+      },
+      "goldInCandidates": null,
+      "meanCandidatesKept": null
+    },
+    {
+      "file": "current_baseline_rescored.json",
+      "label": "baseline_rescored",
+      "artifactLabel": "baseline",
+      "model": "google/gemini-3.5-flash-lite",
+      "finishedAt": "2026-09-10T07:05:03.395Z",
+      "caseCount": 471,
+      "caseGroups": null,
+      "routingBudget": null,
+      "forcedBudget": false,
+      "metrics": {
+        "en": {
+          "n": 471,
+          "toolAcc": 0.9681528662420382,
+          "callAcc": 0.8450106157112527,
+          "argN": 53,
+          "argAcc": 0.7924528301886793,
+          "jsonValid": 1,
+          "derived": 0
+        },
+        "bg": {
+          "n": 471,
+          "toolAcc": 0.9723991507430998,
+          "callAcc": 0.8598726114649682,
+          "argN": 53,
+          "argAcc": 0.7547169811320755,
+          "jsonValid": 1,
+          "derived": 1
+        }
+      },
+      "groups": {
+        "registry": {
+          "en": {
+            "n": 399,
+            "toolAcc": 0.9674185463659147,
+            "callAcc": 0.849624060150376,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 399,
+            "toolAcc": 0.9724310776942355,
+            "callAcc": 0.8671679197994987,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "challenge": {
+          "en": {
+            "n": 20,
+            "toolAcc": 1,
+            "callAcc": 0.8,
+            "argN": 19,
+            "argAcc": 0.7894736842105263,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 20,
+            "toolAcc": 0.95,
+            "callAcc": 0.75,
+            "argN": 19,
+            "argAcc": 0.7368421052631579,
+            "jsonValid": 1,
+            "derived": 1
+          }
+        },
+        "holdout": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 0.8333333333333334,
+            "argN": 6,
+            "argAcc": 0.8333333333333334,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 0.8333333333333334,
+            "argN": 6,
+            "argAcc": 0.8333333333333334,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "unsupported": {
+          "en": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 6,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "realistic": {
+          "en": {
+            "n": 24,
+            "toolAcc": 0.9166666666666666,
+            "callAcc": 0.6666666666666666,
+            "argN": 20,
+            "argAcc": 0.7,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 24,
+            "toolAcc": 0.9583333333333334,
+            "callAcc": 0.7083333333333334,
+            "argN": 20,
+            "argAcc": 0.65,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "clarification": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 0,
+            "argAcc": null,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        },
+        "conversation": {
+          "en": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 8,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          },
+          "bg": {
+            "n": 8,
+            "toolAcc": 1,
+            "callAcc": 1,
+            "argN": 8,
+            "argAcc": 1,
+            "jsonValid": 1,
+            "derived": 0
+          }
+        }
+      },
+      "goldInCandidates": null,
+      "meanCandidatesKept": null
+    }
+  ],
+  "deterministic": {
+    "generatedAt": "2026-09-15T23:22:50.757Z",
+    "caseCount": 841,
+    "caseGroups": [
+      "registry",
+      "challenge",
+      "holdout",
+      "unsupported",
+      "realistic",
+      "clarification",
+      "conversation",
+      "starter"
+    ],
+    "metrics": {
+      "en": {
+        "n": 841,
+        "toolAcc": 0.8703923900118906,
+        "callAcc": 0.8585017835909632,
+        "argN": 295,
+        "argAcc": 0.888135593220339
+      },
+      "bg": {
+        "n": 841,
+        "toolAcc": 0.906064209274673,
+        "callAcc": 0.8953626634958383,
+        "argN": 294,
+        "argAcc": 0.891156462585034
+      }
+    },
+    "legacyMetrics": {
+      "en": {
+        "n": 474,
+        "toolAcc": 0.770042194092827,
+        "callAcc": 0.7489451476793249,
+        "argN": 53,
+        "argAcc": 0.37735849056603776
+      },
+      "bg": {
+        "n": 474,
+        "toolAcc": 0.8333333333333334,
+        "callAcc": 0.8143459915611815,
+        "argN": 53,
+        "argAcc": 0.39622641509433965
+      }
+    }
+  }
+}

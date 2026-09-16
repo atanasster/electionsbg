@@ -40,7 +40,13 @@ const label = process.argv[2];
 // Labels are ARTIFACT IDENTITIES, so a new run never inherits an old one's name. The
 // two historical labels are the published before/after pair from 2026-09-10;
 // `narrowed` is this plan's run, kept alongside them so the comparison exists.
-const LABELS = ["baseline", "revised", "narrowed", "production"] as const;
+const LABELS = [
+  "baseline",
+  "revised",
+  "narrowed",
+  "production",
+  "starter",
+] as const;
 if (!(LABELS as readonly string[]).includes(label))
   throw new Error(`Specify one of: ${LABELS.join(", ")}`);
 // Which groups to run. The default is EXACTLY the suite the published baselines
@@ -302,17 +308,23 @@ console.log(
 // corpus (caseCount 367, starter-only metrics) overwriting a full-suite artifact
 // would restate the score with nothing in the file to notice.
 if (rows.some((r) => r.error)) process.exitCode = 1;
-else if (!isFullSuite) {
-  writeFileSync(
-    `${dir}/subset-report.json`,
-    JSON.stringify(artifact, null, 2) + "\n",
-  );
-  console.log(
-    `Group-subset run (${caseGroups.join(",")}) written to ${dir}/subset-report.json — ` +
-      `NOT published over data/ai/evals/current_${label}.json.`,
-  );
-} else
-  writeFileSync(
-    `data/ai/evals/current_${label}.json`,
-    JSON.stringify(artifact, null, 2) + "\n",
-  );
+else {
+  // A GROUP run publishes under its own label too. The earlier rule kept subset runs
+  // out of the published set because a starter-only run could overwrite the
+  // full-suite artifact the eval screen renders — but the label now NAMES the
+  // artifact and the guard below refuses to replace an existing one, so that defect
+  // cannot recur and a group measurement is a first-class record.
+  const published = `data/ai/evals/current_${label}.json`;
+  if (existsSync(published) && process.env.EVAL_ALLOW_OVERWRITE !== "1") {
+    console.log(
+      `REFUSING to overwrite the published ${published}. This run is in ${dir}/report.json. ` +
+        `Use a new label, or set EVAL_ALLOW_OVERWRITE=1 if you intend to replace it.`,
+    );
+    process.exitCode = 1;
+  } else {
+    writeFileSync(published, JSON.stringify(artifact, null, 2) + "\n");
+    console.log(
+      `published ${published} (${isFullSuite ? "full suite" : `groups: ${caseGroups.join(",")}`})`,
+    );
+  }
+}

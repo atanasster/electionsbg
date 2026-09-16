@@ -18,7 +18,11 @@ import {
   buildNarrationPrompt,
   FORMAT_ANCHOR_TOOLS,
 } from "../orchestrator/prompts";
-import { routingMessages, withinBudget } from "./promptBudget";
+import {
+  proxyMessageBytes,
+  routingMessages,
+  withinBudget,
+} from "./promptBudget";
 import {
   preselectCandidates,
   prunePrefixToBudget,
@@ -86,8 +90,21 @@ export const narrowCatalogueForBudget = (
   question: string,
   lang: Lang,
   userContent: string,
+  // EVAL-ONLY. G1a must force the narrowed path on EVERY case to get a sample large
+  // enough to judge it, which the real budget cannot do (it only forces a cut on
+  // saturated BG threads). Production passes nothing, so `withinBudget` keeps ONE
+  // definition of "fits" and this only lowers the threshold the caller narrows at.
+  budgetOverride?: number,
 ): string[] | undefined => {
-  if (withinBudget(routingMessages(lang, undefined, userContent)))
+  const fits = (tools: readonly string[]) =>
+    budgetOverride === undefined
+      ? withinBudget(routingMessages(lang, tools, userContent))
+      : proxyMessageBytes(routingMessages(lang, tools, userContent)) <=
+        budgetOverride;
+  if (
+    withinBudget(routingMessages(lang, undefined, userContent)) &&
+    budgetOverride === undefined
+  )
     return undefined;
   // NO TOOL-COUNT CAP: the byte bound is the only constraint. A cap of 24 was
   // measured to do ALL of the pruning (the pre-selected set already fits at 203
@@ -95,7 +112,7 @@ export const narrowCatalogueForBudget = (
   // corpus — 35.5% of non-verbatim calls — against 0.5% with the byte bound alone,
   // in exchange for an unmeasured "lost in the middle" benefit.
   const kept = prunePrefixToBudget(preselectCandidates(question), (tools) =>
-    withinBudget(routingMessages(lang, tools, userContent)),
+    fits(tools),
   ).kept;
   // The prompt keeps two FEW_SHOT format anchors, so their tools must be LISTED or
   // its only worked examples name a tool its own instruction forbids (measured:
