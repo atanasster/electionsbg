@@ -89,7 +89,11 @@ export default defineConfig({
       reportsDirectory: "./coverage",
       // Enforce coverage on the modules we actually unit-test (see the doc: the
       // expectation is "cover new/changed modules", not a global percentage).
-      include: ["src/**/*.{ts,tsx}", "scripts/**/*.ts"],
+      // `ai/llm` is included because the chat's model/routing clients are all
+      // failure-path code — a timeout, a breaker, a malformed upstream body —
+      // and an unexercised branch there is exactly what a coverage report is
+      // for. The rest of `ai/` stays out: it is screens and harnesses.
+      include: ["src/**/*.{ts,tsx}", "scripts/**/*.ts", "ai/llm/**/*.ts"],
       exclude: [
         "**/*.test.{ts,tsx}",
         "**/*.harness.ts",
