@@ -36,6 +36,38 @@ The browser cannot choose a different model, paid plugin, token budget or provid
 price. The allowlisted model in `llm_security.js` must match `ai/llm/models.ts`.
 Missing secrets, database failure, or `AI_ENABLED=false` fail closed for paid calls.
 
+### action: `systemone` — Jev (TypeSafe) routing
+
+A second paid upstream on the same boundary: the chat's routing layer asks Jev a
+batch of typed questions (Choice/Score/Noul) and gets constrained answers back —
+no text generation. Request is `{action:"systemone", sessionToken, questionId,
+state, questions}`; the response is projected to `{answers, model, usage}` rather
+than forwarded, so upstream additions never reach a browser.
+
+Three things an operator needs to know:
+
+- **The secret must exist before deploying.** `TYPESAFE_API_KEY` is listed in the
+  function's `secrets`, so its absence fails `npm run deploy:llm` and a later
+  deletion breaks the whole function at cold start — including session issuance
+  and the Gemini path. An *empty* value is tolerated: only the `systemone` action
+  reports `ai_unavailable`, and the chat degrades within the user's own lane.
+  `firebase functions:secrets:set TYPESAFE_API_KEY -P default`
+- **The model id is pinned server-side, to a VERSIONED id** (`jev_payload.js`),
+  never the `jev-latest` alias — confidence thresholds are tuned per version.
+  Bumping it means re-running the regression suite
+  (`ai/llm/jevRegression.run.ts`).
+- **It shares the per-question call budget** (3 upstream calls/question) with
+  completions, by design: one reservation covers the whole turn. A turn that
+  routes through Jev and then completes uses 2 of 3.
+
+Input caps live in `jev_payload.js`'s `LIMITS` (8 questions, 300 options/choice,
+per-field char caps and a 100,000-char aggregate bound on the built payload).
+Settlement prices Jev at its own rate — $42/Btok input, output free — via the
+`microDollars` branch of `charged()`; pricing it with the Gemini formula would
+over-charge a routing call ~60x. The upstream abort is 2 s, deliberately just
+above the client's 1200 ms budget so a slow Jev cannot hold `inflight` and 429 the
+client's own fallback.
+
 ## Production setup (not performed by committing code)
 
 Use the `elections-bg` Firebase project, on Blaze. Create its default Firestore

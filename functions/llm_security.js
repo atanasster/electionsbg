@@ -124,7 +124,23 @@ function payload(body) {
 }
 // Successful usage refunds only a proven saving; missing/invalid usage retains
 // the full reservation. 1 UTF-8 byte/token plus framing bounds input conservatively.
+// `usage` is a two-shape union, discriminated by which key is present:
+//   { prompt_tokens, completion_tokens } — the Gemini path's token usage,
+//                                          priced by the formula below.
+//   { microDollars }                     — a lane that priced its OWN upstream
+//                                          and passes the settled cost directly.
+// The explicit-cost branch is checked FIRST and wins, which is safe because both
+// call sites are server-constructed (Gemini's OpenAI-compat response carries no
+// such field, so the shapes cannot collide in practice).
 function charged(usage) {
+  // The Jev proxy takes this branch: TypeSafe bills $42 per BILLION input tokens
+  // with output free, so pricing it with the Gemini formula below would
+  // over-charge a routing call by ~60x and drain the question's budget for
+  // nothing. Capped at the reservation so an explicit cost can never exceed what
+  // `claim` actually reserved, and floored at 0 so it can never drive `spent`
+  // negative and manufacture a refund.
+  if (usage && Number.isInteger(usage.microDollars) && usage.microDollars >= 0)
+    return Math.min(POLICY.callReserve, usage.microDollars);
   if (
     !usage ||
     !Number.isInteger(usage.prompt_tokens) ||

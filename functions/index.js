@@ -46,15 +46,30 @@ const makeLlm = () => {
   const apiKey = defineSecret("GEMINI_API_KEY");
   const turnstile = defineSecret("AI_TURNSTILE_SECRET");
   const signing = defineSecret("AI_SESSION_SECRET");
+  // Jev (TypeSafe) routing key.
+  //
+  // The VALUE is optional: unset, the handler reports ai_unavailable for the
+  // `systemone` action ONLY, and the chat's Jev lane degrades within its own
+  // lane (deterministic router in the No-LLM lane, full Gemini prompt in the AI
+  // lane).
+  //
+  // ⚠️ The SECRET IS NOT optional. Listing it in `secrets` makes its EXISTENCE a
+  // precondition for the whole function: an absent TYPESAFE_API_KEY fails
+  // `npm run deploy:llm`, and deleting it later breaks the instance at cold
+  // start — taking session issuance, `start`/`finish` and the entire Gemini
+  // `complete` path down with it, not just the Jev lane. Create it FIRST:
+  //   firebase functions:secrets:set TYPESAFE_API_KEY -P default
+  const typesafe = defineSecret("TYPESAFE_API_KEY");
   let handler;
-  return onRequest({ secrets: [apiKey, turnstile, signing], region: "us-central1", maxInstances: 10, timeoutSeconds: 60 }, async (req, res) => {
+  return onRequest({ secrets: [apiKey, turnstile, signing, typesafe], region: "us-central1", maxInstances: 10, timeoutSeconds: 60 }, async (req, res) => {
     if (!handler) {
       const { initializeApp, getApps } = require("firebase-admin/app");
       const { getFirestore } = require("firebase-admin/firestore");
       const app = getApps().find(a => a.name === "ai-chat") || initializeApp(undefined, "ai-chat");
       handler = createLlmHandler({
         security: createSecurity({ db: getFirestore(app), secret: signing.value(), turnstileSecret: turnstile.value() }),
-        apiKey: apiKey.value(), allowedOrigins: AI_ALLOWED_ORIGINS,
+        apiKey: apiKey.value(), jevApiKey: typesafe.value() || undefined,
+        allowedOrigins: AI_ALLOWED_ORIGINS,
       });
     }
     return handler(req, res);

@@ -109,6 +109,41 @@ test("only bounded text for the one model reaches upstream", () => {
   assert.equal(charged(undefined), POLICY.callReserve);
   assert.equal(charged({ prompt_tokens: 1000, completion_tokens: 100 }), 550);
 });
+test("an explicit micro-dollar cost settles at its own rate, capped at the reservation", () => {
+  // The Jev lane prices its own upstream ($42/Btok input, output free) and hands
+  // the settled cost over directly, because the Gemini formula above would
+  // over-charge a routing call ~60x.
+  assert.equal(charged({ microDollars: 487 }), 487);
+  assert.equal(charged({ microDollars: 0 }), 0);
+  // Capped: an upstream reporting absurd usage can never charge more than
+  // claim() actually reserved, so `spent` cannot run past the reservation.
+  assert.equal(charged({ microDollars: POLICY.callReserve + 1 }), POLICY.callReserve);
+  assert.equal(charged({ microDollars: 1e9 }), POLICY.callReserve);
+  // Malformed falls through to the conservative default, never to a discount —
+  // a negative would otherwise drive `spent` below zero and manufacture refunds.
+  assert.equal(charged({ microDollars: -1 }), POLICY.callReserve);
+  assert.equal(charged({ microDollars: 1.5 }), POLICY.callReserve);
+  assert.equal(charged({ microDollars: "5" }), POLICY.callReserve);
+});
+test("a Jev-priced settle lands the real cost in the question's spend", async () => {
+  // End-to-end through the REAL charged(): every other test of this branch
+  // stubs one side of the boundary, so nothing checks the arithmetic that
+  // actually matters — that `spent` ends at the cheap cost, never negative and
+  // never above the reservation, so finish()'s refund stays positive.
+  const f = fixture(),
+    { token } = await f.security.issue("t", "ip");
+  const { questionId: id } = await f.security.start(token, "ip");
+  await f.security.claim(token, "ip", id);
+  assert.equal(f.db.rows.get(`question:${id}`).spent, POLICY.callReserve);
+  await f.security.settle(id, { microDollars: 487 });
+  const q = f.db.rows.get(`question:${id}`);
+  assert.equal(q.spent, 487, "a routing call must settle at its own price");
+  assert.equal(q.inflight, false);
+  assert.ok(q.spent >= 0 && q.spent <= POLICY.callReserve);
+  // The reservation is genuinely released, so the turn's own completion can
+  // still claim — this is the lane-preserving fallback's precondition.
+  await f.security.claim(token, "ip", id);
+});
 test("fails closed on disabled or missing security configuration", async () => {
   for (const overrides of [
     { secret: "" },

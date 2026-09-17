@@ -1,9 +1,45 @@
 const { payload, LlmError } = require("./llm_security");
+const {
+  JEV_ENDPOINT,
+  JevError,
+  jevPayload,
+  jevCharged,
+} = require("./jev_payload");
 // Dependency-injected handler keeps the public security boundary testable without
 // credentials. Every completion needs a session AND a reserved question.
+//
+// `jevApiKey` is optional: without it the `systemone` action reports
+// `ai_unavailable` and the chat's Jev lane degrades to its own fallback (the
+// deterministic router in the No-LLM lane, the full Gemini prompt in the AI
+// lane). An unconfigured key must never take the chat down.
+// The reservation protocol lives HERE and nowhere else: every paid lane claims
+// before its upstream call and settles on EVERY exit path — including one where
+// settle itself threw. `settle()` is idempotent (`if (!q.inflight) return`), so
+// the catch may always retry it; guarding that retry with a "already settled"
+// flag turns a transient Firestore failure into a PERMANENT inflight leak
+// (claim 429s for ever, finish() can never close the question, and its
+// day/month budget reservation is never refunded).
+//
+// `run()` returns { body, cost }: `body` is what the client gets, `cost` is the
+// proven settlement (or undefined to keep the full reservation).
+async function withReservation(security, { sessionToken, ip, questionId }, run) {
+  await security.claim(sessionToken, ip, questionId);
+  let cost;
+  try {
+    const result = await run();
+    cost = result.cost;
+    await security.settle(questionId, cost);
+    return result.body;
+  } catch (error) {
+    await security.settle(questionId, cost).catch(() => {});
+    throw error;
+  }
+}
+
 function createLlmHandler({
   security,
   apiKey,
+  jevApiKey,
   fetchImpl = fetch,
   allowedOrigins,
 }) {
@@ -42,11 +78,55 @@ function createLlmHandler({
         await security.finish(body.sessionToken, ip, body.questionId);
         return res.json({ ok: true });
       }
+      // Jev routing: a constrained, non-generative classification call. It
+      // claims + settles against the SAME question reservation as a completion,
+      // so a turn cannot spend unbounded money by routing repeatedly, and the
+      // per-question `calls` cap covers both paths together.
+      if (body.action === "systemone") {
+        if (!jevApiKey) throw new LlmError(503, "ai_unavailable");
+        const upstream = jevPayload(body);
+        const projected = await withReservation(security, { sessionToken: body.sessionToken, ip, questionId: body.questionId }, async () => {
+          const response = await fetchImpl(JEV_ENDPOINT, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${jevApiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(upstream),
+            // ⚠️ COUPLED TO THE CLIENT'S OWN BUDGET, which is 1200ms
+            // (docs/plans/jev-chat-integration-v1.md §6). Once that elapses the
+            // client has ALREADY fallen through to its lane's fallback, which
+            // claims THE SAME question — so holding this socket longer keeps
+            // `inflight` set and 429s that fallback with `call_limit`, turning
+            // the slow-Jev case into a hard failure in exactly the degraded
+            // scenario the ladder exists to absorb. Small headroom over the
+            // client budget, never seconds. Change one, change the other.
+            signal: AbortSignal.timeout(2000),
+          });
+          if (!response.ok) throw new LlmError(502, "model_unavailable");
+          const data = await response.json();
+          if (!data || typeof data !== "object" || !data.answers)
+            throw new LlmError(502, "model_unavailable");
+          // A proven cost refunds the difference; unparseable usage keeps the
+          // full reservation (never refund a saving we cannot prove).
+          const charged = jevCharged(data.usage);
+          return {
+            // Project rather than forward: the upstream is free to add account,
+            // quota or diagnostic fields in a future release and none of them
+            // belong in a browser. `usage` is included deliberately — the chat
+            // reports routing tokens in its "how this was produced" band.
+            body: { answers: data.answers, model: data.model, usage: data.usage },
+            cost: charged == null ? undefined : { microDollars: charged },
+          };
+        });
+        return res.json(projected);
+      }
       if (body.action !== "complete") throw new LlmError(400, "invalid_action");
       const upstreamBody = payload(body);
-      await security.claim(body.sessionToken, ip, body.questionId);
-      let usage;
-      try {
+      // Same reservation protocol as the Jev lane above — claim, settle on every
+      // exit path. Uncertainty keeps the reservation: never refund a potentially
+      // billed request, and never retry upstream automatically.
+      const completion = await withReservation(security, { sessionToken: body.sessionToken, ip, questionId: body.questionId }, async () => {
         const response = await fetchImpl(
           "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
           {
@@ -62,20 +142,18 @@ function createLlmHandler({
         if (!response.ok) throw new LlmError(502, "model_unavailable");
         const data = await response.json();
         if (data.error) throw new LlmError(502, "model_unavailable");
-        usage = data.usage;
-        // Settle before returning; uncertainty keeps the reservation, never
-        // refunds a potentially billed request or retries upstream automatically.
-        await security.settle(body.questionId, usage);
-        return res.json(data);
-      } catch (error) {
-        await security.settle(body.questionId, usage).catch(() => {});
-        throw error;
-      }
+        return { body: data, cost: data.usage };
+      });
+      return res.json(completion);
     } catch (error) {
-      if (!(error instanceof LlmError))
-        console.error("llm request failed", error?.name || "Error");
-      return res.status(error instanceof LlmError ? error.status : 503).json({
-        error: error instanceof LlmError ? error.code : "ai_unavailable",
+      // JevError carries the same {status, code} contract as LlmError but is a
+      // distinct class (its module has no dependency on llm_security), so a
+      // validation rejection from the Jev path must map to its own status
+      // rather than falling through to a generic 503.
+      const known = error instanceof LlmError || error instanceof JevError;
+      if (!known) console.error("llm request failed", error?.name || "Error");
+      return res.status(known ? error.status : 503).json({
+        error: known ? error.code : "ai_unavailable",
       });
     }
   };
