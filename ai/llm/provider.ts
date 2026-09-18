@@ -137,6 +137,8 @@ export type ResponseMeta = {
   // rather than re-routing through keywords), but no tool ran — so the band
   // must not say a tool "was chosen by Jev".
   routerDeclined?: boolean;
+  /** Jev answered, below the confidence gate, so the rules chose the tool. */
+  routerUnsure?: boolean;
   // Jev also filled the tool's CLOSED-VOCABULARY arguments (a second call).
   // Open-vocabulary values are never model-generated — it has no primitive for
   // that — so this can only ever mean "chosen from a list we enumerated".

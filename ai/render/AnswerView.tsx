@@ -584,6 +584,21 @@ const MetaLine = ({ meta, lang }: { meta: ResponseMeta; lang: Lang }) => {
         ? "\nJev не отговори навреме — инструментът е избран по правилата."
         : "\nJev did not answer in time — the tool was chosen by the rules."
       : "") +
+    // Distinct from the line above: Jev DID answer, it just was not sure
+    // enough. Saying it "did not answer" would misreport a successful call.
+    (meta.routerUnsure
+      ? bg
+        ? `\nJev не беше достатъчно сигурен${
+            meta.routerConfidence != null
+              ? ` (${Math.round(meta.routerConfidence * 100)}%)`
+              : ""
+          } — инструментът е избран по правилата.`
+        : `\nJev was not confident enough${
+            meta.routerConfidence != null
+              ? ` (${Math.round(meta.routerConfidence * 100)}%)`
+              : ""
+          } — the tool was chosen by the rules.`
+      : "") +
     `\n\n${trust}`;
   return (
     <span

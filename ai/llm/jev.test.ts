@@ -111,7 +111,19 @@ describe("jevRoute", () => {
       asking(answer(TOOLS[0].name, JEV_CONFIDENCE_GATE - 0.01)),
     );
     expect(r.route).toBeNull();
+    // UNSURE, not degraded: Jev answered, it was just below the gate. The two
+    // were one flag, and the answer band then told the reader "Jev did not
+    // answer in time" about a call that returned promptly.
+    expect(r.unsure).toBe(true);
+    expect(r.degraded).toBe(false);
+  });
+
+  it("marks a missing answer as degraded, not unsure", async () => {
+    // The other half: no answer at all is an outage, and must not be reported
+    // as the router abstaining.
+    const r = await jevRoute("q", creds(), asking(null));
     expect(r.degraded).toBe(true);
+    expect(r.unsure).toBeFalsy();
   });
 
   it("accepts a pick exactly at the gate", async () => {
@@ -272,6 +284,25 @@ describe("JevProvider", () => {
     expect(res.meta?.routerConfidence).toBe(0.93);
     expect(res.meta?.routerDegraded).toBeUndefined();
     expect(res.meta?.narratedBy).toBe("rules");
+  });
+
+  it("reports a below-gate turn as UNSURE, and still answers it by the rules", async () => {
+    // Jev answered promptly, below the confidence gate. The band used to say
+    // "Jev did not answer in time" here — a false claim about a successful
+    // call, on ~19% of turns — and a below-gate pair (no route, no failure) is
+    // exactly the shape a naive decline check would mistake for a decline.
+    const provider = new JevProvider(
+      creds,
+      asking(answer(deterministicRoute!.tool, 0.52)),
+    );
+    const res = await provider.respond(DETERMINISTIC_Q, ctx);
+    expect(res.meta?.routerUnsure).toBe(true);
+    expect(res.meta?.routerDegraded).toBeUndefined();
+    expect(res.meta?.routerDeclined).toBeUndefined();
+    expect(res.meta?.routerConfidence).toBe(0.52);
+    // Not declined: the rules answer it.
+    expect(res.meta?.routedBy).toBe("rules");
+    expect(res.tool).toBe(deterministicRoute!.tool);
   });
 
   it("declines end to end on a confident no_tool, without re-routing through keywords", async () => {

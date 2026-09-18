@@ -65,7 +65,10 @@ export type JevLaneRow = {
    *  when it answers is a different product from one that always answers. */
   routedByJev: boolean;
   jevConfidence?: number;
+  /** Jev unavailable (no answer) — the harness's problem, not the router's. */
   degraded: boolean;
+  /** Jev answered below the confidence gate — the router's own abstention. */
+  unsure: boolean;
   inputTokens: number;
   latencyMs: number;
 };
@@ -82,6 +85,7 @@ export const jevLaneRoute = async (
   routedByJev: boolean;
   confidence?: number;
   degraded: boolean;
+  unsure: boolean;
   latencyMs: number;
   inputTokens: number;
 }> => {
@@ -94,6 +98,7 @@ export const jevLaneRoute = async (
       selected: null,
       routedByJev: false,
       degraded: false,
+      unsure: false,
       latencyMs: 0,
       inputTokens: 0,
     };
@@ -102,6 +107,7 @@ export const jevLaneRoute = async (
       selected: pinElectionContext(followOn, ctx),
       routedByJev: false,
       degraded: false,
+      unsure: false,
       latencyMs: 0,
       inputTokens: 0,
     };
@@ -110,18 +116,20 @@ export const jevLaneRoute = async (
   let latencyMs = routing.latencyMs ?? 0;
   let inputTokens = 0;
   // A confident `no_tool` is an ANSWER (decline), not a gap.
-  if (!routing.route && !routing.degraded)
+  if (!routing.route && !routing.degraded && !routing.unsure)
     return {
       selected: null,
       routedByJev: true,
       confidence: routing.confidence,
       degraded: false,
+      unsure: false,
       latencyMs,
       inputTokens,
     };
 
   const deterministic = route(question, ctx);
   let accepted = acceptJevPick(routing.route, deterministic);
+  let argCallFailed = false;
   // Tier 2: a refused pick whose params are enumerable gets a second call.
   if (routing.route && !accepted.usedJev && fillableTool(routing.route.tool)) {
     const result = await ask(
@@ -129,6 +137,10 @@ export const jevLaneRoute = async (
       argQuestions(routing.route.tool),
       credentials,
     );
+    // A failed SECOND call is Jev being unavailable too. Without this the row
+    // was scored as an ordinary refused pick, which counts an outage (a rate
+    // limit, most often) against the router as if it had decided.
+    if (!result) argCallFailed = true;
     latencyMs += result?.latencyMs ?? 0;
     inputTokens += result?.usage?.input_tokens ?? 0;
     const { args, filled } = fillArgs(routing.route.tool, result);
@@ -139,7 +151,8 @@ export const jevLaneRoute = async (
     selected: pinElectionContext(accepted.route, ctx),
     routedByJev: accepted.usedJev,
     confidence: routing.confidence,
-    degraded: routing.degraded,
+    degraded: routing.degraded || argCallFailed,
+    unsure: !!routing.unsure,
     latencyMs,
     inputTokens,
   };
@@ -184,6 +197,7 @@ export const evaluateJev = async (
     routedByJev: r.routedByJev,
     jevConfidence: r.confidence,
     degraded: r.degraded,
+    unsure: r.unsure,
     inputTokens: r.inputTokens,
     latencyMs: r.latencyMs,
   };

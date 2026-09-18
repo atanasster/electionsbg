@@ -107,11 +107,21 @@ export type JevRouting = {
   route: Route;
   confidence?: number;
   latencyMs?: number;
+  /** Jev was UNAVAILABLE — no answer, or one we could not read. */
   degraded: boolean;
+  /** Jev ANSWERED, below the confidence gate. The lane still falls back to its
+   *  own router, but this is Jev abstaining, not Jev failing.
+   *
+   *  ⚠️ These were one flag, and the conflation was expensive: the answer band
+   *  told the reader "Jev did not answer in time" on every low-confidence turn
+   *  — 19% of the eval bank — about a call that had returned promptly; and the
+   *  eval's "degraded" share read as an outage rate, which sent a re-run after
+   *  "rate-limited" rows of which there were zero. */
+  unsure?: boolean;
 };
 
-/** Ask Jev for a tool. Returns `degraded: true` whenever the lane must fall
- *  back to its own router — including a below-gate answer, which is Jev
+/** Ask Jev for a tool. The lane falls back to its own router on `degraded`
+ *  (Jev unavailable) AND on `unsure` (a below-gate answer, which is Jev
  *  declining rather than failing, but reaches the same place. */
 export const jevRoute = async (
   question: string,
@@ -138,7 +148,8 @@ export const jevRoute = async (
   if (!(pick.confidence >= JEV_CONFIDENCE_GATE))
     return {
       route: null,
-      degraded: true,
+      degraded: false,
+      unsure: true,
       confidence: pick.confidence,
       latencyMs: result.latencyMs,
     };
@@ -423,6 +434,7 @@ export class JevProvider implements LLMProvider {
       // `acceptJevPick` while Jev answered perfectly well; reporting that as
       // "did not answer in time" would be a false claim about a hosted call.
       routerDegraded: asked && routing.degraded ? true : undefined,
+      routerUnsure: asked && routing.unsure ? true : undefined,
       routerDeclined: declined ? true : undefined,
       routerFilledArgs: argsFilled ? true : undefined,
     });
@@ -443,7 +455,11 @@ export class JevProvider implements LLMProvider {
       // A confident `no_tool` is the one case where Jev's answer is a decline
       // rather than a failure, so the lane declines instead of re-routing
       // through keywords and manufacturing a match.
-      const declinedByJev = !routing.route && !routing.degraded;
+      // `unsure` is excluded explicitly: a below-gate answer carries no route
+      // and no failure, and reading that pair as a decline would refuse to
+      // answer exactly the turns the fallback exists for.
+      const declinedByJev =
+        !routing.route && !routing.degraded && !routing.unsure;
       if (declinedByJev) {
         usedJev = true;
         declined = true;

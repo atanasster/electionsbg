@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-18T02:14:29.298Z",
+  "generatedAt": "2026-09-18T08:19:09.344Z",
   "runs": [
     {
       "file": "current_jev.json",
       "label": "jev",
       "artifactLabel": "Jev (TypeSafe) routing",
       "model": "jev (TypeSafe System One)",
-      "finishedAt": "2026-09-18T01:53:15.925Z",
+      "finishedAt": "2026-09-18T08:18:58.875Z",
       "caseCount": 841,
       "caseGroups": [
         "challenge",
@@ -32,7 +32,8 @@
           "jevRouted": 0.713436385255648,
           "jevDeclined": 0.013079667063020214,
           "toolAccWhenRouted": 0.99,
-          "degraded": 0.1759809750297265
+          "degraded": 0,
+          "jevUnsure": 0.1759809750297265
         },
         "bg": {
           "n": 841,
@@ -45,7 +46,8 @@
           "jevRouted": 0.6967895362663495,
           "jevDeclined": 0.019024970273483946,
           "toolAccWhenRouted": 0.9761092150170648,
-          "degraded": 0.2057074910820452
+          "degraded": 0,
+          "jevUnsure": 0.2057074910820452
         }
       },
       "groups": {
@@ -60,7 +62,8 @@
             "jevRouted": 0.5,
             "jevDeclined": 0,
             "toolAccWhenRouted": 1,
-            "degraded": 0
+            "degraded": 0,
+            "jevUnsure": 0
           },
           "bg": {
             "n": 20,
@@ -72,7 +75,8 @@
             "jevRouted": 0.45,
             "jevDeclined": 0,
             "toolAccWhenRouted": 1,
-            "degraded": 0.05
+            "degraded": 0,
+            "jevUnsure": 0.05
           }
         },
         "clarification": {
@@ -87,7 +91,8 @@
             "jevRouted": 0.5,
             "jevDeclined": 0.5,
             "toolAccWhenRouted": 1,
-            "degraded": 0.5
+            "degraded": 0,
+            "jevUnsure": 0.5
           },
           "bg": {
             "n": 8,
@@ -100,7 +105,8 @@
             "jevRouted": 0.25,
             "jevDeclined": 0.25,
             "toolAccWhenRouted": 1,
-            "degraded": 0.75
+            "degraded": 0,
+            "jevUnsure": 0.75
           }
         },
         "conversation": {
@@ -114,7 +120,8 @@
             "jevRouted": 0.375,
             "jevDeclined": 0.25,
             "toolAccWhenRouted": 0.3333333333333333,
-            "degraded": 0.125
+            "degraded": 0,
+            "jevUnsure": 0.125
           },
           "bg": {
             "n": 8,
@@ -126,7 +133,8 @@
             "jevRouted": 0.25,
             "jevDeclined": 0.125,
             "toolAccWhenRouted": 0.5,
-            "degraded": 0.125
+            "degraded": 0,
+            "jevUnsure": 0.125
           }
         },
         "holdout": {
@@ -140,7 +148,8 @@
             "jevRouted": 0.6666666666666666,
             "jevDeclined": 0,
             "toolAccWhenRouted": 1,
-            "degraded": 0
+            "degraded": 0,
+            "jevUnsure": 0
           },
           "bg": {
             "n": 6,
@@ -152,7 +161,8 @@
             "jevRouted": 0.5,
             "jevDeclined": 0,
             "toolAccWhenRouted": 1,
-            "degraded": 0.16666666666666666
+            "degraded": 0,
+            "jevUnsure": 0.16666666666666666
           }
         },
         "realistic": {
@@ -166,7 +176,8 @@
             "jevRouted": 0.4583333333333333,
             "jevDeclined": 0,
             "toolAccWhenRouted": 1,
-            "degraded": 0.16666666666666666
+            "degraded": 0,
+            "jevUnsure": 0.16666666666666666
           },
           "bg": {
             "n": 24,
@@ -178,7 +189,8 @@
             "jevRouted": 0.5416666666666666,
             "jevDeclined": 0,
             "toolAccWhenRouted": 1,
-            "degraded": 0.125
+            "degraded": 0,
+            "jevUnsure": 0.125
           }
         },
         "registry": {
@@ -193,7 +205,8 @@
             "jevRouted": 0.7711442786069652,
             "jevDeclined": 0,
             "toolAccWhenRouted": 1,
-            "degraded": 0.11194029850746269
+            "degraded": 0,
+            "jevUnsure": 0.11194029850746269
           },
           "bg": {
             "n": 402,
@@ -206,7 +219,8 @@
             "jevRouted": 0.7736318407960199,
             "jevDeclined": 0.009950248756218905,
             "toolAccWhenRouted": 0.9839228295819936,
-            "degraded": 0.13681592039800994
+            "degraded": 0,
+            "jevUnsure": 0.13681592039800994
           }
         },
         "starter": {
@@ -220,7 +234,8 @@
             "jevRouted": 0.6893732970027248,
             "jevDeclined": 0,
             "toolAccWhenRouted": 0.9841897233201581,
-            "degraded": 0.25340599455040874
+            "degraded": 0,
+            "jevUnsure": 0.25340599455040874
           },
           "bg": {
             "n": 367,
@@ -232,7 +247,8 @@
             "jevRouted": 0.6566757493188011,
             "jevDeclined": 0.010899182561307902,
             "toolAccWhenRouted": 0.966804979253112,
-            "degraded": 0.28610354223433243
+            "degraded": 0,
+            "jevUnsure": 0.28610354223433243
           }
         },
         "unsupported": {
@@ -247,7 +263,8 @@
             "jevRouted": 0.8333333333333334,
             "jevDeclined": 0.8333333333333334,
             "toolAccWhenRouted": 1,
-            "degraded": 0.16666666666666666
+            "degraded": 0,
+            "jevUnsure": 0.16666666666666666
           },
           "bg": {
             "n": 6,
@@ -260,7 +277,8 @@
             "jevRouted": 0.8333333333333334,
             "jevDeclined": 0.8333333333333334,
             "toolAccWhenRouted": 1,
-            "degraded": 0.16666666666666666
+            "degraded": 0,
+            "jevUnsure": 0.16666666666666666
           }
         }
       },

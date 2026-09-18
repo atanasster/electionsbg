@@ -31,6 +31,7 @@ type Metrics = {
   jevDeclined?: number | null;
   toolAccWhenRouted?: number | null;
   degraded?: number | null;
+  jevUnsure?: number | null;
   deterministicallyDerived?: number;
 };
 type Row = {
@@ -85,6 +86,9 @@ const compact = (m: Metrics) => ({
     ? { toolAccWhenRouted: m.toolAccWhenRouted }
     : {}),
   ...(m.degraded != null ? { degraded: m.degraded } : {}),
+  // Below-gate abstention, kept apart from `degraded` (an outage): the two
+  // were one flag once, and an abstention rate read as an outage rate.
+  ...(m.jevUnsure != null ? { jevUnsure: m.jevUnsure } : {}),
 });
 
 /** The page's metric shape, DERIVED from the producer rather than restated —

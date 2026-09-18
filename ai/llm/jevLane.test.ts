@@ -75,6 +75,46 @@ describe("jevLaneRoute", () => {
     // The lane still ANSWERS — a degraded routing call must not cost the case.
     expect(r.selected).not.toBeNull();
   });
+  it("marks a failed ARGUMENT call as degraded, not as a refused pick", async () => {
+    // Tier 2: Jev picks a tool the deterministic route cannot supply arguments
+    // for, so a second call asks Jev for them. When that call fails (a rate
+    // limit, most often) the row used to be scored as an ordinary refused pick
+    // — an outage counted against the router as if it had decided.
+    let calls = 0;
+    const ask = vi.fn(async () =>
+      ++calls === 1 ? answer("regionWinners") : null,
+    ) as unknown as Parameters<typeof jevLaneRoute>[4];
+    const r = await jevLaneRoute(
+      "Каква беше избирателната активност?",
+      ctx,
+      {},
+      undefined,
+      ask,
+    );
+    expect(calls).toBe(2);
+    expect(r.routedByJev).toBe(false);
+    expect(r.degraded).toBe(true);
+  });
+
+  it("does not mark a refused pick degraded when both calls answered", async () => {
+    // The discriminating half: the same refusal with a live second call is a
+    // decision, and must stay undegraded.
+    let calls = 0;
+    const ask = vi.fn(async () =>
+      ++calls === 1
+        ? answer("regionWinners")
+        : ({ answers: {}, latencyMs: 30 } as unknown as JevResult),
+    ) as unknown as Parameters<typeof jevLaneRoute>[4];
+    const r = await jevLaneRoute(
+      "Каква беше избирателната активност?",
+      ctx,
+      {},
+      undefined,
+      ask,
+    );
+    expect(calls).toBe(2);
+    expect(r.degraded).toBe(false);
+  });
 });
 
 describe("evaluateJev", () => {
