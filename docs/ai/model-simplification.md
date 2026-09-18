@@ -1,5 +1,19 @@
 # AI chat simplification — 2026-09-10
 
+> **Since then (2026-09-18).** The two public modes below are unchanged, but two
+> things in this record are superseded:
+>
+> - **The AI mode calls the Gemini API directly**, through the Firebase proxy
+>   (`functions/llm_http.js`, key `GEMINI_API_KEY`), not through OpenRouter. The
+>   „Reproduce" commands below target OpenRouter: they are operator evaluations,
+>   not the production path.
+> - **Jev (TypeSafe) is chosen as the AI mode's routing step.** It picks the tool,
+>   and Gemini fills only that tool's parameters. If Jev is unsure or unavailable,
+>   the question goes to Gemini with the whole catalogue as before. The No-AI mode
+>   stays on the keyword rules. It is off by default until the proxy's `systemone`
+>   action is deployed. The workflow is described in `docs/ai_chat_implementation.md`
+>   (status block), and the measurements are on the chat's `/evals` page.
+
 The public picker now offers **No AI** and **AI assistant (Gemini 3.5 Flash-Lite)**.
 Gemma, BgGPT and FunctionGemma remain development experiments, not public choices.
 Saved 3.1 selections migrate to the new assistant; retired browser selections

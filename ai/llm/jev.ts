@@ -1,11 +1,25 @@
 // The Jev-routed No-LLM lane.
 //
+// ⚠️ STATUS: built and measured, NOT in the chat. The public „Без AI" mode is
+// `HeuristicProvider` (the keyword rules); nothing in the app constructs this
+// provider. Only the evals exercise the lane (`jevLane.ts`, `jevNoAiStages.ts`),
+// with its results on the /evals page. Jev is
+// called through our server, and the no-AI mode is designed not to go through
+// it. Where Jev IS headed for the chat is the AI mode: see `jevAiLane.ts`.
+//
 // Same tools, same `narrate()` templates and the same answer shapes as
-// HeuristicProvider — ONLY the routing step differs: a keyword/regex router is
-// replaced by one Choice question over the tool catalogue. No model writes
-// prose in this lane, before or after, so `narratedBy` stays "rules" and the
-// answer panel's "figures are computed, not generated" line stays literally
-// true.
+// HeuristicProvider. What differs is how a question becomes a tool call:
+//   1. Jev picks the tool — one Choice question over the tool catalogue.
+//   2. When the rules chose the same tool, or Jev's tool takes no parameters,
+//      it runs. Otherwise `completeJevPick` fills Jev's tool: values the rules
+//      parsed, values read from the question by parameter TYPE
+//      (`jevParamExtract.ts` — years, counts, parties, places, oblasts), Jev
+//      for fixed-list values, and search + Jev for names.
+//   3. If a required value is still missing, the lane ASKS the user instead of
+//      answering with the rules' tool, which is wrong in exactly these cases.
+// No model writes prose in this lane, before or after, so `narratedBy` stays
+// "rules" and the answer panel's "figures are computed, not generated" line
+// stays literally true.
 //
 // ⚠️ LANE-PRESERVING FALLBACK. When Jev cannot answer — no session, timeout,
 // open breaker, upstream error, or a confidence below the gate — this lane

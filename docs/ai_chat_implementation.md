@@ -5,20 +5,56 @@ grounded in the site's own pre-processed JSON. Free to run (no backend, no
 per-query cost): a small open model runs in the visitor's browser; all numbers
 come from deterministic TypeScript, never from the model.
 
-> **Status (updated 2026-06-15): historical implementation plan.** The chat shipped
-> and has since diverged from this doc in two big ways:
+> **Status (updated 2026-09-18): historical implementation plan.** The chat shipped
+> and has since diverged from this doc. The current workflow:
 >
-> 1. The **tool registry has grown to ~100+ typed tools** (not the 49 listed below) —
->    see `ai/tools/registry.ts` and the live `/data/map` diagram for the current set.
-> 2. The **live LLM is now a cloud model** — OpenRouter via the Firebase `llm` proxy at
->    `ai.electionsbg.com/api/llm` (`functions/index.js`), **not** an in-browser
->    WebLLM/BgGPT-MLC build. The in-browser path (Qwen / EuroLLM / FunctionGemma over
->    WebGPU) was explored and parked.
+> **Two modes in the picker** (`ai/llm/useModelEngine.ts`, `ai/llm/models.ts`):
 >
-> The deterministic heuristic router (router → tools → template narrator) remains the
-> always-on default and fallback. Everything below is the original plan, kept for
-> milestone/design history — treat tool counts, the "in-browser only" locked decision,
-> and bundle sizes as point-in-time, not current.
+> 1. **Без AI / No AI** — the default, and always available. `HeuristicProvider`:
+>    the keyword router (`ai/orchestrator/router.ts`) picks the tool and its
+>    parameters, the tool computes the result, and `narrate()` writes the answer from
+>    a template. No model is called.
+> 2. **AI assistant — Gemini 3.5 Flash-Lite** — `OpenRouterProvider` (`ai/llm/openrouter.ts`;
+>    the class name is historical). It calls the Gemini API through the Firebase
+>    proxy at `/api/llm` (`functions/llm_http.js`). The proxy owns the Turnstile
+>    session, the per-question budget of 3 upstream calls, and the daily and
+>    monthly spending caps (`functions/README.md`). The model picks
+>    `{tool, args}` and writes the answer from the tool's computed facts. The
+>    grounded-number gate rejects any figure that is not in them. Any model failure
+>    falls back to the rules, so the chat never breaks.
+>
+> **Jev in the AI mode — chosen, switched on after one deploy.** When routing is
+> enabled, one batched Jev (TypeSafe) call runs first (`ai/llm/jevAiLane.ts`).
+> It picks the tool, flags a compound question and classifies the turn:
+>
+> - **A confident pick of a tool with no parameters** runs directly.
+> - **A confident pick of a tool with parameters** goes to Gemini with that one
+>   tool's description only, and Gemini fills the parameters (`jevRoutingStep`).
+> - **Anything else**, and every Jev failure, falls back to Gemini with the whole
+>   catalogue — never to the keyword rules.
+>
+> Measured on the same 474 questions on the same day, this beats Gemini alone:
+> parameters 94.3% / 90.6% vs 83.0% / 77.4% (EN / BG), with an average prompt of
+> 3,697 tokens instead of 16,150. It is also more accurate on typos, rewording and
+> Latin script. It is **off by default** until the proxy's `systemone` action is
+> deployed. Then set `VITE_JEV_ROUTING=1`, or
+> `localStorage["naiasno:jev-routing"]="1"` in one browser for testing.
+>
+> **Jev in the No-AI mode — built and measured, not in the chat.** `JevProvider`
+> (`ai/llm/jev.ts`) lets Jev pick the tool and fills its parameters with rules
+> (`ai/llm/jevParamExtract.ts`), asking the user when it cannot. The public No-AI
+> mode stays on the keyword rules: Jev is called through our server, and that
+> mode is designed not to depend on it.
+>
+> The tool registry now has **235 typed tools** (not the 49 listed below). The
+> in-browser models (Qwen, EuroLLM, FunctionGemma, BgGPT over WebGPU) were explored
+> and parked. The measurements behind every choice above are on the chat's `/evals`
+> page, with the history of each decision. Plans: `docs/plans/jev-typesafe-eval-v1.md`
+> (the Jev evaluation), `docs/plans/jev-chat-integration-v1.md` (the integration).
+>
+> Everything below is the original plan, kept for milestone and design history.
+> Treat tool counts, the "in-browser only" locked decision and bundle sizes as
+> point-in-time, not current.
 
 M3 layers: `ai/orchestrator/toolSchema.ts` (JSON-schema for the 49-tool enum +
 validate/coerce model output → Route, falling back to the heuristic router on any
