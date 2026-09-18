@@ -1,73 +1,75 @@
 /**
- * OG image (1200×630) for the /evals benchmark page (ai.electionsbg.com/evals).
+ * OG image (1200×630) for the chat evals page (naiasno.bg/chat/evals).
  *
  *   npx tsx scripts/brand/generate_evals_og.ts
  *
- * Number-led, on-brand (navy + coral, the site theme), with a small 3-model
- * comparison so it reads as a benchmark at a glance. Crisp Cyrillic via
- * @napi-rs/canvas. Writes ai/assets/evals-og.png, which vite.config.ai.ts copies
- * into dist-ai and the generated evals.html points og:image at.
+ * Number-led, on-brand (navy + coral). Writes public/og/chat-evals.png, which
+ * ships through the static-asset copy; the postbuild image pass
+ * (scripts/images/optimize.ts) turns it into the .webp the page's og:image
+ * names. Also ai/assets/evals-og.png, for the standalone AI build.
  *
- * The headline numbers are read from data/ai/evals/fc_eval.json so the image
- * stays in sync if the eval is re-run.
+ * ⚠️ READS THE PUBLISHED MANIFEST, never a hard-coded figure: every number comes
+ * from data/ai/evals/index.json — the same file the page renders — so the card
+ * cannot say something the page no longer does. It showed the retired
+ * fc_eval.json model comparison (Gemini 3.1 / Gemma / FunctionGemma, "104
+ * tools") for weeks after the page had moved on, because it read a different
+ * artifact than the page did.
+ *
+ * The story it tells is the page's: on questions written with typos, four ways
+ * to pick a tool, on the same questions (Bulgarian).
  */
 import { createCanvas, type SKRSContext2D } from "@napi-rs/canvas";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { drawWordmark, FONT, THEME } from "../posts/cardKit";
 import { SITE_HOST } from "../../src/lib/siteOrigin";
+import { TOOLS } from "../../ai/tools/registry";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const OUT = join(ROOT, "ai/assets/evals-og.png");
 const OUT_PUBLIC = join(ROOT, "public/og/chat-evals.png");
-const ARTIFACT = join(ROOT, "data/ai/evals/fc_eval.json");
+const MANIFEST = join(ROOT, "data/ai/evals/index.json");
+/** The cell the card is about: Bulgarian, written with typos. */
+const CELL = "all|bg:typo";
 
 type Ctx = SKRSContext2D;
 const pal = THEME.dark;
 
-// Short model labels + their BG tool-selection accuracy, from the artifact.
-type Bar = { label: string; pct: number };
-const readBars = (): { headline: string; bars: Bar[] } => {
-  const fallback = {
-    headline: "96–97%",
-    bars: [
-      { label: "Gemini 3.1 Flash-Lite", pct: 97 },
-      { label: "Gemma 4 31B", pct: 51 },
-      { label: "FunctionGemma 270M", pct: 2 },
-    ],
-  };
-  if (!existsSync(ARTIFACT)) return fallback;
-  try {
-    const d = JSON.parse(readFileSync(ARTIFACT, "utf8"));
-    const short = (label: string) =>
-      label
-        .replace(/\s*\(.*\)\s*/g, "")
-        .replace("Flash-Lite", "Flash-Lite")
-        .trim();
-    const bars: Bar[] = d.models
-      .filter((m: { perLang?: unknown }) => m.perLang)
-      .map((m: { label: string; perLang: { bg: { toolAcc: number } } }) => ({
-        label: short(m.label),
-        pct: Math.round(m.perLang.bg.toolAcc * 100),
-      }));
-    const gem = d.models.find((m: { label: string }) =>
-      m.label.includes("Gemini"),
-    );
-    const en = Math.round(gem.perLang.en.toolAcc * 100);
-    const bg = Math.round(gem.perLang.bg.toolAcc * 100);
-    const headline =
-      en === bg ? `${bg}%` : `${Math.min(en, bg)}–${Math.max(en, bg)}%`;
-    return { headline, bars: bars.length ? bars : fallback.bars };
-  } catch {
-    return fallback;
-  }
+export type Bar = { label: string; pct: number; hero?: boolean };
+
+type Manifest = {
+  robustness?: {
+    summary: Record<
+      string,
+      { rules: number | null; gemini: number | null; jevGemini: number | null }
+    >;
+    noAi?: Record<string, { right: number }>;
+  } | null;
+};
+
+/** The four methods on the card's cell, in the order the page reads them.
+ *  Throws rather than drawing a card from a manifest that lacks them — a
+ *  fallback figure is exactly how the old card went stale. */
+export const readBars = (m: Manifest): Bar[] => {
+  const s = m.robustness?.summary?.[CELL];
+  const noAi = m.robustness?.noAi?.[CELL];
+  if (!s || s.rules == null || s.gemini == null || s.jevGemini == null || !noAi)
+    throw new Error(`${MANIFEST} has no robustness figures for ${CELL}`);
+  const pct = (v: number) => Math.round(v * 100);
+  return [
+    { label: "Правила", pct: pct(s.rules) },
+    { label: "Jev + правила", pct: pct(noAi.right) },
+    { label: "Само Gemini", pct: pct(s.gemini) },
+    { label: "Jev + Gemini", pct: pct(s.jevGemini), hero: true },
+  ];
 };
 
 const main = () => {
   const W = 1200;
   const H = 630;
-  const { headline, bars } = readBars();
+  const bars = readBars(JSON.parse(readFileSync(MANIFEST, "utf8")));
+  const hero = bars.find((b) => b.hero)!;
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d") as unknown as Ctx;
 
@@ -98,50 +100,46 @@ const main = () => {
   // kicker
   ctx.font = `600 28px ${FONT}`;
   ctx.fillStyle = pal.muted;
-  ctx.fillText("Оценка на извикване на инструменти · BG / EN", PAD, 184);
+  ctx.fillText("Как оценяваме AI чата", PAD, 184);
 
-  // hero number
-  ctx.font = `800 140px ${FONT}`;
+  // hero number (left column)
+  ctx.font = `800 150px ${FONT}`;
   ctx.fillStyle = pal.accent;
-  ctx.fillText(headline, PAD - 4, 350);
+  ctx.fillText(`${hero.pct}%`, PAD - 4, 350);
 
-  // accent progress track under the hero (filled to the top score)
-  const top = Math.max(...bars.map((b) => b.pct));
-  const trackY = 392;
-  const trackW = 640;
-  ctx.fillStyle = "rgba(255,255,255,0.08)";
-  roundRect(ctx, PAD, trackY, trackW, 14, 7);
-  ctx.fill();
-  ctx.fillStyle = pal.accent;
-  roundRect(ctx, PAD, trackY, (trackW * top) / 100, 14, 7);
-  ctx.fill();
-
-  // sub-label (two lines)
-  ctx.font = `600 36px ${FONT}`;
+  ctx.font = `600 34px ${FONT}`;
   ctx.fillStyle = pal.text;
-  ctx.fillText("верен инструмент измежду 104 инструмента", PAD, 464);
-  ctx.font = `500 31px ${FONT}`;
+  ctx.fillText("верен инструмент", PAD, 408);
+  ctx.fillText("при въпроси с грешки", PAD, 450);
+  ctx.font = `500 28px ${FONT}`;
   ctx.fillStyle = pal.muted;
-  ctx.fillText("на български и английски — без влошаване на BG", PAD, 506);
+  ctx.fillText(`Jev + Gemini · ${TOOLS.length} инструмента`, PAD, 496);
 
-  // one-line model comparison (legible at thumbnail size): label muted, % coral
-  let cx = PAD;
-  const cy = 552;
+  // right column: the four methods on the same questions, as bars
+  const X0 = 650;
+  const LABEL_W = 210;
+  const BAR_X = X0 + LABEL_W;
+  const BAR_W = W - PAD - BAR_X - 70; // leaves room for the % label
+  const ROW = 64;
+  const Y0 = 240;
+  ctx.font = `600 22px ${FONT}`;
+  ctx.fillStyle = pal.muted;
+  ctx.fillText("Същите въпроси с грешки, на български", X0, Y0 - 34);
   bars.forEach((b, i) => {
-    if (i > 0) {
-      ctx.font = `600 24px ${FONT}`;
-      ctx.fillStyle = pal.muted;
-      ctx.fillText("·", cx, cy);
-      cx += ctx.measureText("·").width + 16;
-    }
-    ctx.font = `600 24px ${FONT}`;
-    ctx.fillStyle = pal.muted;
-    ctx.fillText(b.label + " ", cx, cy);
-    cx += ctx.measureText(b.label + " ").width;
+    const y = Y0 + i * ROW;
+    ctx.textAlign = "left";
+    ctx.font = `${b.hero ? 700 : 500} 24px ${FONT}`;
+    ctx.fillStyle = b.hero ? pal.text : pal.muted;
+    ctx.fillText(b.label, X0, y + 22);
+    ctx.fillStyle = "rgba(255,255,255,0.08)";
+    roundRect(ctx, BAR_X, y + 4, BAR_W, 22, 6);
+    ctx.fill();
+    ctx.fillStyle = b.hero ? pal.accent : "rgba(154,167,189,0.55)";
+    roundRect(ctx, BAR_X, y + 4, Math.max(8, (BAR_W * b.pct) / 100), 22, 6);
+    ctx.fill();
     ctx.font = `800 24px ${FONT}`;
-    ctx.fillStyle = pal.accent;
-    ctx.fillText(`${b.pct}%`, cx, cy);
-    cx += ctx.measureText(`${b.pct}%`).width + 16;
+    ctx.fillStyle = b.hero ? pal.accent : pal.text;
+    ctx.fillText(`${b.pct}%`, BAR_X + BAR_W + 12, y + 23);
   });
 
   // bottom: url (left) + tagline (right)
@@ -157,8 +155,9 @@ const main = () => {
   const buf = canvas.toBuffer("image/png");
   writeFileSync(OUT, buf);
   writeFileSync(OUT_PUBLIC, buf);
-  console.error(`wrote ${OUT} (${headline}, ${bars.length} models)`);
-  console.error(`wrote ${OUT_PUBLIC}`);
+  console.error(
+    `wrote ${OUT_PUBLIC} (${bars.map((b) => `${b.label} ${b.pct}%`).join(", ")})`,
+  );
 };
 
 // local rounded-rect (cardKit's is not exported)
@@ -179,4 +178,4 @@ const roundRect = (
   ctx.closePath();
 };
 
-main();
+if (process.argv[1]?.endsWith("generate_evals_og.ts")) main();
