@@ -49,30 +49,33 @@ const sectionUnder = (name: string | RegExp) => {
   return section;
 };
 
-// The runs table is one row per manifest run under a header row, so a run's
+// The runs table is one row per CLOUD-model run under a header row (Jev has its
+// own section, measured on a different question set), so a run's
 // row is addressed by its FILE rather than by a fixed index — publishing a new
 // artifact re-orders the table, and a hard-coded index would then silently make
 // these assertions about a different run instead of failing.
+const cloudRuns = () =>
+  manifest.runs.filter((r) => r.file !== "current_jev.json");
 const rowFor = (rows: HTMLElement[], file: string) => {
-  const i = manifest.runs.findIndex((r) => r.file === file);
+  const i = cloudRuns().findIndex((r) => r.file === file);
   if (i < 0) throw new Error(`no run "${file}" in the committed manifest`);
   return rows[i + 1];
 };
 
 describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
-  it("renders every run in the committed manifest, in manifest order", async () => {
+  it("renders every cloud-model run in the committed manifest, in order", async () => {
     setup("bg");
     await waitFor(() =>
       expect(
         screen.getByRole("heading", {
-          name: "Всички публикувани измервания",
+          name: "Всички измервания на облачния модел",
         }),
       ).toBeInTheDocument(),
     );
-    const section = sectionUnder("Всички публикувани измервания");
-    // One row per run, plus the header row — no run may be dropped.
+    const section = sectionUnder("Всички измервания на облачния модел");
+    // One row per cloud run, plus the header row — no run may be dropped.
     const rows = within(section).getAllByRole("row");
-    expect(rows).toHaveLength(manifest.runs.length + 1);
+    expect(rows).toHaveLength(cloudRuns().length + 1);
     expect(manifest.runs.map((r) => r.file)).toEqual([
       "current_jev.json",
       "current_starter.json",
@@ -82,12 +85,10 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
       "current_baseline.json",
       "current_baseline_rescored.json",
     ]);
-    // The starter bank is the only single-group run, so its sub-label renders
-    // too.
+    // The starter bank is the only single-group run; its group line would only
+    // repeat its name, so the name appears once.
     const starter = rowFor(rows, "current_starter.json");
-    expect(
-      within(starter).getAllByText("Начални въпроси (чипове)"),
-    ).toHaveLength(2);
+    expect(within(starter).getAllByText("Предложени въпроси")).toHaveLength(1);
     expect(within(starter).getByText("367")).toBeInTheDocument();
     // Every run states how many cases it covers per language.
     expect(
@@ -100,18 +101,18 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     const section = await waitFor(() => {
       expect(
         screen.getByRole("heading", {
-          name: "Всички публикувани измервания",
+          name: "Всички измервания на облачния модел",
         }),
       ).toBeInTheDocument();
-      return sectionUnder("Всички публикувани измервания");
+      return sectionUnder("Всички измервания на облачния модел");
     });
     const rows = within(section).getAllByRole("row");
     const narrowed = rowFor(rows, "current_narrowed.json");
     expect(within(narrowed).getByText("20k")).toBeInTheDocument();
-    expect(within(narrowed).getByText("средно 61.9")).toBeInTheDocument();
+    expect(within(narrowed).getByText("средно 61,9")).toBeInTheDocument();
     expect(within(narrowed).getByText("принудително")).toBeInTheDocument();
     // Gold-in-candidates is the ceiling narrowing imposes: 941 of 948.
-    expect(within(narrowed).getByText("99.3%")).toBeInTheDocument();
+    expect(within(narrowed).getByText("99,3%")).toBeInTheDocument();
     // A run measured before the budget existed must say so rather than show 0.
     const revised = rowFor(rows, "current_revised.json");
     expect(within(revised).getAllByText("—")).toHaveLength(2);
@@ -130,21 +131,21 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     const section = await waitFor(() => {
       expect(
         screen.getByRole("heading", {
-          name: "Детерминистичен маршрутизатор (без AI)",
+          name: "Правилата без AI",
         }),
       ).toBeInTheDocument();
-      return sectionUnder("Детерминистичен маршрутизатор (без AI)");
+      return sectionUnder("Правилата без AI");
     });
     const rows = within(section).getAllByRole("row");
     // Header + the two corpora: all 841 cases, and the 474 without starters,
     // because the published floors were registered on the latter.
     expect(rows).toHaveLength(3);
     expect(
-      within(rows[1]).getByText("Всички задачи (с началните въпроси)"),
+      within(rows[1]).getByText("Всички, с предложените въпроси"),
     ).toBeInTheDocument();
     expect(within(rows[1]).getByText("841 / 841")).toBeInTheDocument();
     expect(
-      within(rows[2]).getByText("Без началните въпроси"),
+      within(rows[2]).getByText("Без предложените въпроси"),
     ).toBeInTheDocument();
     expect(within(rows[2]).getByText("474 / 474")).toBeInTheDocument();
   });
@@ -153,23 +154,22 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     setup("en");
     await waitFor(() =>
       expect(
-        screen.getByRole("heading", { name: "All published runs" }),
+        screen.getByRole("heading", { name: "All cloud-model runs" }),
       ).toBeInTheDocument(),
     );
-    const runs = sectionUnder("All published runs");
+    const runs = sectionUnder("All cloud-model runs");
     expect(within(runs).getAllByRole("row")).toHaveLength(
-      manifest.runs.length + 1,
+      cloudRuns().length + 1,
     );
-    expect(within(runs).getAllByText("Starter prompts (chips)")).toHaveLength(
-      2,
-    );
-    expect(
-      within(runs).getByText("Narrowed catalogue (forced budget)"),
-    ).toBeInTheDocument();
+    expect(within(runs).getAllByText("Suggested questions")).toHaveLength(1);
+    expect(within(runs).getByText("Narrowed catalogue")).toBeInTheDocument();
     expect(within(runs).getByText("forced")).toBeInTheDocument();
+    // English keeps the decimal POINT; the Bulgarian view uses a comma (the
+    // "99,3%" assertion above) — one formatter, switched by language.
+    expect(within(runs).getByText("99.3%")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "Deterministic router (no AI)",
+        name: "Rules without AI",
       }),
     ).toBeInTheDocument();
   });
@@ -179,17 +179,19 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     setup("bg");
     await waitFor(() =>
       expect(
-        screen.getByRole("heading", { name: "Покритие и ограничения" }),
+        screen.getByRole("heading", { name: "По групи въпроси" }),
       ).toBeInTheDocument(),
     );
     // A missing manifest degrades to no manifest sections — it must not blank
     // the page or surface as a load error, because the run itself loaded.
     expect(
-      screen.queryByRole("heading", { name: "Всички публикувани измервания" }),
+      screen.queryByRole("heading", {
+        name: "Всички измервания на облачния модел",
+      }),
     ).toBeNull();
     expect(
       screen.queryByRole("heading", {
-        name: "Детерминистичен маршрутизатор (без AI)",
+        name: "Правилата без AI",
       }),
     ).toBeNull();
     expect(screen.queryByRole("alert")).toBeNull();
@@ -202,7 +204,49 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     setup("bg");
     await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
     expect(
-      screen.queryByRole("heading", { name: "Всички публикувани измервания" }),
+      screen.queryByRole("heading", {
+        name: "Всички измервания на облачния модел",
+      }),
     ).toBeNull();
+  });
+});
+
+describe("EvalsScreen layout", { timeout: 30_000 }, () => {
+  it("tells the history in order, each step with its decision", async () => {
+    setup("bg");
+    const section = await waitFor(() => sectionUnder("Как стигнахме дотук"));
+    const steps = within(section).getAllByRole("listitem");
+    expect(steps.length).toBeGreaterThanOrEqual(8);
+    // Every step says what was decided, or the timeline is a list of attempts
+    // with no explanation of why the chat is built the way it is.
+    for (const step of steps) expect(step.textContent).toContain("Решение:");
+    // Oldest first: the rules come before the cloud model, Jev last.
+    const titles = steps.map((s) => s.textContent ?? "");
+    expect(titles.findIndex((x) => x.includes("Правила без AI"))).toBe(0);
+    expect(titles[titles.length - 1]).toContain("Jev");
+  });
+
+  it("never lets a header or a figure wrap onto a second line", async () => {
+    // A figure split across two lines ("90.6% /" then "91.4%") reads as two
+    // numbers, and a wrapped header doubles every table's height. Every column
+    // header and every numeric cell must carry `whitespace-nowrap`; the only
+    // cells allowed to wrap are the free-text question cells.
+    setup("bg");
+    await waitFor(() => sectionUnder("Всички измервания на облачния модел"));
+    const headers = [...document.querySelectorAll('th[scope="col"]')];
+    expect(headers.length).toBeGreaterThan(30);
+    const wrapping = headers.filter(
+      (h) => !h.className.includes("whitespace-nowrap"),
+    );
+    expect(wrapping.map((h) => h.textContent)).toEqual([]);
+    const figures = [...document.querySelectorAll("td")].filter((td) =>
+      /^\s*[\d.,]+%/.test(td.textContent ?? ""),
+    );
+    expect(figures.length).toBeGreaterThan(30);
+    expect(
+      figures
+        .filter((td) => !td.className.includes("whitespace-nowrap"))
+        .map((td) => td.textContent),
+    ).toEqual([]);
   });
 });

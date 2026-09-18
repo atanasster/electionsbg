@@ -50,6 +50,10 @@ type RunArtifact = {
   forcedBudget?: boolean;
   startedAt?: string;
   metrics: Record<"en" | "bg", Metrics>;
+  /** The same run's figures on the 474-question bank WITHOUT the starter
+   *  prompts — the bank every lane was measured on, so the only one on which
+   *  all three can be compared like for like. */
+  legacyMetrics?: Record<"en" | "bg", Metrics>;
   groups?: Record<string, Record<"en" | "bg", Metrics>>;
   rows?: Row[];
 };
@@ -148,6 +152,14 @@ const readRuns = () =>
         routingBudget: a.routingBudget ?? null,
         forcedBudget: a.forcedBudget ?? false,
         metrics: { en: compact(a.metrics.en), bg: compact(a.metrics.bg) },
+        ...(a.legacyMetrics
+          ? {
+              legacyMetrics: {
+                en: compact(a.legacyMetrics.en),
+                bg: compact(a.legacyMetrics.bg),
+              },
+            }
+          : {}),
         groups: Object.fromEntries(
           Object.entries(a.groups ?? {}).map(([g, m]) => [
             g,

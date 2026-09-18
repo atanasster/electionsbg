@@ -82,7 +82,7 @@ describe(
       expect(c[7]).toBe("—");
       // …and the variance it hides there is stated instead.
       expect(section().textContent).toContain(
-        `${sweep.crossedPublishedGate} от тези ходове се върнаха над текущия праг`,
+        `${sweep.crossedPublishedGate} от тези въпроси се върнаха над текущия праг`,
       );
     });
 
@@ -167,7 +167,7 @@ describe(
       setFetcher(serveEvals({ manifest: { ...base, gateSweep: null } }));
       renderEvals("bg");
       // The rest of the page still renders; the section simply absents itself.
-      await screen.findByRole("heading", { name: /маршрутизатора/ });
+      await screen.findByRole("heading", { name: "Накратко" });
       expect(screen.queryByRole("heading", { name: HEADING })).toBeNull();
     });
   },

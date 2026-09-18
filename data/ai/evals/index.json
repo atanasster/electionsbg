@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T08:39:48.557Z",
+  "generatedAt": "2026-09-18T09:06:13.869Z",
   "runs": [
     {
       "file": "current_jev.json",
@@ -48,6 +48,36 @@
           "toolAccWhenRouted": 0.9761092150170648,
           "degraded": 0,
           "jevUnsure": 0.2057074910820452
+        }
+      },
+      "legacyMetrics": {
+        "en": {
+          "n": 474,
+          "toolAcc": 0.8417721518987342,
+          "callAcc": 0.8185654008438819,
+          "argN": 53,
+          "argAcc": 0.39622641509433965,
+          "jsonValid": null,
+          "irrelevanceAcc": 0.8,
+          "jevRouted": 0.7320675105485233,
+          "jevDeclined": 0.023206751054852322,
+          "toolAccWhenRouted": 0.9942363112391931,
+          "degraded": 0,
+          "jevUnsure": 0.1160337552742616
+        },
+        "bg": {
+          "n": 474,
+          "toolAcc": 0.8649789029535865,
+          "callAcc": 0.8438818565400844,
+          "argN": 53,
+          "argAcc": 0.41509433962264153,
+          "jsonValid": null,
+          "irrelevanceAcc": 0.76,
+          "jevRouted": 0.7278481012658228,
+          "jevDeclined": 0.02531645569620253,
+          "toolAccWhenRouted": 0.9826086956521739,
+          "degraded": 0,
+          "jevUnsure": 0.14345991561181434
         }
       },
       "groups": {
