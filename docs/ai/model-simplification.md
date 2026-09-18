@@ -10,8 +10,7 @@
 > - **Jev (TypeSafe) is chosen as the AI mode's routing step.** It picks the tool,
 >   and Gemini fills only that tool's parameters. If Jev is unsure or unavailable,
 >   the question goes to Gemini with the whole catalogue as before. The No-AI mode
->   stays on the keyword rules. It is off by default until the proxy's `systemone`
->   action is deployed. The workflow is described in `docs/ai_chat_implementation.md`
+>   stays on the keyword rules. Live and on by default since 2026-09-18. The workflow is described in `docs/ai_chat_implementation.md`
 >   (status block), and the measurements are on the chat's `/evals` page.
 
 The public picker now offers **No AI** and **AI assistant (Gemini 3.5 Flash-Lite)**.

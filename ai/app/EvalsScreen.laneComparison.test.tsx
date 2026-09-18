@@ -183,14 +183,14 @@ describe("headline table", { timeout: 30_000 }, () => {
     await shown();
     expect(summary().querySelector('tr[data-lane="jev_gemini"]')).toBeNull();
     expect(summary().textContent).toMatch(/Сравняваме двата начина/);
-    expect(summary().textContent).not.toMatch(/в изпитание/);
+    expect(summary().textContent).not.toMatch(/ползва Jev \+ Gemini/);
   });
 
-  it("is a three-way table, marked as under test, with it", async () => {
+  it("is a three-way table naming Jev + Gemini as the AI mode, with it", async () => {
     show(FULL);
     await shown();
     expect(summary().textContent).toMatch(
-      /Сравняваме трите начина.*\(Jev \+ Gemini е още в изпитание\)/,
+      /Сравняваме трите начина.*\(режимът с AI в чата ползва Jev \+ Gemini\)/,
     );
   });
 

@@ -2,8 +2,8 @@
 // a turn before Gemini is asked anything.
 //
 // STATUS: the routing chosen for the chat's AI mode (docs/ai_chat_implementation.md,
-// status block). Off by default until the proxy's `systemone` action is deployed —
-// see `jevRoutingEnabled` in useModelEngine.ts.
+// status block). On by default since 2026-09-18 — see `jevRoutingEnabled` in
+// useModelEngine.ts for the off switches.
 //
 // Questions run in parallel upstream at near-zero added latency, so asking all
 // three costs about what asking one does — which is the whole reason the

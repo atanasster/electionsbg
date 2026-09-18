@@ -36,9 +36,10 @@ come from deterministic TypeScript, never from the model.
 > Measured on the same 474 questions on the same day, this beats Gemini alone:
 > parameters 94.3% / 90.6% vs 83.0% / 77.4% (EN / BG), with an average prompt of
 > 3,697 tokens instead of 16,150. It is also more accurate on typos, rewording and
-> Latin script. It is **off by default** until the proxy's `systemone` action is
-> deployed. Then set `VITE_JEV_ROUTING=1`, or
-> `localStorage["naiasno:jev-routing"]="1"` in one browser for testing.
+> Latin script. **Live since 2026-09-18, on by default** (`jevRoutingEnabled` in
+> `ai/llm/useModelEngine.ts`). Switch it off for everyone with
+> `VITE_JEV_ROUTING=0` at build time, or in one browser with
+> `localStorage["naiasno:jev-routing"]="0"`.
 >
 > **Jev in the No-AI mode — built and measured, not in the chat.** `JevProvider`
 > (`ai/llm/jev.ts`) lets Jev pick the tool and fills its parameters with rules

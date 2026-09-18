@@ -17,21 +17,26 @@ const SAVED_KEY = "naiasno.model.v1";
 /**
  * Jev picks the tool, the model fills its parameters (`jevRoutingStep`).
  *
- * OFF by default, and deliberately: it needs the proxy's `systemone` action
- * (functions/llm_http.js) deployed. Without it every AI turn would wait out
- * Jev's client timeout until the circuit breaker opened — no wrong answers
- * (an unanswered Jev call gets the full Gemini prompt), only slower ones.
+ * ON by default since 2026-09-18, once the proxy's `systemone` action
+ * (functions/llm_http.js) was deployed and a live turn routed through it. It
+ * was OFF by default until then, and the default lives HERE rather than in
+ * `.env.production` on purpose: that file is gitignored, so a switch kept there
+ * exists only on the machine that set it, and a deploy from anywhere else would
+ * quietly ship the lane off.
  *
- * Two switches, for the two stages of a rollout:
- *   localStorage["naiasno:jev-routing"] = "1"   one browser, for testing
- *   VITE_JEV_ROUTING=1 at build time            everyone
+ * Turning it off does not change what a reader can get, only how: with Jev
+ * unavailable every turn already falls back to the full Gemini prompt. Two
+ * switches, for the two scopes:
+ *   localStorage["naiasno:jev-routing"] = "0"   one browser
+ *   VITE_JEV_ROUTING=0 at build time            everyone
+ * Anything else, including a missing or unreadable value, leaves it on.
  */
 export const jevRoutingEnabled = (): boolean => {
-  if (import.meta.env?.VITE_JEV_ROUTING === "1") return true;
+  if (import.meta.env?.VITE_JEV_ROUTING === "0") return false;
   try {
-    return localStorage.getItem("naiasno:jev-routing") === "1";
+    return localStorage.getItem("naiasno:jev-routing") !== "0";
   } catch {
-    return false;
+    return true;
   }
 };
 export const useModelEngine = (): ModelEngine => {

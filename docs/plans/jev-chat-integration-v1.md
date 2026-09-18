@@ -15,9 +15,10 @@ What was decided, and where it lives:
   `ai/llm/openrouter.ts`. Measured against Gemini alone on the same 474 questions
   and the same day: parameters 94.3% / 90.6% vs 83.0% / 77.4% (EN / BG), and an
   average prompt of 3,697 vs 16,150 tokens. It is also better on typos, rewording
-  and Latin script. **Off by default** until the proxy's `systemone` action is
-  deployed (`functions/README.md`). Then `VITE_JEV_ROUTING=1` switches it on for
-  everyone (`ai/llm/useModelEngine.ts`).
+  and Latin script. **Live and on by default since 2026-09-18**
+  (`ai/llm/useModelEngine.ts`); `VITE_JEV_ROUTING=0` switches it off for
+  everyone. The first live run found the client's 1.2 s budget too tight for the
+  proxy hop — see §6.
 - **No-AI mode — built and measured, not adopted.** `JevProvider` (`ai/llm/jev.ts`)
   does T1-T3, plus a stage this plan did not have: parameters read from the
   question by type (`ai/llm/jevParamExtract.ts`), and a clarifying question instead

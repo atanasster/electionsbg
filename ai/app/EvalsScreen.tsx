@@ -326,10 +326,13 @@ const Summary = ({
   const num = (n: number) =>
     n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB");
   const howMany = lanes.length === 3 ? t("трите", "three") : t("двата", "two");
+  // Which row IS the chat's AI mode. Live since 2026-09-18 (it read „still
+  // under test" until then) — so a reader comparing three rows knows which one
+  // answers them.
   const underTest = jevGemini
     ? t(
-        " (Jev + Gemini е още в изпитание)",
-        " (Jev + Gemini is still under test)",
+        " (режимът с AI в чата ползва Jev + Gemini)",
+        " (the chat's AI mode uses Jev + Gemini)",
       )
     : "";
   return (

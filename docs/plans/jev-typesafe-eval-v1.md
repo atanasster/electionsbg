@@ -3,8 +3,7 @@
 Status: **evaluation complete; adopted for the AI mode (2026-09-18).** This is the
 measurement record. What was built from it, and the decision, are in
 `docs/plans/jev-chat-integration-v1.md`. In short: Jev picks the tool and Gemini
-fills its parameters in the AI mode (off by default until the proxy's `systemone`
-action is deployed). The No-AI mode keeps the keyword rules; a Jev-based No-AI lane
+fills its parameters in the AI mode (live since 2026-09-18). The No-AI mode keeps the keyword rules; a Jev-based No-AI lane
 is built and measured but not in the chat. §5's two architectures map to those
 outcomes: (b) was adopted, and (a) was built and measured but not put in the chat.
 
