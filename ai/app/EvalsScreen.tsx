@@ -721,8 +721,23 @@ const History = ({ t }: { t: T }) => {
         "Jev writes no text — it only chooses among options we give it and says how confident it is. It cannot invent a tool that does not exist, and a mode without a generative model could understand more questions.",
       ),
       outcome: t(
-        "Когато е уверен, почти не греши, но поема само около 70% от въпросите. Не може да попълва отворени стойности (ЕИК, свободен текст, дати), а имената избира само сред резултатите от търсене — затова като цяло изостава от облачния модел. Изпитан е, но още не е пуснат за читателите. Прагът на увереност остава 0,70: при почти всички по-ниски прагове Jev е по-неточен от правилата на въпросите, които би поел от тях.",
-        "When confident it is almost never wrong, but it takes only about 70% of the questions. It cannot fill open values (company IDs, free text, dates) and picks names only from search results — so overall it trails the cloud model. It has been tested but is not yet live for readers. The confidence gate stays at 0.70: at almost every lower gate Jev is less accurate than the rules on the questions it would take over from them.",
+        "Когато е уверен, почти не греши, но поема само около 70% от въпросите. Не може да попълва отворени стойности (ЕИК, свободен текст, дати), а имената избира само сред резултатите от търсене — затова като цяло изостава от облачния модел. Прагът на увереност остава 0,70: при почти всички по-ниски прагове Jev е по-неточен от правилата на въпросите, които би поел от тях — но това е измерено върху основния тест, който облагодетелства правилата (вижте следващата стъпка), затова прагът трябва да се измери отново.",
+        "When confident it is almost never wrong, but it takes only about 70% of the questions. It cannot fill open values (company IDs, free text, dates) and picks names only from search results — so overall it trails the cloud model. The confidence gate stays at 0.70: at almost every lower gate Jev is less accurate than the rules on the questions it would take over from them — but that was measured on the main test, which favours the rules (see the next step), so the gate needs measuring again.",
+      ),
+    },
+    {
+      date: t("18 септември", "18 September"),
+      title: t(
+        "Тестът облагодетелстваше правилата",
+        "The test favoured the rules",
+      ),
+      body: t(
+        "Jev изглеждаше едва малко по-добър от правилата и проверихме защо. 91% от основния тест са примерите, по които са написани самите правила, така че те се оценяваха върху собствения си речник. На същите въпроси с правописни грешки правилата паднаха до около 30%, с други думи — под 25%, на латиница — до 6,5%, а собственият избор на Jev остана между 71% и 94%.",
+        "Jev looked barely better than the rules, so we checked why. 91% of the main test is the examples the rules themselves were written from, so they were being graded on their own vocabulary. On the same questions with typos the rules fell to about 30%, reworded to under 25%, in Latin script to 6.5% — while Jev's own pick stayed between 71% and 94%.",
+      ),
+      outcome: t(
+        "Добавихме тест с грешки, други думи и латиница (раздела „Когато въпросът е написан по-различно“) и решенията вече се вземат и по него. Излезе, че режимът без AI губи повечето верни избори на Jev, защото никой не може да попълни параметрите на инструмент, който правилата не са избрали.",
+        "We added a test with typos, rewording and Latin script (the “When the question is written differently” section), and decisions now rest on it too. It showed that the no-AI mode throws away most of Jev's right picks, because nothing can fill the parameters of a tool the rules did not choose.",
       ),
     },
     {
@@ -733,8 +748,8 @@ const History = ({ t }: { t: T }) => {
         "Jev picks the tool well even with typos and rewording, but cannot fill open parameters, and Gemini can. So when Jev is confident, Gemini receives only the chosen tool's description and fills its parameters; otherwise it receives the whole catalogue, as before.",
       ),
       outcome: t(
-        "Измерено в същия ден и на същите въпроси, това е по-точно от само Gemini — най-вече при параметрите — и подканата е около четири пъти по-кратка. По-точно е и при грешки, други думи и латиница. Изпитано е, но още не е пуснато за читателите.",
-        "Measured on the same day and the same questions, it is more accurate than Gemini alone — above all on parameters — with a prompt about four times shorter. It is also more accurate with typos, rewording and Latin script. It has been tested but is not yet live for readers.",
+        "Измерено в същия ден и на същите въпроси, това е по-точно от само Gemini — най-вече при параметрите — с около четири пъти по-кратка подкана и около 0,2 секунди по-бавно. По-точно е и при грешки, други думи и латиница. Решихме да го включим в режима с AI, щом бъде пусната връзката към Jev през нашия сървър. Ако Jev не отговори, въпросът отива при Gemini с целия каталог, както досега. В режима без AI засега остават правилата: там Jev няма кой да попълни параметрите, а режимът не минава през сървъра, през който Jev се извиква.",
+        "Measured on the same day and the same questions, it is more accurate than Gemini alone — above all on parameters — with a prompt about four times shorter and about 0.2 seconds slower. It is also more accurate with typos, rewording and Latin script. We decided to switch it on in the AI mode once the connection to Jev through our server is deployed. If Jev does not answer, the question goes to Gemini with the whole catalogue, as before. The no-AI mode keeps the rules for now: there is nothing to fill in Jev's parameters, and the mode does not go through the server Jev is called through.",
       ),
     },
   ];
