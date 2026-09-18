@@ -39,11 +39,12 @@ import {
   route,
   type Route,
 } from "../orchestrator/router";
-import { runTool } from "../tools/registry";
+import { TOOLS_BY_NAME, runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { semanticGrounded } from "./semanticGrounding";
 import { matchesLang, stripControl } from "./lang";
 import type { ModelOption } from "./models";
+import { parseSplit, splitPrompt, type AiTurnPlan } from "./jevAiLane";
 import type {
   ChatResponse,
   LLMProvider,
@@ -147,6 +148,16 @@ export class OpenRouterProvider implements LLMProvider {
   constructor(
     model: ModelOption,
     private access: QuestionAccess = questionAccess,
+    // OPTIONAL Jev pre-step. Absent (the default) means this lane behaves
+    // exactly as it did before Jev existed — same calls, same order, same
+    // answers. When supplied, one batched Choice/Noul call decides the tool,
+    // whether the turn is compound, and what kind of message it is, before
+    // Gemini is asked anything.
+    //
+    // ⚠️ Whatever it returns, this lane NEVER falls back to keyword routing:
+    // a user who chose the model gets the full Gemini prompt when Jev cannot
+    // answer, which is what `selectRoute` already does.
+    private jevPlan?: (question: string) => Promise<AiTurnPlan>,
   ) {
     this.model = model;
     this.id = `cloud:${model.id}`;
@@ -268,6 +279,136 @@ export class OpenRouterProvider implements LLMProvider {
   // Model-first routing (a strong hosted model handles paraphrase + arg
   // extraction far better than keywords). The deterministic router is the
   // fallback when the model errors or returns something unusable.
+  /** Use Jev's pick when it is confident; otherwise the existing model routing.
+   *  A pick is only taken when the tool needs no arguments Jev cannot supply —
+   *  Gemini fills open-vocabulary arguments far better than an empty object
+   *  does, and running a param-bearing tool with `{}` answers a different
+   *  question than the one asked. */
+  /** True when Jev's pick can be run as-is, so this turn needs NO routing call.
+   *  ⚠️ The tool must EXIST: `TOOLS_BY_NAME[x]?.params.length` is `undefined`
+   *  for an unknown name, and `!undefined` is true — so testing only the
+   *  parameter count would send an invented tool name straight to `runTool`,
+   *  which throws `unknown tool` at the user instead of falling through to
+   *  Gemini. Jev can only return a listed option today, but this path must not
+   *  depend on that. */
+  private planSkipsRouting(plan: AiTurnPlan | null): plan is AiTurnPlan & {
+    tool: string;
+  } {
+    const def = plan?.tool ? TOOLS_BY_NAME[plan.tool] : undefined;
+    return !!def && def.params.length === 0;
+  }
+
+  private async routeWithPlan(
+    question: string,
+    ctx: ToolContext,
+    usage: Usage,
+    routingCtx: string,
+    plan: AiTurnPlan | null,
+  ): Promise<{ route: Route; byModel: boolean }> {
+    if (this.planSkipsRouting(plan))
+      return { route: { tool: plan.tool, args: {} }, byModel: true };
+    return this.selectRoute(question, ctx, usage, routingCtx);
+  }
+
+  /**
+   * A freeform answer for a turn Jev classified as CONVERSATIONAL — a greeting,
+   * a question about the assistant, something the corpus cannot answer. Today
+   * the lane declines these; the tools genuinely have nothing to say, but a
+   * decline is a poor answer to "здравей".
+   *
+   * ⚠️ THE GROUNDING GATE IS NOT BYPASSED — this is the path most likely to
+   * produce an unsupported figure, precisely because no tool ran. A rejected
+   * answer falls back to the ordinary decline.
+   *
+   * ⚠️ BUT KNOW WHAT IT DOES AND DOES NOT CATCH, because the obvious reading
+   * ("only numbers from the question survive") is wrong in both directions:
+   *  - STRICTER than expected: with empty facts the numeral-word and
+   *    motivation/cause checks reject ordinary friendly phrasing too, so a
+   *    perfectly innocuous reply can be declined after a billed call. That is
+   *    the safe direction, and the prompt asks for no figures precisely to
+   *    stay clear of it.
+   *  - WEAKER than expected: bare 1–2 digit numbers pass unconditionally, and
+   *    a NON-numeric false claim ("the mayor of Varna is X") is not checked at
+   *    all — nothing here verifies prose against the world. That is why the
+   *    prompt forbids specific facts outright rather than relying on this gate.
+   */
+  private async conversationalAnswer(
+    question: string,
+    ctx: ToolContext,
+    usage: Usage,
+  ): Promise<string | null> {
+    const system =
+      ctx.lang === "bg"
+        ? "Отговори кратко и любезно на български. Ти си асистент за български обществени данни. НЕ посочвай числа, статистики или конкретни факти — ако въпросът иска такива, кажи че може да бъде зададен по-конкретно."
+        : "Reply briefly and politely in English. You are an assistant for Bulgarian public data. Do NOT state any figures, statistics or specific facts — if the question wants those, say it can be asked more specifically.";
+    try {
+      const raw = await this.call(
+        [
+          { role: "system", content: system },
+          { role: "user", content: question },
+        ],
+        { maxTokens: 160, temperature: 0.2 },
+        usage,
+      );
+      const text = stripControl(raw).trim();
+      if (!text || !matchesLang(text, ctx.lang)) return null;
+      // Empty facts: the ONLY numbers allowed are ones the question supplied.
+      return semanticGrounded(text, {}, question) ? text : null;
+    } catch {
+      return null;
+    }
+  }
+
+  /** Run the non-primary parts of a split request and render their facts as
+   *  narration context. Deterministic routing only: these are extra tool runs
+   *  on a turn that already spent a routing call, and a failure must cost the
+   *  turn nothing — an unroutable or throwing part is simply omitted. */
+  private async secondaryFacts(
+    parts: string[],
+    ctx: ToolContext,
+  ): Promise<string> {
+    const lines: string[] = [];
+    for (const part of parts) {
+      const r = pinElectionContext(route(part, ctx), ctx);
+      if (!r) continue;
+      try {
+        lines.push(
+          `${part}\n${narrate(await runTool(r.tool, r.args, ctx), ctx.lang)}`,
+        );
+      } catch {
+        /* a part that cannot be answered is dropped, never guessed */
+      }
+    }
+    if (!lines.length) return "";
+    return ctx.lang === "bg"
+      ? `Допълнителни въпроси в същото съобщение:\n${lines.join("\n")}`
+      : `Additional questions in the same message:\n${lines.join("\n")}`;
+  }
+
+  /** Ask the model to break a compound request into atomic questions. Jev
+   *  detected the compound shape; splitting needs generated text, which only
+   *  the model can produce. A failure returns the original question, so the
+   *  turn answers the primary ask rather than erroring. */
+  private async splitRequest(
+    question: string,
+    ctx: ToolContext,
+    usage: Usage,
+  ): Promise<string[]> {
+    try {
+      const raw = await this.call(
+        [
+          { role: "system", content: splitPrompt(ctx.lang) },
+          { role: "user", content: question },
+        ],
+        { maxTokens: 160, temperature: 0 },
+        usage,
+      );
+      return parseSplit(raw, question);
+    } catch {
+      return [question];
+    }
+  }
+
   private async selectRoute(
     question: string,
     ctx: ToolContext,
@@ -545,9 +686,36 @@ export class OpenRouterProvider implements LLMProvider {
     // A bare follow-on ("а ДПС?") reuses the previous tool deterministically —
     // no routing call needed (and the keyword swap is reliable for ellipsis).
     const followOn = resolveFollowOn(question, opts?.prev);
+    // The Jev pre-step, when wired. A confident pick skips the Gemini routing
+    // call entirely; anything less falls through to it unchanged.
+    // The hook is an ACCELERATOR, so it must not be able to take the turn down:
+    // a throwing implementation degrades to "no plan", which is the full Gemini
+    // prompt — exactly the behaviour without Jev wired at all.
+    let plan: AiTurnPlan | null = null;
+    if (this.jevPlan && !followOn) {
+      try {
+        plan = await this.jevPlan(question);
+      } catch {
+        plan = null;
+      }
+    }
+    // A compound request is split by the MODEL — the one thing Jev cannot do,
+    // since it generates no text.
+    //
+    // ⚠️ BUDGET-BOUNDED. A question reserves POLICY.calls (3) upstream calls,
+    // and the Jev pre-step already claims one. Splitting adds another, so it is
+    // only affordable when Jev's pick ALSO removes the routing call — otherwise
+    // jev + split + route + narrate is 4 and the turn 429s on its own narration.
+    // When it is not affordable the turn answers the primary ask un-split,
+    // which is what the lane does today anyway.
+    const parts =
+      plan?.compound && !followOn && this.planSkipsRouting(plan)
+        ? await this.splitRequest(question, ctx, usage)
+        : [question];
+    const primary = parts[0];
     const { route: selectedRoute, byModel: routedByModel } = followOn
       ? { route: followOn, byModel: false }
-      : await this.selectRoute(question, ctx, usage, routingCtx);
+      : await this.routeWithPlan(primary, ctx, usage, routingCtx, plan);
     const r = pinElectionContext(selectedRoute, ctx);
     // `usedModel` = the cloud model produced the route OR the prose. When false
     // (both fell back), the answer IS the rules engine, so label it as such —
@@ -562,6 +730,24 @@ export class OpenRouterProvider implements LLMProvider {
       outputTokens: usage.output || undefined,
       narratedBy,
     });
+    if (!r && plan?.kind === "conversational") {
+      // Jev says this is conversation, not a data question. The tools have
+      // nothing to say, but a decline is a poor answer to a greeting — so the
+      // model answers, through the grounding gate (see conversationalAnswer).
+      const text = await this.conversationalAnswer(primary, ctx, usage);
+      if (text)
+        return {
+          text,
+          env: null,
+          meta: {
+            model: this.label,
+            durationMs: performance.now() - t0,
+            inputTokens: usage.input || undefined,
+            outputTokens: usage.output || undefined,
+            narratedBy: "model",
+          },
+        };
+    }
     if (!r) {
       // The cloud lane reaches a declined question too (the model abstained, or
       // returned something unusable). The SAME shared decision as the rules lane,
@@ -594,11 +780,17 @@ export class OpenRouterProvider implements LLMProvider {
           args: r.args,
           meta: baseMeta("rules", routedByModel),
         };
+      // A compound turn answers its PRIMARY ask visually (one envelope is the
+      // UI contract) and folds the other asks' facts into the narration
+      // context, so the prose addresses both rather than silently dropping one.
+      // Secondary parts route DETERMINISTICALLY — no extra routing call — which
+      // keeps a split turn inside the per-question call budget.
+      const secondary = await this.secondaryFacts(parts.slice(1), ctx);
       const { text, fromModel, reject } = await this.narrateEnv(
         env,
         ctx.lang,
         usage,
-        narrationCtx,
+        secondary ? `${narrationCtx}\n${secondary}` : narrationCtx,
         onDelta,
       );
       const m = baseMeta(
