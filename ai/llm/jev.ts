@@ -190,6 +190,98 @@ export const acceptJevPick = (
   return { route: pick, usedJev: true };
 };
 
+// ---- closed-vocabulary arguments (tier 2) ---------------------------------
+//
+// Jev can pick a parameter's value ONLY when that value comes from a list we
+// enumerate — it has no primitive that generates a free-text value
+// (docs/plans/jev-typesafe-eval-v1.md §3). The registry already marks exactly
+// those parameters: `ToolParam.values`. 52 params across the catalogue declare
+// one, and that is the whole addressable set — no new metadata, and an
+// open-vocabulary param (a person's name, a free-text query) is simply never
+// asked about.
+//
+// Measured: 100% on 122 closed-vocabulary cases, EN and BG alike.
+
+/** The sentinel for "the question names no value for this parameter". Without
+ *  it a Choice must pick SOME value, which would invent an argument the user
+ *  never gave — worse than leaving the param unset. */
+export const ARG_UNSPECIFIED = "__unspecified__";
+
+export const enumerableParams = (tool: string) =>
+  (TOOLS_BY_NAME[tool]?.params ?? []).filter((p) => p.values?.length);
+
+/** One Choice per enumerable parameter of the picked tool. Batched into a
+ *  single request: questions run in parallel upstream, so N params cost about
+ *  what one does. */
+export const argQuestions = (
+  tool: string,
+  skip: ReadonlySet<string> = new Set(),
+): Record<string, JevQuestion> => {
+  const questions: Record<string, JevQuestion> = {};
+  for (const p of enumerableParams(tool)) {
+    if (skip.has(p.name)) continue;
+    const criteria: Record<string, string | null> = {};
+    for (const v of p.values!) criteria[String(v)] = null;
+    criteria[ARG_UNSPECIFIED] = "The question does not name a value for this.";
+    questions[p.name] = {
+      type: "choice",
+      instructions: `Which value does the question give for "${p.name}" (${p.description.en})? Choose ${ARG_UNSPECIFIED} if it names none.`,
+      criteria,
+    };
+  }
+  return questions;
+};
+
+/** Read the filled arguments out of an answer set. A below-gate or absent
+ *  answer leaves the parameter UNSET rather than guessing: an unset optional
+ *  param falls back to the tool's own default, while a wrong one silently
+ *  answers a different question. */
+export const fillArgs = (
+  tool: string,
+  result: JevResult | null,
+): { args: ToolArgs; filled: string[] } => {
+  const args: ToolArgs = {};
+  const filled: string[] = [];
+  for (const p of enumerableParams(tool)) {
+    const pick = choiceOf(result, p.name);
+    if (!pick || pick.choice === ARG_UNSPECIFIED) continue;
+    if (!(pick.confidence >= JEV_CONFIDENCE_GATE)) continue;
+    // The registry's `values` may be numbers; the answer is always a string.
+    const declared = TOOLS_BY_NAME[tool]?.params.find((x) => x.name === p.name);
+    const match = declared?.values?.find((v) => String(v) === pick.choice);
+    if (match === undefined) continue;
+    args[p.name] = match;
+    filled.push(p.name);
+  }
+  return { args, filled };
+};
+
+/** Can this tool run with the arguments we have? True when every REQUIRED
+ *  parameter is present. A tool whose required param is open-vocabulary can
+ *  never pass, which is the point — it is refused rather than run empty.
+ *
+ *  ⚠️ A tool with NO required params passes VACUOUSLY — `every` over an empty
+ *  list is true — so this predicate is necessary and NOT sufficient. Three
+ *  registry tools declare enumerable params and no required one, and for them
+ *  an all-`__unspecified__` second call would otherwise "succeed" with
+ *  `args: {}` and discard a correct deterministic answer. `fillEnumerableArgs`
+ *  therefore ALSO requires that at least one value was actually filled — the
+ *  same reasoning as `acceptJevPick`'s `params.length === 0` rule. */
+export const argsSufficient = (tool: string, args: ToolArgs): boolean =>
+  (TOOLS_BY_NAME[tool]?.params ?? [])
+    .filter((p) => p.required)
+    .every((p) => args[p.name] !== undefined);
+
+/** Could a second call ever rescue this tool? Only when every required param is
+ *  enumerable — otherwise the registry already predetermines the refusal, and
+ *  asking would burn one of the three reserved calls per question to learn
+ *  something we can read locally. */
+export const fillableTool = (tool: string): boolean => {
+  const params = TOOLS_BY_NAME[tool]?.params ?? [];
+  if (!params.some((p) => p.values?.length)) return false;
+  return params.every((p) => !p.required || p.values?.length);
+};
+
 export class JevProvider implements LLMProvider {
   id = "jev";
   // ⚠️ NOT "Без AI". Routing through Jev is a hosted model call — cheap,
@@ -229,6 +321,7 @@ export class JevProvider implements LLMProvider {
     let routing: JevRouting = { route: null, degraded: true };
     let usedJev = false;
     let declined = false;
+    let argsFilled = false;
     const meta = (): ResponseMeta => ({
       // The band names what produced THIS answer, not which lane is selected:
       // on a turn Jev did not route, the Jev name must not appear at all.
@@ -245,6 +338,7 @@ export class JevProvider implements LLMProvider {
       // "did not answer in time" would be a false claim about a hosted call.
       routerDegraded: asked && routing.degraded ? true : undefined,
       routerDeclined: declined ? true : undefined,
+      routerFilledArgs: argsFilled ? true : undefined,
     });
 
     // Deterministic wins first — free, exact, and Jev has no better answer for
@@ -268,7 +362,30 @@ export class JevProvider implements LLMProvider {
         usedJev = true;
         declined = true;
       } else {
-        const accepted = acceptJevPick(routing.route, route(question, ctx));
+        const deterministic = route(question, ctx);
+        let accepted = acceptJevPick(routing.route, deterministic);
+        // A pick the argument rule refused is worth a SECOND call when the
+        // tool's parameters are enumerable — that is the case tier 2 exists
+        // for, and the only one where a second round trip can change the
+        // answer. A pick that was already accepted, or a tool with no
+        // enumerable params, never pays for it.
+        if (
+          routing.route &&
+          !accepted.usedJev &&
+          fillableTool(routing.route.tool)
+        ) {
+          const filledRoute = await this.fillEnumerableArgs(
+            question,
+            routing.route.tool,
+          );
+          if (filledRoute) {
+            accepted = { route: filledRoute, usedJev: true };
+            // Never a bare `true`: the band claims a hosted model chose these
+            // values from an enumerated list, so the flag must be derived from
+            // values actually chosen.
+            argsFilled = Object.keys(filledRoute.args).length > 0;
+          }
+        }
         r = accepted.route;
         usedJev = accepted.usedJev;
       }
@@ -280,6 +397,29 @@ export class JevProvider implements LLMProvider {
       return { text: declined.text, env: declined.env, meta: meta() };
     }
     return runAndNarrate(r, ctx, meta);
+  }
+
+  /** Second call: fill the picked tool's ENUMERABLE parameters. Returns a
+   *  runnable route, or null when the tool still cannot be run — in which case
+   *  the caller keeps the deterministic answer rather than running it empty. */
+  private async fillEnumerableArgs(
+    question: string,
+    tool: string,
+  ): Promise<Route> {
+    const result = await this.ask(
+      question,
+      argQuestions(tool),
+      this.credentials?.(),
+    );
+    if (!result) return null;
+    const { args, filled } = fillArgs(tool, result);
+    // ⚠️ BOTH guards. `argsSufficient` is vacuously true for a tool with no
+    // required params, so on its own it would admit a second call that answered
+    // `__unspecified__` to everything — running the tool with `args: {}` and
+    // throwing away a correct deterministic answer, which is precisely the trap
+    // `acceptJevPick` refuses. A rescue that rescued nothing is not a rescue.
+    if (!filled.length) return null;
+    return argsSufficient(tool, args) ? { tool, args } : null;
   }
 
   // A disambiguation pick resolves to one entity, so there is nothing to route:

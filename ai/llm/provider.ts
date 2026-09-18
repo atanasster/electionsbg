@@ -137,6 +137,13 @@ export type ResponseMeta = {
   // rather than re-routing through keywords), but no tool ran — so the band
   // must not say a tool "was chosen by Jev".
   routerDeclined?: boolean;
+  // Jev also filled the tool's CLOSED-VOCABULARY arguments (a second call).
+  // Open-vocabulary values are never model-generated — it has no primitive for
+  // that — so this can only ever mean "chosen from a list we enumerated".
+  // Set only when at least one value was ACTUALLY chosen: a second call that
+  // filled nothing is refused outright, so the deterministic answer survives
+  // rather than being replaced by an argument-less call.
+  routerFilledArgs?: boolean;
   routerLatencyMs?: number; // the routing call alone, not the whole turn
 };
 

@@ -5,12 +5,17 @@
 // would silently give a user who chose "no LLM" an LLM.
 import { describe, expect, it, vi } from "vitest";
 import {
+  ARG_UNSPECIFIED,
   JEV_CONFIDENCE_GATE,
   JEV_FALLBACK_LABEL,
   JEV_LABEL,
   JevProvider,
   NO_TOOL,
   acceptJevPick,
+  argQuestions,
+  argsSufficient,
+  fillArgs,
+  fillableTool,
   jevRoute,
   toolCriteria,
   turnQuestions,
@@ -380,5 +385,211 @@ describe("JevProvider", () => {
     );
     const res = await provider.respond("нещо", ctx);
     expect(res.text.length).toBeGreaterThan(0);
+  });
+});
+
+describe("closed-vocabulary arguments (tier 2)", () => {
+  const enumTool = TOOLS.find((t) => t.params.some((p) => p.values?.length))!;
+  const enumParam = enumTool.params.find((p) => p.values?.length)!;
+
+  it("only asks about parameters whose values the registry enumerates", () => {
+    const questions = argQuestions(enumTool.name);
+    // An open-vocabulary param (a name, a free-text query) has no candidate
+    // list, so Jev is never asked about it — it cannot generate a value.
+    for (const key of Object.keys(questions)) {
+      const p = enumTool.params.find((x) => x.name === key)!;
+      expect(p.values?.length, `${key} has no enumerable values`).toBeTruthy();
+    }
+    expect(Object.keys(questions)).toContain(enumParam.name);
+  });
+
+  it("offers an explicit unspecified option on every argument question", () => {
+    // Without it a Choice must pick SOME value, inventing an argument the user
+    // never gave — worse than leaving the parameter unset.
+    for (const q of Object.values(argQuestions(enumTool.name)))
+      expect(Object.keys(q.criteria as object)).toContain(ARG_UNSPECIFIED);
+  });
+
+  it("fills a confidently answered parameter, preserving the declared type", () => {
+    const value = enumParam.values![0];
+    const { args, filled } = fillArgs(enumTool.name, {
+      answers: {
+        [enumParam.name]: {
+          type: "choice",
+          choice: String(value),
+          probabilities: {},
+          confidence: 0.96,
+        },
+      },
+      latencyMs: 5,
+    });
+    expect(filled).toContain(enumParam.name);
+    // The answer is always a string; a numeric `values` entry must come back as
+    // the number the tool declares, not "2021".
+    expect(args[enumParam.name]).toBe(value);
+  });
+
+  it.each([
+    ["unspecified", ARG_UNSPECIFIED, 0.99],
+    ["below the gate", String(0), JEV_CONFIDENCE_GATE - 0.01],
+    ["not a declared value", "definitely-not-a-value", 0.99],
+  ])(
+    "leaves a parameter unset when the answer is %s",
+    (_l, choice, confidence) => {
+      const { args } = fillArgs(enumTool.name, {
+        answers: {
+          [enumParam.name]: {
+            type: "choice",
+            choice,
+            probabilities: {},
+            confidence,
+          },
+        },
+        latencyMs: 5,
+      });
+      // Unset falls back to the tool's own default; a guessed value silently
+      // answers a different question.
+      expect(args[enumParam.name]).toBeUndefined();
+    },
+  );
+
+  it("refuses a tool whose REQUIRED parameter could not be filled", () => {
+    const required = TOOLS.find((t) => t.params.some((p) => p.required));
+    if (!required) return;
+    expect(argsSufficient(required.name, {})).toBe(false);
+  });
+
+  it("accepts a tool once every required parameter is present", () => {
+    const required = TOOLS.find((t) => t.params.some((p) => p.required));
+    if (!required) return;
+    const args = Object.fromEntries(
+      required.params.filter((p) => p.required).map((p) => [p.name, "x"]),
+    );
+    expect(argsSufficient(required.name, args)).toBe(true);
+  });
+
+  it("does not spend a second call when the pick was already accepted", async () => {
+    const ask = asking(answer(deterministicRoute!.tool, 0.95));
+    await new JevProvider(creds, ask).respond(DETERMINISTIC_Q, ctx);
+    expect(
+      (ask as unknown as { mock: { calls: unknown[] } }).mock.calls,
+    ).toHaveLength(1);
+  });
+});
+
+describe("the second call rescues a refused pick", () => {
+  // The tier-2 win: without argument filling, acceptJevPick refuses every
+  // param-bearing tool the deterministic router disagreed about, so a correct
+  // Jev pick was thrown away. These use NAMED registry tools rather than a
+  // `find(...)` + `if` guard — a conditional fixture is how the first cut of
+  // this suite ended up asserting nothing at all.
+  const askingSequence = (results: (JevResult | null)[]) => {
+    let i = 0;
+    return vi.fn(
+      async () => results[Math.min(i++, results.length - 1)],
+    ) as unknown as Parameters<typeof jevRoute>[2];
+  };
+  const argAnswer = (values: Record<string, string>, confidence = 0.95) =>
+    ({
+      answers: Object.fromEntries(
+        Object.entries(values).map(([k, v]) => [
+          k,
+          { type: "choice", choice: v, probabilities: {}, confidence },
+        ]),
+      ),
+      latencyMs: 30,
+    }) as unknown as JevResult;
+
+  // `rankPlaces` declares a REQUIRED param whose values the registry enumerates
+  // — the exact shape tier 2 exists to rescue.
+  const RESCUABLE = "rankPlaces";
+  const required = TOOLS_BY_NAME[RESCUABLE].params.filter((p) => p.required);
+
+  it("uses the registry fixture this suite assumes", () => {
+    // Pins the fixture itself, so a registry change turns into a failure here
+    // rather than silently making the tests below vacuous.
+    expect(required.length).toBeGreaterThan(0);
+    for (const p of required) expect(p.values?.length).toBeTruthy();
+    expect(fillableTool(RESCUABLE)).toBe(true);
+  });
+
+  it("accepts the picked tool once Jev supplies its required values", async () => {
+    const values = Object.fromEntries(
+      required.map((p) => [p.name, String(p.values![0])]),
+    );
+    const ask = askingSequence([answer(RESCUABLE, 0.97), argAnswer(values)]);
+    const res = await new JevProvider(creds, ask).respond(DETERMINISTIC_Q, ctx);
+    // NB: `res.tool` is not assertable here — running any real tool needs data
+    // this suite has no network for, so runAndNarrate catches and reports the
+    // failure without echoing the attempted call. What IS observable is the
+    // routing DECISION, and `routerFilledArgs` is true only when the rescue
+    // was accepted with at least one value actually chosen.
+    expect(res.meta?.routerFilledArgs).toBe(true);
+    expect(res.meta?.routedBy).toBe("jev");
+    expect(res.meta?.routerDegraded).toBeUndefined();
+    // The value mapping itself (including numeric coercion and rejection) is
+    // pinned directly on `fillArgs` above.
+    const { args, filled } = fillArgs(RESCUABLE, argAnswer(values));
+    expect(filled).toEqual(required.map((p) => p.name));
+    for (const p of required) expect(args[p.name]).toBe(p.values![0]);
+  });
+
+  it("keeps the deterministic answer when a required value is not given", async () => {
+    const unspecified = Object.fromEntries(
+      required.map((p) => [p.name, ARG_UNSPECIFIED]),
+    );
+    const ask = askingSequence([
+      answer(RESCUABLE, 0.97),
+      argAnswer(unspecified),
+    ]);
+    const res = await new JevProvider(creds, ask).respond(DETERMINISTIC_Q, ctx);
+    expect(res.tool).not.toBe(RESCUABLE);
+    expect(res.meta?.routerFilledArgs).toBeUndefined();
+  });
+
+  // The FINDING-001 regression: these three tools declare enumerable params and
+  // NO required param, so `argsSufficient` is vacuously true for them. Without
+  // the "filled nothing" guard, an all-unspecified second call would run them
+  // with args:{} and discard a correct deterministic answer — the
+  // macroIndicator({}) trap through a different door.
+  it.each(["presidentialResults", "regionWinners", "voteTransitions"])(
+    "never runs %s with empty args when Jev filled nothing",
+    async (tool) => {
+      expect(
+        TOOLS_BY_NAME[tool].params.some((p) => p.required),
+        `${tool} now has a required param — fixture stale`,
+      ).toBe(false);
+      const ask = askingSequence([
+        answer(tool, 0.97),
+        { answers: {}, latencyMs: 30 },
+      ]);
+      const res = await new JevProvider(creds, ask).respond(
+        DETERMINISTIC_Q,
+        ctx,
+      );
+      // `routedBy` is the assertion that discriminates for ALL THREE: two of
+      // these tools throw without network, so `res.tool` is undefined either
+      // way and would pass vacuously. Accepting an empty-args rescue sets
+      // usedJev, and therefore routedBy "jev" — so "rules" is the proof the
+      // rescue was refused.
+      expect(res.meta?.routedBy).toBe("rules");
+      expect(res.tool).not.toBe(tool);
+      expect(res.meta?.routerFilledArgs).toBeUndefined();
+    },
+  );
+
+  it("spends no second call on a tool the registry predetermines it cannot fill", async () => {
+    // An open-vocabulary REQUIRED param can never be filled, so asking would
+    // burn one of the three reserved calls per question to learn something
+    // readable locally.
+    const unrescuable = TOOLS.find((t) =>
+      t.params.some((p) => p.required && !p.values?.length),
+    )!;
+    expect(fillableTool(unrescuable.name)).toBe(false);
+    const ask = askingSequence([answer(unrescuable.name, 0.97), null]);
+    await new JevProvider(creds, ask).respond(DETERMINISTIC_Q, ctx);
+    expect(
+      (ask as unknown as { mock: { calls: unknown[] } }).mock.calls,
+    ).toHaveLength(1);
   });
 });
