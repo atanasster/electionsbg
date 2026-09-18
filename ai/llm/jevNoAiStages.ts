@@ -1,4 +1,4 @@
-// Measure the no-AI Jev lane's stages 1 and 2 on the robustness questions.
+// Measure the no-AI Jev lane's stages 1-3 on the robustness questions.
 //
 //   node --env-file=.env.local --import tsx ai/llm/jevNoAiStages.ts
 //   npx tsx ai/llm/jevNoAiStages.ts --rescore      # no API calls
@@ -10,7 +10,9 @@
 //   stage 0  today before this change: the old fillers, else the RULES' tool
 //   stage 1  the old fillers, else ASK the user (`completeJevPick` "narrow")
 //   stage 2  carried + extracted values and Jev for any fixed-list or name
-//            value, else ASK (`completeJevPick` "full" — what ships)
+//            value, else ASK (`completeJevPick` "full")
+//   stage 3  stage 2 plus values read by parameter TYPE — years, counts,
+//            places, oblasts, parties (`completeJevPick` "extract")
 //
 // All three are computed from ONE pass, with Jev's routing pick taken from the
 // robustness run and its argument / name answers cached per question — so the
@@ -24,6 +26,7 @@
 // values are annotated.
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { route, pinElectionContext } from "../orchestrator/router";
 import { validateToolArgs } from "../orchestrator/toolSchema";
 import { NON_AI_CASES, normalizeRouteForScoring } from "../tests/nonAiEval";
@@ -36,7 +39,7 @@ import {
 } from "./jev";
 import { dbEntitySearch, type EntitySearch } from "./jevEntity";
 import { directAsk } from "./jevDirectAsk";
-import { setDbOrigin } from "../tools/dataClient";
+import { setDbOrigin, setFetcher } from "../tools/dataClient";
 import type { askJev } from "./jevClient";
 import type { RobustRow } from "./jevRobustness";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
@@ -55,9 +58,11 @@ export type StageRow = {
   s0: StageResult;
   s1: StageResult;
   s2: StageResult;
+  s3?: StageResult;
   argsScored: boolean;
   argsOk0: boolean | null;
   argsOk2: boolean | null;
+  argsOk3?: boolean | null;
 };
 
 const norm = (v: unknown) => String(v).normalize("NFC").trim().toLowerCase();
@@ -111,9 +116,9 @@ const scoreRow = async (
   const confidentDecline =
     !r.jevPick && (r.jevConfidence ?? 0) >= JEV_CONFIDENCE_GATE;
 
-  let s0: StageResult, s1: StageResult, s2: StageResult;
+  let s0: StageResult, s1: StageResult, s2: StageResult, s3: StageResult;
   if (confidentDecline) {
-    s0 = s1 = s2 = { outcome: "none", tool: null };
+    s0 = s1 = s2 = s3 = { outcome: "none", tool: null };
   } else {
     const accepted = acceptJevPick(pick, deterministic);
     if (pick && !accepted.usedJev) {
@@ -144,8 +149,23 @@ const scoreRow = async (
         full.kind === "run"
           ? ran(pinElectionContext(full.route, ctx), expected)
           : asked(full, expected);
+      const typed = await completeJevPick(
+        r.question,
+        pick.tool,
+        deterministic,
+        deps,
+        "extract",
+      );
+      s3 =
+        typed.kind === "run"
+          ? ran(pinElectionContext(typed.route, ctx), expected)
+          : asked(typed, expected);
     } else {
-      s0 = s1 = s2 = ran(pinElectionContext(accepted.route, ctx), expected);
+      s0 =
+        s1 =
+        s2 =
+        s3 =
+          ran(pinElectionContext(accepted.route, ctx), expected);
     }
   }
 
@@ -168,9 +188,11 @@ const scoreRow = async (
     s0,
     s1,
     s2,
+    s3,
     argsScored: !!exp,
     argsOk0: argsOk(s0),
     argsOk2: argsOk(s2),
+    argsOk3: argsOk(s3),
   };
 };
 
@@ -193,11 +215,12 @@ export const summarise = (rows: RobustRow[], stages: StageRow[]) => {
       if (!xs.length) continue;
       const key = `${lang}:${v}`;
       out[key] = {};
-      for (const st of ["s0", "s1", "s2"] as const) {
+      for (const st of ["s0", "s1", "s2", "s3"] as const) {
+        if (xs.some((x) => !x[st])) continue;
         const counts = Object.fromEntries(
           OUTCOMES.map((o) => [
             o,
-            xs.filter((x) => x[st].outcome === o).length,
+            xs.filter((x) => x[st]!.outcome === o).length,
           ]),
         ) as Record<Outcome, number>;
         out[key][st] = counts;
@@ -210,6 +233,7 @@ export const summarise = (rows: RobustRow[], stages: StageRow[]) => {
       annotated: scored.length,
       rightStage0: scored.filter((s) => s.argsOk0).length,
       rightStage2: scored.filter((s) => s.argsOk2).length,
+      rightStage3: scored.filter((s) => s.argsOk3).length,
     },
   };
 };
@@ -231,7 +255,7 @@ const print = (s: ReturnType<typeof summarise>) => {
   }
   const p = s.params;
   console.log(
-    `\nparameters right (as written, annotated, n=${p.annotated}): stage 0 ${pct(p.rightStage0, p.annotated)} · stage 2 ${pct(p.rightStage2, p.annotated)}`,
+    `\nparameters right (as written, annotated, n=${p.annotated}): stage 0 ${pct(p.rightStage0, p.annotated)} · stage 2 ${pct(p.rightStage2, p.annotated)} · stage 3 ${pct(p.rightStage3, p.annotated)}`,
   );
 };
 
@@ -250,6 +274,10 @@ const main = async () => {
   if (!key) throw new Error("TYPESAFE_API_KEY is required");
   // The name search reads the live person/company indexes.
   setDbOrigin("https://electionsbg.com");
+  // The place extractor reads the committed gazetteer, not the bucket.
+  setFetcher(async (path: string) =>
+    JSON.parse(await readFile(`data/${path.replace(/^\//, "")}`, "utf8")),
+  );
   const ask = memo(directAsk(key)) as typeof askJev;
   const search = memo(dbEntitySearch) as EntitySearch;
   const stages: StageRow[] = new Array(rows.length);

@@ -61,6 +61,7 @@ import {
 } from "../orchestrator/entityExtraction";
 import { validateArguments } from "../orchestrator/validateArguments";
 import { validateToolArgs } from "../orchestrator/toolSchema";
+import { typedArgs } from "./jevParamExtract";
 
 export { NO_TOOL };
 
@@ -398,7 +399,7 @@ export const entityKindFor = (
  * rules' tool — measured on questions with typos, rewording and Latin script,
  * 541 confident, correct picks were discarded that way.
  *
- * Two modes, so the two steps can be measured apart:
+ * Three modes, so the steps can be measured apart:
  *   narrow  the fillers that already existed: Jev fills a tool whose required
  *           parameters are all from a fixed list, or picks among searched
  *           names when a name is the only required value. Otherwise ASK.
@@ -407,6 +408,10 @@ export const entityKindFor = (
  *           and store chains from the tool-independent entity extractor, and
  *           (3) Jev for ANY fixed-list or name parameter still unset.
  *           Otherwise ASK.
+ *   extract full, plus (4) years, elections, counts, parties, places and
+ *           oblasts read from the question by parameter TYPE
+ *           (`jevParamExtract.ts`), and defaults for a tool whose unset
+ *           parameters are all of types something here reads.
  *
  * ⚠️ A value that does not validate for Jev's tool is DROPPED, not trusted —
  * a carried value was parsed for a different tool. And a tool runs only when
@@ -414,6 +419,12 @@ export const entityKindFor = (
  * indicator` and the like) are fixed-list parameters, which step (3) asks Jev
  * about, so an omitted one means the question named none.
  */
+/** Parameter types whose extracted value beats one the rules parsed for their
+ *  own tool: the rules' place is whatever words were left over once their own
+ *  vocabulary was removed („i need decisions adopted by ruse municipal"), the
+ *  extractor's is a gazetteer entry. */
+const EXTRACTOR_WINS = new Set<ToolParam["type"]>(["place", "oblast"]);
+
 export type JevCompletion =
   | { kind: "run"; route: NonNullable<Route>; filled: string[] }
   | { kind: "clarify"; tool: string; missing: ToolParam[] };
@@ -468,8 +479,9 @@ export const completeJevPick = async (
     credentials: JevCredentials | undefined;
     search?: EntitySearch;
   },
-  mode: "narrow" | "full" = "full",
+  mode: "narrow" | "full" | "extract" = "full",
 ): Promise<JevCompletion> => {
+  const wide = mode !== "narrow";
   const def = TOOLS_BY_NAME[tool];
   const clarify = (args: ToolArgs): JevCompletion => ({
     kind: "clarify",
@@ -480,14 +492,29 @@ export const completeJevPick = async (
   });
   if (!def) return { kind: "clarify", tool, missing: [] };
   const filled: string[] = [];
-  let args: ToolArgs =
-    mode === "full"
-      ? settleArgs(tool, {
-          ...extractedArgs(tool, question),
-          ...carriedArgs(tool, deterministic),
-        })
-      : {};
+  let args: ToolArgs = wide
+    ? settleArgs(tool, {
+        ...extractedArgs(tool, question),
+        ...carriedArgs(tool, deterministic),
+      })
+    : {};
   filled.push(...Object.keys(args));
+
+  // Stage 3: values read from the question by parameter TYPE. Settled on their
+  // own, so a typed value that fails validation cannot take a carried one down.
+  let readAbsent = new Set<string>();
+  if (mode === "extract") {
+    const found = await typedArgs(tool, question);
+    readAbsent = found.read;
+    const typed = settleArgs(tool, found.args);
+    for (const p of def.params) {
+      const v = typed[p.name];
+      if (v === undefined) continue;
+      if (args[p.name] !== undefined && !EXTRACTOR_WINS.has(p.type)) continue;
+      args[p.name] = v;
+      if (!filled.includes(p.name)) filled.push(p.name);
+    }
+  }
 
   // Fixed-list values: one Jev call. `narrow` keeps the old gate (only when
   // every required parameter is fixed-list); `full` asks whenever one is unset.
@@ -499,7 +526,7 @@ export const completeJevPick = async (
   // asked. NOT the same as Jev returning nothing: an unanswered call must never
   // license running on defaults (the `macroIndicator({})` trap).
   let namedNone = false;
-  if (unsetEnum.length && (mode === "full" || fillableTool(tool))) {
+  if (unsetEnum.length && (wide || fillableTool(tool))) {
     const result = await deps.ask(
       question,
       argQuestions(tool),
@@ -526,17 +553,16 @@ export const completeJevPick = async (
 
   // Names: search, then Jev picks among real candidates. `narrow` only when a
   // name is the ONE required value; `full` for any required name still unset.
-  const nameParams =
-    mode === "full"
-      ? def.params.filter(
-          (p) =>
-            p.required &&
-            args[p.name] === undefined &&
-            entityKindFor(tool, p.name),
-        )
-      : [soleEntityParam(tool)].filter(
-          (p): p is ToolParam => !!p && args[p.name] === undefined,
-        );
+  const nameParams = wide
+    ? def.params.filter(
+        (p) =>
+          p.required &&
+          args[p.name] === undefined &&
+          entityKindFor(tool, p.name),
+      )
+    : [soleEntityParam(tool)].filter(
+        (p): p is ToolParam => !!p && args[p.name] === undefined,
+      );
   for (const p of nameParams) {
     const kind = entityKindFor(tool, p.name);
     if (!kind) continue;
@@ -561,12 +587,28 @@ export const completeJevPick = async (
   args = settleArgs(tool, args);
   const valid = validateToolArgs(tool, args);
   // Never run with NOTHING supplied — the `args: {}` trap the argument rule
-  // exists for — unless Jev positively said the question names no value
-  // (`namedNone`), in which case the defaults are the answer asked for.
+  // exists for — unless the question demonstrably names no value, in which
+  // case the defaults are the answer asked for. „Demonstrably" is:
+  //   full     Jev positively said so for the tool's fixed-list parameters;
+  //   extract  that, AND every other unset parameter is one an extractor
+  //            looked for unambiguously (`TypedArgs.read`) — so finding
+  //            nothing means nothing was named. A tool with an unset text /
+  //            name parameter still asks: nothing here could have seen a
+  //            hospital or a molecule in the question.
+  const enumSettled = unsetEnum.length === 0 || namedNone;
+  const restNamedNone = def.params.every(
+    (p) =>
+      (valid ?? args)[p.name] !== undefined ||
+      p.values?.length ||
+      readAbsent.has(p.name),
+  );
+  const defaultsAsked =
+    (mode === "full" && namedNone) ||
+    (mode === "extract" && enumSettled && restNamedNone);
   if (
     valid &&
     argsSufficient(tool, valid) &&
-    (filled.length > 0 || (mode === "full" && namedNone))
+    (filled.length > 0 || defaultsAsked)
   )
     return { kind: "run", route: { tool, args: valid }, filled };
   return clarify(valid ?? args);
@@ -693,6 +735,9 @@ export class JevProvider implements LLMProvider {
               credentials: this.credentials?.(),
               search: this.search,
             },
+            // Stage 3: measured best of the three on every question variant
+            // (ai/evals-internal/jev_noai_stages.json).
+            "extract",
           );
           if (done.kind === "clarify") {
             usedJev = true;

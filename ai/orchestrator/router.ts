@@ -80,7 +80,7 @@ const PARTY_TOKENS = [
   "db",
 ].sort((a, b) => b.length - a.length);
 
-const detectParty = (q: string): string | undefined =>
+export const detectParty = (q: string): string | undefined =>
   PARTY_TOKENS.find((tok) => q.includes(tok));
 
 // Extract a person name (2–3 capitalized words) from the ORIGINAL-case question.
@@ -488,7 +488,7 @@ const detectMonth = (q: string): number | undefined => {
 // held more than one election (2021, 2024) keeps its ambiguity (return the bare
 // year), so runTool fans it out into a combined comparison — UNLESS a month name
 // pins one ballot ("юли 2021" -> the exact July election).
-const detectElection = (q: string): string | undefined => {
+export const detectElection = (q: string): string | undefined => {
   const m = q.match(/\b(20\d{2})\b/);
   if (!m) return undefined;
   const year = m[1];
