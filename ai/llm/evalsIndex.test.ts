@@ -72,6 +72,65 @@ describe("the published-run index covers every artifact", () => {
       expect(r.forcedBudget).toBe(false);
   });
 
+  it("carries the two lanes the comparison table names, by filename", () => {
+    // `LaneComparison` selects both by FILENAME, so a rename makes the whole
+    // three-lane section vanish from the page with nothing erroring. This is
+    // where that fails loudly instead.
+    for (const file of ["current_jev.json", "current_production.json"])
+      expect(
+        committed.runs.map((r) => r.file),
+        `${file} is what the lane comparison reads`,
+      ).toContain(file);
+  });
+
+  it("carries the Jev abstention fields, and OMITS them where unmeasured", () => {
+    // These are the numbers that stop a lane which abstains being compared
+    // against lanes that always answer as though the two were alike. The
+    // omission half matters as much as the carry: absent must not become 0,
+    // which would claim we measured a decline rate for a router that has no
+    // decline mechanism.
+    const jev = committed.runs.find((r) => r.file === "current_jev.json")!;
+    for (const lang of ["en", "bg"] as const) {
+      const m = jev.metrics[lang];
+      expect(m.jevRouted).toBeGreaterThan(0);
+      expect(m.toolAccWhenRouted).toBeGreaterThan(0);
+      expect(m.jevDeclined).not.toBeUndefined();
+      // A decline is one outcome of a routed turn, so it can never exceed the
+      // share of turns that were routed at all.
+      expect(m.jevDeclined!).toBeLessThanOrEqual(m.jevRouted!);
+    }
+    for (const r of committed.runs.filter((r) => r.file !== "current_jev.json"))
+      for (const lang of ["en", "bg"] as const) {
+        expect(r.metrics[lang]).not.toHaveProperty("jevRouted");
+        expect(r.metrics[lang]).not.toHaveProperty("jevDeclined");
+        expect(r.metrics[lang]).not.toHaveProperty("toolAccWhenRouted");
+      }
+  });
+
+  it("never publishes a zero for a figure a run did not record", () => {
+    // `derived` used to be written `?? 0`, i.e. "we measured this and it was
+    // none" — the claim every other optional field here is careful to avoid.
+    for (const r of committed.runs)
+      for (const lang of ["en", "bg"] as const) {
+        const m = r.metrics[lang] as Record<string, unknown>;
+        for (const k of [
+          "derived",
+          "irrelevanceAcc",
+          "jevRouted",
+          "jevDeclined",
+          "toolAccWhenRouted",
+          "degraded",
+        ])
+          if (k in m)
+            expect(m[k], `${r.file}/${lang}/${k}`).not.toBeUndefined();
+      }
+    // Non-vacuous: some run must actually omit one, or the rule is untested.
+    expect(
+      committed.runs.some((r) => !("derived" in r.metrics.en)) ||
+        committed.runs.some((r) => !("degraded" in r.metrics.en)),
+    ).toBe(true);
+  });
+
   it("carries the deterministic lane beside the billed runs", () => {
     // The free lane is a different measurement and must not be inside a routing run's
     // numbers; the legacy denominator is the corpus the published floors used.

@@ -11,6 +11,7 @@ import { themeDark, themeLight } from "@/theme/utils";
 import { fetchData } from "../tools/dataClient";
 import type { Lang } from "../tools/types";
 import type { EvalCase, EvalScore } from "../llm/currentEval";
+import type { CompactMetrics, DeterministicMetrics } from "../llm/evalsIndex";
 type Metrics = {
   n: number;
   toolAcc: number | null;
@@ -59,7 +60,7 @@ type Legacy = {
 // ai/llm/evalsIndex.ts from every `current_*.json` on disk. The page reads THIS rather
 // than hardcoding filenames, so a new run appears without editing the page and a
 // renamed artifact cannot leave a dead link behind.
-type RunSummary = {
+export type RunSummary = {
   file: string;
   label: string;
   artifactLabel?: string | null;
@@ -74,23 +75,20 @@ type RunSummary = {
   goldInCandidates: { kept: number; total: number } | null;
   meanCandidatesKept: number | null;
 };
-type SummarisedMetrics = {
-  n: number;
-  toolAcc: number | null;
-  callAcc: number | null;
-  argN: number;
-  argAcc: number | null;
-  jsonValid: number | null;
-  derived: number;
-};
-type DeterministicEval = {
+// DERIVED from the producer, never restated here. The page used to hand-mirror
+// `compact()`'s output, so a renamed key left this file rendering `undefined`
+// → "—" with nothing failing — the silent degradation this page is otherwise
+// careful about. The import is type-only: `evalsIndex.ts` reads the filesystem
+// at call time, and a value import would pull `node:fs` into the bundle.
+export type SummarisedMetrics = CompactMetrics;
+export type DeterministicEval = {
   generatedAt: string;
   caseCount: number;
   caseGroups: string[] | null;
-  metrics: Record<Lang, SummarisedMetrics> | null;
-  legacyMetrics: Record<Lang, SummarisedMetrics> | null;
+  metrics: Record<Lang, DeterministicMetrics> | null;
+  legacyMetrics: Record<Lang, DeterministicMetrics> | null;
 };
-type EvalsIndex = {
+export type EvalsIndex = {
   generatedAt: string;
   runs: RunSummary[];
   deterministic: DeterministicEval | null;
@@ -105,6 +103,232 @@ type Recall = {
 };
 const pct = (v: number | null | undefined) =>
   v == null ? "—" : `${(v * 100).toFixed(1)}%`;
+
+/** The two model lanes' artifacts, by FILENAME — the manifest's own identity
+ *  rule (a label inside an artifact can be copied by a re-scored replay).
+ *
+ *  ⚠️ `CLOUD_RUN_FILE` is NAMED rather than found, and that is the whole point.
+ *  It used to be "the first non-Jev run with metrics", and `runs` is sorted by
+ *  `finishedAt` DESCENDING — so it resolved to whichever experiment was
+ *  published last, which on the committed manifest is the 367-case
+ *  starter-prompts-only bank. The page then stated that the cloud model scored
+ *  57.8% usable call, below the keyword router's 85.9%, when its production run
+ *  is 85.9%; and that Jev beat it on selection 90.6% to 82.6%, when on the
+ *  production run the cloud model WINS that column 96.0% to 90.6%. The
+ *  published ranking was inverted, and publishing any new artifact would have
+ *  re-pointed the lane again with no test failing. */
+const JEV_RUN_FILE = "current_jev.json";
+const CLOUD_RUN_FILE = "current_production.json";
+
+/**
+ * Three lanes, one bank, side by side: the deterministic keyword router, the
+ * cloud model, and Jev.
+ *
+ * ⚠️ THREE THINGS THIS SECTION MUST NOT LET A READER ASSUME.
+ *
+ * 1. That the rows are comparable when they are not. Every lane here is scored
+ *    by the same functions on the same case bank, but a run can be narrowed or
+ *    re-scored, so the CASE COUNT is shown per lane and a mismatch is called
+ *    out rather than quietly averaged. The check is on the count AND the group
+ *    set: two runs of equal size over different banks are the one case where
+ *    the visible "Cases" column would agree and the rows still would not be.
+ * 2. That accuracy alone ranks them. Jev is the only lane that can decline, and
+ *    a lane answering 60% of turns at 99% is a different product from one
+ *    answering all of them at 96% — so its decline rate and its accuracy on the
+ *    turns it did route are shown beside the headline, not behind a link.
+ * 3. That the abstention columns share a denominator. They do not, and this is
+ *    the trap in (2) arriving one level down: `toolAccWhenRouted` is measured
+ *    over the `jevRouted` subset (71.3% EN on the 2026-09-18 artifact), while
+ *    `jevDeclined` is a share of ALL turns. Rendering the 99% beside a 1.3%
+ *    decline rate publishes the "99%" of the example in (2) with the "60% of
+ *    turns" removed — so `jevRouted` gets its own column and the accuracy
+ *    column names the base it is measured on. The headline "Selection" column
+ *    is unaffected and must stay as it is: `toolAcc` is computed over every
+ *    row, so it already charges Jev for the turns it did not route.
+ */
+const LaneComparison = ({
+  index,
+  t,
+}: {
+  index: EvalsIndex | null;
+  t: (bg: string, en: string) => string;
+}) => {
+  const jev = index?.runs.find((r) => r.file === JEV_RUN_FILE);
+  const cloud = index?.runs.find((r) => r.file === CLOUD_RUN_FILE);
+  const deterministic = index?.deterministic;
+  // All THREE or nothing. The cloud lane used to be optional, which rendered a
+  // two-row table under a heading that says "three routers" — and after the
+  // selection above became exact, a manifest without the production run reaches
+  // it in an ordinary way (a pruned checkout, a renamed artifact).
+  if (!jev || !cloud || !deterministic?.metrics) return null;
+
+  type Lane = {
+    id: string;
+    name: string;
+    note: string;
+    cases: number;
+    groups: string[] | null;
+    // The lanes carry DIFFERENT metric shapes on purpose — only Jev has the
+    // abstention fields — so the union is written out rather than inferred.
+    m: Record<Lang, DeterministicMetrics & Partial<SummarisedMetrics>>;
+    /** Can this lane abstain at all? Distinct from "did we measure how often",
+     *  which is what a null field means. */
+    declines: boolean;
+  };
+  const lanes: Lane[] = [
+    {
+      id: "deterministic",
+      name: t("Без AI (правила)", "No AI (rules)"),
+      note: t("без модел, безплатно", "no model, free"),
+      cases: deterministic.caseCount,
+      groups: deterministic.caseGroups,
+      m: deterministic.metrics,
+      declines: false,
+    },
+    {
+      id: "cloud",
+      name: cloud.model ?? cloud.label,
+      // The run is named, not just the model: two artifacts share this model
+      // name and differ by 28 points, so the row must say which one it is.
+      note: `${t("облачен модел", "cloud model")} · ${cloud.label}`,
+      cases: cloud.caseCount,
+      groups: cloud.caseGroups,
+      m: cloud.metrics,
+      declines: false,
+    },
+    {
+      id: "jev",
+      name: t("Jev (TypeSafe)", "Jev (TypeSafe)"),
+      note: t("типизиран избор", "typed choice"),
+      cases: jev.caseCount,
+      groups: jev.caseGroups,
+      m: jev.metrics,
+      declines: true,
+    },
+  ];
+  const counts = [...new Set(lanes.map((l) => l.cases))];
+  // Equal counts over different GROUPS are still not comparable, and that is
+  // the case a reader cannot see: the "Cases" column would agree.
+  const banks = new Set(
+    lanes.map(
+      (l) => `${l.cases}:${[...(l.groups ?? [])].sort().join("+") || "?"}`,
+    ),
+  );
+  /** "Not applicable" and "not measured" are different claims and only one of
+   *  them is a fact about the product — so a lane that CAN decline but whose
+   *  artifact predates these fields must not render the same em dash as one
+   *  that has no decline mechanism at all. */
+  const abstention = (l: Lane, key: "jevRouted" | "jevDeclined") =>
+    !l.declines
+      ? "—"
+      : l.m.en[key] == null && l.m.bg[key] == null
+        ? t("не е измерено", "not measured")
+        : `${pct(l.m.en[key])} / ${pct(l.m.bg[key])}`;
+
+  return (
+    <section>
+      <h2 className="font-title text-xl text-popover-foreground">
+        {t("Трите маршрутизатора, един корпус", "Three routers, one corpus")}
+      </h2>
+      <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+        {t(
+          "Едни и същи задачи, едни и същи правила за оценяване — различава се само кой избира инструмента. Само Jev може да откаже да отговори, затова до точността стои и колко често отказва: маршрутизатор, който отговаря на 60% от въпросите с 99% точност, е различен продукт от такъв, който отговаря на всички с 96%.",
+          "The same cases and the same scoring rules — only the choice of router differs. Jev is the only lane that can decline, so its decline rate sits beside its accuracy: a router answering 60% of turns at 99% is a different product from one answering all of them at 96%.",
+        )}
+      </p>
+      <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+        {t(
+          "Колоните „Избор“ и „Използваемо извикване“ са върху всички задачи, така че маршрутизаторът се наказва и за ходовете, които не е поел. „Точност върху поетите“ е върху друг знаменател — само върху поетите ходове — затова колко е поел стои в собствена колона до нея.",
+          "The “Selection” and “Usable call” columns are over every case, so a router is charged for the turns it did not take. “Accuracy over routed” has a different denominator — only the turns it did take — so how many those were sits in its own column beside it.",
+        )}
+      </p>
+      {banks.size > 1 && (
+        <p className="mt-2 max-w-3xl text-sm text-destructive">
+          {counts.length > 1
+            ? t(
+                `Внимание: сравняваните измервания са върху различен брой задачи (${counts.join(", ")}), така че редовете не са пряко съпоставими.`,
+                `Caution: these measurements cover different case counts (${counts.join(", ")}), so the rows are not directly comparable.`,
+              )
+            : t(
+                "Внимание: измерванията са върху еднакъв брой задачи, но върху различни набори, така че редовете не са пряко съпоставими.",
+                "Caution: these measurements cover the same number of cases but different banks, so the rows are not directly comparable.",
+              )}
+        </p>
+      )}
+      <div className="mt-3 overflow-x-auto">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="border-b-2">
+              <th className="p-2">{t("Маршрутизатор", "Router")}</th>
+              <th className="p-2">{t("Задачи", "Cases")}</th>
+              <th className="p-2">{t("Избор EN / BG", "Selection EN / BG")}</th>
+              <th className="p-2">
+                {t("Използваемо извикване EN / BG", "Usable call EN / BG")}
+              </th>
+              <th className="p-2">{t("Поема EN / BG", "Routes EN / BG")}</th>
+              <th className="p-2">
+                {t("Отказва EN / BG", "Declines EN / BG")}
+              </th>
+              <th className="p-2">
+                {t(
+                  "Точност върху поетите EN / BG",
+                  "Accuracy over routed EN / BG",
+                )}
+              </th>
+              <th className="p-2">
+                {t("Мълчи, когато трябва EN / BG", "Correctly silent EN / BG")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {lanes.map((l) => (
+              <tr key={l.id} data-lane={l.id} className="border-b">
+                {/* A row header, not a cell: a screen reader announcing
+                    "99.0% / 97.6%" must be told which lane it belongs to, on
+                    the table whose whole purpose is attributing numbers to
+                    lanes. */}
+                <th scope="row" className="p-2 font-medium">
+                  {l.name}
+                  <span className="ml-2 text-xs font-normal text-muted-foreground">
+                    {l.note}
+                  </span>
+                </th>
+                <td className="p-2 tabular-nums">{l.cases}</td>
+                <td className="p-2 tabular-nums">
+                  {pct(l.m.en.toolAcc)} / {pct(l.m.bg.toolAcc)}
+                </td>
+                <td className="p-2 tabular-nums">
+                  {pct(l.m.en.callAcc)} / {pct(l.m.bg.callAcc)}
+                </td>
+                {/* An em dash, not 0%: a lane with no decline mechanism has no
+                    decline RATE, and printing 0% would claim it measured one. */}
+                <td className="p-2 tabular-nums">
+                  {abstention(l, "jevRouted")}
+                </td>
+                <td className="p-2 tabular-nums">
+                  {abstention(l, "jevDeclined")}
+                </td>
+                <td className="p-2 tabular-nums">
+                  {l.declines
+                    ? `${pct(l.m.en.toolAccWhenRouted)} / ${pct(l.m.bg.toolAccWhenRouted)}`
+                    : "—"}
+                </td>
+                {/* Abstention QUALITY, and the one abstention column the cloud
+                    lane also reports — so it is not guarded on `declines`. */}
+                <td className="p-2 tabular-nums">
+                  {l.m.en.irrelevanceAcc == null &&
+                  l.m.bg.irrelevanceAcc == null
+                    ? "—"
+                    : `${pct(l.m.en.irrelevanceAcc)} / ${pct(l.m.bg.irrelevanceAcc)}`}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+};
 export const EvalsScreen = ({
   integrated = false,
 }: { integrated?: boolean } = {}) => {
@@ -441,6 +665,7 @@ export const EvalsScreen = ({
                 </p>
               </section>
             )}
+            <LaneComparison index={index} t={t} />
             {index?.deterministic?.metrics && (
               <section>
                 <h2 className="font-title text-xl text-popover-foreground">

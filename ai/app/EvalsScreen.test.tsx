@@ -1,10 +1,11 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { clearDataCache, setFetcher } from "../tools/dataClient";
-import { ChatNavigationContext } from "./navigation";
-import { EvalsScreen } from "./EvalsScreen";
+import {
+  readEvalsIndex,
+  renderEvals,
+  serveEvals,
+} from "./evalsHarness.test-utils";
 
 // The page reads its published-run manifest from the bucket at
 // `/ai/evals/index.json`, so the test serves the SAME committed artifacts the
@@ -23,45 +24,22 @@ type Manifest = {
   deterministic: { caseCount: number } | null;
 };
 
-// Paths the page fetches. `index.json` is the one under test; the other four are
-// rendered above it and must resolve or the whole body (including the new
-// sections) stays unmounted.
 let failPath: string | null = null;
-const serveFromDisk = async (path: string) => {
-  if (failPath && path.endsWith(failPath)) throw new Error(`no ${path}`);
-  const rel = path.startsWith("/") ? path.slice(1) : path;
-  return JSON.parse(await readFile(join(process.cwd(), "data", rel), "utf8"));
-};
-
 let manifest: Manifest;
 beforeAll(async () => {
-  manifest = JSON.parse(
-    await readFile(join(process.cwd(), "data/ai/evals/index.json"), "utf8"),
-  ) as Manifest;
+  manifest = await readEvalsIndex<Manifest>();
 });
 
 beforeEach(() => {
   failPath = null;
   clearDataCache();
-  setFetcher(serveFromDisk);
+  // Re-read per test: `failPath` is captured by the closure, so the fetcher has
+  // to be rebuilt after it is reassigned.
+  setFetcher((path) => serveEvals({ failPath })(path));
 });
 afterEach(() => clearDataCache());
 
-const setup = (lang: "bg" | "en" = "bg") => {
-  const prefix = lang === "en" ? "/en" : "";
-  return render(
-    <ChatNavigationContext.Provider
-      value={{
-        pathname: `${prefix}/chat/evals`,
-        search: "",
-        lang,
-        navigate: () => {},
-      }}
-    >
-      <EvalsScreen integrated />
-    </ChatNavigationContext.Provider>,
-  );
-};
+const setup = (lang: "bg" | "en" = "bg") => renderEvals(lang);
 
 // `section` carries no aria-label of its own, so the heading is the address.
 const sectionUnder = (name: string | RegExp) => {
@@ -69,6 +47,16 @@ const sectionUnder = (name: string | RegExp) => {
   const section = heading.closest("section");
   if (!section) throw new Error(`no <section> for "${String(name)}"`);
   return section;
+};
+
+// The runs table is one row per manifest run under a header row, so a run's
+// row is addressed by its FILE rather than by a fixed index — publishing a new
+// artifact re-orders the table, and a hard-coded index would then silently make
+// these assertions about a different run instead of failing.
+const rowFor = (rows: HTMLElement[], file: string) => {
+  const i = manifest.runs.findIndex((r) => r.file === file);
+  if (i < 0) throw new Error(`no run "${file}" in the committed manifest`);
+  return rows[i + 1];
 };
 
 describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
@@ -86,6 +74,7 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     const rows = within(section).getAllByRole("row");
     expect(rows).toHaveLength(manifest.runs.length + 1);
     expect(manifest.runs.map((r) => r.file)).toEqual([
+      "current_jev.json",
       "current_starter.json",
       "current_production.json",
       "current_narrowed.json",
@@ -93,14 +82,17 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
       "current_baseline.json",
       "current_baseline_rescored.json",
     ]);
-    // The starter bank is the newest run and the only single-group one, so its
-    // sub-label renders too.
+    // The starter bank is the only single-group run, so its sub-label renders
+    // too.
+    const starter = rowFor(rows, "current_starter.json");
     expect(
-      within(rows[1]).getAllByText("Начални въпроси (чипове)"),
+      within(starter).getAllByText("Начални въпроси (чипове)"),
     ).toHaveLength(2);
-    expect(within(rows[1]).getByText("367")).toBeInTheDocument();
+    expect(within(starter).getByText("367")).toBeInTheDocument();
     // Every run states how many cases it covers per language.
-    expect(within(rows[2]).getByText("474")).toBeInTheDocument();
+    expect(
+      within(rowFor(rows, "current_production.json")).getByText("474"),
+    ).toBeInTheDocument();
   });
 
   it("shows the narrowing budget, the forced badge and the gold ceiling", async () => {
@@ -114,19 +106,22 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
       return sectionUnder("Всички публикувани измервания");
     });
     const rows = within(section).getAllByRole("row");
-    const narrowed = rows[3];
+    const narrowed = rowFor(rows, "current_narrowed.json");
     expect(within(narrowed).getByText("20k")).toBeInTheDocument();
     expect(within(narrowed).getByText("средно 61.9")).toBeInTheDocument();
     expect(within(narrowed).getByText("принудително")).toBeInTheDocument();
     // Gold-in-candidates is the ceiling narrowing imposes: 941 of 948.
     expect(within(narrowed).getByText("99.3%")).toBeInTheDocument();
     // A run measured before the budget existed must say so rather than show 0.
-    const revised = rows[4];
+    const revised = rowFor(rows, "current_revised.json");
     expect(within(revised).getAllByText("—")).toHaveLength(2);
-    const narrowedIdx = manifest.runs.findIndex(
-      (r) => r.routingBudget === 20_000 && r.forcedBudget,
-    );
-    expect(narrowedIdx).toBe(2);
+    // The row this test read really is the narrowed run, not merely whichever
+    // run happens to sit at that position after a new artifact is published.
+    expect(
+      manifest.runs.findIndex(
+        (r) => r.routingBudget === 20_000 && r.forcedBudget,
+      ),
+    ).toBe(manifest.runs.findIndex((r) => r.file === "current_narrowed.json"));
   });
 
   it("renders the free no-AI lane for both corpora", async () => {
