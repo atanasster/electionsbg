@@ -524,19 +524,65 @@ const MetaLine = ({ meta, lang }: { meta: ResponseMeta; lang: Lang }) => {
   const locale = lang === "bg" ? "bg-BG" : "en-US";
   const n = (v: number) => v.toLocaleString(locale);
   const model = meta.model[lang];
-  const inline = `${model} · ${fmtDuration(meta.durationMs, lang)}`;
-  const trust =
-    lang === "bg"
-      ? "Числата са изчислени от официалните данни, не са генерирани."
-      : "Figures are computed from official data, not generated.";
+  const bg = lang === "bg";
+  // WHO PICKED THE TOOL. `model` says who wrote the prose; on a Jev-routed turn
+  // that is still the templates, so without this the band could not tell a
+  // reader that a hosted model chose which tool ran. Shown ONLY when Jev
+  // actually routed — the provider already swaps its own label on a degraded
+  // turn, and a badge there would credit a model that did no work.
+  const confidencePct =
+    meta.routerConfidence != null
+      ? `${Math.round(meta.routerConfidence * 100)}%`
+      : "";
+  const routed =
+    meta.routedBy === "jev"
+      ? [bg ? "избран от Jev" : "routed by Jev", confidencePct]
+          .filter(Boolean)
+          .join(" ")
+      : "";
+  const inline = [model, routed, fmtDuration(meta.durationMs, lang)]
+    .filter(Boolean)
+    .join(" · ");
+  const trust = bg
+    ? "Числата са изчислени от официалните данни, не са генерирани."
+    : "Figures are computed from official data, not generated.";
   const title =
-    (lang === "bg"
+    (bg
       ? `Модел: ${model}\nВреме: ${fmtDuration(meta.durationMs, lang)}`
       : `Model: ${model}\nTime: ${fmtDuration(meta.durationMs, lang)}`) +
     (meta.inputTokens != null
-      ? lang === "bg"
+      ? bg
         ? `\nТокени: ${n(meta.inputTokens)} вход / ${n(meta.outputTokens ?? 0)} изход`
         : `\nTokens: ${n(meta.inputTokens)} in / ${n(meta.outputTokens ?? 0)} out`
+      : "") +
+    (meta.routedBy === "jev"
+      ? (() => {
+          const detail =
+            (confidencePct
+              ? bg
+                ? ` (увереност ${confidencePct})`
+                : ` (confidence ${confidencePct})`
+              : "") +
+            (meta.routerLatencyMs != null
+              ? `, ${fmtDuration(meta.routerLatencyMs, lang)}`
+              : "");
+          // A decline is Jev's decision too, but NO tool ran — saying one "was
+          // chosen by Jev" would describe a call that never happened.
+          if (meta.routerDeclined)
+            return bg
+              ? `\nJev прецени, че няма подходящ инструмент${detail}`
+              : `\nJev found no suitable tool${detail}`;
+          return bg
+            ? `\nИнструментът е избран от Jev${detail}`
+            : `\nTool chosen by Jev${detail}`;
+        })()
+      : "") +
+    // Name what answered instead, so a degraded turn is legible rather than
+    // just silently missing its badge.
+    (meta.routerDegraded
+      ? bg
+        ? "\nJev не отговори навреме — инструментът е избран по правилата."
+        : "\nJev did not answer in time — the tool was chosen by the rules."
       : "") +
     `\n\n${trust}`;
   return (

@@ -58,6 +58,16 @@ export { NO_TOOL };
  *  and free. */
 export const JEV_CONFIDENCE_GATE = 0.7;
 
+/** The lane's name in the model picker, and the label for a turn Jev ACTUALLY
+ *  routed. Routing through Jev is a hosted model call, so a turn it routed must
+ *  not claim to be AI-free. */
+export const JEV_LABEL = { bg: "Без LLM · Jev", en: "No LLM · Jev" };
+
+/** The label for a turn in this lane that Jev did NOT route — it timed out, was
+ *  never asked, or its pick was refused, and the deterministic router answered.
+ *  Showing the Jev name there would credit a model that did no work. */
+export const JEV_FALLBACK_LABEL = { bg: "Без LLM", en: "No LLM" };
+
 /** The tool catalogue as Choice options. Built once: the registry is static for
  *  the life of the bundle, and this is a 236-entry object on every turn. The
  *  option FORMAT lives in jevPrompt.ts, shared with the eval harness that
@@ -186,7 +196,7 @@ export class JevProvider implements LLMProvider {
   // constrained and non-generative, but a model call — so a turn it routed must
   // not claim otherwise. The prose is still template-written, which is what
   // "Без LLM" says.
-  label = { bg: "Без LLM · Jev", en: "No LLM · Jev" };
+  label = JEV_LABEL;
 
   constructor(
     private credentials?: () => JevCredentials | undefined,
@@ -218,15 +228,23 @@ export class JevProvider implements LLMProvider {
     let asked = false;
     let routing: JevRouting = { route: null, degraded: true };
     let usedJev = false;
+    let declined = false;
     const meta = (): ResponseMeta => ({
-      model: this.label,
+      // The band names what produced THIS answer, not which lane is selected:
+      // on a turn Jev did not route, the Jev name must not appear at all.
+      model: usedJev ? JEV_LABEL : JEV_FALLBACK_LABEL,
       durationMs: performance.now() - t0,
       narratedBy: "rules",
       // Absent when Jev was never asked; otherwise what ACTUALLY routed.
       routedBy: asked ? (usedJev ? "jev" : "rules") : undefined,
       routerConfidence: asked ? routing.confidence : undefined,
       routerLatencyMs: asked ? routing.latencyMs : undefined,
-      routerDegraded: asked && !usedJev ? true : undefined,
+      // ⚠️ Keyed on `routing.degraded` — whether JEV FAILED — not on whether we
+      // used its pick. A confident pick at a param-bearing tool is refused by
+      // `acceptJevPick` while Jev answered perfectly well; reporting that as
+      // "did not answer in time" would be a false claim about a hosted call.
+      routerDegraded: asked && routing.degraded ? true : undefined,
+      routerDeclined: declined ? true : undefined,
     });
 
     // Deterministic wins first — free, exact, and Jev has no better answer for
@@ -248,6 +266,7 @@ export class JevProvider implements LLMProvider {
       const declinedByJev = !routing.route && !routing.degraded;
       if (declinedByJev) {
         usedJev = true;
+        declined = true;
       } else {
         const accepted = acceptJevPick(routing.route, route(question, ctx));
         r = accepted.route;
@@ -271,6 +290,8 @@ export class JevProvider implements LLMProvider {
     args: ToolArgs,
     ctx: ToolContext,
   ): Promise<ChatResponse> {
-    return runToolChoice(this.label, tool, args, ctx);
+    // JEV_FALLBACK_LABEL, not `this.label`: a chooser pick makes no Jev call at
+    // all, so crediting Jev on it would name a model that did no work.
+    return runToolChoice(JEV_FALLBACK_LABEL, tool, args, ctx);
   }
 }

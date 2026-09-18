@@ -127,10 +127,16 @@ export type ResponseMeta = {
   // hosted model chose the tool. Absent means the lane's own routing ran.
   routedBy?: "rules" | "jev";
   routerConfidence?: number; // Jev's calibrated confidence in the chosen tool
-  // True when Jev was asked but could not answer (timeout, breaker, no session,
-  // upstream error) and the lane fell back to its OWN router. The band must then
-  // show what actually answered — never a Jev badge on a turn Jev did not route.
+  // True ONLY when Jev was asked and could not answer — timeout, breaker,
+  // upstream error, no session. NOT set when Jev answered fine and the lane
+  // declined to use its pick (e.g. a param-bearing tool it cannot fill): saying
+  // "Jev did not answer in time" about a call that answered on time is exactly
+  // the false claim this meta exists to prevent.
   routerDegraded?: boolean;
+  // Jev answered that NO tool fits. Its decision stands (the lane declines
+  // rather than re-routing through keywords), but no tool ran — so the band
+  // must not say a tool "was chosen by Jev".
+  routerDeclined?: boolean;
   routerLatencyMs?: number; // the routing call alone, not the whole turn
 };
 

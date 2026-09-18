@@ -6,6 +6,8 @@
 import { describe, expect, it, vi } from "vitest";
 import {
   JEV_CONFIDENCE_GATE,
+  JEV_FALLBACK_LABEL,
+  JEV_LABEL,
   JevProvider,
   NO_TOOL,
   acceptJevPick,
@@ -296,8 +298,62 @@ describe("JevProvider", () => {
       const provider = new JevProvider(creds, asking(result));
       const res = await provider.respond(DETERMINISTIC_Q, ctx);
       expect(res.meta?.narratedBy).toBe("rules");
-      expect(res.meta?.model).toEqual(provider.label);
     }
+  });
+
+  // The band renders `meta.model` verbatim, so this IS the guard against a turn
+  // claiming Jev routed it when Jev did not. Reverting the per-turn swap back to
+  // `this.label` fails here — the component tests alone cannot catch it,
+  // because they set `meta.model` by hand.
+  it("labels each turn by what actually produced it", async () => {
+    const routedByJev = await new JevProvider(
+      creds,
+      asking(answer(deterministicRoute!.tool, 0.95)),
+    ).respond(DETERMINISTIC_Q, ctx);
+    expect(routedByJev.meta?.model).toEqual(JEV_LABEL);
+
+    for (const result of [null, answer(deterministicRoute!.tool, 0.1)]) {
+      const res = await new JevProvider(creds, asking(result)).respond(
+        DETERMINISTIC_Q,
+        ctx,
+      );
+      expect(res.meta?.model).toEqual(JEV_FALLBACK_LABEL);
+      expect(res.meta?.model.bg).not.toContain("Jev");
+    }
+  });
+
+  it("does not credit Jev for a disambiguation pick it never saw", async () => {
+    const res = await new JevProvider(creds, asking(null)).runChoice(
+      "turnout",
+      {},
+      ctx,
+    );
+    expect(res.meta?.model).toEqual(JEV_FALLBACK_LABEL);
+    expect(res.meta?.model.bg).not.toContain("Jev");
+  });
+
+  // The band turns `routerDegraded` into "Jev не отговори навреме". A refused
+  // pick is NOT that: Jev answered on time and the lane declined to use it
+  // because it could not fill the tool's parameters.
+  it("does not report a refused-but-successful pick as a Jev failure", async () => {
+    const paramTool = TOOLS.find(
+      (t) => t.params.length > 0 && t.name !== deterministicRoute!.tool,
+    )!;
+    const res = await new JevProvider(
+      creds,
+      asking(answer(paramTool.name, 0.99)),
+    ).respond(DETERMINISTIC_Q, ctx);
+    expect(res.meta?.routedBy).toBe("rules");
+    expect(res.meta?.routerDegraded).toBeUndefined();
+  });
+
+  it("marks a decline so the band does not claim a tool was chosen", async () => {
+    const res = await new JevProvider(
+      creds,
+      asking(answer(NO_TOOL, 0.99)),
+    ).respond(DETERMINISTIC_Q, ctx);
+    expect(res.meta?.routerDeclined).toBe(true);
+    expect(res.tool).toBeUndefined();
   });
 
   it("does not claim to be AI-free in its label", () => {
