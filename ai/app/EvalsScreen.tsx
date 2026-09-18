@@ -440,7 +440,99 @@ const Summary = ({
           )}
         </dd>
       </dl>
+      <NoAiSummary robustness={index?.robustness} t={t} lang={lang} />
     </section>
+  );
+};
+
+/**
+ * The no-AI mode's two candidates, side by side: the rules alone, and Jev
+ * picking the tool with the rules filling it. NOT on the 474 above — that bank
+ * is mostly the rules' own examples, which is exactly the comparison this
+ * page dropped as biased. On the robustness questions instead, where only the
+ * tool is scored. Every sentence is computed.
+ */
+const NoAiSummary = ({
+  robustness,
+  t,
+  lang,
+}: {
+  robustness: Robustness | null | undefined;
+  t: T;
+  lang: Lang;
+}) => {
+  const { pct } = makeFmt(lang);
+  const noAi = robustness?.noAi;
+  if (!robustness || !noAi) return null;
+  const s = robustness.summary;
+  const rules = (key: string) => s[`all|${key}`]?.rules;
+  const jev = (key: string, k: keyof NoAiCell) => noAi[`all|${key}`]?.[k];
+  const both = (get: (key: string) => number | null | undefined, v: string) => {
+    const en = get(`en:${v}`);
+    const bg = get(`bg:${v}`);
+    return en == null && bg == null ? "—" : `${pct(en)} / ${pct(bg)}`;
+  };
+  const variants = [
+    ["original", t("Както са написани", "As written")],
+    ["typo", t("С правописни грешки", "With typos")],
+    ["paraphrase", t("Казани с други думи", "Reworded")],
+    ["latin", t("На латиница (само BG)", "In Latin letters (BG only)")],
+  ] as const;
+  // How many (language, kind of question) cells Jev + rules picks the right
+  // tool in at least as often as the rules alone.
+  const cells = Object.keys(noAi).filter((k) => k.startsWith("all|"));
+  const wins = cells.filter(
+    (k) => (noAi[k].right ?? 0) >= (s[k]?.rules ?? Infinity),
+  ).length;
+  return (
+    <div className="mt-8" data-testid="noai-summary">
+      <H3>
+        {t(
+          "Без AI модел: правила или Jev + правила",
+          "Without an AI model: rules, or Jev + rules",
+        )}
+      </H3>
+      <p className="mt-1 max-w-3xl text-sm">
+        {t(
+          "Jev избира инструмента, а правилата попълват параметрите; когато не могат, чатът пита. Сравняваме го с правилата сами на въпроси с грешки, с други думи и на латиница — не на горните 474, които са предимно примерите, от които правилата са писани. Оценява се само изборът на инструмент.",
+          "Jev picks the tool and the rules fill its parameters; when they cannot, the chat asks. We compare it with the rules alone on questions with typos, in other words and in Latin letters — not on the 474 above, which are mostly the examples the rules were written from. Only the choice of tool is scored.",
+        )}
+      </p>
+      <DataTable note={langNote(t)}>
+        <thead>
+          <tr className="border-b-2">
+            <Th>{t("Въпросите", "Questions")}</Th>
+            <Th>{t("Правила", "Rules")}</Th>
+            <Th>Jev + {t("правила", "rules")}</Th>
+            <Th>{t("Jev + правила пита", "Jev + rules asks")}</Th>
+          </tr>
+        </thead>
+        <tbody>
+          {variants.map(([v, label]) => (
+            <tr key={v} data-variant={v} className="border-b">
+              <RowTh>{label}</RowTh>
+              <Num>{both(rules, v)}</Num>
+              <Num>{both((k) => jev(k, "right"), v)}</Num>
+              <Num>{both((k) => jev(k, "asked"), v)}</Num>
+            </tr>
+          ))}
+        </tbody>
+      </DataTable>
+      <ul className="mt-4 max-w-3xl list-disc space-y-2 pl-5 text-sm">
+        <li>
+          {t(
+            `Jev + правила избира правилния инструмент поне толкова често, колкото правилата сами, в ${wins} от ${cells.length} случая (език и вид въпрос). С грешки: ${both((k) => jev(k, "right"), "typo")} срещу ${both(rules, "typo")}; на латиница: ${both((k) => jev(k, "right"), "latin")} срещу ${both(rules, "latin")}.`,
+            `Jev + rules picks the right tool at least as often as the rules alone in ${wins} of ${cells.length} cases (language and kind of question). With typos: ${both((k) => jev(k, "right"), "typo")} against ${both(rules, "typo")}; in Latin letters: ${both((k) => jev(k, "right"), "latin")} against ${both(rules, "latin")}.`,
+          )}
+        </li>
+        <li>
+          {t(
+            "В чата режимът без AI засега остава на правилата: Jev се вика през нашия сървър, а този режим по замисъл не зависи от него.",
+            "In the chat the no-AI mode stays on the rules for now: Jev is called through our server, and that mode is designed not to depend on it.",
+          )}
+        </li>
+      </ul>
+    </div>
   );
 };
 
@@ -488,7 +580,7 @@ const RobustnessSection = ({
     (k: keyof NoAiCell): Pick =>
     (slice, key) =>
       noAi?.[`${slice}|${key}`]?.[k];
-  // „Jev без AI" is the lane as it works NOW (stage 3: Jev picks, rules fill by
+  // „Jev + правила" is the no-AI lane as it works NOW (stage 3: Jev picks, rules fill by
   // parameter type). The older lane — fall back to the rules whenever Jev's
   // tool needs parameters — is still in the manifest as `jevLane`, but a column
   // under the same name would describe a mode that no longer exists.
@@ -499,7 +591,7 @@ const RobustnessSection = ({
       ? [
           {
             key: "jevNoAi",
-            label: t("Jev без AI", "Jev, no AI"),
+            label: t("Jev + правила", "Jev + rules"),
             get: fromNoAi("right"),
           },
         ]
@@ -592,8 +684,8 @@ const RobustnessSection = ({
         )}
         {noAi &&
           t(
-            "„Jev без AI“ е режимът без генеративен модел: Jev избира инструмента, а параметрите се четат от въпроса по вида им — години, брой, партия, община, област; когато Jev не е уверен, отговарят правилата. ",
-            "“Jev, no AI” is the mode without a generative model: Jev picks the tool and the parameters are read from the question by their kind — years, counts, party, municipality, province; when Jev is not confident, the rules answer. ",
+            "„Jev + правила“ е режимът без AI модел: Jev избира инструмента, а параметрите се четат от въпроса по вида им — години, брой, партия, община, област; когато Jev не е уверен, отговарят правилата. ",
+            "“Jev + rules” is the mode without an AI model: Jev picks the tool and the parameters are read from the question by their kind — years, counts, party, municipality, province; when Jev is not confident, the rules answer. ",
           )}
         {t(
           "Грешките са изкуствени (разместена, изпусната или удвоена буква в две думи), а преформулираните въпроси са написани от модел; няколко леко променят смисъла.",
@@ -645,14 +737,14 @@ const NoAiOutcomes = ({
     <div className="mt-6" data-testid="noai-outcomes">
       <H3>
         {t(
-          "Jev без AI: какво става с въпроса",
-          "Jev, no AI: what happens to the question",
+          "Jev + правила: какво става с въпроса",
+          "Jev + rules: what happens to the question",
         )}
       </H3>
       <p className="mt-1 max-w-3xl text-sm">
         {t(
-          `При въпросите с грешки режимът без AI избира верния инструмент в ${pair("right", "typo")} от случаите — правилата сами: ${rulesTypo}. Когато не е сигурен какво да попълни, пита, вместо да отговори на друг въпрос.`,
-          `On questions with typos the no-AI mode picks the right tool in ${pair("right", "typo")} of cases — the rules alone: ${rulesTypo}. When it is unsure what to fill in, it asks rather than answering a different question.`,
+          `При въпросите с грешки Jev + правила избира верния инструмент в ${pair("right", "typo")} от случаите — правилата сами: ${rulesTypo}. Когато не е сигурен какво да попълни, пита, вместо да отговори на друг въпрос.`,
+          `On questions with typos Jev + rules picks the right tool in ${pair("right", "typo")} of cases — the rules alone: ${rulesTypo}. When it is unsure what to fill in, it asks rather than answering a different question.`,
         )}
       </p>
       <DataTable note={langNote(t)}>

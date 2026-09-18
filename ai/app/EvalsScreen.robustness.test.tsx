@@ -124,6 +124,52 @@ describe("robustness section", { timeout: 30_000 }, () => {
     expect(section().textContent).not.toMatch(/Jev без AI/);
   });
 
+  // The summary's no-AI block: rules vs Jev + rules, on the robustness
+  // questions — never on the 474, which are mostly the rules' own examples.
+  it("puts rules and Jev + rules side by side in the summary", async () => {
+    setFetcher(serveEvals());
+    renderEvals("bg");
+    await screen.findByRole("heading", { name: "Накратко" });
+    const s = committed.robustness!.summary;
+    const noAi = committed.robustness!.noAi!;
+    const box = document.querySelector<HTMLElement>(
+      '[data-testid="noai-summary"]',
+    )!;
+    expect(
+      box.closest('section[aria-labelledby="summary-title"]'),
+    ).not.toBeNull();
+    const tds = [
+      ...box.querySelector('tr[data-variant="typo"]')!.querySelectorAll("td"),
+    ].map((td) => td.textContent);
+    expect(tds).toEqual([
+      `${bg(s["all|en:typo"].rules)} / ${bg(s["all|bg:typo"].rules)}`,
+      `${bg(noAi["all|en:typo"].right)} / ${bg(noAi["all|bg:typo"].right)}`,
+      `${bg(noAi["all|en:typo"].asked)} / ${bg(noAi["all|bg:typo"].asked)}`,
+    ]);
+    // The head-to-head count is recomputed here, independently.
+    const keys = Object.keys(noAi).filter((k) => k.startsWith("all|"));
+    const wins = keys.filter(
+      (k) => noAi[k].right >= (s[k]?.rules ?? Infinity),
+    ).length;
+    expect(box.textContent).toContain(`в ${wins} от ${keys.length} случая`);
+    // …and says the chat's no-AI mode is still the rules.
+    expect(box.textContent).toMatch(/остава на правилата/);
+  });
+
+  it("leaves the summary's no-AI block out without the stage run", async () => {
+    setFetcher(
+      serveEvals({
+        manifest: {
+          ...committed,
+          robustness: { ...committed.robustness!, noAi: undefined },
+        },
+      }),
+    );
+    renderEvals("bg");
+    await screen.findByRole("heading", { name: "Накратко" });
+    expect(document.querySelector('[data-testid="noai-summary"]')).toBeNull();
+  });
+
   it("is absent when the manifest carries no robustness run", async () => {
     setFetcher(serveEvals({ manifest: { ...committed, robustness: null } }));
     renderEvals("bg");
