@@ -36,7 +36,10 @@ export const NON_AI_CASES = [
 // starters.test.ts: a starter that genuinely declares `openTenders` keeps that
 // identity and only loses the opaque `canonical` blob, so its args are still
 // scored against its own gold.
-const normalizeRoute = (r: Route, expectedTool: string | null): Route => {
+export const normalizeRouteForScoring = (
+  r: Route,
+  expectedTool: string | null,
+): Route => {
   if (!r || r.tool !== "openTenders" || !r.args.canonical) return r;
   const decoded = decodeProcurementQuery(String(r.args.canonical));
   if (expectedTool === "procurementQuery" && decoded.ok)
@@ -91,7 +94,7 @@ export function evaluateNonAi(c: EvalCase, lang: Lang) {
     { lang, election: "2026_04_19" },
     opts,
   );
-  const selected = normalizeRoute(result.route, c.tool);
+  const selected = normalizeRouteForScoring(result.route, c.tool);
   const toolOk = c.tool === null ? !selected : selected?.tool === c.tool;
   const expected = expectedArgs(c, lang);
   const args = selected ? validateToolArgs(selected.tool, selected.args) : null;

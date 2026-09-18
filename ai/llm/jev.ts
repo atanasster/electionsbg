@@ -220,13 +220,25 @@ export const enumerableParams = (tool: string) =>
 /** One Choice per enumerable parameter of the picked tool. Batched into a
  *  single request: questions run in parallel upstream, so N params cost about
  *  what one does. */
+/** The proxy accepts at most this many questions per request
+ *  (`functions/jev_payload.js` LIMITS.questions). Exceeding it is a 400 for the
+ *  WHOLE call, not a truncation — `procurementQuery` declares 22 enumerable
+ *  params and `fundingQuery` 20, so an unbounded fan-out would fail outright on
+ *  exactly the tools tier 2 exists to serve. Required params come first, since
+ *  those are what decide whether the tool can run at all. */
+export const MAX_ARG_QUESTIONS = 8;
+
 export const argQuestions = (
   tool: string,
   skip: ReadonlySet<string> = new Set(),
 ): Record<string, JevQuestion> => {
   const questions: Record<string, JevQuestion> = {};
-  for (const p of enumerableParams(tool)) {
+  const ordered = [...enumerableParams(tool)].sort(
+    (a, b) => Number(!!b.required) - Number(!!a.required),
+  );
+  for (const p of ordered) {
     if (skip.has(p.name)) continue;
+    if (Object.keys(questions).length >= MAX_ARG_QUESTIONS) break;
     const criteria: Record<string, string | null> = {};
     for (const v of p.values!) criteria[String(v)] = null;
     criteria[ARG_UNSPECIFIED] = "The question does not name a value for this.";
