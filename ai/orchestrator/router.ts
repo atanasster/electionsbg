@@ -297,10 +297,26 @@ const cleanCandidate = (cand: string): string => {
   return words.join(" ");
 };
 
-const isValidPersonCandidate = (cand: string): boolean => {
+// Words that make a CAPITALISED pair a party's name rather than a generic phrase
+// („Синя България", „Партия Атака"). Excluded from the lowercase cue patterns,
+// where „на партия ГЕРБ" must not become a person — but a capitalised pair must
+// still reach `candidateResult`, whose party-roster fallback exists for exactly
+// these names (ai/tests/regression.ts).
+const PARTY_NAME_WORDS = new Set(["българия", "партия", "партията"]);
+
+const isValidPersonCandidate = (
+  cand: string,
+  { capitalised = false }: { capitalised?: boolean } = {},
+): boolean => {
   const words = cand.toLowerCase().split(/\s+/);
   if (words.length < 2 || words.length > 3) return false;
-  if (words.some((w) => EXCLUDED_NAME_WORDS.has(w))) return false;
+  if (
+    words.some(
+      (w) =>
+        EXCLUDED_NAME_WORDS.has(w) && !(capitalised && PARTY_NAME_WORDS.has(w)),
+    )
+  )
+    return false;
   if (detectParty(cand.toLowerCase())) return false;
   if (findOblastInText(cand)) return false;
   return true;
@@ -310,7 +326,7 @@ export const extractPersonName = (raw: string): string | undefined => {
   const m = raw.match(NAME_BG) ?? raw.match(NAME_EN);
   if (m) {
     const cand = cleanCandidate(m[0].trim());
-    if (isValidPersonCandidate(cand)) return cand;
+    if (isValidPersonCandidate(cand, { capitalised: true })) return cand;
   }
   for (const re of PERSON_CUE_PATTERNS) {
     const cm = raw.match(re);
