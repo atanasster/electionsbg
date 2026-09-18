@@ -49,13 +49,11 @@ const sectionUnder = (name: string | RegExp) => {
   return section;
 };
 
-// The runs table is one row per CLOUD-model run under a header row (Jev has its
-// own section, measured on a different question set), so a run's
+// The runs table is one row per cloud-model run under a header row, so a run's
 // row is addressed by its FILE rather than by a fixed index — publishing a new
 // artifact re-orders the table, and a hard-coded index would then silently make
 // these assertions about a different run instead of failing.
-const cloudRuns = () =>
-  manifest.runs.filter((r) => r.file !== "current_jev.json");
+const cloudRuns = () => manifest.runs;
 const rowFor = (rows: HTMLElement[], file: string) => {
   const i = cloudRuns().findIndex((r) => r.file === file);
   if (i < 0) throw new Error(`no run "${file}" in the committed manifest`);
@@ -79,7 +77,6 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     expect(manifest.runs.map((r) => r.file)).toEqual([
       "current_control.json",
       "current_jev_gemini.json",
-      "current_jev.json",
       "current_starter.json",
       "current_production.json",
       "current_narrowed.json",

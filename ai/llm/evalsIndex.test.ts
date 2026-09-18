@@ -72,39 +72,19 @@ describe("the published-run index covers every artifact", () => {
       expect(r.forcedBudget).toBe(false);
   });
 
-  it("carries the two lanes the comparison table names, by filename", () => {
-    // `LaneComparison` selects both by FILENAME, so a rename makes the whole
-    // three-lane section vanish from the page with nothing erroring. This is
+  it("carries the runs the headline table names, by filename", () => {
+    // The headline selects its rows by FILENAME, so a rename makes a row — or
+    // the whole table — vanish from the page with nothing erroring. This is
     // where that fails loudly instead.
-    for (const file of ["current_jev.json", "current_production.json"])
+    for (const file of [
+      "current_production.json",
+      "current_control.json",
+      "current_jev_gemini.json",
+    ])
       expect(
         committed.runs.map((r) => r.file),
         `${file} is what the lane comparison reads`,
       ).toContain(file);
-  });
-
-  it("carries the Jev abstention fields, and OMITS them where unmeasured", () => {
-    // These are the numbers that stop a lane which abstains being compared
-    // against lanes that always answer as though the two were alike. The
-    // omission half matters as much as the carry: absent must not become 0,
-    // which would claim we measured a decline rate for a router that has no
-    // decline mechanism.
-    const jev = committed.runs.find((r) => r.file === "current_jev.json")!;
-    for (const lang of ["en", "bg"] as const) {
-      const m = jev.metrics[lang];
-      expect(m.jevRouted).toBeGreaterThan(0);
-      expect(m.toolAccWhenRouted).toBeGreaterThan(0);
-      expect(m.jevDeclined).not.toBeUndefined();
-      // A decline is one outcome of a routed turn, so it can never exceed the
-      // share of turns that were routed at all.
-      expect(m.jevDeclined!).toBeLessThanOrEqual(m.jevRouted!);
-    }
-    for (const r of committed.runs.filter((r) => r.file !== "current_jev.json"))
-      for (const lang of ["en", "bg"] as const) {
-        expect(r.metrics[lang]).not.toHaveProperty("jevRouted");
-        expect(r.metrics[lang]).not.toHaveProperty("jevDeclined");
-        expect(r.metrics[lang]).not.toHaveProperty("toolAccWhenRouted");
-      }
   });
 
   it("never publishes a zero for a figure a run did not record", () => {
@@ -131,27 +111,6 @@ describe("the published-run index covers every artifact", () => {
     ).toBe(true);
   });
 
-  it("carries the gate sweep's figures, without its raw samples", () => {
-    // The page renders the per-gate table from the manifest; the ~250 KB of
-    // re-asked rows exist only to re-simulate, and must not ride along.
-    const raw = JSON.parse(
-      readFileSync(join(DIR, "jev_gate_sweep.json"), "utf8"),
-    );
-    const sweep = committed.gateSweep!;
-    expect(sweep).not.toBeNull();
-    expect(sweep).not.toHaveProperty("samples");
-    expect(sweep.sweep).toEqual(raw.sweep);
-    // The published gate is one of the swept points, or the table has no
-    // baseline row to read the others against.
-    expect(sweep.sweep.map((s) => s.gate)).toContain(sweep.publishedGate);
-    for (const { metrics } of sweep.sweep)
-      for (const lang of ["en", "bg"] as const) {
-        // A head-to-head is only meaningful over rows that actually moved.
-        if (metrics[lang].moved === 0)
-          expect(metrics[lang].movedJevToolAcc).toBeNull();
-      }
-  });
-
   it("carries the robustness summary, without its rows", () => {
     const raw = JSON.parse(
       readFileSync(join(DIR, "gemini_robustness.json"), "utf8"),
@@ -161,15 +120,22 @@ describe("the published-run index covers every artifact", () => {
     expect(committed.robustness!.summary).toEqual(raw.summary);
   });
 
-  it("records routing-prompt tokens only where a run measured them", () => {
-    // NULL, not 0, for a run whose rows carry no usage — "0 tokens" would be a
-    // measurement nobody made.
+  it("records routing-prompt tokens where a run measured them", () => {
     const byFile = (f: string) => committed.runs.find((r) => r.file === f)!;
-    expect(byFile("current_jev.json").meanPromptTokens).toBeNull();
     expect(byFile("current_control.json").meanPromptTokens).toBeGreaterThan(0);
     expect(byFile("current_jev_gemini.json").meanPromptTokens).toBeLessThan(
       byFile("current_control.json").meanPromptTokens!,
     );
+  });
+
+  it("keeps the internal Jev-lane measurements OUT of the published tree", () => {
+    // data/ is synced to the public bucket wholesale. The no-AI Jev lane and
+    // its gate sweep were measured on a bank made mostly of the rules' own
+    // examples, so they live in ai/evals-internal/ and must not come back.
+    const files = readdirSync(DIR);
+    expect(files).not.toContain("current_jev.json");
+    expect(files).not.toContain("jev_gate_sweep.json");
+    expect(committed).not.toHaveProperty("gateSweep");
   });
 
   it("carries the deterministic lane beside the billed runs", () => {

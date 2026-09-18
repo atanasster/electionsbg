@@ -3,9 +3,8 @@
 //   TYPESAFE_API_KEY=… npx tsx ai/llm/jevGateSweep.ts           # ask + simulate
 //   npx tsx ai/llm/jevGateSweep.ts --resimulate                  # no API calls
 //
-// Writes data/ai/evals/jev_gate_sweep.json. Deliberately NOT a `current_*.json`
-// file: the eval manifest publishes every one of those as a run, and a sweep is
-// a set of hypothetical gates, not a run of the shipped router.
+// Writes ai/evals-internal/jev_gate_sweep.json — internal, not published: it is
+// measured on the bank the rules were built from (ai/evals-internal/README.md).
 //
 // ⚠️ HOW IT AVOIDS THE BIAS THE FIRST RETRY HAD.
 // The published artifact ran at 0.70, so every row Jev answered at ≥ 0.70 routes
@@ -32,8 +31,9 @@ import { evaluateJev, JEV_LANE_CASES, type JevLaneRow } from "./jevLane";
 import { directAsk, failures } from "./jevDirectAsk";
 import { JEV_CONFIDENCE_GATE } from "./jev";
 
-const ARTIFACT = "data/ai/evals/current_jev.json";
-const OUT = "data/ai/evals/jev_gate_sweep.json";
+const ARTIFACT = "ai/evals-internal/jev_lane.json";
+// Internal, not published — see ai/evals-internal/README.md.
+const OUT = "ai/evals-internal/jev_gate_sweep.json";
 const GATES = [0.5, 0.525, 0.55, 0.575, 0.6, 0.625, 0.65, 0.675, 0.7];
 
 type Sample = { index: number; fresh: JevLaneRow };

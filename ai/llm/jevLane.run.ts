@@ -1,16 +1,15 @@
-// Run the JEV lane over the shared 841-case bank and publish its artifact.
+// Run the JEV lane over the shared 841-case bank (internal record, not published).
 //
 //   TYPESAFE_API_KEY=… npx tsx ai/llm/jevLane.run.ts [caseLimit]
 //   TYPESAFE_API_KEY=… npx tsx ai/llm/jevLane.run.ts --retry-degraded
 //
-// Writes data/ai/evals/current_jev.json, which ai/llm/evalsIndex.ts picks up
-// automatically — the eval page reads the manifest, so a new lane appears
-// without editing the page.
+// Writes ai/evals-internal/jev_lane.json — internal, not published: the bank is
+// mostly the examples the rules were built from (ai/evals-internal/README.md).
 //
 // This is the THIRD lane of the comparison the plan asks for:
 //   non_ai.json        the deterministic keyword router (free, offline)
 //   current_*.json     Gemini Flash
-//   current_jev.json   this one
+//   jev_lane.json      this one (ai/evals-internal/)
 //
 // All three are scored by the same functions on the same cases (see
 // ai/llm/jevLane.ts), so the numbers are comparable rather than merely
@@ -27,7 +26,9 @@ import { directAsk, failures } from "./jevDirectAsk";
 import { JEV_MODEL_NOTE } from "./jevPrompt";
 import type { Lang } from "../tools/types";
 
-const OUT = "data/ai/evals/current_jev.json";
+// NOT under data/: that tree is published to the bucket, and this run is on
+// the bank the rules were built from (see ai/evals-internal/README.md).
+const OUT = "ai/evals-internal/jev_lane.json";
 
 // ⚠️ THE FIELD NAMES ARE THE MANIFEST'S, NOT OURS. `ai/llm/evalsIndex.ts`
 // compacts every `current_*.json` by reading `toolAcc`/`callAcc`/`argN`/
@@ -279,7 +280,7 @@ const main = async () => {
     cases.map((c) => c.id),
     startedAt,
   );
-  mkdirSync("data/ai/evals", { recursive: true });
+  mkdirSync("ai/evals-internal", { recursive: true });
   writeFileSync(OUT, JSON.stringify(artifact, null, 2) + "\n");
   report(artifact);
   console.error(`wrote ${OUT}`);

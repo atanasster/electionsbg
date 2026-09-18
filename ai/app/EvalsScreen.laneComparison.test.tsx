@@ -1,12 +1,12 @@
-// The two comparison tables must not let a reader draw a conclusion the data
-// does not support. Four specific ways they could, each with a test below:
-//   1. by comparing lanes measured on DIFFERENT questions — the headline table
-//      is only honest because all three lanes share the same 474;
-//   2. by picking the cloud lane as "whichever ran last" rather than the
-//      production run (that once inverted the published ranking);
-//   3. by ranking on accuracy alone, when only Jev can decline;
-//   4. by putting a decline rate beside an accuracy measured over a DIFFERENT
-//      denominator.
+// The headline table must not let a reader draw a conclusion the data does not
+// support. The ways it could, each with a test below:
+//   1. comparing methods measured on DIFFERENT questions — the table is only
+//      honest because every row shares the same 474;
+//   2. picking the Gemini row as "whichever ran last" instead of by name (that
+//      once inverted the published ranking);
+//   3. writing a conclusion into the page that the data no longer supports;
+//   4. bringing back the no-AI Jev lane, which was measured on a bank made
+//      mostly of the rules' own examples (ai/evals-internal/README.md).
 //
 // ⚠️ The fixtures are typed against the page's own exported types. Untyped, a
 // renamed metric key leaves them compiling and the tests asserting against a
@@ -62,63 +62,50 @@ const run = (
   ...over,
 });
 
-// Jev's headline figures (841, with starters) deliberately DIFFER from its
-// 474-question ones, so a table reading the wrong bank shows the wrong number.
-const JEV_RUN = run("current_jev.json", "jev (TypeSafe System One)", {
+const GEMINI = "google/gemini-3.5-flash-lite";
+const PRODUCTION = run("current_production.json", GEMINI, {
+  metrics: {
+    en: metrics({ toolAcc: 0.96, argAcc: 0.81 }),
+    bg: metrics({ toolAcc: 0.96, argAcc: 0.75 }),
+  },
+});
+const CONTROL = run("current_control.json", GEMINI, {
+  metrics: {
+    en: metrics({ toolAcc: 0.95, argAcc: 0.83 }),
+    bg: metrics({ toolAcc: 0.95, argAcc: 0.77 }),
+  },
+  meanPromptTokens: 16150,
+});
+const JEV_GEMINI = run("current_jev_gemini.json", GEMINI, {
+  metrics: {
+    en: metrics({ toolAcc: 0.975, argAcc: 0.94 }),
+    bg: metrics({ toolAcc: 0.964, argAcc: 0.9 }),
+  },
+  meanPromptTokens: 3697,
+});
+
+const deterministic: EvalsIndex["deterministic"] = {
+  generatedAt: "2026-09-18T00:00:00.000Z",
   caseCount: 841,
   caseGroups: [...GROUPS, "starter"],
   metrics: {
-    en: metrics({
-      n: 841,
-      toolAcc: 0.91,
-      jevRouted: 0.71,
-      jevDeclined: 0.07,
-      toolAccWhenRouted: 0.96,
-    }),
-    bg: metrics({
-      n: 841,
-      toolAcc: 0.9,
-      jevRouted: 0.7,
-      jevDeclined: 0.08,
-      toolAccWhenRouted: 0.95,
-    }),
+    en: metrics({ n: 841, toolAcc: 0.87 }),
+    bg: metrics({ n: 841, toolAcc: 0.9 }),
   },
   legacyMetrics: {
-    en: metrics({ toolAcc: 0.84, jevRouted: 0.73, toolAccWhenRouted: 0.99 }),
-    bg: metrics({ toolAcc: 0.86, jevRouted: 0.72, toolAccWhenRouted: 0.98 }),
+    en: metrics({ toolAcc: 0.77 }),
+    bg: metrics({ toolAcc: 0.83 }),
   },
-});
-const CLOUD_RUN = run(
-  "current_production.json",
-  "google/gemini-3.5-flash-lite",
-  {
-    metrics: {
-      en: metrics({ toolAcc: 0.96 }),
-      bg: metrics({ toolAcc: 0.96 }),
-    },
-  },
-);
-
-const baseIndex: EvalsIndex = {
-  generatedAt: "2026-09-18T00:00:00.000Z",
-  deterministic: {
-    generatedAt: "2026-09-18T00:00:00.000Z",
-    caseCount: 841,
-    caseGroups: [...GROUPS, "starter"],
-    metrics: {
-      en: metrics({ n: 841, toolAcc: 0.87 }),
-      bg: metrics({ n: 841, toolAcc: 0.9 }),
-    },
-    legacyMetrics: {
-      en: metrics({ toolAcc: 0.77 }),
-      bg: metrics({ toolAcc: 0.83 }),
-    },
-  },
-  // In the manifest's real order — newest first, so Jev leads. A fixture that
-  // put the production run first would make the lane picker right by
-  // construction, which is how the "newest non-Jev run" defect stayed green.
-  runs: [JEV_RUN, CLOUD_RUN],
 };
+
+// In the manifest's real order — newest first. A fixture that put the
+// production run first would make the row picker right by construction.
+const index = (runs: RunSummary[]): EvalsIndex => ({
+  generatedAt: "2026-09-18T00:00:00.000Z",
+  deterministic,
+  runs,
+});
+const FULL = index([CONTROL, JEV_GEMINI, PRODUCTION]);
 
 beforeEach(() => clearDataCache());
 afterEach(() => clearDataCache());
@@ -132,249 +119,145 @@ const summary = () =>
   document.querySelector<HTMLElement>(
     'section[aria-labelledby="summary-title"]',
   )!;
-const closeUp = () =>
-  document.querySelector<HTMLElement>('section[aria-labelledby="jev-title"]')!;
-const cells = (scope: HTMLElement, lane: string) =>
+const cells = (lane: string) =>
   [
-    ...scope.querySelector(`tr[data-lane="${lane}"]`)!.querySelectorAll("td"),
+    ...summary()
+      .querySelector(`tr[data-lane="${lane}"]`)!
+      .querySelectorAll("td"),
   ].map((td) => td.textContent);
-const summaryShown = () => screen.findByRole("heading", { name: "Накратко" });
-const closeUpShown = () =>
-  screen.findByRole("heading", { name: "Jev отблизо" });
+const shown = () => screen.findByRole("heading", { name: "Накратко" });
 
-describe(
-  "headline — three methods on the same questions",
-  { timeout: 30_000 },
-  () => {
-    it("shows all three, each named by its own row header", async () => {
-      show(baseIndex);
-      await summaryShown();
-      for (const [lane, name] of [
-        ["deterministic", "Правила (без AI)"],
-        ["cloud", "Gemini 3.5 Flash-Lite"],
-        ["jev", "Jev (TypeSafe)"],
-      ]) {
-        const row = summary().querySelector<HTMLElement>(
-          `tr[data-lane="${lane}"]`,
-        )!;
-        expect(within(row).getByRole("rowheader").textContent).toContain(name);
-      }
-    });
-
-    it("reads the 474-question figures for the rules and Jev, not the 841", async () => {
-      // The starters are easy for both cheap lanes and the cloud model never
-      // ran them — the 841 figures would flatter exactly the two lanes that
-      // benefit. This is the like-for-like table, so it must read the shared bank.
-      show(baseIndex);
-      await summaryShown();
-      expect(cells(summary(), "deterministic")[0]).toBe("474");
-      expect(cells(summary(), "deterministic")[1]).toBe("77,0% / 83,0%");
-      expect(cells(summary(), "jev")[0]).toBe("474");
-      expect(cells(summary(), "jev")[1]).toBe("84,0% / 86,0%");
-      expect(cells(summary(), "cloud")[1]).toBe("96,0% / 96,0%");
-    });
-
-    it("claims 'the same questions' only when they are the same", async () => {
-      show(baseIndex);
-      await summaryShown();
-      expect(summary().textContent).toMatch(/едни и същи 474 въпроса/);
-      expect(summary().textContent).not.toMatch(/Внимание/);
-    });
-
-    it("warns, and drops the claim, when a lane covers different questions", async () => {
-      show({
-        ...baseIndex,
-        runs: [JEV_RUN, { ...CLOUD_RUN, caseCount: 367 }],
-      });
-      await summaryShown();
-      expect(summary().textContent).toMatch(/различен брой въпроси/);
-      expect(summary().textContent).not.toMatch(/едни и същи/);
-    });
-
-    it("warns when equal counts cover DIFFERENT question sets", async () => {
-      // The one mismatch a reader cannot see: the count column agrees.
-      show({
-        ...baseIndex,
-        runs: [JEV_RUN, { ...CLOUD_RUN, caseGroups: ["starter"] }],
-      });
-      await summaryShown();
-      expect(summary().textContent).toMatch(/наборите са различни/);
-    });
-
-    it("names the most accurate method from the data, not from the page", async () => {
-      show(baseIndex);
-      await summaryShown();
-      expect(summary().textContent).toMatch(
-        /Gemini 3.5 Flash-Lite най-често избира правилния инструмент/,
-      );
-    });
-
-    it("names a different method when the data says so", async () => {
-      // Flip the data and the sentence must follow — a sentence written into
-      // the page would still name the cloud model here.
-      show({
-        ...baseIndex,
-        runs: [
-          {
-            ...JEV_RUN,
-            legacyMetrics: {
-              en: metrics({ toolAcc: 0.99 }),
-              bg: metrics({ toolAcc: 0.99 }),
-            },
-          },
-          CLOUD_RUN,
-        ],
-      });
-      await summaryShown();
-      expect(summary().textContent).toMatch(
-        /Jev \(TypeSafe\) най-често избира правилния инструмент/,
-      );
-    });
-
-    it("is absent rather than two-rowed when a lane is missing", async () => {
-      show({ ...baseIndex, runs: [JEV_RUN] });
-      await closeUpShown();
-      expect(screen.queryByRole("heading", { name: "Накратко" })).toBeNull();
-    });
-
-    it("is absent when Jev carries no figures for the shared questions", async () => {
-      show({
-        ...baseIndex,
-        runs: [{ ...JEV_RUN, legacyMetrics: undefined }, CLOUD_RUN],
-      });
-      await closeUpShown();
-      expect(screen.queryByRole("heading", { name: "Накратко" })).toBeNull();
-    });
-  },
-);
-
-describe("Jev up close — all 841 questions", { timeout: 30_000 }, () => {
-  it("shows how much Jev takes, beside its accuracy on what it takes", async () => {
-    show(baseIndex);
-    await closeUpShown();
-    const c = cells(closeUp(), "jev");
-    // The accuracy alone would read as over the whole bank; the share it is
-    // measured on is the column that stops that.
-    expect(c[3]).toBe("71,0% / 70,0%");
-    expect(c[4]).toBe("7,0% / 8,0%");
-    expect(c[5]).toBe("96,0% / 95,0%");
-    expect(closeUp().textContent).toMatch(/се смята само върху поетите/);
+describe("headline table", { timeout: 30_000 }, () => {
+  it("names each method by its own row header", async () => {
+    show(FULL);
+    await shown();
+    for (const [lane, name] of [
+      ["deterministic", "Правила (без AI)"],
+      ["cloud", "Gemini 3.5 Flash-Lite"],
+      ["jev_gemini", "Jev + Gemini 3.5 Flash-Lite"],
+    ]) {
+      const row = summary().querySelector<HTMLElement>(
+        `tr[data-lane="${lane}"]`,
+      )!;
+      expect(within(row).getByRole("rowheader").textContent).toContain(name);
+    }
   });
 
-  it("prints an em dash for the rules even when their artifact carries a real 0", async () => {
-    // ⚠️ THE MUTATION-RESISTANT HALF. With empty rule metrics, `pct(undefined)`
-    // already returns "—", so deleting the `declines` guard would still pass.
-    // A real 0 is the only fixture a guard-free implementation cannot satisfy:
-    // it would print "0.0%", claiming a decline rate for rules that cannot
-    // decline.
-    show({
-      ...baseIndex,
-      deterministic: {
-        ...baseIndex.deterministic!,
-        metrics: {
-          en: metrics({ n: 841, jevRouted: 0, jevDeclined: 0 }),
-          bg: metrics({ n: 841, jevRouted: 0, jevDeclined: 0 }),
-        },
-      },
-    });
-    await closeUpShown();
-    const c = cells(closeUp(), "deterministic");
-    for (const cell of [c[3], c[4], c[5]]) expect(cell).toBe("—");
-    // …and the branch discriminates: Jev prints a rate in the same column.
-    expect(cells(closeUp(), "jev")[4]).toMatch(/%/);
-  });
-
-  it("says 'not measured' for Jev when its artifact predates the figures", async () => {
-    show({
-      ...baseIndex,
-      runs: [
-        {
-          ...JEV_RUN,
-          metrics: {
-            en: metrics({ n: 841 }),
-            bg: metrics({ n: 841 }),
-          },
-        },
-        CLOUD_RUN,
-      ],
-    });
-    await closeUpShown();
-    const c = cells(closeUp(), "jev");
-    expect(c[3]).toBe("не е измерено");
-    expect(c[4]).toBe("не е измерено");
-  });
-
-  it("warns when the two lanes cover different questions", async () => {
-    show({ ...baseIndex, runs: [{ ...JEV_RUN, caseCount: 12 }, CLOUD_RUN] });
-    await closeUpShown();
-    expect(closeUp().textContent).toMatch(/различен брой въпроси/);
-  });
-
-  it("is absent when Jev has not been run", async () => {
-    show({ ...baseIndex, runs: [CLOUD_RUN] });
-    await screen.findByRole("heading", { name: "Правилата без AI" });
-    expect(screen.queryByRole("heading", { name: "Jev отблизо" })).toBeNull();
-  });
-});
-
-const JEV_GEMINI_RUN = run(
-  "current_jev_gemini.json",
-  "google/gemini-3.5-flash-lite",
-  {
-    metrics: {
-      en: metrics({ toolAcc: 0.975, argAcc: 0.94 }),
-      bg: metrics({ toolAcc: 0.964, argAcc: 0.9 }),
-    },
-    meanPromptTokens: 3697,
-  },
-);
-const CONTROL_RUN = run(
-  "current_control.json",
-  "google/gemini-3.5-flash-lite",
-  {
-    metrics: {
-      en: metrics({ toolAcc: 0.95, argAcc: 0.83 }),
-      bg: metrics({ toolAcc: 0.95, argAcc: 0.77 }),
-    },
-    meanPromptTokens: 16150,
-  },
-);
-
-describe("headline — Jev + Gemini", { timeout: 30_000 }, () => {
-  const withBoth = {
-    ...baseIndex,
-    runs: [CONTROL_RUN, JEV_GEMINI_RUN, JEV_RUN, CLOUD_RUN],
-  };
-
-  it("adds Jev + Gemini as a fourth method when its run exists", async () => {
-    show(withBoth);
-    await summaryShown();
-    const row = summary().querySelector<HTMLElement>(
-      'tr[data-lane="jev_gemini"]',
-    )!;
-    expect(within(row).getByRole("rowheader").textContent).toContain(
-      "Jev + Gemini 3.5 Flash-Lite",
+  it("never shows the no-AI Jev lane, even when its run is in the manifest", async () => {
+    // It was measured on the rules' own examples — no basis for comparing it
+    // with them — so the table must not resurrect it from a stray artifact.
+    show(
+      index([
+        CONTROL,
+        JEV_GEMINI,
+        run("current_jev.json", "jev (TypeSafe System One)"),
+        PRODUCTION,
+      ]),
     );
-    expect(cells(summary(), "jev_gemini")[1]).toBe("97,5% / 96,4%");
-    expect(summary().textContent).toMatch(/Сравняваме четирите начина/);
+    await shown();
+    expect(summary().querySelector('tr[data-lane="jev"]')).toBeNull();
+    expect(summary().querySelectorAll("tbody tr")).toHaveLength(3);
   });
 
-  it("stays a three-way table without the run", async () => {
-    show(baseIndex);
-    await summaryShown();
-    expect(summary().querySelector('tr[data-lane="jev_gemini"]')).toBeNull();
-    expect(summary().textContent).toMatch(/Сравняваме трите начина/);
+  it("reads the rules on the 474 shared questions, not the 841", async () => {
+    show(FULL);
+    await shown();
+    expect(cells("deterministic")[0]).toBe("474");
+    expect(cells("deterministic")[1]).toBe("77,0% / 83,0%");
   });
 
   it("prefers the same-day control over the older production run", async () => {
-    show(withBoth);
-    await summaryShown();
-    expect(cells(summary(), "cloud")[3]).toBe("83,0% / 77,0%");
+    show(FULL);
+    await shown();
+    expect(cells("cloud")[3]).toBe("83,0% / 77,0%");
   });
 
-  it("states the parameter gain and the token saving from the data", async () => {
-    show(withBoth);
-    await summaryShown();
+  it("falls back to the production run when there is no control", async () => {
+    show(index([JEV_GEMINI, PRODUCTION]));
+    await shown();
+    expect(cells("cloud")[3]).toBe("81,0% / 75,0%");
+  });
+
+  it("is a two-way table without the Jev + Gemini run", async () => {
+    show(index([CONTROL, PRODUCTION]));
+    await shown();
+    expect(summary().querySelector('tr[data-lane="jev_gemini"]')).toBeNull();
+    expect(summary().textContent).toMatch(/Сравняваме двата начина/);
+    expect(summary().textContent).not.toMatch(/в изпитание/);
+  });
+
+  it("is a three-way table, marked as under test, with it", async () => {
+    show(FULL);
+    await shown();
+    expect(summary().textContent).toMatch(
+      /Сравняваме трите начина.*\(Jev \+ Gemini е още в изпитание\)/,
+    );
+  });
+
+  it("is absent rather than half-built without a Gemini run", async () => {
+    show(index([JEV_GEMINI]));
+    await screen.findByRole("heading", { name: "Правилата без AI" });
+    expect(screen.queryByRole("heading", { name: "Накратко" })).toBeNull();
+  });
+});
+
+describe("headline — comparability", { timeout: 30_000 }, () => {
+  it("claims 'the same questions' only when they are the same", async () => {
+    show(FULL);
+    await shown();
+    expect(summary().textContent).toMatch(/едни и същи 474 въпроса/);
+    expect(summary().textContent).not.toMatch(/Внимание/);
+  });
+
+  it("warns, and drops the claim, when a row covers different questions", async () => {
+    show(index([{ ...CONTROL, caseCount: 367 }, JEV_GEMINI, PRODUCTION]));
+    await shown();
+    expect(summary().textContent).toMatch(/различен брой въпроси/);
+    expect(summary().textContent).not.toMatch(/едни и същи/);
+  });
+
+  it("warns when equal counts cover DIFFERENT question sets", async () => {
+    // The one mismatch a reader cannot see: the count column agrees.
+    show(
+      index([{ ...CONTROL, caseGroups: ["starter"] }, JEV_GEMINI, PRODUCTION]),
+    );
+    await shown();
+    expect(summary().textContent).toMatch(/наборите са различни/);
+  });
+});
+
+describe("headline — conclusions follow the data", { timeout: 30_000 }, () => {
+  it("names the most accurate method from the data", async () => {
+    show(FULL);
+    await shown();
+    expect(summary().textContent).toMatch(
+      /Jev \+ Gemini 3.5 Flash-Lite най-често избира правилния инструмент/,
+    );
+  });
+
+  it("names a different method when the data says so", async () => {
+    show(
+      index([
+        CONTROL,
+        {
+          ...JEV_GEMINI,
+          metrics: {
+            en: metrics({ toolAcc: 0.5 }),
+            bg: metrics({ toolAcc: 0.5 }),
+          },
+        },
+        PRODUCTION,
+      ]),
+    );
+    await shown();
+    const text = summary().textContent ?? "";
+    expect(text).not.toMatch(/Jev \+ Gemini 3.5 Flash-Lite най-често/);
+    expect(text).toMatch(/Gemini 3.5 Flash-Lite най-често избира/);
+  });
+
+  it("states the parameter gain and the token saving", async () => {
+    show(FULL);
+    await shown();
     expect(summary().textContent).toContain(
       "те са верни в 94,0% / 90,0% срещу 83,0% / 77,0% при само Gemini",
     );
@@ -387,67 +270,61 @@ describe("headline — Jev + Gemini", { timeout: 30_000 }, () => {
   });
 
   it("drops the explanation when the data no longer supports it", async () => {
-    // A sentence written into the page would survive a run that reversed the
-    // numbers. Reverse them, and the causal clause must go.
-    show({
-      ...withBoth,
-      runs: [
-        CONTROL_RUN,
+    show(
+      index([
+        CONTROL,
         {
-          ...JEV_GEMINI_RUN,
+          ...JEV_GEMINI,
           metrics: {
             en: metrics({ argAcc: 0.7 }),
             bg: metrics({ argAcc: 0.7 }),
           },
         },
-        JEV_RUN,
-        CLOUD_RUN,
-      ],
-    });
-    await summaryShown();
+        PRODUCTION,
+      ]),
+    );
+    await shown();
     expect(summary().textContent).not.toMatch(/попълва по-точно/);
   });
 });
 
-// ⚠️ THE TEST THAT WOULD HAVE CAUGHT THE REAL DEFECT. The cloud lane once
-// resolved to "the newest non-Jev run" — the 367-question starter bank — and
-// the page published the cloud model 28 points below its production figure.
-describe("against the committed manifest", { timeout: 30_000 }, () => {
-  let committed: EvalsIndex;
-  beforeAll(async () => {
-    committed = await readEvalsIndex<EvalsIndex>();
-  });
+describe(
+  "headline — against the committed manifest",
+  { timeout: 30_000 },
+  () => {
+    let committed: EvalsIndex;
+    beforeAll(async () => {
+      committed = await readEvalsIndex<EvalsIndex>();
+    });
 
-  it("reads Gemini alone from the same-day control, named by file", async () => {
-    // The headline's Gemini row is the comparator for Jev + Gemini, so it must
-    // be the run made the SAME day on the SAME questions — chosen by file
-    // name. (Once it was "the newest non-Jev run", which resolved to a
-    // 367-question starter bank and inverted the published ranking.)
-    setFetcher(serveEvals());
-    renderEvals("bg");
-    await summaryShown();
-    const byFile = (f: string) => committed.runs.find((r) => r.file === f)!;
-    const control = byFile("current_control.json");
-    const production = byFile("current_production.json");
-    const bg = (v: number | null | undefined) =>
-      v == null ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
-    const params = (r: typeof control) =>
-      `${bg(r.metrics.en.argAcc)} / ${bg(r.metrics.bg.argAcc)}`;
-    // Discriminating only while the two runs really differ on this column.
-    expect(params(control)).not.toBe(params(production));
-    expect(cells(summary(), "cloud")[3]).toBe(params(control));
-    // …and the control really is the Jev + Gemini run's comparator.
-    expect(control.caseCount).toBe(byFile("current_jev_gemini.json").caseCount);
-  });
+    it("reads Gemini alone from the same-day control, named by file", async () => {
+      setFetcher(serveEvals());
+      renderEvals("bg");
+      await shown();
+      const byFile = (f: string) => committed.runs.find((r) => r.file === f)!;
+      const control = byFile("current_control.json");
+      const production = byFile("current_production.json");
+      const bg = (v: number | null | undefined) =>
+        v == null ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
+      const params = (r: RunSummary) =>
+        `${bg(r.metrics.en.argAcc)} / ${bg(r.metrics.bg.argAcc)}`;
+      // Discriminating only while the two runs really differ on this column.
+      expect(params(control)).not.toBe(params(production));
+      expect(cells("cloud")[3]).toBe(params(control));
+      expect(control.caseCount).toBe(
+        byFile("current_jev_gemini.json").caseCount,
+      );
+    });
 
-  it("compares all three on genuinely the same questions", async () => {
-    setFetcher(serveEvals());
-    renderEvals("bg");
-    await summaryShown();
-    const counts = ["deterministic", "cloud", "jev"].map(
-      (l) => cells(summary(), l)[0],
-    );
-    expect(new Set(counts).size).toBe(1);
-    expect(summary().textContent).not.toMatch(/Внимание/);
-  });
-});
+    it("compares every row on genuinely the same questions", async () => {
+      setFetcher(serveEvals());
+      renderEvals("bg");
+      await shown();
+      const counts = ["deterministic", "cloud", "jev_gemini"].map(
+        (l) => cells(l)[0],
+      );
+      expect(new Set(counts).size).toBe(1);
+      expect(summary().textContent).not.toMatch(/Внимание/);
+    });
+  },
+);

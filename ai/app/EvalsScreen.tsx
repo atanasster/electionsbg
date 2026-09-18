@@ -14,7 +14,6 @@ import type { EvalCase, EvalScore } from "../llm/currentEval";
 import type {
   CompactMetrics,
   DeterministicMetrics,
-  GateSweep,
   JevRouting,
   Robustness,
   RobustnessCell,
@@ -105,8 +104,6 @@ export type EvalsIndex = {
   generatedAt: string;
   runs: RunSummary[];
   deterministic: DeterministicEval | null;
-  /** Absent on a manifest built before the sweep existed. */
-  gateSweep?: GateSweep | null;
   robustness?: Robustness | null;
 };
 type Recall = {
@@ -194,8 +191,8 @@ const langNote = (t: T) =>
     "Each cell: English / Bulgarian.",
   );
 
-/** The two model lanes' artifacts, by FILENAME — the manifest's own identity
- *  rule (a label inside an artifact can be copied by a re-scored replay).
+/** The model lanes' artifacts, by FILENAME — the manifest's own identity rule
+ *  (a label inside an artifact can be copied by a re-scored replay).
  *
  *  ⚠️ `CLOUD_RUN_FILE` is NAMED rather than found, and that is the whole point.
  *  It used to be "the first non-Jev run with metrics", and `runs` is sorted by
@@ -207,7 +204,6 @@ const langNote = (t: T) =>
  *  the cloud model WINS that column 96.0% to 90.6%. The published ranking was
  *  inverted, and publishing any new artifact would have re-pointed the lane
  *  again with no test failing. */
-const JEV_RUN_FILE = "current_jev.json";
 const CLOUD_RUN_FILE = "current_production.json";
 /** Gemini alone, run the same day and on the same suite as `JEV_GEMINI_FILE` —
  *  the fair comparator for it, so the headline prefers it when present. */
@@ -230,9 +226,6 @@ type Lane = {
   cases: number;
   groups: string[] | null;
   m: LangMetrics;
-  /** Can this lane abstain at all? Distinct from "did we measure how often",
-   *  which is what a null field means. */
-  declines: boolean;
 };
 
 /** Equal counts over different GROUPS are still not comparable, and that is
@@ -263,14 +256,9 @@ const MismatchWarning = ({ lanes, t }: { lanes: Lane[]; t: T }) => {
 };
 
 /**
- * THE HEADLINE: all three ways of choosing a tool, on the SAME questions.
- *
- * ⚠️ The shared bank is the 474 questions WITHOUT the starter prompts. The
- * cloud model's run on the 367 starters is a SEPARATE artifact
- * (`current_starter.json`), while the rules and Jev were scored on all 841 in
- * one run each — and the starters are easy for both of them. So the
- * 841-question figures the page used to lead with flattered the two cheap
- * lanes against the cloud one: Jev read 90.6% there and reads 84.2% here.
+ * THE HEADLINE: the ways of choosing a tool, on the SAME questions — the 474
+ * WITHOUT the starter prompts, which is the bank every lane here was measured
+ * on. Rules and Gemini alone always; Jev + Gemini when its run exists.
  */
 const Summary = ({
   index,
@@ -283,16 +271,17 @@ const Summary = ({
 }) => {
   const { pair } = makeFmt(lang);
   const byFile = (f: string) => index?.runs.find((r) => r.file === f);
-  const jev = byFile(JEV_RUN_FILE);
   // The same-day control first: it shares its day and its exact question set
   // with the Jev + Gemini run, so the two rows below each other differ in one
   // thing only. The older production run is the fallback.
   const cloud = byFile(CONTROL_RUN_FILE) ?? byFile(CLOUD_RUN_FILE);
   const jevGemini = byFile(JEV_GEMINI_FILE);
   const rules = index?.deterministic?.legacyMetrics;
-  // All THREE or nothing — a two-row table under a three-lane claim is the
-  // failure this section exists to avoid.
-  if (!jev?.legacyMetrics || !cloud || !rules) return null;
+  // The rules and Gemini alone are required; Jev + Gemini joins when its run
+  // exists. The no-AI Jev lane is deliberately NOT here: it was measured on a
+  // bank made mostly of the rules' own examples, which is no basis for
+  // comparing it with them (ai/evals-internal/README.md).
+  if (!cloud || !rules) return null;
   const nonStarter = (g: string[] | null) =>
     g ? g.filter((x) => x !== "starter") : null;
   const lanes: Lane[] = [
@@ -303,7 +292,6 @@ const Summary = ({
       cases: rules.en.n,
       groups: nonStarter(index!.deterministic!.caseGroups),
       m: rules,
-      declines: false,
     },
     {
       id: "cloud",
@@ -312,21 +300,8 @@ const Summary = ({
       cases: cloud.caseCount,
       groups: cloud.caseGroups,
       m: cloud.metrics,
-      declines: false,
     },
-    {
-      id: "jev",
-      name: "Jev (TypeSafe)",
-      note: t(
-        "без AI, избира между подадени варианти",
-        "no AI, picks among given options",
-      ),
-      cases: jev.legacyMetrics.en.n,
-      groups: nonStarter(jev.caseGroups),
-      m: jev.legacyMetrics,
-      declines: true,
-    },
-    // Optional: shown when the run exists. The three above are required.
+    // Optional: shown when the run exists.
     ...(jevGemini
       ? [
           {
@@ -339,20 +314,23 @@ const Summary = ({
             cases: jevGemini.caseCount,
             groups: jevGemini.caseGroups,
             m: jevGemini.metrics,
-            declines: false,
           },
         ]
       : []),
   ];
   const mean = (l: Lane) => ((l.m.en.toolAcc ?? 0) + (l.m.bg.toolAcc ?? 0)) / 2;
   const best = [...lanes].sort((a, b) => mean(b) - mean(a))[0];
-  const j = lanes[2].m;
   const argMean = (m: LangMetrics) =>
     ((m.en.argAcc ?? 0) + (m.bg.argAcc ?? 0)) / 2;
   const num = (n: number) =>
     n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB");
-  const howMany =
-    lanes.length === 4 ? t("четирите", "four") : t("трите", "three");
+  const howMany = lanes.length === 3 ? t("трите", "three") : t("двата", "two");
+  const underTest = jevGemini
+    ? t(
+        " (Jev + Gemini е още в изпитание)",
+        " (Jev + Gemini is still under test)",
+      )
+    : "";
   return (
     <section aria-labelledby="summary-title">
       <h2
@@ -364,12 +342,12 @@ const Summary = ({
       <Lede>
         {sameBank(lanes)
           ? t(
-              `Сравняваме ${howMany} начина, по които чатът може да избере инструмент (тези с Jev са още в изпитание), върху едни и същи ${lanes[1].cases} въпроса на всеки език.`,
-              `We compare the ${howMany} ways the chat can choose a tool (those with Jev are still under test) on the same ${lanes[1].cases} questions in each language.`,
+              `Сравняваме ${howMany} начина, по които чатът може да избере инструмент${underTest}, върху едни и същи ${lanes[1].cases} въпроса на всеки език.`,
+              `We compare the ${howMany} ways the chat can choose a tool${underTest} on the same ${lanes[1].cases} questions in each language.`,
             )
           : t(
-              `Сравняваме ${howMany} начина, по които чатът може да избере инструмент (тези с Jev са още в изпитание).`,
-              `We compare the ${howMany} ways the chat can choose a tool (those with Jev are still under test).`,
+              `Сравняваме ${howMany} начина, по които чатът може да избере инструмент${underTest}.`,
+              `We compare the ${howMany} ways the chat can choose a tool${underTest}.`,
             )}
       </Lede>
       <MismatchWarning lanes={lanes} t={t} />
@@ -408,12 +386,6 @@ const Summary = ({
           {t(
             `Правилата без AI са безплатни и винаги работят, но избират правилния инструмент в ${pair(rules, "toolAcc")} от случаите, а параметрите са верни в ${pair(rules, "argAcc")}.`,
             `The rules are free and always work, but pick the right tool in ${pair(rules, "toolAcc")} of cases, with the right parameters in ${pair(rules, "argAcc")}.`,
-          )}
-        </li>
-        <li>
-          {t(
-            `Без AI Jev поема ${pair(j, "jevRouted")} от въпросите и при тях избира правилно в ${pair(j, "toolAccWhenRouted")}; останалите оставя на правилата. Параметрите попълват главно правилата, затова там Jev е близо до тях: ${pair(j, "argAcc")} срещу ${pair(rules, "argAcc")}.`,
-            `Without AI, Jev takes ${pair(j, "jevRouted")} of the questions and is right on ${pair(j, "toolAccWhenRouted")} of those; it leaves the rest to the rules. The rules still fill in most parameters, so there Jev stays close to them: ${pair(j, "argAcc")} against ${pair(rules, "argAcc")}.`,
           )}
         </li>
         {jevGemini && (
@@ -561,8 +533,8 @@ const RobustnessSection = ({
       </h2>
       <Lede>
         {t(
-          "Основният тест е съставен най-вече от примерите, по които са написани самите правила, затова ги облагодетелства. Хората обаче пишат с грешки, с други думи или на латиница. Тук същите въпроси са зададени точно така — и оценяваме само избора на инструмент.",
-          "The main test is made mostly of the examples the rules themselves were written from, so it favours them. People, though, type with mistakes, in other words, or in Latin letters. Here the same questions are asked that way — and only the choice of tool is scored.",
+          "Хората пишат с грешки, с други думи или на латиница. Тук същите въпроси са зададени точно така — и оценяваме само избора на инструмент.",
+          "People type with mistakes, in other words, or in Latin letters. Here the same questions are asked that way — and only the choice of tool is scored.",
         )}
       </Lede>
       <p className="mt-2 max-w-3xl text-sm font-medium">
@@ -721,23 +693,8 @@ const History = ({ t }: { t: T }) => {
         "Jev writes no text — it only chooses among options we give it and says how confident it is. It cannot invent a tool that does not exist, and a mode without a generative model could understand more questions.",
       ),
       outcome: t(
-        "Когато е уверен, почти не греши, но поема само около 70% от въпросите. Не може да попълва отворени стойности (ЕИК, свободен текст, дати), а имената избира само сред резултатите от търсене — затова като цяло изостава от облачния модел. Прагът на увереност остава 0,70: при почти всички по-ниски прагове Jev е по-неточен от правилата на въпросите, които би поел от тях — но това е измерено върху основния тест, който облагодетелства правилата (вижте следващата стъпка), затова прагът трябва да се измери отново.",
-        "When confident it is almost never wrong, but it takes only about 70% of the questions. It cannot fill open values (company IDs, free text, dates) and picks names only from search results — so overall it trails the cloud model. The confidence gate stays at 0.70: at almost every lower gate Jev is less accurate than the rules on the questions it would take over from them — but that was measured on the main test, which favours the rules (see the next step), so the gate needs measuring again.",
-      ),
-    },
-    {
-      date: t("18 септември", "18 September"),
-      title: t(
-        "Тестът облагодетелстваше правилата",
-        "The test favoured the rules",
-      ),
-      body: t(
-        "Jev изглеждаше едва малко по-добър от правилата и проверихме защо. 91% от основния тест са примерите, по които са написани самите правила, така че те се оценяваха върху собствения си речник. На същите въпроси с правописни грешки правилата паднаха до около 30%, с други думи — под 25%, на латиница — до 6,5%, а собственият избор на Jev остана между 71% и 94%.",
-        "Jev looked barely better than the rules, so we checked why. 91% of the main test is the examples the rules themselves were written from, so they were being graded on their own vocabulary. On the same questions with typos the rules fell to about 30%, reworded to under 25%, in Latin script to 6.5% — while Jev's own pick stayed between 71% and 94%.",
-      ),
-      outcome: t(
-        "Добавихме тест с грешки, други думи и латиница (раздела „Когато въпросът е написан по-различно“) и решенията вече се вземат и по него. Излезе, че режимът без AI губи повечето верни избори на Jev, защото никой не може да попълни параметрите на инструмент, който правилата не са избрали.",
-        "We added a test with typos, rewording and Latin script (the “When the question is written differently” section), and decisions now rest on it too. It showed that the no-AI mode throws away most of Jev's right picks, because nothing can fill the parameters of a tool the rules did not choose.",
+        "Когато е уверен, почти не греши — дори при грешки, други думи и латиница. Но не може да попълва отворени стойности (ЕИК, свободен текст, дати), а имената избира само сред резултатите от търсене, затова сам не стига: трябва му модел, който да попълни параметрите.",
+        "When confident it is almost never wrong — even with typos, rewording and Latin script. But it cannot fill open values (company IDs, free text, dates) and picks names only from search results, so on its own it is not enough: it needs a model to fill the parameters.",
       ),
     },
     {
@@ -787,240 +744,6 @@ const History = ({ t }: { t: T }) => {
           </li>
         ))}
       </ol>
-    </section>
-  );
-};
-
-/**
- * Jev up close, on all 841 questions — the bank on which it and the rules were
- * each measured in a single run. The cloud model is absent because its starter
- * run is a separate artifact, not part of one 841-question measurement; the
- * headline table is where the three are compared.
- *
- * ⚠️ THE ABSTENTION COLUMNS DO NOT SHARE A DENOMINATOR. `toolAccWhenRouted` is
- * measured over the `jevRouted` subset, while `jevDeclined` and `jevUnsure` are
- * shares of ALL questions. Rendering the accuracy without the routed share
- * publishes a "99%" with its "70% of questions" removed — so both are shown,
- * and the headline "right tool" column (over every question) is unaffected.
- */
-const JevCloseUp = ({
-  index,
-  t,
-  lang,
-}: {
-  index: EvalsIndex | null;
-  t: T;
-  lang: Lang;
-}) => {
-  const { pair } = makeFmt(lang);
-  const jev = index?.runs.find((r) => r.file === JEV_RUN_FILE);
-  const det = index?.deterministic;
-  if (!jev || !det?.metrics) return null;
-  const lanes: Lane[] = [
-    {
-      id: "deterministic",
-      name: t("Правила (без AI)", "Rules (no AI)"),
-      note: "",
-      cases: det.caseCount,
-      groups: det.caseGroups,
-      m: det.metrics,
-      declines: false,
-    },
-    {
-      id: "jev",
-      name: "Jev (TypeSafe)",
-      note: "",
-      cases: jev.caseCount,
-      groups: jev.caseGroups,
-      m: jev.metrics,
-      declines: true,
-    },
-  ];
-  /** "Not applicable" and "not measured" are different claims and only one of
-   *  them is a fact about the product. */
-  const abstention = (l: Lane, key: MetricKey) =>
-    !l.declines
-      ? "—"
-      : l.m.en[key] == null && l.m.bg[key] == null
-        ? t("не е измерено", "not measured")
-        : pair(l.m, key);
-  return (
-    <section aria-labelledby="jev-title">
-      <h3 id="jev-title" className="font-title text-xl text-popover-foreground">
-        {t("Jev отблизо", "Jev up close")}
-      </h3>
-      <Lede>
-        {t(
-          `Тук Jev и правилата са изпитани върху всички ${jev.caseCount} въпроса, включително предложените въпроси в чата. Облачният модел е изпитан върху предложените въпроси отделно (ред „Предложени въпроси“ по-горе), а не в едно общо измерване с останалите, затова тук липсва. Jev е единственият, който може да откаже, затова показваме колко въпроса поема и колко от тях решава правилно.`,
-          `Here Jev and the rules are tested on all ${jev.caseCount} questions, including the chat's suggested questions. The cloud model was tested on the suggested questions separately (the “Suggested questions” row above), not in one run with the rest, so it is absent here. Jev is the only one that can decline, so we show how many questions it takes and how many of those it gets right.`,
-        )}
-      </Lede>
-      <MismatchWarning lanes={lanes} t={t} />
-      <DataTable note={langNote(t)}>
-        <thead>
-          <tr className="border-b-2">
-            <Th>{t("Начин на избор", "Method")}</Th>
-            <Th>{t("Въпроси", "Questions")}</Th>
-            <Th>{t("Правилен инструмент", "Right tool")}</Th>
-            <Th>{t("Изпълнимо извикване", "Usable call")}</Th>
-            <Th>{t("Поети", "Taken")}</Th>
-            <Th>{t("Отказани", "Declined")}</Th>
-            <Th>{t("Точност при поетите", "Accuracy when taken")}</Th>
-            <Th>
-              {t(
-                "Разпознава въпроси извън обхвата",
-                "Spots off-topic questions",
-              )}
-            </Th>
-          </tr>
-        </thead>
-        <tbody>
-          {lanes.map((l) => (
-            <tr key={l.id} data-lane={l.id} className="border-b">
-              <RowTh>{l.name}</RowTh>
-              <Num>{l.cases}</Num>
-              <Num>{pair(l.m, "toolAcc")}</Num>
-              <Num>{pair(l.m, "callAcc")}</Num>
-              <Num>{abstention(l, "jevRouted")}</Num>
-              <Num>{abstention(l, "jevDeclined")}</Num>
-              <Num>{abstention(l, "toolAccWhenRouted")}</Num>
-              <Num>
-                {l.m.en.irrelevanceAcc == null && l.m.bg.irrelevanceAcc == null
-                  ? "—"
-                  : pair(l.m, "irrelevanceAcc")}
-              </Num>
-            </tr>
-          ))}
-        </tbody>
-      </DataTable>
-      <p className="mt-2 max-w-3xl text-xs text-muted-foreground">
-        {t(
-          "„Поети“ и „Отказани“ са дял от всички въпроси; „Точност при поетите“ се смята само върху поетите. Когато Jev не е достатъчно уверен, въпросът отива при правилата — това не е отказ.",
-          "“Taken” and “Declined” are shares of all questions; “Accuracy when taken” is over the taken ones only. When Jev is not confident enough the question goes to the rules — that is not a decline.",
-        )}
-      </p>
-    </section>
-  );
-};
-
-/**
- * The Jev confidence-gate sweep: what the lane would score at each gate
- * between 0.50 and the published one.
- *
- * ⚠️ THE COLUMN THAT DECIDES IT IS THE HEAD-TO-HEAD, not the overall figures.
- * A lower gate changes only the questions it hands from the rules to Jev, so
- * overall accuracy moves by tenths of a point. On exactly those questions the
- * question is whether Jev beats the rules it replaces — so those two rates sit
- * side by side, and the takeaway sentence is COMPUTED from them rather than
- * written here, where it would go stale the next time the sweep is run.
- *
- * On the published gate's own row the head-to-head is "—": questions "gained"
- * there are Jev's confidence varying between calls, not a gate change, and the
- * method note states that count instead.
- */
-const GateSweepSection = ({
-  sweep,
-  t,
-  lang,
-}: {
-  sweep: GateSweep | null | undefined;
-  t: T;
-  lang: Lang;
-}) => {
-  const { pct, dec } = makeFmt(lang);
-  if (!sweep?.sweep.length) return null;
-  const lower = sweep.sweep.filter((s) => s.gate < sweep.publishedGate);
-  const worse = (lang: Lang) =>
-    lower.filter(
-      (s) =>
-        s.metrics[lang].movedJevToolAcc != null &&
-        s.metrics[lang].movedRulesToolAcc != null &&
-        s.metrics[lang].movedJevToolAcc! < s.metrics[lang].movedRulesToolAcc!,
-    ).length;
-  const sp = (
-    s: GateSweep["sweep"][number],
-    k: Exclude<
-      keyof GateSweep["sweep"][number]["metrics"]["en"],
-      "n" | "moved"
-    >,
-  ) => `${pct(s.metrics.en[k])} / ${pct(s.metrics.bg[k])}`;
-  const gateLabel = (g: number) => dec(g, 3).replace(/0$/, "");
-  return (
-    <section aria-labelledby="gate-title">
-      <h3
-        id="gate-title"
-        className="font-title text-xl text-popover-foreground"
-      >
-        {t("Праг на увереност за Jev", "Jev confidence gate")}
-      </h3>
-      <Lede>
-        {t(
-          `Когато Jev е по-малко уверен от прага (сега ${gateLabel(sweep.publishedGate)}), той не избира, а оставя въпроса на правилата. По-нисък праг му дава повече въпроси — но дали на точно тези въпроси той е по-точен от правилата, които замества?`,
-          `When Jev is less confident than the gate (currently ${gateLabel(sweep.publishedGate)}), it does not choose and leaves the question to the rules. A lower gate gives it more questions — but on exactly those questions, is it more accurate than the rules it replaces?`,
-        )}
-      </Lede>
-      {lower.length > 0 && (
-        <p className="mt-2 max-w-3xl text-sm font-medium">
-          {t(
-            `На добавените въпроси Jev избира правилния инструмент по-рядко от правилата при ${worse("en")} от ${lower.length} по-ниски прага на английски и при ${worse("bg")} от ${lower.length} на български.`,
-            `On the added questions Jev picks the right tool less often than the rules at ${worse("en")} of ${lower.length} lower gates in English and ${worse("bg")} of ${lower.length} in Bulgarian.`,
-          )}
-        </p>
-      )}
-      <DataTable note={langNote(t)}>
-        <thead>
-          <tr className="border-b-2">
-            <Th>{t("Праг", "Gate")}</Th>
-            <Th>{t("Поети", "Taken")}</Th>
-            <Th>{t("Правилен инструмент", "Right tool")}</Th>
-            <Th>{t("Изпълнимо извикване", "Usable call")}</Th>
-            <Th>{t("Верни параметри", "Right parameters")}</Th>
-            <Th>
-              {t(
-                "Разпознава въпроси извън обхвата",
-                "Spots off-topic questions",
-              )}
-            </Th>
-            <Th>{t("Добавени въпроси", "Added questions")}</Th>
-            <Th>{t("Jev на добавените", "Jev on added")}</Th>
-            <Th>{t("Правилата на добавените", "Rules on added")}</Th>
-          </tr>
-        </thead>
-        <tbody>
-          {sweep.sweep.map((s) => {
-            const current = s.gate === sweep.publishedGate;
-            return (
-              <tr
-                key={s.gate}
-                data-gate={s.gate}
-                className={current ? "border-b font-medium" : "border-b"}
-              >
-                <RowTh note={current ? t("текущ", "current") : undefined}>
-                  {gateLabel(s.gate)}
-                </RowTh>
-                <Num>{sp(s, "jevRouted")}</Num>
-                <Num>{sp(s, "toolAcc")}</Num>
-                <Num>{sp(s, "callAcc")}</Num>
-                <Num>{sp(s, "argAcc")}</Num>
-                <Num>{sp(s, "irrelevanceAcc")}</Num>
-                <Num>
-                  {current
-                    ? "—"
-                    : `${s.metrics.en.moved} / ${s.metrics.bg.moved}`}
-                </Num>
-                <Num>{current ? "—" : sp(s, "movedJevToolAcc")}</Num>
-                <Num>{current ? "—" : sp(s, "movedRulesToolAcc")}</Num>
-              </tr>
-            );
-          })}
-        </tbody>
-      </DataTable>
-      <p className="mt-2 max-w-3xl text-xs text-muted-foreground">
-        {t(
-          `Как е измерено: въпросите, при които Jev е бил над текущия праг, се държат еднакво при всеки по-нисък праг и са използвани наготово. Всеки от ${sweep.reasked}-те въпроса под прага е зададен отново точно веднъж, без праг, и всеки отговор е запазен — всички прагове са пресметнати от тази една извадка. Увереността на Jev леко се колебае между извикванията (средно с ${sweep.meanConfidenceDrift == null ? "—" : dec(sweep.meanConfidenceDrift, 3)}): ${sweep.crossedPublishedGate} от тези въпроси се върнаха над текущия праг, затова редът „текущ“ се различава малко от основното измерване.`,
-          `How it was measured: questions Jev answered above the current gate behave the same at any lower gate and are reused as they are. Each of the ${sweep.reasked} below-gate questions was asked again exactly once, with no gate, and every answer was kept — all gates are computed from that one sample. Jev's confidence varies slightly between calls (by ${sweep.meanConfidenceDrift == null ? "—" : dec(sweep.meanConfidenceDrift, 3)} on average): ${sweep.crossedPublishedGate} of those questions came back above the current gate, so the “current” row differs slightly from the main measurement.`,
-        )}
-      </p>
     </section>
   );
 };
@@ -1104,7 +827,7 @@ export const EvalsScreen = ({
     baseline.scoringHash === run.scoringHash;
   // Jev has its own section; the runs table is the CLOUD model's history, and a
   // Jev row there would sit an 841-question figure among 474-question ones.
-  const cloudRuns = index?.runs.filter((r) => r.file !== JEV_RUN_FILE) ?? [];
+  const cloudRuns = index?.runs ?? [];
   return (
     <div className="flex min-h-dvh flex-col bg-card text-foreground">
       {!integrated && (
@@ -1338,9 +1061,6 @@ export const EvalsScreen = ({
                 </DataTable>
               </section>
             )}
-
-            <JevCloseUp index={index} t={t} lang={lang} />
-            <GateSweepSection sweep={index?.gateSweep} t={t} lang={lang} />
 
             {index?.deterministic?.metrics && (
               <section>
