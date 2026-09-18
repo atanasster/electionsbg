@@ -15,24 +15,27 @@
 
 import { PROXY_URL, hasAiSession } from "./session";
 
-/** Hard client budget. Measured p95 at the full 235-tool registry is ~656 ms
- *  (docs/plans/jev-typesafe-eval-v1.md), so this is ~2x headroom rather than a
- *  guess.
+/** Hard client budget for one Jev call through the proxy.
  *
  *  ⚠️ COUPLED to the server's own abort — the `AbortSignal.timeout(...)` inside
- *  the `body.action === "systemone"` branch of `functions/llm_http.js`. That one
- *  must stay LARGER than this one: the server releases the question's
- *  reservation when its handler finishes, and while the reservation is inflight
- *  our lane's fallback (a `complete` on the same questionId) is rejected with
- *  `429 call_limit`. If the server held the socket past this budget, the
- *  slow-Jev case would become a hard failure in exactly the degraded scenario
- *  the ladder exists to absorb.
+ *  the `body.action === "systemone"` branch of `functions/llm_http.js` — and it
+ *  must stay LARGER than it, with room for what surrounds the upstream call. The
+ *  server holds the question's reservation (`inflight`) until its handler
+ *  finishes, and while it does, our lane's fallback (a `complete` on the same
+ *  questionId) is rejected with `429 call_limit`. So the server must give up and
+ *  release FIRST; only then may the client move on.
+ *
+ *  What the budget has to cover, measured live 2026-09-18: the server handler
+ *  took 1.0–1.18 s (Jev plus the Firestore claim and settle), and the browser adds
+ *  the round trip to us-central1. The first cut was 1200 ms, sized from Jev's
+ *  DIRECT p95 (~656 ms, docs/plans/jev-typesafe-eval-v1.md), and it expired on
+ *  every live call — each turn silently fell back to the full Gemini prompt.
  *
  *  The two values live in different packages (browser ESM vs CommonJS Cloud
  *  Function), so there is no shared constant — jevClient.test.ts reads the
  *  server's literal out of that file instead, so changing one fails on the
  *  other. */
-export const JEV_TIMEOUT_MS = 1200;
+export const JEV_TIMEOUT_MS = 2500;
 
 /** Circuit breaker: after this many consecutive failures, stop calling Jev for
  *  `BREAKER_COOLDOWN_MS` so an outage costs ONE timeout rather than one per

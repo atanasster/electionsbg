@@ -64,7 +64,7 @@ export type EntitySearch = (
 /** Budget for the SEARCH leg. `fetchDb` takes no abort signal, so the timeout
  *  is applied by racing it: without this the turn has an unbounded wait in
  *  front of a deterministic answer the lane already holds, which is precisely
- *  the hang the Jev call's own 1200ms budget exists to prevent. */
+ *  the hang the Jev call's own budget (JEV_TIMEOUT_MS) exists to prevent. */
 export const ENTITY_SEARCH_TIMEOUT_MS = 1200;
 
 const withTimeout = async <T>(

@@ -64,9 +64,18 @@ Input caps live in `jev_payload.js`'s `LIMITS` (8 questions, 300 options/choice,
 per-field char caps and a 100,000-char aggregate bound on the built payload).
 Settlement prices Jev at its own rate — $42/Btok input, output free — via the
 `microDollars` branch of `charged()`; pricing it with the Gemini formula would
-over-charge a routing call ~60x. The upstream abort is 2 s, deliberately just
-above the client's 1200 ms budget so a slow Jev cannot hold `inflight` and 429 the
-client's own fallback.
+over-charge a routing call ~60x. The upstream abort is 1.5 s, deliberately well
+BELOW the client's 2.5 s budget (`JEV_TIMEOUT_MS`): this handler holds the
+question's reservation (`inflight`) until it returns, and a fallback that arrives
+while it is held 429s with `call_limit`. So the server gives up and releases
+first. `jevClient.test.ts` reads this literal and fails if the gap drops under
+800 ms. (It was 2 s against a 1.2 s client budget until 2026-09-18, which was
+both the wrong order and too tight: live, the handler took 1.0-1.18 s, so every
+call expired in the browser.)
+
+The CORS preflight is cached for 10 minutes (`Access-Control-Max-Age: 600`).
+naiasno.bg calls this function same-origin at `/api/llm` and sends no preflight
+at all (`ai/llm/session.ts`).
 
 ## Production setup (not performed by committing code)
 

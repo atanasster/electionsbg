@@ -53,6 +53,11 @@ function createLlmHandler({
     if (req.method === "OPTIONS") {
       res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
       res.set("Access-Control-Allow-Headers", "Content-Type");
+      // Cache the preflight. Without it Chrome keeps one for 5 s, so nearly
+      // every call from a cross-origin page paid an extra round trip to
+      // us-central1 before its POST. (naiasno.bg now calls same-origin and
+      // sends no preflight at all; this covers every other caller.)
+      res.set("Access-Control-Max-Age", "600");
       return res.status(204).send("");
     }
     if (req.method !== "POST")
@@ -93,15 +98,17 @@ function createLlmHandler({
               "Content-Type": "application/json",
             },
             body: JSON.stringify(upstream),
-            // ⚠️ COUPLED TO THE CLIENT'S OWN BUDGET, which is 1200ms
-            // (docs/plans/jev-chat-integration-v1.md §6). Once that elapses the
-            // client has ALREADY fallen through to its lane's fallback, which
-            // claims THE SAME question — so holding this socket longer keeps
-            // `inflight` set and 429s that fallback with `call_limit`, turning
-            // the slow-Jev case into a hard failure in exactly the degraded
-            // scenario the ladder exists to absorb. Small headroom over the
-            // client budget, never seconds. Change one, change the other.
-            signal: AbortSignal.timeout(2000),
+            // ⚠️ COUPLED TO THE CLIENT'S OWN BUDGET (JEV_TIMEOUT_MS, 2500 ms,
+            // ai/llm/jevClient.ts), and it must stay well BELOW it. This handler
+            // holds the question's reservation (`inflight`) until it returns;
+            // once the client stops waiting it falls through to its lane's
+            // fallback, which claims THE SAME question — so if we were still
+            // holding it, that fallback would 429 with `call_limit`, turning the
+            // slow-Jev case into a hard failure in exactly the degraded scenario
+            // the ladder exists to absorb. So we give up first, and the gap
+            // covers the Firestore claim/settle plus the browser's round trip.
+            // Change one, change the other.
+            signal: AbortSignal.timeout(1500),
           });
           if (!response.ok) throw new LlmError(502, "model_unavailable");
           const data = await response.json();

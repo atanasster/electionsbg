@@ -295,3 +295,25 @@ test("still enforces the origin allowlist", async () => {
   );
   assert.equal(res.statusCode, 403);
 });
+
+// Every call from a cross-origin page is preceded by a CORS preflight; without
+// a cache lifetime Chrome keeps one for 5 s, so nearly every call paid an extra
+// round trip to us-central1 — enough, with Jev's own ~1 s, to expire the
+// client's routing budget on every live turn (measured 2026-09-18).
+test("caches the CORS preflight for an allowed origin", async () => {
+  const handler = createLlmHandler({
+    security: makeSecurity([]),
+    apiKey: "gemini",
+    jevApiKey: "k",
+    fetchImpl: async () => ({ ok: true, json: async () => okAnswer }),
+    allowedOrigins: [/^https:\/\/naiasno\.bg$/],
+  });
+  const res = makeRes();
+  await handler(
+    { method: "OPTIONS", headers: { origin: "https://naiasno.bg" }, ip: "1.2.3.4" },
+    res,
+  );
+  assert.equal(res.statusCode, 204);
+  assert.equal(res.headers["Access-Control-Allow-Origin"], "https://naiasno.bg");
+  assert.equal(res.headers["Access-Control-Max-Age"], "600");
+});

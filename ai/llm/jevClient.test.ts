@@ -212,12 +212,12 @@ describe("askJev", () => {
     expect(lastJevSkip()).toBe("timeout");
   });
 
-  it("stays strictly under the server's own abort, read from the server", () => {
+  it("outlasts the server's own abort, read from the server", () => {
     // The two values live in different packages (browser ESM vs CommonJS Cloud
     // Function), so there is no shared constant to import. Read the server's
-    // real literal instead of restating it: a third hand-copied 2000 in this
-    // file would keep passing while someone lowered the server's abort and
-    // silently inverted the ordering the reservation protocol depends on.
+    // real literal instead of restating it: a hand-copied value in this file
+    // would keep passing while someone raised the server's abort and silently
+    // inverted the ordering the reservation protocol depends on.
     const here = dirname(fileURLToPath(import.meta.url));
     const src = readFileSync(
       resolve(here, "../../functions/llm_http.js"),
@@ -230,11 +230,14 @@ describe("askJev", () => {
       "server Jev abort not found — did llm_http.js move?",
     ).toBeTruthy();
     const serverAbortMs = Number(m![1]);
-    expect(JEV_TIMEOUT_MS).toBeLessThan(serverAbortMs);
-    // Headroom, not seconds: the server must release the reservation just
-    // AFTER we stop waiting, so the lane's fallback can claim the same
-    // question without hitting `429 call_limit`.
-    expect(serverAbortMs - JEV_TIMEOUT_MS).toBeLessThanOrEqual(1000);
+    // The server must RELEASE the reservation before we stop waiting: while it
+    // is inflight, our fallback's `complete` on the same question 429s with
+    // `call_limit`. The gap covers the Firestore claim/settle around the
+    // upstream call and the browser's round trip to us-central1 — measured at
+    // ~0.3-0.5 s together, so 800 ms is the floor, not a guess.
+    expect(JEV_TIMEOUT_MS - serverAbortMs).toBeGreaterThanOrEqual(800);
+    // …and still a routing step, not a second request's worth of waiting.
+    expect(JEV_TIMEOUT_MS).toBeLessThanOrEqual(3000);
   });
 });
 

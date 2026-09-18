@@ -41,6 +41,21 @@ it("requires verification again after expiry and uses the retained AI endpoint",
   expect(fetcher).toHaveBeenCalledTimes(1);
 });
 
+// Same-origin ONLY where /api/llm is served without a redirect. Spelled out as
+// literals for the reason above: deriving them from SAME_ORIGIN_PROXY_HOSTS
+// would pass whatever the set happened to contain.
+it("calls the proxy same-origin on naiasno.bg, and absolute everywhere else", async () => {
+  const { proxyUrlFor } = await import("./session");
+  expect(proxyUrlFor("naiasno.bg")).toBe("/api/llm");
+  expect(proxyUrlFor("elections-bg.web.app")).toBe("/api/llm");
+  // electionsbg.com 301s /api/llm — same-origin there would turn POST into GET.
+  expect(proxyUrlFor("electionsbg.com")).toBe(
+    "https://elections-bg.web.app/api/llm",
+  );
+  expect(proxyUrlFor("localhost")).toBe("https://elections-bg.web.app/api/llm");
+  expect(proxyUrlFor(undefined)).toBe("https://elections-bg.web.app/api/llm");
+});
+
 it("invalid sessions clear credentials; network errors replace stale allowance notices", async () => {
   const fetcher = vi
     .fn()

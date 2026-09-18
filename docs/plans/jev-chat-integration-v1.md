@@ -179,8 +179,12 @@ in the path at all.
 
 The ladder, in order:
 
-1. Jev call with a hard timeout (**1200 ms**; measured p95 is ~656 ms at full
-   registry, so this is ~2× headroom, not a guess).
+1. Jev call with a hard timeout — **2500 ms in the browser, 1500 ms on the
+   server**, the server always shorter so it releases the question's reservation
+   before the fallback claims it. (First cut: 1200 ms, from Jev's ~656 ms
+   p95 measured DIRECT. Live through the proxy the server handler alone took
+   1.0-1.18 s, so every call expired and every turn fell back silently —
+   2026-09-18.)
 2. On timeout / 429 / 529 / 5xx / malformed answer → fall through **to that
    lane's own fallback** per the table above, in the same turn. The user sees an
    answer, not an error.
@@ -192,8 +196,8 @@ The ladder, in order:
    labelled as Jev-routed.
 
 Note this makes the AI lane's worst case **strictly no worse than today**: with
-Jev down it is today's pipeline, plus at most one 1200 ms timeout on the first
-turn before the breaker opens. The Non-AI lane's worst case is likewise exactly
+Jev down it is today's pipeline, plus at most three 2.5 s timeouts
+(`BREAKER_THRESHOLD`) before the breaker opens for a minute. The Non-AI lane's worst case is likewise exactly
 today's deterministic behaviour.
 
 Retry policy inside step 1 is deliberately **one attempt, no backoff-retry** in
