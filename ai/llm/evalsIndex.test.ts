@@ -152,6 +152,26 @@ describe("the published-run index covers every artifact", () => {
       }
   });
 
+  it("carries the robustness summary, without its rows", () => {
+    const raw = JSON.parse(
+      readFileSync(join(DIR, "gemini_robustness.json"), "utf8"),
+    );
+    expect(committed.robustness).not.toBeNull();
+    expect(committed.robustness).not.toHaveProperty("rows");
+    expect(committed.robustness!.summary).toEqual(raw.summary);
+  });
+
+  it("records routing-prompt tokens only where a run measured them", () => {
+    // NULL, not 0, for a run whose rows carry no usage — "0 tokens" would be a
+    // measurement nobody made.
+    const byFile = (f: string) => committed.runs.find((r) => r.file === f)!;
+    expect(byFile("current_jev.json").meanPromptTokens).toBeNull();
+    expect(byFile("current_control.json").meanPromptTokens).toBeGreaterThan(0);
+    expect(byFile("current_jev_gemini.json").meanPromptTokens).toBeLessThan(
+      byFile("current_control.json").meanPromptTokens!,
+    );
+  });
+
   it("carries the deterministic lane beside the billed runs", () => {
     // The free lane is a different measurement and must not be inside a routing run's
     // numbers; the legacy denominator is the corpus the published floors used.

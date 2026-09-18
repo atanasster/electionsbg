@@ -15,6 +15,9 @@ import type {
   CompactMetrics,
   DeterministicMetrics,
   GateSweep,
+  JevRouting,
+  Robustness,
+  RobustnessCell,
 } from "../llm/evalsIndex";
 type Metrics = {
   n: number;
@@ -81,6 +84,9 @@ export type RunSummary = {
   groups: Record<string, Record<Lang, SummarisedMetrics>>;
   goldInCandidates: { kept: number; total: number } | null;
   meanCandidatesKept: number | null;
+  /** Mean routing-prompt tokens per question; absent on older manifests. */
+  meanPromptTokens?: number | null;
+  jevRouting?: JevRouting;
 };
 // DERIVED from the producer, never restated here. The page used to hand-mirror
 // `compact()`'s output, so a renamed key left this file rendering `undefined`
@@ -101,6 +107,7 @@ export type EvalsIndex = {
   deterministic: DeterministicEval | null;
   /** Absent on a manifest built before the sweep existed. */
   gateSweep?: GateSweep | null;
+  robustness?: Robustness | null;
 };
 type Recall = {
   generatedAt: string;
@@ -202,6 +209,11 @@ const langNote = (t: T) =>
  *  again with no test failing. */
 const JEV_RUN_FILE = "current_jev.json";
 const CLOUD_RUN_FILE = "current_production.json";
+/** Gemini alone, run the same day and on the same suite as `JEV_GEMINI_FILE` —
+ *  the fair comparator for it, so the headline prefers it when present. */
+const CONTROL_RUN_FILE = "current_control.json";
+/** Jev picks the tool, Gemini fills its parameters. */
+const JEV_GEMINI_FILE = "current_jev_gemini.json";
 
 /** A readable model name from an artifact's model id
  *  (`google/gemini-3.5-flash-lite` → `Gemini 3.5 Flash-Lite`). An id this does
@@ -270,8 +282,13 @@ const Summary = ({
   lang: Lang;
 }) => {
   const { pair } = makeFmt(lang);
-  const jev = index?.runs.find((r) => r.file === JEV_RUN_FILE);
-  const cloud = index?.runs.find((r) => r.file === CLOUD_RUN_FILE);
+  const byFile = (f: string) => index?.runs.find((r) => r.file === f);
+  const jev = byFile(JEV_RUN_FILE);
+  // The same-day control first: it shares its day and its exact question set
+  // with the Jev + Gemini run, so the two rows below each other differ in one
+  // thing only. The older production run is the fallback.
+  const cloud = byFile(CONTROL_RUN_FILE) ?? byFile(CLOUD_RUN_FILE);
+  const jevGemini = byFile(JEV_GEMINI_FILE);
   const rules = index?.deterministic?.legacyMetrics;
   // All THREE or nothing — a two-row table under a three-lane claim is the
   // failure this section exists to avoid.
@@ -300,16 +317,42 @@ const Summary = ({
     {
       id: "jev",
       name: "Jev (TypeSafe)",
-      note: t("избира между подадени варианти", "picks among given options"),
+      note: t(
+        "без AI, избира между подадени варианти",
+        "no AI, picks among given options",
+      ),
       cases: jev.legacyMetrics.en.n,
       groups: nonStarter(jev.caseGroups),
       m: jev.legacyMetrics,
       declines: true,
     },
+    // Optional: shown when the run exists. The three above are required.
+    ...(jevGemini
+      ? [
+          {
+            id: "jev_gemini",
+            name: `Jev + ${modelName(jevGemini.model, jevGemini.label)}`,
+            note: t(
+              "Jev избира инструмента, Gemini — параметрите",
+              "Jev picks the tool, Gemini the parameters",
+            ),
+            cases: jevGemini.caseCount,
+            groups: jevGemini.caseGroups,
+            m: jevGemini.metrics,
+            declines: false,
+          },
+        ]
+      : []),
   ];
   const mean = (l: Lane) => ((l.m.en.toolAcc ?? 0) + (l.m.bg.toolAcc ?? 0)) / 2;
   const best = [...lanes].sort((a, b) => mean(b) - mean(a))[0];
   const j = lanes[2].m;
+  const argMean = (m: LangMetrics) =>
+    ((m.en.argAcc ?? 0) + (m.bg.argAcc ?? 0)) / 2;
+  const num = (n: number) =>
+    n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB");
+  const howMany =
+    lanes.length === 4 ? t("четирите", "four") : t("трите", "three");
   return (
     <section aria-labelledby="summary-title">
       <h2
@@ -321,12 +364,12 @@ const Summary = ({
       <Lede>
         {sameBank(lanes)
           ? t(
-              `Сравняваме трите начина, по които чатът може да избере инструмент (Jev е още в изпитание), върху едни и същи ${lanes[1].cases} въпроса на всеки език.`,
-              `We compare the three ways the chat can choose a tool (Jev is still under test) on the same ${lanes[1].cases} questions in each language.`,
+              `Сравняваме ${howMany} начина, по които чатът може да избере инструмент (тези с Jev са още в изпитание), върху едни и същи ${lanes[1].cases} въпроса на всеки език.`,
+              `We compare the ${howMany} ways the chat can choose a tool (those with Jev are still under test) on the same ${lanes[1].cases} questions in each language.`,
             )
           : t(
-              "Сравняваме трите начина, по които чатът може да избере инструмент (Jev е още в изпитание).",
-              "We compare the three ways the chat can choose a tool (Jev is still under test).",
+              `Сравняваме ${howMany} начина, по които чатът може да избере инструмент (тези с Jev са още в изпитание).`,
+              `We compare the ${howMany} ways the chat can choose a tool (those with Jev are still under test).`,
             )}
       </Lede>
       <MismatchWarning lanes={lanes} t={t} />
@@ -369,10 +412,31 @@ const Summary = ({
         </li>
         <li>
           {t(
-            `Jev поема ${pair(j, "jevRouted")} от въпросите и при тях избира правилно в ${pair(j, "toolAccWhenRouted")}; останалите оставя на правилата. Параметрите попълват главно правилата, затова там Jev е близо до тях: ${pair(j, "argAcc")} срещу ${pair(rules, "argAcc")}.`,
-            `Jev takes ${pair(j, "jevRouted")} of the questions and is right on ${pair(j, "toolAccWhenRouted")} of those; it leaves the rest to the rules. The rules still fill in most parameters, so there Jev stays close to them: ${pair(j, "argAcc")} against ${pair(rules, "argAcc")}.`,
+            `Без AI Jev поема ${pair(j, "jevRouted")} от въпросите и при тях избира правилно в ${pair(j, "toolAccWhenRouted")}; останалите оставя на правилата. Параметрите попълват главно правилата, затова там Jev е близо до тях: ${pair(j, "argAcc")} срещу ${pair(rules, "argAcc")}.`,
+            `Without AI, Jev takes ${pair(j, "jevRouted")} of the questions and is right on ${pair(j, "toolAccWhenRouted")} of those; it leaves the rest to the rules. The rules still fill in most parameters, so there Jev stays close to them: ${pair(j, "argAcc")} against ${pair(rules, "argAcc")}.`,
           )}
         </li>
+        {jevGemini && (
+          <li>
+            {t(
+              `Когато Jev избере инструмента, а Gemini само попълни параметрите, те са верни в ${pair(jevGemini.metrics, "argAcc")} срещу ${pair(cloud.metrics, "argAcc")} при само Gemini.`,
+              `When Jev picks the tool and Gemini only fills its parameters, they are right in ${pair(jevGemini.metrics, "argAcc")} against ${pair(cloud.metrics, "argAcc")} with Gemini alone.`,
+            )}
+            {/* The explanation only when the data bears it out — a sentence
+                written here would survive a run that reversed the numbers. */}
+            {argMean(jevGemini.metrics) > argMean(cloud.metrics) &&
+              t(
+                " Моделът попълва по-точно, щом вижда един инструмент вместо целия каталог.",
+                " The model fills more accurately when it sees one tool instead of the whole catalogue.",
+              )}
+            {jevGemini.meanPromptTokens != null &&
+              cloud.meanPromptTokens != null &&
+              t(
+                ` Подканата за избора е средно ${num(jevGemini.meanPromptTokens)} токена вместо ${num(cloud.meanPromptTokens)}.`,
+                ` The routing prompt averages ${num(jevGemini.meanPromptTokens)} tokens instead of ${num(cloud.meanPromptTokens)}.`,
+              )}
+          </li>
+        )}
       </ul>
       <dl className="mt-4 grid max-w-3xl gap-x-4 gap-y-1 text-sm text-muted-foreground sm:grid-cols-[max-content_1fr]">
         <dt className="font-medium text-foreground">
@@ -403,6 +467,130 @@ const Summary = ({
           )}
         </dd>
       </dl>
+    </section>
+  );
+};
+
+/**
+ * The robustness test: the same questions with typos, reworded, and in Latin
+ * script — the questions the main test does not contain.
+ *
+ * ⚠️ WHY IT IS ON THE PAGE AT ALL. The main test is 91% sentences the rules
+ * were BUILT FROM (every tool's examples and every suggested question), so it
+ * flatters the rules, and the no-AI Jev lane that falls back to them. Real
+ * readers do not type the examples. This is where the methods separate.
+ *
+ * Only the TOOL is scored — a rewording keeps the tool but not the expected
+ * parameter values — so these figures are not comparable to "Изпълнимо
+ * извикване" elsewhere on the page. The takeaway is computed.
+ */
+const RobustnessSection = ({
+  robustness,
+  t,
+  lang,
+}: {
+  robustness: Robustness | null | undefined;
+  t: T;
+  lang: Lang;
+}) => {
+  const { pct } = makeFmt(lang);
+  if (!robustness) return null;
+  const s = robustness.summary;
+  const variants: { key: string; label: string }[] = [
+    { key: "original", label: t("Както са написани", "As written") },
+    { key: "typo", label: t("С правописни грешки", "With typos") },
+    { key: "paraphrase", label: t("Казани с други думи", "Reworded") },
+    {
+      key: "latin",
+      label: t("На латиница (само BG)", "In Latin letters (BG only)"),
+    },
+  ];
+  const cols: { key: keyof RobustnessCell; label: string }[] = [
+    { key: "rules", label: t("Правила", "Rules") },
+    { key: "jevRaw", label: t("Само Jev", "Jev alone") },
+    { key: "jevLane", label: t("Jev без AI", "Jev, no AI") },
+    { key: "gemini", label: t("Само Gemini", "Gemini alone") },
+    { key: "jevGemini", label: "Jev + Gemini" },
+  ];
+  const cell = (slice: string, v: string, k: keyof RobustnessCell) => {
+    const en = s[`${slice}|en:${v}`]?.[k];
+    const bg = s[`${slice}|bg:${v}`]?.[k];
+    if (en == null && bg == null) return "—";
+    return `${pct(en)} / ${pct(bg)}`;
+  };
+  // How many (language, kind of question) cells each AI method wins.
+  const cells = Object.entries(s).filter(([k]) => k.startsWith("all|"));
+  const jgWins = cells.filter(
+    ([, c]) => (c.jevGemini ?? 0) >= (c.gemini ?? 0),
+  ).length;
+  const table = (slice: string, caption: string) => (
+    <div className="mt-4">
+      <p className="text-sm font-medium">{caption}</p>
+      <DataTable note={langNote(t)}>
+        <thead>
+          <tr className="border-b-2">
+            <Th>{t("Въпросите", "Questions")}</Th>
+            {cols.map((c) => (
+              <Th key={c.key}>{c.label}</Th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {variants.map((v) => (
+            <tr key={v.key} data-variant={v.key} className="border-b">
+              <RowTh>{v.label}</RowTh>
+              {cols.map((c) => (
+                <Num key={c.key}>{cell(slice, v.key, c.key)}</Num>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </DataTable>
+    </div>
+  );
+  return (
+    <section aria-labelledby="robust-title">
+      <h2
+        id="robust-title"
+        className="font-title text-2xl text-popover-foreground"
+      >
+        {t(
+          "Когато въпросът е написан по-различно",
+          "When the question is written differently",
+        )}
+      </h2>
+      <Lede>
+        {t(
+          "Основният тест е съставен най-вече от примерите, по които са написани самите правила, затова ги облагодетелства. Хората обаче пишат с грешки, с други думи или на латиница. Тук същите въпроси са зададени точно така — и оценяваме само избора на инструмент.",
+          "The main test is made mostly of the examples the rules themselves were written from, so it favours them. People, though, type with mistakes, in other words, or in Latin letters. Here the same questions are asked that way — and only the choice of tool is scored.",
+        )}
+      </Lede>
+      <p className="mt-2 max-w-3xl text-sm font-medium">
+        {t(
+          `Jev + Gemini е поне толкова точен, колкото само Gemini, в ${jgWins} от ${cells.length} случая (език и вид въпрос).`,
+          `Jev + Gemini is at least as accurate as Gemini alone in ${jgWins} of ${cells.length} cases (language and kind of question).`,
+        )}
+      </p>
+      {table(
+        "all",
+        t(
+          "Всички въпроси (по един пример за инструмент и всички ръчно написани)",
+          "All questions (one example per tool and every hand-written one)",
+        ),
+      )}
+      {table(
+        "handwritten",
+        t(
+          "Само ръчно написаните — те не са в речника на правилата",
+          "Hand-written only — they are not in the rules' vocabulary",
+        ),
+      )}
+      <p className="mt-2 max-w-3xl text-xs text-muted-foreground">
+        {t(
+          "„Само Jev“ е собственият избор на Jev, преди прага на увереност. „Jev без AI“ е режимът без модел: когато Jev не е уверен или инструментът иска параметри, които правилата не могат да попълнят, отговорът идва от правилата. Грешките са изкуствени (разместена, изпусната или удвоена буква в две думи), а преформулираните въпроси са написани от модел; няколко леко променят смисъла.",
+          "“Jev alone” is Jev's own pick, before the confidence gate. “Jev, no AI” is the mode without a model: when Jev is not confident, or the tool needs parameters the rules cannot fill, the answer comes from the rules. The typos are synthetic (a swapped, dropped or doubled letter in two words), and the reworded questions were written by a model; a few shift the meaning slightly.",
+        )}
+      </p>
     </section>
   );
 };
@@ -535,6 +723,18 @@ const History = ({ t }: { t: T }) => {
       outcome: t(
         "Когато е уверен, почти не греши, но поема само около 70% от въпросите. Не може да попълва отворени стойности (ЕИК, свободен текст, дати), а имената избира само сред резултатите от търсене — затова като цяло изостава от облачния модел. Изпитан е, но още не е пуснат за читателите. Прагът на увереност остава 0,70: при почти всички по-ниски прагове Jev е по-неточен от правилата на въпросите, които би поел от тях.",
         "When confident it is almost never wrong, but it takes only about 70% of the questions. It cannot fill open values (company IDs, free text, dates) and picks names only from search results — so overall it trails the cloud model. It has been tested but is not yet live for readers. The confidence gate stays at 0.70: at almost every lower gate Jev is less accurate than the rules on the questions it would take over from them.",
+      ),
+    },
+    {
+      date: t("18 септември", "18 September"),
+      title: t("Jev избира, Gemini попълва", "Jev picks, Gemini fills in"),
+      body: t(
+        "Jev избира инструмента добре дори при грешки и други думи, но не може да попълни свободните параметри, а Gemini може. Затова, когато Jev е уверен, Gemini получава описанието само на избрания инструмент и попълва параметрите му; иначе получава целия каталог, както досега.",
+        "Jev picks the tool well even with typos and rewording, but cannot fill open parameters, and Gemini can. So when Jev is confident, Gemini receives only the chosen tool's description and fills its parameters; otherwise it receives the whole catalogue, as before.",
+      ),
+      outcome: t(
+        "Измерено в същия ден и на същите въпроси, това е по-точно от само Gemini — най-вече при параметрите — и подканата е около четири пъти по-кратка. По-точно е и при грешки, други думи и латиница. Изпитано е, но още не е пуснато за читателите.",
+        "Measured on the same day and the same questions, it is more accurate than Gemini alone — above all on parameters — with a prompt about four times shorter. It is also more accurate with typos, rewording and Latin script. It has been tested but is not yet live for readers.",
       ),
     },
   ];
@@ -947,6 +1147,7 @@ export const EvalsScreen = ({
         </div>
 
         <Summary index={index} t={t} lang={lang} />
+        <RobustnessSection robustness={index?.robustness} t={t} lang={lang} />
         <History t={t} />
 
         {error && (
@@ -1360,8 +1561,8 @@ export const EvalsScreen = ({
             </li>
             <li>
               {t(
-                "Jev е измерен директно срещу API на TypeSafe, без нашия сървър-посредник и неговия лимит за време. В реална работа може да поема по-малко въпроси.",
-                "Jev was measured directly against TypeSafe's API, without our proxy server and its time limit. In real use it may take fewer questions.",
+                "Jev и Jev + Gemini са измерени директно срещу API-тата на TypeSafe и Google, без нашия сървър-посредник и неговия лимит за време. В реална работа Jev може да поема по-малко въпроси.",
+                "Jev and Jev + Gemini were measured directly against TypeSafe's and Google's APIs, without our proxy server and its time limit. In real use Jev may take fewer questions.",
               )}
             </li>
           </ul>

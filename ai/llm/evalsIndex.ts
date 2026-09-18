@@ -39,6 +39,17 @@ type Row = {
   lang: "en" | "bg";
   goldInCandidates?: boolean;
   candidatesKept?: number | null;
+  usage?: { prompt_tokens?: number } | null;
+};
+/** The Jev + Gemini run's own routing figures (`currentEval.run.ts`). */
+export type JevRouting = {
+  run: number;
+  fill: number;
+  full: number;
+  fellBack: number;
+  jevDegraded: number;
+  geminiCalls: number;
+  meanPromptTokens: number;
 };
 type RunArtifact = {
   label?: string;
@@ -56,6 +67,7 @@ type RunArtifact = {
   legacyMetrics?: Record<"en" | "bg", Metrics>;
   groups?: Record<string, Record<"en" | "bg", Metrics>>;
   rows?: Row[];
+  jevRouting?: JevRouting;
 };
 
 const compact = (m: Metrics) => ({
@@ -178,6 +190,18 @@ const readRuns = () =>
         meanCandidatesKept: kept.length
           ? Number((kept.reduce((a, b) => a + b, 0) / kept.length).toFixed(1))
           : null,
+        // Mean routing-prompt tokens per question, where the run recorded
+        // usage — what a routing call costs, comparable across runs of the
+        // same model. NULL (not 0) when the artifact recorded none.
+        meanPromptTokens: (() => {
+          const t = rows
+            .map((r) => r.usage?.prompt_tokens)
+            .filter((n): n is number => typeof n === "number");
+          return t.length
+            ? Math.round(t.reduce((a, b) => a + b, 0) / t.length)
+            : null;
+        })(),
+        ...(a.jevRouting ? { jevRouting: a.jevRouting } : {}),
       };
     })
     .sort((a, b) => String(b.finishedAt).localeCompare(String(a.finishedAt)));
@@ -314,11 +338,43 @@ const readGateSweep = (): GateSweep | null => {
   }
 };
 
+/** One cell group of the robustness test: the tool-choice share of each of the
+ *  five methods, on one language and one kind of question. */
+export type RobustnessCell = {
+  n: number;
+  rules: number | null;
+  jevRaw: number | null;
+  jevLane: number | null;
+  gemini: number | null;
+  jevGemini: number | null;
+};
+export type Robustness = {
+  generatedAt: string;
+  model: string;
+  /** Keyed `<slice>|<lang>:<variant>`, e.g. `all|bg:typo`. */
+  summary: Record<string, RobustnessCell>;
+};
+
+// The robustness test (ai/llm/jevRobustness.ts + robustnessGemini.ts): the same
+// questions with typos, reworded, and in Latin script. Carried WITHOUT its rows
+// — ~1 MB the page needs none of.
+const readRobustness = (): Robustness | null => {
+  try {
+    const a = JSON.parse(
+      readFileSync(join(DIR, "gemini_robustness.json"), "utf8"),
+    ) as Robustness & { rows?: unknown };
+    return { generatedAt: a.generatedAt, model: a.model, summary: a.summary };
+  } catch {
+    return null;
+  }
+};
+
 export const buildIndex = (generatedAt = new Date().toISOString()) => ({
   generatedAt,
   runs: readRuns(),
   deterministic: readDeterministic(),
   gateSweep: readGateSweep(),
+  robustness: readRobustness(),
 });
 
 // Only builds when run as a script.

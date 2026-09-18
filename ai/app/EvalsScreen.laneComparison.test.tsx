@@ -317,6 +317,98 @@ describe("Jev up close — all 841 questions", { timeout: 30_000 }, () => {
   });
 });
 
+const JEV_GEMINI_RUN = run(
+  "current_jev_gemini.json",
+  "google/gemini-3.5-flash-lite",
+  {
+    metrics: {
+      en: metrics({ toolAcc: 0.975, argAcc: 0.94 }),
+      bg: metrics({ toolAcc: 0.964, argAcc: 0.9 }),
+    },
+    meanPromptTokens: 3697,
+  },
+);
+const CONTROL_RUN = run(
+  "current_control.json",
+  "google/gemini-3.5-flash-lite",
+  {
+    metrics: {
+      en: metrics({ toolAcc: 0.95, argAcc: 0.83 }),
+      bg: metrics({ toolAcc: 0.95, argAcc: 0.77 }),
+    },
+    meanPromptTokens: 16150,
+  },
+);
+
+describe("headline — Jev + Gemini", { timeout: 30_000 }, () => {
+  const withBoth = {
+    ...baseIndex,
+    runs: [CONTROL_RUN, JEV_GEMINI_RUN, JEV_RUN, CLOUD_RUN],
+  };
+
+  it("adds Jev + Gemini as a fourth method when its run exists", async () => {
+    show(withBoth);
+    await summaryShown();
+    const row = summary().querySelector<HTMLElement>(
+      'tr[data-lane="jev_gemini"]',
+    )!;
+    expect(within(row).getByRole("rowheader").textContent).toContain(
+      "Jev + Gemini 3.5 Flash-Lite",
+    );
+    expect(cells(summary(), "jev_gemini")[1]).toBe("97,5% / 96,4%");
+    expect(summary().textContent).toMatch(/Сравняваме четирите начина/);
+  });
+
+  it("stays a three-way table without the run", async () => {
+    show(baseIndex);
+    await summaryShown();
+    expect(summary().querySelector('tr[data-lane="jev_gemini"]')).toBeNull();
+    expect(summary().textContent).toMatch(/Сравняваме трите начина/);
+  });
+
+  it("prefers the same-day control over the older production run", async () => {
+    show(withBoth);
+    await summaryShown();
+    expect(cells(summary(), "cloud")[3]).toBe("83,0% / 77,0%");
+  });
+
+  it("states the parameter gain and the token saving from the data", async () => {
+    show(withBoth);
+    await summaryShown();
+    expect(summary().textContent).toContain(
+      "те са верни в 94,0% / 90,0% срещу 83,0% / 77,0% при само Gemini",
+    );
+    expect(summary().textContent).toMatch(
+      /средно 3\s?697 токена вместо 16\s?150/,
+    );
+    expect(summary().textContent).toMatch(
+      /попълва по-точно, щом вижда един инструмент/,
+    );
+  });
+
+  it("drops the explanation when the data no longer supports it", async () => {
+    // A sentence written into the page would survive a run that reversed the
+    // numbers. Reverse them, and the causal clause must go.
+    show({
+      ...withBoth,
+      runs: [
+        CONTROL_RUN,
+        {
+          ...JEV_GEMINI_RUN,
+          metrics: {
+            en: metrics({ argAcc: 0.7 }),
+            bg: metrics({ argAcc: 0.7 }),
+          },
+        },
+        JEV_RUN,
+        CLOUD_RUN,
+      ],
+    });
+    await summaryShown();
+    expect(summary().textContent).not.toMatch(/попълва по-точно/);
+  });
+});
+
 // ⚠️ THE TEST THAT WOULD HAVE CAUGHT THE REAL DEFECT. The cloud lane once
 // resolved to "the newest non-Jev run" — the 367-question starter bank — and
 // the page published the cloud model 28 points below its production figure.
@@ -326,28 +418,26 @@ describe("against the committed manifest", { timeout: 30_000 }, () => {
     committed = await readEvalsIndex<EvalsIndex>();
   });
 
-  it("compares the PRODUCTION cloud run, not whichever ran last", async () => {
+  it("reads Gemini alone from the same-day control, named by file", async () => {
+    // The headline's Gemini row is the comparator for Jev + Gemini, so it must
+    // be the run made the SAME day on the SAME questions — chosen by file
+    // name. (Once it was "the newest non-Jev run", which resolved to a
+    // 367-question starter bank and inverted the published ranking.)
     setFetcher(serveEvals());
     renderEvals("bg");
     await summaryShown();
-    const production = committed.runs.find(
-      (r) => r.file === "current_production.json",
-    )!;
-    const newestOther = committed.runs.find(
-      (r) => r.file !== "current_jev.json",
-    )!;
-    // Read the PARAMETER column: it is where the runs actually differ. (The
-    // question count cannot tell them apart — several cloud runs cover the
-    // same 474 questions.)
+    const byFile = (f: string) => committed.runs.find((r) => r.file === f)!;
+    const control = byFile("current_control.json");
+    const production = byFile("current_production.json");
     const bg = (v: number | null | undefined) =>
       v == null ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
-    const params = (r: typeof production) =>
+    const params = (r: typeof control) =>
       `${bg(r.metrics.en.argAcc)} / ${bg(r.metrics.bg.argAcc)}`;
-    // Discriminating only while the newest other run really differs.
-    expect(newestOther.file).not.toBe(production.file);
-    expect(params(newestOther)).not.toBe(params(production));
-    const c = cells(summary(), "cloud");
-    expect(c[3]).toBe(params(production));
+    // Discriminating only while the two runs really differ on this column.
+    expect(params(control)).not.toBe(params(production));
+    expect(cells(summary(), "cloud")[3]).toBe(params(control));
+    // …and the control really is the Jev + Gemini run's comparator.
+    expect(control.caseCount).toBe(byFile("current_jev_gemini.json").caseCount);
   });
 
   it("compares all three on genuinely the same questions", async () => {
