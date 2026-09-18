@@ -39,12 +39,19 @@ import {
   route,
   type Route,
 } from "../orchestrator/router";
-import { TOOLS_BY_NAME, runTool } from "../tools/registry";
+import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { semanticGrounded } from "./semanticGrounding";
 import { matchesLang, stripControl } from "./lang";
 import type { ModelOption } from "./models";
-import { parseSplit, splitPrompt, type AiTurnPlan } from "./jevAiLane";
+import {
+  CALLS_PER_QUESTION,
+  jevRoutingStep,
+  parseSplit,
+  splitPrompt,
+  type AiTurnPlan,
+} from "./jevAiLane";
+import type { JevCredentials } from "./jevClient";
 import type {
   ChatResponse,
   LLMProvider,
@@ -72,7 +79,11 @@ type Completion = {
   error?: { message?: string } | string;
 };
 
-type Usage = { input: number; output: number };
+// `calls` counts the upstream calls THIS question has made, against the
+// proxy's per-question reservation (`CALLS_PER_QUESTION`). It exists so the
+// lane can drop an optional call (model narration, a split) instead of having
+// the proxy reject it: over budget, the answer is worded from its template.
+type Usage = { input: number; output: number; calls: number };
 
 /**
  * Narrow the tool catalogue when — and ONLY when — the full-catalogue request would
@@ -157,7 +168,10 @@ export class OpenRouterProvider implements LLMProvider {
     // ⚠️ Whatever it returns, this lane NEVER falls back to keyword routing:
     // a user who chose the model gets the full Gemini prompt when Jev cannot
     // answer, which is what `selectRoute` already does.
-    private jevPlan?: (question: string) => Promise<AiTurnPlan>,
+    private jevPlan?: (
+      question: string,
+      credentials: JevCredentials | undefined,
+    ) => Promise<AiTurnPlan>,
   ) {
     this.model = model;
     this.id = `cloud:${model.id}`;
@@ -185,6 +199,9 @@ export class OpenRouterProvider implements LLMProvider {
     usage: Usage,
   ): Promise<string> {
     if (!this.credentials) throw new Error("verification_required");
+    // Counted BEFORE the request: the proxy reserves the call whether or not it
+    // succeeds, so a failed call still spends the budget.
+    usage.calls += 1;
     const res = await fetch(PROXY_URL, {
       signal: AbortSignal.timeout(40000),
       method: "POST",
@@ -279,35 +296,52 @@ export class OpenRouterProvider implements LLMProvider {
   // Model-first routing (a strong hosted model handles paraphrase + arg
   // extraction far better than keywords). The deterministic router is the
   // fallback when the model errors or returns something unusable.
-  /** Use Jev's pick when it is confident; otherwise the existing model routing.
-   *  A pick is only taken when the tool needs no arguments Jev cannot supply —
-   *  Gemini fills open-vocabulary arguments far better than an empty object
-   *  does, and running a param-bearing tool with `{}` answers a different
-   *  question than the one asked. */
-  /** True when Jev's pick can be run as-is, so this turn needs NO routing call.
-   *  ⚠️ The tool must EXIST: `TOOLS_BY_NAME[x]?.params.length` is `undefined`
-   *  for an unknown name, and `!undefined` is true — so testing only the
-   *  parameter count would send an invented tool name straight to `runTool`,
-   *  which throws `unknown tool` at the user instead of falling through to
-   *  Gemini. Jev can only return a listed option today, but this path must not
-   *  depend on that. */
-  private planSkipsRouting(plan: AiTurnPlan | null): plan is AiTurnPlan & {
-    tool: string;
-  } {
-    const def = plan?.tool ? TOOLS_BY_NAME[plan.tool] : undefined;
-    return !!def && def.params.length === 0;
+  /** Can this question still afford an upstream call? */
+  private hasCallLeft(usage: Usage): boolean {
+    return usage.calls < CALLS_PER_QUESTION;
   }
 
+  /**
+   * Route one question with Jev's plan: JEV PICKS THE TOOL, THE MODEL FILLS
+   * ITS PARAMETERS (see `jevRoutingStep`).
+   *
+   * `fill` asks the model with a catalogue of ONE tool. If the model says that
+   * tool does not fit, or answers with something unusable, the turn gets the
+   * full routing prompt — never the rules — provided a call is left. Jev is
+   * right on 94–97% of the turns it is confident about, so this second call is
+   * the exception; when it happens, the narration is worded from the template
+   * to stay inside the per-question budget.
+   */
   private async routeWithPlan(
     question: string,
     ctx: ToolContext,
     usage: Usage,
     routingCtx: string,
     plan: AiTurnPlan | null,
-  ): Promise<{ route: Route; byModel: boolean }> {
-    if (this.planSkipsRouting(plan))
-      return { route: { tool: plan.tool, args: {} }, byModel: true };
-    return this.selectRoute(question, ctx, usage, routingCtx);
+  ): Promise<{ route: Route; byModel: boolean; byJev: boolean }> {
+    const step = jevRoutingStep(plan);
+    if (step.kind === "run")
+      return {
+        route: { tool: step.tool, args: {} },
+        byModel: true,
+        byJev: true,
+      };
+    if (step.kind === "fill") {
+      const filled = await this.selectRoute(question, ctx, usage, routingCtx, [
+        step.tool,
+      ]);
+      if (filled.byModel && filled.route?.tool === step.tool)
+        return { ...filled, byJev: true };
+      // Anything unusable — the model said the tool does not fit, or its reply
+      // did not parse — gets the full prompt below. (A deterministic scope
+      // override lands here too; re-running it costs no call, since that branch
+      // of `selectRoute` never asks the model.)
+      if (!this.hasCallLeft(usage)) return { ...filled, byJev: false };
+    }
+    return {
+      ...(await this.selectRoute(question, ctx, usage, routingCtx)),
+      byJev: false,
+    };
   }
 
   /**
@@ -337,6 +371,7 @@ export class OpenRouterProvider implements LLMProvider {
     ctx: ToolContext,
     usage: Usage,
   ): Promise<string | null> {
+    if (!this.hasCallLeft(usage)) return null;
     const system =
       ctx.lang === "bg"
         ? "Отговори кратко и любезно на български. Ти си асистент за български обществени данни. НЕ посочвай числа, статистики или конкретни факти — ако въпросът иска такива, кажи че може да бъде зададен по-конкретно."
@@ -394,6 +429,7 @@ export class OpenRouterProvider implements LLMProvider {
     ctx: ToolContext,
     usage: Usage,
   ): Promise<string[]> {
+    if (!this.hasCallLeft(usage)) return [question];
     try {
       const raw = await this.call(
         [
@@ -414,6 +450,9 @@ export class OpenRouterProvider implements LLMProvider {
     ctx: ToolContext,
     usage: Usage,
     routingCtx: string,
+    /** Jev's pick: route among THESE tools only. Absent = the catalogue,
+     *  narrowed only if it would not fit the byte budget. */
+    only?: readonly string[],
   ): Promise<{ route: Route; byModel: boolean }> {
     const deterministic = route(question, ctx);
     const fallback = () => ({ route: deterministic, byModel: false });
@@ -454,11 +493,8 @@ export class OpenRouterProvider implements LLMProvider {
     // runs today, not only after the registry grows. Narrowing happens ONLY when the
     // request would not fit; the full-catalogue prompt is otherwise byte-identical to
     // what every published eval baseline was measured against.
-    const allowedCandidates = narrowCatalogueForBudget(
-      question,
-      ctx.lang,
-      userContent,
-    );
+    const allowedCandidates =
+      only ?? narrowCatalogueForBudget(question, ctx.lang, userContent);
     try {
       const content = await this.call(
         routingMessages(ctx.lang, allowedCandidates, userContent),
@@ -567,6 +603,9 @@ export class OpenRouterProvider implements LLMProvider {
       ].includes(env.tool)
     )
       return { text: template, fromModel: false };
+    // Out of budget (a second routing attempt, a split or a summary spent it):
+    // the template, rather than a narration call the proxy would reject.
+    if (!this.hasCallLeft(usage)) return { text: template, fromModel: false };
     try {
       const { system, user } = buildNarrationPrompt(
         env,
@@ -670,7 +709,7 @@ export class OpenRouterProvider implements LLMProvider {
     opts?: RespondOpts,
   ): Promise<ChatResponse> {
     const t0 = performance.now();
-    const usage: Usage = { input: 0, output: 0 };
+    const usage: Usage = { input: 0, output: 0, calls: 0 };
     // Window + compact the conversation into a context the model can use to
     // resolve references. Past a threshold the older topic digest is rewritten
     // into one natural sentence by a cheap (cached) call.
@@ -693,8 +732,11 @@ export class OpenRouterProvider implements LLMProvider {
     // prompt — exactly the behaviour without Jev wired at all.
     let plan: AiTurnPlan | null = null;
     if (this.jevPlan && !followOn) {
+      // The Jev call is reserved against the same per-question budget, so it is
+      // counted whether or not it answers.
+      usage.calls += 1;
       try {
-        plan = await this.jevPlan(question);
+        plan = await this.jevPlan(question, this.credentials);
       } catch {
         plan = null;
       }
@@ -709,12 +751,16 @@ export class OpenRouterProvider implements LLMProvider {
     // When it is not affordable the turn answers the primary ask un-split,
     // which is what the lane does today anyway.
     const parts =
-      plan?.compound && !followOn && this.planSkipsRouting(plan)
+      plan?.compound && !followOn && jevRoutingStep(plan).kind === "run"
         ? await this.splitRequest(question, ctx, usage)
         : [question];
     const primary = parts[0];
-    const { route: selectedRoute, byModel: routedByModel } = followOn
-      ? { route: followOn, byModel: false }
+    const {
+      route: selectedRoute,
+      byModel: routedByModel,
+      byJev,
+    } = followOn
+      ? { route: followOn, byModel: false, byJev: false }
       : await this.routeWithPlan(primary, ctx, usage, routingCtx, plan);
     const r = pinElectionContext(selectedRoute, ctx);
     // `usedModel` = the cloud model produced the route OR the prose. When false
@@ -729,6 +775,11 @@ export class OpenRouterProvider implements LLMProvider {
       inputTokens: usage.input || undefined,
       outputTokens: usage.output || undefined,
       narratedBy,
+      // Jev picked the tool (the model filled its parameters) — named in the
+      // answer band, as the No-LLM lane does.
+      ...(byJev
+        ? { routedBy: "jev" as const, routerConfidence: plan?.toolConfidence }
+        : {}),
     });
     if (!r && plan?.kind === "conversational") {
       // Jev says this is conversation, not a data question. The tools have
@@ -822,7 +873,7 @@ export class OpenRouterProvider implements LLMProvider {
   ): Promise<ChatResponse> {
     args = pinElectionContext({ tool, args }, ctx)!.args;
     const t0 = performance.now();
-    const usage: Usage = { input: 0, output: 0 };
+    const usage: Usage = { input: 0, output: 0, calls: 0 };
     const meta = (
       narratedBy: ResponseMeta["narratedBy"],
       usedModel: boolean,

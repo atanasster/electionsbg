@@ -31,6 +31,10 @@ import {
 import { CHALLENGES, UNSUPPORTED } from "./currentEval.cases";
 import { REALISTIC, CONVERSATIONS } from "./currentEval.realistic";
 import { STARTER_CASES } from "./currentEval.starters";
+import { parseModelRoute } from "../orchestrator/routeScope";
+import { nonAiInput } from "../tests/nonAiEval";
+import { aiTurnQuestions, jevRoutingStep, readAiTurnPlan } from "./jevAiLane";
+import { directAsk } from "./jevDirectAsk";
 const { payload, MODEL } = createRequire(import.meta.url)(
   "../../functions/llm_security.js",
 );
@@ -46,6 +50,14 @@ const LABELS = [
   "narrowed",
   "production",
   "starter",
+  // Jev picks the tool, the model fills its parameters — the AI lane with
+  // `jevRoutingStep`, measured through the SAME prompt, parser and scorer.
+  "jev_gemini",
+  // Gemini alone, run the SAME day on the SAME suite as `jev_gemini`: the
+  // control a Jev-path comparison is read against. The published `production`
+  // run is older, and a suite or prompt change since then would otherwise be
+  // credited to Jev.
+  "control",
 ] as const;
 if (!(LABELS as readonly string[]).includes(label))
   throw new Error(`Specify one of: ${LABELS.join(", ")}`);
@@ -124,6 +136,9 @@ const forcedBudget = process.env.EVAL_ROUTING_BUDGET
   : undefined;
 if (forcedBudget !== undefined && !Number.isFinite(forcedBudget))
   throw new Error("EVAL_ROUTING_BUDGET must be a number");
+const jevKey = process.env.TYPESAFE_API_KEY;
+if (label === "jev_gemini" && !jevKey)
+  throw new Error("TYPESAFE_API_KEY required for jev_gemini");
 const requestFor = (c: EvalCase, lang: "en" | "bg") => {
   const userContent = evalUserContent(c, lang);
   const candidates = narrowCatalogueForBudget(
@@ -133,6 +148,7 @@ const requestFor = (c: EvalCase, lang: "en" | "bg") => {
     forcedBudget,
   );
   return {
+    userContent,
     messages: routingMessages(lang, candidates, userContent),
     // The gold-in-candidates rate: whether the tool the case EXPECTS survived
     // narrowing. Reported so a retrieval miss is separable from a model miss — the
@@ -152,11 +168,62 @@ const rows: (EvalScore & {
   usage?: unknown;
   finishReason?: string;
   previousErrors?: string[];
+  jev?: JevRow;
   // Narrowing evidence, recorded per row so the gold-in-candidates rate can be
   // computed from the artifact rather than re-derived.
   candidatesKept?: number | null;
   goldInCandidates?: boolean;
 })[] = prior?.rows ?? new Array(tasks.length);
+type JevRow = {
+  step: "run" | "fill" | "full";
+  tool: string | null;
+  confidence: number | null;
+  degraded: boolean;
+  geminiCalls: number;
+  /** The model rejected Jev's tool (or answered unusably), so the full prompt
+   *  ran — the second call. */
+  fellBack: boolean;
+};
+/** One routing request to Gemini, with the production payload. */
+const gemini = async (
+  messages: ReturnType<typeof requestFor>["messages"],
+): Promise<{
+  raw: string;
+  usage?: { prompt_tokens?: number; completion_tokens?: number };
+  finishReason?: string;
+}> => {
+  const res = await fetch(
+    "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        payload({
+          model: MODEL,
+          // THE PRODUCTION COMPOSITION, not a hand-built prompt: the same
+          // `narrowCatalogueForBudget` + `routingMessages` that `selectRoute`
+          // sends, so this measures what a user actually gets.
+          messages,
+          temperature: 0,
+          max_tokens: 120,
+          response_format: { type: "json_object" },
+        }),
+      ),
+      signal: AbortSignal.timeout(45000),
+    },
+  );
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  if (data.error) throw new Error("provider error");
+  return {
+    raw: data.choices?.[0]?.message?.content ?? "",
+    usage: data.usage,
+    finishReason: data.choices?.[0]?.finish_reason,
+  };
+};
 let next = 0,
   done = 0;
 async function worker() {
@@ -175,46 +242,70 @@ async function worker() {
     let raw = "",
       error: string | undefined,
       usage: unknown,
-      finishReason: string | undefined;
+      finishReason: string | undefined,
+      allowed = built.allowed,
+      jev: JevRow | undefined;
     try {
-      const res = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${key}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(
-            payload({
-              model: MODEL,
-              // THE PRODUCTION COMPOSITION, not a hand-built prompt: the same
-              // `narrowCatalogueForBudget` + `routingMessages` that `selectRoute`
-              // sends, so this measures what a user actually gets. An earlier version
-              // sent the full catalogue directly and could not exercise the narrowing
-              // path at all.
-              messages: built.messages,
-              temperature: 0,
-              max_tokens: 120,
-              response_format: { type: "json_object" },
-            }),
-          ),
-          signal: AbortSignal.timeout(45000),
-        },
-      );
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      if (data.error) throw new Error("provider error");
-      raw = data.choices?.[0]?.message?.content ?? "";
-      usage = data.usage;
-      finishReason = data.choices?.[0]?.finish_reason;
+      if (label === "jev_gemini") {
+        // THE PROVIDER'S RULE, not a reimplementation: `jevRoutingStep` decides,
+        // and a rejected or unusable fill gets the full prompt exactly as
+        // `OpenRouterProvider.routeWithPlan` does.
+        const { question } = nonAiInput(c, lang);
+        const plan = readAiTurnPlan(
+          await directAsk(jevKey!)(question, aiTurnQuestions(), undefined),
+        );
+        const step = jevRoutingStep(plan);
+        jev = {
+          step: step.kind,
+          tool: plan.tool,
+          confidence: plan.toolConfidence ?? null,
+          degraded: plan.degraded,
+          geminiCalls: 0,
+          fellBack: false,
+        };
+        const acc = { prompt_tokens: 0, completion_tokens: 0 };
+        const ask = async (messages: typeof built.messages) => {
+          const r = await gemini(messages);
+          jev!.geminiCalls++;
+          acc.prompt_tokens += r.usage?.prompt_tokens ?? 0;
+          acc.completion_tokens += r.usage?.completion_tokens ?? 0;
+          finishReason = r.finishReason;
+          return r.raw;
+        };
+        if (step.kind === "run") {
+          raw = JSON.stringify({ tool: step.tool, args: {} });
+          allowed = undefined;
+        } else if (step.kind === "fill") {
+          const one = routingMessages(lang, [step.tool], built.userContent);
+          const first = await ask(one);
+          const parsed = parseModelRoute(
+            first,
+            built.userContent,
+            new Set([step.tool]),
+          );
+          if (parsed?.tool === step.tool) {
+            raw = first;
+            allowed = new Set([step.tool]);
+          } else {
+            jev.fellBack = true;
+            raw = await ask(built.messages);
+          }
+        } else raw = await ask(built.messages);
+        usage = acc;
+      } else {
+        const r = await gemini(built.messages);
+        raw = r.raw;
+        usage = r.usage;
+        finishReason = r.finishReason;
+      }
       if (!raw) throw new Error("empty completion");
     } catch (e) {
       error = e instanceof Error ? e.message : "request failed";
     }
     rows[i] = {
       // The candidate set is threaded into the parse, as production does.
-      ...scoreProduction(c, lang, raw, error, built.allowed),
+      ...scoreProduction(c, lang, raw, error, allowed),
+      ...(jev ? { jev } : {}),
       candidatesKept: built.candidatesKept,
       goldInCandidates: built.goldInCandidates,
       ms: Date.now() - started,
@@ -285,6 +376,34 @@ const artifact = {
       summarize(rows.filter((r) => r.group === g)),
     ]),
   ),
+  // The Jev path's own figures: which step each question took, how often the
+  // model rejected Jev's tool, and the prompt tokens spent on routing.
+  ...(label === "jev_gemini"
+    ? {
+        jevRouting: (() => {
+          const js = rows.map((r) => r.jev).filter(Boolean) as JevRow[];
+          const n = js.length || 1;
+          const tokens = rows.reduce(
+            (t, r) =>
+              t +
+              (Number(
+                (r.usage as { prompt_tokens?: number } | undefined)
+                  ?.prompt_tokens,
+              ) || 0),
+            0,
+          );
+          return {
+            run: js.filter((j) => j.step === "run").length / n,
+            fill: js.filter((j) => j.step === "fill").length / n,
+            full: js.filter((j) => j.step === "full").length / n,
+            fellBack: js.filter((j) => j.fellBack).length,
+            jevDegraded: js.filter((j) => j.degraded).length,
+            geminiCalls: js.reduce((t, j) => t + j.geminiCalls, 0),
+            meanPromptTokens: tokens / (rows.length || 1),
+          };
+        })(),
+      }
+    : {}),
   costUSD:
     rows.reduce(
       (sum, r) => sum + (Number((r.usage as { cost?: number })?.cost) || 0),

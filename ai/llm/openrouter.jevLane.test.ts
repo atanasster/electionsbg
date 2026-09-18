@@ -171,3 +171,170 @@ describe("with a Jev hook", () => {
     vi.unstubAllGlobals();
   });
 });
+
+// JEV PICKS THE TOOL, THE MODEL FILLS ITS PARAMETERS. `turnout` declares an
+// `election` parameter, so a confident Jev pick of it must reach the model —
+// but with a catalogue of that ONE tool, not the ~85 KB full one.
+const PARAM_TOOL = "turnout";
+// Runs offline under the fetch stub (`waterServices` fetches data and fails),
+// so `res.tool` reports the route rather than an execution error.
+const OTHER_TOOL = "turnoutSeries";
+// Named only in the FULL catalogue — never in the general instructions — so it
+// tells a one-tool prompt from the full one. (`turnoutSeries` cannot do this:
+// the routing instructions mention it by name.)
+const CATALOGUE_ONLY_TOOL = "waterServices";
+const routingCalls = (calls: Record<string, unknown>[]) =>
+  calls.filter(isRoutingCall);
+const systemOf = (c: Record<string, unknown>) =>
+  (c.messages as { content: string }[])[0].content;
+
+describe("Jev picks the tool, the model fills its parameters", () => {
+  it("asks the model about Jev's tool ONLY, and runs it", async () => {
+    const calls = stubFetch((body) =>
+      isRoutingCall(body)
+        ? `{"tool":"${PARAM_TOOL}","args":{}}`
+        : "Активността беше висока.",
+    );
+    const provider = new OpenRouterProvider(model, access, async () =>
+      plan({ tool: PARAM_TOOL, toolConfidence: 0.93 }),
+    );
+    const res = await provider.respond(
+      "Каква беше избирателната активност?",
+      ctx,
+    );
+    const routing = routingCalls(calls);
+    expect(routing).toHaveLength(1);
+    // The one-tool catalogue: Jev's tool is described, another tool is not.
+    expect(systemOf(routing[0])).toContain(PARAM_TOOL);
+    expect(systemOf(routing[0])).not.toContain(CATALOGUE_ONLY_TOOL);
+    expect(res.tool).toBe(PARAM_TOOL);
+    // The answer band names who picked the tool.
+    expect(res.meta?.routedBy).toBe("jev");
+    expect(res.meta?.routerConfidence).toBe(0.93);
+    vi.unstubAllGlobals();
+  });
+
+  it("sends a far smaller routing prompt than the full catalogue", async () => {
+    const jevCalls = stubFetch(() => `{"tool":"${PARAM_TOOL}","args":{}}`);
+    await new OpenRouterProvider(model, access, async () =>
+      plan({ tool: PARAM_TOOL }),
+    ).respond("Каква беше избирателната активност?", ctx);
+    const one = systemOf(routingCalls(jevCalls)[0]).length;
+    vi.unstubAllGlobals();
+    const fullCalls = stubFetch(() => `{"tool":"${PARAM_TOOL}","args":{}}`);
+    await new OpenRouterProvider(model, access).respond(
+      "Каква беше избирателната активност?",
+      ctx,
+    );
+    const full = systemOf(routingCalls(fullCalls)[0]).length;
+    vi.unstubAllGlobals();
+    // Measured: one tool against the whole catalogue is well over 10x smaller.
+    expect(one * 10).toBeLessThan(full);
+  });
+
+  it("gives the full prompt — not the rules — when the model rejects Jev's tool", async () => {
+    let routing = 0;
+    const calls = stubFetch((body) => {
+      if (!isRoutingCall(body)) return "Разказ.";
+      // First routing call (Jev's one tool): the model says it does not fit.
+      // Second (full catalogue): it picks another tool.
+      return ++routing === 1
+        ? '{"tool":null}'
+        : `{"tool":"${OTHER_TOOL}","args":{}}`;
+    });
+    const provider = new OpenRouterProvider(model, access, async () =>
+      plan({ tool: PARAM_TOOL }),
+    );
+    const res = await provider.respond(
+      "Каква беше избирателната активност?",
+      ctx,
+    );
+    const r = routingCalls(calls);
+    expect(r).toHaveLength(2);
+    // First Jev's one tool, then the full catalogue.
+    expect(systemOf(r[0])).not.toContain(CATALOGUE_ONLY_TOOL);
+    expect(systemOf(r[1])).toContain(CATALOGUE_ONLY_TOOL);
+    expect(res.tool).toBe(OTHER_TOOL);
+    expect(res.meta?.routedBy).toBeUndefined();
+    vi.unstubAllGlobals();
+  });
+
+  it("gives the full prompt when the model's reply to Jev's tool is unusable", async () => {
+    let routing = 0;
+    const calls = stubFetch((body) => {
+      if (!isRoutingCall(body)) return "Разказ.";
+      return ++routing === 1
+        ? "not json"
+        : `{"tool":"${OTHER_TOOL}","args":{}}`;
+    });
+    const res = await new OpenRouterProvider(model, access, async () =>
+      plan({ tool: PARAM_TOOL }),
+    ).respond("Каква беше избирателната активност?", ctx);
+    // An unparseable reply used to fall back to the keyword router inside
+    // `selectRoute`; on the Jev path it must reach the model's full prompt.
+    expect(routingCalls(calls)).toHaveLength(2);
+    expect(res.tool).toBe(OTHER_TOOL);
+    vi.unstubAllGlobals();
+  });
+
+  it("stays inside the per-question call budget when it has to re-ask", async () => {
+    // Jev (1) + Jev's tool (1) + the full prompt (1) = the whole budget of 3.
+    // The narration call would be the fourth and the proxy would reject it, so
+    // the answer is worded from the template instead.
+    let routing = 0;
+    const calls = stubFetch((body) => {
+      if (!isRoutingCall(body)) return "Разказ от модела.";
+      return ++routing === 1
+        ? '{"tool":null}'
+        : `{"tool":"${OTHER_TOOL}","args":{}}`;
+    });
+    const res = await new OpenRouterProvider(model, access, async () =>
+      plan({ tool: PARAM_TOOL }),
+    ).respond("Каква беше избирателната активност?", ctx);
+    expect(calls).toHaveLength(2);
+    expect(res.meta?.narratedBy).toBe("rules");
+    expect(res.text).not.toContain("Разказ от модела");
+    vi.unstubAllGlobals();
+  });
+
+  it("narrates with the model when Jev's tool was accepted first time", async () => {
+    // The discriminating half of the budget test: jev + fill + narrate = 3, so
+    // the ordinary path keeps its model narration.
+    const calls = stubFetch((body) =>
+      isRoutingCall(body)
+        ? `{"tool":"${PARAM_TOOL}","args":{}}`
+        : "Разказ от модела.",
+    );
+    const res = await new OpenRouterProvider(model, access, async () =>
+      plan({ tool: PARAM_TOOL }),
+    ).respond("Каква беше избирателната активност?", ctx);
+    expect(calls).toHaveLength(2);
+    expect(res.meta?.narratedBy).toBe("model");
+    vi.unstubAllGlobals();
+  });
+
+  it("keeps a deterministic scope decision over Jev's pick, at no model cost", async () => {
+    // „Поръчки на АПИ" resolves to `procurementQuery`, one of the scopes the
+    // rules settle before any model is asked (they resolve a named buyer or
+    // party better than the model does). Jev's pick must not override that,
+    // and settling it must cost no model call at all.
+    const calls = stubFetch(() => "Разказ.");
+    const res = await new OpenRouterProvider(model, access, async () =>
+      plan({ tool: PARAM_TOOL }),
+    ).respond("Поръчки на АПИ", ctx);
+    expect(routingCalls(calls)).toHaveLength(0);
+    expect(res.tool).toBe("procurementQuery");
+    vi.unstubAllGlobals();
+  });
+
+  it("gives the full prompt when Jev is unsure, as before", async () => {
+    const calls = stubFetch(() => `{"tool":"${OTHER_TOOL}","args":{}}`);
+    await new OpenRouterProvider(model, access, async () =>
+      plan({ tool: null, toolConfidence: 0.5 }),
+    ).respond("Каква беше избирателната активност?", ctx);
+    const r = routingCalls(calls);
+    expect(r).toHaveLength(1);
+    expect(systemOf(r[0])).toContain(CATALOGUE_ONLY_TOOL);
+    vi.unstubAllGlobals();
+  });
+});

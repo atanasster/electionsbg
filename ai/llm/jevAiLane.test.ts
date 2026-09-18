@@ -7,6 +7,7 @@
 import { describe, expect, it } from "vitest";
 import {
   COMPOUND_THRESHOLD,
+  jevRoutingStep,
   MAX_SPLIT_PARTS,
   TURN_KINDS,
   aiTurnQuestions,
@@ -159,5 +160,36 @@ describe("parseSplit", () => {
       "\n",
     );
     expect(parseSplit(many, "orig")).toHaveLength(MAX_SPLIT_PARTS);
+  });
+});
+
+describe("jevRoutingStep — Jev picks, the model fills", () => {
+  const p = (tool: string | null) => ({
+    tool,
+    noTool: false,
+    compound: false,
+    kind: null,
+    degraded: false,
+  });
+  it("runs a parameter-free tool with no model routing call", () => {
+    expect(jevRoutingStep(p("waterServices"))).toEqual({
+      kind: "run",
+      tool: "waterServices",
+    });
+  });
+  it("asks the model to fill a tool that takes parameters", () => {
+    expect(jevRoutingStep(p("turnout"))).toEqual({
+      kind: "fill",
+      tool: "turnout",
+    });
+  });
+  it("gives the full prompt when Jev picked nothing", () => {
+    expect(jevRoutingStep(p(null))).toEqual({ kind: "full" });
+    expect(jevRoutingStep(null)).toEqual({ kind: "full" });
+  });
+  it("gives the full prompt for a tool name the registry does not know", () => {
+    // Not "run": an unknown name has no parameter list, and reading that as
+    // "takes no parameters" would send an invented name straight to runTool.
+    expect(jevRoutingStep(p("noSuchTool"))).toEqual({ kind: "full" });
   });
 });

@@ -18,13 +18,16 @@
 // in the path at all (docs/plans/jev-chat-integration-v1.md §6).
 
 import {
+  askJev,
   choiceOf,
   noulOf,
+  type JevCredentials,
   type JevQuestion,
   type JevResult,
 } from "./jevClient";
 import { JEV_CONFIDENCE_GATE, toolCriteria } from "./jev";
 import { NO_TOOL, TOOL_INSTRUCTIONS } from "./jevPrompt";
+import { TOOLS_BY_NAME } from "../tools/registry";
 
 /** Above this, the turn is treated as asking for more than one thing. Noul
  *  returns a probability, not a boolean, so the threshold is ours to set; 0.7
@@ -142,3 +145,64 @@ export const parseSplit = (raw: string, original: string): string[] => {
   if (parts.length < 2) return [original];
   return parts.slice(0, MAX_SPLIT_PARTS);
 };
+
+/**
+ * What the AI lane does with Jev's pick: JEV PICKS THE TOOL, THE MODEL FILLS
+ * ITS PARAMETERS.
+ *
+ *   run   Jev is confident and the tool takes no parameters — run it; no
+ *         model routing call at all.
+ *   fill  Jev is confident and the tool takes parameters — ask the model to
+ *         fill them for THAT ONE TOOL. The routing prompt then carries one tool
+ *         description instead of the ~85 KB catalogue.
+ *   full  Jev is unsure, unavailable, or named no tool — the full routing
+ *         prompt, exactly as without Jev. Never keyword routing: a reader who
+ *         chose the model must not get the rules because Jev was unsure.
+ *
+ * WHY: measured on questions the rules were never built from (typos,
+ * rewording, Latin script — ai/llm/jevRobustness.ts), Jev's pick is right
+ * 86–95% of the time and 94–97% when confident, but it cannot produce an
+ * open parameter value; the model can. Before this, a Jev pick was used only
+ * for parameter-free tools, so most of its correct picks were thrown away.
+ *
+ * Shared by the provider and the eval, so the eval measures the rule that
+ * ships (`ai/llm/currentEval.run.ts jev_gemini`).
+ *
+ * ⚠️ The tool must EXIST in the registry: an unknown name has no parameter
+ * list, and treating "no parameters found" as "takes no parameters" would send
+ * an invented name straight to `runTool`.
+ */
+export type JevRoutingStep =
+  | { kind: "run"; tool: string }
+  | { kind: "fill"; tool: string }
+  | { kind: "full" };
+
+export const jevRoutingStep = (plan: AiTurnPlan | null): JevRoutingStep => {
+  const def = plan?.tool ? TOOLS_BY_NAME[plan.tool] : undefined;
+  if (!def) return { kind: "full" };
+  return def.params.length === 0
+    ? { kind: "run", tool: def.name }
+    : { kind: "fill", tool: def.name };
+};
+
+/**
+ * Upstream calls one question may make — MUST equal `POLICY.calls` in
+ * `functions/llm_security.js`, which reserves them and answers the next one
+ * with 429 `call_limit`. Duplicated rather than imported because the two live
+ * in different packages; `jevAiLane.budget.test.ts` holds them equal.
+ *
+ * The Jev pre-step spends one. A turn is jev + route + narrate = 3, so any
+ * extra call (a split, a summary, a second routing attempt) must be paid for
+ * by dropping something — the lane words the answer from its template rather
+ * than let the narration call be rejected.
+ */
+export const CALLS_PER_QUESTION = 3;
+
+/** The AI lane's Jev hook: one batched call, read into a plan. */
+export const jevAiTurnPlan =
+  (ask: typeof askJev = askJev) =>
+  async (
+    question: string,
+    credentials: JevCredentials | undefined,
+  ): Promise<AiTurnPlan> =>
+    readAiTurnPlan(await ask(question, aiTurnQuestions(), credentials));

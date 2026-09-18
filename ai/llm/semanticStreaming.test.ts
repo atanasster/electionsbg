@@ -31,13 +31,20 @@ it("cloud narration never exposes rejected streamed text", async () => {
     return bad;
   });
   expect(
-    await p.narrateEnv(env, "en", { input: 0, output: 0 }, "", delta),
+    await p.narrateEnv(env, "en", { input: 0, output: 0, calls: 0 }, "", delta),
   ).toMatchObject({ fromModel: false, reject: "grounding" });
   expect(delta).not.toHaveBeenCalled();
   call.mockResolvedValue(good);
   expect(
-    (await p.narrateEnv(env, "en", { input: 0, output: 0 }, "", delta))
-      .fromModel,
+    (
+      await p.narrateEnv(
+        env,
+        "en",
+        { input: 0, output: 0, calls: 0 },
+        "",
+        delta,
+      )
+    ).fromModel,
   ).toBe(true);
   expect(delta).toHaveBeenCalledExactlyOnceWith(good);
 });
@@ -64,12 +71,14 @@ it("on-device narration also waits for the completed semantic check", async () =
   };
   const delta = vi.fn();
   expect(
-    (await p.narrateEnv(env, "en", { input: 0, output: 0 }, delta)).fromModel,
+    (await p.narrateEnv(env, "en", { input: 0, output: 0, calls: 0 }, delta))
+      .fromModel,
   ).toBe(false);
   expect(delta).not.toHaveBeenCalled();
   text = good;
   expect(
-    (await p.narrateEnv(env, "en", { input: 0, output: 0 }, delta)).fromModel,
+    (await p.narrateEnv(env, "en", { input: 0, output: 0, calls: 0 }, delta))
+      .fromModel,
   ).toBe(true);
   expect(delta).toHaveBeenCalledExactlyOnceWith(good);
 });

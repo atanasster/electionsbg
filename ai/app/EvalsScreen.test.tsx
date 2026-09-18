@@ -77,6 +77,8 @@ describe("EvalsScreen published runs", { timeout: 30_000 }, () => {
     const rows = within(section).getAllByRole("row");
     expect(rows).toHaveLength(cloudRuns().length + 1);
     expect(manifest.runs.map((r) => r.file)).toEqual([
+      "current_control.json",
+      "current_jev_gemini.json",
       "current_jev.json",
       "current_starter.json",
       "current_production.json",

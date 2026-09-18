@@ -336,11 +336,18 @@ describe("against the committed manifest", { timeout: 30_000 }, () => {
     const newestOther = committed.runs.find(
       (r) => r.file !== "current_jev.json",
     )!;
-    const c = cells(summary(), "cloud");
-    expect(c[0]).toBe(String(production.caseCount));
-    // Discriminating only while the two really are different runs.
+    // Read the PARAMETER column: it is where the runs actually differ. (The
+    // question count cannot tell them apart — several cloud runs cover the
+    // same 474 questions.)
+    const bg = (v: number | null | undefined) =>
+      v == null ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
+    const params = (r: typeof production) =>
+      `${bg(r.metrics.en.argAcc)} / ${bg(r.metrics.bg.argAcc)}`;
+    // Discriminating only while the newest other run really differs.
     expect(newestOther.file).not.toBe(production.file);
-    expect(c[0]).not.toBe(String(newestOther.caseCount));
+    expect(params(newestOther)).not.toBe(params(production));
+    const c = cells(summary(), "cloud");
+    expect(c[3]).toBe(params(production));
   });
 
   it("compares all three on genuinely the same questions", async () => {

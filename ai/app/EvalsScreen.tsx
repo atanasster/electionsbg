@@ -865,6 +865,14 @@ export const EvalsScreen = ({
   const runLabel = (label: string) =>
     ({
       production: t("Пълен каталог", "Full catalogue"),
+      control: t(
+        "Само Gemini (контрола, същия ден)",
+        "Gemini only (same-day control)",
+      ),
+      jev_gemini: t(
+        "Jev избира инструмента, Gemini — параметрите",
+        "Jev picks the tool, Gemini the parameters",
+      ),
       narrowed: t("Стеснен каталог", "Narrowed catalogue"),
       starter: t("Предложени въпроси", "Suggested questions"),
       revised: t("След поправките", "After fixes"),
