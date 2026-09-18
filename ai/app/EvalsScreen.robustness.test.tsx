@@ -16,6 +16,9 @@ const HEADING = "Когато въпросът е написан по-разли
 beforeEach(() => clearDataCache());
 afterEach(() => clearDataCache());
 
+const bg = (v: number | null | undefined) =>
+  v == null ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
+
 const section = () =>
   document.querySelector<HTMLElement>(
     'section[aria-labelledby="robust-title"]',
@@ -27,12 +30,12 @@ describe("robustness section", { timeout: 30_000 }, () => {
     committed = await readEvalsIndex<EvalsIndex>();
   });
 
-  it("shows both tables, one row per kind of question", async () => {
+  it("shows all three tables, one row per kind of question", async () => {
     setFetcher(serveEvals());
     renderEvals("bg");
     await screen.findByRole("heading", { name: HEADING });
     const tables = section().querySelectorAll("table");
-    expect(tables).toHaveLength(2);
+    expect(tables).toHaveLength(3);
     for (const t of tables)
       expect(t.querySelectorAll("tbody tr[data-variant]")).toHaveLength(4);
   });
@@ -42,8 +45,6 @@ describe("robustness section", { timeout: 30_000 }, () => {
     renderEvals("bg");
     await screen.findByRole("heading", { name: HEADING });
     const s = committed.robustness!.summary;
-    const bg = (v: number | null) =>
-      v == null ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
     const typo = section().querySelector('tr[data-variant="typo"]')!;
     // Column 5 of the td cells is Jev + Gemini.
     expect(typo.querySelectorAll("td")[4].textContent).toBe(
@@ -67,6 +68,60 @@ describe("robustness section", { timeout: 30_000 }, () => {
     expect(section().textContent).toContain(
       `в ${wins} от ${all.length} случая`,
     );
+  });
+
+  // The no-AI Jev lane (stage 3). Its column must read the stage-3 summary,
+  // NOT `jevLane` — the older lane that fell back to the rules, which is still
+  // in the manifest under a key that would read as the same thing.
+  it("reads the „Jev без AI“ column from the stage-3 run, not the older lane", async () => {
+    setFetcher(serveEvals());
+    renderEvals("bg");
+    await screen.findByRole("heading", { name: HEADING });
+    const s = committed.robustness!.summary;
+    const noAi = committed.robustness!.noAi!;
+    const typo = section().querySelector('tr[data-variant="typo"]')!;
+    const want = `${bg(noAi["all|en:typo"].right)} / ${bg(noAi["all|bg:typo"].right)}`;
+    // Discriminating only while the two lanes really differ on this row.
+    expect(want).not.toBe(
+      `${bg(s["all|en:typo"].jevLane)} / ${bg(s["all|bg:typo"].jevLane)}`,
+    );
+    expect(typo.querySelectorAll("td")[2].textContent).toBe(want);
+  });
+
+  it("shows where the no-AI lane's questions go, and the rules beside it", async () => {
+    setFetcher(serveEvals());
+    renderEvals("bg");
+    await screen.findByRole("heading", { name: HEADING });
+    const noAi = committed.robustness!.noAi!;
+    const s = committed.robustness!.summary;
+    const box = section().querySelector<HTMLElement>(
+      '[data-testid="noai-outcomes"]',
+    )!;
+    const typo = box.querySelector('tr[data-variant="typo"]')!;
+    const tds = [...typo.querySelectorAll("td")].map((td) => td.textContent);
+    expect(tds).toEqual(
+      (["right", "asked", "wrong", "none"] as const).map(
+        (k) => `${bg(noAi["all|en:typo"][k])} / ${bg(noAi["all|bg:typo"][k])}`,
+      ),
+    );
+    expect(box.textContent).toContain(
+      `правилата сами: ${bg(s["all|en:typo"].rules)} / ${bg(s["all|bg:typo"].rules)}`,
+    );
+  });
+
+  it("drops the no-AI column and table when the stage run is not published", async () => {
+    setFetcher(
+      serveEvals({
+        manifest: {
+          ...committed,
+          robustness: { ...committed.robustness!, noAi: undefined },
+        },
+      }),
+    );
+    renderEvals("bg");
+    await screen.findByRole("heading", { name: HEADING });
+    expect(section().querySelectorAll("table")).toHaveLength(2);
+    expect(section().textContent).not.toMatch(/Jev без AI/);
   });
 
   it("is absent when the manifest carries no robustness run", async () => {

@@ -3,7 +3,10 @@
 //   node --env-file=.env.local --import tsx ai/llm/jevNoAiStages.ts
 //   npx tsx ai/llm/jevNoAiStages.ts --rescore      # no API calls
 //
-// Writes ai/evals-internal/jev_noai_stages.json.
+// Writes ai/evals-internal/jev_noai_stages.json (every row, every stage) and
+// data/ai/evals/jev_noai_robustness.json — the stage-3 shares alone, which is
+// what the evals page shows. Both runs write both, so the published summary
+// can never be of a different run than the internal rows.
 //
 // The three stages differ ONLY in what happens when Jev confidently picks a
 // tool that takes parameters and the rules chose something else:
@@ -46,6 +49,7 @@ import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 
 const IN = "data/ai/evals/jev_robustness.json";
 const OUT = "ai/evals-internal/jev_noai_stages.json";
+const PAGE_OUT = "data/ai/evals/jev_noai_robustness.json";
 
 type Outcome = "right" | "wrong" | "askedRight" | "askedWrong" | "none";
 type StageResult = {
@@ -238,6 +242,64 @@ export const summarise = (rows: RobustRow[], stages: StageRow[]) => {
   };
 };
 
+/** One cell of the published summary: what the no-AI Jev lane (stage 3) did
+ *  with the questions of one language and kind, as shares. „asked" folds both
+ *  clarifications — about the right tool or not — since neither answers. */
+export type NoAiCell = {
+  n: number;
+  right: number;
+  asked: number;
+  wrong: number;
+  none: number;
+};
+
+/** Stage 3, keyed `<slice>|<lang>:<variant>` exactly like the robustness
+ *  summary it sits beside (`robustnessGemini.ts`), with the same two slices. */
+export const pageSummary = (
+  rows: RobustRow[],
+  stages: StageRow[],
+): Record<string, NoAiCell> => {
+  const out: Record<string, NoAiCell> = {};
+  for (const [slice, keep] of [
+    ["all", () => true],
+    ["handwritten", (r: RobustRow) => r.group !== "registry"],
+  ] as const)
+    for (const lang of ["en", "bg"] as const)
+      for (const v of VARIANTS) {
+        const xs = stages.filter((s) => {
+          const r = rows[s.index];
+          return keep(r) && r.lang === lang && r.variant === v && s.s3;
+        });
+        if (!xs.length) continue;
+        const share = (...o: Outcome[]) =>
+          xs.filter((x) => o.includes(x.s3!.outcome)).length / xs.length;
+        out[`${slice}|${lang}:${v}`] = {
+          n: xs.length,
+          right: share("right"),
+          asked: share("askedRight", "askedWrong"),
+          wrong: share("wrong"),
+          none: share("none"),
+        };
+      }
+  return out;
+};
+
+const writePage = (
+  rows: RobustRow[],
+  stages: StageRow[],
+  generatedAt: string,
+) => {
+  writeFileSync(
+    PAGE_OUT,
+    JSON.stringify(
+      { generatedAt, source: IN, summary: pageSummary(rows, stages) },
+      null,
+      2,
+    ) + "\n",
+  );
+  console.log(`wrote ${PAGE_OUT}`);
+};
+
 const pct = (n: number, d: number) =>
   d ? `${((100 * n) / d).toFixed(1).padStart(5)}%` : "  n/a";
 
@@ -264,10 +326,12 @@ const main = async () => {
     rows: RobustRow[];
   };
   if (process.argv.includes("--rescore")) {
-    const { stages } = JSON.parse(readFileSync(OUT, "utf8")) as {
+    const { stages, generatedAt } = JSON.parse(readFileSync(OUT, "utf8")) as {
       stages: StageRow[];
+      generatedAt: string;
     };
     print(summarise(rows, stages));
+    writePage(rows, stages, generatedAt);
     return;
   }
   const key = process.env.TYPESAFE_API_KEY;
@@ -292,16 +356,15 @@ const main = async () => {
   };
   await Promise.all(Array.from({ length: 4 }, worker));
   const summary = summarise(rows, stages);
+  const generatedAt = new Date().toISOString();
   writeFileSync(
     OUT,
-    JSON.stringify(
-      { generatedAt: new Date().toISOString(), source: IN, summary, stages },
-      null,
-      2,
-    ) + "\n",
+    JSON.stringify({ generatedAt, source: IN, summary, stages }, null, 2) +
+      "\n",
   );
   print(summary);
   console.log(`wrote ${OUT}`);
+  writePage(rows, stages, generatedAt);
 };
 
 if (process.argv[1]?.endsWith("jevNoAiStages.ts")) main();

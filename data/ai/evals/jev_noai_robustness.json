@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-09-18T14:14:51.066Z",
+  "source": "data/ai/evals/jev_robustness.json",
+  "summary": {
+    "all|en:original": {
+      "n": 279,
+      "right": 0.9354838709677419,
+      "asked": 0.02867383512544803,
+      "wrong": 0.03225806451612903,
+      "none": 0.0035842293906810036
+    },
+    "all|en:typo": {
+      "n": 279,
+      "right": 0.7526881720430108,
+      "asked": 0.12186379928315412,
+      "wrong": 0.06093189964157706,
+      "none": 0.06451612903225806
+    },
+    "all|en:paraphrase": {
+      "n": 279,
+      "right": 0.6487455197132617,
+      "asked": 0.1111111111111111,
+      "wrong": 0.12186379928315412,
+      "none": 0.11827956989247312
+    },
+    "all|bg:original": {
+      "n": 279,
+      "right": 0.942652329749104,
+      "asked": 0.017921146953405017,
+      "wrong": 0.02867383512544803,
+      "none": 0.010752688172043012
+    },
+    "all|bg:typo": {
+      "n": 279,
+      "right": 0.6666666666666666,
+      "asked": 0.1003584229390681,
+      "wrong": 0.11469534050179211,
+      "none": 0.11827956989247312
+    },
+    "all|bg:paraphrase": {
+      "n": 279,
+      "right": 0.6451612903225806,
+      "asked": 0.0967741935483871,
+      "wrong": 0.15412186379928317,
+      "none": 0.1039426523297491
+    },
+    "all|bg:latin": {
+      "n": 279,
+      "right": 0.45161290322580644,
+      "asked": 0.0931899641577061,
+      "wrong": 0.06093189964157706,
+      "none": 0.3942652329749104
+    },
+    "handwritten|en:original": {
+      "n": 50,
+      "right": 0.78,
+      "asked": 0.08,
+      "wrong": 0.14,
+      "none": 0
+    },
+    "handwritten|en:typo": {
+      "n": 50,
+      "right": 0.78,
+      "asked": 0.1,
+      "wrong": 0.1,
+      "none": 0.02
+    },
+    "handwritten|en:paraphrase": {
+      "n": 50,
+      "right": 0.64,
+      "asked": 0.14,
+      "wrong": 0.12,
+      "none": 0.1
+    },
+    "handwritten|bg:original": {
+      "n": 50,
+      "right": 0.82,
+      "asked": 0.08,
+      "wrong": 0.08,
+      "none": 0.02
+    },
+    "handwritten|bg:typo": {
+      "n": 50,
+      "right": 0.68,
+      "asked": 0.12,
+      "wrong": 0.14,
+      "none": 0.06
+    },
+    "handwritten|bg:paraphrase": {
+      "n": 50,
+      "right": 0.66,
+      "asked": 0.08,
+      "wrong": 0.2,
+      "none": 0.06
+    },
+    "handwritten|bg:latin": {
+      "n": 50,
+      "right": 0.4,
+      "asked": 0.1,
+      "wrong": 0.1,
+      "none": 0.4
+    }
+  }
+}

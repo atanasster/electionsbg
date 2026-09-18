@@ -297,11 +297,22 @@ export type RobustnessCell = {
   gemini: number | null;
   jevGemini: number | null;
 };
+/** What the no-AI Jev lane (stage 3 — Jev picks, rules fill by parameter
+ *  type) did with one cell's questions, as shares (ai/llm/jevNoAiStages.ts). */
+export type NoAiCell = {
+  n: number;
+  right: number;
+  asked: number;
+  wrong: number;
+  none: number;
+};
 export type Robustness = {
   generatedAt: string;
   model: string;
   /** Keyed `<slice>|<lang>:<variant>`, e.g. `all|bg:typo`. */
   summary: Record<string, RobustnessCell>;
+  /** Same keys. Absent when the stage run has not been published. */
+  noAi?: Record<string, NoAiCell>;
 };
 
 // The robustness test (ai/llm/jevRobustness.ts + robustnessGemini.ts): the same
@@ -312,9 +323,27 @@ const readRobustness = (): Robustness | null => {
     const a = JSON.parse(
       readFileSync(join(DIR, "gemini_robustness.json"), "utf8"),
     ) as Robustness & { rows?: unknown };
-    return { generatedAt: a.generatedAt, model: a.model, summary: a.summary };
+    return {
+      generatedAt: a.generatedAt,
+      model: a.model,
+      summary: a.summary,
+      ...readNoAi(),
+    };
   } catch {
     return null;
+  }
+};
+
+// The no-AI Jev lane on the same robustness questions. Optional: a missing
+// file drops the column, it never breaks the section.
+const readNoAi = (): { noAi?: Record<string, NoAiCell> } => {
+  try {
+    const a = JSON.parse(
+      readFileSync(join(DIR, "jev_noai_robustness.json"), "utf8"),
+    ) as { summary: Record<string, NoAiCell> };
+    return { noAi: a.summary };
+  } catch {
+    return {};
   }
 };
 

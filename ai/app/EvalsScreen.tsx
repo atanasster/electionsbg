@@ -16,6 +16,7 @@ import type {
   DeterministicMetrics,
   JevRouting,
   Robustness,
+  NoAiCell,
   RobustnessCell,
 } from "../llm/evalsIndex";
 type Metrics = {
@@ -477,16 +478,42 @@ const RobustnessSection = ({
       label: t("На латиница (само BG)", "In Latin letters (BG only)"),
     },
   ];
-  const cols: { key: keyof RobustnessCell; label: string }[] = [
-    { key: "rules", label: t("Правила", "Rules") },
-    { key: "jevRaw", label: t("Само Jev", "Jev alone") },
-    { key: "jevLane", label: t("Jev без AI", "Jev, no AI") },
-    { key: "gemini", label: t("Само Gemini", "Gemini alone") },
-    { key: "jevGemini", label: "Jev + Gemini" },
+  const noAi = robustness.noAi;
+  type Pick = (slice: string, key: string) => number | null | undefined;
+  const from =
+    (k: keyof RobustnessCell): Pick =>
+    (slice, key) =>
+      s[`${slice}|${key}`]?.[k];
+  const fromNoAi =
+    (k: keyof NoAiCell): Pick =>
+    (slice, key) =>
+      noAi?.[`${slice}|${key}`]?.[k];
+  // „Jev без AI" is the lane as it works NOW (stage 3: Jev picks, rules fill by
+  // parameter type). The older lane — fall back to the rules whenever Jev's
+  // tool needs parameters — is still in the manifest as `jevLane`, but a column
+  // under the same name would describe a mode that no longer exists.
+  const cols: { key: string; label: string; get: Pick }[] = [
+    { key: "rules", label: t("Правила", "Rules"), get: from("rules") },
+    { key: "jevRaw", label: t("Само Jev", "Jev alone"), get: from("jevRaw") },
+    ...(noAi
+      ? [
+          {
+            key: "jevNoAi",
+            label: t("Jev без AI", "Jev, no AI"),
+            get: fromNoAi("right"),
+          },
+        ]
+      : []),
+    {
+      key: "gemini",
+      label: t("Само Gemini", "Gemini alone"),
+      get: from("gemini"),
+    },
+    { key: "jevGemini", label: "Jev + Gemini", get: from("jevGemini") },
   ];
-  const cell = (slice: string, v: string, k: keyof RobustnessCell) => {
-    const en = s[`${slice}|en:${v}`]?.[k];
-    const bg = s[`${slice}|bg:${v}`]?.[k];
+  const cell = (slice: string, v: string, get: Pick) => {
+    const en = get(slice, `en:${v}`);
+    const bg = get(slice, `bg:${v}`);
     if (en == null && bg == null) return "—";
     return `${pct(en)} / ${pct(bg)}`;
   };
@@ -512,7 +539,7 @@ const RobustnessSection = ({
             <tr key={v.key} data-variant={v.key} className="border-b">
               <RowTh>{v.label}</RowTh>
               {cols.map((c) => (
-                <Num key={c.key}>{cell(slice, v.key, c.key)}</Num>
+                <Num key={c.key}>{cell(slice, v.key, c.get)}</Num>
               ))}
             </tr>
           ))}
@@ -557,13 +584,104 @@ const RobustnessSection = ({
           "Hand-written only — they are not in the rules' vocabulary",
         ),
       )}
+      {noAi && <NoAiOutcomes noAi={noAi} rules={s} t={t} lang={lang} />}
       <p className="mt-2 max-w-3xl text-xs text-muted-foreground">
         {t(
-          "„Само Jev“ е собственият избор на Jev, преди прага на увереност. „Jev без AI“ е режимът без модел: когато Jev не е уверен или инструментът иска параметри, които правилата не могат да попълнят, отговорът идва от правилата. Грешките са изкуствени (разместена, изпусната или удвоена буква в две думи), а преформулираните въпроси са написани от модел; няколко леко променят смисъла.",
-          "“Jev alone” is Jev's own pick, before the confidence gate. “Jev, no AI” is the mode without a model: when Jev is not confident, or the tool needs parameters the rules cannot fill, the answer comes from the rules. The typos are synthetic (a swapped, dropped or doubled letter in two words), and the reworded questions were written by a model; a few shift the meaning slightly.",
+          "„Само Jev“ е собственият избор на Jev, преди прага на увереност. ",
+          "“Jev alone” is Jev's own pick, before the confidence gate. ",
+        )}
+        {noAi &&
+          t(
+            "„Jev без AI“ е режимът без генеративен модел: Jev избира инструмента, а параметрите се четат от въпроса по вида им — години, брой, партия, община, област; когато Jev не е уверен, отговарят правилата. ",
+            "“Jev, no AI” is the mode without a generative model: Jev picks the tool and the parameters are read from the question by their kind — years, counts, party, municipality, province; when Jev is not confident, the rules answer. ",
+          )}
+        {t(
+          "Грешките са изкуствени (разместена, изпусната или удвоена буква в две думи), а преформулираните въпроси са написани от модел; няколко леко променят смисъла.",
+          "The typos are synthetic (a swapped, dropped or doubled letter in two words), and the reworded questions were written by a model; a few shift the meaning slightly.",
         )}
       </p>
     </section>
+  );
+};
+
+/**
+ * What the no-AI Jev lane does with each question, not only how often it picks
+ * the right tool. It is the one method on the page that can ASK instead of
+ * answering, so a share of right answers alone would hide where the rest go —
+ * and whether a gain over the rules was bought with wrong answers.
+ */
+const NoAiOutcomes = ({
+  noAi,
+  rules,
+  t,
+  lang,
+}: {
+  noAi: Record<string, NoAiCell>;
+  rules: Record<string, RobustnessCell>;
+  t: T;
+  lang: Lang;
+}) => {
+  const { pct } = makeFmt(lang);
+  const pair = (k: keyof NoAiCell, v: string) => {
+    const en = noAi[`all|en:${v}`]?.[k];
+    const bg = noAi[`all|bg:${v}`]?.[k];
+    if (en == null && bg == null) return "—";
+    return `${pct(en)} / ${pct(bg)}`;
+  };
+  const rulesTypo = `${pct(rules["all|en:typo"]?.rules)} / ${pct(rules["all|bg:typo"]?.rules)}`;
+  const outcomes: { key: keyof NoAiCell; label: string }[] = [
+    { key: "right", label: t("Верен инструмент", "Right tool") },
+    { key: "asked", label: t("Пита за уточнение", "Asks to clarify") },
+    { key: "wrong", label: t("Грешен инструмент", "Wrong tool") },
+    { key: "none", label: t("Без инструмент", "No tool") },
+  ];
+  const variants = [
+    ["original", t("Както са написани", "As written")],
+    ["typo", t("С правописни грешки", "With typos")],
+    ["paraphrase", t("Казани с други думи", "Reworded")],
+    ["latin", t("На латиница (само BG)", "In Latin letters (BG only)")],
+  ] as const;
+  return (
+    <div className="mt-6" data-testid="noai-outcomes">
+      <H3>
+        {t(
+          "Jev без AI: какво става с въпроса",
+          "Jev, no AI: what happens to the question",
+        )}
+      </H3>
+      <p className="mt-1 max-w-3xl text-sm">
+        {t(
+          `При въпросите с грешки режимът без AI избира верния инструмент в ${pair("right", "typo")} от случаите — правилата сами: ${rulesTypo}. Когато не е сигурен какво да попълни, пита, вместо да отговори на друг въпрос.`,
+          `On questions with typos the no-AI mode picks the right tool in ${pair("right", "typo")} of cases — the rules alone: ${rulesTypo}. When it is unsure what to fill in, it asks rather than answering a different question.`,
+        )}
+      </p>
+      <DataTable note={langNote(t)}>
+        <thead>
+          <tr className="border-b-2">
+            <Th>{t("Въпросите", "Questions")}</Th>
+            {outcomes.map((o) => (
+              <Th key={o.key}>{o.label}</Th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {variants.map(([v, label]) => (
+            <tr key={v} data-variant={v} className="border-b">
+              <RowTh>{label}</RowTh>
+              {outcomes.map((o) => (
+                <Num key={o.key}>{pair(o.key, v)}</Num>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </DataTable>
+      <p className="mt-2 max-w-3xl text-xs text-muted-foreground">
+        {t(
+          "„Без инструмент“ значи, че Jev уверено е отговорил, че въпросът не е за нито един инструмент. Всички въпроси, не само ръчно написаните.",
+          "“No tool” means Jev confidently answered that the question is about none of the tools. All questions, not only the hand-written ones.",
+        )}
+      </p>
+    </div>
   );
 };
 
@@ -707,6 +825,21 @@ const History = ({ t }: { t: T }) => {
       outcome: t(
         "Измерено в същия ден и на същите въпроси, това е по-точно от само Gemini — най-вече при параметрите — с около четири пъти по-кратка подкана и около 0,2 секунди по-бавно. По-точно е и при грешки, други думи и латиница. Решихме да го включим в режима с AI, щом бъде пусната връзката към Jev през нашия сървър. Ако Jev не отговори, въпросът отива при Gemini с целия каталог, както досега. В режима без AI засега остават правилата: там Jev няма кой да попълни параметрите, а режимът не минава през сървъра, през който Jev се извиква.",
         "Measured on the same day and the same questions, it is more accurate than Gemini alone — above all on parameters — with a prompt about four times shorter and about 0.2 seconds slower. It is also more accurate with typos, rewording and Latin script. We decided to switch it on in the AI mode once the connection to Jev through our server is deployed. If Jev does not answer, the question goes to Gemini with the whole catalogue, as before. The no-AI mode keeps the rules for now: there is nothing to fill in Jev's parameters, and the mode does not go through the server Jev is called through.",
+      ),
+    },
+    {
+      date: t("18 септември", "18 September"),
+      title: t(
+        "Jev избира, правилата попълват по вид",
+        "Jev picks, rules fill by kind",
+      ),
+      body: t(
+        "Без модел, който да попълва параметрите, Jev губеше повечето си верни избори: щом инструментът искаше параметри, отговорът идваше от правилата. Затова написахме по едно правило за всеки вид параметър — година, брой, номер на Народно събрание, партия, община, област — вместо по едно за всеки от 235-те инструмента. Общината се търси в списъка на общините, на кирилица, на английски и на латиница; сгрешено име се приема само след дума като „в“ или „община“. Ако нещо не може да се попълни уверено, режимът пита, вместо да отговори на друг въпрос.",
+        "Without a model to fill the parameters, Jev lost most of its right picks: whenever the tool needed parameters, the answer came from the rules. So we wrote one rule per kind of parameter — year, count, National Assembly number, party, municipality, province — instead of one for each of the 235 tools. A municipality is looked up in the list of municipalities, in Cyrillic, English and Latin letters; a misspelt name is accepted only after a word like “in” or “municipality”. If something cannot be filled with confidence, the mode asks instead of answering a different question.",
+      ),
+      outcome: t(
+        "При въпросите с грешки верният инструмент се избира в 75% / 67% от случаите (преди 47% / 46%, правилата сами 28% / 34%), а на латиница — в 45% (преди 24%). Параметрите са верни в 62% от въпросите с очаквани стойности (преди 39%). Грешните отговори при въпросите с грешки паднаха от 30% / 25% на 6% / 12%, защото режимът пита, вместо да отгатва. В чата режимът без AI засега остава на правилата: Jev се вика през нашия сървър, а този режим не минава през него.",
+        "On questions with typos the right tool is picked in 75% / 67% of cases (before: 47% / 46%; the rules alone 28% / 34%), and in Latin letters in 45% (before: 24%). Parameters are right on 62% of the questions with expected values (before: 39%). Wrong answers on questions with typos fell from 30% / 25% to 6% / 12%, because the mode asks instead of guessing. In the chat the no-AI mode stays on the rules for now: Jev is called through our server, and that mode does not go through it.",
       ),
     },
   ];
