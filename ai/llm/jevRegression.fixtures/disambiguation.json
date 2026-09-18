@@ -1,0 +1,3013 @@
+{
+  "capturedAt": "2026-09-17T22:51:03.215Z",
+  "source": "https://electionsbg.com/api/db/{person,company}-search (live), ground truth = #1 hit of the correctly spelled anchor query",
+  "cases": [
+    {
+      "id": "person_slug_mp_4216_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Адлен Шукри Шевкед",
+      "typoQuery": "Адлен Шури Шевкед",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Адлен Шури Шевкед?",
+        "bg": "Какви са декларираните активи на Адлен Шури Шевкед?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4216_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Адлен Шукри Шевкед",
+      "typoQuery": "Адлен Шукри Шевекд",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Адлен Шукри Шевекд.",
+        "bg": "Покажи ми декларациите, подадени от Адлен Шукри Шевекд."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4216_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Адлен Шукри Шевкед",
+      "typoQuery": "Адлен Шукри Шевккед",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4216": "Адлен Шукри Шевкед — mp — Кърджали",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4216",
+      "question": {
+        "en": "Which companies is Адлен Шукри Шевккед connected to?",
+        "bg": "С кои фирми е свързан Адлен Шукри Шевккед?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2841_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Александър Маиров Сиди",
+      "typoQuery": "Александър Маиов Сиди",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Александър Маиов Сиди?",
+        "bg": "Какви са декларираните активи на Александър Маиов Сиди?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2841_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Александър Маиров Сиди",
+      "typoQuery": "Александър Маиров Сиид",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Александър Маиров Сиид.",
+        "bg": "Покажи ми декларациите, подадени от Александър Маиров Сиид."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2841_duplicate_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Александър Маиров Сиди",
+      "typoQuery": "Александър Маиров Сидди",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Which companies is Александър Маиров Сидди connected to?",
+        "bg": "С кои фирми е свързан Александър Маиров Сидди?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3826_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Анита Петрова Коцелова",
+      "typoQuery": "Анита Петова Коцелова",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Анита Петова Коцелова?",
+        "bg": "Какви са декларираните активи на Анита Петова Коцелова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3826_transpose_letters",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Анита Петрова Коцелова",
+      "typoQuery": "Анита Петрова Коцеолва",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "slug:mp-3826": "Анита Петрова Коцелова — mp — Благоевград",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3826",
+      "question": {
+        "en": "Show me the declarations filed by Анита Петрова Коцеолва.",
+        "bg": "Покажи ми декларациите, подадени от Анита Петрова Коцеолва."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3826_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Анита Петрова Коцелова",
+      "typoQuery": "Анита Петрова Коцеллова",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3826": "Анита Петрова Коцелова — mp — Благоевград",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3826",
+      "question": {
+        "en": "Which companies is Анита Петрова Коцеллова connected to?",
+        "bg": "С кои фирми е свързан Анита Петрова Коцеллова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2737_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Атанас Славчев Стоянов",
+      "typoQuery": "Атанас Слачев Стоянов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Атанас Слачев Стоянов?",
+        "bg": "Какви са декларираните активи на Атанас Слачев Стоянов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2737_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Атанас Славчев Стоянов",
+      "typoQuery": "Атанас Славчев Стоняов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Атанас Славчев Стоняов.",
+        "bg": "Покажи ми декларациите, подадени от Атанас Славчев Стоняов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2737_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Атанас Славчев Стоянов",
+      "typoQuery": "Атанас Славчев Стояянов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2737": "Атанас Славчев Стоянов — mp — Благоевград",
+        "fold:atanas slavchev stoyanov predstavlyavasht obshtina sandanski,eik 000024955": "Атанас Славчев Стоянов - представляващ Община Сандански,ЕИК - 000024955 — private_sector",
+        "fold:atanas slavchev stoyanov predsedatel": "АТАНАС СЛАВЧЕВ СТОЯНОВ - ПРЕДСЕДАТЕЛ — private_sector",
+        "fold:obshtina sandanski predstavlyavana ot atanas slavchev stoyanov kmet": "ОБЩИНА САНДАНСКИ представлявана от Атанас Славчев Стоянов - Кмет — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2737",
+      "question": {
+        "en": "Which companies is Атанас Славчев Стояянов connected to?",
+        "bg": "С кои фирми е свързан Атанас Славчев Стояянов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2851_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Борис Янков Ячев",
+      "typoQuery": "Борис Янов Ячев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Борис Янов Ячев?",
+        "bg": "Какви са декларираните активи на Борис Янов Ячев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2851_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Борис Янков Ячев",
+      "typoQuery": "Борис Янков Ячве",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Борис Янков Ячве.",
+        "bg": "Покажи ми декларациите, подадени от Борис Янков Ячве."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2851_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Борис Янков Ячев",
+      "typoQuery": "Борис Янков Ячеев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2851": "Борис Янков Ячев — mp — Пловдив-област",
+        "fold:yanko borisov yachev": "Янко Борисов Ячев — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2851",
+      "question": {
+        "en": "Which companies is Борис Янков Ячеев connected to?",
+        "bg": "С кои фирми е свързан Борис Янков Ячеев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4227_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Ванина Димитрова Вецина",
+      "typoQuery": "Ванина Димирова Вецина",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Ванина Димирова Вецина?",
+        "bg": "Какви са декларираните активи на Ванина Димирова Вецина?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4227_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Ванина Димитрова Вецина",
+      "typoQuery": "Ванина Димитрова Вецниа",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Ванина Димитрова Вецниа.",
+        "bg": "Покажи ми декларациите, подадени от Ванина Димитрова Вецниа."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4227_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Ванина Димитрова Вецина",
+      "typoQuery": "Ванина Димитрова Вециина",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4227": "Ванина Димитрова Вецина — mp — Монтана",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4227",
+      "question": {
+        "en": "Which companies is Ванина Димитрова Вециина connected to?",
+        "bg": "С кои фирми е свързан Ванина Димитрова Вециина?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4716_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Венцислав Иванов Петков",
+      "typoQuery": "Венцислав Иваов Петков",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:ventsislav-petkov-ivanov-b07561": "ВЕНЦИСЛАВ ПЕТКОВ ИВАНОВ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Венцислав Иваов Петков?",
+        "bg": "Какви са декларираните активи на Венцислав Иваов Петков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4716_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Венцислав Иванов Петков",
+      "typoQuery": "Венцислав Иванов Петокв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Венцислав Иванов Петокв.",
+        "bg": "Покажи ми декларациите, подадени от Венцислав Иванов Петокв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4716_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Венцислав Иванов Петков",
+      "typoQuery": "Венцислав Иванов Петкков",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4716": "Венцислав Иванов Петков — mp — Бургас",
+        "slug:ventsislav-petkov-ivanov-b07561": "ВЕНЦИСЛАВ ПЕТКОВ ИВАНОВ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4716",
+      "question": {
+        "en": "Which companies is Венцислав Иванов Петкков connected to?",
+        "bg": "С кои фирми е свързан Венцислав Иванов Петкков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3113_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Владимир Славчев Вълев",
+      "typoQuery": "Владимир Слачев Вълев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Владимир Слачев Вълев?",
+        "bg": "Какви са декларираните активи на Владимир Слачев Вълев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3113_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Владимир Славчев Вълев",
+      "typoQuery": "Владимир Славчев Въелв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Владимир Славчев Въелв.",
+        "bg": "Покажи ми декларациите, подадени от Владимир Славчев Въелв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3113_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Владимир Славчев Вълев",
+      "typoQuery": "Владимир Славчев Въллев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3113": "Владимир Славчев Вълев — mp — Варна",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3113",
+      "question": {
+        "en": "Which companies is Владимир Славчев Въллев connected to?",
+        "bg": "С кои фирми е свързан Владимир Славчев Въллев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3294_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Георги Милчев Чепишев",
+      "typoQuery": "Георги Милев Чепишев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:milena-georgieva-chepisheva-7dda26": "Милена Георгиева Чепишева — social_care",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Георги Милев Чепишев?",
+        "bg": "Какви са декларираните активи на Георги Милев Чепишев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3294_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Георги Милчев Чепишев",
+      "typoQuery": "Георги Милчев Чепшиев",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Георги Милчев Чепшиев.",
+        "bg": "Покажи ми декларациите, подадени от Георги Милчев Чепшиев."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3294_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Георги Милчев Чепишев",
+      "typoQuery": "Георги Милчев Чепиишев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3294": "Георги Милчев Чепишев — mp — Кърджали",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3294",
+      "question": {
+        "en": "Which companies is Георги Милчев Чепиишев connected to?",
+        "bg": "С кои фирми е свързан Георги Милчев Чепиишев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4252_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Гроздан Спасов Караджов",
+      "typoQuery": "Гроздан Спаов Караджов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Гроздан Спаов Караджов?",
+        "bg": "Какви са декларираните активи на Гроздан Спаов Караджов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4252_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Гроздан Спасов Караджов",
+      "typoQuery": "Гроздан Спасов Караждов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Гроздан Спасов Караждов.",
+        "bg": "Покажи ми декларациите, подадени от Гроздан Спасов Караждов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4252_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Гроздан Спасов Караджов",
+      "typoQuery": "Гроздан Спасов Карадджов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4252": "Гроздан Спасов Караджов — mp — Пловдив-град",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4252",
+      "question": {
+        "en": "Which companies is Гроздан Спасов Карадджов connected to?",
+        "bg": "С кои фирми е свързан Гроздан Спасов Карадджов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5216_drop_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Десислава Жекова Танева",
+      "typoQuery": "Десислава Жеква Танева",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:mp-5216": "Десислава Жекова Танева — mp — Сливен",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-5216",
+      "question": {
+        "en": "What are the declared assets of Десислава Жеква Танева?",
+        "bg": "Какви са декларираните активи на Десислава Жеква Танева?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5216_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Десислава Жекова Танева",
+      "typoQuery": "Десислава Жекова Танвеа",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Десислава Жекова Танвеа.",
+        "bg": "Покажи ми декларациите, подадени от Десислава Жекова Танвеа."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5216_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Десислава Жекова Танева",
+      "typoQuery": "Десислава Жекова Танеева",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-5216": "Десислава Жекова Танева — mp — Сливен",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-5216",
+      "question": {
+        "en": "Which companies is Десислава Жекова Танеева connected to?",
+        "bg": "С кои фирми е свързан Десислава Жекова Танеева?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3358_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Димитър Йорданов Янев",
+      "typoQuery": "Димитър Йорднов Янев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Димитър Йорднов Янев?",
+        "bg": "Какви са декларираните активи на Димитър Йорднов Янев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3358_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Димитър Йорданов Янев",
+      "typoQuery": "Димитър Йорданов Янве",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Димитър Йорданов Янве.",
+        "bg": "Покажи ми декларациите, подадени от Димитър Йорданов Янве."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3358_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Димитър Йорданов Янев",
+      "typoQuery": "Димитър Йорданов Янеев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3358": "Димитър Йорданов Янев — mp — Пловдив-област",
+        "fold:yordan dimitrov yanev": "ЙОРДАН ДИМИТРОВ ЯНЕВ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3358",
+      "question": {
+        "en": "Which companies is Димитър Йорданов Янеев connected to?",
+        "bg": "С кои фирми е свързан Димитър Йорданов Янеев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2402_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Димитър Христов Желев",
+      "typoQuery": "Димитър Хритов Желев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Димитър Хритов Желев?",
+        "bg": "Какви са декларираните активи на Димитър Хритов Желев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2402_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Димитър Христов Желев",
+      "typoQuery": "Димитър Христов Жеелв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Димитър Христов Жеелв.",
+        "bg": "Покажи ми декларациите, подадени от Димитър Христов Жеелв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2402_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Димитър Христов Желев",
+      "typoQuery": "Димитър Христов Желлев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2402": "Димитър Христов Желев — mp — Стара Загора",
+        "fold:mladen zhelev marinov , rusana koleva hristova, yanka dimova dimitrova": "МЛАДЕН ЖЕЛЕВ МАРИНОВ , РУСАНА КОЛЕВА ХРИСТОВА, ЯНКА ДИМОВА ДИМИТРОВА — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2402",
+      "question": {
+        "en": "Which companies is Димитър Христов Желлев connected to?",
+        "bg": "С кои фирми е свързан Димитър Христов Желлев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5058_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Едис Рухиев Даудов",
+      "typoQuery": "Едис Рухев Даудов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Едис Рухев Даудов?",
+        "bg": "Какви са декларираните активи на Едис Рухев Даудов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5058_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Едис Рухиев Даудов",
+      "typoQuery": "Едис Рухиев Дауодв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Едис Рухиев Дауодв.",
+        "bg": "Покажи ми декларациите, подадени от Едис Рухиев Дауодв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5058_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Едис Рухиев Даудов",
+      "typoQuery": "Едис Рухиев Дауддов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-5058": "Едис Рухиев Даудов — mp — Разград",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-5058",
+      "question": {
+        "en": "Which companies is Едис Рухиев Дауддов connected to?",
+        "bg": "С кои фирми е свързан Едис Рухиев Дауддов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5289_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Енчо Ангелов Керязов",
+      "typoQuery": "Енчо Англов Керязов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Енчо Англов Керязов?",
+        "bg": "Какви са декларираните активи на Енчо Англов Керязов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5289_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Енчо Ангелов Керязов",
+      "typoQuery": "Енчо Ангелов Керзяов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Енчо Ангелов Керзяов.",
+        "bg": "Покажи ми декларациите, подадени от Енчо Ангелов Керзяов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5289_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Енчо Ангелов Керязов",
+      "typoQuery": "Енчо Ангелов Керяязов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-5289": "Енчо Ангелов Керязов — mp — Ямбол",
+        "slug:encho-keryazov-1ve8hs": "Енчо Ангелов Керязов — councillor — Ямбол",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-5289",
+      "question": {
+        "en": "Which companies is Енчо Ангелов Керяязов connected to?",
+        "bg": "С кои фирми е свързан Енчо Ангелов Керяязов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3309_drop_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Ивайло Красимиров Кожухаров",
+      "typoQuery": "Ивайло Красииров Кожухаров",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:mp-3309": "Ивайло Красимиров Кожухаров — mp — Варна",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3309",
+      "question": {
+        "en": "What are the declared assets of Ивайло Красииров Кожухаров?",
+        "bg": "Какви са декларираните активи на Ивайло Красииров Кожухаров?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3309_transpose_letters",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Ивайло Красимиров Кожухаров",
+      "typoQuery": "Ивайло Красимиров Кожуахров",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "slug:mp-3309": "Ивайло Красимиров Кожухаров — mp — Варна",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3309",
+      "question": {
+        "en": "Show me the declarations filed by Ивайло Красимиров Кожуахров.",
+        "bg": "Покажи ми декларациите, подадени от Ивайло Красимиров Кожуахров."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3309_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Ивайло Красимиров Кожухаров",
+      "typoQuery": "Ивайло Красимиров Кожуххаров",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3309": "Ивайло Красимиров Кожухаров — mp — Варна",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3309",
+      "question": {
+        "en": "Which companies is Ивайло Красимиров Кожуххаров connected to?",
+        "bg": "С кои фирми е свързан Ивайло Красимиров Кожуххаров?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3931_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Иван Маркос Христанов",
+      "typoQuery": "Иван Марос Христанов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Иван Марос Христанов?",
+        "bg": "Какви са декларираните активи на Иван Марос Христанов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3931_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Иван Маркос Христанов",
+      "typoQuery": "Иван Маркос Хрисатнов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "slug:markos-ivanov-hristanov-a8586d": "Маркос Иванов Христанов — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Иван Маркос Хрисатнов.",
+        "bg": "Покажи ми декларациите, подадени от Иван Маркос Хрисатнов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3931_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Иван Маркос Христанов",
+      "typoQuery": "Иван Маркос Христтанов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3931": "Иван Маркос Христанов — mp — Плевен",
+        "slug:markos-ivanov-hristanov-a8586d": "Маркос Иванов Христанов — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3931",
+      "question": {
+        "en": "Which companies is Иван Маркос Христтанов connected to?",
+        "bg": "С кои фирми е свързан Иван Маркос Христтанов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3167_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Илия Димитров Лазаров",
+      "typoQuery": "Илия Димиров Лазаров",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Илия Димиров Лазаров?",
+        "bg": "Какви са декларираните активи на Илия Димиров Лазаров?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3167_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Илия Димитров Лазаров",
+      "typoQuery": "Илия Димитров Лазраов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Илия Димитров Лазраов.",
+        "bg": "Покажи ми декларациите, подадени от Илия Димитров Лазраов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3167_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Илия Димитров Лазаров",
+      "typoQuery": "Илия Димитров Лазааров",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3167": "Илия Димитров Лазаров — mp — Монтана",
+        "fold:liliya dimitrova lazarova": "Лилия Димитрова Лазарова — private_sector",
+        "fold:iliyana dimitrova aleksandrova lazarova": "ИЛИЯНА ДИМИТРОВА АЛЕКСАНДРОВА-ЛАЗАРОВА — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3167",
+      "question": {
+        "en": "Which companies is Илия Димитров Лазааров connected to?",
+        "bg": "С кои фирми е свързан Илия Димитров Лазааров?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4224_drop_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Искрен Цветославов Арабаджиев",
+      "typoQuery": "Искрен Цветолавов Арабаджиев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:mp-4224": "Искрен Цветославов Арабаджиев — mp — Ловеч",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4224",
+      "question": {
+        "en": "What are the declared assets of Искрен Цветолавов Арабаджиев?",
+        "bg": "Какви са декларираните активи на Искрен Цветолавов Арабаджиев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4224_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Искрен Цветославов Арабаджиев",
+      "typoQuery": "Искрен Цветославов Арабаждиев",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Искрен Цветославов Арабаждиев.",
+        "bg": "Покажи ми декларациите, подадени от Искрен Цветославов Арабаждиев."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4224_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Искрен Цветославов Арабаджиев",
+      "typoQuery": "Искрен Цветославов Арабадджиев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4224": "Искрен Цветославов Арабаджиев — mp — Ловеч",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4224",
+      "question": {
+        "en": "Which companies is Искрен Цветославов Арабадджиев connected to?",
+        "bg": "С кои фирми е свързан Искрен Цветославов Арабадджиев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2926_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Калин Николов Поповски",
+      "typoQuery": "Калин Никлов Поповски",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Калин Никлов Поповски?",
+        "bg": "Какви са декларираните активи на Калин Никлов Поповски?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2926_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Калин Николов Поповски",
+      "typoQuery": "Калин Николов Попосвки",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Калин Николов Попосвки.",
+        "bg": "Покажи ми декларациите, подадени от Калин Николов Попосвки."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2926_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Калин Николов Поповски",
+      "typoQuery": "Калин Николов Поповвски",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2926": "Калин Николов Поповски — mp — Плевен",
+        "slug:kalin-popovski-10dhni": "Калин Николов Поповски — councillor — Плевен",
+        "fold:nikola kalinov popovski": "НИКОЛА КАЛИНОВ ПОПОВСКИ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2926",
+      "question": {
+        "en": "Which companies is Калин Николов Поповвски connected to?",
+        "bg": "С кои фирми е свързан Калин Николов Поповвски?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2770_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Клавдия Георгиева Григорова-Ганчева",
+      "typoQuery": "Клавдия Геориева Григорова-Ганчева",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Клавдия Геориева Григорова-Ганчева?",
+        "bg": "Какви са декларираните активи на Клавдия Геориева Григорова-Ганчева?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2770_transpose_letters",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Клавдия Георгиева Григорова-Ганчева",
+      "typoQuery": "Клавдия Георгиева Григоров-аГанчева",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "slug:mp-2770": "Клавдия Георгиева Григорова-Ганчева — mp — Велико Търново",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2770",
+      "question": {
+        "en": "Show me the declarations filed by Клавдия Георгиева Григоров-аГанчева.",
+        "bg": "Покажи ми декларациите, подадени от Клавдия Георгиева Григоров-аГанчева."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2770_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Клавдия Георгиева Григорова-Ганчева",
+      "typoQuery": "Клавдия Георгиева Григороваа-Ганчева",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2770": "Клавдия Георгиева Григорова-Ганчева — mp — Велико Търново",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2770",
+      "question": {
+        "en": "Which companies is Клавдия Георгиева Григороваа-Ганчева connected to?",
+        "bg": "С кои фирми е свързан Клавдия Георгиева Григороваа-Ганчева?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4915_drop_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Красимир Йорданов Йорданов",
+      "typoQuery": "Красимир Йорднов Йорданов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:mp-4915": "Красимир Йорданов Йорданов — mp — Ямбол",
+        "slug:krasimir-yordanov-jfvycg": "Красимир Йорданов Йорданов — councillor — Ямбол",
+        "slug:yordan-yordanov-1v2awd": "Йордан Красимиров Йорданов — candidate — Варна",
+        "slug:krasimir-yordanov-7nld6t": "Красимир Милков Йорданов — candidate — Варна",
+        "slug:nikola-yordanov-xjp2ox": "Никола Красимиров Йорданов — candidate — Силистра",
+        "slug:krasimir-petkov-yordanov-06b0dc": "Красимир Петков Йорданов — private_sector",
+        "slug:hristo-krasimirov-yordanov-823fb4": "Христо Красимиров Йорданов — private_sector",
+        "slug:krasimir-ivanov-yordanov-1ca8e2": "Красимир Иванов Йорданов — private_sector",
+        "slug:krasimir-nikolov-yordanov-6bcf91": "КРАСИМИР НИКОЛОВ ЙОРДАНОВ — private_sector",
+        "fold:venelin krasimirov yordanov": "ВЕНЕЛИН КРАСИМИРОВ ЙОРДАНОВ — private_sector",
+        "fold:rosen krasimirov yordanov": "Росен Красимиров Йорданов — private_sector",
+        "fold:krasimir ankov yordanov": "Красимир Анков Йорданов — private_sector",
+        "fold:borislav krasimirov yordanov": "Борислав Красимиров Йорданов — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4915",
+      "question": {
+        "en": "What are the declared assets of Красимир Йорднов Йорданов?",
+        "bg": "Какви са декларираните активи на Красимир Йорднов Йорданов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4915_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Красимир Йорданов Йорданов",
+      "typoQuery": "Красимир Йорданов Йорднаов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Красимир Йорданов Йорднаов.",
+        "bg": "Покажи ми декларациите, подадени от Красимир Йорданов Йорднаов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4915_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Красимир Йорданов Йорданов",
+      "typoQuery": "Красимир Йорданов Йордаанов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4915": "Красимир Йорданов Йорданов — mp — Ямбол",
+        "slug:krasimira-iordanova-stoyanova-f8ef65": "Красимира Йорданова Стоянова — cabinet",
+        "slug:krasimir-iordanov-kirilov-27ddd4": "Красимир Йорданов Кирилов — eu_funds_controller",
+        "slug:krasimir-iordanov-simonski-bca088": "Красимир Йорданов Симонски — agency_head",
+        "slug:krasimir-iordanov-zafirov-95186f": "Красимир Йорданов Зафиров — regulator",
+        "slug:krasimira-iordanova-aleksandrova-be5775": "Красимира Йорданова Александрова — social_care",
+        "slug:krasimir-yordanov-brandiyski-9b6b24": "КРАСИМИР ЙОРДАНОВ БРАНДИЙСКИ — private_sector",
+        "slug:krasimir-yordanov-koychev-bfdf9b": "КРАСИМИР ЙОРДАНОВ КОЙЧЕВ — private_sector",
+        "slug:miroslava-krasimirova-yordanova-f2b3de": "МИРОСЛАВА КРАСИМИРОВА ЙОРДАНОВА — private_sector",
+        "slug:krasimir-petkov-yordanov-06b0dc": "Красимир Петков Йорданов — private_sector",
+        "fold:venelin krasimirov yordanov": "ВЕНЕЛИН КРАСИМИРОВ ЙОРДАНОВ — private_sector",
+        "fold:krasimir yordanov todorov": "КРАСИМИР ЙОРДАНОВ ТОДОРОВ — private_sector",
+        "fold:krasimira yordanova zasheva": "Красимира Йорданова Зашева — private_sector",
+        "fold:rosen krasimirov yordanov": "Росен Красимиров Йорданов — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4915",
+      "question": {
+        "en": "Which companies is Красимир Йорданов Йордаанов connected to?",
+        "bg": "С кои фирми е свързан Красимир Йорданов Йордаанов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5004_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Лариса Борисова Савова",
+      "typoQuery": "Лариса Бориова Савова",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Лариса Бориова Савова?",
+        "bg": "Какви са декларираните активи на Лариса Бориова Савова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5004_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Лариса Борисова Савова",
+      "typoQuery": "Лариса Борисова Саввоа",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Лариса Борисова Саввоа.",
+        "bg": "Покажи ми декларациите, подадени от Лариса Борисова Саввоа."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5004_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Лариса Борисова Савова",
+      "typoQuery": "Лариса Борисова Савоова",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-5004": "Лариса Борисова Савова — mp — Смолян",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-5004",
+      "question": {
+        "en": "Which companies is Лариса Борисова Савоова connected to?",
+        "bg": "С кои фирми е свързан Лариса Борисова Савоова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4809_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Манол Трифонов Генов",
+      "typoQuery": "Манол Трифнов Генов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Манол Трифнов Генов?",
+        "bg": "Какви са декларираните активи на Манол Трифнов Генов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4809_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Манол Трифонов Генов",
+      "typoQuery": "Манол Трифонов Геонв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Манол Трифонов Геонв.",
+        "bg": "Покажи ми декларациите, подадени от Манол Трифонов Геонв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4809_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Манол Трифонов Генов",
+      "typoQuery": "Манол Трифонов Геннов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4809": "Манол Трифонов Генов — mp — Пловдив-област",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4809",
+      "question": {
+        "en": "Which companies is Манол Трифонов Геннов connected to?",
+        "bg": "С кои фирми е свързан Манол Трифонов Геннов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2968_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Мартин Стефанов Обрешков",
+      "typoQuery": "Мартин Стефнов Обрешков",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Мартин Стефнов Обрешков?",
+        "bg": "Какви са декларираните активи на Мартин Стефнов Обрешков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2968_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Мартин Стефанов Обрешков",
+      "typoQuery": "Мартин Стефанов Обрекшов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Мартин Стефанов Обрекшов.",
+        "bg": "Покажи ми декларациите, подадени от Мартин Стефанов Обрекшов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2968_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Мартин Стефанов Обрешков",
+      "typoQuery": "Мартин Стефанов Обрешшков",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2968": "Мартин Стефанов Обрешков — mp — Разград",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2968",
+      "question": {
+        "en": "Which companies is Мартин Стефанов Обрешшков connected to?",
+        "bg": "С кои фирми е свързан Мартин Стефанов Обрешшков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2870_drop_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Милко Недялков Недялков",
+      "typoQuery": "Милко Недяков Недялков",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:mp-2870": "Милко Недялков Недялков — mp — Ловеч",
+        "slug:milko-ivanov-nedyalkov-e7dfed": "Милко Иванов Недялков — medical_center",
+        "slug:nedyalko-mitkov-nedyalkov-5b8458": "НЕДЯЛКО МИТКОВ НЕДЯЛКОВ — private_sector",
+        "fold:milko dimitrov nedyalkov": "Милко Димитров Недялков — private_sector",
+        "fold:d r milko ivanov nedyalkov": "д-р Милко Иванов Недялков — private_sector",
+        "fold:nedyalko miroslavov nedyalkov": "НЕДЯЛКО МИРОСЛАВОВ НЕДЯЛКОВ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2870",
+      "question": {
+        "en": "What are the declared assets of Милко Недяков Недялков?",
+        "bg": "Какви са декларираните активи на Милко Недяков Недялков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2870_transpose_letters",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Милко Недялков Недялков",
+      "typoQuery": "Милко Недялков Недяклов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "slug:mp-2870": "Милко Недялков Недялков — mp — Ловеч",
+        "slug:milko-ivanov-nedyalkov-e7dfed": "Милко Иванов Недялков — medical_center",
+        "slug:nedyalko-mitkov-nedyalkov-5b8458": "НЕДЯЛКО МИТКОВ НЕДЯЛКОВ — private_sector",
+        "fold:milko dimitrov nedyalkov": "Милко Димитров Недялков — private_sector",
+        "fold:d r milko ivanov nedyalkov": "д-р Милко Иванов Недялков — private_sector",
+        "fold:nedyalko miroslavov nedyalkov": "НЕДЯЛКО МИРОСЛАВОВ НЕДЯЛКОВ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2870",
+      "question": {
+        "en": "Show me the declarations filed by Милко Недялков Недяклов.",
+        "bg": "Покажи ми декларациите, подадени от Милко Недялков Недяклов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2870_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Милко Недялков Недялков",
+      "typoQuery": "Милко Недялков Недяллков",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2870": "Милко Недялков Недялков — mp — Ловеч",
+        "slug:milko-ivanov-nedyalkov-e7dfed": "Милко Иванов Недялков — medical_center",
+        "slug:nedyalko-mitkov-nedyalkov-5b8458": "НЕДЯЛКО МИТКОВ НЕДЯЛКОВ — private_sector",
+        "fold:milko dimitrov nedyalkov": "Милко Димитров Недялков — private_sector",
+        "fold:milka moneva nedyalkova": "МИЛКА МОНЕВА НЕДЯЛКОВА — private_sector",
+        "fold:d r milko ivanov nedyalkov": "д-р Милко Иванов Недялков — private_sector",
+        "fold:milko nedyalkov vasilev": "МИЛКО НЕДЯЛКОВ ВАСИЛЕВ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2870",
+      "question": {
+        "en": "Which companies is Милко Недялков Недяллков connected to?",
+        "bg": "С кои фирми е свързан Милко Недялков Недяллков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4120_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Мустафа Сали Карадайъ",
+      "typoQuery": "Мустафа Саи Карадайъ",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Мустафа Саи Карадайъ?",
+        "bg": "Какви са декларираните активи на Мустафа Саи Карадайъ?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4120_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Мустафа Сали Карадайъ",
+      "typoQuery": "Мустафа Сали Караадйъ",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Мустафа Сали Караадйъ.",
+        "bg": "Покажи ми декларациите, подадени от Мустафа Сали Караадйъ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4120_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Мустафа Сали Карадайъ",
+      "typoQuery": "Мустафа Сали Караддайъ",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4120": "Мустафа Сали Карадайъ — mp — Шумен",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4120",
+      "question": {
+        "en": "Which companies is Мустафа Сали Караддайъ connected to?",
+        "bg": "С кои фирми е свързан Мустафа Сали Караддайъ?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2784_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Николай Георгиев Иванов",
+      "typoQuery": "Николай Геориев Иванов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Николай Геориев Иванов?",
+        "bg": "Какви са декларираните активи на Николай Геориев Иванов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2784_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Николай Георгиев Иванов",
+      "typoQuery": "Николай Георгиев Иваонв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Николай Георгиев Иваонв.",
+        "bg": "Покажи ми декларациите, подадени от Николай Георгиев Иваонв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2784_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Николай Георгиев Иванов",
+      "typoQuery": "Николай Георгиев Иваннов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2784": "Николай Георгиев Иванов — mp — Враца",
+        "slug:nikola-ivanov-georgiev-1a3436": "Никола Иванов Георгиев — school",
+        "slug:nikolay-georgiev-e4kri8": "Николай Иванов Георгиев — magistrate — Върховна касационна прокуратура",
+        "slug:nikolay-ivanov-0t4xjv": "Николай Георгиев Иванов — mayor — Криводол",
+        "slug:nikolay-ivanov-19qapx": "Николай Георгиев Иванов — mayor — Враца",
+        "slug:georgi-nikolov-11oqvy": "Георги Иванов Николов — councillor — Горна Оряховица",
+        "fold:dragomir todorov todorov; ivan grozev zapryanov; petar nikolov georgiev": "ДРАГОМИР ТОДОРОВ ТОДОРОВ; ИВАН ГРОЗЕВ ЗАПРЯНОВ; ПЕТЪР НИКОЛОВ ГЕОРГИЕВ — private_sector",
+        "fold:\"lomonosov\" ad, eik 114122257, milka nikolova dosheva, borislav genadiev ivanov, tatyana georgieva moneva, damyanka metodieva davidova, kameliya marinova marinova, lyuben rozenov zhelyazkov, plamen kutev hristov, vanyo emanuilov manov, veska hristova barzashka, plamen kostadinov antonov, darina ivanova dikova, todor bogdanov marinov, irena petkova pencheva, stefka hristova kotsovska, dosko dimitrov petkov, katya frankova ruskova, veselina tsenova ruskova, ivanichka racheva grigorova, margarita kirova naydenova, kancho angelov parashkevov, plamen antonov lalchev, veska petkova parashkevova, aneliya kancheva lalcheva, pavlinka dakova dakova, ivan krastev zharovski, biser todorov bogdanov": "\"ЛОМОНОСОВ\" АД, ЕИК 114122257, Милка Николова Дошева, Борислав Генадиев Иванов, Татяна Георгиева Монева, Дамянка Методиева Давидова, Камелия Маринова Маринова, Любен Розенов Желязков, Пламен Кутев Христов, Ваньо Емануилов Манов, Веска Христова Бързашка, Пламен Костадинов Антонов, Дарина Иванова Дикова, Тодор Богданов Маринов, Ирена Петкова Пенчева, Стефка Христова Коцовска, Доско Димитров Петков, Катя Франкова Рускова, Веселина Ценова Рускова, Иваничка Рачева Григорова, Маргарита Кирова Найденова, Кънчо Ангелов Парашкевов, Пламен Антонов Лалчев, Веска Петкова Парашкевова, Анелия Кънчева Лалчева, Павлинка Дакова Дакова, Иван Кръстев Жаровски, Бисер Тодоров Богданов — private_sector",
+        "fold:\"lomonosov\" ad, eik 114122257, milka nikolova dosheva, borislav genadiev ivanov, tatyana georgieva moneva, damyanka metodieva davidova, kameliya marinova marinova, lyuben rozenov zhelyazkov, plamen kutev hristov, petko desev petkov, vanyo emanuilov manov, veska hristova barzashka, plamen kostadinov antonov, darina ivanova dikova, vladislav penchev todorov, todor bogdanov marinov, irena petkova pencheva, stefka hristova kotsovska, dosko dimitrov petkov, katya frankova ruskova, veselina tsenova ruskova, ivanichka racheva grigorova, margarita kirova naydenova, kancho angelov parashkevov, plamen antonov lalchev, veska petkova parashkevova, aneliya kancheva lalcheva, pavlinka dakova dakova, ivan krastev zharovski, biser todorov bogdanov": "\"ЛОМОНОСОВ\" АД, ЕИК 114122257, Милка Николова Дошева, Борислав Генадиев Иванов, Татяна Георгиева Монева,  Дамянка Методиева Давидова, Камелия Маринова Маринова, Любен Розенов Желязков, Пламен Кутев Христов, Петко Десев Петков, Ваньо Емануилов Манов, Веска Христова Бързашка, Пламен Костадинов Антонов, Дарина Иванова Дикова, Владислав Пенчев Тодоров, Тодор Богданов Маринов, Ирена Петкова Пенчева, Стефка Христова Коцовска, Доско Димитров Петков, Катя Франкова Рускова, Веселина Ценова Рускова, Иваничка Рачева Григорова, Маргарита Кирова Найденова, Кънчо Ангелов Парашкевов, Пламен Антонов Лалчев, Веска Петкова Парашкевова, Анелия Кънчева Лалчева, Павлинка Дакова Дакова, Иван Кръстев Жаровски, Бисер Тодоров Богданов — private_sector",
+        "fold:\"lomonosov\" ad, eik 114122257, milka nikolova dosheva, borislav genadiev ivanov, tatyana georgieva moneva, damyanka metodieva davidova, kameliya marinova marinova, lyuben rozenov zhelyazkov, plamen kutev hristov, vanyo emanuilov manov, veska hristova barzashka, plamen kostadinov antonov, darina ivanova dikova, todor bogdanov marinov, irena petkova pencheva, stefka hristova kotsovska, dosko dimitrov petkov, katya frankova ruskova, veselina tsenova ruskova, ivanichka racheva grigorova, margarita kirova naydenova, kancho angelov parashkevov, plamen antonov lalchev, veska petkova parashkevova, aneliya kancheva lalcheva, pavlinka dakova dakova, ivan krastev zharovski, biser todorov bogdanov,": "\"ЛОМОНОСОВ\" АД, ЕИК 114122257, Милка Николова Дошева, Борислав Генадиев Иванов, Татяна Георгиева Монева, Дамянка Методиева Давидова, Камелия Маринова Маринова, Любен Розенов Желязков, Пламен Кутев Христов,  Ваньо Емануилов Манов, Веска Христова Бързашка, Пламен Костадинов Антонов, Дарина Иванова Дикова,  Тодор Богданов Маринов, Ирена Петкова Пенчева, Стефка Христова Коцовска, Доско Димитров Петков, Катя Франкова Рускова, Веселина Ценова Рускова, Иваничка Рачева Григорова, Маргарита Кирова Найденова, Кънчо Ангелов Парашкевов, Пламен Антонов Лалчев, Веска Петкова Парашкевова, Анелия Кънчева Лалчева, Павлинка Дакова Дакова, Иван Кръстев Жаровски, Бисер Тодоров Богданов, — private_sector",
+        "fold:nikola georgiev ivanov": "Никола Георгиев Иванов — private_sector",
+        "fold:georgi ivanov nikolaev": "ГЕОРГИ ИВАНОВ НИКОЛАЕВ — private_sector",
+        "fold:krastinka dimitrova minkova, vili dimitrova minkova nikolova i svetlozara dimitrova georgieva kato naslednitsi na dimitar ivanov minkov": "Кръстинка Димитрова Минкова, Вили Димитрова Минкова-Николова и Светлозара Димитрова Георгиева като наследници на Димитър Иванов Минков — private_sector",
+        "fold:yordan georgiev ivanov, kristiyan rosenov nikolov i gabriel lachezarov mitev, pritezhavashti 1 sasobstven dyal": "ЙОРДАН ГЕОРГИЕВ ИВАНОВ, КРИСТИЯН РОСЕНОВ НИКОЛОВ и ГАБРИЕЛ ЛЪЧЕЗАРОВ МИТЕВ, притежаващи 1 съсобствен дял — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2784",
+      "question": {
+        "en": "Which companies is Николай Георгиев Иваннов connected to?",
+        "bg": "С кои фирми е свързан Николай Георгиев Иваннов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3409_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Паунита Михайлова Петрова",
+      "typoQuery": "Паунита Михалова Петрова",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Паунита Михалова Петрова?",
+        "bg": "Какви са декларираните активи на Паунита Михалова Петрова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3409_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Паунита Михайлова Петрова",
+      "typoQuery": "Паунита Михайлова Петорва",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Паунита Михайлова Петорва.",
+        "bg": "Покажи ми декларациите, подадени от Паунита Михайлова Петорва."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3409_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Паунита Михайлова Петрова",
+      "typoQuery": "Паунита Михайлова Петррова",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3409": "Паунита Михайлова Петрова — mp — София-област",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3409",
+      "question": {
+        "en": "Which companies is Паунита Михайлова Петррова connected to?",
+        "bg": "С кои фирми е свързан Паунита Михайлова Петррова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3379_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Петя Димчева Михалевска",
+      "typoQuery": "Петя Димева Михалевска",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Петя Димева Михалевска?",
+        "bg": "Какви са декларираните активи на Петя Димева Михалевска?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3379_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Петя Димчева Михалевска",
+      "typoQuery": "Петя Димчева Михалвеска",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Петя Димчева Михалвеска.",
+        "bg": "Покажи ми декларациите, подадени от Петя Димчева Михалвеска."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3379_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Петя Димчева Михалевска",
+      "typoQuery": "Петя Димчева Михалеевска",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3379": "Петя Димчева Михалевска — mp — Смолян",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3379",
+      "question": {
+        "en": "Which companies is Петя Димчева Михалеевска connected to?",
+        "bg": "С кои фирми е свързан Петя Димчева Михалеевска?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4117_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Ралица Тодорова Ангелова",
+      "typoQuery": "Ралица Тодоова Ангелова",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "fold:denitsa rangelova todorova": "ДЕНИЦА РАНГЕЛОВА ТОДОРОВА — private_sector",
+        "fold:ralitsa angelova bozhilova todorova": "РАЛИЦА АНГЕЛОВА БОЖИЛОВА-ТОДОРОВА — private_sector",
+        "fold:zornitsa rangelova todorova": "ЗОРНИЦА РАНГЕЛОВА ТОДОРОВА — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Ралица Тодоова Ангелова?",
+        "bg": "Какви са декларираните активи на Ралица Тодоова Ангелова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4117_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Ралица Тодорова Ангелова",
+      "typoQuery": "Ралица Тодорова Ангеолва",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Ралица Тодорова Ангеолва.",
+        "bg": "Покажи ми декларациите, подадени от Ралица Тодорова Ангеолва."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4117_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Ралица Тодорова Ангелова",
+      "typoQuery": "Ралица Тодорова Ангеллова",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4117": "Ралица Тодорова Ангелова — mp — Шумен",
+        "fold:ralitsa angelova bozhilova todorova": "РАЛИЦА АНГЕЛОВА БОЖИЛОВА-ТОДОРОВА — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4117",
+      "question": {
+        "en": "Which companies is Ралица Тодорова Ангеллова connected to?",
+        "bg": "С кои фирми е свързан Ралица Тодорова Ангеллова?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3949_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Румен Маринов Йончев",
+      "typoQuery": "Румен Марнов Йончев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Румен Марнов Йончев?",
+        "bg": "Какви са декларираните активи на Румен Марнов Йончев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3949_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Румен Маринов Йончев",
+      "typoQuery": "Румен Маринов Йонечв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Румен Маринов Йонечв.",
+        "bg": "Покажи ми декларациите, подадени от Румен Маринов Йонечв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3949_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Румен Маринов Йончев",
+      "typoQuery": "Румен Маринов Йонччев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3949": "Румен Маринов Йончев — mp — Пловдив-област",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3949",
+      "question": {
+        "en": "Which companies is Румен Маринов Йонччев connected to?",
+        "bg": "С кои фирми е свързан Румен Маринов Йонччев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3642_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Светлин Костов Стоянов",
+      "typoQuery": "Светлин Косов Стоянов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Светлин Косов Стоянов?",
+        "bg": "Какви са декларираните активи на Светлин Косов Стоянов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3642_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Светлин Костов Стоянов",
+      "typoQuery": "Светлин Костов Стоняов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Светлин Костов Стоняов.",
+        "bg": "Покажи ми декларациите, подадени от Светлин Костов Стоняов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3642_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Светлин Костов Стоянов",
+      "typoQuery": "Светлин Костов Стояянов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3642": "Светлин Костов Стоянов — mp — Русе",
+        "fold:svetla kostova stoyanova": "СВЕТЛА КОСТОВА СТОЯНОВА — private_sector",
+        "fold:svetlana kostova stoyanova kaneva": "СВЕТЛАНА КОСТОВА СТОЯНОВА-КЪНЕВА — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3642",
+      "question": {
+        "en": "Which companies is Светлин Костов Стояянов connected to?",
+        "bg": "С кои фирми е свързан Светлин Костов Стояянов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2776_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Симеон Христов Симеонов",
+      "typoQuery": "Симеон Хритов Симеонов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "fold:simeon hristov hristov": "Симеон Христов Христов — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Симеон Хритов Симеонов?",
+        "bg": "Какви са декларираните активи на Симеон Хритов Симеонов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2776_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Симеон Христов Симеонов",
+      "typoQuery": "Симеон Христов Сименоов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "fold:hristo rumenov simeonov": "Христо Руменов Симеонов — private_sector",
+        "fold:hristo rosenov simeonov": "ХРИСТО РОСЕНОВ СИМЕОНОВ — private_sector",
+        "fold:hristiyan plamenov simeonov": "ХРИСТИЯН ПЛАМЕНОВ СИМЕОНОВ — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Симеон Христов Сименоов.",
+        "bg": "Покажи ми декларациите, подадени от Симеон Христов Сименоов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2776_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Симеон Христов Симеонов",
+      "typoQuery": "Симеон Христов Симеоонов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4456": "Христо Симеонов Борисов — mp — Плевен",
+        "slug:mp-1877": "Мариана Симеонова Христова — mp — Плевен",
+        "slug:mp-5192": "Христо Симеонов Симеонов — mp — Пловдив-град",
+        "slug:mp-2776": "Симеон Христов Симеонов — mp — Велико Търново",
+        "slug:hristina-simeonova-velinova-d50b6c": "Христина Симеонова Велинова — deputy_minister",
+        "slug:stefka-hristova-diksokova-simeonova-dcc0ed": "Стефка Христова Диксокова-Симеонова — inspectorate",
+        "fold:hristo simeonov nikolov": "Христо Симеонов Николов — private_sector",
+        "slug:plamen-simeonov-hristov-2024fe": "ПЛАМЕН СИМЕОНОВ ХРИСТОВ — private_sector",
+        "slug:hristo-tsvetanov-simeonov-3ffe6e": "Христо Цветанов Симеонов — private_sector",
+        "slug:hristina-simeonova-todorova-689ca5": "ХРИСТИНА СИМЕОНОВА ТОДОРОВА — private_sector",
+        "fold:iviyan hristov simeonov": "Ивиян Христов Симеонов — private_sector",
+        "fold:radostina hristova simeonova": "Радостина Христова Симеонова — private_sector",
+        "fold:angel simeonov hristov": "АНГЕЛ СИМЕОНОВ ХРИСТОВ — private_sector",
+        "fold:hristo simeonov stefanov": "Христо Симеонов Стефанов — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2776",
+      "question": {
+        "en": "Which companies is Симеон Христов Симеоонов connected to?",
+        "bg": "С кои фирми е свързан Симеон Христов Симеоонов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2695_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Станислав Стоянов Иванов",
+      "typoQuery": "Станислав Стонов Иванов",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "slug:mp-2953": "Станислав Иванов Стоянов — mp — Велико Търново",
+        "fold:stanislav ivanov stoev": "Станислав Иванов Стоев — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Станислав Стонов Иванов?",
+        "bg": "Какви са декларираните активи на Станислав Стонов Иванов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2695_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Станислав Стоянов Иванов",
+      "typoQuery": "Станислав Стоянов Иваонв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Станислав Стоянов Иваонв.",
+        "bg": "Покажи ми декларациите, подадени от Станислав Стоянов Иваонв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2695_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Станислав Стоянов Иванов",
+      "typoQuery": "Станислав Стоянов Иваннов",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2953": "Станислав Иванов Стоянов — mp — Велико Търново",
+        "slug:mp-2695": "Станислав Стоянов Иванов — mp — София 25 МИР",
+        "slug:ventsislav-stoyanov-ivanov-1f5131": "Венцислав Стоянов Иванов — eu_funds_controller",
+        "slug:ventsislav-ivanov-1omvhn": "Венцислав Стоянов Иванов — councillor — Павликени",
+        "fold:borislav stoyanov ivanov": "БОРИСЛАВ СТОЯНОВ ИВАНОВ — private_sector",
+        "fold:stanislav ivanov stoev": "Станислав Иванов Стоев — private_sector",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2695",
+      "question": {
+        "en": "Which companies is Станислав Стоянов Иваннов connected to?",
+        "bg": "С кои фирми е свързан Станислав Стоянов Иваннов?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5232_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Стою Теодоров Стоев",
+      "typoQuery": "Стою Теодров Стоев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Стою Теодров Стоев?",
+        "bg": "Какви са декларираните активи на Стою Теодров Стоев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5232_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Стою Теодоров Стоев",
+      "typoQuery": "Стою Теодоров Стеов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Стою Теодоров Стеов.",
+        "bg": "Покажи ми декларациите, подадени от Стою Теодоров Стеов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_5232_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Стою Теодоров Стоев",
+      "typoQuery": "Стою Теодоров Стооев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-5232": "Стою Теодоров Стоев — mp — София 23 МИР",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-5232",
+      "question": {
+        "en": "Which companies is Стою Теодоров Стооев connected to?",
+        "bg": "С кои фирми е свързан Стою Теодоров Стооев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2724_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Таско Михайлов Ерменков",
+      "typoQuery": "Таско Михалов Ерменков",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Таско Михалов Ерменков?",
+        "bg": "Какви са декларираните активи на Таско Михалов Ерменков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2724_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Таско Михайлов Ерменков",
+      "typoQuery": "Таско Михайлов Ермекнов",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Таско Михайлов Ермекнов.",
+        "bg": "Покажи ми декларациите, подадени от Таско Михайлов Ермекнов."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2724_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Таско Михайлов Ерменков",
+      "typoQuery": "Таско Михайлов Ерменнков",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2724": "Таско Михайлов Ерменков — mp — Сливен",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2724",
+      "question": {
+        "en": "Which companies is Таско Михайлов Ерменнков connected to?",
+        "bg": "С кои фирми е свързан Таско Михайлов Ерменнков?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4960_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Фиданка Иванова Кацарева",
+      "typoQuery": "Фиданка Иваова Кацарева",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Фиданка Иваова Кацарева?",
+        "bg": "Какви са декларираните активи на Фиданка Иваова Кацарева?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4960_transpose_letters",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Фиданка Иванова Кацарева",
+      "typoQuery": "Фиданка Иванова Кацаерва",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "slug:mp-4960": "Фиданка Иванова Кацарева — mp — Пловдив-град",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4960",
+      "question": {
+        "en": "Show me the declarations filed by Фиданка Иванова Кацаерва.",
+        "bg": "Покажи ми декларациите, подадени от Фиданка Иванова Кацаерва."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_4960_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Фиданка Иванова Кацарева",
+      "typoQuery": "Фиданка Иванова Кацаррева",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-4960": "Фиданка Иванова Кацарева — mp — Пловдив-град",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-4960",
+      "question": {
+        "en": "Which companies is Фиданка Иванова Кацаррева connected to?",
+        "bg": "С кои фирми е свързан Фиданка Иванова Кацаррева?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3316_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Христо Михайлов Дочев",
+      "typoQuery": "Христо Михалов Дочев",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Христо Михалов Дочев?",
+        "bg": "Какви са декларираните активи на Христо Михалов Дочев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3316_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Христо Михайлов Дочев",
+      "typoQuery": "Христо Михайлов Доечв",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Христо Михайлов Доечв.",
+        "bg": "Покажи ми декларациите, подадени от Христо Михайлов Доечв."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_3316_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Христо Михайлов Дочев",
+      "typoQuery": "Христо Михайлов Доччев",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-3316": "Христо Михайлов Дочев — mp — Велико Търново",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-3316",
+      "question": {
+        "en": "Which companies is Христо Михайлов Доччев connected to?",
+        "bg": "С кои фирми е свързан Христо Михайлов Доччев?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2451_drop_letter",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Шабанали Ахмед Дурмуш",
+      "typoQuery": "Шабанали Ахед Дурмуш",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "What are the declared assets of Шабанали Ахед Дурмуш?",
+        "bg": "Какви са декларираните активи на Шабанали Ахед Дурмуш?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2451_transpose_letters",
+      "kind": "person",
+      "klass": "absent",
+      "anchorName": "Шабанали Ахмед Дурмуш",
+      "typoQuery": "Шабанали Ахмед Дурумш",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the declarations filed by Шабанали Ахмед Дурумш.",
+        "bg": "Покажи ми декларациите, подадени от Шабанали Ахмед Дурумш."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "person_slug_mp_2451_duplicate_letter",
+      "kind": "person",
+      "klass": "present",
+      "anchorName": "Шабанали Ахмед Дурмуш",
+      "typoQuery": "Шабанали Ахмед Дурммуш",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "slug:mp-2451": "Шабанали Ахмед Дурмуш — mp — Кърджали",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "slug:mp-2451",
+      "question": {
+        "en": "Which companies is Шабанали Ахмед Дурммуш connected to?",
+        "bg": "С кои фирми е свързан Шабанали Ахмед Дурммуш?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_103267194_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "СОФАРМА ТРЕЙДИНГ",
+      "typoQuery": "СОФАРМА ТРЕЙИНГ",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "103267194": "Софарма трейдинг АД (EIK 103267194, 8552 contracts)",
+        "181262844": "Софарма Трейдинг Глобал Медикал 2024 (EIK 181262844, 1 contracts)",
+        "obed-043dc308a978": "Обединение: Софарма трейдинг АД, Фаркол АД (EIK obed-043dc308a978, 1 contracts)",
+        "obed-a1dd87ffe1f6": "Обединение: Медекс ООД, Софарма трейдинг АД (EIK obed-a1dd87ffe1f6, 3 contracts)",
+        "obed-618607d70c10": "Обединение: Ридаком ЕООД, Софарма трейдинг АД (EIK obed-618607d70c10, 1 contracts)",
+        "obed-6ccefbd56431": "Обединение: ЕКОС-МЕДИКА ООД, Софарма трейдинг АД (EIK obed-6ccefbd56431, 1 contracts)",
+        "obed-240b71f1fcf8": "Обединение: Елпак лизинг ЕООД, Софарма трейдинг АД (EIK obed-240b71f1fcf8, 1 contracts)",
+        "obed-bf2754961ee3": "Обединение: Софарма трейдинг АД, Фьоникс Фарма ЕООД (EIK obed-bf2754961ee3, 1 contracts)",
+        "obed-b7ec89caf4a6": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД (EIK obed-b7ec89caf4a6, 5 contracts)",
+        "obed-1da2848f82c1": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +2 още (EIK obed-1da2848f82c1, 1 contracts)",
+        "obed-51dcb6755486": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +3 още (EIK obed-51dcb6755486, 1 contracts)",
+        "obed-957ec3747037": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +2 още (EIK obed-957ec3747037, 1 contracts)",
+        "obed-aa6bf3437522": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +2 още (EIK obed-aa6bf3437522, 1 contracts)",
+        "obed-9bb4250a831a": "Обединение: Глобал медикал ЕНД хелт ООД, Софарма трейдинг АД (EIK obed-9bb4250a831a, 2 contracts)",
+        "obed-92a9077ed7a9": "Обединение: Софарма трейдинг АД, Фаркол АД, Фьоникс Фарма ЕООД (EIK obed-92a9077ed7a9, 1 contracts)",
+        "obed-5a622a24225c": "Обединение: Медекс ООД, Софарма трейдинг АД, Фьоникс Фарма ЕООД (EIK obed-5a622a24225c, 2 contracts)",
+        "obed-8640b1956878": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД, Фаркол АД (EIK obed-8640b1956878, 2 contracts)",
+        "obed-2640af92df4e": "Обединение: Истлинк българия ООД, Софарма трейдинг АД, Фаркол АД (EIK obed-2640af92df4e, 1 contracts)",
+        "obed-40cc39a16cde": "Обединение: Дансон трейдинг ООД, Медекс ООД, Софарма трейдинг АД (EIK obed-40cc39a16cde, 5 contracts)",
+        "obed-0fed42444cd6": "Обединение: ЕКОМЕТ-90 ЕООД, Истлинк българия ООД, Софарма трейдинг АД (EIK obed-0fed42444cd6, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "103267194",
+      "question": {
+        "en": "Show me the public contracts awarded to СОФАРМА ТРЕЙИНГ.",
+        "bg": "Покажи ми обществените поръчки, спечелени от СОФАРМА ТРЕЙИНГ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_103267194_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "СОФАРМА ТРЕЙДИНГ",
+      "typoQuery": "СОФАРМА ТРЕЙИДНГ",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has СОФАРМА ТРЕЙИДНГ received?",
+        "bg": "Колко публични средства е получила СОФАРМА ТРЕЙИДНГ?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_103267194_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "СОФАРМА ТРЕЙДИНГ",
+      "typoQuery": "СОФАРМА ТРЕЙДДИНГ",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "103267194": "Софарма трейдинг АД (EIK 103267194, 8552 contracts)",
+        "181262844": "Софарма Трейдинг Глобал Медикал 2024 (EIK 181262844, 1 contracts)",
+        "obed-043dc308a978": "Обединение: Софарма трейдинг АД, Фаркол АД (EIK obed-043dc308a978, 1 contracts)",
+        "obed-a1dd87ffe1f6": "Обединение: Медекс ООД, Софарма трейдинг АД (EIK obed-a1dd87ffe1f6, 3 contracts)",
+        "obed-618607d70c10": "Обединение: Ридаком ЕООД, Софарма трейдинг АД (EIK obed-618607d70c10, 1 contracts)",
+        "obed-6ccefbd56431": "Обединение: ЕКОС-МЕДИКА ООД, Софарма трейдинг АД (EIK obed-6ccefbd56431, 1 contracts)",
+        "obed-240b71f1fcf8": "Обединение: Елпак лизинг ЕООД, Софарма трейдинг АД (EIK obed-240b71f1fcf8, 1 contracts)",
+        "obed-bf2754961ee3": "Обединение: Софарма трейдинг АД, Фьоникс Фарма ЕООД (EIK obed-bf2754961ee3, 1 contracts)",
+        "obed-b7ec89caf4a6": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД (EIK obed-b7ec89caf4a6, 5 contracts)",
+        "obed-1da2848f82c1": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +2 още (EIK obed-1da2848f82c1, 1 contracts)",
+        "obed-51dcb6755486": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +3 още (EIK obed-51dcb6755486, 1 contracts)",
+        "obed-957ec3747037": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +2 още (EIK obed-957ec3747037, 1 contracts)",
+        "obed-aa6bf3437522": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД +2 още (EIK obed-aa6bf3437522, 1 contracts)",
+        "obed-9bb4250a831a": "Обединение: Глобал медикал ЕНД хелт ООД, Софарма трейдинг АД (EIK obed-9bb4250a831a, 2 contracts)",
+        "obed-92a9077ed7a9": "Обединение: Софарма трейдинг АД, Фаркол АД, Фьоникс Фарма ЕООД (EIK obed-92a9077ed7a9, 1 contracts)",
+        "obed-5a622a24225c": "Обединение: Медекс ООД, Софарма трейдинг АД, Фьоникс Фарма ЕООД (EIK obed-5a622a24225c, 2 contracts)",
+        "obed-8640b1956878": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД, Фаркол АД (EIK obed-8640b1956878, 2 contracts)",
+        "obed-2640af92df4e": "Обединение: Истлинк българия ООД, Софарма трейдинг АД, Фаркол АД (EIK obed-2640af92df4e, 1 contracts)",
+        "obed-40cc39a16cde": "Обединение: Дансон трейдинг ООД, Медекс ООД, Софарма трейдинг АД (EIK obed-40cc39a16cde, 5 contracts)",
+        "obed-0fed42444cd6": "Обединение: ЕКОМЕТ-90 ЕООД, Истлинк българия ООД, Софарма трейдинг АД (EIK obed-0fed42444cd6, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "103267194",
+      "question": {
+        "en": "Show me the public contracts awarded to СОФАРМА ТРЕЙДДИНГ.",
+        "bg": "Покажи ми обществените поръчки, спечелени от СОФАРМА ТРЕЙДДИНГ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_203283623_drop_letter",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "ФЬОНИКС Фарма",
+      "typoQuery": "ФЬОНИКС Фама",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has ФЬОНИКС Фама received?",
+        "bg": "Колко публични средства е получила ФЬОНИКС Фама?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_203283623_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "ФЬОНИКС Фарма",
+      "typoQuery": "ФЬОНИКС Фамра",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the public contracts awarded to ФЬОНИКС Фамра.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ФЬОНИКС Фамра."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_203283623_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ФЬОНИКС Фарма",
+      "typoQuery": "ФЬОНИКС Фаррма",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "102153152": "Фьоникс Фарма ЕАД /старо Либра ЕАД /- София (EIK 102153152, 1838 contracts)",
+        "203283623": "Фьоникс Фарма ЕООД (EIK 203283623, 3713 contracts)",
+        "203283626": "Фьоникс фарма ЕООД (EIK 203283626, 1 contracts)",
+        "obed-175d44b02e17": "Обединение: Фаркол АД, Фьоникс Фарма ЕООД (EIK obed-175d44b02e17, 1 contracts)",
+        "obed-bdb3791d0dc9": "Обединение: Медекс ООД, Фьоникс Фарма ЕООД (EIK obed-bdb3791d0dc9, 2 contracts)",
+        "obed-ead88c89e742": "Обединение: Фармнет ЕАД, Фьоникс Фарма ЕООД (EIK obed-ead88c89e742, 1 contracts)",
+        "obed-573660606b5b": "Обединение: ЕКОМЕТ-90 ЕООД, Фьоникс Фарма ЕООД (EIK obed-573660606b5b, 1 contracts)",
+        "obed-0834a8b78993": "Обединение: Дансон трейдинг ООД, Фьоникс Фарма ЕООД (EIK obed-0834a8b78993, 2 contracts)",
+        "obed-bf2754961ee3": "Обединение: Софарма трейдинг АД, Фьоникс Фарма ЕООД (EIK obed-bf2754961ee3, 1 contracts)",
+        "obed-c4d66a8ff4df": "Обединение: Екофарм ЕООД, Фаркол АД, Фьоникс Фарма ЕООД (EIK obed-c4d66a8ff4df, 1 contracts)",
+        "obed-92a9077ed7a9": "Обединение: Софарма трейдинг АД, Фаркол АД, Фьоникс Фарма ЕООД (EIK obed-92a9077ed7a9, 1 contracts)",
+        "obed-5a622a24225c": "Обединение: Медекс ООД, Софарма трейдинг АД, Фьоникс Фарма ЕООД (EIK obed-5a622a24225c, 2 contracts)",
+        "obed-a9fcb9c92e4f": "Обединение: Дансон трейдинг ООД, Медекс ООД, Фьоникс Фарма ЕООД (EIK obed-a9fcb9c92e4f, 1 contracts)",
+        "obed-4977d2c16e32": "Обединение: Алта фармасютикълс ООД, ЕКОМЕТ-90 ЕООД, Фьоникс Фарма ЕООД (EIK obed-4977d2c16e32, 1 contracts)",
+        "obed-8cdd2df60b9f": "Обединение: Дансон трейдинг ООД, Софарма трейдинг АД, Фьоникс Фарма ЕООД (EIK obed-8cdd2df60b9f, 4 contracts)",
+        "obed-f4e79352bb0f": "Обединение: Търговска Лига - Глобален Аптечен Център АД, Фьоникс Фарма ЕООД (EIK obed-f4e79352bb0f, 1 contracts)",
+        "obed-e3358de8dab5": "Обединение: Софарма трейдинг АД, Търговска Лига - Глобален Аптечен Център АД, Фьоникс Фарма ЕООД (EIK obed-e3358de8dab5, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "203283623",
+      "question": {
+        "en": "How much public money has ФЬОНИКС Фаррма received?",
+        "bg": "Колко публични средства е получила ФЬОНИКС Фаррма?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_131279951_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "РОШ БЪЛГАРИЯ",
+      "typoQuery": "РОШ БЪЛГРИЯ",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "131279951": "РОШ България ЕООД (EIK 131279951, 331 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "131279951",
+      "question": {
+        "en": "Show me the public contracts awarded to РОШ БЪЛГРИЯ.",
+        "bg": "Покажи ми обществените поръчки, спечелени от РОШ БЪЛГРИЯ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_131279951_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "РОШ БЪЛГАРИЯ",
+      "typoQuery": "РОШ БЪЛГРАИЯ",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has РОШ БЪЛГРАИЯ received?",
+        "bg": "Колко публични средства е получила РОШ БЪЛГРАИЯ?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_131279951_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "РОШ БЪЛГАРИЯ",
+      "typoQuery": "РОШ БЪЛГААРИЯ",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "131279951": "РОШ България ЕООД (EIK 131279951, 331 contracts)",
+        "204350835": "Росармс България ЕООД (EIK 204350835, 5 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "131279951",
+      "question": {
+        "en": "Show me the public contracts awarded to РОШ БЪЛГААРИЯ.",
+        "bg": "Покажи ми обществените поръчки, спечелени от РОШ БЪЛГААРИЯ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_175256438_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "АЛТА ФАРМАСЮТИКЪЛС",
+      "typoQuery": "АЛТА ФАРМАСТИКЪЛС",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "175256438": "Алта фармасютикълс ЕООД (EIK 175256438, 489 contracts)",
+        "obed-5264b7cd3178": "Обединение: Алта фармасютикълс ООД, Булфарма ООД +15 още (EIK obed-5264b7cd3178, 1 contracts)",
+        "obed-58876ad93850": "Обединение: Алта фармасютикълс ООД, Соломед ЕООД, Фармимпорт АД (EIK obed-58876ad93850, 1 contracts)",
+        "obed-4977d2c16e32": "Обединение: Алта фармасютикълс ООД, ЕКОМЕТ-90 ЕООД, Фьоникс Фарма ЕООД (EIK obed-4977d2c16e32, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "175256438",
+      "question": {
+        "en": "How much public money has АЛТА ФАРМАСТИКЪЛС received?",
+        "bg": "Колко публични средства е получила АЛТА ФАРМАСТИКЪЛС?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_175256438_transpose_letters",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "АЛТА ФАРМАСЮТИКЪЛС",
+      "typoQuery": "АЛТА ФАРМАСТЮИКЪЛС",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "175256438": "Алта фармасютикълс ЕООД (EIK 175256438, 489 contracts)",
+        "obed-5264b7cd3178": "Обединение: Алта фармасютикълс ООД, Булфарма ООД +15 още (EIK obed-5264b7cd3178, 1 contracts)",
+        "obed-58876ad93850": "Обединение: Алта фармасютикълс ООД, Соломед ЕООД, Фармимпорт АД (EIK obed-58876ad93850, 1 contracts)",
+        "obed-4977d2c16e32": "Обединение: Алта фармасютикълс ООД, ЕКОМЕТ-90 ЕООД, Фьоникс Фарма ЕООД (EIK obed-4977d2c16e32, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "175256438",
+      "question": {
+        "en": "Show me the public contracts awarded to АЛТА ФАРМАСТЮИКЪЛС.",
+        "bg": "Покажи ми обществените поръчки, спечелени от АЛТА ФАРМАСТЮИКЪЛС."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_175256438_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "АЛТА ФАРМАСЮТИКЪЛС",
+      "typoQuery": "АЛТА ФАРМАСЮЮТИКЪЛС",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "175256438": "Алта фармасютикълс ЕООД (EIK 175256438, 489 contracts)",
+        "obed-5264b7cd3178": "Обединение: Алта фармасютикълс ООД, Булфарма ООД +15 още (EIK obed-5264b7cd3178, 1 contracts)",
+        "obed-58876ad93850": "Обединение: Алта фармасютикълс ООД, Соломед ЕООД, Фармимпорт АД (EIK obed-58876ad93850, 1 contracts)",
+        "obed-4977d2c16e32": "Обединение: Алта фармасютикълс ООД, ЕКОМЕТ-90 ЕООД, Фьоникс Фарма ЕООД (EIK obed-4977d2c16e32, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "175256438",
+      "question": {
+        "en": "How much public money has АЛТА ФАРМАСЮЮТИКЪЛС received?",
+        "bg": "Колко публични средства е получила АЛТА ФАРМАСЮЮТИКЪЛС?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_200852966_drop_letter",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "БЕНТ ОЙЛ",
+      "typoQuery": "БЕНТ ОЛ",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the public contracts awarded to БЕНТ ОЛ.",
+        "bg": "Покажи ми обществените поръчки, спечелени от БЕНТ ОЛ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_200852966_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "БЕНТ ОЙЛ",
+      "typoQuery": "БЕНТ ОЛЙ",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has БЕНТ ОЛЙ received?",
+        "bg": "Колко публични средства е получила БЕНТ ОЛЙ?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_200852966_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "БЕНТ ОЙЛ",
+      "typoQuery": "БЕНТ ОЙЙЛ",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "131049021": "Бент Ойл ЕООД /старо ООД /- София (EIK 131049021, 25 contracts)",
+        "200852966": "Бент ойл AД - София (EIK 200852966, 958 contracts)",
+        "obed-f284d1384109": "Обединение: Бент ОЙЛ АД, Петрол АД (EIK obed-f284d1384109, 1 contracts)",
+        "obed-a846b5f0b100": "Обединение: Бент ОЙЛ АД, Юнайтед ойлс българия ООД (EIK obed-a846b5f0b100, 1 contracts)",
+        "obed-b5f1d154a0c3": "Обединение: Бент ОЙЛ АД, Петрол АД, Юнайтед ойлс българия ООД (EIK obed-b5f1d154a0c3, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "200852966",
+      "question": {
+        "en": "Show me the public contracts awarded to БЕНТ ОЙЙЛ.",
+        "bg": "Покажи ми обществените поръчки, спечелени от БЕНТ ОЙЙЛ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_113570147_drop_letter",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "Електрохолд Трейд",
+      "typoQuery": "Електрохолд Трйд",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has Електрохолд Трйд received?",
+        "bg": "Колко публични средства е получила Електрохолд Трйд?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_113570147_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "Електрохолд Трейд",
+      "typoQuery": "Електрохолд Трйед",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the public contracts awarded to Електрохолд Трйед.",
+        "bg": "Покажи ми обществените поръчки, спечелени от Електрохолд Трйед."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_113570147_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "Електрохолд Трейд",
+      "typoQuery": "Електрохолд Треейд",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "113570147": "Електрохолд Трейд ЕАД (EIK 113570147, 1002 contracts)",
+        "204209216": "Електро Трейд България ООД (EIK 204209216, 1 contracts)",
+        "207797853": "Електро трейд българия АД (EIK 207797853, 3 contracts)",
+        "obed-5ddf1b6b9e87": "Обединение: Електрохолд Трейд ЕАД, Кумер ООД, Синергон енерджи ООД (EIK obed-5ddf1b6b9e87, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "113570147",
+      "question": {
+        "en": "How much public money has Електрохолд Треейд received?",
+        "bg": "Колко публични средства е получила Електрохолд Треейд?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_177201764_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ДЗЗД ХЕМУС-16320",
+      "typoQuery": "ДЗЗД ХЕМУС16320",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "177201764": "ДЗЗД ХЕМУС-16320 (EIK 177201764, 2 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "177201764",
+      "question": {
+        "en": "Show me the public contracts awarded to ДЗЗД ХЕМУС16320.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ДЗЗД ХЕМУС16320."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_177201764_transpose_letters",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ДЗЗД ХЕМУС-16320",
+      "typoQuery": "ДЗЗД ХЕМУС1-6320",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "177201764": "ДЗЗД ХЕМУС-16320 (EIK 177201764, 2 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "177201764",
+      "question": {
+        "en": "How much public money has ДЗЗД ХЕМУС1-6320 received?",
+        "bg": "Колко публични средства е получила ДЗЗД ХЕМУС1-6320?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_177201764_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ДЗЗД ХЕМУС-16320",
+      "typoQuery": "ДЗЗД ХЕМУС--16320",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "177201764": "ДЗЗД ХЕМУС-16320 (EIK 177201764, 2 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "177201764",
+      "question": {
+        "en": "Show me the public contracts awarded to ДЗЗД ХЕМУС--16320.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ДЗЗД ХЕМУС--16320."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_130131711_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ГБС - ИНФРАСТРУКТУРНО СТРОИТЕЛСТВО",
+      "typoQuery": "ГБС  ИНФРАСТРУКТУРНО СТРОИТЕЛСТВО",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "130131711": "ГБС - Инфраструктурно строителство АД - София (EIK 130131711, 100 contracts)",
+        "obed-77222d8033d8": "Обединение: Бекастрой ЕАД, Бели Искър, ГБС - Инфраструктурно строителство АД (EIK obed-77222d8033d8, 1 contracts)",
+        "obed-3355de3bd6c2": "Обединение: ГБС - Инфраструктурно строителство АД, Дунав мост, Пътинженеринг АД (EIK obed-3355de3bd6c2, 1 contracts)",
+        "obed-4d878162e790": "Обединение: ГБС - Инфраструктурно строителство АД, ГБС - Пловдив АД, \"Карлово-Мост\" (EIK obed-4d878162e790, 2 contracts)",
+        "obed-ae726790e395": "Обединение: ГБС Глобал кънстръкшън ЕАД, ГБС - Инфраструктурно строителство АД, Укрепване Ботевград-София (EIK obed-ae726790e395, 1 contracts)",
+        "obed-b79a008ceaf1": "Обединение: ГБС - Инфраструктурно строителство АД, ”Орион кънстракшън“ с.р.о. (Orion construction s.r.o.) (EIK obed-b79a008ceaf1, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "130131711",
+      "question": {
+        "en": "How much public money has ГБС  ИНФРАСТРУКТУРНО СТРОИТЕЛСТВО received?",
+        "bg": "Колко публични средства е получила ГБС  ИНФРАСТРУКТУРНО СТРОИТЕЛСТВО?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_130131711_transpose_letters",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ГБС - ИНФРАСТРУКТУРНО СТРОИТЕЛСТВО",
+      "typoQuery": "ГБС - ИНФРАСТРУКТУРНО СТРОИТЛЕСТВО",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "130131711": "ГБС - Инфраструктурно строителство АД - София (EIK 130131711, 100 contracts)",
+        "obed-77222d8033d8": "Обединение: Бекастрой ЕАД, Бели Искър, ГБС - Инфраструктурно строителство АД (EIK obed-77222d8033d8, 1 contracts)",
+        "obed-3355de3bd6c2": "Обединение: ГБС - Инфраструктурно строителство АД, Дунав мост, Пътинженеринг АД (EIK obed-3355de3bd6c2, 1 contracts)",
+        "obed-4d878162e790": "Обединение: ГБС - Инфраструктурно строителство АД, ГБС - Пловдив АД, \"Карлово-Мост\" (EIK obed-4d878162e790, 2 contracts)",
+        "obed-ae726790e395": "Обединение: ГБС Глобал кънстръкшън ЕАД, ГБС - Инфраструктурно строителство АД, Укрепване Ботевград-София (EIK obed-ae726790e395, 1 contracts)",
+        "obed-b79a008ceaf1": "Обединение: ГБС - Инфраструктурно строителство АД, ”Орион кънстракшън“ с.р.о. (Orion construction s.r.o.) (EIK obed-b79a008ceaf1, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "130131711",
+      "question": {
+        "en": "Show me the public contracts awarded to ГБС - ИНФРАСТРУКТУРНО СТРОИТЛЕСТВО.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ГБС - ИНФРАСТРУКТУРНО СТРОИТЛЕСТВО."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_130131711_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ГБС - ИНФРАСТРУКТУРНО СТРОИТЕЛСТВО",
+      "typoQuery": "ГБС - ИНФРАСТРУКТУРНО СТРОИТЕЕЛСТВО",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "130131711": "ГБС - Инфраструктурно строителство АД - София (EIK 130131711, 100 contracts)",
+        "obed-77222d8033d8": "Обединение: Бекастрой ЕАД, Бели Искър, ГБС - Инфраструктурно строителство АД (EIK obed-77222d8033d8, 1 contracts)",
+        "obed-3355de3bd6c2": "Обединение: ГБС - Инфраструктурно строителство АД, Дунав мост, Пътинженеринг АД (EIK obed-3355de3bd6c2, 1 contracts)",
+        "obed-4d878162e790": "Обединение: ГБС - Инфраструктурно строителство АД, ГБС - Пловдив АД, \"Карлово-Мост\" (EIK obed-4d878162e790, 2 contracts)",
+        "obed-ae726790e395": "Обединение: ГБС Глобал кънстръкшън ЕАД, ГБС - Инфраструктурно строителство АД, Укрепване Ботевград-София (EIK obed-ae726790e395, 1 contracts)",
+        "obed-b79a008ceaf1": "Обединение: ГБС - Инфраструктурно строителство АД, ”Орион кънстракшън“ с.р.о. (Orion construction s.r.o.) (EIK obed-b79a008ceaf1, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "130131711",
+      "question": {
+        "en": "How much public money has ГБС - ИНФРАСТРУКТУРНО СТРОИТЕЕЛСТВО received?",
+        "bg": "Колко публични средства е получила ГБС - ИНФРАСТРУКТУРНО СТРОИТЕЕЛСТВО?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_181339162_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "Консорциум булему",
+      "typoQuery": "Консорциум булму",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "175287978": "ДЗЗД Консорциум „УниКредит Булбанк – ЦКБ” (EIK 175287978, 1 contracts)",
+        "176410793": "ДЗЗД Консорциум Лирекс БГ\" ООД - Булелектрикс\" ООД (EIK 176410793, 1 contracts)",
+        "176443540": "ДЗЗД Консорциум Булплод - АТМ - Пловдив (EIK 176443540, 1 contracts)",
+        "176500361": "ДЗЗД Консорциум Баристър-Булса-Трявна- Варна (EIK 176500361, 1 contracts)",
+        "176738633": "ДЗЗД Консорциум Делойт Одит ООД и  Бул ЕС АЙ ООД  -Системи за управление (EIK 176738633, 1 contracts)",
+        "177009899": "ДЗЗД Консорциум Булклима Инженеринг (EIK 177009899, 3 contracts)",
+        "177206398": "Консорциум Булкон-Екодин ДЗЗД (EIK 177206398, 1 contracts)",
+        "177492056": "Консорциум булвер - АТМ (EIK 177492056, 4 contracts)",
+        "180746600": "Консорциум БУЛ-Г-СТРОЙ ДЗЗД (EIK 180746600, 4 contracts)",
+        "181339162": "Консорциум булему (EIK 181339162, 1 contracts)",
+        "203167120": "Консорциум Оптикс - Булавто ООД (EIK 203167120, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "181339162",
+      "question": {
+        "en": "Show me the public contracts awarded to Консорциум булму.",
+        "bg": "Покажи ми обществените поръчки, спечелени от Консорциум булму."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_181339162_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "Консорциум булему",
+      "typoQuery": "Консорциум булмеу",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has Консорциум булмеу received?",
+        "bg": "Колко публични средства е получила Консорциум булмеу?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_181339162_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "Консорциум булему",
+      "typoQuery": "Консорциум булеему",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "176410793": "ДЗЗД Консорциум Лирекс БГ\" ООД - Булелектрикс\" ООД (EIK 176410793, 1 contracts)",
+        "181339162": "Консорциум булему (EIK 181339162, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "181339162",
+      "question": {
+        "en": "Show me the public contracts awarded to Консорциум булеему.",
+        "bg": "Покажи ми обществените поръчки, спечелени от Консорциум булеему."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_207875565_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ИВКОНИ ЕКСПРЕС",
+      "typoQuery": "ИВКОНИ ЕКСРЕС",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "207875565": "Ивкони експрес ЕАД (EIK 207875565, 2 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "207875565",
+      "question": {
+        "en": "How much public money has ИВКОНИ ЕКСРЕС received?",
+        "bg": "Колко публични средства е получила ИВКОНИ ЕКСРЕС?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_207875565_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "ИВКОНИ ЕКСПРЕС",
+      "typoQuery": "ИВКОНИ ЕКСРПЕС",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the public contracts awarded to ИВКОНИ ЕКСРПЕС.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ИВКОНИ ЕКСРПЕС."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_207875565_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ИВКОНИ ЕКСПРЕС",
+      "typoQuery": "ИВКОНИ ЕКСППРЕС",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "207875565": "Ивкони експрес ЕАД (EIK 207875565, 2 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "207875565",
+      "question": {
+        "en": "How much public money has ИВКОНИ ЕКСППРЕС received?",
+        "bg": "Колко публични средства е получила ИВКОНИ ЕКСППРЕС?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_104693344_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРНОВО",
+      "typoQuery": "ПЪТНИ СТРЕЖИ - ВЕЛИКО ТЪРНОВО",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "104038161": "Пътни строежи - Велико Търново ЕООД (EIK 104038161, 1 contracts)",
+        "104693344": "Пътни строежи - велико търново ЕАД (EIK 104693344, 201 contracts)",
+        "obed-73b4d5c611c1": "Обединение: Инфраструктурни системи ЕООД, Пътни строежи - велико търново ЕАД (EIK obed-73b4d5c611c1, 1 contracts)",
+        "obed-b999c443e3c1": "Обединение: Горна оряховица 2024, Макс принт БГ ЕООД, Пътни строежи - велико търново ЕАД (EIK obed-b999c443e3c1, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "104693344",
+      "question": {
+        "en": "Show me the public contracts awarded to ПЪТНИ СТРЕЖИ - ВЕЛИКО ТЪРНОВО.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ПЪТНИ СТРЕЖИ - ВЕЛИКО ТЪРНОВО."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_104693344_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРНОВО",
+      "typoQuery": "ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРОНВО",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРОНВО received?",
+        "bg": "Колко публични средства е получила ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРОНВО?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_104693344_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРНОВО",
+      "typoQuery": "ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРННОВО",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "104038161": "Пътни строежи - Велико Търново ЕООД (EIK 104038161, 1 contracts)",
+        "104693344": "Пътни строежи - велико търново ЕАД (EIK 104693344, 201 contracts)",
+        "obed-73b4d5c611c1": "Обединение: Инфраструктурни системи ЕООД, Пътни строежи - велико търново ЕАД (EIK obed-73b4d5c611c1, 1 contracts)",
+        "obed-b999c443e3c1": "Обединение: Горна оряховица 2024, Макс принт БГ ЕООД, Пътни строежи - велико търново ЕАД (EIK obed-b999c443e3c1, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "104693344",
+      "question": {
+        "en": "Show me the public contracts awarded to ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРННОВО.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ПЪТНИ СТРОЕЖИ - ВЕЛИКО ТЪРННОВО."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_831641791_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ",
+      "typoQuery": "ИНФОРМАЦИОННО ОБСЛУВАНЕ",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "176788981": "ДЗЗД Технологика - Информационно обслужване (EIK 176788981, 1 contracts)",
+        "831641791": "Информационно обслужване АД (EIK 831641791, 366 contracts)",
+        "obed-1d5fa775eb53": "Обединение: Информационно обслужване АД, Министерство на електронното управление (EIK obed-1d5fa775eb53, 1 contracts)",
+        "831641791017": "Информационн обслужване АД клон Монтана (EIK 831641791017, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "831641791",
+      "question": {
+        "en": "How much public money has ИНФОРМАЦИОННО ОБСЛУВАНЕ received?",
+        "bg": "Колко публични средства е получила ИНФОРМАЦИОННО ОБСЛУВАНЕ?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_831641791_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ",
+      "typoQuery": "ИНФОРМАЦИОННО ОБСЛУВЖАНЕ",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "Show me the public contracts awarded to ИНФОРМАЦИОННО ОБСЛУВЖАНЕ.",
+        "bg": "Покажи ми обществените поръчки, спечелени от ИНФОРМАЦИОННО ОБСЛУВЖАНЕ."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_831641791_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ",
+      "typoQuery": "ИНФОРМАЦИОННО ОБСЛУЖЖВАНЕ",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "176788981": "ДЗЗД Технологика - Информационно обслужване (EIK 176788981, 1 contracts)",
+        "831641791": "Информационно обслужване АД (EIK 831641791, 366 contracts)",
+        "obed-1d5fa775eb53": "Обединение: Информационно обслужване АД, Министерство на електронното управление (EIK obed-1d5fa775eb53, 1 contracts)",
+        "831641791017": "Информационн обслужване АД клон Монтана (EIK 831641791017, 1 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "831641791",
+      "question": {
+        "en": "How much public money has ИНФОРМАЦИОННО ОБСЛУЖЖВАНЕ received?",
+        "bg": "Колко публични средства е получила ИНФОРМАЦИОННО ОБСЛУЖЖВАНЕ?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_131468980_drop_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "А1 България",
+      "typoQuery": "А1 Бългрия",
+      "typoKind": "drop_letter",
+      "candidates": {
+        "131468980": "А1 България ЕАД (EIK 131468980, 1373 contracts)",
+        "obed-e4a9c3e1c22d": "Обединение: А1 България ЕАД, Медилон ЕООД (EIK obed-e4a9c3e1c22d, 3 contracts)",
+        "obed-58a7c06b17d6": "Обединение: А1 България ЕАД, Асап ЕООД +2 още (EIK obed-58a7c06b17d6, 1 contracts)",
+        "obed-f584de77e882": "Обединение: А1 България ЕАД, Смарт Груп СС ООД (EIK obed-f584de77e882, 1 contracts)",
+        "obed-1c0ac128b0d1": "Обединение: А1 България ЕАД, Сиском инженеринг АД (EIK obed-1c0ac128b0d1, 1 contracts)",
+        "obed-303050efacf8": "Обединение: А1 България ЕАД, Интер бизнес 91 ЕООД (EIK obed-303050efacf8, 3 contracts)",
+        "obed-179bff485bec": "Обединение: А1 България ЕАД, Контракс АД, Новентик ЕООД (EIK obed-179bff485bec, 1 contracts)",
+        "obed-4cbcc0d99aca": "Обединение: А1 България ЕАД, Ес Ди Нет Комюникейшънс ООД (EIK obed-4cbcc0d99aca, 1 contracts)",
+        "obed-369bc7450c81": "Обединение: А1 България ЕАД, Комп а, Компютър 2000-БЪЛГАРИЯ ЕООД (EIK obed-369bc7450c81, 1 contracts)",
+        "obed-21f9b8368bcf": "Обединение: А1 България ЕАД, Мениджмънт бизнес Машин ООД, Сиенсис АД (EIK obed-21f9b8368bcf, 2 contracts)",
+        "obed-da364f89e25b": "Обединение: А1 България ЕАД, Ес Ди Нет Комюникейшънс ООД, Сити Трафик Съпорт (EIK obed-da364f89e25b, 2 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "131468980",
+      "question": {
+        "en": "Show me the public contracts awarded to А1 Бългрия.",
+        "bg": "Покажи ми обществените поръчки, спечелени от А1 Бългрия."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_131468980_transpose_letters",
+      "kind": "company",
+      "klass": "absent",
+      "anchorName": "А1 България",
+      "typoQuery": "А1 Бълграия",
+      "typoKind": "transpose_letters",
+      "candidates": {
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "none_of_these",
+      "question": {
+        "en": "How much public money has А1 Бълграия received?",
+        "bg": "Колко публични средства е получила А1 Бълграия?"
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    },
+    {
+      "id": "company_131468980_duplicate_letter",
+      "kind": "company",
+      "klass": "present",
+      "anchorName": "А1 България",
+      "typoQuery": "А1 Бългаария",
+      "typoKind": "duplicate_letter",
+      "candidates": {
+        "131468980": "А1 България ЕАД (EIK 131468980, 1373 contracts)",
+        "obed-e4a9c3e1c22d": "Обединение: А1 България ЕАД, Медилон ЕООД (EIK obed-e4a9c3e1c22d, 3 contracts)",
+        "obed-58a7c06b17d6": "Обединение: А1 България ЕАД, Асап ЕООД +2 още (EIK obed-58a7c06b17d6, 1 contracts)",
+        "obed-f584de77e882": "Обединение: А1 България ЕАД, Смарт Груп СС ООД (EIK obed-f584de77e882, 1 contracts)",
+        "obed-1c0ac128b0d1": "Обединение: А1 България ЕАД, Сиском инженеринг АД (EIK obed-1c0ac128b0d1, 1 contracts)",
+        "obed-303050efacf8": "Обединение: А1 България ЕАД, Интер бизнес 91 ЕООД (EIK obed-303050efacf8, 3 contracts)",
+        "obed-179bff485bec": "Обединение: А1 България ЕАД, Контракс АД, Новентик ЕООД (EIK obed-179bff485bec, 1 contracts)",
+        "obed-4cbcc0d99aca": "Обединение: А1 България ЕАД, Ес Ди Нет Комюникейшънс ООД (EIK obed-4cbcc0d99aca, 1 contracts)",
+        "obed-369bc7450c81": "Обединение: А1 България ЕАД, Комп а, Компютър 2000-БЪЛГАРИЯ ЕООД (EIK obed-369bc7450c81, 1 contracts)",
+        "obed-21f9b8368bcf": "Обединение: А1 България ЕАД, Мениджмънт бизнес Машин ООД, Сиенсис АД (EIK obed-21f9b8368bcf, 2 contracts)",
+        "obed-da364f89e25b": "Обединение: А1 България ЕАД, Ес Ди Нет Комюникейшънс ООД, Сити Трафик Съпорт (EIK obed-da364f89e25b, 2 contracts)",
+        "none_of_these": "None of the above is who the message means."
+      },
+      "expected": "131468980",
+      "question": {
+        "en": "Show me the public contracts awarded to А1 Бългаария.",
+        "bg": "Покажи ми обществените поръчки, спечелени от А1 Бългаария."
+      },
+      "capturedAt": "2026-09-17T22:51:03.215Z"
+    }
+  ]
+}
