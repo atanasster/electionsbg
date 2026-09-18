@@ -306,7 +306,7 @@ const isValidPersonCandidate = (cand: string): boolean => {
   return true;
 };
 
-const extractPersonName = (raw: string): string | undefined => {
+export const extractPersonName = (raw: string): string | undefined => {
   const m = raw.match(NAME_BG) ?? raw.match(NAME_EN);
   if (m) {
     const cand = cleanCandidate(m[0].trim());
@@ -324,7 +324,7 @@ const extractPersonName = (raw: string): string | undefined => {
   return undefined;
 };
 
-const extractCompanyName = (raw: string): string | undefined => {
+export const extractCompanyName = (raw: string): string | undefined => {
   const m = raw.match(
     /(?:фирма(?:та)?|компания(?:та)?|дружество(?:то)?|company|firm)(?:\s+(?:с\s+име|named))?\s+[„“"']?(.+?)[„“"']?[?!.]*$/iu,
   );

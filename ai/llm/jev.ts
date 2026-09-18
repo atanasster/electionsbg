@@ -45,7 +45,14 @@ import {
   type RespondOpts,
   type ResponseMeta,
 } from "./provider";
-import { pinElectionContext, route, type Route } from "../orchestrator/router";
+import {
+  extractCompanyName,
+  extractPersonName,
+  pinElectionContext,
+  route,
+  type Route,
+} from "../orchestrator/router";
+import { dbEntitySearch, resolveEntity, type EntitySearch } from "./jevEntity";
 import { TOOLS, TOOLS_BY_NAME } from "../tools/registry";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
@@ -282,6 +289,72 @@ export const fillableTool = (tool: string): boolean => {
   return params.every((p) => !p.required || p.values?.length);
 };
 
+// ---- name-shaped arguments (tier 3) ---------------------------------------
+//
+// A `person`/`company` param is open-vocabulary, so Jev cannot produce its
+// value. What it CAN do is pick among candidates the trigram search already
+// found — see ai/llm/jevEntity.ts for the division of labour and the measured
+// ceiling. This lane only attempts it for a tool whose ONLY unfilled required
+// param is name-shaped; anything else stays with the deterministic router.
+
+export const ENTITY_PARAM_TYPES = new Set(["person", "company"]);
+
+/**
+ * Which `tool.param` pairs may be resolved against the PERSON and COMPANY
+ * registries — an explicit allowlist, NOT the param's declared type.
+ *
+ * ⚠️ `type: "person"` IS NOT A RELIABLE SIGNAL. The registry reuses it as a
+ * generic "free-text name" type: `schoolMatura.school` is declared `person`
+ * and is a SCHOOL. Resolving it here would run a person-search for a school
+ * and hand Jev a list of real human beings to pick from — a route to naming a
+ * real individual in an answer about a building, which is the one failure this
+ * path exists to prevent. Declared types are a convenience for the keyword
+ * router; this list is a claim about identity.
+ *
+ * `jev.test.ts` sweeps the registry and fails when a person/company-typed
+ * required param appears in NEITHER this map nor NOT_AN_ENTITY, so a new tool
+ * cannot quietly inherit entity resolution.
+ */
+export const ENTITY_PARAMS: Record<string, "person" | "company"> = {
+  "candidateResult.name": "person",
+  "personProfile.name": "person",
+  "personConnections.name": "person",
+  "personWealth.name": "person",
+  "mpVotingProfile.name": "person",
+  "mpSimilarity.name": "person",
+  "contractSearch.company": "company",
+  "companyProfile.company": "company",
+  "companyConnections.company": "company",
+};
+
+/** Params that LOOK name-shaped by declared type and are not identities.
+ *  Listed explicitly so the sweep in jev.test.ts stays exhaustive. */
+export const NOT_AN_ENTITY: Record<string, string> = {
+  "schoolMatura.school":
+    "a school, not a person — the registry reuses type:person for free-text names",
+};
+
+/** The single name-shaped required param of a tool, when that is the only
+ *  thing standing between the pick and a runnable call. Null otherwise — a
+ *  tool needing two different names, or a name plus an unfillable param, is
+ *  refused rather than half-resolved. */
+export const soleEntityParam = (tool: string) => {
+  const params = TOOLS_BY_NAME[tool]?.params ?? [];
+  const required = params.filter((p) => p.required);
+  const entity = required.filter((p) => ENTITY_PARAMS[`${tool}.${p.name}`]);
+  if (entity.length !== 1) return null;
+  // Every OTHER required param must be enumerable, or we still cannot run.
+  const rest = required.filter((p) => p !== entity[0]);
+  return rest.every((p) => p.values?.length) ? entity[0] : null;
+};
+
+/** The registry's declared type is not trusted for the search itself either —
+ *  the allowlist decides which index is queried. */
+export const entityKindFor = (
+  tool: string,
+  param: string,
+): "person" | "company" | null => ENTITY_PARAMS[`${tool}.${param}`] ?? null;
+
 export class JevProvider implements LLMProvider {
   id = "jev";
   // ⚠️ NOT "Без AI". Routing through Jev is a hosted model call — cheap,
@@ -293,6 +366,7 @@ export class JevProvider implements LLMProvider {
   constructor(
     private credentials?: () => JevCredentials | undefined,
     private ask: typeof askJev = askJev,
+    private search: EntitySearch = dbEntitySearch,
   ) {}
 
   status(): ProviderStatus {
@@ -369,15 +443,10 @@ export class JevProvider implements LLMProvider {
         // for, and the only one where a second round trip can change the
         // answer. A pick that was already accepted, or a tool with no
         // enumerable params, never pays for it.
-        if (
-          routing.route &&
-          !accepted.usedJev &&
-          fillableTool(routing.route.tool)
-        ) {
-          const filledRoute = await this.fillEnumerableArgs(
-            question,
-            routing.route.tool,
-          );
+        if (routing.route && !accepted.usedJev) {
+          const filledRoute = fillableTool(routing.route.tool)
+            ? await this.fillEnumerableArgs(question, routing.route.tool)
+            : await this.resolveEntityArgs(question, routing.route.tool);
           if (filledRoute) {
             accepted = { route: filledRoute, usedJev: true };
             // Never a bare `true`: the band claims a hosted model chose these
@@ -420,6 +489,50 @@ export class JevProvider implements LLMProvider {
     // `acceptJevPick` refuses. A rescue that rescued nothing is not a rescue.
     if (!filled.length) return null;
     return argsSufficient(tool, args) ? { tool, args } : null;
+  }
+
+  /** Tier 3: resolve a tool whose only unfilled required parameter is a person
+   *  or company name. Returns null — keeping the deterministic answer — on a
+   *  refusal, an empty search, or an unavailable Jev. Naming the WRONG real
+   *  person is the failure this path must never produce, so every uncertain
+   *  outcome resolves to "no route" rather than to a guess. */
+  private async resolveEntityArgs(
+    question: string,
+    tool: string,
+  ): Promise<Route> {
+    const param = soleEntityParam(tool);
+    if (!param) return null;
+    // The ALLOWLIST decides which registry is searched, never the declared
+    // type — see ENTITY_PARAMS for why that distinction is load-bearing.
+    const kind = entityKindFor(tool, param.name);
+    if (!kind) return null;
+    const term =
+      kind === "company"
+        ? extractCompanyName(question)
+        : extractPersonName(question);
+    const { entity } = await resolveEntity(
+      question,
+      kind,
+      term,
+      this.search,
+      this.ask,
+      this.credentials?.(),
+    );
+    if (!entity) return null;
+    // Any OTHER required params are enumerable by `soleEntityParam`'s own
+    // check, so fill them the way tier 2 does — but ONLY if there are any.
+    // Every sole-entity tool in the registry today has none, and an empty
+    // question map is a 400 at the proxy, which would trip the circuit breaker
+    // and leave a failure reason behind after a SUCCESSFUL turn.
+    const remaining = argQuestions(tool, new Set([param.name]));
+    const args = Object.keys(remaining).length
+      ? fillArgs(
+          tool,
+          await this.ask(question, remaining, this.credentials?.()),
+        ).args
+      : {};
+    const merged = { ...args, [param.name]: entity.value };
+    return argsSufficient(tool, merged) ? { tool, args: merged } : null;
   }
 
   // A disambiguation pick resolves to one entity, so there is nothing to route:

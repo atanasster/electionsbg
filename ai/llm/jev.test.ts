@@ -11,11 +11,16 @@ import {
   JEV_LABEL,
   JevProvider,
   NO_TOOL,
+  ENTITY_PARAMS,
+  ENTITY_PARAM_TYPES,
+  NOT_AN_ENTITY,
+  entityKindFor,
   acceptJevPick,
   argQuestions,
   argsSufficient,
   fillArgs,
   fillableTool,
+  soleEntityParam,
   jevRoute,
   toolCriteria,
   turnQuestions,
@@ -591,5 +596,137 @@ describe("the second call rescues a refused pick", () => {
     expect(
       (ask as unknown as { mock: { calls: unknown[] } }).mock.calls,
     ).toHaveLength(1);
+  });
+});
+
+describe("name-shaped arguments (tier 3)", () => {
+  // A question the deterministic router answers with a DIFFERENT tool while
+  // still yielding a name — the only shape where tier 3 can change anything.
+  // When the router already picked the same tool, acceptJevPick takes its
+  // extracted args and no entity resolution is needed.
+  const ENTITY_Q = "Разкажи за Асен Василев";
+
+  // ⚠️ THE SWEEP. `type: "person"` is not a reliable signal — the registry
+  // reuses it for generic free-text names, and `schoolMatura.school` is a
+  // SCHOOL. Resolving that against the person index would hand Jev a list of
+  // real human beings for a question about a building. Every person/company
+  // -typed required param must therefore be triaged explicitly, one way or the
+  // other, or this fails.
+  it("triages every name-typed required param in the registry", () => {
+    const untriaged: string[] = [];
+    for (const t of TOOLS)
+      for (const p of t.params) {
+        if (!p.required || !ENTITY_PARAM_TYPES.has(p.type)) continue;
+        const key = `${t.name}.${p.name}`;
+        if (!ENTITY_PARAMS[key] && !NOT_AN_ENTITY[key]) untriaged.push(key);
+      }
+    expect(
+      untriaged,
+      `untriaged name-shaped params — add to ENTITY_PARAMS or NOT_AN_ENTITY: ${untriaged.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("never resolves a param the allowlist excludes", () => {
+    // The concrete regression: a school must not be looked up as a person.
+    expect(NOT_AN_ENTITY["schoolMatura.school"]).toBeTruthy();
+    expect(soleEntityParam("schoolMatura")).toBeNull();
+    expect(entityKindFor("schoolMatura", "school")).toBeNull();
+  });
+
+  it("keeps the allowlist honest about which registry it queries", () => {
+    for (const [key, kind] of Object.entries(ENTITY_PARAMS)) {
+      const [tool, param] = key.split(".");
+      expect(TOOLS_BY_NAME[tool], `${key}: unknown tool`).toBeTruthy();
+      expect(
+        TOOLS_BY_NAME[tool].params.some((p) => p.name === param),
+        `${key}: unknown param`,
+      ).toBeTruthy();
+      expect(entityKindFor(tool, param)).toBe(kind);
+    }
+  });
+
+  it("identifies the sole required person param of a people tool", () => {
+    // Named fixture, not a find() — a conditional fixture is how an earlier
+    // test in this file ended up asserting nothing.
+    expect(soleEntityParam("personWealth")?.name).toBe("name");
+    expect(entityKindFor("personWealth", "name")).toBe("person");
+  });
+
+  it("refuses a tool with no name-shaped required param", () => {
+    expect(soleEntityParam("rankPlaces")).toBeNull();
+  });
+
+  it("resolves a person and runs the tool with the chosen identity", async () => {
+    let call = 0;
+    const ask = vi.fn(async () =>
+      call++ === 0
+        ? answer("personWealth", 0.97)
+        : ({
+            answers: {
+              entity: {
+                type: "choice",
+                choice: "Асен Васков Василев",
+                probabilities: {},
+                confidence: 0.94,
+              },
+            },
+            latencyMs: 20,
+          } as unknown as JevResult),
+    ) as unknown as Parameters<typeof jevRoute>[2];
+    const search = vi.fn(async () => [
+      { value: "Асен Васков Василев", label: "Асен Васков Василев — mp" },
+      { value: "Асен Николаев Василев", label: "Асен Николаев Василев" },
+    ]);
+    const res = await new JevProvider(creds, ask, search).respond(
+      ENTITY_Q,
+      ctx,
+    );
+    expect(search).toHaveBeenCalledWith(
+      "person",
+      expect.stringContaining("Асен"),
+    );
+    expect(res.meta?.routedBy).toBe("jev");
+    expect(res.meta?.routerFilledArgs).toBe(true);
+    // Exactly two calls: route + entity. Every sole-entity tool has no other
+    // enumerable param, and an empty question map is a 400 at the proxy that
+    // would trip the breaker after a SUCCESSFUL turn.
+    expect(
+      (ask as unknown as { mock: { calls: unknown[] } }).mock.calls,
+    ).toHaveLength(2);
+  });
+
+  it("keeps the deterministic answer when the entity search finds nobody", async () => {
+    const ask = asking(answer("personWealth", 0.97));
+    const res = await new JevProvider(creds, ask, async () => []).respond(
+      ENTITY_Q,
+      ctx,
+    );
+    // Naming the wrong person is the failure this path exists to avoid, so an
+    // empty search resolves to "no route", never to a guess.
+    expect(res.meta?.routedBy).toBe("rules");
+    expect(res.meta?.routerFilledArgs).toBeUndefined();
+  });
+
+  it("keeps the deterministic answer when Jev refuses every candidate", async () => {
+    let call = 0;
+    const ask = vi.fn(async () =>
+      call++ === 0
+        ? answer("personWealth", 0.97)
+        : ({
+            answers: {
+              entity: {
+                type: "choice",
+                choice: "none_of_these",
+                probabilities: {},
+                confidence: 0.99,
+              },
+            },
+            latencyMs: 20,
+          } as unknown as JevResult),
+    ) as unknown as Parameters<typeof jevRoute>[2];
+    const res = await new JevProvider(creds, ask, async () => [
+      { value: "Кирил Петков Петков", label: "Кирил Петков Петков — mp" },
+    ]).respond(ENTITY_Q, ctx);
+    expect(res.meta?.routedBy).toBe("rules");
   });
 });
