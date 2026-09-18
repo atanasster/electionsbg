@@ -251,10 +251,62 @@ const readDeterministic = () => {
  * snapshot — and the staleness gate, which imports before it compares, could
  * not see the difference.
  */
+/** One gate's figures from the confidence-gate sweep. `moved` is how many
+ *  rows this gate hands to Jev that the published gate gave to the rules, and
+ *  the four `moved*` rates are the head-to-head on exactly those rows. */
+export type GateSweepMetrics = {
+  n: number;
+  toolAcc: number | null;
+  callAcc: number | null;
+  argAcc: number | null;
+  irrelevanceAcc: number | null;
+  jevRouted: number | null;
+  moved: number;
+  movedJevToolAcc: number | null;
+  movedRulesToolAcc: number | null;
+  movedJevCallAcc: number | null;
+  movedRulesCallAcc: number | null;
+};
+export type GateSweep = {
+  generatedAt: string;
+  publishedGate: number;
+  reasked: number;
+  outagesOnReask: number;
+  crossedPublishedGate: number;
+  meanConfidenceDrift: number | null;
+  sweep: { gate: number; metrics: Record<"en" | "bg", GateSweepMetrics> }[];
+};
+
+// The confidence-gate sweep (ai/llm/jevGateSweep.ts). It is NOT a run — every
+// gate but one is hypothetical — so it is carried beside `runs` rather than as
+// a `current_*.json`, and without its `samples`: those are the raw re-asked
+// rows (~250 KB) that let the sweep be re-simulated, and the page needs none
+// of them.
+const sweepPath = join(DIR, "jev_gate_sweep.json");
+const readGateSweep = (): GateSweep | null => {
+  try {
+    const a = JSON.parse(readFileSync(sweepPath, "utf8")) as GateSweep & {
+      samples?: unknown;
+    };
+    return {
+      generatedAt: a.generatedAt,
+      publishedGate: a.publishedGate,
+      reasked: a.reasked,
+      outagesOnReask: a.outagesOnReask,
+      crossedPublishedGate: a.crossedPublishedGate,
+      meanConfidenceDrift: a.meanConfidenceDrift,
+      sweep: a.sweep,
+    };
+  } catch {
+    return null;
+  }
+};
+
 export const buildIndex = (generatedAt = new Date().toISOString()) => ({
   generatedAt,
   runs: readRuns(),
   deterministic: readDeterministic(),
+  gateSweep: readGateSweep(),
 });
 
 // Only builds when run as a script.

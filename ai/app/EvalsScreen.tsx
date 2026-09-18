@@ -11,7 +11,11 @@ import { themeDark, themeLight } from "@/theme/utils";
 import { fetchData } from "../tools/dataClient";
 import type { Lang } from "../tools/types";
 import type { EvalCase, EvalScore } from "../llm/currentEval";
-import type { CompactMetrics, DeterministicMetrics } from "../llm/evalsIndex";
+import type {
+  CompactMetrics,
+  DeterministicMetrics,
+  GateSweep,
+} from "../llm/evalsIndex";
 type Metrics = {
   n: number;
   toolAcc: number | null;
@@ -92,6 +96,8 @@ export type EvalsIndex = {
   generatedAt: string;
   runs: RunSummary[];
   deterministic: DeterministicEval | null;
+  /** Absent on a manifest built before the sweep existed. */
+  gateSweep?: GateSweep | null;
 };
 type Recall = {
   generatedAt: string;
@@ -329,6 +335,148 @@ const LaneComparison = ({
     </section>
   );
 };
+/**
+ * The Jev confidence-gate sweep: what the lane would score at each gate
+ * between 0.50 and the published one.
+ *
+ * ⚠️ THE COLUMN THAT DECIDES IT IS THE HEAD-TO-HEAD, not the overall figures.
+ * A lower gate changes only the turns it hands from the rules to Jev, so
+ * overall selection moves by tenths of a point and reads as "about the same".
+ * On exactly the turns that move, the question is whether Jev beats the rules
+ * it replaces — so those two rates sit side by side, and the takeaway sentence
+ * is COMPUTED from them rather than written here, where it would go stale the
+ * next time the sweep is run.
+ *
+ * On the published gate's own row the head-to-head is shown as "—". Rows
+ * "gained" there are not gained by any gate change; they are below-gate turns
+ * whose re-asked confidence came back above it, i.e. Jev's run-to-run
+ * variation. The method note states that count instead.
+ */
+const GateSweepSection = ({
+  sweep,
+  t,
+}: {
+  sweep: GateSweep | null | undefined;
+  t: (bg: string, en: string) => string;
+}) => {
+  if (!sweep?.sweep.length) return null;
+  const lower = sweep.sweep.filter((s) => s.gate < sweep.publishedGate);
+  const worse = (lang: Lang) =>
+    lower.filter(
+      (s) =>
+        s.metrics[lang].movedJevToolAcc != null &&
+        s.metrics[lang].movedRulesToolAcc != null &&
+        s.metrics[lang].movedJevToolAcc! < s.metrics[lang].movedRulesToolAcc!,
+    ).length;
+  const pair = (
+    s: GateSweep["sweep"][number],
+    k: Exclude<
+      keyof GateSweep["sweep"][number]["metrics"]["en"],
+      "n" | "moved"
+    >,
+  ) => `${pct(s.metrics.en[k])} / ${pct(s.metrics.bg[k])}`;
+  const gateLabel = (g: number) => g.toFixed(3).replace(/0$/, "");
+
+  return (
+    <section>
+      <h2 className="font-title text-xl text-popover-foreground">
+        {t("Праг на увереност за Jev", "Jev confidence gate")}
+      </h2>
+      <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+        {t(
+          `Когато увереността на Jev е под прага (сега ${gateLabel(sweep.publishedGate)}), той не избира инструмента, а оставя хода на правилата. По-нисък праг дава на Jev повече ходове — въпросът е дали върху точно тези добавени ходове той е по-точен от правилата, които замества.`,
+          `When Jev's confidence is below the gate (currently ${gateLabel(sweep.publishedGate)}), it does not pick the tool and leaves the turn to the rules. A lower gate hands Jev more turns — the question is whether, on exactly those added turns, it is more accurate than the rules it replaces.`,
+        )}
+      </p>
+      {lower.length > 0 && (
+        <p className="mt-2 max-w-3xl text-sm text-popover-foreground">
+          {t(
+            `Върху добавените ходове Jev избира правилния инструмент по-рядко от правилата при ${worse("en")} от ${lower.length} по-ниски прага на английски и при ${worse("bg")} от ${lower.length} на български.`,
+            `On the added turns, Jev picks the right tool less often than the rules at ${worse("en")} of ${lower.length} lower gates in English and ${worse("bg")} of ${lower.length} in Bulgarian.`,
+          )}
+        </p>
+      )}
+      <div className="mt-3 overflow-x-auto">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="border-b-2">
+              <th className="p-2">{t("Праг", "Gate")}</th>
+              <th className="p-2">{t("Поема EN / BG", "Routes EN / BG")}</th>
+              <th className="p-2">{t("Избор EN / BG", "Selection EN / BG")}</th>
+              <th className="p-2">
+                {t("Използваемо извикване EN / BG", "Usable call EN / BG")}
+              </th>
+              <th className="p-2">
+                {t("Аргументи EN / BG", "Arguments EN / BG")}
+              </th>
+              <th className="p-2">
+                {t("Мълчи, когато трябва EN / BG", "Correctly silent EN / BG")}
+              </th>
+              <th className="p-2">
+                {t("Добавени ходове EN / BG", "Added turns EN / BG")}
+              </th>
+              <th className="p-2">
+                {t(
+                  "Избор върху добавените: Jev EN / BG",
+                  "Selection on added: Jev EN / BG",
+                )}
+              </th>
+              <th className="p-2">
+                {t("…и правилата EN / BG", "…and the rules EN / BG")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sweep.sweep.map((s) => {
+              const current = s.gate === sweep.publishedGate;
+              return (
+                <tr
+                  key={s.gate}
+                  data-gate={s.gate}
+                  className={current ? "border-b font-medium" : "border-b"}
+                >
+                  <th scope="row" className="p-2 font-medium tabular-nums">
+                    {gateLabel(s.gate)}
+                    {current && (
+                      <span className="ml-2 text-xs font-normal text-muted-foreground">
+                        {t("текущ", "current")}
+                      </span>
+                    )}
+                  </th>
+                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "jevRouted")}</td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "toolAcc")}</td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "callAcc")}</td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "argAcc")}</td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {pair(s, "irrelevanceAcc")}
+                  </td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {current
+                      ? "—"
+                      : `${s.metrics.en.moved} / ${s.metrics.bg.moved}`}
+                  </td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {current ? "—" : pair(s, "movedJevToolAcc")}
+                  </td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {current ? "—" : pair(s, "movedRulesToolAcc")}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-2 max-w-3xl text-xs text-muted-foreground">
+        {t(
+          `Как е измерено: ходовете, на които Jev е бил над текущия праг, се държат еднакво при всеки по-нисък праг и са взети наготово. Всеки от ${sweep.reasked}-те хода под прага е зададен отново точно веднъж, без праг, и всеки отговор е запазен — всички прагове са пресметнати от тази една извадка. Увереността на Jev леко варира между извикванията (средно с ${sweep.meanConfidenceDrift?.toFixed(3) ?? "—"}): ${sweep.crossedPublishedGate} от тези ходове се върнаха над текущия праг, затова редът „текущ“ се различава малко от публикуваното измерване по-горе.`,
+          `How it was measured: turns Jev answered above the current gate behave the same at any lower gate and are reused as they are. Each of the ${sweep.reasked} below-gate turns was asked again exactly once, with no gate, and every answer was kept — all gates are computed from that one sample. Jev's confidence varies slightly between calls (by ${sweep.meanConfidenceDrift?.toFixed(3) ?? "—"} on average): ${sweep.crossedPublishedGate} of those turns came back above the current gate, so the “current” row differs slightly from the published measurement above.`,
+        )}
+      </p>
+    </section>
+  );
+};
+
 export const EvalsScreen = ({
   integrated = false,
 }: { integrated?: boolean } = {}) => {
@@ -666,6 +814,7 @@ export const EvalsScreen = ({
               </section>
             )}
             <LaneComparison index={index} t={t} />
+            <GateSweepSection sweep={index?.gateSweep} t={t} />
             {index?.deterministic?.metrics && (
               <section>
                 <h2 className="font-title text-xl text-popover-foreground">

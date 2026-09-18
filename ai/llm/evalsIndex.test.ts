@@ -131,6 +131,27 @@ describe("the published-run index covers every artifact", () => {
     ).toBe(true);
   });
 
+  it("carries the gate sweep's figures, without its raw samples", () => {
+    // The page renders the per-gate table from the manifest; the ~250 KB of
+    // re-asked rows exist only to re-simulate, and must not ride along.
+    const raw = JSON.parse(
+      readFileSync(join(DIR, "jev_gate_sweep.json"), "utf8"),
+    );
+    const sweep = committed.gateSweep!;
+    expect(sweep).not.toBeNull();
+    expect(sweep).not.toHaveProperty("samples");
+    expect(sweep.sweep).toEqual(raw.sweep);
+    // The published gate is one of the swept points, or the table has no
+    // baseline row to read the others against.
+    expect(sweep.sweep.map((s) => s.gate)).toContain(sweep.publishedGate);
+    for (const { metrics } of sweep.sweep)
+      for (const lang of ["en", "bg"] as const) {
+        // A head-to-head is only meaningful over rows that actually moved.
+        if (metrics[lang].moved === 0)
+          expect(metrics[lang].movedJevToolAcc).toBeNull();
+      }
+  });
+
   it("carries the deterministic lane beside the billed runs", () => {
     // The free lane is a different measurement and must not be inside a routing run's
     // numbers; the legacy denominator is the corpus the published floors used.
