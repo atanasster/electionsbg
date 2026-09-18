@@ -24,6 +24,11 @@ import {
   type LangReport,
 } from "./fcEval";
 import { makeCloudComplete, makeGeminiComplete } from "./fcEval.cloud";
+import {
+  jevRowsToFcReport,
+  jevRunStats,
+  runJevToolSelection,
+} from "./fcEval.jev";
 import { registrySuite } from "./fcEval.registry";
 
 const ROOT = process.cwd();
@@ -46,7 +51,7 @@ type ModelSpec = {
   label: string;
   runtime: "cloud" | "webllm";
   params: string;
-  source: "cloud-live" | "gemini-api" | "capture" | "unavailable";
+  source: "cloud-live" | "gemini-api" | "jev-live" | "capture" | "unavailable";
   via?: string; // measurement channel, shown on the page
   retrievedK?: number; // if set, model sees a retrieved candidate set, not the full registry
   modeNote?: string; // appended to the toolMode column (e.g. "grammar", "compact decl")
@@ -100,7 +105,7 @@ const SPECS: ModelSpec[] = [
     concurrency: 1,
     maxOutputTokens: 640,
     modeNote: "640-tok output",
-    note: "Open model (BgGPT base family). Gemma on the Gemini API has no system role / function-calling tools, so the ~107-tool list goes in one user turn and the JSON reply is parsed. CAVEAT (verified from raw output): no API failures (0/208 empty), but the ~49% that emit no valid JSON are NOT wrong-tool picks — they are verbose chain-of-thought TRUNCATED at the 640-token cap (88% of failures sit at the ceiling; 100% name the correct tool in their reasoning). So this row understates the model; see the 1536-tok row for the recovery.",
+    note: "Open model (BgGPT base family). Gemma on the Gemini API has no system role / function-calling tools, so the ~107-tool list goes in one user turn and the JSON reply is parsed. CAVEAT (verified from raw output): no API failures (0/208 empty), but the ~49% that emit no valid JSON are NOT wrong-tool picks — they are verbose chain-of-thought TRUNCATED at the 640-token cap (88% of failures sit at the ceiling; 100% name the correct tool in their reasoning). So this row understates the model; see the 1536-tok row for the recovery. STALE (2026-06-07): measured against a 108-tool registry snapshot; the registry now holds 235+ tools and a re-measure hit a Gemini-API rate-limit wall on 2026-09-18 before it could complete. Read this row as a 108-tool-era reference point, not current.",
   },
   {
     id: "google/gemma-4-31b-it-1536",
@@ -114,7 +119,17 @@ const SPECS: ModelSpec[] = [
     concurrency: 1,
     maxOutputTokens: 1536,
     modeNote: "1536-tok output",
-    note: "Same model + prompt as the 640-tok row, only the output budget raised to 1536 so the chain-of-thought can finish and emit the closing JSON. Result: routing jumps to EN 81% / BG 83% (from 54% / 50% at 640) — a ~28pt recovery, still 0 empty responses — confirming the 640 failures were CoT TRUNCATION, not wrong-tool picks. The BG<EN gap also REVERSES (BG was worse at 640 only because its longer CoT truncated more), so there is no real Bulgarian tool-selection penalty once the budget fits.",
+    note: "Same model + prompt as the 640-tok row, only the output budget raised to 1536 so the chain-of-thought can finish and emit the closing JSON. Result: routing jumps to EN 81% / BG 83% (from 54% / 50% at 640) — a ~28pt recovery, still 0 empty responses — confirming the 640 failures were CoT TRUNCATION, not wrong-tool picks. The BG<EN gap also REVERSES (BG was worse at 640 only because its longer CoT truncated more), so there is no real Bulgarian tool-selection penalty once the budget fits. STALE (2026-06-08): measured against a 108-tool registry snapshot; see the 640-tok row's note.",
+  },
+  {
+    id: "typesafe/jev-latest",
+    label: "Jev (jev-latest, TypeSafe System One)",
+    runtime: "cloud",
+    params: "—",
+    source: "jev-live",
+    via: "TypeSafe API (POST /v1/systemone, Choice primitive)",
+    concurrency: 8,
+    note: "Not an LLM completion — a Choice question whose criteria map is the tool catalogue (+ a no_tool sentinel for irrelevance), evaluated directly by TypeSafe's Jev model. Returns the winning option plus a full probability distribution over every candidate and a calibrated confidence, so it cannot hallucinate a tool name outside the list. See docs.typesafe.ai/primitives/choice. Evaluated by ai/llm/fcEval.jev.ts, not the shared CompleteFn adapter, because this run also captures per-call latency, token usage and confidence calibration that the generic string-return interface would discard.",
   },
   // ---- FunctionGemma-270M in-browser, an ablation LADDER (untuned community
   // build) showing how far the SAME model can be pushed with infra alone — no
@@ -210,7 +225,15 @@ const perCase = (report: FcReport) => {
   return [...byId.values()];
 };
 
-const entry = (spec: ModelSpec, toolMode: string, report?: FcReport) => {
+const entry = (
+  spec: ModelSpec,
+  toolMode: string,
+  report?: FcReport,
+  // Extra measurements no other adapter reports (latency/tokens/cost/
+  // confidence calibration) — additive on the artifact, ignored by any page
+  // that only reads the fields the other rows already have.
+  extra?: ReturnType<typeof jevRunStats>,
+) => {
   const base = {
     id: spec.id,
     label: spec.label,
@@ -220,6 +243,7 @@ const entry = (spec: ModelSpec, toolMode: string, report?: FcReport) => {
     toolMode,
     note: spec.note,
     reason: spec.reason,
+    ...(extra ? { measurements: extra } : {}),
   };
   if (!report)
     return {
@@ -293,6 +317,33 @@ const main = async () => {
       });
       writeCachedReport(spec.id, report);
       models.push(entry(spec, toolMode, report));
+    } else if (spec.source === "jev-live") {
+      const key = process.env.TYPESAFE_API_KEY;
+      if (!key) {
+        console.error(`no TYPESAFE_API_KEY for ${spec.id} — skipping`);
+        models.push(
+          entry(
+            {
+              ...spec,
+              source: "unavailable",
+              reason: "TYPESAFE_API_KEY missing",
+            },
+            toolMode,
+          ),
+        );
+        continue;
+      }
+      console.error(
+        `measuring ${spec.id} (Jev Choice call, concurrency ${spec.concurrency ?? 8})…`,
+      );
+      const rows = await runJevToolSelection(key, {
+        tools,
+        cases,
+        concurrency: spec.concurrency,
+      });
+      const report = jevRowsToFcReport(rows);
+      const stats = jevRunStats(rows);
+      models.push(entry(spec, toolMode, report, stats));
     } else if (spec.source === "capture") {
       const f = join(CAPTURES, spec.captureFile ?? "");
       if (existsSync(f)) {
