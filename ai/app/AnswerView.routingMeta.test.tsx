@@ -58,6 +58,19 @@ describe("routing meta in the answer band", () => {
     expect(title).not.toMatch(/Инструментът е избран от Jev/);
   });
 
+  it("says Jev asked for details, not that it chose a tool, on a clarifying turn", () => {
+    // No tool ran: the lane asked the user for a value it could not supply.
+    const { container } = show({
+      ...base,
+      routedBy: "jev",
+      routerConfidence: 0.95,
+      routerAskedUser: true,
+    });
+    const title = container.querySelector("span[title]")?.getAttribute("title");
+    expect(title).toMatch(/липсват подробности/);
+    expect(title).not.toMatch(/Инструментът е избран от Jev/);
+  });
+
   it("shows no Jev badge on a degraded turn, and names what answered instead", () => {
     const { container } = show({
       ...base,

@@ -22,6 +22,9 @@ import {
   fillableTool,
   soleEntityParam,
   jevRoute,
+  completeJevPick,
+  carriedArgs,
+  jevClarifyText,
   toolCriteria,
   turnQuestions,
 } from "./jev";
@@ -384,7 +387,9 @@ describe("JevProvider", () => {
       creds,
       asking(answer(paramTool.name, 0.99)),
     ).respond(DETERMINISTIC_Q, ctx);
-    expect(res.meta?.routedBy).toBe("rules");
+    // Jev answered on time. Whatever the lane then did with the pick — ran it,
+    // or asked the user for a missing value — it must not be reported as Jev
+    // failing.
     expect(res.meta?.routerDegraded).toBeUndefined();
   });
 
@@ -603,12 +608,12 @@ describe("the second call rescues a refused pick", () => {
         DETERMINISTIC_Q,
         ctx,
       );
-      // `routedBy` is the assertion that discriminates for ALL THREE: two of
-      // these tools throw without network, so `res.tool` is undefined either
-      // way and would pass vacuously. Accepting an empty-args rescue sets
-      // usedJev, and therefore routedBy "jev" — so "rules" is the proof the
-      // rescue was refused.
-      expect(res.meta?.routedBy).toBe("rules");
+      // The lane ASKS instead: an unanswered argument call is not Jev saying
+      // "the question names none", so the defaults are not licensed.
+      // `routerAskedUser` is what discriminates for ALL THREE — two of these
+      // tools throw without network, so `res.tool` alone is undefined either
+      // way and would pass vacuously.
+      expect(res.meta?.routerAskedUser).toBe(true);
       expect(res.tool).not.toBe(tool);
       expect(res.meta?.routerFilledArgs).toBeUndefined();
     },
@@ -726,19 +731,20 @@ describe("name-shaped arguments (tier 3)", () => {
     ).toHaveLength(2);
   });
 
-  it("keeps the deterministic answer when the entity search finds nobody", async () => {
+  it("asks rather than guesses when the entity search finds nobody", async () => {
     const ask = asking(answer("personWealth", 0.97));
     const res = await new JevProvider(creds, ask, async () => []).respond(
       ENTITY_Q,
       ctx,
     );
     // Naming the wrong person is the failure this path exists to avoid, so an
-    // empty search resolves to "no route", never to a guess.
-    expect(res.meta?.routedBy).toBe("rules");
+    // empty search never becomes a guess — the lane asks who is meant.
+    expect(res.meta?.routerAskedUser).toBe(true);
     expect(res.meta?.routerFilledArgs).toBeUndefined();
+    expect(res.tool).toBeUndefined();
   });
 
-  it("keeps the deterministic answer when Jev refuses every candidate", async () => {
+  it("asks rather than guesses when Jev refuses every candidate", async () => {
     let call = 0;
     const ask = vi.fn(async () =>
       call++ === 0
@@ -758,6 +764,127 @@ describe("name-shaped arguments (tier 3)", () => {
     const res = await new JevProvider(creds, ask, async () => [
       { value: "Кирил Петков Петков", label: "Кирил Петков Петков — mp" },
     ]).respond(ENTITY_Q, ctx);
-    expect(res.meta?.routedBy).toBe("rules");
+    // Jev saw the candidates and said none of them is meant: asking is right,
+    // and naming Кирил Петков would be the wrong-person failure.
+    expect(res.meta?.routerAskedUser).toBe(true);
+    expect(res.tool).toBeUndefined();
+  });
+});
+
+// JEV PICKS THE TOOL; its parameters come from whatever can supply them without
+// a generative model — and when nothing can, the lane ASKS.
+describe("completeJevPick — stages 1 and 2", () => {
+  const seq = (results: (JevResult | null)[]) => {
+    let i = 0;
+    return vi.fn(
+      async () => results[Math.min(i++, results.length - 1)],
+    ) as unknown as Parameters<typeof jevRoute>[2];
+  };
+  const argAnswer = (values: Record<string, string>, confidence = 0.95) =>
+    ({
+      answers: Object.fromEntries(
+        Object.entries(values).map(([k, v]) => [
+          k,
+          { type: "choice", choice: v, probabilities: {}, confidence },
+        ]),
+      ),
+      latencyMs: 30,
+    }) as unknown as JevResult;
+  const deps = (ask = seq([null])) => ({
+    ask,
+    credentials: creds(),
+    search: async () => [],
+  });
+
+  it("carries a value the rules parsed for their own tool", async () => {
+    // The rules chose another tool but DID parse the party; Jev's tool takes a
+    // party too, so the value is not lost with the rules' wrong tool.
+    const done = await completeJevPick(
+      "Как се представи ГЕРБ?",
+      "partyResult",
+      { tool: "municipalityResults", args: { party: "ГЕРБ" } },
+      deps(),
+    );
+    expect(done).toMatchObject({
+      kind: "run",
+      route: { tool: "partyResult", args: { party: "ГЕРБ" } },
+    });
+  });
+
+  it("does NOT carry values in narrow mode — it asks instead", async () => {
+    const done = await completeJevPick(
+      "Как се представи ГЕРБ?",
+      "partyResult",
+      { tool: "municipalityResults", args: { party: "ГЕРБ" } },
+      deps(),
+      "narrow",
+    );
+    expect(done.kind).toBe("clarify");
+    expect(done.kind === "clarify" && done.missing.map((p) => p.name)).toEqual([
+      "party",
+    ]);
+  });
+
+  it("carries only parameters Jev's tool declares", () => {
+    expect(
+      carriedArgs("partyResult", {
+        tool: "x",
+        args: { party: "ГЕРБ", corpus: "contracts", question: "" },
+      }),
+    ).toEqual({ party: "ГЕРБ" });
+  });
+
+  it("drops a carried value that does not validate for Jev's tool", async () => {
+    // `direction` is a fixed list (in|out); a value parsed for another tool's
+    // parameter of the same name must not reach this one. The valid party
+    // survives. The argument call names nothing, so only the carried party
+    // licenses the run.
+    const done = await completeJevPick(
+      "Откъде идват гласовете на ГЕРБ?",
+      "voteTransitions",
+      { tool: "other", args: { party: "ГЕРБ", direction: "sideways" } },
+      deps(seq([argAnswer({})])),
+    );
+    expect(done.kind).toBe("run");
+    expect(done.kind === "run" && done.route.args.direction).toBeUndefined();
+    expect(done.kind === "run" && done.route.args.party).toBe("ГЕРБ");
+  });
+
+  it("runs on defaults only when Jev positively says the question names none", async () => {
+    const said = await completeJevPick(
+      "Кой печели по области?",
+      "regionWinners",
+      null,
+      deps(seq([argAnswer({ geography: ARG_UNSPECIFIED })])),
+    );
+    expect(said.kind).toBe("run");
+  });
+
+  it("asks when the argument call returns nothing — silence is not 'none'", async () => {
+    // The `macroIndicator({})` trap through another door: an unanswered call
+    // must never license running the tool on its defaults.
+    const silent = await completeJevPick(
+      "Кой печели по области?",
+      "regionWinners",
+      null,
+      deps(seq([null])),
+    );
+    expect(silent.kind).toBe("clarify");
+  });
+
+  it("asks a clarifying question that names the topic and what is missing", () => {
+    const text = jevClarifyText(
+      {
+        kind: "clarify",
+        tool: "partyResult",
+        missing: TOOLS_BY_NAME.partyResult.params.filter((p) => p.required),
+      },
+      "bg",
+    );
+    expect(text).toContain(TOOLS_BY_NAME.partyResult.description.bg);
+    expect(text).toContain(
+      TOOLS_BY_NAME.partyResult.params.find((p) => p.name === "party")!
+        .description.bg,
+    );
   });
 });

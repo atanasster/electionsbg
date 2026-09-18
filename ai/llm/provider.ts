@@ -139,6 +139,9 @@ export type ResponseMeta = {
   routerDeclined?: boolean;
   /** Jev answered, below the confidence gate, so the rules chose the tool. */
   routerUnsure?: boolean;
+  /** Jev recognised the topic, but the parameters could not be supplied, so
+   *  the lane asked the user instead of answering a different question. */
+  routerAskedUser?: boolean;
   // Jev also filled the tool's CLOSED-VOCABULARY arguments (a second call).
   // Open-vocabulary values are never model-generated — it has no primitive for
   // that — so this can only ever mean "chosen from a list we enumerated".

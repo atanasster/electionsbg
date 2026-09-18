@@ -54,7 +54,13 @@ import {
 } from "../orchestrator/router";
 import { dbEntitySearch, resolveEntity, type EntitySearch } from "./jevEntity";
 import { TOOLS, TOOLS_BY_NAME } from "../tools/registry";
-import type { ToolArgs, ToolContext } from "../tools/types";
+import type { Lang, ToolArgs, ToolContext, ToolParam } from "../tools/types";
+import {
+  extractEntities,
+  fillMissingArgs,
+} from "../orchestrator/entityExtraction";
+import { validateArguments } from "../orchestrator/validateArguments";
+import { validateToolArgs } from "../orchestrator/toolSchema";
 
 export { NO_TOOL };
 
@@ -381,6 +387,209 @@ export const entityKindFor = (
   param: string,
 ): "person" | "company" | null => ENTITY_PARAMS[`${tool}.${param}`] ?? null;
 
+/**
+ * JEV PICKS THE TOOL; ITS PARAMETERS COME FROM WHATEVER CAN SUPPLY THEM
+ * WITHOUT A GENERATIVE MODEL — and when nothing can, the lane ASKS instead of
+ * answering a different question.
+ *
+ * Used when Jev confidently picked a tool that takes parameters and the rules
+ * chose something else (or nothing). That is exactly when Jev is correcting
+ * the rules, and before this the lane threw the pick away and answered with the
+ * rules' tool — measured on questions with typos, rewording and Latin script,
+ * 541 confident, correct picks were discarded that way.
+ *
+ * Two modes, so the two steps can be measured apart:
+ *   narrow  the fillers that already existed: Jev fills a tool whose required
+ *           parameters are all from a fixed list, or picks among searched
+ *           names when a name is the only required value. Otherwise ASK.
+ *   full    also (1) values the rules parsed for THEIR tool, carried over where
+ *           Jev's tool has a parameter of the same name, (2) years, indicators
+ *           and store chains from the tool-independent entity extractor, and
+ *           (3) Jev for ANY fixed-list or name parameter still unset.
+ *           Otherwise ASK.
+ *
+ * ⚠️ A value that does not validate for Jev's tool is DROPPED, not trusted —
+ * a carried value was parsed for a different tool. And a tool runs only when
+ * every REQUIRED parameter is set; optional selectors (`macroIndicator.
+ * indicator` and the like) are fixed-list parameters, which step (3) asks Jev
+ * about, so an omitted one means the question named none.
+ */
+export type JevCompletion =
+  | { kind: "run"; route: NonNullable<Route>; filled: string[] }
+  | { kind: "clarify"; tool: string; missing: ToolParam[] };
+
+type Ask = typeof askJev;
+
+/** Keep what validates for `tool`; drop what does not. */
+const settleArgs = (tool: string, args: ToolArgs): ToolArgs => {
+  let a = { ...args };
+  for (let i = 0; i < 4; i++) {
+    const { errors } = validateArguments(tool, a, { ignoreUnknown: true });
+    const bad = Object.entries(errors)
+      .filter(([k, e]) => e !== "required" && k in a)
+      .map(([k]) => k);
+    if (!bad.length) break;
+    a = Object.fromEntries(Object.entries(a).filter(([k]) => !bad.includes(k)));
+  }
+  return a;
+};
+
+const declared = (tool: string) =>
+  new Set((TOOLS_BY_NAME[tool]?.params ?? []).map((p) => p.name));
+
+/** Values the rules parsed for their own tool, where Jev's tool has a
+ *  parameter of the same name. */
+export const carriedArgs = (tool: string, deterministic: Route): ToolArgs => {
+  if (!deterministic) return {};
+  const names = declared(tool);
+  return Object.fromEntries(
+    Object.entries(deterministic.args).filter(
+      ([k, v]) => names.has(k) && v !== undefined && v !== "",
+    ),
+  );
+};
+
+/** Years / indicators / chains from the tool-independent extractor. */
+export const extractedArgs = (tool: string, question: string): ToolArgs => {
+  const names = declared(tool);
+  return Object.fromEntries(
+    Object.entries(fillMissingArgs({}, extractEntities(question))).filter(
+      ([k]) => names.has(k),
+    ),
+  );
+};
+
+export const completeJevPick = async (
+  question: string,
+  tool: string,
+  deterministic: Route,
+  deps: {
+    ask: Ask;
+    credentials: JevCredentials | undefined;
+    search?: EntitySearch;
+  },
+  mode: "narrow" | "full" = "full",
+): Promise<JevCompletion> => {
+  const def = TOOLS_BY_NAME[tool];
+  const clarify = (args: ToolArgs): JevCompletion => ({
+    kind: "clarify",
+    tool,
+    missing: (def?.params ?? []).filter(
+      (p) => p.required && args[p.name] === undefined,
+    ),
+  });
+  if (!def) return { kind: "clarify", tool, missing: [] };
+  const filled: string[] = [];
+  let args: ToolArgs =
+    mode === "full"
+      ? settleArgs(tool, {
+          ...extractedArgs(tool, question),
+          ...carriedArgs(tool, deterministic),
+        })
+      : {};
+  filled.push(...Object.keys(args));
+
+  // Fixed-list values: one Jev call. `narrow` keeps the old gate (only when
+  // every required parameter is fixed-list); `full` asks whenever one is unset.
+  const unsetEnum = enumerableParams(tool).filter(
+    (p) => args[p.name] === undefined,
+  );
+  // True only when Jev POSITIVELY said the question names none of the tool's
+  // fixed-list values — the one case where the tool's defaults are what was
+  // asked. NOT the same as Jev returning nothing: an unanswered call must never
+  // license running on defaults (the `macroIndicator({})` trap).
+  let namedNone = false;
+  if (unsetEnum.length && (mode === "full" || fillableTool(tool))) {
+    const result = await deps.ask(
+      question,
+      argQuestions(tool),
+      deps.credentials,
+    );
+    const { args: fromJev } = fillArgs(tool, result);
+    for (const p of unsetEnum)
+      if (fromJev[p.name] !== undefined) {
+        args[p.name] = fromJev[p.name];
+        filled.push(p.name);
+      }
+    namedNone =
+      !!result &&
+      enumerableParams(tool).every((p) => {
+        const pick = choiceOf(result, p.name);
+        return (
+          args[p.name] !== undefined ||
+          (!!pick &&
+            pick.choice === ARG_UNSPECIFIED &&
+            pick.confidence >= JEV_CONFIDENCE_GATE)
+        );
+      });
+  }
+
+  // Names: search, then Jev picks among real candidates. `narrow` only when a
+  // name is the ONE required value; `full` for any required name still unset.
+  const nameParams =
+    mode === "full"
+      ? def.params.filter(
+          (p) =>
+            p.required &&
+            args[p.name] === undefined &&
+            entityKindFor(tool, p.name),
+        )
+      : [soleEntityParam(tool)].filter(
+          (p): p is ToolParam => !!p && args[p.name] === undefined,
+        );
+  for (const p of nameParams) {
+    const kind = entityKindFor(tool, p.name);
+    if (!kind) continue;
+    const term =
+      kind === "company"
+        ? extractCompanyName(question)
+        : extractPersonName(question);
+    const { entity } = await resolveEntity(
+      question,
+      kind,
+      term,
+      deps.search ?? dbEntitySearch,
+      deps.ask,
+      deps.credentials,
+    );
+    if (entity) {
+      args[p.name] = entity.value;
+      filled.push(p.name);
+    }
+  }
+
+  args = settleArgs(tool, args);
+  const valid = validateToolArgs(tool, args);
+  // Never run with NOTHING supplied — the `args: {}` trap the argument rule
+  // exists for — unless Jev positively said the question names no value
+  // (`namedNone`), in which case the defaults are the answer asked for.
+  if (
+    valid &&
+    argsSufficient(tool, valid) &&
+    (filled.length > 0 || (mode === "full" && namedNone))
+  )
+    return { kind: "run", route: { tool, args: valid }, filled };
+  return clarify(valid ?? args);
+};
+
+/** The question the lane asks instead of answering with a tool it believes is
+ *  wrong. Template-written, like every answer in this lane. */
+export const jevClarifyText = (
+  c: Extract<JevCompletion, { kind: "clarify" }>,
+  lang: Lang,
+): string => {
+  const def = TOOLS_BY_NAME[c.tool];
+  const topic = def ? def.description[lang] : c.tool;
+  const need = c.missing.map((p) => p.description[lang]).filter(Boolean);
+  if (lang === "bg")
+    return need.length
+      ? `Изглежда питате за: ${topic} За да отговоря, уточнете: ${need.join("; ")}.`
+      : `Изглежда питате за: ${topic} Можете ли да зададете въпроса по-конкретно?`;
+  return need.length
+    ? `It looks like you are asking about: ${topic} To answer, please specify: ${need.join("; ")}.`
+    : `It looks like you are asking about: ${topic} Could you ask a little more specifically?`;
+};
+
 export class JevProvider implements LLMProvider {
   id = "jev";
   // ⚠️ NOT "Без AI". Routing through Jev is a hosted model call — cheap,
@@ -469,22 +678,35 @@ export class JevProvider implements LLMProvider {
       } else {
         const deterministic = route(question, ctx);
         let accepted = acceptJevPick(routing.route, deterministic);
-        // A pick the argument rule refused is worth a SECOND call when the
-        // tool's parameters are enumerable — that is the case tier 2 exists
-        // for, and the only one where a second round trip can change the
-        // answer. A pick that was already accepted, or a tool with no
-        // enumerable params, never pays for it.
+        // A pick the argument rule refused — Jev chose a tool that takes
+        // parameters, and the rules chose another — is where Jev is CORRECTING
+        // the rules. Complete it (see `completeJevPick`); if its parameters
+        // cannot be supplied without a generative model, ASK rather than answer
+        // with the rules' tool, which is wrong in exactly these cases.
         if (routing.route && !accepted.usedJev) {
-          const filledRoute = fillableTool(routing.route.tool)
-            ? await this.fillEnumerableArgs(question, routing.route.tool)
-            : await this.resolveEntityArgs(question, routing.route.tool);
-          if (filledRoute) {
-            accepted = { route: filledRoute, usedJev: true };
-            // Never a bare `true`: the band claims a hosted model chose these
-            // values from an enumerated list, so the flag must be derived from
-            // values actually chosen.
-            argsFilled = Object.keys(filledRoute.args).length > 0;
+          const done = await completeJevPick(
+            question,
+            routing.route.tool,
+            deterministic,
+            {
+              ask: this.ask,
+              credentials: this.credentials?.(),
+              search: this.search,
+            },
+          );
+          if (done.kind === "clarify") {
+            usedJev = true;
+            asked = true;
+            return {
+              text: jevClarifyText(done, ctx.lang),
+              env: null,
+              meta: { ...meta(), routerAskedUser: true },
+            };
           }
+          accepted = { route: done.route, usedJev: true };
+          // Never a bare `true`: the band claims values were supplied, so the
+          // flag must be derived from values actually filled.
+          argsFilled = done.filled.length > 0;
         }
         r = accepted.route;
         usedJev = accepted.usedJev;
@@ -497,73 +719,6 @@ export class JevProvider implements LLMProvider {
       return { text: declined.text, env: declined.env, meta: meta() };
     }
     return runAndNarrate(r, ctx, meta);
-  }
-
-  /** Second call: fill the picked tool's ENUMERABLE parameters. Returns a
-   *  runnable route, or null when the tool still cannot be run — in which case
-   *  the caller keeps the deterministic answer rather than running it empty. */
-  private async fillEnumerableArgs(
-    question: string,
-    tool: string,
-  ): Promise<Route> {
-    const result = await this.ask(
-      question,
-      argQuestions(tool),
-      this.credentials?.(),
-    );
-    if (!result) return null;
-    const { args, filled } = fillArgs(tool, result);
-    // ⚠️ BOTH guards. `argsSufficient` is vacuously true for a tool with no
-    // required params, so on its own it would admit a second call that answered
-    // `__unspecified__` to everything — running the tool with `args: {}` and
-    // throwing away a correct deterministic answer, which is precisely the trap
-    // `acceptJevPick` refuses. A rescue that rescued nothing is not a rescue.
-    if (!filled.length) return null;
-    return argsSufficient(tool, args) ? { tool, args } : null;
-  }
-
-  /** Tier 3: resolve a tool whose only unfilled required parameter is a person
-   *  or company name. Returns null — keeping the deterministic answer — on a
-   *  refusal, an empty search, or an unavailable Jev. Naming the WRONG real
-   *  person is the failure this path must never produce, so every uncertain
-   *  outcome resolves to "no route" rather than to a guess. */
-  private async resolveEntityArgs(
-    question: string,
-    tool: string,
-  ): Promise<Route> {
-    const param = soleEntityParam(tool);
-    if (!param) return null;
-    // The ALLOWLIST decides which registry is searched, never the declared
-    // type — see ENTITY_PARAMS for why that distinction is load-bearing.
-    const kind = entityKindFor(tool, param.name);
-    if (!kind) return null;
-    const term =
-      kind === "company"
-        ? extractCompanyName(question)
-        : extractPersonName(question);
-    const { entity } = await resolveEntity(
-      question,
-      kind,
-      term,
-      this.search,
-      this.ask,
-      this.credentials?.(),
-    );
-    if (!entity) return null;
-    // Any OTHER required params are enumerable by `soleEntityParam`'s own
-    // check, so fill them the way tier 2 does — but ONLY if there are any.
-    // Every sole-entity tool in the registry today has none, and an empty
-    // question map is a 400 at the proxy, which would trip the circuit breaker
-    // and leave a failure reason behind after a SUCCESSFUL turn.
-    const remaining = argQuestions(tool, new Set([param.name]));
-    const args = Object.keys(remaining).length
-      ? fillArgs(
-          tool,
-          await this.ask(question, remaining, this.credentials?.()),
-        ).args
-      : {};
-    const merged = { ...args, [param.name]: entity.value };
-    return argsSufficient(tool, merged) ? { tool, args: merged } : null;
   }
 
   // A disambiguation pick resolves to one entity, so there is nothing to route:

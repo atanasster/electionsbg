@@ -572,6 +572,13 @@ const MetaLine = ({ meta, lang }: { meta: ResponseMeta; lang: Lang }) => {
             return bg
               ? `\nJev прецени, че няма подходящ инструмент${detail}`
               : `\nJev found no suitable tool${detail}`;
+          // Jev recognised the topic but the lane could not supply the values
+          // it needs, so it ASKED — no tool ran, and saying one "was chosen"
+          // would describe a call that never happened.
+          if (meta.routerAskedUser)
+            return bg
+              ? `\nJev разпозна темата, но липсват подробности${detail}`
+              : `\nJev recognised the topic, but details are missing${detail}`;
           return bg
             ? `\nИнструментът е избран от Jev${detail}`
             : `\nTool chosen by Jev${detail}`;
