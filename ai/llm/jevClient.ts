@@ -244,7 +244,19 @@ export const choiceOf = (
   id: string,
 ): JevChoiceAnswer | null => {
   const a = result?.answers?.[id];
-  return a && a.type === "choice" && typeof a.choice === "string" ? a : null;
+  // `confidence` is narrowed here, not just at the gate that reads it: the
+  // proxy forwards `answers` verbatim, so a missing or NaN confidence is
+  // reachable from untrusted input — and `undefined < gate` / `NaN < gate` are
+  // both FALSE, i.e. a bare comparison would read "unknown" as "confident" and
+  // route on it. Rejecting it here makes every future caller inherit the safe
+  // direction.
+  return a &&
+    a.type === "choice" &&
+    typeof a.choice === "string" &&
+    typeof a.confidence === "number" &&
+    Number.isFinite(a.confidence)
+    ? a
+    : null;
 };
 
 /** The Noul probability (0–1) under `id`, or null when absent or mistyped.

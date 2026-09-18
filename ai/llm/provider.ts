@@ -121,6 +121,17 @@ export type ResponseMeta = {
   tokPerSec?: number; // LLM only — engine decode rate, when available
   narratedBy: "rules" | "model"; // who wrote the prose (numbers are always computed)
   narrationReject?: NarrationReject; // set only on a model-narration → template fallback
+  // WHO PICKED THE TOOL — distinct from `narratedBy` (who wrote the prose) and
+  // from `model` (the lane's label). A Jev-routed turn still narrates from
+  // templates, so without this the answer panel could not tell a reader that a
+  // hosted model chose the tool. Absent means the lane's own routing ran.
+  routedBy?: "rules" | "jev";
+  routerConfidence?: number; // Jev's calibrated confidence in the chosen tool
+  // True when Jev was asked but could not answer (timeout, breaker, no session,
+  // upstream error) and the lane fell back to its OWN router. The band must then
+  // show what actually answered — never a Jev badge on a turn Jev did not route.
+  routerDegraded?: boolean;
+  routerLatencyMs?: number; // the routing call alone, not the whole turn
 };
 
 export type ChatResponse = {
@@ -167,6 +178,37 @@ export interface LLMProvider {
 // provider that doesn't implement runChoice. A chosen option resolves to one
 // entity, so this never re-clarifies; but if it somehow does, the env still
 // carries `clarify` and the chooser simply re-opens.
+// Run a resolved {tool, args} and narrate the result from the template, or
+// render the failure as a message. The ONE place this tail lives: every lane
+// runs, narrates and reports errors identically — only the meta differs — so a
+// change to the error copy or to error classification happens once.
+export const runAndNarrate = async (
+  r: { tool: string; args: ToolArgs },
+  ctx: ToolContext,
+  meta: () => ResponseMeta,
+): Promise<ChatResponse> => {
+  try {
+    const env = await runTool(r.tool, r.args, ctx);
+    return {
+      text: narrate(env, ctx.lang),
+      env,
+      tool: r.tool,
+      args: r.args,
+      meta: meta(),
+    };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return {
+      text:
+        ctx.lang === "bg"
+          ? `Възникна грешка при изпълнението: ${msg}`
+          : `Something went wrong running that: ${msg}`,
+      env: null,
+      meta: meta(),
+    };
+  }
+};
+
 export const runToolChoice = async (
   label: { bg: string; en: string },
   tool: string,
@@ -180,20 +222,7 @@ export const runToolChoice = async (
     durationMs: performance.now() - t0,
     narratedBy: "rules",
   });
-  try {
-    const env = await runTool(tool, args, ctx);
-    return { text: narrate(env, ctx.lang), env, tool, args, meta: meta() };
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e);
-    return {
-      text:
-        ctx.lang === "bg"
-          ? `Възникна грешка при изпълнението: ${msg}`
-          : `Something went wrong running that: ${msg}`,
-      env: null,
-      meta: meta(),
-    };
-  }
+  return runAndNarrate({ tool, args }, ctx, meta);
 };
 
 export class HeuristicProvider implements LLMProvider {
@@ -219,31 +248,13 @@ export class HeuristicProvider implements LLMProvider {
     const { notice, route: r } = selectHeuristicRoute(question, ctx, opts);
     if (notice) return { text: notice, env: null, meta: meta() };
     if (!r) {
-      const near = nearMissEnvelope(question, ctx);
-      if (near)
-        return { text: narrate(near, ctx.lang), env: near, meta: meta() };
-      return { text: clarify(ctx.lang), env: null, meta: meta() };
+      // The shared decline: near-miss chooser, else the static sentence. Both
+      // lanes go through `declinedAnswer` so they cannot drift — an earlier
+      // form repeated the pair here and in openrouter.ts.
+      const declined = declinedAnswer(question, ctx);
+      return { text: declined.text, env: declined.env, meta: meta() };
     }
-    try {
-      const env = await runTool(r.tool, r.args, ctx);
-      return {
-        text: narrate(env, ctx.lang),
-        env,
-        tool: r.tool,
-        args: r.args,
-        meta: meta(),
-      };
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e);
-      return {
-        text:
-          ctx.lang === "bg"
-            ? `Възникна грешка при изпълнението: ${msg}`
-            : `Something went wrong running that: ${msg}`,
-        env: null,
-        meta: meta(),
-      };
-    }
+    return runAndNarrate(r, ctx, meta);
   }
 
   // A disambiguation pick: run the pinned tool + args (no routing) and narrate
