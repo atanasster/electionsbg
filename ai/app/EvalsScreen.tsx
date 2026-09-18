@@ -443,10 +443,18 @@ const GateSweepSection = ({
                       </span>
                     )}
                   </th>
-                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "jevRouted")}</td>
-                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "toolAcc")}</td>
-                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "callAcc")}</td>
-                  <td className="whitespace-nowrap p-2 tabular-nums">{pair(s, "argAcc")}</td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {pair(s, "jevRouted")}
+                  </td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {pair(s, "toolAcc")}
+                  </td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {pair(s, "callAcc")}
+                  </td>
+                  <td className="whitespace-nowrap p-2 tabular-nums">
+                    {pair(s, "argAcc")}
+                  </td>
                   <td className="whitespace-nowrap p-2 tabular-nums">
                     {pair(s, "irrelevanceAcc")}
                   </td>
