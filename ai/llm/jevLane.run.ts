@@ -23,54 +23,11 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { evaluateJev, JEV_LANE_CASES, type JevLaneRow } from "./jevLane";
 import { LEGACY_GROUPS } from "../tests/nonAiEval";
-import { callSystemOne, MODEL } from "./fcEval.jev";
-import type { askJev } from "./jevClient";
+import { directAsk, failures } from "./jevDirectAsk";
 import { JEV_MODEL_NOTE } from "./jevPrompt";
 import type { Lang } from "../tools/types";
 
 const OUT = "data/ai/evals/current_jev.json";
-
-/** An `askJev`-shaped function that calls the TypeSafe API directly, for the
- *  node harness. Shares `callSystemOne` (retries, backoff) with fcEval.jev.ts.
- *
- *  ⚠️ THIS IS NOT THE PRODUCTION TRANSPORT, AND EVERY DIFFERENCE FLATTERS THE
- *  LANE. Read the published number as "how well Jev routes", never as "how
- *  often the chat will route through Jev":
- *
- *    production                     this harness
- *    1.2s client budget             no timeout
- *    2s server abort                —
- *    no retries in the turn         6 retries, 2–14s backoff
- *    circuit breaker after 3 fails  none
- *    model pinned (jev-1.13.0)      jev-latest
- *    payload validated by our proxy sent straight to the API
- *
- *  The last row is the one that bit: two registry tools produced option text
- *  over the proxy's limit, so production 400'd on every routing call while
- *  this harness scored perfectly. `jevPrompt.payload.test.ts` now gates it. */
-const failures = new Map<string, number>();
-const directAsk =
-  (apiKey: string, maxRetries?: number): typeof askJev =>
-  async (state, questions) => {
-    const { res, latencyMs, error } = await callSystemOne(
-      apiKey,
-      { state, model: MODEL, questions },
-      { maxRetries },
-    );
-    if (error || !res?.answers) {
-      // Counted by cause, so a run can say whether its fallbacks were rate
-      // limits (an artifact of the harness) or real rejections (a defect).
-      const cause = (error ?? "no answers").slice(0, 60);
-      failures.set(cause, (failures.get(cause) ?? 0) + 1);
-      return null;
-    }
-    return {
-      answers: res.answers as never,
-      model: res.model,
-      usage: res.usage,
-      latencyMs,
-    };
-  };
 
 // ⚠️ THE FIELD NAMES ARE THE MANIFEST'S, NOT OURS. `ai/llm/evalsIndex.ts`
 // compacts every `current_*.json` by reading `toolAcc`/`callAcc`/`argN`/

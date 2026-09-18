@@ -80,6 +80,7 @@ export const jevLaneRoute = async (
   opts: Parameters<typeof deterministicPreamble>[2],
   credentials: JevCredentials | undefined,
   ask: typeof askJev = askJev,
+  gate?: number,
 ): Promise<{
   selected: { tool: string; args: ToolArgs } | null;
   routedByJev: boolean;
@@ -112,7 +113,7 @@ export const jevLaneRoute = async (
       inputTokens: 0,
     };
 
-  const routing = await jevRoute(question, credentials, ask);
+  const routing = await jevRoute(question, credentials, ask, gate);
   let latencyMs = routing.latencyMs ?? 0;
   let inputTokens = 0;
   // A confident `no_tool` is an ANSWER (decline), not a gap.
@@ -163,10 +164,11 @@ export const evaluateJev = async (
   lang: Lang,
   credentials: JevCredentials | undefined,
   ask: typeof askJev = askJev,
+  gate?: number,
 ): Promise<JevLaneRow> => {
   const { question, opts } = nonAiInput(c, lang);
   const ctx: ToolContext = { lang, election: "2026_04_19" };
-  const r = await jevLaneRoute(question, ctx, opts, credentials, ask);
+  const r = await jevLaneRoute(question, ctx, opts, credentials, ask, gate);
   const selected = normalizeRouteForScoring(r.selected, c.tool);
   const toolOk = c.tool === null ? !selected : selected?.tool === c.tool;
   const expected = expectedArgs(c, lang);

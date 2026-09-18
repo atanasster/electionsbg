@@ -127,6 +127,9 @@ export const jevRoute = async (
   question: string,
   credentials: JevCredentials | undefined,
   ask: typeof askJev = askJev,
+  /** Overridable ONLY so the eval can sweep it; production always uses the
+   *  constant. */
+  gate: number = JEV_CONFIDENCE_GATE,
 ): Promise<JevRouting> => {
   const result: JevResult | null = await ask(
     question,
@@ -145,7 +148,7 @@ export const jevRoute = async (
   // the naive form reads an unparseable confidence as "confident" and routes on
   // it. `choiceOf` also rejects a non-finite confidence, so this is the second
   // of two guards on the same untrusted field.
-  if (!(pick.confidence >= JEV_CONFIDENCE_GATE))
+  if (!(pick.confidence >= gate))
     return {
       route: null,
       degraded: false,
