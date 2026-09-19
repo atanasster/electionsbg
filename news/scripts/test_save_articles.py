@@ -1234,12 +1234,29 @@ class IntakeState(unittest.TestCase):
         self.assertEqual(self.report()[1]["alerts"][0]["alert"], "failing")
 
     def test_the_report_alerts_on_a_retry_backlog(self):
-        self.write_state({"domain": "ex.bg", "newest_stored": "2026-08-26",
+        # newest_stored is TODAY: a fixed date ages past the 7-day stale bound
+        # and turns this into a going_stale test on the calendar's schedule.
+        today = datetime.now(timezone.utc).date().isoformat()
+        self.write_state({"domain": "ex.bg", "newest_stored": today,
                           "consecutive_failures": 0, "quarantined": False,
                           "retry_urls": [{"url": f"https://ex.bg/a/{i}",
                                           "attempts": 1} for i in range(12)]})
         self.assertEqual(self.report()[1]["alerts"][0]["alert"],
                          "retry_backlog")
+
+    def test_each_row_carries_its_feed_method_and_last_attempt(self):
+        # Phase 0.4 -> Phase 2.2 compares acquisition health per tier; the
+        # registry names its method column by survey month.
+        (self.root / "news" / "data" / "bg_news_sites.csv").write_text(
+            "domain,feed_method_jul2026,feed_method_aug2026\n"
+            "ex.bg,rss,browser_then_rss\n", encoding="utf-8")
+        self.write_state({"domain": "ex.bg", "consecutive_failures": 0,
+                          "retry_urls": [], "quarantined": False,
+                          "last_attempt_at": "2026-09-02T15:00:00+00:00"})
+        row = next(r for r in self.report()[1]["rows"]
+                   if r["domain"] == "ex.bg")
+        self.assertEqual(row["method"], "browser_then_rss")
+        self.assertEqual(row["last_attempt_at"], "2026-09-02T15:00:00+00:00")
 
     def test_the_stale_threshold_is_configurable(self):
         self.write_state({"domain": "ex.bg", "newest_stored": "2026-08-20",

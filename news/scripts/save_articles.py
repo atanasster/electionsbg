@@ -2680,10 +2680,32 @@ def cmd_intake_report(stale_after_days=7):
     # NEVER completed a run invisible — which is the original defect's exact
     # shape: the sweep silently dropped 14 of 55 domains and nothing noticed.
     registry = set()
+    # The registry's method column is named by survey month
+    # (`feed_method_aug2026`); the report carries it so a per-tier before/after
+    # (plan Phase 0.4 → Phase 2.2) reads straight off this one artifact.
+    methods = {}
     try:
         with open(DATA_DIR / "bg_news_sites.csv", newline="",
                   encoding="utf-8") as f:
-            registry = {r["domain"] for r in csv.DictReader(f) if r.get("domain")}
+            reader = csv.DictReader(f)
+            # Newest survey by its parsed month, never by name: "jul" sorts
+            # after "aug", so a lexical max would pick last month's column.
+            months = ("jan", "feb", "mar", "apr", "may", "jun",
+                      "jul", "aug", "sep", "oct", "nov", "dec")
+
+            def survey(col):
+                m = re.fullmatch(r"feed_method_([a-z]{3})(\d{4})", col)
+                if not m or m.group(1) not in months:
+                    return (0, 0)
+                return (int(m.group(2)), months.index(m.group(1)) + 1)
+            method_cols = sorted((c for c in (reader.fieldnames or [])
+                                  if c.startswith("feed_method")), key=survey)
+            for r in reader:
+                if not r.get("domain"):
+                    continue
+                registry.add(r["domain"])
+                if method_cols:
+                    methods[r["domain"]] = (r.get(method_cols[-1]) or "").strip() or None
     except (OSError, csv.Error, KeyError):
         pass
     # Domain folders with articles in them. A folder whose registry row was
@@ -2727,7 +2749,8 @@ def cmd_intake_report(stale_after_days=7):
                     st["newest_stored"]).date()).days
             except ValueError:
                 age = None
-        row = {"domain": domain, "never_ran": never_ran,
+        row = {"domain": domain, "method": methods.get(domain),
+               "never_ran": never_ran,
                "never_live_checked": never_live_checked,
                "state_bootstrapped": bool(st.get("state_bootstrapped_at")),
                "in_registry": domain in registry,
@@ -2736,6 +2759,7 @@ def cmd_intake_report(stale_after_days=7):
                "newest_stored_age_days": age,
                "quarantined": bool(st.get("quarantined")),
                "consecutive_failures": st.get("consecutive_failures", 0),
+               "last_attempt_at": st.get("last_attempt_at"),
                "last_success_at": st.get("last_success_at"),
                "last_error": st.get("last_error")}
         queued = st.get("retry_urls")
