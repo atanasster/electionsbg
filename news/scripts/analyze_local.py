@@ -29,6 +29,7 @@ import os
 import subprocess
 import sys
 import time
+import traceback
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -293,6 +294,9 @@ def analyze_one(item: dict, assets: dict, model: str, max_tokens: int,
         record = record_from(item, article, answer, model, taxonomy_version,
                              item.get("mentions") or [], request_provenance)
     except (json.JSONDecodeError, KeyError, TypeError) as exc:
+        # A wrong-SHAPE answer arrives here as the TypeError from
+        # check_answer_shape; anything else unexpected is caught by the
+        # stage's worker guard as one failed article.
         # `model_output`: the answer's JSON was unusable, so asking again can
         # succeed — the in-run parse retry and the canary bound key on it. A
         # KeyError/TypeError may come from the item or article instead, which
@@ -605,6 +609,26 @@ def parse_answer(text: str) -> dict:
     return parse_answer_detail(text)[0]
 
 
+# The object-valued fields record_from reads with .get(). A provider that does
+# not enforce the schema can return a string in their place — measured
+# 2026-09-19 23:00: `"quality": "ok"`, which raised AttributeError past every
+# handler and killed the analyze stage.
+OBJECT_FIELDS = ("quality", "leaning", "russia_stance", "ai_generated",
+                 "entities")
+
+
+def check_answer_shape(parsed) -> None:
+    """Refuse a well-formed answer of the wrong shape as a TypeError — a
+    parse failure for this article, never an exception for the stage."""
+    if not isinstance(parsed, dict):
+        raise TypeError(f"answer is a {type(parsed).__name__}, not an object")
+    for field in OBJECT_FIELDS:
+        value = parsed.get(field)
+        if value is not None and not isinstance(value, dict):
+            raise TypeError(f"answer field {field!r} is a "
+                            f"{type(value).__name__}, not an object")
+
+
 def record_from(item: dict, article: dict, answer: dict, model: str,
                 taxonomy_version: int, mentions: list,
                 request_provenance: dict | None = None) -> dict:
@@ -618,6 +642,7 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
     will check against is the only version that can be right.
     """
     parsed, json_repair = parse_answer_detail(answer["text"])
+    check_answer_shape(parsed)
     served_model = answer.get("model") or model
     usage = bounded_usage(answer.get("usage") or {})
     provenance = {
@@ -832,6 +857,20 @@ def main() -> int:
     perf_log.emit("analyze", step="stage_start", queued=len(items),
                   workers=args.workers, deadline_s=args.deadline or None)
 
+    def guarded(call, item) -> dict:
+        """Run one article's work; an exception becomes that article's
+        `worker_exception` failure. The traceback goes to stderr, which the
+        scheduler logs, so a crash stays traceable from var/cron.log."""
+        try:
+            return call()
+        except Exception as exc:  # noqa: BLE001
+            print(f"analyze_local: worker exception on {item['path']}",
+                  file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
+            return {"kind": "llm_failed", "path": item["path"],
+                    "error_kind": "worker_exception",
+                    "detail": f"{type(exc).__name__}: {exc}"[:200]}
+
     def past_deadline() -> bool:
         return deadline_at is not None and time.monotonic() >= deadline_at
 
@@ -861,22 +900,25 @@ def main() -> int:
             stats["deadline_abandoned"] = [i["path"] for i in items[position:]]
             break
         perf_log.emit("analyze", step="canary_call", path=item["path"])
-        result = analyze_one(item, assets, args.model, args.max_tokens,
-                             taxonomy_version, args.temperature)
+        result = guarded(lambda: analyze_one(
+            item, assets, args.model, args.max_tokens, taxonomy_version,
+            args.temperature), item)
         perf_log.emit("analyze", step="canary_result", path=item["path"],
                       kind=result["kind"])
         if result["kind"] != "record":
             if record_worker_failure(stats, result):
                 remaining = []
                 break
-            if result.get("model_output"):
+            # A worker exception counts too: a bug that fails every article
+            # the same way must not walk the whole queue one call at a time.
+            if (result.get("model_output")
+                    or result.get("error_kind") == "worker_exception"):
                 canary_parse_failures += 1
                 if canary_parse_failures >= CANARY_MAX_PARSE_FAILURES:
                     stats["aborted"] = (
-                        f"{canary_parse_failures} consecutive unparseable "
-                        "answers before any record — the endpoint may not be "
-                        "honouring the JSON schema; read `parse_failed` for "
-                        "the provider")
+                        f"{canary_parse_failures} consecutive unusable "
+                        "answers (unparseable, or a worker exception) before "
+                        "any record — read `parse_failed` / `llm_failed`")
                     remaining = []
                     break
             else:
@@ -892,8 +934,9 @@ def main() -> int:
             if attempt_stats["save_failed"]:
                 break
             stats["schema_retry_attempted"] += 1
-            retry = analyze_one(item, assets, args.model, args.max_tokens,
-                                taxonomy_version, args.temperature)
+            retry = guarded(lambda: analyze_one(
+                item, assets, args.model, args.max_tokens, taxonomy_version,
+                args.temperature), item)
             if retry["kind"] != "record":
                 record_worker_failure(stats, retry)
                 break
@@ -919,6 +962,14 @@ def main() -> int:
              "— the model server may be ignoring the schema constraint"))
         remaining = []
         break
+
+    def worker_result(future, item) -> dict:
+        """A worker that RAISED is one failed article, never a dead stage.
+
+        ⚠️ future.result() re-raises in the main thread; before this guard a
+        single unexpected exception discarded every in-flight answer and
+        failed the whole analyze stage (2026-09-19 23:00: 5 saved of 100)."""
+        return guarded(future.result, item)
 
     def drain(pool, pending, handle, on_abandon=None) -> None:
         """Consume completed futures until done or the stage deadline.
@@ -974,7 +1025,7 @@ def main() -> int:
         }
 
         def first_wave(future) -> None:
-            result = future.result()
+            result = worker_result(future, pending[future])
             perf_log.emit("analyze", step="result", path=pending[future]["path"],
                           kind=result["kind"])
             if result["kind"] != "record":
@@ -1023,7 +1074,7 @@ def main() -> int:
 
         def second_wave(future) -> None:
             item, first_stats, first = pending[future]
-            result = future.result()
+            result = worker_result(future, item)
             is_parse_retry = first_stats is None
             if is_parse_retry:
                 stats["parse_retry_attempted"] += 1

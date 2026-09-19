@@ -710,6 +710,7 @@ class AnalyzeYield(unittest.TestCase):
                 mock.patch.object(analyze_local, "analyze_one", fake_analyze), \
                 mock.patch.object(analyze_local.os, "_exit",
                                   side_effect=SystemExit), \
+                mock.patch("sys.stderr", io.StringIO()), \
                 mock.patch("sys.stdout", output):
             try:
                 code = analyze_local.main()
@@ -755,6 +756,109 @@ class AnalyzeYield(unittest.TestCase):
             analyze_local.parse_answer_detail(broken, repair=False)
         with self.assertRaises(json.JSONDecodeError):
             analyze_local.parse_answer('{"e": "unrelated" break}')
+
+    def test_a_worker_that_raises_is_one_failed_article_not_a_dead_stage(self):
+        def fake(item, *_):
+            if item["path"] == "boom.json":
+                raise AttributeError("'str' object has no attribute 'get'")
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+        code, got = self.run_main(fake, ["canary.json", "boom.json",
+                                         "fine.json"])
+        self.assertEqual(got["saved"], 2)
+        self.assertEqual([(f["path"], f["kind"]) for f in got["llm_failed"]],
+                         [("boom.json", "worker_exception")])
+
+    def test_a_wrong_shaped_answer_is_a_parse_failure(self):
+        # Measured 2026-09-19 23:00: `"quality": "ok"` from a provider that
+        # does not enforce the schema raised AttributeError past record_from.
+        import shutil
+        root = Path(tempfile.mkdtemp(prefix="shape_"))
+        self.addCleanup(shutil.rmtree, root, True)
+        article = {"url": "https://x.bg/a", "domain": "x.bg", "title": "t",
+                   "content": "c", "published": "2026-09-19T00:00:00+00:00"}
+        (root / "a.json").write_text(json.dumps(article), encoding="utf-8")
+        answer = {"text": json.dumps({"quality": "ok", "site_relevant": True}),
+                  "provider": "P", "usage": {}}
+        assets = {"system": "s", "grammar": "g", "json_schema": {},
+                  "taxonomy": '{"version": 1}'}
+        with mock.patch.object(analyze_local, "ROOT", root), \
+                mock.patch.object(analyze_local.llm_client, "complete",
+                                  return_value=answer):
+            got = analyze_local.analyze_one(
+                {"path": "a.json", "domain": "x.bg"}, assets, "m", 100, 1)
+        self.assertEqual(got["kind"], "parse_failed")
+        # It must be the SHAPE check that refused it — not some earlier
+        # failure a mis-built fixture happens to trip over.
+        self.assertIn("'quality' is a str", got["detail"])
+        self.assertNotIn("model_output", got)  # shape, not syntax: no retry
+        # Mutation: without the shape check this is the original crash.
+        with mock.patch.object(analyze_local, "check_answer_shape",
+                               lambda parsed: None), \
+                mock.patch.object(analyze_local, "ROOT", root), \
+                mock.patch.object(analyze_local.llm_client, "complete",
+                                  return_value=answer):
+            with self.assertRaises(AttributeError):
+                analyze_local.analyze_one(
+                    {"path": "a.json", "domain": "x.bg"}, assets, "m", 100, 1)
+
+    def test_a_canary_exception_is_one_article_then_the_run_continues(self):
+        calls = {}
+
+        def fake(item, *_):
+            calls[item["path"]] = calls.get(item["path"], 0) + 1
+            if item["path"] == "boom.json":
+                raise RuntimeError("bug")
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+        code, got = self.run_main(fake, ["boom.json", "ok.json", "ok2.json"])
+        self.assertEqual(got["saved"], 2)
+        self.assertEqual([f["kind"] for f in got["llm_failed"]],
+                         ["worker_exception"])
+
+    def test_an_exception_in_the_canary_schema_retry_is_contained(self):
+        calls = {}
+
+        def fake(item, *_):
+            calls[item["path"]] = calls.get(item["path"], 0) + 1
+            if calls[item["path"]] == 2:
+                raise RuntimeError("bug on retry")
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+
+        def reject_first(record):
+            return 3, {"saved": [], "failed": [
+                {"article_path": record["article_path"]}]}
+        code, got = self.run_main(fake, ["c.json"], fake_save=reject_first)
+        self.assertEqual([f["kind"] for f in got["llm_failed"]],
+                         ["worker_exception"])
+
+    def test_repeated_canary_exceptions_hit_the_bound(self):
+        calls = []
+
+        def fake(item, *_):
+            calls.append(item["path"])
+            raise RuntimeError("the same bug every time")
+        _, got = self.run_main(fake, [f"a{i}.json" for i in range(12)])
+        self.assertEqual(len(calls), analyze_local.CANARY_MAX_PARSE_FAILURES)
+        self.assertIn("worker exception", got["aborted"])
+
+    def test_an_exception_in_the_retry_wave_is_contained(self):
+        calls = {}
+
+        def fake(item, *_):
+            path = item["path"]
+            calls[path] = calls.get(path, 0) + 1
+            if path == "p.json":
+                if calls[path] == 1:
+                    return self.unparseable(path)
+                raise RuntimeError("bug on retry")
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": path}}
+        _, got = self.run_main(fake, ["canary.json", "p.json", "q.json"])
+        self.assertEqual(got["saved"], 2)
+        self.assertEqual([(f["path"], f["kind"]) for f in got["llm_failed"]],
+                         [("p.json", "worker_exception")])
 
     def test_a_saved_repaired_record_is_counted(self):
         def fake(item, *_):
