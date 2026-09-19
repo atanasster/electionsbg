@@ -12,6 +12,7 @@ import json
 import os
 import subprocess
 import tempfile
+import time
 import urllib.error
 import sys
 import unittest
@@ -678,6 +679,294 @@ class Saving(unittest.TestCase):
         self.assertEqual(got["rejected"], [])
         self.assertEqual(calls,
                          {"bad.json": 1, "canary.json": 1, "retry.json": 2})
+
+
+class AnalyzeYield(unittest.TestCase):
+    """Plan Phase 1.3: repair, parse retry, bounded canary, deadline."""
+
+    def run_main(self, fake_analyze, paths, *extra, fake_save=None):
+        import io
+        queue = [{"path": name, "domain": "x.bg"} for name in paths]
+
+        def fake_run(*args, stdin=None):
+            if args[0] == "--next":
+                return 0, {"queue": queue}
+            record = json.loads(stdin)[0]
+            if fake_save is not None:
+                return fake_save(record)
+            return 0, {"saved": [record["article_path"]], "failed": []}
+
+        argv = ["analyze_local.py", "--limit", str(len(paths)), "--model",
+                "m", "--workers", "2", "--schema-retries", "1", *extra]
+        assets = {"grammar": "g", "json_schema": {}, "system": "s",
+                  "taxonomy": '{"version": 1}'}
+        output = io.StringIO()
+        with mock.patch.object(sys, "argv", argv), \
+                mock.patch.object(analyze_local, "load_prompt_assets",
+                                  return_value=assets), \
+                mock.patch.object(analyze_local, "grammar_is_enforced",
+                                  return_value=(True, "enforced")), \
+                mock.patch.object(analyze_local, "run_analyze", fake_run), \
+                mock.patch.object(analyze_local, "analyze_one", fake_analyze), \
+                mock.patch.object(analyze_local.os, "_exit",
+                                  side_effect=SystemExit), \
+                mock.patch("sys.stdout", output):
+            try:
+                code = analyze_local.main()
+            except SystemExit:
+                code = "hard_exit"
+        return code, json.loads(output.getvalue())
+
+    @staticmethod
+    def unparseable(path):
+        return {"kind": "parse_failed", "path": path, "detail": "bad json",
+                "model_output": True, "provider": "P"}
+
+    def test_the_repair_leaves_escaped_quotes_and_refuses_to_merge(self):
+        parsed, repair = analyze_local.parse_answer_detail(
+            '{"a": "„Не\\"", "b": "„x" y"}')
+        self.assertEqual(parsed, {"a": '„Не"', "b": "„x“ y"})
+        self.assertEqual(repair, "bg_quote_closed_ascii")
+        # Rewriting here would fold two array elements into one string.
+        with self.assertRaises(json.JSONDecodeError):
+            analyze_local.parse_answer_detail('["„p", ", "x"]')
+
+    def test_a_failed_repair_reports_the_original_error(self):
+        text = '{"a": "x" y}'
+        with self.assertRaises(json.JSONDecodeError) as ctx:
+            analyze_local.parse_answer_detail(text)
+        with self.assertRaises(json.JSONDecodeError) as raw:
+            json.loads(text)
+        self.assertEqual((ctx.exception.msg, ctx.exception.pos),
+                         (raw.exception.msg, raw.exception.pos))
+
+    def test_the_repair_closes_a_bulgarian_quotation_and_nothing_else(self):
+        broken = '{"e": "без автор освен „Frognews"", "x": ["„а" и „б""]}'
+        parsed, repair = analyze_local.parse_answer_detail(broken)
+        self.assertEqual(repair, "bg_quote_closed_ascii")
+        self.assertEqual(parsed["e"], "без автор освен „Frognews“")
+        self.assertEqual(parsed["x"], ["„а“ и „б“"])
+        valid = '{"e": "„цитат" в ключ"}'.replace('" в', '“ в')
+        self.assertEqual(analyze_local.parse_answer_detail(valid)[1], None)
+        # A valid answer containing „…" in the RIGHT form is never rewritten.
+        self.assertEqual(analyze_local.parse_answer('{"e": "a „b“"}')["e"],
+                         "a „b“")
+        with self.assertRaises(json.JSONDecodeError):
+            analyze_local.parse_answer_detail(broken, repair=False)
+        with self.assertRaises(json.JSONDecodeError):
+            analyze_local.parse_answer('{"e": "unrelated" break}')
+
+    def test_a_saved_repaired_record_is_counted(self):
+        def fake(item, *_):
+            prov = ({"json_repair": "bg_quote_closed_ascii"}
+                    if item["path"] == "fixed.json" else {})
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"],
+                               "analysis_provenance": prov}}
+        _, got = self.run_main(fake, ["canary.json", "fixed.json"])
+        self.assertEqual(got["json_repaired"], 1)
+
+    def test_an_unparseable_answer_gets_one_retry_and_its_success_is_saved(self):
+        calls = {}
+
+        def fake(item, *_):
+            path = item["path"]
+            calls[path] = calls.get(path, 0) + 1
+            if path == "flaky.json" and calls[path] == 1:
+                return self.unparseable(path)
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": path}}
+        code, got = self.run_main(fake, ["canary.json", "flaky.json"])
+        self.assertEqual(code, 0)
+        self.assertEqual(got["saved"], 2)
+        self.assertEqual(got["parse_failed"], [])
+        self.assertEqual((got["parse_retry_attempted"],
+                          got["parse_retry_succeeded"]), (1, 1))
+        self.assertEqual(calls["flaky.json"], 2)
+
+    def test_a_retry_that_fails_again_is_reported_once(self):
+        def fake(item, *_):
+            if item["path"] == "bad.json":
+                return self.unparseable(item["path"])
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+        _, got = self.run_main(fake, ["canary.json", "bad.json"])
+        self.assertEqual([f["path"] for f in got["parse_failed"]],
+                         ["bad.json"])
+        self.assertEqual(got["parse_retry_succeeded"], 0)
+
+    def test_an_unreadable_article_is_not_retried(self):
+        calls = {}
+
+        def fake(item, *_):
+            calls[item["path"]] = calls.get(item["path"], 0) + 1
+            if item["path"] == "gone.json":
+                return {"kind": "parse_failed", "path": "gone.json",
+                        "detail": "unreadable"}
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+        _, got = self.run_main(fake, ["canary.json", "gone.json"])
+        self.assertEqual(calls["gone.json"], 1)
+        self.assertEqual(got["parse_retry_attempted"], 0)
+
+    def test_the_canary_gives_up_after_consecutive_unparseable_answers(self):
+        # Before: `continue`d through every parse failure, serializing the
+        # whole queue on a provider that ignores the schema (plan §0.10 W1).
+        calls = []
+
+        def fake(item, *_):
+            calls.append(item["path"])
+            return self.unparseable(item["path"])
+        paths = [f"a{i}.json" for i in range(12)]
+        _, got = self.run_main(fake, paths)
+        self.assertEqual(len(calls), analyze_local.CANARY_MAX_PARSE_FAILURES)
+        self.assertIn("unparseable", got["aborted"])
+        self.assertEqual(got["saved"], 0)
+
+    def test_the_deadline_abandons_slow_calls_and_leaves_them_queued(self):
+        import threading
+        release = threading.Event()
+
+        def fake(item, *_):
+            if item["path"] != "canary.json":
+                release.wait(5)  # a hung provider call
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+        started = time.monotonic()
+        try:
+            code, got = self.run_main(
+                fake, ["canary.json", "s1.json", "s2.json"], "--deadline", "1")
+        finally:
+            release.set()
+        self.assertLess(time.monotonic() - started, 4)
+        self.assertEqual(got["saved"], 1)
+        self.assertEqual(sorted(got["deadline_abandoned"]),
+                         ["s1.json", "s2.json"])
+        # The PROCESS must not outlive the deadline by joining the abandoned
+        # threads at interpreter exit.
+        self.assertEqual(code, "hard_exit")
+
+    def test_results_finished_during_a_slow_save_are_not_dropped(self):
+        # as_completed's timeout used to drop futures that completed while a
+        # handler was still busy — counted nowhere.
+        def slow_save(record):
+            if record["article_path"] == "a.json":
+                time.sleep(1.5)
+            return 0, {"saved": [record["article_path"]], "failed": []}
+
+        def fake(item, *_):
+            if item["path"] == "b.json":
+                time.sleep(0.2)
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+        code, got = self.run_main(fake, ["canary.json", "a.json", "b.json"],
+                                  "--deadline", "1", fake_save=slow_save)
+        self.assertEqual(got["saved"], 3)
+        self.assertEqual(got["deadline_abandoned"], [])
+
+    def test_a_parse_retry_abandoned_at_the_deadline_keeps_its_first_failure(self):
+        import threading
+        release = threading.Event()
+        calls = {}
+
+        def fake(item, *_):
+            path = item["path"]
+            calls[path] = calls.get(path, 0) + 1
+            if path == "p.json":
+                if calls[path] == 1:
+                    time.sleep(0.2)
+                    return self.unparseable(path)
+                release.wait(5)
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": path}}
+        try:
+            _, got = self.run_main(fake, ["canary.json", "p.json"],
+                                   "--deadline", "1")
+        finally:
+            release.set()
+        self.assertEqual([f["path"] for f in got["parse_failed"]], ["p.json"])
+        self.assertEqual(got["deadline_abandoned"], ["p.json"])
+        self.assertEqual(got["parse_retry_attempted"], 0)
+
+
+class TransportBudget(unittest.TestCase):
+    def test_hosted_endpoints_get_a_short_budget_local_keeps_its_own(self):
+        with mock.patch.dict(os.environ, {}, clear=False):
+            for k in ("NEWS_LLM_HOSTED_TIMEOUT", "NEWS_LLM_HOSTED_ATTEMPTS"):
+                os.environ.pop(k, None)
+            self.assertEqual(llm_client.transport_budget(
+                "https://openrouter.ai/api/v1/chat/completions", None, None),
+                (60, 2))
+            self.assertEqual(llm_client.transport_budget(
+                "http://127.0.0.1:8080/v1/chat/completions", None, None),
+                (llm_client.DEFAULT_TIMEOUT, llm_client.MAX_ATTEMPTS))
+            # An explicit caller choice always wins (triage passes 12 s x 1).
+            self.assertEqual(llm_client.transport_budget(
+                "https://openrouter.ai/x", 12, 1), (12, 1))
+        with mock.patch.dict(os.environ, {"NEWS_LLM_HOSTED_TIMEOUT": "45",
+                                          "NEWS_LLM_HOSTED_ATTEMPTS": "3"}):
+            self.assertEqual(llm_client.transport_budget(
+                "https://openrouter.ai/x", None, None), (45, 3))
+
+    def test_an_explicit_pin_is_not_emptied_by_env_ignore(self):
+        # diagnose_yield --providers NextBit with NEWS_LLM_PROVIDER_IGNORE=
+        # NextBit set would otherwise ask for NextBit AND exclude it.
+        with mock.patch.dict(os.environ, {
+                "NEWS_LLM_URL": "https://openrouter.ai/api/v1/chat/completions",
+                "NEWS_LLM_ALLOW_REMOTE": "1",
+                "NEWS_LLM_PROVIDER_IGNORE": "NextBit"}):
+            _, body, _ = llm_client.prepare_request(
+                "s", "u", model="m", json_schema={"type": "object"},
+                provider={"order": ["NextBit"], "allow_fallbacks": False})
+        self.assertEqual(json.loads(body)["provider"],
+                         {"require_parameters": True, "order": ["NextBit"],
+                          "allow_fallbacks": False})
+
+    def test_prepared_and_returned_request_metadata_agree(self):
+        # benchmark_news_models.py raises if these differ.
+        doc = {"choices": [{"message": {"content": "{}"}}], "usage": {}}
+
+        class Resp:
+            def __enter__(self_inner):
+                return self_inner
+
+            def __exit__(self_inner, *exc):
+                return False
+
+            def read(self_inner, *_):
+                return json.dumps(doc).encode("utf-8")
+        env = {"NEWS_LLM_URL": "https://openrouter.ai/api/v1/chat/completions",
+               "NEWS_LLM_ALLOW_REMOTE": "1"}
+        with mock.patch.dict(os.environ, env), mock.patch.object(
+                llm_client.urllib.request, "urlopen",
+                lambda req, timeout=None: Resp()):
+            _, _, prepared = llm_client.prepare_request(
+                "s", "u", model="m", json_schema={"type": "object"},
+                max_attempts=llm_client.MAX_ATTEMPTS, timeout=90)
+            answer = llm_client.complete(
+                "s", "u", model="m", json_schema={"type": "object"},
+                max_attempts=llm_client.MAX_ATTEMPTS, timeout=90)
+        self.assertEqual(answer["request"], prepared)
+        self.assertEqual(prepared["transport_timeout_s"], 90)
+
+    def test_a_malformed_env_budget_falls_back_instead_of_crashing(self):
+        with mock.patch.dict(os.environ, {"NEWS_LLM_HOSTED_TIMEOUT": "1m",
+                                          "NEWS_LLM_HOSTED_ATTEMPTS": "0"}), \
+                mock.patch("sys.stderr"):
+            self.assertEqual(llm_client.transport_budget(
+                "https://openrouter.ai/x", None, None), (60, 2))
+
+    def test_env_routing_ignores_and_orders_providers(self):
+        with mock.patch.dict(os.environ, {
+                "NEWS_LLM_URL": "https://openrouter.ai/api/v1/chat/completions",
+                "NEWS_LLM_ALLOW_REMOTE": "1",
+                "NEWS_LLM_PROVIDER_IGNORE": "NextBit, Foo",
+                "NEWS_LLM_PROVIDER_ORDER": ""}):
+            _, body, _ = llm_client.prepare_request(
+                "s", "u", model="m", json_schema={"type": "object"})
+        self.assertEqual(json.loads(body)["provider"],
+                         {"require_parameters": True,
+                          "ignore": ["NextBit", "Foo"]})
 
 
 class TheGrammarNonEmpty(unittest.TestCase):

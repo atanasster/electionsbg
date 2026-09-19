@@ -69,7 +69,9 @@ def classify(text: str, finish_reason: Optional[str]) -> str:
     """Why an answer did or did not parse. `ok` here means SYNTAX only;
     main() upgrades it through record_from."""
     try:
-        analyze_local.parse_answer(text)
+        # repair=False: this measures what the PROVIDER sent, not what the
+        # pipeline's repair can rescue.
+        analyze_local.parse_answer_detail(text, repair=False)
         return "ok"
     except json.JSONDecodeError as exc:
         if finish_reason == "length":

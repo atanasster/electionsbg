@@ -20,6 +20,7 @@ Run:  python3 news/scripts/analyze_local.py --limit 20 --model gemma-4-12b
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import TimeoutError as FuturesTimeout
 import hashlib
 import json
 import math
@@ -33,6 +34,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import llm_client  # noqa: E402
+import perf_log  # noqa: E402
 from build_prompts import MAX_BODY_CHARS  # noqa: E402
 
 ROOT = Path(os.environ.get("DATA_BG_ROOT") or
@@ -46,6 +48,10 @@ ANALYZE = SCRIPTS / "analyze_articles.py"
 # produces free-form JSON that fails every time — and discovering that after
 # 200 requests has burned the whole nightly window on a misconfiguration.
 FIRST_RECORD_IS_A_CANARY = True
+# Consecutive unparseable canary answers before the endpoint is declared
+# unusable. At the worst measured provider rate (8 of 17 unparseable), five in
+# a row is ~2%; at the pipeline's normal rate it is well under 0.1%.
+CANARY_MAX_PARSE_FAILURES = 5
 ANALYSIS_PROVENANCE_VERSION = 1
 MAX_USAGE_TOKENS = 1_000_000_000
 MAX_USAGE_COST_USD = 1_000_000
@@ -287,8 +293,16 @@ def analyze_one(item: dict, assets: dict, model: str, max_tokens: int,
         record = record_from(item, article, answer, model, taxonomy_version,
                              item.get("mentions") or [], request_provenance)
     except (json.JSONDecodeError, KeyError, TypeError) as exc:
-        return {"kind": "parse_failed", "path": item["path"],
-                "detail": str(exc)[:200]}
+        # `model_output`: the answer's JSON was unusable, so asking again can
+        # succeed — the in-run parse retry and the canary bound key on it. A
+        # KeyError/TypeError may come from the item or article instead, which
+        # a retry cannot fix, so only a syntax error earns the flag.
+        failure = {"kind": "parse_failed", "path": item["path"],
+                   "detail": str(exc)[:200],
+                   "provider": answer.get("provider")}
+        if isinstance(exc, json.JSONDecodeError):
+            failure["model_output"] = True
+        return failure
     return {"kind": "record", "item": item, "record": record}
 
 
@@ -415,6 +429,12 @@ def analyze_routed(item: dict, assets: dict, paid_model: str, max_tokens: int,
         return triage
     paid = analyze_one(item, assets, paid_model, max_tokens, taxonomy_version,
                        temperature)
+    if paid.get("kind") != "record":
+        # Kept on the failure so an in-run parse retry that succeeds can still
+        # say it was a paid fallback from triage.
+        paid["route"] = "paid_fallback"
+        paid["triage_fallback"] = {"model_requested": triage_model,
+                                   "reason": triage.get("reason")}
     if paid.get("kind") == "record":
         paid["record"]["analysis_provenance"]["triage_fallback"] = {
             "model_requested": triage_model,
@@ -520,10 +540,69 @@ def build_user_prompt(rec: dict, mentions: list, taxonomy: str) -> str:
 FENCE_RE = re.compile(r"^\s*```(?:json)?\s*\n(.*?)\n?\s*```\s*$", re.S)
 
 
+# A Bulgarian quotation opened with „ and closed with an ASCII " — the ASCII
+# quote ends the JSON string early. Every syntax failure NextBit produced on
+# the 2026-09-02 losses had this shape (news/evals/analyze-yield-2026-09-19.md).
+# The repair writes the correct Bulgarian closing quote “ in place of THAT ONE
+# quote: it adds no word and removes none.
+#
+# ⚠️ LOCAL, not global. Each step fixes only the quote the parser tripped
+# over (the last `"` before the error position), and only when a „ opens a
+# quotation within the same line and 200 characters with no quote character
+# between — so an escaped \" elsewhere, or a valid „…“ quotation, is never
+# touched, and two JSON values cannot be merged: the candidate quote must
+# CLOSE a „ that opened inside the same string.
+BG_QUOTE_WINDOW = 200
+BG_QUOTE_MAX_FIXES = 10
+
+
+def _repair_quote_at(body: str, pos: int):
+    before = body[:pos]
+    quote = before.rfind('"')
+    if quote <= 0 or body[quote - 1] == "\\":
+        return None
+    lead = before[max(0, quote - BG_QUOTE_WINDOW):quote]
+    opener = lead.rfind("„")
+    if opener < 0:
+        return None
+    inside = lead[opener + 1:]
+    if not inside or "\n" in inside or any(c in inside for c in '"“”„'):
+        return None
+    return body[:quote] + "“" + body[quote + 1:]
+
+
+def parse_answer_detail(text: str, repair: bool = True) -> tuple:
+    """(parsed JSON, repair name or None).
+
+    ⚠️ The repair runs ONLY after the answer failed to parse as-is, and is
+    kept only if the repaired text parses — a valid answer is never touched.
+    If it cannot finish, the ORIGINAL error is raised, so a report names the
+    model's mistake rather than the repair's. The record still has to pass
+    the full validator and the verbatim-evidence check downstream, so a
+    repair can make a record REACH those gates, never pass them."""
+    m = FENCE_RE.match(text or "")
+    body = m.group(1) if m else text
+    try:
+        return json.loads(body), None
+    except json.JSONDecodeError as original:
+        if not repair:
+            raise
+        current, exc = body, original
+        for _ in range(BG_QUOTE_MAX_FIXES):
+            fixed = _repair_quote_at(current, exc.pos)
+            if fixed is None:
+                break
+            current = fixed
+            try:
+                return json.loads(current), "bg_quote_closed_ascii"
+            except json.JSONDecodeError as again:
+                exc = again
+        raise original from None
+
+
 def parse_answer(text: str) -> dict:
     """The model's JSON, with a code fence removed if it added one."""
-    m = FENCE_RE.match(text or "")
-    return json.loads(m.group(1) if m else text)
+    return parse_answer_detail(text)[0]
 
 
 def record_from(item: dict, article: dict, answer: dict, model: str,
@@ -538,7 +617,7 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
     domain against the corpus anyway, so taking them from the same file it
     will check against is the only version that can be right.
     """
-    parsed = parse_answer(answer["text"])
+    parsed, json_repair = parse_answer_detail(answer["text"])
     served_model = answer.get("model") or model
     usage = bounded_usage(answer.get("usage") or {})
     provenance = {
@@ -553,6 +632,8 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
         "attempt_elapsed_s": answer.get("attempt_elapsed_s"),
         "transport_elapsed_s": answer.get("transport_elapsed_s"),
         "transport_attempts": answer.get("attempts"),
+        # Present only when the answer needed repair_bg_quotes to parse.
+        **({"json_repair": json_repair} if json_repair else {}),
         "claim_sources": {
             "confidence": "model_output",
             "evidence": "model_output",
@@ -673,6 +754,10 @@ def main() -> int:
                     default=os.environ.get("NEWS_LLM_TRIAGE_MODEL") or None,
                     help="optional free OpenRouter model for proof-only "
                          "weather/sports triage; all other cases use --model")
+    ap.add_argument("--deadline", type=int,
+                    default=int(os.environ.get("NEWS_ANALYZE_DEADLINE_S") or 0),
+                    help="seconds after which the stage stops waiting; "
+                         "unfinished articles stay queued (0 = no deadline)")
     ap.add_argument("--triage-timeout", type=int,
                     default=int(os.environ.get("NEWS_LLM_TRIAGE_TIMEOUT", "12")),
                     help="seconds for one no-retry free triage request")
@@ -737,23 +822,67 @@ def main() -> int:
              "triage_accepted": 0, "paid_fallback": 0,
              "auto_merged": []}
     started = time.monotonic()
+    deadline_at = started + args.deadline if args.deadline > 0 else None
+    stats.update(parse_retry_attempted=0, parse_retry_succeeded=0,
+                 json_repaired=0, deadline_s=args.deadline or None,
+                 deadline_abandoned=[])
     remaining = []
     canary_done = not FIRST_RECORD_IS_A_CANARY
+    canary_parse_failures = 0
+    perf_log.emit("analyze", step="stage_start", queued=len(items),
+                  workers=args.workers, deadline_s=args.deadline or None)
+
+    def past_deadline() -> bool:
+        return deadline_at is not None and time.monotonic() >= deadline_at
+
+    def wait_left():
+        if deadline_at is None:
+            return None
+        return max(0.0, deadline_at - time.monotonic())
+
+    def note_saved(record: dict) -> None:
+        if (record.get("analysis_provenance") or {}).get("json_repair"):
+            stats["json_repaired"] += 1
 
     # Prove one complete model→validator round trip before opening the worker
     # pool. Otherwise four workers can spend the whole queue on a provider
     # that accepted `response_format` but returned an unusable shape.
+    #
+    # ⚠️ BOUNDED. Only `unreachable`/`remote_refused` used to end this loop:
+    # a parse failure `continue`d, so a provider that accepts `strict` and
+    # ignores it would serialize the WHOLE queue here, one call at a time
+    # (plan §0.10 W1). After CANARY_MAX_PARSE_FAILURES consecutive
+    # unparseable answers the endpoint is declared unusable instead.
     for position, item in enumerate(items):
         if canary_done:
             remaining = items[position:]
             break
+        if past_deadline():
+            stats["deadline_abandoned"] = [i["path"] for i in items[position:]]
+            break
+        perf_log.emit("analyze", step="canary_call", path=item["path"])
         result = analyze_one(item, assets, args.model, args.max_tokens,
                              taxonomy_version, args.temperature)
+        perf_log.emit("analyze", step="canary_result", path=item["path"],
+                      kind=result["kind"])
         if result["kind"] != "record":
             if record_worker_failure(stats, result):
                 remaining = []
                 break
+            if result.get("model_output"):
+                canary_parse_failures += 1
+                if canary_parse_failures >= CANARY_MAX_PARSE_FAILURES:
+                    stats["aborted"] = (
+                        f"{canary_parse_failures} consecutive unparseable "
+                        "answers before any record — the endpoint may not be "
+                        "honouring the JSON schema; read `parse_failed` for "
+                        "the provider")
+                    remaining = []
+                    break
+            else:
+                canary_parse_failures = 0
             continue
+        canary_parse_failures = 0
         stats["answered"] += 1
         ok, attempt_stats = save_attempt(result["record"])
         last_attempt_stats = attempt_stats
@@ -773,6 +902,7 @@ def main() -> int:
             ok, last_attempt_stats = save_attempt(retry["record"])
         merge_save_stats(stats, last_attempt_stats)
         if ok:
+            note_saved(result["record"])
             if stats["schema_retry_attempted"]:
                 stats["schema_retry_succeeded"] += 1
             canary_done = True
@@ -790,61 +920,159 @@ def main() -> int:
         remaining = []
         break
 
-    retry_queue = []
-    if canary_done and remaining:
-        with ThreadPoolExecutor(max_workers=args.workers) as pool:
-            pending = {
-                pool.submit(analyze_routed, item, assets, args.model,
-                            args.max_tokens, taxonomy_version,
-                            args.triage_model, args.triage_timeout,
-                            args.temperature): item
-                for item in remaining
-            }
-            for future in as_completed(pending):
-                result = future.result()
-                if result["kind"] != "record":
-                    record_worker_failure(stats, result)
+    def drain(pool, pending, handle, on_abandon=None) -> None:
+        """Consume completed futures until done or the stage deadline.
+
+        ⚠️ On the deadline, unstarted work is cancelled and running calls are
+        ABANDONED — never awaited, never saved. Their articles stay
+        unanalysed, so the next run's queue picks them up: a slow provider
+        costs latency, never coverage. Futures that finished while a handler
+        was busy ARE handled — as_completed's timeout would otherwise drop
+        them from every bucket."""
+        handled = set()
+        try:
+            for future in as_completed(pending, timeout=wait_left()):
+                handled.add(future)
+                handle(future)
+        except FuturesTimeout:
+            abandoned = []
+            for future, value in pending.items():
+                if future in handled:
                     continue
-                stats["answered"] += 1
-                if result.get("route") == "free_triage":
-                    stats["triage_accepted"] += 1
-                elif result.get("route") == "paid_fallback":
-                    stats["paid_fallback"] += 1
-                ok, attempt_stats = save_attempt(result["record"])
-                if ok or attempt_stats["save_failed"] or not args.schema_retries:
-                    merge_save_stats(stats, attempt_stats)
-                else:
-                    stats["schema_retry_attempted"] += 1
-                    retry_queue.append((result["item"], attempt_stats,
-                                        result["record"]))
+                if future.done() and not future.cancelled():
+                    handle(future)
+                    continue
+                abandoned.append(value)
+                if on_abandon is not None:
+                    on_abandon(value)
+            paths = [(a[0] if isinstance(a, tuple) else a)["path"]
+                     for a in abandoned]
+            stats["deadline_abandoned"].extend(paths)
+            perf_log.emit("analyze", step="deadline", abandoned=len(paths))
+        finally:
+            pool.shutdown(wait=False, cancel_futures=True)
+
+    def supersede(first_stats, first_failure) -> None:
+        """A retry that did not produce a record leaves the FIRST attempt's
+        outcome standing: its rejection stats, or its parse failure."""
+        if first_stats is not None:
+            merge_save_stats(stats, first_stats)
+        elif first_failure is not None:
+            record_worker_failure(stats, first_failure)
+
+    retry_queue = []
+    parse_retry_queue = []
+    if canary_done and remaining and not past_deadline():
+        perf_log.emit("analyze", step="pool_open", items=len(remaining))
+        pool = ThreadPoolExecutor(max_workers=args.workers)
+        pending = {
+            pool.submit(analyze_routed, item, assets, args.model,
+                        args.max_tokens, taxonomy_version,
+                        args.triage_model, args.triage_timeout,
+                        args.temperature): item
+            for item in remaining
+        }
+
+        def first_wave(future) -> None:
+            result = future.result()
+            perf_log.emit("analyze", step="result", path=pending[future]["path"],
+                          kind=result["kind"])
+            if result["kind"] != "record":
+                # One bounded in-run retry for an unusable ANSWER; before
+                # this a parse failure was simply lost for the run.
+                if result.get("model_output"):
+                    parse_retry_queue.append((pending[future], result))
+                    return
+                record_worker_failure(stats, result)
+                return
+            stats["answered"] += 1
+            if result.get("route") == "free_triage":
+                stats["triage_accepted"] += 1
+            elif result.get("route") == "paid_fallback":
+                stats["paid_fallback"] += 1
+            ok, attempt_stats = save_attempt(result["record"])
+            if ok:
+                note_saved(result["record"])
+            if ok or attempt_stats["save_failed"] or not args.schema_retries:
+                merge_save_stats(stats, attempt_stats)
+            else:
+                stats["schema_retry_attempted"] += 1
+                retry_queue.append((result["item"], attempt_stats,
+                                    result["record"]))
+        drain(pool, pending, first_wave)
+    elif remaining:
+        stats["deadline_abandoned"].extend(i["path"] for i in remaining)
 
     # A second bounded wave preserves the four-request ceiling: retrying in
     # the main thread while the first pool was active would create a fifth
     # simultaneous request.
-    if retry_queue:
-        with ThreadPoolExecutor(max_workers=args.workers) as pool:
-            pending = {
-                pool.submit(analyze_one, item, assets, args.model,
-                            args.max_tokens, taxonomy_version,
-                            args.temperature): (
-                                item, first_stats, first_record)
-                for item, first_stats, first_record in retry_queue
-            }
-            for future in as_completed(pending):
-                item, first_stats, first_record = pending[future]
-                result = future.result()
-                if result["kind"] != "record":
-                    merge_save_stats(stats, first_stats)
+    if (retry_queue or parse_retry_queue) and not past_deadline():
+        perf_log.emit("analyze", step="retry_wave", schema=len(retry_queue),
+                      parse=len(parse_retry_queue))
+        pool = ThreadPoolExecutor(max_workers=args.workers)
+        pending = {}
+        for item, first_stats, first_record in retry_queue:
+            pending[pool.submit(analyze_one, item, assets, args.model,
+                                args.max_tokens, taxonomy_version,
+                                args.temperature)] = (
+                item, first_stats, first_record)
+        for item, first_failure in parse_retry_queue:
+            pending[pool.submit(analyze_one, item, assets, args.model,
+                                args.max_tokens, taxonomy_version,
+                                args.temperature)] = (item, None, first_failure)
+
+        def second_wave(future) -> None:
+            item, first_stats, first = pending[future]
+            result = future.result()
+            is_parse_retry = first_stats is None
+            if is_parse_retry:
+                stats["parse_retry_attempted"] += 1
+            if result["kind"] != "record":
+                if is_parse_retry:
+                    # The retry's failure is the one reported; the first
+                    # attempt's is superseded by it.
                     record_worker_failure(stats, result)
-                    continue
-                stats["answered"] += 1
-                carry_schema_attempts(result["record"], [first_record])
-                ok, attempt_stats = save_attempt(result["record"])
-                merge_save_stats(stats, attempt_stats)
-                if ok:
+                else:
+                    supersede(first_stats, None)
+                    record_worker_failure(stats, result)
+                return
+            stats["answered"] += 1
+            if is_parse_retry:
+                if first.get("route") == "paid_fallback":
+                    stats["paid_fallback"] += 1
+                    result["record"].setdefault(
+                        "analysis_provenance", {})["triage_fallback"] = (
+                            first.get("triage_fallback"))
+            else:
+                carry_schema_attempts(result["record"], [first])
+            ok, attempt_stats = save_attempt(result["record"])
+            merge_save_stats(stats, attempt_stats)
+            if ok:
+                note_saved(result["record"])
+                if is_parse_retry:
+                    stats["parse_retry_succeeded"] += 1
+                else:
                     stats["schema_retry_succeeded"] += 1
 
+        def abandon(value) -> None:
+            _item, first_stats, first = value
+            supersede(first_stats, first if first_stats is None else None)
+        drain(pool, pending, second_wave, abandon)
+    else:
+        for _item, first_failure in parse_retry_queue:
+            supersede(None, first_failure)
+        for _item, first_stats, _ in retry_queue:
+            supersede(first_stats, None)
+
     stats["elapsed_s"] = round(time.monotonic() - started, 1)
+    perf_log.emit("analyze", step="stage_done", queued=stats["queued"],
+                  answered=stats["answered"], saved=stats["saved"],
+                  parse_failed=len(stats["parse_failed"]),
+                  llm_failed=len(stats["llm_failed"]),
+                  json_repaired=stats["json_repaired"],
+                  parse_retry_succeeded=stats["parse_retry_succeeded"],
+                  deadline_abandoned=len(stats["deadline_abandoned"]),
+                  elapsed_s=stats["elapsed_s"])
     # ⚠️ A save that FAILED to run at all — a bad taxonomy, unreadable JSON —
     # is not the same as one that rejected records, and neither is success.
     # Reading only `out["saved"]` reported `saved: 1, rejected: []` at exit 0
@@ -857,9 +1085,18 @@ def main() -> int:
     # ⚠️ Non-zero when NOTHING was saved but something was queued, AND when a
     # save call itself failed. A cron job that always exits 0 reports a broken
     # model server as a quiet night.
-    if stats["save_failed"]:
-        return 2
-    return 0 if stats["saved"] or not items else 1
+    code = (2 if stats["save_failed"]
+            else 0 if stats["saved"] or not items else 1)
+    if stats.get("deadline_abandoned") and not os.environ.get(
+            "NEWS_ANALYZE_NO_HARD_EXIT"):
+        # ⚠️ The deadline must bound the PROCESS, not just the report: the
+        # interpreter joins pool threads at exit, so abandoned calls would
+        # otherwise hold the stage open for up to one transport budget more.
+        # Everything is already saved and printed; nothing is left to flush.
+        sys.stdout.flush()
+        sys.stderr.flush()
+        os._exit(code)
+    return code
 
 
 if __name__ == "__main__":

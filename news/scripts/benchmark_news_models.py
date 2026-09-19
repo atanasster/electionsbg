@@ -429,7 +429,8 @@ def main() -> int:
                 grammar=assets["grammar"] if is_local else None,
                 json_schema=assets["json_schema"],
                 max_tokens=args.max_tokens, temperature=0.2,
-                max_attempts=llm_client.MAX_ATTEMPTS, url=args.url)
+                max_attempts=llm_client.MAX_ATTEMPTS, url=args.url,
+                timeout=args.timeout)
             started = time.monotonic()
             raw_path = (model_dir / "raw" / item["domain"]
                         / Path(item["path"]).name)
@@ -465,7 +466,7 @@ def main() -> int:
                     grammar=assets["grammar"] if is_local else None,
                     json_schema=assets["json_schema"],
                     max_tokens=args.max_tokens, timeout=args.timeout,
-                    url=args.url)
+                    max_attempts=llm_client.MAX_ATTEMPTS, url=args.url)
                 wall_elapsed = round(time.monotonic() - started, 2)
                 answer["benchmark"] = {
                     "contract_sha256": contract_sha,

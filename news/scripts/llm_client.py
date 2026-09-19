@@ -18,6 +18,7 @@ import hashlib
 import json
 import os
 import socket
+import sys
 import threading
 import time
 import urllib.error
@@ -54,6 +55,81 @@ DEFAULT_TIMEOUT = 300
 RETRY_STATUS = frozenset({500, 502, 503, 504, 429})
 MAX_ATTEMPTS = 3
 BACKOFF_SECONDS = 2.0
+
+# ⚠️ THE ABOVE ARE LOCAL-MODEL BUDGETS, and on a HOSTED endpoint they were the
+# single largest cost of the 2026-09-02 run: one request hung for
+# 300 + 2 + 300 + 4 + 300 ≈ 906 s, holding the analyze pool open for 772 s with
+# no output (plan §0.11 E1) — against a measured p90 of 31 s. A hosted call
+# gets ~2x p90 and one retry instead; a caller passing its own values keeps
+# them.
+HOSTED_TIMEOUT = 60
+HOSTED_ATTEMPTS = 2
+
+
+def _positive_env_int(name: str, default: int) -> int:
+    """A positive integer from the environment; a bad value falls back.
+
+    Read in worker threads, so it must never raise: a typo in .env.model
+    would otherwise crash every call of the run."""
+    raw = (os.environ.get(name) or "").strip()
+    if not raw:
+        return default
+    try:
+        value = int(raw)
+    except ValueError:
+        value = 0
+    if value < 1:
+        print(f"llm_client: ignoring {name}={raw!r}; using {default}",
+              file=sys.stderr)
+        return default
+    return value
+
+
+def transport_budget(target: str, timeout: int | None,
+                     max_attempts: int | None) -> tuple[int, int]:
+    """(timeout, attempts) for this target, unless the caller chose them.
+
+    Precedence: an explicit caller value, then NEWS_LLM_HOSTED_TIMEOUT /
+    NEWS_LLM_HOSTED_ATTEMPTS for a hosted target, then the defaults (300 s x 3
+    local, 60 s x 2 hosted).
+
+    ⚠️ The trade-off of the hosted budget: a request abandoned at 60 s may
+    still be completed and BILLED by the provider, and the run's meter records
+    only responses it received — so a timeout is a small, uncounted charge in
+    exchange for never stalling the stage for 15 minutes."""
+    local = (urlparse(target).hostname or "").lower() in LOCAL_HOSTS
+    if timeout is None:
+        timeout = (DEFAULT_TIMEOUT if local else
+                   _positive_env_int("NEWS_LLM_HOSTED_TIMEOUT", HOSTED_TIMEOUT))
+    if max_attempts is None:
+        max_attempts = (MAX_ATTEMPTS if local else
+                        _positive_env_int("NEWS_LLM_HOSTED_ATTEMPTS",
+                                          HOSTED_ATTEMPTS))
+    return timeout, max_attempts
+
+
+def env_routing() -> dict:
+    """Operator provider routing from the environment (plan Phase 1.3a).
+
+    NEWS_LLM_PROVIDER_IGNORE — comma-separated providers never to use. Set to
+    NextBit on 2026-09-19: on the articles the 2026-09-02 run lost it accepted
+    9 of 17 answers, every syntax failure a Bulgarian quotation opened with „
+    and closed with an ASCII quote, while Parasail/Together/DeepInfra had none
+    (news/evals/analyze-yield-2026-09-19.md).
+    NEWS_LLM_PROVIDER_ORDER — comma-separated preference; fallbacks stay on.
+
+    Applies only to calls that pass NO explicit route: a caller pinning one
+    provider (diagnose_yield.py measuring NextBit itself) must get exactly
+    that provider, not an empty set.
+    """
+    routing: dict = {}
+    for key, env in (("ignore", "NEWS_LLM_PROVIDER_IGNORE"),
+                     ("order", "NEWS_LLM_PROVIDER_ORDER")):
+        names = [n.strip() for n in (os.environ.get(env) or "").split(",")
+                 if n.strip()]
+        if names:
+            routing[key] = names
+    return routing
 
 LOCAL_HOSTS = frozenset({"127.0.0.1", "localhost", "::1", "0.0.0.0"})
 
@@ -170,9 +246,10 @@ def prepare_request(system: str, user: str, *, model: str,
                     json_schema: dict | None = None,
                     max_tokens: int = 2048,
                     temperature: float = 0.2,
-                    max_attempts: int = MAX_ATTEMPTS,
+                    max_attempts: int | None = None,
                     url: str | None = None,
-                    provider: dict | None = None) -> tuple[str, bytes, dict]:
+                    provider: dict | None = None,
+                    timeout: int | None = None) -> tuple[str, bytes, dict]:
     """Build the exact request body and auditable metadata without sending it.
 
     `provider` is an OpenRouter routing object (`order`, `ignore`,
@@ -182,8 +259,6 @@ def prepare_request(system: str, user: str, *, model: str,
     per-provider measurement against a server that ignored the pin would
     report one model's behaviour under N providers' names.
     """
-    if max_attempts < 1:
-        raise ValueError("max_attempts must be at least 1")
     payload = {
         "model": model,
         "messages": [{"role": "system", "content": system},
@@ -206,6 +281,11 @@ def prepare_request(system: str, user: str, *, model: str,
     # This guard must apply to explicit url= callers too: the body contains
     # the full article text.
     target = check_local(url) if url else endpoint()
+    # Resolved HERE, once, so the metadata a caller prepares and the metadata
+    # complete() returns cannot disagree (benchmark_news_models compares them).
+    timeout, max_attempts = transport_budget(target, timeout, max_attempts)
+    if max_attempts < 1:
+        raise ValueError("max_attempts must be at least 1")
     target_host = (urlparse(target).hostname or "").lower()
     if provider and target_host != "openrouter.ai":
         raise LlmError("routing_unsupported",
@@ -214,6 +294,8 @@ def prepare_request(system: str, user: str, *, model: str,
         routing = {}
         if json_schema:
             routing["require_parameters"] = True
+        if provider is None:
+            routing.update(env_routing())
         # An explicit per-call route (e.g. diagnose_yield.py pinning one
         # provider with allow_fallbacks: false) layers over the defaults.
         routing.update(provider or {})
@@ -237,6 +319,7 @@ def prepare_request(system: str, user: str, *, model: str,
         "reasoning": payload.get("reasoning"),
         "provider_routing": payload.get("provider"),
         "transport_attempt_limit": max_attempts,
+        "transport_timeout_s": timeout,
     }
     return target, body, request_meta
 
@@ -246,13 +329,15 @@ def complete(system: str, user: str, *, model: str,
              json_schema: dict | None = None,
              max_tokens: int = 2048,
              temperature: float = 0.2,
-             timeout: int = DEFAULT_TIMEOUT,
-             max_attempts: int = MAX_ATTEMPTS,
+             timeout: int | None = None,
+             max_attempts: int | None = None,
              url: str | None = None,
              provider: dict | None = None) -> dict:
     """One completion with response, request, usage, and timing metadata.
 
     `provider` — see prepare_request. The result carries `finish_reason`.
+    `timeout` / `max_attempts` default by target: 300 s x 3 for a local model
+    server, 60 s x 2 for a hosted one (see transport_budget).
 
     ⚠️ `grammar` is passed through as llama.cpp's `grammar` field. A server
     that ignores it will happily return free-form JSON — which is why
@@ -277,7 +362,10 @@ def complete(system: str, user: str, *, model: str,
     target, body, request_meta = prepare_request(
         system, user, model=model, grammar=grammar, json_schema=json_schema,
         max_tokens=max_tokens, temperature=temperature,
-        max_attempts=max_attempts, url=url, provider=provider)
+        max_attempts=max_attempts, url=url, provider=provider,
+        timeout=timeout)
+    timeout = request_meta["transport_timeout_s"]
+    max_attempts = request_meta["transport_attempt_limit"]
 
     last = None
     request_started = time.monotonic()
