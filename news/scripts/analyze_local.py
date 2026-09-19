@@ -800,10 +800,12 @@ def main() -> int:
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
 
     constraint_proven = False
+    constraint_detail = "not probed"
     if not args.dry_run:
         ok, detail = grammar_is_enforced(assets["grammar"], args.model,
                                          json_schema=assets["json_schema"])
         constraint_proven = ok and detail == "enforced"
+        constraint_detail = detail
         if not ok:
             print(json.dumps(with_run_billing({
                 "mode": "analyze_local", "model": args.model,
@@ -855,10 +857,18 @@ def main() -> int:
     canary_done = not FIRST_RECORD_IS_A_CANARY
     canary_unusable = 0  # rejections, parse failures and worker exceptions
 
-    def canary_abort(count: int) -> str:
-        return (f"{count} unusable answers (rejected, unparseable, or a "
-                "worker exception) before any record — read `rejected` / "
-                "`parse_failed` / `llm_failed`")
+    def bound_reached(count: int) -> bool:
+        """True when the canary has spent its budget; stamps the reason."""
+        if count < CANARY_MAX_PARSE_FAILURES:
+            return False
+        stats["aborted"] = (
+            f"{count} unusable answers (rejected, unparseable, or a "
+            "worker exception) before any record — read `rejected` / "
+            "`parse_failed` / `llm_failed`"
+            + ("" if constraint_proven else
+               f"; the schema-constraint probe was inconclusive "
+               f"({constraint_detail})"))
+        return True
 
     perf_log.emit("analyze", step="stage_start", queued=len(items),
                   workers=args.workers, deadline_s=args.deadline or None)
@@ -919,8 +929,7 @@ def main() -> int:
             # unreadable article between two bad answers) must not refill the
             # budget and let the canary walk the whole queue.
             canary_unusable += 1
-            if canary_unusable >= CANARY_MAX_PARSE_FAILURES:
-                stats["aborted"] = canary_abort(canary_unusable)
+            if bound_reached(canary_unusable):
                 remaining = []
                 break
             continue
@@ -968,28 +977,22 @@ def main() -> int:
             remaining = []
             break
 
-        # ⚠️ THE DIAGNOSIS DEPENDS ON THE PREFLIGHT. One bounded retry has
-        # already ruled out a one-off malformed answer before the run stops.
-        #
-        # ⚠️ A REJECTION IS ONLY EVIDENCE ABOUT THE ENDPOINT WHEN ENFORCEMENT
-        # IS UNPROVEN. With the grammar probe already green, a rejected first
-        # record is one article the model got wrong on a rule the schema
-        # cannot express (a subcategory under the wrong category) — measured
-        # 2026-09-20 00:00, where exactly that aborted a 100-article run with
-        # 0 saved while the same rejection mid-queue costs one article. So
-        # keep looking for a canary, bounded like every other unusable answer.
-        if constraint_proven:
-            canary_unusable += 1
-            if canary_unusable >= CANARY_MAX_PARSE_FAILURES:
-                stats["aborted"] = canary_abort(canary_unusable)
-                remaining = []
-                break
-            continue
-        stats["aborted"] = (
-            "the first record was rejected after its bounded schema retry "
-            "— the model server may be ignoring the schema constraint")
-        remaining = []
-        break
+        # ⚠️ ONE REJECTION IS NOT EVIDENCE ABOUT THE ENDPOINT. A server that
+        # demonstrably ignores the constraint has already ended the run: the
+        # probe returns ok=False and main() exits before this loop. What
+        # reaches here is a model mistake on a rule the SCHEMA CANNOT EXPRESS
+        # (a subcategory under the wrong category), and mid-queue it costs one
+        # article. Measured 2026-09-20: the same article sat at the head of
+        # the queue and aborted the 00:00 AND 01:00 runs at 0 saved of 100.
+        # So it counts toward the same bound — which is what catches a server
+        # that really is ignoring the schema, including when the probe was
+        # inconclusive (on a hosted endpoint it usually is — measured, this
+        # model spends the probe's 8-token budget on reasoning and returns no
+        # answer, so `constraint_proven` is False in production).
+        canary_unusable += 1
+        if bound_reached(canary_unusable):
+            remaining = []
+            break
 
     def worker_result(future, item) -> dict:
         """A worker that RAISED is one failed article, never a dead stage.
@@ -1158,6 +1161,10 @@ def main() -> int:
     # while three analyses vanished, because cmd_save's error shapes carry
     # neither key.
     # Counts beside their denominator, never a bare rate.
+    # Say whether the constraint was PROVEN enforced this run: on a hosted
+    # endpoint the probe is usually inconclusive, and a reader of `rejected`
+    # needs to know which it was.
+    stats["constraint_probe"] = constraint_detail
     stats["rejected_count"] = len(stats["rejected"])
     stats["billing"] = summarize_run_billing()
     print(json.dumps(stats, ensure_ascii=False))

@@ -861,8 +861,37 @@ class AnalyzeYield(unittest.TestCase):
         self.assertEqual(got["saved"], 2)
         self.assertIsNone(got.get("aborted"))
         self.assertEqual(got["rejected_count"], 1)
+        # A proven probe must NOT carry the inconclusive suffix.
+        _, aborted = self.run_main(
+            fake, [f"a{i}.json" for i in range(8)],
+            fake_save=lambda r: (3, {"saved": [], "failed": [
+                {"article_path": r["article_path"]}]}))
+        self.assertNotIn("inconclusive", aborted["aborted"])
 
-    def test_a_rejected_canary_still_aborts_when_enforcement_is_unproven(self):
+    def test_an_inconclusive_probe_does_not_abort_on_one_rejection(self):
+        # On a hosted endpoint the probe answers nothing at 8 tokens, so
+        # `constraint_proven` is False in production — measured 2026-09-20,
+        # where one rejected article at the head of the queue aborted two
+        # consecutive scheduled runs at 0 saved of 100.
+        def fake(item, *_):
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+
+        def save(record):
+            if record["article_path"] == "bad.json":
+                return 3, {"saved": [], "failed": [
+                    {"article_path": "bad.json"}]}
+            return 0, {"saved": [record["article_path"]], "failed": []}
+        _, got = self.run_main(fake, ["bad.json", "ok.json"], fake_save=save,
+                               enforced=False)
+        self.assertEqual(got["saved"], 1)
+        self.assertIsNone(got.get("aborted"))
+        self.assertEqual(got["constraint_probe"], "unverified")
+        # The field must REPORT the probe, not be frozen at one value.
+        _, proven = self.run_main(fake, ["ok.json"], fake_save=save)
+        self.assertEqual(proven["constraint_probe"], "enforced")
+
+    def test_the_bound_names_an_inconclusive_probe(self):
         def fake(item, *_):
             return {"kind": "record", "item": item,
                     "record": {"article_path": item["path"]}}
@@ -870,10 +899,19 @@ class AnalyzeYield(unittest.TestCase):
         def save(record):
             return 3, {"saved": [], "failed": [
                 {"article_path": record["article_path"]}]}
-        _, got = self.run_main(fake, ["a.json", "b.json"], fake_save=save,
-                               enforced=False)
-        self.assertIn("ignoring the schema constraint", got["aborted"])
+        calls = []
+
+        def counted(item, *a):
+            calls.append(item["path"])
+            return fake(item, *a)
+        _, got = self.run_main(counted, [f"a{i}.json" for i in range(8)],
+                               fake_save=save, enforced=False)
+        self.assertIn("unusable answers", got["aborted"])
+        self.assertIn("probe was inconclusive", got["aborted"])
         self.assertEqual(got["saved"], 0)
+        # The bound STOPPED it: 5 articles x (attempt + one schema retry).
+        self.assertEqual(len(calls),
+                         2 * analyze_local.CANARY_MAX_PARSE_FAILURES)
 
     def test_retry_accounting_is_per_article_across_a_rejection(self):
         # The counter used to be global: after a rejected canary the NEXT
