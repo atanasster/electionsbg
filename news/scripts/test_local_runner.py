@@ -383,6 +383,100 @@ class TheClient(unittest.TestCase):
         self.assertFalse(got["ok"])
         self.assertIn("error", got)
 
+    OR_ENV = {"NEWS_LLM_URL": "https://openrouter.ai/api/v1/chat/completions",
+              "NEWS_LLM_ALLOW_REMOTE": "1", "NEWS_LLM_MODEL": "z-ai/glm-x",
+              "OPENROUTER_API_KEY": "sk-test"}
+
+    def _fake_urlopen(self, payload, seen):
+        class Resp:
+            def __enter__(self_inner):
+                return self_inner
+
+            def __exit__(self_inner, *exc):
+                return False
+
+            def read(self_inner, *_):
+                return json.dumps(payload).encode("utf-8")
+
+        def fake(req, timeout=None):
+            if isinstance(req, str):
+                seen.append((req, {}))
+            else:
+                seen.append((req.full_url, dict(req.headers)))
+            return Resp()
+        return fake
+
+    def _probe(self, payload, env, **kw):
+        seen = []
+        with mock.patch.dict(os.environ, env, clear=False), mock.patch.object(
+                llm_client.urllib.request, "urlopen",
+                self._fake_urlopen(payload, seen)):
+            return llm_client.probe(**kw), seen
+
+    def test_openrouter_probe_checks_the_model_not_the_catalogue(self):
+        # The full /models catalogue took >60 s to stream on 2026-09-19 and a
+        # 10 s timeout skipped analysis for the whole first scheduled run.
+        got, seen = self._probe({"data": {"endpoints": [{}, {}]}}, self.OR_ENV)
+        self.assertTrue(got["ok"], got)
+        self.assertEqual((got["providers"], got["model"]), (2, "z-ai/glm-x"))
+        self.assertEqual(
+            [u for u, _ in seen],
+            ["https://openrouter.ai/api/v1/models/z-ai/glm-x/endpoints"])
+        self.assertEqual(seen[0][1].get("Authorization"), "Bearer sk-test")
+
+        got, _ = self._probe({"data": {"endpoints": []}}, self.OR_ENV)
+        self.assertFalse(got["ok"])
+        self.assertIn("no provider", got["error"])
+
+    def test_an_explicit_model_beats_the_environment(self):
+        # run_nightly.sh passes the model it RESOLVED (a --model override
+        # included); the probe must check that one.
+        got, seen = self._probe({"data": {"endpoints": [{}]}}, self.OR_ENV,
+                                model="other/model:free")
+        self.assertEqual(got["model"], "other/model:free")
+        self.assertEqual(
+            seen[0][0], "https://openrouter.ai/api/v1/models/other/model/endpoints")
+
+    def test_openrouter_without_a_model_fails_instead_of_the_catalogue(self):
+        env = {**self.OR_ENV, "NEWS_LLM_MODEL": ""}
+        got, seen = self._probe({"data": []}, env)
+        self.assertFalse(got["ok"])
+        self.assertIn("no model configured", got["error"])
+        self.assertEqual(seen, [])
+
+    def test_a_base_style_url_builds_the_same_check_url(self):
+        env = {**self.OR_ENV, "NEWS_LLM_URL": "https://openrouter.ai/api/v1"}
+        _, seen = self._probe({"data": {"endpoints": [{}]}}, env)
+        self.assertEqual(
+            seen[0][0], "https://openrouter.ai/api/v1/models/z-ai/glm-x/endpoints")
+
+    def test_a_local_server_still_lists_its_models(self):
+        env = {"NEWS_LLM_URL": "http://127.0.0.1:8080/v1/chat/completions",
+               "NEWS_LLM_MODEL": "local-model"}
+        got, seen = self._probe({"data": [{"id": "gemma"}]}, env)
+        self.assertTrue(got["ok"])
+        self.assertEqual(got["models"], ["gemma"])
+        self.assertEqual(seen[0][0], "http://127.0.0.1:8080/v1/models")
+
+    def test_a_failed_probe_reports_the_url_it_actually_tried(self):
+        def boom(req, timeout=None):
+            raise TimeoutError("The read operation timed out")
+        with mock.patch.dict(os.environ, self.OR_ENV), mock.patch.object(
+                llm_client.urllib.request, "urlopen", boom):
+            got = llm_client.probe()
+        self.assertFalse(got["ok"])
+        self.assertEqual(got["url"],
+                         "https://openrouter.ai/api/v1/chat/completions")
+        self.assertEqual(got["model"], "z-ai/glm-x")
+
+    def test_the_cli_probes_once_and_exits_on_that_result(self):
+        for ok, code in ((True, 0), (False, 1)):
+            with self.subTest(ok=ok), mock.patch.object(
+                    llm_client, "probe", return_value={"ok": ok}) as probe, \
+                    mock.patch("builtins.print"):
+                self.assertEqual(llm_client.main(["--model", "m"]), code)
+                probe.assert_called_once_with(model="m")
+
 
 class Saving(unittest.TestCase):
     """⚠️ A save that FAILED TO RUN is not a save that rejected records, and

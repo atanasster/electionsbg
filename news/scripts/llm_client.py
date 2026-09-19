@@ -22,7 +22,7 @@ import threading
 import time
 import urllib.error
 import urllib.request
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 DEFAULT_URL = "http://127.0.0.1:8080/v1/chat/completions"
 
@@ -311,30 +311,93 @@ def complete(system: str, user: str, *, model: str,
     raise last or LlmError("unreachable", target)
 
 
-def probe(url: str | None = None, timeout: int = 10) -> dict:
-    """Is a model server there, and which model does it hold?
+def openrouter_endpoints_url(target: str, model: str) -> str:
+    """The per-model provider list, built from the target's ORIGIN.
 
-    ⚠️ Used by run_nightly.sh BEFORE it spends an hour harvesting. A run that
-    collects 400 articles and then discovers there is no model to judge them
-    with has wasted the window and the bandwidth.
+    Splitting the chat URL on `/api/v1/` broke on a base-style
+    NEWS_LLM_URL; the origin is unambiguous. A routing variant suffix
+    (`:free`, `:nitro`) is not part of the model's path, and each segment is
+    quoted so an id can never escape the path.
+    """
+    parsed = urlparse(target)
+    base_id = model.split(":", 1)[0]
+    path = "/".join(quote(seg, safe="") for seg in base_id.split("/"))
+    return f"{parsed.scheme}://{parsed.netloc}/api/v1/models/{path}/endpoints"
+
+
+CATALOGUE_READ_CAP = 2_000_000
+
+
+def probe(url: str | None = None, timeout: int = 10,
+          model: str | None = None) -> dict:
+    """Is a model server there, and does it serve the model we will call?
+
+    ⚠️ Used by run_nightly.sh BEFORE the analyze stage. A run that collects
+    400 articles and then discovers there is no model to judge them with has
+    wasted the window and the bandwidth.
+
+    The model is `model=` (run_nightly.sh passes the one it resolved,
+    including a `--model` override) or else NEWS_LLM_MODEL.
+
+    ⚠️ ON OPENROUTER, NEVER PROBE THE CATALOGUE. `/api/v1/models` is the whole
+    marketplace — ~0.5 MB, and measured on 2026-09-19 still streaming after
+    60 s — so a 10 s socket timeout turned a slow CATALOGUE into „no model",
+    and the first scheduled run skipped analysis entirely. The per-model
+    `/api/v1/models/<model>/endpoints` answers in ~0.4 s and is the stronger
+    check anyway: it proves the model we will call is actually being served.
+    With no model known there is nothing to check, so the probe FAILS rather
+    than falling back to the catalogue.
     """
     # ⚠️ INSIDE the try. `probe` is documented to REPORT rather than raise —
     # run_nightly.sh calls it before an hour of harvesting and must get an
     # answer, not an exception — so the localhost refusal has to arrive as a
     # result like any other failure.
+    target = url or os.environ.get("NEWS_LLM_URL") or DEFAULT_URL
+    model = model or os.environ.get("NEWS_LLM_MODEL") or None
     try:
         target = check_local(url) if url else endpoint()
+        host = (urlparse(target).hostname or "").lower()
+        if host == "openrouter.ai":
+            if not model:
+                return {"ok": False, "url": target, "model": None,
+                        "error": "no model configured to probe — set "
+                                 "NEWS_LLM_MODEL or pass --model"}
+            req = urllib.request.Request(
+                openrouter_endpoints_url(target, model),
+                headers=request_headers(target))
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                doc = json.loads(resp.read().decode("utf-8"))
+            endpoints = ((doc.get("data") or {}).get("endpoints") or [])
+            if not endpoints:
+                return {"ok": False, "url": target, "model": model,
+                        "error": f"no provider currently serves {model}"}
+            return {"ok": True, "url": target, "model": model,
+                    "models": [model], "providers": len(endpoints)}
         models_url = target.split("/v1/")[0] + "/v1/models"
         with urllib.request.urlopen(models_url, timeout=timeout) as resp:
-            doc = json.loads(resp.read().decode("utf-8"))
-        return {"ok": True, "url": target,
+            # A local server's list is tiny; the cap only bounds a
+            # misconfigured remote that streams a marketplace at us.
+            doc = json.loads(resp.read(CATALOGUE_READ_CAP).decode("utf-8"))
+        return {"ok": True, "url": target, "model": model,
                 "models": [m.get("id") for m in (doc.get("data") or [])]}
     except Exception as exc:  # noqa: BLE001
-        return {"ok": False, "url": url or DEFAULT_URL,
+        # The URL actually tried — reporting DEFAULT_URL here sent the first
+        # shakedown looking for a local server that was never configured.
+        return {"ok": False, "url": target, "model": model,
                 "error": str(exc)[:200]}
+
+
+def main(argv: list | None = None) -> int:
+    """`llm_client.py [--model M]` — ONE probe, whose result sets the exit."""
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--model", default=None)
+    args = ap.parse_args(argv)
+    result = probe(model=args.model)
+    print(json.dumps(result, ensure_ascii=False))
+    return 0 if result["ok"] else 1
 
 
 if __name__ == "__main__":
     import sys
-    print(json.dumps(probe(), ensure_ascii=False))
-    sys.exit(0 if probe()["ok"] else 1)
+    sys.exit(main())

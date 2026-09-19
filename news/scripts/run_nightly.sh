@@ -329,7 +329,9 @@ if [ "$DRY" = 1 ]; then
   stage probe_model python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
 else
-  stage probe_model python3 news/scripts/llm_client.py
+  # The model analysis will ACTUALLY use (a --model override included), so
+  # the probe cannot pass for one model and the run then call another.
+  stage probe_model python3 news/scripts/llm_client.py --model "$MODEL"
 fi
 MODEL_PROBE_CODE=$LAST_STAGE_CODE
 

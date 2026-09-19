@@ -175,7 +175,7 @@ class NightlyRunnerContractTests(unittest.TestCase):
             runner = self.copy_runner(root)
             source = runner.read_text(encoding="utf-8")
             source = source.replace(
-                'stage probe_model python3 news/scripts/llm_client.py',
+                'stage probe_model python3 news/scripts/llm_client.py --model "$MODEL"',
                 "stage probe_model python3 -c 'import json,sys; print(json.dumps({})); sys.exit(1)'")
             runner.write_text(source, encoding="utf-8")
             self.stub_runtime_scripts(runner)
