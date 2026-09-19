@@ -97,6 +97,22 @@ should separate "no new items" from "items failed" first. Not changed here.
 | refreshed `_state` counts recorded | ✅ (0.4) |
 | `manifest.generated_at` advances within the cadence | ⏳ pending the first run whose analyze stage completes (addendum below) |
 
-## Addendum — first publishing run
+## Addendum — scheduled runs after the fixes (2026-09-20)
 
-_Pending: filled in from the first scheduled run after `bd8c1f9344`._
+| run | analyze | publish |
+| --- | --- | --- |
+| 00:00 `…T210004Z-72772` | ❌ 0 saved of 100 | refused (pipeline failed) |
+| 01:00 `…T220002Z-63626` | ❌ 0 saved of 100 | refused (pipeline failed) |
+
+Both died on the same defect — a validator rejection on the article at the
+head of the queue aborted the canary, and a rejected article stays at the head
+— fixed in `b6e89a68d1` / `7a7c85f724` and verified by two 100-article runs
+(0.97 and 0.96 saved), see `analyze-yield-2026-09-19.md`. The publish gate
+refused both, correctly: nothing partial was released.
+
+**Four scheduled runs, four distinct first-unattended defects** (probe,
+wrong-shaped answer, canary-on-rejection, and the probe-independence of that
+bound). Each was invisible to a manual run and each was caught by the
+scheduler plus the alarm doing their job. `manifest.generated_at` had not yet
+advanced at the time of writing: acceptance stays ⏳ until a scheduled run
+completes analyze and publishes.

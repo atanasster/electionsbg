@@ -111,6 +111,56 @@ decompressive transcoding. The plan's "`-z` is a one-flag change" was
 therefore incomplete: `0f44b41354` adds a `setmeta` scope that resets the
 immutable policy on the version tree before the manifest can point at it.
 
-## Addendum — scheduled 100-article runs
+## Addendum — 100-article runs (2026-09-20)
 
-_Pending: filled in from the first scheduled runs after `bd8c1f9344`._
+**The scheduled runs found a third yield defect, and it was the largest.**
+The 00:00 (`2026-09-19T210004Z-72772`) and 01:00 (`2026-09-19T220002Z-63626`)
+runs each saved **0 of 100**: the model put subcategory `fuel` under category
+`energy` on the article at the head of the queue — a taxonomy rule the JSON
+schema cannot express — and the canary's "the first record must validate or
+abort" rule ended the run. Mid-queue the same rejection costs one article (the
+2026-09-02 run had 6 and kept going), and because a rejected article stays
+unanalysed it stays at the head: both runs died on the same one. Fixed in
+`b6e89a68d1` and `7a7c85f724` — a rejection now counts toward the canary's
+bound of 5 unusable answers instead of ending the run.
+
+Two 100-article runs on the live corpus, same configuration as the scheduled
+runs (workers 4, schema-retries 1, `--limit 100`):
+
+| | A `yield-100` (00:10) | B `yield-100b` (00:45, after the second fix) |
+| --- | ---: | ---: |
+| saved / queued | **97 / 100 (0.97)** | **96 / 100 (0.96)** |
+| validator rejections | 3 | 2 |
+| parse failures | 0 | 2 (truncations the retry did not recover) |
+| parse retries | 3 attempted, 3 recovered | 3 attempted, 1 recovered |
+| providers | Parasail 109/109 | Parasail 107/107 |
+| cost per saved | **$0.00127** | $0.00130 |
+| latency p50 / p90 | 5.66 / 9.47 s | 8.78 / 17.87 s |
+| stage wall | **189 s** | 351 s |
+| aborted / abandoned | none | none |
+
+Against the 2026-09-02 baseline (69/100, $0.00134 per saved, 1,520 s with a
+772 s stall): **yield 0.69 → 0.96–0.97, stage 1,520 s → 189–351 s, cost per
+saved −3 to −5%.** The 12-article check's +12% cost was a small-sample
+artefact; at 100 articles the extra prompt caching (Parasail served 1.8–3.9%
+of prompt tokens, against NextBit's 63.9%) is outweighed by the answers no
+longer thrown away.
+
+**Every rejection in both runs is the same taxonomy class** (`fuel` under
+`energy`, `local-administration` under `local-news`) — a prompt/taxonomy
+issue, not a transport one, and the right subject for a later phase.
+
+**Follow-up found here, not fixed:** `grammar_is_enforced` cannot prove
+enforcement on this endpoint — the probe's 8-token budget is spent on
+reasoning and returns no answer, so `constraint_probe` reads
+`probe skipped: reasoning_only …` on every run. Raising the probe's budget (or
+setting `NEWS_LLM_REASONING_EFFORT=none` for it) would make the check
+conclusive again; nothing depends on it now that the bound is
+probe-independent.
+
+| acceptance criterion | status |
+| --- | --- |
+| saved/queued ≥ 0.90 on a 100-article run | ✅ **0.97 and 0.96**, rejections reported separately |
+| $ per saved | ✅ $0.00127–0.00130 — within 5% of the 09-02 baseline, better than it; the provisional $0.0015 from the 12-article check is superseded |
+| stage breakdown within 10% of wall-clock | ✅ (12-article check) |
+| no intra-stage gap > ~65 s | ✅ |
