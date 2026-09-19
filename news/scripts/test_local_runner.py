@@ -684,7 +684,8 @@ class Saving(unittest.TestCase):
 class AnalyzeYield(unittest.TestCase):
     """Plan Phase 1.3: repair, parse retry, bounded canary, deadline."""
 
-    def run_main(self, fake_analyze, paths, *extra, fake_save=None):
+    def run_main(self, fake_analyze, paths, *extra, fake_save=None,
+                 enforced=True):
         import io
         queue = [{"path": name, "domain": "x.bg"} for name in paths]
 
@@ -704,8 +705,10 @@ class AnalyzeYield(unittest.TestCase):
         with mock.patch.object(sys, "argv", argv), \
                 mock.patch.object(analyze_local, "load_prompt_assets",
                                   return_value=assets), \
-                mock.patch.object(analyze_local, "grammar_is_enforced",
-                                  return_value=(True, "enforced")), \
+                mock.patch.object(
+                    analyze_local, "grammar_is_enforced",
+                    return_value=(True, "enforced" if enforced
+                                  else "unverified")), \
                 mock.patch.object(analyze_local, "run_analyze", fake_run), \
                 mock.patch.object(analyze_local, "analyze_one", fake_analyze), \
                 mock.patch.object(analyze_local.os, "_exit",
@@ -832,6 +835,113 @@ class AnalyzeYield(unittest.TestCase):
         code, got = self.run_main(fake, ["c.json"], fake_save=reject_first)
         self.assertEqual([f["kind"] for f in got["llm_failed"]],
                          ["worker_exception"])
+
+    def test_a_rejected_canary_moves_on_when_the_constraint_is_proven(self):
+        # Measured 2026-09-20 00:00: the model put a subcategory under the
+        # wrong category on the FIRST article and the whole 100-article run
+        # aborted with 0 saved, although the same rejection mid-queue costs
+        # one article. The grammar probe had already proved enforcement.
+        saves = []
+
+        def fake(item, *_):
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+
+        def save(record):
+            saves.append(record["article_path"])
+            if record["article_path"] == "bad.json":
+                return 3, {"saved": [], "failed": [
+                    {"article_path": "bad.json",
+                     "errors": ["topics.subcategory 'fuel' not under "
+                                "category 'energy'"]}]}
+            return 0, {"saved": [record["article_path"]], "failed": []}
+        code, got = self.run_main(fake, ["bad.json", "ok1.json", "ok2.json"],
+                                  fake_save=save)
+        self.assertEqual(code, 0)
+        self.assertEqual(got["saved"], 2)
+        self.assertIsNone(got.get("aborted"))
+        self.assertEqual(got["rejected_count"], 1)
+
+    def test_a_rejected_canary_still_aborts_when_enforcement_is_unproven(self):
+        def fake(item, *_):
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+
+        def save(record):
+            return 3, {"saved": [], "failed": [
+                {"article_path": record["article_path"]}]}
+        _, got = self.run_main(fake, ["a.json", "b.json"], fake_save=save,
+                               enforced=False)
+        self.assertIn("ignoring the schema constraint", got["aborted"])
+        self.assertEqual(got["saved"], 0)
+
+    def test_retry_accounting_is_per_article_across_a_rejection(self):
+        # The counter used to be global: after a rejected canary the NEXT
+        # article's clean first-attempt save was credited as a retry success.
+        def fake(item, *_):
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+
+        def save(record):
+            if record["article_path"] == "bad.json":
+                return 3, {"saved": [], "failed": [
+                    {"article_path": "bad.json"}]}
+            return 0, {"saved": [record["article_path"]], "failed": []}
+        _, got = self.run_main(fake, ["bad.json", "ok.json"], fake_save=save)
+        self.assertEqual(got["saved"], 1)
+        self.assertEqual((got["schema_retry_attempted"],
+                          got["schema_retry_succeeded"]), (1, 0))
+
+    def test_a_save_that_could_not_run_is_not_a_rejection(self):
+        calls = []
+
+        def fake(item, *_):
+            calls.append(item["path"])
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+
+        def save(record):
+            return 2, {"error": "taxonomy_load_failed"}
+        _, got = self.run_main(fake, [f"a{i}.json" for i in range(6)],
+                               fake_save=save)
+        self.assertEqual(len(calls), 1)  # retrying the model cannot fix it
+        self.assertIn("could not be SAVED", got["aborted"])
+        self.assertTrue(got["save_failed"])
+
+    def test_mixed_canary_failures_cannot_refill_the_bound(self):
+        # An unreadable article between two bad answers used to reset the
+        # counter, so the canary walked the whole queue.
+        calls = []
+
+        def fake(item, *_):
+            calls.append(item["path"])
+            if item["path"].startswith("gone"):
+                return {"kind": "parse_failed", "path": item["path"],
+                        "detail": "unreadable"}
+            return self.unparseable(item["path"])
+        names = []
+        for i in range(20):
+            names.append(f"gone{i}.json" if i % 2 else f"bad{i}.json")
+        _, got = self.run_main(fake, names)
+        self.assertEqual(len(calls), analyze_local.CANARY_MAX_PARSE_FAILURES)
+        self.assertIn("unusable answers", got["aborted"])
+
+    def test_repeated_canary_rejections_hit_the_bound(self):
+        calls = []
+
+        def fake(item, *_):
+            calls.append(item["path"])
+            return {"kind": "record", "item": item,
+                    "record": {"article_path": item["path"]}}
+
+        def save(record):
+            return 3, {"saved": [], "failed": [
+                {"article_path": record["article_path"]}]}
+        _, got = self.run_main(fake, [f"a{i}.json" for i in range(12)],
+                               fake_save=save)
+        # 5 articles x (first attempt + one schema retry)
+        self.assertEqual(len(calls), 2 * analyze_local.CANARY_MAX_PARSE_FAILURES)
+        self.assertIn("unusable answers", got["aborted"])
 
     def test_repeated_canary_exceptions_hit_the_bound(self):
         calls = []

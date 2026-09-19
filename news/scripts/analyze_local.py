@@ -853,7 +853,13 @@ def main() -> int:
                  deadline_abandoned=[])
     remaining = []
     canary_done = not FIRST_RECORD_IS_A_CANARY
-    canary_parse_failures = 0
+    canary_unusable = 0  # rejections, parse failures and worker exceptions
+
+    def canary_abort(count: int) -> str:
+        return (f"{count} unusable answers (rejected, unparseable, or a "
+                "worker exception) before any record — read `rejected` / "
+                "`parse_failed` / `llm_failed`")
+
     perf_log.emit("analyze", step="stage_start", queued=len(items),
                   workers=args.workers, deadline_s=args.deadline or None)
 
@@ -909,23 +915,24 @@ def main() -> int:
             if record_worker_failure(stats, result):
                 remaining = []
                 break
-            # A worker exception counts too: a bug that fails every article
-            # the same way must not walk the whole queue one call at a time.
-            if (result.get("model_output")
-                    or result.get("error_kind") == "worker_exception"):
-                canary_parse_failures += 1
-                if canary_parse_failures >= CANARY_MAX_PARSE_FAILURES:
-                    stats["aborted"] = (
-                        f"{canary_parse_failures} consecutive unusable "
-                        "answers (unparseable, or a worker exception) before "
-                        "any record — read `parse_failed` / `llm_failed`")
-                    remaining = []
-                    break
-            else:
-                canary_parse_failures = 0
+            # EVERY non-record counts, with no reset: mixing kinds (an
+            # unreadable article between two bad answers) must not refill the
+            # budget and let the canary walk the whole queue.
+            canary_unusable += 1
+            if canary_unusable >= CANARY_MAX_PARSE_FAILURES:
+                stats["aborted"] = canary_abort(canary_unusable)
+                remaining = []
+                break
             continue
-        canary_parse_failures = 0
+        # NOT reset here: a record that is then REJECTED is still an unusable
+        # answer, and resetting on "a record was built" would let a queue of
+        # rejections walk the whole queue two calls at a time. Only a SAVED
+        # record ends the canary.
         stats["answered"] += 1
+        # Per ARTICLE, because the loop now continues past a rejection: the
+        # global counter would credit the next article's first-attempt save
+        # as a retry success.
+        retries_before = stats["schema_retry_attempted"]
         ok, attempt_stats = save_attempt(result["record"])
         last_attempt_stats = attempt_stats
         for _ in range(args.schema_retries):
@@ -946,20 +953,41 @@ def main() -> int:
         merge_save_stats(stats, last_attempt_stats)
         if ok:
             note_saved(result["record"])
-            if stats["schema_retry_attempted"]:
+            if stats["schema_retry_attempted"] > retries_before:
                 stats["schema_retry_succeeded"] += 1
             canary_done = True
             remaining = items[position + 1:]
             break
 
+        # ⚠️ A SAVE THAT COULD NOT RUN IS NOT A REJECTION. save()'s contract
+        # keeps them apart, and retrying the model cannot fix a save step that
+        # failed to execute — so stop, and point at the right evidence.
+        if last_attempt_stats["save_failed"]:
+            stats["aborted"] = ("the first record could not be SAVED — read "
+                                "`save_failed`; the model is not the problem")
+            remaining = []
+            break
+
         # ⚠️ THE DIAGNOSIS DEPENDS ON THE PREFLIGHT. One bounded retry has
         # already ruled out a one-off malformed answer before the run stops.
+        #
+        # ⚠️ A REJECTION IS ONLY EVIDENCE ABOUT THE ENDPOINT WHEN ENFORCEMENT
+        # IS UNPROVEN. With the grammar probe already green, a rejected first
+        # record is one article the model got wrong on a rule the schema
+        # cannot express (a subcategory under the wrong category) — measured
+        # 2026-09-20 00:00, where exactly that aborted a 100-article run with
+        # 0 saved while the same rejection mid-queue costs one article. So
+        # keep looking for a canary, bounded like every other unusable answer.
+        if constraint_proven:
+            canary_unusable += 1
+            if canary_unusable >= CANARY_MAX_PARSE_FAILURES:
+                stats["aborted"] = canary_abort(canary_unusable)
+                remaining = []
+                break
+            continue
         stats["aborted"] = (
-            ("the first record was rejected after its bounded schema retry, "
-             "and the constraint IS enforced — read `rejected` for the rule "
-             "the schema cannot express") if constraint_proven else
-            ("the first record was rejected after its bounded schema retry "
-             "— the model server may be ignoring the schema constraint"))
+            "the first record was rejected after its bounded schema retry "
+            "— the model server may be ignoring the schema constraint")
         remaining = []
         break
 
