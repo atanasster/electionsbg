@@ -279,8 +279,31 @@ def commands(
                 "destination": version_destination,
                 "argv": ["gsutil", "-m", "-h", IMMUTABLE_PUBLIC_CACHE,
                          "-h", "x-goog-if-generation-match:0", "cp",
-                         "-r", "-j", "json", f"{app_data}/*",
+                         # -z, not -j: STORED gzip (Content-Encoding: gzip),
+                         # ~4.5x smaller for every reader of every release;
+                         # -j only compressed the upload and left `identity`
+                         # at rest (plan §0.3 V1). The manifest's bytes/sha256
+                         # still describe the UNCOMPRESSED file, which is what
+                         # readers verify. `-z json` matches by EXTENSION —
+                         # every published file is .json (the client's
+                         # inventory rule enforces it).
+                         "-r", "-z", "json", f"{app_data}/*",
                          version_destination],
+                "deletes_remote": False,
+            },
+            {
+                # ⚠️ `cp -z` APPENDS `no-transform` to Cache-Control
+                # (gsutil copy_helper.py), and no-transform switches off
+                # GCS decompressive transcoding — so a client that does not
+                # send Accept-Encoding: gzip (curl, urllib) would receive raw
+                # gzip bytes and fail the manifest's sha256. Reset the policy
+                # on the whole version BEFORE the manifest can point at it;
+                # a failure here blocks the manifest like any other scope.
+                "name": "public_app_data_version_meta",
+                "source": app_data,
+                "destination": f"{version_destination}/**",
+                "argv": ["gsutil", "-m", "setmeta", "-h",
+                         IMMUTABLE_PUBLIC_CACHE, f"{version_destination}/**"],
                 "deletes_remote": False,
             },
             {
@@ -338,7 +361,8 @@ def public_app_data_scopes(scopes: list[dict]) -> list[dict]:
     mentions rsync, so an operator can publish the site dataset without
     widening that action to either adjacent data surface.
     """
-    names = ("public_app_data_version", "public_app_data_manifest")
+    names = ("public_app_data_version", "public_app_data_version_meta",
+             "public_app_data_manifest")
     selected = [scope for scope in scopes if scope.get("name") in names]
     if [scope.get("name") for scope in selected] != list(names):
         raise ValueError(

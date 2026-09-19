@@ -514,7 +514,8 @@ class UploadPolicy(unittest.TestCase):
             scopes = uploader.commands(
                 True, uploader.public_upload_enabled(), PUBLICATION)
             self.assertEqual([scope["name"] for scope in scopes], [
-                "archive", "public_app_data_version", "public_mentions",
+                "archive", "public_app_data_version",
+                "public_app_data_version_meta", "public_mentions",
                 "public_app_data_manifest",
             ])
             self.assertEqual(
@@ -538,7 +539,8 @@ class UploadPolicy(unittest.TestCase):
 
             public_only = uploader.public_app_data_scopes(scopes)
             self.assertEqual([scope["name"] for scope in public_only], [
-                "public_app_data_version", "public_app_data_manifest",
+                "public_app_data_version", "public_app_data_version_meta",
+                "public_app_data_manifest",
             ])
             self.assertTrue(all(
                 scope["deletes_remote"] is False for scope in public_only))
@@ -547,11 +549,50 @@ class UploadPolicy(unittest.TestCase):
                     uploader, "run_scope",
                     return_value={"name": "archive", "exit": 1}):
                 results = uploader.execute_scopes(scopes, False)
-            self.assertEqual(len(results), 4)
-            self.assertEqual(
-                results[1]["skipped"], "previous_scope_failed:archive")
-            self.assertEqual(
-                results[3]["skipped"], "previous_scope_failed:archive")
+            self.assertEqual(len(results), len(scopes))
+            for skipped in results[1:]:
+                self.assertEqual(skipped["skipped"],
+                                 "previous_scope_failed:archive")
+
+    def test_the_version_tree_is_stored_gzipped_and_the_manifest_is_not(self):
+        # -j only compressed the upload; `-z json` stores Content-Encoding:
+        # gzip, which every reader of every release then downloads (plan
+        # §0.3 V1). The manifest stays identity: it is tiny, and the
+        # staleness check and eval operator read it directly.
+        base = {
+            "NEWS_ARCHIVE_GCS_URI": "gs://private/news/archive",
+            "NEWS_PUBLIC_GCS_URI": "gs://public/news/app-data",
+            "NEWS_MENTIONS_GCS_URI": "gs://public/news/mentions",
+        }
+        with mock.patch.dict(os.environ, base, clear=False):
+            listed = uploader.commands(True, True, PUBLICATION)
+            app_only = [s["name"] for s in
+                        uploader.public_app_data_scopes(listed)]
+        scopes = {s["name"]: s for s in listed}
+        # The app-data-only publish must carry the reset too.
+        self.assertEqual(app_only, ["public_app_data_version",
+                                    "public_app_data_version_meta",
+                                    "public_app_data_manifest"])
+        version = scopes["public_app_data_version"]["argv"]
+        self.assertIn("-z", version)
+        self.assertEqual(version[version.index("-z") + 1], "json")
+        self.assertNotIn("-j", version)
+        manifest = scopes["public_app_data_manifest"]["argv"]
+        self.assertNotIn("-z", manifest)
+        self.assertNotIn("-Z", manifest)
+        # cp -z appends `no-transform`, which disables GCS transcoding for
+        # clients without Accept-Encoding; the setmeta scope resets it, and
+        # must run after the version upload and before the manifest.
+        order = [s["name"] for s in listed]
+        self.assertLess(order.index("public_app_data_version"),
+                        order.index("public_app_data_version_meta"))
+        self.assertLess(order.index("public_app_data_version_meta"),
+                        order.index("public_app_data_manifest"))
+        meta = scopes["public_app_data_version_meta"]["argv"]
+        self.assertEqual(meta[:3], ["gsutil", "-m", "setmeta"])
+        self.assertIn(uploader.IMMUTABLE_PUBLIC_CACHE, meta)
+        self.assertNotIn("no-transform", uploader.IMMUTABLE_PUBLIC_CACHE)
+        self.assertTrue(meta[-1].endswith("/versions/test-run/**"))
 
     def test_manifest_is_last_and_never_advances_after_version_failure(self):
         base = {
