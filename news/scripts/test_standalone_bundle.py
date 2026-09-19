@@ -185,8 +185,8 @@ class DirectNewsFolder(unittest.TestCase):
             shutil.copytree(bundle.ROOT / "news/eval_contract", news / "eval_contract")
             shutil.copytree(bundle.ROOT / "news/standalone", news / "standalone")
             for name in (
-                "run_hourly.sh", "install_cron.sh", "setup.sh",
-                "verify_install.py", "package.json", ".env.api.example",
+                "run_hourly.sh", "install_cron.sh", "install_launchd.sh",
+                "setup.sh", "verify_install.py", "package.json", ".env.api.example",
                 ".env.model.example", ".env.upload.example",
                 ".env.pipeline.example", ".env.evals.example",
             ):

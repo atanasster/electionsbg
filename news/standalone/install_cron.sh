@@ -33,6 +33,14 @@ if [ "$MODE" = "print" ]; then
   exit 0
 fi
 
+# One scheduler only: two are two writers of one release pointer. On a Mac
+# the LaunchAgent (install_launchd.sh) is the supported path.
+LAUNCHD_PLIST="${NEWS_LAUNCHD_AGENT_DIR:-$HOME/Library/LaunchAgents}/com.naiasno.news-hourly.plist"
+if [ "$MODE" = "install" ] && [ -f "$LAUNCHD_PLIST" ]; then
+  echo "the install_launchd.sh LaunchAgent is installed ($LAUNCHD_PLIST) — run install_launchd.sh --uninstall first (one scheduler only)" >&2
+  exit 2
+fi
+
 CURRENT=$(mktemp "${TMPDIR:-/tmp}/naiasno-cron-current.XXXXXX")
 NEXT=$(mktemp "${TMPDIR:-/tmp}/naiasno-cron-next.XXXXXX")
 trap 'rm -f "$CURRENT" "$NEXT"' EXIT

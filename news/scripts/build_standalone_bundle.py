@@ -66,6 +66,7 @@ STANDALONE_MAP = {
     "news/standalone/README.md": "README.md",
     "news/standalone/config.env.example": "config.env.example",
     "news/standalone/install_cron.sh": "install_cron.sh",
+    "news/standalone/install_launchd.sh": "install_launchd.sh",
     "news/standalone/package.json": "package.json",
     "news/standalone/run_hourly.sh": "run_hourly.sh",
     "news/standalone/setup.sh": "setup.sh",
@@ -79,7 +80,7 @@ MUTABLE_SEEDS = frozenset({
     "news/config/commons_search_overrides.json",
 })
 EXECUTABLES = frozenset({
-    "install_cron.sh", "run_hourly.sh", "setup.sh", "upload_to_gcs.py",
+    "install_cron.sh", "install_launchd.sh", "run_hourly.sh", "setup.sh", "upload_to_gcs.py",
     "verify_bundle.py", *RUNTIME_SCRIPTS,
 })
 

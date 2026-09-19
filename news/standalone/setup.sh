@@ -36,4 +36,4 @@ npm --prefix news-functions install
 npm --prefix news-functions run build
 npx playwright install chromium
 mkdir -p var/reports news/app-data data/news/mentions
-echo "setup complete; run ./run_hourly.sh --dry-run, then ./install_cron.sh"
+echo "setup complete; run ./run_hourly.sh --dry-run, then ./install_launchd.sh (macOS) or ./install_cron.sh (Linux)"

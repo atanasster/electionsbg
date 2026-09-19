@@ -7,8 +7,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 REQUIRED = (
-    "run_hourly.sh", "install_cron.sh", "setup.sh", "package.json",
+    "run_hourly.sh", "install_cron.sh", "install_launchd.sh", "setup.sh", "package.json",
     "standalone/run_hourly.sh", "standalone/upload_to_gcs.py",
+    "standalone/install_launchd.sh",
     "scripts/run_nightly.sh", "scripts/analyze_local.py",
     "scripts/eval_runtime.py", "scripts/app_data_inventory.py",
     "scripts/effective_analysis.py",

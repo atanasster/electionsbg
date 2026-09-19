@@ -103,7 +103,7 @@ NEWS_MENTIONS_GCS_URI=
 ```
 
 The runner activates this key with `gcloud auth activate-service-account`
-before each production transaction, so cron does not depend on whichever
+before each production transaction, so the scheduler does not depend on whichever
 interactive account happened to be active on the machine. Set the activation
 flag to `0` only when the host already supplies an intentional workload
 identity or other preconfigured `gcloud` credential.
@@ -157,16 +157,16 @@ skipped, so running hourly does not re-bill them.
 including retry attempts. A stateful standalone export (`--include-state`)
 copies the cache; the rights queue itself is deterministic and is regenerated.
 
-## 7. Validate before enabling cron
+## 7. Validate before enabling the scheduler
 
 ```bash
 cd /opt/naiasno/news
 python3 verify_install.py
 ./run_hourly.sh --dry-run
-./install_cron.sh --print
+./install_launchd.sh --print     # macOS; ./install_cron.sh --print on Linux
 ```
 
-The dry run performs all twelve pipeline stages (ending in `home_health`)
+The dry run performs all fourteen pipeline stages (ending in `home_health`)
 without fetching, calling the
 model, or uploading. It must show `pipeline_exit: 0`. With public upload left
 disabled, the upload plan contains only the private archive scope.
@@ -178,7 +178,23 @@ Run one production transaction manually and inspect its report:
 ls -lt var/reports | head
 ```
 
-## 8. Install the hourly cron job
+## 8. Install the hourly job
+
+**On a Mac, use the LaunchAgent, not cron.** cron does not wake a sleeping Mac
+and silently drops every run whose minute passed while it slept; launchd runs a
+missed `StartCalendarInterval` on wake — once, however many hours were missed,
+and not at all for time the Mac was powered off:
+
+```bash
+./install_launchd.sh             # ~/Library/LaunchAgents/com.naiasno.news-hourly.plist
+launchctl print gui/$(id -u)/com.naiasno.news-hourly | head
+./install_launchd.sh --uninstall # remove it
+```
+
+The two installers refuse each other: one scheduler only, because two are two
+writers of one release pointer.
+
+On Linux, install the cron job instead:
 
 ```bash
 ./install_cron.sh
@@ -205,7 +221,7 @@ To remove only this job:
 
 - Combined reports: `news/var/reports/*.json`
 - Stage reports: `news/data/_nightly/*.json`
-- Cron log: `news/var/cron.log`
+- Scheduler log (launchd or cron): `news/var/cron.log`
 - Full local corpus and analysis: `news/data/`
 - Hidden reciprocal backlink shards: `news/mentions/`
 - Public news-app bundles: `news/app-data/`
@@ -234,5 +250,7 @@ metadata, so the printed `cost_usd` is a lower bound.
 
 Never replace the live `news/` directory with a clean copy that omits
 `news/data/`, `.env.*`, `credentials/`, `mentions/`, or `var/`. Copy code and
-seed-file updates over it without remote deletion, or stop cron and make a
-backup first.
+seed-file updates over it without remote deletion, or stop the scheduler
+(`./install_launchd.sh --uninstall` on a Mac, `./install_cron.sh --uninstall`
+on Linux) and make a backup first. The LaunchAgent plist embeds absolute paths,
+so after MOVING the folder re-run `./install_launchd.sh`.

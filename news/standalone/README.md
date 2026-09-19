@@ -27,7 +27,7 @@ cd /opt/naiasno-news-box
 ./setup.sh
 $EDITOR config.env
 ./run_hourly.sh --dry-run
-./install_cron.sh
+./install_launchd.sh      # macOS; install_cron.sh on Linux
 ```
 
 `setup.sh` verifies bundle hashes, checks Python 3.10+, Node 22+, npm and
@@ -37,7 +37,12 @@ authenticate GCS or Firestore.
 
 ## Hourly behavior
 
-`install_cron.sh` installs this exact idempotent block:
+On macOS `install_launchd.sh` installs a LaunchAgent
+(`com.naiasno.news-hourly`, `StartCalendarInterval` minute 0) — cron does not
+wake a sleeping Mac and drops missed runs, launchd runs one on wake. The two
+installers refuse each other so there is only ever one scheduler.
+
+On Linux `install_cron.sh` installs this exact idempotent block:
 
 ```cron
 0 * * * * /bin/bash '/absolute/path/run_hourly.sh' >> '/absolute/path/var/cron.log' 2>&1
@@ -62,7 +67,7 @@ Each run writes:
 
 - `news/data/_nightly/*.json`: the original per-stage pipeline report;
 - `var/reports/*.json`: combined pipeline + upload status;
-- `var/cron.log`: cron output.
+- `var/cron.log`: scheduler output (launchd on macOS, cron on Linux).
 
 The configured analysis limit is queue capacity, not spend. Already analyzed
 articles are skipped, so running 24 times/day does not re-bill the corpus.
@@ -156,7 +161,7 @@ are normally immutable, but an analysis at the same path can be replaced, and
 only bucket versioning preserves the prior generation.
 
 The uploader refuses to publish hot JSON unless public upload is explicitly
-enabled, the full twelve-stage report is structurally intact, and the
+enabled, the full fourteen-stage report is structurally intact, and the
 `mention_index`, `bundles`, and exact-payload `home_health` stages succeeded.
 It archives first and does not advance `manifest.json` if the archive, version,
 or mentions transfer fails. It can still archive newly acquired raw data after
@@ -170,6 +175,9 @@ request to `manifest.json`, then inspect it and one referenced `home.json` with
 ## Operations
 
 ```bash
+./install_launchd.sh --print    # macOS: inspect the plist, no mutation
+./install_launchd.sh            # macOS: idempotent install/update
+./install_launchd.sh --uninstall
 ./install_cron.sh --print       # inspect, no mutation
 ./install_cron.sh               # idempotent install/update
 ./install_cron.sh --uninstall   # remove only this marked block
@@ -178,7 +186,8 @@ python3 verify_bundle.py        # detect copied/edited runtime files
 ```
 
 Keep `config.env` mode `600`. Rotate `var/cron.log` with the host's normal log
-rotation policy. Alert on a non-zero `pipeline_exit`/`upload_exit`/
+rotation policy (`newsyslog.d` on macOS, logrotate on Linux). Moving the bundle
+requires re-running `install_launchd.sh`: the plist embeds absolute paths. Alert on a non-zero `pipeline_exit`/`upload_exit`/
 `eval_task_sync_exit`, any `evals.export.alerts`, an accepted snapshot near its
 SLA, a growing
 `analysis_backlog.pending_total`, repeated source freshness alerts, or hourly
