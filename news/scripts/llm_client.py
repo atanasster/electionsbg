@@ -171,8 +171,17 @@ def prepare_request(system: str, user: str, *, model: str,
                     max_tokens: int = 2048,
                     temperature: float = 0.2,
                     max_attempts: int = MAX_ATTEMPTS,
-                    url: str | None = None) -> tuple[str, bytes, dict]:
-    """Build the exact request body and auditable metadata without sending it."""
+                    url: str | None = None,
+                    provider: dict | None = None) -> tuple[str, bytes, dict]:
+    """Build the exact request body and auditable metadata without sending it.
+
+    `provider` is an OpenRouter routing object (`order`, `ignore`,
+    `allow_fallbacks`, …) merged OVER the defaults — caller keys win, so a
+    caller can also turn `require_parameters` off. A route aimed at a
+    non-OpenRouter target is refused rather than silently dropped: a
+    per-provider measurement against a server that ignored the pin would
+    report one model's behaviour under N providers' names.
+    """
     if max_attempts < 1:
         raise ValueError("max_attempts must be at least 1")
     payload = {
@@ -198,9 +207,18 @@ def prepare_request(system: str, user: str, *, model: str,
     # the full article text.
     target = check_local(url) if url else endpoint()
     target_host = (urlparse(target).hostname or "").lower()
+    if provider and target_host != "openrouter.ai":
+        raise LlmError("routing_unsupported",
+                       f"provider routing needs OpenRouter, not {target_host}")
     if target_host == "openrouter.ai":
+        routing = {}
         if json_schema:
-            payload["provider"] = {"require_parameters": True}
+            routing["require_parameters"] = True
+        # An explicit per-call route (e.g. diagnose_yield.py pinning one
+        # provider with allow_fallbacks: false) layers over the defaults.
+        routing.update(provider or {})
+        if routing:
+            payload["provider"] = routing
         if os.environ.get("NEWS_LLM_THINKING") != "1":
             effort = (os.environ.get("NEWS_LLM_REASONING_EFFORT") or
                       "none").strip()
@@ -230,8 +248,11 @@ def complete(system: str, user: str, *, model: str,
              temperature: float = 0.2,
              timeout: int = DEFAULT_TIMEOUT,
              max_attempts: int = MAX_ATTEMPTS,
-             url: str | None = None) -> dict:
+             url: str | None = None,
+             provider: dict | None = None) -> dict:
     """One completion with response, request, usage, and timing metadata.
+
+    `provider` — see prepare_request. The result carries `finish_reason`.
 
     ⚠️ `grammar` is passed through as llama.cpp's `grammar` field. A server
     that ignores it will happily return free-form JSON — which is why
@@ -256,7 +277,7 @@ def complete(system: str, user: str, *, model: str,
     target, body, request_meta = prepare_request(
         system, user, model=model, grammar=grammar, json_schema=json_schema,
         max_tokens=max_tokens, temperature=temperature,
-        max_attempts=max_attempts, url=url)
+        max_attempts=max_attempts, url=url, provider=provider)
 
     last = None
     request_started = time.monotonic()
@@ -307,6 +328,9 @@ def complete(system: str, user: str, *, model: str,
                 # to one exact hosted generation without retaining reasoning.
                 "response_id": doc.get("id"),
                 "provider": doc.get("provider"),
+                # `length` marks an answer cut at max_tokens — the one parse
+                # failure class a bigger budget, not a better provider, fixes.
+                "finish_reason": choices[0].get("finish_reason"),
                 "usage": usage,
                 # Backward-compatible name for benchmark callers; its scope
                 # is now explicit beside the end-to-end transport duration.
@@ -344,7 +368,9 @@ def complete(system: str, user: str, *, model: str,
             raise LlmError("bad_json", str(exc)[:300]) from exc
         _perf_failure(last.kind if last else "unknown", model, attempt,
                       attempt_started, request_started)
-        if attempt < MAX_ATTEMPTS:
+        # The CALLER'S limit: comparing with the module default slept 2 s
+        # after the last attempt of every max_attempts=1 call.
+        if attempt < max_attempts:
             time.sleep(BACKOFF_SECONDS * attempt)
     raise last or LlmError("unreachable", target)
 
