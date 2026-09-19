@@ -95,7 +95,7 @@ should separate "no new items" from "items failed" first. Not changed here.
 | a *scheduled* run fires | ✅ 22:00:05 and 23:00:07 |
 | alarm fires on staleness / a stopped scheduler | ✅ (see 0.3) |
 | refreshed `_state` counts recorded | ✅ (0.4) |
-| `manifest.generated_at` advances within the cadence | ⏳ pending the first run whose analyze stage completes (addendum below) |
+| `manifest.generated_at` advances within the cadence | ✅ **02:00 run published** — see the addendum |
 
 ## Addendum — scheduled runs after the fixes (2026-09-20)
 
@@ -103,6 +103,7 @@ should separate "no new items" from "items failed" first. Not changed here.
 | --- | --- | --- |
 | 00:00 `…T210004Z-72772` | ❌ 0 saved of 100 | refused (pipeline failed) |
 | 01:00 `…T220002Z-63626` | ❌ 0 saved of 100 | refused (pipeline failed) |
+| **02:00 `…T230006Z-47633`** | ✅ **99 saved of 100**, 371 s | ✅ **published**, all five scopes exit 0 |
 
 Both died on the same defect — a validator rejection on the article at the
 head of the queue aborted the canary, and a rejected article stays at the head
@@ -110,9 +111,16 @@ head of the queue aborted the canary, and a rejected article stays at the head
 (0.97 and 0.96 saved), see `analyze-yield-2026-09-19.md`. The publish gate
 refused both, correctly: nothing partial was released.
 
-**Four scheduled runs, four distinct first-unattended defects** (probe,
-wrong-shaped answer, canary-on-rejection, and the probe-independence of that
-bound). Each was invisible to a manual run and each was caught by the
-scheduler plus the alarm doing their job. `manifest.generated_at` had not yet
-advanced at the time of writing: acceptance stays ⏳ until a scheduled run
-completes analyze and publishes.
+**The site is live again.** The 02:00 run advanced the public manifest from
+`2026-09-02T145946Z-16095` (generated 2026-09-02T15:28:56Z) to
+`2026-09-19T230006Z-47633` (2026-09-19T23:11:58Z) — the first publication in
+**17 days** — and the staleness alarm's `manifest_stale` clears with it.
+Upload scopes: archive 21.1 s, version tree 6.8 s, the new Cache-Control reset
+2.5 s, mentions 9.6 s, manifest 3.1 s.
+
+**Five scheduled runs, four distinct first-unattended defects** (the model
+probe, a wrong-shaped answer, the canary aborting on a rejection, and that
+bound depending on a probe that cannot conclude here). Each was invisible to a
+manual run; each was caught by the scheduler and the alarm doing their job,
+and in every failing case the publish gate refused rather than releasing
+something partial.

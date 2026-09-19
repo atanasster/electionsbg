@@ -103,7 +103,7 @@ truncations, each costing ~2.5× a normal answer.
 | stage-time breakdown sums to wall-clock within 10% | ✅ 151.6 of 152.7 s |
 | no intra-stage gap > ~65 s | ✅ largest 36.7 s |
 | 1.5 hidden-tab pause shipped with a test | ✅ `fb7b4e0992` (reaches readers on the next newsapp deploy) |
-| 1.5 gzip at rest verified on one release with `curl -sI` | ⏳ needs the first release after `0f44b41354` (addendum below) |
+| 1.5 gzip at rest verified on one release with `curl -sI` | ✅ on release `2026-09-19T230006Z-47633` — see the addendum |
 
 ⚠️ **Plan correction (§0.3 V2).** `gsutil cp -z` *appends* `no-transform` to
 `Cache-Control` (`gslib/utils/copy_helper.py`), which switches off GCS
@@ -158,9 +158,19 @@ setting `NEWS_LLM_REASONING_EFFORT=none` for it) would make the check
 conclusive again; nothing depends on it now that the bound is
 probe-independent.
 
+### gzip at rest, verified on release `2026-09-19T230006Z-47633`
+
+| check | result |
+| --- | --- |
+| stored encoding | `x-goog-stored-content-encoding: gzip` |
+| size | **1,089,591 B stored** against 4,358,382 B raw — **4.0×** |
+| `Cache-Control` | `public,max-age=31536000,immutable` — **no `no-transform`**, so the `setmeta` scope worked |
+| non-gzip client (`Accept-Encoding: identity`) | GCS transcoded: **4,930,667 B of valid JSON** (the corpus has grown since the raw figure above) |
+| manifest | untouched: stored `identity`, `no-cache,max-age=0,must-revalidate` |
+
 | acceptance criterion | status |
 | --- | --- |
-| saved/queued ≥ 0.90 on a 100-article run | ✅ **0.97 and 0.96**, rejections reported separately |
+| saved/queued ≥ 0.90 on a 100-article run | ✅ **0.97 and 0.96** manual, **0.99 on the 02:00 scheduled run**; rejections reported separately |
 | $ per saved | ✅ $0.00127–0.00130 — within 5% of the 09-02 baseline, better than it; the provisional $0.0015 from the 12-article check is superseded |
 | stage breakdown within 10% of wall-clock | ✅ (12-article check) |
 | no intra-stage gap > ~65 s | ✅ |
