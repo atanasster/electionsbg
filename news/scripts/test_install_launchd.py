@@ -20,7 +20,14 @@ from pathlib import Path
 
 NEWS = Path(__file__).resolve().parent.parent
 LABEL = "com.naiasno.news-hourly"
+CHECK_LABEL = "com.naiasno.news-staleness"
 ENV_NAMES = ("api", "model", "upload", "pipeline", "evals")
+
+
+def _plists(stdout: str) -> list:
+    """--print emits the hourly agent, then the staleness agent."""
+    docs = ["<?xml" + part for part in stdout.split("<?xml") if part.strip()]
+    return [plistlib.loads(doc.encode("utf-8")) for doc in docs]
 
 
 def _stub(bin_dir: Path, name: str, body: str) -> None:
@@ -40,6 +47,8 @@ class InstallLaunchd(unittest.TestCase):
             shutil.copy2(NEWS / rel, self.news / rel)
         for name in ENV_NAMES:
             (self.news / f".env.{name}").write_text("X=1\n", encoding="utf-8")
+        (self.news / "scripts").mkdir()
+        (self.news / "scripts/check_staleness.py").write_text("", encoding="utf-8")
         self.agents = self.td / "LaunchAgents"
         self.bin = self.td / "bin"
         self.bin.mkdir()
@@ -79,8 +88,14 @@ class InstallLaunchd(unittest.TestCase):
     def test_print_renders_an_hourly_agent_for_this_folder(self):
         out = self.run_sh("install_launchd.sh", "--print")
         self.assertEqual(out.returncode, 0, out.stderr)
-        plist = plistlib.loads(out.stdout.encode("utf-8"))
+        plist, check = _plists(out.stdout)
         self.assertEqual(plist["Label"], LABEL)
+        self.assertEqual(check["Label"], CHECK_LABEL)
+        self.assertEqual(check["ProgramArguments"][2:],
+                         [str(self.news / "scripts/check_staleness.py"),
+                          "--root", str(self.news), "--notify"])
+        self.assertEqual(check["StartInterval"], 1800)
+        self.assertTrue(check["RunAtLoad"])
         self.assertEqual(plist["ProgramArguments"],
                          ["/bin/bash", str(self.news / "run_hourly.sh")])
         self.assertEqual(plist["StartCalendarInterval"], {"Minute": 0})
@@ -94,10 +109,13 @@ class InstallLaunchd(unittest.TestCase):
         out = self.run_sh("install_launchd.sh")
         self.assertEqual(out.returncode, 0, out.stderr)
         plist_path = self.agents / f"{LABEL}.plist"
+        check_path = self.agents / f"{CHECK_LABEL}.plist"
         self.assertTrue(plist_path.is_file())
         plistlib.loads(plist_path.read_bytes())
+        plistlib.loads(check_path.read_bytes())
         calls = self.calls.read_text(encoding="utf-8")
         self.assertIn(f"bootstrap gui/{os.getuid()} {plist_path}", calls)
+        self.assertIn(f"bootstrap gui/{os.getuid()} {check_path}", calls)
         self.assertTrue((self.news / "var").is_dir())
 
         again = self.run_sh("install_launchd.sh")
@@ -106,6 +124,9 @@ class InstallLaunchd(unittest.TestCase):
         gone = self.run_sh("install_launchd.sh", "--uninstall")
         self.assertEqual(gone.returncode, 0, gone.stderr)
         self.assertFalse(plist_path.exists())
+        self.assertFalse(check_path.exists())
+        self.assertIn(f"bootout gui/{os.getuid()}/{CHECK_LABEL}",
+                      self.calls.read_text(encoding="utf-8"))
         self.assertIn(f"bootout gui/{os.getuid()}/{LABEL}",
                       self.calls.read_text(encoding="utf-8"))
 
@@ -143,6 +164,9 @@ class InstallLaunchd(unittest.TestCase):
                      bundle / "install_cron.sh")
         (bundle / "run_hourly.sh").write_text("", encoding="utf-8")
         (bundle / "config.env").write_text("X=1\n", encoding="utf-8")
+        (bundle / "news/scripts").mkdir(parents=True)
+        (bundle / "news/scripts/check_staleness.py").write_text(
+            "", encoding="utf-8")
         return bundle
 
     def run_in(self, root: Path, script: str, *args: str):
@@ -153,9 +177,11 @@ class InstallLaunchd(unittest.TestCase):
         bundle = self.make_bundle()
         out = self.run_in(bundle, "install_launchd.sh", "--print")
         self.assertEqual(out.returncode, 0, out.stderr)
-        plist = plistlib.loads(out.stdout.encode("utf-8"))
+        plist, check = _plists(out.stdout)
         self.assertEqual(plist["ProgramArguments"][1],
                          str(bundle / "run_hourly.sh"))
+        self.assertEqual(check["ProgramArguments"][2],
+                         str(bundle / "news/scripts/check_staleness.py"))
         (bundle / "config.env").write_text("K=REPLACE_ME\n", encoding="utf-8")
         out = self.run_in(bundle, "install_launchd.sh")
         self.assertEqual(out.returncode, 2)
@@ -175,7 +201,7 @@ class InstallLaunchd(unittest.TestCase):
         out = subprocess.run(["bash", str(bundle / "install_launchd.sh"),
                               "--print"], cwd=bundle, env=env, text=True,
                              capture_output=True)
-        plist = plistlib.loads(out.stdout.encode("utf-8"))
+        plist = _plists(out.stdout)[0]
         self.assertEqual(plist["WorkingDirectory"], str(bundle))
 
     def test_bootstrap_is_retried_after_a_transient_failure(self):
@@ -184,8 +210,9 @@ class InstallLaunchd(unittest.TestCase):
                            f'touch "{flag}"; exit 5; fi\n')
         out = self.run_sh("install_launchd.sh")
         self.assertEqual(out.returncode, 0, out.stderr)
+        # hourly: fail + retry; staleness: one clean bootstrap.
         self.assertEqual(self.calls.read_text(encoding="utf-8")
-                         .count("launchctl bootstrap"), 2)
+                         .count("launchctl bootstrap"), 3)
 
     def test_bootstrap_that_never_succeeds_exits_nonzero(self):
         self.set_launchctl('[ "$1" = bootstrap ] && exit 5\n')
@@ -219,6 +246,22 @@ class InstallLaunchd(unittest.TestCase):
         self.assertIn("macOS-only", out.stderr)
         self.assertEqual(
             self.run_sh("install_launchd.sh", "--print").returncode, 0)
+
+    def test_a_zero_or_non_numeric_check_interval_is_refused(self):
+        for bad in ("0", "00", "30m"):
+            with self.subTest(bad=bad):
+                env = {**self.env, "NEWS_STALENESS_INTERVAL_S": bad}
+                out = subprocess.run(
+                    ["bash", str(self.news / "install_launchd.sh"), "--print"],
+                    cwd=self.news, env=env, text=True, capture_output=True)
+                self.assertEqual(out.returncode, 2)
+                self.assertIn("positive integer", out.stderr)
+
+    def test_missing_checker_script_is_refused(self):
+        (self.news / "scripts/check_staleness.py").unlink()
+        out = self.run_sh("install_launchd.sh", "--print")
+        self.assertEqual(out.returncode, 2)
+        self.assertIn("check_staleness.py", out.stderr)
 
     def test_refuses_xml_special_characters_in_the_path(self):
         bundle = self.make_bundle("news&x")

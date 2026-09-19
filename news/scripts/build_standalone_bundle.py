@@ -27,6 +27,7 @@ RUNTIME_SCRIPTS = (
     "news/scripts/build_image_rights_queue.py",
     "news/scripts/build_mention_index.py",
     "news/scripts/build_prompts.py",
+    "news/scripts/check_staleness.py",
     "news/scripts/commons_rights.py",
     "news/scripts/effective_analysis.py",
     "news/scripts/effective_feedback.py",

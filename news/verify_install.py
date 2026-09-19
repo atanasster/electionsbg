@@ -11,6 +11,7 @@ REQUIRED = (
     "standalone/run_hourly.sh", "standalone/upload_to_gcs.py",
     "standalone/install_launchd.sh",
     "scripts/run_nightly.sh", "scripts/analyze_local.py",
+    "scripts/check_staleness.py",
     "scripts/eval_runtime.py", "scripts/app_data_inventory.py",
     "scripts/effective_analysis.py",
     "scripts/propose_eval_corrections.py", "scripts/sync_eval_tasks.py",

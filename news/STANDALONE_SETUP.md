@@ -194,6 +194,40 @@ launchctl print gui/$(id -u)/com.naiasno.news-hourly | head
 The two installers refuse each other: one scheduler only, because two are two
 writers of one release pointer.
 
+`install_launchd.sh` also installs a second agent, `com.naiasno.news-staleness`,
+which runs `scripts/check_staleness.py` every 30 minutes (and at load). It is a
+separate agent on purpose — a scheduler that has stopped cannot report its own
+absence — and it raises a macOS notification (plus a JSON POST to
+`NEWS_ALERT_WEBHOOK_URL` when set in `.env.upload`, or `config.env` in the
+bundle) when the set of alarms that have persisted for `NEWS_STALENESS_GRACE_S`
+(default 45 min — both agents fire on wake, and the catch-up run needs time to
+close the gap a long sleep opened) changes, including recovery:
+
+- `manifest_stale`: the public manifest's `generated_at` is older than
+  `NEWS_STALE_AFTER_S` (default 7200 s, twice the hourly cadence);
+- `no_recent_run`: no combined run report in that window — the scheduler is
+  not firing;
+- `run_failed`: the newest run had a non-zero `pipeline_exit` / `upload_exit` /
+  `eval_task_sync_exit`;
+- `manifest_unreadable`.
+
+While an alarm persists it re-notifies every `NEWS_STALENESS_RENOTIFY_S`
+(default 6 h); a NEW failing run is announced at once rather than folded into
+the previous one. `NEWS_STALENESS_INTERVAL_S` (default 1800) sets how often the
+agent runs; it is read when `install_launchd.sh` runs, so re-run the installer
+after changing it. Its log is `var/staleness.log`, its state
+`var/staleness_state.json`. Run it by hand with
+`python3 scripts/check_staleness.py` (exit 1 on any alarm). It cannot alert
+while the Mac is powered off — only an external watchdog can.
+
+**On Linux there is no staleness agent** — `install_cron.sh` schedules only the
+hourly job. Set `NEWS_ALERT_WEBHOOK_URL` (a desktop notification reaches nobody
+on a server) and add the check to the crontab by hand:
+
+```cron
+*/30 * * * * python3 '/opt/naiasno/news/scripts/check_staleness.py' --root '/opt/naiasno/news' --notify >> '/opt/naiasno/news/var/staleness.log' 2>&1
+```
+
 On Linux, install the cron job instead:
 
 ```bash

@@ -38,8 +38,20 @@ while [ $# -gt 0 ]; do
 done
 
 LABEL=com.naiasno.news-hourly
+CHECK_LABEL=com.naiasno.news-staleness
 AGENT_DIR=${NEWS_LAUNCHD_AGENT_DIR:-$HOME/Library/LaunchAgents}
 PLIST="$AGENT_DIR/$LABEL.plist"
+CHECK_PLIST="$AGENT_DIR/$CHECK_LABEL.plist"
+# The staleness alarm (plan Phase 0 step 0.3) runs as its OWN agent: a
+# scheduler that has stopped cannot report its own absence.
+CHECK_INTERVAL_S=${NEWS_STALENESS_INTERVAL_S:-1800}
+case "$CHECK_INTERVAL_S" in
+  ""|*[!0-9]*) echo "NEWS_STALENESS_INTERVAL_S must be a positive integer" >&2; exit 2 ;;
+esac
+if [ "$((10#$CHECK_INTERVAL_S))" -le 0 ]; then
+  echo "NEWS_STALENESS_INTERVAL_S must be a positive integer" >&2
+  exit 2
+fi
 CRON_BEGIN="# BEGIN naiasno-news-hourly"
 
 if [ "$MODE" != "print" ]; then
@@ -82,6 +94,14 @@ if [ "$MODE" != "uninstall" ]; then
     echo "environment files still contain REPLACE_ME placeholders" >&2
     exit 2
   fi
+  if [ -f "$ROOT/scripts/check_staleness.py" ]; then
+    CHECK_SCRIPT="$ROOT/scripts/check_staleness.py"
+  elif [ -f "$ROOT/news/scripts/check_staleness.py" ]; then
+    CHECK_SCRIPT="$ROOT/news/scripts/check_staleness.py"
+  else
+    echo "missing scripts/check_staleness.py under $ROOT — incomplete copy" >&2
+    exit 2
+  fi
 fi
 
 # ProcessType is Standard, NOT Background: Background applies low CPU/IO
@@ -118,8 +138,49 @@ render_plist() {
 PLIST
 }
 
+# launchd's default PATH (/usr/bin:/bin:…) has only the system python3, which
+# is 3.9 on macOS — check_staleness.py stays 3.9-compatible, and PATH puts a
+# newer one first when the host has it.
+render_check_plist() {
+  cat <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>$CHECK_LABEL</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/env</string>
+    <string>python3</string>
+    <string>$CHECK_SCRIPT</string>
+    <string>--root</string>
+    <string>$ROOT</string>
+    <string>--notify</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>WorkingDirectory</key>
+  <string>$ROOT</string>
+  <key>StartInterval</key>
+  <integer>$CHECK_INTERVAL_S</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>$ROOT/var/staleness.log</string>
+  <key>StandardErrorPath</key>
+  <string>$ROOT/var/staleness.log</string>
+</dict>
+</plist>
+PLIST
+}
+
 if [ "$MODE" = "print" ]; then
   render_plist
+  render_check_plist
   exit 0
 fi
 
@@ -127,17 +188,29 @@ DOMAIN="gui/$(id -u)"
 # `bootout` returns before the service is torn down, and a bootstrap straight
 # after it commonly fails with "Bootstrap failed: 5". Wait for the label to go.
 unload() {
-  launchctl bootout "$DOMAIN/$LABEL" >/dev/null 2>&1 || :
+  launchctl bootout "$DOMAIN/$1" >/dev/null 2>&1 || :
   for _ in 1 2 3 4 5 6 7 8 9 10; do
-    launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1 || return 0
+    launchctl print "$DOMAIN/$1" >/dev/null 2>&1 || return 0
     sleep 0.5
   done
 }
 
+bootstrap() {
+  for attempt in 1 2 3; do
+    if launchctl bootstrap "$DOMAIN" "$1"; then return 0; fi
+    if [ "$attempt" = 3 ]; then
+      echo "launchctl bootstrap failed 3 times; the plist is at $1 — retry this installer" >&2
+      exit 1
+    fi
+    sleep 1
+  done
+}
+
 if [ "$MODE" = "uninstall" ]; then
-  unload
-  rm -f "$PLIST"
-  echo "removed LaunchAgent $LABEL"
+  unload "$LABEL"
+  unload "$CHECK_LABEL"
+  rm -f "$PLIST" "$CHECK_PLIST"
+  echo "removed LaunchAgents $LABEL and $CHECK_LABEL"
   exit 0
 fi
 
@@ -151,18 +224,18 @@ fi
 
 mkdir -p "$ROOT/var" "$AGENT_DIR"
 NEXT=$(mktemp "${TMPDIR:-/tmp}/naiasno-launchd.XXXXXX")
-trap 'rm -f "$NEXT"' EXIT
+NEXT_CHECK=$(mktemp "${TMPDIR:-/tmp}/naiasno-launchd-check.XXXXXX")
+trap 'rm -f "$NEXT" "$NEXT_CHECK"' EXIT
 render_plist > "$NEXT"
+render_check_plist > "$NEXT_CHECK"
 plutil -lint "$NEXT" >/dev/null
-unload
+plutil -lint "$NEXT_CHECK" >/dev/null
+unload "$LABEL"
+unload "$CHECK_LABEL"
 mv "$NEXT" "$PLIST"
-chmod 644 "$PLIST"
-for attempt in 1 2 3; do
-  if launchctl bootstrap "$DOMAIN" "$PLIST"; then break; fi
-  if [ "$attempt" = 3 ]; then
-    echo "launchctl bootstrap failed 3 times; the plist is at $PLIST — retry this installer" >&2
-    exit 1
-  fi
-  sleep 1
-done
+mv "$NEXT_CHECK" "$CHECK_PLIST"
+chmod 644 "$PLIST" "$CHECK_PLIST"
+bootstrap "$PLIST"
+bootstrap "$CHECK_PLIST"
 echo "installed LaunchAgent $LABEL: $PLIST (hourly at :00, log $ROOT/var/cron.log)"
+echo "installed LaunchAgent $CHECK_LABEL: $CHECK_PLIST (every ${CHECK_INTERVAL_S}s, log $ROOT/var/staleness.log)"
