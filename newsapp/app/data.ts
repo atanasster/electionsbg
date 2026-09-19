@@ -853,7 +853,8 @@ export function fetchData<T>(path: string): Promise<T> {
 }
 
 // Minimal data hook — one fetch in flight per version + path. Mounted screens
-// poll the release pointer every minute and when a backgrounded tab is shown.
+// poll the release pointer every minute while visible, and once when a
+// backgrounded tab is shown again.
 
 const unsafeDataCast = <T>(value: unknown): T => value as T;
 
@@ -900,9 +901,17 @@ export const useDataWithClient = <T>(
         });
     };
     load(true);
-    const interval = window.setInterval(() => load(false), PUBLICATION_POLL_MS);
+    // A hidden tab does not poll. Every release clears the data cache, so a
+    // forgotten background tab re-downloaded every mounted bundle on every
+    // release for ever. Nobody reads a hidden tab, so it catches up once, via
+    // the visibilitychange handler, when it is shown again. One predicate for
+    // both, so the timer and the handler cannot disagree about "visible".
+    const isShown = () => document.visibilityState !== "hidden";
+    const interval = window.setInterval(() => {
+      if (isShown()) load(false);
+    }, PUBLICATION_POLL_MS);
     const refreshVisible = () => {
-      if (document.visibilityState === "visible") load(false);
+      if (isShown()) load(false);
     };
     document.addEventListener("visibilitychange", refreshVisible);
     return () => {

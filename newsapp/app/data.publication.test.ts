@@ -4,6 +4,7 @@ import {
   createDataClient,
   DATA_REFRESH_MS,
   parseOutletArticlesBundle,
+  PUBLICATION_POLL_MS,
   useDataWithClient,
 } from "./data";
 
@@ -233,6 +234,55 @@ describe("versioned news data client", () => {
     });
     expect(hook.result.current.data).toEqual({ value: "new" });
     hook.unmount();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("does not poll while the tab is hidden and refreshes once when shown", async () => {
+    vi.useFakeTimers();
+    let visibility: DocumentVisibilityState = "visible";
+    // An own property shadows Document.prototype's getter; deleting it in
+    // `finally` restores jsdom's default for every later test.
+    Object.defineProperty(document, "visibilityState", {
+      configurable: true,
+      get: () => visibility,
+    });
+    // One client object for every render: the hook's effect depends on it.
+    const fetchData = vi.fn(async () => ({ value: "x" }));
+    const client = { fetchData } as unknown as Parameters<
+      typeof useDataWithClient
+    >[1];
+    const hook = renderHook(() =>
+      useDataWithClient<{ value: string }>("/home.json", client),
+    );
+    try {
+      await act(async () => Promise.resolve());
+      expect(fetchData).toHaveBeenCalledTimes(1);
+
+      // Going hidden fetches nothing, and neither do ticks while hidden.
+      visibility = "hidden";
+      await act(async () => {
+        document.dispatchEvent(new Event("visibilitychange"));
+        vi.advanceTimersByTime(PUBLICATION_POLL_MS * 5);
+        await Promise.resolve();
+      });
+      expect(fetchData).toHaveBeenCalledTimes(1);
+
+      visibility = "visible";
+      await act(async () => {
+        document.dispatchEvent(new Event("visibilitychange"));
+        await Promise.resolve();
+      });
+      expect(fetchData).toHaveBeenCalledTimes(2);
+
+      await act(async () => {
+        vi.advanceTimersByTime(PUBLICATION_POLL_MS);
+        await Promise.resolve();
+      });
+      expect(fetchData).toHaveBeenCalledTimes(3);
+    } finally {
+      hook.unmount();
+      delete (document as { visibilityState?: unknown }).visibilityState;
+    }
     expect(vi.getTimerCount()).toBe(0);
   });
 
