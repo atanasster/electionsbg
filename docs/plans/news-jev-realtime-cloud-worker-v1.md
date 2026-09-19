@@ -1,6 +1,7 @@
 # Near Real-Time News Pipeline: Two-Tier Classification and Continuous Ingestion — v1
 
-**Status**: revised eleven times on 2026-09-19. §0 records what the first draft got wrong.
+**Status**: revised eleven times on 2026-09-19; **Phase 0 and Phase 1 implemented the
+same day — §0.12 records what the build found.** §0 records what the first draft got wrong.
 Passes two to eight re-verified one another and are archived, verbatim and under their
 original ids, in `docs/plans/news-jev-realtime-cloud-worker-v1-analysis.md` Appendix A
 (§0.1 is the index). The ninth pass (§0.9) read what those never opened — the last run's own
@@ -186,6 +187,22 @@ improves — without the stall the last run's `analyze` is **~750 s**, so the co
 gains a stall gate. Note what this does *not* change: yield (31% lost) is still the cost
 defect, and the two fixes are independent — the timeout recovers wall-clock, the provider /
 repair work recovers dollars.
+
+---
+
+### 0.12 Phase 0 and Phase 1 implemented — what the build found (2026-09-19)
+
+Reports: `news/evals/phase0-scheduler-2026-09-19.md`,
+`news/evals/analyze-yield-2026-09-19.md`. Four findings change figures or
+premises above; each is folded into the section it corrects only here, so the
+record of what was believed stays readable.
+
+| # | the plan said | measured | consequence |
+| --- | --- | --- | --- |
+| I1 | §0.3 V2: `-z json` is a one-flag change; GCS transcodes for non-gzip clients | `gsutil cp -z` **appends `no-transform`** to Cache-Control (`gslib/utils/copy_helper.py`), which disables transcoding | the uploader resets the immutable policy with a `setmeta` scope before the manifest (`0f44b41354`) |
+| I2 | §2.3 / §5: GLM costs $0.000867 per accepted analysis | provisional, from a 12-article check: with NextBit excluded (it caused every syntax failure) Parasail cached 6.6% of prompt tokens against NextBit's 63.9%, so **per response +30% ($0.00110)**, per saved **~$0.0015 (+12% on 09-02's $0.00134)** — yield recovered most of it. ~$41–45/mo at 900–1,000/day. Latency unchanged (article-call p50 17.6 s) | every Jev-vs-GLM saving in §1/§5 is against the wrong baseline; re-derive it in Phase 3 from the perf log once 100-article runs confirm it |
+| I3 | Phase 0: expect first-unattended-run defects | two, both invisible to a manual run: the model probe fetched OpenRouter's whole catalogue (>60 s) under a 10 s timeout, and its failure record named the wrong URL (`74fd3ace72`); an unmeasured provider's wrong-shaped answer killed the analyze stage (`bd8c1f9344`). The publish gate refused both runs — readers kept the old release rather than a partial one | the staleness alarm fired as designed; keep it |
+| I4 | §3.2's failure table is the "before" for Phase 2 | accurate for blitz.bg, dnevnik.bg and 24chasa.bg; capital.bg is intermittent. And `consecutive_failures` **probably counts "nothing new since last hour" as a failure** (one clean case, bgdnes.bg) | Phase 2 intake should confirm and separate "no new items" from "items failed" before any alert threshold means anything |
 
 ---
 
