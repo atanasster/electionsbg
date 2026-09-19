@@ -24,6 +24,21 @@ import urllib.error
 import urllib.request
 from urllib.parse import quote, urlparse
 
+try:  # a sibling module; absent only in a stripped copy of this file
+    import perf_log
+except ImportError:  # pragma: no cover
+    perf_log = None
+
+
+def _perf(**fields) -> None:
+    """One `glm` perf-log event. Logging never changes the call's outcome."""
+    if perf_log is None:
+        return
+    try:
+        perf_log.emit("glm", **fields)
+    except Exception:  # noqa: BLE001 — defence in depth; emit should not raise
+        pass
+
 DEFAULT_URL = "http://127.0.0.1:8080/v1/chat/completions"
 
 # ⚠️ A 12B on a Mac mini is SLOW — a long article can take minutes — so the
@@ -81,6 +96,23 @@ def _record_usage_event(doc: dict, choice: dict | None, *,
     }
     with _USAGE_LOCK:
         _USAGE_EVENTS.append(event)
+    details = usage.get("prompt_tokens_details")
+    _perf(outcome="response", provider=event["provider"],
+          model=event["model_served"], finish_reason=event["finish_reason"],
+          prompt_tokens=usage.get("prompt_tokens"),
+          completion_tokens=usage.get("completion_tokens"),
+          cached_prompt_tokens=(details.get("cached_tokens")
+                                if isinstance(details, dict) else None),
+          cost=usage.get("cost"), latency_s=attempt_elapsed_s,
+          transport_elapsed_s=transport_elapsed_s, attempt=attempt)
+
+
+def _perf_failure(kind: str, model: str, attempt: int,
+                  attempt_started: float, request_started: float) -> None:
+    now = time.monotonic()
+    _perf(outcome=kind, model=model, attempt=attempt,
+          latency_s=round(now - attempt_started, 2),
+          transport_elapsed_s=round(now - request_started, 2))
 
 
 class LlmError(RuntimeError):
@@ -288,6 +320,8 @@ def complete(system: str, user: str, *, model: str,
             last = LlmError(f"http_{exc.code}", exc.read()[:300].decode(
                 "utf-8", "replace"))
             if exc.code not in RETRY_STATUS:
+                _perf_failure(last.kind, model, attempt, attempt_started,
+                              request_started)
                 raise last from exc
         except (urllib.error.URLError, socket.timeout, TimeoutError) as exc:
             reason = getattr(exc, "reason", exc)
@@ -305,7 +339,11 @@ def complete(system: str, user: str, *, model: str,
         except json.JSONDecodeError as exc:
             # ⚠️ NOT retried. A server returning non-JSON is misconfigured,
             # and asking it again three times just delays the report.
+            _perf_failure("bad_json", model, attempt, attempt_started,
+                          request_started)
             raise LlmError("bad_json", str(exc)[:300]) from exc
+        _perf_failure(last.kind if last else "unknown", model, attempt,
+                      attempt_started, request_started)
         if attempt < MAX_ATTEMPTS:
             time.sleep(BACKOFF_SECONDS * attempt)
     raise last or LlmError("unreachable", target)

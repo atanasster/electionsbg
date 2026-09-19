@@ -15,6 +15,28 @@ ROOT = Path(__file__).resolve().parents[2]
 RUNNER = ROOT / "news" / "scripts" / "run_nightly.sh"
 
 
+# Pipeline CHILD processes (which never import unittest) emit perf-log
+# events, so the in-process default does not reach them: redirect through the
+# environment they inherit, and restore it afterwards.
+_PERF_PRIOR = None
+
+
+def setUpModule():
+    global _PERF_TMP, _PERF_PRIOR
+    _PERF_PRIOR = os.environ.get("NEWS_PERF_DIR")
+    _PERF_TMP = tempfile.mkdtemp(prefix="news_perf_")
+    os.environ["NEWS_PERF_DIR"] = _PERF_TMP
+
+
+def tearDownModule():
+    import shutil
+    if _PERF_PRIOR is None:
+        os.environ.pop("NEWS_PERF_DIR", None)
+    else:
+        os.environ["NEWS_PERF_DIR"] = _PERF_PRIOR
+    shutil.rmtree(_PERF_TMP, ignore_errors=True)
+
+
 class NightlyRunnerContractTests(unittest.TestCase):
     def run_runner(self, *args: str) -> subprocess.CompletedProcess[str]:
         return self.run_runner_at(RUNNER, *args)

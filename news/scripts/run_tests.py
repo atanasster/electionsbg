@@ -15,7 +15,9 @@ Run:  python3 news/scripts/run_tests.py [-v]
 """
 
 import os
+import shutil
 import subprocess
+import tempfile
 import sys
 from pathlib import Path
 
@@ -38,13 +40,21 @@ def main() -> int:
     env["PYTHONPATH"] = os.pathsep.join(
         part for part in (str(ROOT), env.get("PYTHONPATH", "")) if part
     )
-    for path in files:
-        proc = subprocess.run([sys.executable, str(path), *sys.argv[1:]],
-                              cwd=ROOT, env=env)
-        mark = "ok  " if proc.returncode == 0 else "FAIL"
-        print(f"  {mark}  {path.name}", file=sys.stderr)
-        if proc.returncode != 0:
-            failed.append(path.name)
+    # ⚠️ Tests that drive the model client emit real perf-log events; point
+    # every suite at a throwaway directory so no test run can append to the
+    # production log in news/data/_perf.
+    perf_tmp = tempfile.mkdtemp(prefix="news_perf_tests_")
+    env["NEWS_PERF_DIR"] = perf_tmp
+    try:
+        for path in files:
+            proc = subprocess.run([sys.executable, str(path), *sys.argv[1:]],
+                                  cwd=ROOT, env=env)
+            mark = "ok  " if proc.returncode == 0 else "FAIL"
+            print(f"  {mark}  {path.name}", file=sys.stderr)
+            if proc.returncode != 0:
+                failed.append(path.name)
+    finally:
+        shutil.rmtree(perf_tmp, ignore_errors=True)
 
     # Counts beside their denominator, never a bare "ok".
     print(f"\n{len(files) - len(failed)}/{len(files)} test files passed",

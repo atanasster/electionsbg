@@ -571,6 +571,11 @@ class UploadPolicy(unittest.TestCase):
             results[-1]["skipped"],
             "previous_scope_failed:public_app_data_version")
         self.assertEqual(results[-1]["name"], "public_app_data_manifest")
+        # Every scope that RAN carries its wall time (the perf log's
+        # `publish` events); one that was skipped did not run.
+        for ran in results[:2]:
+            self.assertIsInstance(ran["seconds"], float)
+        self.assertNotIn("seconds", results[-1])
 
     def test_publication_manifest_is_tied_to_a_healthy_home_payload(self):
         with tempfile.TemporaryDirectory(prefix="news_manifest_") as td:
@@ -708,9 +713,19 @@ class UploadPolicy(unittest.TestCase):
             result = uploader.run_scope(scope, False)
         self.assertEqual(result["exit"], 1)
 
+    def _empty_root(self) -> str:
+        """An EMPTY root, not the repo: the policy tests check bucket
+        configuration, and the repo's live news/app-data makes the dry run
+        build a real manifest first — which fails whenever the pipeline last
+        produced a not-ready home payload (first seen after the 2026-09-19
+        22:00 run)."""
+        root = tempfile.mkdtemp(prefix="news_root_")
+        self.addCleanup(shutil.rmtree, root, True)
+        return root
+
     def test_archive_and_public_bucket_must_differ(self):
         script = bundle.ROOT / "news/standalone/upload_to_gcs.py"
-        env = {**os.environ, "DATA_BG_ROOT": str(bundle.ROOT),
+        env = {**os.environ, "DATA_BG_ROOT": self._empty_root(),
                "NEWS_ENABLE_PUBLIC_UPLOAD": "1",
                "NEWS_PUBLIC_GCS_URI": "gs://same/news/app-data",
                "NEWS_MENTIONS_GCS_URI": "gs://same/news/mentions",
@@ -732,7 +747,7 @@ class UploadPolicy(unittest.TestCase):
 
     def test_nested_public_delete_scopes_are_rejected(self):
         script = bundle.ROOT / "news/standalone/upload_to_gcs.py"
-        env = {**os.environ, "DATA_BG_ROOT": str(bundle.ROOT),
+        env = {**os.environ, "DATA_BG_ROOT": self._empty_root(),
                "NEWS_ENABLE_PUBLIC_UPLOAD": "1",
                "NEWS_PUBLIC_GCS_URI": "gs://public/news",
                "NEWS_MENTIONS_GCS_URI": "gs://public/news/mentions",

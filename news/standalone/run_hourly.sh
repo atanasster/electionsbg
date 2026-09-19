@@ -129,6 +129,8 @@ if ! "${VERIFY[@]}"; then
 fi
 
 RUN_ID="$(date -u +%Y-%m-%dT%H%M%SZ)-$$"
+# Every child process stamps its perf-log events with this (perf_log.py).
+export NEWS_RUN_ID="$RUN_ID"
 PIPELINE_STDOUT="$REPORT_DIR/$RUN_ID.pipeline.stdout"
 UPLOAD_STDOUT="$REPORT_DIR/$RUN_ID.upload.json"
 EVAL_SYNC_STDOUT="$REPORT_DIR/$RUN_ID.eval-task-sync.json"
@@ -171,6 +173,17 @@ if [ "$DRY" -eq 1 ]; then UPLOAD_ARGS+=(--dry-run); fi
 python3 "$UPLOADER" "${UPLOAD_ARGS[@]}" > "$UPLOAD_STDOUT"
 UPLOAD_CODE=$?
 cat "$UPLOAD_STDOUT"
+
+# Best-effort: the perf log never changes a run's outcome.
+if [ "$DRY" -eq 0 ]; then
+  STAGES_FILE="$NEWS_ROOT/data/_nightly/$RUN_ID.stages.jsonl"
+  if [ -f "$STAGES_FILE" ]; then
+    python3 "$NEWS_ROOT/scripts/perf_log.py" mirror-stages "$STAGES_FILE" \
+      >/dev/null 2>&1 || :
+  fi
+  python3 "$NEWS_ROOT/scripts/perf_log.py" mirror-upload "$UPLOAD_STDOUT" \
+    >/dev/null 2>&1 || :
+fi
 
 EVAL_SYNC_ARGS=(task-sync --upload-result "$UPLOAD_STDOUT")
 if [ "$DRY" -eq 1 ]; then EVAL_SYNC_ARGS+=(--dry-run); fi

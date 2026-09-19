@@ -35,6 +35,7 @@ RUNTIME_SCRIPTS = (
     "news/scripts/fetch_latest_articles.py",
     "news/scripts/harvest_browser.mjs",
     "news/scripts/llm_client.py",
+    "news/scripts/perf_log.py",
     "news/scripts/home_event_dedupe.py",
     "news/scripts/home_health.py",
     "news/scripts/resolve_mentions.py",

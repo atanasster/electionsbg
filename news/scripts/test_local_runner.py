@@ -469,6 +469,77 @@ class TheClient(unittest.TestCase):
                          "https://openrouter.ai/api/v1/chat/completions")
         self.assertEqual(got["model"], "z-ai/glm-x")
 
+    def _complete_with(self, fake_urlopen, perf_dir):
+        with mock.patch.dict(os.environ, {
+                "NEWS_PERF_DIR": perf_dir, "NEWS_RUN_ID": "2026-09-19T190005Z-1",
+                "NEWS_LLM_URL": "http://127.0.0.1:9/v1/chat/completions"}), \
+                mock.patch.object(llm_client.urllib.request, "urlopen",
+                                  fake_urlopen), \
+                mock.patch.object(llm_client.time, "sleep"):
+            return llm_client.complete("s", "u", model="m", max_attempts=2)
+
+    def _events(self, perf_dir):
+        import perf_log
+        return [e for day in {p.stem for p in Path(perf_dir).glob("*.jsonl")}
+                for e in perf_log.read_events(day, Path(perf_dir))]
+
+    def test_every_response_and_failed_attempt_is_a_glm_event(self):
+        perf_dir = tempfile.mkdtemp(prefix="glm_perf_")
+        doc = {"id": "gen-1", "model": "m", "provider": "P",
+               "choices": [{"message": {"content": "{}"},
+                            "finish_reason": "stop"}],
+               "usage": {"prompt_tokens": 10, "completion_tokens": 2,
+                         "cost": 0.001,
+                         "prompt_tokens_details": {"cached_tokens": 4}}}
+        calls = []
+
+        class Resp:
+            def __enter__(self_inner):
+                return self_inner
+
+            def __exit__(self_inner, *exc):
+                return False
+
+            def read(self_inner, *_):
+                return json.dumps(doc).encode("utf-8")
+
+        def flaky(req, timeout=None):
+            calls.append(1)
+            if len(calls) == 1:
+                raise TimeoutError("timed out")
+            return Resp()
+        answer = self._complete_with(flaky, perf_dir)
+        self.assertEqual(answer["text"], "{}")
+        events = [e for e in self._events(perf_dir) if e["event"] == "glm"]
+        self.assertEqual([e["outcome"] for e in events],
+                         ["unreachable", "response"])
+        self.assertEqual([e["attempt"] for e in events], [1, 2])
+        ok = events[1]
+        self.assertEqual((ok["provider"], ok["prompt_tokens"],
+                          ok["cached_prompt_tokens"], ok["cost"]),
+                         ("P", 10, 4, 0.001))
+        self.assertEqual({e["run_id"] for e in events},
+                         {"2026-09-19T190005Z-1"})
+
+    def test_a_logger_that_raises_cannot_fail_the_call(self):
+        doc = {"choices": [{"message": {"content": "{}"}}], "usage": {}}
+
+        class Resp:
+            def __enter__(self_inner):
+                return self_inner
+
+            def __exit__(self_inner, *exc):
+                return False
+
+            def read(self_inner, *_):
+                return json.dumps(doc).encode("utf-8")
+        import perf_log
+        with mock.patch.object(perf_log, "emit",
+                               side_effect=RuntimeError("disk on fire")):
+            answer = self._complete_with(lambda req, timeout=None: Resp(),
+                                         tempfile.mkdtemp())
+        self.assertEqual(answer["text"], "{}")
+
     def test_the_cli_probes_once_and_exits_on_that_result(self):
         for ok, code in ((True, 0), (False, 1)):
             with self.subTest(ok=ok), mock.patch.object(

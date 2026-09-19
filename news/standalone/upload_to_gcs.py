@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -28,7 +29,10 @@ EXPECTED_STAGES = (
     "eval_task_build", "home_health",
 )
 ARCHIVE_EXCLUDE = (
-    r"(^|/)(_browser|_html|_nightly|evals|gold)(/|$)|"
+    # `_perf` is the shared perf log (news/scripts/perf_log.py): archiving it
+    # would re-upload a growing file on every release and inflate the very
+    # per-publish bytes it exists to measure (plan §0.5 N2).
+    r"(^|/)(_browser|_html|_nightly|_perf|evals|gold)(/|$)|"
     r"(^|/)\.DS_Store$|(^|/)_summaries.*\.jsonl$"
 )
 IMMUTABLE_PUBLIC_CACHE = "Cache-Control:public,max-age=31536000,immutable"
@@ -444,7 +448,11 @@ def execute_scopes(scopes: list[dict], dry_run: bool) -> list[dict]:
                 "skipped": f"previous_scope_failed:{failed_scope}",
             })
             continue
+        started = time.monotonic()
         result = run_scope(scope, dry_run)
+        # Wall seconds per scope: the per-release upload cost the plan's
+        # Phase 4 baseline reads from the perf log.
+        result["seconds"] = round(time.monotonic() - started, 2)
         results.append(result)
         if result["exit"] != 0 and not dry_run:
             failed_scope = scope["name"]
