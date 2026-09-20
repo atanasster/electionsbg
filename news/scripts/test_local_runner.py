@@ -1629,6 +1629,153 @@ class OptionalFreeTriage(unittest.TestCase):
 
 
 
+class JevShadowGate(unittest.TestCase):
+    """Plan §3.7 — Jev observes the Stage-A decision and decides nothing.
+
+    ⚠️ THERE IS NO ENFORCING MODE, and that is a finding rather than an
+    omission. `triage_one` approves a suppression only when the model
+    returns an EVIDENCE STRING found verbatim in the article — a free
+    model's claim is not trusted, its quote is checked. Jev's three answer
+    types return a choice, a score or a probability and NO free text, so a
+    Jev backend cannot satisfy that obligation. Swapping it in would not be
+    a like-for-like substitution; it would quietly remove the check that
+    makes the gate safe.
+    """
+
+    def article(self, root, *, mentions=None):
+        rel = "news/data/x.bg/weather.json"
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({
+            "url": "https://x.bg/weather", "domain": "x.bg",
+            "title": "Прогноза за времето утре",
+            "content": "Утре температурите ще достигнат двадесет и пет градуса.",
+        }, ensure_ascii=False), encoding="utf-8")
+        return {"path": rel, "domain": "x.bg",
+                "mentions": [] if mentions is None else mentions}
+
+    def outcome(self, noul=0.99, sub="weather"):
+        class Out:
+            answers = {"obvious_not_site_relevant": {"type": "noul",
+                                                     "noul": noul},
+                       "subcategory": {"type": "choice", "choice": sub,
+                                       "confidence": 0.97}}
+            usage = {"cost": 0.00001}
+            model = "typesafe/jev-1.13-20260917"
+            ms = 400
+            skip = None
+            report_worthy = False
+
+            def __bool__(self):
+                return True
+        return Out()
+
+    def run_shadow(self, root, item, **env):
+        fake = mock.MagicMock()
+        fake.ask.return_value = self.outcome(**env.pop("answer", {}))
+        fake.MODEL = "typesafe/jev-1.13-20260917"
+        fake.confidence_of.return_value = 0.97
+        with mock.patch.object(analyze_local, "ROOT", root), \
+                mock.patch.object(analyze_local, "jev_client", fake), \
+                mock.patch.dict(os.environ, env):
+            return analyze_local.jev_triage_shadow(item, {}), fake
+
+    def test_it_records_a_counterfactual_and_nothing_else(self):
+        with tempfile.TemporaryDirectory(prefix="shadow_") as td:
+            root = Path(td)
+            shadow, fake = self.run_shadow(root, self.article(root))
+        self.assertTrue(shadow["consulted"])
+        self.assertEqual(shadow["gate"], "shadow")
+        self.assertTrue(shadow["would_suppress"])
+        self.assertEqual(shadow["subcategory"], "weather")
+        self.assertEqual(fake.ask.call_count, 1)
+
+    def test_the_named_entity_veto_runs_before_jev_is_asked(self):
+        # ⚠️ Not symmetry for its own sake: without it the shadow log fills
+        # with "Jev would have suppressed this" rows about articles NO
+        # backend may ever suppress, and the Phase 5 go/no-go would then be
+        # computed over a population the gate cannot act on.
+        with tempfile.TemporaryDirectory(prefix="shadow_") as td:
+            root = Path(td)
+            item = self.article(root, mentions=[{"kind": "person",
+                                                 "surface": "Борисов"}])
+            shadow, fake = self.run_shadow(root, item)
+        self.assertEqual(shadow, {"consulted": False,
+                                  "reason": "named_entity_veto"})
+        self.assertEqual(fake.ask.call_count, 0, "no paid call for a vetoed "
+                                                 "article")
+
+    def test_a_low_confidence_answer_would_not_suppress(self):
+        with tempfile.TemporaryDirectory(prefix="shadow_") as td:
+            root = Path(td)
+            shadow, _ = self.run_shadow(root, self.article(root),
+                                        answer={"noul": 0.80})
+        self.assertFalse(shadow["would_suppress"])
+
+    def test_other_can_never_suppress_whatever_the_confidence(self):
+        with tempfile.TemporaryDirectory(prefix="shadow_") as td:
+            root = Path(td)
+            shadow, _ = self.run_shadow(root, self.article(root),
+                                        answer={"noul": 1.0, "sub": "other"})
+        self.assertFalse(shadow["would_suppress"])
+
+    def test_it_is_off_unless_the_gate_is_in_shadow(self):
+        with tempfile.TemporaryDirectory(prefix="shadow_") as td:
+            root = Path(td)
+            shadow, fake = self.run_shadow(root, self.article(root),
+                                           NEWS_JEV_GATE="off")
+        self.assertIsNone(shadow)
+        self.assertEqual(fake.ask.call_count, 0)
+
+    def test_a_broken_shadow_never_fails_the_run(self):
+        # The whole point of a shadow: it may not be able to take down the
+        # path it is observing.
+        with tempfile.TemporaryDirectory(prefix="shadow_") as td:
+            root = Path(td)
+            item = self.article(root)
+            fake = mock.MagicMock()
+            fake.ask.side_effect = RuntimeError("boom")
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(analyze_local, "jev_client", fake), \
+                    mock.patch.object(analyze_local, "analyze_one",
+                                      return_value={"kind": "record",
+                                                    "record": {}}):
+                got = analyze_local.analyze_routed(
+                    item, {}, "paid", 100, 1, None, 5)
+        self.assertEqual(got["kind"], "record")
+        self.assertEqual(
+            got["record"]["analysis_provenance"]["jev_shadow"],
+            {"consulted": False, "reason": "shadow_error"})
+
+    def test_the_shadow_rides_a_run_with_no_triage_model(self):
+        # ⚠️ Outside the triage_model guard on purpose: otherwise the
+        # go/no-go is computed over whichever subset happened to be routed.
+        with tempfile.TemporaryDirectory(prefix="shadow_") as td:
+            root = Path(td)
+            item = self.article(root)
+            fake = mock.MagicMock()
+            fake.ask.return_value = self.outcome()
+            fake.MODEL = "m"
+            fake.confidence_of.return_value = 0.97
+            with mock.patch.object(analyze_local, "ROOT", root), \
+                    mock.patch.object(analyze_local, "jev_client", fake), \
+                    mock.patch.object(analyze_local, "analyze_one",
+                                      return_value={"kind": "record",
+                                                    "record": {}}):
+                got = analyze_local.analyze_routed(
+                    item, {}, "paid", 100, 1, None, 5)
+        self.assertTrue(got["record"]["analysis_provenance"]["jev_shadow"]
+                        ["would_suppress"])
+
+    def test_there_is_no_enforcing_mode_to_switch_on(self):
+        source = Path(analyze_local.__file__).read_text(encoding="utf-8")
+        self.assertNotIn('NEWS_JEV_GATE", "enforce"', source)
+        self.assertNotIn("== \"enforce\"", source)
+        # And the shadow's return value is never consulted for a decision:
+        # the only thing done with it is attaching it to provenance.
+        self.assertEqual(source.count("jev_triage_shadow("), 2)
+
+
 class ReasoningModels(unittest.TestCase):
     """⚠️ Gemma 4 thinks BEFORE it answers, and llama.cpp routes that to
     `reasoning_content` — leaving `content` EMPTY. Measured: the full rubric

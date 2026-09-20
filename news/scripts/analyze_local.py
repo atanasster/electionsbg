@@ -36,6 +36,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import llm_client  # noqa: E402
 import perf_log  # noqa: E402
+try:  # optional: the Jev shadow simply does not run when it is absent
+    import jev_client
+except ImportError:  # pragma: no cover
+    jev_client = None
 from build_prompts import MAX_BODY_CHARS  # noqa: E402
 
 ROOT = Path(os.environ.get("DATA_BG_ROOT") or
@@ -421,16 +425,120 @@ def generation_summary_from_answer(answer: dict) -> dict:
     }
 
 
+def jev_triage_shadow(item: dict, assets: dict) -> dict | None:
+    """Ask Jev the SAME narrow question, log the answer, decide nothing.
+
+    Plan §3.7. Shadow only, and `NEWS_JEV_GATE` has exactly one other
+    accepted value today — `off`. There is no `enforce`, deliberately:
+
+    ⚠️ JEV CANNOT PRODUCE THE PROOF THIS GATE IS BUILT ON. `triage_one`
+    approves a suppression only when the model returns an EVIDENCE STRING
+    that appears verbatim in the article (`evidence_folded in
+    article_folded`, ≥4 words) — a free model's claim is not trusted, its
+    quote is checked. Jev's three answer types return a choice, a score or a
+    probability and NO free text at all, so a Jev backend cannot satisfy
+    that obligation; it can only be believed. Swapping it in as an enforcing
+    backend would therefore not be a like-for-like substitution, it would be
+    the quiet removal of the check that makes the gate safe.
+
+    What CAN be compared honestly is the decision itself, against GLM's, on
+    live traffic — which is what this records.
+
+    ⚠️ The named-entity veto runs FIRST here too, and not merely for
+    symmetry with the paid path: an article naming a person, party,
+    institution or company is consequential by construction, and the shadow
+    log must not accumulate "Jev would have suppressed this" rows about
+    articles no backend may ever suppress. Otherwise the Phase 5 go/no-go
+    would be computed over a population the gate cannot act on.
+
+    Returns the shadow record, or None when Jev was not consulted.
+    """
+    if os.environ.get("NEWS_JEV_GATE", "shadow") != "shadow":
+        return None
+    if jev_client is None:
+        return None
+    if "mentions" not in item or not isinstance(item.get("mentions"), list):
+        return None
+    if any(m.get("kind") in {"person", "party", "institution", "company"}
+           for m in item["mentions"] if isinstance(m, dict)):
+        return {"consulted": False, "reason": "named_entity_veto"}
+    try:
+        article = json.loads((ROOT / item["path"]).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    state = "\n".join([
+        f"ЗАГЛАВИЕ: {article.get('title') or '—'}",
+        f"ТЕКСТ:\n{(article.get('content') or '')[:2000]}",
+    ])
+    # The same two things the paid gate decides, in Jev's vocabulary. The
+    # subcategory options are the SAFE_TRIAGE_TITLE_TERMS keys, so a shadow
+    # answer is directly comparable with what the paid path may approve.
+    out = jev_client.ask(state, {
+        "obvious_not_site_relevant": {
+            "type": "noul",
+            "instructions": "Очевидно ли е, че този текст НЕ се отнася до "
+                            "българския обществен живот - тоест е чист спорт "
+                            "или прогноза за времето, без институции, "
+                            "политика или обществени средства?",
+        },
+        "subcategory": {
+            "type": "choice",
+            "instructions": "Ако текстът не е обществено значим, към коя "
+                            "категория спада?",
+            "criteria": {"weather": "прогноза за времето",
+                         "sports": "спорт, мач, отбор или турнир",
+                         "other": "нещо друго, или текстът Е обществено значим"},
+        },
+    })
+    shadow = {"consulted": True, "gate": "shadow", "model": jev_client.MODEL}
+    if not out:
+        shadow.update({"skip": out.skip, "report_worthy": out.report_worthy})
+        return shadow
+    noul = (out.answers.get("obvious_not_site_relevant") or {}).get("noul")
+    sub = (out.answers.get("subcategory") or {}).get("choice")
+    shadow.update({
+        "ms": out.ms,
+        "cost": (out.usage or {}).get("cost"),
+        "not_site_relevant": noul,
+        "subcategory": sub,
+        "subcategory_confidence": jev_client.confidence_of(
+            out.answers.get("subcategory") or {}),
+        # What it WOULD have done, had it been allowed to decide — recorded
+        # as a counterfactual and never acted on. The 0.98 floor is the paid
+        # path's own; `other` can never suppress.
+        "would_suppress": bool(
+            noul is not None and noul >= 0.98
+            and sub in SAFE_TRIAGE_TITLE_TERMS),
+    })
+    return shadow
+
+
 def analyze_routed(item: dict, assets: dict, paid_model: str, max_tokens: int,
                    taxonomy_version: int, triage_model: str | None,
                    triage_timeout: int, temperature: float = 0.2) -> dict:
+    # ⚠️ BEFORE the paid route and outside the `triage_model` guard: the
+    # shadow must observe every article the gate could ever see, including
+    # runs with no triage model configured, or the Phase 5 go/no-go is
+    # computed over whichever subset happened to be routed.
+    shadow = None
+    try:
+        shadow = jev_triage_shadow(item, assets)
+    except Exception:  # noqa: BLE001 — a shadow must never fail a run
+        shadow = {"consulted": False, "reason": "shadow_error"}
+
+    def with_shadow(result):
+        if shadow and result.get("kind") == "record":
+            result["record"].setdefault("analysis_provenance", {})[
+                "jev_shadow"] = shadow
+        return result
+
     if not triage_model:
-        return analyze_one(item, assets, paid_model, max_tokens,
-                           taxonomy_version, temperature)
+        return with_shadow(analyze_one(item, assets, paid_model, max_tokens,
+                                       taxonomy_version, temperature))
     triage = triage_one(item, assets, triage_model, triage_timeout,
                         taxonomy_version)
     if triage["kind"] == "record":
-        return triage
+        return with_shadow(triage)
     paid = analyze_one(item, assets, paid_model, max_tokens, taxonomy_version,
                        temperature)
     if paid.get("kind") != "record":
@@ -448,7 +556,7 @@ def analyze_routed(item: dict, assets: dict, paid_model: str, max_tokens: int,
                if triage.get("request_provenance") else {}),
         }
         paid["route"] = "paid_fallback"
-    return paid
+    return with_shadow(paid)
 
 
 def record_worker_failure(stats: dict, result: dict) -> bool:

@@ -35,6 +35,10 @@ RUNTIME_SCRIPTS = (
     "news/scripts/fetch_latest_articles.py",
     "news/scripts/harvest_browser.mjs",
     "news/scripts/failure_rules.py",  # save_articles imports it UNGUARDED
+    # analyze_local's import IS guarded, so omitting this would not crash —
+    # it would silently disable the Jev shadow on the one host whose traffic
+    # the Phase 5 go/no-go is supposed to be measured from.
+    "news/scripts/jev_client.py",
     "news/scripts/llm_client.py",
     "news/scripts/perf_log.py",
     "news/scripts/home_event_dedupe.py",
