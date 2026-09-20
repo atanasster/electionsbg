@@ -153,3 +153,63 @@ OFFERS its candidates. It still does not pick one.
 - **Rewriting the baked hrefs in published artifacts.** The normalizer makes
   them correct on the way out; the retirement of the legacy host from the
   validators waits until a rebuild has been measured.
+
+---
+
+## What shipped, and what it measured (2026-09-21)
+
+`7b75903cc1` (Tier 1 + 2) and `2bd98e6372` (Tiers 3-5).
+
+| | before | after |
+| --- | --- | --- |
+| gazetteer people | 4,656 | 5,121 |
+| …of them on the `mayor` tier | 275 | 753 (467 with a resolvable form) |
+| places | 5,404 | 5,414 (28 район entries, 12 resolvable) |
+| newly resolvable surfaces | — | **+479** |
+| resolvable surfaces lost to THIS change | — | **1** (Тракия, now a genuine район/village ambiguity → a dropdown) |
+
+The other 7 surfaces that stopped resolving on the rebuild („Блато", „Събрано",
+„Цирка", „Юнаци", „Сияние", „МО", „СИЯНИЕ") are the COMMON-WORD LIST growing
+with the corpus — 32,229 → 37,509 words, regenerated from 10,031 articles —
+and not this change. Each one's `why` names the mechanism.
+
+**The screenshot's own story (`stories/20260920-723682ff.json`) now carries:**
+
+```
+Благомир Коцев → https://naiasno.bg/person/blagomir-kotsev-122tn9   (curated_entity)
+Варна          → https://naiasno.bg/settlement/10135
+Аспарухово     → 5 candidates, including район, общ. Варна → /governance/VAR06-05
+```
+
+### The one thing that came out worse, and why it is right
+
+`build_aliases` set the entry id unconditionally, so the hand-verified „МО"
+alias advertised an id its only form had already refused — the exact invariant
+places and people carry and the artifact gate tests. Fixing it unlinks МО.
+
+That is the common-word filter being RIGHT, not over-eager, and it was checked
+rather than argued: the corpus writes „8-мо място", `TOKEN_RE` yields the bare
+token „мо", and `resolve()` matches a single token with no look-behind — run
+against „Румъния е на 8-мо място", it linked the Ministry of Defence. Restoring
+МО needs abbreviations matched CASE-SENSITIVELY, which `fold()` precludes
+today; that is the follow-up, not an exemption for curated entries.
+
+### Not caused by this work, and still red
+
+`news/scripts/test_review_routing.py` fails at
+`1288/5005 flagged` against a 25% ceiling. Verified pre-existing: the same
+numbers come out with the pre-session gazetteer restored. Likewise one
+prettier error in `newsapp/app/screens/OutletScreen.tsx:574`, in a file this
+work never touched.
+
+### Left for the operator
+
+1. **Deploy.** The naiasno mark and every `naiasno.bg` link are in the source
+   and in a fresh `dist-news` build (verified: `naiasnoLogoBg` present,
+   `logoCardClip` gone); the DEPLOYED bundle still carries the old ballot mark.
+   Nothing a reader sees changes until the news app ships.
+2. **Republish `news/app-data`.** Regenerated locally (`npm run news:data`),
+   but it is gitignored — the links and candidates above reach production only
+   with the release.
+3. `news.naiasno.bg` if that subdomain is wanted; it does not resolve today.
+4. The identity merge for the 7 mayors, `Благомир Коцев` first.
