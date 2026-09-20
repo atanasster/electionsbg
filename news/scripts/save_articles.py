@@ -1668,6 +1668,7 @@ def is_standing_fact(error):
 # because this module's own callers have always read it from this name.
 _TERMINAL_FAILURE_RE = failure_rules.TERMINAL_FAILURE_RE
 is_terminal_failure = failure_rules.is_terminal_failure
+terminal_reason_of = failure_rules.terminal_reason_of
 
 
 def state_path(domain):
@@ -2759,6 +2760,89 @@ def cmd_repair_encoding(apply_changes=False, only_domain=None):
             "examples": examples}
 
 
+def _count_terminal_reasons(failed):
+    """{reason: count} over a sweep's failures, terminal ones only."""
+    out = {}
+    for f in failed or []:
+        name = terminal_reason_of(f.get("detail"), f.get("reason"))
+        if name:
+            out[name] = out.get(name, 0) + 1
+    return out
+
+
+def diagnose_barren(row):
+    """Why has this domain never stored anything? — or None if it has.
+
+    ⚠️ "listed 20, saved 0" READS THE SAME WHATEVER WENT WRONG, and that is
+    why plovdiv24.bg, varna24.bg and burgas24.bg sat at zero stored articles
+    through a whole baseline and two phases of work. Their registry feed was
+    the site's NAVIGATION sitemap — 57 section pages, no articles, no dates —
+    which answers 200 with valid XML, so `feed_success: yes` recorded a
+    reachable URL rather than a usable one. Nothing in the intake report told
+    that apart from an outlet that blocks us, and the difference is the whole
+    remedy: one is a one-line registry edit (all three now store 5 of 5 from
+    their `*_google_news.xml`), the other needs residential egress or an
+    agreement.
+
+    Four shapes, from the structured counts rather than the prose:
+
+      feed_lists_non_articles  items were fetched and the gate refused them
+                               ALL on CONTENT — the feed is listing pages
+                               that are not articles
+      refused_by_policy        the refusals are robots.txt / off-domain —
+                               the outlet has said no, or the feed points
+                               somewhere else entirely
+      every_item_already_refused  nothing was even attempted: each listed
+                               item is in the rejection ledger already
+      unreachable              the failures are fetch failures, not decisions
+
+    ⚠️ THE FIRST TWO MUST NOT BE MERGED, even though `is_terminal_failure` is
+    true for both. They are the same answer to "should we retry this" and
+    opposite answers to "what should a human do": one is a one-line registry
+    edit, the other is an outlet that refused us in writing and must be left
+    alone. An earlier cut keyed on "all failures were terminal" and would
+    have diagnosed a robots-forbidden site as a feed defect — this
+    docstring's own stated harm, with the sign flipped.
+
+    Returns None for a domain that has stored something: this asks only about
+    the barren case, where the shapes are indistinguishable by eye.
+    """
+    if row.get("stored") or row.get("newest_stored"):
+        return None
+    err = row.get("last_error") or {}
+    counts = err.get("counts")
+    if not isinstance(counts, dict) or not counts.get("listed"):
+        # Older state files carry only the prose, and a domain that has never
+        # completed a run carries nothing. Both are "no answer", never a
+        # guess: a wrong diagnosis here sends someone to buy egress for a
+        # one-line registry fix.
+        return None
+    failed = counts.get("failed") or 0
+    reasons = counts.get("terminal_reasons")
+    if not isinstance(reasons, dict):
+        # A state file written before the breakdown existed. Its bare
+        # `terminal_failures` count cannot separate a feed defect from a
+        # refusal in writing, so it gets no answer rather than a coin flip.
+        reasons = None
+    if failed and reasons is not None:
+        content = sum(v for k, v in reasons.items()
+                      if k in failure_rules.CONTENT_GATE_REASONS)
+        policy = sum(v for k, v in reasons.items()
+                     if k in failure_rules.POLICY_REASONS)
+        # Only when EVERY failure is one kind. A feed listing a few section
+        # pages among real articles is a different and lesser problem, and a
+        # mixture of the two kinds is not a diagnosis at all.
+        if content == failed:
+            return "feed_lists_non_articles"
+        if policy == failed:
+            return "refused_by_policy"
+    if not failed and (counts.get("skipped_rejected") or 0) >= counts["listed"]:
+        return "every_item_already_refused"
+    if failed and not (reasons or {}):
+        return "unreachable"
+    return None
+
+
 def cmd_intake_report(stale_after_days=7):
     """One JSON object describing every domain's intake health.
 
@@ -2869,6 +2953,7 @@ def cmd_intake_report(stale_after_days=7):
                "last_error": st.get("last_error")}
         queued = st.get("retry_urls")
         row["retry_queued"] = len(queued) if isinstance(queued, list) else 0
+        row["diagnosis"] = diagnose_barren(row)
         rows.append(row)
         if orphan:
             # Reported once, with its reason when we have one — a retirement
@@ -3749,10 +3834,35 @@ def main():
         state["last_success_at"] = stamp
         state["last_error"] = None
     else:
+        # ⚠️ STRUCTURED COUNTS BESIDE THE PROSE. "listed 20, saved 0" reads
+        # the same whatever went wrong, and three different things produce
+        # it — a feed that lists no articles, an outlet that refuses us, and
+        # a feed whose every item we have already refused. Telling them
+        # apart used to mean re-parsing this sentence, which is exactly the
+        # coupling `reason` removed one function up. Measured 2026-09-20:
+        # plovdiv24.bg, varna24.bg and burgas24.bg had stored NOTHING, ever,
+        # because their registry feed was the site's NAVIGATION sitemap (57
+        # section pages, no articles, no dates) — it answers 200 with valid
+        # XML, so `feed_success: yes` recorded a reachable URL rather than a
+        # usable one, and no report distinguished it from a block.
         state["last_error"] = {
             "error": "nothing_stored",
             "detail": f"listed {len(articles)}, saved 0, rejected {rejected}, "
                       f"{len(failed)} per-article failures",
+            "counts": {
+                "listed": len(articles),
+                "rejected": rejected,
+                "skipped_rejected": skipped_rejected,
+                "failed": len(failed),
+                # ⚠️ A BREAKDOWN, not a count. Every member of
+                # TERMINAL_REASONS is "do not retry", but they say different
+                # things about the SOURCE: non_article_page means the feed
+                # listed something that is not an article, while
+                # robots_disallowed means the outlet refused us in writing.
+                # A count cannot tell them apart, and the diagnosis built on
+                # it would route an operator to the wrong remedy.
+                "terminal_reasons": _count_terminal_reasons(failed),
+            },
             "at": stamp}
     summary["retry_queued"] = len(queue)
     # ⚠️ THE FEED-WINDOW SIGNAL (plan Phase 2.3). A feed exposes only its

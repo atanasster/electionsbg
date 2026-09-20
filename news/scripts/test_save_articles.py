@@ -1007,6 +1007,137 @@ class FeedWindow(unittest.TestCase):
                       flat)
 
 
+class BarrenDomainDiagnosis(unittest.TestCase):
+    """Why a domain has never stored anything — the three shapes.
+
+    ⚠️ "listed 20, saved 0" reads the same whatever went wrong, which is why
+    plovdiv24.bg, varna24.bg and burgas24.bg sat at zero stored articles
+    through a whole Phase 0 baseline and two phases of work. Their registry
+    feed was the site's NAVIGATION sitemap (57 section pages, no articles, no
+    dates): 200, valid XML, `feed_success: yes` — a reachable URL recorded as
+    a usable one. The remedy differs completely per shape, so a report that
+    cannot tell them apart sends someone to buy egress for a registry typo.
+    """
+
+    def diagnose(self, **counts):
+        import save_articles as sa  # noqa: E402
+        return sa.diagnose_barren({
+            "stored": 0, "newest_stored": None,
+            "last_error": {"error": "nothing_stored", "counts": counts}})
+
+    def test_a_feed_that_lists_section_pages(self):
+        # plovdiv24.bg's actual shape: every item fetched, every one refused
+        # by the gate on content.
+        self.assertEqual(
+            self.diagnose(listed=20, failed=8,
+                          terminal_reasons={"non_article_page": 8}),
+            "feed_lists_non_articles")
+
+    def test_an_outlet_that_refused_us_in_writing_is_not_a_feed_defect(self):
+        # ⚠️ THE INVERSION THAT SHIPPED AND WAS CAUGHT IN REVIEW.
+        # `is_terminal_failure` is true for robots_disallowed and off_domain
+        # as well, so a discriminator keyed on "all failures were terminal"
+        # diagnosed a robots-forbidden site as a registry typo — sending an
+        # operator to edit a feed URL for a site that has said no. Same
+        # answer to "retry?", opposite answers to "what should a human do".
+        self.assertEqual(
+            self.diagnose(listed=20, failed=20,
+                          terminal_reasons={"robots_disallowed": 20}),
+            "refused_by_policy")
+        self.assertEqual(
+            self.diagnose(listed=20, failed=6,
+                          terminal_reasons={"off_domain": 6}),
+            "refused_by_policy")
+
+    def test_a_mixture_of_the_two_kinds_is_no_diagnosis_at_all(self):
+        self.assertIsNone(
+            self.diagnose(listed=20, failed=10,
+                          terminal_reasons={"non_article_page": 5,
+                                            "robots_disallowed": 5}))
+
+    def test_a_feed_whose_every_item_is_already_ledgered(self):
+        # 24chasa.bg's shape: nothing is even attempted.
+        self.assertEqual(
+            self.diagnose(listed=20, failed=0, skipped_rejected=20),
+            "every_item_already_refused")
+
+    def test_an_outlet_that_refuses_us(self):
+        # blitz.bg's shape: the failures are fetch failures, not decisions.
+        self.assertEqual(
+            self.diagnose(listed=20, failed=20, terminal_reasons={}),
+            "unreachable")
+
+    def test_a_mixture_is_not_called_a_feed_defect(self):
+        # ⚠️ The discriminator is ALL of them, not most: a feed listing a few
+        # section pages among real articles is a different (and lesser)
+        # problem than one listing nothing else.
+        self.assertIsNone(
+            self.diagnose(listed=20, failed=8,
+                          terminal_reasons={"non_article_page": 5}))
+
+    def test_it_refuses_to_guess_without_the_structured_counts(self):
+        # ⚠️ Older state files carry only the prose sentence. Parsing it back
+        # is the free-text coupling `reason` was introduced to remove, and a
+        # WRONG diagnosis here is worse than none — it sends someone to buy
+        # residential egress for a one-line registry edit.
+        import save_articles as sa  # noqa: E402
+        for err in ({"error": "nothing_stored",
+                     "detail": "listed 20, saved 0, rejected 0, 8 per-article "
+                               "failures"},
+                    {"error": "nothing_stored", "counts": {}},
+                    {}, None):
+            self.assertIsNone(sa.diagnose_barren(
+                {"stored": 0, "newest_stored": None, "last_error": err}), err)
+
+    def test_a_domain_that_has_stored_something_is_not_diagnosed(self):
+        # The question is only asked of the barren case, where the shapes are
+        # indistinguishable by eye.
+        import save_articles as sa  # noqa: E402
+        self.assertIsNone(sa.diagnose_barren(
+            {"stored": 42, "newest_stored": "2026-09-20",
+             "last_error": {"counts": {"listed": 20, "failed": 20,
+                                       "terminal_reasons":
+                                           {"non_article_page": 20}}}}))
+
+    def test_the_writer_records_what_the_reader_needs(self):
+        """End to end through a REAL sweep, not a source grep.
+
+        ⚠️ The grep this replaces survived two production-breaking mutations
+        green: dropping `skipped_rejected` from the written counts made one
+        branch permanently unreachable, and writing `listed: 0` made the
+        whole feature inert. Both leave the strings it looked for in place.
+        """
+        root = Path(tempfile.mkdtemp(prefix="diagnose_"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data").mkdir(parents=True)
+        shutil.copy2(SCRIPT_DIR.parent / "data" / "bg_news_sites.csv",
+                     root / "news" / "data" / "bg_news_sites.csv")
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        # A sweep that lists pages and has every one refused on content: the
+        # --prefetched path feeds the gate directly, with no network.
+        feed = root / "pages.jsonl"
+        write_prefetched(feed, [
+            (f"https://ex.bg/section/{i}",
+             "<html><head><title>Секция</title></head><body>"
+             "<p>кратко</p></body></html>")
+            for i in range(4)])
+        subprocess.run([sys.executable, str(SAVER), "ex.bg", "4",
+                        f"--prefetched={feed}"],
+                       capture_output=True, text=True, env=env, timeout=120)
+        report = json.loads(subprocess.run(
+            [sys.executable, str(SAVER), "--intake-report"],
+            capture_output=True, text=True, env=env, timeout=120).stdout)
+        row = next(r for r in report["rows"] if r["domain"] == "ex.bg")
+        counts = (row.get("last_error") or {}).get("counts") or {}
+        # The reader's inputs are all present, from a real sweep…
+        for field in ("listed", "failed", "skipped_rejected",
+                      "terminal_reasons"):
+            self.assertIn(field, counts, counts)
+        self.assertEqual(counts["listed"], 4, counts)
+        # …and the two halves actually meet.
+        self.assertEqual(row["diagnosis"], "feed_lists_non_articles", row)
+
+
 class TerminalFailureRule(unittest.TestCase):
     """What a per-article failure MEANS — the rule both consumers read.
 

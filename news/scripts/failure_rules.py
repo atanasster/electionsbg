@@ -45,10 +45,32 @@ TERMINAL_FAILURE_RE = re.compile(
 
 # The structured reasons the body/article gate records. A `failed` row that
 # carries one of these is a decision whatever its prose says.
-TERMINAL_REASONS = frozenset({
+#
+# ⚠️ THEY ARE NOT ALL THE SAME KIND OF DECISION, and treating them as one
+# produces a wrong answer rather than a vague one. "We fetched this page and
+# it is not an article" says something about the FEED; "robots.txt forbids
+# this URL" says the outlet has refused us in writing. A diagnosis that
+# confuses them sends an operator to edit a registry row for a site that has
+# said no — or to buy residential egress for a typo.
+CONTENT_GATE_REASONS = frozenset({
     "non_article_page", "title_as_body", "thin_body",
-    "no title and no content", "robots_disallowed", "off_domain",
+    "no title and no content",
 })
+POLICY_REASONS = frozenset({"robots_disallowed", "off_domain"})
+TERMINAL_REASONS = CONTENT_GATE_REASONS | POLICY_REASONS
+
+
+def terminal_reason_of(detail, reason=None):
+    """The canonical reason name for a terminal failure, or None.
+
+    Used to record a BREAKDOWN rather than a count: `is_terminal_failure`
+    answers "should this be retried", which is the same for every member,
+    while "what does this tell us about the source" is not.
+    """
+    if reason:
+        return reason if reason in TERMINAL_REASONS else None
+    m = TERMINAL_FAILURE_RE.match(detail or "")
+    return m.group(1) if m else None
 
 
 def is_terminal_failure(detail, reason=None):
