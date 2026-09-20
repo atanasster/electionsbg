@@ -59,6 +59,14 @@ def perf_dir() -> Path:
         return Path(configured)
     if "unittest" in sys.modules:
         return Path(tempfile.gettempdir()) / "news_perf_unittest"
+    # ⚠️ DATA_BG_ROOT, not this file's location: a test drives the sweep as a
+    # SUBPROCESS against a temp tree, and that child never imports unittest —
+    # so without this its events land in the production log. Measured: 425
+    # fixture `fetch` events (410 for the fixture domain `ex.bg`) reached
+    # news/data/_perf/2026-09-20.jsonl, the file Phase 2.4 reads.
+    root = os.environ.get("DATA_BG_ROOT")
+    if root:
+        return Path(root) / "news" / "data" / "_perf"
     return NEWS / "data" / "_perf"
 
 

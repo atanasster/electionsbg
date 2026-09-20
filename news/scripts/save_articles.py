@@ -102,6 +102,12 @@ import urllib.request
 import urllib.error
 from html.parser import HTMLParser
 from datetime import datetime, timedelta, timezone
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:  # a sibling module; absent only in a stripped copy of this file
+    import perf_log
+except ImportError:  # pragma: no cover
+    perf_log = None
 from zoneinfo import ZoneInfo
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
@@ -1757,6 +1763,23 @@ def now_iso():
 RETRY_EXHAUSTED_TTL_DAYS = 30
 
 
+def window_overlap(listed_count, already_present):
+    """Did this sweep's listing overlap the previous one's?
+
+    A feed exposes only its newest items, so if EVERY listed article is new
+    (`already_present == 0`) the window did not overlap and articles fell
+    through the gap between sweeps — with no error anywhere, which is why it
+    has to be recorded per sweep rather than derived afterwards.
+
+    ⚠️ None, not False, when nothing was listed: "the source offered no
+    items" is a different fact from "none of what it offered was known", and
+    a consumer averaging the two would read a dead feed as a missed window.
+    """
+    if not listed_count:
+        return None
+    return already_present > 0
+
+
 def merge_retry_queue(existing, failures, stamp, attempted=None,
                       exhausted=None):
     """Next run's retry queue, plus the URLs that have given up.
@@ -3200,6 +3223,8 @@ def main():
         articles = [{"url": u, "title": d.get("title"),
                      "published": d.get("published")}
                     for u, d in html_map.items()]
+        listing_keys = {canonical_url(a["url"]) for a in articles
+                        if a.get("url")}
         list_method, order_confidence, listed_count, warning = (
             "prefetched_browser", "dom_order_unconfirmed", len(articles), None)
     elif urls_file:
@@ -3216,6 +3241,8 @@ def main():
             print(json.dumps({"error": "usage",
                               "detail": f"--urls-file unreadable: {e}"}))
             sys.exit(1)
+        listing_keys = {canonical_url(a["url"]) for a in articles
+                        if a.get("url")}
         list_method, order_confidence, listed_count, warning = (
             "urls_file_browser_harvest", "dom_order_unconfirmed", len(articles), None)
     elif stdin_list:
@@ -3255,6 +3282,13 @@ def main():
             print(json.dumps(listed, ensure_ascii=False))
             sys.exit(proc.returncode or 3)
         articles = listed.get("articles", [])
+        # ⚠️ THE LISTING'S OWN KEYS, before the retry queue is prepended:
+        # window_overlap asks whether the SOURCE re-offered something we
+        # already had, and the queue is our own carry-forward. Mixing them
+        # inverts the detector — a feed listing only brand-new items (the
+        # missed-window event) would read as "overlapped".
+        listing_keys = {canonical_url(a["url"]) for a in articles
+                        if a.get("url")}
         # F18: this is the ONE browser mode where the retry queue can be
         # drained — the article pages are fetched over plain HTTP from here.
         retry_first = [{"url": e["url"]} for e in state.get("retry_urls", [])
@@ -3371,6 +3405,13 @@ def main():
             print(json.dumps(listed, ensure_ascii=False))
             sys.exit(proc.returncode or 3)
         articles = listed.get("articles", [])
+        # ⚠️ THE LISTING'S OWN KEYS, before the retry queue is prepended:
+        # window_overlap asks whether the SOURCE re-offered something we
+        # already had, and the queue is our own carry-forward. Mixing them
+        # inverts the detector — a feed listing only brand-new items (the
+        # missed-window event) would read as "overlapped".
+        listing_keys = {canonical_url(a["url"]) for a in articles
+                        if a.get("url")}
         # Store the fresh validators for next time. Only overwrite when the
         # source SENT one: a 304 response carries no body and often no ETag,
         # and clearing the stored value would make every subsequent run
@@ -3597,6 +3638,24 @@ def main():
                       f"{len(failed)} per-article failures",
             "at": stamp}
     summary["retry_queued"] = len(queue)
+    # ⚠️ THE FEED-WINDOW SIGNAL (plan Phase 2.3). A feed exposes only its
+    # newest items, so a sweep in which EVERY listed article is new means the
+    # window did not overlap the previous sweep and articles fell through the
+    # gap with no error anywhere. The per-domain rate of that is what sets the
+    # longest safe sweep interval — it cannot be derived after the fact, so it
+    # is recorded per sweep here.
+    if perf_log is not None:
+        try:
+            perf_log.emit(
+                "fetch", domain=domain, method=list_method,
+                listed=listed_count, already_present=summary_already_present,
+                saved=saved, rejected=rejected, failed=len(failed),
+                retry_queued=len(queue), quarantined=quarantined,
+                productive=productive,
+                window_overlap=window_overlap(
+                    listed_count, len(listing_keys & on_disk)))
+        except Exception:  # noqa: BLE001 — logging never fails a sweep
+            pass
     if dropped:
         # Named, not silently forgotten: a URL that has burned every attempt
         # is a permanent gap in the corpus, and the run that gives up on it is

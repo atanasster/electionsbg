@@ -936,6 +936,41 @@ class StaleSourceQuarantine(unittest.TestCase):
         self.assertEqual(names, ["ex.bg"], names)
 
 
+class FeedWindowEvent(unittest.TestCase):
+    """The emitted event, not just the rule: the two were wired wrong."""
+
+    def test_a_retry_queue_cannot_fake_an_overlap(self):
+        # ⚠️ Reproduced defect: `already_present` is computed over the
+        # articles list, which has the RETRY QUEUE prepended — so a feed
+        # listing only brand-new items (exactly the missed-window event)
+        # logged window_overlap=true whenever a queued URL was on disk.
+        import save_articles as sa  # noqa: E402
+        source = (SCRIPT_DIR / "save_articles.py").read_text(encoding="utf-8")
+        self.assertIn("len(listing_keys & on_disk)", source)
+        self.assertNotIn("window_overlap(listed_count,\n"
+                         "                                              "
+                         "summary_already_present)", source)
+        # Every listing branch must define the keys it measures.
+        self.assertEqual(source.count("listing_keys = {canonical_url"), 4)
+        self.assertIs(sa.window_overlap(2, 0), False)
+
+
+class FeedWindow(unittest.TestCase):
+    """Plan Phase 2.3: the signal that sets the longest safe sweep interval."""
+
+    def test_overlap_is_known_missing_or_unanswerable(self):
+        import save_articles as sa  # noqa: E402
+        # Some of what the feed offered was already stored: the window
+        # overlapped the last sweep, so nothing fell through the gap.
+        self.assertIs(sa.window_overlap(20, 7), True)
+        # EVERY listed item is new — the window did not overlap, and articles
+        # published between the sweeps were never offered to us.
+        self.assertIs(sa.window_overlap(20, 0), False)
+        # ⚠️ Nothing listed answers neither question; False here would read a
+        # dead feed as a missed window.
+        self.assertIsNone(sa.window_overlap(0, 0))
+
+
 class IntakeState(unittest.TestCase):
     """Per-domain intake state and the retry queue.
 
