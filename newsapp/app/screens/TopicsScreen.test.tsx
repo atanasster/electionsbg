@@ -250,7 +250,7 @@ describe("the shortfall", () => {
     expect(
       screen.getByText(/Неутралната оценка участва в разпределението/),
     ).toBeVisible();
-    expect(screen.queryByText(/те не влизат нито в разсейването/)).toBeNull();
+    expect(screen.queryByText(/те не влизат нито в дисперсията/)).toBeNull();
   });
 
   it("states how far off it is, rather than showing a dash", async () => {
@@ -423,7 +423,7 @@ describe("directory controls", () => {
   it("announces disagreement as the default sort", async () => {
     await renderTopics([topic()]);
     expect(
-      screen.getByRole("columnheader", { name: "Разсейване" }),
+      screen.getByRole("columnheader", { name: "Дисперсия" }),
     ).toHaveAttribute("aria-sort", "descending");
   });
 
@@ -514,5 +514,38 @@ describe("the bar and the number describe the same thing", () => {
       within(row).getByText("Силно проруска: 10, Силно антируска: 10"),
     ).toBeInTheDocument();
     expect(within(row).queryByText(/Център|прогресивно/i)).toBeNull();
+  });
+});
+
+describe("the topic link leaves this app", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("points at the MAIN site, absolutely", async () => {
+    // ⚠️⚠️ THE REGRESSION THIS FILE MISSED. `topics.json` routes name
+    // main-site screens; rendered with react-router's <Link to={route}> they
+    // were routed INSIDE the news app, so every topic in this table led to
+    // „Страницата не е намерена" — a plausible page, at a 200, with nothing
+    // erroring. Assert the HOST, not merely that a link exists.
+    await renderTopics([topic({ route: "/judiciary" })]);
+    expect(screen.getByRole("link", { name: "Политика" })).toHaveAttribute(
+      "href",
+      "https://naiasno.bg/judiciary",
+    );
+  });
+
+  it("refuses a route that is a PATTERN rather than a page", async () => {
+    // „/local/:cycle" is a real route and `/local/:cycle` is a 404.
+    await renderTopics([topic({ route: "/local/:cycle" })]);
+    expect(screen.queryByRole("link", { name: "Политика" })).toBeNull();
+    expect(screen.getByText("Политика")).toBeVisible();
+  });
+
+  it("leaves a topic with no page as plain text", async () => {
+    // „Общество", „Медии и свобода на словото" and „Външна политика" carry
+    // route: null — the main site has no screen for them, and a chip
+    // pointing at something adjacent is worse than one that is not a link.
+    await renderTopics([topic({ label: { bg: "Общество", en: "Society" } })]);
+    expect(screen.queryByRole("link", { name: "Общество" })).toBeNull();
+    expect(screen.getByText("Общество")).toBeVisible();
   });
 });

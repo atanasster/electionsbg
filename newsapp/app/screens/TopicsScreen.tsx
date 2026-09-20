@@ -15,7 +15,6 @@
 // most useful thing we can currently say.
 
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   ArrowDown,
   ArrowUp,
@@ -49,6 +48,7 @@ import {
   RUSSIA_META,
   RUSSIA_META_EN,
   articles as articleCount,
+  mainSiteRouteHref,
 } from "../labels";
 import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
 import { useNewsLocale } from "../i18n";
@@ -297,7 +297,7 @@ export const TopicsScreen = () => {
           </div>
           <p className="max-w-sm border-l-2 border-accent pl-3 text-xs leading-relaxed text-muted-foreground">
             {tr(
-              `Разсейване публикуваме при поне ${TOPIC_MIN_POSITIONED} статии с приложима оценка. Под прага показваме недостига, не подвеждаща стойност.`,
+              `Дисперсия публикуваме при поне ${TOPIC_MIN_POSITIONED} статии с приложима оценка. Под прага показваме недостига, не подвеждаща стойност.`,
               `We publish dispersion only when at least ${TOPIC_MIN_POSITIONED} articles have an applicable rating. Below that threshold, we show the shortfall rather than a misleading value.`,
             )}
           </p>
@@ -349,7 +349,7 @@ export const TopicsScreen = () => {
             )}
           </strong>{" "}
           {tr(
-            `Разсейване се публикува от ${TOPIC_MIN_POSITIONED} статии с позиция нагоре. Мнозинството от анализираните материали не заемат позиция по нито една от двете оси, така че прагът се пълни бавно. Дотогава редът по-долу е по обем, а всяка тема казва колко ѝ липсва.`,
+            `Дисперсия се публикува от ${TOPIC_MIN_POSITIONED} статии с позиция нагоре. Мнозинството от анализираните материали не заемат позиция по нито една от двете оси, така че прагът се пълни бавно. Дотогава редът по-долу е по обем, а всяка тема казва колко ѝ липсва.`,
             `Dispersion is published from ${TOPIC_MIN_POSITIONED} positioned articles upward. Most analyzed articles take no position on either axis, so the threshold fills slowly. Until then, the list is ordered by volume and each topic shows its shortfall.`,
           )}
         </Card>
@@ -439,7 +439,7 @@ export const TopicsScreen = () => {
                     >
                       {sortButton(
                         "disagreement",
-                        tr("Разсейване", "Dispersion"),
+                        tr("Дисперсия", "Dispersion"),
                       )}
                     </TableHead>
                     <TableHead
@@ -527,7 +527,7 @@ export const TopicsScreen = () => {
       <div className="grid gap-2 border-t pt-4 text-xs leading-relaxed text-muted-foreground md:grid-cols-2 md:gap-6">
         <p>
           {tr(
-            "Броят до разсейването е статиите с",
+            "Броят до дисперсията е статиите с",
             "The count beside dispersion is the number of articles with an",
           )}{" "}
           <strong className="font-medium text-foreground">
@@ -567,19 +567,29 @@ const Row = ({ category: c }: { category: TaxonomyCategory }) => {
       ? tr("политическа ос", "political axis")
       : tr("отношение към Русия", "stance toward Russia");
 
+  const topicHref = mainSiteRouteHref(c.route, language);
+
   return (
     <TableRow className={offTopic ? "opacity-70" : "group"}>
       <TableCell>
-        {/* Only a topic with its own route is a link — the rest are subjects
-            we classify but do not yet have a page for, and a dead link is a
-            promise the site does not keep. */}
-        {c.route ? (
-          <Link
-            to={c.route}
+        {/* Only a topic with its own route is a link — the rest („Общество",
+            „Медии и свобода на словото", „Външна политика") are subjects we
+            classify and the main site has no page for, and a dead link is a
+            promise the site does not keep.
+
+            ⚠️ A CROSS-ORIGIN <a>, NEVER A ROUTER <Link>. `topics.json`
+            routes name MAIN-SITE screens; routed inside this app every one
+            of them rendered „Страницата не е намерена". `mainSiteRouteHref`
+            is the same rule TopicChips uses, and it also refuses a route
+            carrying a param („/local/:cycle" is a pattern, not a page). */}
+        {topicHref ? (
+          <a
+            href={topicHref}
+            rel="noreferrer"
             className="font-semibold underline-offset-4 hover:text-accent hover:underline"
           >
             {c.label[language]}
-          </Link>
+          </a>
         ) : (
           <span className="font-semibold">{c.label[language]}</span>
         )}

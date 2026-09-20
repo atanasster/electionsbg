@@ -294,6 +294,22 @@ export const topicParts = (
   return out;
 };
 
+/**
+ * A taxonomy `route` as a MAIN-SITE URL, or null when it cannot be one.
+ *
+ * ⚠️⚠️ EXPORTED BECAUSE A SECOND COPY WENT WRONG. `topics.json` says a route
+ * „points at the site screen covering the category" — i.e. a path on
+ * naiasno.bg — and the topics directory rendered it with react-router's
+ * `<Link to={route}>`, which routes INSIDE the news app: every topic in that
+ * table led to „Страницата не е намерена", `/judiciary` included. The rule
+ * has to live in one place precisely because a relative main-site path is a
+ * plausible-looking 404 rather than an error.
+ */
+export const mainSiteRouteHref = (
+  route: string | null | undefined,
+  language: NewsLanguage,
+): string | null => mainSiteHref(route, language);
+
 const mainSiteHref = (
   route: string | null | undefined,
   language: NewsLanguage,
