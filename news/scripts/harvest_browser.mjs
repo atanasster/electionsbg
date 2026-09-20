@@ -232,27 +232,49 @@ async function loadRobots(page, origin) {
  *
  * Never clicks, never types, never touches the widget.
  */
+/** Is this page a bot challenge, and does it demand a click?
+ *
+ * ⚠️ THE BULGARIAN INTERSTITIAL COUNTS. Cloudflare serves „Един момент…" to a
+ * bg-BG client, and with only the English markers this returned "not
+ * challenging" for it: measured on blitz.bg, all 20 escalated article pages
+ * stored the interstitial instead of the article, and the extractor then
+ * refused them as `non_article_page` — a wrong capture reported as a content
+ * problem.
+ */
+function challengeState({ title = "", body = "", widget = false } = {}) {
+  const t = String(title).toLowerCase();
+  const b = String(body).toLowerCase();
+  const challenging =
+    t.includes("just a moment") ||
+    t.includes("един момент") ||
+    t.includes("attention required") ||
+    t.includes("изчакайте") ||
+    b.includes("checking your browser") ||
+    b.includes("проверка на браузъра") ||
+    b.includes("проверява сигурността на връзката");
+  const interactive = widget ||
+    b.includes("verify you are human") ||
+    b.includes("потвърдете, че сте човек");
+  return { challenging, interactive };
+}
+
+
 async function settle(page, budgetMs, needLinks = true) {
   const deadline = Date.now() + budgetMs;
   // Once the challenge is gone, content should appear quickly; waiting the
   // whole budget for it teaches nothing.
   const contentDeadline = Date.now() + Math.min(budgetMs, 60000);
   while (Date.now() < deadline) {
-    const state = await page.evaluate(() => {
-      const title = (document.title || "").toLowerCase();
-      const body = (document.body?.innerText || "").slice(0, 3000).toLowerCase();
-      const challenging =
-        title.includes("just a moment") ||
-        title.includes("attention required") ||
-        body.includes("checking your browser") ||
-        body.includes("проверка на браузъра");
-      const interactive =
-        !!document.querySelector('input[type="checkbox"][name*="cf"]') ||
-        !!document.querySelector("#challenge-stage input") ||
-        body.includes("verify you are human") ||
-        body.includes("потвърдете, че сте човек");
-      return { challenging, interactive, links: document.querySelectorAll("a[href]").length };
-    });
+    const raw = await page.evaluate(() => ({
+      title: document.title || "",
+      body: (document.body?.innerText || "").slice(0, 3000),
+      widget: !!document.querySelector('input[type="checkbox"][name*="cf"]') ||
+              !!document.querySelector("#challenge-stage input"),
+      links: document.querySelectorAll("a[href]").length,
+    }));
+    // Decided HERE, not in the page, so the markers are testable without a
+    // browser — which is how the Bulgarian interstitial went unnoticed.
+    const state = { ...challengeState(raw), links: raw.links };
     if (state.interactive) return "interactive";
     // Two DIFFERENT conditions, deliberately separated: the challenge being
     // gone, and the page having rendered content. Conflating them made every
@@ -341,6 +363,58 @@ function keepLink(item, origin, robots) {
     + (u.pathname.replace(/\/$/, "") || "/") + (query ? "?" + query : "");
 }
 
+/** Fetch each url in the cleared browser, one JSONL line per rendered page.
+ *
+ * ⚠️ EACH PAGE IS CHALLENGED SEPARATELY. Clearing the challenge on the entry
+ * URL does not clear it on an article: measured on blitz.bg, every one of 20
+ * article pages came back as Cloudflare's „Just a moment…" interstitial —
+ * 6,440 bytes of `noindex` HTML that the extractor then (correctly) refused
+ * as `non_article_page`. Without the per-page wait this step replaces one
+ * failure mode with a quieter one: a stored page that is not the article.
+ */
+async function fetchPages(page, urls, jsonlPath, robots, challengeMs = 60000,
+                          totalMs = 0) {
+  const stream = fs.createWriteStream(jsonlPath, { flags: "w" });
+  let fetched = 0;
+  let challenged = 0;
+  let refused = 0;
+  let skipped = 0;
+  const perPageDelay = Math.max(400, (robots?.delay ?? 0) * 1000);
+  // ⚠️ STOP CLEANLY, never by being killed: the caller's `timeout` would
+  // discard the JSONL of every page already fetched.
+  const deadline = totalMs ? Date.now() + totalMs : 0;
+  for (const url of urls) {
+    if (deadline && Date.now() > deadline) { skipped = urls.length - fetched - challenged - refused; break; }
+    try {
+      const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
+      // ⚠️ goto RESOLVES on 403/404/5xx — it throws only on a navigation
+      // failure. Without this check an "access denied" body of a few KB is
+      // stored and counted as a fetch.
+      if (response && !response.ok()) {
+        refused++;
+        await page.waitForTimeout(perPageDelay);
+        continue;
+      }
+      // needLinks=false: an article page is content, not a link index.
+      const state = await settle(page, challengeMs, false);
+      if (state !== "clear") {
+        challenged++;
+        await page.waitForTimeout(perPageDelay);
+        continue;
+      }
+      const html = await page.evaluate(() => document.documentElement.outerHTML);
+      if (html && html.length > 500) {
+        stream.write(JSON.stringify({ url, html }) + "\n");
+        fetched++;
+      }
+    } catch { /* one bad page must not sink the harvest */ }
+    await page.waitForTimeout(perPageDelay);
+  }
+  await new Promise((r) => stream.end(r));
+  return { fetched, challenged, refused, skipped };
+}
+
+
 async function main() {
   const argv = process.argv.slice(2);
   const flags = Object.fromEntries(
@@ -359,6 +433,16 @@ async function main() {
     out({ error: "usage", detail: `--n needs a positive integer, got ${JSON.stringify(flags.n)}` }, 1);
   }
   const outDir = flags.out || path.join(DATA_DIR, "_browser");
+  // --prefetch-urls: fetch THESE urls in the cleared browser, harvesting
+  // nothing. The escalation path for pages a plain HTTP client was refused —
+  // the feed modes have no page-level browser step of their own, and neither
+  // does the direct tier (plan §3.2/§6.3).
+  const prefetchUrlsFile = flags["prefetch-urls"] || "";
+  // The ENTRY page's challenge (--timeout) and an ARTICLE page's (this) are
+  // different budgets: a cold context can need minutes on the entry and must
+  // not spend that on each of N articles.
+  const pageTimeoutS = Number.parseInt(
+    flags["page-timeout"] ?? flags.timeout ?? String(DEFAULT_TIMEOUT_S), 10);
   const budgetS = Number.parseInt(flags.timeout ?? String(DEFAULT_TIMEOUT_S), 10);
   if (!Number.isFinite(budgetS) || budgetS <= 0) {
     out({ error: "usage", detail: `--timeout needs seconds, got ${JSON.stringify(flags.timeout)}` }, 1);
@@ -373,7 +457,9 @@ async function main() {
   }
   const method = col(row, "feed_method_");
   const feedUrl = col(row, "feed_url_");
-  if (!method.startsWith("browser_")) {
+  // An escalation may target ANY tier: 24chasa.bg is a direct-tier domain
+  // that fails exactly like the browser ones.
+  if (!method.startsWith("browser_") && !prefetchUrlsFile) {
     out({ domain, error: "wrong_method",
           detail: `${method} needs no browser — use fetch_latest_articles.py / save_articles.py directly` }, 3);
   }
@@ -392,11 +478,31 @@ async function main() {
   //    the page's own fetch() gets the feed. It must be the feed's origin
   //    rather than https://<domain>/ — capital.bg and marica.bg serve from
   //    www., and a bare->www fetch() from the page context is cross-origin.
-  const isFeedMode = method === "browser_then_rss" ||
-                     method === "browser_then_sitemap";
+  const isFeedMode = !prefetchUrlsFile &&
+                     (method === "browser_then_rss" ||
+                      method === "browser_then_sitemap");
+  let prefetchUrls = [];
+  if (prefetchUrlsFile) {
+    try {
+      prefetchUrls = fs.readFileSync(prefetchUrlsFile, "utf-8")
+        .split("\n").map((l) => l.trim())
+        .filter((l) => l.startsWith("http"));
+    } catch (e) {
+      out({ domain, error: "usage",
+            detail: `--prefetch-urls: ${e.message}` }, 1);
+    }
+    if (!prefetchUrls.length) {
+      out({ domain, mode: "browser_prefetch", requested: 0, prefetched: 0,
+            detail: "no urls to fetch" });
+    }
+  }
   let entryUrl;
   try {
-    entryUrl = isFeedMode
+    entryUrl = prefetchUrlsFile
+      // The article's own origin, so the challenge is cleared where the
+      // pages live (www. vs bare is a different origin to the browser).
+      ? new URL(prefetchUrls[0]).origin + "/"
+      : isFeedMode
       ? new URL(feedUrl).origin + "/"
       : (feedUrl && feedUrl.startsWith("http") ? feedUrl : `https://${domain}/`);
   } catch (e) {
@@ -406,11 +512,31 @@ async function main() {
   const origin = new URL(entryUrl).origin;
   let browser;
   try {
-    browser = await chromium.launch({ headless: true });
+    // ⚠️ HEADED IS A DIFFERENT BOT SCORE, not a cosmetic choice. Headless
+    // Chromium could not clear blitz.bg's PER-ARTICLE challenge in 240 s
+    // (measured: 3 of 3 pages stayed on „Един момент…"), while the same
+    // navigation headed clears it. `update-local-elections` reached the same
+    // conclusion for CIK's Turnstile. It needs a logged-in GUI session, so it
+    // is opt-in: NEWS_BROWSER_HEADED=1.
+    const headed = process.env.NEWS_BROWSER_HEADED === "1";
+    browser = await chromium.launch({ headless: !headed });
+    // ⚠️ REUSE THE CLEARED STATE. capital.bg's challenge was measured at ~10
+    // minutes and dnevnik.bg's at ~5; paying that once per cookie lifetime
+    // instead of once per sweep is the difference between an hour-long tier
+    // and a few minutes. A stale/corrupt file is ignored, never fatal — the
+    // challenge is simply cleared again.
+    fs.mkdirSync(outDir, { recursive: true });
+    const statePath = path.join(outDir, `${domain}.state.json`);
+    let storageState;
+    try {
+      if (fs.existsSync(statePath)) storageState = JSON.parse(
+        fs.readFileSync(statePath, "utf-8"));
+    } catch { storageState = undefined; }
     const context = await browser.newContext({
       userAgent: UA,
       locale: "bg-BG",
       extraHTTPHeaders: { "Accept-Language": "bg-BG,bg;q=0.9,en;q=0.8" },
+      ...(storageState ? { storageState } : {}),
     });
     const page = await context.newPage();
     // Images and fonts are pure cost here: nothing downstream reads them and
@@ -430,7 +556,10 @@ async function main() {
       out({ domain, error: "fetch_failed", detail: `goto ${entryUrl}: ${e.message}` }, 4);
     }
 
-    const state = await settle(page, budgetMs, !isFeedMode);
+    // needLinks is about a LINK INDEX. Prefetch mode is handed its URLs, and
+    // a feed's origin page need not be one either — requiring 20 links there
+    // fails an open origin that has nothing to do with the challenge.
+    const state = await settle(page, budgetMs, !isFeedMode && !prefetchUrlsFile);
     if (state === "no_content") {
       out({ domain, error: "fetch_failed",
             detail: "the challenge cleared but the page rendered fewer than " +
@@ -442,6 +571,10 @@ async function main() {
             detail: "an INTERACTIVE challenge is present. This script never clicks one — " +
                     "solving bot-detection is off limits regardless of how trivial it looks." }, 3);
     }
+    if (state !== "clear") {
+      // A parseable but DEAD cf_clearance would otherwise be reused for ever.
+      try { fs.unlinkSync(statePath); } catch { /* nothing to drop */ }
+    }
     if (state === "timeout") {
       out({ domain, error: "fetch_failed",
             detail: `the JS challenge did not clear within ${budgetMs / 1000}s. ` +
@@ -451,8 +584,30 @@ async function main() {
                     "challenge." }, 4);
     }
 
+    // The cookies that cleared the challenge, for the next sweep.
+    try {
+      await context.storageState({ path: statePath });
+    } catch { /* a state we cannot save is not a harvest failure */ }
+
     const robots = await loadRobots(page, origin);
     fs.mkdirSync(outDir, { recursive: true });
+
+    if (prefetchUrlsFile) {
+      const allowed = prefetchUrls.filter(
+        (u) => { try { return robots.allows(new URL(u).pathname); }
+                 catch { return false; } });
+      const jsonlPath = path.join(outDir, `${domain}.retry.jsonl`);
+      const written = await fetchPages(page, allowed, jsonlPath, robots,
+                                       pageTimeoutS * 1000,
+                                       (pageTimeoutS + 15) * 1000 * allowed.length);
+      out({ domain, mode: "browser_prefetch", entry: entryUrl,
+            requested: prefetchUrls.length, allowed: allowed.length,
+            prefetched: written.fetched, challenged: written.challenged,
+            refused: written.refused, skipped_deadline: written.skipped,
+            jsonl_path: jsonlPath,
+            crawl_delay: robots.delay,
+            next: `python3 news/scripts/save_articles.py ${domain} ${prefetchUrls.length} --prefetched=${jsonlPath}` });
+    }
 
     if (isFeedMode) {
       const kind = method === "browser_then_sitemap" ? "sitemap" : "rss";
@@ -516,23 +671,12 @@ async function main() {
 
     // The article pages need the browser too. Fetch each one's rendered HTML.
     const jsonlPath = path.join(outDir, `${domain}.jsonl`);
-    const stream = fs.createWriteStream(jsonlPath, { flags: "w" });
-    let fetched = 0;
-    const perPageDelay = Math.max(400, (robots.delay ?? 0) * 1000);
-    for (const url of links) {
-      try {
-        await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
-        const html = await page.evaluate(() => document.documentElement.outerHTML);
-        if (html && html.length > 500) {
-          stream.write(JSON.stringify({ url, html }) + "\n");
-          fetched++;
-        }
-      } catch { /* one bad page must not sink the harvest */ }
-      await page.waitForTimeout(perPageDelay);
-    }
-    await new Promise((r) => stream.end(r));
+    const fetched = await fetchPages(page, links, jsonlPath, robots,
+                                     pageTimeoutS * 1000, budgetMs);
     result.route = "browser_fetch";
-    result.prefetched = fetched;
+    result.prefetched = fetched.fetched;
+    result.challenged = fetched.challenged;
+    result.refused = fetched.refused;
     result.jsonl_path = jsonlPath;
     result.next = `python3 news/scripts/save_articles.py ${domain} ${n} --prefetched=${jsonlPath}`;
     out(result);
@@ -548,7 +692,8 @@ async function main() {
 // without a browser: the CSV reader, the robots parser, the same-site rule and
 // the link filter are where the bugs were (a bare->www redirect dropped an
 // entire outlet's harvest, and an over-wide junk set dropped /novini/).
-export { parseCsv, splitCsvLine, parseRobots, pathToRegExp, sameSite,
+export { challengeState,
+         parseCsv, splitCsvLine, parseRobots, pathToRegExp, sameSite,
          keepLink, JUNK_SEGMENTS, NAV_WORDS, BOT_NAME, UA };
 
 // `node harvest_browser.mjs` runs; `import` does not.

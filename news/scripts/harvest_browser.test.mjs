@@ -16,6 +16,7 @@
 import { test, describe } from "vitest";
 import assert from "node:assert/strict";
 import {
+  challengeState,
   parseCsv, splitCsvLine, parseRobots, pathToRegExp, sameSite, keepLink,
   JUNK_SEGMENTS, NAV_WORDS, BOT_NAME, UA,
 } from "./harvest_browser.mjs";
@@ -266,5 +267,43 @@ describe("the identity", () => {
     assert.ok(!UA.includes("Mozilla"), UA);
     assert.ok(!UA.includes("Safari"), UA);
     assert.ok(!UA.includes("HeadlessChrome"), UA);
+  });
+});
+
+
+describe("the challenge detector", () => {
+  test("recognises the Bulgarian interstitial, not only the English one", () => {
+    // Measured on blitz.bg 2026-09-20: every escalated article page came back
+    // titled „Един момент…" and was stored as if it were the article.
+    assert.equal(challengeState({ title: "Един момент..." }).challenging, true);
+    assert.equal(challengeState({ title: "Just a moment..." }).challenging, true);
+    assert.equal(challengeState({ title: "Attention Required! | Cloudflare" })
+      .challenging, true);
+    assert.equal(challengeState({ body: "Проверка на браузъра преди достъп" })
+      .challenging, true);
+    assert.equal(
+      challengeState({ body: "Изчакайте, сайтът проверява сигурността на връзката" })
+        .challenging, true);
+  });
+
+  test("a real article is not a challenge", () => {
+    const state = challengeState({
+      title: "Манолова готви законодателни промени — Блиц",
+      body: "София. Депутатът внесе промени в закона, които предвиждат...",
+    });
+    assert.deepEqual(state, { challenging: false, interactive: false });
+  });
+
+  test("an interactive challenge is named separately — it is never clicked", () => {
+    assert.equal(challengeState({ widget: true }).interactive, true);
+    assert.equal(challengeState({ body: "Потвърдете, че сте човек" })
+      .interactive, true);
+    assert.equal(challengeState({ body: "verify you are human" })
+      .interactive, true);
+  });
+
+  test("empty input is not a challenge", () => {
+    assert.deepEqual(challengeState(), { challenging: false, interactive: false });
+    assert.deepEqual(challengeState({}), { challenging: false, interactive: false });
   });
 });

@@ -78,6 +78,52 @@ export -f run_one
 
 echo "$domains" | xargs -P 6 -I{} bash -c 'run_one "$@" '"$N"'' _ {} > "$OUT"
 
+# ⚠️ The direct tier needs the browser too: 24chasa.bg lists 20 and saves 0
+# exactly like the browser-tier domains. Escalation is SERIAL and after the
+# parallel sweep — a real Chromium per domain cannot run six-up — and only for
+# domains whose per-article failures cross a threshold, so one flaky article
+# never starts a browser.
+#
+# ⚠️ THE ROWS ARE READ FROM A SNAPSHOT, and the escalation lines are held
+# until the loop ends. A `while read` over "$OUT" while appending to "$OUT"
+# consumes its own appends — an escalation line has a `failed` list of its
+# own, so the loop feeds on its own output. And "$OUT" defaults to
+# /dev/stdout, which cannot be reopened for reading at all.
+MIN_FAILURES="${NEWS_ESCALATE_MIN_FAILURES:-5}"
+ESCALATE_BUDGET_S="${NEWS_ESCALATE_SWEEP_BUDGET_S:-1200}"
+case "$MIN_FAILURES" in *[!0-9]*|"") MIN_FAILURES=5 ;; esac
+case "$ESCALATE_BUDGET_S" in *[!0-9]*|"") ESCALATE_BUDGET_S=1200 ;; esac
+if [ "$MIN_FAILURES" -gt 0 ] && [ -f "$OUT" ]; then
+  SNAPSHOT=$(mktemp "${TMPDIR:-/tmp}/direct-sweep.XXXXXX")
+  EXTRA=$(mktemp "${TMPDIR:-/tmp}/direct-escalations.XXXXXX")
+  cp "$OUT" "$SNAPSHOT"
+  ESC_START=$(date +%s)
+  while IFS= read -r row; do
+    [ -n "$row" ] || continue
+    now=$(date +%s)
+    remaining=$(( ESCALATE_BUDGET_S - (now - ESC_START) ))
+    [ "$remaining" -gt 60 ] || break
+    d=$(printf '%s' "$row" | python3 -c '
+import json, sys
+try:
+    doc = json.loads(sys.stdin.read())
+except Exception:
+    sys.exit(0)
+failed = doc.get("failed") or []
+if doc.get("domain") and doc.get("mode") != "browser_escalation" \
+        and len(failed) >= int(sys.argv[1]):
+    print(doc["domain"])
+' "$MIN_FAILURES")
+    [ -n "$d" ] || continue
+    escalated=$(printf '%s' "$row" \
+      | NEWS_ESCALATE_DEADLINE_S="$remaining" \
+        bash scripts/escalate_browser.sh "$d" "$N")
+    [ -n "$escalated" ] && printf '%s\n' "$escalated" >> "$EXTRA"
+  done < "$SNAPSHOT"
+  [ -s "$EXTRA" ] && cat "$EXTRA" >> "$OUT"
+  rm -f "$SNAPSHOT" "$EXTRA"
+fi
+
 # The sweep's own verdict. Nobody is watching a nightly run, so it has to say
 # what it did: which sources are failing, which have gone stale without being
 # quarantined, and which have a retry queue that is not draining. Reads only

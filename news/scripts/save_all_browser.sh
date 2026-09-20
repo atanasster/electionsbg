@@ -52,6 +52,10 @@ for r in csv.DictReader(open('data/bg_news_sites.csv', newline='', encoding='utf
         print(r['domain'])
 ")
 
+SWEEP_START=$(date +%s)
+ESCALATE_BUDGET_S="${NEWS_ESCALATE_SWEEP_BUDGET_S:-1200}"
+case "$ESCALATE_BUDGET_S" in *[!0-9]*|"") ESCALATE_BUDGET_S=1200 ;; esac
+
 : > "$OUT"
 for d in $domains; do
   harvest=$(timeout $((TIMEOUT_S + 900)) node scripts/harvest_browser.mjs \
@@ -123,6 +127,33 @@ for var, key in (('mode', 'mode'), ('kind', 'stdin_mode'), ('xml', 'xml_path'),
     out="{\"domain\": \"$d\", \"error\": \"timeout_or_crash\", \"stage\": \"save\"}"
   fi
   echo "$out" >> "$OUT"
+
+  # ⚠️ THE PAGES, NOT JUST THE LIST. The challenge is cleared for the feed or
+  # the homepage and the ARTICLES are then fetched by a plain HTTP client —
+  # which is how blitz.bg and dnevnik.bg listed 20 and saved 0 for weeks.
+  # Anything that client was refused is re-fetched in the browser here.
+  # A sweep-wide budget on top of the per-domain caps: 17 domains x a few
+  # minutes each would outlast the hour the tier runs in.
+  now=$(date +%s)
+  has_failures=$(printf '%s' "$out" | python3 -c '
+import json, sys
+try:
+    print(1 if (json.loads(sys.stdin.read()).get("failed") or []) else "")
+except Exception:
+    print("")
+')
+  # The REMAINING budget is handed down, so an escalation started near the
+  # limit cannot run past it: a pre-check alone let one begun at t=1199 s
+  # finish at t≈2834 s.
+  remaining=$(( ESCALATE_BUDGET_S - (now - SWEEP_START) ))
+  if [ -n "$has_failures" ] && [ "$remaining" -gt 60 ]; then
+    escalated=$(printf '%s' "$out" \
+      | NEWS_ESCALATE_DEADLINE_S="$remaining" \
+        bash scripts/escalate_browser.sh "$d" "$N")
+    if [ -n "$escalated" ]; then
+      echo "$escalated" >> "$OUT"
+    fi
+  fi
 done
 
 # The sweep's own verdict, same as the direct tier's.
