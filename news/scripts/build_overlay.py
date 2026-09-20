@@ -200,7 +200,7 @@ def next_seq(manifest: dict) -> int:
 
 
 def build(app_data: Path, out: Path, *, latest: int,
-          keep_tree: Path | None = None) -> dict:
+          keep_tree: Path | None = None, seq: int | None = None) -> dict:
     manifest = live_manifest()
     run_id = manifest.get("run_id")
     if not isinstance(run_id, str):
@@ -215,7 +215,7 @@ def build(app_data: Path, out: Path, *, latest: int,
         base = read_release(app_data)
         full = read_release(work)
         overlay = om.diff_overlay(
-            base, full, seq=next_seq(manifest), base_run_id=run_id,
+            base, full, seq=seq or next_seq(manifest), base_run_id=run_id,
             generated_at=datetime.now(timezone.utc)
             .isoformat(timespec="milliseconds").replace("+00:00", "Z"),
             latest_limit=latest)
@@ -277,13 +277,23 @@ def main(argv=None) -> int:
                         default=ROOT / "news" / "var" / "overlay.json")
     parser.add_argument("--latest", type=int, default=DEFAULT_LATEST,
                         help="must match the cold build's --latest")
+    parser.add_argument("--seq", type=int,
+                        help="override the sequence. ⚠️ The recovery for a "
+                             "hot run that uploaded its overlay and then "
+                             "failed before the manifest: the sequence is "
+                             "derived from the MANIFEST, which that run "
+                             "never advanced, so a plain retry recomputes "
+                             "the same seq and collides with its own "
+                             "orphan (the object is create-only)")
     parser.add_argument("--keep-tree", type=Path,
                         help="keep the rebuilt tree here (for inspection); "
                              "it is NOT the base and must not replace it")
     args = parser.parse_args(argv)
     try:
+        if args.seq is not None and args.seq < 1:
+            parser.error("--seq must be at least 1")
         summary = build(args.base, args.out, latest=args.latest,
-                        keep_tree=args.keep_tree)
+                        keep_tree=args.keep_tree, seq=args.seq)
     except OverlayError as error:
         print(json.dumps({"mode": "news_overlay_build", "error": str(error)},
                          ensure_ascii=False), file=sys.stderr)

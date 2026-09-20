@@ -845,5 +845,286 @@ class UploadPolicy(unittest.TestCase):
         self.assertIn("must be disjoint", proc.stdout)
 
 
+OVERLAY = {
+    "schema_version": 1,
+    "seq": 1,
+    "base_run_id": "test-run",
+    "generated_at": "2026-08-31T07:05:00Z",
+    "release_generated_at": "2026-08-31T07:05:00Z",
+    "latest_limit": 150,
+    "articles": {},
+    "removed_article_urls": {},
+    "removed_domains": [],
+    "bundle_envelopes": {},
+    "story_details": {},
+    "removed_story_ids": [],
+    "home": None,
+    "replaced_paths": {},
+    "removed_paths": [],
+}
+
+
+class HotRelease(unittest.TestCase):
+    """Plan §4.6(d) — publishing an overlay against the LIVE release.
+
+    ⚠️ A HOT RELEASE IS A SECOND MANIFEST FOR ONE run_id, which is the
+    exact thing the publisher refuses in order to stop a re-run silently
+    redefining a release readers already hold. So the door through that
+    rule is a whitelist, and most of this class is about what must not get
+    through it.
+    """
+
+    def write_overlay(self, **patch) -> Path:
+        temp = tempfile.mkdtemp(prefix="news_overlay_scope_")
+        self.addCleanup(shutil.rmtree, temp, True)
+        path = Path(temp) / "1.json"
+        path.write_text(json.dumps({**OVERLAY, **patch}, ensure_ascii=False),
+                        encoding="utf-8")
+        return path
+
+    @mock.patch.dict(os.environ, {**STANDALONE_ENV,
+                                  "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
+    def test_it_publishes_exactly_two_objects_and_the_pointer_is_last(self):
+        # ⚠️ The whole justification: a cold release is ~2,100 objects and
+        # 96 s. And the ORDER is the commit — the manifest is last, so a
+        # reader only ever learns about an object already there.
+        scopes, publication = uploader.overlay_commands(
+            self.write_overlay(), PUBLICATION, "2026-08-31T07:05:00Z")
+        self.assertEqual([scope["name"] for scope in scopes],
+                         ["public_app_data_overlay", "public_app_data_manifest"])
+        self.assertEqual(scopes[0]["destination"],
+                         "gs://pub/news/versions/test-run/overlays/1.json")
+        self.assertTrue(all(scope["deletes_remote"] is False
+                            for scope in scopes))
+        # Same release, one more object beside it.
+        self.assertEqual(publication["run_id"], PUBLICATION["run_id"])
+        self.assertEqual(publication["bundle"], PUBLICATION["bundle"])
+        self.assertEqual(publication["overlay"]["seq"], 1)
+
+    @mock.patch.dict(os.environ, {**STANDALONE_ENV,
+                                  "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
+    def test_the_overlay_object_is_create_only_and_stored_gzip(self):
+        # ⚠️ Create-only, so a repeated seq COLLIDES rather than rewriting
+        # a view some reader is already merging.
+        scopes, _ = uploader.overlay_commands(
+            self.write_overlay(), PUBLICATION, "2026-08-31T07:05:00Z")
+        argv = scopes[0]["argv"]
+        self.assertIn("x-goog-if-generation-match:0", argv)
+        self.assertIn("-z", argv)
+        self.assertIn(uploader.IMMUTABLE_PUBLIC_CACHE, argv)
+
+    @mock.patch.dict(os.environ, {**STANDALONE_ENV,
+                                  "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
+    def test_an_overlay_built_against_another_release_is_refused(self):
+        # ⚠️ THE REFUSAL THAT MATTERS MOST. A delta from a different base
+        # merges cleanly and lands every reader on a view that never
+        # existed — nothing errors, nothing looks wrong.
+        with self.assertRaisesRegex(ValueError, "was built against"):
+            uploader.overlay_commands(
+                self.write_overlay(base_run_id="some-other-run"),
+                PUBLICATION, "2026-08-31T07:05:00Z")
+
+    @mock.patch.dict(os.environ, {**STANDALONE_ENV,
+                                  "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
+    def test_the_pointer_describes_the_file_that_was_read(self):
+        path = self.write_overlay()
+        _scopes, publication = uploader.overlay_commands(
+            path, PUBLICATION, "2026-08-31T07:05:00Z")
+        pointer = publication["overlay"]
+        self.assertEqual(pointer["bytes"], path.stat().st_size)
+        self.assertEqual(pointer["path"], "overlays/1.json")
+        # The UNCOMPRESSED hash, as the bundle inventory is — the object is
+        # stored gzip and a reader verifies the decoded body.
+        import hashlib
+        self.assertEqual(pointer["sha256"],
+                         hashlib.sha256(path.read_bytes()).hexdigest())
+
+
+    @mock.patch.dict(os.environ, {**STANDALONE_ENV,
+                                  "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
+    def test_the_overlay_scope_actually_runs(self):
+        # ⚠️ IT DID NOT. Every cold scope uploads a TREE, so `run_scope`
+        # asked whether the source was a DIRECTORY — and the overlay, which
+        # is one object, was refused as a missing source directory before a
+        # byte was sent. Every unit test above still passed, because none
+        # of them executed a scope.
+        scopes, _ = uploader.overlay_commands(
+            self.write_overlay(), PUBLICATION, "2026-08-31T07:05:00Z")
+        calls = []
+
+        class Done:
+            returncode = 0
+
+        with mock.patch.object(uploader.subprocess, "run",
+                               side_effect=lambda argv, **kw: (
+                                   calls.append(argv), Done())[1]):
+            result = uploader.run_scope(scopes[0], dry_run=False)
+        self.assertEqual(result["exit"], 0, result)
+        self.assertNotIn("error", result)
+        self.assertEqual(calls[0], scopes[0]["argv"])
+
+    @mock.patch.dict(os.environ, {**STANDALONE_ENV,
+                                  "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
+    def test_a_missing_overlay_file_fails_the_scope(self):
+        scopes, _ = uploader.overlay_commands(
+            self.write_overlay(), PUBLICATION, "2026-08-31T07:05:00Z")
+        scopes[0]["source"] = Path("/nonexistent/overlay.json")
+        result = uploader.run_scope(scopes[0], dry_run=False)
+        self.assertEqual(result["exit"], 2)
+        self.assertEqual(result["error"], "source_missing")
+
+
+class HotPredicate(unittest.TestCase):
+    """`overlay_advance` — the only door through one-manifest-per-release."""
+
+    def candidate(self, **patch) -> dict:
+        return {**PUBLICATION, "generated_at": "2026-08-31T07:05:00Z",
+                "overlay": {"seq": 1, "path": "overlays/1.json",
+                            "bytes": 10, "sha256": "c" * 64,
+                            "base_generated_at": "2026-08-31T07:00:00Z"},
+                **patch}
+
+    def test_an_added_overlay_is_admitted(self):
+        self.assertIsNone(uploader.overlay_advance(PUBLICATION, self.candidate()))
+
+    def test_every_field_describing_the_TREE_is_refused(self):
+        # ⚠️ A whitelist, not a blacklist: a release is immutable once
+        # readers hold it, and the only thing a hot publish adds is a
+        # pointer to an object that did not exist before. Any other field
+        # moving means the tree changed, which a hot release cannot do.
+        for field, value in (
+                ("bundle", {"sha256": "z" * 64, "files": 1, "bytes": 2,
+                            "inventory": []}),
+                ("data_base", "versions/elsewhere"),
+                ("version", 2),
+                ("home_health_ready", False),
+                ("accepted_snapshot_records_sha256", "d" * 64),
+                ("accepted_feedback_records_sha256", "e" * 64)):
+            with self.subTest(field=field):
+                refusal = uploader.overlay_advance(
+                    PUBLICATION, self.candidate(**{field: value}))
+                self.assertEqual(refusal,
+                                 f"publication_id_already_used:{field}")
+
+    def test_a_candidate_with_no_overlay_is_refused(self):
+        # Otherwise a plain re-publish of the same run_id with a new
+        # timestamp would walk straight through.
+        candidate = self.candidate()
+        del candidate["overlay"]
+        self.assertEqual(uploader.overlay_advance(PUBLICATION, candidate),
+                         "publication_id_already_used")
+
+    def test_the_sequence_must_strictly_advance(self):
+        # ⚠️ Overlays are CUMULATIVE, not a chain — a reader merges the
+        # base plus the LATEST one. Going backwards points every reader at
+        # an older view of the same release with no way to tell.
+        live = {**PUBLICATION, "overlay": {"seq": 4}}
+        for seq in (4, 3, 0, -1):
+            with self.subTest(seq=seq):
+                candidate = self.candidate()
+                candidate["overlay"] = {**candidate["overlay"], "seq": seq}
+                self.assertEqual(uploader.overlay_advance(live, candidate),
+                                 "overlay_sequence_did_not_advance")
+        candidate = self.candidate()
+        candidate["overlay"] = {**candidate["overlay"], "seq": 5}
+        self.assertIsNone(uploader.overlay_advance(live, candidate))
+
+    def test_a_malformed_live_pointer_refuses_rather_than_assuming_zero(self):
+        live = {**PUBLICATION, "overlay": {"seq": "4"}}
+        self.assertEqual(
+            uploader.overlay_advance(live, self.candidate()),
+            "overlay_live_pointer_malformed")
+
+    def test_the_manifest_CAS_admits_a_hot_candidate_and_only_that(self):
+        # ⚠️ THE INTEGRATION, not the predicate. `run_scope`'s manifest
+        # branch is where the "one manifest per run_id" refusal lives, and
+        # a predicate that is right while the branch never calls it buys
+        # nothing.
+        scope = {"name": "public_app_data_manifest",
+                 "source": uploader.MANIFEST_SOURCE,
+                 "destination": "gs://pub/news/manifest.json",
+                 "deletes_remote": False,
+                 "argv": ["gsutil", "cp", uploader.MANIFEST_SOURCE,
+                          "gs://pub/news/manifest.json"],
+                 "content": json.dumps(self.candidate())}
+
+        class Done:
+            returncode = 0
+
+        with mock.patch.object(uploader, "remote_manifest",
+                               return_value=(PUBLICATION, 7)), \
+                mock.patch.object(uploader.subprocess, "run",
+                                  return_value=Done()):
+            admitted = uploader.run_scope(scope, dry_run=False)
+        self.assertEqual(admitted["exit"], 0, admitted)
+
+        # …and the same branch still refuses a re-publish that is not one.
+        rejected_content = json.dumps(
+            {**PUBLICATION, "generated_at": "2026-08-31T09:00:00Z"})
+        with mock.patch.object(uploader, "remote_manifest",
+                               return_value=(PUBLICATION, 7)):
+            rejected = uploader.run_scope(
+                {**scope, "content": rejected_content}, dry_run=False)
+        self.assertEqual(rejected["exit"], 3)
+        self.assertTrue(
+            rejected["error"].startswith("publication_id_already_used"),
+            rejected)
+
+    def test_a_cold_release_landing_mid_run_refuses_the_hot_publish(self):
+        # ⚠️ THE RACE THAT ROLLS A RELEASE BACKWARDS. A hot run reads the
+        # live manifest, spends ~40 s building, then writes. If a COLD
+        # release lands in that window the run_ids differ, the overlay
+        # predicate is skipped, and the only remaining guard compares this
+        # run's WALL CLOCK against the cold release's BUILD time — which a
+        # hot run wins. Without the write-time check the manifest goes
+        # BACK to the previous release, silently, costing every reader two
+        # full cache clears.
+        landed = {**PUBLICATION, "run_id": "later-run",
+                  "data_base": "versions/later-run",
+                  "generated_at": "2026-08-31T08:00:00Z"}
+        scope = {"name": "public_app_data_manifest",
+                 "source": uploader.MANIFEST_SOURCE,
+                 "destination": "gs://pub/news/manifest.json",
+                 "deletes_remote": False, "hot": True,
+                 "argv": ["gsutil", "cp", uploader.MANIFEST_SOURCE,
+                          "gs://pub/news/manifest.json"],
+                 # Later than the cold release's BUILD stamp, which is
+                 # what made the old guard let this through.
+                 "content": json.dumps(
+                     self.candidate(generated_at="2026-08-31T08:30:00Z"))}
+        wrote = []
+
+        class Done:
+            returncode = 0
+
+        with mock.patch.object(uploader, "remote_manifest",
+                               return_value=(landed, 9)), \
+                mock.patch.object(uploader.subprocess, "run",
+                                  side_effect=lambda argv, **kw: (
+                                      wrote.append(argv), Done())[1]):
+            result = uploader.run_scope(scope, dry_run=False)
+        self.assertEqual(result["exit"], 3)
+        self.assertEqual(result["error"], "overlay_base_no_longer_live")
+        self.assertEqual(wrote, [], "it published anyway")
+
+    def test_a_dropped_manifest_key_is_not_read_as_null(self):
+        # ⚠️ `accepted_feedback_records_sha256` is ABSENT on v2 and NULL on
+        # v3, and `.get()` returns None for both — so a candidate that had
+        # dropped the key would pass a field comparison while the CLIENT
+        # rejects the whole manifest for it, leaving cold readers with no
+        # data at all.
+        candidate = self.candidate()
+        del candidate["accepted_feedback_records_sha256"]
+        self.assertEqual(
+            uploader.overlay_advance(PUBLICATION, candidate),
+            "publication_id_already_used:accepted_feedback_records_sha256")
+
+    def test_the_cold_refusal_still_holds_for_everything_else(self):
+        # The rule this door is cut into: a second manifest for one
+        # run_id that is NOT a hot release is still refused.
+        candidate = {**PUBLICATION, "generated_at": "2026-08-31T09:00:00Z"}
+        self.assertIsNotNone(uploader.overlay_advance(PUBLICATION, candidate))
+
+
 if __name__ == "__main__":
     unittest.main()

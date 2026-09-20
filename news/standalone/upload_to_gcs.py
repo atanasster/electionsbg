@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -385,17 +386,40 @@ def run_scope(scope: dict, dry_run: bool) -> dict:
         try:
             current, generation = remote_manifest(scope["destination"])
             candidate = json.loads(scope["content"])
+            if current is not None and scope.get("hot"):
+                # ⚠️ RE-CHECKED AT WRITE TIME, AND THIS IS THE WHOLE RACE.
+                # A hot run reads the live manifest, spends ~40 s building,
+                # then writes. If a COLD release lands in that window the
+                # run_ids no longer match, so the overlay predicate below
+                # is skipped entirely — and the only remaining guard
+                # compares this run's WALL CLOCK against the cold
+                # release's BUILD time, which a hot run wins almost always.
+                # The manifest would then be rolled BACKWARDS to the
+                # previous release: self-consistent, silent, and costing
+                # every reader two full ~2,100-object cache clears.
+                if current.get("run_id") != candidate.get("run_id"):
+                    result.update(exit=3, error="overlay_base_no_longer_live")
+                    return result
             if current is not None:
                 current_time = parse_aware_instant(
                     current.get("generated_at"), "remote manifest generated_at")
                 candidate_time = parse_aware_instant(
                     candidate.get("generated_at"), "candidate generated_at")
                 if current.get("run_id") == candidate.get("run_id"):
-                    if current != candidate:
-                        result.update(exit=3, error="publication_id_already_used")
+                    if current == candidate:
+                        result.update(exit=0, skipped="already_active")
                         return result
-                    result.update(exit=0, skipped="already_active")
-                    return result
+                    # ⚠️ A SECOND MANIFEST FOR ONE run_id IS EXACTLY WHAT A
+                    # HOT RELEASE IS, so the refusal below cannot simply be
+                    # dropped — it is what stops a re-run of a cold publish
+                    # silently redefining a release readers already hold.
+                    # The overlay case is admitted by a NARROW predicate
+                    # instead: same release, one more overlay, nothing else
+                    # touched. Anything outside that is still refused.
+                    advance = overlay_advance(current, candidate)
+                    if advance is not None:
+                        result.update(exit=3, error=advance)
+                        return result
                 if current_time >= candidate_time:
                     result.update(exit=3, error="stale_publication_refused")
                     return result
@@ -421,12 +445,165 @@ def run_scope(scope: dict, dry_run: bool) -> dict:
             temporary.unlink(missing_ok=True)
         result["exit"] = proc.returncode
         return result
-    if not source.is_dir():
-        result.update(exit=2, error="source_directory_missing")
+    # ⚠️ A FILE IS A LEGAL SOURCE SINCE THE HOT PATH EXISTS. Every cold
+    # scope uploads a TREE, so this asked only whether the source was a
+    # directory — and the overlay, which is one object, was refused as a
+    # "missing source directory" before a single byte was sent. The check
+    # is about the source being THERE, not about its shape.
+    if not source.exists():
+        result.update(exit=2, error="source_missing")
         return result
     proc = subprocess.run(scope["argv"], stdout=sys.stderr, stderr=sys.stderr)
     result["exit"] = proc.returncode
     return result
+
+
+# Everything a hot release may NOT change about the live manifest. The
+# complement — `generated_at` and `overlay` — is the whole of a hot
+# release: same tree, same run_id, one more small object beside it.
+HOT_INVARIANT = ("version", "run_id", "data_base", "home_health_ready",
+                 "bundle", "accepted_snapshot_records_sha256",
+                 "accepted_feedback_records_sha256")
+
+
+def overlay_advance(current: dict, candidate: dict) -> str | None:
+    """None when `candidate` is a legal hot release over `current`.
+
+    Otherwise the reason to refuse, as a stable string.
+
+    ⚠️ THIS IS THE ONLY DOOR THROUGH THE "one manifest per run_id" RULE,
+    so it is written as a whitelist of what may move rather than a
+    blacklist of what may not. A release is immutable once readers hold
+    it; the ONE thing a hot publish adds is a pointer to an extra object
+    that did not exist before, and every other field describes the tree
+    itself, which has not changed and cannot.
+
+    ⚠️ AND THE SEQUENCE MUST STRICTLY ADVANCE. Overlays are cumulative,
+    not a chain — a reader merges the base plus the LATEST one — so going
+    backwards, or republishing a seq, points readers at an older view of
+    the same release with no way to tell. The object itself is written
+    create-only, so a repeated seq also collides on upload; this refuses
+    it earlier and with a reason.
+    """
+    # ⚠️ A SENTINEL, NOT `.get()`. `accepted_feedback_records_sha256` is
+    # ABSENT on a v2 manifest and NULL on a v3 one, and `.get()` returns
+    # None for both — so a candidate that had dropped the key would pass a
+    # field-by-field comparison while the CLIENT rejects the whole
+    # manifest for it (`validAcceptedFeedbackHash` in data.ts), leaving
+    # every cold reader with no data at all.
+    missing = object()
+    for field in HOT_INVARIANT:
+        if current.get(field, missing) != candidate.get(field, missing):
+            return f"publication_id_already_used:{field}"
+    pointer = candidate.get("overlay")
+    if not isinstance(pointer, dict):
+        return "publication_id_already_used"
+    live = current.get("overlay")
+    live_seq = live.get("seq") if isinstance(live, dict) else 0
+    if not isinstance(live_seq, int):
+        return "overlay_live_pointer_malformed"
+    if not isinstance(pointer.get("seq"), int) or pointer["seq"] <= live_seq:
+        return "overlay_sequence_did_not_advance"
+    return None
+
+
+def overlay_pointer(overlay: dict, payload: bytes, seq: int) -> dict:
+    """The manifest's description of an overlay object.
+
+    `bytes`/`sha256` describe the UNCOMPRESSED file, the same convention
+    the bundle inventory uses — the object is stored gzip (`-z json`) and
+    these describe the decoded body.
+
+    ⚠️ NOTHING VERIFIES THEM TODAY. The client parses the overlay and
+    checks its SHAPE (`parseOverlay`), and does not hash it; there is no
+    digest of the overlay or of the bundle inventory anywhere in
+    `newsapp/app/`. They are published because the manifest is the record
+    of what was released and an operator can check it by hand — not
+    because a reader will. Do not write a comment elsewhere that leans on
+    a verification that does not exist.
+    """
+    return {
+        "seq": seq,
+        "path": f"overlays/{seq}.json",
+        "bytes": len(payload),
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "base_generated_at": overlay.get("release_generated_at"),
+    }
+
+
+def overlay_commands(overlay_path: Path, live: dict, generated_at: str
+                     ) -> tuple[list[dict], dict]:
+    """The two scopes of a hot release: the overlay object, then the pointer.
+
+    ⚠️ TWO OBJECTS, AND THE ORDER IS THE COMMIT. The overlay is written
+    first and create-only; the manifest is last, as on the cold path, so a
+    reader only ever learns about an object that is already there.
+
+    ⚠️ A FAILURE BETWEEN THEM WEDGES THE HOT PATH UNTIL THE NEXT COLD
+    RELEASE, and an earlier draft of this claimed the opposite ("the next
+    hot run simply supersedes it"). It does not: `next_seq` in
+    `build_overlay.py` derives the sequence from the MANIFEST, which the
+    failed run never advanced — so a retry computes the same seq, and its
+    upload 412s against its own orphan. The recovery is
+    `build_overlay.py --seq <n+1>`, which is why that flag exists.
+    """
+    payload = overlay_path.read_bytes()
+    overlay = json.loads(payload)
+    if not isinstance(overlay, dict):
+        raise ValueError("overlay is not an object")
+    base_run_id = overlay.get("base_run_id")
+    if base_run_id != live.get("run_id"):
+        # ⚠️ The overlay is a delta FROM a specific release. Published over
+        # a different one it merges cleanly and lands every reader on a
+        # view that never existed, so this is a refusal rather than a
+        # rebuild-and-hope.
+        raise ValueError(
+            f"overlay was built against {base_run_id!r} but the live "
+            f"release is {live.get('run_id')!r} — rebuild it")
+    seq = overlay.get("seq")
+    if not isinstance(seq, int) or seq < 1:
+        raise ValueError("overlay carries no usable seq")
+    data_base = live.get("data_base")
+    if data_base != f"versions/{live.get('run_id')}":
+        # The cold path validates this before it publishes; re-checked here
+        # because it decides WHERE the overlay object lands, and a bare
+        # subscript would raise a KeyError out of the JSON error contract.
+        raise ValueError("live manifest has an unsafe version path")
+    public = uri("NEWS_PUBLIC_GCS_URI", delete_scope=True)
+    destination = f"{public}/{data_base}/overlays/{seq}.json"
+    publication = {**live, "generated_at": generated_at,
+                   "overlay": overlay_pointer(overlay, payload, seq)}
+    refusal = overlay_advance(live, publication)
+    if refusal is not None:
+        raise ValueError(refusal)
+    return [
+        {
+            "name": "public_app_data_overlay",
+            "source": overlay_path,
+            "destination": destination,
+            "argv": ["gsutil", "-h", IMMUTABLE_PUBLIC_CACHE,
+                     # Create-only: an overlay object is immutable, and a
+                     # repeated seq must collide rather than overwrite a
+                     # view some reader is already merging.
+                     "-h", "x-goog-if-generation-match:0",
+                     "cp", "-z", "json", str(overlay_path), destination],
+            "deletes_remote": False,
+        },
+        {
+            "name": "public_app_data_manifest",
+            "source": MANIFEST_SOURCE,
+            "destination": f"{public}/manifest.json",
+            "argv": ["gsutil", "-h", MANIFEST_CACHE, "-h",
+                     f"x-goog-if-generation-match:{GENERATION_SOURCE}", "cp",
+                     MANIFEST_SOURCE, f"{public}/manifest.json"],
+            "content": json.dumps(publication, ensure_ascii=False,
+                                  separators=(",", ":")) + "\n",
+            "deletes_remote": False,
+            # Read at write time by `run_scope`: a hot release may only
+            # ever land on the base it was built from.
+            "hot": True,
+        },
+    ], publication
 
 
 def remote_manifest(destination: str) -> tuple[dict | None, int]:
@@ -512,12 +689,66 @@ def check_archive_versioning(archive_uri: str) -> tuple[bool, str]:
     return True, "enabled"
 
 
+def publish_overlay(overlay_path: Path, dry_run: bool) -> int:
+    """The hot path, end to end.
+
+    ⚠️ IT READS THE LIVE MANIFEST RATHER THAN BEING TOLD WHAT IS LIVE.
+    The overlay names the base it was built from, and the only way to know
+    that is still the release readers hold is to ask the bucket at the
+    moment of publishing. A value passed in, or read minutes earlier, is a
+    claim about the past.
+    """
+    if not public_upload_enabled():
+        print(json.dumps({"mode": "news_gcs_overlay",
+                          "error": "public_upload_disabled"}))
+        return 2
+    try:
+        public = uri("NEWS_PUBLIC_GCS_URI", delete_scope=True)
+        live, _generation = remote_manifest(f"{public}/manifest.json")
+        if live is None:
+            raise ValueError("no live manifest to overlay")
+        scopes, publication = overlay_commands(
+            overlay_path, live,
+            datetime.now(timezone.utc).isoformat(timespec="milliseconds")
+            .replace("+00:00", "Z"))
+    except (ValueError, RuntimeError, OSError, json.JSONDecodeError) as exc:
+        # ⚠️ One contract, not two. A caller wiring this into the hourly
+        # transaction reads stdout as JSON; a traceback from an unreadable
+        # overlay file or a malformed one is a different failure shape it
+        # would have to handle separately.
+        print(json.dumps({"mode": "news_gcs_overlay", "error": str(exc)},
+                         ensure_ascii=False))
+        return 2
+    results = execute_scopes(scopes, dry_run)
+    failed = [row for row in results if row.get("exit") not in (0, None)]
+    print(json.dumps({
+        "mode": "news_gcs_overlay",
+        "dry_run": dry_run,
+        "run_id": publication["run_id"],
+        "seq": publication["overlay"]["seq"],
+        "bytes": publication["overlay"]["bytes"],
+        "scopes": results,
+    }, ensure_ascii=False))
+    return 1 if failed else 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", type=Path)
     ap.add_argument("--expected-run-id")
     ap.add_argument("--archive-only", action="store_true")
     ap.add_argument("--public-app-data-only", action="store_true")
+    # ⚠️ A HOT RELEASE, and it is deliberately not a mode of the cold
+    # path. It publishes TWO objects — the overlay and the manifest —
+    # against the run_id that is ALREADY live, so it takes no report, no
+    # bundle and no app-data tree: there is nothing to rebuild and nothing
+    # to compare, and the release it points at has already passed every
+    # gate. What it must not do is touch the archive or the mentions
+    # rsync, which is why this is its own scope list rather than a filter
+    # over the cold one.
+    ap.add_argument("--overlay", type=Path,
+                    help="publish this overlay against the live release "
+                         "(news/scripts/build_overlay.py writes it)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--pipeline-exit", type=int, default=0,
                     help="the pipeline's exit code; non-zero refuses the "
@@ -525,10 +756,17 @@ def main() -> int:
     args = ap.parse_args()
     if args.report and args.archive_only:
         ap.error("choose --report or --archive-only")
+    if args.overlay and (args.report or args.archive_only
+                         or args.public_app_data_only):
+        ap.error("--overlay is a release of its own and takes no other mode")
+    if args.overlay and not args.overlay.is_file():
+        ap.error(f"--overlay {args.overlay} does not exist")
     if args.public_app_data_only and (args.archive_only or not args.report):
         ap.error("--public-app-data-only requires --report and excludes --archive-only")
     if args.expected_run_id and not args.report:
         ap.error("--expected-run-id requires --report")
+    if args.overlay:
+        return publish_overlay(args.overlay, args.dry_run)
     public_ready, reason = load_report(
         None if args.archive_only else args.report,
         args.expected_run_id,
