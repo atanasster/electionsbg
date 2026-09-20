@@ -93,8 +93,8 @@ describe("StoryScreen analytics", () => {
     window.naiasnoNewsAnalytics = sink;
     vi.doMock("../data", async (importOriginal) => ({
       ...(await importOriginal<typeof import("../data")>()),
-      useStories: () => ({
-        data: { generated_at: "", stories: [story] },
+      useStoryDetail: () => ({
+        data: { generated_at: "", story, related: [] },
         error: null,
         loading: false,
       }),

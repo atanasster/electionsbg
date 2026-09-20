@@ -2,7 +2,7 @@
 // news/scripts/build_app_data.py. Development serves /news-data/ directly;
 // production may follow a revalidated manifest to one immutable hourly tree.
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
 
 export type Leaning =
@@ -937,8 +937,163 @@ export const useData = <T>(
 // otherwise.
 
 export const useStats = () => useData<Stats>("/stats.json");
+
+/**
+ * The whole story corpus in one request.
+ *
+ * ⚠️ 1,456 KB gzipped, and it is the largest single object a reader
+ * downloads — eleven times the entire hourly publish delta. Prefer the
+ * split loaders below: `useStoryDetail` is 1.4 KB, `useStoryList` is 50 KB
+ * for the first page. This stays for consumers that genuinely need every
+ * story at once, and for a client older than the split.
+ */
 export const useStories = () =>
   useData<{ generated_at: string; stories: Story[] }>("/stories.json");
+
+/** One story's row in the paginated index — findable and filterable, small. */
+export interface StoryIndexRow {
+  id: string;
+  title_bg: string | null;
+  title_en: string | null;
+  topics: TopicRef[];
+  first_published: string | null;
+  last_published: string | null;
+  blindspot?: Story["blindspot"];
+  /** How many articles are in the story, without carrying their records. */
+  member_count: number;
+  /** Which outlets covered it, for an outlet filter. */
+  domains: string[];
+}
+
+export interface StoryIndexPage {
+  generated_at: string;
+  page: number;
+  pages: number;
+  page_size: number;
+  total: number;
+  stories: StoryIndexRow[];
+}
+
+// ⚠️ A story id reaches a URL PATH. The build only ever writes ids matching
+// this, and a client that fetched anything else would be constructing a
+// request from data — so an id that does not match is refused rather than
+// encoded, which is also what the producer does (build_app_data.py).
+const STORY_ID_SAFE = /^[A-Za-z0-9_-]{1,120}$/;
+
+export const storyDetailPath = (id: string | null | undefined): string | null =>
+  typeof id === "string" && STORY_ID_SAFE.test(id)
+    ? `/stories/${id}.json`
+    : null;
+
+/**
+ * One story, fetched on its own — 1.4 KB against the 1,456 KB bundle.
+ *
+ * Returns `data: null` for an id the build could never have written, which
+ * a caller sees exactly as it sees "no such story".
+ */
+export const useStoryDetail = (id: string | null | undefined) =>
+  useData<{
+    generated_at: string;
+    story: Story;
+    /** Resolved by the build — see `RelatedStoryRow`. */
+    related?: RelatedStoryRow[];
+  }>(storyDetailPath(id));
+
+/**
+ * A related story as the sidebar renders it.
+ *
+ * ⚠️ Resolved at BUILD time, not in the client, because half of relatedness
+ * is reciprocal — stories pointing back at this one — and that is invisible
+ * from a single story's record. Resolving it in the client was the one
+ * reason StoryScreen needed the entire 1,456 KB corpus.
+ */
+export interface RelatedStoryRow {
+  id: string;
+  title_bg: string | null;
+  title_en: string | null;
+  first_published: string | null;
+  outlet_count: number | null;
+}
+
+/** url → story id, so an article page can find its story without the corpus. */
+export const useStoriesByUrl = () =>
+  useData<{ generated_at: string; stories_by_url: Record<string, string> }>(
+    "/stories/by-url.json",
+  );
+
+export const useStoryIndexPage = (page: number | null) =>
+  useData<StoryIndexPage>(
+    typeof page === "number" && Number.isInteger(page) && page >= 1
+      ? `/stories/index-${page}.json`
+      : null,
+  );
+
+/**
+ * The story index with progressive reveal: page 1 on mount, more on request.
+ *
+ * Page 1 is the newest 200 stories (~50 KB gzipped), which is what a list
+ * screen needs to paint; `loadMore()` reveals the next page and the rows
+ * accumulate in order.
+ *
+ * ⚠️ The accumulated rows are REPLACED, not appended to, when a release
+ * lands. `useData` re-fetches every page on its own poll, so a story that
+ * moved between pages would otherwise appear twice — and a story deleted
+ * upstream would never leave. Keyed by id and rebuilt from the pages that
+ * are currently loaded, so the list is always a view of one vintage.
+ */
+export const useStoryList = () => {
+  const [page, setPage] = useState(1);
+  const current = useStoryIndexPage(page);
+  // Rows revealed so far, keyed by id so a story that moved between pages
+  // between releases appears once rather than twice.
+  const [rows, setRows] = useState<Map<string, StoryIndexRow>>(new Map());
+  const [vintage, setVintage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loaded = current.data;
+    if (!loaded) return;
+    setRows((prev) => {
+      const next = new Map(prev);
+      for (const row of loaded.stories) next.set(row.id, row);
+      return next;
+    });
+    setVintage((prev) => prev ?? loaded.generated_at);
+  }, [current.data]);
+
+  // ⚠️ A RELEASE IS REPORTED, NOT APPLIED SILENTLY. `useData` re-polls the
+  // page currently in view, so after a publish the revealed rows are a
+  // mixture of two vintages — newly loaded ones fresh, earlier pages as
+  // they were. Resetting would throw away the reader's position mid-scroll;
+  // pretending it had not happened would let a story deleted upstream stay
+  // on the list for ever. So the mixture is allowed and declared, and the
+  // screen can offer a refresh.
+  const staleVintage = Boolean(
+    vintage && current.data && current.data.generated_at !== vintage,
+  );
+
+  const reset = useCallback(() => {
+    setRows(new Map());
+    setVintage(null);
+    setPage(1);
+  }, []);
+
+  const pageCount = current.data?.pages ?? 1;
+  return {
+    stories: useMemo(() => [...rows.values()], [rows]),
+    total: current.data?.total ?? rows.size,
+    loading: current.loading,
+    // The last good rows survive a failed refresh, matching every other
+    // loader here — a consumer guards the fatal case with `error && !rows`.
+    error: current.error,
+    hasMore: page < pageCount,
+    loadMore: useCallback(
+      () => setPage((n) => (n < pageCount ? n + 1 : n)),
+      [pageCount],
+    ),
+    staleVintage,
+    reset,
+  };
+};
 export const useLatest = () =>
   useData<{ generated_at: string; articles: ArticleRecord[] }>("/latest.json");
 export interface HomeMergeProposal {

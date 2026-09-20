@@ -18,7 +18,7 @@ import {
   RUSSIA_META,
   russiaMeta,
 } from "../labels";
-import { useOutlets, useStories, useTaxonomy } from "../data";
+import { useOutlets, useStoryDetail, useTaxonomy } from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { EntityChips } from "../components/EntityChips";
 import { TopicChips } from "../components/TopicChips";
@@ -30,7 +30,6 @@ import { HeadlineComparison } from "../components/HeadlineComparison";
 import { AggregateCompleteness } from "../components/AggregateCompleteness";
 import { axisCompleteness } from "../aggregateCompleteness";
 import { emitNewsEvent } from "../analytics";
-import { resolveRelatedStories } from "./relatedStories";
 import { useNewsLocale } from "../i18n";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
@@ -77,7 +76,7 @@ const STANCE_GROUPS: {
 export const StoryScreen = () => {
   const { isEnglish, language, tr } = useNewsLocale();
   const { id } = useParams<{ id: string }>();
-  const stories = useStories();
+  const storyDetail = useStoryDetail(id);
   const taxonomy = useTaxonomy();
   const outlets = useOutlets();
 
@@ -91,10 +90,10 @@ export const StoryScreen = () => {
     setStanceFilter(null);
   }, [id]);
 
-  const story = useMemo(
-    () => (stories.data?.stories ?? []).find((s) => s.id === id) ?? null,
-    [stories.data, id],
-  );
+  // ⚠️ ONE STORY, ONE FILE — 1.4 KB against the 1,456 KB corpus this used
+  // to `.find()` through. The detail file carries its own resolved related
+  // rows, so nothing here needs the other 1,918 stories.
+  const story = storyDetail.data?.story ?? null;
 
   const outletNames = useMemo(() => {
     const map = new Map<string, string>();
@@ -188,14 +187,11 @@ export const StoryScreen = () => {
     };
   }, [story, outletNames]);
 
-  const related = useMemo(() => {
-    if (!story) return [];
-    return resolveRelatedStories(story, stories.data?.stories ?? []);
-  }, [story, stories.data]);
+  const related = storyDetail.data?.related ?? [];
 
   const categories = taxonomy.data?.categories ?? null;
 
-  if (stories.loading && !stories.data) {
+  if (storyDetail.loading && !storyDetail.data) {
     return (
       <div className="space-y-4">
         <Skeleton className="h-10 w-3/4" />
@@ -205,14 +201,14 @@ export const StoryScreen = () => {
     );
   }
 
-  if (stories.error && !stories.data) {
+  if (storyDetail.error && !storyDetail.data) {
     return (
       <Card className="p-6">
         <h1 className="font-title text-2xl">
           {tr("Данните не се заредиха", "Data could not be loaded")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          {isEnglish ? "Please try again later." : stories.error.message}
+          {isEnglish ? "Please try again later." : storyDetail.error.message}
         </p>
       </Card>
     );
@@ -367,7 +363,7 @@ export const StoryScreen = () => {
               />
               <AggregateCompleteness
                 completeness={leanCompleteness}
-                generatedAt={stories.data?.generated_at}
+                generatedAt={storyDetail.data?.generated_at}
               />
             </div>
             <div className="space-y-2">
@@ -386,7 +382,7 @@ export const StoryScreen = () => {
               />
               <AggregateCompleteness
                 completeness={stanceCompleteness}
-                generatedAt={stories.data?.generated_at}
+                generatedAt={storyDetail.data?.generated_at}
               />
             </div>
           </section>

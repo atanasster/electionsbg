@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import type { Story } from "../data";
+import type { RelatedStoryRow } from "../data";
 import { formatDate, media } from "../labels";
 import { useNewsLocale } from "../i18n";
 
-export const RelatedStories = ({ stories }: { stories: Story[] }) => {
+/**
+ * ⚠️ Takes the LIGHT row the build resolves, not a full `Story`. Half of
+ * relatedness — the reciprocal links pointing back at this story — is not
+ * visible from one story's record, so the client used to walk all 1,919
+ * stories (1,456 KB) to render four list items. The build holds the whole
+ * graph and resolves it once; this renders what it sends.
+ */
+export const RelatedStories = ({ stories }: { stories: RelatedStoryRow[] }) => {
   const { language, tr } = useNewsLocale();
   if (stories.length === 0) return null;
   return (
@@ -23,7 +30,7 @@ export const RelatedStories = ({ stories }: { stories: Story[] }) => {
                 tr("История без заглавие", "Untitled story")}
             </Link>
             <p className="mt-1 text-xs text-muted-foreground">
-              {media(story.aggregates.outlet_count, language)}
+              {media(story.outlet_count ?? 0, language)}
               {story.first_published
                 ? ` · ${formatDate(story.first_published, language)}`
                 : ""}

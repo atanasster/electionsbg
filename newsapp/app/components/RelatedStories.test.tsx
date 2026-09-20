@@ -1,16 +1,20 @@
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
-import type { Story } from "../data";
+import type { RelatedStoryRow } from "../data";
 import { RelatedStories } from "./RelatedStories";
 
-const story = (id: string, outlets: number, date: string | null): Story =>
-  ({
-    id,
-    title_bg: `Заглавие ${id}`,
-    first_published: date,
-    aggregates: { outlet_count: outlets },
-  }) as Story;
+const story = (
+  id: string,
+  outlets: number,
+  date: string | null,
+): RelatedStoryRow => ({
+  id,
+  title_bg: `Заглавие ${id}`,
+  title_en: null,
+  first_published: date,
+  outlet_count: outlets,
+});
 
 describe("RelatedStories", () => {
   it("renders nothing for an empty relationship set", () => {

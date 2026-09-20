@@ -816,6 +816,9 @@ def now_iso() -> str:
 # is what a list screen needs to paint; smaller pages would multiply requests
 # for no visible gain, larger ones give back the saving.
 STORY_PAGE_SIZE = 200
+# Mirrors RELATED_STORY_LIMIT in newsapp/app/screens/relatedStories.ts — the
+# sidebar renders at most this many, so the detail file carries no more.
+RELATED_STORY_LIMIT = 4
 # What a LIST or a FILTER needs, and nothing else. The heavy fields —
 # summary_bg/en, entities, entity_links, members — are 72% of stories.json
 # and are needed only when a single story is opened.
@@ -874,6 +877,50 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str) -> None:
             "stories": page,
         })
 
+    # ⚠️ RELATEDNESS IS RESOLVED HERE, because half of it is not visible
+    # from one story. `resolveRelatedStories` in the client walks the whole
+    # corpus for the RECIPROCAL half — stories pointing back at this one —
+    # which is the single reason StoryScreen needed all 1,456 KB. The build
+    # already holds the full graph, so it resolves it once and embeds the
+    # four rows the sidebar renders. Same order as the client's rule:
+    # explicit outbound links keep their editorial order, reciprocal inbound
+    # links follow, newest first.
+    related_rows = {s.get("id"): {
+        "id": s.get("id"),
+        "title_bg": s.get("title_bg"), "title_en": s.get("title_en"),
+        "first_published": s.get("first_published"),
+        "outlet_count": (s.get("aggregates") or {}).get("outlet_count"),
+    } for s in ordered if s.get("id")}
+    inbound: dict = {}
+    for story in ordered:
+        for target in story.get("related_story_ids") or []:
+            inbound.setdefault(target, []).append(story)
+
+    def resolve_related(story: dict) -> list:
+        story_id = story.get("id")
+        seen = {story_id}
+        out = []
+        for related_id in story.get("related_story_ids") or []:
+            if related_id in seen or related_id not in related_rows:
+                continue
+            seen.add(related_id)
+            out.append(related_rows[related_id])
+            if len(out) >= RELATED_STORY_LIMIT:
+                return out
+        for candidate in sorted(
+                inbound.get(story_id) or [],
+                key=lambda s: ((s.get("first_published") or ""),
+                               s.get("id") or ""),
+                reverse=True):
+            candidate_id = candidate.get("id")
+            if candidate_id in seen or candidate_id not in related_rows:
+                continue
+            seen.add(candidate_id)
+            out.append(related_rows[candidate_id])
+            if len(out) >= RELATED_STORY_LIMIT:
+                break
+        return out
+
     # ⚠️ One map, not a field on every index row: `members` is 20% of
     # stories.json, and ArticleScreen is its only consumer — it needs
     # "which story is this article in" and nothing else.
@@ -922,7 +969,8 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str) -> None:
                  or (max(seen) if seen else "")
                  or generated_at)
         write_json(story_dir / f"{story_id}.json",
-                   {"generated_at": stamp, "story": story})
+                   {"generated_at": stamp, "story": story,
+                    "related": resolve_related(story)})
 
 
 STORY_ID_SAFE = re.compile(r"^[A-Za-z0-9_-]{1,120}$")
