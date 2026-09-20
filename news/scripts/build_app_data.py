@@ -812,6 +812,37 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def bundle_generated_at(records, fallback: str) -> str:
+    """A per-bundle stamp derived from its CONTENT, not from the run.
+
+    The newest `updated`/`published` across the bundle's own records, so a
+    bundle nothing touched keeps the same stamp and the file stays
+    byte-identical between releases. See the call site for why that matters
+    (37.2 MB republished per hour to convey 584 KB).
+
+    ⚠️ It is a WEAKER claim than "when this bundle last changed", and
+    deliberately so: an article edited in place without bumping `updated`
+    leaves the stamp still. That direction is safe — the file's bytes differ
+    anyway, so nothing is falsely reported as unchanged. The reverse (a
+    stamp that moves when the content did not) is the defect being removed.
+
+    Falls back to the run stamp only for a bundle with no usable timestamp
+    at all, which is an empty bundle in practice.
+    """
+    newest = ""
+    for record in records or []:
+        if not isinstance(record, dict):
+            continue
+        for key in ("updated", "published"):
+            value = record.get(key)
+            # ISO-8601 in a fixed timezone sorts lexically, which is what
+            # every one of these stamps is; a non-string is ignored rather
+            # than compared, since `max` across mixed types raises.
+            if isinstance(value, str) and value > newest:
+                newest = value
+    return newest or fallback
+
+
 def write_json(path: Path, payload) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as fh:
@@ -2060,13 +2091,28 @@ def main() -> int:
             + ", ".join(sorted(missing_story_files)))
 
     # ---- per-domain bundles --------------------------------------------------------
+    # ⚠️ `generated_at` HERE IS DERIVED FROM THE CONTENT, NOT FROM THE RUN,
+    # and that is what makes this file byte-stable between releases. Measured
+    # 2026-09-20 (`news/evals/publish-baseline-2026-09-20.md`): 0 of 65
+    # published files were byte-identical between consecutive hourly
+    # releases, while only 105 of 9,104 article records had changed. Every
+    # file differed solely because it carried the RUN's timestamp —
+    # `taxonomy.json` differed by three bytes — which republished 37.2 MB an
+    # hour to convey 584 KB and made content addressing (§7.6 F2)
+    # impossible by construction.
+    #
+    # It stays a field, and stays an ISO string, because a live client
+    # validates exactly that (`newsapp/app/data.ts`, OutletArticlesBundle).
+    # What changes is its meaning: "when this bundle last changed" rather
+    # than "when the pipeline last ran" — which is the more useful of the
+    # two and the only one a reader can act on.
     for domain, records in articles_by_domain.items():
         write_json(
             out_dir / "articles" / f"{domain}.json",
             {
                 "domain": domain,
                 "outlet": (outlets_csv.get(domain) or {}).get("outlet") or domain,
-                "generated_at": generated_at,
+                "generated_at": bundle_generated_at(records, generated_at),
                 "articles": records,
             },
         )

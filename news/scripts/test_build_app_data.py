@@ -33,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from news.eval_contract.canonical import (  # noqa: E402
     analysis_sha256, canonical_sha256, content_sha256)
+import build_app_data  # noqa: E402
 from build_app_data import (  # noqa: E402
     AXIS_POSITIONS, HOME_GZIP_BUDGET_BYTES, HOME_ITEM_LIMIT,
     HOME_STORY_FIELDS, HOME_STORY_LIMIT, TOPIC_MIN_POSITIONED, axis_spread,
@@ -2903,6 +2904,62 @@ class EffectiveStoryReconciliation(unittest.TestCase):
         }
         with self.assertRaisesRegex(ValueError, "aggregate reconciliation"):
             reconcile_effective_story(story, recomputed, {url: analysis})
+
+class BundleStampIsContentDerived(unittest.TestCase):
+    """A per-domain bundle must be byte-stable when its records have not moved.
+
+    ⚠️ Measured 2026-09-20 (`news/evals/publish-baseline-2026-09-20.md`):
+    0 of 65 published files were byte-identical between consecutive hourly
+    releases, while only 105 of 9,104 article records had changed. Every one
+    differed solely because it carried the RUN's timestamp — `taxonomy.json`
+    by three bytes — which republished 37.2 MB an hour to convey 584 KB, and
+    made content addressing (§7.6 F2) impossible by construction.
+    """
+
+    def test_the_same_records_yield_the_same_stamp_across_runs(self):
+        records = [{"published": "2026-09-20T07:00:00+00:00"},
+                   {"published": "2026-09-20T09:00:00+00:00"}]
+        first = build_app_data.bundle_generated_at(records, "RUN-1")
+        second = build_app_data.bundle_generated_at(records, "RUN-2")
+        self.assertEqual(first, second)
+        self.assertNotIn("RUN", first, "the run stamp must not leak in")
+
+    def test_it_takes_the_newest_of_updated_and_published(self):
+        self.assertEqual(
+            build_app_data.bundle_generated_at(
+                [{"published": "2026-09-20T07:00:00+00:00",
+                  "updated": "2026-09-20T11:00:00+00:00"}], "RUN"),
+            "2026-09-20T11:00:00+00:00")
+
+    def test_a_new_article_moves_the_stamp(self):
+        old = [{"published": "2026-09-20T07:00:00+00:00"}]
+        new = old + [{"published": "2026-09-20T10:00:00+00:00"}]
+        self.assertNotEqual(build_app_data.bundle_generated_at(old, "RUN"),
+                            build_app_data.bundle_generated_at(new, "RUN"))
+
+    def test_a_non_string_timestamp_is_ignored_rather_than_compared(self):
+        # `max` across mixed types raises; a malformed record must not take
+        # the whole build down.
+        self.assertEqual(
+            build_app_data.bundle_generated_at(
+                [{"published": None}, {"published": 17},
+                 {"published": "2026-09-20T07:00:00+00:00"}], "RUN"),
+            "2026-09-20T07:00:00+00:00")
+
+    def test_it_falls_back_only_when_there_is_no_timestamp_at_all(self):
+        for records in ([], None, [{"title": "x"}], ["not a dict"]):
+            self.assertEqual(
+                build_app_data.bundle_generated_at(records, "RUN"), "RUN",
+                records)
+
+    def test_the_bundle_writer_uses_it(self):
+        # The helper is only worth having if the call site reads it: the
+        # whole defect was the run stamp being written here.
+        source = Path(build_app_data.__file__).read_text(encoding="utf-8")
+        flat = " ".join(source.split())
+        self.assertIn('"generated_at": bundle_generated_at(records, '
+                      'generated_at),', flat)
+
 
 if __name__ == "__main__":
     unittest.main()
