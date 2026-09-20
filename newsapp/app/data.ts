@@ -4,7 +4,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
-import { STORY_ID_SAFE } from "./overlayMerge";
+import {
+  applyOverlayToPath,
+  parseOverlay,
+  STORY_ID_SAFE,
+  type NewsOverlay,
+  type NewsOverlayPointer,
+} from "./overlayMerge";
 
 export type Leaning =
   | "strong_progressive"
@@ -671,6 +677,22 @@ export const PUBLICATION_POLL_MS = 60 * 1_000;
 const MANIFEST_REFRESH_MS = PUBLICATION_POLL_MS;
 const FAILED_MANIFEST_RETRY_MS = 15 * 1_000;
 const PUBLICATION_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
+/**
+ * A published path inside a version tree: relative, no traversal, `.json`.
+ *
+ * ⚠️ BACKSLASHES ARE EXCLUDED, and that is not tidiness. The WHATWG URL
+ * parser treats `\` as a path separator, so `..\..\secret.json` passes a
+ * rule that only guards `/`-separated `..` segments — and `fetch` then
+ * resolves it OUTSIDE the pinned `versions/<run_id>/` directory, which is
+ * the one confinement this rule exists to provide. Same origin, so not a
+ * cross-site hole, but it defeats the version pinning that makes a release
+ * immutable.
+ *
+ * One definition, used by the bundle inventory and by the overlay pointer
+ * — the second was a copy of the first, which is how a hole in one becomes
+ * a hole in both.
+ */
+const PUBLISHED_PATH = /^(?!\/)(?!.*(?:^|[/\\])\.\.(?:[/\\]|$))[^\\]+\.json$/;
 const ISO_INSTANT =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 
@@ -689,6 +711,19 @@ export interface NewsPublicationManifest {
     bytes: number;
     inventory: Array<{ path: string; bytes: number; sha256: string }>;
   };
+  /**
+   * A fast ("hot") release: the same immutable tree, plus one small object
+   * carrying what changed since it (§6.5). Absent on an hourly release.
+   *
+   * ⚠️ THE `run_id` DOES NOT MOVE WHEN THIS DOES, and that is the whole
+   * design. `dataCache.clear()` fires only on a `run_id` change, so a hot
+   * release leaves every base payload the reader already holds in place
+   * and costs one fetch instead of ~2,100. It also means a client that
+   * does not understand the field keeps serving the hourly base rather
+   * than breaking — which is why this could ship with no manifest version
+   * bump and no coordinated deploy.
+   */
+  overlay?: NewsOverlayPointer;
 }
 
 const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
@@ -708,7 +743,7 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
       const file = item as Record<string, unknown>;
       return (
         typeof file.path === "string" &&
-        /^(?!\/)(?!.*(?:^|\/)\.\.(?:\/|$)).+\.json$/.test(file.path) &&
+        PUBLISHED_PATH.test(file.path) &&
         Number.isInteger(file.bytes) &&
         (file.bytes as number) >= 0 &&
         typeof file.sha256 === "string" &&
@@ -730,6 +765,37 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
     row.version === 3
       ? validHash(row.accepted_feedback_records_sha256)
       : row.accepted_feedback_records_sha256 === undefined;
+  // ⚠️ A BAD OVERLAY POINTER DROPS THE OVERLAY, NEVER THE MANIFEST. The
+  // base it names is a complete, immutable, already-gated release — so
+  // refusing the whole pointer would take a reader from "one release
+  // behind" to "no data at all", which is strictly worse for a field that
+  // is optional by construction. Anything that reaches the overlay itself
+  // is still fail-closed (`parseOverlay`); this is only about whether we
+  // are willing to go and fetch it.
+  const overlay = row.overlay;
+  const validOverlay =
+    overlay === undefined ||
+    (Boolean(overlay) &&
+      typeof overlay === "object" &&
+      !Array.isArray(overlay) &&
+      Number.isInteger((overlay as Record<string, unknown>).seq) &&
+      ((overlay as Record<string, unknown>).seq as number) >= 1 &&
+      typeof (overlay as Record<string, unknown>).path === "string" &&
+      // The same rule the inventory uses — the path is concatenated onto
+      // the data base to build a request, so it is not somewhere to be
+      // relaxed, and not somewhere to keep a second copy either.
+      PUBLISHED_PATH.test(
+        (overlay as Record<string, unknown>).path as string,
+      ) &&
+      Number.isInteger((overlay as Record<string, unknown>).bytes) &&
+      ((overlay as Record<string, unknown>).bytes as number) >= 0 &&
+      typeof (overlay as Record<string, unknown>).sha256 === "string" &&
+      /^[a-f0-9]{64}$/.test(
+        (overlay as Record<string, unknown>).sha256 as string,
+      ));
+  // ⚠️ Not `delete row.overlay` — the returned object is the caller's own
+  // parsed JSON, and quietly editing it makes a validator into a mutator.
+  const cleaned = validOverlay ? row : { ...row, overlay: undefined };
   if (
     (row.version !== 1 && row.version !== 2 && row.version !== 3) ||
     typeof runId !== "string" ||
@@ -757,10 +823,29 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
   ) {
     throw new Error("publication manifest: invalid or unsafe release pointer");
   }
-  return row as unknown as NewsPublicationManifest;
+  return cleaned as unknown as NewsPublicationManifest;
 };
 
 type DataCacheEntry = { promise: Promise<unknown>; expiresAt: number };
+
+const NOOP = () => {};
+
+/**
+ * A failed bundle fetch, carrying the status.
+ *
+ * ⚠️ The STATUS is the point. With an overlay live, a 404 can mean "this
+ * release introduces this file and the base tree predates it", which the
+ * overlay answers — while a 5xx means we failed to ask, which it must
+ * not. Both arrive as a rejected promise and are indistinguishable once
+ * the status is thrown away in a message string.
+ */
+class HttpStatusError extends Error {
+  readonly status: number;
+  constructor(path: string, status: number) {
+    super(`${path}: HTTP ${status}`);
+    this.status = status;
+  }
+}
 
 /**
  * Version-aware JSON client used by the production app and directly by tests.
@@ -784,11 +869,65 @@ export const createDataClient = (
   let manifestExpiresAt = 0;
   let manifestPromise: Promise<NewsPublicationManifest> | null = null;
 
-  const resolveBase = async (): Promise<string> => {
-    if (!useManifest) return root;
+  // The overlay object for the CURRENT manifest, once fetched. Keyed by
+  // `${run_id}#${seq}`: an overlay URL is immutable, so a hit is a hit for
+  // ever, and the key changing is exactly what must invalidate the merged
+  // payloads below without touching the base ones.
+  let overlayKey: string | null = null;
+  let overlayPromise: Promise<NewsOverlay | null> | null = null;
+  const mergedCache = new Map<string, { key: string; value: unknown }>();
+
+  /**
+   * ⚠️ NEVER REJECTS. A release is usable without its overlay — the base
+   * is a complete immutable tree that already passed the publish gate — so
+   * a missing, unfetchable or unparseable overlay leaves the reader one
+   * release behind rather than with an error. The opposite choice would
+   * make a transient 404 on a five-minute-old object break a page that
+   * works.
+   *
+   * ⚠️ RETURNS ITS OWN KEY BESIDE ITS OWN OVERLAY, and that pairing is a
+   * correctness rule rather than convenience. The caller awaits this and
+   * then files the merged payload under a cache key; reading that key from
+   * the shared `overlayKey` AFTER the await lets a slow overlay fetch —
+   * one that outlives a 60 s manifest refresh — file a seq-N merge under
+   * seq N+1's key. Every later call then serves it, so one hot release
+   * silently does not apply, and it self-heals at seq N+2 with nothing
+   * ever going red.
+   */
+  const resolveOverlay = async (
+    manifest: NewsPublicationManifest,
+  ): Promise<{ key: string; overlay: NewsOverlay | null }> => {
+    const pointer = manifest.overlay;
+    if (!pointer) {
+      overlayKey = null;
+      overlayPromise = null;
+      return { key: "", overlay: null };
+    }
+    const key = `${manifest.run_id}#${pointer.seq}`;
+    if (key !== overlayKey) {
+      overlayKey = key;
+      overlayPromise = fetcher(
+        `${root}/${manifest.data_base}/${pointer.path}`,
+        {
+          cache: "force-cache",
+        },
+      )
+        .then(async (response) => {
+          if (!response.ok) {
+            throw new Error(`overlay: HTTP ${response.status}`);
+          }
+          return parseOverlay(await response.json());
+        })
+        .catch(() => null);
+    }
+    return { key, overlay: overlayPromise ? await overlayPromise : null };
+  };
+
+  const resolveManifest = async (): Promise<NewsPublicationManifest | null> => {
+    if (!useManifest) return null;
     const instant = now();
     if (activeManifest && instant < manifestExpiresAt) {
-      return `${root}/${activeManifest.data_base}`;
+      return activeManifest;
     }
     if (!manifestPromise) {
       manifestPromise = fetcher(`${root}/manifest.json`, {
@@ -799,7 +938,14 @@ export const createDataClient = (
             throw new Error(`manifest.json: HTTP ${response.status}`);
           }
           const next = parsePublicationManifest(await response.json());
-          if (activeManifest?.run_id !== next.run_id) dataCache.clear();
+          if (activeManifest?.run_id !== next.run_id) {
+            dataCache.clear();
+            // The merged values belong to the release that was replaced;
+            // keeping them would let a payload merged over the PREVIOUS
+            // base survive into the next one, which is the one thing a
+            // version-scoped cache exists to prevent.
+            mergedCache.clear();
+          }
           activeManifest = next;
           manifestExpiresAt = now() + MANIFEST_REFRESH_MS;
           return next;
@@ -817,32 +963,121 @@ export const createDataClient = (
           manifestPromise = null;
         });
     }
-    const manifest = await manifestPromise;
-    return `${root}/${manifest.data_base}`;
+    return manifestPromise;
   };
 
   const fetchData = async <T>(path: string): Promise<T> => {
-    const resolvedBase = await resolveBase();
+    const manifest = await resolveManifest();
+    const resolvedBase = manifest ? `${root}/${manifest.data_base}` : root;
+    // The key travels WITH the overlay it names — see `resolveOverlay`.
+    const { key: mergeKey, overlay } = manifest
+      ? await resolveOverlay(manifest)
+      : { key: "", overlay: null };
     const key = `${resolvedBase}${path}`;
     const instant = now();
+
+    // The merged value for this path under this overlay. Held separately
+    // from the base payload so that a new overlay invalidates the merge
+    // and NOT the download — which is the entire saving.
+    const merged = mergedCache.get(key);
+    if (overlay && merged && merged.key === mergeKey) {
+      return merged.value as T;
+    }
+
     let entry = dataCache.get(key);
     if (!entry || entry.expiresAt <= instant) {
       const promise = fetcher(key, { cache: "force-cache" }).then(
         (response) => {
-          if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+          if (!response.ok) {
+            throw new HttpStatusError(path, response.status);
+          }
           return response.json();
         },
       );
-      entry = { promise, expiresAt: instant + DATA_REFRESH_MS };
+      // ⚠️ A VERSIONED URL NEVER EXPIRES ONCE IT HAS ARRIVED, AND THAT IS
+      // WHAT MAKES AN OVERLAY WORTH PUBLISHING. `key` contains
+      // `versions/<run_id>`, so its content cannot change — re-fetching it
+      // can only ever return the identical file. With the old blanket
+      // 5-minute expiry a hot release at a 5-minute cadence would
+      // re-download the base anyway, on the same schedule, and the overlay
+      // would buy exactly nothing while looking like it worked.
+      //
+      // ⚠️ ON FULFILMENT, not on creation. A fetch that never settles — a
+      // hung connection, no response, no rejection — would otherwise be
+      // pinned for the life of the release and wedge that one path for
+      // every later caller, with no retry and nothing to see it by. The
+      // finite window is what lets the next call abandon it; the promise
+      // only becomes permanent once there is something permanent to hold.
+      // (A rejection needs no window: the `catch` below evicts it.)
+      const created: DataCacheEntry = {
+        promise,
+        expiresAt: instant + DATA_REFRESH_MS,
+      };
+      entry = created;
       dataCache.set(key, entry);
+      if (manifest) {
+        promise.then(() => {
+          created.expiresAt = Number.POSITIVE_INFINITY;
+        }, NOOP);
+      }
       promise.catch(() => {
         if (dataCache.get(key)?.promise === promise) dataCache.delete(key);
       });
     }
-    return entry.promise as Promise<T>;
+    if (!overlay) return entry.promise as Promise<T>;
+
+    // ⚠️ A MISSING BASE IS NOT ALWAYS AN ERROR ONCE AN OVERLAY IS LIVE.
+    // An outlet or a story appearing for the first time in this release
+    // has no file in the base tree, so its fetch 404s — and the overlay
+    // is precisely what carries it.
+    //
+    // ⚠️ 404 AND NOTHING ELSE. Treating ANY rejection as "absent" is the
+    // dangerous version: a transient 502 on an outlet that has existed for
+    // months would then render — and cache — that outlet as the handful of
+    // articles the overlay happens to carry, with no error flag, which
+    // reads to a person as "this outlet published three things this year".
+    // An absence is a fact the release states; a 502 is our failure to ask.
+    const base = await (entry.promise as Promise<unknown>).catch(
+      (error: unknown) => {
+        if (
+          error instanceof HttpStatusError &&
+          error.status === 404 &&
+          overlayCanSupply(path, overlay)
+        ) {
+          return null;
+        }
+        throw error;
+      },
+    );
+    const value = applyOverlayToPath(path, base, overlay);
+    mergedCache.set(key, { key: mergeKey, value });
+    return value as T;
   };
 
   return { fetchData };
+};
+
+/**
+ * Can the overlay answer this path on its own, with no base file?
+ *
+ * Only two families can: a per-domain bundle for an outlet this release
+ * introduces, and a story detail for a story it introduces. Everything
+ * else is a merge INTO something, so an absent base there is a genuine
+ * failure and must keep surfacing as one.
+ */
+const overlayCanSupply = (path: string, overlay: NewsOverlay): boolean => {
+  // ⚠️ OWN properties, never `in`. These maps come from parsed JSON, so
+  // they carry `Object.prototype` — and `"constructor" in overlay.articles`
+  // is true for every overlay ever published. A request for
+  // `/articles/constructor.json` would then be answered from the overlay
+  // instead of surfacing its 404.
+  const has = (map: object, name: string) =>
+    Object.prototype.hasOwnProperty.call(map, name);
+  const key = path.replace(/^\//, "");
+  const domain = /^articles\/(.+)\.json$/.exec(key);
+  if (domain) return has(overlay.articles, domain[1]);
+  const story = /^stories\/(.+)\.json$/.exec(key);
+  return Boolean(story && has(overlay.story_details, story[1]));
 };
 
 const defaultDataClient = createDataClient(CONFIGURED_BASE, {

@@ -168,9 +168,21 @@ describe("versioned news data client", () => {
     await expect(client.fetchData("/home.json")).resolves.toEqual({
       stable: true,
     });
-    expect(fetcher.mock.calls.at(-1)?.[0]).toBe(
-      "https://data.example/news/versions/stable/home.json",
-    );
+    // ⚠️ ONCE, not twice — and this assertion used to say the opposite.
+    // It required the base to be re-fetched after 301 s, which was true
+    // only because of a blanket 5-minute cache expiry that has since been
+    // removed: the key contains `versions/<run_id>`, so the URL is
+    // immutable and a second download returns the identical bytes. Under
+    // a 5-minute hot cadence that expiry re-downloaded the whole base on
+    // the same schedule as the overlay, which would have made the overlay
+    // buy nothing while every test still passed. What this test is about
+    // — a warm reader keeps serving the last complete version when the
+    // pointer cannot be refreshed — is the `resolves` above.
+    expect(
+      fetcher.mock.calls.filter(([url]) =>
+        String(url).endsWith("/versions/stable/home.json"),
+      ),
+    ).toHaveLength(1);
   });
 
   it("can bypass manifests for the bundled local development data", async () => {
@@ -422,5 +434,234 @@ describe("article provenance parsing", () => {
       value.articles[0].editorial_feedback as Record<string, unknown>
     ).source_submission_ids = ["private"];
     expect(() => parseOutletArticlesBundle(value)).toThrow(/обратна връзка/);
+  });
+});
+
+/**
+ * Plan §4.6(b) — the hot ("overlay") release.
+ *
+ * ⚠️ THE PROPERTY UNDER TEST IS NOT "THE MERGE IS RIGHT" — that is pinned
+ * by `overlayMerge.test.ts` against vectors the Python publisher
+ * generates. What is tested here is the WIRING, and specifically the one
+ * thing that makes an overlay worth having: a hot release must fetch the
+ * overlay and NOT re-fetch the base. A client that quietly re-downloaded
+ * the tree would still serve correct data, pass every other test, and buy
+ * nothing at all — the failure is invisible except in the request log.
+ */
+describe("hot releases", () => {
+  const overlayObject = (patch: Record<string, unknown> = {}) => ({
+    schema_version: 1,
+    seq: 1,
+    base_run_id: "run-1",
+    generated_at: "2026-08-31T07:05:00Z",
+    release_generated_at: "2026-08-31T07:05:00Z",
+    latest_limit: 150,
+    articles: {},
+    removed_article_urls: {},
+    removed_domains: [],
+    bundle_envelopes: {},
+    story_details: {},
+    removed_story_ids: [],
+    home: null,
+    replaced_paths: {},
+    removed_paths: [],
+    ...patch,
+  });
+
+  const hot = (runId: string, patch: Record<string, unknown> = {}) => ({
+    ...manifest(runId),
+    overlay: {
+      seq: 1,
+      path: "overlays/1.json",
+      bytes: 10,
+      sha256: "c".repeat(64),
+      base_generated_at: "2026-08-31T07:00:00Z",
+      ...patch,
+    },
+  });
+
+  const clientFor = (
+    manifestBody: () => unknown,
+    bodies: Record<string, unknown>,
+  ) => {
+    let clock = 0;
+    const fetcher = vi.fn((input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/manifest.json")) return response(manifestBody());
+      for (const [suffix, body] of Object.entries(bodies)) {
+        if (url.endsWith(suffix)) {
+          return body === undefined ? response({}, 404) : response(body);
+        }
+      }
+      return response({}, 404);
+    });
+    return {
+      fetcher,
+      client: createDataClient("https://data.example/news", {
+        now: () => clock,
+        fetcher: fetcher as unknown as typeof fetch,
+        // The manifest is re-read on every call, which is what lets a
+        // test move from a cold release to a hot one.
+      }),
+      advance: (ms: number) => {
+        clock += ms;
+      },
+    };
+  };
+
+  it("does not re-fetch the base when only the overlay moves", async () => {
+    let body: unknown = manifest("run-1");
+    const { fetcher, client, advance } = clientFor(() => body, {
+      "/home.json": { source: "base" },
+      "/overlays/1.json": overlayObject({ home: { source: "overlay" } }),
+    });
+
+    await expect(client.fetchData("/home.json")).resolves.toEqual({
+      source: "base",
+    });
+    body = hot("run-1");
+    // ⚠️ PAST `DATA_REFRESH_MS`, not merely past the manifest poll. At
+    // 60 001 ms this test passed byte-identically against the old blanket
+    // 5-minute base expiry — it could not fail if the change it exists to
+    // pin were reverted, which is the definition of proving nothing. The
+    // hot cadence this enables is five minutes, so this is also the real
+    // interval.
+    advance(DATA_REFRESH_MS + 1);
+    await expect(client.fetchData("/home.json")).resolves.toEqual({
+      source: "overlay",
+    });
+
+    // One base download, one overlay download. The `run_id` did not move,
+    // so nothing cleared and nothing was re-fetched.
+    const downloads = fetcher.mock.calls
+      .map(([url]) => String(url))
+      .filter((url) => !url.endsWith("/manifest.json"));
+    expect(downloads).toEqual([
+      "https://data.example/news/versions/run-1/home.json",
+      "https://data.example/news/versions/run-1/overlays/1.json",
+    ]);
+  });
+
+  it("serves the base when the overlay cannot be fetched or parsed", async () => {
+    // The base is a complete, gated, immutable release — one release
+    // behind beats an error page.
+    for (const overlayBody of [undefined, { schema_version: 99 }]) {
+      const { client } = clientFor(() => hot("run-1"), {
+        "/home.json": { source: "base" },
+        "/overlays/1.json": overlayBody,
+      });
+      await expect(client.fetchData("/home.json")).resolves.toEqual({
+        source: "base",
+      });
+    }
+  });
+
+  it("drops a malformed overlay pointer without dropping the manifest", async () => {
+    // ⚠️ The opposite choice takes a reader from "one release behind" to
+    // "no data at all", on a field that is optional by construction.
+    const { fetcher, client } = clientFor(
+      () => hot("run-1", { path: "../escape.json" }),
+      { "/home.json": { source: "base" } },
+    );
+    await expect(client.fetchData("/home.json")).resolves.toEqual({
+      source: "base",
+    });
+    expect(
+      fetcher.mock.calls.some(([url]) => String(url).includes("escape")),
+    ).toBe(false);
+  });
+
+  it("supplies a file the base tree does not have", async () => {
+    // A new outlet's bundle 404s in the base by construction — the
+    // release that introduces it is the overlay.
+    const { client } = clientFor(() => hot("run-1"), {
+      "/overlays/1.json": overlayObject({
+        articles: {
+          "new.bg": [
+            { url: "https://new.bg/1", published: "2026-08-31T07:04:00Z" },
+          ],
+        },
+        bundle_envelopes: {
+          "new.bg": {
+            domain: "new.bg",
+            outlet: "New",
+            generated_at: "2026-08-31T07:04:00Z",
+          },
+        },
+      }),
+    });
+    await expect(client.fetchData("/articles/new.bg.json")).resolves.toEqual({
+      domain: "new.bg",
+      outlet: "New",
+      generated_at: "2026-08-31T07:04:00Z",
+      articles: [
+        { url: "https://new.bg/1", published: "2026-08-31T07:04:00Z" },
+      ],
+    });
+  });
+
+  it("does not answer a server error from the overlay", async () => {
+    // ⚠️ An absence is a fact the release states; a 502 is our failure to
+    // ask. Answering the second from the overlay renders — and caches —
+    // an established outlet as the handful of articles the overlay
+    // happens to carry, with no error flag: to a reader, "this outlet
+    // published three things this year".
+    const clock = 0;
+    const fetcher = vi.fn((input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/manifest.json")) return response(hot("run-1"));
+      if (url.endsWith("/overlays/1.json")) {
+        return response(
+          overlayObject({
+            articles: {
+              "old.bg": [
+                { url: "https://old.bg/9", published: "2026-08-31T07:04:00Z" },
+              ],
+            },
+            bundle_envelopes: { "old.bg": { domain: "old.bg" } },
+          }),
+        );
+      }
+      return response({}, 502);
+    });
+    const client = createDataClient("https://data.example/news", {
+      now: () => clock,
+      fetcher: fetcher as unknown as typeof fetch,
+    });
+    await expect(client.fetchData("/articles/old.bg.json")).rejects.toThrow(
+      /502/,
+    );
+  });
+
+  it("refuses an overlay pointer that escapes the version directory", async () => {
+    // ⚠️ `\` is a path separator to the URL parser, so a rule guarding
+    // only `/`-separated `..` lets this out of `versions/<run_id>/`.
+    const { fetcher, client } = clientFor(
+      () => hot("run-1", { path: "..\\..\\secret.json" }),
+      { "/home.json": { source: "base" } },
+    );
+    await expect(client.fetchData("/home.json")).resolves.toEqual({
+      source: "base",
+    });
+    expect(
+      fetcher.mock.calls.some(([url]) => String(url).includes("secret")),
+    ).toBe(false);
+  });
+
+  it("still fails for a path neither the base nor the overlay has", async () => {
+    const { client } = clientFor(() => hot("run-1"), {
+      "/overlays/1.json": overlayObject(),
+    });
+    await expect(client.fetchData("/articles/absent.bg.json")).rejects.toThrow(
+      /404/,
+    );
+  });
+
+  it("refuses a path the release retired", async () => {
+    const { client } = clientFor(() => hot("run-1"), {
+      "/stories/gone.json": { story: { id: "gone" } },
+      "/overlays/1.json": overlayObject({ removed_story_ids: ["gone"] }),
+    });
+    await expect(client.fetchData("/stories/gone.json")).rejects.toThrow();
   });
 });
