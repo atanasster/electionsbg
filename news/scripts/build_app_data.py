@@ -1858,6 +1858,11 @@ def main() -> int:
     # themselves and therefore prove nothing about what the builder writes.
     # Not a production knob: the published value is `STORY_PAGE_SIZE`.
     ap.add_argument("--story-page-size", type=int, default=STORY_PAGE_SIZE)
+    # …and it reaches the published `page_size` field, which the client
+    # reads back when it re-paginates a merged index — so a nonsense value
+    # is not a local oddity, it is a released one. 0 or a negative makes
+    # `range(0, n, page_size)` raise, which at least fails loudly; a
+    # non-integer would slice silently.
     ap.add_argument(
         "--accepted-snapshot", type=Path,
         help="private accepted-adjudication snapshot (defaults to "
@@ -1882,6 +1887,8 @@ def main() -> int:
         "shared with fetch_latest_articles.py / save_articles.py / analyze_articles.py)",
     )
     args = ap.parse_args()
+    if args.story_page_size < 1:
+        ap.error("--story-page-size must be at least 1")
     if args.latest < 1:
         ap.error("--latest must be positive")
 

@@ -156,11 +156,49 @@ class EqualsFullRebuild(BuildAppDataFixture):
         self.run_build("--latest", str(latest_limit), *extra)
         return read_release(out)
 
+    def remove(self, domain, slug, *, drop_outlet=False):
+        """Retire an article the way the corpus actually retires one.
+
+        ⚠️ DELETING THE TWO OBVIOUS FILES IS NOT A REMOVAL, and the first
+        cut of these tests did exactly that and asserted nothing. The
+        article and its analysis went; `analysis/index.json` and
+        `analysis/stories/<id>.json` stayed, so the story was still built —
+        `removed_story_ids` came back empty and the test passed while
+        exercising none of the arm it names. The empty domain DIRECTORY
+        survives too, and the builder writes an empty bundle for it, so the
+        outlet never looks gone either.
+        """
+        analysis_root = Path(self.data_dir) / "analysis"
+        analysis_path = analysis_root / "articles" / domain / f"{slug}.json"
+        url = json.loads(analysis_path.read_text(encoding="utf-8"))["url"]
+        analysis_path.unlink()
+        (Path(self.data_dir) / domain / f"{slug}.json").unlink()
+        if drop_outlet:
+            shutil.rmtree(Path(self.data_dir) / domain, ignore_errors=True)
+            shutil.rmtree(analysis_root / "articles" / domain, ignore_errors=True)
+
+        index_path = analysis_root / "index.json"
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        story_id = (index.get("articles") or {}).pop(url, {}).get("story_id")
+        if story_id and not any(row.get("story_id") == story_id
+                                for row in (index.get("articles") or {}).values()):
+            # The last member went, so the story goes with it — which is
+            # what makes this a STORY removal rather than a member change.
+            (index.get("stories") or {}).pop(story_id, None)
+            (analysis_root / "stories" / f"{story_id}.json").unlink(missing_ok=True)
+        index_path.write_text(json.dumps(index, ensure_ascii=False),
+                              encoding="utf-8")
+        return url
+
     def article(self, domain, slug, *, published, title):
         return {"url": f"https://{domain}/{slug}", "domain": domain,
                 "title": title, "published": published,
                 "first_seen": published,
-                "content": f"Съдържание на {slug}. " * 40}
+                # ⚠️ Long enough that `excerpt_of` actually TRUNCATES (its
+                # limit is 480 characters). Shrinking this to trim the
+                # committed vectors took every fixture article below that
+                # and quietly stopped exercising the excerpt at all.
+                "content": f"Съдържание на {slug}. " * 30}
 
     def seed_base(self):
         """Two outlets, two stories — one of which the overlay will touch."""
@@ -279,40 +317,6 @@ class Removals(EqualsFullRebuild):
     three-article corpus, and it means a change to `build_into` cannot
     leave one class green and the other broken.
     """
-
-    def remove(self, domain, slug, *, drop_outlet=False):
-        """Retire an article the way the corpus actually retires one.
-
-        ⚠️ DELETING THE TWO OBVIOUS FILES IS NOT A REMOVAL, and the first
-        cut of these tests did exactly that and asserted nothing. The
-        article and its analysis went; `analysis/index.json` and
-        `analysis/stories/<id>.json` stayed, so the story was still built —
-        `removed_story_ids` came back empty and the test passed while
-        exercising none of the arm it names. The empty domain DIRECTORY
-        survives too, and the builder writes an empty bundle for it, so the
-        outlet never looks gone either.
-        """
-        analysis_root = Path(self.data_dir) / "analysis"
-        analysis_path = analysis_root / "articles" / domain / f"{slug}.json"
-        url = json.loads(analysis_path.read_text(encoding="utf-8"))["url"]
-        analysis_path.unlink()
-        (Path(self.data_dir) / domain / f"{slug}.json").unlink()
-        if drop_outlet:
-            shutil.rmtree(Path(self.data_dir) / domain, ignore_errors=True)
-            shutil.rmtree(analysis_root / "articles" / domain, ignore_errors=True)
-
-        index_path = analysis_root / "index.json"
-        index = json.loads(index_path.read_text(encoding="utf-8"))
-        story_id = (index.get("articles") or {}).pop(url, {}).get("story_id")
-        if story_id and not any(row.get("story_id") == story_id
-                                for row in (index.get("articles") or {}).values()):
-            # The last member went, so the story goes with it — which is
-            # what makes this a STORY removal rather than a member change.
-            (index.get("stories") or {}).pop(story_id, None)
-            (analysis_root / "stories" / f"{story_id}.json").unlink(missing_ok=True)
-        index_path.write_text(json.dumps(index, ensure_ascii=False),
-                              encoding="utf-8")
-        return url
 
     def test_a_removed_outlet_leaves_the_feed_as_well_as_the_bundle(self):
         # ⚠️ THE DEFECT THIS WAS WRITTEN FOR: the differ walked only the
@@ -469,6 +473,202 @@ class Removals(EqualsFullRebuild):
         self.assertEqual(sorted(merged), sorted(full))
         for path in sorted(full):
             self.assertEqual(merged[path], full[path], path)
+
+
+VECTORS = (Path(__file__).resolve().parents[1]
+           / "eval_contract" / "overlay_vectors.json")
+
+# The paths the CLIENT merges. The publisher merges more (the paginated
+# index), but a browser holds a prefix rather than a release, so those are
+# merged at the hook level and cannot be expressed as a per-path vector.
+VECTOR_PATHS = ("latest.json", "stories.json", "stories/by-url.json",
+                "home.json")
+
+
+class SharedVectors(EqualsFullRebuild):
+    """The cross-language pin between this merge and the TypeScript one.
+
+    ⚠️ Inherits the harness AND its tests, the same deliberate exception
+    `Removals` makes: re-running the additive equality cases costs a few
+    subprocess builds on a three-article corpus, and it means a change to
+    `build_into` or `scenario` cannot leave one class green and another
+    silently broken.
+
+    ⚠️ THE TWO IMPLEMENTATIONS CANNOT SHARE CODE — a browser cannot import
+    Python — so they are kept in step the way `canonical.py`/`canonical.ts`
+    are: by a committed vectors file that one side GENERATES and the other
+    REPLAYS. This test regenerates it from real builds and fails when the
+    committed copy is stale; `newsapp/app/overlayMerge.test.ts` fails when
+    its merge does not reproduce every case.
+
+    Neither half is optional. Without the generator the file rots into a
+    fixture of whatever the TS merge already does, which is the shape that
+    makes a twin agree with itself and with nothing else.
+    """
+
+    @staticmethod
+    def normalise(value, stamps: dict):
+        """Replace the two RUN stamps with fixed tokens, recursively.
+
+        ⚠️ WITHOUT THIS THE FILE IS NOT REPRODUCIBLE AND THE PIN IS DEAD.
+        `latest.json`, `stories.json` and the story index carry the wall
+        clock of the run that wrote them, so two builds of identical
+        content differ — the generator would rewrite the vectors on every
+        invocation and the "committed copy is stale" failure would fire
+        for ever, which trains everyone to ignore it. The content-derived
+        stamps (per-domain bundles, story details) are NOT touched: those
+        are real facts about the data and a merge that got one wrong must
+        still fail here.
+        """
+        if isinstance(value, dict):
+            return {k: SharedVectors.normalise(v, stamps)
+                    for k, v in value.items()}
+        if isinstance(value, list):
+            return [SharedVectors.normalise(v, stamps) for v in value]
+        return stamps.get(value, value) if isinstance(value, str) else value
+
+    def scenario(self, name, mutate) -> dict:
+        self.seed_base()
+        base = self.build_into()
+        mutate()
+        full = self.build_into()
+        overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
+                                  generated_at="2026-09-19T12:00:00Z",
+                                  latest_limit=LATEST_LIMIT)
+        merged = om.apply_overlay(base, overlay)
+        paths = [p for p in VECTOR_PATHS if p in base]
+        # A story the scenario touched, so the detail arm is covered too.
+        touched = sorted(overlay["story_details"])[:1]
+        paths += [f"stories/{sid}.json" for sid in touched]
+        paths += sorted(f"articles/{d}.json" for d in overlay["articles"])
+        # ⚠️ AND THE ARM THAT MUST WIN OVER ALL OF THEM. `replaced_paths`
+        # carries a whole file when no delta can express it — including
+        # `latest.json` when a record leaves the feed's truncation
+        # boundary. A twin that consulted it AFTER its merge arms would
+        # pass every other vector here and still serve a short feed, so the
+        # rows that pin the PRECEDENCE are the ones worth having.
+        paths += sorted(overlay["replaced_paths"])[:2]
+        stamps = {
+            base["latest.json"]["generated_at"]: "BASE-RUN-STAMP",
+            full["latest.json"]["generated_at"]: "RELEASE-RUN-STAMP",
+        }
+        return self.normalise({
+            "name": name,
+            "overlay": overlay,
+            "paths": [{"path": f"/{p}",
+                       "base": base.get(p),
+                       "expected": merged[p]}
+                      for p in dict.fromkeys(paths) if p in merged],
+            # A throw cannot be an expected PAYLOAD, so the paths this
+            # release retires are listed separately and the TypeScript side
+            # asserts each one is refused rather than served stale.
+            "removed": sorted(
+                [f"/{p}" for p in overlay["removed_paths"]]
+                + [f"/stories/{sid}.json"
+                   for sid in overlay["removed_story_ids"]]
+                + [f"/articles/{d}.json" for d in overlay["removed_domains"]]),
+            # The index ROW projection — `story_index_row` decides which
+            # fields a list screen gets, and the client has to reproduce it
+            # to merge its accumulated prefix. Unpinned it is a callback
+            # the caller can get wrong in a way nothing here would see.
+            "index_rows": {
+                sid: om.story_index_row(payload["story"])
+                for sid, payload in sorted(overlay["story_details"].items())
+            },
+        }, stamps)
+
+    def add(self, domain, slug, *, action="new_story", story_id=None,
+            published="2026-09-19T09:00:00+00:00"):
+        article = self.article(domain, slug, published=published,
+                               title=f"Заглавие {slug}")
+        self.write_corpus(domain, f"{slug}.json", article)
+        self.write_analysis(domain, f"{slug}.json", self.analysis_record(
+            article["url"], domain, f"news/data/{domain}/{slug}.json",
+            action=action, story_id=story_id))
+
+    def test_the_committed_vectors_match_what_this_merge_produces(self):
+        cases = [
+            self.scenario("new story in a new outlet",
+                          lambda: self.add("c.bg", "fresh")),
+        ]
+        self.setUp()
+        cases.append(self.scenario(
+            # ⚠️ An EXISTING outlet, so the bundle's base is a real file
+            # rather than null. Every other case adds a new outlet, and a
+            # bundle whose base is absent exercises the "start from empty"
+            # arm and none of the upsert — which is where the ordering,
+            # the tiebreak and the envelope overwrite actually live.
+            "a member joins an existing story in an existing outlet",
+            lambda: self.add("a.bg", "joins", action="add_to_story",
+                             story_id="story-0")))
+        self.setUp()
+        cases.append(self.scenario(
+            "an outlet is retired",
+            lambda: self.remove("b.bg", "three", drop_outlet=True)))
+
+        built = {"schema_version": om.OVERLAY_SCHEMA_VERSION, "cases": cases}
+        committed = (json.loads(VECTORS.read_text(encoding="utf-8"))
+                     if VECTORS.exists() else None)
+        if committed == built:
+            return
+        # ⚠️ THE FAILURE IS STICKY: by default this does NOT rewrite the
+        # committed file. Regenerating on the spot makes the second run
+        # pass, which is the worst of both — the tree silently changes
+        # under a tracked file, CI goes green on a rerun, and nobody reads
+        # the vectors that just moved. Regeneration is an explicit act.
+        if not os.environ.get("OVERLAY_VECTORS_REGENERATE"):
+            self.fail(
+                f"{VECTORS} does not match this merge"
+                f"{' (the file is missing)' if committed is None else ''}. "
+                f"Re-run with OVERLAY_VECTORS_REGENERATE=1 to rewrite it, "
+                f"then commit it AND re-run newsapp/app/overlayMerge.test.ts, "
+                f"which replays it — a vectors change is a change to both "
+                f"implementations of the merge.")
+        VECTORS.parent.mkdir(parents=True, exist_ok=True)
+        # ⚠️ Compact and generated, not hand-edited. These are whole
+        # published payloads either side of a real merge — the point is
+        # that they are the SHAPE the builder writes, not a reduction of
+        # it, since the reductions are exactly where a twin stops catching
+        # things (`FEED_OMIT`, the sort tiebreak, the feed's truncation).
+        # Pretty-printing them adds ~60 KB of whitespace to a file nobody
+        # reads by hand.
+        VECTORS.write_text(
+            json.dumps(built, ensure_ascii=False, sort_keys=True,
+                       separators=(",", ":")) + "\n",
+            encoding="utf-8")
+        self.fail(f"{VECTORS} regenerated — commit it, and re-run the "
+                  f"TypeScript overlay tests, which replay it")
+
+    def test_the_vectors_exercise_the_arms_they_claim_to(self):
+        # ⚠️ A vectors file that happens to contain only no-ops passes on
+        # both sides for ever. Each case must actually change something.
+        self.assertTrue(VECTORS.is_file(),
+                        f"{VECTORS} is missing — run the generator above")
+        committed = json.loads(VECTORS.read_text(encoding="utf-8"))
+        self.assertEqual(committed["schema_version"], om.OVERLAY_SCHEMA_VERSION)
+        for case in committed["cases"]:
+            with self.subTest(case=case["name"]):
+                self.assertTrue(case["paths"], "a case with no paths")
+                self.assertTrue(
+                    any(row["base"] != row["expected"] for row in case["paths"]),
+                    "every path in this case merges to its own base — the "
+                    "case proves nothing about the merge")
+        # ⚠️ Across the SET, not per case: each of these arms is optional in
+        # any one scenario and mandatory somewhere, and an arm no case
+        # reaches is an arm the TypeScript twin is free to get wrong.
+        for arm in ("removed", "index_rows"):
+            self.assertTrue(any(case[arm] for case in committed["cases"]),
+                            f"no case exercises `{arm}`")
+        self.assertTrue(
+            any(row["path"].lstrip("/") in case["overlay"]["replaced_paths"]
+                for case in committed["cases"] for row in case["paths"]),
+            "no vector pins a `replaced_paths` path, so the arm that must "
+            "win over every merge below it is untested")
+        self.assertTrue(
+            any(row["path"].startswith("/articles/") and row["base"] is not None
+                for case in committed["cases"] for row in case["paths"]),
+            "every bundle vector starts from an absent base, so the upsert "
+            "itself — ordering, tiebreak, envelope — is untested")
 
 
 if __name__ == "__main__":

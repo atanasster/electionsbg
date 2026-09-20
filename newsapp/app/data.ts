@@ -4,6 +4,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
+import { STORY_ID_SAFE } from "./overlayMerge";
 
 export type Leaning =
   | "strong_progressive"
@@ -978,9 +979,13 @@ export interface StoryIndexPage {
 // this, and a client that fetched anything else would be constructing a
 // request from data — so an id that does not match is refused rather than
 // encoded, which is also what the producer does (build_app_data.py).
-const STORY_ID_SAFE = /^[A-Za-z0-9_-]{1,120}$/;
+// IMPORTED, not declared: `overlayMerge.ts` builds its detail-path pattern
+// from the same constant, and two copies would let the overlay resolve an
+// id this loader refuses to fetch.
 
-export const storyDetailPath = (id: string | null | undefined): string | null =>
+export const storyDetailPath = (
+  id: string | null | undefined,
+): string | null =>
   typeof id === "string" && STORY_ID_SAFE.test(id)
     ? `/stories/${id}.json`
     : null;
