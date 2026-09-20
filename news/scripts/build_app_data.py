@@ -812,6 +812,122 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+# A page of the story index. 200 keeps the first page ~50 KB gzipped, which
+# is what a list screen needs to paint; smaller pages would multiply requests
+# for no visible gain, larger ones give back the saving.
+STORY_PAGE_SIZE = 200
+# What a LIST or a FILTER needs, and nothing else. The heavy fields —
+# summary_bg/en, entities, entity_links, members — are 72% of stories.json
+# and are needed only when a single story is opened.
+STORY_INDEX_FIELDS = ("id", "title_bg", "title_en", "topics",
+                      "first_published", "last_published", "blindspot")
+
+
+def story_index_row(story: dict) -> dict:
+    """One story as a list screen needs it: findable, filterable, small."""
+    row = {key: story[key] for key in STORY_INDEX_FIELDS if key in story}
+    members = [m for m in (story.get("members") or []) if isinstance(m, dict)]
+    # The two things a list actually renders from `members` — how many
+    # outlets covered it, and which — without carrying every article record.
+    row["member_count"] = len(members)
+    row["domains"] = sorted({m["domain"] for m in members if m.get("domain")})
+    return row
+
+
+def write_story_pages(out_dir: Path, stories: list, generated_at: str) -> None:
+    """The paginated index, the url→story map, and per-story detail files.
+
+    ⚠️ WHY NOT JUST PAGINATE. Measured 2026-09-20, `stories.json` is
+    **1,456 KB gzipped and every screen downloads all of it** — the largest
+    single object a reader touches, and eleven times the whole hourly record
+    delta. But no consumer renders the list: StoryScreen and ArticleScreen
+    `.find()` one story by id, SavedScreen builds a lookup map, OutletScreen
+    `.filter()`s by domain. Paging alone therefore does not help a lookup —
+    the id may be on any page, so a reader needs up to ten fetches or an
+    index anyway. The split is what pays:
+
+        StoryScreen    1,456 KB → 1.4 KB   (the detail file alone)
+        ArticleScreen  1,456 KB →  92 KB   (url map + detail)
+        list screens   1,456 KB →  50 KB   (first page, then reveal)
+
+    `stories.json` is still written unchanged. This is additive, so no
+    reader breaks and the files exist before anything opts into them —
+    publish the data, then the client, never the other way round.
+    """
+    story_dir = out_dir / "stories"
+    story_dir.mkdir(parents=True, exist_ok=True)
+
+    # Newest first: progressive reveal means "show me more, older", so page 1
+    # must be the page a reader wants without asking.
+    ordered = sorted(stories,
+                     key=lambda s: (s.get("last_published") or "",
+                                    s.get("id") or ""),
+                     reverse=True)
+    rows = [story_index_row(s) for s in ordered]
+    pages = [rows[i:i + STORY_PAGE_SIZE]
+             for i in range(0, len(rows), STORY_PAGE_SIZE)] or [[]]
+    for number, page in enumerate(pages, start=1):
+        write_json(story_dir / f"index-{number}.json", {
+            "generated_at": generated_at,
+            "page": number, "pages": len(pages),
+            "page_size": STORY_PAGE_SIZE, "total": len(rows),
+            "stories": page,
+        })
+
+    # ⚠️ One map, not a field on every index row: `members` is 20% of
+    # stories.json, and ArticleScreen is its only consumer — it needs
+    # "which story is this article in" and nothing else.
+    by_url = {}
+    for story in ordered:
+        for member in story.get("members") or []:
+            if isinstance(member, dict) and member.get("url"):
+                by_url.setdefault(member["url"], story.get("id"))
+    write_json(story_dir / "by-url.json",
+               {"generated_at": generated_at, "stories_by_url": by_url})
+
+    for story in ordered:
+        story_id = story.get("id")
+        if not isinstance(story_id, str) or not story_id:
+            continue
+        # ⚠️ The id reaches a PATH here. Anything that is not a plain
+        # identifier is skipped rather than sanitised: a story whose id
+        # contained a slash or `..` would otherwise write outside the
+        # directory, and silently renaming it would break the lookup the
+        # file exists for.
+        if not STORY_ID_SAFE.match(story_id):
+            continue
+        # ⚠️ CONTENT-DERIVED, for the same reason the per-domain bundles are
+        # (see `bundle_generated_at`) and with far more at stake: this adds
+        # ~1,919 objects to a release, so stamping them with the RUN time
+        # would rewrite every one of them every hour to convey nothing. With
+        # the story's own timestamp, an unchanged story is a byte-identical
+        # file and an rsync skips it.
+        # ⚠️ The members' own dates are the THIRD fallback, and they carry
+        # the whole `nodate-*` family: 183 of 1,919 stories have a null
+        # first_published AND last_published while their members are dated
+        # perfectly well. Without this arm each of those falls through to
+        # the run stamp and rewrites itself every hour — which is 9.5% of
+        # the corpus doing exactly what this split exists to stop.
+        # ⚠️ …and `first_seen` is the FOURTH, because the `nodate-*` family
+        # has no publication date ANYWHERE — not on the story, not on its
+        # members. `first_seen` (when we first fetched it) is the only dated
+        # fact they carry, and it is stable. Without it these 183 stories
+        # fall through to the run stamp and rewrite themselves hourly.
+        members = [m for m in (story.get("members") or [])
+                   if isinstance(m, dict)]
+        seen = [m["first_seen"] for m in members
+                if isinstance(m.get("first_seen"), str)]
+        stamp = (story.get("last_published") or story.get("first_published")
+                 or bundle_generated_at(members, "")
+                 or (max(seen) if seen else "")
+                 or generated_at)
+        write_json(story_dir / f"{story_id}.json",
+                   {"generated_at": stamp, "story": story})
+
+
+STORY_ID_SAFE = re.compile(r"^[A-Za-z0-9_-]{1,120}$")
+
+
 def bundle_generated_at(records, fallback: str) -> str:
     """A per-bundle stamp derived from its CONTENT, not from the run.
 
@@ -2266,6 +2382,7 @@ def main() -> int:
             )
     stories.sort(key=lambda s: s.get("last_published") or "", reverse=True)
     write_json(out_dir / "stories.json", {"generated_at": generated_at, "stories": stories})
+    write_story_pages(out_dir, stories, generated_at)
 
     # ---- home.json -------------------------------------------------------------------
     dated = []

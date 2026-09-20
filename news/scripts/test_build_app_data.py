@@ -2961,5 +2961,134 @@ class BundleStampIsContentDerived(unittest.TestCase):
                       'generated_at),', flat)
 
 
+class StoryPagesAndDetails(unittest.TestCase):
+    """stories.json is 1,456 KB gzipped and EVERY screen downloads all of it.
+
+    ⚠️ Paging alone does not fix it, which is why the split exists. No
+    consumer renders the list: StoryScreen and ArticleScreen `.find()` one
+    story by id, SavedScreen builds a lookup map, OutletScreen `.filter()`s
+    by domain — so a paged list still needs the page holding the id, i.e.
+    up to ten fetches or an index anyway. Measured: StoryScreen 1,456 KB →
+    1.4 KB, list screens → 50 KB for the first page.
+    """
+
+    def stories(self, n=5):
+        return [{"id": f"s{i}", "title_bg": f"Заглавие {i}",
+                 "title_en": f"Title {i}", "topics": [],
+                 "first_published": f"2026-09-{10+i:02d}T00:00:00+00:00",
+                 "last_published": f"2026-09-{10+i:02d}T12:00:00+00:00",
+                 "summary_bg": "х" * 500, "summary_en": "y" * 500,
+                 "entities": {"people": ["А"]}, "entity_links": [{"a": 1}],
+                 "members": [{"url": f"https://x.bg/{i}", "domain": "x.bg",
+                              "published": f"2026-09-{10+i:02d}T12:00:00+00:00"}]}
+                for i in range(n)]
+
+    def build(self, stories, tmp):
+        build_app_data.write_story_pages(Path(tmp), stories, "RUN-STAMP")
+        return Path(tmp) / "stories"
+
+    def test_the_pages_cover_every_story_exactly_once(self):
+        with tempfile.TemporaryDirectory() as td:
+            out = self.build(self.stories(7), td)
+            seen = []
+            for page in sorted(out.glob("index-*.json")):
+                seen += [s["id"] for s in
+                         json.loads(page.read_text(encoding="utf-8"))["stories"]]
+            self.assertEqual(sorted(seen), [f"s{i}" for i in range(7)])
+            self.assertEqual(len(seen), len(set(seen)), "a story on two pages")
+
+    def test_page_one_is_newest_first(self):
+        # Progressive reveal means "show me more, older" — page 1 must be
+        # the page a reader wants without asking for it.
+        with tempfile.TemporaryDirectory() as td:
+            out = self.build(self.stories(5), td)
+            page = json.loads((out / "index-1.json").read_text(encoding="utf-8"))
+            dates = [s["last_published"] for s in page["stories"]]
+            self.assertEqual(dates, sorted(dates, reverse=True))
+
+    def test_every_story_gets_a_detail_file_carrying_the_whole_story(self):
+        with tempfile.TemporaryDirectory() as td:
+            stories = self.stories(3)
+            out = self.build(stories, td)
+            for story in stories:
+                got = json.loads(
+                    (out / f"{story['id']}.json").read_text(encoding="utf-8"))
+                self.assertEqual(got["story"], story)
+
+    def test_the_index_drops_the_heavy_fields(self):
+        # The point of the split: summaries, entities, entity_links and the
+        # member records are 72% of stories.json and are needed only when a
+        # single story is opened.
+        with tempfile.TemporaryDirectory() as td:
+            out = self.build(self.stories(3), td)
+            row = json.loads(
+                (out / "index-1.json").read_text(encoding="utf-8"))["stories"][0]
+            for heavy in ("summary_bg", "summary_en", "entities",
+                          "entity_links", "members"):
+                self.assertNotIn(heavy, row, heavy)
+            # …while keeping what a list actually renders.
+            for needed in ("id", "title_bg", "member_count", "domains"):
+                self.assertIn(needed, row, needed)
+
+    def test_the_url_map_answers_which_story_an_article_is_in(self):
+        with tempfile.TemporaryDirectory() as td:
+            out = self.build(self.stories(3), td)
+            by_url = json.loads(
+                (out / "by-url.json").read_text(encoding="utf-8"))["stories_by_url"]
+            self.assertEqual(by_url["https://x.bg/1"], "s1")
+
+    def test_a_detail_file_is_byte_stable_across_runs(self):
+        # ⚠️ This adds ~1,919 objects per release. Stamping them with the RUN
+        # time would rewrite every one every hour to convey nothing — the
+        # exact defect `bundle_generated_at` was added to remove, at 30x the
+        # scale. Measured on the real corpus: 1,919/1,919 stable.
+        stories = self.stories(3)
+        with tempfile.TemporaryDirectory() as t1, \
+                tempfile.TemporaryDirectory() as t2:
+            a = self.build(stories, t1)
+            build_app_data.write_story_pages(Path(t2), stories, "A-LATER-RUN")
+            b = Path(t2) / "stories"
+            for story in stories:
+                name = f"{story['id']}.json"
+                self.assertEqual((a / name).read_bytes(), (b / name).read_bytes(),
+                                 name)
+
+    def test_an_undated_story_still_gets_a_stable_stamp(self):
+        # The `nodate-*` family: 183 of 1,919 real stories have a null
+        # first_published AND last_published, and members with no
+        # `published` either. `first_seen` is the only dated fact they
+        # carry; without it they fall back to the run stamp and churn.
+        story = {"id": "nodate-1", "first_published": None,
+                 "last_published": None,
+                 "members": [{"url": "https://x.bg/n", "domain": "x.bg",
+                              "published": None,
+                              "first_seen": "2026-08-30T23:18:11+00:00"}]}
+        with tempfile.TemporaryDirectory() as t1, \
+                tempfile.TemporaryDirectory() as t2:
+            build_app_data.write_story_pages(Path(t1), [story], "RUN-A")
+            build_app_data.write_story_pages(Path(t2), [story], "RUN-B")
+            a = (Path(t1) / "stories" / "nodate-1.json").read_bytes()
+            b = (Path(t2) / "stories" / "nodate-1.json").read_bytes()
+            self.assertEqual(a, b)
+            self.assertNotIn(b"RUN-", a, "the run stamp must not leak in")
+
+    def test_a_story_id_that_is_not_a_plain_identifier_is_skipped(self):
+        # ⚠️ The id reaches a PATH. Sanitising it silently would break the
+        # lookup the file exists for, so it is skipped instead.
+        with tempfile.TemporaryDirectory() as td:
+            out = self.build([{"id": "../escape", "members": []},
+                              {"id": "ok-1", "members": []}], td)
+            self.assertTrue((out / "ok-1.json").is_file())
+            self.assertFalse((Path(td) / "escape.json").exists())
+            self.assertFalse((out.parent / "escape.json").exists())
+
+    def test_an_empty_corpus_still_writes_one_page(self):
+        with tempfile.TemporaryDirectory() as td:
+            out = self.build([], td)
+            page = json.loads((out / "index-1.json").read_text(encoding="utf-8"))
+            self.assertEqual(page["stories"], [])
+            self.assertEqual(page["pages"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()
