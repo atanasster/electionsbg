@@ -1517,6 +1517,30 @@ not 25 (§0.11 E1).
 
 ### Phase 2 — Ingest new articles; measure download and ingestion on live data (2–3 days)
 
+> **[IMPLEMENTED 2026-09-20 — report `news/evals/ingest-browser-tier-2026-09-20.md`.]**
+> Steps 2.0–2.4 done; 2.2's acceptance is **not met and is not reachable by code**, which
+> is a correction to §3.2 rather than a deferral. Four findings change what later phases
+> should assume:
+>
+> - **The four outlets §3.2 names are four different problems.** capital.bg was the fetch
+>   path and is recoverable (1 article via the new escalation on its first live run).
+>   blitz.bg and dnevnik.bg challenge their ARTICLE pages for this client in a real
+>   browser, headless and headed — residential egress or an outlet agreement, not code.
+>   24chasa.bg is not a fetch problem at all: 1 per-article failure in 20.
+> - **A gate decision is not a fetch failure**, and the escalator was treating it as one —
+>   spending a real browser on pages refused on their content, then cooling the domain
+>   down for six hours in a way that reads as an outlet block. All 5 escalated dnes.bg
+>   URLs were recipes and horoscopes; plovdiv24.bg's were its own section pages.
+> - ⚠️ **Do not raise the sweep cadence on the raw missed-window rate (Phase 4.x, §2.3).**
+>   Three different things produce `window_overlap = False`, and 8 of the first 12
+>   readings were a domain we can never store (`already_present` is 0 for ever) or a cold
+>   corpus — not a moved window. Take the rate over sweeps with `held > 0`: **~87% overlap
+>   at one hour**, on a small sample.
+> - **Most sweeps cost almost nothing** — median 0.7 s and no article bytes when the
+>   window overlapped, against 5.7 s when something was fetched. Cadence is cheap; the
+>   binding constraint is the blocked outlets, not the interval.
+
+
 2.0 **Re-confirm what Phase 0 established — do not redo it.** Phase 0 chose the host, proved
     its exclusivity and re-baselined `_state/*.json` and `analysis_backlog.pending_total`.
     Before the batch, re-confirm the scheduler is still the only one running and that Phase 0
