@@ -1,7 +1,7 @@
 # Near Real-Time News Pipeline: Two-Tier Classification and Continuous Ingestion — v1
 
-**Status**: revised eleven times on 2026-09-19; **Phase 0 and Phase 1 implemented the
-same day — §0.12 records what the build found.** §0 records what the first draft got wrong.
+**Status**: revised eleven times on 2026-09-19; **Phases 0, 1 and 2 (steps 2.0–2.3)
+implemented on 2026-09-19/20 — §0.12 records what the build found.** §0 records what the first draft got wrong.
 Passes two to eight re-verified one another and are archived, verbatim and under their
 original ids, in `docs/plans/news-jev-realtime-cloud-worker-v1-analysis.md` Appendix A
 (§0.1 is the index). The ninth pass (§0.9) read what those never opened — the last run's own
@@ -202,7 +202,8 @@ record of what was believed stays readable.
 | I1 | §0.3 V2: `-z json` is a one-flag change; GCS transcodes for non-gzip clients | `gsutil cp -z` **appends `no-transform`** to Cache-Control (`gslib/utils/copy_helper.py`), which disables transcoding | the uploader resets the immutable policy with a `setmeta` scope before the manifest (`0f44b41354`) |
 | I2 | §2.3 / §5: GLM costs $0.000867 per accepted analysis | provisional, from a 12-article check: with NextBit excluded (it caused every syntax failure) Parasail cached 6.6% of prompt tokens against NextBit's 63.9%, so **per response +30% ($0.00110)**, per saved **~$0.0015 (+12% on 09-02's $0.00134)** — yield recovered most of it. ~$41–45/mo at 900–1,000/day. Latency unchanged (article-call p50 17.6 s) | every Jev-vs-GLM saving in §1/§5 is against the wrong baseline; re-derive it in Phase 3 from the perf log once 100-article runs confirm it |
 | I3 | Phase 0: expect first-unattended-run defects | two, both invisible to a manual run: the model probe fetched OpenRouter's whole catalogue (>60 s) under a 10 s timeout, and its failure record named the wrong URL (`74fd3ace72`); an unmeasured provider's wrong-shaped answer killed the analyze stage (`bd8c1f9344`). The publish gate refused both runs — readers kept the old release rather than a partial one | the staleness alarm fired as designed; keep it |
-| I4 | §3.2's failure table is the "before" for Phase 2 | accurate for blitz.bg, dnevnik.bg and 24chasa.bg; capital.bg is intermittent. And `consecutive_failures` **probably counts "nothing new since last hour" as a failure** (one clean case, bgdnes.bg) | Phase 2 intake should confirm and separate "no new items" from "items failed" before any alert threshold means anything |
+| I5 | §3.2 / §6.3: the browser tier is "a fetch-path bug… a 1–2 day change with zero recurring cost recovers four of the most important outlets" | The fetch path WAS missing and is now added (`896e0081a7`, any tier, bounded). But blitz.bg and dnevnik.bg refuse their ARTICLE pages to a real browser — headless and headed, with the origin's challenge cleared and its cookies reused (measured 2026-09-20) — so no code change recovers them; residential egress or an outlet agreement is what is left. `settle()` also missed the Bulgarian interstitial („Един момент…"), storing challenge pages as articles | §3.2's estimate holds for the fetch path only; re-scope the four-outlet claim, and keep the caps/cooldown so a refusing outlet costs a bounded slice of each run. `news/evals/ingest-browser-tier-2026-09-20.md` |
+| I4 | §3.2's failure table is the "before" for Phase 2 | accurate for blitz.bg, dnevnik.bg and 24chasa.bg; capital.bg is intermittent. On `consecutive_failures`: `save_articles.py` ALREADY treats "everything listed was already stored" as productive, so the Phase 0 report's finding is narrower than stated — bgdnes.bg still incremented, so that equality misfires for some domains | Phase 2 intake should find why the productive rule misfires, rather than adding one |
 
 ---
 
