@@ -108,6 +108,7 @@ try:  # a sibling module; absent only in a stripped copy of this file
     import perf_log
 except ImportError:  # pragma: no cover
     perf_log = None
+import failure_rules
 from zoneinfo import ZoneInfo
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
@@ -1660,9 +1661,13 @@ def is_standing_fact(error):
 # Per-article failures that are DECISIONS, not transient errors. These already
 # go to the rejection ledger with its own TTL; queueing them here too would
 # retry tonight what the gate refused on purpose.
-_TERMINAL_FAILURE_RE = re.compile(
-    r"^(non_article_page|title_as_body|thin_body|no title and no content"
-    r"|robots_disallowed|off_domain)")
+# ⚠️ The rule moved to failure_rules.py, and NOT for tidiness: the page-level
+# browser fallback needs the same answer and did not have it (see that
+# module's header — it escalated pages the gate had already refused). It is
+# imported rather than restated so the two cannot drift, and re-exported here
+# because this module's own callers have always read it from this name.
+_TERMINAL_FAILURE_RE = failure_rules.TERMINAL_FAILURE_RE
+is_terminal_failure = failure_rules.is_terminal_failure
 
 
 def state_path(domain):
@@ -1892,7 +1897,7 @@ def merge_retry_queue(existing, failures, stamp, attempted=None,
     queue, newly = {}, []
     for f in failures:
         url, detail = f.get("url"), f.get("detail") or ""
-        if not url or _TERMINAL_FAILURE_RE.match(detail):
+        if not url or is_terminal_failure(detail, f.get("reason")):
             continue
         key = canonical_url(url)
         if key in exhausted or key in queue:
@@ -3582,7 +3587,13 @@ def main():
                              rec["content_chars"], rec["title"])
             ledgered.add(key)
         rejected += 1
-        failed.append({"url": url, "detail": detail})
+        # ⚠️ `reason` RIDES ALONG, and it is not redundant with `detail`.
+        # Both consumers of "is this a decision or a fetch failure"
+        # (merge_retry_queue, escalate_browser.sh) had to re-derive it from
+        # the free-text detail's prefix, so rewording one sentence silently
+        # reinstated the defect — in the unsafe direction, with every test
+        # green. The structured value was right here and was being dropped.
+        failed.append({"url": url, "detail": detail, "reason": reason})
     for art in articles:
         url = art.get("url")
         if not url:
@@ -3750,8 +3761,19 @@ def main():
     # gap with no error anywhere. The per-domain rate of that is what sets the
     # longest safe sweep interval — it cannot be derived after the fact, so it
     # is recorded per sweep here.
+    # ⚠️ `held` IS WHAT MAKES `window_overlap` READABLE, and without it the
+    # measurement is worse than none. False means "none of what the feed
+    # listed was already stored" — which is the missed-window event ONLY for
+    # a domain we can store at all. Measured over the first 105 events: of
+    # 12 False readings, 7 came from domains holding nothing and saving
+    # nothing (blitz.bg, 24chasa.bg, bnrnews.bg — all 40 listed, 0 saved),
+    # where already_present is 0 by construction and stays 0 for ever, and
+    # one more (trafficnews.bg) was a cold corpus on its first sweep. Read
+    # blind, the same figure counts a permanently refused outlet as a
+    # cadence problem and would argue for sweeping more often — which is
+    # precisely the wrong response to a 403.
     emit_fetch(
-        domain, method=list_method,
+        domain, method=list_method, held=len(on_disk),
         listed=listed_count, already_present=summary_already_present,
         saved=saved, rejected=rejected, failed=len(failed),
         retry_queued=len(queue), quarantined=quarantined,

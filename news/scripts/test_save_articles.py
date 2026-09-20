@@ -985,6 +985,18 @@ class FeedWindow(unittest.TestCase):
         # shape: a listing that DID arrive is still judged on its contents.
         self.assertIs(sa.window_overlap(20, 0), False)
 
+    def test_the_event_says_how_much_we_held_going_in(self):
+        # ⚠️ Without `held`, False conflates the missed-window event with two
+        # others that look identical: a domain we can never store (403 on
+        # every article page, so already_present is 0 for ever) and a cold
+        # corpus on its first sweep. Measured over the first 105 events, 8 of
+        # 12 False readings were one of those two — so a rate computed blind
+        # would read a permanently refused outlet as a cadence problem and
+        # argue for sweeping MORE often.
+        source = (SCRIPT_DIR / "save_articles.py").read_text(encoding="utf-8")
+        flat = " ".join(source.split())
+        self.assertIn("held=len(on_disk)", flat)
+
     def test_the_completed_sweep_reads_the_304_from_order_confidence(self):
         # The rule is only worth having if the one caller passes the flag.
         # Whitespace-collapsed: the assertion is about the ARGUMENT, and a
@@ -993,6 +1005,97 @@ class FeedWindow(unittest.TestCase):
         flat = " ".join(source.split())
         self.assertIn('not_modified=(order_confidence == "not_modified")',
                       flat)
+
+
+class TerminalFailureRule(unittest.TestCase):
+    """What a per-article failure MEANS — the rule both consumers read.
+
+    It lives in `failure_rules.py` rather than in save_articles because
+    `escalate_browser.sh` needs the same answer and did not have it: it read
+    the save result's `failed` list verbatim and spent a real browser
+    re-fetching pages the gate had refused on content.
+    """
+
+    def test_a_gate_decision_is_terminal_and_a_fetch_failure_is_not(self):
+        import failure_rules as fr  # noqa: E402
+        for detail in ("non_article_page (no Article JSON-LD, og:type != "
+                       "article, and body failed the paragraph gate)",
+                       "non_article_page (homepage)",
+                       "thin_body (120 chars)", "title_as_body",
+                       "no title and no content", "robots_disallowed",
+                       "off_domain"):
+            self.assertTrue(fr.is_terminal_failure(detail), detail)
+        for detail in ("HTTP 403", "HTTP 503", "timed out",
+                       "ConnectionResetError", "SSLError"):
+            self.assertFalse(fr.is_terminal_failure(detail), detail)
+
+    def test_an_unrecognised_failure_gets_another_attempt(self):
+        # ⚠️ The asymmetry is deliberate and is the safe direction: an
+        # unknown detail treated as terminal silently retires an article,
+        # while treated as transient it costs one fetch. A new GATE reason
+        # must therefore be added to the rule — it does not classify itself.
+        import failure_rules as fr  # noqa: E402
+        for detail in ("", None, "something nobody has seen before",
+                       "  non_article_page (leading space)"):
+            self.assertFalse(fr.is_terminal_failure(detail), repr(detail))
+
+    def test_the_structured_reason_decides_whatever_the_prose_says(self):
+        # ⚠️ `_reject` has always known which gate fired and dropped it, so
+        # both consumers re-derived the answer from the PREFIX of a
+        # human-readable sentence — and rewording one string reinstated the
+        # defect in the unsafe direction (a decision read as a fetch failure
+        # and escalated to a browser) with every test green.
+        import failure_rules as fr  # noqa: E402
+        self.assertTrue(fr.is_terminal_failure(
+            "the body did not look like an article at all",
+            reason="non_article_page"))
+        # And a reason that is NOT a gate decision wins over prose that
+        # happens to start like one.
+        self.assertFalse(fr.is_terminal_failure(
+            "non_article_page (reworded later)", reason="fetch_failed"))
+
+    def test_every_gate_reason_in_the_source_is_classified(self):
+        """The sweep that ties the rule to its actual producers.
+
+        `_reject(url, rec, reason, detail)` is the only place a gate decision
+        is recorded, so its call sites ARE the vocabulary. A new gate whose
+        reason nobody added here would be queued for retry and escalated to a
+        browser — forever, and silently.
+        """
+        import failure_rules as fr  # noqa: E402
+        tree = ast.parse((SCRIPT_DIR / "save_articles.py")
+                         .read_text(encoding="utf-8"))
+        reasons = set()
+        for node in ast.walk(tree):
+            if (isinstance(node, ast.Call)
+                    and isinstance(node.func, ast.Name)
+                    and node.func.id == "_reject"
+                    and len(node.args) >= 3
+                    and isinstance(node.args[2], ast.Constant)):
+                reasons.add(node.args[2].value)
+        self.assertTrue(reasons, "no _reject call sites found — has the "
+                                 "rejection helper been renamed?")
+        self.assertEqual(reasons - fr.TERMINAL_REASONS, set(),
+                         "a gate reason the rule does not know about")
+
+    def test_save_articles_reads_that_one_rule_rather_than_its_own(self):
+        import failure_rules as fr  # noqa: E402
+        import save_articles as sa  # noqa: E402
+        self.assertIs(sa.is_terminal_failure, fr.is_terminal_failure)
+        self.assertIs(sa._TERMINAL_FAILURE_RE, fr.TERMINAL_FAILURE_RE)
+
+    def test_a_decision_is_still_never_queued_for_retry(self):
+        # The behaviour the rule has always been responsible for, kept here
+        # so moving its home cannot quietly change it.
+        import save_articles as sa  # noqa: E402
+        queue, _dropped, _exhausted = sa.merge_retry_queue(
+            [],
+            [{"url": "https://x.bg/recipe", "detail": "non_article_page (x)"},
+             {"url": "https://x.bg/blocked", "detail": "HTTP 403"}],
+            "2026-09-20T00:00:00+00:00",
+            attempted={sa.canonical_url("https://x.bg/recipe"),
+                       sa.canonical_url("https://x.bg/blocked")})
+        self.assertEqual([e["url"] for e in queue], ["https://x.bg/blocked"])
 
 
 class FetchEventCoverage(unittest.TestCase):

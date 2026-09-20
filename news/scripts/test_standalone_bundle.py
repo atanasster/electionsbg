@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import ast
 import importlib.util
 import json
 import os
@@ -169,6 +170,47 @@ class StandaloneBundle(unittest.TestCase):
 
 
 class DirectNewsFolder(unittest.TestCase):
+    @mock.patch.dict(os.environ, STANDALONE_ENV)
+    def test_every_sibling_a_bundled_script_imports_is_bundled_too(self):
+        """⚠️ A hard `import` of a sibling that the manifest does not ship is
+        a bundle that dies at import — on the unattended deployment nobody is
+        watching — and NOTHING here noticed: the folder test below builds
+        exactly that tree, runs verify_install.py, and never imports the
+        saver. Caught for real when save_articles.py grew an unguarded
+        `import failure_rules`, which is the acquisition half of the pipeline.
+
+        Derived from the manifest's own files rather than a list, so the next
+        new sibling is covered the day it is imported.
+        """
+        bundled = {rel for rel in bundle.RUNTIME_SCRIPTS + bundle.SEED_FILES}
+        # What a bundled .py could import and expect to find beside it.
+        names = {Path(rel).stem for rel in bundled if rel.endswith(".py")}
+        missing = []
+        for rel in sorted(bundled):
+            if not rel.endswith(".py"):
+                continue
+            source = bundle.ROOT / rel
+            if not source.is_file():
+                continue
+            tree = ast.parse(source.read_text(encoding="utf-8"), filename=rel)
+            for node in ast.walk(tree):
+                # `import x` / `from x import y`, absolute and top-level only
+                # — a dotted or relative name is not a bare sibling.
+                if isinstance(node, ast.Import):
+                    imported = [a.name for a in node.names if "." not in a.name]
+                elif isinstance(node, ast.ImportFrom):
+                    imported = ([node.module] if node.module
+                                and node.level == 0
+                                and "." not in node.module else [])
+                else:
+                    continue
+                for name in imported:
+                    sibling = bundle.ROOT / "news" / "scripts" / f"{name}.py"
+                    if sibling.is_file() and name not in names:
+                        missing.append(f"{rel} imports {name}")
+        self.assertEqual(missing, [], "bundled scripts import siblings the "
+                                      "manifest does not ship: " + "; ".join(missing))
+
     @mock.patch.dict(os.environ, STANDALONE_ENV)
     def test_copied_news_folder_runs_without_repository_siblings(self):
         with tempfile.TemporaryDirectory(prefix="direct_news_") as td:

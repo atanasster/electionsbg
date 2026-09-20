@@ -38,6 +38,12 @@ class Escalate(unittest.TestCase):
         (self.news / "data" / "_browser").mkdir(parents=True)
         shutil.copy2(NEWS / "scripts/escalate_browser.sh",
                      self.news / "scripts/escalate_browser.sh")
+        # ⚠️ The REAL rule, not a stub. What a failure MEANS is the thing
+        # under test here (a gate decision must never be escalated), so a
+        # local copy of the predicate would test itself. save_articles.py
+        # stays stubbed — that one is only invoked to observe the call.
+        shutil.copy2(NEWS / "scripts/failure_rules.py",
+                     self.news / "scripts/failure_rules.py")
         self.calls = self.td / "calls.log"
         self.bin = self.td / "bin"
         self.bin.mkdir()
@@ -49,7 +55,12 @@ class Escalate(unittest.TestCase):
 
     def set_node(self, *, prefetched, challenged, crash=False):
         jsonl = self.news / "data/_browser/x.bg.retry.jsonl"
-        body = f'echo "node $*" >> "{self.calls}"\n'
+        # The URL file is deleted by the script's EXIT trap, so the stub is
+        # the only place its contents can be observed — and WHICH urls are
+        # passed is the whole assertion for the gate-decision filter.
+        body = (f'echo "node $*" >> "{self.calls}"\n'
+                'for a in "$@"; do case "$a" in --prefetch-urls=*)\n'
+                f'  sed "s/^/url /" "${{a#*=}}" >> "{self.calls}" ;; esac; done\n')
         if crash:
             body += "exit 1\n"
         else:
@@ -113,6 +124,41 @@ class Escalate(unittest.TestCase):
         self.assertIn("--timeout=7", calls)
         self.assertIn("--page-timeout=5", calls)
         self.assertIn("--prefetched=", calls)
+
+    def test_a_gate_decision_is_never_escalated(self):
+        # ⚠️ A page refused on its CONTENT (non_article_page, thin_body,
+        # off_domain) has been decided against — re-fetching identical bytes
+        # in a browser cannot change the answer. Taking `failed` verbatim
+        # spent the whole budget on them and then cooled the domain down for
+        # "yielding nothing", which reads as an outlet block and is not one.
+        # Measured 2026-09-20: all 5 escalated dnes.bg URLs were recipes and
+        # horoscopes, and plovdiv24.bg's were its own section pages.
+        # `merge_retry_queue` has always known this; this script did not.
+        payload = {"failed": [
+            {"url": "https://x.bg/recipe",
+             "detail": "non_article_page (no Article JSON-LD, og:type != "
+                       "article, and body failed the paragraph gate)"},
+            {"url": "https://x.bg/thin", "detail": "thin_body (120 chars)"},
+            {"url": "https://x.bg/off", "detail": "off_domain"},
+            {"url": "https://x.bg/blocked", "detail": "HTTP 403"},
+        ]}
+        row = json.loads(self.run_escalate(payload))
+        self.assertEqual(row["escalated"], 1, "only the 403 is recoverable")
+        calls = self.calls.read_text(encoding="utf-8")
+        self.assertIn("url https://x.bg/blocked", calls)
+        for decided in ("/recipe", "/thin", "/off"):
+            self.assertNotIn(f"url https://x.bg{decided}", calls, calls)
+
+    def test_a_domain_whose_failures_are_all_decisions_never_escalates(self):
+        # And it must exit BEFORE the browser and before the ledger: an
+        # empty URL set is "nothing to do", not a refusal to cool down for.
+        payload = {"failed": [
+            {"url": "https://x.bg/a", "detail": "non_article_page (homepage)"},
+            {"url": "https://x.bg/b", "detail": "title_as_body"},
+        ]}
+        self.assertEqual(self.run_escalate(payload), "")
+        self.assertFalse(self.calls.exists(), "no browser for decisions")
+        self.assertEqual(self.ledger(), {}, "and no cooldown")
 
     def test_the_url_cap_bounds_one_domain(self):
         payload = {"failed": [{"url": f"https://x.bg/{i}"} for i in range(50)]}

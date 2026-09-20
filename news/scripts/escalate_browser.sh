@@ -74,15 +74,44 @@ trap 'rm -f "$URLS"' EXIT
 # The failed URLs come from the save result the caller just produced, not from
 # the state file: the state's retry queue also carries entries from earlier
 # runs that this sweep never attempted.
+#
+# ⚠️ A GATE DECISION IS NOT A FETCH FAILURE, and taking `failed` verbatim
+# treated it as one. A page refused as non_article_page / thin_body / off_domain
+# has been decided against on its CONTENT, so re-fetching the identical bytes
+# in a browser cannot change the answer — it just spends the budget and then
+# earns the domain a six-hour cooldown for "yielding nothing". Measured
+# 2026-09-20 on the 05:00 sweep: all 5 escalated dnes.bg URLs were recipes and
+# horoscopes the gate rejects by design, and plovdiv24.bg's were its own
+# section pages. The rule has ONE home — scripts/failure_rules.py, which
+# merge_retry_queue has always used and this script never did.
 python3 -c '
-import json, sys
+import json, os, sys
+# The script already changed into news/ above, so the rule is one directory
+# down. (Under python3 -c, sys.argv[0] is "-c" and can locate nothing.)
+sys.path.insert(0, os.path.join(os.getcwd(), "scripts"))
+try:
+    from failure_rules import is_terminal_failure
+except Exception as exc:   # a stripped copy: escalate all rather than none
+    # NOT silent. Escalating everything is the safe direction, but it is also
+    # exactly the pre-fix behaviour — a browser spent on pages the gate
+    # refused on content, then a six-hour cooldown earned for yielding
+    # nothing. Say so on stderr (stdout is the URL file), or the regression
+    # is invisible inside an hourly unattended job.
+    print("escalate_browser: failure_rules unavailable (%s) - gate decisions "
+          "will be escalated" % exc, file=sys.stderr)
+    def is_terminal_failure(detail, reason=None):
+        return False
 try:
     doc = json.load(sys.stdin)
 except Exception:
     sys.exit(0)
 for row in (doc.get("failed") or []):
-    url = row.get("url") if isinstance(row, dict) else row
-    if isinstance(url, str) and url.startswith("http"):
+    if isinstance(row, dict):
+        url, detail, reason = row.get("url"), row.get("detail"), row.get("reason")
+    else:
+        url, detail, reason = row, "", None
+    if isinstance(url, str) and url.startswith("http") \
+            and not is_terminal_failure(detail, reason):
         print(url)
 ' > "$URLS"
 

@@ -34,6 +34,7 @@ RUNTIME_SCRIPTS = (
     "news/scripts/eval_runtime.py",
     "news/scripts/fetch_latest_articles.py",
     "news/scripts/harvest_browser.mjs",
+    "news/scripts/failure_rules.py",  # save_articles imports it UNGUARDED
     "news/scripts/llm_client.py",
     "news/scripts/perf_log.py",
     "news/scripts/home_event_dedupe.py",
