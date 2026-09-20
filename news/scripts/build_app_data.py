@@ -816,6 +816,30 @@ def now_iso() -> str:
 # is what a list screen needs to paint; smaller pages would multiply requests
 # for no visible gain, larger ones give back the saving.
 STORY_PAGE_SIZE = 200
+
+
+# ⚠️ THE PUBLISHED SORT ORDER HAS ONE DEFINITION, AND THESE ARE IT. Four
+# files carry an ordered list of articles or stories, and every one of them
+# is re-derived by the overlay merge (`overlay_merge.py`, §6.5) — a merge
+# that sorted even slightly differently from the builder would land on a
+# release the cold path would never have written, for exactly the records a
+# hot run touched. Restating the key at each call site is how that happens,
+# so both sides import these instead.
+#
+# ⚠️ THE TIEBREAK IS THE LOAD-BEARING HALF. Without it, records sharing a
+# timestamp keep whatever order the corpus walk produced — a fact about how
+# the run was assembled rather than about the corpus. That makes the file
+# un-reproducible (so no merge can match it) and un-stable between runs of
+# identical content (so the content-derived `generated_at` cannot make it
+# byte-identical either). Measured on the fixture corpus: two articles
+# published in the same second swapped places between two builds.
+def article_sort_key(record: dict) -> tuple:
+    """Newest first; undated last ("" < any ISO date under reverse)."""
+    return (record.get("published") or "", record.get("url") or "")
+
+
+def story_sort_key(story: dict) -> tuple:
+    return (story.get("last_published") or "", story.get("id") or "")
 # Mirrors RELATED_STORY_LIMIT in newsapp/app/screens/relatedStories.ts — the
 # sidebar renders at most this many, so the detail file carries no more.
 RELATED_STORY_LIMIT = 4
@@ -837,7 +861,8 @@ def story_index_row(story: dict) -> dict:
     return row
 
 
-def write_story_pages(out_dir: Path, stories: list, generated_at: str) -> None:
+def write_story_pages(out_dir: Path, stories: list, generated_at: str,
+                      page_size: int = STORY_PAGE_SIZE) -> None:
     """The paginated index, the url→story map, and per-story detail files.
 
     ⚠️ WHY NOT JUST PAGINATE. Measured 2026-09-20, `stories.json` is
@@ -862,18 +887,15 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str) -> None:
 
     # Newest first: progressive reveal means "show me more, older", so page 1
     # must be the page a reader wants without asking.
-    ordered = sorted(stories,
-                     key=lambda s: (s.get("last_published") or "",
-                                    s.get("id") or ""),
-                     reverse=True)
+    ordered = sorted(stories, key=story_sort_key, reverse=True)
     rows = [story_index_row(s) for s in ordered]
-    pages = [rows[i:i + STORY_PAGE_SIZE]
-             for i in range(0, len(rows), STORY_PAGE_SIZE)] or [[]]
+    pages = [rows[i:i + page_size]
+             for i in range(0, len(rows), page_size)] or [[]]
     for number, page in enumerate(pages, start=1):
         write_json(story_dir / f"index-{number}.json", {
             "generated_at": generated_at,
             "page": number, "pages": len(pages),
-            "page_size": STORY_PAGE_SIZE, "total": len(rows),
+            "page_size": page_size, "total": len(rows),
             "stories": page,
         })
 
@@ -1829,6 +1851,13 @@ def main() -> int:
     ap.add_argument("--data-dir", type=Path, default=REPO / "news" / "data")
     ap.add_argument("--out", type=Path, default=REPO / "news" / "app-data")
     ap.add_argument("--latest", type=int, default=150)
+    # ⚠️ Exists so the PAGE BOUNDARY is reachable in a test. At the default
+    # 200 a fixture corpus is always one page, so re-pagination — the part
+    # of the overlay merge that rewrites every page after an insert — can
+    # only ever be exercised against hand-built pages, which fix the size
+    # themselves and therefore prove nothing about what the builder writes.
+    # Not a production knob: the published value is `STORY_PAGE_SIZE`.
+    ap.add_argument("--story-page-size", type=int, default=STORY_PAGE_SIZE)
     ap.add_argument(
         "--accepted-snapshot", type=Path,
         help="private accepted-adjudication snapshot (defaults to "
@@ -2184,8 +2213,8 @@ def main() -> int:
                     conduct["edited_after_publication"] += 1
             records.append(rec)
             all_latest.append(rec)
-        # Newest first; undated records sort last ("" < any ISO date under reverse).
-        records.sort(key=lambda r: r.get("published") or "", reverse=True)
+        # Order and tiebreak: see `article_sort_key`.
+        records.sort(key=article_sort_key, reverse=True)
         articles_by_domain[domain] = records
 
     if pending_accepted:
@@ -2300,7 +2329,11 @@ def main() -> int:
         {k: v for k, v in r.items() if k not in FEED_OMIT}
         for r in all_latest if r.get("published")
     ]
-    latest.sort(key=lambda r: r["published"], reverse=True)
+    # ⚠️ This is the file where the missing tiebreak showed: `all_latest` is
+    # accumulated per domain, so two articles published in the same second
+    # landed in whichever order the domains were walked — the feed every page
+    # downloads was ordered by a directory listing. See `article_sort_key`.
+    latest.sort(key=article_sort_key, reverse=True)
     latest_path = out_dir / "latest.json"
     write_json(
         latest_path,
@@ -2428,9 +2461,13 @@ def main() -> int:
                     "members": members,
                 }
             )
-    stories.sort(key=lambda s: s.get("last_published") or "", reverse=True)
+    # ⚠️ The tiebreak matters most here: 183 of 1,919 real stories carry a
+    # NULL `last_published` and therefore ALL tie at "". See
+    # `story_sort_key` — the same key `write_story_pages` uses, so the two
+    # files also stop disagreeing about the order of the same stories.
+    stories.sort(key=story_sort_key, reverse=True)
     write_json(out_dir / "stories.json", {"generated_at": generated_at, "stories": stories})
-    write_story_pages(out_dir, stories, generated_at)
+    write_story_pages(out_dir, stories, generated_at, args.story_page_size)
 
     # ---- home.json -------------------------------------------------------------------
     dated = []
