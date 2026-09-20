@@ -55,3 +55,20 @@ export const writeSavedNewsToBrowser = (paths: string[]): boolean => {
   const storage = browserStorage();
   return storage ? writeSavedNews(storage, paths) : false;
 };
+
+/**
+ * The story ids a saved list refers to, in order and without repeats.
+ *
+ * ⚠️ It lives HERE, beside the reader and writer of the saved list,
+ * rather than in the screen: it is what a saved path MEANS, and the
+ * fetch and the render must agree about that. Two copies of this pattern would let the screen request one set
+ * of ids and look up another, which renders as "no longer available" for
+ * a story that is perfectly fine.
+ */
+export const savedStoryIds = (paths: readonly string[]): string[] => [
+  ...new Set(
+    paths
+      .map((path) => path.match(/^\/story\/([^/]+)$/)?.[1])
+      .filter((id): id is string => Boolean(id)),
+  ),
+];

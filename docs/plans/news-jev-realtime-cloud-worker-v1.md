@@ -1711,6 +1711,55 @@ one 2026-09-02 data point.
     fetches only the overlay; publication monotonicity (§8) holds across a cold-run
     boundary, with the §6.5 gap measured.
 
+    ✅ **DONE 2026-09-20/21, and the acceptance is met: 2 objects, 55.7 KB**, measured
+    against the live release rather than a fixture. Four things the step decided
+    differently from the text above, each because a measurement disagreed with it:
+
+    * **(c) rebuilds the whole tree and subtracts, rather than computing the delta
+      incrementally.** `bundles` is **21–76 s** (§4.2) against the **96 s + 22.6 s** of
+      upload the overlay removes, so the rebuild was never the cost — and an incremental
+      differ would be a second implementation of every rule about what a release
+      contains, verifiable only against the rebuild it exists to avoid.
+    * **The first overlay ever built was 1.84 MB, not ≤ 100 KB**, and 1.57 MB of it was
+      three files whose content had not changed at all. Two causes, both fixed:
+      `feedback-targets.json` (1.5 MB) was NON-DETERMINISTIC — aliases sorted with a
+      case-folded key over a `set`, so the order came from string hashing, 26 of 8,494
+      targets flipping between builds — which also moved `targets_sha256`, the hash an
+      article-feedback submission is validated against; and `outlets.json` /
+      `taxonomy.json` differed by a run timestamp alone. A release now preserves a file's
+      `generated_at` when nothing else about it changed, **per stamp GROUP, not per
+      file** (`latest.json` ↔ `feedback-targets.json`, `home.json` ↔ `stats.json` — the
+      prerender and the publish manifest each throw on a mismatch). Measured after:
+      **2,477 of 2,479 files byte-identical** across consecutive builds, against 0 of 65
+      in the §4.1 baseline.
+    * **`stories/index-N.json` is NOT merged by the client.** A page is a slice of one
+      whole-corpus ordering, so a page merged alone duplicates or drops stories at its
+      own boundary and recomputes its own `total`. `useStoryList` merges the accumulated
+      PREFIX instead, which is the only place the arithmetic is sound.
+    * **The two implementations of the merge are pinned to each other** by
+      `news/eval_contract/overlay_vectors.json`, generated from real builds by the Python
+      test and replayed by `newsapp/app/overlayMerge.test.ts` — the `canonical.py` /
+      `canonical.ts` pattern. It caught two defects in the TypeScript twin on its first
+      run that no hand-written fixture would have.
+
+    ⚠️ **Nothing publishes a hot release yet.** `run_hourly.sh` has no fast-path
+    invocation; that is Phase 5's scheduler work.
+
+    **DECIDED 2026-09-21 — the ~1,900 story-detail files stay inside the per-release
+    immutable tree, and the 96 s stands.** The alternative was a stable rsynced path
+    (like `mentions`), which would cut the upload to roughly 10 s by skipping the ~90%
+    that are byte-identical. It was refused because those files would leave
+    `versions/<run-id>/`: a rollback would stop restoring the story details the release
+    shipped with, and a reader mid-fetch could see two vintages. The cost is bounded and
+    no longer on the fast path — 96 s once an hour, on a run with ~50 minutes of
+    headroom, while a hot release is 55.7 KB. ⚠️ Note the byte-stability above does NOT
+    help here and cannot: each release is written to a FRESH `versions/<run-id>/`
+    directory, so `gsutil cp` has nothing to compare against. The lever that would work
+    is content addressing (§6.5b / F2), which the byte-stability has now made possible —
+    it was unbuildable while every file carried the run's timestamp — but which needs
+    mark-and-sweep GC and a manifest change, so it stays fallback work rather than a
+    flag.
+
 ### Phase 5 — Run it locally for several days; log everything (3–5 days)
 
 Run the whole pipeline unattended on the chosen local host (Mac mini or this machine) and

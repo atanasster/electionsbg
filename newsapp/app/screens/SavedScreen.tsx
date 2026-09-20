@@ -1,29 +1,44 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useLatest, useStories } from "../data";
+import { useLatest, useStoryTitles } from "../data";
 import {
   readSavedNewsFromBrowser,
+  savedStoryIds,
   writeSavedNewsToBrowser,
 } from "../components/savedNews";
 import { useNewsLocale, type NewsLanguage } from "../i18n";
 
 const labelFor = (
   path: string,
-  storyTitles: Map<string, string>,
+  storyTitles: Map<string, string | "gone" | "failed">,
   articleTitles: Map<string, string>,
   language: NewsLanguage,
 ): string => {
   const story = path.match(/^\/story\/([^/]+)$/);
-  if (story)
-    return (
-      storyTitles.get(story[1]) ??
-      (language === "bg"
-        ? "История, която вече не е налична"
-        : "Story no longer available")
-    );
+  if (story) {
+    // ⚠️ FOUR STATES, AND EACH READS DIFFERENTLY TO A PERSON. `undefined`
+    // is still loading; `"gone"` is a story the release retired (they
+    // merge, so a saved id can stop being a story); `"failed"` is a
+    // request that did not land. Collapsing loading into gone tells a
+    // reader their saved item has disappeared every time the page opens,
+    // and collapsing FAILED into gone tells an offline reader that every
+    // story they saved has been merged away.
+    const title = storyTitles.get(story[1]);
+    if (title === undefined)
+      return language === "bg" ? "Зарежда се…" : "Loading…";
+    if (title === "gone")
+      return language === "bg"
+        ? "Историята вече не е отделна"
+        : "No longer a separate story";
+    if (title === "failed")
+      return language === "bg"
+        ? "Заглавието не можа да се зареди"
+        : "Title could not be loaded";
+    return title;
+  }
   const article = path.match(/^\/article\/([^/]+)\/([^/]+)$/);
   if (article)
     return (
@@ -41,15 +56,22 @@ export const SavedScreen = ({
   persistSaved?: (paths: string[]) => boolean;
 }) => {
   const { language, tr } = useNewsLocale();
-  const stories = useStories();
   const latest = useLatest();
   const [paths, setPaths] = useState(readSavedNewsFromBrowser);
   const [message, setMessage] = useState("");
-  const storyTitles = new Map(
-    (stories.data?.stories ?? []).map((story) => [
-      story.id,
-      (language === "bg" ? story.title_bg : story.title_en) ??
-        tr("История без заглавие", "Untitled story"),
+  // ⚠️ ONE ~1.4 KB FILE PER SAVED STORY, not the 1,456 KB corpus this
+  // screen used to download to read a handful of titles — it was the last
+  // screen still doing so. Twenty saves is ~28 KB, and any story the
+  // reader has opened is already cached.
+  const ids = useMemo(() => savedStoryIds(paths), [paths]);
+  const saved = useStoryTitles(ids);
+  const storyTitles = new Map<string, string | "gone" | "failed">(
+    [...saved.titles].map(([id, story]) => [
+      id,
+      typeof story === "string"
+        ? story
+        : ((language === "bg" ? story.title_bg : story.title_en) ??
+          tr("История без заглавие", "Untitled story")),
     ]),
   );
   const articleTitles = new Map(

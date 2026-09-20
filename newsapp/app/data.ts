@@ -12,6 +12,7 @@ import {
 import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
 import {
   applyOverlayToPath,
+  OverlayRemovedPath,
   compareStoryRows,
   mergeStoryIndexRows,
   parseOverlay,
@@ -1327,6 +1328,106 @@ export interface RelatedStoryRow {
   first_published: string | null;
   outlet_count: number | null;
 }
+
+/**
+ * Titles for an arbitrary set of saved story ids.
+ *
+ * ⚠️ THE ONE LOOKUP THE SPLIT DOES NOT ANSWER, which is why this is a
+ * hook of its own rather than a call to either loader. A saved id may sit
+ * on any index page, so the paginated index cannot answer it without
+ * fetching every page; and hooks cannot be called in a loop, so
+ * `useStoryDetail` cannot be applied to a list whose length changes. It
+ * fetches one ~1.4 KB detail file per id — twenty saves is ~28 KB against
+ * the 1,456 KB corpus this replaced, and every story the reader has
+ * already opened is already in the cache.
+ *
+ * ⚠️ A MISSING STORY IS AN ANSWER; A FAILED REQUEST IS NOT, AND THE TWO
+ * MUST NOT RENDER THE SAME. Stories merge, so a saved id can stop
+ * existing and its file 404s — that is the release stating an absence,
+ * and it resolves to `"gone"`. Any OTHER failure is us failing to ask,
+ * and it resolves to `"failed"`: offline, or on a 502, a reader must not
+ * be told every story they saved has been merged away. This is the same
+ * rule `fetchData` applies to the overlay's absent-base arm — "404 and
+ * nothing else" — and the first cut of this hook broke it with a bare
+ * `catch`.
+ *
+ * So there are FOUR states, and a caller has to render all four: an id
+ * absent from the map is still loading, `"gone"` is retired, `"failed"`
+ * is unreachable, and an object is the title.
+ */
+export const useStoryTitles = (
+  ids: readonly string[],
+  client: Pick<
+    ReturnType<typeof createDataClient>,
+    "fetchData"
+  > = defaultDataClient,
+) => {
+  // A stable dependency: the array identity changes on every render of a
+  // caller that builds it inline, which would re-fetch for ever.
+  const key = ids.join("\u0000");
+  const [state, setState] = useState<{
+    titles: Map<string, StoryTitleResult>;
+    loading: boolean;
+  }>({ titles: new Map(), loading: ids.length > 0 });
+
+  useEffect(() => {
+    const wanted = key ? key.split("\u0000") : [];
+    if (wanted.length === 0) {
+      setState({ titles: new Map(), loading: false });
+      return;
+    }
+    let live = true;
+    setState((prev) => ({ titles: prev.titles, loading: true }));
+    void Promise.all(
+      wanted.map(async (id): Promise<[string, StoryTitleResult]> => {
+        const path = storyDetailPath(id);
+        // An id the producer could never have written names no story, so
+        // it is gone rather than unreachable — nothing was asked for.
+        if (path === null) return [id, "gone"];
+        try {
+          const payload = await client.fetchData<{ story: Story }>(path);
+          const story = payload?.story;
+          return [
+            id,
+            story
+              ? { id, title_bg: story.title_bg, title_en: story.title_en }
+              : "gone",
+          ];
+        } catch (error: unknown) {
+          return [id, storyIsGone(error) ? "gone" : "failed"];
+        }
+      }),
+    ).then((rows) => {
+      if (live) setState({ titles: new Map(rows), loading: false });
+    });
+    return () => {
+      live = false;
+    };
+  }, [key, client]);
+
+  return state;
+};
+
+export interface StoryTitle {
+  id: string;
+  title_bg: string | null;
+  title_en: string | null;
+}
+
+/** A title, a story the release retired, or a request that did not land. */
+export type StoryTitleResult = StoryTitle | "gone" | "failed";
+
+/**
+ * Does this failure mean the story is not in the release, as opposed to
+ * meaning we could not ask?
+ *
+ * 404 is the release stating an absence. `OverlayRemovedPath` is a hot
+ * release stating the same thing about a path it retired. Everything
+ * else — offline, DNS, 502, a parse error — is our failure.
+ */
+const storyIsGone = (error: unknown): boolean =>
+  (error instanceof HttpStatusError && error.status === 404) ||
+  error instanceof OverlayRemovedPath;
 
 /** url → story id, so an article page can find its story without the corpus. */
 export const useStoriesByUrl = () =>

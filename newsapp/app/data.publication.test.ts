@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createDataClient,
@@ -6,6 +6,7 @@ import {
   parseOutletArticlesBundle,
   PUBLICATION_POLL_MS,
   useDataWithClient,
+  useStoryTitles,
 } from "./data";
 
 const response = (body: unknown, status = 200) =>
@@ -434,6 +435,110 @@ describe("article provenance parsing", () => {
       value.articles[0].editorial_feedback as Record<string, unknown>
     ).source_submission_ids = ["private"];
     expect(() => parseOutletArticlesBundle(value)).toThrow(/обратна връзка/);
+  });
+});
+
+describe("useStoryTitles", () => {
+  /**
+   * ⚠️ SavedScreen was the LAST screen downloading the 1,456 KB corpus,
+   * and it did so to read a handful of titles. A saved id may sit on any
+   * index page, so the paginated index cannot answer it without fetching
+   * every page — hence one ~1.4 KB detail file per saved id instead.
+   */
+  const clientFor = (bodies: Record<string, unknown>) =>
+    createDataClient("https://data.example/news", {
+      usePublicationManifest: false,
+      fetcher: vi.fn((input: RequestInfo | URL) => {
+        const url = String(input);
+        for (const [suffix, body] of Object.entries(bodies)) {
+          if (url.endsWith(suffix)) return response(body);
+        }
+        return response({}, 404);
+      }) as unknown as typeof fetch,
+    });
+
+  it("fetches one file per id and reports a missing story as null", async () => {
+    // ⚠️ Stories MERGE, so a saved id can stop existing. `null` is an
+    // answer the screen renders; dropping the row would make a reader's
+    // saved item vanish with no explanation.
+    const client = clientFor({
+      "/stories/a.json": {
+        story: { id: "a", title_bg: "Едно", title_en: "One" },
+      },
+    });
+    const { result } = renderHook(() => useStoryTitles(["a", "gone"], client));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.titles.get("a")).toEqual({
+      id: "a",
+      title_bg: "Едно",
+      title_en: "One",
+    });
+    expect(result.current.titles.get("gone")).toBe("gone");
+  });
+
+  it("does not call an unreachable story missing", async () => {
+    // ⚠️ THE DEFECT THIS REPLACED, and `fetchData` states the same rule
+    // ~290 lines above the hook: "404 and nothing else". A bare catch
+    // rendered every failure as "no longer a separate story", so an
+    // offline reader was told every story they had saved was gone. A 404
+    // is the release stating an absence; a 502 is us failing to ask.
+    const client = createDataClient("https://data.example/news", {
+      usePublicationManifest: false,
+      fetcher: vi.fn(() => response({}, 502)) as unknown as typeof fetch,
+    });
+    const { result } = renderHook(() => useStoryTitles(["a"], client));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.titles.get("a")).toBe("failed");
+  });
+
+  it("calls a story the release does not have gone", async () => {
+    const client = clientFor({});
+    const { result } = renderHook(() => useStoryTitles(["a"], client));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.titles.get("a")).toBe("gone");
+  });
+
+  it("refuses to build a request from an id the producer could not write", async () => {
+    // The id reaches a URL PATH, so anything outside the producer's own
+    // charset is refused rather than encoded.
+    const client = clientFor({});
+    const { result } = renderHook(() => useStoryTitles(["../secret"], client));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.titles.get("../secret")).toBe("gone");
+  });
+
+  it("does not re-fetch when the caller rebuilds the array", async () => {
+    // ⚠️ A caller that builds `ids` inline hands a new array identity on
+    // every render; keyed on identity this would fetch for ever.
+    const fetcher = vi.fn((input: RequestInfo | URL) =>
+      String(input).endsWith("/stories/a.json")
+        ? response({ story: { id: "a", title_bg: "Едно", title_en: null } })
+        : response({}, 404),
+    );
+    const client = createDataClient("https://data.example/news", {
+      usePublicationManifest: false,
+      fetcher: fetcher as unknown as typeof fetch,
+    });
+    const { result, rerender } = renderHook(
+      ({ ids }: { ids: string[] }) => useStoryTitles(ids, client),
+      { initialProps: { ids: ["a"] } },
+    );
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    const calls = fetcher.mock.calls.length;
+    rerender({ ids: ["a"] });
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(fetcher.mock.calls.length).toBe(calls);
+  });
+
+  it("asks for nothing when nothing is saved", async () => {
+    const fetcher = vi.fn(() => response({}));
+    const client = createDataClient("https://data.example/news", {
+      usePublicationManifest: false,
+      fetcher: fetcher as unknown as typeof fetch,
+    });
+    const { result } = renderHook(() => useStoryTitles([], client));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(fetcher).not.toHaveBeenCalled();
   });
 });
 
