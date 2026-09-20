@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import os
+import ast
 import shutil
 import subprocess
 import sys
@@ -969,6 +970,198 @@ class FeedWindow(unittest.TestCase):
         # ⚠️ Nothing listed answers neither question; False here would read a
         # dead feed as a missed window.
         self.assertIsNone(sa.window_overlap(0, 0))
+
+    def test_a_304_is_the_strongest_overlap_there_is(self):
+        # ⚠️ It arrives looking like the OPPOSITE. "Not Modified" means the
+        # document has not changed since our last request, so nothing can
+        # have entered and left the window in between — but it carries no
+        # body, so it reaches the rule as `listed_count == 0`, the one shape
+        # documented as unanswerable. On a conditional-fetch domain that is
+        # most sweeps, so filing it as None loses the measurement rather than
+        # blurring it.
+        import save_articles as sa  # noqa: E402
+        self.assertIs(sa.window_overlap(0, 0, not_modified=True), True)
+        # And it is not a blanket override of a real listing's evidence
+        # shape: a listing that DID arrive is still judged on its contents.
+        self.assertIs(sa.window_overlap(20, 0), False)
+
+    def test_the_completed_sweep_reads_the_304_from_order_confidence(self):
+        # The rule is only worth having if the one caller passes the flag.
+        # Whitespace-collapsed: the assertion is about the ARGUMENT, and a
+        # re-wrap by a formatter is not a regression.
+        source = (SCRIPT_DIR / "save_articles.py").read_text(encoding="utf-8")
+        flat = " ".join(source.split())
+        self.assertIn('not_modified=(order_confidence == "not_modified")',
+                      flat)
+
+
+class FetchEventCoverage(unittest.TestCase):
+    """Every sweep emits exactly one `fetch` event, however it ends.
+
+    ⚠️ Until 2026-09-20 only a COMPLETED sweep did, so a domain whose lister
+    timed out, crashed or refused was ABSENT from the perf log rather than
+    present with an error — and a per-domain coverage rate computed from it
+    omitted precisely the domains it was measuring.
+    """
+
+    def emit_call_sites(self):
+        """Every CALL to emit_fetch, by line — parsed, not grepped.
+
+        ⚠️ The first version counted the substring `emit_fetch(domain`, which
+        matches the DEF as well and misses the completed sweep's call (it
+        wraps after the paren). Net: a `>= 6` threshold with one unit of
+        slack, so deleting the lister-timeout emit — the very regression this
+        class names — left all 301 tests green.
+        """
+        source = (SCRIPT_DIR / "save_articles.py").read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        return source, [n.lineno for n in ast.walk(tree)
+                        if isinstance(n, ast.Call)
+                        and isinstance(n.func, ast.Name)
+                        and n.func.id == "emit_fetch"]
+
+    def test_every_sweep_ending_emits_before_it_leaves(self):
+        source, calls = self.emit_call_sites()
+        # six failed endings (bot_refused, empty stdin, stdin lister crash,
+        # stdin lister error, lister timeout, unparseable, lister error)
+        # plus the completed sweep. An exact count, so REMOVING one fails
+        # here and adding one is a deliberate edit to this number.
+        self.assertEqual(len(calls), 8, f"call sites at lines {calls}")
+        # Nothing may emit the event directly any more: the helper is what
+        # carries `seconds` and `article_bytes` onto every path.
+        self.assertEqual(source.count('perf_log.emit("fetch"'), 1)
+
+    def test_a_failed_sweep_appears_in_the_perf_log(self):
+        # The behavioural half: the assertions above are all about source
+        # text, and would pass an emit that never reached the log.
+        root = Path(tempfile.mkdtemp(prefix="perfsweep_"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "news" / "data").mkdir(parents=True)
+        env = dict(os.environ, DATA_BG_ROOT=str(root))
+        env.pop("NEWS_PERF_DIR", None)
+        # A domain with no registry row cannot be listed, so this is a real
+        # early exit — the branch that used to leave no trace at all.
+        subprocess.run([sys.executable, str(SAVER), "nosuchdomain.bg", "5"],
+                       capture_output=True, text=True, env=env, timeout=120)
+        events = [json.loads(line)
+                  for path in (root / "news" / "data" / "_perf").glob("*.jsonl")
+                  for line in path.read_text(encoding="utf-8").splitlines()
+                  if line.strip()]
+        fetches = [e for e in events if e.get("event") == "fetch"]
+        self.assertEqual(len(fetches), 1, events)
+        self.assertEqual(fetches[0]["domain"], "nosuchdomain.bg")
+        self.assertTrue(fetches[0].get("error"), fetches[0])
+        self.assertIsNone(fetches[0]["window_overlap"])
+        self.assertIn("seconds", fetches[0])
+        self.assertEqual(fetches[0]["article_bytes"], 0)
+
+    def test_the_event_carries_the_sweeps_cost(self):
+        import save_articles as sa  # noqa: E402
+        seen = []
+
+        class Fake:
+            @staticmethod
+            def emit(event, **fields):
+                seen.append((event, fields))
+
+        original = sa.perf_log
+        before = dict(sa._ARTICLE_WIRE)
+        sa.perf_log = Fake
+        try:
+            sa._ARTICLE_WIRE["bytes"] = 4096
+            sa._ARTICLE_WIRE["responses"] = 3
+            sa.emit_fetch("ex.bg", listed=2, saved=2, window_overlap=True)
+        finally:
+            sa.perf_log = original
+            sa._ARTICLE_WIRE.update(before)
+        (event, fields), = seen
+        self.assertEqual(event, "fetch")
+        self.assertEqual(fields["article_bytes"], 4096)
+        self.assertEqual(fields["article_responses"], 3)
+        self.assertGreaterEqual(fields["seconds"], 0)
+        self.assertEqual(fields["domain"], "ex.bg")
+        # The caller's own fields survive the helper's additions.
+        self.assertIs(fields["window_overlap"], True)
+        self.assertEqual(fields["listed"], 2)
+
+    def test_a_logging_failure_never_fails_the_sweep(self):
+        import save_articles as sa  # noqa: E402
+
+        class Broken:
+            @staticmethod
+            def emit(event, **fields):
+                raise RuntimeError("disk full")
+
+        original = sa.perf_log
+        sa.perf_log = Broken
+        try:
+            sa.emit_fetch("ex.bg")  # must not raise
+        finally:
+            sa.perf_log = original
+
+    def test_a_kwarg_collision_is_raised_not_swallowed(self):
+        # ⚠️ A call site passing `domain=` or `seconds=` inside **fields
+        # collides INSIDE the try. Swallowing it would silently drop the
+        # event — the exact absence this helper exists to end, one layer up.
+        import save_articles as sa  # noqa: E402
+
+        class Fake:
+            @staticmethod
+            def emit(event, **fields):
+                pass
+
+        original = sa.perf_log
+        sa.perf_log = Fake
+        try:
+            with self.assertRaises(TypeError):
+                sa.emit_fetch("ex.bg", domain="other.bg")
+        finally:
+            sa.perf_log = original
+
+    def test_article_bytes_are_the_wire_bytes_not_the_decoded_page(self):
+        # BEHAVIOUR, not source order: a gzipped page decompresses ~4x, so
+        # counting the decoded string would overstate what this crawler costs
+        # the outlet by that factor. The old test compared two substring
+        # positions, which an implementation that counted into the wrong
+        # counter — or counted twice — would have passed.
+        import save_articles as sa  # noqa: E402
+        html = page("Тест", [PROSE * 3])
+        wire = gzip.compress(html.encode("utf-8"))
+        self.assertLess(len(wire), len(html.encode("utf-8")) // 2,
+                        "fixture must actually compress for this to mean "
+                        "anything")
+
+        class FakeResponse:
+            headers = {"Content-Type": "text/html; charset=utf-8"}
+
+            def read(self):
+                return wire
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                return False
+
+        before = dict(sa._ARTICLE_WIRE)
+        real_open = sa.urllib.request.urlopen
+        real_robots = sa.fla.robots_allows
+        sa.urllib.request.urlopen = lambda *a, **k: FakeResponse()
+        sa.fla.robots_allows = lambda url: True
+        try:
+            sa._ARTICLE_WIRE["bytes"] = 0
+            sa._ARTICLE_WIRE["responses"] = 0
+            got = sa.fetch_html("https://ex.bg/a")
+        finally:
+            sa.urllib.request.urlopen = real_open
+            sa.fla.robots_allows = real_robots
+            counted = dict(sa._ARTICLE_WIRE)
+            sa._ARTICLE_WIRE.update(before)
+        # It really did gunzip — so the count below is a choice, not a
+        # coincidence of an uncompressed fixture.
+        self.assertIn("Тест", got)
+        self.assertEqual(counted["bytes"], len(wire))
+        self.assertEqual(counted["responses"], 1)
 
 
 class IntakeState(unittest.TestCase):

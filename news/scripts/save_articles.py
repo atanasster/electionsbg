@@ -124,6 +124,16 @@ LISTER = SCRIPT_DIR / "fetch_latest_articles.py"
 sys.path.insert(0, str(SCRIPT_DIR))
 import fetch_latest_articles as fla  # noqa: E402 - shared fetch/parse/date helpers
 
+# The sweep's own clock and fetch cost, for the per-sweep `fetch` perf event.
+# Run as a SCRIPT — which is how every sweep invokes it (save_all_direct.sh,
+# save_all_browser.sh, escalate_browser.sh) — this process is one sweep of one
+# domain, so import time is the sweep's start. That is what makes the figure
+# usable on the EARLY-EXIT paths too, where no per-domain timer has been
+# started yet. A library importer (capture_fixtures.py calls fetch_html in a
+# loop) accumulates into the same counters and simply never reads them.
+_SWEEP_STARTED = time.monotonic()
+_ARTICLE_WIRE = {"bytes": 0, "responses": 0}
+
 DELAY_DEFAULT = 0.4  # seconds between article-page fetches, same host
 
 # The BODY GATE floor. Deliberately the same number as analyze_articles.py's
@@ -1222,6 +1232,12 @@ def fetch_html(url):
                                 context=fla._SSL_CTX) as resp:
         ctype = resp.headers.get("Content-Type", "")
         body = resp.read()
+    # ⚠️ Counted BEFORE the gunzip below: the perf event reports what this
+    # sweep cost the network and the outlet, not what it cost our parser. The
+    # two differ by ~4x on a gzipped page, and the decompressed figure would
+    # overstate a polite crawler's footprint by that factor.
+    _ARTICLE_WIRE["bytes"] += len(body)
+    _ARTICLE_WIRE["responses"] += 1
     if body[:2] == b"\x1f\x8b":
         body = gzip.decompress(body)
     return decode_html(body, ctype)
@@ -1763,7 +1779,7 @@ def now_iso():
 RETRY_EXHAUSTED_TTL_DAYS = 30
 
 
-def window_overlap(listed_count, already_present):
+def window_overlap(listed_count, already_present, not_modified=False):
     """Did this sweep's listing overlap the previous one's?
 
     A feed exposes only its newest items, so if EVERY listed article is new
@@ -1774,10 +1790,71 @@ def window_overlap(listed_count, already_present):
     ⚠️ None, not False, when nothing was listed: "the source offered no
     items" is a different fact from "none of what it offered was known", and
     a consumer averaging the two would read a dead feed as a missed window.
+
+    ⚠️ A 304 IS AN OVERLAP, and it arrives looking like the opposite. The
+    one case it over-claims is a domain whose stored validator outlives our
+    copy of its articles (a state bootstrap, a corpus wipe): the source
+    answers 304 while we hold nothing, and True then asserts full coverage of
+    a domain with none. Bounded to one week by the forced unconditional fetch
+    (UNCONDITIONAL_EVERY_DAYS), and to nothing at all by the stored-validator
+    invalidation when a feed_url changes — recorded here rather than guarded,
+    because the alternative reading loses the signal on every ordinary sweep.
+    The
+    source says the document has not changed since our last request, so
+    nothing can have entered and left the window in between — the strongest
+    evidence of coverage this pipeline gets. But it carries no body, so it
+    reaches here as `listed_count == 0` and would otherwise be filed as "no
+    items", i.e. the one shape the caller is told to read as a dead feed. On
+    a conditional-fetch domain that is most sweeps, so the sign of the whole
+    measurement flips.
     """
+    if not_modified:
+        return True
     if not listed_count:
         return None
     return already_present > 0
+
+
+def emit_fetch(domain, **fields):
+    """The one `fetch` perf event, emitted on every ending this file controls.
+
+    ⚠️ Until 2026-09-20 only a COMPLETED sweep emitted one, so a domain whose
+    lister timed out, crashed or refused was simply ABSENT from the perf log
+    rather than present with an error. Any per-domain rate computed from it —
+    Phase 2.4's coverage figures — therefore omitted precisely the domains the
+    measurement is about, and a total failure read as a small sample.
+
+    ⚠️ TWO ENDINGS STILL EMIT NOTHING, and a consumer counting sweeps must
+    expect it: an unhandled exception, and the runner's `timeout` SIGTERM.
+    Both kill the process before any handler, so the event can only come from
+    outside — `save_all_direct.sh` already re-enters Python for exactly this
+    case to repair the intake STATE, and the perf log has no such recovery.
+    The two `--prefetched` / `--urls-file` usage exits are excluded
+    deliberately: a missing handoff file is a caller error, not a measurement
+    of the outlet.
+
+    `seconds` is the sweep's wall clock and `article_bytes` what the ARTICLE
+    pages pulled off the network — not the feed, which is fetched in the
+    lister subprocess or arrives on stdin, and so is uncounted by
+    construction. Every failed sweep therefore reports `article_bytes: 0`
+    truthfully: it never reached an article. Both are process-scoped (see
+    `_SWEEP_STARTED`), which is what lets the early exits report them at all.
+    """
+    if perf_log is None:
+        return
+    try:
+        perf_log.emit("fetch", domain=domain,
+                      seconds=round(time.monotonic() - _SWEEP_STARTED, 1),
+                      article_bytes=_ARTICLE_WIRE["bytes"],
+                      article_responses=_ARTICLE_WIRE["responses"], **fields)
+    except TypeError:
+        # ⚠️ NOT swallowed. A caller passing `domain=` or `seconds=` inside
+        # **fields collides here, and hiding that would silently drop the
+        # event — the exact absence this helper was written to end,
+        # reintroduced one layer up. An I/O failure is a different thing.
+        raise
+    except Exception:  # noqa: BLE001 — logging never fails a sweep
+        pass
 
 
 def merge_retry_queue(existing, failures, stamp, attempted=None,
@@ -3186,6 +3263,13 @@ def main():
     # that said no AND raises a permanent `failing` alert about it.
     if registry_flag(domain, "bot_policy_") == "bot_refused" and not (
             urls_file or prefetched or stdin_list):
+        # Logged like every other standing fact (needs_browser,
+        # blocked_captcha, robots_disallowed all emit below): a refused domain
+        # must be PRESENT with an error, or a per-domain coverage rate omits
+        # exactly the domains it is measuring. Latent today — 0 of 59
+        # registry rows carry this flag — and live the moment one does.
+        emit_fetch(domain, error="bot_refused", listed=0, saved=0,
+                   window_overlap=None)
         print(json.dumps({
             "domain": domain, "error": "bot_refused",
             "detail": "this site refuses an identified bot (403 to our "
@@ -3217,6 +3301,10 @@ def main():
                     if d.get("url") and d.get("html"):
                         html_map[d["url"]] = d
         except OSError as e:
+            # No `fetch` event, deliberately: a missing handoff file is a
+            # CALLER error, and filing it as a sweep would put a fabricated
+            # outlet failure into the coverage measurement. Same for
+            # --urls-file below. See emit_fetch's docstring.
             print(json.dumps({"error": "usage",
                               "detail": f"--prefetched unreadable: {e}"}))
             sys.exit(1)
@@ -3254,6 +3342,9 @@ def main():
         # divergent implementation for the 5 domains that need it.
         raw = sys.stdin.buffer.read()
         if not raw.strip():
+            emit_fetch(domain, method=f"browser_then_{stdin_list}",
+                       error="fetch_failed", listed=0, saved=0,
+                       window_overlap=None)
             print(json.dumps({"domain": domain, "error": "fetch_failed",
                               "detail": "--stdin-list got an empty document"}))
             sys.exit(4)
@@ -3268,6 +3359,9 @@ def main():
         except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
             detail = f"--stdin-list lister failed: {type(e).__name__}: {e}"
             record_domain_failure(domain, state, "fetch_failed", detail)
+            emit_fetch(domain, method=f"browser_then_{stdin_list}",
+                       error="fetch_failed", listed=0, saved=0,
+                       window_overlap=None)
             print(json.dumps({"domain": domain, "error": "fetch_failed",
                               "detail": detail}))
             sys.exit(4)
@@ -3279,6 +3373,12 @@ def main():
                 # their feed stayed broken.
                 record_domain_failure(domain, state, err, listed.get("detail"))
                 listed["consecutive_failures"] = state["consecutive_failures"]
+            # ⚠️ None, never True: a 304 is NOT one of these endings — the
+            # lister exits 0 with an empty listing for that, so it reaches the
+            # completed path below. Everything here is a failed listing, which
+            # says nothing either way about the feed window.
+            emit_fetch(domain, method=f"browser_then_{stdin_list}", error=err,
+                       listed=0, saved=0, window_overlap=None)
             print(json.dumps(listed, ensure_ascii=False))
             sys.exit(proc.returncode or 3)
         articles = listed.get("articles", [])
@@ -3372,6 +3472,8 @@ def main():
         except subprocess.TimeoutExpired:
             record_domain_failure(domain, state, "fetch_failed",
                                   f"lister exceeded {LISTER_TIMEOUT}s")
+            emit_fetch(domain, error="fetch_failed", listed=0, saved=0,
+                       window_overlap=None)
             print(json.dumps({"domain": domain, "error": "fetch_failed",
                               "detail": f"lister exceeded {LISTER_TIMEOUT}s",
                               "consecutive_failures":
@@ -3387,6 +3489,8 @@ def main():
             detail = (f"lister printed unparseable output: "
                       f"{proc.stdout[:200]} {proc.stderr[:200]}")
             record_domain_failure(domain, state, "fetch_failed", detail)
+            emit_fetch(domain, error="fetch_failed", listed=0, saved=0,
+                       window_overlap=None)
             print(json.dumps({"domain": domain, "error": "fetch_failed",
                               "detail": detail, "consecutive_failures":
                                   state["consecutive_failures"]}))
@@ -3402,6 +3506,8 @@ def main():
                 record_domain_failure(domain, state, err,
                                       listed.get("detail"))
                 listed["consecutive_failures"] = state["consecutive_failures"]
+            emit_fetch(domain, method=listed.get("method"), error=err,
+                       listed=0, saved=0, window_overlap=None)
             print(json.dumps(listed, ensure_ascii=False))
             sys.exit(proc.returncode or 3)
         articles = listed.get("articles", [])
@@ -3644,18 +3750,15 @@ def main():
     # gap with no error anywhere. The per-domain rate of that is what sets the
     # longest safe sweep interval — it cannot be derived after the fact, so it
     # is recorded per sweep here.
-    if perf_log is not None:
-        try:
-            perf_log.emit(
-                "fetch", domain=domain, method=list_method,
-                listed=listed_count, already_present=summary_already_present,
-                saved=saved, rejected=rejected, failed=len(failed),
-                retry_queued=len(queue), quarantined=quarantined,
-                productive=productive,
-                window_overlap=window_overlap(
-                    listed_count, len(listing_keys & on_disk)))
-        except Exception:  # noqa: BLE001 — logging never fails a sweep
-            pass
+    emit_fetch(
+        domain, method=list_method,
+        listed=listed_count, already_present=summary_already_present,
+        saved=saved, rejected=rejected, failed=len(failed),
+        retry_queued=len(queue), quarantined=quarantined,
+        productive=productive,
+        window_overlap=window_overlap(
+            listed_count, len(listing_keys & on_disk),
+            not_modified=(order_confidence == "not_modified")))
     if dropped:
         # Named, not silently forgotten: a URL that has burned every attempt
         # is a permanent gap in the corpus, and the run that gives up on it is
