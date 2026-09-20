@@ -160,22 +160,44 @@ def environment_selections(root: Path) -> list[Path]:
     return selections
 
 
+def public_data_revision(app_data: Path) -> str:
+    """The release's revision, from a RELEASE-level file.
+
+    ⚠️ It used to be derived by requiring all 57 `articles/<domain>.json`
+    bundles to carry an identical `generated_at`. That held only because
+    every bundle was stamped with the RUN time — which is exactly the
+    property that made the publish rewrite 37.2 MB an hour to convey 584 KB,
+    and which `bundle_generated_at` removed. The bundles now carry a
+    CONTENT-derived stamp, so there are as many values as there are
+    distinct corpora, and the old check failed the pipeline with "public
+    app-data is empty or spans multiple revisions" — blocking publication
+    entirely until this was read off the right file instead.
+
+    `latest.json` is release-level and written on every build, so it is the
+    revision's home. A missing or malformed one is an error rather than a
+    guess: the revision keys every eval task, and inventing one would
+    silently re-key the whole queue.
+    """
+    path = app_data / "latest.json"
+    if not path.is_file():
+        raise SyncError(f"public latest.json is missing: {path}")
+    return timestamp(read_json(path).get("generated_at"),
+                     f"{path}.generated_at")
+
+
 def load_public_articles(app_data: Path) -> tuple[str, dict[str, dict[str, Any]]]:
     articles_dir = app_data / "articles"
     if not articles_dir.is_dir():
         raise SyncError(f"public articles directory is missing: {articles_dir}")
     rows: dict[str, dict[str, Any]] = {}
-    revisions: set[str] = set()
     for path in sorted(articles_dir.glob("*.json")):
         if path.name in {"evals.json", "gold.json"}:
             continue
         bundle = read_json(path)
         domain = bundle.get("domain")
         records = bundle.get("articles")
-        generated_at = bundle.get("generated_at")
         if not isinstance(domain, str) or not isinstance(records, list):
             continue
-        revisions.add(timestamp(generated_at, f"{path}.generated_at"))
         for record in records:
             if not isinstance(record, dict):
                 raise SyncError(f"{path} contains a non-object article")
@@ -184,9 +206,9 @@ def load_public_articles(app_data: Path) -> tuple[str, dict[str, dict[str, Any]]
             if key in rows:
                 raise SyncError(f"public app-data contains duplicate {key}")
             rows[key] = record
-    if not rows or len(revisions) != 1:
-        raise SyncError("public app-data is empty or spans multiple revisions")
-    return next(iter(revisions)), rows
+    if not rows:
+        raise SyncError("public app-data has no articles")
+    return public_data_revision(app_data), rows
 
 
 def sealed_article_keys(root: Path,

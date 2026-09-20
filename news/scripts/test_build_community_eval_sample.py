@@ -19,6 +19,12 @@ class CommunitySampleTest(unittest.TestCase):
         self.app_data = self.root / "news/app-data"
         articles_dir = self.app_data / "articles"
         articles_dir.mkdir(parents=True)
+        # RELEASE-level revision: the per-domain bundles carry a
+        # content-derived stamp now, so the revision is read from
+        # here (sync_eval_tasks.public_data_revision).
+        (self.app_data / "latest.json").write_text(
+            '{"generated_at": "2026-08-24T08:00:00.000Z", "articles": []}',
+            encoding="utf-8")
         gold = self.root / "news/data/gold"
         gold.mkdir(parents=True)
         rows = []

@@ -12,6 +12,13 @@ class FeedbackTaskBuildTests(unittest.TestCase):
         root = Path(tempfile.mkdtemp())
         app = root / "news" / "app-data"
         (app / "articles").mkdir(parents=True)
+        # RELEASE-level revision: the per-domain bundles carry a
+        # content-derived stamp now, so the revision is read from
+        # here (sync_eval_tasks.public_data_revision).
+        revision = "2026-09-01T07:00:00.000Z"
+        (app / "latest.json").write_text(
+            json.dumps({"generated_at": revision, "articles": []}),
+            encoding="utf-8")
         (root / "news" / "data" / "example.bg").mkdir(parents=True)
         revision = "2026-09-01T07:00:00.000Z"
         targets = [{

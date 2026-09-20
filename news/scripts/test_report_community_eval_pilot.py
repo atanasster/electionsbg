@@ -66,6 +66,12 @@ class CommunityPilotReportTest(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.app_data = self.root / "news/app-data/articles"
         self.app_data.mkdir(parents=True)
+        # RELEASE-level revision: the per-domain bundles carry a
+        # content-derived stamp now, so the revision is read from
+        # here (sync_eval_tasks.public_data_revision).
+        (self.app_data.parent / "latest.json").write_text(
+            json.dumps({"generated_at": STAMP, "articles": []}),
+            encoding="utf-8")
         self.keys = ["a.bg/one", "b.bg/two", "c.bg/three"]
         records = []
         for index, key in enumerate(self.keys):
@@ -287,10 +293,19 @@ class CommunityPilotReportTest(unittest.TestCase):
         with self.assertRaisesRegex(pilot.PilotReportError, "invalid metadata"):
             self.report()
         self.write_raw(self.records)
-        bundle = json.loads((self.app_data / "a.bg.json").read_text(encoding="utf-8"))
-        bundle["generated_at"] = "2026-09-02T00:00:00Z"
-        (self.app_data / "a.bg.json").write_text(json.dumps(bundle), encoding="utf-8")
-        with self.assertRaisesRegex(SyncError, "multiple revisions"):
+        # ⚠️ The revision now comes from the RELEASE-level latest.json, not
+        # from agreement among the per-domain bundles — those carry a
+        # content-derived stamp, so a bundle's timestamp legitimately
+        # differs from its neighbours and can no longer signal tampering.
+        # What must still fail closed is app-data whose revision does not
+        # match the frozen sample, so that is what this tampers now.
+        latest = self.app_data.parent / "latest.json"
+        latest.write_text(
+            json.dumps({"generated_at": "2026-09-02T00:00:00.000Z",
+                        "articles": []}),
+            encoding="utf-8")
+        with self.assertRaisesRegex(pilot.PilotReportError,
+                                    "revision does not match"):
             self.report()
 
 

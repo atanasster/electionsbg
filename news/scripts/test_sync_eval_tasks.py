@@ -31,6 +31,13 @@ class TaskSyncTest(unittest.TestCase):
         article_dir.mkdir(parents=True)
         analysis_dir.mkdir(parents=True)
         public_dir.mkdir(parents=True)
+        # The RELEASE-level revision. The per-domain bundles carry a
+        # content-derived stamp now, so the revision is read from here
+        # — see sync_eval_tasks.public_data_revision.
+        (self.app / "latest.json").write_text(
+            json.dumps({"generated_at": "2026-08-24T08:00:00.000Z",
+                        "articles": []}),
+            encoding="utf-8")
         article = {
             "title": "Публична статия",
             "url": "https://example.bg/article-1",
