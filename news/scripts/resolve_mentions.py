@@ -459,7 +459,13 @@ if __name__ == "__main__":
 
 # Where each kind lives on the MAIN site. ⚠️ Absolute URLs: the news app is a
 # different origin, so a relative href would 404 against news.electionsbg.com.
-MAIN_SITE = "https://electionsbg.com"
+#
+# ⚠️ `electionsbg.com` 301s here rather than being dead, so a stale copy of
+# this constant does not break a link — it costs a redirect hop, silently, for
+# as long as nobody looks. The client rewrites the retired host on the way out
+# (`mainSiteUrl` in newsapp/app/site.ts) so that already-published releases
+# land on this domain too; that normaliser is the safety net, not the fix.
+MAIN_SITE = "https://naiasno.bg"
 
 # A real settlement page is keyed by a bare 5-digit EKATTE — see the
 # refusal in entity_link() for the two shapes this excludes.

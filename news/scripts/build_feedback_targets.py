@@ -12,7 +12,15 @@ from urllib.parse import quote
 from news.eval_contract.canonical import canonical_sha256
 
 ROOT = Path(__file__).resolve().parents[2]
-MAIN_SITE = "https://electionsbg.com"
+MAIN_SITE = "https://naiasno.bg"
+
+# ⚠️ BOTH HOSTS. `naiasno.bg` is the serving domain and `electionsbg.com` 301s
+# to it, so a registry built either side of the rebrand is canonical. Pinning
+# this to the new host alone REJECTS an existing registry outright — the
+# validator raises on target 0, the build fails, and the feedback surface
+# keeps serving whatever it had. It comes out when the legacy registry is
+# provably gone, not before.
+CANONICAL_HREF = re.compile(r"https://(?:naiasno\.bg|electionsbg\.com)/\S{1,500}")
 SECTOR_RE = re.compile(
     r'id: "([^"]+)",\s+titleKey: "([^"]+)",.*?to: "([^"]+)"',
     re.DOTALL,
@@ -197,7 +205,7 @@ def validate_registry(value: object) -> dict:
         if (kind not in TARGET_KINDS or not isinstance(ident, str) or
                 not 1 <= len(ident) <= 160 or not isinstance(canonical, str) or
                 not 1 <= len(canonical) <= 300 or not isinstance(href, str) or
-                not re.fullmatch(r"https://electionsbg\.com/\S{1,500}", href) or
+                not CANONICAL_HREF.fullmatch(href) or
                 not isinstance(aliases, list) or not 1 <= len(aliases) <= 20 or
                 any(not isinstance(alias, str) or not 1 <= len(alias) <= 300
                     for alias in aliases) or len(set(aliases)) != len(aliases)):

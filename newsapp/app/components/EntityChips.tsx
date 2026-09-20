@@ -14,15 +14,21 @@
 // and for a person it is also announced to a screen reader.
 //
 // ⚠️ CROSS-ORIGIN, deliberately: the news app is news.electionsbg.com and
-// these pages are on electionsbg.com, so the hrefs are absolute and these
-// are plain <a> elements — react-router's <Link> would try to route them
-// inside this app. `rel="noreferrer"` and not `target="_blank"`: a reader
-// following a person is continuing the same task, not opening a side quest.
+// these pages are on naiasno.bg, so the hrefs are absolute and these are
+// plain <a> elements — react-router's <Link> would try to route them inside
+// this app. `rel="noreferrer"` and not `target="_blank"`: a reader following
+// a person is continuing the same task, not opening a side quest.
+//
+// ⚠️ THE HREF GOES THROUGH `mainSiteUrl`, never used raw. A release published
+// before the rebrand is immutable and still served, and carries the retired
+// host; rewriting on the way out is what spares every such release a
+// republish — and what keeps both vintages on one domain.
 
 import { Fragment } from "react";
 import { Badge } from "@/components/ui/badge";
 import type { EntityLink } from "../data";
 import { useNewsLocale } from "../i18n";
+import { MAIN_SITE_LABEL, mainSiteUrl } from "../site";
 
 const ENTITY_CHIP_LIMIT = 8;
 
@@ -39,22 +45,6 @@ const KIND_LABEL_EN: Record<EntityLink["kind"], string> = {
   institution: "institution",
   company: "company",
   place: "place",
-};
-
-const localizedMainHref = (href: string, isEnglish: boolean): string => {
-  if (!isEnglish) return href;
-  try {
-    const url = new URL(href);
-    if (
-      url.hostname !== "electionsbg.com" ||
-      /^\/en(?:\/|$)/.test(url.pathname)
-    )
-      return href;
-    url.pathname = `/en${url.pathname === "/" ? "" : url.pathname}`;
-    return url.toString();
-  } catch {
-    return href;
-  }
 };
 
 export const EntityChips = ({
@@ -94,12 +84,12 @@ export const EntityChips = ({
           return (
             <a
               key={name}
-              href={localizedMainHref(link.href, isEnglish)}
+              href={mainSiteUrl(link.href, isEnglish)}
               rel="noreferrer"
               title={
                 differs
-                  ? `${link.canonical} — ${(isEnglish ? KIND_LABEL_EN : KIND_LABEL)[link.kind]} ${tr("в", "on")} electionsbg.com`
-                  : `${(isEnglish ? KIND_LABEL_EN : KIND_LABEL)[link.kind]} ${tr("в", "on")} electionsbg.com`
+                  ? `${link.canonical} — ${(isEnglish ? KIND_LABEL_EN : KIND_LABEL)[link.kind]} ${tr("в", "on")} ${MAIN_SITE_LABEL}`
+                  : `${(isEnglish ? KIND_LABEL_EN : KIND_LABEL)[link.kind]} ${tr("в", "on")} ${MAIN_SITE_LABEL}`
               }
               className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >

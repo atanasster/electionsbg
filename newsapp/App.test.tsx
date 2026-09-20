@@ -37,9 +37,12 @@ describe("news shell accessibility", () => {
       1,
     );
     const footer = within(screen.getByRole("contentinfo"));
-    expect(
-      footer.getByRole("link", { name: "electionsbg.com" }),
-    ).toHaveTextContent("electionsbg.com");
+    // ⚠️ The HREF as well as the text. The label and the destination are set
+    // from one constant, so a test that only reads the text would pass on a
+    // footer that says „naiasno.bg" and still points at the retired host.
+    const mainSiteLink = footer.getByRole("link", { name: "naiasno.bg" });
+    expect(mainSiteLink).toHaveTextContent("naiasno.bg");
+    expect(mainSiteLink).toHaveAttribute("href", "https://naiasno.bg");
     expect(
       footer.getByRole("link", { name: "за редакцията" }),
     ).toHaveTextContent("за редакцията");

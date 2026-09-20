@@ -16,6 +16,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import resolve_mentions as rm  # noqa: E402
 from resolve_mentions import (  # noqa: E402
     undefinite_forms, entity_links,
     BASIS_RANK, Gazetteer, article_text, dedupe, decide, fold, resolve)
@@ -361,7 +362,7 @@ class CuratedEntityLinks(unittest.TestCase):
         link = entity_links(right, self.g, self.overrides)["ДПС"]
         self.assertEqual(link["id"], "p_16")
         self.assertEqual(link["href"],
-                         "https://electionsbg.com/party/%D0%94%D0%9F%D0%A1")
+                         f"{rm.MAIN_SITE}/party/%D0%94%D0%9F%D0%A1")
 
     def test_a_gazetteer_party_uses_its_nickname_not_canonical_id_in_the_url(self):
         g = gz({"kind": "party", "canonical": "ПрБ",
@@ -371,20 +372,20 @@ class CuratedEntityLinks(unittest.TestCase):
         link = got["Прогресивна България"]
         self.assertEqual(link["id"], "p_20")
         self.assertEqual(link["href"],
-                         "https://electionsbg.com/party/%D0%9F%D1%80%D0%91")
+                         f"{rm.MAIN_SITE}/party/%D0%9F%D1%80%D0%91")
 
     def test_a_curated_company_uses_the_served_company_route(self):
         got = entity_links(
             {"companies": ["О-Рент"]}, self.g, self.overrides)
         self.assertEqual(got["О-Рент"]["kind"], "company")
         self.assertEqual(got["О-Рент"]["href"],
-                         "https://electionsbg.com/company/206268628")
+                         f"{rm.MAIN_SITE}/company/206268628")
 
     def test_a_curated_entity_may_use_a_reviewed_main_site_path(self):
         got = entity_links(
             {"institutions": ["КЗК"]}, self.g, self.overrides)
         self.assertEqual(got["КЗК"]["href"],
-                         "https://electionsbg.com/procurement/appeals")
+                         f"{rm.MAIN_SITE}/procurement/appeals")
 
     def test_an_ambiguous_place_override_needs_its_textual_context(self):
         entities = {"places": ["Безмер"]}
@@ -394,7 +395,7 @@ class CuratedEntityLinks(unittest.TestCase):
             entities, self.g, self.overrides,
             context_text="Самолетите напуснаха авиобаза Безмер.")
         self.assertEqual(got["Безмер"]["href"],
-                         "https://electionsbg.com/settlement/03229")
+                         f"{rm.MAIN_SITE}/settlement/03229")
 
     def test_the_committed_crosswalk_is_reviewable_and_non_contradictory(self):
         path = (Path(__file__).resolve().parents[1] / "data"
@@ -425,10 +426,10 @@ class CuratedEntityLinks(unittest.TestCase):
         self.assertEqual(
             {name: link["href"] for name, link in got.items()},
             {
-                "КЗК": "https://electionsbg.com/procurement/appeals",
-                "О-Рент": "https://electionsbg.com/company/206268628",
-                "Инжконсулт": "https://electionsbg.com/company/130083729",
-                "Земекоп": "https://electionsbg.com/company/201256929",
+                "КЗК": f"{rm.MAIN_SITE}/procurement/appeals",
+                "О-Рент": f"{rm.MAIN_SITE}/company/206268628",
+                "Инжконсулт": f"{rm.MAIN_SITE}/company/130083729",
+                "Земекоп": f"{rm.MAIN_SITE}/company/201256929",
             },
         )
 

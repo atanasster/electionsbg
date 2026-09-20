@@ -1,6 +1,7 @@
 import type { Leaning, RussiaStance, Tone } from "./data";
 import { fetchData } from "./data";
 import { canonicalEvalSha256 } from "./evals";
+import { isMainSiteHref } from "./site";
 
 export type FeedbackTargetKind =
   | "person"
@@ -202,7 +203,9 @@ export const parseFeedbackTargetRegistry = async (
         !target.canonical ||
         target.canonical.length > 300 ||
         typeof target.href !== "string" ||
-        !/^https:\/\/electionsbg\.com\/\S{1,500}$/.test(target.href) ||
+        target.href.length > 520 ||
+        /\s/.test(target.href) ||
+        !isMainSiteHref(target.href) ||
         !Array.isArray(target.aliases) ||
         target.aliases.length < 1 ||
         target.aliases.length > 20 ||
@@ -260,7 +263,7 @@ export const loadCurrentFeedbackLinks = async (
       ) ||
       typeof link?.id !== "string" ||
       typeof link.href !== "string" ||
-      !link.href.startsWith("https://electionsbg.com/")
+      !isMainSiteHref(link.href)
     )
       throw new ArticleFeedbackError("invalid_article_links", 200);
     out.push({

@@ -199,7 +199,7 @@ export const applyHead = (
       applicationCategory: "NewsApplication",
       description:
         "Independent comparison of Bulgarian media coverage, political framing, stance toward Russia, topics, and sources.",
-      isPartOf: "https://electionsbg.com/en",
+      isPartOf: "https://naiasno.bg/en",
       offers: { "@type": "Offer", price: "0", priceCurrency: "BGN" },
     });
     html = html.replace(
@@ -208,7 +208,7 @@ export const applyHead = (
     );
     html = html.replace(
       /<noscript>[\s\S]*?<\/noscript>/,
-      `<noscript><div style="font-family: system-ui; max-width: 40rem; margin: 4rem auto; padding: 0 1rem"><h1>Naiasno News</h1><p>This application compares how Bulgarian media cover the same stories. JavaScript is required. Visit <a href="https://electionsbg.com/en">electionsbg.com</a> for the main site.</p></div></noscript>`,
+      `<noscript><div style="font-family: system-ui; max-width: 40rem; margin: 4rem auto; padding: 0 1rem"><h1>Naiasno News</h1><p>This application compares how Bulgarian media cover the same stories. JavaScript is required. Visit <a href="https://naiasno.bg/en">naiasno.bg</a> for the main site.</p></div></noscript>`,
     );
   }
   return { html, missing };

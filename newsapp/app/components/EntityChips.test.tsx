@@ -27,9 +27,12 @@ describe("linking", () => {
         links={{ "Иван Христанов": link() }}
       />,
     );
+    // ⚠️ The FIXTURE carries the retired host, deliberately: that is what a
+    // release published before the rebrand holds, and the rendered href must
+    // be the serving domain regardless.
     expect(
       screen.getByRole("link", { name: /Иван Христанов/ }),
-    ).toHaveAttribute("href", "https://electionsbg.com/person/mp-3931");
+    ).toHaveAttribute("href", "https://naiasno.bg/person/mp-3931");
     // ⚠️ The unresolved one must NOT be a link. „We could not tell who this
     // is" and „here is their profile" are different statements.
     expect(screen.queryByRole("link", { name: /Размиг/ })).toBeNull();
@@ -74,7 +77,7 @@ describe("linking", () => {
   });
 
   it("is a plain anchor, not a router link", () => {
-    // ⚠️ The news app is a different origin from electionsbg.com, so these
+    // ⚠️ The news app is a different origin from the main site, so these
     // must leave the SPA. Rendered through react-router's <Link> they would
     // be routed inside this app and 404.
     render(
@@ -85,7 +88,7 @@ describe("linking", () => {
       />,
     );
     const a = screen.getByRole("link", { name: /Иван Христанов/ });
-    expect(a.getAttribute("href")).toMatch(/^https:\/\/electionsbg\.com\//);
+    expect(a.getAttribute("href")).toMatch(/^https:\/\/naiasno\.bg\//);
     expect(a.getAttribute("rel")).toContain("noreferrer");
   });
 

@@ -10,6 +10,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
+import { isMainSiteHref } from "./site";
 import {
   applyOverlayToPath,
   OverlayRemovedPath,
@@ -562,7 +563,7 @@ export const isLinkableMention = (m: Mention): boolean =>
  *
  * ⚠️ Present only for a name the gazetteer matched outright OR a
  * hand-verified, model-classified entity override, against a route
- * electionsbg.com actually serves. Overrides never enter the free-text
+ * the main site actually serves. Overrides never enter the free-text
  * resolver. A name that did not resolve is ABSENT from the map rather than
  * present with a null href — a renderer would happily turn a null into a
  * dead link.
@@ -579,7 +580,12 @@ export interface EntityLink {
   canonical: string;
   /** How strong the surface was as evidence. See FORM_KINDS. */
   form_kind: string;
-  /** Absolute: the news app is a different origin from electionsbg.com. */
+  /**
+   * Absolute: the news app is a different origin from the main site.
+   *
+   * ⚠️ RENDER IT THROUGH `mainSiteUrl`, never raw — a release minted before
+   * the rebrand carries the retired host.
+   */
   href: string;
 }
 
@@ -2047,7 +2053,11 @@ const isPublicReviewedLinks = (value: unknown): value is ReviewedLink[] =>
       typeof raw.canonical === "string" &&
       raw.canonical.length > 0 &&
       typeof raw.href === "string" &&
-      /^https:\/\/electionsbg\.com\/\S+$/.test(raw.href)
+      // ⚠️ BOTH HOSTS — see MAIN_SITE_HOSTS. A release published before the
+      // rebrand carries `electionsbg.com`, and narrowing this to the new
+      // host would reject every reviewed link in it at a 200.
+      !/\s/.test(raw.href) &&
+      isMainSiteHref(raw.href)
     );
   });
 

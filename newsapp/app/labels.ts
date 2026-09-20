@@ -11,6 +11,7 @@ import type {
   Tone,
 } from "./data";
 import type { NewsLanguage } from "./i18n";
+import { MAIN_SITE } from "./site";
 
 export const LEANING_ORDER: Leaning[] = [
   "strong_progressive",
@@ -292,8 +293,6 @@ export const topicParts = (
     });
   return out;
 };
-
-const MAIN_SITE = "https://electionsbg.com";
 
 const mainSiteHref = (
   route: string | null | undefined,

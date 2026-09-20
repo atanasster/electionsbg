@@ -235,7 +235,7 @@ def request_headers(target: str) -> dict:
         headers["Authorization"] = f"Bearer {key}"
     if host == "openrouter.ai":
         headers["HTTP-Referer"] = os.environ.get(
-            "NEWS_LLM_SITE_URL", "https://electionsbg.com")
+            "NEWS_LLM_SITE_URL", "https://naiasno.bg")
         headers["X-Title"] = os.environ.get(
             "NEWS_LLM_APP_NAME", "Naiasno news analysis eval")
     return headers

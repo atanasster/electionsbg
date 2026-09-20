@@ -17,6 +17,17 @@ import {
 
 type JsonObject = Record<string, unknown>;
 
+/**
+ * Hosts a feedback-target href may carry.
+ *
+ * ⚠️ TWO, not one — `naiasno.bg` is the serving domain and `electionsbg.com`
+ * 301s to it, so a registry built either side of the rebrand is canonical.
+ */
+const CANONICAL_SITE_PREFIXES = [
+  "https://naiasno.bg/",
+  "https://electionsbg.com/",
+] as const;
+
 const MAX_EVAL_SOURCE_SUBMISSIONS = 200;
 const MAX_FEEDBACK_TASKS = 20_000;
 
@@ -823,7 +834,16 @@ function feedbackTargetRegistry(value: unknown): {
   const seen = new Set<string>();
   for (let index = 0; index < targets.length; index += 1) {
     const target = targets[index]!;
-    if (!(target.href as string).startsWith("https://electionsbg.com/"))
+    // ⚠️ BOTH HOSTS. `naiasno.bg` is the serving domain and
+    // `electionsbg.com` 301s to it, so a registry built before the rebrand
+    // and one built after are both canonical. Pinning this to either one
+    // alone REJECTS THE WHOLE REGISTRY — the upload fails on target 0 and
+    // the feedback surface keeps serving the previous vintage.
+    if (
+      !CANONICAL_SITE_PREFIXES.some((prefix) =>
+        (target.href as string).startsWith(prefix),
+      )
+    )
       throw new Error("feedback target href is outside the canonical site");
     const key = `${target.kind as string}\u0000${target.id as string}`;
     if (seen.has(key))

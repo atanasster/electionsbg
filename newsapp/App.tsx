@@ -22,6 +22,7 @@ import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
 import { SHELL_MAIN } from "./app/shell";
+import { MAIN_SITE_LABEL, mainSiteHome } from "./app/site";
 import {
   NewsLocaleProvider,
   newsPathForLanguage,
@@ -204,14 +205,11 @@ const NewsAppShell = () => {
       label: tr("Методология", "Methodology"),
     },
   ] as const;
-  const mainSite =
-    language === "en"
-      ? "https://electionsbg.com/en"
-      : "https://electionsbg.com";
+  const mainSite = mainSiteHome(language === "en");
   const footerLinks = [
     {
       href: mainSite,
-      label: "electionsbg.com",
+      label: MAIN_SITE_LABEL,
     },
     {
       href: "/about",
@@ -287,7 +285,7 @@ const NewsAppShell = () => {
               asChild
               className="hidden xl:inline-flex"
             >
-              <a href={mainSite}>electionsbg.com</a>
+              <a href={mainSite}>{MAIN_SITE_LABEL}</a>
             </Button>
             <Button variant="ghost" size="icon" asChild className="lg:hidden">
               <Link
@@ -340,7 +338,7 @@ const NewsAppShell = () => {
                 ))}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <a href={mainSite}>electionsbg.com</a>
+                  <a href={mainSite}>{MAIN_SITE_LABEL}</a>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

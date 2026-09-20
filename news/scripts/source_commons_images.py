@@ -52,7 +52,7 @@ def commons_search(term: str, *, limit: int = 8,
     })
     request = urllib.request.Request(
         f"{API}?{params}", headers={
-            "User-Agent": "NaiasnoImageReview/1.0 (https://electionsbg.com; editorial image review)",
+            "User-Agent": "NaiasnoImageReview/1.0 (https://naiasno.bg; editorial image review)",
             "Accept": "application/json",
         }
     )

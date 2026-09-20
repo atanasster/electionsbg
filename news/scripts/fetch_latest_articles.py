@@ -66,7 +66,7 @@ import gzip
 # marked `bot_refused` in the registry and their articles are simply not
 # collected.
 BOT_NAME = "NaiasnoBot"
-UA = (f"{BOT_NAME}/1.0 (+https://electionsbg.com/about; "
+UA = (f"{BOT_NAME}/1.0 (+https://naiasno.bg/about; "
       "public-interest media monitoring)")
 TIMEOUT = 10
 STALE_AFTER_DAYS = 30  # a top result older than this reads as broken sitemap data, not "latest"
