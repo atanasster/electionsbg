@@ -14,13 +14,11 @@ const Harness = ({
   language = "bg",
   initial = DEFAULT_BRIEFING_PREFERENCES,
   newStoryCount = 2,
-  personalizationPaused = false,
 }: {
   onComplete?: () => void;
   language?: NewsLanguage;
   initial?: BriefingPreferences;
   newStoryCount?: number;
-  personalizationPaused?: boolean;
 }) => {
   const [preferences, setPreferences] = useState<BriefingPreferences>(initial);
   return (
@@ -28,12 +26,7 @@ const Harness = ({
       <BriefingControls
         preferences={preferences}
         activeCadence={preferences.cadence}
-        topics={[
-          { id: "politics", label: "Политика", count: 6 },
-          { id: "economy", label: "Икономика", count: 4 },
-        ]}
         newStoryCount={newStoryCount}
-        personalizationPaused={personalizationPaused}
         onChange={setPreferences}
         onCadenceChange={() => undefined}
         onComplete={onComplete}
@@ -45,7 +38,7 @@ const Harness = ({
 afterEach(() => Reflect.deleteProperty(window, "naiasnoNewsAnalytics"));
 
 describe("BriefingControls", () => {
-  it("explains the finite, local and outside-interest contract", () => {
+  it("explains the finite and local contract", () => {
     render(<Harness />);
     expect(screen.getByText("Краен списък")).toBeVisible();
     // ⚠️ The privacy fact stays VISIBLE while the settings move behind a
@@ -56,28 +49,23 @@ describe("BriefingControls", () => {
     // The full explanation is inside the disclosure — present, not visible
     // until opened.
     expect(
-      screen.getByText(/Филтрите на страницата се прилагат първо/),
+      screen.getByText(/Предпочитанията се пазят само в този браузър\./),
     ).not.toBeVisible();
   });
 
-  it("updates format and followed topics without emitting topic ids", async () => {
+  it("updates format", async () => {
     const user = userEvent.setup();
     const sink = vi.fn();
     window.naiasnoNewsAnalytics = sink;
     render(<Harness />);
 
     await user.click(screen.getByRole("button", { name: "Компактен" }));
-    await user.click(screen.getByRole("button", { name: /Политика · 6/ }));
 
     expect(screen.getByRole("button", { name: "Компактен" })).toHaveAttribute(
       "aria-pressed",
       "true",
     );
-    expect(
-      screen.getByRole("button", { name: /Политика · 6/ }),
-    ).toHaveAttribute("aria-pressed", "true");
-    await waitFor(() => expect(sink).toHaveBeenCalledTimes(2));
-    expect(JSON.stringify(sink.mock.calls)).not.toContain("politics");
+    await waitFor(() => expect(sink).toHaveBeenCalledTimes(1));
   });
 
   it("marks the finite briefing complete", async () => {
@@ -130,24 +118,24 @@ describe("BriefingControls", () => {
     expect(screen.getByText(/1 story since/)).toBeVisible();
   });
 
-  it("can clear followed topics and explains paused personalization", async () => {
-    const user = userEvent.setup();
+  it("offers NO topic following while there is no account to hold it", async () => {
+    // ⚠️ WITHDRAWN AS A PAIR with „Водещи истории извън интересите ви" on the
+    // home screen. That section was the reader's only evidence that following
+    // a topic had pushed stories out of their briefing; keeping the picker
+    // without it would hide stories silently. The briefing is also passed an
+    // EMPTY followed list at its call site, so a browser that already stored
+    // one is unaffected.
     render(
       <Harness
         initial={{
           ...DEFAULT_BRIEFING_PREFERENCES,
           followedTopics: ["politics"],
         }}
-        personalizationPaused
       />,
     );
-    expect(screen.getByText(/Групирането по интереси е спряно/)).toBeVisible();
-    await user.click(
-      screen.getByRole("button", { name: "Изчисти следваните теми" }),
-    );
-    expect(
-      screen.getByRole("button", { name: /Политика · 6/ }),
-    ).toHaveAttribute("aria-pressed", "false");
+    expect(screen.queryByText(/Следвани теми/)).toBeNull();
+    expect(screen.queryByRole("button", { name: /Политика/ })).toBeNull();
+    expect(screen.queryByText(/Групирането по интереси/)).toBeNull();
   });
 
   it("keeps every setting reachable and readable behind the disclosure", async () => {
@@ -164,12 +152,11 @@ describe("BriefingControls", () => {
       screen.getByRole("button", { name: "Приключих прегледа" }),
       "the completion action never hides",
     ).toBeVisible();
-    // The state of EVERY setting is legible without opening anything — §4.6
-    // names four segments, and the followed-topic count was the one nothing
-    // asserted.
+    // The state of EVERY setting is legible without opening anything — §4.6.
+    // The followed-topic segment left with the feature itself.
     expect(
       screen.getByText(
-        /^Дневен · Подробен · без следвани теми · още няма завършен преглед · само в този браузър$/,
+        /^Дневен · Подробен · още няма завършен преглед · само в този браузър$/,
       ),
     ).toBeVisible();
 

@@ -128,19 +128,20 @@ export const HomeScreen = () => {
     () => buildHomeHierarchy(filteredStories, home.data?.articles ?? []),
     [filteredStories, home.data?.articles],
   );
-  const personalizationPaused = category !== "all" || Boolean(query.trim());
-  const activeFollowedTopics = useMemo(
-    () => (personalizationPaused ? [] : briefingPreferences.followedTopics),
-    [personalizationPaused, briefingPreferences.followedTopics],
-  );
+  // ⚠️ ALWAYS EMPTY — topic-following is withdrawn until there is an account
+  // to hold it. It is passed at the CALL SITE rather than by clearing stored
+  // preferences, because a reader who already followed topics in this browser
+  // would otherwise keep a filtered briefing with the „истории извън
+  // интересите ви" section — their only evidence that anything was held back
+  // — no longer rendered. An empty list is what guarantees nothing is hidden.
   const briefing = useMemo(
     () =>
       buildBriefingSections(
         hierarchy,
-        activeFollowedTopics,
+        [],
         briefingPreferences.completedStoryIds,
       ),
-    [hierarchy, activeFollowedTopics, briefingPreferences.completedStoryIds],
+    [hierarchy, briefingPreferences.completedStoryIds],
   );
   useEffect(() => {
     if (!home.data) return;
@@ -156,42 +157,6 @@ export const HomeScreen = () => {
     return () => window.clearTimeout(timer);
   }, [briefing.visibleCount, home.data, query]);
 
-  useEffect(() => {
-    if (!categories) return;
-    const known = new Set(
-      categories
-        .filter((item) => item.id !== "not-site-relevant")
-        .map((item) => item.id),
-    );
-    const followedTopics = briefingPreferences.followedTopics.filter((id) =>
-      known.has(id),
-    );
-    if (followedTopics.length === briefingPreferences.followedTopics.length)
-      return;
-    const next = { ...briefingPreferences, followedTopics };
-    setBriefingPreferences(next);
-    writeBriefingPreferences(next);
-  }, [briefingPreferences, categories]);
-  const briefingTopics = useMemo(() => {
-    const ranked = [...availableCategories].sort(
-      (a, b) =>
-        Number(briefingPreferences.followedTopics.includes(b.id)) -
-          Number(briefingPreferences.followedTopics.includes(a.id)) ||
-        (categoryCounts.get(b.id) ?? 0) - (categoryCounts.get(a.id) ?? 0) ||
-        a.label[language].localeCompare(b.label[language], language),
-    );
-    const limit = Math.max(6, briefingPreferences.followedTopics.length);
-    return ranked.slice(0, limit).map((item) => ({
-      id: item.id,
-      label: item.label[language],
-      count: categoryCounts.get(item.id) ?? 0,
-    }));
-  }, [
-    availableCategories,
-    briefingPreferences.followedTopics,
-    categoryCounts,
-    language,
-  ]);
   const newStoryCount = useMemo(
     () =>
       storiesSinceBriefing(
@@ -408,9 +373,7 @@ export const HomeScreen = () => {
             <BriefingControls
               preferences={briefingPreferences}
               activeCadence={activeCadence}
-              topics={briefingTopics}
               newStoryCount={newStoryCount}
-              personalizationPaused={personalizationPaused}
               onChange={updateBriefingPreferences}
               onCadenceChange={(cadence) =>
                 changeDays(cadence === "daily" ? 1 : 7)
@@ -445,44 +408,6 @@ export const HomeScreen = () => {
                 </div>
               </section>
             ) : null}
-
-            <section aria-labelledby="briefing-outside-heading">
-              <h3
-                id="briefing-outside-heading"
-                className="app-section-title mb-3"
-              >
-                {tr(
-                  "Водещи истории извън интересите ви",
-                  "Top stories outside your interests",
-                )}
-              </h3>
-              {personalizationPaused ? (
-                <Card className="p-4 text-sm text-muted-foreground">
-                  {tr(
-                    "Групирането по интереси е спряно за активното търсене или тематичен филтър; всички подбрани съвпадения са показани по-горе.",
-                    "Interest grouping is paused for the active search or topic filter; every selected match is shown above.",
-                  )}
-                </Card>
-              ) : briefingPreferences.followedTopics.length === 0 ? (
-                <Card className="p-4 text-sm text-muted-foreground">
-                  {tr(
-                    "Изберете следвани теми, за да виждате тук отделна извадка. Дотогава нищо не е скрито от прегледа.",
-                    "Follow topics to create a separate sample here. Until then, nothing is hidden from the briefing.",
-                  )}
-                </Card>
-              ) : briefing.outsideInterests.length ? (
-                <div className={STORY_GRID}>
-                  {briefing.outsideInterests.map(storyCard)}
-                </div>
-              ) : (
-                <Card className="p-4 text-sm text-muted-foreground">
-                  {tr(
-                    "В текущия краен списък няма други теми; променете периода за по-широка извадка.",
-                    "This finite list has no other topics; widen the period for a broader sample.",
-                  )}
-                </Card>
-              )}
-            </section>
           </div>
         )}
         {filteredStories.length > HOME_SUPPORTING_LIMIT + 1 ? (

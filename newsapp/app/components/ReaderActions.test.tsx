@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ReaderActions } from "./ReaderActions";
-import { SAVED_NEWS_KEY } from "./savedNews";
 
 describe("ReaderActions", () => {
   const shareDescriptor = Object.getOwnPropertyDescriptor(navigator, "share");
@@ -25,37 +24,16 @@ describe("ReaderActions", () => {
     else Reflect.deleteProperty(navigator, "clipboard");
   });
 
-  it("saves and removes a page locally with a pressed-state contract", async () => {
-    const sink = vi.fn();
-    window.naiasnoNewsAnalytics = sink;
-    render(<ReaderActions path="/story/a" title="История" />);
-    const save = screen.getByRole("button", { name: "Запази" });
-    fireEvent.click(save);
-    expect(screen.getByRole("button", { name: "Запазено" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
-    expect(JSON.parse(localStorage.getItem(SAVED_NEWS_KEY) ?? "[]")).toEqual([
-      "/story/a",
-    ]);
-    await waitFor(() =>
-      expect(sink).toHaveBeenCalledWith({
-        name: "reader_save",
-        content: "story",
-        saved: true,
-      }),
-    );
-    fireEvent.click(screen.getByRole("button", { name: "Запазено" }));
-    expect(JSON.parse(localStorage.getItem(SAVED_NEWS_KEY) ?? "[]")).toEqual(
-      [],
-    );
-    await waitFor(() =>
-      expect(sink).toHaveBeenLastCalledWith({
-        name: "reader_save",
-        content: "story",
-        saved: false,
-      }),
-    );
+  it("offers NO save affordance while there is no account to save to", async () => {
+    // ⚠️ REMOVED, not broken. Saving wrote to this browser only, so a reader
+    // who cleared site data or opened the page anywhere else lost the list
+    // with nothing saying so — and with the „Запазени" nav entry gone there
+    // is no way back to it either. `savedNews.ts` and `SavedScreen.tsx` are
+    // kept for the account-backed version; this assertion is what stops the
+    // button coming back before the account does.
+    render(<ReaderActions path="/story/a" title="A" />);
+    expect(screen.queryByRole("button", { name: /Запаз/ })).toBeNull();
+    expect(screen.getByRole("button", { name: "Сподели" })).toBeVisible();
   });
 
   it("uses the native share sheet when available", async () => {
@@ -114,21 +92,6 @@ describe("ReaderActions", () => {
         outcome: "copied",
       }),
     );
-  });
-
-  it("resynchronizes saved state when a route component is reused", () => {
-    localStorage.setItem(SAVED_NEWS_KEY, JSON.stringify(["/story/b"]));
-    const { rerender } = render(<ReaderActions path="/story/a" title="A" />);
-    expect(screen.getByRole("button", { name: "Запази" })).toHaveAttribute(
-      "aria-pressed",
-      "false",
-    );
-    rerender(<ReaderActions path="/story/b" title="B" />);
-    expect(screen.getByRole("button", { name: "Запазено" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
-    expect(screen.getByRole("status")).toBeEmptyDOMElement();
   });
 
   it("keeps cancellation quiet and reports missing share APIs", async () => {

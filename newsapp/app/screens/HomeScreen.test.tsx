@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type {
@@ -230,7 +224,11 @@ describe("home adaptive freshness window", () => {
     expect(screen.queryByText(/сигнали за съдържание/)).toBeNull();
   });
 
-  it("keeps a finite briefing and an explicit outside-interests section", async () => {
+  it("shows every story, with no interests section and no following", async () => {
+    // ⚠️ THE PAIR MATTERS. „Водещи истории извън интересите ви" existed to
+    // prove nothing had been pushed out of the briefing by a followed topic;
+    // withdrawing the following without it would hide stories silently, so
+    // both went together until there is an account to hold the preference.
     const politics = {
       id: "politics",
       label: { bg: "Политика", en: "Politics" },
@@ -243,6 +241,20 @@ describe("home adaptive freshness window", () => {
       story("Политическа история", "2026-08-31T06:00:00Z", "politics"),
       story("Икономическа история", "2026-08-31T05:00:00Z", "economy"),
     ];
+    // A browser that ALREADY followed a topic must not keep a filtered
+    // briefing — the empty list is passed at the call site, not by rewriting
+    // what is stored.
+    localStorage.setItem(
+      NEWS_BRIEFING_STORAGE_KEY,
+      JSON.stringify({
+        version: 1,
+        cadence: "daily",
+        density: "detailed",
+        followedTopics: ["politics"],
+        lastCompletedAt: null,
+        completedStoryIds: [],
+      }),
+    );
     await renderHome(
       home(stories, [
         homeArticle("a1", stories[0].id),
@@ -252,28 +264,24 @@ describe("home adaptive freshness window", () => {
       [politics, economy],
     );
 
-    // sr-only: still the section's accessible name, deliberately not shown.
     expect(screen.getByRole("heading", { name: "Обнови ме" })).toHaveClass(
       "sr-only",
     );
     expect(
-      screen.getByRole("heading", {
+      screen.queryByRole("heading", {
         name: "Водещи истории извън интересите ви",
       }),
-    ).toBeVisible();
-    expect(screen.getByText(/Дотогава нищо не е скрито/)).toBeVisible();
-
-    const followedTopics = screen.getByRole("group", {
-      name: "Избор на следвани теми",
-    });
-    fireEvent.click(
-      within(followedTopics).getByRole("button", { name: /Политика · 1/ }),
+    ).toBeNull();
+    expect(
+      screen.queryByRole("group", { name: "Избор на следвани теми" }),
+    ).toBeNull();
+    // Both stories are present, although one is outside the stored interest.
+    expect(screen.getAllByText("Политическа история").length).toBeGreaterThan(
+      0,
     );
-    const outside = screen
-      .getByRole("heading", { name: "Водещи истории извън интересите ви" })
-      .closest("section")!;
-    expect(outside).toHaveTextContent("Икономическа история");
-    expect(outside).not.toHaveTextContent("Политическа история");
+    expect(screen.getAllByText("Икономическа история").length).toBeGreaterThan(
+      0,
+    );
   });
 
   it("persists a local completion state without creating an endless feed", async () => {
@@ -347,44 +355,7 @@ describe("home adaptive freshness window", () => {
     ).toHaveAttribute("aria-pressed", "false");
   });
 
-  it("keeps followed topics controllable and prunes removed taxonomy ids", async () => {
-    const categories = Array.from({ length: 7 }, (_, index) => ({
-      id: `topic-${index}`,
-      label: { bg: `Тема ${index}`, en: `Topic ${index}` },
-    })) as TaxonomyCategory[];
-    localStorage.setItem(
-      NEWS_BRIEFING_STORAGE_KEY,
-      JSON.stringify({
-        version: 1,
-        cadence: "daily",
-        density: "detailed",
-        followedTopics: ["topic-6", "removed-topic"],
-        lastCompletedAt: null,
-        completedStoryIds: [],
-      }),
-    );
-    const item = story("Следвана история", "2026-08-31T06:00:00Z", "topic-6");
-    await renderHome(
-      home([item], [homeArticle("a1", item.id)]),
-      null,
-      categories,
-    );
-
-    const followedTopics = screen.getByRole("group", {
-      name: "Избор на следвани теми",
-    });
-    expect(
-      within(followedTopics).getByRole("button", { name: /Тема 6 · 1/ }),
-    ).toHaveAttribute("aria-pressed", "true");
-    await waitFor(() => {
-      const stored = JSON.parse(
-        localStorage.getItem(NEWS_BRIEFING_STORAGE_KEY) ?? "null",
-      );
-      expect(stored.followedTopics).toEqual(["topic-6"]);
-    });
-  });
-
-  it("suspends interest grouping for search and records empty/result outcomes", async () => {
+  it("records empty/result search outcomes", async () => {
     const politics = {
       id: "politics",
       label: { bg: "Политика", en: "Politics" },
@@ -422,9 +393,6 @@ describe("home adaptive freshness window", () => {
 
     expect(screen.getAllByText("Политика едно").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Политика две").length).toBeGreaterThan(0);
-    expect(
-      screen.getAllByText(/Групирането по интереси е спряно/).length,
-    ).toBeGreaterThan(0);
     await waitFor(() =>
       expect(sink).toHaveBeenCalledWith({
         name: "reader_outcome",

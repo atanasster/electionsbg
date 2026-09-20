@@ -19,7 +19,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { formatDate, stories } from "../labels";
 import {
-  MAX_FOLLOWED_TOPICS,
   type BriefingCadence,
   type BriefingDensity,
   type BriefingPreferences,
@@ -36,18 +35,14 @@ export interface BriefingTopicOption {
 export const BriefingControls = ({
   preferences,
   activeCadence,
-  topics,
   newStoryCount,
-  personalizationPaused,
   onChange,
   onCadenceChange,
   onComplete,
 }: {
   preferences: BriefingPreferences;
   activeCadence: BriefingCadence | "custom";
-  topics: BriefingTopicOption[];
   newStoryCount: number | null;
-  personalizationPaused: boolean;
   onChange: (preferences: BriefingPreferences) => void;
   onCadenceChange: (cadence: BriefingCadence) => void;
   onComplete: () => void;
@@ -69,27 +64,6 @@ export const BriefingControls = ({
     });
     onChange({ ...preferences, density });
   };
-  const toggleTopic = (id: string) => {
-    const active = preferences.followedTopics.includes(id);
-    const followedTopics = active
-      ? preferences.followedTopics.filter((topic) => topic !== id)
-      : [...preferences.followedTopics, id].slice(0, MAX_FOLLOWED_TOPICS);
-    emitNewsEvent({
-      name: "briefing_preference",
-      preference: "topic",
-      active: !active,
-    });
-    onChange({ ...preferences, followedTopics });
-  };
-  const clearTopics = () => {
-    if (!preferences.followedTopics.length) return;
-    emitNewsEvent({
-      name: "briefing_preference",
-      preference: "topic",
-      active: false,
-    });
-    onChange({ ...preferences, followedTopics: [] });
-  };
   const isComplete =
     Boolean(preferences.lastCompletedAt) && newStoryCount === 0;
 
@@ -108,12 +82,6 @@ export const BriefingControls = ({
   const summary = [
     cadenceLabel,
     densityLabel,
-    preferences.followedTopics.length
-      ? tr(
-          `${preferences.followedTopics.length} следвани теми`,
-          `${preferences.followedTopics.length} followed topics`,
-        )
-      : tr("без следвани теми", "no followed topics"),
     preferences.lastCompletedAt
       ? `${stories(newStoryCount ?? 0, language)} ${tr("от", "since")} ${formatDate(preferences.lastCompletedAt, language)}`
       : tr("още няма завършен преглед", "no completed briefing yet"),
@@ -166,18 +134,6 @@ export const BriefingControls = ({
         </Button>
       </div>
 
-      {/* ⚠️ OUTSIDE the disclosure. This says the reader's own filter is
-          overriding their settings right now, which is exactly the thing they
-          would not think to open a settings drawer to discover. */}
-      {personalizationPaused ? (
-        <p className="mt-2 text-sm font-medium text-foreground" role="status">
-          {tr(
-            "Групирането по интереси е спряно, докато търсенето или тематичният филтър са активни — показани са всички подбрани съвпадения.",
-            "Interest grouping is paused while search or a topic filter is active, so every selected match is shown.",
-          )}
-        </p>
-      ) : null}
-
       <details className="group mt-2">
         <summary className="news-briefing-summary flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-sm text-xs font-medium text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card [&::-webkit-details-marker]:hidden">
           <span>{tr("Настройки на прегледа", "Briefing settings")}</span>
@@ -188,8 +144,8 @@ export const BriefingControls = ({
         </summary>
         <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
           {tr(
-            "Предпочитанията се пазят само в този браузър. Филтрите на страницата се прилагат първо; следваните теми само групират оставащия краен списък.",
-            "Preferences stay in this browser. Page filters apply first; followed topics only group the remaining finite list.",
+            "Предпочитанията се пазят само в този браузър.",
+            "Preferences stay in this browser.",
           )}
         </p>
 
@@ -255,52 +211,6 @@ export const BriefingControls = ({
             </div>
           </div>
         </div>
-
-        {topics.length ? (
-          <div className="mt-4 border-t pt-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                {tr("Следвани теми", "Followed topics")}
-              </p>
-              {preferences.followedTopics.length ? (
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="ghost"
-                  onClick={clearTopics}
-                >
-                  {tr("Изчисти следваните теми", "Clear followed topics")}
-                </Button>
-              ) : null}
-            </div>
-            <div
-              className="mt-2 flex flex-wrap gap-2"
-              role="group"
-              aria-label={tr(
-                "Избор на следвани теми",
-                "Choose followed topics",
-              )}
-            >
-              {topics.map((topic) => (
-                <Button
-                  key={topic.id}
-                  type="button"
-                  size="sm"
-                  variant={
-                    preferences.followedTopics.includes(topic.id)
-                      ? "secondary"
-                      : "outline"
-                  }
-                  className="rounded-full"
-                  aria-pressed={preferences.followedTopics.includes(topic.id)}
-                  onClick={() => toggleTopic(topic.id)}
-                >
-                  {topic.label} · {topic.count}
-                </Button>
-              ))}
-            </div>
-          </div>
-        ) : null}
       </details>
     </Card>
   );

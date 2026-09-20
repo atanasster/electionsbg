@@ -266,7 +266,7 @@ const SCENARIOS: Record<ScenarioName, Scenario> = {
       { id: "two", heading: "Обнови ме", items: items("two", 2, []) },
       {
         id: "three",
-        heading: "Водещи истории извън интересите ви",
+        heading: "Още анализирани истории",
         items: items("three", 3, [1]),
       },
     ],
@@ -278,7 +278,7 @@ const SCENARIOS: Record<ScenarioName, Scenario> = {
     sections: [
       {
         id: "mixed",
-        heading: "Водещи истории извън интересите ви",
+        heading: "Още анализирани истории",
         items: items("mixed", 6, [0, 3], alternating),
       },
     ],

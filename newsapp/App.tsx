@@ -69,10 +69,6 @@ const MethodologyScreen = lazyScreen(
   () => import("./app/screens/MethodologyScreen"),
   "MethodologyScreen",
 );
-const SavedScreen = lazyScreen(
-  () => import("./app/screens/SavedScreen"),
-  "SavedScreen",
-);
 const AboutScreen = lazyScreen(
   () => import("./app/screens/AboutScreen"),
   "AboutScreen",
@@ -199,7 +195,6 @@ const NewsAppShell = () => {
     { to: "/", label: tr("Истории", "Stories"), end: true },
     { to: "/outlets", label: tr("Източници", "Sources") },
     { to: "/topics", label: tr("Теми", "Topics") },
-    { to: "/saved", label: tr("Запазени", "Saved") },
     {
       to: "/methodology",
       label: tr("Методология", "Methodology"),
@@ -356,7 +351,6 @@ const NewsAppShell = () => {
             <Route path="/topics" element={<TopicsScreen />} />
             <Route path="/article/:domain/:id" element={<ArticleScreen />} />
             <Route path="/methodology" element={<MethodologyScreen />} />
-            <Route path="/saved" element={<SavedScreen />} />
             <Route path="/about" element={<AboutScreen />} />
             <Route path="/corrections" element={<CorrectionsScreen />} />
             <Route

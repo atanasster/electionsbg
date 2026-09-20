@@ -1,3 +1,12 @@
+// ⚠️⚠️ UNREACHABLE ON PURPOSE, AND NOT DEAD CODE. The „Запазени" nav entry,
+// the /saved route, its prerendered page and the „Запази" button were all
+// withdrawn (2026-09-21) because saving wrote to ONE BROWSER: a reader who
+// cleared site data, or opened the site anywhere else, lost the list with
+// nothing saying so. This module is kept intact for the account-backed
+// version — restoring it is re-adding the route and the button, not
+// rewriting the storage layer. `ReaderActions.test.tsx` asserts the button
+// stays absent until then.
+
 export const SAVED_NEWS_KEY = "naiasno.news.saved.v1";
 export const isSavedNewsPath = (value: string): boolean =>
   /^\/story\/[\p{L}\p{N}_-]+$/u.test(value) ||

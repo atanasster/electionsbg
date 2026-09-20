@@ -77,17 +77,6 @@ export const HUB_ROUTES: PrerenderRoute[] = [
       "What we measure, how we measure it, and what this corpus does not cover. Every article is rated separately with supporting evidence.",
   },
   {
-    path: "saved",
-    title: "Запазени истории и статии | Наясно Новини",
-    description:
-      "Личният ви списък със запазени истории и статии. Данните остават само в браузъра и не се синхронизират.",
-    titleEn: "Saved stories and articles | Naiasno News",
-    descriptionEn:
-      "Your personal list of saved stories and articles. The data stay in this browser and are not synchronized.",
-    sitemap: false,
-    noindex: true,
-  },
-  {
     path: "about",
     title: "За редакцията | Наясно Новини",
     description:
