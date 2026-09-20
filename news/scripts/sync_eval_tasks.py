@@ -173,14 +173,23 @@ def public_data_revision(app_data: Path) -> str:
     app-data is empty or spans multiple revisions" — blocking publication
     entirely until this was read off the right file instead.
 
-    `latest.json` is release-level and written on every build, so it is the
-    revision's home. A missing or malformed one is an error rather than a
-    guess: the revision keys every eval task, and inventing one would
-    silently re-key the whole queue.
+    ⚠️ IT IS `home.json`, AND NOT `latest.json` AS THIS ONCE SAID. Any
+    release-level file was enough while every file carried the run's time;
+    it is not any more, because a file whose content did not change now
+    keeps the stamp it already had. `home.json` is the ONE file that
+    cannot: the publication manifest takes its own `generated_at` from it,
+    so this is the value every consumer of "the release revision" will see
+    in the manifest. Reading it off `latest.json` made the task queue
+    claim a revision the manifest would not carry on any hour when the
+    feed happened not to change.
+
+    A missing or malformed one is an error rather than a guess: the
+    revision keys every eval task, and inventing one would silently re-key
+    the whole queue.
     """
-    path = app_data / "latest.json"
+    path = app_data / "home.json"
     if not path.is_file():
-        raise SyncError(f"public latest.json is missing: {path}")
+        raise SyncError(f"public home.json is missing: {path}")
     return timestamp(read_json(path).get("generated_at"),
                      f"{path}.generated_at")
 

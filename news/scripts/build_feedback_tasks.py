@@ -96,9 +96,14 @@ def build(root: Path, app_data: Path) -> tuple[dict[str, Any], dict[str, Any]]:
         read_json(app_data / "feedback-targets.json"))
     target_registry_hash = text(
         target_registry.get("targets_sha256"), "feedback target registry hash")
-    if timestamp(target_registry.get("generated_at"),
-                 "feedback target registry revision") != revision:
-        raise SyncError("feedback target registry revision does not match app-data")
+    # ⚠️ NO STAMP COMPARISON HERE, and that is deliberate. The registry is
+    # read out of the SAME app-data tree as the articles, in the same
+    # pass, so there is no mixed-vintage case for a stamp to catch — and
+    # since a file whose content did not change keeps its previous stamp,
+    # the registry legitimately carries an older one than the release.
+    # What binds the tasks to the registry is its CONTENT: every task
+    # carries `target_registry_sha256`, and the serving side re-hashes the
+    # published bytes against the manifest inventory before trusting it.
     tasks = []
     for key in sorted(public_articles):
         tasks.append(make_task(root, revision, target_registry_hash,

@@ -360,7 +360,14 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
   // SEO head through Hosting's SPA fallback.
   const evalQueue = read(dataDir, "evals/queue.json");
   for (const task of evalQueue
-    ? evalQueueTasks(evalQueue, outlets?.generated_at)
+    ? // ⚠️ `home.json`, NOT `outlets.json`. Any release-level file was
+      // enough while every published file carried the run's time; since a
+      // file whose content did not change keeps its previous stamp,
+      // `outlets.json` goes for hours without moving — and this
+      // comparison THROWS, which kills the site build. `home.json` is the
+      // one file that cannot keep an old stamp: the publication manifest
+      // takes its own `generated_at` from it.
+      evalQueueTasks(evalQueue, read(dataDir, "home.json")?.generated_at)
     : []) {
     const domain = String(task.domain ?? "").trim();
     const id = String(task.article_id ?? "").trim();

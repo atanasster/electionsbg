@@ -72,6 +72,13 @@ class CommunityPilotReportTest(unittest.TestCase):
         (self.app_data.parent / "latest.json").write_text(
             json.dumps({"generated_at": STAMP, "articles": []}),
             encoding="utf-8")
+        # ⚠️ `home.json` is THE release revision — the publication manifest
+        # takes its own `generated_at` from it, so it is the one published
+        # file that can never keep an older stamp. It used to be read off
+        # `latest.json`, which now does keep one when the feed is unchanged.
+        (self.app_data.parent / "home.json").write_text(
+            json.dumps({"generated_at": STAMP, "stories": [], "articles": []}),
+            encoding="utf-8")
         self.keys = ["a.bg/one", "b.bg/two", "c.bg/three"]
         records = []
         for index, key in enumerate(self.keys):
@@ -299,10 +306,10 @@ class CommunityPilotReportTest(unittest.TestCase):
         # differs from its neighbours and can no longer signal tampering.
         # What must still fail closed is app-data whose revision does not
         # match the frozen sample, so that is what this tampers now.
-        latest = self.app_data.parent / "latest.json"
+        latest = self.app_data.parent / "home.json"
         latest.write_text(
             json.dumps({"generated_at": "2026-09-02T00:00:00.000Z",
-                        "articles": []}),
+                        "stories": [], "articles": []}),
             encoding="utf-8")
         with self.assertRaisesRegex(pilot.PilotReportError,
                                     "revision does not match"):

@@ -1375,8 +1375,12 @@ export async function verifyLiveFeedbackTaskRelease(
   }
   const targetRegistry = feedbackTargetRegistry(targetValue);
   const targetRegistryHash = targetRegistry.targetsHash;
+  // ⚠️ The HASH, not the stamp — same reason as the article bundles above:
+  // the registry's bytes were already re-hashed against the inventory, and
+  // a registry whose content did not change keeps an older `generated_at`
+  // than the release. What must hold is that the tasks were built against
+  // THIS registry, which is exactly what the hash says.
   if (
-    targetRegistry.generatedAt !== liveRevision ||
     parsed.tasks.some(
       (task) => task.target_registry_sha256 !== targetRegistryHash,
     )
@@ -1435,11 +1439,15 @@ export async function verifyLiveFeedbackTaskRelease(
     );
     if (path !== `articles/${domain}.json`)
       throw new Error(`live ${path} domain does not match its path`);
-    if (
-      isoTimestamp(articleBundle.generated_at, `live ${path} generated_at`) !==
-      liveRevision
-    )
-      throw new Error(`live ${path} revision does not match publication`);
+    // ⚠️ NO STAMP COMPARISON. The bytes were re-hashed against the
+    // manifest's own inventory entry a few lines above, which binds this
+    // file to this release far more strongly than a timestamp could — and
+    // since a published file whose content did not change now keeps the
+    // `generated_at` it already had, the equality this used to require is
+    // simply false. It failed every run from the hour that landed until it
+    // was found, stalling the feedback task sync while publication itself
+    // looked healthy.
+    isoTimestamp(articleBundle.generated_at, `live ${path} generated_at`);
     if (!Array.isArray(articleBundle.articles))
       throw new Error(`live ${path} articles must be an array`);
     for (const rawArticle of articleBundle.articles) {

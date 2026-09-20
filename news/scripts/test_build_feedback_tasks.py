@@ -19,6 +19,14 @@ class FeedbackTaskBuildTests(unittest.TestCase):
         (app / "latest.json").write_text(
             json.dumps({"generated_at": revision, "articles": []}),
             encoding="utf-8")
+        # ⚠️ `home.json` is THE release revision — the publication
+        # manifest takes its own `generated_at` from it, so it is the
+        # one file that can never keep an older stamp. It used to be
+        # read off `latest.json`, which now does keep one.
+        (app / "home.json").write_text(
+            json.dumps({"generated_at": revision, "stories": [],
+                        "articles": []}),
+            encoding="utf-8")
         (root / "news" / "data" / "example.bg").mkdir(parents=True)
         revision = "2026-09-01T07:00:00.000Z"
         targets = [{

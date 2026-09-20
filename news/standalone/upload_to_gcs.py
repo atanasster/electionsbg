@@ -420,7 +420,14 @@ def run_scope(scope: dict, dry_run: bool) -> dict:
                     if advance is not None:
                         result.update(exit=3, error=advance)
                         return result
-                if current_time >= candidate_time:
+                    # ⚠️ AND IT DOES NOT FALL THROUGH TO THE STALENESS
+                    # CHECK. A hot release keeps the base's `generated_at`
+                    # by design, so `current_time >= candidate_time` is
+                    # true for every legal hot publish and would refuse
+                    # all of them. What establishes that this overlay is
+                    # newer is its `seq`, which `overlay_advance` has just
+                    # required to advance.
+                elif current_time >= candidate_time:
                     result.update(exit=3, error="stale_publication_refused")
                     return result
         except (ValueError, RuntimeError) as exc:
@@ -461,8 +468,20 @@ def run_scope(scope: dict, dry_run: bool) -> dict:
 # Everything a hot release may NOT change about the live manifest. The
 # complement — `generated_at` and `overlay` — is the whole of a hot
 # release: same tree, same run_id, one more small object beside it.
+# ⚠️ `generated_at` IS IN HERE, so a hot release changes EXACTLY ONE
+# field: `overlay`. It looks like the obvious thing for a new publish to
+# move, and moving it is wrong — `generated_at` is THE RELEASE REVISION.
+# `publication_manifest` takes it from `home.json`, and four consumers
+# compare something against it (`sync_eval_tasks`, the feedback operator,
+# the prerender, `build_feedback_tasks`). A hot release that re-stamped it
+# with its own wall clock would make the manifest disagree with the tree
+# it points at — the same defect that cost two hours of publication and
+# then stalled the feedback sync for hours more, reintroduced from the
+# other side. The overlay's own recency is its `seq`, which must strictly
+# advance; it does not need a second clock.
 HOT_INVARIANT = ("version", "run_id", "data_base", "home_health_ready",
-                 "bundle", "accepted_snapshot_records_sha256",
+                 "generated_at", "bundle",
+                 "accepted_snapshot_records_sha256",
                  "accepted_feedback_records_sha256")
 
 
@@ -563,6 +582,10 @@ def overlay_commands(overlay_path: Path, live: dict, generated_at: str
     seq = overlay.get("seq")
     if not isinstance(seq, int) or seq < 1:
         raise ValueError("overlay carries no usable seq")
+    if generated_at != live.get("generated_at"):
+        # Stated rather than silently ignored: the caller passes a clock,
+        # and a hot release deliberately does not use it.
+        generated_at = live.get("generated_at")
     data_base = live.get("data_base")
     if data_base != f"versions/{live.get('run_id')}":
         # The cold path validates this before it publishes; re-checked here

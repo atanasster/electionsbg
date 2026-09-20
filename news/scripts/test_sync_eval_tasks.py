@@ -38,6 +38,14 @@ class TaskSyncTest(unittest.TestCase):
             json.dumps({"generated_at": "2026-08-24T08:00:00.000Z",
                         "articles": []}),
             encoding="utf-8")
+        # ⚠️ `home.json` is THE release revision — the publication
+        # manifest takes its own `generated_at` from it, so it is the
+        # one file that can never keep an older stamp. It used to be
+        # read off `latest.json`, which now does keep one.
+        (self.app / "home.json").write_text(
+            json.dumps({"generated_at": "2026-08-24T08:00:00.000Z",
+                        "stories": [], "articles": []}),
+            encoding="utf-8")
         article = {
             "title": "Публична статия",
             "url": "https://example.bg/article-1",

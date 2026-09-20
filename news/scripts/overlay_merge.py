@@ -109,6 +109,11 @@ def upsert(base: list, incoming: list, *, key, removed=()) -> list:
 MERGED_PATHS = frozenset({"latest.json", "stories.json", "home.json",
                           "stories/by-url.json"})
 
+# The files the merge RE-STAMPS, as opposed to replacing or enveloping.
+# `home.json` is absent because the overlay carries it whole.
+RESTAMPED_PATHS = frozenset({"latest.json", "stories.json",
+                             "stories/by-url.json"})
+
 
 def _is_merged_path(path: str) -> bool:
     """Does one of the per-path merges above own this file?
@@ -304,7 +309,11 @@ def apply_overlay(base: dict, overlay: dict) -> dict:
         raise ValueError(
             f"overlay schema_version {version!r} is not "
             f"{OVERLAY_SCHEMA_VERSION} — refusing to merge")
-    release_stamp = overlay.get("release_generated_at")
+    stamps = overlay.get("merged_stamps") or {}
+    # The base's own value when the overlay does not carry one, so a path
+    # this release did not touch is never re-stamped.
+    def stamp_for(path: str):
+        return stamps.get(path, (base.get(path) or {}).get("generated_at"))
     envelopes = overlay.get("bundle_envelopes") or {}
     stories = overlay_stories(overlay)
     removed_ids = overlay.get("removed_story_ids") or []
@@ -333,12 +342,13 @@ def apply_overlay(base: dict, overlay: dict) -> dict:
     if "latest.json" in out:
         out["latest.json"] = merge_latest(
             out["latest.json"], feed_delta, removed_urls=feed_removed,
-            limit=overlay["latest_limit"], generated_at=release_stamp)
+            limit=overlay["latest_limit"],
+            generated_at=stamp_for("latest.json"))
 
     if "stories.json" in out:
         out["stories.json"] = merge_stories(
             out["stories.json"], stories, removed_ids=removed_ids,
-            generated_at=release_stamp)
+            generated_at=stamp_for("stories.json"))
 
     base_pages = [out[p] for p in sorted(
         (p for p in out if p.startswith("stories/index-")),
@@ -353,7 +363,7 @@ def apply_overlay(base: dict, overlay: dict) -> dict:
             # somehow carries none. Never a count derived from the delta —
             # that makes the page boundary depend on how busy the hour was.
             page_size=base_pages[0].get("page_size") or STORY_PAGE_SIZE,
-            generated_at=release_stamp)
+            generated_at=stamp_for("stories/index-1.json"))
         for path in [p for p in out if p.startswith("stories/index-")]:
             del out[path]
         for number, page in enumerate(pages, start=1):
@@ -362,7 +372,7 @@ def apply_overlay(base: dict, overlay: dict) -> dict:
     if "stories/by-url.json" in out:
         out["stories/by-url.json"] = merge_stories_by_url(
             out["stories/by-url.json"], stories, removed_ids=removed_ids,
-            generated_at=release_stamp)
+            generated_at=stamp_for("stories/by-url.json"))
 
     for story_id in removed_ids:
         out.pop(f"stories/{story_id}.json", None)
@@ -516,7 +526,29 @@ def diff_overlay(base: dict, full: dict, *, seq: int, base_run_id: str,
         # is CONTENT-derived (`bundle_generated_at`) and rides in
         # `bundle_envelopes` with the rest of the bundle's shape — see
         # `merge_articles_bundle` for why it is carried and not guessed.
-        "release_generated_at": full.get("latest.json", {}).get("generated_at"),
+        "release_generated_at": full.get("home.json", {}).get("generated_at"),
+        # ⚠️ A STAMP PER RE-STAMPED FILE, NOT ONE FOR ALL OF THEM. Each
+        # of these keeps its own `generated_at` when its content did not
+        # change, so they legitimately differ — `latest.json` can sit at
+        # an older stamp than `stories.json` on any hour when the feed was
+        # unchanged and a story moved. Re-stamping all four from one value
+        # made the merge disagree with the rebuild for exactly that case,
+        # which the fixtures could not show because they move together in
+        # every scenario.
+        #
+        # ⚠️ ONLY the files the merge RE-STAMPS. A per-story detail file
+        # is replaced wholesale and an article bundle takes its envelope,
+        # so neither needs an entry here — and including them put one line
+        # per story in every overlay: ~1,919 in production, 115 KB to say
+        # nothing. Measured on the fixture as 10,110 B against a 58,798 B
+        # tree, which is what caught it.
+        "merged_stamps": {
+            path: full[path].get("generated_at")
+            for path in sorted(RESTAMPED_PATHS | {
+                p for p in full if p.startswith("stories/index-")})
+            if isinstance(full.get(path), dict)
+            and isinstance(full[path].get("generated_at"), str)
+        },
         "bundle_envelopes": envelopes,
         # Not recoverable from the output: a `latest.json` shorter than the
         # limit is indistinguishable from one the limit never reached.

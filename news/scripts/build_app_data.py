@@ -1029,38 +1029,40 @@ def bundle_generated_at(records, fallback: str) -> str:
     return newest or fallback
 
 
-# ⚠️ STAMPS ARE PRESERVED PER GROUP, NEVER PER FILE, AND THAT IS THE WHOLE
-# DIFFICULTY OF THIS RULE. Several published files carry ONE release
-# stamp, and consumers compare two members of a pair with a hard throw —
-# so a rule that preserved each file's stamp independently, based on
-# whether that file's own content changed, moves one and not the other and
-# breaks them. The pairs that actually exist, each verified at its call
-# site:
+# ⚠️ THE RELEASE HAS ONE REVISION AND IT IS `home.json`'s STAMP. Every
+# other published file may keep the `generated_at` it already had when its
+# content did not change — see `restore_stable_stamps` for why that is
+# what makes a hot release small.
 #
-#   latest.json ↔ feedback-targets.json
-#       `build_feedback_tasks.py` raises SyncError when they differ, and
-#       `latest.json` is the release revision `sync_eval_tasks.py` and
-#       `newsapp/prerenderRoutes.ts` read — the prerender THROWS, which
-#       kills the site build.
-#   home.json ↔ stats.json
-#       `publication_manifest` (news/standalone/upload_to_gcs.py) refuses
-#       a release whose stats stamp differs from home's.
+# ⚠️ FOUR CONSUMERS USED TO COMPARE TWO PUBLISHED STAMPS FOR EQUALITY, on
+# the assumption that every file carries the run's time. That assumption
+# died with `bundle_generated_at` and each of them broke in turn:
 #
-# ⚠️ THIS IS THE SECOND TIME A STAMP CHANGE HAS BROKEN A CONSUMER THAT
-# ASSUMED EVERY FILE CARRIES THE RUN'S TIME. Making the per-domain bundles
-# content-derived broke `sync_eval_tasks`'s "every bundle agrees" check
-# and stopped publication for two hours. Before touching this, grep for
-# what compares two published stamps.
-STAMP_GROUPS: tuple[frozenset[str], ...] = (
-    frozenset({"latest.json", "feedback-targets.json"}),
-)
+#   sync_eval_tasks.py        required all 57 article bundles to agree —
+#                             BLOCKED PUBLICATION for two hours
+#   news-functions operator   required each live articles/<domain>.json and
+#                             feedback-targets.json to equal the manifest —
+#                             stalled the feedback task sync for hours
+#   prerenderRoutes.ts        used outlets.json's stamp as the revision —
+#                             THROWS, which kills the site build
+#   build_feedback_tasks.py   required feedback-targets to equal the feed
+#
+# All four now read the revision from `home.json` or, where a content hash
+# already binds the file to the release, check nothing. Before adding a
+# stamp comparison, ask what it establishes that the manifest's per-file
+# sha256 does not.
+#
+# STAMP_GROUPS is the machinery for a pair that must genuinely move
+# together. It is EMPTY, and deliberately kept: the moment such a pair
+# exists again, this is where it goes, and its tests prove the mechanism
+# still works.
+STAMP_GROUPS: tuple[frozenset[str], ...] = ()
 
-# home.json and stats.json keep the RUN's stamp unconditionally rather
-# than joining the group rule, because the publish path compares the
-# BUILD'S REPORTED stamp against home's (`expected_bundle`) — so
-# preserving home's would need the build summary to preserve it too, and a
-# disagreement there refuses the release outright. `home` carries
-# `age_hours`, so it changes almost every run anyway: nothing to win.
+# ⚠️ `home.json` IS THE REVISION, so it can never keep an old stamp — the
+# publication manifest takes its `generated_at` from this file, and the
+# build reports the same value as its bundle result (`expected_bundle`),
+# which the publish path compares. `stats.json` goes with it because that
+# same manifest refuses a release whose stats stamp differs from home's.
 RUN_STAMPED = frozenset({"home.json", "stats.json"})
 
 

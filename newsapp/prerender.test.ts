@@ -426,6 +426,17 @@ describe("buildRoutes against a corpus", () => {
   // dist-reading gate checks an artifact from a PREVIOUS build, so a source
   // change cannot move it.
   const dir = mkdtempSync(join(tmpdir(), "news-prerender-"));
+  // ⚠️ THE REVISION IS `home.json`'s, not `outlets.json`'s — see the eval
+  // queue family below. `outlets.json` keeps its previous stamp for hours
+  // now, and the queue comparison THROWS, which kills the site build.
+  writeFileSync(
+    join(dir, "home.json"),
+    JSON.stringify({
+      generated_at: "2026-08-26T00:00:00+00:00",
+      stories: [],
+      articles: [],
+    }),
+  );
   writeFileSync(
     join(dir, "outlets.json"),
     JSON.stringify({
@@ -649,6 +660,17 @@ describe("the eval queue fails closed", () => {
       join(dir, "outlets.json"),
       JSON.stringify({ generated_at: revision, outlets: [] }),
     );
+    // ⚠️ THE REVISION IS `home.json`'s, not `outlets.json`'s. Any
+    // release-level file was enough while every published file carried the
+    // run's time; now a file whose content did not change keeps its
+    // previous stamp, and `outlets.json` goes for hours without moving —
+    // while this comparison THROWS, killing the site build. `home.json` is
+    // the one file that cannot: the publication manifest takes its own
+    // `generated_at` from it.
+    writeFileSync(
+      join(dir, "home.json"),
+      JSON.stringify({ generated_at: revision, stories: [], articles: [] }),
+    );
     mkdirSync(join(dir, "evals"));
     writeFileSync(join(dir, "evals", "queue.json"), JSON.stringify(payload));
     return () => buildRoutes(dir);
@@ -673,6 +695,14 @@ describe("the eval queue fails closed", () => {
     writeFileSync(
       join(dir, "outlets.json"),
       JSON.stringify({ generated_at: appDataRevision, outlets: [] }),
+    );
+    writeFileSync(
+      join(dir, "home.json"),
+      JSON.stringify({
+        generated_at: appDataRevision,
+        stories: [],
+        articles: [],
+      }),
     );
     mkdirSync(join(dir, "evals"));
     writeFileSync(

@@ -29,6 +29,7 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from news.eval_contract.canonical import (  # noqa: E402
@@ -3186,30 +3187,40 @@ class StampPreservation(unittest.TestCase):
         build_app_data.restore_stable_stamps(self.out, self.base)
         self.assertEqual(self.stamps("taxonomy.json"), ["NEW"])
 
-    def test_a_group_moves_together_or_not_at_all(self):
-        # ⚠️ THE DEFECT THIS RULE EXISTS FOR. `build_feedback_tasks` raises
-        # SyncError when the registry's stamp differs from `latest.json`'s,
-        # and the PRERENDER throws on the same disagreement — so preserving
-        # one member while the other moves kills the site build. That is
-        # the ordinary case, not an edge: the feed changes far more often
-        # than the target registry.
+    def test_the_group_mechanism_still_works_though_no_group_exists(self):
+        # ⚠️ STAMP_GROUPS is EMPTY today: the four consumers that compared
+        # two published stamps now read the revision from `home.json`, or
+        # check the content hash that already binds the file to the
+        # release. The machinery stays because the next genuine pair will
+        # need it — and untested machinery is machinery that does not
+        # work, so this patches a group in rather than asserting on one.
         for name in ("latest.json", "feedback-targets.json"):
             self.put(self.base, name, {"generated_at": "OLD", "v": 1})
         self.put(self.out, "latest.json", {"generated_at": "NEW", "v": 2})
         self.put(self.out, "feedback-targets.json",
                  {"generated_at": "NEW", "v": 1})
-        build_app_data.restore_stable_stamps(self.out, self.base)
-        got = self.stamps("latest.json", "feedback-targets.json")
-        self.assertEqual(got, ["NEW", "NEW"], "the group split")
+        with mock.patch.object(
+                build_app_data, "STAMP_GROUPS",
+                (frozenset({"latest.json", "feedback-targets.json"}),)):
+            build_app_data.restore_stable_stamps(self.out, self.base)
+        self.assertEqual(
+            self.stamps("latest.json", "feedback-targets.json"),
+            ["NEW", "NEW"], "the group split")
 
-    def test_a_whole_group_that_is_unchanged_keeps_its_stamps(self):
-        for name in ("latest.json", "feedback-targets.json"):
-            self.put(self.base, name, {"generated_at": "OLD", "v": 1})
-            self.put(self.out, name, {"generated_at": "NEW", "v": 1})
+    def test_an_unchanged_file_keeps_its_stamp_independently(self):
+        # The consequence of the empty group, and the point of the change:
+        # feedback-targets.json is 1.5 MB, and it no longer has to move
+        # every time the feed does.
+        self.put(self.base, "latest.json", {"generated_at": "OLD", "v": 1})
+        self.put(self.base, "feedback-targets.json",
+                 {"generated_at": "OLD", "v": 1})
+        self.put(self.out, "latest.json", {"generated_at": "NEW", "v": 2})
+        self.put(self.out, "feedback-targets.json",
+                 {"generated_at": "NEW", "v": 1})
         build_app_data.restore_stable_stamps(self.out, self.base)
         self.assertEqual(
             self.stamps("latest.json", "feedback-targets.json"),
-            ["OLD", "OLD"])
+            ["NEW", "OLD"])
 
     def test_home_and_stats_always_take_the_run_stamp(self):
         # ⚠️ The publish path compares the BUILD'S REPORTED stamp against
@@ -3258,6 +3269,8 @@ class StampPreservation(unittest.TestCase):
             build_app_data.restore_stable_stamps(self.out, self.base), 0)
 
     def test_every_group_member_is_a_file_the_build_writes(self):
+        if not build_app_data.STAMP_GROUPS:
+            self.skipTest("no groups declared")
         # A group naming a file nothing writes is dead config that reads
         # as protection — and it would make the whole group un-preservable
         # for ever, since a missing member can never be "unchanged".

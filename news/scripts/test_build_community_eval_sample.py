@@ -25,6 +25,14 @@ class CommunitySampleTest(unittest.TestCase):
         (self.app_data / "latest.json").write_text(
             '{"generated_at": "2026-08-24T08:00:00.000Z", "articles": []}',
             encoding="utf-8")
+        # ⚠️ `home.json` is THE release revision — the publication
+        # manifest takes its own `generated_at` from it, so it is the
+        # one file that can never keep an older stamp. It used to be
+        # read off `latest.json`, which now does keep one.
+        (self.app_data / "home.json").write_text(
+            '{"generated_at": "2026-08-24T08:00:00.000Z", '
+            '"stories": [], "articles": []}',
+            encoding="utf-8")
         gold = self.root / "news/data/gold"
         gold.mkdir(parents=True)
         rows = []

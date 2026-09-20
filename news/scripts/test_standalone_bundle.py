@@ -926,6 +926,23 @@ class HotRelease(unittest.TestCase):
 
     @mock.patch.dict(os.environ, {**STANDALONE_ENV,
                                   "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
+    def test_a_hot_release_keeps_the_base_revision(self):
+        # ⚠️ `generated_at` IS THE RELEASE REVISION — `publication_manifest`
+        # takes it from home.json, and four consumers compare something
+        # against it. A hot release re-stamping it with its own wall clock
+        # would make the manifest disagree with the tree it points at,
+        # which is the defect that cost two hours of publication and then
+        # stalled the feedback sync, reintroduced from the other side.
+        _scopes, publication = uploader.overlay_commands(
+            self.write_overlay(), PUBLICATION, "2026-09-01T00:00:00Z")
+        self.assertEqual(publication["generated_at"],
+                         PUBLICATION["generated_at"])
+        self.assertEqual(
+            {k for k in publication if publication[k] != PUBLICATION.get(k)},
+            {"overlay"}, "a hot release moved more than the overlay")
+
+    @mock.patch.dict(os.environ, {**STANDALONE_ENV,
+                                  "NEWS_PUBLIC_GCS_URI": "gs://pub/news"})
     def test_the_pointer_describes_the_file_that_was_read(self):
         path = self.write_overlay()
         _scopes, publication = uploader.overlay_commands(
@@ -978,7 +995,10 @@ class HotPredicate(unittest.TestCase):
     """`overlay_advance` — the only door through one-manifest-per-release."""
 
     def candidate(self, **patch) -> dict:
-        return {**PUBLICATION, "generated_at": "2026-08-31T07:05:00Z",
+        # ⚠️ The base's `generated_at`, UNCHANGED. A hot release moves
+        # exactly one field — `overlay` — because `generated_at` is the
+        # release revision four consumers compare against.
+        return {**PUBLICATION,
                 "overlay": {"seq": 1, "path": "overlays/1.json",
                             "bytes": 10, "sha256": "c" * 64,
                             "base_generated_at": "2026-08-31T07:00:00Z"},
@@ -1005,6 +1025,20 @@ class HotPredicate(unittest.TestCase):
                     PUBLICATION, self.candidate(**{field: value}))
                 self.assertEqual(refusal,
                                  f"publication_id_already_used:{field}")
+
+    def test_a_moved_revision_is_refused_even_with_a_good_overlay(self):
+        # ⚠️ TWO DOORS, AND BOTH MUST BE SHUT. `overlay_commands` keeps the
+        # base's `generated_at`, but the CAS is what a manifest written by
+        # anything else goes through — so the predicate has to refuse a
+        # moved revision on its own. `generated_at` is THE release
+        # revision: four consumers compare something against it, and a
+        # manifest claiming one the tree does not carry is the defect that
+        # cost two hours of publication.
+        self.assertEqual(
+            uploader.overlay_advance(
+                PUBLICATION,
+                self.candidate(generated_at="2026-08-31T09:00:00Z")),
+            "publication_id_already_used:generated_at")
 
     def test_a_candidate_with_no_overlay_is_refused(self):
         # Otherwise a plain re-publish of the same run_id with a new
@@ -1090,8 +1124,7 @@ class HotPredicate(unittest.TestCase):
                           "gs://pub/news/manifest.json"],
                  # Later than the cold release's BUILD stamp, which is
                  # what made the old guard let this through.
-                 "content": json.dumps(
-                     self.candidate(generated_at="2026-08-31T08:30:00Z"))}
+                 "content": json.dumps(self.candidate())}
         wrote = []
 
         class Done:
