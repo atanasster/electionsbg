@@ -1651,6 +1651,21 @@ Steps:
     join results, the replay, latency percentiles, measured $/article per configuration,
     and the go/no-go below.
 
+> **[DECIDED 2026-09-20 — NO. Stop at shadow. Report
+> `news/evals/jev-openrouter-benchmark-2026-09-20.md`.]** Measured over 600
+> analysed articles: the named-entity veto removes **63.7%**, and of the 218 it
+> leaves only **3** satisfy the title-term proof `triage_one` requires — so the
+> gate terminates **0.0%** at its shipped 0.98 floor and **0.5% at any
+> threshold**, against this rule's ~10%. Two independent walls, neither of them
+> the model: Jev's highest `not_site_relevant` over 218 articles is 0.97, below
+> the floor; and the title check is a test on the ARTICLE, which is exactly why
+> §3.7 could not give Jev an enforcing backend. Civic recall is **1.0000 at
+> every τ** — the gate is safe and nearly inert. The whole upside of
+> enforcement is **$0.19/month** at its theoretical maximum. Shadow ships
+> (§3.7) and costs $0.81/month. The promising surface is topic assignment
+> (§7.6 F4), measured at 98.5% on a third of articles: that needs its own §8
+> pass.
+
 **Go / no-go.** Jev runs in **shadow** through Phase 5 regardless (the data is cheap and
 needed). It may become an **enforcing** gate in Phase 5 only if the Stage-A
 gate reaches civic recall ≥ 0.98 at some τ that still terminates a useful share (report the
