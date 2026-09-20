@@ -657,6 +657,49 @@ describe("hot releases", () => {
     );
   });
 
+  it("notifies subscribers when the overlay changes", async () => {
+    // ⚠️ THE SIGNAL IS WHAT MAKES LIST SCREENS SEE A HOT RELEASE AT ALL.
+    // `applyOverlayToPath` refuses an index page, so `useStoryList` merges
+    // its own accumulated prefix — but a base index page is cached, so the
+    // poll after a hot release resolves to the SAME object and no React
+    // state moves. Without this notification the list would simply never
+    // update: everything renders, the data is just old.
+    let body: unknown = manifest("run-1");
+    const { client, advance } = clientFor(() => body, {
+      "/stories/index-1.json": { page: 1, pages: 1, total: 0, stories: [] },
+      "/overlays/1.json": overlayObject({
+        story_details: { s1: { story: { id: "s1" } } },
+      }),
+    });
+    const seen: Array<string | null> = [];
+    const unsubscribe = client.subscribeOverlay(() => {
+      const overlay = client.getOverlay();
+      seen.push(overlay ? String(overlay.seq) : null);
+    });
+
+    await client.fetchData("/stories/index-1.json");
+    expect(client.getOverlay()).toBeNull();
+    expect(seen).toEqual([]);
+
+    body = hot("run-1");
+    advance(PUBLICATION_POLL_MS + 1);
+    await client.fetchData("/stories/index-1.json");
+    expect(seen).toEqual(["1"]);
+    expect(client.getOverlay()?.story_details).toHaveProperty("s1");
+
+    // ⚠️ And an index page is NOT merged by the client, whatever the
+    // overlay says — the hook owns that, over the prefix it holds.
+    await expect(
+      client.fetchData<{ stories: unknown[] }>("/stories/index-1.json"),
+    ).resolves.toMatchObject({ stories: [] });
+
+    unsubscribe();
+    body = manifest("run-1");
+    advance(PUBLICATION_POLL_MS + 1);
+    await client.fetchData("/stories/index-1.json");
+    expect(seen).toEqual(["1"]);
+  });
+
   it("refuses a path the release retired", async () => {
     const { client } = clientFor(() => hot("run-1"), {
       "/stories/gone.json": { story: { id: "gone" } },

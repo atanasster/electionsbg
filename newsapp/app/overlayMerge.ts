@@ -154,6 +154,20 @@ const storyKey = (row: Payload): [string, string] => [
   typeof row.id === "string" ? row.id : "",
 ];
 
+/**
+ * A story's published sort position, as one comparable string.
+ *
+ * Exported for `useStoryList`, which has to decide whether an overlay's
+ * story falls inside the prefix it has revealed — a comparison, not a
+ * sort. Built from the same key so the two cannot disagree about order.
+ */
+export const storyRowKey = (row: Payload): string =>
+  storyKey(row).join("\u0000");
+
+/** Newest first, ties broken by id — the published order. */
+export const compareStoryRows = (a: Payload, b: Payload): number =>
+  compareDesc(storyKey(a), storyKey(b));
+
 /** `base` with `incoming` applied by `key`, and `removed` keys dropped. */
 export const upsert = (
   base: Payload[],
@@ -345,14 +359,24 @@ export const storyIndexRow = (story: Payload): Payload => {
   return row;
 };
 
-/** Story index rows, newest first — the accumulated PREFIX, not a page. */
+/**
+ * Story index rows, newest first — the accumulated PREFIX, not a page.
+ *
+ * `include` decides which of the overlay's stories belong in this prefix
+ * at all. ⚠️ Without it every touched story is injected, including ones
+ * that sort far BELOW the rows the reader has revealed: a story updated
+ * on page 5 would appear at the bottom of a two-page prefix, ahead of the
+ * six hundred stories that really belong between. The caller knows where
+ * its prefix ends; this does not.
+ */
 export const mergeStoryIndexRows = (
   rows: Payload[],
   overlay: NewsOverlay,
+  include: (story: Payload) => boolean = () => true,
 ): Payload[] =>
   upsert(
     rows,
-    overlayStories(overlay).map(storyIndexRow),
+    overlayStories(overlay).filter(include).map(storyIndexRow),
     idOf,
     overlay.removed_story_ids,
   ).sort((a, b) => compareDesc(storyKey(a), storyKey(b)));

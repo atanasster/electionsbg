@@ -2,12 +2,21 @@
 // news/scripts/build_app_data.py. Development serves /news-data/ directly;
 // production may follow a revalidated manifest to one immutable hourly tree.
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
 import {
   applyOverlayToPath,
+  compareStoryRows,
+  mergeStoryIndexRows,
   parseOverlay,
   STORY_ID_SAFE,
+  storyRowKey,
   type NewsOverlay,
   type NewsOverlayPointer,
 } from "./overlayMerge";
@@ -877,6 +886,24 @@ export const createDataClient = (
   let overlayPromise: Promise<NewsOverlay | null> | null = null;
   const mergedCache = new Map<string, { key: string; value: unknown }>();
 
+  // ⚠️ A SYNCHRONOUS SNAPSHOT AND A SUBSCRIPTION, for the ONE consumer
+  // that cannot be served by `fetchData`: the paginated story index.
+  // `applyOverlayToPath` refuses to merge an index page, because a page is
+  // only meaningful beside its neighbours — so `useStoryList` merges the
+  // prefix it has accumulated, and needs both the overlay and a signal
+  // that it changed. The signal is the load-bearing half: a base index
+  // page is cached, so a poll after a hot release resolves to the SAME
+  // object and no React state moves. Without a notification the list
+  // screens would simply never see a hot release, which is the quiet kind
+  // of broken — everything renders, the data is just old.
+  let overlaySnapshot: NewsOverlay | null = null;
+  const overlayListeners = new Set<() => void>();
+  const publishOverlay = (next: NewsOverlay | null) => {
+    if (next === overlaySnapshot) return;
+    overlaySnapshot = next;
+    for (const listener of overlayListeners) listener();
+  };
+
   /**
    * ⚠️ NEVER REJECTS. A release is usable without its overlay — the base
    * is a complete immutable tree that already passed the publish gate — so
@@ -901,6 +928,7 @@ export const createDataClient = (
     if (!pointer) {
       overlayKey = null;
       overlayPromise = null;
+      publishOverlay(null);
       return { key: "", overlay: null };
     }
     const key = `${manifest.run_id}#${pointer.seq}`;
@@ -920,7 +948,11 @@ export const createDataClient = (
         })
         .catch(() => null);
     }
-    return { key, overlay: overlayPromise ? await overlayPromise : null };
+    const overlay = overlayPromise ? await overlayPromise : null;
+    // Only for the overlay that is still current: a slow fetch that lost
+    // the race must not publish itself over a newer one.
+    if (key === overlayKey) publishOverlay(overlay);
+    return { key, overlay };
   };
 
   const resolveManifest = async (): Promise<NewsPublicationManifest | null> => {
@@ -1054,7 +1086,17 @@ export const createDataClient = (
     return value as T;
   };
 
-  return { fetchData };
+  return {
+    fetchData,
+    /** The overlay in force right now, or null. Never fetches. */
+    getOverlay: () => overlaySnapshot,
+    subscribeOverlay: (listener: () => void) => {
+      overlayListeners.add(listener);
+      return () => {
+        overlayListeners.delete(listener);
+      };
+    },
+  };
 };
 
 /**
@@ -1183,6 +1225,37 @@ export const useStats = () => useData<Stats>("/stats.json");
  * for the first page. This stays for consumers that genuinely need every
  * story at once, and for a client older than the split.
  */
+/**
+ * The overlay in force, re-read when it changes.
+ *
+ * ⚠️ A SUBSCRIPTION, NOT A FETCH, and the subscription is the whole point.
+ * `fetchData` refuses to merge an index page, so `useStoryList` does it
+ * itself — but a base index page is cached, so after a hot release the
+ * poll resolves to the SAME object and no React state moves. Without a
+ * notification the list screens would never see a hot release: everything
+ * renders, the data is just old, and nothing anywhere says so.
+ *
+ * `useSyncExternalStore` rather than an effect because the snapshot lives
+ * in the data client, outside React, and can change between a render and
+ * its commit.
+ */
+export const useActiveOverlay = (
+  client: Pick<
+    ReturnType<typeof createDataClient>,
+    "getOverlay" | "subscribeOverlay"
+  > = defaultDataClient,
+): NewsOverlay | null =>
+  useSyncExternalStore(
+    client.subscribeOverlay,
+    client.getOverlay,
+    // ⚠️ A server snapshot, even though nothing renders this on the
+    // server today: `prerender.ts` is head-only and `main.tsx` uses
+    // `createRoot`. Without it the first component to render this hook in
+    // any future SSR path throws outright, which is a long way from the
+    // change that would cause it. There is no overlay before hydration.
+    () => null,
+  );
+
 export const useStories = () =>
   useData<{ generated_at: string; stories: Story[] }>("/stories.json");
 
@@ -1281,9 +1354,99 @@ export const useStoryIndexPage = (page: number | null) =>
  * upstream would never leave. Keyed by id and rebuilt from the pages that
  * are currently loaded, so the list is always a view of one vintage.
  */
+/**
+ * The revealed rows and the count that captions them, from one pass.
+ *
+ * ⚠️ ONE FUNCTION, TWO OUTPUTS, BECAUSE THEY MUST NOT BE ABLE TO
+ * DISAGREE. These were two exported functions and they did: the list
+ * injected every story the overlay touched while the count refused to
+ * count the ones that sort below the revealed prefix, so a reader could
+ * see three rows under the caption "2". Both now derive from the same
+ * boundary, computed once.
+ *
+ * ⚠️ SORTED FROM CONTENT, NOT FROM ARRIVAL. The rows live in a `Map`,
+ * which iterates in insertion order — so before this a story that moved
+ * to the front between releases kept the position it was first seen at,
+ * and the list claimed to be newest-first while quietly not being. The
+ * order is the publisher's own (`story_sort_key`), which is also what
+ * makes merging an overlay row into the middle of the list meaningful.
+ *
+ * ⚠️ AND THE MERGE IS OVER THE PREFIX, WHICH IS WHY IT IS HERE AND NOT
+ * IN THE DATA CLIENT. `applyOverlayToPath` refuses an index PAGE: pages
+ * are slices of one whole-corpus ordering, so a page merged alone
+ * duplicates or drops stories at its own boundary — and recomputes its
+ * own `total`, so nothing looks wrong. A prefix has no such problem,
+ * PROVIDED it stays a prefix: a story the overlay touched on page 5 does
+ * not belong in a two-page prefix, and `belongs` below is what keeps it
+ * out.
+ */
+export const storyListView = ({
+  revealed,
+  overlay,
+  baseTotal,
+  hasMore,
+}: {
+  /** The rows fetched from the BASE index, in any order. */
+  revealed: StoryIndexRow[];
+  overlay: NewsOverlay | null;
+  baseTotal: number | null;
+  hasMore: boolean;
+}): { stories: StoryIndexRow[]; total: number } => {
+  const rows = revealed as unknown as Array<Record<string, unknown>>;
+  if (!overlay) {
+    const stories = [...rows].sort(
+      compareStoryRows,
+    ) as unknown as StoryIndexRow[];
+    return { stories, total: baseTotal ?? stories.length };
+  }
+
+  const revealedIds = new Set(revealed.map((row) => row.id));
+  let oldest: string | null = null;
+  for (const row of rows) {
+    const key = storyRowKey(row);
+    if (oldest === null || key < oldest) oldest = key;
+  }
+  // Once every page is loaded the prefix IS the corpus, so nothing is out
+  // of range and the boundary does not apply.
+  const confine = hasMore && oldest !== null;
+  const belongs = (story: Record<string, unknown>): boolean => {
+    const id = story.id;
+    if (typeof id === "string" && revealedIds.has(id)) return true;
+    return !confine || storyRowKey(story) >= (oldest as string);
+  };
+
+  const stories = mergeStoryIndexRows(
+    rows,
+    overlay,
+    belongs,
+  ) as unknown as StoryIndexRow[];
+
+  if (baseTotal === null || !hasMore) return { stories, total: stories.length };
+
+  /**
+   * ⚠️ A STORY THE OVERLAY MERELY TOUCHED IS NOT A NEW STORY.
+   * `story_details` changes when a story gains a RECIPROCAL `related`
+   * link and nothing else about it moves, so counting every entry would
+   * inflate the caption on every hot release. What counts is an id that
+   * is not already revealed and that `belongs` — i.e. one the merged list
+   * above actually added.
+   */
+  let added = 0;
+  for (const [id, detail] of Object.entries(overlay.story_details)) {
+    if (revealedIds.has(id)) continue;
+    const story = (detail as { story?: Record<string, unknown> }).story ?? {};
+    if (belongs(story)) added += 1;
+  }
+  const removed = overlay.removed_story_ids.filter((id: string) =>
+    revealedIds.has(id),
+  ).length;
+  return { stories, total: baseTotal + added - removed };
+};
+
 export const useStoryList = () => {
   const [page, setPage] = useState(1);
   const current = useStoryIndexPage(page);
+  const overlay = useActiveOverlay();
   // Rows revealed so far, keyed by id so a story that moved between pages
   // between releases appears once rather than twice.
   const [rows, setRows] = useState<Map<string, StoryIndexRow>>(new Map());
@@ -1318,14 +1481,27 @@ export const useStoryList = () => {
   }, []);
 
   const pageCount = current.data?.pages ?? 1;
+  const hasMore = page < pageCount;
+
+  const { stories, total } = useMemo(
+    () =>
+      storyListView({
+        revealed: [...rows.values()],
+        overlay,
+        baseTotal: current.data?.total ?? null,
+        hasMore,
+      }),
+    [rows, overlay, current.data?.total, hasMore],
+  );
+
   return {
-    stories: useMemo(() => [...rows.values()], [rows]),
-    total: current.data?.total ?? rows.size,
+    stories,
+    total,
     loading: current.loading,
     // The last good rows survive a failed refresh, matching every other
     // loader here — a consumer guards the fatal case with `error && !rows`.
     error: current.error,
-    hasMore: page < pageCount,
+    hasMore,
     loadMore: useCallback(
       () => setPage((n) => (n < pageCount ? n + 1 : n)),
       [pageCount],
