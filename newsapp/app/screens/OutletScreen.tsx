@@ -25,7 +25,7 @@ import {
   positionedCount,
   useOutlets,
   useOutletArticles,
-  useStories,
+  useStoryList,
   type Outlet,
 } from "../data";
 import {
@@ -329,7 +329,7 @@ export const OutletScreen = () => {
   const { domain } = useParams<{ domain: string }>();
   const outlets = useOutlets();
   const articles = useOutletArticles(domain ?? null);
-  const stories = useStories();
+  const stories = useStoryList();
   const [limit, setLimit] = useState(PAGE_SIZE);
 
   // Router reuses this element across /outlet/:domain — start each outlet fresh.
@@ -355,14 +355,19 @@ export const OutletScreen = () => {
     return { authorRate: total ? signed / total : null };
   }, [outlets.data]);
 
+  // ⚠️ Filtered from the INDEX, which carries each story's outlet list for
+  // exactly this — the screen used to download all 1,919 stories (1,456 KB)
+  // to keep the handful this outlet appears in. The index arrives a page of
+  // 200 at a time (~50 KB), so the list grows as the reader reveals more;
+  // `hasMore` below says whether there is more to find.
   const participating = useMemo(() => {
     if (!domain) return [];
-    return (stories.data?.stories ?? [])
-      .filter((s) => s.members.some((m) => m.domain === domain))
+    return stories.stories
+      .filter((s) => s.domains.includes(domain))
       .sort((a, b) =>
         (b.last_published ?? "").localeCompare(a.last_published ?? ""),
       );
-  }, [stories.data, domain]);
+  }, [stories.stories, domain]);
 
   if (outlets.loading && !outlets.data) {
     return <Skeleton className="h-96 rounded-xl" />;
@@ -543,6 +548,30 @@ export const OutletScreen = () => {
                 </span>
               </Link>
             ))}
+            {stories.hasMore ? (
+              <div className="px-4 py-3">
+                <button
+                  type="button"
+                  onClick={stories.loadMore}
+                  disabled={stories.loading}
+                  className="text-sm font-medium text-primary hover:underline disabled:opacity-50"
+                >
+                  {stories.loading
+                    ? tr("Зареждане…", "Loading…")
+                    : tr("Покажи още истории", "Show more stories")}
+                </button>
+                {/* ⚠️ Said out loud rather than implied: the list is what has
+                    been revealed so far, not everything that exists. A count
+                    with more behind it reads as complete otherwise. */}
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {tr(
+                    "Показани са най-новите истории; може да има още.",
+                    "Showing the newest stories; there may be more.",
+                  )}
+                </p>
+              </div>
+            ) : null}
+
           </Card>
         </section>
       ) : null}

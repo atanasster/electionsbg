@@ -12,7 +12,11 @@
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { SPECTRUM_MIN_ANALYSED, type Outlet } from "../data";
+import {
+  SPECTRUM_MIN_ANALYSED,
+  type Outlet,
+  type StoryIndexRow,
+} from "../data";
 
 const outlet = (over: Partial<Outlet> = {}): Outlet =>
   ({
@@ -43,7 +47,15 @@ const outlet = (over: Partial<Outlet> = {}): Outlet =>
     ...over,
   }) as Outlet;
 
-const renderProfile = async (o: Outlet, others: Outlet[] = []) => {
+const renderProfile = async (
+  o: Outlet,
+  others: Outlet[] = [],
+  {
+    storyRows = [] as StoryIndexRow[],
+    hasMore = false,
+    onLoadMore = () => {},
+  } = {},
+) => {
   vi.resetModules();
   vi.doMock("../data", async (importOriginal) => ({
     ...(await importOriginal<typeof import("../data")>()),
@@ -57,10 +69,16 @@ const renderProfile = async (o: Outlet, others: Outlet[] = []) => {
       error: null,
       loading: false,
     }),
-    useStories: () => ({
-      data: { generated_at: "", stories: [] },
-      error: null,
+    // Mirrors useStoryList's shape: revealed rows plus the reveal control.
+    useStoryList: () => ({
+      stories: storyRows,
+      total: storyRows.length,
       loading: false,
+      error: null,
+      hasMore,
+      loadMore: onLoadMore,
+      staleVintage: false,
+      reset: () => {},
     }),
   }));
   const { OutletScreen } = await import("./OutletScreen");
@@ -346,5 +364,56 @@ describe("the spectrum floor", () => {
     delete (stale as unknown as Record<string, unknown>).conduct;
     await renderProfile(stale);
     expect(await screen.findByText("Поведение на редакцията")).toBeVisible();
+  });
+});
+
+describe("OutletScreen participating stories", () => {
+  // ⚠️ This list had no coverage: the suite mocked `useStories` with an
+  // empty array, so the section never rendered and the mock stayed inert
+  // when the component switched to the paginated index.
+  const row = (id: string, domains: string[]): StoryIndexRow => ({
+    id,
+    title_bg: `История ${id}`,
+    title_en: null,
+    topics: [],
+    first_published: "2026-09-19T08:00:00+00:00",
+    last_published: "2026-09-20T08:00:00+00:00",
+    member_count: domains.length,
+    domains,
+  });
+
+  it("keeps only the stories this outlet appears in", async () => {
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg", "two.bg"]), row("s2", ["two.bg"])],
+    });
+    expect(await screen.findByText("История s1")).toBeVisible();
+    expect(screen.queryByText("История s2")).toBeNull();
+  });
+
+  it("offers to reveal more, and says the list may be incomplete", async () => {
+    // ⚠️ The honesty half: a count with more behind it reads as complete.
+    const loadMore = vi.fn();
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      hasMore: true,
+      onLoadMore: loadMore,
+    });
+    const button = await screen.findByRole("button", {
+      name: "Покажи още истории",
+    });
+    expect(screen.getByText(/може да има още/)).toBeVisible();
+    button.click();
+    expect(loadMore).toHaveBeenCalledTimes(1);
+  });
+
+  it("offers no reveal when everything is loaded", async () => {
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      hasMore: false,
+    });
+    expect(await screen.findByText("История s1")).toBeVisible();
+    expect(
+      screen.queryByRole("button", { name: "Покажи още истории" }),
+    ).toBeNull();
   });
 });

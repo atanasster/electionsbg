@@ -153,8 +153,16 @@ const renderAt = async (
       error: null,
       loading: false,
     }),
-    useStories: () => ({
-      data: { generated_at: "", stories: opts.stories ?? [] },
+    useStoryDetail: (storyId: string | null) => ({
+      // Mirrors the real hook: a null id is no request and no data, which
+      // is what an article in no story looks like.
+      data: storyId
+        ? {
+            generated_at: "",
+            story: (opts.stories ?? []).find((s) => s.id === storyId) ?? null,
+            related: [],
+          }
+        : null,
       error: null,
       loading: false,
     }),
@@ -940,5 +948,44 @@ describe("failure and edges", () => {
   it("says 'без дата' rather than rendering an empty time", async () => {
     await renderAt([article({ published: null })]);
     expect(await screen.findByText("без дата")).toBeVisible();
+  });
+});
+
+describe("ArticleScreen story siblings", () => {
+  // ⚠️ THIS PATH HAD NO COVERAGE AT ALL. The suite mocked `useStories` and
+  // fed it `opts.stories`, but every fixture article carried
+  // `story_id: null`, so the sibling list never rendered and the mock was
+  // inert — it kept passing when the component stopped calling that hook
+  // entirely, which is exactly how a fetch change can go unnoticed.
+  it("lists the other articles in the story, from the detail file", async () => {
+    const story = {
+      id: "s1",
+      title_bg: "Историята",
+      aggregates: { outlet_count: 2, article_count: 2 },
+      members: [
+        {
+          article_id: "a1",
+          domain: "ex.bg",
+          url: "https://ex.bg/a/1",
+          title: "Правителството отложи решението",
+        },
+        {
+          article_id: "a2",
+          domain: "two.bg",
+          url: "https://two.bg/a/2",
+          title: "Съседна публикация",
+        },
+      ],
+    } as unknown as Story;
+    await renderAt([article({ story_id: "s1" } as Partial<ArticleRecord>)], {
+      stories: [story],
+    });
+    expect(await screen.findByText("Съседна публикация")).toBeVisible();
+  });
+
+  it("asks for nothing when the article is in no story", async () => {
+    await renderAt([article()], { stories: [] });
+    expect(await screen.findByRole("heading", { level: 1 })).toBeVisible();
+    expect(screen.queryByText("Съседна публикация")).toBeNull();
   });
 });

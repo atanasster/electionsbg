@@ -42,7 +42,7 @@ import {
 import {
   useOutletArticles,
   useOutlets,
-  useStories,
+  useStoryDetail,
   useTaxonomy,
   type AnalysisBlock,
   type ArticleRecord,
@@ -281,9 +281,16 @@ export const ArticleScreen = () => {
   const { domain = "", id = "" } = useParams();
   const bundle = useOutletArticles(domain || null);
   const outlets = useOutlets();
-  const stories = useStories();
   const taxonomy = useTaxonomy();
   const evalQueue = useEvalQueue();
+  // ⚠️ Resolved BEFORE the early returns below, because hooks cannot be
+  // conditional — and the article carries its own `story_id`, so this page
+  // never needed the url map, let alone the 1,456 KB corpus it used to
+  // `.find()` through. A story id the build could not have written, or an
+  // article that is in no story, yields a null path and no request.
+  const articleStoryId =
+    bundle.data?.articles.find((a) => a.id === id)?.story_id ?? null;
+  const storyDetail = useStoryDetail(articleStoryId);
 
   if (bundle.error && !bundle.data) {
     return (
@@ -316,9 +323,7 @@ export const ArticleScreen = () => {
   );
   const outletName = outlet?.outlet ?? bundle.data.outlet ?? domain;
   const analysis: AnalysisBlock | undefined = article.analysis;
-  const story = (stories.data?.stories ?? []).find(
-    (s) => s.id === article.story_id,
-  );
+  const story = storyDetail.data?.story;
   const siblings = (story?.members ?? []).filter(
     (m) => m.article_id !== article.id,
   );
