@@ -68,10 +68,10 @@ describe("linking", () => {
     );
     expect(
       screen.getByRole("link", { name: "Лица и длъжностни лица" }),
-    ).toHaveAttribute("href", "https://electionsbg.com/persons");
+    ).toHaveAttribute("href", "https://naiasno.bg/persons");
     expect(screen.getByRole("link", { name: "Декларации" })).toHaveAttribute(
       "href",
-      "https://electionsbg.com/governance/declarations",
+      "https://naiasno.bg/governance/declarations",
     );
   });
 

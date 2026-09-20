@@ -1,5 +1,11 @@
 // Entity chips, with a link where the name earned one.
 //
+// ⚠️ A CHIP HAS THREE STATES, not two: resolved (a link), OFFERED (a menu of
+// the entries the name might mean), and plain text. The middle one is not a
+// weaker link — it is the refusal made useful. „Аспарухово" is a район of
+// Варна and four villages; we still will not pick, but a reader who has just
+// read the story can, and the menu says so in words.
+//
 // ⚠️ A CHIP IS A LINK ONLY WHEN THE GAZETTEER RESOLVED IT OUTRIGHT OR A
 // hand-verified entity override resolved it after the model classified its
 // bucket. The `entity_links` sidecar carries only names whose main-site route
@@ -26,7 +32,15 @@
 
 import { Fragment } from "react";
 import { Badge } from "@/components/ui/badge";
-import type { EntityLink } from "../data";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import type { EntityCandidate, EntityLink } from "../data";
 import { useNewsLocale } from "../i18n";
 import { MAIN_SITE_LABEL, mainSiteUrl } from "../site";
 
@@ -47,15 +61,105 @@ const KIND_LABEL_EN: Record<EntityLink["kind"], string> = {
   place: "place",
 };
 
+/**
+ * A name we refused to resolve, rendered as the CHOICE we would not make.
+ *
+ * ⚠️⚠️ THE COPY MAY NOT ASSERT, and this is the whole risk of the feature.
+ * „Виж профила" over a list we did not verify turns a refusal into a claim by
+ * wording alone. The trigger says „възможни съвпадения" and the menu header
+ * says in words that the article's own name was not resolved — so a reader
+ * who picks wrong knows it was their pick.
+ *
+ * ⚠️ NOT the resolved affordance. A dotted underline means „this is who this
+ * is" everywhere else in this component; reusing it here would make an offer
+ * look like a resolution at a glance, which is the only glance most readers
+ * give it.
+ *
+ * ⚠️ `modal={false}` — a modal Radix menu locks body scroll, which strands a
+ * reader mid-article on touch.
+ */
+const EntityCandidateChip = ({
+  name,
+  candidates,
+  isEnglish,
+  tr,
+}: {
+  name: string;
+  candidates: EntityCandidate[];
+  isEnglish: boolean;
+  tr: (bg: string, en: string) => string;
+}) => (
+  <DropdownMenu modal={false}>
+    <DropdownMenuTrigger asChild>
+      <button
+        type="button"
+        className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        title={tr(
+          `${candidates.length} възможни съвпадения — изберете кое имате предвид`,
+          `${candidates.length} possible matches — choose which one you mean`,
+        )}
+      >
+        <Badge
+          variant="outline"
+          className="font-normal border-dashed hover:bg-primary/10 hover:text-primary"
+        >
+          {name}
+          <span aria-hidden className="pl-1 text-muted-foreground">
+            ·{candidates.length}
+          </span>
+          <span className="sr-only">
+            {" "}
+            — {tr("възможни съвпадения", "possible matches")}
+          </span>
+        </Badge>
+      </button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="start" className="max-w-[20rem]">
+      <DropdownMenuLabel className="whitespace-normal text-xs font-normal text-muted-foreground">
+        {tr(
+          `Името „${name}" съвпада с ${candidates.length} записа. Не избираме вместо вас — изберете кой имате предвид.`,
+          `The name „${name}" matches ${candidates.length} entries. We do not pick for you — choose the one you mean.`,
+        )}
+      </DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      {candidates.map((candidate) => (
+        <DropdownMenuItem key={candidate.id} asChild>
+          {/* Cross-origin, like a resolved chip — a plain <a>, never a
+              router <Link>. */}
+          <a
+            href={mainSiteUrl(candidate.href, isEnglish)}
+            rel="noreferrer"
+            className="flex-col items-start gap-0"
+          >
+            <span>{candidate.canonical}</span>
+            {candidate.detail ? (
+              <span className="text-xs text-muted-foreground">
+                {candidate.detail}
+              </span>
+            ) : null}
+          </a>
+        </DropdownMenuItem>
+      ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+
 export const EntityChips = ({
   title,
   names,
   links,
+  candidates,
   inline = false,
 }: {
   title: string;
   names: string[];
   links?: Record<string, EntityLink>;
+  /**
+   * name → the entries it MIGHT mean. Disjoint from `links` by construction
+   * server-side; a name present in both is rendered as the LINK, because a
+   * resolution outranks an offer.
+   */
+  candidates?: Record<string, EntityCandidate[]>;
   /** No heading and no cap — the article page groups them by its own label. */
   inline?: boolean;
 }) => {
@@ -73,6 +177,18 @@ export const EntityChips = ({
       <div className={inline ? "contents" : "flex flex-wrap gap-1.5"}>
         {shown.map((name) => {
           const link = links?.[name];
+          const offered = link ? undefined : candidates?.[name];
+          if (!link && offered?.length) {
+            return (
+              <EntityCandidateChip
+                key={name}
+                name={name}
+                candidates={offered}
+                isEnglish={isEnglish}
+                tr={tr}
+              />
+            );
+          }
           if (!link) {
             return (
               <Badge key={name} variant="secondary" className="font-normal">

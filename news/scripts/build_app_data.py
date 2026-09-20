@@ -1447,6 +1447,22 @@ def links_for(entities: dict, context_text: str = "") -> dict:
     return rm.entity_links(entities, gaz, context_text=context_text)
 
 
+def candidates_for(entities: dict, links: dict | None = None) -> dict:
+    """name → the entries that matched it, when they can be honestly OFFERED.
+
+    ⚠️ NOT a weaker `links_for`. Everything here is a name the resolver
+    REFUSED and will go on refusing; the sidecar exists so the reader can make
+    the choice we will not make for them. The gates are in
+    `resolve_mentions.entity_candidates` — one kind, two to five, and every
+    candidate servable or none of them.
+    """
+    gaz = gazetteer()
+    if gaz is None or not entities:
+        return {}
+    import resolve_mentions as rm
+    return rm.entity_candidates(entities, gaz, links=links)
+
+
 # ── Names the article never wrote ─────────────────────────────────────────
 # ⚠️ A VALIDATOR IS NOT RETROACTIVE. `analyze_articles` refuses an altered
 # person name at save time now, but three records written before it carry
@@ -1607,6 +1623,12 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         # name that did not resolve is simply absent, so a renderer cannot
         # turn a null into a dead link.
         **({"entity_links": links} if links else {}),
+        # ⚠️ A SECOND sidecar, and deliberately disjoint from the first: a
+        # name is in `entity_links` (resolved) or here (offered) or in
+        # neither (plain text), never in both. A consumer that merged them
+        # would render an offer as a resolution.
+        **({"entity_candidates": cands}
+           if (cands := candidates_for(ents, links)) else {}),
         **({"reviewed_links": copy.deepcopy(reviewed_links)}
            if reviewed_links else {}),
         # ⚠️ The resolved, linkable SIBLING of `entities` — not a replacement.
@@ -2573,6 +2595,11 @@ def main() -> int:
                                             for k in ("title", "description", "content"))
                                  for article in st_texts),
                            ]))) else {}),
+                    # ⚠️ `slinks` is always bound — the walrus sits in the
+                    # condition, which Python evaluates either way — so the
+                    # two sidecars stay disjoint on the story side too.
+                    **({"entity_candidates": scands}
+                       if (scands := candidates_for(ents, slinks)) else {}),
                     "aggregates": {**EMPTY_STORY_AGGREGATES,
                                    **(st.get("aggregates") or {})},
                     "blindspot": blindspot_of(members),

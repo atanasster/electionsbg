@@ -47,6 +47,7 @@ import {
   type AnalysisBlock,
   type ArticleRecord,
   type Outlet,
+  type EntityCandidate,
   type EntityLink,
   isPublicHumanReview,
   isPublicEditorialFeedback,
@@ -830,6 +831,7 @@ export const ArticleScreen = () => {
           <MentionsBlock
             entities={analysis.entities}
             links={analysis.entity_links}
+            candidates={analysis.entity_candidates}
           />
         </section>
       ) : (
@@ -925,9 +927,11 @@ export const ArticleScreen = () => {
 const MentionsBlock = ({
   entities,
   links,
+  candidates,
 }: {
   entities: AnalysisBlock["entities"];
   links?: Record<string, EntityLink>;
+  candidates?: Record<string, EntityCandidate[]>;
 }) => {
   const { tr } = useNewsLocale();
   const groups: [string, string[]][] = [
@@ -940,7 +944,13 @@ const MentionsBlock = ({
   const present = groups.filter(([, names]) => names.length > 0);
   if (present.length === 0) return null;
   const all = present.flatMap(([, names]) => names);
-  const unlinked = all.filter((n) => !links?.[n]).length;
+  // ⚠️ AN OFFERED NAME IS NOT AN UNLINKED ONE. The caption below explains
+  // why a chip goes nowhere; counting „Аспарухово · 5" among them would say
+  // that about a chip which goes to five places, and over-state the
+  // shortfall the caption exists to be honest about.
+  const unlinked = all.filter(
+    (n) => !links?.[n] && !candidates?.[n]?.length,
+  ).length;
   return (
     <Card className="mt-3 p-4">
       <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -950,7 +960,13 @@ const MentionsBlock = ({
         {present.map(([label, names]) => (
           <div key={label} className="flex flex-wrap items-baseline gap-1.5">
             <span className="text-xs text-muted-foreground">{label}:</span>
-            <EntityChips title="" names={names} links={links} inline />
+            <EntityChips
+              title=""
+              names={names}
+              links={links}
+              candidates={candidates}
+              inline
+            />
           </div>
         ))}
       </div>

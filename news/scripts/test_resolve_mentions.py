@@ -573,5 +573,85 @@ class DefiniteArticle(unittest.TestCase):
         for w in ("Комисията", "Софийската градска прокуратура", "Прокуратурата"):
             self.assertNotIn(w, undefinite_forms(w))
 
+
+def place(canonical, place_kind, code, detail=None, resolvable=False):
+    ident = f"{place_kind}:{code}"
+    return {"kind": "place", "canonical": canonical, "place_kind": place_kind,
+            "detail": detail or place_kind, "id": ident if resolvable else None,
+            "forms": [f(canonical, resolvable, ident if resolvable else None,
+                        anchor=ident, why="")]}
+
+
+class Candidates(unittest.TestCase):
+    """⚠️ An OFFER, never a resolution. The resolver still refuses to pick;
+    these rules are what stop a menu from becoming a pick by other means."""
+
+    def test_homonym_places_are_offered_with_a_label_that_tells_them_apart(self):
+        # ⚠️ THE MOTIVATING CASE. „Аспарухово" is a район of Варна and four
+        # villages; the story was about the район, which a settlements-only
+        # list does not even contain.
+        g = gz(place("Аспарухово", "rayon", "VAR06-05", "район, общ. Варна"),
+               place("Аспарухово", "settlement", "00775",
+                     "населено място, общ. Карнобат"))
+        got = rm.candidates_for("Аспарухово", g)
+        self.assertEqual(len(got), 2)
+        self.assertEqual({o["href"] for o in got},
+                         {f"{rm.MAIN_SITE}/governance/VAR06-05",
+                          f"{rm.MAIN_SITE}/settlement/00775"})
+        # A menu of two entries both reading „Аспарухово" is not a choice.
+        self.assertEqual(len({o["detail"] for o in got}), 2)
+
+    def test_a_name_that_resolves_outright_is_never_offered_a_menu(self):
+        g = gz(place("Одесос", "rayon", "VAR06-01", resolvable=True))
+        self.assertIsNone(rm.candidates_for("Одесос", g))
+
+    def test_mixed_kinds_stay_plain_text(self):
+        # ⚠️ „Ангелов" is seven public figures AND a village. A mixed menu
+        # asks the reader what part of speech the sentence was.
+        g = gz(person("Иван Ангелов", f("Ангелов", False, anchor="ia-1")),
+               person("Петър Ангелов", f("Ангелов", False, anchor="pa-1")),
+               place("Ангелов", "settlement", "00001"))
+        self.assertIsNone(rm.candidates_for("Ангелов", g))
+
+    def test_more_than_five_stays_plain_text(self):
+        # A seven-name menu says „one of these is your man" about an article
+        # that may mean an eighth who is in no roster at all.
+        g = gz(*[place("Върба", "settlement", f"0000{i}") for i in range(6)])
+        self.assertIsNone(rm.candidates_for("Върба", g))
+
+    def test_one_unservable_candidate_refuses_the_WHOLE_set(self):
+        # ⚠️⚠️ Offering the rest tells the reader the answer is among what is
+        # left — on a list built by REMOVING what we could not show. `oblast`
+        # has no page, so this pair is not offerable at all.
+        g = gz(place("Ямбол", "oblast", "YAM"),
+               place("Ямбол", "settlement", "87374"))
+        self.assertIsNone(rm.candidates_for("Ямбол", g))
+
+    def test_a_candidate_route_matches_the_resolved_one(self):
+        # A foreign country is stored as a `settlement` with a two-letter
+        # code and has no page — the refusal entity_link() already makes.
+        g = gz(place("Мария", "settlement", "ZA"),
+               place("Мария", "settlement", "00002"))
+        self.assertIsNone(rm.candidates_for("Мария", g))
+
+    def test_entity_candidates_skips_names_that_already_have_a_link(self):
+        g = gz(place("Аспарухово", "rayon", "VAR06-05", "район"),
+               place("Аспарухово", "settlement", "00775", "населено място"))
+        ents = {"places": ["Аспарухово"]}
+        self.assertIn("Аспарухово", rm.entity_candidates(ents, g))
+        self.assertEqual(
+            rm.entity_candidates(ents, g, links={"Аспарухово": {"href": "x"}}),
+            {})
+
+    def test_the_offer_is_deterministic(self):
+        # The artifact is published; a set iterated in heap order would churn
+        # the file on every rebuild.
+        g = gz(place("Аспарухово", "settlement", "00802", "общ. Левски"),
+               place("Аспарухово", "settlement", "00775", "общ. Карнобат"))
+        self.assertEqual(rm.candidates_for("Аспарухово", g),
+                         rm.candidates_for("Аспарухово", g))
+        self.assertEqual([o["id"] for o in rm.candidates_for("Аспарухово", g)],
+                         ["settlement:00775", "settlement:00802"])
+
 if __name__ == "__main__":
     unittest.main()

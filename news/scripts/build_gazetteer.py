@@ -39,6 +39,7 @@ Run:  python3 news/scripts/build_gazetteer.py [--json]
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -561,6 +562,13 @@ with roster as (
         or (pr.source = 'official_exec' and pr.role in ({named_exec}))
         or (pr.source = 'official_exec' and pr.role in ({wider_exec}))
         or (pr.source = 'official_muni' and pr.role = 'mayor')
+        -- ⚠️ THE ELECTED ROSTER, not only the officials register, and the
+        -- gap it closes is not marginal: measured 2026-09-21, 709 people
+        -- hold `local`/`mayor` against 302 in `official_muni`, so 522
+        -- mayors — Благомир Коцев of Варна among them — were absent from
+        -- the gazetteer entirely while their /person page served fine.
+        -- A mayor is exactly the officeholder a regional newsroom names.
+        or (pr.source = 'local' and pr.role = 'mayor')
       )
     -- ⚠️ DETERMINISTIC. The artifact is committed, so a tie broken by heap
     -- order would churn the file on every rebuild. person_id is the tiebreak
@@ -768,24 +776,132 @@ def institution_entries(rows: list) -> tuple[list, dict]:
                      "institutions_ambiguous": ambiguous}
 
 
+# ⚠️ THE CITY РАЙОНИ ARE NOT IN `place_dim`, AND OMITTING THEM IS NOT A
+# ROUNDING ERROR — it was the bug that started this. The story „Кметът на
+# Варна: затваряме … в ‚Аспарухово‘" is about район Аспарухово of Варна,
+# which `/governance/VAR06-05` serves; the four VILLAGES called Аспарухово are
+# four different places, none of them the one the article meant. So a
+# candidate list built from `place_dim` alone offers a reader four wrong
+# answers and calls it a choice.
+#
+# Sofia's 24 районите need nothing here — they are real `obshtina` rows
+# (`S2xxx`). Only Пловдив-град and Варна-град have районите as a derived
+# layer, and their catalogue is the COMMITTED polygon file that
+# `src/data/local/cityRayonCatalog.ts` mirrors, so this reads the same
+# artifact rather than restating ten names in a third place.
+CITY_RAYON_MAPS = "data/maps/city_rayons"
+
+# „68134-2309" — Sofia city EKATTE plus the район sub-code.
+SOFIA_RAYON_CODE = re.compile(r"[0-9]{5}-[0-9]+")
+
+
+def city_rayon_rows() -> list:
+    """`place_dim`-shaped rows for the Пловдив/Варна административни райони.
+
+    ⚠️ SHAPED LIKE A `place_dim` ROW ON PURPOSE, so `place_entries` folds them
+    through the SAME hierarchy, stopword, common-word and given-name rules as
+    every other place. A район called „Западен" or „Централен" must be refused
+    by the ordinary common-word filter, not exempted for being new.
+    """
+    rows = []
+    root = ROOT / CITY_RAYON_MAPS
+    for path in sorted(root.glob("*.json")) if root.is_dir() else []:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        for feature in doc.get("features") or []:
+            props = feature.get("properties") or {}
+            code, name = props.get("nuts4"), props.get("name")
+            # `nuts4` is „<obshtina>-<rayon>" and doubles as the route id.
+            obshtina = (code or "").split("-")[0]
+            if not code or not name or not obshtina:
+                continue
+            if len(name) < MIN_SURFACE_CHARS:
+                continue
+            rows.append({"kind": "rayon", "code": code, "name_bg": name,
+                         "obl": props.get("nuts3"), "obs": obshtina,
+                         "parent_bg": None, "oblast_bg": None})
+    return rows
+
+
 def build_places() -> tuple[list, dict]:
-    return place_entries(query("""
-        select kind, code, name_bg,
+    rows = query("""
+        select p.kind, p.code, p.name_bg,
                -- ⚠️ The hierarchy, normalised so an OBLAST row (whose
                -- oblast_code is NULL because it IS the oblast) compares
                -- equal to the settlement inside it.
-               case when kind = 'oblast' then code else oblast_code end as obl,
-               case when kind = 'obshtina' then code
-                    else obshtina_code end as obs
-        from place_dim
-        where char_length(name_bg) >= :'chars'::int
-        order by name_bg, kind, code
-    """, {"chars": MIN_SURFACE_CHARS}))
+               case when p.kind = 'oblast' then p.code
+                    else p.oblast_code end as obl,
+               case when p.kind = 'obshtina' then p.code
+                    else p.obshtina_code end as obs,
+               -- ⚠️ The two NAMES, for the candidate label. A dropdown of
+               -- four entries all reading „Аспарухово" is not a choice, and
+               -- the code („settlement:00789") is not one either.
+               obs.name_bg as parent_bg,
+               obl.name_bg as oblast_bg
+        from place_dim p
+        left join place_dim obs
+          on obs.kind = 'obshtina' and obs.code = p.obshtina_code
+         and p.kind <> 'obshtina'
+        left join place_dim obl
+          on obl.kind = 'oblast' and obl.code = p.oblast_code
+        where char_length(p.name_bg) >= :'chars'::int
+        order by p.name_bg, p.kind, p.code
+    """, {"chars": MIN_SURFACE_CHARS})
+    # ⚠️ SOFIA'S РАЙОНИ ARE STORED TWICE AND NEITHER COPY LINKS ON ITS OWN.
+    # `place_dim` holds „Лозенец" as `settlement:68134-2309` AND as
+    # `obshtina:S2309`; the two agree on their hierarchy, so the collapse rule
+    # picks the more specific — the settlement — whose composite code is not
+    # an EKATTE, so `/settlement/68134-2309` does not exist and the place went
+    # unlinked. `/governance/68134-2309` does exist. Relabelled here, at the
+    # row, so the rest of the file needs no special case.
+    #
+    # ⚠️ THE COMPOSITE SHAPE, never „not five digits". 88 settlement rows are
+    # FOREIGN COUNTRIES stored under two-letter codes (ZA, UA) and they have
+    # no page of any kind — the refusal `entity_link()` documents.
+    for row in rows:
+        if row["kind"] == "settlement" and SOFIA_RAYON_CODE.fullmatch(
+                row["code"] or ""):
+            row["kind"] = "rayon"
+    obshtina_names = {r["code"]: r["name_bg"]
+                      for r in rows if r["kind"] == "obshtina"}
+    oblast_names = {r["code"]: r["name_bg"]
+                    for r in rows if r["kind"] == "oblast"}
+    rayons = city_rayon_rows()
+    for row in rayons:
+        row["parent_bg"] = obshtina_names.get(row["obs"])
+        row["oblast_bg"] = oblast_names.get(row["obl"])
+    rows.extend(rayons)
+    rows.sort(key=lambda r: (r["name_bg"], r["kind"], r["code"]))
+    return place_entries(rows)
 
 
 # Most specific first. „Пловдив" in a news article means the CITY, not the
 # oblast — and a reader following the link expects the place they read about.
-PLACE_SPECIFICITY = {"settlement": 0, "obshtina": 1, "oblast": 2, "mir": 3}
+#
+# ⚠️ A РАЙОН IS BELOW A SETTLEMENT, not beside it. It only ever matters when a
+# район and something else share a name AND the same hierarchy, and then the
+# район is the narrower place the article meant.
+PLACE_SPECIFICITY = {"rayon": -1, "settlement": 0, "obshtina": 1,
+                     "oblast": 2, "mir": 3}
+
+# How a candidate names itself to a reader choosing between homonyms.
+PLACE_KIND_LABEL = {"rayon": "район", "settlement": "населено място",
+                    "obshtina": "община", "oblast": "област", "mir": "МИР"}
+
+
+def place_detail(row: dict) -> str:
+    """„район на общ. Варна, обл. Варна" — what tells four Аспаруховоs apart.
+
+    ⚠️ NOT the bare `place_kind`. That was the old `detail`, and four rows all
+    reading „settlement" are not a choice — which is exactly why the four
+    villages had to stay plain text rather than becoming a dropdown.
+    """
+    bits = [PLACE_KIND_LABEL.get(row.get("kind") or "", row.get("kind") or "")]
+    parent, oblast = row.get("parent_bg"), row.get("oblast_bg")
+    if parent and parent != row.get("name_bg"):
+        bits.append(f"общ. {parent}")
+    if oblast and oblast != row.get("name_bg"):
+        bits.append(f"обл. {oblast}")
+    return ", ".join(b for b in bits if b)
 
 
 def place_entries(rows: list) -> tuple[list, dict]:
@@ -843,6 +959,7 @@ def place_entries(rows: list) -> tuple[list, dict]:
                 # which the artifact gate caught on 53 places.
                 "id": pid if forms[0]["resolvable"] else None,
                 "canonical": name, "place_kind": pick["kind"],
+                "detail": place_detail(pick),
                 "forms": forms,
             })
             continue
@@ -855,6 +972,10 @@ def place_entries(rows: list) -> tuple[list, dict]:
                 # (kind, code) and NOT on its own: `AF` is both an obshtina
                 # and a settlement, `BGS` both a mir and an oblast.
                 "id": None, "canonical": name, "place_kind": r["kind"],
+                # ⚠️ THE REASON THIS ENTRY EXISTS AT ALL. Refused for linking,
+                # kept so the reader can be OFFERED the choice we will not
+                # make for them — and a choice needs a label.
+                "detail": place_detail(r),
                 "forms": [form(
                     name, False,
                     f"{len(group)} distinct places share this name — "
@@ -890,13 +1011,28 @@ def build_aliases() -> tuple[list, dict]:
         alias, eik = (a.get("alias") or "").strip(), (a.get("eik") or "").strip()
         if not alias or not eik:
             continue
+        alias_form = form(alias, True,
+                          "hand-verified abbreviation — "
+                          + (a.get("evidence") or "")[:160],
+                          eik, "institution", "name")
         entries.append({
-            "kind": "institution", "id": eik,
+            "kind": "institution",
+            # ⚠️⚠️ CONDITIONAL, like places and people — an entry may not
+            # advertise an id its only form refused. Curation sidesteps the
+            # LENGTH floor (see the docstring) but NOT the common-word filter,
+            # and „МО" is the case that proves the filter right rather than
+            # over-eager: the corpus writes „8-мо място", `TOKEN_RE` yields
+            # the bare token „мо", and the resolver matches a single token
+            # with no look-behind — so before this, an article ranking
+            # airports linked the Ministry of Defence. Verified by running
+            # the resolver on „Румъния е на 8-мо място", 2026-09-21.
+            #
+            # The cost is real and is the right way round: МО is unlinked
+            # until an abbreviation can be matched CASE-SENSITIVELY, which is
+            # a resolver-wide change (`fold()` lowercases everything).
+            "id": eik if alias_form["resolvable"] else None,
             "canonical": a.get("display") or alias,
-            "forms": [form(alias, True,
-                           "hand-verified abbreviation — "
-                           + (a.get("evidence") or "")[:160],
-                           eik, "institution", "name")],
+            "forms": [alias_form],
         })
     return entries, {
         "aliases": len(entries),

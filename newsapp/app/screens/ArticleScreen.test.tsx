@@ -640,7 +640,7 @@ describe("accepted all-article feedback", () => {
         kind: "sector",
         id: "energy",
         canonical: "Енергетика",
-        href: "https://electionsbg.com/sector/energy",
+        href: "https://naiasno.bg/sector/energy",
       },
     ];
 
@@ -661,7 +661,7 @@ describe("accepted all-article feedback", () => {
       screen.getByRole("link", {
         name: "Енергетика → Енергетика",
       }),
-    ).toHaveAttribute("href", "https://electionsbg.com/sector/energy");
+    ).toHaveAttribute("href", "https://naiasno.bg/sector/energy");
     expect(screen.queryByText(/feedback-submission/)).not.toBeInTheDocument();
     expect(
       screen.queryByText(/Необработена увереност 70%/),
@@ -856,15 +856,12 @@ describe("mentions", () => {
         id: "mp-3931",
         canonical: "Иван Маркос Христанов",
         form_kind: "two_part",
-        href: "https://electionsbg.com/person/mp-3931",
+        href: "https://naiasno.bg/person/mp-3931",
       },
     };
     await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
     const link = await screen.findByRole("link", { name: /Иван Христанов/ });
-    expect(link).toHaveAttribute(
-      "href",
-      "https://electionsbg.com/person/mp-3931",
-    );
+    expect(link).toHaveAttribute("href", "https://naiasno.bg/person/mp-3931");
     expect(link.getAttribute("title")).toContain("Иван Маркос Христанов");
     // …and with everything linked, the caveat does not appear at all.
     expect(screen.queryByText(/грешната връзка/)).toBeNull();

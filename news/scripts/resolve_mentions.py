@@ -115,7 +115,15 @@ class Gazetteer:
                     # Distinguishes homonyms that share a canonical name —
                     # „Айтос" is both a settlement and an obshtina, and a
                     # candidate list built without it collapses to one.
-                    "detail": entry.get("place_kind") or entry.get("tier"),
+                    # ⚠️ THE ENTRY'S OWN LABEL FIRST. `place_kind` alone
+                    # renders four homonyms as „settlement" four times, which
+                    # deduplicates to one candidate and is no choice at all —
+                    # the defect `label()` below already warns about, one
+                    # level up. `place_detail()` in build_gazetteer.py names
+                    # the obshtina and the oblast.
+                    "detail": (entry.get("detail")
+                               or entry.get("place_kind")
+                               or entry.get("tier")),
                     "why": form["why"],
                 }
                 for variant in {
@@ -480,6 +488,23 @@ ENTITY_ROUTES = {
     "institution": "/awarder/{id}",
     "company": "/company/{id}",
     "place:settlement": "/settlement/{id}",
+    # ⚠️ `/governance/:id` and NOT `/municipality/:id` — that route takes a
+    # numeric МИР, not an obshtina code, so it would render the wrong page for
+    # every one of these.
+    #
+    # ⚠️ Every obshtina code in `place_dim` is served: they are exactly
+    # `data/municipalities.json` plus `SFO_CITY`, which `isSofiaCityObshtina`
+    # resolves. Verified 2026-09-21 against `useAreaResolver`, which is the
+    # authority on what that route accepts.
+    "place:obshtina": "/governance/{id}",
+    # The Пловдив/Варна административни райони — `nuts4` is the route id.
+    # Sofia's районите arrive as `place:obshtina` (`S2xxx`) instead.
+    "place:rayon": "/governance/{id}",
+    # ⚠️ OBLAST IS DELIBERATELY ABSENT. `/governance/VAR` renders the
+    # unknown-place screen — the resolver handles settlements, obshtini and
+    # city районите and nothing else — and the SPA answers 200 for it, so a
+    # curl check cannot see the refusal. A kind with no entry here is not
+    # linked, which is the safe default this table is built on.
 }
 
 
@@ -698,3 +723,113 @@ def entity_links(entities: dict, gaz: "Gazetteer",
             if link:
                 out[name] = link
     return out
+
+
+# ── Candidates: the choice we will not make for the reader ────────────────
+#
+# ⚠️⚠️ THIS IS AN OFFER, NOT A RESOLUTION, and the distinction is the whole
+# design. The resolver refuses to PICK between homonyms and always will —
+# „Ангелов" is seven public figures and a village, and no ranking is right
+# more than sometimes. But refusing to pick was never the same as refusing to
+# SHOW: „Аспарухово" is a район of Варна and four villages, and a reader who
+# can see the five can choose the one their story is about in one click.
+#
+# The gates below are what keep an offer from becoming a claim again.
+CANDIDATE_MAX = 5
+
+
+def entity_candidates(entities: dict, gaz: "Gazetteer",
+                      links: dict | None = None) -> dict:
+    """name → the entries that matched it, when they can be honestly offered.
+
+    Returns `{}` for every name that resolved outright (those are `links`),
+    for every name nothing matched, and for every ambiguity failing a gate.
+    """
+    out: dict = {}
+    for names in (entities or {}).values():
+        for name in names or []:
+            if name in out or (links or {}).get(name):
+                continue
+            offer = candidates_for(name, gaz)
+            if offer:
+                out[name] = offer
+    return out
+
+
+def candidates_for(name: str, gaz: "Gazetteer") -> list | None:
+    """The offerable candidate list for one surface, or None."""
+    cleaned = " ".join((name or "").split())
+    claims = gaz.by_surface.get(fold(cleaned))
+    if not claims:
+        for bare in undefinite_forms(cleaned):
+            claims = gaz.by_surface.get(fold(bare))
+            if claims:
+                break
+    if not claims:
+        return None
+    basis, _, _ = decide(claims, set())
+    if basis != "ambiguous_refused":
+        return None
+
+    # ⚠️ ONE KIND ONLY. A list mixing „Ангелов the politician" with „Ангелов
+    # the village" asks the reader to decide what PART OF SPEECH the sentence
+    # was, which is a question about the article rather than about the
+    # country — and it is the question the analysis model was supposed to have
+    # answered. Mixed kinds stay plain text.
+    kinds = {c["kind"] for c in claims}
+    if len(kinds) != 1:
+        return None
+
+    seen, offers = set(), []
+    for claim in claims:
+        ident = claim.get("id") or claim.get("anchor_for")
+        if not ident:
+            # ⚠️ A claim with no identity at all cannot be offered AND cannot
+            # be quietly skipped — see the all-or-nothing rule below.
+            return None
+        href = candidate_href(claim["kind"], ident, claim["canonical"])
+        if not href:
+            # ⚠️⚠️ ALL OR NOTHING. Dropping the candidates that have no served
+            # page and offering the rest tells the reader the answer is among
+            # what is left — on a list we built by REMOVING the ones we could
+            # not show. That is a claim, made by omission, and it is worse
+            # than the plain text it replaced.
+            return None
+        if ident in seen:
+            continue
+        seen.add(ident)
+        offers.append({
+            "kind": claim["kind"],
+            "id": ident,
+            "canonical": claim["canonical"],
+            # What tells two „Аспарухово"s apart — see place_detail() in
+            # build_gazetteer.py. Absent for kinds that have no such label.
+            **({"detail": claim["detail"]} if claim.get("detail") else {}),
+            "href": href,
+        })
+
+    # ⚠️ THE CAP IS A HONESTY GATE, NOT A UI ONE. „Ангелов" is refused by
+    # seven public figures, and an article may well mean an eighth who is in
+    # no roster at all; a seven-name menu says one of these is your man. Two
+    # to five is a set a reader can actually adjudicate from the article they
+    # just read.
+    if not 2 <= len(offers) <= CANDIDATE_MAX:
+        return None
+    offers.sort(key=lambda o: (o["canonical"], o.get("detail") or "", o["id"]))
+    return offers
+
+
+def candidate_href(kind: str, ident: str, canonical: str) -> str | None:
+    """`entity_href` for a candidate, resolving the place-kind prefix.
+
+    ⚠️ The SAME route table `entity_link()` uses. A candidate offered through
+    a route the resolved path would have refused is a link we have already
+    decided not to make.
+    """
+    route_key, plain_id = kind, ident
+    if kind == "place":
+        place_kind, _, code = ident.partition(":")
+        route_key, plain_id = f"place:{place_kind}", code
+        if route_key == "place:settlement" and not EKATTE_RE.match(plain_id):
+            return None
+    return entity_href(route_key, plain_id, canonical)

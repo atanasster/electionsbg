@@ -148,6 +148,8 @@ export interface AnalysisBlock {
   entities: Entities | null;
   /** name → link, for the entity strings that earned one. */
   entity_links?: Record<string, EntityLink>;
+  /** name → the entries it might mean, when they can be honestly offered. */
+  entity_candidates?: Record<string, EntityCandidate[]>;
   /** Canonical links accepted through offline editorial review, including sectors. */
   reviewed_links?: ReviewedLink[];
   /**
@@ -336,6 +338,8 @@ export interface Story {
   entities: Entities;
   /** name → link, for the entity strings that earned one. */
   entity_links?: Record<string, EntityLink>;
+  /** name → the entries it might mean, when they can be honestly offered. */
+  entity_candidates?: Record<string, EntityCandidate[]>;
   aggregates: {
     article_count: number;
     outlet_count: number;
@@ -586,6 +590,30 @@ export interface EntityLink {
    * ⚠️ RENDER IT THROUGH `mainSiteUrl`, never raw — a release minted before
    * the rebrand carries the retired host.
    */
+  href: string;
+}
+
+/**
+ * One entry a name MIGHT mean — an offer, never a resolution.
+ *
+ * ⚠️⚠️ THE DISTINCTION FROM `EntityLink` IS THE WHOLE DESIGN, and a consumer
+ * that merges the two sidecars destroys it. An `EntityLink` says „this is who
+ * this is"; a candidate says „this name matches several entries and we will
+ * not pick". A name is in `entity_links`, or in `entity_candidates`, or in
+ * neither — never in both.
+ *
+ * ⚠️ `detail` is what makes the list a CHOICE. Four entries all reading
+ * „Аспарухово" are not one, which is why the gazetteer carries the obshtina
+ * and the oblast. It is absent for kinds that have no such label.
+ *
+ * The server-side gates — one kind, two to five entries, and every candidate
+ * servable or none of them — are in `resolve_mentions.entity_candidates`.
+ */
+export interface EntityCandidate {
+  kind: EntityLink["kind"];
+  id: string;
+  canonical: string;
+  detail?: string;
   href: string;
 }
 

@@ -468,26 +468,31 @@ export const StoryScreen = () => {
               title={tr("Хора", "People")}
               names={story.entities.people}
               links={story.entity_links}
+              candidates={story.entity_candidates}
             />
             <EntityChips
               title={tr("Партии", "Parties")}
               names={story.entities.parties}
               links={story.entity_links}
+              candidates={story.entity_candidates}
             />
             <EntityChips
               title={tr("Институции", "Institutions")}
               names={story.entities.institutions}
               links={story.entity_links}
+              candidates={story.entity_candidates}
             />
             <EntityChips
               title={tr("Компании", "Companies")}
               names={story.entities.companies}
               links={story.entity_links}
+              candidates={story.entity_candidates}
             />
             <EntityChips
               title={tr("Места", "Places")}
               names={story.entities.places}
               links={story.entity_links}
+              candidates={story.entity_candidates}
             />
           </Card>
 
