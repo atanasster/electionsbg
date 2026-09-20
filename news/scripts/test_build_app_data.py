@@ -3090,5 +3090,185 @@ class StoryPagesAndDetails(unittest.TestCase):
             self.assertEqual(page["pages"], 1)
 
 
+class FeedbackTargetDeterminism(unittest.TestCase):
+    """The registry must be identical for identical data, every process.
+
+    ⚠️ NOT A TIDINESS TEST. `targets_sha256` is what an article feedback
+    submission is validated against, so an order that moves for no reason
+    can refuse a reader's submission about a registry that did not change.
+    It also made `feedback-targets.json` — 1.5 MB — differ on every
+    release, which is 1.5 MB of the 1.84 MB first overlay ever built.
+
+    ⚠️ AND IT MUST RUN IN A SEPARATE PROCESS. String hashing is randomised
+    per interpreter, so two builds inside THIS process share a seed and
+    agree even with the defect present — the test would pass on the bug it
+    exists to catch.
+    """
+
+    def build_in_subprocess(self, seed: str) -> dict:
+        code = (
+            "import json,sys;"
+            "sys.path.insert(0, 'news/scripts');"
+            "from build_feedback_targets import build;"
+            "r = build(generated_at='FIXED');"
+            "print(json.dumps({'sha': r['targets_sha256'],"
+            " 'aliases': [t['aliases'] for t in r['targets']]}))"
+        )
+        proc = subprocess.run(
+            [sys.executable, "-c", code],
+            capture_output=True, text=True,
+            cwd=os.path.dirname(os.path.dirname(os.path.dirname(SCRIPT))),
+            env={**os.environ, "PYTHONHASHSEED": seed})
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        return json.loads(proc.stdout)
+
+    def test_two_hash_seeds_produce_the_same_registry(self):
+        first = self.build_in_subprocess("1")
+        second = self.build_in_subprocess("987654")
+        self.assertEqual(first["sha"], second["sha"],
+                         "the registry hash depends on the hash seed — a "
+                         "reader's feedback submission can be refused for a "
+                         "registry change that never happened")
+        self.assertEqual(first["aliases"], second["aliases"])
+
+    def test_the_key_separates_spellings_that_fold_together(self):
+        from build_feedback_targets import alias_sort_key
+        variants = ["община Сандански", "Община Сандански", "ОБЩИНА САНДАНСКИ"]
+        for order in (variants, list(reversed(variants))):
+            self.assertEqual(sorted(set(order), key=alias_sort_key),
+                             sorted(variants, key=alias_sort_key))
+        # …while still grouping them, which a plain sort would not: the
+        # fold is the primary key, so case variants stay adjacent.
+        self.assertEqual(
+            [alias_sort_key(v)[0] for v in variants],
+            [variants[0].casefold()] * 3)
+
+
+class StampPreservation(unittest.TestCase):
+    """A bundle whose content did not change keeps the stamp it had.
+
+    ⚠️ THIS IS WHAT MAKES A HOT RELEASE SMALL, AND THE NUMBER IS THE
+    ARGUMENT. Measured 2026-09-20 against the live release, a real overlay
+    came to 1.84 MB — of which 1.57 MB was three files carried whole
+    because they DIFFERED: feedback-targets.json (1.5 MB), outlets.json
+    (43 KB) and taxonomy.json (25 KB). Their content was identical; they
+    differed by the run timestamp alone.
+    """
+
+    def setUp(self):
+        self.temp = tempfile.mkdtemp(prefix="stamp_preservation_")
+        self.addCleanup(shutil.rmtree, self.temp, True)
+        self.out = Path(self.temp) / "out"
+        self.base = Path(self.temp) / "base"
+        for directory in (self.out, self.base):
+            directory.mkdir(parents=True)
+
+    def put(self, tree, name, payload):
+        path = tree / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, ensure_ascii=False),
+                        encoding="utf-8")
+
+    def stamps(self, *names):
+        return [json.loads((self.out / n).read_text(encoding="utf-8"))
+                .get("generated_at") for n in names]
+
+    def test_identical_content_keeps_the_previous_stamp(self):
+        self.put(self.base, "taxonomy.json", {"generated_at": "OLD", "t": [1]})
+        self.put(self.out, "taxonomy.json", {"generated_at": "NEW", "t": [1]})
+        self.assertEqual(
+            build_app_data.restore_stable_stamps(self.out, self.base), 1)
+        self.assertEqual(self.stamps("taxonomy.json"), ["OLD"])
+
+    def test_changed_content_takes_the_new_stamp(self):
+        self.put(self.base, "taxonomy.json", {"generated_at": "OLD", "t": [1]})
+        self.put(self.out, "taxonomy.json", {"generated_at": "NEW", "t": [1, 2]})
+        build_app_data.restore_stable_stamps(self.out, self.base)
+        self.assertEqual(self.stamps("taxonomy.json"), ["NEW"])
+
+    def test_a_group_moves_together_or_not_at_all(self):
+        # ⚠️ THE DEFECT THIS RULE EXISTS FOR. `build_feedback_tasks` raises
+        # SyncError when the registry's stamp differs from `latest.json`'s,
+        # and the PRERENDER throws on the same disagreement — so preserving
+        # one member while the other moves kills the site build. That is
+        # the ordinary case, not an edge: the feed changes far more often
+        # than the target registry.
+        for name in ("latest.json", "feedback-targets.json"):
+            self.put(self.base, name, {"generated_at": "OLD", "v": 1})
+        self.put(self.out, "latest.json", {"generated_at": "NEW", "v": 2})
+        self.put(self.out, "feedback-targets.json",
+                 {"generated_at": "NEW", "v": 1})
+        build_app_data.restore_stable_stamps(self.out, self.base)
+        got = self.stamps("latest.json", "feedback-targets.json")
+        self.assertEqual(got, ["NEW", "NEW"], "the group split")
+
+    def test_a_whole_group_that_is_unchanged_keeps_its_stamps(self):
+        for name in ("latest.json", "feedback-targets.json"):
+            self.put(self.base, name, {"generated_at": "OLD", "v": 1})
+            self.put(self.out, name, {"generated_at": "NEW", "v": 1})
+        build_app_data.restore_stable_stamps(self.out, self.base)
+        self.assertEqual(
+            self.stamps("latest.json", "feedback-targets.json"),
+            ["OLD", "OLD"])
+
+    def test_home_and_stats_always_take_the_run_stamp(self):
+        # ⚠️ The publish path compares the BUILD'S REPORTED stamp against
+        # home's, so preserving home's would need the summary to preserve
+        # it too — and a disagreement refuses the release outright.
+        for name in ("home.json", "stats.json"):
+            self.put(self.base, name, {"generated_at": "OLD", "v": 1})
+            self.put(self.out, name, {"generated_at": "NEW", "v": 1})
+        build_app_data.restore_stable_stamps(self.out, self.base)
+        self.assertEqual(self.stamps("home.json", "stats.json"),
+                         ["NEW", "NEW"])
+
+    def test_a_subdirectory_file_is_compared_against_its_own_path(self):
+        # ⚠️ `articles/x.json` and `stories/x.json` share a BASENAME.
+        # Comparing by name would hand one file the other's stamp — and
+        # both parse, so the only symptom is two files quietly asserting a
+        # generation time neither has.
+        self.put(self.base, "articles/x.json", {"generated_at": "A", "v": 1})
+        self.put(self.base, "stories/x.json", {"generated_at": "S", "v": 1})
+        self.put(self.out, "articles/x.json", {"generated_at": "NEW", "v": 1})
+        self.put(self.out, "stories/x.json", {"generated_at": "NEW", "v": 1})
+        build_app_data.restore_stable_stamps(self.out, self.base)
+        self.assertEqual(self.stamps("articles/x.json", "stories/x.json"),
+                         ["A", "S"])
+
+    def test_a_cold_build_compares_against_its_own_output(self):
+        self.put(self.out, "taxonomy.json", {"generated_at": "FIRST", "v": 1})
+        # No stamp_from: the file being replaced is the one already there,
+        # so a rewrite with identical content is a no-op.
+        build_app_data.restore_stable_stamps(self.out, None)
+        self.assertEqual(self.stamps("taxonomy.json"), ["FIRST"])
+
+    def test_a_missing_or_unreadable_previous_is_not_an_error(self):
+        self.put(self.out, "taxonomy.json", {"generated_at": "NEW", "v": 1})
+        self.assertEqual(
+            build_app_data.restore_stable_stamps(self.out, self.base), 0)
+        (self.base / "taxonomy.json").write_text("{not json", encoding="utf-8")
+        self.assertEqual(
+            build_app_data.restore_stable_stamps(self.out, self.base), 0)
+        self.assertEqual(self.stamps("taxonomy.json"), ["NEW"])
+
+    def test_a_payload_with_no_stamp_is_left_alone(self):
+        self.put(self.base, "list.json", [1, 2, 3])
+        self.put(self.out, "list.json", [1, 2, 3])
+        self.assertEqual(
+            build_app_data.restore_stable_stamps(self.out, self.base), 0)
+
+    def test_every_group_member_is_a_file_the_build_writes(self):
+        # A group naming a file nothing writes is dead config that reads
+        # as protection — and it would make the whole group un-preservable
+        # for ever, since a missing member can never be "unchanged".
+        written = {p.name for p in
+                   (Path(SCRIPT).parent.parent / "app-data").rglob("*.json")}
+        if not written:
+            self.skipTest("no built app-data tree to check against")
+        for group in build_app_data.STAMP_GROUPS:
+            for member in group:
+                self.assertIn(member, written, member)
+
+
 if __name__ == "__main__":
     unittest.main()

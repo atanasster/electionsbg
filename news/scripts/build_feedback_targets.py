@@ -19,6 +19,33 @@ SECTOR_RE = re.compile(
 )
 
 
+# ⚠️ A CASE-FOLDED KEY IS NOT A TOTAL ORDER, AND A `set` IS NOT AN ORDER
+# AT ALL. Aliases are collected into a set and sorted case-insensitively,
+# so two spellings that differ only in case — „Община Сандански" and
+# „община Сандански" — compare EQUAL under the key and keep whatever order
+# the set happened to iterate in. That order depends on string hashing,
+# which is randomised per process, so the registry came out in a different
+# order on every build of identical data.
+#
+# Measured 2026-09-20 against the live release: 26 of 8,494 targets flipped
+# between two builds minutes apart, with identical ids, canonicals and
+# alias SETS. Two things follow, and the second is the serious one:
+#
+#   1. `feedback-targets.json` is 1.5 MB and differed on every release, so
+#      a base+overlay release carried the whole of it — 1.5 MB of the
+#      1.84 MB first overlay ever built, for no change at all.
+#   2. `targets_sha256` moved with it. That hash is what an article
+#      feedback submission is validated against (`target_registry_sha256`),
+#      so a submission prepared against one build could be refused after
+#      any later build, with nothing about the registry actually changed.
+#
+# The fix is a tie-break, not a different sort: fold first so the intended
+# grouping survives, then compare the raw string so equal folds have one
+# answer.
+def alias_sort_key(value: str) -> tuple[str, str]:
+    return (value.casefold(), value)
+
+
 def _entity_target(entry: dict) -> dict | None:
     kind = entry.get("kind")
     ident = str(entry.get("id") or "").strip()
@@ -52,7 +79,7 @@ def _entity_target(entry: dict) -> dict | None:
             for form in entry.get("forms") or []
             if form.get("resolvable") is True
         ),
-    }, key=lambda value: value.casefold())
+    }, key=alias_sort_key)
     return {
         "kind": target_kind,
         "id": plain_id,
@@ -107,7 +134,7 @@ def _observed_targets(records: Iterable[dict]) -> list[dict]:
                 "canonical": canonical,
                 "href": href,
                 "aliases": sorted({canonical, str(surface).strip()},
-                                  key=lambda value: value.casefold()),
+                                  key=alias_sort_key),
             })
     return out
 
@@ -212,7 +239,7 @@ def build(root: Path = ROOT, generated_at: str | None = None,
         if prior:
             prior["aliases"] = sorted(
                 {*prior["aliases"], *target["aliases"]},
-                key=lambda value: value.casefold(),
+                key=alias_sort_key,
             )[:20]
         else:
             merged[key] = target

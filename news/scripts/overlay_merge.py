@@ -385,13 +385,19 @@ def diff_overlay(base: dict, full: dict, *, seq: int, base_run_id: str,
                  generated_at: str, latest_limit: int) -> dict:
     """`full` − `base`, over two already-built releases.
 
-    ⚠️ THE HOT PATH CANNOT USE THIS, AND THAT IS THE POINT OF SAYING SO
-    HERE. It takes a full rebuild as its second argument, which is exactly
-    the 96 s the overlay exists to avoid — `build_overlay.py` (§4.6(c))
-    computes the same overlay from the STORE, incrementally. What this is
-    for is verification: it is the only differ that cannot disagree with
-    `bundles`, because it reads what `bundles` wrote, so it is what the
-    equality test compares the incremental one against.
+    ⚠️ THIS IS WHAT THE HOT PATH USES, AND AN EARLIER NOTE HERE SAID THE
+    OPPOSITE. It claimed the hot path "cannot" take a full rebuild as its
+    second argument, and that `build_overlay.py` would compute the same
+    delta from the store incrementally. That was a prediction written
+    before the timings were read, and it is wrong: `bundles` is **21–76 s**
+    (§4.2, three runs) against the **96 s + 22.6 s** of upload the overlay
+    removes. The rebuild was never the cost.
+
+    Which leaves the reason to prefer this differ anyway: it is the only
+    one that cannot disagree with `bundles`, because it reads what
+    `bundles` wrote. An incremental differ would be a second
+    implementation of every rule about what a release contains, with
+    nothing to check it against except the rebuild it exists to avoid.
 
     `base` and `full` are the release payloads keyed by published path.
     """

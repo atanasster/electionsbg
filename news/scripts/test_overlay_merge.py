@@ -143,16 +143,24 @@ class MergePrimitives(unittest.TestCase):
 class EqualsFullRebuild(BuildAppDataFixture):
     """merge(base, full − base) ≡ full, on two real builds."""
 
-    def build_into(self, *extra, latest_limit=LATEST_LIMIT):
+    def build_into(self, *extra, latest_limit=LATEST_LIMIT, stamp_from=None):
         """Build into a throwaway tree and return it parsed.
 
         The tree is registered for cleanup here rather than at each call
         site: every test makes two of them, and `addCleanup(lambda: None)`
         — which is what this replaced — removes nothing at all.
+
+        ⚠️ `stamp_from` is how the REAL hot path builds (`build_overlay.py`
+        passes the base), and a test that omitted it was structurally
+        blind to stamp preservation: every file carried this build's
+        timestamp, so every file differed, and the equality property held
+        over a release shape production never produces.
         """
         out = tempfile.mkdtemp(prefix="overlay_release_")
         self.addCleanup(shutil.rmtree, out, True)
         self.out_dir = out
+        if stamp_from is not None:
+            extra = (*extra, "--stamp-from", str(stamp_from))
         self.run_build("--latest", str(latest_limit), *extra)
         return read_release(out)
 
@@ -216,6 +224,7 @@ class EqualsFullRebuild(BuildAppDataFixture):
     def test_a_new_story_a_touched_story_and_a_new_outlet_merge_exactly(self):
         self.seed_base()
         base = self.build_into()
+        base_dir = Path(self.out_dir)
 
         # Three shapes in one release, because each breaks a different merge:
         #  - a brand-new story in an EXISTING outlet (index insert + detail)
@@ -233,7 +242,7 @@ class EqualsFullRebuild(BuildAppDataFixture):
                 article["url"], domain, f"news/data/{domain}/{slug}.json",
                 action=action, story_id=story_id))
 
-        full = self.build_into()
+        full = self.build_into(stamp_from=base_dir)
 
         overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
                                   generated_at="2026-09-19T12:00:00Z",
@@ -251,6 +260,7 @@ class EqualsFullRebuild(BuildAppDataFixture):
         # nothing and the cadence argument in §5.3 collapses.
         self.seed_base()
         base = self.build_into()
+        base_dir = Path(self.out_dir)
         article = self.article("a.bg", "seven",
                                published="2026-09-19T09:00:00+00:00",
                                title="Само една нова")
@@ -258,7 +268,7 @@ class EqualsFullRebuild(BuildAppDataFixture):
         self.write_analysis("a.bg", "seven.json", self.analysis_record(
             article["url"], "a.bg", "news/data/a.bg/seven.json",
             action="new_story"))
-        full = self.build_into()
+        full = self.build_into(stamp_from=base_dir)
         overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
                                   generated_at="2026-09-19T12:00:00Z",
                                   latest_limit=LATEST_LIMIT)
@@ -277,6 +287,7 @@ class EqualsFullRebuild(BuildAppDataFixture):
         # is not checking, and the next person to touch it gets no warning.
         self.seed_base()
         base = self.build_into()
+        base_dir = Path(self.out_dir)
         for domain, slug, action, story_id in [
                 ("a.bg", "eight", "new_story", None),
                 ("b.bg", "nine", "add_to_story", "story-0")]:
@@ -287,7 +298,7 @@ class EqualsFullRebuild(BuildAppDataFixture):
             self.write_analysis(domain, f"{slug}.json", self.analysis_record(
                 article["url"], domain, f"news/data/{domain}/{slug}.json",
                 action=action, story_id=story_id))
-        full = self.build_into()
+        full = self.build_into(stamp_from=base_dir)
         overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
                                   generated_at="2026-09-19T12:00:00Z",
                                   latest_limit=LATEST_LIMIT)
@@ -335,12 +346,13 @@ class Removals(EqualsFullRebuild):
             article["url"], "c.bg", "news/data/c.bg/gone.json",
             action="new_story"))
         base = self.build_into()
+        base_dir = Path(self.out_dir)
         self.assertIn("articles/c.bg.json", base)
         self.assertIn(article["url"],
                       [r["url"] for r in base["latest.json"]["articles"]])
 
         self.remove("c.bg", "gone", drop_outlet=True)
-        full = self.build_into()
+        full = self.build_into(stamp_from=base_dir)
         self.assertNotIn("articles/c.bg.json", full,
                          "the fixture did not actually retire the outlet")
 
@@ -357,8 +369,9 @@ class Removals(EqualsFullRebuild):
     def test_a_removed_story_loses_its_detail_page_and_its_index_row(self):
         self.seed_base()
         base = self.build_into()
+        base_dir = Path(self.out_dir)
         self.remove("b.bg", "three")
-        full = self.build_into()
+        full = self.build_into(stamp_from=base_dir)
         overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
                                   generated_at="2026-09-19T12:00:00Z",
                                   latest_limit=LATEST_LIMIT)
@@ -387,10 +400,11 @@ class Removals(EqualsFullRebuild):
                 article["url"], "a.bg", f"news/data/a.bg/{slug}.json",
                 action="new_story"))
         base = self.build_into(latest_limit=3)
+        base_dir = Path(self.out_dir)
         self.assertEqual(len(base["latest.json"]["articles"]), 3)
 
         self.remove("a.bg", "feed3")
-        full = self.build_into(latest_limit=3)
+        full = self.build_into(latest_limit=3, stamp_from=base_dir)
         self.assertEqual(len(full["latest.json"]["articles"]), 3,
                          "the rebuild refilled the slot, so the merge must too")
 
@@ -426,10 +440,11 @@ class Removals(EqualsFullRebuild):
         # a base an older builder wrote, and nothing about it is loud.
         self.seed_base()
         base = self.build_into()
+        base_dir = Path(self.out_dir)
         for path in ("latest.json", "stories/by-url.json", "home.json"):
             with self.subTest(path=path):
                 crippled = {k: v for k, v in base.items() if k != path}
-                full = self.build_into()
+                full = self.build_into(stamp_from=base_dir)
                 overlay = om.diff_overlay(
                     crippled, full, seq=1, base_run_id="RUN-BASE",
                     generated_at="2026-09-19T12:00:00Z",
@@ -453,6 +468,7 @@ class Removals(EqualsFullRebuild):
                 article["url"], "a.bg", f"news/data/a.bg/{slug}.json",
                 action="new_story"))
         base = self.build_into("--story-page-size", "2")
+        base_dir = Path(self.out_dir)
         self.assertGreater(len([p for p in base if p.startswith("stories/index-")]),
                            1, "the fixture produced one page — nothing paginates")
         self.assertEqual(original, om.STORY_PAGE_SIZE, "the import moved")
@@ -464,7 +480,7 @@ class Removals(EqualsFullRebuild):
         self.write_analysis("a.bg", "newest.json", self.analysis_record(
             article["url"], "a.bg", "news/data/a.bg/newest.json",
             action="new_story"))
-        full = self.build_into("--story-page-size", "2")
+        full = self.build_into("--story-page-size", "2", stamp_from=base_dir)
 
         overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
                                   generated_at="2026-09-20T12:00:00Z",
@@ -530,8 +546,9 @@ class SharedVectors(EqualsFullRebuild):
     def scenario(self, name, mutate) -> dict:
         self.seed_base()
         base = self.build_into()
+        base_dir = Path(self.out_dir)
         mutate()
-        full = self.build_into()
+        full = self.build_into(stamp_from=base_dir)
         overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
                                   generated_at="2026-09-19T12:00:00Z",
                                   latest_limit=LATEST_LIMIT)

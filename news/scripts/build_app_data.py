@@ -1029,15 +1029,114 @@ def bundle_generated_at(records, fallback: str) -> str:
     return newest or fallback
 
 
+# ⚠️ STAMPS ARE PRESERVED PER GROUP, NEVER PER FILE, AND THAT IS THE WHOLE
+# DIFFICULTY OF THIS RULE. Several published files carry ONE release
+# stamp, and consumers compare two members of a pair with a hard throw —
+# so a rule that preserved each file's stamp independently, based on
+# whether that file's own content changed, moves one and not the other and
+# breaks them. The pairs that actually exist, each verified at its call
+# site:
+#
+#   latest.json ↔ feedback-targets.json
+#       `build_feedback_tasks.py` raises SyncError when they differ, and
+#       `latest.json` is the release revision `sync_eval_tasks.py` and
+#       `newsapp/prerenderRoutes.ts` read — the prerender THROWS, which
+#       kills the site build.
+#   home.json ↔ stats.json
+#       `publication_manifest` (news/standalone/upload_to_gcs.py) refuses
+#       a release whose stats stamp differs from home's.
+#
+# ⚠️ THIS IS THE SECOND TIME A STAMP CHANGE HAS BROKEN A CONSUMER THAT
+# ASSUMED EVERY FILE CARRIES THE RUN'S TIME. Making the per-domain bundles
+# content-derived broke `sync_eval_tasks`'s "every bundle agrees" check
+# and stopped publication for two hours. Before touching this, grep for
+# what compares two published stamps.
+STAMP_GROUPS: tuple[frozenset[str], ...] = (
+    frozenset({"latest.json", "feedback-targets.json"}),
+)
+
+# home.json and stats.json keep the RUN's stamp unconditionally rather
+# than joining the group rule, because the publish path compares the
+# BUILD'S REPORTED stamp against home's (`expected_bundle`) — so
+# preserving home's would need the build summary to preserve it too, and a
+# disagreement there refuses the release outright. `home` carries
+# `age_hours`, so it changes almost every run anyway: nothing to win.
+RUN_STAMPED = frozenset({"home.json", "stats.json"})
+
+
+def _stamp_body(payload) -> object:
+    """Everything about a payload EXCEPT its stamp."""
+    return ({k: v for k, v in payload.items() if k != "generated_at"}
+            if isinstance(payload, dict) else payload)
+
+
+def restore_stable_stamps(out_dir: Path, stamp_from: Path | None = None) -> int:
+    """Give back the previous `generated_at` to files that did not change.
+
+    ⚠️ WITHOUT THIS THE OVERLAY IS WORTHLESS, AND THE NUMBER SAYS SO.
+    Measured 2026-09-20 against the live release, the first real hot
+    overlay came to **1.84 MB**, of which **1.57 MB** was three files
+    carried whole because they DIFFERED — `feedback-targets.json`
+    (1.5 MB), `outlets.json` (43 KB) and `taxonomy.json` (25 KB). Their
+    content was identical; they differed by the run timestamp alone, the
+    same defect the publish baseline recorded as "taxonomy.json differs
+    between two releases by 3 bytes". At that size a reader pays more for
+    a hot release than for the corpus file it was meant to relieve.
+
+    A PASS over the finished tree rather than logic inside `write_json`,
+    because the group rule needs every member's verdict at once and the
+    writers reach them at different times. Returns how many files kept
+    their previous stamp.
+
+    `stamp_from` is the tree being replaced; `None` means the output
+    directory itself, which is what a cold build wants — it is overwriting
+    its own previous release. A hot build writes into a throwaway
+    directory and must point at the BASE, or every file looks new.
+    """
+    base = stamp_from or out_dir
+    if not base.is_dir():
+        return 0
+    names = [str(path.relative_to(out_dir))
+             for path in sorted(out_dir.rglob("*.json"))]
+    unchanged: dict[str, str] = {}
+    for name in names:
+        path = out_dir / name
+        if path.name in RUN_STAMPED:
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict) or not isinstance(
+                payload.get("generated_at"), str):
+            continue
+        try:
+            was = json.loads((base / name).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError, ValueError):
+            continue
+        if (isinstance(was, dict) and isinstance(was.get("generated_at"), str)
+                and _stamp_body(was) == _stamp_body(payload)):
+            unchanged[name] = was["generated_at"]
+
+    # A group keeps its stamps only if EVERY member of it is unchanged.
+    for group in STAMP_GROUPS:
+        members = {name for name in names if Path(name).name in group}
+        if members - set(unchanged):
+            for name in members:
+                unchanged.pop(name, None)
+
+    for name, stamp in unchanged.items():
+        path = out_dir / name
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload["generated_at"] = stamp
+        with path.open("w", encoding="utf-8") as fh:
+            json.dump(payload, fh, ensure_ascii=False, separators=(",", ":"))
+    return len(unchanged)
+
+
 def write_json(path: Path, payload) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, separators=(",", ":"))
 
 
-# Record keys the shared feed does NOT carry. Named once so the omission is a
-# decision with a reason rather than a field somebody forgot; the per-domain
-# bundle keeps them, and the article page reads that.
 FEED_OMIT = frozenset({"section_path", "image_alt", "first_seen", "keywords"})
 HOME_OMIT = frozenset({"section_path", "first_seen", "keywords", "content_chars",
                        "canonical", "language", "updated"})
@@ -1858,6 +1957,13 @@ def main() -> int:
     # themselves and therefore prove nothing about what the builder writes.
     # Not a production knob: the published value is `STORY_PAGE_SIZE`.
     ap.add_argument("--story-page-size", type=int, default=STORY_PAGE_SIZE)
+    # ⚠️ Where `write_json` looks for a file's PREVIOUS stamp, so a bundle
+    # whose content did not change keeps the timestamp it already had. A
+    # cold build leaves this unset and compares against its own output
+    # directory; a hot build (`build_overlay.py`) writes into a throwaway
+    # tree and must point it at the BASE, or every file looks new and the
+    # overlay carries the whole release again — measured, 1.57 MB of it.
+    ap.add_argument("--stamp-from", type=Path)
     # …and it reaches the published `page_size` field, which the client
     # reads back when it re-paginates a merged index — so a nonsense value
     # is not a local oddity, it is a released one. 0 or a negative makes
@@ -1889,6 +1995,9 @@ def main() -> int:
     args = ap.parse_args()
     if args.story_page_size < 1:
         ap.error("--story-page-size must be at least 1")
+    if args.stamp_from is not None and not args.stamp_from.is_dir():
+        ap.error(f"--stamp-from {args.stamp_from} is not a directory")
+
     if args.latest < 1:
         ap.error("--latest must be positive")
 
@@ -2806,6 +2915,15 @@ def main() -> int:
                   f"{'stamped' if stamp.get('stamped') else 'NOT stamped'}"
                   f" — {stamp.get('detail') or stamp.get('reason')}",
                   file=sys.stderr)
+
+    # ⚠️ AFTER every writer and BEFORE the totals below, because it
+    # rewrites files in place — a count taken first would describe a tree
+    # that no longer exists. `home.json` is exempt, so the stamp the
+    # publish path compares against (`expected_bundle`) is untouched.
+    stable = restore_stable_stamps(out_dir, args.stamp_from)
+    if verbose:
+        print(f"  stamps: {stable} file(s) kept their previous generated_at",
+              file=sys.stderr)
 
     total_files = len(list(out_dir.rglob("*.json")))
     total_bytes = sum(p.stat().st_size for p in out_dir.rglob("*.json"))
