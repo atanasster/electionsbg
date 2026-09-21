@@ -409,6 +409,24 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx vitest run \
   scripts/db/tests/consortium_member_visibility.data.test.ts
 ```
 
+…and through the API, which is the only check that covers the route and the degrade as well
+as the SQL. ⚠️ **The host is `naiasno.bg`** — `electionsbg.com` now answers **301** and a
+`curl` without `-L` returns the 62-byte redirect body, which `json.load` chokes on in a way
+that reads as a broken endpoint:
+
+```bash
+curl -sL "https://naiasno.bg/api/db/company?eik=113581389" | python3 -c \
+  "import sys,json; p=json.load(sys.stdin)['procurement']; print('NULL' if p is None else {k:p.get(k) for k in ('totalEur','contractCount','consortiumCount','consortiumAnnexCount')})"
+```
+
+Measured 2026-09-21, BEFORE T5: `NULL`. Afterwards it must print
+`totalEur: 0, contractCount: 0, consortiumCount: 2, consortiumAnnexCount: 5` — `totalEur` 0 is
+the invariant, not an error.
+
+**Preconditions checked 2026-09-21, both read-only:** the Cloud SQL proxy on `127.0.0.1:5434`
+was **DOWN** (`npm run db:proxy:cloud` first), and prod returns NULL as above, so nothing of
+T1–T4 is visible there yet.
+
 ---
 
 ## 5. Risks
