@@ -66,6 +66,32 @@ HOSTED_TIMEOUT = 60
 HOSTED_ATTEMPTS = 2
 
 
+def load_env_files(names=(".env.api", ".env.model"), root=None) -> list:
+    """Source news/.env.* the way run_hourly.sh does, for a hand-run script.
+
+    ⚠️ setdefault, never overwrite: an operator's shell wins over the file.
+    Returns the names actually read. Values are never printed by anything
+    that calls this."""
+    from pathlib import Path as _Path
+    base = _Path(root or os.environ.get("DATA_BG_ROOT")
+                 or _Path(__file__).resolve().parents[2])
+    read = []
+    for name in names:
+        path = base / "news" / name
+        if not path.is_file():
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("export "):
+                line = line[len("export "):]
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+        read.append(name)
+    return read
+
+
 def _positive_env_int(name: str, default: int) -> int:
     """A positive integer from the environment; a bad value falls back.
 

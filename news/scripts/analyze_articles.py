@@ -633,6 +633,17 @@ def date_sort_key(iso: str):
     return parse_iso(iso) or iso
 
 
+def primary_of(topics) -> tuple:
+    """(category, subcategory) of the ONE primary topic, or (None, None).
+
+    The selector `save_one` and `build_app_data` inline as a generator; named
+    here so a fourth copy (reclassify_topics.py) could import it instead."""
+    for topic in topics or []:
+        if isinstance(topic, dict) and topic.get("primary"):
+            return topic.get("category"), topic.get("subcategory")
+    return None, None
+
+
 def recompute_story(story: dict, analyses: dict) -> dict:
     """Recompute date range, merged entities and aggregates from member
     analyses (keyed by url). Members whose analysis vanished are dropped."""

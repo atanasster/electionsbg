@@ -69,20 +69,13 @@ STATE = (
 
 
 def load_env():
-    """news/.env.api, the same file the rest of the pipeline reads.
+    """news/.env.api, the same file the rest of the pipeline reads — through
+    the ONE loader in llm_client.
 
     ⚠️ Only the KEY NAMES are ever printed by this script, never a value.
     """
-    for name in (".env.api",):
-        path = REPO_ROOT / "news" / name
-        if not path.is_file():
-            continue
-        for line in path.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+    import llm_client
+    llm_client.load_env_files(names=(".env.api",), root=REPO_ROOT)
 
 
 def question(kind):
