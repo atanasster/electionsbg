@@ -20,6 +20,7 @@ import {
 } from "../labels";
 import {
   storyIsGone,
+  useCases,
   useOutlets,
   useRetiredStories,
   useStoryDetail,
@@ -91,6 +92,13 @@ export const StoryScreen = () => {
     storyDetail.error && !storyDetail.data && storyIsGone(storyDetail.error),
   );
   const retired = useRetiredStories(gone);
+  // The registry is fetched only for a story that belongs to a case — the
+  // chip needs the case's NAME, and the id alone is a slug.
+  const caseIds = storyDetail.data?.story.case_ids ?? [];
+  const cases = useCases(caseIds.length > 0);
+  const caseChips = caseIds
+    .map((slug) => cases.data?.cases.find((c) => c.slug === slug))
+    .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   const [leanFilter, setLeanFilter] = useState<LeanGroup | null>(null);
   const [stanceFilter, setStanceFilter] = useState<StanceGroup | null>(null);
@@ -540,6 +548,29 @@ export const StoryScreen = () => {
                 {tr("Теми", "Topics")}
               </h2>
               <TopicChips categories={categories} topics={story.topics} />
+            </Card>
+          ) : null}
+
+          {/* ⚠️ A CASE CHIP IS A LINK TO AN EDITORIAL SELECTION, and the
+              label says „казус" rather than presenting the affair as a
+              topic the analysis found. Rendered only when the registry
+              resolved the name; a bare slug is not a chip. */}
+          {caseChips.length ? (
+            <Card className="p-4">
+              <h2 className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                {tr("Казус", "Case")}
+              </h2>
+              <div className="flex flex-wrap gap-1.5">
+                {caseChips.map((c) => (
+                  <Link
+                    key={c.slug}
+                    to={`/case/${c.slug}`}
+                    className="rounded-full border px-2.5 py-0.5 text-xs font-medium text-primary hover:underline"
+                  >
+                    {c.name[language]}
+                  </Link>
+                ))}
+              </div>
             </Card>
           ) : null}
 

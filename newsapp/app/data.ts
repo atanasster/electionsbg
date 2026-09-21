@@ -2,6 +2,7 @@
 // news/scripts/build_app_data.py. Development serves /news-data/ directly;
 // production may follow a revalidated manifest to one immutable hourly tree.
 
+import { isCaseSlug } from "./caseSlug";
 import {
   useCallback,
   useEffect,
@@ -359,6 +360,12 @@ export interface Story {
   };
   blindspot: { side: "left" | "right" } | null;
   members: StoryMember[];
+  /**
+   * The named affairs (казуси) this story belongs to — an EDITORIAL
+   * selection by the registry's fixed rule, rolled up from the members
+   * that matched (plan T3.3). Absent on stories built before the registry.
+   */
+  case_ids?: string[];
 }
 
 /** The deliberately compact story contract serialized in home.json. */
@@ -1515,6 +1522,8 @@ export interface StoryIndexRow {
   domains: string[];
   /** Absent only on rows an older overlay projected before T1.2. */
   prominence?: StoryProminence;
+  /** See `Story.case_ids`. */
+  case_ids?: string[];
 }
 
 /**
@@ -2318,6 +2327,134 @@ export const useHome = () => {
   }
   return { ...state, data: state.data as HomeBundle | null };
 };
+// ---- cases (T3.3) ---------------------------------------------------------------
+//
+// ⚠️ A CASE IS AN EDITORIAL SELECTION, NEVER A MODEL DECISION. The registry
+// (`news/config/cases.json`) is human-owned; the build attaches articles by
+// the fixed rule each entry carries and publishes the EVIDENCE beside every
+// inclusion. `membership: "review"` means the rule did not earn auto-attach
+// against its fixtures — an empty timeline there is „not published", not
+// „no coverage", and the page must say which.
+
+/** Reader-facing registry prose is `{bg, en}` — the page renders ONE
+ *  language, and an English string under a Bulgarian heading is a defect no
+ *  count sees. `load_cases` refuses a monolingual value. */
+export type CaseText = { bg: string; en: string };
+
+export interface CaseSource {
+  claim: CaseText;
+  url: string;
+  domain: string;
+  published: string;
+}
+
+export interface CaseContestedClaim {
+  claim: CaseText;
+  speaker: CaseText;
+  date: string;
+  source_url: string;
+  response: CaseText | null;
+  response_source_url?: string | null;
+  note?: CaseText;
+}
+
+export interface CaseEvidence {
+  basis: "rule" | "override";
+  rule_version: number;
+  terms: string[];
+  /** Participants whose mention counts as naming the affair (`anchor_terms`). */
+  anchors?: string[];
+  context: string[];
+  hits: number | null;
+}
+
+export interface CaseTimelineStory {
+  story_id: string;
+  title_bg: string | null;
+  title_en: string | null;
+  first_published: string | null;
+  last_published: string | null;
+  topics: TopicRef[];
+  outlets: string[];
+  supporting: Array<{
+    article_id: string | null;
+    domain: string;
+    url: string | null;
+    published: string | null;
+    evidence: CaseEvidence;
+  }>;
+  /** The story's whole membership — `supporting.length / member_count` is
+   *  how much of the story the case actually explains. */
+  member_count: number;
+}
+
+export interface CaseSummary {
+  slug: string;
+  name: CaseText;
+  description: CaseText;
+  opened_on: string;
+  membership: "attached" | "review";
+  story_count: number;
+  article_count: number;
+  first_published: string | null;
+  last_published: string | null;
+  outlets: Record<string, number>;
+  rule_version: number;
+}
+
+export interface CasePayload extends CaseSummary {
+  generated_at: string;
+  reviewer: string;
+  reviewed_on: string;
+  sources: CaseSource[];
+  contested: CaseContestedClaim[];
+  rule: {
+    basis: CaseText;
+    required_terms: string[];
+    anchor_terms?: string[];
+    context_terms: string[];
+    excluded_terms: string[];
+    min_required_hits?: number;
+  };
+  namesakes: Array<{ name: string; note: CaseText }>;
+  ambiguous_match: "review" | "clear";
+  history: Array<{
+    date: string;
+    rule_version: number;
+    by: string;
+    change: string;
+  }>;
+  editorial_note: CaseText;
+  verification: {
+    ok: boolean;
+    reason: "no_fixtures" | "fixtures_failed" | null;
+    checked: number;
+    failed: Array<Record<string, unknown>>;
+  };
+  timeline: CaseTimelineStory[];
+  framing: {
+    by_leaning: Partial<Record<Leaning, number>>;
+    by_russia_stance: Partial<Record<RussiaStance, number>>;
+    rated: number;
+    articles: number;
+  };
+}
+
+export const caseDetailPath = (
+  slug: string | null | undefined,
+): string | null => (isCaseSlug(slug) ? `/cases/${slug}.json` : null);
+
+export const useCases = (enabled = true) =>
+  useData<{
+    generated_at: string;
+    version: number;
+    editorial_note: { bg: string; en: string };
+    cases: CaseSummary[];
+  }>(enabled ? "/cases.json" : null);
+
+export const useCase = (slug: string | null | undefined) =>
+  useData<CasePayload>(caseDetailPath(slug));
+
 export const useTaxonomy = () =>
   useData<{ version: number; categories: TaxonomyCategory[] }>(
     "/taxonomy.json",

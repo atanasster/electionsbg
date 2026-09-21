@@ -1,4 +1,5 @@
 import {
+  cleanup,
   fireEvent,
   render,
   screen,
@@ -363,5 +364,93 @@ describe("a story the release no longer serves", () => {
       screen.getByRole("heading", { name: "Данните не се заредиха" }),
     ).toBeVisible();
     expect(asked.every((enabled) => enabled === false)).toBe(true);
+  });
+});
+
+describe("a story that belongs to a case", () => {
+  afterEach(() => vi.resetModules());
+
+  const renderWithCases = async (
+    caseIds: string[] | undefined,
+    registry: { slug: string; name: { bg: string; en: string } }[] | null,
+  ) => {
+    const asked: boolean[] = [];
+    vi.doMock("../data", async (importOriginal) => ({
+      ...(await importOriginal<typeof import("../data")>()),
+      useStoryDetail: () => ({
+        data: {
+          generated_at: "",
+          story: { ...story, case_ids: caseIds },
+          related: [],
+        },
+        error: null,
+        loading: false,
+      }),
+      useCases: (enabled: boolean) => {
+        asked.push(enabled);
+        return {
+          data:
+            enabled && registry
+              ? {
+                  generated_at: "",
+                  version: 1,
+                  editorial_note: { bg: "", en: "" },
+                  cases: registry,
+                }
+              : null,
+          error: null,
+          loading: false,
+        };
+      },
+      useTaxonomy: () => ({
+        data: { version: 1, categories: [] },
+        error: null,
+        loading: false,
+      }),
+      useOutlets: () => ({
+        data: { generated_at: "", outlets: [] },
+        error: null,
+        loading: false,
+      }),
+    }));
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    return asked;
+  };
+
+  it("links the case by its registry NAME, labelled as a case", async () => {
+    await renderWithCases(
+      ["petrohan"],
+      [
+        {
+          slug: "petrohan",
+          name: { bg: "Казусът „Петрохан“", en: "P" },
+        } as never,
+      ],
+    );
+    expect(
+      screen.getByRole("link", { name: "Казусът „Петрохан“" }),
+    ).toHaveAttribute("href", "/case/petrohan");
+    expect(screen.getByRole("heading", { name: "Казус" })).toBeVisible();
+  });
+
+  it("renders no chip for a bare slug and does not fetch the registry for a story outside every case", async () => {
+    const asked = await renderWithCases(
+      [],
+      [{ slug: "petrohan", name: { bg: "П", en: "P" } } as never],
+    );
+    expect(screen.queryByRole("heading", { name: "Казус" })).toBeNull();
+    expect(asked.every((enabled) => enabled === false)).toBe(true);
+    cleanup();
+    // The registry did not resolve the slug: no chip, rather than a slug.
+    await renderWithCases(["petrohan"], []);
+    expect(screen.queryByRole("heading", { name: "Казус" })).toBeNull();
+    expect(screen.queryByText("petrohan")).toBeNull();
   });
 });

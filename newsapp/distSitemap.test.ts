@@ -80,6 +80,28 @@ describeBuilt("the shipped sitemap", () => {
     }
     expect(all).toContain(`${SITE}/methodology`);
   });
+
+  it("submits a case page exactly when its timeline is published", () => {
+    // A case under review is a registry entry with an empty timeline and is
+    // deliberately NOT submitted — so the family's presence is a function of
+    // the built data, not a constant. Assert the rule, not the count: every
+    // attached case with stories has a <loc>, every other case has none.
+    const register = JSON.parse(
+      fs.readFileSync(path.join(DIST, "news-data", "cases.json"), "utf-8"),
+    ) as {
+      cases: Array<{ slug: string; membership: string; story_count: number }>;
+    };
+    // The registry is COMMITTED, so an empty register in dist means the
+    // build dropped it — never a vacuous pass over zero cases.
+    expect(register.cases.length).toBeGreaterThan(0);
+    const all = new Set(locs());
+    for (const c of register.cases) {
+      const submitted = all.has(`${SITE}/case/${c.slug}`);
+      expect(submitted, c.slug).toBe(
+        c.membership === "attached" && c.story_count > 0,
+      );
+    }
+  });
 });
 
 describeBuilt("the prerendered pages", () => {

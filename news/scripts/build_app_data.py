@@ -84,6 +84,7 @@ try:
     )
     from .analyze_articles import recompute_story as recompute_analysis_story
     from .build_feedback_targets import build as build_feedback_targets
+    from . import cases as case_registry
 except ImportError:  # direct script execution
     from commons_rights import (
         canonical_licence_url,
@@ -110,6 +111,7 @@ except ImportError:  # direct script execution
         target_index as feedback_target_index,
     )
     from analyze_articles import recompute_story as recompute_analysis_story
+    import cases as case_registry
     from build_feedback_targets import build as build_feedback_targets
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
@@ -857,7 +859,7 @@ RELATED_STORY_LIMIT = 4
 # summary_bg/en, entities, entity_links, members — are 72% of stories.json
 # and are needed only when a single story is opened.
 STORY_INDEX_FIELDS = ("id", "title_bg", "title_en", "topics",
-                      "first_published", "last_published", "blindspot")
+                      "first_published", "last_published", "blindspot", "case_ids")
 
 
 # ⚠️⚠️ „НАЙ-ОТРАЗЯВАНИ", NOT „MOST POPULAR", and the name is the honest part.
@@ -1315,6 +1317,78 @@ def load_retired_stories(path: Path = RETIRED_STORIES_CONFIG) -> dict:
         out[story_id] = {"reason": reason, "on": on, "note": note.strip(),
                          **({"target": target} if target else {})}
     return out
+
+
+CORPUS_PREFIX = "news/data/"
+
+
+def corpus_article_reader(data_dir: Path):
+    """A fixture's `article_path` is repo-relative (`news/data/<domain>/<file>`);
+    the corpus that is matched and published is `--data-dir`. Resolve the
+    one against the other, so a build over any other corpus verifies its
+    fixtures against the SAME articles it attaches — verifying against the
+    REPO copy while attaching over `data_dir` checked one corpus and
+    published another."""
+    def read(article_path: str) -> dict:
+        relative = str(article_path or "")
+        if not relative.startswith(CORPUS_PREFIX):
+            return {}
+        try:
+            return json.loads((data_dir / relative[len(CORPUS_PREFIX):]).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError, TypeError):
+            return {}
+    return read
+
+
+def write_cases(out_dir: Path, cases: list, stories: list, matches_by_url: dict,
+                verification: dict, candidate_rows: list, generated_at: str) -> dict:
+    """`cases.json` + `cases/<slug>.json`, and the review artifact.
+
+    ⚠️ THE REVIEW ARTIFACT IS NOT PUBLISHED. `news/review/case_candidates.json`
+    lists every article the rules matched, with whether it is analysed,
+    quality-ok, site-relevant and attached to a published story — so a
+    reviewer sees the coverage the release does NOT show (excluded analyses,
+    unanalysed articles) without assuming every exclusion is an error.
+    """
+    payloads = []
+    published_urls = {m.get("url") for st in stories for m in st.get("members") or []}
+    for case in cases:
+        payload = case_registry.build_case_payload(
+            case, stories, matches_by_url, verification[case["slug"]], generated_at)
+        write_json(out_dir / "cases" / f"{case['slug']}.json", payload)
+        payloads.append({k: payload[k] for k in (
+            "slug", "name", "description", "opened_on", "membership", "story_count",
+            "article_count", "first_published", "last_published", "outlets", "rule_version")})
+    index = {"generated_at": generated_at, "version": 1,
+             "editorial_note": case_registry.EDITORIAL_NOTE, "cases": payloads}
+    write_json(out_dir / "cases.json", index)
+    review = {
+        "generated_at": generated_at,
+        "how_to_read": "Every article a case rule matched, discovery over the WHOLE corpus. "
+                       "`published` means the article is a member of a published story; the "
+                       "rest is what the release does not show — analysed-but-excluded, "
+                       "unanalysed, or not yet clustered. Not every exclusion is an error.",
+        "verification": verification,
+        "counts": {},
+        "rows": [],
+    }
+    for row in sorted(candidate_rows, key=lambda r: (r.get("published") or "", r["url"])):
+        entry = {**row, "published_member": row["url"] in published_urls}
+        review["rows"].append(entry)
+        for slug in row["cases"]:
+            bucket = review["counts"].setdefault(slug, {"matched": 0, "published_member": 0,
+                                                        "unanalysed": 0, "excluded": 0})
+            bucket["matched"] += 1
+            if entry["published_member"]:
+                bucket["published_member"] += 1
+            elif not row["analysed"]:
+                bucket["unanalysed"] += 1
+            else:
+                bucket["excluded"] += 1
+    review_path = REPO / "news" / "review" / "case_candidates.json"
+    review_path.parent.mkdir(parents=True, exist_ok=True)
+    write_json(review_path, review)
+    return index
 
 
 def write_retired_stories(out_dir: Path, retired: dict, published_ids: set,
@@ -2530,6 +2604,14 @@ def main() -> int:
     analyzed_by_domain: dict[str, int] = {d: 0 for d in domain_names}
     topic_article_counts: dict[tuple[str, str | None], int] = {}
 
+    # ---- cases (T3.3): the registry is read once, every article is matched
+    # as it is parsed — DISCOVERY over the whole corpus, excluded records
+    # included, so the review artifact can show what the release does not.
+    case_matcher = case_registry.CaseMatcher(
+        case_registry.load_cases(REPO / "news" / "config" / "cases.json"))
+    case_matches_by_url: dict[str, dict] = {}
+    case_candidate_rows: list[dict] = []
+
     for domain in domain_names:
         records: list[dict] = []
         for fp in sorted((data_dir / domain).glob("*.json")):
@@ -2541,6 +2623,17 @@ def main() -> int:
             analysis = analysis_by_url.get(art.get("url")) or analysis_by_id.get(
                 f"{domain}/{fp.stem}"
             )
+            case_hits = case_matcher.match(art) if case_matcher.cases else {}
+            if case_hits and art.get("url"):
+                case_matches_by_url[art["url"]] = case_hits
+                case_candidate_rows.append({
+                    "url": art["url"], "domain": domain, "id": fp.stem,
+                    "title": art.get("title"), "published": art.get("published"),
+                    "cases": case_hits,
+                    "analysed": analysis is not None,
+                    "quality": ((analysis or {}).get("quality") or {}).get("verdict"),
+                    "site_relevant": (analysis or {}).get("site_relevant"),
+                })
             rec = {
                 "id": fp.stem,
                 "domain": domain,
@@ -2968,6 +3061,25 @@ def main() -> int:
     # `story_sort_key` — the same key `write_story_pages` uses, so the two
     # files also stop disagreeing about the order of the same stories.
     stories.sort(key=story_sort_key, reverse=True)
+    # ---- cases (T3.3): earn auto-attach against the fixtures, then roll the
+    # article-level matches up to `case_ids` on each story. A case whose
+    # fixtures do not all classify correctly ships its registry entry with
+    # membership "review" and attaches to nothing.
+    case_fixtures = case_registry.load_fixtures(REPO / "news" / "evals" / "case_fixtures.json")
+    case_verification = {
+        case["slug"]: case_registry.verify_fixtures(
+            case, case_fixtures.get(case["slug"]) or [], corpus_article_reader(data_dir))
+        for case in case_matcher.cases
+    }
+    attachable = {slug for slug, v in case_verification.items()
+                  if v["ok"] and next(c for c in case_matcher.cases if c["slug"] == slug)["auto_attach"]}
+    for slug, verification in case_verification.items():
+        if slug not in attachable:
+            reason = verification["reason"] or "auto_attach is false in the registry"
+            print(f"  ! case {slug}: auto-attach withheld — {reason} "
+                  f"{verification['failed'][:2]}", file=sys.stderr)
+    for st in stories:
+        st["case_ids"] = case_registry.attach_case_ids(st, case_matches_by_url, attachable)
     # ⚠️ STAMPED ONCE, HERE, BEFORE ANY WRITER SEES THE LIST. `stories.json`,
     # every `stories/<id>.json` detail file and both index families carry the
     # same story objects, and the overlay derives ITS stories from the detail
@@ -2982,6 +3094,8 @@ def main() -> int:
     write_retired_stories(out_dir, load_retired_stories(),
                           {s["id"] for s in stories if isinstance(s.get("id"), str)},
                           generated_at)
+    write_cases(out_dir, case_matcher.cases, stories, case_matches_by_url,
+                case_verification, case_candidate_rows, generated_at)
 
     # ---- home.json -------------------------------------------------------------------
     dated = []

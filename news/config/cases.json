@@ -1,0 +1,351 @@
+{
+ "version": 1,
+ "generated_at": "2026-09-22",
+ "_comment": "Human-owned registry of named ongoing affairs (казуси) — plan T3.3. A case is NOT a topic and NEVER a model decision: inclusion is an editorial selection, attached at ARTICLE level by the deterministic rule below and rolled up to stories with the supporting article ids. Rule: an article matches when (a) no excluded term occurs, (b) the affair is named at least `min_required_hits` times — one compound name („Петрохан – Околчица“) is ONE mention, a title mention counts double, and a mention of an `anchor_terms` participant counts as naming the affair — and (c) at least one context term occurs. Terms match at WORD START (a stem may continue a word), never as bare substrings. `overrides` win in both directions. `required_mentions` is reserved for the mention layer (T4.0) and read by nothing yet. Every description is neutral and sourced; every contested claim carries its speaker, date, source and the available response. `auto_attach` is honoured by the build ONLY while every fixture in news/evals/case_fixtures.json classifies correctly under this rule_version — registry authorship alone is not accuracy.",
+ "cases": [
+  {
+   "slug": "petrohan",
+   "name": {
+    "bg": "Казусът „Петрохан–Околчица“",
+    "en": "The Petrohan–Okolchitsa case"
+   },
+   "opened_on": "2026-02-13",
+   "rule_version": 2,
+   "reviewer": "plan author (news-ground-bg-v1 T3.3)",
+   "reviewed_on": "2026-09-22",
+   "description": {
+    "bg": "Досъдебно производство за смъртта на шестима души, свързани с група около хижа в района на Петрохан и Околчица и с неправителствена организация, ръководена от Ивайло Калушев. Прокуратурата и МВР представиха през септември 2026 г. експертиза по случая; правосъдният министър заяви, че извършителят не е сред живите и че производството за смъртта вероятно ще бъде прекратено, но ще се образуват други дела. Според съобщеното от Софийската градска прокуратура бившият министър на околната среда Борислав Сандов е привлечен като обвиняем за длъжностно престъпление във връзка със споразумение между МОСВ и организацията на Калушев от 08.02.2022 г.; Сандов заявява, че не му е връчено обвинение и не е разпитван като обвиняем. Адвокати на близки оспорват квалификацията на вещото лице и искат разследване как експертизата е изтекла в медиите. Темата се обсъжда и в контекста на президентската кампания.",
+    "en": "A pre-trial investigation into the deaths of six people linked to a group around a mountain hut near Petrohan and Okolchitsa and to an NGO run by Ivaylo Kalushev. In September 2026 the prosecution and the interior ministry presented an expert report; the justice minister said the perpetrator is no longer alive and that the death investigation will likely be closed while other cases are opened. As reported from the Sofia City Prosecutor's Office, former environment minister Borislav Sandov was charged with malfeasance over an agreement of 8 February 2022 between the environment ministry and Kalushev's organisation; Sandov says no charge has been served on him and he has not been questioned as an accused. Lawyers for relatives dispute the expert's qualification and ask how the report reached the media. The affair is also discussed in the context of the presidential campaign."
+   },
+   "sources": [
+    {
+     "claim": {
+      "bg": "Разследващи публикации за групата около Петрохан предхождат брифинга от септември 2026 г.",
+      "en": "Investigative reporting on the Petrohan group predates the September 2026 briefing."
+     },
+     "url": "https://bird.bg/petrohan-spravka/",
+     "domain": "bird.bg",
+     "published": "2026-02-13"
+    },
+    {
+     "claim": {
+      "bg": "Правосъдният министър Николай Найденов: досъдебното производство за смъртта на шестима души по аферата „Петрохан“ вероятно ще бъде прекратено — извършителят не е сред живите; ще се образуват други дела.",
+      "en": "Justice minister Nikolay Naydenov: the pre-trial proceedings over the deaths of six people in the Petrohan affair will likely be closed — the perpetrator is not alive; other cases will follow."
+     },
+     "url": "https://www.segabg.com/hot/category-bulgaria/deloto-petrohan-nyama-da-vleze-suda",
+     "domain": "segabg.com",
+     "published": "2026-09-20"
+    },
+    {
+     "claim": {
+      "bg": "Съдебният медик доц. Александър Александров: аутопсиите на жертвите от Петрохан и Околчица са извършени от различни съдебни лекари и обобщени в тройна експертиза.",
+      "en": "Forensic doctor Assoc. Prof. Aleksandar Aleksandrov: the autopsies of the Petrohan and Okolchitsa victims were performed by different forensic doctors and consolidated in a triple expert report."
+     },
+     "url": "https://petel.bg/Dots--d-r-Aleksandrov--Autopsiite-na-zhertvite-ot-Petrohan-i-Okolchitsa-sa-izvarsheni-pri-razlichni-sadebni-meditsi__669771",
+     "domain": "petel.bg",
+     "published": "2026-09-19"
+    },
+    {
+     "claim": {
+      "bg": "Софийска градска прокуратура привлече Борислав Сандов като обвиняем за длъжностно престъпление във връзка с меморандума между МОСВ и неправителствената организация на Ивайло Калушев (по съобщение на прокуратурата, както е отразено).",
+      "en": "The Sofia City Prosecutor's Office charged Borislav Sandov with malfeasance over the memorandum between the environment ministry and Ivaylo Kalushev's non-governmental organisation (a prosecution statement, as reported)."
+     },
+     "url": "https://www.bgdnes.bg/krimi/article/23586746",
+     "domain": "bgdnes.bg",
+     "published": "2026-09-19"
+    },
+    {
+     "claim": {
+      "bg": "Сандов: не му е връчена призовка и не е разпитван като обвиняем; не съжалява, че е подписал споразумението.",
+      "en": "Sandov: no summons has been served and he has not been questioned as an accused; he does not regret signing the agreement."
+     },
+     "url": "https://www.segabg.com/category-bulgaria/borislav-sandov-otreche-da-e-obvinen-po-sluchaya-petrohan",
+     "domain": "segabg.com",
+     "published": "2026-09-20"
+    },
+    {
+     "claim": {
+      "bg": "Адвокатите на майката на Калушев оспорват квалификацията на вещото лице и искат разследване как експертизата е изтекла.",
+      "en": "Lawyers for Kalushev's mother dispute the expert's qualification and ask how the report leaked."
+     },
+     "url": "https://www.segabg.com/hot/category-bulgaria/advokati-iskat-razsledvane-kak-e-iztekla-ekspertizata-po-petrohan",
+     "domain": "segabg.com",
+     "published": "2026-09-21"
+    },
+    {
+     "claim": {
+      "bg": "Бившият правосъден министър Янкулов: случаят поставя въпроси към прокуратурата, ДАНС и други институции.",
+      "en": "Former justice minister Yankulov: the case raises questions about the prosecution, DANS and other institutions."
+     },
+     "url": "https://nova.bg/news/view/2026/09/20/552145/",
+     "domain": "nova.bg",
+     "published": "2026-09-20"
+    }
+   ],
+   "contested": [
+    {
+     "claim": {
+      "bg": "Борислав Сандов е привлечен като обвиняем по случая „Петрохан“.",
+      "en": "Borislav Sandov has been charged (обвиняем) in the Petrohan case."
+     },
+     "speaker": {
+      "bg": "Софийска градска прокуратура (по съобщение, както е отразено)",
+      "en": "Sofia City Prosecutor's Office (as reported)"
+     },
+     "date": "2026-09-19",
+     "source_url": "https://www.bgdnes.bg/krimi/article/23586746",
+     "response": {
+      "bg": "Сандов: не му е връчена призовка и не е разпитван като обвиняем; не съжалява, че е подписал споразумението.",
+      "en": "Sandov: no summons has been served and he has not been questioned as an accused; he does not regret signing the agreement."
+     },
+     "response_source_url": "https://www.segabg.com/category-bulgaria/borislav-sandov-otreche-da-e-obvinen-po-sluchaya-petrohan",
+     "note": {
+      "bg": "Отричането на статута на обвиняем не е отричане на описаното поведение; тук не се преценява нито едното.",
+      "en": "A denial of charge status is not a denial of the alleged conduct; neither is adjudicated here."
+     }
+    },
+    {
+     "claim": {
+      "bg": "Вещото лице Росен Йорданов няма квалификация на клиничен психолог.",
+      "en": "The expert (Rosen Yordanov) lacks the qualification of a clinical psychologist."
+     },
+     "speaker": {
+      "bg": "адв. Ина Лулчева, за майката на Калушев",
+      "en": "adv. Ina Lulcheva, for Kalushev's mother"
+     },
+     "date": "2026-09-21",
+     "source_url": "https://www.segabg.com/hot/category-bulgaria/advokati-iskat-razsledvane-kak-e-iztekla-ekspertizata-po-petrohan",
+     "response": null,
+     "response_source_url": null,
+     "note": {
+      "bg": "Към момента на прегледа в корпуса няма отговор от прокуратурата.",
+      "en": "No response from the prosecution recorded in the corpus at review time."
+     }
+    }
+   ],
+   "rule": {
+    "basis": {
+     "bg": "Текстът на материала (заглавие + тяло), без разлика в регистъра. Материал се включва, когато назовава случая поне два пъти („Петрохан – Околчица“ е едно споменаване; в заглавие се брои двойно; споменаване на Калушев се брои като назоваване на случая) И носи разследователски или институционален контекст. Термините се търсят в началото на дума, така че „Сандански“ не е „ДАНС“; пътна, метеорологична или туристическа новина за прохода Петрохан не носи такъв контекст и не се включва, а материал за разследването, който споменава и пътя, не се отхвърля от черен списък.",
+     "en": "Source text (title + body), case-insensitive. An article is included when it names the affair at least twice („Petrohan – Okolchitsa“ is one mention; a title mention counts double; a mention of Kalushev counts as naming the affair) AND carries investigative or institutional context. Terms match at word start, so „Sandanski“ is not „DANS“; a road, weather or tourism item about the Petrohan pass carries no such context and is not included, while an investigation article that also mentions the road is not rejected by a blacklist."
+    },
+    "required_terms": [
+     "петрохан",
+     "околчица"
+    ],
+    "anchor_terms": [
+     "калушев"
+    ],
+    "context_terms": [
+     "калушев",
+     "прокуратур",
+     "досъдебн",
+     "разследван",
+     "експертиз",
+     "педофил",
+     "хижа",
+     "данс",
+     "обвин",
+     "убийств",
+     "смъртта на",
+     "неправителствен"
+    ],
+    "excluded_terms": [],
+    "min_required_hits": 2,
+    "required_mentions": []
+   },
+   "namesakes": [
+    {
+     "name": "Калушев",
+     "note": {
+      "bg": "Отнася се за повече от едно лице в самия случай (Ивайло и Георги Калушев). Търсенето по фамилия е само за откриване на материали; правилото не свързва никое лице.",
+      "en": "Refers to more than one person inside this case (Ivaylo and Georgi Kalushev). Surname matching is candidate retrieval only; no person is linked by this rule."
+     }
+    },
+    {
+     "name": "Терзиев / Сандов",
+     "note": {
+      "bg": "Фамилии, които се срещат и извън случая (улица „Александър Терзиев“ в Пловдив, кметът на София). От правило v2 не са контекстни термини — покритието за тях минава през институционалните термини.",
+      "en": "Surnames that also occur outside the case (a Plovdiv street named Aleksandar Terziev, the mayor of Sofia). Since rule v2 they are not context terms — coverage about them rides the institutional terms."
+     }
+    }
+   ],
+   "auto_attach": true,
+   "ambiguous_match": "review",
+   "overrides": {
+    "include": [],
+    "exclude": []
+   },
+   "history": [
+    {
+     "date": "2026-09-22",
+     "rule_version": 1,
+     "by": "plan author",
+     "change": "registry entry created; rule = affair name + investigative context"
+    },
+    {
+     "date": "2026-09-22",
+     "rule_version": 2,
+     "by": "plan author",
+     "change": "word-start term matching; the hit floor counts affair mentions (compound name = 1) with Калушев as an anchor; dropped „нпо“, „терзиев“, „сандов“ as context terms after a road bulletin (Санд-анс-ки) and a street-washing timetable (ул. Терзиев) attached; three live negatives added to the fixtures; sources for the six deaths and the NGO role added; registry prose made bilingual"
+    }
+   ]
+  },
+  {
+   "slug": "narco-pardon",
+   "name": {
+    "bg": "Помилването на Огнян Атанасов",
+    "en": "The pardon of Ognyan Atanasov"
+   },
+   "opened_on": "2026-09-11",
+   "rule_version": 2,
+   "reviewer": "plan author (news-ground-bg-v1 T3.3)",
+   "reviewed_on": "2026-09-22",
+   "description": {
+    "bg": "Публично обсъждан от септември 2026 г. случай на помилване: според изнесеното в кампанията от политически опоненти на Илияна Йотова (в т.ч. кандидата за вицепрезидент Георги Кандев) през 2022 г. тогавашният вицепрезидент Йотова помилва Огнян Атанасов, осъден в Гърция на 15 години за наркотрафик и приведен в България; като основание се сочи медицинска експертиза за тежко заболяване. Впоследствие Окръжната прокуратура в Благоевград го обвинява по ново наркодело за престъпна група, действала от началото на 2023 г. до 18.02.2025 г. Случаят се обсъжда като част от президентската кампания — и двамата основни кандидати предлагат промяна в процедурата по помилване; Йотова говори за „кална кампания“ срещу нея.",
+    "en": "A pardon publicly debated since September 2026: according to what political opponents of Iliana Iotova (including vice-presidential candidate Georgi Kandev) put forward in the campaign, in 2022 then-vice-president Iotova pardoned Ognyan Atanasov, sentenced in Greece to 15 years for drug trafficking and transferred to Bulgaria; a medical report on a serious illness is cited as the basis. The Blagoevgrad District Prosecutor's Office later charged him in a new drugs case over a group active from early 2023 to 18 February 2025. The case is discussed as part of the presidential campaign — both main candidates propose changing the pardon procedure; Iotova describes a 'mud-slinging campaign' against her."
+   },
+   "sources": [
+    {
+     "claim": {
+      "bg": "Кандидатът за вицепрезидент Георги Кандев (пред радио „Дарик“): Атанасов е помилван от вицепрезидента Йотова през 2022 г. заради опасност за живота му; преведен от гръцки затвор, където е получил 15 години за наркотрафик; в момента е под парична гаранция по дело за 5 кг кокаин.",
+      "en": "Vice-presidential candidate Georgi Kandev (on Darik radio): Atanasov was pardoned by vice-president Iotova in 2022 on grounds of danger to his life; transferred from a Greek prison where he had received 15 years for drug trafficking; currently on bail in a 5 kg cocaine case."
+     },
+     "url": "https://www.segabg.com/hot/category-bulgaria/kandev-petrichkiyat-eskobar-produlzhava-da-deystva",
+     "domain": "segabg.com",
+     "published": "2026-09-19"
+    },
+    {
+     "claim": {
+      "bg": "Новото наркодело на Окръжна прокуратура – Благоевград срещу Атанасов и още шестима (група, действала от началото на 2023 г. до 18.02.2025 г.).",
+      "en": "The Blagoevgrad prosecution's new drugs case against Atanasov and six others (group active early 2023 – 18.02.2025)."
+     },
+     "url": "https://faktor.bg/razsledvaneto-sreshtu-balgarskiq-eskobar-priklyuchi",
+     "domain": "faktor.bg",
+     "published": "2026-09-17"
+    },
+    {
+     "claim": {
+      "bg": "И Андрей Гюров, и Кирил Вълчев искат промяна в процедурата по помилване след случая; Вълчев предлага правилата за експертизите при помилване да се уредят със закон.",
+      "en": "Both Andrey Gyurov and Kiril Valchev want the pardon procedure changed after the case; Valchev proposes regulating the expert reports used in pardons by law."
+     },
+     "url": "https://www.actualno.com/politics/mir-vojna-i-pomilvane-lubopitni-shodstva-v-poziciite-na-kandidat-prezidentskite-dvojki-news_2641461.html",
+     "domain": "actualno.com",
+     "published": "2026-09-20"
+    },
+    {
+     "claim": {
+      "bg": "Йотова: срещу нея се води кална кампания; тя ще спори с факти, не с лъжи, и отказва да води такава кампания срещу опонента си.",
+      "en": "Iotova: a mud-slinging campaign is being run against her; she will argue with facts, not lies, and refuses to run one against her opponent."
+     },
+     "url": "https://epicenter.bg/article/Iliyana-Yotova--Shte-pravya-pozitivna-kampaniya--Moga-s-sporya-s-fakti--no-ne-moga-da-sporya-s-lazhi/431177/11/0",
+     "domain": "epicenter.bg",
+     "published": "2026-09-19"
+    }
+   ],
+   "contested": [
+    {
+     "claim": {
+      "bg": "Атанасов продължава да се занимава с наркотрафик след помилването; помилването реално му е спестило 10 години от присъдата.",
+      "en": "Atanasov has continued drug trafficking after the pardon; the pardon effectively spared him 10 years of the sentence."
+     },
+     "speaker": {
+      "bg": "Георги Кандев, кандидат за вицепрезидент (пред радио „Дарик“)",
+      "en": "Georgi Kandev, vice-presidential candidate (on Darik radio)"
+     },
+     "date": "2026-09-19",
+     "source_url": "https://www.segabg.com/hot/category-bulgaria/kandev-petrichkiyat-eskobar-produlzhava-da-deystva",
+     "response": {
+      "bg": "Йотова: обвиненията са кална кампания; тя ще спори с факти, не с лъжи.",
+      "en": "Iotova: the accusations are a mud-slinging campaign; she will argue with facts, not lies."
+     },
+     "response_source_url": "https://epicenter.bg/article/Iliyana-Yotova--Shte-pravya-pozitivna-kampaniya--Moga-s-sporya-s-fakti--no-ne-moga-da-sporya-s-lazhi/431177/11/0",
+     "note": {
+      "bg": "Отговорът е общ и не засяга твърдението по същество; конституционното основание и вътрешните мотиви на помилването не се установяват от отразеното.",
+      "en": "The response is general and does not address the claim as phrased; the constitutional basis and internal reasoning of the pardon are not established by the retrieved coverage."
+     }
+    },
+    {
+     "claim": {
+      "bg": "Помилването е било неоправдан акт.",
+      "en": "The pardon was an unjustified act."
+     },
+     "speaker": {
+      "bg": "e-vestnik.bg (авторска колонка)",
+      "en": "e-vestnik.bg (opinion column)"
+     },
+     "date": "2026-09-11",
+     "source_url": "https://e-vestnik.bg/40979/za-narkodilara-pomilvaneto-i-morala-na-vitseprezidenta/",
+     "response": {
+      "bg": "Йотова: обвиненията са кална кампания; тя ще спори с факти, не с лъжи.",
+      "en": "Iotova: the accusations are a mud-slinging campaign; she will argue with facts, not lies."
+     },
+     "response_source_url": "https://epicenter.bg/article/Iliyana-Yotova--Shte-pravya-pozitivna-kampaniya--Moga-s-sporya-s-fakti--no-ne-moga-da-sporya-s-lazhi/431177/11/0",
+     "note": {
+      "bg": "Мнение, не репортаж: източник за самото оспорване, не за фактите по помилването.",
+      "en": "Opinion, not reporting: a source for the contestation itself, not for the facts of the pardon."
+     }
+    }
+   ],
+   "rule": {
+    "basis": {
+     "bg": "Текстът на материала, без разлика в регистъра. Материал се включва, когато обсъжда ПОМИЛВАНЕ (поне два пъти; в заглавие се брои двойно) И идентифицира именно това помилване — прякорът „Ескобар“, името на Атанасов до термини за наркотици или гръцката присъда. Термините се търсят в началото на дума. Така футболен треньор или кметът на Кюстендил с името Огнян Атанасов не се включва без помилване, а дебатът за помилванията без идентифициращ контекст — също не.",
+     "en": "Source text, case-insensitive. An article is included when it discusses a PARDON (at least twice; a title mention counts double) AND identifies THIS pardon — the Escobar nickname, Atanasov's name beside drug terms, or the Greek sentence. Terms match at word start. So a football coach or the mayor of Kyustendil named Ognyan Atanasov never matches without a pardon, and the pardon debate without the identity evidence does not either."
+    },
+    "required_terms": [
+     "помилв"
+    ],
+    "anchor_terms": [],
+    "context_terms": [
+     "ескобар",
+     "огнян атанасов",
+     "наркотраф",
+     "наркоди",
+     "наркобарон",
+     "наркобос",
+     "кокаин",
+     "15-годишна присъда",
+     "гръцки съд"
+    ],
+    "excluded_terms": [],
+    "min_required_hits": 2,
+    "required_mentions": []
+   },
+   "namesakes": [
+    {
+     "name": "Огнян Атанасов",
+     "note": {
+      "bg": "Не е уникално: в корпуса има и кмет на Кюстендил, и футболен треньор с това име. Съчетанието с термин за помилване е това, което идентифицира субекта; съвпадение само по име е кандидат, никога членство.",
+      "en": "Not unique: the corpus also holds the mayor of Кюстендил and a football coach of that name. The conjunction with a pardon term is what identifies this subject; a name-only hit is a candidate, never membership."
+     }
+    },
+    {
+     "name": "Ескобар",
+     "note": {
+      "bg": "Прякор, не идентичност; свързва се с този субект само до термин за помилване.",
+      "en": "A nickname, not an identity; bound to this subject only beside a pardon term."
+     }
+    }
+   ],
+   "auto_attach": true,
+   "ambiguous_match": "review",
+   "overrides": {
+    "include": [],
+    "exclude": []
+   },
+   "history": [
+    {
+     "date": "2026-09-22",
+     "rule_version": 1,
+     "by": "plan author",
+     "change": "registry entry created; rule = pardon term + identity context"
+    },
+    {
+     "date": "2026-09-22",
+     "rule_version": 2,
+     "by": "plan author",
+     "change": "word-start term matching and the explicit hit floor; the pardon facts re-sourced to named speakers (Кандев on Дарик, via Сега) and the opinion column kept as a source of contestation only; registry prose made bilingual"
+    }
+   ]
+  }
+ ]
+}

@@ -53,6 +53,14 @@ const StoriesScreen = lazyScreen(
   () => import("./app/screens/StoriesScreen"),
   "StoriesScreen",
 );
+const CasesScreen = lazyScreen(
+  () => import("./app/screens/CasesScreen"),
+  "CasesScreen",
+);
+const CaseScreen = lazyScreen(
+  () => import("./app/screens/CaseScreen"),
+  "CaseScreen",
+);
 const OutletsScreen = lazyScreen(
   () => import("./app/screens/OutletsScreen"),
   "OutletsScreen",
@@ -196,6 +204,7 @@ const NewsAppShell = () => {
     // ⚠️ THE CORPUS BROWSE, reachable from every page — the home page is a
     // finite briefing and this is the rest of it (R1).
     { to: "/stories", label: tr("Архив", "Archive") },
+    { to: "/cases", label: tr("Казуси", "Cases") },
     { to: "/outlets", label: tr("Източници", "Sources") },
     { to: "/topics", label: tr("Теми", "Topics") },
     {
@@ -356,6 +365,8 @@ const NewsAppShell = () => {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/story/:id" element={<StoryScreen />} />
             <Route path="/stories" element={<StoriesScreen />} />
+            <Route path="/cases" element={<CasesScreen />} />
+            <Route path="/case/:slug" element={<CaseScreen />} />
             <Route path="/outlets" element={<OutletsScreen />} />
             <Route path="/outlet/:domain" element={<OutletScreen />} />
             <Route path="/topics" element={<TopicsScreen />} />

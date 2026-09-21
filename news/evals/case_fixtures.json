@@ -1,0 +1,196 @@
+{
+ "version": 1,
+ "generated_at": "2026-09-22",
+ "how_to_read": [
+  "Plan T3.3: adjudicated positive/negative fixtures per case. auto_attach in news/config/cases.json is honoured by the build ONLY while every fixture here classifies correctly under the case rule_version; a fixture whose article is absent from the (gitignored) corpus is unverifiable and withholds auto-attach.",
+  "Each fixture names its corpus article by path, url and content sha256; expected is whether the article BELONGS to the affair (a passing mention, the place, or a namesake does not). Labelled by the plan author from the corpus text on 2026-09-22: a reviewed set, not a held-out adjudication by a second reader.",
+  "At least two positives and two negatives per case; the negatives must include the plan named hard cases (the Petrohan pass as a road, Okolchitsa as Botev peak, the Kyustendil mayor and the football coach named Ognyan Atanasov, and a passing campaign mention for each).",
+  "Rule v2 (2026-09-22) added three NEGATIVES that rule v1 had published as members of the Petrohan case — the fixture set must contain the failure shapes it exists to catch, not only the shapes the plan predicted."
+ ],
+ "cases": {
+  "petrohan": [
+   {
+    "article_path": "news/data/segabg.com/20260920-deloto-petrohan-nyama-da-vleze-suda-ee9e5417.json",
+    "url": "https://www.segabg.com/hot/category-bulgaria/deloto-petrohan-nyama-da-vleze-suda",
+    "domain": "segabg.com",
+    "published": "2026-09-20T07:09:34+00:00",
+    "title": "Делото ''Петрохан'' няма да влезе в съда",
+    "content_sha256": "ce04b2f97d4b55c3b66225dfb11cd7e110a154f66c1bac532c6bb836e2350701",
+    "expected": true,
+    "why": "The justice minister on the death investigation being closed; the affair named repeatedly with prosecution context."
+   },
+   {
+    "article_path": "news/data/segabg.com/20260921-advokati-iskat-razsledvane-kak-e-iztekla-ekspertizata-po-pet-9d9d60b6.json",
+    "url": "https://www.segabg.com/hot/category-bulgaria/advokati-iskat-razsledvane-kak-e-iztekla-ekspertizata-po-petrohan",
+    "domain": "segabg.com",
+    "published": "2026-09-21T08:44:54+00:00",
+    "title": "Адвокати искат разследване как е изтекла експертизата по \"Петрохан\"",
+    "content_sha256": "71c2d6ddb1afca40cdae4770353aa4cccf14f725755861abf20ac46f6b070b6e",
+    "expected": true,
+    "why": "Lawyers for relatives on the leaked expert report."
+   },
+   {
+    "article_path": "news/data/nova.bg/20260920-D0B0D0BDD0B4D180D0B5D0B9-D18FD0BDD0BAD183D0BBD0BED0B2-D181D0-342732e7.json",
+    "url": "https://nova.bg/news/view/2026/09/20/552145/%D0%B0%D0%BD%D0%B4%D1%80%D0%B5%D0%B9-%D1%8F%D0%BD%D0%BA%D1%83%D0%BB%D0%BE%D0%B2-%D1%81%D0%BB%D1%83%D1%87%D0%B0%D1%8F%D1%82-%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D1%85%D0%B0%D0%BD-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D1%8F-%D1%81%D0%B5%D1%80%D0%B8%D0%BE%D0%B7%D0%BD%D0%B8-%D0%B2%D1%8A%D0%BF%D1%80%D0%BE%D1%81%D0%B8-%D0%B7%D0%B0-%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%D1%82%D0%B0-%D0%BD%D0%B0-%D0%B8%D0%BD%D1%81%D1%82%D0%B8%D1%82%D1%83%D1%86%D0%B8%D0%B8%D1%82%D0%B5-%D0%BF%D1%80%D0%B5%D0%B7-%D0%B3%D0%BE%D0%B4%D0%B8%D0%BD%D0%B8%D1%82%D0%B5/",
+    "domain": "nova.bg",
+    "published": "2026-09-20T14:10:40+00:00",
+    "title": "Андрей Янкулов: Случаят „Петрохан” поставя сериозни въпроси за действията на институциите през годините",
+    "content_sha256": "0e7e5ed3b18175cd24c854265e395112d02c9b23215c259eca14a554941fe285",
+    "expected": true,
+    "why": "Former justice minister on institutional failure in the case."
+   },
+   {
+    "article_path": "news/data/segabg.com/20260920-borislav-sandov-otreche-da-e-obvinen-po-sluchaya-petrohan-35e51a98.json",
+    "url": "https://www.segabg.com/category-bulgaria/borislav-sandov-otreche-da-e-obvinen-po-sluchaya-petrohan",
+    "domain": "segabg.com",
+    "published": "2026-09-20T07:01:06+00:00",
+    "title": "Борислав Сандов отрече да е обвинен по случая \"Петрохан\"",
+    "content_sha256": "9e52087ca4f06a215a9f63232ed55d34a634511a986a326c143241236cbf10d8",
+    "expected": true,
+    "why": "The SGP proceedings against Sandov and his denial of charge status."
+   },
+   {
+    "article_path": "news/data/epicenter.bg/20260822-0-1b8583f0.json",
+    "url": "https://epicenter.bg/article/Ogranichavat-tezhkite-kamioni-po--Trakiya---Struma--i-Kresnenskoto-defile/429193/2/0",
+    "domain": "epicenter.bg",
+    "published": "2026-08-22T15:30:00+00:00",
+    "title": "Ограничават тежките камиони по „Тракия“, „Струма“ и Кресненското дефиле",
+    "content_sha256": "95da0ed5e5376ff0a6f793db5e52999ce0c45b0a93cb7c4002f8d696cdc62cd9",
+    "expected": false,
+    "why": "Road-traffic limits naming the Petrohan pass: the place, not the affair."
+   },
+   {
+    "article_path": "news/data/glasove.com/nodate-botevite-tarzhestva-ot-1936-g-video-b02b3515.json",
+    "url": "https://glasove.com/izgubenata-bylgariya/botevite-tarzhestva-ot-1936-g-video",
+    "domain": "glasove.com",
+    "published": null,
+    "title": "Ботевите тържества от 1936 г. (видео)",
+    "content_sha256": "cd8b8f97ed5bb80f4ff7200492c3052fe0da5c202978899cff92b13f8c54c129",
+    "expected": false,
+    "why": "Okolchitsa as Botev peak in a heritage video: the place, not the affair."
+   },
+   {
+    "article_path": "news/data/actualno.com/20260920-pravomoshtijata-sa-dostatychni-gurov-njama-da-iska-poveche-v-3884e298.json",
+    "url": "https://www.actualno.com/politics/pravomoshtijata-sa-dostatychni-gurov-njama-da-iska-poveche-vlast-kato-prezident-news_2641397.html",
+    "domain": "actualno.com",
+    "published": "2026-09-20T10:01:00+00:00",
+    "title": "\"Правомощията са достатъчни\": Гюров няма да иска повече власт като президент",
+    "content_sha256": "48f8a2e1bcee7f648aec81934c03bcfedd29e66d8575a41538153352f00b8500",
+    "expected": false,
+    "why": "A candidate interview naming the Petrohan case once as a campaign theme: a passing reference."
+   },
+   {
+    "article_path": "news/data/offnews.bg/nodate-zaradi-pozhar-e-ogranicheno-dvizhenieto-na-26-27-km-na-magis-33715147.json",
+    "url": "https://offnews.bg/112/zaradi-pozhar-e-ogranicheno-dvizhenieto-na-26-27-km-na-magistrala-tr-873206.html",
+    "domain": "offnews.bg",
+    "published": null,
+    "title": "Заради пожар е ограничено движението на 26-27 км на магистрала ''Тракия'' — OFFNews",
+    "content_sha256": "9e34bc6fe39064b86fa2fc84e3b6a8b90e35ba1f774e24072938830dbeec59a2",
+    "expected": false,
+    "why": "A motorway fire report whose related-links footer mentions Petrohan: no context, one mention."
+   },
+   {
+    "article_path": "news/data/bgdnes.bg/20260830-23476420-c11c9332.json",
+    "url": "https://www.bgdnes.bg/polezno/article/23476420",
+    "domain": "bgdnes.bg",
+    "published": "2026-08-30T15:17:00+00:00",
+    "title": "Вижте какво е състоянието на пътищата тази вечер",
+    "content_sha256": "845549e421a4bcbea1e6331508da6dc01de421357d44a6f392cb5d664675aff3",
+    "expected": false,
+    "why": "A road bulletin: the pass twice as a weight limit, its only context evidence was „данс“ inside „Сандански“ — attached under rule v1, the shape word-start matching exists for."
+   },
+   {
+    "article_path": "news/data/marica.bg/20260921-grafik-za-mieneto-na-plovdivskite-ulici-ot-21-do-25-septemvr-82d07f04.json",
+    "url": "https://www.marica.bg/plovdiv/gradat/grafik-za-mieneto-na-plovdivskite-ulici-ot-21-do-25-septemvri",
+    "domain": "marica.bg",
+    "published": "2026-09-21T14:20:00+00:00",
+    "title": "График за миенето на пловдивските улици от 21 до 25 септемвр...",
+    "content_sha256": "8a0a64440aac45ed7de674768eb2b8597b3051a326ebc570099d1fa2f027768f",
+    "expected": false,
+    "why": "A Plovdiv street-washing timetable naming ул. „Петрохан“ and ул. „Околчица“; its only context was „Терзиев“ from a street name — attached under rule v1."
+   },
+   {
+    "article_path": "news/data/dir.bg/20260920-s-merkite-za-distsiplina-nyama-da-vrashtame-makarenkovshtina-7ddbc60f.json",
+    "url": "https://dnes.dir.bg/obshtestvo/s-merkite-za-distsiplina-nyama-da-vrashtame-makarenkovshtinata-v-uchilishte-kaza-ministar-georgi-valchev",
+    "domain": "dir.bg",
+    "published": "2026-09-20T09:00:00+00:00",
+    "title": "С мерките за дисциплина няма да връщаме макаренковщината в училище, каза министър Георги Вълчев",
+    "content_sha256": "d5f7bd8eb7b4ec0b8ef12090babbd6a8f910bd429281e26fb0a719956ba5a2b9",
+    "expected": false,
+    "why": "A minister's press scrum on school discipline where „Петрохан – Околчица“ is one question — a single compound mention scored 2 under rule v1 and attached; a passing reference is not membership."
+   }
+  ],
+  "narco-pardon": [
+   {
+    "article_path": "news/data/e-vestnik.bg/20260911-za-narkodilara-pomilvaneto-i-morala-na-vitseprezidenta-8bfad747.json",
+    "url": "https://e-vestnik.bg/40979/za-narkodilara-pomilvaneto-i-morala-na-vitseprezidenta/",
+    "domain": "e-vestnik.bg",
+    "published": "2026-09-11T14:03:26+00:00",
+    "title": "За наркодилъра, помилването и морала на (вице)президента",
+    "content_sha256": "eb18bd4522a05a5576b52bbc62ce5ac7ad344adbe64a7fc408de13b8f9b9b2bf",
+    "expected": true,
+    "why": "The publicly stated facts of the pardon and the later arrest."
+   },
+   {
+    "article_path": "news/data/faktor.bg/20260917-razsledvaneto-sreshtu-balgarskiq-eskobar-priklyuchi-edf90f93.json",
+    "url": "https://faktor.bg/razsledvaneto-sreshtu-balgarskiq-eskobar-priklyuchi",
+    "domain": "faktor.bg",
+    "published": "2026-09-17T05:47:00+00:00",
+    "title": "Разследването срещу „българския Ескобар“, помилван от Йотова, показа интересни резултати   - Фактор",
+    "content_sha256": "8411a248727df993fc5832d96e7f0a89bd1367bc25cd7b1e83c11c88399fdd65",
+    "expected": true,
+    "why": "The Blagoevgrad prosecution new case against Atanasov."
+   },
+   {
+    "article_path": "news/data/actualno.com/20260921-zashto-prokuraturata-mylchi-za-petrichkija-eskobar-news-2641-619904db.json",
+    "url": "https://www.actualno.com/opinion/zashto-prokuraturata-mylchi-za-petrichkija-eskobar-news_2641627.html",
+    "domain": "actualno.com",
+    "published": "2026-09-21T08:08:00+00:00",
+    "title": "Защо прокуратурата мълчи за \"петричкия Ескобар\"?",
+    "content_sha256": "d312af1c0a772b9d815b758cc6eb396ea503bdff6d03d9fe8cf5dfaba5132841",
+    "expected": true,
+    "why": "Commentary on the prosecution silence on the pardoned man re-arrest."
+   },
+   {
+    "article_path": "news/data/bta.bg/20260919-1208003-kyustendil-stava-priteglen-i-turisticheski-kaza-prez-00724cd3.json",
+    "url": "https://www.bta.bg/bg/news/bulgaria/1208003-kyustendil-stava-priteglen-i-turisticheski-kaza-prezidentat-iliyana-yotova-koy",
+    "domain": "bta.bg",
+    "published": "2026-09-19T19:10:00+00:00",
+    "title": "Кюстендил става притеглен и туристически, каза президентът Илияна Йотова, която гостува в града за Празника на плодородието",
+    "content_sha256": "82b09bf8410459661cc3e8d038313818c3229e50f5a74d136b4a96f7604370dc",
+    "expected": false,
+    "why": "Yotova at a Kyustendil festival with the mayor Ognyan Atanasov: the namesake, no pardon; the plan named hard negative."
+   },
+   {
+    "article_path": "news/data/marica.bg/20260804-ognqn-atanasov-bat-ogi-ako-iskat-da-pechelqt-ot-futbola-parv-e423e8be.json",
+    "url": "https://www.marica.bg/podkast/ognqn-atanasov-bat-ogi-ako-iskat-da-pechelqt-ot-futbola-parvo-da-investirat-troyno-poveche",
+    "domain": "marica.bg",
+    "published": "2026-08-04T15:00:00+00:00",
+    "title": "Огнян Атанасов – бат Оги: Ако искат да печелят от футбола, п...",
+    "content_sha256": "8afdd518948d09555d714291e3a88febc86109104408ff6534e8ffdd5677dcae",
+    "expected": false,
+    "why": "The football coach of the same name."
+   },
+   {
+    "article_path": "news/data/actualno.com/20260920-pravomoshtijata-sa-dostatychni-gurov-njama-da-iska-poveche-v-3884e298.json",
+    "url": "https://www.actualno.com/politics/pravomoshtijata-sa-dostatychni-gurov-njama-da-iska-poveche-vlast-kato-prezident-news_2641397.html",
+    "domain": "actualno.com",
+    "published": "2026-09-20T10:01:00+00:00",
+    "title": "\"Правомощията са достатъчни\": Гюров няма да иска повече власт като президент",
+    "content_sha256": "48f8a2e1bcee7f648aec81934c03bcfedd29e66d8575a41538153352f00b8500",
+    "expected": false,
+    "why": "A candidate interview naming the pardoned man once: a passing reference."
+   },
+   {
+    "article_path": "news/data/dariknews.bg/20260919-borisov-poslednite-niakolko-godini-naj-golemiiat-populist-bi-88cdd2f7.json",
+    "url": "https://dariknews.bg/novini/bylgariia/borisov-poslednite-niakolko-godini-naj-golemiiat-populist-biah-az-video-2466912",
+    "domain": "dariknews.bg",
+    "published": "2026-09-19T11:44:00+00:00",
+    "title": "Борисов: Последните няколко години най-големият популист бях аз (ВИДЕО)",
+    "content_sha256": "e09ad811359f8bc390484c2e2935a1b740ca303e9ad34406f2b7e81cf3d89639",
+    "expected": false,
+    "why": "A politician remark naming the pardon once among the week themes."
+   }
+  ]
+ }
+}

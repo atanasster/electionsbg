@@ -341,7 +341,56 @@ def review_reasons(root: Path, analysis: dict[str, Any]) -> dict[str, str]:
     result = record_review(enriched)
     if not isinstance(result, dict):
         raise SyncError("review router returned a non-object")
-    return {str(key): str(value) for key, value in sorted(result.items())}
+    return {str(key): bound_reason(str(value), REASON_MAX)
+            for key, value in sorted(result.items())}
+
+
+# The public-feed ceiling on one review reason. `record_review` joins one
+# reason PER PARTY TONE with "; ", so a record naming many parties overruns
+# it legitimately — measured 2026-09-21: a pogled.info piece on the German
+# state elections carried four parties and 628 chars, and the sync refused
+# the WHOLE task build for it, which is what stopped `build:news`. A reason
+# is explanatory text, not a claim, so it is cut at a separator rather than
+# fatal; the count of dropped items is kept so the cut is visible.
+REASON_MAX = 600
+REASON_SEP = "; "
+
+
+def bound_reason(value: str, maximum: int = REASON_MAX) -> str:
+    """`value` cut to `maximum` chars at a "; " separator, the dropped
+    count named. A reason is explanatory text, never a claim, so it is cut
+    rather than fatal — but the cut is always VISIBLE (a `+N more` tail, or
+    an ellipsis when even the first item must be shortened)."""
+    if len(value) <= maximum:
+        return value
+    items = value.split(REASON_SEP)
+    kept: list[str] = []
+    for index, item in enumerate(items):
+        remaining = len(items) - index - 1   # items after THIS one
+        candidate = REASON_SEP.join([*kept, item])
+        # If this item is kept, the tail after it must still fit — and when
+        # this is the last item there is no tail to reserve for.
+        reserve = len(_more(remaining)) if remaining else 0
+        if len(candidate) + reserve > maximum:
+            if kept:
+                return REASON_SEP.join(kept) + _more(remaining + 1)
+            # The first item alone does not fit beside its tail: shorten IT,
+            # visibly, rather than refuse the whole task build.
+            tail = _more(remaining) if remaining else ""
+            room = maximum - len(tail) - 1
+            if room < 1:
+                raise SyncError(f"review reason bound {maximum} cannot hold a reason")
+            return item[:room] + "…" + tail
+        kept.append(item)
+    # Unreachable while `len(value) > maximum` (the last candidate IS the
+    # whole value), kept so the function can never fall off the end as None.
+    out = REASON_SEP.join(kept)
+    assert len(out) <= maximum
+    return out
+
+
+def _more(n: int) -> str:
+    return f"{REASON_SEP}+{n} more"
 
 
 def task_revision(content_hash: str, analysis_hash: str,
@@ -418,7 +467,7 @@ def make_task(root: Path, public_revision: str, key: str,
         raise SyncError(f"{key}.review_reasons is too large")
     bounded_reasons = {
         text(name, f"{key} review field", 64): text(
-            value, f"{key}.review_reasons.{name}", 600)
+            value, f"{key}.review_reasons.{name}", REASON_MAX)
         for name, value in sorted(reasons.items())
     }
     revision = task_revision(content_hash, analysis_hash, labels)

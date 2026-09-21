@@ -9,6 +9,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { clamp, safeSegment, type PrerenderRoute } from "./prerender";
+import { isCaseSlug } from "./app/caseSlug";
 
 type Bundle = Record<string, unknown>;
 
@@ -57,6 +58,15 @@ export const HUB_ROUTES: PrerenderRoute[] = [
     titleEn: "Archive — every story by coverage | Naiasno News",
     descriptionEn:
       "The whole story corpus, ordered by how many outlets covered one event, filterable by topic, period and source.",
+  },
+  {
+    path: "cases",
+    title: "Казуси — именувани афери през темите | Наясно Новини",
+    description:
+      "Регистър на именувани афери, които пресичат темите: хронология, кой ги отразява и как. Включването е редакционен подбор по публикувано правило.",
+    titleEn: "Cases — named affairs across topics | Naiasno News",
+    descriptionEn:
+      "A register of named affairs that cut across topics: timeline, who covers them and how. Inclusion is an editorial selection by a published rule.",
   },
   {
     path: "outlets",
@@ -264,6 +274,36 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       // two of them asked not to be crawled at all.
       sitemap: !retired,
       lastmod: (outlets?.generated_at as string) ?? null,
+    });
+  }
+
+  // ⚠️ A case page is prerendered and submitted only while its timeline is
+  // PUBLISHED (`membership: "attached"`); a case under review is a registry
+  // entry with an empty timeline, which a crawler should not be sent to.
+  const cases = read(dataDir, "cases.json");
+  for (const c of (cases?.cases as Bundle[] | undefined) ?? []) {
+    const slug = String(c.slug ?? "");
+    if (!isCaseSlug(slug)) continue;
+    const name = (c.name ?? {}) as Record<string, string>;
+    const attached = c.membership === "attached";
+    const storyCount = Number(c.story_count ?? 0);
+    routes.push({
+      path: `case/${slug}`,
+      title: `${clamp(String(name.bg ?? slug), 70)} — казус | Наясно Новини`,
+      description: clamp(
+        attached
+          ? `Хронология на казуса в ${storyCount} истории, кой го отразява и как. Включването е редакционен подбор по публикувано правило, не констатация.`
+          : `Казус в регистъра; хронологията още не се публикува, докато правилото за включване е в преглед.`,
+      ),
+      titleEn: `${clamp(String(name.en ?? slug), 70)} — case | Naiasno News`,
+      descriptionEn: clamp(
+        attached
+          ? `The case's timeline across ${storyCount} stories, who covers it and how. Inclusion is an editorial selection by a published rule, not a finding.`
+          : `A registered case whose timeline is not yet published while its inclusion rule is under review.`,
+      ),
+      lastmod:
+        (c.last_published as string) ?? (cases?.generated_at as string) ?? null,
+      sitemap: attached && storyCount > 0,
     });
   }
 

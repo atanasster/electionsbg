@@ -298,5 +298,60 @@ class TaskSyncTest(unittest.TestCase):
         self.assertEqual(manifest_out.read_bytes(), old_manifest)
 
 
+class BoundReasonTest(unittest.TestCase):
+    """`bound_reason` cuts an over-long joined reason at a separator."""
+
+    def test_short_reason_is_untouched(self):
+        self.assertEqual(sync.bound_reason("a; b", 10), "a; b")
+
+    def test_long_reason_is_cut_at_a_separator_and_counts_the_rest(self):
+        items = [f"party{i}: 0.5 is below the floor" for i in range(6)]
+        joined = "; ".join(items)
+        out = sync.bound_reason(joined, 100)
+        self.assertLessEqual(len(out), 100)
+        self.assertTrue(out.endswith(" more"), out)
+        kept, tail = out.rsplit("; +", 1)
+        dropped = int(tail.removesuffix(" more"))
+        kept_items = kept.split("; ")
+        # Whole items only, in order, and the count accounts for the rest.
+        self.assertEqual(kept_items, items[:len(kept_items)])
+        self.assertEqual(len(kept_items) + dropped, len(items))
+        self.assertGreater(len(kept_items), 0)
+        # The bounded value passes the feed validator it exists to satisfy.
+        self.assertEqual(sync.text(out, "x", 100), out)
+
+    def test_the_output_is_always_a_bounded_string(self):
+        # Every over-long shape: many short items, a first item that fits
+        # alone but not beside its tail, a lone oversized item, a value one
+        # char over the bound.
+        for items in ([f"i{i}" for i in range(50)], ["a" * 18, "b" * 18],
+                      ["z" * 50], ["x" * 10, "y" * 11]):
+            joined = "; ".join(items)
+            out = sync.bound_reason(joined, 20)
+            self.assertIsInstance(out, str)
+            self.assertLessEqual(len(out), 20, out)
+            self.assertTrue(out, out)
+            # The cut is visible: a named tail or an ellipsis, never a bare prefix.
+            self.assertTrue(out.endswith(" more") or "…" in out, out)
+        # A first item that fits alone but not beside „; +1 more" is
+        # shortened visibly and the tail still named — deliberately.
+        self.assertEqual(sync.bound_reason("a" * 18 + "; " + "b" * 18, 20),
+                         "a" * 10 + "…; +1 more")
+        self.assertEqual(sync.bound_reason("z" * 50, 20), "z" * 19 + "…")
+
+    def test_a_bound_too_small_for_any_reason_fails_closed(self):
+        with self.assertRaises(sync.SyncError):
+            sync.bound_reason("x" * 50, 1)
+
+    def test_review_reasons_are_bounded_before_the_validator(self):
+        long = "; ".join(f"p{i}: reason" for i in range(200))
+        with mock.patch.object(
+                sync, "REASON_MAX", 100), mock.patch(
+                "review_routing.record_review", return_value={"party_tones": long}):
+            out = sync.review_reasons(ROOT, {"article_path": "nope"})
+        self.assertLessEqual(len(out["party_tones"]), 100)
+        self.assertIn("+", out["party_tones"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

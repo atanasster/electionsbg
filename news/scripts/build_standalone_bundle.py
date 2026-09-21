@@ -27,6 +27,8 @@ RUNTIME_SCRIPTS = (
     "news/scripts/build_image_rights_queue.py",
     "news/scripts/build_mention_index.py",
     "news/scripts/build_prompts.py",
+    # build_app_data imports it UNGUARDED (the T3.3 case registry).
+    "news/scripts/cases.py",
     "news/scripts/check_staleness.py",
     "news/scripts/commons_rights.py",
     "news/scripts/effective_analysis.py",
@@ -61,6 +63,12 @@ SEED_FILES = (
     "news/config/commons_search_overrides.json",
     "news/config/image_rights_policy.json",
     "news/config/retired_stories.json",
+    # The case registry and the fixtures that EARN each case its auto_attach.
+    # Without the fixtures `verify_fixtures` fails closed on the host and every
+    # case publishes in its review state — correct, but not what a publish
+    # from the bundle is meant to do.
+    "news/config/cases.json",
+    "news/evals/case_fixtures.json",
     "news/data/bg_news_sites.csv",
     "news/data/common_words.json",
     "news/data/entity_link_overrides.json",

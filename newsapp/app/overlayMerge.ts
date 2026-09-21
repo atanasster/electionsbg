@@ -382,6 +382,10 @@ export const storyIndexRow = (story: Payload): Payload => {
     "first_published",
     "last_published",
     "blindspot",
+    // The T3.3 case membership, stamped by `build_app_data` from the case
+    // registry — carried so a list row CAN render or filter on it (today
+    // only `StoryScreen` renders the „Казус" chip).
+    "case_ids",
     // ⚠️ COPIED, NEVER COMPUTED HERE. Prominence decays with the instant it
     // was scored against, so a second implementation in another language
     // would drift the moment either clock or constant moved — and the

@@ -533,8 +533,52 @@ describe("buildRoutes against a corpus", () => {
     }),
   );
 
+  writeFileSync(
+    join(dir, "cases.json"),
+    JSON.stringify({
+      generated_at: "2026-09-22T00:00:00+00:00",
+      version: 1,
+      cases: [
+        {
+          slug: "petrohan",
+          name: { bg: "Казусът „Петрохан“", en: "Petrohan" },
+          membership: "attached",
+          story_count: 12,
+          last_published: "2026-09-21T00:00:00+00:00",
+        },
+        {
+          slug: "under-review",
+          name: { bg: "В преглед", en: "Under review" },
+          membership: "review",
+          story_count: 0,
+        },
+        {
+          slug: "../escape",
+          name: { bg: "x", en: "x" },
+          membership: "attached",
+          story_count: 1,
+        },
+      ],
+    }),
+  );
+
   const routes = buildRoutes(dir);
   const byPath = new Map(routes.map((r) => [r.path, r]));
+
+  it("emits a case route per registered case, submitting only a published timeline", () => {
+    // ⚠️ A case under review is a registry entry with an empty timeline —
+    // prerendered so a link to it has the right head, never submitted.
+    expect(byPath.get("case/petrohan")).toMatchObject({ sitemap: true });
+    expect(byPath.get("case/petrohan")!.title).toContain("Казусът „Петрохан“");
+    expect(byPath.get("case/petrohan")!.description).toContain(
+      "редакционен подбор",
+    );
+    expect(byPath.get("case/under-review")).toMatchObject({ sitemap: false });
+    expect(byPath.get("case/under-review")!.description).toContain("в преглед");
+    // A slug is a URL path: anything outside the registry charset is refused.
+    expect([...byPath.keys()].some((k) => k.includes("escape"))).toBe(false);
+    expect(byPath.has("en/case/petrohan")).toBe(true);
+  });
 
   it("emits an outlet route per outlet", () => {
     expect(byPath.has("outlet/ex.bg")).toBe(true);

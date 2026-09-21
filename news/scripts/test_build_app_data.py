@@ -19,6 +19,7 @@ Run:  python3 news/scripts/test_build_app_data.py
 import gzip
 import inspect
 import copy
+import hashlib
 import json
 import os
 import re
@@ -3690,6 +3691,133 @@ class RetiredStories(BuildAppDataFixture):
                 with self.assertRaises(ValueError) as caught:
                     bad.load_retired_stories(path)
                 self.assertIn(message, str(caught.exception))
+
+
+class Cases(BuildAppDataFixture):
+    """T3.3 — the build attaches cases from the registry, publishes the
+    payloads and the review artifact, and WITHHOLDS auto-attach when the
+    fixtures do not earn it."""
+
+    DOCS = {
+        "case": ("Делото Петрохан", "Прокуратурата по Петрохан продължава. " * 5),
+        "case2": ("Петрохан: нови данни", "Прокуратурата по Петрохан. " * 5),
+        "road": ("Пътна обстановка", "Проходът Петрохан е затворен за камиони. " * 3),
+        "road2": ("Снегопочистване", "По Петрохан има сняг. " * 3),
+    }
+
+    def registry(self, fixtures=True, auto_attach=True, flip=None, absent=None):
+        bi = {"bg": "б", "en": "b"}
+        config = Path(self.root) / "news" / "config"
+        config.mkdir(parents=True, exist_ok=True)
+        (config / "cases.json").write_text(json.dumps({"version": 1, "cases": [{
+            "slug": "petrohan", "name": {"bg": "Петрохан", "en": "Petrohan"},
+            "opened_on": "2026-02-13", "rule_version": 1, "reviewer": "t", "reviewed_on": "2026-09-22",
+            "description": {"bg": "о", "en": "d"},
+            "sources": [{"claim": bi, "url": "https://x/1", "domain": "x", "published": "2026-09-20"}],
+            "contested": [], "namesakes": [], "auto_attach": auto_attach, "ambiguous_match": "review",
+            "overrides": {"include": [], "exclude": []}, "history": [],
+            "rule": {"basis": bi, "required_terms": ["петрохан"], "context_terms": ["прокуратур"],
+                     "excluded_terms": []}}]}, ensure_ascii=False), encoding="utf-8")
+        evals = Path(self.root) / "news" / "evals"
+        evals.mkdir(parents=True, exist_ok=True)
+        rows = []
+        for slug, (title, body) in self.DOCS.items():
+            expected = slug.startswith("case")
+            if slug == flip:
+                expected = not expected
+            rows.append({"article_path": f"news/data/a.bg/{slug if slug != absent else 'gone'}.json",
+                         "url": f"https://a.bg/{slug}", "expected": expected, "why": "w",
+                         "content_sha256": hashlib.sha256(body.encode("utf-8")).hexdigest()})
+        (evals / "case_fixtures.json").write_text(
+            json.dumps({"version": 1, "cases": {"petrohan": rows if fixtures else []}}),
+            encoding="utf-8")
+
+    def seed(self):
+        for slug, (title, body) in self.DOCS.items():
+            art = {"url": f"https://a.bg/{slug}", "domain": "a.bg", "title": title,
+                   "published": "2026-09-20T09:00:00+00:00", "first_seen": "2026-09-20T09:00:00+00:00",
+                   "content": body}
+            self.write_corpus("a.bg", f"{slug}.json", art)
+            self.write_analysis("a.bg", f"{slug}.json", self.analysis_record(
+                art["url"], "a.bg", f"news/data/a.bg/{slug}.json", action="new_story", story_id=None))
+
+    def test_attached_cases_reach_the_stories_the_payload_and_the_review_artifact(self):
+        self.seed(); self.registry()
+        self.run_build()
+        index = self.load("cases.json")
+        self.assertEqual(index["cases"][0]["membership"], "attached")
+        # The index row carries the description: a register that lists names
+        # and counts only says nothing about what the affair is.
+        self.assertEqual(index["cases"][0]["description"]["bg"], "о")
+        payload = self.load("cases/petrohan.json")
+        self.assertEqual(payload["story_count"], 2)
+        self.assertEqual({s["supporting"][0]["url"] for s in payload["timeline"]},
+                         {"https://a.bg/case", "https://a.bg/case2"})
+        stories = self.load("stories.json")["stories"]
+        with_case = {s["members"][0]["url"] for s in stories if s.get("case_ids")}
+        self.assertEqual(with_case, {"https://a.bg/case", "https://a.bg/case2"})
+        self.assertTrue(all(s["case_ids"] == [] for s in stories
+                            if s["members"][0]["url"].endswith(("road", "road2"))))
+        # The index rows carry it too, so a browse could filter on it.
+        rows = self.load("stories/index-1.json")["stories"]
+        self.assertEqual(sum(1 for r in rows if r.get("case_ids")), 2)
+        review = json.loads((Path(self.root) / "news" / "review" / "case_candidates.json").read_text())
+        self.assertEqual(review["counts"]["petrohan"]["matched"], 2)
+
+    def assert_withheld(self, reason):
+        payload = self.load("cases/petrohan.json")
+        self.assertEqual(payload["membership"], "review")
+        self.assertEqual(payload["timeline"], [])
+        self.assertEqual(payload["verification"]["reason"], reason)
+        self.assertTrue(all(s.get("case_ids") == [] for s in self.load("stories.json")["stories"]))
+        # The description still ships: the registry entry is the page.
+        self.assertEqual(payload["description"]["bg"], "о")
+        return payload
+
+    def test_without_fixtures_auto_attach_is_withheld_and_nothing_is_attached(self):
+        # ⚠️ THE MUTATION THIS CATCHES: honouring `auto_attach: true` on the
+        # registry's say-so. Registry authorship is not accuracy.
+        self.seed(); self.registry(fixtures=False)
+        self.run_build()
+        self.assert_withheld("no_fixtures")
+
+    def test_a_misclassified_fixture_withholds_and_names_the_article(self):
+        self.seed(); self.registry(flip="road")   # the road is now claimed as the affair
+        self.run_build()
+        payload = self.assert_withheld("fixtures_failed")
+        self.assertEqual(payload["verification"]["failed"][0]["url"], "https://a.bg/road")
+
+    def test_an_absent_fixture_article_withholds(self):
+        # The standalone host that never saved a fixture article: unverifiable,
+        # so nothing is attached there — by design, and pinned end to end.
+        self.seed(); self.registry(absent="case")
+        self.run_build()
+        payload = self.assert_withheld("fixtures_failed")
+        self.assertEqual(payload["verification"]["failed"][0]["reason"], "article_absent")
+
+    def test_the_registry_saying_no_withholds_even_when_the_fixtures_pass(self):
+        self.seed(); self.registry(auto_attach=False)
+        ensure_fixture_story_membership(self.data_dir)
+        proc = self.run_build_process()
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        payload = self.load("cases/petrohan.json")
+        self.assertEqual(payload["membership"], "review")
+        self.assertTrue(payload["verification"]["ok"])
+        self.assertIn("auto_attach is false", proc.stderr)
+
+    def test_fixtures_are_verified_against_the_corpus_the_build_reads(self):
+        # ⚠️ THE MUTATION THIS CATCHES: resolving fixture paths under the REPO
+        # instead of `--data-dir`. The corpus is moved to a directory that is
+        # NOT <root>/news/data and the repo copy of the articles deleted, so
+        # an attach proves the fixtures were read from the build's corpus.
+        self.seed(); self.registry()
+        ensure_fixture_story_membership(self.data_dir)
+        alt = os.path.join(self.root, "elsewhere")
+        shutil.copytree(self.data_dir, alt)
+        shutil.rmtree(os.path.join(self.data_dir, "a.bg"))
+        proc = self.run_build_process("--data-dir", alt)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertEqual(self.load("cases/petrohan.json")["membership"], "attached")
 
 
 if __name__ == "__main__":
