@@ -453,3 +453,41 @@ T1–T4 is visible there yet.
   political link needs money on the page to hang from.
 - `FOOTPRINT_CAP = 5` refusing Anton Adamov's five name-matched companies at a footprint of 6.
   Needs its own measurement before anything moves.
+
+### 6.1 The same defect class, one layer over — a namesake split strips registry roles
+
+Reported by a peer session while re-cutting the identity ratchets (`3377b2ac08`) and
+**independently verified here 2026-09-21**, because it is the same sentence this plan is about:
+_a page showing nothing is not evidence that there is nothing._
+
+Four name folds crossed `officer_name_counts.company_count` 1 → 2 between the 2026-09-09
+ceiling cut and the 2026-09-16 resolve, splitting each into extra `person` rows:
+
+| fold                         | person rows | tr/ngo roles | registry `people_n` | `tr_officers` rows |
+| ---------------------------- | ----------: | -----------: | ------------------: | -----------------: |
+| `darinka ivanova toteva`     |           2 |        **0** |                   1 |                  2 |
+| `iskren iliyanov medarov`    |           2 |        **0** |            _(none)_ |                  2 |
+| `valentin panayotov velikov` |           2 |        **0** |                   1 |                  2 |
+| `valeri ivanov vasilev`      |           5 |        **0** |                   1 |                  2 |
+
+**All 11 resulting person rows hold ZERO `tr`/`ngo` roles**, so none of those pages shows the
+company whose arrival split it — while `tr_officers` has two rows for each fold.
+
+⚠️ **The mechanism is two guards interacting, and it is worth stating precisely** — the peer's
+summary called the split itself the defect, which is right for three of the four and not for
+the fourth:
+
+- For the three with `people_n = 1`, the Commerce Registry says the fold IS one person. What
+  disqualified them is `BRIDGE_B_CTE`'s **people-uniqueness** guard, which requires the fold to
+  map to exactly ONE row of `person` — and the split had just created two. So the namesake
+  split is what stripped the registry roles.
+- For `iskren iliyanov medarov` the counter has never observed the fold at all, and Bridge B's
+  registry guard is deliberately `EXISTS (… people_n = 1)` rather than `NOT EXISTS (… > 1)`.
+  Its refusal there is **correct by design** — „unmeasured is not evidence of uniqueness" — and
+  would hold whether or not the fold had split.
+
+Out of scope here because it belongs to the person-identity layer, not the 087 consortium
+model, and because widening either guard is exactly the change `bridgeB.ts`'s header says must
+not be made without measurement — it is what stands between a public figure and a stranger's
+companies. Recorded so the next reader of a blank `/person` business section checks this before
+concluding the person holds nothing.
