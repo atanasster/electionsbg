@@ -33,8 +33,13 @@ vi.mock("react-i18next", () => ({
     i18n: { language: "bg" },
   }),
 }));
+// `useScopedHref` is mocked alongside `useScope` because the consortium-participation tile
+// renders AwarderLink, which reads it from this same module — and a partial module mock makes
+// the missing export throw at render time, not at import, so it surfaces as a React error
+// inside whichever test happens to mount the tile.
 vi.mock("@/data/scope/useScope", () => ({
   useScope: () => ({ scope: "all", setScope: () => {} }),
+  useScopedHref: () => (p: string) => p,
 }));
 vi.mock("@/data/ElectionContext", () => ({
   useElectionContext: () => ({ selected: "2026_04_19" }),
@@ -877,5 +882,174 @@ describe("PersonScreen — Връзки reads by evidence, not by topic", () => 
     }
     // h1 (the person) then h2s — no level is skipped.
     expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(4);
+  });
+});
+
+// ── The consortium-MEMBER-ONLY person ────────────────────────────────────────────────────
+//
+// 731 name folds exist in the procurement corpus ONLY as consortium members: migration 087
+// zeroes a joint award's member rows onto a carrier, so `contractCount` is 0 and the whole
+// „Обществени поръчки" section — gated on `contractCount > 0` — used to render nothing at
+// all, for €6.13bn of joint awards.
+//
+// What is pinned here is the SEPARATION. The member-only branch is its own section
+// deliberately, not a relaxed gate, because the solo section's StatCard divides by
+// `contractCount` (→ Infinity) and its tiles read `awarderCount` / `byAwarder` / `byYear` /
+// `breakdown`, NONE of which carry the 087 member exclusion — so for this person they are
+// computed entirely from €0 placeholders (plan §3, invariant 7). Every assertion below is
+// one of those fields NOT reaching the page.
+const memberOnly = () =>
+  payload({
+    procurement: {
+      ...procurement(),
+      // Solo work: none. This is what 087 leaves behind.
+      totalEur: 0,
+      contractCount: 0,
+      // …while these three still count the €0 member rows, which is exactly the trap.
+      awarderCount: 1,
+      byAwarder: [
+        {
+          eik: "000695089",
+          name: "АПИ",
+          totalEur: 0,
+          totalOther: {},
+          contractCount: 2,
+        },
+      ],
+      byYear: [{ year: "2022", totalEur: 0, totalOther: {}, contractCount: 2 }],
+      breakdown: {
+        totalEur: 0,
+        cpvKnownEur: 0,
+        procKnownEur: 0,
+        euEur: 0,
+        euKnownEur: 0,
+        cpvRaw: [{ d: "45", eur: 0, n: 2 }],
+        procRaw: [],
+      },
+      // The participation itself.
+      consortiumEur: 69185496.51,
+      consortiumCount: 2,
+      consortiumAnnexCount: 5,
+      consortiumContracts: [
+        {
+          key: "ae8d824eb32c",
+          date: "2022-10-14",
+          amountEur: 47583414.54,
+          partyEik: "000695089",
+          partyName: "АПИ",
+          title: "ОГРАНИЧИТЕЛНИ СИСТЕМИ ЗА ПЪТИЩА",
+          consortiumEik: "obed-3653b19cc364",
+          consortiumName: "Обединение: три фирми",
+          carrierKey: "obed-abf3a70ed9bb",
+          annexCount: 4,
+          contractorEik: "113581389",
+          contractorName: "МЛГ ЕООД",
+        },
+        {
+          key: "669288540780",
+          date: "2022-10-14",
+          amountEur: 21602081.97,
+          partyEik: "000695089",
+          partyName: "АПИ",
+          title: "ОГРАНИЧИТЕЛНИ СИСТЕМИ ЗА ПЪТИЩА — лот 2",
+          consortiumEik: "obed-3653b19cc364",
+          consortiumName: "Обединение: три фирми",
+          carrierKey: "obed-e577e14118e1",
+          annexCount: 1,
+          contractorEik: "113581389",
+          contractorName: "МЛГ ЕООД",
+        },
+      ],
+    },
+  });
+
+describe("PersonScreen — consortium-member-only", () => {
+  it("renders the participation section INSTEAD of the solo one", async () => {
+    stub(memberOnly());
+    show();
+    await waitFor(() => expect(sectionIds().length).toBeGreaterThan(0));
+    const ids = sectionIds();
+    expect(ids).toContain("person-consortium");
+    // The solo sections must NOT appear: their figures would all be €0 placeholders.
+    expect(ids).not.toContain("person-procurement");
+    expect(ids).not.toContain("person-procurement-profile");
+  });
+
+  it("shows the joint contracts, the carrier annexes and which company held each", async () => {
+    stub(memberOnly());
+    show();
+    await waitFor(() => expect(sectionIds()).toContain("person-consortium"));
+    const t = sectionText("person-consortium").replace(/[\u00a0\u202f]/g, " ");
+    expect(t).toMatch(/Участие в обединения \(2\)/);
+    expect(t).toMatch(/€69,2 млн\./);
+    expect(t).toMatch(/5 анекса по тези договори/);
+    // The carrier's amendments, worded as the CONTRACT being amended.
+    expect(t).toMatch(/договорът е изменян 4 пъти/);
+    // A portfolio spans several firms, so each row names the one that held it.
+    expect(t).toMatch(/чрез\s*МЛГ ЕООД/);
+  });
+
+  it("never prints the solo figures the payload still carries", async () => {
+    stub(memberOnly());
+    show();
+    await waitFor(() => expect(sectionIds()).toContain("person-consortium"));
+    const page = document.body.textContent ?? "";
+    // ⚠️ ON THE i18n KEY, not on the literal „Възложители" — that Bulgarian string appears
+    // in no component this screen imports (the awarders tile is translated, and this
+    // file's `t` mock echoes keys back), so a literal assertion is vacuous and passes on
+    // any implementation. The rule is already documented at the „Топ възложители" test
+    // above; the first draft of this one borrowed the literal from the COMPANY page's live
+    // verification, where that StatCard really is hard-coded.
+    expect(page).not.toContain("company_top_awarders");
+    // The „средно … / договор" line, which divides by contractCount.
+    expect(page).not.toMatch(/\/ договор/);
+    // ⚠️ The „Активен в N сектора" chip reads `breakdown.cpvRaw`, which has NO member
+    // exclusion — the fixture gives it a division precisely so a regression shows. Proven
+    // to discriminate: reverting the gate in PersonScreen.tsx turns this test red.
+    expect(page).not.toMatch(/Активен в \d+ сектор/);
+    // ⚠️ NO `/Infinity|NaN/` assertion: it cannot fire. `formatEur` returns "" for a
+    // non-finite value and `directShare` returns null at `totalEur <= 0`, so the division
+    // this branch exists to avoid is already swallowed before it reaches the DOM. An
+    // assertion that can never fail is worse than none — it reads as coverage.
+  });
+
+  it("shows a mixed person BOTH sections, solo first", async () => {
+    // The mixed case. Participation must not displace real solo work — but it must not be
+    // dropped either: unlike CompanyDbScreen, this screen's solo section carries NO
+    // participation sub-line, so gating the section on `contractCount === 0` left a person
+    // with both kinds of work no surface for the joint half at all. `consortiumEur` was
+    // fetched and never rendered. Order is asserted because the two are different bases,
+    // and the money they actually won comes first.
+    stub(
+      payload({
+        procurement: {
+          ...procurement(),
+          consortiumEur: 1000000,
+          consortiumCount: 1,
+          consortiumContracts: [],
+        },
+      }),
+    );
+    show();
+    await waitFor(() => expect(sectionIds()).toContain("person-consortium"));
+    const ids = sectionIds();
+    expect(ids).toContain("person-procurement");
+    expect(ids.indexOf("person-procurement")).toBeLessThan(
+      ids.indexOf("person-consortium"),
+    );
+    // And the solo headline is untouched — this change cost the mixed population nothing.
+    // „Общо възложени" is a hard-coded literal in PersonScreen.tsx itself (not a translated
+    // child), so unlike „Възложители" it really is on the page and the assertion bites.
+    expect(sectionText("person-procurement")).toContain("Общо възложени");
+    expect(sectionText("person-procurement")).toMatch(/средно .* \/ договор/);
+  });
+
+  it("shows no participation section when there is none", async () => {
+    // Non-vacuity for the two tests above: the section must be driven by the payload rather
+    // than present unconditionally. ~29k solo contractors are in this state.
+    stub(payload());
+    show();
+    await waitFor(() => expect(sectionIds()).toContain("person-procurement"));
+    expect(sectionIds()).not.toContain("person-consortium");
   });
 });

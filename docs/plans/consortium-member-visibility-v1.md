@@ -1,11 +1,12 @@
 # Consortium members are invisible on their own page — v1
 
-**Status:** **T1 APPLIED** to `011_company_api.sql` + `024_person_api.sql` and to LOCAL Postgres
-on 2026-09-21, with its gate (`scripts/db/tests/consortium_member_visibility.data.test.ts`).
-**NOT applied to Cloud SQL** — see T5; prod still returns NULL for all 1,101.
-**T2 + T3 APPLIED** — T2 to the same two SQL files, T3 to the two screens (nothing to apply).
-⚠️ Prod is UNCHANGED: Cloud SQL still returns NULL for all 1,101, so the tile renders nowhere
-there. T4 (component/route gates beyond those already shipped per tier) not started.
+**Status:** **T1–T4 DONE**, 2026-09-21. T1+T2 applied to `011_company_api.sql` +
+`024_person_api.sql` and to LOCAL Postgres; T3 (the screens) and T4 (the gates) need no apply.
+Gates: `scripts/db/tests/consortium_member_visibility.data.test.ts` (21),
+`ConsortiumParticipationTile.test.tsx` (11), `db_routes.consortium_annex.test.js` (16),
+`useContract.test.ts` (4), `PersonScreen.test.tsx` (+5).
+⚠️ **Prod is UNCHANGED** — Cloud SQL still returns NULL for all 1,101, so none of this is
+visible there. **T5 is the only tier left**, and until it runs nothing a reader sees has moved.
 **Measured:** 2026-09-21 against local Postgres `postgres://postgres@127.0.0.1:5433/electionsbg`
 (contracts 411,713 rows).
 **Trigger:** a reader compared `/company/113581389` (МЛГ ЕООД) against a competitor tool that
@@ -129,9 +130,16 @@ These are the reason this is a rendering change and not a corpus change.
 2. **`consortiumEur` is NEVER added to `totalEur`.** The per-member share is not public; the
    full contract value is shown as _participation_, under its own label, and the existing
    tooltip already says so. Summing them would re-create the triple count 087 exists to prevent.
-3. **`company_public_money` (127) gains no row.** Member-only firms must stay out of it, or the
-   `/connections` graph, the governance "фирми, регистрирани тук" ranking and `tr_company_place.money_eur`
-   all inherit a double count.
+3. **`company_public_money` (127) gains no ЗОП CONTRIBUTION.** ⚠️ Not „gains no row" — an
+   earlier draft of this invariant said that and it is false. 127 is the BROAD basis
+   (ЗОП ∪ agri ∪ ИСУН ∪ Interreg), so a firm that won nothing on its own in procurement can
+   legitimately hold farm subsidies or EU money: measured 2026-09-21, **101 of the 1,172
+   member-only companies have a row, 3 above €1m and the largest at €130.9m**, all from the
+   other three arms. What must never enter is the joint contract value — that basis is reused
+   by the `/connections` graph, the governance „фирми, регистрирани тук" ranking and
+   `tr_company_place.money_eur`, so a joint award reaching it is counted once per member, in
+   places far from the page that caused it. Pinned by two assertions in T4 (the ЗОП
+   contribution, and 127's own member filter read from `pg_get_viewdef`).
 4. **`contractor_rank` (122) / `contractor_search` are untouched.** МЛГ is already in both (6 and
    1 rows) at €0, correctly — it is findable; only its page is blank.
 5. **`contract_count` keeps its member exclusion** everywhere it is a count. The fix is a new
@@ -215,13 +223,20 @@ such a regex still matched nothing. The buffer ceiling is the only thing that di
 ### T3 — UI: a member-side participation block ✅ DONE
 
 `src/screens/components/procurement/ConsortiumParticipationTile.tsx`, shared by
-`CompanyDbScreen` and `PersonScreen`, rendered in its own branch gated on
-`contractCount === 0 && consortiumCount > 0`.
+`CompanyDbScreen` and `PersonScreen` — and **the two gate it differently, deliberately**:
+
+| screen            | gate                                         | why                                                                                                                                                                                                                                                                                             |
+| ----------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CompanyDbScreen` | `contractCount === 0 && consortiumCount > 0` | its solo section already carries a `consortiumCount` sub-line, so a MIXED company is served there and nothing moved for the 2,063 of them.                                                                                                                                                      |
+| `PersonScreen`    | `consortiumCount > 0` **alone**              | that screen has **no** such sub-line, so the narrower gate left a person with BOTH solo and joint work no surface for the joint half at all — `consortiumEur` fetched and never rendered. Both sections appear, **solo first**, because for a mixed person that is the money they actually won. |
+
+⚠️ An earlier draft of this section, and of the code comment, said the mixed PERSON „falls
+through to the participation sub-line". That is true of the company page only, and the
+asymmetry above is the fix.
 
 **Its own branch, NOT a relaxed `contractCount > 0` gate** — that section's `StatCard`
 divides by `contractCount` (→ `Infinity`) and its tiles read the solo fields invariant 7
-names. A company with BOTH solo and joint work falls through to the existing section and its
-`consortiumCount` sub-line, so **nothing moved for the 2,063 mixed companies**.
+names.
 
 What the tile shows: the heading „Участие в обединения (N)" — never „Обществени поръчки" —
 the joint total, the carrier annex count, and each contract with buyer, date, value, the
@@ -280,29 +295,60 @@ parliament window, so **a reader landing on the page must widen to see any of th
 `/person/ГЕОРГИ ГЕОРГИЕВ МАНОЛОВ?pscope=all` renders 3 contracts / €76 млн. / 7 анекса with
 „чрез МЛГ ЕООД".
 
-### T4 — Gates
+### T4 — Gates ✅ DONE
 
-`scripts/db/tests/consortium_member_visibility.data.test.ts` — **items 1–4 and 6 landed with
-T1** (7 tests, green); T4 adds the rest:
+**`scripts/db/tests/consortium_member_visibility.data.test.ts` — 21 tests.** Items 1–4, 6 and
+7 landed with T1, the annex arm with T2; T4 added the money-basis invariants (§3 items 3–4):
 
-1. `company_procurement('113581389')` is NOT NULL, and its `consortiumEur` equals
-   `SUM(consortium_full_eur)` over that EIK's member rows.
-2. `totalEur` is still **0** for it — the mutation check that the fix did not become a money
-   change. This is the assertion that matters most; everything else is cosmetic beside it.
-3. Corpus-wide: **no** company with `own_rows = 0 AND member_rows > 0` returns NULL. Fails at
-   1,101 today.
-4. `person_procurement('ГЕОРГИ ГЕОРГИЕВ МАНОЛОВ')` is NOT NULL.
-5. `company_public_money` still has no row for 113581389 — invariant 3, pinned.
-6. A mutation check on the guard itself: with `AND conshd.consortium_count = 0` removed in a
-   rolled-back transaction, test 3 must go red. Otherwise test 3 is satisfied by an
-   implementation that never applied the fix.
+- no member-only company contributes a non-zero **ЗОП** amount to `company_public_money`;
+- the reference company is absent or €0 in `company_public_money`, `contractor_rank` AND
+  `tr_company_place` — per-basis, because three different loaders reach them and one gaining
+  the value would be invisible in a count;
+- `company_public_money`'s ЗОП arm still carries `consortium_role IS DISTINCT FROM 'member'`,
+  read from `pg_get_viewdef` (the SERVING definition, since 127 is DROPped and rebuilt by a
+  loader and a database can lag the file).
 
-7. A static check that 011 and 024 carry the **identical** guard text — they are one rule in two
-   files with two different appliers, and nothing else stops them diverging. (Landed with T1.)
+⚠️ **„has no `company_public_money` row" is the WRONG assertion and the first draft made it.**
+127 is the BROAD basis — ЗОП ∪ agri ∪ ИСУН ∪ Interreg — so a firm that won nothing on its own
+in procurement can legitimately hold farm subsidies or EU money. Measured: **101 of the 1,172
+have a row, 3 above €1m and the largest at €130.9m**, all from the other three arms. The
+zero-rows form failed on exactly those and would have read as a leak.
 
-Component tests (T4 proper): `CompanyDbScreen` renders the participation block, renders NO
-„средно" line at `contractCount = 0`, and renders none of the solo tiles named in invariant 7.
-There is currently **no `CompanyDbScreen` component test at all**, so this is the first.
+⚠️ **And be honest about what the corpus assertion can see.** It tests the CORPUS property
+(a member-only firm has no non-member contract money), not 127's filter — 087 already zeroes
+those rows, so dropping the filter would still sum to 0 and the test would stay green. That is
+why the third assertion exists. An earlier comment claimed `graph.data.test.ts` covered it; it
+does not, and pointing at a test that has no such check is worse than having none.
+
+**`src/screens/dev/PersonScreen.test.tsx` — 5 new tests**, on the existing harness: the
+member-only person renders `person-consortium` and NOT `person-procurement` /
+`person-procurement-profile`; the joint contracts, carrier annexes and „чрез <firm>" all
+appear; none of the solo figures the payload still carries reach the page; a MIXED person gets
+BOTH sections with solo first and its headline untouched; and a solo-only person gets no
+participation section at all (the non-vacuity arm — ~29k contractors are in that state).
+Mutation-proven: reverting the CPV-chip gate turns the third red.
+
+⚠️ Two assertions in the first draft of that third test were **vacuous** and were replaced.
+`not.toMatch(/Възложители/)` tests a Bulgarian literal that appears in no component this
+screen imports — the awarders tile is translated and the file's `t` mock echoes KEYS, a rule
+the file already documents elsewhere — so it passed on any implementation; it now asserts
+`company_top_awarders`. And `not.toMatch(/Infinity|NaN/)` cannot fire at all: `formatEur`
+returns `""` for a non-finite value and `directShare` returns null at `totalEur <= 0`, so the
+division is swallowed before the DOM. It is gone, with a comment saying why — an assertion
+that can never fail reads as coverage and is worse than none.
+
+⚠️ That file's `@/data/scope/useScope` mock had to gain `useScopedHref` — the tile renders
+`AwarderLink`, and a partial module mock throws at RENDER time rather than at import, so it
+surfaces as a React error inside whichever test happens to mount the tile.
+
+**`ConsortiumParticipationTile.test.tsx` — 11 tests** (shipped with T3) and
+**`useContract.test.ts` — 4** (the `obed-` key guard).
+
+⚠️ **Still open: there is no `CompanyDbScreen` component test.** The screen-level branch is
+covered on the PERSON side only, plus the shared tile in isolation and a live browser check
+of the company page. That screen has no test file at all and building its harness (~30
+payload fields and several react-query hooks) is its own piece of work, so it is named here
+rather than silently skipped.
 
 ### T5 — Deploy
 

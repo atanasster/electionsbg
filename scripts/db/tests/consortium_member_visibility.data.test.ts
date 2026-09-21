@@ -84,6 +84,12 @@ const skipAnnex = skip
   : !annexRows
     ? "procurement_annexes is empty — run db:load:annexes:pg (its input is the gitignored ЦАИС annex cache)"
     : false;
+// The whole point of `report_skip` is that a hand-written reason is not thrown away, and the
+// SECOND reason is the one a fresh clone actually hits — `skip` above is about Postgres being
+// reachable, which CI reports already. Announced separately so „7 tests stood down" carries
+// its own sentence instead of being silent. Only when it differs from `skip`, or the same
+// line prints twice.
+if (skipAnnex && skipAnnex !== skip) reportSkip(import.meta.url, skipAnnex);
 
 /**
  * Walk a payload's `consortiumContracts` and check every row's carrier INDEPENDENTLY of the
@@ -190,8 +196,12 @@ test.skipIf(skip)("a member-only company is served, not NULLed", async () => {
   );
   assert.equal(
     r?.conslist,
-    r?.consortium_count,
-    "consortiumContracts and consortiumCount disagree about how many joint contracts there are",
+    Math.min(Number(r?.consortium_count), 25),
+    // The LIMIT-25 allowance its two siblings carry. Without it a larger reference company
+    // would fail here blaming a payload bug that does not exist — `conslist` is capped by
+    // design and `consortiumCount` is not.
+    "consortiumContracts and consortiumCount disagree about how many joint contracts there " +
+      "are (allowing conslist's LIMIT 25)",
   );
 });
 
@@ -792,10 +802,15 @@ test.skipIf(skip)(
   "person_procurement stays cheap on the busiest real fold",
   async () => {
     // 011 has a ceiling; `/person/{slug}` is the family walked hardest by crawlers under the
-    // 10 s statement_timeout, so 024 needs one too. Measured 2026-09-21 on Огнян Иванов
-    // Донев (83 joint contracts): 9,009 buffers with a temp spill, of which T2's annex
-    // subquery is ~226 (2.6%) — stripping it measures 8,783 with an IDENTICAL spill, so the
-    // spill is `base AS MATERIALIZED` over the portfolio and predates this change.
+    // 10 s statement_timeout, so 024 needs one too. Measured 2026-09-21 at ~9,000 buffers
+    // with a temp spill, of which T2's annex subquery is ~226 (2.6%) — stripping it measures
+    // 8,783 with an IDENTICAL spill, so the spill is `base AS MATERIALIZED` over the
+    // portfolio and predates this change.
+    //
+    // ⚠️ The SUBJECT is whatever the query picks, not a named person. Огнян Иванов Донев and
+    // Ангел Йорданов Йорданов are tied at 166 member rows, so the alphabetical tiebreak can
+    // swap between them on any re-ingest; both measure ~9k, and naming one in the comment
+    // would make it look as though the figure had moved when only the tie had.
     //
     // ⚠️ Deliberately NOT the busiest fold overall. That is „Заличено обстоятелство." — the
     // register's deleted-fact placeholder, which pools thousands of unrelated companies and
@@ -889,5 +904,123 @@ test.skipIf(skip)(
     // inner plan at all — verified by disabling every index scan, which took the call to
     // 9.08M buffers and 13.8 s while the regex still found nothing to match. The buffer
     // ceiling above is what actually discriminates.
+  },
+);
+
+// ── The invariants that make this a RENDERING change and not a corpus change ──────────────
+//
+// Plan §3 items 3 and 4. Serving a member-only entity must not put its joint euros into any
+// reusable money basis: those feed the /connections graph, the governance „фирми,
+// регистрирани тук" ranking, `tr_company_place.money_eur` and every contractor leaderboard,
+// and a joint award reaching them would be counted once per member — for the reference
+// company, three times, in places far from the page that caused it.
+
+test.skipIf(skip)(
+  "no member-only company's money basis carries a ЗОП contribution",
+  async () => {
+    // ⚠️ THE ASSERTION IS NOT „has no row". `company_public_money` (127) is the BROAD basis —
+    // ЗОП ∪ agri ∪ ИСУН ∪ Interreg — so a firm that won nothing on its own in procurement can
+    // legitimately hold farm subsidies or EU-funds money. Measured 2026-09-21: 101 of the
+    // 1,172 member-only companies have a row, 3 of them above €1m and the largest at
+    // €130.9m, all of it from the other three arms. An earlier draft of this gate asserted
+    // zero rows and failed on exactly those 101, which would have read as a leak.
+    //
+    // What must be zero is the ЗОП contribution, re-derived from `contracts`.
+    //
+    // ⚠️ Be honest about what this can and cannot see. It asserts the CORPUS property — a
+    // member-only firm has no non-member contract money — and NOT 127's own
+    // `consortium_role IS DISTINCT FROM 'member'` filter, which is belt-and-braces: 087
+    // already zeroes those rows, so dropping 127's exclusion would still sum to 0 and this
+    // would stay green. That filter gets its own assertion in the next test. What THIS
+    // catches is the change that would do the damage — moving `consortium_full_eur` onto
+    // the member row, or un-zeroing it.
+    const [r] = await allRows<{ total: string; leaked: string }>(
+      `WITH per AS (
+         SELECT contractor_eik,
+                count(*) FILTER (WHERE tag = 'contract'
+                                   AND consortium_role IS DISTINCT FROM 'member') AS own_rows,
+                count(*) FILTER (WHERE consortium_role = 'member')                AS mem
+           FROM contracts WHERE contractor_eik NOT LIKE 'obed-%' GROUP BY 1)
+       SELECT count(*) AS total,
+              count(*) FILTER (WHERE (
+                SELECT COALESCE(sum(c.amount_eur), 0) FROM contracts c
+                 WHERE c.contractor_eik = p.contractor_eik
+                   AND c.tag = 'contract'
+                   AND c.consortium_role IS DISTINCT FROM 'member') <> 0) AS leaked
+         FROM per p WHERE own_rows = 0 AND mem > 0`,
+    );
+    assert.ok(
+      Number(r?.total ?? 0) > 0,
+      "no member-only companies — the assertion below is vacuous",
+    );
+    assert.equal(
+      Number(r?.leaked),
+      0,
+      `${r?.leaked} of ${r?.total} member-only companies contribute a non-zero ЗОП amount to ` +
+        "company_public_money — the joint value has entered the broad money basis, which " +
+        "sums it once per member across /connections, the governance place ranking and " +
+        "tr_company_place",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the reference company is absent or €0 in every reusable money basis",
+  async () => {
+    // Per-basis rather than only the aggregate above, because these are reached by three
+    // different loaders and one of them gaining the value would be invisible in a count.
+    // Measured 2026-09-21: `company_public_money` has NO row for this EIK (it has no agri,
+    // ИСУН or Interreg money either), and its `contractor_rank` rows are all €0.
+    const [r] = await allRows<{
+      public_money: string | null;
+      rank_eur: string | null;
+      place_eur: string | null;
+    }>(
+      `SELECT (SELECT public_money_eur FROM company_public_money WHERE eik = $1) AS public_money,
+              (SELECT max(total_eur) FROM contractor_rank WHERE eik = $1)         AS rank_eur,
+              (SELECT max(money_eur) FROM tr_company_place WHERE uic = $1)        AS place_eur`,
+      [MEMBER_ONLY_EIK],
+    );
+    // NULL (no row) and 0 are both acceptable — what must never appear is the joint value.
+    for (const [what, v] of [
+      ["company_public_money.public_money_eur", r?.public_money],
+      ["contractor_rank.total_eur", r?.rank_eur],
+      ["tr_company_place.money_eur", r?.place_eur],
+    ] as const) {
+      assert.ok(
+        v === null || v === undefined || Number(v) === 0,
+        `${what} is ${v} for ${MEMBER_ONLY_EIK} — it should be absent or €0; the joint ` +
+          "€69,185,496.51 has leaked into a basis that sums across members",
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "company_public_money's ЗОП arm still excludes member rows",
+  async () => {
+    // The belt the test above cannot see. 087 zeroing the member rows is what makes the
+    // corpus assertion hold; this filter is what would keep 127 correct if the zeroing ever
+    // changed — and the two together are why the joint value cannot reach the broad money
+    // basis that /connections, the governance place ranking and tr_company_place all read.
+    //
+    // Read from `pg_get_viewdef` rather than the source file: what matters is the definition
+    // the SERVING database is running, and this matview is DROPped and rebuilt by
+    // db:load:graph:pg, so a database can lag the file.
+    const [r] = await allRows<{ def: string }>(
+      "SELECT pg_get_viewdef('company_public_money'::regclass, true) AS def",
+    );
+    const def = r?.def ?? "";
+    assert.ok(
+      def.length > 0,
+      "company_public_money has no definition — is 127 applied?",
+    );
+    assert.match(
+      def,
+      /consortium_role IS DISTINCT FROM 'member'/,
+      "company_public_money's ЗОП arm no longer excludes consortium members. It is harmless " +
+        "only while 087 zeroes them; together with an un-zeroed member row it would count " +
+        "each joint award once per member in the one basis every money surface reuses.",
+    );
   },
 );

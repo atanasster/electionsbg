@@ -790,38 +790,6 @@ export const PersonScreen: FC = () => {
           {/* ОБЩЕСТВЕНИ ПОРЪЧКИ — the headline and the biggest contracts. The whole
               section is gated on there being procurement at all, so the heading can
               never render above nothing. */}
-          {/* THE MEMBER-ONLY BRANCH — the person whose companies won nothing on their own
-              and are all consortium members. 731 name folds are in that state, party to
-              €6.13bn of joint awards, and their pages rendered no procurement at all.
-              Deliberately its OWN section rather than a relaxation of the gate below: that
-              one's StatCards divide by `contractCount` and its tiles read `awarderCount` /
-              `byAwarder` / `byYear` / `breakdown`, none of which carry the 087 member
-              exclusion — so here they would be computed entirely from €0 placeholders
-              (plan §3, invariant 7). A person with BOTH solo and joint work falls through
-              to the section below, which already carries the participation sub-line. */}
-          {procurement &&
-            procurement.contractCount === 0 &&
-            (procurement.consortiumCount ?? 0) > 0 && (
-              <DashboardSection
-                id="person-consortium"
-                title="Участие в обединения"
-                icon={Building2}
-                headingLevel={2}
-              >
-                <p className="text-xs text-muted-foreground">
-                  Сумарно за всички фирми, в които лицето е (или е било)
-                  вписано.
-                </p>
-                <ConsortiumParticipationTile
-                  count={procurement.consortiumCount ?? 0}
-                  eur={procurement.consortiumEur ?? 0}
-                  annexCount={procurement.consortiumAnnexCount}
-                  contracts={procurement.consortiumContracts}
-                  showContractor
-                  lang={i18n.language}
-                />
-              </DashboardSection>
-            )}
 
           {rollup && rollup.contractCount > 0 && (
             <DashboardSection
@@ -921,6 +889,45 @@ export const PersonScreen: FC = () => {
                 partyHref={(e) => `/company/${e}`}
                 contractorHref={(e) => `/company/${e}`}
                 seeAllHref={`/person/${encodeURIComponent(person)}/contracts`}
+              />
+            </DashboardSection>
+          )}
+
+          {/* УЧАСТИЕ В ОБЕДИНЕНИЯ — the joint work, on a DIFFERENT basis from the section
+              above and therefore its own section rather than a tile inside it. `totalEur`
+              there is the portfolio's SOLO money (087 zeroes a joint award's member rows
+              onto its carrier); `consortiumEur` here is the FULL value of contracts the
+              companies merely took part in, and the per-member share is not public. They
+              must never be added, and adjacent headings are how a reader sees that.
+              Section ORDER is deliberate: solo first, because for a mixed person that is
+              the money they actually won.
+
+              ⚠️ GATED ON `consortiumCount` ALONE — not on `contractCount === 0`. Unlike
+              CompanyDbScreen, this screen's solo section carries NO participation sub-line,
+              so the narrower gate left a person with BOTH solo and joint work no surface
+              for the joint half at all: `consortiumEur` was fetched and never rendered.
+              This is also why the section is NOT a relaxation of that gate — its StatCards
+              divide by `contractCount` and its tiles read `awarderCount` / `byAwarder` /
+              `byYear` / `breakdown`, none of which carry the 087 member exclusion, so on a
+              member-only portfolio they would all be computed from €0 placeholders
+              (plan §3, invariant 7). */}
+          {procurement && (procurement.consortiumCount ?? 0) > 0 && (
+            <DashboardSection
+              id="person-consortium"
+              title="Участие в обединения"
+              icon={Building2}
+              headingLevel={2}
+            >
+              <p className="text-xs text-muted-foreground">
+                Сумарно за всички фирми, в които лицето е (или е било) вписано.
+              </p>
+              <ConsortiumParticipationTile
+                count={procurement.consortiumCount ?? 0}
+                eur={procurement.consortiumEur ?? 0}
+                annexCount={procurement.consortiumAnnexCount}
+                contracts={procurement.consortiumContracts}
+                showContractor
+                lang={i18n.language}
               />
             </DashboardSection>
           )}
