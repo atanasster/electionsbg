@@ -50,6 +50,15 @@ export const HUB_ROUTES: PrerenderRoute[] = [
       "Compare how Bulgarian media cover the same story: political framing, stance toward Russia, signals of AI-generated content, sources, and topics.",
   },
   {
+    path: "stories",
+    title: "Архив — всички истории по отразяване | Наясно Новини",
+    description:
+      "Целият корпус от истории, подреден по това колко издания са отразили едно събитие, с филтри по тема, период и източник.",
+    titleEn: "Archive — every story by coverage | Naiasno News",
+    descriptionEn:
+      "The whole story corpus, ordered by how many outlets covered one event, filterable by topic, period and source.",
+  },
+  {
     path: "outlets",
     title: "Източници — българските медии в корпуса | Наясно Новини",
     description:

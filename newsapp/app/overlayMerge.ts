@@ -169,6 +169,43 @@ export const storyRowKey = (row: Payload): string =>
 export const compareStoryRows = (a: Payload, b: Payload): number =>
   compareDesc(storyKey(a), storyKey(b));
 
+const prominenceScore = (row: Payload): number => {
+  const block = row.prominence;
+  const score =
+    block && typeof block === "object"
+      ? (block as { score?: unknown }).score
+      : undefined;
+  return typeof score === "number" && Number.isFinite(score) ? score : 0;
+};
+
+/**
+ * The `ranked-N` order: `score DESC, last_published DESC, id ASC`.
+ *
+ * ⚠️ A TWIN OF `merge_story_index`'s prominence sort in overlay_merge.py,
+ * and of the three stable passes in `build_app_data.write_story_pages`. A
+ * row with no `prominence` block scores 0 — the same default the publisher
+ * uses — so it sorts last, after every scored row, rather than throwing
+ * the browse for a row an older overlay projected without the field.
+ *
+ * ⚠️ THE SCORES ARE THE ROWS' OWN, never recomputed here. Prominence decays
+ * with the instant it was scored against and the client cannot re-score
+ * the corpus; a merged ranked prefix is therefore `stale_ranking` in the
+ * publisher's sense, and the screen says so rather than hiding it.
+ */
+export const compareRankedRows = (a: Payload, b: Payload): number => {
+  const sa = prominenceScore(a);
+  const sb = prominenceScore(b);
+  if (sa !== sb) return sb - sa;
+  const [da, ia] = storyKey(a);
+  const [db, ib] = storyKey(b);
+  if (da !== db) return da < db ? 1 : -1;
+  // ⚠️ id ASCENDING — the opposite of the `latest` tiebreak. The publisher's
+  // three stable passes sort ids ascending first; `story_sort_key` under
+  // `reverse=True` sorts them descending. Two stories tied on score and
+  // date would otherwise swap places between the page and a merged prefix.
+  return ia < ib ? -1 : ia > ib ? 1 : 0;
+};
+
 /** `base` with `incoming` applied by `key`, and `removed` keys dropped. */
 export const upsert = (
   base: Payload[],
@@ -381,13 +418,18 @@ export const mergeStoryIndexRows = (
   rows: Payload[],
   overlay: NewsOverlay,
   include: (story: Payload) => boolean = () => true,
+  // ⚠️ THE ORDER IS THE CALLER'S, because the same prefix merge serves both
+  // orderings: `index-N` sorts by publication, `ranked-N` by prominence, and
+  // a merged prefix re-sorted by the wrong key would put a hot story at the
+  // top of a ranked list on the strength of its date alone.
+  compare: (a: Payload, b: Payload) => number = compareStoryRows,
 ): Payload[] =>
   upsert(
     rows,
     overlayStories(overlay).filter(include).map(storyIndexRow),
     idOf,
     overlay.removed_story_ids,
-  ).sort((a, b) => compareDesc(storyKey(a), storyKey(b)));
+  ).sort(compare);
 
 /**
  * ⚠️ THE ONE STORY-ID CHARSET ON THIS SIDE. A story id reaches a URL PATH,

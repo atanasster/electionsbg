@@ -520,6 +520,27 @@ describe("the briefing says what it is a selection of", () => {
     expect(await screen.findByText(/Показваме 1 от 139/)).toBeVisible();
   });
 
+  it("links the other N to the browse, carrying the same topic and window", async () => {
+    // ⚠️ THE OTHER HALF OF R1. Naming both numbers is honest only while the
+    // page offers a route to the larger one; and the link must carry the
+    // SAME filter, or the count a reader clicked is not the count they get.
+    await renderHome(
+      home(
+        [story("s1", "2026-08-31T06:00:00Z", "elections")],
+        [homeArticle("a1", "s1")],
+      ),
+      stats,
+      [category("elections")],
+      "/?category=elections&days=1",
+      Array.from({ length: 139 }, () => ["elections"]),
+    );
+    expect(await screen.findByText(/Показваме 1 от 139/)).toBeVisible();
+    expect(screen.getByRole("link", { name: "Вижте всички" })).toHaveAttribute(
+      "href",
+      "/stories?category=elections&days=1",
+    );
+  });
+
   it("does not count the corpus against a search it cannot see", async () => {
     // ⚠️ The index carries no titles, so „1 от 139" beside a search term
     // would be counting 139 stories that do not match it.

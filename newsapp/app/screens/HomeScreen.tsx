@@ -2,6 +2,7 @@
 // search), blindspot rail, story cards, and the latest-articles wire beneath.
 
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -26,6 +27,7 @@ import { HomeFilterControls } from "../components/HomeFilterControls";
 import { buildHomeHierarchy } from "../homeHierarchy";
 import { defaultHomeDays, filterHomeStories } from "../homeFilters";
 import { useUrlHomeFilters } from "../useUrlHomeFilters";
+import { browseHref } from "../storyBrowse";
 import { useNewsLocale } from "../i18n";
 import {
   buildBriefingSections,
@@ -505,7 +507,19 @@ export const HomeScreen = () => {
             {tr(
               `Показваме ${briefing.visibleCount} от ${stories(corpus.result.ids.length, language)} за този филтър.`,
               `Showing ${briefing.visibleCount} of ${stories(corpus.result.ids.length, language)} matching this filter.`,
-            )}
+            )}{" "}
+            {/* ⚠️ THE ROUTE TO THE OTHER N. Naming both numbers was half of
+                R1; the link carries the SAME topic and window, so the count
+                a reader clicks is the count the browse then shows. It
+                deliberately carries no `q`: this line is suppressed while a
+                search is active, and the browse's search sees only hydrated
+                titles, so a forwarded term would arrive as „0 · търсено в 0". */}
+            <Link
+              to={browseHref({ category, days })}
+              className="font-medium text-primary underline underline-offset-4"
+            >
+              {tr("Вижте всички", "See all")}
+            </Link>
           </p>
         ) : null}
       </section>

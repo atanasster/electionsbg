@@ -298,3 +298,172 @@ describe("the caption", () => {
     expect(total(null, { baseTotal: null })).toBe(1);
   });
 });
+
+describe("the ranked ordering", () => {
+  const prominence = (score: number) => ({
+    version: 1,
+    score,
+    outlets: 1,
+    articles: 1,
+    arriving: 0,
+    age_hours: 0,
+    publication_time_known: true,
+  });
+  const ranked = (id: string, lastPublished: string, score: number) =>
+    row(id, lastPublished, { prominence: prominence(score) });
+  const rankedStory = (id: string, lastPublished: string, score: number) => {
+    const base = story(id, lastPublished);
+    return {
+      story: { ...base.story, prominence: prominence(score) },
+    };
+  };
+  const rankedIds = (
+    revealed: StoryIndexRow[],
+    overlay: NewsOverlay | null,
+    hasMore = true,
+  ) =>
+    storyListView({
+      revealed,
+      overlay,
+      baseTotal: 200,
+      hasMore,
+      sort: "ranked",
+    }).stories.map((item) => item.id);
+
+  it("orders by score, then newest, then id — the publisher's ranked key", () => {
+    expect(
+      rankedIds(
+        [
+          ranked("old-high", "2026-09-01T00:00:00Z", 3),
+          ranked("new-low", "2026-09-03T00:00:00Z", 1),
+          ranked("b-tie", "2026-09-02T00:00:00Z", 2),
+          ranked("a-tie", "2026-09-02T00:00:00Z", 2),
+        ],
+        null,
+      ),
+    ).toEqual(["old-high", "a-tie", "b-tie", "new-low"]);
+  });
+
+  it("does NOT sort a ranked prefix by date", () => {
+    // ⚠️ THE MUTATION THIS CATCHES: `storyListView` ignoring `sort` and
+    // falling back to the publication order — a ranked list whose top is
+    // whatever published last, which is exactly what T1.2 replaced.
+    expect(
+      rankedIds(
+        [
+          ranked("newest-weak", "2026-09-03T00:00:00Z", 0.5),
+          ranked("older-strong", "2026-09-01T00:00:00Z", 4),
+        ],
+        null,
+      ),
+    ).toEqual(["older-strong", "newest-weak"]);
+  });
+
+  it("confines an overlay story by SCORE, not by date", () => {
+    // A fresh story with a low score belongs below a ranked prefix that ends
+    // at score 2 — even though it is newer than everything revealed. A
+    // date boundary would inject it at the bottom, ahead of the hundreds of
+    // better-covered stories on the pages between.
+    expect(
+      rankedIds(
+        [
+          ranked("top", "2026-09-01T00:00:00Z", 5),
+          ranked("edge", "2026-09-01T00:00:00Z", 2),
+        ],
+        overlayWith({
+          story_details: {
+            fresh: rankedStory("fresh", "2026-09-03T00:00:00Z", 0.4),
+          },
+        }),
+      ),
+    ).toEqual(["top", "edge"]);
+  });
+
+  it("injects an overlay story that out-scores the prefix's edge", () => {
+    expect(
+      rankedIds(
+        [
+          ranked("top", "2026-09-01T00:00:00Z", 5),
+          ranked("edge", "2026-09-01T00:00:00Z", 2),
+        ],
+        overlayWith({
+          story_details: {
+            hot: rankedStory("hot", "2026-09-03T00:00:00Z", 3),
+          },
+        }),
+      ),
+    ).toEqual(["top", "hot", "edge"]);
+  });
+
+  it("injects a low-scoring story once every page is loaded", () => {
+    expect(
+      rankedIds(
+        [ranked("top", "2026-09-01T00:00:00Z", 5)],
+        overlayWith({
+          story_details: {
+            weak: rankedStory("weak", "2026-09-03T00:00:00Z", 0.1),
+          },
+        }),
+        false,
+      ),
+    ).toEqual(["top", "weak"]);
+  });
+
+  it("sorts a row with no prominence block last, never throws on it", () => {
+    expect(
+      rankedIds(
+        [
+          row("unscored", "2026-09-03T00:00:00Z"),
+          ranked("scored", "2026-09-01T00:00:00Z", 0.2),
+        ],
+        null,
+      ),
+    ).toEqual(["scored", "unscored"]);
+  });
+});
+
+describe("whether the overlay changed the prefix", () => {
+  const merged = (
+    revealed: StoryIndexRow[],
+    overlay: NewsOverlay | null,
+    hasMore = true,
+  ) => storyListView({ revealed, overlay, baseTotal: 200, hasMore }).merged;
+
+  it("is false with no overlay, and false when the overlay only touched a revealed story", () => {
+    // ⚠️ A ranked list says „newer stories were added without re-ranking"
+    // on the strength of this — so a touch that added nothing must not
+    // trigger it.
+    const rows = [row("a", "2026-09-01T00:00:00Z")];
+    expect(merged(rows, null)).toBe(false);
+    expect(
+      merged(
+        rows,
+        overlayWith({
+          story_details: { a: story("a", "2026-09-01T00:00:00Z") },
+        }),
+      ),
+    ).toBe(false);
+  });
+
+  it("is true when a story was added inside the prefix or removed from it", () => {
+    const rows = [row("a", "2026-09-01T00:00:00Z")];
+    expect(
+      merged(
+        rows,
+        overlayWith({
+          story_details: { b: story("b", "2026-09-02T00:00:00Z") },
+        }),
+      ),
+    ).toBe(true);
+    expect(merged(rows, overlayWith({ removed_story_ids: ["a"] }))).toBe(true);
+    // Below the prefix is not inside it.
+    expect(
+      merged(
+        rows,
+        overlayWith({
+          story_details: { buried: story("buried", "2020-01-01T00:00:00Z") },
+        }),
+      ),
+    ).toBe(false);
+  });
+});

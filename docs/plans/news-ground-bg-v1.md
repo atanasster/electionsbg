@@ -84,19 +84,20 @@ code, its gate and its mutation check are committed — not when it was designed
 | **T1.2** — prominence | ✅ | `dda2fe5785` | `story_prominence()` (`log2(1+U) + 0.25·log2(1+V)`, 24 h half-life), `PROMINENCE_VERSION`, `ranked-N` pages beside `index-N`, `--as-of`, `stale_ranking`. Prominence is stamped ONCE at assembly and EXCLUDED from overlay change detection — a clock-dependent field in a content-derived payload made every story look changed (3,031 details / 11.0 MB against a 2 MB ceiling). |
 | **T1.3a** — the query contract (data side) | ✅ | `1061a1f0b4` | `stories/filter-index.json` — whole corpus, structured fields only, ~41 KB gz, `QUERY_VERSION`, `facets_basis`, `UNTOPICED_FACET`, 64 KB gz budget enforced at build. Carries NO score, so a hot overlay does not ship 371 KB on a run that published nothing. |
 | **T1.3b** — the query contract (client side) | ✅ | `9215e5405a` | `storyQuery.ts` (`queryStories`, `withinWindow`, `listState`, `browseKey`), `useGlobalStoryQuery`. Facets are counted with their OWN dimension relaxed; `listState` names the five things a list can say. Search is scoped to the briefing and SAYS so (titles in the index measured at 288 KB gz against a 13 KB page). A pending or failed count prints no number rather than a zero. |
+| **T1.3c** — the `/stories` browse (the reader's half of R1) | ✅ | `git log --grep T1.3c` (2026-09-21) | `newsapp/app/screens/StoriesScreen.tsx` over `queryStories` ∩ the `ranked-N` / `index-N` prefix (`storyBrowse.ts`, `useUrlStoryBrowse.ts`); topic · window (incl. „всички") · outlet · sort · `q` are URL state. Snapshot pinning is by COMPONENT, not by a key: the window anchor is pinned per query (`usePinnedInstant`), a sort change starts a new prefix (fetched by the REVEALED sort and refused by page provenance, `PAGE_SORT`), a base publish mid-browse is REPORTED with a refresh (`staleVintage`) and never continued from, an overlay is merged into prefix + match set + counts together (`storyListView.merged` drives the „без ново класиране" note) — `browseKey` stays a pure function for a future cursor. The fill reveals pages until the target is met (ceiling `BROWSE_FILL_ROW_CEILING`), STOPS on a failed page (retry in place, never stepped over), so a story whose only match is on page 2 is reached — the T1.4 fixture, now on the client. `useStoryList` / `storyListView` are sort-aware, with `compareRankedRows` a twin of the publisher's three stable passes, pinned by `rankedParity.data.test.ts` over the real pages. The home „Показваме N от M" line links to it carrying the same topic and window; „Архив" is in the nav. Search is over hydrated titles and SAYS its scope. |
 | **T1.4** — exact reachability gate | ✅ | `c8f2c063ba` | `npm run news:reachability[:gate]`, in `news:release:gate`. Set equality per fixture, not a ratio; N/A ≠ 100%; corpus-shrink refusal against a committed baseline; whole-corpus facet drift; the article funnel reported in ARTICLES with both residue directions. 14 fixtures, 0 failing, coverage 1.000. Ten mutations, ten caught. |
 | **T4.1a/d** — party-tone evidence | ✅ partial — see §15.5 | `fc9d86d829` `89eb91f94d` | v3 contract: `rationale` (prose a reader sees) split from `evidence_spans` (located provenance, the only thing the gate checks); `party_tone_published()` is the ONE definition shared by the bundle and the review queue; the v2→v3 migration NEVER manufactures a span. ⚠️ `leaning`/`russia_stance` still take prose `evidence`; the full-text rule is unimplemented. |
 
 **Not started:** T1.1 (largely pre-existing), **T1.5**, T2.0–T2.3, T3.1–T3.3, T4.0,
 T4.2–T4.5, T5.x, T6.x, T7.x.
 
-⚠️ **The one thing T1.3b could not finish, and it is the remaining half of R1.**
-„Показваме 1 от 139" now names both numbers honestly — and offers no route to the other
-138, because **the news app has no browse route**: `/`, `/story/:id`, `/outlets`,
-`/outlet/:domain`, `/topics`, `/methodology`, `/corrections`, `/evals` is the whole
-routing table (`newsapp/App.tsx:349-377`). The corpus is reachable by the gate and not by
-a reader. A `/stories` browse reading `queryStories` + `ranked-N`/`index-N` is the missing
-piece; everything it needs is already built and tested.
+✅ **The half of R1 that T1.3b could not finish is now T1.3c above.** Until it landed the
+news app had no browse route — `/`, `/story/:id`, `/outlets`, `/outlet/:domain`, `/topics`,
+`/methodology`, `/corrections`, `/evals` was the whole table — so the corpus was reachable
+by the gate and not by a reader. Two things the browse deliberately does NOT do: it does not
+search the whole corpus (the index carries no titles — §T1.3 — so the search box names how
+many hydrated rows it saw), and it does not re-rank under an overlay (the client cannot
+re-score prominence; a ranked browse under a hot release says its order is the base's).
 
 ---
 

@@ -77,6 +77,26 @@ describe("news shell accessibility", () => {
     ).toHaveAttribute("href", "/#news-search");
   });
 
+  it("reaches the corpus browse from the menu and renders it", async () => {
+    // R1: the home page is a finite briefing; the archive is where the
+    // rest of the corpus is, and it must be one click from every page.
+    const user = userEvent.setup();
+    render(
+      <ThemeContext.Provider value={{ theme: themeLight, setTheme: vi.fn() }}>
+        <MemoryRouter initialEntries={["/stories"]}>
+          <App />
+        </MemoryRouter>
+      </ThemeContext.Provider>,
+    );
+    expect(
+      await screen.findByRole("heading", { name: "Всички истории" }),
+    ).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Отвори менюто" }));
+    expect(
+      within(screen.getByRole("menu")).getByRole("menuitem", { name: "Архив" }),
+    ).toHaveAttribute("href", "/stories");
+  });
+
   it("renders the corrections workflow at its public route", async () => {
     render(
       <ThemeContext.Provider value={{ theme: themeLight, setTheme: vi.fn() }}>

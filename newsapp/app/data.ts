@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   useSyncExternalStore,
 } from "react";
@@ -14,11 +15,11 @@ import { isMainSiteHref } from "./site";
 import {
   applyOverlayToPath,
   OverlayRemovedPath,
+  compareRankedRows,
   compareStoryRows,
   mergeStoryIndexRows,
   parseOverlay,
   STORY_ID_SAFE,
-  storyRowKey,
   type NewsOverlay,
   type NewsOverlayPointer,
 } from "./overlayMerge";
@@ -1188,9 +1189,14 @@ export const useDataWithClient = <T>(
     error: Error | null;
     loading: boolean;
   }>({ data: null, error: null, loading: path !== null });
+  // The current path's loader, so a consumer can RETRY a failed fetch in
+  // place — the promise cache evicts a rejection, so a retry really asks
+  // again — rather than remounting or changing the path to force one.
+  const loader = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (path === null) {
+      loader.current = null;
       setState({ data: null, error: null, loading: false });
       return;
     }
@@ -1220,6 +1226,7 @@ export const useDataWithClient = <T>(
             }));
         });
     };
+    loader.current = () => load(true);
     load(true);
     // A hidden tab does not poll. Every release clears the data cache, so a
     // forgotten background tab re-downloaded every mounted bundle on every
@@ -1236,12 +1243,17 @@ export const useDataWithClient = <T>(
     document.addEventListener("visibilitychange", refreshVisible);
     return () => {
       live = false;
+      loader.current = null;
       window.clearInterval(interval);
       document.removeEventListener("visibilitychange", refreshVisible);
     };
   }, [client, parse, path]);
 
-  return state;
+  const reload = useCallback(() => {
+    loader.current?.();
+  }, []);
+
+  return { ...state, reload };
 };
 
 export const useData = <T>(
@@ -1313,6 +1325,23 @@ export const useStories = () =>
 export const useFilterIndex = () =>
   useData<FilterIndex>("/stories/filter-index.json");
 
+/**
+ * Observed coverage momentum, stamped once per build (T1.2).
+ *
+ * ⚠️ „НАЙ-ОТРАЗЯВАНИ", NEVER „MOST POPULAR" — nothing here observes a
+ * reader. `outlets` and `articles` are the components a page prints beside
+ * the rank so a reader can check a number rather than trust one.
+ */
+export interface StoryProminence {
+  version: number;
+  score: number;
+  outlets: number;
+  articles: number;
+  arriving: number;
+  age_hours: number | null;
+  publication_time_known: boolean;
+}
+
 /** One story's row in the paginated index — findable and filterable, small. */
 export interface StoryIndexRow {
   id: string;
@@ -1326,10 +1355,27 @@ export interface StoryIndexRow {
   member_count: number;
   /** Which outlets covered it, for an outlet filter. */
   domains: string[];
+  /** Absent only on rows an older overlay projected before T1.2. */
+  prominence?: StoryProminence;
 }
+
+/**
+ * The two published orderings of the same corpus. `latest` is
+ * `stories/index-N.json` (publication desc), `ranked` is
+ * `stories/ranked-N.json` (prominence desc). Every story is on both.
+ */
+export type StorySort = "latest" | "ranked";
 
 export interface StoryIndexPage {
   generated_at: string;
+  /** The instant every row's prominence was scored against. */
+  as_of?: string;
+  sort?: "latest" | "prominence";
+  /**
+   * True when a hot overlay upserted rows into a ranked page without
+   * re-scoring the corpus — the order is the base's, the membership is not.
+   */
+  stale_ranking?: boolean;
   page: number;
   pages: number;
   page_size: number;
@@ -1488,12 +1534,44 @@ export const useStoriesByUrl = () =>
     "/stories/by-url.json",
   );
 
-export const useStoryIndexPage = (page: number | null) =>
-  useData<StoryIndexPage>(
-    typeof page === "number" && Number.isInteger(page) && page >= 1
-      ? `/stories/index-${page}.json`
-      : null,
-  );
+/**
+ * ⚠️ TWO VOCABULARIES FOR ONE ORDERING, mapped ONCE. The client names an
+ * ordering by its FILE prefix (`ranked-N`); the page names it by its RULE
+ * (`sort: "prominence"`). The path builder and the merge's provenance check
+ * both read this table, so a page can be refused when it is not the ordering
+ * the caller is revealing.
+ */
+export const PAGE_SORT: Record<
+  StorySort,
+  NonNullable<StoryIndexPage["sort"]>
+> = {
+  latest: "latest",
+  ranked: "prominence",
+};
+const PAGE_PREFIX: Record<StorySort, string> = {
+  latest: "index",
+  ranked: "ranked",
+};
+
+export const storyIndexPagePath = (
+  page: number | null,
+  sort: StorySort = "latest",
+): string | null =>
+  typeof page === "number" && Number.isInteger(page) && page >= 1
+    ? `/stories/${PAGE_PREFIX[sort]}-${page}.json`
+    : null;
+
+export const useStoryIndexPage = (
+  page: number | null,
+  sort: StorySort = "latest",
+  client: StoryListClient = defaultDataClient,
+) => useDataWithClient<StoryIndexPage>(storyIndexPagePath(page, sort), client);
+
+/** What `useStoryList` needs of a data client — injectable for tests. */
+export type StoryListClient = Pick<
+  ReturnType<typeof createDataClient>,
+  "fetchData" | "getOverlay" | "subscribeOverlay"
+>;
 
 /**
  * The story index with progressive reveal: page 1 on mount, more on request.
@@ -1539,43 +1617,59 @@ export const storyListView = ({
   overlay,
   baseTotal,
   hasMore,
+  sort = "latest",
 }: {
   /** The rows fetched from the BASE index, in any order. */
   revealed: StoryIndexRow[];
   overlay: NewsOverlay | null;
   baseTotal: number | null;
   hasMore: boolean;
-}): { stories: StoryIndexRow[]; total: number } => {
+  /**
+   * Which ordering the prefix was revealed in. ⚠️ THE BOUNDARY IS DEFINED BY
+   * THE ORDER: a ranked prefix ends at its lowest SCORE, not its oldest
+   * date, and confining an overlay story by the wrong key would inject a
+   * fresh low-scoring story into a ranked prefix that ends far above it.
+   */
+  sort?: StorySort;
+}): {
+  stories: StoryIndexRow[];
+  total: number;
+  /**
+   * Whether the overlay ADDED or REMOVED a row within this prefix — as
+   * opposed to merely touching one already there. A ranked list says its
+   * order is the base's only when this is true; saying it on every overlay
+   * would assert additions that did not happen.
+   */
+  merged: boolean;
+} => {
   const rows = revealed as unknown as Array<Record<string, unknown>>;
+  const compare = sort === "ranked" ? compareRankedRows : compareStoryRows;
   if (!overlay) {
-    const stories = [...rows].sort(
-      compareStoryRows,
-    ) as unknown as StoryIndexRow[];
-    return { stories, total: baseTotal ?? stories.length };
+    const stories = [...rows].sort(compare) as unknown as StoryIndexRow[];
+    return { stories, total: baseTotal ?? stories.length, merged: false };
   }
 
   const revealedIds = new Set(revealed.map((row) => row.id));
-  let oldest: string | null = null;
+  // The revealed row that sorts LAST under this order — the prefix's edge.
+  let edge: Record<string, unknown> | null = null;
   for (const row of rows) {
-    const key = storyRowKey(row);
-    if (oldest === null || key < oldest) oldest = key;
+    if (edge === null || compare(row, edge) > 0) edge = row;
   }
   // Once every page is loaded the prefix IS the corpus, so nothing is out
   // of range and the boundary does not apply.
-  const confine = hasMore && oldest !== null;
+  const confine = hasMore && edge !== null;
   const belongs = (story: Record<string, unknown>): boolean => {
     const id = story.id;
     if (typeof id === "string" && revealedIds.has(id)) return true;
-    return !confine || storyRowKey(story) >= (oldest as string);
+    return !confine || compare(story, edge as Record<string, unknown>) <= 0;
   };
 
   const stories = mergeStoryIndexRows(
     rows,
     overlay,
     belongs,
+    compare,
   ) as unknown as StoryIndexRow[];
-
-  if (baseTotal === null || !hasMore) return { stories, total: stories.length };
 
   /**
    * ⚠️ A STORY THE OVERLAY MERELY TOUCHED IS NOT A NEW STORY.
@@ -1594,28 +1688,61 @@ export const storyListView = ({
   const removed = overlay.removed_story_ids.filter((id: string) =>
     revealedIds.has(id),
   ).length;
-  return { stories, total: baseTotal + added - removed };
+  const merged = added + removed > 0;
+  if (baseTotal === null || !hasMore)
+    return { stories, total: stories.length, merged };
+  return { stories, total: baseTotal + added - removed, merged };
 };
 
-export const useStoryList = () => {
+export const useStoryList = (
+  sort: StorySort = "latest",
+  client: StoryListClient = defaultDataClient,
+) => {
   const [page, setPage] = useState(1);
-  const current = useStoryIndexPage(page);
-  const overlay = useActiveOverlay();
   // Rows revealed so far, keyed by id so a story that moved between pages
   // between releases appears once rather than twice.
   const [rows, setRows] = useState<Map<string, StoryIndexRow>>(new Map());
   const [vintage, setVintage] = useState<string | null>(null);
+  // ⚠️ The instant the ranking was scored against, off page 1. A browse pins
+  // it: two pages ranked against different instants are two rankings.
+  const [asOf, setAsOf] = useState<string | null>(null);
+  // ⚠️ A SORT CHANGE IS A NEW LIST, never a re-sort of the rows in hand.
+  // The rows are a PREFIX of one ordering; re-sorted by another key they
+  // are an arbitrary sample of it, presented as its top.
+  const [revealedSort, setRevealedSort] = useState(sort);
+  useEffect(() => {
+    if (revealedSort === sort) return;
+    setRows(new Map());
+    setVintage(null);
+    setAsOf(null);
+    setPage(1);
+    setRevealedSort(sort);
+  }, [sort, revealedSort]);
+  // ⚠️ FETCHED BY THE REVEALED SORT, NOT THE REQUESTED ONE. Fetching by the
+  // requested sort changes the path one effect BEFORE the reset to page 1,
+  // and `fetchData` is a promise cache — a page N of the new ordering seen
+  // earlier in the session resolves in microtasks, so it could land in the
+  // freshly emptied map ahead of page 1: pages 1 and N, no 2, every count
+  // reconciling. The path moves only once the reset has run.
+  const current = useStoryIndexPage(page, revealedSort, client);
+  const overlay = useActiveOverlay(client);
 
   useEffect(() => {
     const loaded = current.data;
     if (!loaded) return;
+    // A page is merged only into the ordering it was published for — the
+    // page's own `sort` is the provenance, and a page from the other
+    // ordering is refused rather than mixed in.
+    if (loaded.sort !== undefined && loaded.sort !== PAGE_SORT[revealedSort])
+      return;
     setRows((prev) => {
       const next = new Map(prev);
       for (const row of loaded.stories) next.set(row.id, row);
       return next;
     });
     setVintage((prev) => prev ?? loaded.generated_at);
-  }, [current.data]);
+    setAsOf((prev) => prev ?? loaded.as_of ?? loaded.generated_at);
+  }, [current.data, revealedSort]);
 
   // ⚠️ A RELEASE IS REPORTED, NOT APPLIED SILENTLY. `useData` re-polls the
   // page currently in view, so after a publish the revealed rows are a
@@ -1631,35 +1758,60 @@ export const useStoryList = () => {
   const reset = useCallback(() => {
     setRows(new Map());
     setVintage(null);
+    setAsOf(null);
     setPage(1);
   }, []);
 
   const pageCount = current.data?.pages ?? 1;
   const hasMore = page < pageCount;
 
-  const { stories, total } = useMemo(
+  const { stories, total, merged } = useMemo(
     () =>
       storyListView({
         revealed: [...rows.values()],
         overlay,
         baseTotal: current.data?.total ?? null,
         hasMore,
+        sort: revealedSort,
       }),
-    [rows, overlay, current.data?.total, hasMore],
+    [rows, overlay, current.data?.total, hasMore, revealedSort],
   );
+  // ⚠️ The page in hand is the one asked for. After a failed fetch `useData`
+  // keeps the PREVIOUS page's data beside `error`, so `current.data.page`
+  // lags `page` — and advancing from there would skip the page that never
+  // landed, leaving a hole in a list that calls itself a prefix.
+  const pageInHand = current.data?.page === page;
 
   return {
     stories,
     total,
+    /** The base vintage the prefix was revealed from (page 1's stamp). */
+    vintage,
+    /** The ranking instant, for pinning a browse. */
+    asOf,
+    /** Whether the revealed prefix is in the ordering the caller asked for. */
+    sort: revealedSort,
+    /**
+     * Whether a hot overlay added or removed a row inside the prefix. The
+     * publisher's own `stale_ranking` never reaches the client — index pages
+     * are always served from the base — so this is derived from the merge.
+     */
+    merged,
     loading: current.loading,
     // The last good rows survive a failed refresh, matching every other
     // loader here — a consumer guards the fatal case with `error && !rows`.
     error: current.error,
     hasMore,
-    loadMore: useCallback(
-      () => setPage((n) => (n < pageCount ? n + 1 : n)),
-      [pageCount],
-    ),
+    /**
+     * Reveal the next page — ⚠️ only from a page that actually arrived. A
+     * failed page must be retried (`retry`), never stepped over.
+     */
+    loadMore: useCallback(() => {
+      if (!pageInHand) return;
+      setPage((n) => (n < pageCount ? n + 1 : n));
+    }, [pageCount, pageInHand]),
+    /** Ask again for the page that failed, keeping the revealed prefix. */
+    retry: current.reload,
     staleVintage,
     reset,
   };

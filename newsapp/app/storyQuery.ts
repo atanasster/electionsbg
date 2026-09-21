@@ -72,12 +72,10 @@ export interface StoryQueryResult {
   /** Matching ids, in the index's own order. */
   readonly ids: readonly string[];
   /**
-   * Matching ids as a set, for intersecting with an ordered index page.
-   *
-   * ⚠️ NOT YET WIRED — consumed by plan step T1.4, which pages the ordered
-   * index under a global query. It is built unconditionally because a
-   * `Set` over the matching ids is the same pass that produces them; nothing
-   * is spent per render beyond the ids themselves.
+   * Matching ids as a set, for intersecting with an ordered index page —
+   * which is what the `/stories` browse does (`storyBrowse.ts`). It is
+   * built unconditionally because a `Set` over the matching ids is the same
+   * pass that produces them; nothing is spent per render beyond the ids.
    */
   readonly match: ReadonlySet<string>;
   /**
@@ -188,10 +186,9 @@ export const queryStories = (
 };
 
 /**
- * ⚠️ NOT YET WIRED — consumed by plan step T1.4 (`docs/plans/news-ground-bg-v1.md`),
- * which gives the corpus a browse surface with its own search box. Until then
- * `HomeScreen` reports its search scope in prose rather than through this
- * type, because the briefing's search has nothing to page.
+ * What a text search could actually see. Rendered by the `/stories` browse;
+ * `HomeScreen` reports its own scope in prose, because the briefing's search
+ * has nothing to page.
  */
 export interface SearchScope {
   /** How many stories the text query could actually see. */
@@ -237,7 +234,16 @@ export const searchHydrated = <T>(
 };
 
 /**
- * ⚠️ NOT YET WIRED — consumed by plan step T1.4, the paged browse.
+ * The identity of one browse snapshot, as a string.
+ *
+ * ⚠️ NOT CONSUMED BY `StoriesScreen` TODAY, and honestly so: the screen pins
+ * its snapshot through the components named here — the window's anchor
+ * (`usePinnedInstant`), the sort (a change starts a new prefix), the base
+ * vintage (`staleVintage`) and the overlay (merged into prefix, match set
+ * and counts together). This function is what a CURSOR would carry — a
+ * „load more" URL, a Back-restorable position — the day one exists; a
+ * cursor minted without the snapshot in it is the mixed-generation defect
+ * T1.3 exists to prevent.
  *
  * ⚠️ A BROWSE IS PINNED TO ONE SNAPSHOT. A hot overlay can change the data
  * without changing `run_id`, so paging across a publish would otherwise mix
