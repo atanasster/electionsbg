@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "categories": [
   {
    "id": "elections-parliamentary",
@@ -11,6 +11,17 @@
     "electoral-law",
     "cik-administration",
     "abroad-voting"
+   ]
+  },
+  {
+   "id": "elections-presidential",
+   "label": "Президентски избори",
+   "subcategories": [
+    "campaign",
+    "candidates",
+    "debates",
+    "results",
+    "cik-administration"
    ]
   },
   {

@@ -1,0 +1,251 @@
+{
+ "version": 1,
+ "taxonomy_version": 2,
+ "generated_at": "2026-09-21",
+ "how_to_read": [
+  "Plan T3.1: paired fixtures for the elections-presidential category. Each pair holds a POSITIVE — an article substantively about the presidential vote — beside a NEGATIVE that a keyword or a name would route into the election and that must stay under its institutional topic.",
+  "Every real fixture names its corpus article (gitignored) by path, url and content sha256; `title` and `lede` (the first ~300 characters, whitespace-normalised — the sha256 is the integrity check, the lede is for reading) are carried inline so the pair reads without the corpus. A synthetic fixture says so and exists only where the corpus had no example of the rule (a government-formation consultation, between elections).",
+  "`expected` is the primary (category, subcategory) a classifier should return under taxonomy v2; `forbidden_category` on a negative is the category it must NOT return. `mentions` names the person or term that makes the negative a trap — and the trap is real in both directions: in this corpus Румен Радев is the PRIME MINISTER (cabinet since 2026) and Илияна Йотова the PRESIDENT and a candidate, so a name reads as an office, a cabinet or a vote depending on what the article is about.",
+  "SCORING CONTRACT for T3.2: a POSITIVE scores on `expected` exactly (category AND subcategory). A NEGATIVE scores on `forbidden_category` — it passes when the classifier returns ANY category other than elections-presidential; its `expected` is the plan author's reading and is ADVISORY, because the rubric names the institutional set as a rule, not a fixed target, and two honest readers can file the same pardon under judiciary or officials-people. `v1_label` records what the record on disk said under taxonomy v1 (null = never analysed), so the R2 claim is re-derivable from this file.",
+  "These are RULE fixtures, not adjudicated ground truth from a held-out set: they were labelled by the plan's author from the rubric in news/prompts/analyze_system.source.md §7. A model's score against them is measured by T3.2's reclassification run, not asserted here."
+ ],
+ "pairs": [
+  {
+   "id": "candidates-vs-pardon",
+   "rule": "A candidate tandem being announced is the election; a pardon and its aftermath is judiciary/officials, however many presidents it names.",
+   "positive": {
+    "source": {
+     "article_path": "news/data/actualno.com/20260920-oshte-edna-kandidatprezidentska-dvojka-shte-byde-objavena-na-7305f24f.json",
+     "url": "https://www.actualno.com/politics/oshte-edna-kandidatprezidentska-dvojka-shte-byde-objavena-na-22-septemvri-news_2641340.html",
+     "domain": "actualno.com",
+     "published": "2026-09-20T06:30:00+00:00",
+     "content_sha256": "830bfce84c6c22e172748421f02d28d220870f1796b820f45838a14091c1d321"
+    },
+    "title": "Още една кандидатпрезидентска двойка ще бъде обявена на 22 септември",
+    "lede": "На 22 септември в 12:30 ч. във Велико Търново „Възраждане“ ще обяви кандидатпрезидентската двойка за предстоящия вот на 25 октомври. Това обяви Цончо Ганев. „Изключително символично е точно на Деня на независимостта да го направим“, каза той. „Една от причините да забавим страшно много нашите канд",
+    "mentions": [],
+    "expected": {
+     "category": "elections-presidential",
+     "subcategory": "candidates"
+    },
+    "note": "Възраждане announcing its tandem for the 25 October vote — was classified elections-parliamentary/campaign under v1 (R2).",
+    "v1_label": {
+     "category": "elections-parliamentary",
+     "subcategory": "campaign"
+    }
+   },
+   "negative": {
+    "source": {
+     "article_path": "news/data/actualno.com/20260921-zashto-prokuraturata-mylchi-za-petrichkija-eskobar-news-2641-619904db.json",
+     "url": "https://www.actualno.com/opinion/zashto-prokuraturata-mylchi-za-petrichkija-eskobar-news_2641627.html",
+     "domain": "actualno.com",
+     "published": "2026-09-21T08:08:00+00:00",
+     "content_sha256": "d312af1c0a772b9d815b758cc6eb396ea503bdff6d03d9fe8cf5dfaba5132841"
+    },
+    "title": "Защо прокуратурата мълчи за \"петричкия Ескобар\"?",
+    "lede": "Десет дни след като Асен Василев разгласи случая с помилвания и наново арестуван \"петрички Ескобар\", и повече от година след като Калин Стоянов отправи питане по същия казус до президента Румен Радев, от прокуратурата все още няма никаква реакция. Това посочва в своя публикация във Facebook журналис",
+    "mentions": [
+     "Румен Радев",
+     "помилван"
+    ],
+    "expected": {
+     "category": "officials-people",
+     "subcategory": "official-investigations"
+    },
+    "forbidden_category": "elections-presidential",
+    "note": "A pardon, a re-arrest and the prosecution's silence; names Румен Радев as the addressee of a question when he was president. Not election coverage. The rubric admits judiciary for a pardon as well; the fixture pins the v1 record and the contract is the forbidden category.",
+    "v1_label": {
+     "category": "officials-people",
+     "subcategory": "official-investigations"
+    }
+   }
+  },
+  {
+   "id": "cik-vs-cik-for-another-vote",
+   "rule": "ЦИК registering parties for the presidential vote is cik-administration of THIS election; a presidential consultation on forming a government is coalition-talks.",
+   "positive": {
+    "source": {
+     "article_path": "news/data/actualno.com/20260902-cik-zapochva-registracijata-na-partiite-za-prezidentskija-vo-14415849.json",
+     "url": "https://www.actualno.com/politics/cik-zapochva-registracijata-na-partiite-za-prezidentskija-vot-news_2635012.html",
+     "domain": "actualno.com",
+     "published": "2026-09-02T04:36:00+00:00",
+     "content_sha256": "1b96f9fbf762423370010a5d558feb07cfaeea6dd56ea1440ee4e0f9ca6b4481"
+    },
+    "title": "ЦИК започва регистрацията на партиите за президентския вот",
+    "lede": "Централната избирателна комисия (ЦИК) започва да приема документи за регистрация на партии и коалиции за участие в изборите за президент и вицепрезидент на републиката, насрочени на 25 октомври, предаде bTV. Желаещите формации ще могат да го направят от 9:30 ч. днес до 17 ч. на 9 септември. Още: Бит",
+    "mentions": [],
+    "expected": {
+     "category": "elections-presidential",
+     "subcategory": "cik-administration"
+    },
+    "note": "Registration for the 25 October president/vice-president vote — classified elections-parliamentary/cik-administration under v1.",
+    "v1_label": {
+     "category": "elections-parliamentary",
+     "subcategory": "cik-administration"
+    }
+   },
+   "negative": {
+    "synthetic": true,
+    "title": "ЦИК обяви разпределението на мандатите в 52-ото Народно събрание",
+    "lede": "Централната избирателна комисия обяви окончателното разпределение на мандатите по многомандатни изборни райони след парламентарните избори. Президентът Йотова ще връчи първия проучвателен мандат след консултации с парламентарно представените партии.",
+    "mentions": [
+     "Йотова",
+     "проучвателен мандат",
+     "консултации"
+    ],
+    "expected": {
+     "category": "elections-parliamentary",
+     "subcategory": "coalition-talks"
+    },
+    "forbidden_category": "elections-presidential",
+    "note": "SYNTHETIC — the corpus window (the last parliamentary election was 2026-04-19) holds no government-formation consultation article. A presidential consultation on forming a government is coalition-talks, not the presidential election, and naming Йотова does not change that."
+   }
+  },
+  {
+   "id": "campaign-overview-vs-institutional-president",
+   "rule": "An overview of who is running is the campaign; the sitting president acting in office is the topic she acted in.",
+   "positive": {
+    "source": {
+     "article_path": "news/data/actualno.com/20260902-bitkata-za-dondukov-2-eto-koi-sa-kandidatite-koito-shte-krys-8d80c4d4.json",
+     "url": "https://www.actualno.com/politics/bitkata-za-dondukov-2-eto-koi-sa-kandidatite-koito-shte-krystosat-shpagi-za-prezidentstvoto-obzor-news_2635009.html",
+     "domain": "actualno.com",
+     "published": "2026-09-02T04:19:00+00:00",
+     "content_sha256": "0bac8b135cb62adace1fb5e796bbc34e72195549cdf7744d9a026826cbfedcfa"
+    },
+    "title": "Битката за \"Дондуков\" 2: Ето кои са кандидатите, които ще кръстосат шпаги за президентството (ОБЗОР)",
+    "lede": "Пъзелът с кандидат-президентските двойки за предстоящите избори за президент на 25 октомври и 1 ноември, се нарежда все повече с всеки изминал ден. До момента са номинирани 7 двойки. Actualno.com припомнмя, че съгласно Конституцията именно парламентът определя датата на президентските избори. Вотът",
+    "mentions": [],
+    "expected": {
+     "category": "elections-presidential",
+     "subcategory": "candidates"
+    },
+    "note": "The nominated tandems for 25 October / 1 November — classified elections-parliamentary/campaign under v1.",
+    "v1_label": {
+     "category": "elections-parliamentary",
+     "subcategory": "campaign"
+    }
+   },
+   "negative": {
+    "source": {
+     "article_path": "news/data/actualno.com/20260822-jotova-pita-v-strasburg-za-sydbata-na-iva-mihajlova-news-263-5005811b.json",
+     "url": "https://www.actualno.com/politics/jotova-pita-v-strasburg-za-sydbata-na-iva-mihajlova-news_2631542.html",
+     "domain": "actualno.com",
+     "published": "2026-08-22T13:53:00+00:00",
+     "content_sha256": "7de8c8f08930df204185fd4d814a7f076f64478c46b03f72e458b3287b188613"
+    },
+    "title": "Йотова пита в Страсбург за съдбата на Ива Михайлова",
+    "lede": "В средата на септември ще имам среща с генералния секретар на Съвета на Европа в Страсбург и един от въпросите, които ще поставя, е за съдбата на Ива Михайлова. Това каза президентът Илияна Йотова. Тя напомни, че има заключение на лекарите в Република Северна Македония, че те не могат да лекуват Мих",
+    "mentions": [
+     "Йотова"
+    ],
+    "expected": {
+     "category": "foreign-policy",
+     "subcategory": "bilateral"
+    },
+    "forbidden_category": "elections-presidential",
+    "note": "President Йотова raising a consular case at the Council of Europe. The office acting, not the vote.",
+    "v1_label": {
+     "category": "foreign-policy",
+     "subcategory": "bilateral"
+    }
+   }
+  },
+  {
+   "id": "candidate-proposal-vs-prime-minister-radev",
+   "rule": "A candidate's programme proposal — even about the pardon power — is campaign coverage; the prime minister on his cabinet's record is government, whatever office he held before.",
+   "positive": {
+    "source": {
+     "article_path": "news/data/standartnews.com/20260920-kiril-valchev-s-predlozheniya-za-pomilvaneto-647583-73620bcf.json",
+     "url": "https://www.standartnews.com/balgariya-politika/kiril-valchev-s-predlozheniya-za-pomilvaneto-647583.html",
+     "domain": "standartnews.com",
+     "published": "2026-09-20T15:09:43+00:00",
+     "content_sha256": "2ca7b73e98a0b1a915f3a36e4e509db9d1cce4d676410ee212502bb5c0d499aa"
+    },
+    "title": "Кирил Вълчев с предложения за помилването",
+    "lede": "„Президентската институция не е барикада. Президентът и вицепрезидентът не са коментатори, които излизат и първи казват какво мислят. Трябва да изслушваш и да формираш мнение, след като си изслушал всичко.“ Това заяви кандидатът за вицепрезидент Кирил Вълчев, който се явява на изборите за \"Дондуков\"",
+    "mentions": [],
+    "expected": {
+     "category": "elections-presidential",
+     "subcategory": "campaign"
+    },
+    "note": "Candidate Кирил Вълчев's proposals on how a president should use the pardon power. The pardon TOPIC does not make it judiciary: it is a campaign position. Was elections-parliamentary/campaign under v1 (secondary officials-people/declarations-conflicts).",
+    "v1_label": {
+     "category": "elections-parliamentary",
+     "subcategory": "campaign"
+    }
+   },
+   "negative": {
+    "source": {
+     "article_path": "news/data/nova.bg/20260921-D180D183D0BCD0B5D0BD-D180D0B0D0B4D0B5D0B2-D0BED182D181D182D1-835ac1be.json",
+     "url": "https://nova.bg/news/view/2026/09/21/552192/%D1%80%D1%83%D0%BC%D0%B5%D0%BD-%D1%80%D0%B0%D0%B4%D0%B5%D0%B2-%D0%BE%D1%82%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%85%D0%BC%D0%B5-%D0%BE%D0%BB%D0%B8%D0%B3%D0%B0%D1%80%D1%85%D0%B8%D1%8F%D1%82%D0%B0-%D0%BE%D1%82-%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%82%D0%B0-%D0%B2%D0%BB%D0%B0%D1%81%D1%82/",
+     "domain": "nova.bg",
+     "published": "2026-09-21T06:59:40+00:00",
+     "content_sha256": "9d81233fa2426519a0b61c8f20dcb875f3cc23f1ea7b6dda17ec4d39f0df9d5a"
+    },
+    "title": "Румен Радев: Отстранихме олигархията от политическата власт",
+    "lede": "Стартът на нашето правителство беше труден, защото през годините се натрупаха управленски дефицити и липса на ясна визия и стратегия за развитие на България. Това доведе до отслабване на управленския капацитет, задълбочаване на неравенствата, ограничаване на икономическата активност и спад на инвест",
+    "mentions": [
+     "Румен Радев"
+    ],
+    "expected": {
+     "category": "government",
+     "subcategory": "cabinet-formation"
+    },
+    "forbidden_category": "elections-presidential",
+    "note": "Prime Minister Румен Радев on his government's first months. A former president's name is not a presidential-election signal. Pinned to the v1 record's subcategory (cabinet-formation) rather than to a second reading; the contract is the forbidden category.",
+    "v1_label": {
+     "category": "government",
+     "subcategory": "cabinet-formation"
+    }
+   }
+  },
+  {
+   "id": "candidate-interview-vs-ksns-demand-naming-yotova",
+   "rule": "A candidate speaking as a candidate is the campaign; a party demanding that the president convene the security council is security, whoever the president is.",
+   "positive": {
+    "source": {
+     "article_path": "news/data/168chasa.bg/20260902-23491429-e94cc4ff.json",
+     "url": "https://www.168chasa.bg/article/23491429",
+     "domain": "168chasa.bg",
+     "published": "2026-09-02T07:55:00+00:00",
+     "content_sha256": "a16ebad8a68c277fbef52bde5f66d39451d16ed6383ce3ab42a556ca1f95109a"
+    },
+    "title": "Андрей Гюров: Очаквам подкрепа и от избиратели на ГЕРБ, и от гласували за ПБ",
+    "lede": "Очаквам подкрепа и от избиратели на ГЕРБ, както и от хора, които са гласували за „Прогресивна България\". Това каза бившият служебен премиер и настоящ кандидат за президент Андрей Гюров пред Нова тв. Във вторник той официално обяви кандидатурата си с Георги Кандев за вицепрезидент. Двамата говориха",
+    "mentions": [],
+    "expected": {
+     "category": "elections-presidential",
+     "subcategory": "campaign"
+    },
+    "note": "Андрей Гюров, a registered candidate, on which voters he expects support from. Never analysed under v1.",
+    "v1_label": null
+   },
+   "negative": {
+    "source": {
+     "article_path": "news/data/nova.bg/20260902-D0B4D0B5D0BCD0BED0BAD180D0B0D182D0B8D187D0BDD0B0-D0B1D18AD0B-768bc3fd.json",
+     "url": "https://nova.bg/news/view/2026/09/02/549879/%D0%B4%D0%B5%D0%BC%D0%BE%D0%BA%D1%80%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%B0-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D0%B8%D1%8F-%D0%B8%D1%81%D0%BA%D0%B0-%D0%B9%D0%BE%D1%82%D0%BE%D0%B2%D0%B0-%D0%B4%D0%B0-%D1%81%D0%B2%D0%B8%D0%BA%D0%B0-%D0%BA%D1%81%D0%BD%D1%81-%D0%B7%D0%B0%D1%80%D0%B0%D0%B4%D0%B8-%D1%80%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%B5%D1%82%D0%B5-%D0%BF%D1%80%D0%B5%D0%B4-%D1%81%D0%B8%D0%B3%D1%83%D1%80%D0%BD%D0%BE%D1%81%D1%82%D1%82%D0%B0-%D0%B8-%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%D1%82%D0%B0-%D0%BD%D0%B0-%D1%80%D1%83%D1%81%D0%B8%D1%8F-%D0%B2-%D0%B5%D0%B2%D1%80%D0%BE%D0%BF%D0%B0/",
+     "domain": "nova.bg",
+     "published": "2026-09-02T08:32:26+00:00",
+     "content_sha256": "15de93debd62e86b884008a9e5e17cca583af2e40d696868ccd6d4d6c209ad31"
+    },
+    "title": "„Демократична България“ иска Йотова да свика КСНС заради рисковете пред сигурността и действията на Русия в Европа",
+    "lede": "От „Демократична България“ поискаха президентът Илияна Йотова да свика Консултативния съвет за национална сигурност заради рисковете пред сигурността и действията на Русия в Европа. Депутатите Ивайло Мирчев, Атанас Атанасов и Божидар Божанов отправиха критики към позицията на българските институции",
+    "mentions": [
+     "Йотова",
+     "КСНС"
+    ],
+    "expected": {
+     "category": "security-defense",
+     "subcategory": "intelligence"
+    },
+    "forbidden_category": "elections-presidential",
+    "note": "Демократична България asking President Йотова to convene the КСНС over security risks. The office being asked to act, not the vote.",
+    "v1_label": {
+     "category": "security-defense",
+     "subcategory": "intelligence"
+    }
+   }
+  }
+ ],
+ "negatives_scored_on": "forbidden_category"
+}

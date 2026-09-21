@@ -20,7 +20,7 @@ LLM. That judgment is the valuable step; do not skip it by keyword-matching.
 | `news/data/analysis/articles/<domain>/<corpus-filename>.json` | one analysis record per article, 1:1 with the corpus file |
 | `news/data/analysis/stories/<story-id>.json` | same-event cluster: canonical titles, summaries, members, aggregates |
 | `news/data/analysis/index.json` | url→analysis/story map + story index (lookup only, `--rebuild` regenerates it) |
-| `news/topics.json` | the classification taxonomy (26 categories, ~103 subcategories) — TRACKED |
+| `news/topics.json` | the classification taxonomy (27 categories, ~108 subcategories) — TRACKED |
 
 ## The analysis record you write
 
@@ -210,8 +210,12 @@ institutions (ЦИК, КЗК, НИМХ, МВР…), companies, places
 treats it (favorable/unfavorable/neutral/mixed), with the same
 position-in-text logic as leaning.
 
-**Topics** — Read `news/topics.json` (26 categories, subcategories, keyword
-hints). Exactly ONE primary pair per ok article; add secondary pairs only
+**Topics** — Read `news/topics.json` (27 categories, subcategories, keyword
+hints). `elections-presidential` is its own category and covers only articles
+substantively about the presidential vote; a pardon, a veto, a КСНС or a
+government-formation consultation is judiciary / government /
+elections-parliamentary·coalition-talks, and merely mentioning Йотова, Радев or a
+candidate does not make an article election coverage. Exactly ONE primary pair per ok article; add secondary pairs only
 when genuinely cross-cutting (e.g. a КЗК fine over an energy deal =
 procurement/kzk-appeals primary + energy secondary). Use
 `not-site-relevant` for weather/sports/celebrity/crime-blotter filler —

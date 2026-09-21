@@ -328,7 +328,6 @@ def load_taxonomy():
     if isinstance(version, bool) or not isinstance(version, int):
         problems.append("taxonomy: version must be an integer")
     cats = {}
-    subcats = set()
     for cat in tax.get("categories", []):
         cid = cat.get("id")
         if not isinstance(cid, str) or not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", cid):
@@ -347,9 +346,15 @@ def load_taxonomy():
             if not isinstance(sid, str) or not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", sid):
                 problems.append(f"category {cid}: bad subcategory id: {sid!r}")
                 continue
-            if sid in subcats:
-                problems.append(f"subcategory id used twice: {sid}")
-            subcats.add(sid)
+            # ⚠️ UNIQUE WITHIN THE CATEGORY, not globally (taxonomy v2). The
+            # two election categories both carry `campaign`, `results` and
+            # `cik-administration`, and every consumer — this validator's
+            # `subcategories_map`, `build_app_data`'s (category, sub) counts,
+            # the client's `topicParts`, the grammar's per-pair validation —
+            # keys on the PAIR. A global rule here would force prefixed ids
+            # nobody reads and change nothing else.
+            if sid in subs:
+                problems.append(f"category {cid}: subcategory id used twice: {sid}")
             if not str(sub.get("label", {}).get("bg", "")).strip() or not str(sub.get("label", {}).get("en", "")).strip():
                 problems.append(f"{cid}/{sid}: empty label")
             if not sub.get("keywords"):

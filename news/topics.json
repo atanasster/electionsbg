@@ -1,6 +1,6 @@
 {
- "version": 1,
- "generated_at": "2026-08-22",
+ "version": 2,
+ "generated_at": "2026-09-21",
  "derived_from": [
   "src/layout/header/reportMenus.ts",
   "src/screens/governance/sectorRegistry.ts",
@@ -14,7 +14,8 @@
   "Keywords are classification hints (Bulgarian trigger terms), not exhaustive dictionaries — the classifier reads the article, not just keyword matching.",
   "Bump version when categories/subcategories change; each analysis record stores the taxonomy_version it was classified against.",
   "route points at the site screen covering the category (informational deep-link for the reader, not a classification signal); null when no dedicated screen exists; values may carry route params (e.g. /local/:cycle) and should be resolved to a concrete cycle at render time.",
-  "site_relevant defaults to true for every category; only 'not-site-relevant' explicitly opts out with false."
+  "site_relevant defaults to true for every category; only 'not-site-relevant' explicitly opts out with false.",
+  "elections-presidential is a category of its OWN, never a subcategory of elections-parliamentary. It covers coverage that substantively concerns the election for president and vice-president — the campaign, the candidates and tandems, debates, results, and ЦИК's administration of that vote. Routine presidential powers (pardons, vetoes, decrees, КСНС, consultations on forming a government) stay under judiciary / government / elections-parliamentary·coalition-talks; merely mentioning the president, the vice-president or a candidate does not make an article election coverage. Subcategory ids are unique WITHIN a category, not globally — `campaign` exists under both election categories and every consumer keys on the (category, subcategory) pair."
  ],
  "categories": [
   {
@@ -115,6 +116,99 @@
      ]
     }
    ]
+  },
+  {
+   "id": "elections-presidential",
+   "label": {
+    "bg": "Президентски избори",
+    "en": "Presidential elections"
+   },
+   "route": "/presidential/:cycle",
+   "keywords": [
+    "президентски избори",
+    "избори за президент",
+    "кандидат за президент",
+    "кандидатпрезидентска двойка",
+    "президентска кампания",
+    "кандидат за вицепрезидент",
+    "Дондуков 2"
+   ],
+   "subcategories": [
+    {
+     "id": "campaign",
+     "label": {
+      "bg": "Кампания",
+      "en": "Campaign"
+     },
+     "keywords": [
+      "кампания",
+      "предизборно",
+      "щаб",
+      "обещание",
+      "послание",
+      "рейтинг"
+     ]
+    },
+    {
+     "id": "candidates",
+     "label": {
+      "bg": "Кандидати и двойки",
+      "en": "Candidates and tandems"
+     },
+     "keywords": [
+      "кандидат",
+      "кандидатпрезидентска двойка",
+      "номинация",
+      "издигане",
+      "вицепрезидент на",
+      "тандем"
+     ]
+    },
+    {
+     "id": "debates",
+     "label": {
+      "bg": "Дебати",
+      "en": "Debates"
+     },
+     "keywords": [
+      "дебат",
+      "сблъсък",
+      "телевизионен дебат",
+      "позиции на кандидатите"
+     ]
+    },
+    {
+     "id": "results",
+     "label": {
+      "bg": "Резултати и балотаж",
+      "en": "Results and runoff"
+     },
+     "keywords": [
+      "резултати",
+      "балотаж",
+      "втори тур",
+      "явка",
+      "проценти",
+      "победа"
+     ]
+    },
+    {
+     "id": "cik-administration",
+     "label": {
+      "bg": "ЦИК и администрация на вота",
+      "en": "CIK & vote administration"
+     },
+     "keywords": [
+      "ЦИК",
+      "регистрация",
+      "секции",
+      "машинно гласуване",
+      "изборен ден",
+      "РИК"
+     ]
+    }
+   ],
+   "route_note": "Pattern only, like elections-local: the client links no route with a dynamic segment (mainSiteRouteHref), and the presidential corpus behind /presidential/:cycle is not ingested yet (raw trees placed 2026-09-05). Resolve to a concrete cycle when it is."
   },
   {
    "id": "elections-local",

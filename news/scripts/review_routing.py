@@ -126,7 +126,8 @@ def field_review(label, confidence) -> str | None:
 # produced under the old wording. Flagging the combination is what makes those
 # records actionable instead of invisible.
 INHERENTLY_POLITICAL_CATEGORIES = frozenset({
-    "government", "parliament", "elections-parliamentary", "elections-local",
+    "government", "parliament", "elections-parliamentary",
+    "elections-presidential", "elections-local",
     "judiciary", "procurement", "state-budget", "foreign-policy",
     "security-defense",
 })

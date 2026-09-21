@@ -11,7 +11,7 @@ the full schemas):
                     entities, party_tones, topics, story membership) and
                     news/data/analysis/stories/<id>.json (same-event clusters with
                     per-story aggregates)
-  * reference     — news/topics.json (26 categories / 103 subcategories) and
+  * reference     — news/topics.json (27 categories / 108 subcategories) and
                     news/data/bg_news_sites.csv (outlet rank/tier/type/scope)
 
 and writes the app-facing bundles consumed by the standalone newsapp's data client

@@ -174,7 +174,7 @@ def build_json_schema(doc: dict) -> dict:
 
     ⚠️ It carries the SAME stated limit: the category/subcategory PAIRING is
     not expressible here either. JSON Schema could express it as a oneOf over
-    26 categories, but no provider guarantees oneOf support in structured
+    27 categories, but no provider guarantees oneOf support in structured
     outputs, and a schema a provider silently downgrades is worse than one
     that states its limit. The validator knows which pairs exist.
 
