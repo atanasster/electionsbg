@@ -103,9 +103,50 @@ LEANING_LABELS = {"strong_conservative", "conservative", "neutral", "progressive
 RUSSIA_LABELS = {"strong_pro_russia", "pro_russia", "neutral", "anti_russia", "strong_anti_russia", "not_applicable"}
 AI_VERDICTS = {"likely_human", "unclear", "likely_ai"}
 TONE_LABELS = {"favorable", "unfavorable", "neutral", "mixed"}
-PARTY_TONES_VERSION = 2
-PARTY_TONE_EVIDENCE_GATE_VERSION = 1
-PARTY_TONE_RAW_KEYS = frozenset({"party", "tone", "confidence", "evidence"})
+# v3 splits `evidence` into `rationale` + `evidence_spans`; see
+# PARTY_TONE_SPAN_FIELDS below for why.
+PARTY_TONES_VERSION = 3
+# v2 checks located spans rather than a substring of a prose field.
+PARTY_TONE_EVIDENCE_GATE_VERSION = 2
+# ⚠️⚠️ THE PROMPT AND THE GATE USED TO ASK FOR DIFFERENT THINGS, and the whole
+# feature was invisible because of it. The prompt asked for „дословен цитат ИЛИ
+# конкретна проверима перифраза" while `party_tone_evidence_grounded` required
+# a contiguous normalized substring — and for `neutral`, the majority class, it
+# explicitly demanded an EXPLANATION, which no span can ever be. Measured
+# 2026-09-21: `evidence_grounded` was False on 1,190 of 1,194 pairs (99.7%),
+# so `build_app_data` withheld essentially every assessed tone, and the review
+# queue carried 1,419 items that were one contract defect rather than 1,419
+# judgments.
+#
+# So the overloaded field is SPLIT. `rationale` is the prose a reader sees and
+# is never matched against anything; `evidence_spans` is provenance and is the
+# only thing the gate checks. A claim and its proof stop being the same string.
+#
+# ⚠️ THE MODEL SUPPLIES THE QUOTE, THE PIPELINE COMPUTES THE OFFSETS. Asking a
+# 12B for character offsets into a document produces confident fiction, and an
+# offset nobody can verify is worse than none. The model returns the verbatim
+# text it is quoting plus which field it came from; `locate_evidence_spans`
+# finds it in the exact hashed snapshot the model was given and stamps `start`,
+# `end` and `article_content_hash`. A quote that cannot be located is not a
+# span — it is a paraphrase, and it is refused as one.
+PARTY_TONE_SPAN_FIELDS = frozenset({"title", "body"})
+# Which way a span cuts. `mixed` is the reason this exists: a tone claiming
+# both directions must show a span for each, or it is an unsupported hedge.
+PARTY_TONE_SPAN_DIRECTIONS = frozenset({"favorable", "unfavorable"})
+# ⚠️ WHOSE WORDS THEY ARE. A quoted accusation is not the outlet's framing, and
+# collapsing the two is how „an opponent attacked X" becomes „this outlet is
+# unfavorable to X". Recorded per span so a surface can say which it is;
+# `unclear` is a real answer and must not be read as `journalist`.
+PARTY_TONE_SPAN_VOICES = frozenset({"journalist", "quoted_speaker", "unclear"})
+PARTY_TONE_SPAN_RAW_KEYS = frozenset({"quote", "field", "direction", "voice",
+                                      "speaker"})
+# ⚠️ `evidence` STAYS READABLE, and only readable. Records written before v3
+# carry it and nothing else; migrating them is a dated candidate set, not a
+# restamp — a paraphrase relabelled as a quote would manufacture provenance
+# that never existed. New records must not send it.
+PARTY_TONE_RAW_KEYS = frozenset({"party", "tone", "confidence", "evidence",
+                                 "rationale", "evidence_spans"})
+PARTY_TONE_LEGACY_KEYS = frozenset({"evidence"})
 STORY_ACTIONS = {"new_story", "same_story", "none"}
 ENTITY_BUCKETS = ("people", "parties", "institutions", "companies", "places")
 
@@ -1243,10 +1284,254 @@ def gate_party_tone_evidence(analysis: dict, rec: dict) -> None:
     and can still power reciprocal backlinks.
     """
     for tone in analysis.get("party_tones") or []:
-        tone["evidence_grounded"] = party_tone_evidence_grounded(
-            str(tone.get("evidence") or ""), rec)
+        if not isinstance(tone, dict):
+            continue
+        # ⚠️ `rationale` IS THE MARKER, not `evidence_spans`. A v3 neutral tone
+        # legitimately carries no spans, and keying on that field routed it to
+        # the legacy rule — which then refused it for not quoting anything,
+        # reproducing the exact defect v3 exists to remove.
+        if tone.get("rationale") is not None:
+            # v3 record: locate every quote in the snapshot, then judge the
+            # LOCATED ones against the direction the tone claims.
+            tone["evidence_spans"] = locate_evidence_spans(tone, rec)
+            tone["evidence_grounded"] = party_tone_spans_support(tone)
+        else:
+            # ⚠️ A PRE-v3 RECORD IS JUDGED BY THE OLD RULE, deliberately. Its
+            # `evidence` is prose that was never required to be a quote, so
+            # re-reading it as one would refuse it a second time for a contract
+            # it was never written under. Migration is a dated candidate set
+            # (backfill_party_tone_spans.py), not a restamp.
+            tone["evidence_grounded"] = party_tone_evidence_grounded(
+                str(tone.get("evidence") or ""), rec)
     analysis["party_tone_evidence_gate_version"] = (
         PARTY_TONE_EVIDENCE_GATE_VERSION)
+
+
+def validate_tone_evidence(t: dict, at: str) -> list:
+    """One tone's justification, under exactly one contract.
+
+    ⚠️ ONE CONTRACT AT A TIME. A record speaks v3 (`rationale` +
+    `evidence_spans`) or legacy (`evidence`), never both: two fields each
+    claiming to be the justification is the ambiguity the split removes.
+    """
+    errs: list = []
+    rationale = t.get("rationale")
+    spans = t.get("evidence_spans")
+    if rationale is None and spans is None:
+        legacy = t.get("evidence")
+        if not isinstance(legacy, str) or not legacy.strip():
+            errs.append(f"{at}.evidence: required (quote or concrete paraphrase)")
+        elif len(legacy.split()) < 4:
+            errs.append(f"{at}.evidence: must explain the article's treatment, "
+                        "not merely repeat a label")
+        return errs
+    # ⚠️ `in t`, NOT `is not None`. A v3 record sending `"evidence": null`
+    # carries both contracts — the key is there — and a None test let it past.
+    if "evidence" in t:
+        errs.append(f"{at}: send `rationale` + `evidence_spans` or the legacy "
+                    "`evidence`, never both")
+    if not isinstance(rationale, str) or not rationale.strip():
+        errs.append(f"{at}.rationale: required — the explanation a reader sees")
+    elif len(rationale.split()) < 4:
+        errs.append(f"{at}.rationale: must explain the article's treatment, "
+                    "not merely repeat a label")
+    errs.extend(validate_evidence_spans(spans, at, t.get("tone")))
+    return errs
+
+
+def validate_evidence_spans(spans, at: str, label) -> list:
+    """Shape of one tone's provenance, and whether it supports its claim.
+
+    ⚠️ SHAPE ONLY — whether each quote EXISTS is decided later, against the
+    snapshot, by `locate_evidence_spans`. A validator that tried to do both
+    would have to read the article, and `validate_analysis` is a pure function
+    of the record by design.
+    """
+    errs: list = []
+    if not isinstance(spans, list):
+        return [f"{at}.evidence_spans: must be a list"]
+    directions = set()
+    for i, span in enumerate(spans):
+        where = f"{at}.evidence_spans[{i}]"
+        if not isinstance(span, dict):
+            errs.append(f"{where}: must be an object")
+            continue
+        unknown = sorted(set(span) - PARTY_TONE_SPAN_RAW_KEYS)
+        if unknown:
+            errs.append(f"{where}: unknown keys {unknown}; offsets and the "
+                        "content hash are computed after validation")
+        quote = span.get("quote")
+        if not isinstance(quote, str) or not quote.strip():
+            errs.append(f"{where}.quote: required, verbatim from the article")
+        if span.get("field") not in PARTY_TONE_SPAN_FIELDS:
+            errs.append(f"{where}.field must be one of "
+                        f"{sorted(PARTY_TONE_SPAN_FIELDS)}")
+        if span.get("direction") not in PARTY_TONE_SPAN_DIRECTIONS:
+            errs.append(f"{where}.direction must be one of "
+                        f"{sorted(PARTY_TONE_SPAN_DIRECTIONS)}")
+        else:
+            directions.add(span["direction"])
+        if span.get("voice") not in PARTY_TONE_SPAN_VOICES:
+            errs.append(f"{where}.voice must be one of "
+                        f"{sorted(PARTY_TONE_SPAN_VOICES)}")
+        speaker = span.get("speaker")
+        if speaker is not None and (not isinstance(speaker, str)
+                                    or not speaker.strip()):
+            errs.append(f"{where}.speaker: omit it or name the speaker")
+        if span.get("voice") == "quoted_speaker" and speaker is None:
+            errs.append(f"{where}.speaker: required when the voice is a quoted "
+                        "speaker; naming who said it is the point of the label")
+    # ⚠️ REQUIRED-NESS IS DIRECTIONAL, and the GBNF cannot express it: a
+    # grammar can demand a list, not „one element per direction you claimed".
+    if label in PARTY_TONE_SPAN_DIRECTIONS and label not in directions:
+        errs.append(f"{at}.evidence_spans: a {label} tone needs at least one "
+                    f"{label} span")
+    if label == "mixed":
+        missing = sorted(PARTY_TONE_SPAN_DIRECTIONS - directions)
+        if missing:
+            errs.append(f"{at}.evidence_spans: `mixed` claims both directions "
+                        f"and shows no span for {missing}")
+    if label == "neutral" and spans:
+        errs.append(f"{at}.evidence_spans: a neutral tone asserts that no "
+                    "evaluative framing was found; a span would contradict it")
+    return errs
+
+
+def evidence_snapshot(rec: dict) -> tuple[str, str, str]:
+    """The exact text a span may cite: (title, body, content hash).
+
+    ⚠️ THE SNAPSHOT THE MODEL SAW, not the record as it stands today. An
+    offset is only meaningful against a named text, so every located span
+    carries the hash of this one; when the extractor changes and the article is
+    re-extracted, the hash moves and the spans are invalidated rather than
+    silently re-pointed at different words.
+    """
+    title = str(rec.get("title") or "")
+    body = str(rec.get("content") or "")
+    digest = hashlib.sha256(
+        (title + "\u0000" + body).encode("utf-8")).hexdigest()
+    return title, body, digest
+
+
+def _fold_for_span(text: str) -> tuple[str, list]:
+    """Case/whitespace-folded text plus a map back to code-point offsets.
+
+    ⚠️ FOLDS ONLY CASE AND WHITESPACE RUNS, and the restraint is the point. A
+    fold that stripped punctuation or accents would approve a quote whose
+    meaning the article does not carry, and one that dropped a „не" would
+    approve the opposite claim — the negation hazard `party_tone_evidence_grounded`
+    was written for. Every folded character maps back to exactly one source
+    index, so a match yields REAL offsets into the snapshot, not into the fold.
+    """
+    out: list = []
+    index: list = []
+    previous_space = False
+    for position, char in enumerate(text):
+        if char.isspace():
+            if previous_space or not out:
+                continue
+            out.append(" ")
+            index.append(position)
+            previous_space = True
+            continue
+        previous_space = False
+        folded = char.casefold()
+        # ⚠️⚠️ ONE INDEX ENTRY PER OUTPUT CHARACTER, NOT PER INPUT CHARACTER.
+        # `casefold()` is not length-preserving — „ß" folds to „ss", „İ" to
+        # two code points, the ﬁ ligature to two — so appending one entry per
+        # SOURCE character desynchronises the map from the joined string.
+        # Measured: 29 of 11,575 live articles already carry such a character,
+        # and the consequence is either an IndexError that discards the whole
+        # analysis, or offsets that slice the WRONG words while the span is
+        # stamped `located: True` — a fabricated quote wearing a verified
+        # badge, which is the worst outcome this contract can produce.
+        out.append(folded)
+        index.extend([position] * len(folded))
+    while out and out[-1] == " ":
+        out.pop()
+        index.pop()
+    return "".join(out), index
+
+
+def locate_evidence_span(quote: str, field_text: str) -> tuple[int, int] | None:
+    """Code-point offsets of `quote` within `field_text`, or None.
+
+    ⚠️ CODE POINTS, NOT UTF-16 UNITS. Python indexes by code point and
+    JavaScript by UTF-16 unit, so an emoji or a rare Cyrillic character ahead
+    of a span shifts one and not the other. The unit is named here and the
+    consumer converts; a number whose unit is implicit is a number that will be
+    read in the wrong one.
+    """
+    folded_quote, _ = _fold_for_span(quote or "")
+    if not folded_quote:
+        return None
+    folded_text, index = _fold_for_span(field_text or "")
+    at = folded_text.find(folded_quote)
+    if at < 0:
+        return None
+    start = index[at]
+    # The END of the last folded character, so the slice is inclusive of it.
+    end = index[at + len(folded_quote) - 1] + 1
+    return start, end
+
+
+def locate_evidence_spans(tone: dict, rec: dict) -> list:
+    """Stamp every span in one tone with its offsets, or mark it unlocated.
+
+    ⚠️ AN UNLOCATED SPAN IS KEPT, NOT DROPPED. Deleting it would leave a tone
+    that looks supported by whatever survived, and the count of what a model
+    claimed versus what the text carries is exactly the yield this contract
+    exists to publish.
+    """
+    title, body, digest = evidence_snapshot(rec)
+    out = []
+    for span in tone.get("evidence_spans") or []:
+        if not isinstance(span, dict):
+            continue
+        field = span.get("field")
+        source = title if field == "title" else body
+        found = locate_evidence_span(str(span.get("quote") or ""), source)
+        stamped = {**span, "article_content_hash": digest}
+        if found is None:
+            stamped["located"] = False
+            stamped.pop("start", None)
+            stamped.pop("end", None)
+        else:
+            stamped["located"] = True
+            stamped["start"], stamped["end"] = found
+        out.append(stamped)
+    return out
+
+
+def party_tone_spans_support(tone: dict) -> bool:
+    """Do this tone's LOCATED spans support the direction it claims?
+
+    ⚠️ DIRECTION-AWARE, because `mixed` is the case the old gate could not
+    express at all: a tone asserting both directions must show a located span
+    for EACH, or it is an unsupported hedge wearing the most cautious label.
+
+    ⚠️ AND `neutral` CARRIES NO SPANS BY CONSTRUCTION. It is a claim that no
+    evaluative framing was found, which nothing in the text can positively
+    evidence — the old contract demanded an explanation here and the old gate
+    then refused it for not being a quote, which is how 79.6% of all pairs
+    became unpublishable. A neutral tone is supported by its rationale and by
+    the subject being present; it is not supported by a quote, and asking for
+    one is what broke this.
+    """
+    label = tone.get("tone")
+    located = [x for x in tone.get("evidence_spans") or []
+               if isinstance(x, dict) and x.get("located") is True]
+    directions = {x.get("direction") for x in located}
+    if label == "mixed":
+        return PARTY_TONE_SPAN_DIRECTIONS.issubset(directions)
+    if label in PARTY_TONE_SPAN_DIRECTIONS:
+        return label in directions
+    if label == "neutral":
+        # A neutral tone is supported by its rationale; see the docstring.
+        # `validate_evidence_spans` is what refuses a neutral tone that
+        # carries spans at all, so there is nothing to check here.
+        return True
+    return False
 
 
 def party_tone_evidence_grounded(evidence: str, rec: dict) -> bool:
@@ -1490,12 +1775,9 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
             confidence = t.get("confidence")
             if not is_num(confidence) or not 0 <= confidence <= 1:
                 errs.append(f"{at}.confidence must be a number in [0,1]")
-            evidence = t.get("evidence")
-            if not isinstance(evidence, str) or not evidence.strip():
-                errs.append(f"{at}.evidence: required (quote or concrete paraphrase)")
-            elif len(evidence.split()) < 4:
-                errs.append(f"{at}.evidence: must explain the article's treatment, "
-                            "not merely repeat a label")
+            errs.extend(validate_tone_evidence(t, at))
+            legacy = t.get("evidence")
+            evidence = legacy if isinstance(legacy, str) else t.get("rationale")
             if (t.get("tone") == "neutral" and isinstance(evidence, str)
                     and isinstance(party, str)):
                 try:

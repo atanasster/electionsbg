@@ -174,6 +174,245 @@ class FixtureTestCase(unittest.TestCase):
                       ensure_ascii=False)
 
 
+class TestEvidenceSpansV3(unittest.TestCase):
+    """The v3 contract: prose and provenance stop being the same string.
+
+    ⚠️ WHY IT EXISTS. The prompt asked for „дословен цитат ИЛИ конкретна
+    проверима перифраза" while the gate demanded a contiguous substring — and
+    for `neutral`, 79.6% of all pairs, it demanded an EXPLANATION, which no
+    quote can be. Measured 2026-09-21: `evidence_grounded` was False on 1,190
+    of 1,194 pairs, so the public bundle withheld essentially every assessed
+    tone and the review queue carried 1,419 items that were one defect.
+    """
+
+    def article(self, title="", body=""):
+        return {"title": title, "content": body}
+
+    # ───────────────────────────────────────────────────── locating a quote
+
+    def test_a_verbatim_quote_yields_offsets_into_the_snapshot(self):
+        import analyze_articles as aa
+        body = "Увод. ГЕРБ пое ангажимент до петък. Край."
+        found = aa.locate_evidence_span("ГЕРБ пое ангажимент", body)
+        self.assertIsNotNone(found)
+        start, end = found
+        self.assertEqual(body[start:end], "ГЕРБ пое ангажимент")
+
+    def test_case_and_whitespace_fold_but_offsets_stay_real(self):
+        import analyze_articles as aa
+        body = "Увод.  ГЕРБ   ПОЕ\nангажимент."
+        found = aa.locate_evidence_span("герб пое ангажимент", body)
+        self.assertIsNotNone(found)
+        start, end = found
+        self.assertEqual(body[start:end], "ГЕРБ   ПОЕ\nангажимент")
+
+    def test_the_fold_preserves_negation(self):
+        """⚠️ THE HAZARD THE OLD GATE WAS BUILT FOR. „не получи" must not match
+        „получи" — one dropped particle inverts the claim."""
+        import analyze_articles as aa
+        self.assertIsNone(
+            aa.locate_evidence_span("ГЕРБ получи подкрепа",
+                                    "ГЕРБ не получи подкрепа за бюджета"))
+
+    def test_offsets_are_code_points_not_utf16_units(self):
+        """An emoji ahead of the span shifts UTF-16 and not code points."""
+        import analyze_articles as aa
+        body = "\U0001F1E7\U0001F1EC новина: ГЕРБ пое ангажимент."
+        found = aa.locate_evidence_span("ГЕРБ пое ангажимент", body)
+        self.assertIsNotNone(found)
+        start, end = found
+        self.assertEqual(body[start:end], "ГЕРБ пое ангажимент")
+
+    def test_an_unlocatable_quote_is_kept_and_marked(self):
+        """Dropping it would leave a tone looking supported by the survivors,
+        and the claimed-versus-carried count is the yield we publish."""
+        import analyze_articles as aa
+        tone = {"tone": "favorable", "evidence_spans": [
+            {"quote": "нещо което го няма", "field": "body",
+             "direction": "favorable", "voice": "journalist"}]}
+        spans = aa.locate_evidence_spans(tone, self.article(body="Съвсем друго."))
+        self.assertEqual(len(spans), 1)
+        self.assertIs(spans[0]["located"], False)
+        self.assertNotIn("start", spans[0])
+        self.assertTrue(spans[0]["article_content_hash"])
+
+    def test_the_content_hash_moves_when_the_article_does(self):
+        import analyze_articles as aa
+        first = aa.evidence_snapshot(self.article("t", "a"))[2]
+        self.assertNotEqual(first, aa.evidence_snapshot(self.article("t", "b"))[2])
+        self.assertNotEqual(first, aa.evidence_snapshot(self.article("u", "a"))[2])
+
+    # ──────────────────────────────────────────── does the span support it?
+
+    def span(self, direction="favorable", located=True):
+        return {"quote": "q", "field": "body", "direction": direction,
+                "voice": "journalist", "located": located}
+
+    def test_a_directional_tone_needs_a_span_in_its_own_direction(self):
+        import analyze_articles as aa
+        self.assertTrue(aa.party_tone_spans_support(
+            {"tone": "favorable", "evidence_spans": [self.span("favorable")]}))
+        self.assertFalse(aa.party_tone_spans_support(
+            {"tone": "favorable", "evidence_spans": [self.span("unfavorable")]}))
+
+    def test_mixed_needs_both_directions(self):
+        """⚠️ The case the old gate could not express at all: without this a
+        `mixed` tone is an unsupported hedge wearing the cautious label."""
+        import analyze_articles as aa
+        self.assertFalse(aa.party_tone_spans_support(
+            {"tone": "mixed", "evidence_spans": [self.span("favorable")]}))
+        self.assertTrue(aa.party_tone_spans_support(
+            {"tone": "mixed", "evidence_spans": [self.span("favorable"),
+                                                 self.span("unfavorable")]}))
+
+    def test_an_unlocated_span_supports_nothing(self):
+        import analyze_articles as aa
+        self.assertFalse(aa.party_tone_spans_support(
+            {"tone": "favorable",
+             "evidence_spans": [self.span("favorable", located=False)]}))
+
+    def test_neutral_is_supported_without_any_span(self):
+        """The heart of the defect: demanding a quote for „no framing found"
+        is what made 79.6% of pairs unpublishable."""
+        import analyze_articles as aa
+        self.assertTrue(aa.party_tone_spans_support(
+            {"tone": "neutral", "evidence_spans": []}))
+
+    # ─────────────────────────────────────────────────────────── validation
+
+    def tone(self, **over):
+        base = {"party": "ГЕРБ", "tone": "favorable", "confidence": 0.8,
+                "rationale": "Материалът подкрепя позицията на партията.",
+                "evidence_spans": [{"quote": "ГЕРБ пое ангажимент",
+                                    "field": "body",
+                                    "direction": "favorable",
+                                    "voice": "journalist"}]}
+        base.update(over)
+        return base
+
+    def errs(self, tone):
+        import analyze_articles as aa
+        return aa.validate_evidence_spans(tone.get("evidence_spans"), "t",
+                                          tone.get("tone"))
+
+    def test_a_quoted_speaker_must_be_named(self):
+        """„who said it" is the entire point of the voice label."""
+        spans = [{"quote": "q", "field": "body", "direction": "unfavorable",
+                  "voice": "quoted_speaker"}]
+        errs = self.errs(self.tone(tone="unfavorable", evidence_spans=spans))
+        self.assertTrue(any("speaker" in e for e in errs), errs)
+
+    def test_a_neutral_tone_may_carry_no_spans(self):
+        errs = self.errs(self.tone(tone="neutral"))
+        self.assertTrue(any("contradict" in e for e in errs), errs)
+        self.assertEqual(self.errs(self.tone(tone="neutral",
+                                             evidence_spans=[])), [])
+
+    def test_a_bad_enum_is_named(self):
+        for key, value in (("field", "headline"), ("direction", "neutral"),
+                           ("voice", "editor")):
+            with self.subTest(key=key):
+                spans = [{"quote": "q", "field": "body",
+                          "direction": "favorable", "voice": "journalist",
+                          key: value}]
+                errs = self.errs(self.tone(evidence_spans=spans))
+                self.assertTrue(any(key in e for e in errs), errs)
+
+    def test_a_lengthening_casefold_does_not_desynchronise_the_offsets(self):
+        """⚠️ THE WORST FAILURE THIS CONTRACT CAN PRODUCE. `casefold()` is not
+        length-preserving — „ß" folds to „ss" — so one index entry per SOURCE
+        character desynchronises the map and either raises (discarding the
+        whole analysis) or slices the WRONG words while stamping the span
+        `located: True`. Measured: 29 of 11,575 live articles carry one.
+        """
+        import analyze_articles as aa
+        quote = "ГЕРБ пое ангажимент"
+        for prefix in ("Straße ", "İstanbul ", "\ufb01nale ", "ǅ "):
+            with self.subTest(prefix=prefix.strip()):
+                body = prefix + quote + " край."
+                found = aa.locate_evidence_span(quote, body)
+                self.assertIsNotNone(found, prefix)
+                start, end = found
+                self.assertEqual(body[start:end], quote)
+
+    def test_a_neutral_tone_without_the_spans_key_is_still_v3(self):
+        """`rationale` is the marker. Keying on `evidence_spans` routed a v3
+        neutral tone to the legacy rule, which refused it for not quoting —
+        the exact defect v3 removes."""
+        import analyze_articles as aa
+        record = {"party_tones": [{"party": "ГЕРБ", "tone": "neutral",
+                                   "confidence": 0.7,
+                                   "rationale": "Фактическо представяне."}]}
+        aa.gate_party_tone_evidence(record, self.article(body="нищо общо"))
+        self.assertIs(record["party_tones"][0]["evidence_grounded"], True)
+
+    def test_a_null_legacy_field_still_counts_as_sending_both(self):
+        """⚠️ `"evidence": null` carries BOTH contracts — the key is present —
+        and an `is not None` test let it through, which is the one shape where
+        two fields each claim to be the justification."""
+        import analyze_articles as aa
+        errs = aa.validate_tone_evidence(
+            self.tone(tone="neutral", evidence_spans=[], evidence=None), "t")
+        self.assertTrue([e for e in errs if "never both" in e], errs)
+        # And the clean v3 shape raises nothing.
+        self.assertEqual(aa.validate_tone_evidence(
+            self.tone(tone="neutral", evidence_spans=[]), "t"), [])
+
+    def test_a_legacy_only_tone_is_accepted_under_the_old_rule(self):
+        import analyze_articles as aa
+        legacy = {"party": "ГЕРБ", "tone": "neutral", "confidence": 0.8,
+                  "evidence": "Материалът представя позицията фактически."}
+        self.assertEqual(aa.validate_tone_evidence(legacy, "t"), [])
+
+    def test_a_v3_tone_must_carry_a_rationale(self):
+        import analyze_articles as aa
+        errs = aa.validate_tone_evidence(
+            {"party": "ГЕРБ", "tone": "neutral", "evidence_spans": []}, "t")
+        self.assertTrue([e for e in errs if "rationale" in e], errs)
+
+    def test_the_validator_requires_a_span_in_the_claimed_direction(self):
+        """⚠️ Distinct from `party_tone_spans_support`, which judges LOCATED
+        spans after the fact. This is the shape check the model sees, and a
+        mutant that dropped it survived the suite until this existed."""
+        for label in ("favorable", "unfavorable"):
+            other = "unfavorable" if label == "favorable" else "favorable"
+            with self.subTest(label=label):
+                spans = [{"quote": "q", "field": "body", "direction": other,
+                          "voice": "journalist"}]
+                errs = self.errs(self.tone(tone=label, evidence_spans=spans))
+                self.assertTrue([e for e in errs if "needs at least one" in e],
+                                errs)
+                ok = [{"quote": "q", "field": "body", "direction": label,
+                       "voice": "journalist"}]
+                self.assertEqual(
+                    self.errs(self.tone(tone=label, evidence_spans=ok)), [])
+
+    def test_the_validator_requires_both_directions_for_mixed(self):
+        for direction in ("favorable", "unfavorable"):
+            with self.subTest(only=direction):
+                spans = [{"quote": "q", "field": "body",
+                          "direction": direction, "voice": "journalist"}]
+                errs = self.errs(self.tone(tone="mixed", evidence_spans=spans))
+                self.assertTrue(
+                    [e for e in errs if "shows no span for" in e], errs)
+        both = [{"quote": "q", "field": "body", "direction": d,
+                 "voice": "journalist"}
+                for d in ("favorable", "unfavorable")]
+        self.assertEqual(
+            self.errs(self.tone(tone="mixed", evidence_spans=both)), [])
+
+    def test_a_non_list_spans_value_is_refused(self):
+        errs = self.errs(self.tone(evidence_spans="нещо"))
+        self.assertTrue([e for e in errs if "must be a list" in e], errs)
+
+    def test_offsets_may_not_be_sent_by_the_analyst(self):
+        """They are computed against the snapshot; a supplied one is fiction."""
+        spans = [{"quote": "q", "field": "body", "direction": "favorable",
+                  "voice": "journalist", "start": 0, "end": 1}]
+        errs = self.errs(self.tone(evidence_spans=spans))
+        self.assertTrue(any("unknown keys" in e for e in errs), errs)
+
+
 class TestPartyToneV2(FixtureTestCase):
     def record(self):
         a = analysis(self.analysis_path("a1"), "https://test.bg/alpha",
@@ -192,9 +431,12 @@ class TestPartyToneV2(FixtureTestCase):
         self.write_party_gazetteer()
         self.save(self.record())
         saved = self.saved_record()
-        self.assertEqual(saved["party_tones_version"], 2)
+        import analyze_articles as aa
+        self.assertEqual(saved["party_tones_version"],
+                         aa.PARTY_TONES_VERSION)
         self.assertEqual(saved["party_tones"][0]["party_id"], "gerb")
-        self.assertEqual(saved["party_tone_evidence_gate_version"], 1)
+        self.assertEqual(saved["party_tone_evidence_gate_version"],
+                         aa.PARTY_TONE_EVIDENCE_GATE_VERSION)
         self.assertIs(saved["party_tones"][0]["evidence_grounded"], False)
 
     def test_evidence_gate_is_deterministic_and_routes_failure_to_review(self):

@@ -1959,22 +1959,46 @@ class SchemaAndGrammarAgree(unittest.TestCase):
                       aa.RUSSIA_LABELS, aa.AI_VERDICTS, aa.TONE_LABELS):
             self.assertIn(tuple(sorted(const)), got)
 
+    # ⚠️ THE ONLY OPTIONAL PROPERTY IN THE WHOLE SCHEMA, and it is named here
+    # so a second one cannot appear quietly. `speaker` is required by
+    # `validate_evidence_spans` when the voice is a quoted speaker and is
+    # meaningless on journalist framing, where there is nobody to name —
+    # marking it required would force the model to invent a speaker for the
+    # commonest case. The invariant below is otherwise unchanged.
+    OPTIONAL_PROPERTIES = {("evidence_spans", "speaker")}
+
     def test_every_object_is_CLOSED_and_fully_required(self):
         # ⚠️ Structured outputs treat an absent `required` as „all optional",
         # so a provider may legally return {} — valid against the schema and
-        # refused by the validator.
-        def walk(n):
+        # refused by the validator. An object with a NON-EMPTY `required` list
+        # is not that failure; a missing one is.
+        def walk(n, owner=None):
             if isinstance(n, dict):
                 if n.get("type") == "object":
                     self.assertIs(n.get("additionalProperties"), False)
-                    self.assertEqual(sorted(n.get("required") or []),
-                                     sorted(n.get("properties") or {}))
-                for v in n.values():
-                    walk(v)
+                    props = sorted(n.get("properties") or {})
+                    required = sorted(n.get("required") or [])
+                    self.assertTrue(required, f"{owner}: `required` is absent")
+                    optional = sorted(set(props) - set(required))
+                    for name in optional:
+                        self.assertIn((owner, name), self.OPTIONAL_PROPERTIES,
+                                      f"{owner}.{name} is optional and "
+                                      "unsanctioned")
+                for key, value in n.items():
+                    walk(value, key if key != "items" else owner)
             elif isinstance(n, list):
                 for v in n:
-                    walk(v)
+                    walk(v, owner)
         walk(self.schema)
+
+    def test_the_sanctioned_optional_properties_really_are_optional(self):
+        """Not vacuous: the allowance must describe the schema, not excuse it."""
+        span = (self.schema["properties"]["party_tones"]["items"]
+                ["properties"]["evidence_spans"]["items"])
+        self.assertIn("speaker", span["properties"])
+        self.assertNotIn("speaker", span["required"])
+        for name in ("quote", "field", "direction", "voice"):
+            self.assertIn(name, span["required"])
 
     def test_subcategory_admits_null(self):
         # A topic with no subcategory is the common case, and an enum of

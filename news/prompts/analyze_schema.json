@@ -197,15 +197,60 @@
       "minimum": 0,
       "maximum": 1
      },
-     "evidence": {
+     "rationale": {
       "type": "string",
       "minLength": 1
+     },
+     "evidence_spans": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "quote": {
+         "type": "string",
+         "minLength": 1
+        },
+        "field": {
+         "type": "string",
+         "enum": [
+          "body",
+          "title"
+         ]
+        },
+        "direction": {
+         "type": "string",
+         "enum": [
+          "favorable",
+          "unfavorable"
+         ]
+        },
+        "voice": {
+         "type": "string",
+         "enum": [
+          "journalist",
+          "quoted_speaker",
+          "unclear"
+         ]
+        },
+        "speaker": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "direction",
+        "field",
+        "quote",
+        "voice"
+       ],
+       "additionalProperties": false
+      }
      }
     },
     "required": [
      "confidence",
-     "evidence",
+     "evidence_spans",
      "party",
+     "rationale",
      "tone"
     ],
     "additionalProperties": false

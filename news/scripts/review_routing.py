@@ -591,7 +591,18 @@ def main() -> int:
                         "party_id": tone.get("party_id"),
                         "tone": tone.get("tone"),
                         "confidence": tone.get("confidence"),
-                        "evidence": str(tone.get("evidence") or "")[:200],
+                        # ⚠️ EITHER CONTRACT. A v3 tone carries `rationale`
+                        # and no `evidence`, so reading only the legacy key
+                        # gave the reviewer a row with an empty justification —
+                        # the one field the row exists to show.
+                        "evidence": str(tone.get("rationale")
+                                        or tone.get("evidence") or "")[:200],
+                        "evidence_spans": [
+                            {k: x.get(k) for k in
+                             ("quote", "field", "direction", "voice",
+                              "speaker", "located")}
+                            for x in tone.get("evidence_spans") or []
+                            if isinstance(x, dict)],
                     })
                 block[field] = {"items": items, "why": review[field]}
                 continue

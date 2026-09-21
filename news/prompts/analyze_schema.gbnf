@@ -31,8 +31,24 @@ evid        ::= "\"evidence\"" ws ":" ws string
 entities    ::= "\"entities\"" ws ":" ws "{" ws "\"people\"" ws ":" ws strings "," ws "\"parties\"" ws ":" ws strings "," ws "\"institutions\"" ws ":" ws strings "," ws "\"companies\"" ws ":" ws strings "," ws "\"places\"" ws ":" ws strings ws "}"
 
 tones       ::= "\"party_tones\"" ws ":" ws "[" ws (tone (ws "," ws tone)*)? ws "]"
-tone        ::= "{" ws "\"party\"" ws ":" ws string "," ws "\"tone\"" ws ":" ws tone_lab "," ws conf "," ws evid ws "}"
+tone        ::= "{" ws "\"party\"" ws ":" ws string "," ws "\"tone\"" ws ":" ws tone_lab "," ws conf "," ws rationale "," ws spans ws "}"
 tone_lab    ::= "\"favorable\"" | "\"mixed\"" | "\"neutral\"" | "\"unfavorable\""
+rationale   ::= "\"rationale\"" ws ":" ws string
+# ⚠️ THE LIST MAY BE EMPTY and the grammar cannot say otherwise: „one span per
+# direction you claimed" is conditional on a value sampled earlier, which no
+# context-free grammar expresses. `validate_evidence_spans` enforces it.
+spans       ::= "\"evidence_spans\"" ws ":" ws "[" ws (span (ws "," ws span)*)? ws "]"
+# ⚠️ `speaker` IS IN THE GRAMMAR, optional and last. The prompt asks for it
+# whenever the voice is a quoted speaker and `validate_evidence_spans` REQUIRES
+# it there — so leaving it out of the grammar makes every such span
+# unrepresentable under constrained decoding and rejects the whole record. That
+# is this file's own „grammatically perfect and refused 100% of the time"
+# failure, and it would have hit the case §6 steers hardest toward.
+span        ::= "{" ws "\"quote\"" ws ":" ws string "," ws "\"field\"" ws ":" ws span_field "," ws "\"direction\"" ws ":" ws span_dir "," ws "\"voice\"" ws ":" ws span_voice ("," ws speaker)? ws "}"
+speaker     ::= "\"speaker\"" ws ":" ws string
+span_field  ::= "\"body\"" | "\"title\""
+span_dir    ::= "\"favorable\"" | "\"unfavorable\""
+span_voice  ::= "\"journalist\"" | "\"quoted_speaker\"" | "\"unclear\""
 
 topics      ::= "\"topics\"" ws ":" ws "[" ws (topic (ws "," ws topic)*)? ws "]"
 topic       ::= "{" ws "\"category\"" ws ":" ws cat "," ws "\"subcategory\"" ws ":" ws (sub | "null") "," ws "\"primary\"" ws ":" ws bool ws "}"

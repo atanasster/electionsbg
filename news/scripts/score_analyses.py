@@ -103,7 +103,7 @@ def apply_reference_revision(reference: dict, revision_path: Path) -> dict:
         if any(item.get("tone") not in PARTY_TONES or
                not isinstance(item.get("confidence"), (int, float)) or
                isinstance(item.get("confidence"), bool) or
-               not isinstance(item.get("evidence"), str) or not item["evidence"].strip()
+               not _tone_has_justification(item)
                for item in tones):
             raise ValueError(f"reference_revision_invalid_tone:{url}")
         patched = dict(out[url])
@@ -119,6 +119,22 @@ def apply_reference_revision(reference: dict, revision_path: Path) -> dict:
 # with a real label, so it always counts as a miss and shows up by name in
 # the confusion table rather than as a silent absence.
 DECLINED = "__declined__"
+def _tone_has_justification(item) -> bool:
+    """Either contract counts: legacy `evidence`, or v3 `rationale`.
+
+    ⚠️ A reference record written under v3 carries no `evidence`, and a check
+    that demanded one would reject the whole gold set as malformed the day the
+    corpus migrated.
+    """
+    if not isinstance(item, dict):
+        return False
+    for key in ("evidence", "rationale"):
+        value = item.get(key)
+        if isinstance(value, str) and value.strip():
+            return True
+    return False
+
+
 PARTY_TONES = ("favorable", "unfavorable", "neutral", "mixed")
 PARTY_RELEASE_GATES = {
     "pair_precision": 0.95,
@@ -729,6 +745,21 @@ def score_party_tones(ref: dict, hyp: dict, articles: dict | None = None) -> dic
         else:
             article = articles.get(url)
             for item in raw_h:
+                # ⚠️ TWO CONTRACTS, AND THE v3 ONE MUST NOT VANISH FROM THIS
+                # AUDIT. Reading only `evidence` silently skipped every v3
+                # pair, so the release report would have shown an unsupported
+                # count falling to zero as the corpus migrated — a metric
+                # improving because it stopped looking.
+                import analyze_articles as aa
+                if item.get("rationale") is not None:
+                    if article is None:
+                        evidence_unverifiable += 1
+                        continue
+                    located = aa.locate_evidence_spans(item, article)
+                    if not aa.party_tone_spans_support(
+                            {**item, "evidence_spans": located}):
+                        evidence_unsupported += 1
+                    continue
                 evidence = item.get("evidence")
                 if not isinstance(evidence, str) or not evidence.strip():
                     continue
@@ -737,8 +768,7 @@ def score_party_tones(ref: dict, hyp: dict, articles: dict | None = None) -> dic
                 else:
                     # Shared validator implementation, not a second looser
                     # notion of grounding for the release report.
-                    from analyze_articles import party_tone_evidence_grounded
-                    if not party_tone_evidence_grounded(evidence, article):
+                    if not aa.party_tone_evidence_grounded(evidence, article):
                         evidence_unsupported += 1
 
     precision = tp / (tp + fp) if tp + fp else None

@@ -101,8 +101,24 @@ evid        ::= "\\"evidence\\"" ws ":" ws string
 entities    ::= "\\"entities\\"" ws ":" ws "{{" ws "\\"people\\"" ws ":" ws strings "," ws "\\"parties\\"" ws ":" ws strings "," ws "\\"institutions\\"" ws ":" ws strings "," ws "\\"companies\\"" ws ":" ws strings "," ws "\\"places\\"" ws ":" ws strings ws "}}"
 
 tones       ::= "\\"party_tones\\"" ws ":" ws "[" ws (tone (ws "," ws tone)*)? ws "]"
-tone        ::= "{{" ws "\\"party\\"" ws ":" ws string "," ws "\\"tone\\"" ws ":" ws tone_lab "," ws conf "," ws evid ws "}}"
+tone        ::= "{{" ws "\\"party\\"" ws ":" ws string "," ws "\\"tone\\"" ws ":" ws tone_lab "," ws conf "," ws rationale "," ws spans ws "}}"
 tone_lab    ::= {gbnf_alt(aa.TONE_LABELS)}
+rationale   ::= "\\"rationale\\"" ws ":" ws string
+# ⚠️ THE LIST MAY BE EMPTY and the grammar cannot say otherwise: „one span per
+# direction you claimed" is conditional on a value sampled earlier, which no
+# context-free grammar expresses. `validate_evidence_spans` enforces it.
+spans       ::= "\\"evidence_spans\\"" ws ":" ws "[" ws (span (ws "," ws span)*)? ws "]"
+# ⚠️ `speaker` IS IN THE GRAMMAR, optional and last. The prompt asks for it
+# whenever the voice is a quoted speaker and `validate_evidence_spans` REQUIRES
+# it there — so leaving it out of the grammar makes every such span
+# unrepresentable under constrained decoding and rejects the whole record. That
+# is this file's own „grammatically perfect and refused 100% of the time"
+# failure, and it would have hit the case §6 steers hardest toward.
+span        ::= "{{" ws "\\"quote\\"" ws ":" ws string "," ws "\\"field\\"" ws ":" ws span_field "," ws "\\"direction\\"" ws ":" ws span_dir "," ws "\\"voice\\"" ws ":" ws span_voice ("," ws speaker)? ws "}}"
+speaker     ::= "\\"speaker\\"" ws ":" ws string
+span_field  ::= {gbnf_alt(aa.PARTY_TONE_SPAN_FIELDS)}
+span_dir    ::= {gbnf_alt(aa.PARTY_TONE_SPAN_DIRECTIONS)}
+span_voice  ::= {gbnf_alt(aa.PARTY_TONE_SPAN_VOICES)}
 
 topics      ::= "\\"topics\\"" ws ":" ws "[" ws (topic (ws "," ws topic)*)? ws "]"
 topic       ::= "{{" ws "\\"category\\"" ws ":" ws cat "," ws "\\"subcategory\\"" ws ":" ws (sub | "null") "," ws "\\"primary\\"" ws ":" ws bool ws "}}"
@@ -133,8 +149,8 @@ ws          ::= [ \\t\\n]*
 '''
 
 
-def _obj(props: dict) -> dict:
-    """A closed object — every property required, no extras.
+def _obj(props: dict, optional: tuple = ()) -> dict:
+    """A closed object — every property required unless named in `optional`.
 
     ⚠️ `additionalProperties: false` AND a full `required` list, on EVERY
     object. OpenAI-style structured outputs treat an absent `required` as
@@ -144,7 +160,8 @@ def _obj(props: dict) -> dict:
     warns about.
     """
     return {"type": "object", "properties": props,
-            "required": sorted(props), "additionalProperties": False}
+            "required": sorted(set(props) - set(optional)),
+            "additionalProperties": False}
 
 
 def build_json_schema(doc: dict) -> dict:
@@ -191,11 +208,28 @@ def build_json_schema(doc: dict) -> dict:
         "entities": _obj({k: strings for k in
                           ("people", "parties", "institutions",
                            "companies", "places")}),
+        # ⚠️ `rationale` is prose for a reader; `evidence_spans` is provenance
+        # and is the only thing the gate checks. They were one overloaded
+        # `evidence` field until v3, which is why 99.7% of assessed tones were
+        # withheld — see PARTY_TONE_SPAN_FIELDS in analyze_articles.
         "party_tones": {"type": "array", "items": _obj({
             "party": string,
             "tone": {"type": "string", "enum": sorted(aa.TONE_LABELS)},
             "confidence": prob,
-            "evidence": string})},
+            "rationale": string,
+            "evidence_spans": {"type": "array", "items": _obj({
+                "quote": string,
+                "field": {"type": "string",
+                          "enum": sorted(aa.PARTY_TONE_SPAN_FIELDS)},
+                "direction": {"type": "string",
+                              "enum": sorted(aa.PARTY_TONE_SPAN_DIRECTIONS)},
+                "voice": {"type": "string",
+                          "enum": sorted(aa.PARTY_TONE_SPAN_VOICES)},
+                # ⚠️ OPTIONAL, and the only optional property in this schema.
+                # The validator requires it when the voice is a quoted
+                # speaker; making it REQUIRED here would force a speaker onto
+                # journalist framing, where there is nobody to name.
+                "speaker": str0}, optional=("speaker",))}})},
         "topics": {"type": "array", "items": _obj({
             "category": {"type": "string", "enum": sorted(cats)},
             # ⚠️ NULLABLE, and expressed as a type UNION rather than as an
