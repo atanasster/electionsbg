@@ -2359,6 +2359,111 @@ or belongs to the journalist rather than a person being quoted. T4.1 says so in 
 not call a substring-matched tone verified" — and no surface may describe a grounded tone as
 checked.
 
+### 15.6 ✅ T1.4 is SHIPPED — the gate, and what it measured on first run
+
+`npm run news:reachability` / `:gate` (`news/scripts/reachability_gate.py`, in
+`news:release:gate` after `news:home-health:gate`). First run, 3,189 stories at
+`as_of 2026-09-21T11:36Z`: **14 answerable fixtures, 0 failing, coverage 1.000
+on every one**, and `filter_index_rule_drift` zero in both directions.
+
+Four things about it are worth carrying:
+
+- **The denominator is re-derived, not imported.** `story_filter_row` is what
+  BUILDS the index the gate checks, so calling it would compare the builder to
+  itself and pass on any predicate the two happen to share — including a wrong
+  one. Eligibility is restated from `stories.json`; `filter_index_rule_drift`
+  reports the disagreement rather than hiding it.
+- ⚠️ **`stories.json` CARRIES NO `domains` FIELD** — the index rows get one
+  (`build_app_data.story_index_row`), the corpus file does not. A `story.get("domains")`
+  therefore returns empty for every story, every outlet fixture finds nothing
+  eligible, and all of them report N/A: a gate that passes by never asking the
+  one question this tier exists for. Measured on the first cut: 10 fixtures, 0
+  of them about an outlet. It derives `domains` from `members` instead.
+- **The deep-page fixture is DERIVED, and it is the DEPTH probe.** A
+  hand-picked „elections, 7 days" goes vacuous the week that topic is quiet.
+  The gate picks an outlet whose stories are all past page 1 — on this corpus
+  `glasove.com`, 136 eligible, **first match on page 19 in `index` order**
+  (page 2 in `ranked`, which is ordered by prominence and carries no depth
+  guarantee).
+
+  ⚠️ **IT IS NOT THE ONLY FIXTURE SENSITIVE TO A TRUNCATED INDEX, and an
+  earlier draft of this section said it was.** The gate walks the whole corpus
+  itself, so a page-1-only walk fails **all fourteen** — measured,
+  `everything` reads **0.047** and the deep fixture **0.000**. The claim that
+  the other thirteen still read 1.000 is false, and believing it would argue
+  for deleting the fixtures that do the work. What the deep fixture alone
+  provides is `first_match_page`: the one figure that would move if the
+  builder began emitting a prefix while every set still reconciled.
+- **An empty corpus FAILS rather than scoring 1.000.** Every fixture would
+  match nothing, every one would be vacuously covered, and „0 failures" would
+  report success for a build that produced nothing. `vacuous` is the flag.
+
+  ⚠️ **THE FLOOR IS ON WHAT WAS CHECKED, NOT ON HOW MANY FIXTURES RAN, and
+  the first cut had that backwards in both directions.** `answerable` depends
+  on the corpus's facet diversity and recency: measured, a **32-story**
+  synthetic corpus (1% of the real one) produced twelve answerable fixtures
+  and passed, while a **5-story** corpus that was entirely correct produced
+  three and was failed as vacuous — and `news:reachability:gate` runs inside
+  `news:release:gate`, so that second case makes a quiet week a red release.
+  The fixture count is now a printed diagnostic
+  (`EXPECTED_ANSWERABLE_FIXTURES`); the gate refuses when nothing was checked.
+- **A SHRUNKEN corpus is refused against a committed baseline**
+  (`news/config/reachability_baseline.json`, `MAX_CORPUS_SHRINK` 5%,
+  `--allow-shrink` / `--update-baseline`). Set equality is a WITHIN-snapshot
+  property, so „every fixture passed" is equally true of a build that lost 99%
+  of its stories. This is the repo's own pattern for a derived corpus
+  (`mergeFromStage`, `kzk_decisions`).
+- **Facet drift is checked over the WHOLE corpus, not only the probed
+  fixtures.** The fixtures name the top 3 categories and top 3 outlets;
+  the corpus has 25 and 44. So a story whose index row lost a topic or an
+  outlet outside that six was invisible — the per-fixture set equality cannot
+  reach it and the id-drift check compares ids only. Measured: losing
+  `fakti.bg` was caught, losing `glasove.com` was not.
+
+**The article funnel, reported separately and in ARTICLES** (never a
+denominator for the story counts above): analysed **6,088** → quality-ok
+**5,875** → site-relevant **3,557** → attached to a published story **3,557**,
+**0 unattached**, with **53** site-relevant records off-stage because they are
+not quality-ok.
+
+⚠️ **The stages are CUMULATIVE and the third one is an intersection.** 3,610
+records on disk are site-relevant; 3,557 of those are also quality-ok.
+Publishing 3,610 as the third stage against 3,557 attached would invent a
+53-article discrepancy out of the staging, which is the inherited „2,883 vs
+2,876" defect in a new costume — so the off-stage count is named.
+
+⚠️ **The zero residue is structural TODAY and is measured in BOTH directions,
+which took two fields.** `unattached` counts articles that passed both
+predicates and reached no published story; `attached_but_off_predicate` counts
+the converse — a published story resting on an analysis the pipeline judged
+unusable. A single count difference can only ever see the first, so an earlier
+draft's „verified as a SET rather than by equal counts" described a check that
+was not there: the converse record hits `continue` before any counter and
+leaves `unattached` at 0. Both are zero on this corpus, independently
+verified over all 6,088 records. This supersedes §13's „2,883 eligible versus
+2,876 attached leaves seven to reconcile"; that pair was never a release
+baseline and is not this corpus.
+
+⚠️ **An absent analysis tree is `not_measured`, never a row of zeros** — the
+module's own N/A rule, applied to the funnel. „0 unattached" is the HEALTHY
+signal and rendered identically to a funnel nobody ran; and a missing
+`index.json` produces the opposite artefact, a fabricated residue equal to the
+whole site-relevant count on a pipeline that is fine.
+
+**What this gate does NOT see, recorded rather than implied:** it is
+independent of the builder's DERIVATION (it reads `members` and `topics` out
+of `stories.json` rather than `story_index_row`'s output) but not of the
+RULE — `eligible_facets` and `UNTOPICED_FACET` transcribe
+`build_app_data.story_filter_row`, so a change to what a facet MEANS has to be
+made on both sides and the two would agree on a wrong one. It also says
+nothing about whether a reachable story is worth reaching; that is T2's
+question, not this one.
+
+**Still open from T1.4's neighbours:** the „Показваме 1 от 139" line on
+`/` names both numbers and offers no destination, because the news app has no
+browse route. That is the remaining half of R1 and belongs with T1.3's query
+contract, not with this gate.
+
 ### 15.4 Corrections this pass did **not** make
 
 Stated so a later reader does not re-litigate them:
