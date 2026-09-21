@@ -37,12 +37,13 @@ class Staleness(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.root, ignore_errors=True)
 
-    def write_run(self, run_id: str, age_s: float, **exits):
+    def write_run(self, run_id: str, age_s: float, at=None, **exits):
+        """`at` moves the clock the age is measured from (default NOW)."""
         row = {"mode": "news_hourly", "run_id": run_id, "pipeline_exit": 0,
                "upload_exit": 0, "eval_task_sync_exit": 0, **exits}
         path = self.reports / f"{run_id}.json"
         path.write_text(json.dumps(row), encoding="utf-8")
-        ts = NOW.timestamp() - age_s
+        ts = (at or NOW).timestamp() - age_s
         os.utime(path, (ts, ts))
         # A sidecar with the same run id must never be read as the combined
         # report, even when it is newer.
@@ -129,6 +130,101 @@ class Staleness(unittest.TestCase):
         status = cs.evaluate(self.root, NOW, SETTINGS,
                              manifest_at(NOW - timedelta(minutes=30)))
         self.assertTrue(status["ok"], status)
+
+    def test_a_cold_start_eval_surface_is_not_an_alarm(self):
+        """Nobody has submitted yet — a product state, not an incident.
+
+        Alarming here would pin `ok: false` for as long as the public eval
+        surface has no submitters, which is exactly how a real failure beside
+        it would go unnoticed.
+        """
+        self.write_run("r1", 600, evals={"export": {"alerts": [
+            "accepted_export_cold_start_no_records",
+            "feedback_accepted_export_cold_start_no_records"]}})
+        status = cs.evaluate(self.root, NOW, SETTINGS,
+                             manifest_at(NOW - timedelta(minutes=30)))
+        self.assertTrue(status["ok"], status)
+
+    def test_an_eval_export_regression_alarms(self):
+        self.write_run("r1", 600, evals={"export": {"alerts": [
+            "accepted_export_failed_last_good_retained"]}})
+        status = cs.evaluate(self.root, NOW, SETTINGS,
+                             manifest_at(NOW - timedelta(minutes=30)))
+        self.assertEqual(self.alarms(status), ["eval_export_failed"])
+
+    def test_a_regression_beside_a_cold_start_still_alarms(self):
+        """The whole point of the split: one must not mask the other."""
+        self.write_run("r1", 600, evals={"export": {"alerts": [
+            "accepted_export_cold_start_no_records",
+            "raw_export_failed"]}})
+        status = cs.evaluate(self.root, NOW, SETTINGS,
+                             manifest_at(NOW - timedelta(minutes=30)))
+        self.assertEqual(self.alarms(status), ["eval_export_failed"])
+        self.assertIn("raw_export_failed", status["alarms"][0]["detail"])
+        self.assertNotIn("cold_start", status["alarms"][0]["detail"])
+
+    def test_the_two_orphan_eval_failures_now_alarm(self):
+        """Neither reached an alarm OR an exit code before the suffix filter.
+
+        `feedback_improvement_build_failed_last_good_retained` and
+        `correction_proposal_failed` are emitted by `export_operation` and
+        matched no prefix, so they were visible only to someone reading
+        `evals.export.alerts` by hand.
+        """
+        for alert in ("correction_proposal_failed",
+                      "feedback_improvement_build_failed_last_good_retained"):
+            with self.subTest(alert=alert):
+                for p in self.reports.iterdir():
+                    p.unlink()
+                self.write_run("r1", 600, evals={"export": {"alerts": [alert]}})
+                status = cs.evaluate(self.root, NOW, SETTINGS,
+                                     manifest_at(NOW - timedelta(minutes=30)))
+                self.assertEqual(self.alarms(status), ["eval_export_failed"])
+
+    def test_a_non_failure_alert_name_is_ignored(self):
+        """The filter is the failure VOCABULARY, not a list of export names."""
+        self.write_run("r1", 600, evals={"export": {"alerts": [
+            "operator_cli_stale", "accepted_export_cold_start_no_records"]}})
+        status = cs.evaluate(self.root, NOW, SETTINGS,
+                             manifest_at(NOW - timedelta(minutes=30)))
+        self.assertTrue(status["ok"], status)
+
+    def test_a_persistent_regression_reaches_a_notification(self):
+        """The behaviour that actually matters: does an operator hear about it?
+
+        Every existing notify test uses `manifest_stale`, which carries NO
+        `key`, so none of them exercised a keyed alarm against the grace. With
+        a run-id key, `track_first_seen` dropped the key on every new run, the
+        45-minute grace never matured, and six simulated hours of continuous
+        regression produced zero notifications while the keyless control
+        notified at T+60.
+        """
+        grace, renotify = 2700, 21600
+        previous: dict = {}
+        notifications = []
+        for minute in range(0, 361, 30):
+            clock = NOW + timedelta(minutes=minute)
+            # A NEW run id every hour — the condition that defeated the old key.
+            for p in self.reports.iterdir():
+                p.unlink()
+            self.write_run(f"run-{minute // 60}", 600, evals={"export": {
+                "alerts": ["accepted_export_failed_last_good_retained"]}},
+                at=clock)
+            status = cs.evaluate(self.root, clock, SETTINGS,
+                                 manifest_at(clock - timedelta(minutes=30)))
+            keys = cs.alarm_keys(status)
+            first_seen = cs.track_first_seen(keys, previous, clock.timestamp())
+            mature = cs.mature_keys(first_seen, clock.timestamp(), grace)
+            if cs.should_notify(mature, previous, clock.timestamp(), renotify):
+                notifications.append(minute)
+                previous = {"first_seen": first_seen, "notified": mature,
+                            "notified_at": clock.timestamp()}
+            else:
+                previous = {**previous, "first_seen": first_seen}
+        self.assertTrue(notifications,
+                        "a six-hour regression notified nobody")
+        self.assertLessEqual(notifications[0], 60,
+                             f"first notification at T+{notifications[0]}m")
 
     def test_newest_combined_report_wins(self):
         self.write_run("old", 7000, pipeline_exit=1)

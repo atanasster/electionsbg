@@ -151,6 +151,85 @@ def runtime_config(root: Path = ROOT) -> RuntimeConfig:
                          _stale_operator_cli(operator_cli, root))
 
 
+# ⚠️ "RETAINING THE LAST KNOWN-GOOD EXPORT" IS A CLAIM, AND IT CAN BE FALSE.
+# `buildRawSubmissionExport` / `buildAcceptedAdjudicationSnapshot` throw
+# "Firestore returned no X; retaining the last known-good ..." on an EMPTY
+# collection, deliberately, so a transient query cannot overwrite a good file
+# with an empty one. But the message asserts a file that, on a surface nobody
+# has ever submitted to, has never existed — measured 2026-09-21:
+# news/data/evals/{public-submissions,accepted,feedback-accepted} are all
+# absent, so the public evaluation surface has collected ZERO submissions and
+# zero adjudications since it shipped.
+#
+# ⚠️ THE TWO STATES NEED DIFFERENT NAMES BECAUSE THEY NEED DIFFERENT ACTIONS.
+# A COLD START ("nobody has submitted yet") is a product fact and is not a
+# defect to debug; a REGRESSION ("we had records and the export stopped
+# returning them") is an incident. Both currently render as the same
+# `*_failed_last_good_retained` alert, which sends an operator hunting a
+# credential or a query for a collection that is simply empty — and, worse,
+# lets a genuine regression hide inside the noise of a permanently-red
+# cold-start alert.
+EMPTY_COLLECTION_MARKERS = (
+    "returned no submissions",
+    # `export-feedback` is not called by this runtime yet; kept so it needs no
+    # edit when it is. (It is not a substring of "returned no accepted
+    # feedback", so today it matches nothing reachable.)
+    "returned no feedback",
+    "returned no accepted adjudications",
+    "returned no accepted feedback",
+)
+
+
+def _export_alert(outcome: dict[str, Any], destination: Path, kind: str,
+                  retained: bool | None = None, *, usable: bool = True) -> str:
+    """Name the failure by what it means, not by which export raised it.
+
+    ⚠️ RETENTION IS NOT DECIDED BY THE MESSAGE. The operator says "retaining
+    the last known-good export" on every empty collection, but that is a claim
+    about a file it never checks — and on a surface nobody has submitted to,
+    the file has never existed. Measured 2026-09-21:
+    news/data/evals/{public-submissions,accepted,feedback-accepted} are all
+    absent, so the claim was false on every one of those runs.
+
+    ⚠️ AND IT IS NOT DECIDED HERE EITHER. `retained` comes from the caller's
+    already-computed `snapshot_status`, which is the ONE authority on whether a
+    usable snapshot exists — a local `is_file()` would be a second, independent
+    notion of the same thing, free to disagree with the status that drives
+    `blocked_reasons` two lines later. Only the raw `.jsonl` export, which has
+    no status of its own, falls back to the filesystem.
+
+    With retention settled, the cause names the rest: a COLD START ("nobody has
+    submitted yet") is a product state and not a defect to debug, while a
+    permission or query fault is an incident. Both used to render as
+    `*_failed_last_good_retained`, which sent an operator hunting a credential
+    for an empty collection and let a real regression hide behind a
+    permanently-red alert.
+    """
+    if outcome.get("exit") == 0:
+        return ""
+    if destination.is_file() if retained is None else retained:
+        # ⚠️ "LAST KNOWN-GOOD" IS TWO CLAIMS, AND A CORRUPT FILE SATISFIES ONLY
+        # ONE. `snapshot_status` returns "invalid" when the retained file will
+        # not load — a truncated write, a wrong project_id. Announcing that as
+        # `_last_good_retained` is the same false assertion this function
+        # exists to remove, one state over. Flipping `retained` instead would
+        # be worse: an empty-collection error would then render a corrupt file
+        # as a COLD START, i.e. "nobody has submitted yet" about a surface
+        # whose records we are holding and cannot read.
+        return (f"{kind}_failed_last_good_retained" if usable
+                else f"{kind}_failed_last_good_invalid")
+    # ⚠️ BOTH CHANNELS, AND THE TAIL. `result or error` lets a stray stdout
+    # JSON line out-compete the diagnostic, and `run_operator` truncates to 600
+    # characters while operator-cli writes its JSON error LAST — either would
+    # lose the marker and turn a cold start into a regression, pinning
+    # `ok: false` for as long as the surface has no submitters.
+    blob = json.dumps([outcome.get("result"), outcome.get("error")],
+                      ensure_ascii=False)
+    if any(marker in blob for marker in EMPTY_COLLECTION_MARKERS):
+        return f"{kind}_cold_start_no_records"
+    return f"{kind}_failed"
+
+
 def _last_json(output: str) -> dict[str, Any] | None:
     for line in reversed(output.splitlines()):
         try:
@@ -177,7 +256,12 @@ def run_operator(config: RuntimeConfig, arguments: list[str]) -> dict[str, Any]:
     }
     if process.returncode != 0:
         detail = (process.stderr or process.stdout).strip().replace("\n", " ")
-        result["error"] = detail[:600] or "operator_failed_without_output"
+        # ⚠️ THE TAIL, NOT THE HEAD. operator-cli writes its JSON diagnostic
+        # LAST (`main().catch(...)`), so any preceding stderr noise longer than
+        # the budget would push the only machine-readable part of the failure
+        # past a head-truncation — and `_export_alert` reads that part to tell a
+        # cold start from a regression.
+        result["error"] = detail[-600:] or "operator_failed_without_output"
     return result
 
 
@@ -283,12 +367,6 @@ def export_operation(root: Path = ROOT, *, dry_run: bool = False,
         accepted_export = _operator_export(config, "export-accepted", accepted_path)
         feedback_accepted_export = _operator_export(
             config, "export-accepted-feedback", feedback_accepted_path)
-        if raw_export["exit"] != 0:
-            alerts.append("raw_export_failed")
-        if accepted_export["exit"] != 0:
-            alerts.append("accepted_export_failed_last_good_retained")
-        if feedback_accepted_export["exit"] != 0:
-            alerts.append("feedback_accepted_export_failed_last_good_retained")
         if config.stale_operator_cli is not None:
             alerts.append("operator_cli_stale")
     else:
@@ -302,6 +380,21 @@ def export_operation(root: Path = ROOT, *, dry_run: bool = False,
     accepted = snapshot_status(accepted_path, root=root, now=now)
     accepted_feedback = feedback_snapshot_status(
         feedback_accepted_path, root=root)
+    # ⚠️ AFTER the statuses, never before: retention is read from the same
+    # snapshot_status that decides `blocked_reasons` below, so the alert and
+    # the block can never disagree about whether a usable snapshot exists.
+    # --- alerts: AFTER the statuses, see the note above ---
+    if config.available:
+        for outcome, destination, kind, status in (
+                (raw_export, raw_path, "raw_export", None),
+                (accepted_export, accepted_path, "accepted_export", accepted),
+                (feedback_accepted_export, feedback_accepted_path,
+                 "feedback_accepted_export", accepted_feedback)):
+            retained = None if status is None else status.get("status") != "missing"
+            usable = True if status is None else status.get("status") != "invalid"
+            if alert := _export_alert(outcome, destination, kind, retained,
+                                      usable=usable):
+                alerts.append(alert)
     improvement: dict[str, Any]
     if accepted_feedback["status"] == "valid":
         improvement_path = (eval_root / "feedback-improvement" /

@@ -15,6 +15,7 @@ from news.scripts.effective_analysis import AcceptedAdjudications
 from news.scripts.eval_runtime import (
     EvalRuntimeError,
     RuntimeConfig,
+    _export_alert,
     _stale_operator_cli,
     export_operation,
     run_operator,
@@ -39,6 +40,115 @@ def config(*, mode: str = "required", available: bool = True) -> RuntimeConfig:
             "news/app-data/manifest.json"
         ),
     )
+
+
+class ExportAlertTest(unittest.TestCase):
+    """A cold start and a regression are different incidents.
+
+    Both used to render as `*_failed_last_good_retained`, which sends an
+    operator hunting a credential for a collection that is simply empty — and
+    lets a real regression hide inside a permanently-red cold-start alert.
+    Measured 2026-09-21: the public evaluation surface has collected zero
+    submissions since it shipped, so this alert is red forever by default.
+    """
+
+    def setUp(self) -> None:
+        self.temp = tempfile.TemporaryDirectory(prefix="export_alert_")
+        self.path = Path(self.temp.name) / "current.json"
+
+    def tearDown(self) -> None:
+        self.temp.cleanup()
+
+    def test_success_raises_no_alert(self) -> None:
+        self.assertEqual(
+            _export_alert({"exit": 0}, self.path, "accepted_export"), "")
+
+    def test_empty_collection_with_no_file_is_a_cold_start(self) -> None:
+        outcome = {"exit": 1, "error": json.dumps({
+            "error": "operator_failed",
+            "message": ("Firestore returned no accepted adjudications; "
+                        "retaining the last known-good snapshot")})}
+        self.assertEqual(_export_alert(outcome, self.path, "accepted_export"),
+                         "accepted_export_cold_start_no_records")
+
+    def test_a_retained_file_keeps_the_established_name_whatever_the_cause(self) -> None:
+        """With no status to consult — the raw .jsonl export — retention falls
+        back to the filesystem. That is why this case passes no `retained`."""
+        self.path.write_text("{}", encoding="utf-8")
+        for message in ("Firestore returned no accepted adjudications; "
+                        "retaining the last known-good snapshot",
+                        "PERMISSION_DENIED: caller lacks datastore.entities.list"):
+            with self.subTest(message=message[:24]):
+                outcome = {"exit": 1, "error": json.dumps({"message": message})}
+                self.assertEqual(
+                    _export_alert(outcome, self.path, "accepted_export"),
+                    "accepted_export_failed_last_good_retained")
+
+    def test_any_other_failure_stays_a_plain_failure(self) -> None:
+        """A credential or query fault must NOT be softened into a cold start."""
+        outcome = {"exit": 1, "error": json.dumps({
+            "message": "PERMISSION_DENIED: caller lacks datastore.entities.list"})}
+        self.assertEqual(_export_alert(outcome, self.path, "accepted_export"),
+                         "accepted_export_failed")
+
+    def test_a_status_overrides_the_filesystem_in_both_directions(self) -> None:
+        """`retained` is the caller's snapshot_status, not a second is_file().
+
+        Two independent notions of "do we have a snapshot" are free to
+        disagree, and the one that drives `blocked_reasons` must win.
+        """
+        outcome = {"exit": 1, "error": json.dumps({"message": "offline"})}
+        self.assertFalse(self.path.is_file())
+        self.assertEqual(
+            _export_alert(outcome, self.path, "accepted_export", True),
+            "accepted_export_failed_last_good_retained")
+        self.path.write_text("{}", encoding="utf-8")
+        self.assertEqual(
+            _export_alert(outcome, self.path, "accepted_export", False),
+            "accepted_export_failed")
+
+    def test_an_unreadable_retained_file_is_not_last_known_good(self) -> None:
+        """A corrupt snapshot satisfies "retained" and not "known-good".
+
+        Announcing it as `_last_good_retained` is the same false claim this
+        function exists to remove, one state over.
+        """
+        outcome = {"exit": 1, "error": json.dumps({"message": "offline"})}
+        self.assertEqual(
+            _export_alert(outcome, self.path, "accepted_export", True,
+                          usable=False),
+            "accepted_export_failed_last_good_invalid")
+
+    def test_an_empty_collection_beside_a_corrupt_file_is_never_a_cold_start(
+            self) -> None:
+        """The reason `usable` is a third name rather than a flipped `retained`.
+
+        Flipping it would render a corrupt retained file as "nobody has
+        submitted yet" — about a surface whose records we hold and cannot read.
+        """
+        outcome = {"exit": 1, "error": json.dumps({
+            "message": "Firestore returned no accepted adjudications; "
+                       "retaining the last known-good snapshot"})}
+        self.assertEqual(
+            _export_alert(outcome, self.path, "accepted_export", True,
+                          usable=False),
+            "accepted_export_failed_last_good_invalid")
+
+    def test_the_marker_survives_a_stray_stdout_payload_and_truncation(
+            self) -> None:
+        """Both channels are scanned, so `result` cannot out-compete `error`."""
+        outcome = {"exit": 1, "result": {"note": "partial"}, "error": json.dumps({
+            "message": "Firestore returned no submissions; "
+                       "retaining the last known-good export"})}
+        self.assertEqual(_export_alert(outcome, self.path, "raw_export"),
+                         "raw_export_cold_start_no_records")
+
+    def test_a_permission_error_is_a_failure_even_with_no_file(self) -> None:
+        """Absence of a file must not turn every error into a cold start."""
+        outcome = {"exit": 1, "error": json.dumps({"message": "UNAUTHENTICATED"})}
+        self.assertFalse(self.path.is_file())
+        self.assertEqual(_export_alert(outcome, self.path, "accepted_export"),
+                         "accepted_export_failed")
 
 
 class StaleOperatorCliTest(unittest.TestCase):
@@ -200,6 +310,42 @@ class EvalRuntimeTest(unittest.TestCase):
         self.assertEqual(exporter.call_count, 3)
         self.assertEqual(exporter.call_args_list[2].args[1],
                          "export-accepted-feedback")
+
+    def test_a_never_populated_surface_reports_cold_start_not_failure(self):
+        """The live 2026-09-21 state: zero submissions since the surface shipped.
+
+        `export_operation` must say so in those words. Reporting it as
+        `*_failed_last_good_retained` asserts a retained file that has never
+        existed and sends an operator debugging an empty collection.
+        """
+        empty = {"exit": 1, "result": None, "error": json.dumps({
+            "error": "operator_failed",
+            "message": ("Firestore returned no accepted adjudications; "
+                        "retaining the last known-good snapshot")})}
+        with mock.patch(
+            "news.scripts.eval_runtime.runtime_config", return_value=config()
+        ), mock.patch(
+            "news.scripts.eval_runtime._operator_export", return_value=empty,
+        ), mock.patch(
+            "news.scripts.eval_runtime.feedback_snapshot_status",
+            return_value={"status": "missing", "record_count": 0},
+        ), mock.patch(
+            "news.scripts.eval_runtime.snapshot_status",
+            return_value={"status": "missing", "record_count": 0},
+        ):
+            result, _ = export_operation(self.root)
+        self.assertIn("accepted_export_cold_start_no_records", result["alerts"])
+        self.assertIn("feedback_accepted_export_cold_start_no_records",
+                      result["alerts"])
+        # The raw .jsonl arm is the only one whose retention is NOT read from a
+        # status, so it is the only one that can diverge from the other two.
+        self.assertIn("raw_export_cold_start_no_records", result["alerts"])
+        self.assertNotIn("accepted_export_failed_last_good_retained",
+                         result["alerts"])
+        # ⚠️ A cold start must still BLOCK in `required` mode — "nobody has
+        # submitted yet" is a reason the gate cannot pass, not a reason to
+        # waive it. This is the fail-closed-on-empty rule.
+        self.assertIn("accepted_snapshot_missing", result["block_reasons"])
 
     def test_snapshot_report_counts_current_stale_and_missing_content(self):
         records = {

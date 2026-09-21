@@ -6,7 +6,7 @@ check is what notices. It is deliberately independent of the hourly job — a
 separate LaunchAgent runs it every 30 minutes — because a scheduler that has
 stopped cannot report its own absence.
 
-Four alarms, each a distinct failure:
+The alarms, each a distinct failure:
 
   manifest_stale       the public manifest's `generated_at` is older than
                        NEWS_STALE_AFTER_S (default 2 x the hourly cadence)
@@ -16,6 +16,13 @@ Four alarms, each a distinct failure:
                        writing their report (var/cron.log tells which)
   run_failed           the newest run reported a non-zero pipeline_exit /
                        upload_exit / eval_task_sync_exit
+  eval_export_failed   an eval export REGRESSED — it had records and stopped
+                       returning them, or failed for a cause other than an
+                       empty collection. A cold start (nobody has submitted to
+                       the public eval surface yet) is deliberately NOT an
+                       alarm: it is a product state, it is the live state as of
+                       2026-09-21, and alarming on it would keep `ok: false`
+                       permanently and bury every real alarm beside it
   operator_cli_stale   the run executed a compiled news-functions/lib CLI that
                        is older than its own TypeScript source, so a fix that is
                        written is not the code that ran. `run_failed` cannot
@@ -218,7 +225,7 @@ def evaluate(root: Path, now: datetime, settings: dict,
         failed = sorted(k for k in EXIT_KEYS if run.get(k) not in (0, None))
         if failed:
             alarms.append({"alarm": "run_failed",
-                           "key": f"{run.get('run_id')}:{','.join(failed)}",
+                           "key": ",".join(failed),
                            "detail": f"{run.get('run_id')}: "
                                      + ", ".join(f"{k}={run.get(k)}" for k in failed)})
     if run is not None:
@@ -232,10 +239,36 @@ def evaluate(root: Path, now: datetime, settings: dict,
                      .get("operator_cli_stale"))
         if isinstance(stale_cli, str) and stale_cli:
             alarms.append({"alarm": "operator_cli_stale",
-                           "key": f"{run.get('run_id')}:operator_cli_stale",
+                           "key": stale_cli,
                            "detail": f"{run.get('run_id')}: news-functions/lib "
                                      f"is older than {stale_cli} — run "
                                      "`npm --prefix news-functions run build`"})
+    if run is not None:
+        export_alerts = ((run.get("evals") or {}).get("export") or {}).get("alerts")
+        if isinstance(export_alerts, list):
+            # ⚠️ REGRESSIONS ONLY. `*_cold_start_no_records` means the
+            # collection has never held anything — see eval_runtime's
+            # `_export_alert`. Alarming on it would pin `ok: false` for as long
+            # as the eval surface has no submitters, which is exactly how a
+            # real failure would go unnoticed.
+            #
+            # ⚠️ MATCHED BY SUFFIX, NOT BY EXPORT NAME. A prefix list would have
+            # to be kept in lockstep with `_export_alert`'s `kind` arguments by
+            # hand, and the drift is silent in the worst direction: a new export
+            # could fail forever with `ok: true`. The suffixes are the failure
+            # vocabulary itself, so they also pick up the two eval alerts that
+            # reached no alarm at all — `feedback_improvement_build_failed_...`
+            # and `correction_proposal_failed` — and exclude cold starts by
+            # construction rather than by an explicit carve-out.
+            regressed = sorted({a for a in export_alerts
+                                if isinstance(a, str) and a.endswith(
+                                    ("_failed", "_failed_last_good_retained",
+                                     "_failed_last_good_invalid"))})
+            if regressed:
+                alarms.append({"alarm": "eval_export_failed",
+                               "key": ",".join(regressed),
+                               "detail": f"{run.get('run_id')}: "
+                                         + ", ".join(regressed)})
     if problems:
         status["config_problems"] = problems
     status["alarms"] = alarms
@@ -244,7 +277,24 @@ def evaluate(root: Path, now: datetime, settings: dict,
 
 
 def alarm_keys(status: dict) -> list:
-    """Identity of each alarm; a NEW failing run is a new key, not a repeat."""
+    """Identity of each alarm — what it is about, never which run saw it.
+
+    ⚠️ A KEY MUST NOT EMBED `run_id`, AND THIS IS NOT A STYLE RULE.
+    `track_first_seen` carries forward only keys present in the CURRENT status,
+    so a key naming the run resets `first_seen` every time a new run lands. The
+    pipeline runs hourly and this check every 30 minutes, so such a key is
+    observed at most twice, ~30 min apart — always short of the 45-minute
+    NEWS_STALENESS_GRACE_S — and `mature_keys` therefore never returns it.
+    Measured: six hours of a continuous regression produced ZERO notifications,
+    while the keyless `manifest_stale` control notified at T+60.
+
+    The effect is that the alarm is visible in the JSON line and in the exit
+    code, and reaches no human at all — the one channel that matters. All three
+    run-scoped alarms had it (`run_failed`, `operator_cli_stale`,
+    `eval_export_failed`); each now keys on WHAT failed and keeps the run id in
+    `detail`, so a persistent failure matures and notifies while a genuinely
+    different failure is still a new key.
+    """
     return sorted(a["alarm"] + (":" + a["key"] if a.get("key") else "")
                   for a in status["alarms"])
 
