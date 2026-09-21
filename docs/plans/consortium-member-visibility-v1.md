@@ -550,3 +550,43 @@ wrong order costs the block rather than the page, but it costs it silently:
 ```bash
 npx tsx scripts/db/apply_functions.ts 200_person_office_links.sql
 ```
+
+### 7.1 The party badge
+
+Asked for on 2026-09-21: „if it's a party member, can we add a small party badge next to the
+name". Shipped on the shared `PartyBadge` (the site's one party pill, so the readable-text
+contrast fix stays in one place).
+
+**The party comes from `graph_person_node`, keyed on `person_id`.** Three alternatives were
+rejected and two of them are traps worth recording:
+
+- `person_role.party` is mostly NULL, and where set it holds a per-election party NUMBER
+  (`p_0`) meaningful only against that election's own list. The reference MP's `mp` row carries
+  none.
+- ⚠️ **`mp_seat` on `mp_id` is the documented „mp_id is not a person key" hazard.**
+  `person_role.ref` records the reference MP as `3026:45`; `mp_seat` records him as mp_id
+  **1737** in ns 45. Different namespaces, 17% wrong people.
+- ⚠️ **`mp_seat` on the NAME FOLD works and is still wrong.** It is ambiguous for **77 of
+  2,260** (fold, ns) pairs and **65 of those disagree on party**, because one person whose
+  parliamentary GROUP changed mid-term appears twice — „АЙСЕЛ ИСМАИЛ РУФАД" is both `ДПС` and
+  `НЕЧЛ В ПГ` in ns 50. Picking either would publish a party a person had left. That table also
+  carries `НЕЧЛ В ПГ` (46 seats), `НЕЗ` (43) and `НЕЧЛ ПГ` (11) — „independent" rendered as a
+  party is a false claim. `graph_person_node.party` holds **zero** such labels, so this source
+  needs no denylist that could rot.
+
+Safe to read directly: 128 declares the table `CREATE TABLE IF NOT EXISTS` and
+`load_graph_pg.ts` stage-MERGEs it, so there is no DROP to CASCADE the function away — unlike
+the 077/145/178 family. **It does add `db:load:graph:pg` to 200's re-run triggers.**
+
+⚠️ **NULL MEANS „NOT KNOWN", NEVER „INDEPENDENT", and the consumer renders nothing.**
+Affiliation is only recorded for people the election corpus lists on a party ticket — **1,521
+of 8,238 linkable office-holders (18.5%)** — so a neutral „независим" pill on the other 81.5%
+would be a claim the corpus cannot support about a named individual. The 2007 municipal
+councillor in the reference case is exactly that: a real office-holder with no party on file,
+and he correctly gets no badge.
+
+Verified: Adamov renders **ИТН** on `rgb(75, 185, 222)`; two pills on the company page, none on
+the councillor's row, and no „независим"/„НЕЗ"/„НЕЧЛ" anywhere in the DOM. Gates: 3 component
+tests (incl. the „absence is not независим" assertion, which is the one that matters) and 4
+data tests — one of which re-derives the `mp_seat` ambiguity so a future switch to that source
+has to argue with a measurement rather than with this note.

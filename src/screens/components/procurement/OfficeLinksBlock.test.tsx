@@ -45,6 +45,8 @@ const PAYLOAD: OfficeLinksPayload = {
       company: "ВИ 8 СТУДИОС",
       roles: "partner",
       viaName: "Георги Георгиев Манолов",
+      party: "ИТН",
+      partyColor: "rgb(75, 185, 222)",
     },
     {
       slug: "mp-3026",
@@ -54,6 +56,8 @@ const PAYLOAD: OfficeLinksPayload = {
       company: "ТЕАТРО ВАРНА",
       roles: "partner",
       viaName: "Георги Георгиев Манолов",
+      party: "ИТН",
+      partyColor: "rgb(75, 185, 222)",
     },
     {
       slug: "georgi-milev-mjs1hv",
@@ -63,6 +67,8 @@ const PAYLOAD: OfficeLinksPayload = {
       company: "ЗВЕЗДЕЛИНА БИЛДИНГ",
       roles: "partner,manager",
       viaName: "Георги Георгиев Манолов",
+      // Deliberately NO party: a real 2007 councillor with none on file. The „absence is not
+      // независим" assertion below depends on this row staying party-less.
     },
   ],
 };
@@ -206,5 +212,53 @@ describe("OfficeLinksBlock", () => {
       }).container,
     );
     expect(t).toMatch(/206325958/);
+  });
+});
+
+describe("OfficeLinksBlock — the party badge", () => {
+  it("shows the party pill when affiliation is known", () => {
+    const { container } = show();
+    const t = flat(container);
+    expect(t).toMatch(/ИТН/);
+    // …on the shared pill, with the party's own colour rather than a local style.
+    const pill = [...container.querySelectorAll("span")].find(
+      (e) => e.textContent === "ИТН",
+    );
+    expect(pill).toBeTruthy();
+    expect(pill?.getAttribute("style") ?? "").toMatch(/rgb\(75, 185, 222\)/);
+  });
+
+  it("renders NO pill when the party is unknown — absence is not независим", () => {
+    // ⚠️ THE ASSERTION THAT MATTERS. `graph_person_node.party` is NULL for 81.5% of linkable
+    // office-holders, because affiliation is only recorded for people the election corpus
+    // lists on a party ticket. A neutral „независим" or „—" pill there would be a claim the
+    // corpus cannot support, about a named individual. The councillor row in the fixture has
+    // no party precisely so this bites.
+    const { container } = show();
+    const t = flat(container);
+    // the party-less row is present…
+    expect(t).toMatch(/Георги Костадинов Милев/);
+    // …and nothing invents an affiliation for it.
+    for (const word of [/независим/i, /безпартиен/i, /НЕЗ\b/, /НЕЧЛ/]) {
+      expect(t).not.toMatch(word);
+    }
+    // Exactly the two known rows carry a pill, not all three.
+    const pills = [...container.querySelectorAll("span")].filter(
+      (e) => e.textContent === "ИТН",
+    );
+    expect(pills).toHaveLength(2);
+  });
+
+  it("does not colour a pill when only the label is known", () => {
+    // `partyColor` is NULL-able independently; PartyBadge falls back to a muted tone rather
+    // than dropping the label, so the party still reads.
+    const { container } = show({
+      data: {
+        ...PAYLOAD,
+        count: 1,
+        links: [{ ...PAYLOAD.links[0], partyColor: null }],
+      },
+    });
+    expect(flat(container)).toMatch(/ИТН/);
   });
 });

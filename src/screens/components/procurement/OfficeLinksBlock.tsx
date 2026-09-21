@@ -34,6 +34,9 @@ import { Link } from "react-router-dom";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
+// The one party pill on the site — shared so the readable-text contrast fix lives in one
+// place, and so this block cannot invent a second look for the same thing.
+import { PartyBadge } from "@/screens/components/PartyBadge";
 import { decodeEntities } from "@/lib/decodeEntities";
 // `в` → `във` before a В-/Ф-initial name. Reused rather than restated: the reference case
 // itself is „ВИ 8 СТУДИОС", so „в ВИ 8 СТУДИОС" was the very first row this block rendered.
@@ -56,6 +59,17 @@ export type OfficeLink = {
   company?: string | null;
   /** Company page only: the person who bridges this company to the office-holder. */
   viaName?: string | null;
+  /**
+   * Party short name and its brand colour, from `graph_person_node`.
+   *
+   * ⚠️ NULL MEANS „NOT KNOWN", NEVER „INDEPENDENT". Affiliation is only recorded for people
+   * the election corpus lists on a party ticket — 1,521 of 8,238 linkable office-holders
+   * (18.5%) — so a missing party must render NOTHING rather than a neutral „независим" pill,
+   * which would be a claim the corpus does not support. The 2007 municipal councillor in the
+   * reference case is exactly this: a real office-holder with no party on file.
+   */
+  party?: string | null;
+  partyColor?: string | null;
 };
 
 export type OfficeLinksPayload = {
@@ -156,6 +170,19 @@ export const OfficeLinksBlock: FC<{
                 >
                   {decodeEntities(l.display_name)}
                 </Link>
+                {/* The party, when it is known. Rendered before the office because it is the
+                    shorter, more scannable fact — and absent entirely when unknown, per the
+                    type's note: no pill is not „независим". */}
+                {l.party ? (
+                  <>
+                    {" "}
+                    <PartyBadge
+                      label={l.party}
+                      color={l.partyColor}
+                      className="align-middle text-[10px]"
+                    />
+                  </>
+                ) : null}
                 {/* Rule 2: the office, never a bare „политик". */}
                 {offices.length > 0 && (
                   <span className="text-muted-foreground">

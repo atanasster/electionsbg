@@ -380,3 +380,101 @@ test.skipIf(skip)(
     );
   },
 );
+
+// ── the party badge ──────────────────────────────────────────────────────────────────────
+
+test.skipIf(skip)("the reference MP's party comes through", async () => {
+  const [r] = await allRows<{ party: string | null; colour: string | null }>(
+    `SELECT e->>'party' AS party, e->>'partyColor' AS colour
+       FROM jsonb_array_elements(person_office_links($1)->'links') e
+      WHERE e->>'slug' = $2 LIMIT 1`,
+    [SUBJECT, MP_SLUG],
+  );
+  assert.equal(r?.party, "ИТН", `expected ИТН, got ${r?.party}`);
+  assert.ok(
+    (r?.colour ?? "").length > 0,
+    "the party has no colour — the badge would fall back to a muted tone",
+  );
+});
+
+test.skipIf(skip)("the party source carries NO non-party labels", async () => {
+  // ⚠️ WHY `graph_person_node` AND NOT `mp_seat`. That table's `party_id` resolves to
+  // `НЕЧЛ В ПГ` (46 seats), `НЕЗ` (43) and `НЕЧЛ ПГ` (11) — „not a member of a
+  // parliamentary group" and „independent", which are not parties. Rendered as a badge
+  // they are a false claim. This source holds none, so no denylist is needed — and if that
+  // ever changes, one is.
+  const [r] = await allRows<{ n: string; examples: string | null }>(
+    `SELECT count(*) n, string_agg(DISTINCT party, ', ') AS examples
+         FROM graph_person_node
+        WHERE party ~* '^(НЕЗ|НЕЧЛ|независим|безпартиен)'`,
+  );
+  assert.equal(
+    Number(r?.n),
+    0,
+    `graph_person_node.party now carries non-party labels (${r?.examples}) — the badge ` +
+      "would publish „независим“ as a party affiliation. Add a denylist to 200.",
+  );
+});
+
+test.skipIf(skip)(
+  "mp_seat is NOT used — its fold join is ambiguous and disagrees on party",
+  async () => {
+    // Pins the REASON for the source choice, so a future „simplification" to mp_seat has to
+    // argue with a measurement. Two independent facts, both re-derived here:
+    //   • the id namespaces differ — person_role.ref says 3026, mp_seat says 1737;
+    //   • a fold+ns join is ambiguous for 77 of 2,260 pairs, and 65 of those disagree on
+    //     party, because one person whose parliamentary GROUP changed mid-term appears twice.
+    const [ids] = await allRows<{
+      role_ref: string | null;
+      seat_id: number | null;
+    }>(
+      `SELECT (SELECT split_part(ref, ':', 1) FROM person_role
+                WHERE person_id = (SELECT person_id FROM person WHERE slug = $1)
+                  AND source = 'mp' LIMIT 1) AS role_ref,
+              (SELECT mp_id FROM mp_seat
+                WHERE translit_bg_latin(name) = translit_bg_latin($2) LIMIT 1) AS seat_id`,
+      [MP_SLUG, "Антон Йорданов Адамов"],
+    );
+    assert.ok(
+      ids?.role_ref && ids?.seat_id,
+      "could not read both ids — the premise of the note in 200 is unverifiable here",
+    );
+    assert.notEqual(
+      String(ids?.role_ref),
+      String(ids?.seat_id),
+      "person_role.ref and mp_seat.mp_id now AGREE for the reference MP. If that holds " +
+        "corpus-wide the namespace hazard may be gone — but re-measure before joining on it.",
+    );
+
+    const [amb] = await allRows<{ pairs: string; disagree: string }>(
+      `WITH a AS (
+         SELECT translit_bg_latin(s.name) f, s.ns, count(DISTINCT d.short) parties
+           FROM mp_seat s LEFT JOIN party_dim d ON d.party_id = s.party_id
+          GROUP BY 1, 2 HAVING count(*) > 1)
+       SELECT count(*) AS pairs, count(*) FILTER (WHERE parties > 1) AS disagree FROM a`,
+    );
+    assert.ok(
+      Number(amb?.disagree) > 0,
+      `no ambiguous (fold, ns) pair in mp_seat disagrees on party any more ` +
+        `(${amb?.pairs} ambiguous pairs). The second half of 200's argument no longer holds; ` +
+        "re-read it rather than switching sources on the strength of this test passing.",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "a missing party is NULL, never a placeholder string",
+  async () => {
+    // The consumer renders nothing on NULL. A sentinel like '' or '—' would make it render a
+    // pill with no meaning, and 81.5% of linkable office-holders have no party on file.
+    const [r] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM graph_person_node
+        WHERE party IS NOT NULL AND btrim(party) IN ('', '-', '—', 'n/a', 'NULL')`,
+    );
+    assert.equal(
+      Number(r?.n),
+      0,
+      `${r?.n} rows carry a placeholder party string — the badge would render an empty pill`,
+    );
+  },
+);

@@ -120,7 +120,7 @@
 --
 -- Depends on tr_officers / tr_companies (003), person / person_role (081),
 -- tr_name_fold_people (148), company_officer_counts (071), translit_bg_latin (000),
--- tr_fold_is_placeholder (192).
+-- tr_fold_is_placeholder (192), graph_person_node (128, for the party badge).
 -- EXECUTE auto-granted to app_readonly via ALTER DEFAULT PRIVILEGES (roles_readonly.sql).
 --
 -- ⚠️ APPLIED BY NO LOADER. Ship it by name, and note it reads `tr_name_fold_people`, whose
@@ -141,20 +141,51 @@ RETURNS text[] LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
                'magistrate', 'regulator', 'diplomat']::text[]
 $$;
 
--- One office-holder identified by name fold, with the offices they hold. `offices` is
--- aggregated so a consumer can print „народен представител · директор в държавно
--- предприятие" rather than asserting a single role.
+-- One office-holder identified by name fold, with the offices they hold and — when it is
+-- known — their party. `offices` is aggregated so a consumer can print „народен представител
+-- · директор в държавно предприятие" rather than asserting a single role.
+--
+-- ⚠️ THE PARTY COMES FROM `graph_person_node`, KEYED ON `person_id`. Three alternatives were
+-- rejected, and the second is a documented trap:
+--
+--   • `person_role.party` is mostly NULL and, where set, holds a per-election party NUMBER
+--     (`p_0`) that is only meaningful scoped to that election's own party list. Adamov's mp
+--     row carries none at all.
+--   • ⚠️ JOINING `mp_seat` ON mp_id IS WRONG. `person_role.ref` for the reference MP is
+--     `3026:45` while `mp_seat` records him as mp_id **1737** in ns 45 — the two corpora use
+--     different id namespaces, which is the „mp_id is NOT a person key" hazard (17% wrong
+--     people). Joining `mp_seat` on the NAME FOLD instead works but is ambiguous for **77 of
+--     2,260** (fold, ns) pairs, and **65 of those 77 disagree on party** — one person whose
+--     parliamentary GROUP changed mid-term appears twice, e.g. „АЙСЕЛ ИСМАИЛ РУФАД" in ns 50
+--     as both `ДПС` and `НЕЧЛ В ПГ`. Picking one would publish a party a person had left.
+--   • `mp_seat.party_id` also carries labels that are not parties at all — `НЕЧЛ В ПГ` (46
+--     seats), `НЕЗ` (43), `НЕЧЛ ПГ` (11) — and „независим" rendered as a party badge is a
+--     false claim. `graph_person_node.party` holds **zero** such labels (verified), so this
+--     source needs no denylist that could rot.
+--
+-- Safe to read directly: 128 declares `graph_person_node` `CREATE TABLE IF NOT EXISTS` and
+-- `load_graph_pg.ts` stage-MERGES it (TRUNCATE inside the load's own transaction), so there is
+-- no DROP to CASCADE this function away — unlike the 077/145/178 family, which needs a plpgsql
+-- wrapper for exactly that reason.
+--
+-- COVERAGE IS PARTIAL AND THAT IS HONEST: 1,521 of the 8,238 linkable office-holders (18.5%)
+-- carry a party, because affiliation is only known for people the election corpus lists on a
+-- party ticket. A NULL means „we do not know", never „independent" — the consumer must render
+-- nothing rather than a neutral badge.
 DROP FUNCTION IF EXISTS office_holder_by_fold(text);
 CREATE OR REPLACE FUNCTION office_holder_by_fold(p_fold text)
-RETURNS TABLE(person_id bigint, slug text, display_name text, offices jsonb)
+RETURNS TABLE(person_id bigint, slug text, display_name text, offices jsonb,
+              party text, party_color text)
 LANGUAGE sql STABLE PARALLEL SAFE AS $$
   SELECT p.person_id, p.slug, p.display_name,
          (SELECT COALESCE(jsonb_agg(DISTINCT jsonb_build_object(
                    'source', r.source, 'role', r.role, 'party', r.party)), '[]'::jsonb)
             FROM person_role r
            WHERE r.person_id = p.person_id
-             AND r.source = ANY (office_link_sources())) AS offices
+             AND r.source = ANY (office_link_sources())) AS offices,
+         g.party, g.party_color
     FROM person p
+    LEFT JOIN graph_person_node g ON g.person_id = p.person_id
    WHERE p.name_fold = p_fold
      -- Non-persons first: see the header. A `person` row should never exist on either fold,
      -- but saying so here is cheaper than trusting the identity layer to stay clean.
@@ -198,8 +229,8 @@ co AS (
    GROUP BY o.uic, o.name_fold
 ),
 hits AS (
-  SELECT h.slug, h.display_name, h.offices, co.uic, co.reg_name, co.roles,
-         tc.name AS company
+  SELECT h.slug, h.display_name, h.offices, h.party, h.party_color,
+         co.uic, co.reg_name, co.roles, tc.name AS company
     FROM co
     CROSS JOIN LATERAL office_holder_by_fold(co.name_fold) h
     LEFT JOIN tr_companies tc ON tc.uic = co.uic
@@ -207,7 +238,8 @@ hits AS (
 SELECT jsonb_build_object(
   'links', COALESCE((SELECT jsonb_agg(to_jsonb(t) ORDER BY t.display_name, t.company)
                        FROM (SELECT slug, display_name, offices, uic,
-                                    reg_name AS "registryName", roles, company
+                                    reg_name AS "registryName", roles, company,
+                                    party, party_color AS "partyColor"
                                FROM hits LIMIT 100) t), '[]'::jsonb),
   'count', (SELECT count(*) FROM hits),
   -- Baked in so no consumer can render the links without the caveat, and so the two blocks
@@ -248,8 +280,8 @@ co AS (
    GROUP BY hop.via_fold, hop.via_name, hop.uic, o.name_fold
 ),
 hits AS (
-  SELECT h.slug, h.display_name, h.offices, co.uic, co.reg_name, co.roles,
-         co.via_name, tc.name AS company
+  SELECT h.slug, h.display_name, h.offices, h.party, h.party_color,
+         co.uic, co.reg_name, co.roles, co.via_name, tc.name AS company
     FROM co
     CROSS JOIN LATERAL office_holder_by_fold(co.name_fold) h
     LEFT JOIN tr_companies tc ON tc.uic = co.uic
@@ -258,7 +290,8 @@ SELECT jsonb_build_object(
   'links', COALESCE((SELECT jsonb_agg(to_jsonb(t) ORDER BY t.display_name, t.company)
                        FROM (SELECT slug, display_name, offices, uic,
                                     reg_name AS "registryName", roles, company,
-                                    via_name AS "viaName"
+                                    via_name AS "viaName",
+                                    party, party_color AS "partyColor"
                                FROM hits LIMIT 100) t), '[]'::jsonb),
   'count', (SELECT count(*) FROM hits),
   'basis', 'registry-indirect'
