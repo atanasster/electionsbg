@@ -120,7 +120,7 @@
 --
 -- Depends on tr_officers / tr_companies (003), person / person_role (081),
 -- tr_name_fold_people (148), company_officer_counts (071), translit_bg_latin (000),
--- tr_fold_is_placeholder (192), graph_person_node (128, for the party badge).
+-- tr_fold_is_placeholder (192), person_election_stats (085, for the party badge).
 -- EXECUTE auto-granted to app_readonly via ALTER DEFAULT PRIVILEGES (roles_readonly.sql).
 --
 -- ⚠️ APPLIED BY NO LOADER. Ship it by name, and note it reads `tr_name_fold_people`, whose
@@ -145,8 +145,21 @@ $$;
 -- known — their party. `offices` is aggregated so a consumer can print „народен представител
 -- · директор в държавно предприятие" rather than asserting a single role.
 --
--- ⚠️ THE PARTY COMES FROM `graph_person_node`, KEYED ON `person_id`. Three alternatives were
--- rejected, and the second is a documented trap:
+-- ⚠️ THE PARTY COMES FROM `person_election_stats`, KEYED ON `person_id` — the person's
+-- LATEST electoral affiliation (newest election carrying a `party_nick`), which is the SAME
+-- rule `load_graph_pg.ts` uses to stamp `graph_person_node.party`. Read it here directly, not
+-- through the graph: this function read `graph_person_node` until 2026-09-21, and that made the
+-- badge depend on whether the person happens to hold a GRAPH EDGE, which is a different
+-- question. Measured on the reference MP: local had him in the graph (a `tr` role licensed under
+-- Bridge A from a `company_politicians` row that is itself derived from `person_role` — a
+-- self-sustaining fixed point that dates from when 008 was loaded from the old `mp_connected`
+-- artifact), Cloud SQL did not (no path back into that fixed point: Bridge B refuses his
+-- 6-company fold), so prod rendered no badge for the one MP the arm exists for, with both
+-- databases holding `ИТН` in `person_election_stats`. Coverage is also wider — 28,746 people
+-- carry a party there against the graph's ~7,200 — because the graph only holds people with a
+-- registry or procurement edge.
+--
+-- Three alternatives were rejected, and the second is a documented trap:
 --
 --   • `person_role.party` is mostly NULL and, where set, holds a per-election party NUMBER
 --     (`p_0`) that is only meaningful scoped to that election's own party list. Adamov's mp
@@ -160,13 +173,13 @@ $$;
 --     as both `ДПС` and `НЕЧЛ В ПГ`. Picking one would publish a party a person had left.
 --   • `mp_seat.party_id` also carries labels that are not parties at all — `НЕЧЛ В ПГ` (46
 --     seats), `НЕЗ` (43), `НЕЧЛ ПГ` (11) — and „независим" rendered as a party badge is a
---     false claim. `graph_person_node.party` holds **zero** such labels (verified), so this
---     source needs no denylist that could rot.
+--     false claim. `person_election_stats.party_nick` holds **zero** such labels (verified on
+--     both databases), so this source needs no denylist that could rot.
 --
--- Safe to read directly: 128 declares `graph_person_node` `CREATE TABLE IF NOT EXISTS` and
--- `load_graph_pg.ts` stage-MERGES it (TRUNCATE inside the load's own transaction), so there is
--- no DROP to CASCADE this function away — unlike the 077/145/178 family, which needs a plpgsql
--- wrapper for exactly that reason.
+-- Safe to read directly: 085 declares `person_election_stats` `CREATE TABLE IF NOT EXISTS` and
+-- `load_person_elections_pg.ts` reloads its CONTENTS, so there is no DROP to CASCADE this
+-- function away — unlike the 077/145/178 family, which needs a plpgsql wrapper for exactly
+-- that reason. The pick rides the PK `(person_id, election_date)`.
 --
 -- COVERAGE IS PARTIAL AND THAT IS HONEST: 1,521 of the 8,238 linkable office-holders (18.5%)
 -- carry a party, because affiliation is only known for people the election corpus lists on a
@@ -183,9 +196,14 @@ LANGUAGE sql STABLE PARALLEL SAFE AS $$
             FROM person_role r
            WHERE r.person_id = p.person_id
              AND r.source = ANY (office_link_sources())) AS offices,
-         g.party, g.party_color
+         pty.party_nick, pty.party_color
     FROM person p
-    LEFT JOIN graph_person_node g ON g.person_id = p.person_id
+    LEFT JOIN LATERAL (
+      SELECT s.party_nick, s.party_color
+        FROM person_election_stats s
+       WHERE s.person_id = p.person_id AND s.party_nick IS NOT NULL
+       ORDER BY s.election_date DESC
+       LIMIT 1) pty ON true
    WHERE p.name_fold = p_fold
      -- Non-persons first: see the header. A `person` row should never exist on either fold,
      -- but saying so here is cheaper than trusting the identity layer to stay clean.

@@ -398,21 +398,26 @@ test.skipIf(skip)("the reference MP's party comes through", async () => {
 });
 
 test.skipIf(skip)("the party source carries NO non-party labels", async () => {
-  // ⚠️ WHY `graph_person_node` AND NOT `mp_seat`. That table's `party_id` resolves to
+  // ⚠️ WHY `person_election_stats` AND NOT `mp_seat`. That table's `party_id` resolves to
   // `НЕЧЛ В ПГ` (46 seats), `НЕЗ` (43) and `НЕЧЛ ПГ` (11) — „not a member of a
   // parliamentary group" and „independent", which are not parties. Rendered as a badge
   // they are a false claim. This source holds none, so no denylist is needed — and if that
   // ever changes, one is.
+  //
+  // And NOT `graph_person_node` (which 200 read until 2026-09-21): its `party` is derived
+  // from this very table, but only for people holding a graph EDGE — and the reference MP
+  // had one locally and none on Cloud SQL (a Bridge-A fixed point prod cannot re-enter), so
+  // the badge test passed here and failed against the serving database.
   const [r] = await allRows<{ n: string; examples: string | null }>(
-    `SELECT count(*) n, string_agg(DISTINCT party, ', ') AS examples
-         FROM graph_person_node
-        WHERE party ~* '^(НЕЗ|НЕЧЛ|независим|безпартиен)'`,
+    `SELECT count(*) n, string_agg(DISTINCT party_nick, ', ') AS examples
+         FROM person_election_stats
+        WHERE party_nick ~* '^(НЕЗ|НЕЧЛ|независим|безпартиен)'`,
   );
   assert.equal(
     Number(r?.n),
     0,
-    `graph_person_node.party now carries non-party labels (${r?.examples}) — the badge ` +
-      "would publish „независим“ as a party affiliation. Add a denylist to 200.",
+    `person_election_stats.party_nick now carries non-party labels (${r?.examples}) — the ` +
+      "badge would publish „независим“ as a party affiliation. Add a denylist to 200.",
   );
 });
 
@@ -468,8 +473,8 @@ test.skipIf(skip)(
     // The consumer renders nothing on NULL. A sentinel like '' or '—' would make it render a
     // pill with no meaning, and 81.5% of linkable office-holders have no party on file.
     const [r] = await allRows<{ n: string }>(
-      `SELECT count(*) n FROM graph_person_node
-        WHERE party IS NOT NULL AND btrim(party) IN ('', '-', '—', 'n/a', 'NULL')`,
+      `SELECT count(*) n FROM person_election_stats
+        WHERE party_nick IS NOT NULL AND btrim(party_nick) IN ('', '-', '—', 'n/a', 'NULL')`,
     );
     assert.equal(
       Number(r?.n),
