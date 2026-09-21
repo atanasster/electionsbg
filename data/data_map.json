@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-21T20:22:30.022Z",
+  "generatedAt": "2026-09-21T23:17:59.572Z",
   "nodes": [
     {
       "id": "src:water",
@@ -844,7 +844,7 @@
       "url": "https://keep.eu/",
       "origin": "eu",
       "cadence": "weekly",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-21T21:40:42.153Z",
       "skills": [
         "update-funds"
       ],
@@ -854,7 +854,7 @@
           "label": "keep.eu Interreg (programme re-imports)",
           "url": "https://keep.eu/",
           "cadence": "weekly",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-21T21:40:42.153Z"
         }
       ],
       "issue": {
@@ -1614,7 +1614,7 @@
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-09-08T21:39:31.890Z",
+      "freshness": "2026-09-21T21:40:42.153Z",
       "skills": [],
       "sources": [
         {
@@ -1629,7 +1629,7 @@
           "label": "Фискален съвет — publications",
           "url": "https://www.fiscal-council.bg/bg/publikacii",
           "cadence": "weekly",
-          "freshness": "2026-09-08T21:39:31.890Z"
+          "freshness": "2026-09-21T21:40:42.153Z"
         },
         {
           "id": "api_road_charges",
@@ -2254,7 +2254,7 @@
       "url": "https://adfi.minfin.bg/bg/34",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-21T21:40:42.153Z",
       "skills": [
         "update-procurement"
       ],
@@ -2264,7 +2264,7 @@
           "label": "АДФИ — доклади от финансови инспекции (adfi.minfin.bg)",
           "url": "https://adfi.minfin.bg/bg/34",
           "cadence": "weekly",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-21T21:40:42.153Z"
         }
       ],
       "issue": {
@@ -2352,7 +2352,7 @@
       "url": "https://register.ksb.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-09-15T21:39:28.439Z",
+      "freshness": "2026-09-21T21:40:42.153Z",
       "skills": [
         "update-procurement"
       ],
@@ -2362,7 +2362,7 @@
           "label": "ЦПРС — регистър на строителя (register.ksb.bg)",
           "url": "https://register.ksb.bg/listFirms.php",
           "cadence": "weekly",
-          "freshness": "2026-09-15T21:39:28.439Z"
+          "freshness": "2026-09-21T21:40:42.153Z"
         }
       ],
       "issue": {
@@ -7605,7 +7605,7 @@
         "bg": "българските партньори по Interreg като фирми в регистъра",
         "en": "Bulgarian Interreg partners as registered companies"
       },
-      "overlap": 121
+      "overlap": 131
     },
     {
       "id": "interreg|procurement|eik",
@@ -7617,7 +7617,7 @@
         "bg": "партньори по Interreg, които печелят и обществени поръчки",
         "en": "Interreg partners who also win public contracts"
       },
-      "overlap": 42
+      "overlap": 45
     },
     {
       "id": "funds|interreg|boundary",
@@ -7663,7 +7663,7 @@
         "bg": "къде в страната стъпват трансграничните проекти",
         "en": "where in the country the cross-border projects land"
       },
-      "overlap": 160,
+      "overlap": 162,
       "of": {
         "bg": "от партньорските редове с разпознато място",
         "en": "of the partner rows with a resolved place"
