@@ -33,6 +33,22 @@ export const BUDGETS = {
    * budget that saw only one of them would be measuring half the surface.
    */
   storyIndexPageGzip: 50 * 1024,
+  /**
+   * The global structured filter index — every story's window, topics,
+   * outlets and rank, so the client can answer a facet over the WHOLE corpus
+   * instead of over whatever it has downloaded.
+   *
+   * ⚠️ MEASURED AT 44.8 KB over 3,051 stories, and the headroom is the point:
+   * it grows with the corpus, and the moment it stops fitting the answer is a
+   * query endpoint or a partitioned index — never quietly filtering fewer
+   * stories and reporting the count as if it were all of them.
+   *
+   * ⚠️ IT DELIBERATELY CARRIES NO TITLES. Adding them measured 288 KB, an
+   * inverted index over them 348 KB, and the 24h window's titles alone 234 KB
+   * — against a 13 KB home payload. Search is therefore not global here, and
+   * must say so rather than be silently narrowed.
+   */
+  filterIndexGzip: 64 * 1024,
 } as const;
 
 export const gzipBytes = (file: string): number => {
@@ -114,12 +130,18 @@ export const inspectNewsBuild = (root = path.resolve("dist-news")) => {
   // vacuous-green shape this suite exists to avoid.
   if (pages.length === 0)
     throw new Error(`missing production artifact: ${storyDir}/index-1.json`);
+  const filterIndex = path.join(storyDir, "filter-index.json");
+  // ⚠️ ABSENT IS A FAILURE. Without it every facet silently falls back to
+  // whatever the client downloaded — the defect the index exists to remove.
+  if (!fs.existsSync(filterIndex))
+    throw new Error(`missing production artifact: ${filterIndex}`);
   return {
     htmlGzip: gzipBytes(files.html),
     cssGzip: files.css.reduce((sum, file) => sum + gzipBytes(file), 0),
     jsGzip: files.js.reduce((sum, file) => sum + gzipBytes(file), 0),
     homeJsonGzip: gzipBytes(files.homeJson),
     storyIndexPageGzip: Math.max(...pages.map(gzipBytes)),
+    filterIndexGzip: gzipBytes(filterIndex),
   };
 };
 

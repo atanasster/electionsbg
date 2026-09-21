@@ -966,6 +966,129 @@ def story_index_row(story: dict, as_of: datetime | None = None) -> dict:
     return row
 
 
+# ⚠️⚠️ THE CLIENT MUST NOT FILTER WHAT IT HAPPENS TO HAVE DOWNLOADED AND CALL
+# THAT THE ANSWER, and today it does — twice. `HomeScreen` filters the ≤16
+# stories in `home.json`; `OutletScreen` filters the revealed prefix and prints
+# the count of matches WITHIN IT. Both answer a narrower question than the
+# reader asked, at a 200, with nothing saying so.
+#
+# This file is what makes the structured half global: every story's window,
+# topics, outlets and rank, for the whole corpus, in one fetch. The client
+# applies the predicate over all of it, so a facet count and a page's
+# membership come from the same rows — which is the property that was missing.
+#
+# ⚠️ MEASURED BEFORE IT WAS CHOSEN, and the measurement is why search is NOT
+# in here. Over 3,031 stories, gzipped:
+#
+#     structured only (this file)         44 KB
+#     + searchable titles                288 KB
+#     an inverted index over those titles 348 KB   (22,823 tokens — Bulgarian
+#                                                   morphology makes a huge
+#                                                   vocabulary and the
+#                                                   postings do not compress)
+#     titles for the 24h window alone    234 KB
+#
+# The entire home payload today is 13 KB, so a global text search costs an
+# order of magnitude more than everything else the page loads. It is not
+# shipped here, and the plan's rule stands: a search that cannot see the whole
+# corpus must SAY SO rather than be quietly narrowed.
+#
+# ⚠️ NO PRE-SORTED ORDER IS SHIPPED. The rows carry `last_published` and
+# `score`, and 3,031 rows sort in a browser in under a millisecond — carrying
+# two id orders would add bytes to duplicate what the client can derive, and
+# a stored order would be one more thing to desynchronise from the rows.
+QUERY_VERSION = 1
+# ⚠️ ENFORCED HERE, not merely declared. A constant nobody reads is a budget
+# nobody keeps — and this file grows with the corpus, so the day it stops
+# fitting the answer is a partitioned index or a query endpoint, never quietly
+# indexing fewer stories and reporting the count as if it were all of them.
+# `news_performance_budget.ts` checks the SHIPPED artifact; this refuses to
+# write one that would fail it.
+FILTER_INDEX_GZIP_BUDGET_BYTES = 64 * 1024
+
+
+# ⚠️ A story with no topic is counted, under this key. Dropping it would make
+# the facet counts sum to less than the corpus with nothing saying why — the
+# sibling `story_topic_counts` keeps the same bucket for the same reason.
+UNTOPICED_FACET = "?"
+
+
+def story_filter_row(row: dict) -> list:
+    """One story as a PREDICATE needs it — positional, because it is 3,000 of
+    these and a repeated key name is the bulk of the payload.
+
+    ⚠️⚠️ NO SCORE, AND THAT IS WHAT KEEPS THIS FILE CLOCK-INDEPENDENT. The
+    index answers WHICH stories match; `ranked-*` and `index-*` answer IN WHAT
+    ORDER. Carrying a decaying score here would put a field that changes every
+    minute into a whole-corpus file, so a hot overlay would ship all ~371 KB of
+    it on every run — including runs where nothing was published — and the
+    release would then hold two `as_of` values, one fresh and one not, with
+    nothing marking the skew. A client orders by intersecting this membership
+    with a page's order, which is the separation that makes both cheap.
+    """
+    categories = sorted({t.get("category")
+                         for t in (row.get("topics") or [])
+                         if isinstance(t, dict) and t.get("category")})
+    return [
+        row.get("id") or "",
+        row.get("last_published") or "",
+        categories or [UNTOPICED_FACET],
+        row.get("domains") or [],
+    ]
+
+
+def write_filter_index(out_dir: Path, rows: list, generated_at: str) -> dict:
+    """`stories/filter-index.json` — the whole corpus, structured fields only."""
+    categories: dict = {}
+    domains: dict = {}
+    compact = []
+    for row in rows:
+        entry = story_filter_row(row)
+        compact.append(entry)
+        for category in entry[2]:
+            categories[category] = categories.get(category, 0) + 1
+        for domain in entry[3]:
+            domains[domain] = domains.get(domain, 0) + 1
+    payload = {
+        "generated_at": generated_at,
+        # ⚠️ NO `as_of`, DELIBERATELY. Nothing here decays, so there is no
+        # instant to pin — the ORDER carries one and lives on the pages. An
+        # `as_of` here would differ between two otherwise identical builds and
+        # defeat `restore_stable_stamps`, so this whole-corpus file would ship
+        # in every hot overlay to convey a changed timestamp.
+        "query_version": QUERY_VERSION,
+        "fields": ["id", "last_published", "categories", "domains"],
+        "total": len(compact),
+        # ⚠️ COUNTS OVER THE WHOLE CORPUS, from the same rows the client
+        # filters. A facet count computed from a different set than the page
+        # membership is the defect this file exists to remove — it is how a
+        # chip can read „2" beside a list of nine.
+        # ⚠️ THE BASIS IS NAMED, because the release now carries TWO counts of
+        # „stories per category" and they are both true of different things:
+        # `taxonomy.json`'s `story_count` counts a story under its PRIMARY
+        # topic only, this counts it under EVERY topic it carries. An
+        # undeclared pair is how a chip comes to read one number beside a list
+        # of another length.
+        "facets_basis": {
+            "categories": "every topic a story carries, not only its primary",
+            "domains": "every outlet with a member article",
+        },
+        "facets": {"categories": dict(sorted(categories.items())),
+                   "domains": dict(sorted(domains.items()))},
+        "stories": compact,
+    }
+    path = out_dir / "stories" / "filter-index.json"
+    write_json(path, payload)
+    size = len(gzip.compress(path.read_bytes(), 6))
+    if size > FILTER_INDEX_GZIP_BUDGET_BYTES:
+        raise SystemExit(
+            f"stories/filter-index.json is {size} gzipped bytes, over the "
+            f"{FILTER_INDEX_GZIP_BUDGET_BYTES}-byte query budget — partition "
+            "it or move the query server-side; do not index fewer stories")
+    payload["gzip_bytes"] = size
+    return payload
+
+
 def write_story_pages(out_dir: Path, stories: list, generated_at: str,
                       page_size: int = STORY_PAGE_SIZE) -> None:
     """The paginated index, the url→story map, and per-story detail files.
@@ -1020,6 +1143,7 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str,
                 "stories": page,
             })
 
+    write_filter_index(out_dir, rows, generated_at)
     emit("index", rows, "latest")
     # ⚠️ EVERY STORY IS IN BOTH ORDERINGS. A rank may reorder the feed; it may
     # never remove a story from it, or a reader following a link from anywhere

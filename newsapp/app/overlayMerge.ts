@@ -447,6 +447,13 @@ export const applyOverlayToPath = (
   const slashed = `/${key}`;
 
   if (STORY_INDEX_PAGE.test(slashed)) return base;
+  // ⚠️ NAMED, NOT LEFT TO ARM ORDER. `filter-index` matches `STORY_ID_SAFE`,
+  // so without this it reaches the story-detail arm and is correct only by
+  // where that arm happens to sit — which this file calls a correctness rule
+  // elsewhere. It is a whole-corpus file the publisher carries whole; the
+  // client takes whatever `replaced_paths` gave it.
+  if (slashed === "/stories/filter-index.json")
+    return (overlay.replaced_paths ?? {})[key] ?? base;
 
   if (overlay.removed_paths.includes(key)) {
     throw new OverlayRemovedPath(slashed);

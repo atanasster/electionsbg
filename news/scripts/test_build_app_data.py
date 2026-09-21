@@ -268,6 +268,145 @@ class StoryProminence(unittest.TestCase):
         self.assertEqual(empty["score"], 0.0)
 
 
+class GlobalFilterIndex(unittest.TestCase):
+    """The structured half of a query, answered over the WHOLE corpus.
+
+    ⚠️ `HomeScreen` filters the ≤16 stories in `home.json` and `OutletScreen`
+    filters the revealed prefix and prints the count of matches within it.
+    Both answer a narrower question than the reader asked, at a 200. This file
+    is what lets a predicate see every story.
+    """
+
+    def build(self, stories):
+        tmp = Path(tempfile.mkdtemp(prefix="filter_index_"))
+        bad.write_story_pages(tmp, stories, "2026-09-21T12:00:00+00:00",
+                              page_size=50)
+        with open(tmp / "stories" / "filter-index.json", encoding="utf-8") as fh:
+            return json.load(fh)
+
+    def story(self, sid, *, categories=(), domains=("a",), hours=1):
+        when = (datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc)
+                - timedelta(hours=hours)).isoformat()
+        return {"id": sid, "title_bg": sid, "last_published": when,
+                "topics": [{"category": c, "primary": i == 0}
+                           for i, c in enumerate(categories)],
+                "members": [{"domain": f"{d}.bg", "published": when}
+                            for d in domains]}
+
+    def test_it_holds_every_story_not_a_page(self):
+        stories = [self.story(f"s{i}") for i in range(120)]
+        index = self.build(stories)
+        self.assertEqual(index["total"], 120)
+        self.assertEqual(len(index["stories"]), 120)
+
+    def test_facet_counts_come_from_the_same_rows_as_membership(self):
+        """⚠️ THE PROPERTY THAT WAS MISSING. A count computed over a different
+        set than the list beneath it is how a chip reads „2" beside nine
+        stories."""
+        stories = [self.story("a", categories=("energy",), domains=("x",)),
+                   self.story("b", categories=("energy", "economy"),
+                              domains=("x", "y")),
+                   self.story("c", categories=("economy",), domains=("y",))]
+        index = self.build(stories)
+        rows = index["stories"]
+        # ⚠️ NON-VACUITY FIRST. Iterating an empty facet map asserts nothing,
+        # so a mutant that stopped counting categories altogether passed this
+        # test until these two lines existed.
+        self.assertEqual(sorted(index["facets"]["categories"]),
+                         ["economy", "energy"])
+        self.assertEqual(sorted(index["facets"]["domains"]), ["x.bg", "y.bg"])
+        for category, count in index["facets"]["categories"].items():
+            with self.subTest(category=category):
+                self.assertEqual(
+                    count, sum(1 for r in rows if category in r[2]))
+        for domain, count in index["facets"]["domains"].items():
+            with self.subTest(domain=domain):
+                self.assertEqual(
+                    count, sum(1 for r in rows if domain in r[3]))
+
+    def test_a_row_carries_what_a_predicate_needs_and_no_prose(self):
+        index = self.build([self.story("a", categories=("energy",))])
+        self.assertEqual(index["fields"],
+                         ["id", "last_published", "categories", "domains"])
+        row = index["stories"][0]
+        # ⚠️ `fields` IS THE DECODER for a positional row, so it must describe
+        # what is actually there — a consumer indexing by it is the whole
+        # reason the rows are positional at all.
+        self.assertEqual(len(row), len(index["fields"]))
+        self.assertEqual(row[0], "a")
+        self.assertEqual(row[2], ["energy"])
+        self.assertEqual(row[3], ["a.bg"])
+        # ⚠️ NO SCORE. It decays, and a decaying field in a whole-corpus file
+        # ships ~248 KB on every hot run to convey a changed timestamp.
+        self.assertNotIn("score", index["fields"])
+        # ⚠️ NO TITLES. Measured, they take the payload from 44 KB to 288 KB
+        # against a 13 KB home page; search is not global and must say so.
+        titled = self.build([self.story("a", categories=("energy",))
+                             | {"title_bg": "Уникално заглавие",
+                                "title_en": "Unique headline"}])
+        blob = json.dumps(titled["stories"], ensure_ascii=False)
+        self.assertNotIn("Уникално", blob)
+        self.assertNotIn("Unique", blob)
+
+    def test_it_declares_the_query_contract_and_pins_no_instant(self):
+        """⚠️ Nothing here decays, so there is no instant to pin — and an
+        `as_of` would differ between two identical builds, defeating
+        `restore_stable_stamps` and shipping this whole-corpus file in every
+        hot overlay to convey a changed timestamp."""
+        index = self.build([self.story("a")])
+        self.assertEqual(index["query_version"], bad.QUERY_VERSION)
+        self.assertNotIn("as_of", index)
+        self.assertNotIn("prominence_version", index)
+
+    def test_a_story_with_no_topic_is_counted_under_a_named_bucket(self):
+        """Dropping it makes the facets sum to less than the corpus with
+        nothing saying why."""
+        index = self.build([self.story("a", categories=()),
+                            self.story("b", categories=("energy",))])
+        self.assertEqual(index["facets"]["categories"],
+                         {bad.UNTOPICED_FACET: 1, "energy": 1})
+        self.assertEqual(sum(index["facets"]["categories"].values()),
+                         index["total"])
+
+    def test_the_facet_bases_are_declared(self):
+        """⚠️ The release carries TWO counts of „stories per category" —
+        `taxonomy.json` counts the PRIMARY topic only, this counts every topic
+        — and an undeclared pair is how a chip reads one number beside a list
+        of another length."""
+        index = self.build([self.story("a", categories=("energy", "economy"))])
+        self.assertIn("categories", index["facets_basis"])
+        self.assertIn("domains", index["facets_basis"])
+        self.assertIn("not only its primary",
+                      index["facets_basis"]["categories"])
+        self.assertEqual(index["facets"]["categories"],
+                         {"economy": 1, "energy": 1})
+
+    def test_the_ids_match_the_paginated_families_exactly(self):
+        """A story reachable from a page but absent from the index would be
+        invisible to every facet; the reverse would be a phantom."""
+        stories = [self.story(f"s{i}") for i in range(75)]
+        tmp = Path(tempfile.mkdtemp(prefix="filter_parity_"))
+        bad.write_story_pages(tmp, stories, "2026-09-21T12:00:00+00:00",
+                              page_size=50)
+        with open(tmp / "stories" / "filter-index.json", encoding="utf-8") as fh:
+            index_ids = {r[0] for r in json.load(fh)["stories"]}
+        for prefix in ("index", "ranked"):
+            paged = set()
+            for name in os.listdir(tmp / "stories"):
+                if not name.startswith(f"{prefix}-"):
+                    continue
+                with open(tmp / "stories" / name, encoding="utf-8") as fh:
+                    paged |= {r["id"] for r in json.load(fh)["stories"]}
+            with self.subTest(prefix=prefix):
+                self.assertEqual(index_ids, paged)
+
+    def test_an_empty_corpus_produces_an_empty_index_not_a_crash(self):
+        index = self.build([])
+        self.assertEqual(index["total"], 0)
+        self.assertEqual(index["stories"], [])
+        self.assertEqual(index["facets"], {"categories": {}, "domains": {}})
+
+
 class StoryIndexOrderings(unittest.TestCase):
     def rows(self, tmp):
         import json as _json

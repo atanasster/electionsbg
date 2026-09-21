@@ -38,6 +38,7 @@ describe("news performance budget", () => {
       fs.writeFileSync(path.join(root, file), file);
     fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
     const stories = path.join(root, "news-data", "stories");
+    fs.writeFileSync(path.join(stories, "filter-index.json"), "{}");
     fs.writeFileSync(path.join(stories, "index-1.json"), "small");
     fs.writeFileSync(path.join(stories, "index-2.json"), "x".repeat(200_000));
     const viaIndex = inspectNewsBuild(root).storyIndexPageGzip;
@@ -67,6 +68,25 @@ describe("news performance budget", () => {
     expect(() => inspectNewsBuild(root)).toThrow(/index-1\.json/);
   });
 
+  it("refuses a build with pages but no global filter index", () => {
+    // Without it every facet silently falls back to the downloaded prefix.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-nofilter-"));
+    fs.mkdirSync(path.join(root, "assets"));
+    fs.mkdirSync(path.join(root, "news-data", "stories"), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "index.html"),
+      '<link rel="stylesheet" href="/assets/entry.css"><script type="module" src="/assets/entry.js"></script>',
+    );
+    for (const file of ["assets/entry.css", "assets/entry.js"])
+      fs.writeFileSync(path.join(root, file), file);
+    fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
+    fs.writeFileSync(
+      path.join(root, "news-data", "stories", "index-1.json"),
+      "small",
+    );
+    expect(() => inspectNewsBuild(root)).toThrow(/filter-index\.json/);
+  });
+
   it("measures only HTML entry assets and ignores async chunks", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-"));
     fs.mkdirSync(path.join(root, "assets"));
@@ -82,6 +102,7 @@ describe("news performance budget", () => {
       "assets/async.js",
       "news-data/home.json",
       "news-data/stories/index-1.json",
+      "news-data/stories/filter-index.json",
     ])
       fs.writeFileSync(path.join(root, file), file.repeat(10));
     expect(inspectNewsBuild(root)).toEqual({
@@ -90,6 +111,7 @@ describe("news performance budget", () => {
       jsGzip: expect.any(Number),
       homeJsonGzip: expect.any(Number),
       storyIndexPageGzip: expect.any(Number),
+      filterIndexGzip: expect.any(Number),
     });
     fs.writeFileSync(
       path.join(root, "index.html"),

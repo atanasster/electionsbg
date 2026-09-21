@@ -295,7 +295,7 @@ class EqualsFullRebuild(BuildAppDataFixture):
         # page claiming a FRESHER ranking than it computed.
         self.assertLessEqual(merged_page["as_of"], full_page["as_of"], path)
 
-    def test_a_clock_that_moved_alone_ships_nothing(self):
+    def test_a_clock_that_moved_alone_ships_nothing_of_substance(self):
         """⚠️ THE DEFECT THIS SUITE WAS BLIND TO, and it broke the hot path.
 
         A detail file's stamp is content-derived so an unchanged story stays
@@ -320,6 +320,50 @@ class EqualsFullRebuild(BuildAppDataFixture):
                                   latest_limit=LATEST_LIMIT)
         self.assertEqual(overlay["story_details"], {},
                          "a clock that moved alone shipped story details")
+        # ⚠️ AND NOTHING ELSE OF SUBSTANCE EITHER. The name of this test claims
+        # „ships nothing", so it must check more than one arm — the filter
+        # index is a whole-corpus file, and while it carried a decaying score
+        # it shipped ~248 KB on every run including this one.
+        self.assertNotIn("stories/filter-index.json",
+                         overlay.get("replaced_paths") or {},
+                         "the filter index shipped on a clock-only run")
+
+    def test_the_filter_index_reaches_the_reader_after_a_hot_release(self):
+        """⚠️ A story published in the hot window must be FILTERABLE, not just
+        present in the pages.
+
+        `_is_merged_path` returned True for everything under `stories/`, and
+        nothing merges the filter index — so the overlay passed the BASE's
+        copy through and a new story was absent from every facet while being
+        listed on every page. That is „filter what you happen to have", one
+        layer down from the client defect the index exists to remove.
+        """
+        self.seed_base()
+        base = self.build_into()
+        base_dir = self.out_dir
+        article = self.article("c.bg", "fresh",
+                               published="2026-09-18T09:00:00+00:00",
+                               title="Съвсем нова история")
+        self.write_corpus("c.bg", "fresh.json", article)
+        self.write_analysis("c.bg", "fresh.json", self.analysis_record(
+            article["url"], "c.bg", "news/data/c.bg/fresh.json",
+            action="new_story", story_id=None))
+        full = self.build_into(stamp_from=base_dir)
+        overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
+                                  generated_at="2026-09-19T12:00:00Z",
+                                  latest_limit=LATEST_LIMIT)
+        merged = om.apply_overlay(base, overlay)
+        index = merged["stories/filter-index.json"]
+        self.assertEqual(index["total"],
+                         full["stories/filter-index.json"]["total"])
+        self.assertIn("c.bg", index["facets"]["domains"],
+                      "the new outlet never reached the facet counts")
+        # And the index agrees with the pages about which stories exist.
+        paged = {row["id"]
+                 for path, page in merged.items()
+                 if path.startswith("stories/index-")
+                 for row in page["stories"]}
+        self.assertEqual({row[0] for row in index["stories"]}, paged)
 
     def test_a_story_whose_content_changed_still_ships(self):
         """The guard must not become „never ship a detail"."""
@@ -668,7 +712,13 @@ class SharedVectors(EqualsFullRebuild):
         # boundary. A twin that consulted it AFTER its merge arms would
         # pass every other vector here and still serve a short feed, so the
         # rows that pin the PRECEDENCE are the ones worth having.
-        paths += sorted(overlay["replaced_paths"])[:2]
+        # ⚠️ THE FILTER INDEX IS ALWAYS INCLUDED WHEN PRESENT, not left to a
+        # `[:2]` slice it loses. It sorts third alphabetically, so the slice
+        # deterministically EXCLUDED it and the TypeScript twin's handling of
+        # a whole-corpus carried file went untested in both directions.
+        replaced = sorted(overlay["replaced_paths"])
+        pinned = [p for p in replaced if p.endswith("filter-index.json")]
+        paths += pinned + [p for p in replaced if p not in pinned][:2]
         stamps = {
             base["latest.json"]["generated_at"]: "BASE-RUN-STAMP",
             full["latest.json"]["generated_at"]: "RELEASE-RUN-STAMP",

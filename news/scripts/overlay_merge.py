@@ -125,6 +125,16 @@ def _is_merged_path(path: str) -> bool:
     ships a second, stale copy of a file a merge already owns, and the two
     then disagree about the same release.
     """
+    # ⚠️ THE FILTER INDEX IS CARRIED WHOLE, NOT MERGED. Nothing here merges
+    # it, so leaving it inside `stories/` meant the overlay passed the BASE's
+    # copy through: a story published in the hot window was absent from every
+    # facet while being present in the pages — „filter what you happen to
+    # have", which is the exact defect the index was built to remove. It is
+    # one whole-corpus file of ~45 KB, about 2% of the overlay ceiling, and
+    # a merge for it would have to re-derive counts over rows the overlay
+    # does not hold.
+    if path == "stories/filter-index.json":
+        return False
     return (path in MERGED_PATHS
             or path.startswith("articles/")
             or path.startswith("stories/"))
@@ -505,6 +515,10 @@ def diff_overlay(base: dict, full: dict, *, seq: int, base_run_id: str,
                 if path.startswith("stories/")
                 and not path.startswith("stories/index-")
                 and not path.startswith("stories/ranked-")
+                # ⚠️ NOT A DETAIL FILE. It is the whole-corpus structured
+                # index; treating it as one story's payload raises KeyError on
+                # `story` and ships it as a detail nobody can merge.
+                and path != "stories/filter-index.json"
                 and path != "stories/by-url.json"}
 
     base_details, full_details = details(base), details(full)
