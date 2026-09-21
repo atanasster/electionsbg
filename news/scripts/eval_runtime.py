@@ -63,10 +63,44 @@ class RuntimeConfig:
     unavailable_reason: str | None
     max_snapshot_age_hours: float
     live_manifest_url: str
+    stale_operator_cli: str | None = None
 
     @property
     def available(self) -> bool:
         return self.unavailable_reason is None
+
+
+# ⚠️ THE PIPELINE RUNS A COMPILED ARTIFACT THAT NO PIPELINE STAGE COMPILES.
+# `run_operator` invokes `news-functions/lib/operator-cli.js`; every npm wrapper
+# for the same CLI runs `npm --prefix news-functions run build &&` first and this
+# caller does not. So a TypeScript fix is invisible to the unattended run until
+# somebody remembers a separate build, and the run reports the OLD behaviour with
+# a clean exit — measured 2026-09-21, when the rebrand added `naiasno.bg` to
+# `CANONICAL_SITE_PREFIXES` in `src/operator.ts` and `lib/` still carried neither
+# spelling: `feedback target href is outside the canonical site` on 11 of 31
+# hourly runs, against a fix that had already been written.
+#
+# ⚠️ REPORTED, NOT REPAIRED, and not a reason to skip. Building here would put
+# `npm` + `tsc` on the unattended hourly path — a new failure surface and new
+# latency for a step that is `optional` by configuration. And refusing to run
+# would be worse than running stale: in `optional` mode a skip exits 0, so the
+# guard would CONVERT a loud error into a silent one. The stale CLI still runs;
+# the skew rides out on the result so the staleness watcher can alarm on it.
+def _stale_operator_cli(operator_cli: Path, root: Path) -> str | None:
+    """The newest `news-functions/src` file that postdates the compiled CLI."""
+    try:
+        built = operator_cli.stat().st_mtime
+    except OSError:
+        return None
+    newest: tuple[float, str] | None = None
+    for source in (root / "news-functions" / "src").rglob("*.ts"):
+        try:
+            when = source.stat().st_mtime
+        except OSError:
+            continue
+        if when > built and (newest is None or when > newest[0]):
+            newest = (when, str(source.relative_to(root)))
+    return newest[1] if newest is not None else None
 
 
 def _bounded_number(raw: str, label: str, *, minimum: float,
@@ -113,7 +147,8 @@ def runtime_config(root: Path = ROOT) -> RuntimeConfig:
     if shutil.which("node") is None:
         return RuntimeConfig(mode, credential, operator_cli,
                              "node_missing", max_age, live_url)
-    return RuntimeConfig(mode, credential, operator_cli, None, max_age, live_url)
+    return RuntimeConfig(mode, credential, operator_cli, None, max_age, live_url,
+                         _stale_operator_cli(operator_cli, root))
 
 
 def _last_json(output: str) -> dict[str, Any] | None:
@@ -254,6 +289,8 @@ def export_operation(root: Path = ROOT, *, dry_run: bool = False,
             alerts.append("accepted_export_failed_last_good_retained")
         if feedback_accepted_export["exit"] != 0:
             alerts.append("feedback_accepted_export_failed_last_good_retained")
+        if config.stale_operator_cli is not None:
+            alerts.append("operator_cli_stale")
     else:
         skipped = config.unavailable_reason or "unavailable"
         raw_export = {"exit": None, "skipped": skipped}
@@ -336,6 +373,7 @@ def export_operation(root: Path = ROOT, *, dry_run: bool = False,
         "feedback_improvement_dataset": improvement,
         "correction_proposals": correction,
         "snapshot_sla_hours": config.max_snapshot_age_hours,
+        "operator_cli_stale": config.stale_operator_cli,
         "alerts": sorted(set(alerts + blocked_reasons)),
         "publication_blocked": bool(blocked_reasons),
         "block_reasons": sorted(set(blocked_reasons)),
@@ -491,6 +529,7 @@ def task_sync_operation(upload_result: Path, root: Path = ROOT, *,
     result = {
         **base,
         "upload_run": upload.get("mode"),
+        "operator_cli_stale": config.stale_operator_cli,
         "sync": eval_outcome,
         "feedback_sync": feedback_outcome,
     }

@@ -16,6 +16,11 @@ Four alarms, each a distinct failure:
                        writing their report (var/cron.log tells which)
   run_failed           the newest run reported a non-zero pipeline_exit /
                        upload_exit / eval_task_sync_exit
+  operator_cli_stale   the run executed a compiled news-functions/lib CLI that
+                       is older than its own TypeScript source, so a fix that is
+                       written is not the code that ran. `run_failed` cannot
+                       cover this: the dangerous case is a stale build that
+                       SUCCEEDS with the previous behaviour and exits 0
 
 `manifest_stale` and `no_recent_run` are kept apart on purpose: a scheduler that
 runs every hour but whose uploader refuses to publish looks "quiet" to the
@@ -216,6 +221,21 @@ def evaluate(root: Path, now: datetime, settings: dict,
                            "key": f"{run.get('run_id')}:{','.join(failed)}",
                            "detail": f"{run.get('run_id')}: "
                                      + ", ".join(f"{k}={run.get(k)}" for k in failed)})
+    if run is not None:
+        # ⚠️ A SEPARATE ALARM, because the exit code cannot see it. On
+        # 2026-09-21 the skew happened to throw (`feedback target href is
+        # outside the canonical site`) and so rode out on
+        # `eval_task_sync_exit`; a stale build whose old behaviour merely
+        # differs returns 0 and would be invisible here.
+        stale_cli = ((run.get("eval_task_sync") or {}).get("operator_cli_stale")
+                     or ((run.get("evals") or {}).get("export") or {})
+                     .get("operator_cli_stale"))
+        if isinstance(stale_cli, str) and stale_cli:
+            alarms.append({"alarm": "operator_cli_stale",
+                           "key": f"{run.get('run_id')}:operator_cli_stale",
+                           "detail": f"{run.get('run_id')}: news-functions/lib "
+                                     f"is older than {stale_cli} — run "
+                                     "`npm --prefix news-functions run build`"})
     if problems:
         status["config_problems"] = problems
     status["alarms"] = alarms

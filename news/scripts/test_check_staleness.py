@@ -101,6 +101,35 @@ class Staleness(unittest.TestCase):
                                      manifest_at(NOW - timedelta(minutes=30)))
                 self.assertEqual(self.alarms(status), ["run_failed"])
 
+    def test_stale_operator_cli_alarms_even_when_every_exit_is_zero(self):
+        """The dangerous skew SUCCEEDS; `run_failed` is blind to it.
+
+        On 2026-09-21 the stale build happened to throw, so it rode out on
+        `eval_task_sync_exit`. A stale build whose old behaviour merely differs
+        returns 0 — which is why this is its own alarm and not a second reading
+        of the exit codes.
+        """
+        self.write_run("r1", 600, eval_task_sync={
+            "operator_cli_stale": "news-functions/src/operator.ts"})
+        status = cs.evaluate(self.root, NOW, SETTINGS,
+                             manifest_at(NOW - timedelta(minutes=30)))
+        self.assertEqual(self.alarms(status), ["operator_cli_stale"])
+        self.assertIn("npm --prefix news-functions run build",
+                      status["alarms"][0]["detail"])
+
+    def test_stale_operator_cli_is_also_read_from_the_export_arm(self):
+        self.write_run("r1", 600, evals={"export": {
+            "operator_cli_stale": "news-functions/src/operator.ts"}})
+        status = cs.evaluate(self.root, NOW, SETTINGS,
+                             manifest_at(NOW - timedelta(minutes=30)))
+        self.assertEqual(self.alarms(status), ["operator_cli_stale"])
+
+    def test_a_current_build_raises_no_stale_cli_alarm(self):
+        self.write_run("r1", 600, eval_task_sync={"operator_cli_stale": None})
+        status = cs.evaluate(self.root, NOW, SETTINGS,
+                             manifest_at(NOW - timedelta(minutes=30)))
+        self.assertTrue(status["ok"], status)
+
     def test_newest_combined_report_wins(self):
         self.write_run("old", 7000, pipeline_exit=1)
         self.write_run("new", 600)

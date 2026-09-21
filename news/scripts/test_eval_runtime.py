@@ -15,6 +15,7 @@ from news.scripts.effective_analysis import AcceptedAdjudications
 from news.scripts.eval_runtime import (
     EvalRuntimeError,
     RuntimeConfig,
+    _stale_operator_cli,
     export_operation,
     run_operator,
     runtime_config,
@@ -38,6 +39,72 @@ def config(*, mode: str = "required", available: bool = True) -> RuntimeConfig:
             "news/app-data/manifest.json"
         ),
     )
+
+
+class StaleOperatorCliTest(unittest.TestCase):
+    """The pipeline runs `lib/`; nothing in the pipeline builds it.
+
+    A fix written in `src/operator.ts` is invisible to the unattended run until
+    somebody remembers a separate build, and the run reports the OLD behaviour.
+    Measured 2026-09-21: the rebrand added `naiasno.bg` to the canonical host
+    list in `src/` while `lib/` carried neither spelling.
+    """
+
+    def setUp(self) -> None:
+        self.temp = tempfile.TemporaryDirectory(prefix="stale_cli_")
+        self.root = Path(self.temp.name)
+        source_dir = self.root / "news-functions" / "src"
+        source_dir.mkdir(parents=True)
+        lib_dir = self.root / "news-functions" / "lib"
+        lib_dir.mkdir(parents=True)
+        self.source = source_dir / "operator.ts"
+        self.source.write_text("export const x = 1;\n", encoding="utf-8")
+        self.cli = lib_dir / "operator-cli.js"
+        self.cli.write_text("module.exports = {};\n", encoding="utf-8")
+
+    def tearDown(self) -> None:
+        self.temp.cleanup()
+
+    def _set_times(self, *, source: float, built: float) -> None:
+        os.utime(self.source, (source, source))
+        os.utime(self.cli, (built, built))
+
+    def test_source_newer_than_build_names_the_offending_file(self) -> None:
+        self._set_times(source=2_000, built=1_000)
+        self.assertEqual(_stale_operator_cli(self.cli, self.root),
+                         "news-functions/src/operator.ts")
+
+    def test_current_build_reports_no_skew(self) -> None:
+        self._set_times(source=1_000, built=2_000)
+        self.assertIsNone(_stale_operator_cli(self.cli, self.root))
+
+    def test_a_stale_build_is_reported_but_never_makes_the_operator_unavailable(
+            self) -> None:
+        """Refusing to run would convert a loud error into a silent skip.
+
+        In `optional` mode an unavailable operator exits 0, so treating skew as
+        an `unavailable_reason` would HIDE exactly what this guard exists to
+        surface. The stale CLI still runs; the skew rides out on the result.
+        """
+        self._set_times(source=2_000, built=1_000)
+        stale = RuntimeConfig(
+            mode="optional", credential=Path("/private/eval.json"),
+            operator_cli=self.cli, unavailable_reason=None,
+            max_snapshot_age_hours=26,
+            live_manifest_url=(
+                "https://storage.googleapis.com/data-electionsbg-com/"
+                "news/app-data/manifest.json"),
+            stale_operator_cli=_stale_operator_cli(self.cli, self.root))
+        self.assertTrue(stale.available)
+        self.assertEqual(stale.stale_operator_cli,
+                         "news-functions/src/operator.ts")
+
+    def test_a_missing_source_tree_is_not_an_alarm(self) -> None:
+        """A deployment shipping only `lib/` is a normal shape, not skew."""
+        self._set_times(source=2_000, built=1_000)
+        self.source.unlink()
+        (self.root / "news-functions" / "src").rmdir()
+        self.assertIsNone(_stale_operator_cli(self.cli, self.root))
 
 
 class EvalRuntimeTest(unittest.TestCase):
