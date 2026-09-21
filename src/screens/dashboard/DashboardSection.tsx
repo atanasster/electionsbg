@@ -121,6 +121,10 @@ export type DashboardSectionIdProp =
   | "person-self-funding"
   | "person-money"
   | "person-procurement"
+  // Only for a person ALL of whose companies are consortium members: they won nothing on
+  // their own, so „Обществени поръчки" would be the wrong heading over the FULL value of
+  // contracts they merely took part in (see ConsortiumParticipationTile).
+  | "person-consortium"
   | "person-wealth"
   | "person-gap"
   | "person-events"

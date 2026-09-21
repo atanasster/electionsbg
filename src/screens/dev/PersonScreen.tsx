@@ -45,6 +45,10 @@ import { cn } from "@/lib/utils";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { StatCard } from "../dashboard/StatCard";
 import { DashboardSection } from "../dashboard/DashboardSection";
+import {
+  ConsortiumParticipationTile,
+  type ConsortiumContract,
+} from "../components/procurement/ConsortiumParticipationTile";
 import { CompanyTopContractsTile } from "../components/procurement/CompanyTopContractsTile";
 import { CompanyTopAwardersTile } from "../components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "../components/procurement/CompanyByYearChart";
@@ -130,6 +134,18 @@ type DbRollup = Pick<
 > & {
   awarderCount: number;
   amendmentCount: number;
+  // Consortium participation of the person's COMPANIES (stored model, migration 087). A
+  // member firm's joint rows are €0, so `totalEur` is solo work only and `consortiumEur` is
+  // the FULL value of the joint contracts — never a share, which is not public.
+  // `consortiumAnnexCount` counts amendments on the CARRIER rows, i.e. „these contracts were
+  // amended N times", not „these firms filed N amendments" (that is `amendmentCount`).
+  // 024's `partic` dedupes by (ocid, contract_id), so two of the person's companies inside
+  // one consortium count that contract once. Rendered by ConsortiumParticipationTile; never
+  // summed into anything.
+  consortiumEur?: number;
+  consortiumCount?: number;
+  consortiumContracts?: ConsortiumContract[];
+  consortiumAnnexCount?: number;
   breakdown: {
     totalEur: number;
     cpvKnownEur: number;
@@ -527,7 +543,16 @@ export const PersonScreen: FC = () => {
         icon: Euro,
         label: bg ? "Финансиране от ЕС" : "EU funding",
       });
-    const nSectors = procurement?.breakdown.cpvRaw.length ?? 0;
+    // ⚠️ GATED ON `contractCount`, because `breakdown.cpvRaw` does NOT carry the 087 member
+    // exclusion — it filters `tag = 'contract'`, which €0 consortium-member placeholder rows
+    // satisfy. For a person all of whose companies are member-only that made this chip read
+    // „Активен в 2 сектора" off contracts they won no part of on their own; verified on
+    // ГЕОРГИ ГЕОРГИЕВ МАНОЛОВ, whose solo `contractCount` is 0. Same rule as plan §3
+    // invariant 7 — a solo-derived surface must not render where there is no solo work.
+    const nSectors =
+      (procurement?.contractCount ?? 0) > 0
+        ? (procurement?.breakdown.cpvRaw.length ?? 0)
+        : 0;
     if (nSectors > 0)
       out.push({
         tone: "muted",
@@ -765,6 +790,39 @@ export const PersonScreen: FC = () => {
           {/* ОБЩЕСТВЕНИ ПОРЪЧКИ — the headline and the biggest contracts. The whole
               section is gated on there being procurement at all, so the heading can
               never render above nothing. */}
+          {/* THE MEMBER-ONLY BRANCH — the person whose companies won nothing on their own
+              and are all consortium members. 731 name folds are in that state, party to
+              €6.13bn of joint awards, and their pages rendered no procurement at all.
+              Deliberately its OWN section rather than a relaxation of the gate below: that
+              one's StatCards divide by `contractCount` and its tiles read `awarderCount` /
+              `byAwarder` / `byYear` / `breakdown`, none of which carry the 087 member
+              exclusion — so here they would be computed entirely from €0 placeholders
+              (plan §3, invariant 7). A person with BOTH solo and joint work falls through
+              to the section below, which already carries the participation sub-line. */}
+          {procurement &&
+            procurement.contractCount === 0 &&
+            (procurement.consortiumCount ?? 0) > 0 && (
+              <DashboardSection
+                id="person-consortium"
+                title="Участие в обединения"
+                icon={Building2}
+                headingLevel={2}
+              >
+                <p className="text-xs text-muted-foreground">
+                  Сумарно за всички фирми, в които лицето е (или е било)
+                  вписано.
+                </p>
+                <ConsortiumParticipationTile
+                  count={procurement.consortiumCount ?? 0}
+                  eur={procurement.consortiumEur ?? 0}
+                  annexCount={procurement.consortiumAnnexCount}
+                  contracts={procurement.consortiumContracts}
+                  showContractor
+                  lang={i18n.language}
+                />
+              </DashboardSection>
+            )}
+
           {rollup && rollup.contractCount > 0 && (
             <DashboardSection
               id="person-procurement"

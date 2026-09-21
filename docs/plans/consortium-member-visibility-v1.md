@@ -3,8 +3,9 @@
 **Status:** **T1 APPLIED** to `011_company_api.sql` + `024_person_api.sql` and to LOCAL Postgres
 on 2026-09-21, with its gate (`scripts/db/tests/consortium_member_visibility.data.test.ts`).
 **NOT applied to Cloud SQL** — see T5; prod still returns NULL for all 1,101.
-⚠️ T1+T2 are inert on their own: T3 is what a reader sees. **T2 APPLIED** the same way (same
-two files, same command). T3–T4 not started.
+**T2 + T3 APPLIED** — T2 to the same two SQL files, T3 to the two screens (nothing to apply).
+⚠️ Prod is UNCHANGED: Cloud SQL still returns NULL for all 1,101, so the tile renders nowhere
+there. T4 (component/route gates beyond those already shipped per tier) not started.
 **Measured:** 2026-09-21 against local Postgres `postgres://postgres@127.0.0.1:5433/electionsbg`
 (contracts 411,713 rows).
 **Trigger:** a reader compared `/company/113581389` (МЛГ ЕООД) against a competitor tool that
@@ -211,25 +212,73 @@ rollup is inlinable, so `EXPLAIN` of a call prints one `Result` node and no inne
 verified by disabling every index scan, which took the call to 9.08M buffers and 13.8 s while
 such a regex still matched nothing. The buffer ceiling is the only thing that discriminates.
 
-### T3 — UI: a member-side participation block
+### T3 — UI: a member-side participation block ✅ DONE
 
-Change the section gate to `rollup && (rollup.contractCount > 0 || (procurement?.consortiumCount ?? 0) > 0)`,
-and give the member-only branch its own head rather than the solo `StatCard` grid:
+`src/screens/components/procurement/ConsortiumParticipationTile.tsx`, shared by
+`CompanyDbScreen` and `PersonScreen`, rendered in its own branch gated on
+`contractCount === 0 && consortiumCount > 0`.
 
-- heading „Участие в обединения" (not „Обществени поръчки" — this firm won nothing on its own)
-- the joint total, explicitly labelled as the FULL contract value with the share not public
-- each `consortiumContracts` row → buyer, title, date, value, link to the carrier `/company/:consortiumEik`
-- the co-members, resolved from the carrier
-- the annex link from T2
-- the existing „средно / договор" line suppressed when `contractCount === 0` (the `Infinity` trap)
-- ⚠️ **and NONE of the solo fields — invariant 7.** No „Възложители" StatCard (it would read
-  „Договори 0 · Възложители 1"), no `byAwarder` / `byYear` tile (their rows carry their own
-  member-counting `contractCount` beside a €0), no `ProcurementBenchmarksTile` (285 of these
-  companies carry `singleBidN > 0` computed from placeholders), no `totalOther` (every one of
-  them ships `{"BGN": 0}`, which reads as „paid zero BGN" — a claim nobody made).
+**Its own branch, NOT a relaxed `contractCount > 0` gate** — that section's `StatCard`
+divides by `contractCount` (→ `Infinity`) and its tiles read the solo fields invariant 7
+names. A company with BOTH solo and joint work falls through to the existing section and its
+`consortiumCount` sub-line, so **nothing moved for the 2,063 mixed companies**.
 
-Mirror on `PersonScreen`, which reads the same jsonb shape and today has no consortium field
-at all.
+What the tile shows: the heading „Участие в обединения (N)" — never „Обществени поръчки" —
+the joint total, the carrier annex count, and each contract with buyer, date, value, the
+consortium, and „договорът е изменян N пъти".
+
+⚠️ **Three claims are in VISIBLE BODY TEXT, not a tooltip**: the sum is the contracts' full
+value, the per-participant share is not public, and it is therefore **not revenue**. „€69,2
+млн." beside a company name reads as income unless something adjacent says otherwise, and a
+reader on a phone never hovers.
+
+⚠️ **The row link is `/procurement/contract/:id`, never `/funds/contract/:number`.** Those
+are different corpora — the funds route is the ИСУН EU-funds page keyed by
+`fund_projects.contract_number` — and the wrong family dead-ends on „contract not found",
+which would defeat T2 entirely. The first cut had this wrong and the test asserted the broken
+href, so it passed on the defect.
+
+⚠️⚠️ **AND THE RIGHT ROUTE DID NOT WORK EITHER — a pre-existing defect this change surfaced.**
+`useContract`'s `enabled` guard was `/^[0-9a-f]{12}$/`, which rejects the synthetic carrier
+keys 087 mints as `'obed-' || left(md5(…), 12)`. `enabled: false` fires no request at all, so
+`/procurement/contract/obed-…` rendered „Договорът не е намерен" for **all 2,699 carrier
+contracts in the corpus** (against 409,014 bare keys) — on a page whose `/api/db/contract`
+resolves them perfectly. It was never confined to this tile: `CompanyTopContractsTile` builds
+its links from the same keys, so on any consortium entity's own page every top-contract link
+was dead too. The guard is now `CONTRACT_KEY_RE = /^(?:obed-)?[0-9a-f]{12}$/`, exported and
+pinned by `useContract.test.ts` against both real shapes and the junk it exists to stop.
+
+Verified after the fix: `/procurement/contract/obed-abf3a70ed9bb` serves the carrier contract
+with **€21,780,218 при сключване → €47,583,415 текуща стойност, +118.5%** and fires the
+чл. 116 ал. 2 risk flag — i.e. the annex trail this plan set out to make reachable from
+МЛГ's page is now one click from it.
+
+⚠️ **Truncation is disclosed against `count`, not against the delivered array.** Both SQL arms
+cap `consortiumContracts` at `conslist`'s `LIMIT 25` while `consortiumCount` is unbounded, so
+the array arrives pre-truncated: on EIK 206331450 (count 40, 25 delivered, 8 shown) the array
+form said „и още 17" and lost 15 contracts under a heading reading 40.
+
+**Three sibling surfaces also stopped rendering from €0 placeholders** (invariant 7, each
+found by review rather than by design):
+
+| surface                                 | was gated on                           | now gated on                    | why                                                                                                                                                                                                                                                                          |
+| --------------------------------------- | -------------------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AllTimeScopeNote` (company)            | `contracts > 0 && contractCount === 0` | …`&& summary.contract_rows > 0` | told 1,172 firms „nothing in this window, try all time" in EVERY window incl. `?pscope=all` — a loop. ⚠️ Keyed on the ALL-TIME member-excluding count, not on participation in the current window: the latter costs 158 **mixed** companies their route to their solo total. |
+| `CabinetTimelineTile` (company)         | `contracts > 0` (all tags)             | `summary.contract_rows > 0`     | rendered „Най-висок темп при <PM>: €0 / мес" — a money-per-month tile whose every share is 0/0.                                                                                                                                                                              |
+| the „Активен в N сектора" chip (person) | `breakdown.cpvRaw.length > 0`          | …`&& contractCount > 0`         | `cpvRaw` filters `tag = 'contract'` with no member exclusion, so it read „Активен в 2 сектора" off contracts the person won no part of.                                                                                                                                      |
+
+`person-consortium` is registered in `DashboardSectionIdProp`. `ProcurementBreakdownTile` and
+the person-side cabinet tile were already inside the `contractCount > 0` section and needed
+nothing.
+
+**Verified live** against the real route table + local Postgres (the Vite `dbApi` plugin, so
+dev == prod by construction): `/company/113581389?pscope=all` renders „Участие в обединения
+(2)", €69,2 млн., 5 анекса and both contracts; no „Възложители" StatCard, no „средно", no
+`Infinity`/`NaN`, no console errors. The DEFAULT scope renders no tile and keeps the scope
+note — which is correct and worth knowing: МЛГ's contracts are from 2022, outside the current
+parliament window, so **a reader landing on the page must widen to see any of this**.
+`/person/ГЕОРГИ ГЕОРГИЕВ МАНОЛОВ?pscope=all` renders 3 contracts / €76 млн. / 7 анекса with
+„чрез МЛГ ЕООД".
 
 ### T4 — Gates
 
@@ -294,8 +343,18 @@ half and leaves the other on the old body indefinitely, with every row count rec
 apply itself is seconds, takes no AccessExclusiveLock on any table, and has no stored-query
 dependents to CASCADE.
 
-Order is cosmetic here — both routes pass the jsonb straight through, and an older bundle
-ignores a new key — but the SQL should lead so the first deployed bundle has something to render.
+⚠️ **THE SQL MUST LEAD, AND HERE THAT IS NOT COSMETIC.** Verified 2026-09-21: prod Cloud SQL
+still serves the PRE-T1 payload, so `company_procurement` returns **NULL** for every
+member-only entity. Ship the bundle first and the tile has nothing to render on any of the
+1,172 companies or 731 folds — the whole change is invisible, and looks like it did not work.
+A bundle older than the SQL degrades gracefully in the other direction (it ignores the new
+keys), and an intermediate state where 011/024 are applied but the bundle is not just serves
+today's page. So: **SQL → `deploy:db` → `deploy`.**
+
+One narrower ordering inside that: a payload from 011 WITHOUT T2 carries no `carrierKey`, so
+each row falls back to linking the MEMBER's own key — a real page, but the €0 row rather than
+the carrier's, with no annex trail. Applying both files together (the command above does)
+avoids it.
 
 **Verify on the serving database afterwards**, since a green local gate says nothing about prod:
 

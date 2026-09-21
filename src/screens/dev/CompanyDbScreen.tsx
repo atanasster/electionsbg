@@ -27,6 +27,10 @@ import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { formatEur, formatEurCompact, toEur } from "@/lib/currency";
 import { useTranslation } from "react-i18next";
 import { StatCard } from "../dashboard/StatCard";
+import {
+  ConsortiumParticipationTile,
+  type ConsortiumContract,
+} from "../components/procurement/ConsortiumParticipationTile";
 import { CompanyTopContractsTile } from "../components/procurement/CompanyTopContractsTile";
 import { CompanyTopAwardersTile } from "../components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "../components/procurement/CompanyByYearChart";
@@ -298,6 +302,12 @@ type DbRollup = Pick<
   // itself IS a consortium (carrier) entity.
   consortiumEur?: number;
   consortiumCount?: number;
+  // The joint contracts themselves, and the amendments on their CARRIER rows (087 puts the
+  // annex trail there, so a member row carries none). `consortiumAnnexCount` is „these
+  // contracts were amended N times", NOT „this firm filed N amendments" — that is
+  // `amendmentCount`. Rendered by ConsortiumParticipationTile; never summed into anything.
+  consortiumContracts?: ConsortiumContract[];
+  consortiumAnnexCount?: number;
   frameworkEur?: number;
   frameworkCount?: number;
   consortiumMembers?: Array<{ eik: string; name: string }>;
@@ -1587,20 +1597,59 @@ export const CompanyDbScreen: FC = () => {
               and a bare „нищо намерено" strands them with the figure they came for
               nowhere on the page. Mirrors the awarder block ABOVE, which has said this
               since it was written. */}
-          {contracts > 0 && (!rollup || rollup.contractCount === 0) && (
-            <div className="flex items-start gap-2">
-              <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-              <AllTimeScopeNote
-                emptyWindow
-                side="supplier"
-                scope={scope}
-                allTimeEur={Number(summary?.contracts_eur ?? 0)}
-                allTimeCount={summary?.contract_rows}
-                onShowAll={() => setScope("all")}
+          {/* ⚠️ SUPPRESSED FOR A MEMBER-ONLY FIRM, and that is the point of the extra
+              condition. `contracts` counts EVERY tag, so a firm whose only rows are €0
+              consortium-member placeholders satisfies `contracts > 0 && contractCount === 0`
+              in EVERY window — including `?pscope=all`. So this note used to tell 1,172
+              companies „nothing in this window, try all time", the widening changed nothing,
+              and the reader was in a loop. It is a scope note; „this firm won nothing on its
+              own" is not a scope problem, and the participation tile below says what IS
+              there.
+
+              ⚠️ KEYED ON `summary.contract_rows` — the ALL-TIME, member-EXCLUDING count —
+              and NOT on participation in the current window. Those differ for a MIXED
+              company: one with solo work outside this window and joint work inside it has
+              `consortiumCount > 0` here while its solo total is exactly what the note exists
+              to route the reader to. Measured on the 2022 window alone, 158 mixed companies
+              would have lost that route. `contract_rows === 0` is the real question — „does
+              this firm have any solo contracts at all?" — and it is window-independent. */}
+          {contracts > 0 &&
+            (!rollup || rollup.contractCount === 0) &&
+            Number(summary?.contract_rows ?? 0) > 0 && (
+              <div className="flex items-start gap-2">
+                <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+                <AllTimeScopeNote
+                  emptyWindow
+                  side="supplier"
+                  scope={scope}
+                  allTimeEur={Number(summary?.contracts_eur ?? 0)}
+                  allTimeCount={summary?.contract_rows}
+                  onShowAll={() => setScope("all")}
+                  lang={i18n.language}
+                />
+              </div>
+            )}
+
+          {/* THE MEMBER-ONLY BRANCH. Deliberately NOT a relaxation of the
+              `contractCount > 0` gate below: that section's StatCards divide by
+              `contractCount` (→ Infinity at zero) and its tiles read `awarderCount`,
+              `byAwarder`, `byYear` and `breakdown`, none of which carry the 087 member
+              exclusion — so for these firms they are computed entirely from €0 placeholders
+              and would print „Договори 0 · Възложители 1" above a single-bidder statistic
+              about a firm that won nothing alone (plan §3, invariant 7). A firm with BOTH
+              solo and joint work keeps the existing sub-line inside that section instead, so
+              nothing moves for the 2,063 mixed companies. */}
+          {procurement &&
+            procurement.contractCount === 0 &&
+            (procurement.consortiumCount ?? 0) > 0 && (
+              <ConsortiumParticipationTile
+                count={procurement.consortiumCount ?? 0}
+                eur={procurement.consortiumEur ?? 0}
+                annexCount={procurement.consortiumAnnexCount}
+                contracts={procurement.consortiumContracts}
                 lang={i18n.language}
               />
-            </div>
-          )}
+            )}
           {rollup && rollup.contractCount > 0 && (
             <>
               {/* Section header. When the entity is BOTH an awarder and a
@@ -1789,8 +1838,14 @@ export const CompanyDbScreen: FC = () => {
           )}
 
           {/* All-time (not date-scoped) — its per-cabinet shares use the all-time
-              total, so it's correct regardless of the scope filter above. */}
-          {contracts > 0 && (
+              total, so it's correct regardless of the scope filter above.
+              ⚠️ GATED ON `contract_rows`, the member-EXCLUDING all-time count, not on
+              `contracts` (every tag). A consortium-member-only firm satisfies the latter
+              while its all-time money is €0, so this rendered „Най-висок темп при <PM>:
+              €0 / мес" for 1,172 companies — a money-per-month tile whose every share is
+              0/0, on firms that won nothing on their own. Same rule as plan §3 invariant 7:
+              a surface built from the solo money must not render where there is none. */}
+          {Number(summary?.contract_rows ?? 0) > 0 && (
             <CabinetTimelineTile
               cabinets={cabinets}
               totalEur={Number(summary?.contracts_eur ?? 0)}
