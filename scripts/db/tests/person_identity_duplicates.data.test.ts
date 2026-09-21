@@ -93,7 +93,7 @@ pinLocalDatabase();
  */
 const CEILINGS = {
   /** Name folds holding an `official_muni` AND a `local` role on ≥2 person rows. */
-  splitFolds: 1219,
+  splitFolds: 1220,
   /**
    * (fold, role, place_code) TRIPLES naming two person rows across the two sources — one
    * name, one office, one place. The population a cross-source seat rule would close.
@@ -183,8 +183,23 @@ const CEILINGS = {
    * there), i.e. the Commerce Registry says one human bears the name. And the Bridge B harm
    * the Горумов note describes reproduces on every one — **zero** tr/ngo roles across all 11
    * resulting person rows, so none of the four pages shows the company that split it.
+   *
+   * ⚠️ 1137 → 1138 (and `splitFolds` 1219 → 1220) on 2026-09-21, the same mechanism a
+   * fifth time, after that day's `tr:daily-refresh` (+4 filing days) and the `db:refresh`
+   * resolve that followed. Isolated by diffing the split-fold set against Cloud SQL, which
+   * still carried the 2026-09-16 resolve: exactly ONE fold entered —
+   *
+   *   radoslav dimitrov stoyanov   councillor HKV18 (2023) + councillor SFO18 (2007) + official_muni HKV18
+   *
+   * `namesake_risk` went 1 → 2 (`officer_name_counts.company_count` 2; ПАРАДИС ЕИК 126716043
+   * seated in Маджарово = HKV18, ПЪТНА ПОМОЩ ХРИСИ 207336646, Ти Ес Ес - България
+   * 200562411) and `tr_name_fold_people.people_n` is 2, so here the Commerce Registry itself
+   * says two humans bear the name — which makes separating the 2007 SFO18 councillor from
+   * the 2023 HKV18 one plausibly RIGHT, and the split of `official_muni` HKV18 from `local`
+   * HKV18 (same council, same term) the same defect as the four above: Tier 1's
+   * `sameLocalSeat` licence is local↔local only. One person row on cloud, three here.
    */
-  exactSignatureTriples: 1137,
+  exactSignatureTriples: 1138,
   /** `person_search` P rows sitting in a same-(fold, place_label, primary_role) cluster of
    *  more than one — what a reader actually sees, in the finder and on /persons. */
   duplicateSearchRows: 4778,
