@@ -4,6 +4,8 @@
 against the tree on the same day** (pass 2 in §13; **pass 3 deep codebase audit in §14**, folding
 root-cause solutions, veto anatomy, and live contract reconciliation; critical findings marked inline with ⚠️ and 🔍). **Amendment review reconciled in §0 and the
 task contracts; historical audit conclusions are corrected below where superseded.**
+⚠️ **Partly IMPLEMENTED since 2026-09-21 — see §0.1 for what is in the tree.** This is no
+longer only a proposal: Stage 0, T1.2, T1.3, T1.4 and part of T4.1 are shipped with gates.
 **Pass 4 (§15) re-measured the contested claims and added three findings the earlier passes
 do not hold: `same_event_evidence()` is the PRIMARY clusterer, not a fallback (86.5% of all
 joins; the model self-joins 1.0% of the time), two in-repo priors that bear on T2.3's
@@ -67,6 +69,34 @@ withheld downstream. §1 gives the measurement for each. This matters for sequen
 fix for R1–R4 is mostly in the publish and taxonomy layers, not in ingestion, and
 these observations alone do not justify expanding ingestion. However, source health and
 analysis freshness must be measured before publishing any claim about missing coverage (§11).
+
+---
+
+## 0.1 Implementation status — what is SHIPPED (updated 2026-09-21)
+
+⚠️ **This table is the resume point. Everything else in this document is a design
+record; only this section says what exists in the tree.** A task is ✅ only when its
+code, its gate and its mutation check are committed — not when it was designed.
+
+| task | status | commits | what actually landed |
+| --- | --- | --- | --- |
+| **Stage 0** — adjudication transport | ✅ closed, ⚠️ one half is a PRODUCT state | `09ba888273` `c1f1a41399` `6dbfc7575d` `fc9d86d829` `89eb91f94d` `e396ddfef5` | `src`/`lib` skew alarm; cold start named separately from failure; gazetteer admits ДПС/БСП/ДСБ/ИТН/СДС; router stops re-asking settled policy. ⚠️ **The three Firestore exports still return nothing — not because they are broken, but because the public eval surface has never received a submission.** T2.3/T4.5/T6.3 have no adjudicated input and no code creates those records. |
+| **T1.2** — prominence | ✅ | `dda2fe5785` | `story_prominence()` (`log2(1+U) + 0.25·log2(1+V)`, 24 h half-life), `PROMINENCE_VERSION`, `ranked-N` pages beside `index-N`, `--as-of`, `stale_ranking`. Prominence is stamped ONCE at assembly and EXCLUDED from overlay change detection — a clock-dependent field in a content-derived payload made every story look changed (3,031 details / 11.0 MB against a 2 MB ceiling). |
+| **T1.3a** — the query contract (data side) | ✅ | `1061a1f0b4` | `stories/filter-index.json` — whole corpus, structured fields only, ~41 KB gz, `QUERY_VERSION`, `facets_basis`, `UNTOPICED_FACET`, 64 KB gz budget enforced at build. Carries NO score, so a hot overlay does not ship 371 KB on a run that published nothing. |
+| **T1.3b** — the query contract (client side) | ✅ | `9215e5405a` | `storyQuery.ts` (`queryStories`, `withinWindow`, `listState`, `browseKey`), `useGlobalStoryQuery`. Facets are counted with their OWN dimension relaxed; `listState` names the five things a list can say. Search is scoped to the briefing and SAYS so (titles in the index measured at 288 KB gz against a 13 KB page). A pending or failed count prints no number rather than a zero. |
+| **T1.4** — exact reachability gate | ✅ | `c8f2c063ba` | `npm run news:reachability[:gate]`, in `news:release:gate`. Set equality per fixture, not a ratio; N/A ≠ 100%; corpus-shrink refusal against a committed baseline; whole-corpus facet drift; the article funnel reported in ARTICLES with both residue directions. 14 fixtures, 0 failing, coverage 1.000. Ten mutations, ten caught. |
+| **T4.1a/d** — party-tone evidence | ✅ partial — see §15.5 | `fc9d86d829` `89eb91f94d` | v3 contract: `rationale` (prose a reader sees) split from `evidence_spans` (located provenance, the only thing the gate checks); `party_tone_published()` is the ONE definition shared by the bundle and the review queue; the v2→v3 migration NEVER manufactures a span. ⚠️ `leaning`/`russia_stance` still take prose `evidence`; the full-text rule is unimplemented. |
+
+**Not started:** T1.1 (largely pre-existing), **T1.5**, T2.0–T2.3, T3.1–T3.3, T4.0,
+T4.2–T4.5, T5.x, T6.x, T7.x.
+
+⚠️ **The one thing T1.3b could not finish, and it is the remaining half of R1.**
+„Показваме 1 от 139" now names both numbers honestly — and offers no route to the other
+138, because **the news app has no browse route**: `/`, `/story/:id`, `/outlets`,
+`/outlet/:domain`, `/topics`, `/methodology`, `/corrections`, `/evals` is the whole
+routing table (`newsapp/App.tsx:349-377`). The corpus is reachable by the gate and not by
+a reader. A `/stories` browse reading `queryStories` + `ranked-N`/`index-N` is the missing
+piece; everything it needs is already built and tested.
 
 ---
 
@@ -682,7 +712,7 @@ the 16-story limit (see §1.1): today it uses 39.5% of it. `home.json` remains t
 shape, but its selection must use the same ranking policy; leaving recency-selected content
 unchanged would preserve the wrong lead.
 
-**T1.2 — an explicit prominence rank.** Name it „Най-отразявани“, not “most popular”:
+**T1.2 ✅ SHIPPED (§0.1) — an explicit prominence rank.** Name it „Най-отразявани“, not “most popular”:
 coverage is observed; readership is not. Implement one versioned `story_prominence()` at
 build time with a reproducible `as_of`:
 
@@ -722,7 +752,7 @@ before this feed is built (§1.3); decide whether it becomes a stated filter or 
 invisible cut. Ownership groups and syndication families are separate counts; common
 ownership does not prove shared reporting.
 
-**T1.3 — filtering precedes pagination.** Time, topic, case, person, outlet and sort are
+**T1.3 ✅ SHIPPED (§0.1) — filtering precedes pagination.** Time, topic, case, person, outlet and sort are
 URL state. The client must never filter only pages already downloaded and call that the
 whole result — ⚠️ which is exactly what the home search does today
 (`newsapp/app/homeFilters.ts:53`, a substring `searchable()` over the ≤16 downloaded
@@ -760,7 +790,7 @@ a new snapshot. Validate page 1 → overlay publish → page 2, base publish bet
 clock crossing 24h, Back restoration, withdrawals and an expired cursor. On pruned snapshots
 show an explicit refresh state, never silently continue from a different generation.
 
-**T1.4 — exact reachability gate.** For every supported query fixture:
+**T1.4 ✅ SHIPPED (§0.1) — exact reachability gate.** For every supported query fixture:
 `coverage = distinct reachable eligible story IDs / all eligible story IDs in that window`.
 Require **100%**, counting every page, and set equality with no duplicates or phantom IDs;
 explicitly enumerate exclusions such as invalid extraction or withdrawn records. An empty
@@ -775,7 +805,7 @@ articles to reconcile; do not label all 2,883 “story-attached”. The inherite
 uses both 5,005 and 5,015 analyses; resolve that discrepancy against the frozen artifact before
 publishing a funnel. These historical counts are not a reconciled release baseline.
 
-**T1.5 — publication and retention.** ⚠️ Largely existing: the manifest switch, the immutable
+**T1.5 ⬜ NOT STARTED — publication and retention.** ⚠️ Largely existing: the manifest switch, the immutable
 `versions/<run_id>` tree, per-file sha256 inventory validation, a hot overlay, and the
 60 s/5 min cache policy are live (§T1.1). What is missing is documented **retention**: decide
 how many `versions/*` generations the bucket keeps (each ~2,653 files / 60 MB today) and what
@@ -1107,7 +1137,7 @@ IDs. Version the identity decision independently of tone so a correction invalid
 pairs without silently transferring sentiment to another person. Pending/withdrawn identities
 never produce public profiles.
 
-**T4.1 — repair the evidence contract.** Shared by parties and people; blocks public tone.
+**T4.1 ✅ PARTLY SHIPPED (§0.1, §15.5) — repair the evidence contract.** Shared by parties and people; blocks public tone.
 Use `rationale` for explanatory prose and `evidence_spans[]` for provenance. Migrate the
 legacy `evidence` field explicitly (temporary read compatibility, no dual canonical meaning):
 verbatim quote, field (`title`/`body`), offsets into a versioned extracted-text snapshot,
