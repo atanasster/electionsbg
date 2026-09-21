@@ -13,6 +13,16 @@
 -- Name-only match — treat every rollup as a lead, not proof (namesakes collapse).
 -- Depends on tr_officers (003), contracts (001), cabinets (013),
 -- officer_name_counts (008). EXECUTE auto-granted to app_readonly.
+--
+-- ⚠️ THIS FILE AND `011_company_api.sql` HAVE DIFFERENT AUTOMATIC APPLIERS AND CAN DRIFT:
+--   024 rides `db:load:tr:pg` (the TR publish — a REFRESH_EXCLUSIONS member `db:refresh`
+--       never runs, and which takes ~280 s on cloud)
+--   011 rides `db:load:pg` (the contracts publish)
+-- `person_procurement`'s NULL guard is ONE rule living in both files, so a routine
+-- `db:load:pg:cloud` lands the company half and leaves THIS one on the old body
+-- indefinitely, with every row count reconciling and nothing red. Ship a guard change with
+-- BOTH files named, never by waiting for a loader:
+--   npx tsx scripts/db/apply_functions.ts 011_company_api.sql 024_person_api.sql
 
 SET check_function_bodies = off;
 
@@ -48,6 +58,14 @@ hd AS (
        AND consortium_role IS DISTINCT FROM 'member'))::int        AS contract_count,
     (COUNT(*) FILTER (WHERE tag = 'award'))::int                    AS award_count,
     (COUNT(*) FILTER (WHERE tag = 'contractAmendment'))::int        AS amendment_count,
+    -- ⚠️ `awarder_count` DELIBERATELY DOES NOT CARRY the member exclusion three lines
+    -- above, and neither do `byaw`, `byyr`, `topc`, `other` or `bd*` — the twin of the
+    -- note in 011_company_api.sql, measured there. For a portfolio whose companies are ALL
+    -- member-only that asymmetry is the entire payload: `awarderCount >= 1` beside
+    -- `contractCount = 0`. DECIDED (plan §3, invariant 7): the fields are NOT narrowed —
+    -- narrowing would move the per-row counts of mixed portfolios as a side effect — so
+    -- the member-only BRANCH of the UI renders none of them and participation lives only
+    -- in the `consortium*` fields. A new consumer must check `contractCount > 0` first.
     (COUNT(DISTINCT awarder_eik) FILTER (WHERE tag = 'contract'))::int AS awarder_count
   FROM base
 ),
@@ -170,8 +188,25 @@ bd AS (
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND eu_funded IS NOT NULL), 0) AS eu_known_eur
   FROM base
 )
+-- ⚠️ THE NULL GUARD IS AN EXISTENCE TEST, AND `contract_count` IS NOT ONE — the twin of the
+-- note in 011_company_api.sql, and it must move with it. `hd.contract_count` excludes
+-- `consortium_role = 'member'` rows (087), so a person ALL of whose companies are member-only
+-- scores 0 on contract/award/amendment and gets NULL, i.e. no procurement body, while `conshd`
+-- and `conslist` above have already computed the participation. Measured 2026-09-21: 731 name
+-- folds are in that state, and `person_procurement('ГЕОРГИ ГЕОРГИЕВ МАНОЛОВ')` was one of them
+-- while his МЛГ ЕООД sat inside a €69.2m АПИ consortium.
+-- `conshd.consortium_count` joins the test and NOTHING else: it is never added to a count or a
+-- sum, because the per-member share is not public and `totalEur` must stay solo-only.
+--
+-- ⚠️ ON ITS OWN THIS CHANGES NOTHING A READER SEES. A second gate hides the same people —
+-- `rollup.contractCount > 0` wraps the procurement section in PersonScreen.tsx, and that
+-- screen has no consortium field at all — so until the UI branch lands, this moves the
+-- payload and nothing more. Do not read a green `person_procurement(…) IS NOT NULL` as
+-- "the page now shows it".
+-- Plan: docs/plans/consortium-member-visibility-v1.md
 SELECT CASE
-  WHEN hd.contract_count = 0 AND hd.award_count = 0 AND hd.amendment_count = 0 THEN NULL
+  WHEN hd.contract_count = 0 AND hd.award_count = 0 AND hd.amendment_count = 0
+       AND conshd.consortium_count = 0 THEN NULL
   ELSE jsonb_build_object(
     'totalEur', hd.total_eur,
     'totalOther', other.total_other,
