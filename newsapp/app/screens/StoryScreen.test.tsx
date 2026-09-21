@@ -207,3 +207,161 @@ describe("StoryScreen analytics", () => {
     );
   });
 });
+
+describe("a story the release no longer serves", () => {
+  afterEach(() => vi.resetModules());
+
+  const renderGone = async (
+    status: number,
+    registry:
+      | {
+          data: Record<string, unknown> | null;
+          error: Error | null;
+          loading: boolean;
+        }
+      | undefined,
+  ) => {
+    const asked: boolean[] = [];
+    // ⚠️ The error is minted from the SAME module instance the screen
+    // reads `storyIsGone` from — `instanceof` across two evaluations of
+    // data.ts is false, and every 404 then reads as a server error.
+    vi.doMock("../data", async (importOriginal) => {
+      const original = await importOriginal<typeof import("../data")>();
+      const error = new original.HttpStatusError(
+        "/stories/20200101-deadbeef.json",
+        status,
+      );
+      return {
+        ...original,
+        useStoryDetail: () => ({ data: null, error, loading: false }),
+        useRetiredStories: (enabled: boolean) => {
+          asked.push(enabled);
+          return registry && enabled
+            ? {
+                ...registry,
+                data: registry.data
+                  ? { generated_at: "", version: 1, retired: registry.data }
+                  : null,
+              }
+            : { data: null, error: null, loading: false };
+        },
+        useTaxonomy: () => ({
+          data: { version: 1, categories: [] },
+          error: null,
+          loading: false,
+        }),
+        useOutlets: () => ({
+          data: { generated_at: "", outlets: [] },
+          error: null,
+          loading: false,
+        }),
+      };
+    });
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/20200101-deadbeef"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    return asked;
+  };
+
+  it("explains a withdrawal with the registry's own reason and date", async () => {
+    await renderGone(404, {
+      data: {
+        "20200101-deadbeef": {
+          reason: "withdrawn",
+          on: "2026-09-21",
+          note: "Оттеглена след сигнал за грешно свързване.",
+        },
+      },
+      error: null,
+      loading: false,
+    });
+    expect(
+      screen.getByRole("heading", { name: "Историята е оттеглена" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        /Оттеглена след сигнал за грешно свързване\. \(2026-09-21\)/,
+      ),
+    ).toBeVisible();
+  });
+
+  it("links a merged story to the one that replaced it", async () => {
+    await renderGone(404, {
+      data: {
+        "20200101-deadbeef": {
+          reason: "merged",
+          on: "2026-09-21",
+          note: "Обединена.",
+          target: "20200102-cafebabe",
+        },
+      },
+      error: null,
+      loading: false,
+    });
+    expect(
+      screen.getByRole("link", { name: "Към обединената история" }),
+    ).toHaveAttribute("href", "/story/20200102-cafebabe");
+  });
+
+  it("says a 404 the registry does not name is not a published story", async () => {
+    await renderGone(404, {
+      data: {},
+      error: null,
+      loading: false,
+    });
+    expect(
+      screen.getByRole("heading", { name: "Историята не е намерена" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/не отговаря на публикувана история/),
+    ).toBeVisible();
+  });
+
+  it("does not claim never-published while the registry is in flight or unreadable", async () => {
+    // ⚠️ THE MUTATION THIS CATCHES: rendering the „not found" copy on
+    // `!entry` alone — a withdrawn story would read as a broken link for
+    // the second the registry takes to arrive, and for ever if it failed.
+    await renderGone(404, {
+      data: null,
+      error: null,
+      loading: true,
+    });
+    expect(screen.getByText(/Проверяваме регистъра/)).toBeVisible();
+    expect(screen.queryByText(/не отговаря на публикувана история/)).toBeNull();
+    vi.resetModules();
+    await renderGone(404, {
+      data: null,
+      error: new Error("offline"),
+      loading: false,
+    });
+    expect(screen.getByText(/регистърът на оттеглените не можа/)).toBeVisible();
+  });
+
+  it("does not paint never-published in the frame before the registry fetch starts", async () => {
+    // The shape `useData` returns in the render where `gone` first flips:
+    // the effect that starts the fetch has not run yet.
+    await renderGone(404, { data: null, error: null, loading: false });
+    expect(screen.queryByText(/не отговаря на публикувана история/)).toBeNull();
+    expect(
+      screen.queryByRole("heading", { name: "Историята не е намерена" }),
+    ).toBeNull();
+    expect(screen.getByText(/Проверяваме регистъра/)).toBeVisible();
+  });
+
+  it("asks for the registry only once the story has 404'd, and keeps a server error separate", async () => {
+    const asked = await renderGone(502, {
+      data: {},
+      error: null,
+      loading: false,
+    });
+    expect(
+      screen.getByRole("heading", { name: "Данните не се заредиха" }),
+    ).toBeVisible();
+    expect(asked.every((enabled) => enabled === false)).toBe(true);
+  });
+});

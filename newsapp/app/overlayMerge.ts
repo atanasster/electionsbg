@@ -448,6 +448,10 @@ const STORY_DETAIL = new RegExp(
 // its neighbours for exactly the reason below — and its rank decays with the
 // instant it was scored against, which a client cannot recompute at all.
 const STORY_INDEX_PAGE = /^\/stories\/(?:index|ranked)-\d+\.json$/;
+const WHOLE_STORY_FILES = new Set([
+  "/stories/filter-index.json",
+  "/stories/retired.json",
+]);
 const ARTICLES_BUNDLE = /^\/articles\/(.+)\.json$/;
 
 /**
@@ -489,17 +493,19 @@ export const applyOverlayToPath = (
   const slashed = `/${key}`;
 
   if (STORY_INDEX_PAGE.test(slashed)) return base;
-  // ⚠️ NAMED, NOT LEFT TO ARM ORDER. `filter-index` matches `STORY_ID_SAFE`,
-  // so without this it reaches the story-detail arm and is correct only by
-  // where that arm happens to sit — which this file calls a correctness rule
-  // elsewhere. It is a whole-corpus file the publisher carries whole; the
-  // client takes whatever `replaced_paths` gave it.
-  if (slashed === "/stories/filter-index.json")
-    return (overlay.replaced_paths ?? {})[key] ?? base;
-
+  // A retired path is a miss whatever kind of file it was — checked before
+  // the whole-file arm so the two mergers agree on it (Python pops it).
   if (overlay.removed_paths.includes(key)) {
     throw new OverlayRemovedPath(slashed);
   }
+  // ⚠️ NAMED, NOT LEFT TO ARM ORDER. `filter-index` and `retired` both
+  // match `STORY_ID_SAFE`, so without this they reach the story-detail arm
+  // and are correct only by where that arm happens to sit — which this file
+  // calls a correctness rule elsewhere. Both are whole files the publisher
+  // carries whole (`WHOLE_STORY_FILES` in overlay_merge.py); the client
+  // takes whatever `replaced_paths` gave it.
+  if (WHOLE_STORY_FILES.has(slashed))
+    return (overlay.replaced_paths ?? {})[key] ?? base;
   const replaced = overlay.replaced_paths[key];
   if (replaced !== undefined) return replaced;
 

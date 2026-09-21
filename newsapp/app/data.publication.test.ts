@@ -1,4 +1,5 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
+import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createDataClient,
@@ -9,28 +10,51 @@ import {
   useStoryTitles,
 } from "./data";
 
+// A REAL `Response`, not a `{ json }` fake: the client now reads bytes
+// (`arrayBuffer`) to verify them against the manifest, so a fake that only
+// answered `json()` would fail every fetch for a reason unrelated to the
+// test.
 const response = (body: unknown, status = 200) =>
-  Promise.resolve({
-    ok: status >= 200 && status < 300,
-    status,
-    json: async () => body,
-  } as Response);
+  Promise.resolve(new Response(JSON.stringify(body), { status }));
 
-const manifest = (runId: string) => ({
-  version: 3,
-  run_id: runId,
-  generated_at: "2026-08-31T07:00:00Z",
-  data_base: `versions/${runId}`,
-  home_health_ready: true,
-  accepted_snapshot_records_sha256: null,
-  accepted_feedback_records_sha256: null,
-  bundle: {
-    sha256: "a".repeat(64),
-    files: 1,
-    bytes: 2,
-    inventory: [{ path: "home.json", bytes: 2, sha256: "b".repeat(64) }],
-  },
-});
+/**
+ * The manifest's description of one published body — TRUTHFUL, because the
+ * client verifies every listed payload against it (T1.5). A manifest that
+ * listed `home.json` as 2 bytes of `b…` beside a served `{source:"one"}`
+ * was fine while nothing checked; now it is a refused release.
+ */
+const listed = (path: string, body: unknown) => {
+  const bytes = Buffer.from(JSON.stringify(body));
+  return {
+    path,
+    bytes: bytes.length,
+    sha256: createHash("sha256").update(bytes).digest("hex"),
+  };
+};
+
+const manifest = (
+  runId: string,
+  files: Record<string, unknown> = { "home.json": { source: "base" } },
+) => {
+  const inventory = Object.entries(files).map(([path, body]) =>
+    listed(path, body),
+  );
+  return {
+    version: 3,
+    run_id: runId,
+    generated_at: "2026-08-31T07:00:00Z",
+    data_base: `versions/${runId}`,
+    home_health_ready: true,
+    accepted_snapshot_records_sha256: null,
+    accepted_feedback_records_sha256: null,
+    bundle: {
+      sha256: "a".repeat(64),
+      files: inventory.length,
+      bytes: inventory.reduce((total, file) => total + file.bytes, 0),
+      inventory,
+    },
+  };
+};
 
 describe("versioned news data client", () => {
   afterEach(() => {
@@ -41,8 +65,12 @@ describe("versioned news data client", () => {
     let current = "run-1";
     const fetcher = vi.fn((input: RequestInfo | URL) => {
       const url = String(input);
-      if (url.endsWith("/manifest.json")) return response(manifest(current));
-      return response({ source: url.includes("run-1") ? "one" : "two" });
+      const source = (runId: string) => ({
+        source: runId === "run-1" ? "one" : "two",
+      });
+      if (url.endsWith("/manifest.json"))
+        return response(manifest(current, { "home.json": source(current) }));
+      return response(source(url.includes("run-1") ? "run-1" : "run-2"));
     });
     const client = createDataClient("https://data.example/news", {
       now: () => clock,
@@ -67,10 +95,10 @@ describe("versioned news data client", () => {
   });
 
   it("accepts a legacy v1 pointer but rejects an invalid v2 accepted-snapshot hash", async () => {
-    const legacy = { ...manifest("legacy"), version: 1 } as Record<
-      string,
-      unknown
-    >;
+    const legacy = {
+      ...manifest("legacy", { "home.json": { ok: true } }),
+      version: 1,
+    } as Record<string, unknown>;
     delete legacy.accepted_snapshot_records_sha256;
     delete legacy.accepted_feedback_records_sha256;
     const legacyClient = createDataClient("https://data.example/news", {
@@ -101,7 +129,7 @@ describe("versioned news data client", () => {
   it("deduplicates concurrent bundle requests within one version", async () => {
     const fetcher = vi.fn((input: RequestInfo | URL) =>
       String(input).endsWith("/manifest.json")
-        ? response(manifest("same-run"))
+        ? response(manifest("same-run", { "home.json": { ok: true } }))
         : response({ ok: true }),
     );
     const client = createDataClient("https://data.example/news", {
@@ -154,7 +182,9 @@ describe("versioned news data client", () => {
     const fetcher = vi.fn((input: RequestInfo | URL) => {
       const url = String(input);
       if (url.endsWith("/manifest.json")) {
-        return failManifest ? response({}, 503) : response(manifest("stable"));
+        return failManifest
+          ? response({}, 503)
+          : response(manifest("stable", { "home.json": { stable: true } }));
       }
       return response({ stable: true });
     });
@@ -228,21 +258,13 @@ describe("versioned news data client", () => {
     });
     expect(fetcher).toHaveBeenCalledTimes(2);
     await act(async () => {
-      resolveNew({
-        ok: true,
-        status: 200,
-        json: async () => ({ value: "new" }),
-      } as Response);
+      resolveNew(new Response(JSON.stringify({ value: "new" })));
       await Promise.resolve();
     });
     expect(hook.result.current.data).toEqual({ value: "new" });
 
     await act(async () => {
-      resolveOld({
-        ok: true,
-        status: 200,
-        json: async () => ({ value: "old" }),
-      } as Response);
+      resolveOld(new Response(JSON.stringify({ value: "old" })));
       await Promise.resolve();
     });
     expect(hook.result.current.data).toEqual({ value: "new" });
@@ -573,13 +595,21 @@ describe("hot releases", () => {
     ...patch,
   });
 
-  const hot = (runId: string, patch: Record<string, unknown> = {}) => ({
-    ...manifest(runId),
+  // The pointer describes the overlay BODY the test serves — the client
+  // verifies it (T1.5) and drops an overlay whose bytes disagree. An
+  // absent body keeps a dummy pointer: those tests 404 the object anyway.
+  const hot = (
+    runId: string,
+    overlayBody?: unknown,
+    patch: Record<string, unknown> = {},
+    files?: Record<string, unknown>,
+  ) => ({
+    ...manifest(runId, files),
     overlay: {
       seq: 1,
-      path: "overlays/1.json",
-      bytes: 10,
-      sha256: "c".repeat(64),
+      ...(overlayBody === undefined
+        ? { path: "overlays/1.json", bytes: 10, sha256: "c".repeat(64) }
+        : listed("overlays/1.json", overlayBody)),
       base_generated_at: "2026-08-31T07:00:00Z",
       ...patch,
     },
@@ -616,15 +646,16 @@ describe("hot releases", () => {
 
   it("does not re-fetch the base when only the overlay moves", async () => {
     let body: unknown = manifest("run-1");
+    const overlay = overlayObject({ home: { source: "overlay" } });
     const { fetcher, client, advance } = clientFor(() => body, {
       "/home.json": { source: "base" },
-      "/overlays/1.json": overlayObject({ home: { source: "overlay" } }),
+      "/overlays/1.json": overlay,
     });
 
     await expect(client.fetchData("/home.json")).resolves.toEqual({
       source: "base",
     });
-    body = hot("run-1");
+    body = hot("run-1", overlay);
     // ⚠️ PAST `DATA_REFRESH_MS`, not merely past the manifest poll. At
     // 60 001 ms this test passed byte-identically against the old blanket
     // 5-minute base expiry — it could not fail if the change it exists to
@@ -651,7 +682,7 @@ describe("hot releases", () => {
     // The base is a complete, gated, immutable release — one release
     // behind beats an error page.
     for (const overlayBody of [undefined, { schema_version: 99 }]) {
-      const { client } = clientFor(() => hot("run-1"), {
+      const { client } = clientFor(() => hot("run-1", overlayBody), {
         "/home.json": { source: "base" },
         "/overlays/1.json": overlayBody,
       });
@@ -665,7 +696,7 @@ describe("hot releases", () => {
     // ⚠️ The opposite choice takes a reader from "one release behind" to
     // "no data at all", on a field that is optional by construction.
     const { fetcher, client } = clientFor(
-      () => hot("run-1", { path: "../escape.json" }),
+      () => hot("run-1", undefined, { path: "../escape.json" }),
       { "/home.json": { source: "base" } },
     );
     await expect(client.fetchData("/home.json")).resolves.toEqual({
@@ -679,21 +710,22 @@ describe("hot releases", () => {
   it("supplies a file the base tree does not have", async () => {
     // A new outlet's bundle 404s in the base by construction — the
     // release that introduces it is the overlay.
-    const { client } = clientFor(() => hot("run-1"), {
-      "/overlays/1.json": overlayObject({
-        articles: {
-          "new.bg": [
-            { url: "https://new.bg/1", published: "2026-08-31T07:04:00Z" },
-          ],
+    const overlay = overlayObject({
+      articles: {
+        "new.bg": [
+          { url: "https://new.bg/1", published: "2026-08-31T07:04:00Z" },
+        ],
+      },
+      bundle_envelopes: {
+        "new.bg": {
+          domain: "new.bg",
+          outlet: "New",
+          generated_at: "2026-08-31T07:04:00Z",
         },
-        bundle_envelopes: {
-          "new.bg": {
-            domain: "new.bg",
-            outlet: "New",
-            generated_at: "2026-08-31T07:04:00Z",
-          },
-        },
-      }),
+      },
+    });
+    const { client } = clientFor(() => hot("run-1", overlay), {
+      "/overlays/1.json": overlay,
     });
     await expect(client.fetchData("/articles/new.bg.json")).resolves.toEqual({
       domain: "new.bg",
@@ -712,21 +744,23 @@ describe("hot releases", () => {
     // happens to carry, with no error flag: to a reader, "this outlet
     // published three things this year".
     const clock = 0;
+    const overlay = overlayObject({
+      articles: {
+        "old.bg": [
+          { url: "https://old.bg/9", published: "2026-08-31T07:04:00Z" },
+        ],
+      },
+      bundle_envelopes: { "old.bg": { domain: "old.bg" } },
+    });
     const fetcher = vi.fn((input: RequestInfo | URL) => {
       const url = String(input);
-      if (url.endsWith("/manifest.json")) return response(hot("run-1"));
-      if (url.endsWith("/overlays/1.json")) {
+      // ⚠️ LISTED, so the base fetch is attempted at all: an unlisted path
+      // is refused as the release's 404 before the bucket is asked.
+      if (url.endsWith("/manifest.json"))
         return response(
-          overlayObject({
-            articles: {
-              "old.bg": [
-                { url: "https://old.bg/9", published: "2026-08-31T07:04:00Z" },
-              ],
-            },
-            bundle_envelopes: { "old.bg": { domain: "old.bg" } },
-          }),
+          hot("run-1", overlay, {}, { "articles/old.bg.json": { was: 1 } }),
         );
-      }
+      if (url.endsWith("/overlays/1.json")) return response(overlay);
       return response({}, 502);
     });
     const client = createDataClient("https://data.example/news", {
@@ -742,7 +776,7 @@ describe("hot releases", () => {
     // ⚠️ `\` is a path separator to the URL parser, so a rule guarding
     // only `/`-separated `..` lets this out of `versions/<run_id>/`.
     const { fetcher, client } = clientFor(
-      () => hot("run-1", { path: "..\\..\\secret.json" }),
+      () => hot("run-1", undefined, { path: "..\\..\\secret.json" }),
       { "/home.json": { source: "base" } },
     );
     await expect(client.fetchData("/home.json")).resolves.toEqual({
@@ -754,8 +788,9 @@ describe("hot releases", () => {
   });
 
   it("still fails for a path neither the base nor the overlay has", async () => {
-    const { client } = clientFor(() => hot("run-1"), {
-      "/overlays/1.json": overlayObject(),
+    const overlay = overlayObject();
+    const { client } = clientFor(() => hot("run-1", overlay), {
+      "/overlays/1.json": overlay,
     });
     await expect(client.fetchData("/articles/absent.bg.json")).rejects.toThrow(
       /404/,
@@ -769,12 +804,15 @@ describe("hot releases", () => {
     // poll after a hot release resolves to the SAME object and no React
     // state moves. Without this notification the list would simply never
     // update: everything renders, the data is just old.
-    let body: unknown = manifest("run-1");
+    const page = { page: 1, pages: 1, total: 0, stories: [] };
+    const files = { "stories/index-1.json": page };
+    let body: unknown = manifest("run-1", files);
+    const overlay = overlayObject({
+      story_details: { s1: { story: { id: "s1" } } },
+    });
     const { client, advance } = clientFor(() => body, {
-      "/stories/index-1.json": { page: 1, pages: 1, total: 0, stories: [] },
-      "/overlays/1.json": overlayObject({
-        story_details: { s1: { story: { id: "s1" } } },
-      }),
+      "/stories/index-1.json": page,
+      "/overlays/1.json": overlay,
     });
     const seen: Array<string | null> = [];
     const unsubscribe = client.subscribeOverlay(() => {
@@ -786,7 +824,7 @@ describe("hot releases", () => {
     expect(client.getOverlay()).toBeNull();
     expect(seen).toEqual([]);
 
-    body = hot("run-1");
+    body = hot("run-1", overlay, {}, files);
     advance(PUBLICATION_POLL_MS + 1);
     await client.fetchData("/stories/index-1.json");
     expect(seen).toEqual(["1"]);
@@ -799,16 +837,34 @@ describe("hot releases", () => {
     ).resolves.toMatchObject({ stories: [] });
 
     unsubscribe();
-    body = manifest("run-1");
+    body = manifest("run-1", files);
     advance(PUBLICATION_POLL_MS + 1);
     await client.fetchData("/stories/index-1.json");
     expect(seen).toEqual(["1"]);
   });
 
+  it("answers a whole-carried file the base tree does not have from the overlay", async () => {
+    // ⚠️ THE MUTATION THIS CATCHES: `overlayCanSupply` ignoring
+    // `replaced_paths`. The retired registry reaches a hot reader whose
+    // base predates it exactly this way; without this arm the base 404
+    // propagated and the story page said the registry could not be read.
+    const registry = { generated_at: "", version: 1, retired: { x: {} } };
+    const overlay = overlayObject({
+      replaced_paths: { "stories/retired.json": registry },
+    });
+    const { client } = clientFor(() => hot("run-1", overlay), {
+      "/overlays/1.json": overlay,
+    });
+    await expect(client.fetchData("/stories/retired.json")).resolves.toEqual(
+      registry,
+    );
+  });
+
   it("refuses a path the release retired", async () => {
-    const { client } = clientFor(() => hot("run-1"), {
+    const overlay = overlayObject({ removed_story_ids: ["gone"] });
+    const { client } = clientFor(() => hot("run-1", overlay), {
       "/stories/gone.json": { story: { id: "gone" } },
-      "/overlays/1.json": overlayObject({ removed_story_ids: ["gone"] }),
+      "/overlays/1.json": overlay,
     });
     await expect(client.fetchData("/stories/gone.json")).rejects.toThrow();
   });

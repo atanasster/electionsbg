@@ -100,6 +100,8 @@ NEWS_REQUIRE_ARCHIVE_VERSIONING=1
 NEWS_ENABLE_PUBLIC_UPLOAD=0
 NEWS_PUBLIC_GCS_URI=
 NEWS_MENTIONS_GCS_URI=
+NEWS_PRUNE_VERSIONS=0
+NEWS_PRUNE_KEEP=8
 ```
 
 The runner activates this key with `gcloud auth activate-service-account`
@@ -128,6 +130,33 @@ the configured app prefix is generation-guarded and replaced last only after
 every transfer succeeds. Reuse of a partially uploaded run ID is refused—run
 again with a new ID.
 Point `VITE_NEWS_DATA_BASE_URL` at that stable app prefix, not at a version.
+
+**Retention and continuity (plan T1.5).** Every hourly release is a ~37 MB
+immutable `versions/<run-id>` tree, so with pruning off the bucket grows ~27 GB a
+month. Set `NEWS_PRUNE_VERSIONS=1` to keep the newest `NEWS_PRUNE_KEEP` (8) trees
+after each successful public publish — `news/scripts/prune_published_versions.py`
+reads the live manifest fresh and never deletes the live tree or anything newer;
+K=8 spans the 75 s a reader can still hold an old manifest plus an hour of cache
+grace, with six hourly releases of rollback room. A pruned tree breaks no
+bookmark: story URLs resolve through the CURRENT manifest. The uploader refuses a
+public release that stops serving a story id the live release serves unless
+`news/config/retired_stories.json` names it with a reason (`stories/retired.json`
+is what the story page then shows); `NEWS_ALLOW_STORY_DROPS=1` is the hatch for a
+deliberate corpus rebuild, and the drop is recorded in the upload result either
+way. Since the same change the client verifies every listed payload's `bytes` and
+`sha256` against the manifest, and the overlay against its pointer — a mismatch is
+refused (base) or dropped (overlay), never rendered.
+
+For an urgent removal between hourly releases use the hot path: the overlay's
+`removed_story_ids` (see `build_overlay.py`) retires the detail within one
+five-minute cadence, and the manifest is `no-cache`, so no immutable cache has
+to expire first. **Add the id to `news/config/retired_stories.json` in the same
+change** — `build_overlay.py` refuses to write an overlay that retires a story
+the registry does not name, and the next hourly publish is refused
+(`story_continuity`) for the same id; the entry is the precondition of the
+removal, not an afterthought. One known gap: a story that only ever existed
+through an overlay (introduced hot, never in a base inventory) is invisible to
+the cold gate, which compares base inventories.
 
 Before deploying that build, apply the authoritative public-bucket CORS policy
 and verify both metadata classes:

@@ -199,6 +199,26 @@ def next_seq(manifest: dict) -> int:
     return seq + 1 if isinstance(seq, int) and seq >= 1 else 1
 
 
+def hot_story_continuity(overlay: dict, full: dict) -> dict:
+    """The cold path's continuity gate, on the hot path (plan T1.5).
+
+    ⚠️ THE HOT PATH IS THE URGENT-REMOVAL PATH, so it is the one that most
+    needs this. `removed_story_ids` retires a detail for every hot reader
+    within five minutes; without the registry entry the story page then
+    asserts „never published" about a deliberate withdrawal, and the NEXT
+    cold publish is refused by `story_continuity` for the same id with a
+    reason the operator was never told to expect. The full rebuild in hand
+    carries the registry, so the check costs nothing here.
+    """
+    removed = sorted(overlay.get("removed_story_ids") or [])
+    registry = full.get("stories/retired.json") or {}
+    retired = set((registry.get("retired") or {})
+                  if isinstance(registry, dict) else {})
+    return {"removed": removed,
+            "retired": [i for i in removed if i in retired],
+            "unaccounted": [i for i in removed if i not in retired]}
+
+
 def build(app_data: Path, out: Path, *, latest: int,
           keep_tree: Path | None = None, seq: int | None = None) -> dict:
     manifest = live_manifest()
@@ -220,6 +240,14 @@ def build(app_data: Path, out: Path, *, latest: int,
             .isoformat(timespec="milliseconds").replace("+00:00", "Z"),
             latest_limit=latest)
         health = gate_merged_home(base, overlay)
+        continuity = hot_story_continuity(overlay, full)
+        if (continuity["unaccounted"]
+                and os.environ.get("NEWS_ALLOW_STORY_DROPS") != "1"):
+            raise OverlayError(
+                f"overlay retires {len(continuity['unaccounted'])} story id(s) "
+                f"the registry does not name: {continuity['unaccounted'][:5]} — "
+                "add them to news/config/retired_stories.json in the same "
+                "change, or set NEWS_ALLOW_STORY_DROPS=1 for a deliberate rebuild")
 
         payload = (json.dumps(overlay, ensure_ascii=False,
                               separators=(",", ":")) + "\n").encode("utf-8")
@@ -255,6 +283,7 @@ def build(app_data: Path, out: Path, *, latest: int,
             "bytes": len(payload),
             "sha256": hashlib.sha256(payload).hexdigest(),
             "bundles_seconds": seconds,
+            "story_continuity": continuity,
             "changed": {
                 "article_domains": len(overlay["articles"]),
                 "story_details": len(overlay["story_details"]),

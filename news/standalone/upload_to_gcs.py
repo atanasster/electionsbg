@@ -20,7 +20,8 @@ ROOT = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from news.scripts.app_data_inventory import tree_inventory  # noqa: E402
+from news.scripts.app_data_inventory import (  # noqa: E402
+    is_story_detail_path, tree_inventory)
 
 GS_URI = re.compile(r"^gs://([^/]+)(?:/(.+?))?/?$")
 EXPECTED_STAGES = (
@@ -284,8 +285,10 @@ def commands(
                          # ~4.5x smaller for every reader of every release;
                          # -j only compressed the upload and left `identity`
                          # at rest (plan §0.3 V1). The manifest's bytes/sha256
-                         # still describe the UNCOMPRESSED file, which is what
-                         # readers verify. `-z json` matches by EXTENSION —
+                         # describe the UNCOMPRESSED file, which is what the
+                         # client verifies since T1.5 (`verifyPublished` in
+                         # newsapp/app/data.ts — every listed payload, and
+                         # the overlay against its pointer). `-z json` matches by EXTENSION —
                          # every published file is .json (the client's
                          # inventory rule enforces it).
                          "-r", "-z", "json", f"{app_data}/*",
@@ -485,6 +488,72 @@ HOT_INVARIANT = ("version", "run_id", "data_base", "home_health_ready",
                  "accepted_feedback_records_sha256")
 
 
+STORY_DETAIL_PATH = re.compile(r"^stories/([A-Za-z0-9_-]{1,120})\.json$")
+
+
+def story_ids_of(manifest: dict | None) -> set[str]:
+    """The story ids a manifest's inventory serves — the reader's bookmarks.
+
+    ⚠️ `is_story_detail_path` is the ONE rule for which `stories/` files are
+    a story (news/scripts/overlay_merge.py); the whole-corpus index, the
+    by-url map, the paged families and the retired registry all match the
+    detail pattern by name and would otherwise report a „dropped" story on
+    every publish.
+    """
+    bundle = (manifest or {}).get("bundle") if isinstance(manifest, dict) else None
+    rows = bundle.get("inventory") if isinstance(bundle, dict) else None
+    ids: set[str] = set()
+    for row in rows or []:
+        path = row.get("path") if isinstance(row, dict) else None
+        if not isinstance(path, str) or not is_story_detail_path(path):
+            continue
+        match = STORY_DETAIL_PATH.match(path)
+        if match:
+            ids.add(match.group(1))
+    return ids
+
+
+def story_continuity(live: dict | None, candidate: dict,
+                     retired: set[str]) -> dict:
+    """Which of the LIVE release's story ids the candidate would stop serving.
+
+    ⚠️ AN OLD BOOKMARKED STORY URL STAYS VALID (plan T1.5). A story id, once
+    published, is served by every later release unless the human-owned
+    registry (`news/config/retired_stories.json`, shipped as
+    `stories/retired.json`) says why it is not. A drop the registry does not
+    account for is a 404 on a link somebody saved, and the public publish
+    REFUSES it — measured over 57 hourly runs on 2026-09-21 the story count
+    fell once (1,087 → 1,062 on 2026-09-02, a corpus rebuild), so this is a
+    rare refusal, and the escape hatch for a deliberate rebuild is
+    `NEWS_ALLOW_STORY_DROPS=1`, which records the drop in the upload result
+    rather than hiding it.
+
+    The archive half of the upload is untouched by this either way.
+    """
+    if not isinstance(live, dict):
+        return {"checked": False, "reason": "no_live_manifest",
+                "dropped": [], "retired": [], "unaccounted": []}
+    before = story_ids_of(live)
+    after = story_ids_of(candidate)
+    dropped = sorted(before - after)
+    accounted = [i for i in dropped if i in retired]
+    unaccounted = [i for i in dropped if i not in retired]
+    return {"checked": True, "live_run_id": live.get("run_id"),
+            "live_stories": len(before), "candidate_stories": len(after),
+            "dropped": dropped, "retired": accounted,
+            "unaccounted": unaccounted}
+
+
+def retired_story_ids(app_data: Path) -> set[str]:
+    """The ids `stories/retired.json` in the SNAPSHOT accounts for."""
+    path = app_data / "stories" / "retired.json"
+    if not path.is_file():
+        return set()
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    entries = payload.get("retired") if isinstance(payload, dict) else None
+    return set(entries) if isinstance(entries, dict) else set()
+
+
 def overlay_advance(current: dict, candidate: dict) -> str | None:
     """None when `candidate` is a legal hot release over `current`.
 
@@ -533,13 +602,12 @@ def overlay_pointer(overlay: dict, payload: bytes, seq: int) -> dict:
     the bundle inventory uses — the object is stored gzip (`-z json`) and
     these describe the decoded body.
 
-    ⚠️ NOTHING VERIFIES THEM TODAY. The client parses the overlay and
-    checks its SHAPE (`parseOverlay`), and does not hash it; there is no
-    digest of the overlay or of the bundle inventory anywhere in
-    `newsapp/app/`. They are published because the manifest is the record
-    of what was released and an operator can check it by hand — not
-    because a reader will. Do not write a comment elsewhere that leans on
-    a verification that does not exist.
+    ⚠️ VERIFIED BY THE CLIENT SINCE T1.5 (2026-09-21): `resolveOverlay` in
+    newsapp/app/data.ts reads the object's bytes, checks `bytes` then
+    `sha256` against this pointer, and DROPS an overlay that disagrees —
+    the reader stays on the base, one hot release behind, and the mismatch
+    is logged as an error. Before that these fields were a record an
+    operator could check by hand and nothing else.
     """
     return {
         "seq": seq,
@@ -810,6 +878,7 @@ def main() -> int:
     if args.pipeline_exit:
         public_ready, reason = False, f"pipeline_failed:{args.pipeline_exit}"
     snapshot_temp = None
+    continuity = None
     try:
         public_enabled = public_upload_enabled()
         publication = None
@@ -847,6 +916,32 @@ def main() -> int:
                     (expected_inventory if isinstance(expected_inventory, dict) else {})
                     if not args.dry_run else None,
                     expected_health if not args.dry_run else None)
+        if publication is not None and not args.dry_run:
+            public = uri("NEWS_PUBLIC_GCS_URI", delete_scope=True)
+            try:
+                live, _generation = remote_manifest(f"{public}/manifest.json")
+            except RuntimeError as exc:
+                # ⚠️ Refuse the PUBLIC half only. An unreadable live manifest
+                # is not evidence about the candidate, and the archive is
+                # still worth keeping — the same shape as a failed pipeline,
+                # never an abort that skips every scope.
+                public_ready = False
+                reason = f"story_continuity:live_manifest_unreadable:{exc}"[:200]
+                publication, app_data_source = None, None
+                continuity = {"checked": False,
+                              "reason": "live_manifest_unreadable",
+                              "dropped": [], "retired": [], "unaccounted": []}
+            else:
+                continuity = story_continuity(
+                    live, publication, retired_story_ids(app_data_source))
+                if (continuity["unaccounted"]
+                        and os.environ.get("NEWS_ALLOW_STORY_DROPS") != "1"):
+                    # Refuse the PUBLIC half only, like a failed pipeline: the
+                    # archive is still worth keeping, and the reader keeps
+                    # the release that still serves every bookmark.
+                    public_ready = False
+                    reason = f"story_continuity:{len(continuity['unaccounted'])}"
+                    publication, app_data_source = None, None
         scopes = commands(
             public_ready, public_enabled, publication, app_data_source)
         if args.public_app_data_only:
@@ -915,6 +1010,7 @@ def main() -> int:
         "public_ready": public_ready,
         "public_enabled": public_enabled,
         "public_reason": reason,
+        "story_continuity": continuity,
         "scopes": results,
         "failed_scopes": failed,
     }

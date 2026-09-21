@@ -229,6 +229,34 @@ class Refusals(unittest.TestCase):
             self.assertFalse(path.exists(), f"{path} survived a refusal")
 
 
+class HotStoryContinuity(unittest.TestCase):
+    """T1.5 on the hot path: an overlay may not retire a story the registry
+    does not name — the urgent-removal path is exactly where it matters."""
+
+    def test_an_unaccounted_removal_is_unaccounted_and_a_registered_one_is_not(self):
+        overlay = {"removed_story_ids": ["b", "a"]}
+        full = {"stories/retired.json": {"retired": {"a": {"reason": "withdrawn"}}}}
+        got = bo.hot_story_continuity(overlay, full)
+        self.assertEqual(got, {"removed": ["a", "b"], "retired": ["a"],
+                               "unaccounted": ["b"]})
+        # No registry in the rebuild at all: every removal is unaccounted.
+        self.assertEqual(bo.hot_story_continuity(overlay, {})["unaccounted"],
+                         ["a", "b"])
+
+    def test_build_refuses_to_write_an_overlay_that_retires_an_unregistered_story(self):
+        # ⚠️ THE MUTATION THIS CATCHES: computing the continuity and not
+        # raising on it — the overlay would ship and the story page would
+        # say „never published" about a deliberate withdrawal.
+        source = Path(bo.__file__).read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r'continuity = hot_story_continuity\(overlay, full\)\s*\n\s*if \(continuity'
+            r'\["unaccounted"\][\s\S]{0,120}NEWS_ALLOW_STORY_DROPS[\s\S]{0,80}'
+            r'raise OverlayError')
+        self.assertLess(source.index("continuity = hot_story_continuity("),
+                        source.index("out.write_bytes(payload)"))
+
+
 class Sequence(unittest.TestCase):
     """The sequence is per BASE, and resets with every cold release."""
 

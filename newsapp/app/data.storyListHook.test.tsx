@@ -48,17 +48,8 @@ const page = (
 });
 
 const ok = (body: unknown) =>
-  Promise.resolve({
-    ok: true,
-    status: 200,
-    json: async () => body,
-  } as Response);
-const fail = () =>
-  Promise.resolve({
-    ok: false,
-    status: 502,
-    json: async () => ({}),
-  } as Response);
+  Promise.resolve(new Response(JSON.stringify(body), { status: 200 }));
+const fail = () => Promise.resolve(new Response("{}", { status: 502 }));
 
 const clientWith = (answer: (path: string) => Promise<Response>) => {
   const fetcher = vi.fn((input: RequestInfo | URL) => answer(String(input)));

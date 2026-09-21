@@ -891,13 +891,95 @@ const NOOP = () => {};
  * not. Both arrive as a rejected promise and are indistinguishable once
  * the status is thrown away in a message string.
  */
-class HttpStatusError extends Error {
+export class HttpStatusError extends Error {
   readonly status: number;
   constructor(path: string, status: number) {
     super(`${path}: HTTP ${status}`);
     this.status = status;
   }
 }
+
+/**
+ * A payload whose bytes are not the ones the manifest published.
+ *
+ * ⚠️⚠️ THE MANIFEST'S HASHES WERE DECORATIVE UNTIL THIS EXISTED. Every
+ * release lists `bytes` and `sha256` per file, the uploader's own comments
+ * said „which is what readers verify", and nothing in the client verified
+ * anything — a truncated object, a CDN serving a mixed body, or a tree
+ * tampered with in the bucket would all have parsed as JSON and rendered
+ * at a 200. Plan T1.5: „hashes listed in a manifest do not by themselves
+ * mean the browser verifies them; define and test integrity verification
+ * at publication and consumption boundaries, including overlays."
+ *
+ * It is thrown, not degraded: a base payload that fails its digest is a
+ * FAILURE the consumer already knows how to render, and serving it would
+ * be the wrong-answer-at-200 shape. The rejection also evicts it from the
+ * promise cache, so the next fetch asks again rather than pinning the bad
+ * bytes for the life of the release.
+ */
+export class IntegrityError extends Error {
+  /**
+   * ⚠️ PER-FILE ONLY. `bundle.sha256` (the tree digest) and the
+   * `accepted_*_records_sha256` provenance hashes are an operator check,
+   * not a client one — nothing here verifies the manifest itself.
+   */
+  readonly path: string;
+  constructor(path: string, detail: string) {
+    super(`${path}: integrity check failed (${detail})`);
+    this.path = path;
+  }
+}
+
+/** SHA-256 of `bytes`, lower-case hex — the inventory's own encoding. */
+export type Digest = (bytes: ArrayBuffer) => Promise<string>;
+
+const hex = (buffer: ArrayBuffer): string =>
+  Array.from(new Uint8Array(buffer), (b) =>
+    b.toString(16).padStart(2, "0"),
+  ).join("");
+
+/**
+ * The platform digest, or null where there is none.
+ *
+ * ⚠️ `crypto.subtle` exists only in a SECURE CONTEXT (https, or
+ * localhost). Production is https and the dev server is localhost, so a
+ * missing implementation is an http://<lan-ip> preview — and there the
+ * client serves UNVERIFIED and says so once, rather than refusing every
+ * payload. It never pretends: `integrity()` reports which it is doing.
+ */
+export const platformDigest = (): Digest | null => {
+  const subtle = globalThis.crypto?.subtle;
+  if (!subtle || typeof subtle.digest !== "function") return null;
+  return async (bytes) => hex(await subtle.digest("SHA-256", bytes));
+};
+
+/**
+ * Verify one published object against what the manifest said about it.
+ *
+ * ⚠️ BYTES FIRST, then the hash. The uploader stores objects gzip with
+ * decompressive transcoding, so `bytes` describes the DECODED body — which
+ * is what `arrayBuffer()` returns. A length mismatch is caught before the
+ * digest is even computed, and named separately, because a truncated
+ * transfer and a substituted file are different incidents.
+ */
+export const verifyPublished = async (
+  path: string,
+  bytes: ArrayBuffer,
+  expected: { bytes: number; sha256: string },
+  digest: Digest,
+): Promise<void> => {
+  if (bytes.byteLength !== expected.bytes)
+    throw new IntegrityError(
+      path,
+      `${bytes.byteLength} bytes, manifest says ${expected.bytes}`,
+    );
+  const actual = await digest(bytes);
+  if (actual !== expected.sha256)
+    throw new IntegrityError(path, `sha256 ${actual} != ${expected.sha256}`);
+};
+
+const decodeJson = (bytes: ArrayBuffer): unknown =>
+  JSON.parse(new TextDecoder().decode(bytes));
 
 /**
  * Version-aware JSON client used by the production app and directly by tests.
@@ -910,14 +992,43 @@ export const createDataClient = (
     usePublicationManifest?: boolean;
     now?: () => number;
     fetcher?: typeof fetch;
+    /**
+     * The SHA-256 used to verify every listed payload; `null` means the
+     * platform has none and the client serves unverified (see
+     * `platformDigest`). Injectable so a test can prove a mismatch is
+     * refused without depending on the environment's WebCrypto.
+     */
+    digest?: Digest | null;
   } = {},
 ) => {
   const root = base.replace(/\/$/, "");
   const useManifest = options.usePublicationManifest ?? true;
   const now = options.now ?? Date.now;
   const fetcher = options.fetcher ?? fetch;
+  const digest =
+    options.digest === undefined ? platformDigest() : options.digest;
   const dataCache = new Map<string, DataCacheEntry>();
   let activeManifest: NewsPublicationManifest | null = null;
+  // path → what the manifest promised, rebuilt when the manifest moves.
+  let inventory = new Map<string, { bytes: number; sha256: string }>();
+  let warnedUnverified = false;
+  const verify = async (
+    path: string,
+    bytes: ArrayBuffer,
+    expected: { bytes: number; sha256: string } | undefined,
+  ): Promise<void> => {
+    if (!expected) return;
+    if (!digest) {
+      if (!warnedUnverified) {
+        warnedUnverified = true;
+        console.warn(
+          "news data: no SHA-256 implementation in this context — payloads are served UNVERIFIED",
+        );
+      }
+      return;
+    }
+    await verifyPublished(path, bytes, expected, digest);
+  };
   let manifestExpiresAt = 0;
   let manifestPromise: Promise<NewsPublicationManifest> | null = null;
 
@@ -987,9 +1098,18 @@ export const createDataClient = (
           if (!response.ok) {
             throw new Error(`overlay: HTTP ${response.status}`);
           }
-          return parseOverlay(await response.json());
+          // ⚠️ VERIFIED AGAINST THE POINTER, and a mismatch DROPS the
+          // overlay rather than the release: the base is complete and
+          // already gated, so the reader stays one hot release behind —
+          // loudly, since a corrupt published object is an incident.
+          const bytes = await response.arrayBuffer();
+          await verify(pointer.path, bytes, pointer);
+          return parseOverlay(decodeJson(bytes));
         })
-        .catch(() => null);
+        .catch((error: unknown) => {
+          if (error instanceof IntegrityError) console.error(error.message);
+          return null;
+        });
     }
     const overlay = overlayPromise ? await overlayPromise : null;
     // Only for the overlay that is still current: a slow fetch that lost
@@ -1014,6 +1134,12 @@ export const createDataClient = (
           }
           const next = parsePublicationManifest(await response.json());
           if (activeManifest?.run_id !== next.run_id) {
+            inventory = new Map(
+              next.bundle.inventory.map((file) => [
+                file.path,
+                { bytes: file.bytes, sha256: file.sha256 },
+              ]),
+            );
             dataCache.clear();
             // The merged values belong to the release that was replaced;
             // keeping them would let a payload merged over the PREVIOUS
@@ -1061,14 +1187,34 @@ export const createDataClient = (
 
     let entry = dataCache.get(key);
     if (!entry || entry.expiresAt <= instant) {
-      const promise = fetcher(key, { cache: "force-cache" }).then(
-        (response) => {
-          if (!response.ok) {
-            throw new HttpStatusError(path, response.status);
-          }
-          return response.json();
-        },
-      );
+      // ⚠️ WHAT THE MANIFEST PROMISED, READ IN THE SAME FRAME AS `key`. The
+      // shared `inventory` is rebuilt on a manifest rollover, and a fetch
+      // that started under run-1 can complete after the poll moved to
+      // run-2 — read at response time it would be checked against run-2's
+      // hash and a valid payload refused with the message the check exists
+      // to raise for real.
+      const relative = path.replace(/^\//, "");
+      const expected = manifest ? inventory.get(relative) : undefined;
+      // ⚠️ UNDER A MANIFEST, AN UNLISTED PATH IS NOT IN THE RELEASE. The
+      // inventory names every file in the tree (`files` must equal its
+      // length), so a base object the manifest does not list is either
+      // absent — the 404 the release is stating — or something put there
+      // outside the publish, which must not be served as data. A file an
+      // overlay introduces reaches the reader through `overlayCanSupply`,
+      // never through a base fetch. A manifest-less dev tree has nothing to
+      // check against and is served as is.
+      const promise = (
+        manifest && !expected
+          ? Promise.reject(new HttpStatusError(path, 404))
+          : fetcher(key, { cache: "force-cache" })
+      ).then(async (response) => {
+        if (!response.ok) {
+          throw new HttpStatusError(path, response.status);
+        }
+        const bytes = await response.arrayBuffer();
+        await verify(relative, bytes, expected);
+        return decodeJson(bytes);
+      });
       // ⚠️ A VERSIONED URL NEVER EXPIRES ONCE IT HAS ARRIVED, AND THAT IS
       // WHAT MAKES AN OVERLAY WORTH PUBLISHING. `key` contains
       // `versions/<run_id>`, so its content cannot change — re-fetching it
@@ -1131,6 +1277,13 @@ export const createDataClient = (
 
   return {
     fetchData,
+    /**
+     * Whether payloads are being verified against the manifest. `"off"`
+     * when no manifest is in use (dev tree), `"unverified"` when the
+     * platform has no digest, `"verified"` otherwise.
+     */
+    integrity: (): "verified" | "unverified" | "off" =>
+      !useManifest ? "off" : digest ? "verified" : "unverified",
     /** The overlay in force right now, or null. Never fetches. */
     getOverlay: () => overlaySnapshot,
     subscribeOverlay: (listener: () => void) => {
@@ -1159,6 +1312,11 @@ const overlayCanSupply = (path: string, overlay: NewsOverlay): boolean => {
   const has = (map: object, name: string) =>
     Object.prototype.hasOwnProperty.call(map, name);
   const key = path.replace(/^\//, "");
+  // A path the overlay carries WHOLE answers a base 404 by construction —
+  // `replaced_paths` is how a singleton the base never had (the retired
+  // registry on the first hot release after it shipped) reaches a hot
+  // reader; overlay_merge.py's carry-whole case 1.
+  if (has(overlay.replaced_paths ?? {}, key)) return true;
   const domain = /^articles\/(.+)\.json$/.exec(key);
   if (domain) return has(overlay.articles, domain[1]);
   const story = /^stories\/(.+)\.json$/.exec(key);
@@ -1524,9 +1682,35 @@ export type StoryTitleResult = StoryTitle | "gone" | "failed";
  * release stating the same thing about a path it retired. Everything
  * else — offline, DNS, 502, a parse error — is our failure.
  */
-const storyIsGone = (error: unknown): boolean =>
+export const storyIsGone = (error: unknown): boolean =>
   (error instanceof HttpStatusError && error.status === 404) ||
   error instanceof OverlayRemovedPath;
+
+/**
+ * Why a story id the release no longer serves stopped being served.
+ *
+ * ⚠️ THE READER-FACING HALF OF T1.5's CONTINUITY GATE. A story id, once
+ * published, is served by every later release unless the human-owned
+ * registry (`news/config/retired_stories.json` → `stories/retired.json`)
+ * says why not — the uploader refuses a public release that drops one it
+ * does not name. So a 404 on `/story/:id` has exactly two honest readings:
+ * „retired, and here is why" or „never published"; a bare „not found"
+ * would present a deliberate withdrawal as a broken link.
+ */
+export interface RetiredStory {
+  reason: "withdrawn" | "merged" | "error";
+  on: string;
+  note: string;
+  /** The story that replaced it — `merged` only. */
+  target?: string;
+}
+
+export const useRetiredStories = (enabled: boolean) =>
+  useData<{
+    generated_at: string;
+    version: number;
+    retired: Record<string, RetiredStory>;
+  }>(enabled ? "/stories/retired.json" : null);
 
 /** url → story id, so an article page can find its story without the corpus. */
 export const useStoriesByUrl = () =>

@@ -174,6 +174,26 @@ python3 "$UPLOADER" "${UPLOAD_ARGS[@]}" > "$UPLOAD_STDOUT"
 UPLOAD_CODE=$?
 cat "$UPLOAD_STDOUT"
 
+# Retention (plan T1.5): keep the last K version trees, delete the rest.
+# ⚠️ OPT-IN, and only after a SUCCESSFUL public publish — the prune reads the
+# live manifest fresh and never deletes the live tree or anything newer, but
+# an operator enables deletion deliberately (NEWS_PRUNE_VERSIONS=1). Its
+# outcome is recorded in the run report either way; it never changes the
+# run's exit code.
+PRUNE_STDOUT="$REPORT_DIR/$RUN_ID.prune.json"
+PRUNE_SKIP=""
+if [ "$DRY" -eq 1 ]; then PRUNE_SKIP="dry_run"
+elif [ "$UPLOAD_CODE" -ne 0 ]; then PRUNE_SKIP="upload_failed:$UPLOAD_CODE"
+elif [ "${NEWS_ENABLE_PUBLIC_UPLOAD:-0}" != "1" ]; then PRUNE_SKIP="public_upload_disabled"
+elif [ "${NEWS_PRUNE_VERSIONS:-0}" != "1" ]; then PRUNE_SKIP="NEWS_PRUNE_VERSIONS!=1"
+fi
+if [ -z "$PRUNE_SKIP" ]; then
+  python3 "$NEWS_ROOT/scripts/prune_published_versions.py" \
+    --apply --keep "${NEWS_PRUNE_KEEP:-8}" > "$PRUNE_STDOUT" 2>&1 || :
+else
+  printf '{"mode":"prune","skipped":"%s"}\n' "$PRUNE_SKIP" > "$PRUNE_STDOUT"
+fi
+
 # Best-effort: the perf log never changes a run's outcome.
 if [ "$DRY" -eq 0 ]; then
   STAGES_FILE="$NEWS_ROOT/data/_nightly/$RUN_ID.stages.jsonl"
@@ -197,6 +217,7 @@ RUN_ID="$RUN_ID" PIPELINE_CODE="$PIPELINE_CODE" UPLOAD_CODE="$UPLOAD_CODE" \
 EVAL_SYNC_CODE="$EVAL_SYNC_CODE" \
 PIPELINE_REPORT="$PIPELINE_REPORT" PIPELINE_STDOUT="$PIPELINE_STDOUT" \
 UPLOAD_STDOUT="$UPLOAD_STDOUT" EVAL_SYNC_STDOUT="$EVAL_SYNC_STDOUT" \
+PRUNE_STDOUT="$PRUNE_STDOUT" \
 COMBINED="$COMBINED" python3 -c '
 import json, os
 upload = None
@@ -215,6 +236,11 @@ if os.environ["PIPELINE_REPORT"]:
         pipeline_evals = pipeline.get("evals")
     except Exception:
         pipeline_evals = None
+try:
+    prune_text = open(os.environ["PRUNE_STDOUT"], encoding="utf-8").read()
+    prune = json.loads(prune_text) if prune_text.lstrip().startswith("{") else {"output": prune_text[-2000:]}
+except Exception as exc:
+    prune = {"error": f"unreadable prune result: {exc}"}
 result = {
     "mode": "news_hourly",
     "run_id": os.environ["RUN_ID"],
@@ -223,6 +249,7 @@ result = {
     "pipeline_stdout": os.environ["PIPELINE_STDOUT"],
     "upload_exit": int(os.environ["UPLOAD_CODE"]),
     "upload": upload,
+    "prune": prune,
     "eval_task_sync_exit": int(os.environ["EVAL_SYNC_CODE"]),
     "eval_task_sync": eval_sync,
     "evals": pipeline_evals,

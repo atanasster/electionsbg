@@ -1159,5 +1159,131 @@ class HotPredicate(unittest.TestCase):
         self.assertIsNotNone(uploader.overlay_advance(PUBLICATION, candidate))
 
 
+class StoryContinuity(unittest.TestCase):
+    """T1.5 — a public release may not silently stop serving a story id the
+    live release serves. The registry (`stories/retired.json`) is the only
+    way out, and `NEWS_ALLOW_STORY_DROPS=1` is the operator's hatch."""
+
+    def manifest(self, run_id, paths):
+        return {"run_id": run_id, "bundle": {
+            "inventory": [{"path": p, "bytes": 1, "sha256": "a" * 64}
+                          for p in paths]}}
+
+    def test_story_ids_come_from_detail_files_only(self):
+        # ⚠️ `stories/retired.json`, `filter-index`, `by-url` and the paged
+        # families all match the detail pattern by NAME; reading them as
+        # stories would report a „dropped" registry on every publish.
+        got = uploader.story_ids_of(self.manifest("r", [
+            "home.json", "stories/20260921-aaaaaaaa.json",
+            "stories/index-1.json", "stories/ranked-2.json",
+            "stories/filter-index.json", "stories/by-url.json",
+            "stories/retired.json"]))
+        self.assertEqual(got, {"20260921-aaaaaaaa"})
+
+    def test_a_dropped_story_the_registry_does_not_name_is_unaccounted(self):
+        live = self.manifest("old", ["stories/a.json", "stories/b.json",
+                                     "stories/c.json"])
+        candidate = self.manifest("new", ["stories/a.json", "stories/retired.json"])
+        got = uploader.story_continuity(live, candidate, {"b"})
+        self.assertTrue(got["checked"])
+        self.assertEqual(got["dropped"], ["b", "c"])
+        self.assertEqual(got["retired"], ["b"])
+        # ⚠️ THE MUTATION THIS CATCHES: treating every drop as accounted for.
+        self.assertEqual(got["unaccounted"], ["c"])
+        self.assertEqual((got["live_stories"], got["candidate_stories"]), (3, 1))
+
+    def test_a_first_publish_has_nothing_to_compare_and_says_so(self):
+        got = uploader.story_continuity(None, self.manifest("new", []), set())
+        self.assertEqual((got["checked"], got["reason"]),
+                         (False, "no_live_manifest"))
+        self.assertEqual(got["unaccounted"], [])
+
+    def test_the_registry_is_read_from_the_snapshot_that_is_published(self):
+        with tempfile.TemporaryDirectory() as td:
+            app_data = Path(td)
+            self.assertEqual(uploader.retired_story_ids(app_data), set())
+            (app_data / "stories").mkdir()
+            (app_data / "stories" / "retired.json").write_text(json.dumps({
+                "version": 1, "retired": {"x": {"reason": "withdrawn"}}}))
+            self.assertEqual(uploader.retired_story_ids(app_data), {"x"})
+
+    def test_main_refuses_the_public_half_on_an_unaccounted_drop(self):
+        """Wired, not merely defined — and it refuses PUBLIC only, the way a
+        failed pipeline does, so the archive still lands."""
+        source = Path(uploader.__file__).read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r'if \(continuity\["unaccounted"\]\s*\n\s*and os\.environ\.get\('
+            r'"NEWS_ALLOW_STORY_DROPS"\) != "1"\):[\s\S]*?public_ready = False'
+            r'[\s\S]*?reason = f"story_continuity:')
+        # The refusal must reach `commands`, which is what drops the public
+        # scopes: it is computed BEFORE the scopes are planned.
+        self.assertLess(source.index('continuity = story_continuity('),
+                        source.index('scopes = commands('))
+        self.assertIn('"story_continuity": continuity', source)
+
+
+class VersionRetention(unittest.TestCase):
+    """T1.5 — pruning is wired into the hourly run: opt-in, only after a
+    successful public publish, and reported in the run record."""
+
+    def test_run_hourly_prunes_only_after_a_successful_public_publish(self):
+        source = (bundle.ROOT / "news/standalone/run_hourly.sh").read_text(
+            encoding="utf-8")
+        # Every reason NOT to prune is named, in order, and the prune runs
+        # only when none applies.
+        for cause in ('PRUNE_SKIP="dry_run"', 'PRUNE_SKIP="upload_failed:$UPLOAD_CODE"',
+                      'PRUNE_SKIP="public_upload_disabled"',
+                      'PRUNE_SKIP="NEWS_PRUNE_VERSIONS!=1"'):
+            self.assertIn(cause, source)
+        self.assertRegex(source, r'if \[ -z "\$PRUNE_SKIP" \]; then\s*\n\s*python3')
+        self.assertIn("prune_published_versions.py", source)
+        self.assertIn('--apply --keep "${NEWS_PRUNE_KEEP:-8}"', source)
+        # Never the run's exit code: best-effort, recorded.
+        self.assertRegex(source, r'prune_published_versions\.py[\s\S]{0,200}\|\| :')
+        self.assertIn('"prune": prune,', source)
+
+    def test_the_bundle_ships_the_pruner_and_the_retired_registry(self):
+        self.assertIn("news/scripts/prune_published_versions.py",
+                      bundle.RUNTIME_SCRIPTS)
+        self.assertIn("news/config/retired_stories.json", bundle.SEED_FILES)
+
+    def test_the_config_example_documents_the_policy_off_by_default(self):
+        example = (bundle.ROOT / "news/standalone/config.env.example").read_text(
+            encoding="utf-8")
+        self.assertIn("NEWS_PRUNE_VERSIONS=0", example)
+        self.assertIn("NEWS_PRUNE_KEEP=8", example)
+        self.assertIn("NEWS_ALLOW_STORY_DROPS=1", example)
+
+    def test_the_retention_constants_are_bound_to_their_sources(self):
+        """⚠️ The policy is „derived" only while its inputs are the client's
+        real timings and the uploader's real cache header. Hand-copied numbers
+        drift with nothing red; this reads the three sources."""
+        import re
+        sys.path.insert(0, str(bundle.ROOT / "news/scripts"))
+        import prune_published_versions as pp
+        client = (bundle.ROOT / "newsapp/app/data.ts").read_text(encoding="utf-8")
+        poll = int(re.search(r"PUBLICATION_POLL_MS = (\d+) \* 1_000", client).group(1))
+        retry = int(re.search(r"FAILED_MANIFEST_RETRY_MS = (\d+) \* 1_000", client).group(1))
+        self.assertEqual(pp.READER_EXPOSURE_SECONDS, poll + retry)
+        grace = int(re.search(r"stale-while-revalidate=(\d+)",
+                              uploader.MUTABLE_PUBLIC_CACHE_VALUE).group(1))
+        self.assertEqual(pp.CACHE_GRACE_SECONDS, grace)
+
+    def test_an_unreadable_live_manifest_refuses_public_only(self):
+        """F-004: a transient `gsutil stat` failure is not evidence about the
+        candidate; the archive must still land and the reason must be named."""
+        source = Path(uploader.__file__).read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r"except RuntimeError as exc:[\s\S]{0,600}public_ready = False"
+            r"[\s\S]{0,200}live_manifest_unreadable")
+        # And the outer handler no longer swallows RuntimeError into an
+        # abort that skips every scope.
+        self.assertRegex(
+            source,
+            r"scopes = public_app_data_scopes\(scopes\)\s*\n\s*except ValueError as exc:")
+
+
 if __name__ == "__main__":
     unittest.main()

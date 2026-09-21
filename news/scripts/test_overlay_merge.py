@@ -842,5 +842,34 @@ class SharedVectors(EqualsFullRebuild):
             "itself — ordering, tiebreak, envelope — is untested")
 
 
+class RetiredRegistryUnderAnOverlay(EqualsFullRebuild):
+    def test_the_retired_registry_is_carried_whole_never_read_as_a_story(self):
+        """⚠️ `stories/retired.json` matches the detail-file pattern by name.
+        Read as a story it raises KeyError on `story` in the differ and ships
+        as a detail nobody can merge; carried whole it reaches the reader in
+        `replaced_paths`, which is how a withdrawal published between two
+        cold releases reaches a bookmark in the hot window."""
+        self.seed_base()
+        base = self.build_into()
+        base_dir = self.out_dir
+        config = Path(self.root) / "news" / "config"
+        config.mkdir(parents=True, exist_ok=True)
+        (config / "retired_stories.json").write_text(json.dumps({
+            "version": 1,
+            "retired": {"20200101-deadbeef": {
+                "reason": "withdrawn", "on": "2026-09-19", "note": "n"}}}),
+            encoding="utf-8")
+        full = self.build_into(stamp_from=base_dir)
+        overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
+                                  generated_at="2026-09-19T12:00:00Z",
+                                  latest_limit=LATEST_LIMIT)
+        self.assertNotIn("retired", overlay["story_details"],
+                         "the registry was shipped as a story detail")
+        self.assertIn("stories/retired.json", overlay["replaced_paths"])
+        merged = om.apply_overlay(base, overlay)
+        self.assertEqual(merged["stories/retired.json"]["retired"],
+                         full["stories/retired.json"]["retired"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1263,6 +1263,84 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str,
 
 STORY_ID_SAFE = re.compile(r"^[A-Za-z0-9_-]{1,120}$")
 
+# ⚠️ AN OLD BOOKMARKED STORY URL STAYS VALID, and this is the registry that
+# makes that a gate rather than a hope (plan T1.5). A story id, once
+# published, is served by every later release — the detail files live in the
+# durable analysis store, not in the run — so the only way one may stop
+# being served is an ENTRY HERE, with a reason a reader can be shown. The
+# uploader compares the live release's inventory against the candidate's and
+# refuses a public publish that drops an id this file does not account for.
+RETIRED_REASONS = ("withdrawn", "merged", "error")
+RETIRED_STORIES_CONFIG = REPO / "news" / "config" / "retired_stories.json"
+
+
+def load_retired_stories(path: Path = RETIRED_STORIES_CONFIG) -> dict:
+    """`id -> {reason, on, note, target?}` from the human-owned registry.
+
+    Refuses rather than repairs: an entry is a published claim about why a
+    reader's bookmark no longer resolves, and a malformed one must not ship
+    as an empty explanation.
+    """
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    entries = raw.get("retired") if isinstance(raw, dict) else None
+    if (not isinstance(raw, dict) or raw.get("version") != 1
+            or not isinstance(entries, dict)):
+        raise ValueError(f"{path}: expected {{version: 1, retired: {{}}}}")
+    out: dict = {}
+    for story_id, entry in entries.items():
+        if not STORY_ID_SAFE.match(story_id):
+            raise ValueError(f"{path}: unsafe story id {story_id!r}")
+        if not isinstance(entry, dict):
+            raise ValueError(f"{path}: {story_id} is not an object")
+        reason, on, note = entry.get("reason"), entry.get("on"), entry.get("note")
+        target = entry.get("target")
+        if reason not in RETIRED_REASONS:
+            raise ValueError(f"{path}: {story_id} reason must be one of "
+                             f"{RETIRED_REASONS}, got {reason!r}")
+        try:
+            if not isinstance(on, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", on):
+                raise ValueError
+            date.fromisoformat(on)   # 2026-13-45 matches the regex and is no date
+        except ValueError:
+            raise ValueError(f"{path}: {story_id} needs on=YYYY-MM-DD") from None
+        if not isinstance(note, str) or not note.strip():
+            raise ValueError(f"{path}: {story_id} needs a note a reader can be shown")
+        if reason == "merged":
+            if not isinstance(target, str) or not STORY_ID_SAFE.match(target):
+                raise ValueError(f"{path}: {story_id} is merged but names no target")
+        elif target is not None:
+            raise ValueError(f"{path}: {story_id} carries a target but is not merged")
+        out[story_id] = {"reason": reason, "on": on, "note": note.strip(),
+                         **({"target": target} if target else {})}
+    return out
+
+
+def write_retired_stories(out_dir: Path, retired: dict, published_ids: set,
+                          generated_at: str) -> dict:
+    """`stories/retired.json` — the reader-facing half of the registry.
+
+    ⚠️ A STORY CANNOT BE BOTH RETIRED AND PUBLISHED. Serving a detail file
+    beside an entry saying it was withdrawn is two answers to one URL; the
+    build refuses rather than picking one. A merge target, by contrast, MUST
+    be published — a redirect into a 404 is the chain defect the person
+    layer already documents.
+    """
+    both = sorted(set(retired) & published_ids)
+    if both:
+        raise ValueError("retired_stories.json lists stories this build still "
+                         f"publishes: {both[:5]}")
+    dangling = sorted(e["target"] for e in retired.values()
+                      if e.get("target") and e["target"] not in published_ids)
+    if dangling:
+        raise ValueError("retired_stories.json merge targets are not published: "
+                         f"{dangling[:5]}")
+    payload = {"generated_at": generated_at, "version": 1,
+               "retired": dict(sorted(retired.items()))}
+    write_json(out_dir / "stories" / "retired.json", payload)
+    return payload
+
 
 def bundle_generated_at(records, fallback: str) -> str:
     """A per-bundle stamp derived from its CONTENT, not from the run.
@@ -2901,6 +2979,9 @@ def main() -> int:
                for s in stories]
     write_json(out_dir / "stories.json", {"generated_at": generated_at, "stories": stories})
     write_story_pages(out_dir, stories, generated_at, args.story_page_size)
+    write_retired_stories(out_dir, load_retired_stories(),
+                          {s["id"] for s in stories if isinstance(s.get("id"), str)},
+                          generated_at)
 
     # ---- home.json -------------------------------------------------------------------
     dated = []

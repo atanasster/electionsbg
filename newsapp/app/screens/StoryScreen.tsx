@@ -18,7 +18,13 @@ import {
   RUSSIA_META,
   russiaMeta,
 } from "../labels";
-import { useOutlets, useStoryDetail, useTaxonomy } from "../data";
+import {
+  storyIsGone,
+  useOutlets,
+  useRetiredStories,
+  useStoryDetail,
+  useTaxonomy,
+} from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { EntityChips } from "../components/EntityChips";
 import { TopicChips } from "../components/TopicChips";
@@ -79,6 +85,12 @@ export const StoryScreen = () => {
   const storyDetail = useStoryDetail(id);
   const taxonomy = useTaxonomy();
   const outlets = useOutlets();
+  // Fetched only once the detail has 404'd: the registry exists to explain
+  // an absence, and every present story would otherwise pay for it.
+  const gone = Boolean(
+    storyDetail.error && !storyDetail.data && storyIsGone(storyDetail.error),
+  );
+  const retired = useRetiredStories(gone);
 
   const [leanFilter, setLeanFilter] = useState<LeanGroup | null>(null);
   const [stanceFilter, setStanceFilter] = useState<StanceGroup | null>(null);
@@ -198,6 +210,74 @@ export const StoryScreen = () => {
         <Skeleton className="h-24 w-full rounded-xl" />
         <Skeleton className="h-64 w-full rounded-xl" />
       </div>
+    );
+  }
+
+  if (gone) {
+    const entry = id ? retired.data?.retired[id] : undefined;
+    // ⚠️ THREE STATES, NOT ONE. While the registry is in flight the page
+    // says nothing about WHY; a registry that could not be read says so;
+    // only a read registry may say „never published".
+    //
+    // ⚠️ „IN FLIGHT" IS THE ABSENCE OF AN ANSWER, NOT `loading`. In the
+    // render where `gone` first flips, the hook still reports
+    // `loading: false` — the effect that starts the fetch has not run — so
+    // keying on `loading` paints „never published" for one real frame on
+    // every 404, withdrawn stories included.
+    const checking = !retired.data && !retired.error;
+    return (
+      <Card className="p-6">
+        <h1 className="font-title text-2xl">
+          {entry
+            ? entry.reason === "merged"
+              ? tr("Историята е обединена с друга", "This story was merged")
+              : entry.reason === "error"
+                ? tr(
+                    "Историята е публикувана по грешка",
+                    "This story was published in error",
+                  )
+                : tr("Историята е оттеглена", "This story was withdrawn")
+            : checking
+              ? tr("Историята не е налична", "Story unavailable")
+              : tr("Историята не е намерена", "Story not found")}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {entry ? (
+            <>
+              {entry.note} ({entry.on}).{" "}
+              {entry.target ? (
+                <Link
+                  to={`/story/${entry.target}`}
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  {tr("Към обединената история", "Go to the merged story")}
+                </Link>
+              ) : null}
+            </>
+          ) : checking ? (
+            tr(
+              "Проверяваме регистъра на оттеглените истории…",
+              "Checking the register of withdrawn stories…",
+            )
+          ) : retired.error && !retired.data ? (
+            tr(
+              "Тази история не се сервира и регистърът на оттеглените не можа да бъде прочетен.",
+              "This story is not being served and the register of withdrawn stories could not be read.",
+            )
+          ) : (
+            tr(
+              "Този адрес не отговаря на публикувана история.",
+              "This address does not correspond to a published story.",
+            )
+          )}{" "}
+          <Link
+            to="/stories"
+            className="text-primary underline-offset-4 hover:underline"
+          >
+            {tr("Към всички истории", "Browse all stories")}
+          </Link>
+        </p>
+      </Card>
     );
   }
 

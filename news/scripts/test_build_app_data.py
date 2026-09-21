@@ -3596,5 +3596,101 @@ class StampPreservation(unittest.TestCase):
                 self.assertIn(member, written, member)
 
 
+class RetiredStories(BuildAppDataFixture):
+    """T1.5 — an old bookmarked story URL stays valid, or says why it does not.
+
+    `news/config/retired_stories.json` is the ONLY way a published story id
+    may stop being served; the build publishes it as `stories/retired.json`
+    and refuses the two contradictions — a retired story still published, a
+    merge target that is not.
+    """
+
+    def registry(self, retired):
+        config = Path(self.root) / "news" / "config"
+        config.mkdir(parents=True, exist_ok=True)
+        (config / "retired_stories.json").write_text(
+            json.dumps({"version": 1, "retired": retired}), encoding="utf-8")
+
+    def seed(self):
+        article = {"url": "https://a.bg/one", "domain": "a.bg",
+                   "title": "Едно", "published": "2026-09-10T09:00:00+00:00",
+                   "first_seen": "2026-09-10T09:00:00+00:00",
+                   "content": "Съдържание. " * 30}
+        self.write_corpus("a.bg", "one.json", article)
+        self.write_analysis("a.bg", "one.json", self.analysis_record(
+            article["url"], "a.bg", "news/data/a.bg/one.json",
+            action="new_story", story_id=None))
+
+    def test_the_registry_is_published_and_empty_by_default(self):
+        self.seed()
+        self.run_build()
+        payload = self.load("stories/retired.json")
+        self.assertEqual(payload["version"], 1)
+        self.assertEqual(payload["retired"], {})
+        # ⚠️ And it is in the tree the manifest inventories, so the uploader's
+        # continuity gate can read it from the snapshot it publishes.
+        self.assertTrue(os.path.exists(
+            os.path.join(self.out_dir, "stories", "retired.json")))
+
+    def test_a_valid_entry_reaches_the_reader_with_its_reason(self):
+        self.seed()
+        self.registry({"20200101-deadbeef": {
+            "reason": "withdrawn", "on": "2026-09-21",
+            "note": "Оттеглена след сигнал за грешно свързване."}})
+        self.run_build()
+        payload = self.load("stories/retired.json")
+        self.assertEqual(payload["retired"]["20200101-deadbeef"]["reason"],
+                         "withdrawn")
+        self.assertIn("Оттеглена", payload["retired"]["20200101-deadbeef"]["note"])
+
+    def test_a_story_cannot_be_both_retired_and_published(self):
+        # ⚠️ THE MUTATION THIS CATCHES: writing the registry without the
+        # intersection check — two answers to one URL.
+        self.seed()
+        self.run_build()
+        published = [row[0] for row in
+                     self.load("stories/filter-index.json")["stories"]]
+        self.registry({published[0]: {"reason": "withdrawn", "on": "2026-09-21",
+                                      "note": "n"}})
+        proc = self.run_build_process()
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("still publishes", proc.stderr)
+
+    def test_a_merge_target_must_be_published(self):
+        self.seed()
+        self.registry({"20200101-deadbeef": {
+            "reason": "merged", "on": "2026-09-21", "note": "n",
+            "target": "20200101-00000000"}})
+        ensure_fixture_story_membership(self.data_dir)
+        proc = self.run_build_process()
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("merge targets are not published", proc.stderr)
+
+    def test_malformed_entries_are_refused_not_repaired(self):
+        cases = [
+            ({"x/../y": {"reason": "withdrawn", "on": "2026-09-21", "note": "n"}},
+             "unsafe story id"),
+            ({"20200101-deadbeef": {"reason": "scandal", "on": "2026-09-21",
+                                    "note": "n"}}, "reason must be one of"),
+            ({"20200101-deadbeef": {"reason": "withdrawn", "on": "yesterday",
+                                    "note": "n"}}, "needs on=YYYY-MM-DD"),
+            ({"20200101-deadbeef": {"reason": "withdrawn", "on": "2026-09-21",
+                                    "note": " "}}, "needs a note"),
+            ({"20200101-deadbeef": {"reason": "merged", "on": "2026-09-21",
+                                    "note": "n"}}, "names no target"),
+            ({"20200101-deadbeef": {"reason": "withdrawn", "on": "2026-09-21",
+                                    "note": "n", "target": "20200101-0000000a"}},
+             "carries a target but is not merged"),
+        ]
+        for retired, message in cases:
+            with self.subTest(message=message):
+                path = Path(self.root) / "retired.json"
+                path.write_text(json.dumps({"version": 1, "retired": retired}),
+                                encoding="utf-8")
+                with self.assertRaises(ValueError) as caught:
+                    bad.load_retired_stories(path)
+                self.assertIn(message, str(caught.exception))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -33,11 +33,70 @@ import subprocess
 import sys
 import urllib.request
 
-BUCKET = os.environ.get("NEWS_PUBLIC_BUCKET", "data-electionsbg-com")
-PREFIX = os.environ.get("NEWS_PUBLIC_PREFIX", "news/app-data")
+def _public_location() -> tuple[str, str]:
+    """(bucket, prefix) — from the hourly config's NEWS_PUBLIC_GCS_URI when
+    the runner sets it, else the explicit pair, else production."""
+    uri = os.environ.get("NEWS_PUBLIC_GCS_URI", "")
+    match = re.fullmatch(r"gs://([^/]+)/(.+?)/?", uri)
+    if match:
+        return match.group(1), match.group(2)
+    return (os.environ.get("NEWS_PUBLIC_BUCKET", "data-electionsbg-com"),
+            os.environ.get("NEWS_PUBLIC_PREFIX", "news/app-data"))
+
+
+BUCKET, PREFIX = _public_location()
 BASE_URL = f"https://storage.googleapis.com/{BUCKET}/{PREFIX}"
 RUN_ID_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{6}Z-\d+$")
-DEFAULT_KEEP = 8
+
+# ⚠️ THE RETENTION POLICY, DERIVED RATHER THAN PICKED (plan T1.5). A reader
+# is exposed to a pruned tree only while they still hold a manifest that
+# names it. The client (newsapp/app/data.ts) re-reads the manifest every
+# PUBLICATION_POLL_MS = 60 s, retries a failed read after 15 s, and a hidden
+# tab catches up on `visibilitychange` — so the longest a live tab keeps an
+# old `run_id` is one poll plus one retry. Nothing else references a run:
+# story URLs resolve through the CURRENT manifest, the browse's depth memory
+# is keyed by query, and the mentions rsync (stale-while-revalidate 3600 s)
+# lives outside `versions/`. Two releases would therefore suffice for readers;
+# the rest of K is ROLLBACK room, at the hourly cadence.
+#
+# Storage at steady state: K × ~37.2 MB (measured 2026-09-20) — against the
+# unbounded 26.8 GB/month this replaces.
+PUBLISH_CADENCE_SECONDS = 3600
+READER_EXPOSURE_SECONDS = 60 + 15         # PUBLICATION_POLL_MS + FAILED_MANIFEST_RETRY_MS
+CACHE_GRACE_SECONDS = 3600                # the widest public max-age outside versions/
+ROLLBACK_RELEASES = 6                     # hourly releases an operator may roll back to
+RELEASE_BYTES_ESTIMATE = 37.2 * 1024 * 1024
+# The live release, the one every reader may still hold, and the rollback
+# room — ONE derivation, so the two numbers cannot drift apart.
+DEFAULT_KEEP = ROLLBACK_RELEASES + 2
+
+
+def retention_policy(keep: int = DEFAULT_KEEP) -> dict:
+    """What `keep` buys, stated in the units the decision was made in.
+
+    `covers_readers` is the property that must never be false: the trees
+    kept span longer than a reader can hold a manifest plus the cache grace.
+    At the hourly cadence that puts the floor at K = 3 (`MIN_KEEP`), and the
+    CLI refuses anything below it; the default keeps six releases more.
+    """
+    span = (keep - 1) * PUBLISH_CADENCE_SECONDS
+    required = READER_EXPOSURE_SECONDS + CACHE_GRACE_SECONDS
+    return {
+        "keep": keep,
+        "cadence_seconds": PUBLISH_CADENCE_SECONDS,
+        "retained_span_seconds": span,
+        "reader_exposure_seconds": READER_EXPOSURE_SECONDS,
+        "cache_grace_seconds": CACHE_GRACE_SECONDS,
+        "required_span_seconds": required,
+        "covers_readers": span >= required,
+        "rollback_releases": keep - 2,
+        "storage_bytes_estimate": int(keep * RELEASE_BYTES_ESTIMATE),
+    }
+
+
+# The smallest K whose retained span covers a reader — derived, not typed.
+MIN_KEEP = next(k for k in range(2, 100)
+                if retention_policy(k)["covers_readers"])
 
 
 def live_run_id():
@@ -95,9 +154,13 @@ def main(argv=None):
     ap.add_argument("--apply", action="store_true",
                     help="actually delete (default is a dry run)")
     args = ap.parse_args(argv)
-    if args.keep < 2:
-        ap.error("--keep must be at least 2: one live release and one to "
-                 "roll back to")
+    if args.keep < MIN_KEEP:
+        policy = retention_policy(args.keep)
+        ap.error(f"--keep must be at least {MIN_KEEP}: {args.keep} retains "
+                 f"{policy['retained_span_seconds']} s of releases at a "
+                 f"{PUBLISH_CADENCE_SECONDS} s cadence, under the "
+                 f"{policy['required_span_seconds']} s a reader may still "
+                 "hold a manifest for")
 
     live = live_run_id()
     versions, total_trees = list_versions()
@@ -118,20 +181,30 @@ def main(argv=None):
 
     if not args.apply:
         print(f"\nDRY RUN — nothing deleted. Re-run with --apply to remove "
-              f"{len(deletable)} trees (~{len(deletable) * 37.2:.0f} MB).")
+              f"{len(deletable)} trees "
+              f"(~{len(deletable) * RELEASE_BYTES_ESTIMATE / 1024 / 1024:.0f} MB).")
         return 0
 
     # Re-read the manifest immediately before deleting: a publish may have
     # landed during the listing above, which would make an older plan stale.
     if live_run_id() != live:
         raise SystemExit("a publish landed while planning — re-run")
+    # ⚠️ COUNTED BY EXIT CODE, not by plan entry. This runs unattended now
+    # (run_hourly.sh) and its last line is what the run report shows; a
+    # tree that survived a failed `rm` is re-planned next hour, but a report
+    # that says „deleted 3" about 3 failures is how a permissions problem
+    # stays invisible for a month.
+    failed = []
     for run_id in deletable:
         target = f"gs://{BUCKET}/{PREFIX}/versions/{run_id}/**"
         print(f"deleting {run_id} …")
-        subprocess.run(["gsutil", "-m", "rm", "-r", target],
-                       check=False, timeout=900)
-    print(f"\ndeleted {len(deletable)} trees")
-    return 0
+        proc = subprocess.run(["gsutil", "-m", "rm", "-r", target],
+                              check=False, timeout=900)
+        if proc.returncode != 0:
+            failed.append(run_id)
+    print(f"\ndeleted {len(deletable) - len(failed)} trees, "
+          f"failed {len(failed)}" + (f": {failed}" if failed else ""))
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

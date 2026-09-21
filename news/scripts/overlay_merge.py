@@ -115,6 +115,11 @@ MERGED_PATHS = frozenset({"latest.json", "stories.json", "home.json",
 RESTAMPED_PATHS = frozenset({"latest.json", "stories.json",
                              "stories/by-url.json"})
 
+# `WHOLE_STORY_FILES` / `is_story_detail_path` live in app_data_inventory.py
+# (bundled, imported by the uploader too) — one rule for every walker of
+# `stories/`, see the note there.
+from app_data_inventory import WHOLE_STORY_FILES, is_story_detail_path  # noqa: E402
+
 
 def _is_merged_path(path: str) -> bool:
     """Does one of the per-path merges above own this file?
@@ -133,7 +138,7 @@ def _is_merged_path(path: str) -> bool:
     # one whole-corpus file of ~45 KB, about 2% of the overlay ceiling, and
     # a merge for it would have to re-derive counts over rows the overlay
     # does not hold.
-    if path == "stories/filter-index.json":
+    if path in WHOLE_STORY_FILES:
         return False
     return (path in MERGED_PATHS
             or path.startswith("articles/")
@@ -510,16 +515,13 @@ def diff_overlay(base: dict, full: dict, *, seq: int, base_run_id: str,
     # move. It also subsumes the story diff, since a changed story always
     # changes its own file.
     def details(release):
+        # ⚠️ ONE PREDICATE. The whole-corpus index and the retired registry
+        # match the detail pattern by name; treating either as one story's
+        # payload raises KeyError on `story` and ships it as a detail nobody
+        # can merge. `is_story_detail_path` is the shared rule.
         return {path.split("/", 1)[1][:-5]: payload
                 for path, payload in release.items()
-                if path.startswith("stories/")
-                and not path.startswith("stories/index-")
-                and not path.startswith("stories/ranked-")
-                # ⚠️ NOT A DETAIL FILE. It is the whole-corpus structured
-                # index; treating it as one story's payload raises KeyError on
-                # `story` and ships it as a detail nobody can merge.
-                and path != "stories/filter-index.json"
-                and path != "stories/by-url.json"}
+                if is_story_detail_path(path)}
 
     base_details, full_details = details(base), details(full)
     # ⚠️⚠️ COMPARED WITHOUT `prominence`, AND THIS IS NOT A TIDY-UP. That field
