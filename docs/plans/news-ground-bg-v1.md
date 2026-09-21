@@ -1464,6 +1464,29 @@ accepted-feedback snapshots are **missing with `record_count: 0`**, and
 cause is diagnosed: the fix is in `news-functions/src/operator.ts` and the pipeline executes
 the older compiled `lib/`, which no pipeline stage builds. Stages B, C and D all price in
 adjudicated pairs (T2.3, T4.5, T6.3) that currently cannot arrive.
+#### ✅ Stage 0 closed 2026-09-21 — and the router was never the defect
+
+`09ba888273` · `c1f1a41399` · `6dbfc7575d` · `fc9d86d829` · `89eb91f94d`.
+
+The two halves resolved in opposite directions from what this section predicted.
+
+**The adjudication transport was not broken.** `news/data/evals/{public-submissions,
+accepted,feedback-accepted}` have **never existed**: the public evaluation surface has
+collected zero submissions since it shipped, so the export legitimately returns nothing
+and throws „retaining the last known-good export" about a file nobody ever wrote. That is
+a product state, not an incident, and it now has its own name (`*_cold_start_no_records`)
+separate from a regression. ⚠️ **It is still true**: T2.3, T4.5 and T6.3 have no adjudicated
+input, and no code creates those records.
+
+**The review-router saturation was one contract defect wearing 1,419 hats.** §15.3.2 framed
+it as a calibration question and offered two options, neither of which was the answer. The
+rule had not drifted; `1,419 of ~1,614` flagged records came from the T4.1 prompt/gate
+mismatch. T4.1 collapsed them to 46 and the ceiling passes at **24.50%** with the `0.25`
+constant and both confidence floors **untouched**. Two independent contributions came out of
+chasing it, both recorded in the commits: the gazetteer had no room for three-letter party
+acronyms (ДПС, БСП, ДСБ, ИТН, СДС), and the router was re-asking standing policy once per
+article.
+
 **Acceptance:** one hourly run reporting `eval_task_sync_exit: 0` and a non-missing
 `accepted_snapshot`. ✅ **Half done (§15.3.1):** the functions were rebuilt and an
 `operator_cli_stale` guard + watcher alarm shipped, so the canonical-host throw is cleared
@@ -2312,6 +2335,29 @@ review capacity. The routing rule is already at saturation before either lands, 
 router, not against the current one.** Re-calibrate the rule (what it selects), or state
 explicitly what review capacity exists and size the tiers to it — but settle it before T2.2
 is scoped, not after the queue is full.
+
+### 15.5 ⚠️ T4.1 is PARTLY shipped — what landed, and what the plan still owes
+
+`fc9d86d829` (contract) and `89eb91f94d` (migration) implement T4.1's evidence split and
+its backfill. Three of T4.1's requirements are **not** done and must not be read as done:
+
+- **Only `party_tones` carries spans.** `leaning` and `russia_stance` still take a single
+  prose `evidence` string, so the same prompt/gate ambiguity survives on both axes — it
+  simply has no gate there yet to make it visible.
+- **The full-text rule is unimplemented.** T4.1 requires that an article-wide tone claim be
+  made against the whole extracted article, with prefix/chunk-only results shown as scoped
+  observations and kept out of rollups. The 6,000-character prefix is still what the model
+  sees, and nothing records coverage or abstains when the target falls outside it.
+- **The yield metrics are partial.** The migration reports supported/withheld/spans-created;
+  what T4.1 asks for — valid-span yield, semantic accuracy and abstention published
+  **separately**, because „grounded rate" alone is not accuracy — needs the adjudicated set
+  Stage 0 cannot supply.
+
+⚠️ **And the contract is one-directional by design.** A span proves a quote EXISTS in the
+article; it proves nothing about whether the quote supports the tone, names the right party,
+or belongs to the journalist rather than a person being quoted. T4.1 says so in terms — „do
+not call a substring-matched tone verified" — and no surface may describe a grounded tone as
+checked.
 
 ### 15.4 Corrections this pass did **not** make
 
