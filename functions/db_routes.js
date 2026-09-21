@@ -571,6 +571,36 @@ const missingMigrationLogged = (label, sentinel, loader) => (e) => {
   return [{ r: sentinel }];
 };
 
+// Same idea, but for a MISSING RELATION ONLY — and it is deliberately NOT the helper above.
+//
+// The two users are `company_procurement` (011) and `person_procurement` (024), which read
+// `procurement_annexes` (114) for a consortium member's carrier annex trail. 114's only
+// applier is `db:load:annexes:pg`, neither of the loaders that apply 011/024, so the guarded
+// failure is specifically **42P01** on that TABLE.
+//
+// ⚠️ `42883` IS DELIBERATELY NOT CAUGHT, and swallowing it would be far worse than the gap it
+// covers. For these two arms it can only mean the rollup FUNCTION itself is absent — 011/024
+// never reached this database — and both arms sit in a ~30-way Promise.all whose sentinel is
+// `null`, so degrading it would render „no procurement" on EVERY `/company/:eik`, EVERY
+// `/awarder/:eik` (one route serves both) and EVERY `/person/*`, at a 200, indefinitely,
+// behind one log line. For a state buyer that is its whole contract history reading as
+// nothing, and `CompanyDbScreen`'s `!company && !institution && !hasProcurement` branch can
+// then serve the „we do not track this entity" dead end for a real contractor. A `deploy:db`
+// that lands ahead of 011 should be a loud 500, not a site-wide silent blank.
+//
+// The message says „no procurement rollup", never „€0": the sentinel is `null`, so the page
+// renders no section at all rather than a zero-valued one — the absent/zero distinction this
+// repo insists on everywhere else. And the key is `co:`, not the `ir:` (Interreg) prefix the
+// helper above uses, so an operator grepping the company family can actually find it.
+const missingRelationLogged = (label, sentinel, loader) => (e) => {
+  if (e?.code !== "42P01") return Promise.reject(e);
+  logMissOnce(
+    `co:no-procurement:${label}:${e.code}`,
+    `${label}: read failed (${e.code}) — a relation it reads is absent (expected: procurement_annexes, migration 114), so no procurement rollup is served. Run ${loader}.`,
+  );
+  return [{ r: sentinel }];
+};
+
 // ── The per-scope procurement dashboard payloads (migration 124) ──────────────
 //
 // Six routes — procurement-{overview,flow,rankings,concentration,sectors,benchmarks} — used
@@ -925,7 +955,18 @@ const DB_ROUTES = {
     ] = await Promise.all([
       dbRows("SELECT * FROM person_roles($1)", [name]),
       dbRows("SELECT * FROM person_politicians($1)", [name]),
-      dbRows("SELECT person_procurement($1, $2, $3) AS r", [name, from, to]),
+      // ⚠️ DEGRADES for the same reason as `company_procurement` below — 024 reads
+      // `procurement_annexes` (114) for a member's carrier annex trail, and 024 rides
+      // `db:load:tr:pg` while 114 rides `db:load:annexes:pg`. 42P01 at CALL time, inside a
+      // Promise.all that would otherwise 500 the whole /person payload. NARROW on purpose:
+      // a 42883 (024 itself absent) stays a loud 500 — see missingRelationLogged's header.
+      dbRows("SELECT person_procurement($1, $2, $3) AS r", [name, from, to]).catch(
+        missingRelationLogged(
+          "person_procurement",
+          null,
+          "npx tsx scripts/db/apply_functions.ts 114_procurement_annexes.sql 024_person_api.sql",
+        ),
+      ),
       dbRows("SELECT * FROM person_by_cabinet($1)", [name]),
       dbRows("SELECT * FROM person_associates($1) LIMIT 500", [name]),
       // The two portfolio cuts (migration 125). Same name + window as person_procurement, so
@@ -1284,11 +1325,29 @@ const DB_ROUTES = {
         "SELECT politician, ref, kind, role, relations, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST LIMIT 200",
         [eik],
       ),
+      // ⚠️ DEGRADES, and the reason is a dependency 011's own appliers do not ship.
+      // `company_procurement` reads `procurement_annexes` (114) for the carrier annex trail
+      // on a consortium member's joint contracts — but 011 rides `db:load:pg` and 114 rides
+      // `db:load:annexes:pg`, a SEPARATE loader. So the documented one-liner for a body
+      // change (`apply_functions.ts 011_company_api.sql 024_person_api.sql`) can land 011 on
+      // a database that has no 114, and a `LANGUAGE sql` body under
+      // `check_function_bodies = off` does not fail at CREATE — it raises 42P01 on the first
+      // CALL. Unguarded inside this Promise.all that rejects the WHOLE payload, i.e. a 500 on
+      // every /company AND /awarder page (CompanyDbScreen serves both), not a narrower answer.
+      // Degrading to null is exactly the pre-T1 behaviour of the page, and the `co:` log is
+      // what stops it being silent. NARROW on purpose: 42P01 only — a 42883 here means 011
+      // itself is absent, which must stay a loud 500 (see missingRelationLogged's header).
       dbRows("SELECT company_procurement($1, $2, $3) AS r", [
         eik,
         orNull(q, "from"),
         orNull(q, "to"),
-      ]),
+      ]).catch(
+        missingRelationLogged(
+          "company_procurement",
+          null,
+          "npx tsx scripts/db/apply_functions.ts 114_procurement_annexes.sql 011_company_api.sql",
+        ),
+      ),
       dbRows("SELECT * FROM company_by_cabinet($1)", [eik]),
       dbRows("SELECT * FROM company_debarred($1)", [eik]),
       dbRows("SELECT * FROM fund_beneficiaries WHERE eik = $1", [eik]),

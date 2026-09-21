@@ -24,7 +24,16 @@
 -- lands the company half on prod and leaves `/person` on the old body indefinitely, with
 -- every row count reconciling and nothing red. Ship a guard change with BOTH files named,
 -- never by waiting for a loader:
---   npx tsx scripts/db/apply_functions.ts 011_company_api.sql 024_person_api.sql
+--   npx tsx scripts/db/apply_functions.ts \
+--     114_procurement_annexes.sql 011_company_api.sql 024_person_api.sql
+--
+-- ⚠️ 114 IS IN THAT COMMAND FOR A THIRD-LOADER REASON. `conslist`/`carannex` below read
+-- `procurement_annexes`, whose only applier is `db:load:annexes:pg` — neither of the two
+-- loaders above. `check_function_bodies = off` means a missing relation does NOT fail at
+-- CREATE; it raises 42P01 on the first CALL, inside a ~30-way Promise.all that would 500
+-- every /company AND /awarder page. `db_routes.js` degrades it to a null rollup and logs
+-- once (db_routes.consortium_annex.test.js pins that), so this is a narrowed page rather
+-- than an outage — but apply 114 and it is neither.
 
 SET check_function_bodies = off;
 DROP FUNCTION IF EXISTS company_procurement(text);
@@ -91,18 +100,71 @@ conshd AS (
     (COUNT(*) FILTER (WHERE joint_kind = 'framework'))::int AS framework_count
   FROM base WHERE tag = 'contract'
 ),
+-- The carrier row behind each of this firm's member rows, resolved ONCE. Both consumers
+-- below need it — `consannex` for the unbounded headline and `conslist` for the per-contract
+-- link — and doing the lookup twice doubled it: measured 2026-09-21 on the corpus's worst
+-- case (835013079, 128 member rows) the lookup alone is 1,167 buffers, all index scans.
+carannex AS MATERIALIZED (
+  SELECT b.key AS member_key, car.key AS carrier_key, car.name AS carrier_name,
+         COALESCE(car.annex_n, 0)::int AS annex_n
+    FROM base b
+    LEFT JOIN LATERAL (
+      SELECT c.key, c.contractor_name AS name,
+             (SELECT count(*) FROM procurement_annexes a WHERE a.contract_key = c.key) AS annex_n
+        FROM contracts c
+       WHERE c.ocid = b.ocid
+         AND COALESCE(c.contract_id, '') = COALESCE(b.contract_id, '')
+         AND c.tag = 'contract' AND c.consortium_role = 'carrier'
+       -- ORDER BY for DETERMINISM only: `(ocid, contract_id)` carries at most one carrier by
+       -- construction (087's `_named_carrier` is DISTINCT ON that key and `_synth` inserts one
+       -- row per group), measured 0 multi-carrier groups. A bare LIMIT 1 would therefore be
+       -- correct today and arbitrary the day 087 changed — and every per-row gate assertion
+       -- would still pass, because each is satisfied by WHICHEVER carrier was picked. The gate
+       -- asserts the uniqueness invariant separately; this is the belt.
+       ORDER BY c.key
+       LIMIT 1
+    ) car ON true
+   WHERE b.tag = 'contract' AND b.consortium_role = 'member'
+),
+-- Total annexes across every joint contract this firm is a member of — UNBOUNDED, unlike the
+-- per-row `annexCount` in `conslist`, which stops at that list's LIMIT 25. A headline that
+-- counted only the listed 25 would under-report exactly the firms with the most joint work.
+consannex AS (
+  SELECT COALESCE(SUM(annex_n), 0)::int AS consortium_annex_count FROM carannex
+),
+-- ⚠️ AN ANNEX BELONGS TO THE CARRIER ROW, NEVER TO THE MEMBER'S — which is why a member
+-- page could not show the amendments that moved its own contract. `procurement_annexes`
+-- resolves against `contracts.key`, and 087 puts the money (and therefore the annex trail)
+-- on the carrier, so for МЛГ ЕООД all 5 annexes on РД-37-45 — the ones that took it from
+-- 42,598,403 to 93,065,069.67 BGN, +118% — hang off `obed-abf3a70ed9bb` and none off the
+-- member row. Measured 2026-09-21: member rows carry 0 annexes across the whole corpus.
+--
+-- The carrier is found on `(ocid, contract_id)`, which is exactly the grouping key
+-- `rebuild_consortium()` (087) builds the group on, so a member row and its carrier always
+-- agree on it — verified on the reference contract, where two carrier rows and six member
+-- rows split cleanly across contract_id 61831/61839.
+--
+-- `annexCount` is reported PER JOINT CONTRACT and is deliberately NOT folded into the
+-- member's own `amendmentCount`, which counts this EIK's own `contractAmendment` rows. They
+-- are different claims: "this firm's contract was amended 5 times" vs "this firm filed 5
+-- amendments". `carrierKey` rides along so the UI can link straight at the carrier's
+-- contract instead of making a reader find it.
 conslist AS (
   SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY t."amountEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
-    SELECT key, ocid, date,
-           consortium_full_eur AS "amountEur",
-           awarder_eik  AS "partyEik",
-           awarder_name AS "partyName",
-           title,
-           consortium_eik AS "consortiumEik",
-           source_url   AS "sourceUrl"
-    FROM base
-    WHERE tag = 'contract' AND consortium_role = 'member'
-    ORDER BY consortium_full_eur DESC NULLS LAST
+    SELECT b.key, b.ocid, b.date,
+           b.consortium_full_eur AS "amountEur",
+           b.awarder_eik  AS "partyEik",
+           b.awarder_name AS "partyName",
+           b.title,
+           b.consortium_eik AS "consortiumEik",
+           ca.carrier_key  AS "carrierKey",
+           ca.carrier_name AS "consortiumName",
+           COALESCE(ca.annex_n, 0) AS "annexCount",
+           b.source_url   AS "sourceUrl"
+    FROM base b
+    LEFT JOIN carannex ca ON ca.member_key = b.key
+    WHERE b.tag = 'contract' AND b.consortium_role = 'member'
+    ORDER BY b.consortium_full_eur DESC NULLS LAST
     LIMIT 25
   ) t
 ),
@@ -245,6 +307,7 @@ SELECT CASE
     'consortiumEur', conshd.consortium_eur,
     'consortiumCount', conshd.consortium_count,
     'consortiumContracts', conslist.arr,
+    'consortiumAnnexCount', consannex.consortium_annex_count,
     'consortiumMembers', membersof.arr,
     'frameworkEur', conshd.framework_eur,
     'frameworkCount', conshd.framework_count,
@@ -266,5 +329,5 @@ SELECT CASE
     )
   )
 END
-FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc, conshd, conslist, membersof;
+FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc, conshd, conslist, consannex, membersof;
 $$;

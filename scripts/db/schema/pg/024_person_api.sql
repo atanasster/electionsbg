@@ -22,7 +22,13 @@
 -- `db:load:pg:cloud` lands the company half and leaves THIS one on the old body
 -- indefinitely, with every row count reconciling and nothing red. Ship a guard change with
 -- BOTH files named, never by waiting for a loader:
---   npx tsx scripts/db/apply_functions.ts 011_company_api.sql 024_person_api.sql
+--   npx tsx scripts/db/apply_functions.ts \
+--     114_procurement_annexes.sql 011_company_api.sql 024_person_api.sql
+--
+-- ⚠️ 114 IS IN THAT COMMAND FOR A THIRD-LOADER REASON — `carannex` below reads
+-- `procurement_annexes`, applied only by `db:load:annexes:pg`. Under
+-- `check_function_bodies = off` a missing relation raises 42P01 at CALL time, not CREATE.
+-- `db_routes.js` degrades it to a null rollup and logs once; apply 114 and it does neither.
 
 SET check_function_bodies = off;
 
@@ -85,17 +91,48 @@ other AS (
 -- is shared). Frameworks are NOT deduped here — each company is an independent
 -- framework winner, so its split rows sum legitimately (framework_* below).
 partic AS (
-  SELECT DISTINCT ON (ocid, COALESCE(contract_id, '')) key, ocid, date,
+  SELECT DISTINCT ON (ocid, COALESCE(contract_id, '')) key, ocid, contract_id, date,
          consortium_full_eur, awarder_eik, awarder_name, title,
          contractor_eik, contractor_name, consortium_eik, source_url
   FROM base
   WHERE tag = 'contract' AND consortium_role = 'member'
   ORDER BY ocid, COALESCE(contract_id, ''), amount_eur DESC
 ),
+-- ⚠️ AN ANNEX BELONGS TO THE CARRIER ROW, NEVER TO A MEMBER'S — the twin of the note in
+-- 011_company_api.sql. `procurement_annexes` resolves against `contracts.key` and 087 puts
+-- the money, and so the annex trail, on the carrier; member rows carry 0 annexes across the
+-- whole corpus. The carrier is found on `(ocid, contract_id)`, the same key 087 groups on —
+-- which is also the key `partic` above dedupes by, so the count is already once per joint
+-- award even when two of the person's companies sit in the same consortium.
+-- `annexCount` is per joint contract and is NEVER folded into `amendment_count`, which
+-- counts the portfolio's own `contractAmendment` rows. Different claims.
+carannex AS (
+  SELECT p.key AS member_key, car.key AS carrier_key, car.name AS carrier_name,
+         COALESCE(car.annex_n, 0)::int AS annex_n
+    FROM partic p
+    LEFT JOIN LATERAL (
+      SELECT c.key, c.contractor_name AS name,
+             (SELECT count(*) FROM procurement_annexes a WHERE a.contract_key = c.key) AS annex_n
+        FROM contracts c
+       WHERE c.ocid = p.ocid
+         AND COALESCE(c.contract_id, '') = COALESCE(p.contract_id, '')
+         AND c.tag = 'contract' AND c.consortium_role = 'carrier'
+       -- ORDER BY for DETERMINISM only: `(ocid, contract_id)` carries at most one carrier by
+       -- construction (087's `_named_carrier` is DISTINCT ON that key and `_synth` inserts one
+       -- row per group), measured 0 multi-carrier groups. A bare LIMIT 1 would therefore be
+       -- correct today and arbitrary the day 087 changed — and every per-row gate assertion
+       -- would still pass, because each is satisfied by WHICHEVER carrier was picked. The gate
+       -- asserts the uniqueness invariant separately; this is the belt.
+       ORDER BY c.key
+       LIMIT 1
+    ) car ON true
+),
 conshd AS (
   SELECT
     (SELECT COALESCE(SUM(consortium_full_eur), 0) FROM partic) AS consortium_eur,
     (SELECT COUNT(*) FROM partic)::int                         AS consortium_count,
+    -- UNBOUNDED, unlike the per-row `annexCount` below, which stops at conslist's LIMIT.
+    (SELECT COALESCE(SUM(annex_n), 0) FROM carannex)::int      AS consortium_annex_count,
     COALESCE(SUM(amount_eur) FILTER (WHERE joint_kind = 'framework'), 0) AS framework_eur,
     (COUNT(*) FILTER (WHERE joint_kind = 'framework'))::int AS framework_count
   FROM base WHERE tag = 'contract'
@@ -110,8 +147,12 @@ conslist AS (
            contractor_eik  AS "contractorEik",
            contractor_name AS "contractorName",
            consortium_eik AS "consortiumEik",
+           ca.carrier_key  AS "carrierKey",
+           ca.carrier_name AS "consortiumName",
+           COALESCE(ca.annex_n, 0) AS "annexCount",
            source_url   AS "sourceUrl"
     FROM partic
+    LEFT JOIN carannex ca ON ca.member_key = partic.key
     ORDER BY consortium_full_eur DESC NULLS LAST
     LIMIT 25
   ) t
@@ -217,6 +258,7 @@ SELECT CASE
     'consortiumEur', conshd.consortium_eur,
     'consortiumCount', conshd.consortium_count,
     'consortiumContracts', conslist.arr,
+    'consortiumAnnexCount', conshd.consortium_annex_count,
     'frameworkEur', conshd.framework_eur,
     'frameworkCount', conshd.framework_count,
     'byAwarder', byaw.arr,

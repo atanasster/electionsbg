@@ -3,7 +3,8 @@
 **Status:** **T1 APPLIED** to `011_company_api.sql` + `024_person_api.sql` and to LOCAL Postgres
 on 2026-09-21, with its gate (`scripts/db/tests/consortium_member_visibility.data.test.ts`).
 **NOT applied to Cloud SQL** — see T5; prod still returns NULL for all 1,101.
-⚠️ T1 is inert on its own: T3 is what a reader sees. T2–T4 not started.
+⚠️ T1+T2 are inert on their own: T3 is what a reader sees. **T2 APPLIED** the same way (same
+two files, same command). T3–T4 not started.
 **Measured:** 2026-09-21 against local Postgres `postgres://postgres@127.0.0.1:5433/electionsbg`
 (contracts 411,713 rows).
 **Trigger:** a reader compared `/company/113581389` (МЛГ ЕООД) against a competitor tool that
@@ -167,8 +168,11 @@ dependents** (verified: the four other migrations naming `company_procurement` m
 comments), so this is a safe, cheap apply with no CASCADE and no reload:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
-  011_company_api.sql 024_person_api.sql
+export PGPASSFILE=$PWD/.pgpass
+# LOCAL (port 5433 — the docker Postgres). Port 5434 is the Cloud SQL proxy; that is T5.
+DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg \
+  npx tsx scripts/db/apply_functions.ts \
+    114_procurement_annexes.sql 011_company_api.sql 024_person_api.sql
 ```
 
 ⚠️ **Name BOTH files.** They have different automatic appliers and can drift: `db:load:pg`
@@ -176,18 +180,36 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/a
 runs, ~280 s on cloud) applies 024. Waiting for a loader therefore ships half the guard. This
 command is the only thing that ships both.
 
-### T2 — SQL: make the annex trail reachable from the member
+### T2 — SQL: make the annex trail reachable from the member ✅ DONE
 
-Add `consortiumAnnexCount` to the participation block, counted over the CARRIER's rows:
+`procurement_annexes` resolves against `contracts.key`, and 087 puts the money — and with it
+the amendments — on the carrier, so member rows carry **0 annexes across the whole corpus**.
 
-```sql
-SELECT count(*) FROM procurement_annexes a
-  JOIN contracts cc ON cc.key = a.contract_key
- WHERE cc.contractor_eik IN (SELECT DISTINCT consortium_eik FROM base WHERE consortium_role = 'member')
-```
+Both files gained a `carannex` CTE that resolves each member row's carrier on
+**`(ocid, contract_id)`** — the exact key `rebuild_consortium()` groups on, so a member and its
+carrier always agree — and from it:
 
-Rendered as a link to the carrier's annexes page — **never** folded into the member's own
-`amendmentCount`, which is a count of the member's own rows.
+- `consortiumAnnexCount` on the payload — **unbounded**, unlike the per-row count, which would
+  otherwise stop at `conslist`'s `LIMIT 25` and under-report the firms with the most joint work;
+- `carrierKey`, `consortiumName` and `annexCount` on each `consortiumContracts` row, so the UI
+  links straight at the carrier's contract.
+
+⚠️ **Never folded into `amendmentCount`.** „this firm's contract was amended N times" and „this
+firm filed N amendments" are different claims; the reference company has 5 of the first and 0 of
+the second.
+
+Measured 2026-09-21: МЛГ reports 5 (4 on РД-37-45, 1 on РД-37-42) — matching
+`procurement_annexes` exactly — and **387 of the 1,172** member-only companies now resolve at
+least one annex. Resolving the carrier ONCE per payload rather than per consumer took the
+corpus's worst case (835013079, 128 member rows) from 3,279 buffers / 15.7 ms to **2,225 /
+10.3 ms**, all index scans, and the person side gained ~226 buffers of 9,009 (2.6%) on the
+busiest real fold — its temp spill is `base AS MATERIALIZED` and predates this change. A
+buffer ceiling on each side is in the gate.
+
+⚠️ There is deliberately **no** „does the plan seq-scan `contracts`?" assertion: neither
+rollup is inlinable, so `EXPLAIN` of a call prints one `Result` node and no inner plan —
+verified by disabling every index scan, which took the call to 9.08M buffers and 13.8 s while
+such a regex still matched nothing. The buffer ceiling is the only thing that discriminates.
 
 ### T3 — UI: a member-side participation block
 
@@ -240,10 +262,30 @@ Hosting and function only; no corpus reload.
 ```bash
 export PGPASSFILE=$PWD/.pgpass
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-  npx tsx scripts/db/apply_functions.ts 011_company_api.sql 024_person_api.sql
+  npx tsx scripts/db/apply_functions.ts \
+    114_procurement_annexes.sql 011_company_api.sql 024_person_api.sql
 npm run deploy:db     # the /api/db/company + /api/db/person routes
 npm run deploy        # the two screens
 ```
+
+⚠️ **114 IS IN THAT COMMAND, AND IT IS A THIRD LOADER.** T2 made both rollups read
+`procurement_annexes`, whose only applier is `db:load:annexes:pg` — neither `db:load:pg`
+(011) nor `db:load:tr:pg` (024). Under `check_function_bodies = off` a missing relation does
+not fail at CREATE; it raises **42P01 on the first CALL**, inside a ~30-way `Promise.all`.
+Both route arms now degrade that to a null rollup and log once under `co:no-procurement:*`
+(`db_routes.consortium_annex.test.js`), so the worst case is a narrowed page rather than a
+500 on every `/company`, `/awarder` and `/person` — but applying 114 avoids both.
+
+⚠️ **The degrade is `42P01` ONLY, and that asymmetry is a decision.** 114 is a TABLE, so its
+absence is `undefined_table`. A **`42883`** on these arms can only mean the rollup FUNCTION
+itself is absent — 011/024 never reached this database — and swallowing it would render „no
+procurement" on every `/company`, every `/awarder` (one route serves both) and every
+`/person` at a **200**, indefinitely, behind one log line. For a state buyer that is its
+entire contract history reading as nothing, and `CompanyDbScreen`'s
+`!company && !institution && !hasProcurement` branch can then serve the „we do not track this
+entity" dead end for a real contractor. So a `deploy:db` landing ahead of 011 stays a loud 500. `missingRelationLogged` exists rather than reusing `missingMigrationLogged` for exactly
+this, and five per-arm tests pin each of `42883 / 57014 / 55P03 / 42501 / 53400` as still
+rejecting.
 
 ⚠️ **NOTHING RUNS THAT FIRST COMMAND FOR YOU, and no loader you would plausibly run ships both
 halves.** 011 rides `db:load:pg` (a ~5-minute contracts publish) and 024 rides `db:load:tr:pg`
