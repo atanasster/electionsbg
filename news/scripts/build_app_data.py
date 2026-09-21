@@ -52,6 +52,7 @@ import re
 import signal
 import subprocess
 import sys
+import math
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -812,10 +813,19 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-# A page of the story index. 200 keeps the first page ~50 KB gzipped, which
-# is what a list screen needs to paint; smaller pages would multiply requests
-# for no visible gain, larger ones give back the saving.
-STORY_PAGE_SIZE = 200
+# A page of the story index.
+#
+# ⚠️ 150, NOT 200, AND PAGE 1 IS NOT THE WORST PAGE — which is how 200 came to
+# look safe. Measured 2026-09-21 with the prominence block on each row:
+# index-1 at 200 rows gzipped to 54,198 bytes while the worst page reached
+# 58,064, so a ceiling checked against the first page alone passes while most
+# pages fail it. At 150 the worst page is well inside the budget.
+#
+# ⚠️ AND THE BUDGET IS A GATE, not this comment. `news_performance_budget.ts`
+# checks the MAXIMUM over every emitted page with one specified gzip method;
+# a number that lives only in prose is one nobody re-measures when a row grows
+# a field — which is exactly what adding `prominence` did here.
+STORY_PAGE_SIZE = 150
 
 
 # ⚠️ THE PUBLISHED SORT ORDER HAS ONE DEFINITION, AND THESE ARE IT. Four
@@ -850,7 +860,93 @@ STORY_INDEX_FIELDS = ("id", "title_bg", "title_en", "topics",
                       "first_published", "last_published", "blindspot")
 
 
-def story_index_row(story: dict) -> dict:
+# ⚠️⚠️ „НАЙ-ОТРАЗЯВАНИ", NOT „MOST POPULAR", and the name is the honest part.
+# Nothing here observes a reader: there is no view count, no click, no share.
+# What it measures is how many newsrooms covered the same event and how fast
+# they arrived — observed coverage momentum. Calling that popularity would
+# publish a claim about an audience this project cannot see.
+#
+# ⚠️ IT REPLACES PURE RECENCY, which is what the home page ranked by until now:
+# `last_published` desc with `outlet_count` only as a tiebreak. Measured
+# 2026-09-20, the build ran at 23:25 UTC and the feed was late-night foreign
+# wire while the day's most-covered domestic stories sat below the cut — the
+# product's own premise, comparing outlets, losing to whoever published last.
+#
+# The formula, and its constants are a STARTING POINT to evaluate against
+# labelled examples, not an empirical finding:
+#
+#     score = (log2(1 + U) + 0.25 * log2(1 + V)) * 2 ** (-age / 24)
+#
+#   U    distinct outlets in the window — the primary signal
+#   V    distinct outlets that FIRST joined in the preceding 6 hours
+#   age  hours since the latest genuinely new member publication
+#
+# ⚠️ ARTICLE COUNT IS NOT A MULTIPLIER. One outlet filing six updates on its
+# own story is not six newsrooms agreeing it matters, and rewarding it would
+# rank a liveblog above an event every newsroom covered. It rides along as
+# explanatory volume and never touches the score.
+#
+# ⚠️ AND THE COMPONENTS ARE PUBLISHED, not just the number. „6 издания · 11
+# материала" is a fact a reader can check; a rank is a number they must trust.
+PROMINENCE_VELOCITY_WEIGHT = 0.25
+PROMINENCE_VELOCITY_WINDOW_HOURS = 6.0
+PROMINENCE_HALF_LIFE_HOURS = 24.0
+PROMINENCE_VERSION = 1
+
+
+def story_prominence(story: dict, as_of: datetime | None) -> dict:
+    """Coverage momentum for one story, with its components exposed.
+
+    ⚠️ `as_of` IS PASSED IN, never read from the clock here. A rank that moves
+    between two rows of the same page is not a ranking, and a build whose
+    output depends on when each row happened to be computed cannot be compared
+    with the previous build at all.
+    """
+    members = [m for m in (story.get("members") or []) if isinstance(m, dict)]
+    outlets = {m.get("domain") for m in members if m.get("domain")}
+    published = [utc_instant(m.get("published")) for m in members]
+    latest = max([p for p in published if p], default=None)
+
+    velocity = 0
+    if as_of is not None:
+        # ⚠️ EACH OUTLET COUNTED AT MOST ONCE, on its FIRST member. A newsroom
+        # filing three updates inside the window is one outlet arriving, not
+        # three.
+        first_by_outlet: dict = {}
+        for member in members:
+            domain = member.get("domain")
+            when = utc_instant(member.get("published"))
+            if not domain or when is None:
+                continue
+            if domain not in first_by_outlet or when < first_by_outlet[domain]:
+                first_by_outlet[domain] = when
+        window = as_of - timedelta(hours=PROMINENCE_VELOCITY_WINDOW_HOURS)
+        velocity = sum(1 for when in first_by_outlet.values()
+                       if window < when <= as_of)
+
+    # ⚠️ NO RECENCY BOOST WITHOUT A USABLE PUBLICATION TIME. `fetched_at` is
+    # when WE saw it, not when it was published, and substituting one for the
+    # other would present crawl scheduling as news. A story whose members carry
+    # no parseable date keeps its coverage score undecayed and says so.
+    age_hours = None
+    if latest is not None and as_of is not None:
+        age_hours = max(0.0, (as_of - latest).total_seconds() / 3600)
+    decay = 1.0 if age_hours is None else 2 ** (-age_hours / PROMINENCE_HALF_LIFE_HOURS)
+    breadth = math.log2(1 + len(outlets))
+    arrival = math.log2(1 + velocity)
+    score = (breadth + PROMINENCE_VELOCITY_WEIGHT * arrival) * decay
+    return {
+        "version": PROMINENCE_VERSION,
+        "score": round(score, 6),
+        "outlets": len(outlets),
+        "articles": len(members),
+        "arriving": velocity,
+        "age_hours": None if age_hours is None else round(age_hours, 2),
+        "publication_time_known": latest is not None,
+    }
+
+
+def story_index_row(story: dict, as_of: datetime | None = None) -> dict:
     """One story as a list screen needs it: findable, filterable, small."""
     row = {key: story[key] for key in STORY_INDEX_FIELDS if key in story}
     members = [m for m in (story.get("members") or []) if isinstance(m, dict)]
@@ -858,6 +954,15 @@ def story_index_row(story: dict) -> dict:
     # outlets covered it, and which — without carrying every article record.
     row["member_count"] = len(members)
     row["domains"] = sorted({m["domain"] for m in members if m.get("domain")})
+    # ⚠️ COPIED WHEN THE PRODUCER ALREADY SCORED IT, computed otherwise. The
+    # overlay stamps `prominence` onto each story it ships precisely so the
+    # TypeScript twin can COPY the field like `blindspot` instead of carrying
+    # a second implementation of the decay. Two implementations of a score
+    # that decays with time is a drift nobody would notice until two rows of
+    # one list disagreed about the same story.
+    stamped = story.get("prominence")
+    row["prominence"] = (stamped if isinstance(stamped, dict)
+                         else story_prominence(story, as_of))
     return row
 
 
@@ -887,17 +992,49 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str,
 
     # Newest first: progressive reveal means "show me more, older", so page 1
     # must be the page a reader wants without asking.
+    as_of = utc_instant(generated_at)
     ordered = sorted(stories, key=story_sort_key, reverse=True)
-    rows = [story_index_row(s) for s in ordered]
-    pages = [rows[i:i + page_size]
-             for i in range(0, len(rows), page_size)] or [[]]
-    for number, page in enumerate(pages, start=1):
-        write_json(story_dir / f"index-{number}.json", {
-            "generated_at": generated_at,
-            "page": number, "pages": len(pages),
-            "page_size": page_size, "total": len(rows),
-            "stories": page,
-        })
+    rows = [story_index_row(s, as_of) for s in ordered]
+
+    def emit(prefix: str, ordering: list, sort: str) -> None:
+        pages = [ordering[i:i + page_size]
+                 for i in range(0, len(ordering), page_size)] or [[]]
+        for number, page in enumerate(pages, start=1):
+            write_json(story_dir / f"{prefix}-{number}.json", {
+                "generated_at": generated_at,
+                # ⚠️ `as_of` IS PUBLISHED, because prominence decays with it.
+                # Two pages of one browse must be ranked against the same
+                # instant or the reader sees a story twice, or never.
+                "as_of": generated_at,
+                "sort": sort,
+                "prominence_version": PROMINENCE_VERSION,
+                # ⚠️ ALWAYS FALSE HERE, and present so the overlay can say
+                # TRUE. A full rebuild scores every row against one instant; a
+                # hot overlay cannot, because prominence decays and re-ranking
+                # the corpus is the rebuild it exists to avoid. The field must
+                # exist in both or the two shapes diverge and the parity test
+                # that guards the merge stops comparing like with like.
+                "stale_ranking": False,
+                "page": number, "pages": len(pages),
+                "page_size": page_size, "total": len(ordering),
+                "stories": page,
+            })
+
+    emit("index", rows, "latest")
+    # ⚠️ EVERY STORY IS IN BOTH ORDERINGS. A rank may reorder the feed; it may
+    # never remove a story from it, or a reader following a link from anywhere
+    # else lands on a page that says the story does not exist. That is T1.4's
+    # reachability rule, and it is why no diversification cap is applied here —
+    # the per-outlet cap belongs to the finite home hero, not to the archive.
+    # ⚠️ THREE STABLE PASSES, least significant first, because the order is
+    # `score DESC, latest_publication DESC, story_id ASC` and a string cannot
+    # be negated inside one key. Written as a single tuple with `-score`, the
+    # date silently sorts ASCENDING and the oldest story wins every tie.
+    ranked = sorted(rows, key=lambda r: r.get("id") or "")
+    ranked.sort(key=lambda r: r.get("last_published") or "", reverse=True)
+    ranked.sort(key=lambda r: (r.get("prominence") or {}).get("score", 0.0),
+                reverse=True)
+    emit("ranked", ranked, "prominence")
 
     # ⚠️ RELATEDNESS IS RESOLVED HERE, because half of it is not visible
     # from one story. `resolveRelatedStories` in the client walks the whole
@@ -990,6 +1127,11 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str,
                  or bundle_generated_at(members, "")
                  or (max(seen) if seen else "")
                  or generated_at)
+        # ⚠️ STAMPED ON THE STORY THE DETAIL FILE CARRIES, because that object
+        # is what `diff_overlay` ships to the browser — and the browser's
+        # `storyIndexRow` must COPY the score rather than carry a second
+        # implementation of a decay in another language. One computation,
+        # three consumers: this file, the index rows, and the client's merge.
         write_json(story_dir / f"{story_id}.json",
                    {"generated_at": stamp, "story": story,
                     "related": resolve_related(story)})
@@ -1984,6 +2126,13 @@ def main() -> int:
     # tree and must point it at the BASE, or every file looks new and the
     # overlay carries the whole release again — measured, 1.57 MB of it.
     ap.add_argument("--stamp-from", type=Path)
+    # ⚠️ A REPRODUCIBLE CLOCK, because prominence DECAYS against it. Without a
+    # way to pin `as_of`, two builds of one corpus differ in every story's
+    # `age_hours` — so a cross-language vectors file regenerated from a build
+    # is unstable by construction, and a byte-comparison between two releases
+    # can never be clean. Production leaves it unset and uses the wall clock.
+    ap.add_argument("--as-of", default=None,
+                    help="ISO instant to score prominence against (tests)")
     # …and it reaches the published `page_size` field, which the client
     # reads back when it re-paginates a merged index — so a nonsense value
     # is not a local oddity, it is a released one. 0 or a negative makes
@@ -2023,7 +2172,17 @@ def main() -> int:
 
     data_dir: Path = args.data_dir
     out_dir: Path = args.out
-    generated_at = now_iso()
+    if args.as_of is not None:
+        # ⚠️ VALIDATED, because an unparseable instant does not fail — it
+        # silently DISABLES decay and velocity for every story (`utc_instant`
+        # returns None on a naive timestamp) while the pages still publish
+        # `stale_ranking: false`. An unranked corpus at exit 0, under a
+        # timestamp that also replaced `generated_at` in every artifact.
+        if utc_instant(args.as_of) is None:
+            raise SystemExit(
+                "--as-of must be an ISO 8601 instant WITH an offset, e.g. "
+                f"2026-09-19T12:00:00+00:00 (got {args.as_of!r})")
+    generated_at = args.as_of or now_iso()
     verbose = not args.quiet
 
     # ---- reference data -----------------------------------------------------------
@@ -2607,6 +2766,15 @@ def main() -> int:
     # `story_sort_key` — the same key `write_story_pages` uses, so the two
     # files also stop disagreeing about the order of the same stories.
     stories.sort(key=story_sort_key, reverse=True)
+    # ⚠️ STAMPED ONCE, HERE, BEFORE ANY WRITER SEES THE LIST. `stories.json`,
+    # every `stories/<id>.json` detail file and both index families carry the
+    # same story objects, and the overlay derives ITS stories from the detail
+    # files — so scoring in any one writer leaves the others disagreeing about
+    # the same story, which is what a parity test catches and a reader would
+    # see as two rows of one list ranking differently.
+    build_as_of = utc_instant(generated_at)
+    stories = [{**s, "prominence": story_prominence(s, build_as_of)}
+               for s in stories]
     write_json(out_dir / "stories.json", {"generated_at": generated_at, "stories": stories})
     write_story_pages(out_dir, stories, generated_at, args.story_page_size)
 

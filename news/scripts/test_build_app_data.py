@@ -35,6 +35,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from news.eval_contract.canonical import (  # noqa: E402
     analysis_sha256, canonical_sha256, content_sha256)
 import build_app_data  # noqa: E402
+import build_app_data as bad  # noqa: E402
+from datetime import datetime, timedelta, timezone  # noqa: E402
 from build_app_data import (  # noqa: E402
     AXIS_POSITIONS, HOME_GZIP_BUDGET_BYTES, HOME_ITEM_LIMIT,
     HOME_STORY_FIELDS, HOME_STORY_LIMIT, TOPIC_MIN_POSITIONED, axis_spread,
@@ -169,6 +171,178 @@ def ensure_feedback_target_fixture(root: str, data_dir: str) -> None:
         encoding="utf-8")
     Path(locale_dir, "translation.json").write_text(
         json.dumps(sector_labels, ensure_ascii=False), encoding="utf-8")
+
+
+class StoryProminence(unittest.TestCase):
+    """Coverage momentum — observed, never claimed as popularity.
+
+    ⚠️ The home page ranked by `last_published` desc until now, with
+    `outlet_count` only as a tiebreak. Measured 2026-09-20: the build ran at
+    23:25 UTC and the feed was late-night foreign wire while the day's
+    most-covered domestic stories sat below the cut — the product's own
+    premise, comparing outlets, losing to whoever published last.
+    """
+
+    NOW = datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc)
+
+    def story(self, members):
+        return {"members": [{"domain": d, "published": p.isoformat()}
+                            for d, p in members]}
+
+    def at(self, hours):
+        return self.NOW - timedelta(hours=hours)
+
+    def test_breadth_beats_recency(self):
+        """The whole point: five newsrooms yesterday outrank one just now."""
+        broad = bad.story_prominence(self.story(
+            [(f"o{i}.bg", self.at(8)) for i in range(5)]), self.NOW)
+        fresh = bad.story_prominence(self.story(
+            [("one.bg", self.at(0))]), self.NOW)
+        self.assertGreater(broad["score"], fresh["score"])
+
+    def test_one_outlet_filing_repeatedly_is_not_breadth(self):
+        """⚠️ Article count is NOT a multiplier. Six updates from one newsroom
+        is not six newsrooms agreeing it matters, and rewarding it would rank
+        a liveblog above an event everyone covered."""
+        liveblog = bad.story_prominence(self.story(
+            [("one.bg", self.at(i)) for i in range(6)]), self.NOW)
+        two = bad.story_prominence(self.story(
+            [("a.bg", self.at(0)), ("b.bg", self.at(0))]), self.NOW)
+        self.assertEqual(liveblog["outlets"], 1)
+        self.assertEqual(liveblog["articles"], 6)
+        self.assertGreater(two["score"], liveblog["score"])
+
+    def test_an_outlet_is_counted_once_in_the_velocity_window(self):
+        repeated = bad.story_prominence(self.story(
+            [("a.bg", self.at(1)), ("a.bg", self.at(2)),
+             ("a.bg", self.at(3))]), self.NOW)
+        self.assertEqual(repeated["arriving"], 1)
+
+    def test_velocity_counts_only_the_preceding_window(self):
+        recent = bad.story_prominence(self.story(
+            [("a.bg", self.at(1)), ("b.bg", self.at(2))]), self.NOW)
+        old = bad.story_prominence(self.story(
+            [("a.bg", self.at(20)), ("b.bg", self.at(30))]), self.NOW)
+        self.assertEqual(recent["arriving"], 2)
+        self.assertEqual(old["arriving"], 0)
+
+    def test_decay_is_a_half_life(self):
+        # ⚠️ BOTH SIDES OUTSIDE THE 6-HOUR VELOCITY WINDOW, so this isolates
+        # decay. Comparing a just-published story with a day-old one measures
+        # decay AND the arrival boost at once, and neither cleanly.
+        earlier = bad.story_prominence(self.story(
+            [("a.bg", self.at(7)), ("b.bg", self.at(7))]), self.NOW)
+        later = bad.story_prominence(self.story(
+            [("a.bg", self.at(31)), ("b.bg", self.at(31))]), self.NOW)
+        self.assertEqual(earlier["arriving"], 0)
+        self.assertEqual(later["arriving"], 0)
+        self.assertAlmostEqual(later["score"], earlier["score"] / 2, places=6)
+
+    def test_arrival_lifts_a_story_over_an_equally_broad_older_one(self):
+        arriving = bad.story_prominence(self.story(
+            [("a.bg", self.at(1)), ("b.bg", self.at(2))]), self.NOW)
+        settled = bad.story_prominence(self.story(
+            [("a.bg", self.at(7)), ("b.bg", self.at(7))]), self.NOW)
+        self.assertEqual(arriving["outlets"], settled["outlets"])
+        self.assertGreater(arriving["score"], settled["score"])
+
+    def test_no_publication_time_means_no_recency_boost_and_says_so(self):
+        """⚠️ `fetched_at` is when WE saw it, not when it was published;
+        substituting one for the other presents crawl scheduling as news."""
+        undated = bad.story_prominence(
+            {"members": [{"domain": "a.bg"}, {"domain": "b.bg"}]}, self.NOW)
+        self.assertIs(undated["publication_time_known"], False)
+        self.assertIsNone(undated["age_hours"])
+        self.assertEqual(undated["outlets"], 2)
+
+    def test_the_clock_is_passed_in_never_read(self):
+        """A rank that moves between two rows of one page is not a ranking."""
+        story = self.story([("a.bg", self.at(3))])
+        first = bad.story_prominence(story, self.NOW)
+        second = bad.story_prominence(story, self.NOW)
+        self.assertEqual(first, second)
+
+    def test_a_story_with_no_members_scores_zero_without_raising(self):
+        empty = bad.story_prominence({"members": []}, self.NOW)
+        self.assertEqual(empty["outlets"], 0)
+        self.assertEqual(empty["score"], 0.0)
+
+
+class StoryIndexOrderings(unittest.TestCase):
+    def rows(self, tmp):
+        import json as _json
+        out = {}
+        for name in sorted(os.listdir(tmp / "stories")):
+            if name.startswith(("index-", "ranked-")):
+                with open(tmp / "stories" / name, encoding="utf-8") as fh:
+                    out[name] = _json.load(fh)
+        return out
+
+    def build(self, stories):
+        tmp = Path(tempfile.mkdtemp(prefix="story_pages_"))
+        bad.write_story_pages(tmp, stories, "2026-09-21T12:00:00+00:00",
+                              page_size=50)
+        return tmp
+
+    def story(self, sid, outlets, hours_ago, published="2026-09-21"):
+        when = (datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc)
+                - timedelta(hours=hours_ago)).isoformat()
+        return {"id": sid, "title_bg": sid, "last_published": when,
+                "members": [{"domain": f"{d}.bg", "published": when}
+                            for d in outlets]}
+
+    def test_both_orderings_hold_every_story(self):
+        """⚠️ A rank may reorder the feed; it may never remove a story from
+        it, or a reader following a link lands on a page that says the story
+        does not exist."""
+        stories = [self.story(f"s{i}", ["a", "b"][: 1 + i % 2], i)
+                   for i in range(30)]
+        pages = self.rows(self.build(stories))
+        for prefix in ("index-", "ranked-"):
+            ids = {r["id"] for name, doc in pages.items()
+                   if name.startswith(prefix) for r in doc["stories"]}
+            with self.subTest(prefix=prefix):
+                self.assertEqual(ids, {s["id"] for s in stories})
+
+    def test_the_ranked_tiebreak_is_newest_first(self):
+        """⚠️ Written as one tuple with `-score`, the date sorts ASCENDING and
+        the OLDEST story wins every tie.
+
+        ⚠️ AND THE FIXTURE MUST ACTUALLY TIE. The first version of this test
+        used stories 40 hours apart, which score 1.214 against 0.315 — no tie
+        exists, so the buggy single-tuple implementation its own docstring
+        names produces the same answer and the test passes against it.
+        """
+        stories = [self.story("old", ["a"], 3), self.story("new", ["a"], 3)]
+        scores = {s["id"]: bad.story_prominence(
+            s, datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc))["score"]
+            for s in stories}
+        self.assertEqual(len(set(scores.values())), 1,
+                         f"the fixture does not tie: {scores}")
+        # Same score, different publication instants: the newer must win.
+        stories[0]["last_published"] = "2026-09-20T09:00:00+00:00"
+        stories[1]["last_published"] = "2026-09-21T09:00:00+00:00"
+        pages = self.rows(self.build(stories))
+        ranked = pages["ranked-1.json"]["stories"]
+        self.assertEqual([r["id"] for r in ranked], ["new", "old"])
+
+    def test_the_ranked_tiebreak_falls_through_to_the_id(self):
+        """Two stories identical in score AND instant must still order
+        deterministically, or a page boundary moves between builds."""
+        stories = [self.story("zeta", ["a"], 3), self.story("alpha", ["a"], 3)]
+        for story in stories:
+            story["last_published"] = "2026-09-21T09:00:00+00:00"
+            for member in story["members"]:
+                member["published"] = "2026-09-21T09:00:00+00:00"
+        ranked = self.rows(self.build(stories))["ranked-1.json"]["stories"]
+        self.assertEqual([r["id"] for r in ranked], ["alpha", "zeta"])
+
+    def test_each_page_publishes_the_instant_it_was_ranked_against(self):
+        pages = self.rows(self.build([self.story("a", ["a"], 1)]))
+        for name, doc in pages.items():
+            with self.subTest(page=name):
+                self.assertEqual(doc["as_of"], "2026-09-21T12:00:00+00:00")
+                self.assertIn(doc["sort"], ("latest", "prominence"))
 
 
 class BuildAppDataFixture(unittest.TestCase):

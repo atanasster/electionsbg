@@ -62,6 +62,7 @@ from __future__ import annotations
 # five minutes later.
 from build_app_data import (
     FEED_OMIT, STORY_PAGE_SIZE, article_sort_key, story_index_row,
+    story_prominence, utc_instant,
     story_sort_key)
 
 OVERLAY_SCHEMA_VERSION = 1
@@ -259,8 +260,9 @@ def merge_stories_by_url(base: dict, stories: list, *, removed_ids=(),
 
 
 def merge_story_index(base_pages: list, index_rows: list, *, removed_ids=(),
-                      page_size: int, generated_at: str) -> list:
-    """`stories/index-N.json` — upsert, re-sort, re-paginate.
+                      page_size: int, generated_at: str,
+                      sort: str = "latest") -> list:
+    """`stories/index-N.json` / `ranked-N.json` — upsert, re-sort, re-paginate.
 
     ⚠️ THE PAGES ARE NOT INDEPENDENT AND CANNOT BE PATCHED ONE AT A TIME.
     The index is newest-first, so one story moving to the front shifts every
@@ -277,10 +279,34 @@ def merge_story_index(base_pages: list, index_rows: list, *, removed_ids=(),
     for page in base_pages:
         flat.extend(page.get("stories") or [])
     merged = upsert(flat, index_rows, key=_story_key, removed=removed_ids)
-    merged.sort(key=story_sort_key, reverse=True)
+    base_as_of = (base_pages[0].get("as_of") if base_pages else None) or generated_at
+    if sort == "prominence":
+        # ⚠️ THE ROWS' OWN STORED SCORES, AND THE BASE'S `as_of`. Prominence
+        # DECAYS with the instant it was computed against, so a correct
+        # re-ranking would have to re-score every row in the corpus — which is
+        # precisely the full rebuild an overlay exists to avoid. Upserting and
+        # removing keeps the ordering free of phantom and missing stories,
+        # which is the reachability rule; it does not pretend the ORDER is
+        # fresh. The page keeps the base's `as_of` and says `stale_ranking`, so
+        # a client can offer the new-results notice rather than silently
+        # showing a mixture of two snapshots as one ranking.
+        merged.sort(key=lambda r: r.get("id") or "")
+        merged.sort(key=lambda r: r.get("last_published") or "", reverse=True)
+        merged.sort(key=lambda r: (r.get("prominence") or {}).get("score", 0.0),
+                    reverse=True)
+        as_of, stale = base_as_of, bool(index_rows) or bool(removed_ids)
+    else:
+        merged.sort(key=story_sort_key, reverse=True)
+        # Newest-first does not decay, so the merged order IS current.
+        as_of, stale = generated_at, False
     pages = [merged[i:i + page_size]
              for i in range(0, len(merged), page_size)] or [[]]
     return [{"generated_at": generated_at,
+             "as_of": as_of,
+             "sort": sort,
+             "prominence_version": (base_pages[0].get("prominence_version")
+                                    if base_pages else None),
+             "stale_ranking": stale,
              "page": number, "pages": len(pages),
              "page_size": page_size, "total": len(merged),
              "stories": page}
@@ -350,11 +376,24 @@ def apply_overlay(base: dict, overlay: dict) -> dict:
             out["stories.json"], stories, removed_ids=removed_ids,
             generated_at=stamp_for("stories.json"))
 
-    base_pages = [out[p] for p in sorted(
-        (p for p in out if p.startswith("stories/index-")),
-        key=lambda p: int(p.rsplit("-", 1)[1][:-5]))]
-    if base_pages:
-        index_rows = [story_index_row(s) for s in stories]
+    # ⚠️ BOTH ORDERINGS, or the overlay leaves one of them listing stories the
+    # other has removed. `ranked-*` is scored against the base instant and says
+    # so; see `merge_story_index`.
+    for prefix, sort in (("stories/index-", "latest"),
+                         ("stories/ranked-", "prominence")):
+        base_pages = [out[p] for p in sorted(
+            (p for p in out if p.startswith(prefix)),
+            key=lambda p: int(p.rsplit("-", 1)[1][:-5]))]
+        if not base_pages:
+            continue
+        # The row's `as_of` must match the family it joins, so a ranked row
+        # carries the base's instant rather than this overlay's.
+        row_as_of = utc_instant(
+            base_pages[0].get("as_of") if sort == "prominence"
+            else stamp_for(f"{prefix}1.json"))
+        # The story objects already carry `prominence` — the builder stamps it
+        # once, before any writer — so the row projection copies it.
+        index_rows = [story_index_row(s, row_as_of) for s in stories]
         pages = merge_story_index(
             base_pages, index_rows, removed_ids=removed_ids,
             # The base's own page size, so a release built under a
@@ -363,11 +402,12 @@ def apply_overlay(base: dict, overlay: dict) -> dict:
             # somehow carries none. Never a count derived from the delta —
             # that makes the page boundary depend on how busy the hour was.
             page_size=base_pages[0].get("page_size") or STORY_PAGE_SIZE,
-            generated_at=stamp_for("stories/index-1.json"))
-        for path in [p for p in out if p.startswith("stories/index-")]:
+            generated_at=stamp_for(f"{prefix}1.json"),
+            sort=sort)
+        for path in [p for p in out if p.startswith(prefix)]:
             del out[path]
         for number, page in enumerate(pages, start=1):
-            out[f"stories/index-{number}.json"] = page
+            out[f"{prefix}{number}.json"] = page
 
     if "stories/by-url.json" in out:
         out["stories/by-url.json"] = merge_stories_by_url(
@@ -464,12 +504,35 @@ def diff_overlay(base: dict, full: dict, *, seq: int, base_run_id: str,
                 for path, payload in release.items()
                 if path.startswith("stories/")
                 and not path.startswith("stories/index-")
+                and not path.startswith("stories/ranked-")
                 and path != "stories/by-url.json"}
 
     base_details, full_details = details(base), details(full)
+    # ⚠️⚠️ COMPARED WITHOUT `prominence`, AND THIS IS NOT A TIDY-UP. That field
+    # is a DERIVED score that decays against the run clock, and a detail file's
+    # stamp is content-derived precisely so an unchanged story stays
+    # byte-identical between releases. Leave prominence in the comparison and
+    # every story looks changed on every run: measured on the fixture, nothing
+    # in the corpus edited and five minutes of wall clock shipped 3 of 3
+    # details (0 of 3 with the clock pinned). At production scale that is
+    # ~3,031 details / 11.0 MB against the 2 MB MAX_OVERLAY_BYTES ceiling —
+    # every hot publish refused, and every cold one re-uploading the corpus to
+    # convey nothing.
+    #
+    # A story whose CONTENT changed still ships, carrying whatever score it
+    # was built with; one whose score merely decayed does not, which is
+    # exactly the `stale_ranking` semantics the ranked pages already declare.
+    def without_prominence(payload):
+        story = payload.get("story") if isinstance(payload, dict) else None
+        if not isinstance(story, dict) or "prominence" not in story:
+            return payload
+        return {**payload,
+                "story": {k: v for k, v in story.items() if k != "prominence"}}
+
     changed_details = {story_id: payload
                        for story_id, payload in sorted(full_details.items())
-                       if base_details.get(story_id) != payload}
+                       if without_prominence(base_details.get(story_id))
+                       != without_prominence(payload)}
     removed_ids = sorted(set(base_details) - set(full_details))
 
     # ⚠️ THE TWO CASES A MERGE CANNOT COMPUTE, SHIPPED WHOLE INSTEAD.
@@ -489,7 +552,8 @@ def diff_overlay(base: dict, full: dict, *, seq: int, base_run_id: str,
     # singleton the builder STOPS writing must be dropped from the merged
     # release too, or a hot reader keeps a file the cold path has retired.
     for path in set(full) | set(base):
-        if path in MERGED_PATHS or path.startswith("stories/index-"):
+        if path in MERGED_PATHS or path.startswith(
+                ("stories/index-", "stories/ranked-")):
             if (path in base) != (path in full):
                 carry_whole.add(path)
 
@@ -545,7 +609,8 @@ def diff_overlay(base: dict, full: dict, *, seq: int, base_run_id: str,
         "merged_stamps": {
             path: full[path].get("generated_at")
             for path in sorted(RESTAMPED_PATHS | {
-                p for p in full if p.startswith("stories/index-")})
+                p for p in full
+                if p.startswith(("stories/index-", "stories/ranked-"))})
             if isinstance(full.get(path), dict)
             and isinstance(full[path].get("generated_at"), str)
         },

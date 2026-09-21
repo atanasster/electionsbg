@@ -48,6 +48,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import overlay_merge as om  # noqa: E402
 from test_build_app_data import BuildAppDataFixture  # noqa: E402
 
+BUILD_AS_OF = "2026-09-19T12:00:00+00:00"
 LATEST_LIMIT = 150
 
 
@@ -161,6 +162,12 @@ class EqualsFullRebuild(BuildAppDataFixture):
         self.out_dir = out
         if stamp_from is not None:
             extra = (*extra, "--stamp-from", str(stamp_from))
+        # ⚠️ THE CLOCK IS PINNED. Prominence decays against `as_of`, so a
+        # wall-clock build gives every story a different `age_hours` on every
+        # run — which makes the committed cross-language vectors unstable and
+        # any two-release byte comparison meaningless.
+        if not any(str(x) == "--as-of" for x in extra):
+            extra = (*extra, "--as-of", BUILD_AS_OF)
         self.run_build("--latest", str(latest_limit), *extra)
         return read_release(out)
 
@@ -252,7 +259,84 @@ class EqualsFullRebuild(BuildAppDataFixture):
         self.assertEqual(sorted(merged), sorted(full),
                          "the merge invented or dropped a published path")
         for path in sorted(full):
+            if path.startswith("stories/ranked-"):
+                # ⚠️ DELIBERATELY NOT BYTE-EQUAL, and the divergence is the
+                # design. Prominence DECAYS with the instant it was scored
+                # against, so an overlay that re-ranked would have to re-score
+                # the whole corpus — the full rebuild it exists to avoid. It
+                # keeps the base's `as_of`, marks `stale_ranking`, and is
+                # checked below for the properties that DO have to hold.
+                self.assert_ranked_divergence(merged[path], full[path], path)
+                continue
             self.assertEqual(merged[path], full[path], path)
+
+    def assert_release_matches(self, merged, full, why=""):
+        """Whole-release equality, with the ranked pages' intended lag."""
+        self.assertEqual(sorted(merged), sorted(full), why)
+        for path in sorted(full):
+            if path.startswith("stories/ranked-"):
+                self.assert_ranked_divergence(merged[path], full[path], path)
+                continue
+            self.assertEqual(merged[path], full[path], f"{path} {why}")
+
+    def assert_ranked_divergence(self, merged_page, full_page, path):
+        """The ranked page may lag; it may not lie about WHICH stories exist."""
+        self.assertEqual({r["id"] for r in merged_page["stories"]},
+                         {r["id"] for r in full_page["stories"]}, path)
+        self.assertEqual(merged_page["total"], full_page["total"], path)
+        self.assertEqual(merged_page["pages"], full_page["pages"], path)
+        self.assertIs(full_page["stale_ranking"], False, path)
+        self.assertEqual(full_page["as_of"], full_page["generated_at"], path)
+        # The merged page is honest about being scored earlier.
+        self.assertTrue(merged_page["stale_ranking"], path)
+        # ⚠️ NEVER NEWER THAN THE REBUILD — `assertLess` would be wrong, and
+        # was: with the fixture clock pinned both builds share one instant, so
+        # the merge legitimately equals it. What must never happen is a merged
+        # page claiming a FRESHER ranking than it computed.
+        self.assertLessEqual(merged_page["as_of"], full_page["as_of"], path)
+
+    def test_a_clock_that_moved_alone_ships_nothing(self):
+        """⚠️ THE DEFECT THIS SUITE WAS BLIND TO, and it broke the hot path.
+
+        A detail file's stamp is content-derived so an unchanged story stays
+        byte-identical between releases. `prominence` decays against the run
+        clock, so leaving it in the comparison makes EVERY story look changed:
+        measured on this fixture, nothing edited and five minutes of wall
+        clock shipped 3 of 3 details. At production scale that is ~3,031
+        details / 11.0 MB against the 2 MB overlay ceiling — every hot publish
+        refused, every cold one re-uploading the corpus to convey nothing.
+
+        Every other test here pins ONE `--as-of` for both builds, which is
+        exactly why none of them could see it.
+        """
+        self.seed_base()
+        base = self.build_into()
+        base_dir = self.out_dir
+        # Same corpus, later clock. Nothing about any story has changed.
+        later = self.build_into("--as-of", "2026-09-19T12:05:00+00:00",
+                                stamp_from=base_dir)
+        overlay = om.diff_overlay(base, later, seq=1, base_run_id="RUN-BASE",
+                                  generated_at="2026-09-19T12:05:00Z",
+                                  latest_limit=LATEST_LIMIT)
+        self.assertEqual(overlay["story_details"], {},
+                         "a clock that moved alone shipped story details")
+
+    def test_a_story_whose_content_changed_still_ships(self):
+        """The guard must not become „never ship a detail"."""
+        self.seed_base()
+        base = self.build_into()
+        base_dir = self.out_dir
+        self.write_corpus("a.bg", "one.json",
+                          self.article("a.bg", "one",
+                                       published="2026-09-10T09:00:00+00:00",
+                                       title="Различно заглавие"))
+        changed = self.build_into(stamp_from=base_dir)
+        overlay = om.diff_overlay(base, changed, seq=1,
+                                  base_run_id="RUN-BASE",
+                                  generated_at="2026-09-19T12:00:00Z",
+                                  latest_limit=LATEST_LIMIT)
+        self.assertTrue(overlay["story_details"],
+                        "a real content change shipped nothing")
 
     def test_the_overlay_is_a_small_fraction_of_the_release(self):
         # ⚠️ Not a performance nicety — it is the ENTIRE justification. If
@@ -302,9 +386,10 @@ class EqualsFullRebuild(BuildAppDataFixture):
         overlay = om.diff_overlay(base, full, seq=1, base_run_id="RUN-BASE",
                                   generated_at="2026-09-19T12:00:00Z",
                                   latest_limit=LATEST_LIMIT)
-        self.assertEqual(om.apply_overlay(base, overlay), full,
-                         "the unmutated merge must agree before any mutation "
-                         "of it means anything")
+        self.assert_release_matches(
+            om.apply_overlay(base, overlay), full,
+            "the unmutated merge must agree before any mutation of it means "
+            "anything")
         empty = {"articles": {}, "story_details": {}, "bundle_envelopes": {},
                  "replaced_paths": {}, "home": None}
         for arm, blank in empty.items():
@@ -313,8 +398,15 @@ class EqualsFullRebuild(BuildAppDataFixture):
                                 f"the fixture exercises no {arm} — the "
                                 f"mutation below would pass for free")
                 merged = om.apply_overlay(base, {**overlay, arm: blank})
+                # ⚠️ COMPARED WITHOUT THE RANKED PAGES. Those lag by design,
+                # so a whole-dict inequality here would be satisfied by the
+                # lag alone and the mutation would pass for free — the exact
+                # vacuity this test exists to prevent.
+                def without_ranked(release):
+                    return {k: v for k, v in release.items()
+                            if not k.startswith("stories/ranked-")}
                 self.assertNotEqual(
-                    merged, full,
+                    without_ranked(merged), without_ranked(full),
                     f"emptying `{arm}` did not break the merge — the "
                     f"equality assertion does not cover it")
 
@@ -364,6 +456,9 @@ class Removals(EqualsFullRebuild):
         merged = om.apply_overlay(base, overlay)
         self.assertEqual(sorted(merged), sorted(full))
         for path in sorted(full):
+            if path.startswith("stories/ranked-"):
+                self.assert_ranked_divergence(merged[path], full[path], path)
+                continue
             self.assertEqual(merged[path], full[path], path)
 
     def test_a_removed_story_loses_its_detail_page_and_its_index_row(self):
@@ -380,6 +475,9 @@ class Removals(EqualsFullRebuild):
         merged = om.apply_overlay(base, overlay)
         self.assertEqual(sorted(merged), sorted(full))
         for path in sorted(full):
+            if path.startswith("stories/ranked-"):
+                self.assert_ranked_divergence(merged[path], full[path], path)
+                continue
             self.assertEqual(merged[path], full[path], path)
 
     def test_the_feed_refills_its_truncation_boundary(self):
@@ -451,6 +549,9 @@ class Removals(EqualsFullRebuild):
                     latest_limit=LATEST_LIMIT)
                 merged = om.apply_overlay(crippled, overlay)
                 self.assertIn(path, merged)
+                if path.startswith("stories/ranked-"):
+                    self.assert_ranked_divergence(merged[path], full[path], path)
+                    continue
                 self.assertEqual(merged[path], full[path])
 
     def test_a_multi_page_index_repaginates_against_a_real_rebuild(self):
@@ -488,6 +589,9 @@ class Removals(EqualsFullRebuild):
         merged = om.apply_overlay(base, overlay)
         self.assertEqual(sorted(merged), sorted(full))
         for path in sorted(full):
+            if path.startswith("stories/ranked-"):
+                self.assert_ranked_divergence(merged[path], full[path], path)
+                continue
             self.assertEqual(merged[path], full[path], path)
 
 

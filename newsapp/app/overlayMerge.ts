@@ -21,7 +21,8 @@
  * The publisher holds a whole release; a browser holds whatever it has
  * fetched. Two consequences are load-bearing:
  *
- *   1. `stories/index-N.json` is NOT merged here. The index is a
+ *   1. `stories/index-N.json` and `stories/ranked-N.json` are NOT merged
+ *      here. The index is a
  *      newest-first pagination over the whole corpus, so one story moving
  *      to the front shifts every page after it — a page merged in
  *      isolation duplicates or drops stories at its own boundary, and its
@@ -344,6 +345,13 @@ export const storyIndexRow = (story: Payload): Payload => {
     "first_published",
     "last_published",
     "blindspot",
+    // ⚠️ COPIED, NEVER COMPUTED HERE. Prominence decays with the instant it
+    // was scored against, so a second implementation in another language
+    // would drift the moment either clock or constant moved — and the
+    // symptom would be two rows of one list disagreeing about one story.
+    // `build_app_data` stamps it onto the story object the detail file
+    // carries, which is exactly the object an overlay ships.
+    "prominence",
   ]) {
     if (field in story) row[field] = story[field];
   }
@@ -393,7 +401,11 @@ export const STORY_ID_SAFE = /^[A-Za-z0-9_-]{1,120}$/;
 const STORY_DETAIL = new RegExp(
   `^/stories/(${STORY_ID_SAFE.source.slice(1, -1)})\\.json$`,
 );
-const STORY_INDEX_PAGE = /^\/stories\/index-\d+\.json$/;
+// ⚠️ BOTH ORDERINGS. `ranked-N` is the same pagination over the same corpus,
+// ordered by prominence instead of recency, so it is meaningful only beside
+// its neighbours for exactly the reason below — and its rank decays with the
+// instant it was scored against, which a client cannot recompute at all.
+const STORY_INDEX_PAGE = /^\/stories\/(?:index|ranked)-\d+\.json$/;
 const ARTICLES_BUNDLE = /^\/articles\/(.+)\.json$/;
 
 /**
@@ -417,7 +429,8 @@ export class OverlayRemovedPath extends Error {}
  * it — a retired path is a miss, not an error, and the caller treats it as
  * the 404 the next cold tree will give.
  *
- * ⚠️ `stories/index-N.json` is ALWAYS returned unchanged, ahead of every
+ * ⚠️ `stories/index-N.json` and `stories/ranked-N.json` are ALWAYS returned
+ * unchanged, ahead of every
  * other arm including `replaced_paths`. The index is a pagination over the
  * whole corpus, so a page is only meaningful beside its neighbours: the
  * overlay legitimately carries whole index pages when the page COUNT

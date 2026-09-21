@@ -23,6 +23,50 @@ describe("news performance budget", () => {
     ).toThrow(/jsGzip[\s\S]*homeJsonGzip/);
   });
 
+  it("takes the MAXIMUM page, not the first, across both orderings", () => {
+    // ⚠️ Page 1 is not the worst page — which is how a 200-row size came to
+    // look safe while most pages were over. A ranked page must count too: a
+    // second ordering doubles the surface a reader can land on.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-pages-"));
+    fs.mkdirSync(path.join(root, "assets"));
+    fs.mkdirSync(path.join(root, "news-data", "stories"), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "index.html"),
+      '<link rel="stylesheet" href="/assets/entry.css"><script type="module" src="/assets/entry.js"></script>',
+    );
+    for (const file of ["assets/entry.css", "assets/entry.js"])
+      fs.writeFileSync(path.join(root, file), file);
+    fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
+    const stories = path.join(root, "news-data", "stories");
+    fs.writeFileSync(path.join(stories, "index-1.json"), "small");
+    fs.writeFileSync(path.join(stories, "index-2.json"), "x".repeat(200_000));
+    const viaIndex = inspectNewsBuild(root).storyIndexPageGzip;
+    fs.rmSync(path.join(stories, "index-2.json"));
+    fs.writeFileSync(path.join(stories, "ranked-9.json"), "y".repeat(200_000));
+    const viaRanked = inspectNewsBuild(root).storyIndexPageGzip;
+    const onlyFirst = (() => {
+      fs.rmSync(path.join(stories, "ranked-9.json"));
+      return inspectNewsBuild(root).storyIndexPageGzip;
+    })();
+    expect(viaIndex).toBeGreaterThan(onlyFirst);
+    expect(viaRanked).toBeGreaterThan(onlyFirst);
+  });
+
+  it("refuses a build that emitted no story pages", () => {
+    // A maximum over nothing is zero, which would pass every budget.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-empty-"));
+    fs.mkdirSync(path.join(root, "assets"));
+    fs.mkdirSync(path.join(root, "news-data"), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "index.html"),
+      '<link rel="stylesheet" href="/assets/entry.css"><script type="module" src="/assets/entry.js"></script>',
+    );
+    for (const file of ["assets/entry.css", "assets/entry.js"])
+      fs.writeFileSync(path.join(root, file), file);
+    fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
+    expect(() => inspectNewsBuild(root)).toThrow(/index-1\.json/);
+  });
+
   it("measures only HTML entry assets and ignores async chunks", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-"));
     fs.mkdirSync(path.join(root, "assets"));
@@ -31,11 +75,13 @@ describe("news performance budget", () => {
       path.join(root, "index.html"),
       '<link rel="stylesheet" href="/assets/entry.css"><script type="module" src="/assets/entry.js"></script>',
     );
+    fs.mkdirSync(path.join(root, "news-data", "stories"));
     for (const file of [
       "assets/entry.css",
       "assets/entry.js",
       "assets/async.js",
       "news-data/home.json",
+      "news-data/stories/index-1.json",
     ])
       fs.writeFileSync(path.join(root, file), file.repeat(10));
     expect(inspectNewsBuild(root)).toEqual({
@@ -43,6 +89,7 @@ describe("news performance budget", () => {
       cssGzip: expect.any(Number),
       jsGzip: expect.any(Number),
       homeJsonGzip: expect.any(Number),
+      storyIndexPageGzip: expect.any(Number),
     });
     fs.writeFileSync(
       path.join(root, "index.html"),

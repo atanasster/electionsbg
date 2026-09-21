@@ -19,6 +19,20 @@ export const BUDGETS = {
   cssGzip: 30_000,
   jsGzip: 140_000,
   homeJsonGzip: 33 * 1024,
+  /**
+   * The MAXIMUM over every emitted story index page, not the first one.
+   *
+   * ⚠️ PAGE 1 IS NOT THE WORST PAGE, and checking it alone is how a 200-row
+   * size came to look safe. Measured 2026-09-21 once each row carried its
+   * `prominence` block: `index-1` gzipped to 54,198 bytes while the worst
+   * page reached 58,064 — a first-page check passes while most pages fail.
+   * At `STORY_PAGE_SIZE = 150` the worst page is 43,982.
+   *
+   * ⚠️ IT COVERS BOTH ORDERINGS (`index-*` latest, `ranked-*` prominence),
+   * because a second ordering doubles the pages a reader can land on and a
+   * budget that saw only one of them would be measuring half the surface.
+   */
+  storyIndexPageGzip: 50 * 1024,
 } as const;
 
 export const gzipBytes = (file: string): number => {
@@ -88,11 +102,24 @@ export const inspectNewsBuild = (root = path.resolve("dist-news")) => {
   for (const file of [files.html, ...files.css, ...files.js, files.homeJson])
     if (!fs.existsSync(file))
       throw new Error(`missing production artifact: ${file}`);
+  const storyDir = path.join(root, "news-data", "stories");
+  const pages = fs.existsSync(storyDir)
+    ? fs
+        .readdirSync(storyDir)
+        .filter((name) => /^(index|ranked)-\d+\.json$/.test(name))
+        .map((name) => path.join(storyDir, name))
+    : [];
+  // ⚠️ AN ABSENT INDEX IS A FAILURE, not a pass. A build that emitted no
+  // pages would otherwise satisfy a maximum-over-nothing of zero — the
+  // vacuous-green shape this suite exists to avoid.
+  if (pages.length === 0)
+    throw new Error(`missing production artifact: ${storyDir}/index-1.json`);
   return {
     htmlGzip: gzipBytes(files.html),
     cssGzip: files.css.reduce((sum, file) => sum + gzipBytes(file), 0),
     jsGzip: files.js.reduce((sum, file) => sum + gzipBytes(file), 0),
     homeJsonGzip: gzipBytes(files.homeJson),
+    storyIndexPageGzip: Math.max(...pages.map(gzipBytes)),
   };
 };
 
