@@ -44,13 +44,19 @@ const canonicalSha256 = (value: unknown): string =>
   `sha256:${createHash("sha256").update(canonicalJson(value), "utf8").digest("hex")}`;
 
 describe("about hub contract", () => {
-  it("has its own indexable transparency-page metadata", () => {
-    const about = HUB_ROUTES.find((route) => route.path === "about");
-    expect(about).toMatchObject({
-      title: "За редакцията | Наясно Новини",
-    });
-    expect(about?.description).toContain("редакционните принципи");
-    expect(about?.noindex).not.toBe(true);
+  it("has NO page of its own; the about link is the main site's", () => {
+    // ⚠️ RETIRED (2026-09-21), not lost. This app's /about opened with „part
+    // of electionsbg.com" and then restated the project's identity in a
+    // second voice; the footer now points at naiasno.bg/about. Everything on
+    // it specific to THIS corpus — what we publish, who is responsible, the
+    // editorial principles, the ownership disclosure, right of reply — is on
+    // /methodology, which keeps its own indexable route below.
+    expect(HUB_ROUTES.find((route) => route.path === "about")).toBeUndefined();
+    const methodology = HUB_ROUTES.find(
+      (route) => route.path === "methodology",
+    );
+    expect(methodology?.noindex).not.toBe(true);
+    expect(methodology?.sitemap).not.toBe(false);
   });
 });
 

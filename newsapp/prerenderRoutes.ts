@@ -77,15 +77,6 @@ export const HUB_ROUTES: PrerenderRoute[] = [
       "What we measure, how we measure it, and what this corpus does not cover. Every article is rated separately with supporting evidence.",
   },
   {
-    path: "about",
-    title: "За редакцията | Наясно Новини",
-    description:
-      "Мисията, редакционните принципи и отговорността зад Наясно Новини — проект за сравнение на българското медийно отразяване.",
-    titleEn: "About the newsroom | Naiasno News",
-    descriptionEn:
-      "The mission, editorial principles, and responsibility behind Naiasno News, a project comparing Bulgarian media coverage.",
-  },
-  {
     path: "corrections",
     title: "Поправки и право на отговор | Наясно Новини",
     description:

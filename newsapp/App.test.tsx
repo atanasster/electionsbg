@@ -25,9 +25,10 @@ describe("news shell accessibility", () => {
     expect(screen.getByRole("link", { name: "Към историите" })).toHaveClass(
       "underline",
     );
+    // ⚠️ THE MAIN SITE, cross-origin — this app no longer has an /about.
     expect(screen.getByRole("link", { name: "за редакцията" })).toHaveAttribute(
       "href",
-      "/about",
+      "https://naiasno.bg/about",
     );
     expect(screen.getByRole("link", { name: "поправки" })).toHaveAttribute(
       "href",

@@ -16,6 +16,7 @@
 //      this is the one page where a stale claim is a credibility failure
 //      rather than a cosmetic one.
 
+import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -33,6 +34,7 @@ import {
   FUNDING_TRANSPARENCY_COVERAGE,
   retirementReason,
 } from "../sourceTransparency";
+import { RIGHT_OF_REPLY_POLICY } from "../corrections";
 
 const Figure = ({ value, label }: { value: string; label: string }) => (
   <div>
@@ -417,6 +419,84 @@ export const MethodologyScreen = () => {
         </p>
       </Section>
 
+      {/* ⚠️ MOVED HERE FROM THE RETIRED /about PAGE (2026-09-21), not
+          rewritten. „За редакцията" now points at naiasno.bg/about — the
+          project's own page — and everything below is specific to THIS
+          corpus, so it would have been lost in the redirect. The ownership
+          paragraph in particular is a dated transparency disclosure: it is
+          the one thing on this page that must never quietly disappear. */}
+      <Section id="editorial" title="Какво публикуваме">
+        <p>
+          Събираме публично достъпни статии, групираме материалите за едно
+          събитие и показваме заглавията, източниците и анализа им един до друг.
+          Началната страница показва само анализирани истории, за които
+          избраното изображение има проверено основание за повторна употреба.
+        </p>
+      </Section>
+
+      <Section title="Кой носи отговорност">
+        <p>
+          Първоначалните оценки се създават автоматично по публикувана рубрика.
+          Приета редакционна проверка може да потвърди, замени, оттегли или
+          изпрати за нова проверка само означените полета. Източникът на всяко
+          показано поле, моделът и датата на анализа се публикуват при статията,
+          а редакционната отговорност остава при екипа на „Наясно“.
+        </p>
+      </Section>
+
+      <Section title="Редакционни принципи">
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Оценяваме отделния материал, не поставяме етикет на цяла медия.
+          </li>
+          <li>
+            Показваме обосновката до оценката; необработената увереност на
+            модела е техническа подробност с изрично ограничение, не вероятност
+            за истинност.
+          </li>
+          <li>Не представяме липсващ анализ като неутрална оценка.</li>
+          <li>Водим читателя към оригиналната публикация и нейния издател.</li>
+        </ul>
+      </Section>
+
+      <Section title="Собственост и финансиране">
+        <p>
+          Проектът се поддържа от Мартин Стоянов и Атанас Стоянов. Към 28 август
+          2026 г. не е публикувана проверена декларация за юридически
+          собственик, източници на финансиране, реклама, спонсорство или
+          потенциални конфликти на интереси. Докато такава декларация липсва, не
+          твърдим институционална или финансова независимост.
+        </p>
+      </Section>
+
+      <Section title="Поправки и право на отговор">
+        <p>
+          Читател, автор или издание може да оспори фактическа грешка, погрешно
+          свързана статия, нарушение на права за изображение или аналитична
+          оценка. Посочете точния адрес и проверими основания. Екипът преглежда
+          сигнала; потвърдена грешка се поправя или материалът се оттегля, а
+          промяната се отбелязва с дата. Общата обратна връзка се разглежда като
+          сигнал, но сама по себе си не е право на отговор.{" "}
+          {RIGHT_OF_REPLY_POLICY} Не обещаваме срок, който не можем надеждно да
+          спазим.
+        </p>
+        <p className="text-muted-foreground">
+          В момента има само публичен GitHub канал и няма частен канал за
+          чувствителни доказателства. Това е ограничение на текущия процес.
+        </p>
+        <p className="flex flex-wrap gap-3 font-medium">
+          <Link to="/corrections" className="text-primary hover:underline">
+            Процес и публичен регистър
+          </Link>
+          <a
+            href="https://github.com/atanasster/electionsbg/issues"
+            className="text-primary hover:underline"
+          >
+            Отвори сигнал в GitHub <span aria-hidden>↗</span>
+          </a>
+        </p>
+      </Section>
+
       <p className="mt-8 text-xs text-muted-foreground">
         Таксономия v{s.taxonomy_version} · последно обновяване{" "}
         {formatDate(s.generated_at)}
@@ -643,6 +723,78 @@ const EnglishMethodology = ({
       <p className="text-muted-foreground">
         <strong>This evaluation has not been completed yet.</strong> Until the
         table exists, the page states that it is unavailable.
+      </p>
+    </Section>
+
+    {/* See the Bulgarian note: moved here from the retired /about page. */}
+    <Section id="editorial" title="What we publish">
+      <p>
+        We collect publicly available articles, group coverage of the same
+        event, and compare headlines, sources, and analysis. The home page shows
+        only analyzed stories whose selected image has a verified basis for
+        reuse.
+      </p>
+    </Section>
+
+    <Section title="Editorial responsibility">
+      <p>
+        Initial assessments are generated automatically using a published
+        rubric. An accepted editorial review may confirm, replace, withdraw, or
+        send only marked fields for revalidation. Each displayed field names its
+        source, and the model and analysis date appear with the article;
+        editorial responsibility remains with the Naiasno team.
+      </p>
+    </Section>
+
+    <Section title="Editorial principles">
+      <ul className="list-disc space-y-2 pl-5">
+        <li>We rate individual articles, not entire media outlets.</li>
+        <li>
+          We show rationale beside the assessment; raw model confidence is a
+          caveated technical detail, not a probability of truth.
+        </li>
+        <li>We never present missing analysis as a neutral rating.</li>
+        <li>We direct readers to the original publication and publisher.</li>
+      </ul>
+    </Section>
+
+    <Section title="Ownership and funding">
+      <p>
+        The project is maintained by Martin Stoyanov and Atanas Stoyanov. As of
+        28 August 2026, no verified disclosure of legal ownership, funding
+        sources, advertising, sponsorship, or potential conflicts of interest
+        has been published. Until such a disclosure exists, we do not claim
+        institutional or financial independence.
+      </p>
+    </Section>
+
+    <Section title="Corrections and right of reply">
+      <p>
+        A reader, author, or publisher may challenge a factual error, an
+        incorrectly linked article, an image-rights issue, or an analytical
+        rating. Include the exact URL and verifiable grounds. The team reviews
+        the report; confirmed errors are corrected or withdrawn, and the change
+        is dated. General feedback is reviewed as a report but does not by
+        itself constitute a right of reply. A right-of-reply request must
+        identify the affected person or organization, the disputed claim, and a
+        factual response intended for publication. We do not promise a deadline
+        we cannot reliably meet.
+      </p>
+      <p className="text-muted-foreground">
+        Only a public GitHub channel is currently available; there is no private
+        channel for sensitive evidence. This is a limitation of the current
+        process.
+      </p>
+      <p className="flex flex-wrap gap-3 font-medium">
+        <Link to="/corrections" className="text-primary hover:underline">
+          Process and public register
+        </Link>
+        <a
+          href="https://github.com/atanasster/electionsbg/issues"
+          className="text-primary hover:underline"
+        >
+          Open a GitHub issue <span aria-hidden>↗</span>
+        </a>
       </p>
     </Section>
 

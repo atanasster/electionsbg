@@ -22,7 +22,7 @@ import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
 import { SHELL_MAIN } from "./app/shell";
-import { MAIN_SITE_LABEL, mainSiteHome } from "./app/site";
+import { MAIN_SITE, MAIN_SITE_LABEL, mainSiteHome } from "./app/site";
 import {
   NewsLocaleProvider,
   newsPathForLanguage,
@@ -68,10 +68,6 @@ const ArticleScreen = lazyScreen(
 const MethodologyScreen = lazyScreen(
   () => import("./app/screens/MethodologyScreen"),
   "MethodologyScreen",
-);
-const AboutScreen = lazyScreen(
-  () => import("./app/screens/AboutScreen"),
-  "AboutScreen",
 );
 const CorrectionsScreen = lazyScreen(
   () => import("./app/screens/CorrectionsScreen"),
@@ -207,7 +203,13 @@ const NewsAppShell = () => {
       label: MAIN_SITE_LABEL,
     },
     {
-      href: "/about",
+      // ⚠️ THE MAIN SITE'S OWN PAGE, cross-origin. The news app had its own
+      // /about, which said „part of electionsbg.com" and then repeated the
+      // project's identity in a second voice. Everything on it that was
+      // specific to THIS corpus — what we publish, who is responsible, the
+      // editorial principles, the ownership disclosure, right of reply —
+      // moved to /methodology rather than being dropped with the page.
+      href: `${MAIN_SITE}${language === "en" ? "/en" : ""}/about`,
       label: tr("за редакцията", "about"),
     },
     {
@@ -351,7 +353,6 @@ const NewsAppShell = () => {
             <Route path="/topics" element={<TopicsScreen />} />
             <Route path="/article/:domain/:id" element={<ArticleScreen />} />
             <Route path="/methodology" element={<MethodologyScreen />} />
-            <Route path="/about" element={<AboutScreen />} />
             <Route path="/corrections" element={<CorrectionsScreen />} />
             <Route
               path="/evals"

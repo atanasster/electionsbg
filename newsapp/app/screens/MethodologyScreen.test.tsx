@@ -7,6 +7,7 @@
 // that has gone stale, is a credibility failure rather than a cosmetic one.
 
 import { render, screen, waitFor, within } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 // ⚠️ No static import of the screen: each render re-imports it AFTER
 // vi.doMock, so the data hooks are stubbed. A top-level import would be
@@ -78,7 +79,11 @@ const renderPage = async (
   vi.resetModules();
   mockData(s, outlets, error);
   const { MethodologyScreen: Screen } = await import("./MethodologyScreen");
-  render(<Screen />);
+  render(
+    <MemoryRouter>
+      <Screen />
+    </MemoryRouter>,
+  );
 };
 
 describe("the limitations block", () => {
@@ -152,7 +157,11 @@ describe("the limitations block", () => {
       }),
     }));
     const { MethodologyScreen: Screen } = await import("./MethodologyScreen");
-    render(<Screen />);
+    render(
+      <MemoryRouter>
+        <Screen />
+      </MemoryRouter>,
+    );
     expect(
       await screen.findByText(/Списъкът с източници не се зареди/),
     ).toBeVisible();
