@@ -592,6 +592,26 @@ const missingMigrationLogged = (label, sentinel, loader) => (e) => {
 // renders no section at all rather than a zero-valued one — the absent/zero distinction this
 // repo insists on everywhere else. And the key is `co:`, not the `ir:` (Interreg) prefix the
 // helper above uses, so an operator grepping the company family can actually find it.
+// A NEW function's degrade, where `42883` is the EXPECTED transient rather than an emergency.
+//
+// ⚠️ THIS IS THE OPPOSITE CALL FROM `missingRelationLogged` BELOW, AND THE DIFFERENCE IS THE
+// AGE OF THE FUNCTION. There, a 42883 means `company_procurement` — shipped in 011, present on
+// every database for years — has vanished, which can only be a catastrophic mis-deploy and must
+// stay a loud 500. Here it means migration 200 has not been applied YET, which is the ordinary
+// state of every database between `deploy:db` and the operator running `apply_functions.ts`
+// (no loader applies 200). Degrading to a `null` payload costs a block that did not exist
+// before; refusing to degrade would 500 every /person and /company page instead.
+//
+// The block self-suppresses on a null payload, so the reader sees what they saw yesterday.
+const newFunctionMissing = (label, sentinel, loader) => (e) => {
+  if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
+  logMissOnce(
+    `co:not-applied:${label}:${e.code}`,
+    `${label}: read failed (${e.code}) — migration not applied on this database, so the block is not served. Run ${loader}.`,
+  );
+  return [{ r: sentinel }];
+};
+
 const missingRelationLogged = (label, sentinel, loader) => (e) => {
   if (e?.code !== "42P01") return Promise.reject(e);
   logMissOnce(
@@ -947,6 +967,7 @@ const DB_ROUTES = {
     const [
       roles,
       politicians,
+      officeLinks,
       procurement,
       cabinets,
       associates,
@@ -955,6 +976,17 @@ const DB_ROUTES = {
     ] = await Promise.all([
       dbRows("SELECT * FROM person_roles($1)", [name]),
       dbRows("SELECT * FROM person_politicians($1)", [name]),
+      // The REGISTRY basis for the same block (200). `person_politicians` above reads
+      // `company_politicians`, which is procurement-derived and therefore silent about any
+      // shared company that never won public money — the structural zero this answers. See
+      // 200_person_office_links.sql for why it cannot read `person_role` instead.
+      dbRows("SELECT person_office_links($1) AS r", [name]).catch(
+        newFunctionMissing(
+          "person_office_links",
+          null,
+          "npx tsx scripts/db/apply_functions.ts 200_person_office_links.sql",
+        ),
+      ),
       // ⚠️ DEGRADES for the same reason as `company_procurement` below — 024 reads
       // `procurement_annexes` (114) for a member's carrier annex trail, and 024 rides
       // `db:load:tr:pg` while 114 rides `db:load:annexes:pg`. 42P01 at CALL time, inside a
@@ -991,6 +1023,7 @@ const DB_ROUTES = {
         name,
         roles,
         politicians,
+        officeLinks: officeLinks[0]?.r ?? null,
         procurement: procurement[0]?.r ?? null,
         cabinets,
         associates,
@@ -1231,6 +1264,7 @@ const DB_ROUTES = {
       summary,
       officers,
       politicians,
+      officeLinks,
       procurement,
       cabinets,
       debarred,
@@ -1324,6 +1358,17 @@ const DB_ROUTES = {
       dbRows(
         "SELECT politician, ref, kind, role, relations, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST LIMIT 200",
         [eik],
+      ),
+      // The INDIRECT registry arm (200): this company's people → their other companies →
+      // office-holders there. The DIRECT question is already answered by `officers` above,
+      // and for a company with no office-holder of its own that answer is honestly 0 — which
+      // is what made МЛГ ЕООД read as unconnected while sitting one hop from a sitting MP.
+      dbRows("SELECT company_office_links($1) AS r", [eik]).catch(
+        newFunctionMissing(
+          "company_office_links",
+          null,
+          "npx tsx scripts/db/apply_functions.ts 200_person_office_links.sql",
+        ),
       ),
       // ⚠️ DEGRADES, and the reason is a dependency 011's own appliers do not ship.
       // `company_procurement` reads `procurement_annexes` (114) for the carrier annex trail
@@ -1577,6 +1622,7 @@ const DB_ROUTES = {
         summary: summary[0] ?? null,
         officers,
         politicians,
+        officeLinks: officeLinks[0]?.r ?? null,
         procurement: procurement[0]?.r ?? null,
         cabinets,
         debarred,

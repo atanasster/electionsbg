@@ -49,6 +49,10 @@ import {
   ConsortiumParticipationTile,
   type ConsortiumContract,
 } from "../components/procurement/ConsortiumParticipationTile";
+import {
+  OfficeLinksBlock,
+  type OfficeLinksPayload,
+} from "../components/procurement/OfficeLinksBlock";
 import { CompanyTopContractsTile } from "../components/procurement/CompanyTopContractsTile";
 import { CompanyTopAwardersTile } from "../components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "../components/procurement/CompanyByYearChart";
@@ -364,6 +368,11 @@ export const PersonScreen: FC = () => {
 
   const [roles, setRoles] = useState<RoleRow[]>([]);
   const [politicians, setPoliticians] = useState<PoliticianRow[]>([]);
+  // The REGISTRY basis for the same question (migration 200). NULL when 200 is not applied
+  // on the serving database — the block then self-suppresses rather than claiming zero.
+  const [officeLinks, setOfficeLinks] = useState<OfficeLinksPayload | null>(
+    null,
+  );
   const [procurement, setProcurement] = useState<DbRollup | null>(null);
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [associates, setAssociates] = useState<Associate[]>([]);
@@ -398,6 +407,7 @@ export const PersonScreen: FC = () => {
         else {
           setRoles(j.roles ?? []);
           setPoliticians(j.politicians ?? []);
+          setOfficeLinks(j.officeLinks ?? null);
           setProcurement(j.procurement ?? null);
           setCabinets(j.cabinets ?? []);
           setAssociates(j.associates ?? []);
@@ -1075,8 +1085,16 @@ export const PersonScreen: FC = () => {
                     : "A different basis from the two blocks above. It also covers declared holdings and positions, which the registry does not always record — but only for companies that have won public contracts."}
                 </EvidenceBasis>
                 {politicians.length === 0 ? (
+                  /* ⚠️ THE COPY NAMES THE BASIS, because the bare „няма връзки" was FALSE on
+                     its face. This block reads `company_politicians`, which is
+                     procurement-derived, so it is silent about any shared company that never
+                     won a public contract — and it published this sentence directly beneath a
+                     connection check naming a sitting MP. The registry block below answers the
+                     wider question; this one now says what its own silence means. */
                   <div className="text-sm text-muted-foreground">
-                    Няма установени връзки с политици през общите фирми.
+                    {officeLinks && (officeLinks.count ?? 0) > 0
+                      ? "Няма политици, свързани с това лице през фирма, спечелила обществена поръчка. Вижте блока по-долу за съвместни вписвания в регистъра."
+                      : "Няма установени връзки с политици през фирми, спечелили обществени поръчки."}
                   </div>
                 ) : (
                   <ul className="space-y-2">
@@ -1109,6 +1127,13 @@ export const PersonScreen: FC = () => {
                 )}
               </CardContent>
             </Card>
+
+            {/* The REGISTRY basis for the same question (migration 200), adjacent to the
+                procurement one so a reader can see the two are different bases rather than
+                two views of one dataset — the reason the „Връзки" section orders by evidence
+                in the first place. Self-suppresses when empty or when 200 is not applied, so
+                no page gains an empty block. */}
+            <OfficeLinksBlock data={officeLinks} />
           </DashboardSection>
         </div>
       )}

@@ -99,6 +99,10 @@ import { CompanyInterregTile } from "../components/procurement/CompanyInterregTi
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { CompanyPoliticalLinks } from "../components/CompanyPoliticalLinks";
 import {
+  OfficeLinksBlock,
+  type OfficeLinksPayload,
+} from "../components/procurement/OfficeLinksBlock";
+import {
   useCompanyPolitical,
   companyPoliticalVerdict,
 } from "@/data/procurement/useCompanyPolitical";
@@ -485,6 +489,11 @@ export const CompanyDbScreen: FC = () => {
   // Name as it appears in the procurement corpus — the only identity we have
   // for a contractor/awarder absent from the TR register.
   const [corpusName, setCorpusName] = useState<string | null>(null);
+  // The INDIRECT registry political arm (migration 200). NULL when 200 is not applied on the
+  // serving database — the block self-suppresses rather than claiming zero.
+  const [officeLinks, setOfficeLinks] = useState<OfficeLinksPayload | null>(
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   // Section scope, URL-backed via ?pscope — the SAME semantics as the rest of
@@ -654,6 +663,7 @@ export const CompanyDbScreen: FC = () => {
           setAwarderGrade(j.awarderRiskGrade ?? null);
           setSupplierGrade(j.supplierRiskGrade ?? null);
           setCorpusName(j.corpusName ? decodeEntities(j.corpusName) : null);
+          setOfficeLinks(j.officeLinks ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -1980,6 +1990,14 @@ export const CompanyDbScreen: FC = () => {
           )}
 
           {company && <CompanyPoliticalLinks eik={eik} />}
+
+          {/* The INDIRECT registry arm (migration 200). The block above answers the DIRECT
+              question — „is anyone registered at THIS company an office-holder?" — and for a
+              company with none, its „Няма лице на публична длъжност…" is honestly true and
+              still left МЛГ ЕООД reading as unconnected while it sat one hop from a sitting
+              MP through its own sole owner. This is that hop, with the bridge person named so
+              the claim is checkable. Self-suppresses when empty or when 200 is not applied. */}
+          <OfficeLinksBlock data={officeLinks} indirect />
 
           {company && <CompanyConnectionCheck eik={eik} />}
 

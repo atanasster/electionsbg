@@ -448,9 +448,12 @@ T1–T4 is visible there yet.
   starts 2021-04-29 and never names him; the daily feed begins 2021 and 205427392 is not in the
   CR Deeds capture. A targeted `npm run tr:cr-deeds` capture would settle it. Genesis gap, not a
   contradiction.
-- The political-links basis (`person_politicians` reading the money-restricted
-  `company_politicians`). Real, separate, and it cannot help МЛГ until this plan lands — a
-  political link needs money on the page to hang from.
+- ~~The political-links basis~~ — **CLOSED 2026-09-21, migration 200.** This deferral was
+  wrong twice over: the reader reported the same thing again, and the premise („a political
+  link needs money on the page to hang from") was false. `person_politicians` reads
+  `company_politicians`, which INNER JOINs contract money, so „Политически връзки (0)" was
+  **structural** and needed no money on the page to fix — only a second basis. See
+  `200_person_office_links.sql` and the §7 note below.
 - `FOOTPRINT_CAP = 5` refusing Anton Adamov's five name-matched companies at a footprint of 6.
   Needs its own measurement before anything moves.
 
@@ -491,3 +494,59 @@ model, and because widening either guard is exactly the change `bridgeB.ts`'s he
 not be made without measurement — it is what stands between a public figure and a stranger's
 companies. Recorded so the next reader of a blank `/person` business section checks this before
 concluding the person holds nothing.
+
+---
+
+## 7. Follow-up: the political-links basis (migration 200)
+
+Reported twice by the reader, deferred once by §6, and fixed on 2026-09-21. It is a separate
+migration and a separate concern, recorded here because §6 is where it was parked.
+
+**The defect.** `/person/ГЕОРГИ ГЕОРГИЕВ МАНОЛОВ` published „Политически връзки (0)" directly
+beneath a connection check that had just named **Антон Йорданов Адамов, народен представител в
+45 НС**, as a co-съдружник in two of his companies — and `/company/113581389` said „Няма лице
+на публична длъжност…" while sitting one hop from that MP through its own sole owner. Both
+zeroes came from `company_politicians` (008) being PROCUREMENT-derived: 981 rows over ~347
+EIKs, and neither shared company has ever won a public contract.
+
+⚠️ **The obvious fix does not work, and this is the finding worth keeping.** Joining the
+identity layer's gated tr/ngo set returns NOTHING here: Adamov's `person_role` holds ONE tr row
+(БУЛГАРГАЗ, bridge A), because Bridge B refused the other five — his fold spans SIX companies
+and `FOOTPRINT_CAP` is 5. But that cap is a SIZE bound on what gets permanently ATTACHED to a
+person, and this question attaches nothing. He passes every guard that IS about identity:
+3-part name, active public figure, exactly one `person` row on the fold, and
+`tr_name_fold_people.people_n = 1`. So 200 applies **Bridge B's identity guards at query time,
+minus the footprint cap** — which is also why §6's third bullet (widening the cap) stays open
+and unneeded.
+
+**What it refuses**, measured 2026-09-21:
+
+| guard                                   | effect                                                                                                                                                                        |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| people- + registry-uniqueness           | 28,097 public 3-part figures in `tr_officers` → **8,238** (refuses 70.7%)                                                                                                     |
+| HELD office, not candidacy              | excludes `candidate` (**7,578 people** — the largest bucket), plus `tr`/`ngo` (registry roles), `ds` (an affiliation register), `public_sector` (head teachers, GP practices) |
+| association noise, `officer_count <= 6` | ВИ 8 СТУДИОС (2) and ТЕАТРО ВАРНА (4) pass; Хилс Инвестмънт's 9-member АД board is dropped                                                                                    |
+| non-persons                             | see below                                                                                                                                                                     |
+
+⚠️⚠️ **The first cut shipped a real defect and the gate exists for it.** „Заличено
+обстоятелство." — the register's deleted-fact placeholder, the largest name fold in the corpus
+and an officer row at МЛГ ЕООД itself — was being used as a BRIDGE, so the company arm returned
+**74 links of which 72 were fabricated** („Айхан Ахмед Етем чрез Заличено обстоятелство.").
+Guarded with `name_fold <> '' AND NOT tr_fold_is_placeholder(…)` at every hop per 192's helper;
+mutation-proven, 3 → 74 with the guard removed.
+
+**Result:** the person arm returns 3 links, the company arm the same 3 with Manolov named as
+the bridge, and the old block's copy now says what its own silence means rather than „няма
+връзки".
+
+Cost: 1,255 buffers / 2.8 ms on the reference company; 21,690 / 17.3 ms on the widest in the
+corpus (6 officers spanning 1,354 companies). Gates:
+`scripts/db/tests/person_office_links.data.test.ts` (13) and `OfficeLinksBlock.test.tsx` (12).
+
+⚠️ **NO LOADER APPLIES 200.** Ship it by name, before the `deploy:db` that serves the routes —
+both arms degrade a missing function to a null payload and the block self-suppresses, so the
+wrong order costs the block rather than the page, but it costs it silently:
+
+```bash
+npx tsx scripts/db/apply_functions.ts 200_person_office_links.sql
+```
