@@ -1,0 +1,138 @@
+{
+ "version": 2,
+ "generated_at": "2026-09-21T23:43:26.753375+00:00",
+ "window": {
+  "since": "2026-09-07",
+  "until": "2026-09-20",
+  "open_day": false
+ },
+ "gate": "quality.verdict == 'ok' AND site_relevant is True (§1.3)",
+ "definitions": {
+  "copy": "same content_sha256, or shingle(5) Jaccard >= 0.8 over the pipeline-tokenised body",
+  "unit": "copies ∪ same-story membership; assigned whole to one split by its earliest article's day — so no KNOWN same-story pair or copy straddles; a CANDIDATE pair can, is stamped `straddles`, and is then excluded from the adjudicable test set",
+  "split": "test = units whose earliest day >= boundary, boundary chosen so the unit test share is closest to 0.3",
+  "strong_candidate": ">= 2 shared title tokens with the candidate story",
+  "cross_outlet": "the article's domain is not among the candidate story's members published BEFORE the article",
+  "candidate_population": "candidate_stories() over the frozen index restricted to stories with a member published before the article, excluding its own story",
+  "candidate_arms": {
+   "analysis_side": "canonical_title_bg + summary_bg (auto_merge_host's inputs, the 2026-09-02 conditions)",
+   "raw": "raw article title + full body"
+  },
+  "strata_basis": "article strata counted over the raw window AND the publishable subset; same_person is a PAIR stratum (weak title overlap, a person the article names among the entity hits)",
+  "labels": "NULL throughout — this is the frame, not the adjudication"
+ },
+ "counts": {
+  "raw_articles": 2309,
+  "analysed": 2274,
+  "quality_ok": 2232,
+  "site_relevant": 1383,
+  "publishable": 1383,
+  "story_action": {
+   "new_story": 1204,
+   "none": 891,
+   "same_story": 179
+  },
+  "same_story_by": {
+   "same_event_evidence": 179
+  },
+  "stories": 1204,
+  "singleton_stories": 1076,
+  "single_outlet_stories": 1082,
+  "multi_outlet_stories": 122,
+  "max_story_size": 7,
+  "copy_groups_split_across_stories": 62
+ },
+ "split": {
+  "boundary_day": "2026-09-20",
+  "requested_unit_test_share": 0.3,
+  "unit_test_share": 0.5775950668036999,
+  "units": {
+   "dev": 822,
+   "test": 1124
+  },
+  "units_by_earliest_day": {
+   "2026-09-07": 2,
+   "2026-09-08": 1,
+   "2026-09-09": 3,
+   "2026-09-10": 1,
+   "2026-09-11": 3,
+   "2026-09-12": 2,
+   "2026-09-13": 2,
+   "2026-09-14": 4,
+   "2026-09-15": 21,
+   "2026-09-16": 23,
+   "2026-09-17": 21,
+   "2026-09-18": 112,
+   "2026-09-19": 627,
+   "2026-09-20": 1124
+  },
+  "articles": {
+   "dev": 995,
+   "test": 1314
+  },
+  "copy_groups_multi": 170,
+  "adjudicable_dev": 6501,
+  "adjudicable_excluded": 3758,
+  "adjudicable_test": 5570,
+  "straddling_pairs": 3758,
+  "straddling_strong_cross_outlet_pairs": 2272
+ },
+ "strata": {
+  "raw": {
+   "petrohan": 115,
+   "presidential": 96,
+   "local_news": 51,
+   "foreign": 417
+  },
+  "publishable": {
+   "petrohan": 101,
+   "presidential": 96,
+   "local_news": 51,
+   "foreign": 417
+  },
+  "pairs": {
+   "same_person": 1990,
+   "same_person_adjudicable_test": 630
+  }
+ },
+ "baseline": {
+  "publishable_articles": 1383,
+  "singleton_articles": 1076,
+  "arms": {
+   "analysis_side": {
+    "with_strong_cross_outlet_candidate": 1244,
+    "with_strong_cross_outlet_candidate_share": 0.8994938539407086,
+    "singletons_with_strong_cross_outlet_candidate": 949,
+    "with_strong_cross_outlet_candidate_excluding_copy_twins": 1242
+   },
+   "raw": {
+    "with_strong_cross_outlet_candidate": 790,
+    "with_strong_cross_outlet_candidate_share": 0.5712219812002892,
+    "singletons_with_strong_cross_outlet_candidate": 561,
+    "with_strong_cross_outlet_candidate_excluding_copy_twins": 766
+   }
+  },
+  "prior_2026_09_02": {
+   "share": 0.67,
+   "arm": "analysis_side",
+   "note": "auto_merge_host header; fed canonical_title_bg + summary_bg; its 'strong' was never defined - compare direction, not digits"
+  }
+ },
+ "adjudication": {
+  "candidate_pairs": 15829,
+  "candidate_pairs_by_arm": {
+   "analysis_side": 8100,
+   "raw": 7729
+  },
+  "adjudicable_test_pairs": 5570,
+  "known_same_story_multi_member_stories": 128,
+  "labelled": 0,
+  "note": "No adjudicated pair exists. T2.3's gate (>=300 accepted test pairs over >=50 events) is UNMET and cannot be met from this file alone."
+ },
+ "manifest": {
+  "path": "news/data/analysis/_universe/20260921T234326/universe.json",
+  "sha256": "991a7825e2b80091fe091e081ad348736557dd182e57e554a0cdfc288244f098",
+  "articles": 2309,
+  "candidate_pairs": 15829
+ }
+}

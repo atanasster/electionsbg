@@ -520,13 +520,21 @@ def company_outlets_used_only_as_sources(entities: dict, rec: dict) -> list[str]
     return bad
 
 
+def is_corpus_domain(name: str) -> bool:
+    """The ONE predicate for „this directory under news/data is an outlet":
+    everything except the analysis tree, `_`-prefixed scratch/state trees
+    and hidden dirs. `freeze_event_universe` reads it too, so the two cannot
+    enumerate different corpora."""
+    return not (name == "analysis" or name.startswith("_") or name.startswith("."))
+
+
 def corpus_domains():
     """Domain directories under news/data — everything except the analysis
     tree, browser scratch, hidden dirs and plain files."""
     out = []
     for name in sorted(os.listdir(DATA_DIR)):
         full = os.path.join(DATA_DIR, name)
-        if name in ("analysis",) or name.startswith("_") or name.startswith(".") or not os.path.isdir(full):
+        if not is_corpus_domain(name) or not os.path.isdir(full):
             continue
         out.append(name)
     return out

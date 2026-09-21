@@ -21,6 +21,7 @@
     "news:reachability:gate": "python3 news/scripts/reachability_gate.py --enforce",
     "news:home-health": "python3 news/scripts/home_health.py --json",
     "news:home-health:gate": "python3 news/scripts/home_health.py --enforce --json",
+    "news:universe:freeze": "python3 news/scripts/freeze_event_universe.py",
     "dev:news": "vite --config vite.config.news.ts",
     "typecheck:news": "tsc -p newsapp/tsconfig.json --noEmit",
     "build:news": "npm run news:data && npm run news:evals:tasks:write && npm run news:feedback:tasks:write && tsc -p newsapp/tsconfig.json --noEmit && vite build --config vite.config.news.ts",
