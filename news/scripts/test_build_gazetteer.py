@@ -27,7 +27,8 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_gazetteer import (  # noqa: E402
-    COMMON_WORDS_MIN_ARTICLES, GIVEN_NAME_EXEMPT, MIN_SURFACE_CHARS,
+    COMMON_WORDS_MIN_ARTICLES, GIVEN_NAME_EXEMPT, MIN_PARTY_SURFACE_CHARS,
+    MIN_SURFACE_CHARS,
     PLACE_STOPWORDS, build_aliases, form, institution_entries,
     is_common_given_name,
     is_common_word, party_entries, people_entries, person_forms,
@@ -773,10 +774,115 @@ class TheBuiltArtifact(unittest.TestCase):
         if path.exists():
             allowed = {a["alias"] for a in
                        json.loads(path.read_text(encoding="utf-8"))["aliases"]}
+        # ⚠️ A SECOND EXEMPTION, and it is kind-scoped: party surfaces carry
+        # their own floor (`MIN_PARTY_SURFACE_CHARS`) because most Bulgarian
+        # party names ARE three-letter acronyms — ДПС, БСП, ДСБ, ИТН — and the
+        # four-character floor had removed them from the registry entirely.
+        # It is scoped to `kind == "party"` so it cannot widen to places or
+        # people, where a three-letter token really is noise.
         short = [f["surface"] for e in self.doc["entries"] for f in e["forms"]
                  if len(f["surface"]) < MIN_SURFACE_CHARS
-                 and f["surface"] not in allowed]
+                 and f["surface"] not in allowed
+                 and not (e["kind"] == "party"
+                          and len(f["surface"]) >= MIN_PARTY_SURFACE_CHARS)]
         self.assertEqual(short, [])
+
+    def test_no_party_surface_is_shorter_than_the_party_floor(self):
+        """Two characters stay out. „ПП" and „ДБ" are genuinely ambiguous."""
+        short = [f["surface"] for e in self.doc["entries"]
+                 if e["kind"] == "party" for f in e["forms"]
+                 if len(f["surface"]) < MIN_PARTY_SURFACE_CHARS]
+        self.assertEqual(short, [])
+
+    def test_the_party_floor_admits_the_parties_it_was_lowered_for(self):
+        """Not vacuous — the change is worthless if these still do not resolve."""
+        resolvable = {f["surface"] for e in self.doc["entries"]
+                      if e["kind"] == "party" for f in e["forms"]
+                      if f["resolvable"]}
+        for surface in ("ДПС", "БСП", "ДСБ", "ИТН"):
+            with self.subTest(surface=surface):
+                self.assertIn(surface, resolvable)
+
+    def test_every_short_party_surface_is_on_the_curated_allowlist(self):
+        """The converse, so the exception cannot quietly widen.
+
+        ⚠️ A BLANKET FLOOR OF 3 WAS TRIED AND IS UNSAFE. `scan_common_words`
+        counts a token only when it starts lowercase, so an abbreviation the
+        corpus always capitalises is invisible to `is_common_word` by
+        construction — measured, a blanket lowering admitted ДНК (DNA, 116
+        occurrences), НПО (NGO, 40), КНР (the PRC, 17), БХК, ЕНП, БТР, ПРБ,
+        ДПБ, НРП and the foreign СДП/ПСД as resolvable Bulgarian party ids.
+        """
+        path = (Path(__file__).resolve().parents[1] / "data"
+                / "party_short_surfaces.json")
+        if not path.exists():
+            self.skipTest("no party allowlist here — SKIPPING, not passing")
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        allowed = {row["surface"] for row in doc["surfaces"]}
+        short = {f["surface"] for e in self.doc["entries"]
+                 if e["kind"] == "party" for f in e["forms"]
+                 if len(f["surface"]) < MIN_SURFACE_CHARS}
+        self.assertTrue(short, "no short party surfaces — is the allowlist "
+                               "reaching the gazetteer?")
+        self.assertEqual(sorted(short - allowed), [])
+
+    def test_every_allowlisted_party_surface_carries_evidence(self):
+        """An entry nobody checked is the one thing this file may not hold."""
+        path = (Path(__file__).resolve().parents[1] / "data"
+                / "party_short_surfaces.json")
+        if not path.exists():
+            self.skipTest("no party allowlist here — SKIPPING, not passing")
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        self.assertTrue(doc["surfaces"])
+        for row in doc["surfaces"]:
+            with self.subTest(surface=row.get("surface")):
+                self.assertTrue((row.get("evidence") or "").strip())
+                self.assertTrue((row.get("party") or "").strip())
+                self.assertGreaterEqual(len(row["surface"]),
+                                        MIN_PARTY_SURFACE_CHARS)
+
+    def test_the_ordinary_abbreviations_a_blanket_floor_admitted_are_absent(self):
+        """Named explicitly, because these are what made the blanket unsafe."""
+        resolvable = {f["surface"] for e in self.doc["entries"]
+                      if e["kind"] == "party" for f in e["forms"]
+                      if f["resolvable"]}
+        for surface in ("ДНК", "НПО", "КНР", "БХК", "ЕНП", "БТР", "СДП", "ПСД"):
+            with self.subTest(surface=surface):
+                self.assertNotIn(surface, resolvable)
+
+    def test_a_short_party_surface_that_is_an_ordinary_word_is_refused(self):
+        """The guard that makes the lower floor safe. „меч" and „ние" are in
+        common_words.json, so „МЕЧ" and „НИЕ" must be anchors only."""
+        forms = {f["surface"]: f for e in self.doc["entries"]
+                 if e["kind"] == "party" for f in e["forms"]}
+        checked = 0
+        for surface in ("МЕЧ", "НИЕ", "Ние"):
+            if surface not in forms:
+                continue
+            checked += 1
+            self.assertFalse(forms[surface]["resolvable"], surface)
+            self.assertEqual(forms[surface].get("refusal"), "common_word")
+        if not checked:
+            self.skipTest("none of those surfaces is in this registry")
+
+    def test_a_surface_a_foreign_party_also_uses_is_refused(self):
+        """„ХДС" is a Bulgarian party AND the ordinary rendering of the German
+        CDU; all 45 of its tones in the corpus are German coverage. The
+        two-pass rule cannot see this — it compares Bulgarian parties with each
+        other — so the cross-country check is what prevents attributing the
+        CDU's coverage to a minor Bulgarian party."""
+        policy = (Path(__file__).resolve().parents[1] / "config"
+                  / "party_identity_v2.json")
+        if not policy.exists():
+            self.skipTest("no party identity policy here — SKIPPING")
+        foreign = {x.casefold()
+                   for row in json.loads(policy.read_text(encoding="utf-8"))
+                   .get("foreign_parties") or []
+                   for x in row.get("surfaces") or []}
+        offenders = [f["surface"] for e in self.doc["entries"]
+                     if e["kind"] == "party" for f in e["forms"]
+                     if f["resolvable"] and f["surface"].casefold() in foreign]
+        self.assertEqual(offenders, [])
 
     def test_every_short_surface_IS_an_alias(self):
         # The converse, so the exemption cannot quietly widen: anything under
@@ -787,7 +893,8 @@ class TheBuiltArtifact(unittest.TestCase):
             self.skipTest("no crosswalk here — SKIPPING, not passing")
         by_alias = {a["alias"]: a for a in
                     json.loads(path.read_text(encoding="utf-8"))["aliases"]}
-        short = {f["surface"] for e in self.doc["entries"] for f in e["forms"]
+        short = {f["surface"] for e in self.doc["entries"]
+                 if e["kind"] != "party" for f in e["forms"]
                  if len(f["surface"]) < MIN_SURFACE_CHARS}
         self.assertTrue(short, "no short surfaces at all — is the crosswalk "
                                "reaching the gazetteer?")

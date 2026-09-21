@@ -1202,6 +1202,39 @@ def enrich_party_tones(analysis: dict) -> None:
     analysis["party_tones_version"] = PARTY_TONES_VERSION
 
 
+def party_tone_published(tone: dict, analysis: dict, rec: dict) -> bool:
+    """Whether this tone reaches a reader — the ONE definition.
+
+    ⚠️ TWO CALLERS, AND THEY MUST NOT DISAGREE. `build_app_data.compact_analysis`
+    decides what enters the public bundle; `review_routing.record_review`
+    decides whether a human is asked about it. When those drifted, the review
+    queue skipped tones the bundle was publishing — a claim on the page that
+    nobody was asked to check — and asked about tones the bundle withheld.
+
+    ⚠️ A SAVED DECISION IS TRUSTED ONLY UNDER THE CURRENT GATE, or when a human
+    accepted the record. Otherwise the evidence is re-checked here, so a future
+    gate version cannot grandfather every approval made under the old one, and
+    a missing flag can never read as „approved".
+    """
+    if not isinstance(tone, dict):
+        return False
+    saved_gate = analysis.get("party_tone_evidence_gate_version")
+    human_accepted = (analysis.get("human_review") or {}).get("status") == "accepted"
+    if human_accepted or saved_gate == PARTY_TONE_EVIDENCE_GATE_VERSION:
+        # Fully determined by stored state — the gate is never consulted, so a
+        # `resolve_mentions` outage is irrelevant to this answer.
+        return tone.get("evidence_grounded") is True
+    # ⚠️ RAISES RATHER THAN RETURNING FALSE WHEN THE GATE CANNOT RUN.
+    # `party_tone_evidence_grounded` fails CLOSED — it returns False when
+    # `resolve_mentions` will not import — so „withheld" and „we could not
+    # tell" are the same value there, and every caller has to guess which it
+    # got. Raising lets `build_app_data` keep failing closed (its except
+    # already empties `party_tones`) while `review_routing` can report the
+    # outage instead of routing the whole corpus.
+    import resolve_mentions  # noqa: F401
+    return party_tone_evidence_grounded(str(tone.get("evidence") or ""), rec)
+
+
 def gate_party_tone_evidence(analysis: dict, rec: dict) -> None:
     """Stamp the deterministic evidence decision without deleting history.
 

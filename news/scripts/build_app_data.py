@@ -1583,16 +1583,12 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         for tone in rec.get("party_tones") or []:
             if not isinstance(tone, dict):
                 continue
-            grounded = tone.get("evidence_grounded")
-            # Trust a saved decision only when it was produced by the current
-            # gate. Legacy/stale records are rechecked, so a future v2 cannot
-            # accidentally grandfather every v1 approval forever.
-            human_accepted = (rec.get("human_review") or {}).get("status") == "accepted"
-            approved = (grounded is True) if (
-                human_accepted or saved_gate == current_gate
-            ) else aa.party_tone_evidence_grounded(
-                str(tone.get("evidence") or ""), article)
-            if approved:
+            # ⚠️ ONE DEFINITION, shared with review_routing — see
+            # `party_tone_published`. When the bundle's rule and the review
+            # queue's rule were written separately they drifted, and the
+            # dangerous direction is a tone the bundle PUBLISHES that the
+            # queue never asks anyone about.
+            if aa.party_tone_published(tone, rec, article):
                 party_tones.append(tone)
     except Exception:  # noqa: BLE001
         # Failure closed: the historical analysis stays on disk, but an

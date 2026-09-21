@@ -1,0 +1,37 @@
+{
+  "note": "Party surfaces admitted BELOW the gazetteer's MIN_SURFACE_CHARS floor. The floor exists because a three-letter token in free text is noise; these are hand-verified exceptions, each checked against the articles that carry it. Same discipline as data/institution_aliases.json.",
+  "why_an_allowlist_and_not_a_lower_floor": "A blanket floor of 3 was tried and is unsafe. `scan_common_words` counts a token only when it starts lowercase (build_gazetteer.py), so an abbreviation the corpus always capitalises is INVISIBLE to `is_common_word` by construction — the floor was the only thing keeping it out. A measured blanket lowering admitted ДНК (DNA, 116 occurrences), НПО (NGO, 40), КНР (the PRC, 17), БХК (Helsinki Committee, 14), ЕНП (the EPP, 11), БТР, ПРБ, ДПБ and НРП as resolvable Bulgarian PARTY ids, plus the foreign СДП (German SPD) and ПСД (Romanian PSD): ~205 occurrences over ~110 articles, about 4.5x the ХДС collision that prompted the work.",
+  "rules": [
+    "Three characters minimum. Two-letter surfaces stay out: 'ПП' and 'ДБ' are genuinely ambiguous and config/party_identity_v2.json refuses them in writing.",
+    "The surface must be a PARTY name in this corpus, not an abbreviation that merely looks like one. Evidence names the articles checked.",
+    "It must not name a foreign party. The cross-country refusal in build_gazetteer catches only what party_identity_v2.json already declares, and no list of every foreign acronym exists, so this is checked by hand too.",
+    "It is still subject to every other guard: a contested surface is refused by the two-pass claim rule, and an ordinary lowercase word by is_common_word."
+  ],
+  "surfaces": [
+    {
+      "surface": "ДПС",
+      "party": "Движение за права и свободи",
+      "evidence": "32 party-tone entries in the corpus, all Bulgarian domestic politics. No foreign homograph found in the corpus."
+    },
+    {
+      "surface": "БСП",
+      "party": "Българска социалистическа партия",
+      "evidence": "30 party-tone entries, all Bulgarian domestic politics. Distinct from СДП, which in this corpus is the German SPD and is NOT admitted."
+    },
+    {
+      "surface": "ДСБ",
+      "party": "Демократи за силна България",
+      "evidence": "12 party-tone entries; articles name Атанас Атанасов and Радан Кънев as its leaders."
+    },
+    {
+      "surface": "СДС",
+      "party": "Съюз на демократичните сили",
+      "evidence": "6 party-tone entries; articles name Илия Лазаров as leader and Иван Костов in its history."
+    },
+    {
+      "surface": "ИТН",
+      "party": "Има такъв народ",
+      "evidence": "5 party-tone entries, all Bulgarian parliamentary politics."
+    }
+  ]
+}

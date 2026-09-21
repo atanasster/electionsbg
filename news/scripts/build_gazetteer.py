@@ -71,6 +71,52 @@ from resolve_mentions import TOKEN_RE  # noqa: E402
 # wrong as a false person one — it just looks less alarming.
 MIN_SURFACE_CHARS = 4
 
+# ⚠️⚠️ PARTY SURFACES BELOW THE FLOOR ARE AN ALLOWLIST, NOT A LOWER FLOOR, and
+# the difference is the whole safety of it. Most Bulgarian party names are
+# three-letter acronyms — ДПС, БСП, ДСБ, ИТН — so the four-character floor had
+# removed the biggest parties in the country from the registry outright: their
+# `party_id` stayed None, their tone never published, and they never entered an
+# aggregate.
+#
+# ⚠️ A BLANKET FLOOR OF 3 WAS TRIED AND IS UNSAFE, and the reason is structural
+# rather than a matter of degree: `scan_common_words` counts a token only when
+# `tok[:1].islower()`, so an abbreviation the corpus ALWAYS capitalises is
+# invisible to `is_common_word` by construction. The floor was the only thing
+# keeping it out. Measured against the built artifact with the real resolver, a
+# blanket lowering made ДНК (DNA, 116 occurrences), НПО (NGO, 40), КНР (the
+# PRC, 17), БХК (14), ЕНП (the EPP, 11), БТР, ПРБ, ДПБ and НРП resolve to
+# Bulgarian PARTY ids, together with the foreign СДП (German SPD) and ПСД
+# (Romanian PSD) — ~205 occurrences over ~110 articles, roughly 4.5x the ХДС
+# collision that prompted the work. „Two other guards already cover the harm"
+# was checked on „меч" and „ние", which are lowercase, and does not hold for
+# any of these.
+#
+# So the exception is curated and carries its evidence per surface, exactly as
+# `institution_aliases.json` does for „МВР" and „МО".
+MIN_PARTY_SURFACE_CHARS = 3
+PARTY_SHORT_SURFACES_FILE = "party_short_surfaces.json"
+
+
+def party_short_surfaces() -> frozenset:
+    """Hand-verified party surfaces admitted below `MIN_SURFACE_CHARS`."""
+    path = ROOT / "news" / "data" / PARTY_SHORT_SURFACES_FILE
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(doc, dict):
+            raise ValueError("party short-surface allowlist is not an object")
+    except (OSError, ValueError):
+        # Absent is a valid state: the floor simply applies to everything,
+        # which is the pre-existing behaviour and the safe direction.
+        return frozenset()
+    out = set()
+    for row in doc.get("surfaces") or []:
+        surface = (row.get("surface") or "").strip()
+        # ⚠️ EVIDENCE IS REQUIRED. An entry without it is one nobody checked,
+        # and this file's entire job is to be the checked list.
+        if surface and (row.get("evidence") or "").strip():
+            out.add(surface)
+    return frozenset(out)
+
 # Institution names below this contract count are not worth a surface form:
 # `awarder_search` holds 10,550 rows, most of them a single school or a
 # municipal kindergarten that no newsroom names. The cut is on EVIDENCE (does
@@ -1062,8 +1108,60 @@ def build_parties() -> tuple[list, dict]:
     return [], {"parties": 0, "parties_source": "absent"}
 
 
+def foreign_party_surfaces() -> frozenset:
+    """Surfaces `party_identity_v2.json` declares as a FOREIGN party's.
+
+    ⚠️ A SURFACE TWO COUNTRIES CLAIM IS NOT RESOLVABLE FROM THE SURFACE, and
+    the two-pass rule below cannot see it: that rule compares Bulgarian parties
+    with each other, so a collision with a German one is invisible to it.
+
+    Measured 2026-09-21, and this is why the check exists: „ХДС" is claimed by
+    the Bulgarian „Християн-Социален Съюз" (`p_128`) and is ALSO the ordinary
+    Bulgarian rendering of the German CDU. All 45 „ХДС" party tones in the
+    corpus are German coverage — they sit beside „Алтернатива за Германия",
+    „ГСДП" and „Фридрих Мерц" — so admitting the surface would have attributed
+    the CDU's coverage to a minor Bulgarian party on 45 records that name it.
+    That is the „a wrong link is worse than a missing one" rule exactly, and a
+    row count would never have shown it.
+
+    Refused as an ANCHOR, like every other refusal here: a document that
+    establishes the party some other way can still corefer to it, and
+    `party_identity.py` still resolves the foreign reading at article level
+    where the country context is present.
+    """
+    path = ROOT / "news" / "config" / "party_identity_v2.json"
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        # ⚠️ A FILE THAT PARSES IS NOT A FILE THAT FITS. A well-formed JSON
+        # list slips past the decode and dies on `.get` — the build crashes on
+        # a config typo rather than reporting it.
+        if not isinstance(doc, dict):
+            raise ValueError("party identity policy is not an object")
+    except (OSError, ValueError):
+        # ⚠️ FAIL CLOSED IS NOT AN OPTION HERE and neither is failing open
+        # silently: with no policy file every surface would look uncontested.
+        # Refusing nothing is the pre-existing behaviour, so say so loudly.
+        print("build_gazetteer: party_identity_v2.json unreadable — "
+              "cross-country party surfaces are NOT being refused",
+              file=sys.stderr)
+        return frozenset()
+    out = set()
+    for row in doc.get("foreign_parties") or []:
+        for surface in row.get("surfaces") or []:
+            if isinstance(surface, str) and surface.strip():
+                out.add(surface.strip().casefold())
+    return frozenset(out)
+
+
 def party_entries(doc: dict) -> tuple[list, dict]:
-    """Pure — see the note on place_entries."""
+    """Deterministic given its inputs, but NOT pure — see the note on
+    place_entries for the convention it departs from.
+
+    ⚠️ It reads two committed policy files (`party_short_surfaces.json` and
+    `config/party_identity_v2.json`), because both encode refusals a party
+    registry alone cannot express: which short surfaces a human has verified,
+    and which are also a foreign party's. Both are absent-safe.
+    """
 
     # ⚠️ TWO PASSES, and the single-pass version was a live defect. Claiming
     # each surface with `setdefault` awards it to whichever party
@@ -1074,6 +1172,8 @@ def party_entries(doc: dict) -> tuple[list, dict]:
     # party has been read. Coalition names are reused across cycles, so this
     # is the ordinary case rather than an edge one.
     claims: dict[str, set] = {}
+    foreign = foreign_party_surfaces()
+    short_ok = party_short_surfaces()
     parties = []
     for party in doc.get("parties") or []:
         pid = str(party.get("id") or "").strip()
@@ -1086,31 +1186,40 @@ def party_entries(doc: dict) -> tuple[list, dict]:
                 val = (h.get(key) or "").strip()
                 if val:
                     surfaces.add(val)
-        surfaces = {x for x in surfaces if len(x) >= MIN_SURFACE_CHARS}
+        surfaces = {x for x in surfaces
+                    if len(x) >= MIN_SURFACE_CHARS
+                    or (len(x) >= MIN_PARTY_SURFACE_CHARS and x in short_ok)}
         parties.append((pid, display, surfaces))
         for x in surfaces:
             claims.setdefault(x.casefold(), set()).add(pid)
 
     entries = []
     contested = 0
+    cross_country = 0
     for pid, display, surfaces in parties:
         forms = []
         for x in sorted(surfaces):
             holders = claims[x.casefold()]
             unique = len(holders) == 1
+            why = "party name"
             if not unique:
                 contested += 1
-            forms.append(form(
-                x, unique, "party name" if unique else
-                f"surface claimed by {len(holders)} parties — anchor only",
-                pid))
+                why = (f"surface claimed by {len(holders)} parties — "
+                       "anchor only")
+            elif x.casefold() in foreign:
+                unique = False
+                cross_country += 1
+                why = (f"„{x}“ also names a foreign party — anchor only; "
+                       "the surface alone cannot tell them apart")
+            forms.append(form(x, unique, why, pid))
         if forms:
             entries.append({
                 "kind": "party",
                 "id": pid if any(f["resolvable"] for f in forms) else None,
                 "canonical": display, "forms": forms})
     return entries, {"parties": len(entries),
-                     "party_forms_contested": contested}
+                     "party_forms_contested": contested,
+                     "party_forms_cross_country": cross_country}
 
 
 def main() -> int:

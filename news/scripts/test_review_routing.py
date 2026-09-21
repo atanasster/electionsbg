@@ -28,7 +28,247 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from review_routing import (  # noqa: E402
     ALWAYS_REVIEW, FLOOR_NEUTRAL, FLOOR_POSITIONED, NEUTRAL_LABELS,
-    ROUTED_FIELDS, field_review, record_review)
+    ROUTED_FIELDS, _identity_reason, _tone_is_grounded, field_review,
+    record_review)
+
+
+class AnAdjudicatedRefusalIsNotAReviewItem(unittest.TestCase):
+    """Standing policy must not be re-asked once per article.
+
+    Measured 2026-09-21: `unresolved party identity` was the single largest
+    contributor to the queue — 747 reasons over just 141 surfaces.
+
+    ⚠️ The first cut of this guard asked `party_identity_v2.json` about a
+    decision `data/gazetteer.json` had made, and was INVERTED on 193 of 747:
+    it routed „Възраждане" (which the gazetteer refuses in writing) and
+    skipped „ХДС"/„ДБ" (which the gazetteer does not contain at all — the
+    actionable case). These tests pin the direction.
+    """
+
+    def _tone_record(self, party: str) -> dict:
+        return {"party_tones": [{"party": party, "party_id": None,
+                                 "tone": "neutral", "confidence": 0.9}],
+                "entities": {"parties": [party]}}
+
+    def test_a_written_gazetteer_refusal_is_not_routed(self):
+        """„Възраждане" carries `refusal: common_word` — already decided."""
+        self.assertIsNone(
+            _identity_reason("Възраждане", self._tone_record("Възраждане")))
+
+    def test_a_surface_the_gazetteer_does_not_claim_IS_routed(self):
+        """„somebody can add it" — the case the first cut wrongly silenced."""
+        for surface in ("Демократична България", "Партия На Измислените Хора"):
+            with self.subTest(surface=surface):
+                reason = _identity_reason(surface, self._tone_record(surface))
+                self.assertIsNotNone(reason)
+                self.assertIn("no gazetteer claim", reason)
+
+    def test_a_declared_foreign_surface_is_an_adjudicated_refusal(self):
+        """Two files, two different decisions, and both count as decided.
+
+        „ХДС" is not in the gazetteer at all — three characters and not on the
+        curated short-surface allowlist — so the gazetteer has no claim to
+        refuse. `party_identity_v2.json` does have a decision: it is the German
+        CDU, and all 45 of its tones here are German coverage. Routing it as
+        „nobody has decided this" would ask a reviewer to add a Bulgarian party
+        for German reporting.
+        """
+        for surface in ("ХДС", "Единна Русия"):
+            with self.subTest(surface=surface):
+                self.assertIsNone(
+                    _identity_reason(surface, self._tone_record(surface)))
+
+    def test_an_adjudicated_refusal_does_not_fall_through_to_the_mention_check(self):
+        """⚠️ THE REGRESSION. Written as `if ident is None and (why := …)` with
+        an `elif`, an adjudicated refusal fell through — and `str(None)` is
+        „None", never in `party_mentions` — so the record was routed anyway
+        under a reason that is false. Measured before the fix: 73 spurious
+        „canonical identity disagrees" reasons over 61 records, 44 of them
+        „Възраждане", the exact surface the guard exists to silence.
+        """
+        record = self._tone_record("Възраждане")
+        record["mentions"] = [{"kind": "party", "id": "p_7"}]
+        reasons = record_review(record).get("party_tones", "")
+        self.assertNotIn("canonical identity disagrees", reasons)
+        self.assertNotIn("unresolved party identity", reasons)
+        # Without the mention there is no other party rule to trip, so the
+        # whole field must be absent.
+        bare = self._tone_record("Възраждане")
+        self.assertNotIn("party_tones", record_review(bare))
+
+    def test_a_generic_party_label_is_not_routed(self):
+        """`GENERIC_PARTY_IDENTITY_LABELS` is a policy refusal too."""
+        self.assertIsNone(_identity_reason(
+            "социалдемократическа партия",
+            self._tone_record("социалдемократическа партия")))
+
+    def test_a_resolvable_surface_with_no_stored_id_names_a_RE_STAMP(self):
+        """193 of 747 are stale stamps, not judgments — and must say so."""
+        import analyze_articles as aa
+        surface = None
+        for entry in _gazetteer_party_entries():
+            for form in entry.get("forms") or []:
+                if form.get("resolvable") and form.get("id"):
+                    surface = form.get("surface")
+                    break
+            if surface:
+                break
+        if not surface:
+            self.skipTest("no resolvable party surface in this gazetteer")
+        self.assertIsNotNone(aa.party_id_for_name(surface))
+        reason = _identity_reason(surface, self._tone_record(surface))
+        self.assertIsNotNone(reason)
+        self.assertIn("re-stamp", reason)
+
+    def test_it_fails_open_and_names_the_outage(self):
+        """A guard that swallowed identity problems when its own dependency
+        broke would be worse than the flood it replaces — and „the gazetteer
+        is down" must not read as „no claim for this surface"."""
+        import analyze_articles as aa
+        import review_routing as rr
+        real = aa._party_claims
+        warned = list(rr._IDENTITY_OUTAGE_WARNED)
+        rr._IDENTITY_OUTAGE_WARNED.clear()
+        aa._party_claims = lambda name: None
+        try:
+            reason = _identity_reason("каквото и да е", self._tone_record("x"))
+            self.assertIsNotNone(reason)
+            self.assertIn("unavailable", reason)
+        finally:
+            aa._party_claims = real
+            rr._IDENTITY_OUTAGE_WARNED[:] = warned
+
+    def test_the_guard_discriminates_on_the_real_corpus(self):
+        """Not vacuous: it must skip a lot AND keep a lot."""
+        import glob
+        skipped = kept = 0
+        for path in glob.glob(os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                "data", "analysis", "articles", "*", "*.json")):
+            try:
+                with open(path, encoding="utf-8") as fh:
+                    analysis = json.load(fh)
+            except (OSError, json.JSONDecodeError):
+                continue
+            for tone in analysis.get("party_tones") or []:
+                if not isinstance(tone, dict) or tone.get("party_id") is not None:
+                    continue
+                if _identity_reason(tone.get("party") or "", analysis):
+                    kept += 1
+                else:
+                    skipped += 1
+        if skipped + kept < 50:
+            self.skipTest("no analysed corpus here — SKIPPING, not passing")
+        self.assertGreater(skipped, 0, "the guard skips nothing — it is inert")
+        self.assertGreater(kept, 0, "the guard keeps nothing — it is a blanket")
+
+
+class AWithheldToneIsNotAClaimTheSiteMakes(unittest.TestCase):
+    """The grounded skip — and the three states its gate cannot express."""
+
+    def _tone(self, **over) -> dict:
+        return {"party": "ГЕРБ", "party_id": "p_1", "tone": "favorable",
+                "confidence": 0.5, "evidence": "не се среща в текста", **over}
+
+    def test_no_article_yields_no_verdict(self):
+        """A caller that attaches no `_article` is a pure-function call."""
+        self.assertIsNone(_tone_is_grounded(self._tone(), {}, None))
+
+    def test_a_down_gate_is_not_a_withheld_tone(self):
+        """⚠️ THE ACTUAL OUTAGE, simulated rather than approximated by a None
+        article. `party_tone_evidence_grounded` fails CLOSED — it returns
+        False, not an exception, when `resolve_mentions` will not import — so
+        „withheld" and „we could not tell" are the same value there. Without
+        the third state a total outage empties this queue at exit 0."""
+        import analyze_articles as aa
+        article = {"title": "", "description": "", "content": "нищо общо"}
+        real = aa.party_tone_published
+
+        def down(tone, analysis, rec):
+            raise ImportError("no resolve_mentions")
+
+        aa.party_tone_published = down
+        try:
+            self.assertIsNone(_tone_is_grounded(self._tone(), {}, article))
+        finally:
+            aa.party_tone_published = real
+
+    def test_a_current_gate_version_needs_no_resolver_at_all(self):
+        """The reason the dependency probe was removed: this verdict comes
+        from stored state, so an outage must not discard it."""
+        import analyze_articles as aa
+        article = {"title": "", "description": "", "content": "нищо общо"}
+        analysis = {"party_tone_evidence_gate_version":
+                    aa.PARTY_TONE_EVIDENCE_GATE_VERSION}
+        tone = self._tone(evidence_grounded=True)
+        self.assertIs(_tone_is_grounded(tone, analysis, article), True)
+
+    def test_an_ungrounded_tone_is_still_routed(self):
+        """⚠️ A first cut of this change STOPPED routing these, reasoning that
+        the publication gate withholds them so no reader is affected. It is
+        wrong twice: this is the only path by which a human accepts a correct
+        paraphrase the automated gate cannot match, and `sync_eval_tasks`
+        shares this function, so the items would also vanish from the public
+        eval feed."""
+        article = {"title": "t", "description": "", "content": "нищо общо"}
+        out = record_review({"party_tones": [self._tone()],
+                             "_article": article})
+        self.assertIn("party_tones", out)
+        self.assertIn("evidence grounding needs review", out["party_tones"])
+
+    def test_a_structural_reason_survives_the_skip(self):
+        """A missing confidence is a malformed record, not a quiet judgment."""
+        article = {"title": "t", "description": "", "content": "нищо общо"}
+        for bad, expect in (({"confidence": None}, "no confidence"),
+                            ({"tone": None}, "no label")):
+            with self.subTest(bad=expect):
+                out = record_review({"party_tones": [self._tone(**bad)],
+                                     "_article": article})
+                self.assertIn("party_tones", out)
+                self.assertIn(expect, out["party_tones"])
+
+    def test_the_queue_asks_about_exactly_what_the_bundle_publishes(self):
+        """One predicate, not two. The dangerous drift is a tone the bundle
+        PUBLISHES that the queue never asks anyone about."""
+        import analyze_articles as aa
+        body = "ГЕРБ пое ангажимент да внесе законопроекта до петък."
+        article = {"title": "", "description": "", "content": body}
+        for evidence, published in ((body, True), ("не е в текста", False)):
+            with self.subTest(published=published):
+                tone = self._tone(evidence=evidence)
+                self.assertIs(aa.party_tone_published(tone, {}, article),
+                              published)
+                self.assertIs(_tone_is_grounded(tone, {}, article), published)
+
+    def test_a_human_accepted_record_is_published_on_its_saved_flag(self):
+        """A reviewer may accept a paraphrase the automated gate refuses."""
+        import analyze_articles as aa
+        article = {"title": "", "description": "", "content": "нищо общо"}
+        analysis = {"human_review": {"status": "accepted"}}
+        tone = self._tone(evidence="перифраза", evidence_grounded=True)
+        self.assertTrue(aa.party_tone_published(tone, analysis, article))
+        self.assertIs(_tone_is_grounded(tone, analysis, article), True)
+
+    def test_a_grounded_tone_keeps_its_quality_review(self):
+        body = "ГЕРБ пое ангажимент да внесе законопроекта до петък."
+        article = {"title": "", "description": "", "content": body}
+        out = record_review({
+            "party_tones": [self._tone(evidence=body, confidence=0.5)],
+            "_article": article})
+        self.assertIn("party_tones", out)
+        self.assertIn("0.75 floor", out["party_tones"])
+
+
+def _gazetteer_party_entries():
+    path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "data", "gazetteer.json")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return [e for e in json.load(fh).get("entries") or []
+                    if e.get("kind") == "party"]
+    except (OSError, json.JSONDecodeError):
+        return []
 
 
 class TheFloorsPointTheRightWay(unittest.TestCase):
@@ -344,19 +584,47 @@ class PerRecord(unittest.TestCase):
         # ⚠️ A queue holding 98% of the corpus is the same as no queue. This
         # is the calibration assertion: on the real distribution the rule
         # must select a workable minority.
+        # ⚠️ `_article` IS ATTACHED, because every production call site
+        # attaches it — `main()` below, `save_one` in analyze_articles, and
+        # sync_eval_tasks — and two rules read it: the altered-name check and
+        # the evidence gate. Measuring without it calibrates a routing nothing
+        # runs. Attaching it RAISES the measured rate, because the gate can
+        # then execute and an ungrounded tone earns a reason it could not earn
+        # before; that is the honest number, not a regression.
+        #
+        # ⚠️ THIS ASSERTION IS CURRENTLY RED, AND DELIBERATELY NOT RELAXED.
+        # The ceiling and both confidence floors are untouched. The queue is
+        # dominated by one systemic defect: the analysis prompt asks for
+        # „дословен цитат ИЛИ конкретна проверима перифраза" while
+        # `party_tone_evidence_grounded` demands a contiguous substring, so
+        # every paraphrase becomes a review item — measured 2026-09-21, 1,419
+        # of the ~1,614 flagged records. Repairing that contract is what makes
+        # this gate meaningful again; widening it here would only hide the
+        # next real regression behind this one.
         import glob
         import json
+        news_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         rows = []
         for f in glob.glob(os.path.join(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                "data", "analysis", "articles", "*", "*.json")):
+                news_root, "data", "analysis", "articles", "*", "*.json")):
             try:
                 with open(f, encoding="utf-8") as fh:
-                    rows.append(record_review(json.load(fh)))
+                    analysis = json.load(fh)
             except (OSError, json.JSONDecodeError):
                 continue
+            art = analysis.get("article_path")
+            if art:
+                try:
+                    with open(os.path.join(os.path.dirname(news_root), art),
+                              encoding="utf-8") as fh:
+                        analysis["_article"] = json.load(fh)
+                except (OSError, json.JSONDecodeError):
+                    pass
+            rows.append(record_review(analysis))
         if len(rows) < 50:
             self.skipTest("no analysed corpus here — SKIPPING, not passing")
+        attached = sum(1 for r in rows if r is not None)
+        self.assertGreater(attached, 0)
         flagged = sum(1 for r in rows if r)
         self.assertLess(flagged / len(rows), 0.25,
                         f"{flagged}/{len(rows)} flagged — the rule is not "
@@ -382,8 +650,13 @@ class PartyToneRouting(unittest.TestCase):
         }
 
     def test_unresolved_party_is_reviewed(self):
-        self.assertIn("unresolved party identity",
-                      record_review(self.rec(party_id=None))["party_tones"])
+        """⚠️ „ГЕРБ" IS in the gazetteer and resolvable, so a stored None is a
+        stale stamp, and the reason now says which work it needs. Over half
+        the surviving identity queue is this case, and calling it „unresolved"
+        sent reviewers to adjudicate an identity nobody disputes."""
+        got = record_review(self.rec(party_id=None))["party_tones"]
+        self.assertIn("re-stamp", got)
+        self.assertIn("gazetteer resolves this surface", got)
 
     def test_low_confidence_positioned_tone_is_reviewed(self):
         got = record_review(self.rec(tone="unfavorable", confidence=0.6))

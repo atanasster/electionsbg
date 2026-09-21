@@ -176,6 +176,193 @@ def political_not_applicable(analysis: dict) -> str | None:
             "of the spectrum bar entirely")
 
 
+# ⚠️⚠️ A REFUSAL THE REGISTRY HAS ALREADY ADJUDICATED IS NOT A REVIEW ITEM.
+# Measured 2026-09-21: 747 unresolved-party-identity entries, the single
+# largest contributor to this queue — and they are THREE different jobs
+# wearing one label. Asking a human to confirm „Възраждане is an ordinary
+# Bulgarian noun" seventy-eight times is asking them to re-adjudicate standing
+# policy, once per article, for ever.
+#
+#   118 over   8 surfaces  already decided, in writing → NOT routed
+#               Възраждане 78 (gazetteer `refusal: common_word`), the generic
+#               labels („Демократическа партия"…), Зелените 15, Атака 2
+#   602 over 133 surfaces  no gazetteer claim at all → routed, and ACTIONABLE
+#               Демократична България 54, Алтернатива за Германия 53, ХДС 34,
+#               ДПС 29, БСП 28, Единна Русия 25
+#    25              the gazetteer claims one surface more than once → routed
+#     2              resolvable, yet the stored `party_id` is None → re-stamp
+#
+# ⚠️ THE 602 ARE A DATA GAP, NOT A JUDGMENT CALL, and they are worth reading
+# twice: the gazetteer does not claim ДПС, БСП or Демократична България. Their
+# `party_id` is therefore None, their tone never publishes, and the party never
+# appears in an aggregate — so this queue is also the clearest evidence for why
+# the site says so little about parties. Adding those surfaces removes ~80% of
+# this arm and publishes real party coverage; it is not review work.
+#
+# ⚠️⚠️ ASK THE REGISTRY THAT STAMPED THE FIELD, NOT A DIFFERENT ONE. There are
+# TWO party registries here and they do not agree:
+#
+#   data/gazetteer.json           — what `party_id_for_name` reads. It made the
+#                                   decision that `party_id` is None and it
+#                                   carries the refusal REASON per surface.
+#   config/party_identity_v2.json — a separate reviewed-policy file used by
+#                                   `party_identity.py` for article-level
+#                                   country/context resolution.
+#
+# The first cut of this guard asked the SECOND about a decision the FIRST had
+# made, and was inverted on a large slice: it routed „Възраждане", which the
+# gazetteer refuses in writing, and skipped „ХДС"/„ДБ"/„Демократична България",
+# which the gazetteer does not contain at all — precisely the actionable case.
+# A guard that silences the actionable half and keeps the settled half is worse
+# than no guard.
+#
+# ⚠️ AND IT FAILS OPEN, LOUDLY. `_party_claims` returns None when the gazetteer
+# cannot be loaded, which is indistinguishable from „no claim" unless it is
+# handled; treating that as „adjudicated" would empty this queue whenever its
+# own dependency broke. The reason names the outage instead, and the warning
+# below fires once per process so a policy-version bump does not read as a
+# corpus regression.
+_IDENTITY_OUTAGE_WARNED: list = []
+
+
+def _warn_identity_outage(detail: str) -> None:
+    """Say it once — a per-tone warning is noise nobody reads."""
+    if _IDENTITY_OUTAGE_WARNED:
+        return
+    _IDENTITY_OUTAGE_WARNED.append(True)
+    import sys as _sys
+    print(f"review_routing: party identity registry unavailable ({detail}); "
+          "every unresolved surface is being routed", file=_sys.stderr)
+
+
+_FOREIGN_SURFACES: list = []
+
+
+def _declared_foreign(surface: str) -> bool:
+    """Is this surface one `party_identity_v2.json` declares a foreign party's?
+
+    ⚠️ A SEPARATE CHECK FROM THE GAZETTEER'S, because the two files answer
+    different questions and a surface can be missing from one and decided in
+    the other. „ХДС" is not in the gazetteer at all — it is three characters
+    and not on the curated short-surface allowlist — so the gazetteer has no
+    claim to refuse. The policy file DOES have a decision about it: it is the
+    German CDU, and all 45 of its tones in this corpus are German coverage.
+    Routing it as „nobody has decided this" would ask a reviewer to add a
+    Bulgarian party for German reporting.
+    """
+    if not _FOREIGN_SURFACES:
+        import json
+        from pathlib import Path
+        path = (Path(__file__).resolve().parents[1] / "config"
+                / "party_identity_v2.json")
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError, ValueError):
+            doc = {}
+        _FOREIGN_SURFACES.append(frozenset(
+            x.strip().casefold()
+            for row in doc.get("foreign_parties") or []
+            for x in row.get("surfaces") or []
+            if isinstance(x, str) and x.strip()))
+    return surface.strip().casefold() in _FOREIGN_SURFACES[0]
+
+
+def _identity_reason(surface: str, analysis: dict) -> str | None:
+    """Why this unresolved party surface still needs a human, or None."""
+    try:
+        import analyze_articles as aa
+        folded = " ".join(str(surface or "").casefold().split()).strip('"„”')
+        if folded in aa.GENERIC_PARTY_IDENTITY_LABELS:
+            return None
+        claims = aa._party_claims(surface)
+    except Exception as exc:  # noqa: BLE001
+        _warn_identity_outage(type(exc).__name__)
+        return "unresolved party identity (registry unavailable)"
+    if claims is None:
+        _warn_identity_outage("gazetteer did not load")
+        return "unresolved party identity (gazetteer unavailable)"
+    if _declared_foreign(surface):
+        return None
+    if not claims:
+        return "unresolved party identity: no gazetteer claim for this surface"
+    if len(claims) > 1:
+        return "unresolved party identity: the gazetteer claims this surface more than once"
+    claim = claims[0]
+    if claim.get("resolvable") and claim.get("id"):
+        # The registry CAN resolve it, so a stored None is a stale stamp.
+        return ("stored party_id is None although the gazetteer resolves this "
+                "surface — re-stamp, not a judgment")
+    # An explicit, written refusal: standing policy, already decided.
+    return None
+
+
+def _tone_is_grounded(tone: dict, analysis: dict, rec) -> bool | None:
+    """Whether this tone reaches a reader, or None when it cannot be decided.
+
+    ⚠️ ASKS THE PUBLICATION PATH, not a second copy of it.
+    `analyze_articles.party_tone_published` is the one definition the public
+    bundle uses; a private re-implementation here drifted from it, and the
+    dangerous direction is a tone the bundle PUBLISHES that this queue then
+    never asks anyone about — a claim on the page nobody was asked to check.
+
+    ⚠️ THE THIRD STATE IS THE POINT. `party_tone_evidence_grounded` returns
+    **False** rather than raising when its own dependency is missing, so
+    „the gate says no" and „the gate is broken" are the same value there. A
+    caller that skips on False would treat a total outage as a corpus of
+    correctly-withheld tones and empty this queue at exit 0. Probing the
+    dependency is what separates them.
+    """
+    if not isinstance(rec, dict):
+        return None
+    try:
+        import analyze_articles as aa
+        return bool(aa.party_tone_published(tone, analysis, rec))
+    except Exception:  # noqa: BLE001
+        # ⚠️ NO DEPENDENCY PROBE HERE. A probe would discard the answer for
+        # every record whose gate version is current — where the verdict comes
+        # from stored state and needs no gate at all — and during an outage
+        # that turns this queue into a copy of the corpus, which the module
+        # docstring calls „the same as having no queue at all".
+        # `party_tone_published` raises only when it actually needed the gate.
+        return None
+
+
+def _tone_is_grounded(tone: dict, analysis: dict, rec) -> bool | None:
+    """Whether this tone reaches a reader, or None when it cannot be decided.
+
+    ⚠️ ASKS THE PUBLICATION PATH, not a second copy of it.
+    `analyze_articles.party_tone_published` is the one definition the public
+    bundle uses; a private re-implementation here drifted from it, and the
+    dangerous direction is a tone the bundle PUBLISHES that this queue then
+    never asks anyone about — a claim on the page nobody was asked to check.
+
+    ⚠️ THE THIRD STATE IS THE POINT. `party_tone_evidence_grounded` returns
+    **False** rather than raising when its own dependency is missing, so
+    „the gate says no" and „the gate is broken" are the same value there. A
+    caller that skips on False would treat a total outage as a corpus of
+    correctly-withheld tones and empty this queue at exit 0. Probing the
+    dependency is what separates them.
+    """
+    if not isinstance(rec, dict):
+        return None
+    try:
+        import analyze_articles as aa
+        return bool(aa.party_tone_published(tone, analysis, rec))
+    except Exception:  # noqa: BLE001
+        # ⚠️ NO DEPENDENCY PROBE HERE. A probe would discard the answer for
+        # every record whose gate version is current — where the verdict comes
+        # from stored state and needs no gate at all — and during an outage
+        # that turns this queue into a copy of the corpus, which the module
+        # docstring calls „the same as having no queue at all".
+        # `party_tone_published` raises only when it actually needed the gate.
+        return None
+
+
+def _identity_is_actionable(surface: str, analysis: dict) -> bool:
+    """Has anyone yet decided what this party surface means?"""
+    return _identity_reason(surface, analysis) is not None
+
+
 def record_review(analysis: dict) -> dict:
     """Every field of one record that needs another look.
 
@@ -251,27 +438,66 @@ def record_review(analysis: dict) -> dict:
             continue
         party = tone.get("party") or "(unknown party)"
         ident = tone.get("party_id")
+        # ⚠️ NESTED, NOT CHAINED. Written as `if ident is None and (why := …)`
+        # with an `elif`, an ADJUDICATED refusal fell through to the mention
+        # check — and `str(None)` is „None", which is never in `party_mentions`
+        # — so the record was routed anyway under a reason that is false.
+        # Measured: 73 spurious „canonical identity disagrees" reasons over 61
+        # records, 44 of them „Възраждане", the exact surface the guard exists
+        # to silence.
         if ident is None:
-            tone_reasons.append(f"{party}: unresolved party identity")
+            if why := _identity_reason(party, analysis):
+                tone_reasons.append(f"{party}: {why}")
         elif party_mentions and str(ident) not in party_mentions:
             tone_reasons.append(
                 f"{party}: canonical identity disagrees with party mentions")
+        # ⚠️⚠️ A WITHHELD TONE IS NOT A CLAIM THIS SITE MAKES, so its quality
+        # is not what a reviewer's time buys. `build_app_data` drops every
+        # ungrounded tone from the public bundle, and measured 2026-09-21 that
+        # is 1,190 of 1,194 pairs — so routing their confidence, their `mixed`
+        # symmetry and their grounding put ~521 records into the queue for
+        # output no reader can see. This module's whole thesis is
+        # CONSEQUENCE × confidence; spending the scarcest input on the least
+        # visible output is that thesis inverted.
+        #
+        # ⚠️ IT IS NOT A CARVE-OUT AND IT EXPIRES BY ITSELF. The predicate is
+        # the grounding, not a constant: when T4.1 repairs the prompt/gate
+        # contract (the prompt asks for „дословен цитат ИЛИ конкретна
+        # проверима перифраза" while the gate demands a contiguous substring —
+        # see the plan §1.5), grounded tones become the majority and re-enter
+        # this queue with no edit here.
+        #
+        # ⚠️ AND THE IDENTITY REASONS ABOVE STAY UNCONDITIONAL, because they
+        # are about the party CHIP, which renders on the article page whether
+        # or not its tone survived the gate. „We could not resolve this party"
+        # is reader-visible; „this withheld tone was 0.6 confident" is not.
+        # ⚠️ AN UNGROUNDED TONE IS STILL ROUTED, and the first cut of this
+        # change wrongly stopped routing it. The reasoning looked sound — the
+        # publication gate withholds it, so no reader sees it, so why spend a
+        # reviewer on it — and it is wrong twice. This IS the path by which a
+        # human accepts a correct paraphrase the automated gate cannot match
+        # (`party_tone_published` honours `human_review.status == "accepted"`),
+        # so removing it removes the only way an ungrounded tone ever becomes
+        # publishable. And `sync_eval_tasks` shares this function, so the items
+        # would have vanished from the public eval feed too — a consumer the
+        # „no reader sees it" argument never covered.
         why = field_review(tone.get("tone"), tone.get("confidence"))
         if why:
             tone_reasons.append(f"{party}: {why}")
+        grounded = (_tone_is_grounded(tone, analysis, rec)
+                    if isinstance(rec, dict) else None)
+        if grounded is False:
+            tone_reasons.append(f"{party}: evidence grounding needs review")
+        elif grounded is None and isinstance(rec, dict):
+            # ⚠️ THE GATE ITSELF IS DOWN, which is NOT „withheld".
+            # `party_tone_evidence_grounded` fails CLOSED — it returns False,
+            # not an exception, when `resolve_mentions` will not import — so
+            # without this arm a broken gate is indistinguishable from a
+            # corpus of correctly-withheld tones.
+            tone_reasons.append(f"{party}: evidence grounding could not run")
         if tone.get("tone") == "mixed":
             tone_reasons.append(
                 f"{party}: mixed requires both directions to be checked")
-        if isinstance(rec, dict):
-            try:
-                import analyze_articles as aa
-                if not aa.party_tone_evidence_grounded(
-                        str(tone.get("evidence") or ""), rec):
-                    tone_reasons.append(
-                        f"{party}: evidence grounding needs review")
-            except Exception:  # noqa: BLE001
-                tone_reasons.append(
-                    f"{party}: evidence grounding could not run")
     if tone_reasons:
         out["party_tones"] = "; ".join(dict.fromkeys(tone_reasons))
     return out
