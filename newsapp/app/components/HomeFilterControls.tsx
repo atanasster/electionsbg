@@ -32,10 +32,27 @@ export const HomeFilterControls = ({
   const { language, tr } = useNewsLocale();
   const filtersActive =
     category !== "all" || days !== defaultDays || Boolean(query.trim());
+  /**
+   * ⚠️ NO READINESS GUARD HERE, DELIBERATELY — and it was measured rather
+   * than assumed. „Absent is not zero" governs the LABEL (see below), but in
+   * the comparator the two forms are the same function: while the corpus
+   * index is in flight the map is EMPTY, `?? 0` makes every category equal,
+   * and the comparison already falls through to the label — which is what an
+   * explicit `size ? byCount : byLabel` would also do. Adding the guard is
+   * configuration that cannot be wrong, and a test for it passes against
+   * both implementations.
+   *
+   * What IS real and is not fixed by either form: when the counts land the
+   * top four are recomputed and the row re-orders. That is inherent to
+   * ranking by a number that arrives late; the fix is a stable slot or a
+   * deferred re-rank, not a comparator change.
+   */
+  const byLabel = (a: TaxonomyCategory, b: TaxonomyCategory) =>
+    a.label[language].localeCompare(b.label[language], language);
   const rankedCategories = [...categories].sort(
     (a, b) =>
       (categoryCounts.get(b.id) ?? 0) - (categoryCounts.get(a.id) ?? 0) ||
-      a.label[language].localeCompare(b.label[language], language),
+      byLabel(a, b),
   );
   const quickCategories = rankedCategories.slice(0, 4);
   const selectedCategory = rankedCategories.find(
@@ -76,7 +93,11 @@ export const HomeFilterControls = ({
         onCategoryChange(item.id);
       }}
     >
-      {item.label[language]} · {categoryCounts.get(item.id) ?? 0}
+      {/* ⚠️ NO COUNT IS NOT A COUNT OF ZERO. `?? 0` printed „Икономика · 0"
+          for the whole time the corpus index was in flight, and „0" beside a
+          topic is a claim that nothing was written about it. */}
+      {item.label[language]}
+      {categoryCounts.has(item.id) ? ` · ${categoryCounts.get(item.id)}` : ""}
     </Button>
   );
 

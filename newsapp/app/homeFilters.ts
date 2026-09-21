@@ -1,4 +1,5 @@
 import type { HomeStory } from "./data";
+import { normalizeQuery, withinWindow } from "./storyQuery";
 
 export const HOME_TIMEFRAMES = [
   { days: 1, label: "24 часа" },
@@ -15,22 +16,17 @@ export interface HomeFilterState {
   now?: number;
 }
 
+/**
+ * ⚠️ ONE PREDICATE, NOT A COPY. The briefing's reading of a zero window is
+ * „nothing qualifies" — `days` here is a window the reader picked, so a zero
+ * is an absent choice. `storyQuery.withinDays` reads the same zero as „no
+ * restriction". See `withinWindow` for why that difference is an argument.
+ */
 export const storyWithinDays = (
   iso: string | null | undefined,
   days: number,
   now = Date.now(),
-): boolean => {
-  if (!iso || days <= 0) return false;
-  if (
-    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(
-      iso,
-    )
-  )
-    return false;
-  const published = Date.parse(iso);
-  const age = now - published;
-  return Number.isFinite(published) && age >= 0 && age <= days * 86_400_000;
-};
+): boolean => withinWindow(iso, days, now, "none");
 
 /** Pick the narrowest briefing window that can stand on its own. */
 export const defaultHomeDays = (
@@ -43,12 +39,13 @@ export const defaultHomeDays = (
     ? 1
     : 7;
 
-export const normalizeHomeSearch = (value: string): string =>
-  value
-    .normalize("NFKC")
-    .replace(/\s+/gu, " ")
-    .trim()
-    .toLocaleLowerCase("bg-BG");
+/**
+ * ⚠️ RE-EXPORTED, NOT RE-IMPLEMENTED. Two copies of a FOLD is the shape that
+ * goes wrong quietly: the day one gains a `ё`/`й` rule, the briefing search
+ * and the corpus search disagree about what a term is and both look like
+ * they work.
+ */
+export const normalizeHomeSearch = normalizeQuery;
 
 const searchable = (story: HomeStory): string =>
   normalizeHomeSearch(
@@ -67,18 +64,4 @@ export const filterHomeStories = (
       storyWithinDays(story.last_published, days, now) &&
       (!needle || searchable(story).includes(needle)),
   );
-};
-
-export const homeCategoryCounts = (
-  stories: HomeStory[],
-): Map<string, number> => {
-  const counts = new Map<string, number>();
-  for (const story of stories) {
-    for (const category of new Set(
-      story.topics.map((topic) => topic.category),
-    )) {
-      counts.set(category, (counts.get(category) ?? 0) + 1);
-    }
-  }
-  return counts;
 };

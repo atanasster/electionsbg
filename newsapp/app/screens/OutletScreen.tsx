@@ -24,6 +24,7 @@ import {
   hasSpectrum,
   positionedCount,
   useOutlets,
+  useGlobalStoryQuery,
   useOutletArticles,
   useStoryList,
   type Outlet,
@@ -36,6 +37,7 @@ import {
 import { ArticleRecordRow } from "../components/ArticleRow";
 import { LoadMore } from "../components/LoadMore";
 import { Breadcrumbs } from "../components/Breadcrumbs";
+import { listState } from "../storyQuery";
 import {
   FUNDING_TRANSPARENCY_COVERAGE,
   outletHomepage,
@@ -46,6 +48,8 @@ import {
 import { useNewsLocale } from "../i18n";
 
 const PAGE_SIZE = 20;
+/** How many participating stories the outlet page previews before linking on. */
+const STORY_PREVIEW = 10;
 
 /**
  * A conduct measure: a count, its denominator, and the corpus mean beside it.
@@ -331,9 +335,36 @@ export const OutletScreen = () => {
   const articles = useOutletArticles(domain ?? null);
   const stories = useStoryList();
   const [limit, setLimit] = useState(PAGE_SIZE);
+  // ⚠️ PINNED ONCE PER OUTLET, never read from the clock per render. This
+  // query has no window today, so the anchor changes nothing — but it is the
+  // input a window would use, and a live clock makes the count flicker under
+  // a reader who is not doing anything.
+  const [countedAt, setCountedAt] = useState(() => Date.now());
+  // How many of this outlet's stories the preview shows. It grows with the
+  // reveal button rather than staying at STORY_PREVIEW — see that button.
+  const [storyPreview, setStoryPreview] = useState(STORY_PREVIEW);
 
   // Router reuses this element across /outlet/:domain — start each outlet fresh.
-  useEffect(() => setLimit(PAGE_SIZE), [domain]);
+  useEffect(() => {
+    setLimit(PAGE_SIZE);
+    setCountedAt(Date.now());
+    setStoryPreview(STORY_PREVIEW);
+  }, [domain]);
+
+  /**
+   * ⚠️⚠️ THE COUNT COMES FROM THE WHOLE CORPUS, NOT FROM THE PREFIX. The
+   * heading printed `participating.length` — the number of THIS OUTLET's
+   * stories inside the ~200-row page the index had revealed — under the
+   * label „Истории с участие (N)". For every outlet with more than a page's
+   * worth, that number was an artifact of how far the reader had scrolled,
+   * and it rose as they pressed „покажи още": the same outlet answered the
+   * same question differently on every visit.
+   */
+  const corpus = useGlobalStoryQuery({
+    domain: domain ?? "all",
+    now: countedAt,
+  });
+  const participatingTotal = corpus.ready ? corpus.result.ids.length : null;
 
   const outlet = useMemo(
     () =>
@@ -523,58 +554,127 @@ export const OutletScreen = () => {
         </Card>
       )}
 
-      {participating.length > 0 ? (
-        <section aria-labelledby="outlet-stories">
-          <h2
-            id="outlet-stories"
-            className="mb-2 text-sm font-semibold uppercase tracking-wide"
-          >
-            {tr("Истории с участие", "Participating stories")} (
-            {participating.length})
-          </h2>
-          <Card className="divide-y p-0">
-            {participating.slice(0, 10).map((s) => (
-              <Link
-                key={s.id}
-                to={`/story/${s.id}`}
-                className="flex items-baseline justify-between gap-3 px-4 py-2.5 hover:bg-secondary/50"
+      {(() => {
+        const shown = participating.slice(0, storyPreview);
+        const state = listState({
+          revealed: participating.length,
+          total: participatingTotal ?? 0,
+          hasMore: stories.hasMore,
+          ready: corpus.ready,
+          error: corpus.error,
+        });
+        /**
+         * ⚠️ „NOTHING TO SHOW" IS THE ONE STATE THAT RENDERS NO SECTION, AND
+         * ONLY WHEN THERE IS GENUINELY NOTHING IN HAND. `listState` answers
+         * „empty" on the corpus count alone, so if the index and the revealed
+         * prefix ever disagree — a stale overlay generation, a domain spelled
+         * differently in the two files — dropping the section would discard
+         * rows the page is holding on the strength of a count.
+         */
+        if (state === "empty" && participating.length === 0) return null;
+        // ⚠️ Likewise the skeleton: it stands in for rows we do not have, not
+        // for a count we are still waiting on. `useStoryList` often resolves
+        // first, and a hung index request never rejects — so covering those
+        // rows would hide them for the life of the page.
+        if (state === "loading" && participating.length === 0)
+          return (
+            <section aria-labelledby="outlet-stories">
+              <h2
+                id="outlet-stories"
+                className="mb-2 text-sm font-semibold uppercase tracking-wide"
               >
-                <span className="text-sm">
-                  {(language === "bg" ? s.title_bg : s.title_en) ??
-                    tr("История без заглавие", "Untitled story")}
-                </span>
-                <span className="shrink-0 text-xs text-muted-foreground">
-                  {relativeTime(s.last_published, language)}
-                </span>
-              </Link>
-            ))}
-            {stories.hasMore ? (
-              <div className="px-4 py-3">
-                <button
-                  type="button"
-                  onClick={stories.loadMore}
-                  disabled={stories.loading}
-                  className="text-sm font-medium text-primary hover:underline disabled:opacity-50"
+                {tr("Истории с участие", "Participating stories")}
+              </h2>
+              <Skeleton className="h-32 rounded-xl" />
+            </section>
+          );
+        /**
+         * ⚠️ THE BUTTON MUST MOVE SOMETHING. The preview was hard-capped at
+         * ten, so once ten of this outlet's stories were in the revealed
+         * prefix „Покажи още истории" fetched another index page and changed
+         * nothing on screen — beside an exact „Показани са 10 от 40" that
+         * reads as broken rather than merely unhelpful. It now raises the
+         * preview first and only fetches when the prefix is exhausted.
+         */
+        const moreInHand = participating.length > shown.length;
+        const canReveal = moreInHand || stories.hasMore;
+        return (
+          <section aria-labelledby="outlet-stories">
+            <h2
+              id="outlet-stories"
+              className="mb-2 text-sm font-semibold uppercase tracking-wide"
+            >
+              {tr("Истории с участие", "Participating stories")}
+              {participatingTotal === null ? null : ` (${participatingTotal})`}
+            </h2>
+            <Card id="outlet-stories-list" className="divide-y p-0">
+              {shown.map((s) => (
+                <Link
+                  key={s.id}
+                  to={`/story/${s.id}`}
+                  className="flex items-baseline justify-between gap-3 px-4 py-2.5 hover:bg-secondary/50"
                 >
-                  {stories.loading
-                    ? tr("Зареждане…", "Loading…")
-                    : tr("Покажи още истории", "Show more stories")}
-                </button>
-                {/* ⚠️ Said out loud rather than implied: the list is what has
-                    been revealed so far, not everything that exists. A count
-                    with more behind it reads as complete otherwise. */}
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {tr(
-                    "Показани са най-новите истории; може да има още.",
-                    "Showing the newest stories; there may be more.",
-                  )}
-                </p>
+                  <span className="text-sm">
+                    {(language === "bg" ? s.title_bg : s.title_en) ??
+                      tr("История без заглавие", "Untitled story")}
+                  </span>
+                  <span className="shrink-0 text-xs text-muted-foreground">
+                    {relativeTime(s.last_published, language)}
+                  </span>
+                </Link>
+              ))}
+              <div className="px-4 py-3">
+                {/* ⚠️ THE CAPTION NAMES BOTH NUMBERS. „Показани са
+                    най-новите; може да има още" was the same sentence
+                    whether one story was hidden or four hundred were, and
+                    it was printed under complete lists too. */}
+                {state === "failed" ? (
+                  <p className="text-xs text-destructive">
+                    {tr(
+                      "Не можахме да преброим всички истории на този източник — показаното е само каквото вече е заредено.",
+                      "We could not count every story from this source — what you see is only what has loaded.",
+                    )}
+                  </p>
+                ) : state === "loading" ? (
+                  <p className="text-xs text-muted-foreground">
+                    {tr(
+                      `Показани са ${shown.length}; броим целия корпус…`,
+                      `Showing ${shown.length}; counting the whole corpus…`,
+                    )}
+                  </p>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    {tr(
+                      `Показани са ${shown.length} от ${participatingTotal ?? shown.length}`,
+                      `Showing ${shown.length} of ${participatingTotal ?? shown.length}`,
+                    )}
+                    {state === "complete" &&
+                    shown.length === participating.length
+                      ? ` — ${tr("това са всички", "that is all of them")}`
+                      : ""}
+                  </p>
+                )}
+                {canReveal ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStoryPreview((n) => n + STORY_PREVIEW);
+                      if (!moreInHand) stories.loadMore();
+                    }}
+                    disabled={stories.loading && !moreInHand}
+                    aria-controls="outlet-stories-list"
+                    className="mt-1 min-h-11 text-sm font-medium text-primary hover:underline disabled:opacity-50"
+                  >
+                    {stories.loading && !moreInHand
+                      ? tr("Зареждане…", "Loading…")
+                      : tr("Покажи още истории", "Show more stories")}
+                  </button>
+                ) : null}
               </div>
-            ) : null}
-
-          </Card>
-        </section>
-      ) : null}
+            </Card>
+          </section>
+        );
+      })()}
 
       <section aria-labelledby="outlet-articles">
         <h2

@@ -22,6 +22,13 @@ import {
   type NewsOverlay,
   type NewsOverlayPointer,
 } from "./overlayMerge";
+import {
+  queryStories,
+  QUERY_VERSION,
+  type FilterIndex,
+  type StoryQuery,
+  type StoryQueryResult,
+} from "./storyQuery";
 
 export type Leaning =
   | "strong_progressive"
@@ -1294,6 +1301,18 @@ export const useActiveOverlay = (
 export const useStories = () =>
   useData<{ generated_at: string; stories: Story[] }>("/stories.json");
 
+/**
+ * The whole-corpus structured index behind every facet.
+ *
+ * ⚠️ ONE FETCH FOR THE WHOLE CORPUS, so a predicate sees every story rather
+ * than the ≤16 in `home.json` or whatever prefix an outlet page has revealed.
+ * ~41 KB gzipped over 3,082 stories; it carries no titles, because adding
+ * them measured 288 KB and an inverted index 348 KB against a 13 KB page —
+ * see `storyQuery.ts` for what that means for search.
+ */
+export const useFilterIndex = () =>
+  useData<FilterIndex>("/stories/filter-index.json");
+
 /** One story's row in the paginated index — findable and filterable, small. */
 export interface StoryIndexRow {
   id: string;
@@ -1645,6 +1664,66 @@ export const useStoryList = () => {
     reset,
   };
 };
+/**
+ * One query answered over the WHOLE corpus, not over what has downloaded.
+ *
+ * ⚠️⚠️ THE DISTINCTION EVERY CONSUMER MUST KEEP. `useStoryList` reveals an
+ * ordered PREFIX — page 1, then page 2 — so a predicate applied to its rows
+ * answers „how many of the ones I have", and every screen that printed that
+ * number presented it as „how many there are". This hook answers the second
+ * question from `stories/filter-index.json`, which carries every story's
+ * window, topics and outlets for the whole corpus.
+ *
+ * ⚠️ `ready` IS NOT `!loading`, AND CONFLATING THEM REPRODUCES THE DEFECT.
+ * Before the index lands, and after a failed fetch, `result.total` is 0 — a
+ * number shaped exactly like „this outlet appears in no story". A consumer
+ * renders a count only when `ready`, and says „не можахме да преброим" (not
+ * „0") when `error` is set. Nothing here degrades a failure to a zero.
+ */
+export const useGlobalStoryQuery = (
+  query: StoryQuery,
+): {
+  result: StoryQueryResult;
+  ready: boolean;
+  loading: boolean;
+  error: Error | null;
+} => {
+  const index = useFilterIndex();
+  const { category, domain, days, now } = query;
+  /**
+   * ⚠️ AN UNRECOGNISED CONTRACT IS A FAILURE, NEVER A NARROWER ANSWER. The
+   * rows are POSITIONAL, so a v2 that reorders or extends them parses
+   * cleanly as v1 and answers wrongly: every facet re-buckets on whatever
+   * v2 put at `row[2]`, and `withinDays` rejects the non-ISO value now at
+   * `row[1]`, so the whole corpus drops out of every window and the page
+   * says „no stories match" at a 200. Refusing it surfaces as `error`,
+   * which every consumer already distinguishes from an empty corpus.
+   */
+  const usable =
+    index.data && index.data.query_version === QUERY_VERSION
+      ? index.data
+      : null;
+  const versionError = useMemo(
+    () =>
+      index.data && !usable
+        ? new Error(
+            `filter-index query_version ${index.data.query_version} != ${QUERY_VERSION}`,
+          )
+        : null,
+    [index.data, usable],
+  );
+  const result = useMemo(
+    () => queryStories(usable, { category, domain, days, now }),
+    [usable, category, domain, days, now],
+  );
+  return {
+    result,
+    ready: Boolean(usable),
+    loading: index.loading,
+    error: index.error ?? versionError,
+  };
+};
+
 export const useLatest = () =>
   useData<{ generated_at: string; articles: ArticleRecord[] }>("/latest.json");
 export interface HomeMergeProposal {

@@ -9,6 +9,7 @@ import type {
   TaxonomyCategory,
 } from "../data";
 import { NEWS_BRIEFING_STORAGE_KEY } from "../briefing";
+import { queryStories } from "../storyQuery";
 
 const NOW = Date.parse("2026-08-31T07:00:00Z");
 
@@ -129,6 +130,13 @@ const renderHome = async (
   statsData: Stats | null = null,
   categories: TaxonomyCategory[] = [],
   initialEntry = "/",
+  /**
+   * The corpus-wide index behind the chip counts, SEPARATE from the briefing
+   * bundle on purpose: `[topic, ...]` per story, `null` for a failed index.
+   * `undefined` leaves the corpus unknown, which is what a page renders
+   * before the index lands.
+   */
+  corpusTopics: string[][] | null | undefined = undefined,
 ) => {
   vi.resetModules();
   vi.spyOn(Date, "now").mockReturnValue(NOW);
@@ -150,6 +158,49 @@ const renderHome = async (
       error: null,
       loading: false,
     }),
+    // ⚠️ MOCKED AT THE HOOK, NOT AT `useFilterIndex`: the hook closes over
+    // the module's own copy, which a spread-and-override mock cannot reach.
+    // The real `queryStories` still runs; only the transport is replaced.
+    useGlobalStoryQuery: (query: { category?: string; now: number }) => {
+      if (corpusTopics === undefined)
+        return {
+          result: queryStories(null, query),
+          ready: false,
+          loading: true,
+          error: null,
+        };
+      if (corpusTopics === null)
+        return {
+          result: queryStories(null, query),
+          ready: false,
+          loading: false,
+          error: new Error("offline"),
+        };
+      return {
+        result: queryStories(
+          {
+            query_version: 1,
+            fields: ["id", "last_published", "categories", "domains"],
+            total: corpusTopics.length,
+            facets_basis: {},
+            facets: { categories: {}, domains: {} },
+            stories: corpusTopics.map(
+              (topics, i) =>
+                [
+                  `corpus-${i}`,
+                  "2026-08-31T06:00:00Z",
+                  topics,
+                  ["example.bg"],
+                ] as const,
+            ),
+          },
+          query,
+        ),
+        ready: true,
+        loading: false,
+        error: null,
+      };
+    },
   }));
   const { HomeScreen } = await import("./HomeScreen");
   render(
@@ -419,5 +470,140 @@ describe("home adaptive freshness window", () => {
     expect(JSON.stringify(sink.mock.calls)).not.toContain(
       "private-empty-query",
     );
+  });
+});
+
+describe("the briefing says what it is a selection of", () => {
+  const category = (id: string): TaxonomyCategory =>
+    ({ id, label: { bg: id, en: id } }) as TaxonomyCategory;
+
+  it("counts topic chips over the CORPUS, not over the briefing", async () => {
+    // ⚠️⚠️ THE DEFECT THIS REPLACES. The counts came from `home.json` — at
+    // most sixteen stories — so „elections · 2" was a fact about the download
+    // presented as a fact about Bulgarian news coverage.
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "elections")]),
+      stats,
+      [category("elections")],
+      "/",
+      Array.from({ length: 139 }, () => ["elections"]),
+    );
+    expect(
+      await screen.findByRole("button", { name: /elections · 139/ }),
+    ).toBeVisible();
+  });
+
+  it("prints no count at all while the corpus index is in flight", async () => {
+    // „elections · 0" is a claim that nothing was written about it.
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "elections")]),
+      stats,
+      [category("elections")],
+    );
+    expect(
+      await screen.findByRole("button", { name: "elections" }),
+    ).toBeVisible();
+    expect(screen.queryByRole("button", { name: /elections · 0/ })).toBeNull();
+  });
+
+  it("names both numbers when the corpus holds more than the briefing", async () => {
+    await renderHome(
+      home(
+        [story("s1", "2026-08-31T06:00:00Z", "elections")],
+        [homeArticle("a1", "s1")],
+      ),
+      stats,
+      [category("elections")],
+      "/",
+      Array.from({ length: 139 }, () => ["elections"]),
+    );
+    expect(await screen.findByText(/Показваме 1 от 139/)).toBeVisible();
+  });
+
+  it("does not count the corpus against a search it cannot see", async () => {
+    // ⚠️ The index carries no titles, so „1 от 139" beside a search term
+    // would be counting 139 stories that do not match it.
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "elections")]),
+      stats,
+      [category("elections")],
+      "/?q=нещо",
+      Array.from({ length: 139 }, () => ["elections"]),
+    );
+    expect(await screen.findByText(/Търсенето обхваща/)).toBeVisible();
+    expect(screen.queryByText(/от 139/)).toBeNull();
+  });
+
+  it("tells an empty briefing apart from an empty corpus", async () => {
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "society")]),
+      stats,
+      [category("elections")],
+      "/?category=elections",
+      Array.from({ length: 139 }, () => ["elections"]),
+    );
+    expect(await screen.findByText(/но в корпуса има 139/)).toBeVisible();
+  });
+
+  it("does not claim the corpus is empty while it is still being counted", async () => {
+    // ⚠️⚠️ `home.json` (13 KB) resolves before `filter-index.json` (~41 KB),
+    // so for the length of that second fetch a reader on a narrow topic saw
+    // a card asserting that NO story in Bulgarian news matched the filter —
+    // while the corpus may hold 139, and with no disclosure anywhere on the
+    // page. `ready` is not `!loading`.
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "society")]),
+      stats,
+      [category("elections")],
+      "/?category=elections",
+      undefined,
+    );
+    expect(await screen.findByText("Броим целия корпус…")).toBeVisible();
+    expect(screen.queryByText("Няма истории за избраните филтри.")).toBeNull();
+  });
+
+  it("does not claim the corpus is empty when the count failed", async () => {
+    // The page used to make two contradictory statements at once — the card
+    // said „no stories match", the foot line said „we could not count" — and
+    // the stronger, wronger one was the one at reading size.
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "society")]),
+      stats,
+      [category("elections")],
+      "/?category=elections",
+      null,
+    );
+    expect(
+      await screen.findByText(/не можахме да преброим целия корпус/),
+    ).toBeVisible();
+    expect(screen.queryByText("Няма истории за избраните филтри.")).toBeNull();
+  });
+
+  it("still says nothing matches when the corpus really holds nothing", async () => {
+    // ⚠️ The claim is not abolished, only reserved for the one world it is
+    // true in — otherwise the three states above would be untestable.
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "society")]),
+      stats,
+      [category("elections")],
+      "/?category=elections",
+      [["society"]],
+    );
+    expect(
+      await screen.findByText("Няма истории за избраните филтри."),
+    ).toBeVisible();
+  });
+
+  it("says it could not count rather than implying the corpus is small", async () => {
+    await renderHome(
+      home([story("s1", "2026-08-31T06:00:00Z", "elections")]),
+      stats,
+      [category("elections")],
+      "/",
+      null,
+    );
+    expect(
+      await screen.findByText(/Не можахме да преброим целия корпус/),
+    ).toBeVisible();
   });
 });

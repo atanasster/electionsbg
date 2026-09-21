@@ -17,6 +17,7 @@ import {
   type Outlet,
   type StoryIndexRow,
 } from "../data";
+import { queryStories } from "../storyQuery";
 
 const outlet = (over: Partial<Outlet> = {}): Outlet =>
   ({
@@ -54,6 +55,12 @@ const renderProfile = async (
     storyRows = [] as StoryIndexRow[],
     hasMore = false,
     onLoadMore = () => {},
+    // ⚠️ THE WHOLE-CORPUS INDEX, SEPARATE FROM THE REVEALED ROWS ON PURPOSE.
+    // `undefined` means „derive it from the revealed rows" (the complete
+    // case); a longer list is what lets a test state „the prefix shows 1 and
+    // the corpus holds 40" — the very disagreement the count exists for.
+    // `null` is a failed index, which must never read as an empty corpus.
+    corpusDomains = undefined as string[][] | null | "loading" | undefined,
   } = {},
 ) => {
   vi.resetModules();
@@ -80,6 +87,51 @@ const renderProfile = async (
       staleVintage: false,
       reset: () => {},
     }),
+    // ⚠️ MOCKED AT THE HOOK, NOT AT `useFilterIndex`. `useGlobalStoryQuery`
+    // closes over the module's own `useFilterIndex`, which a spread-and-
+    // override mock does not reach — so overriding the fetch silently left
+    // the real hook running and every assertion below measured a failed
+    // network call instead of the contract. The real `queryStories` still
+    // runs here; only the transport is replaced.
+    useGlobalStoryQuery: (query: { domain?: string; now: number }) => {
+      if (corpusDomains === null)
+        return {
+          result: queryStories(null, query),
+          ready: false,
+          loading: false,
+          error: new Error("offline"),
+        };
+      if (corpusDomains === "loading")
+        return {
+          result: queryStories(null, query),
+          ready: false,
+          loading: true,
+          error: null,
+        };
+      const rows =
+        corpusDomains === undefined
+          ? storyRows.map((r) => r.domains)
+          : (corpusDomains as string[][]);
+      return {
+        result: queryStories(
+          {
+            query_version: 1,
+            fields: ["id", "last_published", "categories", "domains"],
+            total: rows.length,
+            facets_basis: {},
+            facets: { categories: {}, domains: {} },
+            stories: rows.map(
+              (domains, i) =>
+                [`c${i}`, "2026-09-20T08:00:00+00:00", [], domains] as const,
+            ),
+          },
+          query,
+        ),
+        ready: true,
+        loading: false,
+        error: null,
+      };
+    },
   }));
   const { OutletScreen } = await import("./OutletScreen");
   render(
@@ -390,20 +442,56 @@ describe("OutletScreen participating stories", () => {
     expect(screen.queryByText("История s2")).toBeNull();
   });
 
-  it("offers to reveal more, and says the list may be incomplete", async () => {
+  it("offers to reveal more, and names both numbers", async () => {
     // ⚠️ The honesty half: a count with more behind it reads as complete.
     const loadMore = vi.fn();
     await renderProfile(outlet({ domain: "ex.bg" }), [], {
       storyRows: [row("s1", ["ex.bg"])],
       hasMore: true,
       onLoadMore: loadMore,
+      corpusDomains: Array.from({ length: 40 }, () => ["ex.bg"]),
     });
     const button = await screen.findByRole("button", {
       name: "Покажи още истории",
     });
-    expect(screen.getByText(/може да има още/)).toBeVisible();
+    expect(screen.getByText(/Показани са 1 от 40/)).toBeVisible();
     button.click();
     expect(loadMore).toHaveBeenCalledTimes(1);
+  });
+
+  it("counts the WHOLE corpus, not the revealed prefix", async () => {
+    // ⚠️⚠️ THE DEFECT THIS REPLACES. The heading printed the number of this
+    // outlet's stories inside the ~200-row page the index had revealed, so
+    // it rose as the reader pressed „покажи още" — the same outlet answered
+    // the same question differently on every visit.
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      hasMore: true,
+      corpusDomains: Array.from({ length: 40 }, () => ["ex.bg"]),
+    });
+    expect(
+      await screen.findByRole("heading", { name: /Истории с участие \(40\)/ }),
+    ).toBeVisible();
+  });
+
+  it("says it could not count rather than publishing a zero", async () => {
+    // ⚠️ A failed index and an empty corpus both leave the total at 0, and
+    // „Истории с участие (0)" is a claim about this newsroom.
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      corpusDomains: null,
+    });
+    expect(await screen.findByText(/Не можахме да преброим/)).toBeVisible();
+    expect(screen.queryByText(/Истории с участие \(/)).toBeNull();
+  });
+
+  it("renders no section when the corpus genuinely holds none", async () => {
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [],
+      corpusDomains: [["two.bg"]],
+    });
+    await screen.findByText("Поведение на редакцията");
+    expect(screen.queryByText(/Истории с участие/)).toBeNull();
   });
 
   it("offers no reveal when everything is loaded", async () => {
@@ -415,5 +503,94 @@ describe("OutletScreen participating stories", () => {
     expect(
       screen.queryByRole("button", { name: "Покажи още истории" }),
     ).toBeNull();
+    expect(screen.getByText(/това са всички/)).toBeVisible();
+  });
+});
+
+describe("OutletScreen while the corpus count is pending", () => {
+  const row = (id: string, domains: string[]): StoryIndexRow => ({
+    id,
+    title_bg: `История ${id}`,
+    title_en: null,
+    topics: [],
+    first_published: "2026-09-19T08:00:00+00:00",
+    last_published: "2026-09-20T08:00:00+00:00",
+    member_count: domains.length,
+    domains,
+  });
+
+  it("shows rows it already holds rather than covering them", async () => {
+    // ⚠️ `useStoryList` often resolves first, and a hung index request never
+    // rejects — so a skeleton over rows the page is holding hides them for
+    // the life of the page while waiting on a COUNT.
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      corpusDomains: "loading",
+    });
+    expect(await screen.findByText("История s1")).toBeVisible();
+    expect(screen.getByText(/броим целия корпус/)).toBeVisible();
+  });
+
+  it("shows a skeleton only when it has no rows at all", async () => {
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [],
+      corpusDomains: "loading",
+    });
+    expect(
+      await screen.findByRole("heading", { name: /Истории с участие/ }),
+    ).toBeVisible();
+    expect(screen.queryByText(/Показани са/)).toBeNull();
+  });
+
+  it("keeps rows in hand even when the count says the corpus is empty", async () => {
+    // A stale overlay generation, or a domain spelled differently in the two
+    // files, must not make the page discard stories it is holding.
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      corpusDomains: [["two.bg"]],
+    });
+    expect(await screen.findByText("История s1")).toBeVisible();
+  });
+
+  it("the reveal button moves the preview, not only the fetch", async () => {
+    // ⚠️ The preview was hard-capped at ten, so once ten of this outlet's
+    // stories were in the revealed prefix the button fetched another index
+    // page and changed nothing on screen — beside an exact „10 от 40".
+    const loadMore = vi.fn();
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: Array.from({ length: 12 }, (_, i) => row(`s${i}`, ["ex.bg"])),
+      hasMore: true,
+      onLoadMore: loadMore,
+      corpusDomains: Array.from({ length: 40 }, () => ["ex.bg"]),
+    });
+    expect(await screen.findByText(/Показани са 10 от 40/)).toBeVisible();
+    (await screen.findByRole("button", { name: "Покажи още истории" })).click();
+    expect(await screen.findByText(/Показани са 12 от 40/)).toBeVisible();
+    // Nothing was fetched: the rows were already in hand.
+    expect(loadMore).not.toHaveBeenCalled();
+  });
+
+  it("fetches only once the revealed prefix is exhausted", async () => {
+    const loadMore = vi.fn();
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      hasMore: true,
+      onLoadMore: loadMore,
+      corpusDomains: Array.from({ length: 40 }, () => ["ex.bg"]),
+    });
+    (await screen.findByRole("button", { name: "Покажи още истории" })).click();
+    expect(loadMore).toHaveBeenCalledTimes(1);
+  });
+
+  it("points the reveal button at the list, not at the heading", async () => {
+    await renderProfile(outlet({ domain: "ex.bg" }), [], {
+      storyRows: [row("s1", ["ex.bg"])],
+      hasMore: true,
+    });
+    const button = await screen.findByRole("button", {
+      name: "Покажи още истории",
+    });
+    expect(button.getAttribute("aria-controls")).toBe("outlet-stories-list");
+    expect(document.getElementById("outlet-stories-list")).not.toBeNull();
   });
 });

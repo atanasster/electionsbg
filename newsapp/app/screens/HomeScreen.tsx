@@ -13,16 +13,18 @@ import {
   relativeTime,
   stories,
 } from "../labels";
-import { useHome, useOutlets, useStats, useTaxonomy } from "../data";
+import {
+  useGlobalStoryQuery,
+  useHome,
+  useOutlets,
+  useStats,
+  useTaxonomy,
+} from "../data";
 import { StoryCard } from "../components/StoryCard";
 import { LeadStory } from "../components/LeadStory";
 import { HomeFilterControls } from "../components/HomeFilterControls";
-import { buildHomeHierarchy, HOME_SUPPORTING_LIMIT } from "../homeHierarchy";
-import {
-  defaultHomeDays,
-  filterHomeStories,
-  homeCategoryCounts,
-} from "../homeFilters";
+import { buildHomeHierarchy } from "../homeHierarchy";
+import { defaultHomeDays, filterHomeStories } from "../homeFilters";
 import { useUrlHomeFilters } from "../useUrlHomeFilters";
 import { useNewsLocale } from "../i18n";
 import {
@@ -92,19 +94,49 @@ export const HomeScreen = () => {
     categories?.map((item) => item.id) ?? null,
     briefingDefaultDays,
   );
-  const facetedStories = useMemo(
+  /**
+   * ⚠️⚠️ THE CHIP COUNTS COME FROM THE WHOLE CORPUS, NOT FROM THE BRIEFING.
+   * They were computed over `home.json` — at most sixteen stories — so
+   * „Парламентарни избори · 2" was a fact about the briefing presented as a
+   * fact about Bulgarian news coverage, and a reader could reasonably
+   * conclude the election had been reported on twice.
+   *
+   * ⚠️ SO THE BRIEFING MUST SAY IT IS A SELECTION, which is what the „от N"
+   * line below does. A corpus count beside a six-card list is only honest
+   * while the page states both numbers; publishing the larger one alone
+   * would replace an understatement with a broken promise.
+   */
+  const corpus = useGlobalStoryQuery({ category, days, now });
+  // What a text query can actually see: the briefing's own stories under the
+  // current topic and window, before the term is applied. Reported rather
+  // than implied — see the search line at the foot of this screen.
+  const searchScope = useMemo(
     () =>
       filterHomeStories(home.data?.stories ?? [], {
-        category: "all",
+        category,
         days,
-        query,
+        query: "",
         now,
-      }),
-    [home.data?.stories, days, query, now],
+      }).length,
+    [home.data?.stories, category, days, now],
   );
+  /**
+   * ⚠️ READ OFF THE QUERY THE PAGE ALREADY RUNS, never a second one pinned to
+   * `category: "all"`. `queryStories` counts a category facet with the
+   * SELECTED category relaxed out by construction, so the two are identical
+   * today — and the day this screen grows an outlet filter, the pinned copy
+   * would count a different set than the list beneath it, with nothing
+   * failing. That is the original defect one dimension over.
+   *
+   * ⚠️ EMPTY, NEVER ZEROED — the chip renders no count at all until the index
+   * lands. See HomeFilterControls.
+   */
   const categoryCounts = useMemo(
-    () => homeCategoryCounts(facetedStories),
-    [facetedStories],
+    () =>
+      corpus.ready
+        ? new Map(Object.entries(corpus.result.facets.categories))
+        : new Map<string, number>(),
+    [corpus.ready, corpus.result],
   );
   const availableCategories = useMemo(
     () => (categories ?? []).filter((item) => item.id !== "not-site-relevant"),
@@ -329,10 +361,43 @@ export const HomeScreen = () => {
         ) : home.error && !home.data ? null : !hierarchy.lead &&
           !hierarchy.supporting.length ? (
           <Card className="p-6 text-sm text-muted-foreground">
-            {tr(
-              "Няма истории за избраните филтри.",
-              "No stories match these filters.",
-            )}
+            {/* ⚠️⚠️ FOUR DIFFERENT CLAIMS, RENDERED IDENTICALLY BEFORE THIS.
+                „Няма истории за избраните филтри" is a statement about
+                Bulgarian news coverage; „the briefing holds none of them",
+                „we have not counted yet" and „we could not count" are
+                statements about this page. Only the corpus index can tell
+                them apart, and while it is in flight or failed the absolute
+                claim must not render at all — `ready` is not `!loading`. */}
+            {/* ⚠️ A SEARCH SHORT-CIRCUITS ALL OF THIS, because the corpus
+                index carries no titles and so cannot answer a text query at
+                all. „Броим целия корпус…" beside a search term would promise
+                an answer that is not coming; what the page can say honestly
+                is the scope it searched, which the foot line does. */}
+            {query.trim()
+              ? tr(
+                  "Няма истории за избраните филтри.",
+                  "No stories match these filters.",
+                )
+              : !corpus.ready
+                ? corpus.error
+                  ? tr(
+                      "Краткият преглед няма истории за този филтър; не можахме да преброим целия корпус.",
+                      "The briefing has no stories for this filter; we could not count the whole corpus.",
+                    )
+                  : // In flight — say what we do not yet know, rather than
+                    // what is not there. `home.json` (13 KB) resolves before
+                    // `filter-index.json` (~41 KB), so this window is every
+                    // reader's first second on a narrow topic.
+                    tr("Броим целия корпус…", "Counting the whole corpus…")
+                : corpus.result.ids.length > 0
+                  ? tr(
+                      `Краткият преглед няма истории за този филтър, но в корпуса има ${stories(corpus.result.ids.length, language)}.`,
+                      `The briefing has no stories for this filter, though the corpus holds ${stories(corpus.result.ids.length, language)}.`,
+                    )
+                  : tr(
+                      "Няма истории за избраните филтри.",
+                      "No stories match these filters.",
+                    )}
           </Card>
         ) : (
           <div className="space-y-7">
@@ -410,15 +475,36 @@ export const HomeScreen = () => {
             ) : null}
           </div>
         )}
-        {filteredStories.length > HOME_SUPPORTING_LIMIT + 1 ? (
+        {/* ⚠️⚠️ THE BRIEFING IS A SELECTION, AND THIS LINE IS WHERE IT SAYS
+            SO. It used to read „…от {filteredStories.length}" — the size of
+            the ≤16-story home bundle — so the larger number a reader was
+            invited to go and find was itself a fact about the download, not
+            about the corpus. Both numbers, or neither.
+
+            ⚠️ AND IT IS SUPPRESSED WHILE A SEARCH IS ACTIVE, because the
+            corpus index carries no titles: `corpus` answers the topic and
+            window only, so „1 от 139" beside a search term would count 139
+            stories that do not match it. What the page can say honestly then
+            is the SCOPE it searched. */}
+        {query.trim() ? (
           <p className="mt-2 text-xs text-muted-foreground">
-            {tr("Показват се водещата и", "Showing the lead and")}{" "}
-            {HOME_SUPPORTING_LIMIT}{" "}
-            {tr("подбрани истории от", "selected stories out of")}{" "}
-            {filteredStories.length} —{" "}
             {tr(
-              "стеснете филтрите, за да видите други.",
-              "narrow the filters to see others.",
+              `Търсенето обхваща ${stories(searchScope, language)} от краткия преглед, не целия корпус.`,
+              `The search covers ${stories(searchScope, language)} from the briefing, not the whole corpus.`,
+            )}
+          </p>
+        ) : corpus.error && !corpus.ready ? (
+          <p className="mt-2 text-xs text-muted-foreground">
+            {tr(
+              "Не можахме да преброим целия корпус — показаното е краткият преглед.",
+              "We could not count the whole corpus — what you see is the briefing.",
+            )}
+          </p>
+        ) : corpus.ready && corpus.result.ids.length > briefing.visibleCount ? (
+          <p className="mt-2 text-xs text-muted-foreground">
+            {tr(
+              `Показваме ${briefing.visibleCount} от ${stories(corpus.result.ids.length, language)} за този филтър.`,
+              `Showing ${briefing.visibleCount} of ${stories(corpus.result.ids.length, language)} matching this filter.`,
             )}
           </p>
         ) : null}

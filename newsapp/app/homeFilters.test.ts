@@ -3,7 +3,6 @@ import type { Story } from "./data";
 import {
   defaultHomeDays,
   filterHomeStories,
-  homeCategoryCounts,
   normalizeHomeSearch,
   storyWithinDays,
 } from "./homeFilters";
@@ -97,15 +96,5 @@ describe("home filters", () => {
         (item) => item.id,
       ),
     ).toEqual(["fresh"]);
-  });
-
-  it("counts each story once per category even with two topic refs", () => {
-    const item = story("one", "2026-08-28T09:00:00Z");
-    item.topics.push({
-      category: "society",
-      subcategory: "people",
-      primary: false,
-    });
-    expect(homeCategoryCounts([item]).get("society")).toBe(1);
   });
 });
