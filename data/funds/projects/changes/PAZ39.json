@@ -1,0 +1,41 @@
+{
+  "obshtina": "PAZ39",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0238",
+      "title": "Топъл обяд в община Сърница",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 560359.13,
+      "totalEur": 652863.29,
+      "paidEur": 476990.47,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Сърница",
+      "detectedAt": "2026-09-21"
+    },
+    {
+      "contractNumber": "BG14MFPR001-3.002-0004",
+      "title": "Изпълнение на Стратегия за ВОМР на МИРГ Самоков - Белица - Сърница",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 499966.88,
+      "totalEur": 499966.88,
+      "paidEur": 109195.19,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Сдружение Местна инициативна рибарска група Самоков - Белица - Сърница",
+      "detectedAt": "2026-09-21"
+    }
+  ]
+}

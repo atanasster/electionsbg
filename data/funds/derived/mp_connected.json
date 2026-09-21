@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-13T02:23:11.383Z",
+  "generatedAt": "2026-09-21T18:35:15.879Z",
   "total": 175,
   "mpCount": 149,
   "beneficiaryCount": 168,
-  "contractedEur": 3605803686.53,
-  "paidEur": 1854517503.47,
+  "contractedEur": 4804329064.75,
+  "paidEur": 1854513592.09,
   "entries": [
     {
       "mpId": 4507,
@@ -22,8 +22,8 @@
           "isCurrent": true
         }
       ],
-      "contractCount": 16,
-      "contractedEur": 1518180923.56,
+      "contractCount": 17,
+      "contractedEur": 2118180923.56,
       "paidEur": 801863794.36
     },
     {
@@ -38,8 +38,8 @@
           "isCurrent": true
         }
       ],
-      "contractCount": 16,
-      "contractedEur": 1518180923.56,
+      "contractCount": 17,
+      "contractedEur": 2118180923.56,
       "paidEur": 801863794.36
     },
     {
@@ -193,22 +193,6 @@
       "paidEur": 0
     },
     {
-      "mpId": 3167,
-      "mpName": "Илия Димитров Лазаров",
-      "beneficiaryEik": "121706255",
-      "beneficiaryName": "\"Национална компания индустриални зони\" ЕАД (Нкиз ЕАД)",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "director",
-          "isCurrent": true
-        }
-      ],
-      "contractCount": 2,
-      "contractedEur": 4561740.51,
-      "paidEur": 914366.9
-    },
-    {
       "mpId": 1582,
       "mpName": "Ирена Георгиева Узунова",
       "beneficiaryEik": "126529015",
@@ -228,7 +212,7 @@
       "mpId": 3427,
       "mpName": "Петко Ангелов Кущирев",
       "beneficiaryEik": "200712697",
-      "beneficiaryName": "ПАК Дизайн ЕООД",
+      "beneficiaryName": "ПАК дизайн ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -279,6 +263,22 @@
       "contractCount": 8,
       "contractedEur": 3407524.87,
       "paidEur": 1454683.65
+    },
+    {
+      "mpId": 3167,
+      "mpName": "Илия Димитров Лазаров",
+      "beneficiaryEik": "121706255",
+      "beneficiaryName": "\"Национална компания индустриални зони\" ЕАД (Нкиз ЕАД)",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 3087118.73,
+      "paidEur": 910455.52
     },
     {
       "mpId": 897,

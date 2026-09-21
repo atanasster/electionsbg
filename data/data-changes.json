@@ -1,6 +1,82 @@
 {
-  "updatedAt": "2026-09-16T23:25:19.629Z",
+  "updatedAt": "2026-09-21T19:49:33.744Z",
   "entries": [
+    {
+      "timestamp": "2026-09-21T19:49:33.744Z",
+      "date": "2026-09-21",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 948 лица, 125 073 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-21T19:05:40.048Z",
+      "date": "2026-09-21",
+      "skill": "update-council-minutes",
+      "summary": "Общински съвети: Плевен +1 решение (5,174 общо, 51,672 поименни гласа)",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-09-21T18:54:16.821Z",
+      "date": "2026-09-21",
+      "skill": "tr-daily-refresh",
+      "summary": "Търговски регистър: +4 daily filings through 2026-09-19, 1,024,950 companies",
+      "source": "data.egov.bg Commerce Registry"
+    },
+    {
+      "timestamp": "2026-09-21T18:41:37.789Z",
+      "date": "2026-09-21",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: 42 new complaints for 2026 (994 this year)",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-09-21T18:38:49.237Z",
+      "date": "2026-09-21",
+      "skill": "update-funds",
+      "summary": "ИСУН refresh: 53,144 beneficiaries, 82,930 contracts (€45.08bn), 481 new + 246 modified projects",
+      "source": "ИСУН EU funds"
+    },
+    {
+      "timestamp": "2026-09-21T18:34:27.517Z",
+      "date": "2026-09-21",
+      "skill": "update-open-calls",
+      "summary": "ИСУН 59 open procedures (+5 new), open_calls 77→82 rows",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-21T18:31:42.314Z",
+      "date": "2026-09-21",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-20 (+4 daily archives; 907,055 store rows, 164 settlements, 73 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-20"
+    },
+    {
+      "timestamp": "2026-09-21T18:22:22.576Z",
+      "date": "2026-09-21",
+      "skill": "update-rollcall",
+      "summary": "2 new sessions through 2026-09-18 (ids 11171-11172), 626 plenary days",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-21T18:15:07.306Z",
+      "date": "2026-09-21",
+      "skill": "update-macro",
+      "summary": "macro refresh: quarterly through 2026 Q2, BNB FDI 2026-07, EU peers + PLI",
+      "source": "Eurostat macro (BG) + BNB FDI",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-16T23:25:19.629Z",
       "date": "2026-09-16",

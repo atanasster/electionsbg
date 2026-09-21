@@ -1,18 +1,24 @@
 {
   "obshtina": "VRC20",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.039-2987",
-      "title": "„Подкрепа за устойчиво енергийно обновяване на многофамилна жилищна сграда в гр. Козлодуй”",
-      "type": "new",
-      "totalEur": 339658.55,
+      "contractNumber": "BG05SFPR002-1.004-1178",
+      "title": "Подобряване на условията на труд в АТОМЕНЕРГОРЕМОНТ АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 196864.03,
+      "totalEur": 194834.79,
       "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Козлодуй",
-      "detectedAt": "2026-09-13"
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Атоменергоремонт АД",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

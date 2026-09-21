@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-16T23:59:59.999Z",
+  "computedAt": "2026-09-21T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:yabalki-gala",
+      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-16T00:00:00.000Z",
-      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "occurredAt": "2026-09-20T00:00:00.000Z",
+      "firstSeenAt": "2026-09-20T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,28 +22,56 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/yabalki-gala",
+      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЯБЪЛКИ ГАЛА",
-        "pct": 55,
+        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+        "pct": 51,
         "promoEur": "0.89",
-        "regularEur": "1.99",
+        "regularEur": "1.82",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7857142857142857,
+      "materiality": 0.7285714285714285,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:aacb04b2-7b42-46c4-9d03-d1a86f0f5f91",
+      "id": "parliament:sitting:2026-09-17",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-17",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 53
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 1,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:0cbfcb31-af33-4ccb-8a0a-a7f4208296b9",
       "kind": "call_opened",
       "category": "funds",
-      "effectiveAt": "2026-09-16T06:00:00.000Z",
-      "deadlineAt": "2026-10-31T21:59:00.000Z",
-      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "effectiveAt": "2026-09-18T15:00:00.000Z",
+      "deadlineAt": "2026-10-18T14:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
       "dateBasis": "effective",
       "scope": {
         "level": "national"
@@ -51,7 +79,7 @@
       "source": {
         "id": "opencalls_isun",
         "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/aacb04b2-7b42-46c4-9d03-d1a86f0f5f91"
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/0cbfcb31-af33-4ccb-8a0a-a7f4208296b9"
       },
       "coverage": {
         "complete": false,
@@ -60,8 +88,73 @@
       "route": "/funds/calls",
       "factKey": "home_fact_call_opened_programme",
       "factArgs": {
-        "title": "Изпълнение на дейности за сътрудничество и тяхната подготовка по интервенция „Изпълнение на операции, включително дейнос",
-        "programme": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР"
+        "title": "\"Предлагане на пазара - компенсации - подсектор \"Риболов\"",
+        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:svinska-pleshka-bez-kost",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-09-20T00:00:00.000Z",
+      "firstSeenAt": "2026-09-20T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/svinska-pleshka-bez-kost",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "СВИНСКА ПЛЕШКА БЕЗ КОСТ",
+        "pct": 51,
+        "promoEur": "2.99",
+        "regularEur": "6.14",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7285714285714285,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:785eaeb6-6137-4e0d-b6d3-a0efcb4970ee",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-18T14:00:00.000Z",
+      "deadlineAt": "2026-10-18T14:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/785eaeb6-6137-4e0d-b6d3-a0efcb4970ee"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "„Предлагане на пазара – компенсации - подсектор „Преработка на продукти от риболов и аквакултури“",
+        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
       },
       "backfill": false,
       "verification": "automatic",
@@ -98,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
+      "id": "prices:promotion:kromid-luk",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-16T00:00:00.000Z",
-      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "occurredAt": "2026-09-20T00:00:00.000Z",
+      "firstSeenAt": "2026-09-20T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,19 +208,236 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-lacmi-mlechen-90-gr",
+      "route": "/product/kromid-luk",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
-        "pct": 53,
-        "promoEur": "0.79",
-        "regularEur": "1.69",
+        "title": "Кромид Лук",
+        "pct": 49,
+        "promoEur": "0.44",
+        "regularEur": "0.87",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7571428571428571,
+      "materiality": 0.7,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:a7cc4771-8820-4b62-a188-40b4cc443aa8",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-18T14:00:00.000Z",
+      "deadlineAt": "2026-10-18T14:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/a7cc4771-8820-4b62-a188-40b4cc443aa8"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "„Предлагане на пазара – компенсации - подсектор „Аквакултури\"",
+        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "macro:cpi_release:prc_hicp_minr:2026-08",
+      "kind": "cpi_released",
+      "category": "prices",
+      "publishedAt": "2026-09-17T09:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "published",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "eurostat_hicp",
+        "labelKey": "home_source_eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators",
+      "factKey": "home_fact_cpi_released",
+      "factArgs": {
+        "period": "2026-08",
+        "pct": "5.0"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:414016a7-a024-4da2-bcb7-8baa285bcc94",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-18T08:00:00.000Z",
+      "deadlineAt": "2026-12-15T15:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/414016a7-a024-4da2-bcb7-8baa285bcc94"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "АКТИВЕН ЖИВОТ НА ВЪЗРАСТНИТЕ ХОРА В ПЕНСИОННА ВЪЗРАСТ И ОСТАРЯВАНЕ В ДОБРО ЗДРАВЕ - ВОМР",
+        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:70c75ab7-9772-4da6-a9be-6e0b6380e535",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-18T08:00:00.000Z",
+      "deadlineAt": "2026-12-15T15:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/70c75ab7-9772-4da6-a9be-6e0b6380e535"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "ПОДКРЕПА ЗА РАЗВИТИЕ НА ПРЕДПРИЯТИЯТА ОТ СОЦИАЛНАТА ИКОНОМИКА- ВОМР",
+        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:aacb04b2-7b42-46c4-9d03-d1a86f0f5f91",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-16T06:00:00.000Z",
+      "deadlineAt": "2026-10-31T21:59:00.000Z",
+      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/aacb04b2-7b42-46c4-9d03-d1a86f0f5f91"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Изпълнение на дейности за сътрудничество и тяхната подготовка по интервенция „Изпълнение на операции, включително дейнос",
+        "programme": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-09-20",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-09-20T00:00:00.000Z",
+      "firstSeenAt": "2026-09-20T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_down",
+      "factArgs": {
+        "pct": "1.6",
+        "costEur": "15.66",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.39525,
+      "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-18",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-18T00:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-18",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 10
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.25,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -156,71 +466,6 @@
       "verification": "automatic",
       "materiality": 0.575,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:ceaa9a74-aa2c-4632-b69b-0701453b3ce2",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-08-31T13:30:00.000Z",
-      "deadlineAt": "2026-10-08T13:30:00.000Z",
-      "firstSeenAt": "2026-08-31T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/ceaa9a74-aa2c-4632-b69b-0701453b3ce2"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Допълващо финансиране за консолидиране на първоначалната мрежа от Европейски цифрови иновационни хъбове",
-        "programme": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\""
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:svinska-pleshka-bez-kost",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-09-16T00:00:00.000Z",
-      "firstSeenAt": "2026-09-16T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/svinska-pleshka-bez-kost",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "СВИНСКА ПЛЕШКА БЕЗ КОСТ",
-        "pct": 51,
-        "promoEur": "2.99",
-        "regularEur": "6.14",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7285714285714285,
-      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -283,36 +528,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "macro:cpi_release:prc_hicp_minr:2026-08",
-      "kind": "cpi_released",
-      "category": "prices",
-      "publishedAt": "2026-09-01T21:00:00.000Z",
-      "firstSeenAt": "2026-09-01T00:00:00.000Z",
-      "dateBasis": "published",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "eurostat_hicp",
-        "labelKey": "home_source_eurostat",
-        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators",
-      "factKey": "home_fact_cpi_released",
-      "factArgs": {
-        "period": "2026-08",
-        "pct": "5.1"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:basket_moved:2026-09-06",
       "kind": "basket_moved",
       "category": "prices",
@@ -341,6 +556,38 @@
       "verification": "automatic",
       "materiality": 0.495,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:ceaa9a74-aa2c-4632-b69b-0701453b3ce2",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-08-31T13:30:00.000Z",
+      "deadlineAt": "2026-10-08T13:30:00.000Z",
+      "firstSeenAt": "2026-08-31T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/ceaa9a74-aa2c-4632-b69b-0701453b3ce2"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Допълващо финансиране за консолидиране на първоначалната мрежа от Европейски цифрови иновационни хъбове",
+        "programme": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\""
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -767,38 +1014,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:b52a7f23-24af-4bab-9931-9d2ee022a8ff",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-08-20T14:00:00.000Z",
-      "deadlineAt": "2026-10-21T14:00:00.000Z",
-      "firstSeenAt": "2026-08-20T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/b52a7f23-24af-4bab-9931-9d2ee022a8ff"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Окончателно преустановяване на риболовни дейности",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
       "id": "parliament:sitting:2026-08-26",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -1016,34 +1231,6 @@
       "verification": "automatic",
       "materiality": 0.48000000000000004,
       "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-08-28",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-08-28T00:00:00.000Z",
-      "firstSeenAt": "2026-08-28T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-08-28",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 1
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.025,
-      "actionability": 0.4
     }
   ],
   "sourceCoverage": {
@@ -1055,7 +1242,7 @@
     },
     "council": {
       "available": true,
-      "asOf": "2026-09-01",
+      "asOf": "2026-09-14",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -1074,28 +1261,28 @@
     },
     "macro": {
       "available": true,
-      "asOf": "2026-09-01",
-      "observedAt": "2026-09-01",
+      "asOf": "2026-09-17",
+      "observedAt": "2026-09-17",
       "staleAfterDays": 60,
       "stale": false
     },
     "opencalls": {
       "available": true,
       "asOf": "2026-08-09",
-      "observedAt": "2026-09-16",
+      "observedAt": "2026-09-21",
       "staleAfterDays": 45,
       "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-09-16",
+      "asOf": "2026-09-18",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-16",
-      "observedAt": "2026-09-16",
+      "asOf": "2026-09-20",
+      "observedAt": "2026-09-20",
       "staleAfterDays": 5,
       "stale": false
     }

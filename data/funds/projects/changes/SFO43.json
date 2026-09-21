@@ -1,24 +1,34 @@
 {
   "obshtina": "SFO43",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0152",
-      "title": "Подкрепа за устойчиво енергийно обновяване на публичен сграден фонд за култура на територията на община Своге",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 585098.62,
-      "totalEur": 584100.75,
-      "paidEur": 577080.6,
-      "status": "Приключен (към датата на приключване)",
+      "contractNumber": "BG-RRP-4.039-0028",
+      "title": "\"Подкрепа за устойчиво енергийно обновяване на МЖС \"Република 3\"",
+      "type": "new",
+      "totalEur": 467727.06,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Своге",
-      "detectedAt": "2026-09-13"
+      "detectedAt": "2026-09-21"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0205",
+      "title": "Топъл обяд в Община Своге",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 233488.35,
+      "totalEur": 233488.35,
+      "paidEur": 175553.56,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Своге",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

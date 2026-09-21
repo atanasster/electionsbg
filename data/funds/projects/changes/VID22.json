@@ -1,38 +1,34 @@
 {
   "obshtina": "VID22",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0031",
-      "title": "ИЗВЪРШВАНЕ НА СТРОИТЕЛНИ ДЕЙНОСТИ И ДОСТАВКА НА ОБОРУДВАНЕ И ОБЗАВЕЖДАНЕ В ДОМ ЗА СТАРИ ХОРА ГР.КУЛА, ОБЛ.ВИДИН",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1842550.12,
-      "totalEur": 1842550.12,
-      "paidEur": 1622172.4,
+      "contractNumber": "BG05SFPR001-1.010-0244",
+      "title": "Училище за приятели",
+      "type": "new",
+      "totalEur": 52551.8,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кула",
-      "detectedAt": "2026-09-13"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Васил Левски\" - град Кула",
+      "detectedAt": "2026-09-21"
     },
     {
-      "contractNumber": "BG16RFTA001-1.010-0045",
-      "title": "Знания, партньорства и устойчиво развитие за Северозападна България",
+      "contractNumber": "BG05SFPR003-1.001-0232",
+      "title": "Топъл обяд в Кула",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 47129.46,
-      "totalEur": 47129.46,
-      "paidEur": 8770.93,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение „Сдружение за развитие на Северозападна България Кастра Мартис“",
-      "detectedAt": "2026-09-13"
+      "prevTotalEur": 137749.22,
+      "totalEur": 137749.22,
+      "paidEur": 100062.21,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Кула",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

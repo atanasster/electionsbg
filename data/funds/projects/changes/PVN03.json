@@ -1,24 +1,38 @@
 {
   "obshtina": "PVN03",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.021-0367",
-      "title": "ЕНЕРГИЙНО ОБНОВЯВАНЕ НА ХОТЕЛ- РЕСТОРАНТ \"РЕЗИДЕНЦИЯ ПРЕСТИЖ\", ГР.БЕЛЕНЕ",
+      "contractNumber": "BG05SFPR002-1.004-2330",
+      "title": "Адаптирана работна среда в \"Енеркемикал\" ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 569954.8,
-      "totalEur": 568477.66,
-      "paidEur": 254914.95,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ТВ Инвест ЕООД",
-      "detectedAt": "2026-09-13"
+      "prevTotalEur": 70200.41,
+      "totalEur": 70200.41,
+      "paidEur": 53708.52,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Енеркемикал ООД",
+      "detectedAt": "2026-09-21"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2325",
+      "title": "Адаптирана работна среда в \"Мед Индъстри\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 34130.45,
+      "totalEur": 34130.45,
+      "paidEur": 28034.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "МЕД Индъстри ООД",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

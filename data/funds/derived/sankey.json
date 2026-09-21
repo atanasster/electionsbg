@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-13T02:25:21.137Z",
-  "totalContracted": 44174237820.43,
+  "generatedAt": "2026-09-21T18:37:34.931Z",
+  "totalContracted": 45077354859.41,
   "topN": 6,
   "nodes": [
     {
       "id": "fund:RRP",
       "kind": "fund",
       "label": "RRP (ПВУ)",
-      "totalEur": 17488920724.28
+      "totalEur": 17770720449.01
     },
     {
       "id": "prog:2021BG-RRP",
       "kind": "programme",
       "label": "Национален план за възстановяване и устойчивост",
-      "totalEur": 17488920724.28,
+      "totalEur": 17770720449.01,
       "bucket": "RRP (ПВУ) RRP"
     },
     {
@@ -40,20 +40,20 @@
       "id": "fund:ERDF",
       "kind": "fund",
       "label": "ERDF",
-      "totalEur": 12563283694.18
+      "totalEur": 13183716710.7
+    },
+    {
+      "id": "prog:2021BG16FFPR003",
+      "kind": "programme",
+      "label": "Програма \"Развитие на регионите\" 2021-2027",
+      "totalEur": 3210330671.64,
+      "bucket": "ERDF 2021-27"
     },
     {
       "id": "prog:2021BG16FFPR001",
       "kind": "programme",
       "label": "Програма \"Транспортна свързаност\" 2021-2027",
       "totalEur": 2757454928.24,
-      "bucket": "ERDF 2021-27"
-    },
-    {
-      "id": "prog:2021BG16FFPR003",
-      "kind": "programme",
-      "label": "Програма \"Развитие на регионите\" 2021-2027",
-      "totalEur": 2589309263.36,
       "bucket": "ERDF 2021-27"
     },
     {
@@ -67,7 +67,7 @@
       "id": "prog:2021BG16FFPR002",
       "kind": "programme",
       "label": "Програма \"Околна среда\" 2021-2027",
-      "totalEur": 1775015180.37,
+      "totalEur": 1774436334.53,
       "bucket": "ERDF 2021-27"
     },
     {
@@ -81,27 +81,27 @@
       "id": "prog:2021BG16RFPR001",
       "kind": "programme",
       "label": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "totalEur": 1598451474.45,
+      "totalEur": 1598441928.53,
       "bucket": "ERDF 2021-27"
     },
     {
       "id": "fund:EAFRD",
       "kind": "fund",
       "label": "EAFRD",
-      "totalEur": 2073333147.08
+      "totalEur": 2072480751.78
     },
     {
       "id": "prog:2014BG06RDNP001",
       "kind": "programme",
       "label": "Програма за развитие на селските райони",
-      "totalEur": 2073333147.08,
+      "totalEur": 2072480751.78,
       "bucket": "EAFRD 2014-20"
     },
     {
       "id": "fund:ESF",
       "kind": "fund",
       "label": "ESF",
-      "totalEur": 3915407168.45
+      "totalEur": 3915085035.82
     },
     {
       "id": "prog:2014BG05M9OP001",
@@ -114,28 +114,28 @@
       "id": "prog:2021BG05SFPR002",
       "kind": "programme",
       "label": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "totalEur": 1440663623.98,
+      "totalEur": 1438649093.16,
       "bucket": "ESF 2021-27"
     },
     {
       "id": "prog:2021BG05SFPR001",
       "kind": "programme",
       "label": "Програма \"Образование\" 2021-2027",
-      "totalEur": 776209901.77,
+      "totalEur": 776472400.68,
       "bucket": "ESF 2021-27"
     },
     {
       "id": "prog:2021BG05SFPR003",
       "kind": "programme",
       "label": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "totalEur": 224031846.28,
+      "totalEur": 225461745.56,
       "bucket": "ESF 2021-27"
     },
     {
       "id": "fund:Other",
       "kind": "fund",
       "label": "Other",
-      "totalEur": 1795799026.09
+      "totalEur": 1797917850.83
     },
     {
       "id": "prog:2014BG05M2OP001",
@@ -162,7 +162,7 @@
       "id": "prog:2014BG05FMOP001",
       "kind": "programme",
       "label": "Oперативна програма за храни и/или основно материално подпомагане",
-      "totalEur": 161836498.11,
+      "totalEur": 163955322.85,
       "bucket": "Other 2014-20"
     },
     {
@@ -204,7 +204,7 @@
     {
       "source": "fund:RRP",
       "target": "prog:2021BG-RRP",
-      "value": 17488920724.28
+      "value": 17770720449.01
     },
     {
       "source": "fund:CF",
@@ -218,13 +218,13 @@
     },
     {
       "source": "fund:ERDF",
-      "target": "prog:2021BG16FFPR001",
-      "value": 2757454928.24
+      "target": "prog:2021BG16FFPR003",
+      "value": 3210330671.64
     },
     {
       "source": "fund:ERDF",
-      "target": "prog:2021BG16FFPR003",
-      "value": 2589309263.36
+      "target": "prog:2021BG16FFPR001",
+      "value": 2757454928.24
     },
     {
       "source": "fund:ERDF",
@@ -234,7 +234,7 @@
     {
       "source": "fund:ERDF",
       "target": "prog:2021BG16FFPR002",
-      "value": 1775015180.37
+      "value": 1774436334.53
     },
     {
       "source": "fund:ERDF",
@@ -244,12 +244,12 @@
     {
       "source": "fund:ERDF",
       "target": "prog:2021BG16RFPR001",
-      "value": 1598451474.45
+      "value": 1598441928.53
     },
     {
       "source": "fund:EAFRD",
       "target": "prog:2014BG06RDNP001",
-      "value": 2073333147.08
+      "value": 2072480751.78
     },
     {
       "source": "fund:ESF",
@@ -259,17 +259,17 @@
     {
       "source": "fund:ESF",
       "target": "prog:2021BG05SFPR002",
-      "value": 1440663623.98
+      "value": 1438649093.16
     },
     {
       "source": "fund:ESF",
       "target": "prog:2021BG05SFPR001",
-      "value": 776209901.77
+      "value": 776472400.68
     },
     {
       "source": "fund:ESF",
       "target": "prog:2021BG05SFPR003",
-      "value": 224031846.28
+      "value": 225461745.56
     },
     {
       "source": "fund:Other",
@@ -289,7 +289,7 @@
     {
       "source": "fund:Other",
       "target": "prog:2014BG05FMOP001",
-      "value": 161836498.11
+      "value": 163955322.85
     },
     {
       "source": "fund:Other",

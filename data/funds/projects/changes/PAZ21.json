@@ -1,132 +1,54 @@
 {
   "obshtina": "PAZ21",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-8.013-0004",
-      "title": "Изпълнение на мерки за подобряване на устойчивата градска мобилност на Община Пазарджик и Община Пещера“",
+      "contractNumber": "BG-RRP-4.023-1359",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда \"Здравец 2\" в гр. Пещера, ул. „Хан Пресиян“ № 10, вх. А и вх. Б",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 4253927.81,
-      "totalEur": 4008943.86,
-      "paidEur": 3195720.13,
+      "prevTotalEur": 609422.37,
+      "totalEur": 609422.37,
+      "paidEur": 504713.25,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Пазарджик",
-      "detectedAt": "2026-09-13"
+      "beneficiaryName": "Община Пещера",
+      "detectedAt": "2026-09-21"
     },
     {
       "contractNumber": "BG-RRP-4.023-1339",
       "title": "Енергийно обновяване на многофамилна жилищна сграда в гр. Пещера, ул. „Хан Пресиян“ № 14, вх. А и вх. Б",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 531737.92,
+      "prevTotalEur": 529271.71,
       "totalEur": 529271.71,
-      "paidEur": 528953.59,
+      "paidEur": 528952.18,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Пещера",
-      "detectedAt": "2026-09-13"
+      "detectedAt": "2026-09-21"
     },
     {
-      "contractNumber": "BG-RRP-4.021-0088",
-      "title": "Енергийно обновяване на производствена сграда на Ингилиз Груп ЕООД",
+      "contractNumber": "BG-RRP-4.023-1365",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в гр. Пещера, ул. „Симон Налбант“ № 51",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 297190.96,
-      "totalEur": 295015.42,
-      "paidEur": 153160.61,
+      "prevTotalEur": 309535.7,
+      "totalEur": 309535.7,
+      "paidEur": 309017.89,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Ингилиз груп ЕООД",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0103",
-      "title": "Енергийно обновяване на сграда в сферата на обувното производство.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 280619.99,
-      "totalEur": 278637.31,
-      "paidEur": 153250.52,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Идеал българия ООД",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0228",
-      "title": "Енергийно обновяване в Хийт Дизайн ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 252131.32,
-      "totalEur": 250006.9,
-      "paidEur": 153151.09,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Хийт Дизайн ООД",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0124",
-      "title": "Енергийно обновяване в Кедър Дизайн ООД.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 249743.26,
-      "totalEur": 247976.75,
-      "paidEur": 153370.17,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Кедър дизайн ООД",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0318",
-      "title": "Енергийно обновяване на производствена сграда в Бегс енд Ледърдс ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 128807.21,
-      "totalEur": 126682.79,
-      "paidEur": 50973.87,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Бегс ЕНД ледърдс ЕООД",
-      "detectedAt": "2026-09-13"
+      "beneficiaryName": "Община Пещера",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

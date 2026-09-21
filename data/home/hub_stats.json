@@ -17,7 +17,7 @@
     },
     {
       "id": "inflation_hicp",
-      "value": 5.1,
+      "value": 5,
       "basis": {
         "period": "2026-08",
         "frequency": "monthly",
@@ -71,7 +71,7 @@
     },
     "funds": {
       "tileId": "funds",
-      "value": 44174237820,
+      "value": 45077354859,
       "unit": "eur",
       "basisKey": "home_basis_funds_contracted",
       "to": "/funds",
@@ -79,7 +79,7 @@
     },
     "governance": {
       "tileId": "governance",
-      "value": 63658,
+      "value": 63665,
       "unit": "count",
       "basisKey": "home_basis_governance_people",
       "to": "/governance",
@@ -87,7 +87,7 @@
     },
     "procurement": {
       "tileId": "procurement",
-      "value": 94280170615,
+      "value": 94538627730,
       "unit": "eur",
       "basisKey": "home_basis_procurement_contracted_all",
       "to": "/procurement?pscope=all",

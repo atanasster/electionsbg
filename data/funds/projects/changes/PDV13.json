@@ -1,24 +1,50 @@
 {
   "obshtina": "PDV13",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.019-0087",
-      "title": "Устойчиво развитие и цифрова трансформация на „БОН ШАНС“ ЕООД",
+      "contractNumber": "BG-RRP-4.039-1705",
+      "title": "“Внедряване на мерки енергийна ефективност на блок с адрес ул. \"Генерал Вл. Заимов № 20, 22 и 24\" в гр. Карлово",
+      "type": "new",
+      "totalEur": 837810.51,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-21"
+    },
+    {
+      "contractNumber": "BG-RRP-11.018-0021",
+      "title": "Деинституционализация на ДПЛУИ гр. Баня",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 82675.9,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "БОН Шанс БГ ЕООД",
-      "detectedAt": "2026-09-13"
+      "prevTotalEur": 6991775.57,
+      "totalEur": 6991775.57,
+      "paidEur": 6803047.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-21"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2064",
+      "title": "Внедряване на мерки за енергийна ефективност на блок с адрес ул. \"Васил Левски\" № 92 в гр. Карлово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 333986.92,
+      "totalEur": 333986.92,
+      "paidEur": 332724.65,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

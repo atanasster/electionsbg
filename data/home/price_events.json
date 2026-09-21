@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-16",
+  "computedAt": "2026-09-20",
   "thresholds": {
     "basketPids": [
       1,
@@ -33,14 +33,14 @@
   },
   "basketMoves": [
     {
-      "peakDay": "2026-08-16",
-      "startDay": "2026-08-16",
+      "peakDay": "2026-08-20",
+      "startDay": "2026-08-20",
       "endDay": "2026-08-21",
-      "pctChange": 3.23,
-      "costEur": 16.596,
-      "prevCostEur": 16.077,
-      "cohortCells": 1824,
-      "cohortShare": 0.8161
+      "pctChange": 2.282,
+      "costEur": 15.974,
+      "prevCostEur": 15.617,
+      "cohortCells": 1734,
+      "cohortShare": 0.8395
     },
     {
       "peakDay": "2026-09-06",
@@ -61,27 +61,27 @@
       "prevCostEur": 15.456,
       "cohortCells": 1626,
       "cohortShare": 0.9
+    },
+    {
+      "peakDay": "2026-09-20",
+      "startDay": "2026-09-20",
+      "endDay": "2026-09-20",
+      "pctChange": -1.581,
+      "costEur": 15.656,
+      "prevCostEur": 15.907,
+      "cohortCells": 1628,
+      "cohortShare": 0.8966
     }
   ],
   "promotions": [
     {
-      "slug": "yabalki-gala",
-      "title": "ЯБЪЛКИ ГАЛА",
-      "atOrBelowSince": "2026-09-14",
+      "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+      "atOrBelowSince": "2026-09-17",
       "promoEur": 0.89,
-      "regularEur": 1.99,
-      "discountPct": 55,
-      "stores": 80,
-      "chains": 2
-    },
-    {
-      "slug": "shokolad-lacmi-mlechen-90-gr",
-      "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
-      "atOrBelowSince": "2026-09-10",
-      "promoEur": 0.79,
-      "regularEur": 1.69,
-      "discountPct": 53,
-      "stores": 48,
+      "regularEur": 1.82,
+      "discountPct": 51,
+      "stores": 6,
       "chains": 2
     },
     {
@@ -91,7 +91,17 @@
       "promoEur": 2.99,
       "regularEur": 6.14,
       "discountPct": 51,
-      "stores": 86,
+      "stores": 74,
+      "chains": 2
+    },
+    {
+      "slug": "kromid-luk",
+      "title": "Кромид Лук",
+      "atOrBelowSince": "2026-09-17",
+      "promoEur": 0.44,
+      "regularEur": 0.87,
+      "discountPct": 49,
+      "stores": 45,
       "chains": 2
     }
   ]

@@ -1,70 +1,34 @@
 {
   "obshtina": "VAR02",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0312",
-      "title": "Заедно срещу тормоза и агресията в СУ „Св. Св. Кирил и Методий“ - Игнатиево",
+      "contractNumber": "BG-RRP-4.039-1815",
+      "title": "Въвеждане на мерки за енергийна ефективност (енергийно обновяване) на многофамилна жилищна сграда с адрес: гр. Аксаково, ж.к. „Надежда“ бл. 6",
       "type": "new",
-      "totalEur": 137750.93,
+      "totalEur": 700495.73,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "СУ Свети свети кирил и Методий - игнатиево",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0138",
-      "title": "Въвеждане на мерки за енергийна ефективност (енергийно обновяване) на административната сграда на Община Аксаково с адрес: гр. Аксаково, ул. „Георги Петлешев“ №58б",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1364208.17,
-      "totalEur": 1355621.8,
-      "paidEur": 1013500.56,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Аксаково",
-      "detectedAt": "2026-09-13"
+      "detectedAt": "2026-09-21"
     },
     {
-      "contractNumber": "BG14MFPR001-2.001-0018",
-      "title": "Инвестиции в преработвателно предприятие на фирма „АРИЕЛ ФИШ ООД“",
+      "contractNumber": "BG16RFPR001-2.004-0354",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Ми - 12 ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 830112.67,
-      "totalEur": 830112.67,
-      "paidEur": 230820.13,
+      "prevTotalEur": 141678.19,
+      "totalEur": 141678.19,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "Ариел ФИШ ООД",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0131",
-      "title": "Внедряване на мерки за енергийно обновяване на сграда, собственост на ЕР ИНВЕСТ БГ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 168628.17,
-      "totalEur": 155282.38,
-      "paidEur": 100933.55,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕР Инвест БГ ЕООД",
-      "detectedAt": "2026-09-13"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "МИ-12 ООД",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

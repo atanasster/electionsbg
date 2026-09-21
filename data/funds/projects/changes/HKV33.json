@@ -1,72 +1,34 @@
 {
   "obshtina": "HKV33",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-8.013-0012",
-      "title": "Изпълнение на интегрирани мерки за устойчива градска мобилност на територията на Хасково, Свиленград и Харманли",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 4761208.17,
-      "totalEur": 4035599.61,
-      "paidEur": 3639609.68,
-      "status": "Приключен (към датата на приключване)",
+      "contractNumber": "BG-RRP-4.040-0303",
+      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, ул. Александър Стамболийски № 97, вх. А и вх. Б, гр. Харманли\"",
+      "type": "new",
+      "totalEur": 104507.44,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-09-13"
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-09-21"
     },
     {
-      "contractNumber": "BG16FFPR003-4.001-0079",
-      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, бул. ,,България“, бл. № 31, вх. А и вх. Б, гр. Харманли\"",
+      "contractNumber": "BG65AMPR001-1.004-0003",
+      "title": "Строително монтажни работи на сгради на ДАБ при МС",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 952670.1,
-      "totalEur": 952670.1,
-      "paidEur": 424086.51,
+      "prevTotalEur": 9167130.16,
+      "totalEur": 9167130.16,
+      "paidEur": 458356.51,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Харманли",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.001-0080",
-      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, бул. ,,България“, бл. № 29, вх. А и вх. Б, гр. Харманли\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 801108.17,
-      "totalEur": 801108.17,
-      "paidEur": 346108.53,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Харманли",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.001-0077",
-      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, бул. „България“ № 24, гр. Харманли\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 770387.09,
-      "totalEur": 770387.09,
-      "paidEur": 346468.16,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Харманли",
-      "detectedAt": "2026-09-13"
+      "programCode": "2021BG65AMPR001",
+      "programName": "Програма на Република България по фонд „Убежище, миграция и интеграция“",
+      "beneficiaryName": "Държавна агенция за бежанците при Министерския съвет (ДАБ при МС)",
+      "detectedAt": "2026-09-21"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-13T02:25:20.348Z",
-  "totalContracts": 3788,
+  "generatedAt": "2026-09-21T18:37:34.277Z",
+  "totalContracts": 3792,
   "contracts": [
     {
       "programCode": "2021BG-RRP",
@@ -291,29 +291,6 @@
     {
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryEik": "000695114",
-      "beneficiaryName": "Министерство на образованието и науката",
-      "orgType": "Държавна администрация",
-      "orgKind": "АМС / министерство",
-      "orgForm": "Публично правна",
-      "hqAddress": "България, гр.София, 1000, бул. КНЯЗ ДОНДУКОВ № 2А",
-      "locationRaw": "България",
-      "contractNumber": "BG-RRP-1.002-0001",
-      "title": "C1.I2 „Модернизиране на образователна инфраструктура“",
-      "totalEur": 349088878.29,
-      "grantEur": 349088878.29,
-      "ownCofinanceEur": 0,
-      "paidEur": 0,
-      "durationMonths": 48,
-      "status": "В изпълнение (от дата на стартиране)",
-      "location": {
-        "kind": "national",
-        "raw": "България"
-      }
-    },
-    {
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryEik": "000695395",
       "beneficiaryName": "Министерство на труда и социалната политика",
       "orgType": "Държавна администрация",
@@ -328,6 +305,29 @@
       "ownCofinanceEur": 0,
       "paidEur": 0,
       "durationMonths": 42,
+      "status": "В изпълнение (от дата на стартиране)",
+      "location": {
+        "kind": "national",
+        "raw": "България"
+      }
+    },
+    {
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryEik": "000695114",
+      "beneficiaryName": "Министерство на образованието и науката",
+      "orgType": "Държавна администрация",
+      "orgKind": "АМС / министерство",
+      "orgForm": "Публично правна",
+      "hqAddress": "България, гр.София, 1000, бул. КНЯЗ ДОНДУКОВ № 2А",
+      "locationRaw": "България",
+      "contractNumber": "BG-RRP-1.002-0001",
+      "title": "C1.I2 „Инфраструктурни дейности в учебни заведения“",
+      "totalEur": 331829391,
+      "grantEur": 331829391,
+      "ownCofinanceEur": 0,
+      "paidEur": 0,
+      "durationMonths": 48,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
         "kind": "national",
@@ -441,8 +441,8 @@
       "locationRaw": "България",
       "contractNumber": "BG-RRP-1.001-0002",
       "title": "C1.I1 “Центрове за НТИМ и иновации в образованието“ (STEM центрове)",
-      "totalEur": 294581379.77,
-      "grantEur": 294581379.77,
+      "totalEur": 291579649,
+      "grantEur": 291579649,
       "ownCofinanceEur": 0,
       "paidEur": 0,
       "durationMonths": 42,
@@ -887,8 +887,8 @@
       "locationRaw": "България",
       "contractNumber": "BG-RRP-12.001-0001",
       "title": "C12.I1 \"Модернизиране на болничните заведения\"",
-      "totalEur": 117608124.02,
-      "grantEur": 117608124.02,
+      "totalEur": 117608124,
+      "grantEur": 117608124,
       "ownCofinanceEur": 0,
       "paidEur": 90456887.87,
       "durationMonths": 43,
@@ -910,8 +910,8 @@
       "locationRaw": "България",
       "contractNumber": "BG-RRP-12.002-0001",
       "title": "С12.I2 „Центрове за интервенционална диагностика и ендоваскуларно лечение на мозъчно-съдови заболявания“",
-      "totalEur": 112658022.02,
-      "grantEur": 112658022.02,
+      "totalEur": 112658022,
+      "grantEur": 112658022,
       "ownCofinanceEur": 0,
       "paidEur": 99057482.96,
       "durationMonths": 48,
@@ -1100,7 +1100,7 @@
       "totalEur": 95738173.06,
       "grantEur": 95738173.06,
       "ownCofinanceEur": 0,
-      "paidEur": 29535478.06,
+      "paidEur": 34443264.06,
       "durationMonths": 60,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -1192,7 +1192,7 @@
       "totalEur": 85224873.3,
       "grantEur": 85224873.3,
       "ownCofinanceEur": 0,
-      "paidEur": 17075038.62,
+      "paidEur": 17101307.27,
       "durationMonths": 48,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -1611,7 +1611,7 @@
       "totalEur": 54021026.04,
       "grantEur": 47538502.91,
       "ownCofinanceEur": 6482523.13,
-      "paidEur": 0,
+      "paidEur": 392699.93,
       "durationMonths": 36,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -3280,7 +3280,7 @@
       "totalEur": 22496842.77,
       "grantEur": 22496842.77,
       "ownCofinanceEur": 0,
-      "paidEur": 17804512.34,
+      "paidEur": 17722479.14,
       "durationMonths": 42,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -3418,7 +3418,7 @@
       "totalEur": 20966134.87,
       "grantEur": 20966134.87,
       "ownCofinanceEur": 0,
-      "paidEur": 157.17,
+      "paidEur": 582.26,
       "durationMonths": 34,
       "status": "Сключен",
       "location": {
@@ -3467,29 +3467,6 @@
       "paidEur": 20319086.07,
       "durationMonths": 44,
       "status": "Приключен (към датата на приключване)",
-      "location": {
-        "kind": "national",
-        "raw": "България"
-      }
-    },
-    {
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryEik": "000695317",
-      "beneficiaryName": "Министерство на здравеопазването",
-      "orgType": "Държавна администрация",
-      "orgKind": "АМС / министерство",
-      "orgForm": "Публично правна",
-      "hqAddress": "България, гр.София, 1000, пл. СВЕТА НЕДЕЛЯ, номер 5",
-      "locationRaw": "България",
-      "contractNumber": "BG-RRP-12.017-0001",
-      "title": "C12.I1 „Модернизиране на болничните заведения“",
-      "totalEur": 20273685.6,
-      "grantEur": 20273685.6,
-      "ownCofinanceEur": 0,
-      "paidEur": 0,
-      "durationMonths": 7,
-      "status": "В изпълнение (от дата на стартиране)",
       "location": {
         "kind": "national",
         "raw": "България"
@@ -3591,6 +3568,29 @@
         "nutsCodes": [
           "BG331"
         ]
+      }
+    },
+    {
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryEik": "000695317",
+      "beneficiaryName": "Министерство на здравеопазването",
+      "orgType": "Държавна администрация",
+      "orgKind": "АМС / министерство",
+      "orgForm": "Публично правна",
+      "hqAddress": "България, гр.София, 1000, пл. СВЕТА НЕДЕЛЯ, № 5",
+      "locationRaw": "България",
+      "contractNumber": "BG-RRP-12.017-0001",
+      "title": "C12.I1 „Модернизиране на болничните заведения“",
+      "totalEur": 19547780.4,
+      "grantEur": 19547780.4,
+      "ownCofinanceEur": 0,
+      "paidEur": 0,
+      "durationMonths": 7,
+      "status": "В изпълнение (от дата на стартиране)",
+      "location": {
+        "kind": "national",
+        "raw": "България"
       }
     },
     {
@@ -4623,7 +4623,7 @@
       "totalEur": 12083942.61,
       "grantEur": 12083942.61,
       "ownCofinanceEur": 0,
-      "paidEur": 1499611.79,
+      "paidEur": 1786254.48,
       "durationMonths": 48,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -5339,7 +5339,7 @@
       "totalEur": 9748495.52,
       "grantEur": 9748495.52,
       "ownCofinanceEur": 0,
-      "paidEur": 6034106.56,
+      "paidEur": 6430826.44,
       "durationMonths": 19,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -6414,7 +6414,7 @@
       "totalEur": 6839877.7,
       "grantEur": 6839877.7,
       "ownCofinanceEur": 0,
-      "paidEur": 3073250.16,
+      "paidEur": 3077459.89,
       "durationMonths": 38,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -7570,7 +7570,7 @@
       "totalEur": 4813926.05,
       "grantEur": 4813926.05,
       "ownCofinanceEur": 0,
-      "paidEur": 1188552.1,
+      "paidEur": 1189441.1,
       "durationMonths": 40,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -10688,7 +10688,7 @@
       "totalEur": 2413712.99,
       "grantEur": 2413712.99,
       "ownCofinanceEur": 0,
-      "paidEur": 52993.98,
+      "paidEur": 100007.01,
       "durationMonths": 72,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -10780,7 +10780,7 @@
       "totalEur": 2401051.12,
       "grantEur": 2401051.12,
       "ownCofinanceEur": 0,
-      "paidEur": 651583.03,
+      "paidEur": 681709.37,
       "durationMonths": 48,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -11059,7 +11059,7 @@
       "totalEur": 2299964.7,
       "grantEur": 2299964.7,
       "ownCofinanceEur": 0,
-      "paidEur": 1513840.34,
+      "paidEur": 1564969.2,
       "durationMonths": 40,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -11435,7 +11435,7 @@
       "totalEur": 2075531.47,
       "grantEur": 2075531.47,
       "ownCofinanceEur": 0,
-      "paidEur": 1476667.59,
+      "paidEur": 1547913.03,
       "durationMonths": 58,
       "status": "Сключен",
       "location": {
@@ -11596,7 +11596,7 @@
       "totalEur": 1999969.33,
       "grantEur": 1999969.33,
       "ownCofinanceEur": 0,
-      "paidEur": 933974.22,
+      "paidEur": 1167443.23,
       "durationMonths": 36,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -13096,7 +13096,7 @@
       "totalEur": 1493481.52,
       "grantEur": 1493481.52,
       "ownCofinanceEur": 0,
-      "paidEur": 608999.35,
+      "paidEur": 762860.35,
       "durationMonths": 60,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -13418,7 +13418,7 @@
       "totalEur": 1352082.96,
       "grantEur": 1352082.96,
       "ownCofinanceEur": 0,
-      "paidEur": 636379.89,
+      "paidEur": 910177.89,
       "durationMonths": 48,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -13490,7 +13490,7 @@
       "totalEur": 1332284.5,
       "grantEur": 1332284.5,
       "ownCofinanceEur": 0,
-      "paidEur": 522000.59,
+      "paidEur": 631519.79,
       "durationMonths": 64,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -13628,7 +13628,7 @@
       "totalEur": 1304979.97,
       "grantEur": 1304979.97,
       "ownCofinanceEur": 0,
-      "paidEur": 77158.6,
+      "paidEur": 79846.37,
       "durationMonths": 72,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -14518,6 +14518,29 @@
       "ownCofinanceEur": 0,
       "paidEur": 422300.96,
       "durationMonths": 64,
+      "status": "В изпълнение (от дата на стартиране)",
+      "location": {
+        "kind": "national",
+        "raw": "България"
+      }
+    },
+    {
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryEik": "000261517",
+      "beneficiaryName": "Община Кюстендил",
+      "orgType": "Държавна администрация",
+      "orgKind": "Общинска администрация",
+      "orgForm": "Публично правна",
+      "hqAddress": "България, гр.Кюстендил, 2500, град Кюстендил, площад \"Велбъжд\" № 1",
+      "locationRaw": "България",
+      "contractNumber": "BG-RRP-4.039-1430",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Кюстендил, жк Герена № 163 - 166, бл. 163, бл. 164, бл. 165 и бл. 166",
+      "totalEur": 1105472.61,
+      "grantEur": 1101300.81,
+      "ownCofinanceEur": 4171.8,
+      "paidEur": 0,
+      "durationMonths": 30,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
         "kind": "national",
@@ -18277,7 +18300,7 @@
       "totalEur": 613079.94,
       "grantEur": 613079.94,
       "ownCofinanceEur": 0,
-      "paidEur": 292895.83,
+      "paidEur": 316328.74,
       "durationMonths": 36,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -19049,6 +19072,29 @@
       "paidEur": 558583.74,
       "durationMonths": 12,
       "status": "Приключен (към датата на приключване)",
+      "location": {
+        "kind": "national",
+        "raw": "България"
+      }
+    },
+    {
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryEik": "000386751",
+      "beneficiaryName": "Община Перник",
+      "orgType": "Държавна администрация",
+      "orgKind": "Общинска администрация",
+      "orgForm": "Публично правна",
+      "hqAddress": "България, гр.Перник, 2300, пл. СВ.ИВАН РИЛСКИ 1А",
+      "locationRaw": "България",
+      "contractNumber": "BG-RRP-4.040-0253",
+      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Перник, ул. \"Струма\" 40, вх. А и вх. Б",
+      "totalEur": 550619.63,
+      "grantEur": 550612.81,
+      "ownCofinanceEur": 6.82,
+      "paidEur": 0,
+      "durationMonths": 28,
+      "status": "В изпълнение (от дата на стартиране)",
       "location": {
         "kind": "national",
         "raw": "България"
@@ -20369,7 +20415,7 @@
       "totalEur": 472478.55,
       "grantEur": 472478.55,
       "ownCofinanceEur": 0,
-      "paidEur": 203990.89,
+      "paidEur": 387486.66,
       "durationMonths": 36,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -23145,6 +23191,29 @@
       "totalEur": 300609.6,
       "grantEur": 240487.67,
       "ownCofinanceEur": 60121.93,
+      "paidEur": 0,
+      "durationMonths": 28,
+      "status": "В изпълнение (от дата на стартиране)",
+      "location": {
+        "kind": "national",
+        "raw": "България"
+      }
+    },
+    {
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryEik": "000386751",
+      "beneficiaryName": "Община Перник",
+      "orgType": "Държавна администрация",
+      "orgKind": "Общинска администрация",
+      "orgForm": "Публично правна",
+      "hqAddress": "България, гр.Перник, 2300, пл. СВ.ИВАН РИЛСКИ 1 A",
+      "locationRaw": "България",
+      "contractNumber": "BG-RRP-4.040-0252",
+      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр.Перник кв.''Тева'',бл.88",
+      "totalEur": 300609.58,
+      "grantEur": 300605.3,
+      "ownCofinanceEur": 4.28,
       "paidEur": 0,
       "durationMonths": 28,
       "status": "В изпълнение (от дата на стартиране)",
@@ -26885,7 +26954,7 @@
       "totalEur": 199064.66,
       "grantEur": 199064.66,
       "ownCofinanceEur": 0,
-      "paidEur": 138637.4,
+      "paidEur": 148815.32,
       "durationMonths": 58,
       "status": "Сключен",
       "location": {
@@ -30067,7 +30136,7 @@
       "totalEur": 176132.52,
       "grantEur": 176132.52,
       "ownCofinanceEur": 0,
-      "paidEur": 35226.5,
+      "paidEur": 70453,
       "durationMonths": 18,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -35086,6 +35155,29 @@
       }
     },
     {
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryEik": "000386751",
+      "beneficiaryName": "Община Перник",
+      "orgType": "Държавна администрация",
+      "orgKind": "Общинска администрация",
+      "orgForm": "Публично правна",
+      "hqAddress": "България, гр.Перник, 2300, пл. СВ.ИВАН РИЛСКИ 1А",
+      "locationRaw": "България",
+      "contractNumber": "BG-RRP-4.040-0246",
+      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Перник, кв.''Бела вода'', ул.''Симеоновград'', бл.8, вх.А,вх.Б",
+      "totalEur": 131485.58,
+      "grantEur": 131483.05,
+      "ownCofinanceEur": 2.53,
+      "paidEur": 0,
+      "durationMonths": 28,
+      "status": "В изпълнение (от дата на стартиране)",
+      "location": {
+        "kind": "national",
+        "raw": "България"
+      }
+    },
+    {
       "programCode": "2014BG16RFOP002",
       "programName": "Иновации и конкурентоспособност",
       "beneficiaryEik": "821154995",
@@ -36253,7 +36345,7 @@
       "totalEur": 122419.14,
       "grantEur": 122419.14,
       "ownCofinanceEur": 0,
-      "paidEur": 84652.09,
+      "paidEur": 91013.29,
       "durationMonths": 58,
       "status": "Сключен",
       "location": {
@@ -42441,7 +42533,7 @@
       "totalEur": 90429.63,
       "grantEur": 90429.63,
       "ownCofinanceEur": 0,
-      "paidEur": 91123.62,
+      "paidEur": 90035.35,
       "durationMonths": 21,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -46732,7 +46824,7 @@
       "totalEur": 65205.66,
       "grantEur": 65205.66,
       "ownCofinanceEur": 0,
-      "paidEur": 0,
+      "paidEur": 22821.98,
       "durationMonths": 24,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {

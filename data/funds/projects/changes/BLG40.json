@@ -1,78 +1,62 @@
 {
   "obshtina": "BLG40",
-  "generatedAt": "2026-09-13T02:24:53.051Z",
+  "generatedAt": "2026-09-21T18:37:08.866Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-8.013-0014",
-      "title": "Изпълнение на интегрирани мерки за устойчива градска мобилност на територията на Петрич, Сандански и Ботевград",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 4622507.21,
-      "totalEur": 3762699.43,
-      "paidEur": 3392927.22,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Петрич",
-      "detectedAt": "2026-09-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0238",
-      "title": "Енергийно обновяване на сградите на читалищата в с.Катунци, с.Склаве и с.Джигурово, община Сандански",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1365071.47,
-      "totalEur": 1337243.81,
-      "paidEur": 1218184.48,
-      "status": "Приключен (към датата на приключване)",
+      "contractNumber": "BG-RRP-4.039-1289",
+      "title": "„Повишаване на енергийната ефективност на многофамилна жилищна сграда с административен адрес гр. Сандански, ж.к. \"Спартак\", бл.19, вх.А и вх.Б, бл.20",
+      "type": "new",
+      "totalEur": 737577.23,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Сандански",
-      "detectedAt": "2026-09-13"
+      "detectedAt": "2026-09-21"
     },
     {
-      "contractNumber": "BG-RRP-4.020-0274",
-      "title": "\"Енергийно обновяване на сградите за административно обслужване в Кметство село Склаве и Кметство село Ново Делчево, община Сандански\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 644339.11,
-      "totalEur": 631930.93,
-      "paidEur": 529448.86,
-      "status": "Приключен (към датата на приключване)",
+      "contractNumber": "BG-RRP-4.040-0093",
+      "title": "„Повишаване на енергийната ефективност на многофамилна жилищна сграда с административен адрес гр. Сандански, ул. Любен Каравелов№26\"",
+      "type": "new",
+      "totalEur": 105247.02,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Сандански",
-      "detectedAt": "2026-09-13"
+      "detectedAt": "2026-09-21"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0020",
+      "title": "Топъл обяд в община Сандански",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 496449.5,
+      "totalEur": 496449.5,
+      "paidEur": 380579.89,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Сандански",
+      "detectedAt": "2026-09-21"
     },
     {
       "contractNumber": "BG05SFPR001-1.010-0055",
       "title": "„Сигурна училищна среда в 4 ОУ \"Св. Св. Козма и Дамян\", гр. Сандански чрез превенция на агресията, медиация и съвместна работа с родители“",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 178774.92,
+      "prevTotalEur": 0,
       "totalEur": 0,
-      "paidEur": 35754.98,
+      "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Четвърто основно училище „Св. Св. Козма и Дамян\" - гр. Сандански",
-      "detectedAt": "2026-09-13"
+      "detectedAt": "2026-09-21"
     }
   ]
 }
