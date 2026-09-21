@@ -42,9 +42,9 @@
 //
 // ⚠️ BUT THE TRIPLE IS NOT A LICENCE ON ITS OWN, and this file said it was until 2026-09-09.
 // The exclusivity argument being borrowed is `sameLocalSeat`'s "a село has ONE кмет" — and
-// measured by role, only 101 of the 1,133 triples ARE a mayor. "Councillor of PAZ24" names one
+// measured by role, only 102 of the 1,137 triples ARE a mayor. "Councillor of PAZ24" names one
 // of 10-40 people, so it is not the name-independent link `person_resolve.data.test.ts`'s
-// cross-source invariant requires; and the Commerce Registry says 483 of the 1,215 split folds
+// cross-source invariant requires; and the Commerce Registry says 483 of the 1,219 split folds
 // are borne by 2+ people, i.e. some of these splits are CORRECT. The buildable safe core is the
 // mayor arm, not the whole class. §2.7a carries the measurements, the Bridge B harm the split
 // causes downstream, and why swapping this rule's discriminator for a people count does not
@@ -93,14 +93,14 @@ pinLocalDatabase();
  */
 const CEILINGS = {
   /** Name folds holding an `official_muni` AND a `local` role on ≥2 person rows. */
-  splitFolds: 1215,
+  splitFolds: 1219,
   /**
    * (fold, role, place_code) TRIPLES naming two person rows across the two sources — one
    * name, one office, one place. The population a cross-source seat rule would close.
    *
-   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those triples fall on 1,106
+   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those triples fall on 1,110
    * distinct folds (one person split across two offices contributes two triples).
-   * 1,106/1,215 = 91.0% is the coverage figure §2.7 quotes; this ceiling counts triples.
+   * 1,110/1,219 = 91.1% is the coverage figure §2.7 quotes; this ceiling counts triples.
    * Naming both is deliberate — they were briefly one number in two places.
    *
    * ⚠️ 1130 → 1132 on 2026-09-04, and the two are a GATE WORKING RATHER THAN A REGRESSION.
@@ -150,8 +150,41 @@ const CEILINGS = {
    * FOOTPRINT_CAP. A second company makes a councillor two people and then takes both
    * companies off both of them, which is worth knowing before reading a split page as
    * evidence that somebody holds nothing.
+   *
+   * ⚠️ 1133 → 1137 (and `splitFolds` 1215 → 1219) on 2026-09-21 — the SAME mechanism
+   * again, and the first re-cut able to name every one of its members.
+   *
+   * NOT a resolver change: `scripts/person/` is byte-identical to the 2026-09-09 cut, and the
+   * only diffs anywhere in the person chain since it are two comment lines. What moved is the
+   * corpus — a `db:resolve:persons` ran on 2026-09-16 (every `person.created_at` is that date;
+   * the resolver DELETEs and re-COPYs, so that column dates the last resolve).
+   *
+   * Both population floors held EXACTLY — `crossSourceFolds` 5,244, `scopedRoleRows` 31,966 —
+   * so not one `official_muni`/`local` row entered the corpus: the SAME roles were partitioned
+   * onto more person rows. The split folds carrying `namesake_risk <= 1` held EXACTLY at 21,
+   * so nothing split for a reason other than `namesake_risk`, and the merged side fell by
+   * exactly what the split side gained (4,033 → 4,025 against the 2026-09-02 baseline, of
+   * which risk<=1 4,027 → 4,019). Neither other ceiling moved up (4,660 against 4,778; 2,312
+   * unchanged) and the diagnosis assertion reads 99.85% / 1.72%.
+   *
+   * Exactly FOUR folds crossed `officer_name_counts.company_count` 1 → 2 between the
+   * 2026-09-09 cut and the 2026-09-16 resolve — the whole +4, one fold and one triple each:
+   *
+   *   darinka ivanova toteva      councillor RSE03   2nd company ЕИК 117693268 @2026-09-11
+   *   iskren iliyanov medarov     councillor PAZ24   2nd company ЕИК 208937831 @2026-09-11
+   *   valentin panayotov velikov  mayor      RSE03   2nd company ЕИК 117015246 @2026-09-09
+   *   valeri ivanov vasilev       councillor VID09   2nd company ЕИК 105560908 @2026-09-15
+   *
+   * Every split fold's stored `namesake_risk` equals its live `officer_name_counts.company_count`
+   * today, so the resolve-time stamp and the corpus agree and no third explanation is open.
+   *
+   * These are the DEFECT and not the correct namesake splits that make up 483 of the 1,219:
+   * `tr_name_fold_people.people_n` is **1** for three of the four (the fourth fold has no row
+   * there), i.e. the Commerce Registry says one human bears the name. And the Bridge B harm
+   * the Горумов note describes reproduces on every one — **zero** tr/ngo roles across all 11
+   * resulting person rows, so none of the four pages shows the company that split it.
    */
-  exactSignatureTriples: 1133,
+  exactSignatureTriples: 1137,
   /** `person_search` P rows sitting in a same-(fold, place_label, primary_role) cluster of
    *  more than one — what a reader actually sees, in the finder and on /persons. */
   duplicateSearchRows: 4778,

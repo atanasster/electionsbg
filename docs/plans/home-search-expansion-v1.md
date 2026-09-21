@@ -382,6 +382,58 @@ reader reconciling 1,130 against 1,133 would have found two unexplained triples.
 re-cutting these numbers should check the constant's comment as well as this section until
 the two are known to agree.
 
+⚠️ **Ceilings re-cut again 2026-09-21** — 1,215/1,133 → **1,219/1,137** after the
+`db:resolve:persons` of 2026-09-16 (every `person.created_at` carries that date; the resolver
+DELETEs and re-COPYs, so the column dates the last resolve). Distinct-fold coverage
+1,106 → **1,110 of 1,219 (91.1%)**; mayor triples 101 → **102**. The two `person_search` /
+header ceilings were NOT touched (4,660 against 4,778; 2,312 against 2,312), and both
+population floors held **exactly unchanged** — `crossSourceFolds` 5,244, `scopedRoleRows`
+31,966 — so no new `official_muni`/`local` rows entered the corpus. The same roles were
+partitioned onto more person rows.
+
+**Not a resolver regression, and this one is checkable rather than inferred.**
+`scripts/person/` is **byte-identical** to the 2026-09-09 cut (`git diff b7bdf75164..HEAD --
+scripts/person/` is empty); the only diffs anywhere in the person chain since it are two
+comment lines in `load_declarations_pg.ts` and `load_person_elections_pg.ts`. Three
+independent signals agree it is §2.7's mechanism drifting on ordinary TR growth:
+
+- split folds carrying `namesake_risk <= 1` held **exactly at 21**, so nothing split for a
+  reason other than `namesake_risk`;
+- the merged side fell by exactly what the split side gained (4,033 → 4,025 against the
+  2026-09-02 baseline, of which risk<=1 4,027 → 4,019) — i.e. every mover was Tier-2a
+  licensed before and is not now;
+- every split fold's stored `namesake_risk` equals its live
+  `officer_name_counts.company_count`, so the resolve-time stamp and the corpus agree.
+
+**All four members, named.** Exactly four folds crossed `company_count` 1 → 2 between the
+2026-09-09 cut and the 2026-09-16 resolve — the whole +4, contributing one split fold and one
+triple each. (`plamen yasenov gorumov` also shows a recent TR row but crossed on 2026-09-05
+and is already inside the 1,133; two further recent-TR folds crossed before the cut.)
+
+| fold | office / place | second company | added |
+| --- | --- | --- | --- |
+| `darinka ivanova toteva` | councillor RSE03 | ЕИК 117693268 | 2026-09-11 |
+| `iskren iliyanov medarov` | councillor PAZ24 | ЕИК 208937831 | 2026-09-11 |
+| `valentin panayotov velikov` | mayor RSE03 | ЕИК 117015246 | 2026-09-09 |
+| `valeri ivanov vasilev` | councillor VID09 | ЕИК 105560908 | 2026-09-15 |
+
+**These are the defect, not the correct namesake splits.** `tr_name_fold_people.people_n` is
+**1** for three of the four (`iskren iliyanov medarov` has no row there), i.e. the Commerce
+Registry says one human bears the name — so they fall outside the 483 of 1,219 split folds the
+registry says are borne by 2+ people. Each is published as two `/person` pages distinguished
+only by a slug suffix (`…-2`, `…-3`), carrying the same role in the same place.
+
+**The Bridge B harm reproduces on all four.** Measured: **zero** `tr`/`ngo` roles across all
+11 resulting person rows, so not one of the four pages shows the company whose arrival split
+it — the same shape the 2026-09-08 Горумов entry records. Worth restating because it is
+counter-intuitive: the more companies these people acquire, the fewer their pages show.
+
+**Re-cut rather than closed**, for the reason §2.7a gives: the buildable safe core is the
+mayor arm (102 of 1,137 triples), and three of these four are councillors.
+`person_link_override` remains the wrong instrument for a class. Per the file header's
+standing instruction, this entry and the `CEILINGS` comment in
+`scripts/db/tests/person_identity_duplicates.data.test.ts` were written together and agree.
+
 ### 2.7 WHICH tier misses, and why it is a resolver fix rather than 1,211 adjudications
 
 Diagnosed 2026-09-02. `resolve_persons.ts` unions two mentions of one name only when a tier
