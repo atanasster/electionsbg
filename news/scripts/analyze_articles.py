@@ -1307,12 +1307,23 @@ def gate_party_tone_evidence(analysis: dict, rec: dict) -> None:
         PARTY_TONE_EVIDENCE_GATE_VERSION)
 
 
-def validate_tone_evidence(t: dict, at: str) -> list:
+def validate_tone_evidence(t: dict, at: str, *, migrated: bool = False) -> list:
     """One tone's justification, under exactly one contract.
 
     ⚠️ ONE CONTRACT AT A TIME. A record speaks v3 (`rationale` +
     `evidence_spans`) or legacy (`evidence`), never both: two fields each
     claiming to be the justification is the ambiguity the split removes.
+
+    ⚠️ `migrated=True` FOR A RECORD THAT WAS CONVERTED, NOT SUBMITTED, and the
+    distinction is not a loophole. The span requirement governs what an ANALYST
+    may assert: claim a direction, show a quote. A v2 record predates it — its
+    `evidence` was prose under a prompt that accepted a paraphrase — so the
+    migration cannot supply a span without inventing one, which is the single
+    thing it must never do. Measured: 275 of 1,450 migrated tones are
+    directional with no locatable quote, and calling them „invalid" would
+    condemn a faithful conversion for a rule it could not have satisfied.
+    They are still WITHHELD — `party_tone_spans_support` refuses them
+    independently — so nothing unsupported reaches a reader either way.
     """
     errs: list = []
     rationale = t.get("rationale")
@@ -1335,11 +1346,13 @@ def validate_tone_evidence(t: dict, at: str) -> list:
     elif len(rationale.split()) < 4:
         errs.append(f"{at}.rationale: must explain the article's treatment, "
                     "not merely repeat a label")
-    errs.extend(validate_evidence_spans(spans, at, t.get("tone")))
+    errs.extend(validate_evidence_spans(spans, at, t.get("tone"),
+                                        migrated=migrated))
     return errs
 
 
-def validate_evidence_spans(spans, at: str, label) -> list:
+def validate_evidence_spans(spans, at: str, label, *,
+                            migrated: bool = False) -> list:
     """Shape of one tone's provenance, and whether it supports its claim.
 
     ⚠️ SHAPE ONLY — whether each quote EXISTS is decided later, against the
@@ -1383,6 +1396,10 @@ def validate_evidence_spans(spans, at: str, label) -> list:
                         "speaker; naming who said it is the point of the label")
     # ⚠️ REQUIRED-NESS IS DIRECTIONAL, and the GBNF cannot express it: a
     # grammar can demand a list, not „one element per direction you claimed".
+    if migrated:
+        # A converted record cannot be asked for provenance it never had; see
+        # `validate_tone_evidence`. Shape above still applies.
+        return errs
     if label in PARTY_TONE_SPAN_DIRECTIONS and label not in directions:
         errs.append(f"{at}.evidence_spans: a {label} tone needs at least one "
                     f"{label} span")
