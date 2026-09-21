@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-09-16T23:08:19.621Z",
+  "lastSuccessfulIngest": "2026-09-21T22:26:56.822Z",
   "skill": "update-procurement",
-  "summary": "EOP self-heal +190 rows (409,014 contracts); tenders 239,033; TED 219,726 notices; anexi fold net +€2284.9M; geo overrides 2189 (unchanged); db:refresh full reload"
+  "summary": "TED 219,939 notices + EOP gap-fill +386 rows; corpus 409,379 contracts / 239,287 tenders; db:refresh completed after disk-full resume; test:data red on funds_wire ceiling + identity pins (re-cut 1220/1138)"
 }
