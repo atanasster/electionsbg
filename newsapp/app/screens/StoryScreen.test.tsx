@@ -475,6 +475,114 @@ describe("one completeness strip for both axes (T5.4)", () => {
   });
 });
 
+describe("de-jargoned copy (T5.6)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+  });
+
+  it("names a group of articles, never a cluster, and reads the axis labels from labels.ts in both languages", async () => {
+    mockServedStory(story);
+    const { StoryScreen } = await import("./StoryScreen");
+    const { container } = render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(container.textContent).not.toMatch(/клъстер/i);
+    expect(screen.getByText("Най-ранен материал")).toBeVisible();
+    // The segment must carry the SAME short form the badge on every row
+    // carries: `.label` („Прогресивно рамкиране") cannot match `/^Прогресивно ·/`.
+    // (Re-typing the identical short form inline would pass — what is gated
+    // is drift between segment and badge, not the location of the string.)
+    expect(
+      screen.getByRole("button", { name: /^Прогресивно ·/ }),
+    ).toBeVisible();
+    cleanup();
+    vi.resetModules();
+    mockServedStory(story);
+    const en = await import("./StoryScreen");
+    const { NewsLocaleProvider } = await import("../i18n");
+    const rendered = render(
+      <NewsLocaleProvider language="en">
+        <MemoryRouter initialEntries={["/story/private-story-id"]}>
+          <Routes>
+            <Route path="/story/:id" element={<en.StoryScreen />} />
+          </Routes>
+        </MemoryRouter>
+      </NewsLocaleProvider>,
+    );
+    expect(rendered.container.textContent).not.toMatch(/cluster/i);
+    // Same register as BG: the short form, not „Progressive framing".
+    expect(
+      screen.getByRole("button", { name: /^Progressive ·/ }),
+    ).toBeVisible();
+  });
+
+  it("the not-found hint names a group of articles, never a cluster", async () => {
+    vi.doMock("../data", async (importOriginal) => ({
+      ...(await importOriginal<typeof import("../data")>()),
+      useStoryDetail: () => ({ data: null, error: null, loading: false }),
+      useTaxonomy: () => ({ data: null, error: null, loading: false }),
+      useOutlets: () => ({ data: null, error: null, loading: false }),
+    }));
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(
+      screen.getByRole("heading", { name: "Историята не е намерена" }),
+    ).toBeVisible();
+    expect(screen.getByText(/групата материали да е обединена/)).toBeVisible();
+    expect(document.body.textContent).not.toMatch(/клъстер|cluster/i);
+  });
+
+  it("keeps the rubric term out of the none-state parenthesis in both languages", async () => {
+    const [left, right] = story.members;
+    const none = [
+      { ...left, russia_stance: null },
+      { ...right, russia_stance: "not_applicable" as const },
+    ];
+    mockServedStory({ ...story, members: none });
+    const bg = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<bg.StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByTestId("divergence-russia")).toHaveTextContent(
+      "„не заема позиция“ не е позиция",
+    );
+    cleanup();
+    vi.resetModules();
+    mockServedStory({ ...story, members: none });
+    const en = await import("./StoryScreen");
+    const { NewsLocaleProvider } = await import("../i18n");
+    render(
+      <NewsLocaleProvider language="en">
+        <MemoryRouter initialEntries={["/story/private-story-id"]}>
+          <Routes>
+            <Route path="/story/:id" element={<en.StoryScreen />} />
+          </Routes>
+        </MemoryRouter>
+      </NewsLocaleProvider>,
+    );
+    const note = screen.getByTestId("divergence-russia");
+    expect(note).toHaveTextContent(
+      "“takes no position” verdict is not a position",
+    );
+    expect(note).not.toHaveTextContent(/not applicable/i);
+  });
+});
+
 describe("a story the release no longer serves", () => {
   afterEach(() => vi.resetModules());
 
@@ -587,6 +695,8 @@ describe("a story the release no longer serves", () => {
     expect(
       screen.getByText(/не отговаря на публикувана история/),
     ).toBeVisible();
+    // T5.6: nothing on the retired/unknown branches names a cluster.
+    expect(document.body.textContent).not.toMatch(/клъстер|cluster/i);
   });
 
   it("does not claim never-published while the registry is in flight or unreadable", async () => {

@@ -8,6 +8,7 @@ import {
 import {
   AggregateCompleteness,
   COMPLETENESS_RUBRIC_ID,
+  axisBreakdown,
   completenessSentence,
 } from "./AggregateCompleteness";
 
@@ -172,6 +173,60 @@ describe("AggregateCompleteness", () => {
     );
   });
 
+  it("spells the breakdown out in words with the verbs agreeing, zeros omitted, in both languages", () => {
+    const full: AxisCompleteness = {
+      assessed: 3,
+      total: 3,
+      positioned: 2,
+      notApplicable: 1,
+      unavailable: 0,
+      outlets: 2,
+    };
+    expect(axisBreakdown(full, "bg")).toBe(
+      "Оценени 3 от 3 материала (от 2 източника): 2 заемат позиция, 1 не заема позиция по тази ос.",
+    );
+    expect(axisBreakdown(full, "en")).toBe(
+      "Assessed 3 of 3 articles (from 2 outlets): 2 take a position, 1 takes no position on this axis.",
+    );
+    expect(
+      axisBreakdown(
+        { ...full, outlets: 1, positioned: 1, notApplicable: 2 },
+        "bg",
+      ),
+    ).toBe(
+      "Оценени 3 от 3 материала (от 1 източник): 1 заема позиция, 2 не заемат позиция по тази ос.",
+    );
+    // ⚠️ THE MUTATION THIS CATCHES: a fixed plural opener — „Оценени 1 от 3".
+    const single: AxisCompleteness = {
+      assessed: 1,
+      total: 3,
+      positioned: 1,
+      notApplicable: 0,
+      unavailable: 2,
+      outlets: 1,
+    };
+    expect(axisBreakdown(single, "bg")).toBe(
+      "Оценен 1 от 3 материала (от 1 източник): 1 заема позиция; 2 не са оценени.",
+    );
+    expect(axisBreakdown(single, "en")).toBe(
+      "Assessed 1 of 3 articles (from 1 outlet): 1 takes a position; 2 are not assessed.",
+    );
+    // Nothing assessed at all: the opener alone, no zero parts.
+    expect(
+      axisBreakdown(
+        {
+          assessed: 0,
+          total: 2,
+          positioned: 0,
+          notApplicable: 0,
+          unavailable: 2,
+          outlets: 0,
+        },
+        "bg",
+      ),
+    ).toBe("Оценени 0 от 2 материала (от 0 източника); 2 не са оценени.");
+  });
+
   it("puts the breakdown, rubric id and date behind a disclosure the page owns", () => {
     const onToggle = vi.fn();
     const { rerender } = render(
@@ -202,7 +257,13 @@ describe("AggregateCompleteness", () => {
     expect(details).not.toHaveAttribute("open");
     expect(details).toHaveTextContent(COMPLETENESS_RUBRIC_ID);
     expect(details).toHaveTextContent("news-article-evaluation-v1");
-    expect(details).toHaveTextContent("1 извън обхвата");
+    // T5.6 — the breakdown is a plain sentence, not a row of rubric tags.
+    expect(details).toHaveTextContent(
+      "Оценени 2 от 3 материала (от 1 източник): 1 заема позиция, 1 не заема позиция по тази ос; 1 не е оценен.",
+    );
+    expect(details).not.toHaveTextContent("в спектъра");
+    expect(details).not.toHaveTextContent("извън обхвата");
+    expect(details).not.toHaveTextContent("без стойност");
     expect(details).toHaveTextContent("редакционният статус");
     // The owner learns the DOM's NEW state, not a constant.
     details!.open = true;

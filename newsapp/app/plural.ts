@@ -24,3 +24,7 @@ export const assessedVerb = (n: number, lang: Lang): string =>
     : n === 1
       ? "Оценен е"
       : "Оценени са";
+
+/** „Оценен" / „Оценени" — the bare participle, for an opener that carries its own count. */
+export const assessedParticiple = (n: number, lang: Lang): string =>
+  lang === "en" ? "Assessed" : n === 1 ? "Оценен" : "Оценени";

@@ -69,16 +69,17 @@ const stanceGroup = (stance: string | null | undefined): StanceGroup =>
         ? "neutral"
         : "n/a";
 
-// Group hues/labels ride on the canonical META records from labels.ts so the
-// bars, badges and card spectrums can never drift apart.
+// Group hues AND labels ride on the canonical META records from labels.ts so
+// the bars, badges and card spectrums can never drift apart. T5.6: the BG
+// strings used to be typed here while EN read the table — the short forms
+// now come from `leaningMeta(…).short` in both languages.
 const LEAN_GROUPS: {
   g: Exclude<LeanGroup, "n/a">;
-  label: string;
   meta: keyof typeof LEANING_META;
 }[] = [
-  { g: "left", label: "Прогресивно", meta: "progressive" },
-  { g: "center", label: "Без ясно рамкиране", meta: "neutral" },
-  { g: "right", label: "Консервативно", meta: "conservative" },
+  { g: "left", meta: "progressive" },
+  { g: "center", meta: "neutral" },
+  { g: "right", meta: "conservative" },
 ];
 const STANCE_GROUPS: {
   g: Exclude<StanceGroup, "n/a">;
@@ -107,8 +108,8 @@ const DivergenceNote = ({
   const text =
     divergence.state === "none"
       ? tr(
-          "Нито един материал няма позиция по тази ос (оценка „извън обхвата“ не е позиция).",
-          "No article holds a position on this axis (a “not applicable” verdict is not a position).",
+          "Нито един материал няма позиция по тази ос (оценката „не заема позиция“ не е позиция).",
+          "No article holds a position on this axis (a “takes no position” verdict is not a position).",
         )
       : divergence.state === "single_source"
         ? tr(
@@ -145,7 +146,8 @@ const DivergenceNote = ({
 // words, immediately beside the bar they are missing from — not in the
 // completeness strip, which would repeat the sentence under the axis that
 // did NOT collapse. Unassessed articles (no verdict at all) are a different
-// absence and stay on the completeness line as „без стойност".
+// absence and stay in the completeness disclosure as „N не е оценен /
+// не са оценени" (`axisBreakdown`).
 // The lower-case axis names the completeness sentence uses („по политическо
 // рамкиране"); the bar titles above the bars are the capitalised long forms.
 const AXIS_LABEL: Record<"leaning" | "russia", { bg: string; en: string }> = {
@@ -242,9 +244,9 @@ export const StoryScreen = () => {
       "n/a": 0,
     };
     for (const m of story.members) counts[leanGroup(m.leaning)] += 1;
-    return LEAN_GROUPS.map(({ g, label, meta }) => ({
+    return LEAN_GROUPS.map(({ g, meta }) => ({
       key: g,
-      label: language === "bg" ? label : leaningMeta(meta, language).label,
+      label: leaningMeta(meta, language).short,
       count: counts[g],
       color: LEANING_META[meta].color,
     })).filter((s) => s.count > 0);
@@ -435,8 +437,8 @@ export const StoryScreen = () => {
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {tr(
-            "Възможно е клъстерът да е обединен с друг или адресът да е грешен.",
-            "The story may have been merged into another cluster, or the address may be incorrect.",
+            "Възможно е групата материали да е обединена с друга или адресът да е грешен.",
+            "The story may have been merged into another group of articles, or the address may be incorrect.",
           )}{" "}
           <Link
             to="/"
@@ -524,8 +526,8 @@ export const StoryScreen = () => {
             />
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {tr(
-                "Обобщението е съставено автоматично от материалите в клъстера. Проверете оригиналните източници и хронологията.",
-                "The summary is generated automatically from the articles in this cluster. Check the original sources and chronology.",
+                "Обобщението е съставено автоматично от материалите в тази група. Проверете оригиналните източници и хронологията.",
+                "The summary is generated automatically from the articles in this group. Check the original sources and chronology.",
               )}{" "}
               <a
                 href="#sources-chronology"
@@ -670,15 +672,13 @@ export const StoryScreen = () => {
               </span>
             </div>
             <div className="flex justify-between">
-              <span>{tr("Статии", "Articles")}</span>
+              <span>{tr("Материали", "Articles")}</span>
               <span className="font-semibold tabular-nums">
                 {story.aggregates.article_count}
               </span>
             </div>
             <div className="flex justify-between">
-              <span>
-                {tr("Най-ранна дата в клъстера", "Earliest cluster date")}
-              </span>
+              <span>{tr("Най-ранен материал", "Earliest article")}</span>
               <span className="tabular-nums">
                 {formatDate(story.first_published, language)}
               </span>

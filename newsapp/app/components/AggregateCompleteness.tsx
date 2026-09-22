@@ -9,7 +9,7 @@
 import { formatDate } from "../labels";
 import { useNewsLocale } from "../i18n";
 import type { AxisCompleteness } from "../aggregateCompleteness";
-import { articleNoun, assessedVerb } from "../plural";
+import { articleNoun, assessedParticiple, assessedVerb } from "../plural";
 
 export const COMPLETENESS_RUBRIC_ID = "news-article-evaluation-v1";
 
@@ -86,6 +86,48 @@ export const completenessSentence = (
   );
 };
 
+/**
+ * T5.6 — the per-axis breakdown as a plain sentence, not a row of tags:
+ * „Оценени 2 от 3 материала (от 1 източник): 1 заема позиция, 1 не заема
+ * позиция по тази ос; 1 не е оценен." Every non-zero figure the tag row
+ * carried is still here, in words a reader does not need the rubric to
+ * parse. A ZERO part is omitted rather than printed — the opener's
+ * „N от M" already implies it, and T5.4 says zero as an absence, never as
+ * an affirmative count.
+ */
+export const axisBreakdown = (
+  c: AxisCompleteness,
+  language: "bg" | "en",
+): string => {
+  const one = (n: number) => n === 1;
+  const en = language === "en";
+  const opener = en
+    ? `${assessedParticiple(c.assessed, "en")} ${c.assessed} of ${c.total} ${articleNoun(c.total, "en")} (from ${c.outlets} ${one(c.outlets) ? "outlet" : "outlets"})`
+    : `${assessedParticiple(c.assessed, "bg")} ${c.assessed} от ${c.total} ${articleNoun(c.total, "bg")} (от ${c.outlets} ${one(c.outlets) ? "източник" : "източника"})`;
+  const parts: string[] = [];
+  if (c.positioned > 0) {
+    parts.push(
+      en
+        ? `${c.positioned} ${one(c.positioned) ? "takes" : "take"} a position`
+        : `${c.positioned} ${one(c.positioned) ? "заема" : "заемат"} позиция`,
+    );
+  }
+  if (c.notApplicable > 0) {
+    parts.push(
+      en
+        ? `${c.notApplicable} ${one(c.notApplicable) ? "takes" : "take"} no position on this axis`
+        : `${c.notApplicable} не ${one(c.notApplicable) ? "заема" : "заемат"} позиция по тази ос`,
+    );
+  }
+  const tail =
+    c.unavailable > 0
+      ? en
+        ? `; ${c.unavailable} ${one(c.unavailable) ? "is" : "are"} not assessed`
+        : `; ${c.unavailable} не ${one(c.unavailable) ? "е оценен" : "са оценени"}`
+      : "";
+  return `${opener}${parts.length ? `: ${parts.join(", ")}` : ""}${tail}.`;
+};
+
 export const AggregateCompleteness = ({
   axes,
   generatedAt,
@@ -124,27 +166,7 @@ export const AggregateCompleteness = ({
           {axes.map(({ key, label, completeness }) => (
             <div key={key}>
               <dt className="font-medium text-foreground">{label}</dt>
-              <dd className="flex flex-wrap gap-x-3 gap-y-1">
-                <span>
-                  {tr("оценени", "assessed")} {completeness.assessed}/
-                  {completeness.total}
-                </span>
-                <span>
-                  {completeness.outlets} {tr("източника", "outlets")}
-                </span>
-                <span>
-                  {completeness.positioned}{" "}
-                  {tr("в спектъра", "on the spectrum")}
-                </span>
-                <span>
-                  {completeness.notApplicable}{" "}
-                  {tr("извън обхвата", "not applicable")}
-                </span>
-                <span>
-                  {completeness.unavailable}{" "}
-                  {tr("без стойност", "without a value")}
-                </span>
-              </dd>
+              <dd>{axisBreakdown(completeness, language)}</dd>
             </div>
           ))}
         </dl>
