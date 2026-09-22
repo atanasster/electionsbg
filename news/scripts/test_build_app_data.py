@@ -841,6 +841,9 @@ class BuildAppDataTest(BuildAppDataFixture):
         self.assertEqual(story["members"][0]["russia_stance"], "anti_russia")
         self.assertEqual(story["aggregates"]["by_leaning"], {"conservative": 1})
         self.assertEqual(story["aggregates"]["by_russia_stance"], {"anti_russia": 1})
+        # T5.2: the per-axis distinct positioned-outlet count the cards' guard reads.
+        self.assertEqual(story["aggregates"]["leaning_outlets"], 1)
+        self.assertEqual(story["aggregates"]["russia_stance_outlets"], 1)
         self.assertEqual(story["aggregates"]["by_party_tone"], {
             "Партия А": {"favorable": 1},
         })
@@ -3940,6 +3943,58 @@ class NewsPersonIdentity(BuildAppDataFixture):
         queue = json.loads((Path(self.root) / "news" / "review" / "news_person_candidates.json").read_text(encoding="utf-8"))
         by = {i["surface"]: i for i in queue["items"]}
         self.assertEqual(by["Иван Петров"]["pending_identity"], "np_00000001")
+
+
+class PositionedOutletCounts(unittest.TestCase):
+    """T5.2 — `leaning_outlets` / `russia_stance_outlets` count distinct
+    OUTLETS holding a positioned label, in BOTH independent writers."""
+
+    def analyses(self):
+        def rec(url, domain, leaning, russia):
+            return {"url": url, "domain": domain, "article_path": f"news/data/{domain}/{url}.json",
+                    "leaning": {"label": leaning}, "russia_stance": {"label": russia},
+                    "party_tones": [], "entities": {}}
+        return {
+            "u1": rec("u1", "a.bg", "neutral", "not_applicable"),
+            "u2": rec("u2", "a.bg", "progressive", "not_applicable"),   # same outlet, second label
+            "u3": rec("u3", "b.bg", "not_applicable", "pro_russia"),
+        }
+
+    def test_both_writers_count_outlets_not_labels(self):
+        story = {"id": "s", "members": [{"url": u} for u in ("u1", "u2", "u3")]}
+        _, expected = bad.expected_story_aggregates(story, self.analyses())
+        # ⚠️ THE MUTATION THIS CATCHES: counting labels (2 on leaning) or every
+        # assessed outlet including not_applicable (2 on leaning, 2 on Russia).
+        self.assertEqual(expected["leaning_outlets"], 1)
+        self.assertEqual(expected["russia_stance_outlets"], 1)
+        members = [{"url": u, "domain": self.analyses()[u]["domain"], "published": None}
+                   for u in ("u1", "u2", "u3")]
+        recomputed = bad.recompute_analysis_story(
+            {"id": "s", "members": members, "entities": {}}, self.analyses())
+        self.assertEqual(recomputed["aggregates"]["leaning_outlets"], 1)
+        self.assertEqual(recomputed["aggregates"]["russia_stance_outlets"], 1)
+        self.assertEqual(recomputed["aggregates"], expected)
+
+    def test_zero_positioned_two_outlets_and_a_missing_label(self):
+        story = {"id": "s", "members": [{"url": u} for u in ("u1", "u2", "u3")]}
+        a = self.analyses()
+        a["u3"]["leaning"]["label"] = "conservative"          # a genuine spread: a.bg + b.bg
+        for rec in a.values():
+            rec["russia_stance"]["label"] = "not_applicable"  # nobody positioned
+        _, expected = bad.expected_story_aggregates(story, a)
+        self.assertEqual(expected["leaning_outlets"], 2)
+        self.assertEqual(expected["russia_stance_outlets"], 0)
+        members = [{"url": u, "domain": a[u]["domain"], "published": None} for u in a]
+        recomputed = bad.recompute_analysis_story(
+            {"id": "s", "members": members, "entities": {}}, a)
+        self.assertEqual(recomputed["aggregates"], expected)
+        # ⚠️ The recompute writer must not count a MISSING label as positioned
+        # (the release reconcile refuses such a member before it can ship, so
+        # only the writer's own rule can be pinned here).
+        a["u3"]["leaning"]["label"] = None
+        recomputed = bad.recompute_analysis_story(
+            {"id": "s", "members": members, "entities": {}}, a)
+        self.assertEqual(recomputed["aggregates"]["leaning_outlets"], 1)
 
 
 if __name__ == "__main__":

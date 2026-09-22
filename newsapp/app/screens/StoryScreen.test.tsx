@@ -83,6 +83,31 @@ const story: Story = {
   ],
 };
 
+/**
+ * The served-detail mock every describe here needs: one story, an empty
+ * taxonomy and outlet list. Extra hooks (`useCases`, …) ride on `extra`.
+ */
+const mockServedStory = (served: Story, extra: Record<string, unknown> = {}) =>
+  vi.doMock("../data", async (importOriginal) => ({
+    ...(await importOriginal<typeof import("../data")>()),
+    useStoryDetail: () => ({
+      data: { generated_at: "", story: served, related: [] },
+      error: null,
+      loading: false,
+    }),
+    useTaxonomy: () => ({
+      data: { version: 1, categories: [] },
+      error: null,
+      loading: false,
+    }),
+    useOutlets: () => ({
+      data: { generated_at: "", outlets: [] },
+      error: null,
+      loading: false,
+    }),
+    ...extra,
+  }));
+
 describe("StoryScreen analytics", () => {
   afterEach(() => {
     vi.resetModules();
@@ -92,24 +117,7 @@ describe("StoryScreen analytics", () => {
   it("reports only filter axes and activation state", async () => {
     const sink = vi.fn();
     window.naiasnoNewsAnalytics = sink;
-    vi.doMock("../data", async (importOriginal) => ({
-      ...(await importOriginal<typeof import("../data")>()),
-      useStoryDetail: () => ({
-        data: { generated_at: "", story, related: [] },
-        error: null,
-        loading: false,
-      }),
-      useTaxonomy: () => ({
-        data: { version: 1, categories: [] },
-        error: null,
-        loading: false,
-      }),
-      useOutlets: () => ({
-        data: { generated_at: "", outlets: [] },
-        error: null,
-        loading: false,
-      }),
-    }));
+    mockServedStory(story);
     const { StoryScreen } = await import("./StoryScreen");
     render(
       <MemoryRouter initialEntries={["/story/private-story-id"]}>
@@ -206,6 +214,81 @@ describe("StoryScreen analytics", () => {
     expect(JSON.stringify(sink.mock.calls)).not.toMatch(
       /private|member|Прогресивно|Русия/,
     );
+  });
+});
+
+describe("what the assessed coverage licenses each axis to say (T5.2)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+  });
+
+  const renderWith = async (members: Story["members"]) => {
+    mockServedStory({ ...story, members });
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+  };
+  const [left, right, undated] = story.members;
+
+  it("two outlets on two labels is a distribution; one outlet with two labels is single-source", async () => {
+    await renderWith([left, right, undated]);
+    expect(screen.getByTestId("divergence-leaning")).toHaveAttribute(
+      "data-state",
+      "distribution",
+    );
+    expect(screen.getByTestId("divergence-leaning")).toHaveTextContent(
+      "Разпределение между 2 източника с позиция; сегментите броят материали, не източници.",
+    );
+    cleanup();
+    vi.resetModules();
+    // ⚠️ THE MUTATION THIS CATCHES: counting distinct LABELS (the old card
+    // rule) — the same two labels from ONE outlet are not two outlets
+    // disagreeing.
+    await renderWith([left, { ...right, domain: "left.example" }, undated]);
+    expect(screen.getByTestId("divergence-leaning")).toHaveAttribute(
+      "data-state",
+      "single_source",
+    );
+    const note = screen.getByTestId("divergence-leaning");
+    expect(note).toHaveTextContent("Само един източник има позиция");
+    expect(note).toHaveTextContent("няма с какво да се сравни");
+    expect(note).not.toHaveTextContent("Оценен е само един");
+  });
+
+  it("matching framing across outlets is said to be no agreement on facts; not_applicable is no position", async () => {
+    await renderWith([
+      left,
+      { ...right, leaning: "progressive", russia_stance: "not_applicable" },
+      { ...undated, russia_stance: "not_applicable" },
+    ]);
+    const lean = screen.getByTestId("divergence-leaning");
+    expect(lean).toHaveAttribute("data-state", "uniform");
+    expect(lean).toHaveTextContent("не е съгласие по фактите");
+    // Russia: only `left` is positioned → single-source, not „none“ and not uniform.
+    expect(screen.getByTestId("divergence-russia")).toHaveAttribute(
+      "data-state",
+      "single_source",
+    );
+  });
+
+  it("says so when no member holds a position — in the POSITIONED vocabulary", async () => {
+    await renderWith([
+      { ...left, russia_stance: null },
+      { ...right, russia_stance: "not_applicable" },
+    ]);
+    const note = screen.getByTestId("divergence-russia");
+    expect(note).toHaveAttribute("data-state", "none");
+    // ⚠️ THE MUTATION THIS CATCHES: copy in the ASSESSED vocabulary. `right`
+    // IS assessed (not_applicable is a verdict, and the completeness line
+    // beneath counts it), so „няма оценка" would be false right here.
+    expect(note).toHaveTextContent("позиция");
+    expect(note).not.toHaveTextContent("няма оценка");
   });
 });
 
@@ -375,44 +458,27 @@ describe("a story that belongs to a case", () => {
     registry: { slug: string; name: { bg: string; en: string } }[] | null,
   ) => {
     const asked: boolean[] = [];
-    vi.doMock("../data", async (importOriginal) => ({
-      ...(await importOriginal<typeof import("../data")>()),
-      useStoryDetail: () => ({
-        data: {
-          generated_at: "",
-          story: { ...story, case_ids: caseIds },
-          related: [],
+    mockServedStory(
+      { ...story, case_ids: caseIds },
+      {
+        useCases: (enabled: boolean) => {
+          asked.push(enabled);
+          return {
+            data:
+              enabled && registry
+                ? {
+                    generated_at: "",
+                    version: 1,
+                    editorial_note: { bg: "", en: "" },
+                    cases: registry,
+                  }
+                : null,
+            error: null,
+            loading: false,
+          };
         },
-        error: null,
-        loading: false,
-      }),
-      useCases: (enabled: boolean) => {
-        asked.push(enabled);
-        return {
-          data:
-            enabled && registry
-              ? {
-                  generated_at: "",
-                  version: 1,
-                  editorial_note: { bg: "", en: "" },
-                  cases: registry,
-                }
-              : null,
-          error: null,
-          loading: false,
-        };
       },
-      useTaxonomy: () => ({
-        data: { version: 1, categories: [] },
-        error: null,
-        loading: false,
-      }),
-      useOutlets: () => ({
-        data: { generated_at: "", outlets: [] },
-        error: null,
-        loading: false,
-      }),
-    }));
+    );
     const { StoryScreen } = await import("./StoryScreen");
     render(
       <MemoryRouter initialEntries={["/story/private-story-id"]}>

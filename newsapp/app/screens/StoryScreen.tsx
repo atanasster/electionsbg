@@ -39,6 +39,7 @@ import { AggregateCompleteness } from "../components/AggregateCompleteness";
 import { axisCompleteness } from "../aggregateCompleteness";
 import { emitNewsEvent } from "../analytics";
 import { useNewsLocale } from "../i18n";
+import { axisDivergence, type AxisDivergence } from "../storyDivergence";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
 type StanceGroup = "pro" | "neutral" | "anti" | "n/a";
@@ -80,6 +81,57 @@ const STANCE_GROUPS: {
   { g: "neutral", meta: "neutral" },
   { g: "anti", meta: "anti_russia" },
 ];
+
+// The state sentence beside each axis bar. Matching framing is not
+// agreement on facts, and the sentence says so where it applies.
+const DivergenceNote = ({
+  divergence,
+  axis,
+}: {
+  divergence: AxisDivergence;
+  axis: "leaning" | "russia";
+}) => {
+  const { tr } = useNewsLocale();
+  // ⚠️ POSITIONED, not assessed. `not_applicable` IS a verdict, and the
+  // completeness line beneath this counts it — so this copy says „позиция"
+  // where the rule counts positions, or the two adjacent sentences contradict
+  // each other on every story with an out-of-scope verdict.
+  const n = divergence.positionedOutlets;
+  const text =
+    divergence.state === "none"
+      ? tr(
+          "Нито един материал няма позиция по тази ос (оценка „извън обхвата“ не е позиция).",
+          "No article holds a position on this axis (a “not applicable” verdict is not a position).",
+        )
+      : divergence.state === "single_source"
+        ? tr(
+            "Само един източник има позиция по тази ос — няма с какво да се сравни.",
+            "Only one source holds a position on this axis — there is nothing to compare it with.",
+          )
+        : divergence.state === "uniform"
+          ? axis === "leaning"
+            ? tr(
+                `${n} източника с позиция рамкират материала еднакво. Еднаквото рамкиране не е съгласие по фактите.`,
+                `${n} sources with a position frame it the same way. Matching framing is not agreement on facts.`,
+              )
+            : tr(
+                `${n} източника с позиция заемат една и съща позиция. Еднаквата позиция не е съгласие по фактите.`,
+                `${n} sources with a position take the same one. A matching position is not agreement on facts.`,
+              )
+          : tr(
+              `Разпределение между ${n} източника с позиция; сегментите броят материали, не източници.`,
+              `A spread across ${n} sources with a position; the segments count articles, not sources.`,
+            );
+  return (
+    <p
+      className="text-xs text-muted-foreground"
+      data-testid={`divergence-${axis}`}
+      data-state={divergence.state}
+    >
+      {text}
+    </p>
+  );
+};
 
 export const StoryScreen = () => {
   const { isEnglish, language, tr } = useNewsLocale();
@@ -155,6 +207,19 @@ export const StoryScreen = () => {
       color: RUSSIA_META[meta].color,
     })).filter((s) => s.count > 0);
   }, [language, story]);
+
+  // T5.2 — what the assessed coverage licenses each bar to SAY, by distinct
+  // outlets; the bar's segments still count articles, and the sentence
+  // beside it says which.
+  const leanDivergence = useMemo(
+    () => axisDivergence(story?.members ?? [], (member) => member.leaning),
+    [story],
+  );
+  const stanceDivergence = useMemo(
+    () =>
+      axisDivergence(story?.members ?? [], (member) => member.russia_stance),
+    [story],
+  );
 
   const leanCompleteness = useMemo(
     () => axisCompleteness(story?.members ?? [], (member) => member.leaning),
@@ -463,6 +528,7 @@ export const StoryScreen = () => {
                   setLeanFilter(value);
                 }}
               />
+              <DivergenceNote divergence={leanDivergence} axis="leaning" />
               <AggregateCompleteness
                 completeness={leanCompleteness}
                 generatedAt={storyDetail.data?.generated_at}
@@ -482,6 +548,7 @@ export const StoryScreen = () => {
                   setStanceFilter(value);
                 }}
               />
+              <DivergenceNote divergence={stanceDivergence} axis="russia" />
               <AggregateCompleteness
                 completeness={stanceCompleteness}
                 generatedAt={storyDetail.data?.generated_at}

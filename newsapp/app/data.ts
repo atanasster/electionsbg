@@ -362,6 +362,15 @@ export interface Story {
     outlet_count: number;
     by_leaning: Partial<Record<Leaning, number>>;
     by_russia_stance: Partial<Record<RussiaStance, number>>;
+    /**
+     * T5.2 — distinct outlets holding a POSITIONED label (not
+     * `not_applicable`) on each axis. The card's divergence guard counts
+     * these, never distinct labels; optional only so a bundle built before
+     * the field existed still types, and `aggregateDivergence` then says
+     * less rather than more.
+     */
+    leaning_outlets?: number;
+    russia_stance_outlets?: number;
     /** Party label → tone → number of member articles making that tone claim. */
     by_party_tone: Record<string, Partial<Record<Tone, number>>>;
     by_domain: Record<string, number>;

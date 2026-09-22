@@ -404,6 +404,7 @@ EMPTY_STORY_ENTITIES = {"people": [], "parties": [], "institutions": [],
                         "companies": [], "places": []}
 EMPTY_STORY_AGGREGATES = {"article_count": 0, "outlet_count": 0,
                           "by_leaning": {}, "by_russia_stance": {},
+                          "leaning_outlets": 0, "russia_stance_outlets": 0,
                           "by_party_tone": {}, "by_domain": {}}
 
 # CSV column headers carry a data-vintage suffix (_aug2026); match by prefix so a new
@@ -2231,6 +2232,7 @@ def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[l
     by_russia: dict[str, int] = {}
     by_domain: dict[str, int] = {}
     by_party_tone: dict[str, dict[str, int]] = {}
+    positioned_outlets: dict[str, set[str]] = {"leaning": set(), "russia": set()}
     seen_urls: set[str] = set()
     for member in story.get("members") or []:
         if not isinstance(member, dict):
@@ -2253,6 +2255,10 @@ def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[l
         by_domain[domain] = by_domain.get(domain, 0) + 1
         by_leaning[leaning] = by_leaning.get(leaning, 0) + 1
         by_russia[russia] = by_russia.get(russia, 0) + 1
+        if leaning != "not_applicable":
+            positioned_outlets["leaning"].add(domain)
+        if russia != "not_applicable":
+            positioned_outlets["russia"].add(domain)
         seen_pairs: set[tuple[str, str]] = set()
         for item in analysis.get("party_tones") or []:
             if not isinstance(item, dict):
@@ -2274,6 +2280,8 @@ def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[l
         "outlet_count": len(by_domain),
         "by_leaning": by_leaning,
         "by_russia_stance": by_russia,
+        "leaning_outlets": len(positioned_outlets["leaning"]),
+        "russia_stance_outlets": len(positioned_outlets["russia"]),
         "by_party_tone": by_party_tone,
         "by_domain": by_domain,
     }

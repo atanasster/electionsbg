@@ -129,7 +129,7 @@ describe("StoryCard interaction scent", () => {
     expect(links[2]).toHaveFocus();
   });
 
-  it("only claims a difference when the labels actually differ", () => {
+  it("only claims a difference when two or more OUTLETS differ (T5.2)", () => {
     // ⚠️ THE CUE IS A CLAIM ABOUT NAMED OUTLETS. Deriving it from label
     // PRESENCE rather than divergence made it false for every comparison story
     // in the live corpus — measured 2026-09-01, both are uniform
@@ -152,18 +152,70 @@ describe("StoryCard interaction scent", () => {
         </MemoryRouter>,
       );
 
-    const uniform = render_({ by_leaning: { neutral: 2 } });
+    const uniform = render_({ by_leaning: { neutral: 2 }, leaning_outlets: 2 });
     expect(uniform.container.textContent).toContain("сходно рамкиране");
     expect(uniform.container.textContent).not.toContain("различия");
     uniform.unmount();
 
-    const divergent = render_({ by_leaning: { neutral: 1, progressive: 1 } });
+    const divergent = render_({
+      by_leaning: { neutral: 1, progressive: 1 },
+      leaning_outlets: 2,
+    });
     expect(divergent.container.textContent).toContain("различия в рамкирането");
     divergent.unmount();
+
+    // T5.2 — ⚠️ THE MUTATION THIS CATCHES: two labels from ONE outlet read
+    // as „framing differs". The unit is the outlet, and one outlet cannot
+    // differ from itself; the card states nothing rather than a comparison.
+    const oneOutlet = render_({
+      by_leaning: { neutral: 1, progressive: 1 },
+      leaning_outlets: 1,
+    });
+    expect(oneOutlet.container.textContent).not.toContain("рамкиране");
+    oneOutlet.unmount();
+
+    // A bundle built before the outlet count existed says LESS, never more.
+    const legacy = render_({ by_leaning: { neutral: 1, progressive: 1 } });
+    expect(legacy.container.textContent).not.toContain("рамкиране");
+    legacy.unmount();
+
+    // The number beside the verdict is the number the verdict is about.
+    const partial = render_({
+      outlet_count: 5,
+      by_leaning: { neutral: 2, not_applicable: 3 },
+      leaning_outlets: 2,
+    });
+    expect(partial.container.textContent).toContain(
+      "2 медии от 5 · сходно рамкиране",
+    );
+    partial.unmount();
+
+    // The Russia axis is read from its OWN outlet count, and the stronger
+    // state wins the cue; a single-source Russia axis hands it back to leaning.
+    const russia = render_({
+      by_leaning: { neutral: 3 },
+      leaning_outlets: 3,
+      by_russia_stance: { pro_russia: 1, anti_russia: 1 },
+      russia_stance_outlets: 2,
+    });
+    expect(russia.container.textContent).toContain(
+      "различна позиция спрямо Русия",
+    );
+    russia.unmount();
+    const russiaOne = render_({
+      by_leaning: { neutral: 3 },
+      leaning_outlets: 3,
+      by_russia_stance: { pro_russia: 1, anti_russia: 1 },
+      russia_stance_outlets: 1,
+    });
+    expect(russiaOne.container.textContent).toContain("сходно рамкиране");
+    expect(russiaOne.container.textContent).not.toContain("Русия");
+    russiaOne.unmount();
 
     // `not_applicable` is not a position, so it can never make a second one.
     const notApplicable = render_({
       by_leaning: { neutral: 2, not_applicable: 3 },
+      leaning_outlets: 2,
     });
     expect(notApplicable.container.textContent).toContain("сходно рамкиране");
     notApplicable.unmount();

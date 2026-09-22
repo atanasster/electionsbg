@@ -36,6 +36,7 @@ import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
 import { StorySourcePreview } from "./StorySourcePreview";
 import { useNewsLocale } from "../i18n";
+import { aggregateDivergence, type AxisDivergence } from "../storyDivergence";
 import { emitNewsEvent } from "../analytics";
 
 export const StoryCard = ({
@@ -68,21 +69,35 @@ export const StoryCard = ({
   // The spectrum bar this replaced was honest by construction: it drew the
   // distribution, so a single-colour bar showed the reader there was nothing
   // to see. A sentence has to earn that on its own.
-  const spread = (counts: Record<string, number | undefined>) =>
-    Object.entries(counts).filter(
-      ([label, count]) => label !== "not_applicable" && (count ?? 0) > 0,
-    ).length;
-  const leaningSpread = spread(story.aggregates.by_leaning);
-  const stanceSpread = spread(story.aggregates.by_russia_stance);
-  const labelled = Math.max(leaningSpread, stanceSpread);
+  //
+  // T5.2: the unit is the OUTLET. Until 2026-09-22 this counted distinct
+  // LABELS, so two articles from one outlet with different labels read as
+  // „framing differs" — the same rule the story page now applies, from the
+  // build's per-axis positioned-outlet count (`storyDivergence.ts`).
+  const leaning = aggregateDivergence(
+    story.aggregates.by_leaning,
+    story.aggregates.leaning_outlets,
+  );
+  const russia = aggregateDivergence(
+    story.aggregates.by_russia_stance,
+    story.aggregates.russia_stance_outlets,
+  );
+  const rank = (d: AxisDivergence) =>
+    d.state === "distribution" ? 2 : d.state === "uniform" ? 1 : 0;
   const signal =
-    kind === "comparison" && labelled > 0
-      ? leaningSpread >= stanceSpread
+    kind === "comparison" && Math.max(rank(leaning), rank(russia)) > 0
+      ? rank(leaning) >= rank(russia)
         ? "leaning"
         : "russia"
       : null;
-  /** Two or more distinct labels is the only thing that licences "differs". */
-  const diverges = labelled >= 2;
+  const cueAxis = signal === "leaning" ? leaning : russia;
+  /** Two or more OUTLETS on two or more labels is the only thing that licences "differs". */
+  const diverges = cueAxis.state === "distribution";
+  // The number in front of the verdict is the number the verdict is ABOUT:
+  // the outlets holding a position on that axis, not the story's whole
+  // outlet count. Measured 2026-09-22: on 12 live cards the two differ, and
+  // „5 медии · сходно рамкиране" asserted five where two had a position.
+  const cueOutlets = cueAxis.positionedOutlets;
   const compact = density === "compact";
   // ONE predicate for the layout and the content. Deriving the grid from the
   // weaker `Boolean(imageArticle)` would reserve a 7rem media column for an
@@ -177,7 +192,14 @@ export const StoryCard = ({
                 story page, which is where the counts can be explained. */}
             {signal && !compact ? (
               <p className="news-story-cue shrink-0 text-xs text-muted-foreground">
-                {media(story.aggregates.outlet_count, language)} ·{" "}
+                {media(cueOutlets, language)}
+                {cueOutlets < story.aggregates.outlet_count
+                  ? tr(
+                      ` от ${story.aggregates.outlet_count}`,
+                      ` of ${story.aggregates.outlet_count}`,
+                    )
+                  : ""}{" "}
+                ·{" "}
                 {diverges
                   ? signal === "leaning"
                     ? tr("различия в рамкирането", "framing differs")

@@ -678,10 +678,20 @@ def recompute_story(story: dict, analyses: dict) -> dict:
                     entities[k].append(name)
     story["entities"] = entities
     by_leaning, by_russia, by_domain, by_party_tone = {}, {}, {}, {}
+    # Plan T5.2: the divergence guard on the cards counts distinct OUTLETS
+    # holding a positioned label per axis, not distinct labels — two articles
+    # from one outlet with different labels are not two outlets disagreeing.
+    leaning_outlets, russia_outlets = set(), set()
     for m in members:
         by_leaning[m["leaning"]] = by_leaning.get(m["leaning"], 0) + 1
         by_russia[m["russia_stance"]] = by_russia.get(m["russia_stance"], 0) + 1
         by_domain[m["domain"]] = by_domain.get(m["domain"], 0) + 1
+        # A label is positioned iff it is present and not `not_applicable` —
+        # the same one-line rule as `isPositioned` in storyDivergence.ts.
+        if m["leaning"] and m["leaning"] != "not_applicable":
+            leaning_outlets.add(m["domain"])
+        if m["russia_stance"] and m["russia_stance"] != "not_applicable":
+            russia_outlets.add(m["domain"])
         # Count public tone assertions, not merely party mentions. One article
         # can legitimately contribute to several parties, but never more than
         # once to the same party/tone pair. The party label is the stable key
@@ -705,6 +715,8 @@ def recompute_story(story: dict, analyses: dict) -> dict:
         "outlet_count": len(by_domain),
         "by_leaning": by_leaning,
         "by_russia_stance": by_russia,
+        "leaning_outlets": len(leaning_outlets),
+        "russia_stance_outlets": len(russia_outlets),
         "by_party_tone": by_party_tone,
         "by_domain": by_domain,
     }

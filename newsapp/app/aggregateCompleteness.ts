@@ -6,6 +6,11 @@ export interface AxisCompleteness {
   positioned: number;
   notApplicable: number;
   unavailable: number;
+  /**
+   * Distinct domains with ANY verdict, `not_applicable` included — NOT the
+   * divergence rule's basis (`AxisDivergence.positionedOutlets`, which
+   * counts only outlets holding a position). The two differ by design.
+   */
   outlets: number;
 }
 
