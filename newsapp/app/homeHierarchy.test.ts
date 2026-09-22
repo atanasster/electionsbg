@@ -105,7 +105,6 @@ describe("home hierarchy", () => {
 
   it.each([
     { image: null },
-    { image_rights: undefined },
     { image: null, image_rights: { status: "blocked", display_home: false } },
     { image: null, image_rights: { status: "cc", display_home: false } },
   ] as Partial<ArticleRecord>[])(
@@ -121,6 +120,23 @@ describe("home hierarchy", () => {
       expect(result.supporting[0]?.imageArticle).toBeNull();
     },
   );
+
+  it("takes the lead with an unreviewed source photo — no image_rights record at all (T5.3)", () => {
+    // The same image with NO review record is the unreviewed tier, not the
+    // absence of one: it may lead, rendered as a plain source credit rather
+    // than a cleared one — see `canDisplayHomeImage`.
+    const result = buildHomeHierarchy(
+      [story("unreviewed", 2, "2026-08-28T09:00:00Z")],
+      [
+        article("a", "unreviewed", "2026-08-28T09:00:00Z", {
+          image_rights: undefined,
+        }),
+      ],
+    );
+    expect(result.lead?.story.id).toBe("unreviewed");
+    expect(result.lead?.imageArticle.image_rights).toBeUndefined();
+    expect(result.supporting).toHaveLength(0);
+  });
 
   it("prefers an older cleared image within a story over a newer text row", () => {
     const item = story("mixed", 2, "2026-08-28T10:00:00Z");

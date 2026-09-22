@@ -108,6 +108,30 @@ describe("LeadStory accessibility", () => {
     expect(licence).toHaveFocus();
   });
 
+  it("renders an unreviewed source image with a plain, non-claim-making credit", () => {
+    // T5.3: no `image_rights` record at all is the unreviewed tier — the
+    // outlet's own ingested photo may still display, but only as a plain
+    // "Източник: <outlet>" attribution, never the richer cleared credit.
+    const item = {
+      story,
+      imageArticle: { ...imageArticle, image_rights: undefined },
+      kind: "comparison",
+    } as HomeLeadStoryItem;
+    render(
+      <MemoryRouter>
+        <LeadStory item={item} taxonomy={null} outlets={outlets} />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole("img", { name: "Описателен надпис" }),
+    ).toHaveAttribute("src", "https://upload.wikimedia.org/photo.jpg");
+    expect(screen.getByText("Източник: Пример")).toBeVisible();
+    expect(
+      screen.queryByRole("link", { name: /Условия на лиценза/ }),
+    ).toBeNull();
+  });
+
   it("shrinks the lead for compact rather than dropping it", () => {
     const item = {
       story,

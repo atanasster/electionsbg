@@ -391,10 +391,14 @@ IMAGE_RIGHTS_REQUIRED_EVIDENCE = frozenset(
     IMAGE_RIGHTS_POLICY["required_evidence"]
 )
 
-# Ownership. Four dated registry columns, ALL HAND-ENTERED — see the block
+# Ownership. Five dated registry columns, ALL HAND-ENTERED — see the block
 # comment in outlets.json's builder for why none of it may be inferred.
 OWNER_COLUMN_PREFIXES = ("owner", "owner_category", "owner_source",
-                         "owner_checked")
+                         "owner_checked", "owner_eik")
+
+# A Bulgarian ЕИК/БУЛСТАТ: 9 digits for a company, 13 for a branch/other
+# registered form. Anything else is not a register identifier at all.
+OWNER_EIK_RE = re.compile(r"^\d{9}$|^\d{13}$")
 
 # Ground News publishes eight ownership categories and they are a reasonable
 # starting vocabulary, so this is theirs. It is NOT obviously the right
@@ -718,11 +722,20 @@ def owner_block(meta: dict) -> dict | None:
               f"{'a source' if not source else 'a checked date'} — REFUSED. "
               f"An ownership claim publishes both or neither.", file=sys.stderr)
         return None
+    eik = (meta.get("owner_eik") or "").strip() or None
+    # Malformed rather than absent: an EIK-shaped typo would otherwise link a
+    # named newsroom's page to a DIFFERENT real company's register entry —
+    # dropped and reported instead, same as an unrecognised category.
+    if eik and not OWNER_EIK_RE.match(eik):
+        print(f"  ! malformed owner_eik {eik!r} for {meta.get('domain')} — "
+              f"dropped; must be 9 or 13 digits", file=sys.stderr)
+        eik = None
     return {
         "name": name,
         "category": category,
         "source": source,
         "checked": checked,
+        "eik": eik,
     }
 
 
@@ -1890,7 +1903,8 @@ def select_home_payload(
     eligible: list[dict], stories: list[dict],
     rejected_pairs: set[frozenset[str]] | None = None,
 ) -> tuple[list[dict], list[dict], list[dict]]:
-    """Choose recent analyzed stories, preferring a cleared image representative."""
+    """Choose recent analyzed stories, preferring a cleared image
+    representative, then any other source-credited photo, then text."""
     floor = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
     def newest_key(record: dict) -> tuple:
@@ -1899,18 +1913,24 @@ def select_home_payload(
             record.get("domain") or "", record.get("id") or "",
         )
 
+    def image_tier(record: dict) -> int:
+        """0 = rights-cleared photo, 1 = unreviewed source photo (present
+        with no rights record), 2 = no photo. By this point `eligible`
+        records have already had their `image` nulled for anything a
+        reviewer explicitly withheld (see the home-payload projection
+        above), so a present `image` with `image_rights` set means cleared
+        and a present `image` with none means unreviewed — no other
+        combination survives that projection."""
+        if not record.get("image"):
+            return 2
+        return 0 if record.get("image_rights") else 1
+
     eligible_by_story: dict[str, list[dict]] = {}
     for record in eligible:
         if story_id := record.get("story_id"):
             eligible_by_story.setdefault(story_id, []).append(record)
     for records in eligible_by_story.values():
-        records.sort(key=lambda record: (
-            not (
-                bool(record.get("image"))
-                and (record.get("image_rights") or {}).get("display_home") is True
-            ),
-            *newest_key(record),
-        ))
+        records.sort(key=lambda record: (image_tier(record), *newest_key(record)))
 
     candidates = [story for story in stories if story["id"] in eligible_by_story]
     candidates.sort(key=lambda story: (
@@ -1924,8 +1944,9 @@ def select_home_payload(
         HOME_MIN_COMPARISON_STORIES)
 
     # Reserve one representative per selected story before filling the global
-    # article cap. A rights-cleared image wins within the story; otherwise its
-    # newest analyzed article supports a deliberately text-first card.
+    # article cap. A rights-cleared image wins within the story, an
+    # unreviewed-but-present source photo is next, and only a story with
+    # neither falls back to its newest analyzed article as a text-first card.
     representatives = [eligible_by_story[story["id"]][0] for story in selected]
     representative_keys = {(row.get("domain"), row.get("id")) for row in representatives}
     selected_ids = {story["id"] for story in selected}
@@ -2794,6 +2815,11 @@ def main() -> int:
                             # still in the feed.
                             "hotlink_ok": pick_dated_column(
                                 row, HOTLINK_COLUMN_PREFIX),
+                            "domain": domain,
+                            **{
+                                prefix: pick_dated_column(row, prefix)
+                                for prefix in OWNER_COLUMN_PREFIXES
+                            },
                         }
         except (OSError, csv.Error, UnicodeDecodeError):
             pass
@@ -3461,10 +3487,18 @@ def main() -> int:
         projected = {
             key: value for key, value in record.items() if key not in HOME_OMIT
         }
-        # Publisher images remain useful on their source article, but an
-        # unreviewed/denied image has no place in the home wire payload. Nulling
-        # it here makes the legal boundary independent of rendering code.
-        if (record.get("image_rights") or {}).get("display_home") is not True:
+        # A REVIEWED record that withholds display (`display_home` false —
+        # whatever the status) is an explicit editorial "no" and stays
+        # honoured: nulled here so the legal boundary is independent of
+        # rendering code. An UNREVIEWED image (no `image_rights` at all,
+        # still the common case) is not a withhold: the outlet's own
+        # photograph travels with no rights record, and the client renders
+        # it as a plain, non-claim-making "Източник: <outlet>" hotlink
+        # rather than the richer cleared/licensed credit — see
+        # `canDisplayHomeImage` / `compactImageCredit` client-side. Only an
+        # explicit review may unlock that richer credit.
+        rights = record.get("image_rights")
+        if rights is not None and rights.get("display_home") is not True:
             projected["image"] = None
             projected["image_alt"] = None
         eligible_articles.append(projected)
@@ -3516,7 +3550,7 @@ def main() -> int:
     home_payload = {
         "version": 3,
         "generated_at": generated_at,
-        "eligibility": "published_recent_analyzed_with_cleared_images_only",
+        "eligibility": "published_recent_analyzed_with_source_credited_images",
         "window_days": HOME_WINDOW_DAYS,
         "event_dedupe": "conservative_title_entity_v1",
         "merge_proposals": home_merge_proposals,
@@ -3724,7 +3758,7 @@ def main() -> int:
                 # — but a MISSING key reads as `undefined`, which is a
                 # different bug from "we have no logo".
                 "logo": (gone or {}).get(LOGO_COLUMN_PREFIX) or None,
-                "owner": None,
+                "owner": owner_block(gone) if gone else None,
                 "hotlink_ok": tri_state(
                     (gone or {}).get(HOTLINK_COLUMN_PREFIX)),
                 # A retired outlet's articles stay — they were collected in

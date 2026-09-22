@@ -78,7 +78,7 @@ const home = (
 ): HomeBundle => ({
   version: 3,
   generated_at: "2026-08-31T07:00:00Z",
-  eligibility: "published_recent_analyzed_with_cleared_images_only",
+  eligibility: "published_recent_analyzed_with_source_credited_images",
   window_days: 30,
   event_dedupe: "conservative_title_entity_v1",
   merge_proposals: [],

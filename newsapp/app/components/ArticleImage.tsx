@@ -99,13 +99,20 @@ export const ArticleImage = ({
 
   const src = stage === "photo" ? image : stage === "logo" ? outlet.logo : null;
   const hasReviewedCredit = stage === "photo" && rights;
+  // A REAL photo with no reviewed rights record is not a claim-free logo or
+  // monogram rung — it is the outlet's own photograph, hotlinked without a
+  // legal review. The label says exactly that and nothing more: attribution
+  // of where the picture came from, never a licence or permission claim.
+  const isUnreviewedPhoto = stage === "photo" && !rights;
   const creditText = hasReviewedCredit
     ? creditVariant === "compact"
       ? // The outlet is passed so a `source_photo` caption can name the
         // publication it came from. Every other role ignores it.
         compactImageCredit(rights, { language, outlet: name })
       : rights.credit_text
-    : name;
+    : isUnreviewedPhoto
+      ? tr(`Източник: ${name}`, `Source: ${name}`)
+      : name;
   const creditHref = hasReviewedCredit
     ? rights.credit_url
     : (articleUrl ?? `https://${outlet.domain}/`);
@@ -191,7 +198,9 @@ export const ArticleImage = ({
           aria-label={
             hasReviewedCredit
               ? `${tr("Кредит за изображението", "Image credit")}: ${creditText} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
-              : `${name} — ${fallbackDestination} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
+              : isUnreviewedPhoto
+                ? `${creditText} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
+                : `${name} — ${fallbackDestination} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
           }
         >
           {creditText}

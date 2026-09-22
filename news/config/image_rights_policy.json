@@ -21,5 +21,11 @@
     "checked_at"
   ],
   "delivery_is_not_permission": true,
-  "legal_review": "required_before_public_launch"
+  "legal_review": "required_before_public_launch",
+  "unreviewed_source_hotlink": {
+    "approved_on": "2026-09-22",
+    "approved_by_role": "product_owner",
+    "decision": "allow",
+    "note": "An article's OWN photograph, ingested from the outlet's own page, may be hotlinked on the home/outlet surfaces even absent a per-image legal review above — the common news-aggregator convention. It is never rendered as `permitted_statuses` above are: no licence badge, no creator credit, no claim of clearance. It carries only a plain, non-claim-making 'Източник: <outlet>' / 'Source: <outlet>' label linking to the outlet's own article — attribution of where the picture came from, nothing more. `default_decision: deny` above is UNCHANGED and still governs the richer cleared/licensed credit; this is a separate, lesser tier beneath it. A reviewer's explicit withhold (an `image_rights` record with `display_home` false, whatever the status) still overrides this and hides the image — see `denied_statuses`."
+  }
 }

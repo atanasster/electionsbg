@@ -104,11 +104,14 @@ def evaluate_home_payload(
         if isinstance(article, dict)
         and (article.get("has_analysis") or article.get("analysis"))
     }
+    # `build_app_data.py` already nulls `image` for anything a reviewer
+    # explicitly withheld (`image_rights` present with `display_home` not
+    # true), so by the time it reaches home.json a present `image` means
+    # the card WILL render one — cleared with a rich credit, or unreviewed
+    # with a plain "Източник: <outlet>" one. Presence alone is the truth.
     image_story_ids = {
         article.get("story_id") for article in articles
-        if isinstance(article, dict)
-        and article.get("image")
-        and (article.get("image_rights") or {}).get("display_home") is True
+        if isinstance(article, dict) and article.get("image")
     }
     ages = [age for _, age in visible if age is not None]
     default_payload = [

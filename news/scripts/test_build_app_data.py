@@ -1647,23 +1647,31 @@ class MetadataAndBudget(unittest.TestCase):
         self.assertEqual(feed["image"], "https://cdn.ex.bg/lead.jpg")
         self.assertEqual(feed["language"], "bg")
 
-    def test_home_bundle_requires_analysis_and_strips_uncleared_images(self):
+    def test_home_bundle_requires_analysis_keeps_source_credited_images_and_strips_withheld_ones(self):
+        # rights_mode: "cleared" (reviewed, display_home True) survives with its
+        # rights record; "withheld" (reviewed, display_home False — an explicit
+        # editorial "no") is stripped; "unreviewed" (no image_rights at all —
+        # T5.3, the common case) survives image-only, with no rights record, so
+        # the client renders it as a plain "Източник: <outlet>" hotlink rather
+        # than a cleared credit.
         fixtures = (
-            ("cleared.bg", "https://cleared.bg/a", True, True),
-            ("raw.bg", "https://raw.bg/a", False, True),
-            ("held.bg", "https://held.bg/a", True, False),
+            ("cleared.bg", "https://cleared.bg/a", True, "cleared"),
+            ("raw.bg", "https://raw.bg/a", False, "cleared"),
+            ("held.bg", "https://held.bg/a", True, "withheld"),
+            ("unreviewed.bg", "https://unreviewed.bg/a", True, "unreviewed"),
         )
-        for domain, url, analyzed, display_home in fixtures:
-            rights = {
+        for domain, url, analyzed, rights_mode in fixtures:
+            image_rights = None if rights_mode == "unreviewed" else {
                 "status": "cc", "creator": "Автор", "credit_text": "Кредит",
                 "credit_url": "https://example.org/photo",
                 "licence_name": "CC BY 4.0",
                 "licence_url": "https://creativecommons.org/licenses/by/4.0/",
                 "source_url": "https://example.org/photo",
-                "checked_at": "2026-08-28", "display_home": display_home,
+                "checked_at": "2026-08-28",
+                "display_home": rights_mode == "cleared",
             }
             fname = "20260822-a.json"
-            self.write_article(domain, fname, url=url, image_rights=rights)
+            self.write_article(domain, fname, url=url, image_rights=image_rights)
             if analyzed:
                 directory = Path(self.data_dir) / "analysis" / "articles" / domain
                 directory.mkdir(parents=True, exist_ok=True)
@@ -1682,18 +1690,25 @@ class MetadataAndBudget(unittest.TestCase):
         home = self.load("home.json")
         self.assertEqual(
             home["eligibility"],
-            "published_recent_analyzed_with_cleared_images_only",
+            "published_recent_analyzed_with_source_credited_images",
         )
         self.assertEqual(home["version"], 3)
         self.assertEqual(home["event_dedupe"], "conservative_title_entity_v1")
         # The fixture harness gives every coherent analysis the same resolved
         # singleton membership production requires. Unanalysed raw.bg stays
-        # out; the reviewed image survives and the uncleared one is stripped.
+        # out; the reviewed image survives, the withheld one is stripped, and
+        # the never-reviewed one survives too — image-only, no rights record.
         by_domain = {article["domain"]: article for article in home["articles"]}
-        self.assertEqual(set(by_domain), {"cleared.bg", "held.bg"})
+        self.assertEqual(
+            set(by_domain), {"cleared.bg", "held.bg", "unreviewed.bg"}
+        )
         self.assertEqual(by_domain["cleared.bg"]["image"],
                          "https://cdn.cleared.bg/lead.jpg")
+        self.assertIn("image_rights", by_domain["cleared.bg"])
         self.assertIsNone(by_domain["held.bg"]["image"])
+        self.assertEqual(by_domain["unreviewed.bg"]["image"],
+                         "https://cdn.unreviewed.bg/lead.jpg")
+        self.assertNotIn("image_rights", by_domain["unreviewed.bg"])
         self.assertLessEqual(len(home["articles"]), HOME_ITEM_LIMIT)
         for story in home["stories"]:
             self.assertEqual(set(story), HOME_STORY_FIELDS)
@@ -2137,7 +2152,50 @@ class MetadataAndBudget(unittest.TestCase):
                    if o["domain"] == "ex.bg")
         self.assertEqual(row["owner"], {
             "name": "Холдинг ЕООД", "category": "media_conglomerate",
-            "source": "https://papagal.bg/x", "checked": "2026-08-26"})
+            "source": "https://papagal.bg/x", "checked": "2026-08-26",
+            "eik": None})
+
+    def test_a_recorded_owner_carries_its_eik_when_present(self):
+        """The EIK is what lets a reader jump from the owner's name to the
+        company's own register page — it is additive, never required to
+        publish the rest of the claim."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.write_registry(
+            ",owner_aug2026,owner_category_aug2026,owner_source_aug2026,"
+            "owner_checked_aug2026,owner_eik_aug2026",
+            ",Икономедиа АД,media_conglomerate,https://papagal.bg/x,"
+            "2026-08-26,131326269")
+        self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertEqual(row["owner"]["eik"], "131326269")
+
+    def test_a_malformed_owner_eik_is_dropped_and_reported(self):
+        """⚠️ A typo here is not a cosmetic loss — it would LINK a named
+        newsroom's page to a DIFFERENT real company's register entry, a
+        fabricated claim shaped exactly like a correct one."""
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.write_registry(
+            ",owner_aug2026,owner_source_aug2026,owner_checked_aug2026,"
+            "owner_eik_aug2026",
+            ",Холдинг ЕООД,https://papagal.bg/x,2026-08-26,1313262")
+        _, stderr = self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertEqual(row["owner"]["name"], "Холдинг ЕООД")
+        self.assertIsNone(row["owner"]["eik"])
+        self.assertIn("malformed owner_eik", stderr)
+
+    def test_a_13_digit_owner_eik_is_accepted(self):
+        self.write_article("ex.bg", "20260822-a1-abc.json")
+        self.write_registry(
+            ",owner_aug2026,owner_source_aug2026,owner_checked_aug2026,"
+            "owner_eik_aug2026",
+            ",Клон ЕООД,https://papagal.bg/x,2026-08-26,1313262690001")
+        self.build()
+        row = next(o for o in self.load("outlets.json")["outlets"]
+                   if o["domain"] == "ex.bg")
+        self.assertEqual(row["owner"]["eik"], "1313262690001")
 
     def test_an_unknown_owner_category_is_dropped_and_reported(self):
         """A free-text value in a controlled column becomes a facet nobody can
@@ -2862,6 +2920,27 @@ class HomePayloadSelection(unittest.TestCase):
         cleared["image"] = "https://upload.wikimedia.org/photo.jpg"
         cleared["image_rights"] = {"display_home": True}
         got, _, _ = select_home_payload([text, cleared], [item])
+        self.assertEqual(got[0]["id"], cleared["id"])
+
+    def test_an_unreviewed_source_photo_beats_text_but_loses_to_a_cleared_one(self):
+        # T5.3 priority: cleared (rights-reviewed) > unreviewed source photo
+        # (image present, no `image_rights` at all) > text-only — even when
+        # the unreviewed photo is older than the text article, and even when
+        # a cleared photo is older still. By this point `eligible` records
+        # have already had `image` nulled for anything explicitly withheld,
+        # so a present `image` with no rights record IS the unreviewed tier.
+        item = self.story(1)
+        text = self.article(item["id"], 1, "2026-08-28T10:00:00+00:00")
+        text["image"] = None
+        unreviewed = self.article(item["id"], 2, "2026-08-28T09:00:00+00:00")
+        unreviewed["image"] = "https://cdn.d002.bg/lead.jpg"
+        got, _, _ = select_home_payload([text, unreviewed], [item])
+        self.assertEqual(got[0]["id"], unreviewed["id"])
+
+        cleared = self.article(item["id"], 3, "2026-08-28T08:00:00+00:00")
+        cleared["image"] = "https://upload.wikimedia.org/photo.jpg"
+        cleared["image_rights"] = {"display_home": True}
+        got, _, _ = select_home_payload([text, unreviewed, cleared], [item])
         self.assertEqual(got[0]["id"], cleared["id"])
 
     def test_home_emits_a_merge_proposal_and_one_card_for_a_strong_event_match(self):

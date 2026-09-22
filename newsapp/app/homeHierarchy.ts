@@ -106,8 +106,10 @@ const isLeadItem = (item: HomeStoryItem): item is HomeLeadStoryItem =>
  * Build the finite, deterministic home briefing.
  *
  * Every item must have an analyzed article from home.json. Supporting stories
- * may be text-first; the lead remains image-led and therefore requires the
- * server's explicit rights-cleared display decision.
+ * may be text-first; the lead remains image-led and therefore requires an
+ * article whose image the home surface is allowed to display — either a
+ * reviewed, rights-cleared decision, or an unreviewed source photo shown as a
+ * plain "Източник: <outlet>" credit (T5.3) — see `canDisplayHomeImage`.
  */
 export const buildHomeHierarchy = (
   stories: HomeStory[],

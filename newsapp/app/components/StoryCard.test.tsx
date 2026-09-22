@@ -129,6 +129,41 @@ describe("StoryCard interaction scent", () => {
     expect(links[2]).toHaveFocus();
   });
 
+  it("renders an unreviewed source image with a plain, non-claim-making credit", () => {
+    // T5.3: no `image_rights` record at all is the unreviewed tier — the
+    // outlet's own ingested photo may still display, but only as a plain
+    // "Източник: <outlet>" attribution, never the richer cleared credit.
+    const unreviewedImageArticle = {
+      ...imageArticle,
+      image_rights: undefined,
+    } as ArticleRecord;
+    render(
+      <MemoryRouter>
+        <StoryCard
+          story={story}
+          taxonomy={null}
+          kind="comparison"
+          imageArticle={unreviewedImageArticle}
+          outlets={outlets}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(document.querySelector("img")).toHaveAttribute(
+      "src",
+      "https://upload.wikimedia.org/photo.jpg",
+    );
+    const caption = document.querySelector("figcaption");
+    expect(caption).not.toBeNull();
+    expect(within(caption!).getByText("Източник: Пример")).toBeVisible();
+    // No licence badge — only a reviewed record may claim one.
+    expect(caption).not.toHaveTextContent("CC BY");
+    expect(caption!.querySelector("a")).toHaveAttribute(
+      "href",
+      "https://example.bg/article",
+    );
+  });
+
   it("only claims a difference when two or more OUTLETS differ (T5.2)", () => {
     // ⚠️ THE CUE IS A CLAIM ABOUT NAMED OUTLETS. Deriving it from label
     // PRESENCE rather than divergence made it false for every comparison story

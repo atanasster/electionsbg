@@ -8,7 +8,7 @@ const bundle = (
 ) => ({
   version: 3,
   generated_at: "2026-08-28T00:00:00Z",
-  eligibility: "published_recent_analyzed_with_cleared_images_only",
+  eligibility: "published_recent_analyzed_with_source_credited_images",
   window_days: 30,
   event_dedupe: "conservative_title_entity_v1",
   merge_proposals: [],
@@ -167,20 +167,39 @@ describe("home bundle runtime contract", () => {
     ).toBe(true);
   });
 
-  it("accepts analyzed text-first rows and fails closed for display images", () => {
+  it("accepts analyzed text-first rows and unreviewed source photos, and fails closed for reviewed-but-withheld images", () => {
     expect(isHomeBundle(bundle())).toBe(true);
     expect(isHomeBundle(bundle("unknown", true))).toBe(false);
     expect(isHomeBundle(bundle("blocked", true))).toBe(false);
     expect(isHomeBundle(bundle("pirated", true))).toBe(false);
     expect(isHomeBundle(bundle("cc", false))).toBe(true);
+    // T5.3: an image with NO `image_rights` record at all is the unreviewed
+    // tier — the client renders it as a plain "Източник: <outlet>" hotlink,
+    // never a cleared credit — and the bundle stays valid.
     expect(
       isHomeBundle({
         ...bundle("cc", false),
         articles: [
           {
-            analysis: { summary_bg: "Резюме" },
+            has_analysis: true,
             domain: "ex.bg",
             image: "https://publisher.example/photo.jpg",
+          },
+        ],
+      }),
+    ).toBe(true);
+    // A REVIEWED withhold (`image_rights` present, `display_home` not true)
+    // must still fail closed when `image` was not nulled alongside it — the
+    // build enforces that pairing, and this stays defence in depth for it.
+    expect(
+      isHomeBundle({
+        ...bundle("cc", false),
+        articles: [
+          {
+            has_analysis: true,
+            domain: "ex.bg",
+            image: "https://publisher.example/photo.jpg",
+            image_rights: { status: "cc", display_home: false },
           },
         ],
       }),

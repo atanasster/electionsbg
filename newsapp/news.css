@@ -313,10 +313,18 @@
     "media headline"
     "credit credit"
     "footer footer";
-  /* Fluid rather than a single breakpoint: a fixed 7rem square left a 390px
+  /* Fluid rather than a single breakpoint: a fixed square left a 390px
      phone — the commonest width there is — with LESS headline room than a
-     360px one got from a hard-coded override. */
-  grid-template-columns: clamp(4.5rem, 18vw, 7rem) minmax(0, 1fr);
+     360px one got from a hard-coded override.
+
+     ⚠️ THE CEILING WAS RAISED 7rem -> 9rem (T5.3) so a card with an image
+     reads closer to the photo-forward list ground.news uses, now that
+     images actually reach these cards again. The MINIMUM and the vw slope
+     are UNCHANGED — this is a bigger square on wide viewports, not a
+     different anatomy, so it carries none of the blank-band/DOM-order
+     defect a full-width block above the text reintroduced (see the file
+     header). */
+  grid-template-columns: clamp(4.5rem, 20vw, 9rem) minmax(0, 1fr);
 }
 
 .news-card-figure {

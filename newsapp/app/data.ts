@@ -496,6 +496,15 @@ export interface OutletOwner {
   source: string | null;
   /** ISO date the lookup was made. Part of the claim, not metadata. */
   checked: string | null;
+  /**
+   * The registered owner's Commerce Registry identifier (EIK/БУЛСТАТ, 9 or
+   * 13 digits) — what lets a reader jump from `name` to the company's own
+   * `/company/:eik` page on the main site. Null when `name` names an entity
+   * we have not yet resolved to a register row (e.g. a foreign broadcaster
+   * with no separate Bulgarian registration), which is different from the
+   * whole `owner` block being absent — never treat one as the other.
+   */
+  eik: string | null;
 }
 
 export interface Outlet {
@@ -2422,7 +2431,7 @@ const isHomeHealth = (value: unknown): value is HomeHealth => {
 export interface HomeBundle {
   version: 3;
   generated_at: string;
-  eligibility: "published_recent_analyzed_with_cleared_images_only";
+  eligibility: "published_recent_analyzed_with_source_credited_images";
   window_days: number;
   event_dedupe: "conservative_title_entity_v1";
   merge_proposals: HomeMergeProposal[];
@@ -2484,13 +2493,30 @@ const isStatedImageRole = (article: ArticleRecord): boolean => {
   return host === domain || host.endsWith(`.${domain}`);
 };
 
+/**
+ * The home bundle's own mirror of the build's `image`/`image_rights`
+ * projection (T5.3): a REVIEWED record that withholds display
+ * (`display_home` not true, whatever the status) must have had its `image`
+ * nulled — an explicit editorial "no" stays honoured. An UNREVIEWED record
+ * (no `image_rights` at all) may keep its `image`: the client renders it as
+ * a plain, non-claim-making "Източник: <outlet>" hotlink, never a
+ * cleared/licensed credit — see `canDisplayHomeImage` / `compactImageCredit`.
+ */
+const isEligibleHomeImageState = (article: ArticleRecord): boolean => {
+  const rights = article.image_rights;
+  if (!rights) return true;
+  if (rights.display_home === true)
+    return Boolean(article.image) && isPermittedHomeImageStatus(rights.status);
+  return article.image == null;
+};
+
 export const isHomeBundle = (value: unknown): value is HomeBundle => {
   if (!value || typeof value !== "object") return false;
   const bundle = value as Partial<HomeBundle>;
   return (
     bundle.version === 3 &&
     bundle.eligibility ===
-      "published_recent_analyzed_with_cleared_images_only" &&
+      "published_recent_analyzed_with_source_credited_images" &&
     bundle.event_dedupe === "conservative_title_entity_v1" &&
     Array.isArray(bundle.merge_proposals) &&
     bundle.merge_proposals.every(isHomeMergeProposal) &&
@@ -2500,10 +2526,7 @@ export const isHomeBundle = (value: unknown): value is HomeBundle => {
     bundle.articles.every(
       (article) =>
         Boolean(article.has_analysis ?? article.analysis) &&
-        (article.image_rights?.display_home === true
-          ? Boolean(article.image) &&
-            isPermittedHomeImageStatus(article.image_rights.status)
-          : article.image == null) &&
+        isEligibleHomeImageState(article) &&
         isStatedImageRole(article),
     )
   );

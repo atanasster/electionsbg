@@ -16,10 +16,14 @@ const rights = (status: ImageRights["status"], display_home: boolean) => ({
 
 describe("ArticleCard home image gate", () => {
   it.each([
-    ["missing review", undefined, false],
+    // T5.3: no `image_rights` at all is the UNREVIEWED tier — the outlet's
+    // own photo may still show, plainly source-credited, never as a cleared
+    // claim. `null` and `undefined` both mean "no record".
+    ["unreviewed (no image_rights at all)", undefined, true],
+    ["unreviewed (image_rights explicitly null)", null, true],
     ["unknown even if flag is malformed", rights("unknown", true), false],
     ["blocked even if flag is malformed", rights("blocked", true), false],
-    ["permitted but held", rights("cc", false), false],
+    ["reviewed and explicitly withheld", rights("cc", false), false],
     ["explicitly cleared", rights("cc", true), true],
     ["publisher permission", rights("publisher_permission", true), true],
     ["licensed", rights("licensed", true), true],
