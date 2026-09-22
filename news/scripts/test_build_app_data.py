@@ -3968,6 +3968,187 @@ class NewsPersonIdentity(BuildAppDataFixture):
         self.assertEqual(by["Иван Петров"]["pending_identity"], "np_00000001")
 
 
+class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
+    """Stage C's last exit criterion — „Correction/removal rebuilds story,
+    case and news-person shards in one data transaction … A main-site bridge
+    must not retain a removed tone."
+
+    ⚠️ THE BUILD IS THE TRANSACTION. Every consumer is derived from the same
+    corpus in one run, so a correction cannot reach one surface and miss
+    another — and these tests are what stops that property being true by
+    accident. What they check is the shape a partial rebuild would leave: a
+    person shard that outlives its identity, a tone still readable on an
+    article after the identity that carried it was withdrawn, or an index row
+    pointing at a page that is gone.
+    """
+
+    T = "2026-09-22T00:00:00Z"
+
+    def registry(self, active=True):
+        """⚠️ THE WITHDRAWAL FLIPS `status` AND NOTHING ELSE. A real one
+        keeps the evidence trail — the reviewer, the sources and the accepted
+        alias stay on the record — and flipping four fields at once would
+        mean the test passes with the active-status guard deleted, since the
+        resolver skips on the alias too."""
+        config = Path(self.root) / "news" / "config"
+        config.mkdir(parents=True, exist_ok=True)
+        src = {"url": "https://x.bg/s", "domain": "x.bg",
+               "published": "2026-09-20", "supports": "s", "reviewer": "r",
+               "reviewed_at": self.T}
+        (config / "news_persons.json").write_text(json.dumps(
+            {"version": 1, "registry_version": "t1", "retired_ids": {},
+             "persons": [{
+                 "news_person_id": "np_00000001", "name_bg": "Иван Петров",
+                 "name_en": "Ivan Petrov",
+                 "status": "active" if active else "withdrawn",
+                 "created_at": self.T, "reviewed_by": "r",
+                 "reviewed_at": self.T,
+                 "disambiguation_bg": "д", "disambiguation_en": "d",
+                 "identity_sources": [src],
+                 "aliases": [{"surface": "Иван Петров", "scope": "global",
+                              "status": "accepted",
+                              "evidence": ["https://x.bg/e"], "reviewer": "r",
+                              "reviewed_at": self.T, "note": ""}],
+                 "verified_main_site_slug": None, "namesakes": [],
+                 "history": []}]}, ensure_ascii=False), encoding="utf-8")
+
+    def seed_tone(self, identity_version, slug="p"):
+        """A stored, VALIDATOR-CLEAN treatment, so „no tone after the
+        withdrawal" is a statement about the code rather than about a fixture
+        that never had one."""
+        import person_tones as pt
+        art = json.loads((Path(self.data_dir) / "a.bg" / f"{slug}.json")
+                         .read_text(encoding="utf-8"))
+        identities = [{"surface": "Иван Петров", "basis": "registry_alias",
+                       "news_person_id": "np_00000001", "alias_scope": "global",
+                       "identity_version": identity_version,
+                       "assessment": "not_assessed"}]
+        targets = pt.resolved_targets(identities)
+        quote = "Иван Петров коментира"
+        row = {"news_person_id": "np_00000001",
+               "mention_refs": ["Иван Петров"],
+               "rubric_version": pt.RUBRIC_VERSION, "subject_role": "primary",
+               "assessment_status": "assessed", "tone": "favorable",
+               "confidence": 0.8,
+               "rationale": "Материалът го представя благоприятно.",
+               "evidence_spans": [{"quote": quote, "field": "body",
+                                   "direction": "favorable",
+                                   "voice": "journalist", "located": True,
+                                   "start": art["content"].index(quote),
+                                   "end": art["content"].index(quote) + len(quote),
+                                   "article_content_hash": "x"}],
+               "quoted_attitudes": [], "model_version": "test",
+               "identity_version": identity_version, "assessed_at": self.T,
+               "text_scope": {"kind": "full", "basis": "recorded",
+                              "chars_seen": len(art["content"])}}
+        problems = pt.validate([row], targets)
+        self.assertEqual(problems, [], f"fixture tone is unpublishable: {problems}")
+        out = pt.tones_dir(Path(self.data_dir))
+        out.mkdir(parents=True, exist_ok=True)
+        (out / f"{pt.article_key(art['url'])}.json").write_text(json.dumps(
+            {"version": 1, "rubric_version": pt.RUBRIC_VERSION,
+             "url": art["url"], "tones_key": pt.tones_key(art, targets),
+             "status": "ok", "person_tones": [row], "dropped": [],
+             "assessed": 1, "target_count": 1, "targets_total": 1,
+             "targets_dropped": 0, "generated_at": self.T, "model": "test"},
+            ensure_ascii=False), encoding="utf-8")
+
+    def seed(self):
+        for slug in ("p", "q"):
+            art = {"url": f"https://a.bg/{slug}", "domain": "a.bg",
+                   "title": f"Иван Петров говори {slug}",
+                   "published": "2026-09-20T09:00:00+00:00",
+                   "first_seen": "2026-09-20T09:00:00+00:00",
+                   "content": f"Иван Петров коментира {slug}. " * 8}
+            self.write_corpus("a.bg", f"{slug}.json", art)
+            rec = self.analysis_record(art["url"], "a.bg",
+                                       f"news/data/a.bg/{slug}.json",
+                                       action="new_story", story_id=None)
+            rec["entities"]["people"] = ["Иван Петров"]
+            self.write_analysis("a.bg", f"{slug}.json", rec)
+        ensure_fixture_story_membership(self.data_dir)
+
+    def surfaces_mentioning(self) -> dict:
+        """Every published surface a person id or a tone could reach. ⚠️ The
+        criterion says „story, case and news-person shards"; checking one of
+        them would leave a correction that reached the article and not the
+        story indistinguishable from one that reached everything."""
+        out = Path(self.out_dir)
+        names = ["articles/a.bg.json", "latest.json", "stories.json",
+                 "home.json", "news_persons.json"]
+        found = {}
+        for name in names:
+            path = out / name
+            if path.exists():
+                found[name] = json.loads(path.read_text(encoding="utf-8"))
+        for shard in sorted((out / "stories").glob("*.json")):
+            found[f"stories/{shard.name}"] = json.loads(
+                shard.read_text(encoding="utf-8"))
+        return found
+
+    def person_shards(self):
+        out = Path(self.out_dir) / "person"
+        return sorted(p.name for p in out.glob("*.json")) if out.exists() else []
+
+    def test_a_withdrawn_identity_leaves_no_page_and_no_tone_anywhere(self):
+        self.seed(); self.registry(active=True)
+        self.assertEqual(self.run_build_process().returncode, 0)
+        index = self.load("news_persons.json")
+        self.assertEqual([p["news_person_id"] for p in index["persons"]],
+                         ["np_00000001"])
+        # The stored treatment is written against the version the BUILD
+        # derived: a stale one silently yields no tone, which would put the
+        # vacuity straight back.
+        self.seed_tone(index["persons"][0]["identity_version"])
+        self.assertEqual(self.run_build_process().returncode, 0)
+
+        # ⚠️ NON-VACUITY, on BOTH halves: „no page and no tone afterwards"
+        # says nothing unless there was a page and a tone, so both are
+        # asserted HERE first.
+        self.assertEqual(self.person_shards(), ["np_00000001.json"])
+        before = next(a for a in self.load("articles/a.bg.json")["articles"]
+                      if a["url"] == "https://a.bg/p")
+        self.assertEqual([t["tone"] for t in
+                          before["analysis"]["person_tones"]], ["favorable"])
+
+        # The correction: the reviewer withdraws the identity.
+        self.registry(active=False)
+        self.assertEqual(self.run_build_process().returncode, 0)
+
+        # ⚠️ EVERY consumer, from the one rebuild: the index, the shard tree,
+        # the per-domain bundle, `latest.json`, the story shard and the story
+        # index. A shard outliving its identity is what
+        # `news-person-policy-v1` §5 forbids, and it would serve at a 200; a
+        # tone surviving on any of the others is the „a main-site bridge must
+        # not retain a removed tone" half of the same criterion.
+        self.assertEqual(self.load("news_persons.json")["persons"], [])
+        self.assertEqual(self.person_shards(), [])
+        for name, payload in self.surfaces_mentioning().items():
+            blob = json.dumps(payload, ensure_ascii=False)
+            self.assertNotIn("np_00000001", blob, name)
+            self.assertNotIn("favorable", blob, name)
+        article = next(a for a in self.load("articles/a.bg.json")["articles"]
+                       if a["url"] == "https://a.bg/p")
+        rows = article["analysis"]["news_persons"]
+        self.assertTrue(all(r["news_person_id"] is None for r in rows))
+        self.assertEqual(article["analysis"].get("person_tones") or [], [])
+
+    def test_the_index_never_names_a_page_that_is_not_there(self):
+        self.seed(); self.registry(active=True)
+        self.run_build_process()
+        index = self.load("news_persons.json")
+        shards = set(self.person_shards())
+        for person in index["persons"]:
+            coverage = person.get("coverage")
+            if coverage and coverage.get("eligible"):
+                # ⚠️ An index row with coverage PROMISES a page; the prerender
+                # reads exactly this pairing to decide what to emit.
+                self.assertIn(f"{person['news_person_id']}.json", shards)
+        for name in shards:
+            self.assertIn(name.split("-")[0].removesuffix(".json"),
+                          {p["news_person_id"] for p in index["persons"]})
+
+
 class AxisEvidenceProjection(BuildAppDataFixture):
     """T4.1b — a v2 axis label with no located span on its side is WITHHELD on
     the public copy: label null with a named reason, the rationale and spans
