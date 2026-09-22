@@ -417,6 +417,20 @@ def record_review(analysis: dict) -> dict:
         mismatch = political_not_applicable(analysis)
         if mismatch:
             out["leaning"] = mismatch
+    # T4.1b — a v2 axis label the bundle WITHHOLDS is asked about, for the
+    # same reason a withheld party tone is: this is the only path by which a
+    # human accepts a correct paraphrase the automated gate cannot locate.
+    # The ONE publish predicate decides, so the queue and the bundle agree.
+    try:
+        import analyze_articles as aa
+        for field in aa.AXIS_SPAN_DIRECTIONS:
+            block = analysis.get(field)
+            if (aa.axis_is_v2(block)
+                    and not aa.axis_label_published(block, field, analysis)):
+                reason = "positioned label withheld: no located span on its side"
+                out[field] = f"{out[field]}; {reason}" if out.get(field) else reason
+    except Exception:  # noqa: BLE001
+        pass
 
     tone_reasons = []
     party_mentions = {

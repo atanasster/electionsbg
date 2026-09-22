@@ -46,6 +46,8 @@ import {
   useTaxonomy,
   type AnalysisBlock,
   type ArticleRecord,
+  type AxisBlock,
+  isV2Axis,
   type Outlet,
   type EntityCandidate,
   type EntityLink,
@@ -91,12 +93,81 @@ const feedbackIssueLabel = (kind: string, english: boolean): string => {
  * verdict whose justification silently vanishes is exactly the unsupported
  * claim this page exists to avoid making.
  */
+// T4.1b — the evidence a v2 axis block carries, rendered as what it is:
+// the model's prose rationale (never checked against the text) and the
+// verbatim spans the build tried to LOCATE. A span that is not in the article
+// is shown as such, struck through — a paraphrase wearing quote marks — and
+// the label it was meant to support is withheld above. „Grounded" is a fact
+// about provenance only; it never says the judgment is right.
+const AxisEvidence = ({
+  block,
+  source,
+}: {
+  block: AxisBlock<string> & { rationale: string };
+  source: "model" | "editorial";
+}) => {
+  const { tr } = useNewsLocale();
+  const spans = block.evidence_spans ?? [];
+  return (
+    <div className="mt-3 border-l-2 border-primary pl-3 text-sm text-foreground/90">
+      <p>{block.rationale}</p>
+      <p className="mt-1 text-xs text-muted-foreground">
+        {/* A v2 block with rationale + spans is the MODEL's writing even when
+            the label was confirmed by a human: an editorial confirmation
+            accepts the label, it does not author the prose. */}
+        {source === "editorial"
+          ? "Етикетът е потвърден от редакционната проверка; обосновката и цитатите са на модела и не се сверяват със статията"
+          : "Обосновка, посочена от модела — свободен текст, не се сверява със статията"}
+      </p>
+      {spans.length ? (
+        <ul className="mt-2 space-y-1" data-testid="axis-evidence-spans">
+          {spans.map((span, i) => (
+            <li key={i} className="text-sm">
+              {span.located === false ? (
+                <s className="text-muted-foreground">
+                  <q lang="bg">{span.quote}</q>
+                </s>
+              ) : (
+                <q lang="bg">{span.quote}</q>
+              )}
+              <span className="ml-1 text-xs text-muted-foreground">
+                {span.field === "title"
+                  ? tr("заглавие", "title")
+                  : tr("текст", "body")}
+                {" · "}
+                {span.voice === "quoted_speaker"
+                  ? `${tr("цитиран", "quoted")}${span.speaker ? `: ${span.speaker}` : ""}`
+                  : span.voice === "journalist"
+                    ? tr("авторски текст", "journalist")
+                    : tr("неясен глас", "unclear voice")}
+                {span.located === false
+                  ? ` · ${tr("не е намерен в текста", "not found in the text")}`
+                  : span.located === true
+                    ? ` · ${tr("намерен в текста", "found in the text")}`
+                    : ""}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-2 text-xs text-muted-foreground">
+          {tr(
+            "Без цитирани откъси — етикетът не твърди насочена рамка.",
+            "No cited spans — the label claims no directional framing.",
+          )}
+        </p>
+      )}
+    </div>
+  );
+};
+
 const AxisCard = ({
   title,
   verdict,
   color,
   confidence,
   evidence,
+  block,
   source = "model",
 }: {
   title: string;
@@ -104,9 +175,12 @@ const AxisCard = ({
   color: string;
   confidence: number | null | undefined;
   evidence: string | null | undefined;
+  /** The whole block, for the v2 rationale + spans contract. */
+  block?: AxisBlock<string> | null;
   source?: "model" | "editorial";
 }) => {
   const { isEnglish, tr } = useNewsLocale();
+  const v2 = isV2Axis(block);
   const confidencePct =
     source === "model" &&
     typeof confidence === "number" &&
@@ -135,7 +209,30 @@ const AxisCard = ({
         />
         <p className="font-title text-lg">{verdict}</p>
       </div>
-      {evidence && !isEnglish ? (
+      {block?.withheld_reason ? (
+        <p
+          className="mt-2 text-sm text-muted-foreground"
+          data-testid="axis-withheld"
+        >
+          {block.withheld_reason === "unsupported_evidence"
+            ? tr(
+                "Етикетът е задържан: моделът посочи позиция, но нито един намерен в текста откъс не подкрепя тази страна. Не е заменен с „неутрално“.",
+                "The label is withheld: the model claimed a position, but no span found in the text supports that side. It is not replaced with “neutral”.",
+              )
+            : tr(
+                "Етикетът е задържан: проверката на доказателствата не можа да се изпълни.",
+                "The label is withheld: the evidence check could not run.",
+              )}
+        </p>
+      ) : null}
+      {v2 && !isEnglish ? (
+        <AxisEvidence block={block} source={source} />
+      ) : v2 && isEnglish ? (
+        <p className="mt-3 text-sm text-muted-foreground">
+          The rationale and the cited spans are available only in Bulgarian and
+          are not mixed into the English page.
+        </p>
+      ) : evidence && !isEnglish ? (
         <div className="mt-3 border-l-2 border-primary pl-3 text-sm text-foreground/90">
           <p>{evidence}</p>
           <p className="mt-1 text-xs text-muted-foreground">
@@ -761,6 +858,7 @@ export const ArticleScreen = () => {
                   : analysis.leaning?.confidence
               }
               evidence={analysis.leaning?.evidence}
+              block={analysis.leaning}
               source={leaningSource}
             />
             <AxisCard
@@ -776,6 +874,7 @@ export const ArticleScreen = () => {
                   : analysis.russia_stance?.confidence
               }
               evidence={analysis.russia_stance?.evidence}
+              block={analysis.russia_stance}
               source={russiaSource}
             />
           </div>

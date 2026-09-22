@@ -147,6 +147,34 @@ PARTY_TONE_SPAN_RAW_KEYS = frozenset({"quote", "field", "direction", "voice",
 PARTY_TONE_RAW_KEYS = frozenset({"party", "tone", "confidence", "evidence",
                                  "rationale", "evidence_spans"})
 PARTY_TONE_LEGACY_KEYS = frozenset({"evidence"})
+# ⚠️ T4.1b — THE SAME CONTRACT ON BOTH AXES. `leaning` and `russia_stance` took
+# a single prose `evidence` until 2026-09-22, so the prompt/gate ambiguity v3
+# removed from party tones survived there with no gate to make it visible.
+# An axis block is now v2: `rationale` (prose a reader sees, never matched)
+# + `evidence_spans[]` (provenance; the only thing the gate checks), with the
+# span DIRECTION being the side of the axis a quote leans to. A positioned
+# label needs a located span on its side; `neutral` and `not_applicable`
+# carry none (neutral asserts no framing was found; not_applicable asserts
+# the subject is absent — neither is provable by a quote). Legacy records
+# keep `evidence` readable and are judged by no rule: they were written under
+# a prompt that accepted a paraphrase, and re-reading prose as a quote would
+# refuse them for a contract they never had.
+AXIS_EVIDENCE_VERSION = 2
+AXIS_SPAN_DIRECTIONS = {
+    "leaning": frozenset({"progressive", "conservative"}),
+    "russia_stance": frozenset({"pro_russia", "anti_russia"}),
+}
+AXIS_RAW_KEYS = frozenset({"label", "confidence", "evidence", "rationale",
+                           "evidence_spans"})
+# The evidence direction a positioned label claims; None for the two labels
+# that claim no direction.
+AXIS_LABEL_DIRECTION = {
+    "strong_progressive": "progressive", "progressive": "progressive",
+    "conservative": "conservative", "strong_conservative": "conservative",
+    "strong_pro_russia": "pro_russia", "pro_russia": "pro_russia",
+    "anti_russia": "anti_russia", "strong_anti_russia": "anti_russia",
+}
+AXIS_WITHHELD_REASON = "unsupported_evidence"
 STORY_ACTIONS = {"new_story", "same_story", "none"}
 ENTITY_BUCKETS = ("people", "parties", "institutions", "companies", "places")
 
@@ -683,8 +711,10 @@ def recompute_story(story: dict, analyses: dict) -> dict:
     # from one outlet with different labels are not two outlets disagreeing.
     leaning_outlets, russia_outlets = set(), set()
     for m in members:
-        by_leaning[m["leaning"]] = by_leaning.get(m["leaning"], 0) + 1
-        by_russia[m["russia_stance"]] = by_russia.get(m["russia_stance"], 0) + 1
+        if m.get("leaning"):
+            by_leaning[m["leaning"]] = by_leaning.get(m["leaning"], 0) + 1
+        if m.get("russia_stance"):
+            by_russia[m["russia_stance"]] = by_russia.get(m["russia_stance"], 0) + 1
         by_domain[m["domain"]] = by_domain.get(m["domain"], 0) + 1
         # A label is positioned iff it is present and not `not_applicable` —
         # the same one-line rule as `isPositioned` in storyDivergence.ts.
@@ -730,8 +760,13 @@ def member_from(existing: dict, analysis: dict) -> dict:
         "article_path": analysis["article_path"],
         "url": analysis["url"],
         "published": analysis.get("published"),
-        "leaning": analysis["leaning"]["label"],
-        "russia_stance": analysis["russia_stance"]["label"],
+        # On the ANALYSIS side this is the model's label. The PUBLIC story copy
+        # (`build_app_data.public_effective`) substitutes `axis_public_block`,
+        # whose withheld label is None — hence the tolerance here and in
+        # `recompute_story`, so the member carries the absence rather than a
+        # fabricated neutral.
+        "leaning": (analysis.get("leaning") or {}).get("label"),
+        "russia_stance": (analysis.get("russia_stance") or {}).get("label"),
         "added_at": existing.get("added_at", now_iso()),
     }
 
@@ -1665,7 +1700,9 @@ def validate_tone_evidence(t: dict, at: str, *, migrated: bool = False) -> list:
 
 
 def validate_evidence_spans(spans, at: str, label, *,
-                            migrated: bool = False) -> list:
+                            migrated: bool = False,
+                            directions_allowed=PARTY_TONE_SPAN_DIRECTIONS,
+                            claim=None) -> list:
     """Shape of one tone's provenance, and whether it supports its claim.
 
     ⚠️ SHAPE ONLY — whether each quote EXISTS is decided later, against the
@@ -1692,9 +1729,9 @@ def validate_evidence_spans(spans, at: str, label, *,
         if span.get("field") not in PARTY_TONE_SPAN_FIELDS:
             errs.append(f"{where}.field must be one of "
                         f"{sorted(PARTY_TONE_SPAN_FIELDS)}")
-        if span.get("direction") not in PARTY_TONE_SPAN_DIRECTIONS:
+        if span.get("direction") not in directions_allowed:
             errs.append(f"{where}.direction must be one of "
-                        f"{sorted(PARTY_TONE_SPAN_DIRECTIONS)}")
+                        f"{sorted(directions_allowed)}")
         else:
             directions.add(span["direction"])
         if span.get("voice") not in PARTY_TONE_SPAN_VOICES:
@@ -1712,6 +1749,17 @@ def validate_evidence_spans(spans, at: str, label, *,
     if migrated:
         # A converted record cannot be asked for provenance it never had; see
         # `validate_tone_evidence`. Shape above still applies.
+        return errs
+    if claim is not None:
+        # An AXIS block: `claim` is the direction its label asserts, or the
+        # sentinel "none" for neutral / not_applicable.
+        if claim == "none":
+            if spans:
+                errs.append(f"{at}.evidence_spans: a {label} label asserts no "
+                            "directional framing; a span would contradict it")
+        elif claim not in directions:
+            errs.append(f"{at}.evidence_spans: a {label} label needs at least "
+                        f"one {claim} span")
         return errs
     if label in PARTY_TONE_SPAN_DIRECTIONS and label not in directions:
         errs.append(f"{at}.evidence_spans: a {label} tone needs at least one "
@@ -1808,6 +1856,9 @@ def locate_evidence_span(quote: str, field_text: str) -> tuple[int, int] | None:
 def locate_evidence_spans(tone: dict, rec: dict) -> list:
     """Stamp every span in one tone with its offsets, or mark it unlocated.
 
+    ⚠️ OFFSETS ARE CODE POINTS into the snapshot (Python `str` indices), never
+    bytes and never UTF-16 units; the JS side must convert before slicing.
+
     ⚠️ AN UNLOCATED SPAN IS KEPT, NOT DROPPED. Deleting it would leave a tone
     that looks supported by whatever survived, and the count of what a model
     claimed versus what the text carries is exactly the yield this contract
@@ -1862,6 +1913,127 @@ def party_tone_spans_support(tone: dict) -> bool:
         # carries spans at all, so there is nothing to check here.
         return True
     return False
+
+
+def axis_claim(label) -> str | None:
+    """The evidence direction an axis label claims, "none" for the two labels
+    that claim none, None for an unknown label."""
+    if label in AXIS_LABEL_DIRECTION:
+        return AXIS_LABEL_DIRECTION[label]
+    if label in ("neutral", "not_applicable"):
+        return "none"
+    return None
+
+
+def validate_axis_evidence(block: dict, field: str) -> list:
+    """One axis block's justification, under exactly one contract — the v2
+    `rationale` + `evidence_spans` pair, or the legacy prose `evidence`."""
+    errs: list = []
+    unknown = sorted(set(block) - AXIS_RAW_KEYS)
+    if unknown:
+        errs.append(f"{field}: unknown keys {unknown}")
+    rationale = block.get("rationale")
+    spans = block.get("evidence_spans")
+    if rationale is None and spans is None:
+        legacy = block.get("evidence")
+        if not isinstance(legacy, str) or not legacy.strip():
+            errs.append(f"{field}.evidence: required (quote or concrete paraphrase)")
+        return errs
+    if "evidence" in block:
+        errs.append(f"{field}: send `rationale` + `evidence_spans` or the legacy "
+                    "`evidence`, never both")
+    if not isinstance(rationale, str) or not rationale.strip():
+        errs.append(f"{field}.rationale: required — the explanation a reader sees")
+    elif len(rationale.split()) < 4:
+        errs.append(f"{field}.rationale: must explain the article's treatment, "
+                    "not merely repeat a label")
+    claim = axis_claim(block.get("label"))
+    if claim is None:
+        # The label error is already on the list; there is no rule to judge
+        # the spans against, so do not add a misleading second one.
+        return errs
+    errs.extend(validate_evidence_spans(
+        spans, field, block.get("label"),
+        directions_allowed=AXIS_SPAN_DIRECTIONS[field], claim=claim))
+    return errs
+
+
+def axis_spans_support(block: dict, field: str) -> bool:
+    """Do this axis block's LOCATED spans support the side its label claims?
+    Neutral and not_applicable are supported by their rationale (nothing in a
+    text positively evidences an absence)."""
+    claim = axis_claim(block.get("label"))
+    if claim == "none":
+        return True
+    if claim is None:
+        return False
+    located = {x.get("direction") for x in block.get("evidence_spans") or []
+               if isinstance(x, dict) and x.get("located") is True}
+    return claim in located
+
+
+def axis_is_v2(block) -> bool:
+    return isinstance(block, dict) and block.get("rationale") is not None
+
+
+def gate_axis_evidence(analysis: dict, rec: dict) -> None:
+    """Locate every v2 axis span in the snapshot and stamp the decision.
+    A legacy block is stamped with NOTHING — it has no contract to judge."""
+    for field in AXIS_SPAN_DIRECTIONS:
+        block = analysis.get(field)
+        if not axis_is_v2(block):
+            continue
+        block["evidence_spans"] = locate_evidence_spans(block, rec)
+        block["evidence_grounded"] = axis_spans_support(block, field)
+    analysis["axis_evidence_gate_version"] = AXIS_EVIDENCE_VERSION
+
+
+def axis_label_published(block, field: str, analysis: dict) -> bool:
+    """Whether an axis LABEL reaches a reader — the ONE definition.
+
+    Legacy blocks are published (no contract to fail). A v2 block is published
+    only when its saved decision, made under the CURRENT gate, is grounded — a
+    positioned label with no located span on its side is withheld, never
+    downgraded to neutral („quote-missing … is never neutral").
+    """
+    if not isinstance(block, dict):
+        return False
+    if not axis_is_v2(block):
+        return True
+    # ⚠️ EXACTLY `party_tone_published`'s rule: a human acceptance means
+    # „trust the SAVED decision", never „skip it". An accepted record whose
+    # disposition for this axis is `unable_to_judge` still carries the model's
+    # v2 block and its `evidence_grounded`, and that is what decides. A human
+    # who CHANGES a label writes a legacy-shaped block, which publishes above.
+    human_accepted = (analysis.get("human_review") or {}).get("status") == "accepted"
+    if human_accepted or analysis.get("axis_evidence_gate_version") == AXIS_EVIDENCE_VERSION:
+        return block.get("evidence_grounded") is True
+    return False
+
+
+def axis_public_block(block, field: str, analysis: dict) -> dict | None:
+    """The public projection of one axis block: the label only when published,
+    the rationale/spans always (they are what a reader checks), and a named
+    reason when the label is withheld."""
+    if not isinstance(block, dict):
+        return None
+    out: dict = {"label": block.get("label"), "confidence": block.get("confidence")}
+    if axis_is_v2(block):
+        out["rationale"] = block.get("rationale")
+        out["evidence_spans"] = [
+            {k: v for k, v in span.items()
+             if k in ("quote", "field", "direction", "voice", "speaker",
+                      "located", "start", "end", "article_content_hash")}
+            for span in block.get("evidence_spans") or [] if isinstance(span, dict)]
+        out["evidence_grounded"] = block.get("evidence_grounded") is True
+        out["evidence"] = None
+        if not axis_label_published(block, field, analysis):
+            out["label"] = None
+            out["confidence"] = None
+            out["withheld_reason"] = AXIS_WITHHELD_REASON
+    else:
+        out["evidence"] = block.get("evidence")
+    return out
 
 
 def party_tone_evidence_grounded(evidence: str, rec: dict) -> bool:
@@ -2019,8 +2191,10 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
             errs.append(f"{field}.label must be one of {sorted(allowed)}")
         if not is_num(block.get("confidence")) or not 0.0 <= block["confidence"] <= 1.0:
             errs.append(f"{field}.confidence must be a number in [0,1]")
-        if not isinstance(block.get("evidence"), str) or not block["evidence"].strip():
-            errs.append(f"{field}.evidence: required (quote or concrete paraphrase)")
+        if "evidence_grounded" in block:
+            errs.append(f"{field}.evidence_grounded: computed after validation, "
+                        "never supplied")
+        errs.extend(validate_axis_evidence(block, field))
     ai = a.get("ai_generated")
     if not isinstance(ai, dict) or ai.get("verdict") not in AI_VERDICTS:
         errs.append(f"ai_generated.verdict must be one of {sorted(AI_VERDICTS)}")
@@ -2080,6 +2254,9 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
     if "party_tone_evidence_gate_version" in a:
         errs.append("party_tone_evidence_gate_version: computed at save time — "
                     "an analyst may not claim that its own evidence passed")
+    if "axis_evidence_gate_version" in a:
+        errs.append("axis_evidence_gate_version: computed at save time — "
+                    "an analyst may not claim that its own axis evidence passed")
 
     tones = a.get("party_tones")
     if not isinstance(tones, list):
@@ -2257,6 +2434,7 @@ def save_one(a: dict, tax, cats: dict, index: dict, stats: dict) -> list:
     # generation filters it independently from the mention/backlink layer.
     enrich_party_tones(a)
     gate_party_tone_evidence(a, review_article)
+    gate_axis_evidence(a, review_article)
 
     # ⚠️ STAMPED AFTER VALIDATION, so a rejected record never carries one, and
     # computed here rather than accepted from the analyst — a model asked „do

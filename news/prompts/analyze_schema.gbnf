@@ -16,17 +16,26 @@ qverdict    ::= "\"client_render_shell\"" | "\"non_article\"" | "\"not_bulgarian
 
 summaries   ::= "\"summary_bg\"" ws ":" ws string "," ws "\"summary_en\"" ws ":" ws string
 
-leaning     ::= "\"leaning\"" ws ":" ws "{" ws "\"label\"" ws ":" ws lean_lab "," ws conf "," ws evid ws "}"
+# ⚠️ T4.1b — the axes carry the SAME rationale + spans contract as party
+# tones, with the span direction being the SIDE of the axis. The list may be
+# empty (neutral / not_applicable MUST leave it empty); „a positioned label
+# needs a span on its side" is conditional and lives in `validate_axis_evidence`.
+leaning     ::= "\"leaning\"" ws ":" ws "{" ws "\"label\"" ws ":" ws lean_lab "," ws conf "," ws rationale "," ws lean_spans ws "}"
 lean_lab    ::= "\"conservative\"" | "\"neutral\"" | "\"not_applicable\"" | "\"progressive\"" | "\"strong_conservative\"" | "\"strong_progressive\""
+lean_spans  ::= "\"evidence_spans\"" ws ":" ws "[" ws (lean_span (ws "," ws lean_span)*)? ws "]"
+lean_span   ::= "{" ws "\"quote\"" ws ":" ws string "," ws "\"field\"" ws ":" ws span_field "," ws "\"direction\"" ws ":" ws lean_dir "," ws "\"voice\"" ws ":" ws span_voice ("," ws speaker)? ws "}"
+lean_dir    ::= "\"conservative\"" | "\"progressive\""
 
-russia      ::= "\"russia_stance\"" ws ":" ws "{" ws "\"label\"" ws ":" ws ru_lab "," ws conf "," ws evid ws "}"
+russia      ::= "\"russia_stance\"" ws ":" ws "{" ws "\"label\"" ws ":" ws ru_lab "," ws conf "," ws rationale "," ws ru_spans ws "}"
 ru_lab      ::= "\"anti_russia\"" | "\"neutral\"" | "\"not_applicable\"" | "\"pro_russia\"" | "\"strong_anti_russia\"" | "\"strong_pro_russia\""
+ru_spans    ::= "\"evidence_spans\"" ws ":" ws "[" ws (ru_span (ws "," ws ru_span)*)? ws "]"
+ru_span     ::= "{" ws "\"quote\"" ws ":" ws string "," ws "\"field\"" ws ":" ws span_field "," ws "\"direction\"" ws ":" ws ru_dir "," ws "\"voice\"" ws ":" ws span_voice ("," ws speaker)? ws "}"
+ru_dir      ::= "\"anti_russia\"" | "\"pro_russia\""
 
 ai          ::= "\"ai_generated\"" ws ":" ws "{" ws "\"verdict\"" ws ":" ws ai_lab "," ws conf "," ws "\"signals\"" ws ":" ws strings ws "}"
 ai_lab      ::= "\"likely_ai\"" | "\"likely_human\"" | "\"unclear\""
 
 conf        ::= "\"confidence\"" ws ":" ws prob
-evid        ::= "\"evidence\"" ws ":" ws string
 
 entities    ::= "\"entities\"" ws ":" ws "{" ws "\"people\"" ws ":" ws strings "," ws "\"parties\"" ws ":" ws strings "," ws "\"institutions\"" ws ":" ws strings "," ws "\"companies\"" ws ":" ws strings "," ws "\"places\"" ws ":" ws strings ws "}"
 

@@ -251,6 +251,88 @@ describe("the evidence", () => {
     expect(await screen.findByText(/не е посочил обосновка/)).toBeVisible();
   });
 
+  it("renders a v2 axis as rationale + LOCATED spans, and a withheld label as withheld — never neutral (T4.1b)", async () => {
+    const a = analysed();
+    a.leaning = {
+      label: null,
+      confidence: null,
+      rationale: "Материалът рамкира реформата като необходима.",
+      evidence_spans: [
+        {
+          quote: "тази фраза липсва",
+          field: "body",
+          direction: "conservative",
+          voice: "journalist",
+          located: false,
+        },
+        // A located span on the OTHER side: the label is still withheld, and
+        // the sentence must not claim that nothing was found.
+        {
+          quote: "протестите бяха масови",
+          field: "body",
+          direction: "progressive",
+          voice: "journalist",
+          located: true,
+          start: 40,
+          end: 62,
+        },
+      ],
+      evidence_grounded: false,
+      withheld_reason: "unsupported_evidence",
+    };
+    a.russia_stance = {
+      label: "anti_russia",
+      confidence: 0.8,
+      rationale: "Русия е представена като заплаха.",
+      evidence_spans: [
+        {
+          quote: "Русия е заплаха за региона",
+          field: "title",
+          direction: "anti_russia",
+          voice: "quoted_speaker",
+          speaker: "министърът",
+          located: true,
+          start: 0,
+          end: 26,
+        },
+      ],
+      evidence_grounded: true,
+    };
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    // ⚠️ THE MUTATION THIS CATCHES: rendering the withheld label as
+    // „неутрално" or silently as „Оценката не е налична" with no reason.
+    const withheld = await screen.findByTestId("axis-withheld");
+    expect(withheld).toHaveTextContent("Етикетът е задържан");
+    expect(withheld).toHaveTextContent("Не е заменен с „неутрално“");
+    expect(withheld).toHaveTextContent(
+      "нито един намерен в текста откъс не подкрепя тази страна",
+    );
+    expect(withheld).not.toHaveTextContent(
+      "нито един от цитираните откъси не е намерен",
+    );
+    expect(
+      screen.getByText("Материалът рамкира реформата като необходима."),
+    ).toBeVisible();
+    const unlocated = screen.getByText("тази фраза липсва");
+    expect(unlocated.closest("s")).not.toBeNull();
+    expect(
+      screen.getByText(/текст · авторски текст · не е намерен в текста/),
+    ).toBeVisible();
+    // The located, attributed span: quote, field, speaker, found.
+    const located = screen.getByText("Русия е заплаха за региона");
+    expect(located.closest("s")).toBeNull();
+    expect(
+      screen.getByText(/заглавие · цитиран: министърът · намерен в текста/),
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(/свободен текст, не се сверява със статията/),
+    ).toHaveLength(2);
+    // Nothing says „verified": grounded is provenance only.
+    expect(document.body.textContent).not.toMatch(
+      /провер[её]н[ао]? от модела|verified/i,
+    );
+  });
+
   it("does not claim that untyped evidence is a verbatim source quotation", async () => {
     await renderAt([
       article({ analysis: analysed() } as Partial<ArticleRecord>),

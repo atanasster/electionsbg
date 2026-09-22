@@ -2033,6 +2033,24 @@ def verified_prose(rec: dict, fields: tuple, bad: list,
     return out
 
 
+def axis_public(rec: dict, field: str) -> dict | None:
+    """`analyze_articles.axis_public_block`, failing CLOSED: if the predicate
+    cannot run the label is withheld rather than published unchecked."""
+    block = rec.get(field)
+    try:
+        import analyze_articles as aa
+        return aa.axis_public_block(block, field, rec)
+    except Exception:  # noqa: BLE001
+        if not isinstance(block, dict):
+            return None
+        if block.get("rationale") is None:
+            # A legacy block needs no gate: pass it through unchanged.
+            return {"label": block.get("label"), "confidence": block.get("confidence"),
+                    "evidence": block.get("evidence")}
+        return {"label": None, "confidence": None, "evidence": None,
+                "withheld_reason": "gate_unavailable"}
+
+
 def compact_analysis(rec: dict, article: dict) -> dict:
     """Keep everything the article page renders; drop bookkeeping (paths, timestamps)."""
     bad = altered_names(rec.get("entities"), [article])
@@ -2077,8 +2095,11 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         "summary_bg": prose.get("summary_bg", rec.get("summary_bg")),
         "summary_en": prose.get("summary_en", rec.get("summary_en")),
         **({"withheld": prose["_withheld"]} if prose.get("_withheld") else {}),
-        "leaning": rec.get("leaning"),
-        "russia_stance": rec.get("russia_stance"),
+        # T4.1b — the axes go through the ONE publish predicate: a v2 label
+        # with no located span on its side is withheld (label null, reason
+        # named), the rationale and spans ship either way. Fail closed.
+        "leaning": axis_public(rec, "leaning"),
+        "russia_stance": axis_public(rec, "russia_stance"),
         "ai_generated": rec.get("ai_generated"),
         "entities": ents,
         # ⚠️ A SIDECAR keyed by the name as written, never a rewrite of
@@ -2248,16 +2269,21 @@ def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[l
         domain = analysis.get("domain")
         leaning = (analysis.get("leaning") or {}).get("label")
         russia = (analysis.get("russia_stance") or {}).get("label")
-        if (not isinstance(domain, str) or leaning not in LEANING_LABELS
-                or russia not in RUSSIA_LABELS):
+        # T4.1b: a WITHHELD axis label is None on the public copy — an
+        # absence, counted nowhere, never a fabricated neutral.
+        if (not isinstance(domain, str)
+                or (leaning is not None and leaning not in LEANING_LABELS)
+                or (russia is not None and russia not in RUSSIA_LABELS)):
             raise ValueError(
                 f"story {story.get('id')} has an invalid effective member {url}")
         by_domain[domain] = by_domain.get(domain, 0) + 1
-        by_leaning[leaning] = by_leaning.get(leaning, 0) + 1
-        by_russia[russia] = by_russia.get(russia, 0) + 1
-        if leaning != "not_applicable":
+        if leaning:
+            by_leaning[leaning] = by_leaning.get(leaning, 0) + 1
+        if russia:
+            by_russia[russia] = by_russia.get(russia, 0) + 1
+        if leaning and leaning != "not_applicable":
             positioned_outlets["leaning"].add(domain)
-        if russia != "not_applicable":
+        if russia and russia != "not_applicable":
             positioned_outlets["russia"].add(domain)
         seen_pairs: set[tuple[str, str]] = set()
         for item in analysis.get("party_tones") or []:
@@ -2785,15 +2811,22 @@ def main() -> int:
                                    if feedback_record is not None else
                                    base_public_analysis)
                 # The public projection may evidence-filter legacy model party
-                # tones, but its scalar values must be the exact effective
-                # values. Story reconciliation below consumes this same public
-                # party set so a story can never count a claim its article hid.
-                if (public_analysis.get("leaning") != analysis.get("leaning")
+                # tones, but its axis blocks must be EXACTLY the one public
+                # projection of the effective values (T4.1b: a withheld label
+                # is a named absence there, never a different label). Story
+                # reconciliation below consumes this same public copy so a
+                # story can never count a claim its article hid.
+                if (public_analysis.get("leaning") != axis_public(analysis, "leaning")
                         or public_analysis.get("russia_stance")
-                        != analysis.get("russia_stance")):
+                        != axis_public(analysis, "russia_stance")):
                     raise ValueError(
                         f"{domain}/{fp.name}: public analysis diverged from effective source")
                 public_effective = copy.deepcopy(analysis)
+                # The story copy carries the PUBLIC axis blocks, so a withheld
+                # label is absent from every member and every aggregate.
+                public_effective["leaning"] = copy.deepcopy(public_analysis.get("leaning"))
+                public_effective["russia_stance"] = copy.deepcopy(
+                    public_analysis.get("russia_stance"))
                 # Story recomputation needs the corpus pointer. Older compact
                 # analysis fixtures/records may omit it even though identity
                 # is otherwise publishable; derive it from the exact corpus
@@ -2821,8 +2854,10 @@ def main() -> int:
                         public_analysis["news_persons"] = identities
                         news_person_rows_by_url[art["url"]] = identities
                 analyzed_by_domain[domain] = analyzed_by_domain.get(domain, 0) + 1
-                lean = (analysis.get("leaning") or {}).get("label")
-                stance = (analysis.get("russia_stance") or {}).get("label")
+                # T4.1b: the PUBLIC labels — a withheld v2 axis is None here
+                # and reaches no outlet spectrum and no topic axis spread.
+                lean = (public_analysis.get("leaning") or {}).get("label")
+                stance = (public_analysis.get("russia_stance") or {}).get("label")
                 ai = (analysis.get("ai_generated") or {}).get("verdict")
                 if lean in LEANING_LABELS:
                     bucket = leaning_by_domain.setdefault(domain, {})

@@ -126,6 +126,61 @@ export interface ReviewedLink {
   href: string;
 }
 
+/**
+ * One verbatim span the model cited and the build tried to LOCATE in the
+ * exact hashed text it was given. `located: false` means the quote is not
+ * in the article — a paraphrase wearing quote marks — and the build has
+ * already refused to let it support a label. Offsets are Unicode code
+ * points into the snapshot, not UTF-16 units.
+ */
+export type EvidenceDirection =
+  | "favorable"
+  | "unfavorable"
+  | "progressive"
+  | "conservative"
+  | "pro_russia"
+  | "anti_russia";
+
+export interface EvidenceSpan {
+  quote: string;
+  field: "title" | "body";
+  direction: EvidenceDirection;
+  voice: "journalist" | "quoted_speaker" | "unclear";
+  speaker?: string;
+  located?: boolean;
+  start?: number;
+  end?: number;
+  article_content_hash?: string;
+}
+
+/**
+ * T4.1b — an axis block under one of two contracts. Legacy: `evidence` is a
+ * prose justification (quote OR paraphrase; never checked). v2: `rationale`
+ * is the prose and `evidence_spans` the provenance; a positioned label with
+ * no located span on its side ships with `label: null` and
+ * `withheld_reason`, never as a neutral. `evidence_grounded` says whether
+ * the located spans support the label — a fact about provenance only, not
+ * a verification of the judgment.
+ */
+export interface AxisBlock<L extends string> {
+  label: L | null;
+  confidence: number | null;
+  evidence?: string | null;
+  rationale?: string | null;
+  evidence_spans?: EvidenceSpan[];
+  evidence_grounded?: boolean;
+  withheld_reason?: "unsupported_evidence" | "gate_unavailable";
+}
+
+/**
+ * „`rationale` is the marker, not `evidence_spans`" — the one rule for
+ * telling a v2 block from a legacy one, shared with `analyze_articles.axis_is_v2`.
+ */
+export const isV2Axis = <L extends string>(
+  b: AxisBlock<L> | null | undefined,
+): b is AxisBlock<L> & { rationale: string } =>
+  Boolean(b) && b!.rationale != null;
+
 export interface AnalysisBlock {
   summary_bg: string | null;
   summary_en: string | null;
@@ -139,16 +194,8 @@ export interface AnalysisBlock {
    * corrects (news/scripts/build_app_data.py).
    */
   withheld?: Record<string, string>;
-  leaning: {
-    label: Leaning | null;
-    confidence: number | null;
-    evidence: string | null;
-  } | null;
-  russia_stance: {
-    label: RussiaStance | null;
-    confidence: number | null;
-    evidence: string | null;
-  } | null;
+  leaning: AxisBlock<Leaning> | null;
+  russia_stance: AxisBlock<RussiaStance> | null;
   ai_generated: {
     verdict: AiVerdict | null;
     confidence: number | null;

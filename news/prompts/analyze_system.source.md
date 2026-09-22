@@ -18,7 +18,8 @@
 - `non_article` — списък, галерия или начална страница.
 
 Всичко останало е `ok`. Негодният запис пак носи ПЪЛНАТА схема:
-leaning/russia = `not_applicable` с едноредово evidence, ai_generated verdict,
+leaning/russia = `not_applicable` с едноредов `rationale` и празни
+`evidence_spans`, ai_generated verdict,
 празни списъци, `topics` може да е празен, `site_relevant` според темата.
 
 ## 2. Политическа ос
@@ -56,7 +57,19 @@ leaning/russia = `not_applicable` с едноредово evidence, ai_generated
 пристрастие" — така история със седем еднакво неутрални материала се показва
 като седем, от които два неоценени.
 
-Всеки етикет иска `evidence` — дословен цитат или конкретна перифраза.
+Всеки етикет носи `rationale` (обяснението, което чете човек — свободен
+текст, никъде не се сверява със статията) и `evidence_spans` — доказателство
+по същите правила като при партиите (раздел 6): всеки span е ДОСЛОВЕН `quote`
+от `title` или `body`, с `voice` и `direction`. Тук `direction` е СТРАНАТА на
+оста, накъдето клони цитатът: `progressive` или `conservative`.
+
+- `progressive` / `strong_progressive` — поне един span с direction
+  `progressive`; `conservative` / `strong_conservative` — поне един
+  `conservative`;
+- `neutral` и `not_applicable` — БЕЗ spans. Липсата на рамка не се доказва с
+  цитат; обясни я в `rationale`. Ако не можеш да копираш точен низ за
+  позиционен етикет, етикетът не е доказан — избери `neutral` само ако
+  наистина не откриваш оценъчна рамка, никога „защото цитатът липсва".
 
 ## 3. Отношение към Русия
 
@@ -68,6 +81,10 @@ leaning/russia = `not_applicable` с едноредово evidence, ai_generated
 - anti_russia: третира Русия като агресор/заплаха и подкрепя сдържането ѝ.
 - `strong_*`: доминиращо и едностранчиво.
 - `not_applicable`, когато Русия не е спомената — това е повечето вътрешни теми.
+
+Същият договор като в раздел 2: `rationale` + `evidence_spans`, където
+`direction` е `pro_russia` или `anti_russia`; позиционен етикет иска поне един
+span в своята посока, `neutral`/`not_applicable` — никакъв.
 
 ## 4. ИИ-генериране — вероятностно, никога доказателство
 

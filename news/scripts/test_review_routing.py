@@ -649,6 +649,26 @@ class PartyToneRouting(unittest.TestCase):
             "party_tones": [tone],
         }
 
+    def test_a_withheld_axis_label_is_asked_about(self):
+        """T4.1b — the bundle withholds it, so a human is the only way it
+        ever publishes; the queue reads the same predicate the bundle does."""
+        import analyze_articles as aa
+        rec = self.rec()
+        rec["leaning"] = {"label": "conservative", "confidence": 0.9,
+                          "rationale": "Материалът рамкира реформата като необходима.",
+                          "evidence_spans": [{"quote": "липсва", "field": "body",
+                                              "direction": "conservative", "voice": "journalist",
+                                              "located": False, "article_content_hash": "x"}],
+                          "evidence_grounded": False}
+        rec["axis_evidence_gate_version"] = aa.AXIS_EVIDENCE_VERSION
+        rec["topics"] = [{"category": "politics", "subcategory": None, "primary": True}]
+        got = record_review(rec)
+        self.assertIn("positioned label withheld", got.get("leaning", ""))
+        # ⚠️ THE MUTATION THIS CATCHES: asking about a PUBLISHED v2 label.
+        rec["leaning"]["evidence_spans"][0]["located"] = True
+        rec["leaning"]["evidence_grounded"] = True
+        self.assertNotIn("withheld", record_review(rec).get("leaning", ""))
+
     def test_unresolved_party_is_reviewed(self):
         """⚠️ „ГЕРБ" IS in the gazetteer and resolvable, so a stored None is a
         stale stamp, and the reason now says which work it needs. Over half

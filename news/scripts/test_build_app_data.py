@@ -3945,6 +3945,86 @@ class NewsPersonIdentity(BuildAppDataFixture):
         self.assertEqual(by["Иван Петров"]["pending_identity"], "np_00000001")
 
 
+class AxisEvidenceProjection(BuildAppDataFixture):
+    """T4.1b — a v2 axis label with no located span on its side is WITHHELD on
+    the public copy: label null with a named reason, the rationale and spans
+    shipped, the member carrying the absence, and no aggregate counting it."""
+
+    def test_an_unsupported_positioned_label_is_withheld_everywhere(self):
+        url = "https://example.bg/a1"
+        path = "news/data/example.bg/20260822-a1-abc.json"
+        self.write_corpus("example.bg", "20260822-a1-abc.json",
+                          corpus_article("example.bg", "a1", url, "Заглавие",
+                                         "2026-08-22T00:00:00+00:00",
+                                         content="Увод. Правителството прокара реформата. Край."))
+        rec = self.analysis_record(url, "example.bg", path)
+        rec["leaning"] = {"label": "conservative", "confidence": 0.8,
+                          "rationale": "Материалът рамкира реформата като необходима.",
+                          "evidence_spans": [{"quote": "тази фраза липсва", "field": "body",
+                                              "direction": "conservative", "voice": "journalist",
+                                              "located": False, "article_content_hash": "x"}],
+                          "evidence_grounded": False}
+        rec["russia_stance"] = {"label": "anti_russia", "confidence": 0.8,
+                                "rationale": "Русия е рамкирана като заплаха.",
+                                "evidence_spans": [{"quote": "прокара реформата", "field": "body",
+                                                    "direction": "anti_russia", "voice": "journalist",
+                                                    "located": True, "start": 21, "end": 38,
+                                                    "article_content_hash": "x"}],
+                                "evidence_grounded": True}
+        import analyze_articles as aa
+        rec["axis_evidence_gate_version"] = aa.AXIS_EVIDENCE_VERSION
+        self.write_analysis("example.bg", "20260822-a1-abc.json", rec)
+        os.makedirs(os.path.join(self.data_dir, "analysis", "stories"), exist_ok=True)
+        with open(os.path.join(self.data_dir, "analysis", "index.json"), "w", encoding="utf-8") as fh:
+            json.dump({"version": 1, "updated_at": "now", "stories": {
+                "20260822-s1": {"member_count": 1, "last_published": "2026-08-22T00:00:00+00:00"}},
+                "articles": {url: {"path": path, "story_id": "20260822-s1",
+                                   "domain": "example.bg", "analyzed_at": "now"}}}, fh)
+        with open(os.path.join(self.data_dir, "analysis", "stories", "20260822-s1.json"), "w",
+                  encoding="utf-8") as fh:
+            json.dump({
+                "id": "20260822-s1", "canonical_title_bg": "Т", "canonical_title_en": "T",
+                "summary_bg": "s", "summary_en": "s", "created_at": "now", "topics": [],
+                "related_story_ids": [], "first_published": "2026-08-22T00:00:00+00:00",
+                "last_published": "2026-08-22T00:00:00+00:00", "entities": {},
+                "members": [{"domain": "example.bg", "article_path": path, "url": url,
+                             "published": "2026-08-22T00:00:00+00:00",
+                             "leaning": "conservative", "russia_stance": "anti_russia",
+                             "added_at": "now"}],
+                "aggregates": {"article_count": 1, "outlet_count": 1,
+                               "by_leaning": {"conservative": 1},
+                               "by_russia_stance": {"anti_russia": 1},
+                               "by_domain": {"example.bg": 1}},
+            }, fh, ensure_ascii=False)
+        self.run_build()
+        article = self.load("articles/example.bg.json")["articles"][0]["analysis"]
+        # ⚠️ THE MUTATION THIS CATCHES: publishing the unsupported label (or a
+        # neutral in its place) — the label is null, the reason named, the
+        # rationale and the unlocated span still shipped for the reader.
+        self.assertIsNone(article["leaning"]["label"])
+        self.assertEqual(article["leaning"]["withheld_reason"], "unsupported_evidence")
+        self.assertEqual(article["leaning"]["rationale"], "Материалът рамкира реформата като необходима.")
+        self.assertIs(article["leaning"]["evidence_spans"][0]["located"], False)
+        self.assertEqual(article["russia_stance"]["label"], "anti_russia")
+        self.assertIs(article["russia_stance"]["evidence_grounded"], True)
+        story = self.load("stories.json")["stories"][0]
+        self.assertIsNone(story["members"][0]["leaning"])
+        self.assertEqual(story["members"][0]["russia_stance"], "anti_russia")
+        self.assertEqual(story["aggregates"]["by_leaning"], {})
+        self.assertEqual(story["aggregates"]["leaning_outlets"], 0)
+        self.assertEqual(story["aggregates"]["by_russia_stance"], {"anti_russia": 1})
+        # ⚠️ THE MUTATION THIS CATCHES: the per-outlet and per-topic
+        # distributions reading the RAW label — the withheld label would be
+        # absent from the article and the story and still counted on the
+        # outlet's spectrum and the topic's axis spread.
+        outlet = next(o for o in self.load("outlets.json")["outlets"] if o["domain"] == "example.bg")
+        self.assertEqual(outlet["leaning"], {})
+        self.assertEqual(outlet["russia_stance"], {"anti_russia": 1})
+        category = next(c for c in self.load("taxonomy.json")["categories"] if c["id"] == "society")
+        self.assertNotIn("conservative", category["leaning"])
+        self.assertEqual(category["russia_stance"].get("anti_russia"), 1)
+
+
 class PositionedOutletCounts(unittest.TestCase):
     """T5.2 — `leaning_outlets` / `russia_stance_outlets` count distinct
     OUTLETS holding a positioned label, in BOTH independent writers."""

@@ -174,6 +174,139 @@ class FixtureTestCase(unittest.TestCase):
                       ensure_ascii=False)
 
 
+class TestAxisEvidenceV2(unittest.TestCase):
+    """T4.1b — the same rationale + spans contract on `leaning` and
+    `russia_stance`, with the span direction being the SIDE of the axis.
+    A positioned label with no located span on its side is WITHHELD (label
+    null, reason named), never downgraded to neutral."""
+
+    BODY = "Увод. Правителството прокара реформата въпреки протестите. Край."
+
+    def block(self, label, spans=None, rationale="Материалът рамкира реформата като необходима."):
+        return {"label": label, "confidence": 0.8, "rationale": rationale,
+                "evidence_spans": spans if spans is not None else []}
+
+    def span(self, quote, direction, field="body", voice="journalist"):
+        return {"quote": quote, "field": field, "direction": direction, "voice": voice}
+
+    def test_a_positioned_label_needs_a_span_on_its_side(self):
+        import analyze_articles as aa
+        errs = aa.validate_axis_evidence(self.block("conservative"), "leaning")
+        self.assertTrue(any("needs at least one conservative span" in e for e in errs), errs)
+        # ⚠️ THE MUTATION THIS CATCHES: accepting a span on the OTHER side.
+        errs = aa.validate_axis_evidence(
+            self.block("conservative", [self.span("прокара реформата", "progressive")]), "leaning")
+        self.assertTrue(any("needs at least one conservative span" in e for e in errs), errs)
+        self.assertEqual(aa.validate_axis_evidence(
+            self.block("conservative", [self.span("прокара реформата", "conservative")]), "leaning"), [])
+        # Russia's directions are the axis's own; a leaning direction is refused.
+        errs = aa.validate_axis_evidence(
+            self.block("anti_russia", [self.span("x y z", "conservative")]), "russia_stance")
+        self.assertTrue(any("direction must be one of" in e for e in errs), errs)
+
+    def test_neutral_and_not_applicable_carry_no_spans_and_one_contract_at_a_time(self):
+        import analyze_articles as aa
+        errs = aa.validate_axis_evidence(
+            self.block("neutral", [self.span("прокара реформата", "conservative")]), "leaning")
+        self.assertTrue(any("asserts no directional framing" in e for e in errs), errs)
+        self.assertEqual(aa.validate_axis_evidence(self.block("not_applicable"), "russia_stance"), [])
+        both = {**self.block("neutral"), "evidence": "prose"}
+        errs = aa.validate_axis_evidence(both, "leaning")
+        self.assertTrue(any("never both" in e for e in errs), errs)
+        # Legacy prose is still a valid block — it is judged by no rule.
+        self.assertEqual(aa.validate_axis_evidence(
+            {"label": "neutral", "confidence": 0.8, "evidence": "prose"}, "leaning"), [])
+        self.assertTrue(aa.validate_axis_evidence(
+            {"label": "neutral", "confidence": 0.8, "evidence": ""}, "leaning"))
+
+    def test_the_gate_locates_spans_and_the_projection_withholds_an_unsupported_label(self):
+        import analyze_articles as aa
+        rec = {"title": "Заглавие", "content": self.BODY}
+        grounded = {"leaning": self.block("conservative", [self.span("прокара реформата", "conservative")]),
+                    "russia_stance": self.block("not_applicable")}
+        aa.gate_axis_evidence(grounded, rec)
+        self.assertTrue(grounded["leaning"]["evidence_spans"][0]["located"])
+        self.assertTrue(grounded["leaning"]["evidence_grounded"])
+        self.assertTrue(grounded["russia_stance"]["evidence_grounded"])
+        pub = aa.axis_public_block(grounded["leaning"], "leaning", grounded)
+        self.assertEqual(pub["label"], "conservative")
+        self.assertNotIn("withheld_reason", pub)
+        # ⚠️ THE MUTATION THIS CATCHES: publishing a positioned label whose
+        # only quote is NOT in the text, or downgrading it to neutral.
+        fabricated = {"leaning": self.block("conservative", [self.span("тази фраза липсва", "conservative")]),
+                      "russia_stance": self.block("not_applicable")}
+        aa.gate_axis_evidence(fabricated, rec)
+        self.assertFalse(fabricated["leaning"]["evidence_spans"][0]["located"])
+        self.assertFalse(fabricated["leaning"]["evidence_grounded"])
+        pub = aa.axis_public_block(fabricated["leaning"], "leaning", fabricated)
+        self.assertIsNone(pub["label"])
+        self.assertEqual(pub["withheld_reason"], aa.AXIS_WITHHELD_REASON)
+        self.assertEqual(pub["rationale"], fabricated["leaning"]["rationale"])
+        self.assertEqual(len(pub["evidence_spans"]), 1)
+        # A stale gate version is not trusted: withheld until re-gated.
+        stale = {**fabricated, "axis_evidence_gate_version": 1,
+                 "leaning": {**grounded["leaning"]}}
+        self.assertFalse(aa.axis_label_published(stale["leaning"], "leaning", stale))
+        # ⚠️ THE MUTATION THIS CATCHES: „a human accepted the RECORD" read as
+        # „publish this axis" — an `unable_to_judge` disposition leaves the
+        # model's unsupported v2 block in place, and the saved decision decides.
+        accepted = {**fabricated, "human_review": {"status": "accepted",
+                                                   "fields": {"leaning": "unable_to_judge"}}}
+        self.assertFalse(aa.axis_label_published(accepted["leaning"], "leaning", accepted))
+        # A rationale that merely repeats the label is refused, as for party tones.
+        errs = aa.validate_axis_evidence(self.block("neutral", rationale="neutral"), "leaning")
+        self.assertTrue(any("must explain" in e for e in errs), errs)
+        # An unknown label yields the label error alone, not a second one about spans.
+        errs = aa.validate_axis_evidence(self.block("sideways", [self.span("x y", "conservative")]), "leaning")
+        self.assertFalse(any("asserts no directional framing" in e for e in errs), errs)
+        # The party-tone path is unchanged: an axis direction is refused there.
+        errs = aa.validate_evidence_spans(
+            [self.span("прокара реформата", "progressive")], "party_tones[0]", "favorable")
+        self.assertTrue(any("direction must be one of" in e for e in errs), errs)
+        # A legacy block publishes as it always did.
+        legacy = {"label": "conservative", "confidence": 0.8, "evidence": "prose"}
+        self.assertTrue(aa.axis_label_published(legacy, "leaning", {}))
+        self.assertEqual(aa.axis_public_block(legacy, "leaning", {})["evidence"], "prose")
+
+
+
+class TestAxisEvidenceSave(FixtureTestCase):
+    """The axis gate on the real save path: stamped at save, refused when
+    supplied, a fabricated quote is not located."""
+
+    def test_save_stamps_the_axis_gate_and_refuses_a_supplied_decision(self):
+        import analyze_articles as aa
+        self.write_party_gazetteer()
+        domain, fname, rec = self.articles["a1"]
+        rec["content"] = "Увод. Правителството прокара реформата въпреки протестите. Край."
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+        a = analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg")
+        a["leaning"] = {"label": "conservative", "confidence": 0.8,
+                        "rationale": "Материалът рамкира реформата като необходима.",
+                        "evidence_spans": [{"quote": "прокара реформата", "field": "body",
+                                            "direction": "conservative", "voice": "journalist"}]}
+        a["russia_stance"] = {"label": "not_applicable", "confidence": 0.9,
+                              "rationale": "Русия не е спомената.", "evidence_spans": []}
+        self.save(a)
+        path = os.path.join(self.root, self.index()["articles"]["https://test.bg/alpha"]["path"])
+        with open(path, encoding="utf-8") as fh:
+            saved = json.load(fh)
+        self.assertEqual(saved["axis_evidence_gate_version"], aa.AXIS_EVIDENCE_VERSION)
+        self.assertTrue(saved["leaning"]["evidence_spans"][0]["located"])
+        self.assertIs(saved["leaning"]["evidence_grounded"], True)
+        self.assertIs(saved["russia_stance"]["evidence_grounded"], True)
+        # ⚠️ THE MUTATION THIS CATCHES: an analyst-supplied decision accepted.
+        b = analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg")
+        b["leaning"] = {**a["leaning"], "evidence_grounded": True}
+        b["axis_evidence_gate_version"] = 2
+        out = self.save(b, expect=3)
+        errors = " ".join(out["failed"][0]["errors"])
+        self.assertIn("computed after validation", errors)
+        self.assertIn("axis_evidence_gate_version: computed at save time", errors)
+
+
 class TestEvidenceSpansV3(unittest.TestCase):
     """The v3 contract: prose and provenance stop being the same string.
 

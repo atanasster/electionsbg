@@ -64,6 +64,15 @@ def gbnf_alt(values) -> str:
     return " | ".join('"\\"' + v + '\\""' for v in sorted(values))
 
 
+def gbnf_span(name: str, direction_rule: str) -> str:
+    """One span object rule; the three families differ only in their
+    direction enum. `speaker` is optional and last — see the tone block."""
+    # ⚠️ Returned as a finished string and interpolated into the f-string
+    # template, so the braces here are the ONE pair the grammar needs.
+    return (f'{name:<11} ::= "{{" ws "\\"quote\\"" ws ":" ws string "," ws "\\"field\\"" ws ":" ws span_field "," ws '
+            f'"\\"direction\\"" ws ":" ws {direction_rule} "," ws "\\"voice\\"" ws ":" ws span_voice ("," ws speaker)? ws "}}"')
+
+
 def build_grammar(doc: dict) -> str:
     cats = [c["id"] for c in doc.get("categories") or []]
     subs = sorted({s["id"] for c in doc.get("categories") or []
@@ -86,17 +95,26 @@ qverdict    ::= {gbnf_alt(aa.QUALITY_VERDICTS)}
 
 summaries   ::= "\\"summary_bg\\"" ws ":" ws string "," ws "\\"summary_en\\"" ws ":" ws string
 
-leaning     ::= "\\"leaning\\"" ws ":" ws "{{" ws "\\"label\\"" ws ":" ws lean_lab "," ws conf "," ws evid ws "}}"
+# ⚠️ T4.1b — the axes carry the SAME rationale + spans contract as party
+# tones, with the span direction being the SIDE of the axis. The list may be
+# empty (neutral / not_applicable MUST leave it empty); „a positioned label
+# needs a span on its side" is conditional and lives in `validate_axis_evidence`.
+leaning     ::= "\\"leaning\\"" ws ":" ws "{{" ws "\\"label\\"" ws ":" ws lean_lab "," ws conf "," ws rationale "," ws lean_spans ws "}}"
 lean_lab    ::= {gbnf_alt(aa.LEANING_LABELS)}
+lean_spans  ::= "\\"evidence_spans\\"" ws ":" ws "[" ws (lean_span (ws "," ws lean_span)*)? ws "]"
+{gbnf_span("lean_span", "lean_dir")}
+lean_dir    ::= {gbnf_alt(aa.AXIS_SPAN_DIRECTIONS["leaning"])}
 
-russia      ::= "\\"russia_stance\\"" ws ":" ws "{{" ws "\\"label\\"" ws ":" ws ru_lab "," ws conf "," ws evid ws "}}"
+russia      ::= "\\"russia_stance\\"" ws ":" ws "{{" ws "\\"label\\"" ws ":" ws ru_lab "," ws conf "," ws rationale "," ws ru_spans ws "}}"
 ru_lab      ::= {gbnf_alt(aa.RUSSIA_LABELS)}
+ru_spans    ::= "\\"evidence_spans\\"" ws ":" ws "[" ws (ru_span (ws "," ws ru_span)*)? ws "]"
+{gbnf_span("ru_span", "ru_dir")}
+ru_dir      ::= {gbnf_alt(aa.AXIS_SPAN_DIRECTIONS["russia_stance"])}
 
 ai          ::= "\\"ai_generated\\"" ws ":" ws "{{" ws "\\"verdict\\"" ws ":" ws ai_lab "," ws conf "," ws "\\"signals\\"" ws ":" ws strings ws "}}"
 ai_lab      ::= {gbnf_alt(aa.AI_VERDICTS)}
 
 conf        ::= "\\"confidence\\"" ws ":" ws prob
-evid        ::= "\\"evidence\\"" ws ":" ws string
 
 entities    ::= "\\"entities\\"" ws ":" ws "{{" ws "\\"people\\"" ws ":" ws strings "," ws "\\"parties\\"" ws ":" ws strings "," ws "\\"institutions\\"" ws ":" ws strings "," ws "\\"companies\\"" ws ":" ws strings "," ws "\\"places\\"" ws ":" ws strings ws "}}"
 
@@ -114,7 +132,7 @@ spans       ::= "\\"evidence_spans\\"" ws ":" ws "[" ws (span (ws "," ws span)*)
 # unrepresentable under constrained decoding and rejects the whole record. That
 # is this file's own „grammatically perfect and refused 100% of the time"
 # failure, and it would have hit the case §6 steers hardest toward.
-span        ::= "{{" ws "\\"quote\\"" ws ":" ws string "," ws "\\"field\\"" ws ":" ws span_field "," ws "\\"direction\\"" ws ":" ws span_dir "," ws "\\"voice\\"" ws ":" ws span_voice ("," ws speaker)? ws "}}"
+{gbnf_span("span", "span_dir")}
 speaker     ::= "\\"speaker\\"" ws ":" ws string
 span_field  ::= {gbnf_alt(aa.PARTY_TONE_SPAN_FIELDS)}
 span_dir    ::= {gbnf_alt(aa.PARTY_TONE_SPAN_DIRECTIONS)}
@@ -190,9 +208,19 @@ def build_json_schema(doc: dict) -> dict:
     str0 = {"type": "string"}
     strings = {"type": "array", "items": string}
     prob = {"type": "number", "minimum": 0, "maximum": 1}
-    labelled = lambda vals: _obj({
+    span_of = lambda directions: _obj({
+        "quote": string,
+        "field": {"type": "string", "enum": sorted(aa.PARTY_TONE_SPAN_FIELDS)},
+        "direction": {"type": "string", "enum": sorted(directions)},
+        "voice": {"type": "string", "enum": sorted(aa.PARTY_TONE_SPAN_VOICES)},
+        "speaker": str0}, optional=("speaker",))
+    # T4.1b — an axis block is the party-tone contract with the span direction
+    # being the SIDE of the axis; see AXIS_SPAN_DIRECTIONS.
+    labelled = lambda vals, field: _obj({
         "label": {"type": "string", "enum": sorted(vals)},
-        "confidence": prob, "evidence": string})
+        "confidence": prob, "rationale": string,
+        "evidence_spans": {"type": "array",
+                           "items": span_of(aa.AXIS_SPAN_DIRECTIONS[field])}})
     return _obj({
         "quality": _obj({
             "verdict": {"type": "string",
@@ -200,8 +228,8 @@ def build_json_schema(doc: dict) -> dict:
             "notes": str0}),
         "summary_bg": string,
         "summary_en": string,
-        "leaning": labelled(aa.LEANING_LABELS),
-        "russia_stance": labelled(aa.RUSSIA_LABELS),
+        "leaning": labelled(aa.LEANING_LABELS, "leaning"),
+        "russia_stance": labelled(aa.RUSSIA_LABELS, "russia_stance"),
         "ai_generated": _obj({
             "verdict": {"type": "string", "enum": sorted(aa.AI_VERDICTS)},
             "confidence": prob, "signals": strings}),
@@ -217,19 +245,12 @@ def build_json_schema(doc: dict) -> dict:
             "tone": {"type": "string", "enum": sorted(aa.TONE_LABELS)},
             "confidence": prob,
             "rationale": string,
-            "evidence_spans": {"type": "array", "items": _obj({
-                "quote": string,
-                "field": {"type": "string",
-                          "enum": sorted(aa.PARTY_TONE_SPAN_FIELDS)},
-                "direction": {"type": "string",
-                              "enum": sorted(aa.PARTY_TONE_SPAN_DIRECTIONS)},
-                "voice": {"type": "string",
-                          "enum": sorted(aa.PARTY_TONE_SPAN_VOICES)},
-                # ⚠️ OPTIONAL, and the only optional property in this schema.
-                # The validator requires it when the voice is a quoted
-                # speaker; making it REQUIRED here would force a speaker onto
-                # journalist framing, where there is nobody to name.
-                "speaker": str0}, optional=("speaker",))}})},
+            # ⚠️ `speaker` is OPTIONAL (the only optional property here): the
+            # validator requires it when the voice is a quoted speaker;
+            # making it REQUIRED would force a speaker onto journalist
+            # framing, where there is nobody to name.
+            "evidence_spans": {"type": "array",
+                               "items": span_of(aa.PARTY_TONE_SPAN_DIRECTIONS)}})},
         "topics": {"type": "array", "items": _obj({
             "category": {"type": "string", "enum": sorted(cats)},
             # ⚠️ NULLABLE, and expressed as a type UNION rather than as an
