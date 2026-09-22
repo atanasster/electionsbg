@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   FUNDING_TRANSPARENCY_COVERAGE,
   outletHomepage,
+  safeCompanyEik,
   safeHttpUrl,
 } from "./sourceTransparency";
 
@@ -30,6 +31,26 @@ describe("source URL boundaries", () => {
       "x.bg:443",
     ])
       expect(outletHomepage(value)).toBeNull();
+  });
+});
+
+describe("owner EIK shape", () => {
+  it("accepts a 9-digit company EIK or a 13-digit branch/other form", () => {
+    expect(safeCompanyEik("131326269")).toBe("131326269");
+    expect(safeCompanyEik("1313262690001")).toBe("1313262690001");
+  });
+
+  it("rejects anything not exactly 9 or 13 digits, and null/undefined", () => {
+    for (const value of [
+      "1313262",
+      "13132626900",
+      "13132626a",
+      "ph-131326269",
+      "",
+      null,
+      undefined,
+    ])
+      expect(safeCompanyEik(value)).toBeNull();
   });
 });
 

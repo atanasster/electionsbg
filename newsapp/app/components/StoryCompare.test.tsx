@@ -80,6 +80,7 @@ const sources = (): CompareSource[] => [
         category: null,
         source: "https://register.example/a",
         checked: "2026-09-01",
+        eik: null,
       },
     },
     article: article("a.bg", "Кабинетът отложи решението."),

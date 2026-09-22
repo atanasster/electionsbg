@@ -53,6 +53,18 @@ export const publishableOwner = (
     ? owner
     : null;
 
+/**
+ * A Bulgarian ЕИК/БУЛСТАТ shaped value — 9 digits (a company) or 13 (a
+ * branch/other registered form) — or null. The builder already refuses a
+ * malformed `owner_eik` cell, but the render side re-checks it for the same
+ * reason `publishableOwner` re-checks `source`/`checked`: a stale cached
+ * bundle must not link a newsroom's page to whatever string happens to sit
+ * in that field.
+ */
+export const safeCompanyEik = (
+  value: string | null | undefined,
+): string | null => (value && /^\d{9}$|^\d{13}$/.test(value) ? value : null);
+
 const RETIREMENT_REASON_BG: Record<string, string> = {
   portal_not_newsroom: "порталът не е самостоятелна редакция",
   blocked_captcha: "достъпът е блокиран от CAPTCHA",

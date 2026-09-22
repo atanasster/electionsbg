@@ -43,9 +43,11 @@ import {
   outletHomepage,
   publishableOwner,
   retirementReason,
+  safeCompanyEik,
   safeHttpUrl,
 } from "../sourceTransparency";
 import { useNewsLocale } from "../i18n";
+import { mainSiteUrl } from "../site";
 
 const PAGE_SIZE = 20;
 /** How many participating stories the outlet page previews before linking on. */
@@ -128,9 +130,10 @@ const Measure = ({
 const CONDUCT_MIN_BASE = 20;
 
 const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
-  const { language, tr } = useNewsLocale();
+  const { language, isEnglish, tr } = useNewsLocale();
   const owner = publishableOwner(outlet.owner);
   const ownerSource = owner ? safeHttpUrl(owner.source) : null;
+  const ownerEik = owner ? safeCompanyEik(owner.eik) : null;
   const homepage = outletHomepage(outlet.domain);
   return (
     <section aria-labelledby="source-identity-heading">
@@ -183,7 +186,22 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
               {tr("Собственост", "Ownership")}
             </h3>
             <p className="mt-1 font-medium">
-              {tr("Вписан собственик", "Registered owner")}: {owner.name}
+              {tr("Вписан собственик", "Registered owner")}:{" "}
+              {ownerEik ? (
+                <a
+                  href={mainSiteUrl(
+                    `https://naiasno.bg/company/${ownerEik}`,
+                    isEnglish,
+                  )}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="underline underline-offset-2"
+                >
+                  {owner.name}
+                </a>
+              ) : (
+                owner.name
+              )}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
               {tr(

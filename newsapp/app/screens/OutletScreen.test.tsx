@@ -264,6 +264,7 @@ describe("source transparency", () => {
           category: "company",
           source: "https://registry.example/owner",
           checked: "2026-08-20",
+          eik: null,
         },
       }),
     );
@@ -280,6 +281,45 @@ describe("source transparency", () => {
     expect(
       screen.getByText(/не оценка за доверие или фактологичност/),
     ).toBeVisible();
+    // No EIK on this fixture — the owner's name renders as plain text, not a link.
+    expect(
+      screen.queryByRole("link", { name: "Пример Медиа АД" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("links the registered owner's name to its company page when an EIK is on file", async () => {
+    await renderProfile(
+      outlet({
+        owner: {
+          name: "Икономедиа АД",
+          category: "media_conglomerate",
+          source: "https://registry.example/owner",
+          checked: "2026-08-20",
+          eik: "131326269",
+        },
+      }),
+    );
+    expect(
+      await screen.findByRole("link", { name: "Икономедиа АД" }),
+    ).toHaveAttribute("href", "https://naiasno.bg/company/131326269");
+  });
+
+  it("does not link a malformed owner EIK", async () => {
+    await renderProfile(
+      outlet({
+        owner: {
+          name: "Пример Медиа АД",
+          category: "company",
+          source: "https://registry.example/owner",
+          checked: "2026-08-20",
+          eik: "not-an-eik",
+        },
+      }),
+    );
+    await screen.findByText(/Вписан собственик:/);
+    expect(
+      screen.queryByRole("link", { name: "Пример Медиа АД" }),
+    ).not.toBeInTheDocument();
   });
 
   it("states the funding-data gap without turning it into an independence claim", async () => {
@@ -316,6 +356,7 @@ describe("source transparency", () => {
           category: "company",
           source: "javascript:alert(1)",
           checked: null,
+          eik: null,
         },
       }),
     );
