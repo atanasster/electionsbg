@@ -36,7 +36,10 @@ import { ReportIssueLink } from "../components/ReportIssueLink";
 import { HeadlineComparison } from "../components/HeadlineComparison";
 import { StorySynthesisBlock } from "../components/StorySynthesis";
 import { AggregateCompleteness } from "../components/AggregateCompleteness";
-import { axisCompleteness } from "../aggregateCompleteness";
+import {
+  axisCompleteness,
+  type AxisCompleteness,
+} from "../aggregateCompleteness";
 import { emitNewsEvent } from "../analytics";
 import { useNewsLocale } from "../i18n";
 import { axisDivergence, type AxisDivergence } from "../storyDivergence";
@@ -129,6 +132,44 @@ const DivergenceNote = ({
       data-state={divergence.state}
     >
       {text}
+    </p>
+  );
+};
+
+// T5.3 — `not_applicable` is no longer hidden: the bar draws positions
+// only, so the articles the model judged OUTSIDE this axis are said, in
+// words, immediately beside the bar they are missing from — not in the
+// completeness strip, which would repeat the sentence under the axis that
+// did NOT collapse. Unassessed articles (no verdict at all) are a different
+// absence and stay on the completeness line as „без стойност".
+const OutsideAxisNote = ({
+  completeness,
+  axis,
+}: {
+  completeness: AxisCompleteness;
+  axis: "leaning" | "russia";
+}) => {
+  const { tr } = useNewsLocale();
+  if (completeness.notApplicable === 0) return null;
+  const n = completeness.notApplicable;
+  const m = completeness.total;
+  // Two agreements: the count noun follows M, the verb follows N (the
+  // subject is „N of them"). The actor is deliberately unnamed — the served
+  // verdict is the EFFECTIVE one, model resolved against editorial
+  // adjudication, so „the model judged" would sometimes be false.
+  const noun = m === 1 ? "материал" : "материала";
+  const verb = n === 1 ? "е" : "са";
+  const enNoun = m === 1 ? "article" : "articles";
+  const enVerb = n === 1 ? "falls" : "fall";
+  return (
+    <p
+      className="text-xs text-muted-foreground"
+      data-testid={`outside-axis-${axis}`}
+    >
+      {tr(
+        `${n} от ${m} ${noun} ${verb} извън тази ос — оценката е, че текстът не заема позиция по нея.`,
+        `${n} of ${m} ${enNoun} ${enVerb} outside this axis — the assessment is that the text takes no position on it.`,
+      )}
     </p>
   );
 };
@@ -529,6 +570,7 @@ export const StoryScreen = () => {
                 }}
               />
               <DivergenceNote divergence={leanDivergence} axis="leaning" />
+              <OutsideAxisNote completeness={leanCompleteness} axis="leaning" />
               <AggregateCompleteness
                 completeness={leanCompleteness}
                 generatedAt={storyDetail.data?.generated_at}
@@ -549,6 +591,10 @@ export const StoryScreen = () => {
                 }}
               />
               <DivergenceNote divergence={stanceDivergence} axis="russia" />
+              <OutsideAxisNote
+                completeness={stanceCompleteness}
+                axis="russia"
+              />
               <AggregateCompleteness
                 completeness={stanceCompleteness}
                 generatedAt={storyDetail.data?.generated_at}

@@ -292,6 +292,96 @@ describe("what the assessed coverage licenses each axis to say (T5.2)", () => {
   });
 });
 
+describe("not_applicable is said beside the bar it is missing from (T5.3)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+  });
+  const [left, right, undated] = story.members;
+  const renderWith = async (members: Story["members"]) => {
+    mockServedStory({ ...story, members });
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+  };
+
+  it("counts the out-of-scope verdicts per axis, immediately under that bar only", async () => {
+    await renderWith([
+      left,
+      { ...right, russia_stance: "not_applicable" },
+      { ...undated, russia_stance: "not_applicable" },
+    ]);
+    const note = screen.getByTestId("outside-axis-russia");
+    expect(note).toHaveTextContent("2 от 3 материала са извън тази ос");
+    expect(note).not.toHaveTextContent("моделът");
+    // The leaning axis has no out-of-scope verdict: no sentence under it.
+    expect(screen.queryByTestId("outside-axis-leaning")).toBeNull();
+    // Placement is the point of choosing this surface: after the bar it
+    // explains, inside that bar's own block, before the completeness strip.
+    const bar = screen.getByText("Позиция спрямо Русия");
+    expect(
+      bar.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(note.parentElement).toBe(bar.closest("div.space-y-2"));
+    expect(note.nextElementSibling).toHaveTextContent("Оценени");
+  });
+
+  it("agrees the verb with N and the count noun with M, in both languages", async () => {
+    await renderWith([
+      left,
+      { ...right, russia_stance: "not_applicable" },
+      undated,
+    ]);
+    expect(screen.getByTestId("outside-axis-russia")).toHaveTextContent(
+      "1 от 3 материала е извън тази ос",
+    );
+    cleanup();
+    vi.resetModules();
+    mockServedStory({
+      ...story,
+      members: [left, { ...right, russia_stance: "not_applicable" }, undated],
+    });
+    const { StoryScreen } = await import("./StoryScreen");
+    // After resetModules the screen reads a FRESH i18n context; the provider
+    // must come from that same module instance.
+    const { NewsLocaleProvider } = await import("../i18n");
+    render(
+      <NewsLocaleProvider language="en">
+        <MemoryRouter initialEntries={["/story/private-story-id"]}>
+          <Routes>
+            <Route path="/story/:id" element={<StoryScreen />} />
+          </Routes>
+        </MemoryRouter>
+      </NewsLocaleProvider>,
+    );
+    expect(screen.getByTestId("outside-axis-russia")).toHaveTextContent(
+      "1 of 3 articles falls outside this axis",
+    );
+  });
+
+  it("an UNASSESSED article is not „outside the axis“ — that is a different absence", async () => {
+    // ⚠️ THE MUTATION THIS CATCHES: counting every member the bar does not
+    // draw (null verdicts included) as judged out of scope.
+    await renderWith([left, right, { ...undated, russia_stance: null }]);
+    expect(screen.queryByTestId("outside-axis-russia")).toBeNull();
+    cleanup();
+    vi.resetModules();
+    await renderWith([
+      left,
+      { ...right, russia_stance: "not_applicable" },
+      { ...undated, russia_stance: null },
+    ]);
+    expect(screen.getByTestId("outside-axis-russia")).toHaveTextContent(
+      "1 от 3 материала е извън тази ос",
+    );
+  });
+});
+
 describe("a story the release no longer serves", () => {
   afterEach(() => vi.resetModules());
 
