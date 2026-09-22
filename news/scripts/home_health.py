@@ -63,6 +63,15 @@ def _age_hours(now: datetime, value: str | None) -> float | None:
     return age
 
 
+# The count families the verifier CANNOT re-derive from home.json and must
+# carry through from the build's own declaration: `recent_*` (the record
+# funnel `build_app_data` measures over its recent window) and
+# `merge_queue_*` (the T2.2 durable review queue). A new build-supplied
+# family goes HERE first — otherwise every real build declares it, the
+# re-measurement omits it, and the gate fails on a payload it cannot fault.
+BUILD_SUPPLIED_COUNT_PREFIXES = ("recent_", "merge_queue_")
+
+
 def evaluate_home_payload(
     home: dict, eligibility_counts: dict[str, int] | None = None
 ) -> dict:
@@ -177,9 +186,14 @@ def main() -> int:
         home = json.loads(args.home.read_text(encoding="utf-8"))
         declared = home.get("home_health")
         counts = declared.get("counts") if isinstance(declared, dict) else None
+        # The build-supplied figures the verifier cannot re-derive from the
+        # payload: the recent-record funnel and (plan T2.2) the durable merge
+        # queue. Both families ride through untouched; everything else is
+        # re-measured. ⚠️ A family missing here fails the gate on every build
+        # that declares it — `merge_queue_*` did exactly that until 2026-09-22.
         eligibility = {
             key: value for key, value in (counts or {}).items()
-            if key.startswith("recent_") and isinstance(value, int)
+            if key.startswith(BUILD_SUPPLIED_COUNT_PREFIXES) and isinstance(value, int)
         }
         measured = evaluate_home_payload(home, eligibility)
         selected_payload_matches = declared == measured

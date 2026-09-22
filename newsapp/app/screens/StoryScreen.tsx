@@ -34,6 +34,7 @@ import { RelatedStories } from "../components/RelatedStories";
 import { ReaderActions } from "../components/ReaderActions";
 import { ReportIssueLink } from "../components/ReportIssueLink";
 import { HeadlineComparison } from "../components/HeadlineComparison";
+import { StorySynthesisBlock } from "../components/StorySynthesis";
 import { AggregateCompleteness } from "../components/AggregateCompleteness";
 import { axisCompleteness } from "../aggregateCompleteness";
 import { emitNewsEvent } from "../analytics";
@@ -391,6 +392,12 @@ export const StoryScreen = () => {
               withheld={story.withheld}
               className="mt-4 text-base leading-relaxed"
             />
+            <StorySynthesisBlock
+              synthesis={storyDetail.data?.synthesis}
+              members={chronologicalMembers}
+              outletNames={outletNames}
+              storyTitle={selectedTitle}
+            />
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {tr(
                 "Обобщението е съставено автоматично от материалите в клъстера. Проверете оригиналните източници и хронологията.",
@@ -401,6 +408,13 @@ export const StoryScreen = () => {
                 className="font-medium text-primary underline-offset-4 hover:underline"
               >
                 {tr("Към източниците", "Go to sources")}
+              </a>
+              {" · "}
+              <a
+                href="#coverage-differences-heading"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                {tr("Сравни отразяването", "Compare the coverage")}
               </a>
             </p>
           </header>

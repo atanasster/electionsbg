@@ -1617,6 +1617,41 @@ export const storyDetailPath = (
     ? `/stories/${id}.json`
     : null;
 
+/** One cited support: the article and the verbatim words it rests on. */
+export interface SynthesisCitation {
+  url: string | null;
+  domain: string;
+  quote: string;
+}
+
+/**
+ * T5.1 — the cited synthesis. Every item points at member articles and the
+ * quoted span the build's gate found in them; agreement among sources is
+ * not proof of truth, and `caveat_*` says so beside it.
+ */
+export interface StorySynthesis {
+  rubric_version: string;
+  /**
+   * The build ships only `ok` (items) and `empty` (the gate kept nothing);
+   * `failed`, `single_source` and `would_generate` never leave the cache.
+   */
+  status: "ok" | "empty" | "failed" | "single_source" | "would_generate";
+  generated_at: string;
+  outlets: string[];
+  synthesis: {
+    common: { claim: string; supports: SynthesisCitation[] }[];
+    disputed: {
+      claim: string;
+      positions: (SynthesisCitation & { attributed_to: string })[];
+    }[];
+    emphasis: (SynthesisCitation & { note: string })[];
+  } | null;
+  caveat_bg: string | null;
+  caveat_en: string | null;
+  /** Items the gate refused — reported, never rendered. */
+  dropped: number;
+}
+
 /**
  * One story, fetched on its own — 1.4 KB against the 1,456 KB bundle.
  *
@@ -1629,6 +1664,8 @@ export const useStoryDetail = (id: string | null | undefined) =>
     story: Story;
     /** Resolved by the build — see `RelatedStoryRow`. */
     related?: RelatedStoryRow[];
+    /** Present only when the cache matched this exact membership. */
+    synthesis?: StorySynthesis;
   }>(storyDetailPath(id));
 
 /**

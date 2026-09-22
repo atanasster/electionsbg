@@ -88,6 +88,7 @@ try:
     from .build_feedback_targets import build as build_feedback_targets
     from . import cases as case_registry
     from . import news_persons as news_identity
+    from . import story_synthesis
 except ImportError:  # direct script execution
     from commons_rights import (
         canonical_licence_url,
@@ -118,6 +119,7 @@ except ImportError:  # direct script execution
     from analyze_articles import recompute_story as recompute_analysis_story
     import cases as case_registry
     import news_persons as news_identity
+    import story_synthesis
     from build_feedback_targets import build as build_feedback_targets
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
@@ -1097,8 +1099,23 @@ def write_filter_index(out_dir: Path, rows: list, generated_at: str) -> dict:
     return payload
 
 
+def synthesis_payload(doc: dict) -> dict:
+    """What the page receives: the status (so a single-source or empty
+    story is said, not implied), the gated items, and the caveat."""
+    return {
+        "rubric_version": doc.get("rubric_version"),
+        "status": doc.get("status"),
+        "generated_at": doc.get("generated_at"),
+        "outlets": doc.get("outlets") or [],
+        "synthesis": doc.get("synthesis"),
+        "caveat_bg": doc.get("caveat_bg"),
+        "caveat_en": doc.get("caveat_en"),
+        "dropped": len(doc.get("dropped") or []),
+    }
+
+
 def write_story_pages(out_dir: Path, stories: list, generated_at: str,
-                      page_size: int = STORY_PAGE_SIZE) -> None:
+                      page_size: int = STORY_PAGE_SIZE, data_dir: Path | None = None) -> None:
     """The paginated index, the url→story map, and per-story detail files.
 
     ⚠️ WHY NOT JUST PAGINATE. Measured 2026-09-20, `stories.json` is
@@ -1264,9 +1281,14 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str,
         # `storyIndexRow` must COPY the score rather than carry a second
         # implementation of a decay in another language. One computation,
         # three consumers: this file, the index rows, and the client's merge.
+        # T5.1: the cited synthesis rides the detail file ONLY when its cache
+        # key matches this exact membership — a stale one is nothing, never
+        # a stale claim; the page keeps the headlines and the links.
+        synthesis = story_synthesis.current_for_id(story_id, data_dir) if data_dir else None
         write_json(story_dir / f"{story_id}.json",
                    {"generated_at": stamp, "story": story,
-                    "related": resolve_related(story)})
+                    "related": resolve_related(story),
+                    **({"synthesis": synthesis_payload(synthesis)} if synthesis else {})})
 
 
 STORY_ID_SAFE = re.compile(r"^[A-Za-z0-9_-]{1,120}$")
@@ -3143,7 +3165,7 @@ def main() -> int:
     stories = [{**s, "prominence": story_prominence(s, build_as_of)}
                for s in stories]
     write_json(out_dir / "stories.json", {"generated_at": generated_at, "stories": stories})
-    write_story_pages(out_dir, stories, generated_at, args.story_page_size)
+    write_story_pages(out_dir, stories, generated_at, args.story_page_size, data_dir=data_dir)
     write_retired_stories(out_dir, load_retired_stories(),
                           {s["id"] for s in stories if isinstance(s.get("id"), str)},
                           generated_at)

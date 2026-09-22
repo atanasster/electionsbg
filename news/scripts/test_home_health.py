@@ -158,6 +158,26 @@ class HomeHealth(unittest.TestCase):
             self.assertEqual(bad.returncode, 1)
             self.assertFalse(json.loads(bad.stdout)["declared_selected_payload_matches"])
 
+    def test_enforcement_cli_carries_the_build_supplied_queue_counts(self):
+        # ⚠️ THE MUTATION THIS CATCHES: re-measuring only the `recent_*` family,
+        # so a build that declares the T2.2 merge-queue backlog (which the
+        # verifier cannot derive from home.json) never matches its own
+        # declaration and the gate fails on every real build.
+        home = bundle([story(i, i + 1) for i in range(6)])
+        home["home_health"] = evaluate_home_payload(
+            home, {"recent_raw": 9, "merge_queue_pending": 77, "merge_queue_active": 76,
+                   "merge_queue_from_article_channel": 46})
+        script = Path(__file__).with_name("home_health.py")
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "home.json"
+            path.write_text(json.dumps(home), encoding="utf-8")
+            good = subprocess.run(
+                [sys.executable, str(script), "--home", str(path), "--enforce", "--json"],
+                text=True, capture_output=True,
+            )
+            self.assertEqual(good.returncode, 0, good.stdout + good.stderr)
+            self.assertTrue(json.loads(good.stdout)["declared_selected_payload_matches"])
+
 
 if __name__ == "__main__":
     unittest.main()
