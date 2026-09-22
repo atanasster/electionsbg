@@ -430,16 +430,45 @@ class TheCommonWordFilter(unittest.TestCase):
         import build_gazetteer as b
         self.b = b
         self._words, self._given = b.COMMON_WORDS, b.COMMON_GIVEN_NAMES
-        b.COMMON_WORDS = frozenset({"места", "река", "стара"})
+        self._caps = b.CAPS_DOMINANT_WORDS
+        b.COMMON_WORDS = frozenset({"места", "река", "стара", "герб", "атака"})
+        b.CAPS_DOMINANT_WORDS = frozenset({"герб"})
         b.COMMON_GIVEN_NAMES = frozenset({"владимир", "софия"})
         self.addCleanup(self.restore)
 
     def restore(self):
         self.b.COMMON_WORDS, self.b.COMMON_GIVEN_NAMES = self._words, self._given
+        self.b.CAPS_DOMINANT_WORDS = self._caps
 
     def test_a_one_word_common_noun_is_refused(self):
         self.assertTrue(is_common_word("Места"))
         self.assertFalse(form("Места", True, "why", "x", "place")["resolvable"])
+
+    def test_an_ALL_CAPS_acronym_is_not_its_lowercase_homonym(self):
+        """⚠️ „герб" is a coat of arms; „ГЕРБ" is the largest party in the
+        country. The corpus wrote the word 6 times (one syndicated story,
+        republished by six outlets — which is how a raw-occurrence floor of 5
+        is crossed) and the party 1,444 times, and the guard casefolded the
+        two together and stopped the party resolving."""
+        self.assertFalse(is_common_word("ГЕРБ"))
+        self.assertTrue(form("ГЕРБ", True, "why", "x", "party")["resolvable"])
+        # ⚠️ Only the ALL-CAPS form escapes. A lowercase or sentence-initial
+        # „Герб" is the ordinary word and stays refused — otherwise the rule
+        # would readmit every common noun that starts a headline.
+        self.assertTrue(is_common_word("герб"))
+        self.assertTrue(is_common_word("Герб"))
+
+    def test_an_all_caps_surface_that_is_NOT_caps_dominant_stays_refused(self):
+        # ⚠️ THE MUTATION THIS CATCHES: exempting every ALL-CAPS surface
+        # instead of the measured ones. „АТАКА" is a party AND a common noun,
+        # and the corpus writes it 2 times in caps against 976 lowercase —
+        # the whole class this filter exists for.
+        self.assertTrue(is_common_word("АТАКА"))
+        self.assertFalse(form("АТАКА", True, "why", "x", "party")["resolvable"])
+        # A single letter is not an acronym.
+        self.b.CAPS_DOMINANT_WORDS = frozenset({"герб", "р"})
+        self.b.COMMON_WORDS = self.b.COMMON_WORDS | {"р"}
+        self.assertTrue(is_common_word("Р"))
 
     def test_a_multi_word_surface_is_never_filtered_on_its_parts(self):
         # ⚠️ „Стара Загора" contains an ordinary adjective and is not remotely
@@ -523,6 +552,45 @@ class TheCommonWordScan(unittest.TestCase):
         self.assertIn("места", doc["words"])
         self.assertNotIn("пловдив", doc["words"])
         self.assertEqual(doc["articles_scanned"], 6)
+
+    def test_it_records_the_caps_evidence_for_an_acronym_homonym(self):
+        # ⚠️ The artifact must carry BOTH halves of the evidence. With only
+        # the lowercase count, `is_common_word` cannot tell „ГЕРБ" from
+        # „герб" and has to assume they are one word.
+        import json as _json
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "x.bg").mkdir()
+        for i in range(6):
+            (root / "x.bg" / f"a{i}.json").write_text(_json.dumps(
+                {"content": "Държавният герб е приет. " + "ГЕРБ обяви. " * 20
+                            + "места места места места места."}),
+                encoding="utf-8")
+        doc = scan_common_words(root, min_count=5)
+        self.assertIn("герб", doc["words"])
+        self.assertEqual(doc["caps_dominant"], ["герб"])
+        self.assertEqual(doc["caps_evidence"]["герб"],
+                         {"upper": 120, "lower": 6})
+        # ⚠️ „места" is written lowercase only, so it is NOT exempted — the
+        # rule must not fire on the population the filter exists for.
+        self.assertIn("места", doc["words"])
+        self.assertNotIn("места", doc["caps_dominant"])
+
+    def test_caps_dominance_is_a_RATIO_not_the_mere_presence_of_capitals(self):
+        # ⚠️ THE MUTATION THIS CATCHES: „has it ever appeared in caps".
+        # Headlines and all-caps emphasis capitalise ordinary words, so a
+        # presence test readmits the whole class.
+        import json as _json
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "x.bg").mkdir()
+        for i in range(6):
+            (root / "x.bg" / f"a{i}.json").write_text(_json.dumps(
+                {"content": "МЕСТА ЗА ПАРКИРАНЕ! " + "места " * 10}),
+                encoding="utf-8")
+        doc = scan_common_words(root, min_count=5)
+        self.assertIn("места", doc["words"])
+        self.assertEqual(doc["caps_dominant"], [])
 
     def test_an_uppercase_token_is_not_counted_however_often_it_appears(self):
         # ⚠️ The discriminator is LOWERCASE. Counting every token makes every

@@ -150,6 +150,31 @@ MIN_AWARDER_CONTRACTS = 25
 COMMON_WORDS_FILE = "common_words.json"
 COMMON_WORD_MIN = 5
 
+# ⚠️⚠️ AN ALL-CAPS ACRONYM IS NOT ITS LOWERCASE HOMONYM, and conflating the
+# two took the largest party in the country out of the registry.
+#
+# `scan_common_words` counts a token only when it starts lowercase, and its
+# docstring says why that is sound: „a lowercase „места" can only be the
+# word". But `is_common_word` then CASEFOLDS the surface, so evidence
+# gathered about a lowercase word is applied to an ALL-CAPS surface that was
+# never observed as one. Measured on the 13,419-article corpus: „герб" (coat
+# of arms) occurs 6 times lowercase — one syndicated 1911-constitution story
+# republished by six outlets, which is exactly how a raw-occurrence floor of
+# 5 gets crossed — against 1,444 occurrences of „ГЕРБ", the party. The guard
+# fired and „ГЕРБ" stopped resolving.
+#
+# So an ALL-CAPS surface escapes the refusal when the corpus's ALL-CAPS use
+# DOMINATES its lowercase use. Measured against the built gazetteer, at this
+# ratio exactly ONE of the 352 common-word refusals flips — „ГЕРБ", at 240:1
+# — and every genuinely ambiguous one stays refused, with a wide margin:
+# „АТАКА" 2 caps vs 976 lowercase, „ЗАЕДНО" 1 vs 1,567, „ВЪЗРАЖДАНЕ" 1 vs 52,
+# „МО" 27 vs 6. Nothing in the corpus sits between 10 and 15.
+#
+# ⚠️ It is a RATIO, not „is it ever capitalised": headlines and all-caps
+# emphasis capitalise ordinary words too, so a presence test would readmit
+# the whole class this filter exists for.
+CAPS_DOMINANCE_RATIO = 10
+
 # Below this the scan found no corpus worth calling one.
 COMMON_WORDS_MIN_ARTICLES = 200
 
@@ -240,8 +265,16 @@ def scan_common_words(data_dir: Path, min_count: int = COMMON_WORD_MIN) -> dict:
     ⚠️ LOWERCASE ONLY, and that is the whole discriminator. A capitalised
     „Места" is ambiguous between a village and a sentence-initial common
     noun; a lowercase „места" can only be the word.
+
+    ⚠️ IT ALSO RECORDS THE ALL-CAPS COUNT, for the words where an acronym
+    shares the spelling. Those counts are what `is_common_word` needs to tell
+    „ГЕРБ" from „герб"; without them the artifact carries only the lowercase
+    half of the evidence and the guard has to assume the two are one word.
+    Title case is deliberately NOT counted: a sentence-initial „Места" is the
+    ordinary word, so counting it would defeat the discriminator above.
     """
     counts: dict[str, int] = {}
+    caps: dict[str, int] = {}
     articles = 0
     for path in sorted(data_dir.glob("*/*.json")):
         if path.parent.name.startswith("_"):
@@ -258,11 +291,24 @@ def scan_common_words(data_dir: Path, min_count: int = COMMON_WORD_MIN) -> dict:
             tok = m.group()
             if tok[:1].islower():
                 counts[tok] = counts.get(tok, 0) + 1
+            elif tok.isupper() and len(tok) > 1:
+                folded = tok.casefold()
+                caps[folded] = caps.get(folded, 0) + 1
+    words = sorted(w for w, n in counts.items() if n >= min_count)
+    dominant = sorted(
+        w for w in words
+        if caps.get(w, 0) >= CAPS_DOMINANCE_RATIO * max(counts.get(w, 0), 1))
     return {
         "generated_at": now_iso(),
         "articles_scanned": articles,
         "min_count": min_count,
-        "words": sorted(w for w, n in counts.items() if n >= min_count),
+        "caps_dominance_ratio": CAPS_DOMINANCE_RATIO,
+        "words": words,
+        # The words an ALL-CAPS surface may still resolve through, with the
+        # evidence that admitted each one.
+        "caps_dominant": dominant,
+        "caps_evidence": {w: {"upper": caps.get(w, 0), "lower": counts.get(w, 0)}
+                          for w in dominant},
     }
 
 
@@ -331,6 +377,8 @@ def query(sql: str, params: dict | None = None) -> list:
 # that can each forget it — and forgetting it does not fail, it republishes
 # „места" as a village.
 COMMON_WORDS: frozenset = frozenset()
+# The subset of COMMON_WORDS whose ALL-CAPS form dominates the corpus.
+CAPS_DOMINANT_WORDS: frozenset = frozenset()
 COMMON_GIVEN_NAMES: frozenset = frozenset()
 
 
@@ -354,9 +402,19 @@ def is_common_word(surface: str) -> bool:
     ⚠️ ONE-WORD ONLY. „Стара Загора" contains „стара", an ordinary adjective,
     and is not remotely ambiguous; filtering multi-word surfaces on their
     parts would delete most of the real place names in the country.
+
+    ⚠️ AN ALL-CAPS SURFACE WHOSE CAPS USE DOMINATES IS NOT THE WORD — see
+    CAPS_DOMINANCE_RATIO. The lowercase evidence is about „герб"; applying it
+    to „ГЕРБ" is applying it to a token the corpus never wrote as a word.
     """
     parts = surface.split()
-    return len(parts) == 1 and parts[0].casefold() in COMMON_WORDS
+    if len(parts) != 1:
+        return False
+    folded = parts[0].casefold()
+    if folded not in COMMON_WORDS:
+        return False
+    return not (parts[0].isupper() and len(parts[0]) > 1
+                and folded in CAPS_DOMINANT_WORDS)
 
 
 # How strong the surface itself is as evidence of identity.
@@ -1278,6 +1336,10 @@ def main() -> int:
         return 2
     words_doc = json.loads(words_path.read_text(encoding="utf-8"))
     COMMON_WORDS = frozenset(words_doc.get("words") or ())
+    global CAPS_DOMINANT_WORDS
+    # Absent on an artifact written before the caps evidence existed: the
+    # guard then behaves exactly as it did, which is the safe direction.
+    CAPS_DOMINANT_WORDS = frozenset(words_doc.get("caps_dominant") or ())
 
     coverage: dict = {}
     entries: list = []
