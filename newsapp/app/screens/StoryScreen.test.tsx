@@ -155,8 +155,11 @@ describe("StoryScreen analytics", () => {
     });
     expect(chronologyHeading).toBeVisible();
     expect(screen.getByText(/лексикална разлика/)).toBeVisible();
-    expect(screen.getAllByText(/Оценени 2\/3/)).toHaveLength(2);
-    expect(screen.getAllByText(/редакционният статус/)).toHaveLength(2);
+    // T5.4 — ONE completeness sentence for both axes, the breakdown behind a
+    // single disclosure the page owns.
+    expect(screen.getAllByText("Оценени са 2 от 3 материала.")).toHaveLength(1);
+    expect(screen.getAllByText(/редакционният статус/)).toHaveLength(1);
+    expect(screen.getAllByText(/news-article-evaluation-v1/)).toHaveLength(1);
     expect(
       screen.getByRole("link", { name: "Към източниците" }),
     ).toHaveAttribute("href", "#sources-chronology");
@@ -328,7 +331,7 @@ describe("not_applicable is said beside the bar it is missing from (T5.3)", () =
       bar.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(note.parentElement).toBe(bar.closest("div.space-y-2"));
-    expect(note.nextElementSibling).toHaveTextContent("Оценени");
+    expect(note.nextElementSibling).toBeNull();
   });
 
   it("agrees the verb with N and the count noun with M, in both languages", async () => {
@@ -379,6 +382,96 @@ describe("not_applicable is said beside the bar it is missing from (T5.3)", () =
     expect(screen.getByTestId("outside-axis-russia")).toHaveTextContent(
       "1 от 3 материала е извън тази ос",
     );
+  });
+});
+
+describe("one completeness strip for both axes (T5.4)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+  });
+  const [left, right, undated] = story.members;
+  const renderWith = async (members: Story["members"]) => {
+    mockServedStory({ ...story, members });
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+  };
+
+  it("renders once, keeps differing per-axis counts adjacent, and the page owns the disclosure", async () => {
+    await renderWith([left, { ...right, russia_stance: null }, undated]);
+    expect(screen.getAllByTestId("aggregate-completeness")).toHaveLength(1);
+    // ⚠️ THE MUTATION THIS CATCHES: one figure for two axes that differ.
+    expect(
+      screen.getByText(
+        "Оценени са 2 от 3 материала по политическо рамкиране и 1 от 3 по позиция спрямо Русия.",
+      ),
+    ).toBeVisible();
+    const details = screen
+      .getByText("Подробности за оценката")
+      .closest("details")!;
+    expect(details).not.toHaveAttribute("open");
+    // Both axes' breakdowns sit in the ONE disclosure.
+    expect(details).toHaveTextContent("политическо рамкиране");
+    expect(details).toHaveTextContent("позиция спрямо Русия");
+    expect(details).toHaveTextContent("news-article-evaluation-v1");
+  });
+
+  it("closes the disclosure when the reader moves to another story", async () => {
+    // ⚠️ <details> keeps native state React never reads back; the page must
+    // flip its own `open` on a story change or the next story inherits it.
+    vi.doMock("../data", async (importOriginal) => ({
+      ...(await importOriginal<typeof import("../data")>()),
+      useStoryDetail: (id: string | null | undefined) => ({
+        data: {
+          generated_at: "",
+          story: { ...story, id: id ?? "", members: [left, right, undated] },
+          related: [],
+        },
+        error: null,
+        loading: false,
+      }),
+      useTaxonomy: () => ({
+        data: { version: 1, categories: [] },
+        error: null,
+        loading: false,
+      }),
+      useOutlets: () => ({
+        data: { generated_at: "", outlets: [] },
+        error: null,
+        loading: false,
+      }),
+    }));
+    const { StoryScreen } = await import("./StoryScreen");
+    const { Link } = await import("react-router-dom");
+    render(
+      <MemoryRouter initialEntries={["/story/first-story"]}>
+        <Link to="/story/second-story">next</Link>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    const details = screen
+      .getByText("Подробности за оценката")
+      .closest("details")!;
+    details.open = true;
+    fireEvent(details, new Event("toggle"));
+    expect(details).toHaveAttribute("open");
+    fireEvent.click(screen.getByText("next"));
+    expect(
+      screen.getByText("Подробности за оценката").closest("details"),
+    ).not.toHaveAttribute("open");
+  });
+
+  it("collapses to one sentence when both axes are complete", async () => {
+    await renderWith([left, right]);
+    expect(screen.getByText("Оценени са и двата материала.")).toBeVisible();
   });
 });
 

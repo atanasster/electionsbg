@@ -43,6 +43,7 @@ import {
 import { emitNewsEvent } from "../analytics";
 import { useNewsLocale } from "../i18n";
 import { axisDivergence, type AxisDivergence } from "../storyDivergence";
+import { articleNoun } from "../plural";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
 type StanceGroup = "pro" | "neutral" | "anti" | "n/a";
@@ -142,6 +143,13 @@ const DivergenceNote = ({
 // completeness strip, which would repeat the sentence under the axis that
 // did NOT collapse. Unassessed articles (no verdict at all) are a different
 // absence and stay on the completeness line as „без стойност".
+// The lower-case axis names the completeness sentence uses („по политическо
+// рамкиране"); the bar titles above the bars are the capitalised long forms.
+const AXIS_LABEL: Record<"leaning" | "russia", { bg: string; en: string }> = {
+  leaning: { bg: "политическо рамкиране", en: "political framing" },
+  russia: { bg: "позиция спрямо Русия", en: "stance toward Russia" },
+};
+
 const OutsideAxisNote = ({
   completeness,
   axis,
@@ -157,9 +165,7 @@ const OutsideAxisNote = ({
   // subject is „N of them"). The actor is deliberately unnamed — the served
   // verdict is the EFFECTIVE one, model resolved against editorial
   // adjudication, so „the model judged" would sometimes be false.
-  const noun = m === 1 ? "материал" : "материала";
   const verb = n === 1 ? "е" : "са";
-  const enNoun = m === 1 ? "article" : "articles";
   const enVerb = n === 1 ? "falls" : "fall";
   return (
     <p
@@ -167,8 +173,8 @@ const OutsideAxisNote = ({
       data-testid={`outside-axis-${axis}`}
     >
       {tr(
-        `${n} от ${m} ${noun} ${verb} извън тази ос — оценката е, че текстът не заема позиция по нея.`,
-        `${n} of ${m} ${enNoun} ${enVerb} outside this axis — the assessment is that the text takes no position on it.`,
+        `${n} от ${m} ${articleNoun(m, "bg")} ${verb} извън тази ос — оценката е, че текстът не заема позиция по нея.`,
+        `${n} of ${m} ${articleNoun(m, "en")} ${enVerb} outside this axis — the assessment is that the text takes no position on it.`,
       )}
     </p>
   );
@@ -196,12 +202,14 @@ export const StoryScreen = () => {
 
   const [leanFilter, setLeanFilter] = useState<LeanGroup | null>(null);
   const [stanceFilter, setStanceFilter] = useState<StanceGroup | null>(null);
+  const [completenessOpen, setCompletenessOpen] = useState(false);
 
   // react-router reuses this element across /story/:id navigations, so a
   // segment selected on one story would silently filter the next one's members.
   useEffect(() => {
     setLeanFilter(null);
     setStanceFilter(null);
+    setCompletenessOpen(false);
   }, [id]);
 
   // ⚠️ ONE STORY, ONE FILE — 1.4 KB against the 1,456 KB corpus this used
@@ -539,7 +547,7 @@ export const StoryScreen = () => {
             />
           </section>
 
-          {/* 3. Interactive analysis with completeness beside every axis. */}
+          {/* 3. Interactive analysis — a bar per axis, ONE completeness strip after both (T5.4). */}
           <section className="space-y-3" aria-labelledby="analysis-heading">
             <div>
               <h2 id="analysis-heading" className="app-section-title">
@@ -571,10 +579,6 @@ export const StoryScreen = () => {
               />
               <DivergenceNote divergence={leanDivergence} axis="leaning" />
               <OutsideAxisNote completeness={leanCompleteness} axis="leaning" />
-              <AggregateCompleteness
-                completeness={leanCompleteness}
-                generatedAt={storyDetail.data?.generated_at}
-              />
             </div>
             <div className="space-y-2">
               <MixBar
@@ -595,11 +599,27 @@ export const StoryScreen = () => {
                 completeness={stanceCompleteness}
                 axis="russia"
               />
-              <AggregateCompleteness
-                completeness={stanceCompleteness}
-                generatedAt={storyDetail.data?.generated_at}
-              />
             </div>
+            {/* T5.4 — ONE completeness strip for both axes; the page owns
+                the disclosure so it cannot be open under one bar and closed
+                under the other. */}
+            <AggregateCompleteness
+              axes={[
+                {
+                  key: "leaning",
+                  label: tr(AXIS_LABEL.leaning.bg, AXIS_LABEL.leaning.en),
+                  completeness: leanCompleteness,
+                },
+                {
+                  key: "russia",
+                  label: tr(AXIS_LABEL.russia.bg, AXIS_LABEL.russia.en),
+                  completeness: stanceCompleteness,
+                },
+              ]}
+              generatedAt={storyDetail.data?.generated_at}
+              open={completenessOpen}
+              onToggle={setCompletenessOpen}
+            />
           </section>
 
           {/* 4. Original links in publication chronology. */}
