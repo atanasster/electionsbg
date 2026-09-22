@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-20",
+  "computedAt": "2026-09-22",
   "thresholds": {
     "basketPids": [
       1,
@@ -32,16 +32,6 @@
     "promoMaxEvents": 3
   },
   "basketMoves": [
-    {
-      "peakDay": "2026-08-20",
-      "startDay": "2026-08-20",
-      "endDay": "2026-08-21",
-      "pctChange": 2.282,
-      "costEur": 15.974,
-      "prevCostEur": 15.617,
-      "cohortCells": 1734,
-      "cohortShare": 0.8395
-    },
     {
       "peakDay": "2026-09-06",
       "startDay": "2026-09-04",
@@ -75,6 +65,26 @@
   ],
   "promotions": [
     {
+      "slug": "yabalki-gala",
+      "title": "ЯБЪЛКИ ГАЛА",
+      "atOrBelowSince": "2026-09-14",
+      "promoEur": 0.89,
+      "regularEur": 1.89,
+      "discountPct": 53,
+      "stores": 196,
+      "chains": 2
+    },
+    {
+      "slug": "ka-cherni-maslini-mamut-101-110-2-5kg",
+      "title": "КА ЧЕРНИ МАСЛИНИ МАМУТ 101-110/2.5КГ",
+      "atOrBelowSince": "2026-09-21",
+      "promoEur": 3.99,
+      "regularEur": 8.23,
+      "discountPct": 52,
+      "stores": 236,
+      "chains": 2
+    },
+    {
       "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
       "atOrBelowSince": "2026-09-17",
@@ -82,26 +92,6 @@
       "regularEur": 1.82,
       "discountPct": 51,
       "stores": 6,
-      "chains": 2
-    },
-    {
-      "slug": "svinska-pleshka-bez-kost",
-      "title": "СВИНСКА ПЛЕШКА БЕЗ КОСТ",
-      "atOrBelowSince": "2026-09-14",
-      "promoEur": 2.99,
-      "regularEur": 6.14,
-      "discountPct": 51,
-      "stores": 74,
-      "chains": 2
-    },
-    {
-      "slug": "kromid-luk",
-      "title": "Кромид Лук",
-      "atOrBelowSince": "2026-09-17",
-      "promoEur": 0.44,
-      "regularEur": 0.87,
-      "discountPct": 49,
-      "stores": 45,
       "chains": 2
     }
   ]

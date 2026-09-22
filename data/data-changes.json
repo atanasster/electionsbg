@@ -1,6 +1,48 @@
 {
-  "updatedAt": "2026-09-21T23:16:58.250Z",
+  "updatedAt": "2026-09-22T23:25:22.356Z",
   "entries": [
+    {
+      "timestamp": "2026-09-22T23:25:22.356Z",
+      "date": "2026-09-22",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: ЦАИС ЕОП +115 договора, 239,358 процедури, TED 220,112 обявления",
+      "source": "ЦАИС ЕОП / TED"
+    },
+    {
+      "timestamp": "2026-09-22T23:12:14.392Z",
+      "date": "2026-09-22",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 948 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-22T22:00:22.236Z",
+      "date": "2026-09-22",
+      "skill": "update-open-calls",
+      "summary": "ИСУН: 58 отворени процедури (1 затворена от последното обновяване)",
+      "source": "ИСУН 2020 — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-22T21:58:09.593Z",
+      "date": "2026-09-22",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-22 (+2 daily archives; 1,076,628 store rows, 166 settlements, 73 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-22"
+    },
+    {
+      "timestamp": "2026-09-22T21:50:44.638Z",
+      "date": "2026-09-22",
+      "skill": "update-macro",
+      "summary": "Eurostat 2026 Q2 across the quarterly series; peers + WGI refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-21T23:16:58.250Z",
       "date": "2026-09-21",
