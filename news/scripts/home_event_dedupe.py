@@ -3,6 +3,39 @@
 This does not rewrite canonical story membership. It suppresses only pairs
 with strong deterministic evidence and emits every decision as a merge
 proposal for later editorial review.
+
+⚠️ TWO MODES, ONE FUNCTION, AND ONLY ONE OF THEM MAY JOIN ANYTHING.
+`same_event_evidence(left, right)` is the STRICT rule — the three vetoes
+(exact topic tuple, disjoint places, disjoint title digits), the 48 h
+horizon and the three positive classes, byte-for-byte what `auto_merge_host`
+and the home briefing have always run. `mode="review"` (plan T2.1) is the
+RELAXED reading that the plan's own safety posture confines to the review
+channel: it never joins, it only proposes, and every relaxation it used is
+NAMED in the evidence so a reviewer sees which strict veto the pair would
+have failed. Its thresholds are versioned (`REVIEW_RULE_VERSION`), because
+T2.3 promotes „the exact evaluated rule/version" or nothing.
+
+What review mode relaxes, and what it keeps:
+
+- TOPIC: the strict rule vetoes on the (category, subcategory) TUPLE, so
+  `judiciary/vss` and `judiciary/high-profile-cases` can never join. Review
+  mode records `topic_agreement` ∈ {exact, category, none}; a category-level
+  match is a positive signal, a cross-category pair is allowed through but
+  flagged — the plan forbids promoting cross-category joins before the
+  held-out precision gate, and this is where they are measured.
+- PLACES: a singleton {София} against {Петрохан} can be the court venue and
+  the incident scene of ONE development. Review mode vetoes only the hard
+  negative — two `local-news` stories in DIFFERENT places (distinct councils
+  meeting separately) — and otherwise records `place_conflict`.
+- NUMBERS: bare digits are not quantities. Review mode vetoes only two
+  DIFFERENT four-digit YEARS in the titles (different elections, different
+  budgets); other disagreeing digits are recorded as `number_disagreement`,
+  because an evolving casualty count is what the comparison should show.
+- LEDE: a fourth positive class, `lede_backed` — shared entity plus lede
+  token overlap — read from `lede_bg` when a caller supplies it. Stories
+  without a lede fall back to the three title classes unchanged.
+
+⚠️ The 48 h horizon is NOT relaxed in either mode.
 """
 
 from __future__ import annotations
@@ -29,6 +62,19 @@ GENERIC_ENTITIES = frozenset({
 })
 MAX_EVENT_GAP_HOURS = 48
 REVIEW_STATUSES = frozenset({"pending", "accepted", "rejected"})
+REVIEW_RULE_VERSION = "review-v1"
+YEAR_RE = re.compile(r"^(19|20)\d\d$")
+LOCAL_NEWS = "local-news"
+LEDE_MIN_OVERLAP = 0.35
+# ONE definition of „the lede": the first LEDE_CHARS of the text, in the
+# retrieval channel (`analyze_articles.candidate_stories`) and in the review
+# class below alike — a reviewer reading `lede` in `channels` and `lede` in
+# `relaxations` is reading the same text.
+LEDE_CHARS = 400
+# Every relaxation the review mode can name. The counterfactual report
+# buckets on this list; a kind added here and not there zeroes a bucket,
+# which `test_home_event_dedupe.ReviewMode` pins.
+RELAXATION_KINDS = ("topic:category", "topic:none", "places:disjoint", "numbers:disjoint", "lede")
 
 
 def _tokens(story: dict) -> set[str]:
@@ -82,8 +128,22 @@ def _numbers(story: dict) -> set[str]:
     return {token for token in TOKEN_RE.findall(title) if token.isascii() and token.isdigit()}
 
 
-def same_event_evidence(left: dict, right: dict) -> dict | None:
-    """Return auditable evidence only for a high-confidence same-event pair."""
+def _lede_tokens(story: dict) -> set[str]:
+    text = (story.get("lede_bg") or "")[:LEDE_CHARS]
+    return {
+        token.casefold() for token in TOKEN_RE.findall(text)
+        if len(token) >= 3 and token.casefold() not in STOPWORDS
+    }
+
+
+def same_event_evidence(left: dict, right: dict, *, mode: str = "strict") -> dict | None:
+    """Return auditable evidence only for a high-confidence same-event pair.
+
+    `mode="strict"` is the join rule. `mode="review"` is the relaxed reading
+    for proposals only — see the module header for what it relaxes."""
+    if mode not in ("strict", "review"):
+        raise ValueError(f"unknown same_event_evidence mode {mode!r}")
+    review = mode == "review"
     left_at = _instant(left.get("last_published"))
     right_at = _instant(right.get("last_published"))
     if left_at is None or right_at is None:
@@ -92,16 +152,43 @@ def same_event_evidence(left: dict, right: dict) -> dict | None:
     if gap_hours > MAX_EVENT_GAP_HOURS:
         return None
 
+    relaxations: list[str] = []
     left_topic, right_topic = _primary_topic(left), _primary_topic(right)
-    if left_topic and right_topic and left_topic != right_topic:
-        return None
+    topic_agreement = None
+    if left_topic and right_topic:
+        if left_topic == right_topic:
+            topic_agreement = "exact"
+        elif left_topic[0] == right_topic[0]:
+            topic_agreement = "category"
+        else:
+            topic_agreement = "none"
+        if topic_agreement != "exact":
+            if not review:
+                return None
+            relaxations.append(f"topic:{topic_agreement}")
 
     left_places, right_places = _places(left), _places(right)
-    if left_places and right_places and left_places.isdisjoint(right_places):
-        return None
+    place_conflict = bool(left_places and right_places and left_places.isdisjoint(right_places))
+    if place_conflict:
+        if not review:
+            return None
+        # The hard negative survives review: two local stories in two places
+        # are two councils, not one development seen from two venues.
+        if (left_topic and right_topic
+                and left_topic[0] == LOCAL_NEWS and right_topic[0] == LOCAL_NEWS):
+            return None
+        relaxations.append("places:disjoint")
     left_numbers, right_numbers = _numbers(left), _numbers(right)
-    if left_numbers and right_numbers and left_numbers.isdisjoint(right_numbers):
-        return None
+    number_disagreement = bool(left_numbers and right_numbers and left_numbers.isdisjoint(right_numbers))
+    if number_disagreement:
+        if not review:
+            return None
+        left_years = {n for n in left_numbers if YEAR_RE.match(n)}
+        right_years = {n for n in right_numbers if YEAR_RE.match(n)}
+        # Two different years name two different elections or budgets.
+        if left_years and right_years and left_years.isdisjoint(right_years):
+            return None
+        relaxations.append("numbers:disjoint")
 
     left_tokens, right_tokens = _tokens(left), _tokens(right)
     shared_tokens = sorted(left_tokens & right_tokens)
@@ -114,9 +201,19 @@ def same_event_evidence(left: dict, right: dict) -> dict | None:
         len(shared_entities) >= 2 and len(shared_tokens) >= 3 and overlap >= 0.35
     )
     near_duplicate_title = len(shared_tokens) >= 5 and overlap >= 0.82
-    if not (entity_backed or multi_entity_backed or near_duplicate_title):
+    lede_overlap = None
+    lede_backed = False
+    if review:
+        left_lede, right_lede = _lede_tokens(left), _lede_tokens(right)
+        if left_lede and right_lede:
+            lede_union = left_lede | right_lede
+            lede_overlap = round(len(left_lede & right_lede) / len(lede_union), 3)
+            lede_backed = bool(shared_entities) and len(shared_tokens) >= 2 and lede_overlap >= LEDE_MIN_OVERLAP
+    if not (entity_backed or multi_entity_backed or near_duplicate_title or lede_backed):
         return None
-    return {
+    if lede_backed and not (entity_backed or multi_entity_backed or near_duplicate_title):
+        relaxations.append("lede")
+    evidence = {
         "shared_title_tokens": shared_tokens,
         "shared_entities": shared_entities,
         "shared_places": sorted(left_places & right_places),
@@ -124,6 +221,17 @@ def same_event_evidence(left: dict, right: dict) -> dict | None:
         "published_gap_hours": round(gap_hours, 2),
         "topic": list(left_topic or right_topic) if left_topic or right_topic else None,
     }
+    if review:
+        evidence.update({
+            "mode": "review",
+            "rule_version": REVIEW_RULE_VERSION,
+            "relaxations": relaxations,
+            "topic_agreement": topic_agreement,
+            "place_conflict": place_conflict,
+            "number_disagreement": number_disagreement,
+            "lede_jaccard": lede_overlap,
+        })
+    return evidence
 
 
 def rejected_story_pairs(queue: dict | None) -> set[frozenset[str]]:

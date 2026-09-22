@@ -580,6 +580,7 @@ def build_universe(*, data_dir: Path, analysis_dir: Path, since: date, until: da
             "strong_candidate": f">= {STRONG_MIN_SHARED_TITLE_TOKENS} shared title tokens with the candidate story",
             "cross_outlet": "the article's domain is not among the candidate story's members published BEFORE the article",
             "candidate_population": "candidate_stories() over the frozen index restricted to stories with a member published before the article, excluding its own story",
+            "candidate_retrieval_version": aa.CANDIDATE_RETRIEVAL_VERSION,
             "candidate_arms": {"analysis_side": "canonical_title_bg + summary_bg (auto_merge_host's inputs, the 2026-09-02 conditions)",
                                "raw": "raw article title + full body"},
             "strata_basis": "article strata counted over the raw window AND the publishable subset; same_person is a PAIR stratum (weak title overlap, a person the article names among the entity hits)",

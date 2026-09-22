@@ -239,6 +239,10 @@ def save(batch: list, stats: dict) -> bool:
     # setdefault, not [..]: `save` is called with ad-hoc stats dicts (the
     # tests build their own), and a new key must not become a precondition.
     stats.setdefault("auto_merged", []).extend(out.get("auto_merged") or [])
+    # The T2.1 review channel's output, and its failures — a run that
+    # produced proposals nobody can see is a run that measured nothing.
+    stats.setdefault("join_proposals", []).extend(out.get("join_proposals") or [])
+    stats.setdefault("join_proposal_errors", []).extend(out.get("join_proposal_errors") or [])
     if out.get("mentions_unverified"):
         stats["mentions_unverified"] = out["mentions_unverified"]
     # A non-zero exit with no `failed` list means the save never ran — a
@@ -264,6 +268,8 @@ def merge_save_stats(target: dict, source: dict) -> None:
     # Follows the same retry policy as the rest: an attempt whose stats are
     # discarded must not leave its joins in the report.
     target.setdefault("auto_merged", []).extend(source.get("auto_merged") or [])
+    target.setdefault("join_proposals", []).extend(source.get("join_proposals") or [])
+    target.setdefault("join_proposal_errors", []).extend(source.get("join_proposal_errors") or [])
     if source.get("mentions_unverified"):
         target["mentions_unverified"] = source["mentions_unverified"]
 
@@ -955,7 +961,7 @@ def main() -> int:
              "schema_retry_succeeded": 0,
              "triage_model": args.triage_model,
              "triage_accepted": 0, "paid_fallback": 0,
-             "auto_merged": []}
+             "auto_merged": [], "join_proposals": [], "join_proposal_errors": []}
     started = time.monotonic()
     deadline_at = started + args.deadline if args.deadline > 0 else None
     stats.update(parse_retry_attempted=0, parse_retry_succeeded=0,

@@ -1951,6 +1951,37 @@ class AutoMergeThroughTheSavePath(FixtureTestCase):
         out = json.loads(proc.stdout)
         self.assertEqual(out["auto_merged"], [])
         self.assertEqual(len(out["stories_created"]), 1)
+        # ⚠️ THE KILL SWITCH DOES NOT BLIND THE REVIEWER: the strict pair the
+        # join refused is proposed, with no relaxation, in the sidecar.
+        self.assertEqual([j["relaxations"] for j in out["join_proposals"]], [[]])
+        with open(os.path.join(self.root, "news", "review", "article_join_proposals.json"),
+                  encoding="utf-8") as fh:
+            sidecar = json.load(fh)
+        self.assertEqual(sidecar["counts"]["pending"], 1)
+        self.assertEqual(sidecar["items"][0]["evidence"]["mode"], "review")
+
+    def test_a_broken_proposals_sidecar_never_fails_the_save(self):
+        # ⚠️ THE MUTATION THIS CATCHES: `record_join_proposals` raising inside
+        # the save path — the channel that proposes would block the join path
+        # on the first hand-edit that broke the file.
+        self.save(self._analysis("a2"))
+        sidecar = os.path.join(self.root, "news", "review", "article_join_proposals.json")
+        os.makedirs(os.path.dirname(sidecar), exist_ok=True)
+        with open(sidecar, "w", encoding="utf-8") as fh:
+            fh.write('{"version": 1, "items": [')
+        proc = subprocess.run(
+            [sys.executable, SCRIPT, "--save-batch", "-"],
+            capture_output=True, text=True, timeout=60,
+            env={**os.environ, "DATA_BG_ROOT": self.root, "NEWS_AUTO_MERGE": "0"},
+            input=json.dumps([self._analysis("a3")], ensure_ascii=False))
+        out = json.loads(proc.stdout)
+        self.assertEqual(proc.returncode, 0, out)
+        self.assertEqual(out["failed"], [])
+        self.assertEqual(len(out["stories_created"]), 1)
+        self.assertEqual(len(out["join_proposal_errors"]), 1)
+        self.assertIn("not valid JSON", out["join_proposal_errors"][0]["error"])
+        with open(sidecar, encoding="utf-8") as fh:
+            self.assertEqual(fh.read(), '{"version": 1, "items": [')
 
 
 if __name__ == "__main__":

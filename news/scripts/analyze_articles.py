@@ -12,10 +12,10 @@ everything deterministic around that:
                     flagged suspect_too_short for the quality gate.
   work item    --candidates <article-path>
                     The article's core fields plus the top candidate stories
-                    (prefilter: title-token overlap, case-insensitive entity
-                    mentions over title+description+keywords+content with
-                    word boundaries, weighted by entity type and capped,
-                    date proximity) for the LLM's same_story/new_story
+                    (prefilter: a UNION of five channels — title tokens,
+                    uncapped entity mentions, the T3.3 case registry,
+                    place + date window, the lede — see "candidate
+                    retrieval" below) for the LLM's same_story/new_story
                     decision. Empty candidate list on the first run — that
                     is normal.
   save         --save-analysis <file.json|->     (one analysis object)
@@ -79,14 +79,14 @@ import json
 import os
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 # resolve_mentions is a sibling module, and this script is run by path.
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from review_routing import record_review  # noqa: E402
-from home_event_dedupe import same_event_evidence  # noqa: E402
+from home_event_dedupe import LEDE_CHARS, same_event_evidence  # noqa: E402
 
 REPO_ROOT = os.environ.get("DATA_BG_ROOT") or os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -268,7 +268,7 @@ INDEX_ENTITY_PREVIEW = 20  # index entries stay small; story files keep ENTITY_C
 # one generic place ("Япония") + a same-day date cleared the bar and surfaced
 # topically unrelated stories (measured on the pilot index).
 ENTITY_BUCKET_WEIGHTS = {"people": 2, "parties": 2, "institutions": 1, "companies": 1, "places": 1}
-ENTITY_CONTRIBUTION_CAP = 3  # max weighted points, so entity mentions alone can't crowd the top-6
+ENTITY_CONTRIBUTION_CAP = 3  # caps the COMPOSITE (presentation / tiebreak) only; the entity CHANNEL is uncapped — see "candidate retrieval"
 # Names too generic to mean "same event" at all — skipped by the entity
 # channel (title tokens still carry topical similarity). Compared lowercased.
 GENERIC_ENTITY_NAMES = {
@@ -726,7 +726,7 @@ def member_from(existing: dict, analysis: dict) -> dict:
 
 # --------------------------------------------------------------- story ids ---
 
-def auto_merge_host(a: dict, index: dict) -> tuple[str, dict] | None:
+def auto_merge_host(a: dict, index: dict, candidates: list | None = None) -> tuple[str, dict] | None:
     """The existing story this NEW analysis joins, with its evidence.
 
     ⚠️ THIS IS NOT THE DESTRUCTIVE MERGE THE PIPELINE REFUSED TO AUTOMATE, and
@@ -757,48 +757,202 @@ def auto_merge_host(a: dict, index: dict) -> tuple[str, dict] | None:
     """
     if os.environ.get("NEWS_AUTO_MERGE", "1") == "0":
         return None
-    # ⚠️ AN ANALYSIS RECORD IS NOT AN ARTICLE RECORD. It carries no `title`,
-    # `description`, `keywords` or `content` — the headline lives in
-    # `story.canonical_title_bg` and the text in `summary_bg`. Reading the
-    # article field names here returns None for every one of them, which does
-    # not fail: `candidate_stories` simply matches on empty strings and the
-    # rule scores 0. Measured over 300 recent analyses, the first cut of this
-    # function joined 0 of them and looked exactly like "no duplicates today".
+    probe, incoming = analysis_probe(a)
+    if probe is None:
+        return None
+    if candidates is None:
+        candidates = candidate_stories(index, probe)
+    best: tuple[str, dict] | None = None
+    for candidate in candidates:
+        story = load_story(candidate["story_id"])
+        if not story:
+            continue
+        evidence = same_event_evidence(incoming, story_rule_view(story))
+        if evidence is None:
+            continue
+        if best is None or evidence["title_jaccard"] > best[1]["title_jaccard"]:
+            best = (candidate["story_id"], evidence)
+    return best
+
+
+def analysis_probe(a: dict) -> tuple:
+    """The ONE way an ANALYSIS record is turned into (retrieval probe,
+    rule view). Built here once, read by `auto_merge_host`,
+    `review_join_candidates` and the T2.1 counterfactual harness — a
+    harness reproducing the probe by hand is how a counterfactual drifts
+    from the pipeline it claims to measure.
+
+    ⚠️ AN ANALYSIS RECORD IS NOT AN ARTICLE RECORD. It carries no `title`,
+    `description`, `keywords` or `content` — the headline lives in
+    `story.canonical_title_bg` and the text in `summary_bg`. Reading the
+    article field names here returns None for every one of them, which does
+    not fail: `candidate_stories` simply matches on empty strings and the
+    rule scores 0. Measured over 300 recent analyses, the first cut of
+    `auto_merge_host` joined 0 of them and looked exactly like "no
+    duplicates today".
+
+    ⚠️ THE SUMMARY REACHES RETRIEVAL AS THE LEDE, NOT AS THE DESCRIPTION.
+    Passing it as `description` folded it into the `title` channel's token
+    set, so the `lede` channel was a subset of `title` and two of the six
+    slots went to one signal (measured: `title 128 / lede 128` hits on the
+    frozen universe). Returns (None, None) when the record has no headline.
+    """
     block = a.get("story") or {}
     title = (block.get("canonical_title_bg") or a.get("summary_bg") or "").strip()
     if not title:
-        return None
+        return None, None
     summary = a.get("summary_bg") or ""
-    candidates = candidate_stories(index, {
-        "title": title, "description": summary, "keywords": "",
-        "content": summary, "published": a.get("published"),
-    })
-    if not candidates:
-        return None
+    probe = {"title": title, "description": "", "keywords": "",
+             "content": summary, "published": a.get("published")}
     incoming = {
         "title_bg": title,
         "title_en": block.get("canonical_title_en") or a.get("summary_en") or "",
         "entities": a.get("entities") or {},
         "topics": a.get("topics") or [],
         "last_published": a.get("published"),
+        "lede_bg": summary,
     }
-    best: tuple[str, dict] | None = None
+    return probe, incoming
+
+
+def story_rule_view(story: dict) -> dict:
+    """A STORY file as the same-event rule reads it."""
+    return {
+        "title_bg": story.get("canonical_title_bg"),
+        "title_en": story.get("canonical_title_en"),
+        "entities": story.get("entities"),
+        "topics": story.get("topics"),
+        "last_published": story.get("last_published"),
+        "lede_bg": story.get("summary_bg") or "",
+    }
+
+
+JOIN_PROPOSALS_PATH = os.path.join(REPO_ROOT, "news", "review", "article_join_proposals.json")
+JOIN_PROPOSAL_RETENTION_DAYS = 30
+
+
+def review_join_candidates(a: dict, index: dict, candidates: list | None = None) -> list:
+    """Plan T2.1 — the REVIEW channel: the union candidates this new
+    analysis did NOT join under the strict rule, re-read with
+    `same_event_evidence(mode="review")`. Returns proposals, never joins.
+
+    ⚠️ IT RUNS REGARDLESS OF `NEWS_AUTO_MERGE`. The kill switch disables
+    the automatic JOIN; a proposal changes no story, so switching the join
+    off must not also blind the reviewer — the whole point of the review
+    channel is to measure what the strict rule refuses.
+    """
+    probe, incoming = analysis_probe(a)
+    if probe is None:
+        return []
+    if candidates is None:
+        candidates = candidate_stories(index, probe)
+    out = []
     for candidate in candidates:
         story = load_story(candidate["story_id"])
         if not story:
             continue
-        evidence = same_event_evidence(incoming, {
-            "title_bg": story.get("canonical_title_bg"),
-            "title_en": story.get("canonical_title_en"),
-            "entities": story.get("entities"),
-            "topics": story.get("topics"),
-            "last_published": story.get("last_published"),
-        })
+        evidence = same_event_evidence(incoming, story_rule_view(story), mode="review")
         if evidence is None:
             continue
-        if best is None or evidence["title_jaccard"] > best[1]["title_jaccard"]:
-            best = (candidate["story_id"], evidence)
-    return best
+        out.append({
+            "story_id": candidate["story_id"],
+            "story_title_bg": story.get("canonical_title_bg"),
+            "story_last_published": story.get("last_published"),
+            "story_topics": story.get("topics") or [],
+            "channels": candidate.get("channels") or [],
+            "evidence": evidence,
+        })
+    return out
+
+
+def _join_proposal_id(url: str, story_id: str) -> str:
+    return "article-join-" + hashlib.sha256(f"{url}\0{story_id}".encode("utf-8")).hexdigest()[:16]
+
+
+def record_join_proposals(batch: list, generated_at: str,
+                          path: str = JOIN_PROPOSALS_PATH) -> dict:
+    """Upsert a BATCH of `(analysis, proposals)` into the durable sidecar,
+    once per `cmd_save` — not once per article, which rewrote and fsynced
+    the whole file for every record.
+
+    ⚠️ ONE WRITER AT A TIME — the index's rule applies. The read-modify-
+    write is atomic per WRITE (temp file + rename) and serialised across
+    processes by an `flock` on `<path>.lock`, because `first_seen` is
+    exactly the field a lost update would falsify.
+
+    ⚠️ IT NEVER FAILS A SAVE. The caller isolates it (`stats.
+    join_proposal_errors`), and a sidecar that cannot be PARSED — a human
+    edits this file — is left untouched and reported rather than replaced:
+    the review channel proposes, it does not get to destroy its own queue.
+
+    A proposal keeps its `status` and `first_seen` across runs; one that no
+    longer fires is left in place with `active: false` (T2.2 reconciles this
+    file into `story_merge_queue.json` and applies decisions), and an
+    inactive, decided item is retired after JOIN_PROPOSAL_RETENTION_DAYS so
+    the file cannot grow without bound. Proposals with an EMPTY relaxation
+    list are strict-rule pairs the join stage could not reach — the join
+    switched off, or retrieval having missed them.
+    """
+    import fcntl  # noqa: PLC0415
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path + ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        try:
+            raw = load_json_if_exists(path)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"{path} is not valid JSON ({exc}); left untouched") from exc
+        previous = raw if isinstance(raw, dict) else {"version": 1, "items": []}
+        items = {}
+        for item in previous.get("items") or []:
+            if isinstance(item, dict) and isinstance(item.get("id"), str):
+                items[item["id"]] = {"status": "pending", "active": False, "first_seen": generated_at,
+                                     "last_seen": generated_at, "article": {}, **item}
+        cutoff = _days_before(generated_at, JOIN_PROPOSAL_RETENTION_DAYS)
+        for a, proposals in batch:
+            url = a.get("url") or ""
+            if not url:
+                continue
+            mine = {_join_proposal_id(url, p["story_id"]) for p in proposals}
+            for item in items.values():
+                if (item.get("article") or {}).get("url") == url and item["id"] not in mine:
+                    item["active"] = False
+            for p in proposals:
+                pid = _join_proposal_id(url, p["story_id"])
+                prior = items.get(pid, {})
+                items[pid] = {
+                    "id": pid,
+                    "status": prior.get("status", "pending"),
+                    "active": True,
+                    "first_seen": prior.get("first_seen", generated_at),
+                    "last_seen": generated_at,
+                    "article": {"url": url, "domain": a.get("domain"), "article_path": a.get("article_path"),
+                                "published": a.get("published"),
+                                "title_bg": (a.get("story") or {}).get("canonical_title_bg")},
+                    "candidate": {"story_id": p["story_id"], "title_bg": p["story_title_bg"],
+                                  "last_published": p["story_last_published"], "topics": p["story_topics"]},
+                    "channels": p["channels"],
+                    "evidence": p["evidence"],
+                }
+        kept = [i for i in items.values()
+                if i["active"] or i["status"] == "pending" or (i.get("last_seen") or "") >= cutoff]
+        ordered = sorted(kept, key=lambda i: (not i["active"], i["status"] != "pending", i["id"]))
+        doc = {
+            "version": 1,
+            "generated_at": generated_at,
+            "counts": {"total": len(ordered), "active": sum(i["active"] for i in ordered),
+                       "pending": sum(i["status"] == "pending" and i["active"] for i in ordered),
+                       "retired": len(items) - len(kept)},
+            "items": ordered,
+        }
+        write_json_atomic(path, doc)
+    return doc
+
+
+def _days_before(iso: str, days: int) -> str:
+    try:
+        return (datetime.fromisoformat(iso) - timedelta(days=days)).isoformat()
+    except ValueError:
+        return ""
 
 
 def make_story_id(published: str | None, title_bg: str, url: str) -> str:
@@ -834,25 +988,100 @@ def entity_in_text(name: str, haystack: str) -> bool:
         hay) is not None
 
 
+# ─── candidate retrieval (plan T2.1: a UNION of channels) ────────────────────
+#
+# ⚠️ THE OLD RANKING WAS TITLE-DOMINATED BEFORE ANY VETO WAS REACHED. It
+# scored every story `3 × |shared title tokens| + min(entity_points, 3) +
+# date_score(≤ 2)`, kept `score ≥ 3` and returned the top six — one title
+# token was worth 3 points while ALL entity evidence together was capped at
+# 3, so a running affair's ~113 stories competed for six slots on headline
+# words alone and the correct host could lose to near-duplicates of itself
+# (plan §15.2). The composite score is KEPT (every consumer reads it, and
+# it is still the tiebreak), but the SLOTS are no longer awarded by it.
+#
+# Retrieval now runs five independent channels, ranks each on its own
+# evidence and fills the slots round-robin from their tops, so a story that
+# only the entity channel, the case channel or the place+time channel can
+# see gets a slot beside the headline matches instead of behind them:
+#
+#   title       shared title/description/keyword tokens (the old signal)
+#   entities    weighted, UNCAPPED entity hits in the article text
+#   case        the article and the story name the same registered affair
+#               (T3.3 registry — the story TITLE carries a required term)
+#   place_time  a shared non-generic place AND the story's date window
+#   lede        the article's LEDE tokens against the story title — the
+#               body as primary evidence, not only the headline
+#
+# Every candidate carries `channels` (which saw it) and `channel_scores`,
+# so a reviewer and the T2.0 evaluation harness can attribute a hit. The
+# `MIN_CANDIDATE_SCORE` floor applies per signal — the composite, or any
+# one channel on its own — so date proximity alone still never surfaces a
+# candidate (`place_time` scores 0 without a place hit).
+CANDIDATE_CHANNELS = ("title", "entities", "case", "place_time", "lede")
+CANDIDATE_RETRIEVAL_VERSION = "union-v1"   # "composite-v0" was the title-dominated top-six
+_CASE_TERMS: dict | None = None
+
+
+def _case_required_terms() -> dict:
+    """slug → required terms, read once from the T3.3 registry (a missing
+    registry disables the channel rather than failing retrieval)."""
+    global _CASE_TERMS
+    if _CASE_TERMS is None:
+        _CASE_TERMS = {}
+        try:
+            for case in _case_registry().load_cases(Path(REPO_ROOT) / "news" / "config" / "cases.json"):
+                _CASE_TERMS[case["slug"]] = list(case["rule"]["required_terms"])
+        except (OSError, ValueError, ImportError):
+            _CASE_TERMS = {}
+    return _CASE_TERMS
+
+
+def _case_registry():
+    import cases as case_registry  # noqa: PLC0415
+    return case_registry
+
+
+def _case_term_in(term: str, folded: str) -> bool:
+    """⚠️ THE REGISTRY'S CONTRACT, NOT `entity_in_text`. A registry term is a
+    STEM that must START a word and may continue it („помилв" reaches
+    „помилването"); `entity_in_text` demands a boundary on BOTH sides and
+    saw 0 of the 42 articles the registry matched for `narco-pardon`."""
+    return _case_registry().has_term(term, folded)
+
+
+def _reset_case_terms_cache() -> None:
+    global _CASE_TERMS
+    _CASE_TERMS = None
+
+
 def candidate_stories(index: dict, article: dict, limit: int = MAX_CANDIDATES):
     art_tokens = tokens(" ".join([
         article.get("title") or "",
         article.get("description") or "",
         article.get("keywords") or "",
     ]))
+    content = article.get("content") or ""
+    lede_tokens = tokens(content[:LEDE_CHARS])
     art_haystack = " ".join([
         (article.get("title") or "").lower(),
         (article.get("description") or "").lower(),
         (article.get("keywords") or "").lower(),
-        (article.get("content") or "").lower(),
+        content.lower(),
     ])
+    case_terms = _case_required_terms()
+    folded_article = " ".join(art_haystack.split())
+    article_cases = {slug for slug, terms in case_terms.items()
+                     if any(_case_term_in(t, folded_article) for t in terms)}
     pub = parse_iso((article.get("published") or "")[:10]) if article.get("published") else None
-    scored = []
+    scored = {}
     for sid, entry in index.get("stories", {}).items():
-        st_tokens = tokens((entry.get("title_bg") or "") + " " + (entry.get("title_en") or ""))
+        story_title = (entry.get("title_bg") or "") + " " + (entry.get("title_en") or "")
+        st_tokens = tokens(story_title)
         shared = sorted(art_tokens & st_tokens)
+        lede_shared = sorted(lede_tokens & st_tokens)
         ent_hits = []
         ent_points = 0
+        place_hits = []
         for k, weight in ENTITY_BUCKET_WEIGHTS.items():
             for name in entry.get("entities", {}).get(k, []):
                 if name.lower() in GENERIC_ENTITY_NAMES:
@@ -860,7 +1089,8 @@ def candidate_stories(index: dict, article: dict, limit: int = MAX_CANDIDATES):
                 if entity_in_text(name, art_haystack):
                     ent_hits.append(name)
                     ent_points += weight
-        ent_points = min(ent_points, ENTITY_CONTRIBUTION_CAP)
+                    if k == "places":
+                        place_hits.append(name)
         date_score = 0
         if pub is not None:
             first = parse_iso((entry.get("first_published") or "")[:10])
@@ -870,22 +1100,69 @@ def candidate_stories(index: dict, article: dict, limit: int = MAX_CANDIDATES):
                     date_score = 2
                 elif min(abs((pub - first).days), abs((pub - last).days)) <= 7:
                     date_score = 1
-        score = 3 * len(shared) + ent_points + date_score
-        if score >= MIN_CANDIDATE_SCORE:
-            scored.append({
-                "story_id": sid,
-                "title_bg": entry.get("title_bg"),
-                "title_en": entry.get("title_en"),
-                "member_count": entry.get("member_count"),
-                "first_published": entry.get("first_published"),
-                "last_published": entry.get("last_published"),
-                "topics": entry.get("topics"),
-                "score": score,
-                "shared_title_tokens": shared,
-                "entity_hits": ent_hits,
-            })
-    scored.sort(key=lambda c: -c["score"])
-    return scored[:limit]
+        story_title_l = " ".join(story_title.lower().split())
+        case_hits = sorted(slug for slug in article_cases
+                           if any(_case_term_in(t, story_title_l) for t in case_terms[slug]))
+        channel_scores = {
+            "title": 3 * len(shared),
+            "entities": ent_points,
+            "case": 3 * len(case_hits),
+            "place_time": (2 * len(place_hits) + date_score) if (place_hits and date_score) else 0,
+            "lede": 2 * len(lede_shared),
+        }
+        score = 3 * len(shared) + min(ent_points, ENTITY_CONTRIBUTION_CAP) + date_score
+        # The floor is per SIGNAL: the composite (as before) OR any one
+        # channel clearing it on its own. Date proximity alone still cannot —
+        # `place_time` needs a place hit to score at all.
+        if score < MIN_CANDIDATE_SCORE and max(channel_scores.values()) < MIN_CANDIDATE_SCORE:
+            continue
+        scored[sid] = {
+            "story_id": sid,
+            "title_bg": entry.get("title_bg"),
+            "title_en": entry.get("title_en"),
+            "member_count": entry.get("member_count"),
+            "first_published": entry.get("first_published"),
+            "last_published": entry.get("last_published"),
+            "topics": entry.get("topics"),
+            "score": score,
+            "shared_title_tokens": shared,
+            "entity_hits": ent_hits,
+            "case_hits": case_hits,
+            "shared_lede_tokens": lede_shared,
+            "channel_scores": channel_scores,
+            "channels": [],
+        }
+    # Round-robin over the channels' own rankings: each channel's best
+    # unseen candidate takes the next slot, so no single signal owns them.
+    rankings = {
+        ch: sorted((c for c in scored.values() if c["channel_scores"][ch] > 0),
+                   key=lambda c: (-c["channel_scores"][ch], -c["score"], c["story_id"]))
+        for ch in CANDIDATE_CHANNELS
+    }
+    for c in scored.values():
+        c["channels"] = [ch for ch in CANDIDATE_CHANNELS if c["channel_scores"][ch] > 0]
+    picked: list = []
+    seen = set()
+    cursors = {ch: 0 for ch in CANDIDATE_CHANNELS}
+    while len(picked) < limit:
+        progressed = False
+        for ch in CANDIDATE_CHANNELS:
+            ranking = rankings[ch]
+            while cursors[ch] < len(ranking) and ranking[cursors[ch]]["story_id"] in seen:
+                cursors[ch] += 1
+            if cursors[ch] < len(ranking):
+                c = ranking[cursors[ch]]
+                seen.add(c["story_id"])
+                picked.append(c)
+                cursors[ch] += 1
+                progressed = True
+                if len(picked) >= limit:
+                    break
+        if not progressed:
+            break
+    # Presented in composite order, as before — the SET is what changed.
+    picked.sort(key=lambda c: (-c["score"], c["story_id"]))
+    return picked
 
 
 # --------------------------------------------------------------- validation ---
@@ -1996,7 +2273,25 @@ def save_one(a: dict, tax, cats: dict, index: dict, stats: dict) -> list:
     if a["story"]["action"] == "new_story":
         # Only in this direction: a declared `same_story` is somebody's
         # explicit decision and is never second-guessed here.
-        host = auto_merge_host(a, index)
+        probe, _incoming = analysis_probe(a)
+        candidates = candidate_stories(index, probe) if probe else []
+        host = auto_merge_host(a, index, candidates)
+        if host is None:
+            # The review channel (T2.1): what the strict rule refused, read
+            # with the relaxed rule and RECORDED — never applied. Collected
+            # here, written once per batch by `cmd_save`, and never allowed
+            # to fail the save.
+            try:
+                proposals = review_join_candidates(a, index, candidates)
+            except Exception as exc:  # the channel proposes; it must not block the join path
+                proposals = []
+                stats.setdefault("join_proposal_errors", []).append(
+                    {"url": a.get("url"), "error": f"{type(exc).__name__}: {exc}"})
+            if proposals:
+                stats.setdefault("_pending_proposals", []).append((a, proposals))
+                stats.setdefault("join_proposals", []).append(
+                    {"url": a.get("url"), "count": len(proposals),
+                     "relaxations": sorted({r for p in proposals for r in p["evidence"]["relaxations"]})})
         if host is not None:
             host_id, evidence = host
             a["story"] = {
@@ -2125,7 +2420,8 @@ def cmd_save(args) -> int:
         return emit(3, error="expected object (or array of objects)", got=type(payload).__name__)
 
     stats = {"saved": [], "failed": [], "stories_created": [], "stories_updated": [],
-             "stories_deleted": [], "auto_merged": []}
+             "stories_deleted": [], "auto_merged": [], "join_proposals": [],
+             "join_proposal_errors": []}
     for a in records:
         try:
             errs = save_one(a, tax, cats, index, stats)
@@ -2136,6 +2432,15 @@ def cmd_save(args) -> int:
         # flush after every record: a crash loses at most the record in flight
         index["updated_at"] = now_iso()
         write_json_atomic(INDEX_PATH, index)
+
+    pending = stats.pop("_pending_proposals", [])
+    if pending:
+        try:
+            record_join_proposals(pending, now_iso())
+        except Exception as exc:  # reported, never a failed save
+            stats.setdefault("join_proposal_errors", []).append(
+                {"url": None, "error": f"{type(exc).__name__}: {exc}",
+                 "proposals_not_recorded": sum(len(p) for _, p in pending)})
 
     if MENTIONS_UNVERIFIED:
         # ⚠️ VISIBLE. Without a gazetteer the provenance check cannot run, and

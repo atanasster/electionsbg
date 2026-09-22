@@ -146,8 +146,16 @@ def load_cases(path: Path) -> list:
     return out
 
 
-def _fold(text: str) -> str:
+def fold_text(text: str) -> str:
+    """The fold every case term is matched against — casefold, whitespace
+    collapsed. Public because the candidate-retrieval `case` channel
+    (`analyze_articles.candidate_stories`) must match the registry's terms
+    under the SAME contract, or an affair the registry sees is invisible to
+    retrieval (measured: „помилв" reached 42 articles here and 0 there)."""
     return " ".join((text or "").casefold().split())
+
+
+_fold = fold_text
 
 
 def _term_re(term: str) -> re.Pattern:
@@ -155,8 +163,12 @@ def _term_re(term: str) -> re.Pattern:
     return re.compile(r"(?<![^\W\d_])" + re.escape(_fold(term)))
 
 
-def _has(term: str, text: str) -> bool:
-    return _term_re(term).search(text) is not None
+def has_term(term: str, folded_text: str) -> bool:
+    """`term` at word start anywhere in `folded_text` (a `fold_text` output)."""
+    return _term_re(term).search(folded_text) is not None
+
+
+_has = has_term
 
 
 def _affair_mentions(title: str, body: str, terms: list, window: int = MERGE_WINDOW) -> int:

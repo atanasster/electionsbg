@@ -1,3 +1,8 @@
 # Mutable hourly Commons query/result cache. Keep it when copying the live
 # news folder, but do not turn routine ingestion into repository churn.
 commons_candidates.json
+# The T2.1 review channel's sidecar: host-local state written by every save
+# (`analyze_articles.record_join_proposals`), reconciled into the TRACKED
+# story_merge_queue.json by T2.2 — never repository state of its own.
+article_join_proposals.json
+article_join_proposals.json.lock

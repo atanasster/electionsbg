@@ -1,0 +1,104 @@
+{
+ "version": 1,
+ "basis": "pipeline consistency over the frozen universe — NOT accuracy; 0 adjudicated labels",
+ "manifest": {
+  "path": "news/data/analysis/_universe/20260921T234326/universe.json",
+  "sha256": "991a7825e2b80091fe091e081ad348736557dd182e57e554a0cdfc288244f098",
+  "window": {
+   "since": "2026-09-07",
+   "until": "2026-09-20",
+   "open_day": false
+  }
+ },
+ "versions": {
+  "retrieval": "union-v1",
+  "retrieval_old": "composite-v0 (verbatim replay of the retired candidate_stories, b89a542f53)",
+  "review_rule": "review-v1",
+  "max_candidates": 6
+ },
+ "population": {
+  "publishable": 1383,
+  "drifted_since_freeze": 0,
+  "no_headline": 0,
+  "evaluated": 1383,
+  "pipeline_joined": 179
+ },
+ "retrieval_of_the_known_host": {
+  "old": {
+   "retrieved": 128,
+   "share": 0.7150837988826816
+  },
+  "union": {
+   "retrieved": 129,
+   "share": 0.7206703910614525
+  }
+ },
+ "union_hit_channels": {
+  "case": 6,
+  "entities": 123,
+  "lede": 128,
+  "place_time": 76,
+  "title": 128
+ },
+ "strict_rule_reach_beyond_own_story": {
+  "old": {
+   "articles_with_an_accepted_candidate": 5,
+   "share": 0.0036153289949385392
+  },
+  "union": {
+   "articles_with_an_accepted_candidate": 5,
+   "share": 0.0036153289949385392
+  }
+ },
+ "review_proposals": {
+  "pairs": 193,
+  "pairs_the_shipped_channel_would_emit": 149,
+  "by_story_action": {
+   "same_story": 44,
+   "new_story": 149
+  },
+  "strict_would_join_pairs": 5,
+  "by_relaxation": {
+   "topic:category": 31,
+   "topic:none": 50,
+   "places:disjoint": 15,
+   "numbers:disjoint": 7,
+   "lede": 138
+  },
+  "by_split": {
+   "dev": 87,
+   "test": 95,
+   "excluded": 11
+  },
+  "by_relaxation_adjudicable_test": {
+   "topic:category": 13,
+   "topic:none": 17,
+   "places:disjoint": 6,
+   "numbers:disjoint": 2,
+   "lede": 70
+  },
+  "articles_with_a_proposal": 159
+ },
+ "copy_twins": {
+  "groups": 62,
+  "later_copy_reaches_twin_story": {
+   "old": 55,
+   "union": 59
+  },
+  "strict_rule_accepts_twin": 0,
+  "review_rule_accepts_twin": 34,
+  "review_relaxations_on_twins": {
+   "lede": 28,
+   "numbers:disjoint": 1,
+   "places:disjoint": 2,
+   "topic:category": 3,
+   "topic:none": 7
+  },
+  "twin_refused_by_both": 25
+ },
+ "adjudication": {
+  "labelled": 0,
+  "note": "No pair here is adjudicated; the review volumes are what a reviewer would face, not a precision."
+ },
+ "generated_at": "2026-09-22T00:21:20.551046+00:00"
+}

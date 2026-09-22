@@ -19,7 +19,8 @@
    "raw": "raw article title + full body"
   },
   "strata_basis": "article strata counted over the raw window AND the publishable subset; same_person is a PAIR stratum (weak title overlap, a person the article names among the entity hits)",
-  "labels": "NULL throughout — this is the frame, not the adjudication"
+  "labels": "NULL throughout — this is the frame, not the adjudication",
+  "candidate_retrieval_version": "composite-v0 (pre-T2.1: title-dominated composite top-six; the manifest was frozen before union retrieval shipped, and news/evals/join_channels_2026-09-20_991a7825.json re-measures both rankings over it)"
  },
  "counts": {
   "raw_articles": 2309,

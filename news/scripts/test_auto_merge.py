@@ -60,7 +60,7 @@ def analysis(title, when="2026-09-02T09:20:00+00:00", people=("Зеленски"
     }
 
 
-class AutoMergeHost(unittest.TestCase):
+class Harness(unittest.TestCase):
     def setUp(self):
         self.root = tempfile.mkdtemp(prefix="news_automerge_")
         self.addCleanup(shutil.rmtree, self.root, ignore_errors=True)
@@ -99,6 +99,8 @@ class AutoMergeHost(unittest.TestCase):
 
     # ----------------------------------------------------------------- tests
 
+
+class AutoMergeHost(Harness):
     def test_it_joins_the_same_event_from_another_outlet(self):
         title = "Зеленски смени командващия сухопътните войски на Украйна"
         st = story("s1", title, "dir.bg")
@@ -168,6 +170,98 @@ class AutoMergeHost(unittest.TestCase):
         self.assertIs(self.aa.same_event_evidence,
                       home_event_dedupe.same_event_evidence)
 
+
+class ReviewChannel(Harness):
+    """Plan T2.1 — what the strict rule refuses is proposed, never joined."""
+
+    def test_a_subcategory_mismatch_is_refused_by_the_join_and_proposed_for_review(self):
+        title = "Зеленски смени командващия сухопътните войски на Украйна"
+        st = story("s1", title, "dir.bg")
+        st["topics"] = [{"category": "foreign-policy", "subcategory": "ukraine", "primary": True}]
+        self.put(st)
+        record = analysis(title)
+        record["topics"] = [{"category": "foreign-policy", "subcategory": "nato", "primary": True}]
+        record["story"]["canonical_title_bg"] = title
+        index = self.index_for(st)
+        self.assertIsNone(self.aa.auto_merge_host(record, index))
+        proposals = self.aa.review_join_candidates(record, index)
+        self.assertEqual([p["story_id"] for p in proposals], ["s1"])
+        self.assertEqual(proposals[0]["evidence"]["relaxations"], ["topic:category"])
+        self.assertEqual(proposals[0]["evidence"]["mode"], "review")
+        self.assertTrue(proposals[0]["channels"])
+
+    def test_the_kill_switch_stops_the_join_but_not_the_proposals(self):
+        title = "Зеленски смени командващия сухопътните войски на Украйна"
+        st = story("s1", title, "dir.bg")
+        self.put(st)
+        os.environ["NEWS_AUTO_MERGE"] = "0"
+        index = self.index_for(st)
+        self.assertIsNone(self.aa.auto_merge_host(analysis(title), index))
+        proposals = self.aa.review_join_candidates(analysis(title), index)
+        self.assertEqual([p["story_id"] for p in proposals], ["s1"])
+        # A strict-rule pair proposed here carries NO relaxation: it is the
+        # join stage being switched off, and the reviewer sees that.
+        self.assertEqual(proposals[0]["evidence"]["relaxations"], [])
+
+    def test_proposals_are_upserted_and_deactivated_never_applied(self):
+        title = "Зеленски смени командващия сухопътните войски на Украйна"
+        st = story("s1", title, "dir.bg")
+        st["topics"] = [{"category": "foreign-policy", "subcategory": "ukraine", "primary": True}]
+        self.put(st)
+        record = analysis(title)
+        record["topics"] = [{"category": "foreign-policy", "subcategory": "nato", "primary": True}]
+        path = os.path.join(self.root, "news", "review", "article_join_proposals.json")
+        proposals = self.aa.review_join_candidates(record, self.index_for(st))
+        doc = self.aa.record_join_proposals([(record, proposals)], "2026-09-22T00:00:00+00:00", path)
+        self.assertEqual(doc["counts"], {"total": 1, "active": 1, "pending": 1, "retired": 0})
+        item = doc["items"][0]
+        self.assertEqual(item["status"], "pending")
+        self.assertEqual(item["candidate"]["story_id"], "s1")
+        self.assertEqual(item["article"]["url"], record["url"])
+        # A human decision survives the next run; a proposal that stopped
+        # firing is deactivated, not deleted.
+        with open(path, encoding="utf-8") as fh:
+            saved = json.load(fh)
+        saved["items"][0]["status"] = "rejected"
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(saved, fh)
+        doc = self.aa.record_join_proposals([(record, proposals)], "2026-09-22T01:00:00+00:00", path)
+        self.assertEqual(doc["items"][0]["status"], "rejected")
+        self.assertEqual(doc["items"][0]["first_seen"], "2026-09-22T00:00:00+00:00")
+        self.assertEqual(doc["items"][0]["last_seen"], "2026-09-22T01:00:00+00:00")
+        doc = self.aa.record_join_proposals([(record, [])], "2026-09-22T02:00:00+00:00", path)
+        self.assertFalse(doc["items"][0]["active"])
+        self.assertEqual(doc["counts"]["pending"], 0)
+        # An inactive, DECIDED item is retired after the retention window; a
+        # pending one never is.
+        doc = self.aa.record_join_proposals([], "2026-11-01T00:00:00+00:00", path)
+        self.assertEqual(doc["counts"]["total"], 0)
+        self.assertEqual(doc["counts"]["retired"], 1)
+        # ⚠️ NOTHING WAS JOINED: the story on disk still has one member.
+        with open(os.path.join(self.stories, "s1.json"), encoding="utf-8") as fh:
+            self.assertEqual(len(json.load(fh)["members"]), 1)
+        self.assertEqual(record["story"]["action"], "new_story")
+
+    def test_a_hand_broken_sidecar_is_reported_and_left_untouched(self):
+        # ⚠️ THE MUTATION THIS CATCHES: a corrupt or half-edited sidecar
+        # failing the SAVE — the channel that proposes must not block the
+        # join path, and must not replace a file a human was editing.
+        path = os.path.join(self.root, "news", "review", "article_join_proposals.json")
+        os.makedirs(os.path.dirname(path))
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write('{"version": 1, "items": [')   # truncated
+        record = analysis("Зеленски смени командващия сухопътните войски на Украйна")
+        with self.assertRaisesRegex(ValueError, "not valid JSON"):
+            self.aa.record_join_proposals([(record, [])], "2026-09-22T00:00:00+00:00", path)
+        with open(path, encoding="utf-8") as fh:
+            self.assertEqual(fh.read(), '{"version": 1, "items": [')
+        # Items missing keys are tolerated: a hand edit that dropped `active`
+        # or `status` does not raise, it is normalised.
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump({"version": 1, "items": [{"id": "x", "article": {"url": "https://a/b"}}]}, fh)
+        doc = self.aa.record_join_proposals([], "2026-09-22T00:00:00+00:00", path)
+        self.assertEqual(doc["items"][0]["status"], "pending")
+        self.assertFalse(doc["items"][0]["active"])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
