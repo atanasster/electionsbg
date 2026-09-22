@@ -96,18 +96,15 @@ export const ArticleRow = ({
             {title ?? `(${untitled})`}
           </Link>
         ) : url ? (
-          <a
-            href={url}
-            target="_blank"
-            rel="noreferrer noopener"
+          <ExternalHeadline
+            url={url}
+            title={title}
+            outlet={outletName ?? domain}
             className={cn(
               "leading-snug underline-offset-4 hover:text-primary hover:underline",
               sourceLayout ? "font-medium" : "text-sm",
             )}
-            aria-label={`${title ?? tr("Без заглавие", "Untitled")} — ${tr("прочети оригинала в", "read the original at")} ${outletName ?? domain} ${tr("(отваря се в нов раздел)", "(opens in a new tab)")}`}
-          >
-            {title ?? `(${untitled})`}
-          </a>
+          />
         ) : (
           <span className="text-sm">{title ?? `(${untitled})`}</span>
         )}
@@ -142,7 +139,38 @@ export const ArticleRow = ({
   );
 };
 
-const OriginalLink = ({
+/**
+ * A headline that leaves the site: the accessible name says where it goes
+ * and that it opens a new tab. Shared by the feed rows and the story
+ * timeline so the announcement cannot drift between them.
+ */
+export const ExternalHeadline = ({
+  url,
+  title,
+  outlet,
+  className,
+}: {
+  url: string;
+  title: string | null;
+  outlet: string;
+  className?: string;
+}) => {
+  const { tr } = useNewsLocale();
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer noopener"
+      className={className}
+      aria-label={`${title ?? tr("Без заглавие", "Untitled")} — ${tr("прочети оригинала в", "read the original at")} ${outlet} ${tr("(отваря се в нов раздел)", "(opens in a new tab)")}`}
+    >
+      {title ?? `(${tr("без заглавие", "untitled")})`}
+    </a>
+  );
+};
+
+/** The icon link-out beside a headline that has its own article page. */
+export const OriginalLink = ({
   url,
   title,
   outlet,

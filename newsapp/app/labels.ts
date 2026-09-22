@@ -353,6 +353,39 @@ const dateTimeFormatters = {
     minute: "2-digit",
   }),
 };
+// The outlets' own timezone. A dated RAIL groups items under a day and prints
+// a clock time, and both must be the day and time the outlet published at —
+// not the reader's: browser-local, a 00:30 Sofia article sits under the
+// previous day for a reader in London. `formatDate` / `relativeTime` stay
+// browser-local; they stamp a single moment, never a grouping.
+export const NEWS_TZ = "Europe/Sofia";
+const timeFormatters = {
+  bg: new Intl.DateTimeFormat("bg-BG", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: NEWS_TZ,
+  }),
+  en: new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: NEWS_TZ,
+  }),
+};
+const dayFormatters = {
+  bg: new Intl.DateTimeFormat("bg-BG", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: NEWS_TZ,
+  }),
+  en: new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: NEWS_TZ,
+  }),
+};
+const dayKeyFormatter = new Intl.DateTimeFormat("en-CA", { timeZone: NEWS_TZ });
 const relativeFormatters = {
   bg: new Intl.RelativeTimeFormat("bg-BG", { numeric: "auto" }),
   en: new Intl.RelativeTimeFormat("en-GB", { numeric: "auto" }),
@@ -378,6 +411,30 @@ export const formatDateTime = (
 ): string => {
   const d = validDate(iso);
   return d ? dateTimeFormatters[language].format(d) : "—";
+};
+
+/** YYYY-MM-DD of `iso` in the publication timezone — a rail's grouping key. */
+export const dayKey = (iso: string | null | undefined): string | null => {
+  const d = validDate(iso);
+  return d ? dayKeyFormatter.format(d) : null;
+};
+
+/** The day heading of a dated rail, in the publication timezone. */
+export const formatDay = (
+  iso: string | null | undefined,
+  language: NewsLanguage = "bg",
+): string => {
+  const d = validDate(iso);
+  return d ? dayFormatters[language].format(d) : "—";
+};
+
+/** Clock time only, in the publication timezone — for a rail whose day is printed once, above the items. */
+export const formatTime = (
+  iso: string | null | undefined,
+  language: NewsLanguage = "bg",
+): string => {
+  const d = validDate(iso);
+  return d ? timeFormatters[language].format(d) : "—";
 };
 
 export const relativeTime = (

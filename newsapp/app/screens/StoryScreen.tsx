@@ -26,7 +26,10 @@ import {
   useStoryDetail,
   useTaxonomy,
 } from "../data";
-import { StoryMemberRow } from "../components/ArticleRow";
+import {
+  StoryTimeline,
+  type TimelineOutlet,
+} from "../components/StoryTimeline";
 import { EntityChips } from "../components/EntityChips";
 import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
@@ -220,6 +223,13 @@ export const StoryScreen = () => {
   const outletNames = useMemo(() => {
     const map = new Map<string, string>();
     for (const o of outlets.data?.outlets ?? []) map.set(o.domain, o.outlet);
+    return map;
+  }, [outlets.data]);
+  // `TimelineOutlet` is a Pick so the mark can widen (a credited logo, a short
+  // name) without changing this call site; today it carries the name alone.
+  const outletMarks = useMemo(() => {
+    const map = new Map<string, TimelineOutlet>();
+    for (const o of outlets.data?.outlets ?? []) map.set(o.domain, o);
     return map;
   }, [outlets.data]);
 
@@ -641,22 +651,8 @@ export const StoryScreen = () => {
                 "Ordered by publication time; the filters above change this list.",
               )}
             </p>
-            <Card className="overflow-hidden px-4">
-              {members.map((m) => (
-                <StoryMemberRow
-                  key={`${m.domain}/${m.article_id ?? m.url}`}
-                  member={m}
-                  outletName={outletNames.get(m.domain)}
-                />
-              ))}
-              {members.length === 0 ? (
-                <p className="py-4 text-sm text-muted-foreground">
-                  {tr(
-                    "Няма източници в избрания сегмент.",
-                    "No sources match the selected segment.",
-                  )}
-                </p>
-              ) : null}
+            <Card className="overflow-hidden p-4">
+              <StoryTimeline members={members} outlets={outletMarks} />
             </Card>
           </section>
         </div>
