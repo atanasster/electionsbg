@@ -457,4 +457,79 @@ describe("the archive summaries", () => {
     const s = await section("Обобщенията в архивите");
     expect(s).toHaveTextContent("не се променят, когато прелиствате");
   });
+
+  it("explains that a tie is not resolved for the reader", async () => {
+    // ⚠️ The subtlest rule stated, and the one `dominantTone` guards hardest:
+    // `favorable` is first in the order, so picking a winner on a tie would
+    // make a 1-1 split read as favourable coverage of a named party.
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent(
+      "Когато две рамки са наравно, не избираме едната",
+    );
+  });
+
+  it("documents the scale the chart's second row publishes", async () => {
+    // ⚠️ The component renders a signed −2…+2 mean with a standard error
+    // against a NAMED party. A methodology page that describes only the
+    // counts row characterises a chart the component does not have.
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent("от −2 (неблагоприятно) до +2");
+    expect(s).toHaveTextContent("той е ДРУГО число");
+    expect(s).toHaveTextContent("Точка без чертичка е един материал");
+    expect(s).toHaveTextContent("една точка не е ред");
+  });
+
+  it("says undated articles are counted rather than dropped", async () => {
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent("не влизат в нито един период");
+  });
+});
+
+describe("the archive summaries — the English mirror", () => {
+  // ⚠️ THE MIRROR HAD NO COVERAGE AT ALL: it could be deleted and every test
+  // stayed green. A divergence between the two is a different promise to each
+  // audience, so the claims that matter are asserted on both.
+  beforeEach(() => vi.resetModules());
+
+  const englishSection = async () => {
+    vi.resetModules();
+    mockData(stats(), []);
+    // ⚠️ THE PROVIDER MUST COME FROM THE SAME MODULE GRAPH AS THE SCREEN.
+    // `vi.resetModules()` gives the dynamic import a fresh `i18n`, so a
+    // statically-imported provider feeds a DIFFERENT context object and the
+    // screen silently falls back to Bulgarian.
+    const { MethodologyScreen: Screen } = await import("./MethodologyScreen");
+    const { NewsLocaleProvider: Provider } = await import("../i18n");
+    render(
+      <MemoryRouter>
+        <Provider language="en">
+          <Screen />
+        </Provider>
+      </MemoryRouter>,
+    );
+    const heading = await screen.findByRole("heading", {
+      name: "The archive summaries",
+    });
+    return heading.closest("section")!;
+  };
+
+  it("makes the same four claims the Bulgarian does", async () => {
+    const s = await englishSection();
+    expect(s).toHaveTextContent("neither is a property of the outlets");
+    expect(s).toHaveTextContent("one article does not reach that word");
+    expect(s).toHaveTextContent(
+      "we assessed nothing, not that we looked and found no framing",
+    );
+    expect(s).toHaveTextContent("absent from the chart rather than zero");
+  });
+
+  it("documents the scale and the tie rule too", async () => {
+    const s = await englishSection();
+    expect(s).toHaveTextContent("from −2 (unfavourable) to");
+    expect(s).toHaveTextContent("a DIFFERENT, smaller number");
+    expect(s).toHaveTextContent(
+      "When two framings are level, we do not pick one",
+    );
+    expect(s).toHaveTextContent("counted separately under the chart");
+  });
 });

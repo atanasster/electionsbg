@@ -486,6 +486,20 @@ export const MethodologyScreen = () => {
           дни, за които нямаме нищо. Над всяка колона стои броят ѝ.
         </p>
         <p className="mt-3">
+          Където сме поставили материалите върху скала, под колоните се появява
+          втори ред: положението за периода от −2 (неблагоприятно) до +2
+          (благоприятно), с чертичка за стандартната грешка. Под всяка точка
+          стоят средното и броят оценени материали — той е ДРУГО число, по-малко
+          от броя над колоната, защото не всеки материал е поставен върху скала.
+          Точка без чертичка е един материал: няма разсейване за отчитане. Бледа
+          чертичка излиза извън скалата и е отрязана. Този ред се появява само
+          когато поне два периода имат такава оценка — една точка не е ред.
+        </p>
+        <p className="mt-3">
+          Материалите без дата не влизат в нито един период и се броят отделно
+          под графиката, вместо да бъдат мълчаливо изпуснати.
+        </p>
+        <p className="mt-3">
           Двете обобщения са над ЦЕЛИЯ архив, не над страницата, която четете —
           затова не се променят, когато прелиствате.
         </p>
@@ -843,6 +857,21 @@ const EnglishMethodology = ({
         is &ldquo;nothing was published&rdquo;. That is also why these are
         columns and not a line: a line would join two periods across days we
         have nothing for. Every column carries its count.
+      </p>
+      <p className="mt-3">
+        Where we have placed the articles on a scale, a second row appears under
+        the columns: the period&rsquo;s position from &minus;2 (unfavourable) to
+        +2 (favourable), with a whisker for its standard error. Under each point
+        are the mean and the number of scored articles — a DIFFERENT, smaller
+        number than the count above the column, because not every article is
+        placed on a scale. A point with no whisker is a single article: there is
+        no spread to report. A faint whisker runs past the scale and is cut off.
+        The row appears only once at least two periods carry such a score — one
+        point is not a row.
+      </p>
+      <p className="mt-3">
+        Articles with no date fall in no period and are counted separately under
+        the chart rather than being quietly dropped.
       </p>
       <p className="mt-3">
         Both summaries are over the WHOLE archive rather than the page you are

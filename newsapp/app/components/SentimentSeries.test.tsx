@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, within } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { SentimentSeries } from "./SentimentSeries";
 import { NewsLocaleProvider } from "../i18n";
 import type { SentimentSeries as SeriesData, SeriesPoint } from "../data";
@@ -20,9 +21,11 @@ const point = (
 
 const draw = (series: SeriesData, language: "bg" | "en" = "bg") =>
   render(
-    <NewsLocaleProvider language={language}>
-      <SentimentSeries series={series} subject="ПП-ДБ" />
-    </NewsLocaleProvider>,
+    <MemoryRouter>
+      <NewsLocaleProvider language={language}>
+        <SentimentSeries series={series} subject="ПП-ДБ" />
+      </NewsLocaleProvider>
+    </MemoryRouter>,
   );
 
 const series = (

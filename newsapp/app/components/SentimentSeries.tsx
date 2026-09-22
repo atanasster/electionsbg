@@ -23,6 +23,7 @@
 // desync the moment the chart overflows if each scrolled on its own.
 
 import type { SentimentSeries as SeriesData, SeriesPoint, Tone } from "../data";
+import { Link } from "react-router-dom";
 import { useNewsLocale } from "../i18n";
 import { formatDay, toneMeta } from "../labels";
 import { markerTop, whiskerFor } from "../sentimentGeometry";
@@ -80,7 +81,14 @@ export const SentimentSeries = ({
         {tr(
           `Всяка колона е един период (${granularity}) с броя материали в него. Периодите без материали липсват, а не са нула.`,
           `Each column is one period (${granularity}) with the number of articles in it. Periods with no articles are absent, not zero.`,
-        )}
+        )}{" "}
+        <Link
+          to="/methodology#archive-aggregates"
+          className="underline underline-offset-4"
+        >
+          {tr("методология", "methodology")}
+        </Link>
+        .
       </p>
 
       {/* The colours carry meaning, so they get a legend. */}

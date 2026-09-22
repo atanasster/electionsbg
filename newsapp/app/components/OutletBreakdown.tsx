@@ -93,7 +93,14 @@ export const OutletBreakdown = ({
         {tr(
           "Разпределението в материалите на всяко издание за този субект — не оценка на самото издание.",
           "The distribution across each outlet's articles about this subject — not an assessment of the outlet itself.",
-        )}
+        )}{" "}
+        <Link
+          to="/methodology#archive-aggregates"
+          className="underline underline-offset-4"
+        >
+          {tr("методология", "methodology")}
+        </Link>
+        .
       </p>
 
       <ul className="mt-2 space-y-1.5">
