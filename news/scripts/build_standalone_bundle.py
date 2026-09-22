@@ -29,6 +29,7 @@ RUNTIME_SCRIPTS = (
     "news/scripts/build_prompts.py",
     # build_app_data imports it UNGUARDED (the T3.3 case registry).
     "news/scripts/cases.py",
+    "news/scripts/news_persons.py",   # build_app_data imports it UNGUARDED (T4.0)
     "news/scripts/check_staleness.py",
     "news/scripts/commons_rights.py",
     "news/scripts/effective_analysis.py",
@@ -68,6 +69,7 @@ SEED_FILES = (
     # case publishes in its review state — correct, but not what a publish
     # from the bundle is meant to do.
     "news/config/cases.json",
+    "news/config/news_persons.json",
     "news/evals/case_fixtures.json",
     "news/data/bg_news_sites.csv",
     "news/data/common_words.json",

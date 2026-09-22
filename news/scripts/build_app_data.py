@@ -87,6 +87,7 @@ try:
     from .analyze_articles import recompute_story as recompute_analysis_story
     from .build_feedback_targets import build as build_feedback_targets
     from . import cases as case_registry
+    from . import news_persons as news_identity
 except ImportError:  # direct script execution
     from commons_rights import (
         canonical_licence_url,
@@ -116,6 +117,7 @@ except ImportError:  # direct script execution
     )
     from analyze_articles import recompute_story as recompute_analysis_story
     import cases as case_registry
+    import news_persons as news_identity
     from build_feedback_targets import build as build_feedback_targets
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
@@ -1342,6 +1344,28 @@ def corpus_article_reader(data_dir: Path):
         except (OSError, json.JSONDecodeError, TypeError):
             return {}
     return read
+
+
+def write_news_persons(out_dir: Path, registry: dict, rows_by_url: dict, generated_at: str,
+                       published_articles: int | None = None) -> dict:
+    """`news_persons.json` (ACTIVE identities only — pending and withdrawn
+    ones never leave the registry) and the review queue of every name that
+    resolved to nobody, with where it occurred."""
+    counts: dict = {}
+    for rows in rows_by_url.values():
+        for r in rows:
+            if r.get("news_person_id"):
+                counts[r["news_person_id"]] = counts.get(r["news_person_id"], 0) + 1
+    index = news_identity.public_index(registry, counts, generated_at)
+    write_json(out_dir / "news_persons.json", index)
+    queue = news_identity.candidate_queue(rows_by_url, registry, generated_at, published_articles)
+    review_path = REPO / "news" / "review" / "news_person_candidates.json"
+    review_path.parent.mkdir(parents=True, exist_ok=True)
+    review_path.write_text(json.dumps(queue, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"  news persons: {len(index['persons'])} active · {sum(counts.values())} resolved mentions · "
+          f"{queue['counts']['surfaces']} surfaces queued ({queue['counts']['singletons_omitted']} singletons omitted)",
+          file=sys.stderr)
+    return index
 
 
 def write_cases(out_dir: Path, cases: list, stories: list, matches_by_url: dict,
@@ -2615,6 +2639,21 @@ def main() -> int:
         case_registry.load_cases(REPO / "news" / "config" / "cases.json"))
     case_matches_by_url: dict[str, dict] = {}
     case_candidate_rows: list[dict] = []
+    # ---- news-person identity (T4.0): the reviewed registry, resolved at
+    # BUILD time against every published article's person mentions, so a
+    # registry edit re-resolves the whole corpus on the next build. The
+    # resolver never picks; a name with no accepted alias in scope stays an
+    # unlinked „not assessed" name and goes to the review queue.
+    news_person_registry = news_identity.load_registry(REPO / "news" / "config" / "news_persons.json")
+    news_person_resolver = news_identity.Resolver(news_person_registry)
+    news_person_rows_by_url: dict[str, list] = {}
+    known_case_slugs = {c["slug"] for c in case_matcher.cases}
+    for person in news_person_registry["persons"]:
+        for a in person["aliases"]:
+            if a["scope"].startswith("case:") and a["scope"][5:] not in known_case_slugs:
+                # A typo here is an alias that never applies, silently.
+                print(f"  ! news_persons.json: {person['news_person_id']} alias {a['surface']!r} "
+                      f"names unknown case {a['scope'][5:]!r}", file=sys.stderr)
 
     for domain in domain_names:
         records: list[dict] = []
@@ -2741,6 +2780,16 @@ def main() -> int:
                     rec["story_id"] = story_index.get(art.get("url"))
                     story_effective_by_url[analysis["url"]] = public_effective
                 rec["analysis"] = public_analysis
+                if publishable and art.get("url"):
+                    identities = news_identity.resolve_article(
+                        news_person_resolver, public_analysis,
+                        (case_matches_by_url.get(art["url"]) or {}).keys())
+                    if identities:
+                        # A SIDECAR beside `mentions`, never a rewrite of it:
+                        # the news identity is a second namespace with its own
+                        # review state and its own version.
+                        public_analysis["news_persons"] = identities
+                        news_person_rows_by_url[art["url"]] = identities
                 analyzed_by_domain[domain] = analyzed_by_domain.get(domain, 0) + 1
                 lean = (analysis.get("leaning") or {}).get("label")
                 stance = (analysis.get("russia_stance") or {}).get("label")
@@ -3100,6 +3149,8 @@ def main() -> int:
                           generated_at)
     write_cases(out_dir, case_matcher.cases, stories, case_matches_by_url,
                 case_verification, case_candidate_rows, generated_at)
+    write_news_persons(out_dir, news_person_registry, news_person_rows_by_url, generated_at,
+                       published_articles=sum(1 for r in all_latest if r.get("analysis")))
 
     # ---- home.json -------------------------------------------------------------------
     dated = []

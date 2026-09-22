@@ -11,7 +11,14 @@
 //   - an unanalysed article renders NO badges, because at 8.4% analysed
 //     "not yet judged" must never read as "judged neutral".
 
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type {
@@ -879,6 +886,86 @@ describe("mentions", () => {
     await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
     await screen.findByText(/Прочети в/);
     expect(screen.queryByText("Споменати")).not.toBeInTheDocument();
+  });
+});
+
+describe("news-person identity (T4.0)", () => {
+  beforeEach(() => vi.resetModules());
+
+  const withIdentities = () => ({
+    ...analysed(),
+    news_persons: [
+      {
+        surface: "Ивайло Калушев",
+        basis: "registry_alias",
+        news_person_id: "np_7f3c1a94",
+        alias_scope: "global",
+        identity_version: "2026-09-22.1:abc",
+        name_bg: "Ивайло Калушев",
+        name_en: "Ivaylo Kalushev",
+        verified_main_site_slug: null,
+        assessment: "not_assessed",
+      },
+      {
+        surface: "Радев",
+        basis: "not_in_registry",
+        news_person_id: null,
+        assessment: "not_assessed",
+      },
+      {
+        surface: "Огнян Атанасов",
+        basis: "ambiguous_registry",
+        news_person_id: null,
+        candidates: ["np_1", "np_2"],
+        assessment: "not_assessed",
+      },
+    ],
+  });
+
+  it("marks a reviewed identity and keeps the rest visible as not assessed", async () => {
+    await renderAt([
+      article({ analysis: withIdentities() } as Partial<ArticleRecord>),
+    ]);
+    const block = await screen.findByTestId("news-persons");
+    expect(within(block).getByText("Ивайло Калушев")).toBeVisible();
+    expect(within(block).getByText(/идентичност: проверена/)).toBeVisible();
+    // Unlinked names stay as written, and say so — never as a judgement.
+    expect(within(block).getByText("Радев")).toBeVisible();
+    expect(within(block).getByText(/без проверена идентичност/)).toBeVisible();
+    expect(
+      within(block).getByText(/повече от една проверена идентичност/),
+    ).toBeVisible();
+    // Every row carries the „not assessed" state, and the footnote explains it.
+    const rows = within(block).getAllByRole("listitem");
+    expect(rows).toHaveLength(3);
+    for (const row of rows) expect(row).toHaveTextContent(/не е оценено/);
+    // ⚠️ Nothing links anywhere: there is no profile page and no main-site slug.
+    expect(within(block).queryAllByRole("link")).toHaveLength(0);
+  });
+
+  it("says a scoped alias in words, never as a raw scope string", async () => {
+    const a = withIdentities();
+    a.news_persons![0].alias_scope = "case:petrohan";
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    const block = await screen.findByTestId("news-persons");
+    expect(
+      within(block).getByText(/в рамките на казуса petrohan/),
+    ).toBeVisible();
+    expect(block.textContent).not.toMatch(/case:petrohan/);
+    cleanup();
+    a.news_persons![0].alias_scope = "article:https://a.bg/x";
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    const again = await screen.findByTestId("news-persons");
+    expect(within(again).getByText(/прегледано изключение/)).toBeVisible();
+    expect(again.textContent).not.toMatch(/https:\/\/a\.bg\/x/);
+  });
+
+  it("renders nothing for a record with no identity decisions", async () => {
+    await renderAt([
+      article({ analysis: analysed() } as Partial<ArticleRecord>),
+    ]);
+    await screen.findByText("Делян Пеевски");
+    expect(screen.queryByTestId("news-persons")).toBeNull();
   });
 });
 

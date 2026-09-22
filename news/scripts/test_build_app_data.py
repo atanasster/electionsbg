@@ -3879,5 +3879,68 @@ class OneMergeQueue(BuildAppDataFixture):
         self.assertIn("article_join_proposals.json unreadable", proc.stderr)
 
 
+class NewsPersonIdentity(BuildAppDataFixture):
+    """T4.0 — the build resolves person names against the reviewed registry,
+    exports ACTIVE identities only, and queues what did not resolve."""
+
+    T = "2026-09-22T00:00:00Z"
+
+    def registry(self, active=True):
+        config = Path(self.root) / "news" / "config"
+        config.mkdir(parents=True, exist_ok=True)
+        src = {"url": "https://x.bg/s", "domain": "x.bg", "published": "2026-09-20", "supports": "s",
+               "reviewer": "r", "reviewed_at": self.T}
+        (config / "news_persons.json").write_text(json.dumps({"version": 1, "registry_version": "t1",
+            "retired_ids": {}, "persons": [
+                {"news_person_id": "np_00000001", "name_bg": "Иван Петров", "name_en": "Ivan Petrov",
+                 "status": "active" if active else "pending_review", "created_at": self.T,
+                 "reviewed_by": "r" if active else None, "reviewed_at": self.T if active else None,
+                 "disambiguation_bg": "д", "disambiguation_en": "d", "identity_sources": [src] if active else [],
+                 "aliases": [{"surface": "Иван Петров", "scope": "global", "status": "accepted" if active else "pending_review",
+                              "evidence": ["https://x.bg/e"] if active else [], "reviewer": "r" if active else None,
+                              "reviewed_at": self.T if active else None, "note": ""}],
+                 "verified_main_site_slug": None, "namesakes": [], "history": []}]}, ensure_ascii=False),
+            encoding="utf-8")
+
+    def seed(self):
+        # Two articles, so an unresolved name RECURS — a name seen once is
+        # counted but not listed in the queue.
+        for slug in ("p", "q"):
+            art = {"url": f"https://a.bg/{slug}", "domain": "a.bg", "title": f"Иван Петров говори {slug}",
+                   "published": "2026-09-20T09:00:00+00:00", "first_seen": "2026-09-20T09:00:00+00:00",
+                   "content": f"Иван Петров и Георги Димов коментираха {slug}. " * 5}
+            self.write_corpus("a.bg", f"{slug}.json", art)
+            rec = self.analysis_record(art["url"], "a.bg", f"news/data/a.bg/{slug}.json", action="new_story", story_id=None)
+            rec["entities"]["people"] = ["Иван Петров", "Георги Димов"]
+            self.write_analysis("a.bg", f"{slug}.json", rec)
+        ensure_fixture_story_membership(self.data_dir)
+
+    def test_resolved_names_reach_the_article_and_the_index_and_the_rest_are_queued(self):
+        self.seed(); self.registry()
+        self.run_build_process()
+        index = self.load("news_persons.json")
+        self.assertEqual([p["news_person_id"] for p in index["persons"]], ["np_00000001"])
+        self.assertEqual(index["persons"][0]["article_count"], 2)
+        article = next(a for a in self.load("articles/a.bg.json")["articles"] if a["url"] == "https://a.bg/p")
+        rows = {r["surface"]: r for r in article["analysis"]["news_persons"]}
+        self.assertEqual(rows["Иван Петров"]["news_person_id"], "np_00000001")
+        self.assertEqual(rows["Георги Димов"]["basis"], "not_in_registry")
+        self.assertEqual(rows["Георги Димов"]["assessment"], "not_assessed")
+        queue = json.loads((Path(self.root) / "news" / "review" / "news_person_candidates.json").read_text(encoding="utf-8"))
+        self.assertEqual([i["surface"] for i in queue["items"]], ["Георги Димов"])
+
+    def test_a_pending_identity_never_reaches_the_public_output(self):
+        # ⚠️ THE MUTATION THIS CATCHES: exporting or resolving a pending record.
+        self.seed(); self.registry(active=False)
+        self.run_build_process()
+        self.assertEqual(self.load("news_persons.json")["persons"], [])
+        article = next(a for a in self.load("articles/a.bg.json")["articles"] if a["url"] == "https://a.bg/p")
+        rows = {r["surface"]: r for r in article["analysis"]["news_persons"]}
+        self.assertIsNone(rows["Иван Петров"]["news_person_id"])
+        queue = json.loads((Path(self.root) / "news" / "review" / "news_person_candidates.json").read_text(encoding="utf-8"))
+        by = {i["surface"]: i for i in queue["items"]}
+        self.assertEqual(by["Иван Петров"]["pending_identity"], "np_00000001")
+
+
 if __name__ == "__main__":
     unittest.main()

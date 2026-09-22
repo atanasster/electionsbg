@@ -1,0 +1,75 @@
+{
+ "version": 1,
+ "registry_version": "2026-09-22.1",
+ "_comment": "Plan T4.0 — the NEWS-PERSON identity namespace, human-owned. A news_person_id is opaque and immutable (np_<8 hex>); it survives spelling changes and is never a main-site Postgres id (those are positional ordinals reassigned on every resolve). The main-site link is OPTIONAL (`verified_main_site_slug`) — prominent news actors include private individuals, witnesses and suspects with no official profile, and manufacturing one for them is inappropriate. A record resolves mentions only while `status` is active AND through aliases with `status` accepted; every accepted alias carries evidence URLs, a scope, a reviewer and a time. A SURNAME-ONLY alias may never be global (a surname collides inside one case: Ивайло and Георги Калушев); an ambiguous full name (three Огнян Атанасов in the corpus) resolves only inside a scope, and case membership is supporting context, not proof — so the case-scoped alias below stays pending until a reviewer accepts it. `disambiguation` describes SOURCED identity context and never culpability or a model's character judgment; it stays null when unsupported. Merges keep the retired id as a redirect in `retired_ids`; splits re-review every alias of the split record. The resolver (news_persons.py) — never the model — assigns an identity; unresolved names remain visible as unlinked, „not assessed“, and enter news/review/news_person_candidates.json.",
+ "retired_ids": {},
+ "persons": [
+  {
+   "news_person_id": "np_7f3c1a94",
+   "name_bg": "Ивайло Калушев",
+   "name_en": "Ivaylo Kalushev",
+   "status": "active",
+   "created_at": "2026-09-22T00:00:00Z",
+   "reviewed_by": "plan author (news-ground-bg-v1 T4.0)",
+   "reviewed_at": "2026-09-22T00:00:00Z",
+   "disambiguation_bg": "Ръководител на неправителствена организация, страна по споразумение с МОСВ от 08.02.2022 г.; фигурира в съобщенията на прокуратурата по разследването „Петрохан“. Според съобщеното от прокуратурата и правосъдния министър на 20.09.2026 г. не е сред живите.",
+   "disambiguation_en": "Head of a non-governmental organisation that was party to an agreement with the environment ministry dated 8 February 2022; named in the prosecution's statements on the Petrohan investigation. As reported by the prosecution and the justice minister on 20 September 2026, he is no longer alive.",
+   "identity_sources": [
+    {"url": "https://www.bgdnes.bg/krimi/article/23586746", "domain": "bgdnes.bg", "published": "2026-09-19", "supports": "the NGO of Ивайло Калушев and the MOSV memorandum, as reported from the prosecution", "reviewer": "plan author", "reviewed_at": "2026-09-22T00:00:00Z"},
+    {"url": "https://www.segabg.com/hot/category-bulgaria/deloto-petrohan-nyama-da-vleze-suda", "domain": "segabg.com", "published": "2026-09-20", "supports": "the justice minister's 20.09.2026 statement that the person he referred to is not alive; the Petrohan investigation", "reviewer": "plan author", "reviewed_at": "2026-09-22T00:00:00Z"}
+   ],
+   "aliases": [
+    {"surface": "Ивайло Калушев", "scope": "global", "status": "accepted", "evidence": ["https://www.bgdnes.bg/krimi/article/23586746", "https://www.segabg.com/hot/category-bulgaria/deloto-petrohan-nyama-da-vleze-suda"], "reviewer": "plan author", "reviewed_at": "2026-09-22T00:00:00Z", "note": "Unique full name across the corpus (the namesake in the case is Георги Калушев)."},
+    {"surface": "Калушев", "scope": "case:petrohan", "status": "rejected", "evidence": [], "reviewer": "plan author", "reviewed_at": "2026-09-22T00:00:00Z", "note": "Surname-only: collides with Георги Калушев INSIDE this case. Never an alias; an article-scoped override is the only way a bare surname resolves."}
+   ],
+   "verified_main_site_slug": null,
+   "namesakes": [{"name": "Георги Калушев", "note": "named in the same case; not this person"}],
+   "history": [
+    {"at": "2026-09-22T00:00:00Z", "by": "plan author", "change": "created active with one global full-name alias; surname alias rejected"}
+   ]
+  },
+  {
+   "news_person_id": "np_2b9e6d31",
+   "name_bg": "Георги Калушев",
+   "name_en": "Georgi Kalushev",
+   "status": "pending_review",
+   "created_at": "2026-09-22T00:00:00Z",
+   "reviewed_by": null,
+   "reviewed_at": null,
+   "disambiguation_bg": null,
+   "disambiguation_en": null,
+   "identity_sources": [],
+   "aliases": [
+    {"surface": "Георги Калушев", "scope": "global", "status": "pending_review", "evidence": [], "reviewer": null, "reviewed_at": null, "note": "Awaiting an identity source; kept so the surname collision is on record."}
+   ],
+   "verified_main_site_slug": null,
+   "namesakes": [{"name": "Ивайло Калушев", "note": "np_7f3c1a94"}],
+   "history": [
+    {"at": "2026-09-22T00:00:00Z", "by": "plan author", "change": "created pending"}
+   ]
+  },
+  {
+   "news_person_id": "np_c41d8e07",
+   "name_bg": "Огнян Атанасов",
+   "name_en": "Ognyan Atanasov",
+   "status": "pending_review",
+   "created_at": "2026-09-22T00:00:00Z",
+   "reviewed_by": null,
+   "reviewed_at": null,
+   "disambiguation_bg": null,
+   "disambiguation_en": null,
+   "identity_sources": [],
+   "aliases": [
+    {"surface": "Огнян Атанасов", "scope": "case:narco-pardon", "status": "pending_review", "evidence": [], "reviewer": null, "reviewed_at": null, "note": "The full name is NOT unique — the corpus also holds the mayor of Кюстендил and a football coach. Case membership is supporting context, not proof of identity, so even this scoped alias waits for a reviewer."}
+   ],
+   "verified_main_site_slug": null,
+   "namesakes": [
+    {"name": "Огнян Атанасов", "note": "mayor of Кюстендил — a different person"},
+    {"name": "Огнян Атанасов", "note": "football coach („бат Оги“) — a different person"}
+   ],
+   "history": [
+    {"at": "2026-09-22T00:00:00Z", "by": "plan author", "change": "created pending; the full name collides three ways"}
+   ]
+  }
+ ]
+}

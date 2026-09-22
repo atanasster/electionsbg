@@ -172,6 +172,14 @@ export interface AnalysisBlock {
    * article mentions nobody" about the entire corpus.
    */
   mentions?: Mention[];
+  /**
+   * T4.0 — the NEWS-PERSON identity decision per person name, a second
+   * namespace beside `mentions` with its own review state and version.
+   * `news_person_id` is opaque and immutable; `null` means the name stayed
+   * unlinked — visible, „not assessed", counted — never that the person
+   * was judged. Absent on a record with no person names.
+   */
+  news_persons?: NewsPersonMention[];
   party_tones: { party: string; tone: Tone }[] | null;
   topics: TopicRef[] | null;
   quality: { verdict: QualityVerdict | null; notes: string | null } | null;
@@ -546,6 +554,50 @@ export type MentionBasis =
 
 /** What the entity is doing in the story — which decides whether to link. */
 export type MentionRole = "subject" | "source" | "mention";
+
+export type NewsPersonBasis =
+  | "registry_alias"
+  | "ambiguous_registry"
+  | "not_in_registry";
+
+export interface NewsPersonMention {
+  /** The name as written in the article. */
+  surface: string;
+  basis: NewsPersonBasis;
+  /** `np_<8 hex>` — set only on `registry_alias`. */
+  news_person_id: string | null;
+  /** Which alias scope resolved it: `global`, `case:<slug>` or `article:<url>`. */
+  alias_scope?: string;
+  /** Registry version + accepted-alias digest; a treatment must carry it. */
+  identity_version?: string;
+  /** On `ambiguous_registry`: the identities that collided, ≥2. */
+  candidates?: string[];
+  /** The dictionary pass's main-site id for this surface, a reviewer's seed. */
+  main_site_id?: string;
+  name_bg?: string;
+  name_en?: string;
+  verified_main_site_slug?: string | null;
+  /** Always `not_assessed` until T4.3 ships a treatment contract. */
+  assessment: "not_assessed";
+}
+
+export interface NewsPersonIndexEntry {
+  news_person_id: string;
+  name_bg: string;
+  name_en: string;
+  disambiguation_bg: string | null;
+  disambiguation_en: string | null;
+  identity_sources: {
+    url: string;
+    domain?: string | null;
+    published?: string | null;
+  }[];
+  aliases: string[];
+  verified_main_site_slug: string | null;
+  identity_version: string;
+  reviewed_at: string | null;
+  article_count: number;
+}
 
 export interface Mention {
   kind: MentionKind;

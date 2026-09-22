@@ -49,6 +49,7 @@ import {
   type Outlet,
   type EntityCandidate,
   type EntityLink,
+  type NewsPersonMention,
   isPublicHumanReview,
   isPublicEditorialFeedback,
 } from "../data";
@@ -833,6 +834,7 @@ export const ArticleScreen = () => {
             links={analysis.entity_links}
             candidates={analysis.entity_candidates}
           />
+          <NewsPersonsBlock rows={analysis.news_persons} />
         </section>
       ) : (
         // ⚠️ NO badges. At 8.4% analysed this is the common state, and it must
@@ -900,6 +902,65 @@ export const ArticleScreen = () => {
         </section>
       ) : null}
     </article>
+  );
+};
+
+/**
+ * T4.0 — the news-person identity decision, per name, beside the mention
+ * chips. A resolved name shows the reviewed display name and „идентичност:
+ * проверена"; an unresolved one stays as written with „не е оценено" — an
+ * absence of a decision, never a judgement. Nothing here links anywhere:
+ * profile pages are T4.4, and a pending identity has no page to link to.
+ */
+const NewsPersonsBlock = ({ rows }: { rows?: NewsPersonMention[] }) => {
+  const { tr, language } = useNewsLocale();
+  if (!rows || rows.length === 0) return null;
+  const resolved = rows.filter((r) => r.news_person_id);
+  const unresolved = rows.filter((r) => !r.news_person_id);
+  return (
+    <Card className="mt-3 p-4" data-testid="news-persons">
+      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        {tr("Лица в материала", "People in this article")}
+      </div>
+      <ul className="mt-2 space-y-1 text-sm">
+        {resolved.map((r) => (
+          <li key={`r-${r.news_person_id}-${r.surface}`}>
+            <span className="font-medium">
+              {(language === "en" ? r.name_en : r.name_bg) ?? r.surface}
+            </span>{" "}
+            <span className="text-xs text-muted-foreground">
+              {tr("идентичност: проверена", "identity: reviewed")}
+              {r.alias_scope?.startsWith("case:")
+                ? ` · ${tr("в рамките на казуса", "within the case")} ${r.alias_scope.slice(5)}`
+                : r.alias_scope?.startsWith("article:")
+                  ? ` · ${tr("по прегледано изключение за този материал", "by a reviewed override for this article")}`
+                  : ""}{" "}
+              · {tr("не е оценено", "not assessed")}
+            </span>
+          </li>
+        ))}
+        {unresolved.map((r) => (
+          <li key={`u-${r.surface}`}>
+            <span>{r.surface}</span>{" "}
+            <span className="text-xs text-muted-foreground">
+              {r.basis === "ambiguous_registry"
+                ? tr(
+                    "името съвпада с повече от една проверена идентичност — не свързваме",
+                    "the name matches more than one reviewed identity — not linked",
+                  )
+                : tr("без проверена идентичност", "no reviewed identity")}{" "}
+              · {tr("не е оценено", "not assessed")}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 text-xs text-muted-foreground">
+        {tr(
+          "Идентичността се определя по прегледан регистър, никога от модела; „не е оценено“ означава, че няма преценка, не че е неутрална.",
+          "Identity comes from a reviewed registry, never from the model; “not assessed” means no judgement was made, not a neutral one.",
+        )}
+      </p>
+    </Card>
   );
 };
 
