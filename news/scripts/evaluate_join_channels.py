@@ -157,11 +157,7 @@ def evaluate(manifest: dict, data_dir: Path, max_candidates: int = aa.MAX_CANDID
         raise ValueError("the manifest holds no publishable article — nothing to evaluate")
     index = read_json(analysis_dir / "index.json")
     split_of = {a["id"]: a["split"] for a in manifest["articles"]}
-    story_split: dict = {}
-    for a in manifest["articles"]:
-        sid = (a.get("analysis") or {}).get("story_id")
-        if sid:
-            story_split.setdefault(sid, a["split"])
+    story_split = feu.story_split_of(manifest["articles"])
     story_ids = {a["analysis"]["story_id"] for a in articles if a["analysis"].get("story_id")}
     idx = {sid: e for sid, e in (index.get("stories") or {}).items() if sid in story_ids}
     stories = {sid: feu.read_json(analysis_dir / "stories" / f"{sid}.json")
@@ -176,6 +172,7 @@ def evaluate(manifest: dict, data_dir: Path, max_candidates: int = aa.MAX_CANDID
     retrieval = {"old": Counter(), "union": Counter()}
     strict_reach = {"old": 0, "union": 0}
     review_pairs: list = []
+    union_candidates: list = []   # every (article, story) the union ranking surfaced — the T2.3 retrieval basis
     channels_of_hit: Counter = Counter()
     copy_twins = {"groups": 0, "later_copy_reaches_twin_story": {"old": 0, "union": 0},
                   "strict_rule_accepts_twin": 0, "review_rule_accepts_twin": 0,
@@ -195,6 +192,8 @@ def evaluate(manifest: dict, data_dir: Path, max_candidates: int = aa.MAX_CANDID
             continue
         rankings = {"old": old_ranking({"stories": visible}, probe, max_candidates),
                     "union": aa.candidate_stories({"stories": visible}, probe, limit=max_candidates)}
+        for c in rankings["union"]:
+            union_candidates.append([a["id"], c["story_id"]])
         is_joined = a["analysis"]["story_action"] == "same_story" and own
         if is_joined:
             joined_total += 1
@@ -221,7 +220,7 @@ def evaluate(manifest: dict, data_dir: Path, max_candidates: int = aa.MAX_CANDID
             if ev is None:
                 continue
             article_split = split_of[a["id"]]
-            straddles = article_split != story_split.get(c["story_id"], article_split)
+            straddles = feu.straddles(article_split, story_split.get(c["story_id"]))
             review_pairs.append({
                 "article_id": a["id"], "story_id": c["story_id"],
                 "relaxations": ev["relaxations"], "channels": c["channels"],
@@ -308,6 +307,10 @@ def evaluate(manifest: dict, data_dir: Path, max_candidates: int = aa.MAX_CANDID
                    "share": (n / considered) if considered else None}
             for name, n in strict_reach.items()},
         "review_proposals": proposals,
+        # The pairs themselves (small: hundreds), so the T2.3 gate can join a
+        # human's label to what the rules said about the same pair.
+        "review_pairs": sorted(review_pairs, key=lambda p: (p["article_id"], p["story_id"])),
+        "union_candidates": sorted(union_candidates),
         "copy_twins": copy_twins,
         "adjudication": {"labelled": 0,
                          "note": "No pair here is adjudicated; the review volumes are what a reviewer would face, not a precision."},

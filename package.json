@@ -23,6 +23,7 @@
     "news:home-health:gate": "python3 news/scripts/home_health.py --enforce --json",
     "news:universe:freeze": "python3 news/scripts/freeze_event_universe.py",
     "news:universe:evaluate": "python3 news/scripts/evaluate_join_channels.py",
+    "news:join:gate": "python3 news/scripts/join_accuracy_gate.py",
     "dev:news": "vite --config vite.config.news.ts",
     "typecheck:news": "tsc -p newsapp/tsconfig.json --noEmit",
     "build:news": "npm run news:data && npm run news:evals:tasks:write && npm run news:feedback:tasks:write && tsc -p newsapp/tsconfig.json --noEmit && vite build --config vite.config.news.ts",

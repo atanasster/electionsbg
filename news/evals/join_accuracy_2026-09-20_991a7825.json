@@ -1,0 +1,337 @@
+{
+ "version": 2,
+ "generated_at": "2026-09-22T01:30:53.836321+00:00",
+ "met": false,
+ "n_usable": 0,
+ "status": "UNMET — 0 adjudicated pairs; nothing here is a measured accuracy",
+ "basis": {
+  "strict_rule": "own-story pairs from the manifest's pipeline join (story_action == same_story); other pairs from the T2.1 counterfactual's strict_would_join over the union ranking",
+  "candidate_retrieval_recall": "union-v1 candidates persisted by the counterfactual",
+  "recall_baseline": "the strict rule measured on the same adjudicated pairs — a band's recall gain is judged against it; the old ranking's host-retrieval share is a PRIOR, not a baseline",
+  "labels": "human adjudications only; 0 on the committed file"
+ },
+ "manifest": {
+  "path": "news/data/analysis/_universe/20260921T234326/universe.json",
+  "sha256": "991a7825e2b80091fe091e081ad348736557dd182e57e554a0cdfc288244f098",
+  "window": {
+   "since": "2026-09-07",
+   "until": "2026-09-20",
+   "open_day": false
+  }
+ },
+ "join_report": "news/evals/join_channels_2026-09-20_991a7825.json",
+ "adjudications": {
+  "path": "news/evals/join_adjudications.json",
+  "total": 0,
+  "excluded": {},
+  "usable_test": 0
+ },
+ "gate": {
+  "thresholds": {
+   "min_accepted_test_pairs": 300,
+   "min_events": 50,
+   "min_precision": 0.99,
+   "min_precision_lower_bound": 0.97,
+   "max_violations": 0
+  },
+  "usable_test_pairs": 0,
+  "accepted_test_pairs": 0,
+  "events": 0,
+  "strict_rule": {
+   "tp": 0,
+   "fp": 0,
+   "precision": null,
+   "precision_lower_95": null,
+   "recall": null,
+   "basis_counts": {},
+   "event_bootstrap": null
+  },
+  "candidate_retrieval_recall": null,
+  "same_event_pairs_the_review_rule_never_proposed": 0,
+  "cluster_purity": null,
+  "local_news": {
+   "accepted_pairs": 0,
+   "recall": null,
+   "precision": null
+  },
+  "violations": [],
+  "non_event_false_matches": 0,
+  "bands": {
+   "topic:category": {
+    "sole": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "any": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "promotable": false,
+    "reason": "accepted test pairs 0 < 300; events 0 < 50; precision None < 0.99; precision lower bound None < 0.97"
+   },
+   "topic:none": {
+    "sole": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "any": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "promotable": false,
+    "reason": "accepted test pairs 0 < 300; events 0 < 50; precision None < 0.99; precision lower bound None < 0.97"
+   },
+   "places:disjoint": {
+    "sole": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "any": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "promotable": false,
+    "reason": "accepted test pairs 0 < 300; events 0 < 50; precision None < 0.99; precision lower bound None < 0.97"
+   },
+   "numbers:disjoint": {
+    "sole": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "any": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "promotable": false,
+    "reason": "accepted test pairs 0 < 300; events 0 < 50; precision None < 0.99; precision lower bound None < 0.97"
+   },
+   "lede": {
+    "sole": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "any": {
+     "tp": 0,
+     "fp": 0,
+     "precision": null,
+     "precision_lower_95": null,
+     "events": 0,
+     "violations": 0,
+     "recall": null,
+     "local_news_recall": null,
+     "local_news_precision": null,
+     "promotable": false,
+     "reasons": [
+      "accepted test pairs 0 < 300",
+      "events 0 < 50",
+      "precision None < 0.99",
+      "precision lower bound None < 0.97"
+     ]
+    },
+    "promotable": false,
+    "reason": "accepted test pairs 0 < 300; events 0 < 50; precision None < 0.99; precision lower bound None < 0.97"
+   }
+  },
+  "met": false,
+  "reasons": [
+   "no adjudicated pairs",
+   "accepted test pairs 0 < 300",
+   "events 0 < 50",
+   "precision None < 0.99",
+   "precision lower bound None < 0.97"
+  ]
+ },
+ "priors": {
+  "strict_rule_2026_09_02": {
+   "accepted": 85,
+   "proposals": 90,
+   "refused": 0,
+   "precision": 0.9444444444444444,
+   "precision_lower_95": 0.8764626370797953,
+   "clears_gate": false,
+   "note": "an audited record, not an adjudicated held-out set; at n = 90 its lower bound cannot reach 0.97"
+  },
+  "host_retrieval_share_old": {
+   "share": 0.7150837988826816,
+   "note": "share of the pipeline's own joins whose host the retired ranking retrieved (T2.1) — a retrieval share over live joins, NOT a pairwise recall"
+  },
+  "gold_set": {
+   "requested_size": 250,
+   "actual_size": 240,
+   "shortfall": {
+    "person_linked": {
+     "wanted": 40,
+     "got": 30
+    }
+   },
+   "note": "the existing gold sampler under-filled its own cells; the support floors here may not be attainable from it — budget new annotation"
+  }
+ },
+ "cluster_shape": {
+  "stories": 3883,
+  "singleton_share": 0.9098635075972187,
+  "multi_outlet_comparison_share": 0.08266804017512233,
+  "max_cluster_size": 7,
+  "largest_stories": [
+   {
+    "id": "20260919-3ec9a2ca",
+    "members": 7,
+    "outlets": 7
+   },
+   {
+    "id": "nodate-14dda1d2",
+    "members": 7,
+    "outlets": 4
+   },
+   {
+    "id": "20260830-cd3a406c",
+    "members": 6,
+    "outlets": 6
+   },
+   {
+    "id": "20260921-9be73436",
+    "members": 5,
+    "outlets": 5
+   },
+   {
+    "id": "20260921-ce4ddad8",
+    "members": 5,
+    "outlets": 5
+   }
+  ],
+  "review_backlog_pending": 55,
+  "first_seen_minus_published_hours": {
+   "members_measured": 3985,
+   "median": 1.2162819761111112,
+   "p90": 30.879391164444442,
+   "backfill_share_over_24h": 0.11668757841907151
+  },
+  "basis": "build-side; first_seen is omitted from the public payloads. No figure here is a target: a lower singleton share or a larger maximum is also what merging unrelated reports produces."
+ }
+}

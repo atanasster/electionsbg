@@ -1,0 +1,11 @@
+{
+ "version": 1,
+ "how_to_read": [
+  "Plan T2.3: the ADJUDICATED pairs the auto-join gate consumes. Each pair names an article and a candidate story from a FROZEN universe (news:universe:freeze), the manifest sha256 it was drawn from, the human's label, who labelled it and when, and an event id so pairs inside one event can be resampled together (pairs within an event are dependent).",
+  "label is one of same_event | different | unclear. `unclear` counts toward nothing and is reported. A pair whose article is not in the manifest's `test` split is DEVELOPMENT data and is excluded from every gate figure; a pair the manifest stamps `adjudicable_split: excluded` (its story's members sit in the other split) is excluded too; a story the manifest does not know is excluded and counted.",
+  "event_id is the ARTICLE's event, always — for a `different` pair the story belongs to another event, which `story_event_id` may name. One adjudication per (article_id, story_id, manifest_sha256): a duplicate refuses the whole file.",
+  "hard_negative: true marks a `different` pair a human asserts must NEVER join (two councils, two elections, a namesake). One accepted hard negative fails the gate outright, whatever the precision. It is refused on any other label.",
+  "This file is EMPTY on purpose. No adjudication has been made; the public eval surface has never received a submission; the gate stays unmet until a person writes pairs here. Do not fill it from a model — a frontier model is a comparison baseline, not the ground truth."
+ ],
+ "pairs": []
+}

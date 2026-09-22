@@ -458,20 +458,35 @@ def candidate_baseline(articles: list, index: dict, story_dir: Path,
     return pairs, baseline
 
 
+def story_split_of(articles: list) -> dict:
+    """story id → the split of its (frozen) members. Stories are units, so
+    a story has ONE split."""
+    out: dict = {}
+    for a in articles:
+        sid = (a.get("analysis") or {}).get("story_id")
+        if sid:
+            out.setdefault(sid, a["split"])
+    return out
+
+
+def straddles(article_split: str, story_split: str | None) -> bool:
+    """The ONE straddle rule: a pair straddles when the article and the
+    candidate story's members sit in different splits. An unknown story
+    (no frozen member) does not straddle — callers exclude it on their own
+    terms. Read by the freeze, the counterfactual and the T2.3 gate."""
+    return story_split is not None and article_split != story_split
+
+
 def stamp_straddles(pairs: list, articles: list) -> dict:
     """A candidate pair straddles when the article and the candidate story's
     members sit in different splits. Stories are units, so a story has ONE
     split. A straddling pair is excluded from the adjudicable test set."""
     split_of = {a["id"]: a["split"] for a in articles}
-    story_split: dict = {}
-    for a in articles:
-        sid = (a.get("analysis") or {}).get("story_id")
-        if sid:
-            story_split.setdefault(sid, a["split"])
+    story_split = story_split_of(articles)
     counts: Counter = Counter()
     for p in pairs:
         article_split = split_of[p["article_id"]]
-        p["straddles"] = article_split != story_split.get(p["story_id"], article_split)
+        p["straddles"] = straddles(article_split, story_split.get(p["story_id"]))
         p["adjudicable_split"] = "excluded" if p["straddles"] else article_split
         counts["straddling_pairs"] += p["straddles"]
         counts["straddling_strong_cross_outlet_pairs"] += p["straddles"] and p["strong"] and p["cross_outlet"]
