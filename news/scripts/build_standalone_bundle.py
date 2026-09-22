@@ -34,6 +34,14 @@ RUNTIME_SCRIPTS = (
     # party_rollups imports it for `by_outlet` / `series` (T4.4 Phase 3),
     # so a bundle without it fails at the first party payload.
     "news/scripts/sentiment_rollups.py",
+    # build_app_data imports it UNGUARDED to decide whether the ordinal
+    # scores reach a page (T4.4 Phase 5). It pulls jev_sentiment and
+    # jev_axes in turn, which pull jev_scales and jev_text.
+    "news/scripts/jev_publication.py",
+    "news/scripts/jev_sentiment.py",
+    "news/scripts/jev_axes.py",
+    "news/scripts/jev_scales.py",
+    "news/scripts/jev_text.py",
     "news/scripts/person_rollups.py",  # build_app_data imports it UNGUARDED (T4.4)
     "news/scripts/rollup_common.py",  # both rollups import it UNGUARDED
     "news/scripts/person_tones.py",   # build_app_data imports it UNGUARDED (T4.3)

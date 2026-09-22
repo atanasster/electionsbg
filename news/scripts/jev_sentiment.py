@@ -442,6 +442,36 @@ def cached(url: str, data_dir):
 ANSWERED_STATUSES = frozenset({"ok", "no_subjects"})
 
 
+def versions_current(doc) -> bool:
+    """Do this record's four version stamps match the code now running?
+
+    ⚠️ ONE DEFINITION, TWO CALLERS, AND THE SECOND ONE GOT IT WRONG. The
+    publication gate re-implemented this filter and kept ONE of the checks
+    (`status`), so a record the store itself refuses as stale published
+    verbatim onto a party page and reported a clean attach. Every consumer of
+    a stored record asks the same question and must ask it here.
+
+    ⚠️ IT DOES NOT CHECK THE CONTENT DIGEST, and cannot: the digest lives in
+    `sentiment_key`, which is a function of the ARTICLE, and a consumer that
+    holds only the record has no article to hash. `current_for` — the producer
+    side, which does hold one — is the only place that check can happen, and it
+    is why the ask re-asks rather than the publisher re-deciding. The residual
+    case is an article re-extracted since the last ask: its record is version
+    -current and points at words that have moved, and only running the pass
+    again clears it.
+    """
+    return (isinstance(doc, dict)
+            and doc.get("version") == RECORD_VERSION
+            and doc.get("rubric_version") == RUBRIC_VERSION
+            and doc.get("axes_version") == ax.AXES_VERSION
+            and doc.get("contract_version") == js.SCALE_CONTRACT_VERSION)
+
+
+def answered(doc) -> bool:
+    """A record that is current AND said something. The publication filter."""
+    return versions_current(doc) and doc.get("status") in ANSWERED_STATUSES
+
+
 def current_for(article: dict, analysis: dict, data_dir):
     """The stored record for THIS article and THIS subject set, or None.
 
@@ -454,17 +484,7 @@ def current_for(article: dict, analysis: dict, data_dir):
     Measured on an injected outage before this check existed.
     """
     doc = cached((article or {}).get("url") or "", data_dir)
-    if not doc:
-        return None
-    if doc.get("status") not in ANSWERED_STATUSES:
-        return None
-    if doc.get("version") != RECORD_VERSION:
-        return None
-    if doc.get("rubric_version") != RUBRIC_VERSION:
-        return None
-    if doc.get("axes_version") != ax.AXES_VERSION:
-        return None
-    if doc.get("contract_version") != js.SCALE_CONTRACT_VERSION:
+    if not answered(doc):
         return None
     subjects, _ = subjects_for(analysis, article)
     if doc.get("sentiment_key") != sentiment_key(article, subjects):

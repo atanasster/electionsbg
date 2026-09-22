@@ -89,6 +89,7 @@ try:
     from .build_feedback_targets import build as build_feedback_targets
     from . import cases as case_registry
     from . import news_persons as news_identity
+    from . import jev_publication
     from . import party_rollups
     from . import person_rollups
     from . import person_tones as person_treatment
@@ -124,6 +125,7 @@ except ImportError:  # direct script execution
     from analyze_articles import recompute_story as recompute_analysis_story
     import cases as case_registry
     import news_persons as news_identity
+    import jev_publication
     import party_rollups
     import person_rollups
     import person_tones as person_treatment
@@ -1410,7 +1412,8 @@ def party_in_registry(surface: str) -> bool:
         return False
 
 
-def write_parties(out_dir: Path, rows: list, generated_at: str) -> dict:
+def write_parties(out_dir: Path, rows: list, generated_at: str,
+                  data_dir: Path | None = None) -> dict:
     """T4.2 — `parties.json` plus one archive payload per RESOLVED party.
 
     ⚠️ An ARCHIVE FILTER, not a leaderboard: the index is ordered by how much
@@ -1418,6 +1421,19 @@ def write_parties(out_dir: Path, rows: list, generated_at: str) -> dict:
     the registry refuses gets no page at all — only a counted
     unresolved-surface row, so the omission is visible."""
     collected = party_rollups.collect(rows, rollup_eligible, in_registry=party_in_registry)
+    # T4.4 Phase 5 — attach the ordinal scores, but ONLY for an axis the
+    # operator has cleared. Empty by default: Phase 0 is a shadow run, the
+    # sidecars are written, the eval reads them, and no page changes.
+    # ⚠️ VALIDATED EVEN WITH NO `data_dir`. Skipping the call entirely would
+    # skip the env check with it, so a typo'd axis name would raise nothing on
+    # this path — which is the module's own stated failure mode: an operator
+    # believes they have shipped and have not.
+    jev_publication.published_axes()
+    attached = (jev_publication.attach_for_parties(collected, data_dir)
+                if data_dir else {"published": False})
+    if attached["published"]:
+        print(f"  party scale: {attached['attached']}/{attached['rows']} rows "
+              f"from {attached['records']} answered records", file=sys.stderr)
     index = party_rollups.party_index(collected, generated_at, PARTY_RUBRIC_VERSION)
     write_json(out_dir / "parties.json", index)
     party_dir = out_dir / "party"
@@ -3495,7 +3511,7 @@ def main() -> int:
          "title": r.get("title"), "article_id": r.get("id"), "story_id": r.get("story_id"),
          "analysis": r.get("analysis")}
         for r in all_latest if r.get("analysis")
-    ], generated_at)
+    ], generated_at, data_dir)
 
     # ---- home.json -------------------------------------------------------------------
     dated = []
