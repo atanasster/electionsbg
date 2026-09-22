@@ -48,7 +48,16 @@ export type NewsAnalyticsEvent =
       filter: "category" | "period" | "reset";
       active: boolean;
     }
-  | { name: "story_filter"; axis: "leaning" | "russia"; active: boolean }
+  /**
+   * `axis: "both"` is the T5.7 way-out: a reader hit an empty intersection
+   * and bailed. Kept distinct from two per-axis clears so that count is
+   * answerable — the `home_filter` `reset` precedent.
+   */
+  | {
+      name: "story_filter";
+      axis: "leaning" | "russia" | "both";
+      active: boolean;
+    }
   | { name: "reader_save"; content: ContentType; saved: boolean }
   | {
       name: "reader_share";
@@ -189,7 +198,7 @@ const sanitizeNewsEventUnsafe = (raw: object): NewsAnalyticsEvent | null => {
         ? { name: "home_filter", filter: event.filter, active: event.active }
         : null;
     case "story_filter":
-      return ["leaning", "russia"].includes(event.axis) &&
+      return ["leaning", "russia", "both"].includes(event.axis) &&
         typeof event.active === "boolean"
         ? { name: "story_filter", axis: event.axis, active: event.active }
         : null;

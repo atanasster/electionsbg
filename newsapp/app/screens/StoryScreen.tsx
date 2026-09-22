@@ -654,7 +654,27 @@ export const StoryScreen = () => {
               )}
             </p>
             <Card className="overflow-hidden p-4">
-              <StoryTimeline members={members} outlets={outletMarks} />
+              <StoryTimeline
+                members={members}
+                outlets={outletMarks}
+                onShowAll={
+                  // Only while there is a selection to clear: without it the
+                  // empty state describes an empty story, not a filter result.
+                  leanFilter || stanceFilter
+                    ? () => {
+                        // One event, distinct from two per-axis clears, so
+                        // „hit an empty intersection and bailed" is countable.
+                        emitNewsEvent({
+                          name: "story_filter",
+                          axis: "both",
+                          active: false,
+                        });
+                        setLeanFilter(null);
+                        setStanceFilter(null);
+                      }
+                    : undefined
+                }
+              />
             </Card>
           </section>
         </div>

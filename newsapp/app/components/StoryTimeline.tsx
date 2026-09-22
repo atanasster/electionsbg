@@ -14,6 +14,7 @@
 // has not shipped, so there is nothing evidenced to put in that chip yet.
 
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import type { Outlet, StoryMember } from "../data";
 import { dayKey, formatDay, formatTime } from "../labels";
 import { useNewsLocale } from "../i18n";
@@ -85,21 +86,55 @@ const HEADLINE_CLASS =
 export const StoryTimeline = ({
   members,
   outlets,
+  onShowAll,
 }: {
   members: StoryMember[];
   outlets: Map<string, TimelineOutlet>;
+  /**
+   * T5.7 — the way out of a filtered-empty list. Pass it ONLY while a
+   * selection is active: with it present the empty state is described as a
+   * filter result and offers to clear BOTH axes (the label says so); without
+   * it the list is described as empty. The „both axes" wording rests on the
+   * caller's wiring — `StoryScreen` filters segments to `count > 0`, so one
+   * axis alone always leaves a row — not on anything this component can
+   * see; the one render between a story switch and the effect that resets
+   * the previous story's filters is the known exception, and it self-heals.
+   */
+  onShowAll?: () => void;
 }) => {
   const { language, tr } = useNewsLocale();
   const untitled = tr("без заглавие", "untitled");
   const days = groupByDay(members, language);
   if (days.length === 0) {
     return (
-      <p className="py-4 text-sm text-muted-foreground">
-        {tr(
-          "Няма източници в избрания сегмент.",
-          "No sources match the selected segment.",
-        )}
-      </p>
+      <div
+        role="status"
+        className="py-4 text-sm text-muted-foreground"
+        data-testid="timeline-empty"
+      >
+        <p>
+          {onShowAll
+            ? tr(
+                "Няма материали, които да са едновременно в избраните сегменти по двете оси.",
+                "No article sits in the selected segments on both axes at once.",
+              )
+            : tr("Няма материали.", "No articles.")}
+        </p>
+        {onShowAll ? (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2"
+            onClick={onShowAll}
+          >
+            {tr(
+              "Покажи всички — изчиства избора и по двете оси",
+              "Show all — clears the selection on both axes",
+            )}
+          </Button>
+        ) : null}
+      </div>
     );
   }
   return (

@@ -1,6 +1,6 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 import type { StoryMember } from "../data";
 import type { TimelineOutlet } from "./StoryTimeline";
@@ -197,15 +197,54 @@ describe("StoryTimeline", () => {
     ).toBeGreaterThan(0);
   });
 
-  it("says so when the filter leaves nothing", () => {
+  it("says so when the filters leave nothing, and offers a way out that names what it clears", () => {
+    const onShowAll = vi.fn();
+    render(
+      <MemoryRouter>
+        <StoryTimeline members={[]} outlets={outlets} onShowAll={onShowAll} />
+      </MemoryRouter>,
+    );
+    const status = screen.getByRole("status");
+    expect(status).toHaveTextContent(
+      "едновременно в избраните сегменти по двете оси",
+    );
+    expect(screen.queryByTestId("story-timeline")).toBeNull();
+    const button = screen.getByRole("button", {
+      name: "Покажи всички — изчиства избора и по двете оси",
+    });
+    fireEvent.click(button);
+    expect(onShowAll).toHaveBeenCalledTimes(1);
+  });
+
+  it("describes an empty list as empty, not as a filter result, when nothing can be cleared", () => {
+    // ⚠️ THE MUTATION THIS CATCHES: the „both axes" sentence and a reset
+    // button on a story with no selection (or no members) to clear.
     render(
       <MemoryRouter>
         <StoryTimeline members={[]} outlets={outlets} />
       </MemoryRouter>,
     );
+    expect(screen.getByRole("status")).toHaveTextContent("Няма материали.");
+    expect(screen.queryByText(/по двете оси/)).toBeNull();
+    expect(screen.queryByRole("button")).toBeNull();
+  });
+
+  it("carries the same way out in English", async () => {
+    const { NewsLocaleProvider } = await import("../i18n");
+    render(
+      <NewsLocaleProvider language="en">
+        <MemoryRouter>
+          <StoryTimeline members={[]} outlets={outlets} onShowAll={() => {}} />
+        </MemoryRouter>
+      </NewsLocaleProvider>,
+    );
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "No article sits in the selected segments on both axes at once.",
+    );
     expect(
-      screen.getByText("Няма източници в избрания сегмент."),
+      screen.getByRole("button", {
+        name: "Show all — clears the selection on both axes",
+      }),
     ).toBeVisible();
-    expect(screen.queryByTestId("story-timeline")).toBeNull();
   });
 });

@@ -475,6 +475,84 @@ describe("one completeness strip for both axes (T5.4)", () => {
   });
 });
 
+describe("a filtered-empty timeline has a way out (T5.7)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+    Reflect.deleteProperty(window, "naiasnoNewsAnalytics");
+  });
+
+  it("clears BOTH axes, says so, and reports one reset", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    // left: progressive + pro_russia; right: conservative + anti_russia —
+    // „Прогресивно" ∩ „Антируска" is empty.
+    mockServedStory(story);
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    fireEvent.click(screen.getByRole("button", { name: /Прогресивно ·/ }));
+    expect(screen.queryByTestId("timeline-empty")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /Антируска ·/ }));
+    expect(screen.getByTestId("timeline-empty")).toBeVisible();
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Покажи всички — изчиства избора и по двете оси",
+      }),
+    );
+    // ⚠️ THE MUTATION THIS CATCHES: clearing one axis only — the other
+    // segment stays pressed and the list stays narrowed.
+    expect(screen.queryByTestId("timeline-empty")).toBeNull();
+    expect(screen.getAllByTestId("timeline-item")).toHaveLength(3);
+    expect(
+      screen.getByRole("button", { name: /Прогресивно ·/ }),
+    ).toHaveAttribute("aria-pressed", "false");
+    expect(screen.getByRole("button", { name: /Антируска ·/ })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    await waitFor(() => {
+      const filterEvents = sink.mock.calls
+        .map(([event]) => event)
+        .filter((event) => event.name === "story_filter");
+      // One `both` event, not two per-axis clears — so a bail-out is countable.
+      expect(filterEvents.slice(-1)).toEqual([
+        { name: "story_filter", axis: "both", active: false },
+      ]);
+    });
+  });
+});
+
+describe("a story with no members offers no reset (T5.7)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+  });
+
+  it("describes the list as empty rather than as a filter result", async () => {
+    // ⚠️ THE MUTATION THIS CATCHES: passing the handler unconditionally —
+    // a reset button for a selection that does not exist.
+    mockServedStory({ ...story, members: [] });
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByTestId("timeline-empty")).toHaveTextContent(
+      "Няма материали.",
+    );
+    expect(screen.queryByRole("button", { name: /Покажи всички/ })).toBeNull();
+  });
+});
+
 describe("de-jargoned copy (T5.6)", () => {
   afterEach(() => {
     vi.resetModules();
