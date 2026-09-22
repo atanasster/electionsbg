@@ -24,6 +24,7 @@ import {
 } from "../labels";
 import { useNewsLocale } from "../i18n";
 import { ToneBar } from "../components/ToneBar";
+import { OutletBreakdown } from "../components/OutletBreakdown";
 
 export const PartyScreen = () => {
   const { id } = useParams<{ id: string }>();
@@ -93,6 +94,11 @@ export const PartyScreen = () => {
             {tr("Изписвания в материалите", "Spellings in the articles")}:{" "}
             {p.names_seen.join(", ")}
           </p>
+        ) : null}
+        {/* ⚠️ Over the whole archive, not this page — and absent on a payload
+            built before T4.4 Phase 3, which is why it is optional. */}
+        {p.by_outlet?.length ? (
+          <OutletBreakdown rows={p.by_outlet} subject={p.name ?? p.party_id} />
         ) : null}
       </header>
 

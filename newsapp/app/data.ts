@@ -2891,6 +2891,55 @@ export interface PartyArticleRow {
   evidence_spans: EvidenceSpan[];
 }
 
+/**
+ * One outlet's coverage of ONE subject.
+ *
+ * ⚠️ NEVER A RATING OF THE OUTLET. This is a filter over one archive, so
+ * every entry belongs to the party whose page it is on and carries its own
+ * denominators — `rows` is the coverage that exists, `assessed` the part of it
+ * that carries a published tone, and `value_scored` the part with a
+ * continuous score. The three are different numbers and are not
+ * interchangeable.
+ */
+export interface OutletBreakdownRow {
+  domain: string;
+  counts: Partial<Record<Tone, number>>;
+  /** Every row from this outlet, including ones with no published tone. */
+  rows: number;
+  /** The rows that carry a published tone — the ToneBar's denominator. */
+  assessed: number;
+  first_published: string | null;
+  last_published: string | null;
+  /** The continuous mean, where a Jev record has been attached. */
+  value_mean: number | null;
+  /** ⚠️ Its OWN denominator — not `rows`, not `assessed`. */
+  value_scored: number;
+  /** Null at n = 1: a band of zero width around one point reads as certainty. */
+  value_se: number | null;
+}
+
+/** One bucket of the subject's coverage over time. An empty period is ABSENT
+ *  from `points`, never a zero — a zero plots as "nothing favourable was
+ *  published" where the truth is "nothing was published".
+ *
+ *  ⚠️ It carries NO window: the period IS the window, and
+ *  `sentiment_rollups.series()` writes no `first_published`/`last_published`.
+ *  Inheriting them from `OutletBreakdownRow` declared two fields the producer
+ *  never emits. */
+export interface SeriesPoint extends Omit<
+  OutletBreakdownRow,
+  "domain" | "first_published" | "last_published"
+> {
+  period: string;
+}
+
+export interface SentimentSeries {
+  /** `day` · `week` · `month`, chosen from the span the rows cover. */
+  granularity: string;
+  points: SeriesPoint[];
+  undated: number;
+}
+
 export interface PartyPayload extends Omit<PartyIndexRow, "name"> {
   version: number;
   generated_at: string;
@@ -2901,6 +2950,11 @@ export interface PartyPayload extends Omit<PartyIndexRow, "name"> {
   page: number;
   page_size: number;
   total_pages: number;
+  /** ⚠️ Over the whole ARCHIVE, not the page — and identical on every page,
+   *  so paging back does not change the chart. Optional because a payload
+   *  built before T4.4 Phase 3 carries neither. */
+  by_outlet?: OutletBreakdownRow[];
+  series?: SentimentSeries;
   articles: PartyArticleRow[];
 }
 
