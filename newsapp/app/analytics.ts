@@ -58,6 +58,8 @@ export type NewsAnalyticsEvent =
       axis: "leaning" | "russia" | "both";
       active: boolean;
     }
+  /** T5.8 — ONE per comparison reached (re-armed below the minimum); `sources` is the count when reached. */
+  | { name: "story_compare"; sources: 2 | 3 }
   | { name: "reader_save"; content: ContentType; saved: boolean }
   | {
       name: "reader_share";
@@ -201,6 +203,10 @@ const sanitizeNewsEventUnsafe = (raw: object): NewsAnalyticsEvent | null => {
       return ["leaning", "russia", "both"].includes(event.axis) &&
         typeof event.active === "boolean"
         ? { name: "story_filter", axis: event.axis, active: event.active }
+        : null;
+    case "story_compare":
+      return event.sources === 2 || event.sources === 3
+        ? { name: "story_compare", sources: event.sources }
         : null;
     case "reader_save":
       return CONTENT.has(event.content) && typeof event.saved === "boolean"

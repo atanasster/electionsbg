@@ -3,8 +3,8 @@
 // src/ux/MixBar doubles as the member filter), per-outlet headline framing,
 // and a sidebar with coverage counts, topics, entities and related stories.
 
-import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MixBar, type MixSegment } from "@/ux/MixBar";
@@ -19,8 +19,10 @@ import {
   russiaMeta,
 } from "../labels";
 import {
+  type StoryMember,
   storyIsGone,
   useCases,
+  useOutletArticles,
   useOutlets,
   useRetiredStories,
   useStoryDetail,
@@ -37,6 +39,7 @@ import { RelatedStories } from "../components/RelatedStories";
 import { ReaderActions } from "../components/ReaderActions";
 import { ReportIssueLink } from "../components/ReportIssueLink";
 import { HeadlineComparison } from "../components/HeadlineComparison";
+import { StoryCompare, type CompareSource } from "../components/StoryCompare";
 import { StorySynthesisBlock } from "../components/StorySynthesis";
 import { AggregateCompleteness } from "../components/AggregateCompleteness";
 import {
@@ -47,6 +50,15 @@ import { emitNewsEvent } from "../analytics";
 import { useNewsLocale } from "../i18n";
 import { axisDivergence, type AxisDivergence } from "../storyDivergence";
 import { articleNoun } from "../plural";
+import {
+  COMPARE_MAX,
+  COMPARE_MIN,
+  COMPARE_PARAM,
+  memberKey,
+  parseCompare,
+  serializeCompare,
+  toggleCompare,
+} from "../storyCompare";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
 type StanceGroup = "pro" | "neutral" | "anti" | "n/a";
@@ -227,6 +239,83 @@ export const StoryScreen = () => {
     for (const o of outlets.data?.outlets ?? []) map.set(o.domain, o.outlet);
     return map;
   }, [outlets.data]);
+
+  // T5.8 — the comparison selection lives in the URL (`?compare=k1,k2`), so
+  // a comparison is shareable and survives a reload; keys that name no
+  // selectable member of THIS story are dropped on read, never rendered.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const compareKeys = useMemo(
+    () => parseCompare(searchParams.get(COMPARE_PARAM), story?.members ?? []),
+    [searchParams, story],
+  );
+  const setCompareKeys = useCallback(
+    (keys: string[]) => {
+      const next = new URLSearchParams(searchParams);
+      const value = serializeCompare(keys);
+      if (value) next.set(COMPARE_PARAM, value);
+      else next.delete(COMPARE_PARAM);
+      setSearchParams(next, { replace: true });
+    },
+    [searchParams, setSearchParams],
+  );
+  const compareSelection = useMemo(
+    () => ({
+      selected: compareKeys,
+      max: COMPARE_MAX,
+      onToggle: (key: string) =>
+        setCompareKeys(toggleCompare(compareKeys, key)),
+    }),
+    [compareKeys, setCompareKeys],
+  );
+  const compareMembers = useMemo(
+    () =>
+      compareKeys
+        .map((key) => story?.members.find((m) => memberKey(m) === key))
+        .filter((m): m is StoryMember => Boolean(m)),
+    [compareKeys, story],
+  );
+  // Up to COMPARE_MAX outlet bundles, fixed hook slots — a hook cannot be
+  // called in a loop of variable length.
+  const bundle0 = useOutletArticles(compareMembers[0]?.domain ?? null);
+  const bundle1 = useOutletArticles(compareMembers[1]?.domain ?? null);
+  const bundle2 = useOutletArticles(compareMembers[2]?.domain ?? null);
+  const compareSources = useMemo<CompareSource[]>(() => {
+    const bundles = [bundle0, bundle1, bundle2];
+    return compareMembers.map((member, i) => {
+      const b = bundles[i];
+      const key = memberKey(member) ?? "";
+      // ⚠️ The slots are positional and `useData` keeps the PREVIOUS path's
+      // bundle while the next one loads — so after an un-tick the slot can
+      // hold another domain's articles. Only a bundle for THIS domain may be
+      // read; a stale one is „still loading", never „not assessed".
+      const bundle = b.data && b.data.domain === member.domain ? b.data : null;
+      return {
+        key,
+        member,
+        outlet: outlets.data?.outlets.find((o) => o.domain === member.domain),
+        article: bundle
+          ? (bundle.articles.find((a) => a.id === member.article_id) ?? null)
+          : undefined,
+        loading: b.loading || (!bundle && Boolean(b.data)),
+      };
+    });
+  }, [bundle0, bundle1, bundle2, compareMembers, outlets.data]);
+  const comparing = compareMembers.length >= COMPARE_MIN;
+  // ONE event per comparison reached — not per edit. Editing 2→3→2 is one
+  // comparison; dropping below the minimum re-arms it.
+  const compareSent = useRef(false);
+  useEffect(() => {
+    if (!comparing) {
+      compareSent.current = false;
+      return;
+    }
+    if (compareSent.current) return;
+    compareSent.current = true;
+    emitNewsEvent({
+      name: "story_compare",
+      sources: compareMembers.length === 3 ? 3 : 2,
+    });
+  }, [comparing, compareMembers.length]);
   // `TimelineOutlet` is a Pick so the mark can widen (a credited logo, a short
   // name) without changing this call site; today it carries the name alone.
   const outletMarks = useMemo(() => {
@@ -479,7 +568,16 @@ export const StoryScreen = () => {
             <h1 id="story-title" className="app-story-title">
               {pageTitle}
             </h1>
-            <ReaderActions path={`/story/${story.id}`} title={pageTitle} />
+            <ReaderActions
+              path={`/story/${story.id}`}
+              title={pageTitle}
+              // A comparison is part of what the reader is sharing.
+              search={
+                comparing
+                  ? `${COMPARE_PARAM}=${serializeCompare(compareKeys) ?? ""}`
+                  : null
+              }
+            />
             <div className="mt-2">
               <ReportIssueLink path={`/story/${story.id}`} />
             </div>
@@ -553,10 +651,31 @@ export const StoryScreen = () => {
             >
               {tr("Как се различава отразяването", "How coverage differs")}
             </h2>
+            <p className="mb-2 text-xs text-muted-foreground">
+              {tr(
+                `Отбележете ${COMPARE_MIN}–${COMPARE_MAX} източника, за да ги подредите поле по поле.`,
+                `Tick ${COMPARE_MIN}–${COMPARE_MAX} sources to align them field by field.`,
+              )}
+            </p>
             <HeadlineComparison
               members={chronologicalMembers}
               outletNames={outletNames}
+              selection={compareSelection}
             />
+            {comparing ? (
+              <StoryCompare
+                sources={compareSources}
+                synthesis={storyDetail.data?.synthesis}
+                onReset={() => setCompareKeys([])}
+              />
+            ) : compareKeys.length === 1 ? (
+              <p className="mt-2 text-xs text-muted-foreground" role="status">
+                {tr(
+                  "Отбележете още един източник, за да се покаже сравнението.",
+                  "Tick one more source to show the comparison.",
+                )}
+              </p>
+            ) : null}
           </section>
 
           {/* 3. Interactive analysis — a bar per axis, ONE completeness strip after both (T5.4). */}

@@ -33,6 +33,18 @@ describe("HeadlineComparison", () => {
     expect(distinctiveHeadlineTerms(["Единствено заглавие"])[0].size).toBe(0);
   });
 
+  it("renders no checkbox unless a selection is offered", () => {
+    render(
+      <MemoryRouter>
+        <HeadlineComparison
+          members={[member("one.bg", "Едно"), member("two.bg", "Две")]}
+          outletNames={new Map()}
+        />
+      </MemoryRouter>,
+    );
+    expect(screen.queryByRole("checkbox")).toBeNull();
+  });
+
   it("labels lexical differences without claiming bias", () => {
     render(
       <MemoryRouter>

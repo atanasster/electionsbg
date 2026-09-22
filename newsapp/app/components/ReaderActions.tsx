@@ -8,9 +8,12 @@ import { newsPathForLanguage, useNewsLocale } from "../i18n";
 export const ReaderActions = ({
   path,
   title,
+  search,
 }: {
   path: string;
   title: string;
+  /** Query string (without `?`) the shared URL should carry — e.g. a comparison selection. */
+  search?: string | null;
 }) => {
   const { language, tr } = useNewsLocale();
   const [message, setMessage] = useState("");
@@ -20,7 +23,9 @@ export const ReaderActions = ({
   }, [path]);
 
   const share = async () => {
-    const url = newsUrlFor(newsPathForLanguage(path, language));
+    const url = newsUrlFor(
+      `${newsPathForLanguage(path, language)}${search ? `?${search}` : ""}`,
+    );
     const attemptedMethod =
       typeof navigator.share === "function" ? "native" : "clipboard";
     try {

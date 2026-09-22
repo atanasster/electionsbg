@@ -553,6 +553,257 @@ describe("a story with no members offers no reset (T5.7)", () => {
   });
 });
 
+describe("comparison as an action (T5.8)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+    Reflect.deleteProperty(window, "naiasnoNewsAnalytics");
+  });
+  const bundles = {
+    useOutletArticles: (domain: string | null) => ({
+      data: domain
+        ? {
+            domain,
+            outlet: domain,
+            generated_at: "",
+            articles: [
+              {
+                id: `private-member-${domain.split(".")[0]}`,
+                domain,
+                updated: null,
+                analysis: {
+                  summary_bg: `Обобщение за ${domain}`,
+                  summary_en: `Summary for ${domain}`,
+                },
+              },
+            ],
+          }
+        : null,
+      error: null,
+      loading: false,
+    }),
+  };
+  const renderAt = async (path: string) => {
+    mockServedStory(story, bundles);
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={[path]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+  };
+
+  it("reads the selection from the URL, ignores keys from elsewhere, and aligns the sources", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    await renderAt(
+      "/story/private-story-id?compare=right.example/private-member-right,other.example/x,left.example/private-member-left",
+    );
+    const compare = screen.getByTestId("story-compare");
+    expect(
+      within(compare).getByRole("heading", {
+        name: "Сравнение на 2 източника",
+      }),
+    ).toBeVisible();
+    // URL order is the column order; the foreign key is dropped, not rendered.
+    const table = within(compare).getByRole("table");
+    expect(
+      within(table)
+        .getAllByRole("columnheader")
+        .map((h) => h.textContent),
+    ).toEqual(["Поле", "right.example", "left.example"]);
+    expect(within(table).getByText("Обобщение за right.example")).toBeVisible();
+    expect(
+      screen.getByRole("checkbox", { name: "Сравни: left.example" }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole("checkbox", { name: "Сравни: right.example" }),
+    ).toBeChecked();
+    await waitFor(() =>
+      expect(
+        sink.mock.calls
+          .map(([e]) => e)
+          .filter((e) => e.name === "story_compare"),
+      ).toEqual([{ name: "story_compare", sources: 2 }]),
+    );
+  });
+
+  it("ticking writes the URL, one tick asks for another, a fourth is refused, and reset clears", async () => {
+    await renderAt("/story/private-story-id");
+    expect(screen.queryByTestId("story-compare")).toBeNull();
+    fireEvent.click(
+      screen.getByRole("checkbox", { name: "Сравни: left.example" }),
+    );
+    expect(
+      screen.getByText(
+        "Отбележете още един източник, за да се покаже сравнението.",
+      ),
+    ).toBeVisible();
+    expect(screen.queryByTestId("story-compare")).toBeNull();
+    fireEvent.click(
+      screen.getByRole("checkbox", { name: "Сравни: right.example" }),
+    );
+    expect(screen.getByTestId("story-compare")).toBeVisible();
+    fireEvent.click(
+      screen.getByRole("checkbox", { name: "Сравни: undated.example" }),
+    );
+    expect(
+      within(screen.getByTestId("story-compare")).getByRole("heading", {
+        name: "Сравнение на 3 източника",
+      }),
+    ).toBeVisible();
+    // ⚠️ THE MUTATION THIS CATCHES: a fourth pick evicting the first, or a
+    // checkbox that stays enabled past the cap. (The fixture has three
+    // members, so the cap is exercised through the helper's refusal and the
+    // disabled state on an un-ticked box in a wider story.)
+    for (const box of screen.getAllByRole("checkbox"))
+      expect(box).toBeChecked();
+    fireEvent.click(
+      screen.getByRole("button", { name: "Изчисти сравнението" }),
+    );
+    expect(screen.queryByTestId("story-compare")).toBeNull();
+    for (const box of screen.getAllByRole("checkbox"))
+      expect(box).not.toBeChecked();
+  });
+
+  it("emits ONE story_compare per comparison reached, not per edit", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    await renderAt("/story/private-story-id");
+    const tick = (n: string) =>
+      fireEvent.click(screen.getByRole("checkbox", { name: `Сравни: ${n}` }));
+    tick("left.example");
+    tick("right.example"); // 2 → the comparison is reached
+    tick("undated.example"); // 3 → an edit, not a new comparison
+    tick("undated.example"); // back to 2
+    tick("right.example"); // below the minimum — re-arms
+    tick("right.example"); // reached again
+    // ⚠️ THE MUTATION THIS CATCHES: firing on every count change (2, 3, 2, 2).
+    await waitFor(() =>
+      expect(
+        sink.mock.calls
+          .map(([e]) => e)
+          .filter((e) => e.name === "story_compare"),
+      ).toEqual([
+        { name: "story_compare", sources: 2 },
+        { name: "story_compare", sources: 2 },
+      ]),
+    );
+  });
+
+  it("shares the comparison, and the bare story when there is none", async () => {
+    const share = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "share", {
+      configurable: true,
+      value: share,
+    });
+    try {
+      await renderAt(
+        "/story/private-story-id?compare=left.example/private-member-left,right.example/private-member-right",
+      );
+      fireEvent.click(screen.getByRole("button", { name: "Сподели" }));
+      await waitFor(() =>
+        expect(share).toHaveBeenLastCalledWith(
+          expect.objectContaining({
+            url: "https://news.electionsbg.com/story/private-story-id?compare=left.example/private-member-left,right.example/private-member-right",
+          }),
+        ),
+      );
+      fireEvent.click(
+        screen.getByRole("button", { name: "Изчисти сравнението" }),
+      );
+      fireEvent.click(screen.getByRole("button", { name: "Сподели" }));
+      await waitFor(() =>
+        expect(share).toHaveBeenLastCalledWith(
+          expect.objectContaining({
+            url: "https://news.electionsbg.com/story/private-story-id",
+          }),
+        ),
+      );
+    } finally {
+      Reflect.deleteProperty(navigator, "share");
+    }
+  });
+
+  it("does not read the previous domain's bundle as 'not assessed' while a slot reloads", async () => {
+    // What `useData` returns mid-swap: the PREVIOUS path's data with loading=true.
+    const stale = {
+      useOutletArticles: (domain: string | null) => ({
+        data: domain
+          ? {
+              domain: "left.example",
+              outlet: "left.example",
+              generated_at: "",
+              articles: [
+                {
+                  id: "private-member-left",
+                  domain: "left.example",
+                  updated: null,
+                  analysis: { summary_bg: "Обобщение за left", summary_en: "" },
+                },
+              ],
+            }
+          : null,
+        error: null,
+        loading: true,
+      }),
+    };
+    mockServedStory(story, stale);
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter
+        initialEntries={[
+          "/story/private-story-id?compare=right.example/private-member-right,left.example/private-member-left",
+        ]}
+      >
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    const table = within(screen.getByTestId("story-compare")).getByRole(
+      "table",
+    );
+    // ⚠️ THE MUTATION THIS CATCHES: reading any loaded bundle for any domain —
+    // right.example would then be „още не е оценен" off left.example's bundle.
+    expect(within(table).getByText("зарежда се…")).toBeVisible();
+    expect(within(table).queryByText(/още не е оценен/)).toBeNull();
+    expect(within(table).getByText("Обобщение за left")).toBeVisible();
+  });
+
+  it("disables the un-ticked boxes at the cap and says why", async () => {
+    const fourth: Story["members"][number] = {
+      ...story.members[0],
+      domain: "fourth.example",
+      article_id: "private-member-fourth",
+      url: "https://fourth.example/private",
+      title: "Четвърти материал",
+    };
+    mockServedStory({ ...story, members: [...story.members, fourth] }, bundles);
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter
+        initialEntries={[
+          "/story/private-story-id?compare=left.example/private-member-left,right.example/private-member-right,undated.example/private-member-undated",
+        ]}
+      >
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    const box = screen.getByRole("checkbox", {
+      name: "Сравни: fourth.example (най-много 3)",
+    });
+    expect(box).toBeDisabled();
+    expect(
+      screen.getByRole("checkbox", { name: "Сравни: left.example" }),
+    ).toBeEnabled();
+  });
+});
+
 describe("de-jargoned copy (T5.6)", () => {
   afterEach(() => {
     vi.resetModules();
