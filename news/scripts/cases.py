@@ -326,16 +326,36 @@ def attach_case_ids(story: dict, matches_by_url: dict, attachable: set) -> list:
     return sorted(slugs)
 
 
+def _rollup_eligible(member: dict) -> bool:
+    """T4.1c — THE ONE RULE (`analyze_articles.rollup_eligible`): only a
+    member the model demonstrably saw in full enters a whole-article rollup.
+    Fails closed when the rule cannot be imported."""
+    try:
+        try:
+            from . import analyze_articles as aa  # noqa: PLC0415
+        except ImportError:  # direct script execution
+            import analyze_articles as aa  # noqa: PLC0415
+        return aa.rollup_eligible(member)
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def framing_of(members: list) -> dict:
     by_leaning: dict = {}
     by_russia: dict = {}
+    scoped_out = 0
     for m in members:
+        if not _rollup_eligible(m):
+            scoped_out += 1
+            continue
         if m.get("leaning"):
             by_leaning[m["leaning"]] = by_leaning.get(m["leaning"], 0) + 1
         if m.get("russia_stance"):
             by_russia[m["russia_stance"]] = by_russia.get(m["russia_stance"], 0) + 1
     return {"by_leaning": by_leaning, "by_russia_stance": by_russia,
-            "rated": len([m for m in members if m.get("leaning")]),
+            "rated": len([m for m in members
+                          if m.get("leaning") and _rollup_eligible(m)]),
+            "prefix_scope_count": scoped_out,
             "articles": len(members)}
 
 

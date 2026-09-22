@@ -181,6 +181,35 @@ export const isV2Axis = <L extends string>(
 ): b is AxisBlock<L> & { rationale: string } =>
   Boolean(b) && b!.rationale != null;
 
+/** T4.1c — the coverage of the text the model was given. */
+export type TextScopeKind = "full" | "prefix" | "unrecorded";
+
+export interface TextScope {
+  version: number;
+  /**
+   * `full` — the model saw the whole text; `prefix` — the first N characters
+   * of a longer body; `unrecorded` — nobody wrote down what was read (the
+   * 2026-08 skill-era records), so no figure is claimed. Only `full` enters a
+   * whole-article rollup.
+   */
+  kind: TextScopeKind;
+  chars_seen: number | null;
+  chars_total: number | null;
+  /** seen / total, 0–1. */
+  coverage: number | null;
+  basis: "provenance" | "inferred" | "unrecorded" | "gate_unavailable";
+}
+
+/**
+ * THE ONE RULE on the client for „does this member's verdict enter a
+ * whole-article rollup" — the twin of `analyze_articles.rollup_eligible`.
+ * A member is a SCOPED OBSERVATION unless the model demonstrably saw its
+ * whole text. `null`/absent (a bundle older than T4.1c) counts as before.
+ */
+export const isScopedObservation = (m: {
+  text_scope?: TextScopeKind | null;
+}): boolean => m.text_scope != null && m.text_scope !== "full";
+
 export interface AnalysisBlock {
   summary_bg: string | null;
   summary_en: string | null;
@@ -196,6 +225,8 @@ export interface AnalysisBlock {
   withheld?: Record<string, string>;
   leaning: AxisBlock<Leaning> | null;
   russia_stance: AxisBlock<RussiaStance> | null;
+  /** Absent on a bundle built before T4.1c. */
+  text_scope?: TextScope;
   ai_generated: {
     verdict: AiVerdict | null;
     confidence: number | null;
@@ -356,6 +387,13 @@ export interface StoryMember {
   published: string | null;
   leaning: Leaning | null;
   russia_stance: RussiaStance | null;
+  /**
+   * T4.1c — what the model saw when it produced the labels above. Anything
+   * but `full` is a SCOPED OBSERVATION the page shows, labelled, and no
+   * whole-article rollup counts (`isScopedObservation`). Always present on a
+   * current bundle; absent only on one built before the stamp existed.
+   */
+  text_scope?: TextScopeKind | null;
   /** When WE first saw it. The scoop measure keys on this, not on `published`. */
   first_seen: string | null;
   /**
@@ -418,6 +456,8 @@ export interface Story {
      */
     leaning_outlets?: number;
     russia_stance_outlets?: number;
+    /** T4.1c — members whose labels were made on a prefix; in no rollup. */
+    prefix_scope_count?: number;
     /** Party label → tone → number of member articles making that tone claim. */
     by_party_tone: Record<string, Partial<Record<Tone, number>>>;
     by_domain: Record<string, number>;
@@ -2582,6 +2622,8 @@ export interface CasePayload extends CaseSummary {
     by_russia_stance: Partial<Record<RussiaStance, number>>;
     rated: number;
     articles: number;
+    /** T4.1c — members not read in full; in no bar above. Absent on an old bundle. */
+    prefix_scope_count?: number;
   };
 }
 

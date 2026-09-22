@@ -714,6 +714,10 @@ class BuildAppDataFixture(unittest.TestCase):
             "site_relevant": True,
             "story": {"action": action, "story_id": story_id},
             "published": "2026-08-22T00:00:00+00:00",
+            # The runner's provenance shape: a full read of a short body. A
+            # record with NO provenance at all is `unrecorded` (T4.1c) and
+            # enters no rollup — tests that need that state delete the key.
+            "analysis_provenance": {"body_truncated": False, "max_body_chars": 6000},
         }
 
 
@@ -3744,6 +3748,25 @@ class Cases(BuildAppDataFixture):
             self.write_analysis("a.bg", f"{slug}.json", self.analysis_record(
                 art["url"], "a.bg", f"news/data/a.bg/{slug}.json", action="new_story", story_id=None))
 
+    def test_a_scoped_member_is_in_no_case_framing(self):
+        """T4.1c — the case page's framing bar is a whole-article rollup too."""
+        self.seed(); self.registry()
+        # `case2` (progressive) was read in full; `case` (conservative) was a prefix read.
+        for slug, leaning, prov in (("case", "conservative", {"body_truncated": True, "max_body_chars": 6000}),
+                                    ("case2", "progressive", {"body_truncated": False, "max_body_chars": 6000})):
+            rec = self.analysis_record(f"https://a.bg/{slug}", "a.bg", f"news/data/a.bg/{slug}.json",
+                                       leaning=leaning, action="new_story", story_id=None)
+            rec["analysis_provenance"] = prov
+            self.write_analysis("a.bg", f"{slug}.json", rec)
+        self.run_build()
+        framing = self.load("cases/petrohan.json")["framing"]
+        # ⚠️ THE MUTATION THIS CATCHES: the prefix read's „conservative" on
+        # the case bar the story bar beneath it excludes.
+        self.assertEqual(framing["by_leaning"], {"progressive": 1})
+        self.assertEqual(framing["rated"], 1)
+        self.assertEqual(framing["prefix_scope_count"], 1)
+        self.assertEqual(framing["articles"], 2)
+
     def test_attached_cases_reach_the_stories_the_payload_and_the_review_artifact(self):
         self.seed(); self.registry()
         self.run_build()
@@ -4023,6 +4046,101 @@ class AxisEvidenceProjection(BuildAppDataFixture):
         category = next(c for c in self.load("taxonomy.json")["categories"] if c["id"] == "society")
         self.assertNotIn("conservative", category["leaning"])
         self.assertEqual(category["russia_stance"].get("anti_russia"), 1)
+
+
+class TextScopeProjection(BuildAppDataFixture):
+    """T4.1c — a prefix-scope analysis ships as a scoped observation: the
+    article carries `text_scope`, the member carries `prefix`, and no
+    whole-article distribution counts it."""
+
+    def test_a_prefix_scope_record_enters_no_rollup(self):
+        url = "https://example.bg/a1"
+        path = "news/data/example.bg/20260822-a1-abc.json"
+        self.write_corpus("example.bg", "20260822-a1-abc.json",
+                          corpus_article("example.bg", "a1", url, "Заглавие",
+                                         "2026-08-22T00:00:00+00:00", content="x" * 9000))
+        rec = self.analysis_record(url, "example.bg", path, leaning="conservative")
+        # A runner record from before the flag: the provenance dict is there
+        # (so the fixed prefix was in force) and the scope is INFERRED.
+        rec["analysis_provenance"] = {"model_requested": "m"}
+        self.write_analysis("example.bg", "20260822-a1-abc.json", rec)
+        os.makedirs(os.path.join(self.data_dir, "analysis", "stories"), exist_ok=True)
+        with open(os.path.join(self.data_dir, "analysis", "index.json"), "w", encoding="utf-8") as fh:
+            json.dump({"version": 1, "updated_at": "now", "stories": {
+                "20260822-s1": {"member_count": 1, "last_published": "2026-08-22T00:00:00+00:00"}},
+                "articles": {url: {"path": path, "story_id": "20260822-s1",
+                                   "domain": "example.bg", "analyzed_at": "now"}}}, fh)
+        with open(os.path.join(self.data_dir, "analysis", "stories", "20260822-s1.json"), "w",
+                  encoding="utf-8") as fh:
+            json.dump({
+                "id": "20260822-s1", "canonical_title_bg": "Т", "canonical_title_en": "T",
+                "summary_bg": "s", "summary_en": "s", "created_at": "now", "topics": [],
+                "related_story_ids": [], "first_published": "2026-08-22T00:00:00+00:00",
+                "last_published": "2026-08-22T00:00:00+00:00", "entities": {},
+                "members": [{"domain": "example.bg", "article_path": path, "url": url,
+                             "published": "2026-08-22T00:00:00+00:00",
+                             "leaning": "conservative", "russia_stance": "not_applicable",
+                             "added_at": "now"}],
+                "aggregates": {"article_count": 1, "outlet_count": 1,
+                               "by_leaning": {"conservative": 1},
+                               "by_russia_stance": {"not_applicable": 1},
+                               "by_domain": {"example.bg": 1}},
+            }, fh, ensure_ascii=False)
+        self.run_build()
+        article = self.load("articles/example.bg.json")["articles"][0]["analysis"]
+        self.assertEqual(article["text_scope"]["kind"], "prefix")
+        self.assertEqual(article["text_scope"]["basis"], "inferred")
+        self.assertEqual(article["text_scope"]["chars_seen"], 6000)
+        # The label is still shown on the article — a scoped observation.
+        self.assertEqual(article["leaning"]["label"], "conservative")
+        story = self.load("stories.json")["stories"][0]
+        # ⚠️ THE MUTATION THIS CATCHES: the prefix-scope label counted in the
+        # story, the outlet spectrum or the topic spread.
+        self.assertEqual(story["members"][0]["text_scope"], "prefix")
+        self.assertEqual(story["aggregates"]["by_leaning"], {})
+        self.assertEqual(story["aggregates"]["leaning_outlets"], 0)
+        self.assertEqual(story["aggregates"]["prefix_scope_count"], 1)
+        self.assertEqual(story["aggregates"]["article_count"], 1)
+        outlet = next(o for o in self.load("outlets.json")["outlets"] if o["domain"] == "example.bg")
+        self.assertEqual(outlet["leaning"], {})
+        category = next(c for c in self.load("taxonomy.json")["categories"] if c["id"] == "society")
+        self.assertNotIn("conservative", category["leaning"])
+
+
+class BlindspotScope(unittest.TestCase):
+    def test_a_scoped_member_neither_creates_nor_fills_a_blindspot(self):
+        left = {"leaning": "progressive", "text_scope": "full"}
+        right_full = {"leaning": "conservative", "text_scope": "full"}
+        right_prefix = {"leaning": "conservative", "text_scope": "prefix"}
+        right_unrecorded = {"leaning": "conservative", "text_scope": "unrecorded"}
+        self.assertIsNone(bad.blindspot_of([left, right_full]))
+        # ⚠️ THE MUTATION THIS CATCHES: a prefix read's right-wing voice
+        # FILLING the gap (no blindspot reported) — it is not a whole-article
+        # label, so the story is one left voice and one scoped observation,
+        # which is fewer than two labelled members: no claim either way.
+        self.assertIsNone(bad.blindspot_of([left, right_prefix]))
+        self.assertEqual(bad.blindspot_of([left, left, right_prefix]), {"side": "right"})
+        self.assertEqual(bad.blindspot_of([left, left, right_unrecorded]), {"side": "right"})
+        # And a prefix left-wing voice does not CREATE one.
+        self.assertIsNone(bad.blindspot_of([{**left, "text_scope": "prefix"}, {**left, "text_scope": "prefix"}]))
+
+
+class TextScopeFailsClosed(unittest.TestCase):
+    def test_an_unavailable_rule_ships_no_figure_and_counts_nothing(self):
+        import unittest.mock as mock
+        import analyze_articles as aa
+        rec = {"analysis_provenance": {"body_truncated": False}}
+        with mock.patch.object(aa, "text_scope_of", side_effect=RuntimeError("down")):
+            scope = bad.text_scope_public(rec, {"content": "x"})
+        self.assertEqual((scope["kind"], scope["basis"], scope["chars_seen"]),
+                         ("unrecorded", "gate_unavailable", None))
+        with mock.patch.object(aa, "rollup_eligible", side_effect=RuntimeError("down")):
+            self.assertFalse(bad.rollup_eligible({"text_scope": "full"}))
+
+    def test_the_prefix_limit_mirrors_build_prompts(self):
+        import analyze_articles as aa
+        import build_prompts
+        self.assertEqual(aa.DEFAULT_MAX_BODY_CHARS, build_prompts.MAX_BODY_CHARS)
 
 
 class PositionedOutletCounts(unittest.TestCase):

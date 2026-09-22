@@ -98,7 +98,7 @@ const sources = (): CompareSource[] => [
   },
   {
     key: "c.bg/c.bg-id",
-    member: member("c.bg"),
+    member: member("c.bg", { text_scope: "prefix" }),
     outlet: undefined,
     article: undefined,
     loading: true,
@@ -192,6 +192,10 @@ describe("StoryCompare", () => {
     // Framing: a badge with a text label, or "not assessed" — never a guessed position.
     expect(within(table).getAllByText("не е оценено")).toHaveLength(2);
     expect(within(table).getByText("Прогресивно")).toBeVisible();
+    // T4.1c — a scoped observation's badges carry the mark; a full read's do not.
+    const marks = within(table).getAllByTestId("scope-mark");
+    expect(marks).toHaveLength(2); // c.bg's two axes
+    expect(marks[0]).toHaveTextContent("частично");
     // Links: article page + original, both named.
     expect(
       within(table).getByRole("link", { name: "Заглавие a.bg" }),

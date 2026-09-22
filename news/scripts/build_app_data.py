@@ -405,6 +405,7 @@ EMPTY_STORY_ENTITIES = {"people": [], "parties": [], "institutions": [],
 EMPTY_STORY_AGGREGATES = {"article_count": 0, "outlet_count": 0,
                           "by_leaning": {}, "by_russia_stance": {},
                           "leaning_outlets": 0, "russia_stance_outlets": 0,
+                          "prefix_scope_count": 0,
                           "by_party_tone": {}, "by_domain": {}}
 
 # CSV column headers carry a data-vintage suffix (_aug2026); match by prefix so a new
@@ -2051,6 +2052,31 @@ def axis_public(rec: dict, field: str) -> dict | None:
                 "withheld_reason": "gate_unavailable"}
 
 
+def rollup_eligible(obj) -> bool:
+    """`analyze_articles.rollup_eligible`, failing CLOSED: if the rule cannot
+    run, nothing is counted."""
+    try:
+        import analyze_articles as aa
+        return aa.rollup_eligible(obj)
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def text_scope_public(rec: dict, article: dict) -> dict:
+    """The saved `text_scope` when the record carries one, else the same
+    rule applied now (older records). Fails CLOSED to `prefix`: if the rule
+    cannot run, the record is kept out of the rollups rather than counted."""
+    try:
+        import analyze_articles as aa
+        saved = rec.get("text_scope")
+        if isinstance(saved, dict) and saved.get("kind") in aa.TEXT_SCOPE_KINDS:
+            return saved
+        return aa.text_scope_of(rec, article)
+    except Exception:  # noqa: BLE001
+        return {"version": 0, "kind": "unrecorded", "chars_seen": None,
+                "chars_total": None, "coverage": None, "basis": "gate_unavailable"}
+
+
 def compact_analysis(rec: dict, article: dict) -> dict:
     """Keep everything the article page renders; drop bookkeeping (paths, timestamps)."""
     bad = altered_names(rec.get("entities"), [article])
@@ -2128,6 +2154,10 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         **({"mentions": rec["mentions"]} if rec.get("mentions") is not None
            else {}),
         "party_tones": party_tones,
+        # T4.1c — what the model saw. Stamped at save on new records and
+        # INFERRED here for older ones (same fixed prefix); a `prefix` scope
+        # is a scoped observation and enters no whole-article rollup.
+        "text_scope": text_scope_public(rec, article),
         "topics": rec.get("topics"),
         "quality": rec.get("quality"),
         "site_relevant": rec.get("site_relevant"),
@@ -2254,6 +2284,7 @@ def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[l
     by_domain: dict[str, int] = {}
     by_party_tone: dict[str, dict[str, int]] = {}
     positioned_outlets: dict[str, set[str]] = {"leaning": set(), "russia": set()}
+    prefix_scope = 0
     seen_urls: set[str] = set()
     for member in story.get("members") or []:
         if not isinstance(member, dict):
@@ -2277,6 +2308,11 @@ def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[l
             raise ValueError(
                 f"story {story.get('id')} has an invalid effective member {url}")
         by_domain[domain] = by_domain.get(domain, 0) + 1
+        # T4.1c — only a record the model demonstrably saw in full enters a
+        # tone rollup: THE ONE RULE, `analyze_articles.rollup_eligible`.
+        if not rollup_eligible(analysis):
+            prefix_scope += 1
+            continue
         if leaning:
             by_leaning[leaning] = by_leaning.get(leaning, 0) + 1
         if russia:
@@ -2308,6 +2344,7 @@ def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[l
         "by_russia_stance": by_russia,
         "leaning_outlets": len(positioned_outlets["leaning"]),
         "russia_stance_outlets": len(positioned_outlets["russia"]),
+        "prefix_scope_count": prefix_scope,
         "by_party_tone": by_party_tone,
         "by_domain": by_domain,
     }
@@ -2329,7 +2366,9 @@ def reconcile_effective_story(story: dict, recomputed: dict,
                 or member.get("leaning")
                 != (analysis.get("leaning") or {}).get("label")
                 or member.get("russia_stance")
-                != (analysis.get("russia_stance") or {}).get("label")):
+                != (analysis.get("russia_stance") or {}).get("label")
+                or member.get("text_scope")
+                != (analysis.get("text_scope") or {}).get("kind")):
             raise ValueError(
                 f"story {story.get('id')} effective member labels did not reconcile")
     if recomputed.get("aggregates") != expected_aggregates:
@@ -2435,7 +2474,10 @@ def blindspot_of(members: list[dict]) -> dict | None:
     """Ground.news-style blindspot: a story with ≥2 leaning-labeled members where one
     political wing is entirely absent. Returns {"side": <missing wing>} or None. Neutral
     and not_applicable members carry no wing signal and never trigger a blindspot."""
-    labelled = [m for m in members if m.get("leaning") in LEFT_WING | RIGHT_WING]
+    # T4.1c — a whole-story claim from whole-article labels: a member the
+    # model did not see in full neither creates nor fills a blindspot.
+    labelled = [m for m in members
+                if rollup_eligible(m) and m.get("leaning") in LEFT_WING | RIGHT_WING]
     if len(labelled) < 2:
         return None
     has_left = any(m["leaning"] in LEFT_WING for m in labelled)
@@ -2827,6 +2869,7 @@ def main() -> int:
                 public_effective["leaning"] = copy.deepcopy(public_analysis.get("leaning"))
                 public_effective["russia_stance"] = copy.deepcopy(
                     public_analysis.get("russia_stance"))
+                public_effective["text_scope"] = copy.deepcopy(public_analysis.get("text_scope"))
                 # Story recomputation needs the corpus pointer. Older compact
                 # analysis fixtures/records may omit it even though identity
                 # is otherwise publishable; derive it from the exact corpus
@@ -2858,6 +2901,9 @@ def main() -> int:
                 # and reaches no outlet spectrum and no topic axis spread.
                 lean = (public_analysis.get("leaning") or {}).get("label")
                 stance = (public_analysis.get("russia_stance") or {}).get("label")
+                if not rollup_eligible(public_analysis):
+                    # T4.1c — a scoped observation enters no distribution.
+                    lean = stance = None
                 ai = (analysis.get("ai_generated") or {}).get("verdict")
                 if lean in LEANING_LABELS:
                     bucket = leaning_by_domain.setdefault(domain, {})
@@ -3099,6 +3145,10 @@ def main() -> int:
                         "published": m.get("published"),
                         "leaning": m.get("leaning"),
                         "russia_stance": m.get("russia_stance"),
+                        # T4.1c — `full` / `prefix` / `unrecorded`; only
+                        # `full` enters a rollup. Always present on a
+                        # current bundle (the public copy stamps every one).
+                        "text_scope": m.get("text_scope"),
                         # When WE first saw it, which is what the scoop
                         # measure below keys on — see attach_scoop_lag.
                         "first_seen": (corpus_records.get(

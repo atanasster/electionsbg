@@ -77,6 +77,8 @@ def analysis(path, url, domain, *, verdict="ok", leaning="neutral", russia="not_
         "story": {"action": action, "story_id": story_id,
                   "canonical_title_bg": titles[0], "canonical_title_en": titles[1],
                   "summary_bg": "сб", "summary_en": "se"},
+        # The runner's provenance shape (T4.1c: no provenance = `unrecorded`).
+        "analysis_provenance": {"body_truncated": False, "max_body_chars": 6000},
     }
     if extra:
         a.update(extra)
@@ -270,6 +272,64 @@ class TestAxisEvidenceV2(unittest.TestCase):
 
 
 
+class TestTextScope(unittest.TestCase):
+    """T4.1c — what the model saw, as a dated fact, and the rollup rule."""
+
+    def test_scope_from_provenance_and_inferred_for_older_records(self):
+        import analyze_articles as aa
+        long_body = {"content": "х" * 9000}
+        short_body = {"content": "х" * 500}
+        flagged = {"analysis_provenance": {"body_truncated": True, "max_body_chars": 6000}}
+        scope = aa.text_scope_of(flagged, long_body)
+        self.assertEqual((scope["kind"], scope["chars_seen"], scope["chars_total"], scope["basis"]),
+                         ("prefix", 6000, 9000, "provenance"))
+        self.assertAlmostEqual(scope["coverage"], 0.6667, places=4)
+        # A runner record from before the flag carries the provenance dict:
+        # the fixed prefix was in force, so the body length decides.
+        scope = aa.text_scope_of({"analysis_provenance": {}}, long_body)
+        self.assertEqual((scope["kind"], scope["basis"]), ("prefix", "inferred"))
+        scope = aa.text_scope_of({"analysis_provenance": {}}, short_body)
+        self.assertEqual((scope["kind"], scope["coverage"]), ("full", 1.0))
+        # ⚠️ THE MUTATION THIS CATCHES: a skill-era record (NO provenance at
+        # all — its analyst was told to read the whole file) stamped with a
+        # 6,000-character prefix it never had. It is `unrecorded`: no figure,
+        # no rollup, and never a prefix.
+        scope = aa.text_scope_of({}, long_body)
+        self.assertEqual((scope["kind"], scope["basis"], scope["chars_seen"], scope["coverage"]),
+                         ("unrecorded", "unrecorded", None, None))
+        self.assertFalse(aa.rollup_eligible({"text_scope": scope}))
+        self.assertFalse(aa.rollup_eligible({"text_scope": "unrecorded"}))
+        # The provenance flag wins over the length (a record analysed with a
+        # wider limit is not prefix because today's default is narrower).
+        scope = aa.text_scope_of({"analysis_provenance": {"body_truncated": False,
+                                                          "max_body_chars": 12000}}, long_body)
+        self.assertEqual(scope["kind"], "full")
+        self.assertTrue(aa.rollup_eligible({"text_scope": scope}))
+        self.assertFalse(aa.rollup_eligible({"text_scope": {"kind": "prefix"}}))
+        self.assertTrue(aa.rollup_eligible({}))
+
+    def test_a_prefix_member_is_a_scoped_observation_and_enters_no_rollup(self):
+        import analyze_articles as aa
+        def rec(url, domain, scope, leaning="conservative"):
+            return {"url": url, "domain": domain, "article_path": f"news/data/{domain}/{url[-1]}.json",
+                    "leaning": {"label": leaning}, "russia_stance": {"label": "not_applicable"},
+                    "entities": {}, "text_scope": {"kind": scope},
+                    "party_tones": [{"party": "ГЕРБ", "tone": "unfavorable", "party_id": "gerb"}]}
+        analyses = {"https://a.bg/1": rec("https://a.bg/1", "a.bg", "full"),
+                    "https://b.bg/2": rec("https://b.bg/2", "b.bg", "prefix")}
+        story = {"id": "s", "members": [{"url": u} for u in analyses], "entities": {}}
+        out = aa.recompute_story(story, analyses)
+        agg = out["aggregates"]
+        # ⚠️ THE MUTATION THIS CATCHES: the prefix member's labels and party
+        # tone counted in the whole-article rollups.
+        self.assertEqual(agg["article_count"], 2)
+        self.assertEqual(agg["by_leaning"], {"conservative": 1})
+        self.assertEqual(agg["leaning_outlets"], 1)
+        self.assertEqual(agg["by_party_tone"], {"ГЕРБ": {"unfavorable": 1}})
+        self.assertEqual(agg["prefix_scope_count"], 1)
+        self.assertEqual([m["text_scope"] for m in out["members"]], ["full", "prefix"])
+
+
 class TestAxisEvidenceSave(FixtureTestCase):
     """The axis gate on the real save path: stamped at save, refused when
     supplied, a fabricated quote is not located."""
@@ -294,6 +354,8 @@ class TestAxisEvidenceSave(FixtureTestCase):
         with open(path, encoding="utf-8") as fh:
             saved = json.load(fh)
         self.assertEqual(saved["axis_evidence_gate_version"], aa.AXIS_EVIDENCE_VERSION)
+        self.assertEqual(saved["text_scope"]["kind"], "full")
+        self.assertEqual(saved["text_scope"]["basis"], "provenance")
         self.assertTrue(saved["leaning"]["evidence_spans"][0]["located"])
         self.assertIs(saved["leaning"]["evidence_grounded"], True)
         self.assertIs(saved["russia_stance"]["evidence_grounded"], True)
@@ -301,10 +363,12 @@ class TestAxisEvidenceSave(FixtureTestCase):
         b = analysis(self.analysis_path("a1"), "https://test.bg/alpha", "test.bg")
         b["leaning"] = {**a["leaning"], "evidence_grounded": True}
         b["axis_evidence_gate_version"] = 2
+        b["text_scope"] = {"kind": "full"}
         out = self.save(b, expect=3)
         errors = " ".join(out["failed"][0]["errors"])
         self.assertIn("computed after validation", errors)
         self.assertIn("axis_evidence_gate_version: computed at save time", errors)
+        self.assertIn("text_scope: computed at save time", errors)
 
 
 class TestEvidenceSpansV3(unittest.TestCase):

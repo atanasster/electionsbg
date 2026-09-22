@@ -28,6 +28,7 @@ import { publishableOwner } from "../sourceTransparency";
 import { citedQuotesFor } from "../storyCompare";
 import { LeanBadge, StanceBadge } from "./Badges";
 import { OriginalLink } from "./ArticleRow";
+import { ScopeMark } from "./ScopeMark";
 
 /** Cited spans shown per source before „+ още N" points at the synthesis. */
 const QUOTES_SHOWN = 3;
@@ -209,7 +210,12 @@ export const StoryCompare = ({
       label: tr("Политическо рамкиране", "Political framing"),
       render: (s) =>
         s.member.leaning ? (
-          <LeanBadge leaning={s.member.leaning} />
+          <span className="inline-flex flex-wrap items-center gap-1.5">
+            <LeanBadge leaning={s.member.leaning} />
+            {/* T4.1c — a scoped observation is not comparable at full
+                strength with a full read's badge beside it. */}
+            <ScopeMark member={s.member} />
+          </span>
         ) : (
           missing("не е оценено", "not assessed")
         ),
@@ -219,7 +225,10 @@ export const StoryCompare = ({
       label: tr("Позиция спрямо Русия", "Stance toward Russia"),
       render: (s) =>
         s.member.russia_stance ? (
-          <StanceBadge stance={s.member.russia_stance} />
+          <span className="inline-flex flex-wrap items-center gap-1.5">
+            <StanceBadge stance={s.member.russia_stance} />
+            <ScopeMark member={s.member} />
+          </span>
         ) : (
           missing("не е оценено", "not assessed")
         ),

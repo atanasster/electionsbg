@@ -189,7 +189,7 @@ class TheRollUp(unittest.TestCase):
         self.assertEqual(payload["timeline"][0]["supporting"][0]["evidence"]["terms"], ["петрохан"])
         self.assertEqual(payload["outlets"], {"x.bg": 1})
         self.assertEqual(payload["framing"], {"by_leaning": {"neutral": 1}, "by_russia_stance": {"not_applicable": 1},
-                                              "rated": 1, "articles": 1})
+                                              "rated": 1, "prefix_scope_count": 0, "articles": 1})
         self.assertIn("редакционен подбор", payload["editorial_note"]["bg"])
         # Under review: the registry entry ships, the timeline does not.
         withheld = cases.build_case_payload(CASE, stories, matches,

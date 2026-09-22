@@ -150,6 +150,25 @@ describe("a case page", () => {
     expect(screen.getByText(/основание: петрохан, прокуратур/)).toBeVisible();
     expect(screen.getByText(/1 от 2 материала/)).toBeVisible();
     expect(screen.getByText(/2 оценени от 2 статии в казуса/)).toBeVisible();
+    expect(screen.queryByText(/върху целия текст/)).toBeNull();
+    cleanup();
+    // T4.1c — the members the bars exclude are said beside the denominator.
+    await renderCase(
+      payload({
+        framing: {
+          by_leaning: { neutral: 1 },
+          by_russia_stance: { not_applicable: 1 },
+          rated: 1,
+          articles: 2,
+          prefix_scope_count: 1,
+        },
+      }),
+    );
+    expect(
+      screen.getByText(
+        /1 оценени от 2 статии в казуса; 1 не е оценен върху целия текст и не се брои/,
+      ),
+    ).toBeVisible();
     expect(screen.getByRole("link", { name: "А" })).toHaveAttribute(
       "href",
       "/outlet/a.bg",

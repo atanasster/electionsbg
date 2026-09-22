@@ -879,6 +879,31 @@ export const ArticleScreen = () => {
             />
           </div>
 
+          {analysis.text_scope && analysis.text_scope.kind !== "full" ? (
+            // T4.1c — a verdict not made on the demonstrably full text is a
+            // SCOPED observation: said here, counted in no story, outlet or
+            // topic rollup. The figures are printed only when both were
+            // measured and the read really was partial; otherwise the note
+            // says the extent is not recorded rather than inventing „0 of 0".
+            <p
+              className="mt-3 rounded-md border border-dashed px-3 py-2 text-sm text-muted-foreground"
+              data-testid="text-scope-note"
+            >
+              {analysis.text_scope.kind === "prefix" &&
+              analysis.text_scope.chars_seen != null &&
+              analysis.text_scope.chars_total != null &&
+              analysis.text_scope.chars_seen < analysis.text_scope.chars_total
+                ? tr(
+                    `Оценките по-горе са направени върху първите ${analysis.text_scope.chars_seen.toLocaleString("bg-BG")} от ${analysis.text_scope.chars_total.toLocaleString("bg-BG")} знака на текста. Непрочетен балансиращ пасаж може да ги промени, затова те не влизат в разпределенията на историята, изданието и темата.`,
+                    `The ratings above were made on the first ${analysis.text_scope.chars_seen.toLocaleString("en-GB")} of ${analysis.text_scope.chars_total.toLocaleString("en-GB")} characters of the text. An unread balancing passage could change them, so they enter no story, outlet or topic distribution.`,
+                  )
+                : tr(
+                    "Обхватът на прочетения текст за тези оценки не е записан, затова те не влизат в разпределенията на историята, изданието и темата.",
+                    "The extent of the text read for these ratings is not recorded, so they enter no story, outlet or topic distribution.",
+                  )}
+            </p>
+          ) : null}
+
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {/* ⚠️ Guarded lookups. The bundle passes rubric labels through
                 VERBATIM, so an unrecognised one is a JSON value away — and a

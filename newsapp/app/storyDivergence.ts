@@ -16,7 +16,7 @@
 //
 // Matching framing is not agreement on facts.
 
-import type { StoryMember } from "./data";
+import { isScopedObservation, type StoryMember } from "./data";
 
 export type DivergenceState =
   | "none"
@@ -66,6 +66,8 @@ export const axisDivergence = (
   const labels = new Set<string>();
   let articles = 0;
   for (const member of members) {
+    // T4.1c — a scoped observation is not a position.
+    if (isScopedObservation(member)) continue;
     const label = value(member);
     if (!isPositioned(label)) continue;
     articles += 1;

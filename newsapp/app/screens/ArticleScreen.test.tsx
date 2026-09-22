@@ -333,6 +333,56 @@ describe("the evidence", () => {
     );
   });
 
+  it("says when the ratings were made on a prefix, and stays silent on a full read (T4.1c)", async () => {
+    const a = analysed();
+    a.text_scope = {
+      version: 1,
+      kind: "prefix",
+      chars_seen: 6000,
+      chars_total: 9400,
+      coverage: 0.6383,
+      basis: "provenance",
+    };
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    const note = await screen.findByTestId("text-scope-note");
+    // Grouping separators depend on the runtime's ICU data; the figures do not.
+    expect(note).toHaveTextContent(
+      /първите 6[\s\u00a0]?000 от 9[\s\u00a0]?400 знака/,
+    );
+    expect(note).toHaveTextContent("не влизат в разпределенията");
+    cleanup();
+    vi.resetModules();
+    // ⚠️ THE MUTATION THIS CATCHES: „първите 0 от 0 знака" — a figure nobody
+    // measured — on the fail-closed / unrecorded scope.
+    const unrecorded = analysed();
+    unrecorded.text_scope = {
+      version: 1,
+      kind: "unrecorded",
+      chars_seen: null,
+      chars_total: null,
+      coverage: null,
+      basis: "unrecorded",
+    };
+    await renderAt([
+      article({ analysis: unrecorded } as Partial<ArticleRecord>),
+    ]);
+    const unrecordedNote = await screen.findByTestId("text-scope-note");
+    expect(unrecordedNote).toHaveTextContent("не е записан");
+    expect(unrecordedNote.textContent).not.toMatch(/\d/);
+    cleanup();
+    vi.resetModules();
+    const full = analysed();
+    full.text_scope = {
+      ...a.text_scope,
+      kind: "full",
+      chars_seen: 9400,
+      coverage: 1,
+    };
+    await renderAt([article({ analysis: full } as Partial<ArticleRecord>)]);
+    await screen.findAllByText("Моделна оценка");
+    expect(screen.queryByTestId("text-scope-note")).toBeNull();
+  });
+
   it("does not claim that untyped evidence is a verbatim source quotation", async () => {
     await renderAt([
       article({ analysis: analysed() } as Partial<ArticleRecord>),

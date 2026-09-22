@@ -21,6 +21,7 @@ const c = (assessed: number, total: number): AxisCompleteness => ({
   positioned: assessed,
   notApplicable: 0,
   unavailable: total - assessed,
+  partialScope: 0,
   outlets: assessed,
 });
 const tr = <T,>(bg: T): T => bg;
@@ -42,6 +43,28 @@ describe("AggregateCompleteness", () => {
       positioned: 1,
       notApplicable: 1,
       unavailable: 1,
+      partialScope: 0,
+      outlets: 1,
+    });
+    // ⚠️ THE MUTATION THIS CATCHES (T4.1c): a prefix-scope verdict counted
+    // as assessed (or as unavailable). It is its own bucket, and its outlet
+    // does not join the assessed set.
+    const scoped = axisCompleteness(
+      [
+        member("one.bg", "progressive"),
+        { ...member("two.bg", "conservative"), text_scope: "prefix" },
+        { ...member("four.bg", "conservative"), text_scope: "unrecorded" },
+        member("three.bg", null),
+      ],
+      (item) => item.leaning,
+    );
+    expect(scoped).toEqual({
+      assessed: 1,
+      total: 4,
+      positioned: 1,
+      notApplicable: 0,
+      unavailable: 1,
+      partialScope: 2,
       outlets: 1,
     });
   });
@@ -180,6 +203,7 @@ describe("AggregateCompleteness", () => {
       positioned: 2,
       notApplicable: 1,
       unavailable: 0,
+      partialScope: 0,
       outlets: 2,
     };
     expect(axisBreakdown(full, "bg")).toBe(
@@ -203,6 +227,7 @@ describe("AggregateCompleteness", () => {
       positioned: 1,
       notApplicable: 0,
       unavailable: 2,
+      partialScope: 0,
       outlets: 1,
     };
     expect(axisBreakdown(single, "bg")).toBe(
@@ -220,6 +245,7 @@ describe("AggregateCompleteness", () => {
           positioned: 0,
           notApplicable: 0,
           unavailable: 2,
+          partialScope: 0,
           outlets: 0,
         },
         "bg",
@@ -241,6 +267,7 @@ describe("AggregateCompleteness", () => {
               positioned: 1,
               notApplicable: 1,
               unavailable: 1,
+              partialScope: 0,
               outlets: 1,
             },
           },
@@ -285,6 +312,7 @@ describe("AggregateCompleteness", () => {
               positioned: 1,
               notApplicable: 1,
               unavailable: 1,
+              partialScope: 0,
               outlets: 1,
             },
           },

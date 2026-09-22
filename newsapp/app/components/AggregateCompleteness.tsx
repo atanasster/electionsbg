@@ -119,12 +119,25 @@ export const axisBreakdown = (
         : `${c.notApplicable} не ${one(c.notApplicable) ? "заема" : "заемат"} позиция по тази ос`,
     );
   }
-  const tail =
-    c.unavailable > 0
-      ? en
-        ? `; ${c.unavailable} ${one(c.unavailable) ? "is" : "are"} not assessed`
-        : `; ${c.unavailable} не ${one(c.unavailable) ? "е оценен" : "са оценени"}`
-      : "";
+  const tails: string[] = [];
+  if (c.partialScope > 0) {
+    // T4.1c — assessed on a PREFIX of the text: said separately, in no rollup.
+    // No figure here: the limit is per-record data (the article page prints
+    // its own), and an `unrecorded` read has none.
+    tails.push(
+      en
+        ? `${c.partialScope} ${one(c.partialScope) ? "was" : "were"} not assessed on the demonstrably full text and ${one(c.partialScope) ? "is" : "are"} not counted`
+        : `${c.partialScope} не ${one(c.partialScope) ? "е оценен" : "са оценени"} върху целия текст и не ${one(c.partialScope) ? "се брои" : "се броят"}`,
+    );
+  }
+  if (c.unavailable > 0) {
+    tails.push(
+      en
+        ? `${c.unavailable} ${one(c.unavailable) ? "is" : "are"} not assessed`
+        : `${c.unavailable} не ${one(c.unavailable) ? "е оценен" : "са оценени"}`,
+    );
+  }
+  const tail = tails.length ? `; ${tails.join("; ")}` : "";
   return `${opener}${parts.length ? `: ${parts.join(", ")}` : ""}${tail}.`;
 };
 

@@ -804,6 +804,75 @@ describe("comparison as an action (T5.8)", () => {
   });
 });
 
+describe("a prefix-scope verdict is a scoped observation (T4.1c)", () => {
+  afterEach(() => {
+    vi.resetModules();
+    cleanup();
+  });
+  const [left, right, undated] = story.members;
+
+  it("keeps a prefix-scope member out of the bars, the divergence and the assessed count, and says so", async () => {
+    mockServedStory({
+      ...story,
+      members: [left, { ...right, text_scope: "prefix" }, undated],
+    });
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    // ⚠️ THE MUTATION THIS CATCHES: the prefix member's „Консервативно"
+    // drawn as a segment and counted as a second positioned outlet.
+    expect(
+      screen.queryByRole("button", { name: /^Консервативно ·/ }),
+    ).toBeNull();
+    expect(screen.getByTestId("divergence-leaning")).toHaveAttribute(
+      "data-state",
+      "single_source",
+    );
+    const details = screen
+      .getByText("Подробности за оценката")
+      .closest("details")!;
+    expect(details).toHaveTextContent(
+      "1 не е оценен върху целия текст и не се брои",
+    );
+    expect(screen.getByText(/Оценен е 1 от 3 материала/)).toBeVisible();
+    // The member's badge on the timeline carries the scope mark; the full
+    // read's does not.
+    const marks = screen.getAllByTestId("scope-mark");
+    expect(marks).toHaveLength(1);
+    expect(marks[0]).toHaveTextContent("частично");
+    expect(marks[0].closest("[data-testid='timeline-item']")).toHaveTextContent(
+      "Десен материал",
+    );
+  });
+
+  it("marks an unrecorded read as such — no figure, no rollup", async () => {
+    mockServedStory({
+      ...story,
+      members: [left, { ...right, text_scope: "unrecorded" }],
+    });
+    const { StoryScreen } = await import("./StoryScreen");
+    render(
+      <MemoryRouter initialEntries={["/story/private-story-id"]}>
+        <Routes>
+          <Route path="/story/:id" element={<StoryScreen />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(
+      screen.queryByRole("button", { name: /^Консервативно ·/ }),
+    ).toBeNull();
+    expect(screen.getByTestId("scope-mark")).toHaveTextContent(
+      "незаписан обхват",
+    );
+    expect(document.body.textContent).not.toMatch(/6[\s\u00a0]?000/);
+  });
+});
+
 describe("de-jargoned copy (T5.6)", () => {
   afterEach(() => {
     vi.resetModules();

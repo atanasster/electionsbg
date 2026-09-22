@@ -20,6 +20,7 @@ import {
 } from "../labels";
 import {
   type StoryMember,
+  isScopedObservation,
   storyIsGone,
   useCases,
   useOutletArticles,
@@ -332,7 +333,9 @@ export const StoryScreen = () => {
       right: 0,
       "n/a": 0,
     };
-    for (const m of story.members) counts[leanGroup(m.leaning)] += 1;
+    // T4.1c — a scoped observation is not a segment.
+    for (const m of story.members)
+      if (!isScopedObservation(m)) counts[leanGroup(m.leaning)] += 1;
     return LEAN_GROUPS.map(({ g, meta }) => ({
       key: g,
       label: leaningMeta(meta, language).short,
@@ -349,7 +352,8 @@ export const StoryScreen = () => {
       anti: 0,
       "n/a": 0,
     };
-    for (const m of story.members) counts[stanceGroup(m.russia_stance)] += 1;
+    for (const m of story.members)
+      if (!isScopedObservation(m)) counts[stanceGroup(m.russia_stance)] += 1;
     return STANCE_GROUPS.map(({ g, meta }) => ({
       key: g,
       label: russiaMeta(meta, language).label,

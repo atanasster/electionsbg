@@ -312,6 +312,12 @@ export const CaseScreen = () => {
                 `${c.framing.rated} оценени от ${articlesLabel(c.framing.articles, language)} в казуса`,
                 `${c.framing.rated} rated of ${articlesLabel(c.framing.articles, language)} in the case`,
               )}
+              {c.framing.prefix_scope_count
+                ? tr(
+                    `; ${c.framing.prefix_scope_count} не ${c.framing.prefix_scope_count === 1 ? "е оценен" : "са оценени"} върху целия текст и не ${c.framing.prefix_scope_count === 1 ? "се брои" : "се броят"}`,
+                    `; ${c.framing.prefix_scope_count} ${c.framing.prefix_scope_count === 1 ? "was" : "were"} not assessed on the full text and ${c.framing.prefix_scope_count === 1 ? "is" : "are"} not counted`,
+                  )
+                : null}
             </p>
             <LeanSpectrum counts={c.framing.by_leaning} />
             <StanceSpectrum counts={c.framing.by_russia_stance} />

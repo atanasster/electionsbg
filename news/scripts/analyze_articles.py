@@ -175,6 +175,28 @@ AXIS_LABEL_DIRECTION = {
     "anti_russia": "anti_russia", "strong_anti_russia": "anti_russia",
 }
 AXIS_WITHHELD_REASON = "unsupported_evidence"
+# ⚠️ T4.1c — WHAT THE MODEL SAW. The runner sends the first `MAX_BODY_CHARS`
+# of the body (build_prompts.MAX_BODY_CHARS, 6,000), so on a long article an
+# article-wide tone claim was made against a PREFIX: an unseen balancing
+# passage could turn favorable into mixed, and a target named only after the
+# cut was never assessed at all. `text_scope` records the coverage on every
+# record and the rule is: only a `full` record enters a whole-article tone
+# rollup (story/outlet/topic distributions, positioned outlets,
+# by_party_tone, case framing, the blindspot). A `prefix` record is a SCOPED
+# OBSERVATION — shown on its own page, labelled. An `unrecorded` record is one
+# with NO `analysis_provenance` at all: the 2026-08-23 skill-era GLM-5.3 and
+# the codex-gpt-5 records, whose analyst was told to read the whole file and
+# whose coverage nobody wrote down — not a prefix, and not provably full, so
+# it gets no figure and, under „an article-wide claim requires the full
+# extracted article to have been assessed", no rollup either. Measured
+# 2026-09-22 over the served corpus of 8,197 analyses: 739 prefix, 371
+# unrecorded (the §0.1 T4.1c row carries the full split). The chunked full-text pass the plan allows
+# as the alternative to abstaining is not built; abstaining is what this does.
+TEXT_SCOPE_VERSION = 1
+# ⚠️ Mirrors build_prompts.MAX_BODY_CHARS; `test_analyze_articles` asserts
+# the two agree, since this module deliberately imports no prompt code.
+DEFAULT_MAX_BODY_CHARS = 6000
+TEXT_SCOPE_KINDS = frozenset({"full", "prefix", "unrecorded"})
 STORY_ACTIONS = {"new_story", "same_story", "none"}
 ENTITY_BUCKETS = ("people", "parties", "institutions", "companies", "places")
 
@@ -710,12 +732,20 @@ def recompute_story(story: dict, analyses: dict) -> dict:
     # holding a positioned label per axis, not distinct labels — two articles
     # from one outlet with different labels are not two outlets disagreeing.
     leaning_outlets, russia_outlets = set(), set()
+    prefix_scope = 0
     for m in members:
+        by_domain[m["domain"]] = by_domain.get(m["domain"], 0) + 1
+        # T4.1c — a member the model did not demonstrably see in full is
+        # counted as a member and as a scoped observation, and enters NO
+        # tone rollup (labels, positioned outlets AND the party tones below).
+        # ONE rule: `rollup_eligible`.
+        if not rollup_eligible(m):
+            prefix_scope += 1
+            continue
         if m.get("leaning"):
             by_leaning[m["leaning"]] = by_leaning.get(m["leaning"], 0) + 1
         if m.get("russia_stance"):
             by_russia[m["russia_stance"]] = by_russia.get(m["russia_stance"], 0) + 1
-        by_domain[m["domain"]] = by_domain.get(m["domain"], 0) + 1
         # A label is positioned iff it is present and not `not_applicable` —
         # the same one-line rule as `isPositioned` in storyDivergence.ts.
         if m["leaning"] and m["leaning"] != "not_applicable":
@@ -747,6 +777,7 @@ def recompute_story(story: dict, analyses: dict) -> dict:
         "by_russia_stance": by_russia,
         "leaning_outlets": len(leaning_outlets),
         "russia_stance_outlets": len(russia_outlets),
+        "prefix_scope_count": prefix_scope,
         "by_party_tone": by_party_tone,
         "by_domain": by_domain,
     }
@@ -767,6 +798,12 @@ def member_from(existing: dict, analysis: dict) -> dict:
         # fabricated neutral.
         "leaning": (analysis.get("leaning") or {}).get("label"),
         "russia_stance": (analysis.get("russia_stance") or {}).get("label"),
+        # T4.1c — the scope the labels were made under. On the analysis side
+        # None means the record predates the stamp; the PUBLIC copy always
+        # carries `full` / `prefix` / `unrecorded`, and only `full` enters a
+        # rollup (`rollup_eligible`).
+        "text_scope": ((analysis.get("text_scope") or {}).get("kind")
+                       if isinstance(analysis.get("text_scope"), dict) else None),
         "added_at": existing.get("added_at", now_iso()),
     }
 
@@ -1915,6 +1952,62 @@ def party_tone_spans_support(tone: dict) -> bool:
     return False
 
 
+def text_scope_of(analysis: dict, article: dict) -> dict:
+    """The coverage of the text the model was given, as a dated fact.
+
+    `basis` says how it was established: `provenance` when the record carries
+    `analysis_provenance.body_truncated` (every runner record since the flag
+    shipped); `inferred` for a runner record from before the flag (it carries
+    the provenance dict, so the fixed prefix was in force and the body length
+    decides); `unrecorded` for a record with no provenance dict at all — a
+    hand or skill run that read the file by other means — which is given NO
+    figure, because none was measured.
+    """
+    prov = analysis.get("analysis_provenance")
+    total = len(str(article.get("content") or ""))
+    if not isinstance(prov, dict):
+        return {"version": TEXT_SCOPE_VERSION, "kind": "unrecorded",
+                "chars_seen": None, "chars_total": total, "coverage": None,
+                "basis": "unrecorded"}
+    limit = prov.get("max_body_chars")
+    if not isinstance(limit, int) or limit <= 0:
+        limit = DEFAULT_MAX_BODY_CHARS
+    if isinstance(prov.get("body_truncated"), bool):
+        truncated = prov["body_truncated"]
+        basis = "provenance"
+    else:
+        truncated = total > limit
+        basis = "inferred"
+    seen = min(total, limit) if truncated else total
+    return {
+        "version": TEXT_SCOPE_VERSION,
+        "kind": "prefix" if truncated else "full",
+        "chars_seen": seen,
+        "chars_total": total,
+        "coverage": round(seen / total, 4) if total else 1.0,
+        "basis": basis,
+    }
+
+
+def scope_kind(obj) -> str | None:
+    """The scope kind of a MEMBER (bare kind) or an ANALYSIS (scope dict)."""
+    if not isinstance(obj, dict):
+        return None
+    scope = obj.get("text_scope")
+    if isinstance(scope, dict):
+        return scope.get("kind")
+    return scope if isinstance(scope, str) else None
+
+
+def rollup_eligible(obj) -> bool:
+    """THE ONE RULE for whether a record's tones enter a WHOLE-ARTICLE rollup:
+    only a record the model demonstrably saw in full. Takes a member or an
+    analysis. No scope at all (analysis-side story files predating T4.1c) is
+    eligible as before; the public copy always carries one."""
+    kind = scope_kind(obj)
+    return kind is None or kind == "full"
+
+
 def axis_claim(label) -> str | None:
     """The evidence direction an axis label claims, "none" for the two labels
     that claim none, None for an unknown label."""
@@ -2257,6 +2350,9 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
     if "axis_evidence_gate_version" in a:
         errs.append("axis_evidence_gate_version: computed at save time — "
                     "an analyst may not claim that its own axis evidence passed")
+    if "text_scope" in a:
+        errs.append("text_scope: computed at save time from what the prompt "
+                    "sent — an analyst may not claim what it saw")
 
     tones = a.get("party_tones")
     if not isinstance(tones, list):
@@ -2435,6 +2531,7 @@ def save_one(a: dict, tax, cats: dict, index: dict, stats: dict) -> list:
     enrich_party_tones(a)
     gate_party_tone_evidence(a, review_article)
     gate_axis_evidence(a, review_article)
+    a["text_scope"] = text_scope_of(a, review_article)
 
     # ⚠️ STAMPED AFTER VALIDATION, so a rejected record never carries one, and
     # computed here rather than accepted from the analyst — a model asked „do
@@ -2889,6 +2986,7 @@ def cmd_stats(_args) -> int:
     per_domain, leaning, russia, quality, ai = {}, {}, {}, {}, {}
     analyzed = 0
     invalid = 0
+    not_full_scope = 0
     for url, entry in index.get("articles", {}).items():
         p = os.path.join(REPO_ROOT, entry.get("path", ""))
         a = load_json_if_exists(p)
@@ -2909,6 +3007,11 @@ def cmd_stats(_args) -> int:
         if not lean or not rus:
             invalid += 1
             continue
+        # T4.1c — the two distributions are WHOLE-ARTICLE rollups; a record
+        # the model did not demonstrably see in full is its own line.
+        if not rollup_eligible(a):
+            not_full_scope += 1
+            continue
         leaning[lean] = leaning.get(lean, 0) + 1
         russia[rus] = russia.get(rus, 0) + 1
     for domain in corpus_domains():
@@ -2920,6 +3023,7 @@ def cmd_stats(_args) -> int:
         stories.append({"story_id": sid, "title_bg": entry.get("title_bg"), "members": entry.get("member_count")})
     return emit(0, corpus_total=corpus_total, analyzed_total=analyzed, invalid_records=invalid,
                 coverage=per_domain, leaning_distribution=leaning, russia_distribution=russia,
+                not_full_scope=not_full_scope,
                 quality_verdicts=quality, ai_verdicts=ai, story_count=len(index.get("stories", {})),
                 top_stories=stories[:5])
 

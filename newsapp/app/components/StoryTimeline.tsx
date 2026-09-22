@@ -20,6 +20,7 @@ import { dayKey, formatDay, formatTime } from "../labels";
 import { useNewsLocale } from "../i18n";
 import { ExternalHeadline, OriginalLink } from "./ArticleRow";
 import { LeanBadge, StanceBadge } from "./Badges";
+import { ScopeMark } from "./ScopeMark";
 import { monogramOf } from "./imageFallback";
 
 /**
@@ -211,6 +212,7 @@ export const StoryTimeline = ({
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
                     <LeanBadge leaning={m.leaning} />
                     <StanceBadge stance={m.russia_stance} />
+                    <ScopeMark member={m} />
                   </div>
                 </li>
               );
