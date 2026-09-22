@@ -3820,5 +3820,64 @@ class Cases(BuildAppDataFixture):
         self.assertEqual(self.load("cases/petrohan.json")["membership"], "attached")
 
 
+class OneMergeQueue(BuildAppDataFixture):
+    """T2.2 — the article-level review sidecar is folded into the ONE
+    tracked queue at build time, and home health names both proposal sets."""
+
+    def seed(self):
+        docs = {
+            "k": ("Прокуратурата обвини бившия министър", "Прокуратурата обвини бившия министър. " * 5),
+            "c": ("Обвинение срещу бившия министър", "Обвинение срещу бившия министър беше повдигнато. " * 5),
+        }
+        for slug, (title, body) in docs.items():
+            art = {"url": f"https://a.bg/{slug}", "domain": "a.bg", "title": title,
+                   "published": "2026-09-20T09:00:00+00:00", "first_seen": "2026-09-20T09:00:00+00:00",
+                   "content": body}
+            self.write_corpus("a.bg", f"{slug}.json", art)
+            self.write_analysis("a.bg", f"{slug}.json", self.analysis_record(
+                art["url"], "a.bg", f"news/data/a.bg/{slug}.json", action="new_story", story_id=None))
+        ensure_fixture_story_membership(self.data_dir)
+
+    def stories_by_url(self):
+        index = json.loads((Path(self.data_dir) / "analysis" / "index.json").read_text(encoding="utf-8"))
+        return {url: e["story_id"] for url, e in index["articles"].items()}
+
+    def test_a_sidecar_proposal_reaches_the_queue_with_its_provenance(self):
+        self.seed()
+        by_url = self.stories_by_url()
+        review = Path(self.root) / "news" / "review"
+        review.mkdir(parents=True, exist_ok=True)
+        (review / "article_join_proposals.json").write_text(json.dumps({"version": 1, "items": [{
+            "id": "article-join-x", "status": "pending", "active": True,
+            "article": {"url": "https://a.bg/c"},
+            "candidate": {"story_id": by_url["https://a.bg/k"]},
+            "channels": ["lede"],
+            "evidence": {"mode": "review", "rule_version": "review-v1", "relaxations": ["lede"],
+                         "title_jaccard": 0.3}}]}), encoding="utf-8")
+        self.run_build_process()
+        queue = json.loads((review / "story_merge_queue.json").read_text(encoding="utf-8"))
+        folded = [i for i in queue["items"] if i.get("source") == "article_review_channel"]
+        self.assertEqual(len(folded), 1)
+        self.assertEqual(folded[0]["keeper"]["id"], by_url["https://a.bg/k"])
+        self.assertEqual(folded[0]["candidate"]["id"], by_url["https://a.bg/c"])
+        self.assertEqual(folded[0]["evidence"]["relaxations"], ["lede"])
+        self.assertEqual(folded[0]["status"], "pending")
+        home = self.load("home.json")
+        counts = home["home_health"]["counts"]
+        self.assertEqual(counts["merge_queue_from_article_channel"], 1)
+        self.assertGreaterEqual(counts["merge_queue_pending"], 1)
+        # The two sets are named apart: the home count is over THIS page.
+        self.assertIn("merge_proposals", counts)
+
+    def test_an_unreadable_sidecar_is_skipped_not_a_build_failure(self):
+        self.seed()
+        review = Path(self.root) / "news" / "review"
+        review.mkdir(parents=True, exist_ok=True)
+        (review / "article_join_proposals.json").write_text('{"version": 1, "items": [', encoding="utf-8")
+        proc = self.run_build_process()
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertIn("article_join_proposals.json unreadable", proc.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()

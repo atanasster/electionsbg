@@ -3,8 +3,9 @@
 import unittest
 
 from home_event_dedupe import (
-    RELAXATION_KINDS, build_story_merge_queue, dedupe_home_events,
-    rejected_story_pairs, same_event_evidence,
+    RELAXATION_KINDS, article_channel_proposals, build_story_merge_queue,
+    decided_story_pairs, dedupe_home_events, rejected_story_pairs,
+    same_event_evidence,
 )
 
 
@@ -152,6 +153,107 @@ class HomeEventDedupe(unittest.TestCase):
         self.assertEqual([item["id"] for item in kept], ["s1", "s2"])
         self.assertEqual(proposals, [])
 
+
+
+class OneQueue(unittest.TestCase):
+    """Plan T2.2 — the article-level review channel and the home briefing
+    feed ONE queue, and a human's decision survives every rebuild."""
+
+    def sidecar(self, status="pending", active=True):
+        return {"version": 1, "items": [{
+            "id": "article-join-1", "status": status, "active": active,
+            "article": {"url": "https://b.bg/x"},
+            "candidate": {"story_id": "s1"},
+            "channels": ["entities", "lede"],
+            "evidence": {"mode": "review", "rule_version": "review-v1",
+                         "relaxations": ["topic:category"], "title_jaccard": 0.5},
+        }]}
+
+    def test_an_article_proposal_becomes_a_story_pair_with_its_provenance(self):
+        got = article_channel_proposals(self.sidecar(), {"https://b.bg/x": "s2"}, {"s1": 1, "s2": 1})
+        self.assertEqual(len(got), 1)
+        p = got[0]
+        self.assertEqual((p["keeper_story_id"], p["matched_story_id"], p["candidate_story_id"]), ("s1", "s1", "s2"))
+        self.assertEqual(p["source"], "article_review_channel")
+        self.assertEqual(p["relaxations"], ["topic:category"])
+        self.assertEqual(p["rule_version"], "review-v1")
+        self.assertEqual(p["sidecar_id"], "article-join-1")
+
+    def test_refused_shapes_are_skipped_not_guessed(self):
+        # ⚠️ THE MUTATION THIS CATCHES: folding an article whose own story is
+        # no longer a singleton (a join already moved it), or the same story.
+        self.assertEqual(article_channel_proposals(self.sidecar(), {"https://b.bg/x": "s2"}, {"s1": 1, "s2": 2}), [])
+        self.assertEqual(article_channel_proposals(self.sidecar(), {"https://b.bg/x": "s1"}, {"s1": 1}), [])
+        self.assertEqual(article_channel_proposals(self.sidecar(), {}, {"s1": 1}), [])
+        self.assertEqual(article_channel_proposals(self.sidecar(status="rejected"), {"https://b.bg/x": "s2"}, {"s1": 1, "s2": 1}), [])
+        self.assertEqual(article_channel_proposals(self.sidecar(active=False), {"https://b.bg/x": "s2"}, {"s1": 1, "s2": 1}), [])
+        self.assertEqual(article_channel_proposals(None, {}, {}), [])
+        self.assertEqual(article_channel_proposals({"items": "nope"}, {}, {}), [])
+
+    def test_the_direction_is_fixed_by_the_first_proposal_across_channels(self):
+        # ⚠️ THE MUTATION THIS CATCHES: the id hashes the SORTED pair, so a
+        # second channel proposing (S keeper, X candidate) would overwrite
+        # (X keeper, S candidate) while keeping the id, the status and the
+        # decision — and the apply would retire the WRONG published id.
+        x = story("x", "Андрей Гюров обявява на 31 август дали ще се кандидатира за президент",
+                  "2026-08-31T06:00:00+00:00", people=("Андрей Гюров",))
+        s_ = story("s", "Андрей Гюров казва на 31 август дали ще се кандидатира за президент",
+                   "2026-08-31T05:00:00+00:00", people=("Андрей Гюров",))
+        _, home = dedupe_home_events([x, s_])
+        first = build_story_merge_queue(None, home, {"x": x, "s": s_}, "2026-08-31T07:00:00Z")
+        item = first["items"][0]
+        self.assertEqual((item["keeper"]["id"], item["candidate"]["id"], item["source"]), ("x", "s", "home_briefing"))
+        decided = {**first, "items": [{**item, "status": "accepted",
+                                       "decision": {"by": "Редактор", "on": "2026-08-31T08:00:00Z"}}]}
+        flipped = article_channel_proposals(
+            {"version": 1, "items": [{"id": "article-join-9", "status": "pending", "active": True,
+                                      "article": {"url": "https://x.bg/a"}, "candidate": {"story_id": "s"},
+                                      "channels": ["lede"], "evidence": {"mode": "review", "relaxations": ["lede"],
+                                                                        "rule_version": "review-v1"}}]},
+            {"https://x.bg/a": "x"}, {"x": 1, "s": 1})
+        self.assertEqual((flipped[0]["keeper_story_id"], flipped[0]["candidate_story_id"]), ("s", "x"))
+        rebuilt = build_story_merge_queue(decided, flipped, {"x": x, "s": s_}, "2026-08-31T09:00:00Z")
+        item = rebuilt["items"][0]
+        self.assertEqual((item["keeper"]["id"], item["candidate"]["id"], item["source"]), ("x", "s", "home_briefing"))
+        self.assertEqual(item["status"], "accepted")
+        self.assertEqual(item["decision"]["by"], "Редактор")
+        self.assertEqual(item["evidence"]["relaxations"], ["lede"])
+
+    def test_a_decided_pair_is_not_re_asked_by_the_article_channel(self):
+        sidecar = self.sidecar()
+        self.assertEqual(len(article_channel_proposals(sidecar, {"https://b.bg/x": "s2"}, {"s1": 1, "s2": 1})), 1)
+        self.assertEqual(article_channel_proposals(sidecar, {"https://b.bg/x": "s2"}, {"s1": 1, "s2": 1},
+                                                   decided_pairs={frozenset(("s1", "s2"))}), [])
+        queue = {"items": [{"status": "rejected", "keeper": {"id": "s1"}, "candidate": {"id": "s2"}},
+                           {"status": "pending", "keeper": {"id": "a"}, "candidate": {"id": "b"}}]}
+        self.assertEqual(decided_story_pairs(queue), {frozenset(("s1", "s2"))})
+
+    def test_the_queue_carries_source_and_preserves_a_recorded_decision(self):
+        first = story("s1", "Заглавие едно", "2026-08-31T06:00:00+00:00")
+        second = story("s2", "Заглавие две", "2026-08-31T05:00:00+00:00")
+        proposals = article_channel_proposals(self.sidecar(), {"https://b.bg/x": "s2"}, {"s1": 1, "s2": 1})
+        queue = build_story_merge_queue(None, proposals, {"s1": first, "s2": second}, "2026-08-31T07:00:00Z")
+        item = queue["items"][0]
+        self.assertEqual(item["source"], "article_review_channel")
+        self.assertEqual(item["evidence"]["relaxations"], ["topic:category"])
+        self.assertNotIn("source", item["evidence"])
+        # A reviewer decides; the next build keeps the record.
+        decided = {**queue, "items": [{**item, "status": "accepted",
+                                       "decision": {"by": "Редактор", "on": "2026-08-31T08:00:00Z",
+                                                    "note": "същото", "rule_version": "review-v1"}}]}
+        rebuilt = build_story_merge_queue(decided, proposals, {"s1": first, "s2": second}, "2026-08-31T09:00:00Z")
+        self.assertEqual(rebuilt["items"][0]["status"], "accepted")
+        self.assertEqual(rebuilt["items"][0]["decision"]["by"], "Редактор")
+        # And a home-briefing proposal is labelled as such.
+        home_first = story("h1", "Андрей Гюров обявява на 31 август дали ще се кандидатира за президент",
+                           "2026-08-31T06:00:00+00:00", people=("Андрей Гюров",))
+        home_second = story("h2", "Андрей Гюров казва на 31 август дали ще се кандидатира за президент",
+                            "2026-08-31T05:00:00+00:00", people=("Андрей Гюров",))
+        _, home_proposals = dedupe_home_events([home_first, home_second])
+        both = build_story_merge_queue(None, proposals + home_proposals,
+                                       {"s1": first, "s2": second, "h1": home_first, "h2": home_second},
+                                       "2026-08-31T07:00:00Z")
+        self.assertEqual(sorted(i["source"] for i in both["items"]), ["article_review_channel", "home_briefing"])
 
 
 class ReviewMode(unittest.TestCase):

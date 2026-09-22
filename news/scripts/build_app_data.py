@@ -66,7 +66,9 @@ try:
         is_https_host,
     )
     from .home_event_dedupe import (
+        article_channel_proposals,
         build_story_merge_queue,
+        decided_story_pairs,
         dedupe_home_events,
         rejected_story_pairs,
         write_story_merge_queue,
@@ -94,7 +96,9 @@ except ImportError:  # direct script execution
         is_https_host,
     )
     from home_event_dedupe import (
+        article_channel_proposals,
         build_story_merge_queue,
+        decided_story_pairs,
         dedupe_home_events,
         rejected_story_pairs,
         write_story_merge_queue,
@@ -3156,15 +3160,29 @@ def main() -> int:
         proposal for proposal in all_home_merge_proposals
         if proposal["keeper_story_id"] in selected_home_story_ids
     ]
-    write_story_merge_queue(
-        story_merge_queue_path,
-        build_story_merge_queue(
-            previous_story_merge_queue,
-            all_home_merge_proposals,
-            {story["id"]: story for story in stories},
-            generated_at,
-        ),
+    # The article-level review channel (T2.1) proposes into a host-local
+    # sidecar; the ONE queue a human reviews is this one, so its active
+    # pending items are folded in as story pairs (T2.2). A sidecar that
+    # cannot be read is reported and skipped — it is never a build failure.
+    sidecar_path = REPO / "news" / "review" / "article_join_proposals.json"
+    article_proposals = []
+    if sidecar_path.exists():
+        try:
+            sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            print(f"  ! article_join_proposals.json unreadable, skipped: {exc}", file=sys.stderr)
+            sidecar = None
+        story_of_url = {m.get("url"): st["id"] for st in stories for m in st.get("members") or []}
+        member_counts = {st["id"]: len(st.get("members") or []) for st in stories}
+        article_proposals = article_channel_proposals(
+            sidecar, story_of_url, member_counts, decided_story_pairs(previous_story_merge_queue))
+    story_merge_queue = build_story_merge_queue(
+        previous_story_merge_queue,
+        all_home_merge_proposals + article_proposals,
+        {story["id"]: story for story in stories},
+        generated_at,
     )
+    write_story_merge_queue(story_merge_queue_path, story_merge_queue)
     home_path = out_dir / "home.json"
     home_payload = {
         "version": 3,
@@ -3179,6 +3197,16 @@ def main() -> int:
     home_payload["home_health"] = evaluate_home_payload(
         home_payload,
         {
+            # ⚠️ TWO DIFFERENT SETS, NAMED (plan T2.2): `merge_proposals`
+            # below counts proposals whose KEEPER is on the home page this
+            # build (the home briefing's window); these count the whole
+            # durable queue every channel feeds — a reviewer's backlog is
+            # the second number, the first can be 0 while it is not.
+            "merge_queue_pending": story_merge_queue["counts"]["pending"],
+            "merge_queue_active": story_merge_queue["counts"]["active"],
+            "merge_queue_from_article_channel": sum(
+                1 for item in story_merge_queue["items"]
+                if item.get("active") and item.get("source") == "article_review_channel"),
             "recent_raw": len(recent_records),
             "recent_analyzed": len(eligible),
             "recent_story_linked": sum(bool(record.get("story_id")) for record in eligible),

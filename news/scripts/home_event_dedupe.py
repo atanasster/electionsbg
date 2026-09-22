@@ -62,6 +62,7 @@ GENERIC_ENTITIES = frozenset({
 })
 MAX_EVENT_GAP_HOURS = 48
 REVIEW_STATUSES = frozenset({"pending", "accepted", "rejected"})
+STRICT_RULE_VERSION = "strict-v1"
 REVIEW_RULE_VERSION = "review-v1"
 YEAR_RE = re.compile(r"^(19|20)\d\d$")
 LOCAL_NEWS = "local-news"
@@ -220,6 +221,9 @@ def same_event_evidence(left: dict, right: dict, *, mode: str = "strict") -> dic
         "title_jaccard": round(overlap, 3),
         "published_gap_hours": round(gap_hours, 2),
         "topic": list(left_topic or right_topic) if left_topic or right_topic else None,
+        # Versioned in BOTH modes, so a decision recorded under one rule can
+        # be told apart from one made after the rule changed.
+        "rule_version": STRICT_RULE_VERSION,
     }
     if review:
         evidence.update({
@@ -232,6 +236,22 @@ def same_event_evidence(left: dict, right: dict, *, mode: str = "strict") -> dic
             "lede_jaccard": lede_overlap,
         })
     return evidence
+
+
+def decided_story_pairs(queue: dict | None) -> set[frozenset[str]]:
+    """Every pair a human has decided (accepted or rejected), so a channel
+    does not re-propose it."""
+    if not isinstance(queue, dict) or not isinstance(queue.get("items"), list):
+        return set()
+    out = set()
+    for item in queue["items"]:
+        if not isinstance(item, dict) or item.get("status") not in ("accepted", "rejected"):
+            continue
+        left = (item.get("keeper") or {}).get("id")
+        right = (item.get("candidate") or {}).get("id")
+        if isinstance(left, str) and isinstance(right, str):
+            out.add(frozenset((left, right)))
+    return out
 
 
 def rejected_story_pairs(queue: dict | None) -> set[frozenset[str]]:
@@ -364,6 +384,20 @@ def build_story_merge_queue(
         )
         prior = prior_by_id.get(proposal_id, {})
         unchanged_active = prior.get("active") is True
+        # ⚠️ THE DIRECTION IS FIXED BY THE FIRST PROPOSAL. The id hashes the
+        # SORTED pair, so a second channel can propose the same pair the
+        # other way round; letting it overwrite `keeper`/`candidate` (and
+        # `source`) would keep the item's id, status and decision while
+        # reversing which story gets retired. A prior item's direction and
+        # channel win; only the contexts and the evidence are refreshed.
+        keeper_id, candidate_id = proposal["keeper_story_id"], proposal["candidate_story_id"]
+        matched_id = proposal["matched_story_id"]
+        prior_keeper = (prior.get("keeper") or {}).get("id")
+        prior_candidate = (prior.get("candidate") or {}).get("id")
+        if {prior_keeper, prior_candidate} == {keeper_id, candidate_id} and prior_keeper != keeper_id:
+            keeper_id, candidate_id = prior_keeper, prior_candidate
+            matched_id = (prior.get("matched") or {}).get("id") or keeper_id
+        source = prior.get("source") if prior.get("source") else proposal.get("source", "home_briefing")
         current[proposal_id] = {
             "id": proposal_id,
             "status": prior.get("status", "pending"),
@@ -371,15 +405,24 @@ def build_story_merge_queue(
             "first_seen": prior.get("first_seen", generated_at),
             "last_seen": prior.get("last_seen", generated_at)
             if unchanged_active else generated_at,
-            "keeper": _story_context(stories_by_id.get(proposal["keeper_story_id"])),
-            "matched": _story_context(stories_by_id.get(proposal["matched_story_id"])),
-            "candidate": _story_context(stories_by_id.get(proposal["candidate_story_id"])),
+            "keeper": _story_context(stories_by_id.get(keeper_id)),
+            "matched": _story_context(stories_by_id.get(matched_id)),
+            "candidate": _story_context(stories_by_id.get(candidate_id)),
+            # Which channel proposed it (T2.2): the home briefing's strict
+            # rule, or the article-level review channel with its relaxations.
+            "source": source,
             "evidence": {
                 key: value for key, value in proposal.items()
                 if key not in {
-                    "keeper_story_id", "matched_story_id", "candidate_story_id"
+                    "keeper_story_id", "matched_story_id", "candidate_story_id", "source"
                 }
             },
+            # ⚠️ THE HUMAN'S RECORD SURVIVES A REBUILD. `decision` is written
+            # by `apply_story_merges.py --decide` (reviewer, when, note, and
+            # the rule version the evidence carried when it was decided); a
+            # rebuild that dropped it would turn every accepted merge back
+            # into an anonymous one.
+            **({"decision": prior["decision"]} if isinstance(prior.get("decision"), dict) else {}),
         }
     for proposal_id, prior in prior_by_id.items():
         if proposal_id not in current:
@@ -405,6 +448,47 @@ def build_story_merge_queue(
         "counts": counts,
         "items": items,
     }
+
+
+def article_channel_proposals(sidecar: dict | None, story_of_url: dict,
+                              member_counts: dict, decided_pairs: set | None = None) -> list:
+    """Fold the T2.1 article-level review sidecar into STORY-PAIR proposals
+    for the one queue a human reviews (plan T2.2: the two queues must not
+    disagree). An article proposal „article X should join story S" is the
+    pair (S ← X's own story) — every `new_story` article opened a singleton,
+    so the pair exists — and it rides with its `source`, `mode`,
+    `rule_version` and `relaxations`, so the reviewer sees which strict veto
+    it would have failed. Refused shapes are skipped, not guessed: an
+    article with no story yet, a story that is no longer a singleton (a
+    human or the join already moved it), a pair that is the same story."""
+    if not isinstance(sidecar, dict) or not isinstance(sidecar.get("items"), list):
+        return []
+    decided_pairs = decided_pairs or set()
+    out = []
+    for item in sidecar["items"]:
+        if not isinstance(item, dict) or not item.get("active") or item.get("status") != "pending":
+            continue
+        url = (item.get("article") or {}).get("url")
+        keeper = (item.get("candidate") or {}).get("story_id")
+        own = story_of_url.get(url)
+        if not url or not keeper or not own or own == keeper or member_counts.get(own, 0) != 1:
+            continue
+        # A pair the reviewer already decided in the queue is not re-asked.
+        if frozenset((keeper, own)) in decided_pairs:
+            continue
+        evidence = item.get("evidence") or {}
+        out.append({
+            "keeper_story_id": keeper,
+            "matched_story_id": keeper,
+            "candidate_story_id": own,
+            "source": "article_review_channel",
+            "confidence": "review",
+            "article_url": url,
+            "channels": item.get("channels") or [],
+            "sidecar_id": item.get("id"),
+            **{k: v for k, v in evidence.items()},
+        })
+    return out
 
 
 def write_story_merge_queue(path: Path, queue: dict) -> None:

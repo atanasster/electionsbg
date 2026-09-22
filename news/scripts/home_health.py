@@ -123,6 +123,9 @@ def evaluate_home_payload(
         "default_visible": len(visible),
         "default_comparisons": sum(item["comparison"] for item in default_payload),
         "default_image_eligible": sum(item["image_eligible"] for item in default_payload),
+        # Proposals whose keeper is on THIS home page — not the review
+        # backlog. `merge_queue_pending` (supplied by the build) is the
+        # backlog; the two measure different sets and may legitimately differ.
         "merge_proposals": len(home.get("merge_proposals") or []),
     }
     checks = {
