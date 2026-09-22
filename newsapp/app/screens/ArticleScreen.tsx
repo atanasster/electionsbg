@@ -38,6 +38,7 @@ import {
   formatDateTime,
   media,
   relativeTime,
+  toneMeta,
 } from "../labels";
 import {
   useOutletArticles,
@@ -52,6 +53,7 @@ import {
   type EntityCandidate,
   type EntityLink,
   type NewsPersonMention,
+  type PersonTone,
   isPublicHumanReview,
   isPublicEditorialFeedback,
 } from "../data";
@@ -958,7 +960,10 @@ export const ArticleScreen = () => {
             links={analysis.entity_links}
             candidates={analysis.entity_candidates}
           />
-          <NewsPersonsBlock rows={analysis.news_persons} />
+          <NewsPersonsBlock
+            rows={analysis.news_persons}
+            tones={analysis.person_tones}
+          />
         </section>
       ) : (
         // ⚠️ NO badges. At 8.4% analysed this is the common state, and it must
@@ -1036,11 +1041,98 @@ export const ArticleScreen = () => {
  * absence of a decision, never a judgement. Nothing here links anywhere:
  * profile pages are T4.4, and a pending identity has no page to link to.
  */
-const NewsPersonsBlock = ({ rows }: { rows?: NewsPersonMention[] }) => {
+// T4.3 — how the article presents ONE identified person, beside that
+// person's row. ⚠️ Tone is about the ARTICLE's presentation, never the
+// person: neutral reporting of an allegation is neutral, and an incidental
+// mention carries no sentiment at all. The status is printed in words
+// whenever there is no tone, so „no judgement" can never read as „neutral".
+const PersonTreatment = ({ tone }: { tone?: PersonTone }) => {
+  const { language, tr } = useNewsLocale();
+  if (!tone) return null;
+  // ⚠️ GENDER-FREE BULGARIAN. „представен" and „споменат" are masculine
+  // participles, and the corpus's people are not all men — the pilots' own
+  // Илияна Йотова would render ungrammatically. Every phrase here is a noun
+  // phrase about the ARTICLE („ролята в материала", „материалът го представя
+  // като…"), which also keeps the claim where refusal 2 puts it: on the
+  // article's presentation, never as a predicate about the person.
+  const role =
+    tone.subject_role === "primary"
+      ? tr("основен субект", "main subject")
+      : tone.subject_role === "secondary"
+        ? tr("съществен участник", "significant participant")
+        : tr("само споменаване", "mentioned in passing");
+  if (tone.assessment_status !== "assessed" || !tone.tone) {
+    return (
+      <span
+        className="text-xs text-muted-foreground"
+        data-testid="person-treatment"
+      >
+        {" · "}
+        {role} ·{" "}
+        {tone.assessment_status === "insufficient_text"
+          ? tr(
+              "материалът не е прочетен изцяло, затова няма преценка",
+              "the article was not read in full, so no judgement was made",
+            )
+          : tone.subject_role === "incidental"
+            ? tr("без наложена оценка", "no forced sentiment")
+            : tr("няма преценка", "no judgement")}
+      </span>
+    );
+  }
+  const meta = toneMeta(tone.tone, language);
+  return (
+    <span className="text-xs" data-testid="person-treatment">
+      {" · "}
+      <span className="text-muted-foreground">{role} · </span>
+      <span className={meta?.className}>
+        {tr("представяне в материала", "presentation in the article")}:{" "}
+        {meta?.label ?? tone.tone}
+      </span>
+      {tone.rationale ? (
+        <span className="text-muted-foreground"> — {tone.rationale}</span>
+      ) : null}
+      {tone.evidence_spans.length ? (
+        <ul className="ml-4 mt-0.5 list-disc space-y-0.5 text-muted-foreground">
+          {tone.evidence_spans.map((span, i) => (
+            <li key={i}>
+              {span.located === false ? (
+                <>
+                  <s>
+                    <q lang="bg">{span.quote}</q>
+                  </s>{" "}
+                  <span>
+                    ({tr("не е намерен в текста", "not found in the text")})
+                  </span>
+                </>
+              ) : (
+                <q lang="bg">{span.quote}</q>
+              )}{" "}
+              {span.voice === "quoted_speaker"
+                ? `(${tr("цитиран", "quoted")}${span.speaker ? `: ${span.speaker}` : ""})`
+                : span.voice === "journalist"
+                  ? `(${tr("авторски текст", "journalist")})`
+                  : `(${tr("неясен глас", "unclear voice")})`}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </span>
+  );
+};
+
+const NewsPersonsBlock = ({
+  rows,
+  tones,
+}: {
+  rows?: NewsPersonMention[];
+  tones?: PersonTone[];
+}) => {
   const { tr, language } = useNewsLocale();
   if (!rows || rows.length === 0) return null;
   const resolved = rows.filter((r) => r.news_person_id);
   const unresolved = rows.filter((r) => !r.news_person_id);
+  const toneFor = new Map((tones ?? []).map((t) => [t.news_person_id, t]));
   return (
     <Card className="mt-3 p-4" data-testid="news-persons">
       <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -1059,8 +1151,11 @@ const NewsPersonsBlock = ({ rows }: { rows?: NewsPersonMention[] }) => {
                 : r.alias_scope?.startsWith("article:")
                   ? ` · ${tr("по прегледано изключение за този материал", "by a reviewed override for this article")}`
                   : ""}{" "}
-              · {tr("не е оценено", "not assessed")}
+              {toneFor.has(r.news_person_id!)
+                ? null
+                : ` · ${tr("не е оценено", "not assessed")}`}
             </span>
+            <PersonTreatment tone={toneFor.get(r.news_person_id!)} />
           </li>
         ))}
         {unresolved.map((r) => (
@@ -1080,8 +1175,8 @@ const NewsPersonsBlock = ({ rows }: { rows?: NewsPersonMention[] }) => {
       </ul>
       <p className="mt-2 text-xs text-muted-foreground">
         {tr(
-          "Идентичността се определя по прегледан регистър, никога от модела; „не е оценено“ означава, че няма преценка, не че е неутрална.",
-          "Identity comes from a reviewed registry, never from the model; “not assessed” means no judgement was made, not a neutral one.",
+          "Идентичността се определя по прегледан регистър, никога от модела; „не е оценено“ означава, че няма преценка, не че е неутрална. Оценката е за това КАК материалът представя лицето — не за самото лице, неговото поведение или вина.",
+          "Identity comes from a reviewed registry, never from the model; “not assessed” means no judgement was made, not a neutral one. An assessment is of HOW the article presents the person — never of the person, their conduct or their guilt.",
         )}
       </p>
     </Card>

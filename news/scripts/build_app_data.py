@@ -90,6 +90,7 @@ try:
     from . import cases as case_registry
     from . import news_persons as news_identity
     from . import party_rollups
+    from . import person_tones as person_treatment
     from . import story_synthesis
 except ImportError:  # direct script execution
     from commons_rights import (
@@ -123,6 +124,7 @@ except ImportError:  # direct script execution
     import cases as case_registry
     import news_persons as news_identity
     import party_rollups
+    import person_tones as person_treatment
     import story_synthesis
     from build_feedback_targets import build as build_feedback_targets
 
@@ -2955,6 +2957,13 @@ def main() -> int:
                         # review state and its own version.
                         public_analysis["news_persons"] = identities
                         news_person_rows_by_url[art["url"]] = identities
+                        # T4.3 — the person tones for THIS article and THIS
+                        # identity set. A stale document (the article changed,
+                        # an identity was re-versioned or merged) attaches
+                        # NOTHING rather than a claim about a different text.
+                        tones = person_treatment.current_for(art, identities, data_dir)
+                        if tones and tones.get("person_tones"):
+                            public_analysis["person_tones"] = tones["person_tones"]
                 analyzed_by_domain[domain] = analyzed_by_domain.get(domain, 0) + 1
                 # T4.1b: the PUBLIC labels — a withheld v2 axis is None here
                 # and reaches no outlet spectrum and no topic axis spread.

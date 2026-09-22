@@ -259,6 +259,8 @@ export interface AnalysisBlock {
    * was judged. Absent on a record with no person names.
    */
   news_persons?: NewsPersonMention[];
+  /** T4.3 — present only when a stored assessment matches this exact text and identity set. */
+  person_tones?: PersonTone[];
   party_tones: { party: string; tone: Tone }[] | null;
   topics: TopicRef[] | null;
   quality: { verdict: QualityVerdict | null; notes: string | null } | null;
@@ -2632,6 +2634,33 @@ export interface CasePayload extends CaseSummary {
     /** T4.1c — members not read in full; in no bar above. Absent on an old bundle. */
     prefix_scope_count?: number;
   };
+}
+
+/**
+ * T4.3 — how ONE article presents ONE identified person. `assessment_status`
+ * and `tone` are one decision: only `assessed` carries a tone, and an
+ * incidental mention or a partial read carries none. A person the registry
+ * could not resolve is NOT here — they stay in `news_persons` with their
+ * basis, because no identity means no public tone.
+ */
+export interface PersonTone {
+  news_person_id: string;
+  /** Every surface in this article that resolved to that identity. */
+  mention_refs: string[];
+  subject_role: "primary" | "secondary" | "incidental";
+  assessment_status: "assessed" | "insufficient_text" | "not_assessed";
+  tone: Tone | null;
+  /** Model confidence until calibrated — never a probability badge. */
+  confidence: number | null;
+  rationale: string | null;
+  evidence_spans: EvidenceSpan[];
+  /** The located spans whose voice is a quoted speaker, not the outlet. */
+  quoted_attitudes: EvidenceSpan[];
+  text_scope: TextScope;
+  model_version: string;
+  rubric_version: string;
+  identity_version: string | null;
+  assessed_at: string;
 }
 
 /** T4.2 — one party's row in the archive index. No score, by design. */

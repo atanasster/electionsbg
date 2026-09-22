@@ -383,6 +383,117 @@ describe("the evidence", () => {
     expect(screen.queryByTestId("text-scope-note")).toBeNull();
   });
 
+  it("shows how the article presents an identified person — status in words, never a forced sentiment (T4.3)", async () => {
+    const a = analysed();
+    a.news_persons = [
+      {
+        surface: "Ивайло Калушев",
+        basis: "registry_alias",
+        news_person_id: "np_1",
+        identity_version: "2026.1:abc",
+        name_bg: "Ивайло Калушев",
+        name_en: "Ivaylo Kalushev",
+        verified_main_site_slug: null,
+        assessment: "not_assessed",
+      },
+      {
+        surface: "Борислав Сандов",
+        basis: "registry_alias",
+        news_person_id: "np_9",
+        identity_version: "2026.1:def",
+        name_bg: "Борислав Сандов",
+        name_en: "Borislav Sandov",
+        verified_main_site_slug: null,
+        assessment: "not_assessed",
+      },
+      {
+        surface: "Огнян Атанасов",
+        basis: "ambiguous_registry",
+        news_person_id: null,
+        assessment: "not_assessed",
+      },
+    ] as never;
+    const scope = {
+      version: 1,
+      kind: "full" as const,
+      chars_seen: 900,
+      chars_total: 900,
+      coverage: 1,
+      basis: "provenance" as const,
+    };
+    a.person_tones = [
+      {
+        news_person_id: "np_1",
+        mention_refs: ["Ивайло Калушев"],
+        subject_role: "primary",
+        assessment_status: "assessed",
+        tone: "unfavorable",
+        confidence: 0.8,
+        rationale: "Материалът го представя като обвиняем без отговор.",
+        evidence_spans: [
+          {
+            quote: "обвини Калушев",
+            field: "body",
+            direction: "unfavorable",
+            voice: "quoted_speaker",
+            speaker: "прокуратурата",
+            located: true,
+          },
+        ],
+        quoted_attitudes: [],
+        text_scope: scope,
+        model_version: "m",
+        rubric_version: "person-treatment-v1",
+        identity_version: "2026.1:abc",
+        assessed_at: "2026-09-22T00:00:00Z",
+      },
+      {
+        news_person_id: "np_9",
+        mention_refs: ["Борислав Сандов"],
+        subject_role: "incidental",
+        assessment_status: "not_assessed",
+        tone: null,
+        confidence: 0.9,
+        rationale: "Споменат мимоходом.",
+        evidence_spans: [],
+        quoted_attitudes: [],
+        text_scope: scope,
+        model_version: "m",
+        rubric_version: "person-treatment-v1",
+        identity_version: "2026.1:def",
+        assessed_at: "2026-09-22T00:00:00Z",
+      },
+    ] as never;
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    const block = await screen.findByTestId("news-persons");
+    // One article, two people, two different treatments.
+    expect(block).toHaveTextContent(
+      "основен субект · представяне в материала: негативен — Материалът го представя като обвиняем без отговор.",
+    );
+    expect(block).toHaveTextContent("обвини Калушев");
+    expect(block).toHaveTextContent("(цитиран: прокуратурата)");
+    // ⚠️ THE MUTATION THIS CATCHES: a forced sentiment on a person the
+    // article only names in passing.
+    expect(block).toHaveTextContent("само споменаване · без наложена оценка");
+    // ⚠️ The negative assertion names the ROW, not a string that never
+    // occurs: the incidental person's row carries no tone label at all.
+    const incidental = within(block)
+      .getByText("Борислав Сандов")
+      .closest("li")!;
+    expect(incidental).not.toHaveTextContent("представяне в материала");
+    expect(incidental).not.toHaveTextContent(
+      /негативен|позитивен|неутрален|смесен/,
+    );
+    // The unresolved namesake keeps its refusal and gets no treatment at all.
+    expect(block).toHaveTextContent(
+      "името съвпада с повече от една проверена идентичност",
+    );
+    // The caption says what an assessment is ABOUT.
+    expect(block).toHaveTextContent(
+      "Оценката е за това КАК материалът представя лицето — не за самото лице",
+    );
+  });
+
   it("does not claim that untyped evidence is a verbatim source quotation", async () => {
     await renderAt([
       article({ analysis: analysed() } as Partial<ArticleRecord>),
