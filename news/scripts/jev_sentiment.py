@@ -305,6 +305,19 @@ def text_scope_for(article: dict, *, truncated: bool) -> dict:
         article)
 
 
+def check_subject_budget(subjects: list) -> None:
+    """Refuse more subjects than one call can carry.
+
+    ⚠️ ONE MESSAGE, ONE PLACE. The state builder and the question builder both
+    need this and both had their own copy — and the number they enforce is a
+    QUESTION budget (8 per call, one spent on `primary_subject`), so a change
+    to the client's limit must move one constant, not two checks.
+    """
+    if len(subjects) > MAX_SUBJECTS:
+        raise JevSentimentError(
+            f"{len(subjects)} subjects exceeds the {MAX_SUBJECTS}-question budget")
+
+
 def state_for(article: dict, subjects: list) -> tuple:
     """`(state, truncated)` — the structured state Jev is asked about.
 
@@ -314,11 +327,7 @@ def state_for(article: dict, subjects: list) -> tuple:
     Tier-1 facts ride along so the model has the prominence signal without
     spending a question on it.
     """
-    if len(subjects) > MAX_SUBJECTS:
-        # The questions are one per subject against an 8-question ceiling, so
-        # an over-long list is a payload the client would refuse.
-        raise JevSentimentError(
-            f"{len(subjects)} subjects exceeds the {MAX_SUBJECTS}-question budget")
+    check_subject_budget(subjects)
     title = str((article or {}).get("title") or "")
     body = str((article or {}).get("content") or "")
     state = {
@@ -428,10 +437,26 @@ def cached(url: str, data_dir):
     return doc if isinstance(doc, dict) else None
 
 
+# A record that ANSWERED something. ⚠️ `failed` is deliberately absent:
+# see `current_for`.
+ANSWERED_STATUSES = frozenset({"ok", "no_subjects"})
+
+
 def current_for(article: dict, analysis: dict, data_dir):
-    """The stored record for THIS article and THIS subject set, or None."""
+    """The stored record for THIS article and THIS subject set, or None.
+
+    ⚠️⚠️ A `failed` RECORD IS NOT CURRENT, AND THIS IS THE DIFFERENCE BETWEEN
+    A CACHE AND A SCAR. A failed record says "we asked once and the network
+    did not answer" — it is a log of an attempt, not an answer — so treating
+    it as current makes one transient outage permanently remove those articles
+    from the corpus: every later healthy run reports them `cached` and never
+    re-asks, and the only escape is `--force`, which re-pays for everything.
+    Measured on an injected outage before this check existed.
+    """
     doc = cached((article or {}).get("url") or "", data_dir)
     if not doc:
+        return None
+    if doc.get("status") not in ANSWERED_STATUSES:
         return None
     if doc.get("version") != RECORD_VERSION:
         return None
