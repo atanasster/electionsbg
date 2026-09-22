@@ -377,6 +377,18 @@ export interface ArticleRecord {
    * before the trim, which is why every reader falls back to `analysis`.
    */
   has_analysis?: boolean;
+  /**
+   * The analysis's English summary, lifted out of the block.
+   *
+   * ⚠️ Carried by the FEED, which no longer ships `analysis` at all — it was
+   * 70% of latest.json gzipped and broke the publication budget. This is the
+   * one analysis field a feed consumer reads (`prerenderRoutes.ts`, the
+   * English meta description). Absent, never null, when there is none; and
+   * absent on a bundle built before the trim, which is why that reader falls
+   * back to `analysis.summary_en`.
+   */
+  summary_en?: string | null;
+  /** ⚠️ Absent from `latest.json` and `home.json`; read it from articles/<domain>.json. */
   analysis?: AnalysisBlock;
   /** Present even when the accepted finding is that analysis is missing. */
   editorial_feedback?: EditorialFeedbackProvenance;

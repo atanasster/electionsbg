@@ -1746,7 +1746,25 @@ def write_json(path: Path, payload) -> None:
         json.dump(payload, fh, ensure_ascii=False, separators=(",", ":"))
 
 
-FEED_OMIT = frozenset({"section_path", "image_alt", "first_seen", "keywords"})
+# ⚠️ `analysis` IS NOT IN THE FEED, for the reason that took it out of
+# `home.json` one file over. Measured 2026-09-22 it was 105.7 KB of
+# latest.json's 150.9 KB gzipped — 70% of the one object every page
+# downloads — and it broke the 220 KB `FEED_GZIP_BUDGET_BYTES` gate twice in
+# one afternoon (the `bundles` stage at 16:00 and 17:00), which withholds the
+# WHOLE public release, not just this file.
+#
+# It flaps rather than failing outright because the feed is the newest
+# `--latest` records and an analysis runs from nothing to 53 KB, so whether
+# the hour publishes depends on which articles happen to be newest.
+#
+# ⚠️ DO NOT put a trimmed `analysis` back in its place. `AnalysisBlock`
+# (newsapp/app/data.ts) declares `summary_bg`, `leaning`, `russia_stance` and
+# `entities` REQUIRED, so a `{"summary_en": ...}` under that name is a
+# malformed block that type-checks at every call site and is `undefined` at
+# runtime. Two derived fields carry what the feed actually reads instead —
+# see `feed_article`.
+FEED_OMIT = frozenset({"section_path", "image_alt", "first_seen", "keywords",
+                       "analysis"})
 HOME_OMIT = frozenset({"section_path", "first_seen", "keywords", "content_chars",
                        "canonical", "language", "updated"})
 HOME_ITEM_LIMIT = 32
@@ -1819,6 +1837,32 @@ def home_article(record: dict) -> dict:
     slim = {k: v for k, v in record.items()
             if k not in HOME_ARTICLE_DROPPED_FIELDS}
     slim["has_analysis"] = bool(record.get("analysis"))
+    return slim
+
+
+def feed_article(record: dict) -> dict:
+    """One article as `latest.json` carries it.
+
+    ⚠️ THE ONE PROJECTION, and it is shared rather than restated: the cold
+    builder and BOTH hot overlay merges (`overlay_merge.py`, and its mirror
+    in `newsapp/app/overlayMerge.ts`) run records through this. A merge that
+    only dropped `FEED_OMIT` would publish records with no `has_analysis`
+    for exactly the articles a hot run touched — a divergence from the cold
+    build that no row count shows and that a reader sees as an article
+    losing its analysis badge five minutes after the hourly release.
+
+    `summary_en` is lifted out because it is the ONE analysis field a feed
+    consumer reads: `prerenderRoutes.ts` uses it for the English meta
+    description of every article page. It is omitted, never null, when there
+    is nothing to say.
+    """
+    slim = {k: v for k, v in record.items() if k not in FEED_OMIT}
+    analysis = record.get("analysis")
+    slim["has_analysis"] = bool(analysis)
+    if isinstance(analysis, dict):
+        summary_en = analysis.get("summary_en")
+        if summary_en:
+            slim["summary_en"] = summary_en
     return slim
 
 
@@ -3245,10 +3289,7 @@ def main() -> int:
     # `image_alt` are read on the ARTICLE page only, which already loads the
     # per-domain bundle, so they are dropped here — the fields that survive
     # are the ones a card actually renders.
-    latest = [
-        {k: v for k, v in r.items() if k not in FEED_OMIT}
-        for r in all_latest if r.get("published")
-    ]
+    latest = [feed_article(r) for r in all_latest if r.get("published")]
     # ⚠️ This is the file where the missing tiebreak showed: `all_latest` is
     # accumulated per domain, so two articles published in the same second
     # landed in whichever order the domains were walked — the feed every page

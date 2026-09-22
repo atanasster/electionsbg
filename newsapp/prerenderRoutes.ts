@@ -435,12 +435,18 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
   for (const a of (latest?.articles as Bundle[] | undefined) ?? []) {
     const domain = String(a.domain ?? "");
     const id = String(a.id ?? "");
-    if (!domain || !id || !a.analysis) continue;
+    // ⚠️ `has_analysis` FIRST. The feed stopped carrying `analysis` itself
+    // (news/scripts/build_app_data.py, `feed_article`) because it was 70% of
+    // the file every page downloads — and gating on the object alone emits
+    // ZERO article routes, i.e. every article page silently loses its
+    // prerendered HTML at exit 0. `analysis` stays in the fallback for a
+    // bundle built before that change.
+    if (!domain || !id || !(a.has_analysis ?? a.analysis)) continue;
     const title = String(a.title ?? "").trim();
     if (!title) continue;
     const name = outletNames.get(domain) ?? domain;
     const excerpt = String(a.excerpt ?? "").trim();
-    const analysis = a.analysis as Bundle;
+    const analysis = (a.analysis ?? {}) as Bundle;
     routes.push({
       path: `article/${domain}/${id}`,
       title: `${clamp(title, 70)} — ${name} | Наясно Новини`,
@@ -450,7 +456,7 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       ),
       titleEn: `Article analysis — ${name} | Naiasno News`,
       descriptionEn: clamp(
-        String(analysis.summary_en ?? "").trim() ||
+        String(a.summary_en ?? analysis.summary_en ?? "").trim() ||
           `Analysis of an article from ${name}: ratings on both axes and supporting evidence.`,
       ),
       ogType: "article",

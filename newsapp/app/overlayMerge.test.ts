@@ -231,7 +231,8 @@ describe("applyOverlayToPath", () => {
   it("narrows feed records to the feed's own fields", () => {
     // ⚠️ The overlay carries BUNDLE records, which are wider. Publishing
     // them unnarrowed re-inflates by ~25% the one object every page
-    // downloads before it can paint.
+    // downloads before it can paint — and far more than that once
+    // `analysis` is in it, which measured 70% of the file gzipped.
     const merged = applyOverlayToPath(
       "/latest.json",
       { generated_at: "old", articles: [] },
@@ -246,16 +247,49 @@ describe("applyOverlayToPath", () => {
               first_seen: "2026-09-20T00:00:00Z",
               image_alt: "alt",
               title: "Заглавие",
+              analysis: { summary_en: "In English", summary_bg: "На български" },
             },
           ],
         },
       }),
     ) as { articles: Array<Record<string, unknown>> };
     expect(Object.keys(merged.articles[0]).sort()).toEqual([
+      "has_analysis",
       "published",
+      "summary_en",
       "title",
       "url",
     ]);
+    // ⚠️ A PROJECTION, not a field filter. Dropping `analysis` without
+    // deriving these two publishes records the cold build does not, for
+    // exactly the articles a hot run touched — and `summary_en` is what
+    // every article page's English meta description is built from.
+    expect(merged.articles[0].has_analysis).toBe(true);
+    expect(merged.articles[0].summary_en).toBe("In English");
+    expect(merged.articles[0].analysis).toBeUndefined();
+  });
+
+  it("says an article has no analysis rather than omitting the answer", () => {
+    // `has_analysis` is the feed's only remaining signal that an analysis
+    // exists, so `false` has to be published: absent would read to a
+    // consumer as "built before the trim", which is the fallback case.
+    const merged = applyOverlayToPath(
+      "/latest.json",
+      { generated_at: "old", articles: [] },
+      overlay({
+        articles: {
+          "a.bg": [
+            {
+              url: "https://a.bg/1",
+              published: "2026-09-20T00:00:00Z",
+              title: "Заглавие",
+            },
+          ],
+        },
+      }),
+    ) as { articles: Array<Record<string, unknown>> };
+    expect(merged.articles[0].has_analysis).toBe(false);
+    expect(merged.articles[0].summary_en).toBeUndefined();
   });
 
   it("breaks ties by url so a hot release cannot reorder the feed", () => {

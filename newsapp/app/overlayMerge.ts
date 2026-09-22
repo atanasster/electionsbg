@@ -251,22 +251,46 @@ const idOf = (row: Payload) =>
  * too. ⚠️ Kept in step by the shared vectors: the overlay carries BUNDLE
  * records, which are wider, and publishing them unnarrowed re-inflates by
  * ~25% the one object every page downloads before it can paint.
+ *
+ * ⚠️ `analysis` is here for a bigger version of the same reason: measured
+ * 2026-09-22 it was 70% of latest.json gzipped, and it is read on the
+ * article page only, which already loads the per-domain bundle.
  */
 const FEED_OMIT = new Set([
   "section_path",
   "image_alt",
   "first_seen",
   "keywords",
+  "analysis",
 ]);
 
+/**
+ * One overlay record in feed shape — the mirror of `feed_article` in
+ * news/scripts/build_app_data.py, which the cold builder and the Python
+ * merge both use.
+ *
+ * ⚠️ IT IS A PROJECTION, NOT A FIELD FILTER, and that is the half easy to
+ * lose: dropping `analysis` without deriving `has_analysis` would publish
+ * records the cold build does not, for exactly the articles a hot run
+ * touched. `summary_en` is lifted out because it is the one analysis field
+ * a feed consumer reads (`prerenderRoutes.ts`, the English meta
+ * description); it is omitted, never null, when there is nothing to say.
+ */
+const feedArticle = (record: Payload): Payload => {
+  const slim = Object.fromEntries(
+    Object.entries(record).filter(([field]) => !FEED_OMIT.has(field)),
+  );
+  const analysis = record.analysis;
+  slim.has_analysis = Boolean(analysis);
+  if (analysis && typeof analysis === "object" && !Array.isArray(analysis)) {
+    const summaryEn = (analysis as Payload).summary_en;
+    if (summaryEn) slim.summary_en = summaryEn;
+  }
+  return slim;
+};
+
 export const mergeLatest = (base: Payload, overlay: NewsOverlay): Payload => {
-  const delta = Object.values(overlay.articles)
-    .flat()
-    .map((record) =>
-      Object.fromEntries(
-        Object.entries(record).filter(([field]) => !FEED_OMIT.has(field)),
-      ),
-    );
+  const delta = Object.values(overlay.articles).flat().map(feedArticle);
   const removed = Object.values(overlay.removed_article_urls).flat();
   const merged = upsert(
     (base.articles as Payload[]) ?? [],

@@ -53,7 +53,7 @@ from __future__ import annotations
 
 # ⚠️ IMPORTED, NEVER RESTATED — every rule that decides what a published
 # file CONTAINS or how it is ORDERED. `story_index_row` fixes the fields a
-# list screen gets, `FEED_OMIT` the ones the feed drops, `article_sort_key`
+# list screen gets, `feed_article` the shape the feed gets, `article_sort_key`
 # / `story_sort_key` the published order, `STORY_PAGE_SIZE` the page
 # boundary. A merge carrying its own copy of any of them diverges from the
 # cold build only for the records a hot run happened to touch — invisible
@@ -61,7 +61,7 @@ from __future__ import annotations
 # or two stories swapping places between the hourly release and the one
 # five minutes later.
 from build_app_data import (
-    FEED_OMIT, STORY_PAGE_SIZE, article_sort_key, story_index_row,
+    STORY_PAGE_SIZE, article_sort_key, feed_article, story_index_row,
     story_prominence, utc_instant,
     story_sort_key)
 
@@ -196,16 +196,20 @@ def merge_latest(base: dict, records: list, *, removed_urls=(), limit: int,
     ⚠️ THE FEED RECORD IS NARROWER THAN THE BUNDLE RECORD, so the overlay's
     records are projected here rather than carried a second time. The
     builder drops `FEED_OMIT` — `section_path`, `image_alt`, `first_seen`,
-    `keywords` — because they are read on the article page only, which
-    already loads the per-domain bundle; measured 2026-08-26, carrying them
-    takes this file from 763 KB to 955 KB, on the one object every page in
-    the app downloads before it can paint. The field list is IMPORTED, not
-    restated: a merge with its own copy would publish wider records for
+    `keywords`, `analysis` — because they are read on the article page only,
+    which already loads the per-domain bundle; measured 2026-08-26, carrying
+    the first four takes this file from 763 KB to 955 KB, and measured
+    2026-09-22 `analysis` alone was 70% of it gzipped. It is the one object
+    every page in the app downloads before it can paint.
+
+    ⚠️ `feed_article` is IMPORTED, not restated, and it is a PROJECTION
+    rather than a field list — it also derives `has_analysis`/`summary_en`.
+    A merge with its own copy would publish differently-shaped records for
     exactly the articles a hot run touched, quietly re-inflating the file
-    the `FEED_GZIP_BUDGET_BYTES` gate exists to hold down.
+    the `FEED_GZIP_BUDGET_BYTES` gate exists to hold down or dropping a
+    field the cold build emits.
     """
-    records = [{k: v for k, v in r.items() if k not in FEED_OMIT}
-               for r in records]
+    records = [feed_article(r) for r in records]
     merged = upsert(base.get("articles") or [], records,
                     key=_article_key, removed=removed_urls)
     merged = [r for r in merged if r.get("published")]
@@ -373,9 +377,10 @@ def apply_overlay(base: dict, overlay: dict) -> dict:
     # `latest.json` is corpus-wide, so it takes EVERY domain's delta — not
     # only the one being looked at. The records arrive in BUNDLE shape and
     # `merge_latest` narrows them to feed shape itself, via the builder's
-    # own `FEED_OMIT`; do not "optimise" that projection away, or the one
-    # object every page downloads before it can paint re-inflates by 25%
-    # for exactly the articles a hot run touched.
+    # own `feed_article`; do not "optimise" that projection away, or the one
+    # object every page downloads before it can paint re-inflates — by 25%
+    # from the dropped fields and far more from `analysis` — for exactly the
+    # articles a hot run touched.
     feed_delta = [r for records in (overlay.get("articles") or {}).values()
                   for r in records]
     feed_removed = [u for urls in (overlay.get("removed_article_urls") or {}).values()
