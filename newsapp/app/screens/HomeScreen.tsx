@@ -33,12 +33,10 @@ import {
   buildBriefingSections,
   readBriefingPreferences,
   sanitizeBriefingPreferences,
-  storiesSinceBriefing,
   writeBriefingPreferences,
   type BriefingCadence,
   type BriefingPreferences,
 } from "../briefing";
-import { BriefingControls } from "../components/BriefingControls";
 import { emitNewsEvent } from "../analytics";
 
 /**
@@ -169,13 +167,8 @@ export const HomeScreen = () => {
   // интересите ви" section — their only evidence that anything was held back
   // — no longer rendered. An empty list is what guarantees nothing is hidden.
   const briefing = useMemo(
-    () =>
-      buildBriefingSections(
-        hierarchy,
-        [],
-        briefingPreferences.completedStoryIds,
-      ),
-    [hierarchy, briefingPreferences.completedStoryIds],
+    () => buildBriefingSections(hierarchy, []),
+    [hierarchy],
   );
   useEffect(() => {
     if (!home.data) return;
@@ -191,25 +184,11 @@ export const HomeScreen = () => {
     return () => window.clearTimeout(timer);
   }, [briefing.visibleCount, home.data, query]);
 
-  const newStoryCount = useMemo(
-    () =>
-      storiesSinceBriefing(
-        briefing.currentStoryIds.map((id) => ({ id })),
-        briefingPreferences.completedStoryIds,
-      ),
-    [briefing.currentStoryIds, briefingPreferences.completedStoryIds],
-  );
   const updateBriefingPreferences = (next: BriefingPreferences) => {
     const safe = sanitizeBriefingPreferences(next);
     setBriefingPreferences(safe);
     writeBriefingPreferences(safe);
   };
-  const finishBriefing = () =>
-    updateBriefingPreferences({
-      ...briefingPreferences,
-      lastCompletedAt: new Date(Date.now()).toISOString(),
-      completedStoryIds: briefing.currentStoryIds,
-    });
   const changeDays = (nextDays: number) => {
     setDays(nextDays);
     if (nextDays !== 1 && nextDays !== 7) return;
@@ -217,8 +196,6 @@ export const HomeScreen = () => {
     if (briefingPreferences.cadence !== cadence)
       updateBriefingPreferences({ ...briefingPreferences, cadence });
   };
-  const activeCadence: BriefingCadence | "custom" =
-    days === 1 ? "daily" : days === 7 ? "weekly" : "custom";
   const storyCard = (item: (typeof briefing.update)[number]) => (
     <StoryCard
       key={item.story.id}
@@ -339,8 +316,7 @@ export const HomeScreen = () => {
         </Card>
       ) : null}
 
-      {/* One deterministic, finite briefing. Preferences never remove the
-          explicit outside-interests section or create an infinite feed. */}
+      {/* One deterministic, finite briefing — never an infinite feed. */}
       <section aria-labelledby="stories-heading">
         {/* ⚠️ sr-only, NOT deleted. The section points at this id with
             `aria-labelledby`, so removing the element would leave the whole
@@ -412,11 +388,10 @@ export const HomeScreen = () => {
                 </h3>
                 <div className="space-y-5">
                   {/* ⚠️ The lead module renders only when the lead is also
-                      the FIRST update item — a story the reader has already
-                      completed drops out of `update`, and the module goes with
-                      it rather than repeating a story the briefing considers
-                      done. So "compact keeps the lead" means "compact no
-                      longer suppresses it", not that it is always present. */}
+                      the FIRST update item, rather than repeating a story the
+                      grid below already carries. So "compact keeps the lead"
+                      means "compact no longer suppresses it", not that it is
+                      always present. */}
                   {hierarchy.lead &&
                   briefing.update[0]?.story.id === hierarchy.lead.story.id ? (
                     <LeadStory
@@ -436,17 +411,6 @@ export const HomeScreen = () => {
                 </div>
               </section>
             ) : null}
-
-            <BriefingControls
-              preferences={briefingPreferences}
-              activeCadence={activeCadence}
-              newStoryCount={newStoryCount}
-              onChange={updateBriefingPreferences}
-              onCadenceChange={(cadence) =>
-                changeDays(cadence === "daily" ? 1 : 7)
-              }
-              onComplete={finishBriefing}
-            />
 
             {briefing.moreAnalyzed.length ? (
               <section aria-labelledby="briefing-explain-heading">

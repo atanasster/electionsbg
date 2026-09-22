@@ -6,7 +6,6 @@ import {
   NEWS_BRIEFING_STORAGE_KEY,
   readBriefingPreferences,
   sanitizeBriefingPreferences,
-  storiesSinceBriefing,
   writeBriefingPreferences,
 } from "./briefing";
 import type { HomeHierarchy, HomeStoryItem } from "./homeHierarchy";
@@ -47,7 +46,6 @@ describe("private briefing preferences", () => {
         cadence: "weekly",
         density: "compact",
         followedTopics: [...topics, "topic-1", "private value with spaces"],
-        lastCompletedAt: "not-a-date",
         profile: { email: "private@example.com" },
       }),
     ).toEqual({
@@ -55,8 +53,6 @@ describe("private briefing preferences", () => {
       cadence: "weekly",
       density: "compact",
       followedTopics: topics.slice(0, MAX_FOLLOWED_TOPICS),
-      lastCompletedAt: null,
-      completedStoryIds: [],
     });
   });
 
@@ -108,22 +104,5 @@ describe("finite briefing composition", () => {
     expect(ids).toEqual(["a", "bb", "ccc", "dddd", "eeeee"]);
     expect(new Set(ids).size).toBe(hierarchy.supporting.length);
     expect(result.outsideInterests).toEqual([]);
-  });
-
-  it("uses completed story ids so delayed additions still count as new", () => {
-    const stories = hierarchy.supporting.map((entry) => entry.story);
-    expect(storiesSinceBriefing(stories, ["a", "bb"])).toBe(3);
-    expect(storiesSinceBriefing(stories, [])).toBeNull();
-    expect(storiesSinceBriefing([{ id: stories[0].id }], ["older-id"])).toBe(1);
-  });
-
-  it("removes completed cards from Update me without hiding them", () => {
-    const completedIds = hierarchy.supporting.map((entry) => entry.story.id);
-    const result = buildBriefingSections(hierarchy, [], completedIds);
-    expect(result.update).toEqual([]);
-    expect([...result.moreAnalyzed, ...result.perspectives]).toHaveLength(
-      hierarchy.supporting.length,
-    );
-    expect(result.currentStoryIds).toEqual(completedIds);
   });
 });

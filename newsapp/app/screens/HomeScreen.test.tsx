@@ -302,8 +302,6 @@ describe("home adaptive freshness window", () => {
         cadence: "daily",
         density: "detailed",
         followedTopics: ["politics"],
-        lastCompletedAt: null,
-        completedStoryIds: [],
       }),
     );
     await renderHome(
@@ -335,28 +333,44 @@ describe("home adaptive freshness window", () => {
     );
   });
 
-  it("persists a local completion state without creating an endless feed", async () => {
+  it("carries no briefing toolbar, and shows a story a stale completion had hidden", async () => {
+    // ⚠️ THE STORED STATE IS THE POINT. „Приключих прегледа" used to write
+    // `completedStoryIds`, and those ids removed cards from „Обнови ме". With
+    // the toolbar gone there would be no way to clear them, so the screen must
+    // stop READING them — a browser that completed a briefing once would
+    // otherwise keep the lead module suppressed for ever, at a 200.
     const item = story("Една история", "2026-08-31T06:00:00Z", "politics");
-    await renderHome(home([item], [homeArticle("a1", item.id)]));
-    fireEvent.click(screen.getByRole("button", { name: "Приключих прегледа" }));
-    const stored = JSON.parse(
-      localStorage.getItem(NEWS_BRIEFING_STORAGE_KEY) ?? "null",
+    localStorage.setItem(
+      NEWS_BRIEFING_STORAGE_KEY,
+      JSON.stringify({
+        version: 1,
+        cadence: "daily",
+        density: "detailed",
+        followedTopics: [],
+        lastCompletedAt: "2026-08-30T07:00:00.000Z",
+        completedStoryIds: [item.id],
+      }),
     );
-    expect(stored.lastCompletedAt).toBe("2026-08-31T07:00:00.000Z");
-    expect(stored.completedStoryIds).toEqual([item.id]);
-    expect(screen.getByText(/0 истории/)).toBeVisible();
+    await renderHome(home([item], [homeArticle("a1", item.id)]));
+
     expect(
-      screen.getByRole("button", { name: "Прегледът е завършен" }),
-    ).toBeDisabled();
-    expect(screen.queryByRole("heading", { name: "Обнови ме" })).toBeNull();
+      screen.queryByRole("heading", { name: "Моят кратък преглед" }),
+    ).toBeNull();
     expect(
-      screen.getByRole("heading", { name: "Още анализирани истории" }),
-    ).toBeVisible();
-    expect(screen.getByText(item.id)).toBeVisible();
+      screen.queryByRole("button", { name: "Приключих прегледа" }),
+    ).toBeNull();
+    expect(
+      screen.queryByRole("button", { name: "Прегледът е завършен" }),
+    ).toBeNull();
+    expect(screen.queryByText(/Настройки на прегледа/)).toBeNull();
+    expect(
+      screen.getByRole("heading", { name: "Обнови ме" }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText("Една история").length).toBeGreaterThan(0);
     expect(screen.queryByText(/Зареди още/)).not.toBeInTheDocument();
   });
 
-  it("uses the URL period as the displayed cadence and restores a saved week", async () => {
+  it("restores a saved week as the default period", async () => {
     const recent = Array.from({ length: 6 }, (_, index) =>
       story(`recent-${index}`, "2026-08-31T06:00:00Z"),
     );
@@ -367,8 +381,6 @@ describe("home adaptive freshness window", () => {
         cadence: "weekly",
         density: "detailed",
         followedTopics: [],
-        lastCompletedAt: null,
-        completedStoryIds: [],
       }),
     );
     await renderHome(
@@ -378,10 +390,6 @@ describe("home adaptive freshness window", () => {
       ),
     );
     expect(screen.getByRole("button", { name: "7 дни" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
-    expect(screen.getByRole("button", { name: "Седмичен" })).toHaveAttribute(
       "aria-pressed",
       "true",
     );
@@ -396,13 +404,10 @@ describe("home adaptive freshness window", () => {
       "/?days=30",
     );
     expect(
-      screen.getAllByText(/персонализиран период от 30 дни/),
-    ).not.toHaveLength(0);
+      screen.getAllByRole("button", { name: "30 дни" }).at(-1),
+    ).toHaveAttribute("aria-pressed", "true");
     expect(
-      screen.getAllByRole("button", { name: "Дневен" }).at(-1),
-    ).toHaveAttribute("aria-pressed", "false");
-    expect(
-      screen.getAllByRole("button", { name: "Седмичен" }).at(-1),
+      screen.getAllByRole("button", { name: "7 дни" }).at(-1),
     ).toHaveAttribute("aria-pressed", "false");
   });
 
@@ -422,8 +427,6 @@ describe("home adaptive freshness window", () => {
         cadence: "daily",
         density: "detailed",
         followedTopics: ["economy"],
-        lastCompletedAt: null,
-        completedStoryIds: [],
       }),
     );
     const matches = [
