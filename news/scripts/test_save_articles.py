@@ -3904,6 +3904,257 @@ class MojibakeRepair(unittest.TestCase):
         self.assertIsNone(self.sa.demojibake(mixed))
 
 
+class ScriptResidueInTheBody(unittest.TestCase):
+    """⚠️ A BODY IS NOT ALWAYS PROSE, and the contaminated path is the one
+    with no DOM guards.
+
+    `articleBody` from JSON-LD wins over the extracted paragraphs and is
+    whatever the publisher's CMS put there. Several build it from the
+    rendered container's textContent, which FLATTENS <script> into text —
+    tags gone, so nothing downstream can tell it from writing. Measured on
+    the real corpus: 215 dariknews.bg bodies carrying a `window.teads_analytics`
+    block (263 chars of script each) and 29 pogled.info bodies carrying a bare
+    JS identifier spliced into a word. 244 of 13,507, and no other domain.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+
+    TEADS = ('\r\n    \n     \n        window.teads_analytics = '
+             'window.teads_analytics || {};\n        '
+             'window.teads_analytics.analytics_tag_id = "PUB_26730";\n'
+             '        window.teads_analytics.share = '
+             'window.teads_analytics.share || function() {\n          ;'
+             '(window.teads_analytics.shared_data = '
+             'window.teads_analytics.shared_data || []).push(arguments)\n'
+             '        };')
+    PROSE = ("Пожар избухна в сградата рано сутринта. Няма пострадали, "
+             "съобщиха от пожарната служба. Огънят е овладян към осем часа, "
+             "а причината за него се изяснява от разследващите органи.")
+
+    def test_a_flattened_script_block_is_removed_and_counted(self):
+        body = self.PROSE + self.TEADS
+        out, removed = self.sa.strip_script_residue(body)
+        self.assertEqual(out, self.PROSE)
+        self.assertGreater(removed, 200)
+        # ⚠️ THE COUNT IS THE SCRIPT, NOT THE WHITESPACE. Folding the seam
+        # tidy into it would report „594 chars of script" for a body that
+        # carried 263 and a lot of source indentation, and the field is read
+        # as a measure of contamination.
+        self.assertLessEqual(removed, len(self.TEADS))
+
+    def test_a_clean_body_is_returned_BYTE_FOR_BYTE(self):
+        # ⚠️ THE MUTATION THIS CATCHES: normalising whitespace for everybody.
+        # 13,263 of 13,507 bodies carry no script, and rewriting their spacing
+        # would churn every content hash for nothing.
+        body = "Първи абзац.\n\n   Втори   абзац с  вътрешни   интервали.\n\n\n\nТрети."
+        out, removed = self.sa.strip_script_residue(body)
+        self.assertEqual(removed, 0)
+        self.assertIs(out, body)
+
+    def test_the_PROSE_spacing_survives_a_removal(self):
+        # ⚠️ THE MUTATION THIS CATCHES: collapsing runs of spaces while you
+        # are in there anyway. The seam a removal leaves is closed; the
+        # article's own typography is not the extractor's business, and
+        # rewriting it moves text the publisher wrote.
+        body = ("Първи   абзац  с  интервали, достатъчно дълъг за да не се "
+                "брои за изчерпан след премахването на скрипта." + self.TEADS)
+        out, removed = self.sa.strip_script_residue(body)
+        self.assertGreater(removed, 200)
+        self.assertEqual(out, "Първи   абзац  с  интервали, достатъчно дълъг "
+                              "за да не се брои за изчерпан след премахването "
+                              "на скрипта.")
+
+    def test_an_identifier_spliced_into_a_word_is_removed(self):
+        # The pogled.info shape. The lost letters („илюзии" -> „илю") are NOT
+        # recoverable, so this removes the foreign token and says how much it
+        # took; it does not invent the word back.
+        out, removed = self.sa.strip_script_residue(
+            "художествени илюstopPropagation и масова култура")
+        self.assertEqual(out, "художествени илю и масова култура")
+        self.assertEqual(removed, len("stopPropagation"))
+
+    def test_prose_that_TRIPS_THE_HINT_is_still_left_alone(self):
+        # ⚠️ THE MUTATION THIS CATCHES: an earlier cut ran to the last `;` in
+        # the body and deleted the LINE around „function (", so an article
+        # containing a semicolon lost 879 of its 899 prose characters. Every
+        # input here reaches the patterns — a test whose inputs never trip
+        # `JS_RESIDUE_HINT` proves nothing about them.
+        bodies = [
+            "Разработчикът обясни, че innerHTML е опасен; екипът пренаписа "
+            "функцията (as defined), за да го избегне напълно в кода си.",
+            "The developer explained that innerHTML is unsafe; the team "
+            "rewrote the function (as defined) to avoid it entirely here.",
+            "Документът описва document.bg като портал; там има и querySelector "
+            "в примерния код на страницата за разработчици на системата.",
+        ]
+        for body in bodies:
+            self.assertTrue(self.sa.JS_RESIDUE_HINT.search(body), body[:40])
+            out, removed = self.sa.strip_script_residue(body)
+            self.assertEqual(removed, 0, body[:40])
+            self.assertEqual(out, body)
+
+    def test_a_script_run_BEFORE_the_prose_takes_only_itself(self):
+        # The greedy shape: script first, article after. A pattern bounded by
+        # a terminator runs past the script into the text.
+        body = self.TEADS + " " + self.PROSE
+        out, removed = self.sa.strip_script_residue(body)
+        self.assertIn(self.PROSE, out)
+        self.assertNotIn("teads", out)
+        self.assertLessEqual(removed, len(self.TEADS))
+
+    def test_a_body_that_IS_script_is_returned_unchanged_and_reported(self):
+        # ⚠️ Removal would leave no article, so the input comes back as it
+        # arrived — with the count, so the contamination is never hidden.
+        out, removed = self.sa.strip_script_residue(self.TEADS)
+        self.assertEqual(out, self.TEADS)
+        self.assertGreater(removed, 200)
+
+    def test_a_contaminated_jsonld_body_YIELDS_to_the_dom_paragraphs(self):
+        # ⚠️ PRECEDENCE IS UNCHANGED WHERE BOTH ARE CLEAN. What changes is
+        # that JSON-LD plus code loses to paragraphs that are only prose —
+        # `extract_body` already drops <script> through JUNK_TAGS, so the DOM
+        # path is the one that was right all along.
+        dom = self.PROSE + "\n\nВтори абзац от DOM."
+        out, removed = self.sa.choose_body(self.PROSE + self.TEADS, dom)
+        self.assertEqual(out, dom)
+        # ⚠️ THE RESIDUE IS THE RESIDUE OF THE BODY THAT IS STORED. Reporting
+        # what was removed from the candidate that was then DISCARDED would
+        # make `extraction_residue_chars` describe text nobody stored, and it
+        # is read as a measure of what is in the record.
+        self.assertEqual(removed, 0)
+
+    def test_a_clean_jsonld_body_still_wins(self):
+        out, removed = self.sa.choose_body(self.PROSE, "по-кратък DOM текст")
+        self.assertEqual(out, self.PROSE)
+        self.assertEqual(removed, 0)
+
+    def test_when_both_are_contaminated_the_residue_is_stripped_in_place(self):
+        out, removed = self.sa.choose_body(self.PROSE + self.TEADS,
+                                           "DOM текст" + self.TEADS)
+        self.assertEqual(out, self.PROSE)
+        self.assertGreater(removed, 200)
+
+    def test_it_fails_closed_on_nothing(self):
+        self.assertEqual(self.sa.choose_body(None, None), (None, 0))
+        self.assertEqual(self.sa.strip_script_residue(""), ("", 0))
+        self.assertEqual(self.sa.strip_script_residue(None), (None, 0))
+
+    def _record(self, article_body, paragraphs):
+        html = ('<html><head><script type="application/ld+json">'
+                + json.dumps({"@type": "NewsArticle", "headline": "Заглавие",
+                              "articleBody": article_body})
+                + "</script></head><body><article>"
+                + "".join(f"<p>{p}</p>" for p in paragraphs)
+                + "</article></body></html>")
+        rec, _ = self.sa.extract_record(html, "x.bg", "https://x.bg/1")
+        return rec
+
+    def test_a_contaminated_jsonld_RECORD_stores_the_clean_dom_body(self):
+        # ⚠️ THE MUTATION THIS CATCHES: a sanitiser nothing calls. Every unit
+        # test above reaches `strip_script_residue` directly; this one goes
+        # through the record assembly, which is the only path production runs.
+        rec = self._record(self.PROSE + self.TEADS,
+                           [self.PROSE, "Втори абзац, достатъчно дълъг за прага."])
+        self.assertNotIn("teads", rec["content"])
+        self.assertNotIn("window.", rec["content"])
+        self.assertIn("Пожар избухна", rec["content"])
+        self.assertEqual(rec["content_chars"], len(rec["content"]))
+        # The DOM body was already prose, so nothing was removed from what is
+        # stored — and that is what the field reports.
+        self.assertIsNone(rec["extraction_residue_chars"])
+
+    def test_a_record_with_no_usable_dom_stores_the_CLEANED_jsonld(self):
+        rec = self._record(self.PROSE + self.TEADS, [])
+        self.assertNotIn("teads", rec["content"])
+        self.assertIn("Пожар избухна", rec["content"])
+        self.assertGreater(rec["extraction_residue_chars"], 200)
+        # `content_chars` is what T4.1c reads for full-vs-prefix scope, so it
+        # must count the article rather than the article plus an ad tag.
+        self.assertEqual(rec["content_chars"], len(rec["content"]))
+
+    def test_a_record_with_no_residue_carries_None_not_zero(self):
+        html = ('<html><head><script type="application/ld+json">'
+                + json.dumps({"@type": "NewsArticle", "headline": "Заглавие",
+                              "articleBody": self.PROSE})
+                + "</script></head><body><article><p>" + self.PROSE
+                + "</p></article></body></html>")
+        rec, _ = self.sa.extract_record(html, "x.bg", "https://x.bg/2")
+        self.assertEqual(rec["content"], self.PROSE)
+        self.assertIsNone(rec["extraction_residue_chars"])
+
+    def test_the_extractor_never_lets_a_script_tag_through(self):
+        # The DOM half of the same claim, end to end.
+        html = ("<article><p>" + self.PROSE + "</p>"
+                "<script>window.teads_analytics = {};</script>"
+                "<p>Втори абзац с достатъчно дължина за прага.</p></article>")
+        paras, _ = self.sa.extract_body(html)
+        self.assertTrue(paras)
+        self.assertNotIn("teads", "\n\n".join(paras))
+
+
+class HomoglyphObfuscation(unittest.TestCase):
+    """⚠️ MEASURED AND RECORDED, NEVER REPAIRED — and the reason is that the
+    corruption belongs to the publisher.
+
+    Same story, same corpus: money.bg carried the French wine harvest at
+    13:39 on 2026-09-21 with 0% of its body obfuscated; frognews.bg
+    republished it at 14:50 with 82% of the body and 88% of the title
+    obfuscated. fakti.bg's own slug, `sityaciata-ne-e-ppecedent`, was
+    generated by their CMS from an already-obfuscated title. Normalising it
+    here would make this project misquote what an outlet published, and an
+    evidence span has to locate in the text the outlet actually wrote.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+
+    def test_it_measures_the_share_rather_than_flagging_a_character(self):
+        # ⚠️ THE MUTATION THIS CATCHES: „does it contain a mixed token".
+        # A logotype („Кmeta", which that site prints in every article), a
+        # hashtag and a roman numeral are all mixed-script and all deliberate;
+        # only the SHARE separates them from a substituted body.
+        self.assertEqual(self.sa.homoglyph_share("Ocнoвни извoди зa цeнитe"), 1.0)
+        self.assertEqual(
+            self.sa.homoglyph_share("Обикновена статия без нищо особено."), 0.0)
+        incidental = self.sa.homoglyph_share(
+            "Материал от Кmeta с едно име на марка вътре в текста днес.")
+        self.assertGreater(incidental, 0)
+        self.assertLess(incidental, self.sa.HOMOGLYPH_SYSTEMATIC)
+
+    def test_a_substituted_body_is_STORED_VERBATIM(self):
+        body = "Πecтeливoтo дoвъpшвaнe cтpyвa пpeкaлeнo мнoгo нa xopaтa."
+        html = ("<html><body><article><p>" + body
+                + " Дoпълнитeлeн тeĸcт зa дължинa нa aбзaцa.</p>"
+                "<p>Bтopи aбзaц cъщo дocтaтъчнo дълъг зa пpaгa тyĸ.</p>"
+                "</article></body></html>")
+        rec, _ = self.sa.extract_record(html, "x.bg", "https://x.bg/1")
+        # ⚠️ THE MUTATION THIS CATCHES: „repairing" the letters. The body is
+        # what the page served, character for character.
+        self.assertIn(body, rec["content"])
+        self.assertGreater(rec["homoglyph_share"], self.sa.HOMOGLYPH_SYSTEMATIC)
+
+    def test_a_clean_body_carries_None_not_zero(self):
+        prose = ("Пожар избухна в сградата рано сутринта и няма пострадали. "
+                 "Съобщиха от пожарната служба в града.")
+        html = ("<html><body><article><p>" + prose + "</p>"
+                "<p>Втори абзац, достатъчно дълъг за прага на извличането.</p>"
+                "</article></body></html>")
+        rec, _ = self.sa.extract_record(html, "x.bg", "https://x.bg/2")
+        self.assertIsNone(rec["homoglyph_share"])
+
+    def test_it_fails_closed_on_nothing(self):
+        self.assertEqual(self.sa.homoglyph_share(""), 0.0)
+        self.assertEqual(self.sa.homoglyph_share(None), 0.0)
+        self.assertEqual(self.sa.homoglyph_share("123 456 !!!"), 0.0)
+
+
 class RepairEncoding(unittest.TestCase):
     """The corpus-repair command."""
 

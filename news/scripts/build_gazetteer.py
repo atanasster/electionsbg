@@ -40,6 +40,7 @@ import argparse
 import json
 import os
 import re
+import unicodedata
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -259,6 +260,29 @@ def given_name_places() -> frozenset:
     return frozenset(r["name_bg"].casefold() for r in rows)
 
 
+def is_mixed_script(token: str) -> bool:
+    """True when one token mixes alphabets — Cyrillic with Latin or Greek.
+
+    ⚠️ IT IS NOT A CORRUPTION DETECTOR, and must not be read as one: a
+    publisher's own logotype („Кmeta", 150 times, exactly once per article), a
+    hashtag („#KазиноЦар") and a roman numeral („ХХI") are all mixed-script
+    and perfectly intentional. What it establishes is narrower and enough for
+    this file's purpose — the token is not a Bulgarian word, so it is not
+    evidence about how this corpus writes one.
+    """
+    kinds = set()
+    for ch in token:
+        if not ch.isalpha():
+            continue
+        name = unicodedata.name(ch, "")
+        kinds.add("CYR" if "CYRILLIC" in name else
+                  "LAT" if "LATIN" in name else
+                  "GRK" if "GREEK" in name else "other")
+        if len(kinds - {"other"}) > 1:
+            return True
+    return False
+
+
 def scan_common_words(data_dir: Path, min_count: int = COMMON_WORD_MIN) -> dict:
     """Tokens the news corpus writes in lowercase — i.e. ordinary words.
 
@@ -275,6 +299,7 @@ def scan_common_words(data_dir: Path, min_count: int = COMMON_WORD_MIN) -> dict:
     """
     counts: dict[str, int] = {}
     caps: dict[str, int] = {}
+    mixed: dict[str, int] = {}
     articles = 0
     for path in sorted(data_dir.glob("*/*.json")):
         if path.parent.name.startswith("_"):
@@ -289,6 +314,26 @@ def scan_common_words(data_dir: Path, min_count: int = COMMON_WORD_MIN) -> dict:
         articles += 1
         for m in TOKEN_RE.finditer(body):
             tok = m.group()
+            if is_mixed_script(tok):
+                # ⚠️ NOT A WORD IN ANY LANGUAGE. 19 of 13,507 articles are
+                # published with Cyrillic letters swapped for Latin and Greek
+                # lookalikes (measured: 30-87% of their tokens), so „cpeдcтвa"
+                # crossed the floor and entered the list — 172 such entries,
+                # of which 169 merely shadow the clean word they were made
+                # from and NONE matches a gazetteer surface, so they were
+                # inert noise rather than a live defect. Skipped here so the
+                # artifact says what it claims to: the words this corpus
+                # writes in lowercase.
+                #
+                # ⚠️ IT CANNOT SEE A CODE LEAK, and must not be read as the
+                # guard against one: „window", „teads" and „stoppropagation"
+                # are all-Latin, so they pass this test and would be counted
+                # as ordinary lowercase words. What keeps them out is the
+                # EXTRACTOR refusing to store flattened <script>
+                # (`save_articles.choose_body`); after that landed they are
+                # absent from this list, and this filter never saw them.
+                mixed[tok] = mixed.get(tok, 0) + 1
+                continue
             if tok[:1].islower():
                 counts[tok] = counts.get(tok, 0) + 1
             elif tok.isupper() and len(tok) > 1:
@@ -303,6 +348,11 @@ def scan_common_words(data_dir: Path, min_count: int = COMMON_WORD_MIN) -> dict:
         "articles_scanned": articles,
         "min_count": min_count,
         "caps_dominance_ratio": CAPS_DOMINANCE_RATIO,
+        # Counted, never silently dropped: a rising number here means a
+        # source is publishing homoglyph-obfuscated text, or the extractor
+        # has started leaking code again.
+        "mixed_script_tokens_skipped": sum(mixed.values()),
+        "mixed_script_distinct": len(mixed),
         "words": words,
         # The words an ALL-CAPS surface may still resolve through, with the
         # evidence that admitted each one.

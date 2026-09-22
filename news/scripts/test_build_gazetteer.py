@@ -553,6 +553,39 @@ class TheCommonWordScan(unittest.TestCase):
         self.assertNotIn("пловдив", doc["words"])
         self.assertEqual(doc["articles_scanned"], 6)
 
+    def test_a_mixed_script_token_is_not_evidence_about_a_bulgarian_word(self):
+        # ⚠️ 19 articles are published with Cyrillic swapped for Latin and
+        # Greek lookalikes, and their tokens crossed the floor into the list:
+        # 172 of them, of which 169 merely shadowed the clean word they were
+        # made from. None matched a gazetteer surface, so they were inert
+        # noise — but the artifact claims to be „the words this corpus writes
+        # in lowercase", and „cpeдcтвa" is not a word in any language.
+        import json as _json
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "x.bg").mkdir()
+        for i in range(6):
+            (root / "x.bg" / f"a{i}.json").write_text(_json.dumps(
+                {"content": "cpeдcтвa cpeдcтвa cpeдcтвa. средства средства "
+                            "средства средства средства."}), encoding="utf-8")
+        doc = scan_common_words(root, min_count=5)
+        # ⚠️ THE MUTATION THIS CATCHES: counting the token like any other.
+        self.assertIn("средства", doc["words"])
+        self.assertNotIn("cpeдcтвa", doc["words"])
+        self.assertEqual(doc["mixed_script_tokens_skipped"], 18)
+        self.assertEqual(doc["mixed_script_distinct"], 1)
+
+    def test_the_mixed_script_test_is_not_a_corruption_test(self):
+        # A logotype, a hashtag and a roman numeral are mixed-script and
+        # entirely deliberate; the detector says only „not one language".
+        import build_gazetteer as b
+        # ⚠️ The K here is LATIN, as it is in the corpus hashtag — writing
+        # it with the Cyrillic К makes the token ordinary and the case vacuous.
+        for token in ("cpeдcтвa", "Кmeta", "ХХI", "Kaзино"):
+            self.assertTrue(b.is_mixed_script(token), token)
+        for token in ("средства", "ГЕРБ", "Пловдив", "AI", "tv"):
+            self.assertFalse(b.is_mixed_script(token), token)
+
     def test_it_records_the_caps_evidence_for_an_acronym_homonym(self):
         # ⚠️ The artifact must carry BOTH halves of the evidence. With only
         # the lowercase count, `is_common_word` cannot tell „ГЕРБ" from

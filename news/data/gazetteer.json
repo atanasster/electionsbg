@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-22T15:09:13+00:00",
+ "generated_at": "2026-09-22T16:20:22+00:00",
  "coverage": {
   "people": 5121,
   "people_with_no_resolvable_form": 665,
@@ -46,10 +46,10 @@
    "БНТ · Нова телевизия · „24 часа“"
   ],
   "forms_total": 24882,
-  "forms_resolvable": 12177,
-  "common_words": 42936,
+  "forms_resolvable": 12176,
+  "common_words": 42917,
   "places_named_like_a_given_name": 54,
-  "common_words_from_articles": 13507,
+  "common_words_from_articles": 13606,
   "companies": 0,
   "companies_excluded_because": "1.02M registry names cannot be matched by name without inventing matches; a company resolves only on an explicit EIK in the text"
  },
@@ -11483,7 +11483,7 @@
  {"canonical": "Копчелиите", "detail": "населено място, общ. Габрово, обл. Габрово", "forms": [{"form_kind": "name", "id": "settlement:38577", "resolvable": true, "surface": "Копчелиите", "why": "unique place"}], "id": "settlement:38577", "kind": "place", "place_kind": "settlement"},
  {"canonical": "Корен", "detail": "населено място, общ. Хасково, обл. Хасково", "forms": [{"anchor_for": "settlement:38580", "form_kind": "name", "id": null, "refusal": "common_word", "resolvable": false, "surface": "Корен", "why": "„Корен“ is an ordinary Bulgarian word in this corpus — anchor only; a one-word common noun cannot be told from the place that shares its name"}], "id": null, "kind": "place", "place_kind": "settlement"},
  {"canonical": "Кориите", "detail": "населено място, общ. Мадан, обл. Смолян", "forms": [{"form_kind": "name", "id": "settlement:38594", "resolvable": true, "surface": "Кориите", "why": "unique place"}], "id": "settlement:38594", "kind": "place", "place_kind": "settlement"},
- {"canonical": "Коритата", "detail": "населено място, общ. Рудозем, обл. Смолян", "forms": [{"form_kind": "name", "id": "settlement:38604", "resolvable": true, "surface": "Коритата", "why": "unique place"}], "id": "settlement:38604", "kind": "place", "place_kind": "settlement"},
+ {"canonical": "Коритата", "detail": "населено място, общ. Рудозем, обл. Смолян", "forms": [{"anchor_for": "settlement:38604", "form_kind": "name", "id": null, "refusal": "common_word", "resolvable": false, "surface": "Коритата", "why": "„Коритата“ is an ordinary Bulgarian word in this corpus — anchor only; a one-word common noun cannot be told from the place that shares its name"}], "id": null, "kind": "place", "place_kind": "settlement"},
  {"canonical": "Коритен", "detail": "населено място, общ. Крушари, обл. Добрич", "forms": [{"form_kind": "name", "id": "settlement:38618", "resolvable": true, "surface": "Коритен", "why": "unique place"}], "id": "settlement:38618", "kind": "place", "place_kind": "settlement"},
  {"canonical": "Корията", "detail": "населено място, общ. Севлиево, обл. Габрово", "forms": [{"form_kind": "name", "id": "settlement:38621", "resolvable": true, "surface": "Корията", "why": "unique place"}], "id": "settlement:38621", "kind": "place", "place_kind": "settlement"},
  {"canonical": "Коркина", "detail": "населено място, общ. Бобов дол, обл. Кюстендил", "forms": [{"form_kind": "name", "id": "settlement:38635", "resolvable": true, "surface": "Коркина", "why": "unique place"}], "id": "settlement:38635", "kind": "place", "place_kind": "settlement"},

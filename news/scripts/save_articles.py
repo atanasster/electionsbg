@@ -91,6 +91,7 @@ also when nothing could be saved this run.
 import sys
 import os
 import re
+import unicodedata
 import json
 import gzip
 import time
@@ -184,6 +185,208 @@ def class_is_junky(cls):
     if any(tok.lower().startswith("sidebar") for tok in cls.split()):
         return True  # sidebar, sidebar-right, sidebar_widget — but NOT with-sidebar
     return bool(JUNK_CLASS_RE.search(cls))
+
+# ---------------------------------------------------- script residue in a body
+#
+# ⚠️⚠️ A BODY IS NOT ALWAYS PROSE. Two shapes reach the stored `content`:
+#
+#  1. A JSON-LD `articleBody` the publisher built from the rendered
+#     container's textContent, which FLATTENS <script> into text — the tags
+#     are gone, so nothing downstream can tell it from writing. Measured on
+#     dariknews.bg: a trailing `window.teads_analytics` block on 215 bodies.
+#  2. A single JS identifier spliced INTO a word — measured on pogled.info,
+#     „художествени илюstopPropagation и масова култура", where the word was
+#     „илюзии". The upstream markup is not recoverable (that site serves a
+#     different article at the same URL days later), so this is treated as a
+#     shape to detect rather than a mechanism to fix.
+#
+# The cost is not cosmetic. `content_chars` feeds T4.1c's full-vs-prefix text
+# scope — measured, 2 dariknews bodies read as over the 6,000-char cap ONLY
+# because of the junk — the model reads the junk as part of the article, and
+# an evidence span can locate inside it.
+#
+# ⚠️ WHAT IS REMOVED IS COUNTED, never silently dropped: `extraction_residue_chars`
+# rides on the record so „this body is what the page served" stays checkable.
+# ⚠️ From the FIRST flattened statement to the end of the run, not statement
+# by statement: the real block nests them („…share || function() { ;(window.x
+# = window.x || []).push(arguments) };"), so a per-statement pattern stops at
+# the first `;` inside a function body and leaves the tail in the prose.
+# ⚠️ THE DISCRIMINATOR IS CYRILLIC, not a JS grammar. A flattened script run
+# contains NO Bulgarian letters; the article does. So the run is bounded by
+# the next Cyrillic character rather than by a `;` — a pattern that ran to the
+# last terminator in the body deleted 879 of 899 prose characters on a body
+# whose article merely contained a semicolon, and one that deleted the LINE
+# around `function (` deleted the whole article, since a flattened
+# `articleBody` is typically one line. Both are the inputs this exists for.
+# ⚠️ A STATEMENT, not just a dotted name: „document.bg" is a domain in a
+# sentence, and treating it as code deletes the text up to the next Cyrillic
+# letter. The member access must be followed by something that makes it an
+# expression — an assignment, a call, a further member, an index or an `||`.
+JS_RUN_START_RE = re.compile(
+    r"(?:^|(?<=[\s;(]))(?:window|document|globalThis)\s*\.\s*"
+    r"\w[\w$]*\s*(?:[.=(\[]|\|\|)")
+CYRILLIC_RE = re.compile(r"[\u0400-\u04FF]")
+
+# A bare JS identifier with no Bulgarian business. Removed only where it is
+# GLUED to Cyrillic — the „илюstopPropagation" signature — so an article that
+# writes about `innerHTML` in a sentence keeps its word.
+JS_GLUED_TOKEN_RE = re.compile(
+    r"(?<=[\u0400-\u04FF])"
+    r"(?:stopPropagation|preventDefault|addEventListener|querySelectorAll|"
+    r"querySelector|getElementById|innerHTML|appendChild|createElement|"
+    r"XMLHttpRequest|dataLayer|googletag|__tcfapi)")
+
+# Cheap gate so an ordinary body never pays for the scan below.
+JS_RESIDUE_HINT = re.compile(
+    r"stopPropagation|preventDefault|addEventListener|querySelectorAll|"
+    r"querySelector|getElementById|innerHTML|appendChild|createElement|"
+    r"XMLHttpRequest|dataLayer|googletag|__tcfapi|"
+    r"(?:window|document|globalThis)\s*\.\s*\w[\w$]*\s*(?:[.=(\[]|\|\|)")
+
+# ⚠️ A GUTTING REFUSAL, not a contamination threshold. A 400-char article
+# carrying a 263-char ad tag is 60% script and is still an article — the real
+# corpus is full of them. What this catches is the case where removal leaves
+# no article at all, so the floor is on what SURVIVES in absolute terms; the
+# caller still gets the count, so contamination is never hidden.
+MIN_SURVIVING_CHARS = 80
+
+
+def _js_runs(text):
+    """The [start, end) spans of flattened script. Each run begins at a
+    `window.`/`document.`/`globalThis.` statement and ends at the next
+    Bulgarian letter, so it can never extend across prose."""
+    runs = []
+    for m in JS_RUN_START_RE.finditer(text):
+        if runs and m.start() < runs[-1][1]:
+            continue                      # already inside a run
+        cyr = CYRILLIC_RE.search(text, m.start())
+        runs.append((m.start(), cyr.start() if cyr else len(text)))
+    return runs
+
+
+def strip_script_residue(text):
+    """Remove flattened script from a body. Returns (cleaned, removed_chars).
+
+    ⚠️ It never returns a body it has gutted: when less than
+    MIN_SURVIVING_SHARE of the text would survive, the input is returned
+    UNCHANGED with the count it would have removed, so the caller sees the
+    contamination and no consumer is handed a stub.
+    """
+    if not text or not JS_RESIDUE_HINT.search(text):
+        return text, 0
+    out, last = [], 0
+    for lo, hi in _js_runs(text):
+        out.append(text[last:lo])
+        last = hi
+    out.append(text[last:])
+    cleaned = "".join(out)
+    cleaned = JS_GLUED_TOKEN_RE.sub("", cleaned)
+    # ⚠️ COUNT THE SCRIPT, NOT THE WHITESPACE. Folding the seam tidy into it
+    # would report „594 chars of script" for a body that carried 263 and a lot
+    # of source indentation, and the field is read as a measure of contamination.
+    removed = len(text) - len(cleaned)
+    if not removed:
+        return text, 0
+    # „No article left" needs BOTH: what survives is tiny in absolute terms
+    # AND the script outweighed it. A 15-character identifier removed from a
+    # 9,000-character body is not a gutting, and a short prose fixture is not
+    # one either.
+    if (len(cleaned.strip()) < MIN_SURVIVING_CHARS
+            and removed >= len(cleaned.strip())):
+        return text, removed
+    # Seam tidying only: the source's own spacing inside prose is left alone,
+    # so a body that carried no script is never rewritten.
+    return re.sub(r"\n{3,}", "\n\n", cleaned).strip(), removed
+
+
+def choose_body(jsonld_body, dom_body):
+    """The stored body, and how many characters of script were removed FROM
+    THE BODY THAT IS STORED.
+
+    ⚠️ PRECEDENCE IS UNCHANGED WHERE BOTH ARE CLEAN — JSON-LD still wins, as
+    it has always done, because a publisher's own `articleBody` is the better
+    text when it is text. What changes is that a CONTAMINATED JSON-LD body
+    yields to the DOM paragraphs, which already drop <script> through
+    JUNK_TAGS.
+
+    ⚠️ The residue reported is the residue of the CHOSEN body. Reporting what
+    was removed from a candidate that was then discarded would make
+    `extraction_residue_chars` describe text nobody stored — and it is read as
+    a measure of what is in the record.
+    """
+    jl_clean, jl_removed = strip_script_residue(jsonld_body)
+    if jsonld_body and not jl_removed:
+        return jsonld_body, 0
+    dom_clean, dom_removed = strip_script_residue(dom_body)
+    # A DOM body that is prose beats a JSON-LD body that is prose plus code.
+    if dom_body and not dom_removed:
+        return dom_body, 0
+    # Otherwise take whichever cleaned body actually survived; a gutted one
+    # (strip_script_residue returns it unchanged) is not a body.
+    jl_ok = jl_clean and not JS_RESIDUE_HINT.search(jl_clean)
+    dom_ok = dom_clean and not JS_RESIDUE_HINT.search(dom_clean)
+    if jl_ok:
+        return jl_clean, jl_removed
+    if dom_ok:
+        return dom_clean, dom_removed
+    # Nothing came back clean. Prefer the longer original so a human can see
+    # what arrived, and report the contamination rather than hiding it.
+    if jsonld_body or dom_body:
+        best = max((x for x in (jsonld_body, dom_body) if x), key=len)
+        return best, (jl_removed if best is jsonld_body else dom_removed)
+    return None, 0
+
+
+# ------------------------------------------------- homoglyph-obfuscated text
+#
+# ⚠️⚠️ THIS IS MEASURED AND RECORDED, NEVER REPAIRED. 19 of 13,507 stored
+# articles are published with Cyrillic letters swapped for Latin and Greek
+# lookalikes („Ocнoвни извoди", „Πecтeливoтo") at 30-87% of their tokens.
+# The corruption is the PUBLISHER'S, not ours, and the evidence is that the
+# same story exists clean elsewhere in the corpus: money.bg carried the French
+# wine harvest at 13:39 on 2026-09-21 with 0% of its body obfuscated, and
+# frognews.bg republished it at 14:50 with 82% of the body and 88% of the
+# title obfuscated. fakti.bg's own URL slug — `sityaciata-ne-e-ppecedent` —
+# was generated by their CMS from an already-obfuscated title, which nothing
+# on this side can reach.
+#
+# So normalising it would make us MISQUOTE what an outlet published, and the
+# evidence-span contract (T4.1b/T4.3) requires a quote to locate in the text
+# the outlet actually wrote. The share rides on the record instead, so a
+# consumer can decide, and so „this outlet republishes competitors' copy with
+# the letters swapped" stays a visible fact rather than a cleaned-away one.
+HOMOGLYPH_SYSTEMATIC = 0.30   # ...at which point it is not a stray character
+HOMOGLYPH_TOKEN_RE = re.compile(r"[^\W\d_]+")
+
+
+def is_mixed_script(token):
+    """True when one token mixes alphabets — Cyrillic with Latin or Greek.
+
+    ⚠️ NOT a corruption test on its own: „Кmeta" (that site's logotype, once
+    in every one of its articles), „#KазиноЦар" and „ХХI" are all mixed and
+    all intentional. Only the per-article SHARE separates those from text
+    that was run through a substitution.
+    """
+    kinds = set()
+    for ch in token or "":
+        if not ch.isalpha():
+            continue
+        name = unicodedata.name(ch, "")
+        kinds.add("CYR" if "CYRILLIC" in name else
+                  "LAT" if "LATIN" in name else
+                  "GRK" if "GREEK" in name else "other")
+        if len(kinds - {"other"}) > 1:
+            return True
+    return False
+
+
+def homoglyph_share(text):
+    """The share of word tokens that mix alphabets, rounded to 3 places."""
+    toks = HOMOGLYPH_TOKEN_RE.findall(text or "")
+    if not toks:
+        return 0.0
+    return round(sum(1 for t in toks if is_mixed_script(t)) / len(toks), 3)
+
 
 MIN_PARA_CHARS = 30          # shorter <p> blocks are dek/teaser/nav residue
 LINK_SOUP_RATIO = 0.6        # >60% linked text + short => "related" teaser
@@ -1067,7 +1270,17 @@ def extract_record(html_text, domain, url, list_published=None):
     tags = parse_meta_all(html_text, "article:tag")
 
     paras, headings = extract_body(html_text)
-    content = _jsonld_str(ld.get("articleBody")) or ("\n\n".join(paras) or None)
+    # ⚠️ JSON-LD WINS, AND IT IS THE ONLY PATH WITH NO DOM GUARDS. `articleBody`
+    # is whatever the publisher's CMS put there, and several build it from the
+    # rendered container's textContent — which INCLUDES <script> text. Measured
+    # on dariknews.bg: 215 stored bodies carry a flattened `window.teads_analytics`
+    # block, 340-394 chars each (73,514 in total), a median 16.5% of the stored
+    # body and up to 55.6%. So the JSON-LD body is sanitised before it is
+    # trusted, and a contaminated one yields to the DOM paragraphs, which drop
+    # <script> properly (JUNK_TAGS).
+    dom_body = "\n\n".join(paras) or None
+    jsonld_body = _jsonld_str(ld.get("articleBody"))
+    content, residue = choose_body(jsonld_body, dom_body)
 
     # Listing/homepage protection: real article bodies yield >= 2 qualifying
     # paragraphs, while listing pages' teaser text is link-soup (dropped by
@@ -1095,6 +1308,14 @@ def extract_record(html_text, domain, url, list_published=None):
         "updated": updated,
         "content": content,
         "content_chars": len(content) if content else 0,
+        # Script text this extractor removed from the body. Recorded rather
+        # than silently cleaned: `content_chars` feeds T4.1c's full-vs-prefix
+        # text scope, so a reader of the record can see the body was not what
+        # the page served.
+        "extraction_residue_chars": residue or None,
+        # The publisher's own obfuscation, measured and left in place. See
+        # HOMOGLYPH_SYSTEMATIC for why this is not repaired.
+        "homoglyph_share": homoglyph_share(content) or None,
         "fetched_at": datetime.now(timezone.utc).isoformat(),
     }
     return rec, is_article
