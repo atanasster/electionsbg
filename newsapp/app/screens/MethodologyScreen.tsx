@@ -460,6 +460,37 @@ export const MethodologyScreen = () => {
         </p>
       </Section>
 
+      <Section id="archive-aggregates" title="Обобщенията в архивите">
+        <p>
+          На страницата на всяка партия има две обобщения над материалите в
+          архива ѝ. И двете са филтър върху ТОЗИ архив — не са характеристика на
+          изданията и не са класация.
+        </p>
+        <p className="mt-3">
+          <strong>„Кои медии как отразяват“</strong> групира изданията по
+          рамката, която преобладава в техните материали за този субект. Думата
+          е „преобладаващо“, а не „такова е изданието“: под всяко име стои
+          собственото му разпределение и броят материали, от които е получено.
+          Издание с един-единствен оценен материал не се описва с
+          „преобладаващо“ — един материал не стига за такава дума. Издание, за
+          което няма публикувана оценка, е в отделна група: това означава, че
+          нищо не сме оценили, а не че сме гледали и не сме намерили рамка.
+          Когато две рамки са наравно, не избираме едната.
+        </p>
+        <p className="mt-3">
+          <strong>„Отразяване във времето“</strong> показва по колко материала
+          има във всеки период и как са разпределени. Периодите без материали
+          липсват от графиката — не са нула, защото нула би значело „нищо
+          благоприятно не е публикувано“, а истината е „нищо не е публикувано“.
+          Затова са колони, а не линия: линията би свързала два периода през
+          дни, за които нямаме нищо. Над всяка колона стои броят ѝ.
+        </p>
+        <p className="mt-3">
+          Двете обобщения са над ЦЕЛИЯ архив, не над страницата, която четете —
+          затова не се променят, когато прелиствате.
+        </p>
+      </Section>
+
       <Section title="Кой носи отговорност">
         <p>
           Първоначалните оценки се създават автоматично по публикувана рубрика.
@@ -784,6 +815,38 @@ const EnglishMethodology = ({
           person-pages policy (news-person-policy-v1) ↗
         </a>
         .
+      </p>
+    </Section>
+
+    <Section id="archive-aggregates" title="The archive summaries">
+      <p>
+        A party&rsquo;s page carries two summaries over the articles in its
+        archive. Both are a filter over THAT archive — neither is a property of
+        the outlets, and neither is a ranking.
+      </p>
+      <p className="mt-3">
+        <strong>&ldquo;How each outlet covers&rdquo;</strong> groups outlets by
+        the framing that predominates in their articles about this subject. The
+        word is &ldquo;mostly&rdquo;, not &ldquo;this outlet is&rdquo;: under
+        every name is its own distribution and the number of articles it came
+        from. An outlet with a single assessed article is not described as
+        &ldquo;mostly&rdquo; anything — one article does not reach that word. An
+        outlet with no published assessment sits in its own group, because that
+        means we assessed nothing, not that we looked and found no framing. When
+        two framings are level, we do not pick one.
+      </p>
+      <p className="mt-3">
+        <strong>&ldquo;Coverage over time&rdquo;</strong> shows how many
+        articles fall in each period and how they were framed. Periods with no
+        articles are absent from the chart rather than zero, because a zero
+        would say &ldquo;nothing favourable was published&rdquo; where the truth
+        is &ldquo;nothing was published&rdquo;. That is also why these are
+        columns and not a line: a line would join two periods across days we
+        have nothing for. Every column carries its count.
+      </p>
+      <p className="mt-3">
+        Both summaries are over the WHOLE archive rather than the page you are
+        reading, which is why they do not change as you page through it.
       </p>
     </Section>
 

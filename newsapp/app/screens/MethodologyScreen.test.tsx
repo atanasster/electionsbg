@@ -415,3 +415,46 @@ describe("outlet transparency coverage", () => {
     ).toBeVisible();
   });
 });
+
+describe("the archive summaries", () => {
+  beforeEach(() => vi.resetModules());
+
+  const section = async (name: string) => {
+    await renderPage(stats(), []);
+    const heading = await screen.findByRole("heading", { name });
+    return heading.closest("section")!;
+  };
+
+  it("states that the summary is not a property of the outlet", async () => {
+    // ⚠️ The one reading these surfaces must not license: „pik.bg is
+    // negative" is a claim about a publication; „pik.bg's coverage of this
+    // party" is a claim about an archive, and only the second is supported.
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent(
+      "не са характеристика на изданията и не са класация",
+    );
+  });
+
+  it("explains why one article is never called 'mostly'", async () => {
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent("един материал не стига за такава дума");
+  });
+
+  it("separates 'we assessed nothing' from 'we found no framing'", async () => {
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent(
+      "нищо не сме оценили, а не че сме гледали и не сме намерили рамка",
+    );
+  });
+
+  it("explains why an empty period is absent rather than zero", async () => {
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent("не са нула, защото нула би значело");
+    expect(s).toHaveTextContent("Над всяка колона стои броят ѝ");
+  });
+
+  it("says the summaries are over the whole archive, not the page", async () => {
+    const s = await section("Обобщенията в архивите");
+    expect(s).toHaveTextContent("не се променят, когато прелиствате");
+  });
+});
