@@ -1888,12 +1888,12 @@ class GrammarProbe(unittest.TestCase):
     the model then invents its own schema. The existing canary catches that
     after the first record — minutes; this proves it in about a second."""
 
-    def probe(self, text=None, raise_exc=None):
+    def probe(self, text=None, raise_exc=None, finish_reason=None):
         def fake(system, user, *, model, grammar=None, max_tokens=None,
                  url=None, **kw):
             if raise_exc:
                 raise raise_exc
-            return {"text": text}
+            return {"text": text, "finish_reason": finish_reason}
         old = llm_client.complete
         llm_client.complete = fake
         try:
@@ -1905,6 +1905,33 @@ class GrammarProbe(unittest.TestCase):
         ok, detail = self.probe("It looks like you've sent a")
         self.assertFalse(ok)
         self.assertIn("ignored it", detail)
+
+    def test_a_TRUNCATED_preamble_is_inconclusive_not_proof(self):
+        # ⚠️ THE REGRESSION THAT COST 4 RUNS. The model reasons, so at a
+        # small budget the whole reply is chain-of-thought and never reaches
+        # the JSON. Providers differ only in whether they put that reasoning
+        # in `content` — which is not a fact about the grammar, and this
+        # function promises proof. Measured: at 64 tokens both providers
+        # returned `{"quality":` against the same grammar.
+        ok, detail = self.probe("Hmm, the user just sent \"x",
+                                finish_reason="length")
+        self.assertTrue(ok)
+        self.assertIn("inconclusive", detail)
+
+    def test_a_grammar_dropped_on_a_COMPLETE_answer_is_still_proven(self):
+        # The truncation escape must not swallow the real case: an answer
+        # the server finished, that never opens with "{", is proof.
+        ok, detail = self.probe("It looks like you've sent a",
+                                finish_reason="stop")
+        self.assertFalse(ok)
+        self.assertIn("ignored it", detail)
+
+    def test_the_probe_budget_clears_a_reasoning_preamble(self):
+        # Measured 2026-09-22 against z-ai/glm-5.3-flash with both providers
+        # pinned: 8 tokens never reached the JSON, 64 always did. Going back
+        # under that floor re-breaks whole runs on the provider that reports
+        # reasoning in `content`, and nothing offline would catch it.
+        self.assertGreaterEqual(analyze_local.GRAMMAR_PROBE_TOKENS, 64)
 
     def test_an_enforced_grammar_passes(self):
         ok, _ = self.probe('{"quality"')

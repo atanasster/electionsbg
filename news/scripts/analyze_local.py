@@ -835,7 +835,26 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
 # inference — and can only say „probably". This proves it in about a second,
 # before the window is spent, by asking for the shortest possible answer and
 # checking the ONE thing the grammar guarantees: the root opens with „{".
-GRAMMAR_PROBE_TOKENS = 8
+# ⚠️ BIG ENOUGH FOR A REASONING MODEL TO FINISH THINKING, and 8 was not.
+# The run's model reasons (`NEWS_LLM_REASONING_EFFORT=low`), so at 8 tokens
+# the whole budget goes to chain-of-thought and the answer never reaches the
+# JSON. Providers then differ only in WHERE they report that reasoning, and
+# that alone decided whether an hourly run lived: Parasail returns it in its
+# own field, so `content` is empty and llm_client raises `reasoning_only`,
+# which this function excuses as a skipped probe; Together returns it in
+# `content`, so the probe read prose and ABORTED THE WHOLE RUN. Measured
+# 2026-09-22, same grammar and schema, each provider pinned:
+#
+#     tokens   Parasail              Together
+#     8        reasoning_only        'Interpreting the single "x"'   ✗
+#     64       {"quality":           {"quality":                     ✓
+#     256      {"quality":           {"quality":                     ✓
+#
+# The constraint was enforced on both the whole time — Together holds 185
+# validator-passing records in the corpus, at a LOWER schema-retry rate than
+# Parasail. 4 of 96 runs were lost to this. 128 is twice the measured floor;
+# one probe per run, so the cost is a rounding error.
+GRAMMAR_PROBE_TOKENS = 128
 
 
 def grammar_is_enforced(grammar: str, model: str, url: str | None = None,
@@ -860,6 +879,18 @@ def grammar_is_enforced(grammar: str, model: str, url: str | None = None,
         return True, "probe returned nothing — inconclusive, not a verdict"
     if text.startswith("{"):
         return True, "enforced"
+    # ⚠️ A TRUNCATED ANSWER IS NOT PROOF, and this function promises proof.
+    # `finish_reason == "length"` means the reply was cut at max_tokens, so
+    # "it had not reached the JSON yet" and "it was never going to" are the
+    # same observation — and the first is what a reasoning preamble looks
+    # like. Aborting here turns a budget that is merely too small into an
+    # hourly outage, which is exactly what happened above. The first-record
+    # canary still catches a genuinely dropped constraint a minute later.
+    if (answer.get("finish_reason") or "") == "length":
+        return True, (
+            f"probe inconclusive: cut at {GRAMMAR_PROBE_TOKENS} tokens before "
+            f"any '{{' — {text[:40]!r}. Raise GRAMMAR_PROBE_TOKENS if this "
+            "persists; the first-record canary is the backstop.")
     return False, (
         f"the server accepted the schema constraint and ignored it — a probe "
         f"that "
@@ -1100,9 +1131,14 @@ def main() -> int:
         # the queue and aborted the 00:00 AND 01:00 runs at 0 saved of 100.
         # So it counts toward the same bound — which is what catches a server
         # that really is ignoring the schema, including when the probe was
-        # inconclusive (on a hosted endpoint it usually is — measured, this
-        # model spends the probe's 8-token budget on reasoning and returns no
-        # answer, so `constraint_proven` is False in production).
+        # inconclusive.
+        #
+        # ⚠️ IT USED TO BE INCONCLUSIVE ON EVERY HOSTED RUN, and that was
+        # read here as a fact of life rather than as the defect it was: the
+        # probe's 8-token budget was spent on reasoning, so this model never
+        # reached the JSON and `constraint_proven` was False in production.
+        # The budget now clears the preamble (GRAMMAR_PROBE_TOKENS) and the
+        # probe reports `enforced` — measured 2026-09-22, 5 of 5 live calls.
         canary_unusable += 1
         if bound_reached(canary_unusable):
             remaining = []
