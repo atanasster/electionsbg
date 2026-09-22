@@ -59,7 +59,26 @@ export type QualityVerdict =
   | "not_bulgarian"
   | "non_article";
 
+// ⚠️ TWO VOCABULARIES, NOT ONE WIDENED UNION. `Tone` is the NOMINAL label set
+// the corpus has always carried — every `Record<Tone, number>` count bucket is
+// over exactly these four, and `party_rollups.TONE_ORDER` emits them.
 export type Tone = "favorable" | "unfavorable" | "neutral" | "mixed";
+
+// The ORDINAL display buckets a Jev score is bucketed into
+// (`jev_scales.bucket_label`). They share three members with `Tone` and differ
+// in the two that matter: there is no `mixed` on an axis — it is derived from
+// the probability distribution (`jev_scales.both_directions`) — and the two
+// strong degrees have no nominal equivalent.
+export type ToneBucket =
+  | "strongly_unfavorable"
+  | "unfavorable"
+  | "neutral"
+  | "favorable"
+  | "strongly_favorable";
+
+// Anything `toneMeta()` can render. Keeping the two apart is what stops a
+// widened `Tone` from demanding six keys of every four-key count bucket.
+export type ToneLabel = Tone | ToneBucket;
 
 export interface Entities {
   people: string[];

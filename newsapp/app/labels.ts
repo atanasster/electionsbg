@@ -8,7 +8,7 @@ import type {
   QualityVerdict,
   RussiaStance,
   TaxonomyCategory,
-  Tone,
+  ToneLabel,
 } from "./data";
 import type { NewsLanguage } from "./i18n";
 import { MAIN_SITE } from "./site";
@@ -220,16 +220,32 @@ export const QUALITY_META_EN: typeof QUALITY_META = {
   non_article: { label: "Not an article", short: "Not an article" },
 };
 
-export const TONE_META: Record<Tone, { label: string; className: string }> = {
+export const TONE_META: Record<
+  ToneLabel,
+  { label: string; className: string }
+> = {
+  strongly_favorable: { label: "силно позитивен", className: "text-positive" },
   favorable: { label: "позитивен", className: "text-positive" },
   unfavorable: { label: "негативен", className: "text-negative" },
+  strongly_unfavorable: {
+    label: "силно негативен",
+    className: "text-negative",
+  },
   neutral: { label: "неутрален", className: "text-muted-foreground" },
   mixed: { label: "смесен", className: "text-foreground" },
 };
 
 export const TONE_META_EN: typeof TONE_META = {
+  strongly_favorable: {
+    label: "strongly favorable",
+    className: "text-positive",
+  },
   favorable: { label: "favorable", className: "text-positive" },
   unfavorable: { label: "unfavorable", className: "text-negative" },
+  strongly_unfavorable: {
+    label: "strongly unfavorable",
+    className: "text-negative",
+  },
   neutral: { label: "neutral", className: "text-muted-foreground" },
   mixed: { label: "mixed", className: "text-foreground" },
 };
@@ -242,7 +258,9 @@ export const aiMeta = (value: AiVerdict, language: NewsLanguage) =>
   language === "en" ? AI_META_EN[value] : AI_META[value];
 export const qualityMeta = (value: QualityVerdict, language: NewsLanguage) =>
   language === "en" ? QUALITY_META_EN[value] : QUALITY_META[value];
-export const toneMeta = (value: Tone, language: NewsLanguage) =>
+// Accepts either vocabulary: the four nominal labels the corpus carries and
+// the five ordinal buckets a Jev score is bucketed into.
+export const toneMeta = (value: ToneLabel, language: NewsLanguage) =>
   language === "en" ? TONE_META_EN[value] : TONE_META[value];
 
 // ---- taxonomy --------------------------------------------------------------------
