@@ -151,6 +151,13 @@ def collect(rows: list, rollup_eligible, in_registry=None) -> dict:
                 "title": row.get("title"),
                 "published": published,
                 "story_id": row.get("story_id"),
+                # ⚠️ THE SURFACE THIS ROW WAS SCORED UNDER, not the party's
+                # display name. One identity can be named several ways
+                # („ГЕРБ", „ГЕРБ-СДС"), and the sentiment sidecar keys its
+                # subjects on the surface `entities` carried for THAT article
+                # — so a join on the canonical name would miss every row that
+                # used another spelling.
+                "subject_name": name or None,
                 "tone": label,
                 "rationale": tone.get("rationale"),
                 # ⚠️ SHORT EVIDENCE ONLY — the located quotes, never the body.
@@ -222,13 +229,34 @@ PARTY_PAGE_SIZE = 50
 def party_payload(party: dict, generated_at: str, rubric_version: str,
                   *, page: int = 1, page_size: int = PARTY_PAGE_SIZE) -> dict:
     """One party's archive page: the distribution, its denominators, and the
-    articles the distribution is made of, newest first."""
+    articles the distribution is made of, newest first.
+
+    ⚠️ `by_outlet` AND `series` ARE OVER EVERY ROW, NOT OVER THE PAGE. The
+    archive paginates at 50 and the largest party has hundreds of rows, so a
+    breakdown computed from `window` would describe the newest fifty while
+    sitting under a header whose counts describe all of them — two figures on
+    one screen, over different corpora, with nothing saying so.
+
+    ⚠️ AND THEY ARE THE SAME ON EVERY PAGE, deliberately: they are a property
+    of the archive, not of the page, so a reader paging back does not watch
+    the chart change under them. The header block above them is duplicated
+    per page for the same reason.
+
+    ⚠️ THAT COSTS BYTES ON A PAYLOAD THAT EXISTS BECAUSE IT WAS TOO BIG.
+    Measured on the largest party today (p_20-2: 32.8 KB, 50 rows, 30
+    outlets), the two keys add roughly 6-8 KB per page — and they grow with
+    the OUTLET count and the window, not with the page. Worth re-measuring
+    before adding a third archive-wide block; if it stops fitting, the answer
+    is a separate blob fetched once, not a per-page slice, because a slice
+    would reintroduce the mismatch this docstring opens with.
+    """
     # ⚠️ Sorted on the INSTANT, not the string: the corpus carries both
     # `+00:00` and `Z` offsets, which string-sort against each other wrongly.
     rows = sorted(party["rows"], key=_published_key, reverse=True)
     total_pages = max(1, -(-len(rows) // page_size))
     page = min(max(page, 1), total_pages)
     window = rows[(page - 1) * page_size: page * page_size]
+    breakdown = _sentiment_rollups()
     return {
         "version": 1,
         "generated_at": generated_at,
@@ -246,8 +274,33 @@ def party_payload(party: dict, generated_at: str, rubric_version: str,
         "page": page,
         "page_size": page_size,
         "total_pages": total_pages,
+        "by_outlet": breakdown.outlet_breakdown(rows),
+        "series": breakdown.series(rows),
         "articles": window,
     }
+
+
+_SENTIMENT_ROLLUPS = None
+
+
+def _sentiment_rollups():
+    """Imported lazily for the reason `_published_key` is: this module is
+    imported both as a package member and as a bare script.
+
+    ⚠️ CACHED, AND `sys.path` IS TOUCHED AT MOST ONCE. `_published_key` calls
+    its own copy of this dance PER ROW, which grows `sys.path` by one entry
+    for every article in the archive; this one does not repeat that.
+    """
+    global _SENTIMENT_ROLLUPS
+    if _SENTIMENT_ROLLUPS is None:
+        import sys
+        from pathlib import Path
+        here = str(Path(__file__).resolve().parent)
+        if here not in sys.path:
+            sys.path.insert(0, here)
+        import sentiment_rollups
+        _SENTIMENT_ROLLUPS = sentiment_rollups
+    return _SENTIMENT_ROLLUPS
 
 
 def _published_key(row: dict):

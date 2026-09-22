@@ -31,6 +31,9 @@ RUNTIME_SCRIPTS = (
     "news/scripts/cases.py",
     "news/scripts/news_persons.py",   # build_app_data imports it UNGUARDED (T4.0)
     "news/scripts/party_rollups.py",  # build_app_data imports it UNGUARDED (T4.2)
+    # party_rollups imports it for `by_outlet` / `series` (T4.4 Phase 3),
+    # so a bundle without it fails at the first party payload.
+    "news/scripts/sentiment_rollups.py",
     "news/scripts/person_rollups.py",  # build_app_data imports it UNGUARDED (T4.4)
     "news/scripts/rollup_common.py",  # both rollups import it UNGUARDED
     "news/scripts/person_tones.py",   # build_app_data imports it UNGUARDED (T4.3)
