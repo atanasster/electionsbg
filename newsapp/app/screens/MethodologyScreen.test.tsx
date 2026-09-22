@@ -86,6 +86,33 @@ const renderPage = async (
   );
 };
 
+describe("the person-pages policy", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("states the rule and links the versioned policy", async () => {
+    // ⚠️ A page about a named person is an editorial act, so the rule that
+    // governs it has to be readable somewhere a reader can reach — not only
+    // in a repo file the page footer names.
+    await renderPage(stats(), []);
+    const heading = await screen.findByRole("heading", {
+      name: "Страници за лица",
+    });
+    const section = heading.closest("section")!;
+    expect(section).toHaveTextContent(
+      "Споменаването в материал не създава страница",
+    );
+    expect(section).toHaveTextContent(
+      "никога целия текст на чуждата публикация",
+    );
+    expect(
+      within(section).getByRole("link", { name: /news-person-policy-v1/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/atanasster/electionsbg/blob/main/docs/policies/news-person-pages.md",
+    );
+  });
+});
+
 describe("the limitations block", () => {
   beforeEach(() => vi.resetModules());
 

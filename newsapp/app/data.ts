@@ -2663,6 +2663,124 @@ export interface PersonTone {
   assessed_at: string;
 }
 
+/** T4.4 — one article on a person's page, with its SHORT evidence. */
+export interface PersonArticleRow {
+  url: string | null;
+  domain: string;
+  article_id: string | null;
+  title: string | null;
+  published: string | null;
+  story_id: string | null;
+  /** False for an incidental mention: counted, never in M. */
+  eligible: boolean;
+  subject_role: PersonTone["subject_role"] | null;
+  assessment_status: PersonTone["assessment_status"] | "pending";
+  tone: Tone | null;
+  rationale: string | null;
+  evidence_spans: EvidenceSpan[];
+  text_scope: TextScopeKind | null;
+  rubric_version: string | null;
+  identity_version: string | null;
+}
+
+/**
+ * T4.4 — one identity's page. ⚠️ The accounting is the point:
+ * `sum(counts) === assessed` (N) and
+ * `assessed + insufficient_text + pending + refused === eligible` (M).
+ * `incidental` and unresolved mentions are NEVER inside M.
+ */
+import { isNewsPersonId } from "./newsPersonId";
+
+export interface PersonPayload {
+  version: number;
+  generated_at: string;
+  rubric_version: string;
+  news_person_id: string;
+  name_bg: string | null;
+  name_en: string | null;
+  disambiguation_bg: string | null;
+  disambiguation_en: string | null;
+  identity_version: string | null;
+  /** The named review owner, from the REGISTRY — `public_index` does not
+   * carry one, so a shard built from the index alone publishes null here. */
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  /** A bridge to the main site, or null — never a guessed link. */
+  verified_main_site_slug: string | null;
+  counts: Partial<Record<Tone, number>>;
+  assessed: number;
+  insufficient_text: number;
+  pending: number;
+  refused: number;
+  eligible: number;
+  /**
+   * A SPLIT of `insufficient_text`, not a fifth part of M: how many of those
+   * were withheld because the article was not read in full, as opposed to
+   * being read and found to carry too little.
+   */
+  partial_scope: number;
+  /** M with same-headline copies removed; published BESIDE the raw one. */
+  eligible_deduplicated: number;
+  same_headline_copies: number;
+  incidental: number;
+  /** Stored rows whose `subject_role` is unreadable — OUTSIDE M, like an
+   * incidental mention, so one malformed row cannot break the accounting. */
+  unreadable_role: number;
+  outlet_count: number;
+  story_count: number;
+  first_published: string | null;
+  last_published: string | null;
+  /** Rows inside M carrying no publication date — so the window above cannot
+   * read as covering every row it is printed beside. */
+  undated: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+  per_outlet: {
+    domain: string;
+    counts: Partial<Record<Tone, number>>;
+    assessed: number;
+    eligible: number;
+  }[];
+  articles: PersonArticleRow[];
+}
+
+export { NEWS_PERSON_ID_SAFE, isNewsPersonId } from "./newsPersonId";
+
+/** What one identity's shard accounts for, echoed onto its index row so a
+ * list and its page can never disagree about the denominator. */
+export interface NewsPersonCoverage {
+  counts: Partial<Record<Tone, number>>;
+  assessed: number;
+  eligible: number;
+  incidental: number;
+  unreadable_role: number;
+  outlet_count: number;
+  story_count: number;
+  first_published: string | null;
+  last_published: string | null;
+  undated: number;
+}
+
+export const personPayloadPath = (
+  id: string | null | undefined,
+  page = 1,
+): string | null =>
+  isNewsPersonId(id) ? `/person/${id}${page > 1 ? `-${page}` : ""}.json` : null;
+
+export const useNewsPerson = (id: string | null | undefined, page = 1) =>
+  useData<PersonPayload>(personPayloadPath(id, page));
+
+export interface NewsPersonsIndex {
+  generated_at: string;
+  persons: (NewsPersonIndexEntry & { coverage?: NewsPersonCoverage | null })[];
+  /** A merged identity's retired id → the live one it redirects to. */
+  retired_ids?: Record<string, string>;
+}
+
+export const useNewsPersons = () =>
+  useData<NewsPersonsIndex>("/news_persons.json");
+
 /** T4.2 — one party's row in the archive index. No score, by design. */
 export interface PartyIndexRow {
   party_id: string;

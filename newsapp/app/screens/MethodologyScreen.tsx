@@ -434,6 +434,32 @@ export const MethodologyScreen = () => {
         </p>
       </Section>
 
+      <Section id="person-pages" title="Страници за лица">
+        <p>
+          Страница за лице съществува само след редакционно решение:
+          самоличност, която е проверена и отбелязана като активна.
+          Споменаването в материал не създава страница. На всяка такава страница
+          пише колко двойки (лице, материал) са оценени от всички, за които
+          лицето е основен или споменат участник, и какво е останало без
+          преценка — непрочетен изцяло текст, неоценено или без достатъчно
+          доказателство. Показваме кратък цитат като основание, никога целия
+          текст на чуждата публикация.
+        </p>
+        <p className="mt-3">
+          Пълните правила — кой получава страница, какво не публикуваме и как се
+          иска поправка или право на отговор — са в{" "}
+          <a
+            className="app-link"
+            href="https://github.com/atanasster/electionsbg/blob/main/docs/policies/news-person-pages.md"
+            target="_blank"
+            rel="noreferrer"
+          >
+            политиката за страници на лица (news-person-policy-v1) ↗
+          </a>
+          .
+        </p>
+      </Section>
+
       <Section title="Кой носи отговорност">
         <p>
           Първоначалните оценки се създават автоматично по публикувана рубрика.
@@ -733,6 +759,31 @@ const EnglishMethodology = ({
         event, and compare headlines, sources, and analysis. The home page shows
         only analyzed stories whose selected image has a verified basis for
         reuse.
+      </p>
+    </Section>
+
+    <Section id="person-pages" title="Pages about people">
+      <p>
+        A page about a person exists only after an editorial decision: an
+        identity that has been reviewed and marked active. Being mentioned in an
+        article does not create one. Each such page states how many (person,
+        article) pairs are assessed out of every one where the person is a main
+        or named participant, and what was left unassessed — text not read in
+        full, not yet assessed, or not enough evidence. We show a short quote as
+        grounds, never the full text of someone else&apos;s article.
+      </p>
+      <p className="mt-3">
+        The full rules — who gets a page, what we do not publish, and how to ask
+        for a correction or a right of reply — are in the{" "}
+        <a
+          className="app-link"
+          href="https://github.com/atanasster/electionsbg/blob/main/docs/policies/news-person-pages.md"
+          target="_blank"
+          rel="noreferrer"
+        >
+          person-pages policy (news-person-policy-v1) ↗
+        </a>
+        .
       </p>
     </Section>
 

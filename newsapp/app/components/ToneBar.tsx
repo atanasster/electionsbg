@@ -1,4 +1,4 @@
-// The distribution of tones for one party, with a TEXT label beside every
+// The distribution of tones for one subject (a party or a person), with a TEXT label beside every
 // colour and the count beside every label. ⚠️ It draws the distribution and
 // nothing else: no average, no score, no ordering by favourability.
 

@@ -251,15 +251,13 @@ def party_payload(party: dict, generated_at: str, rubric_version: str,
 
 
 def _published_key(row: dict):
-    from datetime import datetime, timezone
-    value = row.get("published")
-    try:
-        parsed = datetime.fromisoformat(str(value))
-    except (TypeError, ValueError):
-        return (0, datetime.min.replace(tzinfo=timezone.utc))
-    if parsed.tzinfo is None:
-        parsed = parsed.replace(tzinfo=timezone.utc)
-    return (1, parsed)
+    # The one definition lives in `rollup_common`; the person rollup orders on
+    # the same rule, and two copies is how one of them stops learning.
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from rollup_common import published_key
+    return published_key(row)
 
 
 def most_common_name(names: dict) -> str | None:

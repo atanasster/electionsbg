@@ -90,6 +90,7 @@ try:
     from . import cases as case_registry
     from . import news_persons as news_identity
     from . import party_rollups
+    from . import person_rollups
     from . import person_tones as person_treatment
     from . import story_synthesis
 except ImportError:  # direct script execution
@@ -124,6 +125,7 @@ except ImportError:  # direct script execution
     import cases as case_registry
     import news_persons as news_identity
     import party_rollups
+    import person_rollups
     import person_tones as person_treatment
     import story_synthesis
     from build_feedback_targets import build as build_feedback_targets
@@ -1431,6 +1433,68 @@ def write_parties(out_dir: Path, rows: list, generated_at: str) -> dict:
     return {"index": index, "topics": collected["topics"]}
 
 
+NEWS_PERSON_ID_SAFE = re.compile(r"\A[a-z0-9_]{1,64}\Z")
+
+
+def write_person_shards(out_dir: Path, registry: dict, index: dict, rows: list,
+                        generated_at: str) -> dict:
+    """T4.4 — one shard per ACTIVE identity, plus the index rows.
+
+    ⚠️ A page is a HUMAN decision: only an identity the registry marks
+    `active` gets one, so nobody acquires a page by being mentioned. The
+    accounting is asserted before anything is written — a shard whose tone
+    counts do not sum to N, or whose parts do not sum to M, is a claim that
+    cannot be checked, and it is refused rather than published."""
+    active = {p["news_person_id"]: p for p in index.get("persons") or []}
+    # ⚠️ `public_index` exports `reviewed_at` and NOT `reviewed_by`, so the
+    # reviewer has to come from the registry itself — otherwise every shard
+    # publishes a null owner while the policy and the page both promise a
+    # named one.
+    reviewers = {p.get("news_person_id"): p.get("reviewed_by")
+                 for p in (registry or {}).get("persons") or []}
+    collected = person_rollups.collect(rows, active)
+    person_dir = out_dir / "person"
+    person_dir.mkdir(parents=True, exist_ok=True)
+    written: set[str] = set()
+    index_rows = []
+    refused = []
+    for person_id, entry in collected.items():
+        problems = person_rollups.check_accounting(entry)
+        unsafe = not NEWS_PERSON_ID_SAFE.match(person_id)
+        if problems or unsafe:
+            refused.append({"news_person_id": person_id,
+                            "problems": problems or ["unsafe id"],
+                            "reason": "accounting" if problems else "unsafe_id"})
+            continue
+        person = {**active[person_id], "reviewed_by": reviewers.get(person_id)}
+        # Paginated like the party archive: page 1 ships with the header and
+        # the rest are fetched on demand, so a widening corpus does not grow
+        # the first fetch.
+        first = person_rollups.payload(entry, person, generated_at,
+                                       person_treatment.RUBRIC_VERSION)
+        for page in range(1, first["total_pages"] + 1):
+            payload = (first if page == 1 else person_rollups.payload(
+                entry, person, generated_at, person_treatment.RUBRIC_VERSION,
+                page=page))
+            name = f"{person_id}.json" if page == 1 else f"{person_id}-{page}.json"
+            write_json(person_dir / name, payload)
+            written.add(name)
+        index_rows.append(person_rollups.index_row(entry, person))
+    for stale in person_dir.glob("*.json"):
+        if stale.name not in written:
+            stale.unlink()
+    index_rows.sort(key=lambda r: (-r["eligible"], r["news_person_id"]))
+    n_acct = sum(1 for r in refused if r["reason"] == "accounting")
+    n_id = len(refused) - n_acct
+    print(f"  person shards: {len(index_rows)} active identities with coverage · "
+          f"{sum(r['eligible'] for r in index_rows)} eligible pairs · "
+          f"{sum(r['assessed'] for r in index_rows)} assessed"
+          + (f" · {n_acct} REFUSED (accounting)" if n_acct else "")
+          + (f" · {n_id} REFUSED (unsafe id)" if n_id else ""),
+          file=sys.stderr)
+    return {"rows": index_rows, "refused": refused}
+
+
 def write_news_persons(out_dir: Path, registry: dict, rows_by_url: dict, generated_at: str,
                        published_articles: int | None = None) -> dict:
     """`news_persons.json` (ACTIVE identities only — pending and withdrawn
@@ -1442,7 +1506,6 @@ def write_news_persons(out_dir: Path, registry: dict, rows_by_url: dict, generat
             if r.get("news_person_id"):
                 counts[r["news_person_id"]] = counts.get(r["news_person_id"], 0) + 1
     index = news_identity.public_index(registry, counts, generated_at)
-    write_json(out_dir / "news_persons.json", index)
     queue = news_identity.candidate_queue(rows_by_url, registry, generated_at, published_articles)
     review_path = REPO / "news" / "review" / "news_person_candidates.json"
     review_path.parent.mkdir(parents=True, exist_ok=True)
@@ -2775,6 +2838,9 @@ def main() -> int:
         feedback_targets = feedback_target_index([
             build_feedback_targets(REPO, generated_at)])
     story_effective_by_url: dict[str, dict] = {}
+    # The URLs whose analysis passed the publishable gate — M's first half
+    # (T4.4), kept beside the records rather than on them.
+    publishable_urls: set[str] = set()
     story_index = load_story_index(data_dir)
     domain_names = sorted(
         d.name
@@ -2947,6 +3013,12 @@ def main() -> int:
                     rec["story_id"] = story_index.get(art.get("url"))
                     story_effective_by_url[analysis["url"]] = public_effective
                 rec["analysis"] = public_analysis
+                # ⚠️ Recorded BESIDE the record, never on it: `rec` is written
+                # into `home.json`'s article rows, so a new key there is an
+                # artifact change (the overlay vectors catch it). T4.4's M is
+                # defined over publishable articles and reads this set.
+                if publishable and art.get("url"):
+                    publishable_urls.add(art["url"])
                 if publishable and art.get("url"):
                     identities = news_identity.resolve_article(
                         news_person_resolver, public_analysis,
@@ -3332,8 +3404,25 @@ def main() -> int:
                           generated_at)
     write_cases(out_dir, case_matcher.cases, stories, case_matches_by_url,
                 case_verification, case_candidate_rows, generated_at)
-    write_news_persons(out_dir, news_person_registry, news_person_rows_by_url, generated_at,
-                       published_articles=sum(1 for r in all_latest if r.get("analysis")))
+    person_index = write_news_persons(
+        out_dir, news_person_registry, news_person_rows_by_url, generated_at,
+        published_articles=sum(1 for r in all_latest if r.get("analysis")))
+    person_shards = write_person_shards(out_dir, news_person_registry, person_index, [
+        {"url": r.get("url"), "domain": r.get("domain"), "article_id": r.get("id"),
+         "title": r.get("title"), "published": r.get("published"),
+         "story_id": r.get("story_id"), "analysis": r.get("analysis")}
+        # ⚠️ M's first half — „publishable" — is enforced HERE rather than
+        # relying on a non-publishable record happening to carry no resolved
+        # identities in some other function's control flow.
+        for r in all_latest
+        if r.get("analysis") and r.get("url") in publishable_urls
+    ], generated_at)
+    # The index carries the coverage each person's shard accounts for, so a
+    # list row and its page can never disagree about the denominator.
+    coverage = {row["news_person_id"]: row for row in person_shards["rows"]}
+    for person in person_index.get("persons") or []:
+        person["coverage"] = coverage.get(person["news_person_id"])
+    write_json(out_dir / "news_persons.json", person_index)
     parties_out = write_parties(out_dir, [
         {"url": r.get("url"), "domain": r.get("domain"), "published": r.get("published"),
          "title": r.get("title"), "article_id": r.get("id"), "story_id": r.get("story_id"),

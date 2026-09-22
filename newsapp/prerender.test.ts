@@ -627,6 +627,52 @@ describe("buildRoutes against a corpus", () => {
     expect(byPath.has("story/s-untitled")).toBe(false);
   });
 
+  it("emits a person route only for an ACTIVE identity, sitemapping only coverage", () => {
+    writeFileSync(
+      join(dir, "news_persons.json"),
+      JSON.stringify({
+        generated_at: "2026-08-26T00:00:00+00:00",
+        persons: [
+          {
+            news_person_id: "np_abc12345",
+            name_bg: "Иван Иванов",
+            name_en: "Ivan Ivanov",
+            coverage: { eligible: 4, assessed: 2 },
+          },
+          // ⚠️ No coverage means the build wrote NO SHARD, so a route here
+          // would prerender a page whose data file 404s.
+          { news_person_id: "np_nocover", name_bg: "Без покритие" },
+          // Coverage but nothing assessed: the page exists, and a crawler is
+          // not sent to it.
+          {
+            news_person_id: "np_empty",
+            name_bg: "Без оценки",
+            coverage: { eligible: 0, assessed: 0 },
+          },
+          // ⚠️ An id the client would refuse to link must not become a page.
+          { news_person_id: "../etc", name_bg: "Опасен" },
+          { news_person_id: "NP_UPPER", name_bg: "Главни букви" },
+        ],
+      }),
+    );
+    const routes = buildRoutes(dir);
+    const persons = routes.filter((r) => r.path.startsWith("person/"));
+    expect(persons.map((r) => r.path).sort()).toEqual([
+      "person/np_abc12345",
+      "person/np_empty",
+    ]);
+    expect(persons.find((r) => r.path.endsWith("np_abc12345"))!.sitemap).toBe(
+      true,
+    );
+    expect(persons.find((r) => r.path.endsWith("np_empty"))!.sitemap).toBe(
+      false,
+    );
+    // The name a reader sees, not the opaque id.
+    expect(
+      persons.find((r) => r.path.endsWith("np_abc12345"))!.title,
+    ).toContain("Иван Иванов");
+  });
+
   it("still yields every hub alongside the corpus routes", () => {
     for (const hub of HUB_ROUTES) expect(byPath.has(hub.path)).toBe(true);
   });

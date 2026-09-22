@@ -31,6 +31,8 @@ RUNTIME_SCRIPTS = (
     "news/scripts/cases.py",
     "news/scripts/news_persons.py",   # build_app_data imports it UNGUARDED (T4.0)
     "news/scripts/party_rollups.py",  # build_app_data imports it UNGUARDED (T4.2)
+    "news/scripts/person_rollups.py",  # build_app_data imports it UNGUARDED (T4.4)
+    "news/scripts/rollup_common.py",  # both rollups import it UNGUARDED
     "news/scripts/person_tones.py",   # build_app_data imports it UNGUARDED (T4.3)
     "news/scripts/story_synthesis.py",  # build_app_data imports it UNGUARDED (T5.1)
     "news/scripts/check_staleness.py",

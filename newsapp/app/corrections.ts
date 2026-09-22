@@ -1,3 +1,5 @@
+import { NEWS_PERSON_ID_PATTERN } from "./newsPersonId";
+
 export type CorrectionKind = "поправка" | "оттегляне" | "право на отговор";
 
 export interface CorrectionEntry {
@@ -12,8 +14,14 @@ export interface CorrectionEntry {
 export const CORRECTIONS: readonly CorrectionEntry[] = [];
 
 const ISSUE_BASE = "https://github.com/atanasster/electionsbg/issues/new";
-const ALLOWED_PATH =
-  /^\/(?:story\/[A-Za-z0-9._~-]+|article\/[A-Za-z0-9.-]+\/[A-Za-z0-9._~-]+)$/;
+// ⚠️ An ALLOWLIST, not a sanitiser: the path is interpolated into a URL that
+// leaves this origin, so a family reaches it only by being named here. The
+// person arm COMPOSES the shared `news_person_id` charset rather than
+// restating it — an id the shard writer would refuse must not become a link
+// telling a reader to report a page that cannot exist.
+const ALLOWED_PATH = new RegExp(
+  `^\\/(?:story\\/[A-Za-z0-9._~-]+|article\\/[A-Za-z0-9.-]+\\/[A-Za-z0-9._~-]+|person\\/${NEWS_PERSON_ID_PATTERN})$`,
+);
 
 export const safeCorrectionPath = (candidate?: string): string => {
   if (!candidate || !ALLOWED_PATH.test(candidate)) return "";

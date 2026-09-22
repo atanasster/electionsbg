@@ -68,6 +68,7 @@ import { ReportIssueLink } from "../components/ReportIssueLink";
 import { ArticleContributionCard } from "../components/ArticleContributionCard";
 import { emitNewsEvent } from "../analytics";
 import { evalTaskPath, useEvalQueue } from "../evals";
+import { isNewsPersonId } from "../newsPersonId";
 import { useNewsLocale } from "../i18n";
 
 const feedbackIssueLabel = (kind: string, english: boolean): string => {
@@ -1141,9 +1142,22 @@ const NewsPersonsBlock = ({
       <ul className="mt-2 space-y-1 text-sm">
         {resolved.map((r) => (
           <li key={`r-${r.news_person_id}-${r.surface}`}>
-            <span className="font-medium">
-              {(language === "en" ? r.name_en : r.name_bg) ?? r.surface}
-            </span>{" "}
+            {isNewsPersonId(r.news_person_id) ? (
+              // The ONE inbound link to `/person/:newsPersonId`. Without it
+              // the whole family is reachable only from the sitemap, which is
+              // also what would make a routing bug here invisible to manual
+              // testing.
+              <Link
+                to={`/person/${r.news_person_id}`}
+                className="font-medium underline-offset-4 hover:underline"
+              >
+                {(language === "en" ? r.name_en : r.name_bg) ?? r.surface}
+              </Link>
+            ) : (
+              <span className="font-medium">
+                {(language === "en" ? r.name_en : r.name_bg) ?? r.surface}
+              </span>
+            )}{" "}
             <span className="text-xs text-muted-foreground">
               {tr("идентичност: проверена", "identity: reviewed")}
               {r.alias_scope?.startsWith("case:")

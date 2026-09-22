@@ -484,6 +484,17 @@ describe("the evidence", () => {
     expect(incidental).not.toHaveTextContent(
       /негативен|позитивен|неутрален|смесен/,
     );
+    // ⚠️ THE ONE INBOUND LINK to the person family. Without it those pages
+    // are reachable only from the sitemap, which is what makes a routing bug
+    // there invisible to manual testing.
+    expect(
+      within(block).getByRole("link", { name: "Ивайло Калушев" }),
+    ).toHaveAttribute("href", "/person/np_1");
+    // An unresolved name has no identity, so it gets no link.
+    expect(
+      within(block).queryByRole("link", { name: "Георги Калушев" }),
+    ).toBeNull();
+
     // The unresolved namesake keeps its refusal and gets no treatment at all.
     expect(block).toHaveTextContent(
       "името съвпада с повече от една проверена идентичност",
@@ -1182,8 +1193,13 @@ describe("news-person identity (T4.0)", () => {
     const rows = within(block).getAllByRole("listitem");
     expect(rows).toHaveLength(3);
     for (const row of rows) expect(row).toHaveTextContent(/не е оценено/);
-    // ⚠️ Nothing links anywhere: there is no profile page and no main-site slug.
-    expect(within(block).queryAllByRole("link")).toHaveLength(0);
+    // ⚠️ ONE link, and only for the RESOLVED identity (T4.4 gave it a page).
+    // An unresolved or ambiguous name has no identity, so it gets none — a
+    // link here would assert the very attribution the row is refusing.
+    const links = within(block).queryAllByRole("link");
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute("href", "/person/np_7f3c1a94");
+    expect(links[0]).toHaveTextContent("Ивайло Калушев");
   });
 
   it("says a scoped alias in words, never as a raw scope string", async () => {
