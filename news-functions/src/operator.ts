@@ -1437,11 +1437,23 @@ export async function verifyLiveFeedbackTaskRelease(
     const articleUrl = new URL(`${dataBase}/${path}`, baseUrl);
     if (articleUrl.origin !== liveUrl.origin)
       throw new Error("live article bundle URL changes origin");
+    // ⚠️ 20 MB, matching the feedback-target registry above, and it is a
+    // SANITY bound rather than a memory one: this file runs in the operator
+    // CLI (node, on the operator's machine), never in the deployed function.
+    //
+    // It was 5 MB, and nothing bounds these bundles — build_app_data.py
+    // writes every record a domain has ever had, with no retention window.
+    // Measured 2026-09-22: fakti.bg.json crossed at 5,092,907 bytes growing
+    // ~1.1 MB/day, with three more outlets inside a week of the same line.
+    // Every hourly run has failed its feedback task sync since. Raising the
+    // ceiling BUYS TIME, it does not fix that: the real question is a
+    // retention window on articles/<domain>.json, which is also what the
+    // article page downloads.
     const bytes = await fetchedBytes(
       fetcher,
       articleUrl.toString(),
       `live ${path}`,
-      5_000_000,
+      20_000_000,
     );
     if (createHash("sha256").update(bytes).digest("hex") !== expectedHash)
       throw new Error(`live ${path} bytes do not match publication inventory`);
