@@ -24,6 +24,8 @@
     "news:universe:freeze": "python3 news/scripts/freeze_event_universe.py",
     "news:universe:evaluate": "python3 news/scripts/evaluate_join_channels.py",
     "news:join:gate": "python3 news/scripts/join_accuracy_gate.py",
+    "news:journey:gate": "python3 news/scripts/journey_gate.py",
+    "news:journey:gate:enforce": "python3 news/scripts/journey_gate.py --enforce",
     "news:person:gate": "python3 news/scripts/person_accuracy_gate.py",
     "news:person:gate:enforce": "python3 news/scripts/person_accuracy_gate.py --enforce",
     "news:person:sample": "python3 news/scripts/sample_person_pairs.py",
