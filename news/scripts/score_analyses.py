@@ -146,6 +146,41 @@ PARTY_RELEASE_GATES = {
     "valid_schema_before_retry": 0.99,
     "valid_schema_after_review": 1.0,
 }
+# T4.5 — the PERSON treatment floors. Deliberately the same numbers as the
+# party gate above: the two answer the same question about a different kind
+# of subject, and one of them being easier to sample is not a reason to
+# publish it against a lower bar.
+PERSON_TONES = ("favorable", "unfavorable", "neutral", "mixed")
+PERSON_RELEASE_GATES = {
+    "pair_precision": 0.95,
+    "pair_recall": 0.90,
+    "tone_macro_f1": 0.80,
+    "per_tone_recall": 0.70,
+    "wrong_canonical_targets": 0,
+    "unsupported_evidence": 0,
+}
+# ⚠️ SUPPORT IS PART OF THE GATE, NOT A FOOTNOTE. Without these a 3-pair
+# sample at 1.000 precision „passes", which is the vacuous pass the plan
+# forbids. Insufficient support is review-only.
+PERSON_SUPPORT_FLOORS = {
+    "adjudicated_pairs": 200,
+    "pairs_per_tone": 30,
+    # ⚠️ AGREEMENT IS SUPPORT TOO. A 200-pair sample labelled start to finish
+    # by one annotator is a measurement of one person, and without a floor
+    # here it passes every other check — the one place this gate would still
+    # print a reassuring number with nothing behind it.
+    "doubly_annotated_pairs": 40,
+    "min_kappa": 0.60,
+}
+# The strata the sample must cover, per the plan. A stratum with no pairs is
+# reported as uncovered rather than averaged away.
+PERSON_STRATA = ("generic_person", "official", "ambiguous_name",
+                 "quotation", "long_article")
+# Drawn and reported, never required: a resolved non-official mention, and
+# anything the rules could not place.
+PERSON_STRATA_REPORTED = PERSON_STRATA + ("resolved_non_official",
+                                          "unclassified")
+
 ENTITY_LINK_RELEASE_GATES = {
     "extraction_precision": 0.95,
     "extraction_recall": 0.90,

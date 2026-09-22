@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "how_to_read": [
+    "Plan T4.5: the ADJUDICATED (article, person) pairs the person-treatment gate consumes. Each pair names an article, the news-person identity the pipeline resolved (or the one a human says it SHOULD have resolved), the identity_version and rubric_version it was judged under, the human's subject_role and tone, whether the cited evidence supports that tone, who labelled it and when.",
+    "tone is one of favorable | unfavorable | neutral | mixed | not_assessed | unclear. `unclear` counts toward nothing and is reported. `not_assessed` is a real human answer — „this text carries no framing of this person\" — and is NOT the same as a missing label.",
+    "split is `test` or `development`. Only `test` pairs reach a gate figure; development pairs are excluded and counted. A pair whose rubric_version or identity_version no longer matches the pipeline's is STALE and is excluded and counted — a correction invalidates a pair rather than transferring its label.",
+    "stratum is one of generic_person | official | ambiguous_name | quotation | long_article, and a pair may carry several. The plan requires coverage of all five; a stratum with no pairs is reported as uncovered, never averaged away.",
+    "sample is `natural` or `hard_case`. The two are reported SEPARATELY: a deliberately balanced hard-case set measures the hard cases and says nothing about population prevalence.",
+    "annotator is the person's own id. A pair labelled by two annotators appears TWICE with the same pair key and different annotators — that is what inter-annotator agreement is computed over, and it is PART OF THE GATE (≥40 doubly-annotated pairs, Cohen's κ ≥ 0.60). A disagreement is resolved by a third row carrying `adjudicated: true`, which WINS over either annotator's; without it the answer would be whichever row appears first in the file.",
+    "A pair is identified by (article_id, surface, news_person_id, rubric_version, identity_version). The SURFACE is part of it: for an unresolved mention news_person_id is null, so two different unnamed people in one article are two pairs, not one.",
+    "`human_assessable`, `evidence_supports` and `wrong_canonical_target` are REQUIRED. A pair that leaves any of them null is excluded and counted — a null there would otherwise read as „not wrong\" and „supported\", i.e. the two release blockers passing because nobody looked at them. `subject_role` is recorded and reported as a role-mismatch count; it is not scored by the v1 gate.",
+    "wrong_canonical_target: true marks a pair where the pipeline attached the tone to the WRONG person (a namesake, a coreference slip). One of those fails the gate outright, whatever the precision — naming the wrong individual is the harm this whole layer exists to prevent.",
+    "This file is EMPTY on purpose. No adjudication has been made; the public eval surface has never received a submission; the gate stays UNMET until a person writes pairs here. Do not fill it from a model — a frontier model is a comparison baseline, not the ground truth. `news/data/gold/gold_set.json` cannot supply these either: it under-filled its own 40-article person cell at 30, so 200 pairs with 30 per tone is NEW annotation, not an assembly of existing material."
+  ],
+  "pairs": []
+}
