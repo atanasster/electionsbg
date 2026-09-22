@@ -53,6 +53,17 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools@15.18.0
 
+      - name: Generated sentiment-scale artifacts are current
+        # `newsapp/app/sentimentScale.ts` and its vector fixture are the
+        # client's copy of `jev_scales.bucket_index`, generated from Python.
+        # The vitest gate compares the two GENERATED files against each other,
+        # so a forgotten regeneration leaves both stale, agreeing and green —
+        # the exact drift the generator exists to prevent. Only this compares
+        # them against the Python. (`news/scripts/gen_bucket_ts.test.mjs` runs
+        # the same check inside test:ci, but degrades to a warning when no
+        # interpreter is on PATH; this step is the hard one.)
+        run: npm run gen:bucket-ts:check
+
       - name: Lint
         run: npm run lint
 

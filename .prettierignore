@@ -22,6 +22,14 @@ public/*.json
 # Keep the committed files byte-identical to the generator's output.
 data/budget/derived/
 
+# Generated sentiment-scale vector fixture — written by
+# news/scripts/gen_bucket_ts.py, which cannot reproduce Prettier's
+# line-width-dependent array collapsing. Prettier would rewrite it, that would
+# make it stale against `gen_bucket_ts.py --check`, and the two gates would then
+# fail alternately for ever. The sibling .ts IS Prettier-clean and stays under
+# Prettier, because it is imported source rather than a fixture.
+newsapp/app/sentimentScale.vectors.json
+
 # Lockfiles & logs
 package-lock.json
 *.log
