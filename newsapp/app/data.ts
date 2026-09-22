@@ -3,6 +3,7 @@
 // production may follow a revalidated manifest to one immutable hourly tree.
 
 import { isCaseSlug } from "./caseSlug";
+import { isPartyId } from "./partyId";
 import {
   useCallback,
   useEffect,
@@ -815,6 +816,12 @@ export interface TaxonomyCategory {
     route: string | null;
     article_count: number;
   }[];
+  /**
+   * T4.2 — party treatment as a topic dimension: PARTY_ID → tone → count
+   * over the articles whose primary topic this is. Keyed by id, unlike the
+   * story-level `by_party_tone`, which is keyed by the name as written.
+   */
+  by_party_id_tone?: Record<string, Partial<Record<Tone, number>>>;
 }
 
 /**
@@ -2626,6 +2633,85 @@ export interface CasePayload extends CaseSummary {
     prefix_scope_count?: number;
   };
 }
+
+/** T4.2 — one party's row in the archive index. No score, by design. */
+export interface PartyIndexRow {
+  party_id: string;
+  name: string | null;
+  counts: Record<Tone, number>;
+  /** (party, article) pairs this distribution is over — the denominator. */
+  assessed: number;
+  article_count: number;
+  outlet_count: number;
+  first_published: string | null;
+  last_published: string | null;
+  /** Rows counted in the distribution that carry no publication date. */
+  undated: number;
+}
+
+export interface PartyIndex {
+  version: number;
+  generated_at: string;
+  rubric_version: string;
+  parties: PartyIndexRow[];
+  /**
+   * Surfaces the registry could not resolve to one party — counted, never
+   * rolled up: a name is not an identity.
+   */
+  unresolved_surfaces: {
+    surface: string;
+    pairs: number;
+    /** `refused` — the registry knows it and will not resolve it;
+     *  `unknown` — the registry does not cover that party at all. */
+    basis: "refused" | "unknown";
+  }[];
+  /** ALL unresolved surfaces; `unresolved_surfaces` carries the top ones. */
+  unresolved_surface_count: number;
+  unresolved_pairs: number;
+  unresolved_refused_pairs: number;
+  unresolved_unknown_pairs: number;
+  /** Pairs on an id the path charset refuses — no row, no page. */
+  refused_id_pairs: number;
+  /** Second spellings of one party in one article, counted once. */
+  duplicate_pairs: number;
+  /** Pairs on articles the model did not read in full (T4.1c). */
+  scoped_out_pairs: number;
+}
+
+export interface PartyArticleRow {
+  url: string | null;
+  domain: string;
+  article_id: string | null;
+  title: string | null;
+  published: string | null;
+  story_id: string | null;
+  tone: Tone;
+  rationale: string | null;
+  evidence_spans: EvidenceSpan[];
+}
+
+export interface PartyPayload extends Omit<PartyIndexRow, "name"> {
+  version: number;
+  generated_at: string;
+  rubric_version: string;
+  name: string | null;
+  names_seen: string[];
+  /** 1-based; page 1 is `party/<id>.json`, the rest `party/<id>-<n>.json`. */
+  page: number;
+  page_size: number;
+  total_pages: number;
+  articles: PartyArticleRow[];
+}
+
+export const partyPayloadPath = (
+  id: string | null | undefined,
+  page = 1,
+): string | null =>
+  isPartyId(id) ? `/party/${id}${page > 1 ? `-${page}` : ""}.json` : null;
+
+export const useParties = () => useData<PartyIndex>("/parties.json");
+export const useParty = (id: string | null | undefined, page = 1) =>
+  useData<PartyPayload>(partyPayloadPath(id, page));
 
 export const caseDetailPath = (
   slug: string | null | undefined,

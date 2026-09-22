@@ -10,6 +10,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import { clamp, safeSegment, type PrerenderRoute } from "./prerender";
 import { isCaseSlug } from "./app/caseSlug";
+import { isPartyId } from "./app/partyId";
 
 type Bundle = Record<string, unknown>;
 
@@ -58,6 +59,15 @@ export const HUB_ROUTES: PrerenderRoute[] = [
     titleEn: "Archive — every story by coverage | Naiasno News",
     descriptionEn:
       "The whole story corpus, ordered by how many outlets covered one event, filterable by topic, period and source.",
+  },
+  {
+    path: "parties",
+    title: "Партии в отразяването — архив | Наясно Новини",
+    description:
+      "Как материалите представят всяка партия: разпределение на оценките с видим знаменател. Архив, не класация — оценява се статията, не партията.",
+    titleEn: "Parties in the coverage — archive | Naiasno News",
+    descriptionEn:
+      "How articles present each party: a distribution of assessments with a visible denominator. An archive, not a ranking — the article is assessed, not the party.",
   },
   {
     path: "cases",
@@ -304,6 +314,39 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       lastmod:
         (c.last_published as string) ?? (cases?.generated_at as string) ?? null,
       sitemap: attached && storyCount > 0,
+    });
+  }
+
+  // T4.2 — the party archive. ⚠️ Sitemapped only where there is something
+  // to read: a party with no published assessment is a page that says „no
+  // assessments" to a crawler.
+  const parties = read(dataDir, "parties.json");
+  for (const p of (parties?.parties as Bundle[] | undefined) ?? []) {
+    const id = String(p.party_id ?? "");
+    if (!isPartyId(id)) continue;
+    const name = String(p.name ?? id);
+    const assessed = Number(p.assessed ?? 0);
+    const articles = Number(p.article_count ?? 0);
+    routes.push({
+      path: `party/${id}`,
+      title: `${clamp(name, 70)} — как медиите я представят | Наясно Новини`,
+      description: clamp(
+        `Архив на ${articles} материала, които споменават ${name}, и разпределение на ${assessed} оценки за начина, по който я представят. Оценява се статията, не партията; това не е класация.`,
+      ),
+      titleEn: `${clamp(name, 70)} — how the media present it | Naiasno News`,
+      descriptionEn: clamp(
+        `An archive of ${articles} articles mentioning ${name} and the distribution of ${assessed} assessments of how they present it. The article is assessed, not the party; this is not a ranking.`,
+      ),
+      lastmod:
+        (p.last_published as string) ??
+        (parties?.generated_at as string) ??
+        null,
+      // ⚠️ `assessed > 0` by construction today (a party reaches the index
+      // only by carrying a published tone), and kept as the CONDITION rather
+      // than dropped: the day an index row can exist without one — a party
+      // page minted from the registry, say — a sitemap entry for it would
+      // promise a reader a distribution that is not there.
+      sitemap: assessed > 0,
     });
   }
 

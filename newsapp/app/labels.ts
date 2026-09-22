@@ -608,6 +608,9 @@ export const bgStories = (n: number): string =>
   `${n} ${Math.abs(n) === 1 ? "история" : "истории"}`;
 export const bgMedia = (n: number): string =>
   `${n} ${Math.abs(n) === 1 ? "медия" : "медии"}`;
+/** T4.2 — „N оценки" / „N assessments": one (party, article) pair each. */
+export const bgAssessments = (n: number): string =>
+  `${n} ${Math.abs(n) === 1 ? "оценка" : "оценки"}`;
 export const bgAnalyzedArticles = (n: number): string =>
   `${n} ${Math.abs(n) === 1 ? "анализирана статия" : "анализирани статии"}`;
 export const bgCollectedArticles = (n: number): string =>
@@ -625,6 +628,10 @@ export const media = (n: number, language: NewsLanguage): string =>
   language === "en"
     ? `${n} ${Math.abs(n) === 1 ? "outlet" : "outlets"}`
     : bgMedia(n);
+export const assessments = (n: number, language: NewsLanguage): string =>
+  language === "en"
+    ? `${n} ${Math.abs(n) === 1 ? "assessment" : "assessments"}`
+    : bgAssessments(n);
 export const analyzedArticles = (n: number, language: NewsLanguage): string =>
   language === "en"
     ? `${n} analysed ${Math.abs(n) === 1 ? "article" : "articles"}`

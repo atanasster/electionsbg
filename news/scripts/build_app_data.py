@@ -75,6 +75,7 @@ try:
     )
     from .home_health import evaluate_home_payload
     from .effective_analysis import (
+        RUBRIC_VERSION as PARTY_RUBRIC_VERSION,
         canonical_sha256,
         effective_analysis,
         load_accepted_adjudications,
@@ -88,6 +89,7 @@ try:
     from .build_feedback_targets import build as build_feedback_targets
     from . import cases as case_registry
     from . import news_persons as news_identity
+    from . import party_rollups
     from . import story_synthesis
 except ImportError:  # direct script execution
     from commons_rights import (
@@ -107,6 +109,7 @@ except ImportError:  # direct script execution
     )
     from home_health import evaluate_home_payload
     from effective_analysis import (
+        RUBRIC_VERSION as PARTY_RUBRIC_VERSION,
         canonical_sha256,
         effective_analysis,
         load_accepted_adjudications,
@@ -119,6 +122,7 @@ except ImportError:  # direct script execution
     from analyze_articles import recompute_story as recompute_analysis_story
     import cases as case_registry
     import news_persons as news_identity
+    import party_rollups
     import story_synthesis
     from build_feedback_targets import build as build_feedback_targets
 
@@ -1294,6 +1298,8 @@ def write_story_pages(out_dir: Path, stories: list, generated_at: str,
 
 
 STORY_ID_SAFE = re.compile(r"^[A-Za-z0-9_-]{1,120}$")
+# A party id reaches a path too; the gazetteer mints lowercase slugs.
+PARTY_ID_SAFE = re.compile(r"^[A-Za-z0-9_-]{1,80}$")
 
 # ⚠️ AN OLD BOOKMARKED STORY URL STAYS VALID, and this is the registry that
 # makes that a gate rather than a hope (plan T1.5). A story id, once
@@ -1368,6 +1374,59 @@ def corpus_article_reader(data_dir: Path):
         except (OSError, json.JSONDecodeError, TypeError):
             return {}
     return read
+
+
+# ⚠️ `PARTY_RUBRIC_VERSION` is IMPORTED from `effective_analysis` rather than
+# copied: the plan schedules a rubric bump, and a hand-copied literal is how
+# one surface keeps citing v1 after it.
+
+
+def party_in_registry(surface: str) -> bool:
+    """Does the gazetteer KNOW this party surface (whether or not it resolves
+    it)? Splits „refused" from „not covered at all" — a foreign party the
+    registry never claimed is a different fact from an ambiguous Bulgarian
+    one. Unknown on failure, which is the weaker claim."""
+    try:
+        import analyze_articles as aa
+        return bool(aa._party_claims(surface))
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def write_parties(out_dir: Path, rows: list, generated_at: str) -> dict:
+    """T4.2 — `parties.json` plus one archive payload per RESOLVED party.
+
+    ⚠️ An ARCHIVE FILTER, not a leaderboard: the index is ordered by how much
+    coverage the corpus holds and carries no score, and a party whose identity
+    the registry refuses gets no page at all — only a counted
+    unresolved-surface row, so the omission is visible."""
+    collected = party_rollups.collect(rows, rollup_eligible, in_registry=party_in_registry)
+    index = party_rollups.party_index(collected, generated_at, PARTY_RUBRIC_VERSION)
+    write_json(out_dir / "parties.json", index)
+    party_dir = out_dir / "party"
+    party_dir.mkdir(parents=True, exist_ok=True)
+    # ⚠️ The id refusal lives ONCE, in `party_rollups.collect` — a party the
+    # charset refuses never reaches the index either, so no consumer can
+    # render a link this writer will not serve.
+    written: set[str] = set()
+    for party_id, party in collected["parties"].items():
+        first = party_rollups.party_payload(party, generated_at, PARTY_RUBRIC_VERSION)
+        for page in range(1, first["total_pages"] + 1):
+            payload = (first if page == 1 else party_rollups.party_payload(
+                party, generated_at, PARTY_RUBRIC_VERSION, page=page))
+            name = f"{party_id}.json" if page == 1 else f"{party_id}-{page}.json"
+            write_json(party_dir / name, payload)
+            written.add(name)
+    # A party that loses its last published tone must lose its page too: a
+    # stale payload is a claim nobody re-derived.
+    for stale in party_dir.glob("*.json"):
+        if stale.name not in written:
+            stale.unlink()
+    print(f"  parties: {len(index['parties'])} with a published tone · "
+          f"{sum(r['assessed'] for r in index['parties'])} pairs · "
+          f"{index['unresolved_pairs']} on unresolved surfaces · "
+          f"{index['scoped_out_pairs']} scoped out", file=sys.stderr)
+    return {"index": index, "topics": collected["topics"]}
 
 
 def write_news_persons(out_dir: Path, registry: dict, rows_by_url: dict, generated_at: str,
@@ -3266,6 +3325,12 @@ def main() -> int:
                 case_verification, case_candidate_rows, generated_at)
     write_news_persons(out_dir, news_person_registry, news_person_rows_by_url, generated_at,
                        published_articles=sum(1 for r in all_latest if r.get("analysis")))
+    parties_out = write_parties(out_dir, [
+        {"url": r.get("url"), "domain": r.get("domain"), "published": r.get("published"),
+         "title": r.get("title"), "article_id": r.get("id"), "story_id": r.get("story_id"),
+         "analysis": r.get("analysis")}
+        for r in all_latest if r.get("analysis")
+    ], generated_at)
 
     # ---- home.json -------------------------------------------------------------------
     dated = []
@@ -3419,11 +3484,22 @@ def main() -> int:
             "outlet_count": len(cat.get("outlets") or ()),
             "leaning": cat.get("leaning", {}),
             "russia_stance": cat.get("russia_stance", {}),
+            # T4.2 — party treatment as a dimension of the topic: PARTY_ID →
+            # tone → count, over the articles whose PRIMARY topic is this one.
+            # ⚠️ NAMED FOR ITS KEY SPACE. The story-level `by_party_tone` is
+            # keyed by the party NAME as the model wrote it; two fields of one
+            # name keyed differently is how a consumer joins the wrong thing.
+            "by_party_id_tone": cat.get("by_party_id_tone", {}),
             "spread": {
                 axis: axis_spread(cat.get(axis, {}), axis)
                 for axis in AXIS_POSITIONS
             },
         }
+
+    for category, buckets in (parties_out["topics"] or {}).items():
+        topic_axes.setdefault(category, {"articles": 0, "outlets": set(),
+                                         "leaning": {}, "russia_stance": {}})
+        topic_axes[category]["by_party_id_tone"] = buckets
 
     taxonomy_out = {
         "version": taxonomy_doc.get("version"),

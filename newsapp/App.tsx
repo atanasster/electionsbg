@@ -61,6 +61,14 @@ const CaseScreen = lazyScreen(
   () => import("./app/screens/CaseScreen"),
   "CaseScreen",
 );
+const PartiesScreen = lazyScreen(
+  () => import("./app/screens/PartiesScreen"),
+  "PartiesScreen",
+);
+const PartyScreen = lazyScreen(
+  () => import("./app/screens/PartyScreen"),
+  "PartyScreen",
+);
 const OutletsScreen = lazyScreen(
   () => import("./app/screens/OutletsScreen"),
   "OutletsScreen",
@@ -205,6 +213,7 @@ const NewsAppShell = () => {
     // finite briefing and this is the rest of it (R1).
     { to: "/stories", label: tr("Архив", "Archive") },
     { to: "/cases", label: tr("Казуси", "Cases") },
+    { to: "/parties", label: tr("Партии", "Parties") },
     { to: "/outlets", label: tr("Източници", "Sources") },
     { to: "/topics", label: tr("Теми", "Topics") },
     {
@@ -367,6 +376,8 @@ const NewsAppShell = () => {
             <Route path="/stories" element={<StoriesScreen />} />
             <Route path="/cases" element={<CasesScreen />} />
             <Route path="/case/:slug" element={<CaseScreen />} />
+            <Route path="/parties" element={<PartiesScreen />} />
+            <Route path="/party/:id" element={<PartyScreen />} />
             <Route path="/outlets" element={<OutletsScreen />} />
             <Route path="/outlet/:domain" element={<OutletScreen />} />
             <Route path="/topics" element={<TopicsScreen />} />
