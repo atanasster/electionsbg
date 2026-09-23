@@ -1568,12 +1568,17 @@ def write_parties(out_dir: Path, rows: list, generated_at: str,
             name = f"{party_id}.json" if page == 1 else f"{party_id}-{page}.json"
             write_json(party_dir / name, payload)
             written.add(name)
-    # A party that loses its last published tone must lose its page too: a
-    # stale payload is a claim nobody re-derived.
+    # A party that loses its last ROW must lose its page too: a stale payload
+    # is a claim nobody re-derived.
+    #
+    # ⚠️ ROWS, NOT RATED ROWS. With `subject_tone` published a party can have
+    # every row withheld — all passing mentions — and `assessed == 0`. It
+    # keeps its page on purpose: „mentioned in 12 articles, rated in none" is
+    # the finding, and each row says why it carries no tone.
     for stale in party_dir.glob("*.json"):
         if stale.name not in written:
             stale.unlink()
-    print(f"  parties: {len(index['parties'])} with a published tone · "
+    print(f"  parties: {len(index['parties'])} with coverage · "
           f"{sum(r['assessed'] for r in index['parties'])} pairs · "
           f"{index['unresolved_pairs']} on unresolved surfaces · "
           f"{index['scoped_out_pairs']} scoped out", file=sys.stderr)
@@ -2490,6 +2495,18 @@ def compact_analysis(rec: dict, article: dict) -> dict:
     }
 
 
+def editorially_accepted(public_analysis: dict) -> bool:
+    """Does an ACCEPTED editorial review cover this article's verdicts?
+
+    ⚠️ ACCEPTED ONLY. A `needs_revalidation` review is one the article page
+    itself treats as not current, so it must not suppress the model's scales
+    either — and counting it as „withheld for human review" would report a
+    review that is not in force.
+    """
+    review = (public_analysis or {}).get("human_review")
+    return isinstance(review, dict) and review.get("status") == "accepted"
+
+
 def compact_human_review(rec: dict) -> dict | None:
     """Project only public editorial provenance from the private resolver block.
 
@@ -3076,6 +3093,13 @@ def main() -> int:
     news_person_registry = news_identity.load_registry(REPO / "news" / "config" / "news_persons.json")
     news_person_resolver = news_identity.Resolver(news_person_registry)
     news_person_rows_by_url: dict[str, list] = {}
+    # How many article pages carried a Jev block, and how many were
+    # withheld for a human review — so „0 attached" after an axis is
+    # published reads as a failed join, not as silence.
+    jev_article_report = {"attached": 0, "withheld": 0}
+    # The publication set, resolved ONCE per build: every article in it is
+    # published under the same axes. Raises on an unknown axis name.
+    jev_axes = jev_publication.published_axes()
     known_case_slugs = {c["slug"] for c in case_matcher.cases}
     for person in news_person_registry["persons"]:
         for a in person["aliases"]:
@@ -3154,6 +3178,10 @@ def main() -> int:
                 accepted_record = (
                     accepted.by_article.get(article_key) if accepted else None
                 )
+                # ⚠️ THE ANALYSIS AS STORED, kept for the Jev lookup below.
+                # Its record's key was computed over THIS subject set, and a
+                # human-effective copy is not what the ask read.
+                source_analysis = analysis
                 analysis = effective_analysis(analysis, art, accepted_record)
                 if accepted_record is not None:
                     pending_accepted.discard(article_key)
@@ -3217,6 +3245,21 @@ def main() -> int:
                     rec["story_id"] = story_index.get(art.get("url"))
                     story_effective_by_url[analysis["url"]] = public_effective
                 rec["analysis"] = public_analysis
+                # T4.4 Phase 4 — the Jev scales, for PUBLISHED axes only.
+                # ⚠️ SET AFTER `feedback_analysis_sha256` WAS TAKEN, like
+                # `news_persons` below: that hash binds reader feedback to the
+                # analysis it was given against, and folding a model score that
+                # is re-asked on its own schedule into it would mark every
+                # bound submission stale on each re-score. `home.json` and
+                # `latest.json` both drop `analysis`, so this reaches only the
+                # per-outlet bundle the article page reads.
+                jev_block = jev_publication.article_public(
+                    art, source_analysis, data_dir, axes=jev_axes,
+                    human_reviewed=editorially_accepted(public_analysis))
+                if jev_block is not None:
+                    public_analysis["jev_sentiment"] = jev_block
+                    jev_article_report["withheld" if "withheld" in jev_block
+                                       else "attached"] += 1
                 # ⚠️ Recorded BESIDE the record, never on it: `rec` is written
                 # into `home.json`'s article rows, so a new key there is an
                 # artifact change (the overlay vectors catch it). T4.4's M is
@@ -3624,6 +3667,10 @@ def main() -> int:
     for person in person_index.get("persons") or []:
         person["coverage"] = coverage.get(person["news_person_id"])
     write_json(out_dir / "news_persons.json", person_index)
+    if jev_axes:
+        print(f"  article scale: {jev_article_report['attached']} attached, "
+              f"{jev_article_report['withheld']} withheld for human review",
+              file=sys.stderr)
     parties_out = write_parties(out_dir, [
         {"url": r.get("url"), "domain": r.get("domain"), "published": r.get("published"),
          "title": r.get("title"), "article_id": r.get("id"), "story_id": r.get("story_id"),

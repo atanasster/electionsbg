@@ -83,6 +83,60 @@ export type ToneBucket =
 // widened `Tone` from demanding six keys of every four-key count bucket.
 export type ToneLabel = Tone | ToneBucket;
 
+/**
+ * One Jev score as a page carries it — `sentiment_rollups.score_public`.
+ *
+ * `value` lives on ±(levels−1)/2; `normalized` on [−1, 1]. `spread` is the
+ * standard deviation of the model's own distribution, in `value` units.
+ * `distribution` is the per-level probability, lowest level first.
+ */
+export interface JevScore {
+  value: number | null;
+  normalized: number | null;
+  spread: number | null;
+  confidence: number | null;
+  levels: number | null;
+  both_directions: boolean | null;
+  /**
+   * The display bucket (0 = most negative end) computed by the BUILD from the
+   * exact value. ⚠️ Use it instead of bucketing `value`: `value` is rounded
+   * for the wire, and re-bucketing it could put a row on the other side of an
+   * edge from the archive's own count.
+   */
+  bucket_index?: number | null;
+  distribution?: number[];
+}
+
+export interface JevAxisScore extends JevScore {
+  /** How likely the axis applies to this article at all, 0–1 (plan §3.3). */
+  applies: number | null;
+}
+
+export interface JevSubject {
+  name: string;
+  kind: "party" | "person";
+  /** `derive_role`'s vocabulary. An `incidental` subject has no tone. */
+  subject_role: "primary" | "secondary" | "incidental" | null;
+  mentions: number | null;
+  tone?: JevScore;
+}
+
+export type JevArticleSentiment =
+  | { withheld: "human_reviewed" }
+  | {
+      withheld?: undefined;
+      rubric_version: string | null;
+      model: string | null;
+      assessed_at: string | null;
+      text_scope?: TextScope | null;
+      axes: Partial<Record<"leaning" | "russia_stance", JevAxisScore>>;
+      subjects?: JevSubject[];
+      subjects_total?: number | null;
+      subjects_dropped?: number | null;
+      /** The pass's subject cap, so a page states the real number. */
+      subjects_max?: number | null;
+    };
+
 export interface Entities {
   people: string[];
   parties: string[];
@@ -283,6 +337,14 @@ export interface AnalysisBlock {
   news_persons?: NewsPersonMention[];
   /** T4.3 — present only when a stored assessment matches this exact text and identity set. */
   person_tones?: PersonTone[];
+  /**
+   * T4.4 Phase 4 — the Jev scales, for the axes the operator has PUBLISHED.
+   *
+   * ⚠️ ABSENT means nothing to show: no axis published, or no stored record
+   * that matches this exact text. It is never a neutral. `{withheld}` means an
+   * accepted editorial review covers the same questions and wins.
+   */
+  jev_sentiment?: JevArticleSentiment;
   party_tones: { party: string; tone: Tone }[] | null;
   topics: TopicRef[] | null;
   quality: { verdict: QualityVerdict | null; notes: string | null } | null;
@@ -3086,7 +3148,22 @@ export interface PartyArticleRow {
   title: string | null;
   published: string | null;
   story_id: string | null;
-  tone: Tone;
+  /**
+   * ⚠️ NULL when Jev produces the archive and did not rate this row — see
+   * `tone_withheld` for why. Never read a null as neutral: it is coverage
+   * that exists and was not assessed.
+   */
+  tone: Tone | null;
+  /** Why `tone` is null (`jev_publication.relabel_row`). */
+  tone_withheld?: "incidental" | "not_a_subject" | "not_scored";
+  /** The five-step display bucket, when Jev rated the row. */
+  bucket?: ToneBucket;
+  /**
+   * Who decided this row's tone once `subject_tone` is published: `jev`, or
+   * `editorial` when an accepted review covers the article. Absent means the
+   * axis is not published and GLM produced it.
+   */
+  tone_producer?: "jev" | "editorial";
   rationale: string | null;
   evidence_spans: EvidenceSpan[];
 }

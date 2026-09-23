@@ -258,6 +258,44 @@ export const aiMeta = (value: AiVerdict, language: NewsLanguage) =>
   language === "en" ? AI_META_EN[value] : AI_META[value];
 export const qualityMeta = (value: QualityVerdict, language: NewsLanguage) =>
   language === "en" ? QUALITY_META_EN[value] : QUALITY_META[value];
+/**
+ * Why a subject carries no Jev tone — ONE wording, read by the article page
+ * and the party archive alike. Two copies once disagreed about the same
+ * record: the article page called a subject whose call FAILED a passing
+ * mention while the archive said „not rated yet".
+ */
+export type ToneWithheld = "incidental" | "not_a_subject" | "not_scored";
+
+export const withheldReasonLabel = (
+  reason: ToneWithheld | undefined,
+  language: NewsLanguage,
+  { plural = false }: { plural?: boolean } = {},
+): string => {
+  const en = language === "en";
+  switch (reason) {
+    case "incidental":
+      return en
+        ? "mentioned in passing — not rated"
+        : plural
+          ? "споменати мимоходом — без оценка"
+          : "споменат мимоходом — без оценка";
+    case "not_a_subject":
+      return en
+        ? plural
+          ? "not subjects of the article"
+          : "not a subject of the article"
+        : plural
+          ? "не са субекти на материала"
+          : "не е субект на материала";
+    default:
+      return en
+        ? "not rated yet"
+        : plural
+          ? "още не са оценени"
+          : "още не е оценен";
+  }
+};
+
 // Accepts either vocabulary: the four nominal labels the corpus carries and
 // the five ordinal buckets a Jev score is bucketed into.
 export const toneMeta = (value: ToneLabel, language: NewsLanguage) =>

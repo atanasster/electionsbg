@@ -73,6 +73,8 @@ def collect(rows: list, rollup_eligible, in_registry=None) -> dict:
     scoped_out = 0
     refused_id = 0
     duplicate_pairs = 0
+    row_categories: dict = {}
+    row_reviewed: dict = {}
     for row in rows:
         analysis = row.get("analysis") or {}
         tones = [t for t in (analysis.get("party_tones") or []) if isinstance(t, dict)]
@@ -172,9 +174,49 @@ def collect(rows: list, rollup_eligible, in_registry=None) -> dict:
                 cat = topics.setdefault(category, {})
                 bucket = cat.setdefault(party_id, empty_counts())
                 _add(bucket, label)
+            # Beside the rows, never on them — a row is shipped verbatim in the
+            # party payload. A later relabel (`jev_publication`) re-derives
+            # `topics` from the rows' final tones and needs each row's topic.
+            row_categories[(row.get("url"), party_id)] = category
+            # Whether an editor ACCEPTED this article's verdicts. A later
+            # relabel must leave these rows alone — see `jev_publication`.
+            review = analysis.get("human_review")
+            row_reviewed[(row.get("url"), party_id)] = (
+                isinstance(review, dict) and review.get("status") == "accepted")
     return {"parties": parties, "topics": topics, "unresolved": unresolved,
             "scoped_out": scoped_out, "refused_id": refused_id,
-            "duplicate_pairs": duplicate_pairs}
+            "duplicate_pairs": duplicate_pairs,
+            "row_categories": row_categories,
+            "row_reviewed": row_reviewed}
+
+
+def recount(collected: dict) -> None:
+    """Re-derive every distribution from the rows' CURRENT tones, in place.
+
+    ⚠️ THE COUNTS ARE FOLDED WHILE `collect` WALKS, so anything that changes
+    a row's tone afterwards — the Jev publication relabel — leaves `counts`,
+    `assessed` and `topics` describing tones the rows no longer carry: a
+    header over one set of verdicts and a list of another. A row whose tone is
+    not one of `TONE_ORDER` (None, when the relabel withholds it) is coverage
+    that was not assessed, exactly as `outlet_breakdown` already reads it.
+    """
+    categories = collected.get("row_categories") or {}
+    topics: dict = {}
+    for party_id, party in (collected.get("parties") or {}).items():
+        party["counts"] = empty_counts()
+        party["assessed"] = 0
+        for row in party.get("rows") or []:
+            label = row.get("tone")
+            if label not in TONE_ORDER:
+                continue
+            _add(party["counts"], label)
+            party["assessed"] += 1
+            category = categories.get((row.get("url"), party_id))
+            if category:
+                bucket = topics.setdefault(category, {}).setdefault(
+                    party_id, empty_counts())
+                _add(bucket, label)
+    collected["topics"] = topics
 
 
 def party_index(collected: dict, generated_at: str, rubric_version: str) -> dict:
@@ -266,6 +308,12 @@ def party_payload(party: dict, generated_at: str, rubric_version: str,
         "names_seen": sorted(party["names"], key=lambda n: (-party["names"][n], n)),
         "counts": dict(party["counts"]),
         "assessed": party["assessed"],
+        # ⚠️ WHICH PRODUCER THE COUNTS ARE FROM, at the header — not only per
+        # row. With `subject_tone` published they are Jev's, and a header
+        # carrying only GLM's `rubric_version` would attribute them wrongly.
+        **({"tone_producer": party["tone_producer"],
+            "tone_rubric_version": party.get("tone_rubric_version")}
+           if party.get("tone_producer") else {}),
         "article_count": len(party["articles"]),
         "outlet_count": len(party["outlets"]),
         "first_published": party["first_published"],

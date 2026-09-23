@@ -1332,3 +1332,196 @@ describe("ArticleScreen story siblings", () => {
     expect(screen.queryByText("Съседна публикация")).toBeNull();
   });
 });
+
+describe("the Jev scales (T4.4 Phase 4)", () => {
+  beforeEach(() => vi.resetModules());
+
+  const scored = (value: number, applies = 0.9) => ({
+    value,
+    normalized: value / 2,
+    spread: 0.3,
+    confidence: 0.9,
+    levels: 5,
+    both_directions: false,
+    distribution: [0.05, 0.1, 0.6, 0.2, 0.05],
+    applies,
+  });
+
+  const withJev = (
+    axes: Record<string, ReturnType<typeof scored>>,
+    extra: Record<string, unknown> = {},
+  ) => {
+    const a = analysed();
+    (a as unknown as Record<string, unknown>).jev_sentiment = {
+      rubric_version: "jev-sentiment-v1",
+      model: "typesafe/jev-1.13-20260917",
+      assessed_at: "2026-09-23T06:00:00Z",
+      text_scope: {
+        version: 1,
+        kind: "full",
+        chars_seen: 900,
+        chars_total: 900,
+        coverage: 1,
+        basis: "provenance",
+      },
+      axes,
+      ...extra,
+    };
+    return a;
+  };
+
+  it("replaces „Проверима оценка“ and the quoted cards with the scales", async () => {
+    // ⚠️ The label promised a quoted span per verdict; a whole-text scale
+    // has none, so it may not wear that label.
+    await renderAt([
+      article({
+        analysis: withJev({ leaning: scored(1.2), russia_stance: scored(1.5) }),
+      }),
+    ]);
+    expect(await screen.findByText("Оценка по скали")).toBeVisible();
+    expect(screen.queryByText("Проверима оценка")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Моделна скала")).toHaveLength(2);
+    expect(screen.queryByText("Моделна оценка")).not.toBeInTheDocument();
+    // The GLM quote is gone, and the source link stands in its place.
+    expect(
+      screen.queryByText(/Материалът представя и двете страни/),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Проверете в източника" }),
+    ).toHaveAttribute("href", "https://ex.bg/a/1");
+  });
+
+  it("replaces only the axes that were published", async () => {
+    await renderAt([article({ analysis: withJev({ leaning: scored(1.2) }) })]);
+    expect(await screen.findByTestId("jev-axis-leaning")).toBeVisible();
+    expect(screen.queryByTestId("jev-axis-russia_stance")).toBeNull();
+    // Russia keeps its model card and its quoted sentence.
+    expect(screen.getByText(/няма позоваване на Русия/)).toBeVisible();
+  });
+
+  it("lets an EDITORIAL verdict win over a Jev score on the same axis", async () => {
+    // ⚠️ The build withholds the block under a human review, but an axis can
+    // also be editorial through accepted reader feedback, which it does not
+    // see — so the page must guard too. Two verdicts on one question would
+    // contradict each other.
+    const a = withJev({ leaning: scored(1.2), russia_stance: scored(1.5) });
+    a.leaning = {
+      label: "conservative",
+      confidence: null,
+      evidence: "Редакционната проверка отчита консервативно рамкиране.",
+    };
+    a.human_review = {
+      status: "accepted",
+      adjudicated_at: "2026-08-31T12:00:00.000Z",
+      revision: 2,
+      fields: {
+        leaning: "changed",
+        russia_stance: "unable_to_judge",
+        party_tones: "accepted",
+      },
+      public_explanation: null,
+    };
+    await renderAt([article({ analysis: a })]);
+    expect(
+      await screen.findByText(/Редакционната проверка отчита консервативно/),
+    ).toBeVisible();
+    expect(screen.queryByTestId("jev-axis-leaning")).toBeNull();
+    // Russia was not judged by the editors, so the scale may stand there.
+    expect(screen.getByTestId("jev-axis-russia_stance")).toBeVisible();
+  });
+
+  it("leaves the page as it was when the block is withheld", async () => {
+    const a = analysed();
+    (a as unknown as Record<string, unknown>).jev_sentiment = {
+      withheld: "human_reviewed",
+    };
+    await renderAt([article({ analysis: a })]);
+    expect(await screen.findByText("Проверима оценка")).toBeVisible();
+    expect(screen.queryByText("Моделна скала")).not.toBeInTheDocument();
+  });
+
+  it("keeps the person tones when the published subject list is EMPTY", async () => {
+    // ⚠️ `[]` is truthy: with `subject_tone` published but nothing scored,
+    // the older per-person tones were hidden with nothing in their place.
+    const a = withJev(
+      { leaning: scored(0) },
+      { subjects: [], subjects_total: 0, subjects_dropped: 0 },
+    );
+    a.news_persons = [
+      {
+        surface: "Ивайло Калушев",
+        basis: "registry_alias",
+        news_person_id: "np_1",
+        identity_version: "2026.1:abc",
+        name_bg: "Ивайло Калушев",
+        name_en: "Ivaylo Kalushev",
+        verified_main_site_slug: null,
+        assessment: "not_assessed",
+      },
+    ] as never;
+    const scope = {
+      version: 1,
+      kind: "full" as const,
+      chars_seen: 900,
+      chars_total: 900,
+      coverage: 1,
+      basis: "provenance" as const,
+    };
+    a.person_tones = [
+      {
+        news_person_id: "np_1",
+        mention_refs: ["Ивайло Калушев"],
+        subject_role: "primary",
+        assessment_status: "assessed",
+        tone: "unfavorable",
+        confidence: 0.8,
+        rationale: "Материалът го представя като обвиняем без отговор.",
+        evidence_spans: [],
+        quoted_attitudes: [],
+        text_scope: scope,
+        model_version: "m",
+        rubric_version: "person-treatment-v1",
+        identity_version: "2026.1:abc",
+        assessed_at: "2026-09-22T00:00:00Z",
+      },
+    ] as never;
+    await renderAt([article({ analysis: a })]);
+    expect(await screen.findByText("Оценка по скали")).toBeVisible();
+    expect(screen.queryByTestId("jev-subjects")).toBeNull();
+    expect(await screen.findByTestId("news-persons")).toHaveTextContent(
+      "представяне в материала: негативен",
+    );
+  });
+
+  it("names a passing mention as unrated rather than scoring it", async () => {
+    await renderAt([
+      article({
+        analysis: withJev(
+          {},
+          {
+            subjects: [
+              {
+                name: "ГЕРБ",
+                kind: "party",
+                subject_role: "primary",
+                mentions: 4,
+                tone: scored(-1.0),
+              },
+              {
+                name: "ПП-ДБ",
+                kind: "party",
+                subject_role: "incidental",
+                mentions: 1,
+              },
+            ],
+            subjects_total: 2,
+            subjects_dropped: 0,
+          },
+        ),
+      }),
+    ]);
+    expect(await screen.findByTestId("jev-subjects")).toBeVisible();
+    expect(screen.getByTestId("jev-passing")).toHaveTextContent("ПП-ДБ");
+    expect(screen.getByText("Оценка по скали")).toBeVisible();
+  });
+});

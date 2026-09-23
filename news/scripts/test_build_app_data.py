@@ -4476,5 +4476,82 @@ class PositionedOutletCounts(unittest.TestCase):
         self.assertEqual(recomputed["aggregates"]["leaning_outlets"], 1)
 
 
+
+class JevArticleBlock(BuildAppDataFixture):
+    """T4.4 Phase 4 — where the Jev block lands, and where it must NOT.
+
+    The record is produced by the real pass (`assess_article`, fake `ask`) on
+    the exact article and analysis written to disk, because the build checks
+    the record's content key against the article it loaded.
+    """
+
+    def seed(self):
+        import jev_ask as ja  # noqa: PLC0415
+        import jev_sentiment as sm  # noqa: PLC0415
+        import test_jev_ask as tja  # noqa: PLC0415
+        art = {"url": "https://a.bg/p", "domain": "a.bg",
+               "title": "ГЕРБ и ПП-ДБ спорят за бюджета",
+               "published": "2026-09-20T09:00:00+00:00",
+               "first_seen": "2026-09-20T09:00:00+00:00",
+               "content": "ГЕРБ внесе проектобюджета. ПП-ДБ го критикува. " * 12}
+        self.write_corpus("a.bg", "p.json", art)
+        rec = self.analysis_record(art["url"], "a.bg", "news/data/a.bg/p.json")
+        rec["entities"]["parties"] = ["ГЕРБ", "ПП-ДБ"]
+        self.write_analysis("a.bg", "p.json", rec)
+        sm.store(ja.assess_article(art, rec, ask=tja.answering_ask()),
+                 Path(self.data_dir))
+
+    def build_with(self, published):
+        from unittest import mock  # noqa: PLC0415
+        with mock.patch.dict(os.environ, {"NEWS_JEV_PUBLISH": published}):
+            self.run_build()
+        article = next(a for a in self.load("articles/a.bg.json")["articles"]
+                       if a["url"] == "https://a.bg/p")
+        return article
+
+    def test_nothing_published_ships_no_block(self):
+        self.seed()
+        self.assertNotIn("jev_sentiment", self.build_with("")["analysis"])
+
+    def test_a_published_axis_reaches_the_article_bundle(self):
+        self.seed()
+        block = self.build_with("leaning,subject_tone")["analysis"]["jev_sentiment"]
+        self.assertEqual(set(block["axes"]), {"leaning"})
+        self.assertEqual({s["name"] for s in block["subjects"]}, {"ГЕРБ", "ПП-ДБ"})
+
+    def test_the_block_never_reaches_home_or_the_feed(self):
+        # ⚠️ Both project `analysis` away; a new key there would be a byte
+        # and contract change to the payload behind the home-page error.
+        self.seed()
+        self.build_with("leaning,subject_tone")
+        self.assertNotIn("jev_sentiment",
+                         json.dumps(self.load("home.json"), ensure_ascii=False))
+        self.assertNotIn("jev_sentiment",
+                         json.dumps(self.load("latest.json"), ensure_ascii=False))
+
+    def test_publishing_does_not_move_the_feedback_hash(self):
+        # ⚠️ The hash binds reader feedback to the analysis it was given
+        # against. Folding a score that is re-asked on its own schedule into
+        # it would mark every bound submission stale on each re-score.
+        self.seed()
+        before = self.build_with("")["feedback_analysis_sha256"]
+        after = self.build_with("leaning,subject_tone")["feedback_analysis_sha256"]
+        self.assertEqual(before, after)
+
+
+class EditoriallyAccepted(unittest.TestCase):
+    """The ONE predicate that withholds the Jev block for a human review."""
+
+    def test_only_an_accepted_review_withholds(self):
+        self.assertTrue(bad.editorially_accepted(
+            {"human_review": {"status": "accepted"}}))
+        # ⚠️ A review the page treats as not current does not suppress the
+        # scales, and is not reported as a human review in force.
+        self.assertFalse(bad.editorially_accepted(
+            {"human_review": {"status": "needs_revalidation"}}))
+        self.assertFalse(bad.editorially_accepted({}))
+        self.assertFalse(bad.editorially_accepted({"human_review": None}))
+        self.assertFalse(bad.editorially_accepted(None))
+
 if __name__ == "__main__":
     unittest.main()

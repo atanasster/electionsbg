@@ -12,7 +12,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useParty } from "../data";
+import { useParty, type PartyArticleRow } from "../data";
 import { isPartyId } from "../partyId";
 import {
   articles as articlesLabel,
@@ -21,18 +21,56 @@ import {
   media as mediaLabel,
   TONE_META,
   TONE_META_EN,
+  withheldReasonLabel,
 } from "../labels";
 import { useNewsLocale } from "../i18n";
 import { ToneBar } from "../components/ToneBar";
 import { OutletBreakdown } from "../components/OutletBreakdown";
 import { SentimentSeries } from "../components/SentimentSeries";
 
+/**
+ * One archive row's verdict — or, when there is none, WHY.
+ *
+ * ⚠️ A NULL TONE IS NEVER DRAWN AS NEUTRAL. With `subject_tone` published the
+ * archive is Jev's, and a row Jev did not rate is coverage that exists and
+ * was not assessed: the party was a passing mention (the Минчев shape), is
+ * not in the text at all (the pik.bg shape), or has not been scored yet.
+ * Printing nothing there would read as a missing label; printing „неутрален"
+ * would be the exact false verdict this plan was opened to remove.
+ */
+const RowTone = ({ row }: { row: PartyArticleRow }) => {
+  const { isEnglish, language } = useNewsLocale();
+  const meta = isEnglish ? TONE_META_EN : TONE_META;
+  if (!row.tone) {
+    return (
+      <span
+        className="text-xs text-muted-foreground"
+        data-testid="row-tone-withheld"
+      >
+        {withheldReasonLabel(row.tone_withheld, language)}
+      </span>
+    );
+  }
+  // The five-step bucket, when Jev rated the row: „силно негативен" is the
+  // same side as „негативен" in the counts, and the row may say so.
+  // ⚠️ EXCEPT `mixed`, which is what the header COUNTS this row as. Its
+  // bucket is the centre of a two-sided distribution, so printing it would
+  // label the row „неутрален" under a header that calls it „смесен".
+  const shown = (
+    row.tone === "mixed" ? "mixed" : (row.bucket ?? row.tone)
+  ) as keyof typeof meta;
+  return (
+    <span className={`text-xs font-medium ${meta[shown]?.className ?? ""}`}>
+      {meta[shown]?.label ?? row.tone}
+    </span>
+  );
+};
+
 export const PartyScreen = () => {
   const { id } = useParams<{ id: string }>();
-  const { language, tr, isEnglish } = useNewsLocale();
+  const { language, tr } = useNewsLocale();
   const [page, setPage] = useState(1);
   const party = useParty(id, page);
-  const meta = isEnglish ? TONE_META_EN : TONE_META;
 
   // ⚠️ THE GUARD COMES FIRST. An id the charset refuses makes
   // `partyPayloadPath` return null, and `useData(null)` never loads — so
@@ -113,11 +151,7 @@ export const PartyScreen = () => {
             className="px-4 py-3"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <span
-                className={`text-xs font-medium ${meta[row.tone]?.className}`}
-              >
-                {meta[row.tone]?.label ?? row.tone}
-              </span>
+              <RowTone row={row} />
               <span className="text-xs text-muted-foreground">
                 {row.domain} · {formatDate(row.published, language)}
               </span>

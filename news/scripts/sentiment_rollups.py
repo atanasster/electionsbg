@@ -218,6 +218,67 @@ def series(rows: list, granularity=None) -> dict:
     return {"granularity": granularity, "points": points, "undated": undated}
 
 
+def _round(value, places):
+    return (round(float(value), places)
+            if isinstance(value, (int, float)) and not isinstance(value, bool)
+            else None)
+
+
+def _bucket_index(value, levels):
+    """The display bucket of the EXACT value, or None if it cannot be placed."""
+    import jev_axes as ax  # noqa: PLC0415
+    import jev_scales as js  # noqa: PLC0415
+    scale = ax.ANCHOR_VARIANTS.get(levels)
+    if scale is None or not isinstance(value, (int, float)) or isinstance(value, bool):
+        return None
+    return js.bucket_index(value, scale)
+
+
+def score_public(score: dict, *, with_distribution: bool = False) -> dict:
+    """One stored Jev score as a PAGE carries it. The ONE projection.
+
+    ⚠️ EVERY SURFACE GOES THROUGH HERE — the party archive's rows and the
+    article page alike — because the field that becomes `confidence` is a
+    decision, not a copy. Plan §2.4 held that Jev's reported confidence equals
+    the distribution's modal probability; measured over the corpus it does not
+    (they disagree on roughly 57% of answers), so the two are different
+    quantities and a page must show one of them under one name. Choosing it in
+    two places is how two pages would come to disagree about the same answer.
+
+    `with_distribution` adds the per-level probabilities, which the article
+    page draws and a party row — multiplied across thousands of rows — does not.
+    """
+    value = score.get("value")
+    levels = score.get("levels")
+    out = {
+        # ⚠️ ROUNDED FOR THE WIRE, and the bucket is NOT re-derived from the
+        # rounded number. Stored floats carry noise (`-1.5999999999999999`)
+        # that cost 11% of every article bundle's gzip once published. Jev's
+        # probabilities come in hundredths, so a value is almost always a
+        # multiple of 0.01 — measured, rounding to 4 places moved 0 of 34,463
+        # buckets — but 319 values sit off that grid, so „almost always" is
+        # not a guarantee. `bucket_index` is therefore computed HERE from the
+        # exact value and shipped, and a page uses it rather than bucketing
+        # the rounded number: the page and the archive's counts cannot
+        # disagree about which side a row is on.
+        "value": _round(value, 4),
+        "normalized": _round(score.get("normalized"), 4),
+        "spread": _round(score.get("spread"), 3),
+        "confidence": _round(score.get("confidence_derived"), 3),
+        "levels": levels,
+        "both_directions": score.get("both_directions"),
+        "bucket_index": _bucket_index(value, levels),
+    }
+    if with_distribution:
+        probabilities = score.get("probabilities") or {}
+        levels = score.get("levels")
+        if isinstance(levels, int) and levels > 0:
+            out["distribution"] = [
+                round(float(probabilities.get(str(i)) or 0.0), 3)
+                for i in range(levels)]
+    return out
+
+
 def attach_sentiment(rows: list, records: dict, *, kind: str) -> int:
     """Join the stored Jev record onto each row, by (url, kind, surface).
 
@@ -251,12 +312,7 @@ def attach_sentiment(rows: list, records: dict, *, kind: str) -> int:
         if not match:
             continue
         row["sentiment"] = {
-            "value": match["tone"].get("value"),
-            "normalized": match["tone"].get("normalized"),
-            "spread": match["tone"].get("spread"),
-            "confidence": match["tone"].get("confidence_derived"),
-            "levels": match["tone"].get("levels"),
-            "both_directions": match["tone"].get("both_directions"),
+            **score_public(match["tone"]),
             "subject_role": match.get("subject_role"),
         }
         attached += 1

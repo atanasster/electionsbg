@@ -175,3 +175,61 @@ describe("PartyScreen with an unserveable id", () => {
     ).toBeVisible();
   });
 });
+
+describe("PartyScreen — a Jev-produced archive", () => {
+  afterEach(cleanup);
+
+  const row = (over: Partial<PartyPayload["articles"][number]>) => ({
+    ...payload().articles[0],
+    rationale: null,
+    evidence_spans: [],
+    tone_producer: "jev" as const,
+    ...over,
+  });
+
+  it("says WHY a row has no tone, and never calls it neutral", async () => {
+    // ⚠️ The two shapes that opened this plan: a party quoted in passing
+    // (Минчев) and a party the text does not contain (pik.bg).
+    await renderParty(
+      payload({
+        counts: { favorable: 0, neutral: 0, unfavorable: 0, mixed: 0 },
+        assessed: 0,
+        articles: [
+          row({ tone: null, tone_withheld: "incidental", article_id: "a1" }),
+          row({ tone: null, tone_withheld: "not_a_subject", article_id: "a2" }),
+          row({ tone: null, tone_withheld: "not_scored", article_id: "a3" }),
+        ],
+      }),
+    );
+    const reasons = (await screen.findAllByTestId("row-tone-withheld")).map(
+      (el) => el.textContent,
+    );
+    expect(reasons).toEqual([
+      "споменат мимоходом — без оценка",
+      "не е субект на материала",
+      "още не е оценен",
+    ]);
+    expect(screen.queryByText("неутрален")).not.toBeInTheDocument();
+  });
+
+  it("labels a MIXED row as mixed, the way the header counts it", async () => {
+    // ⚠️ Its bucket is the centre of a two-sided distribution; printing it
+    // would read „неутрален" under a header counting „смесен".
+    await renderParty(
+      payload({ articles: [row({ tone: "mixed", bucket: "neutral" })] }),
+    );
+    expect(await screen.findByText("смесен")).toBeInTheDocument();
+    expect(screen.queryByText("неутрален")).not.toBeInTheDocument();
+  });
+
+  it("prints the strong degree a rated row carries", async () => {
+    await renderParty(
+      payload({
+        articles: [
+          row({ tone: "unfavorable", bucket: "strongly_unfavorable" }),
+        ],
+      }),
+    );
+    expect(await screen.findByText("силно негативен")).toBeInTheDocument();
+  });
+});

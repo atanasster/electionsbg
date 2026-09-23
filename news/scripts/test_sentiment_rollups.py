@@ -222,6 +222,53 @@ class Series(unittest.TestCase):
         self.assertEqual(sr.series([row()])["granularity"], "day")
 
 
+class ScorePublic(unittest.TestCase):
+    """The ONE projection both the party rows and the article page read."""
+
+    SCORE = {"value": -1.2, "normalized": -0.6, "spread": 0.4,
+             "confidence_derived": 0.7, "confidence_reported": 0.95,
+             "levels": 5, "both_directions": False,
+             "probabilities": {"0": 0.3, "1": 0.7, "2": 0.0, "3": 0.0, "4": 0.0}}
+
+    def test_confidence_is_the_DERIVED_field(self):
+        # ⚠️ Phase 0 measured the two differ on most answers; whichever a page
+        # shows, every page must show the same one.
+        self.assertEqual(sr.score_public(self.SCORE)["confidence"], 0.7)
+
+    def test_the_distribution_ships_only_when_asked_for(self):
+        # A party row is multiplied across thousands of rows; the article page
+        # draws it.
+        self.assertNotIn("distribution", sr.score_public(self.SCORE))
+        self.assertEqual(
+            sr.score_public(self.SCORE, with_distribution=True)["distribution"],
+            [0.3, 0.7, 0.0, 0.0, 0.0])
+
+    def test_the_wire_value_is_rounded_but_the_bucket_is_the_EXACT_ones(self):
+        # A value a hair under an edge: rounded it sits ON the edge, and a
+        # page bucketing the rounded number could land on the other side of
+        # the archive's count. The shipped index is the exact value's.
+        edge = {**self.SCORE, "value": 0.49999, "normalized": 0.249995}
+        out = sr.score_public(edge)
+        self.assertEqual(out["value"], 0.5)
+        self.assertEqual(out["bucket_index"], 2)       # neutral, not favorable
+
+    def test_float_noise_does_not_reach_the_wire(self):
+        noisy = {**self.SCORE, "value": -1.5999999999999999,
+                 "spread": 0.6633249580710799}
+        out = sr.score_public(noisy)
+        self.assertEqual(out["value"], -1.6)
+        self.assertEqual(out["spread"], 0.663)
+
+    def test_an_unplaceable_score_has_no_bucket(self):
+        self.assertIsNone(sr.score_public({**self.SCORE, "levels": 7})["bucket_index"])
+        self.assertIsNone(sr.score_public({**self.SCORE, "value": None})["bucket_index"])
+
+    def test_a_missing_level_is_zero_and_the_length_is_the_scale(self):
+        partial = {**self.SCORE, "probabilities": {"1": 1.0}}
+        dist = sr.score_public(partial, with_distribution=True)["distribution"]
+        self.assertEqual(dist, [0.0, 1.0, 0.0, 0.0, 0.0])
+
+
 class AttachSentiment(unittest.TestCase):
     """⚠️ EVERY FIXTURE HERE USES A ROW THE COLLECTOR ACTUALLY PRODUCES.
 

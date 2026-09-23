@@ -70,6 +70,11 @@ import { emitNewsEvent } from "../analytics";
 import { evalTaskPath, useEvalQueue } from "../evals";
 import { isNewsPersonId } from "../newsPersonId";
 import { useNewsLocale } from "../i18n";
+import {
+  JevAxisCard,
+  JevProvenance,
+  JevSubjects,
+} from "../components/JevScales";
 
 const feedbackIssueLabel = (kind: string, english: boolean): string => {
   const labels: Record<string, [string, string]> = {
@@ -465,6 +470,23 @@ export const ArticleScreen = () => {
     (acceptedReview && humanReview.fields.russia_stance !== "unable_to_judge")
       ? "editorial"
       : "model";
+  // T4.4 Phase 4 — the Jev scales, where the operator has published them.
+  // ⚠️ AN EDITORIAL VERDICT WINS, PER AXIS. The build already withholds the
+  // whole block under an accepted human review, but an axis can also be
+  // editorial through accepted READER feedback, which the build does not see
+  // here — so a Jev score replaces a card only while that card's source is
+  // the model. Two verdicts on one question would contradict each other.
+  const jev =
+    analysis?.jev_sentiment && !analysis.jev_sentiment.withheld
+      ? analysis.jev_sentiment
+      : null;
+  const jevLeaning =
+    leaningSource === "model" ? (jev?.axes.leaning ?? null) : null;
+  const jevRussia =
+    russiaSource === "model" ? (jev?.axes.russia_stance ?? null) : null;
+  const jevSubjects = jev?.subjects ?? null;
+  const showsJev = Boolean(jevLeaning || jevRussia || jevSubjects?.length);
+  const showsGlmAxis = !jevLeaning || !jevRussia;
   const analysisFeedbackFields = new Set([
     "leaning",
     "russia_stance",
@@ -732,12 +754,18 @@ export const ArticleScreen = () => {
           <div className="flex flex-wrap items-start justify-between gap-3 border-b pb-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[hsl(var(--editorial-kicker))]">
-                {hasAnalysisProvenance
-                  ? tr("Проверима оценка", "Verifiable rating")
-                  : tr(
-                      "Непълна следа на анализа",
-                      "Incomplete analysis record",
-                    )}
+                {showsJev
+                  ? // ⚠️ NOT „Проверима оценка": that label promised a quoted
+                    // span per verdict, and a whole-text scale has none. The
+                    // provenance line below says what was read and links the
+                    // source, which is where a reader verifies it.
+                    tr("Оценка по скали", "Scale assessment")
+                  : hasAnalysisProvenance
+                    ? tr("Проверима оценка", "Verifiable rating")
+                    : tr(
+                        "Непълна следа на анализа",
+                        "Incomplete analysis record",
+                      )}
               </p>
               <h2
                 id="article-analysis-heading"
@@ -845,44 +873,85 @@ export const ArticleScreen = () => {
           ) : null}
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <AxisCard
-              title={tr(
-                "Политическо рамкиране на материала",
-                "Political framing of the article",
-              )}
-              {...scaleOf(
-                isEnglish ? LEANING_META_EN : LEANING_META,
-                analysis.leaning?.label,
-                tr("Оценката не е налична", "Rating unavailable"),
-              )}
-              confidence={
-                leaningSource === "editorial"
-                  ? null
-                  : analysis.leaning?.confidence
-              }
-              evidence={analysis.leaning?.evidence}
-              block={analysis.leaning}
-              source={leaningSource}
-            />
-            <AxisCard
-              title={tr("Отношение към Русия", "Stance toward Russia")}
-              {...scaleOf(
-                isEnglish ? RUSSIA_META_EN : RUSSIA_META,
-                analysis.russia_stance?.label,
-                tr("Оценката не е налична", "Rating unavailable"),
-              )}
-              confidence={
-                russiaSource === "editorial"
-                  ? null
-                  : analysis.russia_stance?.confidence
-              }
-              evidence={analysis.russia_stance?.evidence}
-              block={analysis.russia_stance}
-              source={russiaSource}
-            />
+            {jevLeaning ? (
+              <JevAxisCard
+                title={tr(
+                  "Политическо рамкиране на материала",
+                  "Political framing of the article",
+                )}
+                axis="leaning"
+                score={jevLeaning}
+              />
+            ) : (
+              <AxisCard
+                title={tr(
+                  "Политическо рамкиране на материала",
+                  "Political framing of the article",
+                )}
+                {...scaleOf(
+                  isEnglish ? LEANING_META_EN : LEANING_META,
+                  analysis.leaning?.label,
+                  tr("Оценката не е налична", "Rating unavailable"),
+                )}
+                confidence={
+                  leaningSource === "editorial"
+                    ? null
+                    : analysis.leaning?.confidence
+                }
+                evidence={analysis.leaning?.evidence}
+                block={analysis.leaning}
+                source={leaningSource}
+              />
+            )}
+            {jevRussia ? (
+              <JevAxisCard
+                title={tr("Отношение към Русия", "Stance toward Russia")}
+                axis="russia_stance"
+                score={jevRussia}
+              />
+            ) : (
+              <AxisCard
+                title={tr("Отношение към Русия", "Stance toward Russia")}
+                {...scaleOf(
+                  isEnglish ? RUSSIA_META_EN : RUSSIA_META,
+                  analysis.russia_stance?.label,
+                  tr("Оценката не е налична", "Rating unavailable"),
+                )}
+                confidence={
+                  russiaSource === "editorial"
+                    ? null
+                    : analysis.russia_stance?.confidence
+                }
+                evidence={analysis.russia_stance?.evidence}
+                block={analysis.russia_stance}
+                source={russiaSource}
+              />
+            )}
           </div>
 
-          {analysis.text_scope && analysis.text_scope.kind !== "full" ? (
+          {jevSubjects?.length ? (
+            <JevSubjects
+              subjects={jevSubjects}
+              dropped={jev?.subjects_dropped}
+              max={jev?.subjects_max}
+            />
+          ) : null}
+          {showsJev ? (
+            <JevProvenance
+              textScope={jev?.text_scope}
+              articleUrl={article.url}
+              model={jev?.model}
+              assessedAt={jev?.assessed_at}
+            />
+          ) : null}
+
+          {/* ⚠️ THIS NOTE DESCRIBES THE MODEL CARDS' READ, not Jev's. Jev read
+              up to 24,000 characters where this pass read 6,000, so the two
+              scopes differ; with both axes on Jev there is no card for it to
+              describe, and `JevProvenance` above carries Jev's own. */}
+          {showsGlmAxis &&
+          analysis.text_scope &&
+          analysis.text_scope.kind !== "full" ? (
             // T4.1c — a verdict not made on the demonstrably full text is a
             // SCOPED observation: said here, counted in no story, outlet or
             // topic rollup. The figures are printed only when both were
@@ -963,7 +1032,13 @@ export const ArticleScreen = () => {
           />
           <NewsPersonsBlock
             rows={analysis.news_persons}
-            tones={analysis.person_tones}
+            // With Jev's subject tones on the page the older per-person tones
+            // would be a second verdict on the same people.
+            // ⚠️ `.length`, not truthiness: `[]` is truthy, and an article
+            // naming nobody (28.5% of the corpus) or one whose subject calls
+            // failed would otherwise lose its person tones with nothing shown
+            // in their place.
+            tones={jevSubjects?.length ? undefined : analysis.person_tones}
           />
         </section>
       ) : (
