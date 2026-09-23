@@ -1,11 +1,17 @@
 {
-  "detail": "no new sessions (max id 11172, 2026-09-18)",
-  "fingerprint": "11172|2026-09-18",
-  "lastChanged": "2026-09-21T17:13:27.309Z",
-  "lastChecked": "2026-09-22T21:40:44.063Z",
+  "detail": "1 new session(s), 1 with roll-call CSV (latest id 11173, 2026-09-23)",
+  "fingerprint": "11173|2026-09-23",
+  "lastChanged": "2026-09-23T21:40:51.531Z",
+  "lastChecked": "2026-09-23T21:40:51.531Z",
   "meta": {
-    "maxId": 11172,
-    "maxDate": "2026-09-18",
-    "newSinceLast": []
+    "maxId": 11173,
+    "maxDate": "2026-09-23",
+    "newSinceLast": [
+      {
+        "id": 11173,
+        "date": "2026-09-23",
+        "hasRollcall": true
+      }
+    ]
   }
 }
