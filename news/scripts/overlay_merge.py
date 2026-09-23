@@ -118,7 +118,8 @@ RESTAMPED_PATHS = frozenset({"latest.json", "stories.json",
 # `WHOLE_STORY_FILES` / `is_story_detail_path` live in app_data_inventory.py
 # (bundled, imported by the uploader too) — one rule for every walker of
 # `stories/`, see the note there.
-from app_data_inventory import WHOLE_STORY_FILES, is_story_detail_path  # noqa: E402
+from app_data_inventory import (WHOLE_STORY_FILES, is_filter_index_path,  # noqa: E402
+                                is_story_detail_path)
 
 
 def _is_merged_path(path: str) -> bool:
@@ -134,11 +135,22 @@ def _is_merged_path(path: str) -> bool:
     # it, so leaving it inside `stories/` meant the overlay passed the BASE's
     # copy through: a story published in the hot window was absent from every
     # facet while being present in the pages — „filter what you happen to
-    # have", which is the exact defect the index was built to remove. It is
-    # one whole-corpus file of ~45 KB, about 2% of the overlay ceiling, and
-    # a merge for it would have to re-derive counts over rows the overlay
-    # does not hold.
-    if path in WHOLE_STORY_FILES:
+    # have", which is the exact defect the index was built to remove. A merge
+    # for it would have to re-derive counts over rows the overlay does not
+    # hold.
+    # ⚠️ EVERY SHARD TOO, not only the manifest. A shard carries positional
+    # rows with no key to merge on, exactly as the manifest carried them
+    # before it was partitioned.
+    # ⚠️ AND EVERY SHARD IS DIRTY ON EVERY PUBLISH, so the partition buys the
+    # OVERLAY nothing. Shard boundaries are count-based over a globally
+    # sorted list, so one new story shifts every row down one place —
+    # measured, 4 of 4 shards change. The overlay therefore still carries the
+    # WHOLE index: ~400 KB RAW at 4,899 stories (MAX_OVERLAY_BYTES is
+    # compared against raw bytes, not gzip), i.e. 20% of the ceiling and
+    # growing linearly with the corpus. The split is a win for the READER's
+    # window, not for this path; the day that share matters the answer is a
+    # keyed merge, not more shards.
+    if path in WHOLE_STORY_FILES or is_filter_index_path(path):
         return False
     return (path in MERGED_PATHS
             or path.startswith("articles/")

@@ -9,7 +9,7 @@ import type {
   TaxonomyCategory,
 } from "../data";
 import { NEWS_BRIEFING_STORAGE_KEY } from "../briefing";
-import { queryStories } from "../storyQuery";
+import { queryStories, QUERY_VERSION } from "../storyQuery";
 
 const NOW = Date.parse("2026-08-31T07:00:00Z");
 
@@ -179,7 +179,7 @@ const renderHome = async (
       return {
         result: queryStories(
           {
-            query_version: 1,
+            query_version: QUERY_VERSION,
             fields: ["id", "last_published", "categories", "domains"],
             total: corpusTopics.length,
             facets_basis: {},

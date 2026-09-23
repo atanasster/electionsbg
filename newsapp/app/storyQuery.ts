@@ -40,6 +40,60 @@ export interface FilterIndex {
   readonly stories: readonly FilterRow[];
 }
 
+/** One slice of the corpus, named by the manifest. */
+export interface FilterIndexShard {
+  readonly path: string;
+  readonly count: number;
+  /** ISO bounds of the DATED rows, or null when the shard holds none. */
+  readonly newest: string | null;
+  readonly oldest: string | null;
+  readonly undated: number;
+}
+
+/**
+ * `stories/filter-index.json` — the manifest. The rows live in the shards.
+ *
+ * ⚠️ IT CARRIES NO ROWS, which is the whole change: at 4,899 stories the
+ * single whole-corpus file reached 66,122 gzipped bytes against a 65,536-byte
+ * budget, and the build refused to write it. `total` and `facets` stay
+ * whole-corpus so a count is never narrowed to what was downloaded.
+ */
+export interface FilterIndexManifest extends Omit<FilterIndex, "stories"> {
+  readonly shards: readonly FilterIndexShard[];
+}
+
+/**
+ * Which shards a window needs, in manifest order.
+ *
+ * ⚠️ A SHARD IS SKIPPED ONLY WHEN NOTHING IN IT COULD MATCH. `queryStories`
+ * drops a row outside the window before counting anything, so a shard whose
+ * NEWEST dated row is already older than the window contributes nothing —
+ * and skipping it is exactly equivalent to loading it, not an approximation.
+ *
+ * ⚠️ A SHARD HOLDING UNDATED ROWS IS NEVER SKIPPED BY A WINDOWLESS QUERY.
+ * `withinDays` admits any row when `days <= 0`, so those rows count there and
+ * only there. An undated row can never satisfy a positive window, so a
+ * windowed query may skip a shard that holds nothing else.
+ *
+ * ⚠️ AND AN UNPARSEABLE BOUND IS KEPT, NOT DROPPED. A shard whose stamps we
+ * cannot read might match; skipping it would silently narrow the corpus,
+ * which is the defect this whole index exists to remove.
+ */
+export const shardsForWindow = (
+  shards: readonly FilterIndexShard[],
+  days: number,
+  now: number,
+): readonly FilterIndexShard[] => {
+  if (!days || days <= 0) return shards;
+  const cutoff = now - days * 86_400_000;
+  return shards.filter((shard) => {
+    if (shard.newest === null) return false;
+    const newest = Date.parse(shard.newest);
+    if (!Number.isFinite(newest)) return true;
+    return newest >= cutoff;
+  });
+};
+
 /**
  * The contract version this client was written against.
  *
@@ -50,7 +104,7 @@ export interface FilterIndex {
  * non-ISO value now in `row[1]` — so the whole corpus drops out of every
  * window and renders as „empty", at a 200.
  */
-export const QUERY_VERSION = 1;
+export const QUERY_VERSION = 2;
 
 export interface StoryQuery {
   /** `"all"` means every category. */

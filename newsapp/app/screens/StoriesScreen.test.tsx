@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { StoryIndexRow, TaxonomyCategory } from "../data";
-import { queryStories, type FilterRow } from "../storyQuery";
+import { queryStories, QUERY_VERSION, type FilterRow } from "../storyQuery";
 
 const NOW = Date.parse("2026-09-21T12:00:00Z");
 
@@ -111,7 +111,7 @@ const renderBrowse = async (harness: Harness, entry = "/stories") => {
         return {
           result: queryStories(
             {
-              query_version: 1,
+              query_version: QUERY_VERSION,
               fields: [],
               total: corpusRows.length,
               facets_basis: {},

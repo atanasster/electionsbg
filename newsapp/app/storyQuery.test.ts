@@ -9,6 +9,7 @@ import {
   withinWindow,
   type FilterIndex,
   type FilterRow,
+  QUERY_VERSION,
 } from "./storyQuery";
 
 const NOW = Date.parse("2026-09-21T12:00:00+00:00");
@@ -23,7 +24,7 @@ const row = (
 ): FilterRow => [id, at(hours), categories, domains];
 
 const index = (stories: FilterRow[]): FilterIndex => ({
-  query_version: 1,
+  query_version: QUERY_VERSION,
   fields: ["id", "last_published", "categories", "domains"],
   total: stories.length,
   facets_basis: { categories: "every topic", domains: "every outlet" },

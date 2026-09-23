@@ -364,8 +364,10 @@ export const HomeScreen = () => {
                     )
                   : // In flight — say what we do not yet know, rather than
                     // what is not there. `home.json` (13 KB) resolves before
-                    // `filter-index.json` (~41 KB), so this window is every
-                    // reader's first second on a narrow topic.
+                    // the filter index, which since the partition is a ~1 KB
+                    // manifest plus the shards this window needs (~21 KB at
+                    // 24h, ~64 KB whole) — so this window is every reader's
+                    // first second on a narrow topic.
                     tr("Броим целия корпус…", "Counting the whole corpus…")
                 : corpus.result.ids.length > 0
                   ? tr(

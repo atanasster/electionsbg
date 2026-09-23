@@ -20,13 +20,27 @@ from typing import Any
 WHOLE_STORY_FILES = frozenset({"stories/filter-index.json",
                                "stories/retired.json"})
 _STORY_PAGE = re.compile(r"^stories/(?:index|ranked)-\d+\.json$")
+# ⚠️ A SHARD IS A WHOLE FILE, NOT A STORY. `filter-index-1` matches
+# `STORY_ID_SAFE`, so without this it reaches the story-detail arm and
+# resolves to a story no release holds — the exact trap the named-file rule
+# beside `by-url.json` already documents, one file family over.
+_FILTER_SHARD = re.compile(r"^stories/filter-index-\d+\.json$")
+
+
+def is_filter_index_path(path: str) -> bool:
+    """The manifest or one of its shards — carried whole by the overlay."""
+    return path == "stories/filter-index.json" or bool(_FILTER_SHARD.match(path))
 
 
 def is_story_detail_path(path: str) -> bool:
     """Is this `stories/<id>.json` ONE story's detail file? The one rule."""
+    # The filter-index family is decided ONCE, by `is_filter_index_path` —
+    # `path not in WHOLE_STORY_FILES and not _FILTER_SHARD.match(path)` is
+    # the same rule spelled twice, and two copies of it drift by hand.
     return (path.startswith("stories/")
             and path.endswith(".json")
-            and path not in WHOLE_STORY_FILES
+            and not is_filter_index_path(path)
+            and path != "stories/retired.json"
             and path != "stories/by-url.json"
             and not _STORY_PAGE.match(path))
 

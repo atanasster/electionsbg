@@ -39,6 +39,7 @@ describe("news performance budget", () => {
     fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
     const stories = path.join(root, "news-data", "stories");
     fs.writeFileSync(path.join(stories, "filter-index.json"), "{}");
+    fs.writeFileSync(path.join(stories, "filter-index-1.json"), "{}");
     fs.writeFileSync(path.join(stories, "index-1.json"), "small");
     fs.writeFileSync(path.join(stories, "index-2.json"), "x".repeat(200_000));
     const viaIndex = inspectNewsBuild(root).storyIndexPageGzip;
@@ -87,6 +88,84 @@ describe("news performance budget", () => {
     expect(() => inspectNewsBuild(root)).toThrow(/filter-index\.json/);
   });
 
+  it("refuses a manifest with no shards beside it", () => {
+    // ⚠️ Since the partition the rows live in the shards, so a manifest alone
+    // is an index with no corpus in it — it would measure small and answer
+    // nothing, which is the vacuous-green shape this suite exists to avoid.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-"));
+    fs.mkdirSync(path.join(root, "assets"));
+    fs.mkdirSync(path.join(root, "news-data", "stories"), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "index.html"),
+      '<link rel="stylesheet" href="/assets/entry.css"><script type="module" src="/assets/entry.js"></script>',
+    );
+    for (const file of ["assets/entry.css", "assets/entry.js"])
+      fs.writeFileSync(path.join(root, file), file);
+    fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
+    const stories = path.join(root, "news-data", "stories");
+    fs.writeFileSync(path.join(stories, "index-1.json"), "small");
+    fs.writeFileSync(path.join(stories, "filter-index.json"), "{}");
+    expect(() => inspectNewsBuild(root)).toThrow(/filter-index-1\.json/);
+  });
+
+  it("counts the manifest PLUS the largest shard, not the manifest alone", () => {
+    // The figure has to be what a reader on the default window downloads; the
+    // manifest alone is ~1 KB and would report a budget nobody is keeping.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-"));
+    fs.mkdirSync(path.join(root, "assets"));
+    fs.mkdirSync(path.join(root, "news-data", "stories"), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "index.html"),
+      '<link rel="stylesheet" href="/assets/entry.css"><script type="module" src="/assets/entry.js"></script>',
+    );
+    for (const file of ["assets/entry.css", "assets/entry.js"])
+      fs.writeFileSync(path.join(root, file), file);
+    fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
+    const stories = path.join(root, "news-data", "stories");
+    fs.writeFileSync(path.join(stories, "index-1.json"), "small");
+    fs.writeFileSync(path.join(stories, "filter-index.json"), "{}");
+    fs.writeFileSync(path.join(stories, "filter-index-1.json"), "a".repeat(50));
+    const one = inspectNewsBuild(root).filterIndexGzip;
+    fs.writeFileSync(
+      path.join(stories, "filter-index-2.json"),
+      "b".repeat(200_000),
+    );
+    const two = inspectNewsBuild(root).filterIndexGzip;
+    expect(two).toBeGreaterThan(one);
+  });
+
+  it("budgets the WHOLE index separately from the 24h window", () => {
+    // ⚠️ The two keys are different quantities and must not collapse into
+    // one. `/outlet/:domain` passes no `days`, so it downloads every shard —
+    // the same ~66 KB that aborted the build. Reporting only the one-shard
+    // figure lets that path grow unwatched behind a passing budget.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-"));
+    fs.mkdirSync(path.join(root, "assets"));
+    fs.mkdirSync(path.join(root, "news-data", "stories"), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, "index.html"),
+      '<link rel="stylesheet" href="/assets/entry.css"><script type="module" src="/assets/entry.js"></script>',
+    );
+    for (const file of ["assets/entry.css", "assets/entry.js"])
+      fs.writeFileSync(path.join(root, file), file);
+    fs.writeFileSync(path.join(root, "news-data", "home.json"), "{}");
+    const stories = path.join(root, "news-data", "stories");
+    fs.writeFileSync(path.join(stories, "index-1.json"), "small");
+    fs.writeFileSync(path.join(stories, "filter-index.json"), "{}");
+    // Two shards of EQUAL size, so "largest" and "all of them" cannot agree
+    // by accident on a corpus that happens to fit in one shard.
+    fs.writeFileSync(
+      path.join(stories, "filter-index-1.json"),
+      "a".repeat(9_000),
+    );
+    fs.writeFileSync(
+      path.join(stories, "filter-index-2.json"),
+      "b".repeat(9_000),
+    );
+    const sizes = inspectNewsBuild(root);
+    expect(sizes.filterIndexWholeGzip).toBeGreaterThan(sizes.filterIndexGzip);
+  });
+
   it("measures only HTML entry assets and ignores async chunks", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "news-perf-"));
     fs.mkdirSync(path.join(root, "assets"));
@@ -103,6 +182,7 @@ describe("news performance budget", () => {
       "news-data/home.json",
       "news-data/stories/index-1.json",
       "news-data/stories/filter-index.json",
+      "news-data/stories/filter-index-1.json",
     ])
       fs.writeFileSync(path.join(root, file), file.repeat(10));
     expect(inspectNewsBuild(root)).toEqual({
@@ -112,6 +192,7 @@ describe("news performance budget", () => {
       homeJsonGzip: expect.any(Number),
       storyIndexPageGzip: expect.any(Number),
       filterIndexGzip: expect.any(Number),
+      filterIndexWholeGzip: expect.any(Number),
     });
     fs.writeFileSync(
       path.join(root, "index.html"),

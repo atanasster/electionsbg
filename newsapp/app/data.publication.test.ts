@@ -217,6 +217,15 @@ describe("versioned news data client", () => {
   });
 
   it("can bypass manifests for the bundled local development data", async () => {
+    // ⚠️ AND IT MUST NOT PIN THE RESPONSE. Without a manifest the path is
+    // STABLE (`/news-data/home.json`, not `/versions/<run>/home.json`), and
+    // `force-cache` serves a matching entry "fresh or stale" — so the first
+    // body a dev browser ever saw would be served for the life of the cache
+    // entry and a rebuilt tree would reach the page never. Measured against a
+    // running dev server: the app read a two-build-old payload while a
+    // `no-store` fetch of the same URL returned the current one, and a
+    // `home.json` old enough to fail its own contract rendered as „Невалиден
+    // договор на началния фийд" on a tree whose committed file was valid.
     const fetcher = vi.fn(() => response({ local: true }));
     const client = createDataClient("/news-data", {
       usePublicationManifest: false,
@@ -224,8 +233,29 @@ describe("versioned news data client", () => {
     });
     await client.fetchData("/home.json");
     expect(fetcher).toHaveBeenCalledWith("/news-data/home.json", {
-      cache: "force-cache",
+      cache: "default",
     });
+  });
+
+  it("still pins the response when the path carries a release id", async () => {
+    // The other half of the pair: under a manifest `key` embeds
+    // `data_base`, so a new release is a NEW URL and a pinned response can
+    // only ever be the right one — which is what makes the mode worth
+    // having. Losing this would re-download every payload on every poll.
+    const body = { source: "base" };
+    const fetcher = vi.fn((url: string) =>
+      String(url).endsWith("/manifest.json")
+        ? response(manifest("run-cache"))
+        : response(body),
+    );
+    const client = createDataClient("/news-data", {
+      fetcher: fetcher as unknown as typeof fetch,
+    });
+    await client.fetchData("/home.json");
+    expect(fetcher).toHaveBeenCalledWith(
+      "/news-data/versions/run-cache/home.json",
+      { cache: "force-cache" },
+    );
   });
 
   it("does not let a late older response replace a newer hook result", async () => {

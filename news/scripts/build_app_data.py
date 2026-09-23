@@ -1032,14 +1032,45 @@ def story_index_row(story: dict, as_of: datetime | None = None) -> dict:
 # `score`, and 3,031 rows sort in a browser in under a millisecond — carrying
 # two id orders would add bytes to duplicate what the client can derive, and
 # a stored order would be one more thing to desynchronise from the rows.
-QUERY_VERSION = 1
+# ⚠️ BUMPED TO 2 WHEN THE INDEX WAS PARTITIONED. v1's manifest carried the
+# rows in `stories`; v2's carries `shards` and the rows live beside it. A v1
+# client reading a v2 manifest finds no `stories` array and answers ZERO for
+# every facet — a corpus-sized undercount at a 200 — so the version moves and
+# `useGlobalStoryQuery` refuses it instead.
+QUERY_VERSION = 2
 # ⚠️ ENFORCED HERE, not merely declared. A constant nobody reads is a budget
 # nobody keeps — and this file grows with the corpus, so the day it stops
 # fitting the answer is a partitioned index or a query endpoint, never quietly
 # indexing fewer stories and reporting the count as if it were all of them.
 # `news_performance_budget.ts` checks the SHIPPED artifact; this refuses to
 # write one that would fail it.
-FILTER_INDEX_GZIP_BUDGET_BYTES = 64 * 1024
+#
+# ⚠️⚠️ THAT DAY ARRIVED: 4,899 stories reached 66,122 gzipped bytes against
+# this 65,536-byte budget, and EVERY build aborted here — so `app-data` froze
+# and nothing downstream of this line was rewritten. The answer taken is the
+# first one the comment names, a PARTITIONED index, because the second (a
+# query endpoint) needs a news backend this static site does not have and the
+# third (indexing fewer stories) is the one it forbids.
+#
+# ⚠️ SINCE THE PARTITION THIS IS A PER-FILE CEILING, NOT A PER-REQUEST ONE.
+# It is asserted against the manifest AND against each shard separately; the
+# knob that keeps a shard under it is `FILTER_INDEX_SHARD_ROWS`, not this
+# number. What a READER pays is a different quantity — manifest plus the
+# shards its window needs — and lives in `news_performance_budget.ts` as
+# `filterIndexGzip` (24h) and `filterIndexWholeGzip` (every shard). The two
+# share a value's worth of history and nothing else; raising this one does
+# not make a page cheaper.
+FILTER_INDEX_FILE_GZIP_BUDGET_BYTES = 64 * 1024
+# Retained under the old name because the producer's own tests and the
+# `news:release` chain refer to it.
+FILTER_INDEX_GZIP_BUDGET_BYTES = FILTER_INDEX_FILE_GZIP_BUDGET_BYTES
+
+# Rows per shard. ⚠️ A COUNT, NOT A TIME SPAN, and that is what keeps the
+# budget met no matter how the corpus is shaped: sharding by month put 3,673
+# of the 4,899 rows in one file (~51 KB) purely because one month was busy,
+# which is the same cliff one release later. At ~14 gzipped bytes per row
+# 1,500 leaves roughly 3x headroom, and every shard is checked anyway.
+FILTER_INDEX_SHARD_ROWS = 1500
 
 
 # ⚠️ A story with no topic is counted, under this key. Dropping it would make
@@ -1072,8 +1103,51 @@ def story_filter_row(row: dict) -> list:
     ]
 
 
+def filter_index_shards(compact: list) -> list:
+    """Split the rows into budget-sized shards, NEWEST FIRST.
+
+    ⚠️ NEWEST FIRST IS WHAT MAKES THE PARTITION PAY. The client's windows are
+    24h / 7 days / 30 days, and `queryStories` drops a row outside the window
+    before it counts anything — so a shard whose whole range is older than the
+    window contributes nothing and need not be fetched. Ordered oldest-first,
+    every window would still have to read to the end of the corpus.
+
+    ⚠️ AN UNDATED ROW SORTS LAST, ON PURPOSE. `withinDays` refuses a
+    non-ISO stamp, so an undated story can never match a windowed query — but
+    a query with NO window admits it, and that query reads every shard. Last is
+    therefore the only place it is both skippable and never skipped wrongly.
+    Measured: 485 of 4,899 rows carry no `last_published`.
+    """
+    ordered = sorted(compact, key=lambda row: (bool(row[1]), row[1] or ""),
+                     reverse=True)
+    shards = []
+    for start in range(0, len(ordered), FILTER_INDEX_SHARD_ROWS):
+        window = ordered[start:start + FILTER_INDEX_SHARD_ROWS]
+        dated = [row[1] for row in window if row[1]]
+        shards.append({
+            "rows": window,
+            # The range a client skips on. Null/null means „this shard holds
+            # only undated rows", which no window can match.
+            "newest": dated[0] if dated else None,
+            "oldest": dated[-1] if dated else None,
+            "undated": len(window) - len(dated),
+        })
+    return shards
+
+
 def write_filter_index(out_dir: Path, rows: list, generated_at: str) -> dict:
-    """`stories/filter-index.json` — the whole corpus, structured fields only."""
+    """`stories/filter-index.json` — the MANIFEST, plus one shard per slice.
+
+    The manifest carries what every caller needs before it knows which rows it
+    wants: the contract version, the whole-corpus total, the whole-corpus
+    facets and the shard list. The rows live in `filter-index-<n>.json`.
+
+    ⚠️ THE MANIFEST KEEPS THE OLD PATH, deliberately. It is named in
+    `WHOLE_STORY_FILES` on both sides of the overlay and in the performance
+    budget, and a client that has not been updated reads it, finds no
+    `stories` array and answers zero — which is why `query_version` moves with
+    this change, so such a client is REFUSED rather than quietly narrowed.
+    """
     categories: dict = {}
     domains: dict = {}
     compact = []
@@ -1084,6 +1158,32 @@ def write_filter_index(out_dir: Path, rows: list, generated_at: str) -> dict:
             categories[category] = categories.get(category, 0) + 1
         for domain in entry[3]:
             domains[domain] = domains.get(domain, 0) + 1
+
+    shards = filter_index_shards(compact)
+    stories_dir = out_dir / "stories"
+    stories_dir.mkdir(parents=True, exist_ok=True)
+    manifest_shards = []
+    for number, shard in enumerate(shards, start=1):
+        name = f"filter-index-{number}.json"
+        shard_path = stories_dir / name
+        write_json(shard_path, {"query_version": QUERY_VERSION,
+                                "stories": shard["rows"]})
+        shard_size = len(gzip.compress(shard_path.read_bytes(), 6))
+        if shard_size > FILTER_INDEX_GZIP_BUDGET_BYTES:
+            raise SystemExit(
+                f"stories/{name} is {shard_size} gzipped bytes, over the "
+                f"{FILTER_INDEX_GZIP_BUDGET_BYTES}-byte query budget — lower "
+                f"FILTER_INDEX_SHARD_ROWS (now {FILTER_INDEX_SHARD_ROWS}); do "
+                "not index fewer stories")
+        manifest_shards.append({
+            "path": f"stories/{name}",
+            "count": len(shard["rows"]),
+            "newest": shard["newest"],
+            "oldest": shard["oldest"],
+            "undated": shard["undated"],
+            "gzip_bytes": shard_size,
+        })
+
     payload = {
         "generated_at": generated_at,
         # ⚠️ NO `as_of`, DELIBERATELY. Nothing here decays, so there is no
@@ -1110,16 +1210,34 @@ def write_filter_index(out_dir: Path, rows: list, generated_at: str) -> dict:
         },
         "facets": {"categories": dict(sorted(categories.items())),
                    "domains": dict(sorted(domains.items()))},
-        "stories": compact,
+        # ⚠️ WHOLE-CORPUS, WHICH IS WHY IT IS CARRIED AT ALL. A windowed
+        # client downloads some shards and cannot compute this; `total` is a
+        # count of the same basis. No consumer in `newsapp/` reads it today,
+        # and one that does must not compare it with `result.facets`, which
+        # is computed over the DOWNLOADED rows and is therefore windowed.
+        # ⚠️ NEWEST FIRST, and a client reads them in this order until its
+        # window is covered. `count` sums to `total`, which is the check that
+        # a shard was not dropped — asserted on BOTH sides: by the reachability
+        # gate when it reassembles the corpus, and by `useFilterIndex`, which
+        # refuses a shard arriving short rather than publishing a narrower
+        # index.
+        "shards": manifest_shards,
     }
-    path = out_dir / "stories" / "filter-index.json"
+    path = stories_dir / "filter-index.json"
     write_json(path, payload)
     size = len(gzip.compress(path.read_bytes(), 6))
     if size > FILTER_INDEX_GZIP_BUDGET_BYTES:
         raise SystemExit(
             f"stories/filter-index.json is {size} gzipped bytes, over the "
-            f"{FILTER_INDEX_GZIP_BUDGET_BYTES}-byte query budget — partition "
-            "it or move the query server-side; do not index fewer stories")
+            f"{FILTER_INDEX_GZIP_BUDGET_BYTES}-byte query budget — the "
+            "manifest carries facets and a shard list, so this means the "
+            "FACETS grew; partition them or move the query server-side")
+    # ⚠️ STALE SHARDS ARE REMOVED. A corpus that shrinks leaves a higher-
+    # numbered shard on disk that the manifest no longer lists, and a reader
+    # who fetched it would be answering from a release that no longer exists.
+    for stale in stories_dir.glob("filter-index-*.json"):
+        if f"stories/{stale.name}" not in {s["path"] for s in manifest_shards}:
+            stale.unlink()
     payload["gzip_bytes"] = size
     return payload
 

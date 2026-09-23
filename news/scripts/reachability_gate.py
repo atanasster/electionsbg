@@ -489,10 +489,30 @@ def main() -> int:
               else report["reason"])
         return 1 if args.enforce else 0
 
-    filter_rows = filter_index.get("stories") or []
+    # ⚠️ THE ROWS LIVE IN THE SHARDS. `filter_index["stories"]` no longer
+    # exists: the index is a manifest plus `stories/filter-index-<n>.json`
+    # shards. Reading the old key returns [] and fails TWO ways at once — the
+    # set-difference arm reports the whole corpus "unreachable" (measured: 14
+    # of 14 fixtures, 4,899 rows), and the facet-parity arm below iterates an
+    # empty list and goes VACUOUS, so repairing only the loud half leaves a
+    # green gate checking nothing.
+    filter_rows: list = []
+    global_problems: list[str] = []
+    for entry in filter_index.get("shards") or []:
+        shard_path = APP_DATA / str((entry or {}).get("path") or "")
+        try:
+            filter_rows.extend(read_json(shard_path).get("stories") or [])
+        except (OSError, json.JSONDecodeError) as exc:
+            global_problems.append(f"filter-index shard unreadable: {exc}")
+    # The one assertion that tells "a shard failed to write" apart from "the
+    # corpus shrank" — which is what the manifest's `count`/`total` are for.
+    declared = filter_index.get("total")
+    if isinstance(declared, int) and len(filter_rows) != declared:
+        global_problems.append(
+            f"filter-index shards hold {len(filter_rows)} rows against a "
+            f"manifest total of {declared} — a shard is missing")
     paged: dict[str, list] = {}
     page_counts: dict[str, int] = {}
-    global_problems: list[str] = []
     for prefix in ("index", "ranked"):
         rows, pages, problems = load_pages(prefix)
         paged[prefix] = rows

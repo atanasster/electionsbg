@@ -46,6 +46,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import overlay_merge as om  # noqa: E402
+from app_data_inventory import is_filter_index_path  # noqa: E402
 from test_build_app_data import BuildAppDataFixture  # noqa: E402
 
 BUILD_AS_OF = "2026-09-19T12:00:00+00:00"
@@ -359,11 +360,19 @@ class EqualsFullRebuild(BuildAppDataFixture):
         self.assertIn("c.bg", index["facets"]["domains"],
                       "the new outlet never reached the facet counts")
         # And the index agrees with the pages about which stories exist.
+        # ⚠️ THE ROWS ARE IN THE SHARDS NOW, and every shard must survive the
+        # overlay too — a shard that failed to ship would narrow the corpus
+        # exactly as a lost manifest would, and `total` alone cannot see it.
         paged = {row["id"]
                  for path, page in merged.items()
                  if path.startswith("stories/index-")
                  for row in page["stories"]}
-        self.assertEqual({row[0] for row in index["stories"]}, paged)
+        indexed = {row[0]
+                   for entry in index["shards"]
+                   for row in merged[entry["path"]]["stories"]}
+        self.assertEqual(indexed, paged)
+        self.assertEqual(sum(entry["count"] for entry in index["shards"]),
+                         index["total"])
 
     def test_a_story_whose_content_changed_still_ships(self):
         """The guard must not become „never ship a detail"."""
@@ -716,8 +725,13 @@ class SharedVectors(EqualsFullRebuild):
         # `[:2]` slice it loses. It sorts third alphabetically, so the slice
         # deterministically EXCLUDED it and the TypeScript twin's handling of
         # a whole-corpus carried file went untested in both directions.
+        # ⚠️ THE MANIFEST *AND* EVERY SHARD, through the shared rule.
+        # `endswith("filter-index.json")` is FALSE for `filter-index-1.json`,
+        # so the shard fell into the `[:2]` slice below and the TypeScript
+        # routing arm for it went untested in both directions — the very
+        # thing the paragraph above warns about, one file family over.
         replaced = sorted(overlay["replaced_paths"])
-        pinned = [p for p in replaced if p.endswith("filter-index.json")]
+        pinned = [p for p in replaced if is_filter_index_path(p)]
         paths += pinned + [p for p in replaced if p not in pinned][:2]
         stamps = {
             base["latest.json"]["generated_at"]: "BASE-RUN-STAMP",
@@ -840,6 +854,18 @@ class SharedVectors(EqualsFullRebuild):
                 for case in committed["cases"] for row in case["paths"]),
             "every bundle vector starts from an absent base, so the upsert "
             "itself — ordering, tiebreak, envelope — is untested")
+        # ⚠️ A SHARD, not merely the manifest. `filter-index-1` matches
+        # `STORY_ID_SAFE`, so without its own arm the TypeScript twin routes
+        # it to the story-detail arm and answers from the BASE — a release's
+        # fresh facet rows silently replaced by the previous vintage at a 200.
+        # The generator pinned only paths ending `filter-index.json`, so the
+        # shard fell into a `[:2]` slice and this went untested for a while.
+        self.assertTrue(
+            any(is_filter_index_path(row["path"].lstrip("/"))
+                and row["path"].lstrip("/") != "stories/filter-index.json"
+                for case in committed["cases"] for row in case["paths"]),
+            "no vector replays a filter-index SHARD, so the twin's routing "
+            "arm for it is untested")
 
 
 class RetiredRegistryUnderAnOverlay(EqualsFullRebuild):

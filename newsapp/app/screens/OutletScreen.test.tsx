@@ -17,7 +17,7 @@ import {
   type Outlet,
   type StoryIndexRow,
 } from "../data";
-import { queryStories } from "../storyQuery";
+import { queryStories, QUERY_VERSION } from "../storyQuery";
 
 const outlet = (over: Partial<Outlet> = {}): Outlet =>
   ({
@@ -115,7 +115,7 @@ const renderProfile = async (
       return {
         result: queryStories(
           {
-            query_version: 1,
+            query_version: QUERY_VERSION,
             fields: ["id", "last_published", "categories", "domains"],
             total: rows.length,
             facets_basis: {},

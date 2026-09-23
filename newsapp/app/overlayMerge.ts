@@ -480,6 +480,12 @@ const WHOLE_STORY_FILES = new Set([
   "/stories/filter-index.json",
   "/stories/retired.json",
 ]);
+// ⚠️ A SHARD IS A WHOLE FILE, NOT A STORY. `filter-index-1` matches
+// `STORY_ID_SAFE`, so without this it reaches the story-detail arm below and
+// resolves to a story no release holds — the same trap the `by-url.json`
+// comment describes, one file family over. The Python twin is
+// `app_data_inventory.is_filter_index_path`.
+const FILTER_INDEX_SHARD = /^\/stories\/filter-index-\d+\.json$/;
 const ARTICLES_BUNDLE = /^\/articles\/(.+)\.json$/;
 
 /**
@@ -532,7 +538,7 @@ export const applyOverlayToPath = (
   // calls a correctness rule elsewhere. Both are whole files the publisher
   // carries whole (`WHOLE_STORY_FILES` in overlay_merge.py); the client
   // takes whatever `replaced_paths` gave it.
-  if (WHOLE_STORY_FILES.has(slashed))
+  if (WHOLE_STORY_FILES.has(slashed) || FILTER_INDEX_SHARD.test(slashed))
     return (overlay.replaced_paths ?? {})[key] ?? base;
   const replaced = overlay.replaced_paths[key];
   if (replaced !== undefined) return replaced;

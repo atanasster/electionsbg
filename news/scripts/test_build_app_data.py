@@ -279,11 +279,26 @@ class GlobalFilterIndex(unittest.TestCase):
     """
 
     def build(self, stories):
+        """The manifest, with every shard's rows folded back into `stories`.
+
+        ⚠️ THE ROWS NO LONGER LIVE IN THE MANIFEST. It carries the contract,
+        the whole-corpus `total`, the whole-corpus facets and a shard list;
+        the rows are in `filter-index-<n>.json`. These tests are about the
+        CORPUS-WIDE properties, which the split must not change — so the
+        helper reassembles what the client reassembles, and a test that
+        cared about the partition itself lives in
+        `test_filter_index_shards.py`.
+        """
         tmp = Path(tempfile.mkdtemp(prefix="filter_index_"))
         bad.write_story_pages(tmp, stories, "2026-09-21T12:00:00+00:00",
                               page_size=50)
         with open(tmp / "stories" / "filter-index.json", encoding="utf-8") as fh:
-            return json.load(fh)
+            manifest = json.load(fh)
+        rows = []
+        for entry in manifest["shards"]:
+            with open(tmp / entry["path"], encoding="utf-8") as fh:
+                rows.extend(json.load(fh)["stories"])
+        return {**manifest, "stories": rows}
 
     def story(self, sid, *, categories=(), domains=("a",), hours=1):
         when = (datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc)
@@ -390,7 +405,11 @@ class GlobalFilterIndex(unittest.TestCase):
         bad.write_story_pages(tmp, stories, "2026-09-21T12:00:00+00:00",
                               page_size=50)
         with open(tmp / "stories" / "filter-index.json", encoding="utf-8") as fh:
-            index_ids = {r[0] for r in json.load(fh)["stories"]}
+            manifest = json.load(fh)
+        index_ids = set()
+        for entry in manifest["shards"]:
+            with open(tmp / entry["path"], encoding="utf-8") as fh:
+                index_ids |= {r[0] for r in json.load(fh)["stories"]}
         for prefix in ("index", "ranked"):
             paged = set()
             for name in os.listdir(tmp / "stories"):
@@ -3735,8 +3754,10 @@ class RetiredStories(BuildAppDataFixture):
         # intersection check — two answers to one URL.
         self.seed()
         self.run_build()
-        published = [row[0] for row in
-                     self.load("stories/filter-index.json")["stories"]]
+        # The rows live in the shards now; the manifest lists them.
+        published = [row[0]
+                     for entry in self.load("stories/filter-index.json")["shards"]
+                     for row in self.load(entry["path"])["stories"]]
         self.registry({published[0]: {"reason": "withdrawn", "on": "2026-09-21",
                                       "note": "n"}})
         proc = self.run_build_process()

@@ -38,17 +38,40 @@ export const BUDGETS = {
    * outlets and rank, so the client can answer a facet over the WHOLE corpus
    * instead of over whatever it has downloaded.
    *
-   * ⚠️ MEASURED AT 44.8 KB over 3,051 stories, and the headroom is the point:
-   * it grows with the corpus, and the moment it stops fitting the answer is a
-   * query endpoint or a partitioned index — never quietly filtering fewer
-   * stories and reporting the count as if it were all of them.
+   * ⚠️⚠️ THAT MOMENT ARRIVED AND THE INDEX IS NOW PARTITIONED. At 4,899
+   * stories the single whole-corpus file reached 66,122 bytes, the build
+   * refused to write it, and `app-data` stopped being rebuilt at all. What
+   * this now measures is what a reader on the DEFAULT window actually
+   * downloads: the manifest plus the newest shard. Measured after the split —
+   * manifest 1,001 bytes, largest shard 21,280.
+   *
+   * ⚠️ A WIDER WINDOW STILL COSTS MORE, AND IT HAS ITS OWN BUDGET BELOW.
+   * This corpus is overwhelmingly recent (4,500 of 4,899 stories inside a
+   * week), so a 7-day query still reads three shards — the partition fixed
+   * the per-file cliff and restored the default view, it did not make a
+   * whole-corpus question cheap. Publishing only the 24h figure would report
+   * 22 KB while `/stories` at its DEFAULT window pays 64 KB and
+   * `/outlet/:domain` — which passes no `days` at all — pays the whole index,
+   * i.e. the same ~66 KB that aborted the build, passing unwatched. A
+   * constant nobody reads is a budget nobody keeps.
    *
    * ⚠️ IT DELIBERATELY CARRIES NO TITLES. Adding them measured 288 KB, an
    * inverted index over them 348 KB, and the 24h window's titles alone 234 KB
    * — against a 13 KB home payload. Search is therefore not global here, and
    * must say so rather than be silently narrowed.
    */
-  filterIndexGzip: 64 * 1024,
+  filterIndexGzip: 32 * 1024,
+  /**
+   * What the WHOLE index costs: the manifest plus every shard. This is what
+   * `/outlet/:domain` downloads (`useGlobalStoryQuery({domain, now})` passes
+   * no `days`, so `shardsForWindow` returns all of them) and roughly what the
+   * default 7-day `/stories` browse pays. Measured after the split: 67,508.
+   *
+   * ⚠️ THIS IS THE ONE THAT GROWS WITH THE CORPUS. The partition moved the
+   * cliff; it did not remove it. When this trips, the answer is a narrower
+   * question on the outlet page — not a bigger number here.
+   */
+  filterIndexWholeGzip: 96 * 1024,
 } as const;
 
 export const gzipBytes = (file: string): number => {
@@ -135,13 +158,31 @@ export const inspectNewsBuild = (root = path.resolve("dist-news")) => {
   // whatever the client downloaded — the defect the index exists to remove.
   if (!fs.existsSync(filterIndex))
     throw new Error(`missing production artifact: ${filterIndex}`);
+  // ⚠️ AND SO IS A MANIFEST WITH NO SHARDS. Since the partition the rows live
+  // beside the manifest, so a manifest alone is an index with no corpus in it
+  // — which would measure small and answer nothing.
+  const shardFiles = fs
+    .readdirSync(storyDir)
+    .filter((name) => /^filter-index-\d+\.json$/.test(name))
+    .map((name) => path.join(storyDir, name));
+  if (shardFiles.length === 0)
+    throw new Error(
+      `missing production artifact: ${storyDir}/filter-index-1.json`,
+    );
+  const shardGzip = shardFiles.map(gzipBytes);
   return {
     htmlGzip: gzipBytes(files.html),
     cssGzip: files.css.reduce((sum, file) => sum + gzipBytes(file), 0),
     jsGzip: files.js.reduce((sum, file) => sum + gzipBytes(file), 0),
     homeJsonGzip: gzipBytes(files.homeJson),
     storyIndexPageGzip: Math.max(...pages.map(gzipBytes)),
-    filterIndexGzip: gzipBytes(filterIndex),
+    // What a 24-HOUR reader costs: the manifest, plus one shard. The largest
+    // shard stands in for "the newest" so the figure cannot improve by the
+    // corpus happening to end mid-shard.
+    filterIndexGzip: gzipBytes(filterIndex) + Math.max(...shardGzip),
+    // What a WINDOWLESS reader costs: the manifest plus every shard.
+    filterIndexWholeGzip:
+      gzipBytes(filterIndex) + shardGzip.reduce((sum, n) => sum + n, 0),
   };
 };
 

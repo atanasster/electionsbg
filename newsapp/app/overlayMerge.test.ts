@@ -164,6 +164,39 @@ describe("applyOverlayToPath", () => {
     );
   });
 
+  it("carries a filter-index SHARD whole, like the manifest", () => {
+    // ⚠️ `filter-index-1` matches `STORY_ID_SAFE`, so without its own arm
+    // this reaches the STORY-DETAIL arm and resolves to a story no release
+    // holds — the release's fresh facet rows silently replaced by the base's
+    // previous vintage, at a 200, with every count answered from the old
+    // corpus. The `by-url.json` defect, one file family over.
+    const fresh = {
+      query_version: 2,
+      stories: [["s1", "2026-09-22T00:00:00Z", ["x"], ["a.bg"]]],
+    };
+    const stale = { query_version: 2, stories: [] as unknown[] };
+    expect(
+      applyOverlayToPath(
+        "/stories/filter-index-1.json",
+        stale,
+        overlay({ replaced_paths: { "stories/filter-index-1.json": fresh } }),
+      ),
+    ).toEqual(fresh);
+    // And a shard the overlay does NOT replace must not be merged as a
+    // story either — it passes through untouched.
+    expect(
+      applyOverlayToPath(
+        "/stories/filter-index-2.json",
+        stale,
+        overlay({
+          story_details: {
+            "filter-index-2": { story: { id: "filter-index-2" } },
+          },
+        }),
+      ),
+    ).toBe(stale);
+  });
+
   it("passes an untouched path straight through", () => {
     const base = { anything: true };
     expect(applyOverlayToPath("/stats.json", base, overlay())).toBe(base);
@@ -247,7 +280,10 @@ describe("applyOverlayToPath", () => {
               first_seen: "2026-09-20T00:00:00Z",
               image_alt: "alt",
               title: "Заглавие",
-              analysis: { summary_en: "In English", summary_bg: "На български" },
+              analysis: {
+                summary_en: "In English",
+                summary_bg: "На български",
+              },
             },
           ],
         },

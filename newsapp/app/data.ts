@@ -28,7 +28,10 @@ import {
 import {
   queryStories,
   QUERY_VERSION,
+  shardsForWindow,
   type FilterIndex,
+  type FilterIndexManifest,
+  type FilterRow,
   type StoryQuery,
   type StoryQueryResult,
 } from "./storyQuery";
@@ -1410,7 +1413,23 @@ export const createDataClient = (
       const promise = (
         manifest && !expected
           ? Promise.reject(new HttpStatusError(path, 404))
-          : fetcher(key, { cache: "force-cache" })
+          : // ⚠️⚠️ `force-cache` ONLY WHERE THE PATH IS VERSIONED. Under a
+            // publication manifest `key` carries `manifest.data_base`, so a
+            // new release is a new URL and a pinned response can only ever be
+            // the right one — which is what makes the mode worth having.
+            //
+            // WITHOUT a manifest the path is STABLE, and `force-cache` returns
+            // a matching entry "fresh or stale", so the FIRST response a dev
+            // browser ever saw is served for the life of the cache entry. A
+            // rebuilt tree then reaches the page never: measured against a
+            // running dev server, the app read a `party/p_6.json` two builds
+            // old while a `no-store` fetch of the same URL returned the
+            // current one, and a `home.json` old enough to fail its own
+            // contract rendered as „Невалиден договор на началния фийд" on a
+            // tree whose committed file was valid.
+            fetcher(key, {
+              cache: manifest ? "force-cache" : "default",
+            })
       ).then(async (response) => {
         if (!response.ok) {
           throw new HttpStatusError(path, response.status);
@@ -1676,16 +1695,206 @@ export const useStories = () =>
   useData<{ generated_at: string; stories: Story[] }>("/stories.json");
 
 /**
- * The whole-corpus structured index behind every facet.
+ * The structured index behind every facet: the manifest, plus the shards the
+ * window needs.
  *
- * ⚠️ ONE FETCH FOR THE WHOLE CORPUS, so a predicate sees every story rather
- * than the ≤16 in `home.json` or whatever prefix an outlet page has revealed.
- * ~41 KB gzipped over 3,082 stories; it carries no titles, because adding
- * them measured 288 KB and an inverted index 348 KB against a 13 KB page —
- * see `storyQuery.ts` for what that means for search.
+ * ⚠️ IT IS NO LONGER ONE FILE, AND THE REASON IS A MEASURED CLIFF. The
+ * whole-corpus index reached 66,122 gzipped bytes at 4,899 stories against a
+ * 65,536-byte budget, and the build refused to write it — so every
+ * `build_app_data` run aborted and `app-data` froze. It is partitioned now:
+ * the manifest carries the contract, the whole-corpus `total` and the
+ * whole-corpus facets; the rows live in shards ordered newest first.
+ *
+ * ⚠️ SKIPPING A SHARD IS EXACT, NOT APPROXIMATE. `queryStories` drops a row
+ * outside the window before it counts anything, so a shard whose newest row
+ * predates the window contributes nothing — see `shardsForWindow` for the two
+ * cases that make that safe (undated rows, and unreadable bounds).
+ *
+ * ⚠️ `data` IS NULL UNTIL EVERY NEEDED SHARD HAS LANDED. A partial merge
+ * would answer a count from part of the corpus, which is the single defect
+ * this index exists to remove — see `useGlobalStoryQuery`'s `ready`.
+ *
+ * It still carries no titles: adding them measured 288 KB and an inverted
+ * index 348 KB against a 13 KB page — see `storyQuery.ts` for what that means
+ * for search.
  */
-export const useFilterIndex = () =>
-  useData<FilterIndex>("/stories/filter-index.json");
+/**
+ * The seam `useFilterIndex` fetches its shards through. It exists so the
+ * hook can be driven with a stub — the version refusal, the short-shard
+ * refusal and the retry are all in here, and hardcoding `defaultDataClient`
+ * is why none of them had a test when the refusal regressed.
+ */
+export type FilterIndexClient = Pick<
+  ReturnType<typeof createDataClient>,
+  "fetchData"
+>;
+
+export const useFilterIndex = (
+  days = 0,
+  now = 0,
+  client: FilterIndexClient = defaultDataClient,
+) => {
+  // ⚠️ THE MANIFEST GOES THROUGH THE SAME SEAM AS THE SHARDS. Fetching it
+  // with `useData` (which is hardcoded to `defaultDataClient`) would leave
+  // the contract refusal untestable — which is exactly why it regressed into
+  // a permanent spinner with nothing catching it.
+  const manifest = useDataWithClient<FilterIndexManifest>(
+    "/stories/filter-index.json",
+    client,
+  );
+  const [shardState, setShardState] = useState<{
+    rows: readonly FilterRow[] | null;
+    error: Error | null;
+    loading: boolean;
+  }>({ rows: null, error: null, loading: false });
+  // ⚠️ A FAILED SHARD MUST NOT DISABLE THE INDEX FOR THE WHOLE RELEASE. Under
+  // a publication manifest the base fetch is PINNED (`expiresAt` is infinite),
+  // so `manifest.data` keeps its identity across every poll and this effect
+  // would never re-run: one transient 502 on one shard left every facet count
+  // dead until the next release, with no way back. `useData` retries on each
+  // poll; this bumps a counter instead.
+  const [attempt, setAttempt] = useState(0);
+  const retry = useCallback(() => setAttempt((n) => n + 1), []);
+
+  const usableManifest =
+    manifest.data && manifest.data.query_version === QUERY_VERSION
+      ? manifest.data
+      : null;
+  const wanted = useMemo(
+    () =>
+      usableManifest ? shardsForWindow(usableManifest.shards, days, now) : [],
+    [usableManifest, days, now],
+  );
+  const pathKey = wanted.map((shard) => shard.path).join("|");
+
+  useEffect(() => {
+    if (!usableManifest) return;
+    if (wanted.length === 0) {
+      setShardState({ rows: [], error: null, loading: false });
+      return;
+    }
+    let cancelled = false;
+    // ⚠️ DO NOT BLANK THE ROWS. This effect re-runs whenever the WINDOW moves
+    // (24h → 7d) and whenever the cached manifest expires, and nulling `rows`
+    // drops `ready` to false, which `listState()` reads as "loading" — the
+    // counts and the list vanish and come back on a widened window. The rows
+    // in hand stay truthful until the new set lands; `loading` is what says a
+    // fetch is out, which is why it is tracked separately rather than derived
+    // from `rows === null`. Same rule `useDataWithClient` states for a failed
+    // refresh, one hook over.
+    setShardState((prev) => ({ ...prev, error: null, loading: true }));
+    Promise.all(
+      wanted.map((shard) =>
+        client.fetchData<{
+          query_version?: number;
+          stories?: readonly FilterRow[];
+        }>(`/${shard.path}`),
+      ),
+    )
+      .then((parts) => {
+        if (cancelled) return;
+        // ⚠️ EVERY SHARD IS VERSION-CHECKED, not only the manifest. The rows
+        // are POSITIONAL, so a shard written under another contract parses
+        // cleanly and answers wrongly — the same reasoning the manifest's own
+        // check carries, applied where the rows actually are.
+        const wrong = parts.find(
+          (part) => part?.query_version !== QUERY_VERSION,
+        );
+        if (wrong) {
+          setShardState({
+            rows: null,
+            loading: false,
+            error: new Error(
+              `filter-index shard query_version ${wrong.query_version} != ${QUERY_VERSION}`,
+            ),
+          });
+          return;
+        }
+        // ⚠️ A SHORT SHARD IS A FAILURE, NOT A SMALLER CORPUS. `stories` may
+        // be absent or truncated on a half-written file, and `?? []` would
+        // publish a quietly narrower index — a facet reading „2" beside a
+        // list of nine, the single defect this index exists to remove. The
+        // manifest declares each shard's `count` for exactly this check.
+        const short = parts.findIndex(
+          (part, i) => (part.stories?.length ?? -1) !== wanted[i].count,
+        );
+        if (short >= 0) {
+          setShardState({
+            rows: null,
+            loading: false,
+            error: new Error(
+              `${wanted[short].path} holds ${
+                parts[short].stories?.length ?? "no"
+              } rows, manifest declares ${wanted[short].count}`,
+            ),
+          });
+          return;
+        }
+        setShardState({
+          rows: parts.flatMap((part) => part.stories ?? []),
+          error: null,
+          loading: false,
+        });
+      })
+      .catch((error: unknown) => {
+        if (cancelled) return;
+        setShardState({
+          rows: null,
+          loading: false,
+          error:
+            error instanceof Error ? error : new Error("filter-index shards"),
+        });
+      });
+    return () => {
+      cancelled = true;
+    };
+    // ⚠️ WHAT ACTUALLY STOPS THE MINUTE-BY-MINUTE REFETCH IS THE PROMISE
+    // CACHE, not this dep list. `usableManifest` IS depended on directly and
+    // is a new object on every poll, so the effect re-runs; what makes that
+    // cheap is `fetchData` handing back the identical decoded object for a
+    // key it still holds — forever under a publication manifest (the entry is
+    // pinned), but only `DATA_REFRESH_MS` without one, so a dev tree really
+    // does re-run this every five minutes. `pathKey` is in the list so a
+    // WINDOW change is seen even when the manifest object does not move.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [usableManifest, pathKey, attempt, client]);
+
+  const data = useMemo<FilterIndex | null>(
+    () =>
+      usableManifest && shardState.rows
+        ? { ...usableManifest, stories: shardState.rows }
+        : null,
+    [usableManifest, shardState.rows],
+  );
+
+  /**
+   * ⚠️ A REFUSAL MUST REACH `error`, NEVER ONLY `data: null`. THIS HOOK IS
+   * THE SINGLE OWNER of the contract check — a second copy in the consumer
+   * cannot observe what this one rejected, because `data` is already null by
+   * the time it looks. That shipped: `useGlobalStoryQuery` derived its
+   * `versionError` from `index.data`, so a manifest from a newer contract
+   * produced `{ready: false, loading: false, error: null}` and `listState()`
+   * returned "loading" — a spinner that never resolves on `/stories`,
+   * `/outlet/:domain` and the home chips, with nothing anywhere saying why.
+   * Refusing must be distinguishable from "we have not looked yet".
+   */
+  const manifestVersionError = useMemo(
+    () =>
+      manifest.data && !usableManifest
+        ? new Error(
+            `filter-index query_version ${manifest.data.query_version} != ${QUERY_VERSION}`,
+          )
+        : null,
+    [manifest.data, usableManifest],
+  );
+
+  return {
+    data,
+    error: manifest.error ?? manifestVersionError ?? shardState.error,
+    loading: manifest.loading || shardState.loading,
+    retry,
+  };
+};
 
 /**
  * Observed coverage momentum, stamped once per build (T1.2).
@@ -2267,30 +2476,21 @@ export const useGlobalStoryQuery = (
   loading: boolean;
   error: Error | null;
 } => {
-  const index = useFilterIndex();
   const { category, domain, days, now } = query;
-  /**
-   * ⚠️ AN UNRECOGNISED CONTRACT IS A FAILURE, NEVER A NARROWER ANSWER. The
-   * rows are POSITIONAL, so a v2 that reorders or extends them parses
-   * cleanly as v1 and answers wrongly: every facet re-buckets on whatever
-   * v2 put at `row[2]`, and `withinDays` rejects the non-ISO value now at
-   * `row[1]`, so the whole corpus drops out of every window and the page
-   * says „no stories match" at a 200. Refusing it surfaces as `error`,
-   * which every consumer already distinguishes from an empty corpus.
-   */
-  const usable =
-    index.data && index.data.query_version === QUERY_VERSION
-      ? index.data
-      : null;
-  const versionError = useMemo(
-    () =>
-      index.data && !usable
-        ? new Error(
-            `filter-index query_version ${index.data.query_version} != ${QUERY_VERSION}`,
-          )
-        : null,
-    [index.data, usable],
-  );
+  // ⚠️ THE WINDOW REACHES THE FETCH, not only the filter. It is what lets the
+  // hook skip shards older than the window instead of downloading the whole
+  // corpus to discard most of it — which is the point of the partition.
+  const index = useFilterIndex(days ?? 0, now);
+  // ⚠️ AN UNRECOGNISED CONTRACT IS A FAILURE, NEVER A NARROWER ANSWER — and
+  // the refusal lives in `useFilterIndex`, ONCE. The rows are POSITIONAL, so
+  // a v3 that reorders or extends them parses cleanly as v2 and answers
+  // wrongly: every facet re-buckets on whatever v3 put at `row[2]`, and
+  // `withinDays` rejects the non-ISO value now at `row[1]`, so the whole
+  // corpus drops out of every window and the page says „no stories match" at
+  // a 200. A second copy of that check HERE would be dead code — `index.data`
+  // is already null when the contract is refused — which is exactly how a
+  // refusal once rendered as a permanent spinner instead of an error.
+  const usable = index.data;
   const result = useMemo(
     () => queryStories(usable, { category, domain, days, now }),
     [usable, category, domain, days, now],
@@ -2299,7 +2499,7 @@ export const useGlobalStoryQuery = (
     result,
     ready: Boolean(usable),
     loading: index.loading,
-    error: index.error ?? versionError,
+    error: index.error,
   };
 };
 
