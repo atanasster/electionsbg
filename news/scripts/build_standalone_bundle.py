@@ -58,6 +58,10 @@ RUNTIME_SCRIPTS = (
     # it would silently disable the Jev shadow on the one host whose traffic
     # the Phase 5 go/no-go is supposed to be measured from.
     "news/scripts/jev_client.py",
+    # run_nightly.sh's `sentiment` stage invokes it directly. Omitting it
+    # does not fail quietly: python3 exits 2 on a missing script, the stage
+    # records a non-zero exit, and that withholds the whole public release.
+    "news/scripts/jev_ask.py",
     "news/scripts/llm_client.py",
     "news/scripts/perf_log.py",
     "news/scripts/home_event_dedupe.py",

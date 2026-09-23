@@ -60,8 +60,42 @@ PRIMARY_NONE = "none"
 
 
 def mode() -> str:
+    """The scoring mode, or `"invalid"` for a value that is not one.
+
+    ⚠️ A TYPO IS REFUSED, NOT READ AS THE DEFAULT. `shadow` is the PAID mode,
+    so falling back to it turned `NEWS_JEV_SENTIMENT=of` into a pass that
+    spends money — the opposite of what the operator typed. `jev_publication`
+    already refuses an unknown axis name for the same reason; the two knobs
+    sit side by side in `config.env` and must behave alike. Unset or empty is
+    still the default.
+    """
     value = (os.environ.get(MODE_ENV) or "shadow").strip().lower()
-    return value if value in MODES else "shadow"
+    return value if value in MODES else "invalid"
+
+
+def empty_stats() -> dict:
+    """The counters every payload carries — ONE shape, so a counter added to
+    the run reaches the skipped branches too."""
+    return {"assessed": 0, "cached": 0, "failed": 0, "crashed": 0,
+            "our_bugs": [], "crashes": [], "cost": 0.0}
+
+
+def alert_for(stats: dict):
+    """The one alert a run's stats earn, or None.
+
+    ⚠️ `all_failed` IS THE ALERT A MISCONFIGURED HOST RAISES. With no
+    `OPENROUTER_API_KEY` every call returns `no_key` and every article is a
+    `failed` record — which `current_for` rightly refuses as current — so the
+    same newest articles are re-asked every hour, forever, and the stage exits
+    0 each time. Only `our_bug` raised an alert before; this was a permanent
+    no-op nobody would be told about.
+    """
+    if stats.get("our_bugs"):
+        return "our_bug"
+    attempted = stats.get("assessed", 0) + stats.get("crashed", 0)
+    if attempted and stats.get("failed", 0) + stats.get("crashed", 0) >= attempted:
+        return "all_failed"
+    return None
 
 
 # ─── the questions ───────────────────────────────────────────────────────────
@@ -337,12 +371,15 @@ def run(pairs: list, data_dir, *, ask=None, model=None, dry_run: bool = False,
     dated incident comment for this exact shape. The guard is per article and
     the crash is reported, never swallowed silently.
     """
-    stats = {"assessed": 0, "cached": 0, "failed": 0, "crashed": 0,
-             "our_bugs": [], "crashes": [], "cost": 0.0}
+    stats = empty_stats()
 
     def one(pair):
         article, analysis = pair
         try:
+            # ⚠️ A SECOND `current_for`, after `load_pairs` already filtered —
+            # deliberately. It is the race guard for two passes overlapping
+            # (an hourly stage and a manual run), and it costs a file read.
+            # Neither check may be "optimised" away on the other's account.
             if not force:
                 current = sm.current_for(article, analysis, data_dir)
                 if current:
@@ -386,22 +423,82 @@ def main(argv=None) -> int:
                         help="build every state and store nothing")
     parser.add_argument("--force", action="store_true",
                         help="re-ask even when a current record exists")
+    parser.add_argument(
+        "--stage", action="store_true",
+        help="run as a nightly pipeline stage: print exactly one compact JSON "
+             "line and ALWAYS exit 0 — a payload bug, an all-failed run, an "
+             "invalid mode or a crash is named in the line's `alert` instead, "
+             "because a non-zero stage withholds the whole public release")
     args = parser.parse_args(argv)
+    try:
+        return _main(args)
+    except Exception as exc:  # noqa: BLE001 — see below
+        # ⚠️ ONLY `run()`'s per-article work was guarded, so an exception in
+        # selection — a list-shaped article file, a malformed analysis in
+        # `current_for`, a full disk — escaped as exit 1 and withheld every
+        # story, summary and image on the strength of one sidecar input. Under
+        # `--stage` it is named, not raised. A manual run still raises.
+        if not args.stage:
+            raise
+        print(json.dumps({**empty_stats(), "mode": mode(),
+                          "dry_run": args.dry_run, "alert": "crash",
+                          "error": f"{type(exc).__name__}: {str(exc)[:200]}"},
+                         ensure_ascii=False))
+        return 0
 
-    if mode() == "off":
-        print(f"{MODE_ENV}=off — nothing asked", file=sys.stderr)
+
+def _main(args) -> int:
+
+    def emit(payload: dict) -> None:
+        # ⚠️ ONE LINE, LAST. `run_nightly.sh`'s `stage()` parses only the
+        # final line of combined output as the stage result; an indented dump
+        # ends in a bare `}`, which it records as unparsed and fails the stage.
+        if args.stage:
+            print(json.dumps(payload, ensure_ascii=False))
+        else:
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+
+    # ⚠️ EVERY BRANCH CARRIES THE SAME KEYS, so a reader of the stage result
+    # never has to know which branch ran to find a count. `dry_run` is named
+    # because a dry run counts its would-be records as `assessed`, and „assessed
+    # 3" must not read as three paid answers.
+    base = {**empty_stats(), "mode": mode(), "dry_run": args.dry_run}
+    if base["mode"] == "invalid":
+        emit({**base, "skipped": "invalid_mode", "alert": "invalid_mode",
+              "value": os.environ.get(MODE_ENV)})
+        return 0 if args.stage else 2
+    if base["mode"] == "off":
+        emit({**base, "skipped": "off"})
         return 0
 
     pairs = load_pairs(Path(args.data_dir), args.limit, force=args.force)
     if not pairs:
-        print("no analysed articles to assess", file=sys.stderr)
+        emit({**base, "skipped": "nothing_to_assess"})
         return 0
-    stats = run(pairs, Path(args.data_dir), model=args.model,
-                dry_run=args.dry_run, concurrency=args.concurrency,
-                force=args.force)
-    print(json.dumps({k: v for k, v in stats.items()}, ensure_ascii=False, indent=2))
+    stats = {**base, **run(pairs, Path(args.data_dir), model=args.model,
+                           dry_run=args.dry_run, concurrency=args.concurrency,
+                           force=args.force)}
+    stats["cost"] = round(stats["cost"], 6)
+    alert = alert_for(stats)
+    if alert:
+        # Named in the payload so the run report carries it whether or not the
+        # exit code does.
+        stats["alert"] = alert
+    emit(stats)
     # ⚠️ NON-ZERO ON OUR BUG, never on an outage: the first is a payload we
     # built wrong and must be fixed, the second is weather.
+    #
+    # ⚠️⚠️ EXCEPT AS A PIPELINE STAGE. Any non-zero stage sets
+    # `pipeline_failed`, and `upload_to_gcs.py` then withholds the WHOLE
+    # public news release. This pass is ADDITIVE — the store keeps every
+    # record it already holds and a missing score is a narrower page, never a
+    # wrong one — so letting it block publication would hold every story,
+    # summary and image hostage to one sentiment payload. The bug is not
+    # swallowed: it rides in the stage result as `alert: our_bug` with the
+    # URLs, and the report lifts it to its top level. A manual run keeps the
+    # loud exit.
+    if args.stage:
+        return 0
     return 1 if stats["our_bugs"] else 0
 
 
@@ -431,9 +528,17 @@ def load_pairs(data_dir: Path, limit: int, *, force: bool = False) -> list:
             # string crashes `Path.__truediv__`, and one bad file must not take
             # the CLI down before it has assessed anything.
             continue
+        # ⚠️ VALID JSON IS NOT AN OBJECT. A list-shaped article raised
+        # AttributeError on `.get` — outside every guard — and as a pipeline
+        # stage that exit withheld the whole public release.
+        if not isinstance(article, dict) or not isinstance(analysis, dict):
+            continue
         if not article.get("content"):
             continue
-        if not force and sm.current_for(article, analysis, data_dir):
+        try:
+            if not force and sm.current_for(article, analysis, data_dir):
+                continue
+        except Exception:  # noqa: BLE001 — the same rule as `run()`'s guard
             continue
         pairs.append((article, analysis))
         if len(pairs) >= limit:

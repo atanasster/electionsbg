@@ -230,10 +230,16 @@ try:
 except Exception as exc:
     eval_sync = {"error": f"unreadable eval task-sync result: {exc}"}
 pipeline_evals = None
+# A stage that chose not to fail (so it could not withhold publication) names
+# its problem in the pipeline report`s `alerts`. Copied here because this is
+# the report an operator reads; left inside the pipeline file it is a finding
+# nobody opens.
+pipeline_alerts = []
 if os.environ["PIPELINE_REPORT"]:
     try:
         pipeline = json.loads(open(os.environ["PIPELINE_REPORT"], encoding="utf-8").read())
         pipeline_evals = pipeline.get("evals")
+        pipeline_alerts = pipeline.get("alerts") or []
     except Exception:
         pipeline_evals = None
 try:
@@ -253,6 +259,7 @@ result = {
     "eval_task_sync_exit": int(os.environ["EVAL_SYNC_CODE"]),
     "eval_task_sync": eval_sync,
     "evals": pipeline_evals,
+    "alerts": pipeline_alerts,
 }
 with open(os.environ["COMBINED"], "w", encoding="utf-8") as fh:
     json.dump(result, fh, ensure_ascii=False, indent=1)

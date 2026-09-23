@@ -24,11 +24,15 @@ from news.scripts.app_data_inventory import (  # noqa: E402
     is_story_detail_path, tree_inventory)
 
 GS_URI = re.compile(r"^gs://([^/]+)(?:/(.+?))?/?$")
+# ⚠️ A SECOND COPY OF `run_nightly.sh`'s STAGE ORDER, and the two must move
+# together: a stage added to the runner alone makes EVERY report read
+# "incomplete or reordered stages" and refuses every public release — an
+# outage caused by a pure addition. `test_run_nightly` pins them equal.
 EXPECTED_STAGES = (
     "acquire_direct", "acquire_browser", "probe_model", "check_prompts",
-    "common_words", "analyze", "image_rights_queue", "image_candidates",
-    "review_queue", "mention_index", "eval_export", "bundles",
-    "eval_task_build", "home_health",
+    "common_words", "analyze", "sentiment", "image_rights_queue",
+    "image_candidates", "review_queue", "mention_index", "eval_export",
+    "bundles", "eval_task_build", "home_health",
 )
 ARCHIVE_EXCLUDE = (
     # `_perf` is the shared perf log (news/scripts/perf_log.py): archiving it

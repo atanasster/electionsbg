@@ -478,14 +478,15 @@ class Selection(unittest.TestCase):
 
 
 class Mode(unittest.TestCase):
-    def test_shadow_is_the_default_and_an_unknown_value_falls_back_to_it(self):
-        # Plan Phase 5 flips this per axis, only for axes Phase 0 cleared.
+    def test_shadow_is_the_default_and_an_unknown_value_is_REFUSED(self):
+        # ⚠️ Not read as the default: `shadow` is the paid mode, so a typo'd
+        # `of` used to spend money. Unset or empty is still the default.
         import os
         original = os.environ.get(ja.MODE_ENV)
         try:
             for value, expected in ((None, "shadow"), ("", "shadow"),
                                     ("LIVE", "live"), ("off", "off"),
-                                    ("nonsense", "shadow")):
+                                    ("nonsense", "invalid"), ("of", "invalid")):
                 if value is None:
                     os.environ.pop(ja.MODE_ENV, None)
                 else:
@@ -495,6 +496,184 @@ class Mode(unittest.TestCase):
             os.environ.pop(ja.MODE_ENV, None)
             if original is not None:
                 os.environ[ja.MODE_ENV] = original
+
+
+class StageMode(unittest.TestCase):
+    """`--stage` is how `run_nightly.sh` invokes this. Its `stage()` parses
+    only the LAST line of combined output, and any non-zero stage withholds
+    the whole public release — so both the shape and the exit code are the
+    contract, not a detail."""
+
+    def main(self, *argv, stats=None, pairs=((ARTICLE, ANALYSIS),), mode=None):
+        import contextlib
+        import io
+        import os
+        from unittest import mock
+        out = io.StringIO()
+        env = {} if mode is None else {ja.MODE_ENV: mode}
+        with mock.patch.dict(os.environ, env), \
+                mock.patch.object(ja, "load_pairs", return_value=list(pairs)), \
+                mock.patch.object(ja, "run", return_value=dict(stats or {
+                    "assessed": 1, "cached": 0, "failed": 0, "crashed": 0,
+                    "our_bugs": [], "crashes": [], "cost": 0.0003})), \
+                contextlib.redirect_stdout(out):
+            if mode is None:
+                os.environ.pop(ja.MODE_ENV, None)
+            code = ja.main(list(argv))
+        return code, out.getvalue()
+
+    def test_the_last_line_is_one_parseable_json_object(self):
+        code, out = self.main("--stage")
+        self.assertEqual(code, 0)
+        last = out.strip().splitlines()[-1]
+        self.assertIsInstance(json.loads(last), dict)
+        self.assertEqual(json.loads(last)["assessed"], 1)
+
+    def test_without_stage_the_dump_is_indented_and_its_last_line_is_not(self):
+        # The contrast that makes the flag necessary: `}` alone is what the
+        # runner would have recorded as unparsed, failing the stage.
+        _, out = self.main()
+        self.assertEqual(out.strip().splitlines()[-1], "}")
+
+    def test_our_bug_is_named_in_the_payload_and_does_not_fail_the_stage(self):
+        bug = {"assessed": 1, "cached": 0, "failed": 1, "crashed": 0,
+               "our_bugs": ["https://a.bg/1"], "crashes": [], "cost": 0.0}
+        code, out = self.main("--stage", stats=bug)
+        self.assertEqual(code, 0)
+        payload = json.loads(out.strip().splitlines()[-1])
+        self.assertEqual(payload["alert"], "our_bug")
+        self.assertEqual(payload["our_bugs"], ["https://a.bg/1"])
+
+    def test_a_manual_run_still_fails_loudly_on_our_bug(self):
+        bug = {"assessed": 1, "cached": 0, "failed": 1, "crashed": 0,
+               "our_bugs": ["https://a.bg/1"], "crashes": [], "cost": 0.0}
+        code, _ = self.main(stats=bug)
+        self.assertEqual(code, 1)
+
+    def test_off_emits_a_result_instead_of_nothing(self):
+        # A stage that exits 0 with no parseable line is recorded as exit 2.
+        code, out = self.main("--stage", mode="off")
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(out.strip().splitlines()[-1])["skipped"], "off")
+
+    def test_nothing_to_assess_is_still_a_result(self):
+        code, out = self.main("--stage", pairs=())
+        self.assertEqual(code, 0)
+        payload = json.loads(out.strip().splitlines()[-1])
+        self.assertEqual(payload["skipped"], "nothing_to_assess")
+        self.assertEqual(payload["assessed"], 0)
+
+    def test_every_branch_carries_the_same_keys(self):
+        # A reader must not need to know which branch ran to find a count.
+        shapes = []
+        for kwargs in ({}, {"pairs": ()}, {"mode": "off"}, {"mode": "typo"}):
+            _, out = self.main("--stage", **kwargs)
+            shapes.append(set(json.loads(out.strip().splitlines()[-1])))
+        required = set(ja.empty_stats()) | {"mode", "dry_run"}
+        for shape in shapes:
+            self.assertLessEqual(required, shape)
+
+    def test_a_typo_in_the_mode_asks_nothing_and_is_named(self):
+        from unittest import mock
+        with mock.patch.object(ja, "run") as run:
+            code, out = self.main("--stage", mode="of")
+        run.assert_not_called()
+        self.assertEqual(code, 0)
+        payload = json.loads(out.strip().splitlines()[-1])
+        self.assertEqual((payload["skipped"], payload["alert"], payload["value"]),
+                         ("invalid_mode", "invalid_mode", "of"))
+
+    def test_a_manual_run_refuses_a_typo_in_the_mode(self):
+        code, _ = self.main(mode="of")
+        self.assertEqual(code, 2)
+
+    def test_an_all_failed_run_raises_an_alert(self):
+        # A host with no OPENROUTER_API_KEY fails every article and used to
+        # exit 0 with no alert, re-asking the same articles every hour.
+        dead = {**ja.empty_stats(), "assessed": 5, "failed": 5}
+        _, out = self.main("--stage", stats=dead)
+        self.assertEqual(json.loads(out.strip().splitlines()[-1])["alert"],
+                         "all_failed")
+
+    def test_a_partly_failed_run_raises_no_alert(self):
+        # An outage on some articles is weather, not a finding.
+        some = {**ja.empty_stats(), "assessed": 5, "failed": 2}
+        _, out = self.main("--stage", stats=some)
+        self.assertNotIn("alert", json.loads(out.strip().splitlines()[-1]))
+
+    def test_a_crash_outside_the_run_is_named_and_does_not_fail_the_stage(self):
+        import contextlib
+        import io
+        from unittest import mock
+        out = io.StringIO()
+        with mock.patch.object(ja, "load_pairs", side_effect=RuntimeError("boom")), \
+                contextlib.redirect_stdout(out):
+            code = ja.main(["--stage"])
+        self.assertEqual(code, 0)
+        payload = json.loads(out.getvalue().strip().splitlines()[-1])
+        self.assertEqual(payload["alert"], "crash")
+        self.assertIn("boom", payload["error"])
+
+    def test_a_crash_outside_the_run_still_raises_on_a_manual_run(self):
+        from unittest import mock
+        with mock.patch.object(ja, "load_pairs", side_effect=RuntimeError("boom")):
+            with self.assertRaises(RuntimeError):
+                ja.main([])
+
+    def test_a_dry_run_is_named_so_its_count_is_not_read_as_paid(self):
+        _, out = self.main("--stage", "--dry-run")
+        self.assertIs(json.loads(out.strip().splitlines()[-1])["dry_run"], True)
+
+
+class SelectionRobustness(unittest.TestCase):
+    """The real `load_pairs`, on the inputs that used to escape its guard."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.data = Path(self.tmp.name)
+
+    def write(self, name, article):
+        adir = self.data / "analysis/articles/a.bg"
+        adir.mkdir(parents=True, exist_ok=True)
+        art = self.data / "a.bg" / name
+        art.parent.mkdir(parents=True, exist_ok=True)
+        art.write_text(json.dumps(article, ensure_ascii=False), encoding="utf-8")
+        (adir / name).write_text(json.dumps(
+            {**ANALYSIS, "url": "https://a.bg/" + name, "article_path": str(art)},
+            ensure_ascii=False), encoding="utf-8")
+
+    def test_a_list_shaped_article_is_skipped_not_raised(self):
+        self.write("20260101-list.json", ["not", "an", "object"])
+        self.write("20260102-ok.json", {**ARTICLE, "url": "https://a.bg/ok"})
+        pairs = ja.load_pairs(self.data, 5)
+        self.assertEqual([a["url"] for a, _ in pairs], ["https://a.bg/ok"])
+
+    def test_a_current_for_that_raises_skips_that_article(self):
+        from unittest import mock
+        self.write("20260102-ok.json", {**ARTICLE, "url": "https://a.bg/ok"})
+        with mock.patch.object(ja.sm, "current_for", side_effect=TypeError("bad")):
+            self.assertEqual(ja.load_pairs(self.data, 5), [])
+
+
+class StageEndToEnd(unittest.TestCase):
+    """The REAL script, as the runner invokes it — no mocks on `main`."""
+
+    def test_the_real_script_prints_one_parseable_last_line(self):
+        import os
+        import subprocess
+        with tempfile.TemporaryDirectory() as tmp:
+            # ⚠️ `--dry-run` over an empty data dir: nothing is selected and
+            # nothing is asked, so this touches no network.
+            env = {**os.environ, ja.MODE_ENV: "shadow"}
+            env.pop("OPENROUTER_API_KEY", None)
+            proc = subprocess.run(
+                [sys.executable, str(HERE / "jev_ask.py"), "--stage", "--dry-run",
+                 "--limit", "3", "--data-dir", tmp],
+                capture_output=True, text=True, env=env, check=False)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        combined = (proc.stdout + proc.stderr).strip().splitlines()
+        self.assertIsInstance(json.loads(combined[-1]), dict)
 
 
 if __name__ == "__main__":

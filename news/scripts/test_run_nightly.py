@@ -64,7 +64,7 @@ class NightlyRunnerContractTests(unittest.TestCase):
                      "analyze_local.py", "build_image_rights_queue.py",
                      "source_commons_images.py", "review_routing.py",
                      "build_mention_index.py", "eval_runtime.py",
-                     "build_app_data.py", "home_health.py"):
+                     "build_app_data.py", "home_health.py", "jev_ask.py"):
             (runner.parent / name).write_text(
                 "import json; print(json.dumps({}))\n", encoding="utf-8")
 
@@ -118,8 +118,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             self.assertEqual(len(reports), 2)
             for report in reports:
                 data = __import__("json").loads(report.read_text(encoding="utf-8"))
-                self.assertEqual(data["stages_run"], 14)
-                self.assertEqual(data["stages_ok"], 14)
+                self.assertEqual(data["stages_run"], 15)
+                self.assertEqual(data["stages_ok"], 15)
                 self.assertTrue(all(s["result"] == {"skipped": "dry_run"}
                                     for s in data["stages"]))
                 self.assertEqual(data["acquisition"]["direct"]["skipped"], "dry_run")
@@ -307,6 +307,142 @@ class NightlyRunnerContractTests(unittest.TestCase):
             self.assertEqual(analysis["exit"], 0)
             self.assertEqual(
                 analysis["result"], {"skipped": "configured_zero_limit"})
+
+    def test_the_runner_and_the_uploader_agree_on_the_stage_order(self):
+        """⚠️ Two copies of one list. The uploader refuses any report whose
+        stage names differ from its own `EXPECTED_STAGES`, so a stage added to
+        the runner alone refuses EVERY public release — measured when the
+        `sentiment` stage was wired, the bundle's own dry-run came back
+        `invalid_pipeline_report: incomplete or reordered stages`."""
+        import re
+        sys.path.insert(0, str(ROOT / "news" / "standalone"))
+        import upload_to_gcs
+        runner = RUNNER.read_text(encoding="utf-8")
+        # The LIVE arm of each stage, i.e. first occurrence per name in order.
+        seen: list[str] = []
+        for name in re.findall(r"^\s*stage ([a-z0-9_]+) ", runner, re.M):
+            if name not in seen:
+                seen.append(name)
+        self.assertEqual(seen, list(upload_to_gcs.EXPECTED_STAGES))
+        declared = int(re.search(r"^STAGES_EXPECTED=(\d+)$", runner, re.M).group(1))
+        self.assertEqual(declared, len(upload_to_gcs.EXPECTED_STAGES))
+
+    def run_sentiment(self, root: Path, jev_ask_source: str, *args: str,
+                      env_extra: dict | None = None) -> dict:
+        runner = self.copy_runner(root)
+        self.stub_runtime_scripts(runner)
+        (runner.parent / "jev_ask.py").write_text(jev_ask_source, encoding="utf-8")
+        self.write_acquisition_script(
+            runner.parent / "save_all_direct.sh",
+            json.dumps({"mode": "intake-report", "domains": 1, "alerts": []}))
+        env = {**os.environ, **(env_extra or {})}
+        proc = self.run_runner_at(runner, "--skip-browser", "--run-id", "s",
+                                  *args, env=env)
+        report = json.loads((root / "news/data/_nightly/s.json").read_text(
+            encoding="utf-8"))
+        return {"proc": proc, "report": report,
+                "stage": next(s for s in report["stages"]
+                              if s["stage"] == "sentiment")}
+
+    def test_sentiment_runs_as_a_stage_and_passes_its_limit(self):
+        with tempfile.TemporaryDirectory(prefix="nightly sentiment # ") as temp:
+            out = self.run_sentiment(
+                Path(temp),
+                "import json, sys\n"
+                "print(json.dumps({'argv': sys.argv[1:], 'assessed': 3}))\n",
+                env_extra={"NEWS_JEV_SENTIMENT_LIMIT": "37"})
+            self.assertEqual(out["proc"].returncode, 0, out["proc"].stderr)
+            self.assertEqual(out["stage"]["exit"], 0)
+            self.assertEqual(out["stage"]["result"]["argv"],
+                             ["--stage", "--limit", "37"])
+            self.assertEqual(out["report"]["sentiment"]["assessed"], 3)
+
+    def test_a_zero_sentiment_limit_skips_without_calling_jev(self):
+        with tempfile.TemporaryDirectory(prefix="nightly sentiment zero # ") as temp:
+            marker = Path(temp) / "jev-was-called"
+            out = self.run_sentiment(
+                Path(temp),
+                f"from pathlib import Path; Path({str(marker)!r}).write_text('x')\n"
+                "print('{}')\n",
+                env_extra={"NEWS_JEV_SENTIMENT_LIMIT": "0"})
+            self.assertEqual(out["proc"].returncode, 0, out["proc"].stderr)
+            self.assertFalse(marker.exists())
+            self.assertEqual(out["stage"]["result"],
+                             {"skipped": "configured_zero_limit"})
+
+    def test_a_sentiment_payload_bug_is_lifted_to_the_report_not_hidden(self):
+        # ⚠️ The stage exits 0 on our bug so it cannot withhold the release;
+        # this is what keeps that choice from becoming silence.
+        with tempfile.TemporaryDirectory(prefix="nightly sentiment bug # ") as temp:
+            out = self.run_sentiment(
+                Path(temp),
+                "import json\n"
+                "print(json.dumps({'assessed': 1, 'alert': 'our_bug', "
+                "'our_bugs': ['https://a.bg/1']}))\n")
+            self.assertEqual(out["proc"].returncode, 0, out["proc"].stderr)
+            self.assertEqual(out["report"]["alerts"], [
+                {"alert": "jev_sentiment_our_bug", "count": 1,
+                 "urls": ["https://a.bg/1"]}])
+            # ⚠️ And on the SUMMARY LINE — the file alone is read by nobody.
+            summary = json.loads(out["proc"].stdout.strip().splitlines()[-1])
+            self.assertEqual(summary["alerts"], ["jev_sentiment_our_bug"])
+
+    def test_an_all_failed_sentiment_run_is_lifted_with_its_count(self):
+        # How a host with no API key looks: every article failed, exit 0.
+        with tempfile.TemporaryDirectory(prefix="nightly sentiment dead # ") as temp:
+            out = self.run_sentiment(
+                Path(temp),
+                "import json\n"
+                "print(json.dumps({'assessed': 7, 'failed': 7, 'crashed': 0, "
+                "'alert': 'all_failed'}))\n")
+            self.assertEqual(out["proc"].returncode, 0, out["proc"].stderr)
+            self.assertEqual(out["report"]["alerts"], [
+                {"alert": "jev_sentiment_all_failed", "count": 7}])
+
+    def test_a_clean_run_has_an_empty_alert_list_and_none_on_the_summary(self):
+        with tempfile.TemporaryDirectory(prefix="nightly sentiment ok # ") as temp:
+            out = self.run_sentiment(
+                Path(temp), "import json; print(json.dumps({'assessed': 2}))\n")
+            self.assertEqual(out["report"]["alerts"], [])
+            summary = json.loads(out["proc"].stdout.strip().splitlines()[-1])
+            self.assertNotIn("alerts", summary)
+
+    def test_an_invalid_sentiment_limit_is_refused_before_any_stage(self):
+        with tempfile.TemporaryDirectory(prefix="nightly sentiment limit # ") as temp:
+            root = Path(temp)
+            runner = self.copy_runner(root)
+            self.stub_runtime_scripts(runner)
+            proc = self.run_runner_at(
+                runner, "--skip-browser",
+                env={**os.environ, "NEWS_JEV_SENTIMENT_LIMIT": "lots"})
+            self.assertEqual(proc.returncode, 2)
+            self.assertIn("NEWS_JEV_SENTIMENT_LIMIT", proc.stderr)
+            self.assertFalse((root / "news/data/_nightly").exists()
+                             and any((root / "news/data/_nightly").glob("*.json")))
+
+    def test_the_sentiment_stage_is_independent_of_the_glm_probe(self):
+        # A GLM outage says nothing about Jev; articles analysed earlier are
+        # still owed their scales on this run.
+        with tempfile.TemporaryDirectory(prefix="nightly sentiment probe # ") as temp:
+            root = Path(temp)
+            runner = self.copy_runner(root)
+            source = runner.read_text(encoding="utf-8").replace(
+                'stage probe_model python3 news/scripts/llm_client.py --model "$MODEL"',
+                "stage probe_model python3 -c 'import json,sys; "
+                "print(json.dumps({})); sys.exit(1)'")
+            runner.write_text(source, encoding="utf-8")
+            self.stub_runtime_scripts(runner)
+            (runner.parent / "jev_ask.py").write_text(
+                "import json; print(json.dumps({'assessed': 2}))\n",
+                encoding="utf-8")
+            self.write_acquisition_script(
+                runner.parent / "save_all_direct.sh",
+                json.dumps({"mode": "intake-report", "domains": 1, "alerts": []}))
+            self.run_runner_at(runner, "--skip-browser", "--run-id", "p")
+            report = json.loads((root / "news/data/_nightly/p.json").read_text(
+                encoding="utf-8"))
+            sentiment = next(s for s in report["stages"] if s["stage"] == "sentiment")
+            self.assertEqual(sentiment["result"], {"assessed": 2})
 
 
 if __name__ == "__main__":

@@ -167,6 +167,13 @@ class StandaloneBundle(unittest.TestCase):
         self.assertTrue(any(row.get("mode") == "news_hourly" for row in lines))
         combined = list((self.out / "var/reports").glob("*.json"))
         self.assertTrue(combined)
+        # ⚠️ The pipeline's `alerts` reach the report an operator reads. A
+        # stage that exits 0 to avoid withholding publication (the Jev
+        # sentiment pass) names its problem there, and a key left behind in the
+        # pipeline file is a finding nobody opens. Empty on a clean dry run.
+        hourly = next(row for row in lines if row.get("mode") == "news_hourly")
+        self.assertEqual(hourly.get("alerts"), [])
+        self.assertEqual(hourly.get("pipeline_exit"), 0)
 
 
 class DirectNewsFolder(unittest.TestCase):
@@ -210,6 +217,28 @@ class DirectNewsFolder(unittest.TestCase):
                         missing.append(f"{rel} imports {name}")
         self.assertEqual(missing, [], "bundled scripts import siblings the "
                                       "manifest does not ship: " + "; ".join(missing))
+
+    def test_every_script_the_nightly_runner_invokes_is_bundled(self):
+        """⚠️ The import sweep above cannot see a script that is only ever
+        RUN, never imported — and a missing one does not fail quietly: python3
+        exits 2, the stage records a non-zero exit, and a non-zero stage
+        withholds the whole public release on the unattended host. The
+        `sentiment` stage's `jev_ask.py` was that shape when it was wired.
+
+        Derived from the runner's own text, so the next stage is covered the
+        day it is added.
+        """
+        import re
+        runner = (bundle.ROOT / "news/scripts/run_nightly.sh").read_text(
+            encoding="utf-8")
+        invoked = set(re.findall(r"(news/scripts/[A-Za-z0-9_]+\.(?:py|sh|mjs))",
+                                 runner))
+        self.assertIn("news/scripts/jev_ask.py", invoked,
+                      "the scan no longer sees the sentiment stage")
+        missing = sorted(rel for rel in invoked
+                         if rel not in bundle.RUNTIME_SCRIPTS)
+        self.assertEqual(missing, [], "run_nightly.sh invokes scripts the "
+                                      "bundle does not ship: " + ", ".join(missing))
 
     @mock.patch.dict(os.environ, STANDALONE_ENV)
     def test_copied_news_folder_runs_without_repository_siblings(self):

@@ -39,6 +39,10 @@ SCHEMA_RETRIES=${NEWS_LLM_SCHEMA_RETRIES:-1}
 ARTICLES_PER_SOURCE=${NEWS_ARTICLES_PER_SOURCE:-20}
 IMAGE_CANDIDATE_LIMIT=${NEWS_IMAGE_CANDIDATE_LIMIT:-24}
 IMAGE_CANDIDATE_REQUESTS=${NEWS_IMAGE_CANDIDATE_REQUESTS:-12}
+# Articles the Jev sentiment pass may assess per run. It skips every article
+# whose stored record is current, so this bounds NEW work (and spend — about
+# $0.0003 per article, measured), not coverage. 0 skips the stage.
+SENTIMENT_LIMIT=${NEWS_JEV_SENTIMENT_LIMIT:-200}
 BROWSER_TIMEOUT=${NEWS_BROWSER_TIMEOUT:-600}
 STAGE_TIMEOUT=${NEWS_STAGE_TIMEOUT:-7200}
 SKIP_BROWSER=0
@@ -110,6 +114,7 @@ done
 require_uint "NEWS_ARTICLES_PER_SOURCE" "$ARTICLES_PER_SOURCE"
 require_uint "NEWS_IMAGE_CANDIDATE_LIMIT" "$IMAGE_CANDIDATE_LIMIT"
 require_uint "NEWS_IMAGE_CANDIDATE_REQUESTS" "$IMAGE_CANDIDATE_REQUESTS"
+require_uint "NEWS_JEV_SENTIMENT_LIMIT" "$SENTIMENT_LIMIT"
 require_uint "NEWS_BROWSER_TIMEOUT" "$BROWSER_TIMEOUT"
 require_uint "NEWS_STAGE_TIMEOUT" "$STAGE_TIMEOUT"
 require_uint "NEWS_LLM_WORKERS" "$WORKERS"
@@ -200,7 +205,7 @@ for artifact in "$REPORT" "$DIRECT_SUMMARY" "$BROWSER_SUMMARY" \
     finish 2
   fi
 done
-STAGES_EXPECTED=14
+STAGES_EXPECTED=15
 REPORT_INTEGRITY_FAILED=0
 LAST_STAGE_NAME=""
 LAST_STAGE_CODE=0
@@ -378,6 +383,34 @@ else
     --schema-retries "$SCHEMA_RETRIES"
 fi
 
+# ── 5b. Jev sentiment scales ───────────────────────────────────────────────
+# The typed-decision pass that reads the WHOLE article and measures each axis
+# and subject on a continuous scale (docs/plans/news-jev-sentiment-scales-v1.md).
+# It stores sidecar records beside the analysis and publishes nothing by
+# itself — whether a page shows them is `NEWS_JEV_PUBLISH`, read by the bundle
+# stage below. That is why it sits HERE: after the analysis whose subjects it
+# scores, before the bundles that read its store.
+#
+# ⚠️ INDEPENDENT OF THE GLM PROBE. `probe_model` gates the GLM analysis; Jev is
+# a different endpoint and a GLM outage says nothing about it. An article
+# analysed on an earlier run is still owed its scales on this one.
+#
+# ⚠️ NEVER A PUBLICATION BLOCKER. A Jev outage is recorded per article and
+# exits 0; a payload bug is named in the result (`alert: our_bug`) and ALSO
+# exits 0 under `--stage`, because a non-zero stage withholds the whole public
+# release and this pass is additive. The report lifts the alert to its top
+# level so it cannot sit unread inside one stage's result.
+if [ "$DRY" = 1 ]; then
+  stage sentiment python3 -c \
+    'import json; print(json.dumps({"skipped": "dry_run"}))'
+elif [ "$SENTIMENT_LIMIT" -eq 0 ]; then
+  stage sentiment python3 -c \
+    'import json; print(json.dumps({"skipped": "configured_zero_limit"}))'
+else
+  stage sentiment python3 news/scripts/jev_ask.py --stage \
+    --limit "$SENTIMENT_LIMIT"
+fi
+
 # ── 6. Image-rights queue + cached Commons candidates ─────────────────────
 # Publisher images are not presumed reusable. The first stage rebuilds the
 # fail-closed editorial queue; the second fills a persistent query cache with
@@ -476,6 +509,11 @@ report = {
     # until one stage is silently missing from the list.
     "stages_run": len(stages),
     "stages_ok": len(stages) - len(failed),
+    # Findings a stage chose NOT to fail on, each `{"alert": str, ...}`. A
+    # stage that exits 0 so it cannot withhold publication names its problem
+    # here instead — and this list is printed on the summary line below, which
+    # is the one surface the hourly log carries.
+    "alerts": [],
 }
 # Bundling reports both corpus and analysis counts; copying the difference
 # into the nightly result makes analysis debt visible without another scan.
@@ -490,6 +528,33 @@ if isinstance(total, int) and isinstance(analysed, int):
         "analyzed_total": analysed,
         "pending_total": max(0, total - analysed),
     }
+sentiment = next((s.get("result", {}) for s in stages
+                  if s.get("stage") == "sentiment"), {})
+if isinstance(sentiment, dict) and sentiment:
+    report["sentiment"] = {
+        key: sentiment.get(key)
+        for key in ("mode", "skipped", "assessed", "cached", "failed",
+                    "crashed", "cost", "alert")
+        if key in sentiment
+    }
+    # ⚠️ AT THE TOP LEVEL, not only inside the stage. The stage exits 0 on
+    # a payload bug, an all-failed run, an invalid mode or a crash so that it
+    # cannot block publication; this is what keeps that choice from turning
+    # into silence. EVERY alert is lifted, not only `our_bug`: an all-failed
+    # run is how a host with no API key looks, and it re-asks the same
+    # articles every hour until someone is told.
+    if isinstance(sentiment.get("alert"), str):
+        bugs = sentiment.get("our_bugs") or []
+        lifted = {"alert": f"jev_sentiment_{sentiment['alert']}",
+                  # The count beside the sample: 20 URLs of 200 must not
+                  # read as 20.
+                  "count": len(bugs) if bugs else
+                  (sentiment.get("failed", 0) + sentiment.get("crashed", 0))}
+        if bugs:
+            lifted["urls"] = bugs[:20]
+        if sentiment.get("error"):
+            lifted["error"] = sentiment["error"]
+        report["alerts"].append(lifted)
 home_health = next((s.get("result", {}) for s in stages
                     if s.get("stage") == "home_health"), {})
 if isinstance(home_health, dict):
@@ -519,9 +584,11 @@ for stage_name, artifact_env in (("acquire_direct", "DIRECT_SUMMARY"),
 report["acquisition"] = acquisition
 with open(dest, "w", encoding="utf-8") as fh:
     json.dump(report, fh, ensure_ascii=False, indent=1)
-print(json.dumps({k: report[k] for k in
-                  ("generated_at", "stages_run", "stages_ok", "failed_stages")},
-                 ensure_ascii=False))
+summary = {k: report[k] for k in
+           ("generated_at", "stages_run", "stages_ok", "failed_stages")}
+if report["alerts"]:
+    summary["alerts"] = [a["alert"] for a in report["alerts"]]
+print(json.dumps(summary, ensure_ascii=False))
 PYEOF
 REPORT_CODE=$?
 echo "  report → $REPORT" >&2
