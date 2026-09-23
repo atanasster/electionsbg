@@ -1,0 +1,891 @@
+{
+  "generated_at": "2026-09-23T06:50:05.608918+00:00",
+  "records": 9845,
+  "analyses": 9847,
+  "contract": {
+    "score_integral": 10539,
+    "score_fractional": 22747,
+    "score_is_fractional": true,
+    "confidence_agrees": 14502,
+    "confidence_disagrees": 18784,
+    "confidence_rule_holds": false
+  },
+  "agreement": [
+    {
+      "axis": "leaning",
+      "not_applicable_skipped": 5576,
+      "jev_truncated": 25,
+      "strata": {
+        "glm_full": {
+          "n": 3677,
+          "exact": 3088,
+          "exact_rate": 0.8398150666304052,
+          "within_one_rate": 0.9951047049224911,
+          "mean_distance": 0.16508022844710363,
+          "matrix": {
+            "conservative->conservative": 83,
+            "conservative->neutral": 55,
+            "conservative->progressive": 6,
+            "conservative->strong_conservative": 16,
+            "neutral->conservative": 179,
+            "neutral->neutral": 2931,
+            "neutral->progressive": 251,
+            "neutral->strong_conservative": 1,
+            "progressive->conservative": 8,
+            "progressive->neutral": 55,
+            "progressive->progressive": 71,
+            "progressive->strong_progressive": 12,
+            "strong_conservative->conservative": 3,
+            "strong_conservative->neutral": 1,
+            "strong_conservative->strong_conservative": 2,
+            "strong_progressive->neutral": 2,
+            "strong_progressive->strong_progressive": 1
+          }
+        },
+        "glm_prefix": {
+          "n": 546,
+          "exact": 386,
+          "exact_rate": 0.706959706959707,
+          "within_one_rate": 0.9835164835164835,
+          "mean_distance": 0.30952380952380953,
+          "matrix": {
+            "conservative->conservative": 80,
+            "conservative->neutral": 28,
+            "conservative->progressive": 3,
+            "conservative->strong_conservative": 17,
+            "neutral->conservative": 46,
+            "neutral->neutral": 271,
+            "neutral->progressive": 29,
+            "neutral->strong_progressive": 2,
+            "progressive->conservative": 2,
+            "progressive->neutral": 13,
+            "progressive->progressive": 26,
+            "progressive->strong_progressive": 7,
+            "strong_conservative->conservative": 10,
+            "strong_conservative->neutral": 2,
+            "strong_conservative->strong_conservative": 9,
+            "strong_progressive->progressive": 1
+          }
+        },
+        "glm_unknown": {
+          "n": 44,
+          "exact": 35,
+          "exact_rate": 0.7954545454545454,
+          "within_one_rate": 0.9772727272727273,
+          "mean_distance": 0.22727272727272727,
+          "matrix": {
+            "conservative->strong_conservative": 1,
+            "neutral->conservative": 3,
+            "neutral->neutral": 34,
+            "neutral->progressive": 1,
+            "progressive->neutral": 3,
+            "progressive->progressive": 1,
+            "strong_progressive->neutral": 1
+          }
+        }
+      }
+    },
+    {
+      "axis": "russia_stance",
+      "not_applicable_skipped": 8604,
+      "jev_truncated": 16,
+      "strata": {
+        "glm_full": {
+          "n": 932,
+          "exact": 608,
+          "exact_rate": 0.6523605150214592,
+          "within_one_rate": 0.9914163090128756,
+          "mean_distance": 0.3562231759656652,
+          "matrix": {
+            "anti_russia->anti_russia": 425,
+            "anti_russia->neutral": 40,
+            "anti_russia->pro_russia": 1,
+            "anti_russia->strong_anti_russia": 119,
+            "neutral->anti_russia": 104,
+            "neutral->neutral": 119,
+            "neutral->pro_russia": 17,
+            "pro_russia->anti_russia": 4,
+            "pro_russia->neutral": 24,
+            "pro_russia->pro_russia": 47,
+            "pro_russia->strong_pro_russia": 10,
+            "strong_anti_russia->strong_anti_russia": 11,
+            "strong_pro_russia->neutral": 3,
+            "strong_pro_russia->pro_russia": 2,
+            "strong_pro_russia->strong_pro_russia": 6
+          }
+        },
+        "glm_prefix": {
+          "n": 286,
+          "exact": 163,
+          "exact_rate": 0.5699300699300699,
+          "within_one_rate": 0.9545454545454546,
+          "mean_distance": 0.4825174825174825,
+          "matrix": {
+            "anti_russia->anti_russia": 61,
+            "anti_russia->neutral": 4,
+            "anti_russia->pro_russia": 1,
+            "anti_russia->strong_anti_russia": 31,
+            "anti_russia->strong_pro_russia": 1,
+            "neutral->anti_russia": 18,
+            "neutral->neutral": 11,
+            "neutral->pro_russia": 1,
+            "pro_russia->anti_russia": 7,
+            "pro_russia->neutral": 29,
+            "pro_russia->pro_russia": 61,
+            "pro_russia->strong_pro_russia": 12,
+            "strong_anti_russia->strong_anti_russia": 12,
+            "strong_pro_russia->anti_russia": 1,
+            "strong_pro_russia->neutral": 3,
+            "strong_pro_russia->pro_russia": 15,
+            "strong_pro_russia->strong_pro_russia": 18
+          }
+        },
+        "glm_unknown": {
+          "n": 21,
+          "exact": 9,
+          "exact_rate": 0.42857142857142855,
+          "within_one_rate": 0.9523809523809523,
+          "mean_distance": 0.6190476190476191,
+          "matrix": {
+            "anti_russia->anti_russia": 4,
+            "anti_russia->neutral": 2,
+            "anti_russia->strong_anti_russia": 5,
+            "neutral->anti_russia": 4,
+            "neutral->neutral": 3,
+            "neutral->strong_anti_russia": 1,
+            "pro_russia->pro_russia": 1,
+            "strong_anti_russia->strong_anti_russia": 1
+          }
+        }
+      }
+    },
+    {
+      "axis": "subject_tone",
+      "mixed_skipped": 19,
+      "incidental_skipped": 8761,
+      "strata": {
+        "glm_full": {
+          "n": 1176,
+          "exact": 946,
+          "exact_rate": 0.8044217687074829,
+          "within_one_rate": 0.9965986394557823,
+          "mean_distance": 0.1989795918367347,
+          "matrix": {
+            "favorable->favorable": 11,
+            "favorable->neutral": 72,
+            "favorable->unfavorable": 4,
+            "neutral->favorable": 8,
+            "neutral->neutral": 843,
+            "neutral->unfavorable": 133,
+            "unfavorable->neutral": 13,
+            "unfavorable->unfavorable": 92
+          }
+        },
+        "glm_prefix": {
+          "n": 261,
+          "exact": 195,
+          "exact_rate": 0.7471264367816092,
+          "within_one_rate": 0.9923371647509579,
+          "mean_distance": 0.26053639846743293,
+          "matrix": {
+            "favorable->favorable": 7,
+            "favorable->neutral": 21,
+            "favorable->unfavorable": 2,
+            "neutral->favorable": 6,
+            "neutral->neutral": 140,
+            "neutral->unfavorable": 36,
+            "unfavorable->neutral": 1,
+            "unfavorable->unfavorable": 48
+          }
+        },
+        "glm_unknown": {
+          "n": 5,
+          "exact": 4,
+          "exact_rate": 0.8,
+          "within_one_rate": 1.0,
+          "mean_distance": 0.2,
+          "matrix": {
+            "favorable->neutral": 1,
+            "neutral->neutral": 3,
+            "unfavorable->unfavorable": 1
+          }
+        }
+      }
+    }
+  ],
+  "calibration": {
+    "leaning": [
+      {
+        "threshold": 0.95,
+        "n": 783,
+        "coverage": 0.18350128896179985,
+        "agreement": 0.9936143039591315,
+        "in_bucket_baseline": 0.9859514687100894,
+        "lift": 0.007662835249042145
+      },
+      {
+        "threshold": 0.9,
+        "n": 1244,
+        "coverage": 0.2915397234591048,
+        "agreement": 0.9911575562700965,
+        "in_bucket_baseline": 0.9871382636655949,
+        "lift": 0.0040192926045016075
+      },
+      {
+        "threshold": 0.0,
+        "n": 4267,
+        "coverage": 1.0,
+        "agreement": 0.8223576283102882,
+        "in_bucket_baseline": 0.8783688774314506,
+        "lift": -0.05601124912116241
+      }
+    ],
+    "russia_stance": [
+      {
+        "threshold": 0.95,
+        "n": 41,
+        "coverage": 0.033091202582728005,
+        "agreement": 0.4146341463414634,
+        "in_bucket_baseline": 0.5609756097560976,
+        "lift": -0.14634146341463414
+      },
+      {
+        "threshold": 0.9,
+        "n": 90,
+        "coverage": 0.07263922518159806,
+        "agreement": 0.5111111111111111,
+        "in_bucket_baseline": 0.5777777777777777,
+        "lift": -0.06666666666666667
+      },
+      {
+        "threshold": 0.0,
+        "n": 1239,
+        "coverage": 1.0,
+        "agreement": 0.6295399515738499,
+        "in_bucket_baseline": 0.5601291364003228,
+        "lift": 0.06941081517352704
+      }
+    ]
+  },
+  "confidence_signal": {
+    "leaning": {
+      "n": 4267,
+      "auc_reported": 0.8607139876277435,
+      "auc_derived": 0.8560431863485601
+    },
+    "russia_stance": {
+      "n": 1239,
+      "auc_reported": 0.5548293391430646,
+      "auc_derived": 0.5407463270208368
+    }
+  },
+  "neutral_share": {
+    "glm_all": {
+      "n": 2388,
+      "counts": {
+        "neutral": 1946,
+        "unfavorable": 255,
+        "favorable": 168,
+        "mixed": 19
+      },
+      "neutral_share": 0.8149078726968174
+    },
+    "glm_published": {
+      "n": 2091,
+      "counts": {
+        "neutral": 1945,
+        "unfavorable": 86,
+        "favorable": 55,
+        "mixed": 5
+      },
+      "neutral_share": 0.9301769488283118
+    },
+    "jev": {
+      "n": 1464,
+      "counts": {
+        "neutral": 1103,
+        "unfavorable": 279,
+        "strongly_unfavorable": 49,
+        "favorable": 30,
+        "strongly_favorable": 3
+      },
+      "neutral_share": 0.7534153005464481
+    },
+    "jev_party_roles": {
+      "primary": 254,
+      "secondary": 1210,
+      "incidental": 614
+    }
+  },
+  "mixed": {
+    "mixed_n": 19,
+    "neutral_n": 1169,
+    "roc": [
+      {
+        "tau": 0.01,
+        "recall": 0.5263157894736842,
+        "false_positive_rate": 0.48588537211291705
+      },
+      {
+        "tau": 0.010000000000000002,
+        "recall": 0.5263157894736842,
+        "false_positive_rate": 0.48588537211291705
+      },
+      {
+        "tau": 0.0101010101010101,
+        "recall": 0.47368421052631576,
+        "false_positive_rate": 0.32848588537211293
+      },
+      {
+        "tau": 0.02,
+        "recall": 0.47368421052631576,
+        "false_positive_rate": 0.32677502138579984
+      },
+      {
+        "tau": 0.020000000000000004,
+        "recall": 0.47368421052631576,
+        "false_positive_rate": 0.32677502138579984
+      },
+      {
+        "tau": 0.0202020202020202,
+        "recall": 0.42105263157894735,
+        "false_positive_rate": 0.24807527801539778
+      },
+      {
+        "tau": 0.03,
+        "recall": 0.42105263157894735,
+        "false_positive_rate": 0.24550898203592814
+      },
+      {
+        "tau": 0.0303030303030303,
+        "recall": 0.3684210526315789,
+        "false_positive_rate": 0.1924721984602224
+      },
+      {
+        "tau": 0.04,
+        "recall": 0.3684210526315789,
+        "false_positive_rate": 0.19076133447390933
+      },
+      {
+        "tau": 0.04000000000000001,
+        "recall": 0.3684210526315789,
+        "false_positive_rate": 0.19076133447390933
+      },
+      {
+        "tau": 0.05,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.14713430282292558
+      },
+      {
+        "tau": 0.050505050505050504,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.11804961505560307
+      },
+      {
+        "tau": 0.06,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.11633875106929
+      },
+      {
+        "tau": 0.060000000000000005,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.11633875106929
+      },
+      {
+        "tau": 0.06060606060606061,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.08383233532934131
+      },
+      {
+        "tau": 0.06999999999999999,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.08297690333618478
+      },
+      {
+        "tau": 0.07,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.08297690333618478
+      },
+      {
+        "tau": 0.0707070707070707,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.06501283147989735
+      },
+      {
+        "tau": 0.08,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.0641573994867408
+      },
+      {
+        "tau": 0.09,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.05218135158254919
+      },
+      {
+        "tau": 0.09000000000000001,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.05218135158254919
+      },
+      {
+        "tau": 0.09999999999999999,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.04362703165098375
+      },
+      {
+        "tau": 0.1,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.04362703165098375
+      },
+      {
+        "tau": 0.11,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.03592814371257485
+      },
+      {
+        "tau": 0.12,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.0290846877673225
+      },
+      {
+        "tau": 0.12000000000000001,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.0290846877673225
+      },
+      {
+        "tau": 0.13,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.02566295979469632
+      },
+      {
+        "tau": 0.13999999999999999,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.015397775876817793
+      },
+      {
+        "tau": 0.14,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.015397775876817793
+      },
+      {
+        "tau": 0.1414141414141414,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.01283147989734816
+      },
+      {
+        "tau": 0.15,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.011976047904191617
+      },
+      {
+        "tau": 0.15000000000000002,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.011976047904191617
+      },
+      {
+        "tau": 0.16,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.00855431993156544
+      },
+      {
+        "tau": 0.16999999999999998,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.007698887938408896
+      },
+      {
+        "tau": 0.18,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.006843455945252352
+      },
+      {
+        "tau": 0.19,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.0051325919589392645
+      },
+      {
+        "tau": 0.2,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.00427715996578272
+      },
+      {
+        "tau": 0.22,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.00427715996578272
+      },
+      {
+        "tau": 0.22999999999999998,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.003421727972626176
+      },
+      {
+        "tau": 0.25,
+        "recall": 0.21052631578947367,
+        "false_positive_rate": 0.0025662959794696323
+      },
+      {
+        "tau": 0.26,
+        "recall": 0.15789473684210525,
+        "false_positive_rate": 0.0025662959794696323
+      },
+      {
+        "tau": 0.27,
+        "recall": 0.15789473684210525,
+        "false_positive_rate": 0.001710863986313088
+      },
+      {
+        "tau": 0.3,
+        "recall": 0.15789473684210525,
+        "false_positive_rate": 0.000855431993156544
+      },
+      {
+        "tau": 0.32,
+        "recall": 0.10526315789473684,
+        "false_positive_rate": 0.000855431993156544
+      },
+      {
+        "tau": 0.36,
+        "recall": 0.05263157894736842,
+        "false_positive_rate": 0.000855431993156544
+      }
+    ]
+  },
+  "applicability": [
+    {
+      "axis": "leaning",
+      "question": "leaning_applies",
+      "groups": {
+        "not_applicable": {
+          "n": 5576,
+          "mean": 0.1146951219512195,
+          "median": 0.04,
+          "p10": 0.01,
+          "p90": 0.32
+        },
+        "neutral": {
+          "n": 3748,
+          "mean": 0.4845784418356457,
+          "median": 0.45,
+          "p10": 0.14,
+          "p90": 0.87
+        },
+        "positioned": {
+          "n": 519,
+          "mean": 0.7761078998073218,
+          "median": 0.84,
+          "p10": 0.51,
+          "p90": 0.93
+        }
+      },
+      "separation_vs_neutral": 0.9048133657893488,
+      "separation_vs_any_answer": 0.9140596236036528
+    },
+    {
+      "axis": "russia_stance",
+      "question": "russia_applies",
+      "groups": {
+        "not_applicable": {
+          "n": 8604,
+          "mean": 0.07786959553695956,
+          "median": 0.01,
+          "p10": 0.01,
+          "p90": 0.1
+        },
+        "positioned": {
+          "n": 961,
+          "mean": 0.9496670135275754,
+          "median": 0.97,
+          "p10": 0.91,
+          "p90": 0.98
+        },
+        "neutral": {
+          "n": 278,
+          "mean": 0.944136690647482,
+          "median": 0.97,
+          "p10": 0.89,
+          "p90": 0.98
+        }
+      },
+      "separation_vs_neutral": 0.9887828231138939,
+      "separation_vs_any_answer": 0.9905187500304868
+    }
+  ],
+  "regression_cases": [
+    {
+      "slug": "09d05e6c",
+      "domain": "pik.bg",
+      "party": "ПП-ДБ",
+      "why": "hostility targets Гюров; ПП-ДБ appears once, inside a Facebook comment",
+      "found": true,
+      "subject_present": false
+    },
+    {
+      "slug": "d5aca28c",
+      "domain": "actualno.com",
+      "party": "ПП-ДБ",
+      "why": "the only favourable evidence was the party's own MEP, quoted",
+      "found": true,
+      "subject_present": true,
+      "subject_role": "incidental",
+      "value": null
+    }
+  ],
+  "spend": {
+    "calls": 16896,
+    "total_cost": 3.10843491,
+    "cost_per_article": 0.0003157374210259015,
+    "mean_input_tokens": 4380.347715435606,
+    "p50_ms": 377,
+    "p95_ms": 495
+  },
+  "worksheet": [
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-udarite-po-kopilov-i-skladovata-baza-v-kiev-belezhat-promyan-a118d96c.json",
+      "distance": 3
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/faktor.bg/20260921-radio-belgrad-rsm-e-vremenen-proekt-tova-e-teritoriqtna-star-c90b2082.json",
+      "distance": 3
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/flagman.bg/20260828-388815-e5391890.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/faktor.bg/20260919-parvo-hvalbite-posle-malchanieto-nakraq-strahat-taka-izglejd-2dcba38b.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/faktor.bg/20260830-ne-si-vaobrazqvayte-che-shte-bade-inache-38bbe9a9.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/faktor.bg/20260920-kak-yotova-da-napravi-razlika-mejdu-narkotrafikant-i-pochten-8001d18f.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/epicenter.bg/20260921-0-d24ad4e3.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/varna24.bg/20260922-Prof-Plamen-Pavlov-Vupreki-vsichki-kritiki-i-kolebaniya-nie--8fbe3914.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/petel.bg/20260921-Lavrov-Izbornite-rezultati-potvarzhdavat-kursa-na-Rusiya-670-e701b9eb.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/pogled.info/20260920-nad-100-ruski-grazhdani-glasuvaha-v-sofiya-oshte-prez-parvit-46a31ddc.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/actualno.com/20260922-genocid-v-gaza-500-mlrd-dolara-prihod-za-petrolnija-sektor-o-d28be18a.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/actualno.com/20260821-sled-atakata-v-krivoj-rog-kaja-kalas-obvini-rusija-v-umishle-424fd22b.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/actualno.com/20260902-hvatkite-na-putin-sreshtu-germanija-velikobritanija-i-japoni-2c614300.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/glasove.com/nodate-lider-na-azg-prizova-merts-da-zamine-za-moskva-i-da-pregovar-c8de6846.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/pik.bg/20260918-острие-с-разрез-на-новите-ултра-перверзии-на-кандидата-гюров-d9010ced.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/pogled.info/20260923-bryuksel-podgotvya-reglament-infosec-s-koyto-es-zatyaga-digi-92ee012f.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/glasove.com/nodate-lavrov-rezultatite-ot-izborite-potvarzhdavat-podkrepata-za-k-63b27def.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/glasove.com/nodate-bivsh-shef-v-tsru-rusiya-pecheli-voynata-na-iztoshtenie-ukra-bc159ece.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/clubz.bg/20260829-178834-88273ffb.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/glasove.com/nodate-dzhefri-saks-evropa-varvi-kam-ikonomichesko-samoubiystvo-a-a-7f475c1b.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/glasove.com/nodate-dzhefri-saks-evropa-varvi-kam-ikonomichesko-samoubiystvo-a-a-80230f05.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/pik.bg/20260921-димитър-стоянов-излови-мирчев-в-нагла-лъжа-ето-как-щурмовакъ-bf1b17de.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/frognews.bg/20260915-dokato-tramp-vijda-problem-briuksel-shte-vdiga-novi-ogradi-i-17cefeb6.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/faktor.bg/20260829-radev-pomnish-li-shipka-imahme-nadejda-che-si-neshto-razlich-dc000fce.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/faktor.bg/20260815-radev-nqma-da-se-bori-s-oligarhiqta-toy-prosto-raboti-za-rus-df760161.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/pogled.info/20260920-kitay-napredva-v-podgotovkata-za-pilotiran-polet-do-lunata-d-a0e9562c.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/bgnes.bg/20260918-skopie-mejdu-istoricheskata-doktrina-i-novata-geopolitika-188381de.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/bgnes.bg/20260830-sarbiya-izchezva-srabski-profesor-s-unishtozhitelna-kritika--a5b83a94.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/fakti.bg/20260921-1082487-rusia-se-zakani-da-otgovori-na-atakite-na-ukraina-sr-3ca4fc61.json",
+      "distance": 2
+    },
+    {
+      "axis": "leaning",
+      "article_path": "news/data/petel.bg/20260830-Balgarskata-asotsiatsiya-po-retsiklirane-Porednoto-srivane-n-28206326.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/actualno.com/20260822-otmyshtenie-za-desetkite-ubiti-v-kiev-i-krivoj-rog-ukrainski-6beefb49.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-prof-nako-stefanov-varvi-strashna-militarizatsiya-nyakoy-se--aff0f721.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260920-iztichane-na-informatsiya-ot-ukrainskoto-ministerstvo-na-otb-8a28acee.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/faktor.bg/20260921-neshka-robeva-ne-iska-da-e-viceprezident-podkrepq-karvavata--e6a65cb4.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/lupa.bg/nodate-izvanredno-zelenski-zaplashi-rusiya-che-shte-atakuva-grazhda-fba9accb.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260830-si-dzinpin-pristigna-v-bishkek-za-darzhavno-poseshtenie-i-sr-7f6090cd.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-zaporozhkoto-napravlenie-ruskite-pehotni-grupi-mogat-da-dost-52dd6201.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-izborniyat-sriv-v-iztochna-germaniya-postavya-pod-vapros-bad-b4b748f7.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-ukrainskite-ataki-s-dronove-i-votat-za-darzhavnata-duma-voen-7d7e0ff3.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-v-pekin-be-otkrita-svetovnata-organizatsiya-za-nauchna-gramo-66a5323b.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-berlin-izprati-10-raketi-patriot-na-kiev-tvardi-se-che-ukray-b1026eb2.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260830-kitay-otchete-7-rast-na-chuzhdestrannite-investitsii-prez-pa-d4be524c.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260920-bryuksel-izmisli-status-asotsiiran-chlen-za-kanada-za-da-pod-ca5332d4.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pik.bg/20260921-димитър-стоянов-излови-мирчев-в-нагла-лъжа-ето-как-щурмовакъ-bf1b17de.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-dvoyni-standarti-na-finlandiya-zashto-svalyaneto-na-ukrainsk-e993b538.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260919-stokholm-zalaga-12-miliarda-dolara-sreshtu-moskva-finansovo--7aeb7878.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260921-germanski-predpriyatiya-uvelichavat-investitsiite-si-v-kitay-789fad9f.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/glasove.com/nodate-politiko-merts-vadi-ruskata-zaplaha-sreshtu-azg-shte-obvini--b6f28721.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/fakti.bg/20260902-1078327-loshoto-momche-na-kremal-s-teroristi-ne-se-pregovara-5f3190a1.json",
+      "distance": 2
+    },
+    {
+      "axis": "russia_stance",
+      "article_path": "news/data/pogled.info/20260902-varshava-sviva-perkite-zashto-polskiyat-pragmatizam-bi-spira-c318fbd2.json",
+      "distance": 2
+    }
+  ]
+}

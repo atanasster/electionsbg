@@ -146,6 +146,10 @@ shape of one that was. **Refusal 6 in §7.**
 
 ### 2.3 ⚠️ Is `score` fractional? Their code says yes; our probe says no
 
+> **✅ SETTLED by Phase 0 (2026-09-23): fractional.** 22,747 of 33,286 score
+> answers are non-integral — see `news/evals/jev-sentiment-phase0-2026-09-23.md`.
+> Nothing below depended on it; the text is kept as the record of the question.
+
 Their code is written as if `Score.score` is continuous —
 `int(round(sentiment_score_val))` to get an index, `round(float(score), 2)` to
 store it, defaults of `2.0` / `0.0`, and `catalyst_score >= 2.0` comparisons.
@@ -166,6 +170,15 @@ continuous score and an argmax are indistinguishable in this one sample.
 because §3.1 stores the expected value, which is continuous either way.
 
 ### 2.4 Measured: `confidence` == max(probabilities)
+
+> **⚠️ WRONG — REFUTED by Phase 0 (2026-09-23).** Over the corpus the reported
+> `confidence` differs from max(p) on **18,784 of 33,286** answers; the n = 5
+> sample below happened to agree. They are two quantities — and neither
+> predicts agreement with GLM on Russia (AUC 0.555 reported, 0.541 derived),
+> while they tie on leaning (0.861 / 0.856). Consequence, decided: a page draws
+> the distribution and prints **no** confidence percentage. See
+> `news/evals/jev-sentiment-phase0-2026-09-23.md`. The paragraph below is kept
+> as the record of why the store holds both fields.
 
 On **all five** non-`noul` answers in the captured probe, `confidence` equals
 the largest probability exactly (1.0/1.0, 0.98/0.98, …), and the probabilities

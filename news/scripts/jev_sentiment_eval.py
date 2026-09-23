@@ -483,6 +483,11 @@ def regression_cases(records: dict, analyses: dict) -> list:
         if found:
             subject = next((r for r in found.get("subjects") or []
                             if r.get("name") == case["party"]), None)
+            # ⚠️ ABSENT IS AN ANSWER, and it must be SAID. A row with neither a
+            # value nor a role read as „not measured" when the truth was that
+            # the party is not a subject of this article at all — measured on
+            # the pik.bg case, ПП-ДБ has zero mentions in the stored text.
+            row["subject_present"] = subject is not None
             if subject and isinstance(subject.get("tone"), dict):
                 tone = subject["tone"]
                 # ⚠️ THE SCALE THAT PRODUCED THE VALUE, not the display one.
@@ -565,6 +570,103 @@ def sharpest_disagreements(records: dict, analyses: dict, limit: int = 50) -> li
 
 # ─── the report ──────────────────────────────────────────────────────────────
 
+def auc(pairs: list):
+    """P(score of an agreeing row > score of a disagreeing one), ties half.
+
+    None when either class is empty — an AUC over one class is undefined, and
+    reporting 0.5 for it would read as „no signal" when nothing was measured.
+    """
+    import bisect  # noqa: PLC0415
+    pos = [c for c, ok in pairs if ok and c is not None]
+    neg = sorted(c for c, ok in pairs if not ok and c is not None)
+    if not pos or not neg:
+        return None
+    total = 0.0
+    for c in pos:
+        lo, hi = bisect.bisect_left(neg, c), bisect.bisect_right(neg, c)
+        total += lo + (hi - lo) / 2
+    return total / (len(pos) * len(neg))
+
+
+def confidence_signal(records: dict, analyses: dict) -> dict:
+    """Does either confidence field predict agreement with GLM? Per axis.
+
+    ⚠️ WHY THIS EXISTS: plan §2.4 held that Jev's reported `confidence` IS the
+    modal probability, on n=5. `contract_findings` shows it is not, on most
+    answers — so they are two quantities, a page must show at most one of
+    them, and the choice should rest on which one carries signal. An AUC near
+    0.5 means the field predicts nothing, and a page printing it as a
+    percentage beside a verdict would be decorating the verdict.
+    """
+    out = {}
+    for axis in ax.ARTICLE_AXES:
+        scale, pairs_r, pairs_d = axis["scale"], [], []
+        for url, record in records.items():
+            analysis = analyses.get(url)
+            block = (record.get("axes") or {}).get(axis["id"])
+            if not analysis or not isinstance(block, dict):
+                continue
+            score = block.get("score")
+            glm = glm_axis_label(analysis, axis["id"])
+            if not isinstance(score, dict) or glm not in set(scale.labels):
+                continue
+            ok = js.bucket_label(score["value"], scale) == glm
+            pairs_r.append((score.get("confidence_reported"), ok))
+            pairs_d.append((score.get("confidence_derived"), ok))
+        out[axis["id"]] = {"n": len(pairs_d),
+                           "auc_reported": auc(pairs_r),
+                           "auc_derived": auc(pairs_d)}
+    return out
+
+
+def neutral_share(records: dict, analyses: dict) -> dict:
+    """The party archive's label mix under each producer — the complaint that
+    started this plan („way too many neutral articles"), as three counts.
+
+    `glm_all` is every party tone GLM emitted; `glm_published` is what the
+    archive actually shows, after the evidence gate; `jev` is Jev's subject
+    tone for parties it judged non-incidental, through the display buckets.
+    ⚠️ THE MIDDLE ONE IS THE PAGE. Comparing Jev against `glm_all` would
+    understate the change by crediting GLM with tones no reader ever saw.
+    """
+    import analyze_articles as aa  # noqa: PLC0415
+    glm_all, glm_pub, jev, roles = (collections.Counter() for _ in range(4))
+    for url, analysis in analyses.items():
+        tones = [t for t in analysis.get("party_tones") or [] if isinstance(t, dict)]
+        if not tones:
+            continue
+        try:
+            article = json.loads((ROOT / analysis["article_path"]).read_text(
+                encoding="utf-8"))
+        except (OSError, ValueError, KeyError, TypeError):
+            article = None
+        for tone in tones:
+            glm_all[tone.get("tone")] += 1
+            try:
+                if article is not None and aa.party_tone_published(tone, analysis, article):
+                    glm_pub[tone.get("tone")] += 1
+            except Exception:  # noqa: BLE001 — the archive's own fail-closed rule
+                pass
+    for record in records.values():
+        if not sm.answered(record):
+            continue
+        for subject in record.get("subjects") or []:
+            if subject.get("kind") != "party":
+                continue
+            roles[subject.get("subject_role")] += 1
+            tone = subject.get("tone")
+            if isinstance(tone, dict) and tone.get("value") is not None:
+                scale = ax.ANCHOR_VARIANTS.get(tone.get("levels"), ax.SUBJECT_TONE)
+                jev[ax.SUBJECT_TONE.labels[js.bucket_index(tone["value"], scale)]] += 1
+
+    def mix(counter):
+        n = sum(counter.values())
+        return {"n": n, "counts": dict(counter.most_common()),
+                "neutral_share": (counter.get("neutral", 0) / n) if n else None}
+    return {"glm_all": mix(glm_all), "glm_published": mix(glm_pub),
+            "jev": mix(jev), "jev_party_roles": dict(roles)}
+
+
 def build_report(records: dict, analyses: dict) -> dict:
     return {
         "generated_at": _now(),
@@ -576,6 +678,8 @@ def build_report(records: dict, analyses: dict) -> dict:
                       + [subject_agreement(records, analyses)]),
         "calibration": {a["id"]: calibration(records, analyses, a["id"])
                         for a in ax.ARTICLE_AXES},
+        "confidence_signal": confidence_signal(records, analyses),
+        "neutral_share": neutral_share(records, analyses),
         "mixed": mixed_separation(records, analyses),
         "applicability": [applicability_separation(records, analyses, a["id"])
                           for a in ax.ARTICLE_AXES],

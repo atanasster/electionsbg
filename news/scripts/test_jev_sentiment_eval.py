@@ -385,6 +385,120 @@ class RegressionCases(unittest.TestCase):
         self.assertEqual(hit["bucket"], "neutral")
 
 
+    def test_a_party_that_is_not_a_subject_is_SAID_to_be_absent(self):
+        # ⚠️ The pik.bg case as measured: ПП-ДБ has zero mentions in the
+        # stored text, so it is not a subject. The row used to carry neither a
+        # value nor a role, which read as „not measured".
+        url = "https://pik.bg/x"
+        rec = {**record(url), "subjects": [
+            {"name": "Андрей Гюров", "kind": "person", "subject_role": "primary",
+             "assessment_status": "assessed", "tone": score_block(0)}]}
+        an = {**analysis(url),
+              "article_path": "news/data/pik.bg/20260922-gyuro-09d05e6c.json"}
+        hit = next(r for r in ev.regression_cases({url: rec}, {url: an})
+                   if r["slug"] == "09d05e6c")
+        self.assertTrue(hit["found"])
+        self.assertIs(hit["subject_present"], False)
+        self.assertNotIn("value", hit)
+
+
+def stamped(doc):
+    """A record the store would call ANSWERED — `neutral_share` reads only
+    those, as the publication gate does."""
+    return {**doc, "rubric_version": sm.RUBRIC_VERSION,
+            "axes_version": ax.AXES_VERSION,
+            "contract_version": js.SCALE_CONTRACT_VERSION}
+
+
+class Auc(unittest.TestCase):
+    def test_a_perfect_separator_is_one_and_a_coin_is_one_half(self):
+        self.assertEqual(ev.auc([(0.9, True), (0.1, False)]), 1.0)
+        self.assertEqual(ev.auc([(0.5, True), (0.5, False)]), 0.5)
+        self.assertEqual(ev.auc([(0.1, True), (0.9, False)]), 0.0)
+
+    def test_one_class_missing_is_none_not_one_half(self):
+        # 0.5 would read as „no signal" when nothing was measured.
+        self.assertIsNone(ev.auc([(0.9, True), (0.8, True)]))
+        self.assertIsNone(ev.auc([]))
+
+
+class ConfidenceSignal(unittest.TestCase):
+    def test_a_field_that_tracks_agreement_scores_above_one_half(self):
+        records, analyses = {}, {}
+        for i, (level, glm, conf) in enumerate(
+                [(2, "neutral", 0.95), (2, "neutral", 0.9),
+                 (2, "progressive", 0.4), (2, "conservative", 0.3)]):
+            url = f"https://a.bg/{i}"
+            records[url] = record(url, leaning=level, confidence=conf)
+            analyses[url] = analysis(url, leaning=glm)
+        out = ev.confidence_signal(records, analyses)
+        self.assertEqual(out["leaning"]["n"], 4)
+        self.assertEqual(out["leaning"]["auc_derived"], 1.0)
+        self.assertEqual(out["leaning"]["auc_reported"], 1.0)
+
+    def test_the_two_fields_are_measured_separately(self):
+        # ⚠️ The finding that motivates this section: the reported value is
+        # NOT the modal probability, so the two can rank rows differently.
+        url_a, url_b = "https://a.bg/a", "https://a.bg/b"
+        agree = record(url_a, leaning=2, confidence=0.9)
+        disagree = record(url_b, leaning=2, confidence=0.5)
+        # Invert the REPORTED field only.
+        agree["axes"]["leaning"]["score"]["confidence_reported"] = 0.1
+        disagree["axes"]["leaning"]["score"]["confidence_reported"] = 0.99
+        out = ev.confidence_signal(
+            {url_a: agree, url_b: disagree},
+            {url_a: analysis(url_a, leaning="neutral"),
+             url_b: analysis(url_b, leaning="progressive")})
+        self.assertEqual(out["leaning"]["auc_derived"], 1.0)
+        self.assertEqual(out["leaning"]["auc_reported"], 0.0)
+
+
+class NeutralShare(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self.prior_root = ev.ROOT
+        ev.ROOT = self.root
+        self.addCleanup(setattr, ev, "ROOT", self.prior_root)
+
+    def test_the_page_basis_is_the_PUBLISHED_glm_mix(self):
+        from unittest import mock
+        url = "https://a.bg/1"
+        path = "news/data/a.bg/1.json"
+        (self.root / path).parent.mkdir(parents=True)
+        (self.root / path).write_text(json.dumps({"url": url}), encoding="utf-8")
+        an = {**analysis(url, party_tones=[
+            {"party": "ГЕРБ", "tone": "unfavorable"},
+            {"party": "БСП", "tone": "neutral"}]), "article_path": path}
+        rec = stamped({**record(url), "subjects": [
+            {"name": "ГЕРБ", "kind": "party", "subject_role": "primary",
+             "tone": score_block(1)},
+            {"name": "ДПС", "kind": "party", "subject_role": "incidental"}]})
+        # The evidence gate withholds the unfavorable one — the mechanism
+        # plan §1.4 measured, and the reason the archive read as neutral.
+        import analyze_articles as aa
+        with mock.patch.object(aa, "party_tone_published",
+                               side_effect=lambda t, *_: t["tone"] == "neutral"):
+            out = ev.neutral_share({url: rec}, {url: an})
+        self.assertEqual(out["glm_all"]["n"], 2)
+        self.assertEqual(out["glm_published"]["counts"], {"neutral": 1})
+        self.assertEqual(out["glm_published"]["neutral_share"], 1.0)
+        self.assertEqual(out["jev"]["counts"], {"unfavorable": 1})
+        # An incidental party is counted as a ROLE and never as a tone.
+        self.assertEqual(out["jev_party_roles"],
+                         {"primary": 1, "incidental": 1})
+
+    def test_a_stale_record_is_not_counted(self):
+        url = "https://a.bg/2"
+        rec = {**record(url), "subjects": [
+            {"name": "ГЕРБ", "kind": "party", "subject_role": "primary",
+             "tone": score_block(1)}]}          # no version stamps
+        out = ev.neutral_share({url: rec}, {})
+        self.assertEqual(out["jev"]["n"], 0)
+        self.assertIsNone(out["jev"]["neutral_share"])
+
+
 class Roc(unittest.TestCase):
     def test_a_point_is_never_excluded_from_its_own_threshold(self):
         # ⚠️ Rounding a threshold UP drops the mass that generated it —
