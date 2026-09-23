@@ -52,6 +52,16 @@ const main = (): void => {
     `\n  tail: employee α ${t.tail.engineEmployeeAlpha} (canonical, drives МОД) vs all-filer НАП α ${t.tail.napAllFilerAlpha} — ${t.tail.orderingOk ? "ordering OK" : "ORDERING BROKEN"}`,
   );
 
+  if (t.history?.length) {
+    console.log(
+      "\n  held НАП tables (edges differ per year — compare totals, not bins):",
+    );
+    for (const y of t.history)
+      console.log(
+        `  ${y.taxYear}  ${y.totals.filers.toLocaleString().padStart(10)} filers  €${(y.totals.pitEur / 1e9).toFixed(2)}B ДДФЛ  top bin (base > €${y.topBin.baseLowEur}): ${(y.topBin.filersShare * 100).toFixed(1)}% of filers pay ${(y.topBin.pitShare * 100).toFixed(1)}%  ${y.asOf ? `(as of ${y.asOf})` : ""}`,
+      );
+  }
+
   console.log("\nGates:");
   const gate = checkIncomeTierGates(t);
   for (const l of gate.lines) console.log(l);

@@ -2768,12 +2768,15 @@ export interface PolicyBaselineFile {
     capEur: number;
     bands: { grossEur: number; workers: number }[];
   };
-  /** Real НАП income-tier validation (taxable-base distribution of ДДФЛ
-   *  filers, tax year 2023) — validates the fitted body + sources the tail
-   *  ordering. Optional: present once run_income_tiers.ts has run. */
+  /** Real НАП income-tier data (taxable-base distribution of ДДФЛ filers;
+   *  anchor = the latest year held, others in `history`) — validates the
+   *  fitted body, sources the tail ordering, and (via `allFilerGrid`) scores
+   *  the non-employment ДДФЛ slice under a bracket schedule. Optional:
+   *  present once run_income_tiers.ts has run. */
   incomeTiers?: {
     source: string;
     taxYear: number;
+    asOf?: string | null;
     currency: { bgnPerEur: number; note: string };
     totals: { filers: number; pitEur: number; taxableBaseEur: number };
     bins: {
@@ -2787,7 +2790,7 @@ export interface PolicyBaselineFile {
       napYearWageFactor: number;
       engineCountByBin: number[];
       bodyShareRatio: (number | null)[];
-      cumThroughBin4: { engine: number; nap: number };
+      cumThroughBin4: { engine: number; nap: number; throughBaseEur?: number };
     };
     tail: {
       engineEmployeeAlpha: number;
@@ -2796,6 +2799,24 @@ export interface PolicyBaselineFile {
       orderingOk: boolean;
       note: string;
     };
+    /** Discretized all-filer distribution, MONTHLY taxable-base EUR at the
+     *  baseline year. Absent on a baseline built before 2026-09. */
+    allFilerGrid?: { baseEur: number; filers: number }[];
+    /** Every НАП table held, oldest first. */
+    history?: {
+      taxYear: number;
+      source: string;
+      asOf: string | null;
+      totals: { filers: number; pitEur: number; taxableBaseEur: number };
+      topBin: { baseLowEur: number; filersShare: number; pitShare: number };
+      bins: {
+        baseLowEur: number;
+        baseHighEur: number | null;
+        count: number;
+        avgBaseEur: number;
+        population: "all";
+      }[];
+    }[];
   };
   vat: {
     /** actual/modeled at the baseline year — bridges household-only modeled

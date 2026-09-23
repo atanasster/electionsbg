@@ -339,6 +339,96 @@ export const scorePitSchedule = (
   );
 };
 
+/** One point of the discretized ALL-FILER taxable-base distribution
+ *  (policy_baseline.json → incomeTiers.allFilerGrid, built from the real НАП
+ *  table by scripts/budget/nap_income_tiers.ts). Already on the post-SSC
+ *  taxable base, so no SSC step — unlike EarningsBand, which is gross. */
+export interface AllFilerPoint {
+  /** Monthly taxable base, EUR, at the baseline year. */
+  baseEur: number;
+  filers: number;
+}
+
+/** Relative change of the ДДФЛ a schedule raises on the all-filer grid,
+ *  against the current flat rate: (revenue under `brackets`) / (revenue at
+ *  `flatRate`) − 1. For a flat schedule at rate r this is exactly
+ *  r/flatRate − 1, whatever the grid. */
+export const allFilerScheduleRatio = (
+  grid: AllFilerPoint[],
+  brackets: PitBracket[],
+  flatRate: number = PIT_RATE,
+): number => {
+  let flat = 0;
+  let sched = 0;
+  for (const p of grid) {
+    flat += p.filers * p.baseEur * flatRate;
+    sched += p.filers * pitMonthlyUnderBrackets(p.baseEur, brackets);
+  }
+  return flat > 0 ? sched / flat - 1 : 0;
+};
+
+/** Score a bracket schedule for the NON-EMPLOYMENT slice of ДДФЛ (freelance,
+ *  rent and other income in the annual taxable base).
+ *
+ *  With an all-filer grid, the slice changes like the whole annual base of
+ *  all filers does — so a second bracket now raises revenue on the high
+ *  non-employment incomes it used to ignore. Without a grid it falls back to
+ *  the old base-rate scaling.
+ *
+ *  A leading untaxed minimum (`{fromEur: 0, rate: 0}`) is dropped here on
+ *  purpose: the allowance is per person, and most non-employment income
+ *  belongs to people who also have a job, where the employee grid already
+ *  gives it. Applying it again would count it twice. */
+export const scorePitNonEmployment = (
+  nonEmploymentRevenueEur: number,
+  brackets: PitBracket[],
+  grid?: AllFilerPoint[] | null,
+  flatRate: number = PIT_RATE,
+): number => {
+  const sched =
+    brackets.length > 1 && brackets[0].fromEur === 0 && brackets[0].rate === 0
+      ? [{ fromEur: 0, rate: brackets[1].rate }, ...brackets.slice(2)]
+      : brackets;
+  if (!sched.length) return -nonEmploymentRevenueEur;
+  if (!grid?.length)
+    return nonEmploymentRevenueEur * (sched[0].rate / flatRate - 1);
+  return nonEmploymentRevenueEur * allFilerScheduleRatio(grid, sched, flatRate);
+};
+
+/** The two readings of what the UPPER brackets of a schedule (everything
+ *  above the base-rate segment) raise on EMPLOYMENT income:
+ *
+ *  - `employeeGridEur` — on the fitted employee bands (the central score);
+ *  - `allFilerEur` — as if employment income were spread like the НАП
+ *    all-filer table.
+ *
+ *  They disagree by up to ~2× because the НАП 2024 table carries far more
+ *  people above ~36 000 лв of annual base than the employee fit does, and the
+ *  data cannot tell how much of that is the fit and how much is the
+ *  population (self-employed, several jobs summed per person, accrual vs
+ *  cash). Reported as a range, never averaged. Null when the schedule has no
+ *  upper bracket or no grid. */
+export const scorePitUpperBracketsRange = (
+  employmentRevenueEur: number,
+  bands: EarningsBand[],
+  cap: number | CapMonths[],
+  kappa: number,
+  brackets: PitBracket[],
+  grid?: AllFilerPoint[] | null,
+): { employeeGridEur: number; allFilerEur: number } | null => {
+  if (!grid?.length) return null;
+  const baseIdx = brackets.findIndex((b) => b.rate > 0);
+  if (baseIdx === -1 || baseIdx === brackets.length - 1) return null;
+  const base = brackets.slice(0, baseIdx + 1);
+  const employeeGridEur =
+    scorePitSchedule(bands, cap, brackets, kappa) -
+    scorePitSchedule(bands, cap, base, kappa);
+  const allFilerEur =
+    employmentRevenueEur *
+    (allFilerScheduleRatio(grid, brackets) - allFilerScheduleRatio(grid, base));
+  return { employeeGridEur, allFilerEur };
+};
+
 /** Weighted Gini coefficient of a per-band money amount (e.g. net monthly
  *  income under a schedule). O(n²) pairwise — trivial at ~120 bands. Wage
  *  earners only, by construction of the band grid. */

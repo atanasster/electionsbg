@@ -87,6 +87,8 @@ import {
   scoreModCapBands,
   scorePensionFloorRaise,
   scorePensionIndexation,
+  scorePitNonEmployment,
+  scorePitUpperBracketsRange,
   scorePitSchedule,
   scoreTeachersPeg,
   scoreMaternityMonths,
@@ -398,11 +400,36 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     brackets,
     earnings.kappa,
   );
-  const pitNonEmploymentDelta =
-    baseline.revenue.pitEur *
-    baseline.revenue.pitNonEmploymentShare *
-    (s.pit / 100 / PIT_RATE - 1);
+  // Non-employment income is scored on the real НАП all-filer distribution
+  // (incomeTiers.allFilerGrid), so the second bracket reaches it too.
+  const pitNonEmploymentDelta = scorePitNonEmployment(
+    baseline.revenue.pitEur * baseline.revenue.pitNonEmploymentShare,
+    brackets,
+    baseline.incomeTiers?.allFilerGrid,
+  );
   const pitDelta = pitEmploymentDelta + pitNonEmploymentDelta;
+  // The upper brackets' employment yield read two ways (employee fit vs the
+  // НАП all-filer table) — they differ by up to ~2×, so it is a range, not a
+  // point. `pitRange` is the whole ДДФЛ row under each reading; null when
+  // the schedule has no upper bracket.
+  const upper = scorePitUpperBracketsRange(
+    baseline.revenue.pitEur * baseline.revenue.pitEmploymentShare,
+    earnings.bands,
+    earnings.capEur,
+    earnings.kappa,
+    brackets,
+    baseline.incomeTiers?.allFilerGrid,
+  );
+  const pitAltEur = upper
+    ? pitDelta - upper.employeeGridEur + upper.allFilerEur
+    : pitDelta;
+  const pitRange = upper
+    ? {
+        lowEur: Math.min(pitDelta, pitAltEur),
+        highEur: Math.max(pitDelta, pitAltEur),
+        allFilerEur: pitAltEur,
+      }
+    : null;
 
   const corpDelta = scoreCorporate(baseline.revenue.corporateEur, s.corp / 100);
   const divDelta = scoreDividend(baseline.revenue.dividendEur, s.div / 100);
@@ -623,7 +650,8 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     gamblingDelta +
     roadChargesDelta +
     expenditureBalance +
-    Math.min(modRes.lowEur, modRes.highEur);
+    Math.min(modRes.lowEur, modRes.highEur) +
+    (pitRange ? pitRange.lowEur - pitDelta : 0);
   const high =
     vatDelta +
     pitDelta +
@@ -633,7 +661,8 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     gamblingDelta +
     roadChargesDelta +
     expenditureBalance +
-    Math.max(modRes.lowEur, modRes.highEur);
+    Math.max(modRes.lowEur, modRes.highEur) +
+    (pitRange ? pitRange.highEur - pitDelta : 0);
 
   // Household effective VAT take per euro of taxable consumption — drives
   // the citizen pane's VAT line.
@@ -649,6 +678,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     pitDelta,
     pitEmploymentDelta,
     pitNonEmploymentDelta,
+    pitRange,
     corpDelta,
     divDelta,
     dieselDelta,
@@ -2432,6 +2462,9 @@ export const BudgetPolicySimulator: FC = () => {
   };
   const modUncertain =
     Math.abs(scenario.modRes.highEur - scenario.modRes.lowEur) > 1e6;
+  const pitUncertain =
+    scenario.pitRange != null &&
+    scenario.pitRange.highEur - scenario.pitRange.lowEur > 1e6;
 
   // Mode-aware per-lever values: in dynamic mode each revenue lever shows
   // static + its central-draw behavioral offset; most expenditure levers carry
@@ -3865,9 +3898,9 @@ export const BudgetPolicySimulator: FC = () => {
                     high: fmtDelta(dynamicScenario.p95Eur, lang),
                   })}
                 </div>
-              ) : !dyn && modUncertain ? (
+              ) : !dyn && (modUncertain || pitUncertain) ? (
                 <div className="text-[11px] text-muted-foreground tabular-nums">
-                  {t("budget_policy_hero_range", {
+                  {t("budget_policy_hero_range_static", {
                     low: fmtDelta(scenario.low, lang),
                     high: fmtDelta(scenario.high, lang),
                   })}
@@ -3970,10 +4003,26 @@ export const BudgetPolicySimulator: FC = () => {
                   />
                   <DeltaRow
                     label={t("budget_policy_row_pit")}
+                    tip={
+                      pitUncertain
+                        ? t("budget_policy_tip_pit_range")
+                        : undefined
+                    }
                     deltaEur={effPit}
                     maxAbs={maxAbs}
                     lang={lang}
-                    sub={staticSub(scenario.pitDelta, effPit)}
+                    sub={
+                      [
+                        staticSub(scenario.pitDelta, effPit),
+                        pitUncertain && scenario.pitRange
+                          ? t("budget_policy_row_pit_alt", {
+                              v: fmtDelta(scenario.pitRange.allFilerEur, lang),
+                            })
+                          : undefined,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ") || undefined
+                    }
                   />
                   <DeltaRow
                     label={t("budget_policy_row_corp")}

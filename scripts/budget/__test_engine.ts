@@ -42,6 +42,9 @@ import {
   scoreCollectionRealism,
   COLLECTION_REALISM_CENTRAL,
   scoreSoeSubsidyCut,
+  scorePitNonEmployment,
+  allFilerScheduleRatio,
+  scorePitUpperBracketsRange,
   SOE_SUBSIDY_BASE_EUR,
   SOE_SUBSIDY_REALISM_CENTRAL,
   scoreExciseRate,
@@ -622,6 +625,124 @@ check(
   "sampleTriangular monotone",
   sampleTriangular(0.3, band) < sampleTriangular(0.7, band),
 );
+
+// --- Non-employment ДДФЛ on the all-filer grid (НАП tables, 2026-09) ---
+{
+  const grid = [
+    { baseEur: 500, filers: 1000 },
+    { baseEur: 1500, filers: 400 },
+    { baseEur: 4000, filers: 50 },
+  ];
+  eq(
+    "allFilerScheduleRatio flat 12% = exactly +20%",
+    allFilerScheduleRatio(grid, [{ fromEur: 0, rate: 0.12 }]),
+    0.2,
+    1e-12,
+  );
+  eq(
+    "scorePitNonEmployment flat 12% = old base-rate scaling",
+    scorePitNonEmployment(100e6, [{ fromEur: 0, rate: 0.12 }], grid),
+    100e6 * (0.12 / 0.1 - 1),
+    1e-3,
+  );
+  eq(
+    "scorePitNonEmployment drops the untaxed minimum (per person, granted on the job)",
+    scorePitNonEmployment(
+      100e6,
+      [
+        { fromEur: 0, rate: 0 },
+        { fromEur: 620, rate: 0.1 },
+      ],
+      grid,
+    ),
+    0,
+    1e-6,
+  );
+  const withB2 = scorePitNonEmployment(
+    100e6,
+    [
+      { fromEur: 0, rate: 0.1 },
+      { fromEur: 2000, rate: 0.2 },
+    ],
+    grid,
+  );
+  // Only the 4000 point is above 2000: extra 50×2000×0.1 = 10,000 on a flat
+  // 10% base of (1000×500 + 400×1500 + 50×4000)×0.1 = 130,000.
+  eq(
+    "second bracket raises the non-employment slice",
+    withB2,
+    100e6 * (10000 / 130000),
+    1,
+  );
+  eq(
+    "no grid → falls back to base-rate scaling (bracket ignored)",
+    scorePitNonEmployment(100e6, [
+      { fromEur: 0, rate: 0.1 },
+      { fromEur: 2000, rate: 0.2 },
+    ]),
+    0,
+    1e-6,
+  );
+}
+
+// --- Upper-bracket range: employee fit vs НАП all-filer reading ---
+{
+  const grid = [
+    { baseEur: 500, filers: 1000 },
+    { baseEur: 4000, filers: 50 },
+  ];
+  const bands = [
+    { grossEur: 700, workers: 1000 },
+    { grossEur: 3000, workers: 50 },
+  ];
+  const flat = [{ fromEur: 0, rate: 0.1 }];
+  check(
+    "upper-bracket range is null with no upper bracket",
+    scorePitUpperBracketsRange(1e9, bands, 2000, 1, flat, grid) === null,
+  );
+  check(
+    "upper-bracket range is null with no НАП grid",
+    scorePitUpperBracketsRange(1e9, bands, 2000, 1, [
+      ...flat,
+      { fromEur: 2000, rate: 0.2 },
+    ]) === null,
+  );
+  const r = scorePitUpperBracketsRange(
+    1e9,
+    bands,
+    2000,
+    1,
+    [...flat, { fromEur: 2000, rate: 0.2 }],
+    grid,
+  );
+  // All-filer: extra 50×2000×0.1 on a flat base of (1000×500+50×4000)×0.1.
+  eq(
+    "all-filer reading of the upper bracket",
+    r?.allFilerEur ?? NaN,
+    1e9 * (10000 / 70000),
+    1,
+  );
+  check("employee-grid reading is positive", (r?.employeeGridEur ?? 0) > 0);
+  check(
+    "an untaxed minimum does not move the upper-bracket reading",
+    near(
+      scorePitUpperBracketsRange(
+        1e9,
+        bands,
+        2000,
+        1,
+        [
+          { fromEur: 0, rate: 0 },
+          { fromEur: 300, rate: 0.1 },
+          { fromEur: 2000, rate: 0.2 },
+        ],
+        grid,
+      )?.allFilerEur ?? NaN,
+      r?.allFilerEur ?? NaN,
+      1,
+    ),
+  );
+}
 
 if (failures > 0) throw new Error(`${failures} engine unit test(s) failed`);
 console.log("\nAll engine unit tests pass.");

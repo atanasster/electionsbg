@@ -528,104 +528,882 @@
     ]
   },
   "incomeTiers": {
-    "source": "НАП parliamentary answer, tax year 2023 (distribution of ДДФЛ filers by годишна данъчна основа) — minfin.bg/bg/wreply/996-4/12881",
-    "taxYear": 2023,
+    "source": "НАП, отговор по ЗДОИ рег. № ЕО-22-30-853 от 14.09.2026 (препратено от МФ) — distribution of ДДФЛ filers by годишна данъчна основа, tax year 2024",
+    "taxYear": 2024,
+    "asOf": "2025-07-28",
     "currency": {
       "bgnPerEur": 1.95583,
-      "note": "declared ДДФЛ = 10% of taxable base (verified) → base mass = pit×10"
+      "note": "declared ДДФЛ = 10% of taxable base → base mass = pit×10; tables are in лв, converted at the peg"
     },
     "totals": {
-      "filers": 3109552,
-      "pitEur": 3068953334,
-      "taxableBaseEur": 30689533344
+      "filers": 3160624,
+      "pitEur": 3565187158,
+      "taxableBaseEur": 35651871584
     },
     "bins": [
       {
         "baseLowEur": 0,
-        "baseHighEur": 4786,
-        "count": 1445800,
-        "avgBaseEur": 2405,
+        "baseHighEur": 6136,
+        "count": 1590689,
+        "avgBaseEur": 3060,
         "population": "all"
       },
       {
-        "baseLowEur": 4786,
-        "baseHighEur": 9203,
-        "count": 710103,
-        "avgBaseEur": 6731,
+        "baseLowEur": 6136,
+        "baseHighEur": 12271,
+        "count": 761226,
+        "avgBaseEur": 8840,
         "population": "all"
       },
       {
-        "baseLowEur": 9203,
-        "baseHighEur": 15339,
-        "count": 512692,
-        "avgBaseEur": 11974,
+        "baseLowEur": 12271,
+        "baseHighEur": 18407,
+        "count": 408467,
+        "avgBaseEur": 14985,
         "population": "all"
       },
       {
-        "baseLowEur": 15339,
-        "baseHighEur": 21474,
-        "count": 205988,
-        "avgBaseEur": 17902,
+        "baseLowEur": 18407,
+        "baseHighEur": 24542,
+        "count": 164048,
+        "avgBaseEur": 21066,
         "population": "all"
       },
       {
-        "baseLowEur": 21474,
+        "baseLowEur": 24542,
+        "baseHighEur": 30678,
+        "count": 73562,
+        "avgBaseEur": 27385,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 30678,
         "baseHighEur": 36813,
-        "count": 137423,
-        "avgBaseEur": 27410,
+        "count": 41558,
+        "avgBaseEur": 33698,
         "population": "all"
       },
       {
         "baseLowEur": 36813,
-        "baseHighEur": 55220,
-        "count": 49916,
-        "avgBaseEur": 44804,
+        "baseHighEur": 42949,
+        "count": 27070,
+        "avgBaseEur": 39891,
         "population": "all"
       },
       {
-        "baseLowEur": 55220,
+        "baseLowEur": 42949,
+        "baseHighEur": 49084,
+        "count": 19246,
+        "avgBaseEur": 46172,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 49084,
         "baseHighEur": null,
-        "count": 47630,
-        "avgBaseEur": 138642,
+        "count": 74758,
+        "avgBaseEur": 121671,
         "population": "all"
       }
     ],
     "fitComparison": {
-      "napYearWageFactor": 1.11,
+      "napYearWageFactor": 1,
       "engineCountByBin": [
-        701247,
-        1128093,
-        518313,
-        150915,
-        89172,
+        975648,
+        1067115,
+        365868,
+        94891,
+        49540,
         24770,
-        20009
+        14862,
+        9908,
+        29917
       ],
       "bodyShareRatio": [
         null,
-        1.369,
-        0.871,
-        0.631,
-        0.559,
-        0.427,
-        0.362
+        1.328,
+        0.849,
+        0.548,
+        0.638,
+        0.565,
+        0.52,
+        0.488,
+        0.379
       ],
       "cumThroughBin4": {
-        "engine": 0.931,
-        "nap": 0.859
+        "engine": 0.922,
+        "nap": 0.85,
+        "throughBaseEur": 24542
       }
     },
     "tail": {
       "engineEmployeeAlpha": 2.273,
-      "napAllFilerAlpha": 1.684,
+      "napAllFilerAlpha": 1.676,
       "napAlphaByThreshold": {
-        "30000": 1.71,
-        "42000": 1.667,
-        "72000": 1.684
+        "36000": 1.697,
+        "48000": 1.668,
+        "60000": 1.667,
+        "72000": 1.675,
+        "84000": 1.679,
+        "96000": 1.676
       },
       "orderingOk": true,
-      "note": "All-filer tail is fatter (α≈1.67) than the employee wage tail (α≈2.27) because the top НАП bins blend in dividend/business income; the МОД lever runs on the employee grid, so the employee α stays canonical."
-    }
+      "note": "The all-filer tail is fatter than the employee wage tail because the top НАП bins blend in business / self-employed income; the МОД lever runs on the employee grid, so the employee α stays canonical."
+    },
+    "allFilerGrid": [
+      {
+        "baseEur": 24.72,
+        "filers": 133479.2
+      },
+      {
+        "baseEur": 74.15,
+        "filers": 133311.6
+      },
+      {
+        "baseEur": 123.59,
+        "filers": 133144
+      },
+      {
+        "baseEur": 173.02,
+        "filers": 132976.4
+      },
+      {
+        "baseEur": 222.45,
+        "filers": 132808.8
+      },
+      {
+        "baseEur": 271.89,
+        "filers": 132641.2
+      },
+      {
+        "baseEur": 321.32,
+        "filers": 132473.6
+      },
+      {
+        "baseEur": 370.76,
+        "filers": 132306
+      },
+      {
+        "baseEur": 420.19,
+        "filers": 132138.4
+      },
+      {
+        "baseEur": 469.63,
+        "filers": 131970.8
+      },
+      {
+        "baseEur": 519.06,
+        "filers": 131803.2
+      },
+      {
+        "baseEur": 568.49,
+        "filers": 131635.6
+      },
+      {
+        "baseEur": 617.92,
+        "filers": 84101.3
+      },
+      {
+        "baseEur": 667.31,
+        "filers": 80343.9
+      },
+      {
+        "baseEur": 716.7,
+        "filers": 76586.5
+      },
+      {
+        "baseEur": 766.08,
+        "filers": 72829
+      },
+      {
+        "baseEur": 815.47,
+        "filers": 69071.6
+      },
+      {
+        "baseEur": 864.86,
+        "filers": 65314.2
+      },
+      {
+        "baseEur": 914.25,
+        "filers": 61556.8
+      },
+      {
+        "baseEur": 963.64,
+        "filers": 57799.4
+      },
+      {
+        "baseEur": 1013.03,
+        "filers": 54042
+      },
+      {
+        "baseEur": 1062.42,
+        "filers": 50284.5
+      },
+      {
+        "baseEur": 1111.81,
+        "filers": 46527.1
+      },
+      {
+        "baseEur": 1161.2,
+        "filers": 42769.7
+      },
+      {
+        "baseEur": 1211.14,
+        "filers": 44848.3
+      },
+      {
+        "baseEur": 1260.53,
+        "filers": 42883
+      },
+      {
+        "baseEur": 1309.92,
+        "filers": 40917.6
+      },
+      {
+        "baseEur": 1359.31,
+        "filers": 38952.3
+      },
+      {
+        "baseEur": 1408.7,
+        "filers": 36986.9
+      },
+      {
+        "baseEur": 1458.09,
+        "filers": 35021.6
+      },
+      {
+        "baseEur": 1507.48,
+        "filers": 33056.2
+      },
+      {
+        "baseEur": 1556.87,
+        "filers": 31090.9
+      },
+      {
+        "baseEur": 1606.26,
+        "filers": 29125.5
+      },
+      {
+        "baseEur": 1655.65,
+        "filers": 27160.2
+      },
+      {
+        "baseEur": 1705.04,
+        "filers": 25194.9
+      },
+      {
+        "baseEur": 1754.44,
+        "filers": 23229.5
+      },
+      {
+        "baseEur": 1804.36,
+        "filers": 18674.7
+      },
+      {
+        "baseEur": 1853.74,
+        "filers": 17764.9
+      },
+      {
+        "baseEur": 1903.12,
+        "filers": 16855.1
+      },
+      {
+        "baseEur": 1952.51,
+        "filers": 15945.2
+      },
+      {
+        "baseEur": 2001.89,
+        "filers": 15035.4
+      },
+      {
+        "baseEur": 2051.27,
+        "filers": 14125.6
+      },
+      {
+        "baseEur": 2100.65,
+        "filers": 13215.8
+      },
+      {
+        "baseEur": 2150.04,
+        "filers": 12305.9
+      },
+      {
+        "baseEur": 2199.42,
+        "filers": 11396.1
+      },
+      {
+        "baseEur": 2248.8,
+        "filers": 10486.3
+      },
+      {
+        "baseEur": 2298.18,
+        "filers": 9576.4
+      },
+      {
+        "baseEur": 2347.57,
+        "filers": 8666.6
+      },
+      {
+        "baseEur": 2397.59,
+        "filers": 7365.7
+      },
+      {
+        "baseEur": 2447,
+        "filers": 7141
+      },
+      {
+        "baseEur": 2496.41,
+        "filers": 6916.4
+      },
+      {
+        "baseEur": 2545.82,
+        "filers": 6691.8
+      },
+      {
+        "baseEur": 2595.23,
+        "filers": 6467.1
+      },
+      {
+        "baseEur": 2644.63,
+        "filers": 6242.5
+      },
+      {
+        "baseEur": 2694.04,
+        "filers": 6017.8
+      },
+      {
+        "baseEur": 2743.45,
+        "filers": 5793.2
+      },
+      {
+        "baseEur": 2792.86,
+        "filers": 5568.6
+      },
+      {
+        "baseEur": 2842.27,
+        "filers": 5343.9
+      },
+      {
+        "baseEur": 2891.67,
+        "filers": 5119.3
+      },
+      {
+        "baseEur": 2941.08,
+        "filers": 4894.7
+      },
+      {
+        "baseEur": 2990.83,
+        "filers": 3609.4
+      },
+      {
+        "baseEur": 3040.26,
+        "filers": 3582.8
+      },
+      {
+        "baseEur": 3089.69,
+        "filers": 3556.2
+      },
+      {
+        "baseEur": 3139.12,
+        "filers": 3529.6
+      },
+      {
+        "baseEur": 3188.55,
+        "filers": 3503
+      },
+      {
+        "baseEur": 3237.98,
+        "filers": 3476.5
+      },
+      {
+        "baseEur": 3287.41,
+        "filers": 3449.9
+      },
+      {
+        "baseEur": 3336.84,
+        "filers": 3423.3
+      },
+      {
+        "baseEur": 3386.27,
+        "filers": 3396.7
+      },
+      {
+        "baseEur": 3435.7,
+        "filers": 3370.1
+      },
+      {
+        "baseEur": 3485.13,
+        "filers": 3343.5
+      },
+      {
+        "baseEur": 3534.56,
+        "filers": 3317
+      },
+      {
+        "baseEur": 3584.05,
+        "filers": 2235.2
+      },
+      {
+        "baseEur": 3633.49,
+        "filers": 2239
+      },
+      {
+        "baseEur": 3682.93,
+        "filers": 2242.7
+      },
+      {
+        "baseEur": 3732.36,
+        "filers": 2246.5
+      },
+      {
+        "baseEur": 3781.8,
+        "filers": 2250.2
+      },
+      {
+        "baseEur": 3831.24,
+        "filers": 2254
+      },
+      {
+        "baseEur": 3880.67,
+        "filers": 2257.7
+      },
+      {
+        "baseEur": 3930.11,
+        "filers": 2261.5
+      },
+      {
+        "baseEur": 3979.54,
+        "filers": 2265.2
+      },
+      {
+        "baseEur": 4028.98,
+        "filers": 2269
+      },
+      {
+        "baseEur": 4078.42,
+        "filers": 2272.7
+      },
+      {
+        "baseEur": 4127.85,
+        "filers": 2276.5
+      },
+      {
+        "baseEur": 4177.28,
+        "filers": 1380
+      },
+      {
+        "baseEur": 4226.74,
+        "filers": 1420.7
+      },
+      {
+        "baseEur": 4276.19,
+        "filers": 1461.4
+      },
+      {
+        "baseEur": 4325.64,
+        "filers": 1502.1
+      },
+      {
+        "baseEur": 4375.09,
+        "filers": 1542.8
+      },
+      {
+        "baseEur": 4424.54,
+        "filers": 1583.5
+      },
+      {
+        "baseEur": 4473.99,
+        "filers": 1624.2
+      },
+      {
+        "baseEur": 4523.45,
+        "filers": 1664.9
+      },
+      {
+        "baseEur": 4572.9,
+        "filers": 1705.6
+      },
+      {
+        "baseEur": 4622.35,
+        "filers": 1746.3
+      },
+      {
+        "baseEur": 4671.8,
+        "filers": 1787
+      },
+      {
+        "baseEur": 4721.25,
+        "filers": 1827.7
+      },
+      {
+        "baseEur": 4819.43,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 4974.52,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 5141.02,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 5320.36,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 5514.24,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 5724.67,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 5954.09,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 6205.45,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 6482.38,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 6789.38,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 7132.18,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 7518.09,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 7956.69,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 8460.77,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 9047.87,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 9742.81,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 10582,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 11621.47,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 12952.7,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 14737.53,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 17296.31,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 21381.68,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 29384.99,
+        "filers": 3114.9
+      },
+      {
+        "baseEur": 57595.13,
+        "filers": 3114.9
+      }
+    ],
+    "history": [
+      {
+        "taxYear": 2020,
+        "source": "НАП, отговор по ЗДОИ рег. № ЕО-22-30-853 от 14.09.2026 (препратено от МФ)",
+        "asOf": "2021-12-22",
+        "totals": {
+          "filers": 3039064,
+          "pitEur": 2036526692,
+          "taxableBaseEur": 20365266920
+        },
+        "topBin": {
+          "baseLowEur": 61355,
+          "filersShare": 0.0059,
+          "pitShare": 0.1473
+        },
+        "bins": [
+          {
+            "baseLowEur": 0,
+            "baseHighEur": 3743,
+            "count": 1533243,
+            "avgBaseEur": 1888,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 3743,
+            "baseHighEur": 6136,
+            "count": 555788,
+            "avgBaseEur": 4839,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 6136,
+            "baseHighEur": 18407,
+            "count": 801645,
+            "avgBaseEur": 9874,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 18407,
+            "baseHighEur": 30678,
+            "count": 84699,
+            "avgBaseEur": 23337,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 30678,
+            "baseHighEur": 61355,
+            "count": 45671,
+            "avgBaseEur": 41332,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 61355,
+            "baseHighEur": null,
+            "count": 18018,
+            "avgBaseEur": 166515,
+            "population": "all"
+          }
+        ]
+      },
+      {
+        "taxYear": 2022,
+        "source": "НАП, отговор по ЗДОИ рег. № ЕО-22-30-853 от 14.09.2026 (препратено от МФ)",
+        "asOf": "2024-08-23",
+        "totals": {
+          "filers": 3068495,
+          "pitEur": 2664137476,
+          "taxableBaseEur": 26641374762
+        },
+        "topBin": {
+          "baseLowEur": 61355,
+          "filersShare": 0.0098,
+          "pitShare": 0.1923
+        },
+        "bins": [
+          {
+            "baseLowEur": 0,
+            "baseHighEur": 4356,
+            "count": 1468529,
+            "avgBaseEur": 2190,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 4356,
+            "baseHighEur": 6136,
+            "count": 382537,
+            "avgBaseEur": 5194,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 6136,
+            "baseHighEur": 12271,
+            "count": 719724,
+            "avgBaseEur": 8813,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 12271,
+            "baseHighEur": 18407,
+            "count": 262599,
+            "avgBaseEur": 14761,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 18407,
+            "baseHighEur": 30678,
+            "count": 133526,
+            "avgBaseEur": 23193,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 30678,
+            "baseHighEur": 61355,
+            "count": 71542,
+            "avgBaseEur": 41923,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 61355,
+            "baseHighEur": null,
+            "count": 30038,
+            "avgBaseEur": 170572,
+            "population": "all"
+          }
+        ]
+      },
+      {
+        "taxYear": 2023,
+        "source": "МФ, писмен отговор — minfin.bg/bg/wreply/996-4/12881",
+        "asOf": null,
+        "totals": {
+          "filers": 3109552,
+          "pitEur": 3068953334,
+          "taxableBaseEur": 30689533344
+        },
+        "topBin": {
+          "baseLowEur": 55220,
+          "filersShare": 0.0153,
+          "pitShare": 0.2152
+        },
+        "bins": [
+          {
+            "baseLowEur": 0,
+            "baseHighEur": 4786,
+            "count": 1445800,
+            "avgBaseEur": 2405,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 4786,
+            "baseHighEur": 9203,
+            "count": 710103,
+            "avgBaseEur": 6731,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 9203,
+            "baseHighEur": 15339,
+            "count": 512692,
+            "avgBaseEur": 11974,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 15339,
+            "baseHighEur": 21474,
+            "count": 205988,
+            "avgBaseEur": 17902,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 21474,
+            "baseHighEur": 36813,
+            "count": 137423,
+            "avgBaseEur": 27410,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 36813,
+            "baseHighEur": 55220,
+            "count": 49916,
+            "avgBaseEur": 44804,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 55220,
+            "baseHighEur": null,
+            "count": 47630,
+            "avgBaseEur": 138642,
+            "population": "all"
+          }
+        ]
+      },
+      {
+        "taxYear": 2024,
+        "source": "НАП, отговор по ЗДОИ рег. № ЕО-22-30-853 от 14.09.2026 (препратено от МФ)",
+        "asOf": "2025-07-28",
+        "totals": {
+          "filers": 3160624,
+          "pitEur": 3565187158,
+          "taxableBaseEur": 35651871584
+        },
+        "topBin": {
+          "baseLowEur": 49084,
+          "filersShare": 0.0237,
+          "pitShare": 0.2551
+        },
+        "bins": [
+          {
+            "baseLowEur": 0,
+            "baseHighEur": 6136,
+            "count": 1590689,
+            "avgBaseEur": 3060,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 6136,
+            "baseHighEur": 12271,
+            "count": 761226,
+            "avgBaseEur": 8840,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 12271,
+            "baseHighEur": 18407,
+            "count": 408467,
+            "avgBaseEur": 14985,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 18407,
+            "baseHighEur": 24542,
+            "count": 164048,
+            "avgBaseEur": 21066,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 24542,
+            "baseHighEur": 30678,
+            "count": 73562,
+            "avgBaseEur": 27385,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 30678,
+            "baseHighEur": 36813,
+            "count": 41558,
+            "avgBaseEur": 33698,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 36813,
+            "baseHighEur": 42949,
+            "count": 27070,
+            "avgBaseEur": 39891,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 42949,
+            "baseHighEur": 49084,
+            "count": 19246,
+            "avgBaseEur": 46172,
+            "population": "all"
+          },
+          {
+            "baseLowEur": 49084,
+            "baseHighEur": null,
+            "count": 74758,
+            "avgBaseEur": 121671,
+            "population": "all"
+          }
+        ]
+      }
+    ]
   },
   "vat": {
     "factor": 1.1701666273269857,

@@ -70,6 +70,7 @@ import {
   scorePartySubsidy,
   scorePensionFloorRaise,
   scorePensionIndexation,
+  scorePitNonEmployment,
   scorePitSchedule,
   scoreSscSelfPaidRetained,
   scoreTeachersPeg,
@@ -1478,10 +1479,11 @@ export const scoreScenario = (
     brackets,
     earnings.kappa,
   );
-  const pitNonEmploymentDelta =
-    baseline.revenue.pitEur *
-    baseline.revenue.pitNonEmploymentShare *
-    (pit / 100 / PIT_RATE - 1);
+  const pitNonEmploymentDelta = scorePitNonEmployment(
+    baseline.revenue.pitEur * baseline.revenue.pitNonEmploymentShare,
+    brackets,
+    baseline.incomeTiers?.allFilerGrid,
+  );
   const pitDelta = pitEmploymentDelta + pitNonEmploymentDelta;
 
   const corpDelta = scoreCorporate(baseline.revenue.corporateEur, corp / 100);

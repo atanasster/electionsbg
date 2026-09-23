@@ -346,10 +346,53 @@ gates in `scripts/budget/__smoke_income_tiers.ts` and as hard throws in
 `run_policy_baseline.ts`. Headline: 3,109,552 filers · €3.07B ДДФЛ · €30.7B base · top 1.5%
 pays 21.5%.
 
-**Still pending (the ЗДОИ ask):** a _machine-readable, annual, finer-grained_ open dataset
-of the same table — the current source is one parliamentary answer at a time from a
-WAF-blocked PDF page. That would make the body+tail fully source-traceable and shrink the
-tail uncertainty further.
+### Update 2026-09: four years held, anchor moved to 2024, non-employment scored
+
+The ЗДОИ request (re-filed narrowed to МФ) was granted: МФ answered 2019/2021/2023 itself
+and forwarded 2020/2022/2024 to НАП, whose answer (рег. № ЕО-22-30-853, 14.09.2026)
+carries the three tables. `nap_income_tiers.ts` now holds **2020, 2022, 2023 and 2024**
+(`NAP_TIER_TABLES`, each checksummed against its printed totals; 2024's ДДФЛ rows sum to
+6 973,0 against a printed 6 972,9, which is rounding and is tolerated). Bracket edges
+differ every year, so years are compared on totals, never bin by bin. МФ's own 2019/2021
+tables are not yet in hand.
+
+- **Anchor = 2024** (`NAP_ANCHOR_YEAR`). It is also the fit's identity year, so the
+  guessed 2023→2024 wage-deflation factor (1.11) no longer enters the validation.
+  Results: body cumulative through bin 4 (base ≤ 48 000 лв) engine 0.922 vs НАП 0.850,
+  Δ 0.072, PASS; all-filer α **1.676** (threshold spread 0.030), almost identical to
+  2023's 1.67, so the tail ordering holds across years. ⚠️ The per-bin ratios above bin 2
+  run **0.38–0.64**: the employee fit carries noticeably fewer people above ~36 000 лв
+  of annual base than the all-filer table does. Part of that is the population
+  difference (self-employed and business income sit in the upper НАП bins), but it is the
+  first place to look if bracket scores are ever questioned. It is reported, not gated.
+- **Non-employment ДДФЛ is now scored on the all-filer distribution.** Before, the
+  non-employment slice (`pitNonEmploymentShare`, 7.5% of ДДФЛ) only scaled with the
+  base rate, so a second bracket raised nothing on freelance/rental income.
+  `incomeTiers.allFilerGrid` (the 2024 table discretized, count- and mass-exact per bin,
+  scaled to the baseline year with the employee bands' own growth) feeds
+  `scorePitNonEmployment` in `bgTaxPolicy.ts`, used by both the simulator and the AI tool.
+  A flat-rate change is **byte-identical** (the ratio is exactly r/0.10 − 1 on any grid).
+  The необлагаем минимум is **deliberately not** applied to this slice: the allowance is
+  per person, and most non-employment income belongs to people who also hold a job,
+  where the employee grid already grants it. Effect: 10/20 from €2 000/month adds
+  **+€85M** (employment +€432M); 10/20 from €3 000 +€65M; 10/15 from €1 500 +€52M.
+
+- **Upper brackets are a RANGE, not a refit** (decided 2026-09-23). Scoring the same
+  schedule on the all-filer table instead of the employee fit roughly doubles what a
+  second bracket raises on employment income (10/20 above €2 000: +€518M → +€1,031M;
+  above €3 000: +€338M → +€785M; 10/15 above €1 500: +€353M → +€632M). The gap above
+  36 000 лв (~€1.0B of ДДФЛ) is far larger than all non-employment ДДФЛ (€312M), so it
+  is not only the population — but part of it is (several jobs summed per person,
+  accrual vs cash), and the data cannot split the two. The one table that would settle
+  it — the 2024 distribution from Декларация образец 1 only — is not being requested
+  for now. So `scorePitUpperBracketsRange` (bgTaxPolicy.ts) returns both readings; the
+  simulator keeps the employee-fit value as the central score and shows the all-filer
+  value on the ДДФЛ row (both modes) and in the static hero range
+  (`budget_policy_hero_range_static`). Flat-rate, НМ and МОД scores carry no such range.
+  The AI tool has no second-bracket lever, so it is unaffected.
+
+Still wanted: МФ's 2019/2021 tables, and the same data as a machine-readable annual
+open dataset rather than one letter at a time.
 
 ## Budget-paid contributions lever (`ssp`) — full legal scope (added 2026-06-12)
 
