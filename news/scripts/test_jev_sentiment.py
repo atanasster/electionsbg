@@ -152,11 +152,22 @@ class Subjects(unittest.TestCase):
     def test_the_cap_is_recorded_rather_than_silently_applied(self):
         # A subject the pass never looked at must not be indistinguishable
         # from one it assessed and found nothing to say about.
-        many = {"entities": {"parties": [f"Партия{i}" for i in range(9)], "people": []}}
-        body = " ".join(f"Партия{i} Партия{i}" for i in range(9))
-        subjects, total = sm.subjects_for(many, article(content=body, title=""))
+        # Sized from the cap, so a change to it cannot leave this test
+        # asserting a number it no longer produces.
+        n = sm.MAX_SUBJECTS + 3
+        many = {"entities": {"parties": [f"Партия{i}" for i in range(n)], "people": []}}
+        body = " ".join(f"Партия{i} Партия{i}" for i in range(n))
+        art = article(content=body, title="")
+        subjects, total = sm.subjects_for(many, art)
         self.assertEqual(len(subjects), sm.MAX_SUBJECTS)
-        self.assertEqual(total, 9)
+        self.assertEqual(total, n)
+        # ⚠️ And the record can NAME what it dropped — exactly the complement.
+        dropped = sm.dropped_subjects(many, art)
+        self.assertEqual(len(dropped), 3)
+        kept = {s["name"] for s in subjects}
+        self.assertFalse(kept & {name for _, name in dropped})
+        self.assertEqual(kept | {name for _, name in dropped},
+                         {f"Партия{i}" for i in range(n)})
 
     def test_a_repeated_or_blank_surface_is_not_a_second_subject(self):
         dupes = {"entities": {"parties": ["ГЕРБ", "герб", "  ", None, 7], "people": []}}

@@ -91,5 +91,29 @@ class ArticleKey(unittest.TestCase):
         self.assertTrue(all(c in "0123456789abcdef" for c in key))
 
 
+
+class Separators(unittest.TestCase):
+    """A name's separators are interchangeable — measured, not anticipated.
+
+    „ПП-ДБ" counted ZERO mentions in a pik.bg article reading „Тия от пп дб…",
+    which made the party the first subject the cap dropped.
+    """
+
+    def test_every_separator_spelling_matches(self):
+        text = "пп дб; ПП–ДБ; ПП — ДБ; ПП-ДБ; ПП\u00a0ДБ; ПП- ДБ"
+        self.assertEqual(
+            len(jt.mention_matches("ПП-ДБ", text, allow_tail=False)), 6)
+
+    def test_a_missing_separator_is_a_different_word(self):
+        self.assertFalse(jt.contains_mention("ПП-ДБ", "ППДБ", allow_tail=False))
+
+    def test_a_multi_word_name_matches_across_a_tab_too(self):
+        self.assertTrue(jt.contains_mention("Андрей Гюров", "Андрей\tГюров",
+                                            allow_tail=False))
+
+    def test_the_word_boundary_still_holds(self):
+        # „дб" inside a longer word must not count.
+        self.assertFalse(jt.contains_mention("ПП-ДБ", "ПП-ДБСП", allow_tail=False))
+
 if __name__ == "__main__":
     unittest.main()

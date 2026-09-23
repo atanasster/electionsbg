@@ -35,12 +35,39 @@ MAX_TAIL = 3
 MIN_TAIL_SURFACE = 4
 
 
+# Characters that separate the words of a name, and that writers swap freely:
+# „ПП-ДБ", „ПП–ДБ" (en dash), „ПП — ДБ", „пп дб", and a no-break space.
+SEPARATORS = "-\u2010\u2011\u2012\u2013\u2014 \u00a0\t"
+_SEPARATOR_RUN = "[" + "".join(re.escape(c) for c in SEPARATORS) + "]+"
+
+
+def _surface_body(surface: str) -> str:
+    """The escaped surface with every separator run matching ANY separator run.
+
+    ⚠️ MEASURED, NOT ANTICIPATED. „ПП-ДБ" counted ZERO mentions in a pik.bg
+    article whose text reads „Тия от пп дб…" — case was already folded; the
+    hyphen was not. A zero count makes a party the first subject the cap drops
+    and `incidental` when it is kept, so a spelling difference decided whether
+    a party was assessed at all.
+    """
+    out, in_sep = [], False
+    for ch in surface.lower():
+        if ch in SEPARATORS:
+            if not in_sep:
+                out.append(_SEPARATOR_RUN)
+            in_sep = True
+        else:
+            out.append(re.escape(ch))
+            in_sep = False
+    return "".join(out)
+
+
 def mention_pattern(surface: str, *, allow_tail: bool = True) -> str:
     """A whole-word pattern for one surface, case-folded by the caller."""
     tail = ""
     if allow_tail and len(surface) >= MIN_TAIL_SURFACE:
         tail = rf"[а-яa-z]{{0,{MAX_TAIL}}}"
-    return (rf"(?<![{WORD_CHAR}])" + re.escape(surface.lower()) + tail
+    return (rf"(?<![{WORD_CHAR}])" + _surface_body(surface.strip()) + tail
             + rf"(?![{WORD_CHAR}])")
 
 

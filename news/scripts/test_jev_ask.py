@@ -141,7 +141,10 @@ class Questions(unittest.TestCase):
                      "mentions": 3, "in_title": True}
                     for i in range(sm.MAX_SUBJECTS)]
         state, _ = sm.state_for(ARTICLE, subjects)
-        for questions in (ja.axis_questions(), ja.subject_questions(subjects)):
+        # ⚠️ EVERY CHUNK, not one: each is its own paid call.
+        chunks = [ja.subject_questions(subjects, start=a, stop=b)
+                  for a, b in ja.subject_chunks(subjects)]
+        for questions in [ja.axis_questions(), *chunks]:
             payload = jc.build_payload(state, questions)
             self.assertLessEqual(len(questions), jc.LIMITS["questions"])
             self.assertLessEqual(
@@ -154,9 +157,126 @@ class Questions(unittest.TestCase):
         big = {**ARTICLE, "content": 'дълъг "текст"\n' * 4000}
         state, truncated = sm.state_for(big, subjects)
         self.assertTrue(truncated)
-        payload = jc.build_payload(state, ja.subject_questions(subjects))
-        self.assertLessEqual(
-            len(json.dumps(payload, ensure_ascii=False)), jc.LIMITS["total_chars"])
+        for a, b in ja.subject_chunks(subjects):
+            payload = jc.build_payload(
+                state, ja.subject_questions(subjects, start=a, stop=b))
+            self.assertLessEqual(
+                len(json.dumps(payload, ensure_ascii=False)),
+                jc.LIMITS["total_chars"])
+
+    def test_a_chunk_larger_than_one_calls_budget_is_refused(self):
+        subjects = [{"name": f"П{i}", "kind": "party", "mentions": 2,
+                     "in_title": False} for i in range(sm.TONES_PER_CALL + 1)]
+        with self.assertRaises(sm.JevSentimentError):
+            ja.subject_questions(subjects, start=0, stop=sm.TONES_PER_CALL + 1)
+
+    def test_the_chunks_cover_every_subject_once(self):
+        for n in (1, 6, 7, 12, 13, sm.MAX_SUBJECTS):
+            chunks = ja.subject_chunks(list(range(n)))
+            covered = [i for a, b in chunks for i in range(a, b)]
+            self.assertEqual(covered, list(range(n)), n)
+            self.assertTrue(all(b - a <= sm.TONES_PER_CALL for a, b in chunks))
+
+
+class ChunkedSubjects(unittest.TestCase):
+    """More subjects than one call carries: several calls, one record.
+
+    ⚠️ The case that motivated it: on a crowded article the ONE-call cap of six
+    dropped a party named twice in favour of people named twice, and the party
+    archive then had no score for an article about the party.
+    """
+
+    def crowded(self, n=13):
+        people = [f"Лице{chr(0x0410 + i)} Име" for i in range(n - 1)]
+        body = " ".join(f"{p} говори. {p} отговори." for p in people)
+        body += " ПП-ДБ внесе питане. пп дб настоява."
+        article = {"url": "https://a.bg/crowd", "title": "Събрание",
+                   "content": body * 3}
+        analysis = {"entities": {"parties": ["ПП-ДБ"], "people": people}}
+        return article, analysis
+
+    def test_every_subject_is_asked_across_several_calls(self):
+        calls = []
+        article, analysis = self.crowded(13)
+        rec = ja.assess_article(article, analysis, ask=ja_answering(calls))
+        subject_calls = [q for _, q in calls if "axis" not in "".join(q)
+                         and any(k.startswith("tone_") for k in q)]
+        self.assertEqual(len(subject_calls), 3)
+        # The primary choice rides on the first chunk only.
+        self.assertEqual(sum("primary_subject" in q for q in subject_calls), 1)
+        asked = [k for q in subject_calls for k in q if k.startswith("tone_")]
+        self.assertEqual(len(asked), len(set(asked)))
+        self.assertEqual(rec["subjects_dropped"], 0)
+        self.assertEqual(len(rec["subjects"]), 13)
+        self.assertEqual(set(rec["calls"]), {"axes", "subjects", "subjects_2",
+                                             "subjects_3"})
+
+    def test_a_party_named_with_another_separator_is_counted(self):
+        # „пп дб" is the same name as „ПП-ДБ"; counted, it is no longer the
+        # first subject the ranking drops.
+        article, analysis = self.crowded(3)
+        rec = ja.assess_article(article, analysis, ask=ja_answering([]))
+        party = next(s for s in rec["subjects"] if s["kind"] == "party")
+        self.assertEqual(party["mentions"], 6)
+
+    def test_one_failed_chunk_keeps_the_others_answers(self):
+        article, analysis = self.crowded(13)
+
+        def ask(state, questions, model=None):
+            if "tone_6" in questions:      # the second chunk
+                return FakeOutcome(None, skip="timeout")
+            return FakeOutcome(answers_for(questions))
+        rec = ja.assess_article(article, analysis, ask=ask)
+        self.assertEqual(rec["calls"]["subjects_2"]["status"], "failed")
+        # ⚠️ NOT `ok`: a cached gap would never be re-asked.
+        self.assertEqual(rec["status"], "partial")
+        self.assertFalse(sm.answered({**rec, "rubric_version": sm.RUBRIC_VERSION}))
+        assessed = [s for s in rec["subjects"]
+                    if s["assessment_status"] == "assessed"]
+        self.assertTrue(assessed)
+        self.assertTrue(any("subjects_2: timeout" in p for p in rec["problems"]))
+        self.assertTrue(any(p.startswith("tone_6") for p in rec["problems"]))
+
+    def test_losing_the_FIRST_chunk_is_partial_not_a_re_derived_primary(self):
+        # The first chunk carries `primary_subject`; losing it would silently
+        # re-derive every role for the article if the record were cached.
+        article, analysis = self.crowded(13)
+
+        def ask(state, questions, model=None):
+            if "primary_subject" in questions:
+                return FakeOutcome(None, skip="timeout")
+            return FakeOutcome(answers_for(questions))
+        rec = ja.assess_article(article, analysis, ask=ask)
+        self.assertEqual(rec["status"], "partial")
+        self.assertFalse(any(s["subject_role"] == "primary" for s in rec["subjects"]))
+
+    def test_every_subject_call_failing_with_the_axes_answered_is_partial(self):
+        # ⚠️ The shape that published „не е субект" about a named party: an
+        # `ok` record with an empty subject list.
+        def ask(state, questions, model=None):
+            if any(k.startswith("tone_") for k in questions):
+                return FakeOutcome(None, skip="timeout")
+            return FakeOutcome(answers_for(questions))
+        rec = ja.assess_article(ARTICLE, ANALYSIS, ask=ask)
+        self.assertTrue(rec["axes"])
+        self.assertEqual(rec["subjects"], [])
+        self.assertEqual(rec["status"], "partial")
+
+    def test_past_the_cap_the_record_NAMES_what_it_dropped(self):
+        # „Not in `subjects`" is otherwise two facts: absent, or past the cap.
+        article, analysis = self.crowded(sm.MAX_SUBJECTS + 3)
+        rec = ja.assess_article(article, analysis, ask=ja_answering([]))
+        self.assertEqual(rec["subjects_dropped"], 3)
+        dropped = rec["subjects_dropped_names"]
+        self.assertEqual(len(dropped), 3)
+        # With its KIND — the identity the archive joins on.
+        self.assertTrue(all(set(d) == {"kind", "name"} for d in dropped))
+        kept = {(s["kind"], s["name"]) for s in rec["subjects"]}
+        self.assertFalse(kept & {(d["kind"], d["name"]) for d in dropped})
+
+
+def ja_answering(calls):
+    return answering_ask(calls)
 
 
 class ReadingAxes(unittest.TestCase):

@@ -150,3 +150,50 @@ Both reported defects are closed on the Jev path.
 - **The applicability threshold** a chart uses to call a point absent — the
   distribution above is the input, not the choice.
 - **τ for `mixed`** — 19 positives.
+
+---
+
+## Addendum (same day) — the subject cap, and one finding above that was wrong
+
+Re-measured after two fixes, into
+`news/evals/jev-sentiment-phase0-2026-09-23-cap18.json`. Figures in this
+section are read from THAT file; the sections above describe the first run and
+are left as they were measured.
+
+**What was wrong.** A record scored at most six subjects — one call's question
+budget — ranked by mentions, so on a crowded article a party named twice lost
+its slot to people named twice. And `mention_pattern` treated „ПП-ДБ" and
+„пп дб" as different words. Together they made the ПП-ДБ archive, once
+published, label eight articles „not a subject" that name the party outright —
+every one was a cap drop. The report above says of pik.bg that ПП-ДБ has
+**zero mentions**; that was the counting defect, not the text. The party is
+there, once, inside a quoted Facebook comment.
+
+**The fixes.** Tone questions are asked in chunks of six across as many calls as
+the subjects need, up to 18 (`jev_sentiment.MAX_SUBJECTS`); name separators —
+hyphen, dashes, space, no-break space — match each other. A record also names
+what it dropped past the cap, so „not in `subjects`" can no longer be read as
+„not in the article". Both changes move the record key, so exactly the affected
+records went stale: **1,181**, re-asked for **$1.056** (above the ≈$0.60
+estimated — the crowded articles are also the long ones, and take two or three
+subject calls).
+
+**After** (9,936 answered records):
+
+| | n | neutral |
+| --- | --- | --- |
+| GLM, as the archive publishes it | 2,123 | **92.9%** |
+| Jev, non-incidental parties | 1,557 | **74.7%** |
+
+Jev party roles: 255 primary, 1,302 secondary, **843 incidental** (614 before —
+the parties the cap used to drop are mostly passing mentions, and are now
+counted as such rather than missing). Subject-tone agreement with GLM on the
+full-text stratum: 1,239 pairs, 79.8% exact, 99.7% within one bucket.
+
+**Both regression articles:** ПП-ДБ is `subject_present: true`,
+`subject_role: incidental`, no value — a passing mention, not scored either way.
+
+**Spend.** The report's `spend` sums the calls on records now on disk
+($3.534), which drops the cost of every record a re-ask overwrote. Money
+actually billed today: $3.105 (first run) + $1.056 (re-ask) + $0.128 (the first
+hourly `sentiment` stage) = **$4.289**.

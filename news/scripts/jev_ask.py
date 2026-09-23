@@ -76,8 +76,8 @@ def mode() -> str:
 def empty_stats() -> dict:
     """The counters every payload carries — ONE shape, so a counter added to
     the run reaches the skipped branches too."""
-    return {"assessed": 0, "cached": 0, "failed": 0, "crashed": 0,
-            "our_bugs": [], "crashes": [], "cost": 0.0}
+    return {"assessed": 0, "cached": 0, "failed": 0, "partial": 0,
+            "crashed": 0, "our_bugs": [], "crashes": [], "cost": 0.0}
 
 
 def alert_for(stats: dict):
@@ -128,24 +128,41 @@ def _option(text: str) -> str:
     return text if len(text) <= cap else text[:cap - 1] + "…"
 
 
-def subject_questions(subjects: list, scale=None) -> dict:
+def subject_chunks(subjects: list) -> list:
+    """`[(start, stop)]` — the slices of `subjects` one call each asks about."""
+    return [(i, min(i + sm.TONES_PER_CALL, len(subjects)))
+            for i in range(0, len(subjects), sm.TONES_PER_CALL)]
+
+
+def subject_questions(subjects: list, scale=None, *, start: int = 0,
+                      stop: int | None = None) -> dict:
     """Call B — which subject the article is about, and a tone for each.
+
+    Asks tones for `subjects[start:stop]` only; the `primary_subject` choice
+    rides on the FIRST chunk and still offers every subject, because „which one
+    is this article about" is one question over all of them.
 
     ⚠️ THE QUESTION ID CARRIES THE INDEX, and the index is the one in `state`.
     Keying on the NAME would put a party's own spelling into a payload key and
     into an answer key, where a quote or a dot is a different kind of problem;
     keying on position keeps the two sides joined by the same integer the
-    state publishes as `i`.
+    state publishes as `i` — across chunks too, so merged answers cannot
+    collide.
     """
     scale = scale or ax.SUBJECT_TONE
     sm.check_subject_budget(subjects)
+    stop = len(subjects) if stop is None else stop
+    if stop - start > sm.TONES_PER_CALL:
+        raise sm.JevSentimentError(
+            f"{stop - start} tones exceeds the {sm.TONES_PER_CALL}-per-call budget")
     # ⚠️ TRUNCATED, NOT REFUSED. An entity name longer than the client's
     # per-option cap is a DATA condition — the longest in the corpus is 65
     # characters, but nothing bounds it — and letting `build_payload` refuse it
     # would report a corpus oddity as `invalid_request`, which this pipeline
     # treats as our bug and exits non-zero on.
-    questions = {
-        "primary_subject": {
+    questions = {}
+    if start == 0:
+        questions["primary_subject"] = {
             "type": "choice",
             "instructions": ax.PRIMARY_SUBJECT_INSTRUCTIONS,
             "criteria": {
@@ -154,8 +171,8 @@ def subject_questions(subjects: list, scale=None) -> dict:
                 PRIMARY_NONE: "материалът не е за никого от изброените",
             },
         }
-    }
-    for i, subject in enumerate(subjects):
+    for i in range(start, stop):
+        subject = subjects[i]
         questions[f"tone_{i}"] = {
             "type": "score",
             "instructions": _instructions(
@@ -287,8 +304,8 @@ def assess_article(article: dict, analysis: dict, *, ask=None, model=None,
     if ask is None and mode() == "off":
         dry_run = True
     ask = ask or jc.ask
-    subjects, total = sm.subjects_for(analysis, article)
-    dropped = max(0, total - len(subjects))
+    subjects, total, dropped_subjects = sm.ranked_split(analysis, article)
+    dropped = len(dropped_subjects)
     if not subjects:
         # The axes alone are still worth asking, but an article naming nobody
         # is 28.5% of the corpus and carries no subject question at all.
@@ -298,7 +315,8 @@ def assess_article(article: dict, analysis: dict, *, ask=None, model=None,
 
     record = {
         **sm.empty_record(article, status="ok", subjects_total=total,
-                          subjects_dropped=dropped),
+                          subjects_dropped=dropped,
+                          subjects_dropped_names=dropped_subjects),
         "sentiment_key": sm.sentiment_key(article, subjects),
         "state_chars": len(json.dumps(state, ensure_ascii=False)),
         "truncated": truncated,
@@ -319,15 +337,26 @@ def assess_article(article: dict, analysis: dict, *, ask=None, model=None,
         problems.append(f"axes: {outcome_a.skip}")
 
     if subjects:
-        outcome_b = ask(state, subject_questions(subjects, scale=scale), model=model)
-        calls["subjects"] = call_outcome(outcome_b)
-        if outcome_b:
-            rows, subject_problems = read_subjects(outcome_b.answers, subjects,
-                                                   scale=scale)
+        # ⚠️ AS MANY CALLS AS THE SUBJECTS NEED, answers merged by their global
+        # index. One chunk failing leaves its tones unanswered — which
+        # `read_subjects` records per subject — and does not take the other
+        # chunks' answers with it.
+        merged, any_answered, any_failed = {}, False, False
+        for n, (start, stop) in enumerate(subject_chunks(subjects)):
+            key = "subjects" if n == 0 else f"subjects_{n + 1}"
+            outcome = ask(state, subject_questions(
+                subjects, scale=scale, start=start, stop=stop), model=model)
+            calls[key] = call_outcome(outcome)
+            if outcome:
+                merged.update(outcome.answers or {})
+                any_answered = True
+            else:
+                problems.append(f"{key}: {outcome.skip}")
+                any_failed = True
+        if any_answered:
+            rows, subject_problems = read_subjects(merged, subjects, scale=scale)
             record["subjects"] = rows
             problems += subject_problems
-        else:
-            problems.append(f"subjects: {outcome_b.skip}")
 
     record["calls"] = calls
     record["problems"] = problems
@@ -340,6 +369,14 @@ def assess_article(article: dict, analysis: dict, *, ask=None, model=None,
     if not answered:
         record["status"] = "failed"
         record["reason"] = "; ".join(problems)[:300] or "no answers"
+    elif subjects and any_failed:
+        # ⚠️ NOT `ok`. A failed chunk leaves its subjects unscored — and when
+        # it is the FIRST chunk, `primary_subject` with them, which silently
+        # re-derives every role. `partial` is not an answer, so the next run
+        # re-asks instead of caching the gap for as long as the key holds.
+        record["status"] = "partial"
+        record["reason"] = "; ".join(p for p in problems
+                                     if p.startswith("subjects"))[:300]
     elif not subjects:
         # ⚠️ A PROPERTY OF THE CORPUS, NOT OF THE CALL: the axes answered and
         # there was nobody to score. 28.5% of articles name no subject at all,
@@ -405,6 +442,8 @@ def run(pairs: list, data_dir, *, ask=None, model=None, dry_run: bool = False,
             stats["assessed"] += 1
             if record.get("status") == "failed":
                 stats["failed"] += 1
+            elif record.get("status") == "partial":
+                stats["partial"] += 1
             if our_bug(record):
                 stats["our_bugs"].append(record.get("url"))
             for call in (record.get("calls") or {}).values():

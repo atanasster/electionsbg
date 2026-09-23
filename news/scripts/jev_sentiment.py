@@ -72,19 +72,44 @@ ASSESSMENT_STATUSES = frozenset({"assessed", "not_assessed", "insufficient_text"
 # other. Declaring only the per-row set under a name that reads like the
 # record's is how a step-4 author validates `record["status"]` against it and
 # rejects every good record.
-RECORD_STATUSES = frozenset({"ok", "failed", "no_subjects", "would_generate"})
+# `partial` — the axes answered but at least one SUBJECT call did not. It is
+# not an answer (`ANSWERED_STATUSES` excludes it), so it is never published
+# and the next run re-asks it. Stored as `ok` instead, one transient timeout
+# on one chunk left those subjects unscored for as long as the key held — and
+# a record with no subjects at all then read as „the party is not in this
+# article" on the archive, a false claim about a named party.
+RECORD_STATUSES = frozenset({"ok", "partial", "failed", "no_subjects",
+                             "would_generate"})
 
 # The least body worth asking about. Below this the title and the subject block
 # have eaten the state and the answer would be about a headline.
 MIN_BODY_CHARS = 200
 
-# ⚠️ SIX, THE SAME CAP `person_tones` USES, and it is a question budget rather
-# than a preference: one call carries at most 8 questions
-# (`jev_client.LIMITS`), and the subject call spends one on `primary_subject`.
-# Measured over 8,925 records: 89.0% of articles have six subjects or fewer and
-# 28.5% have none at all, so the cap is reached by ~11% and is recorded when it
-# is.
-MAX_SUBJECTS = 6
+# How many subject TONES one call asks. A call carries at most 8 questions
+# (`jev_client.LIMITS`) and the first subject call also spends one on
+# `primary_subject`, so six keeps every call inside the limit with room.
+TONES_PER_CALL = 6
+
+# How many subjects an article is scored for, across as many calls as that
+# takes.
+#
+# ⚠️ IT WAS SIX — ONE CALL'S WORTH — AND THAT CAP IS WHAT HID PARTIES. The
+# cap ranks subjects by mentions, so on a crowded article a party named twice
+# lost its slot to people named twice. Measured on the ПП-ДБ archive: in all 8
+# rows the party was absent from the stored record, every one of them had
+# dropped subjects (up to 10 of 16), and the party page then had no score for
+# an article about the party. The cost of the fix is one more call on the
+# ~11% of articles with more than six subjects. 18 is three calls; a record
+# still names what it dropped past that.
+#
+# ⚠️ CHANGING THIS INVALIDATES STORED RECORDS, and so does any change to how
+# mentions are counted (`jev_text`): both the subject list and each subject's
+# `mentions` are part of `sentiment_key`. Every article whose kept list moves
+# is refused by `current_for` until it is re-asked — PAID — and until then its
+# article page carries no Jev block and its archive rows read `not_scored`.
+# Measured when this went from 6 to 18 alongside the separator fix: 1,181
+# records, re-asked for $1.056.
+MAX_SUBJECTS = 18
 
 # `jev_client.LIMITS["state_chars"]`, restated for the same reason
 # `jev_scales.MAX_SCORE_LEVELS` is — this module must stay importable without
@@ -120,6 +145,30 @@ def subjects_for(analysis: dict, article: dict) -> tuple:
     subject row, so nothing downstream may attribute one of these scores to a
     registry person without resolving it first.
     """
+    kept, total, _ = ranked_split(analysis, article)
+    return kept, total
+
+
+def ranked_split(analysis: dict, article: dict) -> tuple:
+    """`(kept, total, dropped)` from ONE ranking — `dropped` as
+    `[{"kind", "name"}]`, the identity `attach_sentiment` joins on.
+
+    ⚠️ ONE PASS. Calling `subjects_for` and then ranking again counts every
+    mention twice on exactly the crowded articles the cap exists for.
+    """
+    ordered = _ranked_subjects(analysis, article)
+    return (ordered[:MAX_SUBJECTS], len(ordered),
+            [{"kind": r["kind"], "name": r["name"]}
+             for r in ordered[MAX_SUBJECTS:]])
+
+
+def _ranked_subjects(analysis: dict, article: dict) -> list:
+    """Every subject, ranked — the ONE ranking the cap and its report share.
+
+    ⚠️ ONE LOOP. `dropped_subjects` needs the tail this ranking cuts, and a
+    second copy of it would drift: a name counted one way here and another way
+    there is a subject reported dropped that was in fact scored.
+    """
     entities = (analysis or {}).get("entities") or {}
     title = str((article or {}).get("title") or "")
     body = str((article or {}).get("content") or "")
@@ -147,9 +196,13 @@ def subjects_for(analysis: dict, article: dict) -> tuple:
                 "mentions": count_mentions(name, haystack, kind=kind),
                 "in_title": count_mentions(name, title, kind=kind) > 0,
             })
-    ordered = sorted(
+    return sorted(
         rows, key=lambda r: (-r["mentions"], not r["in_title"], r["kind"], r["name"]))
-    return ordered[:MAX_SUBJECTS], len(ordered)
+
+
+def dropped_subjects(analysis: dict, article: dict) -> list:
+    """`[(kind, name)]` for the subjects past `MAX_SUBJECTS`, in rank order."""
+    return [(d["kind"], d["name"]) for d in ranked_split(analysis, article)[2]]
 
 
 def normalize_surface(name: str) -> str:
@@ -306,16 +359,16 @@ def text_scope_for(article: dict, *, truncated: bool) -> dict:
 
 
 def check_subject_budget(subjects: list) -> None:
-    """Refuse more subjects than one call can carry.
+    """Refuse more subjects than the pass scores for one article.
 
     ⚠️ ONE MESSAGE, ONE PLACE. The state builder and the question builder both
-    need this and both had their own copy — and the number they enforce is a
-    QUESTION budget (8 per call, one spent on `primary_subject`), so a change
-    to the client's limit must move one constant, not two checks.
+    need this and both had their own copy. The PER-CALL question budget is a
+    separate rule (`TONES_PER_CALL`), enforced where a call's questions are
+    built.
     """
     if len(subjects) > MAX_SUBJECTS:
         raise JevSentimentError(
-            f"{len(subjects)} subjects exceeds the {MAX_SUBJECTS}-question budget")
+            f"{len(subjects)} subjects exceeds the {MAX_SUBJECTS}-subject budget")
 
 
 def state_for(article: dict, subjects: list) -> tuple:
@@ -381,7 +434,8 @@ def _fit_body(state: dict, body: str, cap: int) -> tuple:
 
 
 def empty_record(article: dict, *, status: str, reason=None,
-                 subjects_total: int = 0, subjects_dropped: int = 0) -> dict:
+                 subjects_total: int = 0, subjects_dropped: int = 0,
+                 subjects_dropped_names=None) -> dict:
     """A record that carries no scores, and says why."""
     if status not in RECORD_STATUSES:
         raise JevSentimentError(f"unknown record status {status!r}")
@@ -402,6 +456,11 @@ def empty_record(article: dict, *, status: str, reason=None,
         "subjects": [],
         "subjects_total": subjects_total,
         "subjects_dropped": subjects_dropped,
+        # ⚠️ WHICH ones, not only how many. „Not in `subjects`" is otherwise
+        # two different facts — not in the article, or past the cap — and a
+        # page that reads the first when it is the second tells a reader a
+        # party is not in an article that is about it.
+        "subjects_dropped_names": list(subjects_dropped_names or []),
         "generated_at": aa.now_iso(),
     }
 
