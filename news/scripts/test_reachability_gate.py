@@ -37,6 +37,12 @@ def story(sid: str, published: str, categories, domains) -> dict:
     }
 
 
+# Small on purpose — the real producer's shard is 1,500 rows, which a test
+# corpus of twenty would never fill, and a one-shard fixture cannot tell a gate
+# that reassembles from one that reads only the first file.
+FILTER_SHARD_ROWS = 7
+
+
 def filter_row(item: dict) -> list:
     categories = sorted({t["category"] for t in item["topics"]}) or ["?"]
     domains = sorted({m["domain"] for m in item["members"]})
@@ -59,7 +65,8 @@ class Harness(unittest.TestCase):
         self.temp.cleanup()
 
     def publish(self, stories, *, pages_from=None, page_size=PAGE_SIZE,
-                filter_rows=None, as_of="2026-09-21T12:00:00+00:00"):
+                filter_rows=None, as_of="2026-09-21T12:00:00+00:00",
+                drop_shards=0):
         """Write one snapshot. `pages_from` lets a test publish a DIFFERENT
         ordered index than the corpus — which is how a real regression looks."""
         paged = stories if pages_from is None else pages_from
@@ -68,13 +75,32 @@ class Harness(unittest.TestCase):
                        ensure_ascii=False), encoding="utf-8")
         rows = (filter_rows if filter_rows is not None
                 else [filter_row(s) for s in stories])
+        # ⚠️ THE PARTITIONED SHAPE the producer writes: a manifest with no rows
+        # and the rows in `filter-index-<n>.json` shards. This fixture wrote
+        # the retired one-file shape (`stories` inside the manifest) for a
+        # release after the partition, so every case below measured a layout
+        # production no longer emits. Several SMALL shards, so the gate's
+        # reassembly is exercised across files and not only within one.
+        shards = []
+        for n, start in enumerate(range(0, max(len(rows), 1), FILTER_SHARD_ROWS),
+                                  start=1):
+            chunk = rows[start:start + FILTER_SHARD_ROWS]
+            path = f"stories/filter-index-{n}.json"
+            (self.app / path).write_text(
+                json.dumps({"query_version": 2, "stories": chunk},
+                           ensure_ascii=False), encoding="utf-8")
+            shards.append({"path": path, "count": len(chunk)})
+        # A shard the manifest lists but the tree lost — the half-written
+        # publish the manifest's `total` exists to catch.
+        for shard in shards[len(shards) - drop_shards:] if drop_shards else []:
+            (self.app / shard["path"]).unlink()
         (self.app / "stories" / "filter-index.json").write_text(
-            json.dumps({"generated_at": as_of, "query_version": 1,
+            json.dumps({"generated_at": as_of, "query_version": 2,
                         "fields": ["id", "last_published", "categories",
                                    "domains"],
                         "total": len(rows), "facets_basis": {},
                         "facets": {"categories": {}, "domains": {}},
-                        "stories": rows}, ensure_ascii=False),
+                        "shards": shards}, ensure_ascii=False),
             encoding="utf-8")
         ordered = sorted(paged, key=lambda s: (s["last_published"], s["id"]),
                          reverse=True)
@@ -168,6 +194,31 @@ class WhatItRefuses(Harness):
         code, report = self.run_gate("--enforce")
         self.assertEqual(code, 1)
         self.assertTrue(report["filter_index_rule_drift"]["only_in_stories_json"])
+
+    def test_a_shard_the_manifest_lists_but_the_tree_lost_fails(self):
+        """⚠️ THE CASE THE MANIFEST'S `total` EXISTS FOR. Read the retired way
+        — `filter_index["stories"]` — the gate saw no rows at all and both
+        failed loudly AND went vacuous on facet parity; read shard by shard, a
+        missing one must still be named rather than read as a smaller corpus."""
+        corpus = self.corpus(20)
+        self.publish(corpus, drop_shards=1)
+        code, report = self.run_gate("--enforce")
+        self.assertEqual(code, 1)
+        self.assertTrue(any("shard is missing" in p for p in report["problems"]),
+                        report["problems"])
+        self.assertTrue(any("unreadable" in p for p in report["problems"]),
+                        report["problems"])
+
+    def test_facet_parity_is_checked_across_every_shard_not_only_the_first(self):
+        # A mismatch planted in the LAST shard must be seen. A gate that
+        # read only `filter-index-1.json` would pass this.
+        corpus = self.corpus(20)
+        rows = [filter_row(s) for s in corpus]
+        rows[-1] = [rows[-1][0], rows[-1][1], ["sport"], rows[-1][3]]
+        self.publish(corpus, filter_rows=rows)
+        code, report = self.run_gate("--enforce")
+        self.assertEqual(code, 1)
+        self.assertIn("filter-index", report["facet_drift"])
 
 
 class WhatItRefusesToCallAPass(Harness):
