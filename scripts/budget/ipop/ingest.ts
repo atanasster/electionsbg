@@ -236,23 +236,69 @@ const parseCsv = (text: string): CsvRow[] => {
     if (row.some((f) => f !== "")) records.push(row);
   }
 
-  // First record is the header.
+  // First record is the header. Columns are resolved BY NAME, never by
+  // position: in 2026-09 МРРБ split „Изплатено от МРРБ" into three per-year
+  // columns, which pushed „Изплатено от ББР" two places right — a positional
+  // read then stored МРРБ-2026 payments as ББР and dropped ББР entirely, at
+  // exit 0 with every row count reconciling.
+  const header = (records[0] ?? []).map((h) => h.trim());
+  const find = (re: RegExp): number[] =>
+    header.flatMap((h, i) => (re.test(h) ? [i] : []));
+  const one = (re: RegExp, label: string): number => {
+    const hits = find(re);
+    if (hits.length !== 1) {
+      throw new Error(
+        `IPOP CSV: expected exactly one "${label}" column, found ${hits.length} — header: ${JSON.stringify(header)}`,
+      );
+    }
+    return hits[0];
+  };
+  const ix = {
+    oblast: one(/^Област$/, "Област"),
+    muni: one(/^Община$/, "Община"),
+    project: one(/^Проект/, "Проект"),
+    description: one(/^Описание$/, "Описание"),
+    agreement: one(/^Стойност на споразумението/, "Стойност на споразумението"),
+    submitted: one(/^Заявено в процес на проверка/, "Заявено"),
+    awaiting: one(/^Одобрено за плащане/, "Одобрено за плащане"),
+    paid: one(/^Общо изплатено/, "Общо изплатено"),
+    bbr: one(/^Изплатено от ББР/, "Изплатено от ББР"),
+  };
+  // One column before the split, one per year bucket after it — sum them.
+  const mrrbCols = find(/^Изплатено от МРРБ/);
+  if (mrrbCols.length === 0) {
+    throw new Error(
+      `IPOP CSV: no "Изплатено от МРРБ" column — header: ${JSON.stringify(header)}`,
+    );
+  }
+  const width = Math.max(...Object.values(ix), ...mrrbCols) + 1;
+
   const rows: CsvRow[] = [];
   for (let i = 1; i < records.length; i++) {
     const cols = records[i];
-    if (cols.length < 10) continue;
+    if (cols.length < width) continue;
     rows.push({
-      oblastName: cols[0],
-      muniName: cols[1],
-      projectId: cols[2],
-      description: cols[3],
-      agreementEur: parseEur(cols[4]),
-      submittedEur: parseEur(cols[5]),
-      awaitingEur: parseEur(cols[6]),
-      paidEur: parseEur(cols[7]),
-      mrrbPaidEur: parseEur(cols[8]),
-      bbrPaidEur: parseEur(cols[9]),
+      oblastName: cols[ix.oblast],
+      muniName: cols[ix.muni],
+      projectId: cols[ix.project],
+      description: cols[ix.description],
+      agreementEur: parseEur(cols[ix.agreement]),
+      submittedEur: parseEur(cols[ix.submitted]),
+      awaitingEur: parseEur(cols[ix.awaiting]),
+      paidEur: parseEur(cols[ix.paid]),
+      mrrbPaidEur: mrrbCols.reduce((s, c) => s + parseEur(cols[c]), 0),
+      bbrPaidEur: parseEur(cols[ix.bbr]),
     });
+  }
+
+  // The two payer columns partition „Общо изплатено". A mapping that drifts
+  // breaks this identity long before it breaks any row count.
+  const paid = rows.reduce((s, r) => s + r.paidEur, 0);
+  const split = rows.reduce((s, r) => s + r.mrrbPaidEur + r.bbrPaidEur, 0);
+  if (paid > 0 && Math.abs(split - paid) / paid > 0.005) {
+    throw new Error(
+      `IPOP CSV: МРРБ + ББР paid (€${(split / 1e6).toFixed(1)}M) does not reconcile to „Общо изплатено" (€${(paid / 1e6).toFixed(1)}M) — the column mapping has drifted`,
+    );
   }
   return rows;
 };
