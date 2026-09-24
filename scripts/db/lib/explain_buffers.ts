@@ -55,3 +55,36 @@ export const sumExecutionBuffers = (
     .flatMap((m) => [...m[1].matchAll(/\b(?:hit|read)=(\d+)/g)])
     .reduce((n, m) => n + Number(m[1]), 0);
 };
+
+/**
+ * Shared-buffer accesses (hit + read) of the ROOT node only — the first execution `Buffers:`
+ * line, which Postgres reports INCLUSIVE of every child, InitPlan and CTE beneath it.
+ *
+ * Use this instead of `sumExecutionBuffers` when a ceiling has to be proportional to a row
+ * count. The sum counts each probe once per ancestor that re-reports it, so its per-row cost
+ * scales with the plan's nesting depth rather than with the work done — funds_news reported
+ * ~26 "buffers" per probe that actually touched 3.
+ *
+ * Same parsing rules as `sumExecutionBuffers`: the whole `shared` group, zero counters omitted,
+ * the `Planning:` section excluded, and a throw rather than a silent 0.
+ */
+export const rootExecutionBuffers = (
+  rows: { "QUERY PLAN": string }[],
+): number => {
+  const all = rows
+    .map((r) => r["QUERY PLAN"])
+    .join("\n")
+    .split("\n");
+  const planningAt = all.findIndex((l) => /^\s*Planning:/.test(l));
+  const first = (planningAt === -1 ? all : all.slice(0, planningAt)).find((l) =>
+    l.includes("Buffers:"),
+  );
+  if (!first)
+    throw new Error(
+      "EXPLAIN reported no execution Buffers: line — parser needs updating " +
+        "(scripts/db/lib/explain_buffers.ts)",
+    );
+  return [...first.matchAll(/shared ([^,]*)/g)]
+    .flatMap((m) => [...m[1].matchAll(/\b(?:hit|read)=(\d+)/g)])
+    .reduce((n, m) => n + Number(m[1]), 0);
+};

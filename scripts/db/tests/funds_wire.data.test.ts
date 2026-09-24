@@ -14,7 +14,10 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, withClient, end } from "../lib/pg";
-import { sumExecutionBuffers } from "../lib/explain_buffers";
+import {
+  rootExecutionBuffers,
+  sumExecutionBuffers,
+} from "../lib/explain_buffers";
 import { reportSkip } from "../../lib/report_skip";
 
 const haveDb = await dbReachable();
@@ -504,27 +507,61 @@ test.skipIf(skip)(
   async () => {
     // The wire runs on EVERY /funds view, so its budget is tighter than a drilldown's.
     //
-    // WHAT THE NUMBER IS. `sumExecutionBuffers` adds up EVERY `Buffers:` line in the execution
-    // section, and a parent node's counter already includes its children's — so on a nested plan
-    // the figure is several times the root total (measured here: 6,254 against a root of 1,562).
-    // That is the shared instrument every other ceiling in this repo is calibrated against, so the
-    // ceilings below are set in the same units rather than against the root. They are a regression
-    // tripwire, not a physical byte count.
+    // WHAT THE WIRE'S NUMBER IS. `sumExecutionBuffers` adds up EVERY `Buffers:` line in the
+    // execution section, and a parent node's counter already includes its children's — so on a
+    // nested plan the figure is several times the root total (measured here: 6,254 against a root
+    // of 1,562). It is a regression tripwire, not a physical byte count.
     //
     // The headroom is deliberate but not generous: this pair was 30,105 and 433 ms before
     // `idx_ifs_source_seen` (144) — `idx_ifs_seen` carries no `source`, so a time-range predicate
     // pulled every dataset's rows out of a 15M-row table. Now 2.3 ms and 4.2 ms.
-    const plan = async (sql: string) =>
+    const explain = async (sql: string) =>
       withClient(async (c) => {
         const { rows } = await c.query<{ "QUERY PLAN": string }>(
           `EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT) ${sql}`,
         );
-        return sumExecutionBuffers(rows);
+        return rows;
       });
-    const w = await plan(`SELECT * FROM funds_wire(30)`);
-    const n = await plan(`SELECT * FROM funds_news(60, 4)`);
+    const w = sumExecutionBuffers(
+      await explain(`SELECT * FROM funds_wire(30)`),
+    );
     assert.ok(w < 10_000, `funds_wire touched ${w} buffers (ceiling 10000)`);
-    assert.ok(n < 25_000, `funds_news touched ${n} buffers (ceiling 25000)`);
+
+    // funds_news is measured on the ROOT and budgeted PER FRESH ROW, because its cost is linear
+    // in the window by construction: the „нови в ИСУН" and „къде отидоха" cards need total_eur
+    // and oblast for EVERY project first seen in the window, so each one is a keyed probe into
+    // `idx_fund_projects_news` (3 buffers — the btree depth, index-only). No rewrite removes
+    // that; aggregating first is impossible because the aggregated columns live on
+    // fund_projects. A fixed ceiling therefore measured the ingest calendar, not the code: it
+    // passed at ~300 fresh rows and failed at 1,191 after the 2026-09-21 funds load, with the
+    // plan unchanged (root 3,959 buffers, 5 ms). The nested sum made it worse — it re-counts
+    // each probe once per ancestor node, ~26 „buffers" per 3 touched.
+    //
+    // Measured 2026-09-24: fixed part ~400 (fresh_days 39, the idx_ifs_source_seen range 67,
+    // fund_fit 273), 3.0 per fresh row. The allowance is 4/row so a fourth btree level does not
+    // trip it. Losing `idx_ifs_source_seen` took the root 3,959 → 8,038 (measured, rolled back)
+    // against a 6,264 ceiling — headroom is 1,100 + 1/row, so this discriminates
+    // below ~3,000 fresh rows, and the plan assertions in the next test catch it at any size.
+    // Losing the covering index is caught only by those plan assertions, not here — it costs
+    // one heap page per row.
+    const freshRows = Number(
+      (
+        await allRows<{ n: string }>(
+          `SELECT count(*) AS n FROM ingest_first_seen
+            WHERE source = 'fund_project'
+              AND first_seen_at::date IN
+                  (SELECT day FROM funds_ingest_days(60) WHERE NOT is_backfill)`,
+        )
+      )[0].n,
+    );
+    const n = rootExecutionBuffers(
+      await explain(`SELECT * FROM funds_news(60, 4)`),
+    );
+    const ceiling = 1_500 + 4 * freshRows;
+    assert.ok(
+      n < ceiling,
+      `funds_news touched ${n} buffers at its root (ceiling ${ceiling} = 1500 + 4 × ${freshRows} fresh rows)`,
+    );
   },
 );
 
@@ -554,6 +591,25 @@ test.skipIf(skip)(
       plan,
       /idx_ifs_source_seen/,
       "the wire is not using the source-scoped index — it is scanning ingest_first_seen by time alone",
+    );
+
+    // funds_news' per-row budget above assumes both of its indexes, so assert them here: the
+    // covering index in particular is invisible to that ceiling (one heap page per row).
+    const news = await withClient(async (c) => {
+      const { rows } = await c.query<{ "QUERY PLAN": string }>(
+        `EXPLAIN SELECT * FROM funds_news(60, 4)`,
+      );
+      return rows.map((r) => r["QUERY PLAN"]).join("\n");
+    });
+    assert.match(
+      news,
+      /idx_ifs_source_seen/,
+      "funds_news is not using the source-scoped index for its fresh window",
+    );
+    assert.match(
+      news,
+      /Index Only Scan using idx_fund_projects_news/,
+      "funds_news is not probing fund_projects through the covering index — apply 144_funds_wire.sql",
     );
   },
 );

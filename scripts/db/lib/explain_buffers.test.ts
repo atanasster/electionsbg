@@ -9,7 +9,7 @@
 
 import { test } from "vitest";
 import assert from "node:assert/strict";
-import { sumExecutionBuffers } from "./explain_buffers";
+import { rootExecutionBuffers, sumExecutionBuffers } from "./explain_buffers";
 
 const plan = (...body: string[]) =>
   [
@@ -76,4 +76,20 @@ test("throws rather than scoring 0 when the format changes", () => {
     () => sumExecutionBuffers([{ "QUERY PLAN": "Seq Scan on person" }]),
     /parser needs updating/,
   );
+});
+
+test("rootExecutionBuffers reads the root's inclusive total, not the nested sum", () => {
+  const p = plan(
+    "  Buffers: shared hit=3486 read=473",
+    "  ->  Nested Loop  (actual time=0.4..4.8 rows=1191 loops=1)",
+    "        Buffers: shared hit=3480 read=200",
+    "        ->  Index Only Scan  (actual time=0.003..0.003 rows=1 loops=1191)",
+    "              Buffers: shared hit=3476 read=98",
+  );
+  assert.equal(rootExecutionBuffers(p), 3959);
+  // The sum counts the same probes once per ancestor — the reason the root exists.
+  assert.equal(sumExecutionBuffers(p), 3959 + 3680 + 3574);
+  // Planning buffers never count, and a plan with no execution line throws.
+  assert.equal(rootExecutionBuffers(plan("  Buffers: shared read=7")), 7);
+  assert.throws(() => rootExecutionBuffers(plan()));
 });
