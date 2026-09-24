@@ -181,8 +181,8 @@ export const cohesionAbsorption = async (
       eligibility_end: `31.12.${ELIGIBILITY_END_YEAR}`,
       n3_last_tranche: `${LAST_N3_COMMITMENT_YEAR} → 31.12.${ELIGIBILITY_END_YEAR}`,
       note: bg
-        ? `Бенефициентите са общините. „Развитие на регионите“ е усвоена едва ~20%. Разходите трябва да са извършени и платени до 31 декември ${ELIGIBILITY_END_YEAR} г., за да са допустими (чл. 63, ал. 2 от Регламент (ЕС) 2021/1060). А по правилото n+3 (чл. 105) неусвоеното се губи на траншове всяка година — ангажиментите за 2021-${LAST_N3_COMMITMENT_YEAR} г.; траншът за 2027 г. се урежда при закриването.`
-        : `The beneficiaries are the municipalities. „Развитие на регионите“ is only ~20% absorbed. Expenditure must be incurred and paid by 31 December ${ELIGIBILITY_END_YEAR} to be eligible (Art. 63(2) of Reg. (EU) 2021/1060). And under the n+3 rule (Art. 105) unspent money is forfeited tranche by tranche each year — commitments 2021-${LAST_N3_COMMITMENT_YEAR}; the 2027 tranche settles at closure.`,
+        ? `Бенефициентите са общините. „Развитие на регионите“ е усвоена едва ${rr ? `${Math.round(rr.absorptionPct)}%` : "—"}. Разходите трябва да са извършени и платени до 31 декември ${ELIGIBILITY_END_YEAR} г., за да са допустими (чл. 63, ал. 2 от Регламент (ЕС) 2021/1060). А по правилото n+3 (чл. 105) неусвоеното се губи на траншове всяка година — ангажиментите за 2021-${LAST_N3_COMMITMENT_YEAR} г.; траншът за 2027 г. се урежда при закриването.`
+        : `The beneficiaries are the municipalities. „Развитие на регионите“ is only ${rr ? `${Math.round(rr.absorptionPct)}%` : "—"} absorbed. Expenditure must be incurred and paid by 31 December ${ELIGIBILITY_END_YEAR} to be eligible (Art. 63(2) of Reg. (EU) 2021/1060). And under the n+3 rule (Art. 105) unspent money is forfeited tranche by tranche each year — commitments 2021-${LAST_N3_COMMITMENT_YEAR}; the 2027 tranche settles at closure.`,
       // Interreg CANNOT be added to an absorption rate, and that is a stronger
       // statement than "we do not have it": keep.eu publishes no expenditure
       // field at all (total_expenditure and eu_funding_expenditure are NULL on
