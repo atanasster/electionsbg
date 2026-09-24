@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-22T23:25:59.353Z",
+  "generatedAt": "2026-09-24T00:10:34.079Z",
   "nodes": [
     {
       "id": "src:water",
@@ -124,7 +124,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-21T17:13:27.309Z",
+      "freshness": "2026-09-23T21:40:51.531Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -135,7 +135,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-09-21T17:13:27.309Z"
+          "freshness": "2026-09-23T21:40:51.531Z"
         },
         {
           "id": "parliament_mps",
@@ -578,7 +578,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-22T21:40:44.063Z",
+      "freshness": "2026-09-23T21:40:51.531Z",
       "skills": [
         "update-procurement"
       ],
@@ -588,7 +588,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-09-22T21:40:44.063Z"
+          "freshness": "2026-09-23T21:40:51.531Z"
         }
       ],
       "x": 28,
@@ -780,7 +780,7 @@
       "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-22T21:40:44.063Z",
+      "freshness": "2026-09-23T21:40:51.531Z",
       "skills": [
         "update-open-calls"
       ],
@@ -790,7 +790,7 @@
           "label": "ИСУН — отворени процедури",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
           "cadence": "daily",
-          "freshness": "2026-09-22T21:40:44.063Z"
+          "freshness": "2026-09-23T21:40:51.531Z"
         },
         {
           "id": "sp2023_indicative",
@@ -1431,7 +1431,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-09-22T21:40:44.063Z",
+      "freshness": "2026-09-23T21:40:51.531Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1443,7 +1443,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-09-22T21:40:44.063Z"
+          "freshness": "2026-09-23T21:40:51.531Z"
         },
         {
           "id": "eurostat_policy",
@@ -1758,7 +1758,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-22T21:40:44.063Z",
+      "freshness": "2026-09-23T21:40:51.531Z",
       "skills": [
         "update-prices"
       ],
@@ -1768,7 +1768,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-09-22T21:40:44.063Z"
+          "freshness": "2026-09-23T21:40:51.531Z"
         }
       ],
       "issue": {
@@ -2303,7 +2303,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-09-22T21:40:44.063Z",
+      "freshness": "2026-09-23T21:40:51.531Z",
       "skills": [
         "update-procurement"
       ],
@@ -2313,7 +2313,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-09-22T21:40:44.063Z"
+          "freshness": "2026-09-23T21:40:51.531Z"
         }
       ],
       "issue": {
@@ -7518,7 +7518,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18749,
+      "overlap": 18750,
       "query": "contractors-in-the-registry"
     },
     {

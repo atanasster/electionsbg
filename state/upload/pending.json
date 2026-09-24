@@ -1,0 +1,47 @@
+{
+  "session": "20260923T225323Z-b62a",
+  "createdAt": "2026-09-24T00:11:34.725Z",
+  "skills": [
+    "update-rollcall",
+    "update-procurement",
+    "update-macro",
+    "update-open-calls",
+    "update-prices"
+  ],
+  "paths": [
+    "parliament/votes",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "macro.json",
+    "macro_peers.json",
+    "home",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "culture/derived/hub_stats.json",
+    "data_map.json",
+    "data-changes.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:rollcall:pg:cloud",
+    "npm run db:load:rollcall-derived:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run db:load:open-calls:pg:cloud",
+    "npm run prices:ingest:cloud"
+  ],
+  "notes": "rollcall 2026-09-23; EOP +145 contracts, TED +30; Eurostat GDP Q2; 57 open calls; prices 2026-09-23. home needs bucket:gz after sync. myarea:alerts:cloud already run. public/flyover posters changed -> hosting deploy pending."
+}

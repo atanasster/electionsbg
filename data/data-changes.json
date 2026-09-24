@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-09-23T13:26:53.000Z",
+  "updatedAt": "2026-09-24T00:09:45.265Z",
   "entries": [
+    {
+      "timestamp": "2026-09-24T00:09:45.265Z",
+      "date": "2026-09-24",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП self-heal +145 contracts through 2026-09-22; TED +30 notices (21,575 for 2026); tenders refreshed",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-09-23T23:49:50.942Z",
+      "date": "2026-09-23",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 948 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-23T23:28:30.524Z",
+      "date": "2026-09-23",
+      "skill": "update-open-calls",
+      "summary": "ИСУН crawl: 57 open calls, 0 consultations",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-23T23:28:09.652Z",
+      "date": "2026-09-23",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-23 (+1 daily archive; 1,077,635 store rows, 166 settlements, 73 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-23"
+    },
+    {
+      "timestamp": "2026-09-23T23:09:43.003Z",
+      "date": "2026-09-23",
+      "skill": "update-macro",
+      "summary": "Eurostat refresh: GDP growth through 2026 Q2, peer series updated",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-23T23:00:29.670Z",
+      "date": "2026-09-23",
+      "skill": "update-rollcall",
+      "summary": "1 new session through 2026-09-23 (627 plenary days, 16,978 items)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-23T13:26:53.000Z",
       "date": "2026-09-23",
