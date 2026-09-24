@@ -15,6 +15,44 @@ Why state-driven, not report-driven? The watcher's `## Changed` section in any o
 
 The human-readable reports under `data-reports/` are still useful for narration in the final summary — but they're no longer the decision input.
 
+## Unattended mode (the nightly routine)
+
+When the invocation args contain **`unattended`** (the nightly "Electionsbg watch" routine
+passes it), nobody is at the keyboard, and a run that stops to ask a question simply stalls
+until morning. The operator has approved in advance: every recommended ingest in the plan,
+**and** the publish that follows it. So in unattended mode:
+
+- **Step 3 does not wait.** Print the plan exactly as usual, including the publish line, then
+  go ahead. Treat it as though the operator answered "yes, run all".
+- **Tell every child skill it is unattended.** Pass this in each `Skill` call's args:
+  `"unattended nightly run from /process-watch-report — do not ask; take the documented
+  default at every prompt; skip any step that needs human judgment and report it"`. The step-14
+  hand-off to `/upload-watch-changes` keeps its "proceed without re-asking" phrase.
+- **Human-judgment steps are skipped and reported, never guessed.** Examples: `update-polls`
+  operator review/accept for agencies with no extractor, the manual-paste and manual-download
+  sources (Step 0, TI CPI, municipal fiscal, capital-programme fetches), `enrich-open-calls`
+  promotion, typo-override decisions in `update-connections`, and regulator-roster re-checks.
+  If a skill's automated part succeeded and only a human step was skipped, it counts as
+  `partial`: stamp it only if that skill's own rules say the automated part is complete.
+  Otherwise leave it unstamped so the next run queues it again. List every skipped step under a
+  **Needs operator** heading in the summary.
+- **A failed skill → option (a), "skip and continue", chosen automatically.** Do not halt and
+  ask (Data-integrity contract #2). Record the failure, leave that skill unstamped, and run the
+  rest of the queue. This is still a MAJOR ISSUE under step 12, so the publish is **held**:
+  the ingest is committed and the manifest stays pending for the operator. Unattended mode
+  approves ingests the operator would have approved. It does not approve publishing a corpus
+  the run could not vouch for.
+- **Every other gate still applies unchanged:** stamp only on success, the step-11 commit by
+  explicit pathspec, no push, and no `bucket:sync` / `:cloud` loader outside
+  `/upload-watch-changes`.
+- **End with a notification when one is available.** If the `PushNotification` tool is present,
+  send one line: skills run, ok/partial/error counts, whether the publish went out or was held
+  (and why), and how many "Needs operator" items there are. The step-13 summary stays the full
+  record.
+
+Without `unattended` in the args, nothing here applies. The skill confirms at step 3 and halts
+on failure, as before.
+
 ## Inputs
 
 - `state/watch/<source>.json` for each watcher source — the truth about what's changed when. Always exists once the watcher has run at least once.
@@ -830,7 +868,7 @@ first, then re-run the orchestrator.
    >   automatically if anything above fails; say "hold the publish" to keep it manual.
    >   Proceed?
 
-   Wait for user confirmation (or proceed automatically if they already said "go" / "run all" / "yes proceed"). If the queue is empty, print "Nothing to ingest — every changed source has already been processed since its last change" and stop.
+   Wait for user confirmation (or proceed automatically if they already said "go" / "run all" / "yes proceed", or the args contain `unattended` — see "Unattended mode"). If the queue is empty, print "Nothing to ingest — every changed source has already been processed since its last change" and stop.
 
    **The "yes" here covers the publish.** Step 14 invokes `/upload-watch-changes` on the
    strength of this confirmation, and that skill does not re-ask when the orchestrator hands it
@@ -1584,7 +1622,7 @@ This orchestrator MUST NOT claim success it didn't earn. Specifically:
 
 1. **Trust downstream skills to fail loud.** Every tier-2 ingest skill is built to throw rather than write empty/partial data when upstream restructures. If a Skill invocation returns an error (or its terminal output contains "Error:", a stack trace, or otherwise signals failure), treat that source as **failed**, not "completed with warnings".
 
-2. **Halt on first failure by default.** When a downstream skill fails, STOP the orchestration. Do not proceed to the next mapped skill. Report which skill failed and what error, then ask the user whether to (a) skip and continue with the rest, (b) abort entirely, or (c) investigate.
+2. **Halt on first failure by default** (in unattended mode, take (a) automatically — see "Unattended mode"). When a downstream skill fails, STOP the orchestration. Do not proceed to the next mapped skill. Report which skill failed and what error, then ask the user whether to (a) skip and continue with the rest, (b) abort entirely, or (c) investigate.
 
 3. **Never paraphrase ingest output as "done".** Read the actual stdout. Quote the relevant success/failure marker. Examples:
    - `update-rollcall` success looks like `+ YYYY-MM-DD (id N): K item(s), R rows · U unresolved id(s) → sessions/<date>.json` for each session, plus a final summary.
