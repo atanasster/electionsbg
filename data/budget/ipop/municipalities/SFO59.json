@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-08-14T17:10:17.147Z",
+  "generatedAt": "2026-09-24T22:39:29.324Z",
   "obshtinaCode": "SFO59",
   "municipalityName": "Долна Баня",
   "oblastCode": "SFO",
@@ -12,15 +12,31 @@
     "oblastName": "София област",
     "projectCount": 6,
     "stalledCount": 1,
-    "agreementEur": 2499194.71,
+    "agreementEur": 2937371.8600000003,
     "submittedEur": 0,
     "awaitingEur": 0,
     "paidEur": 999235.6,
     "mrrbPaidEur": 736300.29,
     "bbrPaidEur": 262935.31,
-    "paidPct": 39.98
+    "paidPct": 34.02
   },
   "projects": [
+    {
+      "id": "OP-24.001-2198",
+      "description": "Основен ремонт и реконструкция на улица \"Ибър\" и улица \"Никола Вапцаров\"",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO59",
+      "municipalityName": "Долна Баня",
+      "agreementEur": 1203581.09,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
     {
       "id": "OP-24.001-3023",
       "description": "Рехабилитация на обществени зелени площи – обновяване и реконструкция на градски парк",
@@ -28,13 +44,13 @@
       "oblastName": "София област",
       "obshtinaCode": "SFO59",
       "municipalityName": "Долна Баня",
-      "agreementEur": 905497.92,
+      "agreementEur": 915723.76,
       "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 181168.59,
       "mrrbPaidEur": 0,
       "bbrPaidEur": 181168.59,
-      "paidPct": 20.01,
+      "paidPct": 19.78,
       "stalled": false
     },
     {
@@ -52,22 +68,6 @@
       "bbrPaidEur": 81766.72,
       "paidPct": 100,
       "stalled": false
-    },
-    {
-      "id": "OP-24.001-2198",
-      "description": "Основен ремонт и реконструкция на улица \"Ибър\" и улица \"Никола Вапцаров\"",
-      "oblastCode": "SFO",
-      "oblastName": "София област",
-      "obshtinaCode": "SFO59",
-      "municipalityName": "Долна Баня",
-      "agreementEur": 775629.78,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
     },
     {
       "id": "OP-24.001-2196",

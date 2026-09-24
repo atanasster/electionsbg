@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-08-14T17:10:17.129Z",
+  "generatedAt": "2026-09-24T22:39:29.308Z",
   "obshtinaCode": "DOB15",
   "municipalityName": "Добричка",
   "oblastCode": "DOB",
@@ -11,14 +11,14 @@
     "oblastCode": "DOB",
     "oblastName": "Добрич",
     "projectCount": 11,
-    "stalledCount": 2,
+    "stalledCount": 1,
     "agreementEur": 7843166.34,
-    "submittedEur": 172714.05,
-    "awaitingEur": 0,
-    "paidEur": 2823887.1,
-    "mrrbPaidEur": 1773189.67,
+    "submittedEur": 0,
+    "awaitingEur": 830369.48,
+    "paidEur": 3901368.44,
+    "mrrbPaidEur": 2850671.01,
     "bbrPaidEur": 1050697.43,
-    "paidPct": 36
+    "paidPct": 49.74
   },
   "projects": [
     {
@@ -31,11 +31,11 @@
       "agreementEur": 2585603.04,
       "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 12884.56,
-      "mrrbPaidEur": 0,
+      "paidEur": 1049370.98,
+      "mrrbPaidEur": 1036486.42,
       "bbrPaidEur": 12884.56,
-      "paidPct": 0.5,
-      "stalled": true
+      "paidPct": 40.59,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0543",
@@ -45,12 +45,12 @@
       "obshtinaCode": "DOB15",
       "municipalityName": "Добричка",
       "agreementEur": 1974609.25,
-      "submittedEur": 13191.13,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 830369.48,
+      "paidEur": 13191.13,
+      "mrrbPaidEur": 13191.13,
       "bbrPaidEur": 0,
-      "paidPct": 0,
+      "paidPct": 0.67,
       "stalled": true
     },
     {
@@ -61,12 +61,12 @@
       "obshtinaCode": "DOB15",
       "municipalityName": "Добричка",
       "agreementEur": 1578358.04,
-      "submittedEur": 44719.6,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 1499420.93,
-      "mrrbPaidEur": 727657.44,
+      "paidEur": 1504743.64,
+      "mrrbPaidEur": 732980.1499999999,
       "bbrPaidEur": 771763.49,
-      "paidPct": 95,
+      "paidPct": 95.34,
       "stalled": false
     },
     {
@@ -77,7 +77,7 @@
       "obshtinaCode": "DOB15",
       "municipalityName": "Добричка",
       "agreementEur": 1482746.46,
-      "submittedEur": 114803.32,
+      "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 1171256.74,
       "mrrbPaidEur": 1045532.23,
@@ -95,10 +95,10 @@
       "agreementEur": 221849.55,
       "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 140324.87,
-      "mrrbPaidEur": 0,
+      "paidEur": 162805.95,
+      "mrrbPaidEur": 22481.08,
       "bbrPaidEur": 140324.87,
-      "paidPct": 63.25,
+      "paidPct": 73.39,
       "stalled": false
     },
     {

@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-08-14T17:10:17.119Z",
+  "generatedAt": "2026-09-24T22:39:29.301Z",
   "obshtinaCode": "VAR06",
   "municipalityName": "Варна",
   "oblastCode": "VAR",
@@ -11,14 +11,14 @@
     "oblastCode": "VAR",
     "oblastName": "Варна",
     "projectCount": 47,
-    "stalledCount": 16,
+    "stalledCount": 15,
     "agreementEur": 78945460.49,
-    "submittedEur": 119470.51,
+    "submittedEur": 0,
     "awaitingEur": 2299035.85,
-    "paidEur": 11673903.89,
-    "mrrbPaidEur": 7777624.61,
+    "paidEur": 11793374.4,
+    "mrrbPaidEur": 7897095.12,
     "bbrPaidEur": 3896279.2800000007,
-    "paidPct": 14.79
+    "paidPct": 14.94
   },
   "projects": [
     {
@@ -333,13 +333,13 @@
       "obshtinaCode": "VAR06",
       "municipalityName": "Варна",
       "agreementEur": 120153.59,
-      "submittedEur": 119470.51,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "paidEur": 119470.51,
+      "mrrbPaidEur": 119470.51,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 99.43,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0260",

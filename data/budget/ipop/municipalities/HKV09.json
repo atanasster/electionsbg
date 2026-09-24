@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-08-14T17:10:17.150Z",
+  "generatedAt": "2026-09-24T22:39:29.328Z",
   "obshtinaCode": "HKV09",
   "municipalityName": "Димитровград",
   "oblastCode": "HKV",
@@ -11,14 +11,14 @@
     "oblastCode": "HKV",
     "oblastName": "Хасково",
     "projectCount": 6,
-    "stalledCount": 3,
+    "stalledCount": 2,
     "agreementEur": 15338756.450000001,
-    "submittedEur": 75112.18,
+    "submittedEur": 0,
     "awaitingEur": 702469.4,
-    "paidEur": 2886152.0799999996,
-    "mrrbPaidEur": 2530276.77,
+    "paidEur": 4339278.38,
+    "mrrbPaidEur": 3983403.0700000003,
     "bbrPaidEur": 355875.31,
-    "paidPct": 18.82
+    "paidPct": 28.29
   },
   "projects": [
     {
@@ -29,12 +29,12 @@
       "obshtinaCode": "HKV09",
       "municipalityName": "Димитровград",
       "agreementEur": 6646794.46,
-      "submittedEur": 20322.14,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 101917.5,
-      "mrrbPaidEur": 0,
+      "paidEur": 131442.89,
+      "mrrbPaidEur": 29525.39,
       "bbrPaidEur": 101917.5,
-      "paidPct": 1.53,
+      "paidPct": 1.98,
       "stalled": true
     },
     {
@@ -45,13 +45,13 @@
       "obshtinaCode": "HKV09",
       "municipalityName": "Димитровград",
       "agreementEur": 3323397.23,
-      "submittedEur": 41905.48,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "paidEur": 1382275.74,
+      "mrrbPaidEur": 1382275.74,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 41.59,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1497",
@@ -61,12 +61,12 @@
       "obshtinaCode": "HKV09",
       "municipalityName": "Димитровград",
       "agreementEur": 2300813.47,
-      "submittedEur": 4601.63,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 2055715.35,
-      "mrrbPaidEur": 2055715.35,
+      "paidEur": 2060316.98,
+      "mrrbPaidEur": 2060316.98,
       "bbrPaidEur": 0,
-      "paidPct": 89.35,
+      "paidPct": 89.55,
       "stalled": false
     },
     {
@@ -77,12 +77,12 @@
       "obshtinaCode": "HKV09",
       "municipalityName": "Димитровград",
       "agreementEur": 1175971.33,
-      "submittedEur": 8282.93,
+      "submittedEur": 0,
       "awaitingEur": 416861.76,
-      "paidEur": 521944.53,
-      "mrrbPaidEur": 474561.42,
+      "paidEur": 530227.46,
+      "mrrbPaidEur": 482844.35,
       "bbrPaidEur": 47383.11,
-      "paidPct": 44.38,
+      "paidPct": 45.09,
       "stalled": false
     },
     {
@@ -95,10 +95,10 @@
       "agreementEur": 971454.57,
       "submittedEur": 0,
       "awaitingEur": 285607.64,
-      "paidEur": 193881.88,
-      "mrrbPaidEur": 0,
+      "paidEur": 202471.58,
+      "mrrbPaidEur": 8589.7,
       "bbrPaidEur": 193881.88,
-      "paidPct": 19.96,
+      "paidPct": 20.84,
       "stalled": false
     },
     {
@@ -111,10 +111,10 @@
       "agreementEur": 920325.39,
       "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 12692.82,
-      "mrrbPaidEur": 0,
+      "paidEur": 32543.73,
+      "mrrbPaidEur": 19850.91,
       "bbrPaidEur": 12692.82,
-      "paidPct": 1.38,
+      "paidPct": 3.54,
       "stalled": true
     }
   ]

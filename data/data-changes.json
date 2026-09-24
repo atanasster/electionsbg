@@ -1,6 +1,75 @@
 {
-  "updatedAt": "2026-09-24T00:09:45.265Z",
+  "updatedAt": "2026-09-24T22:57:41.560Z",
   "entries": [
+    {
+      "timestamp": "2026-09-24T22:57:41.560Z",
+      "date": "2026-09-24",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-24 (+1 daily archive; 907,120 store rows, 164 settlements, 74 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-24"
+    },
+    {
+      "timestamp": "2026-09-24T22:51:17.416Z",
+      "date": "2026-09-24",
+      "skill": "update-council-minutes",
+      "summary": "82 new resolutions (PDV01 +47, RSE01 +22, RAZ26 +11, SLV01 +2); 5,256 resolutions, 51,672 named votes, 94.2% attributed",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-09-24T22:41:13.953Z",
+      "date": "2026-09-24",
+      "skill": "update-macro",
+      "summary": "Eurostat Q2 2026 national accounts: gdpGrowth + retailVolume through 2026 Q2; peers refreshed (BG GDP rank 9/26)",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-24T22:40:34.984Z",
+      "date": "2026-09-24",
+      "skill": "update-budget",
+      "summary": "IPOP: 3,492 projects, €1,122.0M paid of €3,010.5M (37.27%)",
+      "source": "МРРБ — ИПОП изпълнение"
+    },
+    {
+      "timestamp": "2026-09-24T22:38:33.852Z",
+      "date": "2026-09-24",
+      "skill": "update-open-calls",
+      "summary": "ИСУН 55 open procedures (1 new); open_calls 82 → 83 rows",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-24T22:36:38.482Z",
+      "date": "2026-09-24",
+      "skill": "update-procurement",
+      "summary": "EOP self-heal +163 rows (409,740 contracts); tenders 239,429; TED 220,213 notices (+101); geo map 2,199",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-09-24T22:27:11.630Z",
+      "date": "2026-09-24",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 948 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-24T21:55:57.954Z",
+      "date": "2026-09-24",
+      "skill": "update-rollcall",
+      "summary": "1 new session 2026-09-24 (12 items, 2880 rows); 628 plenary days",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-24T00:09:45.265Z",
       "date": "2026-09-24",

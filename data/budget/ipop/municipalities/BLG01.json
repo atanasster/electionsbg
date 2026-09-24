@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-08-14T17:10:17.113Z",
+  "generatedAt": "2026-09-24T22:39:29.296Z",
   "obshtinaCode": "BLG01",
   "municipalityName": "Банско",
   "oblastCode": "BLG",
@@ -11,14 +11,14 @@
     "oblastCode": "BLG",
     "oblastName": "Благоевград",
     "projectCount": 5,
-    "stalledCount": 2,
+    "stalledCount": 0,
     "agreementEur": 8129540.91,
-    "submittedEur": 527919.7,
+    "submittedEur": 0,
     "awaitingEur": 0.01,
-    "paidEur": 6437603.340000001,
-    "mrrbPaidEur": 5802719,
+    "paidEur": 6965523.04,
+    "mrrbPaidEur": 6330638.699999999,
     "bbrPaidEur": 634884.3400000001,
-    "paidPct": 79.19
+    "paidPct": 85.68
   },
   "projects": [
     {
@@ -77,13 +77,13 @@
       "obshtinaCode": "BLG01",
       "municipalityName": "Банско",
       "agreementEur": 888983.19,
-      "submittedEur": 384884.85,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 16447.03,
-      "mrrbPaidEur": 0,
+      "paidEur": 401331.88,
+      "mrrbPaidEur": 384884.85,
       "bbrPaidEur": 16447.03,
-      "paidPct": 1.85,
-      "stalled": true
+      "paidPct": 45.15,
+      "stalled": false
     },
     {
       "id": "OP-24.001-2698",
@@ -93,13 +93,13 @@
       "obshtinaCode": "BLG01",
       "municipalityName": "Банско",
       "agreementEur": 332186.34,
-      "submittedEur": 143034.85,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "paidEur": 143034.85,
+      "mrrbPaidEur": 143034.85,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 43.06,
+      "stalled": false
     }
   ]
 }

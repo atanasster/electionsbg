@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-23T23:59:59.999Z",
+  "computedAt": "2026-09-24T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:ka-cherni-maslini-mamut-101-110-2-5kg",
+      "id": "prices:promotion:krastavitsi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-23T00:00:00.000Z",
-      "firstSeenAt": "2026-09-23T00:00:00.000Z",
+      "occurredAt": "2026-09-24T00:00:00.000Z",
+      "firstSeenAt": "2026-09-24T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,19 +22,51 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/ka-cherni-maslini-mamut-101-110-2-5kg",
+      "route": "/product/krastavitsi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КА ЧЕРНИ МАСЛИНИ МАМУТ 101-110/2.5КГ",
-        "pct": 52,
-        "promoEur": "3.99",
-        "regularEur": "8.23",
-        "chains": 2
+        "title": "КРАСТАВИЦИ",
+        "pct": 58,
+        "promoEur": "0.99",
+        "regularEur": "2.34",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7428571428571429,
+      "materiality": 0.8285714285714286,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:9a1210fb-84d1-44e2-bb6e-9d9f83d942c4",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-24T09:30:00.000Z",
+      "deadlineAt": "2027-01-04T21:59:00.000Z",
+      "firstSeenAt": "2026-09-24T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/9a1210fb-84d1-44e2-bb6e-9d9f83d942c4"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Актуализация на политиките и националната нормативна рамка за подобряване на качеството на въздуха",
+        "programme": "Програма \"Околна среда\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -66,43 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:0cbfcb31-af33-4ccb-8a0a-a7f4208296b9",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-18T15:00:00.000Z",
-      "deadlineAt": "2026-10-18T14:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/0cbfcb31-af33-4ccb-8a0a-a7f4208296b9"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "\"Предлагане на пазара - компенсации - подсектор \"Риболов\"",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-23T00:00:00.000Z",
-      "firstSeenAt": "2026-09-23T00:00:00.000Z",
+      "occurredAt": "2026-09-24T00:00:00.000Z",
+      "firstSeenAt": "2026-09-24T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -159,10 +159,10 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:785eaeb6-6137-4e0d-b6d3-a0efcb4970ee",
+      "id": "funds:call_opened:isun:0cbfcb31-af33-4ccb-8a0a-a7f4208296b9",
       "kind": "call_opened",
       "category": "funds",
-      "effectiveAt": "2026-09-18T14:00:00.000Z",
+      "effectiveAt": "2026-09-18T15:00:00.000Z",
       "deadlineAt": "2026-10-18T14:00:00.000Z",
       "firstSeenAt": "2026-09-18T00:00:00.000Z",
       "dateBasis": "effective",
@@ -172,7 +172,7 @@
       "source": {
         "id": "opencalls_isun",
         "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/785eaeb6-6137-4e0d-b6d3-a0efcb4970ee"
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/0cbfcb31-af33-4ccb-8a0a-a7f4208296b9"
       },
       "coverage": {
         "complete": false,
@@ -181,7 +181,7 @@
       "route": "/funds/calls",
       "factKey": "home_fact_call_opened_programme",
       "factArgs": {
-        "title": "„Предлагане на пазара – компенсации - подсектор „Преработка на продукти от риболов и аквакултури“",
+        "title": "\"Предлагане на пазара - компенсации - подсектор \"Риболов\"",
         "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
       },
       "backfill": false,
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:svinska-pleshka-bez-kost",
+      "id": "prices:promotion:kromid-luk",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-23T00:00:00.000Z",
-      "firstSeenAt": "2026-09-23T00:00:00.000Z",
+      "occurredAt": "2026-09-24T00:00:00.000Z",
+      "firstSeenAt": "2026-09-24T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/svinska-pleshka-bez-kost",
+      "route": "/product/kromid-luk",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "СВИНСКА ПЛЕШКА БЕЗ КОСТ",
-        "pct": 51,
-        "promoEur": "2.99",
-        "regularEur": "6.15",
+        "title": "КРОМИД ЛУК",
+        "pct": 50,
+        "promoEur": "0.45",
+        "regularEur": "0.90",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7285714285714285,
+      "materiality": 0.7142857142857143,
       "actionability": 0.85
     },
     {
@@ -252,6 +252,38 @@
       "verification": "automatic",
       "materiality": 0.53475,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:785eaeb6-6137-4e0d-b6d3-a0efcb4970ee",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-18T14:00:00.000Z",
+      "deadlineAt": "2026-10-18T14:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/785eaeb6-6137-4e0d-b6d3-a0efcb4970ee"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "„Предлагане на пазара – компенсации - подсектор „Преработка на продукти от риболов и аквакултури“",
+        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -378,6 +410,34 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-24",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-24T00:00:00.000Z",
+      "firstSeenAt": "2026-09-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-24",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 12
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.3,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -559,6 +619,38 @@
     },
     {
       "schemaVersion": 1,
+      "id": "council:resolution:RAZ26-2026-prot38-r559",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-18T00:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "RAZ26"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/RAZ26-2026-prot38-r559",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "наличие на разновъзрастова група в детската градина с брой деца под минимално допустимия – 6 деца и разрешаване съществу",
+        "council": "RAZ26",
+        "number": "559"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.42000000000000004,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
       "id": "parliament:sitting:2026-09-09",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -584,6 +676,70 @@
       "verification": "automatic",
       "materiality": 0.425,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:RAZ26-2026-prot38-r555",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-18T00:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "RAZ26"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/RAZ26-2026-prot38-r555",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "полските пътища- планираните средства за 2026 г. са 127 000 евро. Към 31 август има събран приход в размер на 61 000 евр",
+        "council": "RAZ26",
+        "number": "555"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:RAZ26-2026-prot38-r557",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-18T00:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "RAZ26"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/RAZ26-2026-prot38-r557",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Изменение и допълнение на Програмата за управление и разпореждане с имоти – общинска собственост за 2026 година, приета ",
+        "council": "RAZ26",
+        "number": "557"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -615,6 +771,294 @@
       "verification": "automatic",
       "materiality": 0.495,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot13-r306",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot13-r306",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Определяне на участник, спечелил публично оповестен конкурс за отдаване под наем за срок от 5 (пет) години на част от не",
+        "council": "PDV01",
+        "number": "306"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot13-r307",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot13-r307",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за изменение и допълнение на Годишната програма на Община Пловдив за управление и разпореждане с имот",
+        "council": "PDV01",
+        "number": "307"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot13-r308",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot13-r308",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за безвъзмездно предоставяне за управление на ПРОФЕСИНАЛНА ГИМНАЗИЯ ПО ОБЛЕКЛО „АНА МАЙ“ – гр. Пловди",
+        "council": "PDV01",
+        "number": "308"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot13-r309",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot13-r309",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Отчет за изпълнение на бюджета на община Пловдив за 2025 година ПО ПРЕДЛОЖЕНИЕ НА: Костадин Димитров – Кмет на община Пл",
+        "council": "PDV01",
+        "number": "309"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot13-r310",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot13-r310",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Бюджета на община Пловдив за 2026 година, индикативния годишен разчет за сметките за средства от Европейския съюз и акту",
+        "council": "PDV01",
+        "number": "310"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot13-r311",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot13-r311",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Наредба за изменение и допълнение на Наредбата за реда и условията за пътуване с обществения градски транспо",
+        "council": "PDV01",
+        "number": "311"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot14-r312",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot14-r312",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Кандидатстване на Община Пловдив с проектно предложение по Процедура № BG05SFPR001-1.012 „Комплексни програми на общинск",
+        "council": "PDV01",
+        "number": "312"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot14-r313",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot14-r313",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Участие на община Пловдив в редовно неприсъствено заседание на Общото събрание на „Асоциация по В и К – Пловдив“ на 24.0",
+        "council": "PDV01",
+        "number": "313"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot14-r314",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot14-r314",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Упълномощаване на представителя на Община Пловдив в общото събрание на акционерите /ОСА/ на „УМБАЛ – Пловдив” АД, ЕИК **",
+        "council": "PDV01",
+        "number": "314"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -710,34 +1154,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-11",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-11T00:00:00.000Z",
-      "firstSeenAt": "2026-09-11T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-11",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 1
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.025,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "parliament:sitting:2026-09-02",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -766,195 +1182,31 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot46-r2043",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-09-01T00:00:00.000Z",
-      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "id": "parliament:sitting:2026-09-11",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-11T00:00:00.000Z",
+      "firstSeenAt": "2026-09-11T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
-        "level": "municipality",
-        "id": "SZR01"
+        "level": "national"
       },
       "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
       },
       "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
+        "complete": true
       },
-      "route": "/council/resolution/SZR01-2026-prot46-r2043",
-      "factKey": "home_fact_council_resolution",
+      "route": "/votes/2026-09-11",
+      "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "title": "Приемане на отчета за касово изпълнение на бюджета и на сметките за средства от Европейския съюз на Община Стара Загора ",
-        "council": "SZR01",
-        "number": "2043"
+        "items": 1
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot46-r2044",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-09-01T00:00:00.000Z",
-      "firstSeenAt": "2026-09-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot46-r2044",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Приемане на бюджета за 2026 година на Община Стара Загора",
-        "council": "SZR01",
-        "number": "2044"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot46-r2045",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-09-01T00:00:00.000Z",
-      "firstSeenAt": "2026-09-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot46-r2045",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Участие на град Стара Загора в инициативата „Европейска столица на културата 2032“ Упълномощаване на Кмета на Община Ста",
-        "council": "SZR01",
-        "number": "2045"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot46-r2046",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-09-01T00:00:00.000Z",
-      "firstSeenAt": "2026-09-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot46-r2046",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Промяна на наименованието и преобразуване на лечебното заведение от Комплексен онкологичен център в Специализирана болни",
-        "council": "SZR01",
-        "number": "2046"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot46-r2047",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-09-01T00:00:00.000Z",
-      "firstSeenAt": "2026-09-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot46-r2047",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Отпускане на еднократна безвъзмездна финансова помощ на г-жа Иванова за детето й",
-        "council": "SZR01",
-        "number": "2047"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot46-r2048",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-09-01T00:00:00.000Z",
-      "firstSeenAt": "2026-09-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot46-r2048",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Отпускане на еднократна безвъзмездна финансова помощ на г-н Михов",
-        "council": "SZR01",
-        "number": "2048"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
+      "materiality": 0.025,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -983,254 +1235,6 @@
       "verification": "automatic",
       "materiality": 0.025,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-08-27",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-08-27",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 16
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-08-25",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-08-25",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 19
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.475,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PER32-2026-prot8-r1134",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PER32"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PER32-2026-prot8-r1134",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "ПРИЕМАНЕ НА ГОДИШЕН ПЛАН НА ДЕЙНОСТИТЕ ЗА ПОДКРЕПА ЗА ЛИЧНОСТНО РАЗВИТИЕ НА ДЕЦАТА И УЧЕНИЦИТЕ В ОБЩИНА ПЕРНИК",
-        "council": "PER32",
-        "number": "1134"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.49,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PER32-2026-prot8-r1142",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PER32"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PER32-2026-prot8-r1142",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "ПРЕКРАТЯВАНЕ НА СЪСОБСТВЕНОСТ ЧРЕЗ ПОКУПКО - ПРОДАЖБА НА ЧАСТ ОТ НЕДВИЖИМ ИМОТ - ЧАСТНА ОБЩИНСКА СОБСТВЕНОСТ",
-        "council": "PER32",
-        "number": "1142"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.49,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PER32-2026-prot8-r1143",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PER32"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PER32-2026-prot8-r1143",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "ПРЕКРАТЯВАНЕ НА СЪСОБСТВЕНОСТ ЧРЕЗ ПОКУПКО - ПРОДАЖБА НА ЧАСТ ОТ НЕДВИЖИМ ИМОТ - ЧАСТНА ОБЩИНСКА СОБСТВЕНОСТ",
-        "council": "PER32",
-        "number": "1143"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.49,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PER32-2026-prot8-r1121",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PER32"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PER32-2026-prot8-r1121",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "ПОПРАВКА НА ОЧЕВИДНА ФАКТИЧЕСКА ГРЕШКА В РЕШЕНИЕ №1096/21.07.2026Г. НА ОБЩИНСКИ СЪВЕТ ПЕРНИК",
-        "council": "PER32",
-        "number": "1121"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.48000000000000004,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PER32-2026-prot8-r1133",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PER32"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PER32-2026-prot8-r1133",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "ПРИЕМАНЕ НА ОБЩИНСКА СТРАТЕГИЯ ЗА ПОДКРЕПА ЗА ЛИЧНОСТНО РАЗВИТИЕ НА ДЕЦАТА И УЧЕНИЦИТЕ В ОБЩИНА ПЕРНИК ЗА 2026 - 2028 Г.",
-        "council": "PER32",
-        "number": "1133"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.48000000000000004,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PER32-2026-prot8-r1136",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PER32"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PER32-2026-prot8-r1136",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "ГФО НА \"ПЕРНИК- ИНВЕСТ\" ЕООД ЗА 2025Г, ЗАВЕРЕН ОТ РЕГИСТРИРАН ОДИТОР",
-        "council": "PER32",
-        "number": "1136"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.48000000000000004,
-      "actionability": 0.3
     }
   ],
   "sourceCoverage": {
@@ -1242,7 +1246,7 @@
     },
     "council": {
       "available": true,
-      "asOf": "2026-09-14",
+      "asOf": "2026-09-18",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -1268,21 +1272,21 @@
     },
     "opencalls": {
       "available": true,
-      "asOf": "2026-08-09",
-      "observedAt": "2026-09-23",
+      "asOf": "2026-09-21",
+      "observedAt": "2026-09-24",
       "staleAfterDays": 45,
       "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-09-23",
+      "asOf": "2026-09-24",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-23",
-      "observedAt": "2026-09-23",
+      "asOf": "2026-09-24",
+      "observedAt": "2026-09-24",
       "staleAfterDays": 5,
       "stale": false
     }
