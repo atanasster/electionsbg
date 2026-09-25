@@ -45,7 +45,7 @@ export interface InfographicTileProps {
    */
   dropParams?: string[];
   /** Optional headline number (already formatted). Overlaid large on the banner
-   *  in the card layout; shown top-right of the row on mobile. Turns the tile
+   *  in the card layout; shown below the title on mobile. Turns the tile
    *  into a stat tile. */
   metric?: string;
   /** Optional one-word caption under the number naming what it measures
@@ -170,17 +170,17 @@ export const InfographicTile: FC<InfographicTileProps> = ({
       ) : null}
     </div>
     <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5 sm:justify-start sm:gap-1.5 sm:p-3.5">
-      <div className="flex items-center justify-between gap-2">
-        <span className="min-w-0 truncate text-base font-semibold tracking-tight sm:text-lg">
+      <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+        <span className="min-w-0 break-words text-base font-semibold tracking-tight sm:text-lg">
           {title}
         </span>
-        {/* Right cluster. On the card, the number rides the banner (above) — so
+        {/* On the card, the number rides the banner (above) — so
             only the badge shows here. On the mobile row the banner is a small
-            thumbnail, so the number rides here next to the badge (both can
-            coexist — sector tiles carry an agency badge AND a €). */}
-        <div className="flex shrink-0 items-center gap-1.5">
+            thumbnail, so the number and badge sit below the full-width title.
+            Long captions wrap without squeezing the destination label. */}
+        <div className="flex min-w-0 max-w-full items-center gap-1.5 empty:hidden sm:shrink-0">
           {metric ? (
-            <span className="flex flex-col items-end leading-none sm:hidden">
+            <span className="flex min-w-0 flex-col items-start leading-none sm:hidden">
               <span
                 className="text-base font-bold tabular-nums"
                 style={{ color: metricColor }}
@@ -189,7 +189,7 @@ export const InfographicTile: FC<InfographicTileProps> = ({
               </span>
               {metricCaption ? (
                 <span
-                  className="mt-0.5 text-[9px] font-semibold uppercase tracking-wide"
+                  className="mt-0.5 break-words text-[9px] font-semibold uppercase leading-snug tracking-wide"
                   style={{ color: captionColor }}
                 >
                   {metricCaption}
@@ -199,7 +199,7 @@ export const InfographicTile: FC<InfographicTileProps> = ({
           ) : null}
           {badge ? (
             <span
-              className="rounded-md border px-2 py-0.5 text-[11px] font-bold tracking-wide"
+              className="shrink-0 rounded-md border px-2 py-0.5 text-[11px] font-bold tracking-wide"
               style={{
                 color:
                   "color-mix(in srgb, var(--sector) 72%, hsl(var(--foreground)))",
