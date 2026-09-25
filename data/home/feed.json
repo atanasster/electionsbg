@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-24T23:59:59.999Z",
+  "computedAt": "2026-09-25T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krastavitsi",
+      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-24T00:00:00.000Z",
-      "firstSeenAt": "2026-09-24T00:00:00.000Z",
+      "occurredAt": "2026-09-25T00:00:00.000Z",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,14 +22,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krastavitsi",
+      "route": "/product/krave-maslo-d-markenbutter-250gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАСТАВИЦИ",
+        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
         "pct": 58,
-        "promoEur": "0.99",
-        "regularEur": "2.34",
-        "chains": 3
+        "promoEur": "1.69",
+        "regularEur": "4.07",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "id": "prices:promotion:yabalki-gala",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-24T00:00:00.000Z",
-      "firstSeenAt": "2026-09-24T00:00:00.000Z",
+      "occurredAt": "2026-09-25T00:00:00.000Z",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "route": "/product/yabalki-gala",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
-        "pct": 51,
+        "title": "ЯБЪЛКИ ГАЛА",
+        "pct": 53,
         "promoEur": "0.89",
-        "regularEur": "1.82",
+        "regularEur": "1.89",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7285714285714285,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kromid-luk",
+      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-24T00:00:00.000Z",
-      "firstSeenAt": "2026-09-24T00:00:00.000Z",
+      "occurredAt": "2026-09-25T00:00:00.000Z",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kromid-luk",
+      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРОМИД ЛУК",
-        "pct": 50,
-        "promoEur": "0.45",
-        "regularEur": "0.90",
+        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+        "pct": 51,
+        "promoEur": "0.89",
+        "regularEur": "1.82",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7142857142857143,
+      "materiality": 0.7285714285714285,
       "actionability": 0.85
     },
     {
@@ -1154,34 +1154,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-02",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-02T00:00:00.000Z",
-      "firstSeenAt": "2026-09-02T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-02",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 19
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.475,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "parliament:sitting:2026-09-11",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -1206,6 +1178,34 @@
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.025,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-02",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-02T00:00:00.000Z",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-02",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 19
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.475,
       "actionability": 0.4
     },
     {
@@ -1285,8 +1285,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-24",
-      "observedAt": "2026-09-24",
+      "asOf": "2026-09-25",
+      "observedAt": "2026-09-25",
       "staleAfterDays": 5,
       "stale": false
     }

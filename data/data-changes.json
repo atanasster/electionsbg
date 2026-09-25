@@ -1,6 +1,41 @@
 {
-  "updatedAt": "2026-09-24T22:57:41.560Z",
+  "updatedAt": "2026-09-25T22:53:32.482Z",
   "entries": [
+    {
+      "timestamp": "2026-09-25T22:53:32.482Z",
+      "date": "2026-09-25",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-25 (+1 daily archive; 1,120,362 store rows, 168 settlements, 74 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-25"
+    },
+    {
+      "timestamp": "2026-09-25T22:30:11.541Z",
+      "date": "2026-09-25",
+      "skill": "update-macro",
+      "summary": "GDP growth through 2026 Q2 (namq_10_gdp); peer set WGI 2025 + life expectancy refresh; PLI 2025",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-25T22:29:18.609Z",
+      "date": "2026-09-25",
+      "skill": "update-procurement",
+      "summary": "EOP self-heal +178 rows (82 buyers), +15 annex current values, TED 220,324 notices (2026: 21,686); 406,410 contracts",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-09-25T22:18:49.895Z",
+      "date": "2026-09-25",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 948 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-09-24T22:57:41.560Z",
       "date": "2026-09-24",

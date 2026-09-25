@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-24",
+  "computedAt": "2026-09-25",
   "thresholds": {
     "basketPids": [
       1,
@@ -75,14 +75,24 @@
   ],
   "promotions": [
     {
-      "slug": "krastavitsi",
-      "title": "КРАСТАВИЦИ",
-      "atOrBelowSince": "2026-09-21",
-      "promoEur": 0.99,
-      "regularEur": 2.34,
+      "slug": "krave-maslo-d-markenbutter-250gr",
+      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+      "atOrBelowSince": "2026-09-25",
+      "promoEur": 1.69,
+      "regularEur": 4.07,
       "discountPct": 58,
-      "stores": 157,
-      "chains": 3
+      "stores": 207,
+      "chains": 2
+    },
+    {
+      "slug": "yabalki-gala",
+      "title": "ЯБЪЛКИ ГАЛА",
+      "atOrBelowSince": "2026-09-14",
+      "promoEur": 0.89,
+      "regularEur": 1.89,
+      "discountPct": 53,
+      "stores": 230,
+      "chains": 2
     },
     {
       "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
@@ -92,16 +102,6 @@
       "regularEur": 1.82,
       "discountPct": 51,
       "stores": 6,
-      "chains": 2
-    },
-    {
-      "slug": "kromid-luk",
-      "title": "КРОМИД ЛУК",
-      "atOrBelowSince": "2026-09-17",
-      "promoEur": 0.45,
-      "regularEur": 0.9,
-      "discountPct": 50,
-      "stores": 13,
       "chains": 2
     }
   ]
