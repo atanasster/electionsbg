@@ -227,7 +227,15 @@
         "capturedAt": "2026-09-10T05:53:50.931Z",
         "capturePath": "raw_data/polls/trend/a19cfbc0c6dad528",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2021-11-07-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:31:28.384Z",
+            "draftHash": "0627895ba6e57cd28ce09ac92a13a531762410eacd99a791fb69aca5fa58e4fc",
+            "refused": []
+          }
+        ]
       }
     ],
     "failures": {
@@ -265,7 +273,15 @@
         "capturedAt": "2026-09-10T08:21:11.271Z",
         "capturePath": "raw_data/polls/trend/a63a09b7af8f2976.v2",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2016-10-26",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:31:28.376Z",
+            "draftHash": "33566a79d54f69058a559d2d8b8f1c3c3701b0ae3a72d3b32f5eaf0fd14b8dd6",
+            "refused": []
+          }
+        ]
       }
     ],
     "failures": {

@@ -13,9 +13,9 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 4 | Foundations | Cycle assignment, validation and complete correction snapshots | Complete | `e425fd3c34` |
 | 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | Complete | `03680f0540` |
 | 6 | Backfill | Publication inventory, historical pagination and capture | Complete | `28abdf0e0d` |
-| 7 | Backfill | Missing agency extractors, multiple-race output and backlog reporting | Complete | See step commit |
-| 8 | Backfill | Resolve Trend historical drafts from source evidence | Pending | |
-| 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | Pending | |
+| 7 | Backfill | Missing agency extractors, multiple-race output and backlog reporting | Complete | `39f72c8221` |
+| 8 | Backfill | Resolve Trend historical drafts from source evidence | Complete | See scoped step 8 commit |
+| 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | In progress | |
 | 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | Pending | |
 | 11 | Views | Agency presidential route and election campaign/result views | Pending | |
 | 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Pending | |
@@ -40,97 +40,17 @@ Step 6: FINDING-001 (document base URLs) and FINDING-002 (full final WordPress p
 
 Step 7: FINDING-001–005 verified and fixed: voting/approval table boundaries; attachment race dispatch; provisional ledger transitions; shared race suffix handling; translated duplicate signatures including runoff-only surveys. Re-review: no remaining findings. Related tests: 173 passed; changed-file lint passed. TypeScript and full production build passed.
 
+Step 8: Independent source review found no issues. Both reviewed drafts pass the full acceptance path in a temporary corpus; 56 focused tests passed. Data/documentation-only gate; no application build required.
+
 ## Current step files
 
-- `docs/plans/presidential-polls-implementation.md`
-- `scripts/polls/accept.test.ts`
-- `scripts/polls/accept.ts`
-- `scripts/polls/extract.test.ts`
-- `scripts/polls/extract.ts`
-- `scripts/polls/extractors/alpha_research.ts`
-- `scripts/polls/extractors/trend.ts`
-- `scripts/polls/extractors/trend_presidential.ts`
-- `scripts/polls/lib/classify_race.ts`
-- `scripts/polls/lib/publication_ledger.test.ts`
-- `scripts/polls/lib/publication_ledger.ts`
-- `scripts/polls/lib/text_acquisition.ts`
-- `state/polls/AR.json`
-- `state/polls/ML.json`
-- `state/polls/SH.json`
+- `data/polls/_inbox/tr-2016-10-26.v2.json`
+- `data/polls/_inbox/tr-pub-a19cfbc0c6dad528.json (deleted)`
+- `data/polls/_inbox/tr-2021-11-07-presidential.json (new)`
 - `state/polls/TR.json`
-- `.gitattributes`
-- `scripts/polls/backlog.ts`
-- `scripts/polls/backlog.test.ts`
-- `scripts/polls/extractors/agency_presidential.ts`
-- `scripts/polls/extractors/agency_presidential.test.ts`
-- `scripts/polls/extractors/market_links_presidential.ts`
-- `scripts/polls/extractors/market_links_presidential.test.ts`
-- `scripts/polls/extractors/fixtures/market_links_2021_11_presidential.txt`
-- `scripts/polls/lib/draft_identity.ts`
-- `scripts/polls/lib/survey_identity.ts`
-- `scripts/polls/lib/survey_identity.test.ts`
-- `data/polls/_inbox/ar-2016-02-25-presidential.json`
-- `data/polls/_inbox/ar-2016-10-13-presidential.json`
-- `data/polls/_inbox/ar-2016-10-24-presidential.json`
-- `data/polls/_inbox/ar-2016-11-10-presidential.json`
-- `data/polls/_inbox/ar-2020-12-21.v2.json`
-- `data/polls/_inbox/ar-2021-02-15.json`
-- `data/polls/_inbox/ar-2021-03-30.v2.json`
-- `data/polls/_inbox/ar-2021-06-07.json`
-- `data/polls/_inbox/ar-2021-07-07.v2.json`
-- `data/polls/_inbox/ar-2021-09-15-presidential.v2.json`
-- `data/polls/_inbox/ar-2021-09-15.v2.json`
-- `data/polls/_inbox/ar-2021-10-10-presidential.v2.json`
-- `data/polls/_inbox/ar-2021-10-10.v2.json`
-- `data/polls/_inbox/ar-2021-11-09-presidential.v2.json`
-- `data/polls/_inbox/ar-2021-11-09.v2.json`
-- `data/polls/_inbox/ar-pub-903.json`
-- `data/polls/_inbox/ar-pub-904.json`
-- `data/polls/_inbox/ar-pub-905-presidential.json`
-- `data/polls/_inbox/ar-pub-905.json`
-- `data/polls/_inbox/ar-pub-906-presidential.json`
-- `data/polls/_inbox/ar-pub-906.json`
-- `data/polls/_inbox/ar-pub-908.json`
-- `data/polls/_inbox/ar-pub-909-presidential.json`
-- `data/polls/_inbox/ar-pub-910-presidential.json`
-- `data/polls/_inbox/ar-pub-912-presidential.json`
-- `data/polls/_inbox/ar-pub-913.json`
-- `data/polls/_inbox/ar-pub-914-presidential.json`
-- `data/polls/_inbox/ar-pub-977.v2.json`
-- `data/polls/_inbox/ar-pub-979.json`
-- `data/polls/_inbox/ar-pub-982.json`
-- `data/polls/_inbox/ar-pub-986-presidential.json`
-- `data/polls/_inbox/ar-pub-986.json`
-- `data/polls/_inbox/ar-pub-987-presidential.json`
-- `data/polls/_inbox/ml-2021-01-31-presidential.v2.json`
-- `data/polls/_inbox/ml-2021-03-25-presidential.v2.json`
-- `data/polls/_inbox/ml-2021-04-23-presidential.v2.json`
-- `data/polls/_inbox/ml-2021-06-25-presidential.v2.json`
-- `data/polls/_inbox/ml-2021-08-22-presidential.v2.json`
-- `data/polls/_inbox/ml-2021-11-07-presidential.v2.json`
-- `data/polls/_inbox/ml-pub-38-presidential.json`
-- `data/polls/_inbox/ml-pub-42-presidential.json`
-- `data/polls/_inbox/ml-pub-43-presidential.json`
-- `data/polls/_inbox/ml-pub-44-presidential.json`
-- `data/polls/_inbox/ml-pub-45-presidential.json`
-- `data/polls/_inbox/sh-2021-06-15-presidential.v2.json`
-- `data/polls/_inbox/sh-2021-07-06-presidential.v2.json`
-- `data/polls/_inbox/sh-2021-10-12-presidential.v2.json`
-- `data/polls/_inbox/sh-pub-3311-presidential.json`
-- `data/polls/_inbox/sh-pub-3323-presidential.json`
-- `data/polls/_inbox/sh-pub-3550-presidential.v2.json`
-- `data/polls/_inbox/sh-pub-3760-presidential.v2.json`
-- `data/polls/_inbox/sh-pub-3772-presidential.v2.json`
-- `data/polls/_inbox/sh-pub-3880-presidential.v2.json`
-- `data/polls/_inbox/tr-2021-01-19.json`
-- `data/polls/_inbox/tr-2021-02-19.v2.json`
-- `data/polls/_inbox/tr-2021-03-14.json`
-- `data/polls/_inbox/tr-2021-03-30.v2.json`
-- `data/polls/_inbox/tr-2021-06-18.json`
-- `data/polls/_inbox/tr-2021-07-07.json`
-- `docs/polls/extraction-coverage.md`
 - `state/polls/backlog.json`
-- Byte-preservation correction for step 6 source captures (`.gitattributes` disables Git newline normalization).
+- `docs/polls/trend-historical-review.md (new)`
+- `docs/plans/presidential-polls-implementation.md`
 
 ## Existing work to preserve
 

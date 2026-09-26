@@ -1,0 +1,202 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "tr-2021-11-07-presidential",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8-%D0%BD%D0%B0-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B5-%D1%81%D0%BF%D1%80%D1%8F%D0%BC%D0%BE-%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%BE%D1%8F-8/",
+    "electionDate": "2021-11-14",
+    "cycle": "2021_11_14_pvr",
+    "respondents": 1013,
+    "genre": "raw_attitudes",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8-%D0%BD%D0%B0-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B5-%D1%81%D0%BF%D1%80%D1%8F%D0%BC%D0%BE-%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%BE%D1%8F-8/",
+      "fetchedAt": "2026-09-10T05:53:50.931Z",
+      "sha256": "e5147d87c9c9681ecdd4e28a0f7b2f1c516472b9f8f435538d53c04ab9d800c8",
+      "extractor": "TR",
+      "fieldworkStart": "2021-11-01",
+      "fieldworkEnd": "2021-11-07",
+      "basePhrase": "от гласуващите",
+      "quotes": {
+        "share:Румен Радев": "Румен Радев-Илияна Йотова заема лидерската позиция в подреждането с 46.8%, следвана от ",
+        "share:Анастас Герджиков": "Анастас Герджиков-Невяна Митева с 24.4% от гласуващите",
+        "share:Мустафа Карадайъ": "Мустафа Карадайъ-Искра Михайлова (9.9%), които успяват да мобилизират целия електорат на ДПС",
+        "share:Лозан Панов": "Лозан Панов-Мария Касимова-Моасе с 6.4% от гласуващите",
+        "share:Костадин Костадинов": "Костадин Костадинов-Елена Гунчева с 3.1%, ",
+        "share:Милен Михов": "Милен Михов-Мария Цветкова с 1.6% и ",
+        "share:Луна Йорданова": "Луна Йорданова-Иглена Илиева с 1%",
+        "sampleSize": "1013 ефективни интервюта",
+        "residual.otherNamedMinor": "Други 6.8%",
+        "methodology": "Метод на регистрация: Пряко полустандартизирано интервю „лице в лице“ чрез таблет",
+        "fieldwork": "Период на провеждане: 1-7 ноември 2021 г."
+      }
+    },
+    "fieldwork": "Nov 1-7 2021",
+    "publishedAt": "2021-11-09T09:47:52+00:00",
+    "publicationId": "TR:a19cfbc0c6dad528",
+    "methodology": {
+      "bg": "Пряко полустандартизирано интервю „лице в лице“ чрез таблет; представително за пълнолетното население на страната.",
+      "en": "Semi-standardized face-to-face interviews using tablets; representative of the adult population of Bulgaria."
+    },
+    "sponsor": {
+      "bg": "Вестник „24 часа“",
+      "en": "24 Chasa newspaper"
+    },
+    "questions": [
+      {
+        "id": "presidential-r1",
+        "race": "presidential",
+        "cycle": "2021_11_14_pvr",
+        "round": 1,
+        "measure": "vote_intention",
+        "wording": {
+          "bg": "Вие лично за коя от следните кандидат-президентски двойки ще гласувате на предстоящите президентски избори?",
+          "en": "Which of the following presidential tickets will you vote for in the upcoming presidential election?"
+        },
+        "base": {
+          "kind": "likely_voters",
+          "label": {
+            "bg": "Сред заявилите, че ще гласуват",
+            "en": "Among respondents who say they will vote"
+          },
+          "respondents": null,
+          "includesNone": null
+        },
+        "scenario": null,
+        "answerScale": [
+          {
+            "code": "support",
+            "label": {
+              "bg": "Подкрепа",
+              "en": "Support"
+            }
+          }
+        ],
+        "genre": "raw_attitudes",
+        "residual": {
+          "undecided": null,
+          "wontVote": null,
+          "wontSay": null,
+          "otherNamedMinor": 6.8
+        },
+        "evidence": {
+          "url": "https://rctrend.bg/project/%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8-%D0%BD%D0%B0-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B5-%D1%81%D0%BF%D1%80%D1%8F%D0%BC%D0%BE-%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%BE%D1%8F-8/",
+          "quote": "Вие лично за коя от следните кандидат-президентски двойки ще гласувате на предстоящите президентски избори?",
+          "locator": "Slide4.png"
+        },
+        "scoring": {
+          "eligible": false,
+          "reason": "The published candidate chart does not specify treatment of the no-candidate response"
+        }
+      }
+    ]
+  },
+  "details": [
+    {
+      "pollId": "tr-2021-11-07-presidential",
+      "agencyId": "TR",
+      "candidateKey": "румен георгиев радев",
+      "candidateName_bg": "Румен Радев",
+      "candidateName_en": "Rumen Radev",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 46.8,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
+    },
+    {
+      "pollId": "tr-2021-11-07-presidential",
+      "agencyId": "TR",
+      "candidateKey": "анастас георгиев герджиков",
+      "candidateName_bg": "Анастас Герджиков",
+      "candidateName_en": "Anastas Gerdzhikov",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 24.4,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
+    },
+    {
+      "pollId": "tr-2021-11-07-presidential",
+      "agencyId": "TR",
+      "candidateKey": "мустафа сали карадайъ",
+      "candidateName_bg": "Мустафа Карадайъ",
+      "candidateName_en": "Mustafa Karadaya",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 9.9,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
+    },
+    {
+      "pollId": "tr-2021-11-07-presidential",
+      "agencyId": "TR",
+      "candidateKey": "лозан йорданов панов",
+      "candidateName_bg": "Лозан Панов",
+      "candidateName_en": "Lozan Panov",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 6.4,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
+    },
+    {
+      "pollId": "tr-2021-11-07-presidential",
+      "agencyId": "TR",
+      "candidateKey": "костадин тодоров костадинов",
+      "candidateName_bg": "Костадин Костадинов",
+      "candidateName_en": "Kostadin Kostadinov",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 3.1,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
+    },
+    {
+      "pollId": "tr-2021-11-07-presidential",
+      "agencyId": "TR",
+      "candidateKey": "милен василев михов",
+      "candidateName_bg": "Милен Михов",
+      "candidateName_en": "Milen Mihov",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 1.6,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
+    },
+    {
+      "pollId": "tr-2021-11-07-presidential",
+      "agencyId": "TR",
+      "candidateKey": "луна йорданова йорданова",
+      "candidateName_bg": "Луна Йорданова",
+      "candidateName_en": "Luna Yordanova",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 1,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
+    }
+  ],
+  "runoffs": [],
+  "residual": {
+    "undecided": null,
+    "wontVote": null,
+    "wontSay": null,
+    "otherNamedMinor": 6.8
+  },
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:Румен Радев": "Румен Радев-Илияна Йотова заема лидерската позиция в подреждането с 46.8%, следвана от ",
+    "share:Анастас Герджиков": "Анастас Герджиков-Невяна Митева с 24.4% от гласуващите",
+    "share:Мустафа Карадайъ": "Мустафа Карадайъ-Искра Михайлова (9.9%), които успяват да мобилизират целия електорат на ДПС",
+    "share:Лозан Панов": "Лозан Панов-Мария Касимова-Моасе с 6.4% от гласуващите",
+    "share:Костадин Костадинов": "Костадин Костадинов-Елена Гунчева с 3.1%, ",
+    "share:Милен Михов": "Милен Михов-Мария Цветкова с 1.6% и ",
+    "share:Луна Йорданова": "Луна Йорданова-Иглена Илиева с 1%",
+    "sampleSize": "1013 ефективни интервюта",
+    "residual.otherNamedMinor": "Други 6.8%",
+    "methodology": "Метод на регистрация: Пряко полустандартизирано интервю „лице в лице“ чрез таблет",
+    "fieldwork": "Период на провеждане: 1-7 ноември 2021 г."
+  },
+  "refused": []
+}

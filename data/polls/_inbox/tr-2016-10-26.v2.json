@@ -28,104 +28,187 @@
         "share:Татяна Дончева": "Татяна Дончева (2,2%)",
         "share:Не подкрепям никого": "не подкрепям никого“ е с дял от 7,1%",
         "sampleSize": "сред 1004 души",
-        "fieldwork": "между 19 и 26 октомври 2016 г."
+        "fieldwork": "между 19 и 26 октомври 2016 г.",
+        "residual.otherNamedMinor": "Други 5,7%",
+        "methodology": "национално представително проучване на изследователски център „Тренд“, проведено сред 1004 души, интервюирани лице в лице"
       }
-    }
+    },
+    "publishedAt": "2016-11-02T08:50:38+00:00",
+    "publicationId": "TR:a63a09b7af8f2976",
+    "methodology": {
+      "bg": "Национално представително изследване, интервюта лице в лице.",
+      "en": "Nationally representative survey using face-to-face interviews."
+    },
+    "sponsor": {
+      "bg": "Собствено финансиране на „Тренд“",
+      "en": "Self-funded by Trend"
+    },
+    "questions": [
+      {
+        "id": "presidential-r1",
+        "race": "presidential",
+        "cycle": "2016_11_06_pvr",
+        "round": 1,
+        "measure": "vote_intention",
+        "wording": {
+          "bg": "Вие лично за кого ще гласувате на предстоящите президентски избори?",
+          "en": "Who will you vote for in the upcoming presidential election?"
+        },
+        "base": {
+          "kind": "likely_voters",
+          "label": {
+            "bg": "Сред заявилите, че ще гласуват",
+            "en": "Among respondents who say they will vote"
+          },
+          "respondents": null,
+          "includesNone": true
+        },
+        "scenario": null,
+        "answerScale": [
+          {
+            "code": "support",
+            "label": {
+              "bg": "Подкрепа",
+              "en": "Support"
+            }
+          }
+        ],
+        "genre": "raw_attitudes",
+        "residual": {
+          "undecided": null,
+          "wontVote": null,
+          "wontSay": null,
+          "otherNamedMinor": 5.7
+        },
+        "evidence": {
+          "url": "https://rctrend.bg/project/%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8-2016/",
+          "quote": "Вие лично за кого ще гласувате на предстоящите президентски избори?",
+          "locator": "page.html; zadl8.png"
+        },
+        "scoring": {
+          "eligible": false,
+          "reason": "The source defines likely voters, not an explicitly decided-voter or valid-vote base"
+        }
+      }
+    ]
   },
   "details": [
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
-      "candidateKey": "provisional:цецка-цачева",
+      "candidateKey": "цецка цачева данговска",
       "candidateName_bg": "Цецка Цачева",
-      "candidateName_en": "",
+      "candidateName_en": "Tsetska Tsacheva",
       "nominator": null,
       "placeholderFor": null,
-      "support": 27.3
+      "support": 27.3,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
       "candidateKey": "румен георгиев радев",
       "candidateName_bg": "Румен Радев",
-      "candidateName_en": "",
+      "candidateName_en": "Rumen Radev",
       "nominator": null,
       "placeholderFor": null,
-      "support": 24
+      "support": 24,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
       "candidateKey": "красимир дончев каракачанов",
       "candidateName_bg": "Красимир Каракачанов",
-      "candidateName_en": "",
+      "candidateName_en": "Krasimir Karakachanov",
       "nominator": null,
       "placeholderFor": null,
-      "support": 12.1
+      "support": 12.1,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
       "candidateKey": "ивайло георгиев калфин",
       "candidateName_bg": "Ивайло Калфин",
-      "candidateName_en": "",
+      "candidateName_en": "Ivaylo Kalfin",
       "nominator": null,
       "placeholderFor": null,
-      "support": 6.7
+      "support": 6.7,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
       "candidateKey": "веселин найденов марешки",
       "candidateName_bg": "Веселин Марешки",
-      "candidateName_en": "",
+      "candidateName_en": "Veselin Mareshki",
       "nominator": null,
       "placeholderFor": null,
-      "support": 6.3
+      "support": 6.3,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
       "candidateKey": "трайчо димитров трайков",
       "candidateName_bg": "Трайчо Трайков",
-      "candidateName_en": "",
+      "candidateName_en": "Traycho Traykov",
       "nominator": null,
       "placeholderFor": null,
-      "support": 5.4
+      "support": 5.4,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
       "candidateKey": "пламен василев орешарски",
       "candidateName_bg": "Пламен Орешарски",
-      "candidateName_en": "",
+      "candidateName_en": "Plamen Oresharski",
       "nominator": null,
       "placeholderFor": null,
-      "support": 3.2
+      "support": 3.2,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
-      "candidateKey": "provisional:татяна-дончева",
+      "candidateKey": "татяна дончева тотева",
       "candidateName_bg": "Татяна Дончева",
-      "candidateName_en": "",
+      "candidateName_en": "Tatyana Doncheva",
       "nominator": null,
       "placeholderFor": null,
-      "support": 2.2
+      "support": 2.2,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     },
     {
       "pollId": "tr-2016-10-26",
       "agencyId": "TR",
       "candidateKey": "none",
       "candidateName_bg": "Не подкрепям никого",
-      "candidateName_en": "",
+      "candidateName_en": "None of the above",
       "nominator": null,
       "placeholderFor": null,
-      "support": 7.1
+      "support": 7.1,
+      "questionId": "presidential-r1",
+      "answerCode": "support"
     }
   ],
   "runoffs": [],
-  "residual": null,
+  "residual": {
+    "undecided": null,
+    "wontVote": null,
+    "wontSay": null,
+    "otherNamedMinor": 5.7
+  },
   "genre": "raw_attitudes",
   "extractor": "TR",
   "evidence": {
@@ -139,13 +222,9 @@
     "share:Татяна Дончева": "Татяна Дончева (2,2%)",
     "share:Не подкрепям никого": "не подкрепям никого“ е с дял от 7,1%",
     "sampleSize": "сред 1004 души",
-    "fieldwork": "между 19 и 26 октомври 2016 г."
+    "fieldwork": "между 19 и 26 октомври 2016 г.",
+    "residual.otherNamedMinor": "Други 5,7%",
+    "methodology": "национално представително проучване на изследователски център „Тренд“, проведено сред 1004 души, интервюирани лице в лице"
   },
-  "refused": [
-    {
-      "field": "residual.otherNamedMinor",
-      "reason": "the passport/chart image mentions a \"Други\" (Others) residual row whose value cannot be reliably read from OCR — a human should confirm the real percentage from the source image and set residual.otherNamedMinor (the draft's own top-level field) before accepting",
-      "quote": "райчо Пламен Татяна Други Не\nЦачева Радев > К"
-    }
-  ]
+  "refused": []
 }
