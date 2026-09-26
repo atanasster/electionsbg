@@ -71,6 +71,43 @@ export type PollLock = {
 // (decision 14).
 export type Race = "parliamentary" | "presidential";
 
+export type PollMeasure =
+  | "vote_intention"
+  | "party_backed_candidate"
+  | "support_potential"
+  | "runoff"
+  | "participation";
+
+/** The published denominator; unknown bases remain unscorable. */
+export type PollBase = {
+  kind:
+    | "all_respondents"
+    | "likely_voters"
+    | "decided_voters"
+    | "valid_votes"
+    | "unknown";
+  label: Lang;
+  respondents: number | null;
+  includesNone: boolean | null;
+};
+
+/** Questions belong to a survey; separate race records can share publicationId. */
+export type PollQuestion = {
+  id: string;
+  race: Race;
+  cycle: string | null;
+  round: 1 | 2 | null;
+  measure: PollMeasure;
+  wording: Lang;
+  base: PollBase;
+  scenario: string | null;
+  answerScale: { code: string; label: Lang }[];
+  genre: PollGenre;
+  residual: PollResidual | null;
+  evidence: { url: string; quote: string; locator: string | null };
+  scoring: { eligible: true } | { eligible: false; reason: string };
+};
+
 /**
  * Where a poll's numbers came from, and the evidence for each one — decision
  * 5 (every share/passport field is quote-grounded) and decision 7 (an
@@ -117,6 +154,12 @@ export type Poll = {
   // only an estimated electionDate is known. Always absent on a
   // parliamentary poll; never read there.
   cycle?: string | null;
+  /** Agency-scoped publication identity, shared by surveys from a joint release. */
+  publicationId?: string;
+  publishedAt?: string | null;
+  sponsor?: Lang | null;
+  /** Absent on legacy records; absence does not establish comparability. */
+  questions?: PollQuestion[];
 };
 
 export type PollDetail = {
@@ -125,6 +168,8 @@ export type PollDetail = {
   support: number;
   nickName_bg: string;
   nickName_en: string;
+  questionId?: string;
+  answerCode?: string;
 };
 
 /**
@@ -168,6 +213,8 @@ export type PresidentialPollDetail = {
   // `"placeholder:<this value>"` — see `CandidateKey` above.)
   placeholderFor: string | null;
   support: number;
+  questionId?: string;
+  answerCode?: string;
 };
 
 /**
@@ -184,6 +231,7 @@ export type Runoff = {
   supportA: number;
   supportB: number;
   residual: PollResidual | null;
+  questionId?: string;
 };
 
 /**

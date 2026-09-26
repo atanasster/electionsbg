@@ -46,6 +46,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { flagReader } from "./lib/argv";
+import { validateQuestions } from "./lib/question_validation";
 import type {
   InboxDraft,
   ParliamentaryInboxDraft,
@@ -248,6 +249,7 @@ const validateDraft = (draft: ParliamentaryInboxDraft): string[] => {
         errors.push(`details[${i}].nickName_en must be a string`);
     });
   }
+  if (Array.isArray(draft.details)) errors.push(...validateQuestions(draft));
   return errors;
 };
 
@@ -294,6 +296,8 @@ const validatePresidentialDraft = (draft: PresidentialInboxDraft): string[] => {
         );
     });
   }
+  if (Array.isArray(draft.details) && Array.isArray(draft.runoffs))
+    errors.push(...validateQuestions(draft));
   return errors;
 };
 
@@ -442,6 +446,18 @@ const acceptParliamentary = (
     residual: draft.residual,
     race: draft.race,
     ...(draft.poll.provenance ? { provenance: draft.poll.provenance } : {}),
+    ...(draft.poll.publicationId !== undefined
+      ? { publicationId: draft.poll.publicationId }
+      : {}),
+    ...(draft.poll.publishedAt !== undefined
+      ? { publishedAt: draft.poll.publishedAt }
+      : {}),
+    ...(draft.poll.sponsor !== undefined
+      ? { sponsor: draft.poll.sponsor }
+      : {}),
+    ...(draft.poll.questions !== undefined
+      ? { questions: draft.poll.questions }
+      : {}),
     locked,
   };
 
@@ -540,6 +556,18 @@ const acceptPresidential = (
     // previously-stamped cycle should persist.
     cycle: opts.cycle ?? draft.poll.cycle ?? null,
     ...(draft.poll.provenance ? { provenance: draft.poll.provenance } : {}),
+    ...(draft.poll.publicationId !== undefined
+      ? { publicationId: draft.poll.publicationId }
+      : {}),
+    ...(draft.poll.publishedAt !== undefined
+      ? { publishedAt: draft.poll.publishedAt }
+      : {}),
+    ...(draft.poll.sponsor !== undefined
+      ? { sponsor: draft.poll.sponsor }
+      : {}),
+    ...(draft.poll.questions !== undefined
+      ? { questions: draft.poll.questions }
+      : {}),
     locked,
   };
 

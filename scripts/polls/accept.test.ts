@@ -159,6 +159,54 @@ describe("main", () => {
     process.exitCode = undefined;
   });
 
+  it("preserves publication metadata and question-level evidence on acceptance", () => {
+    const draft = structuredClone(BASE_DRAFT);
+    draft.poll.publicationId = "TR:joint-release";
+    draft.poll.publishedAt = "2026-04-17";
+    draft.poll.sponsor = { bg: "Възложител", en: "Sponsor" };
+    draft.poll.questions = [
+      {
+        id: "party-choice",
+        race: "parliamentary",
+        cycle: null,
+        round: null,
+        measure: "vote_intention",
+        wording: { bg: "За коя партия?", en: "Which party?" },
+        base: {
+          kind: "unknown",
+          label: { bg: "Неуточнена база", en: "Unspecified base" },
+          respondents: null,
+          includesNone: null,
+        },
+        scenario: null,
+        answerScale: [
+          { code: "vote", label: { bg: "Подкрепа", en: "Support" } },
+        ],
+        genre: "unclear",
+        residual: null,
+        evidence: {
+          url: "https://rctrend.bg/project/x/",
+          quote: "За коя партия?",
+          locator: null,
+        },
+        scoring: { eligible: false, reason: "Base not established" },
+      },
+    ];
+    draft.details[0].questionId = "party-choice";
+    draft.details[0].answerCode = "vote";
+    writeDraft("tr-2026-04-16.json", draft);
+    writeCorpus([], []);
+    main(["tr-2026-04-16"]);
+    expect(process.exitCode).toBeUndefined();
+    expect(readCorpus().polls[0]).toMatchObject({
+      publicationId: draft.poll.publicationId,
+      publishedAt: draft.poll.publishedAt,
+      sponsor: draft.poll.sponsor,
+      questions: draft.poll.questions,
+    });
+    expect(readCorpus().details[0].questionId).toBe("party-choice");
+  });
+
   it("accepts a valid draft: writes minified corpus files, sets locked, deletes the inbox file", () => {
     writeDraft("tr-2026-04-16.json", BASE_DRAFT);
     writeCorpus([], []);
