@@ -39,6 +39,16 @@
 
 import type { CandidateKey } from "../../../src/data/polls/pollsTypes";
 
+// Published short names in Trend's October 2016 presidential survey,
+// matched to the registrations in data/2016_11_06_pvr/tickets.json.
+// These aliases apply only to that election and only if the target ticket exists.
+const REVIEWED_ALIASES: Record<string, Record<string, CandidateKey>> = {
+  "2016_11_06_pvr": {
+    "цецка цачева": "цецка цачева данговска",
+    "татяна дончева": "татяна дончева тотева",
+  },
+};
+
 /** The minimal shape this module reads off a cycle's `tickets.json` —
  *  deliberately narrower than the real file's `TicketRecord` (which also
  *  carries `number`/`color`/`nominatedBy`/`rounds`/`nickName`), since the
@@ -134,13 +144,17 @@ const ABSTENTION_PHRASES = ["не подкрепям никого"];
 export const resolveCandidate = (
   rawName: string,
   tickets: readonly ResolvableTicket[],
+  cycle?: string | null,
 ): ResolveResult => {
   if (ABSTENTION_PHRASES.includes(foldCandidateName(rawName))) {
     return { candidateKey: NONE_CANDIDATE_KEY, resolved: true };
   }
 
-  const [qFirst, qLast] = firstAndLastToken(foldCandidateName(rawName));
+  const folded = foldCandidateName(rawName);
+  const aliasKey = cycle ? REVIEWED_ALIASES[cycle]?.[folded] : undefined;
+  const [qFirst, qLast] = firstAndLastToken(folded);
   const matches = tickets.filter((t) => {
+    if (aliasKey) return t.canonicalKey === aliasKey;
     const [tFirst, tLast] = firstAndLastToken(foldCandidateName(t.president));
     return tFirst === qFirst && tLast === qLast;
   });

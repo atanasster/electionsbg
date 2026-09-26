@@ -67,7 +67,7 @@ const runOcr = HAS_TESSERACT ? it : it.skip;
 
 describe("extractTrendPresidential — real captures", () => {
   runOcr(
-    '2016 (a63a09b7af8f2976.v2): a presidential-only page whose candidate ranking is in PROSE, but whose chart image (zadl8.png) names a "Други" residual row the prose never states — resolves fieldwork, sample size, cycle and 9 candidates including 7 real ticket keys, and REFUSES the residual rather than guessing it',
+    '2016 (a63a09b7af8f2976.v2): a presidential-only page whose candidate ranking is in PROSE, but whose chart image (zadl8.png) names a "Други" residual row the prose never states — resolves fieldwork, sample size, cycle and 8 candidates and the none-of-the-above answer, and REFUSES the residual rather than guessing it',
     async () => {
       const draft = await extractTrendPresidential(
         latestTrendCaptureDir("a63a09b7af8f2976"),
@@ -113,15 +113,13 @@ describe("extractTrendPresidential — real captures", () => {
       expect(byName["Красимир Каракачанов"].candidateKey).toBe(
         "красимир дончев каракачанов",
       );
-      // "Цецка Цачева" and "Татяна Дончева" stay provisional — both are
-      // publicly known by a PATRONYMIC used as if it were a surname
-      // ("Цецка Цачева Данговска", "Татяна Дончева Тотева" — the real
-      // surname is the THIRD word), which `candidate_resolver.ts`'s
-      // documented first+last-token rule cannot bridge. Refusing rather
-      // than guessing here is that module's own intended behavior, not a
-      // gap in this extractor.
-      expect(byName["Цецка Цачева"].candidateKey).toMatch(/^provisional:/);
-      expect(byName["Татяна Дончева"].candidateKey).toMatch(/^provisional:/);
+      // Reviewed aliases preserve the agency's published short names.
+      expect(byName["Цецка Цачева"].candidateKey).toBe(
+        "цецка цачева данговска",
+      );
+      expect(byName["Татяна Дончева"].candidateKey).toBe(
+        "татяна дончева тотева",
+      );
 
       for (const d of draft.details) {
         expect(draft.evidence[`share:${d.candidateName_bg}`]).toBeTruthy();

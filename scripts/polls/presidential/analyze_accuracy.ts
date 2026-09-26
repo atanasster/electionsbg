@@ -110,6 +110,7 @@ const resolveRow = (
   tickets: ResolvableTicket[],
   round1: NationalSummaryRound,
   byKey: Map<string, NationalSummaryTicketRow>,
+  cycle: string,
 ): ScoredRow | null => {
   if (d.candidateKey === "none") {
     if (round1.votes.noneOfTheAbove === undefined) return null;
@@ -122,7 +123,7 @@ const resolveRow = (
       ),
     };
   }
-  const resolved = resolveCandidate(d.candidateName_bg, tickets);
+  const resolved = resolveCandidate(d.candidateName_bg, tickets, cycle);
   if (!resolved.resolved) return null;
   const ticket = byKey.get(resolved.candidateKey);
   if (!ticket) return null; // resolved to a real ticket, but not in round 1's own ranking — shouldn't happen, refuse rather than guess
@@ -153,7 +154,7 @@ const scorePoll = (
   if (named.length === 0) return null;
 
   const resolvedRows = named
-    .map((d) => resolveRow(d, tickets, round1, byKey1))
+    .map((d) => resolveRow(d, tickets, round1, byKey1, summary.cycle))
     .filter((r): r is ScoredRow => r !== null);
   if (resolvedRows.length === 0) return null;
 
@@ -319,6 +320,9 @@ export const computeCycleAccuracy = (
   }
 
   const agencies: PresidentialAgencyError[] = [];
+  const candidateResolution: NonNullable<
+    PresidentialCycleAccuracy["candidateResolution"]
+  > = [];
   for (const [, agencyPolls] of byAgency) {
     let last: { poll: Poll; end: string } | null = null;
     for (const poll of agencyPolls) {
@@ -327,6 +331,25 @@ export const computeCycleAccuracy = (
       if (!last || end > last.end) last = { poll, end };
     }
     if (!last) continue;
+    const named = details.filter(
+      (d) =>
+        d.pollId === last.poll.id &&
+        d.placeholderFor === null &&
+        d.candidateKey !== "none",
+    );
+    const unresolved = named.filter(
+      (d) =>
+        !resolveCandidate(d.candidateName_bg, tickets, summary.cycle).resolved,
+    );
+    candidateResolution.push({
+      pollId: last.poll.id,
+      agencyId: last.poll.agencyId,
+      total: named.length,
+      resolved: named.length - unresolved.length,
+      unresolvedNames: unresolved.map((d) => d.candidateName_bg),
+    });
+    // A missing leading candidate changes both the error and the leader verdict.
+    if (unresolved.length > 0) continue;
     const scored = scorePoll(
       last.poll,
       last.end,
@@ -357,6 +380,7 @@ export const computeCycleAccuracy = (
         pct: round(t.shareOfValid * 100),
       })),
     agencies,
+    candidateResolution,
   };
 };
 

@@ -436,6 +436,13 @@ export type PresidentialCycleAccuracy = {
   // not itself the scored set of any one poll — see `PresidentialAgencyError`).
   actualResults: { key: CandidateKey; name_bg: string; pct: number }[];
   agencies: PresidentialAgencyError[];
+  candidateResolution?: {
+    pollId: string;
+    agencyId: string;
+    total: number;
+    resolved: number;
+    unresolvedNames: string[];
+  }[];
 };
 
 export type PresidentialPollsAccuracy = {

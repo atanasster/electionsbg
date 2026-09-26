@@ -166,8 +166,7 @@ describe.runIf(has2021Corpus)(
     it("refuses (does not score) an unresolvable/ambiguous candidate name rather than guessing", () => {
       const details: PresidentialPollDetail[] = [
         row({ candidateName_bg: "Румен Радев", support: 47 }),
-        // No such candidate in the real 2021 ticket set — must be silently
-        // excluded, never fabricated as a scored row.
+        // Missing identity makes the whole survey comparison incomplete.
         row({ candidateName_bg: "Никой Никойов", support: 5 }),
       ];
       const result = computeCycleAccuracy(
@@ -177,8 +176,15 @@ describe.runIf(has2021Corpus)(
         details,
         [],
       );
-      expect(result.agencies[0].errors.map((e) => e.key)).toEqual([
-        "румен георгиев радев",
+      expect(result.agencies).toEqual([]);
+      expect(result.candidateResolution).toEqual([
+        {
+          pollId: BASE_POLL.id,
+          agencyId: "TEST",
+          total: 2,
+          resolved: 1,
+          unresolvedNames: ["Никой Никойов"],
+        },
       ]);
     });
 
@@ -208,6 +214,46 @@ describe.runIf(has2021Corpus)(
         runoffs,
       );
       expect(result.agencies[0].runoff).toBeNull();
+    });
+
+    it("uses the fixed abstention key regardless of display label without hiding unresolved people", () => {
+      const details = [
+        row({ candidateName_bg: "Румен Радев", support: 47 }),
+        row({
+          candidateKey: "none",
+          candidateName_bg: "Не подкрепям никого (НПН)",
+          support: 3,
+        }),
+      ];
+      const result = computeCycleAccuracy(
+        summary2021,
+        tickets2021,
+        [BASE_POLL],
+        details,
+        [],
+      );
+      expect(
+        result.agencies[0].errors.find((entry) => entry.key === "none")?.polled,
+      ).toBe(3);
+      expect(result.candidateResolution?.[0]).toMatchObject({
+        total: 1,
+        resolved: 1,
+        unresolvedNames: [],
+      });
+      const incomplete = computeCycleAccuracy(
+        summary2021,
+        tickets2021,
+        [BASE_POLL],
+        [
+          ...details,
+          row({ candidateName_bg: "Неразпознат кандидат", support: 50 }),
+        ],
+        [],
+      );
+      expect(incomplete.agencies).toEqual([]);
+      expect(incomplete.candidateResolution?.[0].unresolvedNames).toEqual([
+        "Неразпознат кандидат",
+      ]);
     });
 
     it("skips a 'none' row when this cycle's form never asked (noneOfTheAbove absent)", () => {
@@ -509,3 +555,52 @@ describe.runIf(has2021Corpus)(
     });
   },
 );
+
+describe("2016 published short names", () => {
+  it("keeps Tsacheva's published lead when scoring against official tickets", () => {
+    const summary = JSON.parse(
+      fs.readFileSync(
+        path.join(REPO_ROOT, "data/2016_11_06_pvr/national_summary.json"),
+        "utf8",
+      ),
+    );
+    const tickets = JSON.parse(
+      fs.readFileSync(
+        path.join(REPO_ROOT, "data/2016_11_06_pvr/tickets.json"),
+        "utf8",
+      ),
+    ).tickets;
+    // Trend, 19–26 October 2016: the leading two rows and Doncheva's short name.
+    const poll = {
+      ...BASE_POLL,
+      fieldwork: "Oct 19-26 2016",
+      cycle: "2016_11_06_pvr",
+      electionDate: "2016-11-06",
+    };
+    const details = [
+      row({ candidateName_bg: "Цецка Цачева", support: 27.3 }),
+      row({ candidateName_bg: "Румен Радев", support: 24 }),
+      row({ candidateName_bg: "Татяна Дончева", support: 2.2 }),
+    ];
+    const result = computeCycleAccuracy(summary, tickets, [poll], details, []);
+    expect(result.agencies[0].leaderCalled).toBe(false);
+    expect(result.agencies[0].runoffPairCalled).toBe(true);
+    expect(result.agencies[0].errors.map((entry) => entry.name_bg)).toContain(
+      "Цецка Цачева Данговска",
+    );
+    expect(result.candidateResolution?.[0]).toMatchObject({
+      total: 3,
+      resolved: 3,
+      unresolvedNames: [],
+    });
+    const unresolvedLeader = details.map((entry) =>
+      entry.candidateName_bg === "Цецка Цачева"
+        ? { ...entry, candidateName_bg: "Неразпознат кандидат" }
+        : entry,
+    );
+    expect(
+      computeCycleAccuracy(summary, tickets, [poll], unresolvedLeader, [])
+        .agencies,
+    ).toEqual([]);
+  });
+});

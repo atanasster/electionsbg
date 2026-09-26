@@ -94,7 +94,7 @@ export const rekeyDetails = (
   const next = details.map((d) => {
     if (!pollIdsInCycle.has(d.pollId)) return d;
     if (!d.candidateKey.startsWith("provisional:")) return d;
-    const resolved = resolveCandidate(d.candidateName_bg, tickets);
+    const resolved = resolveCandidate(d.candidateName_bg, tickets, cycleId);
     if (!resolved.resolved) return d; // still ambiguous/unmatched — refuse, don't guess
     upgraded++;
     return { ...d, candidateKey: resolved.candidateKey };

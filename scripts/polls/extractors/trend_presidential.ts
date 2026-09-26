@@ -497,7 +497,7 @@ export const extractTrendPresidential = async (
   }
 
   const details: PresidentialPollDetail[] = dedupedShares.accepted.map((c) => {
-    const resolved = resolveCandidate(c.label, tickets);
+    const resolved = resolveCandidate(c.label, tickets, cycle);
     return {
       pollId: id,
       agencyId: AGENCY_ID,

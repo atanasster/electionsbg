@@ -225,3 +225,29 @@ describe("provisionalCandidateKey", () => {
     );
   });
 });
+
+describe("reviewed cycle aliases", () => {
+  const tickets = JSON.parse(
+    fs.readFileSync(
+      path.join(REPO_ROOT, "data/2016_11_06_pvr/tickets.json"),
+      "utf8",
+    ),
+  ).tickets;
+  it.each([
+    ["Цецка Цачева", "цецка цачева данговска"],
+    ["Татяна Дончева", "татяна дончева тотева"],
+  ])(
+    "resolves %s only with the reviewed cycle and registered target",
+    (name, key) => {
+      expect(resolveCandidate(name, tickets, "2016_11_06_pvr")).toEqual({
+        candidateKey: key,
+        resolved: true,
+      });
+      expect(resolveCandidate(name, tickets, "2021_11_14_pvr").resolved).toBe(
+        false,
+      );
+      expect(resolveCandidate(name, tickets).resolved).toBe(false);
+      expect(resolveCandidate(name, [], "2016_11_06_pvr").resolved).toBe(false);
+    },
+  );
+});
