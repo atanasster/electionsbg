@@ -996,6 +996,83 @@ describe("main — presidential drafts (Tier 4, decision 10's separate file fami
     );
   });
 
+  it.each([
+    { support: -1 },
+    { support: 101 },
+    { pollId: "wrong" },
+    { agencyId: "wrong" },
+  ])("rejects invalid presidential answer %j", (patch) => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      details: [{ ...BASE_PRESIDENTIAL_DRAFT.details[0], ...patch }],
+    });
+    main(["gm-2026-07-11"]);
+    expect(process.exitCode).toBe(1);
+  });
+
+  it("rejects conflicting election evidence before cycle normalization", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      poll: { ...BASE_PRESIDENTIAL_DRAFT.poll, cycle: "2016_11_06_pvr" },
+    });
+    main(["gm-2026-07-11"]);
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("cycle conflicts"),
+    );
+  });
+
+  it("rejects an explicit cycle that contradicts the survey", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    main(["gm-2026-07-11", "--cycle", "2016_11_06_pvr"]);
+    expect(process.exitCode).toBe(1);
+  });
+
+  it("reports malformed questions without throwing", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      poll: {
+        ...BASE_PRESIDENTIAL_DRAFT.poll,
+        questions: {} as unknown as NonNullable<
+          PresidentialInboxDraft["poll"]["questions"]
+        >,
+      },
+    });
+    expect(() => main(["gm-2026-07-11"])).not.toThrow();
+    expect(process.exitCode).toBe(1);
+  });
+
+  it("rejects duplicate candidate answers", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      details: [
+        ...BASE_PRESIDENTIAL_DRAFT.details,
+        ...BASE_PRESIDENTIAL_DRAFT.details,
+      ],
+    });
+    main(["gm-2026-07-11"]);
+    expect(process.exitCode).toBe(1);
+  });
+
+  it("rejects a runoff against the same candidate", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      runoffs: [
+        {
+          pollId: "gm-2026-07-11",
+          agencyId: "GM",
+          a: "a",
+          b: "a",
+          supportA: 50,
+          supportB: 50,
+          residual: null,
+        },
+      ],
+    });
+    main(["gm-2026-07-11"]);
+    expect(process.exitCode).toBe(1);
+  });
+
   it("refuses a presidential draft with a blank candidateName_bg", () => {
     writeDraft("gm-2026-07-11.json", {
       ...BASE_PRESIDENTIAL_DRAFT,
@@ -1083,6 +1160,7 @@ describe("main — presidential drafts (Tier 4, decision 10's separate file fami
       "https://old.example/",
     );
     expect(polls[0].locked!.supersedes!.details).toEqual([oldDetail]);
+    expect(polls[0].locked!.supersedes!.runoffs).toEqual([oldRunoff]);
     expect(details).toEqual(BASE_PRESIDENTIAL_DRAFT.details);
     // The old runoff for this pollId is gone, replaced by the new draft's
     // own (empty) runoff set.

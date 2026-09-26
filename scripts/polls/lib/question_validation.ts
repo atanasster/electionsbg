@@ -1,3 +1,4 @@
+import { presidentialRound1Date } from "./presidential_cycle";
 import type { InboxDraft } from "./draft";
 
 const record = (value: unknown): value is Record<string, unknown> =>
@@ -66,10 +67,11 @@ export const validateQuestions = (draft: InboxDraft): string[] => {
       errors.push(`${prefix}.race must match the survey`);
     if (
       value.cycle !== null &&
-      (typeof value.cycle !== "string" ||
-        !/^\d{4}_\d{2}_\d{2}_pvr$/.test(value.cycle))
+      (typeof value.cycle !== "string" || !presidentialRound1Date(value.cycle))
     )
       errors.push(`${prefix}.cycle must be a presidential cycle or null`);
+    if (draft.race === "presidential" && value.cycle !== (poll.cycle ?? null))
+      errors.push(`${prefix}.cycle must match the survey`);
     if (value.round !== 1 && value.round !== 2 && value.round !== null)
       errors.push(`${prefix}.round must be 1, 2 or null`);
     if (

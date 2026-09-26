@@ -43,6 +43,14 @@
 // caught here rather than reaching the corpus.
 
 import fs from "node:fs";
+import {
+  isRealIsoDate,
+  parseFieldworkEnd,
+} from "../../src/data/polls/fieldwork";
+import {
+  presidentialRound1Date,
+  presidentialCycleDates,
+} from "./lib/presidential_cycle";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { flagReader } from "./lib/argv";
@@ -187,10 +195,6 @@ const VALID_GENRES = new Set([
   "unclear",
 ]);
 
-// The round-1 folder id shape (`data/<date>_pvr/`), decision 11 —
-// e.g. "2026_11_08_pvr".
-const CYCLE_ID_RE = /^\d{4}_\d{2}_\d{2}_pvr$/;
-
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 const isNonEmptyString = (v: unknown): v is string =>
@@ -259,10 +263,29 @@ const validateDraft = (draft: ParliamentaryInboxDraft): string[] => {
  *  more than bare presence" rationale from this module's own header. */
 const validatePresidentialDraft = (draft: PresidentialInboxDraft): string[] => {
   const errors = validatePollPassport(draft.poll);
+  if (
+    draft.poll.electionDate != null &&
+    (typeof draft.poll.electionDate !== "string" ||
+      !isRealIsoDate(draft.poll.electionDate))
+  )
+    errors.push("poll.electionDate must be a real ISO date");
+  const answers = new Set<string>();
+  const pairs = new Set<string>();
   if (!Array.isArray(draft.details)) {
     errors.push("details must be an array");
   } else {
     draft.details.forEach((d, i) => {
+      if (d.pollId !== draft.poll.id || d.agencyId !== draft.poll.agencyId)
+        errors.push(`details[${i}] survey/agency mismatch`);
+      const key = JSON.stringify([
+        d.questionId ?? null,
+        d.candidateKey,
+        d.answerCode ?? null,
+      ]);
+      if (answers.has(key)) errors.push(`details[${i}] duplicate answer`);
+      answers.add(key);
+      if (d.support < 0 || d.support > 100)
+        errors.push(`details[${i}].support must be between 0 and 100`);
       if (typeof d.support !== "number" || !Number.isFinite(d.support))
         errors.push(
           `details[${i}].support must be a finite number, got ${JSON.stringify(d.support)}`,
@@ -283,6 +306,20 @@ const validatePresidentialDraft = (draft: PresidentialInboxDraft): string[] => {
     errors.push("runoffs must be an array");
   } else {
     draft.runoffs.forEach((r, i) => {
+      if (r.pollId !== draft.poll.id || r.agencyId !== draft.poll.agencyId)
+        errors.push(`runoffs[${i}] survey/agency mismatch`);
+      if (r.a === r.b)
+        errors.push(`runoffs[${i}] participants must be distinct`);
+      const key = JSON.stringify([r.questionId ?? null, ...[r.a, r.b].sort()]);
+      if (pairs.has(key)) errors.push(`runoffs[${i}] duplicate pairing`);
+      pairs.add(key);
+      if (
+        r.supportA < 0 ||
+        r.supportA > 100 ||
+        r.supportB < 0 ||
+        r.supportB > 100
+      )
+        errors.push(`runoffs[${i}] shares must be between 0 and 100`);
       if (!isNonEmptyString(r.a))
         errors.push(`runoffs[${i}].a is missing or blank`);
       if (!isNonEmptyString(r.b))
@@ -322,6 +359,7 @@ const buildLockOrRefuse = (
   existingDetails: PollDetail[] | PresidentialPollDetail[],
   opts: Opts,
   lockedBy: LockTier,
+  existingRunoffs?: Runoff[],
 ): NonNullable<Poll["locked"]> | null => {
   if (existing && isProtected(existing) && !opts.replace) {
     const reason = existing.locked
@@ -340,6 +378,7 @@ const buildLockOrRefuse = (
             pollId: existing.id,
             poll: existing,
             details: existingDetails,
+            ...(existingRunoffs ? { runoffs: existingRunoffs } : {}),
           },
         }
       : {}),
@@ -493,6 +532,67 @@ const acceptPresidential = (
   draftFile: string,
   lockedBy: LockTier,
 ): void => {
+  const cycle = opts.cycle ?? draft.poll.cycle ?? null;
+  const cycleDate = cycle ? presidentialRound1Date(cycle) : null;
+  if (cycle !== null && !cycleDate) {
+    console.error(`${opts.pollId}: invalid presidential cycle`);
+    process.exitCode = 1;
+    return;
+  }
+  if (cycleDate && opts.election && opts.election !== cycleDate) {
+    console.error(`${opts.pollId}: --election conflicts with --cycle`);
+    process.exitCode = 1;
+    return;
+  }
+  const intendedDate = draft.poll.electionDate;
+  if (
+    intendedDate != null &&
+    (typeof intendedDate !== "string" || !isRealIsoDate(intendedDate))
+  ) {
+    console.error(`${opts.pollId}: poll.electionDate must be a real ISO date`);
+    process.exitCode = 1;
+    return;
+  }
+  const end =
+    typeof draft.poll.fieldwork === "string"
+      ? parseFieldworkEnd(draft.poll.fieldwork)
+      : null;
+  const dates = presidentialCycleDates(REPO_ROOT);
+  const lastRound =
+    dates.find((c) => c.cycle === cycle)?.lastRound ?? cycleDate;
+  const previousRound = dates
+    .filter((c) => cycleDate && c.round1 < cycleDate)
+    .slice(-1)[0]?.lastRound;
+  if (
+    cycleDate &&
+    ((typeof intendedDate === "string" &&
+      intendedDate.slice(0, 4) !== cycleDate.slice(0, 4)) ||
+      (end &&
+        lastRound &&
+        (end > lastRound || (previousRound && end <= previousRound))))
+  ) {
+    console.error(
+      `${opts.pollId}: cycle conflicts with intended election or fieldwork dates`,
+    );
+    process.exitCode = 1;
+    return;
+  }
+  draft = {
+    ...draft,
+    poll: {
+      ...draft.poll,
+      cycle,
+      electionDate: opts.election ?? cycleDate ?? draft.poll.electionDate,
+      ...(Array.isArray(draft.poll.questions)
+        ? {
+            questions: draft.poll.questions.map((q) => ({
+              ...q,
+              cycle: opts.cycle && q?.cycle === null ? cycle : q?.cycle,
+            })),
+          }
+        : {}),
+    },
+  };
   const validationErrors = validatePresidentialDraft(draft);
   if (validationErrors.length > 0) {
     for (const err of validationErrors) console.error(`${opts.pollId}: ${err}`);
@@ -532,6 +632,7 @@ const acceptPresidential = (
     details.filter((d) => d.pollId === existing?.id),
     opts,
     lockedBy,
+    runoffs.filter((r) => r.pollId === existing?.id),
   );
   if (!locked) {
     process.exitCode = 1;
@@ -611,14 +712,17 @@ export const main = (argv: string[]): void => {
     process.exitCode = 1;
     return;
   }
-  if (opts.election !== undefined && !ISO_DATE_RE.test(opts.election)) {
+  if (
+    opts.election !== undefined &&
+    (!ISO_DATE_RE.test(opts.election) || !isRealIsoDate(opts.election))
+  ) {
     console.error(
       `--election "${opts.election}" must be an ISO date (YYYY-MM-DD)`,
     );
     process.exitCode = 1;
     return;
   }
-  if (opts.cycle !== undefined && !CYCLE_ID_RE.test(opts.cycle)) {
+  if (opts.cycle !== undefined && !presidentialRound1Date(opts.cycle)) {
     console.error(
       `--cycle "${opts.cycle}" must be a round-1 folder id (e.g. "2026_11_08_pvr")`,
     );

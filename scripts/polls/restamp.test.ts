@@ -366,7 +366,7 @@ describe("main — presidential (decision 11's cycle-stamping arm)", () => {
     process.exitCode = undefined;
   });
 
-  it("stamps every null-cycle presidential poll to the decreed cycle, and runs the PRESIDENTIAL analyzer", () => {
+  it("stamps a matching intended-election presidential poll to the decreed cycle, and runs the PRESIDENTIAL analyzer", () => {
     writePresPolls([BASE_PRES_POLL]);
 
     main(["--race", "presidential", "--cycle", "2026_11_08_pvr"]);
@@ -377,6 +377,26 @@ describe("main — presidential (decision 11's cycle-stamping arm)", () => {
     // The decree's own date wins over whatever estimate was there before.
     expect(polls[0].electionDate).toBe("2026-11-08");
     expect(analyzeSpy).toHaveBeenCalledWith("presidential");
+  });
+
+  it("preserves historical unknowns and surveys without intended election evidence", () => {
+    writePresPolls([
+      {
+        ...BASE_PRES_POLL,
+        fieldwork: "Oct 19 - Oct 26 2016",
+        electionDate: "2016-11-06",
+      },
+      { ...BASE_PRES_POLL, electionDate: null },
+      { ...BASE_PRES_POLL, fieldwork: "Nov 9 - Nov 10 2026" },
+    ]);
+    main(["--race", "presidential", "--cycle", "2026_11_08_pvr"]);
+    expect(readPresPolls().map((p) => p.cycle)).toEqual([null, null, null]);
+  });
+
+  it("rejects an impossible calendar cycle", () => {
+    main(["--race", "presidential", "--cycle", "2026_02_30_pvr"]);
+    expect(process.exitCode).toBe(1);
+    expect(analyzeSpy).not.toHaveBeenCalled();
   });
 
   it("does not touch a poll whose cycle is already stamped", () => {

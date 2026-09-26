@@ -9,8 +9,8 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | --- | --- | --- | --- | --- |
 | 1 | Foundations | Question model, publication metadata and acceptance validation | Complete | `f289362bf9` |
 | 2 | Foundations | Reviewed candidate aliases and unresolved coverage | Complete | `15818bda70` |
-| 3 | Foundations | Durable discovery and processing ledger | In progress | |
-| 4 | Foundations | Cycle assignment, validation and complete correction snapshots | Pending | |
+| 3 | Foundations | Durable discovery and processing ledger | Complete | `1a866acdf8` |
+| 4 | Foundations | Cycle assignment, validation and complete correction snapshots | In progress | |
 | 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | Pending | |
 | 6 | Backfill | Publication inventory, historical pagination and capture | Pending | |
 | 7 | Backfill | Missing agency extractors, multiple-race output and backlog reporting | Pending | |
@@ -32,20 +32,21 @@ Step 2: FINDING-001 (`scripts/polls/presidential/analyze_accuracy.ts`) verified 
 
 Step 3: FINDING-001–004 verified and fixed in `publication_ledger.ts`, `capture.ts`, `fetch.ts`, `extract.ts` and `accept.ts`: preserve latest capture during reconciliation, retry failed rechecks, retire resolved press notices, and reserve the ledger before corpus writes. No needs-review findings. Related tests: 180 passed; changed-file lint, TypeScript and full production build passed.
 
+Step 4: FINDING-001 (`accept.ts`) verified and fixed: validate original intended-election and fieldwork dates before cycle normalization. Malformed question metadata now reaches validation without throwing. No needs-review findings. Related tests: 130 passed; changed-file lint, TypeScript and full production build passed.
+
 ## Current step files
 
 - `docs/plans/presidential-polls-implementation.md`
-- `scripts/polls/lib/publication_ledger.ts` (new)
-- `scripts/polls/lib/publication_ledger.test.ts` (new)
-- `scripts/polls/lib/capture.ts`
-- `scripts/polls/lib/capture.test.ts`
-- `scripts/polls/fetch.ts`
-- `scripts/polls/fetch.test.ts`
-- `scripts/polls/extract.ts`
-- `scripts/polls/extract.test.ts`
+- `scripts/polls/lib/presidential_cycle.ts`
+- `scripts/polls/lib/presidential_cycle.test.ts`
+- `scripts/polls/lib/question_validation.ts`
+- `scripts/polls/lib/question_validation.test.ts`
 - `scripts/polls/accept.ts`
 - `scripts/polls/accept.test.ts`
-- `scripts/watch/index.ts`
+- `scripts/polls/restamp.ts`
+- `scripts/polls/restamp.test.ts`
+- `scripts/polls/extractors/trend_presidential.ts`
+- `src/data/polls/pollsTypes.ts`
 
 ## Existing work to preserve
 

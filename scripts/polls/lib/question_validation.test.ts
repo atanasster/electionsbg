@@ -33,6 +33,7 @@ const draft = (): PresidentialInboxDraft => ({
   poll: {
     id: "tr-2016-10-26",
     agencyId: "TR",
+    cycle: question.cycle,
     questions: [structuredClone(question)],
   },
   details: [

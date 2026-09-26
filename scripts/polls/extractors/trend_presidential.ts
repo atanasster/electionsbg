@@ -31,6 +31,10 @@
 // PARLIAMENTARY capture measured but not for 2016's presidential one.
 
 import fs from "node:fs";
+import {
+  resolvePresidentialCycle,
+  presidentialRound1Date,
+} from "../lib/presidential_cycle";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { pollId as mintPollId } from "../../../src/data/polls/fieldwork";
@@ -200,34 +204,6 @@ const findInOcrTexts = <T>(
     if (m) return { value: extract(m), quote: m[0] };
   }
   return null;
-};
-
-// The round-1 folder id shape (`data/<date>_pvr/`) — same rule
-// `rekey.ts`'s own `CYCLE_ID_RE` enforces.
-const PVR_CYCLE_DIR_RE = /^(\d{4})_(\d{2})_(\d{2})_pvr$/;
-
-/** The presidential cycle a poll with this `fieldworkEndIso` was almost
- *  certainly polling FOR — the EARLIEST `data/<cycle>_pvr` directory whose
- *  own date is on or after the poll's fieldwork end (a poll's fieldwork
- *  always closes before the election it polls). Reads the folder name
- *  only — no need to open any file to know a cycle's own date, since the
- *  directory name IS the date (`YYYY_MM_DD_pvr`). Returns `null` when no
- *  cycle qualifies (fieldwork past every registered cycle, or the corpus
- *  has none yet) rather than guessing the nearest one either way. */
-const resolveCycleForFieldworkEnd = (
-  fieldworkEndIso: string,
-): string | null => {
-  const dataDir = path.join(REPO_ROOT, "data");
-  const candidates = fs
-    .readdirSync(dataDir, { withFileTypes: true })
-    .filter((e) => e.isDirectory() && PVR_CYCLE_DIR_RE.test(e.name))
-    .map((e) => {
-      const m = PVR_CYCLE_DIR_RE.exec(e.name)!;
-      return { cycleId: e.name, dateIso: `${m[1]}-${m[2]}-${m[3]}` };
-    })
-    .filter((c) => c.dateIso >= fieldworkEndIso)
-    .sort((a, b) => a.dateIso.localeCompare(b.dateIso));
-  return candidates[0]?.cycleId ?? null;
 };
 
 /** `data/<cycleId>/tickets.json`'s own ticket rows, or `[]` when the file
@@ -480,18 +456,15 @@ export const extractTrendPresidential = async (
   // `provisional:`) when fieldwork itself did not resolve, since guessing
   // a cycle without a real date to anchor it risks resolving candidates
   // against the WRONG election's tickets.
-  const cycle = fieldworkEnd ? resolveCycleForFieldworkEnd(fieldworkEnd) : null;
-  const tickets = cycle ? loadTicketsForCycle(cycle) : [];
-  const electionDate = cycle
-    ? (() => {
-        const m = PVR_CYCLE_DIR_RE.exec(cycle)!;
-        return `${m[1]}-${m[2]}-${m[3]}`;
-      })()
+  const cycle = fieldworkEnd
+    ? resolvePresidentialCycle(REPO_ROOT, fieldworkEnd)
     : null;
+  const tickets = cycle ? loadTicketsForCycle(cycle) : [];
+  const electionDate = cycle ? presidentialRound1Date(cycle) : null;
   if (fieldworkEnd && !cycle) {
     refused.push({
       field: "poll.cycle",
-      reason: `no data/<cycle>_pvr directory found on or after fieldwork end ${fieldworkEnd}`,
+      reason: `no presidential cycle in the fieldwork year covers fieldwork end ${fieldworkEnd}`,
       quote: "",
     });
   }

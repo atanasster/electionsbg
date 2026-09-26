@@ -9,19 +9,8 @@
 //   npm run polls:restamp -- --race parliamentary --to 2027-03-14
 //   npm run polls:restamp -- --race presidential --cycle 2026_11_08_pvr
 //
-// Decision 11's parenthetical "(or a previously-estimated date moves)" IS
-// presidential's case: `UPCOMING_ELECTIONS` (src/data/myarea/upcomingElections.ts)
-// carries an "estimated" `electionDate` from the day a presidential poll
-// is first accepted (`accept.ts`'s own `electionDate: draft.poll.electionDate`),
-// so unlike the parliamentary side there is no `electionDate === null`
-// window to fill — every presidential poll already carries the ESTIMATE.
-// What changes when the decree lands is that the estimate becomes a
-// DECREED date, and every presidential poll gets its `cycle` (still
-// `null` pre-decree, decision 11) stamped to the real round-1 folder id
-// — `<cycle>`'s own name (`YYYY_MM_DD_pvr`) IS that date, so this needs
-// no separate `--to`. `polls:presidential:rekey` is a SEPARATE, later
-// step (once `tickets.json` exists, months after the decree) — this file
-// never touches `candidateKey`.
+// Presidential restamping requires a matching intended election year and
+// fieldwork before the recorded final round. Historical unknowns remain unset.
 
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -31,6 +20,10 @@ import {
   isRealIsoDate,
   parseFieldworkEnd,
 } from "../../src/data/polls/fieldwork";
+import {
+  presidentialRound1Date,
+  presidentialCycleDates,
+} from "./lib/presidential_cycle";
 import { flagReader } from "./lib/argv";
 import type { Poll } from "../../src/data/polls/pollsTypes";
 
@@ -139,19 +132,6 @@ export const parseArgv = (argv: string[]): Opts => {
   return { race: flag("race"), to: flag("to"), cycle: flag("cycle") };
 };
 
-// The round-1 folder id shape (`data/<date>_pvr/`) — same rule as
-// accept.ts's own `CYCLE_ID_RE`, restated here rather than imported
-// since neither file exports it and duplicating one regex literal is
-// cheaper than a cross-file dependency for it.
-const CYCLE_ID_RE = /^(\d{4})_(\d{2})_(\d{2})_pvr$/;
-
-/** `"2026_11_08_pvr"` → `"2026-11-08"` — the cycle folder's own name IS
- *  its round-1 date, so no separate `--to` is needed for presidential. */
-const round1DateFromCycleId = (cycleId: string): string | null => {
-  const m = CYCLE_ID_RE.exec(cycleId);
-  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
-};
-
 const restampParliamentary = (toIso: string): void => {
   const previousElection = latestHeldElection();
   if (previousElection !== null && toIso <= previousElection) {
@@ -196,16 +176,9 @@ const restampParliamentary = (toIso: string): void => {
   }
 };
 
-/** Decision 11's presidential arm: every presidential poll with `cycle
- *  === null` (decision 11 — nothing is stamped to a real cycle before
- *  the decree) gets BOTH `cycle` and `electionDate` set from the
- *  decreed `--cycle` id. Unlike the parliamentary side there is no
- *  fieldwork WINDOW to compute — a presidential poll's `electionDate`
- *  already carries the pre-decree estimate (`accept.ts` sets it from the
- *  draft, ultimately `UPCOMING_ELECTIONS`), so every null-cycle poll
- *  belongs to whichever decree just landed, unconditionally. */
+/** Restamp only surveys with an explicit intended election in this year. */
 const restampPresidential = (cycleId: string): void => {
-  const round1Date = round1DateFromCycleId(cycleId);
+  const round1Date = presidentialRound1Date(cycleId);
   if (!round1Date) {
     console.error(
       `--cycle "${cycleId}" must be a round-1 folder id (e.g. "2026_11_08_pvr")`,
@@ -217,12 +190,32 @@ const restampPresidential = (cycleId: string): void => {
   const pollsFile = path.join(PRESIDENTIAL_DIR(), "polls.json");
   const polls = readJsonArray<Poll>(pollsFile);
 
+  const lastRound =
+    presidentialCycleDates(REPO_ROOT).find((c) => c.cycle === cycleId)
+      ?.lastRound ?? round1Date;
   let stamped = 0;
   const nextPolls = polls.map((p) => {
     if (p.race !== "presidential") return p;
     if (p.cycle !== null && p.cycle !== undefined) return p;
+    const end = parseFieldworkEnd(p.fieldwork);
+    if (!end || !p.electionDate || !isRealIsoDate(p.electionDate)) return p;
+    if (
+      p.electionDate.slice(0, 4) !== round1Date.slice(0, 4) ||
+      end.slice(0, 4) !== round1Date.slice(0, 4) ||
+      end >= lastRound
+    )
+      return p;
+    if (p.questions?.some((q) => q.cycle !== null && q.cycle !== cycleId))
+      return p;
     stamped++;
-    return { ...p, cycle: cycleId, electionDate: round1Date };
+    return {
+      ...p,
+      cycle: cycleId,
+      electionDate: round1Date,
+      ...(p.questions
+        ? { questions: p.questions.map((q) => ({ ...q, cycle: cycleId })) }
+        : {}),
+    };
   });
 
   if (stamped > 0) {

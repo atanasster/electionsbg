@@ -61,6 +61,7 @@ export type PollLock = {
     pollId: string;
     poll: Poll;
     details: PollDetail[] | PresidentialPollDetail[];
+    runoffs?: Runoff[];
   };
 };
 
