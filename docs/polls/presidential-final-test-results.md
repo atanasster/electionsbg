@@ -25,4 +25,6 @@ These six failures were reproduced separately (137 other tests in those files pa
 
 These failures remain visible. No test was skipped, removed or widened to hide them. Polling sitemap additions are scoped to the polling family; unrelated generated sitemap churn was restored.
 
-The final confirmation run and publication outcome are recorded in the implementation tracker.
+Final full-suite confirmation: **24,154 passed, 6 failed, 41 skipped** across 1,531 files (290.72 seconds). The six failures are exactly the unrelated cases above; no polling regression remains. All ten desktop/mobile checks passed again. Full lint has no errors (three existing fast-refresh warnings); TypeScript, build and production article guard passed.
+
+Publication outcome is recorded in the implementation tracker.

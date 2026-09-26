@@ -6,7 +6,7 @@ Date: 2026-09-26. Implementation: [progress and commit ledger](../plans/presiden
 
 The reviewed corpus contains 14 surveys, 118 candidate-answer rows, four hypothetical runoff observations and three participation questions. The historical reconciliation covers 62 publications. Source methods, bases, publication-date gaps and corrections are retained. No complete agency accuracy grade is justified by the accepted evidence; eligible partial candidate comparisons remain visible.
 
-Release only `data/polls/presidential/`: polls, details, runoffs, candidates, accuracy and coverage. The scoped bucket dry run lists exactly these six JSON files. Raw captures, drafts and operator ledgers remain local/repository evidence.
+Publish `data/polls/presidential/`: polls, details, runoffs, candidates, accuracy and coverage. The scoped bucket dry run listed exactly these six JSON files. Live verification also exposed an older agency registry; `data/polls/agencies.json` was published as a required dependency, adding five already committed agencies (including GM) without changing the existing nine entries. Raw captures, drafts and operator ledgers remain local/repository evidence.
 
 ## Browser gate
 
@@ -26,4 +26,6 @@ After the final commit and unit suite: upload the six accepted JSON artifacts, d
 
 ## Status
 
-Final browser, unit and publication outcomes are recorded in the implementation tracker. A build is not evidence of live publication.
+Published and verified on 2026-09-26. Both hosting releases and the db function refresh succeeded. All six presidential artifacts match the accepted local JSON. Normal browser requests now receive the updated fourteen-agency registry. Live BG/EN GM pages, SH 2021 history and the 2016 second-round view passed with no runtime errors. Static and function-served pages point at the same current entry bundle.
+
+Final confirmation: 24,154 unit/component tests passed; six pre-existing failures and 41 skips are recorded in [the test report](presidential-final-test-results.md). All ten desktop/mobile browser checks passed. [The implementation tracker](../plans/presidential-polls-implementation.md) contains the scoped commits and repair history.

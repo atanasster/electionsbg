@@ -20,7 +20,7 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 11 | Views | Agency presidential route and election campaign/result views | Complete | `99ae51fdd2` |
 | 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Complete | `1dcfd1f1f0` |
 | 13 | Views | Update ingestion documentation and stale comments | Complete | `aa0e08a01d` |
-| 14 | Views | Route, translation, layout, accessibility and release verification | Complete (local gates); publication pending | `9e0967fcbb` |
+| 14 | Views | Route, translation, layout, accessibility and release verification | Complete | `9e0967fcbb` |
 
 Final gate: full unit/component suite after the last step; browser checks under step 14.
 
@@ -79,3 +79,11 @@ Final unit suite and production release are pending; browser screenshots and log
 Final-suite regression repair (step 11): explicit row-header alignment; election-screen assertions now verify visible loading content and distinguish fetch errors/retry from unscored coverage. Independent review: zero findings. All 37 targeted tests passed. The initial full run also reports unrelated corpus/sitemap failures; classification and final confirmation are pending.
 
 Final-suite regression repair 2 (steps 7/9/10/11): corpus ID validation accepts only the established race suffix and still enforces agency/fieldwork identity; committed-fixture assertions are explicit; all 28 bilingual agency prerender bodies have one escaped H1. Independent review: zero findings; 92 targeted tests and direct 28-body verification passed. Full-suite initial result and six independently reproduced unrelated failures are documented in docs/polls/presidential-final-test-results.md.
+
+Final confirmation: 24,154 tests passed; six pre-existing failures (listed in docs/polls/presidential-final-test-results.md); 41 skipped. No polling failures remain. All ten browser checks passed again. Final repairs are committed as 89bf256c4b and 1cc73aae94. Full lint and production build passed. Six presidential artifacts uploaded and verified byte-equivalent after JSON parsing; application release in progress, reusing the artifact whose predeploy gates were all run explicitly.
+
+## Published outcome
+
+All 14 steps are complete and published on 2026-09-26. The six presidential data artifacts and the required public agency registry were uploaded. The live registry had nine agencies; the committed fourteen-agency registry adds GM and four existing registered agencies without changing prior entries. Both hosting releases and the db function refresh succeeded in the required order, using the validated artifact. The short-lived old registry cache expired and normal browser requests now return all fourteen agencies.
+
+Live verification passed for BG/EN GM question-separated pages, SH 2021 history, and the 2016 round-two election view, with no browser runtime errors. Six presidential artifacts match the local accepted JSON. Four polling/election pages and a function-served person page have correct canonicals and the same current JavaScript entry bundle. All review findings are repaired; no needs-review findings remain. The six unrelated final-suite failures remain documented and unchanged.
