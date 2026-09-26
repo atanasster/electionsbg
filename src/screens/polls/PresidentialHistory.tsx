@@ -122,7 +122,7 @@ export function PresidentialResultComparisons({
               <tbody>
                 {c.errors.map((e) => (
                   <tr key={e.key} className="border-t">
-                    <th scope="row" className="p-2 font-normal">
+                    <th scope="row" className="p-2 font-normal text-left">
                       {e.name_bg}
                     </th>
                     <td className="p-2">{e.polled.toFixed(1)}%</td>
@@ -446,7 +446,7 @@ export function PresidentialHistory({
                           className="border-t"
                         >
                           <td className="p-2 whitespace-nowrap">{p.date}</td>
-                          <th scope="row" className="p-2 font-normal">
+                          <th scope="row" className="p-2 font-normal text-left">
                             {p.detail.candidateName_bg}
                           </th>
                           <td className="p-2">

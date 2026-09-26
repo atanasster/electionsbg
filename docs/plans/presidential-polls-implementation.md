@@ -20,7 +20,7 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 11 | Views | Agency presidential route and election campaign/result views | Complete | `99ae51fdd2` |
 | 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Complete | `1dcfd1f1f0` |
 | 13 | Views | Update ingestion documentation and stale comments | Complete | `aa0e08a01d` |
-| 14 | Views | Route, translation, layout, accessibility and release verification | Complete (local gates); publication pending | |
+| 14 | Views | Route, translation, layout, accessibility and release verification | Complete (local gates); publication pending | `9e0967fcbb` |
 
 Final gate: full unit/component suite after the last step; browser checks under step 14.
 
@@ -75,3 +75,5 @@ Step 13 final gate: independent review found no issues. All 128 related tests, c
 Step 14 review: TEST-001–003 verified and repaired (localized agency expectation, theme/chart coverage and runoff pair selector). Browser checks exposed implicit filter names including option text; explicit translated labels fix this. Theme-aware chart points/ticks and agency heading hierarchy repaired. Final re-review: zero findings across nine files. Seventeen related unit/component tests and all ten desktop/mobile browser checks passed. All 28 agency direct pages have titles, canonicals and sitemap entries. Full lint (three existing refresh warnings), TypeScript, production build, budget tests, AI regression/harness, function tests and production article guard passed. Generated unrelated sitemap/llms drift restored.
 
 Final unit suite and production release are pending; browser screenshots and logs are in test-results/ and /tmp/presidential-*.
+
+Final-suite regression repair (step 11): explicit row-header alignment; election-screen assertions now verify visible loading content and distinguish fetch errors/retry from unscored coverage. Independent review: zero findings. All 37 targeted tests passed. The initial full run also reports unrelated corpus/sitemap failures; classification and final confirmation are pending.

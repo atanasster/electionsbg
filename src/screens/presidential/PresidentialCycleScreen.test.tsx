@@ -592,49 +592,53 @@ describe("the presidential country page", () => {
   });
 });
 
-// ⚠ THE ORPHANED-HEADER TRAP THIS SECTION EXISTS TO AVOID: `DashboardSection`'s own
-// `isRenderable` cannot see through a component boundary, so mounting it unconditionally while
-// `PresidentialPollsTile` returns `null` during its own `"loading"` state would render the
-// heading above nothing — the exact anti-pattern this file otherwise gates against for every
-// other query-backed section (geography, anomalies, risk-votes, the runoff-transfer section
-// below). Found by review; regression-tested here.
+// Poll history always gives the section meaningful loading, error or coverage content.
+// A failed artifact request must never masquerade as an unscored election.
 describe("the presidential-polls section", () => {
-  it("renders NO heading while poll accuracy is still loading — never an orphaned header", async () => {
+  it("shows loading content, then a retryable error when accuracy fails", async () => {
     let resolveAccuracy: (() => void) | undefined;
     globalThis.fetch = (async (url: RequestInfo | URL) => {
       const u = String(url);
       if (u.includes("national_summary.json"))
-        return new Response(JSON.stringify(SUMMARY), {
-          status: 200,
-          headers: { "content-type": "application/json" },
-        });
+        return new Response(JSON.stringify(SUMMARY), { status: 200 });
       if (u.includes("polls/presidential/accuracy.json"))
         return new Promise<Response>((resolve) => {
           resolveAccuracy = () => resolve(new Response("", { status: 404 }));
         });
+      if (/polls\/presidential\/(polls|polls_details|runoffs)\.json/.test(u))
+        return new Response("[]", { status: 200 });
       return new Response("", { status: 404 });
     }) as typeof fetch;
     render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
-
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
-    expect(screen.queryByText(bgCorpus.presidential_polls_heading)).toBeNull();
-
-    resolveAccuracy?.();
-    await waitFor(() =>
-      expect(
-        screen.getByText(bgCorpus.presidential_polls_heading),
-      ).toBeInTheDocument(),
+    const section = await screen.findByRole("heading", {
+      name: bgCorpus.presidential_polls_heading,
+    });
+    const panel = within(section.closest("section")!);
+    expect(await panel.findByRole("status")).toHaveTextContent(
+      bgCorpus.pp_history_loading,
     );
+    expect(panel.queryByRole("alert")).toBeNull();
+    await waitFor(() => expect(resolveAccuracy).toBeTypeOf("function"));
+    resolveAccuracy!();
+    expect(await panel.findByRole("alert")).toHaveTextContent(
+      bgCorpus.pp_history_load_error,
+    );
+    expect(
+      panel.getByRole("button", { name: bgCorpus.pp_history_retry }),
+    ).toBeInTheDocument();
+    expect(panel.queryByRole("status")).toBeNull();
   });
 
-  it("renders the heading and the 'not verified' message once accuracy.json resolves (a 404, the honest CI state)", async () => {
+  it("shows a fetch error and retry instead of an unscored message for a 404", async () => {
     mount(SUMMARY);
+    await screen.findByText(bgCorpus.presidential_polls_heading);
     expect(
-      await screen.findByText(bgCorpus.presidential_polls_heading),
+      await screen.findByText(bgCorpus.pp_history_load_error),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(bgCorpus.presidential_polls_unscored),
+      screen.getByRole("button", { name: bgCorpus.pp_history_retry }),
     ).toBeInTheDocument();
+    expect(screen.queryByText(bgCorpus.presidential_polls_unscored)).toBeNull();
   });
 });
 
