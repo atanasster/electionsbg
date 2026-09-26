@@ -1,263 +1,442 @@
-// T4.4 — one identity's page on the NEWS origin (`/person/:newsPersonId`),
-// separate from naiasno.bg's `/person/:slug`.
+// One person's page on the NEWS origin (`/person/:id`): how the published
+// corpus frames them (news-person-sentiment-v1 §6.1).
 //
-// ⚠️ THE ACCOUNTING IS THE PAGE. Every figure states its basis: N assessed
-// of M eligible target/article pairs, the mutually exclusive unassessed
-// categories beside it, the incidental mentions OUTSIDE M, the distinct
-// outlets, the date window and the rubric. A reader can add the numbers up;
-// no percentage is offered in place of them.
+// ⚠️ THIS IS NOT A PROFILE OF A PERSON. It is an archive of how articles
+// present them; what is assessed is the outlet's text, never the person,
+// their conduct or their guilt. The deck says so, and so does every figure's
+// basis line.
 //
-// ⚠️ This is not a profile of a person. It is an archive of how articles
-// present them. The policy (`docs/policies/news-person-pages.md`, version
-// `news-person-policy-v1`) governs who gets a page at all and how one is
-// removed, and the footer LINKS it — a reader on the page a policy governs
-// can reach that policy in one click.
+// ⚠️ EVERY FIGURE STATES ITS BASIS. The default counts one unit per (outlet,
+// story); the reader can switch to same-headline or raw and watch the n move.
+// The accounting beneath adds up: N assessed of M eligible, with each
+// unassessed kind beside it.
+//
+// Two id namespaces reach this route — main-site slugs and reviewed `np_*`
+// identities — and a retired slug redirects to its live page.
 
+import { useState } from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useNewsPerson, useNewsPersons } from "../data";
+import {
+  useNewsPerson,
+  useNewsPersons,
+  useParties,
+  usePersonAllRows,
+  usePersonsIndex,
+  type PersonArticleRow,
+  type PersonBasis,
+  type ToneBucket,
+} from "../data";
 import { isNewsPersonId } from "../newsPersonId";
-import { formatDate, media as mediaLabel, toneMeta } from "../labels";
+import { formatDate, toneMeta } from "../labels";
 import { useNewsLocale } from "../i18n";
-import { ToneBar } from "../components/ToneBar";
 import { correctionIssueUrl } from "../corrections";
-import { mainSiteUrl } from "../site";
-
-/** The main site's own slug charset. A slug is a human-typed registry field
- * that reaches a URL path, so one that fails this takes the „no verified
- * link" branch — that is the safe reading of „we cannot serve this". */
-const MAIN_SITE_SLUG_SAFE = /^[a-z0-9-]{1,120}$/;
+import { mainPersonUrl } from "../site";
+import {
+  BUCKETS,
+  displayName,
+  filterActive,
+  filterRows,
+  officeLine,
+  primaryShare,
+  type RowFilter,
+} from "../personPage";
+import { PackSelect } from "@/screens/components/procurement/PackSelect";
+import {
+  PersonOutlets,
+  PersonPosition,
+  PersonSeries,
+  ToneBuckets,
+} from "../components/PersonCharts";
 
 export const POLICY_HREF = "/methodology#person-pages";
 
 export const NEWS_PERSON_POLICY_VERSION = "news-person-policy-v1";
 
+const BASIS_LABEL: Record<PersonBasis, [string, string]> = {
+  story: ["по (издание, история)", "per (outlet, story)"],
+  same_headline: ["по заглавие", "per headline"],
+  raw: ["по материал", "per article"],
+};
+
+const STATUS_LABEL: Record<PersonArticleRow["status"], [string, string]> = {
+  assessed: ["", ""],
+  insufficient_text: ["прочетен частично", "read in part"],
+  pending: ["не е оценен", "not rated"],
+  unplaceable: ["без стойност", "no value"],
+  conflict: ["разминаващи се прочитания", "conflicting readings"],
+  incidental: ["споменат мимоходом", "mentioned in passing"],
+};
+
+const ROLES = ["primary", "secondary", "incidental"] as const;
+
+const Kpi = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) => (
+  <div className="rounded-lg border p-3">
+    <p className="text-xs text-muted-foreground">{label}</p>
+    <div className="mt-1">{children}</div>
+  </div>
+);
+
 export const NewsPersonScreen = () => {
   const { newsPersonId: personId } = useParams<{ newsPersonId: string }>();
   const [params, setParams] = useSearchParams();
   const page = Math.max(1, Number(params.get("page") ?? 1) || 1);
-  const { language, tr } = useNewsLocale();
+  const { isEnglish, language, tr } = useNewsLocale();
   const person = useNewsPerson(personId, page);
-  // A merged identity keeps its old URL working: the index carries the
-  // retirement map, which is what policy §5 promises.
-  const index = useNewsPersons();
+  const [basis, setBasis] = useState<PersonBasis | null>(null);
+  // ⚠️ VALIDATED ON READ: a hand-edited `?tone=` would otherwise empty the
+  // list and leave the picker blank, reading as „no such articles".
+  const toneParam = params.get("tone");
+  const roleParam = params.get("role");
+  const filter: RowFilter = {
+    outlet: params.get("outlet"),
+    bucket: (BUCKETS as readonly string[]).includes(toneParam ?? "")
+      ? (toneParam as ToneBucket)
+      : null,
+    role: (ROLES as readonly string[]).includes(roleParam ?? "")
+      ? (roleParam as RowFilter["role"])
+      : null,
+  };
+  const filtering = filterActive(filter);
+  const all = usePersonAllRows(personId, filtering);
+  // A retired id keeps working: both indexes carry a retirement map.
+  const newsIndex = useNewsPersons();
+  const personsIndex = usePersonsIndex();
+  const parties = useParties();
   const missing = !isNewsPersonId(personId) || (person.error && !person.data);
   const redirect =
-    missing && personId ? index.data?.retired_ids?.[personId] : undefined;
+    missing && personId
+      ? (personsIndex.data?.retired_ids?.[personId] ??
+        newsIndex.data?.retired_ids?.[personId])
+      : undefined;
+  const rows = filtering
+    ? filterRows(all.data?.articles ?? [], filter)
+    : (person.data?.articles ?? []);
+  const setParam = (key: string, value: string | null) => {
+    const next = new URLSearchParams(params);
+    if (value) next.set(key, value);
+    else next.delete(key);
+    next.delete("page");
+    setParams(next, { replace: true });
+  };
+
   if (redirect && isNewsPersonId(redirect))
     return <Navigate replace to={`/person/${redirect}`} />;
-
-  if (missing && !(index.loading && personId)) {
+  if (missing && !((newsIndex.loading || personsIndex.loading) && personId)) {
     return (
       <Card className="p-6">
         <h1 className="font-title text-2xl">
-          {tr("Лицето не е намерено", "Person not found")}
+          {tr("Няма страница за това лице", "No page for this person")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {tr(
-            "Страница има само самоличност, която човек е прегледал и е отбелязал като активна. Споменаването не създава страница.",
-            "Only an identity a human has reviewed and marked active has a page. A mention does not create one.",
-          )}
+            "Страница има човек с достатъчно оценено отразяване и проверена самоличност. Споменаването само по себе си не създава страница.",
+            "A page exists for a person with enough assessed coverage and a checked identity. A mention alone does not create one.",
+          )}{" "}
+          <Link
+            to="/persons"
+            className="text-primary underline-offset-4 hover:underline"
+          >
+            {tr("Всички хора", "All people")}
+          </Link>
         </p>
       </Card>
     );
   }
   if (!person.data) return <Skeleton className="h-40 rounded-xl" />;
   const p = person.data;
-  const name = (language === "en" ? p.name_en : p.name_bg) ?? p.news_person_id;
-  const disambiguation =
-    language === "en" ? p.disambiguation_en : p.disambiguation_bg;
-  const eligible = p.eligible;
+  const name = displayName(p, isEnglish) ?? p.id;
+  const partyName = p.party
+    ? (parties.data?.parties.find((x) => x.party_id === p.party)?.name ?? null)
+    : null;
+  const disambiguation = isEnglish ? p.disambiguation_en : p.disambiguation_bg;
+  const shown = basis ?? p.default_basis;
+  const summary = p.bases[shown];
+  const office = officeLine(p.roles, p.role_labels, isEnglish);
+  const share = primaryShare(p);
+  const a = p.accounting;
+  const personOf = (id: string) =>
+    personsIndex.data?.persons.find((row) => row.id === id);
+
   return (
     <div className="space-y-5">
       <header className="border-b pb-4">
         <p className="app-eyebrow mb-2">
-          {tr("Как медиите го представят", "How the media present them")}
+          {tr("Как медиите го представят", "How the media frame them")}
         </p>
         <h1 className="app-page-title">{name}</h1>
+        {office || partyName ? (
+          <p
+            className="mt-1 text-sm text-muted-foreground"
+            data-testid="person-office"
+          >
+            {[
+              office
+                ? office.former
+                  ? tr(`бивш: ${office.text}`, `former: ${office.text}`)
+                  : office.text
+                : null,
+              partyName,
+            ]
+              .filter(Boolean)
+              .join(" · ")}
+          </p>
+        ) : null}
         {disambiguation ? (
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
             {disambiguation}
           </p>
         ) : null}
-        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground">
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed">
           {tr(
-            "Това е архив на материалите, които го споменават, и на това как всеки от тях го представя. Оценява се ТЕКСТЪТ на изданието — не човекът, неговото поведение или вина. Фактическото съобщаване за обвинение или разследване е неутрално.",
-            "This is an archive of the articles that mention them and of how each presents them. What is assessed is the OUTLET'S TEXT — not the person, their conduct or their guilt. Factual reporting of an accusation or an investigation is neutral.",
+            `Как ${a.assessed} материала от ${p.outlet_count} издания представят ${name} — оценка на текста, не на човека.`,
+            `How ${a.assessed} articles from ${p.outlet_count} outlets frame ${name} — an assessment of the text, not of the person.`,
           )}
         </p>
+        {p.main_site_slug ? (
+          <a
+            href={mainPersonUrl(p.main_site_slug, isEnglish)}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="mt-1 inline-block text-sm text-primary underline-offset-4 hover:underline"
+          >
+            {tr("профил в Наясно", "profile on Naiasno")} ↗
+          </a>
+        ) : null}
       </header>
 
-      <Card className="p-4" data-testid="person-accounting">
-        <h2 className="sr-only">{tr("Отчет", "The accounting")}</h2>
-        <ToneBar counts={p.counts} total={p.assessed} />
-        <p className="mt-2 text-sm">
-          {tr(
-            `Оценени ${p.assessed} от ${eligible} двойки (лице, материал)`,
-            `${p.assessed} assessed of ${eligible} (person, article) pairs`,
-          )}
-        </p>
-        <ul className="mt-1 space-y-0.5 text-xs text-muted-foreground">
-          {p.partial_scope > 0 ? (
-            <li>
-              {tr(
-                `${p.partial_scope} без преценка, защото материалът не е прочетен изцяло`,
-                `${p.partial_scope} with no judgement because the article was not read in full`,
-              )}
-            </li>
-          ) : null}
-          {p.insufficient_text - p.partial_scope > 0 ? (
-            <li>
-              {tr(
-                `${p.insufficient_text - p.partial_scope} без преценка, защото в текста няма достатъчно за оценка`,
-                `${p.insufficient_text - p.partial_scope} with no judgement because the text carries too little to assess`,
-              )}
-            </li>
-          ) : null}
-          <li>
-            {tr(
-              `${p.pending} още не са оценявани`,
-              `${p.pending} not yet assessed`,
-            )}
-          </li>
-          <li>
-            {tr(
-              `${p.refused} без достатъчно доказателство в текста`,
-              `${p.refused} without sufficient evidence in the text`,
-            )}
-          </li>
-          <li>
-            {tr(
-              `${p.incidental} споменавания мимоходом — извън знаменателя`,
-              `${p.incidental} incidental mentions — outside the denominator`,
-            )}
-          </li>
-          {p.unreadable_role > 0 ? (
-            <li>
-              {tr(
-                `${p.unreadable_role} записа с непрочетена роля — извън знаменателя`,
-                `${p.unreadable_role} records with an unreadable role — outside the denominator`,
-              )}
-            </li>
-          ) : null}
-          <li>
-            {mediaLabel(p.outlet_count, language)}
-            {" · "}
-            {tr(
-              `${p.story_count} събития`,
-              `${p.story_count} ${p.story_count === 1 ? "event" : "events"}`,
-            )}
-            {" · "}
-            {p.first_published
-              ? `${formatDate(p.first_published, language)} – ${formatDate(p.last_published, language)}`
-              : tr("без дати", "no dates")}
-          </li>
-          {p.undated > 0 ? (
-            <li data-testid="person-undated">
-              {tr(
-                `${p.undated} материала без дата — извън прозореца по-горе.`,
-                `${p.undated} articles carry no date — outside the window above.`,
-              )}
-            </li>
-          ) : null}
-          {p.same_headline_copies > 0 ? (
-            <li data-testid="person-dedup">
-              {tr(
-                `${p.same_headline_copies} от тях са същото заглавие в друга медия; без тях знаменателят е ${p.eligible_deduplicated}.`,
-                `${p.same_headline_copies} of them are the same headline in another outlet; without them the denominator is ${p.eligible_deduplicated}.`,
-              )}
-            </li>
-          ) : null}
-        </ul>
-      </Card>
+      <div
+        className="flex flex-wrap items-center gap-2 text-xs"
+        role="group"
+        aria-label={tr("Основа на броенето", "Counting basis")}
+      >
+        <span className="text-muted-foreground">
+          {tr("Броене:", "Counting:")}
+        </span>
+        {(Object.keys(BASIS_LABEL) as PersonBasis[]).map((b) => (
+          <button
+            key={b}
+            type="button"
+            aria-pressed={shown === b}
+            onClick={() => setBasis(b)}
+            className={`rounded-full border px-2.5 py-1 ${shown === b ? "border-foreground bg-foreground text-background" : ""}`}
+          >
+            {tr(BASIS_LABEL[b][0], BASIS_LABEL[b][1])} · {p.bases[b].n}
+          </button>
+        ))}
+      </div>
 
-      {p.per_outlet.length > 1 ? (
-        <Card className="p-4" data-testid="person-per-outlet">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            {tr("По издание", "By outlet")}
-          </h2>
-          <p className="mt-1 text-xs text-muted-foreground">
+      <div
+        className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+        data-testid="person-kpis"
+      >
+        <Kpi label={tr("Оценени", "Assessed")}>
+          <p className="font-title text-2xl tabular-nums">{summary.n}</p>
+          <p className="text-xs text-muted-foreground">
             {tr(
-              "Всяко издание със собственото си разпределение — не един приписан тон на медия.",
-              "Each outlet with its own distribution — never one inferred tone per outlet.",
+              `${BASIS_LABEL[shown][0]} · ${a.assessed} от ${a.eligible} двойки`,
+              `${BASIS_LABEL[shown][1]} · ${a.assessed} of ${a.eligible} pairs`,
             )}
           </p>
-          <ul className="mt-2 space-y-2">
-            {p.per_outlet.map((o) => (
-              <li key={o.domain}>
-                <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
-                  <Link
-                    to={`/outlet/${o.domain}`}
-                    className="font-medium underline-offset-4 hover:underline"
-                  >
-                    {o.domain}
-                  </Link>
-                  <span className="text-xs text-muted-foreground">
-                    {tr(
-                      `${o.assessed} оценени от ${o.eligible}`,
-                      `${o.assessed} assessed of ${o.eligible}`,
-                    )}
-                  </span>
-                </div>
-                <ToneBar counts={o.counts} total={o.assessed} />
-              </li>
-            ))}
-          </ul>
-        </Card>
-      ) : null}
+        </Kpi>
+        <Kpi label={tr("Издания", "Outlets")}>
+          <p className="font-title text-2xl tabular-nums">{p.outlet_count}</p>
+          <p className="text-xs text-muted-foreground">
+            {p.first_published
+              ? `${formatDate(p.first_published, language)} – ${formatDate(p.last_published, language)}`
+              : tr("без дати", "undated")}
+          </p>
+        </Kpi>
+        <Kpi label={tr("Позиция", "Position")}>
+          <PersonPosition s={summary} />
+        </Kpi>
+        <Kpi label={tr("Основен субект", "Main subject")}>
+          <p className="font-title text-2xl tabular-nums">
+            {share === null ? "—" : `${share}%`}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {tr(
+              "от материалите са за него/нея, а не само го споменават",
+              "of the articles are about them, not merely naming them",
+            )}
+          </p>
+        </Kpi>
+      </div>
 
-      <Card className="divide-y p-0">
-        <h2 className="sr-only">{tr("Материали", "Articles")}</h2>
-        {p.articles.map((row) => {
-          // ⚠️ Status and tone are ONE decision. A tone arriving beside any
-          // other status, or on a row outside M, is a claim the accounting
-          // never counted — the producer drops it, and this side refuses it
-          // again rather than depending on the producer having done so.
-          const meta =
-            row.eligible && row.assessment_status === "assessed" && row.tone
-              ? toneMeta(row.tone, language)
-              : null;
-          return (
+      <Card className="space-y-5 p-4">
+        <section aria-labelledby="person-distribution">
+          <h2 id="person-distribution" className="text-sm font-medium">
+            {tr("Разпределение", "Distribution")}
+          </h2>
+          <div className="mt-2">
+            <ToneBuckets counts={summary.counts} total={summary.n} />
+          </div>
+        </section>
+        <PersonSeries p={p} subject={name} />
+        <PersonOutlets
+          rows={p.by_outlet}
+          selected={filter.outlet}
+          onSelect={(d) => setParam("outlet", d)}
+        />
+        <section aria-labelledby="person-roles">
+          <h2 id="person-roles" className="text-sm font-medium">
+            {tr(
+              "Като основен субект и като участник",
+              "As main subject and as participant",
+            )}
+          </h2>
+          <div className="mt-2 grid gap-3 sm:grid-cols-2">
+            {(["primary", "secondary"] as const).map((r) => (
+              <div key={r}>
+                <p className="text-xs text-muted-foreground">
+                  {r === "primary"
+                    ? tr("основен субект", "main subject")
+                    : tr("съществен участник", "significant participant")}{" "}
+                  · {p.by_role[r].n}
+                </p>
+                <ToneBuckets
+                  counts={p.by_role[r].counts}
+                  total={p.by_role[r].n}
+                  compact
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+        {p.co_subjects.length ? (
+          <section aria-labelledby="person-co">
+            <h2 id="person-co" className="text-sm font-medium">
+              {tr("Появява се заедно с", "Appears with")}
+            </h2>
+            <ul className="mt-2 flex flex-wrap gap-1.5 text-xs">
+              {p.co_subjects.map((c) => {
+                const other = c.kind !== "party" ? personOf(c.id) : undefined;
+                const label =
+                  c.kind === "party"
+                    ? c.id
+                    : ((other ? displayName(other, isEnglish) : null) ?? c.id);
+                return (
+                  <li
+                    key={`${c.kind}:${c.id}`}
+                    className="rounded-full border px-2 py-0.5"
+                  >
+                    {other && isNewsPersonId(c.id) ? (
+                      <Link
+                        to={`/person/${c.id}`}
+                        className="underline-offset-4 hover:underline"
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      label
+                    )}{" "}
+                    <span className="text-muted-foreground">{c.count}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ) : null}
+      </Card>
+
+      <section aria-labelledby="person-articles" className="space-y-2">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id="person-articles" className="text-sm font-medium">
+            {tr("Материали", "Articles")}
+          </h2>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <PackSelect
+              ariaLabel={tr("Тон", "Tone")}
+              value={filter.bucket ?? "any"}
+              onChange={(v) => setParam("tone", v === "any" ? null : v)}
+              options={[
+                { value: "any", label: tr("всеки тон", "any tone") },
+                ...BUCKETS.map((b) => ({
+                  value: b,
+                  label: toneMeta(b, language).label,
+                })),
+              ]}
+            />
+            <PackSelect
+              ariaLabel={tr("Роля", "Role")}
+              value={filter.role ?? "any"}
+              onChange={(v) => setParam("role", v === "any" ? null : v)}
+              options={[
+                { value: "any", label: tr("всяка роля", "any role") },
+                {
+                  value: "primary",
+                  label: tr("основен субект", "main subject"),
+                },
+                {
+                  value: "secondary",
+                  label: tr("съществен участник", "significant participant"),
+                },
+                { value: "incidental", label: tr("мимоходом", "in passing") },
+              ]}
+            />
+            {filtering ? (
+              <button
+                type="button"
+                className="text-primary underline-offset-4 hover:underline"
+                onClick={() => setParams({}, { replace: true })}
+              >
+                {tr("изчисти", "clear")}
+              </button>
+            ) : null}
+          </div>
+        </div>
+        {filtering ? (
+          <p
+            className="text-xs text-muted-foreground"
+            data-testid="person-filter-count"
+          >
+            {all.error && !all.data
+              ? tr(
+                  "Всички материали не можаха да се заредят — филтърът не е приложен.",
+                  "Every article could not be loaded — the filter was not applied.",
+                )
+              : all.data
+                ? tr(
+                    `${rows.length} материала отговарят на филтъра — от всички, не само от тази страница.`,
+                    `${rows.length} articles match — from all of them, not only this page.`,
+                  )
+                : tr(
+                    "Зареждане на всички материали…",
+                    "Loading every article…",
+                  )}
+          </p>
+        ) : null}
+        <Card className="divide-y p-0">
+          {rows.map((row) => (
             <article
-              key={`${row.domain}/${row.article_id ?? row.url ?? row.title}`}
+              key={`${row.domain}/${row.article_id ?? row.url}/${row.published ?? ""}`}
               className="px-4 py-3"
+              id={row.article_id ? `a-${row.article_id}` : undefined}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2 text-xs">
-                <span className={meta?.className ?? "text-muted-foreground"}>
-                  {meta
-                    ? tr(
-                        `представяне в материала: ${meta.label}`,
-                        `presentation in the article: ${meta.label}`,
-                      )
-                    : row.eligible
-                      ? row.assessment_status === "insufficient_text"
-                        ? tr(
-                            "материалът не е прочетен изцяло — няма преценка",
-                            "the article was not read in full — no judgement",
-                          )
-                        : row.assessment_status === "pending"
-                          ? tr("още не е оценяван", "not yet assessed")
-                          : tr("няма преценка", "no judgement")
-                      : tr(
-                          "само споменаване — без наложена оценка",
-                          "mentioned in passing — no forced sentiment",
-                        )}
-                </span>
+                {row.bucket ? (
+                  <span
+                    className={`font-medium ${toneMeta(row.bucket, language).className}`}
+                  >
+                    {toneMeta(row.bucket, language).label}
+                  </span>
+                ) : (
+                  <span className="text-muted-foreground">
+                    {tr(
+                      STATUS_LABEL[row.status][0],
+                      STATUS_LABEL[row.status][1],
+                    )}
+                  </span>
+                )}
                 <span className="text-muted-foreground">
-                  {row.subject_role === "primary"
-                    ? tr("основен участник", "main participant")
-                    : row.subject_role === "secondary"
-                      ? tr("споменат участник", "named participant")
-                      : null}
-                  {row.subject_role === "primary" ||
-                  row.subject_role === "secondary"
-                    ? " · "
-                    : ""}
-                  {row.domain} ·{" "}
-                  {row.published
-                    ? formatDate(row.published, language)
-                    : tr("без дата", "no date")}
+                  {row.domain} · {formatDate(row.published, language)}
                 </span>
               </div>
               {row.article_id ? (
@@ -272,137 +451,90 @@ export const NewsPersonScreen = () => {
                   {row.title ?? tr("Без заглавие", "Untitled")}
                 </p>
               )}
-              {row.rationale ? (
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {row.rationale}
+              {row.surface && row.surface !== p.name_bg ? (
+                <p className="text-xs text-muted-foreground">
+                  {tr(
+                    `в текста: „${row.surface}“`,
+                    `in the text: “${row.surface}”`,
+                  )}
                 </p>
               ) : null}
-              {row.evidence_spans.length ? (
-                <ul className="mt-1 space-y-0.5">
-                  {row.evidence_spans.map((span, i) => (
-                    <li key={i} className="text-xs text-muted-foreground">
-                      {span.located === false ? (
-                        <>
-                          <s>
-                            <q lang="bg">{span.quote}</q>
-                          </s>{" "}
-                          (
-                          {tr("не е намерен в текста", "not found in the text")}
-                          )
-                        </>
-                      ) : (
-                        <q lang="bg">{span.quote}</q>
-                      )}{" "}
-                      {span.voice === "quoted_speaker"
-                        ? `(${tr("цитиран", "quoted")}${span.speaker ? `: ${span.speaker}` : ""})`
-                        : span.voice === "journalist"
-                          ? `(${tr("авторски текст", "journalist")})`
-                          : `(${tr("неясен глас", "unclear voice")})`}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-              {row.url ? (
-                <a
-                  href={row.url}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="mt-1 inline-block text-xs text-primary underline-offset-4 hover:underline"
-                >
-                  {tr("оригиналът", "the original")} ↗
-                </a>
-              ) : null}
             </article>
-          );
-        })}
-      </Card>
-
-      {p.total_pages > 1 ? (
-        <nav
-          className="flex items-center justify-between text-sm"
-          data-testid="person-pages"
-          aria-label={tr("Страници", "Pages")}
-        >
-          <button
-            type="button"
-            className="underline-offset-4 hover:underline disabled:opacity-40"
-            disabled={p.page <= 1}
-            onClick={() => setParams({ page: String(p.page - 1) })}
+          ))}
+          {!rows.length && !(filtering && !all.data) ? (
+            <p className="px-4 py-3 text-sm text-muted-foreground">
+              {tr("Няма материали.", "No articles.")}
+            </p>
+          ) : null}
+        </Card>
+        {!filtering && p.total_pages > 1 ? (
+          <nav
+            className="flex items-center justify-between text-sm"
+            data-testid="person-pages"
+            aria-label={tr("Страници", "Pages")}
           >
-            {tr("По-нови", "Newer")}
-          </button>
-          <span className="text-xs text-muted-foreground">
-            {tr(
-              `Страница ${p.page} от ${p.total_pages} · всички ${eligible} двойки са в отчета по-горе`,
-              `Page ${p.page} of ${p.total_pages} · all ${eligible} pairs are in the accounting above`,
-            )}
-          </span>
-          <button
-            type="button"
-            className="underline-offset-4 hover:underline disabled:opacity-40"
-            disabled={p.page >= p.total_pages}
-            onClick={() => setParams({ page: String(p.page + 1) })}
-          >
-            {tr("По-стари", "Older")}
-          </button>
-        </nav>
-      ) : null}
+            <button
+              type="button"
+              className="underline-offset-4 hover:underline disabled:opacity-40"
+              disabled={p.page <= 1}
+              onClick={() => setParams({ page: String(p.page - 1) })}
+            >
+              {tr("По-нови", "Newer")}
+            </button>
+            <span className="text-xs text-muted-foreground">
+              {tr(
+                `Страница ${p.page} от ${p.total_pages}`,
+                `Page ${p.page} of ${p.total_pages}`,
+              )}
+            </span>
+            <button
+              type="button"
+              className="underline-offset-4 hover:underline disabled:opacity-40"
+              disabled={p.page >= p.total_pages}
+              onClick={() => setParams({ page: String(p.page + 1) })}
+            >
+              {tr("По-стари", "Older")}
+            </button>
+          </nav>
+        ) : null}
+      </section>
 
-      <Card className="p-4 text-xs leading-relaxed text-muted-foreground">
+      <Card
+        className="p-4 text-xs leading-relaxed text-muted-foreground"
+        data-testid="person-accounting"
+      >
         <p>
+          {tr(
+            `Отчет: ${a.eligible} двойки (материал, лице), в които лицето е основен субект или съществен участник; ${a.assessed} оценени върху целия текст. Неоценени: ${a.insufficient_text} прочетени частично, ${a.pending} без оценка, ${a.unplaceable} без стойност, ${a.conflict} с разминаващи се прочитания. Извън отчета: ${a.incidental} споменавания мимоходом, ${a.unscored_mentions} в още неоценени статии, ${a.undated} без дата.`,
+            `Accounting: ${a.eligible} (article, person) pairs where the person is the main subject or a significant participant; ${a.assessed} assessed on the full text. Unassessed: ${a.insufficient_text} read in part, ${a.pending} not rated, ${a.unplaceable} without a value, ${a.conflict} with conflicting readings. Outside the accounting: ${a.incidental} passing mentions, ${a.unscored_mentions} in articles not scored yet, ${a.undated} undated.`,
+          )}
+        </p>
+        <p className="mt-1">
           {tr("Рубрика", "Rubric")}: {p.rubric_version}
           {p.identity_version
             ? ` · ${tr("самоличност", "identity")}: ${p.identity_version}`
-            : ""}
-          {p.reviewed_by
-            ? ` · ${tr("прегледал", "reviewed by")}: ${p.reviewed_by}`
-            : ""}
-          {p.reviewed_at ? ` (${formatDate(p.reviewed_at, language)})` : ""} ·{" "}
-          {tr("политика", "policy")}:{" "}
+            : ""}{" "}
+          · {tr("политика", "policy")}:{" "}
           <Link to={POLICY_HREF} className="underline underline-offset-4">
             {NEWS_PERSON_POLICY_VERSION}
-          </Link>
+          </Link>{" "}
+          · {tr("обобщено", "aggregated")}{" "}
+          {formatDate(p.generated_at, language)}
         </p>
         <p className="mt-1">
           <a
-            href={correctionIssueUrl(`/person/${p.news_person_id}`)}
+            href={correctionIssueUrl(`/person/${p.id}`, { id: p.id, name })}
             target="_blank"
             rel="noreferrer noopener"
             className="text-primary underline underline-offset-4"
           >
             {tr(
-              "Сигнал за поправка за това лице",
-              "Report a correction for this person",
+              "Сигнал за погрешна самоличност или възражение",
+              "Report a wrong identity or object",
             )}{" "}
             ↗
-          </a>{" "}
-          {tr(
-            "— носи идентификатора на самоличността и версията на рубриката.",
-            "— carries the identity id and the rubric version.",
-          )}
+          </a>
         </p>
-        {MAIN_SITE_SLUG_SAFE.test(p.verified_main_site_slug ?? "") ? (
-          <p className="mt-1">
-            <a
-              href={mainSiteUrl(
-                `https://naiasno.bg/person/${p.verified_main_site_slug}`,
-                language === "en",
-              )}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-primary underline underline-offset-4"
-            >
-              {tr("Профил в Наясно", "Profile on Naiasno")} ↗
-            </a>
-          </p>
-        ) : (
-          <p className="mt-1">
-            {tr(
-              "Няма проверена връзка към профил в основния сайт — затова не показваме такава.",
-              "There is no verified link to a main-site profile, so none is shown.",
-            )}
-          </p>
-        )}
       </Card>
     </div>
   );

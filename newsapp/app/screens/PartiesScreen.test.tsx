@@ -57,6 +57,7 @@ const renderIndex = async (
   vi.doMock("../data", async (importOriginal) => ({
     ...(await importOriginal<typeof import("../data")>()),
     useParties: () => ({ data, error, loading: false }),
+    usePersonsIndex: () => ({ data: null, error: null, loading: false }),
   }));
   const { PartiesScreen } = await import("./PartiesScreen");
   render(

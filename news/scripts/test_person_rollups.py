@@ -238,6 +238,13 @@ class Shapes(unittest.TestCase):
         row = pr.index_row(self.entry(), {"name_bg": "Х"})
         self.assertNotIn("mean", json.dumps(row))
         self.assertEqual(row["n"], 6)
+        # outlet → [n, five bucket counts]
+        self.assertEqual(row["by_outlet"], {"a.bg": [6, 0, 4, 2, 0, 0]})
+
+    def test_all_rows_carries_every_row_newest_first(self):
+        doc = pr.all_rows(self.entry())
+        self.assertEqual(len(doc["articles"]), 6)
+        self.assertEqual(pr.all_rows_name("mp-1"), "mp-1.all.json")
 
     def test_payload_carries_every_basis_and_the_accounting(self):
         p = pr.payload(self.entry(), {"name_bg": "Х"}, "t", "r", {})
@@ -306,6 +313,7 @@ class ShardWriter(unittest.TestCase):
         out = self.write(self.rows())
         self.assertEqual([r["id"] for r in out["rows"]], ["mp-1"])
         self.assertTrue((self.out / "person" / "mp-1.json").exists())
+        self.assertTrue((self.out / "person" / "mp-1.all.json").exists())
         self.assertFalse(stale.exists())
         index = json.loads((self.out / "persons.json").read_text())
         self.assertEqual(index["retired_ids"], {"a-b-v-old": "mp-1"})

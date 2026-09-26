@@ -11,7 +11,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useParties } from "../data";
+import { useParties, usePersonsIndex } from "../data";
 import { isPartyId } from "../partyId";
 import {
   articles as articlesLabel,
@@ -25,6 +25,8 @@ import { ToneBar } from "../components/ToneBar";
 export const PartiesScreen = () => {
   const { language, tr, isEnglish } = useNewsLocale();
   const parties = useParties();
+  // The people archive is the parties' sibling; linked only once published.
+  const persons = usePersonsIndex();
   return (
     <div className="space-y-5">
       <section className="border-b pb-4">
@@ -32,6 +34,14 @@ export const PartiesScreen = () => {
         <h1 className="app-page-title">
           {tr("Партии в отразяването", "Parties in the coverage")}
         </h1>
+        {persons.data?.persons.length ? (
+          <Link
+            to="/persons"
+            className="mt-1 inline-block text-sm text-primary underline-offset-4 hover:underline"
+          >
+            {tr("Хора в отразяването", "People in the coverage")} →
+          </Link>
+        ) : null}
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           {tr(
             "Как материалите представят всяка партия — разпределение на оценките с видим знаменател. Това е архив: партиите са подредени по обем отразяване, не по благоприятност, и никоя не получава оценка. Оценява се СТАТИЯТА, не партията.",

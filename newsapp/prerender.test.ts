@@ -627,50 +627,56 @@ describe("buildRoutes against a corpus", () => {
     expect(byPath.has("story/s-untitled")).toBe(false);
   });
 
-  it("emits a person route only for an ACTIVE identity, sitemapping only coverage", () => {
+  it("emits a person route for every published person page, and /persons with them", () => {
+    // news-person-sentiment-v1 §6.3: persons.json lists exactly the pages the
+    // build's guard published, so a route here always has a shard behind it.
+    expect(buildRoutes(dir).some((r) => r.path === "persons")).toBe(false);
     writeFileSync(
-      join(dir, "news_persons.json"),
+      join(dir, "persons.json"),
       JSON.stringify({
-        generated_at: "2026-08-26T00:00:00+00:00",
+        generated_at: "2026-09-27T00:00:00+00:00",
         persons: [
           {
-            news_person_id: "np_abc12345",
+            id: "mp-5142",
+            name_bg: "Румен Георгиев Радев",
+            name_en: null,
+            n: 12,
+            outlet_count: 5,
+          },
+          {
+            id: "np_abc12345",
             name_bg: "Иван Иванов",
             name_en: "Ivan Ivanov",
-            coverage: { eligible: 4, assessed: 2 },
+            n: 3,
+            outlet_count: 2,
           },
-          // ⚠️ No coverage means the build wrote NO SHARD, so a route here
-          // would prerender a page whose data file 404s.
-          { news_person_id: "np_nocover", name_bg: "Без покритие" },
-          // Coverage but nothing assessed: the page exists, and a crawler is
-          // not sent to it.
-          {
-            news_person_id: "np_empty",
-            name_bg: "Без оценки",
-            coverage: { eligible: 0, assessed: 0 },
-          },
+          // Nothing assessed: the page exists, and a crawler is not sent to it.
+          { id: "np_empty", name_bg: "Без оценки", n: 0, outlet_count: 0 },
           // ⚠️ An id the client would refuse to link must not become a page.
-          { news_person_id: "../etc", name_bg: "Опасен" },
-          { news_person_id: "NP_UPPER", name_bg: "Главни букви" },
+          { id: "../etc", name_bg: "Опасен", n: 5 },
+          { id: "NP_UPPER", name_bg: "Главни букви", n: 5 },
         ],
       }),
     );
     const routes = buildRoutes(dir);
     const persons = routes.filter((r) => r.path.startsWith("person/"));
     expect(persons.map((r) => r.path).sort()).toEqual([
+      "person/mp-5142",
       "person/np_abc12345",
       "person/np_empty",
     ]);
-    expect(persons.find((r) => r.path.endsWith("np_abc12345"))!.sitemap).toBe(
-      true,
-    );
+    const radev = persons.find((r) => r.path === "person/mp-5142")!;
+    expect(radev.sitemap).toBe(true);
+    expect(radev.title).toContain("Румен Георгиев Радев");
+    // No curated Latin name: the EN title transliterates rather than
+    // repeating Cyrillic.
+    expect(radev.titleEn).toContain("Rumen Georgiev Radev");
     expect(persons.find((r) => r.path.endsWith("np_empty"))!.sitemap).toBe(
       false,
     );
-    // The name a reader sees, not the opaque id.
-    expect(
-      persons.find((r) => r.path.endsWith("np_abc12345"))!.title,
-    ).toContain("Иван Иванов");
+    const index = routes.find((r) => r.path === "persons")!;
+    expect(index.sitemap).toBe(true);
+    expect(index.description).toContain("не е класация");
   });
 
   it("still yields every hub alongside the corpus routes", () => {

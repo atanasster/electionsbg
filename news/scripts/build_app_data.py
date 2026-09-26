@@ -1604,7 +1604,7 @@ def person_meta(entry: dict, sources, registry_by_id: dict) -> dict:
                 "disambiguation_bg": p.get("disambiguation_bg"),
                 "disambiguation_en": p.get("disambiguation_en"),
                 "main_site_slug": p.get("verified_main_site_slug"),
-                "roles": [], "photo": None, "current_role": None,
+                "roles": [], "role_labels": {}, "current_role": None,
                 "party": None, "reviewed_at": p.get("reviewed_at")}
     g = sources.people.get(entry["id"]) or {}
     display = g.get("display") or {}
@@ -1614,8 +1614,12 @@ def person_meta(entry: dict, sources, registry_by_id: dict) -> dict:
     return {"name_bg": g.get("canonical") or entry.get("canonical"),
             "name_en": display.get("name_en"),
             "main_site_slug": entry["id"], "roles": roles,
-            "photo": display.get("photo"), "current_role": current,
-            "party": party, "mp_id": display.get("mp_id")}
+            # The office names in both languages, from the main site's own
+            # vocabulary, for exactly the roles this page lists.
+            "role_labels": {r["role"]: sources.role_labels[r["role"]]
+                            for r in roles
+                            if r.get("role") in sources.role_labels},
+            "current_role": current, "party": party}
 
 
 def coverage_by_day(records: list) -> dict:
@@ -1734,6 +1738,9 @@ def write_person_shards(out_dir: Path, registry: dict, rows: list,
             name = person_rollups.page_name(person_id, page)
             write_json(person_dir / name, payload)
             written.add(name)
+        name = person_rollups.all_rows_name(person_id)
+        write_json(person_dir / name, person_rollups.all_rows(entry))
+        written.add(name)
         index_rows.append(person_rollups.index_row(entry, meta))
         baselines[person_id] = person_rollups.baseline(entry)
     for stale in person_dir.glob("*.json"):

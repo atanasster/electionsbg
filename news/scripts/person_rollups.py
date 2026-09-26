@@ -425,14 +425,20 @@ def payload(entry: dict, meta: dict, generated_at: str, rubric_version: str,
 def index_row(entry: dict, meta: dict) -> dict:
     """⚠️ NO MEAN. Counts and n only — the index must not be sortable by tone."""
     story = summarize(entry["units"][DEFAULT_BASIS])
+    labels = _labels()
     return {"id": entry["id"], "kind": entry["kind"],
             "name_bg": meta.get("name_bg"), "name_en": meta.get("name_en"),
-            "role": meta.get("current_role"), "party": meta.get("party"),
-            "photo": meta.get("photo"),
+            "role": meta.get("current_role"),
+            "role_label": (meta.get("role_labels") or {}).get(meta.get("current_role")),
+            "party": meta.get("party"),
             "n": story["n"], "counts": story["counts"],
             "eligible": entry["eligible"], "outlet_count": entry["outlet_count"],
             "last_published": entry["last_published"],
-            "outlets": sorted(o["domain"] for o in by_outlet(entry))}
+            # outlet → [n, counts in bucket order] at the story basis, so the
+            # index's outlet filter can redraw each row's bars for that outlet
+            # alone. Counts only — no mean, here as everywhere on the index.
+            "by_outlet": {o["domain"]: [o["n"], *(o["counts"][b] for b in labels)]
+                          for o in by_outlet(entry)}}
 
 
 def baseline(entry: dict) -> dict:
@@ -449,6 +455,18 @@ def baseline(entry: dict) -> dict:
         return {"n": 0, "sum": None, "levels": None}
     return {"n": len(assessed), "sum": _round(sum(r["value"] for r in assessed)),
             "levels": levels.pop()}
+
+
+def all_rows(entry: dict) -> dict:
+    """Every row, newest first — fetched only when a reader FILTERS the
+    archive, so a filter is never applied to one page and shown as the whole."""
+    return {"version": 1, "id": entry["id"],
+            "articles": sorted(entry["rows"] + entry["incidental_rows"],
+                               key=published_key, reverse=True)}
+
+
+def all_rows_name(person_id: str) -> str:
+    return f"{person_id}.all.json"
 
 
 def page_name(person_id: str, page: int) -> str:

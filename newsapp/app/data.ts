@@ -3043,7 +3043,13 @@ export interface PersonTone {
   assessed_at: string;
 }
 
-/** T4.4 — one article on a person's page, with its SHORT evidence. */
+import { isNewsPersonId } from "./newsPersonId";
+
+/**
+ * One article on a person's page (news-person-sentiment-v1 §4). A value and a
+ * bucket appear ONLY on an assessed row: a conflicted, truncated or unscored
+ * reading is shown as what it is, never as a score.
+ */
 export interface PersonArticleRow {
   url: string | null;
   domain: string;
@@ -3051,96 +3057,173 @@ export interface PersonArticleRow {
   title: string | null;
   published: string | null;
   story_id: string | null;
-  /** False for an incidental mention: counted, never in M. */
-  eligible: boolean;
-  subject_role: PersonTone["subject_role"] | null;
-  assessment_status: PersonTone["assessment_status"] | "pending";
-  tone: Tone | null;
-  rationale: string | null;
-  evidence_spans: EvidenceSpan[];
-  text_scope: TextScopeKind | null;
-  rubric_version: string | null;
+  /** The article's own spelling. */
+  surface: string | null;
+  merged_surfaces: string[];
+  subject_role: "primary" | "secondary" | "incidental" | null;
+  status:
+    | "assessed"
+    | "insufficient_text"
+    | "pending"
+    | "unplaceable"
+    | "conflict"
+    | "incidental";
+  value: number | null;
+  levels: number | null;
+  bucket: ToneBucket | null;
+  basis: PersonIdentity["basis"] | null;
+  form_kind: string | null;
   identity_version: string | null;
 }
 
-/**
- * T4.4 — one identity's page. ⚠️ The accounting is the point:
- * `sum(counts) === assessed` (N) and
- * `assessed + insufficient_text + pending + refused === eligible` (M).
- * `incidental` and unresolved mentions are NEVER inside M.
- */
-import { isNewsPersonId } from "./newsPersonId";
+/** One basis's summary: n UNITS, their buckets, and the mean with its SE. */
+export interface PersonBasisSummary {
+  n: number;
+  counts: Record<ToneBucket, number>;
+  mean: number | null;
+  se: number | null;
+  ci_low: number | null;
+  ci_high: number | null;
+  mean_bucket: ToneBucket | null;
+}
 
+export type PersonBasis = "story" | "same_headline" | "raw";
+
+export interface PersonOutletRow extends PersonBasisSummary {
+  domain: string;
+  /** Raw eligible rows from this outlet — beside n, never instead of it. */
+  rows: number;
+  /** Below the build's floor the mean is withheld; the counts still ship. */
+  mean_withheld?: boolean;
+}
+
+export interface PersonSeriesPoint extends PersonBasisSummary {
+  period: string;
+  /** Share of the corpus's articles in this period that Jev scored. */
+  coverage: number | null;
+  /** Hatched, never drawn as a line: the period is under-covered. */
+  below_floor: boolean;
+}
+
+export interface PersonRole {
+  source?: string;
+  role: string;
+  party?: string;
+  start?: string;
+  end?: string;
+  date_basis?: string;
+  current: boolean;
+}
+
+/**
+ * One person's archive page (news-person-sentiment-v1 §4). The accounting is
+ * the point: `sum(raw_counts) === accounting.assessed` (N) and N plus the
+ * four unassessed kinds `=== accounting.eligible` (M). Incidental mentions
+ * and unscored mentions are counted BESIDE M.
+ */
 export interface PersonPayload {
   version: number;
   generated_at: string;
   rubric_version: string;
-  news_person_id: string;
+  id: string;
+  kind: "person" | "news_person";
   name_bg: string | null;
   name_en: string | null;
-  disambiguation_bg: string | null;
-  disambiguation_en: string | null;
+  disambiguation_bg?: string | null;
+  disambiguation_en?: string | null;
+  /** The main-site profile slug, or null — never a guessed link. */
+  main_site_slug: string | null;
+  roles: PersonRole[];
+  /** role code → its name in both languages (the main site's vocabulary). */
+  role_labels: Record<string, { bg?: string; en?: string }>;
+  current_role: string | null;
+  party: string | null;
   identity_version: string | null;
-  /** The named review owner, from the REGISTRY — `public_index` does not
-   * carry one, so a shard built from the index alone publishes null here. */
-  reviewed_by: string | null;
-  reviewed_at: string | null;
-  /** A bridge to the main site, or null — never a guessed link. */
-  verified_main_site_slug: string | null;
-  counts: Partial<Record<Tone, number>>;
-  assessed: number;
-  insufficient_text: number;
-  pending: number;
-  refused: number;
-  eligible: number;
-  /**
-   * A SPLIT of `insufficient_text`, not a fifth part of M: how many of those
-   * were withheld because the article was not read in full, as opposed to
-   * being read and found to carry too little.
-   */
-  partial_scope: number;
-  /** M with same-headline copies removed; published BESIDE the raw one. */
-  eligible_deduplicated: number;
-  same_headline_copies: number;
-  incidental: number;
-  /** Stored rows whose `subject_role` is unreadable — OUTSIDE M, like an
-   * incidental mention, so one malformed row cannot break the accounting. */
-  unreadable_role: number;
+  accounting: {
+    eligible: number;
+    assessed: number;
+    insufficient_text: number;
+    pending: number;
+    unplaceable: number;
+    conflict: number;
+    incidental: number;
+    unreadable_role: number;
+    unscored_mentions: number;
+    undated: number;
+  };
+  default_basis: PersonBasis;
+  bases: Record<PersonBasis, PersonBasisSummary>;
+  raw_counts: Record<ToneBucket, number>;
+  by_outlet: PersonOutletRow[];
+  by_role: Record<"primary" | "secondary", PersonBasisSummary>;
+  series: {
+    granularity: "day" | "week" | "month";
+    points: PersonSeriesPoint[];
+    undated: number;
+    coverage_floor: number;
+  };
+  co_subjects: {
+    kind: "person" | "news_person" | "party";
+    id: string;
+    count: number;
+  }[];
   outlet_count: number;
   story_count: number;
   first_published: string | null;
   last_published: string | null;
-  /** Rows inside M carrying no publication date — so the window above cannot
-   * read as covering every row it is printed beside. */
-  undated: number;
   page: number;
   page_size: number;
   total_pages: number;
-  per_outlet: {
-    domain: string;
-    counts: Partial<Record<Tone, number>>;
-    assessed: number;
-    eligible: number;
-  }[];
   articles: PersonArticleRow[];
 }
 
 export { NEWS_PERSON_ID_SAFE, isNewsPersonId } from "./newsPersonId";
 
-/** What one identity's shard accounts for, echoed onto its index row so a
- * list and its page can never disagree about the denominator. */
-export interface NewsPersonCoverage {
-  counts: Partial<Record<Tone, number>>;
-  assessed: number;
+/** One person on `/persons` — counts and n only, and NO mean, by design. */
+export interface PersonIndexRow {
+  id: string;
+  kind: "person" | "news_person";
+  name_bg: string | null;
+  name_en: string | null;
+  role: string | null;
+  /** The CURRENT office's name, from the main site's vocabulary. */
+  role_label?: { bg?: string; en?: string } | null;
+  party: string | null;
+  n: number;
+  counts: Record<ToneBucket, number>;
   eligible: number;
-  incidental: number;
-  unreadable_role: number;
   outlet_count: number;
-  story_count: number;
-  first_published: string | null;
   last_published: string | null;
-  undated: number;
+  /** outlet → [n, …counts in bucket order], story basis. */
+  by_outlet: Record<string, number[]>;
 }
+
+/** What a news-only identity's page accounts for, echoed onto its row in
+ * `news_persons.json` so a list and its page cannot disagree. */
+export type NewsPersonCoverage = PersonIndexRow;
+
+export interface PersonsIndex {
+  generated_at: string;
+  default_basis: PersonBasis;
+  persons: PersonIndexRow[];
+  /** A slug the person layer retired → the live page it redirects to. */
+  retired_ids?: Record<string, string>;
+}
+
+/** 404 whenever `NEWS_PERSON_AGGREGATES` is off. */
+export const usePersonsIndex = () => useData<PersonsIndex>("/persons.json");
+
+export const personAllRowsPath = (id: string | null | undefined) =>
+  isNewsPersonId(id) ? `/person/${id}.all.json` : null;
+
+/** Every row — fetched only while a filter is active. */
+export const usePersonAllRows = (
+  id: string | null | undefined,
+  enabled: boolean,
+) =>
+  useData<{ version: number; id: string; articles: PersonArticleRow[] }>(
+    enabled ? personAllRowsPath(id) : null,
+  );
 
 export const personPayloadPath = (
   id: string | null | undefined,

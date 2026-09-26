@@ -12,6 +12,7 @@ import { clamp, safeSegment, type PrerenderRoute } from "./prerender";
 import { isCaseSlug } from "./app/caseSlug";
 import { isNewsPersonId } from "./app/newsPersonId";
 import { isPartyId } from "./app/partyId";
+import { transliterateName } from "../src/data/candidates/transliterateName";
 
 type Bundle = Record<string, unknown>;
 
@@ -318,35 +319,54 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
     });
   }
 
-  // T4.4 — the news-person pages. ⚠️ Only an ACTIVE, human-reviewed identity
-  // with coverage is here at all (the build writes no other shard), and a
-  // person with no eligible pair is not sitemapped: a page saying „no
-  // assessments" is not what a crawler should be sent to.
-  const persons = read(dataDir, "news_persons.json");
-  for (const person of (persons?.persons as Bundle[] | undefined) ?? []) {
-    const id = String(person.news_person_id ?? "");
+  // news-person-sentiment-v1 §6.3 — the person pages and their index.
+  // ⚠️ `persons.json` exists only when NEWS_PERSON_AGGREGATES was on for the
+  // build, and it lists exactly the people the page guard published, so a
+  // route here always has a shard behind it. A person with no assessed unit
+  // is not sitemapped: a page saying „no assessments" is not what a crawler
+  // should be sent to.
+  const persons = read(dataDir, "persons.json");
+  const personRows = (persons?.persons as Bundle[] | undefined) ?? [];
+  if (persons) {
+    routes.push({
+      path: "persons",
+      title: "Хора в новините — как медиите ги представят | Наясно Новини",
+      description: clamp(
+        `${personRows.length} души с достатъчно отразяване: колко материала ги представят и как. Подредени по обем на отразяването, не по тон — това не е класация.`,
+      ),
+      titleEn: "People in the news — how the media frame them | Naiasno News",
+      descriptionEn: clamp(
+        `${personRows.length} people with enough coverage: how many articles frame them and how. Ordered by volume of coverage, never by tone — this is not a ranking.`,
+      ),
+      lastmod: (persons.generated_at as string) ?? null,
+      sitemap: personRows.length > 0,
+    });
+  }
+  for (const person of personRows) {
+    const id = String(person.id ?? "");
     if (!isNewsPersonId(id)) continue;
-    const coverage = (person.coverage ?? null) as Bundle | null;
-    if (!coverage) continue;
-    const eligible = Number(coverage.eligible ?? 0);
-    const assessed = Number(coverage.assessed ?? 0);
+    const n = Number(person.n ?? 0);
+    // Articles, not units: `n` counts (outlet, story) units, so the prose
+    // uses the eligible article count and names the unit where it quotes n.
+    const articles = Number(person.eligible ?? 0);
+    const outlets = Number(person.outlet_count ?? 0);
     const nameBg = String(person.name_bg ?? id);
-    const nameEn = String(person.name_en ?? nameBg);
+    const nameEn = String(person.name_en ?? transliterateName(nameBg));
     routes.push({
       path: `person/${id}`,
       title: `${clamp(nameBg, 70)} — как медиите го представят | Наясно Новини`,
       description: clamp(
-        `Архив на ${eligible} двойки (лице, материал) с ${assessed} оценени: как всеки материал представя лицето, с цитатите, на които се опира. Оценява се текстът, не човекът.`,
+        `Как ${articles} материала от ${outlets} издания представят ${nameBg}: разпределение, развитие във времето и по издания. Оценява се текстът, не човекът.`,
       ),
       titleEn: `${clamp(nameEn, 70)} — how the media present them | Naiasno News`,
       descriptionEn: clamp(
-        `An archive of ${eligible} (person, article) pairs with ${assessed} assessed: how each article presents them, with the quotes it rests on. The text is assessed, not the person.`,
+        `How ${articles} articles from ${outlets} outlets frame ${nameEn}: the distribution, over time and by outlet. The text is assessed, not the person.`,
       ),
       lastmod:
-        (coverage.last_published as string) ??
+        (person.last_published as string) ??
         (persons?.generated_at as string) ??
         null,
-      sitemap: eligible > 0,
+      sitemap: n > 0,
     });
   }
 
