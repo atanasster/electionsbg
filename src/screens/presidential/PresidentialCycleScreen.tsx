@@ -22,7 +22,6 @@ import { FC, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePresidentialSummary } from "@/data/presidential/usePresidentialSummary";
-import { usePresidentialCycleAccuracy } from "@/data/presidential/usePresidentialPolls";
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
@@ -65,7 +64,7 @@ import {
 import { presidentialCountryFacts } from "@/data/presidential/countryFacts";
 import { formatInt, formatPct } from "@/lib/currency";
 import { PresidentialPersonName } from "./PresidentialPersonName";
-import { PresidentialPollsTile } from "./PresidentialPollsTile";
+import { PresidentialHistory } from "@/screens/polls/PresidentialHistory";
 import { PresidentialTicketRanking } from "./PresidentialTicketRanking";
 import {
   leadersByPlace,
@@ -650,7 +649,6 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
   // `presidential-polls` section below (never rendered while `"loading"`, matching every other
   // query-backed section on this page), and React Query dedupes this call against the tile's
   // own, so the gate costs no second request.
-  const pollsAccuracy = usePresidentialCycleAccuracy(cycle);
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const state = usePresidentialSummary(cycle);
@@ -770,16 +768,16 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           at most one cycle to plot — building that chart now would be UI for data that does not
           exist yet, the same "no code for a hypothetical future" rule this repo applies
           everywhere else. */}
-      {pollsAccuracy.status !== "loading" ? (
+      {
         <DashboardSection
           id="presidential-polls"
           title={t("presidential_polls_heading")}
           icon={Target}
           headingLevel={2}
         >
-          <PresidentialPollsTile cycle={cycle} />
+          <PresidentialHistory cycle={cycle} round={round} />
         </DashboardSection>
-      ) : null}
+      }
 
       {/* ⚠ ONLY THE SURVIVING TICKETS, and the caption says so. A ticket absent from the runoff
           did not fall to zero — it was not standing — so 2021's other 21 would each show a

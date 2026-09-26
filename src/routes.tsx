@@ -1307,6 +1307,11 @@ const PollsScreen = lazy(() =>
     default: m.PollsScreen,
   })),
 );
+const PollsAgencyPresidentialScreen = lazy(() =>
+  import("./screens/PollsAgencyPresidentialScreen").then((m) => ({
+    default: m.PollsAgencyPresidentialScreen,
+  })),
+);
 const PollsAgencyScreen = lazy(() =>
   import("./screens/PollsAgencyScreen").then((m) => ({
     default: m.PollsAgencyScreen,
@@ -4226,6 +4231,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <PollsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="polls/:agencyId/presidential"
+            element={
+              <LayoutScreen>
+                <PollsAgencyPresidentialScreen />
               </LayoutScreen>
             }
           />

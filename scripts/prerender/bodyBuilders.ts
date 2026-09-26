@@ -17,7 +17,11 @@ import {
   latestPollPerAgency,
 } from "@/data/polls/pollRows";
 import { sortByFieldworkDesc } from "@/data/polls/fieldwork";
-import type { Poll, PresidentialPollDetail } from "@/data/polls/pollsTypes";
+import type {
+  Poll,
+  PresidentialPollDetail,
+  Runoff,
+} from "@/data/polls/pollsTypes";
 
 // ── Site-wide section navigation ──────────────────────────────────────────
 // A crawlable link block appended to the (hidden) #ssg-content body of EVERY
@@ -590,6 +594,7 @@ const PRESIDENTIAL_TOP_CANDIDATES = 3;
 type PresidentialPollsCorpus = {
   polls: Poll[];
   details: PresidentialPollDetail[];
+  runoffs: Runoff[];
 };
 
 /** ⚠ MEMOISED PER ROOT, matching `presidentialRoutes.ts`'s `accuracyCache` in this same
@@ -622,7 +627,16 @@ const readPresidentialPolls = (
   const details: PresidentialPollDetail[] = fs.existsSync(detailsFile)
     ? JSON.parse(fs.readFileSync(detailsFile, "utf-8"))
     : [];
-  const built = { polls, details };
+  const runoffsFile = path.join(
+    publicFolder,
+    "polls",
+    "presidential",
+    "runoffs.json",
+  );
+  const runoffs: Runoff[] = fs.existsSync(runoffsFile)
+    ? JSON.parse(fs.readFileSync(runoffsFile, "utf8"))
+    : [];
+  const built = { polls, details, runoffs };
   presidentialPollsCache.set(publicFolder, built);
   return built;
 };
@@ -643,14 +657,23 @@ const buildPresidentialPollsSection = (publicFolder: string): string => {
     `<table><thead><tr><th>Агенция</th><th>Проучване</th><th>Водещи кандидати</th></tr></thead><tbody>`,
   );
   for (const p of latest) {
-    const link = `<a href="${SITE_URL}/polls/${encodeURIComponent(p.agencyId)}">${escapeHtml(p.agencyId)}</a>`;
-    const top = (detailsByPoll.get(p.id) ?? []).slice(
-      0,
-      PRESIDENTIAL_TOP_CANDIDATES,
-    );
-    const candidates = top
-      .map((d) => `${escapeHtml(d.candidateName_bg)} ${d.support.toFixed(1)}%`)
-      .join(", ");
+    const link = `<a href="${SITE_URL}/polls/${encodeURIComponent(p.agencyId)}/presidential">${escapeHtml(p.agencyId)}</a>`;
+    const candidates = (p.questions?.length ? p.questions : [null])
+      .map((q) => {
+        const top = (detailsByPoll.get(p.id) ?? [])
+          .filter((d) => (q ? d.questionId === q.id : !d.questionId))
+          .slice(0, PRESIDENTIAL_TOP_CANDIDATES);
+        return (
+          (q ? escapeHtml(q.wording.bg) + ": " : "") +
+          top
+            .map(
+              (d) =>
+                `${escapeHtml(d.candidateName_bg)} ${d.support.toFixed(1)}% ${escapeHtml(q?.answerScale.find((a) => a.code === d.answerCode)?.label.bg ?? "")}`,
+            )
+            .join(", ")
+        );
+      })
+      .join("<br>");
     parts.push(
       `<tr><td>${link}</td><td>${escapeHtml(p.fieldwork)}</td><td>${candidates}</td></tr>`,
     );
@@ -720,29 +743,57 @@ export const buildPollsBody = (publicFolder: string): string => {
  *  Independent of `analysis.json` (a parliamentary-only enrichment file) so a presidential-only
  *  agency — GM's own real case, decision 11 — is never held hostage to a file that has nothing
  *  to say about it. */
-const buildPresidentialAgencyPollsSection = (
+export const buildPresidentialAgencyPollsSection = (
   publicFolder: string,
   agencyId: string,
+  lang: "bg" | "en" = "bg",
 ): string => {
-  const { polls: allPolls, details } = readPresidentialPolls(publicFolder);
+  const {
+    polls: allPolls,
+    details,
+    runoffs,
+  } = readPresidentialPolls(publicFolder);
   const polls = sortByFieldworkDesc(
     allPolls.filter((p) => p.agencyId === agencyId),
   );
   if (polls.length === 0) return "";
   const detailsByPoll = groupByPollSortedBySupport(details);
-  const parts: string[] = [`<h2>Президентски проучвания</h2>`];
+  const parts: string[] = [
+    `<h2>${lang === "bg" ? "Президентски проучвания" : "Presidential polls"}</h2>`,
+  ];
   for (const p of polls) {
-    parts.push(`<h3>${escapeHtml(p.fieldwork)}</h3>`);
-    const rows = detailsByPoll.get(p.id) ?? [];
     parts.push(
-      `<table><thead><tr><th>Кандидат</th><th>Дял</th></tr></thead><tbody>`,
+      `<h3>${escapeHtml(p.fieldwork)}</h3><p>n=${p.respondents ?? "—"} · ${escapeHtml(p.methodology[lang])} · ${escapeHtml(p.publishedAt ?? "—")}</p><a href="${escapeAttr(p.source)}">${lang === "bg" ? "Източник" : "Source"}</a>`,
     );
-    for (const d of rows) {
-      parts.push(
-        `<tr><td>${escapeHtml(d.candidateName_bg)}</td><td>${d.support.toFixed(1)}%</td></tr>`,
+    for (const q of p.questions?.length ? p.questions : [null]) {
+      if (q)
+        parts.push(
+          `<h4>${escapeHtml(q.wording[lang])}</h4><p>${escapeHtml(q.base.label[lang])}</p>`,
+        );
+      const rows = (detailsByPoll.get(p.id) ?? []).filter((d) =>
+        q ? d.questionId === q.id : !d.questionId,
       );
+      parts.push(
+        `<table><thead><tr><th>${lang === "bg" ? "Кандидат" : "Candidate"}</th><th>${lang === "bg" ? "Отговор" : "Answer"}</th><th>%</th></tr></thead><tbody>`,
+      );
+      for (const d of rows)
+        parts.push(
+          `<tr><td>${escapeHtml(d.candidateName_bg)}</td><td>${escapeHtml(q?.answerScale.find((a) => a.code === d.answerCode)?.label[lang] ?? "—")}</td><td>${d.support.toFixed(1)}%</td></tr>`,
+        );
+      parts.push("</tbody></table>");
+      for (const r of runoffs.filter(
+        (r) => r.pollId === p.id && (q ? r.questionId === q.id : !r.questionId),
+      )) {
+        const name = (key: string, raw?: string) =>
+          raw ??
+          details.find((d) => d.pollId === p.id && d.candidateKey === key)
+            ?.candidateName_bg ??
+          key;
+        parts.push(
+          `<p>${escapeHtml(name(r.a, r.aName_bg))}: ${r.supportA.toFixed(1)}% / ${escapeHtml(name(r.b, r.bName_bg))}: ${r.supportB.toFixed(1)}%</p>`,
+        );
+      }
     }
-    parts.push(`</tbody></table>`);
   }
   return parts.join("\n");
 };
@@ -779,7 +830,10 @@ export const buildPollsAgencyBody = (
     publicFolder,
     agency.id,
   );
-  if (presidentialSection) parts.push(presidentialSection);
+  if (presidentialSection)
+    parts.push(
+      `<h2>Президентски проучвания</h2><a href="${SITE_URL}/polls/${encodeURIComponent(agency.id)}/presidential">Президентски проучвания</a>`,
+    );
   if (!take) return parts.join("\n");
   if (take.summary?.bg) {
     parts.push(`<h2>Резюме</h2>`);

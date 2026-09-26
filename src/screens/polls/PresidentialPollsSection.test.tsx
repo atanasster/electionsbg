@@ -107,7 +107,7 @@ describe("PresidentialPollsSection", () => {
       await screen.findByText(bgCorpus.polls_section_presidential),
     ).toBeInTheDocument();
     const link = screen.getByRole("link", { name: "Глобал Метрикс" });
-    expect(link).toHaveAttribute("href", "/polls/GM");
+    expect(link).toHaveAttribute("href", "/polls/GM/presidential");
     expect(screen.getByText("Илияна Йотова")).toBeInTheDocument();
     expect(screen.getByText("30.0%")).toBeInTheDocument();
   });

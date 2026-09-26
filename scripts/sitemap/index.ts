@@ -864,6 +864,8 @@ const enumeratePolls = (route: RouteDef, rootUrl: string) => {
   const lastmod = safeFileMod(agenciesFile);
   for (const a of agencies) {
     pushUrl(`${indexUrl}/${a.id}`, lastmod);
+    pushUrl(`${indexUrl}/${a.id}/presidential`, lastmod);
+    pushUrl(`${rootUrl}/en/${route.path}/${a.id}/presidential`, lastmod);
   }
 };
 

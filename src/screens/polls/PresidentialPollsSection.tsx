@@ -38,8 +38,10 @@ const TOP_CANDIDATES = 3;
 export const PresidentialPollsSection: FC<Props> = ({ agencies }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
-  const { data: polls } = usePresidentialPollsList();
-  const { data: details } = usePresidentialPollDetails();
+  const pollQuery = usePresidentialPollsList();
+  const detailQuery = usePresidentialPollDetails();
+  const polls = pollQuery.data,
+    details = detailQuery.data;
 
   const latest = useMemo(() => latestPollPerAgency(polls ?? []), [polls]);
   const detailsByPoll = useMemo(
@@ -47,6 +49,21 @@ export const PresidentialPollsSection: FC<Props> = ({ agencies }) => {
     [details],
   );
 
+  if (pollQuery.isError || detailQuery.isError)
+    return (
+      <div role="alert">
+        <p>{t("pp_history_load_error")}</p>
+        <button
+          className="underline text-primary"
+          onClick={() => {
+            void pollQuery.refetch();
+            void detailQuery.refetch();
+          }}
+        >
+          {t("pp_history_retry")}
+        </button>
+      </div>
+    );
   if (latest.length === 0) return null;
 
   const agencyById = new Map(agencies.map((a) => [a.id, a]));
@@ -79,10 +96,7 @@ export const PresidentialPollsSection: FC<Props> = ({ agencies }) => {
                 ? agency.name_bg
                 : agency.name_en
               : p.agencyId;
-            const topRows = (detailsByPoll.get(p.id) ?? []).slice(
-              0,
-              TOP_CANDIDATES,
-            );
+            const questionBlocks = p.questions?.length ? p.questions : [null];
             return (
               <div
                 key={p.id}
@@ -90,7 +104,7 @@ export const PresidentialPollsSection: FC<Props> = ({ agencies }) => {
               >
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs">
                   <Link
-                    to={`/polls/${p.agencyId}`}
+                    to={`/polls/${p.agencyId}/presidential`}
                     className="font-semibold text-sm text-primary hover:underline"
                   >
                     {name}
@@ -100,22 +114,43 @@ export const PresidentialPollsSection: FC<Props> = ({ agencies }) => {
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
-                  {topRows.map((d) => (
-                    <span
-                      key={d.candidateKey}
-                      className="flex items-center gap-1"
-                    >
-                      {isNamedCandidateRow(d) ? (
-                        <PresidentialPersonName name={d.candidateName_bg} />
-                      ) : (
-                        <span className="font-medium">
-                          {d.candidateName_bg}
-                        </span>
+                  {questionBlocks.map((q) => (
+                    <div key={q?.id ?? "legacy"} className="space-y-1">
+                      {q && (
+                        <p className="font-medium">
+                          {q.wording[isBg ? "bg" : "en"]}
+                        </p>
                       )}
-                      <span className="tabular-nums font-semibold">
-                        {d.support.toFixed(1)}%
-                      </span>
-                    </span>
+                      {(detailsByPoll.get(p.id) ?? [])
+                        .filter((d) =>
+                          q ? d.questionId === q.id : !d.questionId,
+                        )
+                        .slice(0, TOP_CANDIDATES)
+                        .map((d) => (
+                          <span
+                            key={d.candidateKey + d.answerCode}
+                            className="flex items-center gap-1"
+                          >
+                            {isNamedCandidateRow(d) ? (
+                              <PresidentialPersonName
+                                name={d.candidateName_bg}
+                              />
+                            ) : (
+                              <span className="font-medium">
+                                {d.candidateName_bg}
+                              </span>
+                            )}
+                            <span className="tabular-nums font-semibold">
+                              {d.support.toFixed(1)}%{" "}
+                              {
+                                q?.answerScale.find(
+                                  (a) => a.code === d.answerCode,
+                                )?.label[isBg ? "bg" : "en"]
+                              }
+                            </span>
+                          </span>
+                        ))}
+                    </div>
                   ))}
                 </div>
               </div>

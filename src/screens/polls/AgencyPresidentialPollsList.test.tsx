@@ -89,8 +89,10 @@ describe("AgencyPresidentialPollsList", () => {
   it("renders the fieldwork, source link and methodology for a poll", () => {
     const poll = POLL();
     renderList([poll], []);
-    expect(screen.getByText("до Jul 11 2026")).toBeInTheDocument();
-    expect(screen.getByText("Метод")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /до Jul 11 2026/ }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/^Метод · n=1503/)).toBeInTheDocument();
     const source = screen.getByRole("link", { name: /Източник/ });
     expect(source).toHaveAttribute("href", poll.source);
   });

@@ -46,9 +46,9 @@ const fetchJson = async <T>(path: string): Promise<T | null> => {
         e instanceof Error ? e.message : String(e)
       }`,
     );
-    return null;
+    throw e;
   }
-  if (!res.ok) return null;
+  if (!res.ok) throw new Error("Presidential polls HTTP " + res.status);
   return (await res.json()) as T;
 };
 
@@ -91,13 +91,21 @@ export const usePresidentialPollsAccuracy = () =>
 export type PresidentialCycleAccuracyState =
   | { status: "loading" }
   | { status: "ready"; cycle: PresidentialCycleAccuracy }
-  | { status: "unscored" };
+  | { status: "unscored" }
+  | { status: "error"; retry: () => void };
 
 export const usePresidentialCycleAccuracy = (
   cycle: string | undefined,
 ): PresidentialCycleAccuracyState => {
   const query = usePresidentialPollsAccuracy();
   if (query.isPending) return { status: "loading" };
+  if (query.isError)
+    return {
+      status: "error",
+      retry: () => {
+        void query.refetch();
+      },
+    };
   const found = cycle
     ? query.data?.cycles.find((c) => c.cycle === cycle)
     : undefined;

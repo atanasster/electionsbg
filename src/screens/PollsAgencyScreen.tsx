@@ -11,14 +11,9 @@ import {
   usePollsAccuracy,
   usePollsAnalysis,
 } from "@/data/polls/usePolls";
-import {
-  usePresidentialPollDetails,
-  usePresidentialPollsList,
-  usePresidentialRunoffs,
-} from "@/data/presidential/usePresidentialPolls";
+import { usePresidentialPollsList } from "@/data/presidential/usePresidentialPolls";
 import { AgencyProfileCard } from "./polls/AgencyProfileCard";
 import { AgencyPollsList } from "./polls/AgencyPollsList";
-import { AgencyPresidentialPollsList } from "./polls/AgencyPresidentialPollsList";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -47,8 +42,6 @@ export const PollsAgencyScreen: FC = () => {
   // file), which `!!data` cannot tell apart from "still loading". Gating `ready` on that
   // would wait forever for an agency that will never have one.
   const presPolls = usePresidentialPollsList();
-  const presDetails = usePresidentialPollDetails();
-  const presRunoffs = usePresidentialRunoffs();
 
   const ready =
     !!polls &&
@@ -56,9 +49,7 @@ export const PollsAgencyScreen: FC = () => {
     !!accuracy &&
     !!analysis &&
     !!agencies &&
-    !presPolls.isPending &&
-    !presDetails.isPending &&
-    !presRunoffs.isPending;
+    !presPolls.isPending;
 
   const agency = useMemo(
     () => agencies?.find((a) => a.id === agencyId),
@@ -84,15 +75,6 @@ export const PollsAgencyScreen: FC = () => {
     () => presPolls.data?.filter((p) => p.agencyId === agencyId) ?? [],
     [presPolls.data, agencyId],
   );
-  const agencyPresidentialDetails = useMemo(
-    () => presDetails.data?.filter((d) => d.agencyId === agencyId) ?? [],
-    [presDetails.data, agencyId],
-  );
-  const agencyPresidentialRunoffs = useMemo(
-    () => presRunoffs.data?.filter((r) => r.agencyId === agencyId) ?? [],
-    [presRunoffs.data, agencyId],
-  );
-
   // Cross-agency mean MAE — used as the "consensus" reference line on the per-agency
   // MAE-history chart, so a viewer can see at a glance which cycles the agency beat or
   // missed the field on.
@@ -206,11 +188,13 @@ export const PollsAgencyScreen: FC = () => {
               anticipated ("a presidential-only publication"). */}
           {agencyPresidentialPolls.length > 0 ? (
             <div className="mt-3">
-              <AgencyPresidentialPollsList
-                polls={agencyPresidentialPolls}
-                details={agencyPresidentialDetails}
-                runoffs={agencyPresidentialRunoffs}
-              />
+              <Link
+                className="text-primary underline"
+                to={`/polls/${agencyId}/presidential`}
+              >
+                {t("polls_presidential_polls")} (
+                {agencyPresidentialPolls.length}) →
+              </Link>
             </div>
           ) : null}
         </section>
@@ -244,11 +228,13 @@ export const PollsAgencyScreen: FC = () => {
             carry a presidential poll (GM does); never rendered on zero. */}
         {agencyPresidentialPolls.length > 0 ? (
           <div className="mt-3">
-            <AgencyPresidentialPollsList
-              polls={agencyPresidentialPolls}
-              details={agencyPresidentialDetails}
-              runoffs={agencyPresidentialRunoffs}
-            />
+            <Link
+              className="text-primary underline"
+              to={`/polls/${agencyId}/presidential`}
+            >
+              {t("polls_presidential_polls")} ({agencyPresidentialPolls.length})
+              →
+            </Link>
           </div>
         ) : null}
 

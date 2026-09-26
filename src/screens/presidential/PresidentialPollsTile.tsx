@@ -43,6 +43,15 @@ export const PresidentialPollsTile: FC<{ cycle: string }> = ({ cycle }) => {
   const state = usePresidentialCycleAccuracy(cycle);
 
   if (state.status === "loading") return null;
+  if (state.status === "error")
+    return (
+      <div role="alert">
+        {t("pp_history_load_error")}{" "}
+        <button className="underline" onClick={state.retry}>
+          {t("pp_history_retry")}
+        </button>
+      </div>
+    );
 
   const agencies =
     state.status === "ready"

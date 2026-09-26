@@ -85,7 +85,7 @@ describe("usePresidentialCycleAccuracy", () => {
     await waitFor(() => expect(result.current.status).toBe("unscored"));
   });
 
-  it("returns 'unscored' when accuracy.json itself has not been published yet (a 404)", async () => {
+  it("returns an error for an unavailable accuracy artifact (404)", async () => {
     vi.spyOn(globalThis, "fetch").mockResolvedValue(
       new Response("", { status: 404 }),
     );
@@ -93,7 +93,7 @@ describe("usePresidentialCycleAccuracy", () => {
       () => usePresidentialCycleAccuracy("2021_11_14_pvr"),
       { wrapper },
     );
-    await waitFor(() => expect(result.current.status).toBe("unscored"));
+    await waitFor(() => expect(result.current.status).toBe("error"));
   });
 
   it("logs a warning (and still resolves, rather than reading as ordinary absence) on a network failure", async () => {
@@ -103,7 +103,7 @@ describe("usePresidentialCycleAccuracy", () => {
       () => usePresidentialCycleAccuracy("2021_11_14_pvr"),
       { wrapper },
     );
-    await waitFor(() => expect(result.current.status).toBe("unscored"));
+    await waitFor(() => expect(result.current.status).toBe("error"));
     expect(warn).toHaveBeenCalledWith(
       expect.stringContaining("presidential polls fetch could not complete"),
     );

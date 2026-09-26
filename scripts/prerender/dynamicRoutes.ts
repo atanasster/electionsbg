@@ -79,6 +79,7 @@ import {
   buildOblastBody,
   buildPartyBody,
   buildPollsAgencyBody,
+  buildPresidentialAgencyPollsSection,
   buildPollsBody,
   buildSectionBody,
   buildSectionsListBody,
@@ -2742,6 +2743,42 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
     },
   ];
   for (const a of agencies) {
+    const presidentialPath = `polls/${a.id}/presidential`;
+    const presidentialTitle = `${a.name_bg} — президентски проучвания | Наясно`;
+    const presidentialDescription =
+      "История на президентските проучвания, въпроси, източници и съпоставимост с изборния резултат.";
+    const presidentialTitleEn = `${a.name_en} — Presidential polls | Naiasno`;
+    const presidentialDescriptionEn =
+      "Presidential polling history, questions, sources and comparability with election results.";
+    result.push({
+      path: presidentialPath,
+      title: presidentialTitle,
+      description: presidentialDescription,
+      bodyHtml:
+        buildPresidentialAgencyPollsSection(publicFolder, a.id) ||
+        "<p>Няма приети президентски проучвания.</p>",
+      jsonLd: [
+        buildWebPageLd({
+          title: presidentialTitle,
+          description: presidentialDescription,
+          url: `${SITE_URL}/${presidentialPath}`,
+        }),
+      ],
+      english: {
+        title: presidentialTitleEn,
+        description: presidentialDescriptionEn,
+        bodyHtml:
+          buildPresidentialAgencyPollsSection(publicFolder, a.id, "en") ||
+          "<p>No accepted presidential polls.</p>",
+        jsonLd: [
+          buildWebPageLd({
+            title: presidentialTitleEn,
+            description: presidentialDescriptionEn,
+            url: `${SITE_URL}/en/${presidentialPath}`,
+          }),
+        ],
+      },
+    });
     const url = `${SITE_URL}/polls/${encodeURIComponent(a.id)}`;
     const title = `${a.name_bg} — точност на социологическите проучвания | Наясно`;
     // ⚠ WIDENED FOR A PRESIDENTIAL-ONLY AGENCY — Tier 4 T4.4 Increment C. `buildPollsAgencyBody`

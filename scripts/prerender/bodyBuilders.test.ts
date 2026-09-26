@@ -18,6 +18,7 @@ import path from "node:path";
 import {
   buildProcurementSettlementBody,
   buildPollsAgencyBody,
+  buildPresidentialAgencyPollsSection,
   buildPollsBody,
   SCOPE_ALL_YEARS_LABEL,
 } from "./bodyBuilders";
@@ -176,8 +177,39 @@ describe("presidential polls section (buildPollsBody / buildPollsAgencyBody)", (
     );
     const out = buildPollsBody(root);
     expect(out).toContain("Президентски проучвания");
-    expect(out).toContain(`href="${SITE_ORIGIN}/polls/GM"`);
+    expect(out).toContain(`href="${SITE_ORIGIN}/polls/GM/presidential"`);
     expect(out).toContain("Илияна Йотова");
+  });
+
+  it("prerenders runoff answers as well as candidate detail rows", () => {
+    const root = publicRoot();
+    fs.writeFileSync(
+      path.join(root, "polls", "presidential", "polls.json"),
+      JSON.stringify([POLL]),
+    );
+    fs.writeFileSync(
+      path.join(root, "polls", "presidential", "polls_details.json"),
+      JSON.stringify(DETAILS),
+    );
+    fs.writeFileSync(
+      path.join(root, "polls", "presidential", "runoffs.json"),
+      JSON.stringify([
+        {
+          pollId: POLL.id,
+          agencyId: AGENCY.id,
+          a: "a",
+          b: "b",
+          aName_bg: "Кандидат А",
+          bName_bg: "Кандидат Б",
+          supportA: 67,
+          supportB: 33,
+          residual: null,
+        },
+      ]),
+    );
+    const out = buildPresidentialAgencyPollsSection(root, AGENCY.id, "en");
+    expect(out).toContain("Кандидат А: 67.0%");
+    expect(out).toContain("Кандидат Б: 33.0%");
   });
 
   it("buildPollsAgencyBody appends the agency's own presidential polls even with no parliamentary take", () => {
@@ -199,8 +231,10 @@ describe("presidential polls section (buildPollsBody / buildPollsAgencyBody)", (
     );
     const out = buildPollsAgencyBody(root, AGENCY);
     expect(out).toContain("Президентски проучвания");
-    expect(out).toContain("Илияна Йотова");
-    expect(out).toContain("30.0%");
+    expect(out).toContain("/polls/GM/presidential");
+    const history = buildPresidentialAgencyPollsSection(root, AGENCY.id);
+    expect(history).toContain("Илияна Йотова");
+    expect(history).toContain("30.0%");
   });
 
   it("buildPollsAgencyBody still renders the take's summary/lean/warning after the presidential section, when analysis.json has one", () => {
@@ -258,7 +292,7 @@ describe("presidential polls section (buildPollsBody / buildPollsAgencyBody)", (
     const out = buildPollsAgencyBody(root, AGENCY);
     expect(out).toContain("Глобал Метрикс");
     expect(out).toContain("Президентски проучвания");
-    expect(out).toContain("Илияна Йотова");
+    expect(out).toContain("/polls/GM/presidential");
   });
 
   it("buildPollsAgencyBody omits the section for an agency with no presidential poll", () => {

@@ -174,7 +174,7 @@ describe("PollsAgencyScreen", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("renders AgencyPresidentialPollsList once the agency has a presidential poll, in the no-profile branch", () => {
+  it("links to presidential history for an agency without a parliamentary profile", () => {
     // The real-world case Tier 4 T4.4 Increment B exists for: GM has zero
     // SCORED parliamentary polls (the no-profile branch above) but one real,
     // accepted presidential poll — the two lists must render side by side,
@@ -216,8 +216,12 @@ describe("PollsAgencyScreen", () => {
       screen.getByText("Все още няма проучвания за тази агенция."),
     ).toBeInTheDocument();
     // ...and the presidential list renders alongside it, never suppressing it.
-    expect(screen.getByText("Президентски проучвания (1)")).toBeInTheDocument();
-    expect(screen.getByText("Илияна Йотова")).toBeInTheDocument();
+    expect(
+      screen.getByText(/Президентски проучвания \(1\)/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Президентски проучвания/ }),
+    ).toHaveAttribute("href", "/polls/GM/presidential");
   });
 
   it("surfaces the agency's own resolved eik as a /company link in the no-profile panel", () => {
