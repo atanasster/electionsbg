@@ -20,7 +20,7 @@ import type { AgencyLister, ListOpts, Publication } from "./types";
 
 const SITE = "https://alpharesearch.bg";
 const POSTS_PER_PAGE = 12;
-const MAX_PAGES_PER_CALL = 6; // 72 posts — comfortably covers any backlog walk
+const MAX_ARCHIVE_PAGES = 200;
 
 /** True for a link this repo will treat as Alpha Research's own — the spam
  *  gate. A relative `/post/...` href, or an absolute one whose origin is
@@ -80,9 +80,10 @@ const fetchListingPage = async (page: number): Promise<Publication[]> => {
 export const listPublications = async (
   opts: ListOpts = {},
 ): Promise<Publication[]> => {
-  const limit = opts.limit ?? POSTS_PER_PAGE;
+  const archive = opts.archive || !!opts.after || !!opts.before;
+  const limit = opts.limit ?? (archive ? Infinity : POSTS_PER_PAGE);
   const seen = new Map<number, Publication>();
-  for (let page = 1; page <= MAX_PAGES_PER_CALL && seen.size < limit; page++) {
+  for (let page = 1; page <= MAX_ARCHIVE_PAGES && seen.size < limit; page++) {
     const pagePubs = await fetchListingPage(page);
     if (pagePubs.length === 0) break; // past the last page
     const before = seen.size;
@@ -92,6 +93,8 @@ export const listPublications = async (
     // same posts up to MAX_PAGES_PER_CALL; a page contributing no new id
     // is the same "past the last page" signal as an empty one.
     if (seen.size === before) break;
+    if (page === MAX_ARCHIVE_PAGES && seen.size < limit)
+      throw new Error("Alpha Research archive exceeded 200 pages");
   }
   return [...seen.values()].slice(0, limit);
 };
@@ -107,8 +110,10 @@ export const isElectoral = (p: Publication): boolean => {
   // on the bare substring alone before this guard existed anywhere.
   if (isExitPollTitle(p.title)) return false;
   const title = p.title.toLowerCase();
-  if (!title.includes("нагласи")) return false;
-  return ELECTORAL_TERMS.some((t) => title.includes(t));
+  return (
+    /обществен.*нагласи/u.test(title) ||
+    ELECTORAL_TERMS.some((t) => title.includes(t))
+  );
 };
 
 export const alphaResearch: AgencyLister = {

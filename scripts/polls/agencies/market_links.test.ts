@@ -33,6 +33,26 @@ const LISTING = `<html><body>
 </body></html>`;
 
 describe("marketLinks lister", () => {
+  it("walks older linked archive pages and finds the real November 2021 release", async () => {
+    const title =
+      "Фрагментиран парламент и президентска надпревара в два тура - ноември 2021";
+    mockFetchText({
+      "news.html": LISTING + '<a href="/bg/news-p3.html">3</a>',
+      "news-p3.html": item(
+        "/bg/news/prezidentski-61.html",
+        "09.11.2021",
+        title,
+      ),
+    });
+    const { listPublications, isElectoral } = await import("./market_links");
+    const pubs = await listPublications({
+      after: "2021-01-01",
+      before: "2021-12-31",
+    });
+    expect(pubs.map((p) => p.id)).toEqual([61]);
+    expect(isElectoral(pubs[0])).toBe(true);
+  });
+
   it("groups the three per-item anchors and picks the title by elimination", async () => {
     mockFetchText({ "news.html": LISTING });
     const { listPublications } = await import("./market_links");

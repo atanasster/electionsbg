@@ -26,6 +26,8 @@ export interface Publication {
 }
 
 export interface ListOpts {
+  /** Traverse the archive; normal watcher calls retain their small window. */
+  archive?: boolean;
   /** Cap on how many of the newest publications to return. */
   limit?: number;
   /** ISO date bounds for an archive walk (both optional, both inclusive). */

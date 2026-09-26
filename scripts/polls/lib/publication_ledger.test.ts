@@ -66,6 +66,23 @@ afterEach(() => {
 });
 
 describe("durable publication processing", () => {
+  it("reconciles percent-encoding case variants of the same publication", () => {
+    rememberPublications(
+      root,
+      "TR",
+      [{ ...discovery, url: "https://example.org/%D0%BF/" }],
+      at,
+    );
+    rememberPublications(
+      root,
+      "TR",
+      [{ ...discovery, pubId: "43", url: "https://example.org/%d0%bf/" }],
+      at,
+    );
+    expect(readPublicationLedger(root, "TR")).toHaveLength(1);
+    expect(readPublicationLedger(root, "TR")[0].pubIds).toEqual(["42", "43"]);
+  });
+
   it("retains pending discoveries after unchanged checks and a fresh read", () => {
     rememberPollWatch(
       "polls_trend",

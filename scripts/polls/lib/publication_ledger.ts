@@ -94,7 +94,7 @@ const canonicalUrl = (raw: string): string => {
   const url = new URL(raw);
   url.hash = "";
   url.pathname = url.pathname.replace(/\/$/, "") || "/";
-  return url.href;
+  return url.href.replace(/%[0-9a-f]{2}/gi, (escape) => escape.toUpperCase());
 };
 
 const refreshLastError = (item: PublicationRecord): void => {

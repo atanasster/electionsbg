@@ -18,16 +18,24 @@ export const listPublications = async (
   // Two years, so a January run still reaches December's late polls filed
   // under the closing year's category before the site has finished tagging
   // the new one.
-  const ids = await resolveCategoryIds(
-    SITE,
-    categoryNamesForYears([thisYear, thisYear - 1]),
-  );
+  const archive = opts.archive || !!opts.after || !!opts.before;
+  const firstYear = opts.after ? Number(opts.after.slice(0, 4)) : thisYear - 1;
+  const lastYear = opts.before ? Number(opts.before.slice(0, 4)) : thisYear;
+  const years = archive
+    ? Array.from(
+        { length: Math.max(0, lastYear - firstYear + 1) },
+        (_, i) => firstYear + i,
+      )
+    : [thisYear, thisYear - 1];
+  const ids = await resolveCategoryIds(SITE, categoryNamesForYears(years));
   if (ids.length === 0) return [];
   return listWpPosts(SITE, {
     categories: ids,
-    limit: opts.limit ?? 25,
-    after: opts.after,
-    before: opts.before,
+    archive,
+    limit: opts.limit,
+    // Historical category years describe the survey; migrated posts may have newer publication dates.
+    after: archive ? undefined : opts.after,
+    before: archive ? undefined : opts.before,
   });
 };
 

@@ -1,19 +1,8 @@
-// Маркет ЛИНКС (marketlinks.bg) — custom PHP CMS, no JSON API. The listing
-// (`/bg/news.html`) is ~12 items with no pagination beyond what is already on
-// the page. Each item ships THREE anchors to the same href (a date-only one,
-// a title-bearing one, and a "Повече" read-more link) — measured 2026-09-05.
-// This lister groups by href and picks the title out of the group by
-// elimination (neither the bare date nor "Повече").
-//
-// The party shares themselves are NOT on this page — every listed item links
-// ONE PDF from its OWN page, one request deeper than the listing. Per the
-// "one request per source" watcher rule, that PDF is resolved by the ingest
-// (a later step), not here: `kind` is set to "pdf" because the site's shape
-// guarantees it, but `attachments` stays empty.
+// Market Links archive cards expose dates, titles and publication links.
 
 import * as cheerio from "cheerio";
 import { fetchText } from "../../watch/fingerprint";
-import { UA } from "./wp_lister";
+import { UA, isExitPollTitle } from "./wp_lister";
 import type { AgencyLister, ListOpts, Publication } from "./types";
 
 const SITE = "https://www.marketlinks.bg";
@@ -40,11 +29,11 @@ const inRange = (p: Publication, opts: ListOpts): boolean => {
   return true;
 };
 
-export const listPublications = async (
-  opts: ListOpts = {},
-): Promise<Publication[]> => {
-  const html = await fetchText(LISTING_URL, { headers: { "User-Agent": UA } });
-  if (html === null) throw new Error(`empty response: ${LISTING_URL}`);
+const readPage = async (
+  url: string,
+): Promise<{ publications: Publication[]; pages: string[] }> => {
+  const html = await fetchText(url, { headers: { "User-Agent": UA } });
+  if (html === null) throw new Error(`empty response: ${url}`);
   const $ = cheerio.load(html);
 
   const byHref = new Map<string, string[]>();
@@ -75,17 +64,54 @@ export const listPublications = async (
     });
   }
 
-  out.sort((a, b) => b.id - a.id); // newest first, matching every other lister
-  const ranged = out.filter((p) => inRange(p, opts));
-  const limit = opts.limit ?? ranged.length;
-  return ranged.slice(0, limit);
+  const pages = $("a[href]")
+    .toArray()
+    .flatMap((el) => {
+      try {
+        const link = new URL($(el).attr("href")!, SITE);
+        return link.origin === SITE &&
+          /^\/bg\/news-p\d+\.html$/.test(link.pathname)
+          ? [link.href]
+          : [];
+      } catch {
+        return [];
+      }
+    });
+  return { publications: out, pages };
+};
+
+export const listPublications = async (
+  opts: ListOpts = {},
+): Promise<Publication[]> => {
+  const archive = opts.archive || !!opts.after || !!opts.before;
+  const pending = [LISTING_URL];
+  const visited = new Set<string>();
+  const publications = new Map<number, Publication>();
+  while (pending.length) {
+    const url = pending.shift()!;
+    if (visited.has(url)) continue;
+    if (visited.size >= 200)
+      throw new Error("Market Links archive exceeded 200 pages");
+    visited.add(url);
+    const page = await readPage(url);
+    for (const p of page.publications) publications.set(p.id, p);
+    if (archive) pending.push(...page.pages.filter((p) => !visited.has(p)));
+  }
+  return [...publications.values()]
+    .filter((p) => inRange(p, opts))
+    .sort((a, b) => b.id - a.id)
+    .slice(0, opts.limit);
 };
 
 export const isElectoral = (p: Publication): boolean => {
+  if (isExitPollTitle(p.title)) return false;
   const title = p.title.toLowerCase();
   return (
     (title.startsWith("обществено") && title.includes("политически")) ||
-    title.includes("социално-политическите нагласи")
+    title.includes("социално-политическите нагласи") ||
+    /президент|електорал|парламент|избор|националн.*проучване|контролиран вот/u.test(
+      title,
+    )
   );
 };
 

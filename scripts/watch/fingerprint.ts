@@ -23,6 +23,8 @@ const DEFAULT_HEADERS: Record<string, string> = {
 const insecureAgent = new Agent({ connect: { rejectUnauthorized: false } });
 
 export interface FetchOpts {
+  /** Inspect successful response headers, for example API pagination totals. */
+  onResponse?: (headers: Headers) => void;
   headers?: Record<string, string>;
   // Treat HTTP 404 as a recoverable "not found" rather than throwing — useful
   // when probing for the existence of a record.
@@ -100,6 +102,7 @@ export const fetchText = async (
       if (res.status >= 500 && attempt < retries)
         throw new Error(`HTTP ${res.status}`);
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+      opts.onResponse?.(res.headers as Headers);
       return opts.encoding
         ? new TextDecoder(opts.encoding).decode(await res.arrayBuffer())
         : await res.text();

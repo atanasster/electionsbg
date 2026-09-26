@@ -101,6 +101,25 @@ describe("resolveCategoryIds", () => {
 });
 
 describe("listWpPosts", () => {
+  it("walks full archive pages beyond the first 100 publications", async () => {
+    const post = (id: number) => ({
+      id,
+      date: "2021-10-01",
+      link: `https://example.org/${id}`,
+      title: { rendered: "Президентски избори" },
+    });
+    mockFetchText({
+      "page=2": JSON.stringify([post(101)]),
+      "wp-json": JSON.stringify(
+        Array.from({ length: 100 }, (_, i) => post(i + 1)),
+      ),
+    });
+    const { listWpPosts } = await import("./wp_lister");
+    expect(
+      await listWpPosts("https://example.org", { archive: true }),
+    ).toHaveLength(101);
+  });
+
   it("builds the collection query from postType/categories/limit/after/before", async () => {
     // Captures the ACTUAL URL fetchText was called with, so this exercises the
     // query-building — not just that a fixture happened to match a substring.
@@ -208,4 +227,42 @@ describe("isExitPollTitle / titleContainsAny", () => {
     );
     expect(rule(pub("Употреба на наркотични вещества"))).toBe(false);
   });
+});
+
+describe("exact WordPress archive boundaries", () => {
+  it.each([1, 2])(
+    "stops after %i full page(s) using the API total",
+    async (pages) => {
+      vi.doUnmock("../../watch/fingerprint");
+      vi.resetModules();
+      const fetchMock = vi.fn(async (url: string) => {
+        const page = Number(new URL(url).searchParams.get("page") ?? 1);
+        if (page > pages)
+          return new Response('{"code":"rest_post_invalid_page_number"}', {
+            status: 400,
+          });
+        return new Response(
+          JSON.stringify(
+            Array.from({ length: 100 }, (_, i) => ({
+              id: page * 100 + i,
+              date: "2021-01-01",
+              link: `https://example.bg/${page}/${i}`,
+              title: { rendered: "Poll" },
+            })),
+          ),
+          { headers: { "X-WP-TotalPages": String(pages) } },
+        );
+      });
+      vi.stubGlobal("fetch", fetchMock);
+      try {
+        const { listWpPosts } = await import("./wp_lister");
+        expect(
+          await listWpPosts("https://example.bg", { archive: true }),
+        ).toHaveLength(pages * 100);
+        expect(fetchMock).toHaveBeenCalledTimes(pages);
+      } finally {
+        vi.unstubAllGlobals();
+      }
+    },
+  );
 });

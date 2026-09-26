@@ -35,8 +35,14 @@ export interface WpCategory {
  * "one request per source" watcher rule (docs/plans/polls-agency-watchers-v1.md
  * decision 4).
  */
-export const fetchWpJson = async <T>(url: string): Promise<T> => {
-  const text = await fetchText(url, { headers: { "User-Agent": UA } });
+export const fetchWpJson = async <T>(
+  url: string,
+  onResponse?: (headers: Headers) => void,
+): Promise<T> => {
+  const text = await fetchText(url, {
+    headers: { "User-Agent": UA },
+    onResponse,
+  });
   if (text === null) throw new Error(`empty response: ${url}`);
   try {
     return JSON.parse(text) as T;
@@ -86,6 +92,7 @@ export const resolveCategoryIds = async (
 export const listWpPosts = async (
   site: string,
   opts: {
+    archive?: boolean;
     postType?: string;
     categories?: number[];
     limit?: number;
@@ -94,18 +101,45 @@ export const listWpPosts = async (
   } = {},
 ): Promise<Publication[]> => {
   const postType = opts.postType ?? "posts";
+  const archive = opts.archive || !!opts.after || !!opts.before;
+  const limit = opts.limit ?? (archive ? Infinity : 25);
+  if (limit <= 0) return [];
+  const pageSize = Math.min(100, limit);
   const params = new URLSearchParams({
-    per_page: String(opts.limit ?? 25),
+    per_page: String(pageSize),
     _fields: "id,date,link,title",
   });
   if (opts.categories?.length)
     params.set("categories", opts.categories.join(","));
   if (opts.after) params.set("after", `${opts.after}T00:00:00`);
   if (opts.before) params.set("before", `${opts.before}T23:59:59`);
-  const posts = await fetchWpJson<WpPost[]>(
-    `${site}/wp-json/wp/v2/${postType}?${params.toString()}`,
-  );
-  return posts.map(wpPostToPublication);
+  const seen = new Map<number, Publication>();
+  for (let page = 1; page <= 1000; page++) {
+    if (page > 1) params.set("page", String(page));
+    let totalPages: number | null = null;
+    const posts = await fetchWpJson<WpPost[]>(
+      `${site}/wp-json/wp/v2/${postType}?${params.toString()}`,
+      (headers) => {
+        const value = headers.get("X-WP-TotalPages");
+        if (value && /^\d+$/.test(value)) totalPages = Number(value);
+      },
+    );
+    if (!Array.isArray(posts))
+      throw new Error(`Invalid WordPress collection from ${site}`);
+    const before = seen.size;
+    for (const post of posts) seen.set(post.id, wpPostToPublication(post));
+    if (
+      seen.size >= limit ||
+      posts.length < pageSize ||
+      (totalPages !== null && page >= totalPages)
+    )
+      return [...seen.values()].slice(0, limit);
+    if (seen.size === before)
+      throw new Error(
+        `Archive pagination repeated a full page: ${site}, page ${page}`,
+      );
+  }
+  throw new Error(`Archive pagination exceeded 1000 pages: ${site}`);
 };
 
 /**
@@ -119,7 +153,12 @@ export const listWpPosts = async (
  * 2026)" — a post-election voter-profile retrospective — which
  * false-matched on "избори" alone (measured 2026-09-09, live).
  */
-export const EXIT_POLL_TERMS = ["екзит", "паралелно преброяване"];
+export const EXIT_POLL_TERMS = [
+  "екзит",
+  "exit poll",
+  "exit-poll",
+  "паралелно преброяване",
+];
 
 export const isExitPollTitle = (title: string): boolean => {
   const t = title.toLowerCase();

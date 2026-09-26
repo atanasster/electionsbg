@@ -19,7 +19,8 @@ const ELECTORAL_TERMS = [
 export const listPublications = (opts: ListOpts = {}): Promise<Publication[]> =>
   listWpPosts(SITE, {
     postType: "project",
-    limit: opts.limit ?? 25,
+    archive: opts.archive,
+    limit: opts.limit,
     after: opts.after,
     before: opts.before,
   });

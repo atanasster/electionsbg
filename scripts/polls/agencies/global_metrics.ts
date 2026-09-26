@@ -15,7 +15,8 @@ const ELECTORAL_TERMS = ["нагласи", "президент", "избори"]
 
 export const listPublications = (opts: ListOpts = {}): Promise<Publication[]> =>
   listWpPosts(SITE, {
-    limit: opts.limit ?? 25,
+    archive: opts.archive,
+    limit: opts.limit,
     after: opts.after,
     before: opts.before,
   });

@@ -32,6 +32,7 @@ import {
   dirSlugFor,
   discoverAgencyImages,
   discoverPdfLinks,
+  discoverReportLinks,
   latestVersionSuffix,
   nextVersionSuffix,
   parseWaybackOriginalUrl,
@@ -547,4 +548,32 @@ describe("backlogTargets", () => {
   it("returns null for a press-only agency — no lister to walk", async () => {
     expect(await backlogTargets("MD", "2026-01-01")).toBeNull();
   });
+});
+
+it("resolves historical PDF and Word reports against the document base", () => {
+  expect(
+    discoverReportLinks(
+      '<base href="https://www.marketlinks.bg/"><a href="storage/report.pdf">PDF</a><a href="storage/report.doc">Word</a>',
+      "https://www.marketlinks.bg/bg/news/92.html",
+    ),
+  ).toEqual([
+    "https://www.marketlinks.bg/storage/report.pdf",
+    "https://www.marketlinks.bg/storage/report.doc",
+  ]);
+});
+it("captures the full historical Sova scan from srcset and Alpha charts", () => {
+  expect(
+    discoverAgencyImages(
+      "SH",
+      '<img src="/publ_dirbg_051121_00001-791x1024.jpg" srcset="/publ_dirbg_051121_00001-791x1024.jpg 791w, /publ_dirbg_051121_00001.jpg 1700w"><img src="/logo.jpg">',
+      "https://sovaharris.com/post/",
+    ),
+  ).toEqual(["https://sovaharris.com/publ_dirbg_051121_00001.jpg"]);
+  expect(
+    discoverAgencyImages(
+      "AR",
+      '<img src="/Graph1_Final.jpg"><img src="/Chart_1.jpg"><img src="/G1.jpg"><img src="/1_President.jpg"><img src="/layoyt2.png">',
+      "https://alpharesearch.bg/post/985.html",
+    ),
+  ).toHaveLength(4);
 });

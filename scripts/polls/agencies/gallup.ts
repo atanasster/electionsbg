@@ -12,11 +12,20 @@ import { listWpPosts, titleContainsAny } from "./wp_lister";
 
 const SITE = "https://www.gallup-international.bg";
 
-const ELECTORAL_TERMS = ["electoral", "политическ", "партии", "president"];
+const ELECTORAL_TERMS = [
+  "electoral",
+  "политическ",
+  "партии",
+  "president",
+  "президент",
+  "електорал",
+  "избори",
+];
 
 export const listPublications = (opts: ListOpts = {}): Promise<Publication[]> =>
   listWpPosts(SITE, {
-    limit: opts.limit ?? 25,
+    archive: opts.archive,
+    limit: opts.limit,
     after: opts.after,
     before: opts.before,
   });

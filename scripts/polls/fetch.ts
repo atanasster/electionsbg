@@ -39,7 +39,7 @@ import {
   captureDir,
   combinedSha256,
   discoverAgencyImages,
-  discoverPdfLinks,
+  discoverReportLinks,
   latestVersionSuffix,
   nextVersionSuffix,
   pendingPressNotices,
@@ -244,7 +244,7 @@ const capturePublication = async (
   });
   if (html === null) throw new Error(`empty response: ${target.fetchUrl}`);
 
-  const pdfUrls = discoverPdfLinks(html, target.fetchUrl);
+  const pdfUrls = discoverReportLinks(html, target.fetchUrl);
   const imageUrls = discoverAgencyImages(
     target.agencyId,
     html,
@@ -351,7 +351,7 @@ const capturePublication = async (
   );
 };
 
-const captureOne = async (
+export const captureOne = async (
   target: CaptureTarget,
   force: boolean,
 ): Promise<void> => {

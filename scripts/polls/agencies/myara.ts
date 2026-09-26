@@ -14,7 +14,8 @@ const CATEGORY_ELECTORAL_EN = 114;
 export const listPublications = (opts: ListOpts = {}): Promise<Publication[]> =>
   listWpPosts(SITE, {
     categories: [CATEGORY_ELECTORAL_BG, CATEGORY_ELECTORAL_EN],
-    limit: opts.limit ?? 25,
+    archive: opts.archive,
+    limit: opts.limit,
     after: opts.after,
     before: opts.before,
   });

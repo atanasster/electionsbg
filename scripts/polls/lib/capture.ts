@@ -369,7 +369,8 @@ export const targetFromArchive = (
 // makes a same-directory link ("./doc.pdf") resolve correctly too.
 const resolveHref = (href: string, pageUrl: string): string | null => {
   try {
-    return new URL(href, pageUrl).toString();
+    const resolved = new URL(href, pageUrl);
+    return /^https?:$/.test(resolved.protocol) ? resolved.toString() : null;
   } catch {
     return null;
   }
@@ -382,56 +383,37 @@ const resolveHref = (href: string, pageUrl: string): string | null => {
  *  `<object>` would silently capture zero attachments — verify the actual
  *  markup shape before wiring a new agency in and assuming this "just
  *  works". */
-export const discoverPdfLinks = (html: string, pageUrl: string): string[] => {
+const discoverDocuments = (
+  html: string,
+  pageUrl: string,
+  extension: RegExp,
+): string[] => {
   const $ = cheerio.load(html);
+  const base =
+    resolveHref($("base[href]").first().attr("href") ?? "", pageUrl) ?? pageUrl;
   const seen = new Set<string>();
   $("a[href]").each((_, el) => {
     const href = $(el).attr("href") ?? "";
-    if (!/\.pdf(?:[?#]|$)/i.test(href)) return;
-    const abs = resolveHref(href, pageUrl);
+    if (!extension.test(href)) return;
+    const abs = resolveHref(href, base);
     if (abs) seen.add(abs);
   });
   return [...seen];
 };
 
-/**
- * Every `<img>` on the page whose `src` matches the given agency's OWN
- * image-as-primary-source pattern, resolved absolute against the page URL
- * — decision 18: three agencies now carry data ONLY inside an image, not
- * in any extractable text, so a lister-level image discoverer is a shared
- * need, not a Sova-Harris-specific one.
- *
- *  - SH: `Buletin_<slug>_page-NNNN.jpg` — a multi-page scan of party-
- *    support tables, this agency's ONLY primary (sova_harris.ts's header).
- *  - TR: `SlideN.png` — the passport (sample size, fieldwork dates) is
- *    published ONLY this way; the party shares themselves are ordinary
- *    `.et_pb_text_inner` text (measured 2026-09-09, decision 18). Also
- *    `zadl<N>.png` (bare `zadl.png` for the first) — an OLDER, pre-Slide-era
- *    chart-image naming convention TR's 2016 presidential post uses (Tier
- *    4b's historical backfill), one image per survey question including a
- *    "Други" (Others/residual) bar the article's own prose never states in
- *    words. Both patterns coexist rather than one replacing the other,
- *    since a real capture may need either depending on the post's era.
- *  - AR: `GraphN.jpg` (`N` sometimes omitted a leading zero — "Graph1.jpg"
- *    and "Graph01.jpg" both occur) — roughly half of AR's real posts carry
- *    every party share ONLY this way, no narrative text at all (decision 18).
- *
- * Absent from `AGENCY_IMAGE_PATTERNS` means "this agency has no known
- * image-as-primary-source shape" — not an error, just nothing to discover.
- *
- * Each pattern tolerates a trailing `-N` before the extension — WordPress's
- * own media-library de-duplication suffix, appended whenever an upload's
- * filename collides with one already on the site (an ordinary occurrence,
- * not a rare one: `raw_data/polls/trend/212732/page.html`, a real capture
- * already in this repo, embeds `Slide2-2.png`/`Slide3-2.png`). Without the
- * tolerance the match anchors on a bare `$` right after the extension and
- * silently returns zero images for a page that has them — no error, no
- * attachment-fetch-failure entry, because no fetch is even attempted.
- */
+export const discoverPdfLinks = (html: string, pageUrl: string): string[] =>
+  discoverDocuments(html, pageUrl, /\.pdf(?:[?#]|$)/i);
+
+/** Older Alpha Research releases link Word reports as well as PDFs. */
+export const discoverReportLinks = (html: string, pageUrl: string): string[] =>
+  discoverDocuments(html, pageUrl, /\.(?:pdf|docx?)(?:[?#]|$)/i);
+
+/** Agency chart and methodology images, including historical naming schemes.
+ * Prefer the largest observed srcset image so OCR receives the original scan. */
 const AGENCY_IMAGE_PATTERNS: Record<string, RegExp> = {
-  SH: /Buletin_[^/?#]*?page-\d+(?:-\d+)?\.jpe?g$/i,
-  TR: /(?:Slide\d+|zadl\d*)(?:-\d+)?\.png$/i,
-  AR: /Graph\d*(?:-\d+)?\.jpe?g$/i,
+  SH: /\/(?:Buletin_|publ|page\d)[^/?#]*\.jpe?g(?:[?#]|$)/i,
+  TR: /\/(?:Slide\d+|zadl\d*|Presentation-TREND-[^/?#]+|Trend-[^/?#]+)(?:-\d+)?\.png(?:[?#]|$)/i,
+  AR: /\/(?:Graph\d*(?:_?final)?|Chart_?\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$)/i,
 };
 
 export const discoverAgencyImages = (
@@ -442,11 +424,20 @@ export const discoverAgencyImages = (
   const pattern = AGENCY_IMAGE_PATTERNS[agencyId];
   if (!pattern) return [];
   const $ = cheerio.load(html);
+  const base =
+    resolveHref($("base[href]").first().attr("href") ?? "", pageUrl) ?? pageUrl;
   const seen = new Set<string>();
   $("img[src]").each((_, el) => {
     const src = $(el).attr("src") ?? "";
     if (!pattern.test(src)) return;
-    const abs = resolveHref(src, pageUrl);
+    const candidates = ($(el).attr("srcset") ?? "")
+      .split(",")
+      .map((entry) => /^\s*(\S+)\s+(\d+)w\s*$/.exec(entry))
+      .filter(
+        (entry): entry is RegExpExecArray => !!entry && pattern.test(entry[1]),
+      )
+      .sort((a, b) => Number(b[2]) - Number(a[2]));
+    const abs = resolveHref(candidates[0]?.[1] ?? src, base);
     if (abs) seen.add(abs);
   });
   return [...seen];

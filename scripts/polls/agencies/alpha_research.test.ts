@@ -76,7 +76,7 @@ describe("alphaResearch lister", () => {
     ]);
   });
 
-  it("classifies electoral titles per the plan's rule: 'нагласи' AND an electoral term", async () => {
+  it("keeps electoral releases for content review without requiring нагласи", async () => {
     const { isElectoral } = await import("./alpha_research");
     const t = (title: string) =>
       isElectoral({
@@ -87,10 +87,11 @@ describe("alphaResearch lister", () => {
         kind: "html" as const,
         attachments: [],
       });
-    // "нагласи" with no electoral term — a cabinet-approval post, not a poll.
+    // Regular public-opinion releases may contain electoral questions behind a generic title.
     expect(
       t("Обществени нагласи в навечерието на 100-те дни на кабинета"),
-    ).toBe(false);
+    ).toBe(true);
+    expect(t("ОБЩЕСТВЕНИ НАГЛАСИ, СЕПТЕМВРИ 2016")).toBe(true);
     // "електорал" present.
     expect(t("Електорални нагласи на старта на предизборната кампания")).toBe(
       true,
@@ -99,9 +100,9 @@ describe("alphaResearch lister", () => {
     expect(t("Обществени нагласи на финала на предизборната кампания")).toBe(
       true,
     );
-    // An electoral term with no "нагласи" at all — not a poll (e.g. a bare
-    // election-day results post).
-    expect(t("19 Април 2026: Избори за Народно събрание")).toBe(false);
+    // Keep dated titles for source-content classification; explicit exit polls are excluded.
+    expect(t("19 Април 2026: Избори за Народно събрание")).toBe(true);
+    expect(t("Президентски избори — Exit poll")).toBe(false);
     // Neither term present.
     expect(t("ВНИМАНИЕ! ФАЛШИВИ НОВИНИ!")).toBe(false);
     // Exit-poll analysis, even though it carries BOTH "нагласи" and "избор"
@@ -177,7 +178,7 @@ describe("alphaResearch lister", () => {
     expect(pubs[0].id).toBe(4001);
   });
 
-  it("never fetches past MAX_PAGES_PER_CALL even when every page keeps contributing new ids", async () => {
+  it("reports an incomplete archive when the pagination safety limit is reached", async () => {
     const fetchedUrls: string[] = [];
     const pageHtml = (page: number) => `<html><body><div id="content">
       <div class="card">
@@ -194,8 +195,9 @@ describe("alphaResearch lister", () => {
       },
     }));
     const { listPublications } = await import("./alpha_research");
-    const pubs = await listPublications({ limit: 1000 });
-    expect(fetchedUrls).toHaveLength(6); // MAX_PAGES_PER_CALL, never a 7th request
-    expect(pubs).toHaveLength(6);
+    await expect(listPublications({ archive: true })).rejects.toThrow(
+      "exceeded 200 pages",
+    );
+    expect(fetchedUrls).toHaveLength(200);
   });
 });

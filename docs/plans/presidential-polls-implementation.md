@@ -11,8 +11,8 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 2 | Foundations | Reviewed candidate aliases and unresolved coverage | Complete | `15818bda70` |
 | 3 | Foundations | Durable discovery and processing ledger | Complete | `1a866acdf8` |
 | 4 | Foundations | Cycle assignment, validation and complete correction snapshots | Complete | `e425fd3c34` |
-| 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | In progress | |
-| 6 | Backfill | Publication inventory, historical pagination and capture | Pending | |
+| 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | Complete | `03680f0540` |
+| 6 | Backfill | Publication inventory, historical pagination and capture | Complete | See step commit |
 | 7 | Backfill | Missing agency extractors, multiple-race output and backlog reporting | Pending | |
 | 8 | Backfill | Resolve Trend historical drafts from source evidence | Pending | |
 | 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | Pending | |
@@ -36,17 +36,42 @@ Step 4: FINDING-001 (`accept.ts`) verified and fixed: validate original intended
 
 Step 5: Independent review found no issues. Source values and methodology verified against rendered PDF pages 4, 5 and 8. Related tests: 113 passed; corpus checks: 19 passed; lint and TypeScript compilation passed. Full production build passed.
 
+Step 6: FINDING-001 (document base URLs) and FINDING-002 (full final WordPress page), both verified and fixed. Historical chart discovery also repaired from real captures. Independent re-review: no remaining findings. Related tests: 136 passed; changed-file lint, TypeScript and full production build passed.
+
 ## Current step files
 
+- `scripts/polls/agencies/alpha_research.test.ts`
+- `scripts/polls/agencies/alpha_research.ts`
+- `scripts/polls/agencies/gallup.ts`
+- `scripts/polls/agencies/global_metrics.ts`
+- `scripts/polls/agencies/market_links.test.ts`
+- `scripts/polls/agencies/market_links.ts`
+- `scripts/polls/agencies/myara.ts`
+- `scripts/polls/agencies/sova_harris.ts`
+- `scripts/polls/agencies/trend.ts`
+- `scripts/polls/agencies/types.ts`
+- `scripts/polls/agencies/wp_lister.test.ts`
+- `scripts/polls/agencies/wp_lister.ts`
+- `scripts/polls/fetch.ts`
+- `scripts/polls/lib/capture.test.ts`
+- `scripts/polls/lib/capture.ts`
+- `scripts/polls/lib/publication_ledger.test.ts`
+- `scripts/polls/lib/publication_ledger.ts`
+- `scripts/watch/fingerprint.ts`
+- `scripts/polls/inventory.ts`
+- `scripts/polls/inventory.test.ts`
+- `docs/polls/historical-publication-inventory.md`
 - `docs/plans/presidential-polls-implementation.md`
-- `scripts/polls/extractors/global_metrics.ts`
-- `scripts/polls/extractors/global_metrics.test.ts`
-- `scripts/polls/extract.ts`
-- `data/polls/presidential/polls.json`
-- `data/polls/presidential/polls_details.json`
-- `data/polls/_inbox/gm-2026-07-11.json (deleted)`
-- `state/polls/GM.json (new)`
-- `docs/polls/global-metrics-2026-correction.md (new)`
+- `state/polls/GM.json`
+- `state/polls/AR.json`
+- `state/polls/ML.json`
+- `state/polls/MY.json`
+- `state/polls/SH.json`
+- `state/polls/TR.json`
+- `state/polls/backfill-selection.json`
+- `state/polls/inventory-2016-01-01-2016-12-31.json`
+- `state/polls/inventory-2021-01-01-2021-12-31.json`
+- 279 source files under the selected publication capture directories (including versioned recaptures); exact selection in `state/polls/backfill-selection.json`.
 
 ## Existing work to preserve
 
