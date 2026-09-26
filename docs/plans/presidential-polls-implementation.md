@@ -77,3 +77,5 @@ Step 14 review: TEST-001–003 verified and repaired (localized agency expectati
 Final unit suite and production release are pending; browser screenshots and logs are in test-results/ and /tmp/presidential-*.
 
 Final-suite regression repair (step 11): explicit row-header alignment; election-screen assertions now verify visible loading content and distinguish fetch errors/retry from unscored coverage. Independent review: zero findings. All 37 targeted tests passed. The initial full run also reports unrelated corpus/sitemap failures; classification and final confirmation are pending.
+
+Final-suite regression repair 2 (steps 7/9/10/11): corpus ID validation accepts only the established race suffix and still enforces agency/fieldwork identity; committed-fixture assertions are explicit; all 28 bilingual agency prerender bodies have one escaped H1. Independent review: zero findings; 92 targeted tests and direct 28-body verification passed. Full-suite initial result and six independently reproduced unrelated failures are documented in docs/polls/presidential-final-test-results.md.

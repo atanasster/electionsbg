@@ -2755,8 +2755,9 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
       title: presidentialTitle,
       description: presidentialDescription,
       bodyHtml:
-        buildPresidentialAgencyPollsSection(publicFolder, a.id) ||
-        "<p>Няма приети президентски проучвания.</p>",
+        `<h1>${escapeHtmlSimple(a.name_bg)} — президентски проучвания</h1>` +
+        (buildPresidentialAgencyPollsSection(publicFolder, a.id) ||
+          "<p>Няма приети президентски проучвания.</p>"),
       jsonLd: [
         buildWebPageLd({
           title: presidentialTitle,
@@ -2768,8 +2769,9 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
         title: presidentialTitleEn,
         description: presidentialDescriptionEn,
         bodyHtml:
-          buildPresidentialAgencyPollsSection(publicFolder, a.id, "en") ||
-          "<p>No accepted presidential polls.</p>",
+          `<h1>${escapeHtmlSimple(a.name_en)} — Presidential polls</h1>` +
+          (buildPresidentialAgencyPollsSection(publicFolder, a.id, "en") ||
+            "<p>No accepted presidential polls.</p>"),
         jsonLd: [
           buildWebPageLd({
             title: presidentialTitleEn,

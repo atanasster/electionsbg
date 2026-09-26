@@ -14,6 +14,14 @@ import {
   main,
 } from "./analyze_accuracy";
 import { foldCandidateName } from "./candidate_resolver";
+import { assertCommitted } from "../../lib/assert_committed";
+
+assertCommitted(
+  "data/polls/presidential",
+  "data/polls/presidential/polls.json",
+  "data/polls/presidential/polls_details.json",
+  "data/polls/presidential/runoffs.json",
+);
 const summary = JSON.parse(
   fs.readFileSync("data/2021_11_14_pvr/national_summary.json", "utf8"),
 );

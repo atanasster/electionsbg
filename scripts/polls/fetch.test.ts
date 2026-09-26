@@ -31,7 +31,11 @@ const mockedReadState = vi.mocked(readState);
 // redirected to a scratch root for every test below, so nothing here reads
 // it) — asserted so a renamed/removed committed directory is caught here
 // rather than only by a fixture silently drifting from reality.
-assertCommitted("raw_data/polls/alpha_research");
+assertCommitted(
+  "raw_data/polls/alpha_research",
+  "raw_data/polls/market_links/42/SOURCE.json",
+  "raw_data/polls/market_links/42.v2",
+);
 
 describe("parseArgv", () => {
   it("reads every value flag and the boolean --force", () => {

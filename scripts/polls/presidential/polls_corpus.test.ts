@@ -156,11 +156,13 @@ describe("presidential polls.json ↔ the fieldwork contract", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("shapes every id as <agency>-<ISO date>", () => {
+  it("shapes every id as <agency>-<ISO date> with an optional presidential race suffix", () => {
     const known = new Set(agencies.map((a) => a.id.toLowerCase()));
     const bad = polls.filter((p) => {
-      const m = /^([a-z0-9]+)-(\d{4}-\d{2}-\d{2})$/.exec(p.id);
-      return !m || !known.has(m[1]);
+      const m = /^([a-z0-9]+)-(\d{4}-\d{2}-\d{2})(?:-presidential)?$/.exec(
+        p.id,
+      );
+      return !m || !known.has(m[1]) || m[1] !== p.agencyId.toLowerCase();
     });
     expect(bad.map((p) => p.id)).toEqual([]);
   });
@@ -168,7 +170,13 @@ describe("presidential polls.json ↔ the fieldwork contract", () => {
   it("keeps the legacy publication-date ids frozen at their historical count", () => {
     const drift = polls.filter((p) => {
       const end = parseFieldworkEnd(p.fieldwork);
-      return end !== null && p.id !== pollId(p.agencyId, end);
+      // Joint presidential/parliamentary releases have distinct survey IDs.
+      // Only the declared race suffix may follow the original fieldwork ID.
+      return (
+        end !== null &&
+        p.id !== pollId(p.agencyId, end) &&
+        p.id !== `${pollId(p.agencyId, end)}-presidential`
+      );
     });
     expect(drift).toHaveLength(LEGACY_ID_COUNT);
   });
