@@ -631,6 +631,9 @@ grey reads as „no detectable difference" rather than „broken".
   | `NEWS_PERSON_AGGREGATES` | pages, index, outlet section, main-site tile | the gate passes |
   | `NEWS_PERSON_MATRIX` | the outlet × person grid | after the gate |
 
+  Both aggregate flags are subject to §8.2's freeze windows, which apply
+  whatever the flags say.
+
 ### 8.1 The review workspace — `npm run news:review`
 
 Every human step in this plan runs in one local tool, so none of it means
@@ -738,6 +741,105 @@ blinding (no outlet, URL or model value in the annotation page's HTML — a test
 greps the served page), and that the exclusion list stops a refused link
 reappearing.
 
+### 8.2 The election freeze (decided: option c)
+
+**Why.** The first round of the presidential election is expected on
+**2026-11-08** (`src/data/myarea/upcomingElections.ts`, where it is marked
+`confidence: "estimated"`), and the campaign opens about a month earlier.
+Йотова and Радев are the two most-covered people in the corpus (484 and 359
+linked pairs), so the person pages and the grid will be read as a scoreboard of
+campaign coverage.
+- Nothing here is an opinion poll, but reading it as one is the obvious
+  misreading. The election silence rules (no polls on the day before and on
+  election day) are the precedent a complainant would reach for.
+- Of the options considered, (a) — everything live and methodology published
+  before the campaign — is not reachable: the gate needs about 6 hours of
+  annotation plus a second reader. (b) — the rail only until after the final
+  round — is the fallback if the gate is not passed in time.
+- So the aggregates ship when the gate passes, update normally through the
+  campaign, and hold still from the start of each day of reflection until
+  polls close.
+
+**The window, per round**, in Europe/Sofia time:
+
+| round | frozen from | released at |
+| --- | --- | --- |
+| first | 00:00 on the day before the vote | 20:00 on voting day (polls close) |
+| runoff, if held — normally seven days later | 00:00 on the day before | 20:00 on voting day |
+
+**Configuration.** `news/data/publication_freezes.json`, committed:
+
+```json
+{"freezes": [
+  {"id": "pvr2026-r1", "from": "2026-11-07T00:00:00+02:00",
+   "until": "2026-11-08T20:00:00+02:00", "status": "estimated",
+   "basis": "upcomingElections.ts estimate; replace with the decree date"}
+]}
+```
+
+- ⚠️ **The date is an estimate until the President's decree.** When the decree
+  is published, update the entry and set `status: "decreed"`. The hourly run
+  WARNS every run while a freeze within 45 days is still `estimated`, so the
+  change cannot quietly lapse.
+- **The runoff is unknowable in advance.** On the evening of the first round,
+  if no candidate wins outright, add the second entry. The same warning covers
+  it: if the first-round window has closed and the CIK result says a runoff is
+  due, a missing second entry is a warning on every run.
+- The file is data, not code, so the next parliamentary or local election is
+  one entry, not a release.
+
+**What freezes and what does not.**
+
+| surface | during the window |
+| --- | --- |
+| person pages, `/persons`, the grid, outlet „Хора в изданието" | served from the last pre-window build, byte-identical |
+| the article rail's per-article tone | **stays live** — it describes one article, is already public today, and is not a statement about the race |
+| the rail's „в други материали" baseline line | frozen with the aggregates (it is an aggregate) |
+| main-site „В медиите" tile (`data/news/mentions/`) | frozen the same way |
+| share cards and sitemap `<lastmod>` for frozen pages | frozen |
+| scoring, identity join, the review workspace | keep running; nothing is lost, only withheld |
+| social posts (`naiasno-post`) | the skill refuses a person-sentiment post inside a window, and for 24 h before it |
+
+**Mechanics.**
+- At the first build at or after `from`, `build_app_data.py` copies the current
+  aggregate outputs to `news/var/freeze/<id>/` (gitignored). Every build inside
+  the window re-emits those files instead of recomputing them.
+- This is copy-forward rather than „skip the stage", because the app-data tree
+  is rebuilt wholesale and a skipped stage would serve an EMPTY archive — the
+  worst possible reading on election day.
+- If the snapshot is missing (for example the machine was off at `from`), the
+  build **withholds** the aggregates — persons index, pages and grid replaced
+  by the banner alone — rather than publish post-window numbers. It never falls
+  back to fresh data.
+- Every frozen payload carries `frozen: {id, as_of, until}`. The first build
+  after `until` recomputes everything and drops the stamp.
+- A deploy inside the window ships the frozen snapshot, so deploy timing
+  cannot defeat the freeze.
+
+**The banner** is on every frozen surface, BG/EN, with dates stated, not
+relative:
+
+> „Данните за отразяването на хора са замразени към 6 ноември 2026 г., 23:59,
+> до края на изборния ден (8 ноември, 20:00). Оценките на отделните статии се
+> обновяват както обикновено."
+
+**Before the flag is flipped mid-campaign:**
+- a lawyer reads the methodology page and the banner text;
+- the methodology page gains a paragraph explaining that these are
+  measurements of how outlets frame a person, not a poll or a prediction, why
+  the freeze exists, and the windows themselves.
+
+**Tests.**
+- With an injected clock, a build inside a window emits aggregate bytes
+  identical to the snapshot.
+- A build with no snapshot inside a window emits the withheld state, never
+  fresh numbers.
+- The first build after `until` drops the `frozen` stamp.
+- The article rail still updates inside a window.
+- The estimated-date and missing-runoff warnings fire.
+- The windows are computed in Europe/Sofia, so a UTC cut cannot start the
+  freeze two or three hours late.
+
 - **Deploy order:** ship the newsapp bundle before publishing new data shapes
   (the Jev rule). Deploy between hourly runs — `deploy:news` fails while a run
   is writing `news/data`.
@@ -750,6 +852,9 @@ reappearing.
 - Automatic pages: yes.
 - Foreigners shown on the article rail: yes.
 - Outlet × person grid: yes (§7.1).
+- Launch timing against the presidential campaign: **option (c)** — ship
+  everything the gate allows, and freeze the aggregates around each voting day
+  (§8.2).
 - The reviewer for identity, surnames, new people and tone annotation is the
   site owner, through the §8.1 workspace.
 
@@ -763,26 +868,6 @@ reappearing.
      blinded 50-pair subset, taking about 1 hour.
    - Without one, publish aggregates with the κ arm marked unmet and stated on
      the methodology page, rather than presenting the gate as passed.
-2. **Launch timing against the presidential campaign.** The first round is
-   **2026-11-08** (`upcomingElections.ts`), and the campaign opens about a
-   month earlier. Йотова and Радев are the two most-covered people in the
-   corpus (484 and 359 linked pairs), so the person pages and the grid would
-   debut as a campaign-coverage scoreboard, on the most contested pages the
-   site has ever published.
-   - Nothing here is an opinion poll, but reading it as one is the obvious
-     misreading. The election silence rules (no polls on the day before and on
-     election day) are the precedent a complainant would reach for.
-   - Options:
-     - (a) ship aggregates before the campaign opens, with the methodology page
-       live from day one;
-     - (b) ship the rail only (already public) and hold aggregates until after
-       the final round;
-     - (c) ship everything, but freeze the aggregate data from the day of
-       reflection through the close of polls, with a dated banner.
-   - Recommend (c) if the gate passes in time, otherwise (b). **(a) is not
-     reachable anyway**: the gate needs about 6 hours of annotation plus a
-     second reader. Whichever is chosen, a lawyer reads the methodology page
-     before the aggregates flag is flipped during a campaign.
 
 ## 10. Order and size
 
@@ -797,7 +882,9 @@ reappearing.
 | 5 outlet section, story selector, **outlet × person grid** (density pruning) | 2, 4 | 2–3 days |
 | 6a gate port (ordinal metrics, 3-group support, 4 sampling strata) + Оценки / Нови лица queues | 1r | 1–2 days |
 | — *you:* 250 tone judgements (~6 h, in sittings) + a second reader for 50 | 6a | — |
-| 6b main-site bridge, methodology, share cards (SVG → sharp), flags on per §9-2 | 2; gate | 2 days |
+| 6b main-site bridge, methodology, share cards (SVG → sharp) | 2; gate | 2 days |
+| 6c election freeze (§8.2): config, copy-forward, banner, the `naiasno-post` refusal, warnings | 2 | 1 day — **before** the aggregate flags go on |
+| — *lawyer:* methodology + banner review | 6b, 6c | before the flip |
 
 Phases 1 → 3 can ship alone, because they improve a page that is already
 public. Phases 4–6 wait on the gate. The workspace comes right after Phase 1
@@ -843,5 +930,6 @@ because your identity audit is what lets Phase 2 publish pages.
 | B5 | 1,915 articles have no publish date; 78 linked pairs have no `story_id` | Undated: counted in totals, in no period. No story: its own story (§4.2) |
 | B6 | The news app's `og:image` is an article photo; chart cards exist only on the main site, via a browser | Build-time SVG → PNG with `sharp` (§6.3) |
 | B7 | `identity_version` was named but never defined for gazetteer people | Defined as a hash of id, canonical and resolvable surfaces (§3.0) |
-| B8 | The first round of the presidential election is 2026-11-08; the two most-covered people are the two leading figures | Launch-timing decision with a recommended freeze window (§9-2) |
+| B8 | The first round of the presidential election is 2026-11-08; the two most-covered people are the two leading figures | Launch-timing decision with a recommended freeze window (§8.2) |
 | B9 | §3.0 said the pipeline must not open Postgres; the gazetteer stage already does, every run, and writes nothing without a database | Corrected: `build_app_data` stays database-free; enrichment rides the existing stage and its keep-previous behaviour |
+| B10 | (decision, same day) Option (c) chosen | §8.2 specifies the window, the copy-forward mechanics, the no-snapshot → withhold rule, the estimated-date and runoff warnings, and the banner |
