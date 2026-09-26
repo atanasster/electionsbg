@@ -1,0 +1,68 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2020-12-21",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/975-predizboren-politicheski-triugulnik-kovid-19-ikonomika-aktivnost.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Dec 15-21 2020",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/975-predizboren-politicheski-triugulnik-kovid-19-ikonomika-aktivnost.html",
+      "fetchedAt": "2026-09-26T07:58:25.435Z",
+      "sha256": "d5d66a3c985824cfcbd55dee698e504874ace964e233a375ce10fd8b4ace6f94",
+      "extractor": "AR",
+      "fieldworkStart": "2020-12-15",
+      "fieldworkEnd": "2020-12-21",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (24.3%) има преднина от 2.4 пункта пред ",
+        "share:БСП": "БСП (21.9%) в предпочитанията на твърдо решилите да гласуват",
+        "share:ДПС": "ДПС достига 7.2% от твърдо решилите да гласуват, което отрежда четвърта позиция на Движението",
+        "fieldwork": "в периода 15 – 21 декември 2020г"
+      }
+    },
+    "publicationId": "AR:975",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2020-12-21",
+      "agencyId": "AR",
+      "support": 24.3,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2020-12-21",
+      "agencyId": "AR",
+      "support": 21.9,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2020-12-21",
+      "agencyId": "AR",
+      "support": 7.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (24.3%) има преднина от 2.4 пункта пред ",
+    "share:БСП": "БСП (21.9%) в предпочитанията на твърдо решилите да гласуват",
+    "share:ДПС": "ДПС достига 7.2% от твърдо решилите да гласуват, което отрежда четвърта позиция на Движението",
+    "fieldwork": "в периода 15 – 21 декември 2020г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2021-07-07",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/981-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1013,
+    "genre": "unclear",
+    "fieldwork": "Jul 4-7 2021",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/981-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-26T07:58:24.788Z",
+      "sha256": "06ab6ddb8aac6ec21d858e8f0c8ca0e26a0ef7a24f2ecf0abcfb15252bd5507b",
+      "extractor": "AR",
+      "fieldworkStart": "2021-07-04",
+      "fieldworkEnd": "2021-07-07",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ е 21.5%",
+        "share:БСП": "БСП категорично подобрява позициите си в хода на кампанията, достигайки 16.4% от твърдо решилите да гласуват",
+        "share:Демократична България": "Демократична България е четвърта с 12.0% от твърдо решилите да гласуват",
+        "share:ДПС": "ДПС, което има прогнозна подкрепа от 11.1%",
+        "share:Изправи се! Мутри вън!": "Изправи се! Мутри вън!“, достигайки 5.4% от вота",
+        "share:Възраждане": "Възраждане (3.2%), но при него също е интересно да се изчака вотът от чужбина, откъдето то изненадващо получи висок резултат на 4-ти април",
+        "sampleSize": "сред 1013 пълнолетни",
+        "fieldwork": "в периода 4 – 7 юли 2021г"
+      }
+    },
+    "publicationId": "AR:981",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2021-07-07",
+      "agencyId": "AR",
+      "support": 21.5,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-07-07",
+      "agencyId": "AR",
+      "support": 16.4,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-07-07",
+      "agencyId": "AR",
+      "support": 12,
+      "nickName_bg": "Демократична България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-07-07",
+      "agencyId": "AR",
+      "support": 11.1,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-07-07",
+      "agencyId": "AR",
+      "support": 5.4,
+      "nickName_bg": "Изправи се! Мутри вън!",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-07-07",
+      "agencyId": "AR",
+      "support": 3.2,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ е 21.5%",
+    "share:БСП": "БСП категорично подобрява позициите си в хода на кампанията, достигайки 16.4% от твърдо решилите да гласуват",
+    "share:Демократична България": "Демократична България е четвърта с 12.0% от твърдо решилите да гласуват",
+    "share:ДПС": "ДПС, което има прогнозна подкрепа от 11.1%",
+    "share:Изправи се! Мутри вън!": "Изправи се! Мутри вън!“, достигайки 5.4% от вота",
+    "share:Възраждане": "Възраждане (3.2%), но при него също е интересно да се изчака вотът от чужбина, откъдето то изненадващо получи висок резултат на 4-ти април",
+    "sampleSize": "сред 1013 пълнолетни",
+    "fieldwork": "в периода 4 – 7 юли 2021г"
+  },
+  "refused": []
+}

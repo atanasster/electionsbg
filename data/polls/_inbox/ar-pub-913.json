@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-913",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/913-suobshtenie-vuv-vruzka-s-publikuvani-danni-na-alfa-risurch.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/913-suobshtenie-vuv-vruzka-s-publikuvani-danni-na-alfa-risurch.html",
+      "fetchedAt": "2026-09-26T07:51:36.958Z",
+      "sha256": "fa51f17b480ce7d21b2898f54a9119c4e4000bc040cee1108473fffe108e8950",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:913",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

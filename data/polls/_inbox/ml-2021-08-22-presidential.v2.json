@@ -1,0 +1,50 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ml-2021-08-22-presidential",
+    "agencyId": "ML",
+    "source": "https://www.marketlinks.bg/bg/news/politicheskata-kriza-transformira-elektoralnite-naglasi-avgust-2021-90.html",
+    "cycle": "2021_11_14_pvr",
+    "electionDate": "2021-11-14",
+    "publishedAt": "2021-08-26",
+    "fieldwork": "Aug 13-22 2021",
+    "respondents": 1055,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://www.marketlinks.bg/bg/news/politicheskata-kriza-transformira-elektoralnite-naglasi-avgust-2021-90.html",
+      "fetchedAt": "2026-09-26T07:58:27.007Z",
+      "sha256": "f473e11e870b17a62d9ffe6005b633a23c016fcd161e73c4b4972d9ebfc1b758",
+      "extractor": "ML",
+      "fieldworkStart": "2021-08-13",
+      "fieldworkEnd": "2021-08-22",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 13 – 22 август 2021",
+        "sampleSize": "сред 1055 лица"
+      }
+    },
+    "publicationId": "ML:90"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "ML",
+  "evidence": {
+    "fieldwork": "периода 13 – 22 август 2021",
+    "sampleSize": "сред 1055 лица"
+  },
+  "refused": [
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Политическата криза трансформира електоралните нагласи - август 2021 - MarketLinks"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

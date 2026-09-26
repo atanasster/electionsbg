@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-982",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/982-parlamentarni-izbori-11-iuli-2021-general-election-11-july-2021.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/982-parlamentarni-izbori-11-iuli-2021-general-election-11-july-2021.html",
+      "fetchedAt": "2026-09-26T07:51:57.151Z",
+      "sha256": "504e606961c6b8762a8d45a2e8aefe43a985f6d0a7bd20a616f5d5467166f825",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:982",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

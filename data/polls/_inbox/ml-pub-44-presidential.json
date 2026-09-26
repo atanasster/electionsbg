@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ml-pub-44-presidential",
+    "agencyId": "ML",
+    "source": "https://www.marketlinks.bg/bg/news/komentar-na-rezultati-ot-natsionalno-predstavitelno-prouchvane-na-market-links-provedeno-po-porachka-na-btv-44.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": "2016-11-01",
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://www.marketlinks.bg/bg/news/komentar-na-rezultati-ot-natsionalno-predstavitelno-prouchvane-na-market-links-provedeno-po-porachka-na-btv-44.html",
+      "fetchedAt": "2026-09-26T07:51:39.874Z",
+      "sha256": "2c07433e27094ede140604a36869e2416aae53852af1399cf1a888fb7c3a8bd0",
+      "extractor": "ML",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "ML:44"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "ML",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Коментар на резултати от национално-представително проучване на Маркет ЛИНКС, проведено по поръчка на bTV - MarketLinks"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-986",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/986-14-noemvri-2021-izbori-za-prezident-i-za-narodno-subranie-presidential-elections-and-elections-for-national-assembly.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/986-14-noemvri-2021-izbori-za-prezident-i-za-narodno-subranie-presidential-elections-and-elections-for-national-assembly.html",
+      "fetchedAt": "2026-09-26T07:51:56.793Z",
+      "sha256": "829ad2d867d34d9d7b89f4f55434e39213ed112743dd017b55643a17ef1c8313",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:986",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

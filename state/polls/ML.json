@@ -289,7 +289,20 @@
         "capturePath": "raw_data/polls/market_links/45",
         "capturedAt": "2026-09-26T07:51:39.543Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-45-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:32.353Z",
+            "draftHash": "22f0789ef2cbc255c1640e9b27b38b2f224ff690cbe6965566866289e4ab2301",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -319,7 +332,20 @@
         "capturePath": "raw_data/polls/market_links/44",
         "capturedAt": "2026-09-26T07:51:39.874Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-44-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:32.363Z",
+            "draftHash": "b46b306f4668de0892c2a01244e714738c8102adb64f15217458180ba2c89d84",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -349,7 +375,20 @@
         "capturePath": "raw_data/polls/market_links/43",
         "capturedAt": "2026-09-26T07:51:40.115Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-43-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:32.369Z",
+            "draftHash": "8650e7f93e0108edb206f805ee4ff6414c2802e541ccbae33567d2c663ad5f8a",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -379,7 +418,20 @@
         "capturePath": "raw_data/polls/market_links/42",
         "capturedAt": "2026-09-26T07:51:40.345Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-42-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:32.374Z",
+            "draftHash": "4958d3d71787e39bf827857ae1a1a2c0cbe26effe733ff13f28ee476ad3e0077",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -409,7 +461,20 @@
         "capturePath": "raw_data/polls/market_links/38",
         "capturedAt": "2026-09-26T07:51:40.565Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-38-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:32.377Z",
+            "draftHash": "5c85d715643023541641d7cb3e192f2d9a3103b5ccf7e9cefeb651b24e042ae7",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -448,7 +513,17 @@
         "capturePath": "raw_data/polls/market_links/92.v2",
         "capturedAt": "2026-09-26T07:58:26.364Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-2021-11-07-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:23:56.410Z",
+            "draftHash": "16736a6f8e203f552c0db291730fd46b0e6e9575b799bbf37591265149e457a2",
+            "refused": [
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -487,7 +562,18 @@
         "capturePath": "raw_data/polls/market_links/90.v2",
         "capturedAt": "2026-09-26T07:58:27.007Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-2021-08-22-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:47.074Z",
+            "draftHash": "3f52e2cffd169682085bf8f12f8705ee5198813c6371d0daf656a8150c45df99",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -526,7 +612,18 @@
         "capturePath": "raw_data/polls/market_links/88.v2",
         "capturedAt": "2026-09-26T07:58:27.572Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-2021-06-25-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:47.197Z",
+            "draftHash": "3679141a21e89cfa1eb3e5bc6fc3abb5cf1cc397a65fb15d66b33ccbca87ad61",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -565,7 +662,18 @@
         "capturePath": "raw_data/polls/market_links/86.v2",
         "capturedAt": "2026-09-26T07:58:28.059Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-2021-04-23-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:47.313Z",
+            "draftHash": "b55af72667d1de24cc592caecca19ff5cd63ab649c7786b0886e07c4319cce67",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -604,7 +712,18 @@
         "capturePath": "raw_data/polls/market_links/85.v2",
         "capturedAt": "2026-09-26T07:58:28.627Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-2021-03-25-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:47.424Z",
+            "draftHash": "3c08b3593ad67e777223dd1244e099a8c3808ac7a78c8c5fca1d7692bea10815",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -643,7 +762,18 @@
         "capturePath": "raw_data/polls/market_links/84.v2",
         "capturedAt": "2026-09-26T07:58:29.086Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-2021-01-31-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:47.539Z",
+            "draftHash": "d0525f066b7fd8bddbe3ee2afae938f17311979f47485bd128960bb883d33cca",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {

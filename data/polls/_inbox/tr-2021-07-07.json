@@ -1,0 +1,79 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2021-07-07",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-7/",
+    "electionDate": null,
+    "respondents": 1002,
+    "genre": "unclear",
+    "fieldwork": "Jul 3-7 2021",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-7/",
+      "fetchedAt": "2026-09-26T07:51:48.769Z",
+      "sha256": "eccc1e55b5340afff15cbbe0b6469b7a9f2f52e1a906739b71382a9ee3bb2ac0",
+      "extractor": "TR",
+      "fieldworkStart": "2021-07-03",
+      "fieldworkEnd": "2021-07-07",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (20.5%)",
+        "share:БСП": "БСП стои на твърда трета позиция с 15.9% от гласуващите, като това прави сериозна дистанция, както от втория, така и от четвъртия",
+        "share:Възраждане": "Възраждане“ (3.1%)",
+        "share:Българско лято": "Българско лято“ регистрира подкрепа от 1.6% от всички заявили, че ще упражнят правото си на глас на 11 юли",
+        "sampleSize": "1002 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 03-07 юли 2021 г"
+      }
+    },
+    "publicationId": "TR:209549",
+    "publishedAt": "2021-07-08"
+  },
+  "details": [
+    {
+      "pollId": "tr-2021-07-07",
+      "agencyId": "TR",
+      "support": 20.5,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-07-07",
+      "agencyId": "TR",
+      "support": 15.9,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-07-07",
+      "agencyId": "TR",
+      "support": 3.1,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-07-07",
+      "agencyId": "TR",
+      "support": 1.6,
+      "nickName_bg": "Българско лято",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "TR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (20.5%)",
+    "share:БСП": "БСП стои на твърда трета позиция с 15.9% от гласуващите, като това прави сериозна дистанция, както от втория, така и от четвъртия",
+    "share:Възраждане": "Възраждане“ (3.1%)",
+    "share:Българско лято": "Българско лято“ регистрира подкрепа от 1.6% от всички заявили, че ще упражнят правото си на глас на 11 юли",
+    "sampleSize": "1002 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 03-07 юли 2021 г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (11.3%)"
+    }
+  ]
+}

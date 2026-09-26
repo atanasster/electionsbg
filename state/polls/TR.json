@@ -295,7 +295,17 @@
         "capturePath": "raw_data/polls/trend/209549",
         "capturedAt": "2026-09-26T07:51:48.769Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2021-07-07",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:34.749Z",
+            "draftHash": "7a542bc9b13629cb45566669ac8d5812bb1fdacfc1ef324dd3873143464f3e09",
+            "refused": [
+              "share:ДПС"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -325,7 +335,17 @@
         "capturePath": "raw_data/polls/trend/209520",
         "capturedAt": "2026-09-26T07:51:50.532Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2021-06-18",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:35.527Z",
+            "draftHash": "d689a6287d4704b93da45a103db0c15504bff62867b8cccaeb5e28f6e7459588",
+            "refused": [
+              "share:ДПС"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -362,7 +382,17 @@
         "capturePath": "raw_data/polls/trend/209476.v2",
         "capturedAt": "2026-09-26T07:58:21.914Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2021-03-30",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:36.001Z",
+            "draftHash": "aec7c48a9f2e8da3113c446e025873b09ad41662af517f963f38402f2b616181",
+            "refused": [
+              "share:БСП"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -392,7 +422,15 @@
         "capturePath": "raw_data/polls/trend/209458",
         "capturedAt": "2026-09-26T07:51:53.398Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2021-03-14",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:36.870Z",
+            "draftHash": "9fa806c39e685c0f6ee24552df43f200d411c00f5a22152277ae005b842b6006",
+            "refused": []
+          }
+        ]
       }
     ],
     "failures": {
@@ -429,7 +467,17 @@
         "capturePath": "raw_data/polls/trend/209438.v2",
         "capturedAt": "2026-09-26T07:58:23.643Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2021-02-19",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:37.724Z",
+            "draftHash": "34573c1108f9e4a4268bb0a01bce03bf89121d808770f6bb084305bf18c2a276",
+            "refused": [
+              "share:ДПС"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -459,7 +507,17 @@
         "capturePath": "raw_data/polls/trend/209392",
         "capturedAt": "2026-09-26T07:51:56.388Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "tr-2021-01-19",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:39.872Z",
+            "draftHash": "2a93cc090b26ef87c4da226449962e0da4c49dea33b2dc7c81357167d5d81993",
+            "refused": [
+              "share:ГЕРБ"
+            ]
+          }
+        ]
       }
     ],
     "failures": {

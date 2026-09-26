@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-908",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/908-informiranost-i-rolia-na-kampaniata-za-prezidentski-izbori-i-nacionalen-referendum.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/908-informiranost-i-rolia-na-kampaniata-za-prezidentski-izbori-i-nacionalen-referendum.html",
+      "fetchedAt": "2026-09-26T07:51:38.093Z",
+      "sha256": "fd050de8c394b257266606c77c8a8fb6050d0a4a0510d6594319ff687ce380ae",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:908",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

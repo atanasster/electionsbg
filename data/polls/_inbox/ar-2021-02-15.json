@@ -1,0 +1,42 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2021-02-15",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/976-godina-sled-nachaloto-na-kovid-pandemiata-kak-se-promeni-jivotut-ni.html",
+    "electionDate": null,
+    "respondents": 1007,
+    "genre": "unclear",
+    "fieldwork": "Feb 8-15 2021",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/976-godina-sled-nachaloto-na-kovid-pandemiata-kak-se-promeni-jivotut-ni.html",
+      "fetchedAt": "2026-09-26T07:51:57.897Z",
+      "sha256": "60dded82043241db24653066e3ccccb38161d965a91918b10caf87628e545082",
+      "extractor": "AR",
+      "fieldworkStart": "2021-02-08",
+      "fieldworkEnd": "2021-02-15",
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1007 пълнолетни",
+        "fieldwork": "в периода 8 - 15 февруари 2021г"
+      }
+    },
+    "publicationId": "AR:976",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 1007 пълнолетни",
+    "fieldwork": "в периода 8 - 15 февруари 2021г"
+  },
+  "refused": [
+    {
+      "field": "shares",
+      "reason": "text yielded only 0 share(s) and 1 chart image(s) look like a labelled table — likely a chart-only post (decision 18); the Gemini Vision fallback this needs is not yet built",
+      "quote": ""
+    }
+  ]
+}

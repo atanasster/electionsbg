@@ -868,6 +868,70 @@ describe("main — presidential drafts (Tier 4, decision 10's separate file fami
     process.exitCode = undefined;
   });
 
+  it("refuses a possible translated mirror without changing the accepted corpus", () => {
+    const draft = structuredClone(BASE_PRESIDENTIAL_DRAFT);
+    draft.poll.questions = [
+      {
+        id: "q",
+        race: "presidential",
+        cycle: null,
+        round: null,
+        measure: "party_backed_candidate",
+        wording: { bg: "Кандидат на партия", en: "Party-backed candidate" },
+        base: {
+          kind: "likely_voters",
+          label: { bg: "Гласуващи", en: "Voters" },
+          respondents: null,
+          includesNone: null,
+        },
+        scenario: null,
+        answerScale: [
+          { code: "support", label: { bg: "Подкрепа", en: "Support" } },
+        ],
+        genre: "raw_attitudes",
+        residual: null,
+        evidence: {
+          url: draft.poll.source!,
+          quote: "Кандидат на ПрБ 39.7%",
+          locator: null,
+        },
+        scoring: {
+          eligible: false,
+          reason: "Hypothetical party-backed choice",
+        },
+      },
+    ];
+    draft.details[0].questionId = "q";
+    draft.details[0].answerCode = "support";
+    writeDraft(`${draft.poll.id}.json`, draft);
+    main([draft.poll.id]);
+    expect(process.exitCode).toBeUndefined();
+    const before = fs.readFileSync(presPollsFile(), "utf8");
+    const mirror = structuredClone(draft);
+    mirror.poll.id += "-en";
+    mirror.poll.source += "en/";
+    mirror.details.forEach((d) => (d.pollId = mirror.poll.id));
+    writeDraft(`${mirror.poll.id}.json`, mirror);
+    main([mirror.poll.id]);
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("possible bilingual/duplicate survey"),
+    );
+    expect(fs.readFileSync(presPollsFile(), "utf8")).toBe(before);
+    expect(fs.existsSync(inboxFile(`${mirror.poll.id}.json`))).toBe(true);
+  });
+  it("refuses a suffixed provisional presidential ID", () => {
+    const draft = structuredClone(BASE_PRESIDENTIAL_DRAFT);
+    draft.poll.id = "gm-pub-999-presidential";
+    draft.details.forEach((d) => (d.pollId = draft.poll.id));
+    writeDraft(`${draft.poll.id}.json`, draft);
+    main([draft.poll.id]);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("PROVISIONAL id"),
+    );
+    expect(fs.existsSync(presPollsFile())).toBe(false);
+  });
+
   it("creates data/polls/presidential/ itself on the true first-ever presidential accept (no pre-existing directory, no pre-existing files)", () => {
     // Deliberately does NOT call writePresCorpus — every other test in this
     // block does, which pre-creates the directory as a side effect and so

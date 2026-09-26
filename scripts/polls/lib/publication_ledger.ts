@@ -232,9 +232,7 @@ export const recordExtraction = (
       throw new Error(
         `Missing capture in publication ledger: ${agencyId}/${pubId}`,
       );
-    const prior = version.drafts.find(
-      (entry) => entry.pollId === draft.poll.id && entry.race === draft.race,
-    );
+    const prior = version.drafts.find((entry) => entry.race === draft.race);
     const next = {
       ...prior,
       pollId: draft.poll.id,
@@ -244,7 +242,7 @@ export const recordExtraction = (
       refused: draft.refused.map((entry) => entry.field),
     };
     version.drafts = [
-      ...version.drafts.filter((entry) => entry !== prior),
+      ...version.drafts.filter((entry) => entry.race !== draft.race),
       next,
     ];
     item.errors.extraction = null;
@@ -276,9 +274,7 @@ export const recordAcceptance = (
       );
       // Legacy hand-curated drafts may predate capture-ledger reconciliation.
       if (!version) return;
-      const prior = version.drafts.find(
-        (entry) => entry.pollId === draft.poll.id && entry.race === draft.race,
-      );
+      const prior = version.drafts.find((entry) => entry.race === draft.race);
       const draftHash = hashDraft(draft);
       const next = {
         ...prior,
@@ -292,7 +288,7 @@ export const recordAcceptance = (
         acceptedDraftHash: draftHash,
       };
       version.drafts = [
-        ...version.drafts.filter((entry) => entry !== prior),
+        ...version.drafts.filter((entry) => entry.race !== draft.race),
         next,
       ];
     },

@@ -972,7 +972,20 @@
         "capturePath": "raw_data/polls/alpha_research/987",
         "capturedAt": "2026-09-26T07:51:56.593Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-987-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:39.880Z",
+            "draftHash": "1d0e9dbd92d1d5eafb1a265f88ed2a7eaa52b047566efa188f65ff518ecf8ebe",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1002,7 +1015,30 @@
         "capturePath": "raw_data/polls/alpha_research/986",
         "capturedAt": "2026-09-26T07:51:56.793Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-986",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:39.892Z",
+            "draftHash": "05acfd78e4f06c8253f6600cdf4520771ff0dea84da5d88615ca1399b76d63ad",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          },
+          {
+            "pollId": "ar-pub-986-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:39.896Z",
+            "draftHash": "d406aaf5aa4ecb4deac2bab77a116fdb6e0061ae35606d8964f3d2f44e41f227",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1039,7 +1075,25 @@
         "capturePath": "raw_data/polls/alpha_research/985.v2",
         "capturedAt": "2026-09-26T07:58:24.176Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2021-11-09",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:41.003Z",
+            "draftHash": "f9f60c06e7128c70148038a2d26a117fbf769a5c7a5d19013b7eb7ea44882f61",
+            "refused": []
+          },
+          {
+            "pollId": "ar-2021-11-09-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:41.004Z",
+            "draftHash": "a1e77b5c26dee4724544937848e900b9d445e0907c7dac6831d8fec1ae0d6d64",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1076,7 +1130,29 @@
         "capturePath": "raw_data/polls/alpha_research/984.v2",
         "capturedAt": "2026-09-26T07:58:24.468Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2021-10-10",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:42.617Z",
+            "draftHash": "773d28ab367ffbac18a035ff00ff0159b94cda01dff5a64a015600c8e0d889a6",
+            "refused": [
+              "share:БСП",
+              "share:Продължаваме промяната",
+              "shares"
+            ]
+          },
+          {
+            "pollId": "ar-2021-10-10-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:42.618Z",
+            "draftHash": "bfa866e2541c0763d2fbc466d2141f103dfed7fb6f65f23260d16a7b5e26063b",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1113,7 +1189,28 @@
         "capturePath": "raw_data/polls/alpha_research/983.v2",
         "capturedAt": "2026-09-26T07:58:24.628Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2021-09-15",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:43.738Z",
+            "draftHash": "b94579d26ca2b05cd16b2c06422727c9a787bc550fcb10559bc1ea7fd0e6c7a8",
+            "refused": [
+              "sampleSize"
+            ]
+          },
+          {
+            "pollId": "ar-2021-09-15-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:43.740Z",
+            "draftHash": "d802963908182b426bff782195b26e62c527de78a0884d4a8cc8c7c1a285ae98",
+            "refused": [
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1143,7 +1240,18 @@
         "capturePath": "raw_data/polls/alpha_research/982",
         "capturedAt": "2026-09-26T07:51:57.151Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-982",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:43.747Z",
+            "draftHash": "49fa469956336e82ccef20640c34b118cd8caff2965a3c63ba31cf7fb5ec57fe",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1180,7 +1288,15 @@
         "capturePath": "raw_data/polls/alpha_research/981.v2",
         "capturedAt": "2026-09-26T07:58:24.788Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2021-07-07",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:44.136Z",
+            "draftHash": "cdbdeebb74a021919341fd37a7fb63ed3e7542701c80b5aa348692115e8b94db",
+            "refused": []
+          }
+        ]
       }
     ],
     "failures": {
@@ -1210,7 +1326,18 @@
         "capturePath": "raw_data/polls/alpha_research/980",
         "capturedAt": "2026-09-26T07:51:57.535Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2021-06-07",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:44.585Z",
+            "draftHash": "c101ab714826af13ca7a607bfa7b46f46f9b1bcddf3e9eda4e5d35dbd638ea48",
+            "refused": [
+              "share:ИТН",
+              "share:ИТН"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1240,7 +1367,18 @@
         "capturePath": "raw_data/polls/alpha_research/979",
         "capturedAt": "2026-09-26T07:51:57.604Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-979",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:44.591Z",
+            "draftHash": "963e99519d61be380309a5b4ad56a2422392df40d16e24d9d721965ed0c893b0",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1277,7 +1415,19 @@
         "capturePath": "raw_data/polls/alpha_research/978.v2",
         "capturedAt": "2026-09-26T07:58:24.936Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2021-03-30",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:45.170Z",
+            "draftHash": "76f4f33b6968325efe51f797d571fbbf8932e794f0e3de70ec9941a2323b26ae",
+            "refused": [
+              "share:ДПС",
+              "share:Демократична България",
+              "sampleSize"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1314,7 +1464,20 @@
         "capturePath": "raw_data/polls/alpha_research/977.v2",
         "capturedAt": "2026-09-26T07:58:25.070Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-977",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:45.695Z",
+            "draftHash": "9567e05c07b76dfea7526fcd71b2e070233443da9332c82545710d9cef79e29b",
+            "refused": [
+              "sampleSize",
+              "fieldwork",
+              "fieldwork",
+              "poll.id"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1351,7 +1514,17 @@
         "capturePath": "raw_data/polls/alpha_research/975.v2",
         "capturedAt": "2026-09-26T07:58:25.435Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2020-12-21",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:46.833Z",
+            "draftHash": "40f429f25b18e20a062a1d0624f53c7f4dda6e2a6699f2d386938c861d033e11",
+            "refused": [
+              "sampleSize"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1755,7 +1928,20 @@
         "capturePath": "raw_data/polls/alpha_research/914",
         "capturedAt": "2026-09-26T07:51:36.719Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-914-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:30.513Z",
+            "draftHash": "1ef53fab37b727c6a2fab2bfae5dd7de97b9b348c7bcb2f9d3ae168e50c922d7",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1785,7 +1971,20 @@
         "capturePath": "raw_data/polls/alpha_research/912",
         "capturedAt": "2026-09-26T07:51:37.032Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-912-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:30.548Z",
+            "draftHash": "6096b93907ecd9ee7fd48d879ca021e3c0d77be35419ae6176bb42c37adce51c",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1815,7 +2014,18 @@
         "capturePath": "raw_data/polls/alpha_research/911",
         "capturedAt": "2026-09-26T07:51:37.287Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2016-11-10-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:30.829Z",
+            "draftHash": "91595ca26b711a2ac8f8dd25526d9673b81c9e65657f1524dfc5191765aeca0a",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1845,7 +2055,20 @@
         "capturePath": "raw_data/polls/alpha_research/910",
         "capturedAt": "2026-09-26T07:51:37.361Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-910-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:30.837Z",
+            "draftHash": "d0b6e606ef8806597f7515357aa24ffddbb8a3207f1ed1bd2b2b6085daa87a22",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1875,7 +2098,19 @@
         "capturePath": "raw_data/polls/alpha_research/909",
         "capturedAt": "2026-09-26T07:51:37.561Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-909-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:31.013Z",
+            "draftHash": "b368e455e3206e66f2d01a24821c0a6984bacd12d9b4e15dfc8a9201b95f42c5",
+            "refused": [
+              "fieldwork",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1905,7 +2140,28 @@
         "capturePath": "raw_data/polls/alpha_research/908",
         "capturedAt": "2026-09-26T07:51:38.093Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-908",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:31.346Z",
+            "draftHash": "d0949daad455c72340544e26ab245d9beb759fecd3397c304df5b450d8c1612f",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          },
+          {
+            "pollId": "ar-2016-10-24-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:31.347Z",
+            "draftHash": "e258d10d15bd9ae00f837020951b3d9339fad986961fef0e25ead5461ed7e37b",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1935,7 +2191,18 @@
         "capturePath": "raw_data/polls/alpha_research/907",
         "capturedAt": "2026-09-26T07:51:38.306Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2016-10-13-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:31.549Z",
+            "draftHash": "e5cc642567c278cb05d188cfb0c06670df655af831554dabfdb8ffefa6ee5fa6",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1965,7 +2232,29 @@
         "capturePath": "raw_data/polls/alpha_research/906",
         "capturedAt": "2026-09-26T07:51:38.524Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-906",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:31.759Z",
+            "draftHash": "77878eeb2d5555ce307a4b97b45caa6ae3f8a55a6e4d1327e1412c68d557d9b5",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          },
+          {
+            "pollId": "ar-pub-906-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:31.761Z",
+            "draftHash": "b5d8da57d66a736bd665cc5acb1bfadf7ff4b13c0203e94994bf9d9c1b827a8d",
+            "refused": [
+              "fieldwork",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -1995,7 +2284,30 @@
         "capturePath": "raw_data/polls/alpha_research/905",
         "capturedAt": "2026-09-26T07:51:38.690Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-905",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:31.990Z",
+            "draftHash": "8582c42c189d9f1093ee744b951d04dc193774642b499296a65bd7a08c4253c3",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          },
+          {
+            "pollId": "ar-pub-905-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:31.992Z",
+            "draftHash": "f3a8820d85238736c31d81f2ff3a1264a82dfd43a71bea01f16142d218eb53bb",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -2025,7 +2337,29 @@
         "capturePath": "raw_data/polls/alpha_research/903",
         "capturedAt": "2026-09-26T07:51:39.168Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-903",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:32.343Z",
+            "draftHash": "c38ba4fd53bcc674324969a64b54b72feffc8e353181d9b96ee436bb4623467c",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          },
+          {
+            "pollId": "ar-2016-02-25-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:32.345Z",
+            "draftHash": "1cad8605e932704ae61318bf9951e7dc7a0deb4523e8f49aa3af3565b7a9cfd2",
+            "refused": [
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -3683,7 +4017,18 @@
         "capturePath": "raw_data/polls/alpha_research/913",
         "capturedAt": "2026-09-26T07:51:36.958Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-913",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:30.529Z",
+            "draftHash": "517d85f6b26c409116b78954f53f846b0bdc113e80ca9f59a96266aa3db3575b",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -3713,7 +4058,18 @@
         "capturePath": "raw_data/polls/alpha_research/904",
         "capturedAt": "2026-09-26T07:51:38.819Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-pub-904",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:32.100Z",
+            "draftHash": "d07473c825e272b4291752e96d90ebb900ecbc1a92201ba811e5721453723a05",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -3743,7 +4099,17 @@
         "capturePath": "raw_data/polls/alpha_research/976",
         "capturedAt": "2026-09-26T07:51:57.897Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2021-02-15",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:46.067Z",
+            "draftHash": "34433828ce8e86fc0d0463f4cd2779c973def8c877877f5709f266bf323d0602",
+            "refused": [
+              "shares"
+            ]
+          }
+        ]
       }
     ],
     "failures": {

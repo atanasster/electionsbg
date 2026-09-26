@@ -83,7 +83,20 @@
         "capturePath": "raw_data/polls/sova_harris/3550.v2",
         "capturedAt": "2026-09-26T07:58:16.056Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-pub-3550-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:34.297Z",
+            "draftHash": "ca4726858e60c0bce749bae3a7af7ef17ddf5704fbc4f3ffa20ec9681eff1825",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -113,7 +126,20 @@
         "capturePath": "raw_data/polls/sova_harris/3323",
         "capturedAt": "2026-09-26T07:51:46.460Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-pub-3323-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:34.303Z",
+            "draftHash": "8eff29f97f6ee770d905475ddea24fcd5477d246f8c5af0f47e63fa04da1121e",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -143,7 +169,20 @@
         "capturePath": "raw_data/polls/sova_harris/3311",
         "capturedAt": "2026-09-26T07:51:46.891Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-pub-3311-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:34.313Z",
+            "draftHash": "009f53ab319d4c43e12ed5e72730d587bf16f762a18dcb24d6f867a269db28cf",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -180,7 +219,20 @@
         "capturePath": "raw_data/polls/sova_harris/3880.v2",
         "capturedAt": "2026-09-26T07:58:29.762Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-pub-3880-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:49.987Z",
+            "draftHash": "cf2b9b034017fb70344a24e316e741306064b730d5a1e83da8af7cdbbfe6cc35",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -217,7 +269,19 @@
         "capturePath": "raw_data/polls/sova_harris/3867.v2",
         "capturedAt": "2026-09-26T07:58:30.445Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-2021-10-12-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:52.106Z",
+            "draftHash": "0492592184ef1522ce7865f6625e4392b32ffb070cc2caef2c77e2b229c30eb2",
+            "refused": [
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -254,7 +318,19 @@
         "capturePath": "raw_data/polls/sova_harris/3856.v2",
         "capturedAt": "2026-09-26T07:58:31.152Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-2021-07-06-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:54.323Z",
+            "draftHash": "9b39efa81c049dd12c286d63c158a13a9a5520b5f4a932316e49c4cae44f148e",
+            "refused": [
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -291,7 +367,19 @@
         "capturePath": "raw_data/polls/sova_harris/3840.v2",
         "capturedAt": "2026-09-26T07:58:32.231Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-2021-06-15-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:57.425Z",
+            "draftHash": "75c1d67e89ef01ea1e80024c442f184b2891845e80cc57886ffe12502cdcf8a5",
+            "refused": [
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -328,7 +416,20 @@
         "capturePath": "raw_data/polls/sova_harris/3772.v2",
         "capturedAt": "2026-09-26T07:58:33.045Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-pub-3772-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:17:59.801Z",
+            "draftHash": "999e612ba520bba4c4b25140ae76529a602763d303950a778630f0de56994a26",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -365,7 +466,20 @@
         "capturePath": "raw_data/polls/sova_harris/3760.v2",
         "capturedAt": "2026-09-26T07:58:33.846Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-pub-3760-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T08:18:02.134Z",
+            "draftHash": "bfd432fe6fdf02a008be68346512424c9da8312fa9cfc0f176070fcf0c77f367",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {

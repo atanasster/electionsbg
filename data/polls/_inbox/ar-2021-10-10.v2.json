@@ -1,0 +1,62 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2021-10-10",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/984-obshtestveni-naglasi-na-starta-na-kampaniata-za-izbori-dve-v-edno.html",
+    "electionDate": null,
+    "respondents": 1123,
+    "genre": "unclear",
+    "fieldwork": "Oct 4-10 2021",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/984-obshtestveni-naglasi-na-starta-na-kampaniata-za-izbori-dve-v-edno.html",
+      "fetchedAt": "2026-09-26T07:58:24.468Z",
+      "sha256": "50ef7912c855d6c2acc3aa6471c13d7558729fcf1db91f26386a48b38d62bc69",
+      "extractor": "AR",
+      "fieldworkStart": "2021-10-04",
+      "fieldworkEnd": "2021-10-10",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ стартира от първото място с 23.1% от гласовете на твърдо решилите да гласуват на парламентарните избори и продължава да бъде на устойчива дистанцията пред останалите",
+        "sampleSize": "сред 1123 пълнолетни",
+        "fieldwork": "в периода 4 – 10 октомври 2021г"
+      }
+    },
+    "publicationId": "AR:984",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2021-10-10",
+      "agencyId": "AR",
+      "support": 23.1,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ стартира от първото място с 23.1% от гласовете на твърдо решилите да гласуват на парламентарните избори и продължава да бъде на устойчива дистанцията пред останалите",
+    "sampleSize": "сред 1123 пълнолетни",
+    "fieldwork": "в периода 4 – 10 октомври 2021г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "mentioned 2 times with disagreeing values (16.8, 90%) — refusing rather than guessing which is current",
+      "quote": "БСП (16.8%) и „ | БСП (над 90% от тях) и Изправи се"
+    },
+    {
+      "field": "share:Продължаваме промяната",
+      "reason": "mentioned 2 times with disagreeing values (15.9, 12%) — refusing rather than guessing which is current",
+      "quote": "Продължаваме промяната“ на Кирил Петков и Асен Василев (15.9%) | Продължаваме промяната“, 12% - от тези на "
+    },
+    {
+      "field": "shares",
+      "reason": "text yielded only 1 share(s) and 1 chart image(s) look like a labelled table — likely a chart-only post (decision 18); the Gemini Vision fallback this needs is not yet built",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2021-06-07",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/980-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1007,
+    "genre": "unclear",
+    "fieldwork": "May 30 - Jun 7 2021",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/980-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-26T07:51:57.535Z",
+      "sha256": "94fdc5e2fcc32fdd0ed7c8130146ea581eeb2170e015d9bc4b44bb0786748891",
+      "extractor": "AR",
+      "fieldworkStart": "2021-05-30",
+      "fieldworkEnd": "2021-06-07",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ-СДС": "ГЕРБ-СДС, с минимална преднина от 2% пред ",
+        "share:ГЕРБ": "ГЕРБ намалява с 2%, което е най-същественият му спад за толкова кратък период",
+        "share:БСП": "БСП е трета с подкрепа от 14.4%",
+        "share:Демократична България": "Демократична България“ затвърждава и подобрява позициите си, достигайки до 11.9% от решилите да гласуват",
+        "share:ДПС": "ДПС остава пета политическа сила с 9.9% подкрепа",
+        "share:Изправи се! Мутри вън!": "Изправи се! Мутри вън!“ събира 5.3% подкрепа",
+        "share:Воля": "Воля събира 3.4%",
+        "sampleSize": "сред 1007 пълнолетни",
+        "fieldwork": "в периода 30 май – 7 юни 2021г"
+      }
+    },
+    "publicationId": "AR:980",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2021-06-07",
+      "agencyId": "AR",
+      "support": 2,
+      "nickName_bg": "ГЕРБ-СДС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-06-07",
+      "agencyId": "AR",
+      "support": 2,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-06-07",
+      "agencyId": "AR",
+      "support": 14.4,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-06-07",
+      "agencyId": "AR",
+      "support": 11.9,
+      "nickName_bg": "Демократична България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-06-07",
+      "agencyId": "AR",
+      "support": 9.9,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-06-07",
+      "agencyId": "AR",
+      "support": 5.3,
+      "nickName_bg": "Изправи се! Мутри вън!",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-06-07",
+      "agencyId": "AR",
+      "support": 3.4,
+      "nickName_bg": "Воля",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ-СДС": "ГЕРБ-СДС, с минимална преднина от 2% пред ",
+    "share:ГЕРБ": "ГЕРБ намалява с 2%, което е най-същественият му спад за толкова кратък период",
+    "share:БСП": "БСП е трета с подкрепа от 14.4%",
+    "share:Демократична България": "Демократична България“ затвърждава и подобрява позициите си, достигайки до 11.9% от решилите да гласуват",
+    "share:ДПС": "ДПС остава пета политическа сила с 9.9% подкрепа",
+    "share:Изправи се! Мутри вън!": "Изправи се! Мутри вън!“ събира 5.3% подкрепа",
+    "share:Воля": "Воля събира 3.4%",
+    "sampleSize": "сред 1007 пълнолетни",
+    "fieldwork": "в периода 30 май – 7 юни 2021г"
+  },
+  "refused": [
+    {
+      "field": "share:ИТН",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ИТН - 18.2%"
+    },
+    {
+      "field": "share:ИТН",
+      "reason": "the quote does not state 1% beside \"ИТН\"",
+      "quote": "ИТН от медиите и публичните дебати, особено в период, в който имаше засилен интерес към открити дискусии, не му позволява да разшири значително позициите спрямо тези от 4-ти април (ръстът е с около 1%)"
+    }
+  ]
+}

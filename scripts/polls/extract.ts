@@ -1,39 +1,10 @@
-// `npm run polls:extract` — Tier 2, T2b (docs/plans/polls-agency-watchers-v1.md
-// §6.2). For each capture directory under `raw_data/polls/<agency>/`
-// (written by `polls:fetch`): run that agency's deterministic extractor
-// and write the resulting `InboxDraft` (pretty-printed, decision 7) to
-// `data/polls/_inbox/<pollId>.json`. Only agencies with a built
-// extractor participate — TR, AR and GM (Tier 4 T4.1, presidential only
-// — see `extractGlobalMetrics`'s own header) today; the rest of §6.2's
-// table (ML's aligned-row rule, MY, SH's OCR+table rule, GIB, press) is
-// not yet built and this file has no fallback for them.
-//
-//   npm run polls:extract                    # every capture, every built extractor
-//   npm run polls:extract -- --agency TR      # just Trend
-//   npm run polls:extract -- --agency TR --pub 212750
-//   npm run polls:extract -- --agency GM      # just Global Metrics
-//
-// Walks the FILESYSTEM, not watch state — watch state's `meta.items`
-// tracks only what is NEW since the last watcher run, but extraction is
-// meant to be re-runnable against the whole backlog a capture directory
-// already holds. A pubId captured more than once (`<pubId>.v2`, decision
-// 7) is extracted from its LATEST version only, and the written draft
-// carries that same version suffix in its own filename, so a re-fetch
-// that changed content produces a distinct draft rather than silently
-// overwriting the one for an earlier version.
-//
-// TR (Tier 4b) is the one agency publishing BOTH races, so its single
-// `EXTRACTORS` slot is a small DISPATCHER (`extractTrendDispatch` below)
-// rather than either race-specific function directly — it reads the
-// title first (cheap, no OCR/PDF acquisition paid unless the title is
-// genuinely ambiguous) and routes to `extractTrend` (parliamentary) or
-// `extractTrendPresidential` (presidential), mirroring
-// `extractTrend`'s/`extractGlobalMetrics`'s own title-then-body
-// two-stage race check rather than inventing a third one.
-
+// Extract captured agency releases into reviewable drafts, preserving each race.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { presidentialDraftId } from "./lib/draft_identity";
+import { isExitPollTitle } from "./agencies/wp_lister";
+import { extractAgencyPresidential } from "./extractors/agency_presidential";
 import { extractAlphaResearch } from "./extractors/alpha_research";
 import { extractGlobalMetrics } from "./extractors/global_metrics";
 import { extractTrend } from "./extractors/trend";
@@ -47,9 +18,13 @@ import {
   type PublicationDiscovery,
 } from "./lib/publication_ledger";
 import { dirSlugFor, latestVersionSuffix } from "./lib/capture";
-import { classifyRace, classifyTitle } from "./lib/classify_race";
+import { classifyRaces } from "./lib/classify_race";
 import type { InboxDraft } from "./lib/draft";
-import { acquireText, extractPageTitle } from "./lib/text_acquisition";
+import {
+  acquireText,
+  acquiredSourceText,
+  extractPageTitle,
+} from "./lib/text_acquisition";
 
 const PROD_REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -64,55 +39,61 @@ export const __setExtractRootForTests = (root?: string): void => {
   REPO_ROOT = root ?? PROD_REPO_ROOT;
 };
 
-type Extractor = (captureDir: string, pubId: string) => Promise<InboxDraft>;
+type Extractor = (
+  captureDir: string,
+  pubId: string,
+) => Promise<InboxDraft | InboxDraft[]>;
 
-/** Reads `page.html` here to resolve the title cheaply, THEN resolves
- *  which race this capture is for before choosing an extractor.
- *  `classifyTitle` first — an explicit, unambiguous title needs no
- *  `acquireText` (OCR/PDF acquisition) at all, the same fast path both
- *  race-specific extractors' own guards already assume; only a genuinely
- *  title-ambiguous capture pays for full acquisition, mirroring
- *  `extractTrend`'s own body-text-informed backstop.
- *
- *  ⚠️ This does NOT make `page.html` a single-read file end to end:
- *  whichever extractor this delegates to (`extractTrend` /
- *  `extractTrendPresidential`) reads it again on its own via their own
- *  `readCaptureFile`, and the ambiguous-title branch reads it a THIRD
- *  time inside `acquireText`. Redundant, but harmless — it is a small,
- *  static, already-fetched file, and this dispatcher's own read is what
- *  keeps the common (unambiguous-title) case from paying for a full
- *  `acquireText` pass just to learn the title. */
-const extractTrendDispatch: Extractor = async (captureDir, pubId) => {
-  let html: string;
-  try {
-    html = fs.readFileSync(path.join(captureDir, "page.html"), "utf8");
-  } catch (e) {
-    // Same "clear, capture-scoped" shape both race-specific extractors'
-    // own `readCaptureFile` produces — this read happens BEFORE either of
-    // them runs, so a missing capture must not surface a bare Node ENOENT
-    // instead.
-    throw new Error(
-      `extractTrendDispatch(${pubId}): missing or unreadable page.html in ${captureDir} ` +
-        `(a partial polls:fetch run?): ${e instanceof Error ? e.message : String(e)}`,
+/** The capture is one publication; a joint release yields one draft per race. */
+const extractJoint =
+  (agencyId: "TR" | "AR"): Extractor =>
+  async (captureDir, pubId) => {
+    const html = fs.readFileSync(path.join(captureDir, "page.html"), "utf8");
+    if (isExitPollTitle(extractPageTitle(html)))
+      throw new Error(
+        "Exit-poll publication excluded from pre-election corpus",
+      );
+    const acquired = await acquireText(captureDir, agencyId);
+    const races = classifyRaces(
+      extractPageTitle(html),
+      acquiredSourceText(acquired),
     );
-  }
-  const title = extractPageTitle(html);
-  const titleRace = classifyTitle(title);
-  if (titleRace === "presidential")
-    return extractTrendPresidential(captureDir, pubId);
-  if (titleRace === "parliamentary") return extractTrend(captureDir, pubId);
-  const acquired = await acquireText(captureDir, "TR");
-  const race = classifyRace(title, acquired.articleText);
-  return race === "presidential"
-    ? extractTrendPresidential(captureDir, pubId)
-    : extractTrend(captureDir, pubId);
-};
+    const drafts: InboxDraft[] = [];
+    if (races.includes("parliamentary"))
+      drafts.push(
+        await (agencyId === "TR" ? extractTrend : extractAlphaResearch)(
+          captureDir,
+          pubId,
+          acquired,
+        ),
+      );
+    if (races.includes("presidential"))
+      drafts.push(
+        await (agencyId === "TR"
+          ? extractTrendPresidential(captureDir, pubId, acquired)
+          : extractAgencyPresidential(agencyId, captureDir, pubId, acquired)),
+      );
+    // Both corpora may use the fieldwork-keyed ID, but the shared inbox cannot.
+    if (drafts.length > 1)
+      for (const draft of drafts.filter((d) => d.race === "presidential")) {
+        draft.poll.id = presidentialDraftId(draft.poll.id);
+        draft.details.forEach((row) => (row.pollId = draft.poll.id));
+        if (draft.race === "presidential")
+          draft.runoffs.forEach((row) => (row.pollId = draft.poll.id));
+      }
+    return drafts;
+  };
 
-/** Every agency with a built deterministic extractor. */
 const EXTRACTORS: Record<string, Extractor> = {
-  TR: extractTrendDispatch,
-  AR: extractAlphaResearch,
+  TR: extractJoint("TR"),
+  AR: extractJoint("AR"),
   GM: extractGlobalMetrics,
+  ...Object.fromEntries(
+    ["ML", "SH", "MY", "GIB"].map((agency) => [
+      agency,
+      (dir: string, pub: string) => extractAgencyPresidential(agency, dir, pub),
+    ]),
+  ),
 };
 
 /** Every distinct pubId with at least one capture directory for
@@ -171,10 +152,16 @@ const provisionalFilename = (
 const writeDraft = (draft: InboxDraft, versionSuffix: string): string => {
   fs.mkdirSync(INBOX_DIR(), { recursive: true });
   const file = path.join(INBOX_DIR(), inboxFilename(draft, versionSuffix));
-  if (fs.existsSync(file))
+  if (fs.existsSync(file)) {
+    const prior = JSON.parse(fs.readFileSync(file, "utf8")) as InboxDraft;
+    if (prior.poll.source !== draft.poll.source || prior.race !== draft.race)
+      throw new Error(
+        `Draft ID collision: ${draft.poll.id}; preserve both publications for review`,
+      );
     console.log(
       `  overwriting existing draft ${path.relative(REPO_ROOT, file)}`,
     );
+  }
   fs.writeFileSync(file, `${JSON.stringify(draft, null, 2)}\n`, "utf8");
   return file;
 };
@@ -190,19 +177,29 @@ const writeDraft = (draft: InboxDraft, versionSuffix: string): string => {
  */
 const removeStaleProvisionalDraft = (
   writtenFile: string,
+  draft: InboxDraft,
   agencyId: string,
   pubId: string,
   versionSuffix: string,
 ): void => {
-  const stale = path.join(
-    INBOX_DIR(),
-    provisionalFilename(agencyId, pubId, versionSuffix),
-  );
-  if (stale === writtenFile || !fs.existsSync(stale)) return;
-  fs.rmSync(stale);
-  console.log(
-    `  removed superseded provisional draft ${path.relative(REPO_ROOT, stale)}`,
-  );
+  const base = provisionalFilename(agencyId, pubId, versionSuffix);
+  for (const filename of [
+    base,
+    `${agencyId.toLowerCase()}-pub-${pubId}-presidential${versionSuffix}.json`,
+  ]) {
+    const stale = path.join(INBOX_DIR(), filename);
+    if (stale === writtenFile || !fs.existsSync(stale)) continue;
+    const previous = JSON.parse(fs.readFileSync(stale, "utf8")) as InboxDraft;
+    if (
+      previous.race !== draft.race ||
+      previous.poll.source !== draft.poll.source
+    )
+      continue;
+    fs.rmSync(stale);
+    console.log(
+      `  removed superseded provisional draft ${path.relative(REPO_ROOT, stale)}`,
+    );
+  }
 };
 
 // `agencyId` is always one `main` already validated against `EXTRACTORS`'
@@ -271,25 +268,31 @@ const extractOne = async (
       );
       return;
     }
-    const draft = await extractor(captureDir, pubId);
-    draft.poll.publicationId = `${agencyId}:${pubId}`;
-    draft.poll.publishedAt =
-      stamp.publishedAt ?? draft.poll.publishedAt ?? null;
-    const file = writeDraft(draft, versionSuffix);
-    recordExtraction(
-      REPO_ROOT,
-      agencyId,
-      pubId,
-      stamp.sha256,
-      draft,
-      new Date().toISOString(),
-    );
-    removeStaleProvisionalDraft(file, agencyId, pubId, versionSuffix);
-    const acceptedShares = draft.details.length;
-    console.log(
-      `extracted ${agencyId} ${pubId}${versionSuffix} → ${path.relative(REPO_ROOT, file)} ` +
-        `(${draft.race}/${draft.genre}, ${acceptedShares} share(s), ${draft.refused.length} refused)`,
-    );
+    if (stamp.attachmentFailures?.length)
+      throw new Error(
+        "Capture has unavailable attachments; retry capture before extraction",
+      );
+    const extracted = await extractor(captureDir, pubId);
+    for (const draft of Array.isArray(extracted) ? extracted : [extracted]) {
+      draft.poll.publicationId = `${agencyId}:${pubId}`;
+      draft.poll.publishedAt =
+        stamp.publishedAt ?? draft.poll.publishedAt ?? null;
+      const file = writeDraft(draft, versionSuffix);
+      recordExtraction(
+        REPO_ROOT,
+        agencyId,
+        pubId,
+        stamp.sha256,
+        draft,
+        new Date().toISOString(),
+      );
+      removeStaleProvisionalDraft(file, draft, agencyId, pubId, versionSuffix);
+      const acceptedShares = draft.details.length;
+      console.log(
+        `extracted ${agencyId} ${pubId}${versionSuffix} → ${path.relative(REPO_ROOT, file)} ` +
+          `(${draft.race}/${draft.genre}, ${acceptedShares} share(s), ${draft.refused.length} refused)`,
+      );
+    }
   } catch (e) {
     if (discovery)
       recordPublicationFailure(

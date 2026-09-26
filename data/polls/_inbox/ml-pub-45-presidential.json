@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ml-pub-45-presidential",
+    "agencyId": "ML",
+    "source": "https://www.marketlinks.bg/bg/news/predizborna-kampaniya-prezidentski-izbori-2016-45.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": "2016-12-01",
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://www.marketlinks.bg/bg/news/predizborna-kampaniya-prezidentski-izbori-2016-45.html",
+      "fetchedAt": "2026-09-26T07:51:39.543Z",
+      "sha256": "7c046bf65bdea66baa833a4631bf21acadfebf3ab830d30d4f5c8cc04f767eb8",
+      "extractor": "ML",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "ML:45"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "ML",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Предизборна кампания Президентски избори 2016 - MarketLinks"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

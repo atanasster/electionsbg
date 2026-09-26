@@ -6,6 +6,7 @@
 // minimal synthetic captures throughout so it needs no real binaries.
 
 import fs from "node:fs";
+import * as acquisition from "./lib/text_acquisition";
 import { readPublicationLedger } from "./lib/publication_ledger";
 import os from "node:os";
 import path from "node:path";
@@ -115,6 +116,52 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
     ).toMatchObject([{ pollId: "ar-2026-03-05", race: "parliamentary" }]);
   });
 
+  it("keeps a race stated only in an attachment and uses one acquisition", async () => {
+    writeSyntheticCapture(
+      "alpha_research",
+      "joint",
+      '<title>Президентски избори</title><div id="content">Президентски избори.</div>',
+    );
+    const spy = vi.spyOn(acquisition, "acquireText").mockResolvedValue({
+      articleText: "Президентски избори.",
+      pdfTexts: [
+        { file: "report.doc", text: "Парламентарни избори. ГЕРБ-СДС 20,4%." },
+      ],
+      imageTexts: [],
+    });
+    try {
+      await main(["--agency", "AR"]);
+      expect(readInbox("ar-pub-joint.json")).toMatchObject({
+        race: "parliamentary",
+      });
+      expect(readInbox("ar-pub-joint-presidential.json")).toMatchObject({
+        race: "presidential",
+      });
+      expect(spy).toHaveBeenCalledTimes(1);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("writes both races from a joint Trend release without deleting either draft", async () => {
+    writeSyntheticCapture(
+      "trend",
+      "joint",
+      '<title>Президентски и парламентарни избори</title><div class="et_pb_text_inner">Предстоящите парламентарни избори. ГЕРБ-СДС е на 20,4% подкрепа. Избирателна активност за парламентарни избори е 55%. За президентските избори: Румен Радев с 46,8% от гласуващите.</div>',
+    );
+    await main(["--agency", "TR"]);
+    expect(readInbox("tr-pub-joint.json")).toMatchObject({
+      race: "parliamentary",
+    });
+    expect(readInbox("tr-pub-joint-presidential.json")).toMatchObject({
+      race: "presidential",
+      details: [{ support: 46.8 }],
+    });
+    expect(
+      readPublicationLedger(scratchRoot, "TR")[0].versions[0].drafts,
+    ).toHaveLength(2);
+  });
+
   it("--agency narrows to one agency", async () => {
     writeSyntheticCapture("trend", "111", TR_HTML);
     writeSyntheticCapture("alpha_research", "222", AR_HTML);
@@ -158,10 +205,10 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
   });
 
   it("refuses an unknown or unbuilt --agency", async () => {
-    await main(["--agency", "ML"]); // ML has no built extractor yet
+    await main(["--agency", "UNKNOWN"]); // ML has no built extractor yet
     expect(process.exitCode).toBe(1);
     expect(errorSpy).toHaveBeenCalledWith(
-      expect.stringContaining('unknown or unbuilt --agency "ML"'),
+      expect.stringContaining('unknown or unbuilt --agency "UNKNOWN"'),
     );
   });
 

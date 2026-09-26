@@ -1,0 +1,89 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-977",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/977-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-za-45-narodno-subranie.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/977-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-za-45-narodno-subranie.html",
+      "fetchedAt": "2026-09-26T07:58:25.070Z",
+      "sha256": "6b0e78607b683fa82fed9afe8cd37221dbffd50605b97bd1cac49639081c2d3a",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (28.5%) пред основния електорален конкурент ",
+        "share:БСП": "БСП (23.2%) Оспорвана надпревара между ",
+        "share:ДПС": "ДПС (12.5%) и ",
+        "share:Има такъв народ": "Има такъв народ (13.3%) за третото място Висока вероятност за шест и дори седем партиен парламент, ако кампанията затвърди и увеличи подкрепата за "
+      }
+    },
+    "publicationId": "AR:977",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-977",
+      "agencyId": "AR",
+      "support": 28.5,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-pub-977",
+      "agencyId": "AR",
+      "support": 23.2,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-pub-977",
+      "agencyId": "AR",
+      "support": 12.5,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-pub-977",
+      "agencyId": "AR",
+      "support": 13.3,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (28.5%) пред основния електорален конкурент ",
+    "share:БСП": "БСП (23.2%) Оспорвана надпревара между ",
+    "share:ДПС": "ДПС (12.5%) и ",
+    "share:Има такъв народ": "Има такъв народ (13.3%) за третото място Висока вероятност за шест и дори седем партиен парламент, ако кампанията затвърди и увеличи подкрепата за "
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"26 февруари – 1 март чрез пряко стандартизирано интервю с таблет, което позволява събирането на данните в реално време и регистрирането на най-последните промени в обществените нагласи\"",
+      "quote": "в периода 26 февруари – 1 март чрез пряко стандартизирано интервю с таблет, което позволява събирането на данните в реално време и регистрирането на най-последните промени в обществените нагласи"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"26 февруари – 1 март чрез пряко стандартизирано интервю с таблети, което позволява събирането на данните в реално време и регистрирането на най-последните промени в обществените нагласи\"",
+      "quote": "в периода 26 февруари – 1 март чрез пряко стандартизирано интервю с таблети, което позволява събирането на данните в реално време и регистрирането на най-последните промени в обществените нагласи"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

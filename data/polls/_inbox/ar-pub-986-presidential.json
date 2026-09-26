@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-986-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/986-14-noemvri-2021-izbori-za-prezident-i-za-narodno-subranie-presidential-elections-and-elections-for-national-assembly.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/986-14-noemvri-2021-izbori-za-prezident-i-za-narodno-subranie-presidential-elections-and-elections-for-national-assembly.html",
+      "fetchedAt": "2026-09-26T07:51:56.793Z",
+      "sha256": "829ad2d867d34d9d7b89f4f55434e39213ed112743dd017b55643a17ef1c8313",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:986"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "14 Ноември 2021: Избори за Президент и за Народно събрание / Presidential Elections and Elections for National Assembly -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

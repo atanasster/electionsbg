@@ -1,0 +1,96 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2021-03-30",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/978-obshtestveni-naglasi-na-finala-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Mar 27-30 2021",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/978-obshtestveni-naglasi-na-finala-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-26T07:58:24.936Z",
+      "sha256": "26a3d4140e627d50edc23025cad877f86f2370ca213f943b396ef4779f3aa8cb",
+      "extractor": "AR",
+      "fieldworkStart": "2021-03-27",
+      "fieldworkEnd": "2021-03-30",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ приключва кампанията с подкрепа от 28.1% сред твърдо решилите да гласуват",
+        "share:БСП": "БСП запазва втората си позиция (19.8%), но с плавен отлив на привърженици",
+        "share:левицата": "левицата е най-ясно видим ефектът от притесненията за гласуване в условия на пандемия (25% от избирателите й изразяват силни тревоги, при средно 10 на сто за цялата страна)",
+        "share:Има такъв народ": "Има такъв народ“ (12.7%) и ",
+        "share:Изправи се! Мутри вън!": "Изправи се! Мутри вън!“ (6.0%) са с интензивен ръст в хода на кампанията",
+        "fieldwork": "в периода 27 – 30 март 2021г"
+      }
+    },
+    "publicationId": "AR:978",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2021-03-30",
+      "agencyId": "AR",
+      "support": 28.1,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-03-30",
+      "agencyId": "AR",
+      "support": 19.8,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-03-30",
+      "agencyId": "AR",
+      "support": 25,
+      "nickName_bg": "левицата",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-03-30",
+      "agencyId": "AR",
+      "support": 12.7,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2021-03-30",
+      "agencyId": "AR",
+      "support": 6,
+      "nickName_bg": "Изправи се! Мутри вън!",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ приключва кампанията с подкрепа от 28.1% сред твърдо решилите да гласуват",
+    "share:БСП": "БСП запазва втората си позиция (19.8%), но с плавен отлив на привърженици",
+    "share:левицата": "левицата е най-ясно видим ефектът от притесненията за гласуване в условия на пандемия (25% от избирателите й изразяват силни тревоги, при средно 10 на сто за цялата страна)",
+    "share:Има такъв народ": "Има такъв народ“ (12.7%) и ",
+    "share:Изправи се! Мутри вън!": "Изправи се! Мутри вън!“ (6.0%) са с интензивен ръст в хода на кампанията",
+    "fieldwork": "в периода 27 – 30 март 2021г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (12.5%)"
+    },
+    {
+      "field": "share:Демократична България",
+      "reason": "mentioned 2 times with disagreeing values (4, 6.3%) — refusing rather than guessing which is current",
+      "quote": "Демократична България“, а на ВМРО ще позволи да премине 4%-та бариера | Демократична България“ (6.3%) и „"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "2 candidate sample sizes found — refusing rather than guessing which is the poll's own",
+      "quote": "сред 1007 пълнолетни | сред 1007 пълнолетни"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2021-01-19",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5/",
+    "electionDate": null,
+    "respondents": 1008,
+    "genre": "unclear",
+    "fieldwork": "Jan 12-19 2021",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5/",
+      "fetchedAt": "2026-09-26T07:51:56.388Z",
+      "sha256": "19c20b2d12d2227f8331e8d24f70a363e34486bae9b55ce128a9a8a0948509af",
+      "extractor": "TR",
+      "fieldworkStart": "2021-01-12",
+      "fieldworkEnd": "2021-01-19",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП (24.9%), „",
+        "share:Има такъв народ": "Има такъв народ“ (11.8%), ",
+        "share:ДПС": "ДПС (10.3%) и ",
+        "share:Демократична България": "Демократична България (6%)",
+        "share:Изправи се БГ": "Изправи се БГ с 4.1% и ",
+        "share:Обединени патриоти": "Обединени патриоти (ВМРО-НФСБ) с 4% от заявилите, че ще гласуват на предстоящите редовни парламентарни избори",
+        "sampleSize": "1008 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 12-19 януари 2021 г"
+      }
+    },
+    "publicationId": "TR:209392",
+    "publishedAt": "2021-01-26"
+  },
+  "details": [
+    {
+      "pollId": "tr-2021-01-19",
+      "agencyId": "TR",
+      "support": 24.9,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-01-19",
+      "agencyId": "TR",
+      "support": 11.8,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-01-19",
+      "agencyId": "TR",
+      "support": 10.3,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-01-19",
+      "agencyId": "TR",
+      "support": 6,
+      "nickName_bg": "Демократична България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-01-19",
+      "agencyId": "TR",
+      "support": 4.1,
+      "nickName_bg": "Изправи се БГ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-01-19",
+      "agencyId": "TR",
+      "support": 4,
+      "nickName_bg": "Обединени патриоти",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "TR",
+  "evidence": {
+    "share:БСП": "БСП (24.9%), „",
+    "share:Има такъв народ": "Има такъв народ“ (11.8%), ",
+    "share:ДПС": "ДПС (10.3%) и ",
+    "share:Демократична България": "Демократична България (6%)",
+    "share:Изправи се БГ": "Изправи се БГ с 4.1% и ",
+    "share:Обединени патриоти": "Обединени патриоти (ВМРО-НФСБ) с 4% от заявилите, че ще гласуват на предстоящите редовни парламентарни избори",
+    "sampleSize": "1008 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 12-19 януари 2021 г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 2 times with disagreeing values (3, 27.6%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ задържа преднината си от малко под 3% пред основния си опонент | ГЕРБ (27.6%), "
+    }
+  ]
+}

@@ -11,6 +11,8 @@
 // of them still has to survive the evidence gate before it is trusted.
 
 import fs from "node:fs";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import path from "node:path";
 import * as cheerio from "cheerio";
 import { extractPdfText } from "../../council/lib/pdf_text";
@@ -151,15 +153,23 @@ export const acquireText = async (
   const html = fs.readFileSync(path.join(captureDir, "page.html"), "utf8");
   const articleText = extractArticleText(agencyId, html);
 
-  const pdfFiles = listAttachments(captureDir, /\.pdf$/i);
+  const pdfFiles = listAttachments(captureDir, /\.(?:pdf|docx?)$/i);
   const imageFiles = listAttachments(captureDir, /\.(png|jpe?g)$/i);
 
   const pdfTexts = await Promise.all(
     pdfFiles.map(async (file): Promise<AcquiredAttachmentText> => {
       try {
-        const text = await extractPdfText(
-          fs.readFileSync(path.join(captureDir, file)),
-        );
+        const text = /\.pdf$/i.test(file)
+          ? await extractPdfText(fs.readFileSync(path.join(captureDir, file)))
+          : (
+              await promisify(execFile)(
+                process.platform === "darwin" ? "textutil" : "antiword",
+                process.platform === "darwin"
+                  ? ["-convert", "txt", "-stdout", path.join(captureDir, file)]
+                  : [path.join(captureDir, file)],
+                { maxBuffer: 8 * 1024 * 1024 },
+              )
+            ).stdout;
         return { file, text };
       } catch {
         return { file, text: "" };
@@ -180,3 +190,11 @@ export const acquireText = async (
 
   return { articleText, pdfTexts, imageTexts };
 };
+
+/** Shared race evidence for dispatch and extraction, including linked reports. */
+export const acquiredSourceText = (source: AcquiredText): string =>
+  [
+    source.articleText,
+    ...source.pdfTexts.map((d) => d.text),
+    ...source.imageTexts.map((d) => d.text),
+  ].join("\n");

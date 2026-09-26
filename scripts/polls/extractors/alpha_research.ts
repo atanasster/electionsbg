@@ -22,12 +22,17 @@ import fs from "node:fs";
 import path from "node:path";
 import { pollId as mintPollId } from "../../../src/data/polls/fieldwork";
 import type { PollDetail, PollGenre } from "../../../src/data/polls/pollsTypes";
-import { classifyRace } from "../lib/classify_race";
+import { classifyRaces } from "../lib/classify_race";
 import { dedupeAcceptedShares } from "../lib/dedupe_shares";
 import type { DraftPoll, ParliamentaryInboxDraft } from "../lib/draft";
 import { gateFields, gateShares, type Refusal } from "../lib/evidence_gate";
 import { parseBgFieldworkRange } from "../lib/fieldwork_bg";
-import { acquireText, extractPageTitle } from "../lib/text_acquisition";
+import {
+  acquireText,
+  acquiredSourceText,
+  type AcquiredText,
+  extractPageTitle,
+} from "../lib/text_acquisition";
 import { extractSharesBySentenceRule } from "../lib/sentence_rule";
 
 const AGENCY_ID = "AR";
@@ -138,6 +143,7 @@ const readCaptureFile = (
 export const extractAlphaResearch = async (
   captureDir: string,
   pubId: string,
+  preAcquired?: AcquiredText,
 ): Promise<ParliamentaryInboxDraft> => {
   const html = readCaptureFile(captureDir, pubId, "page.html");
   const stamp = JSON.parse(
@@ -149,25 +155,7 @@ export const extractAlphaResearch = async (
     );
   }
   const title = extractPageTitle(html);
-  // Cheap fast path: `classifyRace`'s own contract is that the title
-  // alone resolves the overwhelming majority of publications with no
-  // ambiguity — so a title that already states "президентски избори"
-  // outright is rejected here, BEFORE paying for OCR over every image
-  // attachment and `pdftotext` over every PDF (`acquireText`, below).
-  // `classifyRace(title)` with no body text still defaults to
-  // "parliamentary" when the title itself is ambiguous, so this can only
-  // ever short-circuit the clearly-presidential case — an ambiguous or
-  // parliamentary-looking title always falls through to the full,
-  // body-text-informed check after acquisition (this extractor's own
-  // discriminated-union guarantee: `draft.race` must always match what
-  // `draft.details` actually contains).
-  if (classifyRace(title) !== "parliamentary") {
-    throw new Error(
-      `extractAlphaResearch(${pubId}): title alone resolves to a non-parliamentary race — ` +
-        `presidential extraction is not built for AR yet (Tier 4b)`,
-    );
-  }
-  const acquired = await acquireText(captureDir, AGENCY_ID);
+  const acquired = preAcquired ?? (await acquireText(captureDir, AGENCY_ID));
 
   const shareCandidates = extractSharesBySentenceRule(acquired.articleText);
   const sharesGate = gateShares(shareCandidates, acquired.articleText);
@@ -200,7 +188,7 @@ export const extractAlphaResearch = async (
     });
   }
 
-  const race = classifyRace(title, acquired.articleText);
+  const race = "parliamentary" as const;
   // This extractor only knows how to build a PARLIAMENTARY-shaped draft
   // (party shares, no candidate/placeholder/runoff extraction) — Tier 4b
   // plans to reuse it for AR's own presidential captures (decision 10's
@@ -211,10 +199,14 @@ export const extractAlphaResearch = async (
   // never see a draft whose `details` don't match its own `race`. The
   // fast path above already caught a title-obvious case; this is the
   // rare title-ambiguous, body-resolved backstop.
-  if (race !== "parliamentary") {
+  if (
+    !classifyRaces(title, acquiredSourceText(acquired)).includes(
+      "parliamentary",
+    )
+  ) {
     throw new Error(
       `extractAlphaResearch(${pubId}): classifyRace resolved "${race}" for this capture — ` +
-        `presidential extraction is not built for AR yet (Tier 4b)`,
+        `this extractor only builds parliamentary drafts`,
     );
   }
 

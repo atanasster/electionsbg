@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { publicationStatus } from "../backlog";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -66,6 +67,22 @@ afterEach(() => {
 });
 
 describe("durable publication processing", () => {
+  it("replaces a provisional identity when the reviewed survey is accepted", () => {
+    recordCapture(root, "TR", discovery, capture);
+    recordExtraction(
+      root,
+      "TR",
+      "42",
+      capture.sha256,
+      { ...draft, poll: { ...draft.poll, id: "tr-pub-42" } },
+      at,
+    );
+    recordAcceptance(root, draft, at);
+    const record = readPublicationLedger(root, "TR")[0];
+    expect(record.versions[0].drafts).toHaveLength(1);
+    expect(record.versions[0].drafts[0].pollId).toBe(draft.poll.id);
+    expect(publicationStatus(record)).toBe("accepted");
+  });
   it("reconciles percent-encoding case variants of the same publication", () => {
     rememberPublications(
       root,

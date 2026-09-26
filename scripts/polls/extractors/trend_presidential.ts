@@ -47,7 +47,7 @@ import {
   resolveCandidate,
 } from "../presidential/candidate_resolver";
 import {
-  classifyRace,
+  classifyRaces,
   classifyTitle,
   PARLIAMENTARY_RE,
 } from "../lib/classify_race";
@@ -60,7 +60,12 @@ import {
   type Refusal,
 } from "../lib/evidence_gate";
 import { parseBgFieldworkRange } from "../lib/fieldwork_bg";
-import { acquireText, extractPageTitle } from "../lib/text_acquisition";
+import {
+  acquireText,
+  acquiredSourceText,
+  type AcquiredText,
+  extractPageTitle,
+} from "../lib/text_acquisition";
 
 const AGENCY_ID = "TR";
 
@@ -225,6 +230,7 @@ const loadTicketsForCycle = (cycleId: string): ResolvableTicket[] => {
 export const extractTrendPresidential = async (
   captureDir: string,
   pubId: string,
+  preAcquired?: AcquiredText,
 ): Promise<PresidentialInboxDraft> => {
   const html = readCaptureFile(captureDir, pubId, "page.html");
   const stamp = JSON.parse(
@@ -236,24 +242,12 @@ export const extractTrendPresidential = async (
     );
   }
   const title = extractPageTitle(html);
-  // Mirror-image guard of `extractTrend`'s own fast path (and
-  // `extractGlobalMetrics`'s identical reasoning): this extractor builds
-  // ONLY presidential drafts, so the safe early rejection is "the title
-  // explicitly, unambiguously states parliamentary" — `classifyTitle`
-  // reports that honestly (`null` for an ambiguous title), never
-  // `classifyRace`'s own defaulted race.
-  if (classifyTitle(title) === "parliamentary") {
-    throw new Error(
-      `extractTrendPresidential(${pubId}): title alone resolves to "parliamentary" for this capture — ` +
-        `this extractor only builds presidential drafts`,
-    );
-  }
-  const acquired = await acquireText(captureDir, AGENCY_ID);
+  const acquired = preAcquired ?? (await acquireText(captureDir, AGENCY_ID));
 
-  const race = classifyRace(title, acquired.articleText);
-  if (race !== "presidential") {
+  const races = classifyRaces(title, acquiredSourceText(acquired));
+  if (!races.includes("presidential")) {
     throw new Error(
-      `extractTrendPresidential(${pubId}): classifyRace resolved "${race}" for this capture — ` +
+      `extractTrendPresidential(${pubId}): ${classifyTitle(title) === "parliamentary" ? 'title alone resolves to "parliamentary"' : `classifyRace resolved "${races.join(", ")}"`} for this capture — ` +
         `this extractor only builds presidential drafts`,
     );
   }

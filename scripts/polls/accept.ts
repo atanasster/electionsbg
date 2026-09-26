@@ -55,6 +55,8 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { flagReader } from "./lib/argv";
 import { validateQuestions } from "./lib/question_validation";
+import { isProvisionalPollId } from "./lib/draft_identity";
+import { presidentialSurveySignature } from "./lib/survey_identity";
 import { recordAcceptance } from "./lib/publication_ledger";
 import type {
   InboxDraft,
@@ -94,7 +96,6 @@ const PRESIDENTIAL_DIR = () => path.join(POLLS_DIR(), "presidential");
  *  `sha256Short` hex digest (16 lowercase hex chars, minted for a
  *  `--url`/`--archive` capture — scripts/watch/fingerprint.ts), so the id
  *  half must accept hex, not just digits. */
-const PROVISIONAL_POLL_ID_RE = /-pub-[0-9a-f]+$/i;
 
 const escapeRegExp = (s: string): string =>
   s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -625,6 +626,30 @@ const acceptPresidential = (
     "presidential/polls.json",
   );
 
+  const signature = presidentialSurveySignature(
+    draft.poll as Poll,
+    draft.details,
+    draft.runoffs,
+  );
+  const duplicate =
+    signature &&
+    polls.find(
+      (p) =>
+        p.id !== draft.poll.id &&
+        signature ===
+          presidentialSurveySignature(
+            p,
+            details.filter((d) => d.pollId === p.id),
+            runoffs.filter((r) => r.pollId === p.id),
+          ),
+    );
+  if (duplicate) {
+    console.error(
+      `${draft.poll.id}: possible bilingual/duplicate survey of ${duplicate.id}; reconcile source identities before acceptance`,
+    );
+    process.exitCode = 1;
+    return;
+  }
   const existing = polls.find((p) => p.id === draft.poll.id);
   const locked = buildLockOrRefuse(
     draft.poll.id,
@@ -748,7 +773,7 @@ export const main = (argv: string[]): void => {
   }
   const draft = JSON.parse(fs.readFileSync(draftFile, "utf8")) as InboxDraft;
 
-  if (PROVISIONAL_POLL_ID_RE.test(draft.poll.id)) {
+  if (isProvisionalPollId(draft.poll.id)) {
     console.error(
       `${opts.pollId}: this is a PROVISIONAL id — no fieldwork date ever resolved for it. Fix the extraction (or hand-edit the draft) and re-run polls:extract before accepting.`,
     );

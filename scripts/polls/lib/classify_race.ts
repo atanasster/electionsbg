@@ -78,3 +78,14 @@ export const classifyRace = (title: string, bodyText = ""): Race =>
  */
 export const classifyTitle = (title: string): Race | null =>
   raceStatedBy(title);
+
+/** Joint releases must preserve both races. Callers use the article body,
+ * never navigation or related-post text. */
+export const classifyRaces = (title: string, bodyText = ""): Race[] => {
+  const text = `${title} ${bodyText}`.toLowerCase();
+  const races: Race[] = [];
+  if (PARLIAMENTARY_RE.test(text)) races.push("parliamentary");
+  if (PRESIDENTIAL_RE.test(text) || /президентска надпревара/u.test(text))
+    races.push("presidential");
+  return races.length ? races : ["parliamentary"];
+};

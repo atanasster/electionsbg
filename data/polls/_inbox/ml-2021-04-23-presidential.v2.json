@@ -1,0 +1,50 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ml-2021-04-23-presidential",
+    "agencyId": "ML",
+    "source": "https://www.marketlinks.bg/bg/news/elektoralnite-naglasi-sled-parlamentarnite-izbori-april-2021-86.html",
+    "cycle": "2021_11_14_pvr",
+    "electionDate": "2021-11-14",
+    "publishedAt": "2021-04-29",
+    "fieldwork": "Apr 16-23 2021",
+    "respondents": 1053,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://www.marketlinks.bg/bg/news/elektoralnite-naglasi-sled-parlamentarnite-izbori-april-2021-86.html",
+      "fetchedAt": "2026-09-26T07:58:28.059Z",
+      "sha256": "61eca54d503c5012348b124ebf679dafab75f2c11c2098eb47f50868215ea6fe",
+      "extractor": "ML",
+      "fieldworkStart": "2021-04-16",
+      "fieldworkEnd": "2021-04-23",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 16 – 23 април 2021",
+        "sampleSize": "сред 1053 лица"
+      }
+    },
+    "publicationId": "ML:86"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "ML",
+  "evidence": {
+    "fieldwork": "периода 16 – 23 април 2021",
+    "sampleSize": "сред 1053 лица"
+  },
+  "refused": [
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Електоралните нагласи след парламентарните избори - април 2021 - MarketLinks"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}
