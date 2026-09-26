@@ -1,38 +1,26 @@
-// Tier 4, T4.2 — presidential accuracy scoring
-// (docs/plans/polls-agency-watchers-v1.md §7). Scores each agency's LAST
-// poll before a cycle's `round1Date` against the REAL outcome in that
-// cycle's `data/<cycle>/national_summary.json`, joining a poll's named
-// candidates to the real tickets via `data/<cycle>/tickets.json` (the
-// SAME fold `candidate_resolver.ts` uses at extraction time — this
-// module re-resolves fresh rather than trusting a poll's own STORED
-// `candidateKey`, since that key may still be a disposable
-// `provisional:...` slug minted before tickets existed, and
-// `polls:presidential:rekey` — decision 16's upgrade step — is not built
-// yet).
-//
-// Decision 12: named-candidate rows ONLY. A poll's placeholder rows
-// (`placeholderFor !== null`, the party horse race) are never scored
-// here — there is no party-level actual result to compare a
-// party-placeholder row against in a presidential race (a party's
-// eventual nominee is a person, not itself a ballot line).
-//
-// The winner rule is the presidential plan's own decision 5 and is
-// NEVER re-derived: `decidedInRound` / `outcome.winsOutright` are READ
-// from `national_summary.json`, not recomputed from vote totals here.
-
+// Question-level presidential accuracy. Published shares are never redistributed.
+// Actual results use the question's documented treatment of the no-candidate vote.
+// An overall score requires the same major-candidate + all-other coverage policy.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { parseFieldworkEnd } from "../../../src/data/polls/fieldwork";
+import {
+  isFuzzyFieldwork,
+  isRealIsoDate,
+  parseFieldworkEnd,
+} from "../../../src/data/polls/fieldwork";
 import { mean, readJson, round } from "../lib/scoring_utils";
 import type {
-  CandidateKey,
   Poll,
+  PollQuestion,
   PresidentialAgencyError,
   PresidentialCandidateResultError,
   PresidentialCycleAccuracy,
   PresidentialPollDetail,
   PresidentialPollsAccuracy,
+  PresidentialQuestionAccuracy,
+  PresidentialQuestionDiagnostic,
+  PresidentialRoundAccuracy,
   Runoff,
 } from "../../../src/data/polls/pollsTypes";
 import {
@@ -40,269 +28,286 @@ import {
   resolveCandidate,
   type ResolvableTicket,
 } from "./candidate_resolver";
-
 const PROD_REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../../..",
 );
 let REPO_ROOT = PROD_REPO_ROOT;
-
-/** TEST-ONLY seam, matching accept.ts's/extract.ts's own convention. */
 export const __setPresidentialAnalyzeRootForTests = (root?: string): void => {
   REPO_ROOT = root ?? PROD_REPO_ROOT;
 };
-
-// A named candidate's actual share below this floor is folded into the
-// synthetic "други" bucket rather than scored as its own row — decision
-// 12's own wording. 1% matches the parliamentary side's display floor
-// (`p.pct >= 0.1` there is a tenth of a point; presidential ballots
-// routinely carry 15-23 tickets, most polling far below a point, so a
-// whole-point floor is the more meaningful cut for a per-candidate error).
-const MINOR_FLOOR_PCT = 1;
-
 interface TicketsFile {
   cycle: string;
   tickets: ResolvableTicket[];
 }
-
-interface NationalSummaryTicketRow {
-  number: number;
-  president: string;
-  shareOfValid: number;
-}
 interface NationalSummaryRound {
   round: 1 | 2;
-  ranking: NationalSummaryTicketRow[];
-  votes: {
-    noneOfTheAbove?: number;
-    valid: number;
-  };
+  date?: string;
+  ranking: { number: number; president: string; shareOfValid: number }[];
+  votes: { noneOfTheAbove?: number; valid: number };
   outcome: { winsOutright: boolean };
 }
 interface NationalSummaryFile {
   cycle: string;
   round1Date: string;
+  round2Date?: string | null;
   decidedInRound: 1 | 2;
   winner: { number: number; president: string };
   rounds: NationalSummaryRound[];
 }
-
-/** `foldCandidateName(ticket.president) → that round's ticket row`, for a
- *  fast join once a poll row has resolved to a real `canonicalKey`. */
-const actualByKey = (
-  round1: NationalSummaryRound,
-): Map<string, NationalSummaryTicketRow> =>
-  new Map(round1.ranking.map((t) => [foldCandidateName(t.president), t]));
-
-interface ScoredRow {
-  key: CandidateKey;
-  name_bg: string;
-  polled: number;
-  actualPct: number;
-}
-
-/** Resolve one named-candidate detail row to a real actual result, or
- *  `null` when it cannot be safely attributed — an unresolved/ambiguous
- *  name (decision 16), or a `"none"` row when this cycle's form never
- *  asked (`noneOfTheAbove` absent, pre-2016). Never guesses. */
-const resolveRow = (
-  d: PresidentialPollDetail,
-  tickets: ResolvableTicket[],
-  round1: NationalSummaryRound,
-  byKey: Map<string, NationalSummaryTicketRow>,
-  cycle: string,
-): ScoredRow | null => {
-  if (d.candidateKey === "none") {
-    if (round1.votes.noneOfTheAbove === undefined) return null;
-    return {
-      key: "none",
-      name_bg: "Не подкрепям никого",
-      polled: d.support,
-      actualPct: round(
-        (round1.votes.noneOfTheAbove / round1.votes.valid) * 100,
-      ),
-    };
-  }
-  const resolved = resolveCandidate(d.candidateName_bg, tickets, cycle);
-  if (!resolved.resolved) return null;
-  const ticket = byKey.get(resolved.candidateKey);
-  if (!ticket) return null; // resolved to a real ticket, but not in round 1's own ranking — shouldn't happen, refuse rather than guess
-  return {
-    key: resolved.candidateKey,
-    name_bg: ticket.president,
-    polled: d.support,
-    actualPct: round(ticket.shareOfValid * 100),
-  };
+const MINOR_FLOOR_PCT = 1;
+const dayOfPublication = (value: string | null | undefined): string | null => {
+  if (!value || !isRealIsoDate(value.slice(0, 10))) return null;
+  if (value.length === 10) return value;
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return null;
+  return new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Europe/Sofia",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
+};
+const dateOfRound = (summary: NationalSummaryFile, r: NationalSummaryRound) =>
+  r.date ?? (r.round === 1 ? summary.round1Date : (summary.round2Date ?? null));
+const endOfFieldwork = (poll: Poll): string | null => {
+  const end =
+    poll.provenance?.fieldworkEnd ??
+    (isFuzzyFieldwork(poll.fieldwork)
+      ? null
+      : parseFieldworkEnd(poll.fieldwork));
+  return end && isRealIsoDate(end) ? end : null;
 };
 
-/** One agency's scoring for one cycle, or `null` when nothing about this
- *  poll can be scored at all (every row unresolved, or no named-candidate
- *  rows in the first place — a pure placeholder-only poll). */
-const scorePoll = (
+/** Eligibility precedes last-observation selection; every refusal is retained. */
+const eligibilityReasons = (
   poll: Poll,
-  fieldworkEnd: string,
+  q: PollQuestion,
+  summary: NationalSummaryFile,
+  target: NationalSummaryRound | undefined,
+): string[] => {
+  const reasons: string[] = [];
+  if (!q.scoring.eligible) reasons.push("source_ineligible");
+  if (q.cycle !== summary.cycle || q.race !== "presidential")
+    reasons.push("wrong_election");
+  if (!["vote_intention", "runoff"].includes(q.measure))
+    reasons.push("incompatible_measure");
+  if (q.genre === "unclear") reasons.push("unknown_genre");
+  if (
+    !["decided_voters", "valid_votes"].includes(q.base.kind) ||
+    typeof q.base.includesNone !== "boolean"
+  )
+    reasons.push("incompatible_base");
+  if (
+    [q.residual?.undecided, q.residual?.wontVote, q.residual?.wontSay].some(
+      (v) => typeof v === "number" && v > 0,
+    )
+  )
+    reasons.push("non_voting_residual");
+  if (q.scenario !== null) reasons.push("scenario_question");
+  if (!target) reasons.push("no_round_result");
+  const date = target ? dateOfRound(summary, target) : null;
+  const end = endOfFieldwork(poll);
+  const start = poll.provenance?.fieldworkStart;
+  const published = dayOfPublication(poll.publishedAt);
+  if (!end) reasons.push("unknown_fieldwork");
+  else if (date && end >= date) reasons.push("fieldwork_cutoff");
+  if (!published) reasons.push("unknown_publication_date");
+  else if (date && published >= date) reasons.push("publication_cutoff");
+  if (end && published && published < end)
+    reasons.push("publication_before_fieldwork_end");
+  if (start && (!isRealIsoDate(start) || (end && start > end)))
+    reasons.push("invalid_fieldwork_range");
+  if (q.round === 2 && (!start || start <= summary.round1Date))
+    reasons.push("not_between_rounds");
+  if (q.round === 1 && q.measure === "runoff")
+    reasons.push("wrong_round_measure");
+  return reasons;
+};
+
+const scoreQuestion = (
+  poll: Poll,
+  q: PollQuestion,
+  target: NationalSummaryRound,
+  date: string,
   details: PresidentialPollDetail[],
   runoffs: Runoff[],
   tickets: ResolvableTicket[],
   summary: NationalSummaryFile,
-): PresidentialAgencyError | null => {
-  const round1 = summary.rounds[0];
-  const byKey1 = actualByKey(round1);
-  const named = details.filter(
-    (d) => d.pollId === poll.id && d.placeholderFor === null,
+): PresidentialQuestionAccuracy | null => {
+  const includesNone = q.base.includesNone!;
+  const nonePct =
+    ((target.votes.noneOfTheAbove ?? 0) / target.votes.valid) * 100;
+  const denominator = includesNone ? 100 : 100 - nonePct;
+  if (!(denominator > 0)) return null;
+  const actual = new Map(
+    target.ranking.map((t) => [
+      foldCandidateName(t.president),
+      { name: t.president, pct: (t.shareOfValid * 100 * 100) / denominator },
+    ]),
   );
-  if (named.length === 0) return null;
-
-  const resolvedRows = named
-    .map((d) => resolveRow(d, tickets, round1, byKey1, summary.cycle))
-    .filter((r): r is ScoredRow => r !== null);
-  if (resolvedRows.length === 0) return null;
-
-  const errors: PresidentialCandidateResultError[] = [];
-  let minorPolled = 0;
-  let minorActual = 0;
-  for (const r of resolvedRows) {
-    if (r.key !== "none" && r.actualPct < MINOR_FLOOR_PCT) {
-      minorPolled += r.polled;
-      minorActual += r.actualPct;
-      continue;
+  if (includesNone && target.votes.noneOfTheAbove !== undefined)
+    actual.set("none", { name: "Не подкрепям никого", pct: nonePct });
+  const observations: { key: string; name: string; support: number }[] = [];
+  const unresolvedNames: string[] = [];
+  const rows = details.filter(
+    (d) => d.pollId === poll.id && d.questionId === q.id,
+  );
+  if (q.measure === "runoff") {
+    const matches = runoffs.filter(
+      (r) => r.pollId === poll.id && r.questionId === q.id,
+    );
+    // One matchup per question: ambiguity cannot choose an arbitrary pairing.
+    if (matches.length !== 1) return null;
+    const r = matches[0];
+    for (const [key, rawName, support] of [
+      [r.a, r.aName_bg, r.supportA],
+      [r.b, r.bName_bg, r.supportB],
+    ] as const) {
+      const resolved = rawName
+        ? resolveCandidate(rawName, tickets, summary.cycle)
+        : null;
+      const k = resolved?.resolved ? resolved.candidateKey : key;
+      if ((rawName && !resolved?.resolved) || !actual.has(k))
+        unresolvedNames.push(rawName ?? key);
+      else observations.push({ key: k, name: actual.get(k)!.name, support });
     }
-    errors.push({
-      key: r.key,
-      name_bg: r.name_bg,
-      polled: r.polled,
-      actual: r.actualPct,
-      error: round(r.polled - r.actualPct),
-    });
+    // A published no-candidate answer may accompany the paired observation.
+    for (const d of rows.filter((d) => d.candidateKey === "none")) {
+      if (!actual.has("none")) {
+        unresolvedNames.push(d.candidateName_bg);
+        continue;
+      }
+      observations.push({
+        key: "none",
+        name: d.candidateName_bg,
+        support: d.support,
+      });
+    }
+  } else {
+    for (const d of rows) {
+      if (d.placeholderFor !== null) {
+        unresolvedNames.push(d.candidateName_bg);
+        continue;
+      }
+      const resolved =
+        d.candidateKey === "none"
+          ? { resolved: true, candidateKey: "none" }
+          : resolveCandidate(d.candidateName_bg, tickets, summary.cycle);
+      if (!resolved.resolved || !actual.has(resolved.candidateKey))
+        unresolvedNames.push(d.candidateName_bg);
+      else
+        observations.push({
+          key: resolved.candidateKey,
+          name: actual.get(resolved.candidateKey)!.name,
+          support: d.support,
+        });
+    }
   }
-  if (minorPolled > 0 || minorActual > 0) {
+  if (!observations.length && !unresolvedNames.length) return null;
+  const keys = new Set(observations.map((r) => r.key));
+  const duplicate = keys.size !== observations.length;
+  const required = [...actual.entries()].filter(
+    ([k, v]) => k === "none" || v.pct >= MINOR_FLOOR_PCT,
+  );
+  const missingKeys = required.filter(([k]) => !keys.has(k)).map(([k]) => k);
+  const errors: PresidentialCandidateResultError[] = observations
+    .filter(
+      (r) => r.key === "none" || actual.get(r.key)!.pct >= MINOR_FLOOR_PCT,
+    )
+    .map((r) => ({
+      key: r.key,
+      name_bg: r.name,
+      polled: r.support,
+      actual: round(actual.get(r.key)!.pct),
+      error: round(r.support - actual.get(r.key)!.pct),
+    }));
+  const minorActual = [...actual.entries()].filter(
+    ([k, v]) => k !== "none" && v.pct < MINOR_FLOOR_PCT,
+  );
+  const publishedMinor = observations.filter(
+    (r) => r.key !== "none" && actual.get(r.key)!.pct < MINOR_FLOOR_PCT,
+  );
+  const other = q.residual?.otherNamedMinor;
+  const hasMinorCoverage =
+    minorActual.every(([k]) => keys.has(k)) || other != null;
+  if (
+    missingKeys.length === 0 &&
+    hasMinorCoverage &&
+    (minorActual.length || other != null)
+  ) {
+    const polled =
+      publishedMinor.reduce((s, r) => s + r.support, 0) + (other ?? 0);
+    const actualPct = minorActual.reduce((s, [, v]) => s + v.pct, 0);
     errors.push({
       key: "други",
       name_bg: "Други",
-      polled: round(minorPolled),
-      actual: round(minorActual),
-      error: round(minorPolled - minorActual),
+      polled: round(polled),
+      actual: round(actualPct),
+      error: round(polled - actualPct),
     });
   }
-  if (errors.length === 0) return null;
-
-  const absErrors = errors.map((e) => Math.abs(e.error));
-  const mae = round(mean(absErrors));
-  const rmse = round(Math.sqrt(mean(absErrors.map((e) => e * e))));
-  const biggest = errors.reduce((a, b) =>
-    Math.abs(b.error) > Math.abs(a.error) ? b : a,
+  if (!hasMinorCoverage) missingKeys.push("други");
+  const publishedTotal = round(
+    observations.reduce((s, r) => s + r.support, 0) + (other ?? 0),
   );
-
-  // Leader/runoff-pair calls read from every RESOLVED real-candidate row
-  // (never "други", which names no one candidate) ranked by the poll's
-  // own polled support — not from `errors` above, which has already
-  // folded the minors together and would make "the poll's own #2 pick"
-  // unrecoverable once folded.
-  const realResolved = resolvedRows
+  const complete =
+    missingKeys.length === 0 &&
+    unresolvedNames.length === 0 &&
+    !duplicate &&
+    Math.abs(publishedTotal - 100) <= 1;
+  const ranked = observations
     .filter((r) => r.key !== "none")
-    .sort((a, b) => b.polled - a.polled);
-  const topPick = realResolved[0] ?? null;
-  const leaderCalled = topPick
-    ? topPick.key === foldCandidateName(round1.ranking[0].president)
-    : false;
-  const decidedInRoundCalled =
-    topPick === null
-      ? null
-      : topPick.polled > 50 === round1.outcome.winsOutright;
-
-  let runoffPairCalled: boolean | null = null;
-  if (summary.decidedInRound === 2 && realResolved.length >= 2) {
-    const polledTop2 = new Set([realResolved[0].key, realResolved[1].key]);
-    const actualTop2 = new Set([
-      foldCandidateName(round1.ranking[0].president),
-      foldCandidateName(round1.ranking[1].president),
-    ]);
-    runoffPairCalled =
-      polledTop2.size === actualTop2.size &&
-      [...polledTop2].every((k) => actualTop2.has(k));
-  }
-
-  let runoff: PresidentialAgencyError["runoff"] = null;
-  if (summary.decidedInRound === 2 && summary.rounds[1]) {
-    const round2 = summary.rounds[1];
-    const byKey2 = actualByKey(round2);
-    const pollRunoffs = runoffs.filter((r) => r.pollId === poll.id);
-    for (const r of pollRunoffs) {
-      const ta = byKey2.get(r.a);
-      const tb = byKey2.get(r.b);
-      // "the pairing that happened" (decision 12) — both names must
-      // resolve to the SAME two tickets that actually reached round 2;
-      // a poll's speculative "what if X vs Y" pairing that never
-      // occurred is not scored.
-      //
-      // ⚠️ `Runoff.a`/`.b` carry NO raw candidate name to re-resolve from
-      // (unlike `PresidentialPollDetail.candidateName_bg` above) — if
-      // either key is still a disposable `provisional:...` slug minted
-      // before this cycle's tickets existed (`polls:presidential:rekey`,
-      // decision 16's upgrade step, is not built yet), a REAL pairing is
-      // silently indistinguishable from one that never happened. Warn
-      // rather than fail silently, so the gap is visible in operator
-      // logs instead of reading as "this agency published no pairing".
-      if (!ta || !tb) {
-        if (r.a.startsWith("provisional:") || r.b.startsWith("provisional:")) {
-          console.warn(
-            `  ! ${poll.agencyId} ${poll.id}: runoff pairing (${r.a}, ${r.b}) carries a stale ` +
-              `provisional key and cannot be matched against round 2 — build polls:presidential:rekey ` +
-              `and re-run, or this pairing (real or not) will never be scored`,
-          );
-        }
-        continue;
-      }
-      const errA = round(r.supportA - ta.shareOfValid * 100);
-      const errB = round(r.supportB - tb.shareOfValid * 100);
-      runoff = {
-        a: r.a,
-        b: r.b,
-        errors: [
-          {
-            key: r.a,
-            polled: r.supportA,
-            actual: round(ta.shareOfValid * 100),
-            error: errA,
-          },
-          {
-            key: r.b,
-            polled: r.supportB,
-            actual: round(tb.shareOfValid * 100),
-            error: errB,
-          },
-        ],
-        mae: round(mean([Math.abs(errA), Math.abs(errB)])),
-      };
-      break; // one poll rarely publishes more than one real runoff pairing
-    }
-  }
-
+    .sort((a, b) => b.support - a.support);
+  const tiedLeader =
+    ranked.length > 1 && ranked[0].support === ranked[1].support;
+  const tiedPair = ranked.length > 2 && ranked[1].support === ranked[2].support;
+  const actualLeader = foldCandidateName(target.ranking[0].president);
+  const actualPair = target.ranking
+    .slice(0, 2)
+    .map((r) => foldCandidateName(r.president));
+  const end = endOfFieldwork(poll)!;
   return {
     agencyId: poll.agencyId,
     pollId: poll.id,
-    fieldworkEnd,
-    daysBefore: Math.round(
-      (new Date(summary.round1Date).getTime() -
-        new Date(fieldworkEnd).getTime()) /
-        86400000,
-    ),
+    questionId: q.id,
+    round: q.round!,
+    fieldworkEnd: end,
+    publishedAt: poll.publishedAt!,
+    daysBefore: Math.round((Date.parse(date) - Date.parse(end)) / 86400000),
     respondents: poll.respondents,
-    genre: poll.genre,
+    includesNone,
     errors: errors.sort((a, b) => Math.abs(b.error) - Math.abs(a.error)),
-    mae,
-    rmse,
-    biggestMiss: { key: biggest.key, error: biggest.error },
-    leaderCalled,
-    runoffPairCalled,
-    decidedInRoundCalled,
-    runoff,
+    mae:
+      complete && errors.length
+        ? round(mean(errors.map((e) => Math.abs(e.error))))
+        : null,
+    rmse:
+      complete && errors.length
+        ? round(Math.sqrt(mean(errors.map((e) => e.error ** 2))))
+        : null,
+    coverage: {
+      complete,
+      missingKeys,
+      unresolvedNames,
+      publishedTotal,
+      policy: "major-candidates-plus-all-other",
+    },
+    leaderCalled:
+      complete && ranked.length && !tiedLeader
+        ? ranked[0].key === actualLeader
+        : null,
+    runoffPairCalled:
+      complete &&
+      q.round === 1 &&
+      summary.decidedInRound === 2 &&
+      ranked.length >= 2 &&
+      !tiedPair
+        ? ranked.slice(0, 2).every((r) => actualPair.includes(r.key))
+        : null,
   };
 };
 
-/** Score every agency's last pre-round1 poll for ONE cycle. `polls` and
- *  `details`/`runoffs` are the WHOLE presidential corpus — filtered here
- *  to this cycle and to "before round1Date" per agency. */
 export const computeCycleAccuracy = (
   summary: NationalSummaryFile,
   tickets: ResolvableTicket[],
@@ -310,69 +315,141 @@ export const computeCycleAccuracy = (
   details: PresidentialPollDetail[],
   runoffs: Runoff[],
 ): PresidentialCycleAccuracy => {
-  const round1 = summary.rounds[0];
-  const cyclePolls = polls.filter((p) => p.cycle === summary.cycle);
-  const byAgency = new Map<string, Poll[]>();
-  for (const p of cyclePolls) {
-    const arr = byAgency.get(p.agencyId) ?? [];
-    arr.push(p);
-    byAgency.set(p.agencyId, arr);
-  }
-
-  const agencies: PresidentialAgencyError[] = [];
+  const diagnostics: PresidentialQuestionDiagnostic[] = [];
   const candidateResolution: NonNullable<
     PresidentialCycleAccuracy["candidateResolution"]
   > = [];
-  for (const [, agencyPolls] of byAgency) {
-    let last: { poll: Poll; end: string } | null = null;
-    for (const poll of agencyPolls) {
-      const end = parseFieldworkEnd(poll.fieldwork);
-      if (!end || end > summary.round1Date) continue;
-      if (!last || end > last.end) last = { poll, end };
+  const candidates: PresidentialQuestionAccuracy[] = [];
+  for (const poll of polls.filter((p) => p.cycle === summary.cycle)) {
+    if (!poll.questions?.length)
+      diagnostics.push({
+        agencyId: poll.agencyId,
+        pollId: poll.id,
+        questionId: null,
+        round: null,
+        reasons: ["missing_question_metadata"],
+        selected: false,
+      });
+    for (const q of poll.questions ?? []) {
+      const named = details.filter(
+        (d) =>
+          d.pollId === poll.id &&
+          d.questionId === q.id &&
+          d.placeholderFor === null &&
+          d.candidateKey !== "none",
+      );
+      const unresolved = named.filter(
+        (d) =>
+          !resolveCandidate(d.candidateName_bg, tickets, summary.cycle)
+            .resolved,
+      );
+      candidateResolution.push({
+        pollId: poll.id,
+        agencyId: poll.agencyId,
+        questionId: q.id,
+        total: named.length,
+        resolved: named.length - unresolved.length,
+        unresolvedNames: unresolved.map((d) => d.candidateName_bg),
+      });
+      const target = summary.rounds.find((r) => r.round === q.round);
+      const reasons = eligibilityReasons(poll, q, summary, target);
+      const diagnostic = {
+        agencyId: poll.agencyId,
+        pollId: poll.id,
+        questionId: q.id,
+        round: q.round,
+        reasons,
+        selected: false,
+      };
+      diagnostics.push(diagnostic);
+      const date = target ? dateOfRound(summary, target) : null;
+      if (reasons.length || !target || !date) continue;
+      const score = scoreQuestion(
+        poll,
+        q,
+        target,
+        date,
+        details,
+        runoffs,
+        tickets,
+        summary,
+      );
+      if (!score) {
+        reasons.push("no_comparable_answers");
+        continue;
+      }
+      if (!score.coverage.complete) reasons.push("incomplete_coverage");
+      candidates.push(score);
     }
-    if (!last) continue;
-    const named = details.filter(
-      (d) =>
-        d.pollId === last.poll.id &&
-        d.placeholderFor === null &&
-        d.candidateKey !== "none",
-    );
-    const unresolved = named.filter(
-      (d) =>
-        !resolveCandidate(d.candidateName_bg, tickets, summary.cycle).resolved,
-    );
-    candidateResolution.push({
-      pollId: last.poll.id,
-      agencyId: last.poll.agencyId,
-      total: named.length,
-      resolved: named.length - unresolved.length,
-      unresolvedNames: unresolved.map((d) => d.candidateName_bg),
-    });
-    // A missing leading candidate changes both the error and the leader verdict.
-    if (unresolved.length > 0) continue;
-    const scored = scorePoll(
-      last.poll,
-      last.end,
-      details,
-      runoffs,
-      tickets,
-      summary,
-    );
-    if (scored) agencies.push(scored);
   }
-  agencies.sort((a, b) => a.mae - b.mae);
-
+  const rounds: PresidentialRoundAccuracy[] = summary.rounds.flatMap(
+    (target) => {
+      const date = dateOfRound(summary, target);
+      if (!date) return [];
+      const pool = candidates.filter((c) => c.round === target.round);
+      const comparisons = [...new Set(pool.map((c) => c.agencyId))]
+        .sort()
+        .map((agencyId) => {
+          const available = pool.filter((c) => c.agencyId === agencyId);
+          // Later unscorable questions cannot suppress an earlier complete comparison.
+          const complete = available.filter((c) => c.mae !== null);
+          const eligible = complete.length ? complete : available;
+          eligible.sort(
+            (a, b) =>
+              b.fieldworkEnd.localeCompare(a.fieldworkEnd) ||
+              Date.parse(b.publishedAt) - Date.parse(a.publishedAt) ||
+              a.pollId.localeCompare(b.pollId) ||
+              a.questionId.localeCompare(b.questionId),
+          );
+          const selected = eligible[0];
+          diagnostics.find(
+            (d) =>
+              d.pollId === selected.pollId &&
+              d.questionId === selected.questionId,
+          )!.selected = true;
+          return selected;
+        });
+      const actualResults = target.ranking.map((t) => ({
+        key: foldCandidateName(t.president),
+        name_bg: t.president,
+        pct: round(t.shareOfValid * 100),
+      }));
+      if (target.votes.noneOfTheAbove !== undefined)
+        actualResults.push({
+          key: "none",
+          name_bg: "Не подкрепям никого",
+          pct: round((target.votes.noneOfTheAbove / target.votes.valid) * 100),
+        });
+      return [{ round: target.round, date, actualResults, comparisons }];
+    },
+  );
+  // Compatibility projection for the existing compact round-one tile. Incomplete
+  // comparisons stay in rounds with null grades, never a fabricated zero.
+  const agencies: PresidentialAgencyError[] = (
+    rounds.find((r) => r.round === 1)?.comparisons ?? []
+  )
+    .filter((c) => c.mae !== null && c.rmse !== null)
+    .map((c) => ({
+      agencyId: c.agencyId,
+      pollId: c.pollId,
+      fieldworkEnd: c.fieldworkEnd,
+      daysBefore: c.daysBefore,
+      respondents: c.respondents,
+      errors: c.errors,
+      mae: c.mae!,
+      rmse: c.rmse!,
+      biggestMiss: { key: c.errors[0].key, error: c.errors[0].error },
+      leaderCalled: c.leaderCalled,
+      runoffPairCalled: c.runoffPairCalled,
+      decidedInRoundCalled: null,
+      runoff: null,
+    }));
   return {
     cycle: summary.cycle,
     round1Date: summary.round1Date,
     decidedInRound: summary.decidedInRound,
     winner: foldCandidateName(summary.winner.president),
-    actualResults: round1.ranking
-      // Rounded to the SAME basis `scorePoll`'s major/minor fold compares
-      // against (`ScoredRow.actualPct`, also `round(shareOfValid * 100)`)
-      // — a raw-vs-rounded mismatch here would let a candidate at, say,
-      // 0.996% (rounds to 1.00, scored as its own row) be excluded from
-      // this display list while still being individually scored.
+    actualResults: summary.rounds[0].ranking
       .filter((t) => round(t.shareOfValid * 100) >= MINOR_FLOOR_PCT)
       .map((t) => ({
         key: foldCandidateName(t.president),
@@ -380,6 +457,8 @@ export const computeCycleAccuracy = (
         pct: round(t.shareOfValid * 100),
       })),
     agencies,
+    rounds,
+    diagnostics,
     candidateResolution,
   };
 };

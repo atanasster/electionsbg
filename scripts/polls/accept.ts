@@ -309,6 +309,9 @@ const validatePresidentialDraft = (draft: PresidentialInboxDraft): string[] => {
     draft.runoffs.forEach((r, i) => {
       if (r.pollId !== draft.poll.id || r.agencyId !== draft.poll.agencyId)
         errors.push(`runoffs[${i}] survey/agency mismatch`);
+      for (const key of ["aName_bg", "bName_bg"] as const)
+        if (r[key] !== undefined && !isNonEmptyString(r[key]))
+          errors.push(`runoffs[${i}].${key} must be a non-empty source name`);
       if (r.a === r.b)
         errors.push(`runoffs[${i}] participants must be distinct`);
       const key = JSON.stringify([r.questionId ?? null, ...[r.a, r.b].sort()]);

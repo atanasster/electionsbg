@@ -19,14 +19,7 @@
 // `provisional:...` (and appears in `candidates.json` as such) rather
 // than being forced onto the nearest real ticket.
 //
-// ⚠️ `Runoff.a`/`.b` are NOT rekeyed here, and cannot be with today's
-// schema — unlike `PresidentialPollDetail`, `Runoff` carries no raw
-// candidate-name field to re-resolve from, only the (possibly stale)
-// `CandidateKey` itself. A real runoff pairing extracted before tickets
-// existed stays unrecoverable until either this schema gains a raw-name
-// field or a human hand-corrects the file. See
-// `scripts/polls/presidential/analyze_accuracy.ts`'s own runoff-scoring
-// block for the read-time consequence of this gap.
+// Runoff keys are upgraded from preserved source names, under the same cycle guard.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -37,6 +30,7 @@ import type {
   Poll,
   PresidentialCandidate,
   PresidentialPollDetail,
+  Runoff,
 } from "../../../src/data/polls/pollsTypes";
 import { flagReader } from "../lib/argv";
 import { readJson } from "../lib/scoring_utils";
@@ -100,6 +94,29 @@ export const rekeyDetails = (
     return { ...d, candidateKey: resolved.candidateKey };
   });
   return { details: next, upgraded };
+};
+
+/** Rekey only source-named provisional participants; never guess from a slug. */
+export const rekeyRunoffs = (
+  cycleId: string,
+  polls: Poll[],
+  runoffs: Runoff[],
+  tickets: TicketRow[],
+): Runoff[] => {
+  const ids = new Set(
+    polls.filter((p) => p.cycle === cycleId).map((p) => p.id),
+  );
+  return runoffs.map((row) => {
+    if (!ids.has(row.pollId)) return row;
+    const resolve = (key: string, name: string | undefined) => {
+      if (!key.startsWith("provisional:") || !name) return key;
+      const result = resolveCandidate(name, tickets, cycleId);
+      return result.resolved ? result.candidateKey : key;
+    };
+    const a = resolve(row.a, row.aName_bg);
+    const b = resolve(row.b, row.bName_bg);
+    return a === b ? row : { ...row, a, b };
+  });
 };
 
 /** Rebuild the WHOLE `candidates.json` from scratch — decision 16's
@@ -214,6 +231,13 @@ export const main = (argv: string[]): void => {
     ticketsFile.tickets,
   );
   writeJsonArray(detailsFile, rekeyed);
+  const runoffsFile = path.join(PRESIDENTIAL_DIR(), "runoffs.json");
+  const runoffs = readJson<Runoff[]>(runoffsFile);
+  if (runoffs)
+    writeJsonArray(
+      runoffsFile,
+      rekeyRunoffs(cycleId, polls, runoffs, ticketsFile.tickets),
+    );
 
   // Every OTHER cycle's tickets.json (if any) that already has a stamped
   // poll — the projection is corpus-wide, not just this one cycle, so a

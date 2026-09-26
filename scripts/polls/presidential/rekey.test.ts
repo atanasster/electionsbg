@@ -13,6 +13,7 @@ import {
   main,
   parseArgv,
   rekeyDetails,
+  rekeyRunoffs,
 } from "./rekey";
 
 const REPO_ROOT = path.resolve(
@@ -324,7 +325,7 @@ describe.runIf(has2021Corpus)(
       expect(process.exitCode).toBe(1);
     });
 
-    it("never reads or writes runoffs.json", () => {
+    it("preserves runoff keys when no source names exist", () => {
       writeCorpus(
         [BASE_POLL],
         [
@@ -364,5 +365,44 @@ describe("parseArgv", () => {
 
   it("defaults to undefined", () => {
     expect(parseArgv([])).toEqual({ cycle: undefined });
+  });
+});
+
+describe("runoff source names", () => {
+  it("upgrades provisional participants by cycle and preserves the original names", () => {
+    const row = {
+      pollId: BASE_POLL.id,
+      agencyId: "TEST",
+      a: "provisional:румен-радев",
+      b: "provisional:анастас-герджиков",
+      aName_bg: "Румен Радев",
+      bName_bg: "Анастас Герджиков",
+      supportA: 60,
+      supportB: 40,
+      residual: null,
+    };
+    const result = rekeyRunoffs(
+      "2021_11_14_pvr",
+      [BASE_POLL],
+      [row],
+      tickets2021,
+    );
+    expect(result[0]).toMatchObject({
+      a: "румен георгиев радев",
+      b: "анастас георгиев герджиков",
+      aName_bg: row.aName_bg,
+      bName_bg: row.bName_bg,
+    });
+    expect(
+      rekeyRunoffs("2016_11_06_pvr", [BASE_POLL], [row], tickets2021)[0],
+    ).toEqual(row);
+    expect(
+      rekeyRunoffs(
+        "2021_11_14_pvr",
+        [BASE_POLL],
+        [{ ...row, aName_bg: "Неразпознат кандидат" }],
+        tickets2021,
+      )[0].a,
+    ).toBe(row.a);
   });
 });

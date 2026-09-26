@@ -231,6 +231,9 @@ export type Runoff = {
   b: CandidateKey;
   supportA: number;
   supportB: number;
+  /** Original published names survive candidate registration and rekeying. */
+  aName_bg?: string;
+  bName_bg?: string;
   residual: PollResidual | null;
   questionId?: string;
 };
@@ -398,7 +401,7 @@ export type PresidentialAgencyError = {
   rmse: number;
   biggestMiss: { key: CandidateKey | "други"; error: number };
   // This poll's own top-supported named row = the actual round-1 winner.
-  leaderCalled: boolean;
+  leaderCalled: boolean | null;
   // This poll's own top-2 named rows (as a SET) = the actual round-1
   // top-2. `null` when the cycle's round 1 decided the election outright
   // (no real runoff pairing to have "called") or the poll named fewer
@@ -428,6 +431,46 @@ export type PresidentialAgencyError = {
   } | null;
 };
 
+export type PresidentialQuestionAccuracy = {
+  agencyId: string;
+  pollId: string;
+  questionId: string;
+  round: 1 | 2;
+  fieldworkEnd: string;
+  publishedAt: string;
+  daysBefore: number;
+  respondents: number | null;
+  includesNone: boolean;
+  errors: PresidentialCandidateResultError[];
+  mae: number | null;
+  rmse: number | null;
+  coverage: {
+    complete: boolean;
+    missingKeys: string[];
+    unresolvedNames: string[];
+    publishedTotal: number;
+    policy: "major-candidates-plus-all-other";
+  };
+  leaderCalled: boolean | null;
+  runoffPairCalled: boolean | null;
+};
+
+export type PresidentialQuestionDiagnostic = {
+  agencyId: string;
+  pollId: string;
+  questionId: string | null;
+  round: 1 | 2 | null;
+  reasons: string[];
+  selected: boolean;
+};
+
+export type PresidentialRoundAccuracy = {
+  round: 1 | 2;
+  date: string;
+  actualResults: { key: CandidateKey; name_bg: string; pct: number }[];
+  comparisons: PresidentialQuestionAccuracy[];
+};
+
 export type PresidentialCycleAccuracy = {
   cycle: string;
   round1Date: string;
@@ -437,12 +480,15 @@ export type PresidentialCycleAccuracy = {
   // not itself the scored set of any one poll — see `PresidentialAgencyError`).
   actualResults: { key: CandidateKey; name_bg: string; pct: number }[];
   agencies: PresidentialAgencyError[];
+  rounds?: PresidentialRoundAccuracy[];
+  diagnostics?: PresidentialQuestionDiagnostic[];
   candidateResolution?: {
     pollId: string;
     agencyId: string;
     total: number;
     resolved: number;
     unresolvedNames: string[];
+    questionId?: string;
   }[];
 };
 

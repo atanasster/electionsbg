@@ -15,9 +15,9 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 6 | Backfill | Publication inventory, historical pagination and capture | Complete | `28abdf0e0d` |
 | 7 | Backfill | Missing agency extractors, multiple-race output and backlog reporting | Complete | `39f72c8221` |
 | 8 | Backfill | Resolve Trend historical drafts from source evidence | Complete | `89e08a8f32` |
-| 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | Complete | See scoped step 9 commit |
-| 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | In progress | |
-| 11 | Views | Agency presidential route and election campaign/result views | Pending | |
+| 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | Complete | `d523e27f8c` |
+| 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | Complete | See scoped step 10 commit |
+| 11 | Views | Agency presidential route and election campaign/result views | In progress | |
 | 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Pending | |
 | 13 | Views | Update ingestion documentation and stale comments | Pending | |
 | 14 | Views | Route, translation, layout, accessibility and release verification | Pending | |
@@ -51,3 +51,7 @@ Step 9 review: FINDING-001 verified with a scratch reproduction and repaired by 
 ## Existing work to preserve
 
 The six news data/review files dirty at the start are outside this run. They must not be staged, modified or committed by these gates.
+
+Step 10 review: FINDING-001–003 independently reproduced and fixed: unresolved runoff source names now suppress grades; incompatible no-candidate answers become coverage diagnostics; timestamp ties use instants. Nullable leader verdicts remain unknown in compatibility output. 139 related tests passed. Accuracy policy is documented in docs/polls/presidential-accuracy.md.
+
+Step 10 final gate: independent re-review has zero findings; changed-file lint, TypeScript and full production build passed.
