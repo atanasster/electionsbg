@@ -371,9 +371,12 @@ def stamp(subjects: list, analysis: dict, article: dict, src: Sources) -> dict:
 
 # ── Measurement (plan §3.2) ────────────────────────────────────────────────
 
-def measure(app_data: Path, sentiment_dir: Path, registry: dict) -> dict:
-    """Linked pairs and people per basis over the corpus on disk."""
-    src = Sources(registry=registry)
+def corpus_articles(app_data: Path) -> tuple:
+    """(published app-data rows by url, raw corpus bodies by url).
+
+    The app-data rows carry the public analysis (links, candidates,
+    news_persons); only the raw corpus file carries the article text.
+    """
     articles = {}
     for f in sorted((app_data / "articles").glob("*.json")):
         doc = json.loads(f.read_text(encoding="utf-8"))
@@ -393,9 +396,15 @@ def measure(app_data: Path, sentiment_dir: Path, registry: dict) -> dict:
             continue
         if isinstance(d, dict) and d.get("url") in articles:
             bodies[d["url"]] = d
-    out = {"eligible_pairs": 0, "by_basis": {b: 0 for b in BASES},
-           "refused": {}, "people": {b: set() for b in BASES},
-           "merged": 0, "conflict": 0}
+    return articles, bodies
+
+
+def corpus_pairs(app_data: Path, sentiment_dir: Path, src: Sources, *,
+                 corpus: tuple | None = None):
+    """Yield (article, full_article, stamped subjects, report) per scored
+    article. `full_article` carries the text; `article` is the app-data row.
+    Pass `corpus` (from `corpus_articles`) when the caller already read it."""
+    articles, bodies = corpus or corpus_articles(app_data)
     for f in sorted(sentiment_dir.glob("*.json")):
         doc = json.loads(f.read_text(encoding="utf-8"))
         art = articles.get(doc.get("url"))
@@ -406,9 +415,19 @@ def measure(app_data: Path, sentiment_dir: Path, registry: dict) -> dict:
                     and s.get("subject_role") != "incidental"
                     and isinstance(s.get("tone"), dict)]
         body = bodies.get(doc["url"], {})
-        rep = stamp(subjects, art.get("analysis") or {},
-                    {**art, "content": body.get("content"),
-                     "description": body.get("description")}, src)
+        full = {**art, "content": body.get("content"),
+                "description": body.get("description")}
+        rep = stamp(subjects, art.get("analysis") or {}, full, src)
+        yield art, full, subjects, rep
+
+
+def measure(app_data: Path, sentiment_dir: Path, registry: dict) -> dict:
+    """Linked pairs and people per basis over the corpus on disk."""
+    src = Sources(registry=registry)
+    out = {"eligible_pairs": 0, "by_basis": {b: 0 for b in BASES},
+           "refused": {}, "people": {b: set() for b in BASES},
+           "merged": 0, "conflict": 0}
+    for _art, _full, subjects, rep in corpus_pairs(app_data, sentiment_dir, src):
         out["merged"] += rep["merged"]
         out["conflict"] += rep["conflict"]
         for s in subjects:

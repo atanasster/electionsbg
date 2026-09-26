@@ -13,6 +13,7 @@
     "news:hourly": "bash news/run_hourly.sh",
     "news:hourly:dry": "bash news/run_hourly.sh --dry-run",
     "news:data": "python3 news/scripts/build_app_data.py",
+    "news:review": "python3 news/scripts/review_persons.py",
     "news:eval:models": "python3 news/scripts/benchmark_news_models.py --config news/evals/openrouter_pilot.json",
     "news:image-rights-queue": "python3 news/scripts/build_image_rights_queue.py",
     "news:image-candidates": "python3 news/scripts/source_commons_images.py",
