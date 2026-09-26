@@ -622,10 +622,14 @@ describe("the lateral-links tour", () => {
     //
     // ⚠ Re-pinned 2026-09-13: connections↔procurement 18,734 → 18,735, with
     // connections↔funds (40,271) and connections↔officials (5,604) unmoved.
+    //
+    // ⚠ Re-pinned 2026-09-26, all three read out of `data/data_map.json`:
+    // connections↔procurement 18,735 → 18,757, connections↔funds 40,271 → 40,273 and
+    // connections↔officials 5,604 → 5,601.
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18735],
-      ["connections", "funds", "eik", 40271],
-      ["connections", "officials", "person_id", 5604],
+      ["connections", "procurement", "eik", 18757],
+      ["connections", "funds", "eik", 40273],
+      ["connections", "officials", "person_id", 5601],
     ];
     const drifted = quoted
       .filter(([a, b, k, n]) => overlapOf(a, b, k) !== n)

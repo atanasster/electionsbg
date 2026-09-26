@@ -219,7 +219,16 @@ test.skipIf(skipIdentity)(
     // re-baseline again without repeating the same check: did a SPECIFIC merged pair combine
     // two people with a disconfirming corroborant. Absent that, re-baseline; if ever found,
     // this comment's own "ruled out" list is the template for what to check first.
-    const BASELINE = 134_502;
+    //
+    // RE-BASELINED 2026-09-26, deliberately, for the fifth time — the 2026-09-25 resolve took
+    // 134,502 → 135,009 (+507, just past the 500 tolerance). This time the controls moved the
+    // RIGHT way: folds 3,443 → 3,457, fold rows 9,740 → 9,773 and review groups 3,412 → 3,423,
+    // all RISES, i.e. new people with colliding names rather than merges. Attribution:
+    // `ingest_first_seen` holds 1,277 new tr_company rows since 2026-09-05 (09-08 150, 09-09 95,
+    // 09-16 647, 09-21 385), and tier-V private owners stand at 70,061 of the 135,009 (base
+    // 64,948). Per the rule above, the partition split is not itself evidence; the controls are.
+    // 5.9b/5.9c moved in the same commit to keep one vintage.
+    const BASELINE = 135_009;
     const TOLERANCE = 500;
     assert.ok(
       Math.abs(persons - BASELINE) <= TOLERANCE,
@@ -270,6 +279,9 @@ test.skipIf(skipIdentity)(
     // from the opposite side, and by hand-reviewing every cross-person-shaped merge the
     // resolver produced — none combined two different real people. Moved alongside 5.9c on the
     // same evidence, per this test's own rule.
+    //
+    // RE-BASELINED 2026-09-26 with 5.9 (see its note): 3,443 → 3,457 folds, 9,740 → 9,773 rows
+    // — a RISE, the growth direction.
     const [row] = await allRows<{ folds: string; rows: string }>(
       `SELECT count(*)::text AS folds, COALESCE(sum(n), 0)::text AS rows
        FROM (SELECT name_fold, count(*) n
@@ -277,7 +289,7 @@ test.skipIf(skipIdentity)(
               GROUP BY 1 HAVING count(*) > 1) q`,
     );
     const folds = Number(row.folds);
-    const FOLD_BASELINE = 3_443;
+    const FOLD_BASELINE = 3_457;
     const FOLD_TOLERANCE = 40;
     assert.ok(
       Math.abs(folds - FOLD_BASELINE) <= FOLD_TOLERANCE,
@@ -295,7 +307,7 @@ test.skipIf(skipIdentity)(
     // hold >= 3 people, so that class is a fifth of the population, not a hypothetical.
     // Tolerance is FOLD_TOLERANCE scaled by the same ratio (40/3,495 ≈ 1.14% of 9,962).
     const foldRows = Number(row.rows);
-    const FOLD_ROWS_BASELINE = 9_740;
+    const FOLD_ROWS_BASELINE = 9_773;
     const FOLD_ROWS_TOLERANCE = 120;
     assert.ok(
       Math.abs(foldRows - FOLD_ROWS_BASELINE) <= FOLD_ROWS_TOLERANCE,
@@ -330,7 +342,7 @@ test.skipIf(skipIdentity)(
       `SELECT count(DISTINCT group_key)::text AS groups FROM person_review_candidate`,
     );
     const groups = Number(r.groups);
-    const GROUP_BASELINE = 3_412;
+    const GROUP_BASELINE = 3_423;
     const GROUP_TOLERANCE = 40;
     assert.ok(
       Math.abs(groups - GROUP_BASELINE) <= GROUP_TOLERANCE,

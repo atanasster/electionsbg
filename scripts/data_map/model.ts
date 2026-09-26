@@ -3426,15 +3426,15 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:connections",
         text: {
-          bg: "Този ЕИК е ключът към Търговския регистър — 18 735 изпълнителя се намират там като фирми със собственици и управители.",
-          en: "That company number is the key into the Commerce Registry — 18,735 contractors are found there as companies with owners and directors.",
+          bg: "Този ЕИК е ключът към Търговския регистър — 18 757 изпълнителя се намират там като фирми със собственици и управители.",
+          en: "That company number is the key into the Commerce Registry — 18,757 contractors are found there as companies with owners and directors.",
         },
       },
       {
         node: "ds:funds",
         text: {
-          bg: "Същият ключ показва кой получава и европейски средства: 40 271 фирми се появяват и в двата масива.",
-          en: "The same key shows who also receives EU money: 40,271 companies appear in both corpora.",
+          bg: "Същият ключ показва кой получава и европейски средства: 40 273 фирми се появяват и в двата масива.",
+          en: "The same key shows who also receives EU money: 40,273 companies appear in both corpora.",
         },
       },
       {
@@ -3447,8 +3447,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:officials",
         text: {
-          bg: "А през лицата се затваря кръгът: 5 604 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-          en: "And people close the circle: 5,604 officials who file asset declarations also hold a role in the company registry.",
+          bg: "А през лицата се затваря кръгът: 5 601 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+          en: "And people close the circle: 5,601 officials who file asset declarations also hold a role in the company registry.",
         },
       },
     ],
