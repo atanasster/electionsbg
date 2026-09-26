@@ -1,7 +1,6 @@
 // Tier 2c/2d — the inbox draft shape (decision 7, §6.2). Every agency
-// extractor produces one of these; `polls:extract` (not yet built) writes
-// it to `data/polls/_inbox/<pollId>.json`, and `polls:accept` (not yet
-// built) is the only thing that may promote it into the corpus.
+// extractor produces one of these; polls:extract writes the reviewed-race
+// draft to data/polls/_inbox/, and polls:accept promotes it into the corpus.
 
 import type {
   Poll,

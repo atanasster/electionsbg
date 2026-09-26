@@ -18,9 +18,9 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | Complete | `d523e27f8c` |
 | 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | Complete | `81ad176f2f` |
 | 11 | Views | Agency presidential route and election campaign/result views | Complete | `99ae51fdd2` |
-| 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Complete | See scoped step 12 commit |
-| 13 | Views | Update ingestion documentation and stale comments | In progress | |
-| 14 | Views | Route, translation, layout, accessibility and release verification | Pending | |
+| 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Complete | `1dcfd1f1f0` |
+| 13 | Views | Update ingestion documentation and stale comments | Complete | |
+| 14 | Views | Route, translation, layout, accessibility and release verification | In progress | |
 
 Final gate: full unit/component suite after the last step; browser checks under step 14.
 
@@ -67,3 +67,7 @@ Step 12: historical grades separated by round/denominator with counts; hypotheti
 Step 12 review FINDING-001–003: fixed coverage on empty pages, unassigned accepted counts, and distinct hypothetical-matchup residual identities/labels. Initial related suite: 139 passed; additional regressions running.
 
 Step 12 final gate: 143 related tests passed across the suite and four added regressions. Re-review: zero findings. Changed-file lint, TypeScript and full production build passed.
+
+Step 13: updated the polling skill through .agents/skills (the tracked .claude/skills mirror is the same symlink target), documented the durable ledger, built extractors, presidential assignment/rekey/scoring/coverage, source-review rules and date semantics. Removed stale source comments about missing commands, silent errors and component-only round state. Emitted JavaScript is byte-identical with comments stripped for all ten source files.
+
+Step 13 final gate: independent review found no issues. All 128 related tests, changed-file lint, TypeScript and the full production build passed.

@@ -1,12 +1,7 @@
 // The presidential country page — `/presidential/:cycle`.
 //
-// ⚠ THE RUNOFF IS A TOGGLE, NOT A ROUTE (plan §9, resolved 2026-09-06). One canonical page per
-// cycle with a round switch, because the surfaces already carry both rounds and two routes
-// would compete for the same query. The switch is COMPONENT STATE rather than a query
-// parameter: a `?round=2` would mint a second address for the same page — the thing the
-// decision was taken to avoid — and the round is view state, not the cross-page state the
-// URL contract is for. The cost is stated rather than hidden: „балотаж 2021" has no URL of
-// its own and ranks against the cycle page.
+// One canonical route per cycle. The shared pollRound query parameter restores
+// the round toggle and polling view; unavailable rounds resolve to round one.
 //
 // ⚠ THE COUNTRY LEVEL IS `canonical`, so this page reads `national_summary.json` directly
 // rather than a generated surface (`SURFACE_POLICY.presidential.country`). Every level below
@@ -645,10 +640,6 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
   // ⚠ ABSENT IS THE NORMAL ANSWER HERE. Only 2021's presidential vote shared its day with a
   // parliamentary one, so four of the five cycles have no such file by construction.
   const split = useSplitTicket(cycle);
-  // ⚠ ALSO CALLED UNCONDITIONALLY, for the same hook-order reason — its `status` gates the
-  // `presidential-polls` section below (never rendered while `"loading"`, matching every other
-  // query-backed section on this page), and React Query dedupes this call against the tile's
-  // own, so the gate costs no second request.
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const state = usePresidentialSummary(cycle);
@@ -774,15 +765,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
 
       <RoundPanel round={shown} cycle={cycle} />
 
-      {/* Tier 4 T4.4 — the polling band, mirroring the parliamentary dashboard's own
-          `<DashboardSection id="polling">` (PollsTile + AccuracyTrendsTile). CYCLE-level (a
-          sibling of RoundPanel, not inside it) — decision 10's "that cycle's agencies by R1
-          MAE" is a fact about the cycle, not about whichever round the toggle happens to show.
-          No AccuracyTrendsTile equivalent yet: that tile trends MAE PER AGENCY ACROSS CYCLES,
-          and Tier 4b's historical backfill (2016, 2021) has not landed, so today there would be
-          at most one cycle to plot — building that chart now would be UI for data that does not
-          exist yet, the same "no code for a hypothetical future" rule this repo applies
-          everywhere else. */}
+      {/* Polling history and result comparisons share the round selection. */}
       {
         <DashboardSection
           id="presidential-polls"
@@ -896,17 +879,8 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
   );
 };
 
-/**
- * `/presidential/:cycle`.
- *
- * ⚠ KEYED ON THE CYCLE, and that is a correctness fix rather than a style. The round is
- * COMPONENT STATE by design (the runoff is a toggle, not a route), and all five cycles share
- * one `<Route>` element — so without the key, changing only `:cycle` re-renders the same
- * instance, `useState`'s initial value is not re-applied, and a reader who toggled to the
- * runoff and then picked another cycle from the header dropdown lands on THAT cycle's runoff,
- * never seeing the art. 93 (3) test this page leads with. Two clicks, and both controls are on
- * this page.
- */
+/** Keyed by cycle to reset cycle-specific children. Round/filter choices are
+ * restored from the URL and validated against the selected cycle's coverage. */
 export const PresidentialCycleScreen: FC = () => {
   const { cycle } = useParams<{ cycle: string }>();
   if (!cycle) return null;

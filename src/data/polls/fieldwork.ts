@@ -20,7 +20,7 @@
 //   - `scripts/polls/scrape_polls.ts`      — writes (`formatFieldwork` + `pollId`)
 //   - `src/screens/polls/AgencyPollsList.tsx` — reads (sort key)
 //   - `scripts/polls/polls_corpus.test.ts` — asserts the corpus against both ends
-// `accept` (the ingest promotion step) will join them; it does not exist yet.
+// scripts/polls/accept.ts validates labels before promoting reviewed drafts.
 
 /** Month index by lowercase 3-letter English abbreviation. */
 const MONTH_EN: Record<string, number> = {

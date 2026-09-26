@@ -521,10 +521,8 @@ const acceptParliamentary = (
   );
   if (poll.electionDate) {
     console.log(
-      // analyze_accuracy.ts's own CLI takes no --race flag (it reads the
-      // one parliamentary polls.json unconditionally — Tier 4's separate
-      // presidential file family has its own analyzer, T4.2), so the
-      // command named here must match what that CLI actually accepts.
+      // This branch accepted a parliamentary draft; presidential acceptance
+      // emits its own race-specific recomputation hint below.
       `  electionDate is set — run \`npm run polls:analyze\` to rescore it`,
     );
   }

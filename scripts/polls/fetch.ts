@@ -72,12 +72,9 @@ interface SourceStamp {
   title?: string | null;
   publishedAt?: string | null;
   archiveUrl?: string;
-  /** Attachment URLs `discoverPdfLinks`/`discoverAgencyImages` found but
-   *  could not fetch — e.g. Market Links' `/storage/` PDFs
-   *  currently answer every request (curl, Node, no UA/Referer variation
-   *  helped) with a bare WAF `403`, measured live 2026-09-09. Present only
-   *  when non-empty, so a capture with every attachment fetched carries no
-   *  such key at all and cannot be mistaken for "checked, found none". */
+  /** Discovered attachments that failed in this capture. Failures are dated
+   * observations, not permanent agency capabilities. Successful rechecks clear
+   * this field; inspect the ledger for unresolved capture/extraction work. */
   attachmentFailures?: string[];
 }
 

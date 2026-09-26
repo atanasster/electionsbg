@@ -1,16 +1,6 @@
-// The `/polls` hub's presidential-polls band — Tier 4 T4.4 Increment B
-// (docs/plans/polls-agency-watchers-v1.md §11 item 3, "a section until the
-// 2026 cycle has ≥5 polls, then its own route"). One card per AGENCY (its
-// latest presidential poll), never per poll — the hub already lists every
-// individual parliamentary poll on its own agency page, and this mirrors
-// that split rather than duplicating the full poll list here.
-//
-// ⚠ AN INDEX, NOT A LEADERBOARD. The parliamentary section above sorts by
-// accuracy (`AgencyProfile.shrunkMAEAdjusted`), which needs a SCORED poll —
-// the presidential corpus has none yet, so this sorts by fieldwork recency
-// instead. Once Tier 4b's historical backfill lands and named-candidate
-// cycles get scored, this stays honest without a rewrite: it never claims a
-// ranking it cannot support.
+// Latest accepted presidential survey per agency. Each question has a separate
+// preview and answer labels; the dedicated agency route carries the full history.
+// Recency orders this index, without treating it as an accuracy ranking.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";

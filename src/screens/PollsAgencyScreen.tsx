@@ -36,11 +36,8 @@ export const PollsAgencyScreen: FC = () => {
   const { data: accuracy } = usePollsAccuracy();
   const { data: analysis } = usePollsAnalysis();
   const { data: agencies } = useAgencies();
-  // ⚠ CHECKED ON `isPending`, NEVER ON `!!data` — decision 10's presidential family is a
-  // SEPARATE file family fetched in parallel with the parliamentary one above, and once
-  // resolved its `data` is legitimately `null` for most agencies (no presidential poll on
-  // file), which `!!data` cannot tell apart from "still loading". Gating `ready` on that
-  // would wait forever for an agency that will never have one.
+  // Presidential coverage is independent of the parliamentary profile.
+  // The overview links to its dedicated route once the poll list settles.
   const presPolls = usePresidentialPollsList();
 
   const ready =
@@ -182,10 +179,6 @@ export const PollsAgencyScreen: FC = () => {
               elections={accuracy.elections}
             />
           </div>
-
-          {/* Tier 4 T4.4 Increment B — never rendered on zero, exactly like the presidential
-              cycle page's own polling band; this is the branch the comment above this block
-              anticipated ("a presidential-only publication"). */}
           {agencyPresidentialPolls.length > 0 ? (
             <div className="mt-3">
               <Link
@@ -223,9 +216,6 @@ export const PollsAgencyScreen: FC = () => {
             elections={accuracy.elections}
           />
         </div>
-
-        {/* Tier 4 T4.4 Increment B — an agency with a scored parliamentary profile can ALSO
-            carry a presidential poll (GM does); never rendered on zero. */}
         {agencyPresidentialPolls.length > 0 ? (
           <div className="mt-3">
             <Link

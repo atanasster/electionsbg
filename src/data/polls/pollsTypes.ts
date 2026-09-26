@@ -385,19 +385,10 @@ export type PresidentialAgencyError = {
   daysBefore: number;
   respondents: number | null;
   genre?: PollGenre;
-  /**
-   * One row per real named candidate whose ACTUAL round-1 share is ≥1%,
-   * plus (at most) one synthetic `"други"` row folding together every
-   * OTHER named-candidate row this poll happened to publish individually
-   * (a real candidate whose actual share came out <1%) — decision 12's
-   * "named candidates with actual ≥ 1% plus the polled minors folded
-   * into „други"". A `"none"` (Не подкрепям никого) row, when the poll
-   * carried one, is its own row here too, scored like any other — never
-   * folded into `"други"`, which is reserved for minor CANDIDATES. A row
-   * this analyzer could not resolve to a real ticket (an ambiguous or
-   * still-provisional `candidateKey`) is silently excluded from both —
-   * decision 16's refuse-rather-than-guess rule, carried through scoring.
-   */
+  /** Compatibility projection of complete round-one comparisons. Every required
+   * major candidate and the full minor-candidate bucket are covered; unresolved
+   * or missing answers withhold this overall grade. Full and partial question
+   * comparisons live in PresidentialCycleAccuracy.rounds. */
   errors: PresidentialCandidateResultError[];
   mae: number;
   rmse: number;
@@ -409,17 +400,11 @@ export type PresidentialAgencyError = {
   // (no real runoff pairing to have "called") or the poll named fewer
   // than two resolvable real candidates.
   runoffPairCalled: boolean | null;
-  // This poll's own top-supported row polled >50% ⟺ the actual round 1
-  // `outcome.winsOutright`. `null` when the poll resolved no real
-  // candidate at all (e.g. its only resolvable row was `"none"`) — there
-  // is then no leader claim to have been right or wrong about.
+  // Retained for compatibility, now always null: share alone cannot establish
+  // a first-round victory.
   decidedInRoundCalled: boolean | null;
-  // Scored only when this poll ALSO published a `runoffs.json` pairing
-  // whose two candidates are BOTH resolvable AND are the exact pairing
-  // that actually reached round 2 ("the pairing that happened", decision
-  // 12) — a poll's speculative pairing that never occurred is not scored.
-  // `null` when the cycle had no real runoff, this poll published none,
-  // or its pairing did not resolve to the real one.
+  // Legacy field, now null. Genuine round-two comparisons are selected
+  // independently in PresidentialCycleAccuracy.rounds.
   runoff: {
     a: CandidateKey;
     b: CandidateKey;

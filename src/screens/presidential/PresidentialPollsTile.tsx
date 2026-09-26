@@ -1,22 +1,6 @@
-// The presidential twin of `src/screens/dashboard/PollsTile.tsx` — Tier 4
-// T4.4 (docs/plans/polls-agency-watchers-v1.md §7). Mounted as its own
-// `DashboardSection` on `/presidential/:cycle`, right after the round
-// panel (a CYCLE-level fact, not a per-round one — decision 10's
-// "that cycle's agencies by R1 MAE" framing).
-//
-// ⚠ NEVER AN EMPTY BAND. A cycle with no scored poll yet (no agency has
-// been accepted AND stamped to this cycle — decision 11's `cycle: null`
-// window, or simply nobody has published one) renders an honest "not
-// verified yet" state, never nothing at all — the section always mounts
-// once this cycle's summary itself is real (the caller's own guard).
-//
-// ⚠ NO PARTY COLOUR CHIP, unlike `PollsTile`'s `biggestMiss` cell —
-// `PresidentialCandidateResultError.key` is a `CandidateKey` (a person,
-// or the literal "други"/"none"), never a party, so `useCanonicalParties`
-// does not apply here. `PresidentialPersonName` is reused instead — the
-// SAME component the outcome canvas and ranking table already use, so a
-// candidate is never a link in one place and bare text in another about
-// the same person on the same page.
+// Legacy compact view of the analyzer's complete round-one projection.
+// The election page now uses PresidentialHistory for question-level history,
+// partial comparisons, diagnostics and independent round selection.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

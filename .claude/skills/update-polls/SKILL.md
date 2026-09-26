@@ -36,13 +36,18 @@ The scripts live in `scripts/polls/`. The frontend reads `data/polls/*.json`
 via `dataUrl("/polls/…")` (bucket-served — see "The upload" below) at `/polls`
 and via the `PollsTile` / `AccuracyTrendsTile` on the dashboard.
 
-Presidential polls (decision 10) are a separate, not-yet-shipped file family
-(`data/polls/presidential/*.json`). `accept` (from the draft's own `race`
-field), `restamp` and `crosscheck` (both via `--race`) explicitly refuse a
-presidential run rather than guessing at a schema that hasn't landed;
-`fetch`/`extract`/`analyze` have no race concept at all today — they simply
-operate on the one parliamentary corpus unconditionally. Tier 4 of the plan
-covers the presidential build-out.
+Presidential polls use the separate data/polls/presidential/ family:
+polls.json (surveys and question metadata), polls_details.json (candidate
+answers), runoffs.json (paired answers), candidates.json (identity projection),
+accuracy.json (round comparisons and diagnostics), and coverage.json (dated
+archive coverage). They appear on /presidential/:cycle and
+/polls/:agencyId/presidential. The agency overview links to its separate history.
+
+Acceptance dispatches from the draft's race. Extraction can emit both races
+from one publication. Presidential restamping, rekeying and accuracy are
+implemented; crosscheck remains parliamentary only. See
+[the presidential accuracy policy](../../../docs/polls/presidential-accuracy.md)
+and [historical source review](../../../docs/polls/historical-backfill-review.md).
 
 ## When to run this
 
@@ -73,25 +78,35 @@ cat state/watch/polls_trend.json state/watch/polls_alpha_research.json \
 cat state/ingest/update-polls.json 2>/dev/null
 ```
 
-Each `state/watch/polls_*.json` is one of the eight `polls_*` sources
-(decision 2 — one watcher per agency, plus `polls_press` for every
-site-less agency). `meta.items` lists what is NEW since the last run for
-the six single-arm site watchers; Gallup's two-armed watcher splits that
-into `meta.site.items`/`meta.press.items`; `polls_press` itself keys by
-agency instead, `meta.agencies.<agencyId>.items` (one Google News query per
-site-less agency). This is the exact backlog `polls:fetch` below picks up
-automatically, so this step is for YOU to know what to expect, not
-something the CLI needs told to it.
+Watch state describes the last discovery check. Its new-item list is not the
+processing queue. The durable ledger in state/polls/<AGENCY>.json retains
+capture versions, extraction/refusal states, review and accepted hashes.
+An unchanged watcher run cannot retire pending publications.
 
-`state/ingest/update-polls.json`'s `lastSuccessfulIngest` is what the
-orchestrator (`process-watch-report`) compares each source's
-`lastChanged` against to decide whether to queue this skill at all.
+Inspect the backlog before declaring ingestion complete:
+
+```bash
+node --import tsx scripts/polls/backlog.ts
+```
+
+For historical inventory, walk the requested archive interval, optionally
+capturing its electoral publications:
+
+```bash
+node --import tsx scripts/polls/inventory.ts --after 2016-01-01 --before 2016-12-31 --capture
+node --import tsx scripts/polls/inventory.ts --after 2021-01-01 --before 2021-12-31 --agency ML --capture
+```
+
+Inventory records retain listing/capture failures. Reconcile them against
+accepted surveys and record exclusions or missing metadata; a discovered
+publication is not automatically an accepted poll. state/ingest/update-polls.json
+records a completed ingestion run, not merely a successful watch.
 
 ## Step 1 — Fetch, extract, review, accept
 
 ```bash
 npm run polls:fetch                    # every pending item across all 7 fetchable agencies
-npm run polls:extract                  # text acquisition + extraction + the evidence gate — TR/AR only, see below
+npm run polls:extract                  # text/OCR + agency extraction + evidence gate
 ```
 
 `polls:fetch` downloads the page HTML, every PDF attachment, and (for
@@ -103,24 +118,22 @@ already exists unless `--force`. Narrow to one agency/publication with
 of an agency's own page with `--url <articleUrl> --agency <ID>` /
 `--archive <waybackUrl> --agency <ID>`.
 
-⚠️ **`polls:extract` only has a built extractor for TR and AR today**
-(`scripts/polls/extract.ts`'s own header names the gap: ML/GM's
-aligned-row rule, MY, SH's OCR+table rule, and GIB are not yet built). A
-bare `polls:extract` silently iterates just those two — a captured ML, SH,
-MY, GM, or GIB publication sits in `raw_data/` with **no path to a draft
-and no warning printed**. Running `polls:extract -- --agency SH` (or any
-other unbuilt agency) errors immediately (`unknown or unbuilt --agency`)
-rather than attempting anything. For TR/AR, it runs text acquisition
-(plain text first, then **tesseract** OCR on the captured images when the
-text yield is short — decision 18; the Gemini-Vision half of that fallback
-is planned but not yet implemented, so a chart-only post below the
-`< 3 shares` threshold is refused rather than OCR'd by Vision), then that
-agency's deterministic sentence-rule extractor, then the evidence gate
-(every share/passport value needs a verbatim quote that both occurs in the
-text AND states that value). It writes one pretty-printed draft per
-publication to `data/polls/_inbox/<pollId>.json` — `<agency>-pub-<pubId>.json` when no
-fieldwork end date resolved (a PROVISIONAL id; superseded automatically once
-a later re-extraction resolves a real one).
+Built extractors cover TR, AR, GM, ML, SH, MY and GIB. They use captured
+article text, document tables and OCR where available. Structured and
+aligned-table fallbacks are conservative: missing dates, bases, methods or
+unreadable chart values remain refused. A successful extractor dispatch does
+not mean that the source can be accepted without review.
+
+One publication may emit separate parliamentary and presidential drafts.
+Presidential questions retain their own measure, base, round, scenario,
+answer scale, residuals and evidence. Party-backed hypothetical choices,
+named-person support potential, vote intention, runoffs and participation
+must never be merged into one candidate ranking. Participation uses
+question.observations, with no invented candidate identity.
+
+Drafts are written under data/polls/_inbox/. A provisional publication-based
+ID must be resolved from supported fieldwork metadata before acceptance.
+A refusal remains visible in the ledger/backlog on subsequent unchanged runs.
 
 **Print the evidence table and review each draft before accepting.** For
 every file under `data/polls/_inbox/`:
@@ -132,16 +145,16 @@ for (const f of fs.readdirSync('data/polls/_inbox')) {
   const d = JSON.parse(fs.readFileSync('data/polls/_inbox/'+f, 'utf8'));
   console.log(f, '|', d.race, '|', d.poll.agencyId, '|', d.poll.fieldwork, '| n='+d.poll.respondents,
     '| genre='+d.genre, '| residual='+JSON.stringify(d.residual),
-    '| shares:', d.details.map(x => x.nickName_bg+'='+x.support).join(' '),
+    '| shares:', d.details.map(x => (x.candidateName_bg || x.nickName_bg)+'='+x.support).join(' '),
     '| refused:', d.refused.map(r => r.field).join(','));
 }
 "
 ```
 
-Columns to look at: **race** (parliamentary only today — see the file
-header), **agency**, **fieldwork**, **n** (sample size), **genre**
+Columns to look at: **race**, **question and answer identity**, **agency**, **fieldwork**, **n** (sample size), **genre**
 (`raw_attitudes`/`forecast`/`both_published`/`unclear` — decision 8),
-**residual** (undecided/wontVote, redistributed by the analyzer),
+**population base**, **residual** (preserved as published for presidential questions),
+**publication date separately from fieldwork**,
 **shares with quotes** (open the draft file itself to read
 `evidence`/`provenance.quotes` beside each value), and **refused fields**
 (what the gate couldn't verify — a chart-only post whose OCR yield was
@@ -153,23 +166,29 @@ Bulgarian source) — **edit the draft file by hand** to fill in
 fix anything else a human reading the source page caught that the
 extractor didn't.
 
-Then, for each draft the operator confirms:
+Then, for each source-reviewed draft:
 
 ```bash
 npm run polls:accept -- <pollId>
 npm run polls:accept -- <pollId> --genre forecast              # override the extractor's genre call
-npm run polls:accept -- <pollId> --election 2026-11-08          # this poll IS scorable against a known date
+npm run polls:accept -- <pollId> --election 2026-11-08          # assign a supported parliamentary election date
 npm run polls:accept -- <pollId> --locked-by agency_pdf         # override the default agency_website tier
-npm run polls:accept -- <pollId> --replace                      # supersede an already-locked/genre-protected poll
+npm run polls:accept -- <pollId> --replace                      # preserve a full prior snapshot
+npm run polls:accept -- <pollId> --cycle 2021_11_14_pvr          # presidential, when supported
 ```
 
-`polls:accept` refuses: a zero-share draft (pass `--allow-empty` if that's
-correct — e.g. a chart-only post with no OCR fallback built yet),
-a provisional (`-pub-<id>`) id, and an existing poll already protected by
-`locked` OR the legacy `genre` marker unless `--replace` (which records the
-superseded values under `locked.supersedes` rather than discarding them).
-On success it deletes the inbox file and, if the accepted poll now has an
-`electionDate`, reminds you to run `polls:analyze`.
+Acceptance validates runtime values, dates, percentages, unique answers,
+question references, survey/agency identities and runoff participants.
+An empty candidate corpus needs --allow-empty unless it contains validated
+participation observations. That flag does not make missing source evidence
+acceptable. A provisional publication ID is refused. --replace preserves
+the previous poll, questions, details and runoffs in locked.supersedes.
+
+A cycle assignment does not establish scoring eligibility. Likely-voter and
+all-respondent bases stay as published; never rename them “decided voters”
+to get a grade. Unknown publication dates and incomplete candidate coverage
+remain visible exclusions or partial comparisons. Once accepted, the draft
+is removed from the inbox.
 
 ## Step 1.5 — Restamp (only when a vote becomes scheduled)
 
@@ -184,6 +203,33 @@ so nobody has to remember that follow-up step. Not part of the routine
 per-publication flow above; run it only when a new vote's date is
 announced (or an estimated date moves).
 
+### Presidential assignment, identities and recomputation
+
+```bash
+npm run polls:restamp -- --race presidential --cycle <YYYY_MM_DD_pvr>
+npm run polls:presidential:rekey -- --cycle <YYYY_MM_DD_pvr>
+npm run polls:analyze -- --race presidential
+npm run polls:presidential:coverage
+```
+
+Restamping only assigns null-cycle surveys inside that cycle's fieldwork
+window and reruns analysis. It does not move old unknowns into a future
+election. Rekeying upgrades provisional candidate and runoff keys from
+preserved source names, scoped to the official ticket list. Ambiguous
+identities stay unresolved. Recompute accuracy after rekeying.
+
+Presidential analysis selects eligible questions separately by round.
+It retains partial candidate errors but withholds MAE/RMSE and prediction
+verdicts when required coverage is missing. Hypothetical pre-election
+runoffs are separate from actual between-round surveys. No vote-share
+threshold alone establishes that an election was decided in one round.
+
+Coverage regeneration reads the dated historical reconciliation and saved
+watch states. Review/reconcile new publications before regenerating it;
+zero accepted surveys does not mean zero published surveys. For the
+reviewed September 2026 archive, 2001 remains uncovered and Gallup has a
+recorded source outage.
+
 ## Step 2 — Third-party verification (press-arm flips only)
 
 A `polls_press` flip (or Gallup's press arm) names an article about an
@@ -194,13 +240,11 @@ is a `consent.google.com`-walled redirect token that cannot be fetched
 server-side.
 
 1. Resolve the real article URL on the outlet by hand (WebFetch or a browser).
-2. `npm run polls:fetch -- --agency <ID> --url <resolvedArticleUrl>`, then
-   `polls:extract` — ⚠️ **only if `<ID>` is TR or AR.** Every press-only
-   agency (Медиана, АФИС, ЦАМ, and the rest of §2.1's site-less list) has no
-   built extractor either (same TR/AR-only gap as Step 1), so
-   `polls:extract -- --agency <ID>` errors for them today. Read the capture
-   yourself and hand-write the draft's evidence, or wait for that agency's
-   extractor to ship.
+2. Capture the resolved source with polls:fetch -- --agency <ID> --url <URL>.
+   Run polls:extract for a built agency (TR, AR, GM, ML, SH, MY or GIB).
+   Press-only agencies still need a source-reviewed draft written from their
+   captured evidence; do not invent an extractor result or accept a news
+   headline as numerical evidence.
 3. Lock as `third_party_consensus` (`polls:accept -- <pollId> --locked-by
    third_party_consensus`) **only** when a second, independent outlet's
    capture agrees with the first on every figure — the corpus's existing
@@ -352,6 +396,8 @@ npm run polls:gen-analysis -- --only YYYY-MM-DD    # one election (1 call)
 
 ```bash
 npm run polls:analyze
+npm run polls:analyze -- --race presidential
+npm run polls:presidential:coverage
 ```
 
 (Restamp already ran this in Step 1.5 if that step applied — running it
@@ -383,9 +429,9 @@ do.
 |---|---|---|
 | TR (Trend) `polls:fetch` finds nothing new for a long time | TR's RSS feed is frozen at 2018 — the lister must use `wp-json/wp/v2/project`, never the feed. If this happens, it's a code regression in `scripts/polls/agencies/trend.ts`, not an agency outage. | Check the lister's endpoint, not the RSS. |
 | AR (Alpha Research) extraction yields odd tokens or spam-looking text | The site injects casino/gambling spam LINKS on its blog *listing* page (`/blog/?page=N`), not inside article bodies — `isOwnPostLink()` in `scripts/polls/agencies/alpha_research.ts` filters them out before any article is ever fetched. `stripUrls()` in `text_acquisition.ts` is a generic bare-URL stripper applied to every agency, not an AR-specific spam-token list. | If a real quote in an extracted ARTICLE looks corrupted, check `stripUrls()`; if spam links are reaching the lister's output at all, check `isOwnPostLink()`. |
-| SH (Sova Harris) has no extractor yet | `polls:extract` has no built extractor for SH (only TR/AR today) — `-- --agency SH` errors immediately rather than producing a draft. Sova Harris publishes ONLY as bulletin page JPGs (no text, no PDF), so its extractor needs the OCR+table rule §6.2 describes, not yet built. | Not actionable today beyond capturing with `polls:fetch` — the images land under `raw_data/polls/sova_harris/<pubId>/` and wait until the extractor ships. |
-| ML (Market Links) PDF attachments fail with HTTP 403 | A WAF block on `/storage/` PDFs, confirmed live across curl/Node with every header variation tried (see the dated comment in `scripts/polls/fetch.ts`) — not a link-discovery problem. The page HTML still captures; only the PDF attachment fails. | No known workaround short of an operator manually retrieving the PDF; `polls:extract` has no ML extractor yet regardless (aligned-row rule, not yet built). |
-| GIB (Gallup) site arm errors | gallup-international.bg has a broken TLS cert (confirmed 2026-09-05) — the press arm (Google News RSS) still works independently. | Capture via `--archive <waybackUrl>` instead of `--url` until the cert is fixed; `meta.armErrors` on the watcher state records which arm failed. |
+| SH extraction refuses chart values | The bulletin OCR/table did not provide sufficient evidence. The extractor exists; chart-only sources still require careful review. | Inspect the captured page images and correct the draft only from the primary chart. |
+| ML attachments fail | A failure belongs to that URL and check time. Historical reports and legacy report download endpoints were successfully captured in the September 2026 audit. | Recheck the exact attachment and capture diagnostics; do not assume a permanent /storage/ block. |
+| GIB site arm errors | The site failed TLS negotiation in the September 2026 audit; the press arm is independent. | Retain the outage and pending coverage. Use an available archive or independently corroborated press evidence; do not disable TLS verification. |
 | A press-arm item's link 404s or redirects to a Google consent page | Google News RSS `<link>` is a `consent.google.com`-walled redirect token, never fetchable server-side by design. | Resolve the real article URL on the outlet by hand (Step 2), then `--url` that. |
 | A draft's filename ends in `.v2.json` (or higher) | The agency re-issued a corrected publication at the same URL; `polls:fetch --force` detected a changed hash and versioned it rather than silently overwriting. | Review it like any other draft — `polls:accept` finds the latest version automatically. |
 | `polls:crosscheck` warns `unknown agencies skipped` | A pollster's Wikipedia-table name doesn't fold to any entry in `scripts/polls/lib/agencies.ts` (a genuinely new one, or a spelling variant). | Add an id + alias entry there (and `reach: "site"\|"press"`) if it's real, then re-run. |
@@ -401,9 +447,10 @@ do.
   JSON** — `polls:accept`/`polls:restamp` already write them that way;
   never hand-format them. `_inbox/*.json` is pretty-printed on purpose (for
   humans) and excluded from the bucket sync.
-- **Date format**: corpus `fieldwork`/`electionDate` are ISO with hyphens
-  (`2026-04-19`); `raw_data/`/folder names use underscores. Never format
-  one as the other.
+- **Dates**: provenance fieldworkStart/fieldworkEnd and electionDate use
+  ISO dates; cycle folders use underscores. The display fieldwork label is
+  written by formatFieldwork in src/data/polls/fieldwork.ts. Preserve unknown
+  publication dates; do not substitute fieldwork end or a migrated site date.
 - **The `NA` ("Общ консенсус") placeholder agency and the old `izboriai`
   seed are both already gone**, in separate cleanups predating this pipeline
   — `NA` was dropped from `agencies.json` entirely, and
@@ -418,12 +465,14 @@ do.
 
 ```bash
 npm run polls:fetch                                       # Step 1 (capture pending publications)
-npm run polls:extract                                     # Step 1 (text/OCR + extractor + evidence gate — TR/AR only)
+npm run polls:extract                                     # Step 1 (text/OCR + extractor + evidence gate)
 #    review data/polls/_inbox/*.json by hand               # Step 1
 npm run polls:accept -- <pollId>                           # Step 1 (promote a reviewed draft)
 npm run polls:restamp -- --race parliamentary --to <iso>   # Step 1.5 (only when a vote is scheduled)
 npm run polls:crosscheck                                   # Step 3 (Wikipedia diff, report only)
 #    write data/polls/analysis.json by hand                # Step 4 (only for a new election)
-npm run polls:analyze                                      # Step 5 (recompute accuracy)
+npm run polls:analyze                                      # parliamentary accuracy
+npm run polls:analyze -- --race presidential                # question/round comparisons
+npm run polls:presidential:coverage                         # dated public coverage
 npx tsx scripts/stamp-ingest.ts update-polls --summary "…" # Step 5
 ```
