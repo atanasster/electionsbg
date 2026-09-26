@@ -126,6 +126,7 @@ def _row(row: dict, subject: dict, status: str) -> dict:
         # ⚠️ A value and a bucket ONLY on an assessed row: a conflicted or
         # truncated reading is shown as what it is, never as a score.
         "value": tone.get("value") if placed else None,
+        "levels": tone.get("levels") if placed else None,
         "bucket": labels[index] if placed and isinstance(index, int) else None,
         "basis": ident.get("basis"), "form_kind": ident.get("form_kind"),
         "identity_version": ident.get("identity_version"),
@@ -439,8 +440,15 @@ def baseline(entry: dict) -> dict:
     count of assessed values. The rail subtracts the article it sits on (it
     holds that article's own score) before bucketing, so its baseline never
     includes itself."""
-    values = [r["value"] for r in entry["rows"] if r["status"] == "assessed"]
-    return {"n": len(values), "sum": _round(sum(values))}
+    assessed = [r for r in entry["rows"] if r["status"] == "assessed"]
+    levels = {r.get("levels") for r in assessed}
+    # ⚠️ ONE SCALE OR NONE. A sum over values from scales with different anchor
+    # counts has no bucket; the rail then shows no baseline rather than a
+    # wrong one.
+    if len(levels) != 1 or None in levels:
+        return {"n": 0, "sum": None, "levels": None}
+    return {"n": len(assessed), "sum": _round(sum(r["value"] for r in assessed)),
+            "levels": levels.pop()}
 
 
 def page_name(person_id: str, page: int) -> str:

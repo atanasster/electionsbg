@@ -17,6 +17,13 @@ import { defineConfig } from "vite";
 
 const DATA_DIR = path.resolve(__dirname, "news", "app-data");
 const MOUNT = "/news-data";
+// Dev/preview may SERVE a different app-data tree (a scratch build with a
+// surface switched on) without touching the one the hourly job writes.
+// ⚠️ Serving only: the deploy copy below always reads DATA_DIR, so this
+// variable can never change what ships.
+const SERVE_DIR = process.env.NEWS_APP_DATA_DIR
+  ? path.resolve(process.env.NEWS_APP_DATA_DIR)
+  : DATA_DIR;
 
 const CONTENT_TYPES: Record<string, string> = {
   ".json": "application/json; charset=utf-8",
@@ -36,8 +43,8 @@ const serveNewsDataMiddleware: Connect.NextHandleFunction = (
   }
   const relative = url.startsWith(MOUNT + "/") ? url.slice(MOUNT.length) : null;
   if (!relative) return next();
-  const resolved = path.resolve(path.join(DATA_DIR, relative));
-  if (resolved !== DATA_DIR && !resolved.startsWith(DATA_DIR + path.sep)) {
+  const resolved = path.resolve(path.join(SERVE_DIR, relative));
+  if (resolved !== SERVE_DIR && !resolved.startsWith(SERVE_DIR + path.sep)) {
     return next();
   }
   fs.stat(resolved, (err, stat) => {

@@ -59,6 +59,8 @@ import {
 } from "../data";
 import { ArticleImage } from "../components/ArticleImage";
 import { EntityChips } from "../components/EntityChips";
+import { PersonRail } from "../components/PersonRail";
+import { railNames } from "../personRail";
 import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
@@ -484,8 +486,21 @@ export const ArticleScreen = () => {
     leaningSource === "model" ? (jev?.axes.leaning ?? null) : null;
   const jevRussia =
     russiaSource === "model" ? (jev?.axes.russia_stance ?? null) : null;
-  const jevSubjects = jev?.subjects ?? null;
-  const showsJev = Boolean(jevLeaning || jevRussia || jevSubjects?.length);
+  // news-person-sentiment-v1 §5: when the build published the person rail,
+  // people leave the subjects card for the rail and parties stay behind.
+  const personRail = jev?.person_rail ? jev : null;
+  const jevSubjects =
+    (personRail
+      ? jev?.subjects?.filter((s) => s.kind !== "person")
+      : jev?.subjects) ?? null;
+  const articlePath = `/article/${domain}/${id}`;
+  // The names the rail shows. ⚠️ ONLY those leave the chips and the
+  // news-person block: the rail lists Jev's scored subjects, which are capped,
+  // so anyone else the article names must stay visible somewhere.
+  const railShown = personRail ? railNames(personRail.subjects) : null;
+  const showsJev = Boolean(
+    jevLeaning || jevRussia || jevSubjects?.length || personRail,
+  );
   const showsGlmAxis = !jevLeaning || !jevRussia;
   const analysisFeedbackFields = new Set([
     "leaning",
@@ -872,174 +887,214 @@ export const ArticleScreen = () => {
             </Card>
           ) : null}
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {jevLeaning ? (
-              <JevAxisCard
-                title={tr(
-                  "Политическо рамкиране на материала",
-                  "Political framing of the article",
+          {/* ⚠️ ONE GRID, THREE CHILDREN IN THIS ORDER: the axes, the person
+              rail, everything else. On a phone that stacks the rail directly
+              under the axes; from `lg` the rail becomes a sticky right column
+              beside both — without rendering it twice. */}
+          <div
+            className={`mt-4 grid gap-4 ${personRail ? "lg:grid-cols-[minmax(0,1fr)_340px]" : ""}`}
+          >
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {jevLeaning ? (
+                  <JevAxisCard
+                    title={tr(
+                      "Политическо рамкиране на материала",
+                      "Political framing of the article",
+                    )}
+                    axis="leaning"
+                    score={jevLeaning}
+                  />
+                ) : (
+                  <AxisCard
+                    title={tr(
+                      "Политическо рамкиране на материала",
+                      "Political framing of the article",
+                    )}
+                    {...scaleOf(
+                      isEnglish ? LEANING_META_EN : LEANING_META,
+                      analysis.leaning?.label,
+                      tr("Оценката не е налична", "Rating unavailable"),
+                    )}
+                    confidence={
+                      leaningSource === "editorial"
+                        ? null
+                        : analysis.leaning?.confidence
+                    }
+                    evidence={analysis.leaning?.evidence}
+                    block={analysis.leaning}
+                    source={leaningSource}
+                  />
                 )}
-                axis="leaning"
-                score={jevLeaning}
-              />
-            ) : (
-              <AxisCard
-                title={tr(
-                  "Политическо рамкиране на материала",
-                  "Political framing of the article",
+                {jevRussia ? (
+                  <JevAxisCard
+                    title={tr("Отношение към Русия", "Stance toward Russia")}
+                    axis="russia_stance"
+                    score={jevRussia}
+                  />
+                ) : (
+                  <AxisCard
+                    title={tr("Отношение към Русия", "Stance toward Russia")}
+                    {...scaleOf(
+                      isEnglish ? RUSSIA_META_EN : RUSSIA_META,
+                      analysis.russia_stance?.label,
+                      tr("Оценката не е налична", "Rating unavailable"),
+                    )}
+                    confidence={
+                      russiaSource === "editorial"
+                        ? null
+                        : analysis.russia_stance?.confidence
+                    }
+                    evidence={analysis.russia_stance?.evidence}
+                    block={analysis.russia_stance}
+                    source={russiaSource}
+                  />
                 )}
-                {...scaleOf(
-                  isEnglish ? LEANING_META_EN : LEANING_META,
-                  analysis.leaning?.label,
-                  tr("Оценката не е налична", "Rating unavailable"),
-                )}
-                confidence={
-                  leaningSource === "editorial"
-                    ? null
-                    : analysis.leaning?.confidence
-                }
-                evidence={analysis.leaning?.evidence}
-                block={analysis.leaning}
-                source={leaningSource}
-              />
-            )}
-            {jevRussia ? (
-              <JevAxisCard
-                title={tr("Отношение към Русия", "Stance toward Russia")}
-                axis="russia_stance"
-                score={jevRussia}
-              />
-            ) : (
-              <AxisCard
-                title={tr("Отношение към Русия", "Stance toward Russia")}
-                {...scaleOf(
-                  isEnglish ? RUSSIA_META_EN : RUSSIA_META,
-                  analysis.russia_stance?.label,
-                  tr("Оценката не е налична", "Rating unavailable"),
-                )}
-                confidence={
-                  russiaSource === "editorial"
-                    ? null
-                    : analysis.russia_stance?.confidence
-                }
-                evidence={analysis.russia_stance?.evidence}
-                block={analysis.russia_stance}
-                source={russiaSource}
-              />
-            )}
-          </div>
+              </div>
+            </div>
+            {personRail ? (
+              <aside
+                className="min-w-0 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
+                aria-label={tr("Хора в материала", "People in the article")}
+              >
+                <PersonRail jev={personRail} articlePath={articlePath} />
+              </aside>
+            ) : null}
+            <div className="min-w-0 lg:col-start-1 lg:row-start-2">
+              {jevSubjects?.length ? (
+                <JevSubjects
+                  subjects={jevSubjects}
+                  dropped={jev?.subjects_dropped}
+                  max={jev?.subjects_max}
+                />
+              ) : null}
+              {showsJev ? (
+                <JevProvenance
+                  textScope={jev?.text_scope}
+                  articleUrl={article.url}
+                  model={jev?.model}
+                  assessedAt={jev?.assessed_at}
+                />
+              ) : null}
 
-          {jevSubjects?.length ? (
-            <JevSubjects
-              subjects={jevSubjects}
-              dropped={jev?.subjects_dropped}
-              max={jev?.subjects_max}
-            />
-          ) : null}
-          {showsJev ? (
-            <JevProvenance
-              textScope={jev?.text_scope}
-              articleUrl={article.url}
-              model={jev?.model}
-              assessedAt={jev?.assessed_at}
-            />
-          ) : null}
-
-          {/* ⚠️ THIS NOTE DESCRIBES THE MODEL CARDS' READ, not Jev's. Jev read
+              {/* ⚠️ THIS NOTE DESCRIBES THE MODEL CARDS' READ, not Jev's. Jev read
               up to 24,000 characters where this pass read 6,000, so the two
               scopes differ; with both axes on Jev there is no card for it to
               describe, and `JevProvenance` above carries Jev's own. */}
-          {showsGlmAxis &&
-          analysis.text_scope &&
-          analysis.text_scope.kind !== "full" ? (
-            // T4.1c — a verdict not made on the demonstrably full text is a
-            // SCOPED observation: said here, counted in no story, outlet or
-            // topic rollup. The figures are printed only when both were
-            // measured and the read really was partial; otherwise the note
-            // says the extent is not recorded rather than inventing „0 of 0".
-            <p
-              className="mt-3 rounded-md border border-dashed px-3 py-2 text-sm text-muted-foreground"
-              data-testid="text-scope-note"
-            >
-              {analysis.text_scope.kind === "prefix" &&
-              analysis.text_scope.chars_seen != null &&
-              analysis.text_scope.chars_total != null &&
-              analysis.text_scope.chars_seen < analysis.text_scope.chars_total
-                ? tr(
-                    `Оценките по-горе са направени върху първите ${analysis.text_scope.chars_seen.toLocaleString("bg-BG")} от ${analysis.text_scope.chars_total.toLocaleString("bg-BG")} знака на текста. Непрочетен балансиращ пасаж може да ги промени, затова те не влизат в разпределенията на историята, изданието и темата.`,
-                    `The ratings above were made on the first ${analysis.text_scope.chars_seen.toLocaleString("en-GB")} of ${analysis.text_scope.chars_total.toLocaleString("en-GB")} characters of the text. An unread balancing passage could change them, so they enter no story, outlet or topic distribution.`,
-                  )
-                : tr(
-                    "Обхватът на прочетения текст за тези оценки не е записан, затова те не влизат в разпределенията на историята, изданието и темата.",
-                    "The extent of the text read for these ratings is not recorded, so they enter no story, outlet or topic distribution.",
-                  )}
-            </p>
-          ) : null}
+              {showsGlmAxis &&
+              analysis.text_scope &&
+              analysis.text_scope.kind !== "full" ? (
+                // T4.1c — a verdict not made on the demonstrably full text is a
+                // SCOPED observation: said here, counted in no story, outlet or
+                // topic rollup. The figures are printed only when both were
+                // measured and the read really was partial; otherwise the note
+                // says the extent is not recorded rather than inventing „0 of 0".
+                <p
+                  className="mt-3 rounded-md border border-dashed px-3 py-2 text-sm text-muted-foreground"
+                  data-testid="text-scope-note"
+                >
+                  {analysis.text_scope.kind === "prefix" &&
+                  analysis.text_scope.chars_seen != null &&
+                  analysis.text_scope.chars_total != null &&
+                  analysis.text_scope.chars_seen <
+                    analysis.text_scope.chars_total
+                    ? tr(
+                        `Оценките по-горе са направени върху първите ${analysis.text_scope.chars_seen.toLocaleString("bg-BG")} от ${analysis.text_scope.chars_total.toLocaleString("bg-BG")} знака на текста. Непрочетен балансиращ пасаж може да ги промени, затова те не влизат в разпределенията на историята, изданието и темата.`,
+                        `The ratings above were made on the first ${analysis.text_scope.chars_seen.toLocaleString("en-GB")} of ${analysis.text_scope.chars_total.toLocaleString("en-GB")} characters of the text. An unread balancing passage could change them, so they enter no story, outlet or topic distribution.`,
+                      )
+                    : tr(
+                        "Обхватът на прочетения текст за тези оценки не е записан, затова те не влизат в разпределенията на историята, изданието и темата.",
+                        "The extent of the text read for these ratings is not recorded, so they enter no story, outlet or topic distribution.",
+                      )}
+                </p>
+              ) : null}
 
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            {/* ⚠️ Guarded lookups. The bundle passes rubric labels through
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                {/* ⚠️ Guarded lookups. The bundle passes rubric labels through
                 VERBATIM, so an unrecognised one is a JSON value away — and a
                 bare META[label].label throws, which in a component with no
                 error boundary white-screens the whole app. Badges.tsx already
                 guards every one of these. */}
-            {labelOf(
-              isEnglish ? AI_META_EN : AI_META,
-              analysis.ai_generated?.verdict,
-            ) ? (
-              <Badge variant="outline" className="font-normal">
                 {labelOf(
                   isEnglish ? AI_META_EN : AI_META,
                   analysis.ai_generated?.verdict,
-                )}
-              </Badge>
-            ) : null}
-            {analysis.quality?.verdict !== "ok" &&
-            labelOf(
-              isEnglish ? QUALITY_META_EN : QUALITY_META,
-              analysis.quality?.verdict,
-            ) ? (
-              <Badge variant="outline" className="font-normal">
-                {labelOf(
+                ) ? (
+                  <Badge variant="outline" className="font-normal">
+                    {labelOf(
+                      isEnglish ? AI_META_EN : AI_META,
+                      analysis.ai_generated?.verdict,
+                    )}
+                  </Badge>
+                ) : null}
+                {analysis.quality?.verdict !== "ok" &&
+                labelOf(
                   isEnglish ? QUALITY_META_EN : QUALITY_META,
                   analysis.quality?.verdict,
-                )}
-              </Badge>
-            ) : null}
-            <TopicChips
-              categories={categories}
-              topics={analysis.topics ?? []}
-              inline
-            />
-          </div>
-
-          {(analysis.ai_generated?.signals ?? []).length > 0 && !isEnglish ? (
-            <Card className="mt-3 p-4">
-              <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Сигнали за възможна употреба на ИИ
+                ) ? (
+                  <Badge variant="outline" className="font-normal">
+                    {labelOf(
+                      isEnglish ? QUALITY_META_EN : QUALITY_META,
+                      analysis.quality?.verdict,
+                    )}
+                  </Badge>
+                ) : null}
+                <TopicChips
+                  categories={categories}
+                  topics={analysis.topics ?? []}
+                  inline
+                />
               </div>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-                {analysis.ai_generated!.signals.map((sig) => (
-                  <li key={sig}>{sig}</li>
-                ))}
-              </ul>
-            </Card>
-          ) : null}
 
-          <MentionsBlock
-            entities={analysis.entities}
-            links={analysis.entity_links}
-            candidates={analysis.entity_candidates}
-          />
-          <NewsPersonsBlock
-            rows={analysis.news_persons}
-            // With Jev's subject tones on the page the older per-person tones
-            // would be a second verdict on the same people.
-            // ⚠️ `.length`, not truthiness: `[]` is truthy, and an article
-            // naming nobody (28.5% of the corpus) or one whose subject calls
-            // failed would otherwise lose its person tones with nothing shown
-            // in their place.
-            tones={jevSubjects?.length ? undefined : analysis.person_tones}
-          />
+              {(analysis.ai_generated?.signals ?? []).length > 0 &&
+              !isEnglish ? (
+                <Card className="mt-3 p-4">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Сигнали за възможна употреба на ИИ
+                  </div>
+                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
+                    {analysis.ai_generated!.signals.map((sig) => (
+                      <li key={sig}>{sig}</li>
+                    ))}
+                  </ul>
+                </Card>
+              ) : null}
+
+              <MentionsBlock
+                // With the rail on, people are named THERE — once, with their
+                // identity; the chips would be the same people a second time.
+                entities={
+                  railShown && analysis.entities
+                    ? {
+                        ...analysis.entities,
+                        people: (analysis.entities.people ?? []).filter(
+                          (n) => !railShown.has(n),
+                        ),
+                      }
+                    : analysis.entities
+                }
+                links={analysis.entity_links}
+                candidates={analysis.entity_candidates}
+              />
+              <NewsPersonsBlock
+                rows={
+                  railShown
+                    ? analysis.news_persons?.filter(
+                        (r) => !railShown.has(r.surface),
+                      )
+                    : analysis.news_persons
+                }
+                // With Jev's subject tones on the page the older per-person tones
+                // would be a second verdict on the same people.
+                // ⚠️ `.length`, not truthiness: `[]` is truthy, and an article
+                // naming nobody (28.5% of the corpus) or one whose subject calls
+                // failed would otherwise lose its person tones with nothing shown
+                // in their place.
+                tones={
+                  jev?.subjects?.length ? undefined : analysis.person_tones
+                }
+              />
+            </div>
+          </div>
         </section>
       ) : (
         // ⚠️ NO badges. At 8.4% analysed this is the common state, and it must

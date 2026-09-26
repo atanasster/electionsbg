@@ -92,6 +92,7 @@ try:
     from . import jev_publication
     from . import jev_sentiment
     from . import person_identity_join
+    from . import person_publication
     from . import party_rollups
     from . import person_rollups
     from . import person_tones as person_treatment
@@ -130,6 +131,7 @@ except ImportError:  # direct script execution
     import jev_publication
     import jev_sentiment
     import person_identity_join
+    import person_publication
     import party_rollups
     import person_rollups
     import person_tones as person_treatment
@@ -1638,6 +1640,49 @@ def coverage_by_day(records: list) -> dict:
         if (r.get("analysis") or {}).get("jev_sentiment"):
             slot[0] += 1
     return days
+
+
+def stamp_for_publication(public_analysis: dict, article: dict, sources,
+                          surfaces: frozenset) -> tuple:
+    """Stamp the article's Jev person subjects; return (stamped, report).
+
+    ⚠️ RAIL OFF → THE ARTICLE BUNDLE IS UNTOUCHED — not merely free of the
+    identity keys: the join also MERGES rows, so it runs on a copy that only
+    the person archive reads. Rail on → the bundle carries the stamped rows,
+    `person_rail`, and whether a baseline file exists to fetch."""
+    jev = public_analysis.get("jev_sentiment") or {}
+    subjects = jev.get("subjects")
+    if not subjects:
+        return None, {}
+    rail = "rail" in surfaces
+    stamped = subjects if rail else copy.deepcopy(subjects)
+    report = person_identity_join.stamp(stamped, public_analysis, article,
+                                        sources)
+    if rail:
+        jev["person_rail"] = True
+        # The rail fetches person_baselines.json only when it was written.
+        jev["person_baselines"] = "aggregates" in surfaces
+    return stamped, report
+
+
+def with_stamped_subjects(analysis, stamped):
+    """The analysis as the person archive reads it: with the identity-stamped
+    subjects, whether or not the article bundle carries them (rail off)."""
+    if not analysis or stamped is None or not analysis.get("jev_sentiment"):
+        return analysis
+    return {**analysis, "jev_sentiment": {**analysis["jev_sentiment"],
+                                          "subjects": stamped}}
+
+
+def remove_person_aggregates(out_dir: Path) -> dict:
+    """`NEWS_PERSON_AGGREGATES` off: no person page, index or baseline may
+    remain from an earlier build — an off surface is not written at all."""
+    for name in ("persons.json", "person_baselines.json"):
+        (out_dir / name).unlink(missing_ok=True)
+    for stale in (out_dir / "person").glob("*.json"):
+        stale.unlink()
+    print("  person pages: held (NEWS_PERSON_AGGREGATES off)", file=sys.stderr)
+    return {"rows": [], "refused": [], "digest": []}
 
 
 def write_person_shards(out_dir: Path, registry: dict, rows: list,
@@ -3193,6 +3238,13 @@ def main() -> int:
     person_join_sources = person_identity_join.Sources(
         registry=news_person_registry)
     person_join_report: dict = {}
+    # §8 — which person surfaces this build WRITES. Raises on an unreadable
+    # value rather than reading it as off.
+    person_surfaces = person_publication.published()
+    # The stamped subjects per article, kept even when the rail is off: the
+    # person archive needs identities whether or not the article page shows
+    # them.
+    stamped_subjects_by_url: dict = {}
     known_case_slugs = {c["slug"] for c in case_matcher.cases}
     for person in news_person_registry["persons"]:
         for a in person["aliases"]:
@@ -3376,11 +3428,11 @@ def main() -> int:
                         tones = person_treatment.current_for(art, identities, data_dir)
                         if tones and tones.get("person_tones"):
                             public_analysis["person_tones"] = tones["person_tones"]
-                jev_subjects = (public_analysis.get("jev_sentiment")
-                                or {}).get("subjects")
-                if jev_subjects:
-                    joined = person_identity_join.stamp(
-                        jev_subjects, public_analysis, art, person_join_sources)
+                stamped, joined = stamp_for_publication(
+                    public_analysis, art, person_join_sources, person_surfaces)
+                if stamped is not None:
+                    if art.get("url"):
+                        stamped_subjects_by_url[art["url"]] = stamped
                     for key, n in joined.items():
                         person_join_report[key] = person_join_report.get(key, 0) + n
                 analyzed_by_domain[domain] = analyzed_by_domain.get(domain, 0) + 1
@@ -3751,17 +3803,22 @@ def main() -> int:
     person_index = write_news_persons(
         out_dir, news_person_registry, news_person_rows_by_url, generated_at,
         published_articles=sum(1 for r in all_latest if r.get("analysis")))
-    person_shards = write_person_shards(out_dir, news_person_registry, [
-        {"url": r.get("url"), "domain": r.get("domain"), "article_id": r.get("id"),
-         "title": r.get("title"), "published": r.get("published"),
-         "story_id": r.get("story_id"), "analysis": r.get("analysis")}
-        # ⚠️ M's first half — „publishable" — is enforced HERE rather than
-        # relying on a non-publishable record happening to carry no resolved
-        # identities in some other function's control flow.
-        for r in all_latest
-        if r.get("analysis") and r.get("url") in publishable_urls
-    ], generated_at, sources=person_join_sources,
-        coverage_days=coverage_by_day(all_latest))
+    if "aggregates" in person_surfaces:
+        person_shards = write_person_shards(out_dir, news_person_registry, [
+            {"url": r.get("url"), "domain": r.get("domain"), "article_id": r.get("id"),
+             "title": r.get("title"), "published": r.get("published"),
+             "story_id": r.get("story_id"),
+             "analysis": with_stamped_subjects(r.get("analysis"),
+                                               stamped_subjects_by_url.get(r.get("url")))}
+            # ⚠️ M's first half — „publishable" — is enforced HERE rather than
+            # relying on a non-publishable record happening to carry no resolved
+            # identities in some other function's control flow.
+            for r in all_latest
+            if r.get("analysis") and r.get("url") in publishable_urls
+        ], generated_at, sources=person_join_sources,
+            coverage_days=coverage_by_day(all_latest))
+    else:
+        person_shards = remove_person_aggregates(out_dir)
     # The news-only index carries each identity's coverage, so a list row and
     # its page can never disagree about the denominator.
     coverage = {row["id"]: row for row in person_shards["rows"]}

@@ -46,6 +46,9 @@ RUNTIME_SCRIPTS = (
     # build_app_data imports it UNGUARDED to stamp which person each Jev
     # subject is (news-person-sentiment-v1 §3.1).
     "news/scripts/person_identity_join.py",
+    # build_app_data imports it UNGUARDED: which person surfaces are written
+    # (news-person-sentiment-v1 §8).
+    "news/scripts/person_publication.py",
     "news/scripts/rollup_common.py",  # both rollups import it UNGUARDED
     "news/scripts/person_tones.py",   # build_app_data imports it UNGUARDED (T4.3)
     "news/scripts/story_synthesis.py",  # build_app_data imports it UNGUARDED (T5.1)
@@ -108,6 +111,9 @@ SEED_FILES = (
     "data/canonical_parties.json",
     "src/screens/governance/sectorRegistry.ts",
     "src/locales/bg/translation.json",
+    # The person rail names each office in both languages from the main
+    # site's `pp_role_*` vocabulary (person_identity_join.role_labels).
+    "src/locales/en/translation.json",
 )
 STANDALONE_MAP = {
     "news/standalone/README.md": "README.md",

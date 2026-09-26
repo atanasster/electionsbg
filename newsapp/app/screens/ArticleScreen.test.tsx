@@ -178,6 +178,7 @@ const renderAt = async (
       error: null,
       loading: false,
     }),
+    usePersonBaselines: () => ({ data: null, error: null, loading: false }),
   }));
   vi.doMock("../evals", async (importOriginal) => ({
     ...(await importOriginal<typeof import("../evals")>()),
@@ -503,6 +504,75 @@ describe("the evidence", () => {
     expect(block).toHaveTextContent(
       "Оценката е за това КАК материалът представя лицето — не за самото лице",
     );
+  });
+
+  it("with the person rail published, people move to the rail — once — and parties stay (news-person-sentiment-v1 §5)", async () => {
+    const a = analysed();
+    a.news_persons = [
+      {
+        surface: "Делян Пеевски",
+        basis: "registry_alias",
+        news_person_id: "np_1",
+        identity_version: "v",
+        name_bg: "Делян Пеевски",
+        name_en: "Delyan Peevski",
+        verified_main_site_slug: null,
+        assessment: "not_assessed",
+      },
+    ] as never;
+    const tone = {
+      value: -0.9,
+      normalized: -0.45,
+      spread: 0.3,
+      confidence: 0.9,
+      levels: 5,
+      both_directions: false,
+      bucket_index: 1,
+    };
+    a.jev_sentiment = {
+      rubric_version: "jev-sentiment-v1",
+      model: "jev",
+      assessed_at: null,
+      text_scope: { version: 1, kind: "full" },
+      axes: {},
+      person_rail: true,
+      subjects: [
+        {
+          name: "Делян Пеевски",
+          kind: "person",
+          subject_role: "primary",
+          mentions: 3,
+          tone,
+          identity: {
+            kind: "person",
+            id: "mp-5100",
+            basis: "exact",
+            canonical: "Делян Славчев Пеевски",
+          },
+        },
+        {
+          name: "ГЕРБ",
+          kind: "party",
+          subject_role: "secondary",
+          mentions: 2,
+          tone,
+        },
+      ],
+    } as never;
+    await renderAt([article({ analysis: a })]);
+    const rail = await screen.findByTestId("person-rail");
+    expect(within(rail).getByText("Делян Славчев Пеевски")).toBeInTheDocument();
+    expect(screen.getAllByTestId("person-rail-row")).toHaveLength(1);
+    // The person is not named a second time elsewhere on the page — but
+    // „Радев", whom Jev did not score, stays in the chips: the rail is
+    // capped, and nobody the article names may vanish.
+    expect(screen.queryByTestId("news-persons")).toBeNull();
+    expect(screen.getByText("Хора:")).toBeInTheDocument();
+    expect(screen.getByText("Радев")).toBeInTheDocument();
+    expect(screen.queryByText("Делян Пеевски")).toBeNull();
+    const subjects = screen.getByTestId("jev-subjects");
+    expect(within(subjects).getByText("ГЕРБ")).toBeInTheDocument();
+    expect(within(subjects).queryByText("Делян Пеевски")).toBeNull();
   });
 
   it("does not claim that untyped evidence is a verbatim source quotation", async () => {

@@ -37,7 +37,8 @@ CUES = {"role_words": {"mayor": ["кмет"], "mp": ["депутат"],
 
 def src(aliases=None, audit=None, registry=None):
     return j.Sources(gazetteer_doc=GAZ, aliases={"aliases": aliases or []},
-                     cues=CUES, audit=audit or {}, registry=registry or {})
+                     cues=CUES, audit=audit or {}, registry=registry or {},
+                     labels={"mayor": {"bg": "Кмет", "en": "Mayor"}})
 
 
 def run(subjects, analysis, text, published="2026-09-20T10:00:00+00:00",
@@ -74,6 +75,20 @@ class Exact(unittest.TestCase):
                        "kind": "person", "id": "bk-1", "canonical": "Благомир Коцев",
                        "form_kind": "curated_entity"}}}, "Благомир Коцев")
         self.assertEqual(s[0]["identity"]["canonical"], "Благомир Коцев")
+
+    def test_the_identity_carries_the_office_to_name(self):
+        s, _ = run([subj("Борис Петров")],
+                   {"entity_links": {"Борис Петров": {"kind": "person", "id": "b-1"}}},
+                   "Борис Петров")
+        self.assertEqual((s[0]["identity"]["role"], s[0]["identity"]["role_current"]),
+                         ("mayor", True))
+        self.assertEqual(s[0]["identity"]["role_label"], {"bg": "Кмет", "en": "Mayor"})
+
+    def test_role_labels_come_from_the_main_site_vocabulary(self):
+        labels = j.role_labels()
+        self.assertEqual(labels["mp"]["bg"], "Народен представител")
+        self.assertIn("en", labels["mp"])
+        self.assertNotIn("plural_mp", labels)
 
     def test_a_non_person_link_is_refused(self):
         s, _ = run([subj("Варна")], {"entity_links": {"Варна": {

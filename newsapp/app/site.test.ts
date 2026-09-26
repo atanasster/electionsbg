@@ -3,6 +3,7 @@ import {
   MAIN_SITE_LABEL,
   isMainSiteHref,
   mainSiteHome,
+  mainPersonUrl,
   mainSiteUrl,
   newsUrlFor,
 } from "./site";
@@ -69,5 +70,14 @@ describe("main-site URLs", () => {
     // ⚠️ news.naiasno.bg does not resolve; the news app's own canonical is
     // deliberately NOT part of the rebrand.
     expect(newsUrlFor("/outlets")).toBe("https://news.electionsbg.com/outlets");
+  });
+});
+
+describe("main-site person URLs", () => {
+  it("builds the profile route from the slug, with the EN prefix", () => {
+    expect(mainPersonUrl("mp-5142")).toBe("https://naiasno.bg/person/mp-5142");
+    expect(mainPersonUrl("mp-5142", true)).toBe(
+      "https://naiasno.bg/en/person/mp-5142",
+    );
   });
 });

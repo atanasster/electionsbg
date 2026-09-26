@@ -4068,6 +4068,61 @@ class NewsPersonIdentity(BuildAppDataFixture):
         self.assertEqual(by["Иван Петров"]["pending_identity"], "np_00000001")
 
 
+class StampForPublication(unittest.TestCase):
+    """news-person-sentiment-v1 §8 — with the rail OFF the article bundle is
+    exactly what it was, even when the join merges two rows into one."""
+
+    def setUp(self):
+        import person_identity_join as pij  # noqa: PLC0415
+        gaz = {"entries": [{"kind": "person", "id": "p-1",
+                            "canonical": "Иван Петров Иванов"}]}
+        self.sources = pij.Sources(
+            gazetteer_doc=gaz, cues={}, audit={}, registry={}, labels={},
+            aliases={"aliases": [{"surface": "Иванов", "id": "p-1",
+                                  "status": "accepted"}]})
+
+    def analysis(self):
+        subject = {"kind": "person", "subject_role": "primary", "mentions": 2,
+                   "tone": {"value": 0.1}}
+        return {
+            "entity_links": {"Иван Иванов": {"kind": "person", "id": "p-1"}},
+            "entities": {"people": ["Иван Иванов", "Иванов"]},
+            "jev_sentiment": {"subjects": [{**subject, "name": "Иван Иванов"},
+                                           {**subject, "name": "Иванов"}]}}
+
+    ARTICLE = {"content": "Иван Иванов. Иванов.",
+               "published": "2026-09-20T10:00:00+00:00"}
+
+    def test_rail_off_leaves_the_bundle_byte_identical(self):
+        analysis = self.analysis()
+        before = json.dumps(analysis, sort_keys=True, ensure_ascii=False)
+        stamped, report = bad.stamp_for_publication(
+            analysis, self.ARTICLE, self.sources, frozenset())
+        self.assertEqual(json.dumps(analysis, sort_keys=True, ensure_ascii=False),
+                         before)
+        # …while the archive's copy was merged to one identity.
+        self.assertEqual(report["merged"], 1)
+        self.assertEqual(len(stamped), 1)
+
+    def test_rail_on_stamps_the_bundle_and_says_whether_baselines_exist(self):
+        analysis = self.analysis()
+        stamped, _ = bad.stamp_for_publication(
+            analysis, self.ARTICLE, self.sources, frozenset({"rail"}))
+        jev = analysis["jev_sentiment"]
+        self.assertIs(jev["subjects"], stamped)
+        self.assertTrue(jev["person_rail"])
+        self.assertFalse(jev["person_baselines"])
+        with_pages = self.analysis()
+        bad.stamp_for_publication(with_pages, self.ARTICLE, self.sources,
+                                  frozenset({"rail", "aggregates"}))
+        self.assertTrue(with_pages["jev_sentiment"]["person_baselines"])
+
+    def test_no_subjects_is_a_no_op(self):
+        self.assertEqual(bad.stamp_for_publication(
+            {"jev_sentiment": {}}, self.ARTICLE, self.sources, frozenset({"rail"})),
+            (None, {}))
+
+
 class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
     """Stage C's last exit criterion — „Correction/removal rebuilds story,
     case and news-person shards in one data transaction … A main-site bridge
@@ -4180,8 +4235,23 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
 
     def run_build_process(self, *extra):
         from unittest import mock  # noqa: PLC0415
-        with mock.patch.dict(os.environ, {"NEWS_JEV_PUBLISH": "subject_tone"}):
+        with mock.patch.dict(os.environ, {"NEWS_JEV_PUBLISH": "subject_tone",
+                                          "NEWS_PERSON_AGGREGATES": "1"}):
             return super().run_build_process(*extra)
+
+    def test_aggregates_off_writes_no_page_at_all(self):
+        from unittest import mock  # noqa: PLC0415
+        self.seed(); self.registry(active=True)
+        self.assertEqual(self.run_build_process().returncode, 0)
+        self.assertEqual(self.person_shards(), ["np_00000001.json"])
+        with mock.patch.dict(os.environ, {"NEWS_PERSON_AGGREGATES": "0"}):
+            proc = BuildAppDataFixture.run_build_process(self)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        # ⚠️ An off surface is not written — and nothing from the earlier
+        # build survives it.
+        self.assertEqual(self.person_shards(), [])
+        self.assertFalse((Path(self.out_dir) / "persons.json").exists())
+        self.assertFalse((Path(self.out_dir) / "person_baselines.json").exists())
 
     def surfaces_mentioning(self) -> dict:
         """Every published surface a person id or a tone could reach. ⚠️ The
@@ -4516,9 +4586,9 @@ class JevArticleBlock(BuildAppDataFixture):
         sm.store(ja.assess_article(art, rec, ask=tja.answering_ask()),
                  Path(self.data_dir))
 
-    def build_with(self, published):
+    def build_with(self, published, **flags):
         from unittest import mock  # noqa: PLC0415
-        with mock.patch.dict(os.environ, {"NEWS_JEV_PUBLISH": published}):
+        with mock.patch.dict(os.environ, {"NEWS_JEV_PUBLISH": published, **flags}):
             self.run_build()
         article = next(a for a in self.load("articles/a.bg.json")["articles"]
                        if a["url"] == "https://a.bg/p")
@@ -4564,7 +4634,13 @@ class JevArticleBlock(BuildAppDataFixture):
         self.write_analysis("a.bg", "p.json", rec)
         sm.store(ja.assess_article(art, rec, ask=tja.answering_ask()),
                  Path(self.data_dir))
+        # Rail OFF: the article bundle is exactly what it was — no identities.
         block = self.build_with("subject_tone")["analysis"]["jev_sentiment"]
+        self.assertTrue(all("identity" not in s for s in block["subjects"]))
+        self.assertNotIn("person_rail", block)
+        block = self.build_with("subject_tone", NEWS_PERSON_RAIL="1")[
+            "analysis"]["jev_sentiment"]
+        self.assertTrue(block["person_rail"])
         by_name = {s["name"]: s for s in block["subjects"]}
         ivan = by_name["Иван Иванов"]["identity"]
         self.assertEqual((ivan["kind"], ivan["id"], ivan["basis"]),

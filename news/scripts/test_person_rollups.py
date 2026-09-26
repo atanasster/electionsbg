@@ -26,7 +26,7 @@ def subject(pid, *, value=-0.8, index=UN, role="primary", kind="person",
                       "form_kind": form_kind, "identity_version": "iv",
                       "canonical": f"Канон {pid}"}}
     if tone:
-        s["tone"] = {"value": value, "bucket_index": index}
+        s["tone"] = {"value": value, "bucket_index": index, "levels": 5}
     if conflict:
         s["conflict"] = True
     return s
@@ -245,10 +245,16 @@ class Shapes(unittest.TestCase):
         self.assertEqual(p["default_basis"], "story")
         self.assertEqual(p["accounting"]["eligible"], 6)
 
-    def test_baseline_is_sum_and_count(self):
+    def test_baseline_is_sum_count_and_scale(self):
         b = pr.baseline(self.entry())
-        self.assertEqual(b["n"], 6)
+        self.assertEqual((b["n"], b["levels"]), (6, 5))
         self.assertAlmostEqual(b["sum"], round(sum(-0.8 + i / 10 for i in range(6)), 4))
+
+    def test_baseline_refuses_a_mix_of_scales(self):
+        rows = [article(f"a/{i}", [subject("p")], story=f"s{i}") for i in range(3)]
+        rows[0]["analysis"]["jev_sentiment"]["subjects"][0]["tone"]["levels"] = 9
+        self.assertEqual(pr.baseline(pr.collect(rows)["p"]),
+                         {"n": 0, "sum": None, "levels": None})
 
     def test_page_names_cannot_collide_across_hyphenated_slugs(self):
         self.assertEqual(pr.page_name("ivan-ivanov", 1), "ivan-ivanov.json")

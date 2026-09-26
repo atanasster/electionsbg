@@ -16,6 +16,10 @@ export const newsUrlFor = (routePath: string): string => {
 export const MAIN_SITE = "https://naiasno.bg";
 export const MAIN_SITE_LABEL = "naiasno.bg";
 
+/** A person's main-site profile — the slug IS the route. */
+export const mainPersonUrl = (slug: string, isEnglish = false): string =>
+  `${isEnglish ? `${MAIN_SITE}/en` : MAIN_SITE}/person/${encodeURIComponent(slug)}`;
+
 /**
  * Hosts a stored main-site href may legitimately carry.
  *

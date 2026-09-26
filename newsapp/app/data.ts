@@ -112,6 +112,38 @@ export interface JevAxisScore extends JevScore {
   applies: number | null;
 }
 
+/**
+ * WHO a person subject is — stamped by the build's identity join
+ * (`person_identity_join.py`), never by the model. Present only when the
+ * person rail is published (`NEWS_PERSON_RAIL`).
+ */
+export interface PersonIdentity {
+  kind: "person" | "news_person";
+  /** A main-site person slug, or a reviewed `np_*` news-only id. */
+  id: string;
+  /** How the name was tied to this person — shown to the reader. */
+  basis: "exact" | "context" | "surname_alias" | "registry";
+  /** The register's name, which the page shows beside the article's own. */
+  canonical: string | null;
+  form_kind?: string;
+  /** The office to name — the current one, else the latest held. */
+  role?: string;
+  role_current?: boolean;
+  role_label?: { bg?: string; en?: string };
+  identity_version?: string | null;
+  scope?: string;
+  public_figure?: boolean;
+}
+
+export type IdentityRefusal =
+  | "no_match"
+  | "ambiguous"
+  | "not_a_person"
+  | "identity_refused"
+  | "context_required"
+  | "surname_clash"
+  | "cue_required";
+
 export interface JevSubject {
   name: string;
   kind: "party" | "person";
@@ -119,6 +151,13 @@ export interface JevSubject {
   subject_role: "primary" | "secondary" | "incidental" | null;
   mentions: number | null;
   tone?: JevScore;
+  /** Rail only: the identity, or null with the reason it was refused. */
+  identity?: PersonIdentity | null;
+  refused_reason?: IdentityRefusal | null;
+  /** Other spellings in this article folded into this one row. */
+  merged_surfaces?: string[];
+  /** Two readings of one person in one article disagreed: shown, never counted. */
+  conflict?: boolean;
 }
 
 export type JevArticleSentiment =
@@ -135,6 +174,10 @@ export type JevArticleSentiment =
       subjects_dropped?: number | null;
       /** The pass's subject cap, so a page states the real number. */
       subjects_max?: number | null;
+      /** The build published the person rail: person subjects carry identities. */
+      person_rail?: boolean;
+      /** `person_baselines.json` was written this build (aggregates on). */
+      person_baselines?: boolean;
     };
 
 export interface Entities {
@@ -1712,6 +1755,27 @@ export const useData = <T>(
 // otherwise.
 
 export const useStats = () => useData<Stats>("/stats.json");
+
+/**
+ * Per person with a page: the raw sum and count of assessed values, so the
+ * article rail can say how the person is covered ELSEWHERE — it subtracts the
+ * article it sits on. Absent (404) whenever the aggregates are held.
+ */
+export interface PersonBaselines {
+  generated_at: string;
+  persons: Record<
+    string,
+    {
+      n: number;
+      sum: number | null;
+      /** The anchor count of the scale every summed value came from. */
+      levels: number | null;
+    }
+  >;
+}
+
+export const usePersonBaselines = (enabled = true) =>
+  useData<PersonBaselines>(enabled ? "/person_baselines.json" : null);
 
 /**
  * The whole story corpus in one request.

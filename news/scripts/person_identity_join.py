@@ -59,6 +59,22 @@ GAZETTEER_PATH = DATA / "gazetteer.json"
 ALIASES_PATH = DATA / "person_surname_aliases.json"
 CUES_PATH = DATA / "person_context_cues.json"
 AUDIT_PATH = DATA / "person_identity_audit.json"
+LOCALES = ROOT / "src" / "locales"
+
+
+def role_labels(locales: Path = LOCALES) -> dict:
+    """role code → {bg, en}, from the MAIN site's own `pp_role_*` vocabulary,
+    so the rail names an office exactly as the person profile does. A missing
+    locale file leaves the code unlabelled rather than failing the build."""
+    out: dict = {}
+    for lang in ("bg", "en"):
+        path = locales / lang / "translation.json"
+        if not path.exists():
+            continue
+        for key, value in json.loads(path.read_text(encoding="utf-8")).items():
+            if key.startswith("pp_role_") and not key.startswith("pp_role_plural_"):
+                out.setdefault(key[len("pp_role_"):], {})[lang] = value
+    return out
 
 # Characters either side of a name within which an office word counts as
 # describing THAT name. A whole-article match would let „кметът" in paragraph
@@ -89,7 +105,8 @@ class Sources:
 
     def __init__(self, gazetteer_doc: dict | None = None,
                  aliases: dict | None = None, cues: dict | None = None,
-                 audit: dict | None = None, registry: dict | None = None):
+                 audit: dict | None = None, registry: dict | None = None,
+                 labels: dict | None = None):
         doc = gazetteer_doc if gazetteer_doc is not None else _load(
             GAZETTEER_PATH, {})
         self.people: dict = {}
@@ -126,6 +143,7 @@ class Sources:
                 self.refused[pid] = surfaces
             elif decision == "mixed":
                 self.mixed[pid] = surfaces
+        self.role_labels = labels if labels is not None else role_labels()
         reg = registry or {}
         self.news_persons = {p["news_person_id"]: p
                              for p in reg.get("persons") or []
@@ -218,9 +236,17 @@ def _identity(kind: str, pid: str, basis: str, src: Sources,
         # person the gazetteer does not list; the link's own canonical name is
         # then the only one there is, and a page must never ship nameless.
         entry = src.people.get(pid) or {}
+        display = entry.get("display") or {}
+        roles = display.get("roles") or []
+        # The office the rail names: the current one, else the latest held —
+        # flagged, so a page never calls a former minister „министър".
+        role = next((r for r in roles if r.get("current")), roles[0] if roles else None)
         return {"kind": "person", "id": pid, "basis": basis,
                 "canonical": entry.get("canonical") or canonical,
                 **({"form_kind": form_kind} if form_kind else {}),
+                **({"role": role["role"], "role_current": bool(role.get("current")),
+                    "role_label": src.role_labels.get(role["role"]) or {}}
+                   if role and role.get("role") else {}),
                 "identity_version": entry.get("identity_version")}
     person = src.news_persons.get(pid) or {}
     return {"kind": "news_person", "id": pid, "basis": basis,

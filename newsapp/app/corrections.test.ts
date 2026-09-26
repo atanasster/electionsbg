@@ -39,4 +39,21 @@ describe("safeCorrectionPath", () => {
       "(добавете точния адрес)",
     );
   });
+
+  it("names one person when the signal is about them, and only a valid id", () => {
+    const params = (href: string) => new URL(href).searchParams;
+    const about = params(
+      correctionIssueUrl("/article/ex.bg/a1", {
+        id: "mp-5142",
+        name: "Румен Радев",
+      }),
+    );
+    expect(about.get("title")).toContain("Сигнал за лице");
+    expect(about.get("body")).toContain("Румен Радев (mp-5142)");
+    const bad = params(
+      correctionIssueUrl("/article/ex.bg/a1", { id: "../x", name: "Х" }),
+    );
+    expect(bad.get("title")).toContain("Сигнал за поправка");
+    expect(bad.get("body")).not.toContain("## Лице");
+  });
 });
