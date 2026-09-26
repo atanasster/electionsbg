@@ -4518,6 +4518,45 @@ class JevArticleBlock(BuildAppDataFixture):
         block = self.build_with("leaning,subject_tone")["analysis"]["jev_sentiment"]
         self.assertEqual(set(block["axes"]), {"leaning"})
         self.assertEqual({s["name"] for s in block["subjects"]}, {"ГЕРБ", "ПП-ДБ"})
+        # The person identity join stamps PERSON subjects only; a party row
+        # keeps the shape the party archive reads.
+        self.assertTrue(all("identity" not in s for s in block["subjects"]))
+
+    def test_person_subjects_carry_their_identity(self):
+        # news-person-sentiment-v1 §3.1: the build stamps each PERSON subject
+        # with the identity the join found, or null and why. The fixture
+        # gazetteer below resolves „Иван Иванов" to person-1 and nobody else.
+        Path(self.data_dir, "gazetteer.json").write_text(json.dumps({
+            "version": 1, "generated_at": "2026-09-01T00:00:00Z",
+            "entries": [{
+                "kind": "person", "id": "person-1", "canonical": "Иван Иванов",
+                "identity_version": "iv-1",
+                "forms": [{"surface": "Иван Иванов", "id": "person-1",
+                           "resolvable": True, "form_kind": "two_part",
+                           "why": "fixture"}]}],
+        }, ensure_ascii=False), encoding="utf-8")
+        import jev_ask as ja  # noqa: PLC0415
+        import jev_sentiment as sm  # noqa: PLC0415
+        import test_jev_ask as tja  # noqa: PLC0415
+        art = {"url": "https://a.bg/p", "domain": "a.bg",
+               "title": "Иван Иванов и Пенка Пенева спорят",
+               "published": "2026-09-20T09:00:00+00:00",
+               "first_seen": "2026-09-20T09:00:00+00:00",
+               "content": "Иван Иванов внесе закона. Пенка Пенева възрази. " * 12}
+        self.write_corpus("a.bg", "p.json", art)
+        rec = self.analysis_record(art["url"], "a.bg", "news/data/a.bg/p.json")
+        rec["entities"]["people"] = ["Иван Иванов", "Пенка Пенева"]
+        self.write_analysis("a.bg", "p.json", rec)
+        sm.store(ja.assess_article(art, rec, ask=tja.answering_ask()),
+                 Path(self.data_dir))
+        block = self.build_with("subject_tone")["analysis"]["jev_sentiment"]
+        by_name = {s["name"]: s for s in block["subjects"]}
+        ivan = by_name["Иван Иванов"]["identity"]
+        self.assertEqual((ivan["kind"], ivan["id"], ivan["basis"]),
+                         ("person", "person-1", "exact"))
+        self.assertEqual(ivan["identity_version"], "iv-1")
+        self.assertIsNone(by_name["Пенка Пенева"]["identity"])
+        self.assertEqual(by_name["Пенка Пенева"]["refused_reason"], "no_match")
 
     def test_the_block_never_reaches_home_or_the_feed(self):
         # ⚠️ Both project `analysis` away; a new key there would be a byte

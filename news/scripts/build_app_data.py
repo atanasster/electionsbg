@@ -90,6 +90,7 @@ try:
     from . import cases as case_registry
     from . import news_persons as news_identity
     from . import jev_publication
+    from . import person_identity_join
     from . import party_rollups
     from . import person_rollups
     from . import person_tones as person_treatment
@@ -126,6 +127,7 @@ except ImportError:  # direct script execution
     import cases as case_registry
     import news_persons as news_identity
     import jev_publication
+    import person_identity_join
     import party_rollups
     import person_rollups
     import person_tones as person_treatment
@@ -3100,6 +3102,12 @@ def main() -> int:
     # The publication set, resolved ONCE per build: every article in it is
     # published under the same axes. Raises on an unknown axis name.
     jev_axes = jev_publication.published_axes()
+    # news-person-sentiment-v1 §3.1 — which human each Jev-scored person name
+    # is. Loaded once; stamped per article below, after the article's own
+    # `news_persons` rows exist (step 4 of the join reads them).
+    person_join_sources = person_identity_join.Sources(
+        registry=news_person_registry)
+    person_join_report: dict = {}
     known_case_slugs = {c["slug"] for c in case_matcher.cases}
     for person in news_person_registry["persons"]:
         for a in person["aliases"]:
@@ -3283,6 +3291,13 @@ def main() -> int:
                         tones = person_treatment.current_for(art, identities, data_dir)
                         if tones and tones.get("person_tones"):
                             public_analysis["person_tones"] = tones["person_tones"]
+                jev_subjects = (public_analysis.get("jev_sentiment")
+                                or {}).get("subjects")
+                if jev_subjects:
+                    joined = person_identity_join.stamp(
+                        jev_subjects, public_analysis, art, person_join_sources)
+                    for key, n in joined.items():
+                        person_join_report[key] = person_join_report.get(key, 0) + n
                 analyzed_by_domain[domain] = analyzed_by_domain.get(domain, 0) + 1
                 # T4.1b: the PUBLIC labels — a withheld v2 axis is None here
                 # and reaches no outlet spectrum and no topic axis spread.
@@ -3670,6 +3685,10 @@ def main() -> int:
     if jev_axes:
         print(f"  article scale: {jev_article_report['attached']} attached, "
               f"{jev_article_report['withheld']} withheld for human review",
+              file=sys.stderr)
+    if person_join_report:
+        print("  person identity join: "
+              + ", ".join(f"{k} {v}" for k, v in sorted(person_join_report.items())),
               file=sys.stderr)
     parties_out = write_parties(out_dir, [
         {"url": r.get("url"), "domain": r.get("domain"), "published": r.get("published"),

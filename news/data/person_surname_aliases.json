@@ -1,0 +1,5 @@
+{
+ "_comment": "news-person-sentiment-v1 §3.1 step 3. HUMAN-REVIEWED surname aliases, written by the review workspace (npm run news:review, queue „Фамилии“) — never generated or hand-guessed. An entry applies only when status is accepted, the article date falls in [valid_from, valid_to], and no other person with the same surname is named in the article; requires_cue additionally needs a party or office cue.",
+ "version": 1,
+ "aliases": []
+}
