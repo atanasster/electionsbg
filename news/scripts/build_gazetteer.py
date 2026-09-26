@@ -37,6 +37,7 @@ Run:  python3 news/scripts/build_gazetteer.py [--json]
 """
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -791,7 +792,165 @@ def build_people(ns: str) -> tuple[list, dict]:
         named_exec=", ".join(f"'{r}'" for r in NAMED_EXEC_ROLES),
         wider_exec=", ".join(f"'{r}'" for r in WIDER_EXEC_ROLES),
         cap=REGISTRY_NAMESAKE_CAP)
-    return people_entries(query(sql), ns)
+    entries, cov = people_entries(query(sql), ns)
+    display = display_by_slug(
+        query(DISPLAY_SQL.format(
+            sources=", ".join(f"'{s}'" for s in DISPLAY_ROLE_SOURCES))),
+        query(MP_PROFILE_SQL))
+    cov.update(attach_display(entries, display))
+    return entries, cov
+
+
+# ── Display fields (news-person-sentiment-v1 §3.0) ─────────────────────────
+#
+# ⚠️ WHY THEY LIVE HERE. The news build (`build_app_data.py`) is database-free
+# and must stay so; this stage is the one news stage that already reads the
+# person layer, runs every pipeline run, and writes NOTHING without a database
+# — so the previous committed file stays in force and stale role dates are the
+# worst case, never an empty rail.
+#
+# ⚠️ NOT an identity input. None of these fields changes what a surface may
+# resolve to; `identity_version` is computed from the fields that do, so a
+# role-date correction never marks a human adjudication stale.
+
+# Offices a reader recognises as a public role. `tr`/`ngo`/`donor`/`candidate`
+# and the rest describe a person's registry footprint, not the office a
+# newsroom names them by, and a rail reading „съдружник" under a president's
+# name would be true and absurd.
+DISPLAY_ROLE_SOURCES = ("president", "mp", "mep", "regulator",
+                        "official_exec", "official_muni", "local",
+                        "magistrate")
+# The rail shows one role and the page a short history; eight is more than
+# either reads, and the cap keeps the committed file proportional.
+DISPLAY_ROLES_MAX = 8
+
+DISPLAY_SQL = """
+select p.slug,
+       (select jsonb_agg(distinct jsonb_build_object(
+                  'source', pr.source, 'role', pr.role, 'party', pr.party,
+                  'start', pr.start_date, 'end', pr.end_date,
+                  'date_basis', pr.date_basis))
+          from person_role pr
+         where pr.person_id = p.person_id
+           and pr.source in ({sources})) as roles,
+       (select array_agg(distinct split_part(pr.ref, ':', 1))
+          from person_role pr
+         where pr.person_id = p.person_id and pr.source = 'mp') as mp_ids,
+       (select array_agg(r.slug order by r.slug)
+          from person_slug_retired r
+         where r.target_slug = p.slug) as retired_slugs
+from person p
+where p.status = 'active' and p.is_public_figure
+  and exists (select 1 from person_role pr
+               where pr.person_id = p.person_id
+                 and pr.source in ({sources}))
+order by p.slug
+"""
+
+MP_PROFILE_SQL = """
+select mp_id, name_en, photo_url, is_current from mp_profile order by mp_id
+"""
+
+
+def current_roles(roles: list) -> list:
+    """Mark which roles are CURRENT, by a rule that survives this corpus.
+
+    ⚠️ `end IS NULL` IS NOT „STILL SERVING". Filings leave duplicate undated
+    rows behind: Румен Радев carries a `president` row from 2017 with no end
+    AND a 2022–2026-02-09 row with one, so the naive rule calls him president
+    after he left. A row is current only when it has a start, has no end, and
+    no LATER-starting row of the same (source, role) exists — a later start of
+    the same office supersedes an earlier open one. An undated row is never
+    current: „no dates recorded" cannot support „holds office now".
+    """
+    # One row per office and term: filings repeat an office with and without
+    # a party, and each copy would take a slot under the cap and render twice.
+    merged: dict = {}
+    for r in sorted(roles, key=lambda r: (r.get("party") is None,
+                                          r.get("date_basis") or "")):
+        merged.setdefault((r.get("source"), r.get("role"), r.get("start"),
+                           r.get("end")), r)
+    roles = list(merged.values())
+    out = []
+    for r in roles:
+        start, end = r.get("start"), r.get("end")
+        later = any(o is not r and o.get("source") == r.get("source")
+                    and o.get("role") == r.get("role") and o.get("start")
+                    and start and o["start"] > start for o in roles)
+        # Null keys are dropped: the file is committed and read by humans,
+        # and ~4,500 people × eight roles of `"party": null` is weight with
+        # no information. A reader treats a missing key as null.
+        row = {k: v for k, v in r.items() if v is not None}
+        row["current"] = bool(start and not end and not later)
+        out.append(row)
+    # Newest first, undated last, with a total order underneath so the
+    # committed file does not churn on a tie. Three stable sorts, innermost
+    # key first.
+    out.sort(key=lambda r: (r.get("source") or "", r.get("role") or "",
+                            r.get("end") or ""))
+    out.sort(key=lambda r: r.get("start") or "", reverse=True)
+    out.sort(key=lambda r: r.get("start") is None)
+    # Current offices ahead of the cap, or a long-held open role is cut behind
+    # a run of newer closed terms and the person shows no current role.
+    out.sort(key=lambda r: not r["current"])
+    return out[:DISPLAY_ROLES_MAX]
+
+
+def display_by_slug(rows: list, mp_profiles: list | None = None) -> dict:
+    """Pure. `rows` from DISPLAY_SQL, `mp_profiles` from MP_PROFILE_SQL."""
+    profiles = {str(p["mp_id"]): p for p in (mp_profiles or ())}
+    out = {}
+    for r in rows:
+        mp_ids = sorted({m for m in (r.get("mp_ids") or ()) if m})
+        # ⚠️ ONE mp_id OR NONE. `mp_id` is not a person key — the roll-call
+        # corpus recycles 26 of them — so a person mapped to two is a
+        # photo we cannot attribute, and the answer is initials, not a
+        # guess. CLAUDE.md: [[mp_id is NOT a person key]].
+        mp_id = mp_ids[0] if len(mp_ids) == 1 else None
+        prof = profiles.get(mp_id) if mp_id else None
+        d = {
+            "roles": current_roles(list(r.get("roles") or ())),
+            "mp_id": int(mp_id) if mp_id and mp_id.isdigit() else None,
+            # A path on the MAIN site's data origin, never an absolute URL:
+            # the bucket is the reader's concern, and baking it in here would
+            # commit a deployment detail into an identity artifact.
+            "photo": (prof or {}).get("photo_url") or None,
+            "name_en": (prof or {}).get("name_en") or None,
+            "retired_slugs": list(r.get("retired_slugs") or ()),
+        }
+        out[r["slug"]] = {k: v for k, v in d.items() if v not in (None, [])}
+    return out
+
+
+def identity_version(entry: dict) -> str:
+    """What a surface may resolve to, hashed — the gate's staleness key.
+
+    ⚠️ ONLY identity inputs: the id, the canonical name and the resolvable
+    surfaces. A role-date or photo change moves nothing a human judged, so it
+    must not invalidate their adjudication.
+    """
+    surfaces = sorted(f["surface"] for f in entry.get("forms") or ()
+                      if f.get("resolvable") and f.get("id") == entry.get("id"))
+    blob = json.dumps([entry.get("id"), entry.get("canonical"), surfaces],
+                      ensure_ascii=False)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
+
+
+def attach_display(entries: list, display: dict) -> dict:
+    """Pure. Stamp display fields onto every person entry with an id."""
+    attached = with_current = 0
+    for e in entries:
+        if e.get("kind") != "person" or not e.get("id"):
+            continue
+        d = display.get(e["id"])
+        e["identity_version"] = identity_version(e)
+        if d is None:
+            continue
+        e["display"] = d
+        attached += 1
+        with_current += any(r["current"] for r in d["roles"])
+    return {"people_with_display": attached,
+            "people_with_current_role": with_current}
 
 
 def people_entries(rows: list, ns: str) -> tuple[list, dict]:

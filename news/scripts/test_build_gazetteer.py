@@ -32,7 +32,8 @@ from build_gazetteer import (  # noqa: E402
     PLACE_STOPWORDS, build_aliases, form, institution_entries,
     is_common_given_name,
     is_common_word, party_entries, people_entries, person_forms,
-    place_entries, scan_common_words)
+    place_entries, scan_common_words,
+    attach_display, current_roles, display_by_slug, identity_version)
 
 GAZETTEER = (Path(os.environ.get("DATA_BG_ROOT")
                   or Path(__file__).resolve().parents[2])
@@ -808,6 +809,107 @@ class TheAliasBuilder(unittest.TestCase):
         if not cov.get("aliases"):
             self.skipTest("no crosswalk here — SKIPPING, not passing")
         self.assertIn("КЗК", cov["aliases_refused"])
+
+
+class TheDisplayFields(unittest.TestCase):
+    """news-person-sentiment-v1 §3.0 — role, photo and redirects for a
+    person page, carried beside the identity without becoming part of it."""
+
+    def test_a_later_start_supersedes_an_open_earlier_row(self):
+        # The Радев shape: an undated-end president row from 2017 left behind
+        # by a filing, plus a closed 2022–2026 row. „No end" is not „serving".
+        roles = current_roles([
+            {"source": "president", "role": "president",
+             "start": "2017-02-01", "end": None},
+            {"source": "president", "role": "president",
+             "start": "2022-03-17", "end": "2026-02-09"},
+            {"source": "mp", "role": "mp", "start": "2026-04-19"},
+        ])
+        cur = {(r["role"], r.get("start")) for r in roles if r["current"]}
+        self.assertEqual(cur, {("mp", "2026-04-19")})
+
+    def test_an_undated_role_is_never_current(self):
+        roles = current_roles([{"source": "mp", "role": "mp"}])
+        self.assertFalse(roles[0]["current"])
+
+    def test_newest_first_undated_last_and_capped(self):
+        rows = [{"source": "local", "role": "mayor", "start": f"20{i:02d}-01-01"}
+                for i in range(10, 20)] + [{"source": "mp", "role": "mp"}]
+        roles = current_roles(rows)
+        self.assertEqual(roles[0]["start"], "2019-01-01")
+        self.assertTrue(roles[0]["current"])
+        self.assertLessEqual(len(roles), 8)
+        self.assertNotIn(None, [r.get("start") for r in roles[:-1]])
+
+    def test_an_old_current_role_survives_the_cap(self):
+        rows = [{"source": "mp", "role": "mp", "start": f"20{i:02d}-01-01",
+                 "end": f"20{i:02d}-12-31"} for i in range(10, 19)]
+        rows.append({"source": "official_exec", "role": "hospital_head",
+                     "start": "2008-01-01"})
+        roles = current_roles(rows)
+        self.assertEqual(len(roles), 8)
+        self.assertEqual(roles[0]["role"], "hospital_head")
+        self.assertTrue(roles[0]["current"])
+
+    def test_one_office_one_row_keeping_the_party(self):
+        roles = current_roles([
+            {"source": "local", "role": "village_mayor", "start": "2007-10-28",
+             "end": "2011-10-23"},
+            {"source": "local", "role": "village_mayor", "start": "2007-10-28",
+             "end": "2011-10-23", "party": "p_126"},
+        ])
+        self.assertEqual(len(roles), 1)
+        self.assertEqual(roles[0]["party"], "p_126")
+
+    def test_null_keys_are_dropped(self):
+        roles = current_roles([{"source": "mp", "role": "mp", "party": None,
+                                "start": "2026-01-01", "end": None}])
+        self.assertNotIn("party", roles[0])
+        self.assertNotIn("end", roles[0])
+
+    def test_two_mp_ids_mean_no_photo(self):
+        # mp_id is not a person key; an ambiguous one is initials, not a guess.
+        d = display_by_slug(
+            [{"slug": "x", "roles": [], "mp_ids": ["12", "34"]}],
+            [{"mp_id": 12, "photo_url": "/a.webp"},
+             {"mp_id": 34, "photo_url": "/b.webp"}])
+        self.assertNotIn("photo", d["x"])
+        self.assertNotIn("mp_id", d["x"])
+
+    def test_one_mp_id_carries_its_photo_and_latin_name(self):
+        d = display_by_slug(
+            [{"slug": "x", "roles": [], "mp_ids": ["12", "12"],
+              "retired_slugs": ["old-x"]}],
+            [{"mp_id": 12, "photo_url": "/p/12.webp", "name_en": "X Y"}])
+        self.assertEqual(d["x"]["photo"], "/p/12.webp")
+        self.assertEqual(d["x"]["name_en"], "X Y")
+        self.assertEqual(d["x"]["mp_id"], 12)
+        self.assertEqual(d["x"]["retired_slugs"], ["old-x"])
+
+    def test_identity_version_ignores_display_and_refused_forms(self):
+        e = {"kind": "person", "id": "a", "canonical": "Ана Бе",
+             "forms": [form("Ана Бе", True, "unique", "a"),
+                       form("Бе", False, "shared")]}
+        v = identity_version(e)
+        e2 = {**e, "display": {"roles": [{"role": "mp"}]}}
+        self.assertEqual(identity_version(e2), v)
+        e3 = {**e, "forms": e["forms"] + [form("А. Бе", True, "x", "a")]}
+        self.assertNotEqual(identity_version(e3), v)
+
+    def test_attach_stamps_only_people_with_an_id(self):
+        entries = [
+            {"kind": "person", "id": "a", "canonical": "А", "forms": []},
+            {"kind": "person", "id": None, "canonical": "Б", "forms": []},
+            {"kind": "place", "id": "p", "canonical": "В", "forms": []},
+        ]
+        cov = attach_display(entries, {"a": {"roles": [
+            {"role": "mp", "current": True}]}})
+        self.assertIn("display", entries[0])
+        self.assertIn("identity_version", entries[0])
+        self.assertNotIn("identity_version", entries[1])
+        self.assertNotIn("display", entries[2])
+        self.assertEqual(cov, {"people_with_display": 1,
+                               "people_with_current_role": 1})
 
 
 class TheBuiltArtifact(unittest.TestCase):
