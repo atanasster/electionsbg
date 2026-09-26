@@ -43,6 +43,7 @@ export const ENGLISH_STATIC_PAGES = [
   "subsidies/political",
   "subsidies/cross-programme",
   "about",
+  "privacy",
   // The chat and its two supporting screens. All three prerender in both
   // languages and all three were MISSING from this file — so the flagship
   // feature shipped indexable, prerendered, and undiscoverable, which
@@ -250,6 +251,8 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "elections", file: "src/data/json/elections.json" },
   { path: "parliamentary", file: `data/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
+  // `file:` is the content module, not the screen: the text lives there.
+  { path: "privacy", file: `src/screens/privacy/privacyContent.ts` },
   // `file:` is what dates the entry, and ⚠ a path that does not exist skips the
   // entry SILENTLY — so each of these points at a committed source file that
   // actually moves when the page changes.

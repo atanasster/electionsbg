@@ -17,7 +17,7 @@ export const Footer = () => {
       <div className="text-sm font-medium lowercase text-secondary-foreground hidden sm:flex whitespace-nowrap">
         {`© ${new Date().getFullYear()}. ${t("all_rights_reserved")}.`}
       </div>
-      {/* Five links do not fit a 375px row, and without these the row does not wrap —
+      {/* Six links do not fit a 375px row, and without these the row does not wrap —
           each LINK does, mid-label ("за / нас"). Wrap between items instead.
 
           There were six: "Наясно AI" → /chat was removed 2026-09-10, because the
@@ -31,6 +31,15 @@ export const Footer = () => {
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
             {t("about")}
+          </Link>
+        </li>
+        <li className="whitespace-nowrap">
+          <Link
+            to="/privacy"
+            underline={false}
+            className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
+          >
+            {t("privacy")}
           </Link>
         </li>
         <li className="whitespace-nowrap">

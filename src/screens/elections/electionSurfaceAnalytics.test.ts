@@ -1,4 +1,4 @@
-// The one property this module exists to guarantee: a person's name never reaches Google.
+// The one property this module exists to guarantee: a person's name never reaches the analytics store.
 //
 // ⚠ THE RISK IS SPECIFIC AND CLOSE. These surfaces carry Bulgarian personal names BY DESIGN —
 // §5.3 keeps a mayor's and a candidate's name untransliterated in both languages so a reader can
@@ -20,14 +20,15 @@ import {
   trackSurfaceLink,
 } from "./electionSurfaceAnalytics";
 
-const gtag = vi.fn();
+const track = vi.fn();
 beforeEach(() => {
-  gtag.mockClear();
-  vi.stubGlobal("window", { ...globalThis.window, gtag });
+  track.mockClear();
+  vi.stubGlobal("window", { ...globalThis.window, umami: { track } });
 });
 afterEach(() => vi.unstubAllGlobals());
 
-const sent = () => gtag.mock.calls.at(-1)!;
+// Normalised to the [cmd, name, params] shape the assertions below were written against.
+const sent = () => ["event", ...track.mock.calls.at(-1)!] as const;
 
 describe("what is sent", () => {
   it("emits ONE event name, with the affordance as a parameter", () => {
@@ -40,7 +41,11 @@ describe("what is sent", () => {
       placeId: "BGS",
       view: "local",
     });
-    const [cmd, name, params] = sent();
+    const [cmd, name, params] = sent() as unknown as [
+      string,
+      string,
+      Record<string, unknown>,
+    ];
     expect(cmd).toBe("event");
     expect(name).toBe(SURFACE_EVENT);
     expect(params.target).toBe("digest");
@@ -78,7 +83,7 @@ describe("what is sent", () => {
       },
     ] as const) {
       trackSurfaceLink(e);
-      const keys = Object.keys(sent()[2]);
+      const keys = Object.keys(sent()[2] as Record<string, unknown>);
       expect(
         keys.filter((k) => !SURFACE_EVENT_KEYS.includes(k as never)),
         `${e.target} sent an undeclared key`,
@@ -95,7 +100,7 @@ describe("what is sent", () => {
       level: "section",
       placeId: "010100001",
     });
-    expect(Object.keys(sent()[2])).toEqual([
+    expect(Object.keys(sent()[2] as Record<string, unknown>)).toEqual([
       "target",
       "kind",
       "level",
@@ -103,7 +108,7 @@ describe("what is sent", () => {
     ]);
   });
 
-  it("is a no-op when gtag is absent", () => {
+  it("is a no-op when the tracker is absent", () => {
     // The seam already guarantees this; asserted because these pages are the busiest on the
     // site and a throw here would take the click with it.
     vi.stubGlobal("window", {});

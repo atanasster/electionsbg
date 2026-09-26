@@ -31,15 +31,8 @@ const SearchInternal: FC = () => {
   const navigate = useNavigateParams();
   const [open, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState("");
-  const {
-    arrowDown,
-    arrowUp,
-    selected,
-    setSelected,
-    setSearchTerm,
-    searchTerm,
-    activate,
-  } = useContext(SearchContext);
+  const { arrowDown, arrowUp, selected, setSelected, setSearchTerm, activate } =
+    useContext(SearchContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const setOpen = useCallback(
@@ -65,13 +58,8 @@ const SearchInternal: FC = () => {
   const isWide = useMediaQueryMatch("2xl");
   const handleSelectOption = useCallback(
     (selectedOption: FuseResult<SearchIndexType>) => {
-      // Track search result selection in Google Analytics
-      trackSearchSelection(
-        searchTerm || "",
-        selectedOption.item.type,
-        selectedOption.item.key,
-        selectedOption.item.name,
-      );
+      // Only the result TYPE is recorded — the term, key and label are often a person's name.
+      trackSearchSelection(selectedOption.item.type);
 
       // Synthetic entries (София / Столична община) carry an explicit path
       // since they don't map to a /<type>/<key> route.
@@ -124,7 +112,7 @@ const SearchInternal: FC = () => {
       setOpen(false);
       inputRef?.current?.blur();
     },
-    [navigate, setOpen, searchTerm],
+    [navigate, setOpen],
   );
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {

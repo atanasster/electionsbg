@@ -212,7 +212,7 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         })
         .map(({ r }) => r);
       setSearchItems(newItems);
-      trackSearch(searchTerm, newItems.length);
+      trackSearch(newItems.length);
       if (selectedItem) {
         const newIndex = newItems.findIndex(
           (n) =>

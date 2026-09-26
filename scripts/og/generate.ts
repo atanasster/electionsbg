@@ -316,6 +316,18 @@ const main = async () => {
     "about.png",
   );
 
+  renderStaticPageCard(
+    "Поверителност",
+    "Без бисквитки, без реклама, без проследяване",
+    [
+      { label: "бисквитки", value: "0" },
+      { label: "статистика", value: "собствена" },
+      { label: "банер", value: "не е нужен" },
+      { label: "език", value: "BG / EN" },
+    ],
+    "privacy.png",
+  );
+
   // The chat family (/chat, /chat/tools, /chat/evals, /chat/prompts) uses custom
   // branded OG cards (public/og/{chat,chat-tools,chat-evals,chat-prompts}.png)
   // rendered by their dedicated generators in scripts/brand/ (generate_ai_og.ts,

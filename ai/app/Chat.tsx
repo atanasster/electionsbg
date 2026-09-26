@@ -1179,6 +1179,20 @@ export const Chat = ({
             under the input, held at the right edge (under the send button)
             via ml-auto. */}
         <div className="mt-2 flex items-center gap-2">
+          {/* The one line a reader sees before typing: the question leaves this browser. The
+              details (provider, Turnstile, retention) are on the privacy page and in ChatPolicy. */}
+          <p className="text-xs text-muted-foreground">
+            {t(
+              "Въпросите се обработват от външен AI доставчик — не въвеждайте лични данни.",
+              "Questions are processed by an external AI provider — do not enter personal data.",
+            )}{" "}
+            <a
+              className="underline underline-offset-2 hover:text-foreground"
+              href={lang === "en" ? "/en/privacy#ai" : "/privacy#ai"}
+            >
+              {t("Поверителност", "Privacy")}
+            </a>
+          </p>
           <div className="ml-auto">
             <ModelPicker engine={engine} lang={lang} />
           </div>

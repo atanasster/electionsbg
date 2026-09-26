@@ -248,6 +248,11 @@ const SectionRecountScreen = lazy(() =>
 const AboutScreen = lazy(() =>
   import("./screens/AboutScreen").then((m) => ({ default: m.AboutScreen })),
 );
+const PrivacyScreen = lazy(() =>
+  import("./screens/privacy/PrivacyScreen").then((m) => ({
+    default: m.PrivacyScreen,
+  })),
+);
 const DataMapScreen = lazy(() =>
   import("./screens/DataMapScreen").then((m) => ({
     default: m.DataMapScreen,
@@ -2029,6 +2034,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <AboutScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="privacy"
+            element={
+              <LayoutScreen>
+                <PrivacyScreen />
               </LayoutScreen>
             }
           />

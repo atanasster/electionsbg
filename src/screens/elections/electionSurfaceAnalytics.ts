@@ -1,6 +1,6 @@
 // What a reader did with a result surface (§Phase 7 item 1).
 //
-// ⚠ THE EXISTING SEAM, AND NO VENDOR. `src/lib/analytics.ts` already wraps `window.gtag` and
+// ⚠ THE EXISTING SEAM, AND NO VENDOR. `src/lib/analytics.ts` wraps the tracker (self-hosted Umami) and
 // no-ops when it is absent, which is the seam the plan says to use "if present at implementation
 // time". It is present. Nothing new is added, and nothing here loads.
 //
@@ -9,7 +9,7 @@
 // untransliterated in both languages precisely so a reader can match it against a ballot — and
 // `PlaceDigestLocalCell.mayorName` and `ElectionRankedEntry.candidateName` sit one property away
 // from every call site here. Rendering a name to the reader who asked for the page and shipping
-// it to Google are different acts, and only the first is something this project decided to do.
+// it to an analytics store are different acts, and only the first is something this project decided to do.
 //
 // So the payload has NO free-text field. Every parameter below is an enum member, a place code,
 // a canonical party id or a count — things already public in the URL and the artifact. A future

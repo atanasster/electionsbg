@@ -1045,7 +1045,7 @@ test.describe("performance", () => {
 
     // The catch-all vendor chunk. The plan's aspirational 100 KB target was NOT
     // met — CodeMirror leaving in T1.2 took it from 246 KB to 125 KB, and what
-    // remains (lucide-react, tailwind-merge, react-ga4, @babel/runtime and the
+    // remains (lucide-react, tailwind-merge, @babel/runtime and the
     // long tail of unsplit deps) has no single dominant member left to extract.
     // Budgeted at the measured value rather than at the wish.
     const vendor = catchAllVendorChunk();

@@ -110,6 +110,7 @@ import {
   type FundsTableRows,
 } from "./fundsTables";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { privacyBodyHtml } from "@/screens/privacy/privacyContent";
 
 import { escapeHtml } from "./html";
 import { LATEST_LOCAL_CYCLE } from "../../src/data/local/useLatestLocalCycle";
@@ -2094,6 +2095,24 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>When it is not shown at all.</strong> If the person did not file in every year of the span, the figure is withheld — comparing a ten-year change in wealth against four years of income manufactures a difference that does not exist. It is also withheld when the declarations carry no income data.</p>
 <p><strong>What the number does not mean.</strong> Declared to the Court of Audit, not audited. Inheritance, gifts, restitution, the sale of a previously-owned asset, a spouse's income and repaid loans all move wealth without appearing as income. Real estate with no stated value counts as €0, and that count is shown next to the figure — where it is non-zero, the difference is not a precise number. The page asserts no wrongdoing.</p>
 <p><strong>Right of reply.</strong> Anyone named may dispute or contextualise the figure. Write to us via the <a href="https://www.facebook.com/naiasno" rel="nofollow noopener">Наясно page</a>; a substantiated correction (a documented source the declaration omits) is published alongside the figure itself.</p>`.trim(),
+    },
+  }),
+  // The body is rendered from the SAME module the React screen reads, so the crawler copy and
+  // the live page cannot publish different promises about personal data.
+  staticPage({
+    path: "privacy",
+    title: "Поверителност | Наясно",
+    description:
+      "Как Наясно обработва лични данни: без бисквитки и реклама, собствена статистика без проследяване, AI чат, публичните регистри и вашите права.",
+    breadcrumbName: "Поверителност",
+    ogImage: "/og/privacy.png",
+    bodyHtml: privacyBodyHtml("bg"),
+    english: {
+      title: "Privacy | Naiasno",
+      description:
+        "How Naiasno handles personal data: no cookies or ads, self-hosted cookieless statistics, the AI chat, public registers and your rights.",
+      breadcrumbName: "Privacy",
+      bodyHtml: privacyBodyHtml("en"),
     },
   }),
   staticPage({

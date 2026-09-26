@@ -157,6 +157,13 @@
           }
         },
         {
+          "source": "/stats/**",
+          "run": {
+            "serviceId": "umami",
+            "region": "europe-west3"
+          }
+        },
+        {
           "source": "/funds/contract/**",
           "function": {
             "functionId": "db",
@@ -555,6 +562,24 @@
             {
               "key": "Cache-Control",
               "value": "no-store"
+            }
+          ]
+        },
+        {
+          "source": "/stats/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
+        },
+        {
+          "source": "/stats/script.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=86400"
             }
           ]
         }

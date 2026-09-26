@@ -90,9 +90,10 @@ exports.llm = makeLlm();
 // Storage (Firestore, elections-bg): raw docs in `scenario_submissions`,
 // atomic counters/histograms on `scenario_agg/v1` (every lever value is a
 // bounded integer or enum, so the histogram key sets are bounded), per-IP
-// daily rate docs in `scenario_rate`. Privacy: no PII — IPs are stored only
-// as salted SHA-256 hashes in the rate docs; submissions carry levers and
-// derived numbers only.
+// daily rate docs in `scenario_rate`. Privacy: IPs are stored only as salted
+// SHA-256 hashes in the rate docs, which Firestore TTL deletes after 2 days;
+// submissions carry levers and derived numbers only (no IP hash — older docs
+// had one, stripped by scripts/privacy/strip_scenario_iphash.mjs).
 // ---------------------------------------------------------------------------
 
 const SCENARIO_ALLOWED_ORIGINS = [
@@ -249,14 +250,19 @@ const makeScenarios = () =>
           day,
           n: n + 1,
           qsHashes: [...seen.slice(-RATE_LIMIT_PER_DAY + 1), qsHash],
+          // Firestore TTL (scenario_rate.expiresAt) deletes the doc. It only guards ONE day,
+          // and its id is a hash of the IP under a salt that is public in this repo, i.e.
+          // reversible for IPv4 — so it must not outlive the day it exists for. See /privacy.
+          expiresAt: new Date(Date.now() + 2 * 86400000),
         });
+        // ⚠ NO ipHash HERE. Submissions are kept indefinitely for the aggregate card, so
+        // anything identifying on them would be kept indefinitely too. Nothing ever read it.
         tx.set(db.collection("scenario_submissions").doc(), {
           qs: body.qs.replace(/^\?/, ""),
           metrics,
           lang,
           mode,
           ts: FieldValue.serverTimestamp(),
-          ipHash,
         });
 
         // Aggregate counters via deep-merged increments. Histogram key sets
