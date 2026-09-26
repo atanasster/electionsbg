@@ -321,6 +321,15 @@ class ShardWriter(unittest.TestCase):
         base = json.loads((self.out / "person_baselines.json").read_text())
         self.assertEqual(base["persons"]["mp-1"]["n"], 5)
 
+    def test_the_grid_is_written_only_with_its_switch(self):
+        self.bad.write_person_shards(self.out, {}, self.rows(), "t",
+                                     sources=self.sources, coverage_days={},
+                                     surfaces=frozenset({"matrix"}))
+        self.assertTrue((self.out / "person_outlet_matrix.json").exists())
+        self.assertTrue(json.loads((self.out / "persons.json").read_text())["matrix"])
+        self.write(self.rows())
+        self.assertFalse((self.out / "person_outlet_matrix.json").exists())
+
     def test_an_unconfirmed_two_part_person_goes_to_the_digest(self):
         rows = [article(f"a/{i}", [subject("mp-1")], story=f"s{i}")
                 for i in range(5)]

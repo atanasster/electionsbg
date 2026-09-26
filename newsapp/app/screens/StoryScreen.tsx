@@ -41,6 +41,7 @@ import { ReaderActions } from "../components/ReaderActions";
 import { ReportIssueLink } from "../components/ReportIssueLink";
 import { HeadlineComparison } from "../components/HeadlineComparison";
 import { StoryCompare, type CompareSource } from "../components/StoryCompare";
+import { StoryPersonCompare } from "../components/StoryPersonCompare";
 import { StorySynthesisBlock } from "../components/StorySynthesis";
 import { AggregateCompleteness } from "../components/AggregateCompleteness";
 import {
@@ -680,6 +681,7 @@ export const StoryScreen = () => {
                 )}
               </p>
             ) : null}
+            <StoryPersonCompare members={chronologicalMembers} />
           </section>
 
           {/* 3. Interactive analysis — a bar per axis, ONE completeness strip after both (T5.4). */}

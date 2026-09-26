@@ -4123,6 +4123,35 @@ class StampForPublication(unittest.TestCase):
             (None, {}))
 
 
+class MemberPersonTones(unittest.TestCase):
+    """§7 — a story member carries only the pairs the archive counts."""
+
+    TONE = {"value": -0.8, "bucket_index": 1}
+
+    def subject(self, **kw):
+        s = {"name": "Х", "kind": "person", "subject_role": "primary",
+             "tone": dict(self.TONE),
+             "identity": {"id": "p-1", "canonical": "Х Й"}}
+        s.update(kw)
+        return s
+
+    def test_keeps_an_assessed_full_text_pair(self):
+        out = bad.member_person_tones([self.subject()], {"text_scope": {"kind": "full"}})
+        self.assertEqual(out, [{"id": "p-1", "name": "Х Й", "value": -0.8,
+                                "bucket_index": 1}])
+
+    def test_drops_everything_the_archive_does_not_count(self):
+        full = {"text_scope": {"kind": "full"}}
+        for s in (self.subject(identity=None), self.subject(conflict=True),
+                  self.subject(subject_role="incidental"),
+                  self.subject(tone={"value": 0, "bucket_index": None}),
+                  self.subject(kind="party")):
+            self.assertEqual(bad.member_person_tones([s], full), [], s)
+        self.assertEqual(bad.member_person_tones(
+            [self.subject()], {"text_scope": {"kind": "prefix"}}), [])
+        self.assertEqual(bad.member_person_tones(None, full), [])
+
+
 class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
     """Stage C's last exit criterion — „Correction/removal rebuilds story,
     case and news-person shards in one data transaction … A main-site bridge
@@ -4243,7 +4272,8 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
         from unittest import mock  # noqa: PLC0415
         self.seed(); self.registry(active=True)
         self.assertEqual(self.run_build_process().returncode, 0)
-        self.assertEqual(self.person_shards(), ["np_00000001.json"])
+        self.assertEqual(self.person_shards(),
+                         ["np_00000001.all.json", "np_00000001.json"])
         with mock.patch.dict(os.environ, {"NEWS_PERSON_AGGREGATES": "0"}):
             proc = BuildAppDataFixture.run_build_process(self)
         self.assertEqual(proc.returncode, 0, proc.stderr)
@@ -4290,7 +4320,8 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
         # ⚠️ NON-VACUITY, on BOTH halves: „no page and no tone afterwards"
         # says nothing unless there was a page and a tone, so both are
         # asserted HERE first.
-        self.assertEqual(self.person_shards(), ["np_00000001.json"])
+        self.assertEqual(self.person_shards(),
+                         ["np_00000001.all.json", "np_00000001.json"])
         before = next(a for a in self.load("articles/a.bg.json")["articles"]
                       if a["url"] == "https://a.bg/p")
         self.assertEqual([t["tone"] for t in
@@ -4330,7 +4361,7 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
                 # reads exactly this pairing to decide what to emit.
                 self.assertIn(f"{person['news_person_id']}.json", shards)
         for name in shards:
-            self.assertIn(re.sub(r"(\.p\d+)?\.json$", "", name),
+            self.assertIn(re.sub(r"(\.p\d+|\.all)?\.json$", "", name),
                           {p["news_person_id"] for p in index["persons"]})
 
 

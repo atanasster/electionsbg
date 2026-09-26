@@ -557,6 +557,16 @@ export interface StoryMember {
    * is true) but never a "first to report" badge.
    */
   scoop_decidable: boolean;
+  /**
+   * How this article frames each identified person it is about — only on a
+   * build with the person rail published (news-person-sentiment-v1 §7).
+   */
+  persons?: {
+    id: string;
+    name: string | null;
+    value: number | null;
+    bucket_index: number;
+  }[];
 }
 
 export interface Story {
@@ -3205,6 +3215,8 @@ export type NewsPersonCoverage = PersonIndexRow;
 export interface PersonsIndex {
   generated_at: string;
   default_basis: PersonBasis;
+  /** Whether `/persons/media` has a grid (`NEWS_PERSON_MATRIX`). */
+  matrix?: boolean;
   persons: PersonIndexRow[];
   /** A slug the person layer retired → the live page it redirects to. */
   retired_ids?: Record<string, string>;
@@ -3212,6 +3224,46 @@ export interface PersonsIndex {
 
 /** 404 whenever `NEWS_PERSON_AGGREGATES` is off. */
 export const usePersonsIndex = () => useData<PersonsIndex>("/persons.json");
+
+/** One (person, outlet) cell of the grid. No mean under the build's floor. */
+export interface MatrixCell {
+  n: number;
+  counts: Record<ToneBucket, number>;
+  mean?: number;
+  mean_bucket?: ToneBucket | null;
+  ci_low?: number;
+  ci_high?: number;
+  /** This outlet's mean minus the person's OTHER outlets' mean. */
+  dev?: number;
+  dev_ci_low?: number;
+  dev_ci_high?: number;
+  /** −1 / +1 only when the gap's interval excludes zero; 0 otherwise. */
+  dev_sign?: -1 | 0 | 1;
+}
+
+export interface MatrixPeriod {
+  offered: boolean;
+  rows: {
+    id: string;
+    name_bg: string | null;
+    name_en: string | null;
+    n: number;
+  }[];
+  cols: { domain: string; n: number }[];
+  cells: Record<string, Record<string, MatrixCell>>;
+  filled_share: number;
+  omitted: { people: number; outlets: number };
+}
+
+export interface PersonMatrix {
+  generated_at: string;
+  rules: { cell_min_n: number; hatch_below_n: number; coverage_floor: number };
+  periods: Record<"30" | "90" | "all", MatrixPeriod>;
+}
+
+/** 404 whenever `NEWS_PERSON_MATRIX` is off. */
+export const usePersonMatrix = () =>
+  useData<PersonMatrix>("/person_outlet_matrix.json");
 
 export const personAllRowsPath = (id: string | null | undefined) =>
   isNewsPersonId(id) ? `/person/${id}.all.json` : null;

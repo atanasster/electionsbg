@@ -108,6 +108,18 @@ export const PersonsScreen = () => {
             `${rows.length} people with enough assessed coverage. For each: how many articles frame them and how — an assessment of the texts, not the people. Ordered by volume of coverage, never by tone: this is not a ranking.`,
           )}
         </p>
+        {index.data.matrix ? (
+          <Link
+            to="/persons/media"
+            className="mt-1 inline-block text-sm text-primary underline-offset-4 hover:underline"
+          >
+            {tr(
+              "Медиите и хората — по издания",
+              "The media and the people — by outlet",
+            )}{" "}
+            →
+          </Link>
+        ) : null}
       </header>
 
       <div className="flex flex-wrap items-center gap-2">

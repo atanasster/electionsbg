@@ -69,6 +69,10 @@ const PersonsScreen = lazyScreen(
   () => import("./app/screens/PersonsScreen"),
   "PersonsScreen",
 );
+const PersonsMediaScreen = lazyScreen(
+  () => import("./app/screens/PersonsMediaScreen"),
+  "PersonsMediaScreen",
+);
 const PartiesScreen = lazyScreen(
   () => import("./app/screens/PartiesScreen"),
   "PartiesScreen",
@@ -389,6 +393,7 @@ const NewsAppShell = () => {
               element={<NewsPersonScreen />}
             />
             <Route path="/persons" element={<PersonsScreen />} />
+            <Route path="/persons/media" element={<PersonsMediaScreen />} />
             <Route path="/parties" element={<PartiesScreen />} />
             <Route path="/party/:id" element={<PartyScreen />} />
             <Route path="/outlets" element={<OutletsScreen />} />

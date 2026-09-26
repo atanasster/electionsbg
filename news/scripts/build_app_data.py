@@ -92,6 +92,7 @@ try:
     from . import jev_publication
     from . import jev_sentiment
     from . import person_identity_join
+    from . import person_matrix
     from . import person_publication
     from . import party_rollups
     from . import person_rollups
@@ -131,6 +132,7 @@ except ImportError:  # direct script execution
     import jev_publication
     import jev_sentiment
     import person_identity_join
+    import person_matrix
     import person_publication
     import party_rollups
     import person_rollups
@@ -1669,6 +1671,28 @@ def stamp_for_publication(public_analysis: dict, article: dict, sources,
     return stamped, report
 
 
+def member_person_tones(stamped, jev) -> list:
+    """The identified people one story member scores, compactly: assessed,
+    on the full text, not a conflict — the pairs the person archive counts."""
+    if not stamped or not isinstance(jev, dict):
+        return []
+    if ((jev.get("text_scope") or {}).get("kind") or "full") != "full":
+        return []
+    out = []
+    for s in stamped:
+        ident = s.get("identity") if isinstance(s, dict) else None
+        tone = s.get("tone") if isinstance(s, dict) else None
+        if (not ident or s.get("kind") != "person" or s.get("conflict")
+                or s.get("subject_role") not in ("primary", "secondary")
+                or not isinstance(tone, dict)
+                or not isinstance(tone.get("bucket_index"), int)):
+            continue
+        out.append({"id": ident["id"], "name": ident.get("canonical"),
+                    "value": tone.get("value"),
+                    "bucket_index": tone["bucket_index"]})
+    return out
+
+
 def with_stamped_subjects(analysis, stamped):
     """The analysis as the person archive reads it: with the identity-stamped
     subjects, whether or not the article bundle carries them (rail off)."""
@@ -1681,7 +1705,8 @@ def with_stamped_subjects(analysis, stamped):
 def remove_person_aggregates(out_dir: Path) -> dict:
     """`NEWS_PERSON_AGGREGATES` off: no person page, index or baseline may
     remain from an earlier build — an off surface is not written at all."""
-    for name in ("persons.json", "person_baselines.json"):
+    for name in ("persons.json", "person_baselines.json",
+                 "person_outlet_matrix.json"):
         (out_dir / name).unlink(missing_ok=True)
     for stale in (out_dir / "person").glob("*.json"):
         stale.unlink()
@@ -1690,8 +1715,8 @@ def remove_person_aggregates(out_dir: Path) -> dict:
 
 
 def write_person_shards(out_dir: Path, registry: dict, rows: list,
-                        generated_at: str, *, sources, coverage_days: dict
-                        ) -> dict:
+                        generated_at: str, *, sources, coverage_days: dict,
+                        surfaces: frozenset = frozenset()) -> dict:
     """news-person-sentiment-v1 §4 — the person archive on Jev scores.
 
     One shard per identity that passes the §4.3 page guard, the unified
@@ -1711,6 +1736,8 @@ def write_person_shards(out_dir: Path, registry: dict, rows: list,
     person_dir.mkdir(parents=True, exist_ok=True)
     written: set[str] = set()
     index_rows, refused, digest, baselines = [], [], [], {}
+    published_entries: dict = {}
+    published_metas: dict = {}
     decisions: dict = {}
     for person_id, entry in sorted(collected.items()):
         decision = person_rollups.page_decision(
@@ -1743,6 +1770,8 @@ def write_person_shards(out_dir: Path, registry: dict, rows: list,
         written.add(name)
         index_rows.append(person_rollups.index_row(entry, meta))
         baselines[person_id] = person_rollups.baseline(entry)
+        published_entries[person_id] = entry
+        published_metas[person_id] = meta
     for stale in person_dir.glob("*.json"):
         if stale.name not in written:
             stale.unlink()
@@ -1762,9 +1791,20 @@ def write_person_shards(out_dir: Path, registry: dict, rows: list,
                  "units and the counts are their buckets — there is no mean "
                  "here, and nothing on the index is ordered by tone",
         "default_basis": person_rollups.DEFAULT_BASIS,
+        # Whether /persons/media has a grid to show — so a page can link to it
+        # without fetching the grid itself.
+        "matrix": "matrix" in surfaces,
         "persons": index_rows, "retired_ids": retired})
     write_json(out_dir / "person_baselines.json", {
         "version": 1, "generated_at": generated_at, "persons": baselines})
+    # §7.1 — the outlet × person grid, over PUBLISHED people only, and only
+    # when its own switch is on.
+    matrix_path = out_dir / "person_outlet_matrix.json"
+    if "matrix" in surfaces:
+        write_json(matrix_path, person_matrix.build(
+            published_entries, published_metas, coverage_days, generated_at))
+    else:
+        matrix_path.unlink(missing_ok=True)
     review_path = REPO / "news" / "review" / "person_page_candidates.json"
     review_path.parent.mkdir(parents=True, exist_ok=True)
     review_path.write_text(json.dumps({
@@ -3697,6 +3737,15 @@ def main() -> int:
                         "first_seen": (corpus_records.get(
                             (m.get("domain"), article_id)) or {}).get(
                                 "first_seen"),
+                        # §7 — how this article frames each person it is
+                        # about, for the story's per-person comparison. Only
+                        # with the rail on: these are article-level scores the
+                        # article page already shows.
+                        **({"persons": member_person_tones(
+                                stamped_subjects_by_url.get(m.get("url")),
+                                ((rec or {}).get("analysis") or {}).get(
+                                    "jev_sentiment"))}
+                           if "rail" in person_surfaces else {}),
                     }
                 )
             members.sort(key=lambda m: m.get("published") or "")
@@ -3823,7 +3872,7 @@ def main() -> int:
             for r in all_latest
             if r.get("analysis") and r.get("url") in publishable_urls
         ], generated_at, sources=person_join_sources,
-            coverage_days=coverage_by_day(all_latest))
+            coverage_days=coverage_by_day(all_latest), surfaces=person_surfaces)
     else:
         person_shards = remove_person_aggregates(out_dir)
     # The news-only index carries each identity's coverage, so a list row and

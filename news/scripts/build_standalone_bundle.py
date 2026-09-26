@@ -49,6 +49,8 @@ RUNTIME_SCRIPTS = (
     # build_app_data imports it UNGUARDED: which person surfaces are written
     # (news-person-sentiment-v1 §8).
     "news/scripts/person_publication.py",
+    # build_app_data imports it UNGUARDED: the outlet × person grid (§7.1).
+    "news/scripts/person_matrix.py",
     "news/scripts/rollup_common.py",  # both rollups import it UNGUARDED
     "news/scripts/person_tones.py",   # build_app_data imports it UNGUARDED (T4.3)
     "news/scripts/story_synthesis.py",  # build_app_data imports it UNGUARDED (T5.1)

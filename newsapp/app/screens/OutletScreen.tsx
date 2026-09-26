@@ -47,6 +47,7 @@ import {
   safeHttpUrl,
 } from "../sourceTransparency";
 import { useNewsLocale } from "../i18n";
+import { OutletPeople } from "../components/OutletPeople";
 import { mainSiteUrl } from "../site";
 
 const PAGE_SIZE = 20;
@@ -571,6 +572,8 @@ export const OutletScreen = () => {
                 )}
         </Card>
       )}
+
+      <OutletPeople domain={outlet.domain} />
 
       {(() => {
         const shown = participating.slice(0, storyPreview);

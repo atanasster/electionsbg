@@ -342,6 +342,29 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       sitemap: personRows.length > 0,
     });
   }
+  // The grid exists only when NEWS_PERSON_MATRIX was on; sitemapped only
+  // when at least one period is dense enough to be offered.
+  const matrix = read(dataDir, "person_outlet_matrix.json");
+  if (matrix) {
+    const offered = Object.values(
+      (matrix.periods as Record<string, Bundle> | undefined) ?? {},
+    ).some((p) => p.offered === true);
+    routes.push({
+      path: "persons/media",
+      title:
+        "Медиите и хората — как изданията представят едни и същи хора | Наясно Новини",
+      description: clamp(
+        "Как всяко издание представя хората, които отразява най-много. Сравнява отношението към един и същи човек — не оценява и не класира изданията.",
+      ),
+      titleEn:
+        "The media and the people — how outlets frame the same people | Naiasno News",
+      descriptionEn: clamp(
+        "How each outlet frames the people it covers most. It compares treatment of the same person — it does not rate or rank the outlets.",
+      ),
+      lastmod: (matrix.generated_at as string) ?? null,
+      sitemap: offered,
+    });
+  }
   for (const person of personRows) {
     const id = String(person.id ?? "");
     if (!isNewsPersonId(id)) continue;
