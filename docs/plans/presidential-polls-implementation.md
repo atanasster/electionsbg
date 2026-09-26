@@ -17,9 +17,9 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 8 | Backfill | Resolve Trend historical drafts from source evidence | Complete | `89e08a8f32` |
 | 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | Complete | `d523e27f8c` |
 | 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | Complete | `81ad176f2f` |
-| 11 | Views | Agency presidential route and election campaign/result views | Complete | See scoped step 11 commit |
-| 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | In progress | |
-| 13 | Views | Update ingestion documentation and stale comments | Pending | |
+| 11 | Views | Agency presidential route and election campaign/result views | Complete | `99ae51fdd2` |
+| 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Complete | See scoped step 12 commit |
+| 13 | Views | Update ingestion documentation and stale comments | In progress | |
 | 14 | Views | Route, translation, layout, accessibility and release verification | Pending | |
 
 Final gate: full unit/component suite after the last step; browser checks under step 14.
@@ -61,3 +61,9 @@ Step 11 in progress: dedicated agency presidential route, question-separated sur
 Step 11 review: three verified issues repaired (question sample-size fallback, cross-round question leakage, missing prerender runoff answers). Re-review: zero findings. Sixty-four focused tests passed across the related suite and targeted repairs; changed-file lint and TypeScript passed. The locale reachability check moved three shared keys to core. BG/EN prerendered SH pages contain all four published runoff pairs.
 
 Step 11 full production build passed.
+
+Step 12: historical grades separated by round/denominator with counts; hypothetical and actual runoff rows; source participation answers (AR 2016 61% and 69%, TR 2021 53%); residual question series and same-question candidate margins; dated coverage, prior accepted answers, URL filters and provenance-rich CSV/JSON downloads. Three source-backed participation questions accepted using --replace, with complete prior snapshots retained.
+
+Step 12 review FINDING-001–003: fixed coverage on empty pages, unassigned accepted counts, and distinct hypothetical-matchup residual identities/labels. Initial related suite: 139 passed; additional regressions running.
+
+Step 12 final gate: 143 related tests passed across the suite and four added regressions. Re-review: zero findings. Changed-file lint, TypeScript and full production build passed.

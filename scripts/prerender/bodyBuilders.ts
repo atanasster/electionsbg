@@ -780,6 +780,10 @@ export const buildPresidentialAgencyPollsSection = (
         parts.push(
           `<tr><td>${escapeHtml(d.candidateName_bg)}</td><td>${escapeHtml(q?.answerScale.find((a) => a.code === d.answerCode)?.label[lang] ?? "—")}</td><td>${d.support.toFixed(1)}%</td></tr>`,
         );
+      for (const o of q?.observations ?? [])
+        parts.push(
+          `<tr><td>—</td><td>${escapeHtml(q?.answerScale.find((a) => a.code === o.answerCode)?.label[lang] ?? o.answerCode)}</td><td>${o.share.toFixed(1)}%</td></tr>`,
+        );
       parts.push("</tbody></table>");
       for (const r of runoffs.filter(
         (r) => r.pollId === p.id && (q ? r.questionId === q.id : !r.questionId),

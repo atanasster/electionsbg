@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   ResponsiveContainer,
   ScatterChart,
@@ -19,6 +18,10 @@ import {
 import { campaignObservations } from "@/data/presidential/pollHistory";
 import type { Poll, PresidentialCycleAccuracy } from "@/data/polls/pollsTypes";
 import { AgencyPresidentialPollsList } from "./AgencyPresidentialPollsList";
+import {
+  PresidentialInsights,
+  PresidentialCoveragePanel,
+} from "./PresidentialInsights";
 
 export function PresidentialResultComparisons({
   accuracy,
@@ -175,11 +178,25 @@ export function PresidentialHistory({
     dq = usePresidentialPollDetails(),
     rq = usePresidentialRunoffs(),
     aq = usePresidentialPollsAccuracy();
-  const [chosenCycle, setCycle] = useState("");
-  const [chosenAgency, setAgency] = useState("");
-  const [candidate, setCandidate] = useState("");
-  const [localRound, setRound] = useState<1 | 2>(1);
-  const round = controlledRound ?? localRound;
+  const [params, setParams] = useSearchParams();
+  const chosenCycle = params.get("pollCycle") ?? "";
+  const chosenAgency = params.get("pollAgency") ?? "";
+  const candidate = params.get("pollCandidate") ?? "";
+  const setFilter = (key: string, value: string) =>
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value) next.set(key, value);
+        else next.delete(key);
+        return next;
+      },
+      { replace: true },
+    );
+  const setCycle = (v: string) => setFilter("pollCycle", v);
+  const setAgency = (v: string) => setFilter("pollAgency", v);
+  const setCandidate = (v: string) => setFilter("pollCandidate", v);
+  const setRound = (v: 1 | 2) => setFilter("pollRound", String(v));
+  const round = controlledRound ?? (params.get("pollRound") === "2" ? 2 : 1);
   const queries = [pq, dq, rq, aq];
   if (queries.some((q) => q.isError))
     return (
@@ -206,7 +223,12 @@ export function PresidentialHistory({
   const allPolls = (pq.data ?? []).filter(
     (p) => !agencyId || p.agencyId === agencyId,
   );
-  const cycleValue = cycle ?? chosenCycle;
+  const validCycle = allPolls.some(
+    (p) => (p.cycle ?? "unassigned") === chosenCycle,
+  )
+    ? chosenCycle
+    : "";
+  const cycleValue = cycle ?? validCycle;
   const cyclePolls = allPolls.filter(
     (p) => !cycleValue || (p.cycle ?? "unassigned") === cycleValue,
   );
@@ -266,7 +288,7 @@ export function PresidentialHistory({
         {!cycle &&
           label(
             "pp_history_cycle",
-            chosenCycle,
+            validCycle,
             setCycle,
             cycles.map((c) => [
               c,
@@ -454,6 +476,17 @@ export function PresidentialHistory({
               />
             </div>
           ))}
+          <PresidentialInsights
+            polls={polls}
+            historyPolls={allPolls.filter(
+              (p) => !validAgency || p.agencyId === validAgency,
+            )}
+            details={dq.data ?? []}
+            runoffs={rq.data ?? []}
+            accuracy={aq.data ?? { generatedAt: "", cycles: [] }}
+            round={round}
+            candidate={validCandidate}
+          />
           <details open={!!agencyId}>
             <summary className="cursor-pointer font-semibold">
               {t("pp_history_surveys")} (
@@ -483,6 +516,13 @@ export function PresidentialHistory({
           </details>
         </>
       )}
+      <PresidentialCoveragePanel
+        polls={allPolls.filter(
+          (p) => !validAgency || p.agencyId === validAgency,
+        )}
+        agencyId={agencyId ?? (validAgency || undefined)}
+        cycle={cycleValue || undefined}
+      />
     </div>
   );
 }

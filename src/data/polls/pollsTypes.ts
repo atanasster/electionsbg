@@ -99,6 +99,8 @@ export type PollQuestion = {
   cycle: string | null;
   round: 1 | 2 | null;
   measure: PollMeasure;
+  /** Published answers without a candidate, currently participation only. */
+  observations?: { answerCode: string; share: number }[];
   wording: Lang;
   base: PollBase;
   scenario: string | null;

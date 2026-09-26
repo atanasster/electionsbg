@@ -142,6 +142,18 @@ export function PresidentialSurvey({
                       </td>
                     </tr>
                   ))}
+                {q?.observations?.map((o) => (
+                  <tr key={o.answerCode} className="border-t">
+                    <td className="p-2">—</td>
+                    <td className="p-2">
+                      {q.answerScale.find((a) => a.code === o.answerCode)
+                        ?.label[lang] ?? o.answerCode}
+                    </td>
+                    <td className="p-2 text-right tabular-nums">
+                      {o.share.toFixed(1)}%
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

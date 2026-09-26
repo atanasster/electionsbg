@@ -166,6 +166,26 @@ export const validateQuestions = (draft: InboxDraft): string[] => {
     ) {
       errors.push(`${prefix} is not eligible for vote-share accuracy`);
     }
+    if (value.observations !== undefined) {
+      const observations = value.observations;
+      const codes = Array.isArray(value.answerScale)
+        ? value.answerScale.map((a) => (record(a) ? a.code : null))
+        : [];
+      if (
+        value.measure !== "participation" ||
+        !Array.isArray(observations) ||
+        !observations.length ||
+        observations.some(
+          (o) =>
+            !record(o) || !codes.includes(o.answerCode) || !percentage(o.share),
+        ) ||
+        new Set(observations.map((o) => (record(o) ? o.answerCode : null)))
+          .size !== observations.length
+      )
+        errors.push(
+          `${prefix}.observations must be unique participation answers with valid percentages and scale codes`,
+        );
+    }
     const residual = value.residual;
     if (
       residual !== null &&

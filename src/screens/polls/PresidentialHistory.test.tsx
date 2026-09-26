@@ -12,6 +12,7 @@ import details from "../../../data/polls/presidential/polls_details.json";
 import runoffs from "../../../data/polls/presidential/runoffs.json";
 import accuracy from "../../../data/polls/presidential/accuracy.json";
 import agencies from "../../../data/polls/agencies.json";
+import coverage from "../../../data/polls/presidential/coverage.json";
 vi.mock("recharts", async () => {
   const actual = await vi.importActual<typeof import("recharts")>("recharts");
   return { ...actual, ResponsiveContainer: () => null };
@@ -27,6 +28,7 @@ const response = (value: unknown) =>
   new Response(JSON.stringify(value), { status: 200 });
 const fetchCorpus = async (input: RequestInfo | URL) => {
   const url = String(input);
+  if (url.includes("coverage.json")) return response(coverage);
   if (url.includes("polls_details.json")) return response(details);
   if (url.includes("runoffs.json")) return response(runoffs);
   if (url.includes("accuracy.json")) return response(accuracy);
@@ -124,6 +126,50 @@ describe("presidential history", () => {
     expect(
       await screen.findByRole("table", { name: "All displayed observations" }),
     ).toBeInTheDocument();
+  });
+  it("restores URL filters and updates the permalink when the round changes", async () => {
+    show(
+      <PresidentialHistory agencyId="SH" />,
+      "/?pollCycle=2021_11_14_pvr&pollRound=2",
+    );
+    await screen.findByText("Runoff matchup matrix", { selector: "h3" });
+    expect(screen.getByLabelText("Round")).toHaveValue("2");
+    expect(screen.getByLabelText("Election")).toHaveValue("2021_11_14_pvr");
+    expect(
+      screen.getByRole("link", { name: "Link to this view" }),
+    ).toHaveAttribute("href", "?pollCycle=2021_11_14_pvr&pollRound=2");
+    fireEvent.change(screen.getByLabelText("Round"), {
+      target: { value: "1" },
+    });
+    expect(
+      screen.getByRole("link", { name: "Link to this view" }),
+    ).toHaveAttribute("href", "?pollCycle=2021_11_14_pvr&pollRound=1");
+    expect(
+      screen.getByText("No published matchups match these filters."),
+    ).toBeInTheDocument();
+  });
+  it("shows unavailable-source coverage even with no accepted agency polls", async () => {
+    show(<PresidentialHistory agencyId="GIB" />);
+    expect(
+      await screen.findByText("Source unavailable at last check"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("2026-09-25")).toBeInTheDocument();
+  });
+  it("keeps the 2001 historical gap visible with no accepted surveys", async () => {
+    show(<PresidentialHistory cycle="2001_11_11_pvr" />);
+    expect(
+      await screen.findByText(/No primary-source survey is accepted for 2001/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("No accepted presidential polls for this page."),
+    ).toBeInTheDocument();
+  });
+  it("counts an accepted unassigned survey under the unassigned election filter", async () => {
+    show(<PresidentialHistory agencyId="GM" />, "/?pollCycle=unassigned");
+    const cell = await screen.findByText("2026-07-11 – 2026-07-11");
+    expect(
+      within(cell.closest("tr")!).getAllByRole("cell")[2],
+    ).toHaveTextContent(/^1$/);
   });
   it("shows accepted-coverage absence separately", async () => {
     show(<PresidentialHistory agencyId="NO_DATA" />);

@@ -178,3 +178,30 @@ describe("hand-edited runtime JSON", () => {
     expect(validateQuestions(input)).toEqual([]);
   });
 });
+
+it("validates participation answers without inventing candidate identities", () => {
+  const input = draft();
+  input.details = [];
+  input.poll.questions = [
+    {
+      ...question,
+      measure: "participation",
+      scoring: {
+        eligible: false,
+        reason: "Participation is not candidate support",
+      },
+      observations: [{ answerCode: "vote", share: 53 }],
+    },
+  ];
+  expect(validateQuestions(input)).toEqual([]);
+  input.poll.questions[0].observations!.push({
+    answerCode: "vote",
+    share: 120,
+  });
+  expect(validateQuestions(input).join()).toContain("unique participation");
+  input.poll.questions[0].observations = [{ answerCode: "missing", share: 53 }];
+  expect(validateQuestions(input).join()).toContain("scale codes");
+  input.poll.questions[0].observations = [{ answerCode: "vote", share: 53 }];
+  input.poll.questions[0].measure = "vote_intention";
+  expect(validateQuestions(input).join()).toContain("participation answers");
+});

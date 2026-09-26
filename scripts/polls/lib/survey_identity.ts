@@ -20,7 +20,9 @@ export const presidentialSurveySignature = (
   if (
     !poll.fieldwork ||
     !poll.questions?.length ||
-    (!details.length && !runoffs.length)
+    (!details.length &&
+      !runoffs.length &&
+      !poll.questions.some((q) => q.observations?.length))
   )
     return null;
   return JSON.stringify({
@@ -35,6 +37,9 @@ export const presidentialSurveySignature = (
         baseSize: q.base.respondents,
         includesNone: q.base.includesNone,
         residual: residualNumbers(q.residual),
+        observations: sorted(
+          q.observations?.map((o) => [o.answerCode, o.share]) ?? [],
+        ),
         rows: details
           .filter((d) => d.questionId === q.id)
           .map((d) => [d.candidateKey, d.answerCode, d.support])

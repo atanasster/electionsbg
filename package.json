@@ -428,7 +428,8 @@
     "video:gate1": "tsx scripts/video/gate1.ts",
     "video:screens": "tsx scripts/video/capture_screens.ts",
     "news:test": "python3 news/scripts/run_tests.py && vitest run news/scripts",
-    "deploy:llm": "npm run functions:test && firebase deploy --only functions:llm -P default"
+    "deploy:llm": "npm run functions:test && firebase deploy --only functions:llm -P default",
+    "polls:presidential:coverage": "tsx scripts/polls/presidential/build_coverage.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

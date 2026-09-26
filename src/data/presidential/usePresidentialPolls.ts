@@ -111,3 +111,12 @@ export const usePresidentialCycleAccuracy = (
     : undefined;
   return found ? { status: "ready", cycle: found } : { status: "unscored" };
 };
+
+export const usePresidentialCoverage = () =>
+  useQuery({
+    queryKey: ["presidential_polls", "coverage"],
+    queryFn: () =>
+      fetchJson<import("./pollCoverage").PresidentialCoverage>(
+        "/polls/presidential/coverage.json",
+      ),
+  });

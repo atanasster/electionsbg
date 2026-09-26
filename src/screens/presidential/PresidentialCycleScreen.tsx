@@ -18,8 +18,8 @@
 // verdict rather than re-deriving one — a second implementation of the constitutional test is
 // exactly the drift that makes two surfaces disagree about who was elected.
 
-import { FC, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { FC, useMemo } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePresidentialSummary } from "@/data/presidential/usePresidentialSummary";
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
@@ -655,7 +655,22 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
   // ⚠ ROUND 1 IS THE DEFAULT, and that is the constitutional order rather than a preference:
   // art. 93 (3) is a test on round 1, and a page that opened on the runoff would answer „who
   // won" while skipping „why there was a second round at all".
-  const [round, setRound] = useState<1 | 2>(1);
+  const [params, setParams] = useSearchParams();
+  const round: 1 | 2 =
+    params.get("pollRound") === "2" &&
+    state.status === "ready" &&
+    state.summary.rounds.some((r) => r.round === 2)
+      ? 2
+      : 1;
+  const setRound = (value: 1 | 2) =>
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.set("pollRound", String(value));
+        return next;
+      },
+      { replace: true },
+    );
 
   if (state.status === "loading")
     return (

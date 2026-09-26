@@ -1045,6 +1045,50 @@ describe("main — presidential drafts (Tier 4, decision 10's separate file fami
     );
   });
 
+  it("accepts a reviewed participation-only survey without fake candidate rows", () => {
+    const draft = structuredClone(BASE_PRESIDENTIAL_DRAFT);
+    draft.details = [];
+    draft.runoffs = [];
+    draft.poll.questions = [
+      {
+        id: "participation",
+        race: "presidential",
+        cycle: null,
+        round: 1,
+        measure: "participation",
+        wording: { bg: "Ще гласувате ли?", en: "Will you vote?" },
+        base: {
+          kind: "all_respondents",
+          label: { bg: "Всички", en: "All respondents" },
+          respondents: 1503,
+          includesNone: null,
+        },
+        scenario: null,
+        answerScale: [{ code: "yes", label: { bg: "Да", en: "Yes" } }],
+        observations: [{ answerCode: "yes", share: 53 }],
+        genre: "raw_attitudes",
+        residual: null,
+        evidence: {
+          url: draft.poll.source!,
+          quote: "53% ще гласуват",
+          locator: "page 1",
+        },
+        scoring: {
+          eligible: false,
+          reason: "Participation is not a candidate share",
+        },
+      },
+    ];
+    writeDraft("gm-2026-07-11.json", draft);
+    main(["gm-2026-07-11"]);
+    expect(process.exitCode).not.toBe(1);
+    const out = readPresCorpus();
+    expect(out.polls[0].questions![0].observations).toEqual([
+      { answerCode: "yes", share: 53 },
+    ]);
+    expect(out.details).toEqual([]);
+  });
+
   it("refuses a zero-row presidential draft unless --allow-empty", () => {
     writeDraft("gm-2026-07-11.json", {
       ...BASE_PRESIDENTIAL_DRAFT,
