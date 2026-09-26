@@ -8,8 +8,8 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | Step | Phase | Work | State | Commit |
 | --- | --- | --- | --- | --- |
 | 1 | Foundations | Question model, publication metadata and acceptance validation | Complete | `f289362bf9` |
-| 2 | Foundations | Reviewed candidate aliases and unresolved coverage | In progress | |
-| 3 | Foundations | Durable discovery and processing ledger | Pending | |
+| 2 | Foundations | Reviewed candidate aliases and unresolved coverage | Complete | `15818bda70` |
+| 3 | Foundations | Durable discovery and processing ledger | In progress | |
 | 4 | Foundations | Cycle assignment, validation and complete correction snapshots | Pending | |
 | 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | Pending | |
 | 6 | Backfill | Publication inventory, historical pagination and capture | Pending | |
@@ -30,17 +30,22 @@ Step 1: FINDING-001 (enum coercion) and FINDING-002 (publication date validation
 
 Step 2: FINDING-001 (`scripts/polls/presidential/analyze_accuracy.ts`) verified and fixed: keep fixed abstention identities out of unresolved-person diagnostics. No needs-review findings. Related tests: 80 passed; changed-file lint, TypeScript and full production build passed.
 
+Step 3: FINDING-001–004 verified and fixed in `publication_ledger.ts`, `capture.ts`, `fetch.ts`, `extract.ts` and `accept.ts`: preserve latest capture during reconciliation, retry failed rechecks, retire resolved press notices, and reserve the ledger before corpus writes. No needs-review findings. Related tests: 180 passed; changed-file lint, TypeScript and full production build passed.
+
 ## Current step files
 
 - `docs/plans/presidential-polls-implementation.md`
-- `src/data/polls/pollsTypes.ts`
-- `scripts/polls/presidential/candidate_resolver.ts`
-- `scripts/polls/presidential/candidate_resolver.test.ts`
-- `scripts/polls/presidential/analyze_accuracy.ts`
-- `scripts/polls/presidential/analyze_accuracy.test.ts`
-- `scripts/polls/presidential/rekey.ts`
-- `scripts/polls/extractors/trend_presidential.ts`
-- `scripts/polls/extractors/trend_presidential.test.ts`
+- `scripts/polls/lib/publication_ledger.ts` (new)
+- `scripts/polls/lib/publication_ledger.test.ts` (new)
+- `scripts/polls/lib/capture.ts`
+- `scripts/polls/lib/capture.test.ts`
+- `scripts/polls/fetch.ts`
+- `scripts/polls/fetch.test.ts`
+- `scripts/polls/extract.ts`
+- `scripts/polls/extract.test.ts`
+- `scripts/polls/accept.ts`
+- `scripts/polls/accept.test.ts`
+- `scripts/watch/index.ts`
 
 ## Existing work to preserve
 

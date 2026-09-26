@@ -11,6 +11,7 @@ import type {
   Runoff,
 } from "../../src/data/polls/pollsTypes";
 import { assertCommitted } from "../lib/assert_committed";
+import { readPublicationLedger, recordCapture } from "./lib/publication_ledger";
 
 // These path literals mirror the REAL committed corpus shape (accept.ts is
 // redirected to a scratch root for every test below, so nothing here reads
@@ -194,6 +195,22 @@ describe("main", () => {
     ];
     draft.details[0].questionId = "party-choice";
     draft.details[0].answerCode = "vote";
+    recordCapture(
+      scratchRoot,
+      "TR",
+      {
+        pubId: "joint-release",
+        url: "https://rctrend.bg/project/x/",
+        title: null,
+        publishedAt: "2026-04-17",
+      },
+      {
+        sha256: "a".repeat(64),
+        capturedAt: "2026-09-09T00:00:00.000Z",
+        capturePath: "raw_data/polls/trend/joint-release",
+        attachmentFailures: [],
+      },
+    );
     writeDraft("tr-2026-04-16.json", draft);
     writeCorpus([], []);
     main(["tr-2026-04-16"]);
@@ -205,6 +222,11 @@ describe("main", () => {
       questions: draft.poll.questions,
     });
     expect(readCorpus().details[0].questionId).toBe("party-choice");
+    const accepted = readPublicationLedger(scratchRoot, "TR")[0].versions[0]
+      .drafts[0];
+    expect(accepted.acceptedAt).toBeDefined();
+    expect(accepted.reviewedAt).toBe(accepted.acceptedAt);
+    expect(accepted.acceptedDraftHash).toBe(accepted.draftHash);
   });
 
   it("accepts a valid draft: writes minified corpus files, sets locked, deletes the inbox file", () => {
@@ -226,6 +248,20 @@ describe("main", () => {
     );
     expect(details).toHaveLength(1);
     expect(details[0].nickName_bg).toBe("ГЕРБ-СДС");
+    expect(fs.existsSync(inboxFile("tr-2026-04-16.json"))).toBe(false);
+  });
+
+  it("leaves corpus and inbox unchanged if the ledger is locked, then accepts on retry", () => {
+    writeDraft("tr-2026-04-16.json", BASE_DRAFT);
+    writeCorpus([], []);
+    const lock = path.join(scratchRoot, "state/polls/TR.json.lock");
+    fs.mkdirSync(lock, { recursive: true });
+    expect(() => main(["tr-2026-04-16"])).toThrow();
+    expect(readCorpus()).toEqual({ polls: [], details: [] });
+    expect(fs.existsSync(inboxFile("tr-2026-04-16.json"))).toBe(true);
+    fs.rmdirSync(lock);
+    main(["tr-2026-04-16"]);
+    expect(readCorpus().polls).toHaveLength(1);
     expect(fs.existsSync(inboxFile("tr-2026-04-16.json"))).toBe(false);
   });
 

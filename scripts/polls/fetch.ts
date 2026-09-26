@@ -27,6 +27,12 @@ import { UA } from "./agencies/wp_lister";
 import { agencyById } from "./lib/agencies";
 import { flagReader } from "./lib/argv";
 import {
+  recordCapture,
+  readPublicationLedger,
+  recordPublicationFailure,
+  rememberPublications,
+} from "./lib/publication_ledger";
+import {
   type CaptureTarget,
   FETCHABLE_SITE_AGENCIES,
   backlogTargets,
@@ -63,6 +69,8 @@ interface SourceStamp {
   fetchedAt: string;
   sha256: string;
   bytes: number;
+  title?: string | null;
+  publishedAt?: string | null;
   archiveUrl?: string;
   /** Attachment URLs `discoverPdfLinks`/`discoverAgencyImages` found but
    *  could not fetch — e.g. Market Links' `/storage/` PDFs
@@ -183,7 +191,7 @@ const readStamp = (dir: string): SourceStamp | null => {
  *  - NEW VERSION — `force` is true and the hash changed; writes to the next
  *    unused `.vN` suffix, leaving every earlier version untouched.
  */
-const captureOne = async (
+const capturePublication = async (
   target: CaptureTarget,
   force: boolean,
 ): Promise<void> => {
@@ -191,8 +199,37 @@ const captureOne = async (
   const exists = (suffix: string) =>
     fs.existsSync(path.join(REPO_ROOT, `${baseDir}${suffix}`, "SOURCE.json"));
   const latest = latestVersionSuffix(exists);
+  const latestStamp = latest !== null ? readStamp(`${baseDir}${latest}`) : null;
+  const rememberCapture = (
+    stamp: SourceStamp,
+    directory: string,
+    reconcileOnly = false,
+  ) =>
+    recordCapture(
+      REPO_ROOT,
+      target.agencyId,
+      {
+        pubId: target.pubId,
+        url: target.originalUrl,
+        title: target.title,
+        publishedAt: target.publishedAt,
+      },
+      {
+        sha256: stamp.sha256,
+        capturePath: directory,
+        capturedAt: stamp.fetchedAt,
+        attachmentFailures: stamp.attachmentFailures ?? [],
+      },
+      reconcileOnly,
+    );
 
-  if (latest !== null && !force) {
+  if (
+    latest !== null &&
+    latestStamp &&
+    !force &&
+    !latestStamp.attachmentFailures?.length
+  ) {
+    rememberCapture(latestStamp, `${baseDir}${latest}`, true);
     console.log(
       `skip ${target.agencyId} ${target.pubId} — already captured (${baseDir}${latest})`,
     );
@@ -228,7 +265,6 @@ const captureOne = async (
   // spuriously downgraded `.vN` into tracked history on a network hiccup
   // is not. Only fires on a re-check that has somewhere to regress FROM —
   // a fresh capture's failures are just failures.
-  const latestStamp = latest !== null ? readStamp(`${baseDir}${latest}`) : null;
   if (latestStamp) {
     const previouslyFailed = new Set(latestStamp.attachmentFailures ?? []);
     if (failures.some((f) => !previouslyFailed.has(f.url))) {
@@ -250,6 +286,13 @@ const captureOne = async (
   ]);
 
   if (latestStamp?.sha256 === newHash) {
+    rememberCapture(
+      {
+        ...latestStamp,
+        attachmentFailures: failures.map((failure) => failure.url),
+      },
+      `${baseDir}${latest}`,
+    );
     console.log(
       `unchanged ${target.agencyId} ${target.pubId} — same content as ${baseDir}${latest}, no re-capture`,
     );
@@ -285,6 +328,8 @@ const captureOne = async (
     fetchedAt: new Date().toISOString(),
     sha256: newHash,
     bytes: totalBytes,
+    title: target.title,
+    publishedAt: target.publishedAt,
     ...(target.archiveUrl ? { archiveUrl: target.archiveUrl } : {}),
     ...(failures.length > 0
       ? { attachmentFailures: failures.map((f) => f.url) }
@@ -295,6 +340,7 @@ const captureOne = async (
     JSON.stringify(stamp, null, 2) + "\n",
     "utf8",
   );
+  rememberCapture(stamp, `${baseDir}${suffix}`);
 
   const pdfOk = pdfResults.length - pdfResults.filter((r) => r.error).length;
   const imageOk =
@@ -303,6 +349,41 @@ const captureOne = async (
     `captured ${target.agencyId} ${target.pubId}${suffix} — ${pdfOk}/${pdfResults.length} pdf(s), ${imageOk}/${imageResults.length} image(s), ${totalBytes} bytes` +
       (failures.length > 0 ? ` (${failures.length} attachment FAILED)` : ""),
   );
+};
+
+const captureOne = async (
+  target: CaptureTarget,
+  force: boolean,
+): Promise<void> => {
+  const discovery = {
+    pubId: target.pubId,
+    url: target.originalUrl,
+    title: target.title,
+    publishedAt: target.publishedAt,
+  };
+  rememberPublications(
+    REPO_ROOT,
+    target.agencyId,
+    [discovery],
+    new Date().toISOString(),
+  );
+  try {
+    const retry = readPublicationLedger(REPO_ROOT, target.agencyId).some(
+      (entry) =>
+        entry.pubIds.includes(target.pubId) && entry.errors.capture !== null,
+    );
+    await capturePublication(target, force || retry);
+  } catch (error) {
+    recordPublicationFailure(
+      REPO_ROOT,
+      target.agencyId,
+      discovery,
+      "capture",
+      error instanceof Error ? error.message : String(error),
+      new Date().toISOString(),
+    );
+    throw error;
+  }
 };
 
 export interface Opts {
@@ -392,7 +473,9 @@ export const main = async (argv: string[]): Promise<void> => {
       return;
     }
     try {
-      await captureOne(targetFromUrl(opts.agency, opts.url), opts.force);
+      const target = targetFromUrl(opts.agency, opts.url);
+      if (opts.pub) target.pubId = opts.pub;
+      await captureOne(target, opts.force);
     } catch (e) {
       console.error(
         `FAILED ${opts.agency} (url): ${e instanceof Error ? e.message : String(e)}`,
@@ -431,7 +514,7 @@ export const main = async (argv: string[]): Promise<void> => {
         anyFailed = true;
       }
     } else {
-      const pending = pendingSiteTargets(agencyId);
+      const pending = pendingSiteTargets(agencyId, REPO_ROOT);
       if (pending === null) {
         console.log(
           `${agencyId} has no fetchable watcher — press-only agencies need --url per item (see below)`,
@@ -463,14 +546,14 @@ export const main = async (argv: string[]): Promise<void> => {
   // never auto-fetchable (google_news_rss.ts's header) — surface them so an
   // operator knows what to go resolve on the outlet next.
   if (!opts.agency) {
-    const notices = pendingPressNotices();
+    const notices = pendingPressNotices(REPO_ROOT);
     if (notices.length > 0) {
       console.log(
         `\n${notices.length} press item(s) need a manual --url capture:`,
       );
       for (const n of notices)
         console.log(
-          `  ${n.agencyId}  ${n.title}  (${n.sourceName ?? "unknown outlet"}, ${n.pubDate})`,
+          `  ${n.agencyId}  ${n.title}  (${n.sourceName ?? "unknown outlet"}, ${n.pubDate})${n.pubId ? ` — resolve with --agency ${n.agencyId} --pub ${n.pubId} --url <article-url>` : ""}`,
         );
     }
   }

@@ -9,6 +9,11 @@ const REPO_ROOT = path.resolve(
 );
 
 vi.mock("../../watch/state", () => ({ readState: vi.fn() }));
+vi.mock("./publication_ledger", async (original) => ({
+  ...(await original<typeof import("./publication_ledger")>()),
+  pendingPublications: () => [],
+  readPublicationLedger: () => [],
+}));
 vi.mock("../agencies/trend", () => ({
   trend: { agencyId: "TR", listPublications: vi.fn(), isElectoral: vi.fn() },
 }));

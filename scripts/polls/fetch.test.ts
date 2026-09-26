@@ -19,6 +19,10 @@ import { fetchText } from "../watch/fingerprint";
 import { readState } from "../watch/state";
 import { __setCaptureRootForTests, main, parseArgv } from "./fetch";
 import { assertCommitted } from "../lib/assert_committed";
+import {
+  pendingPublications,
+  readPublicationLedger,
+} from "./lib/publication_ledger";
 
 const mockedFetchText = vi.mocked(fetchText);
 const mockedReadState = vi.mocked(readState);
@@ -167,6 +171,17 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     expect(stamp.sha256).toMatch(/^[0-9a-f]{64}$/);
     expect(stamp.bytes).toBeGreaterThan(0);
     expect(stamp.archiveUrl).toBeUndefined();
+    expect(readPublicationLedger(scratchRoot, "TR")[0]).toMatchObject({
+      pubId: "10",
+      latestHash: stamp.sha256,
+      versions: [
+        {
+          sha256: stamp.sha256,
+          capturePath: "raw_data/polls/trend/10",
+          attachmentFailures: [],
+        },
+      ],
+    });
   });
 
   it("skips an already-captured pubId without --force, without fetching", async () => {
@@ -200,6 +215,28 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     await main(["--agency", "TR"]);
 
     expect(mockedFetchText).not.toHaveBeenCalled();
+  });
+
+  it("retries a failed forced recheck during an ordinary pending capture run", async () => {
+    mockedReadState.mockReturnValue(null);
+    mockedFetchText.mockResolvedValue("<html>stable content</html>");
+    await main(["--agency", "TR", "--url", "https://rctrend.bg/p/recheck"]);
+    expect(pendingPublications(scratchRoot, "TR")).toEqual([]);
+    mockedFetchText.mockRejectedValueOnce(new Error("timeout"));
+    await main([
+      "--agency",
+      "TR",
+      "--url",
+      "https://rctrend.bg/p/recheck",
+      "--force",
+    ]);
+    expect(process.exitCode).toBe(1);
+    expect(pendingPublications(scratchRoot, "TR")).toHaveLength(1);
+    process.exitCode = undefined;
+    await main(["--agency", "TR"]);
+    expect(mockedFetchText).toHaveBeenCalledTimes(3);
+    expect(process.exitCode).toBeUndefined();
+    expect(pendingPublications(scratchRoot, "TR")).toEqual([]);
   });
 
   it("versions a changed re-fetch as .v2 when --force is given", async () => {

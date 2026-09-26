@@ -47,6 +47,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { flagReader } from "./lib/argv";
 import { validateQuestions } from "./lib/question_validation";
+import { recordAcceptance } from "./lib/publication_ledger";
 import type {
   InboxDraft,
   ParliamentaryInboxDraft,
@@ -466,8 +467,10 @@ const acceptParliamentary = (
     ...details.filter((d) => d.pollId !== poll.id),
     ...draft.details,
   ];
-  writeJsonArray(pollsFile, nextPolls);
-  writeJsonArray(detailsFile, nextDetails);
+  recordAcceptance(REPO_ROOT, draft, new Date().toISOString(), () => {
+    writeJsonArray(pollsFile, nextPolls);
+    writeJsonArray(detailsFile, nextDetails);
+  });
   fs.rmSync(draftFile);
 
   console.log(
@@ -580,9 +583,11 @@ const acceptPresidential = (
     ...runoffs.filter((r) => r.pollId !== poll.id),
     ...draft.runoffs,
   ];
-  writeJsonArray(pollsFile, nextPolls);
-  writeJsonArray(detailsFile, nextDetails);
-  writeJsonArray(runoffsFile, nextRunoffs);
+  recordAcceptance(REPO_ROOT, draft, new Date().toISOString(), () => {
+    writeJsonArray(pollsFile, nextPolls);
+    writeJsonArray(detailsFile, nextDetails);
+    writeJsonArray(runoffsFile, nextRunoffs);
+  });
   fs.rmSync(draftFile);
 
   console.log(

@@ -6,6 +6,7 @@
 // minimal synthetic captures throughout so it needs no real binaries.
 
 import fs from "node:fs";
+import { readPublicationLedger } from "./lib/publication_ledger";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -106,6 +107,12 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
     expect(readInbox("ar-2026-03-05.json")).toMatchObject({
       poll: { agencyId: "AR" },
     });
+    expect(
+      readPublicationLedger(scratchRoot, "TR")[0].versions[0].drafts,
+    ).toMatchObject([{ pollId: "tr-pub-111", race: "parliamentary" }]);
+    expect(
+      readPublicationLedger(scratchRoot, "AR")[0].versions[0].drafts,
+    ).toMatchObject([{ pollId: "ar-2026-03-05", race: "parliamentary" }]);
   });
 
   it("--agency narrows to one agency", async () => {

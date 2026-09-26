@@ -14,6 +14,7 @@ import { SOURCES } from "./sources/index";
 import { readState, writeState } from "./state";
 import { renderReport } from "./report";
 import { CADENCE_WINDOW_MS, dueForCheck } from "./cadence";
+import { rememberPollWatch } from "../polls/lib/capture";
 import type {
   Fingerprint,
   ManualRequest,
@@ -88,6 +89,7 @@ const main = async (): Promise<void> => {
         ),
       );
       const curr = await Promise.race([fingerprintP, timeoutP]);
+      rememberPollWatch(src.id, curr.meta, runAt);
       const changed = !prev || prev.fingerprint !== curr.value;
       const status = !prev ? "first-run" : changed ? "changed" : "unchanged";
       const line = changed

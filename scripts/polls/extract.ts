@@ -39,6 +39,13 @@ import { extractGlobalMetrics } from "./extractors/global_metrics";
 import { extractTrend } from "./extractors/trend";
 import { extractTrendPresidential } from "./extractors/trend_presidential";
 import { flagReader } from "./lib/argv";
+import {
+  recordCapture,
+  readPublicationLedger,
+  recordExtraction,
+  recordPublicationFailure,
+  type PublicationDiscovery,
+} from "./lib/publication_ledger";
 import { dirSlugFor, latestVersionSuffix } from "./lib/capture";
 import { classifyRace, classifyTitle } from "./lib/classify_race";
 import type { InboxDraft } from "./lib/draft";
@@ -219,9 +226,63 @@ const extractOne = async (
     dirSlugFor(agencyId),
     `${pubId}${versionSuffix}`,
   );
+  let discovery: PublicationDiscovery | null = null;
   try {
+    const stamp: {
+      url: string;
+      sha256: string;
+      fetchedAt: string;
+      title?: string;
+      publishedAt?: string;
+      attachmentFailures?: string[];
+    } = JSON.parse(
+      fs.readFileSync(path.join(captureDir, "SOURCE.json"), "utf8"),
+    );
+    if (
+      typeof stamp.url !== "string" ||
+      typeof stamp.sha256 !== "string" ||
+      typeof stamp.fetchedAt !== "string"
+    )
+      throw new Error("Capture stamp is missing URL, hash or fetch date");
+    discovery = {
+      pubId,
+      url: stamp.url,
+      title: stamp.title ?? null,
+      publishedAt: stamp.publishedAt ?? null,
+    };
+    recordCapture(
+      REPO_ROOT,
+      agencyId,
+      discovery,
+      {
+        sha256: stamp.sha256,
+        capturedAt: stamp.fetchedAt,
+        capturePath: path.relative(REPO_ROOT, captureDir),
+        attachmentFailures: stamp.attachmentFailures ?? [],
+      },
+      true,
+    );
+    const publication = readPublicationLedger(REPO_ROOT, agencyId).find(
+      (entry) => entry.pubIds.includes(pubId),
+    );
+    if (publication?.latestHash !== stamp.sha256) {
+      console.log(
+        `skip ${agencyId} ${pubId}${versionSuffix} — superseded source capture`,
+      );
+      return;
+    }
     const draft = await extractor(captureDir, pubId);
+    draft.poll.publicationId = `${agencyId}:${pubId}`;
+    draft.poll.publishedAt = stamp.publishedAt ?? null;
     const file = writeDraft(draft, versionSuffix);
+    recordExtraction(
+      REPO_ROOT,
+      agencyId,
+      pubId,
+      stamp.sha256,
+      draft,
+      new Date().toISOString(),
+    );
     removeStaleProvisionalDraft(file, agencyId, pubId, versionSuffix);
     const acceptedShares = draft.details.length;
     console.log(
@@ -229,6 +290,15 @@ const extractOne = async (
         `(${draft.race}/${draft.genre}, ${acceptedShares} share(s), ${draft.refused.length} refused)`,
     );
   } catch (e) {
+    if (discovery)
+      recordPublicationFailure(
+        REPO_ROOT,
+        agencyId,
+        discovery,
+        "extraction",
+        e instanceof Error ? e.message : String(e),
+        new Date().toISOString(),
+      );
     console.error(
       `FAILED ${agencyId} ${pubId}${versionSuffix}: ${e instanceof Error ? e.message : String(e)}`,
     );

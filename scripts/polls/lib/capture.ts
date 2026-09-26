@@ -1,9 +1,16 @@
-// Pure logic behind `polls:fetch` (Tier 2, T2a — docs/plans/polls-agency-watchers-v1.md
-// §6.2, decisions 7 and 17). The CLI orchestration (network fetch, fs writes) lives in
-// scripts/polls/fetch.ts; everything here is deterministic and unit-testable without
-// touching the network or the filesystem.
+// Publication discovery and target selection for polls:fetch. Watch deltas are
+// persisted before their cursor advances; capture reads the durable queue and
+// supports legacy watch state until it has been reconciled.
 
 import * as cheerio from "cheerio";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import {
+  pendingPublications,
+  readPublicationLedger,
+  rememberPublications,
+  type PublicationDiscovery,
+} from "./publication_ledger";
 import { sha256, sha256Short } from "../../watch/fingerprint";
 import { readState } from "../../watch/state";
 import type { SiteArmMetaItem } from "./watcher";
@@ -16,6 +23,85 @@ import { myara } from "../agencies/myara";
 import { globalMetrics } from "../agencies/global_metrics";
 import { gallup } from "../agencies/gallup";
 import type { AgencyLister } from "../agencies/types";
+
+const REPO_ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../..",
+);
+
+/** Persist discoveries before the runner advances its high-water mark. */
+export const rememberPollWatch = (
+  sourceId: string,
+  meta: Record<string, unknown> | undefined,
+  at: string,
+  root = REPO_ROOT,
+): void => {
+  if (!meta || !sourceId.startsWith("polls_")) return;
+  const siteAgency = Object.entries(SITE_SOURCE_ID).find(
+    ([, id]) => id === sourceId,
+  )?.[0];
+  const saveSite = (agency: string, arm: unknown) => {
+    const items = watchItems(arm);
+    const publications: PublicationDiscovery[] = [];
+    for (const item of items) {
+      if (
+        typeof item.id !== "number" ||
+        typeof item.url !== "string" ||
+        typeof item.title !== "string"
+      )
+        throw new Error("Invalid polling site discovery");
+      publications.push({
+        pubId: String(item.id),
+        url: item.url,
+        title: item.title,
+        publishedAt:
+          typeof item.publishedAt === "string" ? item.publishedAt : null,
+      });
+    }
+    rememberPublications(root, agency, publications, at);
+  };
+  const savePress = (agency: string, arm: unknown) => {
+    const publications: PublicationDiscovery[] = [];
+    for (const item of watchItems(arm)) {
+      if (
+        typeof item.guid !== "string" ||
+        typeof item.link !== "string" ||
+        typeof item.title !== "string"
+      )
+        throw new Error("Invalid polling press discovery");
+      publications.push({
+        pubId: sha256Short(item.guid),
+        url: item.link,
+        title: item.title,
+        publishedAt: typeof item.pubDate === "string" ? item.pubDate : null,
+        press: {
+          guid: item.guid,
+          sourceName:
+            typeof item.sourceName === "string" ? item.sourceName : null,
+        },
+      });
+    }
+    rememberPublications(root, agency, publications, at);
+  };
+  if (siteAgency) saveSite(siteAgency, meta);
+  if (sourceId === "polls_gallup") {
+    saveSite("GIB", meta.site);
+    savePress("GIB", meta.press);
+  }
+  if (sourceId === "polls_press" && isRecord(meta.agencies)) {
+    for (const [agency, arm] of Object.entries(meta.agencies))
+      savePress(agency, arm);
+  }
+};
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
+const watchItems = (arm: unknown): Record<string, unknown>[] => {
+  if (arm == null) return [];
+  if (!isRecord(arm) || !Array.isArray(arm.items) || !arm.items.every(isRecord))
+    throw new Error("Invalid polling watch items");
+  return arm.items;
+};
 
 /**
  * The raw_data directory slug per agency — the LISTER MODULE's own filename
@@ -114,6 +200,7 @@ export interface PendingPressNotice {
   sourceName: string | null;
   guid: string;
   pubDate: string;
+  pubId?: string;
 }
 
 const toTarget = (agencyId: string, it: SiteArmMetaItem): CaptureTarget => ({
@@ -131,19 +218,40 @@ const toTarget = (agencyId: string, it: SiteArmMetaItem): CaptureTarget => ({
  *  list) — or `null` when `agencyId` has no fetchable watcher at all. */
 export const pendingSiteTargets = (
   agencyId: string,
+  root = REPO_ROOT,
 ): CaptureTarget[] | null => {
+  const persisted = pendingPublications(root, agencyId)
+    .filter((item) => !item.press || item.press.resolvedUrl)
+    .map(
+      (item): CaptureTarget => ({
+        agencyId,
+        pubId: item.pubId,
+        fetchUrl: item.url,
+        originalUrl: item.url,
+        archiveUrl: null,
+        title: item.title,
+        publishedAt: item.publishedAt,
+      }),
+    );
+  const merge = (items: SiteArmMetaItem[]) => [
+    ...new Map(
+      [...items.map((item) => toTarget(agencyId, item)), ...persisted].map(
+        (item) => [item.pubId, item],
+      ),
+    ).values(),
+  ];
   if (agencyId === "GIB") {
     const meta = readState("polls_gallup")?.meta as
       | { site?: { items?: SiteArmMetaItem[] } | null }
       | undefined;
-    return (meta?.site?.items ?? []).map((it) => toTarget("GIB", it));
+    return merge(meta?.site?.items ?? []);
   }
   const sourceId = SITE_SOURCE_ID[agencyId];
   if (!sourceId) return null;
   const meta = readState(sourceId)?.meta as
     | { items?: SiteArmMetaItem[] }
     | undefined;
-  return (meta?.items ?? []).map((it) => toTarget(agencyId, it));
+  return merge(meta?.items ?? []);
 };
 
 const toPressNotice = (
@@ -160,7 +268,7 @@ const toPressNotice = (
 /** Every press-arm item pending manual `--url` capture — Gallup's press arm
  *  plus every press-only agency `polls_press` tracks. Not a capture target:
  *  see `PendingPressNotice`. */
-export const pendingPressNotices = (): PendingPressNotice[] => {
+export const pendingPressNotices = (root = REPO_ROOT): PendingPressNotice[] => {
   const out: PendingPressNotice[] = [];
   const gallupMeta = readState("polls_gallup")?.meta as
     | { press?: { items?: PressArmItem[] } | null }
@@ -174,7 +282,31 @@ export const pendingPressNotices = (): PendingPressNotice[] => {
   for (const [agencyId, arm] of Object.entries(pressMeta?.agencies ?? {}))
     for (const it of arm.items ?? []) out.push(toPressNotice(agencyId, it));
 
-  return out;
+  const resolvedPress = new Set<string>();
+  for (const agencyId of Object.keys(AGENCY_DIR_SLUG)) {
+    for (const item of readPublicationLedger(root, agencyId)) {
+      if (item.press?.resolvedUrl)
+        resolvedPress.add(`${agencyId}:${item.press.guid}`);
+    }
+    for (const item of pendingPublications(root, agencyId)) {
+      if (!item.press || item.press.resolvedUrl) continue;
+      out.push({
+        agencyId,
+        title: item.title ?? item.url,
+        sourceName: item.press.sourceName,
+        guid: item.press.guid,
+        pubDate: item.publishedAt ?? "",
+        pubId: item.pubId,
+      });
+    }
+  }
+  return [
+    ...new Map(
+      out
+        .filter((item) => !resolvedPress.has(`${item.agencyId}:${item.guid}`))
+        .map((item) => [`${item.agencyId}:${item.guid}`, item]),
+    ).values(),
+  ];
 };
 
 /** A manual backlog walk past what the watcher currently tracks (`--since`),
