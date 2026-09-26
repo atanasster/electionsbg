@@ -140,7 +140,7 @@ describe("StoryScreen analytics", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: "Как се различава отразяването",
+        name: "Сравнение на отразяването",
       }),
     ).toBeVisible();
     expect(
@@ -154,7 +154,7 @@ describe("StoryScreen analytics", () => {
       name: "Източници и хронология ( 3 от 3)",
     });
     expect(chronologyHeading).toBeVisible();
-    expect(screen.getByText(/лексикална разлика/)).toBeVisible();
+    expect(screen.getByText(/разлики в думите/)).toBeVisible();
     // T5.4 — ONE completeness sentence for both axes, the breakdown behind a
     // single disclosure the page owns.
     expect(screen.getAllByText("Оценени са 2 от 3 материала.")).toHaveLength(1);
@@ -272,7 +272,7 @@ describe("what the assessed coverage licenses each axis to say (T5.2)", () => {
     ]);
     const lean = screen.getByTestId("divergence-leaning");
     expect(lean).toHaveAttribute("data-state", "uniform");
-    expect(lean).toHaveTextContent("не е съгласие по фактите");
+    expect(lean).toHaveTextContent("не означава съгласие по фактите");
     // Russia: only `left` is positioned → single-source, not „none“ and not uniform.
     expect(screen.getByTestId("divergence-russia")).toHaveAttribute(
       "data-state",
@@ -613,7 +613,7 @@ describe("comparison as an action (T5.8)", () => {
       within(table)
         .getAllByRole("columnheader")
         .map((h) => h.textContent),
-    ).toEqual(["Поле", "right.example", "left.example"]);
+    ).toEqual(["Показател", "right.example", "left.example"]);
     expect(within(table).getByText("Обобщение за right.example")).toBeVisible();
     expect(
       screen.getByRole("checkbox", { name: "Сравни: left.example" }),
@@ -638,7 +638,7 @@ describe("comparison as an action (T5.8)", () => {
     );
     expect(
       screen.getByText(
-        "Отбележете още един източник, за да се покаже сравнението.",
+        "Изберете още един източник, за да се покаже сравнението.",
       ),
     ).toBeVisible();
     expect(screen.queryByTestId("story-compare")).toBeNull();

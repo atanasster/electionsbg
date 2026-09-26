@@ -129,13 +129,13 @@ describe("StoryCompare", () => {
       within(table)
         .getAllByRole("columnheader")
         .map((h) => h.textContent),
-    ).toEqual(["Поле", "Медия А", "Втора медия", "c.bg"]);
+    ).toEqual(["Показател", "Медия А", "Втора медия", "c.bg"]);
     const rows = within(table)
       .getAllByRole("rowheader")
       .map((h) => h.textContent);
     expect(rows).toEqual([
       "Източник",
-      "Публикувано / обновено",
+      "Публикувано / актуализирано",
       "Заглавие",
       "Кратко обобщение",
       "Цитирани откъси",
@@ -187,9 +187,9 @@ describe("StoryCompare", () => {
     ).toHaveLength(1);
     // Time: publication and declared update, or their absence.
     expect(within(table).getByText("без дата на публикуване")).toBeVisible();
-    expect(within(table).getAllByText("без обявено обновяване")).toHaveLength(
-      1,
-    ); // c.bg is still loading
+    expect(
+      within(table).getAllByText("няма посочена актуализация"),
+    ).toHaveLength(1); // c.bg is still loading
     // Framing: a badge with a text label, or "not assessed" — never a guessed position.
     expect(within(table).getAllByText("не е оценено")).toHaveLength(2);
     expect(within(table).getByText("Прогресивно")).toBeVisible();
@@ -206,7 +206,7 @@ describe("StoryCompare", () => {
     ).toHaveAttribute("href", "https://a.bg/a");
     // The genre / person rows are absent and the absence is said.
     expect(rows).not.toContain("Жанр");
-    expect(screen.getByText(/корпусът не носи жанр/)).toBeVisible();
+    expect(screen.getByText(/Няма данни за жанра/)).toBeVisible();
     fireEvent.click(
       screen.getByRole("button", { name: "Изчисти сравнението" }),
     );

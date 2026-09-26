@@ -132,12 +132,12 @@ const DivergenceNote = ({
         : divergence.state === "uniform"
           ? axis === "leaning"
             ? tr(
-                `${n} източника с позиция рамкират материала еднакво. Еднаквото рамкиране не е съгласие по фактите.`,
-                `${n} sources with a position frame it the same way. Matching framing is not agreement on facts.`,
+                `Материалите от ${n} източника имат еднаква оценка за политическо рамкиране. Това не означава съгласие по фактите.`,
+                `Articles from ${n} sources have the same political framing assessment. This does not imply agreement on facts.`,
               )
             : tr(
-                `${n} източника с позиция заемат една и съща позиция. Еднаквата позиция не е съгласие по фактите.`,
-                `${n} sources with a position take the same one. A matching position is not agreement on facts.`,
+                `Материалите от ${n} източника имат еднаква оценка за позицията спрямо Русия. Това не означава съгласие по фактите.`,
+                `Articles from ${n} sources have the same assessment of their stance toward Russia. This does not imply agreement on facts.`,
               )
           : tr(
               `Разпределение между ${n} източника с позиция; сегментите броят материали, не източници.`,
@@ -653,12 +653,12 @@ export const StoryScreen = () => {
               id="coverage-differences-heading"
               className="app-section-title mb-2"
             >
-              {tr("Как се различава отразяването", "How coverage differs")}
+              {tr("Сравнение на отразяването", "Compare the coverage")}
             </h2>
             <p className="mb-2 text-xs text-muted-foreground">
               {tr(
-                `Отбележете ${COMPARE_MIN}–${COMPARE_MAX} източника, за да ги подредите поле по поле.`,
-                `Tick ${COMPARE_MIN}–${COMPARE_MAX} sources to align them field by field.`,
+                `Изберете ${COMPARE_MIN}–${COMPARE_MAX} източника, за да сравните публикациите им.`,
+                `Select ${COMPARE_MIN}–${COMPARE_MAX} sources to compare their articles.`,
               )}
             </p>
             <HeadlineComparison
@@ -675,8 +675,8 @@ export const StoryScreen = () => {
             ) : compareKeys.length === 1 ? (
               <p className="mt-2 text-xs text-muted-foreground" role="status">
                 {tr(
-                  "Отбележете още един източник, за да се покаже сравнението.",
-                  "Tick one more source to show the comparison.",
+                  "Изберете още един източник, за да се покаже сравнението.",
+                  "Select one more source to show the comparison.",
                 )}
               </p>
             ) : null}
@@ -690,8 +690,8 @@ export const StoryScreen = () => {
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 {tr(
-                  "Изберете сегмент, за да филтрирате хронологията. Празна лента означава, че няма достатъчно публикувани стойности.",
-                  "Select a segment to filter the chronology. An empty bar means there are not enough published values.",
+                  "Изберете част от лентата, за да филтрирате хронологията. Празна лента означава, че няма оценки с изразена позиция по съответния показател.",
+                  "Select part of a bar to filter the chronology. An empty bar means no assessments indicate a position on that measure.",
                 )}
               </p>
             </div>

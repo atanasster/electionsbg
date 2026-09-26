@@ -105,7 +105,7 @@ export const StoryCompare = ({
     },
     {
       id: "time",
-      label: tr("Публикувано / обновено", "Published / updated"),
+      label: tr("Публикувано / актуализирано", "Published / updated"),
       render: (s) => (
         <div className="space-y-0.5 tabular-nums">
           <p>
@@ -120,13 +120,13 @@ export const StoryCompare = ({
           <p className="text-xs text-muted-foreground">
             {s.article?.updated ? (
               <>
-                {tr("обновено", "updated")}{" "}
+                {tr("актуализирано", "updated")}{" "}
                 <time dateTime={s.article.updated}>
                   {formatDateTime(s.article.updated, language)}
                 </time>
               </>
             ) : (
-              tr("без обявено обновяване", "no update declared")
+              tr("няма посочена актуализация", "no update declared")
             )}
           </p>
         </div>
@@ -254,8 +254,8 @@ export const StoryCompare = ({
       </div>
       <p className="text-xs text-muted-foreground">
         {tr(
-          "Поле по поле, по данни на всеки източник. Жанр и отношение към лица не се показват: корпусът не носи жанр, а оценката на лица още не е пусната.",
-          "Field by field, as each source published it. Genre and person treatment are not shown: the corpus carries no genre, and person assessment has not shipped.",
+          "Сравнете заглавията, обобщенията, цитираните откъси и оценките за всяка публикация. Няма данни за жанра на материалите и отношението им към отделни личности.",
+          "Compare the headlines, summaries, cited passages and assessments for each article. Data on article genre and treatment of individual people is unavailable.",
         )}
       </p>
 
@@ -270,7 +270,7 @@ export const StoryCompare = ({
                 scope="col"
                 className="sticky top-0 z-10 w-40 bg-background py-2 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
               >
-                {tr("Поле", "Field")}
+                {tr("Показател", "Field")}
               </th>
               {sources.map((s) => (
                 <th

@@ -76,14 +76,46 @@ export const HeadlineComparison = ({
   const distinctive = distinctiveHeadlineTerms(
     members.map((member) => member.title),
   );
+  // An empty highlight set does not prove equality: the word filter omits
+  // short words (including negation), numbers and punctuation.
+  const headlines = members.map((member) =>
+    member.title?.normalize("NFC").replace(/\s+/gu, " ").trim(),
+  );
+  const complete = headlines.every(Boolean);
+  const identical =
+    hasComparison &&
+    complete &&
+    headlines.every((title) => title === headlines[0]);
+  const hasHighlights = distinctive.some((terms) => terms.size > 0);
+  const explanation = !hasComparison
+    ? tr(
+        "Няма второ заглавие за сравнение.",
+        "There is no second headline to compare.",
+      )
+    : !complete
+      ? tr(
+          "Липсват заглавия за част от публикациите. Сравнението на заглавията е непълно.",
+          "Some publications have no available headline. The headline comparison is incomplete.",
+        )
+      : identical
+        ? tr(
+            "Заглавията са еднакви. Това сравнение обхваща само заглавията.",
+            "The headlines are identical. This comparison covers headlines only.",
+          )
+        : hasHighlights
+          ? tr(
+              "Във всяко заглавие са откроени до шест думи, които не се срещат в останалите заглавия. Това показва разлики в думите, а не оценка за пристрастност.",
+              "Up to six words unique to each headline are highlighted. This shows differences in wording, not a bias assessment.",
+            )
+          : tr(
+              "Заглавията се различават, но няма думи за открояване по използваното правило.",
+              "The headlines differ, but no words meet the highlighting rule.",
+            );
 
   return (
     <CardLikeList>
       <p className="border-b px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-        {tr(
-          "Подсветени са до шест думи, които се срещат само в едно заглавие. Това е лексикална разлика, не оценка за пристрастие.",
-          "Up to six words found in only one headline are highlighted. This is a lexical difference, not a bias judgment.",
-        )}
+        {explanation}
       </p>
       <ol className="divide-y">
         {members.map((member, index) => {
