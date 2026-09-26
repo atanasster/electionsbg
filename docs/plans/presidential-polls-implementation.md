@@ -19,8 +19,8 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | Complete | `81ad176f2f` |
 | 11 | Views | Agency presidential route and election campaign/result views | Complete | `99ae51fdd2` |
 | 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Complete | `1dcfd1f1f0` |
-| 13 | Views | Update ingestion documentation and stale comments | Complete | |
-| 14 | Views | Route, translation, layout, accessibility and release verification | In progress | |
+| 13 | Views | Update ingestion documentation and stale comments | Complete | `aa0e08a01d` |
+| 14 | Views | Route, translation, layout, accessibility and release verification | Complete (local gates); publication pending | |
 
 Final gate: full unit/component suite after the last step; browser checks under step 14.
 
@@ -71,3 +71,7 @@ Step 12 final gate: 143 related tests passed across the suite and four added reg
 Step 13: updated the polling skill through .agents/skills (the tracked .claude/skills mirror is the same symlink target), documented the durable ledger, built extractors, presidential assignment/rekey/scoring/coverage, source-review rules and date semantics. Removed stale source comments about missing commands, silent errors and component-only round state. Emitted JavaScript is byte-identical with comments stripped for all ten source files.
 
 Step 13 final gate: independent review found no issues. All 128 related tests, changed-file lint, TypeScript and the full production build passed.
+
+Step 14 review: TEST-001–003 verified and repaired (localized agency expectation, theme/chart coverage and runoff pair selector). Browser checks exposed implicit filter names including option text; explicit translated labels fix this. Theme-aware chart points/ticks and agency heading hierarchy repaired. Final re-review: zero findings across nine files. Seventeen related unit/component tests and all ten desktop/mobile browser checks passed. All 28 agency direct pages have titles, canonicals and sitemap entries. Full lint (three existing refresh warnings), TypeScript, production build, budget tests, AI regression/harness, function tests and production article guard passed. Generated unrelated sitemap/llms drift restored.
+
+Final unit suite and production release are pending; browser screenshots and logs are in test-results/ and /tmp/presidential-*.

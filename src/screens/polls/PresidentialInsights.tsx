@@ -74,12 +74,18 @@ function TimePoints({
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
           <XAxis
+            tick={{ fill: "hsl(var(--foreground))" }}
             dataKey="time"
             type="number"
             domain={["dataMin - 86400000", "dataMax + 86400000"]}
             tickFormatter={(v) => new Date(v).toISOString().slice(0, 10)}
           />
-          <YAxis dataKey="share" type="number" unit="%" />
+          <YAxis
+            tick={{ fill: "hsl(var(--foreground))" }}
+            dataKey="share"
+            type="number"
+            unit="%"
+          />
           <Tooltip
             content={({ active, payload }) =>
               active && payload?.[0] ? (
@@ -95,7 +101,7 @@ function TimePoints({
               data={points
                 .filter((p) => p.series === g)
                 .map((p) => ({ ...p, time: Date.parse(p.date) }))}
-              fill={`hsl(${(i * 137.5) % 360} 65% 40%)`}
+              fill={`hsl(var(--${["primary", "positive", "negative", "popover-foreground"][i % 4]}))`}
             />
           ))}
         </ScatterChart>
@@ -324,6 +330,7 @@ export function PresidentialInsights({
         <label className="flex flex-col gap-1 text-sm">
           {t("pp_insight_compare_with")}
           <select
+            aria-label={t("pp_insight_compare_with")}
             className="rounded border bg-background p-2 max-w-sm"
             value={compare}
             onChange={(e) =>
@@ -485,7 +492,7 @@ export function PresidentialCoveragePanel({
         ])}
       />
       <p className="text-sm mt-2">{t("pp_insight_2001_gap")}</p>
-      <h4 className="font-medium mt-4">{t("pp_insight_corrections")}</h4>
+      <h3 className="font-medium mt-4">{t("pp_insight_corrections")}</h3>
       {!corrected.length ? (
         <p className="text-sm">{t("pp_insight_no_corrections")}</p>
       ) : (

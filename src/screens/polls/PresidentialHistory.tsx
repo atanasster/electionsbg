@@ -269,6 +269,7 @@ export function PresidentialHistory({
     <label className="flex flex-col gap-1 text-sm">
       {t(key)}
       <select
+        aria-label={t(key)}
         className="rounded border bg-background p-2 max-w-full"
         value={value}
         onChange={(e) => change(e.target.value)}
@@ -284,6 +285,11 @@ export function PresidentialHistory({
   );
   return (
     <div className="space-y-6 min-w-0">
+      {!cycle && (
+        <h2 className="text-lg font-semibold">
+          {t("polls_presidential_polls")}
+        </h2>
+      )}
       <div className="flex flex-wrap gap-3">
         {!cycle &&
           label(
@@ -309,6 +315,7 @@ export function PresidentialHistory({
           <label className="flex flex-col gap-1 text-sm">
             {t("pp_history_round")}
             <select
+              aria-label={t("pp_history_round")}
               className="rounded border bg-background p-2"
               value={round}
               onChange={(e) => setRound(Number(e.target.value) as 1 | 2)}
@@ -345,6 +352,7 @@ export function PresidentialHistory({
                     >
                       <CartesianGrid stroke="hsl(var(--border))" />
                       <XAxis
+                        tick={{ fill: "hsl(var(--foreground))" }}
                         type="number"
                         dataKey="time"
                         domain={["dataMin - 86400000", "dataMax + 86400000"]}
@@ -354,6 +362,7 @@ export function PresidentialHistory({
                         name={t("pp_history_date")}
                       />
                       <YAxis
+                        tick={{ fill: "hsl(var(--foreground))" }}
                         type="number"
                         dataKey="support"
                         domain={[0, 100]}
@@ -396,7 +405,7 @@ export function PresidentialHistory({
                           data={shown
                             .filter((p) => p.series === s)
                             .map((p) => ({ ...p, support: p.detail.support }))}
-                          fill={`hsl(${(index * 137.5) % 360} 65% 40%)`}
+                          fill={`hsl(var(--${["primary", "positive", "negative", "popover-foreground"][index % 4]}))`}
                         />
                       ))}
                     </ScatterChart>
