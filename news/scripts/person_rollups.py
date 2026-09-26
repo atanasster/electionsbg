@@ -1,54 +1,48 @@
 #!/usr/bin/env python3
-"""T4.4 — the news-person publishing path: one shard per identity, with an
-accounting a reader can check rather than a percentage they must trust.
+"""The per-person archive: how the published corpus frames one identity.
+
+Plan: `docs/plans/news-person-sentiment-v1.md` §4. The unit is the (article,
+identity) pair Jev scored and the identity join (`person_identity_join.py`)
+stamped; this folds those pairs into one shard per person, an index and the
+small baseline file the article page's person rail reads.
 
 ⚠️ THE DENOMINATOR RULES ARE THE FEATURE. For one person:
 
-    M = eligible target/article pairs — PUBLISHABLE articles carrying a
-        resolved PRIMARY or SECONDARY mention of that identity.
-    N = the subset of M with a valid, FULL-TEXT assessment under the
-        displayed rubric.
+    M = eligible pairs — publishable articles where Jev read the person as the
+        PRIMARY or SECONDARY subject
+    N = the subset of M with a placeable score on the full text
 
-and two identities must hold, enforced in code and asserted by the tests:
+and, enforced in code and asserted before anything is written:
 
-    sum(tone counts) == N
-    N + insufficient_text + pending + refused == M     (mutually exclusive)
+    sum(raw bucket counts) == N
+    N + insufficient_text + pending + unplaceable + conflict == M
 
-`partial_scope` is a SPLIT of `insufficient_text`, not a fifth part: the plan
-asks for pending, insufficient-text and partial-scope counts separately, and
-the two are different sentences — „the article was not read in full" describes
-a scope, „there was not enough in the text" describes a reading. Both stay
-inside M, so the identity above is untouched.
+Reported BESIDE M and never inside it: `incidental` (named in passing — no
+score is asked for), `unreadable_role`, and `unscored_mentions` (the gazetteer
+linked the person in an article Jev has not scored yet — the role is unknown,
+so it cannot be counted as eligible).
 
-Everything that is NOT in M is reported beside it and never inside it:
+⚠️ THREE BASES, ALL PUBLISHED; THE STORY BASIS IS THE DEFAULT (§4.2):
+- `raw` — every assessed pair;
+- `same_headline` — one unit per folded headline, so a wire copy published by
+  five outlets counts once;
+- `story` — one unit per (outlet, story): the mean of that outlet's articles on
+  the story. Fifteen follow-ups from one outlet on one scandal are one outlet's
+  position repeated, not fifteen observations. An article with no story is its
+  own story.
 
-- **incidental** mentions — named in passing; they create no eligibility and
-  no page (plan: „incidental mentions alone do not create pages");
-- **unresolved** mentions — unknown IDENTITY coverage, never assigned to
-  this person's M, because the registry declined to say it was them;
-- **unreadable_role** rows — a stored treatment whose `subject_role` we cannot
-  read. That is not eligibility, so it is reported BESIDE M like an incidental
-  mention. ⚠️ Counting it inside M without the matching `eligible` would break
-  the second identity by construction, costing that person their whole page
-  over one malformed row, and reporting it as an accounting failure would send
-  the operator looking in the wrong place;
-- `analyzed_count` is NOT N, and nothing here derives one from the other.
+The SE is BETWEEN units at the chosen basis — never Jev's `spread`, which is the
+model's uncertainty about one article. There is no shrinkage: pulling a small
+outlet toward the person's mean manufactures agreement; a wide CI and a
+withheld mean (below `MEAN_MIN_N`) are the honest shapes.
 
-⚠️ SYNDICATION IS NAMED FOR WHAT IT MEASURES. A „copy" here is another
-outlet publishing the SAME HEADLINE (folded); that is what the corpus can
-show. The raw and deduplicated denominators are both published, neither
-replaces the other, and the field is `same_headline_*` rather than
-`syndicated_*` so nobody reads a stronger claim than the evidence carries.
-Measured 2026-09-22: 1 headline shared across 2 outlets among the 53
-articles with a resolved identity.
-
-⚠️ A PAGE IS A HUMAN DECISION. A shard is written only for an identity the
-registry marks `active` — T4.0's review state — so a generic person cannot
-acquire a page by being mentioned. A main-site bridge is rendered only from
-`verified_main_site_slug`; a null one is no link at all, never a guessed one.
+⚠️ NO FAVOURABILITY RANKING. The index carries counts and n and no mean, so no
+surface can sort people by how favourably they are covered. The one scalar a
+page may show is in the person's own shard.
 """
 from __future__ import annotations
 
+import math
 import re
 import sys
 from pathlib import Path
@@ -58,247 +52,398 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from rollup_common import (  # noqa: E402
     ARCHIVE_PAGE_SIZE, extend_window, page_of, published_key,
 )
+import sentiment_rollups as sr  # noqa: E402
 
 ELIGIBLE_ROLES = frozenset({"primary", "secondary"})
 PERSON_PAGE_SIZE = ARCHIVE_PAGE_SIZE
-UNASSESSED_KINDS = ("insufficient_text", "pending", "refused")
+UNASSESSED_KINDS = ("insufficient_text", "pending", "unplaceable", "conflict")
+BASES = ("story", "same_headline", "raw")
+DEFAULT_BASIS = "story"
+# Below this many units an outlet's MEAN is withheld; its counts still ship.
+MEAN_MIN_N = 5
+# A gazetteer person gets a page from this many story-basis units (§4.3).
+PAGE_MIN_N = 5
+# A series point is drawn only when at least this share of the corpus's
+# articles in that point's period carry an analysis (§4.2).
+COVERAGE_FLOOR = 0.8
+# Links a page may rest on without a human identity check (§4.3).
+STRONG_FORM_KINDS = frozenset({"full_name", "curated_entity"})
+STRONG_BASES = frozenset({"context", "surname_alias"})
+Z95 = 1.96
+
+
+def _labels() -> tuple:
+    import jev_axes as ax  # noqa: PLC0415
+    return ax.SUBJECT_TONE.labels
+
+
+def _bucket_of_value(value):
+    """The display bucket of a MEAN — the same edges a row uses."""
+    import jev_axes as ax  # noqa: PLC0415
+    import jev_scales as js  # noqa: PLC0415
+    if value is None:
+        return None
+    scale = ax.ANCHOR_VARIANTS.get(len(_labels()))
+    index = js.bucket_index(value, scale) if scale is not None else None
+    return _labels()[index] if isinstance(index, int) else None
 
 
 def fold_title(title) -> str:
     return re.sub(r"\s+", " ", str(title or "").strip().lower())
 
 
-def collect(rows: list, active_ids) -> dict:
-    """Fold published articles into one accounting per ACTIVE identity.
+def _empty(identity: dict) -> dict:
+    return {
+        "id": identity["id"], "kind": identity["kind"],
+        "canonical": identity.get("canonical"),
+        "identity_version": identity.get("identity_version"),
+        "scope": identity.get("scope"),
+        "public_figure": identity.get("public_figure"),
+        "eligible": 0, "assessed": 0,
+        **{k: 0 for k in UNASSESSED_KINDS},
+        "incidental": 0, "unreadable_role": 0, "unscored_mentions": 0,
+        "undated": 0, "first_published": None, "last_published": None,
+        "outlets": set(), "stories": set(),
+        "rows": [], "incidental_rows": [],
+        "strong_link": False, "co_subjects": {},
+    }
 
-    `rows` is one dict per publishable article:
+
+def _row(row: dict, subject: dict, status: str) -> dict:
+    ident = subject.get("identity") or {}
+    tone = subject.get("tone") if isinstance(subject.get("tone"), dict) else {}
+    placed = status == "assessed"
+    labels = _labels()
+    index = tone.get("bucket_index")
+    return {
+        "url": row.get("url"), "domain": row.get("domain") or "",
+        "article_id": row.get("article_id"), "title": row.get("title"),
+        "published": row.get("published"), "story_id": row.get("story_id"),
+        "surface": subject.get("name"),
+        "merged_surfaces": subject.get("merged_surfaces") or [],
+        "subject_role": subject.get("subject_role"),
+        "status": status,
+        # ⚠️ A value and a bucket ONLY on an assessed row: a conflicted or
+        # truncated reading is shown as what it is, never as a score.
+        "value": tone.get("value") if placed else None,
+        "bucket": labels[index] if placed and isinstance(index, int) else None,
+        "basis": ident.get("basis"), "form_kind": ident.get("form_kind"),
+        "identity_version": ident.get("identity_version"),
+    }
+
+
+def _status(subject: dict, full_text: bool) -> str:
+    tone = subject.get("tone")
+    if subject.get("conflict"):
+        return "conflict"
+    if not isinstance(tone, dict):
+        return "pending"
+    if not full_text:
+        return "insufficient_text"
+    value, index = tone.get("value"), tone.get("bucket_index")
+    if (isinstance(value, bool) or not isinstance(value, (int, float))
+            or not math.isfinite(value) or not isinstance(index, int)):
+        return "unplaceable"
+    return "assessed"
+
+
+def _co_label(subject: dict) -> tuple | None:
+    ident = subject.get("identity")
+    if subject.get("kind") == "party" and subject.get("name"):
+        return ("party", subject["name"])
+    if ident:
+        return (ident["kind"], ident["id"])
+    return None
+
+
+def collect(rows: list) -> dict:
+    """Fold published rows into one accounting per identity.
+
+    `rows` is one dict per PUBLISHABLE article:
         {url, domain, article_id, title, published, story_id, analysis}
+    whose `analysis.jev_sentiment.subjects` the build has already stamped.
     """
     people: dict = {}
-    active = set(active_ids or ())
+    unscored: dict = {}
+    labels = _labels()
     for row in rows:
         analysis = row.get("analysis") or {}
-        identities = analysis.get("news_persons") or []
-        tones = {t.get("news_person_id"): t
-                 for t in (analysis.get("person_tones") or [])
-                 if isinstance(t, dict)}
+        jev = analysis.get("jev_sentiment")
+        subjects = (jev or {}).get("subjects") or []
+        full_text = ((jev or {}).get("text_scope") or {}).get("kind", "full") == "full"
         seen_here: set = set()
-        for mention in identities:
-            if not isinstance(mention, dict):
+        eligible_here = []
+        for s in subjects:
+            ident = s.get("identity") if isinstance(s, dict) else None
+            if s.get("kind") != "person" or not ident:
                 continue
-            person_id = mention.get("news_person_id")
-            if not person_id or person_id not in active or person_id in seen_here:
+            key = ident["id"]
+            if key in seen_here:
                 continue
-            seen_here.add(person_id)
-            entry = people.setdefault(person_id, _empty(person_id))
-            tone = tones.get(person_id)
-            role = (tone or {}).get("subject_role")
+            seen_here.add(key)
+            entry = people.setdefault(key, _empty(ident))
+            if (ident.get("basis") in STRONG_BASES
+                    or ident.get("form_kind") in STRONG_FORM_KINDS):
+                entry["strong_link"] = True
+            role = s.get("subject_role")
             if role == "incidental":
-                # Named in passing: counted, never eligible.
                 entry["incidental"] += 1
-                entry["incidental_rows"].append(_row(row, tone, eligible=False))
+                entry["incidental_rows"].append(_row(row, s, "incidental"))
                 continue
-            if tone is not None and role not in ELIGIBLE_ROLES:
-                # Outside M, like an incidental mention: a role we cannot read
-                # is not eligibility, and it is none of M's three unassessed
-                # kinds either. Counted and reported BESIDE M.
+            if role not in ELIGIBLE_ROLES:
                 entry["unreadable_role"] += 1
-                entry["incidental_rows"].append(_row(row, tone, eligible=False))
                 continue
-            # Eligible: a resolved primary/secondary mention on a publishable
-            # article. A mention with NO stored tone yet is `pending` — the
-            # assessment has not run, which is not the same as „no framing".
             entry["eligible"] += 1
-            _observe(entry, row)
-            if tone is None:
-                entry["pending"] += 1
-                entry["rows"].append(_row(row, None, eligible=True))
-                continue
-            status = tone.get("assessment_status")
-            if status == "assessed" and tone.get("tone"):
-                entry["counts"][tone["tone"]] = entry["counts"].get(tone["tone"], 0) + 1
+            entry["outlets"].add(row.get("domain"))
+            if row.get("story_id"):
+                entry["stories"].add(row["story_id"])
+            extend_window(entry, row.get("published"))
+            status = _status(s, full_text)
+            if status == "assessed":
                 entry["assessed"] += 1
-            elif status == "insufficient_text":
-                entry["insufficient_text"] += 1
-                if ((tone.get("text_scope") or {}).get("kind") or "full") != "full":
-                    entry["partial_scope"] += 1
             else:
-                entry["refused"] += 1
-            entry["rows"].append(_row(row, tone, eligible=True))
+                entry[status] += 1
+            entry["rows"].append(_row(row, s, status))
+            eligible_here.append(key)
+        for key in eligible_here:
+            co = people[key]["co_subjects"]
+            for other in subjects:
+                label = _co_label(other)
+                if (label and label != ("person", key)
+                        and label != ("news_person", key)
+                        and other.get("subject_role") in ELIGIBLE_ROLES):
+                    co[label] = co.get(label, 0) + 1
+        # ⚠️ A PERSON THE GAZETTEER LINKED IN AN ARTICLE JEV HAS NOT SCORED.
+        # Not eligible — the role is unknown — but not nothing either.
+        # Collected apart and folded in after the loop, so the count does not
+        # depend on whether an unscored article is read before a scored one.
+        if jev is None:
+            for link in (analysis.get("entity_links") or {}).values():
+                if isinstance(link, dict) and link.get("kind") == "person":
+                    unscored[link.get("id")] = unscored.get(link.get("id"), 0) + 1
+    for pid, n in unscored.items():
+        if pid in people:
+            people[pid]["unscored_mentions"] += n
     for entry in people.values():
-        _finish(entry)
+        _finish(entry, labels)
     return people
 
 
-def _empty(person_id: str) -> dict:
-    return {
-        "news_person_id": person_id,
-        "counts": {},
-        "assessed": 0,
-        "insufficient_text": 0,
-        "pending": 0,
-        "refused": 0,
-        "eligible": 0,
-        "partial_scope": 0,
-        "incidental": 0,
-        "unreadable_role": 0,
-        "undated": 0,
-        "outlets": set(),
-        "stories": set(),
-        "titles": {},
-        "first_published": None,
-        "last_published": None,
-        "rows": [],
-        "incidental_rows": [],
-    }
+def _unit(rows: list) -> dict:
+    values = [r["value"] for r in rows]
+    mean = sum(values) / len(values)
+    dated = sorted((r for r in rows if published_key(r)[0]), key=published_key)
+    return {"value": mean, "bucket": _bucket_of_value(mean),
+            "published": dated[0]["published"] if dated else None,
+            "domain": rows[0]["domain"],
+            "role": "primary" if any(r["subject_role"] == "primary" for r in rows)
+            else "secondary"}
 
 
-def _observe(entry: dict, row: dict) -> None:
-    entry["outlets"].add(row.get("domain"))
-    if row.get("story_id"):
-        entry["stories"].add(row["story_id"])
-    key = fold_title(row.get("title"))
-    if key:
-        entry["titles"].setdefault(key, set()).add(row.get("domain"))
-    extend_window(entry, row.get("published"))
+def units(rows: list, basis: str) -> list:
+    """The assessed rows grouped into the units of one basis."""
+    assessed = [r for r in rows if r["status"] == "assessed"]
+    if basis == "raw":
+        return [_unit([r]) for r in assessed]
+    groups: dict = {}
+    for r in assessed:
+        if basis == "same_headline":
+            key = fold_title(r["title"]) or r["url"]
+        else:
+            key = (r["domain"], r["story_id"] or f"url:{r['url']}")
+        groups.setdefault(key, []).append(r)
+    return [_unit(g) for _k, g in sorted(groups.items(), key=lambda kv: str(kv[0]))]
 
 
-def _row(row: dict, tone: dict | None, *, eligible: bool) -> dict:
-    """One article row: enough to open the SHORT quoted evidence and the
-    original source, never a body."""
-    status = (tone or {}).get("assessment_status") or "pending"
-    # ⚠️ STATUS AND TONE ARE ONE DECISION (`person_tones.validate`). A tone
-    # arriving beside any other status — or on a row outside M — is a claim
-    # the accounting never counted and no evidence span supports, so it is
-    # dropped HERE rather than rendered as a framing label about a named
-    # person. The server rejects that shape upstream, which is exactly why
-    # this side must not depend on it having done so.
-    published_tone = (tone or {}).get("tone") if (eligible and status == "assessed") else None
-    return {
-        "url": row.get("url"),
-        "domain": row.get("domain") or "",
-        "article_id": row.get("article_id"),
-        "title": row.get("title"),
-        "published": row.get("published"),
-        "story_id": row.get("story_id"),
-        "eligible": eligible,
-        "subject_role": (tone or {}).get("subject_role"),
-        "assessment_status": status,
-        "tone": published_tone,
-        "rationale": (tone or {}).get("rationale"),
-        "evidence_spans": [
-            {k: v for k, v in span.items()
-             if k in ("quote", "field", "direction", "voice", "speaker", "located")}
-            for span in ((tone or {}).get("evidence_spans") or [])
-            if isinstance(span, dict)
-        ],
-        "text_scope": ((tone or {}).get("text_scope") or {}).get("kind"),
-        "rubric_version": (tone or {}).get("rubric_version"),
-        "identity_version": (tone or {}).get("identity_version"),
-    }
+def summarize(unit_list: list) -> dict:
+    labels = _labels()
+    counts = {label: 0 for label in labels}
+    for u in unit_list:
+        if u["bucket"] in counts:
+            counts[u["bucket"]] += 1
+    stats = sr.summarize_values([u["value"] for u in unit_list])
+    mean, se = stats["value_mean"], stats["value_se"]
+    return {"n": len(unit_list), "counts": counts,
+            "mean": _round(mean), "se": _round(se),
+            "ci_low": _round(mean - Z95 * se) if se is not None else None,
+            "ci_high": _round(mean + Z95 * se) if se is not None else None,
+            "mean_bucket": _bucket_of_value(mean)}
 
 
-def _finish(entry: dict) -> None:
-    # Same headline elsewhere: the deduplicated denominator, published BESIDE
-    # the raw one rather than instead of it.
-    duplicates = sum(len(outlets) - 1 for outlets in entry["titles"].values()
-                     if len(outlets) > 1)
-    entry["same_headline_copies"] = duplicates
-    entry["eligible_deduplicated"] = entry["eligible"] - duplicates
+def _round(value, places=4):
+    return round(value, places) if isinstance(value, (int, float)) else None
+
+
+def _finish(entry: dict, labels: tuple) -> None:
+    raw_counts = {label: 0 for label in labels}
+    for r in entry["rows"]:
+        if r["status"] == "assessed" and r["bucket"] in raw_counts:
+            raw_counts[r["bucket"]] += 1
+    entry["raw_counts"] = raw_counts
+    entry["units"] = {basis: units(entry["rows"], basis) for basis in BASES}
     entry["outlet_count"] = len(entry["outlets"])
     entry["story_count"] = len(entry["stories"])
 
 
-def per_outlet(entry: dict) -> list:
-    """Each outlet's OWN distribution — never one inferred tone per outlet."""
-    by_domain: dict = {}
-    for row in entry["rows"]:
-        bucket = by_domain.setdefault(row["domain"], {
-            "domain": row["domain"], "counts": {}, "assessed": 0, "eligible": 0})
-        bucket["eligible"] += 1
-        if row["assessment_status"] == "assessed" and row["tone"]:
-            bucket["counts"][row["tone"]] = bucket["counts"].get(row["tone"], 0) + 1
-            bucket["assessed"] += 1
-    return sorted(by_domain.values(), key=lambda b: (-b["eligible"], b["domain"] or ""))
-
-
 def check_accounting(entry: dict) -> list:
-    """The two identities the plan states, as a returnable list of failures
-    rather than a comment nobody runs."""
+    """The two identities, as a returnable list of failures."""
     problems = []
-    tone_total = sum(entry["counts"].values())
-    if tone_total != entry["assessed"]:
-        problems.append(f"tone counts sum to {tone_total}, N is {entry['assessed']}")
+    total = sum(entry["raw_counts"].values())
+    if total != entry["assessed"]:
+        problems.append(f"bucket counts sum to {total}, N is {entry['assessed']}")
     parts = entry["assessed"] + sum(entry[k] for k in UNASSESSED_KINDS)
     if parts != entry["eligible"]:
         problems.append(f"N plus unassessed is {parts}, M is {entry['eligible']}")
     return problems
 
 
-def payload(entry: dict, person: dict, generated_at: str, rubric_version: str,
-            *, page: int = 1, page_size: int = PERSON_PAGE_SIZE) -> dict:
-    """One identity's archive page. ⚠️ PAGINATED for the reason the party
-    archive is: the first shard was 99,194 bytes for 53 rows, fetched whole on
-    every view, and rows grow with the corpus rather than with the number of
-    identities. The accounting above the fold is computed over ALL rows, so a
-    page never shows a denominator it is not the whole of."""
+def n_story(entry: dict) -> int:
+    return len(entry["units"][DEFAULT_BASIS])
+
+
+def page_decision(entry: dict, *, confirmed: set, refused: set) -> str:
+    """`publish`, or why not. ⚠️ A PAGE ABOUT A NAMED PERSON RESTS ON AN
+    IDENTITY SOMEONE CAN DEFEND (§4.3)."""
+    if entry["id"] in refused:
+        return "identity_refused"
+    if entry["kind"] == "news_person":
+        # A news-only identity was chosen by a human; it may carry a page only
+        # as a Bulgarian PUBLIC figure — a private individual named in the
+        # news gets article-level display and nothing aggregated.
+        if entry.get("scope") != "bg" or entry.get("public_figure") is not True:
+            return "not_public_bg"
+        return "publish" if entry["assessed"] else "no_assessed_pairs"
+    if n_story(entry) < PAGE_MIN_N:
+        return "below_threshold"
+    if not (entry["strong_link"] or entry["id"] in confirmed):
+        return "identity_unconfirmed"
+    return "publish"
+
+
+def by_outlet(entry: dict) -> list:
+    groups: dict = {}
+    for u in entry["units"][DEFAULT_BASIS]:
+        groups.setdefault(u["domain"], []).append(u)
+    rows_by_domain: dict = {}
+    for r in entry["rows"]:
+        rows_by_domain[r["domain"]] = rows_by_domain.get(r["domain"], 0) + 1
+    out = []
+    for domain, group in groups.items():
+        s = summarize(group)
+        if s["n"] < MEAN_MIN_N:
+            s.update(mean=None, se=None, ci_low=None, ci_high=None,
+                     mean_bucket=None, mean_withheld=True)
+        out.append({"domain": domain, "rows": rows_by_domain.get(domain, 0), **s})
+    # ⚠️ ORDERED BY COVERAGE, never by tone.
+    out.sort(key=lambda o: (-o["n"], -o["rows"], o["domain"]))
+    return out
+
+
+def coverage_by_period(coverage_days: dict, granularity: str) -> dict:
+    """period → share of the corpus's articles scored, aggregated once."""
+    sums: dict = {}
+    for day, (scored, total) in coverage_days.items():
+        period = sr.period_of(day, granularity)
+        if period is None:
+            continue
+        slot = sums.setdefault(period, [0, 0])
+        slot[0] += scored
+        slot[1] += total
+    return {p: (s / t if t else None) for p, (s, t) in sums.items()}
+
+
+def series(entry: dict, coverage_days: dict) -> dict:
+    unit_list = entry["units"][DEFAULT_BASIS]
+    granularity = sr.pick_granularity(unit_list)
+    buckets: dict = {}
+    undated = 0
+    for u in unit_list:
+        period = sr.period_of(u["published"], granularity)
+        if period is None:
+            undated += 1
+            continue
+        buckets.setdefault(period, []).append(u)
+    shares = coverage_by_period(coverage_days, granularity)
+    points = []
+    for period in sorted(buckets):
+        share = shares.get(period)
+        points.append({
+            "period": period, **summarize(buckets[period]),
+            "coverage": _round(share, 3),
+            # ⚠️ PER POINT, not per month: a week at 62% hides inside a month
+            # that passes. The client hatches these instead of drawing a line.
+            "below_floor": share is None or share < COVERAGE_FLOOR,
+        })
+    return {"granularity": granularity, "points": points, "undated": undated,
+            "coverage_floor": COVERAGE_FLOOR}
+
+
+def co_subjects(entry: dict, limit: int = 10) -> list:
+    ranked = sorted(entry["co_subjects"].items(),
+                    key=lambda kv: (-kv[1], kv[0]))[:limit]
+    return [{"kind": k[0], "id": k[1], "count": n} for k, n in ranked]
+
+
+def accounting(entry: dict) -> dict:
+    return {k: entry[k] for k in (
+        "eligible", "assessed", *UNASSESSED_KINDS, "incidental",
+        "unreadable_role", "unscored_mentions", "undated")}
+
+
+def payload(entry: dict, meta: dict, generated_at: str, rubric_version: str,
+            coverage_days: dict, *, page: int = 1,
+            page_size: int = PERSON_PAGE_SIZE) -> dict:
     rows = sorted(entry["rows"] + entry["incidental_rows"],
                   key=published_key, reverse=True)
     page, total_pages, window = page_of(rows, page, page_size)
     return {
-        "version": 1,
-        "generated_at": generated_at,
+        "version": 2, "generated_at": generated_at,
         "rubric_version": rubric_version,
-        "news_person_id": entry["news_person_id"],
-        "name_bg": person.get("name_bg"),
-        "name_en": person.get("name_en"),
-        "disambiguation_bg": person.get("disambiguation_bg"),
-        "disambiguation_en": person.get("disambiguation_en"),
-        "identity_version": person.get("identity_version"),
-        "reviewed_by": person.get("reviewed_by"),
-        "reviewed_at": person.get("reviewed_at"),
-        # ⚠️ A bridge is rendered only from a VERIFIED slug; null is no link.
-        "verified_main_site_slug": person.get("verified_main_site_slug"),
-        "counts": dict(entry["counts"]),
-        "assessed": entry["assessed"],
-        "insufficient_text": entry["insufficient_text"],
-        "pending": entry["pending"],
-        "refused": entry["refused"],
-        "eligible": entry["eligible"],
-        # A SPLIT of insufficient_text, not a fifth part of M.
-        "partial_scope": entry["partial_scope"],
-        "eligible_deduplicated": entry["eligible_deduplicated"],
-        "same_headline_copies": entry["same_headline_copies"],
-        "incidental": entry["incidental"],
-        "unreadable_role": entry["unreadable_role"],
+        "id": entry["id"], "kind": entry["kind"],
+        **meta,
+        "identity_version": entry["identity_version"],
+        "accounting": accounting(entry),
+        "default_basis": DEFAULT_BASIS,
+        "bases": {basis: summarize(entry["units"][basis]) for basis in BASES},
+        "raw_counts": dict(entry["raw_counts"]),
+        "by_outlet": by_outlet(entry),
+        "by_role": {role: summarize([u for u in entry["units"][DEFAULT_BASIS]
+                                     if u["role"] == role])
+                    for role in ("primary", "secondary")},
+        "series": series(entry, coverage_days),
+        "co_subjects": co_subjects(entry),
         "outlet_count": entry["outlet_count"],
         "story_count": entry["story_count"],
         "first_published": entry["first_published"],
         "last_published": entry["last_published"],
-        # Rows inside M that carry no date: counted, so the window above
-        # cannot read as covering every row it is printed beside.
-        "undated": entry["undated"],
-        "page": page,
-        "page_size": page_size,
-        "total_pages": total_pages,
-        "per_outlet": per_outlet(entry),
+        "page": page, "page_size": page_size, "total_pages": total_pages,
         "articles": window,
     }
 
 
-def index_row(entry: dict, person: dict) -> dict:
-    return {
-        "news_person_id": entry["news_person_id"],
-        "name_bg": person.get("name_bg"),
-        "name_en": person.get("name_en"),
-        "counts": dict(entry["counts"]),
-        "assessed": entry["assessed"],
-        "eligible": entry["eligible"],
-        "incidental": entry["incidental"],
-        "unreadable_role": entry["unreadable_role"],
-        "outlet_count": entry["outlet_count"],
-        "story_count": entry["story_count"],
-        "first_published": entry["first_published"],
-        "last_published": entry["last_published"],
-        "undated": entry["undated"],
-    }
+def index_row(entry: dict, meta: dict) -> dict:
+    """⚠️ NO MEAN. Counts and n only — the index must not be sortable by tone."""
+    story = summarize(entry["units"][DEFAULT_BASIS])
+    return {"id": entry["id"], "kind": entry["kind"],
+            "name_bg": meta.get("name_bg"), "name_en": meta.get("name_en"),
+            "role": meta.get("current_role"), "party": meta.get("party"),
+            "photo": meta.get("photo"),
+            "n": story["n"], "counts": story["counts"],
+            "eligible": entry["eligible"], "outlet_count": entry["outlet_count"],
+            "last_published": entry["last_published"],
+            "outlets": sorted(o["domain"] for o in by_outlet(entry))}
+
+
+def baseline(entry: dict) -> dict:
+    """What the article rail's „в други материали" line needs: the raw sum and
+    count of assessed values. The rail subtracts the article it sits on (it
+    holds that article's own score) before bucketing, so its baseline never
+    includes itself."""
+    values = [r["value"] for r in entry["rows"] if r["status"] == "assessed"]
+    return {"n": len(values), "sum": _round(sum(values))}
+
+
+def page_name(person_id: str, page: int) -> str:
+    """⚠️ `.p<n>`, NOT `-<n>`. Main-site slugs contain hyphens, so
+    `ivan-ivanov-2.json` could be page 2 of one person or page 1 of another."""
+    return f"{person_id}.json" if page == 1 else f"{person_id}.p{page}.json"

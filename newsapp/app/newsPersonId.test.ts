@@ -36,9 +36,12 @@ describe("the news-person id charset", () => {
   it("refuses everything that could reach a path or a URL", () => {
     expect(isNewsPersonId("np_7f3c1a94")).toBe(true);
     expect(isNewsPersonId("a")).toBe(true);
+    // Main-site slugs are the second namespace.
+    expect(isNewsPersonId("mp-5142")).toBe(true);
+    expect(isNewsPersonId("georgi-dimitrov-kandev-b0ac71")).toBe(true);
     for (const bad of [
       "NP_UPPER",
-      "np-hyphen",
+      "-leading-hyphen",
       "np 1",
       "../etc",
       "np/1",
@@ -59,6 +62,6 @@ describe("the news-person id charset", () => {
       "/person/np_7f3c1a94",
     );
     expect(safeCorrectionPath("/person/NP_UPPER")).toBe("");
-    expect(NEWS_PERSON_ID_PATTERN).toBe("[a-z0-9_]{1,64}");
+    expect(NEWS_PERSON_ID_PATTERN).toBe("[a-z0-9][a-z0-9_-]{0,63}");
   });
 });

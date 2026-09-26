@@ -3082,7 +3082,12 @@ export const personPayloadPath = (
   id: string | null | undefined,
   page = 1,
 ): string | null =>
-  isNewsPersonId(id) ? `/person/${id}${page > 1 ? `-${page}` : ""}.json` : null;
+  // ⚠️ `.p<n>`, never `-<n>`: slugs carry hyphens, so `ivan-ivanov-2.json`
+  // could be page 2 of one person or page 1 of another
+  // (`person_rollups.page_name` is the build's twin).
+  isNewsPersonId(id)
+    ? `/person/${id}${page > 1 ? `.p${page}` : ""}.json`
+    : null;
 
 export const useNewsPerson = (id: string | null | undefined, page = 1) =>
   useData<PersonPayload>(personPayloadPath(id, page));

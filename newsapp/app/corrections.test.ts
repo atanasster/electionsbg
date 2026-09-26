@@ -15,7 +15,9 @@ describe("safeCorrectionPath", () => {
     // Each of these would otherwise be interpolated into a URL that leaves the
     // origin, or would point a reader at a page the shard writer refuses.
     expect(safeCorrectionPath("/person/NP_Upper")).toBe("");
-    expect(safeCorrectionPath("/person/np-hyphen")).toBe("");
+    expect(safeCorrectionPath("/person/-leading-hyphen")).toBe("");
+    // A main-site slug is the second person namespace (§4.4).
+    expect(safeCorrectionPath("/person/mp-5142")).toBe("/person/mp-5142");
     expect(safeCorrectionPath("/person/..%2Fetc")).toBe("");
     expect(safeCorrectionPath("/person/a/b")).toBe("");
     expect(safeCorrectionPath("/person/" + "x".repeat(65))).toBe("");

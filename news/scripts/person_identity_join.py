@@ -114,10 +114,15 @@ class Sources:
         au = audit if audit is not None else _load(AUDIT_PATH, {})
         self.refused: dict = {}
         self.mixed: dict = {}
+        # Read by the page guard (person_rollups.page_decision, plan §4.3),
+        # not by the join: a confirmation lets a two-part-only person get a page.
+        self.confirmed: set = set()
         for d in au.get("decisions") or []:
             pid, decision = d.get("id"), d.get("decision")
             surfaces = {fold(s) for s in d.get("surfaces") or []}
-            if decision == "refused":
+            if decision == "confirmed":
+                self.confirmed.add(pid)
+            elif decision == "refused":
                 self.refused[pid] = surfaces
             elif decision == "mixed":
                 self.mixed[pid] = surfaces
@@ -207,11 +212,14 @@ def has_cue(src: Sources, pid: str, name: str, text_folded: str,
 
 
 def _identity(kind: str, pid: str, basis: str, src: Sources,
-              form_kind: str | None = None) -> dict:
+              form_kind: str | None = None, canonical: str | None = None) -> dict:
     if kind == "person":
+        # ⚠️ A curated override (`entity_link_overrides.json`) can link a
+        # person the gazetteer does not list; the link's own canonical name is
+        # then the only one there is, and a page must never ship nameless.
         entry = src.people.get(pid) or {}
         return {"kind": "person", "id": pid, "basis": basis,
-                "canonical": entry.get("canonical"),
+                "canonical": entry.get("canonical") or canonical,
                 **({"form_kind": form_kind} if form_kind else {}),
                 "identity_version": entry.get("identity_version")}
     person = src.news_persons.get(pid) or {}
@@ -238,10 +246,11 @@ def resolve_subject(name: str, *, src: Sources, links: dict, candidates: dict,
         if mixed is not None and (not mixed or key in mixed):
             if has_cue(src, pid, name, text_folded, party_surfaces, day):
                 return _identity("person", pid, "context", src,
-                                 link.get("form_kind")), None
+                                 link.get("form_kind"),
+                                 link.get("canonical")), None
             return None, "context_required"
         return _identity("person", pid, "exact", src,
-                         link.get("form_kind")), None
+                         link.get("form_kind"), link.get("canonical")), None
     if isinstance(link, dict) and link.get("kind") != "person":
         return None, "not_a_person"
 

@@ -4110,6 +4110,9 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
                               "evidence": ["https://x.bg/e"], "reviewer": "r",
                               "reviewed_at": self.T, "note": ""}],
                  "verified_main_site_slug": None, "namesakes": [],
+                 # A news-only identity has a page only as a Bulgarian
+                 # public figure (news-person-sentiment-v1 §4.3).
+                 "scope": "bg", "public_figure": True,
                  "history": []}]}, ensure_ascii=False), encoding="utf-8")
 
     def seed_tone(self, identity_version, slug="p"):
@@ -4166,7 +4169,19 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
                                        action="new_story", story_id=None)
             rec["entities"]["people"] = ["Иван Петров"]
             self.write_analysis("a.bg", f"{slug}.json", rec)
+            # The person archive rests on Jev scores (§4): store the real
+            # pass's record for this exact article.
+            import jev_ask as ja  # noqa: PLC0415
+            import jev_sentiment as sm  # noqa: PLC0415
+            import test_jev_ask as tja  # noqa: PLC0415
+            sm.store(ja.assess_article(art, rec, ask=tja.answering_ask()),
+                     Path(self.data_dir))
         ensure_fixture_story_membership(self.data_dir)
+
+    def run_build_process(self, *extra):
+        from unittest import mock  # noqa: PLC0415
+        with mock.patch.dict(os.environ, {"NEWS_JEV_PUBLISH": "subject_tone"}):
+            return super().run_build_process(*extra)
 
     def surfaces_mentioning(self) -> dict:
         """Every published surface a person id or a tone could reach. ⚠️ The
@@ -4245,7 +4260,7 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
                 # reads exactly this pairing to decide what to emit.
                 self.assertIn(f"{person['news_person_id']}.json", shards)
         for name in shards:
-            self.assertIn(name.split("-")[0].removesuffix(".json"),
+            self.assertIn(re.sub(r"(\.p\d+)?\.json$", "", name),
                           {p["news_person_id"] for p in index["persons"]})
 
 

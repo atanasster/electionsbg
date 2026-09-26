@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""T4.4 — the person accounting. ⚠️ Every assertion here is about a
-DENOMINATOR: what is inside M, what is beside it, and what the writer
-refuses to publish when the two identities do not hold."""
+"""The person archive on Jev scores (news-person-sentiment-v1 §4).
+
+⚠️ Most assertions here are about a DENOMINATOR: what is inside M, what is
+beside it, what each basis counts as one unit, and what the page guard
+refuses."""
 import json
 import sys
 import tempfile
@@ -12,318 +14,335 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import person_rollups as pr  # noqa: E402
 
-
-def article(url, *, domain="a.bg", title="Заглавие", published="2026-09-01T00:00:00Z",
-            story_id="s1", persons=(), tones=()):
-    return {"url": url, "domain": domain, "article_id": url.rsplit("/", 1)[-1],
-            "title": title, "published": published, "story_id": story_id,
-            "analysis": {"news_persons": [{"news_person_id": p} for p in persons],
-                         "person_tones": list(tones)}}
+# bucket indexes on the five-level scale
+SU, UN, NE, FA, SF = range(5)
 
 
-def tone(person_id, *, role="primary", status="assessed", value="unfavorable",
-         scope="full"):
-    return {"news_person_id": person_id, "subject_role": role,
-            "assessment_status": status, "tone": value,
-            "rationale": "Причина.", "evidence_spans": [
-                {"quote": "цитат", "field": "body", "direction": value,
-                 "voice": "journalist", "located": True, "offset": 12}],
-            "text_scope": {"kind": scope}, "rubric_version": "person-treatment-v1",
-            "identity_version": "2026-09-22.1:abc"}
+def subject(pid, *, value=-0.8, index=UN, role="primary", kind="person",
+            basis="exact", form_kind="two_part", conflict=False, tone=True,
+            name=None):
+    s = {"name": name or f"Име {pid}", "kind": "person", "subject_role": role,
+         "identity": {"kind": kind, "id": pid, "basis": basis,
+                      "form_kind": form_kind, "identity_version": "iv",
+                      "canonical": f"Канон {pid}"}}
+    if tone:
+        s["tone"] = {"value": value, "bucket_index": index}
+    if conflict:
+        s["conflict"] = True
+    return s
+
+
+def article(url, subjects, *, domain="a.bg", title=None, story="s1",
+            published="2026-09-10T10:00:00+00:00", scope="full", links=None,
+            jev=True):
+    analysis = {"entity_links": links or {}}
+    if jev:
+        analysis["jev_sentiment"] = {"subjects": subjects,
+                                     "text_scope": {"kind": scope}}
+    return {"url": url, "domain": domain, "article_id": url[-3:],
+            "title": title or url, "published": published, "story_id": story,
+            "analysis": analysis}
 
 
 class Accounting(unittest.TestCase):
-    def test_the_two_identities_hold_across_every_status(self):
+    def test_both_identities_hold_across_every_status(self):
         rows = [
-            article("https://a.bg/1", persons=["np_1"], tones=[tone("np_1")]),
-            article("https://a.bg/2", title="Второ", persons=["np_1"],
-                    tones=[tone("np_1", value="neutral")]),
-            article("https://b.bg/3", domain="b.bg", title="Трето", persons=["np_1"],
-                    tones=[tone("np_1", status="insufficient_text", value=None)]),
-            # A mention with no stored tone at all is PENDING, not „no framing".
-            article("https://b.bg/4", domain="b.bg", title="Четвърто", persons=["np_1"]),
-            # A stored row that is neither assessed nor insufficient is refused.
-            article("https://c.bg/5", domain="c.bg", title="Пето", persons=["np_1"],
-                    tones=[tone("np_1", status="no_evidence", value=None)]),
+            article("u/1", [subject("p")]),
+            article("u/2", [subject("p", tone=False)]),                   # pending
+            article("u/3", [subject("p")], scope="prefix"),               # insufficient
+            article("u/4", [subject("p", index=None)]),                   # unplaceable
+            article("u/5", [subject("p", conflict=True)]),                # conflict
+            article("u/6", [subject("p", role="incidental", tone=False)]),  # beside M
+            article("u/7", [subject("p", role="weird")]),                 # beside M
         ]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        self.assertEqual(entry["eligible"], 5)
-        self.assertEqual(entry["assessed"], 2)
-        self.assertEqual(entry["counts"], {"unfavorable": 1, "neutral": 1})
-        self.assertEqual(entry["insufficient_text"], 1)
-        self.assertEqual(entry["pending"], 1)
-        self.assertEqual(entry["refused"], 1)
-        self.assertEqual(pr.check_accounting(entry), [])
-        # ⚠️ THE MUTATION THIS CATCHES: a tone counted without N moving, or a
-        # status silently dropped out of the parts. Either breaks an identity.
-        broken = dict(entry, counts={"unfavorable": 9})
-        self.assertTrue(pr.check_accounting(broken))
-        self.assertTrue(pr.check_accounting(dict(entry, pending=0)))
+        e = pr.collect(rows)["p"]
+        self.assertEqual(pr.check_accounting(e), [])
+        self.assertEqual((e["eligible"], e["assessed"]), (5, 1))
+        self.assertEqual({k: e[k] for k in pr.UNASSESSED_KINDS},
+                         {"insufficient_text": 1, "pending": 1,
+                          "unplaceable": 1, "conflict": 1})
+        self.assertEqual((e["incidental"], e["unreadable_role"]), (1, 1))
 
-    def test_incidental_and_unknown_identities_stay_outside_M(self):
-        rows = [
-            article("https://a.bg/1", persons=["np_1"], tones=[tone("np_1")]),
-            article("https://a.bg/2", title="Второ", persons=["np_1"],
-                    tones=[tone("np_1", role="incidental", status="not_assessed",
-                                value=None)]),
-            # Resolved to nobody: no identity, so it can never join anyone's M.
-            article("https://a.bg/3", title="Трето"),
-            # An identity the registry has not activated gets no entry at all.
-            article("https://a.bg/4", title="Четвърто", persons=["np_2"],
-                    tones=[tone("np_2")]),
+    def test_a_conflicted_or_truncated_row_carries_no_score(self):
+        rows = [article("u/1", [subject("p", conflict=True)]),
+                article("u/2", [subject("p")], scope="prefix")]
+        for r in pr.collect(rows)["p"]["rows"]:
+            self.assertIsNone(r["value"])
+            self.assertIsNone(r["bucket"])
+
+    def test_a_linked_person_in_an_unscored_article_is_counted_beside_m(self):
+        rows = [article("u/1", [subject("p")]),
+                article("u/2", [], jev=False,
+                        links={"Име": {"kind": "person", "id": "p"}})]
+        e = pr.collect(rows)["p"]
+        self.assertEqual(e["unscored_mentions"], 1)
+        self.assertEqual(e["eligible"], 1)
+        self.assertEqual(pr.check_accounting(e), [])
+
+    def test_an_unscored_article_read_first_still_counts(self):
+        rows = [article("u/0", [], jev=False,
+                        links={"Име": {"kind": "person", "id": "p"}}),
+                article("u/1", [subject("p")])]
+        self.assertEqual(pr.collect(rows)["p"]["unscored_mentions"], 1)
+
+    def test_a_forced_mismatch_is_reported(self):
+        e = pr.collect([article("u/1", [subject("p")])])["p"]
+        e["assessed"] += 1
+        self.assertTrue(pr.check_accounting(e))
+
+    def test_only_stamped_person_subjects_count(self):
+        party = {"name": "ГЕРБ", "kind": "party", "subject_role": "primary",
+                 "tone": {"value": 1, "bucket_index": FA}}
+        unlinked = {"name": "Тръмп", "kind": "person", "subject_role": "primary",
+                    "identity": None, "tone": {"value": 1, "bucket_index": FA}}
+        self.assertEqual(pr.collect([article("u/1", [party, unlinked])]), {})
+
+
+class Bases(unittest.TestCase):
+    def rows(self):
+        # One outlet, one story, three follow-ups; a second outlet copying a
+        # headline; a third outlet with no story.
+        return [
+            article("a/1", [subject("p", value=-1.0, index=UN)], story="s1",
+                    title="Заглавие А"),
+            article("a/2", [subject("p", value=-0.6, index=UN)], story="s1"),
+            article("a/3", [subject("p", value=-0.8, index=UN)], story="s1"),
+            article("b/1", [subject("p", value=0.2, index=NE)], domain="b.bg",
+                    story="s1", title="Заглавие А"),
+            article("c/1", [subject("p", value=1.0, index=FA)], domain="c.bg",
+                    story=None),
         ]
-        people = pr.collect(rows, {"np_1"})
-        self.assertEqual(set(people), {"np_1"})     # no page by being mentioned
-        entry = people["np_1"]
-        self.assertEqual(entry["eligible"], 1)
-        self.assertEqual(entry["incidental"], 1)
-        self.assertEqual(pr.check_accounting(entry), [])
-        # The incidental row is carried so the page can show it — labelled
-        # ineligible, with no tone forced onto it.
-        (row,) = entry["incidental_rows"]
-        self.assertFalse(row["eligible"])
-        self.assertIsNone(row["tone"])
-        # ⚠️ An incidental mention must not reach the outlet or story counts,
-        # which are counts of the coverage M is over.
-        self.assertEqual(entry["outlet_count"], 1)
 
-    def test_one_pair_per_article_even_when_named_twice(self):
-        row = article("https://a.bg/1", persons=["np_1", "np_1"], tones=[tone("np_1")])
-        entry = pr.collect([row], {"np_1"})["np_1"]
-        self.assertEqual(entry["eligible"], 1)
-        self.assertEqual(pr.check_accounting(entry), [])
+    def test_story_basis_counts_an_outlet_story_once(self):
+        e = pr.collect(self.rows())["p"]
+        story = pr.summarize(e["units"]["story"])
+        self.assertEqual(story["n"], 3)
+        self.assertAlmostEqual(story["mean"], round((-0.8 + 0.2 + 1.0) / 3, 4))
 
-    def test_same_headline_copies_are_named_beside_the_raw_denominator(self):
-        rows = [
-            article("https://a.bg/1", title="Едно и също", persons=["np_1"],
-                    tones=[tone("np_1")]),
-            article("https://b.bg/1", domain="b.bg", title=" едно и  СЪЩО ",
-                    persons=["np_1"], tones=[tone("np_1")]),
-            article("https://c.bg/9", domain="c.bg", title="Различно",
-                    persons=["np_1"], tones=[tone("np_1")]),
-        ]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        # ⚠️ Both denominators are published; neither replaces the other.
-        self.assertEqual(entry["eligible"], 3)
-        self.assertEqual(entry["same_headline_copies"], 1)
-        self.assertEqual(entry["eligible_deduplicated"], 2)
-        # THE MUTATION THIS CATCHES: folding by headline alone, so one outlet
-        # republishing itself would deflate the denominator.
-        same_outlet = pr.collect([
-            article("https://a.bg/1", title="Едно", persons=["np_1"], tones=[tone("np_1")]),
-            article("https://a.bg/2", title="Едно", persons=["np_1"], tones=[tone("np_1")]),
-        ], {"np_1"})["np_1"]
-        self.assertEqual(same_outlet["same_headline_copies"], 0)
-        self.assertEqual(same_outlet["eligible_deduplicated"], 2)
+    def test_same_headline_folds_copies_across_outlets(self):
+        e = pr.collect(self.rows())["p"]
+        self.assertEqual(len(e["units"]["same_headline"]), 4)
+        self.assertEqual(len(e["units"]["raw"]), 5)
 
-    def test_per_outlet_carries_each_outlet_s_own_distribution(self):
-        rows = [
-            article("https://a.bg/1", persons=["np_1"], tones=[tone("np_1")]),
-            article("https://a.bg/2", title="Второ", persons=["np_1"],
-                    tones=[tone("np_1", value="neutral")]),
-            article("https://a.bg/3", title="Трето", persons=["np_1"],
-                    tones=[tone("np_1", status="insufficient_text", value=None)]),
-            article("https://b.bg/4", domain="b.bg", title="Четвърто",
-                    persons=["np_1"], tones=[tone("np_1", value="favorable")]),
-        ]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        outlets = pr.per_outlet(entry)
-        self.assertEqual([o["domain"] for o in outlets], ["a.bg", "b.bg"])
-        # ⚠️ THE MUTATION THIS CATCHES: one inferred tone per outlet. a.bg
-        # carries THREE eligible articles and two different assessed tones.
-        self.assertEqual(outlets[0]["eligible"], 3)
-        self.assertEqual(outlets[0]["assessed"], 2)
-        self.assertEqual(outlets[0]["counts"], {"unfavorable": 1, "neutral": 1})
-        self.assertEqual(outlets[1]["counts"], {"favorable": 1})
-        # Each outlet's own parts still sum inside its own eligible count.
-        for bucket in outlets:
-            self.assertLessEqual(sum(bucket["counts"].values()), bucket["eligible"])
-            self.assertEqual(sum(bucket["counts"].values()), bucket["assessed"])
+    def test_raw_counts_match_the_rows(self):
+        e = pr.collect(self.rows())["p"]
+        self.assertEqual(e["raw_counts"]["unfavorable"], 3)
+        self.assertEqual(sum(e["raw_counts"].values()), e["assessed"])
 
-    def test_rows_carry_short_evidence_and_no_body(self):
-        entry = pr.collect([article("https://a.bg/1", persons=["np_1"],
-                                    tones=[tone("np_1")])], {"np_1"})["np_1"]
-        (row,) = entry["rows"]
-        self.assertEqual(row["text_scope"], "full")
-        (span,) = row["evidence_spans"]
-        self.assertEqual(span["quote"], "цитат")
-        # Provenance only: no offsets, no body, nothing that reconstructs text.
-        self.assertNotIn("offset", span)
-        self.assertEqual(set(span), {"quote", "field", "direction", "voice", "located"})
+    def test_se_is_between_units_and_absent_for_one(self):
+        e = pr.collect(self.rows()[:3])["p"]
+        s = pr.summarize(e["units"]["story"])
+        self.assertEqual(s["n"], 1)
+        self.assertIsNone(s["se"])
+        self.assertIsNone(s["ci_low"])
 
-    def test_a_tone_beside_a_non_assessed_status_is_never_published(self):
-        rows = [
-            # An incidental mention carrying a tone: OUTSIDE M, in no count,
-            # supported by no evidence the accounting checked.
-            article("https://a.bg/1", persons=["np_1"],
-                    tones=[tone("np_1", role="incidental",
-                                status="not_assessed", value="unfavorable")]),
-            # And a row inside M whose status is not `assessed`.
-            article("https://a.bg/2", title="Второ", persons=["np_1"],
-                    tones=[tone("np_1", status="insufficient_text",
-                                value="favorable")]),
-        ]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        self.assertEqual(pr.check_accounting(entry), [])   # it would PUBLISH
-        # ⚠️ THE MUTATION THIS CATCHES: copying `tone` through regardless of
-        # status. Both rows would then render a framing label about a named
-        # person that appears in no count and rests on nothing.
-        self.assertEqual(entry["counts"], {})
-        self.assertIsNone(entry["incidental_rows"][0]["tone"])
-        self.assertIsNone(entry["rows"][0]["tone"])
-        self.assertEqual(entry["incidental_rows"][0]["assessment_status"],
-                         "not_assessed")
+    def test_a_mean_buckets_with_the_row_edges(self):
+        e = pr.collect(self.rows())["p"]
+        s = pr.summarize(e["units"]["story"])
+        self.assertEqual(s["mean_bucket"], "neutral")
 
-    def test_an_unreadable_role_costs_a_row_not_the_whole_page(self):
-        rows = [
-            article("https://a.bg/1", persons=["np_1"], tones=[tone("np_1")]),
-            article("https://a.bg/2", title="Второ", persons=["np_1"],
-                    tones=[tone("np_1", role=None)]),
-        ]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        # ⚠️ THE MUTATION THIS CATCHES: counting it as `refused` without the
-        # matching `eligible`, which breaks the second identity by
-        # construction — one malformed row would refuse the whole shard and
-        # be reported as an accounting failure rather than as a bad role.
-        self.assertEqual(pr.check_accounting(entry), [])
-        self.assertEqual(entry["eligible"], 1)
-        self.assertEqual(entry["unreadable_role"], 1)
-        self.assertEqual(entry["refused"], 0)
-        # Outside M on every axis: not in the window, not in per_outlet's M.
-        self.assertEqual(sum(b["eligible"] for b in pr.per_outlet(entry)), 1)
-        self.assertGreaterEqual(entry["eligible_deduplicated"], 0)
 
-    def test_partial_scope_is_split_out_of_insufficient_text(self):
-        rows = [
-            article("https://a.bg/1", persons=["np_1"],
-                    tones=[tone("np_1", status="insufficient_text",
-                                value=None, scope="prefix")]),
-            article("https://a.bg/2", title="Второ", persons=["np_1"],
-                    tones=[tone("np_1", status="insufficient_text",
-                                value=None, scope="full")]),
-        ]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        # A SPLIT, not a fifth part: the identity is untouched.
-        self.assertEqual(entry["insufficient_text"], 2)
-        self.assertEqual(entry["partial_scope"], 1)
-        self.assertEqual(pr.check_accounting(entry), [])
+class ByOutlet(unittest.TestCase):
+    def test_mean_withheld_below_five_and_counts_kept(self):
+        rows = [article(f"a/{i}", [subject("p")], story=f"s{i}") for i in range(5)]
+        rows += [article("b/1", [subject("p")], domain="b.bg")]
+        out = {o["domain"]: o for o in pr.by_outlet(pr.collect(rows)["p"])}
+        self.assertIsNotNone(out["a.bg"]["mean"])
+        self.assertIsNone(out["b.bg"]["mean"])
+        self.assertTrue(out["b.bg"]["mean_withheld"])
+        self.assertEqual(out["b.bg"]["counts"]["unfavorable"], 1)
 
-    def test_the_window_is_ordered_on_the_instant_and_undated_rows_are_counted(self):
-        rows = [
-            # ⚠️ `Z` and `+00:00` string-sort against each other wrongly; the
-            # later instant here is the one spelled with the offset.
-            article("https://a.bg/1", published="2026-09-01T10:00:00Z",
-                    persons=["np_1"], tones=[tone("np_1")]),
-            article("https://a.bg/2", title="Второ",
-                    published="2026-09-01T12:00:00+00:00",
-                    persons=["np_1"], tones=[tone("np_1")]),
-            article("https://a.bg/3", title="Трето", published="",
-                    persons=["np_1"], tones=[tone("np_1")]),
-        ]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        self.assertEqual(entry["first_published"], "2026-09-01T10:00:00Z")
-        self.assertEqual(entry["last_published"], "2026-09-01T12:00:00+00:00")
-        # Inside M and outside the window: counted, so the window cannot read
-        # as covering every row it is printed beside.
-        self.assertEqual(entry["undated"], 1)
-        self.assertEqual(entry["eligible"], 3)
+    def test_ordered_by_coverage_not_tone(self):
+        rows = [article(f"a/{i}", [subject("p", value=-1.9, index=SU)],
+                        story=f"s{i}") for i in range(2)]
+        rows += [article(f"b/{i}", [subject("p", value=1.9, index=SF)],
+                         domain="b.bg", story=f"t{i}") for i in range(3)]
+        self.assertEqual([o["domain"] for o in pr.by_outlet(pr.collect(rows)["p"])],
+                         ["b.bg", "a.bg"])
 
-    def test_the_archive_is_paginated_and_the_accounting_is_over_all_rows(self):
-        rows = [article(f"https://a.bg/{i}", title=f"Заглавие {i}",
-                        published=f"2026-09-{(i % 28) + 1:02d}T00:00:00Z",
-                        persons=["np_1"], tones=[tone("np_1")])
-                for i in range(120)]
-        entry = pr.collect(rows, {"np_1"})["np_1"]
-        first = pr.payload(entry, {}, "now", "r")
-        self.assertEqual(first["total_pages"], 3)
-        self.assertEqual(len(first["articles"]), pr.PERSON_PAGE_SIZE)
-        # ⚠️ The accounting is over ALL rows on EVERY page — a page must never
-        # show a denominator it is not the whole of.
-        last = pr.payload(entry, {}, "now", "r", page=3)
-        self.assertEqual(last["eligible"], 120)
-        self.assertEqual(first["assessed"], last["assessed"])
-        self.assertEqual(len(last["articles"]), 20)
-        # An out-of-range page serves a real page rather than an empty one.
-        self.assertEqual(pr.payload(entry, {}, "now", "r", page=99)["page"], 3)
-        seen = [r["url"] for pg in (1, 2, 3)
-                for r in pr.payload(entry, {}, "now", "r", page=pg)["articles"]]
-        self.assertEqual(len(set(seen)), 120)
 
-    def test_fails_closed_on_an_empty_corpus(self):
-        self.assertEqual(pr.collect([], {"np_1"}), {})
-        self.assertEqual(pr.collect([article("https://a.bg/1")], set()), {})
+class Series(unittest.TestCase):
+    def test_every_point_carries_its_own_coverage(self):
+        rows = [article("a/1", [subject("p")], published="2026-09-01T10:00:00+00:00",
+                        story="s1"),
+                article("a/2", [subject("p")], published="2026-09-20T10:00:00+00:00",
+                        story="s2")]
+        coverage = {"2026-09-01": [9, 10], "2026-09-20": [6, 10]}
+        s = pr.series(pr.collect(rows)["p"], coverage)
+        self.assertEqual(s["granularity"], "day")
+        by = {p["period"]: p for p in s["points"]}
+        self.assertFalse(by["2026-09-01"]["below_floor"])
+        self.assertTrue(by["2026-09-20"]["below_floor"])
+        self.assertEqual(by["2026-09-20"]["coverage"], 0.6)
+
+    def test_a_period_with_no_denominator_is_below_the_floor(self):
+        rows = [article("a/1", [subject("p")], story="s1")]
+        s = pr.series(pr.collect(rows)["p"], {})
+        self.assertTrue(s["points"][0]["below_floor"])
+
+    def test_undated_units_are_counted_not_plotted(self):
+        rows = [article("a/1", [subject("p")], published=None, story="s1")]
+        s = pr.series(pr.collect(rows)["p"], {})
+        self.assertEqual((s["points"], s["undated"]), ([], 1))
+
+
+class PageGuard(unittest.TestCase):
+    def entry(self, n, **kw):
+        rows = [article(f"a/{i}", [subject("p", **kw)], story=f"s{i}")
+                for i in range(n)]
+        return pr.collect(rows)["p"]
+
+    def test_threshold(self):
+        self.assertEqual(pr.page_decision(self.entry(4, form_kind="full_name"),
+                                          confirmed=set(), refused=set()),
+                         "below_threshold")
+
+    def test_two_part_only_needs_a_confirmation(self):
+        e = self.entry(5)
+        self.assertEqual(pr.page_decision(e, confirmed=set(), refused=set()),
+                         "identity_unconfirmed")
+        self.assertEqual(pr.page_decision(e, confirmed={"p"}, refused=set()),
+                         "publish")
+
+    def test_a_strong_link_is_enough(self):
+        for kw in ({"form_kind": "full_name"}, {"basis": "context"},
+                   {"basis": "surname_alias"}):
+            self.assertEqual(pr.page_decision(self.entry(5, **kw),
+                                              confirmed=set(), refused=set()),
+                             "publish", kw)
+
+    def test_a_refusal_wins(self):
+        self.assertEqual(pr.page_decision(self.entry(9, form_kind="full_name"),
+                                          confirmed={"p"}, refused={"p"}),
+                         "identity_refused")
+
+    def test_a_news_only_identity_must_be_a_bulgarian_public_figure(self):
+        def np(scope, public):
+            s = subject("np_1", kind="news_person")
+            s["identity"].update(scope=scope, public_figure=public)
+            return pr.collect([article("a/1", [s])])["np_1"]
+        self.assertEqual(pr.page_decision(np("bg", True), confirmed=set(),
+                                          refused=set()), "publish")
+        for scope, public in (("bg", False), ("foreign", True), (None, None)):
+            self.assertEqual(pr.page_decision(np(scope, public), confirmed=set(),
+                                              refused=set()), "not_public_bg")
+
+
+class Shapes(unittest.TestCase):
+    def entry(self):
+        rows = [article(f"a/{i}", [subject("p", value=-0.8 + i / 10)],
+                        story=f"s{i}") for i in range(6)]
+        return pr.collect(rows)["p"]
+
+    def test_the_index_has_no_mean(self):
+        row = pr.index_row(self.entry(), {"name_bg": "Х"})
+        self.assertNotIn("mean", json.dumps(row))
+        self.assertEqual(row["n"], 6)
+
+    def test_payload_carries_every_basis_and_the_accounting(self):
+        p = pr.payload(self.entry(), {"name_bg": "Х"}, "t", "r", {})
+        self.assertEqual(set(p["bases"]), set(pr.BASES))
+        self.assertEqual(p["default_basis"], "story")
+        self.assertEqual(p["accounting"]["eligible"], 6)
+
+    def test_baseline_is_sum_and_count(self):
+        b = pr.baseline(self.entry())
+        self.assertEqual(b["n"], 6)
+        self.assertAlmostEqual(b["sum"], round(sum(-0.8 + i / 10 for i in range(6)), 4))
+
+    def test_page_names_cannot_collide_across_hyphenated_slugs(self):
+        self.assertEqual(pr.page_name("ivan-ivanov", 1), "ivan-ivanov.json")
+        self.assertEqual(pr.page_name("ivan-ivanov", 2), "ivan-ivanov.p2.json")
+        self.assertNotEqual(pr.page_name("ivan-ivanov", 2),
+                            pr.page_name("ivan-ivanov-2", 1))
+
+    def test_co_subjects_count_other_eligible_subjects(self):
+        rows = [article("a/1", [subject("p"), subject("q"),
+                                {"name": "ГЕРБ", "kind": "party",
+                                 "subject_role": "secondary"}])]
+        co = pr.co_subjects(pr.collect(rows)["p"])
+        self.assertEqual({(c["kind"], c["id"]) for c in co},
+                         {("person", "q"), ("party", "ГЕРБ")})
 
 
 class ShardWriter(unittest.TestCase):
-    """`write_person_shards` — the refusal and the pruning."""
+    """`write_person_shards` — the guard, the refusal, the pruning."""
 
     def setUp(self):
         import build_app_data
+        import person_identity_join as pij
         self.bad = build_app_data
         self.tmp = tempfile.TemporaryDirectory()
         self.out = Path(self.tmp.name)
         self.addCleanup(self.tmp.cleanup)
+        gaz = {"entries": [{"kind": "person", "id": "mp-1", "canonical": "А Б В",
+                            "display": {"roles": [{"role": "mp", "current": True}],
+                                        "retired_slugs": ["a-b-v-old"]}}]}
+        self.sources = pij.Sources(gazetteer_doc=gaz, cues={}, aliases={},
+                                   audit={}, registry={})
+        # The digest is a review artifact under REPO; point it at the temp dir.
+        self._repo = build_app_data.REPO
+        build_app_data.REPO = self.out
+        self.addCleanup(setattr, build_app_data, "REPO", self._repo)
 
-    def _index(self, *ids):
-        # ⚠️ The REAL index shape: `public_index` exports `reviewed_at` and
-        # NOT `reviewed_by`. A fixture that invents the key passes under an
-        # implementation that publishes a null reviewer for every person.
-        return {"persons": [{"news_person_id": i, "name_bg": "Име",
-                             "identity_version": "v1",
-                             "reviewed_at": "2026-09-22",
-                             "verified_main_site_slug": None} for i in ids]}
+    def rows(self, n=5, pid="mp-1", **kw):
+        return [article(f"a/{i}", [subject(pid, form_kind="full_name", **kw)],
+                        story=f"s{i}") for i in range(n)]
 
-    def _registry(self, *ids):
-        return {"persons": [{"news_person_id": i, "reviewed_by": "реда́ктор"}
-                            for i in ids]}
+    def write(self, rows):
+        return self.bad.write_person_shards(self.out, {}, rows, "t",
+                                            sources=self.sources, coverage_days={})
 
-    def test_writes_a_shard_only_for_an_active_identity_and_prunes_the_rest(self):
-        stale = self.out / "person" / "np_gone.json"
+    def test_writes_the_page_the_index_the_baseline_and_redirects(self):
+        stale = self.out / "person" / "gone.json"
         stale.parent.mkdir(parents=True, exist_ok=True)
-        stale.write_text("{}", encoding="utf-8")
-        rows = [article("https://a.bg/1", persons=["np_1"], tones=[tone("np_1")]),
-                article("https://a.bg/2", title="Второ", persons=["np_2"],
-                        tones=[tone("np_2")])]
-        out = self.bad.write_person_shards(self.out, self._registry("np_1"),
-                                           self._index("np_1"), rows,
-                                           "2026-09-22T00:00:00Z")
-        self.assertEqual([r["news_person_id"] for r in out["rows"]], ["np_1"])
-        self.assertTrue((self.out / "person" / "np_1.json").exists())
-        # ⚠️ A deactivated identity's page is REMOVED, not left serving.
+        stale.write_text("{}")
+        out = self.write(self.rows())
+        self.assertEqual([r["id"] for r in out["rows"]], ["mp-1"])
+        self.assertTrue((self.out / "person" / "mp-1.json").exists())
         self.assertFalse(stale.exists())
-        self.assertFalse((self.out / "person" / "np_2.json").exists())
-        payload = json.loads((self.out / "person" / "np_1.json").read_text("utf-8"))
-        self.assertEqual(payload["eligible"], 1)
-        self.assertEqual(sum(payload["counts"].values()), payload["assessed"])
-        self.assertIsNone(payload["verified_main_site_slug"])
-        # ⚠️ THE MUTATION THIS CATCHES: reading the reviewer from the public
-        # index, which does not carry one — every shard would then publish a
-        # null owner while the policy promises a named one.
-        self.assertEqual(payload["reviewed_by"], "реда́ктор")
+        index = json.loads((self.out / "persons.json").read_text())
+        self.assertEqual(index["retired_ids"], {"a-b-v-old": "mp-1"})
+        self.assertEqual(index["persons"][0]["role"], "mp")
+        base = json.loads((self.out / "person_baselines.json").read_text())
+        self.assertEqual(base["persons"]["mp-1"]["n"], 5)
+
+    def test_an_unconfirmed_two_part_person_goes_to_the_digest(self):
+        rows = [article(f"a/{i}", [subject("mp-1")], story=f"s{i}")
+                for i in range(5)]
+        out = self.write(rows)
+        self.assertEqual(out["rows"], [])
+        self.assertEqual(out["digest"][0]["id"], "mp-1")
+        digest = json.loads((self.out / "news" / "review"
+                             / "person_page_candidates.json").read_text())
+        self.assertEqual(digest["items"][0]["id"], "mp-1")
+
+    def test_a_surface_scoped_refusal_keeps_the_page(self):
+        import person_identity_join as pij
+        gaz = {"entries": [{"kind": "person", "id": "mp-1", "canonical": "А Б В"}]}
+        for surfaces, published in ((["Б"], True), ([], False)):
+            self.sources = pij.Sources(
+                gazetteer_doc=gaz, cues={}, aliases={}, registry={},
+                audit={"decisions": [{"id": "mp-1", "decision": "refused",
+                                      "surfaces": surfaces}]})
+            out = self.write(self.rows())
+            self.assertEqual(bool(out["rows"]), published, surfaces)
 
     def test_refuses_a_shard_whose_accounting_does_not_check_out(self):
-        rows = [article("https://a.bg/1", persons=["np_1"], tones=[tone("np_1")])]
         real = pr.check_accounting
         try:
             pr.check_accounting = lambda entry: ["forced"]
-            out = self.bad.write_person_shards(self.out, {}, self._index("np_1"),
-                                               rows, "2026-09-22T00:00:00Z")
+            out = self.write(self.rows())
         finally:
             pr.check_accounting = real
-        # ⚠️ THE MUTATION THIS CATCHES: publishing anyway. An unverifiable
-        # accounting about a named person is refused, and SAID.
         self.assertEqual(out["rows"], [])
-        self.assertEqual(out["refused"][0]["news_person_id"], "np_1")
-        self.assertFalse((self.out / "person" / "np_1.json").exists())
+        self.assertEqual(out["refused"][0]["id"], "mp-1")
+        self.assertFalse((self.out / "person" / "mp-1.json").exists())
 
     def test_refuses_an_id_the_client_charset_would_not_serve(self):
-        rows = [article("https://a.bg/1", persons=["../etc"],
-                        tones=[tone("../etc")])]
-        out = self.bad.write_person_shards(self.out, {}, self._index("../etc"), rows,
-                                           "2026-09-22T00:00:00Z")
+        out = self.write(self.rows(pid="../etc"))
         self.assertEqual(out["rows"], [])
         self.assertEqual(out["refused"][0]["problems"], ["unsafe id"])
-        self.assertEqual(list((self.out / "person").glob("*.json")), [])
 
 
 if __name__ == "__main__":

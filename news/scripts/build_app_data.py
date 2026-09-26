@@ -90,6 +90,7 @@ try:
     from . import cases as case_registry
     from . import news_persons as news_identity
     from . import jev_publication
+    from . import jev_sentiment
     from . import person_identity_join
     from . import party_rollups
     from . import person_rollups
@@ -127,6 +128,7 @@ except ImportError:  # direct script execution
     import cases as case_registry
     import news_persons as news_identity
     import jev_publication
+    import jev_sentiment
     import person_identity_join
     import party_rollups
     import person_rollups
@@ -1587,66 +1589,149 @@ def write_parties(out_dir: Path, rows: list, generated_at: str,
     return {"index": index, "topics": collected["topics"]}
 
 
-NEWS_PERSON_ID_SAFE = re.compile(r"\A[a-z0-9_]{1,64}\Z")
+NEWS_PERSON_ID_SAFE = re.compile(r"\A[a-z0-9][a-z0-9_-]{0,63}\Z")
 
 
-def write_person_shards(out_dir: Path, registry: dict, index: dict, rows: list,
-                        generated_at: str) -> dict:
-    """T4.4 — one shard per ACTIVE identity, plus the index rows.
+def person_meta(entry: dict, sources, registry_by_id: dict) -> dict:
+    """What a person page and the index say about WHO this is — from the
+    reviewed registry for a news-only identity, from the gazetteer's display
+    fields (§3.0) for a main-site one. Never from the model."""
+    if entry["kind"] == "news_person":
+        p = registry_by_id.get(entry["id"]) or {}
+        return {"name_bg": p.get("name_bg"), "name_en": p.get("name_en"),
+                "disambiguation_bg": p.get("disambiguation_bg"),
+                "disambiguation_en": p.get("disambiguation_en"),
+                "main_site_slug": p.get("verified_main_site_slug"),
+                "roles": [], "photo": None, "current_role": None,
+                "party": None, "reviewed_at": p.get("reviewed_at")}
+    g = sources.people.get(entry["id"]) or {}
+    display = g.get("display") or {}
+    roles = display.get("roles") or []
+    current = next((r.get("role") for r in roles if r.get("current")), None)
+    party = g.get("party") if g.get("party") in sources.party_ids else None
+    return {"name_bg": g.get("canonical") or entry.get("canonical"),
+            "name_en": display.get("name_en"),
+            "main_site_slug": entry["id"], "roles": roles,
+            "photo": display.get("photo"), "current_role": current,
+            "party": party, "mp_id": display.get("mp_id")}
 
-    ⚠️ A page is a HUMAN decision: only an identity the registry marks
-    `active` gets one, so nobody acquires a page by being mentioned. The
-    accounting is asserted before anything is written — a shard whose tone
-    counts do not sum to N, or whose parts do not sum to M, is a claim that
-    cannot be checked, and it is refused rather than published."""
-    active = {p["news_person_id"]: p for p in index.get("persons") or []}
-    # ⚠️ `public_index` exports `reviewed_at` and NOT `reviewed_by`, so the
-    # reviewer has to come from the registry itself — otherwise every shard
-    # publishes a null owner while the policy and the page both promise a
-    # named one.
-    reviewers = {p.get("news_person_id"): p.get("reviewed_by")
-                 for p in (registry or {}).get("persons") or []}
-    collected = person_rollups.collect(rows, active)
+
+def coverage_by_day(records: list) -> dict:
+    """day → [scored, published] over the WHOLE corpus — the denominator of the
+    per-point coverage floor (§4.2). An undated article is in no day.
+
+    ⚠️ „SCORED" MEANS A JEV BLOCK SHIPPED, not merely an analysis: the series
+    plots only Jev-scored units, so a day the analysis covered and Jev did not
+    is a day the chart cannot speak for. This is stricter than the plan's
+    wording („has an analysis") in the safe direction — it can hatch a point,
+    never draw one the looser rule would hatch. (Were only `subject_tone`
+    published, an article naming nobody would ship no block and count as
+    unscored: more hatching, never less.)"""
+    import sentiment_rollups  # noqa: PLC0415
+    days: dict = {}
+    for r in records:
+        day = sentiment_rollups.period_of(r.get("published"), "day")
+        if day is None:
+            continue
+        slot = days.setdefault(day, [0, 0])
+        slot[1] += 1
+        if (r.get("analysis") or {}).get("jev_sentiment"):
+            slot[0] += 1
+    return days
+
+
+def write_person_shards(out_dir: Path, registry: dict, rows: list,
+                        generated_at: str, *, sources, coverage_days: dict
+                        ) -> dict:
+    """news-person-sentiment-v1 §4 — the person archive on Jev scores.
+
+    One shard per identity that passes the §4.3 page guard, the unified
+    `persons.json` index, `person_baselines.json` for the article rail, and the
+    review digest of people who would get a page after an identity check.
+
+    ⚠️ THE ACCOUNTING IS ASSERTED BEFORE ANYTHING IS WRITTEN — a shard whose
+    counts do not sum to N, or whose parts do not sum to M, is refused."""
+    registry_by_id = {p["news_person_id"]: p
+                      for p in (registry or {}).get("persons") or []}
+    collected = person_rollups.collect(rows)
+    # Only a refusal with NO surfaces refuses the person; one scoped to some
+    # name forms stops those links in the join and leaves the page to the rest.
+    whole_person_refusals = {pid for pid, surfaces in sources.refused.items()
+                             if not surfaces}
     person_dir = out_dir / "person"
     person_dir.mkdir(parents=True, exist_ok=True)
     written: set[str] = set()
-    index_rows = []
-    refused = []
-    for person_id, entry in collected.items():
+    index_rows, refused, digest, baselines = [], [], [], {}
+    decisions: dict = {}
+    for person_id, entry in sorted(collected.items()):
+        decision = person_rollups.page_decision(
+            entry, confirmed=sources.confirmed, refused=whole_person_refusals)
+        decisions[decision] = decisions.get(decision, 0) + 1
+        if decision == "identity_unconfirmed":
+            digest.append({"id": person_id, "canonical": entry.get("canonical"),
+                           "n": person_rollups.n_story(entry)})
+        if decision != "publish":
+            continue
         problems = person_rollups.check_accounting(entry)
         unsafe = not NEWS_PERSON_ID_SAFE.match(person_id)
         if problems or unsafe:
-            refused.append({"news_person_id": person_id,
+            refused.append({"id": person_id,
                             "problems": problems or ["unsafe id"],
                             "reason": "accounting" if problems else "unsafe_id"})
             continue
-        person = {**active[person_id], "reviewed_by": reviewers.get(person_id)}
-        # Paginated like the party archive: page 1 ships with the header and
-        # the rest are fetched on demand, so a widening corpus does not grow
-        # the first fetch.
-        first = person_rollups.payload(entry, person, generated_at,
-                                       person_treatment.RUBRIC_VERSION)
+        meta = person_meta(entry, sources, registry_by_id)
+        first = person_rollups.payload(entry, meta, generated_at,
+                                       jev_sentiment.RUBRIC_VERSION, coverage_days)
         for page in range(1, first["total_pages"] + 1):
             payload = (first if page == 1 else person_rollups.payload(
-                entry, person, generated_at, person_treatment.RUBRIC_VERSION,
-                page=page))
-            name = f"{person_id}.json" if page == 1 else f"{person_id}-{page}.json"
+                entry, meta, generated_at, jev_sentiment.RUBRIC_VERSION,
+                coverage_days, page=page))
+            name = person_rollups.page_name(person_id, page)
             write_json(person_dir / name, payload)
             written.add(name)
-        index_rows.append(person_rollups.index_row(entry, person))
+        index_rows.append(person_rollups.index_row(entry, meta))
+        baselines[person_id] = person_rollups.baseline(entry)
     for stale in person_dir.glob("*.json"):
         if stale.name not in written:
             stale.unlink()
-    index_rows.sort(key=lambda r: (-r["eligible"], r["news_person_id"]))
+    live = {r["id"] for r in index_rows}
+    # §4.4 — a slug the person layer retired redirects to the live page,
+    # never to a page that does not exist.
+    retired = {}
+    for pid in sorted(live):
+        for old in ((sources.people.get(pid) or {}).get("display") or {}).get(
+                "retired_slugs") or []:
+            if old not in live and NEWS_PERSON_ID_SAFE.match(old):
+                retired[old] = pid
+    index_rows.sort(key=lambda r: (-r["n"], r["id"]))
+    write_json(out_dir / "persons.json", {
+        "version": 1, "generated_at": generated_at,
+        "basis": "one row per person with a page; n counts (outlet, story) "
+                 "units and the counts are their buckets — there is no mean "
+                 "here, and nothing on the index is ordered by tone",
+        "default_basis": person_rollups.DEFAULT_BASIS,
+        "persons": index_rows, "retired_ids": retired})
+    write_json(out_dir / "person_baselines.json", {
+        "version": 1, "generated_at": generated_at, "persons": baselines})
+    review_path = REPO / "news" / "review" / "person_page_candidates.json"
+    review_path.parent.mkdir(parents=True, exist_ok=True)
+    review_path.write_text(json.dumps({
+        "generated_at": generated_at,
+        "how_to_read": "People with enough coverage for a page whose every "
+                       "link rests on a two-part name. Each needs one identity "
+                       "check in `npm run news:review` (queue Самоличност) "
+                       "before a page is published.",
+        "items": sorted(digest, key=lambda d: (-d["n"], d["id"]))},
+        ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     n_acct = sum(1 for r in refused if r["reason"] == "accounting")
-    n_id = len(refused) - n_acct
-    print(f"  person shards: {len(index_rows)} active identities with coverage · "
-          f"{sum(r['eligible'] for r in index_rows)} eligible pairs · "
-          f"{sum(r['assessed'] for r in index_rows)} assessed"
+    print(f"  person pages: {len(index_rows)} published · "
+          f"{len(digest)} awaiting an identity check · "
+          + ", ".join(f"{k} {v}" for k, v in sorted(decisions.items()))
           + (f" · {n_acct} REFUSED (accounting)" if n_acct else "")
-          + (f" · {n_id} REFUSED (unsafe id)" if n_id else ""),
+          + (f" · {len(refused) - n_acct} REFUSED (unsafe id)"
+             if len(refused) > n_acct else ""),
           file=sys.stderr)
-    return {"rows": index_rows, "refused": refused}
+    return {"rows": index_rows, "refused": refused, "digest": digest}
 
 
 def write_news_persons(out_dir: Path, registry: dict, rows_by_url: dict, generated_at: str,
@@ -3666,7 +3751,7 @@ def main() -> int:
     person_index = write_news_persons(
         out_dir, news_person_registry, news_person_rows_by_url, generated_at,
         published_articles=sum(1 for r in all_latest if r.get("analysis")))
-    person_shards = write_person_shards(out_dir, news_person_registry, person_index, [
+    person_shards = write_person_shards(out_dir, news_person_registry, [
         {"url": r.get("url"), "domain": r.get("domain"), "article_id": r.get("id"),
          "title": r.get("title"), "published": r.get("published"),
          "story_id": r.get("story_id"), "analysis": r.get("analysis")}
@@ -3675,10 +3760,11 @@ def main() -> int:
         # identities in some other function's control flow.
         for r in all_latest
         if r.get("analysis") and r.get("url") in publishable_urls
-    ], generated_at)
-    # The index carries the coverage each person's shard accounts for, so a
-    # list row and its page can never disagree about the denominator.
-    coverage = {row["news_person_id"]: row for row in person_shards["rows"]}
+    ], generated_at, sources=person_join_sources,
+        coverage_days=coverage_by_day(all_latest))
+    # The news-only index carries each identity's coverage, so a list row and
+    # its page can never disagree about the denominator.
+    coverage = {row["id"]: row for row in person_shards["rows"]}
     for person in person_index.get("persons") or []:
         person["coverage"] = coverage.get(person["news_person_id"])
     write_json(out_dir / "news_persons.json", person_index)

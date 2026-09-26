@@ -43,6 +43,9 @@ RUNTIME_SCRIPTS = (
     "news/scripts/jev_scales.py",
     "news/scripts/jev_text.py",
     "news/scripts/person_rollups.py",  # build_app_data imports it UNGUARDED (T4.4)
+    # build_app_data imports it UNGUARDED to stamp which person each Jev
+    # subject is (news-person-sentiment-v1 §3.1).
+    "news/scripts/person_identity_join.py",
     "news/scripts/rollup_common.py",  # both rollups import it UNGUARDED
     "news/scripts/person_tones.py",   # build_app_data imports it UNGUARDED (T4.3)
     "news/scripts/story_synthesis.py",  # build_app_data imports it UNGUARDED (T5.1)
@@ -96,6 +99,11 @@ SEED_FILES = (
     "news/data/entity_link_overrides.json",
     "news/data/gazetteer.json",
     "news/data/institution_aliases.json",
+    # The identity join's three decision files (§3.1): absent, it still runs,
+    # but a reviewer's refusals and aliases would silently stop applying.
+    "news/data/person_context_cues.json",
+    "news/data/person_identity_audit.json",
+    "news/data/person_surname_aliases.json",
     "news/data/retired_sites.csv",
     "data/canonical_parties.json",
     "src/screens/governance/sectorRegistry.ts",

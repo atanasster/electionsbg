@@ -68,6 +68,13 @@ class Exact(unittest.TestCase):
         self.assertEqual(s[0]["identity"]["identity_version"], "v1")
         self.assertEqual(rep["exact"], 1)
 
+    def test_an_override_person_outside_the_gazetteer_keeps_its_name(self):
+        s, _ = run([subj("Благомир Коцев")],
+                   {"entity_links": {"Благомир Коцев": {
+                       "kind": "person", "id": "bk-1", "canonical": "Благомир Коцев",
+                       "form_kind": "curated_entity"}}}, "Благомир Коцев")
+        self.assertEqual(s[0]["identity"]["canonical"], "Благомир Коцев")
+
     def test_a_non_person_link_is_refused(self):
         s, _ = run([subj("Варна")], {"entity_links": {"Варна": {
             "kind": "place", "id": "10135"}}}, "Варна")
