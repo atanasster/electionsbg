@@ -9,6 +9,7 @@ import {
   recordAcceptance,
   recordCapture,
   recordExtraction,
+  recordExclusion,
   recordPublicationFailure,
   rememberPublications,
 } from "./publication_ledger";
@@ -67,6 +68,75 @@ afterEach(() => {
 });
 
 describe("durable publication processing", () => {
+  it("keeps exclusions scoped to a source version and race", () => {
+    recordCapture(root, "TR", discovery, capture);
+    recordExtraction(root, "TR", "42", capture.sha256, draft, at);
+    recordExclusion(
+      root,
+      "TR",
+      "42",
+      capture.sha256,
+      "presidential",
+      "No presidential intention question",
+      at,
+    );
+    expect(publicationStatus(readPublicationLedger(root, "TR")[0])).toBe(
+      "pending_review",
+    );
+    recordAcceptance(root, draft, at);
+    expect(publicationStatus(readPublicationLedger(root, "TR")[0])).toBe(
+      "reviewed",
+    );
+    recordCapture(root, "TR", discovery, {
+      ...capture,
+      sha256: "b".repeat(64),
+      capturedAt: "2026-09-27T00:00:00Z",
+    });
+    expect(publicationStatus(readPublicationLedger(root, "TR")[0])).toBe(
+      "pending_extraction",
+    );
+    expect(readPublicationLedger(root, "TR")[0].versions[0].exclusions).toEqual(
+      [
+        {
+          race: "presidential",
+          reason: "No presidential intention question",
+          reviewedAt: at,
+        },
+      ],
+    );
+  });
+  it("resolves excluded versions without hiding other race review work", () => {
+    recordCapture(root, "TR", discovery, capture);
+    recordExclusion(
+      root,
+      "TR",
+      "42",
+      capture.sha256,
+      "presidential",
+      "Exit poll",
+      at,
+    );
+    expect(publicationStatus(readPublicationLedger(root, "TR")[0])).toBe(
+      "excluded",
+    );
+    recordExtraction(root, "TR", "42", capture.sha256, draft, at);
+    expect(publicationStatus(readPublicationLedger(root, "TR")[0])).toBe(
+      "pending_review",
+    );
+    recordExclusion(
+      root,
+      "TR",
+      "42",
+      capture.sha256,
+      "parliamentary",
+      "Exit poll",
+      at,
+    );
+    expect(publicationStatus(readPublicationLedger(root, "TR")[0])).toBe(
+      "excluded",
+    );
+  });
+
   it("replaces a provisional identity when the reviewed survey is accepted", () => {
     recordCapture(root, "TR", discovery, capture);
     recordExtraction(

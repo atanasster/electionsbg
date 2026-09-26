@@ -309,7 +309,19 @@
         "capturePath": "raw_data/polls/market_links/45.v2",
         "capturedAt": "2026-09-26T08:46:00.695Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Media-content retrospective",
+            "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "presidential",
+            "reason": "Media-content retrospective",
+            "reviewedAt": "2026-09-26"
+          }
+        ]
       }
     ],
     "failures": {
@@ -502,6 +514,18 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Controlled-vote study",
+            "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "presidential",
+            "reason": "Controlled-vote study",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -602,6 +626,13 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -651,6 +682,13 @@
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
           }
         ]
       }
@@ -702,6 +740,13 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -751,6 +796,13 @@
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
           }
         ]
       }
@@ -802,6 +854,13 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -832,7 +891,14 @@
         "capturePath": "raw_data/polls/market_links/91",
         "capturedAt": "2026-09-26T08:44:03.183Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "September 2021 report has parliamentary shares and joint-election participation, no presidential candidate table",
+            "reviewedAt": "2026-09-26"
+          }
+        ]
       }
     ],
     "failures": {
@@ -862,7 +928,14 @@
         "capturePath": "raw_data/polls/market_links/89",
         "capturedAt": "2026-09-26T08:44:03.760Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
+        ]
       }
     ],
     "failures": {
@@ -892,7 +965,14 @@
         "capturePath": "raw_data/polls/market_links/87",
         "capturedAt": "2026-09-26T08:44:04.313Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
+        ]
       }
     ],
     "failures": {

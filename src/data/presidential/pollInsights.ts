@@ -222,6 +222,10 @@ export function exportCsv(data: ReturnType<typeof pollExport>) {
     "source",
     "source_sha256",
     "question_id",
+    "question_bg",
+    "question_en",
+    "evidence_url",
+    "evidence_locator",
     "measure",
     "base_kind",
     "base_bg",
@@ -231,6 +235,8 @@ export function exportCsv(data: ReturnType<typeof pollExport>) {
     "genre",
     "candidate",
     "answer_code",
+    "answer_bg",
+    "answer_en",
     "share",
     "eligible",
     "eligibility_reason",
@@ -256,6 +262,10 @@ export function exportCsv(data: ReturnType<typeof pollExport>) {
         p.source,
         p.provenance?.sha256,
         q.id,
+        q.wording.bg,
+        q.wording.en,
+        q.evidence.url,
+        q.evidence.locator,
         q.measure,
         q.base.kind,
         q.base.label.bg,
@@ -271,13 +281,17 @@ export function exportCsv(data: ReturnType<typeof pollExport>) {
           .find((d) => d.pollId === p.id && d.questionId === q.id)
           ?.reasons.join(";") ?? "",
       ];
+      const answer = (code: string | undefined) => {
+        const label = q.answerScale.find((a) => a.code === code)?.label;
+        return [code, label?.bg, label?.en];
+      };
       for (const d of data.details.filter(
         (d) => d.pollId === p.id && d.questionId === q.id,
       ))
         rows.push([
           ...common,
           d.candidateName_bg,
-          d.answerCode,
+          ...answer(d.answerCode),
           d.support,
           ...suffix,
         ]);
@@ -285,12 +299,24 @@ export function exportCsv(data: ReturnType<typeof pollExport>) {
         (r) => r.pollId === p.id && r.questionId === q.id,
       )) {
         rows.push(
-          [...common, r.aName_bg ?? r.a, "runoff_a", r.supportA, ...suffix],
-          [...common, r.bName_bg ?? r.b, "runoff_b", r.supportB, ...suffix],
+          [
+            ...common,
+            r.aName_bg ?? r.a,
+            ...answer("runoff_a"),
+            r.supportA,
+            ...suffix,
+          ],
+          [
+            ...common,
+            r.bName_bg ?? r.b,
+            ...answer("runoff_b"),
+            r.supportB,
+            ...suffix,
+          ],
         );
       }
       for (const o of q.observations ?? [])
-        rows.push([...common, "", o.answerCode, o.share, ...suffix]);
+        rows.push([...common, "", ...answer(o.answerCode), o.share, ...suffix]);
       for (const code of [
         "undecided",
         "wontVote",
@@ -298,7 +324,13 @@ export function exportCsv(data: ReturnType<typeof pollExport>) {
         "otherNamedMinor",
       ] as const)
         if (q.residual?.[code] != null)
-          rows.push([...common, "", code, q.residual[code], ...suffix]);
+          rows.push([
+            ...common,
+            "",
+            ...answer(code),
+            q.residual[code],
+            ...suffix,
+          ]);
     }
   const cell = (v: unknown) => {
     let s = v == null ? "" : String(v);

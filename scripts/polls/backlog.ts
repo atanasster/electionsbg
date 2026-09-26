@@ -8,17 +8,18 @@ import {
 
 export const publicationStatus = (record: PublicationRecord): string => {
   if (record.errors.capture) return "capture_error";
-  if (record.errors.extraction) return "extraction_error";
   const latest = record.versions.find((v) => v.sha256 === record.latestHash);
   if (!latest) return "pending_capture";
   if (latest.attachmentFailures.length) return "incomplete_capture";
-  if (!latest.drafts.length) return "pending_extraction";
-  if (
-    latest.drafts.every(
-      (d) => d.acceptedAt && d.acceptedDraftHash === d.draftHash,
-    )
-  )
-    return "accepted";
+  const active = latest.drafts.filter(
+    (d) => !latest.exclusions?.some((e) => e.race === d.race),
+  );
+  const excluded = latest.exclusions?.length ?? 0;
+  if (excluded && !active.length) return "excluded";
+  if (record.errors.extraction) return "extraction_error";
+  if (!active.length) return "pending_extraction";
+  if (active.every((d) => d.acceptedAt && d.acceptedDraftHash === d.draftHash))
+    return excluded ? "reviewed" : "accepted";
   return "pending_review";
 };
 
@@ -43,6 +44,7 @@ export const buildBacklog = (root: string) => {
         publishedAt: record.publishedAt,
         status: publicationStatus(record),
         error: record.lastError?.message ?? null,
+        exclusions: latest?.exclusions ?? [],
         refused: latest?.drafts.flatMap((d) => d.refused) ?? [],
         drafts:
           latest?.drafts.map((d) => ({ id: d.pollId, race: d.race })) ?? [],

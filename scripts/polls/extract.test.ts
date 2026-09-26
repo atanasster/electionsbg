@@ -7,8 +7,14 @@
 
 import fs from "node:fs";
 import * as acquisition from "./lib/text_acquisition";
-import { readPublicationLedger } from "./lib/publication_ledger";
+import {
+  readPublicationLedger,
+  recordAcceptance,
+  recordExclusion,
+} from "./lib/publication_ledger";
 import os from "node:os";
+import type { InboxDraft } from "./lib/draft";
+import { publicationStatus } from "./backlog";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { __setExtractRootForTests, main, parseArgv } from "./extract";
@@ -25,17 +31,23 @@ describe("parseArgv", () => {
     expect(parseArgv(["--agency", "TR", "--pub", "212750"])).toEqual({
       agency: "TR",
       pub: "212750",
+      regenerate: false,
     });
   });
 
   it("defaults both to undefined", () => {
-    expect(parseArgv([])).toEqual({ agency: undefined, pub: undefined });
+    expect(parseArgv([])).toEqual({
+      agency: undefined,
+      pub: undefined,
+      regenerate: false,
+    });
   });
 
   it("does not swallow the next flag's name as a value", () => {
     expect(parseArgv(["--agency", "--pub"])).toEqual({
       agency: undefined,
       pub: undefined,
+      regenerate: false,
     });
   });
 });
@@ -160,6 +172,84 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
     expect(
       readPublicationLedger(scratchRoot, "TR")[0].versions[0].drafts,
     ).toHaveLength(2);
+  });
+
+  it("preserves reviewed inbox edits and accepted races when extraction is replayed", async () => {
+    writeSyntheticCapture("trend", "111", TR_HTML);
+    await main(["--agency", "TR", "--pub", "111"]);
+    const file = path.join(scratchRoot, "data/polls/_inbox/tr-pub-111.json");
+    const draft = JSON.parse(fs.readFileSync(file, "utf8")) as InboxDraft;
+    draft.poll.methodology = {
+      bg: "Прегледана методология",
+      en: "Human reviewed methodology",
+    };
+    const reviewed = JSON.stringify(draft);
+    fs.writeFileSync(file, reviewed);
+    await main(["--agency", "TR", "--pub", "111"]);
+    expect(fs.readFileSync(file, "utf8")).toBe(reviewed);
+    recordAcceptance(scratchRoot, draft, "2026-09-26T00:00:00Z");
+    fs.unlinkSync(file);
+    await main(["--agency", "TR", "--pub", "111"]);
+    expect(fs.existsSync(file)).toBe(false);
+    expect(publicationStatus(readPublicationLedger(scratchRoot, "TR")[0])).toBe(
+      "accepted",
+    );
+  });
+
+  it("archives reviewed draft bytes before an explicitly scoped regeneration", async () => {
+    writeSyntheticCapture("trend", "111", TR_HTML);
+    await main(["--agency", "TR", "--pub", "111"]);
+    const file = path.join(scratchRoot, "data/polls/_inbox/tr-pub-111.json");
+    const draft = JSON.parse(fs.readFileSync(file, "utf8")) as InboxDraft;
+    draft.poll.methodology = {
+      bg: "Прегледана методология",
+      en: "Reviewed methodology",
+    };
+    const reviewed = JSON.stringify(draft);
+    fs.writeFileSync(file, reviewed);
+    await main(["--agency", "TR", "--pub", "111", "--regenerate"]);
+    const archive = path.join(scratchRoot, "state/polls/review-history");
+    expect(
+      fs
+        .readdirSync(archive)
+        .map((f) => fs.readFileSync(path.join(archive, f), "utf8")),
+    ).toContain(reviewed);
+    expect(fs.readFileSync(file, "utf8")).not.toBe(reviewed);
+  });
+
+  it("requires one publication for explicit regeneration", async () => {
+    await main(["--regenerate"]);
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("--regenerate needs --agency and --pub"),
+    );
+  });
+
+  it("does not re-extract reviewed exclusions, including before an extractor would reject the title", async () => {
+    writeSyntheticCapture("trend", "111", TR_HTML);
+    await main(["--agency", "TR", "--pub", "111"]);
+    for (const race of ["parliamentary", "presidential"] as const)
+      recordExclusion(
+        scratchRoot,
+        "TR",
+        "111",
+        "c".repeat(64),
+        race,
+        "Reviewed exit poll",
+        "2026-09-26",
+      );
+    const file = path.join(scratchRoot, "data/polls/_inbox/tr-pub-111.json");
+    const prior = fs.readFileSync(file, "utf8");
+    fs.writeFileSync(
+      path.join(scratchRoot, "raw_data/polls/trend/111/page.html"),
+      "<title>Exit poll</title>",
+    );
+    await main(["--agency", "TR", "--pub", "111"]);
+    expect(process.exitCode).toBeUndefined();
+    expect(fs.readFileSync(file, "utf8")).toBe(prior);
+    expect(publicationStatus(readPublicationLedger(scratchRoot, "TR")[0])).toBe(
+      "excluded",
+    );
   });
 
   it("--agency narrows to one agency", async () => {
@@ -314,7 +404,7 @@ describe("main — orchestration (synthetic captures, real fs, redirected to a s
         "Обем на извадката: 1000 души. Период на провеждане: 1 - 5 март 2026г." +
         "</div></body></html>",
     );
-    await main(["--agency", "AR", "--pub", "555"]);
+    await main(["--agency", "AR", "--pub", "555", "--regenerate"]);
 
     expect(
       fs.existsSync(

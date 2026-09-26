@@ -92,6 +92,21 @@ describe("presidential insights", () => {
     expect(csv).toContain("incomplete_coverage");
     expect(csv).toContain("decided_voters");
   });
+  it("preserves question wording, answer labels and evidence in CSV downloads", () => {
+    const p = polls.find((p) => p.agencyId === "GM")!;
+    const csv = exportCsv(pollExport([p], details, runoffs, accuracy, 1));
+    const quoted = (value: string) => '"' + value.replace(/"/g, '""') + '"';
+    for (const q of p.questions ?? []) {
+      expect(csv).toContain(quoted(q.wording.bg));
+      expect(csv).toContain(quoted(q.wording.en));
+      expect(csv).toContain(quoted(q.evidence.url));
+      if (q.evidence.locator) expect(csv).toContain(quoted(q.evidence.locator));
+      for (const answer of q.answerScale) {
+        expect(csv).toContain(quoted(answer.label.bg));
+        expect(csv).toContain(quoted(answer.label.en));
+      }
+    }
+  });
   it("quotes multiline CSV cells and prevents spreadsheet formula evaluation", () => {
     const p = structuredClone(polls.find((p) => p.agencyId === "GM")!);
     p.methodology.en = '=HYPERLINK("example")\nline';

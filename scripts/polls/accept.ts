@@ -606,11 +606,12 @@ const acceptPresidential = (
   }
   if (
     draft.details.length === 0 &&
+    draft.runoffs.length === 0 &&
     !draft.poll.questions?.some((q) => q.observations?.length) &&
     !opts.allowEmpty
   ) {
     console.error(
-      `${opts.pollId}: zero accepted candidate/placeholder rows — nothing to publish (see the draft's own refused entries). Pass --allow-empty to accept anyway.`,
+      `${opts.pollId}: zero accepted candidate, runoff or participation answers — nothing to publish (see the draft's own refused entries). Pass --allow-empty to accept anyway.`,
     );
     process.exitCode = 1;
     return;

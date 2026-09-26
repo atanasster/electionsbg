@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import type { InboxDraft } from "./draft";
+import { acquireLedgerLock } from "./ledger_lock";
 
 export interface PublicationDiscovery {
   pubId: string;
@@ -16,6 +17,11 @@ export interface PublicationVersion {
   capturePath: string;
   capturedAt: string;
   attachmentFailures: string[];
+  exclusions?: {
+    race: InboxDraft["race"];
+    reason: string;
+    reviewedAt: string;
+  }[];
   drafts: {
     pollId: string;
     race: InboxDraft["race"];
@@ -71,7 +77,7 @@ const mutate = (
   fs.mkdirSync(path.dirname(file), { recursive: true });
   // An overlapping watcher/ingester must retry rather than overwrite another writer.
   const lock = `${file}.lock`;
-  fs.mkdirSync(lock);
+  const releaseLock = acquireLedgerLock(lock);
   const temporary = `${file}.tmp-${process.pid}`;
   try {
     const records = readPublicationLedger(root, agencyId);
@@ -86,7 +92,7 @@ const mutate = (
     fs.renameSync(temporary, file);
   } finally {
     fs.rmSync(temporary, { force: true });
-    fs.rmdirSync(lock);
+    releaseLock();
   }
 };
 
@@ -247,6 +253,33 @@ export const recordExtraction = (
     ];
     item.errors.extraction = null;
     refreshLastError(item);
+  });
+};
+
+/** A review applies only to this source version and electoral family. */
+export const recordExclusion = (
+  root: string,
+  agencyId: string,
+  pubId: string,
+  sha256: string,
+  race: InboxDraft["race"],
+  reason: string,
+  at: string,
+): void => {
+  if (!reason.trim()) throw new Error("An exclusion needs a review reason");
+  mutate(root, agencyId, (records) => {
+    const item = records.find((entry) => entry.pubIds.includes(pubId));
+    const version = item?.versions.find((entry) => entry.sha256 === sha256);
+    if (!item || !version)
+      throw new Error(`Missing capture: ${agencyId}/${pubId}`);
+    if (version.drafts.some((d) => d.race === race && d.acceptedAt))
+      throw new Error(
+        "Accepted surveys need a corpus correction before exclusion",
+      );
+    version.exclusions = [
+      ...(version.exclusions ?? []).filter((e) => e.race !== race),
+      { race, reason, reviewedAt: at },
+    ];
   });
 };
 

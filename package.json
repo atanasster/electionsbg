@@ -301,6 +301,7 @@
     "polls:fetch": "tsx ./scripts/polls/fetch.ts",
     "polls:extract": "tsx ./scripts/polls/extract.ts",
     "polls:accept": "tsx ./scripts/polls/accept.ts",
+    "polls:exclude": "tsx ./scripts/polls/exclude.ts",
     "polls:restamp": "tsx ./scripts/polls/restamp.ts",
     "polls:crosscheck": "tsx ./scripts/polls/crosscheck.ts",
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",

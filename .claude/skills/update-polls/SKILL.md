@@ -99,7 +99,32 @@ node --import tsx scripts/polls/inventory.ts --after 2021-01-01 --before 2021-12
 
 Inventory records retain listing/capture failures. Reconcile them against
 accepted surveys and record exclusions or missing metadata; a discovered
-publication is not automatically an accepted poll. state/ingest/update-polls.json
+publication is not automatically an accepted poll.
+
+A reviewed exclusion must reach the LEDGER, or the backlog reports the item as
+pending for ever and re-running extraction cannot finish it:
+
+```bash
+npm run polls:exclude -- --agency AR --pub 912 --race presidential --reason "Round-two exit poll"
+npm run polls:exclude -- --from-reconciliation   # after editing historical-reconciliation.json
+node --import tsx scripts/polls/backlog.ts > state/polls/backlog.json
+```
+
+An exclusion binds to the current source hash AND one race: a changed source
+reopens review, and a presidential exclusion leaves a joint publication's
+parliamentary draft pending. The reconciliation's `excluded` status resolves
+both races (not a survey at all); `other_race`/`other_question` resolve only
+the presidential one. An accepted race is refused — correct the corpus instead.
+
+`polls:extract` never overwrites an inbox draft or re-opens an accepted race on
+an unchanged source version. To deliberately rebuild one publication's drafts,
+pass `--agency <ID> --pub <id> --regenerate`; the replaced bytes are archived to
+`state/polls/review-history/<sha256>.json` first.
+
+Ledger writes take `state/polls/<AGENCY>.json.lock`, a symlink naming its
+owner. A lock left by a killed process is recovered automatically on this host;
+a DIRECTORY lock was written by the pre-ownership code and must be removed by
+hand once no polls writer is running. state/ingest/update-polls.json
 records a completed ingestion run, not merely a successful watch.
 
 ## Step 1 — Fetch, extract, review, accept

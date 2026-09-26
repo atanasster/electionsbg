@@ -1,5 +1,6 @@
 // Extract captured agency releases into reviewable drafts, preserving each race.
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { presidentialDraftId } from "./lib/draft_identity";
@@ -149,6 +150,16 @@ const provisionalFilename = (
   versionSuffix: string,
 ): string => `${agencyId.toLowerCase()}-pub-${pubId}${versionSuffix}.json`;
 
+const preserveDraft = (file: string): void => {
+  const contents = fs.readFileSync(file, "utf8");
+  const hash = createHash("sha256").update(contents).digest("hex");
+  const directory = path.join(REPO_ROOT, "state/polls/review-history");
+  fs.mkdirSync(directory, { recursive: true });
+  const archive = path.join(directory, `${hash}.json`);
+  if (!fs.existsSync(archive))
+    fs.writeFileSync(archive, contents, { flag: "wx" });
+};
+
 const writeDraft = (draft: InboxDraft, versionSuffix: string): string => {
   fs.mkdirSync(INBOX_DIR(), { recursive: true });
   const file = path.join(INBOX_DIR(), inboxFilename(draft, versionSuffix));
@@ -158,9 +169,7 @@ const writeDraft = (draft: InboxDraft, versionSuffix: string): string => {
       throw new Error(
         `Draft ID collision: ${draft.poll.id}; preserve both publications for review`,
       );
-    console.log(
-      `  overwriting existing draft ${path.relative(REPO_ROOT, file)}`,
-    );
+    preserveDraft(file);
   }
   fs.writeFileSync(file, `${JSON.stringify(draft, null, 2)}\n`, "utf8");
   return file;
@@ -195,6 +204,7 @@ const removeStaleProvisionalDraft = (
       previous.poll.source !== draft.poll.source
     )
       continue;
+    preserveDraft(stale);
     fs.rmSync(stale);
     console.log(
       `  removed superseded provisional draft ${path.relative(REPO_ROOT, stale)}`,
@@ -210,6 +220,7 @@ const extractOne = async (
   agencyId: string,
   pubId: string,
   extractor: Extractor,
+  regenerate: boolean,
 ): Promise<void> => {
   const versionSuffix = latestSuffixFor(agencyId, pubId);
   if (versionSuffix === null) {
@@ -268,15 +279,74 @@ const extractOne = async (
       );
       return;
     }
+    const version = publication?.versions.find(
+      (v) => v.sha256 === stamp.sha256,
+    );
+    if (
+      ["parliamentary", "presidential"].every((race) =>
+        version?.exclusions?.some((e) => e.race === race),
+      )
+    ) {
+      console.log(`skip ${agencyId} ${pubId} — reviewed exclusions preserved`);
+      return;
+    }
     if (stamp.attachmentFailures?.length)
       throw new Error(
         "Capture has unavailable attachments; retry capture before extraction",
       );
     const extracted = await extractor(captureDir, pubId);
     for (const draft of Array.isArray(extracted) ? extracted : [extracted]) {
+      if (version?.exclusions?.some((e) => e.race === draft.race)) {
+        console.log(
+          `skip ${agencyId} ${pubId}/${draft.race} — reviewed exclusion preserved`,
+        );
+        continue;
+      }
       draft.poll.publicationId = `${agencyId}:${pubId}`;
       draft.poll.publishedAt =
         stamp.publishedAt ?? draft.poll.publishedAt ?? null;
+      const prior = publication?.versions
+        .find((v) => v.sha256 === stamp.sha256)
+        ?.drafts.find((d) => d.race === draft.race);
+      const existing = fs.existsSync(INBOX_DIR())
+        ? fs
+            .readdirSync(INBOX_DIR())
+            .filter((f) => f.endsWith(".json"))
+            .find((f) => {
+              let saved: InboxDraft;
+              try {
+                saved = JSON.parse(
+                  fs.readFileSync(path.join(INBOX_DIR(), f), "utf8"),
+                ) as InboxDraft;
+              } catch {
+                // A reviewer's half-finished edit must not abort every other extraction.
+                console.warn(`  unreadable inbox draft ${f} — left untouched`);
+                return false;
+              }
+              return (
+                saved.race === draft.race &&
+                saved.poll.source === draft.poll.source &&
+                saved.poll.provenance?.sha256 === stamp.sha256
+              );
+            })
+        : undefined;
+      if (!regenerate && (existing || prior?.acceptedAt)) {
+        console.log(
+          `skip ${agencyId} ${pubId}/${draft.race} — existing review or acceptance preserved`,
+        );
+        continue;
+      }
+      // A restamped draft can have a different name from the extractor output.
+      if (existing) {
+        const previous = path.join(INBOX_DIR(), existing);
+        if (
+          previous !==
+          path.join(INBOX_DIR(), inboxFilename(draft, versionSuffix))
+        ) {
+          preserveDraft(previous);
+          fs.rmSync(previous);
+        }
+      }
       const file = writeDraft(draft, versionSuffix);
       recordExtraction(
         REPO_ROOT,
@@ -313,11 +383,16 @@ const extractOne = async (
 export interface Opts {
   agency?: string;
   pub?: string;
+  regenerate: boolean;
 }
 
 export const parseArgv = (argv: string[]): Opts => {
   const flag = flagReader(argv);
-  return { agency: flag("agency"), pub: flag("pub") };
+  return {
+    agency: flag("agency"),
+    pub: flag("pub"),
+    regenerate: argv.includes("--regenerate"),
+  };
 };
 
 export const main = async (argv: string[]): Promise<void> => {
@@ -336,11 +411,19 @@ export const main = async (argv: string[]): Promise<void> => {
     return;
   }
 
+  if (opts.regenerate && (!opts.agency || !opts.pub)) {
+    console.error(
+      "--regenerate needs --agency and --pub to select one reviewed publication",
+    );
+    process.exitCode = 1;
+    return;
+  }
   const agencies = opts.agency ? [opts.agency] : Object.keys(EXTRACTORS);
   for (const agencyId of agencies) {
     const extractor = EXTRACTORS[agencyId];
     const pubIds = opts.pub ? [opts.pub] : capturedPubIds(agencyId);
-    for (const pubId of pubIds) await extractOne(agencyId, pubId, extractor);
+    for (const pubId of pubIds)
+      await extractOne(agencyId, pubId, extractor, opts.regenerate);
   }
 };
 

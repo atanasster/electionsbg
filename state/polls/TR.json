@@ -327,6 +327,13 @@
               "share:ДПС"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -366,6 +373,13 @@
             "refused": [
               "share:ДПС"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
           }
         ]
       }
@@ -414,6 +428,13 @@
               "share:БСП"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -451,6 +472,13 @@
             "extractedAt": "2026-09-26T08:17:36.870Z",
             "draftHash": "9fa806c39e685c0f6ee24552df43f200d411c00f5a22152277ae005b842b6006",
             "refused": []
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
           }
         ]
       }
@@ -499,6 +527,13 @@
               "share:ДПС"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -539,6 +574,13 @@
               "share:ГЕРБ"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -569,7 +611,14 @@
         "capturePath": "raw_data/polls/trend/209614",
         "capturedAt": "2026-09-26T08:39:47.728Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "September 2021: parliamentary shares and presidential job approval",
+            "reviewedAt": "2026-09-26"
+          }
+        ]
       }
     ],
     "failures": {
@@ -599,7 +648,14 @@
         "capturePath": "raw_data/polls/trend/209588",
         "capturedAt": "2026-09-26T08:39:49.474Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "July 2021: parliamentary shares and presidential job approval",
+            "reviewedAt": "2026-09-26"
+          }
+        ]
       }
     ],
     "failures": {

@@ -137,6 +137,18 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Presidential exit-poll profile",
+            "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "presidential",
+            "reason": "Presidential exit-poll profile",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -179,6 +191,18 @@
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Presidential exit-poll profile",
+            "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "presidential",
+            "reason": "Presidential exit-poll profile",
+            "reviewedAt": "2026-09-26"
           }
         ]
       }
@@ -325,6 +349,13 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -373,6 +404,13 @@
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
           }
         ]
       }
@@ -424,6 +462,13 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
+          }
         ]
       }
     ],
@@ -473,6 +518,13 @@
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
+            "reviewedAt": "2026-09-26"
           }
         ]
       }

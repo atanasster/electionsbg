@@ -1045,6 +1045,28 @@ describe("main — presidential drafts (Tier 4, decision 10's separate file fami
     );
   });
 
+  it("accepts a reviewed runoff-only survey without requiring empty-data override", () => {
+    const draft = structuredClone(BASE_PRESIDENTIAL_DRAFT);
+    draft.details = [];
+    draft.runoffs = [
+      {
+        pollId: draft.poll.id,
+        agencyId: draft.poll.agencyId,
+        a: "provisional:ivan-ivanov",
+        b: "provisional:petar-petrov",
+        supportA: 55,
+        supportB: 45,
+        residual: null,
+      },
+    ];
+    writeDraft("gm-2026-07-11.json", draft);
+    writePresCorpus([], []);
+    main(["gm-2026-07-11"]);
+    expect(process.exitCode).toBeUndefined();
+    expect(readPresCorpus().details).toEqual([]);
+    expect(readPresCorpus().runoffs).toEqual(draft.runoffs);
+  });
+
   it("accepts a reviewed participation-only survey without fake candidate rows", () => {
     const draft = structuredClone(BASE_PRESIDENTIAL_DRAFT);
     draft.details = [];
