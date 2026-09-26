@@ -273,7 +273,8 @@ const extractOne = async (
     }
     const draft = await extractor(captureDir, pubId);
     draft.poll.publicationId = `${agencyId}:${pubId}`;
-    draft.poll.publishedAt = stamp.publishedAt ?? null;
+    draft.poll.publishedAt =
+      stamp.publishedAt ?? draft.poll.publishedAt ?? null;
     const file = writeDraft(draft, versionSuffix);
     recordExtraction(
       REPO_ROOT,

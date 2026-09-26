@@ -1,0 +1,43 @@
+[
+  {
+    "pubId": "658",
+    "url": "https://globalmetrics.eu/obshtestveni-naglasi-prezidentski-izbori-yuli-2026/",
+    "title": "Президентски избори 2026: обществени нагласи юли",
+    "publishedAt": "2026-07-28T12:05:54+00:00",
+    "agencyId": "GM",
+    "pubIds": [
+      "658"
+    ],
+    "discoveredAt": "2026-09-09T10:17:53.017Z",
+    "latestHash": "5c2701846a0db0315d8e99c1067541922c06277e3aebd826a3877480b22fa524",
+    "versions": [
+      {
+        "sha256": "5c2701846a0db0315d8e99c1067541922c06277e3aebd826a3877480b22fa524",
+        "capturePath": "raw_data/polls/global_metrics/658",
+        "capturedAt": "2026-09-09T10:17:53.017Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "gm-2026-07-11",
+            "race": "presidential",
+            "extractedAt": "2026-09-26T07:36:51.285Z",
+            "draftHash": "657bd1c6a872eb7939b8eef1555ca7033f88609a80756b8cdca8d89e71a0088f",
+            "refused": [],
+            "reviewedAt": "2026-09-26T07:36:51.297Z",
+            "acceptedAt": "2026-09-26T07:36:51.297Z",
+            "acceptedDraftHash": "657bd1c6a872eb7939b8eef1555ca7033f88609a80756b8cdca8d89e71a0088f"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  }
+]

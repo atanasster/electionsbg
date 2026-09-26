@@ -10,8 +10,8 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 1 | Foundations | Question model, publication metadata and acceptance validation | Complete | `f289362bf9` |
 | 2 | Foundations | Reviewed candidate aliases and unresolved coverage | Complete | `15818bda70` |
 | 3 | Foundations | Durable discovery and processing ledger | Complete | `1a866acdf8` |
-| 4 | Foundations | Cycle assignment, validation and complete correction snapshots | In progress | |
-| 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | Pending | |
+| 4 | Foundations | Cycle assignment, validation and complete correction snapshots | Complete | `e425fd3c34` |
+| 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | In progress | |
 | 6 | Backfill | Publication inventory, historical pagination and capture | Pending | |
 | 7 | Backfill | Missing agency extractors, multiple-race output and backlog reporting | Pending | |
 | 8 | Backfill | Resolve Trend historical drafts from source evidence | Pending | |
@@ -34,19 +34,19 @@ Step 3: FINDING-001–004 verified and fixed in `publication_ledger.ts`, `captur
 
 Step 4: FINDING-001 (`accept.ts`) verified and fixed: validate original intended-election and fieldwork dates before cycle normalization. Malformed question metadata now reaches validation without throwing. No needs-review findings. Related tests: 130 passed; changed-file lint, TypeScript and full production build passed.
 
+Step 5: Independent review found no issues. Source values and methodology verified against rendered PDF pages 4, 5 and 8. Related tests: 113 passed; corpus checks: 19 passed; lint and TypeScript compilation passed. Full production build passed.
+
 ## Current step files
 
 - `docs/plans/presidential-polls-implementation.md`
-- `scripts/polls/lib/presidential_cycle.ts`
-- `scripts/polls/lib/presidential_cycle.test.ts`
-- `scripts/polls/lib/question_validation.ts`
-- `scripts/polls/lib/question_validation.test.ts`
-- `scripts/polls/accept.ts`
-- `scripts/polls/accept.test.ts`
-- `scripts/polls/restamp.ts`
-- `scripts/polls/restamp.test.ts`
-- `scripts/polls/extractors/trend_presidential.ts`
-- `src/data/polls/pollsTypes.ts`
+- `scripts/polls/extractors/global_metrics.ts`
+- `scripts/polls/extractors/global_metrics.test.ts`
+- `scripts/polls/extract.ts`
+- `data/polls/presidential/polls.json`
+- `data/polls/presidential/polls_details.json`
+- `data/polls/_inbox/gm-2026-07-11.json (deleted)`
+- `state/polls/GM.json (new)`
+- `docs/polls/global-metrics-2026-correction.md (new)`
 
 ## Existing work to preserve
 

@@ -58,13 +58,19 @@ describe("extractGlobalMetrics — real capture (658, July 2026 presidential)", 
       expect(draft.residual).toBeNull();
 
       const byLabel = Object.fromEntries(
-        draft.details.map((d) => [d.candidateName_bg, d.support]),
+        draft.details
+          .filter(
+            (d) => d.answerCode === "vote" || d.answerCode === "definitely",
+          )
+          .map((d) => [d.candidateName_bg, d.support]),
       );
       // The party-placeholder horse race ("Кандидат на <party>" +
       // "Друг кандидат") — sums to ~100%, and is the ONLY genuine
       // mutually-exclusive horse race in this capture.
       expect(byLabel["Прогресивна България"]).toBe(39.7);
-      expect(byLabel["Продължаваме промяната"]).toBe(13.3);
+      expect(byLabel["Продължаваме промяната – Демократична България"]).toBe(
+        13.3,
+      );
       expect(byLabel["ГЕРБ-СДС"]).toBe(11.5);
       expect(byLabel["Възраждане"]).toBe(5.5);
       expect(byLabel["БСП – Обединена левица"]).toBe(4.8);
@@ -81,8 +87,25 @@ describe("extractGlobalMetrics — real capture (658, July 2026 presidential)", 
       expect(byLabel["Андрей Гюров"]).toBe(9.6);
       expect(byLabel["Даниел Вълчев"]).toBe(4.7);
       expect(byLabel["Иван Христанов"]).toBe(3.1);
-      expect(draft.details).toHaveLength(13);
+      expect(draft.details).toHaveLength(21);
 
+      expect(draft.poll.questions?.map((q) => q.measure)).toEqual([
+        "party_backed_candidate",
+        "support_potential",
+      ]);
+      expect(draft.poll.questions?.every((q) => !q.scoring.eligible)).toBe(
+        true,
+      );
+      expect(draft.poll.publishedAt).toBe("2026-07-28T12:05:54+00:00");
+      expect(
+        draft.details
+          .filter((d) => d.candidateName_bg === "Илияна Йотова")
+          .map((d) => [d.answerCode, d.support]),
+      ).toEqual([
+        ["definitely", 30],
+        ["probably", 20.2],
+        ["hesitant", 18.4],
+      ]);
       // Zero refusals on this capture — every row is cleanly quotable.
       expect(draft.refused).toEqual([]);
 
@@ -94,7 +117,7 @@ describe("extractGlobalMetrics — real capture (658, July 2026 presidential)", 
       );
       expect(placeholderKeyByName).toEqual({
         "Прогресивна България": "ПрБ",
-        "Продължаваме промяната": "ПП-ДБ",
+        "Продължаваме промяната – Демократична България": "ПП-ДБ",
         "ГЕРБ-СДС": "ГЕРБ-СДС",
         Възраждане: "Възраждане",
         "БСП – Обединена левица": "БСП-ОЛ",
@@ -109,7 +132,12 @@ describe("extractGlobalMetrics — real capture (658, July 2026 presidential)", 
       const namedCandidates = draft.details.filter(
         (d) => d.placeholderFor === null,
       );
-      expect(namedCandidates.map((d) => d.candidateKey).sort()).toEqual([
+      expect(
+        namedCandidates
+          .filter((d) => d.answerCode === "definitely")
+          .map((d) => d.candidateKey)
+          .sort(),
+      ).toEqual([
         "provisional:андрей-гюров",
         "provisional:даниел-вълчев",
         "provisional:иван-христанов",
@@ -120,7 +148,11 @@ describe("extractGlobalMetrics — real capture (658, July 2026 presidential)", 
       // every accepted claim has its own grounding quote.
       for (const d of draft.details) {
         expect(d.pollId).toBe(draft.poll.id);
-        expect(draft.evidence[`share:${d.candidateName_bg}`]).toBeTruthy();
+        expect(
+          draft.evidence[
+            `share:${d.candidateName_bg}${d.placeholderFor ? "" : `:${d.answerCode}`}`
+          ],
+        ).toBeTruthy();
       }
     },
   );

@@ -1,32 +1,8 @@
-// Tier 2c/Tier 4 T4.1 — the Global Metrics deterministic PRESIDENTIAL
-// extractor (§6.2, §7). GM's July 2026 capture (pubId 658, two PDFs) is
-// the fixture: it carries BOTH a party-PLACEHOLDER horse race ("Кандидат
-// на <party>", a genuine "if elections were today" question, decision 8's
-// "сред заявилите, че ще гласуват" base phrase verbatim) and a per-
-// NAMED-CANDIDATE table ("на кои от следните личности бихте дали своята
-// подкрепа?" — "which of these people would you support?").
-//
-// ⚠️ THE NAMED-CANDIDATE NUMBER IS NOT THE ONE THE PRESS RELEASE
-// HEADLINES. The same PDF ALSO prints a "Индекс на доверие" (Trust Index)
-// table naming the same candidates with different, larger-looking numbers
-// (measured: Йотова 30.9 there vs 30.0 in the support table) — that is a
-// favorability/trust score, not "would you vote for this person", and
-// using it as a candidate's poll support would misrepresent a real named
-// public figure's electoral standing. This extractor reads ONLY the
-// "бихте дали своята подкрепа" table, and within it ONLY the "Със
-// сигурност бих гласувал/а" (definitely would support) column — the most
-// precise, uniformly-available, directly-quotable number in that table
-// (every real row states it as a single literal percentage next to the
-// name), not the agency's own rounded prose summary ("Андрей Гюров –
-// 23%"), which combines two tiers ("definitely" + "probably") and is
-// only stated in running text for some candidates, not all, so it cannot
-// be extracted as one uniform rule and evidence-gate cleanly.
-//
-// classifyRace (decision 11) already correctly resolves this capture's
-// title ("Президентски избори 2026: ...") as presidential — measured
-// live, no extractor-side override needed.
+// Global Metrics presidential extraction. Keep hypothetical party choices and
+// named-person support potential in separate, unscorable questions.
 
 import fs from "node:fs";
+import * as cheerio from "cheerio";
 import path from "node:path";
 import {
   placeholderCandidateKey,
@@ -37,6 +13,7 @@ import { pollId as mintPollId } from "../../../src/data/polls/fieldwork";
 import { UPCOMING_ELECTIONS } from "../../../src/data/myarea/upcomingElections";
 import type {
   PollGenre,
+  PollQuestion,
   PresidentialPollDetail,
 } from "../../../src/data/polls/pollsTypes";
 import { classifyRace, classifyTitle } from "../lib/classify_race";
@@ -77,18 +54,6 @@ const NAMED_SECTION_END_RE = /Ако президентските избори �
 // un-sectioned, or the section markers ever widened by accident) read
 // ordinary narrative text as a fake ballot row.
 //
-// This deliberately captures only the text BEFORE the percentage, not the
-// whole "Кандидат на ... <party>" block: on the real capture, "Кандидат на
-// Продължаваме промяната –\n<spaces>13.3%\n<spaces>Демократична България"
-// wraps the coalition's second half ("Демократична България") to a line
-// AFTER the percentage, and the evidence gate (`shareSupportedByQuote`)
-// requires the label to occur immediately before its value inside the
-// quote — pulling the wrapped continuation into the label would place the
-// number in the MIDDLE of the label text, which can never satisfy that
-// check against the literal PDF text. The truncated label
-// ("Продължаваме промяната –") still identifies the party uniquely, and
-// `POLL_TO_ACTUAL` carries an alias for exactly this truncated form.
-//
 // The lazy `[\s\S]+?` span is bounded by a negative lookahead against
 // EITHER marker, not merely non-greedy — without it, a row whose own
 // percentage is missing (withheld, footnoted, a redesigned table) lets
@@ -102,28 +67,9 @@ const NAMED_SECTION_END_RE = /Ако президентските избори �
 const PLACEHOLDER_ROW_RE =
   /(Кандидат на\s+(?:(?!Кандидат на|Друг кандидат)[\s\S])+?|Друг кандидат)\s*\n*\s*(\d{1,2}[.,]\d)\s*%/g;
 
-// One named-candidate row prints the name, three "would support" tiers
-// (definitely/probably/undecided — only the first is used, see header),
-// then the SAME name again (the start of a second, side-by-side table on
-// the same PDF page, trust breakdown) followed by six more numbers this
-// extractor does not read. `[\s\S]*?` (not `.`) so it still matches when
-// pdftotext happens to break the row across a line; the trailing
-// backreference has NO `\b` after it — `\b` is ASCII-only in JS RegExp
-// and never matches after a Cyrillic letter (this repo's own documented
-// trap), which silently zeroed every match the first time this was
-// written and tested against the real capture.
-//
-// The name must START WITH A LETTER (`\p{L}`), not merely be non-space —
-// the chart beneath this table prints its own x-axis as a bare run of
-// percentages ("0.0%  10.0%  20.0%  30.0%  40.0%"), which a `\S+` name
-// token matches just as happily as a real candidate ("0.0%" as the
-// "name", "10.0%" as its first tier) and which, once accepted as a share
-// claim, corrupts the evidence gate's forward-boundary scan for every
-// OTHER candidate's own quote (verified: it moved a real "Илияна Йотова
-// 30.0%" claim from accepted to refused by inserting a spurious
-// boundary marker).
+// The three support tiers precede the repeated name in the adjacent trust table.
 const NAMED_ROW_RE =
-  /^[ \t]*(\p{L}[\p{L}.'-]*(?:\s+\p{L}[\p{L}.'-]*)?)\s+(\d{1,2}[.,]\d)%\s*\d{1,2}[.,]\d%\s*\d{1,2}[.,]\d%[\s\S]*?\1/gmu;
+  /^[ \t]*(\p{L}[\p{L}.'-]*(?:\s+\p{L}[\p{L}.'-]*)?)\s+(\d{1,2}[.,]\d)%\s*(\d{1,2}[.,]\d)%\s*(\d{1,2}[.,]\d)%[\s\S]*?\1/gmu;
 
 const FIELDWORK_RE = /в периода\s+([^.;\n]+)/iu;
 const SAMPLE_SIZE_RE = /обем на извадката:?\s*(\d+)/iu;
@@ -196,6 +142,7 @@ const placeholderPartyKey = (partyName: string): string =>
 export interface PlaceholderRow {
   partyName: string;
   partyKey: string;
+  evidenceLabel: string;
   support: number;
   quote: string;
 }
@@ -211,12 +158,20 @@ export const extractPlaceholderRows = (section: string): PlaceholderRow[] => {
   const re = new RegExp(PLACEHOLDER_ROW_RE.source, PLACEHOLDER_ROW_RE.flags);
   let m: RegExpExecArray | null;
   while ((m = re.exec(section))) {
-    const partyName = partyNameFromRow(m[1]);
+    const evidenceLabel = partyNameFromRow(m[1]);
+    const continuation = /^\s*Демократична България(?=\s|$)/u.exec(
+      section.slice(re.lastIndex),
+    );
+    const partyName =
+      evidenceLabel === "Продължаваме промяната" && continuation
+        ? `${evidenceLabel} – Демократична България`
+        : evidenceLabel;
     rows.push({
       partyName,
-      partyKey: placeholderPartyKey(partyName),
+      evidenceLabel,
+      partyKey: placeholderPartyKey(evidenceLabel),
       support: Number(m[2].replace(",", ".")),
-      quote: m[0],
+      quote: m[0] + (partyName !== evidenceLabel ? continuation![0] : ""),
     });
   }
   return rows;
@@ -225,6 +180,7 @@ export const extractPlaceholderRows = (section: string): PlaceholderRow[] => {
 interface NamedRow {
   candidateName: string;
   support: number;
+  answerCode: string;
   quote: string;
 }
 
@@ -233,11 +189,18 @@ const extractNamedRows = (section: string): NamedRow[] => {
   const re = new RegExp(NAMED_ROW_RE.source, NAMED_ROW_RE.flags);
   let m: RegExpExecArray | null;
   while ((m = re.exec(section))) {
-    rows.push({
-      candidateName: m[1].trim(),
-      support: Number(m[2].replace(",", ".")),
-      quote: m[0],
-    });
+    for (const [index, answerCode] of [
+      "definitely",
+      "probably",
+      "hesitant",
+    ].entries()) {
+      rows.push({
+        candidateName: m[1].trim(),
+        answerCode,
+        support: Number(m[index + 2].replace(",", ".")),
+        quote: m[0],
+      });
+    }
   }
   return rows;
 };
@@ -250,7 +213,7 @@ const extractNamedRows = (section: string): NamedRow[] => {
  *
  * No `tickets.json` exists for the 2026 cycle yet (ЦИК has not registered
  * it), so every named candidate resolves as `provisional:<first-last>`
- * today — `polls:presidential:rekey` (decision 16, not yet built) is what
+ * today — `polls:presidential:rekey` (decision 16, built) is what
  * upgrades these to real `canonicalKey`s once it does.
  */
 export const extractGlobalMetrics = async (
@@ -313,7 +276,7 @@ export const extractGlobalMetrics = async (
   if (placeholderSection) {
     const rawRows = extractPlaceholderRows(placeholderSection);
     const claims: ShareClaim[] = rawRows.map((r) => ({
-      label: r.partyName,
+      label: r.evidenceLabel,
       value: r.support,
       quote: r.quote,
     }));
@@ -321,7 +284,7 @@ export const extractGlobalMetrics = async (
     const deduped = dedupeAcceptedShares(gated.accepted);
     refused.push(...gated.refused, ...deduped.refused);
     for (const c of deduped.accepted) {
-      const row = rawRows.find((r) => r.partyName === c.label);
+      const row = rawRows.find((r) => r.evidenceLabel === c.label);
       if (!row) continue; // unreachable — every accepted claim came from rawRows
       quotes[`share:${row.partyName}`] = c.quote;
       details.push({
@@ -338,6 +301,8 @@ export const extractGlobalMetrics = async (
         nominator: null,
         placeholderFor: row.partyKey,
         support: row.support,
+        questionId: "party-backed-choice",
+        answerCode: "vote",
       });
     }
     const baseMatch = BASE_PHRASE_RE.exec(placeholderSection);
@@ -357,29 +322,44 @@ export const extractGlobalMetrics = async (
     NAMED_SECTION_END_RE,
   );
   if (namedSection) {
-    const rawRows = extractNamedRows(namedSection);
-    const claims: ShareClaim[] = rawRows.map((r) => ({
-      label: r.candidateName,
-      value: r.support,
-      quote: r.quote,
-    }));
-    const gated = gateShares(claims, namedSection);
-    const deduped = dedupeAcceptedShares(gated.accepted);
-    refused.push(...gated.refused, ...deduped.refused);
-    for (const c of deduped.accepted) {
-      const resolved = resolveCandidate(c.label, []); // no 2026 tickets.json yet
-      quotes[`share:${c.label}`] = c.quote;
-      details.push({
-        pollId: "",
-        agencyId: AGENCY_ID,
-        candidateKey: resolved.candidateKey,
-        candidateName_bg: c.label,
-        // Left blank — same rationale as the placeholder rows above.
-        candidateName_en: "",
-        nominator: null,
-        placeholderFor: null,
-        support: c.value,
+    const orderedLegend =
+      /Със\s+сигурност\s+бих\s+гласувал\/а\s+По-скоро\s+бих\s+гласувал\/а\s+Колебая\s+се/u.test(
+        namedSection,
+      );
+    const rawRows = orderedLegend ? extractNamedRows(namedSection) : [];
+    if (!orderedLegend)
+      refused.push({
+        field: "details.named.scale",
+        reason: "support-potential legend missing or reordered",
+        quote: "",
       });
+    for (const answerCode of ["definitely", "probably", "hesitant"]) {
+      const claims: ShareClaim[] = rawRows
+        .filter((r) => r.answerCode === answerCode)
+        .map((r) => ({
+          label: r.candidateName,
+          value: r.support,
+          quote: r.quote,
+        }));
+      const gated = gateShares(claims, namedSection);
+      const deduped = dedupeAcceptedShares(gated.accepted);
+      refused.push(...gated.refused, ...deduped.refused);
+      for (const c of deduped.accepted) {
+        const resolved = resolveCandidate(c.label, []);
+        quotes[`share:${c.label}:${answerCode}`] = c.quote;
+        details.push({
+          pollId: "",
+          agencyId: AGENCY_ID,
+          candidateKey: resolved.candidateKey,
+          candidateName_bg: c.label,
+          candidateName_en: "",
+          nominator: null,
+          placeholderFor: null,
+          support: c.value,
+          questionId: "named-support-potential",
+          answerCode,
+        });
+      }
     }
   } else {
     refused.push({
@@ -455,12 +435,126 @@ export const extractGlobalMetrics = async (
   const electionDate =
     UPCOMING_ELECTIONS.find((e) => e.kind === "presidential")?.date ?? null;
 
+  const sourceEvidence = (pattern: RegExp): PollQuestion["evidence"] => {
+    const pdf = acquired.pdfTexts.find((p) => pattern.test(p.text));
+    const match = pdf && pattern.exec(pdf.text);
+    if (!pdf || !match)
+      throw new Error("Question header not found in the captured PDF");
+    const $ = cheerio.load(html);
+    const href = $("a[href]")
+      .toArray()
+      .map((a) => $(a).attr("href")!)
+      .find((value) => {
+        try {
+          return decodeURIComponent(
+            new URL(value, stamp.url).pathname,
+          ).endsWith(`/${pdf.file}`);
+        } catch {
+          return false;
+        }
+      });
+    return {
+      url: href ? new URL(href, stamp.url).href : stamp.url,
+      quote: match[0],
+      locator: `${pdf.file}, page ${pdf.text.slice(0, match.index).split("\f").length}`,
+    };
+  };
+  const questions: PollQuestion[] = [];
+  if (details.some((d) => d.questionId === "party-backed-choice"))
+    questions.push({
+      id: "party-backed-choice",
+      race: "presidential",
+      cycle: null,
+      round: 1,
+      measure: "party_backed_candidate",
+      wording: {
+        bg: "Ако президентските избори бяха следващата неделя за кандидат президент от коя политическа сила бихте гласували?",
+        en: "If the presidential election were next Sunday, which political force's candidate would you vote for?",
+      },
+      base: {
+        kind: basePhrase ? "likely_voters" : "unknown",
+        label: {
+          bg: basePhrase ?? "Неуточнена база",
+          en: basePhrase
+            ? "Respondents who say they will vote"
+            : "Unspecified base",
+        },
+        respondents: null,
+        includesNone: null,
+      },
+      scenario: "hypothetical-party-nominations",
+      answerScale: [
+        { code: "vote", label: { bg: "Бих гласувал/а", en: "Would vote" } },
+      ],
+      genre,
+      residual: null,
+      evidence: sourceEvidence(
+        /Ако президентските избори бяха[\s\S]*?бихте гласували\?/u,
+      ),
+      scoring: {
+        eligible: false,
+        reason:
+          "Hypothetical party-backed candidates, not registered candidate vote intention",
+      },
+    });
+  if (details.some((d) => d.questionId === "named-support-potential"))
+    questions.push({
+      id: "named-support-potential",
+      race: "presidential",
+      cycle: null,
+      round: null,
+      measure: "support_potential",
+      wording: {
+        bg: "Когато става дума за предстоящите президентски избори, на кои от следните личности бихте дали своята подкрепа?",
+        en: "Which of these people would you support in the upcoming presidential election?",
+      },
+      base: {
+        kind: "unknown",
+        label: {
+          bg: "Базата на този въпрос не е уточнена",
+          en: "Base not specified for this question",
+        },
+        respondents: null,
+        includesNone: null,
+      },
+      scenario: "hypothetical-candidates",
+      answerScale: [
+        {
+          code: "definitely",
+          label: {
+            bg: "Със сигурност бих гласувал/а",
+            en: "Would definitely vote",
+          },
+        },
+        {
+          code: "probably",
+          label: { bg: "По-скоро бих гласувал/а", en: "Would probably vote" },
+        },
+        { code: "hesitant", label: { bg: "Колебая се", en: "Hesitant" } },
+      ],
+      genre: "raw_attitudes",
+      residual: null,
+      evidence: sourceEvidence(
+        /Когато става дума за предстоящите президентски избори,[\s\S]*?подкрепа\?/u,
+      ),
+      scoring: {
+        eligible: false,
+        reason:
+          "Support potential permits support for multiple people; it is not a voting distribution",
+      },
+    });
   const poll: DraftPoll = {
     id,
     agencyId: AGENCY_ID,
+    questions,
     source: stamp.url,
     electionDate,
     cycle: null,
+    publicationId: `GM:${pubId}`,
+    publishedAt:
+      /property=["']article:published_time["']\s+content=["']([^"']+)/u.exec(
+        html,
+      )?.[1] ?? null,
     respondents,
     genre,
     ...(fieldwork ? { fieldwork } : {}),
