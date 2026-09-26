@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated_at": "2026-09-26T13:37:51.864143+00:00",
+  "generated_at": "2026-09-26T18:32:49.190611+00:00",
   "counts": {
-    "total": 687,
-    "active": 545,
-    "pending": 602
+    "total": 696,
+    "active": 553,
+    "pending": 611
   },
   "items": [
     {
@@ -6245,6 +6245,169 @@
       }
     },
     {
+      "id": "story-merge-1719c7adac2dc8c8",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T14:29:50.817472+00:00",
+      "last_seen": "2026-09-26T14:29:50.817472+00:00",
+      "keeper": {
+        "id": "20260926-7b4dae99",
+        "title_bg": "ДБ предлага временна комисия за хибридните атаки и саботажи през последните 15 години - Фактор",
+        "title_en": "MPs from Democratic Bulgaria have proposed a temporary parliamentary commission to investigate facts and circumstances hindering effective state response to hybrid attacks and sabotage in Bulgaria's defense industry over the past 15 years. The immediate trigger was a series of fires and explosions at EMKO OOD facilities in August and September 2026. The commission would examine more than ten serious incidents since 2011, including at VMZ Sopot and Arsenal Kazanlak, and review the actions of the Interior Ministry, DANS, intelligence services, the Defense Ministry and the Prosecutor's Office.",
+        "last_published": "2026-09-26T12:35:00+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "intelligence",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [
+            "Демократична България"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "Държавна агенция „Национална сигурност“",
+            "Държавна агенция „Разузнаване“",
+            "служба „Военно разузнаване“",
+            "Министерство на вътрешните работи",
+            "Министерството на отбраната",
+            "Прокуратура на Р. България"
+          ],
+          "companies": [
+            "ЕМКО ООД",
+            "ВМЗ - Сопот",
+            "Арсенал - Казанлък"
+          ],
+          "places": [
+            "Казанлък",
+            "Сопот",
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-7b4dae99",
+        "title_bg": "ДБ предлага временна комисия за хибридните атаки и саботажи през последните 15 години - Фактор",
+        "title_en": "MPs from Democratic Bulgaria have proposed a temporary parliamentary commission to investigate facts and circumstances hindering effective state response to hybrid attacks and sabotage in Bulgaria's defense industry over the past 15 years. The immediate trigger was a series of fires and explosions at EMKO OOD facilities in August and September 2026. The commission would examine more than ten serious incidents since 2011, including at VMZ Sopot and Arsenal Kazanlak, and review the actions of the Interior Ministry, DANS, intelligence services, the Defense Ministry and the Prosecutor's Office.",
+        "last_published": "2026-09-26T12:35:00+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "intelligence",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [
+            "Демократична България"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "Държавна агенция „Национална сигурност“",
+            "Държавна агенция „Разузнаване“",
+            "служба „Военно разузнаване“",
+            "Министерство на вътрешните работи",
+            "Министерството на отбраната",
+            "Прокуратура на Р. България"
+          ],
+          "companies": [
+            "ЕМКО ООД",
+            "ВМЗ - Сопот",
+            "Арсенал - Казанлък"
+          ],
+          "places": [
+            "Казанлък",
+            "Сопот",
+            "България"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-062c5ba8",
+        "title_bg": "ДБ предлага временна комисия за хибридните атаки и саботажи през последните 15 години",
+        "title_en": "MPs from Democratic Bulgaria have proposed a temporary parliamentary commission to investigate facts and circumstances hindering effective state response to hybrid attacks and sabotage in Bulgaria's defense industry over the past 15 years, prompted by fires and explosions at EMKO facilities and other defense-sector sites.",
+        "last_published": "2026-09-26T13:43:22+00:00",
+        "topics": [
+          {
+            "category": "parliament",
+            "subcategory": "committees",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [
+            "Демократична България"
+          ],
+          "institutions": [
+            "Народно събрание"
+          ],
+          "companies": [
+            "ЕМКО ООД",
+            "ВМЗ - Сопот",
+            "Арсенал"
+          ],
+          "places": [
+            "България",
+            "Казанлък",
+            "Сопот"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://fakti.bg/bulgaria/1083978-db-predlaga-vremenna-komisia-za-hibridnite-ataki-i-sabotaji-prez-poslednite-15-godini",
+        "channels": [
+          "title",
+          "entities",
+          "place_time",
+          "lede"
+        ],
+        "sidecar_id": "article-join-c48d57d6e64153f5",
+        "shared_title_tokens": [
+          "атаки",
+          "временна",
+          "години",
+          "комисия",
+          "последните",
+          "предлага",
+          "през",
+          "саботажи",
+          "хибридните"
+        ],
+        "shared_entities": [
+          "вмз - сопот",
+          "демократична българия",
+          "емко оод"
+        ],
+        "shared_places": [
+          "българия",
+          "казанлък",
+          "сопот"
+        ],
+        "title_jaccard": 0.9,
+        "published_gap_hours": 1.14,
+        "topic": [
+          "parliament",
+          "committees"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "topic:none"
+        ],
+        "topic_agreement": "none",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.46
+      }
+    },
+    {
       "id": "story-merge-172bb36611c32154",
       "status": "pending",
       "active": true,
@@ -6971,6 +7134,170 @@
         "place_conflict": false,
         "number_disagreement": false,
         "lede_jaccard": 0.375
+      }
+    },
+    {
+      "id": "story-merge-186645b3772d5d44",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T15:47:28.692603+00:00",
+      "last_seen": "2026-09-26T15:47:28.692603+00:00",
+      "keeper": {
+        "id": "20260926-f9ef156b",
+        "title_bg": "Китай обяви споразумение със САЩ за намаляване на митата с 30 млрд. долара и диалог за изкуствения интелект",
+        "title_en": "China announced an agreement with the US on mutually reducing tariffs worth 30 billion dollars, creating a trade council, and launching dialogue on artificial intelligence, reached during Xi Jinping's visit to Washington. The arrangements are part of an eight-point consensus and follow a two-month extension of the trade truce.",
+        "last_published": "2026-09-26T15:47:55+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И",
+            "Си Дзинпин"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "Посолството на САЩ в Пекин",
+            "Посолство на САЩ в Пекин",
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-f9ef156b",
+        "title_bg": "Китай обяви споразумение със САЩ за намаляване на митата с 30 млрд. долара и диалог за изкуствения интелект",
+        "title_en": "China announced an agreement with the US on mutually reducing tariffs worth 30 billion dollars, creating a trade council, and launching dialogue on artificial intelligence, reached during Xi Jinping's visit to Washington. The arrangements are part of an eight-point consensus and follow a two-month extension of the trade truce.",
+        "last_published": "2026-09-26T15:47:55+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И",
+            "Си Дзинпин"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "Посолството на САЩ в Пекин",
+            "Посолство на САЩ в Пекин",
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-6d459db6",
+        "title_bg": "Сделка за 30 милиарда долара! Китай разкри споразуменията със САЩ",
+        "title_en": "China announced an agreement with the US on mutually reducing tariffs worth 30 billion dollars and on launching a dialogue on artificial intelligence, following Xi Jinping's meeting with Donald Trump in Washington. The trade truce has been extended by two months.",
+        "last_published": "2026-09-26T14:07:14+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Ван И",
+            "Скот Бесент"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "Посолство на САЩ в Пекин"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://www.standartnews.com/svyat/sdelka-za-30-miliarda-dolara-kitay-razkri-sporazumeniyata-sas-sasht-648161.html",
+        "channels": [
+          "title",
+          "entities",
+          "lede"
+        ],
+        "sidecar_id": "article-join-27745a10641c2c3a",
+        "shared_title_tokens": [
+          "долара",
+          "китай",
+          "сащ"
+        ],
+        "shared_entities": [
+          "ван и",
+          "доналд тръмп",
+          "министерство на външните работи",
+          "посолство на сащ в пекин",
+          "си цзинпин"
+        ],
+        "shared_places": [
+          "вашингтон",
+          "иран",
+          "китай",
+          "куала лумпур",
+          "пекин",
+          "сащ"
+        ],
+        "title_jaccard": 0.214,
+        "published_gap_hours": 1.44,
+        "topic": [
+          "foreign-policy",
+          "bilateral"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "lede"
+        ],
+        "topic_agreement": "exact",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.579
       }
     },
     {
@@ -18734,6 +19061,162 @@
       }
     },
     {
+      "id": "story-merge-3d4db1413228bd75",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T18:32:49.190611+00:00",
+      "last_seen": "2026-09-26T18:32:49.190611+00:00",
+      "keeper": {
+        "id": "20260926-2e5f513d",
+        "title_bg": "Тръмп заяви, че е отхвърлил предложението на Иран за повторно отваряне на Ормузкия проток",
+        "title_en": "US President Donald Trump said he rejected Iran's proposal to reopen the Strait of Hormuz, which was tied to lifting sanctions and resuming nuclear talks. He also commented on talks with Venezuela's interim president Delcy Rodriguez about elections and debt restructuring, predicted a deal with Cuba, and said that in his conversation with Xi Jinping the Taiwan issue was raised, while the US will not share AI technology with China.",
+        "last_published": "2026-09-26T15:54:34+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Доналд Тръмп",
+            "Делси Родригес",
+            "Марко Рубио",
+            "Си Цзинпин",
+            "Абас Арагчи"
+          ],
+          "parties": [],
+          "institutions": [
+            "Белия дом",
+            "Общото събрание на ООН",
+            "ООН"
+          ],
+          "companies": [],
+          "places": [
+            "Иран",
+            "Венецуела",
+            "Куба",
+            "Китай",
+            "Ливан",
+            "САЩ",
+            "Ормузкия проток",
+            "Катар",
+            "Ормузки проток",
+            "Ню Йорк",
+            "Техеран",
+            "Вашингтон"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-2e5f513d",
+        "title_bg": "Тръмп заяви, че е отхвърлил предложението на Иран за повторно отваряне на Ормузкия проток",
+        "title_en": "US President Donald Trump said he rejected Iran's proposal to reopen the Strait of Hormuz, which was tied to lifting sanctions and resuming nuclear talks. He also commented on talks with Venezuela's interim president Delcy Rodriguez about elections and debt restructuring, predicted a deal with Cuba, and said that in his conversation with Xi Jinping the Taiwan issue was raised, while the US will not share AI technology with China.",
+        "last_published": "2026-09-26T15:54:34+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Доналд Тръмп",
+            "Делси Родригес",
+            "Марко Рубио",
+            "Си Цзинпин",
+            "Абас Арагчи"
+          ],
+          "parties": [],
+          "institutions": [
+            "Белия дом",
+            "Общото събрание на ООН",
+            "ООН"
+          ],
+          "companies": [],
+          "places": [
+            "Иран",
+            "Венецуела",
+            "Куба",
+            "Китай",
+            "Ливан",
+            "САЩ",
+            "Ормузкия проток",
+            "Катар",
+            "Ормузки проток",
+            "Ню Йорк",
+            "Техеран",
+            "Вашингтон"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-749a2f05",
+        "title_bg": "Тръмп е отхвърлил предложение на Иран за 7 дни примирие и отваряне на Ормузкия проток",
+        "title_en": "US President Donald Trump has rejected an Iranian proposal, relayed through Qatari mediators, for a seven-day ceasefire and the reopening of the Strait of Hormuz. Iranian Foreign Minister Abbas Araghchi said at the UN that an agreement would start a seven-day window for reopening the strait and halting hostilities. According to the Wall Street Journal, Trump expects to resume bombing after the November midterms and is skeptical Iran will accept US demands. Reuters could not independently confirm the report.",
+        "last_published": "2026-09-26T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Доналд Тръмп",
+            "Абас Арагчи"
+          ],
+          "parties": [],
+          "institutions": [
+            "ООН",
+            "Конгрес на САЩ"
+          ],
+          "companies": [],
+          "places": [
+            "Иран",
+            "Катар",
+            "САЩ",
+            "Ню Йорк",
+            "Ормузки проток"
+          ]
+        }
+      },
+      "source": "home_briefing",
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "иран",
+          "ормузкия",
+          "отваряне",
+          "отхвърлил",
+          "проток",
+          "тръмп"
+        ],
+        "shared_entities": [
+          "абас арагчи",
+          "доналд тръмп",
+          "оон"
+        ],
+        "shared_places": [
+          "иран",
+          "катар",
+          "ню йорк",
+          "ормузки проток",
+          "сащ"
+        ],
+        "title_jaccard": 0.545,
+        "published_gap_hours": 6.91,
+        "topic": [
+          "foreign-policy",
+          "bilateral"
+        ],
+        "rule_version": "strict-v1"
+      }
+    },
+    {
       "id": "story-merge-3db1a3931b723863",
       "status": "pending",
       "active": true,
@@ -22539,6 +23022,143 @@
       }
     },
     {
+      "id": "story-merge-47f418e456cce3c5",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T17:34:59.230107+00:00",
+      "last_seen": "2026-09-26T17:34:59.230107+00:00",
+      "keeper": {
+        "id": "20260926-75cd0308",
+        "title_bg": "Нешка Робева: Към мен са отправяни предложения да бъда издигната за президент",
+        "title_en": "Rhythmic gymnastics coach Neshka Robeva said she had been floated as a vice-presidential candidate by Vazrazhdane and had received proposals to run for president, which she categorically declined. She stated that parties have harmed Bulgaria and that she will vote for the candidate with the courage to speak their mind, adding that the presidency matters only if the president can lead the people, as Rumen Radev has done.",
+        "last_published": "2026-09-26T14:50:09+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "candidates",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Нешка Робева",
+            "Любо Огнянов",
+            "Румен Радев"
+          ],
+          "parties": [
+            "Възраждане"
+          ],
+          "institutions": [
+            "NOVA NEWS"
+          ],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-75cd0308",
+        "title_bg": "Нешка Робева: Към мен са отправяни предложения да бъда издигната за президент",
+        "title_en": "Rhythmic gymnastics coach Neshka Robeva said she had been floated as a vice-presidential candidate by Vazrazhdane and had received proposals to run for president, which she categorically declined. She stated that parties have harmed Bulgaria and that she will vote for the candidate with the courage to speak their mind, adding that the presidency matters only if the president can lead the people, as Rumen Radev has done.",
+        "last_published": "2026-09-26T14:50:09+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "candidates",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Нешка Робева",
+            "Любо Огнянов",
+            "Румен Радев"
+          ],
+          "parties": [
+            "Възраждане"
+          ],
+          "institutions": [
+            "NOVA NEWS"
+          ],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-d86df92c",
+        "title_bg": "Нешка Робева: Предлагаха ми да стана президент",
+        "title_en": "Rhythmic gymnastics coach Neshka Robeva said she was surprised to be floated as a vice-presidential candidate by Vazrazhdane and that she categorically declined offers to run for president. She stated that parties have harmed Bulgaria and that she will vote for a candidate with the courage to speak their mind, citing Rumen Radev as an example of a president who convinced his people.",
+        "last_published": "2026-09-26T16:30:36+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "candidates",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Нешка Робева",
+            "Румен Радев",
+            "Илиана Пенова"
+          ],
+          "parties": [
+            "Възраждане"
+          ],
+          "institutions": [
+            "NOVA NEWS"
+          ],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://www.plovdiv24.bg/novini/Bylgaria/Neshka-Robeva-Predlagaha-mi-da-stana-prezident-3030943",
+        "channels": [
+          "title",
+          "entities",
+          "lede"
+        ],
+        "sidecar_id": "article-join-89c49bb31fbf5317",
+        "shared_title_tokens": [
+          "нешка",
+          "президент",
+          "робева"
+        ],
+        "shared_entities": [
+          "nova news",
+          "възраждане",
+          "нешка робева",
+          "румен радев"
+        ],
+        "shared_places": [
+          "българия"
+        ],
+        "title_jaccard": 0.3,
+        "published_gap_hours": 1.67,
+        "topic": [
+          "elections-presidential",
+          "candidates"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "lede"
+        ],
+        "topic_agreement": "exact",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.5
+      }
+    },
+    {
       "id": "story-merge-47fccb10e559bc95",
       "status": "pending",
       "active": true,
@@ -23884,6 +24504,150 @@
         "place_conflict": false,
         "number_disagreement": false,
         "lede_jaccard": 0.444
+      }
+    },
+    {
+      "id": "story-merge-4dc3e679adb70430",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T15:47:28.692603+00:00",
+      "last_seen": "2026-09-26T15:47:28.692603+00:00",
+      "keeper": {
+        "id": "20260926-d139462a",
+        "title_bg": "Стойчо Стойчев: Поведението на ГЕРБ ще е ключово за избирателите им на президентските избори",
+        "title_en": "Political scientist Stoicho Stoichev commented on the upcoming presidential elections on NOVA NEWS, saying the main contest between candidates is still unclear. He noted that the tickets of Iliana Yotova and Andrey Gyurov, nominated by initiative committees, are not firmly backed by parties, and that the behavior of GERB's leadership, including whether Boyko Borissov participates, will be key for the party's voters.",
+        "last_published": "2026-09-26T13:50:24+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Стойчо Стойчев",
+            "Любо Огнянов",
+            "Илияна Йотова",
+            "Андрей Гюров",
+            "Румен Радев",
+            "Бойко Борисов"
+          ],
+          "parties": [
+            "ГЕРБ"
+          ],
+          "institutions": [
+            "NOVA NEWS"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260926-d139462a",
+        "title_bg": "Стойчо Стойчев: Поведението на ГЕРБ ще е ключово за избирателите им на президентските избори",
+        "title_en": "Political scientist Stoicho Stoichev commented on the upcoming presidential elections on NOVA NEWS, saying the main contest between candidates is still unclear. He noted that the tickets of Iliana Yotova and Andrey Gyurov, nominated by initiative committees, are not firmly backed by parties, and that the behavior of GERB's leadership, including whether Boyko Borissov participates, will be key for the party's voters.",
+        "last_published": "2026-09-26T13:50:24+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Стойчо Стойчев",
+            "Любо Огнянов",
+            "Илияна Йотова",
+            "Андрей Гюров",
+            "Румен Радев",
+            "Бойко Борисов"
+          ],
+          "parties": [
+            "ГЕРБ"
+          ],
+          "institutions": [
+            "NOVA NEWS"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260926-efcc0d97",
+        "title_bg": "Стойчо Стойчев: ГЕРБ може да реши президентските избори",
+        "title_en": "Political scientist Stoicho Stoichev commented on Nova News that the main contest in the upcoming presidential election is still unclear. He analyzed the tickets of Iliana Yotova and Andrey Gyurov, nominated by initiative committees, the role of the prime minister, and how GERB's stance, including Boyko Borisov's behavior, could shape his voters' turnout.",
+        "last_published": "2026-09-26T14:13:09+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "candidates",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Стойчо Стойчев",
+            "Любо Огнянов",
+            "Илияна Йотова",
+            "Андрей Гюров",
+            "Румен Радев",
+            "Бойко Борисов"
+          ],
+          "parties": [
+            "ГЕРБ"
+          ],
+          "institutions": [
+            "NOVA NEWS"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://fakti.bg/bulgaria/1083992-stoicho-stoichev-gerb-moje-da-reshi-prezidentskite-izbori",
+        "channels": [
+          "title",
+          "entities",
+          "lede"
+        ],
+        "sidecar_id": "article-join-77f7c60768fcbe96",
+        "shared_title_tokens": [
+          "герб",
+          "избори",
+          "президентските",
+          "стойчев",
+          "стойчо"
+        ],
+        "shared_entities": [
+          "nova news",
+          "андрей гюров",
+          "бойко борисов",
+          "герб",
+          "илияна йотова",
+          "любо огнянов",
+          "румен радев",
+          "стойчо стойчев"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.5,
+        "published_gap_hours": 0.38,
+        "topic": [
+          "elections-presidential",
+          "candidates"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "topic:category"
+        ],
+        "topic_agreement": "category",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.612
       }
     },
     {
@@ -34456,6 +35220,169 @@
       }
     },
     {
+      "id": "story-merge-6ee52570280c904d",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T17:34:59.230107+00:00",
+      "last_seen": "2026-09-26T17:34:59.230107+00:00",
+      "keeper": {
+        "id": "20260926-f9ef156b",
+        "title_bg": "Китай обяви споразумение със САЩ за намаляване на митата с 30 млрд. долара и диалог за изкуствения интелект",
+        "title_en": "China announced an agreement with the US on mutually reducing tariffs worth 30 billion dollars, creating a trade council, and launching dialogue on artificial intelligence, reached during Xi Jinping's visit to Washington. The arrangements are part of an eight-point consensus and follow a two-month extension of the trade truce.",
+        "last_published": "2026-09-26T15:47:55+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И",
+            "Си Дзинпин"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "Посолството на САЩ в Пекин",
+            "Посолство на САЩ в Пекин",
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-f9ef156b",
+        "title_bg": "Китай обяви споразумение със САЩ за намаляване на митата с 30 млрд. долара и диалог за изкуствения интелект",
+        "title_en": "China announced an agreement with the US on mutually reducing tariffs worth 30 billion dollars, creating a trade council, and launching dialogue on artificial intelligence, reached during Xi Jinping's visit to Washington. The arrangements are part of an eight-point consensus and follow a two-month extension of the trade truce.",
+        "last_published": "2026-09-26T15:47:55+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И",
+            "Си Дзинпин"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "Посолството на САЩ в Пекин",
+            "Посолство на САЩ в Пекин",
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-ce5e7626",
+        "title_bg": "Китай и САЩ се разбраха за митата",
+        "title_en": "China and the United States agreed to mutually reduce tariffs worth $30 billion and to start dialogue on artificial intelligence, China's foreign ministry said. The agreements are part of an eight-point consensus reached during Xi Jinping's visit to Washington, with the trade truce extended by two months.",
+        "last_published": "2026-09-26T13:35:52+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://www.segabg.com/hot/category-foreign-country/kitay-i-sasht-se-razbraha-za-mitata",
+        "channels": [
+          "title",
+          "entities",
+          "lede"
+        ],
+        "sidecar_id": "article-join-5ce1ee088b5bf5c1",
+        "shared_title_tokens": [
+          "китай",
+          "митата",
+          "сащ"
+        ],
+        "shared_entities": [
+          "ван и",
+          "доналд тръмп",
+          "министерство на външните работи на китай",
+          "си цзинпин",
+          "скот бесънт"
+        ],
+        "shared_places": [
+          "вашингтон",
+          "иран",
+          "китай",
+          "куала лумпур",
+          "пекин",
+          "сащ"
+        ],
+        "title_jaccard": 0.273,
+        "published_gap_hours": 2.2,
+        "topic": [
+          "foreign-policy",
+          "bilateral"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "lede"
+        ],
+        "topic_agreement": "exact",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.564
+      }
+    },
+    {
       "id": "story-merge-6f875f13a43fbeb5",
       "status": "pending",
       "active": true,
@@ -39618,6 +40545,120 @@
         "place_conflict": false,
         "number_disagreement": false,
         "lede_jaccard": 0.167
+      }
+    },
+    {
+      "id": "story-merge-7f64ca9bdfee4a25",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T15:47:28.692603+00:00",
+      "last_seen": "2026-09-26T15:47:28.692603+00:00",
+      "keeper": {
+        "id": "20260926-929d9773",
+        "title_bg": "Случаите на сифилис са се увеличили с 40% за една година",
+        "title_en": "Health authorities report a sharp rise in sexually transmitted infections: syphilis cases up nearly 40% in a year, gonorrhea threefold, and chlamydial infections more than doubled. Dermatologist Dr. Rositsa Dencheva explains in a NOVA NEWS program that many infections are asymptomatic, which delays diagnosis, and notes that condoms reduce but do not eliminate transmission risk.",
+        "last_published": "2026-09-26T11:42:00+00:00",
+        "topics": [
+          {
+            "category": "healthcare",
+            "subcategory": "reforms",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Росица Денчева"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [
+            "NOVA NEWS"
+          ],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260926-929d9773",
+        "title_bg": "Случаите на сифилис са се увеличили с 40% за една година",
+        "title_en": "Health authorities report a sharp rise in sexually transmitted infections: syphilis cases up nearly 40% in a year, gonorrhea threefold, and chlamydial infections more than doubled. Dermatologist Dr. Rositsa Dencheva explains in a NOVA NEWS program that many infections are asymptomatic, which delays diagnosis, and notes that condoms reduce but do not eliminate transmission risk.",
+        "last_published": "2026-09-26T11:42:00+00:00",
+        "topics": [
+          {
+            "category": "healthcare",
+            "subcategory": "reforms",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Росица Денчева"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [
+            "NOVA NEWS"
+          ],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260926-966d84cd",
+        "title_bg": "Сифилисът се завръща в България! 40% скок за една година",
+        "title_en": "Bulgarian health authorities report a sharp rise in sexually transmitted infections: syphilis cases grew by nearly 40% in one year, gonorrhea tripled, and chlamydial infections more than doubled. Dermatologist Dr. Rositsa Dencheva explained on NOVA NEWS that these infections are often asymptomatic, which delays diagnosis, and stressed that condoms are important but not absolute protection.",
+        "last_published": "2026-09-26T14:01:37+00:00",
+        "topics": [
+          {
+            "category": "healthcare",
+            "subcategory": "drugs",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Росица Денчева"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://fakti.bg/bulgaria/1083979-sifilisat-se-zavrashta-v-balgaria-40-skok-za-edna-godina",
+        "channels": [
+          "title",
+          "entities",
+          "lede"
+        ],
+        "sidecar_id": "article-join-b926ff9e4f1b142a",
+        "shared_title_tokens": [
+          "година",
+          "една"
+        ],
+        "shared_entities": [
+          "росица денчева"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.222,
+        "published_gap_hours": 2.33,
+        "topic": [
+          "healthcare",
+          "drugs"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "topic:category",
+          "lede"
+        ],
+        "topic_agreement": "category",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.538
       }
     },
     {
@@ -48549,7 +49590,9 @@
           "institutions": [
             "Национална служба за охрана",
             "парламентарна група на „Прогресивна България“",
-            "Българско национално радио"
+            "Българско национално радио",
+            "Националната служба за охрана",
+            "парламентарната група на „Прогресивна България“"
           ],
           "companies": [],
           "places": [
@@ -48580,7 +49623,9 @@
           "institutions": [
             "Национална служба за охрана",
             "парламентарна група на „Прогресивна България“",
-            "Българско национално радио"
+            "Българско национално радио",
+            "Националната служба за охрана",
+            "парламентарната група на „Прогресивна България“"
           ],
           "companies": [],
           "places": [
@@ -50834,7 +51879,7 @@
         "id": "20260926-c89bb11d",
         "title_bg": "Папа Лъв XIV събира 600 000 души в сърцето на Париж",
         "title_en": "Pope Leo XIV continues his first visit to France with a large liturgy at Place de la Concorde in Paris, for which around 600,000 people have registered. He then travels to Lourdes and will end the visit with a speech on Europe in Metz. During a meeting with Emmanuel Macron he criticized France's bioethics decisions, including the euthanasia law and constitutional protection of abortion.",
-        "last_published": "2026-09-26T07:53:34+00:00",
+        "last_published": "2026-09-26T14:45:41+00:00",
         "topics": [
           {
             "category": "society",
@@ -50848,12 +51893,15 @@
             "Еманюел Макрон",
             "Бернадет Субиру",
             "Марин льо Пен",
-            "Едуар Филип"
+            "Едуар Филип",
+            "Себастиен Льокорню"
           ],
           "parties": [],
           "institutions": [
             "Римокатолическа църква",
-            "БНР"
+            "БНР",
+            "БТА",
+            "ДПА"
           ],
           "companies": [],
           "places": [
@@ -50874,7 +51922,7 @@
         "id": "20260926-c89bb11d",
         "title_bg": "Папа Лъв XIV събира 600 000 души в сърцето на Париж",
         "title_en": "Pope Leo XIV continues his first visit to France with a large liturgy at Place de la Concorde in Paris, for which around 600,000 people have registered. He then travels to Lourdes and will end the visit with a speech on Europe in Metz. During a meeting with Emmanuel Macron he criticized France's bioethics decisions, including the euthanasia law and constitutional protection of abortion.",
-        "last_published": "2026-09-26T07:53:34+00:00",
+        "last_published": "2026-09-26T14:45:41+00:00",
         "topics": [
           {
             "category": "society",
@@ -50888,12 +51936,15 @@
             "Еманюел Макрон",
             "Бернадет Субиру",
             "Марин льо Пен",
-            "Едуар Филип"
+            "Едуар Филип",
+            "Себастиен Льокорню"
           ],
           "parties": [],
           "institutions": [
             "Римокатолическа църква",
-            "БНР"
+            "БНР",
+            "БТА",
+            "ДПА"
           ],
           "companies": [],
           "places": [
@@ -71334,6 +72385,169 @@
       }
     },
     {
+      "id": "story-merge-e6313e9f11fec3ed",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T14:29:50.817472+00:00",
+      "last_seen": "2026-09-26T14:29:50.817472+00:00",
+      "keeper": {
+        "id": "20260926-f9ef156b",
+        "title_bg": "Китай обяви споразумение със САЩ за намаляване на митата с 30 млрд. долара и диалог за изкуствения интелект",
+        "title_en": "China announced an agreement with the US on mutually reducing tariffs worth 30 billion dollars, creating a trade council, and launching dialogue on artificial intelligence, reached during Xi Jinping's visit to Washington. The arrangements are part of an eight-point consensus and follow a two-month extension of the trade truce.",
+        "last_published": "2026-09-26T15:47:55+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И",
+            "Си Дзинпин"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "Посолството на САЩ в Пекин",
+            "Посолство на САЩ в Пекин",
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-f9ef156b",
+        "title_bg": "Китай обяви споразумение със САЩ за намаляване на митата с 30 млрд. долара и диалог за изкуствения интелект",
+        "title_en": "China announced an agreement with the US on mutually reducing tariffs worth 30 billion dollars, creating a trade council, and launching dialogue on artificial intelligence, reached during Xi Jinping's visit to Washington. The arrangements are part of an eight-point consensus and follow a two-month extension of the trade truce.",
+        "last_published": "2026-09-26T15:47:55+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И",
+            "Си Дзинпин"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "Посолството на САЩ в Пекин",
+            "Посолство на САЩ в Пекин",
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Куала Лумпур",
+            "Иран"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-d56ee8e5",
+        "title_bg": "Си и Тръмп са се споразумели да си намалят митата с 30 млрд. долара",
+        "title_en": "China and the US reached an eight-point consensus during Xi Jinping's visit to Washington, including mutual tariff reductions worth 30 billion dollars and dialogue on artificial intelligence. The trade truce was extended by two months, and Beijing called the visit historic.",
+        "last_published": "2026-09-26T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Си Цзинпин",
+            "Доналд Тръмп",
+            "Скот Бесънт",
+            "Ван И"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи на Китай"
+          ],
+          "companies": [],
+          "places": [
+            "Китай",
+            "САЩ",
+            "Вашингтон",
+            "Пекин",
+            "Иран",
+            "Куала Лумпур"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://business.dir.bg/ikonomika/si-i-tramp-sa-se-sporazumeli-da-si-namalyat-mitata-s-30-mlrd-dolara",
+        "channels": [
+          "title",
+          "entities",
+          "place_time",
+          "lede"
+        ],
+        "sidecar_id": "article-join-77b0394de43bd2e3",
+        "shared_title_tokens": [
+          "долара",
+          "митата",
+          "млрд"
+        ],
+        "shared_entities": [
+          "ван и",
+          "доналд тръмп",
+          "си цзинпин",
+          "скот бесънт"
+        ],
+        "shared_places": [
+          "вашингтон",
+          "иран",
+          "китай",
+          "куала лумпур",
+          "пекин",
+          "сащ"
+        ],
+        "title_jaccard": 0.231,
+        "published_gap_hours": 3.53,
+        "topic": [
+          "foreign-policy",
+          "bilateral"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "lede"
+        ],
+        "topic_agreement": "exact",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.538
+      }
+    },
+    {
       "id": "story-merge-e64581ea107b3445",
       "status": "pending",
       "active": true,
@@ -73197,143 +74411,6 @@
         "place_conflict": false,
         "number_disagreement": false,
         "lede_jaccard": 0.101
-      }
-    },
-    {
-      "id": "story-merge-ebebfd150367f09a",
-      "status": "pending",
-      "active": true,
-      "first_seen": "2026-09-26T10:40:25.920808+00:00",
-      "last_seen": "2026-09-26T10:40:25.920808+00:00",
-      "keeper": {
-        "id": "20260926-ed0915a3",
-        "title_bg": "Важен срок за гласуването на българите в чужбина. Къде са подадени най-много заявления",
-        "title_en": "Bulgarians abroad have until September 29 to submit applications to vote in the October 25 presidential election. Foreign Ministry permanent secretary Radi Naidenov urged early online registration, noting only 10-20% of would-be voters register in advance. Most applications so far come from Turkey, the UK, Germany and Spain.",
-        "last_published": "2026-09-26T05:51:00+00:00",
-        "topics": [
-          {
-            "category": "elections-presidential",
-            "subcategory": "cik-administration",
-            "primary": true
-          }
-        ],
-        "entities": {
-          "people": [
-            "Ради Найденов"
-          ],
-          "parties": [],
-          "institutions": [
-            "Министерство на външните работи",
-            "ЦИК"
-          ],
-          "companies": [],
-          "places": [
-            "Турция",
-            "Великобритания",
-            "Германия",
-            "Испания"
-          ]
-        }
-      },
-      "matched": {
-        "id": "20260926-ed0915a3",
-        "title_bg": "Важен срок за гласуването на българите в чужбина. Къде са подадени най-много заявления",
-        "title_en": "Bulgarians abroad have until September 29 to submit applications to vote in the October 25 presidential election. Foreign Ministry permanent secretary Radi Naidenov urged early online registration, noting only 10-20% of would-be voters register in advance. Most applications so far come from Turkey, the UK, Germany and Spain.",
-        "last_published": "2026-09-26T05:51:00+00:00",
-        "topics": [
-          {
-            "category": "elections-presidential",
-            "subcategory": "cik-administration",
-            "primary": true
-          }
-        ],
-        "entities": {
-          "people": [
-            "Ради Найденов"
-          ],
-          "parties": [],
-          "institutions": [
-            "Министерство на външните работи",
-            "ЦИК"
-          ],
-          "companies": [],
-          "places": [
-            "Турция",
-            "Великобритания",
-            "Германия",
-            "Испания"
-          ]
-        }
-      },
-      "candidate": {
-        "id": "20260926-95b7123d",
-        "title_bg": "До 29 септември се подават заявления за гласуване в чужбина",
-        "title_en": "The deadline for applications for voting abroad in the presidential election on October 25 is September 29. Foreign Ministry official Radi Naydenov urged Bulgarians abroad to register in advance electronically, as on-site declarations slow down voting. Most applications so far come from Turkey, the UK, Germany and Spain.",
-        "last_published": "2026-09-26T05:58:01+00:00",
-        "topics": [
-          {
-            "category": "elections-presidential",
-            "subcategory": "cik-administration",
-            "primary": true
-          }
-        ],
-        "entities": {
-          "people": [
-            "Ради Найденов"
-          ],
-          "parties": [],
-          "institutions": [
-            "Министерство на външните работи"
-          ],
-          "companies": [],
-          "places": [
-            "Турция",
-            "Германия",
-            "Испания",
-            "Великобритания"
-          ]
-        }
-      },
-      "source": "article_review_channel",
-      "evidence": {
-        "confidence": "review",
-        "article_url": "https://petel.bg/Do-29-septemvri-se-podavat-zayavleniya-za-glasuvane-v-chuzhbina__670806",
-        "channels": [
-          "title",
-          "entities",
-          "place_time",
-          "lede"
-        ],
-        "sidecar_id": "article-join-b1d102e237e00d20",
-        "shared_title_tokens": [
-          "заявления",
-          "чужбина"
-        ],
-        "shared_entities": [
-          "министерство на външните работи",
-          "ради найденов"
-        ],
-        "shared_places": [
-          "великобритания",
-          "германия",
-          "испания",
-          "турция"
-        ],
-        "title_jaccard": 0.154,
-        "published_gap_hours": 0.12,
-        "topic": [
-          "elections-presidential",
-          "cik-administration"
-        ],
-        "rule_version": "review-v1",
-        "mode": "review",
-        "relaxations": [
-          "lede"
-        ],
-        "topic_agreement": "exact",
-        "place_conflict": false,
-        "number_disagreement": false,
-        "lede_jaccard": 0.7
       }
     },
     {
@@ -77473,6 +78550,183 @@
         "place_conflict": false,
         "number_disagreement": false,
         "lede_jaccard": 0.553
+      }
+    },
+    {
+      "id": "story-merge-f73d1418a2195cc3",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-26T17:34:59.230107+00:00",
+      "last_seen": "2026-09-26T17:34:59.230107+00:00",
+      "keeper": {
+        "id": "20260926-937a8563",
+        "title_bg": "Андрей Гюров и Георги Кандев откриха предизборната си кампанията",
+        "title_en": "A month before the presidential election, presidential candidate Andrey Gyurov and vice-presidential candidate Georgi Kandev launched their campaign. Nominated by an initiative committee with the political support of Continue the Change and Democratic Bulgaria, the pair will run with ballot number 4. Gyurov said the president does not govern instead of the government but provides security, stability and independence.",
+        "last_published": "2026-09-26T17:00:00+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Камен Алипиев",
+            "Константин Вълков",
+            "Радослав Бимбалов",
+            "Магдалена Малеева",
+            "Никола Янков",
+            "Мими Шишкова"
+          ],
+          "parties": [
+            "Продължаваме промяната",
+            "Демократична България",
+            "ПП",
+            "ДБ"
+          ],
+          "institutions": [
+            "инициативен комитет",
+            "Инициативен комитет",
+            "МВР",
+            "Централна избирателна комисия",
+            "президентската институция"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "София",
+            "Гоце Делчев",
+            "Враца",
+            "Корница",
+            "Огняново",
+            "Монтана",
+            "Видин",
+            "Благоевград",
+            "Русе"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-937a8563",
+        "title_bg": "Андрей Гюров и Георги Кандев откриха предизборната си кампанията",
+        "title_en": "A month before the presidential election, presidential candidate Andrey Gyurov and vice-presidential candidate Georgi Kandev launched their campaign. Nominated by an initiative committee with the political support of Continue the Change and Democratic Bulgaria, the pair will run with ballot number 4. Gyurov said the president does not govern instead of the government but provides security, stability and independence.",
+        "last_published": "2026-09-26T17:00:00+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Камен Алипиев",
+            "Константин Вълков",
+            "Радослав Бимбалов",
+            "Магдалена Малеева",
+            "Никола Янков",
+            "Мими Шишкова"
+          ],
+          "parties": [
+            "Продължаваме промяната",
+            "Демократична България",
+            "ПП",
+            "ДБ"
+          ],
+          "institutions": [
+            "инициативен комитет",
+            "Инициативен комитет",
+            "МВР",
+            "Централна избирателна комисия",
+            "президентската институция"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "София",
+            "Гоце Делчев",
+            "Враца",
+            "Корница",
+            "Огняново",
+            "Монтана",
+            "Видин",
+            "Благоевград",
+            "Русе"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-53bfc002",
+        "title_bg": "Откриването на кампанията на Гюров: \"Един човек не може да реши всички проблеми\"",
+        "title_en": "Presidential candidate pair Andrey Gyurov and Georgi Kandev officially launched their election campaign in the village of Sulota, pledging a fair campaign. They presented their priorities and vision for the presidency, backed by Continue the Change and Democratic Bulgaria. Gyurov stressed that the president does not govern instead of the government but provides security, stability and independence.",
+        "last_published": "2026-09-26T16:13:00+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев"
+          ],
+          "parties": [
+            "Продължаваме Промяната",
+            "Демократична България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "Сълота",
+            "България"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://clubz.bg/179856",
+        "channels": [
+          "title",
+          "entities",
+          "lede"
+        ],
+        "sidecar_id": "article-join-f1d12b520f6c86e7",
+        "shared_title_tokens": [
+          "гюров",
+          "кампанията"
+        ],
+        "shared_entities": [
+          "андрей гюров",
+          "георги кандев",
+          "демократична българия",
+          "продължаваме промяната"
+        ],
+        "shared_places": [
+          "българия"
+        ],
+        "title_jaccard": 0.143,
+        "published_gap_hours": 0.61,
+        "topic": [
+          "elections-presidential",
+          "campaign"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "lede"
+        ],
+        "topic_agreement": "exact",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.4
       }
     },
     {
@@ -89365,6 +90619,143 @@
         "place_conflict": false,
         "number_disagreement": false,
         "lede_jaccard": 1.0
+      }
+    },
+    {
+      "id": "story-merge-ebebfd150367f09a",
+      "status": "pending",
+      "active": false,
+      "first_seen": "2026-09-26T10:40:25.920808+00:00",
+      "last_seen": "2026-09-26T10:40:25.920808+00:00",
+      "keeper": {
+        "id": "20260926-ed0915a3",
+        "title_bg": "Важен срок за гласуването на българите в чужбина. Къде са подадени най-много заявления",
+        "title_en": "Bulgarians abroad have until September 29 to submit applications to vote in the October 25 presidential election. Foreign Ministry permanent secretary Radi Naidenov urged early online registration, noting only 10-20% of would-be voters register in advance. Most applications so far come from Turkey, the UK, Germany and Spain.",
+        "last_published": "2026-09-26T05:51:00+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Ради Найденов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "ЦИК"
+          ],
+          "companies": [],
+          "places": [
+            "Турция",
+            "Великобритания",
+            "Германия",
+            "Испания"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260926-ed0915a3",
+        "title_bg": "Важен срок за гласуването на българите в чужбина. Къде са подадени най-много заявления",
+        "title_en": "Bulgarians abroad have until September 29 to submit applications to vote in the October 25 presidential election. Foreign Ministry permanent secretary Radi Naidenov urged early online registration, noting only 10-20% of would-be voters register in advance. Most applications so far come from Turkey, the UK, Germany and Spain.",
+        "last_published": "2026-09-26T05:51:00+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Ради Найденов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи",
+            "ЦИК"
+          ],
+          "companies": [],
+          "places": [
+            "Турция",
+            "Великобритания",
+            "Германия",
+            "Испания"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260926-95b7123d",
+        "title_bg": "До 29 септември се подават заявления за гласуване в чужбина",
+        "title_en": "The deadline for applications for voting abroad in the presidential election on October 25 is September 29. Foreign Ministry official Radi Naydenov urged Bulgarians abroad to register in advance electronically, as on-site declarations slow down voting. Most applications so far come from Turkey, the UK, Germany and Spain.",
+        "last_published": "2026-09-26T05:58:01+00:00",
+        "topics": [
+          {
+            "category": "elections-presidential",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Ради Найденов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на външните работи"
+          ],
+          "companies": [],
+          "places": [
+            "Турция",
+            "Германия",
+            "Испания",
+            "Великобритания"
+          ]
+        }
+      },
+      "source": "article_review_channel",
+      "evidence": {
+        "confidence": "review",
+        "article_url": "https://petel.bg/Do-29-septemvri-se-podavat-zayavleniya-za-glasuvane-v-chuzhbina__670806",
+        "channels": [
+          "title",
+          "entities",
+          "place_time",
+          "lede"
+        ],
+        "sidecar_id": "article-join-b1d102e237e00d20",
+        "shared_title_tokens": [
+          "заявления",
+          "чужбина"
+        ],
+        "shared_entities": [
+          "министерство на външните работи",
+          "ради найденов"
+        ],
+        "shared_places": [
+          "великобритания",
+          "германия",
+          "испания",
+          "турция"
+        ],
+        "title_jaccard": 0.154,
+        "published_gap_hours": 0.12,
+        "topic": [
+          "elections-presidential",
+          "cik-administration"
+        ],
+        "rule_version": "review-v1",
+        "mode": "review",
+        "relaxations": [
+          "lede"
+        ],
+        "topic_agreement": "exact",
+        "place_conflict": false,
+        "number_disagreement": false,
+        "lede_jaccard": 0.7
       }
     },
     {
