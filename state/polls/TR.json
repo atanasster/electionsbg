@@ -233,7 +233,10 @@
             "race": "presidential",
             "extractedAt": "2026-09-26T08:31:28.384Z",
             "draftHash": "0627895ba6e57cd28ce09ac92a13a531762410eacd99a791fb69aca5fa58e4fc",
-            "refused": []
+            "refused": [],
+            "reviewedAt": "2026-09-26T08:49:50.631Z",
+            "acceptedAt": "2026-09-26T08:49:50.631Z",
+            "acceptedDraftHash": "0627895ba6e57cd28ce09ac92a13a531762410eacd99a791fb69aca5fa58e4fc"
           }
         ]
       }
@@ -279,7 +282,10 @@
             "race": "presidential",
             "extractedAt": "2026-09-26T08:31:28.376Z",
             "draftHash": "33566a79d54f69058a559d2d8b8f1c3c3701b0ae3a72d3b32f5eaf0fd14b8dd6",
-            "refused": []
+            "refused": [],
+            "reviewedAt": "2026-09-26T08:49:50.628Z",
+            "acceptedAt": "2026-09-26T08:49:50.628Z",
+            "acceptedDraftHash": "33566a79d54f69058a559d2d8b8f1c3c3701b0ae3a72d3b32f5eaf0fd14b8dd6"
           }
         ]
       }
@@ -534,6 +540,66 @@
             ]
           }
         ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "209614",
+    "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82-7/",
+    "title": "Нагласи на българите спрямо основните институции и политически формации (септември 2021)",
+    "publishedAt": "2021-09-18",
+    "agencyId": "TR",
+    "pubIds": [
+      "209614"
+    ],
+    "discoveredAt": "2026-09-26T08:39:42.681Z",
+    "latestHash": "d9393aac35c427ac46f19946f141ce3d8437c7b3fe4fafb20dbfef93e5f95107",
+    "versions": [
+      {
+        "sha256": "d9393aac35c427ac46f19946f141ce3d8437c7b3fe4fafb20dbfef93e5f95107",
+        "capturePath": "raw_data/polls/trend/209614",
+        "capturedAt": "2026-09-26T08:39:47.728Z",
+        "attachmentFailures": [],
+        "drafts": []
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "209588",
+    "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82-6/",
+    "title": "Нагласи на българите спрямо основните институции и политически формации (юли 2021)",
+    "publishedAt": "2021-08-05",
+    "agencyId": "TR",
+    "pubIds": [
+      "209588"
+    ],
+    "discoveredAt": "2026-09-26T08:39:42.681Z",
+    "latestHash": "c0a1b84cf83488b6163fc7245fa527a62c62dc9f018bda84bdceb4fcca7a4f05",
+    "versions": [
+      {
+        "sha256": "c0a1b84cf83488b6163fc7245fa527a62c62dc9f018bda84bdceb4fcca7a4f05",
+        "capturePath": "raw_data/polls/trend/209588",
+        "capturedAt": "2026-09-26T08:39:49.474Z",
+        "attachmentFailures": [],
+        "drafts": []
       }
     ],
     "failures": {

@@ -134,6 +134,97 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     process.exitCode = undefined;
   });
 
+  it("keeps report endpoint filenames inside their capture directory", async () => {
+    mockedFetchText.mockResolvedValue(
+      '<a href="/modules/downloadResource.php?resource=..%2F..%2F..%2F..%2Fescaped&hash=x.pdf">Report</a>',
+    );
+    fetchSpy.mockImplementation(async () => new Response("%PDF-1.4\nexample"));
+    await main([
+      "--agency",
+      "ML",
+      "--pub",
+      "42",
+      "--url",
+      "https://www.marketlinks.bg/bg/news/example-42.html",
+    ]);
+    expect(
+      fs.existsSync(
+        path.join(scratchRoot, "raw_data/polls/market_links/42/resource-0.pdf"),
+      ),
+    ).toBe(true);
+    expect(
+      fs.existsSync(path.join(scratchRoot, "raw_data/polls/escaped.pdf")),
+    ).toBe(false);
+  });
+
+  it("records a non-PDF report endpoint response as an attachment failure", async () => {
+    mockedFetchText.mockResolvedValue(
+      '<a href="/modules/downloadResource.php?resource=204&hash=abc">Report</a>',
+    );
+    fetchSpy.mockImplementation(
+      async () => new Response("<html>Unavailable</html>"),
+    );
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      await main([
+        "--agency",
+        "ML",
+        "--pub",
+        "42",
+        "--url",
+        "https://www.marketlinks.bg/bg/news/example-42.html",
+      ]);
+      const stamp = JSON.parse(
+        fs.readFileSync(
+          path.join(scratchRoot, "raw_data/polls/market_links/42/SOURCE.json"),
+          "utf8",
+        ),
+      );
+      expect(stamp.attachmentFailures).toHaveLength(1);
+      expect(
+        fs.existsSync(
+          path.join(
+            scratchRoot,
+            "raw_data/polls/market_links/42/resource-204.pdf",
+          ),
+        ),
+      ).toBe(false);
+    } finally {
+      error.mockRestore();
+    }
+  });
+
+  it("clears obsolete attachment failures in the source stamp on an unchanged recheck", async () => {
+    mockedFetchText.mockResolvedValue("<p>Unchanged report</p>");
+    const args = [
+      "--agency",
+      "ML",
+      "--pub",
+      "42",
+      "--url",
+      "https://www.marketlinks.bg/bg/news/example-42.html",
+    ];
+    await main(args);
+    const file = path.join(
+      scratchRoot,
+      "raw_data/polls/market_links/42/SOURCE.json",
+    );
+    const stamp = JSON.parse(fs.readFileSync(file, "utf8"));
+    stamp.attachmentFailures = [
+      "https://www.marketlinks.bg/unrelated-footer.pdf",
+    ];
+    fs.writeFileSync(file, JSON.stringify(stamp));
+    await main([...args, "--force"]);
+    expect(
+      JSON.parse(fs.readFileSync(file, "utf8")).attachmentFailures,
+    ).toBeUndefined();
+    expect(
+      fs.existsSync(
+        path.join(scratchRoot, "raw_data/polls/market_links/42.v2"),
+      ),
+    ).toBe(false);
+  });
+
   it("captures a fresh site-item target: page.html, one PDF, and SOURCE.json", async () => {
     mockedReadState.mockImplementation((id: string) =>
       id === "polls_trend"

@@ -85,16 +85,14 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "sh-pub-3550-presidential",
+            "pollId": "sh-2016-10-15-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-26T08:17:34.297Z",
-            "draftHash": "ca4726858e60c0bce749bae3a7af7ef17ddf5704fbc4f3ffa20ec9681eff1825",
-            "refused": [
-              "fieldwork",
-              "respondents",
-              "questions",
-              "methodology"
-            ]
+            "extractedAt": "2026-09-26T08:41:41.450Z",
+            "draftHash": "e29ad238a8ecf22a3e81b9609b0863c76d16259a11ff49648f2c171e38c53edf",
+            "refused": [],
+            "reviewedAt": "2026-09-26T08:49:50.598Z",
+            "acceptedAt": "2026-09-26T08:49:50.598Z",
+            "acceptedDraftHash": "e29ad238a8ecf22a3e81b9609b0863c76d16259a11ff49648f2c171e38c53edf"
           }
         ]
       }
@@ -221,16 +219,14 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "sh-pub-3880-presidential",
+            "pollId": "sh-2021-11-02-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-26T08:17:49.987Z",
-            "draftHash": "cf2b9b034017fb70344a24e316e741306064b730d5a1e83da8af7cdbbfe6cc35",
-            "refused": [
-              "fieldwork",
-              "respondents",
-              "questions",
-              "methodology"
-            ]
+            "extractedAt": "2026-09-26T08:41:41.457Z",
+            "draftHash": "b2117708b4e79e6a4ddf0618fdc7937a6ce52023e48a6a2bf8eb968cb4c1338f",
+            "refused": [],
+            "reviewedAt": "2026-09-26T08:49:50.603Z",
+            "acceptedAt": "2026-09-26T08:49:50.603Z",
+            "acceptedDraftHash": "b2117708b4e79e6a4ddf0618fdc7937a6ce52023e48a6a2bf8eb968cb4c1338f"
           }
         ]
       }
@@ -273,13 +269,12 @@
           {
             "pollId": "sh-2021-10-12-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-26T08:17:52.106Z",
-            "draftHash": "0492592184ef1522ce7865f6625e4392b32ffb070cc2caef2c77e2b229c30eb2",
-            "refused": [
-              "respondents",
-              "questions",
-              "methodology"
-            ]
+            "extractedAt": "2026-09-26T08:41:41.454Z",
+            "draftHash": "a5420c41dd5541b29a4a294b68787df21c1ae75720cb93bc536fd68c8f48fab6",
+            "refused": [],
+            "reviewedAt": "2026-09-26T08:49:50.601Z",
+            "acceptedAt": "2026-09-26T08:49:50.601Z",
+            "acceptedDraftHash": "a5420c41dd5541b29a4a294b68787df21c1ae75720cb93bc536fd68c8f48fab6"
           }
         ]
       }

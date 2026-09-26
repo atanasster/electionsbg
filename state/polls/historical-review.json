@@ -1,0 +1,93 @@
+{
+  "reviewedAt": "2026-09-26",
+  "surveys": [
+    {
+      "pollId": "sh-2016-10-15-presidential",
+      "agencyId": "SH",
+      "pubId": "3550",
+      "capture": "raw_data/polls/sova_harris/3550.v2",
+      "locator": "publ191016_dirbg-page-004.jpg, question 2; publication date in footer",
+      "notes": "Primary chart and passport reviewed."
+    },
+    {
+      "pollId": "sh-2021-10-12-presidential",
+      "agencyId": "SH",
+      "pubId": "3867",
+      "capture": "raw_data/polls/sova_harris/3867.v2",
+      "locator": "publ_dirbg_141021-page-005.jpg, question 3",
+      "notes": "Primary chart and passport reviewed."
+    },
+    {
+      "pollId": "sh-2021-11-02-presidential",
+      "agencyId": "SH",
+      "pubId": "3880",
+      "capture": "raw_data/polls/sova_harris/3880.v2",
+      "locator": "publ_dirbg_051121_00004.jpg, question 5",
+      "notes": "Primary chart and passport reviewed."
+    },
+    {
+      "pollId": "ar-2016-10-13-presidential",
+      "agencyId": "AR",
+      "pubId": "907",
+      "capture": "raw_data/polls/alpha_research/907",
+      "locator": "1016_Alpha_Research_PE_Public_Opinion.pdf, page 7 (chart; prose differs for Doncheva)",
+      "notes": "Exact publication date unavailable; historical trend only. Chart gives Doncheva 4.7%; narrative gives 4.5%; retain chart."
+    },
+    {
+      "pollId": "ar-2016-11-02-presidential",
+      "agencyId": "AR",
+      "pubId": "909",
+      "capture": "raw_data/polls/alpha_research/909",
+      "locator": "1116-Press-Release-Presidential-elections(1).doc, current estimates in narrative (not prior-wave figures)",
+      "notes": "Exact publication date unavailable; historical trend only. "
+    },
+    {
+      "pollId": "ar-2016-11-10-presidential",
+      "agencyId": "AR",
+      "pubId": "911",
+      "capture": "raw_data/polls/alpha_research/911",
+      "locator": "1116-Press-Release-Presidential-elections_II_round.doc, published distribution",
+      "notes": "Exact publication date unavailable; historical trend only. "
+    },
+    {
+      "pollId": "ar-2021-10-10-presidential",
+      "agencyId": "AR",
+      "pubId": "984",
+      "capture": "raw_data/polls/alpha_research/984.v2",
+      "locator": "Graph3final.jpg",
+      "notes": "Exact publication date unavailable; historical trend only. "
+    },
+    {
+      "pollId": "ar-2021-11-09-presidential",
+      "agencyId": "AR",
+      "pubId": "985",
+      "capture": "raw_data/polls/alpha_research/985.v2",
+      "locator": "Graph3_Final.jpg",
+      "notes": "Exact publication date unavailable; historical trend only. "
+    },
+    {
+      "pollId": "ml-2021-11-07-presidential",
+      "agencyId": "ML",
+      "pubId": "92",
+      "capture": "raw_data/polls/market_links/92.v2",
+      "locator": "INFOGRAPHIC%20NRS%20Politics%2011.2021.pdf",
+      "notes": "Both all-adult and voter bases retained, including separately printed residuals."
+    },
+    {
+      "pollId": "ar-2011-09-15-presidential",
+      "agencyId": "AR",
+      "pubId": "850",
+      "capture": "raw_data/polls/alpha_research/850",
+      "locator": "Public_opinion_AR_September_2011.pdf, pages 2,4,9,10",
+      "notes": "Two original bases retained. The 40.3% combined undecided/non-voting answer is preserved in evidence and is not assigned to either residual separately."
+    },
+    {
+      "pollId": "ar-2006-10-18-presidential",
+      "agencyId": "AR",
+      "pubId": "717",
+      "capture": "raw_data/polls/alpha_research/717.v2",
+      "locator": "page.html and 77_1.gif",
+      "notes": "Three exact all-voter observations retained. Forecast ranges are not converted to point estimates. Undisclosed method, sponsor, publication date and omitted shares remain unknown."
+    }
+  ]
+}

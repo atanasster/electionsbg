@@ -69,6 +69,13 @@ describe("trend lister", () => {
     // header.
     expect(isElectoral(monthly)).toBe(true);
     expect(isElectoral(electoral)).toBe(true);
+    expect(
+      isElectoral({
+        ...monthly,
+        title:
+          "Нагласи на българите спрямо основните институции и политически формации (септември 2021)",
+      }),
+    ).toBe(true);
   });
 
   it("excludes an exit-poll voter-profile retrospective, even though its title contains избори (decision 17)", async () => {

@@ -154,7 +154,7 @@ export const acquireText = async (
   const articleText = extractArticleText(agencyId, html);
 
   const pdfFiles = listAttachments(captureDir, /\.(?:pdf|docx?)$/i);
-  const imageFiles = listAttachments(captureDir, /\.(png|jpe?g)$/i);
+  const imageFiles = listAttachments(captureDir, /\.(png|jpe?g|gif)$/i);
 
   const pdfTexts = await Promise.all(
     pdfFiles.map(async (file): Promise<AcquiredAttachmentText> => {

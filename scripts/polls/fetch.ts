@@ -118,7 +118,15 @@ const fetchBinary = async (url: string): Promise<Uint8Array> => {
       if (attempt === 1) throw e;
       continue; // a network-level error — retry once
     }
-    if (res.ok) return new Uint8Array(await res.arrayBuffer());
+    if (res.ok) {
+      const bytes = new Uint8Array(await res.arrayBuffer());
+      if (
+        /\/downloadResource\.php(?:\?|$)/i.test(url) &&
+        Buffer.from(bytes.subarray(0, 5)).toString() !== "%PDF-"
+      )
+        throw new Error(`Download endpoint did not return a PDF: ${url}`);
+      return bytes;
+    }
     if (res.status >= 500 && attempt === 0) continue; // transient — retry once
     throw new Error(`HTTP ${res.status} fetching ${url}`); // permanent — fail now
   }
@@ -163,7 +171,12 @@ const filenameFor = (
   let name: string | null = null;
   try {
     const base = path.basename(new URL(url).pathname);
-    if (base) name = base;
+    if (base) {
+      const resource = new URL(url).searchParams.get("resource") ?? "";
+      name = /downloadResource\.php$/i.test(base)
+        ? `resource-${/^\d+$/.test(resource) ? resource : index}.pdf`
+        : base;
+    }
   } catch {
     // malformed URL — fall through to the generic name
   }
@@ -286,13 +299,19 @@ const capturePublication = async (
   ]);
 
   if (latestStamp?.sha256 === newHash) {
-    rememberCapture(
-      {
-        ...latestStamp,
-        attachmentFailures: failures.map((failure) => failure.url),
-      },
-      `${baseDir}${latest}`,
-    );
+    const refreshed = { ...latestStamp };
+    if (failures.length)
+      refreshed.attachmentFailures = failures.map((f) => f.url);
+    else delete refreshed.attachmentFailures;
+    if (
+      JSON.stringify(latestStamp.attachmentFailures ?? []) !==
+      JSON.stringify(refreshed.attachmentFailures ?? [])
+    )
+      fs.writeFileSync(
+        path.join(REPO_ROOT, `${baseDir}${latest}`, "SOURCE.json"),
+        JSON.stringify(refreshed, null, 2) + "\n",
+      );
+    rememberCapture(refreshed, `${baseDir}${latest}`);
     console.log(
       `unchanged ${target.agencyId} ${target.pubId} — same content as ${baseDir}${latest}, no re-capture`,
     );

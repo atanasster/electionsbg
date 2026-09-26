@@ -577,3 +577,25 @@ it("captures the full historical Sova scan from srcset and Alpha charts", () => 
     ),
   ).toHaveLength(4);
 });
+
+it("captures legacy Market Links report endpoints and article images", () => {
+  const page = "https://www.marketlinks.bg/bg/news/example-42.html";
+  const html =
+    '<base href="https://www.marketlinks.bg/"><a href="modules/downloadResource.php?resource=204&amp;hash=abc">Изтеглете презентацията</a><a href="modules/downloadResource.php?resource=201&amp;hash=def">Политика за лични данни</a><img src="storage1/images/articles/item42/pic60/C.png"><img src="themes/Main/esomar.jpg">';
+  expect(discoverReportLinks(html, page)).toEqual([
+    "https://www.marketlinks.bg/modules/downloadResource.php?resource=204&hash=abc",
+  ]);
+  expect(discoverAgencyImages("ML", html, page)).toEqual([
+    "https://www.marketlinks.bg/storage1/images/articles/item42/pic60/C.png",
+  ]);
+});
+
+it("captures the historical Alpha Research candidate chart GIF", () => {
+  expect(
+    discoverAgencyImages(
+      "AR",
+      '<img src="/userfiles/image/77_1.gif"><img src="/templates/default/img/layoyt2.png">',
+      "https://alpharesearch.bg/post/717-example.html",
+    ),
+  ).toEqual(["https://alpharesearch.bg/userfiles/image/77_1.gif"]);
+});

@@ -282,7 +282,7 @@
       "45"
     ],
     "discoveredAt": "2026-09-26T07:50:15.536Z",
-    "latestHash": "7c046bf65bdea66baa833a4631bf21acadfebf3ab830d30d4f5c8cc04f767eb8",
+    "latestHash": "afe1d8a336a5e4dfe7fbeb7f47e89401211cd43c0c98e60d565ede831e142014",
     "versions": [
       {
         "sha256": "7c046bf65bdea66baa833a4631bf21acadfebf3ab830d30d4f5c8cc04f767eb8",
@@ -303,6 +303,13 @@
             ]
           }
         ]
+      },
+      {
+        "sha256": "afe1d8a336a5e4dfe7fbeb7f47e89401211cd43c0c98e60d565ede831e142014",
+        "capturePath": "raw_data/polls/market_links/45.v2",
+        "capturedAt": "2026-09-26T08:46:00.695Z",
+        "attachmentFailures": [],
+        "drafts": []
       }
     ],
     "failures": {
@@ -325,7 +332,7 @@
       "44"
     ],
     "discoveredAt": "2026-09-26T07:50:15.536Z",
-    "latestHash": "2c07433e27094ede140604a36869e2416aae53852af1399cf1a888fb7c3a8bd0",
+    "latestHash": "2198093bf4dbaf656db2d680148494b3429486b321e55aae328178eb6e21096d",
     "versions": [
       {
         "sha256": "2c07433e27094ede140604a36869e2416aae53852af1399cf1a888fb7c3a8bd0",
@@ -346,6 +353,13 @@
             ]
           }
         ]
+      },
+      {
+        "sha256": "2198093bf4dbaf656db2d680148494b3429486b321e55aae328178eb6e21096d",
+        "capturePath": "raw_data/polls/market_links/44.v2",
+        "capturedAt": "2026-09-26T08:45:55.935Z",
+        "attachmentFailures": [],
+        "drafts": []
       }
     ],
     "failures": {
@@ -368,7 +382,7 @@
       "43"
     ],
     "discoveredAt": "2026-09-26T07:50:15.536Z",
-    "latestHash": "dfd94173d45a4e0e108b964d6c6b72bce7f92ea19ecbe5c55caaa2a5bf3b46fb",
+    "latestHash": "e25d0266dc8a669a017fb9a625455f8ea15c6d1af1a984d1b53a2cbb2e695f83",
     "versions": [
       {
         "sha256": "dfd94173d45a4e0e108b964d6c6b72bce7f92ea19ecbe5c55caaa2a5bf3b46fb",
@@ -389,6 +403,13 @@
             ]
           }
         ]
+      },
+      {
+        "sha256": "e25d0266dc8a669a017fb9a625455f8ea15c6d1af1a984d1b53a2cbb2e695f83",
+        "capturePath": "raw_data/polls/market_links/43.v2",
+        "capturedAt": "2026-09-26T08:45:55.452Z",
+        "attachmentFailures": [],
+        "drafts": []
       }
     ],
     "failures": {
@@ -411,7 +432,7 @@
       "42"
     ],
     "discoveredAt": "2026-09-26T07:50:15.536Z",
-    "latestHash": "0ce6c8a856f96e457d462e59db65e6ae46ca9c096f66bae4fbc31e19217b335e",
+    "latestHash": "4268845e052df2d02ae47bdbbbf00553332cc305d61f7bfe18ae48a9c3089da2",
     "versions": [
       {
         "sha256": "0ce6c8a856f96e457d462e59db65e6ae46ca9c096f66bae4fbc31e19217b335e",
@@ -432,6 +453,13 @@
             ]
           }
         ]
+      },
+      {
+        "sha256": "4268845e052df2d02ae47bdbbbf00553332cc305d61f7bfe18ae48a9c3089da2",
+        "capturePath": "raw_data/polls/market_links/42.v2",
+        "capturedAt": "2026-09-26T08:45:55.108Z",
+        "attachmentFailures": [],
+        "drafts": []
       }
     ],
     "failures": {
@@ -517,11 +545,12 @@
           {
             "pollId": "ml-2021-11-07-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-26T08:23:56.410Z",
-            "draftHash": "16736a6f8e203f552c0db291730fd46b0e6e9575b799bbf37591265149e457a2",
-            "refused": [
-              "methodology"
-            ]
+            "extractedAt": "2026-09-26T08:41:41.475Z",
+            "draftHash": "55b5e46c2fea7c4d01700ad7ecdd69b0099365a3af7fb86e3325cc13b34129e7",
+            "refused": [],
+            "reviewedAt": "2026-09-26T08:49:50.619Z",
+            "acceptedAt": "2026-09-26T08:49:50.619Z",
+            "acceptedDraftHash": "55b5e46c2fea7c4d01700ad7ecdd69b0099365a3af7fb86e3325cc13b34129e7"
           }
         ]
       }
@@ -774,6 +803,96 @@
             ]
           }
         ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "91",
+    "url": "https://www.marketlinks.bg/bg/news/politicheskata-fragmentatsiya-se-zasilva-septemvri-2021-91.html",
+    "title": "Политическата фрагментация се засилва - септември 2021",
+    "publishedAt": "2021-09-23",
+    "agencyId": "ML",
+    "pubIds": [
+      "91"
+    ],
+    "discoveredAt": "2026-09-26T08:43:57.214Z",
+    "latestHash": "3b6884c716d3434f13173eae73637bd6c83e140e7cd3f9a95ffb87c0244e58ed",
+    "versions": [
+      {
+        "sha256": "3b6884c716d3434f13173eae73637bd6c83e140e7cd3f9a95ffb87c0244e58ed",
+        "capturePath": "raw_data/polls/market_links/91",
+        "capturedAt": "2026-09-26T08:44:03.183Z",
+        "attachmentFailures": [],
+        "drafts": []
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "89",
+    "url": "https://www.marketlinks.bg/bg/news/obshtestven-konsensus-za-promyana-yuli-2021-89.html",
+    "title": "Обществен консенсус за промяна - юли 2021",
+    "publishedAt": "2021-08-05",
+    "agencyId": "ML",
+    "pubIds": [
+      "89"
+    ],
+    "discoveredAt": "2026-09-26T08:43:57.214Z",
+    "latestHash": "505670815d266e6f86310ce7e6adf949b71ce045308e42488a5c1fb136ca6071",
+    "versions": [
+      {
+        "sha256": "505670815d266e6f86310ce7e6adf949b71ce045308e42488a5c1fb136ca6071",
+        "capturePath": "raw_data/polls/market_links/89",
+        "capturedAt": "2026-09-26T08:44:03.760Z",
+        "attachmentFailures": [],
+        "drafts": []
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "87",
+    "url": "https://www.marketlinks.bg/bg/news/silno-politicheskoto-razdelenie-na-fona-na-izvesten-optimizam-may-2021-87.html",
+    "title": "Силно политическото разделение на фона на известен оптимизъм - май 2021",
+    "publishedAt": "2021-06-03",
+    "agencyId": "ML",
+    "pubIds": [
+      "87"
+    ],
+    "discoveredAt": "2026-09-26T08:43:57.214Z",
+    "latestHash": "fa5540972a2ae18d727d14dadf53a3fb9522c9cdcb72dfc8d62c162a24980ae1",
+    "versions": [
+      {
+        "sha256": "fa5540972a2ae18d727d14dadf53a3fb9522c9cdcb72dfc8d62c162a24980ae1",
+        "capturePath": "raw_data/polls/market_links/87",
+        "capturedAt": "2026-09-26T08:44:04.313Z",
+        "attachmentFailures": [],
+        "drafts": []
       }
     ],
     "failures": {

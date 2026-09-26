@@ -14,9 +14,9 @@ User authorized the full implementation on 2026-09-26. Each step has a scoped re
 | 5 | Foundations | Correct the accepted Global Metrics survey from source evidence | Complete | `03680f0540` |
 | 6 | Backfill | Publication inventory, historical pagination and capture | Complete | `28abdf0e0d` |
 | 7 | Backfill | Missing agency extractors, multiple-race output and backlog reporting | Complete | `39f72c8221` |
-| 8 | Backfill | Resolve Trend historical drafts from source evidence | Complete | See scoped step 8 commit |
-| 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | In progress | |
-| 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | Pending | |
+| 8 | Backfill | Resolve Trend historical drafts from source evidence | Complete | `89e08a8f32` |
+| 9 | Backfill | Review and reconcile historical backfill, including earlier-cycle coverage | Complete | See scoped step 9 commit |
+| 10 | Backfill | Question/round-aware accuracy and eligibility diagnostics | In progress | |
 | 11 | Views | Agency presidential route and election campaign/result views | Pending | |
 | 12 | Views | Historical accuracy, runoff matrix, residual/candidate trends, coverage and exports | Pending | |
 | 13 | Views | Update ingestion documentation and stale comments | Pending | |
@@ -44,13 +44,9 @@ Step 8: Independent source review found no issues. Both reviewed drafts pass the
 
 ## Current step files
 
-- `data/polls/_inbox/tr-2016-10-26.v2.json`
-- `data/polls/_inbox/tr-pub-a19cfbc0c6dad528.json (deleted)`
-- `data/polls/_inbox/tr-2021-11-07-presidential.json (new)`
-- `state/polls/TR.json`
-- `state/polls/backlog.json`
-- `docs/polls/trend-historical-review.md (new)`
-- `docs/plans/presidential-polls-implementation.md`
+Step 9: `scripts/polls/agencies/{trend,market_links}{,.test}.ts`, `scripts/polls/{fetch,fetch.test}.ts`, `scripts/polls/lib/{capture,capture.test,text_acquisition}.ts`; accepted presidential corpus and consumed reviewed inbox drafts; publication ledger/inventory/review/reconciliation snapshots; newly captured primary sources under `raw_data/polls/{alpha_research,market_links,trend}`; `docs/polls/historical-backfill-review.md` and this tracker.
+
+Step 9 review: FINDING-001 verified with a scratch reproduction and repaired by restricting download resource filenames to digits or a generated index. Added traversal and invalid-PDF response regression cases. Jev unavailable (DNS); independent source review and direct reproduction used. 202 related tests passed (200 focused tests plus two additional capture regressions). Changed-file lint, TypeScript and full production build passed.
 
 ## Existing work to preserve
 

@@ -395,6 +395,11 @@ const discoverDocuments = (
   $("a[href]").each((_, el) => {
     const href = $(el).attr("href") ?? "";
     if (!extension.test(href)) return;
+    if (
+      /downloadResource\.php/i.test(href) &&
+      !/презентац|проучване|доклад|presentation|report/i.test($(el).text())
+    )
+      return;
     const abs = resolveHref(href, base);
     if (abs) seen.add(abs);
   });
@@ -406,14 +411,19 @@ export const discoverPdfLinks = (html: string, pageUrl: string): string[] =>
 
 /** Older Alpha Research releases link Word reports as well as PDFs. */
 export const discoverReportLinks = (html: string, pageUrl: string): string[] =>
-  discoverDocuments(html, pageUrl, /\.(?:pdf|docx?)(?:[?#]|$)/i);
+  discoverDocuments(
+    html,
+    pageUrl,
+    /(?:\.(?:pdf|docx?)(?:[?#]|$)|modules\/downloadResource\.php\?resource=\d+&hash=)/i,
+  );
 
 /** Agency chart and methodology images, including historical naming schemes.
  * Prefer the largest observed srcset image so OCR receives the original scan. */
 const AGENCY_IMAGE_PATTERNS: Record<string, RegExp> = {
+  ML: /(?:^|\/)storage1\/images\/articles\/item\d+\/pic\d+\/C\.(?:png|jpe?g)(?:[?#]|$)/i,
   SH: /\/(?:Buletin_|publ|page\d)[^/?#]*\.jpe?g(?:[?#]|$)/i,
   TR: /\/(?:Slide\d+|zadl\d*|Presentation-TREND-[^/?#]+|Trend-[^/?#]+)(?:-\d+)?\.png(?:[?#]|$)/i,
-  AR: /\/(?:Graph\d*(?:_?final)?|Chart_?\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$)/i,
+  AR: /(?:\/userfiles\/image\/\d+_\d+\.gif(?:[?#]|$)|\/(?:Graph\d*(?:_?final)?|Chart_?\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$))/i,
 };
 
 export const discoverAgencyImages = (
