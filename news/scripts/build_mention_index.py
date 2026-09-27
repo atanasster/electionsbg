@@ -258,6 +258,8 @@ def tone_summaries(app_data: Path) -> dict:
             "last_published": row.get("last_published"),
             "generated_at": doc.get("generated_at"),
             "news_url": f"{NEWS_SITE}/person/{row['id']}",
+            # §8.2 — an election freeze travels to the main-site tile too.
+            **({"frozen": doc["frozen"]} if doc.get("frozen") else {}),
         }
     return out
 

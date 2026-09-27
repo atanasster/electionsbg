@@ -94,6 +94,25 @@ describe("PersonMediaToneBody", () => {
     expect(container.textContent).not.toMatch(/средн|average|mean/i);
   });
 
+  it("states an election freeze with its Sofia-time dates", () => {
+    render(
+      <PersonMediaToneBody
+        tone={{
+          ...tone,
+          frozen: {
+            id: "pvr2026-r1",
+            as_of: "2026-11-06T21:59:00Z",
+            until: "2026-11-08T18:00:00Z",
+          },
+        }}
+      />,
+    );
+    const note = screen.getByRole("status").textContent ?? "";
+    expect(note).toContain("замразени");
+    expect(note).toContain("23:59");
+    expect(note).toContain("20:00");
+  });
+
   it("links the English person page in English", async () => {
     await i18n.changeLanguage("en");
     render(<PersonMediaToneBody tone={tone} />);

@@ -26,6 +26,8 @@ export interface PersonMediaTone {
   last_published: string | null;
   generated_at: string | null;
   news_url: string;
+  /** §8.2 — served from the last pre-window build during an election freeze. */
+  frozen?: { id: string; as_of: string; until: string };
 }
 
 /** The shard filename rule, mirrored from `safe_id` in build_mention_index.py. */

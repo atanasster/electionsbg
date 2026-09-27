@@ -161,7 +161,11 @@ export const buildShareCards = (dataDir: string): ShareCard[] => {
       file: PERSONS_CARD,
       svg: hubCardSvg(
         "Хора в новините",
-        `Как медиите представят ${rows.length} души — по обем, не по тон`,
+        // §8.2 — during an election freeze with no snapshot, nothing is
+        // published; the card must not read as „0 people".
+        persons.withheld
+          ? "Данните са задържани до края на изборния ден"
+          : `Как медиите представят ${rows.length} души — по обем, не по тон`,
       ),
     },
   ];

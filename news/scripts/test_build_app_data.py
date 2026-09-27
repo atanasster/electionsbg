@@ -4268,6 +4268,24 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
                                           "NEWS_PERSON_AGGREGATES": "1"}):
             return super().run_build_process(*extra)
 
+    def test_an_election_freeze_with_no_snapshot_withholds(self):
+        # §8.2, end to end with an injected clock: the windows file lives in
+        # the fixture root, the build runs inside it, and no pre-window build
+        # took a snapshot — so the index is withheld, never fresh.
+        self.seed(); self.registry(active=True)
+        freezes = Path(self.root) / "news" / "data" / "publication_freezes.json"
+        freezes.parent.mkdir(parents=True, exist_ok=True)
+        freezes.write_text(json.dumps({"freezes": [{
+            "id": "t-r1", "from": "2026-11-07T00:00:00+02:00",
+            "until": "2026-11-08T20:00:00+02:00", "status": "decreed"}]}),
+            encoding="utf-8")
+        proc = self.run_build_process("--as-of", "2026-11-07T10:00:00+00:00")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        index = json.loads((Path(self.out_dir) / "persons.json").read_text())
+        self.assertEqual(index["persons"], [])
+        self.assertEqual(index["withheld"]["id"], "t-r1")
+        self.assertEqual(self.person_shards(), [])
+
     def test_aggregates_off_writes_no_page_at_all(self):
         from unittest import mock  # noqa: PLC0415
         self.seed(); self.registry(active=True)

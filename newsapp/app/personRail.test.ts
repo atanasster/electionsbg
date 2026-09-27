@@ -83,6 +83,20 @@ describe("baselineFor", () => {
     persons: { "иван-иванов": { n: 5, sum: 2, levels: 5 } },
   };
 
+  it("during a freeze, subtracts only an article that is in the snapshot", () => {
+    const row = groupPeople([person("Иван Иванов", { tone: score(2) })])
+      .rows[0];
+    const frozen = {
+      ...base,
+      frozen: { id: "f", as_of: "2026-11-06T22:00:00Z", until: "x" },
+    };
+    const before = { ...JEV, assessed_at: "2026-11-06T10:00:00Z" };
+    const after = { ...JEV, assessed_at: "2026-11-07T10:00:00Z" };
+    expect(baselineFor(row, before, frozen)?.n).toBe(4);
+    // Scored after the snapshot: never in its sum, so nothing to remove.
+    expect(baselineFor(row, after, frozen)?.n).toBe(5);
+  });
+
   it("removes THIS article before bucketing", () => {
     const row = groupPeople([person("Иван Иванов", { tone: score(2) })])
       .rows[0];

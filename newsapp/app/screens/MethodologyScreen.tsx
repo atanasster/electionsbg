@@ -472,6 +472,16 @@ export const MethodologyScreen = () => {
           цитат като основание, никога целия текст на чуждата публикация.
         </p>
         <p className="mt-3">
+          <strong>Около избори.</strong> Това е измерване на начина, по който
+          изданията представят човек — не е социологическо проучване и не е
+          прогноза. За да не се чете като такова, от 00:00 в деня преди изборния
+          ден до 20:00 в изборния ден (българско време) страниците за хора,
+          списъкът и мрежата по издания остават такива, каквито са били преди
+          началото на периода, и го казват. Ако няма запазено копие отпреди
+          периода, те не се публикуват до края му. Оценките на отделните статии
+          се обновяват както обикновено.
+        </p>
+        <p className="mt-3">
           <strong>Възражение.</strong> Всяка оценка и всяка връзка може да се
           оспори от бутона „Сигнализирай проблем“ до нея. Пълните правила,
           включително правото на отговор, са в{" "}
@@ -868,6 +878,15 @@ const EnglishMethodology = ({
         data. The distribution describes the coverage, not the person: it is not
         a rating, not a ranking, and nothing is ordered by tone. We show a short
         quote as grounds, never the full text of someone else&apos;s article.
+      </p>
+      <p className="mt-3">
+        <strong>Around elections.</strong> This measures how outlets frame a
+        person — it is not an opinion poll and not a prediction. So that it is
+        not read as one, from 00:00 on the day before election day to 20:00 on
+        election day (Bulgarian time) the person pages, the list and the outlet
+        grid stay as they were before the period began, and say so. If no copy
+        from before the period was kept, they are not published until it ends.
+        Scores of individual articles keep updating as usual.
       </p>
       <p className="mt-3">
         <strong>Objections.</strong> Any score or link can be challenged from

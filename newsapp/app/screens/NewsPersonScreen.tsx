@@ -49,6 +49,7 @@ import {
   PersonSeries,
   ToneBuckets,
 } from "../components/PersonCharts";
+import { FreezeBanner } from "../components/FreezeBanner";
 
 export const POLICY_HREF = "/methodology#person-pages";
 
@@ -135,6 +136,7 @@ export const NewsPersonScreen = () => {
         <h1 className="font-title text-2xl">
           {tr("Няма страница за това лице", "No page for this person")}
         </h1>
+        <FreezeBanner stamps={personsIndex.data} className="mt-2" />
         <p className="mt-2 text-sm text-muted-foreground">
           {tr(
             "Страница има човек с достатъчно оценено отразяване и проверена самоличност. Споменаването само по себе си не създава страница.",
@@ -167,6 +169,7 @@ export const NewsPersonScreen = () => {
 
   return (
     <div className="space-y-5">
+      <FreezeBanner stamps={p} />
       <header className="border-b pb-4">
         <p className="app-eyebrow mb-2">
           {tr("Как медиите представят човека", "How the media frame them")}

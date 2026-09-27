@@ -1767,11 +1767,30 @@ export const useData = <T>(
 export const useStats = () => useData<Stats>("/stats.json");
 
 /**
+ * news-person-sentiment-v1 §8.2 — an election freeze. `frozen`: the payload is
+ * the last pre-window build, re-served unchanged until `until`. `withheld`: no
+ * pre-window snapshot existed, so nothing is published until `until`.
+ */
+export interface PublicationFreeze {
+  id: string;
+  as_of: string;
+  until: string;
+}
+export interface PublicationWithheld {
+  id: string;
+  until: string;
+}
+export interface FreezeStamps {
+  frozen?: PublicationFreeze;
+  withheld?: PublicationWithheld;
+}
+
+/**
  * Per person with a page: the raw sum and count of assessed values, so the
  * article rail can say how the person is covered ELSEWHERE — it subtracts the
  * article it sits on. Absent (404) whenever the aggregates are held.
  */
-export interface PersonBaselines {
+export interface PersonBaselines extends FreezeStamps {
   generated_at: string;
   persons: Record<
     string,
@@ -3131,7 +3150,7 @@ export interface PersonRole {
  * four unassessed kinds `=== accounting.eligible` (M). Incidental mentions
  * and unscored mentions are counted BESIDE M.
  */
-export interface PersonPayload {
+export interface PersonPayload extends FreezeStamps {
   version: number;
   generated_at: string;
   rubric_version: string;
@@ -3212,7 +3231,7 @@ export interface PersonIndexRow {
  * `news_persons.json` so a list and its page cannot disagree. */
 export type NewsPersonCoverage = PersonIndexRow;
 
-export interface PersonsIndex {
+export interface PersonsIndex extends FreezeStamps {
   generated_at: string;
   default_basis: PersonBasis;
   /** Whether `/persons/media` has a grid (`NEWS_PERSON_MATRIX`). */
@@ -3255,7 +3274,7 @@ export interface MatrixPeriod {
   omitted: { people: number; outlets: number };
 }
 
-export interface PersonMatrix {
+export interface PersonMatrix extends FreezeStamps {
   generated_at: string;
   rules: { cell_min_n: number; hatch_below_n: number; coverage_floor: number };
   periods: Record<"30" | "90" | "all", MatrixPeriod>;

@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { searchMatches } from "@/lib/translitSearch";
 import { PackSelect } from "@/screens/components/procurement/PackSelect";
 import { useParties, usePersonsIndex, type PersonIndexRow } from "../data";
+import { FreezeBanner } from "../components/FreezeBanner";
 import { formatDate } from "../labels";
 import { useNewsLocale } from "../i18n";
 import { displayName, rowFigures } from "../personPage";
@@ -120,6 +121,7 @@ export const PersonsScreen = () => {
             →
           </Link>
         ) : null}
+        <FreezeBanner stamps={index.data} className="mt-3" />
       </header>
 
       <div className="flex flex-wrap items-center gap-2">

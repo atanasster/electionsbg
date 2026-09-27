@@ -78,6 +78,14 @@ data/confirmation gate — see Post kinds. Rules 3–5 always apply.)_
    FIGURE and its BASIS are identical across platforms; only the framing moves.
    A number that is „40,4%" on Facebook and „над 40%" on X is two different
    claims, and the second is the one that gets screenshotted.
+8. **No person-sentiment post near a vote.** A post built on how the media
+   frame a named person (the news site's person pages, `/persons`, the outlet
+   grid, the main-site „В медиите" tile) is refused inside an election freeze
+   window and for 24 h before one (news-person-sentiment-v1 §8.2). Check first,
+   and stop if it exits non-zero:
+   ```bash
+   python3 news/scripts/publication_freeze.py --check-post
+   ```
 
 ## Pipeline
 

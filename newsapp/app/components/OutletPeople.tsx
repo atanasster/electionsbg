@@ -8,6 +8,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { usePersonsIndex } from "../data";
+import { FreezeBanner } from "./FreezeBanner";
 import { useNewsLocale } from "../i18n";
 import { displayName, rowFigures } from "../personPage";
 import { ToneBuckets } from "./PersonCharts";
@@ -39,6 +40,7 @@ export const OutletPeople = ({ domain }: { domain: string }) => {
             </Link>
           ) : null}
         </div>
+        <FreezeBanner stamps={index.data} className="mt-2" />
         <p className="mt-0.5 text-xs text-muted-foreground">
           {tr(
             "Хората, които изданието отразява най-често, и как ги представя — по човек, никога средно за изданието.",

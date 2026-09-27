@@ -94,6 +94,7 @@ try:
     from . import person_identity_join
     from . import person_matrix
     from . import person_publication
+    from . import publication_freeze
     from . import party_rollups
     from . import person_rollups
     from . import person_tones as person_treatment
@@ -134,6 +135,7 @@ except ImportError:  # direct script execution
     import person_identity_join
     import person_matrix
     import person_publication
+    import publication_freeze
     import party_rollups
     import person_rollups
     import person_tones as person_treatment
@@ -1705,8 +1707,7 @@ def with_stamped_subjects(analysis, stamped):
 def remove_person_aggregates(out_dir: Path) -> dict:
     """`NEWS_PERSON_AGGREGATES` off: no person page, index or baseline may
     remain from an earlier build — an off surface is not written at all."""
-    for name in ("persons.json", "person_baselines.json",
-                 "person_outlet_matrix.json"):
+    for name in publication_freeze.AGGREGATE_FILES:
         (out_dir / name).unlink(missing_ok=True)
     for stale in (out_dir / "person").glob("*.json"):
         stale.unlink()
@@ -3875,6 +3876,22 @@ def main() -> int:
             coverage_days=coverage_by_day(all_latest), surfaces=person_surfaces)
     else:
         person_shards = remove_person_aggregates(out_dir)
+    # §8.2 — the election freeze, AFTER the aggregates are written: inside a
+    # window they are replaced by the last pre-window snapshot (or withheld),
+    # in the 24 h before one they are snapshotted. The article rail's own tone
+    # stays live.
+    if "aggregates" in person_surfaces:
+        # An unparseable --as-of must not switch the freeze off.
+        freeze_now = build_as_of or datetime.now(timezone.utc)
+        freezes = publication_freeze.load_freezes()
+        for warning in publication_freeze.warnings(freezes, freeze_now):
+            print(f"  ! election freeze: {warning}", file=sys.stderr)
+        freeze = publication_freeze.apply(out_dir, freeze_now, freezes)
+        if freeze["state"] in ("frozen", "withheld"):
+            person_shards = {**person_shards, "rows": freeze["rows"]}
+        if freeze["state"] != "live":
+            print(f"  election freeze {freeze['id']}: {freeze['state']}",
+                  file=sys.stderr)
     # The news-only index carries each identity's coverage, so a list row and
     # its page can never disagree about the denominator.
     coverage = {row["id"]: row for row in person_shards["rows"]}

@@ -1,0 +1,12 @@
+{
+ "how_to_read": "news-person-sentiment-v1 §8.2 — the election freeze for the person-sentiment aggregates (person pages, /persons, the outlet grid, the rail's „в други материали“ line, the main-site „В медиите“ tile). Inside [from, until) every build re-emits the last pre-window snapshot, stamped `frozen`; with no snapshot it withholds them. Times carry the Europe/Sofia offset: 00:00 on the day before the vote to 20:00 (polls close) on voting day — `python3 -c \"import sys;sys.path.insert(0,'news/scripts');import publication_freeze as p;print(p.sofia_day_before('YYYY-MM-DD'))\"` computes a pair. `status` is estimated until the President's decree fixes the date, then decreed; an estimated window within 45 days warns on every run. After a first round closes, add the runoff window with `runoff_of: <first-round id>` or set `\"runoff\": \"none\"` on the first-round entry; until one of the two is recorded, every run warns.",
+ "freezes": [
+  {
+   "id": "pvr2026-r1",
+   "from": "2026-11-07T00:00:00+02:00",
+   "until": "2026-11-08T20:00:00+02:00",
+   "status": "estimated",
+   "basis": "src/data/myarea/upcomingElections.ts estimate (confidence: estimated); replace with the decree date"
+  }
+ ]
+}

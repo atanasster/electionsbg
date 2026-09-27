@@ -11,7 +11,13 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PackSelect } from "@/screens/components/procurement/PackSelect";
-import { usePersonMatrix, type MatrixPeriod, type PersonMatrix } from "../data";
+import {
+  usePersonMatrix,
+  usePersonsIndex,
+  type MatrixPeriod,
+  type PersonMatrix,
+} from "../data";
+import { FreezeBanner } from "../components/FreezeBanner";
 import { toneMeta } from "../labels";
 import { useNewsLocale } from "../i18n";
 import { cellView, offeredPeriods, type MatrixMode } from "../personMatrix";
@@ -76,6 +82,7 @@ const Cell = ({
 export const PersonsMediaScreen = () => {
   const { isEnglish, language, tr } = useNewsLocale();
   const matrix = usePersonMatrix();
+  const index = usePersonsIndex();
   const [mode, setMode] = useState<MatrixMode>("position");
   const [chosen, setChosen] = useState<"30" | "90" | "all" | null>(null);
 
@@ -91,6 +98,7 @@ export const PersonsMediaScreen = () => {
             "The grid is not published yet.",
           )}
         </p>
+        <FreezeBanner stamps={index.data} className="mt-2" />
       </Card>
     );
   if (!matrix.data) return <Skeleton className="h-40 rounded-xl" />;
@@ -114,6 +122,7 @@ export const PersonsMediaScreen = () => {
             "How each outlet frames the people it covers most. It compares outlets' treatment of the same person — it does not rate or rank the outlets.",
           )}
         </p>
+        <FreezeBanner stamps={m} className="mt-3" />
       </header>
 
       {!grid ? (

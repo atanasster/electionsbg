@@ -152,7 +152,17 @@ export const baselineFor = (
     typeof b.levels !== "number"
   )
     return null;
-  const self = countedInBaseline(row, jev) && row.tone ? row.tone.value : null;
+  // ⚠️ During an election freeze (§8.2) the baseline is the pre-window
+  // snapshot: an article scored after it was never in the sum, so there is
+  // nothing of it to subtract.
+  const inSnapshot =
+    !baselines.frozen ||
+    (!!jev.assessed_at &&
+      Date.parse(jev.assessed_at) <= Date.parse(baselines.frozen.as_of));
+  const self =
+    inSnapshot && countedInBaseline(row, jev) && row.tone
+      ? row.tone.value
+      : null;
   const n = self === null ? b.n : b.n - 1;
   const sum = self === null ? b.sum : b.sum - self;
   if (n < 1) return null;

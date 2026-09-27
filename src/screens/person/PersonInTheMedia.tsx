@@ -11,6 +11,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Newspaper } from "lucide-react";
+import { sofiaDateTime } from "@/lib/sofiaDateTime";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card, CardContent } from "@/ux/Card";
 import {
@@ -32,6 +33,7 @@ export const PersonMediaToneBody: FC<{ tone: PersonMediaTone }> = ({
   tone,
 }) => {
   const { t, i18n } = useTranslation();
+  const locale = i18n.language === "en" ? "en-GB" : "bg-BG";
   const total = TONE_BUCKETS.reduce((s, b) => s + (tone.counts[b] ?? 0), 0);
   const url =
     i18n.language === "en"
@@ -40,6 +42,17 @@ export const PersonMediaToneBody: FC<{ tone: PersonMediaTone }> = ({
   return (
     <Card>
       <CardContent className="space-y-3 pt-6">
+        {tone.frozen && (
+          <p
+            role="status"
+            className="rounded-md border border-amber-500/40 bg-amber-500/10 px-2 py-1 text-xs"
+          >
+            {t("pp_media_frozen", {
+              asOf: sofiaDateTime(tone.frozen.as_of, locale),
+              until: sofiaDateTime(tone.frozen.until, locale),
+            })}
+          </p>
+        )}
         <p className="text-xs text-muted-foreground">
           {t("pp_media_basis", {
             n: tone.n,

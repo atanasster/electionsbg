@@ -51,6 +51,8 @@ RUNTIME_SCRIPTS = (
     "news/scripts/person_publication.py",
     # build_app_data imports it UNGUARDED: the outlet × person grid (§7.1).
     "news/scripts/person_matrix.py",
+    # build_app_data imports it UNGUARDED: the election freeze (§8.2).
+    "news/scripts/publication_freeze.py",
     "news/scripts/rollup_common.py",  # both rollups import it UNGUARDED
     "news/scripts/person_tones.py",   # build_app_data imports it UNGUARDED (T4.3)
     "news/scripts/story_synthesis.py",  # build_app_data imports it UNGUARDED (T5.1)
@@ -109,6 +111,9 @@ SEED_FILES = (
     "news/data/person_context_cues.json",
     "news/data/person_identity_audit.json",
     "news/data/person_surname_aliases.json",
+    # The election freeze windows (§8.2). Absent, no window applies — so a
+    # host without it would publish fresh aggregates through a vote.
+    "news/data/publication_freezes.json",
     "news/data/retired_sites.csv",
     "data/canonical_parties.json",
     "src/screens/governance/sectorRegistry.ts",
