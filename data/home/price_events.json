@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-25",
+  "computedAt": "2026-09-26",
   "thresholds": {
     "basketPids": [
       1,
@@ -75,34 +75,34 @@
   ],
   "promotions": [
     {
-      "slug": "krave-maslo-d-markenbutter-250gr",
-      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-      "atOrBelowSince": "2026-09-25",
-      "promoEur": 1.69,
-      "regularEur": 4.07,
-      "discountPct": 58,
-      "stores": 207,
-      "chains": 2
-    },
-    {
-      "slug": "yabalki-gala",
-      "title": "ЯБЪЛКИ ГАЛА",
-      "atOrBelowSince": "2026-09-14",
-      "promoEur": 0.89,
-      "regularEur": 1.89,
-      "discountPct": 53,
-      "stores": 230,
-      "chains": 2
-    },
-    {
       "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
       "atOrBelowSince": "2026-09-17",
       "promoEur": 0.89,
-      "regularEur": 1.82,
+      "regularEur": 1.8,
       "discountPct": 51,
-      "stores": 6,
-      "chains": 2
+      "stores": 8,
+      "chains": 4
+    },
+    {
+      "slug": "shokolad-roshen-lakmi-mlechen-palnezh-i-biskvitki-100gr",
+      "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН ПЪЛНЕЖ И БИСКВИТКИ 100ГР",
+      "atOrBelowSince": "2026-09-18",
+      "promoEur": 0.89,
+      "regularEur": 1.8,
+      "discountPct": 51,
+      "stores": 3,
+      "chains": 3
+    },
+    {
+      "slug": "shokolad-roshen-lakmi-mlechen-palnezh-i-vafli-90gr",
+      "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН ПЪЛНЕЖ И ВАФЛИ 90ГР",
+      "atOrBelowSince": "2026-09-18",
+      "promoEur": 0.89,
+      "regularEur": 1.8,
+      "discountPct": 51,
+      "stores": 44,
+      "chains": 4
     }
   ]
 }

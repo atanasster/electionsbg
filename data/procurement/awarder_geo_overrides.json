@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-25T21:47:26.894Z",
-  "count": 2203,
+  "generatedAt": "2026-09-27T05:57:00.764Z",
+  "count": 2205,
   "sources": {
     "tr": 139,
     "ocds": 358,
     "name+oblast": 76,
-    "ri": 1291,
+    "ri": 1293,
     "name": 249,
     "mon": 34,
     "mon+oblast": 55,
     "school": 1
   },
   "run": {
-    "candidates": 2766,
-    "resolved": 2117,
+    "candidates": 2768,
+    "resolved": 2119,
     "unresolved": 649
   },
   "carriedOver": {
@@ -23,19 +23,19 @@
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-09-25T21:47:26.894Z"
+      "lastFreshAt": "2026-09-27T05:57:00.764Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-09-25T21:47:26.894Z"
+      "lastFreshAt": "2026-09-27T05:57:00.764Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-09-25T21:47:26.894Z"
+      "lastFreshAt": "2026-09-27T05:57:00.764Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-09-25T21:47:26.894Z"
+      "lastFreshAt": "2026-09-27T05:57:00.764Z"
     },
     "mon": {
       "status": "unavailable",
@@ -44,15 +44,15 @@
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-09-25T21:47:26.894Z"
+      "lastFreshAt": "2026-09-27T05:57:00.764Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-09-25T21:47:26.894Z"
+      "lastFreshAt": "2026-09-27T05:57:00.764Z"
     }
   },
   "notes": [
-    "Tier mon was unavailable on 2026-09-25 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
+    "Tier mon was unavailable on 2026-09-27 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
   ],
   "awarders": {
     "101005300": {
@@ -2665,6 +2665,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "181612248": {
+      "ekatte": "68134",
+      "source": "ri",
+      "confidence": "exact"
+    },
     "200007349": {
       "ekatte": "04279",
       "source": "name",
@@ -4864,6 +4869,11 @@
       "ekatte": "10971",
       "source": "name",
       "confidence": "name_only"
+    },
+    "000181515": {
+      "ekatte": "07702",
+      "source": "ri",
+      "confidence": "exact"
     },
     "000181522": {
       "ekatte": "07702",
