@@ -169,7 +169,7 @@ export const NewsPersonScreen = () => {
     <div className="space-y-5">
       <header className="border-b pb-4">
         <p className="app-eyebrow mb-2">
-          {tr("Как медиите го представят", "How the media frame them")}
+          {tr("Как медиите представят човека", "How the media frame them")}
         </p>
         <h1 className="app-page-title">{name}</h1>
         {office || partyName ? (

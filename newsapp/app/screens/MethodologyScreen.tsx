@@ -434,20 +434,47 @@ export const MethodologyScreen = () => {
         </p>
       </Section>
 
-      <Section id="person-pages" title="Страници за лица">
+      <Section id="person-pages" title="Как измерваме отношението към хора">
         <p>
-          Страница за лице съществува само след редакционно решение:
-          самоличност, която е проверена и отбелязана като активна.
-          Споменаването в материал не създава страница. На всяка такава страница
-          пише колко двойки (лице, материал) са оценени от всички, за които
-          лицето е основен или споменат участник, и какво е останало без
-          преценка — непрочетен изцяло текст, неоценено или без достатъчно
-          доказателство. Показваме кратък цитат като основание, никога целия
-          текст на чуждата публикация.
+          <strong>Единицата.</strong> Анализът на всяка статия отбелязва кои
+          хора са неин основен субект или участник и как текстът ги представя —
+          по пет степени, от силно неблагоприятно до силно благоприятно. Хора,
+          споменати само мимоходом, не се оценяват. По подразбиране броим едно
+          издание с една история веднъж, за да не тежи десет пъти издание, което
+          публикува десет варианта на едно и също; показваме и броенето по
+          заглавия и по всички статии.
         </p>
         <p className="mt-3">
-          Пълните правила — кой получава страница, какво не публикуваме и как се
-          иска поправка или право на отговор — са в{" "}
+          <strong>Кой е човекът.</strong> Името в статията се свързва с лице
+          само при еднозначно съвпадение: пълно име, проверена форма, или
+          двуименна форма с потвърждение в текста (партия или длъжност, заемана
+          към датата на статията). Само фамилия се свързва единствено чрез
+          преглед от човек и за определен период. Всичко останало остава
+          несвързано и се брои като такова. Повечето статии пишат две имена, а
+          ние пазим три — затова двуименното съвпадение значи „лице с това име“,
+          и страница, която стъпва само на такива връзки, излиза едва след ръчна
+          проверка на самоличността.
+        </p>
+        <p className="mt-3">
+          <strong>Кога има страница.</strong> От пет материала нататък, при поне
+          една силна връзка. На всяка страница пише колко материала са оценени
+          от всички, в които човекът участва, и какво е останало без оценка —
+          непрочетен изцяло текст, неоценено, или неясна самоличност. Средна
+          стойност за издание показваме само от пет материала нагоре; по дни и
+          седмици чертаем само периоди, в които поне 80% от статиите са
+          анализирани.
+        </p>
+        <p className="mt-3">
+          <strong>Какво не е.</strong> „Неутрално“ значи, че текстът съобщава,
+          без да оценява — това е мнозинството и е находка, не липса на данни.
+          Разпределението описва отразяването, не човека: не е оценка на
+          личността, не е класиране и няма подреждане по тон. Показваме кратък
+          цитат като основание, никога целия текст на чуждата публикация.
+        </p>
+        <p className="mt-3">
+          <strong>Възражение.</strong> Всяка оценка и всяка връзка може да се
+          оспори от бутона „Сигнализирай проблем“ до нея. Пълните правила,
+          включително правото на отговор, са в{" "}
           <a
             className="app-link"
             href="https://github.com/atanasster/electionsbg/blob/main/docs/policies/news-person-pages.md"
@@ -807,19 +834,45 @@ const EnglishMethodology = ({
       </p>
     </Section>
 
-    <Section id="person-pages" title="Pages about people">
+    <Section id="person-pages" title="How we measure the treatment of people">
       <p>
-        A page about a person exists only after an editorial decision: an
-        identity that has been reviewed and marked active. Being mentioned in an
-        article does not create one. Each such page states how many (person,
-        article) pairs are assessed out of every one where the person is a main
-        or named participant, and what was left unassessed — text not read in
-        full, not yet assessed, or not enough evidence. We show a short quote as
-        grounds, never the full text of someone else&apos;s article.
+        <strong>The unit.</strong> Each article&apos;s analysis marks which
+        people are its main subject or a participant, and how the text frames
+        them — on five levels, from strongly unfavourable to strongly
+        favourable. People mentioned only in passing are not scored. By default
+        one outlet&apos;s coverage of one story counts once, so an outlet that
+        publishes ten versions of the same item does not weigh ten times; the
+        per-headline and per-article counts are shown too.
       </p>
       <p className="mt-3">
-        The full rules — who gets a page, what we do not publish, and how to ask
-        for a correction or a right of reply — are in the{" "}
+        <strong>Who the person is.</strong> A name is linked to a person only on
+        an unambiguous match: a full name, a reviewed form, or a two-part name
+        confirmed in the text (a party, or an office held on the article&apos;s
+        date). A surname alone is linked only through human review, for a set
+        period. Everything else stays unlinked and is counted as such. Most
+        articles write two names and we hold three, so a two-part match means „a
+        person of this name“, and a page resting only on such links appears only
+        after a manual identity check.
+      </p>
+      <p className="mt-3">
+        <strong>When there is a page.</strong> From five items, with at least
+        one strong link. Each page states how many items were scored out of all
+        those the person takes part in, and what was left unscored — text not
+        read in full, not yet scored, or an unclear identity. An outlet&apos;s
+        average is shown only from five items; daily and weekly series draw only
+        periods in which at least 80% of articles were analyzed.
+      </p>
+      <p className="mt-3">
+        <strong>What it is not.</strong> „Neutral“ means the text reports
+        without judging — it is the majority, and a finding rather than missing
+        data. The distribution describes the coverage, not the person: it is not
+        a rating, not a ranking, and nothing is ordered by tone. We show a short
+        quote as grounds, never the full text of someone else&apos;s article.
+      </p>
+      <p className="mt-3">
+        <strong>Objections.</strong> Any score or link can be challenged from
+        the „Report a problem“ button beside it. The full rules, including the
+        right of reply, are in the{" "}
         <a
           className="app-link"
           href="https://github.com/atanasster/electionsbg/blob/main/docs/policies/news-person-pages.md"

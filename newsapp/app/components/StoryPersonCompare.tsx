@@ -26,11 +26,14 @@ export const StoryPersonCompare = ({ members }: { members: StoryMember[] }) => {
   const verdict =
     state === "distribution"
       ? tr(
-          "Изданията го представят различно.",
+          "Изданията представят човека различно.",
           "The outlets frame them differently.",
         )
       : state === "uniform"
-        ? tr("Изданията го представят сходно.", "The outlets frame them alike.")
+        ? tr(
+            "Изданията представят човека сходно.",
+            "The outlets frame them alike.",
+          )
         : tr("Само един източник.", "One source only.");
   return (
     <section

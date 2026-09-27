@@ -117,6 +117,7 @@ export type DashboardSectionIdProp =
   | "person-business"
   | "person-ngos"
   | "person-connections"
+  | "person-media"
   | "person-donations"
   | "person-self-funding"
   | "person-money"

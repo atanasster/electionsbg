@@ -35,7 +35,7 @@ describe("StoryPersonCompare", () => {
   it("compares outlets on one person and says whether they differ", async () => {
     await draw([m("a.bg", "1", 1), m("b.bg", "2", 2)], true);
     const box = screen.getByTestId("story-person-compare");
-    expect(box.textContent).toContain("Изданията го представят различно.");
+    expect(box.textContent).toContain("Изданията представят човека различно.");
     expect(screen.getByRole("link", { name: "Румен Радев" })).toHaveAttribute(
       "href",
       "/person/mp-5142",

@@ -40,6 +40,7 @@ import { PersonCohortBenchmark } from "./PersonCohortBenchmark";
 import { PersonFollowButton } from "./PersonFollowButton";
 import { PersonCompanies } from "./PersonCompanies";
 import { PersonNgoSeats } from "./PersonNgoSeats";
+import { PersonInTheMedia } from "./PersonInTheMedia";
 import {
   PersonConnections,
   type PersonConnectionsData,
@@ -731,6 +732,10 @@ const PersonDashboardBody: FC<{
               companies. Its own component so the basis-mark rule is testable; see its header
               for why a board seat must carry the SAME mark a company does. */}
           <PersonNgoSeats ngos={p.ngos} foldPeopleN={blockFoldPeopleN(p)} />
+
+          {/* В МЕДИИТЕ — the news pipeline's tone summary, when it published
+              one (news-person-sentiment-v1 §8); absent for most people. */}
+          <PersonInTheMedia slug={p.slug} />
 
           {/* ВРЪЗКИ — the connections we FOUND, plus the check a reader runs themselves.
               The section is owned here rather than by PersonConnections, because that

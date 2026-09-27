@@ -101,7 +101,7 @@ const Row = ({
     inArticle ? tr(inArticle[0], inArticle[1]) : null,
     meta
       ? tr(
-          `материалът го представя: ${meta.label}`,
+          `представяне в материала: ${meta.label}`,
           `the article frames them: ${meta.label}`,
         )
       : null,

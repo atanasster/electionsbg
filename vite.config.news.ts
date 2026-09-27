@@ -13,6 +13,7 @@ import path from "path";
 import type { Connect, Plugin } from "vite";
 import { applyHead, renderSitemap, writeRoute } from "./newsapp/prerender";
 import { buildRoutes } from "./newsapp/prerenderRoutes";
+import { buildShareCards, writeShareCards } from "./newsapp/shareCards";
 import { defineConfig } from "vite";
 
 const DATA_DIR = path.resolve(__dirname, "news", "app-data");
@@ -171,7 +172,7 @@ const writeSeoFilesNews = (): Plugin => ({
   enforce: "post",
   writeBundle: {
     sequential: true,
-    handler() {
+    async handler() {
       const out = path.resolve(__dirname, "dist-news");
       if (!fs.existsSync(out)) return;
       fs.writeFileSync(path.join(out, "robots.txt"), ROBOTS_TXT);
@@ -222,6 +223,13 @@ const writeSeoFilesNews = (): Plugin => ({
             [...missing].map(([t, n]) => `${t} (${n} routes)`).join(", "),
         );
       }
+      // The person/grid share cards the routes above name as og:image —
+      // written before the sitemap, so no submitted page names a missing card.
+      const cards = await writeShareCards(
+        out,
+        buildShareCards(path.resolve(__dirname, "news", "app-data")),
+      );
+      if (cards > 0) console.log(`news prerender: ${cards} share cards`);
       fs.writeFileSync(path.join(out, "sitemap.xml"), renderSitemap(routes));
       const submitted = routes.filter((r) => r.sitemap !== false).length;
       console.log(

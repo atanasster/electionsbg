@@ -439,15 +439,7 @@ else
   stage review_queue python3 news/scripts/review_routing.py --limit 0 --json
 fi
 
-# ── 8. Reciprocal index ────────────────────────────────────────────────────
-if [ "$DRY" = 1 ]; then
-  stage mention_index python3 -c \
-    'import json; print(json.dumps({"skipped": "dry_run"}))'
-else
-  stage mention_index python3 news/scripts/build_mention_index.py --json
-fi
-
-# ── 9. Accepted eval snapshot ──────────────────────────────────────────────
+# ── 8. Accepted eval snapshot ──────────────────────────────────────────────
 # Export after acquisition/analysis but before bundle construction so every
 # effective human override and its provenance hash belong to this exact run.
 # The command retains last-known-good files on remote/export failure and turns
@@ -459,12 +451,22 @@ else
   stage eval_export python3 news/scripts/eval_runtime.py export
 fi
 
-# ── 10. App bundles ────────────────────────────────────────────────────────
+# ── 9. App bundles ────────────────────────────────────────────────────────
 if [ "$DRY" = 1 ]; then
   stage bundles python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
 else
   stage bundles python3 news/scripts/build_app_data.py --quiet --json
+fi
+
+# ── 10. Reciprocal index ───────────────────────────────────────────────────
+# AFTER the bundles: each person shard carries the tone summary from THIS
+# run's `persons.json` (news-person-sentiment-v1 §8), never the previous one.
+if [ "$DRY" = 1 ]; then
+  stage mention_index python3 -c \
+    'import json; print(json.dumps({"skipped": "dry_run"}))'
+else
+  stage mention_index python3 news/scripts/build_mention_index.py --json
 fi
 
 # ── 11. Desired public eval tasks ──────────────────────────────────────────

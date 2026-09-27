@@ -12,6 +12,12 @@ import { clamp, safeSegment, type PrerenderRoute } from "./prerender";
 import { isCaseSlug } from "./app/caseSlug";
 import { isNewsPersonId } from "./app/newsPersonId";
 import { isPartyId } from "./app/partyId";
+import {
+  cardUrl,
+  MATRIX_CARD,
+  PERSONS_CARD,
+  personCardFile,
+} from "./shareCards";
 import { transliterateName } from "../src/data/candidates/transliterateName";
 
 type Bundle = Record<string, unknown>;
@@ -338,6 +344,7 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       descriptionEn: clamp(
         `${personRows.length} people with enough coverage: how many articles frame them and how. Ordered by volume of coverage, never by tone — this is not a ranking.`,
       ),
+      image: cardUrl(PERSONS_CARD),
       lastmod: (persons.generated_at as string) ?? null,
       sitemap: personRows.length > 0,
     });
@@ -361,6 +368,7 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       descriptionEn: clamp(
         "How each outlet frames the people it covers most. It compares treatment of the same person — it does not rate or rank the outlets.",
       ),
+      image: cardUrl(MATRIX_CARD),
       lastmod: (matrix.generated_at as string) ?? null,
       sitemap: offered,
     });
@@ -377,7 +385,7 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
     const nameEn = String(person.name_en ?? transliterateName(nameBg));
     routes.push({
       path: `person/${id}`,
-      title: `${clamp(nameBg, 70)} — как медиите го представят | Наясно Новини`,
+      title: `Как медиите представят ${clamp(nameBg, 70)} | Наясно Новини`,
       description: clamp(
         `Как ${articles} материала от ${outlets} издания представят ${nameBg}: разпределение, развитие във времето и по издания. Оценява се текстът, не човекът.`,
       ),
@@ -385,6 +393,7 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       descriptionEn: clamp(
         `How ${articles} articles from ${outlets} outlets frame ${nameEn}: the distribution, over time and by outlet. The text is assessed, not the person.`,
       ),
+      image: cardUrl(personCardFile(id)),
       lastmod:
         (person.last_published as string) ??
         (persons?.generated_at as string) ??

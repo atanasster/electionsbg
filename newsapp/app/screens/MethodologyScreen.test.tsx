@@ -95,11 +95,11 @@ describe("the person-pages policy", () => {
     // in a repo file the page footer names.
     await renderPage(stats(), []);
     const heading = await screen.findByRole("heading", {
-      name: "Страници за лица",
+      name: "Как измерваме отношението към хора",
     });
     const section = heading.closest("section")!;
     expect(section).toHaveTextContent(
-      "Споменаването в материал не създава страница",
+      "не е оценка на личността, не е класиране",
     );
     expect(section).toHaveTextContent(
       "никога целия текст на чуждата публикация",

@@ -104,7 +104,7 @@ export const PersonsScreen = () => {
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           {tr(
-            `${rows.length} души с достатъчно оценено отразяване. За всеки: колко материала го представят и как — оценка на текстовете, не на хората. Подредени по обем на отразяването, никога по тон: това не е класация.`,
+            `${rows.length} души с достатъчно оценено отразяване. За всеки: колко материала и как представят човека — оценка на текстовете, не на хората. Подредени по обем на отразяването, никога по тон: това не е класация.`,
             `${rows.length} people with enough assessed coverage. For each: how many articles frame them and how — an assessment of the texts, not the people. Ordered by volume of coverage, never by tone: this is not a ranking.`,
           )}
         </p>
@@ -206,7 +206,7 @@ export const PersonsScreen = () => {
               <th className="px-4 py-2 font-normal">{tr("Лице", "Person")}</th>
               <th className="px-2 py-2 text-right font-normal">n</th>
               <th className="hidden w-1/3 px-2 py-2 font-normal sm:table-cell">
-                {tr("Как го представят", "How they are framed")}
+                {tr("Как е представен човекът", "How they are framed")}
               </th>
               <th className="hidden px-2 py-2 text-right font-normal md:table-cell">
                 {tr("Издания", "Outlets")}

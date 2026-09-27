@@ -31,8 +31,8 @@ GS_URI = re.compile(r"^gs://([^/]+)(?:/(.+?))?/?$")
 EXPECTED_STAGES = (
     "acquire_direct", "acquire_browser", "probe_model", "check_prompts",
     "common_words", "analyze", "sentiment", "image_rights_queue",
-    "image_candidates", "review_queue", "mention_index", "eval_export",
-    "bundles", "eval_task_build", "home_health",
+    "image_candidates", "review_queue", "eval_export", "bundles",
+    "mention_index", "eval_task_build", "home_health",
 )
 ARCHIVE_EXCLUDE = (
     # `_perf` is the shared perf log (news/scripts/perf_log.py): archiving it

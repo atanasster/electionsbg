@@ -115,6 +115,15 @@ class TheBuild(unittest.TestCase):
         return json.loads((out / kind / f"{bmi.safe_id(ident)}.json")
                           .read_text(encoding="utf-8"))
 
+    def test_the_tone_block_rides_the_person_shard_and_is_counted(self):
+        self.article("a1", "Делян Пеевски заяви нещо. " * 30)
+        by_entity, cov = bmi.build(self.gaz(), set())
+        cov["generated_at"] = "2026-08-26T00:00:00+00:00"
+        out = self.root / "out"
+        bmi.write_shards(by_entity, cov, out, {"dp-1": {"n": 5}, "other": {"n": 6}})
+        self.assertEqual(self.load(out, "person", "dp-1")["tone"], {"n": 5})
+        self.assertEqual(cov["tone_summaries"], {"attached": 1, "without_shard": 1})
+
     def test_a_resolved_person_gets_a_shard(self):
         self.article("a1", "Делян Пеевски заяви нещо. " * 30)
         out, cov = self.build()
@@ -319,6 +328,35 @@ class TheBuild(unittest.TestCase):
         got = self.load(out, "person", "dp-1")
         # One article, one entity — the two mentions dedupe onto one id.
         self.assertEqual(got["article_count"], 1)
+
+
+class ToneSummary(unittest.TestCase):
+    """The main-site „В медиите" tile's block (news-person-sentiment-v1 §8)."""
+
+    def write_index(self, root, persons):
+        root.mkdir(parents=True, exist_ok=True)
+        (root / "persons.json").write_text(json.dumps({
+            "version": 1, "generated_at": "2026-09-27T00:00:00+00:00",
+            "default_basis": "story", "persons": persons}), encoding="utf-8")
+
+    def test_no_index_means_no_block(self):
+        self.assertEqual(bmi.tone_summaries(Path(tempfile.mkdtemp())), {})
+
+    def test_counts_and_busiest_outlets_no_mean(self):
+        root = Path(tempfile.mkdtemp())
+        by_outlet = {f"o{i}.bg": [i + 1, 0, 0, i + 1, 0, 0] for i in range(7)}
+        self.write_index(root, [
+            {"id": "dp-1", "kind": "person", "n": 28,
+             "counts": {"neutral": 28}, "outlet_count": 7,
+             "last_published": "2026-09-26", "by_outlet": by_outlet},
+            {"id": "np_00000000", "kind": "person", "n": 0, "counts": {}}])
+        got = bmi.tone_summaries(root)
+        self.assertEqual(list(got), ["dp-1"])
+        block = got["dp-1"]
+        self.assertEqual([o["domain"] for o in block["outlets"]],
+                         ["o6.bg", "o5.bg", "o4.bg", "o3.bg", "o2.bg"])
+        self.assertEqual(block["news_url"], f"{bmi.NEWS_SITE}/person/dp-1")
+        self.assertNotIn("mean", json.dumps(block))
 
 
 if __name__ == "__main__":

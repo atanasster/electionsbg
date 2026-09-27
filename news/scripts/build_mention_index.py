@@ -49,6 +49,11 @@ ROOT = Path(os.environ.get("DATA_BG_ROOT") or
 NEWS_DATA = ROOT / "news" / "data"
 OUT_DIR = Path(os.environ.get("NEWS_MENTIONS_DIR") or
                ROOT / "data" / "news" / "mentions")
+APP_DATA = Path(os.environ.get("NEWS_APP_DATA_DIR") or
+                ROOT / "news" / "app-data")
+NEWS_SITE = "https://news.electionsbg.com"
+# How many outlets the main-site tile names, busiest first.
+TONE_OUTLETS = 5
 
 # ⚠️ Only kinds whose id is a KEY THE MAIN SITE ALREADY ROUTES ON: a person
 # slug is `/person/:slug`, an institution EIK is `/company/:eik`, a party id
@@ -223,7 +228,42 @@ def build(gaz, analysed: set) -> tuple[dict, dict]:
     return by_entity, coverage
 
 
-def write_shards(by_entity: dict, coverage: dict, out_dir: Path) -> list:
+def tone_summaries(app_data: Path) -> dict:
+    """person id → the „В медиите" block (news-person-sentiment-v1 §8).
+
+    Read from the news build's `persons.json`, i.e. over EVERY (outlet, story)
+    unit behind a person page — not the 50 articles a shard lists. That file
+    exists only while `NEWS_PERSON_AGGREGATES` is on and the person passed the
+    page guard, so an absent file means no tile, never an empty one.
+
+    ⚠️ COUNTS ONLY, like the index it comes from: no mean, nothing a reader
+    could rank people by."""
+    path = app_data / "persons.json"
+    if not path.exists():
+        return {}
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    names = outlet_names()
+    out = {}
+    for row in doc.get("persons") or []:
+        if row.get("kind") != "person" or not row.get("id") or not row.get("n"):
+            continue
+        busiest = sorted((row.get("by_outlet") or {}).items(),
+                         key=lambda kv: (-kv[1][0], kv[0]))[:TONE_OUTLETS]
+        out[row["id"]] = {
+            "basis": doc.get("default_basis") or "story",
+            "n": row["n"], "counts": row.get("counts") or {},
+            "outlet_count": row.get("outlet_count"),
+            "outlets": [{"domain": d, "outlet": names.get(d, d), "n": v[0]}
+                        for d, v in busiest],
+            "last_published": row.get("last_published"),
+            "generated_at": doc.get("generated_at"),
+            "news_url": f"{NEWS_SITE}/person/{row['id']}",
+        }
+    return out
+
+
+def write_shards(by_entity: dict, coverage: dict, out_dir: Path,
+                 tones: dict | None = None) -> list:
     # ⚠️ Created up front rather than as a side effect of the first shard. A
     # run that indexes NOTHING — a corpus with no resolvable person,
     # institution or party — still has to write `index.json` saying so, and
@@ -275,6 +315,8 @@ def write_shards(by_entity: dict, coverage: dict, out_dir: Path) -> list:
             "article_count": total,
             "shown": len(shown),
             "analyzed_count": sum(1 for a in articles if a["analyzed"]),
+            **({"tone": tones[ident]} if kind == "person" and ident in (tones or {})
+               else {}),
             "articles": shown,
         }, ensure_ascii=False), encoding="utf-8")
         written.append(str(dest))
@@ -304,6 +346,12 @@ def write_shards(by_entity: dict, coverage: dict, out_dir: Path) -> list:
     # two-part name.
     coverage["pairs_by_form_kind"] = dict(sorted(by_form.items()))
     coverage["pairs_shipped"] = sum(by_form.values())
+    # A person with a news page but no shard here (no resolvable mention in
+    # the scanned text) gets no tile — counted, so the gap is visible.
+    shard_people = {i for (k, i) in by_entity if k == "person"}
+    coverage["tone_summaries"] = {
+        "attached": len(shard_people & set(tones or {})),
+        "without_shard": len(set(tones or {}) - shard_people)}
 
     (out_dir / "index.json").write_text(
         json.dumps({"generated_at": coverage["generated_at"],
@@ -349,7 +397,8 @@ def main() -> int:
         return 2
 
     out_dir = Path(args.out) if args.out else OUT_DIR
-    written = write_shards(by_entity, coverage, out_dir)
+    written = write_shards(by_entity, coverage, out_dir,
+                           tone_summaries(APP_DATA))
     result = {"out": str(out_dir), "shards": len(written), **coverage}
     if args.json:
         print(json.dumps(result, ensure_ascii=False))

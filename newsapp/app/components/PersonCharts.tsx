@@ -215,7 +215,7 @@ export const PersonSeries = ({
       </h2>
       <p className="mt-0.5 text-xs text-muted-foreground">
         {tr(
-          "Височина = брой (издание, история); цвят = как са го представили; числото под колоната = средната стойност (при посочване — ±1 стандартна грешка).",
+          "Височина = брой (издание, история); цвят = как е представен човекът; числото под колоната = средната стойност (при посочване — ±1 стандартна грешка).",
           "Height = number of (outlet, story) units; colour = how they framed them; the number under a column = its mean (hover for ±1 standard error).",
         )}
       </p>
