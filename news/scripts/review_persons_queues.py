@@ -25,6 +25,11 @@ MIN_PAIRS = 5
 EXCERPTS = 5
 EXCERPT_CHARS = 160
 MAX_CANDIDATES = 9
+# A surname more public figures carry than the queue can list is never
+# proposed: „Димитров" (51 holders) meant Георги Димитров in one article and a
+# footballer in the next, and with the holders cut to nine the person an
+# article means may not even be on offer. Such a surname stays unlinked.
+MAX_SURNAME_HOLDERS = MAX_CANDIDATES
 # How often a one-word surname must occur, unlinked, before it is worth a
 # reviewer's minute.
 MIN_SURNAME_PAIRS = 3
@@ -181,7 +186,9 @@ def surname_items(collected: dict, gazetteer_doc: dict, aliases: dict,
     linked = {pid: len(p) for pid, p in collected["by_person"].items()}
     items = []
     for key, pairs in collected["surnames"].items():
-        if len(pairs) < MIN_SURNAME_PAIRS or key in reviewed or key not in holders:
+        if (len(pairs) < MIN_SURNAME_PAIRS or key in reviewed
+                or key not in holders
+                or len(holders[key]) > MAX_SURNAME_HOLDERS):
             continue
         cands = sorted(holders[key], key=lambda e: (
             -linked.get(e["id"], 0),

@@ -112,6 +112,17 @@ class SurnameQueue(unittest.TestCase):
         # „Тръмп" is frequent and nobody in the gazetteer carries it.
         self.assertEqual([i["key"] for i in self.items()], ["борисов"])
 
+    def test_a_surname_too_many_public_figures_carry_is_not_proposed(self):
+        gaz = {"entries": [{"kind": "person", "id": f"d-{i}",
+                            "canonical": f"Иван{i} Петров Димитров"}
+                           for i in range(rq.MAX_SURNAME_HOLDERS + 1)]}
+        col = {"by_person": {},
+               "surnames": {"димитров": [pair(f"d{i}", "y.bg", "Димитров", None, None)
+                                         for i in range(5)]}}
+        self.assertEqual(rq.surname_items(col, gaz, {}), [])
+        gaz["entries"].pop()
+        self.assertEqual(len(rq.surname_items(col, gaz, {})), 1)
+
     def test_a_reviewed_surname_is_not_proposed_again(self):
         self.assertEqual(self.items({"aliases": [
             {"surface": "Борисов", "status": "rejected"}]}), [])
