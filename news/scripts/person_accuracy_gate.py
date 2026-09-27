@@ -1,125 +1,96 @@
 #!/usr/bin/env python3
-"""Plan T4.5 — the person-treatment release gate.
+"""The person-sentiment release gate (news-person-sentiment-v1 §8).
 
-⚠️⚠️ THE GATE IS UNMET AND SAYS SO. It consumes
-`news/evals/person_adjudications.json` — human labels over (article, person)
-pairs — and that file holds ZERO pairs: the public evaluation surface has
-never received a submission and nobody has adjudicated a pair. Every
-threshold below is therefore evaluated against n = 0 and reported as unmet
-with the reason `no adjudicated pairs`, and the process EXITS NON-ZERO under
-`--enforce`. This script builds the gate and the arithmetic so that the day a
-person writes pairs the answer is COMPUTED rather than argued; it does not
-fill the file, and a frontier model may not fill it either.
+It consumes `news/evals/person_adjudications.json` — human answers over
+(article, person) pairs, collected in the review workspace's „Оценки" queue
+(`npm run news:review`) — and computes whether Jev's person scores may reach
+the aggregates (`NEWS_PERSON_AGGREGATES`).
 
-⚠️ THE EXISTING GOLD SET CANNOT SUPPLY THIS, and the plan says so in
-advance: `news/data/gold/gold_set.json` reports
-`shortfall: {person_linked: {wanted: 40, got: 30}}` — it could not fill a
-40-article person cell under its own selection method. 200 pairs with ≥30 per
-tone is NEW annotation. `sample_person_pairs.py` draws the candidates; it
-writes no labels.
+⚠️⚠️ UNMET UNTIL A HUMAN WRITES PAIRS, AND IT SAYS SO. With zero pairs every
+figure is undefined, the status is UNMET with the reason „no adjudicated
+pairs", and `--enforce` exits non-zero. A model may not fill the file.
 
-What it computes, over the adjudicated TEST pairs only (development pairs,
-`unclear` labels, stale pairs whose rubric or identity version has moved, and
-duplicates are excluded before anything is counted, and each exclusion is
-counted):
+What it measures, over the TEST pairs only (development, stale, unclear,
+malformed and duplicate rows are excluded and COUNTED):
 
-- PAIR DETECTION — precision and recall of „this article carries an
-  assessable treatment of this person", with the Wilson 95% lower bound and
-  an ARTICLE-bootstrap interval (resampling articles, because pairs inside
-  one article are dependent and a pair-level interval is too narrow).
-- TONE — macro-F1 across the four tones and the per-tone recall, the minimum
-  of which is the floor. ⚠️ A hypothesis that DECLINED to answer is scored as
-  wrong, not dropped: the same rule `score_analyses.score_axis` documents,
-  because dropping refusals makes silence the highest-scoring strategy.
-  `not_assessed` and `insufficient_text` are real answers on BOTH sides and
-  are scored as themselves — read from the pipeline's assessment STATUS,
-  because the producer is validated never to emit a tone beside a
-  non-assessed status, so reading `tone` alone scored a correctly abstaining
-  pipeline at 0.0 recall on ~half the corpus.
-- WRONG CANONICAL TARGETS — a tone attached to the wrong person. One fails
-  the gate outright, whatever the precision.
-- UNSUPPORTED EVIDENCE — a published directional tone whose cited spans the
-  human says do not support it. One fails the gate.
-- SUPPORT — ≥200 test pairs and ≥30 per tone, plus coverage of all five
-  strata. ⚠️ Support is part of the gate, not a footnote: without it a
-  three-pair sample at 1.000 precision „passes", which is the vacuous pass
-  the plan forbids. Insufficient support is REVIEW-ONLY, never a pass.
-- INTER-ANNOTATOR AGREEMENT — Cohen's κ over the pairs two annotators both
-  labelled, and it is PART OF THE SUPPORT GATE (≥40 doubly-annotated pairs,
-  κ ≥ 0.60): a gate computed from labels nobody checked against another
-  human is a measurement of one person. A third `adjudicated: true` row
-  resolves a disagreement, which is what the contract promises — without it
-  the answer would be whichever row appears first in file order.
-- RESOLVED-TARGET COVERAGE — the share of adjudicated pairs whose person the
-  pipeline resolved at all, so „accurate on what it answered" cannot read as
-  „accurate".
-- PREVALENCE vs HARD CASES, reported SEPARATELY and never pooled.
-- DISTRIBUTION SHIFT — the neutral and unfavourable shares before and after,
-  from the pipeline's own published corpus, so a change that makes the gate
-  easier by relabelling everything neutral is visible.
+- TONE, on the five-level scale Jev answers on (the human answers the same
+  anchors, word for word):
+    exact-bucket agreement ≥ 0.60
+    off-by-one-or-better   ≥ 0.90
+    sign-flip rate          ≤ 0.02 on the Wilson UPPER bound — favourable read
+                            as unfavourable, or the reverse: the error that
+                            matters most, and the one a tolerance near parity
+                            cannot see
+  plus the mean absolute error on the value, reported. A pair the pipeline did
+  not score while the human did is scored WRONG, never dropped — silence must
+  not be the highest-scoring strategy.
+- SUPPORT on THREE groups (unfavourable = levels 1–2, neutral, favourable =
+  4–5), ≥ 30 human labels each, and ≥ 200 test pairs. Five buckets cannot be
+  the support unit: „strongly favourable" held 12 pairs in the whole corpus
+  when this was written. The five-bucket confusion is REPORTED, not gated.
+- WRONG PERSON: one human „this is not the person named" on a pair whose
+  identity the pipeline published fails the gate outright.
+- DETECTION, from the strata that exist to see what the model hides (model
+  said incidental; linked but unscored; named only in the text): precision and
+  recall of „is this person a substantive subject". Reported apart from tone,
+  never folded into one score, and not gated.
+- AGREEMENT: Cohen's κ over pairs two different people labelled — the
+  category is the tone group for a toned answer and the role otherwise
+  (incidental, not_substantive, or a wrong person's role), floor 40 pairs and κ ≥ 0.60. Reported as its own arm:
+  `passed_without_agreement` lets a publication proceed with that arm marked
+  unmet — never presented as passed (plan §9).
 
-⚠️ THE ZEROS ARE RELEASE BLOCKERS ON THE SAMPLE, NOT CLAIMS OF ZERO
-POPULATION ERROR. „0 wrong canonical targets in 200 adjudicated pairs" is
-what the sample can support; the 95% upper bound on the true rate at n = 200
-with 0 observed is **1.88%** on the Wilson interval this report prints (the
-rule-of-three approximation would say ~1.5%; the tighter number is the one
-that under-states the uncertainty, so the report prints Wilson), and it is
-printed so the zero cannot be quoted as perfection.
+⚠️ A ZERO IS A CLAIM ABOUT THE SAMPLE. „0 wrong people in 200 pairs" supports
+a 95% upper bound of ~1.9% on the true rate, and the report prints it.
 """
 from __future__ import annotations
 
 import argparse
 import json
 import math
-import random
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent.parent
 sys.path.insert(0, str(HERE))
-
-from score_analyses import (  # noqa: E402
-    PERSON_RELEASE_GATES, PERSON_STRATA, PERSON_SUPPORT_FLOORS, PERSON_TONES,
-    macro_f1,
-)
 
 ADJUDICATIONS = HERE.parent / "evals" / "person_adjudications.json"
 APP_DATA = HERE.parent / "app-data"
-# T4.3's rubric. A pair judged under another one is stale by definition.
-CURRENT_RUBRIC = "person-treatment-v1"
+GAZETTEER = HERE.parent / "data" / "gazetteer.json"
+REGISTRY = HERE.parent / "config" / "news_persons.json"
+
+LEVELS = 5
+GROUPS = ("unfavorable", "neutral", "favorable")
+ROLES = ("primary", "secondary", "incidental", "not_substantive")
+SUBSTANTIVE = frozenset({"primary", "secondary"})
+STRATA = ("model_scored", "model_incidental", "unscored_subject", "text_only")
+DETECTION_STRATA = frozenset({"model_incidental", "unscored_subject", "text_only"})
+
+GATES = {
+    "exact_bucket": ("min", 0.60),
+    "off_by_one_or_better": ("min", 0.90),
+    "sign_flip_upper95": ("max", 0.02),
+    "wrong_person": ("max", 0),
+}
+SUPPORT = {"test_pairs": 200, "per_group": 30,
+           "doubly_annotated": 40, "min_kappa": 0.60}
 
 
-def published_identity_versions(app_data: Path) -> dict:
-    """The identity version each active person is published under, read from
-    the corpus rather than a flag so the check cannot be omitted."""
-    index = app_data / "news_persons.json"
-    if not index.exists():
-        return {}
-    try:
-        payload = json.loads(index.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return {}
-    return {p.get("news_person_id"): p.get("identity_version")
-            for p in (payload.get("persons") or [])
-            if p.get("news_person_id") and p.get("identity_version")}
+def current_rubric() -> str:
+    import jev_sentiment  # noqa: PLC0415
+    return jev_sentiment.RUBRIC_VERSION
 
-# A hypothesis that answered nothing is scored against a sentinel that can
-# never equal a real label — never dropped.
-DECLINED = "__declined__"
-# ⚠️ `not_assessed` and `insufficient_text` are DIFFERENT pipeline answers —
-# „read it all, found no framing of this person" vs „only a prefix was read"
-# — and T4.4's accounting counts them apart. Collapsing them into one
-# sentinel makes the gate unable to tell them apart AND unmeetable: the
-# producer is validated never to emit a tone beside a non-assessed status,
-# so a correctly abstaining pipeline scored 0.0 recall on every pair the
-# human labelled `not_assessed`, which is ~50% of the live corpus.
-PIPELINE_STATUS_ANSWERS = ("not_assessed", "insufficient_text")
-SCORED_TONES = PERSON_TONES + PIPELINE_STATUS_ANSWERS
+
+def group_of(level) -> str | None:
+    """Level index 0–4 → the three support groups."""
+    if not isinstance(level, int) or not 0 <= level < LEVELS:
+        return None
+    return "unfavorable" if level < 2 else "neutral" if level == 2 else "favorable"
 
 
 def wilson(successes: int, total: int, z: float = 1.96):
-    """(lower, upper) of the Wilson interval; (None, None) at n = 0."""
     if total <= 0:
         return (None, None)
     p = successes / total
@@ -130,75 +101,59 @@ def wilson(successes: int, total: int, z: float = 1.96):
     return (round(max(0.0, centre - half), 4), round(min(1.0, centre + half), 4))
 
 
-def bootstrap_ci(units: list, statistic, *, rounds: int = 2000, seed: int = 7):
-    """Percentile interval resampling whole ARTICLES, not pairs.
-
-    ⚠️ IT REPORTS ITS CONDITIONS. A resample in which the statistic is
-    undefined (no positives drawn) is discarded, so the percentile is taken
-    over a CONDITIONED set — „the interval given the statistic was defined" —
-    which narrows it in the direction that flatters the gate. The discarded
-    count, the rounds and the seed ride in the result, and when most rounds
-    were undefined it returns no interval at all rather than a flattering
-    one."""
-    base = {"rounds": rounds, "seed": seed, "undefined_rounds": rounds,
-            "low": None, "high": None}
-    if len(units) < 2:
-        return {**base, "why": "fewer than two articles"}
-    rng = random.Random(seed)
-    draws = []
-    for _ in range(rounds):
-        sample = [units[rng.randrange(len(units))] for _ in units]
-        value = statistic([row for unit in sample for row in unit])
-        if value is not None:
-            draws.append(value)
-    base["undefined_rounds"] = rounds - len(draws)
-    if len(draws) < rounds * 0.5:
-        return {**base,
-                "why": "the statistic was undefined in most resamples"}
-    draws.sort()
-    return {**base,
-            "low": round(draws[int(0.025 * len(draws))], 4),
-            "high": round(draws[min(len(draws) - 1, int(0.975 * len(draws)))], 4)}
-
-
 def cohen_kappa(pairs) -> dict:
-    """Agreement between two annotators over the labels they both gave."""
     if not pairs:
         return {"n": 0, "kappa": None, "observed_agreement": None}
     n = len(pairs)
     observed = sum(1 for a, b in pairs if a == b) / n
-    a_counts = Counter(a for a, _ in pairs)
-    b_counts = Counter(b for _, b in pairs)
-    expected = sum(a_counts[k] * b_counts[k] for k in set(a_counts) | set(b_counts)) / (n * n)
+    a_counts, b_counts = Counter(a for a, _ in pairs), Counter(b for _, b in pairs)
+    expected = sum(a_counts[k] * b_counts[k]
+                   for k in set(a_counts) | set(b_counts)) / (n * n)
     kappa = None if expected >= 1 else round((observed - expected) / (1 - expected), 4)
     return {"n": n, "kappa": kappa, "observed_agreement": round(observed, 4)}
 
 
-def load(path: Path) -> dict:
-    if not path.exists():
-        return {"version": 0, "pairs": [], "missing_file": str(path)}
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
 def pair_key(row: dict):
-    """⚠️ THE SURFACE IS PART OF THE IDENTITY. For an UNRESOLVED mention
-    `news_person_id` is None, so a key without the surface makes every
-    unresolved person in one article the same pair — measured on the real
-    250-candidate draw, 233 distinct keys, i.e. 17 candidates (6.8%) silently
-    dropped, concentrated in exactly the population a recall floor is about,
-    and fed to Cohen's κ as cross-person „agreement"."""
-    return (row.get("article_id"), row.get("surface"),
-            row.get("news_person_id"),
+    """What identifies a pair — the article, the surface, the identity and the
+    versions it was judged under. The surface is part of it, so two unnamed
+    people in one article stay two pairs."""
+    ident = row.get("identity") or {}
+    return (row.get("article_url"), row.get("surface"), ident.get("id"),
             row.get("rubric_version"), row.get("identity_version"))
 
 
-def partition(rows: list, *, rubric_version: str | None,
-              identity_versions: dict | None) -> dict:
-    """Split the file into what is scorable and what is not, counting each
-    exclusion rather than dropping it silently."""
+def current_identity_versions(gazetteer: Path = GAZETTEER,
+                              registry: Path = REGISTRY) -> dict:
+    """id → the identity version a pair must have been judged under. A pair
+    judged before a re-link or re-slug is STALE: excluded and counted, never
+    transferred to the new identity."""
+    out: dict = {}
+    if gazetteer.exists():
+        for e in json.loads(gazetteer.read_text(encoding="utf-8")).get("entries") or []:
+            if e.get("kind") == "person" and e.get("id") and e.get("identity_version"):
+                out[e["id"]] = e["identity_version"]
+    if registry.exists():
+        import news_persons  # noqa: PLC0415
+        reg = news_persons.load_registry(registry)
+        for p in reg.get("persons") or []:
+            if p.get("status") == "active":
+                out[p["news_person_id"]] = news_persons.identity_version(reg, p)
+    return out
+
+
+def own_version(pid: str, version) -> str | None:
+    """The part of an identity version that belongs to this person. A news
+    registry version is `<registry_version>:<this person's alias digest>`, and
+    the registry vintage moves whenever ANY person is added — which must not
+    make every other person's labels stale."""
+    if isinstance(version, str) and pid.startswith("np_") and ":" in version:
+        return version.split(":", 1)[1]
+    return version
+
+
+def partition(rows: list, *, rubric: str | None, versions: dict | None) -> dict:
     excluded = Counter()
-    scorable, agreement_rows = [], defaultdict(list)
-    seen = set()
+    scorable, by_key, seen = [], defaultdict(list), set()
     for row in rows:
         if not isinstance(row, dict):
             excluded["malformed"] += 1
@@ -206,359 +161,227 @@ def partition(rows: list, *, rubric_version: str | None,
         if row.get("split") != "test":
             excluded["development"] += 1
             continue
-        tone = row.get("tone")
-        if tone == "unclear":
+        # A declined answer carries no role by design, so it is read first.
+        if row.get("declined"):
             excluded["unclear"] += 1
             continue
-        if tone not in SCORED_TONES:
-            excluded["unknown_label"] += 1
+        if row.get("role") not in ROLES:
+            excluded["malformed"] += 1
             continue
-        if rubric_version and row.get("rubric_version") != rubric_version:
-            # ⚠️ A correction INVALIDATES a pair; it never transfers a label
-            # to a text judged under a different rubric.
+        if rubric and row.get("rubric_version") != rubric:
             excluded["stale_rubric"] += 1
             continue
-        if (identity_versions
-                and row.get("news_person_id") in identity_versions
-                and row.get("identity_version")
-                != identity_versions[row["news_person_id"]]):
+        ident = row.get("identity") or {}
+        if versions and ident.get("id") and ident["id"] not in versions:
+            # Retired or merged away: the label was about a person who no
+            # longer exists here, and is never transferred.
+            excluded["retired_identity"] += 1
+            continue
+        if (versions and ident.get("id")
+                and own_version(ident["id"], row.get("identity_version"))
+                != own_version(ident["id"], versions[ident["id"]])):
             excluded["stale_identity"] += 1
             continue
-        # ⚠️ AN UNADJUDICATED BLOCKER FIELD IS NOT A CLEAN ANSWER. Both
-        # release blockers are counted as „is it True" / „is it False", so a
-        # None — which is exactly what the sampler emits — would read as „not
-        # wrong" and „supported", and 200 pairs whose blockers nobody looked
-        # at would report MET. Excluding them makes the support floor the
-        # backstop: the sample drops below 200 and becomes review-only.
-        missing = [name for name in
-                   ("human_assessable", "evidence_supports",
-                    "wrong_canonical_target")
-                   if row.get(name) is None]
-        if missing:
-            excluded[f"unlabelled_{missing[0]}"] += 1
+        if row.get("role") in SUBSTANTIVE and group_of(row.get("level")) is None \
+                and not row.get("wrong_person"):
+            # A substantive role with no tone is an unfinished answer.
+            excluded["unlabelled_tone"] += 1
             continue
         key = pair_key(row)
-        agreement_rows[key].append(row)
+        by_key[key].append(row)
         if key in seen:
-            # A second annotator is agreement data, not a second pair; the
-            # SAME annotator twice is a duplicate, and both are counted.
-            if any(prior.get("annotator") == row.get("annotator")
-                   for prior in agreement_rows[key][:-1]):
+            if any(p.get("annotator") == row.get("annotator")
+                   for p in by_key[key][:-1]):
                 excluded["duplicate_pair"] += 1
             continue
         seen.add(key)
         scorable.append(row)
-    # ⚠️ AN ADJUDICATING ROW WINS, which is what the contract promises: „a
-    # disagreement is resolved by a third `adjudicated: true` row rather than
-    # by averaging". Without this the answer is whichever row appears FIRST
-    # IN FILE ORDER, and the documented mechanism does nothing.
-    by_key_index = {pair_key(row): i for i, row in enumerate(scorable)}
-    for key, rows_for_key in agreement_rows.items():
+    # An adjudicating row WINS over either annotator's.
+    index = {pair_key(r): i for i, r in enumerate(scorable)}
+    for key, rows_for_key in by_key.items():
         verdict = next((r for r in rows_for_key if r.get("adjudicated")), None)
-        if verdict is not None and key in by_key_index:
-            scorable[by_key_index[key]] = verdict
-    return {"scorable": scorable, "excluded": dict(excluded),
-            "by_key": agreement_rows}
+        if verdict is not None and key in index:
+            scorable[index[key]] = verdict
+    return {"scorable": scorable, "excluded": dict(excluded), "by_key": by_key}
+
+
+def pipeline_level(row: dict):
+    idx = row.get("pipeline_bucket_index")
+    return idx if isinstance(idx, int) and 0 <= idx < LEVELS else None
+
+
+def tone_metrics(rows: list) -> dict:
+    """Over pairs the HUMAN placed as a substantive subject with a tone."""
+    judged = [r for r in rows if r.get("role") in SUBSTANTIVE
+              and group_of(r.get("level")) and not r.get("wrong_person")]
+    n = len(judged)
+    exact = near = flips = declined = 0
+    abs_err = []
+    confusion: dict = defaultdict(Counter)
+    for r in judged:
+        human, model = r["level"], pipeline_level(r)
+        confusion[human][model if model is not None else "declined"] += 1
+        if model is None:
+            declined += 1          # scored WRONG on both counts, never dropped
+            continue
+        exact += human == model
+        near += abs(human - model) <= 1
+        flips += (human < 2 and model > 2) or (human > 2 and model < 2)
+        if isinstance(r.get("pipeline_value"), (int, float)):
+            abs_err.append(abs((human - 2) - r["pipeline_value"]))
+    return {
+        "n": n, "declined_by_pipeline": declined,
+        "exact_bucket": round(exact / n, 4) if n else None,
+        "off_by_one_or_better": round(near / n, 4) if n else None,
+        "sign_flips": flips,
+        "sign_flip_upper95": wilson(flips, n)[1],
+        "mae_value": round(sum(abs_err) / len(abs_err), 4) if abs_err else None,
+        "confusion": {str(h): dict(c) for h, c in sorted(confusion.items())},
+        "per_group": dict(Counter(group_of(r["level"]) for r in judged)),
+    }
 
 
 def detection(rows: list) -> dict:
-    """„Did the pipeline carry an assessable treatment of this person?\""""
-    tp = sum(1 for r in rows if r.get("human_assessable") and r.get("pipeline_assessed"))
-    fp = sum(1 for r in rows if not r.get("human_assessable") and r.get("pipeline_assessed"))
-    fn = sum(1 for r in rows if r.get("human_assessable") and not r.get("pipeline_assessed"))
-    precision = tp / (tp + fp) if (tp + fp) else None
-    recall = tp / (tp + fn) if (tp + fn) else None
-    by_article = defaultdict(list)
+    """Is the person a substantive subject? The pipeline says yes on a
+    model-scored pair and no on every detection stratum."""
+    tp = fp = fn = 0
     for r in rows:
-        by_article[r.get("article_id")].append(r)
-    units = list(by_article.values())
-
-    def prec(sample):
-        t = sum(1 for r in sample if r.get("human_assessable") and r.get("pipeline_assessed"))
-        f = sum(1 for r in sample if not r.get("human_assessable") and r.get("pipeline_assessed"))
-        return t / (t + f) if (t + f) else None
-
-    def rec(sample):
-        t = sum(1 for r in sample if r.get("human_assessable") and r.get("pipeline_assessed"))
-        f = sum(1 for r in sample if r.get("human_assessable") and not r.get("pipeline_assessed"))
-        return t / (t + f) if (t + f) else None
-
-    return {
-        "tp": tp, "fp": fp, "fn": fn,
-        "articles": len(units),
-        "precision": None if precision is None else round(precision, 4),
-        "recall": None if recall is None else round(recall, 4),
-        "precision_wilson95": wilson(tp, tp + fp),
-        "recall_wilson95": wilson(tp, tp + fn),
-        "precision_bootstrap95": bootstrap_ci(units, prec),
-        "recall_bootstrap95": bootstrap_ci(units, rec),
-    }
+        human = r.get("role") in SUBSTANTIVE
+        model = r.get("stratum") == "model_scored"
+        tp += human and model
+        fp += (not human) and model
+        fn += human and not model
+    return {"tp": tp, "fp": fp, "fn": fn,
+            "precision": round(tp / (tp + fp), 4) if tp + fp else None,
+            "recall": round(tp / (tp + fn), 4) if tp + fn else None,
+            "recall_wilson95": wilson(tp, tp + fn)}
 
 
-def pipeline_answer(row: dict) -> str:
-    """The pipeline's answer as a scorable label. A real status is itself; a
-    row that answered NOTHING gets the sentinel, which can never equal a
-    human label — the `score_axis` rule, so silence never scores well."""
-    if row.get("pipeline_tone"):
-        return row["pipeline_tone"]
-    status = row.get("pipeline_status")
-    if status in PIPELINE_STATUS_ANSWERS:
-        return status
-    return DECLINED
+def agreement(by_key: dict) -> dict:
+    pairs = []
+    for rows in by_key.values():
+        first = {}
+        for r in rows:
+            if not r.get("adjudicated"):
+                first.setdefault(r.get("annotator"), r)
+        if len(first) >= 2:
+            a, b = list(first.values())[:2]
+            pairs.append((group_of(a.get("level")) or a.get("role"),
+                          group_of(b.get("level")) or b.get("role")))
+    return cohen_kappa(pairs)
 
 
-def tones(rows: list) -> dict:
-    scored = [r for r in rows if r.get("tone") in SCORED_TONES]
-    declined = sum(1 for r in scored if pipeline_answer(r) is DECLINED
-                   or pipeline_answer(r) == DECLINED)
-    pairs = [(r["tone"], pipeline_answer(r)) for r in scored]
-    out = {"n": len(pairs), "declined_by_pipeline": declined, **macro_f1(pairs)}
-    out["per_tone_n"] = dict(Counter(r["tone"] for r in scored))
-    return out
+def support_of(rows: list, tones: dict, kappa: dict) -> dict:
+    per_group = {g: tones["per_group"].get(g, 0) for g in GROUPS}
+    short = {g: n for g, n in per_group.items() if n < SUPPORT["per_group"]}
+    strata = Counter(r.get("stratum") for r in rows)
+    agreement_ok = (kappa["n"] >= SUPPORT["doubly_annotated"]
+                    and kappa.get("kappa") is not None
+                    and kappa["kappa"] >= SUPPORT["min_kappa"])
+    enough = len(rows) >= SUPPORT["test_pairs"] and not short
+    return {"test_pairs": len(rows), "pairs_floor": SUPPORT["test_pairs"],
+            "per_group": per_group, "per_group_floor": SUPPORT["per_group"],
+            "groups_below_floor": short,
+            "strata": {s: strata.get(s, 0) for s in STRATA},
+            "doubly_annotated": kappa["n"], "kappa": kappa.get("kappa"),
+            "agreement_passed": agreement_ok,
+            "passed_without_agreement": enough,
+            "passed": enough and agreement_ok}
 
 
-def gate(metrics: dict, support: dict, *, n: int) -> dict:
-    per_tone = (metrics.get("tones") or {}).get("per_label") or {}
-    worst = min(per_tone.items(), key=lambda kv: kv[1].get("recall", 0),
-                default=(None, {}))
-    checks = {
-        "pair_precision": (metrics.get("detection") or {}).get("precision"),
-        "pair_recall": (metrics.get("detection") or {}).get("recall"),
-        "tone_macro_f1": (metrics.get("tones") or {}).get("macro_f1"),
-        "per_tone_recall": min(
-            (v.get("recall", 0) for v in per_tone.values()), default=None),
-        "wrong_canonical_targets": metrics.get("wrong_canonical_targets"),
-        "unsupported_evidence": metrics.get("unsupported_evidence"),
-    }
-    detail = {}
-    for name, threshold in PERSON_RELEASE_GATES.items():
-        value = checks.get(name)
-        minimum = name not in {"wrong_canonical_targets", "unsupported_evidence"}
-        # ⚠️ FAILS CLOSED, AND A ZERO OVER AN EMPTY SAMPLE IS NOT A PASS.
-        # „0 wrong targets" counted over 0 pairs is the vacuous pass this
-        # whole file exists to refuse, and printing it as `ok` beside four
-        # unmet floors is how it would get quoted.
+def gate(tones: dict, wrong: int, support: dict, n: int) -> dict:
+    values = {"exact_bucket": tones["exact_bucket"],
+              "off_by_one_or_better": tones["off_by_one_or_better"],
+              "sign_flip_upper95": tones["sign_flip_upper95"],
+              "wrong_person": wrong}
+    checks = {}
+    for name, (kind, bound) in GATES.items():
+        value = values[name]
+        # ⚠️ FAILS CLOSED: a zero over an empty sample is not a pass.
         passed = (n > 0 and value is not None
-                  and (value >= threshold if minimum else value <= threshold))
-        detail[name] = {"value": value,
-                        "minimum" if minimum else "maximum": threshold,
-                        "passed": passed}
-        if name == "per_tone_recall" and worst[0]:
-            # An operator reading „per_tone_recall 0.0" cannot otherwise
-            # tell `mixed` on 30 pairs from `not_assessed` on 1.
-            detail[name]["worst_label"] = worst[0]
-            detail[name]["support"] = worst[1].get("support")
-    # ⚠️ SUPPORT IS A GATE. Without it, 3 pairs at 1.000 would „pass".
-    met = all(v["passed"] for v in detail.values()) and support["passed"]
-    return {"passed": met, "checks": detail, "support": support}
-
-
-def support_of(rows: list, agreement: dict | None = None) -> dict:
-    per_tone = Counter(r.get("tone") for r in rows)
-    strata = Counter()
-    for row in rows:
-        for name in row.get("strata") or []:
-            strata[name] += 1
-    tone_floor = PERSON_SUPPORT_FLOORS["pairs_per_tone"]
-    short_tones = {t: per_tone.get(t, 0) for t in PERSON_TONES
-                   if per_tone.get(t, 0) < tone_floor}
-    uncovered = [s for s in PERSON_STRATA if not strata.get(s)]
-    agreement = agreement or {"n": 0, "kappa": None}
-    kappa_floor = PERSON_SUPPORT_FLOORS["min_kappa"]
-    double_floor = PERSON_SUPPORT_FLOORS["doubly_annotated_pairs"]
-    agreement_ok = (agreement.get("n", 0) >= double_floor
-                    and agreement.get("kappa") is not None
-                    and agreement["kappa"] >= kappa_floor)
-    return {
-        "adjudicated_pairs": len(rows),
-        "pairs_floor": PERSON_SUPPORT_FLOORS["adjudicated_pairs"],
-        "doubly_annotated_pairs": agreement.get("n", 0),
-        "doubly_annotated_floor": double_floor,
-        "kappa": agreement.get("kappa"),
-        "kappa_floor": kappa_floor,
-        "agreement_passed": agreement_ok,
-        "per_tone": dict(per_tone),
-        "per_tone_floor": tone_floor,
-        "tones_below_floor": short_tones,
-        "strata": dict(strata),
-        "strata_uncovered": uncovered,
-        "passed": (len(rows) >= PERSON_SUPPORT_FLOORS["adjudicated_pairs"]
-                   and not short_tones and not uncovered and agreement_ok),
-    }
-
-
-def zero_upper_bound(n: int):
-    """What „0 errors" can actually support at this n — printed so the zero
-    is never quoted as perfection."""
-    if n <= 0:
-        return None
-    return wilson(0, n)[1]
-
-
-def prevalence_split(rows: list) -> dict:
-    """The balanced hard-case set measures hard cases and says nothing about
-    prevalence, so the two never pool."""
-    out = {}
-    for name in ("natural", "hard_case"):
-        subset = [r for r in rows if (r.get("sample") or "natural") == name]
-        out[name] = {"n": len(subset),
-                     "tones": dict(Counter(r.get("tone") for r in subset))}
-    return out
+                  and (value >= bound if kind == "min" else value <= bound))
+        checks[name] = {"value": value, kind: bound, "passed": passed}
+    measures_ok = all(c["passed"] for c in checks.values())
+    return {"checks": checks, "support": support,
+            "passed_without_agreement": measures_ok and support["passed_without_agreement"],
+            "passed": measures_ok and support["passed"]}
 
 
 def published_distribution(app_data: Path) -> dict:
-    """The pipeline's own published tone shares — the drift baseline. A gate
-    made easier by relabelling everything neutral must be visible.
-
-    ⚠️ ONE FOLD PER IDENTITY, PAGE 1 ONLY. T4.4 paginates a person shard and
-    writes the WHOLE-identity accounting onto every page, so summing the
-    shards counts a 3-page identity three times — measured, `assessed: 52`
-    against a true 26 on a single identity with two pages. The shares only
-    looked right because its two pages are identical."""
-    person_dir = app_data / "person"
-    if not person_dir.exists():
-        return {"available": False, "reason": "no published person shards"}
-    by_person: dict = {}
-    read = unreadable = 0
-    for shard in sorted(person_dir.glob("*.json")):
-        try:
-            payload = json.loads(shard.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            # Counted, never silently skipped: an unreadable shard
-            # understates the baseline it is claimed to have been read from.
-            unreadable += 1
-            continue
-        read += 1
-        if int(payload.get("page") or 1) != 1:
-            continue
-        by_person[payload.get("news_person_id") or shard.stem] = (
-            payload.get("counts") or {})
+    """The published bucket shares — the drift baseline, so a change that
+    makes the gate easier by relabelling everything neutral is visible."""
+    index = app_data / "persons.json"
+    if not index.exists():
+        return {"available": False, "reason": "no persons.json"}
     counts: Counter = Counter()
-    for per_person in by_person.values():
-        for tone, n in per_person.items():
-            counts[tone] += int(n or 0)
+    for row in json.loads(index.read_text(encoding="utf-8")).get("persons") or []:
+        for bucket, n in (row.get("counts") or {}).items():
+            counts[bucket] += int(n or 0)
     total = sum(counts.values())
-    return {"available": True, "assessed": total,
-            "identities": len(by_person),
-            "shards_read": read, "shards_unreadable": unreadable,
-            "counts": dict(counts),
-            "shares": {k: round(v / total, 4) for k, v in counts.items()}
-            if total else {}}
+    return {"available": True, "units": total, "counts": dict(counts),
+            "shares": {k: round(v / total, 4) for k, v in counts.items()} if total else {}}
 
 
-def build_report(path: Path = ADJUDICATIONS, *, rubric_version: str | None = None,
-                 identity_versions: dict | None = None,
-                 app_data: Path = APP_DATA) -> dict:
-    raw = load(path)
+def build_report(path: Path = ADJUDICATIONS, *, rubric: str | None = None,
+                 versions: dict | None = None, app_data: Path = APP_DATA) -> dict:
+    raw = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     rows = raw.get("pairs") or []
-    part = partition(rows, rubric_version=rubric_version,
-                     identity_versions=identity_versions)
+    part = partition(rows, rubric=rubric, versions=versions)
     scorable = part["scorable"]
-    metrics = {
-        "detection": detection(scorable),
-        "tones": tones(scorable),
-        "wrong_canonical_targets": sum(
-            1 for r in scorable if r.get("wrong_canonical_target")),
-        "unsupported_evidence": sum(
-            1 for r in scorable if r.get("evidence_supports") is False),
-        # Not gated in v1, but counted: `subject_role` is what T4.4's M is
-        # defined over, so a human disagreeing with the pipeline's role is
-        # stating the thing that would move the denominator.
-        "role_mismatches": sum(
-            1 for r in scorable
-            if r.get("subject_role") and r.get("pipeline_subject_role")
-            and r["subject_role"] != r["pipeline_subject_role"]),
-    }
-    agreement_pairs = []
-    for rows_for_key in part["by_key"].values():
-        by_annotator = {}
-        for row in rows_for_key:
-            by_annotator.setdefault(row.get("annotator"), row)
-        if len(by_annotator) >= 2:
-            first, second = list(by_annotator.values())[:2]
-            agreement_pairs.append((first.get("tone"), second.get("tone")))
-    agreement = cohen_kappa(agreement_pairs)
-    support = support_of(scorable, agreement)
-    resolved = sum(1 for r in scorable if r.get("pipeline_resolved"))
-    report = {
-        "version": 1,
-        "source": str(path),
-        "adjudicated_pairs_in_file": len(rows),
-        "excluded": part["excluded"],
-        "metrics": metrics,
-        "gate": gate(metrics, support, n=len(scorable)),
-        "inter_annotator": agreement,
-        "resolved_target_coverage": {
-            "resolved": resolved, "of": len(scorable),
-            "share": round(resolved / len(scorable), 4) if scorable else None},
-        "zero_claims": {
-            "note": ("a zero here is a release blocker on the SAMPLE, never a "
-                     "claim of zero population error"),
-            "upper_bound_95_at_this_n": zero_upper_bound(len(scorable))},
-        "prevalence": prevalence_split(scorable),
+    tones = tone_metrics(scorable)
+    # A wrong person counts wherever the PIPELINE attached the identity —
+    # every stratum but `text_only`, whose identity the sampler supplied.
+    wrong = sum(1 for r in scorable if r.get("wrong_person")
+                and r.get("stratum") != "text_only")
+    kappa = agreement(part["by_key"])
+    support = support_of(scorable, tones, kappa)
+    verdict = gate(tones, wrong, support, len(scorable))
+    status = ("UNMET — 0 adjudicated pairs; nothing here is a measured accuracy"
+              if not scorable else "MET" if verdict["passed"]
+              else "MET EXCEPT AGREEMENT" if verdict["passed_without_agreement"]
+              else "UNMET")
+    return {
+        "version": 2, "source": str(path), "rubric_version": rubric,
+        "pairs_in_file": len(rows), "excluded": part["excluded"],
+        "tones": tones, "wrong_person": wrong,
+        "detection": detection(scorable), "inter_annotator": kappa,
+        "gate": verdict, "status": status,
+        "zero_claims": {"upper_bound_95_at_this_n": wilson(0, len(scorable))[1]
+                        if scorable else None},
         "published_distribution": published_distribution(app_data),
     }
-    usable = bool(scorable)
-    report["status"] = (
-        "UNMET — 0 adjudicated pairs; nothing here is a measured accuracy"
-        if not usable else ("MET" if report["gate"]["passed"] else "UNMET"))
-    report["review_only"] = not report["gate"]["passed"]
-    report["reason"] = (
-        "no adjudicated pairs" if not usable
-        else ("insufficient support" if not support["passed"]
-              else None if report["gate"]["passed"] else "a floor is unmet"))
-    return report
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--adjudications", type=Path, default=ADJUDICATIONS)
     ap.add_argument("--app-data", type=Path, default=APP_DATA)
-    # ⚠️ DEFAULTS ON. With the filter off, 200 pairs judged under a
-    # superseded rubric reported MET with `excluded: {}` — a protection
-    # present in the code, described in the plan, and inactive in the one
-    # command an operator is told to run.
-    ap.add_argument("--rubric-version", default=CURRENT_RUBRIC,
-                    help="exclude pairs judged under a different rubric "
-                         "(pass '' to disable, which is not advised)")
-    ap.add_argument("--identity-versions", type=Path, default=None,
-                    help="JSON {news_person_id: identity_version}; pairs "
-                         "judged under a superseded identity are excluded "
-                         "and counted. Defaults to the published index.")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--enforce", action="store_true",
-                    help="exit non-zero unless every floor is met")
+                    help="exit non-zero unless every floor, agreement included, is met")
     args = ap.parse_args(argv)
-    identity_versions = (
-        json.loads(args.identity_versions.read_text(encoding="utf-8"))
-        if args.identity_versions else published_identity_versions(args.app_data))
-    report = build_report(args.adjudications,
-                          rubric_version=args.rubric_version or None,
-                          identity_versions=identity_versions,
+    report = build_report(args.adjudications, rubric=current_rubric(),
+                          versions=current_identity_versions(),
                           app_data=args.app_data)
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
     else:
-        print(f"person treatment gate: {report['status']}")
-        if report["reason"]:
-            print(f"  reason: {report['reason']}")
-        support = report["gate"]["support"]
-        print(f"  adjudicated test pairs: {support['adjudicated_pairs']}"
-              f" (floor {support['pairs_floor']})")
-        if support["tones_below_floor"]:
-            print(f"  tones below the {support['per_tone_floor']}-pair floor: "
-                  f"{support['tones_below_floor']}")
-        if support["strata_uncovered"]:
-            print(f"  strata with no pairs: {', '.join(support['strata_uncovered'])}")
+        print(f"person sentiment gate: {report['status']}")
+        s = report["gate"]["support"]
+        print(f"  test pairs: {s['test_pairs']} (floor {s['pairs_floor']}); "
+              f"per group {s['per_group']} (floor {s['per_group_floor']})")
+        print(f"  agreement: {s['doubly_annotated']} doubly annotated, "
+              f"κ {s['kappa']} — {'met' if s['agreement_passed'] else 'UNMET'}")
         for name, row in report["gate"]["checks"].items():
-            bound = row.get("minimum", row.get("maximum"))
+            bound = row.get("min", row.get("max"))
             print(f"  {'ok ' if row['passed'] else 'UNMET'} {name}: "
-                  f"{row['value']} (floor {bound})")
+                  f"{row['value']} (bound {bound})")
+        d = report["detection"]
+        print(f"  detection (reported, not gated): precision {d['precision']}, "
+              f"recall {d['recall']}")
         if report["excluded"]:
             print(f"  excluded: {report['excluded']}")
-    if args.enforce and not report["gate"]["passed"]:
-        return 1
-    return 0
+    return 1 if args.enforce and not report["gate"]["passed"] else 0
 
 
 if __name__ == "__main__":

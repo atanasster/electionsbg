@@ -406,11 +406,12 @@ def stamp(subjects: list, analysis: dict, article: dict, src: Sources) -> dict:
 
 # ── Measurement (plan §3.2) ────────────────────────────────────────────────
 
-def corpus_articles(app_data: Path) -> tuple:
+def corpus_articles(app_data: Path, *, paths: dict | None = None) -> tuple:
     """(published app-data rows by url, raw corpus bodies by url).
 
     The app-data rows carry the public analysis (links, candidates,
-    news_persons); only the raw corpus file carries the article text.
+    news_persons); only the raw corpus file carries the article text. When
+    `paths` is given it is filled with url → the body's repo-relative path.
     """
     articles = {}
     for f in sorted((app_data / "articles").glob("*.json")):
@@ -431,6 +432,8 @@ def corpus_articles(app_data: Path) -> tuple:
             continue
         if isinstance(d, dict) and d.get("url") in articles:
             bodies[d["url"]] = d
+            if paths is not None:
+                paths[d["url"]] = f.relative_to(ROOT).as_posix()
     return articles, bodies
 
 

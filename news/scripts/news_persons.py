@@ -120,6 +120,12 @@ def load_registry(path: Path) -> dict:
         for key in LIST_FIELDS:
             if not isinstance(p[key], list):
                 raise ValueError(f"{path}: {pid}.{key} must be a list")
+        # news-person-sentiment-v1 §3.1.4: OPTIONAL, and what decides whether
+        # a news-only identity may carry an aggregate page at all.
+        if "scope" in p and p["scope"] not in ("bg", "foreign"):
+            raise ValueError(f"{path}: {pid}.scope must be bg or foreign")
+        if "public_figure" in p and not isinstance(p["public_figure"], bool):
+            raise ValueError(f"{path}: {pid}.public_figure must be true or false")
         slug = p["verified_main_site_slug"]
         if slug is not None and not re.match(r"^[a-z0-9-]+$", str(slug)):
             raise ValueError(f"{path}: {pid}.verified_main_site_slug must be a slug or null")

@@ -78,15 +78,20 @@ def collect(pairs) -> dict:
     """
     by_person: dict = {}
     surnames: dict = {}
+    names: dict = {}
     for _art, full, subjects, _rep in pairs:
         for s in subjects:
             ident = s.get("identity")
+            words = len(str(s.get("name") or "").split())
             if ident and ident.get("kind") == "person":
                 by_person.setdefault(ident["id"], []).append(_pair(full, s))
-            elif (not ident and len(str(s.get("name") or "").split()) == 1
+            elif (not ident and words == 1
                   and s.get("refused_reason") in ("no_match", "ambiguous")):
                 surnames.setdefault(fold(s["name"]), []).append(_pair(full, s))
-    return {"by_person": by_person, "surnames": surnames}
+            elif not ident and words >= 2 and s.get("refused_reason") == "no_match":
+                # A full name nobody holds — a candidate news-only identity.
+                names.setdefault(fold(s["name"]), []).append(_pair(full, s))
+    return {"by_person": by_person, "surnames": surnames, "names": names}
 
 
 def _spread(pairs: list, n: int, weakest_first: bool) -> list:
@@ -213,3 +218,164 @@ def surname_entry(item: dict, *, pick: str | None, valid_from: str,
             "valid_from": valid_from, "valid_to": valid_to,
             "requires_cue": bool(requires_cue) if pick else False,
             "reviewer": reviewer, "reviewed_at": now}
+
+
+# ── Оценки — the blinded tone annotation behind the gate (plan §8) ─────────
+
+ANNOTATION_ROLES = ("primary", "secondary", "incidental", "not_substantive")
+SUBSTANTIVE_ROLES = frozenset({"primary", "secondary"})
+
+
+def annotation_items(sample: dict, *, second_reader: bool) -> list:
+    """The pairs to label. ⚠️ BLINDED: only what the annotator may see — the
+    pair id, the name to judge and who it is — never the outlet, the URL, the
+    stratum or the model's answer. The text is served per pair, separately."""
+    ids = set(sample.get("second_reader") or ())
+    out = []
+    for p in sample.get("pairs") or []:
+        if second_reader and p["pair_id"] not in ids:
+            continue
+        ident = p.get("identity") or {}
+        out.append({"key": p["pair_id"], "surface": p.get("surface"),
+                    "canonical": ident.get("canonical")})
+    return out
+
+
+def annotation_answer(*, role: str | None, level, wrong_person: bool,
+                      declined: bool) -> dict:
+    """Validate one keypress-level answer."""
+    if declined:
+        return {"declined": True}
+    if wrong_person:
+        if role is not None and role not in ANNOTATION_ROLES:
+            raise ValueError(f"role must be one of {ANNOTATION_ROLES}")
+        return {"wrong_person": True, "role": role or "not_substantive"}
+    if role not in ANNOTATION_ROLES:
+        raise ValueError(f"role must be one of {ANNOTATION_ROLES}")
+    if role in SUBSTANTIVE_ROLES:
+        if not isinstance(level, int) or not 0 <= level <= 4:
+            raise ValueError("a main subject or participant needs a tone 1–5")
+        return {"role": role, "level": level}
+    return {"role": role}
+
+
+def adjudication_rows(sample: dict, answers: dict, *, annotator: str,
+                      rubric_version: str, finalized_at: str,
+                      revealed: set) -> list:
+    """The finished working copy as the gate's rows: the sealed sample fields
+    plus the human answer. `answers` is pair_id → annotation_answer()."""
+    by_id = {p["pair_id"]: p for p in sample.get("pairs") or []}
+    rows = []
+    for pid, ans in sorted(answers.items()):
+        p = by_id.get(pid)
+        if not p:
+            continue
+        rows.append({
+            "pair_id": pid, "split": "test", "stratum": p.get("stratum"),
+            "article_url": p.get("article_url"), "surface": p.get("surface"),
+            "identity": p.get("identity"),
+            "identity_version": p.get("identity_version"),
+            "rubric_version": rubric_version,
+            "pipeline_role": p.get("pipeline_role"),
+            "pipeline_value": p.get("pipeline_value"),
+            "pipeline_bucket_index": p.get("pipeline_bucket_index"),
+            "role": ans.get("role"), "level": ans.get("level"),
+            "wrong_person": bool(ans.get("wrong_person")),
+            "declined": bool(ans.get("declined")),
+            "source_revealed": pid in revealed,
+            "annotator": annotator, "annotated_at": finalized_at,
+        })
+    return rows
+
+
+def merge_adjudications(doc: dict, rows: list, annotator: str,
+                        served: set) -> dict:
+    """Replace THIS annotator's rows on the pairs this pass served, keep
+    everything else — a second reader must never overwrite the first, which is
+    what agreement is computed over, and a reviewer's second pass must not
+    delete their first."""
+    kept = [r for r in doc.get("pairs") or []
+            if not (r.get("annotator") == annotator
+                    and r.get("pair_id") in served)]
+    return {**doc, "version": 2, "pairs": kept + rows}
+
+
+# ── Нови лица — Bulgarians outside the gazetteer (plan §3.1.4) ─────────────
+
+MIN_NEW_PERSON_PAIRS = 5
+
+
+def new_person_items(collected_names: dict, registry: dict, scope_review: dict,
+                     *, today: date | None = None) -> list:
+    """Full names Jev scored that resolve to nobody, most-scored first.
+
+    `collected_names` is folded name → [pair] for UNLINKED subjects of two or
+    more words. Names already in the registry, or already decided as foreign
+    or rejected, are not proposed again."""
+    known = set()
+    for p in registry.get("persons") or []:
+        known.add(fold(p.get("name_bg") or ""))
+        for a in p.get("aliases") or []:
+            known.add(fold(a.get("surface") or ""))
+    for bucket in ("foreign", "rejected"):
+        for row in scope_review.get(bucket) or []:
+            known.add(fold(row.get("name") or ""))
+    items = []
+    for key, pairs in collected_names.items():
+        if len(pairs) < MIN_NEW_PERSON_PAIRS or key in known:
+            continue
+        surface = pairs[0]["surface"]
+        outlets = sorted({p.get("domain") for p in pairs if p.get("domain")})
+        items.append({
+            "key": key, "surface": surface, "pairs": len(pairs),
+            "outlets": len(outlets),
+            "excerpts": _spread(pairs, EXCERPTS, weakest_first=False),
+            # A DRAFT the reviewer must edit — never saved as written.
+            "draft_bg": f"Споменат(а) в {len(pairs)} материала от "
+                        f"{len(outlets)} издания.",
+        })
+    items.sort(key=lambda i: (-i["pairs"], i["key"]))
+    return items
+
+
+def news_person_id(name: str) -> str:
+    import hashlib  # noqa: PLC0415
+    return "np_" + hashlib.sha256(fold(name).encode("utf-8")).hexdigest()[:8]
+
+
+def registry_person(item: dict, *, name_bg: str, name_en: str,
+                    disambiguation_bg: str, disambiguation_en: str,
+                    public_figure: bool, reviewer: str, now: str) -> dict:
+    """A reviewed, ACTIVE registry entry — every field `load_registry`
+    requires, with the evidence the reviewer looked at."""
+    for label, value in (("name_bg", name_bg), ("name_en", name_en),
+                         ("disambiguation_bg", disambiguation_bg),
+                         ("disambiguation_en", disambiguation_en)):
+        if not str(value or "").strip():
+            raise ValueError(f"{label} is required")
+    if disambiguation_bg.strip() == item["draft_bg"]:
+        raise ValueError("the description is still the draft — edit it")
+    urls = [x["url"] for x in item["excerpts"] if str(x.get("url") or "").startswith("https://")]
+    if not urls:
+        raise ValueError("no https evidence to cite")
+    source = lambda x: {  # noqa: E731
+        "url": x["url"], "domain": x.get("domain"),
+        "published": x.get("published"),
+        "supports": "the name as written in the article",
+        "reviewer": reviewer, "reviewed_at": now}
+    return {
+        "news_person_id": news_person_id(name_bg),
+        "name_bg": name_bg.strip(), "name_en": name_en.strip(),
+        "status": "active", "created_at": now,
+        "reviewed_by": reviewer, "reviewed_at": now,
+        "disambiguation_bg": disambiguation_bg.strip(),
+        "disambiguation_en": disambiguation_en.strip(),
+        "identity_sources": [source(x) for x in item["excerpts"][:2]
+                             if str(x.get("url") or "").startswith("https://")],
+        "aliases": [{"surface": item["surface"], "scope": "global",
+                     "status": "accepted", "evidence": urls[:3],
+                     "reviewer": reviewer, "reviewed_at": now, "note": ""}],
+        "verified_main_site_slug": None, "namesakes": [], "history": [
+            {"at": now, "by": reviewer, "change": "created in the review workspace"}],
+        "scope": "bg", "public_figure": bool(public_figure),
+    }

@@ -221,6 +221,205 @@ class WorkspaceFiles(unittest.TestCase):
             self.ws.decide_identity("nobody", "confirmed", [])
 
 
+SAMPLE = {"rubric_version": "r1", "pairs": [
+    {"pair_id": f"k{i}", "stratum": "model_scored", "article_url": f"u{i}",
+     "domain": "secret.bg", "published": "2026-09-20", "surface": "Иван Петров",
+     "identity": {"kind": "person", "id": "mp-1", "canonical": "Иван Петров Иванов"},
+     "identity_version": "v1", "pipeline_role": "primary",
+     "pipeline_value": -1.2, "pipeline_bucket_index": 0} for i in range(3)],
+    "second_reader": ["k1"]}
+
+
+def names(n=6, surface="Мария Стоянова"):
+    return {rq.fold(surface): [pair(f"https://n.bg/{i}", f"o{i % 2}.bg", surface)
+                               for i in range(n)]}
+
+
+REGISTRY = {"version": 1, "registry_version": "2026-09-20.3",
+            "retired_ids": {}, "persons": []}
+
+
+class Collect(unittest.TestCase):
+    def test_unlinked_full_names_are_collected_apart_from_surnames(self):
+        subj = [{"name": "Мария Стоянова", "refused_reason": "no_match"},
+                {"name": "Стоянова", "refused_reason": "no_match"},
+                {"name": "Друг Човек", "refused_reason": "ambiguous"}]
+        art = {"url": "https://n.bg/1", "domain": "n.bg", "published": "2026-09-20"}
+        out = rq.collect([(art, {**art, "content": "Мария Стоянова и Стоянова"},
+                           subj, None)])
+        self.assertEqual(list(out["names"]), [rq.fold("Мария Стоянова")])
+        self.assertIn(rq.fold("Стоянова"), out["surnames"])
+
+
+class AnnotationQueue(unittest.TestCase):
+    def test_items_are_blinded(self):
+        items = rq.annotation_items(SAMPLE, second_reader=False)
+        self.assertEqual(len(items), 3)
+        text = json.dumps(items, ensure_ascii=False)
+        for secret in ("secret.bg", "u0", "model_scored", "-1.2", "primary"):
+            self.assertNotIn(secret, text)
+
+    def test_second_reader_sees_only_the_subset(self):
+        items = rq.annotation_items(SAMPLE, second_reader=True)
+        self.assertEqual([i["key"] for i in items], ["k1"])
+
+    def test_answers_are_validated(self):
+        self.assertEqual(rq.annotation_answer(role="primary", level=4,
+                                              wrong_person=False, declined=False),
+                         {"role": "primary", "level": 4})
+        self.assertEqual(rq.annotation_answer(role="incidental", level=3,
+                                              wrong_person=False, declined=False),
+                         {"role": "incidental"})
+        with self.assertRaises(ValueError):
+            rq.annotation_answer(role="primary", level=None,
+                                 wrong_person=False, declined=False)
+        with self.assertRaises(ValueError):
+            rq.annotation_answer(role="guess", level=None,
+                                 wrong_person=False, declined=False)
+
+    def test_merge_keeps_other_annotators(self):
+        doc = {"pairs": [{"pair_id": "k0", "annotator": "A"},
+                         {"pair_id": "k0", "annotator": "B"}]}
+        out = rq.merge_adjudications(doc, [{"pair_id": "k1", "annotator": "A"}],
+                                     "A", {"k0", "k1"})
+        self.assertEqual(sorted((r["pair_id"], r["annotator"]) for r in out["pairs"]),
+                         [("k0", "B"), ("k1", "A")])
+
+    def test_a_second_pass_keeps_the_same_reviewers_first_pass(self):
+        doc = {"pairs": [{"pair_id": "k0", "annotator": "A"},
+                         {"pair_id": "k1", "annotator": "A"}]}
+        out = rq.merge_adjudications(doc, [{"pair_id": "k1", "annotator": "A",
+                                            "level": 3}], "A", {"k1"})
+        self.assertEqual(sorted((r["pair_id"], r.get("level")) for r in out["pairs"]),
+                         [("k0", None), ("k1", 3)])
+
+    def test_a_wrong_person_role_is_validated(self):
+        with self.assertRaises(ValueError):
+            rq.annotation_answer(role="guess", level=None,
+                                 wrong_person=True, declined=False)
+
+
+class NewPeopleQueue(unittest.TestCase):
+    def test_threshold_registry_and_decided_names_are_filtered(self):
+        self.assertEqual(len(rq.new_person_items(names(), REGISTRY, {})), 1)
+        self.assertEqual(rq.new_person_items(names(4), REGISTRY, {}), [])
+        decided = {"foreign": [{"name": "Мария Стоянова"}]}
+        self.assertEqual(rq.new_person_items(names(), REGISTRY, decided), [])
+
+    def test_an_unedited_draft_is_refused(self):
+        item = rq.new_person_items(names(), REGISTRY, {})[0]
+        with self.assertRaises(ValueError):
+            rq.registry_person(item, name_bg="Мария Стоянова", name_en="Maria Stoyanova",
+                               disambiguation_bg=item["draft_bg"],
+                               disambiguation_en="x", public_figure=True,
+                               reviewer="R", now="2026-09-27T10:00:00+00:00")
+
+
+class WorkspaceNewQueues(unittest.TestCase):
+    def setUp(self):
+        self.dir = tempfile.TemporaryDirectory()
+        d = Path(self.dir.name)
+        self.extra = {"working": d / "work.json", "adjudications": d / "adj.json",
+                      "registry": d / "registry.json", "scope_review": d / "scope.json"}
+        self.extra["registry"].write_text(json.dumps(REGISTRY), encoding="utf-8")
+        self.extra["adjudications"].write_text(json.dumps(
+            {"version": 2, "how_to_read": ["keep"],
+             "pairs": [{"pair_id": "k0", "annotator": "Друг"}]}), encoding="utf-8")
+        self.ws = self.make()
+
+    def make(self, **kw):
+        return rp.Workspace(
+            "Рецензент", gazetteer_doc=GAZ,
+            collected={**collected(), "names": names()},
+            bodies={"u0": {"title": "Заглавие", "content": "Иван Петров каза."}},
+            paths={"identity": Path(self.dir.name) / "a.json",
+                   "surnames": Path(self.dir.name) / "s.json"},
+            sample=SAMPLE, extra_paths=self.extra, **kw)
+
+    def tearDown(self):
+        self.dir.cleanup()
+
+    def read(self, k):
+        return json.loads(self.extra[k].read_text(encoding="utf-8"))
+
+    def test_the_pair_text_is_blinded(self):
+        t = self.ws.pair_text("k0")
+        self.assertEqual(t["content"], "Иван Петров каза.")
+        self.assertEqual(t["highlight"], ["Иван Петров"])
+        self.assertNotIn("secret.bg", json.dumps(t))
+
+    def test_answer_reveal_undo_and_resume(self):
+        self.ws.decide_annotation("k0", role="primary", level=1,
+                                  wrong_person=False, declined=False)
+        self.assertEqual(self.ws.reveal("k0")["domain"], "secret.bg")
+        self.assertEqual(self.read("working")["answers"]["k0"],
+                         {"role": "primary", "level": 1})
+        self.assertEqual(self.read("working")["revealed"], ["k0"])
+        self.assertIn("k0", self.make().decided["annotation"])
+        self.assertEqual(self.ws.undo(), {"queue": "annotation", "key": "k0"})
+        self.assertEqual(self.read("working")["answers"], {})
+
+    def test_finalize_merges_and_records_the_reveal(self):
+        self.ws.decide_annotation("k0", role="primary", level=1,
+                                  wrong_person=False, declined=False)
+        self.ws.reveal("k0")
+        self.ws.decide_annotation("k2", role=None, level=None,
+                                  wrong_person=False, declined=True)
+        self.assertEqual(self.ws.finalize(), {"rows": 2})
+        doc = self.read("adjudications")
+        self.assertEqual(doc["how_to_read"], ["keep"])
+        mine = [r for r in doc["pairs"] if r["annotator"] == "Рецензент"]
+        self.assertEqual(len(doc["pairs"]), 3)
+        k0 = next(r for r in mine if r["pair_id"] == "k0")
+        self.assertTrue(k0["source_revealed"])
+        self.assertEqual((k0["level"], k0["pipeline_bucket_index"], k0["rubric_version"]),
+                         (1, 0, "r1"))
+        self.assertTrue(next(r for r in mine if r["pair_id"] == "k2")["declined"])
+
+    def test_finalize_with_nothing_is_refused(self):
+        with self.assertRaises(ValueError):
+            self.ws.finalize()
+
+    def test_accept_writes_a_valid_registry_entry_and_undo_restores_it(self):
+        import news_persons  # noqa: PLC0415
+        key = self.ws.items["new_people"][0]["key"]
+        entry = self.ws.decide_new_person(key, "accept", {
+            "name_bg": "Мария Стоянова", "name_en": "Maria Stoyanova",
+            "disambiguation_bg": "Кметица на Х.", "disambiguation_en": "Mayor of X.",
+            "public_figure": True})
+        reg = news_persons.load_registry(self.extra["registry"])
+        self.assertEqual([p["news_person_id"] for p in reg["persons"]],
+                         [entry["news_person_id"]])
+        self.assertNotEqual(reg["registry_version"], REGISTRY["registry_version"])
+        self.assertEqual(reg["persons"][0]["scope"], "bg")
+        self.assertTrue(reg["persons"][0]["public_figure"])
+        self.ws.undo()
+        self.assertEqual(self.read("registry"), REGISTRY)
+
+    def test_an_invalid_entry_never_reaches_disk(self):
+        key = self.ws.items["new_people"][0]["key"]
+        with self.assertRaises(ValueError):
+            self.ws.decide_new_person(key, "accept", {"name_bg": "М"})
+        self.assertEqual(self.read("registry"), REGISTRY)
+
+    def test_foreign_is_remembered_and_not_proposed_again(self):
+        key = self.ws.items["new_people"][0]["key"]
+        self.ws.decide_new_person(key, "foreign", {})
+        self.assertEqual(self.read("scope_review")["foreign"][0]["name"],
+                         "Мария Стоянова")
+        self.assertEqual(self.make().items["new_people"], [])
+        self.ws.undo()
+        self.assertEqual(self.read("scope_review")["foreign"], [])
+
+    def test_next_registry_version(self):
+        self.assertEqual(rp.next_registry_version("2026-09-27.2", "2026-09-27"),
+                         "2026-09-27.3")
+        self.assertEqual(rp.next_registry_version("2026-09-20.3", "2026-09-27"),
+                         "2026-09-27.1")
+        self.assertEqual(rp.next_registry_version("none", "2026-09-27"),
+                         "2026-09-27.1")
+
+
 class TheJoinReadsWhatTheWorkspaceWrites(unittest.TestCase):
     """The decision files are the only contract between the two modules."""
 
@@ -318,6 +517,10 @@ class Server(unittest.TestCase):
         self.assertEqual(code, 400)
         self.assertIn("already decided", body)
         self.assertEqual(self.call("/api/undo", {})[0], 200)
+        self.assertEqual(self.call("/api/pair?id=nope")[0], 404)
+        code, body = self.call("/api/annotation", {"key": "nope", "role": "primary",
+                                                   "level": 1})
+        self.assertEqual(code, 400)
 
     def raw(self, path, *, method="GET", headers=None, body=b""):
         import http.client  # noqa: PLC0415
