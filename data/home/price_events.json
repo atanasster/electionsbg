@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-26",
+  "computedAt": "2026-09-27",
   "thresholds": {
     "basketPids": [
       1,
@@ -75,34 +75,34 @@
   ],
   "promotions": [
     {
+      "slug": "krave-maslo-d-markenbutter-250gr",
+      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+      "atOrBelowSince": "2026-09-25",
+      "promoEur": 1.69,
+      "regularEur": 4.1,
+      "discountPct": 59,
+      "stores": 205,
+      "chains": 2
+    },
+    {
       "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
       "atOrBelowSince": "2026-09-17",
       "promoEur": 0.89,
-      "regularEur": 1.8,
+      "regularEur": 1.82,
       "discountPct": 51,
-      "stores": 8,
-      "chains": 4
+      "stores": 6,
+      "chains": 2
     },
     {
-      "slug": "shokolad-roshen-lakmi-mlechen-palnezh-i-biskvitki-100gr",
-      "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН ПЪЛНЕЖ И БИСКВИТКИ 100ГР",
-      "atOrBelowSince": "2026-09-18",
-      "promoEur": 0.89,
-      "regularEur": 1.8,
-      "discountPct": 51,
-      "stores": 3,
-      "chains": 3
-    },
-    {
-      "slug": "shokolad-roshen-lakmi-mlechen-palnezh-i-vafli-90gr",
-      "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН ПЪЛНЕЖ И ВАФЛИ 90ГР",
-      "atOrBelowSince": "2026-09-18",
-      "promoEur": 0.89,
-      "regularEur": 1.8,
-      "discountPct": 51,
-      "stores": 44,
-      "chains": 4
+      "slug": "ka-cherni-maslini-super-super-mamut-71-90",
+      "title": "КА ЧЕРНИ МАСЛИНИ СУПЕР СУПЕР МАМУТ 71-90",
+      "atOrBelowSince": "2026-09-25",
+      "promoEur": 4.09,
+      "regularEur": 8,
+      "discountPct": 49,
+      "stores": 175,
+      "chains": 2
     }
   ]
 }

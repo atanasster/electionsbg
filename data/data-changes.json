@@ -1,6 +1,63 @@
 {
-  "updatedAt": "2026-09-27T06:44:23.548Z",
+  "updatedAt": "2026-09-27T23:50:57.173Z",
   "entries": [
+    {
+      "timestamp": "2026-09-27T23:50:57.173Z",
+      "date": "2026-09-27",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: +22 договора от ЦАИС ЕОП, 239 591 процедури; ЦПРС 107 782 удостоверения; TED 220 428 обявления; АДФИ 2 061 проверки",
+      "source": "ЦАИС ЕОП, ЦПРС, TED, АДФИ"
+    },
+    {
+      "timestamp": "2026-09-27T23:41:04.964Z",
+      "date": "2026-09-27",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 843 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-27T23:06:59.206Z",
+      "date": "2026-09-27",
+      "skill": "update-funds",
+      "summary": "Еврофондове (ИСУН): +42 договора, €45,49 млрд договорени, €19,32 млрд изплатени",
+      "source": "ИСУН 2020 (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-09-27T23:04:59.218Z",
+      "date": "2026-09-27",
+      "skill": "kzk_decisions",
+      "summary": "Решения на КЗК по ЗОП: изходи на 3107 жалби, данни до 17.09.2026",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-09-27T23:04:58.374Z",
+      "date": "2026-09-27",
+      "skill": "kzk_appeals",
+      "summary": "Регистър на жалбите по ЗОП в КЗК: +16 нови жалби (8124 общо)",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-09-27T23:01:05.366Z",
+      "date": "2026-09-27",
+      "skill": "update-administration",
+      "summary": "Регистър на административните услуги: 2674 услуги (-1)",
+      "source": "Административен регистър — услуги (IISDA)"
+    },
+    {
+      "timestamp": "2026-09-27T22:59:28.654Z",
+      "date": "2026-09-27",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-27 (+1 daily archive; 981,924 store rows, 168 settlements, 72 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-27"
+    },
+    {
+      "timestamp": "2026-09-27T22:52:25.624Z",
+      "date": "2026-09-27",
+      "skill": "eurostat_tourism",
+      "summary": "Нощувки по държава на произход обновени до 2025 г. (15.8 млн. нощувки на чужденци)",
+      "source": "Eurostat tourism (BG)"
+    },
     {
       "timestamp": "2026-09-27T06:44:23.548Z",
       "date": "2026-09-27",
@@ -15,13 +72,6 @@
       "skill": "update-procurement",
       "summary": "+138 ЦАИС ЕОП rows via self-heal (corpus 406,528 contracts, €94.86bn); tenders 239,591; egov АОП listing 403",
       "source": "ЦАИС ЕОП open data"
-    },
-    {
-      "timestamp": "2026-09-27T06:25:08.696Z",
-      "date": "2026-09-27",
-      "skill": "update-persons",
-      "summary": "Профилите на публичните лица преизчислени — 64 948 лица, 125 075 длъжности",
-      "source": "Регистър на лицата (обединена самоличност)"
     },
     {
       "timestamp": "2026-09-25T22:53:32.482Z",

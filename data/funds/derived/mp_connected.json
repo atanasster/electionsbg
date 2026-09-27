@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-21T18:35:15.879Z",
-  "total": 175,
-  "mpCount": 149,
-  "beneficiaryCount": 168,
-  "contractedEur": 4804329064.75,
-  "paidEur": 1854513592.09,
+  "generatedAt": "2026-09-27T23:05:28.938Z",
+  "total": 181,
+  "mpCount": 153,
+  "beneficiaryCount": 170,
+  "contractedEur": 4851950448.44,
+  "paidEur": 1893457191.35,
   "entries": [
     {
       "mpId": 4507,
@@ -121,6 +121,54 @@
       "contractCount": 22,
       "contractedEur": 46493023.95,
       "paidEur": 0
+    },
+    {
+      "mpId": 63,
+      "mpName": "Донка Иванова Михайлова",
+      "beneficiaryEik": "121399226",
+      "beneficiaryName": "Национално сдружение на общините в Република България",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 7,
+      "contractedEur": 15666826.46,
+      "paidEur": 12832633.3
+    },
+    {
+      "mpId": 931,
+      "mpName": "Никола Иванов Белишки",
+      "beneficiaryEik": "121399226",
+      "beneficiaryName": "Национално сдружение на общините в Република България",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 7,
+      "contractedEur": 15666826.46,
+      "paidEur": 12832633.3
+    },
+    {
+      "mpId": 968,
+      "mpName": "Белгин Фикри Шукри",
+      "beneficiaryEik": "121399226",
+      "beneficiaryName": "Национално сдружение на общините в Република България",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 7,
+      "contractedEur": 15666826.46,
+      "paidEur": 12832633.3
     },
     {
       "mpId": 1060,
@@ -480,7 +528,7 @@
       ],
       "contractCount": 4,
       "contractedEur": 991996.86,
-      "paidEur": 558115.68
+      "paidEur": 583573.47
     },
     {
       "mpId": 185,
@@ -758,7 +806,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 600000,
-      "paidEur": 0
+      "paidEur": 300000
     },
     {
       "mpId": 5005,
@@ -780,6 +828,26 @@
       "contractCount": 3,
       "contractedEur": 567726.58,
       "paidEur": 118869.95
+    },
+    {
+      "mpId": 2863,
+      "mpName": "Пенчо Пламенов Милков",
+      "beneficiaryEik": "208041435",
+      "beneficiaryName": "Местна инициативна Рибарска група РУСЕ-ИВАНОВО-БОРОВО Сдружение",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 499361.74,
+      "paidEur": 0
     },
     {
       "mpId": 1874,
@@ -1041,7 +1109,7 @@
       "mpId": 599,
       "mpName": "Милена Иванова Милотинова-Колева",
       "beneficiaryEik": "205388313",
-      "beneficiaryName": "Мпроект ЕООД",
+      "beneficiaryName": "МПроект ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1640,6 +1708,22 @@
       "paidEur": 39037.13
     },
     {
+      "mpId": 63,
+      "mpName": "Донка Иванова Михайлова",
+      "beneficiaryEik": "820174330",
+      "beneficiaryName": "Сдружение \"Знание\" Ловеч",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 74760.08,
+      "paidEur": 73459.1
+    },
+    {
       "mpId": 4375,
       "mpName": "Васил Николов Тодев",
       "beneficiaryEik": "176123191",
@@ -1800,6 +1884,22 @@
     {
       "mpId": 627,
       "mpName": "Цветан Петров Ценков",
+      "beneficiaryEik": "114107675",
+      "beneficiaryName": "Асоциация на дунавските общини -дунав",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 46782.49,
+      "paidEur": 46782.47
+    },
+    {
+      "mpId": 2863,
+      "mpName": "Пенчо Пламенов Милков",
       "beneficiaryEik": "114107675",
       "beneficiaryName": "Асоциация на дунавските общини -дунав",
       "orgType": "Нестопанска организация",

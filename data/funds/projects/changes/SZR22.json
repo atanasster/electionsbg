@@ -1,22 +1,40 @@
 {
   "obshtina": "SZR22",
-  "generatedAt": "2026-09-21T18:37:08.866Z",
+  "generatedAt": "2026-09-27T23:06:22.761Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0077",
-      "title": "Топъл обяд в Община Мъглиж",
+      "contractNumber": "BG14MFPR001-2.001-0020",
+      "title": "Модернизация и маркетинг на предприятие за преработка на аквакултура",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 754099.36,
-      "totalEur": 754099.36,
-      "paidEur": 649888.53,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Мъглиж",
-      "detectedAt": "2026-09-21"
+      "prevTotalEur": 1194605.87,
+      "totalEur": 1194605.87,
+      "paidEur": 391580.56,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Алгае България ООД",
+      "detectedAt": "2026-09-27"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0253",
+      "title": "Подобряване на енергийната ефективност на \"Къща за гости - Борущица\".",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 121994.24,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Веселина - БИС ООД",
+      "detectedAt": "2026-09-27"
     }
   ]
 }

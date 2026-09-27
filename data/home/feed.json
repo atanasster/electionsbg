@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-26T23:59:59.999Z",
+  "computedAt": "2026-09-27T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-26T00:00:00.000Z",
-      "firstSeenAt": "2026-09-26T00:00:00.000Z",
+      "occurredAt": "2026-09-27T00:00:00.000Z",
+      "firstSeenAt": "2026-09-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,18 +22,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "route": "/product/krave-maslo-d-markenbutter-250gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
-        "pct": 51,
-        "promoEur": "0.89",
-        "regularEur": "1.80",
-        "chains": 4
+        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+        "pct": 59,
+        "promoEur": "1.69",
+        "regularEur": "4.10",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7285714285714285,
+      "materiality": 0.8428571428571429,
       "actionability": 0.85
     },
     {
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-palnezh-i-biskvitki-100gr",
+      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-26T00:00:00.000Z",
-      "firstSeenAt": "2026-09-26T00:00:00.000Z",
+      "occurredAt": "2026-09-27T00:00:00.000Z",
+      "firstSeenAt": "2026-09-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,14 +115,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-roshen-lakmi-mlechen-palnezh-i-biskvitki-100gr",
+      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН ПЪЛНЕЖ И БИСКВИТКИ 100ГР",
+        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
         "pct": 51,
         "promoEur": "0.89",
-        "regularEur": "1.80",
-        "chains": 3
+        "regularEur": "1.82",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-palnezh-i-vafli-90gr",
+      "id": "prices:promotion:ka-cherni-maslini-super-super-mamut-71-90",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-26T00:00:00.000Z",
-      "firstSeenAt": "2026-09-26T00:00:00.000Z",
+      "occurredAt": "2026-09-27T00:00:00.000Z",
+      "firstSeenAt": "2026-09-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-roshen-lakmi-mlechen-palnezh-i-vafli-90gr",
+      "route": "/product/ka-cherni-maslini-super-super-mamut-71-90",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН ПЪЛНЕЖ И ВАФЛИ 90ГР",
-        "pct": 51,
-        "promoEur": "0.89",
-        "regularEur": "1.80",
-        "chains": 4
+        "title": "КА ЧЕРНИ МАСЛИНИ СУПЕР СУПЕР МАМУТ 71-90",
+        "pct": 49,
+        "promoEur": "4.09",
+        "regularEur": "8.00",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7285714285714285,
+      "materiality": 0.7,
       "actionability": 0.85
     },
     {
@@ -1285,8 +1285,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-26",
-      "observedAt": "2026-09-26",
+      "asOf": "2026-09-27",
+      "observedAt": "2026-09-27",
       "staleAfterDays": 5,
       "stale": false
     }

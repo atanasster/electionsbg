@@ -5,7 +5,7 @@
     "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim",
     "note": "Nights spent at hotels & similar (NACE I551), Bulgaria, by guest residence."
   },
-  "generatedAt": "2026-09-13T02:32:49.482Z",
+  "generatedAt": "2026-09-27T22:52:13.145Z",
   "unit": "nights",
   "seasonalityYear": 2025,
   "peakMonth": 8,
@@ -107,58 +107,58 @@
       "nights": 15772024
     }
   ],
-  "sourceMarketsYear": 2024,
-  "sourceMarketsForeignTotal": 14751606,
+  "sourceMarketsYear": 2025,
+  "sourceMarketsForeignTotal": 15772024,
   "sourceMarkets": [
     {
       "code": "RO",
       "name": "Romania",
-      "nights": 3290629
+      "nights": 3517380
     },
     {
       "code": "UA",
       "name": "Ukraine",
-      "nights": 1586120
-    },
-    {
-      "code": "PL",
-      "name": "Poland",
-      "nights": 1447129
-    },
-    {
-      "code": "UK",
-      "name": "United Kingdom",
-      "nights": 1273963
+      "nights": 1698178
     },
     {
       "code": "DE",
       "name": "Germany",
-      "nights": 1179618
+      "nights": 1521265
+    },
+    {
+      "code": "PL",
+      "name": "Poland",
+      "nights": 1417977
+    },
+    {
+      "code": "UK",
+      "name": "United Kingdom",
+      "nights": 1250576
     },
     {
       "code": "CZ",
       "name": "Czechia",
-      "nights": 914308
+      "nights": 902270
     },
     {
       "code": "TR",
       "name": "Türkiye",
-      "nights": 317391
+      "nights": 473353
     },
     {
       "code": "SK",
       "name": "Slovakia",
-      "nights": 263701
-    },
-    {
-      "code": "EL",
-      "name": "Greece",
-      "nights": 218363
+      "nights": 278499
     },
     {
       "code": "FR",
       "name": "France",
-      "nights": 215268
+      "nights": 231093
+    },
+    {
+      "code": "EL",
+      "name": "Greece",
+      "nights": 221647
     }
   ]
 }

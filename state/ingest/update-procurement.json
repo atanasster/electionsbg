@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-09-27T06:38:47.588Z",
+  "lastSuccessfulIngest": "2026-09-27T23:50:50.683Z",
   "skill": "update-procurement",
-  "summary": "+138 ЦАИС ЕОП rows via self-heal (corpus 406,528 contracts, €94.86bn); tenders 239,591; egov АОП listing 403"
+  "summary": "EOP self-heal +22 rows/11 buyers; tenders 239,591; ЦПРС 107,782 licences/8,460 firms; TED 220,428; АДФИ 2,061; corpus 410,017; db:refresh 81 links ok, test:data 5 red (1 flake, 2 identity baselines after mayoralty merge, 2 code/perf gates)"
 }

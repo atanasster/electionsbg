@@ -1,58 +1,24 @@
 {
   "obshtina": "PVN39",
-  "generatedAt": "2026-09-21T18:37:08.866Z",
+  "generatedAt": "2026-09-27T23:06:22.761Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.040-0086",
-      "title": "\"Устойчиво енергийно обновяване на блок \"Хибрид\", гр.Кнежа",
-      "type": "new",
-      "totalEur": 649901.28,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кнежа",
-      "detectedAt": "2026-09-21"
-    },
-    {
-      "contractNumber": "BG-RRP-4.039-2983",
-      "title": "Устойчиво енергийно обновяване на блок \"Рила-2\", Община Кнежа",
-      "type": "new",
-      "totalEur": 416667.62,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кнежа",
-      "detectedAt": "2026-09-21"
-    },
-    {
-      "contractNumber": "BG-RRP-4.040-0060",
+      "contractNumber": "BG-RRP-4.024-0060",
       "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда \"Липа\" в гр.Кнежа",
-      "type": "new",
-      "totalEur": 277508.78,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кнежа",
-      "detectedAt": "2026-09-21"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0012",
-      "title": "Превенция и предотвратяване на тормоза и насилието и намаляване агресията в Професионална гимназия по земеделие \"Стефан Цанов\" - град Кнежа",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 112788.82,
-      "totalEur": 112788.82,
-      "paidEur": 25477.96,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по земеделие \"Стефан Цанов\" - град кнежа",
-      "detectedAt": "2026-09-21"
+      "prevTotalEur": 277508.79,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кнежа",
+      "detectedAt": "2026-09-27"
     }
   ]
 }
