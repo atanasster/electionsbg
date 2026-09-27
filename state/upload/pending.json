@@ -1,0 +1,40 @@
+{
+  "session": "20260927T055506Z-cca6",
+  "createdAt": "2026-09-27T06:49:05.398Z",
+  "commit": "d9b1bb0d62",
+  "skills": [
+    "update-procurement",
+    "update-prices"
+  ],
+  "paths": [
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "culture/derived",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "home",
+    "data_map.json",
+    "data-changes.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:load:agri-hub-stats:pg:cloud",
+    "npm run prices:ingest:cloud"
+  ],
+  "notes": "home/ needs npm run bucket:gz after its sync. public/flyover + money-map posters changed → need npm run deploy (hosting). myarea:alerts:cloud already run this session. polls: 155 drafts in _inbox awaiting review, nothing accepted."
+}
