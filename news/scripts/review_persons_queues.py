@@ -30,6 +30,11 @@ MAX_CANDIDATES = 9
 # footballer in the next, and with the holders cut to nine the person an
 # article means may not even be on offer. Such a surname stays unlinked.
 MAX_SURNAME_HOLDERS = MAX_CANDIDATES
+# …and one whose articles mostly write out SOMEBODY ELSE'S full name is not
+# proposed either: „Инджов" has one public figure (Васил Инджов), while every
+# article said „Сергей Инджов" — a vice-presidential candidate we do not hold.
+# The text names the person; no candidate on offer is them.
+NAMED_ELSEWHERE_SHARE = 0.5
 # How often a one-word surname must occur, unlinked, before it is worth a
 # reviewer's minute.
 MIN_SURNAME_PAIRS = 3
@@ -75,6 +80,18 @@ def _pair(full: dict, subject: dict) -> dict:
             "excerpt": excerpt(text, subject.get("name") or "")}
 
 
+def given_names_before(text: str, surname: str) -> list:
+    """The first names the article writes directly before this surname —
+    „Сергей Инджов" → ["Сергей"]. How the text itself says who a bare surname
+    is. ⚠️ `(?<![\w-])` / `(?![\w-])`, never `\b`: `\b` is ASCII-only and
+    never matches after a Cyrillic letter."""
+    if not text or not surname:
+        return []
+    pattern = (r"(?<![\w-])([А-ЯЁ][а-яё]+)\s+" + re.escape(surname)
+               + r"(?![\w-])")
+    return sorted({m.group(1) for m in re.finditer(pattern, text)})
+
+
 def collect(pairs) -> dict:
     """Fold the joined corpus into what the queues need.
 
@@ -92,7 +109,11 @@ def collect(pairs) -> dict:
                 by_person.setdefault(ident["id"], []).append(_pair(full, s))
             elif (not ident and words == 1
                   and s.get("refused_reason") in ("no_match", "ambiguous")):
-                surnames.setdefault(fold(s["name"]), []).append(_pair(full, s))
+                text = "\n".join(str(full.get(k) or "")
+                                  for k in ("title", "content"))
+                surnames.setdefault(fold(s["name"]), []).append({
+                    **_pair(full, s),
+                    "named": given_names_before(text, s["name"])})
             elif not ident and words >= 2 and s.get("refused_reason") == "no_match":
                 # A full name nobody holds — a candidate news-only identity.
                 names.setdefault(fold(s["name"]), []).append(_pair(full, s))
@@ -189,6 +210,13 @@ def surname_items(collected: dict, gazetteer_doc: dict, aliases: dict,
         if (len(pairs) < MIN_SURNAME_PAIRS or key in reviewed
                 or key not in holders
                 or len(holders[key]) > MAX_SURNAME_HOLDERS):
+            continue
+        givens = {fold(str(e.get("canonical") or "").split()[0])
+                  for e in holders[key] if e.get("canonical")}
+        elsewhere = sum(1 for p in pairs
+                        if p.get("named") and not any(
+                            fold(g) in givens for g in p["named"]))
+        if elsewhere > NAMED_ELSEWHERE_SHARE * len(pairs):
             continue
         cands = sorted(holders[key], key=lambda e: (
             -linked.get(e["id"], 0),

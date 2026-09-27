@@ -123,6 +123,24 @@ class SurnameQueue(unittest.TestCase):
         gaz["entries"].pop()
         self.assertEqual(len(rq.surname_items(col, gaz, {})), 1)
 
+    def test_a_surname_the_texts_give_to_someone_else_is_not_proposed(self):
+        # „Инджов": one public figure, Васил; every article says „Сергей Инджов".
+        gaz = {"entries": [{"kind": "person", "id": "vi",
+                            "canonical": "Васил Стаматов Инджов"}]}
+        other = [{**pair(f"i{i}", "y.bg", "Инджов", None, None),
+                  "named": ["Сергей"]} for i in range(5)]
+        self.assertEqual(rq.surname_items({"by_person": {},
+                                           "surnames": {"инджов": other}}, gaz, {}), [])
+        own = [{**p, "named": ["Васил"]} for p in other]
+        self.assertEqual(len(rq.surname_items({"by_person": {},
+                                               "surnames": {"инджов": own}}, gaz, {})), 1)
+
+    def test_given_names_are_read_from_the_text(self):
+        self.assertEqual(rq.given_names_before(
+            "ЦИК заличи Сергей Инджов. Инджов каза, че Васил Инджов не е той.",
+            "Инджов"), ["Васил", "Сергей"])
+        self.assertEqual(rq.given_names_before("Сергей Инджова", "Инджов"), [])
+
     def test_a_reviewed_surname_is_not_proposed_again(self):
         self.assertEqual(self.items({"aliases": [
             {"surface": "Борисов", "status": "rejected"}]}), [])
