@@ -34,22 +34,24 @@ const shardIds = (): string[] =>
         )
     : [];
 
-const reachable = async (): Promise<boolean> => {
+// The reason to skip, or false to run — a down server and an empty person
+// layer are different worlds and each gets its own sentence.
+const personLayerGap = async (): Promise<string | false> => {
+  let people: number;
   try {
     const [c] = await allRows<{ n: string }>("SELECT count(*) n FROM person");
-    return Number(c.n) > 0;
+    people = Number(c.n);
   } catch {
-    return false;
+    return "Postgres unreachable";
   }
+  return people > 0 ? false : "person layer empty (run db:resolve:persons)";
 };
 
 const ids = shardIds();
 const skip =
   ids.length === 0
     ? "no data/news/mentions/person shards on this machine"
-    : !(await reachable())
-      ? "Postgres unreachable / person layer empty"
-      : false;
+    : await personLayerGap();
 reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
