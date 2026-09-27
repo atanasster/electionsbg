@@ -1,14 +1,15 @@
-// The flyover's static posters, drawn in Node by the SAME engine the browser runs.
+// The money-map article's static images, drawn in Node by the SAME engine the browser runs.
 // `docs/plans/home-flyover-v1.md` §8.3.
 //
-//   npm run home:flyover-posters                       # every committed poster and share card
-//   npm run home:flyover-posters -- --home-only        # only the three home posters
+//   npm run home:flyover-posters                       # the article's share card + chapter stills
 //   npm run home:flyover-posters -- --programme columns --t 12 --out /tmp/f.png
 //
-// ⚠️⚠️ THE POSTER IS NOT DECORATIVE AND NOT OPTIONAL. It is the reserved box that holds CLS at
-// zero on the site's entry page, the reduced-motion state, the Save-Data state, the Suspense
-// fallback and the image in the prerendered body — five contracts, one file each (plan §14).
-// „The canvas loads fast enough" breaks all five at once.
+// ⚠️ A MANUAL, OPERATOR-RUN TOOL — it is in no chain. The home flyover band these posters were
+// built for was replaced by the chat invitation, so what remains is one dated article's share
+// card (`public/og/money-map.png`) and its six chapter stills. They are COMMITTED and FROZEN:
+// nothing requires them to track the daily `data/home/flyover.json`, and re-rendering them on
+// every watcher run only put a pending hosting deploy on every day. Re-run this by hand when
+// the article's pictures should change, then commit and deploy hosting.
 //
 // ⚠️ COMMITTED, AND GENERATED BEFORE `npm run build`. Vite copies `public/` into `dist/`
 // during the build, so a `postbuild` step would write files the deploy never ships — the same
@@ -19,12 +20,10 @@
 // an image nobody reviews pixel by pixel. The brand art has the same requirement and the same
 // call.
 //
-// The single-frame mode is the camera-tuning harness (plan §4 and §13): there is no
-// `/dev/flyover` route, because `ogAndSitemapCoverage.test.ts` requires every routed page to
-// be declared or exempt ON MERIT and a tuning page has no merit to claim.
+// The single-frame mode is the camera-tuning harness (plan §4 and §13).
 
 import fs from "node:fs";
-import { createHash } from "node:crypto";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { createCanvas, type Canvas, type SKRSContext2D } from "@napi-rs/canvas";
@@ -65,10 +64,6 @@ const artifactBytes = (): Buffer => {
   }
   return fs.readFileSync(p);
 };
-
-/** SHA-256 of the exact served artifact bytes: the poster freshness correctness key. */
-export const artifactSha256 = (): string =>
-  createHash("sha256").update(artifactBytes()).digest("hex");
 
 /** The frame the artifact is projected into, and therefore the poster's aspect ratio. */
 export const POSTER_W = 1000;
@@ -176,60 +171,11 @@ const writeImage = (canvas: Canvas, rel: string): number => {
   return buf.length;
 };
 
-/**
- * What was rendered, and from which vintage of the artifact.
- *
- * ⚠️ A MANIFEST RATHER THAN AN MTIME COMPARISON, which is what the plan's §8.3 asks for and
- * cannot have: git does not preserve modification times, so on a fresh clone or in CI both the
- * posters and the artifact carry the checkout time and „is the poster newer" has no answer.
- * `artifactSha256` pins the exact bytes. `computedAt` is retained only as useful operator
- * metadata: it is the latest contract date and does not change when another layer changes.
- */
-export interface PosterManifest {
-  artifactSha256: string;
-  computedAt: string;
-  posters: string[];
-}
-
-export const MANIFEST_REL = "public/flyover/manifest.json";
-
-const writeManifest = (world: FlyoverWorld, posters: string[]): string => {
-  const body: PosterManifest = {
-    artifactSha256: artifactSha256(),
-    computedAt: world.computedAt,
-    posters: [...posters].sort(),
-  };
-  const dest = path.join(ROOT, MANIFEST_REL);
-  fs.mkdirSync(path.dirname(dest), { recursive: true });
-  fs.writeFileSync(dest, JSON.stringify(body, null, 2) + "\n");
-  return MANIFEST_REL;
-};
-/** One rendered file. Structured, so the manifest is never recovered by parsing a log line. */
+/** One rendered file. */
 export interface WrittenFile {
   rel: string;
   bytes: number;
 }
-
-/** The three home posters: each programme at the state it opens on. */
-export const renderHomePosters = (world: FlyoverWorld): WrittenFile[] =>
-  PROGRAMME_IDS.map((id) => {
-    const rel = `public/flyover/${id}.webp`;
-    return {
-      rel,
-      bytes: writeImage(
-        drawFrame({
-          world,
-          // The home view is a small preview beside search; preserve full labels in the
-          // article stills, but avoid microscopic names on the three home thumbnails.
-          state: { ...stateAt(PROGRAMMES[id], 0), labels: 0 },
-          maxFlows: 12,
-          width: POSTER_W,
-          height: POSTER_H,
-        }),
-        rel,
-      ),
-    };
-  });
 
 /**
  * The article's share card, composed from the tour's chapter 2 — „where the money goes", the
@@ -290,11 +236,6 @@ export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
 };
 
 export interface PosterArgs {
-  /**
-   * Render only the three home posters. The DEFAULT is everything the gate expects — see the
-   * header for why the flag points this way round.
-   */
-  homeOnly: boolean;
   programme?: ProgrammeId;
   t?: number;
   out?: string;
@@ -304,7 +245,6 @@ export const parseArgs = (argv: readonly string[]): PosterArgs => {
   const valueFlags = new Set(["--programme", "--t", "--out"]);
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
-    if (arg === "--home-only") continue;
     if (!valueFlags.has(arg)) {
       throw new Error(`flyover_posters: unknown argument ${arg}`);
     }
@@ -336,7 +276,6 @@ export const parseArgs = (argv: readonly string[]): PosterArgs => {
   }
   const out = flag("out");
   return {
-    homeOnly: argv.includes("--home-only"),
     ...(programme ? { programme: programme as ProgrammeId } : {}),
     ...(t === undefined ? {} : { t }),
     ...(out ? { out } : {}),
@@ -351,7 +290,7 @@ const run = (argv: readonly string[]): void => {
   // Single-frame mode: the camera-tuning harness. It writes ONE file wherever it is told and
   // touches nothing committed.
   if (args.programme !== undefined || args.t !== undefined || args.out) {
-    const rel = args.out ?? "public/flyover/_frame.png";
+    const rel = args.out ?? path.join(os.tmpdir(), "flyover_frame.png");
     const bytes = writeImage(
       drawFrame({
         world,
@@ -369,21 +308,12 @@ const run = (argv: readonly string[]): void => {
   }
 
   const written: WrittenFile[] = [
-    ...renderHomePosters(world),
-    ...(args.homeOnly
-      ? []
-      : [renderOgCard(world), ...renderChapterStills(world)]),
+    renderOgCard(world),
+    ...renderChapterStills(world),
   ];
-  // The manifest records only what THIS run produced, so `--home-only` does not claim a card
-  // it did not draw — and the gate then names the missing entries rather than passing.
-  const manifest = writeManifest(
-    world,
-    written.map((w) => w.rel),
-  );
   console.log(
     `flyover_posters: computedAt=${world.computedAt}\n  ` +
-      written.map((w) => `${w.rel} (${w.bytes} B)`).join("\n  ") +
-      `\n  ${manifest}`,
+      written.map((w) => `${w.rel} (${w.bytes} B)`).join("\n  "),
   );
 };
 

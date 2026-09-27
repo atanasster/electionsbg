@@ -58,13 +58,12 @@ const ROOT = path.resolve(
 );
 
 /**
- * The objects a browser fetches from `/`, and the committed file each must equal.
+ * The home objects a browser fetches, and the committed file each must equal.
  *
- * ⚠️ `home/flyover.json` is fetched LATER than the other two — only once the flyover band
- * arms (in view, visible, idle, motion allowed) — which is what keeps first paint at two
- * requests. It is in this list anyway, because the failure this check exists for is
- * „regenerated, committed, never uploaded", and that one does not care when the fetch
- * happens. `loadArtifacts` deliberately does not parse it: its schema is the subject of
+ * ⚠️ `home/flyover.json` is NOT fetched by `/` — the home flyover band was retired; the
+ * money-map article (`/articles/2026-09-07-money-map`) reads it. It is in this list anyway,
+ * because the failure this check exists for is „regenerated, committed, never uploaded", and
+ * that one does not care which page fetches it. `loadArtifacts` deliberately does not parse it: its schema is the subject of
  * `scripts/db/tests/flyover.data.test.ts`, which recounts every layer against Postgres.
  */
 export const PUBLIC_ARTIFACTS = [

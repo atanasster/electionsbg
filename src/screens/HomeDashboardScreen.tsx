@@ -1,16 +1,10 @@
 // The global Bulgaria dashboard — `/`.
 //
-// A hub-of-hubs and nothing else: a national pulse, one moving map and eight destinations. It
-// renders no result chart and no duplicate of any destination's dashboard, because every one
-// of those is a page a tile already opens.
-//
-// ⚠️ THE MAP IS A DEPENDENCY-FREE CANVAS SCENE, NOT A MAP LIBRARY, and the distinction is the
-// whole reason it may be here. `tests/perf.spec.ts` pins `/` in `MAP_FREE_HUBS` — no
-// `vendor-geo`, `vendor-leaflet` or `vendor-charts` in the home chunk — and the flyover
-// satisfies it because its geometry was projected at generation time and the client draws
-// plain 2D canvas behind a `lazy()` boundary. The band replaced this file's earlier „renders
-// no map" sentence; the gate that sentence described is unchanged and still green.
-// See docs/plans/home-flyover-v1.md §8.4.
+// A hub-of-hubs and nothing else: a national pulse, the chat invitation and eight
+// destinations. It renders no map, no result chart and no duplicate of any destination's
+// dashboard, because every one of those is a page a tile already opens. `tests/perf.spec.ts`
+// pins `/` in `MAP_FREE_HUBS` — no `vendor-geo`, `vendor-leaflet` or `vendor-charts` in the
+// home chunk.
 //
 // The finder belongs in the head's `search` slot and is NOT mounted yet — it lands in its
 // own phase, where it also breaks this head's height budget on purpose (see
@@ -41,9 +35,7 @@ import { usePersonLabels } from "@/lib/personLabels";
 import { HomeChangeFeed } from "./home/HomeChangeFeed";
 import { HOME_BANDS } from "./home/homeRegistry";
 import { HOME_SCENES } from "./home/homeScenes";
-import { HomeFlyoverSlot } from "./home/flyover/HomeFlyoverSlot";
 import { ChatInvitation } from "./home/ChatInvitation";
-import { CHAT_LAUNCH_REVIEWABLE } from "@/lib/chatLaunch";
 
 export const HomeDashboardScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -161,13 +153,7 @@ export const HomeDashboardScreen: FC = () => {
             />
           </>
         }
-        searchPreview={
-          CHAT_LAUNCH_REVIEWABLE ? (
-            <ChatInvitation lang={bg ? "bg" : "en"} />
-          ) : (
-            <HomeFlyoverSlot />
-          )
-        }
+        searchPreview={<ChatInvitation lang={bg ? "bg" : "en"} />}
         kpis={kpis}
         // Reserve the band's REAL height while the artifact is in flight. Without it the
         // slot is 0 cells and then jumps to four — a layout shift on the site's most-visited

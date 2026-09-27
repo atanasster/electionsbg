@@ -1,12 +1,9 @@
 // Flip together with the reviewed article's draft flag at publication.
 // A preview build is rejected by the main production deployment guard.
 import publication from "./chatLaunchPublication.json";
-export const CHAT_LAUNCH_PUBLISHED = publication.published;
 export const CHAT_LAUNCH_SLUG = publication.slug;
 export const CHAT_LAUNCH_PREVIEW =
   import.meta.env.VITE_CHAT_LAUNCH_PREVIEW === "true";
-export const CHAT_LAUNCH_REVIEWABLE =
-  import.meta.env.DEV || CHAT_LAUNCH_PREVIEW || CHAT_LAUNCH_PUBLISHED;
 
 // Keep this catalogue import-light: the homepage must not load the AI registry.
 export const CHAT_LAUNCH_STARTERS = [

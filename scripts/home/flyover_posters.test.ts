@@ -6,16 +6,13 @@ import { execFileSync } from "node:child_process";
 import { GlobalFonts, createCanvas, type Canvas } from "@napi-rs/canvas";
 import {
   BRAND_PALETTE,
-  MANIFEST_REL,
   OG_H,
   OG_W,
   POSTER_H,
   POSTER_W,
-  artifactSha256,
   drawFrame,
   loadWorld,
   parseArgs,
-  type PosterManifest,
 } from "./flyover_posters";
 import {
   PROGRAMMES,
@@ -45,19 +42,13 @@ const ROOT = path.resolve(
 const read = (rel: string) => fs.readFileSync(path.join(ROOT, rel));
 
 /**
- * Read lazily, and name the fix. At module scope a missing manifest fails COLLECTION with a
- * bare ENOENT and all fourteen tests vanish — on a fresh clone that is a crash where the
- * operator wanted the „was it rendered" assertion telling them what to run.
+ * The money-map article's committed images. FROZEN: they are re-rendered by hand, so nothing
+ * here pins them to the daily artifact — only that they exist, are tracked, and are real.
  */
-const readManifest = (): PosterManifest => {
-  const p = path.join(ROOT, MANIFEST_REL);
-  if (!fs.existsSync(p)) {
-    throw new Error(
-      `${MANIFEST_REL} is missing — run \`npm run home:flyover-posters\``,
-    );
-  }
-  return JSON.parse(fs.readFileSync(p, "utf8")) as PosterManifest;
-};
+const ARTICLE_IMAGES = [
+  "public/og/money-map.png",
+  ...ARTICLE_CHAPTERS.map((c) => `public/articles/money-map/${c.id}.webp`),
+];
 
 /** Decode with the same encoder that wrote them — the only decoder this repo has in Node. */
 const decode = async (rel: string): Promise<{ w: number; h: number }> => {
@@ -95,17 +86,6 @@ describe("the committed posters", () => {
     }
   });
 
-  it("exist for all three programmes, in the reserved aspect ratio", async () => {
-    // ⚠️ The poster is the reserved box that holds CLS at zero on the entry page, the
-    // reduced-motion state, the Save-Data state, the Suspense fallback AND the image in the
-    // prerendered body. A wrong aspect ratio moves the layout in all five.
-    for (const id of PROGRAMME_IDS) {
-      const rel = `public/flyover/${id}.webp`;
-      expect(fs.existsSync(path.join(ROOT, rel)), rel).toBe(true);
-      expect(await decode(rel), rel).toEqual({ w: POSTER_W, h: POSTER_H });
-    }
-  });
-
   it("carries the article's share card at the OG clip's 2x", async () => {
     expect(await decode("public/og/money-map.png")).toEqual({
       w: OG_W,
@@ -121,33 +101,12 @@ describe("the committed posters", () => {
     }
   });
 
-  it("was rendered from the artifact that is on disk now", () => {
-    // ⚠️ CONTENT, NOT MTIME. Git does not preserve modification times, so „is the poster newer
-    // than the artifact" has no answer on a fresh clone or in CI — both carry the checkout
-    // time. The digest sees every layer and same-date corrections; `computedAt` is merely the
-    // latest CONTRACT date, so it is human-readable metadata rather than the correctness key.
-    expect(readManifest().artifactSha256).toBe(artifactSha256());
-    expect(readManifest().computedAt).toBe(loadWorld().computedAt);
-  });
-
-  it("lists exactly the files it wrote, and every one is TRACKED", () => {
-    const expected = [
-      ...PROGRAMME_IDS.map((id) => `public/flyover/${id}.webp`),
-      "public/og/money-map.png",
-      ...ARTICLE_CHAPTERS.map((c) => `public/articles/money-map/${c.id}.webp`),
-    ].sort();
-    expect(
-      readManifest().posters,
-      "the manifest is short — re-run `npm run home:flyover-posters` WITHOUT --home-only",
-    ).toEqual(expected);
-    for (const rel of readManifest().posters) {
+  it("every one is TRACKED", () => {
+    for (const rel of ARTICLE_IMAGES) {
       expect(fs.existsSync(path.join(ROOT, rel)), rel).toBe(true);
       // ⚠️ EXISTENCE IS NOT TRACKING, and only tracking ships. These reach production solely
-      // by Vite copying `public/` into `dist/`, so a poster that was rendered and never
-      // `git add`ed is a 404 in production — taking the CLS reserved box, the reduced-motion
-      // state, the Save-Data state, the Suspense fallback and the prerendered body's image
-      // with it — and is invisible on the machine that generated it. Same check
-      // `refresh_coverage.test.ts` runs on every committed generator artifact.
+      // by Vite copying `public/` into `dist/`, so an image that was rendered and never
+      // `git add`ed is a 404 in production and is invisible on the machine that generated it.
       expect(
         () =>
           execFileSync("git", ["ls-files", "--error-unmatch", rel], {
@@ -163,7 +122,7 @@ describe("the committed posters", () => {
     // A poster that failed to draw is still a valid image of the right size, so „it decodes"
     // proves nothing. The scene is a lot of dark blue with land, columns and labels on it; a
     // backdrop-only render compresses to a small fraction of this.
-    for (const rel of readManifest().posters) {
+    for (const rel of ARTICLE_IMAGES) {
       expect(read(rel).length, rel).toBeGreaterThan(8_000);
     }
   });
@@ -248,22 +207,12 @@ describe("drawFrame", () => {
 });
 
 describe("parseArgs", () => {
-  it("defaults to EVERY committed still, which is what the gate expects", () => {
-    // ⚠️ The default renders the full set and `--home-only` narrows it, not the other way
-    // round: with the flags inverted, the command this file documents and the bare npm script
-    // rewrote the manifest down to three entries and red-failed the gate above — while
-    // re-stamping `computedAt` onto a share card and five stills it had not re-rendered.
-    expect(parseArgs([])).toEqual({ homeOnly: false });
-    expect(parseArgs(["--home-only"])).toEqual({ homeOnly: true });
-    expect(
-      PROGRAMME_IDS.length + 1 + ARTICLE_CHAPTERS.length,
-      "the gate's expected set must equal what the default invocation renders",
-    ).toBe(10);
+  it("defaults to the article's committed images", () => {
+    expect(parseArgs([])).toEqual({});
   });
 
   it("reads the single-frame tuning flags", () => {
     expect(parseArgs(["--programme", "arcs", "--t", "12"])).toEqual({
-      homeOnly: false,
       programme: "arcs",
       t: 12,
     });
@@ -290,7 +239,7 @@ describe("parseArgs", () => {
 
 describe("createCanvas sanity", () => {
   it("encodes webp, which every committed poster path requires", () => {
-    // This is a build dependency, not a format fallback: the manifest and article paths are
+    // This is a build dependency, not a format fallback: the article's chapter paths are
     // fixed `.webp` URLs, so silently writing PNG under another name would ship bad media.
     const c = createCanvas(4, 4) as Canvas;
     expect(c.toBuffer("image/webp").length).toBeGreaterThan(0);

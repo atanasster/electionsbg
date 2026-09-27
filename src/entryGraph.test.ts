@@ -46,8 +46,8 @@ const REGISTRIES = [
  *  it started working. Its own deps come along via the closure below. */
 const ENGINES = [
   "lib/roadAttributes.ts",
-  // The flyover scene engine (docs/plans/home-flyover-v1.md §8.4). It is mounted on `/`
-  // behind a `lazy()` boundary, so nothing in the entry chunk may name it — and these two
+  // The flyover scene engine (docs/plans/home-flyover-v1.md §8.4). It is mounted by the
+  // money-map article, a lazy route, so nothing in the entry chunk may name it — and these two
   // modules' closure is the whole engine, including the programmes and the caption table.
   // Seeded BEFORE the host exists, because a gate that arrives after the thing it guards has
   // already let the edge through once.
