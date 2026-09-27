@@ -101,6 +101,12 @@ export type Corroborants = {
    * is not a candidacy, and the rule then cannot fire.
    */
   candidacyElection?: string | null;
+  /**
+   * `mayor\t<obshtina place code>` for a MAYOR of a община, on the two sources that
+   * record one: an elected term (`local`) and the Court-of-Audit municipal roster
+   * (`official_muni`). NULL for every other mention. See `sameMayoralty`.
+   */
+  mayoralty?: string | null;
 };
 
 export type Mention = {
@@ -185,6 +191,7 @@ const shareCorroborant = (
     weakBoth ||
     samePartyOffice(a, b) ||
     sameLocalSeat(a, b, contested.seatTerms) ||
+    sameMayoralty(a, b, contested.seatTerms) ||
     sameCandidacyParty(a, b, contested)
   );
 };
@@ -409,6 +416,39 @@ const sameLocalSeat = (
     b,
     EXCLUSIVE_SEAT.test(seat) ? NO_NAMESAKE_CAP : LOCAL_SEAT_NAMESAKE_CAP,
   );
+};
+
+// The MAYORALTY rule: the municipal-roster mayor of an община and an elected mayor of the
+// SAME община, with the same full three-part name, are one person.
+//
+// Why it was needed. The two sources never met: `sameLocalSeat` bridges only LOCAL terms
+// (it needs a cycle on both sides), and the roster row carries no party, so `weakBoth`
+// cannot fire either. Measured 2026-09-27: 101 mayors were split into a roster person and
+// an elected person, all 101 on the SAME place code — Sofia's own mayor Васил Александров
+// Терзиев among them, two /person pages, and a name the news gazetteer then had to refuse
+// as ambiguous, so none of his coverage could be attributed to him at all.
+//
+// Why it is safe on the exclusive seat's argument (`sameLocalSeat`): one община has one
+// кмет, so the SEAT identifies and the name only has to agree — patronymic included, which
+// is what `nameShapeOk` checks, and with no namesake cap for the same reason.
+//
+// The one guard: a local term this block marks CONTESTED (two same-named people elected to
+// that seat in one cycle) never merges, because the roster row could be either of them and
+// union-find would then join all three.
+const sameMayoralty = (
+  a: Mention,
+  b: Mention,
+  contestedTerms: ReadonlySet<string>,
+): boolean => {
+  const ma = a.corroborants.mayoralty;
+  if (!ma || ma !== b.corroborants.mayoralty) return false;
+  const sources = new Set([a.source, b.source]);
+  if (!(sources.has("local") && sources.has("official_muni"))) return false;
+  for (const m of [a, b]) {
+    const t = seatTerm(m);
+    if (t && contestedTerms.has(t)) return false;
+  }
+  return nameShapeOk(a, b, NO_NAMESAKE_CAP);
 };
 
 // The CANDIDACY-CONTINUITY rule: the same full name, standing for the same party, in two

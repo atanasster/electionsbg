@@ -1710,6 +1710,15 @@ async function main(): Promise<void> {
       // would refuse the real continuity and occasionally assert one between two unrelated
       // parties that drew the same number twice.
       candidacyElection: candidateElectionOf(r.source, r.ref),
+      // `sameMayoralty` (cluster.ts): a община's mayor on the elected and the roster side,
+      // keyed on the canonical place code both sides get from `obshtinaPlaceFor`.
+      mayoralty:
+        r.role === "mayor" &&
+        (r.source === "local" || r.source === "official_muni") &&
+        r.placeKind === "obshtina" &&
+        r.placeCode
+          ? `mayor\t${r.placeCode}`
+          : null,
     },
     raw: r,
   }));

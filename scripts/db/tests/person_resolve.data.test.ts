@@ -67,6 +67,15 @@ afterAll(async () => {
 // source's role must agree on the same canonical party — and stays capped at the
 // PARTY_OFFICE_NAMESAKE_CAP in cluster.ts, so a mass name ("Георги Иванов Георгиев", 198)
 // is still refused however well the party matches.
+//
+// ONE MORE, and it is a SEAT rather than a name: the municipal-roster mayor of an община
+// and an elected mayor of the SAME община (same canonical place code), identical three-part
+// name — cluster.ts `sameMayoralty`. One община has one кмет, so the seat identifies the
+// person the way `sameLocalSeat` already relies on across cycles; the roster and the
+// election are two records of one office. Re-derived from the data, like the party-office
+// licence: both roles must be `mayor` on one place code, and the person may carry NO third
+// source — so the exception can never launder a merge with anything else. Measured when
+// added (2026-09-27): 101 mayors had been split this way, Sofia's among them.
 test.skipIf(skip)(
   "no cross-source merge on a common name without a name-independent link",
   async () => {
@@ -89,7 +98,20 @@ test.skipIf(skip)(
              WHERE office.person_id = p.person_id
                AND office.role = 'party_leader'
                AND office.party IS NOT NULL
-               AND p.namesake_risk <= 12)`,
+               AND p.namesake_risk <= 12)
+          AND NOT (
+            EXISTS (
+              SELECT 1 FROM person_role e
+                JOIN person_role o
+                  ON o.person_id = e.person_id
+                 AND o.source = 'official_muni' AND o.role = 'mayor'
+                 AND o.place_code = e.place_code
+               WHERE e.person_id = p.person_id
+                 AND e.source = 'local' AND e.role = 'mayor')
+            AND NOT EXISTS (
+              SELECT 1 FROM person_role x
+               WHERE x.person_id = p.person_id
+                 AND x.source NOT IN ('local', 'official_muni')))`,
     );
     assert.equal(
       Number(r.bad),

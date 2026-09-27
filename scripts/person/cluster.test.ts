@@ -463,6 +463,71 @@ describe("clusterBlock", () => {
     ).toHaveLength(0);
   });
 
+  describe("Tier 1 — sameMayoralty (the roster mayor is the elected mayor)", () => {
+    // Васил Александров Терзиев was two people: the municipal-roster mayor of Sofia and
+    // the elected 2023 mayor — 101 mayors split this way, all on the same place code.
+    const mayor = "mayor\tSFO_CITY";
+    const elected = (over: Partial<Mention> = {}): Mention =>
+      base({
+        id: "local:2023_10_29_mi:SOF:mayor",
+        source: "local",
+        givenFold: "vasil",
+        familyFold: "terziev",
+        nameParts: 3,
+        patronymicFold: "aleksandrov",
+        namesakeRisk: 30,
+        corroborants: {
+          localSeat: "mayor\tSOF:mayor",
+          localCycle: "2023_10_29_mi",
+          mayoralty: mayor,
+        },
+        ...over,
+      });
+    const roster = (over: Partial<Mention> = {}): Mention =>
+      base({
+        id: "official:vasil-terziev",
+        source: "official_muni",
+        givenFold: "vasil",
+        familyFold: "terziev",
+        nameParts: 3,
+        patronymicFold: "aleksandrov",
+        namesakeRisk: 30,
+        corroborants: { mayoralty: mayor },
+        ...over,
+      });
+
+    it("merges the roster and the elected mayor of one община, whatever the namesake count", () => {
+      const r = clusterBlock([elected(), roster()]);
+      expect(r.merges).toEqual([
+        {
+          memberIds: [
+            "local:2023_10_29_mi:SOF:mayor",
+            "official:vasil-terziev",
+          ],
+          confidence: "high",
+        },
+      ]);
+    });
+
+    it("never on a different община, a different patronymic, or a two-part name", () => {
+      for (const other of [
+        roster({ corroborants: { mayoralty: "mayor\tPDV22" } }),
+        roster({ patronymicFold: "ivanov" }),
+        roster({ nameParts: 2, patronymicFold: null }),
+      ])
+        expect(clusterBlock([elected(), other]).merges).toHaveLength(0);
+    });
+
+    it("never through a contested term — two same-named mayors elected in one cycle", () => {
+      const r = clusterBlock([
+        elected({ id: "local:a" }),
+        elected({ id: "local:b" }),
+        roster(),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+  });
+
   describe("Tier 1 — sameLocalSeat (local continuity across cycles)", () => {
     // A кмет на кметство elected by an инициативен комитет has NO party, so `weakBoth`
     // (party AND place) can never fire and only a globally-unique name saved him. That is
