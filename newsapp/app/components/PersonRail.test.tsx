@@ -86,6 +86,25 @@ describe("PersonRail", () => {
     ).toHaveAttribute("href", "https://naiasno.bg/person/mp-5142");
   });
 
+  it("dates the office and anchors the row for a person page's deep link", () => {
+    baselines.current = null;
+    draw([
+      {
+        ...radev,
+        identity: {
+          ...radev.identity!,
+          role_start: "2017-01-22",
+          role_end: "2026-02-09",
+        },
+      },
+    ]);
+    const row = screen.getByTestId("person-rail-row");
+    expect(row.textContent).toContain(
+      "бивш: Президент / вицепрезидент (2017–2026)",
+    );
+    expect(row.id).toBe("person-mp-5142");
+  });
+
   it("links to the person page and prints the baseline only when there is a page", () => {
     baselines.current = null;
     draw([radev]);
@@ -141,9 +160,17 @@ describe("PersonRail", () => {
     ]);
     const row = screen.getByTestId("person-rail-row");
     expect(row.textContent).toContain("без профил");
-    expect(within(row).queryByRole("link")).toBeNull();
+    // No profile link and no avatar — only the correction link (§5: every
+    // row carries one).
+    expect(
+      within(row)
+        .queryAllByRole("link")
+        .map((l) => l.textContent),
+    ).toEqual([expect.stringContaining("сигнализирай")]);
+    expect(within(row).queryByTestId("person-avatar")).toBeNull();
+    // An unresolved name keeps its tone, by name (§2.3).
     expect(screen.getByTestId("person-rail-unresolved").textContent).toContain(
-      "Костадин Костадинов*",
+      "Костадин Костадинов* (",
     );
     expect(screen.getByTestId("person-rail-passing").textContent).toContain(
       "Делян Пеевски",

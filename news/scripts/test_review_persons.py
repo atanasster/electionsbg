@@ -239,6 +239,27 @@ REGISTRY = {"version": 1, "registry_version": "2026-09-20.3",
             "retired_ids": {}, "persons": []}
 
 
+class NewPeopleHelp(unittest.TestCase):
+    def test_similar_names_share_the_surname_same_first_name_first(self):
+        people = {"x": {"canonical": "Мария Иванова Стоянова"},
+                  "y": {"canonical": "Петя Стоянова"},
+                  "z": {"canonical": "Мария Петрова"}}
+        self.assertEqual([p["id"] for p in rq.similar_people("Мария Стоянова", people)],
+                         ["x", "y"])
+
+    def test_the_stoplist_keeps_foreign_leaders_out(self):
+        self.assertEqual(rq.new_person_items(names(surface="Доналд Тръмп"), REGISTRY,
+                                             {}, stoplist=["Доналд Тръмп"]), [])
+
+    def test_a_candidates_window_is_their_roles_within_the_corpus(self):
+        e = {"display": {"roles": [{"start": "2021-05-01", "end": "2024-02-01"}]}}
+        self.assertEqual(rq.candidate_window(e, "2023-01-01", "2027-03-01"),
+                         {"from": "2023-01-01", "to": "2024-02-01"})
+        open_ = {"display": {"roles": [{"start": "2025-06-01"}]}}
+        self.assertEqual(rq.candidate_window(open_, "2023-01-01", "2027-03-01"),
+                         {"from": "2025-06-01", "to": "2027-03-01"})
+
+
 class Collect(unittest.TestCase):
     def test_unlinked_full_names_are_collected_apart_from_surnames(self):
         subj = [{"name": "Мария Стоянова", "refused_reason": "no_match"},
@@ -292,6 +313,31 @@ class AnnotationQueue(unittest.TestCase):
                                             "level": 3}], "A", {"k1"})
         self.assertEqual(sorted((r["pair_id"], r.get("level")) for r in out["pairs"]),
                          [("k0", None), ("k1", 3)])
+
+    def test_the_order_does_not_follow_the_stratum(self):
+        sample = {"pairs": [{"pair_id": pid, "stratum": st, "identity": {}}
+                            for pid, st in (("f9", "a"), ("a1", "a"),
+                                            ("c3", "b"), ("b2", "b"))]}
+        self.assertEqual([i["key"] for i in rq.annotation_items(
+            sample, second_reader=False)], ["a1", "b2", "c3", "f9"])
+
+    def test_the_same_person_cannot_be_their_own_second_reader(self):
+        doc = {"pairs": [{"pair_id": "k1", "annotator": "A", "pass": "first"}]}
+        with self.assertRaises(ValueError):
+            rq.merge_adjudications(doc, [{"pair_id": "k1", "annotator": "A"}],
+                                   "A", {"k1"}, second_pass=True)
+        out = rq.merge_adjudications(doc, [{"pair_id": "k1", "annotator": "B"}],
+                                     "B", {"k1"}, second_pass=True,
+                                     finalized_at="t")
+        self.assertEqual(len(out["pairs"]), 2)
+        self.assertEqual(out["finalized"], {"B:second": "t"})
+
+    def test_finalized_rows_are_sealed(self):
+        import person_accuracy_gate as gate  # noqa: PLC0415
+        rows = rq.adjudication_rows(SAMPLE, {"k0": {"role": "primary", "level": 1}},
+                                    annotator="A", rubric_version="r1",
+                                    finalized_at="t", revealed=set())
+        self.assertEqual(rows[0]["seal"], gate.seal_of(rows[0]))
 
     def test_a_wrong_person_role_is_validated(self):
         with self.assertRaises(ValueError):
@@ -546,6 +592,27 @@ class Server(unittest.TestCase):
         # DNS rebinding: the right socket, a foreign Host.
         self.assertEqual(self.raw("/api/state", headers={"Host": "evil.example"}), 403)
         self.assertEqual(self.raw("/api/state", headers={"Host": host}), 200)
+
+    def test_the_served_state_keeps_the_annotation_queue_blind(self):
+        # The blinding is a property of what the page RECEIVES, not only of
+        # the function that builds the items.
+        self.srv.RequestHandlerClass.workspace = rp.Workspace(
+            "R", gazetteer_doc=GAZ, collected=collected(), bodies={},
+            paths={"identity": Path(self.dir.name) / "a2.json",
+                   "surnames": Path(self.dir.name) / "s2.json"},
+            sample=SAMPLE,
+            extra_paths={"working": Path(self.dir.name) / "w.json",
+                         "adjudications": Path(self.dir.name) / "adj.json",
+                         "registry": Path(self.dir.name) / "reg.json",
+                         "scope_review": Path(self.dir.name) / "sc.json",
+                         "stoplist": Path(self.dir.name) / "stop.json"})
+        _, state = self.call("/api/state")
+        served = json.dumps(json.loads(state)["queues"]["annotation"],
+                            ensure_ascii=False)
+        for secret in ("secret.bg", "model_scored", "pipeline", "-1.2", "u0"):
+            self.assertNotIn(secret, served)
+        _, text = self.call("/api/pair?id=k0")
+        self.assertNotIn("secret.bg", text)
 
     def test_the_page_builds_no_markup_from_data(self):
         # Excerpts and names are corpus text; the page must render them as

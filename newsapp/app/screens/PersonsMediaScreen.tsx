@@ -6,8 +6,8 @@
 // carries none). A cell under five (outlet, story) units shows no colour, and
 // every cell leads to the articles behind it.
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PackSelect } from "@/screens/components/procurement/PackSelect";
@@ -22,6 +22,7 @@ import { toneMeta } from "../labels";
 import { useNewsLocale } from "../i18n";
 import { cellView, offeredPeriods, type MatrixMode } from "../personMatrix";
 import { BUCKETS, BUCKET_FILL, displayName } from "../personPage";
+import { Hatch } from "../components/PersonCharts";
 
 const PERIOD_LABEL: Record<"30" | "90" | "all", [string, string]> = {
   "30": ["последните 30 дни", "last 30 days"],
@@ -70,10 +71,14 @@ const Cell = ({
       {view.state === "blank" ? (
         "·"
       ) : (
+        // ⚠️ A hatch, never opacity: two buckets differ only by the fill's
+        // alpha, so a faded „силно неблагоприятно" would read as a milder one.
         <span
           aria-hidden
-          className={`absolute inset-0.5 rounded-[2px] ${view.fill} ${view.state === "hatched" ? "opacity-50" : ""}`}
-        />
+          className={`absolute inset-0.5 overflow-hidden rounded-[2px] ${view.fill}`}
+        >
+          {view.state === "hatched" ? <Hatch /> : null}
+        </span>
       )}
     </Link>
   );
@@ -85,6 +90,16 @@ export const PersonsMediaScreen = () => {
   const index = usePersonsIndex();
   const [mode, setMode] = useState<MatrixMode>("position");
   const [chosen, setChosen] = useState<"30" | "90" | "all" | null>(null);
+  // `?outlet=` — arriving from an outlet page: that column is marked and
+  // scrolled into view.
+  const [params] = useSearchParams();
+  const focus = params.get("outlet");
+  useEffect(() => {
+    if (!focus || !matrix.data) return;
+    document
+      .getElementById(`col-${focus}`)
+      ?.scrollIntoView?.({ block: "nearest", inline: "center" });
+  }, [focus, matrix.data]);
 
   if (matrix.error && !matrix.data)
     return (
@@ -180,16 +195,16 @@ export const PersonsMediaScreen = () => {
           >
             {mode === "position"
               ? tr(
-                  "Цвят = как изданието средно представя човека. Сивото е неутрално — повечето материали са такива, и това е находка, не празнота.",
-                  "Colour = how the outlet frames the person on average. Grey is neutral — most articles are, and that is a finding, not an absence.",
+                  "Цвят = как изданието средно представя човека. Сивото е неутрално — това е находка, не празнота.",
+                  "Colour = how the outlet frames the person on average. Grey is neutral — a finding, not an absence.",
                 )
               : tr(
                   "Цвят само там, където изданието представя човека забележимо различно от останалите издания (95% интервал без нула). Сивото = в рамките на обичайното.",
                   "Colour only where an outlet frames the person noticeably differently from the other outlets (95% interval excluding zero). Grey = within the usual range.",
                 )}{" "}
             {tr(
-              "· = под 5 (издание, история); избледнял = под 10.",
-              "· = under 5 (outlet, story) units; faded = under 10.",
+              "· = под 5 (издание, история); щриховано = под 10.",
+              "· = under 5 (outlet, story) units; striped = under 10.",
             )}
           </p>
           {mode === "position" ? (
@@ -206,7 +221,46 @@ export const PersonsMediaScreen = () => {
             </ul>
           ) : null}
 
-          <Card className="overflow-x-auto p-3" data-testid="matrix-grid">
+          {/* §7.1 Mobile — one card per person, their outlets as a strip; the
+              table is for screens wide enough to read across. */}
+          <ul className="space-y-2 sm:hidden" data-testid="matrix-mobile">
+            {grid.rows.map((r) => (
+              <li key={r.id}>
+                <Card className="p-3">
+                  <Link
+                    to={`/person/${r.id}`}
+                    className="text-sm font-medium underline-offset-4 hover:underline"
+                  >
+                    {nameOf(r)}
+                  </Link>
+                  <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1.5">
+                    {grid.cols
+                      .filter((c) => (grid.cells[r.id]?.[c.domain]?.n ?? 0) > 0)
+                      .map((c) => (
+                        <li
+                          key={c.domain}
+                          className="flex items-center gap-1 text-[11px] text-muted-foreground"
+                        >
+                          <Cell
+                            personId={r.id}
+                            personName={nameOf(r)}
+                            domain={c.domain}
+                            grid={grid}
+                            rules={m.rules}
+                            mode={mode}
+                          />
+                          {c.domain}
+                        </li>
+                      ))}
+                  </ul>
+                </Card>
+              </li>
+            ))}
+          </ul>
+          <Card
+            className="hidden overflow-x-auto p-3 sm:block"
+            data-testid="matrix-grid"
+          >
             <table className="border-separate border-spacing-0.5 text-xs">
               <caption className="sr-only">
                 {tr("Издания по хора", "Outlets by person")}
@@ -217,8 +271,10 @@ export const PersonsMediaScreen = () => {
                   {grid.cols.map((c) => (
                     <th
                       key={c.domain}
+                      id={`col-${c.domain}`}
                       scope="col"
-                      className="h-24 w-7 align-bottom font-normal text-muted-foreground"
+                      aria-current={c.domain === focus ? "true" : undefined}
+                      className={`h-24 w-7 align-bottom font-normal ${c.domain === focus ? "bg-muted text-foreground" : "text-muted-foreground"}`}
                     >
                       <span className="inline-block rotate-180 whitespace-nowrap [writing-mode:vertical-rl]">
                         {c.domain}

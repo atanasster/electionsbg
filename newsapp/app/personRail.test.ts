@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { JevArticleSentiment, JevScore, JevSubject } from "./data";
-import { baselineFor, groupPeople, hasPage, railNames } from "./personRail";
+import {
+  baselineFor,
+  groupPeople,
+  hasPage,
+  officeText,
+  onRail,
+  railNames,
+} from "./personRail";
 
 const score = (value: number, over: Partial<JevScore> = {}): JevScore => ({
   value,
@@ -38,17 +45,18 @@ const JEV = {
 } as Extract<JevArticleSentiment, { withheld?: undefined }>;
 
 describe("groupPeople", () => {
-  it("one row per identity, main subject first, profile-less last", () => {
+  it("one row per identity, main subjects first, a profile only breaks ties", () => {
     const g = groupPeople([
       person("Тръмп", { subject_role: "primary" }, null),
       person("Иван Иванов"),
       person("Иван Иванов", { name: "Иванов" }, "иван-иванов"),
       person("Мария Петрова", { subject_role: "primary" }),
     ]);
+    // §5: a foreign main subject never sinks below an identified participant.
     expect(g.rows.map((r) => r.subject.name)).toEqual([
       "Мария Петрова",
-      "Иван Иванов",
       "Тръмп",
+      "Иван Иванов",
     ]);
   });
 
@@ -147,5 +155,56 @@ describe("baselineFor", () => {
     ).toBeNull();
     expect(hasPage(row.identity, base)).toBe(true);
     expect(hasPage(null, base)).toBe(false);
+  });
+});
+
+describe("officeText", () => {
+  const tr = (bg: string) => bg;
+  it("dates current, open and former offices differently", () => {
+    expect(
+      officeText(
+        "Кмет",
+        { role_current: true, role_start: "2023-11-06" } as never,
+        tr,
+      ),
+    ).toBe("Кмет (от 2023)");
+    // No exit filing: neither current nor „бивш".
+    expect(
+      officeText(
+        "Изпълнителен директор",
+        {
+          role_current: false,
+          role_open: true,
+          role_start: "2018-03-01",
+        } as never,
+        tr,
+      ),
+    ).toBe("Изпълнителен директор (по декларация от 2018)");
+    expect(
+      officeText(
+        "Министър",
+        {
+          role_current: false,
+          role_start: "2021-05-12",
+          role_end: "2021-12-13",
+        } as never,
+        tr,
+      ),
+    ).toBe("бивш: Министър (2021–2021)");
+  });
+});
+
+describe("onRail", () => {
+  it("drops a chip naming a rail identity under another spelling", () => {
+    const links = { "Румен Радев": { kind: "person", id: "mp-5142" } };
+    expect(
+      onRail("Румен Радев", new Set(["Радев"]), new Set(["mp-5142"]), links),
+    ).toBe(true);
+    expect(
+      onRail("Иван Иванов", new Set(["Радев"]), new Set(["mp-5142"]), links),
+    ).toBe(false);
+    expect(onRail("Радев", new Set(["Радев"]), new Set(), undefined)).toBe(
+      true,
+    );
   });
 });

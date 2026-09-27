@@ -35,6 +35,7 @@ import {
   retirementReason,
 } from "../sourceTransparency";
 import { RIGHT_OF_REPLY_POLICY } from "../corrections";
+import { PersonPublicationStatus } from "../components/PersonPublicationStatus";
 
 const Figure = ({ value, label }: { value: string; label: string }) => (
   <div>
@@ -466,10 +467,11 @@ export const MethodologyScreen = () => {
         </p>
         <p className="mt-3">
           <strong>Какво не е.</strong> „Неутрално“ значи, че текстът съобщава,
-          без да оценява — това е мнозинството и е находка, не липса на данни.
-          Разпределението описва отразяването, не човека: не е оценка на
-          личността, не е класиране и няма подреждане по тон. Показваме кратък
-          цитат като основание, никога целия текст на чуждата публикация.
+          без да оценява — в целия корпус това е най-честият отговор, и
+          неутралното е находка, не липса на данни. Разпределението описва
+          отразяването, не човека: не е оценка на личността, не е класиране и
+          няма подреждане по тон. Показваме кратък цитат като основание, никога
+          целия текст на чуждата публикация.
         </p>
         <p className="mt-3">
           <strong>Около избори.</strong> Това е измерване на начина, по който
@@ -481,6 +483,7 @@ export const MethodologyScreen = () => {
           периода, те не се публикуват до края му. Оценките на отделните статии
           се обновяват както обикновено.
         </p>
+        <PersonPublicationStatus />
         <p className="mt-3">
           <strong>Възражение.</strong> Всяка оценка и всяка връзка може да се
           оспори от бутона „Сигнализирай проблем“ до нея. Пълните правила,
@@ -874,10 +877,11 @@ const EnglishMethodology = ({
       </p>
       <p className="mt-3">
         <strong>What it is not.</strong> „Neutral“ means the text reports
-        without judging — it is the majority, and a finding rather than missing
-        data. The distribution describes the coverage, not the person: it is not
-        a rating, not a ranking, and nothing is ordered by tone. We show a short
-        quote as grounds, never the full text of someone else&apos;s article.
+        without judging — across the corpus it is the most common answer, and a
+        neutral reading is a finding rather than missing data. The distribution
+        describes the coverage, not the person: it is not a rating, not a
+        ranking, and nothing is ordered by tone. We show a short quote as
+        grounds, never the full text of someone else&apos;s article.
       </p>
       <p className="mt-3">
         <strong>Around elections.</strong> This measures how outlets frame a
@@ -888,6 +892,7 @@ const EnglishMethodology = ({
         from before the period was kept, they are not published until it ends.
         Scores of individual articles keep updating as usual.
       </p>
+      <PersonPublicationStatus />
       <p className="mt-3">
         <strong>Objections.</strong> Any score or link can be challenged from
         the „Report a problem“ button beside it. The full rules, including the

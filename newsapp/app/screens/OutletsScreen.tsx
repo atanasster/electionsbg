@@ -32,7 +32,13 @@ import {
   outletScopeLabel,
   outletTypeLabel,
 } from "../labels";
-import { hasSpectrum, positionedCount, useOutlets, type Outlet } from "../data";
+import {
+  hasSpectrum,
+  positionedCount,
+  useOutlets,
+  usePersonPublication,
+  type Outlet,
+} from "../data";
 import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
 import { useNewsLocale, type NewsLanguage } from "../i18n";
 
@@ -125,6 +131,8 @@ const sortValue = (
 export const OutletsScreen = () => {
   const { isEnglish, language, tr } = useNewsLocale();
   const outlets = useOutlets();
+  // The small status file, not the whole person index, for one flag.
+  const persons = usePersonPublication();
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<"active" | "all" | "retired">("all");
   const [sort, setSort] = useState<{
@@ -234,6 +242,18 @@ export const OutletsScreen = () => {
                 "Bulgarian media in the corpus — audience size, collected articles, and the shape of ratings in the analyzed sample.",
               )}
             </p>
+            {persons.data?.matrix ? (
+              <Link
+                to="/persons/media"
+                className="mt-2 inline-block text-sm text-primary underline-offset-4 hover:underline"
+              >
+                {tr(
+                  "Медиите и хората — как изданията представят едни и същи хора",
+                  "The media and the people — how outlets frame the same people",
+                )}{" "}
+                →
+              </Link>
+            ) : null}
           </div>
           <p className="max-w-sm border-l-2 border-accent pl-3 text-xs leading-relaxed text-muted-foreground">
             {tr(

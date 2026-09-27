@@ -50,19 +50,34 @@ export const officeLine = (
   isEnglish: boolean,
 ): { text: string; former: boolean } | null => {
   const current = roles.filter((r) => r.current);
-  const seen = new Set<string>();
   if (current.length) {
-    const names = current
-      .map((r) => roleName(r.role, labels, isEnglish))
-      .filter((n) => (seen.has(n) ? false : (seen.add(n), true)));
+    // One entry per office, dated from its earliest open term.
+    const since = new Map<string, string | undefined>();
+    for (const r of current) {
+      const prev = since.get(r.role);
+      if (!since.has(r.role) || (r.start && (!prev || r.start < prev)))
+        since.set(r.role, r.start);
+    }
+    const names = [...since].map(
+      ([role, start]) =>
+        `${roleName(role, labels, isEnglish)}${start ? (isEnglish ? ` (since ${start.slice(0, 4)})` : ` (от ${start.slice(0, 4)})`) : ""}`,
+    );
     return { text: names.join(" · "), former: false };
   }
+  // ⚠️ No exit filing is not „former" and not „current": the filing is the
+  // only fact, so the line says so.
+  const open = roles.find((r) => r.open && r.start);
+  if (open)
+    return {
+      text: `${roleName(open.role, labels, isEnglish)} ${isEnglish ? `(declared ${open.start!.slice(0, 4)})` : `(по декларация от ${open.start!.slice(0, 4)})`}`,
+      former: false,
+    };
   const last = roles.find((r) => r.start) ?? roles[0];
   if (!last) return null;
+  const from = last.start?.slice(0, 4);
+  const to = last.end?.slice(0, 4);
   const years =
-    last.start || last.end
-      ? ` (${last.start?.slice(0, 4) ?? "?"}–${last.end?.slice(0, 4) ?? ""})`
-      : "";
+    from && to ? ` (${from}–${to})` : from || to ? ` (${from ?? to})` : "";
   return {
     text: `${roleName(last.role, labels, isEnglish)}${years}`,
     former: true,

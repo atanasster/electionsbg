@@ -167,6 +167,17 @@ export const PersonsScreen = () => {
             },
           ]}
         />
+        {period !== "all" ? (
+          <span
+            className="text-xs text-muted-foreground"
+            data-testid="period-scope"
+          >
+            {tr(
+              "Показва кой е отразяван в периода; броят и разпределението са за целия архив.",
+              "Shows who was covered in the period; the count and the distribution are for the whole archive.",
+            )}
+          </span>
+        ) : null}
         {partyIds.length ? (
           <PackSelect
             ariaLabel={tr("Партия", "Party")}

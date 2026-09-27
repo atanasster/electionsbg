@@ -36,7 +36,9 @@ HATCH_BELOW_N = 10
 # Candidate columns: outlets with at least this many assessed units in the
 # period (across the grid's people).
 OUTLET_MIN_UNITS = 30
-CANDIDATE_PEOPLE = 30
+# Candidate rows: people with at least this many units in the period (§7.1
+# rule 1) — a threshold, never a top-N; `prune` applies the row cap.
+PERSON_MIN_UNITS = 30
 MIN_FILLED_PER_LINE = 4
 MAX_ROWS = 25
 MAX_COLS = 15
@@ -138,7 +140,8 @@ def build_period(people: dict, metas: dict, shares: dict, since) -> dict:
     # volume — never by anything a tone decides.
     person_order = sorted((p for p in units_by_person if units_by_person[p]),
                           key=lambda p: (-len(units_by_person[p]), p))
-    candidates_rows = person_order[:CANDIDATE_PEOPLE]
+    candidates_rows = [p for p in person_order
+                       if len(units_by_person[p]) >= PERSON_MIN_UNITS]
     candidates_cols = sorted((d for d, n in outlet_units.items()
                               if n >= OUTLET_MIN_UNITS),
                              key=lambda d: (-outlet_units[d], d))

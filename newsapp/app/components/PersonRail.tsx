@@ -9,14 +9,23 @@
 // when they differ. A name match is an identity claim the reader must be able
 // to check; showing only our canonical name would hide what we matched.
 
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import type { JevArticleSentiment, PersonIdentity } from "../data";
+import type { JevArticleSentiment, ToneBucket } from "../data";
 import { usePersonBaselines } from "../data";
+import { bucketOf } from "../jevBucket";
 import { toneMeta } from "../labels";
 import { useNewsLocale } from "../i18n";
 import { isNewsPersonId } from "../newsPersonId";
-import { baselineFor, groupPeople, hasPage, type RailRow } from "../personRail";
+import {
+  baselineFor,
+  groupPeople,
+  hasPage,
+  officeText,
+  type RailRow,
+} from "../personRail";
 import { mainPersonUrl } from "../site";
+import { TONE_BUCKET_ORDER } from "../sentimentScale";
 import { ScaleTrack } from "./JevScales";
 import { ReportIssueLink } from "./ReportIssueLink";
 import { Card } from "@/components/ui/card";
@@ -64,6 +73,7 @@ const initials = (name: string) => {
 const Avatar = ({ name }: { name: string }) => (
   <span
     aria-hidden
+    data-testid="person-avatar"
     className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-semibold text-muted-foreground"
   >
     {initials(name)}
@@ -105,14 +115,23 @@ const Row = ({
           `the article frames them: ${meta.label}`,
         )
       : null,
+    office ? officeText(office, identity, tr) : null,
     basis ? tr(basis[0], basis[1]) : tr("без профил", "no profile"),
   ]
     .filter(Boolean)
     .join(" · ");
+  // §5 — no avatar for a person with no profile (a foreigner, an unlinked
+  // name): initials would suggest an identity the rail does not claim.
+  const avatar = !!identity && identity.scope !== "foreign";
   return (
-    <li className="py-3" aria-label={label} data-testid="person-rail-row">
+    <li
+      className="scroll-mt-20 py-3"
+      id={identity ? `person-${identity.id}` : undefined}
+      aria-label={label}
+      data-testid="person-rail-row"
+    >
       <div className="flex items-start gap-3">
-        <Avatar name={name} />
+        {avatar ? <Avatar name={name} /> : null}
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline justify-between gap-x-2">
             {page ? (
@@ -139,11 +158,7 @@ const Row = ({
           </div>
           <p className="text-xs text-muted-foreground">
             {[
-              office
-                ? identity?.role_current === false
-                  ? tr(`бивш: ${office}`, `former: ${office}`)
-                  : office
-                : null,
+              office ? officeText(office, identity, tr) : null,
               spelled
                 ? tr(`в текста: „${spelled}“`, `in the text: “${spelled}”`)
                 : null,
@@ -175,13 +190,16 @@ const Row = ({
               {tone.value.toFixed(1)}
             </span>
           </div>
-          <ScaleTrack
-            score={tone}
-            lowLabel={toneMeta("strongly_unfavorable", language).label}
-            highLabel={toneMeta("strongly_favorable", language).label}
-            summary={tr(`${name}: ${meta.label}`, `${name}: ${meta.label}`)}
-            compact
-          />
+          {/* The row's label already says it in words (§5). */}
+          <div aria-hidden="true">
+            <ScaleTrack
+              score={tone}
+              lowLabel={toneMeta("strongly_unfavorable", language).label}
+              highLabel={toneMeta("strongly_favorable", language).label}
+              summary={tr(`${name}: ${meta.label}`, `${name}: ${meta.label}`)}
+              compact
+            />
+          </div>
         </div>
       ) : null}
       {subject.conflict ? (
@@ -219,15 +237,13 @@ const Row = ({
           ) : null}
         </p>
       ) : null}
-      {identity ? (
-        <div className="mt-1">
-          <ReportIssueLink
-            path={articlePath}
-            person={{ id: identity.id, name }}
-            compact
-          />
-        </div>
-      ) : null}
+      <div className="mt-1">
+        <ReportIssueLink
+          path={articlePath}
+          person={identity ? { id: identity.id, name } : undefined}
+          compact
+        />
+      </div>
     </li>
   );
 };
@@ -240,8 +256,15 @@ export const PersonRail = ({
   jev: Extract<JevArticleSentiment, { withheld?: undefined }>;
   articlePath: string;
 }) => {
-  const { tr } = useNewsLocale();
+  const { language, tr } = useNewsLocale();
   const groups = groupPeople(jev.subjects ?? []);
+  // A person page's article rows link to `#person-<id>`; the rail renders
+  // after the article loads, so the browser's own jump has already missed it.
+  useEffect(() => {
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    if (hash.startsWith("person-"))
+      document.getElementById(hash)?.scrollIntoView?.({ block: "center" });
+  }, [groups.rows.length]);
   const { data: baselines } = usePersonBaselines(
     groups.rows.length > 0 && jev.person_baselines === true,
   );
@@ -296,7 +319,15 @@ export const PersonRail = ({
           data-testid="person-rail-unresolved"
         >
           {tr("Неразпознати", "Unresolved")}:{" "}
-          {groups.unresolved.map((s) => `${s.name}*`).join(", ")}
+          {groups.unresolved
+            .map((s) => {
+              // §2.3 — an unresolved name keeps its tone, by name.
+              const b = bucketOf(s.tone, TONE_BUCKET_ORDER);
+              return b
+                ? `${s.name}* (${toneMeta(b as ToneBucket, language).label})`
+                : `${s.name}*`;
+            })
+            .join(", ")}
         </p>
       ) : null}
       {groups.passing.length ? (

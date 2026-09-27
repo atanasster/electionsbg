@@ -100,14 +100,15 @@ export const groupPeople = (subjects: JevSubject[]): RailGroups => {
       bucket: bucketOf(s.tone, TONE_BUCKET_ORDER) as ToneBucket,
     });
   }
-  // Identified before profile-less; then the article's main subject first;
-  // then the most-mentioned.
+  // The article's main subject first, then participants (§5); then the
+  // most-mentioned; a profile only breaks a remaining tie — a foreign main
+  // subject never sinks below an identified participant.
   out.rows.sort(
     (a, b) =>
-      Number(!a.identity) - Number(!b.identity) ||
       (ROLE_RANK[a.subject.subject_role ?? ""] ?? 2) -
         (ROLE_RANK[b.subject.subject_role ?? ""] ?? 2) ||
-      (b.subject.mentions ?? 0) - (a.subject.mentions ?? 0),
+      (b.subject.mentions ?? 0) - (a.subject.mentions ?? 0) ||
+      Number(!a.identity) - Number(!b.identity),
   );
   return out;
 };
@@ -190,3 +191,60 @@ export const hasPage = (
   identity: PersonIdentity | null,
   baselines: PersonBaselines | null | undefined,
 ): boolean => !!identity && !!baselines?.persons?.[identity.id];
+
+const year = (d: string | null | undefined) => d?.slice(0, 4) ?? null;
+
+/** The office with its dates: current „(от 2024)", no exit filing „(по
+ *  декларация от 2018)", else former „бивш: … (2017–2026)". */
+export const officeText = (
+  office: string,
+  identity: PersonIdentity | null,
+  tr: (bg: string, en: string) => string,
+): string => {
+  const from = year(identity?.role_start);
+  const to = year(identity?.role_end);
+  if (identity?.role_open)
+    return from
+      ? tr(
+          `${office} (по декларация от ${from})`,
+          `${office} (declared ${from})`,
+        )
+      : office;
+  if (identity?.role_current === false) {
+    // A former office with no recorded end prints its start alone — never an
+    // open „(2017–)" that reads as ongoing.
+    const span =
+      from && to ? ` (${from}–${to})` : from || to ? ` (${from ?? to})` : "";
+    return tr(`бивш: ${office}${span}`, `former: ${office}${span}`);
+  }
+  return from
+    ? tr(`${office} (от ${from})`, `${office} (since ${from})`)
+    : office;
+};
+
+/**
+ * Every identity the rail names — so a chip or a news-person row about the
+ * SAME person under a different spelling (the rail's „Радев" is the chips'
+ * „Румен Радев") is left out too (§5: no identity renders twice).
+ */
+export const railIdentities = (subjects: JevSubject[] | null | undefined) => {
+  const out = new Set<string>();
+  for (const s of subjects ?? []) {
+    const id = s.identity?.id;
+    if (s.kind === "person" && id) out.add(id);
+  }
+  return out;
+};
+
+/** Is this chip already on the rail — by spelling, or by the identity its
+ *  entity link names? */
+export const onRail = (
+  name: string,
+  names: Set<string>,
+  ids: Set<string>,
+  links: Record<string, { kind?: string; id?: string } | undefined> | undefined,
+): boolean => {
+  if (names.has(name)) return true;
+  const link = links?.[name];
+  return link?.kind === "person" && !!link.id && ids.has(link.id);
+};

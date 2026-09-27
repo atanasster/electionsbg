@@ -13,7 +13,7 @@ import { isCaseSlug } from "./app/caseSlug";
 import { isNewsPersonId } from "./app/newsPersonId";
 import { isPartyId } from "./app/partyId";
 import {
-  cardUrl,
+  cardUrls,
   MATRIX_CARD,
   PERSONS_CARD,
   personCardFile,
@@ -332,19 +332,26 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
   // is not sitemapped: a page saying „no assessments" is not what a crawler
   // should be sent to.
   const persons = read(dataDir, "persons.json");
+  const cards = persons ? cardUrls(dataDir) : new Map<string, string>();
   const personRows = (persons?.persons as Bundle[] | undefined) ?? [];
   if (persons) {
     routes.push({
       path: "persons",
       title: "Хора в новините — как медиите ги представят | Наясно Новини",
+      // §8.2 — a withheld election window publishes nothing; „0 души" would
+      // read as a finding.
       description: clamp(
-        `${personRows.length} души с достатъчно отразяване: колко материала ги представят и как. Подредени по обем на отразяването, не по тон — това не е класация.`,
+        persons.withheld
+          ? "Данните за отразяването на хора не се публикуват до края на изборния ден."
+          : `${personRows.length} души с достатъчно отразяване: колко материала ги представят и как. Подредени по обем на отразяването, не по тон — това не е класация.`,
       ),
       titleEn: "People in the news — how the media frame them | Naiasno News",
       descriptionEn: clamp(
-        `${personRows.length} people with enough coverage: how many articles frame them and how. Ordered by volume of coverage, never by tone — this is not a ranking.`,
+        persons.withheld
+          ? "Coverage data about people is not published until the end of election day."
+          : `${personRows.length} people with enough coverage: how many articles frame them and how. Ordered by volume of coverage, never by tone — this is not a ranking.`,
       ),
-      image: cardUrl(PERSONS_CARD),
+      image: cards.get(PERSONS_CARD) ?? null,
       lastmod: (persons.generated_at as string) ?? null,
       sitemap: personRows.length > 0,
     });
@@ -368,7 +375,7 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       descriptionEn: clamp(
         "How each outlet frames the people it covers most. It compares treatment of the same person — it does not rate or rank the outlets.",
       ),
-      image: cardUrl(MATRIX_CARD),
+      image: cards.get(MATRIX_CARD) ?? null,
       lastmod: (matrix.generated_at as string) ?? null,
       sitemap: offered,
     });
@@ -378,8 +385,8 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
     if (!isNewsPersonId(id)) continue;
     const n = Number(person.n ?? 0);
     // Articles, not units: `n` counts (outlet, story) units, so the prose
-    // uses the eligible article count and names the unit where it quotes n.
-    const articles = Number(person.eligible ?? 0);
+    // uses the ASSESSED article count — the figure the page's own deck prints.
+    const articles = Number(person.assessed ?? person.eligible ?? 0);
     const outlets = Number(person.outlet_count ?? 0);
     const nameBg = String(person.name_bg ?? id);
     const nameEn = String(person.name_en ?? transliterateName(nameBg));
@@ -393,7 +400,8 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       descriptionEn: clamp(
         `How ${articles} articles from ${outlets} outlets frame ${nameEn}: the distribution, over time and by outlet. The text is assessed, not the person.`,
       ),
-      image: cardUrl(personCardFile(id)),
+      image: cards.get(personCardFile(id)) ?? null,
+      imageEn: cards.get(personCardFile(id, "en")) ?? null,
       lastmod:
         (person.last_published as string) ??
         (persons?.generated_at as string) ??
@@ -556,6 +564,7 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       description:
         route.descriptionEn ??
         "Independent comparison of Bulgarian media coverage.",
+      image: route.imageEn ?? route.image,
       language: "en",
     }),
   );

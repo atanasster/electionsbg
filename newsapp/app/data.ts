@@ -129,6 +129,10 @@ export interface PersonIdentity {
   /** The office to name — the current one, else the latest held. */
   role?: string;
   role_current?: boolean;
+  /** No exit filing on record: neither current nor former — „по декларация от …". */
+  role_open?: boolean;
+  role_start?: string | null;
+  role_end?: string | null;
   role_label?: { bg?: string; en?: string };
   identity_version?: string | null;
   scope?: string;
@@ -3127,6 +3131,8 @@ export interface PersonOutletRow extends PersonBasisSummary {
 }
 
 export interface PersonSeriesPoint extends PersonBasisSummary {
+  /** Under the outlet-mean floor: counts only, no mean (§4.1). */
+  sparse?: boolean;
   period: string;
   /** Share of the corpus's articles in this period that Jev scored. */
   coverage: number | null;
@@ -3142,6 +3148,8 @@ export interface PersonRole {
   end?: string;
   date_basis?: string;
   current: boolean;
+  /** A filing-dated office with no exit filing: neither current nor former. */
+  open?: boolean;
 }
 
 /**
@@ -3243,6 +3251,30 @@ export interface PersonsIndex extends FreezeStamps {
 
 /** 404 whenever `NEWS_PERSON_AGGREGATES` is off. */
 export const usePersonsIndex = () => useData<PersonsIndex>("/persons.json");
+
+/** §8.2/§9 — the election windows ahead and the accuracy gate's state, for
+ *  the methodology page. Written on every build, whatever the switches. */
+export interface PersonPublicationStatus {
+  generated_at: string;
+  /** Whether `/persons/media` has a grid (`NEWS_PERSON_MATRIX`). */
+  matrix?: boolean;
+  freezes: {
+    id: string;
+    from: string;
+    until: string;
+    status: "estimated" | "decreed";
+  }[];
+  gate: {
+    status: string;
+    passed: boolean;
+    passed_without_agreement: boolean;
+    agreement_passed: boolean;
+    test_pairs?: number;
+    kappa?: number | null;
+  };
+}
+export const usePersonPublication = () =>
+  useData<PersonPublicationStatus>("/person_publication.json");
 
 /** One (person, outlet) cell of the grid. No mean under the build's floor. */
 export interface MatrixCell {

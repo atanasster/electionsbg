@@ -187,6 +187,71 @@ class Context(unittest.TestCase):
                    sources=sources)
         self.assertEqual(s[0]["identity"]["id"], "x-1")
 
+    def test_an_office_the_candidate_never_held_refuses_the_party_cue(self):
+        # The Burgas shape: „кмета на Бургас Димитър Николов … ГЕРБ" fitted
+        # an MP namesake by party proximity. The office near the name belongs
+        # to somebody else, so the cue vouches for nobody.
+        mp = [{"role": "mp", "start": "2024-10-27", "current": True,
+               "party": "gerb"}]
+        gaz = {"entries": [person("dn-1", "Димитър Стойков Николов",
+                                  party="gerb", roles=mp),
+                           person("dn-2", "Димитър Петров Николов"),
+                           {"kind": "party", "id": "gerb", "forms": []}]}
+        sources = j.Sources(gazetteer_doc=gaz, aliases={}, cues=CUES,
+                            audit={}, registry={})
+        offer = [{"kind": "person", "id": "dn-1", "canonical": "Д С Н"},
+                 {"kind": "person", "id": "dn-2", "canonical": "Д П Н"}]
+        analysis = {"entity_candidates": {"Димитър Николов": offer},
+                    "entity_links": {"ГЕРБ": {"kind": "party", "id": "gerb"}}}
+        s, _ = run([subj("Димитър Николов")], analysis,
+                   "Кметът на Бургас Димитър Николов от ГЕРБ откри моста.",
+                   sources=sources)
+        self.assertIsNone(s[0]["identity"])
+        # Mutation check: without the contrary office the same cue links.
+        s, _ = run([subj("Димитър Николов")], analysis,
+                   "Депутатът Димитър Николов от ГЕРБ внесе закон.",
+                   sources=sources)
+        self.assertEqual(s[0]["identity"]["id"], "dn-1")
+
+    def test_a_former_office_near_the_name_is_not_a_namesake(self):
+        # „бившият кмет Борис Петров" — an office once held is the same
+        # person; only an office NEVER held marks somebody else.
+        roles = [{"role": "mayor", "start": "2015-01-01", "end": "2019-11-01"},
+                 {"role": "mp", "start": "2024-10-27", "current": True,
+                  "party": "gerb"}]
+        gaz = {"entries": [person("p-1", "Борис Иванов Петров", roles=roles),
+                           person("p-2", "Борис Стоянов Петров"),
+                           {"kind": "party", "id": "gerb", "forms": []}]}
+        sources = j.Sources(gazetteer_doc=gaz, aliases={}, cues=CUES,
+                            audit={}, registry={})
+        offer = [{"kind": "person", "id": "p-1", "canonical": "Б И П"},
+                 {"kind": "person", "id": "p-2", "canonical": "Б С П"}]
+        analysis = {"entity_candidates": {"Борис Петров": offer},
+                    "entity_links": {"ГЕРБ": {"kind": "party", "id": "gerb"}}}
+        s, _ = run([subj("Борис Петров")], analysis,
+                   "Бившият кмет Борис Петров от ГЕРБ внесе закон.",
+                   sources=sources)
+        self.assertEqual(s[0]["identity"]["id"], "p-1")
+
+    def test_the_party_cue_is_the_party_on_the_articles_date(self):
+        roles = [{"role": "mp", "start": "2021-01-01", "end": "2022-12-31",
+                  "party": "gerb"}]
+        gaz = {"entries": [person("x-1", "Х Х", party="gerb", roles=roles),
+                           person("x-2", "Х Й"),
+                           {"kind": "party", "id": "gerb", "forms": []}]}
+        sources = j.Sources(gazetteer_doc=gaz, aliases={}, cues=CUES,
+                            audit={}, registry={})
+        offer = [{"kind": "person", "id": "x-1", "canonical": "Х Х"},
+                 {"kind": "person", "id": "x-2", "canonical": "Х Й"}]
+        analysis = {"entity_candidates": {"Иван Ас": offer},
+                    "entity_links": {"ГЕРБ": {"kind": "party", "id": "gerb"}}}
+        s, _ = run([subj("Иван Ас")], analysis, "Иван Ас от ГЕРБ.",
+                   sources=sources)  # 2026: no longer a ГЕРБ role
+        self.assertEqual(s[0]["refused_reason"], "ambiguous")
+        s, _ = run([subj("Иван Ас")], analysis, "Иван Ас от ГЕРБ.",
+                   published="2022-06-01T00:00:00Z", sources=sources)
+        self.assertEqual(s[0]["identity"]["id"], "x-1")
+
     def test_a_longer_office_does_not_cue_the_shorter_one(self):
         for text in ("Евродепутатът Борис Петров.",
                      "Районен кмет Борис Петров.",

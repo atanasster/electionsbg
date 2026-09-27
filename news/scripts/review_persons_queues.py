@@ -148,6 +148,23 @@ def identity_items(collected: dict, people: dict, audit: dict) -> list:
     return items
 
 
+def candidate_window(entry: dict, corpus_from: str, default_to: str) -> dict:
+    """The candidate's dated roles, clipped to the corpus span: from the later
+    of the corpus start and their first role, to the earlier of the default
+    horizon and their last role's end (an open role runs to the horizon)."""
+    roles = [r for r in (entry.get("display") or {}).get("roles") or []
+             if r.get("start")]
+    if not roles:
+        return {"from": corpus_from, "to": default_to}
+    first = min(r["start"] for r in roles)
+    ends = [r.get("end") for r in roles]
+    last = default_to if any(not e for e in ends) else max(ends)
+    start = max(corpus_from, first[:10])
+    end = min(default_to, last[:10])
+    return ({"from": start, "to": end} if start <= end
+            else {"from": corpus_from, "to": default_to})
+
+
 def surname_items(collected: dict, gazetteer_doc: dict, aliases: dict,
                   today: date | None = None) -> list:
     """One-word names worth an alias decision, with who could carry them."""
@@ -171,15 +188,20 @@ def surname_items(collected: dict, gazetteer_doc: dict, aliases: dict,
             not any(r.get("current") for r in (e.get("display") or {}).get("roles") or []),
             e["canonical"]))
         days = sorted(p["published"] for p in pairs if p.get("published"))
+        corpus_from = days[0][:10] if days else today.isoformat()
+        default_to = (today + timedelta(days=ALIAS_DAYS_AHEAD)).isoformat()
         items.append({
             "key": key, "surface": pairs[0]["surface"], "pairs": len(pairs),
             "holders_total": len(cands),
             "candidates": [{"id": e["id"], "canonical": e["canonical"],
                             "roles": (e.get("display") or {}).get("roles") or [],
-                            "linked_pairs": linked.get(e["id"], 0)}
+                            "linked_pairs": linked.get(e["id"], 0),
+                            # §8.1 — the window this person could carry the
+                            # surname in: their roles within the corpus span.
+                            "window": candidate_window(
+                                e, corpus_from, default_to)}
                            for e in cands[:MAX_CANDIDATES]],
-            "window": {"from": days[0] if days else today.isoformat(),
-                       "to": (today + timedelta(days=ALIAS_DAYS_AHEAD)).isoformat()},
+            "window": {"from": corpus_from, "to": default_to},
             "excerpts": _spread(pairs, EXCERPTS, weakest_first=False),
         })
     items.sort(key=lambda i: (-i["pairs"], i["key"]))
@@ -232,7 +254,10 @@ def annotation_items(sample: dict, *, second_reader: bool) -> list:
     stratum or the model's answer. The text is served per pair, separately."""
     ids = set(sample.get("second_reader") or ())
     out = []
-    for p in sample.get("pairs") or []:
+    # ⚠️ ORDERED BY pair_id — a hash, uncorrelated with anything. The sample
+    # file is drawn stratum by stratum, so its own order would tell the
+    # annotator the model's group from the position counter alone.
+    for p in sorted(sample.get("pairs") or [], key=lambda p: p["pair_id"]):
         if second_reader and p["pair_id"] not in ids:
             continue
         ident = p.get("identity") or {}
@@ -285,19 +310,37 @@ def adjudication_rows(sample: dict, answers: dict, *, annotator: str,
             "source_revealed": pid in revealed,
             "annotator": annotator, "annotated_at": finalized_at,
         })
+    import person_accuracy_gate as gate  # noqa: PLC0415
+    for row in rows:
+        row["seal"] = gate.seal_of(row)
     return rows
 
 
 def merge_adjudications(doc: dict, rows: list, annotator: str,
-                        served: set) -> dict:
+                        served: set, *, second_pass: bool = False,
+                        finalized_at: str | None = None) -> dict:
     """Replace THIS annotator's rows on the pairs this pass served, keep
     everything else — a second reader must never overwrite the first, which is
     what agreement is computed over, and a reviewer's second pass must not
     delete their first."""
+    pass_name = "second" if second_pass else "first"
+    clash = [r for r in doc.get("pairs") or []
+             if r.get("annotator") == annotator and r.get("pair_id") in served
+             and (r.get("pass") or "first") != pass_name]
+    if clash:
+        # §9 — one person relabelling is not agreement, and replacing their
+        # other pass would delete it. A second reader must be someone else.
+        raise ValueError(
+            f"{annotator} already has {len(clash)} {('first' if second_pass else 'second')}"
+            "-pass rows on these pairs — the second reader must be a different person")
     kept = [r for r in doc.get("pairs") or []
             if not (r.get("annotator") == annotator
                     and r.get("pair_id") in served)]
-    return {**doc, "version": 2, "pairs": kept + rows}
+    finalized = dict(doc.get("finalized") or {})
+    if finalized_at:
+        finalized[f"{annotator}:{pass_name}"] = finalized_at
+    return {**doc, "version": 2, "finalized": finalized,
+            "pairs": kept + [{**r, "pass": pass_name} for r in rows]}
 
 
 # ── Нови лица — Bulgarians outside the gazetteer (plan §3.1.4) ─────────────
@@ -305,8 +348,30 @@ def merge_adjudications(doc: dict, rows: list, annotator: str,
 MIN_NEW_PERSON_PAIRS = 5
 
 
+MAX_SIMILAR = 5
+
+
+def similar_people(surface: str, people: dict) -> list:
+    """Gazetteer people whose name shares this one's surname — the main-site
+    namesakes a reviewer must rule out before minting a news-only identity.
+    Same first name first."""
+    words = [fold(w) for w in surface.split()]
+    if len(words) < 2:
+        return []
+    out = []
+    for pid, e in people.items():
+        parts = [fold(w) for w in str(e.get("canonical") or "").split()]
+        if len(parts) >= 2 and parts[-1] == words[-1]:
+            out.append((parts[0] != words[0], e.get("canonical") or "", pid))
+    out.sort()
+    return [{"id": pid, "canonical": name}
+            for _, name, pid in out[:MAX_SIMILAR]]
+
+
 def new_person_items(collected_names: dict, registry: dict, scope_review: dict,
-                     *, today: date | None = None) -> list:
+                     *, people: dict | None = None,
+                     stoplist: list | None = None,
+                     today: date | None = None) -> list:
     """Full names Jev scored that resolve to nobody, most-scored first.
 
     `collected_names` is folded name → [pair] for UNLINKED subjects of two or
@@ -320,6 +385,9 @@ def new_person_items(collected_names: dict, registry: dict, scope_review: dict,
     for bucket in ("foreign", "rejected"):
         for row in scope_review.get(bucket) or []:
             known.add(fold(row.get("name") or ""))
+    # Foreign heads of state and senior foreign officials (§8.1: „already
+    # filtered out") — the reviewer's time goes on missing Bulgarians.
+    known.update(fold(n) for n in stoplist or ())
     items = []
     for key, pairs in collected_names.items():
         if len(pairs) < MIN_NEW_PERSON_PAIRS or key in known:
@@ -330,6 +398,7 @@ def new_person_items(collected_names: dict, registry: dict, scope_review: dict,
             "key": key, "surface": surface, "pairs": len(pairs),
             "outlets": len(outlets),
             "excerpts": _spread(pairs, EXCERPTS, weakest_first=False),
+            "similar": similar_people(surface, people or {}),
             # A DRAFT the reviewer must edit — never saved as written.
             "draft_bg": f"Споменат(а) в {len(pairs)} материала от "
                         f"{len(outlets)} издания.",

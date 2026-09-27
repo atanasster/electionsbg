@@ -2,7 +2,13 @@
 // blank cells under five units, and a plain message when no period is dense
 // enough to read.
 
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { MatrixPeriod, PersonMatrix } from "../data";
@@ -80,9 +86,16 @@ afterEach(cleanup);
 describe("PersonsMediaScreen", () => {
   it("draws cells, blanks the thin ones, and says what was left out", async () => {
     await draw(matrix(true));
-    expect(screen.getAllByTestId("cell-filled")).toHaveLength(2);
+    const table = within(screen.getByTestId("matrix-grid"));
+    expect(table.getAllByTestId("cell-filled")).toHaveLength(2);
     // mp-1 × b.bg has n 3; mp-2 × b.bg is absent — both blank.
-    expect(screen.getAllByTestId("cell-blank")).toHaveLength(2);
+    expect(table.getAllByTestId("cell-blank")).toHaveLength(2);
+    // The mobile strip lists only outlets the person has units in.
+    expect(
+      within(screen.getByTestId("matrix-mobile")).queryAllByTestId(
+        "cell-blank",
+      ),
+    ).toHaveLength(1);
     expect(screen.getByTestId("matrix-omitted").textContent).toContain(
       "7 души и 12 издания не са включени",
     );
@@ -97,11 +110,12 @@ describe("PersonsMediaScreen", () => {
   it("deviation mode keeps a straddling gap grey", async () => {
     await draw(matrix(true));
     fireEvent.click(screen.getByRole("button", { name: "спрямо обичайното" }));
-    const radev = screen.getByRole("link", { name: /a\.bg — Румен Радев/ });
+    const table = within(screen.getByTestId("matrix-grid"));
+    const radev = table.getByRole("link", { name: /a\.bg — Румен Радев/ });
     expect(radev.getAttribute("aria-label")).toContain(
       "в рамките на обичайното",
     );
-    const yotova = screen.getByRole("link", { name: /a\.bg — Илияна Йотова/ });
+    const yotova = table.getByRole("link", { name: /a\.bg — Илияна Йотова/ });
     expect(yotova.getAttribute("aria-label")).toContain(
       "по-неблагоприятно от обичайното",
     );

@@ -4151,6 +4151,16 @@ class MemberPersonTones(unittest.TestCase):
             [self.subject()], {"text_scope": {"kind": "prefix"}}), [])
         self.assertEqual(bad.member_person_tones(None, full), [])
 
+    def test_a_foreign_or_private_news_only_identity_is_never_compared(self):
+        full = {"text_scope": {"kind": "full"}}
+        np = lambda **kw: self.subject(identity={  # noqa: E731
+            "kind": "news_person", "id": "np_1", "canonical": "Н", **kw})
+        for s in (np(scope="foreign", public_figure=True),
+                  np(scope="bg", public_figure=False), np()):
+            self.assertEqual(bad.member_person_tones([s], full), [], s)
+        self.assertEqual(len(bad.member_person_tones(
+            [np(scope="bg", public_figure=True)], full)), 1)
+
 
 class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
     """Stage C's last exit criterion — „Correction/removal rebuilds story,
@@ -4241,7 +4251,8 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
             ensure_ascii=False), encoding="utf-8")
 
     def seed(self):
-        for slug in ("p", "q"):
+        # Five stories: a page needs N ≥ 5 (outlet, story) units (§4.3).
+        for slug in ("p", "q", "r", "s", "t"):
             art = {"url": f"https://a.bg/{slug}", "domain": "a.bg",
                    "title": f"Иван Петров говори {slug}",
                    "published": "2026-09-20T09:00:00+00:00",
@@ -4267,6 +4278,23 @@ class CorrectionRebuildsEveryConsumer(BuildAppDataFixture):
         with mock.patch.dict(os.environ, {"NEWS_JEV_PUBLISH": "subject_tone",
                                           "NEWS_PERSON_AGGREGATES": "1"}):
             return super().run_build_process(*extra)
+
+    def test_an_estimated_election_date_is_reported_whatever_the_flags(self):
+        from unittest import mock  # noqa: PLC0415
+        self.seed(); self.registry(active=True)
+        freezes = Path(self.root) / "news" / "data" / "publication_freezes.json"
+        freezes.parent.mkdir(parents=True, exist_ok=True)
+        freezes.write_text(json.dumps({"freezes": [{
+            "id": "t-r1", "from": "2026-11-07T00:00:00+02:00",
+            "until": "2026-11-08T20:00:00+02:00", "status": "estimated"}]}),
+            encoding="utf-8")
+        with mock.patch.dict(os.environ, {"NEWS_PERSON_AGGREGATES": "0"}):
+            proc = BuildAppDataFixture.run_build_process(
+                self, "--as-of", "2026-10-01T10:00:00+00:00")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        summary = json.loads(proc.stdout)
+        self.assertIn("election_freeze",
+                      [a["alert"] for a in summary["person_alerts"]])
 
     def test_an_election_freeze_with_no_snapshot_withholds(self):
         # §8.2, end to end with an injected clock: the windows file lives in

@@ -49,8 +49,11 @@ APP_DATA = HERE.parent / "app-data"
 SENTIMENT_DIR = pij.DATA / "analysis" / "sentiment"
 TARGETS = {"model_scored": 150, "model_incidental": 40,
            "unscored_subject": 30, "text_only": 30}
-# Within model_scored, by the MODEL's group.
-SCORED_TARGETS = {"unfavorable": 50, "favorable": 50}
+# Within model_scored, by the MODEL's group. The thin favourable group is
+# oversampled hardest (§8: the gate needs 30 HUMAN favourable labels, and the
+# model's group is not the human's), and a few pairs the model DECLINED to
+# place are drawn so its silence is scored against a human answer.
+SCORED_TARGETS = {"favorable": 65, "unfavorable": 45, "not_assessed": 10}
 SECOND_READER = 50
 TOKEN = re.compile(r"[^\W\d_]+", re.UNICODE)
 
@@ -117,6 +120,7 @@ def candidates(app_data: Path, src: pij.Sources) -> dict:
                     else {})
             row = {**base, "surface": s["name"],
                    "identity": {k: ident.get(k) for k in ("kind", "id", "canonical")},
+                   "identity_basis": ident.get("basis"),
                    "identity_version": ident.get("identity_version"),
                    "pipeline_role": s.get("subject_role"),
                    "pipeline_value": tone.get("value"),
@@ -124,10 +128,12 @@ def candidates(app_data: Path, src: pij.Sources) -> dict:
             if s.get("subject_role") == "incidental":
                 out["model_incidental"].append({**row, "stratum": "model_incidental"})
             elif (s.get("subject_role") in ("primary", "secondary")
-                  and isinstance(tone.get("bucket_index"), int)
                   and not s.get("conflict")):
-                out["model_scored"].append({**row, "stratum": "model_scored",
-                                            "model_group": group_of(tone["bucket_index"])})
+                placed = isinstance(tone.get("bucket_index"), int)
+                out["model_scored"].append({
+                    **row, "stratum": "model_scored",
+                    "model_group": (group_of(tone["bucket_index"]) if placed
+                                    else "not_assessed")})
         links = analysis.get("entity_links") or {}
         linked_ids = set()
         for surface, link in links.items():
@@ -169,10 +175,12 @@ def named_in(surface: str, text: str) -> bool:
 
 
 def spread(rows: list, n: int, rng: random.Random) -> list:
-    """Up to `n` rows, round-robin over outlets so no outlet dominates."""
+    """Up to `n` rows, round-robin over (identity basis, outlet) so neither an
+    outlet nor the easiest link kind dominates (§8)."""
     by_domain: dict = defaultdict(list)
     for r in rows:
-        by_domain[r.get("domain")].append(r)
+        by_domain[(str(r.get("identity_basis") or ""),
+                   str(r.get("domain") or ""))].append(r)
     for bucket in by_domain.values():
         rng.shuffle(bucket)
     order = sorted(by_domain)
@@ -202,6 +210,9 @@ def draw(pool: dict, seed: int) -> dict:
         picked += spread(pool[stratum], TARGETS[stratum], rng)
     seen = set()
     unique = []
+    # Shuffled with the same seed: the file must not list the pairs stratum
+    # by stratum (the workspace orders by pair_id as well).
+    rng.shuffle(picked)
     for r in picked:
         r["pair_id"] = pair_id(r["article_url"], r["surface"],
                                (r.get("identity") or {}).get("id"))
@@ -231,7 +242,7 @@ def main() -> int:
                         for k in TARGETS},
               "model_scored_by_group": {
                   g: sum(1 for r in sample["pairs"] if r.get("model_group") == g)
-                  for g in ("unfavorable", "neutral", "favorable")},
+                  for g in ("unfavorable", "neutral", "favorable", "not_assessed")},
               "second_reader": len(sample["second_reader"])}
     print(json.dumps(report, ensure_ascii=False, indent=1))
     if args.write:

@@ -46,6 +46,7 @@ a 95% upper bound of ~1.9% on the true rate, and the report prints it.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import sys
@@ -76,6 +77,22 @@ GATES = {
 }
 SUPPORT = {"test_pairs": 200, "per_group": 30,
            "doubly_annotated": 40, "min_kappa": 0.60}
+
+
+# §8.1 — the fields a finalized row is sealed over: the sample's own (which
+# carry the model's answer) and the human's. A row whose seal no longer
+# matches was edited after the workspace wrote it, and is not scored.
+SEALED_FIELDS = ("pair_id", "split", "stratum", "article_url", "surface",
+                 "identity", "identity_version", "rubric_version",
+                 "pipeline_role", "pipeline_value", "pipeline_bucket_index",
+                 "role", "level", "wrong_person", "declined", "annotator",
+                 "adjudicated")
+
+
+def seal_of(row: dict) -> str:
+    body = {k: row.get(k) for k in SEALED_FIELDS}
+    return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True)
+                          .encode("utf-8")).hexdigest()[:16]
 
 
 def current_rubric() -> str:
@@ -158,6 +175,10 @@ def partition(rows: list, *, rubric: str | None, versions: dict | None) -> dict:
         if not isinstance(row, dict):
             excluded["malformed"] += 1
             continue
+        if row.get("seal") != seal_of(row):
+            # Written or changed outside the workspace's finalize (§8.1).
+            excluded["unsealed"] += 1
+            continue
         if row.get("split") != "test":
             excluded["development"] += 1
             continue
@@ -211,8 +232,13 @@ def pipeline_level(row: dict):
 
 
 def tone_metrics(rows: list) -> dict:
-    """Over pairs the HUMAN placed as a substantive subject with a tone."""
+    """Over MODEL-SCORED pairs the HUMAN placed as a substantive subject with
+    a tone. ⚠️ Only the model_scored stratum: the detection strata are pairs
+    the model gave no tone by construction, so counting them here folds
+    detection into tone — and dilutes the sign-flip denominator with rows
+    that can never flip (§8: reported apart, never one score)."""
     judged = [r for r in rows if r.get("role") in SUBSTANTIVE
+              and (r.get("stratum") or "model_scored") == "model_scored"
               and group_of(r.get("level")) and not r.get("wrong_person")]
     n = len(judged)
     exact = near = flips = declined = 0
@@ -352,14 +378,35 @@ def build_report(path: Path = ADJUDICATIONS, *, rubric: str | None = None,
     }
 
 
+def seal_new(path: Path = ADJUDICATIONS) -> int:
+    """Seal ADJUDICATING rows that carry no seal — the one kind a reviewer
+    writes by hand, to resolve a disagreement. ⚠️ An annotator's row is only
+    ever sealed by the workspace: an unsealed one is an edit with its seal
+    deleted, and sealing it here would launder it."""
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    n = 0
+    for r in doc.get("pairs") or []:
+        if isinstance(r, dict) and r.get("adjudicated") and not r.get("seal"):
+            r["seal"] = seal_of(r)
+            n += 1
+    path.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n",
+                    encoding="utf-8")
+    return n
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--adjudications", type=Path, default=ADJUDICATIONS)
     ap.add_argument("--app-data", type=Path, default=APP_DATA)
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--seal-new", action="store_true",
+                    help="seal hand-written rows that carry no seal yet (never an edited one)")
     ap.add_argument("--enforce", action="store_true",
                     help="exit non-zero unless every floor, agreement included, is met")
     args = ap.parse_args(argv)
+    if args.seal_new:
+        print(f"sealed {seal_new(args.adjudications)} row(s)")
+        return 0
     report = build_report(args.adjudications, rubric=current_rubric(),
                           versions=current_identity_versions(),
                           app_data=args.app_data)

@@ -68,7 +68,12 @@ PAGE_MIN_N = 5
 COVERAGE_FLOOR = 0.8
 # Links a page may rest on without a human identity check (§4.3).
 STRONG_FORM_KINDS = frozenset({"full_name", "curated_entity"})
-STRONG_BASES = frozenset({"context", "surname_alias"})
+# ⚠️ NOT „context". A context cue links a two-part name by party or office
+# proximity, and the §3.2 precision audit of that step has not been recorded;
+# measured, it attributed the Burgas mayor's coverage to an MP namesake. A
+# person whose every link is a context cue waits for the identity check
+# (Самоличност) like a two-part-only one.
+STRONG_BASES = frozenset({"surname_alias"})
 Z95 = 1.96
 
 
@@ -148,11 +153,21 @@ def _status(subject: dict, full_text: bool) -> str:
     return "assessed"
 
 
+def aggregatable(identity: dict) -> bool:
+    """§2.3/§2.5 — may this identity enter ANY aggregate (a page, a
+    co-subject count, a cross-outlet comparison)? A news-only identity only as
+    a Bulgarian public figure; a foreigner or a private individual never."""
+    return not (identity.get("kind") == "news_person" and not (
+        identity.get("scope") == "bg" and identity.get("public_figure") is True))
+
+
 def _co_label(subject: dict) -> tuple | None:
     ident = subject.get("identity")
     if subject.get("kind") == "party" and subject.get("name"):
         return ("party", subject["name"])
-    if ident:
+    # §2.3/§2.5 — a foreigner or a non-public news-only identity is never
+    # aggregated, and a co-subject count is an aggregate.
+    if ident and aggregatable(ident):
         return (ident["kind"], ident["id"])
     return None
 
@@ -282,7 +297,11 @@ def _finish(entry: dict, labels: tuple) -> None:
             raw_counts[r["bucket"]] += 1
     entry["raw_counts"] = raw_counts
     entry["units"] = {basis: units(entry["rows"], basis) for basis in BASES}
-    entry["outlet_count"] = len(entry["outlets"])
+    # Outlets over ASSESSED rows — the figure is printed beside the assessed
+    # count („N материала от K издания"), so an outlet whose only pair went
+    # unassessed must not be in it.
+    entry["outlet_count"] = len({r["domain"] for r in entry["rows"]
+                                 if r["status"] == "assessed" and r["domain"]})
     entry["story_count"] = len(entry["stories"])
 
 
@@ -311,9 +330,13 @@ def page_decision(entry: dict, *, confirmed: set, refused: set) -> str:
         # A news-only identity was chosen by a human; it may carry a page only
         # as a Bulgarian PUBLIC figure — a private individual named in the
         # news gets article-level display and nothing aggregated.
-        if entry.get("scope") != "bg" or entry.get("public_figure") is not True:
+        if not aggregatable(entry):
             return "not_public_bg"
-        return "publish" if entry["assessed"] else "no_assessed_pairs"
+        if not entry["assessed"]:
+            return "no_assessed_pairs"
+        # The same N ≥ 5 floor as a gazetteer person: one scored pair is not
+        # „how the media present" anybody.
+        return "publish" if n_story(entry) >= PAGE_MIN_N else "below_threshold"
     if n_story(entry) < PAGE_MIN_N:
         return "below_threshold"
     if not (entry["strong_link"] or entry["id"] in confirmed):
@@ -368,8 +391,15 @@ def series(entry: dict, coverage_days: dict) -> dict:
     points = []
     for period in sorted(buckets):
         share = shares.get(period)
+        summary = summarize(buckets[period])
+        # §4.1 — a point under the outlet-mean floor carries its counts, not a
+        # mean: one article's value is not „how the week covered them".
+        sparse = summary["n"] < MEAN_MIN_N
+        if sparse:
+            summary = {**summary, "mean": None, "mean_bucket": None,
+                       "se": None, "ci_low": None, "ci_high": None}
         points.append({
-            "period": period, **summarize(buckets[period]),
+            "period": period, **summary, "sparse": sparse,
             "coverage": _round(share, 3),
             # ⚠️ PER POINT, not per month: a week at 62% hides inside a month
             # that passes. The client hatches these instead of drawing a line.
@@ -432,7 +462,9 @@ def index_row(entry: dict, meta: dict) -> dict:
             "role_label": (meta.get("role_labels") or {}).get(meta.get("current_role")),
             "party": meta.get("party"),
             "n": story["n"], "counts": story["counts"],
-            "eligible": entry["eligible"], "outlet_count": entry["outlet_count"],
+            "eligible": entry["eligible"], "assessed": entry["assessed"],
+            "outlet_count": entry["outlet_count"],
+            "first_published": entry["first_published"],
             "last_published": entry["last_published"],
             # outlet → [n, counts in bucket order] at the story basis, so the
             # index's outlet filter can redraw each row's bars for that outlet

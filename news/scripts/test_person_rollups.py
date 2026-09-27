@@ -204,9 +204,17 @@ class PageGuard(unittest.TestCase):
         self.assertEqual(pr.page_decision(e, confirmed={"p"}, refused=set()),
                          "publish")
 
+    def test_a_context_cue_alone_waits_for_the_identity_check(self):
+        # The Burgas mayor's coverage reached an MP namesake through a
+        # party-proximity cue; a context-only page needs a human.
+        e = self.entry(5, basis="context")
+        self.assertEqual(pr.page_decision(e, confirmed=set(), refused=set()),
+                         "identity_unconfirmed")
+        self.assertEqual(pr.page_decision(e, confirmed={"p"}, refused=set()),
+                         "publish")
+
     def test_a_strong_link_is_enough(self):
-        for kw in ({"form_kind": "full_name"}, {"basis": "context"},
-                   {"basis": "surname_alias"}):
+        for kw in ({"form_kind": "full_name"}, {"basis": "surname_alias"}):
             self.assertEqual(pr.page_decision(self.entry(5, **kw),
                                               confirmed=set(), refused=set()),
                              "publish", kw)
@@ -217,15 +225,40 @@ class PageGuard(unittest.TestCase):
                          "identity_refused")
 
     def test_a_news_only_identity_must_be_a_bulgarian_public_figure(self):
-        def np(scope, public):
-            s = subject("np_1", kind="news_person")
-            s["identity"].update(scope=scope, public_figure=public)
-            return pr.collect([article("a/1", [s])])["np_1"]
+        def np(scope, public, stories=5):
+            rows = []
+            for i in range(stories):
+                s = subject("np_1", kind="news_person")
+                s["identity"].update(scope=scope, public_figure=public)
+                rows.append(article(f"a/{i}", [s], story=f"s{i}"))
+            return pr.collect(rows)["np_1"]
         self.assertEqual(pr.page_decision(np("bg", True), confirmed=set(),
                                           refused=set()), "publish")
+        # The same N ≥ 5 floor as a gazetteer person.
+        self.assertEqual(pr.page_decision(np("bg", True, stories=1),
+                                          confirmed=set(), refused=set()),
+                         "below_threshold")
         for scope, public in (("bg", False), ("foreign", True), (None, None)):
             self.assertEqual(pr.page_decision(np(scope, public), confirmed=set(),
                                               refused=set()), "not_public_bg")
+
+    def test_outlets_are_counted_over_assessed_pairs(self):
+        rows = [article("a/1", [subject("p")], domain="a.bg"),
+                article("b/1", [subject("p", tone=False)], domain="b.bg",
+                        story="s2")]
+        self.assertEqual(pr.collect(rows)["p"]["outlet_count"], 1)
+
+    def test_a_foreign_news_only_co_subject_is_not_counted(self):
+        foreign = subject("np_f", kind="news_person")
+        foreign["identity"].update(scope="foreign", public_figure=True)
+        entry = pr.collect([article("a/1", [subject("p"), foreign])])["p"]
+        self.assertEqual(entry["co_subjects"], {})
+
+    def test_a_sparse_series_point_carries_no_mean(self):
+        entry = pr.collect([article("a/1", [subject("p")])])["p"]
+        point = pr.series(entry, {"2026-09-10": [100, 100]})["points"][0]
+        self.assertTrue(point["sparse"])
+        self.assertIsNone(point["mean"])
 
 
 class Shapes(unittest.TestCase):

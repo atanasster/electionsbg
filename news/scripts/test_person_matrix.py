@@ -102,6 +102,15 @@ class Build(unittest.TestCase):
         self.assertEqual(grid["rows"][0]["id"], "p09")  # most units first
         self.assertEqual(grid["cols"][0]["domain"], "a.bg")
 
+    def test_candidates_are_a_threshold_not_a_top_n(self):
+        # §7.1 rule 1: ≥ 30 units in the period — a person under it never
+        # enters, however few people qualify.
+        people = self.people()
+        people["thin"] = entry([unit(f"{o}.bg", -0.8) for o in "abcdef"
+                                for _ in range(4)])  # 24 units
+        out = pm.build(people, {}, COVERED, "2026-09-27T00:00:00+00:00")
+        self.assertNotIn("thin", [r["id"] for r in out["periods"]["all"]["rows"]])
+
     def test_too_few_rows_is_not_offered(self):
         out = pm.build(self.people(n_people=5), {}, COVERED,
                        "2026-09-27T00:00:00+00:00")

@@ -23,7 +23,10 @@ export const OutletPeople = ({ domain }: { domain: string }) => {
     .filter(({ f }) => f.n > 0)
     .sort((a, b) => b.f.n - a.f.n || a.r.id.localeCompare(b.r.id))
     .slice(0, LIMIT);
-  if (!rows.length) return null;
+  // §8.2 — a withheld window says so here too, rather than the section
+  // silently disappearing.
+  if (!rows.length)
+    return index.data?.withheld ? <FreezeBanner stamps={index.data} /> : null;
   return (
     <section aria-labelledby="outlet-people" data-testid="outlet-people">
       <Card className="p-4">
@@ -33,7 +36,7 @@ export const OutletPeople = ({ domain }: { domain: string }) => {
           </h2>
           {index.data?.matrix ? (
             <Link
-              to="/persons/media"
+              to={`/persons/media?outlet=${encodeURIComponent(domain)}`}
               className="text-xs text-primary underline-offset-4 hover:underline"
             >
               {tr("Медиите и хората", "The media and the people")} →

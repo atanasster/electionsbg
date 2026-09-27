@@ -20,7 +20,9 @@ the one case where an operator believes they have shipped and have not.
 """
 from __future__ import annotations
 
+import json
 import os
+from pathlib import Path
 
 FLAGS = {
     "rail": "NEWS_PERSON_RAIL",
@@ -33,6 +35,49 @@ OFF = frozenset({"", "0", "false", "off"})
 
 class PersonPublicationError(ValueError):
     """A flag cannot be read. Never silently off."""
+
+
+PRECISION_PATH = (Path(__file__).resolve().parent.parent / "evals"
+                  / "person_link_precision.json")
+PRECISION_MIN_PAIRS = 100
+PRECISION_FLOOR = 0.98
+
+
+def link_precision(path: Path = PRECISION_PATH) -> dict | None:
+    """The §3.2 hand audit of the join's steps 2–3 — `{pairs, correct}` —
+    or None when it has not been recorded."""
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        pairs, correct = int(doc["pairs"]), int(doc["correct"])
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+    return {"pairs": pairs, "correct": correct,
+            "precision": correct / pairs if pairs else None}
+
+
+def readiness_alerts(surfaces: frozenset, path: Path = PRECISION_PATH,
+                     gate: dict | None = None) -> list:
+    """What an ON switch is missing. ⚠️ Reported on every run rather than
+    refusing the build: the switch is the operator's, and a refusal would take
+    the article pages down with it — but an unmet precondition must never be
+    silent (§8: the rail ships when the join's precision audit passes)."""
+    out = []
+    audit = link_precision(path)
+    if "rail" in surfaces and (
+            audit is None or audit["pairs"] < PRECISION_MIN_PAIRS
+            or (audit["precision"] or 0) < PRECISION_FLOOR):
+        state = "is missing" if audit is None else "is below the floor"
+        out.append({"alert": "person_rail_without_link_audit",
+                    "message": f"NEWS_PERSON_RAIL is on but {path.name} {state} — "
+                               f"≥{PRECISION_MIN_PAIRS} hand-checked context/alias "
+                               f"links at ≥{PRECISION_FLOOR:.0%} precision (§3.2)"})
+    # §8/§9 — the aggregates ship when the gate passes (the agreement arm
+    # may stay open, stated on the methodology page).
+    if "aggregates" in surfaces and not (gate or {}).get("passed_without_agreement"):
+        out.append({"alert": "person_aggregates_without_gate",
+                    "message": "NEWS_PERSON_AGGREGATES is on but the person "
+                               "accuracy gate has not passed (§8)"})
+    return out
 
 
 def published(env=None) -> frozenset:

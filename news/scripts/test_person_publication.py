@@ -34,5 +34,38 @@ class Flags(unittest.TestCase):
                          {"matrix", "aggregates"})
 
 
+
+class Readiness(unittest.TestCase):
+    def audit(self, doc):
+        import json, tempfile  # noqa: E401, PLC0415
+        from pathlib import Path  # noqa: PLC0415
+        path = Path(tempfile.mkdtemp()) / "p.json"
+        if doc is not None:
+            path.write_text(json.dumps(doc), encoding="utf-8")
+        return path
+
+    def test_the_rail_without_its_link_audit_is_reported(self):
+        alerts = pp.readiness_alerts(frozenset({"rail"}), self.audit(None))
+        self.assertEqual([a["alert"] for a in alerts],
+                         ["person_rail_without_link_audit"])
+        low = self.audit({"pairs": 100, "correct": 95})
+        self.assertTrue(pp.readiness_alerts(frozenset({"rail"}), low))
+        few = self.audit({"pairs": 40, "correct": 40})
+        self.assertTrue(pp.readiness_alerts(frozenset({"rail"}), few))
+
+    def test_aggregates_on_without_the_gate_are_reported(self):
+        alerts = pp.readiness_alerts(frozenset({"aggregates"}), self.audit(None),
+                                     gate={"passed_without_agreement": False})
+        self.assertEqual([a["alert"] for a in alerts],
+                         ["person_aggregates_without_gate"])
+        self.assertEqual(pp.readiness_alerts(
+            frozenset({"aggregates"}), self.audit(None),
+            gate={"passed_without_agreement": True}), [])
+
+    def test_a_passing_audit_or_an_off_rail_is_quiet(self):
+        ok = self.audit({"pairs": 120, "correct": 119})
+        self.assertEqual(pp.readiness_alerts(frozenset({"rail"}), ok), [])
+        self.assertEqual(pp.readiness_alerts(frozenset(), self.audit(None)), [])
+
 if __name__ == "__main__":
     unittest.main()

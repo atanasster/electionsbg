@@ -62,6 +62,7 @@ ADJUDICATIONS_PATH = ROOT / "news" / "evals" / "person_adjudications.json"
 WORKING_DIR = ROOT / "news" / "var" / "review"
 REGISTRY_PATH = ROOT / "news" / "config" / "news_persons.json"
 SCOPE_REVIEW_PATH = pij.DATA / "person_scope_review.json"
+STOPLIST_PATH = pij.DATA / "person_foreign_stoplist.json"
 NEW_PERSON_ACTIONS = ("accept", "foreign", "reject")
 
 
@@ -148,6 +149,7 @@ class Workspace:
                  sample: dict | None = None, registry_doc: dict | None = None,
                  second_reader: bool = False, extra_paths: dict | None = None):
         self.reviewer = reviewer
+        self.second_reader = second_reader
         self.paths = paths or dict(self.QUEUES)
         self.bodies = bodies
         self.sample = sample or {"pairs": []}
@@ -155,6 +157,7 @@ class Workspace:
                             f"{'-second' if second_reader else ''}.json",
                  "adjudications": ADJUDICATIONS_PATH,
                  "registry": REGISTRY_PATH, "scope_review": SCOPE_REVIEW_PATH,
+                 "stoplist": STOPLIST_PATH,
                  **(extra_paths or {})}
         self.extra = extra
         self.working = read_json(extra["working"],
@@ -175,8 +178,10 @@ class Workspace:
                                          self.docs["surnames"]),
             "annotation": rq.annotation_items(self.sample,
                                               second_reader=second_reader),
-            "new_people": rq.new_person_items(collected.get("names") or {},
-                                              self.registry, self.scope_review),
+            "new_people": rq.new_person_items(
+                collected.get("names") or {}, self.registry, self.scope_review,
+                people=people,
+                stoplist=read_json(extra["stoplist"], {}).get("names") or []),
         }
         self.decided: dict = {q: {} for q in self.items}
         # A working copy survives a restart: its answers are already decided.
@@ -263,17 +268,20 @@ class Workspace:
             answers = self.working.get("answers") or {}
             if not answers:
                 raise ValueError("nothing to finalize")
+            finalized_at = now_iso()
             rows = rq.adjudication_rows(
                 self.sample, answers, annotator=self.reviewer,
                 rubric_version=self.sample.get("rubric_version") or "",
-                finalized_at=now_iso(),
+                finalized_at=finalized_at,
                 revealed=set(self.working.get("revealed") or ()))
             doc = read_json(self.extra["adjudications"],
                             {"version": 2, "pairs": []})
             atomic_write_json(self.extra["adjudications"],
                               rq.merge_adjudications(
                                   doc, rows, self.reviewer,
-                                  {i["key"] for i in self.items["annotation"]}))
+                                  {i["key"] for i in self.items["annotation"]},
+                                  second_pass=self.second_reader,
+                                  finalized_at=finalized_at))
             return {"rows": len(rows)}
 
     def decide_new_person(self, key: str, action: str, fields: dict) -> dict:
@@ -358,7 +366,7 @@ class Workspace:
             "profile_base": MAIN_PROFILE,
             "photo_base": photo_base(),
             "role_labels": role_labels(),
-            "second_reader": self.extra["working"].stem.endswith("-second"),
+            "second_reader": self.second_reader,
             "revealed": list(self.working.get("revealed") or []),
             "queues": {q: {"items": items,
                            "decided": {k: v for k, v in self.decided[q].items()}}
@@ -555,7 +563,7 @@ a{color:var(--accent)}
 <aside id="panel"></aside>
 <script>
 const Q={identity:"Самоличност",surnames:"Фамилии",annotation:"Оценки",new_people:"Нови лица"};
-let S=null,cur="identity",skipped={identity:[],surnames:[],annotation:[],new_people:[]},mixed=null,sel=null,cue=false,msg="",role=null,pairText={},source=null;
+let S=null,cur="identity",skipped={identity:[],surnames:[],annotation:[],new_people:[]},mixed=null,sel=null,cue=false,msg="",role=null,pairText={},source=null,win=null;
 const $=id=>document.getElementById(id);
 const el=(t,p={},...kids)=>{const e=document.createElement(t);
  for(const[k,v]of Object.entries(p)){if(k==="class")e.className=v;else if(k==="text")e.textContent=v;
@@ -576,7 +584,7 @@ function renderRail(){const r=$("rail");r.replaceChildren();let done=0,total=0;
  for(const q of Object.keys(Q)){const n=S.queues[q].items.length,d=Object.keys(S.queues[q].decided).length;done+=d;total+=n;
   r.append(el("button",{class:q===cur?"on":"",onclick:()=>{cur=q;reset();render()}},el("span",{text:Q[q]}),el("span",{class:"count",text:d+"/"+n})))}
  $("prog").style.width=(total?Math.round(100*done/total):0)+"%"}
-function reset(){mixed=null;sel=null;cue=false;msg="";role=null;source=null}
+function reset(){mixed=null;sel=null;cue=false;msg="";role=null;source=null;win=null}
 function render(){renderRail();const v=$("view");v.replaceChildren();const it=current(cur);
  const d=Object.keys(S.queues[cur].decided).length,n=S.queues[cur].items.length;
  v.append(el("div",{class:"head"},el("span",{text:Q[cur]+" · "+Math.min(d+1,n)+" от "+n}),el("span",{class:msg.startsWith("!")?"err":"done",text:msg.replace(/^!/,"")})));
@@ -603,6 +611,8 @@ function renderAnnotation(v,it){const c=el("div",{class:"card"});
  c.append(a);v.append(c)}
 function renderNewPerson(v,it){const c=el("div",{class:"card"});
  c.append(el("h2",{text:"„"+it.surface+"“"}),el("div",{class:"roles",text:it.pairs+" оценени материала · "+it.outlets+" издания · няма го в речника"}));
+ if((it.similar||[]).length){const sim=el("div",{class:"roles"},"С подобно име в Наясно (провери, че не е някой от тях): ");
+  it.similar.forEach((p,i)=>{if(i)sim.append(", ");sim.append(el("a",{href:S.profile_base+p.id,target:"_blank",rel:"noopener",text:p.canonical}))});c.append(sim)}
  const ol=el("ol",{class:"ex"});it.excerpts.forEach((x,i)=>ol.append(excerptNode(x,i)));c.append(ol);
  const f=(id,label,val,area)=>el("label",{},label,el(area?"textarea":"input",area?{id}:{id,type:"text",value:val}));
  const form=el("div",{class:"form"},f("nbg","Име (български)",it.surface),f("nen","Име (латиница)",""),
@@ -631,10 +641,10 @@ function renderSurname(v,it){const c=el("div",{class:"card"});
  c.append(el("h2",{text:"„"+it.surface+"“"}),el("div",{class:"roles",text:it.pairs+" материала без връзка · "+it.holders_total+" публични лица с тази фамилия"+(it.holders_total>it.candidates.length?" (показани "+it.candidates.length+")":"")}));
  c.append(el("div",{class:"q",text:"Кого означава само фамилията в тези материали?"}));
  const ol=el("ol",{class:"ex"});it.excerpts.forEach((x,i)=>ol.append(excerptNode(x,i)));c.append(ol);
- const cs=el("div",{class:"cands"});it.candidates.forEach((p,i)=>cs.append(el("button",{class:sel===p.id?"sel":"",onclick:()=>{sel=p.id;render()}},
+ const cs=el("div",{class:"cands"});it.candidates.forEach((p,i)=>cs.append(el("button",{class:sel===p.id?"sel":"",onclick:()=>{pick(p)}},
   el("kbd",{text:String(i+1)}),el("span",{text:p.canonical}),el("span",{class:"meta",text:((p.roles||[]).slice(0,2).map(roleText).join(" · ")||"—")+" · "+p.linked_pairs+" с пълно име"}))));
  c.append(el("div",{class:"q",text:"Човек"}),cs);
- const f=el("input",{type:"date",id:"from",value:it.window.from}),t=el("input",{type:"date",id:"to",value:it.window.to});
+ const w=win||it.window;win={...w};const f=el("input",{type:"date",id:"from",value:w.from,onchange:e=>{win.from=e.target.value}}),t=el("input",{type:"date",id:"to",value:w.to,onchange:e=>{win.to=e.target.value}});
  c.append(el("div",{class:"row"},el("label",{},"валиден от ",f),el("label",{},"до ",t),
   el("label",{},el("input",{type:"checkbox",id:"cue",...(cue?{checked:""}:{}),onchange:e=>{cue=e.target.checked}})," изисква контекст (C)")));
  const a=el("div",{class:"actions"});const b=(k,x,fn)=>el("button",{onclick:fn},el("kbd",{text:k}),x);
@@ -657,12 +667,15 @@ async function npDecide(it,action){const g=id=>($(id)||{}).value||"";
  const fields={name_bg:g("nbg"),name_en:g("nen"),disambiguation_bg:g("dbg"),disambiguation_en:g("den"),public_figure:!!($("pf")||{}).checked};
  try{await post("/api/new_person",{key:it.key,action,fields});S.queues.new_people.decided[it.key]={action};saved();reset();msg="записано"}
  catch(e){msg="!"+e.message}render()}
+// Picking a person moves the window to that person's roles (§8.1); the
+// reviewer can still edit it.
+function pick(p){sel=p.id;win=p.window?{...p.window}:win;render()}
 function snAccept(it){if(!sel){msg="!избери човек с 1–9 или отхвърли с R";return render()}snPost(it,sel)}
 function snReject(it){snPost(it,null)}
 function skip(it){skipped[cur]=skipped[cur].filter(k=>k!==it.key).concat(it.key);reset();render()}
 async function undo(){try{const r=await post("/api/undo",{});if(r.entry){delete S.queues[r.entry.queue].decided[r.entry.key];
  skipped[r.entry.queue]=skipped[r.entry.queue].filter(k=>k!==r.entry.key);cur=r.entry.queue;msg="отменено";saved()}else msg="!няма какво да се отмени"}
- catch(e){msg="!"+e.message}reset();render()}
+ catch(e){msg="!"+e.message}const m=msg;reset();msg=m;render()}
 async function article(it){const x=(it.excerpts||[])[0];if(!x)return;const p=$("panel");
  if(p.classList.contains("open")){p.classList.remove("open");return}
  const r=await fetch("/api/article?url="+encodeURIComponent(x.url));const j=await r.json();
@@ -680,7 +693,7 @@ document.addEventListener("keydown",e=>{if(e.target.tagName==="TEXTAREA")return;
  if(cur==="identity"){if(mixed){if(/^[1-5]$/.test(k)){const x=it.excerpts[+k-1];if(x){const id=x.surface+"|"+(+k-1);mixed.has(id)?mixed.delete(id):mixed.add(id);render()}}
    else if(k==="Enter")submitMixed(it);else if(k==="Escape"){reset();render()}return}
   if(k==="y"||k==="Y")idDecide(it,"confirmed",[]);else if(k==="n"||k==="N")idDecide(it,"refused",[]);else if(k==="m"||k==="M"){mixed=new Set();render()}}
- else{if(/^[1-9]$/.test(k)){const p=it.candidates[+k-1];if(p){sel=p.id;render()}}else if(k==="c"||k==="C"){cue=!cue;render()}
+ else{if(/^[1-9]$/.test(k)){const p=it.candidates[+k-1];if(p)pick(p)}else if(k==="c"||k==="C"){cue=!cue;render()}
   else if(k==="Enter")snAccept(it);else if(k==="r"||k==="R")snReject(it)}});
 load();
 </script></body></html>"""
@@ -688,15 +701,21 @@ load();
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--reviewer", required=True,
-                    help="your name — stamped on every decision")
+    ap.add_argument("--reviewer", default=None,
+                    help="your name — stamped on every decision "
+                         "(default: git config user.name)")
     ap.add_argument("--port", type=int, default=8766)
     ap.add_argument("--no-browser", action="store_true")
     ap.add_argument("--second-reader", action="store_true",
                     help="label only the 50-pair agreement subset, blind to the first reader")
     args = ap.parse_args()
-    if not args.reviewer.strip():
-        ap.error("--reviewer must not be empty")
+    if args.reviewer is None:
+        import subprocess  # noqa: PLC0415
+        args.reviewer = subprocess.run(
+            ["git", "config", "user.name"], capture_output=True, text=True,
+            cwd=ROOT).stdout.strip()
+    if not (args.reviewer or "").strip():
+        ap.error("--reviewer is required (no git user.name to default to)")
     Handler.workspace = load_workspace(args.reviewer.strip(),
                                        second_reader=args.second_reader)
     counts = {q: len(v) for q, v in Handler.workspace.items.items()}

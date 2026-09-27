@@ -206,6 +206,35 @@ def _party_near(text_folded: str, name: str, surfaces: list) -> bool:
                for f in folded)
 
 
+def contrary_office(src: Sources, pid: str, name: str, text_folded: str,
+                    day: str | None) -> bool:
+    """Is the name, in THIS article, given an office the candidate has NEVER
+    held — and none that they have?
+
+    ⚠️ THAT IS A NAMESAKE OUTSIDE THE LIST. The candidate list is only the
+    public figures we hold, so the person the article means may not be on it:
+    measured, „кмета на Бургас Димитър Николов" satisfied the ГЕРБ party cue
+    for Димитър Стойков Николов, an MP, and 13 of the mayor's story units
+    became the MP's page. A cue can only vouch when nothing near the name
+    contradicts it. EVER held, not held on the date: „бившият министър X" is
+    the same person, not a namesake."""
+    entry = src.people.get(pid) or {}
+    held = {r.get("role") for r in (entry.get("display") or {}).get("roles") or []}
+    near = [role for role in src.role_words
+            if _role_near(src, text_folded, name, role)]
+    return bool(near) and not any(role in held for role in near)
+
+
+def _parties_on(entry: dict, day: str | None) -> set:
+    """The candidate's party ON THE ARTICLE'S DATE (§3.1.2), from the dated
+    roles; the undated top-level party only when no role is recorded at all
+    (a build without the person layer)."""
+    roles = (entry.get("display") or {}).get("roles") or []
+    if not roles:
+        return {entry["party"]} if entry.get("party") else set()
+    return {r["party"] for r in roles if r.get("party") and held_on(r, day)}
+
+
 def has_cue(src: Sources, pid: str, name: str, text_folded: str,
             party_surfaces: dict, day: str | None) -> bool:
     """Does this article carry a positive cue, NEAR the name, that `name`
@@ -216,12 +245,14 @@ def has_cue(src: Sources, pid: str, name: str, text_folded: str,
     vouches for nobody in particular — ГЕРБ is in most of them.
     """
     entry = src.people.get(pid) or {}
-    party = entry.get("party")
+    if contrary_office(src, pid, name, text_folded, day):
+        return False
     # ⚠️ Only a CANONICAL party id is a cue. The person layer also carries
     # local-election codes (`p_20`) that name no party this corpus links.
-    if (party and party in src.party_ids and party in party_surfaces
-            and _party_near(text_folded, name, party_surfaces[party])):
-        return True
+    for party in _parties_on(entry, day):
+        if (party in src.party_ids and party in party_surfaces
+                and _party_near(text_folded, name, party_surfaces[party])):
+            return True
     for role in (entry.get("display") or {}).get("roles") or []:
         if held_on(role, day) and _role_near(
                 src, text_folded, name, role.get("role")):
@@ -240,12 +271,18 @@ def _identity(kind: str, pid: str, basis: str, src: Sources,
         roles = display.get("roles") or []
         # The office the rail names: the current one, else the latest held —
         # flagged, so a page never calls a former minister „министър".
-        role = next((r for r in roles if r.get("current")), roles[0] if roles else None)
+        # …else one with no exit filing (`open`: neither current nor former).
+        role = (next((r for r in roles if r.get("current")), None)
+                or next((r for r in roles if r.get("open")), None)
+                or (roles[0] if roles else None))
         return {"kind": "person", "id": pid, "basis": basis,
                 "canonical": entry.get("canonical") or canonical,
                 **({"form_kind": form_kind} if form_kind else {}),
                 **({"role": role["role"], "role_current": bool(role.get("current")),
-                    "role_label": src.role_labels.get(role["role"]) or {}}
+                    "role_label": src.role_labels.get(role["role"]) or {},
+                    # Dated, so the rail can say „бивш … (2017–2026)".
+                    "role_open": bool(role.get("open")),
+                    "role_start": role.get("start"), "role_end": role.get("end")}
                    if role and role.get("role") else {}),
                 "identity_version": entry.get("identity_version")}
     person = src.news_persons.get(pid) or {}

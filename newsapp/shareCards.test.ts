@@ -45,12 +45,16 @@ describe("share cards", () => {
   it("every person route and the index name a card that is built", () => {
     const dir = tmp();
     persons(dir);
-    const cards = new Set(buildShareCards(dir).map((c) => cardUrl(c.file)));
+    const cards = new Set(buildShareCards(dir).map((c) => cardUrl(c)));
     const routes = buildRoutes(dir).filter(
       (r) => r.path === "persons" || r.path.startsWith("person/"),
     );
     expect(routes.length).toBe(2);
     for (const r of routes) expect(cards.has(r.image!)).toBe(true);
+    // The /en mirror carries its own, English card.
+    const en = buildRoutes(dir).find((r) => r.path === "en/person/mp-1")!;
+    expect(cards.has(en.image!)).toBe(true);
+    expect(en.image).toContain("/og/en/persons/mp-1.png");
   });
 
   it("escapes the name and carries no mean", () => {
@@ -63,6 +67,16 @@ describe("share cards", () => {
     expect(svg).toContain("Иван &lt;Петров&gt;");
     expect(svg).not.toMatch(/средно|mean/i);
     expect(svg).toContain("неутрално 12");
+    // n is (outlet, story) units — never called „материала".
+    expect(svg).not.toContain("материала");
+  });
+
+  it("changes its URL only when the card changes", () => {
+    const dir = tmp();
+    persons(dir);
+    const a = buildShareCards(dir).map(cardUrl);
+    expect(buildShareCards(dir).map(cardUrl)).toEqual(a);
+    expect(a[1]).toMatch(/\/og\/persons\/mp-1\.png\?v=[0-9a-f]{10}$/);
   });
 
   it("renders a PNG per card", async () => {

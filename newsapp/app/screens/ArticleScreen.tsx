@@ -60,7 +60,7 @@ import {
 import { ArticleImage } from "../components/ArticleImage";
 import { EntityChips } from "../components/EntityChips";
 import { PersonRail } from "../components/PersonRail";
-import { railNames } from "../personRail";
+import { onRail, railIdentities, railNames } from "../personRail";
 import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
@@ -498,6 +498,7 @@ export const ArticleScreen = () => {
   // news-person block: the rail lists Jev's scored subjects, which are capped,
   // so anyone else the article names must stay visible somewhere.
   const railShown = personRail ? railNames(personRail.subjects) : null;
+  const railIds = personRail ? railIdentities(personRail.subjects) : null;
   const showsJev = Boolean(
     jevLeaning || jevRussia || jevSubjects?.length || personRail,
   );
@@ -1067,7 +1068,13 @@ export const ArticleScreen = () => {
                     ? {
                         ...analysis.entities,
                         people: (analysis.entities.people ?? []).filter(
-                          (n) => !railShown.has(n),
+                          (n) =>
+                            !onRail(
+                              n,
+                              railShown,
+                              railIds ?? new Set(),
+                              analysis.entity_links,
+                            ),
                         ),
                       }
                     : analysis.entities
@@ -1079,7 +1086,9 @@ export const ArticleScreen = () => {
                 rows={
                   railShown
                     ? analysis.news_persons?.filter(
-                        (r) => !railShown.has(r.surface),
+                        (r) =>
+                          !railShown.has(r.surface) &&
+                          !(r.news_person_id && railIds?.has(r.news_person_id)),
                       )
                     : analysis.news_persons
                 }

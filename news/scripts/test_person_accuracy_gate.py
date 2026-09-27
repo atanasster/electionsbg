@@ -44,7 +44,14 @@ def balanced(n_per_group=70, **over):
     return rows
 
 
+def sealed(rows):
+    """Seal every row as the workspace's finalize does — unless a test set
+    its own seal."""
+    return [r if "seal" in r else {**r, "seal": gate.seal_of(r)} for r in rows]
+
+
 def report(rows, **kw):
+    rows = sealed(rows)
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / "adj.json"
         path.write_text(json.dumps({"version": 2, "pairs": rows}), encoding="utf-8")
@@ -198,6 +205,40 @@ class Exclusions(unittest.TestCase):
         self.assertEqual(t["per_group"], {"favorable": 1})
 
 
+class Seal(unittest.TestCase):
+    def test_an_unsealed_or_edited_row_is_not_scored(self):
+        good = sealed([row(0, 1)])[0]
+        edited = {**sealed([row(1, 1)])[0], "pipeline_bucket_index": 1,
+                  "level": 4}
+        out = report([good, edited, {**row(2), "seal": None}])
+        self.assertEqual(out["excluded"], {"unsealed": 2})
+        self.assertEqual(out["tones"]["n"], 1)
+
+    def test_seal_new_seals_only_rows_without_one(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "adj.json"
+            edited = {**sealed([row(1)])[0], "level": 4}
+            path.write_text(json.dumps({"pairs": [row(0, adjudicated=True),
+                                                  edited, row(2)]}),
+                            encoding="utf-8")
+            # Only the adjudicating row: row 2 is an annotator's row with no
+            # seal — an edit — and stays unsealed.
+            self.assertEqual(gate.seal_new(path), 1)
+            pairs = json.loads(path.read_text(encoding="utf-8"))["pairs"]
+            self.assertEqual(pairs[0]["seal"], gate.seal_of(pairs[0]))
+            self.assertNotEqual(pairs[1]["seal"], gate.seal_of(pairs[1]))
+            self.assertNotIn("seal", pairs[2])
+
+
+class ToneIsModelScoredOnly(unittest.TestCase):
+    def test_detection_strata_never_enter_the_tone_metrics(self):
+        rows = [row(0, 2), row(1, 0, stratum="model_incidental",
+                               pipeline_bucket_index=None),
+                row(2, 4, stratum="text_only", pipeline_bucket_index=None)]
+        t = report(rows)["tones"]
+        self.assertEqual((t["n"], t["exact_bucket"]), (1, 1.0))
+
+
 class Detection(unittest.TestCase):
     def test_hidden_subjects_are_recall_misses(self):
         rows = [row(0), row(1, stratum="model_incidental"),
@@ -244,7 +285,7 @@ class Sampler(unittest.TestCase):
         scored = [p for p in s["pairs"] if p["stratum"] == "model_scored"]
         by = {g: sum(1 for p in scored if p["model_group"] == g)
               for g in ("unfavorable", "neutral", "favorable")}
-        self.assertEqual(by, {"unfavorable": 20, "favorable": 50, "neutral": 80})
+        self.assertEqual(by, {"unfavorable": 20, "favorable": 65, "neutral": 65})
 
     def test_a_shortfall_is_left_short_not_padded(self):
         s = sampler.draw(self.pool(), 7)
@@ -268,6 +309,16 @@ class Sampler(unittest.TestCase):
     def test_a_longer_name_is_not_the_name(self):
         self.assertFalse(sampler.named_in("Иван Петров", "срещу Иван Петрова"))
         self.assertTrue(sampler.named_in("Иван Петров", "„Иван Петров“ каза"))
+
+    def test_the_drawn_file_is_not_ordered_by_stratum(self):
+        order = [p["stratum"] for p in sampler.draw(self.pool(), 7)["pairs"]]
+        self.assertNotEqual(order, sorted(order, key=list(sampler.TARGETS).index))
+
+    def test_spread_alternates_identity_basis(self):
+        rows = ([{"domain": "a", "identity_basis": "exact"}] * 6
+                + [{"domain": "a", "identity_basis": "context"}] * 2)
+        got = sampler.spread(rows, 4, random.Random(1))
+        self.assertEqual(sum(r["identity_basis"] == "context" for r in got), 2)
 
     def test_group_of(self):
         self.assertEqual([sampler.group_of(i) for i in (0, 1, 2, 3, 4, None)],

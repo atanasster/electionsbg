@@ -557,6 +557,15 @@ if isinstance(sentiment, dict) and sentiment:
         if sentiment.get("error"):
             lifted["error"] = sentiment["error"]
         report["alerts"].append(lifted)
+# news-person-sentiment-v1 §8/§8.2 — the person surfaces' warnings (an
+# estimated election date, a missing runoff window, a switch on without its
+# audit) reach the report, not only the build's stderr.
+bundles = next((s.get("result", {}) for s in stages
+                if s.get("stage") == "bundles"), {})
+if isinstance(bundles, dict):
+    for alert in bundles.get("person_alerts") or []:
+        if isinstance(alert, dict) and isinstance(alert.get("alert"), str):
+            report["alerts"].append(alert)
 home_health = next((s.get("result", {}) for s in stages
                     if s.get("stage") == "home_health"), {})
 if isinstance(home_health, dict):

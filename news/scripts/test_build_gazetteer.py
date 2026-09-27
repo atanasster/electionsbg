@@ -828,6 +828,25 @@ class TheDisplayFields(unittest.TestCase):
         cur = {(r["role"], r.get("start")) for r in roles if r["current"]}
         self.assertEqual(cur, {("mp", "2026-04-19")})
 
+    def test_a_filing_dated_office_is_not_current_on_a_missing_exit_filing(self):
+        # 101 „current" regional governors for 28 oblasts: an exit filing
+        # that was never made left 2017 rows open.
+        rows = [{"source": "official_exec", "role": "regional_governor",
+                 "start": "2017-05-01", "date_basis": "filing"},
+                {"source": "official_exec", "role": "cabinet",
+                 "start": "2026-05-20", "date_basis": "filing"},
+                {"source": "official_exec", "role": "agency_head",
+                 "start": "2018-03-01", "date_basis": "filing"}]
+        roles = {r["role"]: r for r in current_roles(rows, "2026-05-08")}
+        self.assertFalse(roles["regional_governor"]["current"])
+        self.assertNotIn("open", roles["regional_governor"])  # former
+        self.assertTrue(roles["cabinet"]["current"])
+        self.assertFalse(roles["agency_head"]["current"])
+        self.assertTrue(roles["agency_head"]["open"])  # neither
+        # Without the cabinet list, nothing filing-dated claims „current".
+        roles = {r["role"]: r for r in current_roles(rows)}
+        self.assertFalse(roles["cabinet"]["current"])
+
     def test_an_undated_role_is_never_current(self):
         roles = current_roles([{"source": "mp", "role": "mp"}])
         self.assertFalse(roles[0]["current"])

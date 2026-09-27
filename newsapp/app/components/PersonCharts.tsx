@@ -145,7 +145,7 @@ export const PersonPosition = ({ s }: { s: PersonBasisSummary }) => {
  * gradient: the app forbids `background-image` outright so no photograph can
  * reach a page uncredited (`imageCredit.test.ts`).
  */
-const Hatch = () => {
+export const Hatch = () => {
   // `useId` returns punctuation (`:r1:` / `«r1»`) that a `url(#…)`
   // reference does not reliably survive; the pattern id must be plain.
   const id = `hatch${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
@@ -230,7 +230,9 @@ export const PersonSeries = ({
             return (
               <li
                 key={pt.period}
-                className="flex flex-col items-center"
+                // §6.1 — a role change is a vertical rule at its period,
+                // across the whole column, not only a marker beneath it.
+                className={`relative flex flex-col items-center ${marks ? "before:absolute before:inset-y-0 before:-left-0.5 before:w-px before:bg-primary/70" : ""}`}
                 style={{ width: COLUMN_PX }}
                 aria-label={`${formatDay(pt.period, language)}: ${pt.n}${pt.below_floor ? tr(" · непълно покритие", " · incomplete coverage") : ""}`}
               >
@@ -238,7 +240,7 @@ export const PersonSeries = ({
                   {pt.n}
                 </span>
                 <div
-                  className={`relative flex w-full flex-col-reverse overflow-hidden rounded-sm ${pt.below_floor ? "opacity-40" : ""}`}
+                  className={`relative flex w-full flex-col-reverse overflow-hidden rounded-sm`}
                   style={{ height: h }}
                   data-testid={
                     pt.below_floor ? "series-hatched" : "series-column"
@@ -300,8 +302,16 @@ export const PersonSeries = ({
       {anyHatched ? (
         <p className="mt-1 text-xs text-muted-foreground">
           {tr(
-            `Избледнелите периоди са под прага от ${floor}% оценени статии в корпуса — там не показваме средна стойност.`,
-            `Faded periods fall below ${floor}% of the corpus's articles scored — no mean is shown there.`,
+            `Щрихованите периоди са под прага от ${floor}% оценени статии в корпуса — там не показваме средна стойност.`,
+            `Striped periods fall below ${floor}% of the corpus's articles scored — no mean is shown there.`,
+          )}
+        </p>
+      ) : null}
+      {points.some((pt) => pt.sparse && !pt.below_floor) ? (
+        <p className="mt-1 text-xs text-muted-foreground">
+          {tr(
+            "„—“ = под 5 материала в периода: разпределението е показано, средна стойност — не.",
+            "“—” = fewer than 5 items in the period: the distribution is shown, a mean is not.",
           )}
         </p>
       ) : null}

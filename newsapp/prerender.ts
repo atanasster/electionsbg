@@ -41,6 +41,8 @@ export type PrerenderRoute = {
   ogType?: string;
   /** Absolute image URL. Falls back to the site icon. */
   image?: string | null;
+  /** The /en mirror's image, when it has its own (a person's share card). */
+  imageEn?: string | null;
   /** ISO date for <lastmod>. Omitted from the sitemap when absent. */
   lastmod?: string | null;
   /**

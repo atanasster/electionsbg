@@ -234,6 +234,15 @@ export const NewsPersonScreen = () => {
             {tr(BASIS_LABEL[b][0], BASIS_LABEL[b][1])} · {p.bases[b].n}
           </button>
         ))}
+        {shown !== p.default_basis ? (
+          // ⚠️ Said, not left to be inferred: only part of the page moves.
+          <span className="text-muted-foreground" data-testid="basis-scope">
+            {tr(
+              "Броят, позицията и разпределението следват избраното броене; развитието във времето, изданията и ролите остават по история.",
+              "The count, the position and the distribution follow the chosen basis; the series, the outlets and the roles stay on the story basis.",
+            )}
+          </span>
+        ) : null}
       </div>
 
       <div
@@ -444,7 +453,7 @@ export const NewsPersonScreen = () => {
               </div>
               {row.article_id ? (
                 <Link
-                  to={`/article/${row.domain}/${row.article_id}`}
+                  to={`/article/${row.domain}/${row.article_id}#person-${p.id}`}
                   className="mt-0.5 block font-medium leading-snug underline-offset-4 hover:underline"
                 >
                   {row.title ?? tr("Без заглавие", "Untitled")}

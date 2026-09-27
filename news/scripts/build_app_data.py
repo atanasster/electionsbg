@@ -1689,6 +1689,10 @@ def member_person_tones(stamped, jev) -> list:
                 or not isinstance(tone, dict)
                 or not isinstance(tone.get("bucket_index"), int)):
             continue
+        # §2.3/§2.5 — a cross-outlet comparison is an aggregate, and neither a
+        # foreigner nor a non-public news-only identity is ever aggregated.
+        if not person_rollups.aggregatable(ident):
+            continue
         out.append({"id": ident["id"], "name": ident.get("canonical"),
                     "value": tone.get("value"),
                     "bucket_index": tone["bucket_index"]})
@@ -1702,6 +1706,43 @@ def with_stamped_subjects(analysis, stamped):
         return analysis
     return {**analysis, "jev_sentiment": {**analysis["jev_sentiment"],
                                           "subjects": stamped}}
+
+
+def person_publication_status(freezes: list, now: datetime,
+                              generated_at: str,
+                              surfaces: frozenset = frozenset()) -> dict:
+    """What the methodology page states about the person surfaces (§8.2,
+    §9): the election windows still ahead or running, and the accuracy gate
+    with its agreement arm — so „unmet" is published, not implied. Written
+    whatever the switches say: it describes the rules, not the data."""
+    import person_accuracy_gate as gate  # noqa: PLC0415
+    try:
+        report = gate.build_report(gate.ADJUDICATIONS,
+                                   rubric=gate.current_rubric(),
+                                   versions=gate.current_identity_versions(),
+                                   app_data=Path("/nonexistent"))
+        s = report["gate"]["support"]
+        gate_status = {"status": report["status"],
+                       "passed": report["gate"]["passed"],
+                       "passed_without_agreement":
+                           report["gate"]["passed_without_agreement"],
+                       "agreement_passed": s["agreement_passed"],
+                       "test_pairs": s["test_pairs"], "kappa": s["kappa"]}
+    except (OSError, ValueError) as exc:
+        # The class only: the message can carry a host path, and this file
+        # is public.
+        gate_status = {"status": "UNMET", "passed": False,
+                       "passed_without_agreement": False,
+                       "agreement_passed": False,
+                       "error": type(exc).__name__}
+    return {"version": 1, "generated_at": generated_at,
+            # Whether /persons/media has a grid, for pages that link to it
+            # without fetching the person index.
+            "matrix": "matrix" in surfaces,
+            "freezes": [{"id": f["id"], "from": f["from"], "until": f["until"],
+                         "status": f["status"]}
+                        for f in freezes if f["until_dt"] > now],
+            "gate": gate_status}
 
 
 def remove_person_aggregates(out_dir: Path) -> dict:
@@ -3880,12 +3921,25 @@ def main() -> int:
     # window they are replaced by the last pre-window snapshot (or withheld),
     # in the 24 h before one they are snapshotted. The article rail's own tone
     # stays live.
+    # An unparseable --as-of must not switch the freeze off.
+    freeze_now = build_as_of or datetime.now(timezone.utc)
+    freezes = publication_freeze.load_freezes()
+    # ⚠️ EVERY RUN, whatever the flags: an estimated election date has to be
+    # replaced BEFORE anyone switches the aggregates on, not after.
+    publication = person_publication_status(freezes, freeze_now, generated_at,
+                                            person_surfaces)
+    person_alerts = [{"alert": "election_freeze", "message": w}
+                     for w in publication_freeze.warnings(freezes, freeze_now)]
+    person_alerts += person_publication.readiness_alerts(
+        person_surfaces, gate=publication["gate"])
+    if person_shards.get("digest"):
+        person_alerts.append({"alert": "person_pages_awaiting_identity_check",
+                              "count": len(person_shards["digest"])})
+    for a in person_alerts:
+        print(f"  ! {a['alert']}: {a.get('message') or a.get('count')}",
+              file=sys.stderr)
+    write_json(out_dir / "person_publication.json", publication)
     if "aggregates" in person_surfaces:
-        # An unparseable --as-of must not switch the freeze off.
-        freeze_now = build_as_of or datetime.now(timezone.utc)
-        freezes = publication_freeze.load_freezes()
-        for warning in publication_freeze.warnings(freezes, freeze_now):
-            print(f"  ! election freeze: {warning}", file=sys.stderr)
         freeze = publication_freeze.apply(out_dir, freeze_now, freezes)
         if freeze["state"] in ("frozen", "withheld"):
             person_shards = {**person_shards, "rows": freeze["rows"]}
@@ -4318,6 +4372,8 @@ def main() -> int:
         "withheld_person_names": _WITHHELD["names"],
         "withheld_from_records": _WITHHELD["records"],
         "withheld_prose_fields": _WITHHELD["prose"],
+        # Lifted into the hourly report's alerts by run_nightly.sh.
+        "person_alerts": person_alerts,
         "generated_at": generated_at,
     }
     if args.json:

@@ -44,7 +44,7 @@ import re
 import unicodedata
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -796,7 +796,7 @@ def build_people(ns: str) -> tuple[list, dict]:
     display = display_by_slug(
         query(DISPLAY_SQL.format(
             sources=", ".join(f"'{s}'" for s in DISPLAY_ROLE_SOURCES))),
-        query(MP_PROFILE_SQL))
+        query(MP_PROFILE_SQL), sitting_government_start())
     cov.update(attach_display(entries, display))
     return entries, cov
 
@@ -852,7 +852,45 @@ select mp_id, name_en, photo_url, is_current from mp_profile order by mp_id
 """
 
 
-def current_roles(roles: list) -> list:
+# Offices that end with the government that appointed them. A filing-dated
+# row of one of these is current only if it started under the SITTING cabinet.
+CABINET_BOUND = frozenset({"cabinet", "deputy_minister", "political_cabinet",
+                           "regional_governor"})
+# Appointment filings land a few weeks after the cabinet is sworn in.
+CABINET_FILING_GRACE_DAYS = 45
+
+
+def sitting_government_start(path: Path | None = None) -> str | None:
+    """The sitting cabinet's start date from `data/governments.json`, or None."""
+    path = path or ROOT / "data" / "governments.json"
+    try:
+        govs = json.loads(path.read_text(encoding="utf-8")).get("governments") or []
+    except (OSError, ValueError):
+        return None
+    open_ = [g for g in govs if g.get("startDate") and not g.get("endDate")]
+    return max(g["startDate"] for g in open_) if open_ else None
+
+
+def _filing_state(r: dict, gov_start: str | None) -> tuple:
+    """(current, open) for an open, filing-dated official row.
+
+    ⚠️ A FILING DATE IS NOT A TERM. The start is when the declarant filed on
+    entering office; an exit filing that was never made leaves the row open
+    for ever — measured, 101 „current" regional governors for 28 oblasts, 15
+    of them from 2017. So: a cabinet-bound office is current only if it began
+    under the sitting government, and FORMER otherwise; any other office is
+    neither — `open` („по декларация от …"), never „current"."""
+    if r.get("role") in CABINET_BOUND:
+        if not gov_start:
+            return False, True
+        start = r.get("start") or ""
+        floor = (date.fromisoformat(gov_start)
+                 - timedelta(days=CABINET_FILING_GRACE_DAYS)).isoformat()
+        return start >= floor, False
+    return False, True
+
+
+def current_roles(roles: list, gov_start: str | None = None) -> list:
     """Mark which roles are CURRENT, by a rule that survives this corpus.
 
     ⚠️ `end IS NULL` IS NOT „STILL SERVING". Filings leave duplicate undated
@@ -882,6 +920,11 @@ def current_roles(roles: list) -> list:
         # no information. A reader treats a missing key as null.
         row = {k: v for k, v in r.items() if v is not None}
         row["current"] = bool(start and not end and not later)
+        if (row["current"] and r.get("date_basis") == "filing"
+                and str(r.get("source") or "").startswith("official_")):
+            row["current"], is_open = _filing_state(r, gov_start)
+            if is_open:
+                row["open"] = True
         out.append(row)
     # Newest first, undated last, with a total order underneath so the
     # committed file does not churn on a tie. Three stable sorts, innermost
@@ -896,8 +939,10 @@ def current_roles(roles: list) -> list:
     return out[:DISPLAY_ROLES_MAX]
 
 
-def display_by_slug(rows: list, mp_profiles: list | None = None) -> dict:
-    """Pure. `rows` from DISPLAY_SQL, `mp_profiles` from MP_PROFILE_SQL."""
+def display_by_slug(rows: list, mp_profiles: list | None = None,
+                    gov_start: str | None = None) -> dict:
+    """Pure. `rows` from DISPLAY_SQL, `mp_profiles` from MP_PROFILE_SQL,
+    `gov_start` the sitting cabinet's start date."""
     profiles = {str(p["mp_id"]): p for p in (mp_profiles or ())}
     out = {}
     for r in rows:
@@ -909,7 +954,7 @@ def display_by_slug(rows: list, mp_profiles: list | None = None) -> dict:
         mp_id = mp_ids[0] if len(mp_ids) == 1 else None
         prof = profiles.get(mp_id) if mp_id else None
         d = {
-            "roles": current_roles(list(r.get("roles") or ())),
+            "roles": current_roles(list(r.get("roles") or ()), gov_start),
             "mp_id": int(mp_id) if mp_id and mp_id.isdigit() else None,
             # A path on the MAIN site's data origin, never an absolute URL:
             # the bucket is the reader's concern, and baking it in here would
