@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-09-27T23:45:52.267Z",
+  "computedAt": "2026-09-28T23:53:47.089Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 94653002898,
+      "value": 94653426732,
       "basis": "contracts"
     },
     "sectors": {
@@ -122,16 +122,16 @@
     "52": {
       "parliament": {
         "kind": "count",
-        "value": 54,
+        "value": 55,
         "basis": "sessions",
-        "extra": 1422
+        "extra": 1446
       }
     }
   },
   "coverage": [
     {
       "id": "contracts",
-      "value": 412733,
+      "value": 412737,
       "to": "/procurement/contracts?pscope=all"
     },
     {

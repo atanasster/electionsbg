@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-27T23:59:59.999Z",
+  "computedAt": "2026-09-28T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
+      "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-27T00:00:00.000Z",
-      "firstSeenAt": "2026-09-27T00:00:00.000Z",
+      "occurredAt": "2026-09-28T00:00:00.000Z",
+      "firstSeenAt": "2026-09-28T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,19 +22,47 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krave-maslo-d-markenbutter-250gr",
+      "route": "/product/limoni",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-        "pct": 59,
-        "promoEur": "1.69",
-        "regularEur": "4.10",
-        "chains": 2
+        "title": "ЛИМОНИ",
+        "pct": 52,
+        "promoEur": "0.99",
+        "regularEur": "2.08",
+        "chains": 5
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8428571428571429,
+      "materiality": 0.7428571428571429,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-25",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-25T00:00:00.000Z",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-25",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 26
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.65,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -70,39 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-17",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-17T00:00:00.000Z",
-      "firstSeenAt": "2026-09-17T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-17",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 53
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 1,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-27T00:00:00.000Z",
-      "firstSeenAt": "2026-09-27T00:00:00.000Z",
+      "occurredAt": "2026-09-28T00:00:00.000Z",
+      "firstSeenAt": "2026-09-28T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -131,11 +131,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-23",
+      "id": "parliament:sitting:2026-09-17",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-09-23T00:00:00.000Z",
-      "firstSeenAt": "2026-09-23T00:00:00.000Z",
+      "occurredAt": "2026-09-17T00:00:00.000Z",
+      "firstSeenAt": "2026-09-17T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -147,14 +147,14 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-09-23",
+      "route": "/votes/2026-09-17",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 19
+        "items": 53
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.475,
+      "materiality": 1,
       "actionability": 0.4
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:ka-cherni-maslini-super-super-mamut-71-90",
+      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-palnezh-i-vafli-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-27T00:00:00.000Z",
-      "firstSeenAt": "2026-09-27T00:00:00.000Z",
+      "occurredAt": "2026-09-28T00:00:00.000Z",
+      "firstSeenAt": "2026-09-28T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,13 +208,13 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/ka-cherni-maslini-super-super-mamut-71-90",
+      "route": "/product/shokolad-roshen-lakmi-mlechen-palnezh-i-vafli-90gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КА ЧЕРНИ МАСЛИНИ СУПЕР СУПЕР МАМУТ 71-90",
+        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН ПЪЛНЕЖ И ВАФЛИ 90ГР",
         "pct": 49,
-        "promoEur": "4.09",
-        "regularEur": "8.00",
+        "promoEur": "0.89",
+        "regularEur": "1.75",
         "chains": 2
       },
       "backfill": false,
@@ -252,6 +252,34 @@
       "verification": "automatic",
       "materiality": 0.53475,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-23",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-23T00:00:00.000Z",
+      "firstSeenAt": "2026-09-23T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-23",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 19
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.475,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -1207,34 +1235,6 @@
       "verification": "automatic",
       "materiality": 0.025,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-04",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-04T00:00:00.000Z",
-      "firstSeenAt": "2026-09-04T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-04",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 1
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.025,
-      "actionability": 0.4
     }
   ],
   "sourceCoverage": {
@@ -1279,14 +1279,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-09-24",
+      "asOf": "2026-09-25",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-27",
-      "observedAt": "2026-09-27",
+      "asOf": "2026-09-28",
+      "observedAt": "2026-09-28",
       "staleAfterDays": 5,
       "stale": false
     }
