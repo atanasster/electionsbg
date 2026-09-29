@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-09-28T23:59:12.462Z",
+  "lastSuccessfulIngest": "2026-09-29T23:36:11.542Z",
   "skill": "update-procurement",
-  "summary": "EOP self-heal +25 rows/13 buyers; tenders 239,591; TED 220,558 notices; corpus 410,021; db:refresh ok, test:data 3 red (2 identity baselines, funds_wire perf gate — same known class as 2026-09-27)"
+  "summary": "partial: EOP self-heal (2026-09-28 day); tenders 239,680; TED 220,679 notices; corpus 410,120; db:refresh ok, test:data 3 red (2 identity baselines, funds_wire perf gate 10,500/10,000 buffers — same known class as 09-27/28; sql_library + stake_procurement failed under load, pass in isolation)"
 }

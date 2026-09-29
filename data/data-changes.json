@@ -1,6 +1,41 @@
 {
-  "updatedAt": "2026-09-28T23:59:12.907Z",
+  "updatedAt": "2026-09-29T23:36:12.040Z",
   "entries": [
+    {
+      "timestamp": "2026-09-29T23:36:12.040Z",
+      "date": "2026-09-29",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП 2026-09-28 gap-fill + TED: 239,680 procedures, 220,679 TED notices, 410,120 contracts",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-09-29T23:27:02.636Z",
+      "date": "2026-09-29",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 843 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-29T22:58:34.041Z",
+      "date": "2026-09-29",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-29 (+1 daily archive; 948,314 store rows, 167 settlements, 72 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-29"
+    },
+    {
+      "timestamp": "2026-09-29T22:52:01.093Z",
+      "date": "2026-09-29",
+      "skill": "update-macro",
+      "summary": "Eurostat 2026-09-29 release (nama_10_gdp, nama_10_lp_ulc, namq_10_gdp/a10, ei_bssi, sts_trtu); latest GDP 2026 Q2 +2.8%, HICP 5.83%; peers + PLI refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-28T23:59:12.907Z",
       "date": "2026-09-28",
