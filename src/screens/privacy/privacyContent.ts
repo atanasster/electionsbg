@@ -254,8 +254,8 @@ export const privacySections = (): Section[] => [
     blocks: [
       L(
         [
-          "Въпросът и контекстът на разговора се изпращат през нашия сървър към Google Gemini (Google LLC), който генерира отговора. Google ги обработва според условията си за Gemini API.",
-          "Your question and the conversation context are sent through our server to Google Gemini (Google LLC), which generates the answer. Google processes them under its Gemini API terms.",
+          "Въпросът и контекстът на разговора се изпращат през нашия сървър към Google Gemini (Google LLC), който генерира отговора. Използваме платения план на Gemini API, при който според условията на Google въпросите не се използват за подобряване на продуктите му; Google ги пази ограничено време за предотвратяване на злоупотреби.",
+          "Your question and the conversation context are sent through our server to Google Gemini (Google LLC), which generates the answer. We use the paid tier of the Gemini API, under whose terms Google does not use the questions to improve its products; Google keeps them for a limited time for abuse prevention.",
         ],
         [
           "Cloudflare Turnstile проверява, че не сте робот, преди да започне AI сесия.",

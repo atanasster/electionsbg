@@ -314,4 +314,5 @@ person-layer loaders is designed only if a real objection is upheld.
 5. Deploy: `firebase deploy --only functions:scenarios`, then `npm run deploy`.
 6. Owner runs `node scripts/privacy/strip_scenario_iphash.mjs --apply` (3 submissions, 1 rate doc).
 7. After deploy, schedule deletion of the old GA4 property's data in GA admin.
-8. Verify the Gemini API key's project has billing enabled (§1.4).
+8. ~~Verify the Gemini API key's project has billing enabled (§1.4).~~ Done 2026-09-30: the key
+   belongs to `gen-lang-client-0866766809`, which has billing enabled (paid tier). /privacy#ai says so.
