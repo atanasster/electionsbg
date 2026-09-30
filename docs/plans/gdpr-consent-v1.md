@@ -1,6 +1,6 @@
 # GDPR / cookie consent — v1
 
-Status: Phase 1 code IMPLEMENTED 2026-09-26, uncommitted and undeployed — see §7. Phase 2 awaits the lawyer.
+Status: Phase 1 LIVE 2026-09-30 (hosting, `db` and `scenarios` functions, Umami public) — see §7. Phase 2 awaits the lawyer.
 
 ## 0. The premise, corrected
 
@@ -316,3 +316,28 @@ person-layer loaders is designed only if a real objection is upheld.
 7. After deploy, schedule deletion of the old GA4 property's data in GA admin.
 8. ~~Verify the Gemini API key's project has billing enabled (§1.4).~~ Done 2026-09-30: the key
    belongs to `gen-lang-client-0866766809`, which has billing enabled (paid tier). /privacy#ai says so.
+
+### Went live 2026-09-30
+
+- The owner changed the Umami admin password and created website
+  `4a29eca9-f428-4064-b974-0654598cce76`. The service was then made public.
+- Deploys: `functions:scenarios`, then the three-step hosting → `deploy:db` →
+  `SKIP_PREDEPLOY=1 deploy`. After it, the homepage and `/person/mp-3643` both served
+  `index-BhDU3NJs.js`.
+- The first hosting attempt failed its predeploy: 80 `ai:test` cases, all `tool threw:`. The cause
+  was the LOCAL `electionsbg-pg` container, stopped 14 h earlier. The AI regression harness runs
+  the real `/api/db` handlers against local Postgres. `npm run db:pg:up`, then 2168/2168.
+- Verified live:
+  - `/privacy` and `/en/privacy` return 200;
+  - `/stats/script.js` returns 200 with `max-age=86400`;
+  - `/stats/api/send` returns 405 to a GET and 200 to a POST;
+  - `/stats/login` returns 404, so the dashboard is not exposed through the site;
+  - no GA on the homepage.
+
+  One pageview was stored as `/privacy` with `url_query` and `page_title` NULL, and `city` NULL.
+- ⚠ Found live: Chrome never runs an idle callback in a hidden tab, so background-opened tabs
+  were not counted. Fixed by `requestIdleCallback(load, { timeout: 5000 })`. It ships with the
+  next hosting deploy.
+- Still owed by the owner:
+  - `node scripts/privacy/strip_scenario_iphash.mjs --apply`;
+  - GA4 property data deletion.

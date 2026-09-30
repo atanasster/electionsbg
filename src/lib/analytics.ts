@@ -151,8 +151,15 @@ export const installAnalytics = () => {
       buildTrackerScript(document, window.location.origin),
     );
   const w = window as Window & {
-    requestIdleCallback?: (cb: () => void) => number;
+    requestIdleCallback?: (
+      cb: () => void,
+      opts?: { timeout: number },
+    ) => number;
   };
-  if (typeof w.requestIdleCallback === "function") w.requestIdleCallback(load);
+  // The deadline is load-bearing: Chrome never runs an idle callback in a HIDDEN tab, so without
+  // it a page opened in a background tab was not counted until the reader switched to it (and
+  // never if they closed it first). Measured on the live site 2026-09-30.
+  if (typeof w.requestIdleCallback === "function")
+    w.requestIdleCallback(load, { timeout: 5000 });
   else setTimeout(load, 2000);
 };
