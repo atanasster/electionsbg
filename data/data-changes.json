@@ -1,6 +1,35 @@
 {
-  "updatedAt": "2026-09-29T23:36:12.040Z",
+  "updatedAt": "2026-09-30T23:43:55.933Z",
   "entries": [
+    {
+      "timestamp": "2026-09-30T23:43:55.933Z",
+      "date": "2026-09-30",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-30 (+1 daily archive; 948,081 store rows, 167 settlements, 73 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-30"
+    },
+    {
+      "timestamp": "2026-09-30T23:38:14.794Z",
+      "date": "2026-09-30",
+      "skill": "update-open-calls",
+      "summary": "ИСУН 54 open calls (+1 new), open_calls 83→84",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-30T23:35:36.097Z",
+      "date": "2026-09-30",
+      "skill": "update-procurement",
+      "summary": "EOP 2026-09-29 +159 contracts, TED 220,823 notices, tenders 239,799",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-09-30T23:26:03.694Z",
+      "date": "2026-09-30",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 843 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-09-29T23:36:12.040Z",
       "date": "2026-09-29",

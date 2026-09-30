@@ -1,0 +1,42 @@
+{
+  "session": "20260930T225149Z-4fe4",
+  "createdAt": "2026-09-30T23:46:20.904Z",
+  "skills": [
+    "update-procurement",
+    "update-open-calls",
+    "update-prices"
+  ],
+  "paths": [
+    "home",
+    "data_map.json",
+    "data-changes.json",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "culture/derived/hub_stats.json",
+    "culture/derived/fund_sources.json",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json"
+  ],
+  "cloudCommands": [
+    "npm run prices:ingest:cloud",
+    "npm run db:load:open-calls:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:refresh:risk:cloud"
+  ],
+  "notes": "home subtree needs npm run bucket:gz after sync. EOP 2026-09-29 +159 contracts, TED 220,823, ИСУН 54 open calls, prices 2026-09-30"
+}

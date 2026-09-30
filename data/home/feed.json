@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-29T23:59:59.999Z",
+  "computedAt": "2026-09-30T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-29T00:00:00.000Z",
-      "firstSeenAt": "2026-09-29T00:00:00.000Z",
+      "occurredAt": "2026-09-30T00:00:00.000Z",
+      "firstSeenAt": "2026-09-30T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,19 +22,51 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/shokolad-roshen-lakmi-mlechen-90gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
+        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
         "pct": 54,
-        "promoEur": "0.99",
-        "regularEur": "2.17",
-        "chains": 5
+        "promoEur": "0.79",
+        "regularEur": "1.74",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.7714285714285715,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:15f1ce8e-0ff6-423a-80a4-7d4ca8d8d28a",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-30T11:00:00.000Z",
+      "deadlineAt": "2026-12-30T15:00:00.000Z",
+      "firstSeenAt": "2026-09-30T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/15f1ce8e-0ff6-423a-80a4-7d4ca8d8d28a"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Подкрепа за интегриран градски транспорт и устойчива градска мобилност на Столична община",
+        "programme": "Програма \"Развитие на регионите\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -63,6 +95,39 @@
       "verification": "automatic",
       "materiality": 0.65,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-09-30T00:00:00.000Z",
+      "firstSeenAt": "2026-09-30T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 52,
+        "promoEur": "0.99",
+        "regularEur": "2.08",
+        "chains": 5
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7428571428571429,
+      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -98,39 +163,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-09-29T00:00:00.000Z",
-      "firstSeenAt": "2026-09-29T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
-        "pct": 51,
-        "promoEur": "0.89",
-        "regularEur": "1.82",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7285714285714285,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
       "id": "parliament:sitting:2026-09-17",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -159,43 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:0cbfcb31-af33-4ccb-8a0a-a7f4208296b9",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-18T15:00:00.000Z",
-      "deadlineAt": "2026-10-18T14:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/0cbfcb31-af33-4ccb-8a0a-a7f4208296b9"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "\"Предлагане на пазара - компенсации - подсектор \"Риболов\"",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:svinski-but-bez-kost",
+      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-29T00:00:00.000Z",
-      "firstSeenAt": "2026-09-29T00:00:00.000Z",
+      "occurredAt": "2026-09-30T00:00:00.000Z",
+      "firstSeenAt": "2026-09-30T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,13 +208,13 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/svinski-but-bez-kost",
+      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "СВИНСКИ БУТ БЕЗ КОСТ",
+        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
         "pct": 51,
-        "promoEur": "2.99",
-        "regularEur": "6.15",
+        "promoEur": "0.89",
+        "regularEur": "1.82",
         "chains": 2
       },
       "backfill": false,
@@ -280,6 +280,38 @@
       "verification": "automatic",
       "materiality": 0.475,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:0cbfcb31-af33-4ccb-8a0a-a7f4208296b9",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-09-18T15:00:00.000Z",
+      "deadlineAt": "2026-10-18T14:00:00.000Z",
+      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/0cbfcb31-af33-4ccb-8a0a-a7f4208296b9"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "\"Предлагане на пазара - компенсации - подсектор \"Риболов\"",
+        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -1090,70 +1122,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:ceaa9a74-aa2c-4632-b69b-0701453b3ce2",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-08-31T13:30:00.000Z",
-      "deadlineAt": "2026-10-08T13:30:00.000Z",
-      "firstSeenAt": "2026-08-31T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/ceaa9a74-aa2c-4632-b69b-0701453b3ce2"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Допълващо финансиране за консолидиране на първоначалната мрежа от Европейски цифрови иновационни хъбове",
-        "programme": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\""
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:c80c479d-cc7a-4c61-b3c5-752ea5e8f1b7",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-08-31T06:00:00.000Z",
-      "deadlineAt": "2026-12-01T15:00:00.000Z",
-      "firstSeenAt": "2026-08-31T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/c80c479d-cc7a-4c61-b3c5-752ea5e8f1b7"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Аквакултури, предоставящи екологични услуги -„Непродуктивни инвестиции в стопанствата, свързани с прилагане на преки кон",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
       "id": "parliament:sitting:2026-09-03",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -1235,6 +1203,34 @@
       "verification": "automatic",
       "materiality": 0.025,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-04",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-04T00:00:00.000Z",
+      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-04",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 1
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.025,
+      "actionability": 0.4
     }
   ],
   "sourceCoverage": {
@@ -1273,7 +1269,7 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-09-21",
-      "observedAt": "2026-09-24",
+      "observedAt": "2026-09-30",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -1285,8 +1281,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-29",
-      "observedAt": "2026-09-29",
+      "asOf": "2026-09-30",
+      "observedAt": "2026-09-30",
       "staleAfterDays": 5,
       "stale": false
     }

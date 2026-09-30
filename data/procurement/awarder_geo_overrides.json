@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-29T23:00:02.256Z",
-  "count": 2205,
+  "generatedAt": "2026-09-30T22:54:05.708Z",
+  "count": 2206,
   "sources": {
     "tr": 139,
-    "ocds": 358,
+    "ocds": 359,
     "name+oblast": 76,
     "ri": 1293,
     "name": 249,
@@ -13,8 +13,8 @@
   },
   "run": {
     "candidates": 2768,
-    "resolved": 2119,
-    "unresolved": 649
+    "resolved": 2120,
+    "unresolved": 648
   },
   "carriedOver": {
     "mon": 34,
@@ -23,19 +23,19 @@
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-09-29T23:00:02.256Z"
+      "lastFreshAt": "2026-09-30T22:54:05.708Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-09-29T23:00:02.256Z"
+      "lastFreshAt": "2026-09-30T22:54:05.708Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-09-29T23:00:02.256Z"
+      "lastFreshAt": "2026-09-30T22:54:05.708Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-09-29T23:00:02.256Z"
+      "lastFreshAt": "2026-09-30T22:54:05.708Z"
     },
     "mon": {
       "status": "unavailable",
@@ -44,15 +44,15 @@
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-09-29T23:00:02.256Z"
+      "lastFreshAt": "2026-09-30T22:54:05.708Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-09-29T23:00:02.256Z"
+      "lastFreshAt": "2026-09-30T22:54:05.708Z"
     }
   },
   "notes": [
-    "Tier mon was unavailable on 2026-09-29 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
+    "Tier mon was unavailable on 2026-09-30 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
   ],
   "awarders": {
     "101005300": {
@@ -7243,6 +7243,11 @@
     "000459014": {
       "ekatte": "56784",
       "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000459021": {
+      "ekatte": "56784",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000459053": {
