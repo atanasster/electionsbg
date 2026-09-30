@@ -25,7 +25,7 @@ declare global {
 }
 
 /** Umami website id for naiasno.bg. Empty = analytics disabled (the loader no-ops). */
-export const UMAMI_WEBSITE_ID = "";
+export const UMAMI_WEBSITE_ID = "4a29eca9-f428-4064-b974-0654598cce76";
 /** Served by Firebase Hosting's `/stats/**` rewrite to the `umami` Cloud Run service. */
 export const UMAMI_SCRIPT_PATH = "/stats/script.js";
 /** Only the production host is counted — staging, preview channels and localhost never are. */

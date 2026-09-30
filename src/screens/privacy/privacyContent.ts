@@ -18,7 +18,10 @@ export type Lang = "bg" | "en";
 type Text = Record<Lang, string>;
 
 /** The data controller — the site owner, as a natural person (plan §2). */
-export const CONTROLLER_NAME: Text = { bg: "", en: "" };
+export const CONTROLLER_NAME: Text = {
+  bg: "Атанас Стоянов",
+  en: "Atanas Stoyanov",
+};
 export const CONTACT_EMAIL = "support@electionsbg.com";
 export const PRIVACY_UPDATED = "2026-09-26";
 
