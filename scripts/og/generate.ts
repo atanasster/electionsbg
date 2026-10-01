@@ -37,11 +37,6 @@ const localizeDate = (electionName: string): string => {
   return `${d}.${m}.${y}`;
 };
 
-const formatPctSigned = (pct: number, digits = 2): string => {
-  const sign = pct > 0 ? "+" : "";
-  return `${sign}${pct.toFixed(digits)}%`;
-};
-
 const formatThousands = (n: number): string =>
   n.toLocaleString("bg-BG").replace(/\s/g, ",");
 
@@ -53,62 +48,6 @@ type CardJob = { relPath: string; spec: CardSpec };
 const jobs: CardJob[] = [];
 const queue = (relPath: string, spec: CardSpec): void => {
   jobs.push({ relPath, spec });
-};
-
-const renderHomeCard = (summary: NationalSummary, relPath: string) => {
-  const tiles: Tile[] = [
-    {
-      label: "избирателна активност",
-      value: `${summary.turnout.pct.toFixed(1)}%`,
-      delta:
-        summary.turnout.deltaPct !== undefined
-          ? `${formatPctSigned(summary.turnout.deltaPct)} пр.п.`
-          : undefined,
-      deltaColor:
-        summary.turnout.deltaPct === undefined
-          ? PALETTE.muted
-          : summary.turnout.deltaPct >= 0
-            ? PALETTE.green
-            : PALETTE.red,
-    },
-    {
-      label: "най-голям ръст",
-      value: summary.topGainer ? summary.topGainer.nickName : "—",
-      delta: summary.topGainer
-        ? `${formatPctSigned(summary.topGainer.deltaPct)} пр.п.`
-        : undefined,
-      deltaColor:
-        summary.topGainer && summary.topGainer.deltaPct >= 0
-          ? PALETTE.green
-          : PALETTE.red,
-      accent: summary.topGainer?.color,
-    },
-    {
-      label: "най-голям спад",
-      value: summary.topLoser ? summary.topLoser.nickName : "—",
-      delta: summary.topLoser
-        ? `${formatPctSigned(summary.topLoser.deltaPct)} пр.п.`
-        : undefined,
-      deltaColor:
-        summary.topLoser && summary.topLoser.deltaPct >= 0
-          ? PALETTE.green
-          : PALETTE.red,
-      accent: summary.topLoser?.color,
-    },
-    {
-      label: "отклонения",
-      value: formatThousands(summary.anomalies.total),
-      delta: "секции",
-      deltaColor: PALETTE.amber,
-    },
-  ];
-  queue(relPath, {
-    title: `Парламентарни избори ${localizeDate(summary.election)}`,
-    subtitle: summary.priorElection
-      ? `Сравнение с ${localizeDate(summary.priorElection)}`
-      : "",
-    tiles,
-  });
 };
 
 const renderPartyCard = (
@@ -247,14 +186,12 @@ const main = async () => {
   );
   const latest = elections[0].name; // newest first
 
-  // Home / national card.
-  const summaryPath = path.join(publicFolder, latest, "national_summary.json");
-  if (fs.existsSync(summaryPath)) {
-    const summary: NationalSummary = JSON.parse(
-      fs.readFileSync(summaryPath, "utf-8"),
-    );
-    renderHomeCard(summary, "home.png");
-  }
+  // NB: NO home card here. The homepage is the global hub, and its og:image is the Playwright
+  // screenshot of its head (public/og/home.png via capture-screens.ts, slug "home"). A
+  // "Парламентарни избори <date>" text card used to be queued here from the homepage's
+  // election era; postbuild wrote it over the screenshot in dist/og/, so the live share card
+  // was an old election card while the freshness gate checked the committed screenshot that
+  // never shipped. og_capture_ownership.test.ts now fails on any such overlap.
 
   // Static-page cards: branded covers for /timeline, /compare, /about and the
   // methodology pages below. Each gets 4 quick highlight tiles. (Pages with a
@@ -277,17 +214,8 @@ const main = async () => {
     "timeline.png",
   );
 
-  renderStaticPageCard(
-    "Сравнение на парламентарни избори",
-    "Рамо до рамо: два вота или две области",
-    [
-      { label: "режим 1", value: "избори" },
-      { label: "режим 2", value: "области" },
-      { label: "показатели", value: "активност" },
-      { label: "и", value: "партии" },
-    ],
-    "compare.png",
-  );
+  // NB: /compare has no text card either — capture-screens.ts shoots it (slug "compare"),
+  // and a job here would overwrite that screenshot in dist/og/ (og_capture_ownership.test.ts).
 
   // NB: /simulator, /sofia, /consumption and /financing use live Playwright
   // dashboard screenshots (public/og/{simulator,sofia,consumption,financing}.png
@@ -669,6 +597,7 @@ const main = async () => {
   }
 
   // Party cards.
+  const summaryPath = path.join(publicFolder, latest, "national_summary.json");
   const partiesFile = path.join(publicFolder, latest, cikPartiesFileName);
   const parties: PartyInfo[] = fs.existsSync(partiesFile)
     ? JSON.parse(fs.readFileSync(partiesFile, "utf-8"))
