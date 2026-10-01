@@ -14,6 +14,8 @@
 //
 // Inline links use a tiny `[label](href)` syntax, parsed by `parseInline` for both renderers.
 
+import { escHtml, inlineHtml } from "@/lib/inlineMarkup";
+
 export type Lang = "bg" | "en";
 type Text = Record<Lang, string>;
 
@@ -23,7 +25,7 @@ export const CONTROLLER_NAME: Text = {
   en: "Atanas Stoyanov",
 };
 export const CONTACT_EMAIL = "support@electionsbg.com";
-export const PRIVACY_UPDATED = "2026-09-26";
+export const PRIVACY_UPDATED = "2026-10-01";
 
 export type Block =
   | { kind: "p"; text: Text }
@@ -337,16 +339,16 @@ export const privacySections = (): Section[] => [
     heading: T("Хората в нашите данни", "People in our data"),
     blocks: [
       P(
-        "Сайтът публикува данни за лица с публична роля — народни представители, министри, кметове, общински съветници, магистрати, кандидати, дарители, собственици и управители на фирми, изпълнители на обществени поръчки. Данните идват от публични регистри: ЦИК, Народното събрание, Сметната палата, Инспектората към ВСС, Търговския регистър, АОП, ИСУН, ДФ „Земеделие“ и общинските съвети. Обработваме ги в обществен интерес — прозрачност на властта и на публичните средства — въз основа на легитимен интерес (чл. 6(1)(е) ОРЗД) и свободата на изразяване и информация (чл. 85 ОРЗД, чл. 25з ЗЗЛД).",
-        "The site publishes data about people with a public role — MPs, ministers, mayors, municipal councillors, magistrates, candidates, donors, company owners and managers, public-procurement contractors. The data comes from public registers: the Central Election Commission, the National Assembly, the National Audit Office, the Inspectorate to the Supreme Judicial Council, the Commercial Register, the Public Procurement Agency, the EU-funds system ИСУН, State Fund Agriculture and the municipal councils. We process it in the public interest — transparency of power and of public money — on the basis of legitimate interest (Art. 6(1)(f) GDPR) and freedom of expression and information (Art. 85 GDPR, Art. 25h of the Bulgarian Personal Data Protection Act).",
+        "Сайтът публикува данни за лица с публична роля — народни представители, министри, кметове, общински съветници, магистрати, кандидати — както и за дарители на партии и за частни собственици и управители на фирми, получили публични средства, и за физически лица — изпълнители на обществени поръчки. Данните идват от публични регистри: ЦИК, Народното събрание, Сметната палата, Инспектората към ВСС, Търговския регистър, АОП, ИСУН, ДФ „Земеделие“ и общинските съвети. Обработваме ги в обществен интерес — прозрачност на властта и на публичните средства — въз основа на легитимен интерес (чл. 6(1)(е) ОРЗД) и свободата на изразяване и информация (чл. 85 ОРЗД, чл. 25з ЗЗЛД).",
+        "The site publishes data about people with a public role — MPs, ministers, mayors, municipal councillors, magistrates, candidates — and about party donors and private owners and managers of companies that received public money, and natural persons who are public-procurement contractors. The data comes from public registers: the Central Election Commission, the National Assembly, the National Audit Office, the Inspectorate to the Supreme Judicial Council, the Commercial Register, the Public Procurement Agency, the EU-funds system ИСУН, State Fund Agriculture and the municipal councils. We process it in the public interest — transparency of power and of public money — on the basis of legitimate interest (Art. 6(1)(f) GDPR) and freedom of expression and information (Art. 85 GDPR, Art. 25h of the Bulgarian Personal Data Protection Act).",
       ),
       P(
-        "Не съхраняваме ЕГН. Не свързваме човек със запис само по съвпадение на име. Ако смятате, че данни за вас са неточни или не бива да се публикуват, пишете ни на [" +
+        "Не съхраняваме ЕГН. Някои регистри посочват хората само с име. Тогава свързваме човек с фирма по името единствено при строги условия: пълно трииметно име, не повече от 5 фирми и връзка с публични средства. Профилите на частни лица, свързани така, не се показват в търсачките. Ако смятате, че данни за вас са неточни или не бива да се публикуват, пишете ни на [" +
           CONTACT_EMAIL +
           "](mailto:" +
           CONTACT_EMAIL +
           ") — ще отговорим в срок до един месец. Подробно уведомление за тази обработка предстои.",
-        "We do not store personal identification numbers (ЕГН). We do not link a person to a record on a name match alone. If you believe data about you is inaccurate or should not be published, write to [" +
+        "We do not store personal identification numbers (ЕГН). Some registers identify people by name only. In that case we link a person to a company by name only under strict conditions: a full three-part name, no more than 5 companies, and a link to public money. Profiles of private individuals linked this way are not shown in search engines. If you believe data about you is inaccurate or should not be published, write to [" +
           CONTACT_EMAIL +
           "](mailto:" +
           CONTACT_EMAIL +
@@ -378,37 +380,6 @@ export const privacySections = (): Section[] => [
   },
 ];
 
-/** Split `text` into plain runs and `[label](href)` links. Shared by both renderers. */
-export type Inline = { text: string; href?: string };
-export const parseInline = (text: string): Inline[] => {
-  const out: Inline[] = [];
-  const re = /\[([^\]]+)\]\(([^)\s]+)\)/g;
-  let last = 0;
-  for (const m of text.matchAll(re)) {
-    if (m.index! > last) out.push({ text: text.slice(last, m.index) });
-    out.push({ text: m[1], href: m[2] });
-    last = m.index! + m[0].length;
-  }
-  if (last < text.length) out.push({ text: text.slice(last) });
-  return out;
-};
-
-const esc = (s: string) =>
-  s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-
-const inlineHtml = (text: string) =>
-  parseInline(text)
-    .map((r) =>
-      r.href
-        ? `<a href="${esc(r.href)}"${r.href.startsWith("http") ? ' rel="noopener"' : ""}>${esc(r.text)}</a>`
-        : esc(r.text),
-    )
-    .join("");
-
 export const PRIVACY_TITLE: Text = {
   bg: "Поверителност",
   en: "Privacy",
@@ -416,12 +387,12 @@ export const PRIVACY_TITLE: Text = {
 
 /** The prerendered body — the same sections the React screen renders. */
 export const privacyBodyHtml = (lang: Lang): string => {
-  const parts = [`<h1>${esc(PRIVACY_TITLE[lang])}</h1>`];
+  const parts = [`<h1>${escHtml(PRIVACY_TITLE[lang])}</h1>`];
   parts.push(
     `<p>${lang === "bg" ? "Последна промяна" : "Last updated"}: ${PRIVACY_UPDATED}</p>`,
   );
   for (const s of privacySections()) {
-    parts.push(`<h2 id="${s.id}">${esc(s.heading[lang])}</h2>`);
+    parts.push(`<h2 id="${s.id}">${escHtml(s.heading[lang])}</h2>`);
     for (const b of s.blocks) {
       if (b.kind === "p") parts.push(`<p>${inlineHtml(b.text[lang])}</p>`);
       else if (b.kind === "ul")
@@ -430,7 +401,7 @@ export const privacyBodyHtml = (lang: Lang): string => {
         );
       else
         parts.push(
-          `<table><thead><tr>${b.head.map((h) => `<th>${esc(h[lang])}</th>`).join("")}</tr></thead><tbody>${b.rows
+          `<table><thead><tr>${b.head.map((h) => `<th>${escHtml(h[lang])}</th>`).join("")}</tr></thead><tbody>${b.rows
             .map(
               (r) =>
                 `<tr>${r.map((c) => `<td>${inlineHtml(c[lang])}</td>`).join("")}</tr>`,

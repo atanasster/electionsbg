@@ -4,6 +4,11 @@ import { H1 } from "@/ux/H1";
 import { Anchor } from "@/ux/Anchor";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { InlineText } from "@/ux/InlineText";
+import {
+  ACCUMULATION_GAP,
+  ACCUMULATION_GAP_ID,
+} from "@/screens/about/accumulationGapContent";
 
 const linkClass =
   "text-accent underline underline-offset-4 decoration-accent/40 hover:decoration-accent transition-colors";
@@ -80,7 +85,8 @@ const AREAS: { to: string; title: string; body: string }[] = [
 ];
 
 export const AboutScreen = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const gap = ACCUMULATION_GAP[i18n.language === "en" ? "en" : "bg"];
   return (
     <div className="text-foreground w-full">
       <SEO title={t("about")} description={t("about_seo_description")} />
@@ -162,6 +168,30 @@ export const AboutScreen = () => {
               {t("about_ai_link")}
             </Link>
           </p>
+        </section>
+
+        {/* Methodology + RIGHT OF REPLY for the wealth-vs-income figure that names individuals.
+            Every /person figure links to #accumulation-gap. The text is shared with the /about
+            prerender (accumulationGapContent.ts) — it existed only there until 2026-10-01, so the
+            anchor vanished as soon as this screen rendered. */}
+        <section
+          id={ACCUMULATION_GAP_ID}
+          className="mb-12 md:mb-16 scroll-mt-24"
+        >
+          <SectionHeading>{gap.heading}</SectionHeading>
+          {gap.paragraphs.map((p, i) => (
+            <p
+              key={i}
+              className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground"
+            >
+              {p.lead && (
+                <strong className="font-semibold text-foreground">
+                  {p.lead}{" "}
+                </strong>
+              )}
+              <InlineText text={p.text} />
+            </p>
+          ))}
         </section>
 
         {/* Team */}

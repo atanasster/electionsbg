@@ -11,10 +11,10 @@ import { stripComments } from "@/../scripts/lib/strip_comments";
 import {
   STORAGE_ROWS,
   STORAGE_WRITER_EXCEPTIONS,
-  parseInline,
   privacyBodyHtml,
   privacySections,
 } from "./privacyContent";
+import { parseInline } from "@/lib/inlineMarkup";
 
 const REPO = path.resolve(__dirname, "../../..");
 const SKIP_DIRS = new Set(["node_modules", ".venv", "m0", "dist"]);

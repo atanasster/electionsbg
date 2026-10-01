@@ -1,35 +1,13 @@
-import { Fragment, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
+import { InlineText as Inline } from "@/ux/InlineText";
 import {
   PRIVACY_TITLE,
   PRIVACY_UPDATED,
-  parseInline,
   privacySections,
   type Lang,
 } from "./privacyContent";
-
-const linkClass =
-  "text-accent underline underline-offset-4 decoration-accent/40 hover:decoration-accent transition-colors";
-
-const Inline = ({ text }: { text: string }): ReactNode =>
-  parseInline(text).map((r, i) =>
-    r.href ? (
-      <a
-        key={i}
-        href={r.href}
-        className={linkClass}
-        {...(r.href.startsWith("http")
-          ? { target: "_blank", rel: "noopener noreferrer" }
-          : {})}
-      >
-        {r.text}
-      </a>
-    ) : (
-      <Fragment key={i}>{r.text}</Fragment>
-    ),
-  );
 
 const DESCRIPTION: Record<Lang, string> = {
   bg: "Как Наясно обработва лични данни: без бисквитки и реклама, собствена статистика без проследяване, AI чат, публичните регистри и вашите права.",
