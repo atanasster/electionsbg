@@ -1,6 +1,48 @@
 {
-  "updatedAt": "2026-09-30T23:43:55.933Z",
+  "updatedAt": "2026-10-02T00:48:13.188Z",
   "entries": [
+    {
+      "timestamp": "2026-10-02T00:48:13.188Z",
+      "date": "2026-10-02",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-01 (+1 daily archive; 815,380 store rows, 167 settlements, 71 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-01"
+    },
+    {
+      "timestamp": "2026-10-02T00:42:12.007Z",
+      "date": "2026-10-02",
+      "skill": "update-council-minutes",
+      "summary": "205 нови решения в 5 общини (Стара Загора 71, Сливен 71, Плевен 29, В. Търново 26, Варна 8)",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-10-02T00:15:24.503Z",
+      "date": "2026-10-02",
+      "skill": "update-procurement",
+      "summary": "EOP 2026-09-30: +128 contracts (63 buyers), 413,086 in PG; tenders 239,910; TED 220,946 notices",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-10-02T00:06:43.985Z",
+      "date": "2026-10-02",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 843 лица, 125 075 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-01T23:17:24.611Z",
+      "date": "2026-10-01",
+      "skill": "update-rollcall",
+      "summary": "2 new sessions through 2026-10-01 (66 items, 15,840 rows)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-30T23:43:55.933Z",
       "date": "2026-09-30",

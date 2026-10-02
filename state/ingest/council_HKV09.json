@@ -1,6 +1,17 @@
 {
   "skill": "council_HKV09",
-  "lastSuccessfulIngest": "2026-09-28T23:04:35.309Z",
+  "lastSuccessfulIngest": "2026-10-02T00:18:23.704Z",
   "summary": "1 prot(s) → 0+/0=/607 total",
-  "sinceDate": "2026-07-30"
+  "sinceDate": "2026-07-30",
+  "deferred": [
+    {
+      "url": "https://www.dimitrovgrad.bg/bg/protokoli-ot-zasedaniyata-na-obshtinskiya-savet/protokol-40-ot-redovno-zasedanie-na-24-09-2026-godina",
+      "kind": "content",
+      "date": "2026-09-24",
+      "message": "no .doc/.docx/.pdf link found on session page",
+      "firstSeen": "2026-10-02T00:18:23.704Z",
+      "attempts": 1,
+      "givenUp": true
+    }
+  ]
 }

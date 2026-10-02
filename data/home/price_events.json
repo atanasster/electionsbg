@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-30",
+  "computedAt": "2026-10-01",
   "thresholds": {
     "basketPids": [
       1,
@@ -81,27 +81,27 @@
       "promoEur": 0.79,
       "regularEur": 1.74,
       "discountPct": 54,
-      "stores": 32,
+      "stores": 28,
       "chains": 3
     },
     {
-      "slug": "limoni",
-      "title": "ЛИМОНИ",
-      "atOrBelowSince": "2026-09-28",
-      "promoEur": 0.99,
-      "regularEur": 2.08,
-      "discountPct": 52,
-      "stores": 258,
-      "chains": 5
-    },
-    {
-      "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
-      "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+      "slug": "shokolad-lakmi-90gr-mlechen",
+      "title": "ШОКОЛАД ЛАКМИ 90ГР МЛЕЧЕН",
       "atOrBelowSince": "2026-09-17",
       "promoEur": 0.89,
-      "regularEur": 1.82,
-      "discountPct": 51,
-      "stores": 6,
+      "regularEur": 1.84,
+      "discountPct": 52,
+      "stores": 11,
+      "chains": 3
+    },
+    {
+      "slug": "shokolad-lakmi-90gr-mlechen-s-yagodova-panakota",
+      "title": "ШОКОЛАД ЛАКМИ 90ГР МЛЕЧЕН С ЯГОДОВА ПАНАКОТА",
+      "atOrBelowSince": "2026-09-17",
+      "promoEur": 0.89,
+      "regularEur": 1.84,
+      "discountPct": 52,
+      "stores": 10,
       "chains": 2
     }
   ]

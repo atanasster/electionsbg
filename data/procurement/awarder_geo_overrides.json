@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-30T22:54:05.708Z",
-  "count": 2206,
+  "generatedAt": "2026-10-01T23:22:29.638Z",
+  "count": 2207,
   "sources": {
-    "tr": 139,
+    "tr": 140,
     "ocds": 359,
     "name+oblast": 76,
     "ri": 1293,
@@ -12,8 +12,8 @@
     "school": 1
   },
   "run": {
-    "candidates": 2768,
-    "resolved": 2120,
+    "candidates": 2769,
+    "resolved": 2121,
     "unresolved": 648
   },
   "carriedOver": {
@@ -23,19 +23,19 @@
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-09-30T22:54:05.708Z"
+      "lastFreshAt": "2026-10-01T23:22:29.638Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-09-30T22:54:05.708Z"
+      "lastFreshAt": "2026-10-01T23:22:29.638Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-09-30T22:54:05.708Z"
+      "lastFreshAt": "2026-10-01T23:22:29.638Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-09-30T22:54:05.708Z"
+      "lastFreshAt": "2026-10-01T23:22:29.638Z"
     },
     "mon": {
       "status": "unavailable",
@@ -44,15 +44,15 @@
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-09-30T22:54:05.708Z"
+      "lastFreshAt": "2026-10-01T23:22:29.638Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-09-30T22:54:05.708Z"
+      "lastFreshAt": "2026-10-01T23:22:29.638Z"
     }
   },
   "notes": [
-    "Tier mon was unavailable on 2026-09-30 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
+    "Tier mon was unavailable on 2026-10-01 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
   ],
   "awarders": {
     "101005300": {
@@ -2902,6 +2902,11 @@
     },
     "207360939": {
       "ekatte": "67338",
+      "source": "tr",
+      "confidence": "name_only"
+    },
+    "207514950": {
+      "ekatte": "00182",
       "source": "tr",
       "confidence": "name_only"
     },

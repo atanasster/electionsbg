@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T22:54:57.754Z",
+  "generatedAt": "2026-10-01T23:24:03.497Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -9267,6 +9267,16 @@
       "label": "Свилен Шидеров Попов"
     },
     {
+      "id": "contractor:121816011",
+      "type": "contractor",
+      "label": "Глоса ЕООД"
+    },
+    {
+      "id": "official:svetoslav-apostolov-glosov-11a5ac",
+      "type": "official",
+      "label": "Светослав Апостолов Глосов"
+    },
+    {
       "id": "official:aleksandr-hristov-nikolov-182482",
       "type": "official",
       "label": "Александър Христов Николов"
@@ -9375,16 +9385,6 @@
       "id": "official:nikolai-rumenov-stoilov-8657a0",
       "type": "official",
       "label": "Николай Руменов Стоилов"
-    },
-    {
-      "id": "contractor:121816011",
-      "type": "contractor",
-      "label": "Глоса ЕООД"
-    },
-    {
-      "id": "official:svetoslav-apostolov-glosov-11a5ac",
-      "type": "official",
-      "label": "Светослав Апостолов Глосов"
     },
     {
       "id": "official:vladimir-valeriev-hadzhiev-520cae",
@@ -11807,14 +11807,14 @@
       "label": "Община Ловеч"
     },
     {
-      "id": "awarder:000320872",
-      "type": "awarder",
-      "label": "Община Монтана"
-    },
-    {
       "id": "awarder:000386751",
       "type": "awarder",
       "label": "Община Перник"
+    },
+    {
+      "id": "awarder:000320872",
+      "type": "awarder",
+      "label": "Община Монтана"
     },
     {
       "id": "awarder:000235920",
@@ -21871,7 +21871,7 @@
     {
       "source": "contractor:175040885",
       "target": "official:decho-petrov-dechev-154400",
-      "valueEur": 22617551.87
+      "valueEur": 22617840.75
     },
     {
       "source": "contractor:201892554",
@@ -22821,32 +22821,32 @@
     {
       "source": "contractor:131045382",
       "target": "official:galina-simeonova-simeonova-a73d4f",
-      "valueEur": 1414523.16
+      "valueEur": 1425771.58
     },
     {
       "source": "contractor:131045382",
       "target": "official:irina-antonieva-koseva-144a06",
-      "valueEur": 1414523.16
+      "valueEur": 1425771.58
     },
     {
       "source": "contractor:131045382",
       "target": "official:magdalena-lyubcheva-georgieva-29a460",
-      "valueEur": 1414523.16
+      "valueEur": 1425771.58
     },
     {
       "source": "contractor:131045382",
       "target": "official:martin-ovanes-kafedzhiyan-917bfb",
-      "valueEur": 1414523.16
+      "valueEur": 1425771.58
     },
     {
       "source": "contractor:131045382",
       "target": "official:svetla-borisova-stoyanova-kircheva-a7b6b4",
-      "valueEur": 1414523.16
+      "valueEur": 1425771.58
     },
     {
       "source": "contractor:131045382",
       "target": "official:vladislav-bogdanov-georgiev-46492d",
-      "valueEur": 1414523.16
+      "valueEur": 1425771.58
     },
     {
       "source": "contractor:130506225",
@@ -23441,7 +23441,7 @@
     {
       "source": "contractor:832046330",
       "target": "official:rositsa-svilenova-itova-4deef7",
-      "valueEur": 422750.06
+      "valueEur": 423568.12
     },
     {
       "source": "contractor:205990330",
@@ -23492,6 +23492,11 @@
       "source": "contractor:115312277",
       "target": "official:svilen-shiderov-popov-3a043e",
       "valueEur": 332671.65
+    },
+    {
+      "source": "contractor:121816011",
+      "target": "official:svetoslav-apostolov-glosov-11a5ac",
+      "valueEur": 325050.65
     },
     {
       "source": "contractor:106513772",
@@ -23622,11 +23627,6 @@
       "source": "contractor:000715054",
       "target": "official:nikolai-rumenov-stoilov-8657a0",
       "valueEur": 298078.05
-    },
-    {
-      "source": "contractor:121816011",
-      "target": "official:svetoslav-apostolov-glosov-11a5ac",
-      "valueEur": 293870.65
     },
     {
       "source": "contractor:205082050",
@@ -25819,6 +25819,21 @@
       "valueEur": 352586.88
     },
     {
+      "source": "awarder:000386751",
+      "target": "contractor:121816011",
+      "valueEur": 235428.83
+    },
+    {
+      "source": "awarder:000261517",
+      "target": "contractor:121816011",
+      "valueEur": 87909
+    },
+    {
+      "source": "awarder:000386559",
+      "target": "contractor:121816011",
+      "valueEur": 1712.82
+    },
+    {
       "source": "awarder:000649348",
       "target": "contractor:175201304",
       "valueEur": 145044.08
@@ -25862,21 +25877,6 @@
       "source": "awarder:130367715",
       "target": "contractor:000715054",
       "valueEur": 298078.05
-    },
-    {
-      "source": "awarder:000386751",
-      "target": "contractor:121816011",
-      "valueEur": 204248.83
-    },
-    {
-      "source": "awarder:000261517",
-      "target": "contractor:121816011",
-      "valueEur": 87909
-    },
-    {
-      "source": "awarder:000386559",
-      "target": "contractor:121816011",
-      "valueEur": 1712.82
     },
     {
       "source": "awarder:000696327",
