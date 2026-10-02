@@ -1,8 +1,8 @@
 {
-  "detail": "16 município(s) wired, 841 session-link(s) total · 6 fetch error(s)",
-  "fingerprint": "cd884f1376a2358df6026e42db87725ab81af78bea533480f2d0b5779880198a",
-  "lastChanged": "2026-10-01T22:44:42.973Z",
-  "lastChecked": "2026-10-01T22:44:42.973Z",
+  "detail": "16 município(s) wired, 843 session-link(s) total · 1 fetch error(s)",
+  "fingerprint": "2afb5f1b4599d38d6f39eb734e001ab288628af25942533900781fb41671f3ab",
+  "lastChanged": "2026-10-02T22:46:52.711Z",
+  "lastChecked": "2026-10-02T22:46:52.711Z",
   "meta": {
     "counts": {
       "BGS01": 36,
@@ -13,11 +13,11 @@
       "PDV01": 9,
       "PER32": 42,
       "PVN01": 35,
-      "RAZ26": -1,
-      "RSE01": -1,
-      "SLV01": -1,
-      "SOF": -1,
-      "SZR01": -1,
+      "RAZ26": 17,
+      "RSE01": 59,
+      "SLV01": 108,
+      "SOF": 0,
+      "SZR01": 31,
       "SZR12": -1,
       "VAR01": 359,
       "VTR01": 5
@@ -33,7 +33,7 @@
       "PVN01": 35,
       "RAZ26": 17,
       "RSE01": 59,
-      "SLV01": 106,
+      "SLV01": 108,
       "SOF": 0,
       "SZR01": 31,
       "SZR12": 13,
@@ -41,11 +41,6 @@
       "VTR01": 5
     },
     "errors": [
-      "RAZ26",
-      "RSE01",
-      "SLV01",
-      "SOF",
-      "SZR01",
       "SZR12"
     ],
     "heartbeatEpoch": 6909
