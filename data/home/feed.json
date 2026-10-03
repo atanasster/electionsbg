@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-01T23:59:59.999Z",
+  "computedAt": "2026-10-03T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
+      "occurredAt": "2026-10-02T00:00:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -29,7 +29,7 @@
         "pct": 54,
         "promoEur": "0.79",
         "regularEur": "1.74",
-        "chains": 3
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
@@ -66,6 +66,228 @@
     },
     {
       "schemaVersion": 1,
+      "id": "funds:call_opened:isun:aab2f9c6-fb6f-46e4-b267-d1cf30109b77",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-10-02T15:00:00.000Z",
+      "deadlineAt": "2026-11-02T21:59:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/aab2f9c6-fb6f-46e4-b267-d1cf30109b77"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Процедура №2 „Специфична цел 1 „Обща европейска система за убежище“ и Специфична цел 3 \"Връщане\"",
+        "programme": "Програма на Република България по фонд „Убежище, миграция и интеграция“"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-02T00:00:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 48,
+        "promoEur": "1.09",
+        "regularEur": "2.08",
+        "chains": 6
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6857142857142857,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:e6e406b1-1175-47b1-81c3-59a38e0f82a8",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-10-02T15:00:00.000Z",
+      "deadlineAt": "2026-11-02T15:30:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/e6e406b1-1175-47b1-81c3-59a38e0f82a8"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Процедура № 4, Специфична цел 4 „Солидарност“",
+        "programme": "Програма на Република България по фонд „Убежище, миграция и интеграция“"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-10-01",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-10-01T00:00:00.000Z",
+      "firstSeenAt": "2026-10-01T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-10-01",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 30
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.75,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:palmolive-sapun-cherna-orhideya-90-g",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-02T00:00:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/palmolive-sapun-cherna-orhideya-90-g",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "PALMOLIVE сапун Черна орхидея 90 г",
+        "pct": 47,
+        "promoEur": "0.65",
+        "regularEur": "1.22",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6714285714285714,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:fa86bbdc-9ed8-4608-920a-2c53ea413e61",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-10-02T15:00:00.000Z",
+      "deadlineAt": "2026-11-02T15:30:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/fa86bbdc-9ed8-4608-920a-2c53ea413e61"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Процедура № 5, Специфична цел 4 „Солидарност“",
+        "programme": "Програма на Република България по фонд „Убежище, миграция и интеграция“"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:1007fb47-81e2-485d-af52-b7525f4817cf",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-10-02T14:00:00.000Z",
+      "deadlineAt": "2026-12-31T15:00:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/1007fb47-81e2-485d-af52-b7525f4817cf"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Специфично оборудване на риболовния кораб, дейности и иновации, целящи опазването на околната среда и на биоразнообразие",
+        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
       "id": "funds:call_opened:isun:15f1ce8e-0ff6-423a-80a4-7d4ca8d8d28a",
       "kind": "call_opened",
       "category": "funds",
@@ -98,44 +320,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lakmi-90gr-mlechen",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/shokolad-lakmi-90gr-mlechen",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "ШОКОЛАД ЛАКМИ 90ГР МЛЕЧЕН",
-        "pct": 52,
-        "promoEur": "0.89",
-        "regularEur": "1.84",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7428571428571429,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-10-01",
+      "id": "parliament:sitting:2026-09-25",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
+      "occurredAt": "2026-09-25T00:00:00.000Z",
+      "firstSeenAt": "2026-09-25T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -147,14 +336,14 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-10-01",
+      "route": "/votes/2026-09-25",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 30
+        "items": 26
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.75,
+      "materiality": 0.65,
       "actionability": 0.4
     },
     {
@@ -188,67 +377,6 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lakmi-90gr-mlechen-s-yagodova-panakota",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/shokolad-lakmi-90gr-mlechen-s-yagodova-panakota",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "ШОКОЛАД ЛАКМИ 90ГР МЛЕЧЕН С ЯГОДОВА ПАНАКОТА",
-        "pct": 52,
-        "promoEur": "0.89",
-        "regularEur": "1.84",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7428571428571429,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-25",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-25T00:00:00.000Z",
-      "firstSeenAt": "2026-09-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-25",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 26
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.65,
-      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -1116,121 +1244,6 @@
       "verification": "automatic",
       "materiality": 0.42975,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-09",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-09T00:00:00.000Z",
-      "firstSeenAt": "2026-09-09T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-09",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 17
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.425,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-09-06",
-      "kind": "basket_moved",
-      "category": "prices",
-      "occurredAt": "2026-09-06T00:00:00.000Z",
-      "firstSeenAt": "2026-09-06T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/consumption",
-      "factKey": "home_fact_basket_down",
-      "factArgs": {
-        "pct": "2.0",
-        "costEur": "15.52",
-        "days": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.495,
-      "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-03",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-03T00:00:00.000Z",
-      "firstSeenAt": "2026-09-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-03",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 20
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.5,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-02",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-02T00:00:00.000Z",
-      "firstSeenAt": "2026-09-02T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-02",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 19
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.475,
-      "actionability": 0.4
     }
   ],
   "sourceCoverage": {
@@ -1269,7 +1282,7 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-09-21",
-      "observedAt": "2026-09-30",
+      "observedAt": "2026-10-03",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -1281,8 +1294,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-01",
-      "observedAt": "2026-10-01",
+      "asOf": "2026-10-02",
+      "observedAt": "2026-10-02",
       "staleAfterDays": 5,
       "stale": false
     }

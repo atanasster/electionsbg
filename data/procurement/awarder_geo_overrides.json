@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-10-01T23:22:29.638Z",
-  "count": 2207,
+  "generatedAt": "2026-10-02T23:37:00.694Z",
+  "count": 2208,
   "sources": {
     "tr": 140,
-    "ocds": 359,
+    "ocds": 361,
     "name+oblast": 76,
     "ri": 1293,
-    "name": 249,
+    "name": 248,
     "mon": 34,
     "mon+oblast": 55,
     "school": 1
   },
   "run": {
     "candidates": 2769,
-    "resolved": 2121,
-    "unresolved": 648
+    "resolved": 2122,
+    "unresolved": 647
   },
   "carriedOver": {
     "mon": 34,
@@ -23,19 +23,19 @@
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-10-01T23:22:29.638Z"
+      "lastFreshAt": "2026-10-02T23:37:00.694Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-10-01T23:22:29.638Z"
+      "lastFreshAt": "2026-10-02T23:37:00.694Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-10-01T23:22:29.638Z"
+      "lastFreshAt": "2026-10-02T23:37:00.694Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-10-01T23:22:29.638Z"
+      "lastFreshAt": "2026-10-02T23:37:00.694Z"
     },
     "mon": {
       "status": "unavailable",
@@ -44,15 +44,15 @@
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-10-01T23:22:29.638Z"
+      "lastFreshAt": "2026-10-02T23:37:00.694Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-10-01T23:22:29.638Z"
+      "lastFreshAt": "2026-10-02T23:37:00.694Z"
     }
   },
   "notes": [
-    "Tier mon was unavailable on 2026-10-01 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
+    "Tier mon was unavailable on 2026-10-02 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 34, mon+oblast 55."
   ],
   "awarders": {
     "101005300": {
@@ -2612,8 +2612,8 @@
     },
     "177418636": {
       "ekatte": "10971",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "ocds",
+      "confidence": "name+province"
     },
     "177438560": {
       "ekatte": "68850",
@@ -8397,6 +8397,11 @@
     },
     "000667392": {
       "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000667474": {
+      "ekatte": "65601",
       "source": "ocds",
       "confidence": "name+province"
     },
