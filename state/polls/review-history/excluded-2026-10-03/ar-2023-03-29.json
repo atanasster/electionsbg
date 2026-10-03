@@ -1,0 +1,55 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2023-03-29",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1009-bez-razvruzka-do-samia-krai-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1013,
+    "genre": "unclear",
+    "fieldwork": "Mar 25-29 2023",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1009-bez-razvruzka-do-samia-krai-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-27T06:44:56.008Z",
+      "sha256": "62547df87fd26e9dd08b13105caeabd710bef9cf6db16f936c4691c561f39875",
+      "extractor": "AR",
+      "fieldworkStart": "2023-03-25",
+      "fieldworkEnd": "2023-03-29",
+      "basePhrase": null,
+      "quotes": {
+        "share:ПП-ДБ": "ПП-ДБ са налице известни вариации и с 25.4% те остават на дистанция от 0.5 на сто под ",
+        "share:ДПС": "ДПС запазва устойчива подкрепа от 13.8% от твърдо решилите да гласуват",
+        "sampleSize": "сред 1013 пълнолетни",
+        "fieldwork": "в периода 25 – 29 март 2023г"
+      }
+    },
+    "publicationId": "AR:1009",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2023-03-29",
+      "agencyId": "AR",
+      "support": 25.4,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-03-29",
+      "agencyId": "AR",
+      "support": 13.8,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ПП-ДБ": "ПП-ДБ са налице известни вариации и с 25.4% те остават на дистанция от 0.5 на сто под ",
+    "share:ДПС": "ДПС запазва устойчива подкрепа от 13.8% от твърдо решилите да гласуват",
+    "sampleSize": "сред 1013 пълнолетни",
+    "fieldwork": "в периода 25 – 29 март 2023г"
+  },
+  "refused": []
+}

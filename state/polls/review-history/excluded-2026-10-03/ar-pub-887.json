@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-887",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/887-izbori-za-deputati-za-evropeiski-parlament-25-mai-2014.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/887-izbori-za-deputati-za-evropeiski-parlament-25-mai-2014.html",
+      "fetchedAt": "2026-09-27T06:45:09.291Z",
+      "sha256": "20466462189d47e2c065ff5184b72aaa43506f89555f511e9c5d709d471b72fc",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:887",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

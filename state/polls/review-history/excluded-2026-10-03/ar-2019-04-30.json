@@ -1,0 +1,68 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2019-04-30",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/951-na-starta-na-predizbornata-kampania-za-evropeiski-parlament-namaliavashta-izbiratelna-aktivnost-i-paritet-mejdu-bsp-i-gerb.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Apr 20-30 2019",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/951-na-starta-na-predizbornata-kampania-za-evropeiski-parlament-namaliavashta-izbiratelna-aktivnost-i-paritet-mejdu-bsp-i-gerb.html",
+      "fetchedAt": "2026-09-27T06:44:59.349Z",
+      "sha256": "8953db1c42ec3fd1f8a71f9de725233fa2580491dc44f4b043dd1d9b5c4ce707",
+      "extractor": "AR",
+      "fieldworkStart": "2019-04-20",
+      "fieldworkEnd": "2019-04-30",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП, срещу 32.2% за ",
+        "share:ДПС": "ДПС влиза в предизборната кампания с потенциал от 9.3% сред решилите да гласуват",
+        "share:Да, България": "Да, България”, ДСБ и „Зелено движение” стартира кампанията с 4.5% подкрепа сред решилите да гласуват и съществен дял дясно-центристки избиратели, които все още не са взели решение как ще постъпят в изборния ден",
+        "fieldwork": "в периода 20-30 април 2019г"
+      }
+    },
+    "publicationId": "AR:951",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2019-04-30",
+      "agencyId": "AR",
+      "support": 32.2,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2019-04-30",
+      "agencyId": "AR",
+      "support": 9.3,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2019-04-30",
+      "agencyId": "AR",
+      "support": 4.5,
+      "nickName_bg": "Да, България",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП, срещу 32.2% за ",
+    "share:ДПС": "ДПС влиза в предизборната кампания с потенциал от 9.3% сред решилите да гласуват",
+    "share:Да, България": "Да, България”, ДСБ и „Зелено движение” стартира кампанията с 4.5% подкрепа сред решилите да гласуват и съществен дял дясно-центристки избиратели, които все още не са взели решение как ще постъпят в изборния ден",
+    "fieldwork": "в периода 20-30 април 2019г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "2 candidate sample sizes found — refusing rather than guessing which is the poll's own",
+      "quote": "сред 1015 пълнолетни | сред 1015 пълнолетни"
+    }
+  ]
+}

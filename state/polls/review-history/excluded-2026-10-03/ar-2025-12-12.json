@@ -1,0 +1,73 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2025-12-12",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1042-obshtestveno-politicheski-naglasi-dekemvri-2025.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "raw_attitudes",
+    "fieldwork": "Dec 5-12 2025",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1042-obshtestveno-politicheski-naglasi-dekemvri-2025.html",
+      "fetchedAt": "2026-09-27T06:44:52.397Z",
+      "sha256": "e5e93500ce9910c31bc7ad4049ff16bc4b0e2785f3646f71204996b716b0bca9",
+      "extractor": "AR",
+      "fieldworkStart": "2025-12-05",
+      "fieldworkEnd": "2025-12-12",
+      "basePhrase": "от заявилите, че искат да гласуват декларират, че ще дадат под",
+      "quotes": {
+        "share:МЕЧ": "МЕЧ Нетърпимостта и острата конфронтация между основните политически сили, както и декларираната невъзможност за управленски коалиции между настоящите партии, кара 40% от българите /отново/ да очакват нови политически субекти",
+        "share:Възраждане": "Възраждане е с подкрепа от 11.6%, която му отрежда трета позиция в електоралните предпочитания",
+        "share:Величие": "Величие (2.1%) и ",
+        "share:АПС": "АПС (1.6%) към момента остават извън рамките на следващо Народно събрание",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 5 – 12 декември 2025г"
+      }
+    },
+    "publicationId": "AR:1042",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2025-12-12",
+      "agencyId": "AR",
+      "support": 40,
+      "nickName_bg": "МЕЧ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-12-12",
+      "agencyId": "AR",
+      "support": 11.6,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-12-12",
+      "agencyId": "AR",
+      "support": 2.1,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-12-12",
+      "agencyId": "AR",
+      "support": 1.6,
+      "nickName_bg": "АПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "AR",
+  "evidence": {
+    "share:МЕЧ": "МЕЧ Нетърпимостта и острата конфронтация между основните политически сили, както и декларираната невъзможност за управленски коалиции между настоящите партии, кара 40% от българите /отново/ да очакват нови политически субекти",
+    "share:Възраждане": "Възраждане е с подкрепа от 11.6%, която му отрежда трета позиция в електоралните предпочитания",
+    "share:Величие": "Величие (2.1%) и ",
+    "share:АПС": "АПС (1.6%) към момента остават извън рамките на следващо Народно събрание",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 5 – 12 декември 2025г"
+  },
+  "refused": []
+}

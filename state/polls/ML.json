@@ -9,7 +9,7 @@
       "110"
     ],
     "discoveredAt": "2026-09-09T22:04:37.262Z",
-    "latestHash": "d9fc40ac056c7012dd58bdd9cbac0bfb8c0f591c570cbeaa5bace22f88ddad4d",
+    "latestHash": "50f456899c20d76319758af56bb219fd89c41ae59a377fe4e520a63aa4c43248",
     "versions": [
       {
         "sha256": "d9fc40ac056c7012dd58bdd9cbac0bfb8c0f591c570cbeaa5bace22f88ddad4d",
@@ -19,6 +19,26 @@
           "https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "50f456899c20d76319758af56bb219fd89c41ae59a377fe4e520a63aa4c43248",
+        "capturePath": "raw_data/polls/market_links/110.v2",
+        "capturedAt": "2026-09-27T06:45:31.181Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-110-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:22.059Z",
+            "draftHash": "a2bb298948d1e7a8e5bb1082edf621a768d6263720a0cfe4495f0f4bb79d96be",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -26,17 +46,10 @@
       "extraction": 0
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf",
-        "at": "2026-09-09T22:04:37.262Z"
-      },
+      "capture": null,
       "extraction": null
     },
-    "lastError": {
-      "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf",
-      "at": "2026-09-09T22:04:37.262Z",
-      "stage": "capture"
-    }
+    "lastError": null
   },
   {
     "pubId": "111",
@@ -48,7 +61,7 @@
       "111"
     ],
     "discoveredAt": "2026-09-09T22:04:37.069Z",
-    "latestHash": "616f646f4472ed26bbba44e89c3bbd814a894a8d5bce766cd61ab9e63de8f663",
+    "latestHash": "957a90fa33db3f592d1d0d14620d269dab18aaecfc8b0d47f2f037675bcbae36",
     "versions": [
       {
         "sha256": "616f646f4472ed26bbba44e89c3bbd814a894a8d5bce766cd61ab9e63de8f663",
@@ -58,6 +71,26 @@
           "https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2001.2026.pdf"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "957a90fa33db3f592d1d0d14620d269dab18aaecfc8b0d47f2f037675bcbae36",
+        "capturePath": "raw_data/polls/market_links/111.v2",
+        "capturedAt": "2026-09-27T06:45:31.558Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-111-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:22.386Z",
+            "draftHash": "114f1f79a55a5708d2324ddce2e393c1d591ef8f038f0c36fba309405cdbc1a4",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -65,17 +98,10 @@
       "extraction": 0
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2001.2026.pdf",
-        "at": "2026-09-09T22:04:37.069Z"
-      },
+      "capture": null,
       "extraction": null
     },
-    "lastError": {
-      "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2001.2026.pdf",
-      "at": "2026-09-09T22:04:37.069Z",
-      "stage": "capture"
-    }
+    "lastError": null
   },
   {
     "pubId": "112",
@@ -87,7 +113,7 @@
       "112"
     ],
     "discoveredAt": "2026-09-09T22:04:36.885Z",
-    "latestHash": "d56d6e1d56842ace1b43068d9b7d74b79934b8b2b3810539abe29bf79ab73125",
+    "latestHash": "f395cee58abec5fe37ce41027f8365c064ea84adfdf09888e2ced8776d2cb442",
     "versions": [
       {
         "sha256": "d56d6e1d56842ace1b43068d9b7d74b79934b8b2b3810539abe29bf79ab73125",
@@ -97,6 +123,26 @@
           "https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2002.2026.pdf"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "f395cee58abec5fe37ce41027f8365c064ea84adfdf09888e2ced8776d2cb442",
+        "capturePath": "raw_data/polls/market_links/112.v2",
+        "capturedAt": "2026-09-27T06:45:31.916Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-112-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:22.713Z",
+            "draftHash": "a665bf9abff3e34929e4207f68a1ec075fe83848d72edc706af5e64b13222ab7",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -104,17 +150,10 @@
       "extraction": 0
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2002.2026.pdf",
-        "at": "2026-09-09T22:04:36.885Z"
-      },
+      "capture": null,
       "extraction": null
     },
-    "lastError": {
-      "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2002.2026.pdf",
-      "at": "2026-09-09T22:04:36.885Z",
-      "stage": "capture"
-    }
+    "lastError": null
   },
   {
     "pubId": "114",
@@ -126,7 +165,7 @@
       "114"
     ],
     "discoveredAt": "2026-09-09T22:04:36.706Z",
-    "latestHash": "eb5d8d072c616f0c6cb926c2c0045e497e820d60f6d27defb9677fc1b63a13be",
+    "latestHash": "9325218eb22d8c87f6b7f413c9b697a6695fdb1556fb8e0869da91b00d51a863",
     "versions": [
       {
         "sha256": "eb5d8d072c616f0c6cb926c2c0045e497e820d60f6d27defb9677fc1b63a13be",
@@ -136,6 +175,26 @@
           "https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "9325218eb22d8c87f6b7f413c9b697a6695fdb1556fb8e0869da91b00d51a863",
+        "capturePath": "raw_data/polls/market_links/114.v2",
+        "capturedAt": "2026-09-27T06:45:32.345Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-114-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:23.044Z",
+            "draftHash": "51fa3ff70fef70f89759cfee7a054c8a2f5f8375a77a8512879072f38af9c31a",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -143,17 +202,10 @@
       "extraction": 0
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf",
-        "at": "2026-09-09T22:04:36.706Z"
-      },
+      "capture": null,
       "extraction": null
     },
-    "lastError": {
-      "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf",
-      "at": "2026-09-09T22:04:36.706Z",
-      "stage": "capture"
-    }
+    "lastError": null
   },
   {
     "pubId": "116",
@@ -165,7 +217,7 @@
       "116"
     ],
     "discoveredAt": "2026-09-09T18:05:05.525Z",
-    "latestHash": "e4def34b3bfbda4bb2f4533e5720297eb1db3d1a2614fd1137008174e0f6005c",
+    "latestHash": "edb2cbd23332e083595beec6185db7b97aec5a06485c72e8889a93b91f93ecd3",
     "versions": [
       {
         "sha256": "e4def34b3bfbda4bb2f4533e5720297eb1db3d1a2614fd1137008174e0f6005c",
@@ -175,6 +227,26 @@
           "https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2005.2026.pdf"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "edb2cbd23332e083595beec6185db7b97aec5a06485c72e8889a93b91f93ecd3",
+        "capturePath": "raw_data/polls/market_links/116.v2",
+        "capturedAt": "2026-09-27T06:45:33.319Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-116-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:23.371Z",
+            "draftHash": "0ecf5d6e246c3ffcbc1adb3978a460007b523265b2cc3c091dfef8fbee526c4d",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -182,17 +254,10 @@
       "extraction": 0
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2005.2026.pdf",
-        "at": "2026-09-09T18:05:05.525Z"
-      },
+      "capture": null,
       "extraction": null
     },
-    "lastError": {
-      "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2005.2026.pdf",
-      "at": "2026-09-09T18:05:05.525Z",
-      "stage": "capture"
-    }
+    "lastError": null
   },
   {
     "pubId": "117",
@@ -204,7 +269,7 @@
       "117"
     ],
     "discoveredAt": "2026-09-09T10:26:27.002Z",
-    "latestHash": "b7b38b269071c4910eecee0abecbe7011a62d08728420c17c89a09738faa512d",
+    "latestHash": "c6f745ee01de56b65bfc9bb3f53673f29809736c12cf073650aae70b0865f2c4",
     "versions": [
       {
         "sha256": "b7b38b269071c4910eecee0abecbe7011a62d08728420c17c89a09738faa512d",
@@ -214,6 +279,26 @@
           "https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "c6f745ee01de56b65bfc9bb3f53673f29809736c12cf073650aae70b0865f2c4",
+        "capturePath": "raw_data/polls/market_links/117.v2",
+        "capturedAt": "2026-09-27T06:45:33.819Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-117-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:23.687Z",
+            "draftHash": "8f838fafdde747df453a025287ba34eed42aa66a2e2cf1ea4533e303d36c59c6",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -221,17 +306,10 @@
       "extraction": 0
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf",
-        "at": "2026-09-09T10:26:27.002Z"
-      },
+      "capture": null,
       "extraction": null
     },
-    "lastError": {
-      "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf",
-      "at": "2026-09-09T10:26:27.002Z",
-      "stage": "capture"
-    }
+    "lastError": null
   },
   {
     "pubId": "118",
@@ -243,7 +321,7 @@
       "118"
     ],
     "discoveredAt": "2026-09-09T10:26:26.758Z",
-    "latestHash": "04b9a0bbe44edede7a6ed64a783a3fe9d7cd99bd8097a104c47873dabfaefdde",
+    "latestHash": "fe6f66918dfcc5ceab0ddc777d7aa6520964a75d35477a5104867f3e6dbec5e7",
     "versions": [
       {
         "sha256": "04b9a0bbe44edede7a6ed64a783a3fe9d7cd99bd8097a104c47873dabfaefdde",
@@ -253,6 +331,26 @@
           "https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2007.2026.pdf"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "fe6f66918dfcc5ceab0ddc777d7aa6520964a75d35477a5104867f3e6dbec5e7",
+        "capturePath": "raw_data/polls/market_links/118.v2",
+        "capturedAt": "2026-09-27T06:45:34.279Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-118-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:24.006Z",
+            "draftHash": "e1fa26e202d3dd951184683f83426a0ebf046c3c2f9ce9dbb08592b287be77e6",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -260,17 +358,10 @@
       "extraction": 0
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2007.2026.pdf",
-        "at": "2026-09-09T10:26:26.758Z"
-      },
+      "capture": null,
       "extraction": null
     },
-    "lastError": {
-      "message": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2007.2026.pdf",
-      "at": "2026-09-09T10:26:26.758Z",
-      "stage": "capture"
-    }
+    "lastError": null
   },
   {
     "pubId": "45",
@@ -371,7 +462,20 @@
         "capturePath": "raw_data/polls/market_links/44.v2",
         "capturedAt": "2026-09-26T08:45:55.935Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-44-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:24.710Z",
+            "draftHash": "d1daace6acc9455322fd142e7c6dfef2ab7ea7dd1fc6b9b7db233805d1106324",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -421,7 +525,20 @@
         "capturePath": "raw_data/polls/market_links/43.v2",
         "capturedAt": "2026-09-26T08:45:55.452Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-43-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:24.534Z",
+            "draftHash": "82d3753f8ea4e7ea16a9bb71522d0dcc4773074a55accb7816ad60669592e61d",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -471,7 +588,20 @@
         "capturePath": "raw_data/polls/market_links/42.v2",
         "capturedAt": "2026-09-26T08:45:55.108Z",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ml-pub-42-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:24.335Z",
+            "draftHash": "3bc0b4ea849fafcc84b92b93b547a8ed155b15c8a57d75e6b0c9cadfb918f0ae",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -523,8 +653,8 @@
           },
           {
             "race": "presidential",
-            "reason": "Controlled-vote study",
-            "reviewedAt": "2026-09-26"
+            "reason": "Study of controlled voting, not a presidential vote-intention survey",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -971,6 +1101,49 @@
             "race": "presidential",
             "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
             "reviewedAt": "2026-09-26"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "119",
+    "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-septemvri-2026-119.html",
+    "title": "Обществено–политически нагласи - Септември 2026",
+    "publishedAt": "2026-09-30",
+    "agencyId": "ML",
+    "pubIds": [
+      "119"
+    ],
+    "discoveredAt": "2026-09-30T22:44:47.997Z",
+    "latestHash": "be942da77a9995e66b92ac0b14bb5ca50e76b4b76a17f8153d1ad498c9980723",
+    "versions": [
+      {
+        "sha256": "be942da77a9995e66b92ac0b14bb5ca50e76b4b76a17f8153d1ad498c9980723",
+        "capturePath": "raw_data/polls/market_links/119",
+        "capturedAt": "2026-09-30T23:44:22.130Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-119-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-30T23:44:29.665Z",
+            "draftHash": "7fcb09dc55c20b06e9568304fcbe4eed1ead9b695cc7fcb77cd176d8b694639e",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
           }
         ]
       }

@@ -1,0 +1,73 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2026-07-23",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1052-obshtestveni-naglasi-v-navecherieto-na-100-te-dni-na-kabineta-radev.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Jul 17-23 2026",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1052-obshtestveni-naglasi-v-navecherieto-na-100-te-dni-na-kabineta-radev.html",
+      "fetchedAt": "2026-09-27T06:44:51.844Z",
+      "sha256": "0b20b7cd8066e2afbdb48e36136163d5ac28c101fb0cbb572222a512eae530bf",
+      "extractor": "AR",
+      "fieldworkStart": "2026-07-17",
+      "fieldworkEnd": "2026-07-23",
+      "basePhrase": null,
+      "quotes": {
+        "share:Прогресивна България": "Прогресивна България концентрира значителна част от обществената подкрепа - 41.6%, докато останалите партии са разположени в сравнително тесен диапазон",
+        "share:ГЕРБ": "ГЕРБ с аналогична на изборния им резултат подкрепа от 13.1%",
+        "share:Продължаваме промяната": "Продължаваме промяната (6.6%) и ",
+        "share:Демократична България": "Демократична България (6.1%) получават сходна обществена подкрепа",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 17 – 23 юли 2026г"
+      }
+    },
+    "publicationId": "AR:1052",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2026-07-23",
+      "agencyId": "AR",
+      "support": 41.6,
+      "nickName_bg": "Прогресивна България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-07-23",
+      "agencyId": "AR",
+      "support": 13.1,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-07-23",
+      "agencyId": "AR",
+      "support": 6.6,
+      "nickName_bg": "Продължаваме промяната",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-07-23",
+      "agencyId": "AR",
+      "support": 6.1,
+      "nickName_bg": "Демократична България",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:Прогресивна България": "Прогресивна България концентрира значителна част от обществената подкрепа - 41.6%, докато останалите партии са разположени в сравнително тесен диапазон",
+    "share:ГЕРБ": "ГЕРБ с аналогична на изборния им резултат подкрепа от 13.1%",
+    "share:Продължаваме промяната": "Продължаваме промяната (6.6%) и ",
+    "share:Демократична България": "Демократична България (6.1%) получават сходна обществена подкрепа",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 17 – 23 юли 2026г"
+  },
+  "refused": []
+}

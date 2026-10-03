@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-830",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/830-izborite-v-sofia-dvuboi-mejdu-tvurdi-partiini-simpatizanti.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/830-izborite-v-sofia-dvuboi-mejdu-tvurdi-partiini-simpatizanti.html",
+      "fetchedAt": "2026-09-27T06:45:27.783Z",
+      "sha256": "179a740ff77c9df925d653c85560158024647b8c9799e89953713d1c3b949097",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:830",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-734",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/734-ekspresno-elektoralno-prouchvane-2-4-mai.html",
+    "electionDate": null,
+    "respondents": 800,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/734-ekspresno-elektoralno-prouchvane-2-4-mai.html",
+      "fetchedAt": "2026-09-27T06:45:29.102Z",
+      "sha256": "7fcd4e34aea78cdb97eb454748a1dae410ed096841aca2fff3c8cf171ba3b425",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП към момента възлиза на 15.5% от общия брой избиратели в страната, а ",
+        "share:ГЕРБ": "ГЕРБ получава подкрепата на 13.2%",
+        "sampleSize": "сред 800 пълнолетни"
+      }
+    },
+    "publicationId": "AR:734",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-734",
+      "agencyId": "AR",
+      "support": 15.5,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-pub-734",
+      "agencyId": "AR",
+      "support": 13.2,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП към момента възлиза на 15.5% от общия брой избиратели в страната, а ",
+    "share:ГЕРБ": "ГЕРБ получава подкрепата на 13.2%",
+    "sampleSize": "сред 800 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (30%) и "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (21%)"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"2-4ти май 2007 г\"",
+      "quote": "в периода 2-4ти май 2007 г"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

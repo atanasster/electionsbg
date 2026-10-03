@@ -1,0 +1,55 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2019-05-22",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/952-na-finala-na-predizbornata-kampania-gerb-vuzvrushta-prednina-pred-bsp.html",
+    "electionDate": null,
+    "respondents": 1016,
+    "genre": "unclear",
+    "fieldwork": "May 19-22 2019",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/952-na-finala-na-predizbornata-kampania-gerb-vuzvrushta-prednina-pred-bsp.html",
+      "fetchedAt": "2026-09-27T06:44:59.280Z",
+      "sha256": "b4e8581021fa6a51f29e5d8d6e5670584c9216fe5764840f1504c9da26933081",
+      "extractor": "AR",
+      "fieldworkStart": "2019-05-19",
+      "fieldworkEnd": "2019-05-22",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС очаквано и традиционно мобилизира привържениците си в последните дни преди вота и завършва кампанията като трета политическа сила с подкрепата на 13.9% от решилите да гласуват",
+        "share:Да, България": "Да, България\" и „Зелено движение\" получава 4.2% подкрепа сред решилите да гласуват",
+        "sampleSize": "сред 1016 пълнолетни",
+        "fieldwork": "в периода 19 – 22 май 2019г"
+      }
+    },
+    "publicationId": "AR:952",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2019-05-22",
+      "agencyId": "AR",
+      "support": 13.9,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2019-05-22",
+      "agencyId": "AR",
+      "support": 4.2,
+      "nickName_bg": "Да, България",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС очаквано и традиционно мобилизира привържениците си в последните дни преди вота и завършва кампанията като трета политическа сила с подкрепата на 13.9% от решилите да гласуват",
+    "share:Да, България": "Да, България\" и „Зелено движение\" получава 4.2% подкрепа сред решилите да гласуват",
+    "sampleSize": "сред 1016 пълнолетни",
+    "fieldwork": "в периода 19 – 22 май 2019г"
+  },
+  "refused": []
+}

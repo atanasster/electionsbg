@@ -1,0 +1,64 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2025-01-20",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1031-obshtestveno-politicheski-naglasi-ianuari-2025.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Jan 15-20 2025",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1031-obshtestveno-politicheski-naglasi-ianuari-2025.html",
+      "fetchedAt": "2026-09-27T06:44:54.076Z",
+      "sha256": "c84cb09ac70f8a32e72c8c7aadb7ace00ce3b8ee668f22838e9810c88c13c484",
+      "extractor": "AR",
+      "fieldworkStart": "2025-01-15",
+      "fieldworkEnd": "2025-01-20",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ запазват лидерските си позиции, на значителна дистанция пред останалите партии, с подкрепа от 26.0%",
+        "share:ПП-ДБ": "ПП-ДБ с 13.4% и ",
+        "share:Възраждане": "Възраждане с 13.1%",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 15 - 20 януари 2025 г"
+      }
+    },
+    "publicationId": "AR:1031",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2025-01-20",
+      "agencyId": "AR",
+      "support": 26,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-01-20",
+      "agencyId": "AR",
+      "support": 13.4,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-01-20",
+      "agencyId": "AR",
+      "support": 13.1,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ запазват лидерските си позиции, на значителна дистанция пред останалите партии, с подкрепа от 26.0%",
+    "share:ПП-ДБ": "ПП-ДБ с 13.4% и ",
+    "share:Възраждане": "Възраждане с 13.1%",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 15 - 20 януари 2025 г"
+  },
+  "refused": []
+}

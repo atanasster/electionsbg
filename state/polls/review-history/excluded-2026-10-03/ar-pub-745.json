@@ -1,0 +1,44 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-745",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/745-ekoproblemite-prerogativ-na-partiite.html",
+    "electionDate": null,
+    "respondents": 1011,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/745-ekoproblemite-prerogativ-na-partiite.html",
+      "fetchedAt": "2026-09-27T06:45:28.780Z",
+      "sha256": "dba01a55f061358a69f8d4b788878bac09b86adaf272fd3a11c1b1521b1cff5b",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1011 пълнолетни"
+      }
+    },
+    "publicationId": "AR:745",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 1011 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"7-15 април от Алфа Рисърч по поръчка на в-к Капитал\"",
+      "quote": "в периода 7-15 април от Алфа Рисърч по поръчка на в-к Капитал"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

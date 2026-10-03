@@ -1,0 +1,81 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2024-06-04",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1022-elektoralni-naglasi-na-finala-na-predizbornata-kampania-za-nacionalen-i-evropeiski-parlament.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Jun 1-4 2024",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1022-elektoralni-naglasi-na-finala-na-predizbornata-kampania-za-nacionalen-i-evropeiski-parlament.html",
+      "fetchedAt": "2026-09-27T06:44:54.580Z",
+      "sha256": "7ff5da213da9e1b96c2997782511af32749f4bfd10ec25f8e138f3a50a7fb010",
+      "extractor": "AR",
+      "fieldworkStart": "2024-06-01",
+      "fieldworkEnd": "2024-06-04",
+      "basePhrase": null,
+      "quotes": {
+        "share:Синя България": "Синя България (3.3%)",
+        "share:ПП-ДБ": "ПП-ДБ (15.9%), ",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 1 – 4 юни 2024г"
+      }
+    },
+    "publicationId": "AR:1022",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2024-06-04",
+      "agencyId": "AR",
+      "support": 3.3,
+      "nickName_bg": "Синя България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-06-04",
+      "agencyId": "AR",
+      "support": 15.9,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:Синя България": "Синя България (3.3%)",
+    "share:ПП-ДБ": "ПП-ДБ (15.9%), ",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 1 – 4 юни 2024г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (7.9%)"
+    },
+    {
+      "field": "share:ГЕРБ-СДС",
+      "reason": "mentioned 2 times with disagreeing values (25.1, 25%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ-СДС запазват лидерското си място (25.1%), без съществена динамика в кампанията и завършват със значима преднина от около 10 пункта пред преките си опоненти | ГЕРБ-СДС (25.0%), "
+    },
+    {
+      "field": "share:Възраждане",
+      "reason": "mentioned 2 times with disagreeing values (15.2, 15.7%) — refusing rather than guessing which is current",
+      "quote": "Възраждане (15.2%) е сред малкото партии, които бележат ръст по време на кампанията | Възраждане (15.7%), "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "mentioned 2 times with disagreeing values (14.8, 14.1%) — refusing rather than guessing which is current",
+      "quote": "ДПС (14.8%) завършва кампанията с висока степен на мобилизация, която при евентуален спад на активността може да му осигури и по-голяма тежест | ДПС (14.1%), "
+    },
+    {
+      "field": "share:ИТН",
+      "reason": "mentioned 2 times with disagreeing values (6.2, 5.9%) — refusing rather than guessing which is current",
+      "quote": "ИТН мобилизират подкрепа в хода на кампанията и към момента може да разчита на 6.2% | ИТН (5.9%), но е вероятно партията на Сл"
+    }
+  ]
+}

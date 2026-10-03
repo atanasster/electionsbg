@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-740",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/740-socialno-demografski-profil-na-glasuvalite-v-izborite-za-evropeiski-parlament.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/740-socialno-demografski-profil-na-glasuvalite-v-izborite-za-evropeiski-parlament.html",
+      "fetchedAt": "2026-09-27T06:45:28.848Z",
+      "sha256": "ea1e5af90aa485f3d8c517a8d2b1f9fbb562dbe8ec0a67cb6b2d4b2d0c3f451d",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:740",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

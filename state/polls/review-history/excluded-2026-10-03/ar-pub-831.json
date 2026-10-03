@@ -1,0 +1,45 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-831",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/831-uchastie-na-bulgarite-v-hazartni-igri-i-obshtestveni-naglasi-kum-zakona-za-hazarta.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/831-uchastie-na-bulgarite-v-hazartni-igri-i-obshtestveni-naglasi-kum-zakona-za-hazarta.html",
+      "fetchedAt": "2026-09-27T06:45:27.716Z",
+      "sha256": "199b3829a55d783a10097da5aeeff6c7b65734a0ea2eade399868853a83f613b",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:831",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"12-22 Ноември 2009 Представителност: Пълнолетното население на страната Обем на извадката: N = 1000 ефективни интервюта Метод на формиране на извадката - Стратифицирана двустепенна извадка, реализирана чрез квота въз основа на признаците възраст, пол, образование и тип на населеното място Метод на набиране на информацията: Пряко стандартизирано интервю Натиснете тук - УЧАСТИЕ НА БЪЛГАРИТЕ В ХАЗАРТНИ ИГРИ И ОБЩЕСТВЕНИ НАГЛАСИ КЪМ ЗАКОНА ЗА ХАЗАРТА\"",
+      "quote": "Период на провеждане: 12-22 Ноември 2009 Представителност: Пълнолетното население на страната Обем на извадката: N = 1000 ефективни интервюта Метод на формиране на извадката - Стратифицирана двустепенна извадка, реализирана чрез квота въз основа на признаците възраст, пол, образование и тип на населеното място Метод на набиране на информацията: Пряко стандартизирано интервю Натиснете тук - УЧАСТИЕ НА БЪЛГАРИТЕ В ХАЗАРТНИ ИГРИ И ОБЩЕСТВЕНИ НАГЛАСИ КЪМ ЗАКОНА ЗА ХАЗАРТА"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

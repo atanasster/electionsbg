@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2022-11-17",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1004-obshtestveni-naglasi-za-vuvejdaneto-na-evroto-v-bulgaria.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Nov 1-17 2022",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1004-obshtestveni-naglasi-za-vuvejdaneto-na-evroto-v-bulgaria.html",
+      "fetchedAt": "2026-09-27T06:44:56.228Z",
+      "sha256": "e0a374e0b7c4e3ff18b1295e7c948e63d902316188dae2862c18d898dfe5452d",
+      "extractor": "AR",
+      "fieldworkStart": "2022-11-01",
+      "fieldworkEnd": "2022-11-17",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "в периода 1 – 17 ноември 2022г"
+      }
+    },
+    "publicationId": "AR:1004",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "в периода 1 – 17 ноември 2022г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ]
+}

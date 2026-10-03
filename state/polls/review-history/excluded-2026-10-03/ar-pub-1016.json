@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-1016",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1016-5-noemvri-2023-ii-tur-na-mestni-izbori-5-november-2023-ii-run-of-local-elections.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1016-5-noemvri-2023-ii-tur-na-mestni-izbori-5-november-2023-ii-run-of-local-elections.html",
+      "fetchedAt": "2026-09-27T06:44:55.390Z",
+      "sha256": "49b0597105aa080da45bb2d83c8a9c1f33955ea7ad0d3e09034dcf7a0723116b",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1016",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

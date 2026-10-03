@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2023-10-24",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1013-obshtestveno-politicheski-naglasi-sofia.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Oct 21-24 2023",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1013-obshtestveno-politicheski-naglasi-sofia.html",
+      "fetchedAt": "2026-09-27T06:44:55.692Z",
+      "sha256": "c6747e5bf16d78c0a13672f12b04f561cd1d4d73cbaf8ac3d73f37e3b1a17fe2",
+      "extractor": "AR",
+      "fieldworkStart": "2023-10-21",
+      "fieldworkEnd": "2023-10-24",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "в периода 21 – 24 октомври 2023г"
+      }
+    },
+    "publicationId": "AR:1013",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "в периода 21 – 24 октомври 2023г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ]
+}

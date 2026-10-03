@@ -1,0 +1,45 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-746",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/746-zakonut-za-mestnite-izbori-razminavane-s-obshtestvenite-ochakvania.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/746-zakonut-za-mestnite-izbori-razminavane-s-obshtestvenite-ochakvania.html",
+      "fetchedAt": "2026-09-27T06:45:28.715Z",
+      "sha256": "2f488c907b0ee9b937f0d5813f8aae513356f3e95e7640e60a751c21e4ba6506",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:746",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"март – юли 2007 г\"",
+      "quote": "в периода март – юли 2007 г"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

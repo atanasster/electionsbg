@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-852",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/852-elektoralni-naglasi-na-izbiratelite-v-obshtina-plovdiv.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/852-elektoralni-naglasi-na-izbiratelite-v-obshtina-plovdiv.html",
+      "fetchedAt": "2026-09-27T06:45:25.363Z",
+      "sha256": "0f0732123138013d8526bd4e97bedea3e4fe85c87ce749d27e0b3149822ef8dc",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:852",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

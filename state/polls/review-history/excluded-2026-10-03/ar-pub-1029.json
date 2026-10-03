@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-1029",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1029-27-oktomvri-2024-demografski-profil-na-glasuvalite-na-izborite-za-narodno-subranie.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1029-27-oktomvri-2024-demografski-profil-na-glasuvalite-na-izborite-za-narodno-subranie.html",
+      "fetchedAt": "2026-09-27T06:44:54.150Z",
+      "sha256": "f4e76e095df0b8665e0386fb82195acddb57493255459dcb3acf5c3eb27d1c1f",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1029",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

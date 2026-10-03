@@ -1,0 +1,69 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2019-03-26",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/950-reputacionni-shteti-za-gerb-ot-skandala-s-apartamentite-i-paritet-v-elektoralnite-naglasi-za-evrovota.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "raw_attitudes",
+    "fieldwork": "Mar 22-26 2019",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/950-reputacionni-shteti-za-gerb-ot-skandala-s-apartamentite-i-paritet-v-elektoralnite-naglasi-za-evrovota.html",
+      "fetchedAt": "2026-09-27T06:44:59.570Z",
+      "sha256": "cba26702b63af262008e384b6ff64c575195fe2478bf9f7cd6f20ed66b90cb49",
+      "extractor": "AR",
+      "fieldworkStart": "2019-03-22",
+      "fieldworkEnd": "2019-03-26",
+      "basePhrase": "от гласуващите биха пуснали бюлетина за ГЕРБ-СДС срещу 33.4% за ",
+      "quotes": {
+        "share:ГЕРБ-СДС": "ГЕРБ-СДС срещу 33.4% за ",
+        "share:ДПС": "ДПС събира 10.6% от потенциалния вот и е третата политическа сила, сигурен участник в Европейския парламент",
+        "fieldwork": "в периода 22 - 26 март 2019г"
+      }
+    },
+    "publicationId": "AR:950",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2019-03-26",
+      "agencyId": "AR",
+      "support": 33.4,
+      "nickName_bg": "ГЕРБ-СДС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2019-03-26",
+      "agencyId": "AR",
+      "support": 10.6,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ-СДС": "ГЕРБ-СДС срещу 33.4% за ",
+    "share:ДПС": "ДПС събира 10.6% от потенциалния вот и е третата политическа сила, сигурен участник в Европейския парламент",
+    "fieldwork": "в периода 22 - 26 март 2019г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 2 times with disagreeing values (47.3, 14%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ (47.3%) също споделя това мнение | ГЕРБ спрямо февруари, отлив на желаещи да гласуват сред по-широката му електорална периферия (последната спада до 14% при средно 20-25 на сто на предишни избори), мобилизация на "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "mentioned 2 times with disagreeing values (11.3, 1.5%) — refusing rather than guessing which is current",
+      "quote": "БСП така мислят 11.3% от анкетираните | БСП е резултат от три фактора: лек спад от около 1.5% на електоралната подкрепа за "
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ]
+}

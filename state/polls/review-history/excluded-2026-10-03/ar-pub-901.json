@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-901",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/901-socialno-demografski-profil-na-podkrepata-za-kmetove-na-vtori-tur-na-mestni-izbori-2015-01-noemvri-2015.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/901-socialno-demografski-profil-na-podkrepata-za-kmetove-na-vtori-tur-na-mestni-izbori-2015-01-noemvri-2015.html",
+      "fetchedAt": "2026-09-27T06:45:04.128Z",
+      "sha256": "6664a67f59e3cf52990b6064842b2d8dfde2615d30dea04e66009d50d649194c",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:901",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

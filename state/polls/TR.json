@@ -237,6 +237,17 @@
             "reviewedAt": "2026-09-26T09:33:48.471Z",
             "acceptedAt": "2026-09-26T09:33:48.471Z",
             "acceptedDraftHash": "f018abf4d06df95721e8131ab54bb71d5bb7dfd6a5e8831caf9a79137cc378e9"
+          },
+          {
+            "pollId": "tr-pub-a19cfbc0c6dad528",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-27T06:45:49.069Z",
+            "draftHash": "95f907751e6a96d2c13d7808ce2530ac63c7d9b855eaad2caa0c26420c927f16",
+            "refused": [
+              "share:ДПС",
+              "fieldwork",
+              "poll.id"
+            ]
           }
         ]
       }
@@ -286,6 +297,15 @@
             "reviewedAt": "2026-09-26T08:49:50.628Z",
             "acceptedAt": "2026-09-26T08:49:50.628Z",
             "acceptedDraftHash": "33566a79d54f69058a559d2d8b8f1c3c3701b0ae3a72d3b32f5eaf0fd14b8dd6"
+          },
+          {
+            "pollId": "tr-pub-a63a09b7af8f2976",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-27T06:45:50.255Z",
+            "draftHash": "61a1c28527ab3e3302e597d2d0062e200238b5bd1bac7d199cdb7c3293ffdef7",
+            "refused": [
+              "poll.id"
+            ]
           }
         ]
       }
@@ -333,6 +353,11 @@
             "race": "presidential",
             "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
             "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Duplicate of accepted corpus poll tr-2021-07-07; the corpus values were checked against this source",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -380,6 +405,11 @@
             "race": "presidential",
             "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
             "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Duplicate of accepted corpus poll tr-2021-06-18; the corpus values were checked against this source",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -434,6 +464,11 @@
             "race": "presidential",
             "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
             "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Duplicate of accepted corpus poll tr-2021-03-30; the corpus values were checked against this source",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -479,6 +514,11 @@
             "race": "presidential",
             "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
             "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Duplicate of accepted corpus poll tr-2021-03-14; the corpus values were checked against this source",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -533,6 +573,11 @@
             "race": "presidential",
             "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
             "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Duplicate of accepted corpus poll tr-2021-02-19; the corpus values were checked against this source",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -580,6 +625,11 @@
             "race": "presidential",
             "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
             "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Duplicate of accepted corpus poll tr-2021-01-19; the corpus values were checked against this source",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -611,12 +661,30 @@
         "capturePath": "raw_data/polls/trend/209614",
         "capturedAt": "2026-09-26T08:39:47.728Z",
         "attachmentFailures": [],
-        "drafts": [],
+        "drafts": [
+          {
+            "pollId": "tr-2021-09-15",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-27T06:45:41.445Z",
+            "draftHash": "134a7ab5b584f8de5871b26d72c08c453c9caec696b46be4b4d0d95c81e03e48",
+            "refused": [
+              "share:ГЕРБ",
+              "share:ДПС",
+              "share:БСП",
+              "share:Демократична България"
+            ]
+          }
+        ],
         "exclusions": [
           {
             "race": "presidential",
             "reason": "September 2021: parliamentary shares and presidential job approval",
             "reviewedAt": "2026-09-26"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Duplicate of accepted corpus poll tr-2021-09-15; the corpus values were checked against this source",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -648,7 +716,18 @@
         "capturePath": "raw_data/polls/trend/209588",
         "capturedAt": "2026-09-26T08:39:49.474Z",
         "attachmentFailures": [],
-        "drafts": [],
+        "drafts": [
+          {
+            "pollId": "tr-pub-209588",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-27T06:45:40.471Z",
+            "draftHash": "f93f83949b6003161d18835c8fc63db400057f86ad9e3a851b358eaf53d7f77c",
+            "refused": [
+              "fieldwork",
+              "poll.id"
+            ]
+          }
+        ],
         "exclusions": [
           {
             "race": "presidential",

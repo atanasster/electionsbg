@@ -1,0 +1,45 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-689",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/689-obshtestvenite-naglasi-kum-novo-razshiriavane-na-evropeiskia-suiuz.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/689-obshtestvenite-naglasi-kum-novo-razshiriavane-na-evropeiskia-suiuz.html",
+      "fetchedAt": "2026-09-27T06:45:29.762Z",
+      "sha256": "0d8ba7d6688aa142bd4b6cd40501067ef4504baa25ddf1d8230dcc021df4af33",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:689",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"20-31 Март 2005 година\"",
+      "quote": "в периода 20-31 Март 2005 година"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

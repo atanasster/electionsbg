@@ -1,0 +1,93 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2025-07-14",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1038-obshtestveno-politicheski-naglasi-iuli-2025.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Jul 7-14 2025",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1038-obshtestveno-politicheski-naglasi-iuli-2025.html",
+      "fetchedAt": "2026-09-27T06:44:53.467Z",
+      "sha256": "99fbd246a09e860d24e9a87bdf0f432fcd3771db918af632626212d5e4699fa1",
+      "extractor": "AR",
+      "fieldworkStart": "2025-07-07",
+      "fieldworkEnd": "2025-07-14",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ устойчиво остава първа политическа сила (25.5%), без съществена разлика в резултата нито спрямо последните избори, нито спрямо януарските данни на Алфа Рисърч",
+        "share:ПП-ДБ": "ПП-ДБ запазва позицията си на втора политическа сила (13.9%)",
+        "share:ИТН": "ИТН бележи лек спад (до 4.7%)",
+        "share:Възраждане": "Възраждане е в отстъпление (до 11.5%), за сметка на ",
+        "share:Величие": "Величие остава на 4.1%",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 7 – 14 юли 2025г"
+      }
+    },
+    "publicationId": "AR:1038",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2025-07-14",
+      "agencyId": "AR",
+      "support": 25.5,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-07-14",
+      "agencyId": "AR",
+      "support": 13.9,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-07-14",
+      "agencyId": "AR",
+      "support": 4.7,
+      "nickName_bg": "ИТН",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-07-14",
+      "agencyId": "AR",
+      "support": 11.5,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2025-07-14",
+      "agencyId": "AR",
+      "support": 4.1,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ устойчиво остава първа политическа сила (25.5%), без съществена разлика в резултата нито спрямо последните избори, нито спрямо януарските данни на Алфа Рисърч",
+    "share:ПП-ДБ": "ПП-ДБ запазва позицията си на втора политическа сила (13.9%)",
+    "share:ИТН": "ИТН бележи лек спад (до 4.7%)",
+    "share:Възраждане": "Възраждане е в отстъпление (до 11.5%), за сметка на ",
+    "share:Величие": "Величие остава на 4.1%",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 7 – 14 юли 2025г"
+  },
+  "refused": [
+    {
+      "field": "share:МЕЧ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "МЕЧ (6.3%), "
+    },
+    {
+      "field": "share:ДПС-Ново начало",
+      "reason": "mentioned 2 times with disagreeing values (6.8, 13.1%) — refusing rather than guessing which is current",
+      "quote": "ДПС-Ново начало Делян Пеевски повишава рейтинга си с 1 пункт (до 6.8%), като остава и най-силно поляризиращата фигура | ДПС-Ново начало бележи ръст и достига 13.1%, при драматична ерозия на "
+    }
+  ]
+}

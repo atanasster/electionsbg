@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2000-11-15",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/634-rodopite-obshtestveni-naglasi-i-potencial-za-razvitie.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Nov 15 2000",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/634-rodopite-obshtestveni-naglasi-i-potencial-za-razvitie.html",
+      "fetchedAt": "2026-09-27T06:45:29.959Z",
+      "sha256": "ee6840796568156c7534d20ec0b1925689e1b0cde20c2679bf3d58943729ffa3",
+      "extractor": "AR",
+      "fieldworkStart": "2000-11-15",
+      "fieldworkEnd": "2000-11-15",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "в периода 15 ноември 2000 г"
+      }
+    },
+    "publicationId": "AR:634",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "в периода 15 ноември 2000 г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ]
+}

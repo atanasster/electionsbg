@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-929",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/929-obshtestveni-naglasi-kum-merki-za-preodoliavane-na-problema-sus-zamursenia-vuzduh-v-sofia.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/929-obshtestveni-naglasi-kum-merki-za-preodoliavane-na-problema-sus-zamursenia-vuzduh-v-sofia.html",
+      "fetchedAt": "2026-09-27T06:45:00.766Z",
+      "sha256": "08f019a52a729616fee268acf25878bd6ccecfbea8c1af5988762cf9c372a69b",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:929",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

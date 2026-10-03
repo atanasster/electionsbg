@@ -1,0 +1,79 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2022-09-29",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1001-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1025,
+    "genre": "raw_attitudes",
+    "fieldwork": "Sep 27-29 2022",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1001-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-27T06:44:56.373Z",
+      "sha256": "b043cb3fe6fcb2d87b204af9fe4ecf244a6fee6ed564fdfcf9077e3261e734c8",
+      "extractor": "AR",
+      "fieldworkStart": "2022-09-27",
+      "fieldworkEnd": "2022-09-29",
+      "basePhrase": "от гласуващите се равнява на около 25 000 гласа) разместването в",
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (25.2%) е първа политическа сила в електоралните предпочитания на твърдо решилите да гласуват",
+        "share:ДПС": "ДПС е с потенциал от 13,1%, като ключов за конкретната му позиция може да се окаже вотът от чужбина",
+        "share:Демократична България": "Демократична България, като в края й потенциалната подкрепа достига до 8.4%",
+        "share:Български възход": "Български възход (4.4%) и ",
+        "sampleSize": "сред 1025 пълнолетни",
+        "fieldwork": "в периода 27 – 29 септември 2022г"
+      }
+    },
+    "publicationId": "AR:1001",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2022-09-29",
+      "agencyId": "AR",
+      "support": 25.2,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-29",
+      "agencyId": "AR",
+      "support": 13.1,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-29",
+      "agencyId": "AR",
+      "support": 8.4,
+      "nickName_bg": "Демократична България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-29",
+      "agencyId": "AR",
+      "support": 4.4,
+      "nickName_bg": "Български възход",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (25.2%) е първа политическа сила в електоралните предпочитания на твърдо решилите да гласуват",
+    "share:ДПС": "ДПС е с потенциал от 13,1%, като ключов за конкретната му позиция може да се окаже вотът от чужбина",
+    "share:Демократична България": "Демократична България, като в края й потенциалната подкрепа достига до 8.4%",
+    "share:Български възход": "Български възход (4.4%) и ",
+    "sampleSize": "сред 1025 пълнолетни",
+    "fieldwork": "в периода 27 – 29 септември 2022г"
+  },
+  "refused": [
+    {
+      "field": "share:ИТН",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ИТН (4%)"
+    }
+  ]
+}

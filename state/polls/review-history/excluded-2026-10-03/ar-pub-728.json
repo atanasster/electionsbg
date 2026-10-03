@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-728",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/728-izborite-za-evrodeputati-niska-zapoznatost-slab-interes.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/728-izborite-za-evrodeputati-niska-zapoznatost-slab-interes.html",
+      "fetchedAt": "2026-09-27T06:45:29.432Z",
+      "sha256": "99fb9412dadb2af50bd5b1bc569ef9c88ef3dcac227cf45a49173efe593d53e3",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:728",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

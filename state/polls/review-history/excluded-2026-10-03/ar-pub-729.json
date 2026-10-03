@@ -1,0 +1,45 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-729",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/729-obshtestveno-mnenie-za-principa-na-usednalost-pri-izbora-na-evrodeputati.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/729-obshtestveno-mnenie-za-principa-na-usednalost-pri-izbora-na-evrodeputati.html",
+      "fetchedAt": "2026-09-27T06:45:29.316Z",
+      "sha256": "179a4faa75f0aecda5b77da2df1c0bcfc3572955c4fffcdaba5932f88d8fad0e",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:729",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"20 -22 февруари сред 700 души\"",
+      "quote": "в периода 20 -22 февруари сред 700 души"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

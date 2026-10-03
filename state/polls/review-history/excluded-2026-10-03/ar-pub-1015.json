@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-1015",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1015-29-oktomvri-2023-mestni-izbori-29-october-2023-local-elections.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1015-29-oktomvri-2023-mestni-izbori-29-october-2023-local-elections.html",
+      "fetchedAt": "2026-09-27T06:44:55.546Z",
+      "sha256": "f0454025a5c3b972e425731ace3942379a0b1a160279436a119623f3e4209759",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1015",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

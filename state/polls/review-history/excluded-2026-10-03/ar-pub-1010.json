@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-1010",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1010-02-april-2023-izbori-za-narodno-subranie-02-april-2023-general-elections.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1010-02-april-2023-izbori-za-narodno-subranie-02-april-2023-general-elections.html",
+      "fetchedAt": "2026-09-27T06:44:55.901Z",
+      "sha256": "69a560ae34114d9ef4a7ab5dbbdc4e4d0005f61ebea2315b6af6dc7adc6fb535",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1010",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

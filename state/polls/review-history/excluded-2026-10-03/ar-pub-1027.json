@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-1027",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1027-sociologicheska-agencia-alfa-risurch-publikuva-informacia-za-mediite-s-koito-shte-raboti-v-izbornia-den-na-27-oktomvri-2024g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1027-sociologicheska-agencia-alfa-risurch-publikuva-informacia-za-mediite-s-koito-shte-raboti-v-izbornia-den-na-27-oktomvri-2024g.html",
+      "fetchedAt": "2026-09-27T06:44:54.290Z",
+      "sha256": "78df062a91b60b054ed8e87a913a75c33502bda4e5c80157e7b8577ba460b645",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1027",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-853",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/853-obshtestveni-naglasi-kum-spiraneto-na-proekta-burgas-aleksandrupolis.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/853-obshtestveni-naglasi-kum-spiraneto-na-proekta-burgas-aleksandrupolis.html",
+      "fetchedAt": "2026-09-27T06:45:25.048Z",
+      "sha256": "0e77e0f08ffbc40c0431b59b839cbf57520acb3955f5f8625f2beb416bac8f7c",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:853",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

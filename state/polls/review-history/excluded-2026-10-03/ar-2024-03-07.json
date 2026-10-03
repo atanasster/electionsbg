@@ -1,0 +1,82 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2024-03-07",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1020-obshtestveni-ocenki-kum-osnovni-politiki-na-es-i-ranni-elektoralni-naglasi-za-evrovota.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Mar 1-7 2024",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1020-obshtestveni-ocenki-kum-osnovni-politiki-na-es-i-ranni-elektoralni-naglasi-za-evrovota.html",
+      "fetchedAt": "2026-09-27T06:44:54.847Z",
+      "sha256": "55109dc274d67d12657facc9e9cdba0a3c5543b2f17d9b1dc6e82ce8967f353f",
+      "extractor": "AR",
+      "fieldworkStart": "2024-03-01",
+      "fieldworkEnd": "2024-03-07",
+      "basePhrase": null,
+      "quotes": {
+        "share:ПП-ДБ": "ПП-ДБ повишават своя резултат от хипотетични национални избори (до 19.9%) и скъсяват дистанцията с ",
+        "share:ГЕРБ": "ГЕРБ до 2.7 пункта, който събира 22.6% от вота на гласуващите",
+        "share:Възраждане": "Възраждане, подобно на други европейски страни, където евроскептичните и антисистемни партии се представят малко над националния си потенциал, достигат 13.2%",
+        "share:БСП": "БСП (8.9%) и ",
+        "share:ДПС": "ДПС (8.4% - чиито избиратели в Турция нямат право да гласуват на евроизбори)",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 1 – 7 март 2024 г"
+      }
+    },
+    "publicationId": "AR:1020",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2024-03-07",
+      "agencyId": "AR",
+      "support": 19.9,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-03-07",
+      "agencyId": "AR",
+      "support": 22.6,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-03-07",
+      "agencyId": "AR",
+      "support": 13.2,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-03-07",
+      "agencyId": "AR",
+      "support": 8.9,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-03-07",
+      "agencyId": "AR",
+      "support": 8.4,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ПП-ДБ": "ПП-ДБ повишават своя резултат от хипотетични национални избори (до 19.9%) и скъсяват дистанцията с ",
+    "share:ГЕРБ": "ГЕРБ до 2.7 пункта, който събира 22.6% от вота на гласуващите",
+    "share:Възраждане": "Възраждане, подобно на други европейски страни, където евроскептичните и антисистемни партии се представят малко над националния си потенциал, достигат 13.2%",
+    "share:БСП": "БСП (8.9%) и ",
+    "share:ДПС": "ДПС (8.4% - чиито избиратели в Турция нямат право да гласуват на евроизбори)",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 1 – 7 март 2024 г"
+  },
+  "refused": []
+}

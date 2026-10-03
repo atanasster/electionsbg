@@ -1,0 +1,45 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-825",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/825-obshtestveni-naglasi-kum-biudjet-2010.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/825-obshtestveni-naglasi-kum-biudjet-2010.html",
+      "fetchedAt": "2026-09-27T06:45:27.987Z",
+      "sha256": "03b6a565645ec27e8173dae3b5aabcfac3c1c1a5cfa9ba6069f09666fdfc0ef7",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:825",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"Октомври 2009 Представителност: Пълнолетното население на страната Обем на извадката: N = 1300 ефективни интервюта Метод на формиране на извадката - Стратифицирана двустепенна извадка, реализирана чрез квота въз основа на признаците възраст, пол, образование и тип на населеното място Метод на набиране на информацията: Пряко стандартизирано интервю Натиснете тук - ОБЩЕСТВЕНИ НАГЛАСИ КЪМ БЮДЖЕТ 2010\"",
+      "quote": "Период на провеждане: Октомври 2009 Представителност: Пълнолетното население на страната Обем на извадката: N = 1300 ефективни интервюта Метод на формиране на извадката - Стратифицирана двустепенна извадка, реализирана чрез квота въз основа на признаците възраст, пол, образование и тип на населеното място Метод на набиране на информацията: Пряко стандартизирано интервю Натиснете тук - ОБЩЕСТВЕНИ НАГЛАСИ КЪМ БЮДЖЕТ 2010"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

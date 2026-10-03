@@ -1,0 +1,45 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-1037",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1037-obshtestveni-naglasi-za-vuvejdaneto-na-evroto-v-bulgaria.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1037-obshtestveni-naglasi-za-vuvejdaneto-na-evroto-v-bulgaria.html",
+      "fetchedAt": "2026-09-27T06:44:53.787Z",
+      "sha256": "aa0c065a5a5acb4cb09f18f79841afd2e30d5f7d9219a488fb3d690d3d46a306",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1037",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"на двойното обращение в лева и в евро (58-59% имат нужда от допълнителни разяснения по тези теми); над 40 на сто се вълнуват трябва ли да се преизчислява капиталът на фирмата, а също и по принцип какво трябва да направи предприятието преди въвеждане на еврото\"",
+      "quote": "в периода на двойното обращение в лева и в евро (58-59% имат нужда от допълнителни разяснения по тези теми); над 40 на сто се вълнуват трябва ли да се преизчислява капиталът на фирмата, а също и по принцип какво трябва да направи предприятието преди въвеждане на еврото"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

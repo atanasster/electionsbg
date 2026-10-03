@@ -16,7 +16,19 @@
         "capturedAt": "2026-09-09T22:04:37.888Z",
         "capturePath": "raw_data/polls/sova_harris/4116",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-2026-03-12-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.673Z",
+            "draftHash": "f7a380ca0b2fcf68b7d130484099cfacc9f876a8e1cb73f3f59b181394d1ec6b",
+            "refused": [
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -46,7 +58,19 @@
         "capturedAt": "2026-09-09T22:04:37.619Z",
         "capturePath": "raw_data/polls/sova_harris/4142",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "sh-2026-04-06-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.691Z",
+            "draftHash": "94561c7171d7c51139e2aa1fc60b9ef8499b7fed5ecf55bf187ad94742a36eca",
+            "refused": [
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -146,8 +170,8 @@
           },
           {
             "race": "presidential",
-            "reason": "Presidential exit-poll profile",
-            "reviewedAt": "2026-09-26"
+            "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -201,8 +225,8 @@
           },
           {
             "race": "presidential",
-            "reason": "Presidential exit-poll profile",
-            "reviewedAt": "2026-09-26"
+            "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+            "reviewedAt": "2026-10-03"
           }
         ]
       }
@@ -538,5 +562,52 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "4159",
+    "url": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f-3/",
+    "title": "Политически нагласи в България",
+    "publishedAt": "2026-10-02",
+    "agencyId": "SH",
+    "pubIds": [
+      "4159"
+    ],
+    "discoveredAt": "2026-10-02T22:46:52.711Z",
+    "latestHash": "a8738141d7ee9451dbdfb8bda846e6671207154ba03adb338afa43788997d016",
+    "versions": [
+      {
+        "sha256": "a8738141d7ee9451dbdfb8bda846e6671207154ba03adb338afa43788997d016",
+        "capturePath": "raw_data/polls/sova_harris/4159",
+        "capturedAt": "2026-10-02T23:21:24.072Z",
+        "attachmentFailures": [
+          "https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0001.jpg",
+          "https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0002.jpg",
+          "https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0003.jpg",
+          "https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0004.jpg",
+          "https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0005.jpg",
+          "https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0006.jpg"
+        ],
+        "drafts": []
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 1
+    },
+    "errors": {
+      "capture": {
+        "message": "Attachments unavailable: https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0001.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0002.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0003.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0004.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0005.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0006.jpg",
+        "at": "2026-10-02T23:21:24.072Z"
+      },
+      "extraction": {
+        "message": "Capture has unavailable attachments; retry capture before extraction",
+        "at": "2026-10-02T23:26:38.979Z"
+      }
+    },
+    "lastError": {
+      "message": "Capture has unavailable attachments; retry capture before extraction",
+      "at": "2026-10-02T23:26:38.979Z",
+      "stage": "extraction"
+    }
   }
 ]

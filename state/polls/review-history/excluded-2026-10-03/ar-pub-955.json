@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-955",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/955-izbori-za-chlenove-na-evropeiski-parlament-26-mai-2019.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/955-izbori-za-chlenove-na-evropeiski-parlament-26-mai-2019.html",
+      "fetchedAt": "2026-09-27T06:44:59.211Z",
+      "sha256": "13b50c46f7861d93cb48d5b5094f5da97e85f9dce669c10ffaeb8fe758267b30",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:955",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

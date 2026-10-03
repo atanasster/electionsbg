@@ -1,0 +1,52 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-752",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/752-kmetski-izbori-v-sofia-iasen-vodach-iasni-problemi-neiasni-otgovori.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/752-kmetski-izbori-v-sofia-iasen-vodach-iasni-problemi-neiasni-otgovori.html",
+      "fetchedAt": "2026-09-27T06:45:28.583Z",
+      "sha256": "c8f022c90a2262f24725a62d6c0a6aebeec9c82a2f291da298b19b03cb64fe74",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП - Бриго Аспарухов (7%) също има ясно отчетлив профил на електорална подкрепа"
+      }
+    },
+    "publicationId": "AR:752",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-752",
+      "agencyId": "AR",
+      "support": 7,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП - Бриго Аспарухов (7%) също има ясно отчетлив профил на електорална подкрепа"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2021-09-15",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82-7/",
+    "electionDate": null,
+    "respondents": 1012,
+    "genre": "raw_attitudes",
+    "fieldwork": "Sep 8-15 2021",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82-7/",
+      "fetchedAt": "2026-09-26T08:39:47.728Z",
+      "sha256": "d9393aac35c427ac46f19946f141ce3d8437c7b3fe4fafb20dbfef93e5f95107",
+      "extractor": "TR",
+      "fieldworkStart": "2021-09-08",
+      "fieldworkEnd": "2021-09-15",
+      "basePhrase": "подкрепа от гласуващите",
+      "quotes": {
+        "share:БСП": "БСП (5%), Изправи се",
+        "share:ГЕРБ": "ГЕРБ с 24.4%",
+        "share:Има такъв народ": "Има такъв народ“ (17.5%) и ",
+        "sampleSize": "1012 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 8-15 септември 2021 г"
+      }
+    },
+    "publicationId": "TR:209614",
+    "publishedAt": "2021-09-18"
+  },
+  "details": [
+    {
+      "pollId": "tr-2021-09-15",
+      "agencyId": "TR",
+      "support": 5,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-09-15",
+      "agencyId": "TR",
+      "support": 24.4,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2021-09-15",
+      "agencyId": "TR",
+      "support": 17.5,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:БСП": "БСП (5%), Изправи се",
+    "share:ГЕРБ": "ГЕРБ с 24.4%",
+    "share:Има такъв народ": "Има такъв народ“ (17.5%) и ",
+    "sampleSize": "1012 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 8-15 септември 2021 г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ (11%), "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (1%)"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (16.6%)"
+    },
+    {
+      "field": "share:Демократична България",
+      "reason": "mentioned 2 times with disagreeing values (8, 8.5%) — refusing rather than guessing which is current",
+      "quote": "Демократична България (8%),  | Демократична България (8.5%)"
+    }
+  ]
+}
