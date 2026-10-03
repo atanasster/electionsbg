@@ -1,8 +1,24 @@
 {
   "session": "20261002T230722Z-d773",
   "createdAt": "2026-10-03T01:33:16.552Z",
-  "skills": [],
-  "paths": [],
+  "commit": "ffd18d2945",
+  "skills": [
+    "update-procurement",
+    "update-open-calls",
+    "update-council-minutes",
+    "update-prices"
+  ],
+  "paths": [
+    "home",
+    "data_map.json",
+    "data-changes.json",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "culture/derived/hub_stats.json",
+    "culture/derived/fund_sources.json",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json"
+  ],
   "cloudCommands": [
     "npm run prices:ingest:cloud",
     "npm run db:load:pg:cloud",
@@ -22,5 +38,6 @@
     "npm run db:load:tr-company-place:pg:cloud",
     "npm run db:refresh:risk:cloud",
     "npm run db:load:open-calls:pg:cloud"
-  ]
+  ],
+  "notes": "ЦАИС ЕОП +217 contracts; 4 new open calls; КЗП prices 2026-10-02; home needs bucket:gz after sync"
 }
