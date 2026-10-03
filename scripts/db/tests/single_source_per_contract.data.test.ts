@@ -129,16 +129,9 @@ const ACCEPTED_CONFLICTS = new Map<string, string>([
     "02378-2023-0001/203540174/665/2023-06-02",
     "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
   ],
-  [
-    "00053-2026-0001/204293638/0/2026-05-07",
-    // Both rows sit at €0.00 in Postgres: 087 moved the joint award's value onto the carrier and
-    // zeroed the members. €0 is a real amount for identity E (a member row), not a missing one.
-    "eop×2 vs ocds×1, both consortium members zeroed by 087 — no 1:1 correspondence",
-  ],
-  [
-    "00053-2026-0001/181527965/0/2026-05-07",
-    "eop×2 vs ocds×1, both consortium members zeroed by 087 — no 1:1 correspondence",
-  ],
+  // (00053-2026-0001 ×2 — „eop×2 vs ocds×1, consortium members zeroed by 087" — retired
+  // 2026-10-03: the monthly OCDS backfill's EOP-twin eviction removed the eop pair, so the
+  // group is single-source now.)
   [
     "00303-2020-0018/837068124/105837/2020-12-08",
     // BLOCKED, and the most instructive of the BLOCKED entries: identical supplier sets, totals agreeing to

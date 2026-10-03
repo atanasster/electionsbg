@@ -30,25 +30,35 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 
 ```bash
 npm run procurement:ingest-legacy -- --discover   # new annual-CSV years (a no-op unless АОП posts a year we've never ingested)
-npm run procurement:ingest                        # new OCDS fortnights + rebuild rollups
+npm run procurement:ingest                        # new OCDS daily resources + rebuild rollups
 ```
 
-Run both, discovery first. `procurement:ingest` walks the АОП org's dataset listing on data.egov.bg, downloads any bundle whose `datasetUuid` is not already in `data/procurement/bundles.json`, normalizes its OCDS releases into `Contract` rows, and writes/merges month-shards. Then rebuilds per-EIK rollups under `contractors/` and `awarders/`.
+Run both, discovery first. `procurement:ingest` walks EVERY page of the АОП org's dataset listing on data.egov.bg, reads every resource of every OCDS dataset (walking each dataset's `?rpage=N` resource pager), downloads any resource not yet stamped `ingestedAt` in `data/procurement/bundles.json`, normalizes its OCDS releases into `Contract` rows, and writes/merges month-shards. Then rebuilds per-EIK rollups under `contractors/` and `awarders/`.
+
+⚠️ **АОП changed the OCDS dataset shape after 2026-06-03, and the old walker skipped it silently for four months.** Until then: one dataset per FORTNIGHT, one resource, labelled „…през периода от DD-MM-YYYY до DD-MM-YYYY…". Since 2026-06-04: one dataset per MONTH („…през месец MM.YYYY г.…") holding one resource per DAY („…ЕОП на DD.MM.YYYY г.…" — some June days write DD-MM-YYYY). So:
+
+- **The registry key is `resourceUuid`, not `datasetUuid`.** A monthly dataset GAINS resources as days publish, so a dataset already in `bundles.json` is re-read on every run. Rows still carry `bundleUuid = datasetUuid` (it is the „source" link on the contract page), which is why "is this day on disk?" cannot be answered from the shards — the `ingestedAt` stamp is the ledger. Unstamped pre-ledger fortnight entries fall back to the shard scan.
+- **An OCDS label the walker cannot date FAILS the run** (`UnrecognisedOcdsLabelError`, naming each dataset + resource). It used to count it as "non-OCDS" and carry on. Teach `parseResourceLabel` (`scripts/procurement/fetch_dataset_index.ts`) the new shape and add the page to `tests/fixtures/procurement/egov/`; never skip.
+- **The walk no longer stops at the first page with nothing new** — an old dataset can still gain resources. Known FORTNIGHT datasets are reused without re-fetching their pages, so the full walk is ~6 listing pages plus the monthly datasets' pagers.
+- **Weekend days often emit 0 rows** (1–2 non-contract releases). They are stamped like any other; that is correct.
+- **The watcher (`egov_procurement`) fingerprints the newest OCDS dataset's newest resource as well as the page-1 UUID set**, because a monthly dataset gaining a day does not move the UUID set.
 
 `procurement:ingest-legacy -- --discover` exists because the OCDS ingester only consumes fortnight bundles — a newly-published *annual* CSV (e.g. when АОП posts the 2024 contracts dump) is skipped as "non-OCDS" and would otherwise sit uningested. Discovery walks the same listing, finds any `Договори и изменения на договори - YYYY` dataset whose year isn't in `LEGACY_DATASETS`, confirms its resource is a real `contracts*.csv` (not the out-of-scope `excl*` / `annexes*` dumps), and ingests it. On a normal day it finds nothing and exits in seconds; the `procurement:ingest` that follows rebuilds rollups + cross-reference over whatever it added.
 
-Expected output on a normal day (one new fortnight published):
+Expected output on a normal day (a few new daily resources published):
 
 ```
 → walking АОП dataset listing
-  page 1: 6 bundle(s) collected
-  7 bundle(s) listed
-→ ingesting 1 bundle(s)
+  page 1: 128 resource(s) collected
+  …
+  page 6: 128 resource(s) collected
+  128 OCDS resource(s) listed
+→ ingesting 2 bundle(s)
 → canary on bundle 1b347ef4-4384-4e6c-95cd-d9f850d2c545
-  canary OK (sha256=… 1421 rows)
-  • 2026-04-23…2026-05-06 (eed…)
-    2380 release(s), emitted 1410 row(s) (c=980 a=1170 m=240, dropped 18)
-→ wrote 1 new + 2 modified month-shard(s)
+  canary OK (sha256=… 1795 rows)
+  • 2026-10-01…2026-10-01 (<monthly datasetUuid> / <daily resourceUuid>)
+    228 release(s), emitted 190 row(s) (c=150 a=0 m=40, dropped 3)
+→ wrote 0 new + 1 modified month-shard(s); evicted 140 EOP twin(s) superseded by the arriving OCDS rows
 → rebuilding contractor/awarder rollups
   4823 contractor file(s), 1102 awarder file(s)
 ✓ index.json + bundles.json updated
@@ -478,11 +488,16 @@ To backfill prior OCDS periods (e.g. on first ingest), pass `--since` for a cuto
 # Backfill everything published since the start of 2026 (when OCDS publishing began)
 npm run procurement:ingest -- --since 2020-01-01
 
+# The 2026-06-04 → 2026-09-30 monthly backfill (115 daily resources, run 2026-10-03) needed
+# no flag: every unstamped resource is ingested. It evicted 10,824 `eop-` gap-fill twins in
+# the month shards; `reconcile_cross_source` then caught 7 more whose eop row sat in an
+# OLDER shard (contracts signed 2021–2025, first published in a 2026 OCDS release).
+
 # Limit to N most recent bundles in one run (avoids long single runs)
 npm run procurement:ingest -- --max-bundles 5
 ```
 
-The walker emits oldest-first within the new-bundle filter so partial runs progress through history rather than re-fetching the same window.
+Bundles are processed oldest-first (so when one release reaches two resources the later one wins the key merge), and `--max-bundles N` takes the OLDEST N unstamped resources, so partial runs progress through history rather than re-fetching the same window.
 
 ### Pre-OCDS backfill (annual CSVs)
 
@@ -553,7 +568,7 @@ npx tsx scripts/procurement/rebuild_from_cache.ts     # offline rebuild — use 
 ## Single bundle (debugging)
 
 ```bash
-# Re-ingest one specific dataset
+# Re-ingest one specific dataset (a monthly dataset = all its daily resources) or one resource
 npm run procurement:ingest -- --bundle 3edde0c3-80da-468c-8536-53db74680863
 
 # Force a re-fetch even if the bundle is in the local cache
@@ -622,10 +637,14 @@ The canary bundle is re-normalized at the start of every run. If the output byte
    ```
 5. Re-run `npm run procurement:ingest` — the canary will be re-seeded on the next run that includes the pinned bundle, or seeded fresh by deleting the fixture file.
 
-### "could not parse period from label"
-data.egov.bg occasionally publishes a bundle whose label doesn't follow the standard "периода от DD-MM-YYYY до DD-MM-YYYY" phrasing. The walker throws naming the offending UUID. Options:
-1. Inspect the dataset page (https://data.egov.bg/data/view/<UUID>) — confirm what period it covers.
-2. Skip that bundle with `--bundle <other-UUID>` for now and report the anomaly upstream.
+### `UnrecognisedOcdsLabelError` — "АОП OCDS resource label(s) carry no period"
+A dataset or resource says „стандарт OCDS" but its label matches neither the fortnight („периода от … до …") nor the daily („ЕОП на DD.MM.YYYY г.") shape. The walker throws naming every offending dataset + resource. This is how the 2026-06 monthly switch should have surfaced. Fix:
+1. Open the dataset page (https://data.egov.bg/data/view/<UUID>) and read the label — confirm what period it covers.
+2. Teach `parseResourceLabel` in `scripts/procurement/fetch_dataset_index.ts`, save a trimmed copy of the page under `tests/fixtures/procurement/egov/`, and extend `fetch_dataset_index.test.ts`.
+3. Re-run. Do NOT make the walker skip it — a skipped OCDS label is months of silently missing data.
+
+### Canary mismatch after a long gap
+The canary only runs when there are NEW bundles, so a normalizer change made while no bundle was arriving goes unchecked until the next one does. That happened across 2026-06…10: the deliberate filler-supplier re-key (42d82ed9a9, Кларивейт `000000001` → `ph-…`) changed exactly one canary row, and it surfaced only when the monthly backfill ran. Diff the produced rows against the fixture by `key` before reseeding — a one-row diff that matches an intended commit is a reseed; anything wider is a regression.
 
 ### Currency mismatch in totals
 On `data/procurement/index.json`, `totals.byCurrency` may show both BGN and EUR. This is correct — Bulgaria joined the eurozone on 2026-01-01 and the rollover spans the bundle data. Do NOT coerce; the SPA displays both.

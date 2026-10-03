@@ -120,13 +120,24 @@ export interface Contract {
 export interface BundleEntry {
   // The dataset UUID on data.egov.bg (e.g. /data/view/<uuid>).
   datasetUuid: string;
-  // The resource UUID inside the dataset (1 resource per dataset for АОП).
-  // This is what feeds /resource/download/<uuid>/json.
+  // The resource UUID inside the dataset. This is the REGISTRY KEY: a
+  // fortnight dataset holds one resource, a monthly dataset one per day (and
+  // gains more as days publish). Feeds /resource/download/<uuid>/json.
   resourceUuid: string;
-  // Period covered, parsed from the dataset label
-  // "...през периода от DD-MM-YYYY до DD-MM-YYYY...".
+  // Period covered, parsed from the resource label — "...през периода от
+  // DD-MM-YYYY до DD-MM-YYYY..." (fortnight) or "...на DD.MM.YYYY г...."
+  // (daily, periodStart === periodEnd).
   periodStart: string; // YYYY-MM-DD
   periodEnd: string; // YYYY-MM-DD
+  // Absent on entries registered before the monthly shape existed; those are
+  // all fortnight bundles (see entryKind in fetch_dataset_index.ts).
+  kind?: "fortnight" | "daily";
+  // Stamped by ingest.ts once this resource's rows are written to the month
+  // shards. Rows carry bundleUuid = datasetUuid (it is the source link), so a
+  // shard scan cannot tell which DAY of a monthly dataset is on disk; this is
+  // the ledger that can. Unstamped legacy fortnight entries fall back to the
+  // shard scan.
+  ingestedAt?: string;
   // Raw label text — kept for debugging / display.
   label: string;
 }

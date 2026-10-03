@@ -1,5 +1,6 @@
-// Download one fortnight bundle and cache it locally. Bundles are ~20 MB
-// each, ~26/year — too large to commit but cheap to re-download. We persist
+// Download one OCDS bundle resource and cache it locally. Fortnight bundles
+// were ~20 MB, ~26/year; the daily resources since 2026-06-04 are ~1–3 MB,
+// ~30/month — too large to commit but cheap to re-download. We persist
 // gzipped under raw_data/procurement/ (gitignored, alongside raw_data/tr/)
 // so re-runs of the normalizer don't re-fetch.
 
@@ -24,6 +25,59 @@ const cachePath = (resourceUuid: string): string =>
 export const isCached = (resourceUuid: string): boolean =>
   fs.existsSync(cachePath(resourceUuid));
 
+// data.egov.bg's /resource/download failed server-side around June 2026 by
+// 302-ing to the portal HTML shell with a „Грешка при вземане на метаданни за
+// ресурс" flash, at a 200 (see update-procurement SKILL.md, legacy CSV notes).
+// Checked 2026-10-03 it serves the daily OCDS resources again — but if it
+// regresses, say so here rather than as a JSON.parse error, and never cache
+// the shell as a bundle.
+export const assertBundleBody = (
+  url: string,
+  finalUrl: string,
+  text: string,
+): void => {
+  const head = text.trimStart().slice(0, 1);
+  if (head === "{") return;
+  throw new Error(
+    `GET ${url} returned no OCDS JSON (landed on ${finalUrl || url}, body starts ` +
+      `${JSON.stringify(text.trimStart().slice(0, 60))}). data.egov.bg's ` +
+      `/resource/download has failed this way before (June 2026); the dataset-level ` +
+      `bulk zip /dataset/<uuid>/resources/download/json is the documented fallback.`,
+  );
+};
+
+// data.egov.bg drops the occasional connection mid-transfer ("other side
+// closed") — a monthly backfill makes ~120 downloads in a row, so one blip
+// must not abort the run. A 4xx/5xx or a non-JSON body is NOT retried: those
+// are answers, not blips.
+const downloadWithRetry = async (
+  url: string,
+  attempts = 4,
+): Promise<string> => {
+  for (let i = 1; ; i++) {
+    let res: Response;
+    let text: string;
+    try {
+      res = await fetch(url, {
+        headers: { "User-Agent": UA, Accept: "application/json" },
+      });
+      text = await res.text();
+    } catch (e) {
+      if (i >= attempts) throw e;
+      console.warn(
+        `    ⚠ ${url}: ${(e as Error).message} — retry ${i}/${attempts - 1}`,
+      );
+      await new Promise((r) => setTimeout(r, 2000 * i));
+      continue;
+    }
+    if (!res.ok) {
+      throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
+    }
+    assertBundleBody(url, res.url, text);
+    return text;
+  }
+};
+
 // Returns the parsed OcdsBundle. Reads cache if present; otherwise downloads
 // and caches.
 export const fetchBundle = async (
@@ -38,13 +92,7 @@ export const fetchBundle = async (
     return JSON.parse(text) as OcdsBundle;
   }
   const url = downloadUrl(resourceUuid);
-  const res = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "application/json" },
-  });
-  if (!res.ok) {
-    throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
-  }
-  const text = await res.text();
+  const text = await downloadWithRetry(url);
   // Write the gzipped form to cache. This step is fire-and-forget — if it
   // fails the run can still continue; we just lose the caching benefit.
   try {

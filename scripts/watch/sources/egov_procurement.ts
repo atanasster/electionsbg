@@ -1,12 +1,18 @@
 // data.egov.bg АОП (Агенция по обществени поръчки) — public-procurement
-// open-data. АОП publishes in two shapes: fortnightly OCDS-standard bundles
-// (one dataset per period — consumed by the OCDS ingester) and annual
+// open-data. АОП publishes in two shapes: OCDS-standard bundles (consumed by
+// the OCDS ingester — one dataset per fortnight until 2026-06-03, since then
+// one dataset per MONTH holding one resource per day) and annual
 // contracts CSVs ("Договори и изменения на договори - YYYY" — consumed by the
 // legacy ingester). We fingerprint page 1 of the org's dataset listing
 // (newest-first by upload) and classify each entry by its <h2> title, so the
-// report can tell a new fortnight bundle (auto-ingested) apart from a new
+// report can tell a new OCDS dataset (auto-ingested) apart from a new
 // annual CSV (needs the legacy-discovery path). The CKAN-style /api endpoints
 // on data.egov.bg are broken (return success:false), so we parse HTML.
+//
+// A monthly dataset GAINS daily resources without its UUID moving, so the
+// page-1 UUID set alone would flip once a month. The fingerprint therefore
+// also carries the newest resource of the newest OCDS dataset (its detail
+// page lists resources newest-first).
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";
@@ -59,6 +65,23 @@ const parseDatasets = (html: string): ClassifiedDataset[] => {
   return out;
 };
 
+// First resourceView link on a dataset detail page + its label.
+export const parseTopResource = (
+  html: string,
+): { uuid: string; label: string } | null => {
+  const m = html.match(
+    /resourceView\/([0-9a-f-]{36})"[\s\S]*?class="version">([^<]*)</i,
+  );
+  if (!m) return null;
+  return {
+    uuid: m[1],
+    label: m[2]
+      .replace(/&nbsp;|&#8211;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim(),
+  };
+};
+
 export const egovProcurement: WatchSource = {
   id: "egov_procurement",
   label: "data.egov.bg АОП (Агенция по обществени поръчки)",
@@ -76,14 +99,34 @@ export const egovProcurement: WatchSource = {
     if (uuids.length === 0) {
       throw new Error("АОП dataset listing yielded zero dataset UUIDs");
     }
-    const value = sha256Short(uuids.join(","));
+    const datasets = parseDatasets(html);
+    const newestOcds = datasets.find((d) => d.kind === "ocds");
+    let latestOcdsResource: { uuid: string; label: string } | null = null;
+    if (newestOcds) {
+      const detail = await fetchText(
+        `https://data.egov.bg/data/view/${newestOcds.uuid}`,
+      );
+      // null is legitimate: a new month's dataset can exist before its
+      // first daily resource does. The UUID set still flips on it.
+      latestOcdsResource = detail ? parseTopResource(detail) : null;
+    }
+    const value = sha256Short(
+      uuids.join(",") +
+        (latestOcdsResource ? `|${latestOcdsResource.uuid}` : ""),
+    );
     return {
       value,
-      detail: `${uuids.length} datasets on page 1, hash ${value}`,
+      detail:
+        `${uuids.length} datasets on page 1` +
+        (latestOcdsResource
+          ? `, latest OCDS resource „${latestOcdsResource.label}"`
+          : "") +
+        `, hash ${value}`,
       meta: {
         topUuids: uuids.slice(0, 5),
         count: uuids.length,
-        datasets: parseDatasets(html),
+        datasets,
+        latestOcdsResource,
       },
     };
   },
@@ -102,14 +145,26 @@ export const egovProcurement: WatchSource = {
         : ((prev.meta?.topUuids as string[] | undefined) ?? []),
     );
     const fresh = currDs.filter((d) => !prevUuids.has(d.uuid));
+    const prevTop = prev.meta?.latestOcdsResource as
+      | { uuid: string }
+      | null
+      | undefined;
+    const currTop = curr.meta?.latestOcdsResource as
+      | { uuid: string; label: string }
+      | null
+      | undefined;
+    const newResource =
+      currTop != null && prevTop?.uuid !== currTop.uuid
+        ? `new OCDS daily resource(s), latest „${currTop.label}"`
+        : null;
     if (fresh.length === 0)
-      return `${curr.detail} (UUIDs rotated below the top)`;
+      return newResource ?? `${curr.detail} (UUIDs rotated below the top)`;
     const parts: string[] = [];
+    if (newResource) parts.push(newResource);
     const ocds = fresh.filter((d) => d.kind === "ocds");
     const annual = fresh.filter((d) => d.kind === "annual");
     const other = fresh.filter((d) => d.kind === "other");
-    if (ocds.length)
-      parts.push(`${ocds.length} new fortnight bundle(s) on top`);
+    if (ocds.length) parts.push(`${ocds.length} new OCDS dataset(s) on top`);
     if (annual.length) {
       const years = annual.map((d) => d.year ?? "?").join(", ");
       parts.push(

@@ -1,4 +1,5 @@
-// Procurement ingest CLI. Pulls АОП fortnight bundles from data.egov.bg,
+// Procurement ingest CLI. Pulls АОП OCDS bundles from data.egov.bg (fortnight
+// datasets until 2026-06-03, one resource per DAY in a monthly dataset since),
 // normalizes each release into Contract rows, writes month-shards under
 // data/procurement/contracts/<YYYY>/<YYYY-MM>.json, then rebuilds per-EIK
 // rollups under contractors/ and awarders/.
@@ -6,7 +7,8 @@
 // CLI:
 //   tsx scripts/procurement/ingest.ts                    # incremental
 //   tsx scripts/procurement/ingest.ts --since 2026-01-01 # backfill
-//   tsx scripts/procurement/ingest.ts --bundle UUID      # one bundle only
+//   tsx scripts/procurement/ingest.ts --bundle UUID      # one dataset (all its
+//                                                        # resources) or one resource
 //   tsx scripts/procurement/ingest.ts --refresh-cache    # re-download cached
 //   tsx scripts/procurement/ingest.ts --upload           # rsync to bucket
 //   tsx scripts/procurement/ingest.ts --dry-run          # parse, no writes
@@ -16,6 +18,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { fetchBundlesIndex } from "./fetch_dataset_index";
+import {
+  entryKind,
+  mergeBundles,
+  selectUningested,
+  sortEntries,
+} from "./bundle_registry";
 import { fetchBundle } from "./fetch_bundle";
 import { normalizeBundle } from "./normalize";
 import { evictSupersededEopTwins } from "./content_key";
@@ -279,42 +287,48 @@ const main = async (args: {
       `→ re-normalizing ${bundles.length} known bundle(s) from cache`,
     );
   } else if (args.bundle) {
-    // Single-bundle path: caller passed a dataset UUID directly. Look it up
-    // in the known index first, or re-resolve it from data.egov.bg if new.
-    const known = previousBundles.find((b) => b.datasetUuid === args.bundle);
-    if (known) {
-      bundles = [known];
+    // Single-bundle path: caller passed a dataset OR resource UUID. A monthly
+    // dataset matches every daily resource it holds. Look it up in the known
+    // index first, or re-resolve it from data.egov.bg if new.
+    const matches = (b: BundleEntry): boolean =>
+      b.datasetUuid === args.bundle || b.resourceUuid === args.bundle;
+    const known = previousBundles.filter(matches);
+    if (known.length > 0) {
+      bundles = known;
     } else {
       console.log(`→ resolving new bundle ${args.bundle} via dataset page`);
-      const fresh = await fetchBundlesIndex({ maxPages: 50 });
-      const hit = fresh.find((b) => b.datasetUuid === args.bundle);
-      if (!hit)
+      const fresh = await fetchBundlesIndex({
+        maxPages: 50,
+        known: previousBundles,
+      });
+      const hits = fresh.filter(matches);
+      if (hits.length === 0)
         throw new Error(`dataset ${args.bundle} not found in АОП index`);
-      bundles = [hit];
+      bundles = hits;
       previousBundles = mergeBundles(previousBundles, fresh);
     }
   } else {
     console.log(`→ walking АОП dataset listing`);
     const fresh = await fetchBundlesIndex({
+      known: previousBundles,
       onPage: (page, collected) =>
-        console.log(`  page ${page}: ${collected} bundle(s) collected`),
+        console.log(`  page ${page}: ${collected} resource(s) collected`),
     });
-    console.log(`  ${fresh.length} bundle(s) listed`);
+    console.log(`  ${fresh.length} OCDS resource(s) listed`);
     previousBundles = mergeBundles(previousBundles, fresh);
-    // "Ingested" = at least one contract row from this bundle is on disk in
-    // a month-shard. The discovered-bundle index (bundles.json) is NOT a
-    // reliable signal — the walker writes to it on every run regardless of
-    // whether the ingest actually normalized those bundles' data. Scanning
-    // month-shards once per run is cheap (a few hundred KB total at current
-    // volume) and gives ground truth.
-    const ingestedUuids = collectIngestedBundleUuids(CONTRACTS_DIR);
-    bundles = fresh.filter((b) => {
-      if (args.since && b.periodEnd < args.since) return false;
-      return !ingestedUuids.has(b.datasetUuid);
-    });
+    bundles = selectUningested(
+      previousBundles.filter((b) =>
+        fresh.some((f) => f.resourceUuid === b.resourceUuid),
+      ),
+      previousBundles,
+      collectIngestedBundleUuids(CONTRACTS_DIR),
+    ).filter((b) => !(args.since && b.periodEnd < args.since));
     if (args.maxBundles) {
       const n = parseInt(args.maxBundles, 10);
-      if (Number.isFinite(n) && n > 0) bundles = bundles.slice(0, n);
+      // OLDEST first, so a capped run progresses through history and the
+      // next run picks up where it stopped.
+      if (Number.isFinite(n) && n > 0)
+        bundles = sortEntries(bundles).reverse().slice(0, n);
     }
   }
 
@@ -367,12 +381,16 @@ const main = async (args: {
     }
   }
 
-  // 3. Fetch + normalize each target bundle.
+  // 3. Fetch + normalize each target bundle, OLDEST first: allRows is merged
+  // by key with later rows winning, so a release re-published in a later
+  // resource must overwrite its earlier copy, never the other way round.
   const allRows: Contract[] = [];
   let totalReleases = 0;
-  for (const bundle of bundles) {
+  for (const bundle of [...sortEntries(bundles)].reverse()) {
     console.log(
-      `  • ${bundle.periodStart}…${bundle.periodEnd} (${bundle.datasetUuid})`,
+      `  • ${bundle.periodStart}…${bundle.periodEnd} (${bundle.datasetUuid}` +
+        (entryKind(bundle) === "daily" ? ` / ${bundle.resourceUuid}` : "") +
+        `)`,
     );
     const data = await fetchBundle(bundle.resourceUuid, {
       refresh: args.refreshCache,
@@ -406,6 +424,15 @@ const main = async (args: {
   // 4. Write month-shards.
   const { newFiles, modifiedFiles, eopEvicted, staleEvicted } =
     writeMonthShards(allRows);
+  // Ledger: these resources' rows are on disk now. Only unstamped entries are
+  // stamped, so a --renormalize pass does not churn every timestamp.
+  const ingestedNow = new Set(bundles.map((b) => b.resourceUuid));
+  const stampedAt = new Date().toISOString();
+  previousBundles = previousBundles.map((b) =>
+    ingestedNow.has(b.resourceUuid) && !b.ingestedAt
+      ? { ...b, ingestedAt: stampedAt }
+      : b,
+  );
   console.log(
     `→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)` +
       (eopEvicted > 0
@@ -714,18 +741,6 @@ const collectIngestedBundleUuids = (contractsDir: string): Set<string> => {
     }
   }
   return out;
-};
-
-const mergeBundles = (
-  previous: BundleEntry[],
-  fresh: BundleEntry[],
-): BundleEntry[] => {
-  const byUuid = new Map<string, BundleEntry>();
-  for (const b of previous) byUuid.set(b.datasetUuid, b);
-  for (const b of fresh) byUuid.set(b.datasetUuid, b);
-  return [...byUuid.values()].sort((a, b) =>
-    a.periodEnd < b.periodEnd ? 1 : a.periodEnd > b.periodEnd ? -1 : 0,
-  );
 };
 
 const cli = command({
