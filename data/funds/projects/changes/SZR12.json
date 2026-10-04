@@ -1,18 +1,221 @@
 {
   "obshtina": "SZR12",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.014-0058",
-      "title": "Внедряване на мерки за енергийна ефективност в сградите на 4 основни училища в населени места на територията на Община Казанлък.",
-      "type": "new",
-      "totalEur": 4250720.66,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-4.032-0114",
+      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия с инсталирана мощност от 1.26 МW",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 566598.32,
+      "totalEur": 566598.32,
+      "paidEur": 270931.82,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Малево енерджи ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0044",
+      "title": "Адаптиране на работната среда в Арсенал АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 248664.69,
+      "totalEur": 247823.87,
+      "paidEur": 198259.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Арсенал АД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0195",
+      "title": "ПЪТЯТ ДО ЕДНА ИЗЛОЖБА",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 77942.1,
+      "totalEur": 77942.1,
+      "paidEur": 70147.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АТЕЛИЕТО-2010 Сдружение",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0060",
+      "title": "„Чудомир – 3D mapping спектакли за новото поколение“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 70208.15,
+      "totalEur": 70208.15,
+      "paidEur": 56166.51,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-09-27"
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0114",
+      "title": "Шепот от миналото",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 66841.27,
+      "totalEur": 66841.27,
+      "paidEur": 60051.26,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Дерида денс ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2157",
+      "title": "Адаптиране на работната среда в \"Хелиос - 2005\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 30809.32,
+      "totalEur": 23761.05,
+      "paidEur": 23761.06,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Хелиос - 2005 ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0080",
+      "title": "\"Моно но аваре\" - мост между култури и общности",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8998.84,
+      "totalEur": 8998.84,
+      "paidEur": 8098.96,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Джемини филмс ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0106",
+      "title": "A Little Dramatic Live – концерти и работилници на Виктория Георгиева за достъпна култура и вдъхновение",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8525.04,
+      "totalEur": 8525.04,
+      "paidEur": 7672.54,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Лигна студиос\" ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0064",
+      "title": "Представяне и разпространение пред българска публика на четвърти музикален албум \"Един от тях\" на No More Many More и децентрализация на културно съдържание",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8426.06,
+      "totalEur": 8426.06,
+      "paidEur": 7583.46,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Методи Любомиров Кръстев",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0062",
+      "title": "АТОС",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8425,
+      "totalEur": 8425,
+      "paidEur": 7582.5,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Декидис Филмс ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0039",
+      "title": "Разпространение на спектакъла \"Одисей\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 6392.31,
+      "totalEur": 6392.31,
+      "paidEur": 5611.82,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Забелски глас",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0022",
+      "title": "\"Музикален полет: Нови ноти - представяне пред българската публика на съвременен български музикален продукт на млад автор на музика текст и аранжимент - Анна - Мария Въртовска\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2663.73,
+      "totalEur": 2663.73,
+      "paidEur": 2397.33,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АННА-МАРИЯ Генчева Въртовска",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0293",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда на бул. \"23 Пехотен Шипченски Полк\" № 25, гр. Казанлък“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 749982.88,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Казанлък",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

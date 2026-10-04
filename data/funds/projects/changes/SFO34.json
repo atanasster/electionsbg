@@ -1,0 +1,58 @@
+{
+  "obshtina": "SFO34",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "changes": [
+    {
+      "contractNumber": "BG-RRP-13.009-0030",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Правец.\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 195059.52,
+      "totalEur": 358080.48,
+      "paidEur": 179040.24,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Правец",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0012",
+      "title": "Топъл обяд в Община Правец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 283657.4,
+      "totalEur": 355836.5,
+      "paidEur": 268934.34,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Правец",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0205",
+      "title": "Иновативни здравно-социални услуги в община Правец",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 101055.31,
+      "totalEur": 101055.31,
+      "paidEur": 73211.25,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Правец",
+      "detectedAt": "2026-10-04"
+    }
+  ]
+}

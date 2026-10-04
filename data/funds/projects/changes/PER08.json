@@ -1,18 +1,22 @@
 {
   "obshtina": "PER08",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.014-0030",
-      "title": "Подобряване на енергийната ефективност на административна сграда на РУ на МВР, находяща се в гр. Брезник, ул. „Андрей Михайлов“ № 80",
-      "type": "new",
-      "totalEur": 580747.34,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Областна дирекция /ОД/ на МВР - Перник",
-      "detectedAt": "2026-09-27"
+      "contractNumber": "BG-RRP-11.020-0069",
+      "title": "Маскарадни чудеса: Сурва Фестивал",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 65909.18,
+      "totalEur": 65909.18,
+      "paidEur": 59318.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Просвещение 1870 НЧ",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

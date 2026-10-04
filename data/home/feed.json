@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-03T23:59:59.999Z",
+  "computedAt": "2026-10-04T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
+      "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-03T00:00:00.000Z",
-      "firstSeenAt": "2026-10-03T00:00:00.000Z",
+      "occurredAt": "2026-10-04T00:00:00.000Z",
+      "firstSeenAt": "2026-10-04T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,14 +22,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-roshen-lakmi-mlechen-90gr",
+      "route": "/product/limoni",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
+        "title": "ЛИМОНИ",
         "pct": 54,
-        "promoEur": "0.79",
-        "regularEur": "1.74",
-        "chains": 2
+        "promoEur": "0.99",
+        "regularEur": "2.17",
+        "chains": 6
       },
       "backfill": false,
       "verification": "automatic",
@@ -101,8 +101,8 @@
       "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-03T00:00:00.000Z",
-      "firstSeenAt": "2026-10-03T00:00:00.000Z",
+      "occurredAt": "2026-10-04T00:00:00.000Z",
+      "firstSeenAt": "2026-10-04T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -119,14 +119,14 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "КАРТОФИ МИТИ",
-        "pct": 52,
+        "pct": 53,
         "promoEur": "0.55",
-        "regularEur": "1.15",
+        "regularEur": "1.17",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7428571428571429,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:palmolive-sapun-cherna-orhideya-90-g",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-03T00:00:00.000Z",
-      "firstSeenAt": "2026-10-03T00:00:00.000Z",
+      "occurredAt": "2026-10-04T00:00:00.000Z",
+      "firstSeenAt": "2026-10-04T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/palmolive-sapun-cherna-orhideya-90-g",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
-        "pct": 48,
-        "promoEur": "1.09",
-        "regularEur": "2.08",
-        "chains": 6
+        "title": "PALMOLIVE сапун Черна орхидея 90 г",
+        "pct": 47,
+        "promoEur": "0.65",
+        "regularEur": "1.22",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.6714285714285714,
       "actionability": 0.85
     },
     {
@@ -347,6 +347,68 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-10-04",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-10-04T00:00:00.000Z",
+      "firstSeenAt": "2026-10-04T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_up",
+      "factArgs": {
+        "pct": "2.1",
+        "costEur": "15.59",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5165,
+      "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "debt:domestic_auction:BG-2026-09-28-119",
+      "kind": "debt_auction",
+      "category": "budget_debt",
+      "occurredAt": "2026-09-28T00:00:00.000Z",
+      "firstSeenAt": "2026-09-28T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "bnb_auctions",
+        "labelKey": "home_source_bnb"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators/fiscal",
+      "factKey": "home_fact_debt_auction_yield",
+      "factArgs": {
+        "millions": 150,
+        "currency": "EUR",
+        "years": 5,
+        "yieldPct": "4.02"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7263256490977231,
+      "actionability": 0.2
     },
     {
       "schemaVersion": 1,
@@ -1185,65 +1247,6 @@
       "verification": "automatic",
       "materiality": 0.25,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-10",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-10T00:00:00.000Z",
-      "firstSeenAt": "2026-09-10T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-10",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 23
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.575,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-09-13",
-      "kind": "basket_moved",
-      "category": "prices",
-      "occurredAt": "2026-09-13T00:00:00.000Z",
-      "firstSeenAt": "2026-09-13T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/consumption",
-      "factKey": "home_fact_basket_up",
-      "factArgs": {
-        "pct": "1.7",
-        "costEur": "15.72",
-        "days": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.42975,
-      "actionability": 0.5
     }
   ],
   "sourceCoverage": {
@@ -1261,7 +1264,7 @@
     },
     "debt": {
       "available": true,
-      "asOf": "2026-08-24",
+      "asOf": "2026-09-28",
       "staleAfterDays": 75,
       "stale": false
     },
@@ -1294,8 +1297,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-03",
-      "observedAt": "2026-10-03",
+      "asOf": "2026-10-04",
+      "observedAt": "2026-10-04",
       "staleAfterDays": 5,
       "stale": false
     }

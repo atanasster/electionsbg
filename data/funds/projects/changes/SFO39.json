@@ -1,22 +1,40 @@
 {
   "obshtina": "SFO39",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1910",
-      "title": "Устойчиво енергийно обновяване чрез внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда СС \"Блок № 29, кв. Самоково, гр. Самоков“",
+      "contractNumber": "BG-RRP-11.022-0054",
+      "title": "\"Самоков – сцена за всички\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1085841.22,
-      "totalEur": 1085841.22,
-      "paidEur": 1080274.41,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 122945.22,
+      "totalEur": 122945.22,
+      "paidEur": 98356.19,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Самоков",
-      "detectedAt": "2026-09-27"
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0099",
+      "title": "\"Закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в Самоков\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 39068.28,
+      "paidEur": 39068.28,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "община Самоков",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

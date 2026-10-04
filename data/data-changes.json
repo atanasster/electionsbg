@@ -1,6 +1,69 @@
 {
-  "updatedAt": "2026-10-04T18:58:25.238Z",
+  "updatedAt": "2026-10-04T23:19:06.369Z",
   "entries": [
+    {
+      "timestamp": "2026-10-04T23:19:06.369Z",
+      "date": "2026-10-04",
+      "skill": "update-funds",
+      "summary": "ИСУН: +27 contracts (82,999), €19.23bn paid; Interreg: 2,038 operations after keep.eu re-import",
+      "source": "ИСУН 2020 + keep.eu"
+    },
+    {
+      "timestamp": "2026-10-04T22:36:43.171Z",
+      "date": "2026-10-04",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-04 (+1 daily archive; 805,562 store rows, 167 settlements, 69 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-04"
+    },
+    {
+      "timestamp": "2026-10-04T22:28:53.333Z",
+      "date": "2026-10-04",
+      "skill": "update-procurement",
+      "summary": "АДФИ: 2,085 financial-inspection reports (+24); ЦАИС ЕОП tenders through 2026-10-03",
+      "source": "АДФИ + ЦАИС ЕОП"
+    },
+    {
+      "timestamp": "2026-10-04T22:28:52.543Z",
+      "date": "2026-10-04",
+      "skill": "kzk_decisions",
+      "summary": "КЗК decisions register refreshed: outcomes 3107→3113, through 2026-09-24",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-10-04T22:28:51.745Z",
+      "date": "2026-10-04",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: 23 new complaints (8147 total)",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-10-04T22:15:38.955Z",
+      "date": "2026-10-04",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 853 лица, 125 087 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-04T21:56:31.050Z",
+      "date": "2026-10-04",
+      "skill": "update-budget",
+      "summary": "policy baseline re-based to FY2025, VAT factor 1.170, trailing CPI 3.88→4.23%",
+      "source": "НОИ STATB + Eurostat"
+    },
+    {
+      "timestamp": "2026-10-04T21:53:27.155Z",
+      "date": "2026-10-04",
+      "skill": "update-macro",
+      "summary": "EC per-MS 2025 added (funds €2.24B, contribution €0.89B); +1 BNB ДЦК auction (68 total)",
+      "source": "EC EU budget per-MS + BNB ДЦК auctions",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-10-04T18:58:25.238Z",
       "date": "2026-10-04",

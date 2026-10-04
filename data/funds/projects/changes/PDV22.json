@@ -1,114 +1,827 @@
 {
   "obshtina": "PDV22",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.039-1203",
-      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда с адрес: гр. Пловдив, район \"Тракия\", блок № 282",
+      "contractNumber": "BG05SFPR001-1.010-0286",
+      "title": "Умения за позитивно взаимодействие: интегриран подход за превенция на тормоза и агресията чрез емоционална интелигентност, изкуства и дигитални технологии",
       "type": "new",
-      "totalEur": 1173504.46,
+      "totalEur": 140928.41,
       "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Езикова гимназия \"Иван Вазов\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1879",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Лотос\" 1, район \"Източен\", гр. Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 1680248.6,
+      "totalEur": 1676679.95,
+      "paidEur": 881230.11,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Пловдив - район \"Тракия\"",
-      "detectedAt": "2026-09-27"
+      "beneficiaryName": "Район \"Източен\" - Община пловдив",
+      "detectedAt": "2026-10-04"
     },
     {
-      "contractNumber": "BG-RRP-4.039-2407",
-      "title": "Подкрепа за устойчиво енергийно обновяване на МФЖ с адрес гр. Пловдив, ул. “Лайпциг“ №8, 10",
-      "type": "new",
-      "totalEur": 660172.97,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Район \"Южен\" - Община Пловдив",
-      "detectedAt": "2026-09-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2397",
-      "title": "Подкрепа за устойчиво енергийно обновяване на МФЖ с адрес гр. Пловдив, ул. \"Лайпциг\" № 4, 6",
+      "contractNumber": "BG-RRP-11.021-0003",
+      "title": "Отново Заедно",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 649431.72,
-      "totalEur": 649431.72,
-      "paidEur": 646736.94,
+      "prevTotalEur": 1463205.94,
+      "totalEur": 1463205.94,
+      "paidEur": 975469.73,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пловдив",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1734",
+      "title": "Подкрепа за устойчиво енергийно обновяване на МФЖ с адрес гр. Пловдив, ул. “Славееви гори“ № 24 вх. А, Б, В",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 758206.08,
+      "totalEur": 758206.08,
+      "paidEur": 602543.99,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Район \"Южен\" - Община Пловдив",
-      "detectedAt": "2026-09-27"
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0311",
+      "title": "Подкрепа на ХЪС ООД за нови мощности за производство на електроенергия от ВИ в комбинация с ЛСС (обект ХЪС 4)",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 255645.94,
+      "totalEur": 255645.94,
+      "paidEur": 109144.59,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ХЪС ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0935",
+      "title": "Добра работна среда и по- качествени работни места в \"ПЕРЛАМЕТ СЕ\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 199805.9,
+      "totalEur": 199749.65,
+      "paidEur": 199749.65,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Перламет СЕ ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.012-0455",
+      "title": "Осигуряване на устойчива заетост на лица в неравностойно положение, включително чрез адаптиране на работни места за хора с увреждания в ЕТ „ДИАНЖЕЛИ-АНГЕЛ АНГЕЛОВ“, Пловдив.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 194733.58,
+      "totalEur": 194733.57,
+      "paidEur": 38946.71,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЕТ „ДИАНЖЕЛИ-АНГЕЛ Ангелов“",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2159",
+      "title": "Адаптирана работна среда в ИНТЕРНЕШЪНЪЛ ПАКИНГ КЪМПАНИ ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 192482.99,
+      "totalEur": 191097.22,
+      "paidEur": 191097.22,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Интернешънъл пакинг къмпани ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0180",
+      "title": "Въвеждане на „зелени“ модели на организация на работните процеси и подобряване на условията на труд за осигуряване на здравословна и безопасна работна среда в ОЛД КОНСУЛТИНГ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 181974.94,
+      "totalEur": 179247.8,
+      "paidEur": 179247.79,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ОЛД Консултинг ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0075",
+      "title": "Адаптирана работна среда в ПЪТИНЖЕНЕРИНГ ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 176125.75,
+      "totalEur": 172292.88,
+      "paidEur": 172292.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Пътинженеринг ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0235",
+      "title": "Заедно се борим с агресията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 168200.35,
+      "totalEur": 168200.35,
+      "paidEur": 33640.07,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно Училище 'Константин Величков'",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0990",
+      "title": "Адаптирана работна среда",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 170298.24,
+      "totalEur": 154540.4,
+      "paidEur": 154540.4,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Амбулатория за индивидуална практика за първична помощ по дентална МЕДИЦИНА-К-ДЕНТ ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0169",
+      "title": "Подобряване и адаптиране на работната среда в ДЕНИ ЛАЙТИНГ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 138857.28,
+      "totalEur": 138857.28,
+      "paidEur": 137378.15,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Дени лайтинг ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2221",
+      "title": "Адаптирана работна среда в \"Севи Ойл\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 131851.36,
+      "totalEur": 131043.85,
+      "paidEur": 104835.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Севи ОЙЛ ЕООД",
+      "detectedAt": "2026-10-04"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-0900",
       "title": "Адаптирана работна среда в Ивадор Груп ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 125867.45,
+      "prevTotalEur": 125826.28,
       "totalEur": 125826.28,
-      "paidEur": 0,
+      "paidEur": 125826.28,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Ивадор Груп ООД",
-      "detectedAt": "2026-09-27"
+      "detectedAt": "2026-10-04"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0208",
-      "title": "Осигуряване на адаптирана работна среда в „КАМ-919“ ООД",
+      "contractNumber": "BG05SFPR002-1.004-1202",
+      "title": "Подобрена и адаптирана работна среда в ХИДРОБЕТОН ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 117893.75,
+      "totalEur": 117893.75,
+      "paidEur": 92963.46,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Хидробетон ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0143",
+      "title": "Майна Town: Фентъзи музей на Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 79664.69,
+      "totalEur": 79664.69,
+      "paidEur": 71594.59,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "5 за 4 ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0178",
+      "title": "Създаване на културен продукт от \"Ню Лайн Комюникейшън\" ЕООД и промотирането му на европейски пазар на изкуството",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 79359.23,
+      "totalEur": 79359.23,
+      "paidEur": 71423.32,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЮ Лайн комюникейшън ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0141",
+      "title": "“По Зарезан”",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 78033.23,
+      "totalEur": 78033.23,
+      "paidEur": 70229.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фолклорен свят - Марица Сдружение",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0202",
+      "title": "Съвременни Бохеми - медийна платформа за съвременна култура",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 76923.86,
+      "totalEur": 76923.86,
+      "paidEur": 68023.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "СБ Студио ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1184",
+      "title": "Осигуряване на безопасни условия на труд в \"ДКЦ 5 - Пловдив - Св. архиеп. Лука\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 72201.19,
+      "totalEur": 69772.65,
+      "paidEur": 55818.12,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "\"Диагностично - консултативен център 5 - Пловдив - Св. архиеп. Лука\" ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0031",
+      "title": "„Европейско документално кино без граници“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 68604.68,
+      "totalEur": 68604.68,
+      "paidEur": 60932.26,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АРТ Уинар ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0974",
+      "title": "Повишаване капацитета на предприятието \"САМОСТОЯТЕЛНА МЕДИКО-ДИАГНОСТИЧНА ЛАБОРАТОРИЯ \"МЕДИСКЕН\"\" ЕООД, град Пловдив чрез модернизация и оптимизация на бизнес процесите",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 68001.82,
+      "totalEur": 68001.82,
+      "paidEur": 0,
+      "status": "В изпълнение (временно спрян)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Самостоятелна МЕДИКО-ДИАГНОСТИЧНА лаборатория \"Медискен\" ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0061",
+      "title": "Bulgarian Cartrader на живо в България: Представяне на албум",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 67495.31,
+      "totalEur": 67495.31,
+      "paidEur": 60745.77,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Флат лайн кълектив ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0021",
+      "title": "Истини и въображения: „Пинокио и други фантазии“ – изложба и сценичен диалог, вдъхновени от съвременното европейско изкуство на Франческо Де Франческо.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 65973.42,
+      "totalEur": 65973.42,
+      "paidEur": 59376.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Асоциация докосни дъгата",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0028",
+      "title": "\"Електронните формати - основа за европейски междукултурен диалог\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 65772.58,
+      "totalEur": 65772.58,
+      "paidEur": 59195.31,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение Национално сдружение за единство и партньорство Сдружение",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0075",
+      "title": "Beebopcafe.TV Live Sessions",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 65590.75,
+      "totalEur": 65590.75,
+      "paidEur": 57955.96,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Тролейпътна станция, ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0725",
+      "title": "Адаптирана работна среда в ИНДУСТРИАЛ ПАК ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 65352.22,
+      "totalEur": 65352.22,
+      "paidEur": 63152.28,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Индустриал ПАК ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0037",
+      "title": "Проект \"Книга за Луната\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 64620.61,
+      "totalEur": 64620.61,
+      "paidEur": 57151.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение “Център за проекти Пловдив\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0027",
+      "title": "BEST OF THE FEST: Ярките гласове в европейското кино",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 63852.48,
+      "totalEur": 63852.48,
+      "paidEur": 57467.24,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Микс Медия Прадакшънс ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0032",
+      "title": "Европейска етно музика идва в България 2025",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 63671.97,
+      "totalEur": 63671.97,
+      "paidEur": 57304.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация \"Метаарт\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0047",
+      "title": "Кино за всички",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 62815.66,
+      "totalEur": 62815.66,
+      "paidEur": 56534.1,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Пърпъл рейн ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0062",
+      "title": "Представяне и промотиране пред българска публика на стендъп комедийно шоу \"Нападателно смешно - Безопасно място за шеги\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 59901.64,
+      "totalEur": 59901.64,
+      "paidEur": 53911.45,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Комеди БГ ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0024",
+      "title": "Представяне на шест заглавия съвременна европейска детска литература",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 59166.4,
+      "totalEur": 59166.4,
+      "paidEur": 13654.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "С.А.Н.-ПРО",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0038",
+      "title": "\"Джекил на лед в България\"- турне на световноизвестния Паоло Нани",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 58749.2,
+      "totalEur": 58749.2,
+      "paidEur": 52721.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "РЕД Ноус Фондация",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0057",
+      "title": "Представяне на стендъп комедийно шоу \"Политически изправен\" и промотирането му пред българска публика в основните областни градове",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 57205.94,
+      "totalEur": 57205.94,
+      "paidEur": 51485.32,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Дъ Комеди Клуб ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0055",
+      "title": "Градовете Пловдив и Хасково - домакини на Kitee International Music and Art Festival - Финландия",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 57062.4,
+      "totalEur": 57062.4,
+      "paidEur": 51356.16,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"Национално сдружение за единство и партньорство\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0069",
+      "title": "Представяне на стендъп комедийно шоу на известният комик Луиана Матей и промотирането му пред българска публика в основните областни градове",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 56642.36,
+      "totalEur": 56642.36,
+      "paidEur": 50978.1,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Комеди България ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0021",
+      "title": "Вкусът на времето",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 55488.32,
+      "totalEur": 55488.32,
+      "paidEur": 49939.48,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Карпе дием Сдружение",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0017",
+      "title": "От движение към образ: Танцови филми и VR изкуство с Ен-Кнап-Словения",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 52942.1,
+      "totalEur": 52942.1,
+      "paidEur": 47647.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация “Асоциация информбюро”",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0040",
+      "title": "Киноразпространение на новия хърватския игрален филм \"Дражен\" в ключови окръжни градове в България.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 52853.98,
+      "totalEur": 52853.98,
+      "paidEur": 47568.58,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "А плюс филмс ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0084",
+      "title": "\"Стъпки в пясъка\" представя: Код 359 - Музикални пощенски картички",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 51560.3,
+      "totalEur": 51560.3,
+      "paidEur": 25487.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Стъпки в пясъка ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1781",
+      "title": "„По - здравословна и адаптирана към предизвикателствата на климатичния преход работна среда в „ТЕД БЕД“ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 50664.67,
+      "totalEur": 50664.68,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "„ТЕД БЕД“ ЕАД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0054",
+      "title": "Фестивал \"Улица Станционна\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 50604.29,
+      "totalEur": 50604.29,
+      "paidEur": 45543.81,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Тролейпътна станция, ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0034",
+      "title": "Представяне на българската детска публика на европейски анимационен филм \"Сироко\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 49247.81,
+      "totalEur": 49247.81,
+      "paidEur": 44204.83,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "А плюс синема ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0040",
+      "title": "100 години опера в Стара Загора",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 49068.32,
+      "totalEur": 49068.32,
+      "paidEur": 44160.89,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Държавна опера - Стара Загора",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1051",
+      "title": "Адаптирана работна среда в ЕТ \"МИТКО ТАНЕВ-КОМЕРСИАЛ-ДИМИТЪР ТАНЕВ\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 116764.68,
-      "totalEur": 106935.77,
-      "paidEur": 106935.76,
+      "prevTotalEur": 48424.45,
+      "totalEur": 46905.92,
+      "paidEur": 46905.92,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "КАМ - 919 ООД",
-      "detectedAt": "2026-09-27"
+      "beneficiaryName": "ЕТ Митко ТАНЕВ-КОМЕРСИАЛ-ДИМИТЪР Танев",
+      "detectedAt": "2026-10-04"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-1417",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG-RRP-11.024-0059",
+      "title": "\"Дигитални графити\" - изложба на Артур Незнанов",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 35437.63,
-      "totalEur": 35437.63,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "СЕС Химимпекс ООД",
-      "detectedAt": "2026-09-27"
+      "prevTotalEur": 46703.09,
+      "totalEur": 46703.09,
+      "paidEur": 42032.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Контражур БГ ООД",
+      "detectedAt": "2026-10-04"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-1441",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG-RRP-11.016-0067",
+      "title": "Културен маратон „По-близо, по-близки“ е проект за разпространение на 50 документални филми за културното наследство на страните в Европа, адаптирани за хора с увреден слух, над 120 хиляди в България",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 14295.21,
-      "totalEur": 14295.21,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Атела 07 ООД",
-      "detectedAt": "2026-09-27"
+      "prevTotalEur": 44551.85,
+      "totalEur": 44551.85,
+      "paidEur": 39763.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АРТ Уинар ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0124",
+      "title": "\"Подвижни картини\" - киното като глобален език за разбирателство и толерантност",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 43545.99,
+      "totalEur": 43545.99,
+      "paidEur": 38915.68,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"ЯТО\"",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

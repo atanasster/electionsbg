@@ -1,0 +1,56 @@
+{
+  "obshtina": "PDV28",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0136",
+      "title": "Топъл обяд в община Садово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 782147.71,
+      "totalEur": 823324.52,
+      "paidEur": 704718.91,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Садово",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0040",
+      "title": "Утвърждаване на интеркултурното образование в община Садово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 124370.34,
+      "totalEur": 124370.34,
+      "paidEur": 62712.11,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Садово",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0058",
+      "title": "Стимулиране на местните културни политики в община Садово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 24867.81,
+      "totalEur": 24867.81,
+      "paidEur": 19894.26,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Садово",
+      "detectedAt": "2026-10-04"
+    }
+  ]
+}

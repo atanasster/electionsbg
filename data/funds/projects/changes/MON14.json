@@ -1,0 +1,38 @@
+{
+  "obshtina": "MON14",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0048",
+      "title": "Топъл обяд в Община Георги Дамяново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 441940.52,
+      "totalEur": 441940.52,
+      "paidEur": 372336.67,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Георги Дамяново",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0127",
+      "title": "От извора на България",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 9077.85,
+      "totalEur": 9077.85,
+      "paidEur": 8170.06,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Танцова школа от Извора",
+      "detectedAt": "2026-10-04"
+    }
+  ]
+}

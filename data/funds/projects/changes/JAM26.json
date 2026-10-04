@@ -1,35 +1,149 @@
 {
   "obshtina": "JAM26",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.039-0959",
-      "title": "Енергийно обновяване на жилищна сграда с адрес гр. Ямбол, ул. „Граф Игнатиев“, бл. 62, вх. А",
+      "contractNumber": "BG16FFPR003-4.014-0059",
+      "title": "Подобряване на енергийната ефективност и внедряване на ВЕИ за собствено потребление в административни сгради на НАП в гр. Сливен, гр. Стара Загора и гр. Ямбол",
       "type": "new",
-      "totalEur": 401712.5,
+      "totalEur": 4141151.88,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Национална агенция за приходите",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0192",
+      "title": "Подкрепа за устойчиво енергийно обновяване на многофамилнa жилищнa сграда на ул. Граф Игнатиев № 72, гр. Ямбол",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2620115.2,
+      "totalEur": 2620115.2,
+      "paidEur": 2096092.16,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Ямбол",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0045",
+      "title": "„В свят различен, можеш да си автентичен“ - интеркултурно образование на учениците в малките населени места в община „Тунджа“ чрез култура, наука и спорт“.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 253759.85,
+      "totalEur": 253759.85,
+      "paidEur": 47995.89,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Местна инициативна група тунджа - сливен - долината на тунджа",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.021-0001",
+      "title": "Културно многообразие и иновации в Ямбол: развитие на градския културен живот чрез сътрудничество и нови формати",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 249093.85,
+      "totalEur": 249093.85,
+      "paidEur": 124063.4,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Ямбол",
-      "detectedAt": "2026-09-27"
+      "detectedAt": "2026-10-04"
     },
     {
-      "contractNumber": "BG16FFPR003-4.006-0011",
-      "title": "Подкрепа за производствени инвестиции в Белла България АД",
+      "contractNumber": "BG05SFPR002-1.004-0971",
+      "title": "Адаптирана работна среда в САКАРЕЛА ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 196749.67,
+      "totalEur": 196749.67,
+      "paidEur": 195735.63,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Сакарела ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2348",
+      "title": "Адаптирана работна среда в ТЕХНОПЪТСТРОЙ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 186031.33,
+      "totalEur": 185890.07,
+      "paidEur": 185890.07,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Технопътстрой ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0013",
+      "title": "Смехът като мост: представяне на спектакъла Il Clown dei Clown пред българската публика",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 73001.35,
+      "totalEur": 73001.35,
+      "paidEur": 61138.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация \"Енчо Керязов\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0036",
+      "title": "Документален филм \"Магията на огъня\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 61333.82,
+      "totalEur": 61333.82,
+      "paidEur": 55194.31,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Май Саунд ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1536",
+      "title": "Енергийна ефективност в ХАРМОНТ ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 15031992.16,
-      "totalEur": 15017522.6,
+      "prevTotalEur": 57039.62,
+      "totalEur": 55874.18,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Белла българия АД",
-      "detectedAt": "2026-09-27"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Хармонт ЕООД",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

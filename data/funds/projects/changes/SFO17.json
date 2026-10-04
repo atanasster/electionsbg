@@ -1,18 +1,90 @@
 {
   "obshtina": "SFO17",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0243",
-      "title": "BG05SFPR001-1.010 \"Превенция и предотвратяване на тормоза и насилието и намаляване агресията в училищата\"",
-      "type": "new",
-      "totalEur": 163907.48,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-13.009-0076",
+      "title": "Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в община Елин Пелин",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 117027.84,
+      "totalEur": 115892.4,
+      "paidEur": 115892.4,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Елин Пелин",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0311",
+      "title": "Дигитален клуб - Народно Читалище \"Светлина -1975\" с. Елин Пелин",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 33976,
+      "totalEur": 17371.66,
+      "paidEur": 17078.75,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Васил Левски\"",
-      "detectedAt": "2026-09-27"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Светлина -1975\" с. Елин Пелин",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0270",
+      "title": "Дигитален Клуб - Народно Читалище \"Възраждане 1911\" с. Доганово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 27996,
+      "totalEur": 14314.13,
+      "paidEur": 13478.78,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Възраждане 1911\" с. Доганово",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0034",
+      "title": "\"Музика Етерна\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8119.32,
+      "totalEur": 8119.32,
+      "paidEur": 7307.37,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Карпе дием Сдружение",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0001",
+      "title": "ЖАР: Брут арт изложба на Христина Попова",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 7937.81,
+      "totalEur": 7937.81,
+      "paidEur": 7144.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация Емили",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

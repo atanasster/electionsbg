@@ -1,22 +1,54 @@
 {
   "obshtina": "VTR20",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0455",
-      "title": "Изграждане на дигитален клуб в село Добри дял",
+      "contractNumber": "BG05SFPR002-1.035-0027",
+      "title": "Повишаване готовността на област Велико Търново за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
       "type": "modified",
       "changedFields": [
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 13074.84,
+      "prevTotalEur": 216297.42,
+      "totalEur": 216297.42,
+      "paidEur": 59470.82,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Велико Търново",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0057",
+      "title": "Доброта в действие! Заедно създаваме промяната!",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 137440.96,
+      "totalEur": 137440.96,
+      "paidEur": 76296.74,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"СВ.КЛ.ОХРИДСКИ\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0055",
+      "title": "„Младежка театрална сцена Лясковец – Новият глас на малките общини“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 42862.16,
+      "totalEur": 42862.16,
+      "paidEur": 34289.72,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"П. Р. Славейков - 1903\"",
-      "detectedAt": "2026-09-27"
+      "beneficiaryName": "Община Лясковец",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

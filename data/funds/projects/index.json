@@ -1,35 +1,35 @@
 {
-  "generatedAt": "2026-09-27T23:06:45.836Z",
-  "lastIngest": "2026-09-27T23:06:45.836Z",
+  "generatedAt": "2026-10-04T22:30:38.478Z",
+  "lastIngest": "2026-10-04T22:30:38.478Z",
   "source": {
     "label": "ИСУН 2020 — публичен модул, Проекти (2020.eufunds.bg)",
     "url": "https://2020.eufunds.bg/bg/0/0/Project"
   },
   "totals": {
-    "contractCount": 82972,
-    "beneficiaryCount": 47642,
-    "totalEur": 45491230338.26,
-    "grantEur": 34743422135.04,
-    "paidEur": 19320883154.85,
+    "contractCount": 82999,
+    "beneficiaryCount": 47646,
+    "totalEur": 45345118222.42,
+    "grantEur": 34601578239.08,
+    "paidEur": 19673770950.84,
     "byLocationKind": {
-      "settlement": 71548,
-      "muni": 7632,
-      "region": 840,
+      "settlement": 71565,
+      "muni": 7641,
+      "region": 841,
       "national": 2856,
       "unresolved": 96
     },
-    "withEik": 75732
+    "withEik": 75759
   },
   "byProgram": [
     {
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "rollup": {
-        "contractCount": 14791,
+        "contractCount": 14795,
         "beneficiaryCount": 10088,
-        "totalEur": 18163026846.7,
-        "grantEur": 12691055285.13,
-        "paidEur": 4791396711.73
+        "totalEur": 17979864405.41,
+        "grantEur": 12512287512.29,
+        "paidEur": 4894821883.98
       }
     },
     {
@@ -47,11 +47,11 @@
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "rollup": {
-        "contractCount": 720,
-        "beneficiaryCount": 262,
-        "totalEur": 3230838841.91,
-        "grantEur": 2686105326.19,
-        "paidEur": 543714918.06
+        "contractCount": 732,
+        "beneficiaryCount": 267,
+        "totalEur": 3256286883.47,
+        "grantEur": 2711055155.36,
+        "paidEur": 736378183.35
       }
     },
     {
@@ -62,7 +62,7 @@
         "beneficiaryCount": 16,
         "totalEur": 2757454928.24,
         "grantEur": 1590993610.23,
-        "paidEur": 628929185.69
+        "paidEur": 637705350.36
       }
     },
     {
@@ -82,20 +82,20 @@
       "rollup": {
         "contractCount": 12151,
         "beneficiaryCount": 5674,
-        "totalEur": 2072480751.78,
-        "grantEur": 1378086141.72,
-        "paidEur": 1294617015.16
+        "totalEur": 2072208440.17,
+        "grantEur": 1377831692.06,
+        "paidEur": 1294669033.16
       }
     },
     {
       "programCode": "2021BG16FFPR002",
       "programName": "Програма \"Околна среда\" 2021-2027",
       "rollup": {
-        "contractCount": 202,
-        "beneficiaryCount": 109,
-        "totalEur": 1775773677.92,
-        "grantEur": 1598445045.29,
-        "paidEur": 349016551.05
+        "contractCount": 207,
+        "beneficiaryCount": 112,
+        "totalEur": 1784984157.1,
+        "grantEur": 1607655524.47,
+        "paidEur": 348728585.88
       }
     },
     {
@@ -126,9 +126,9 @@
       "rollup": {
         "contractCount": 7049,
         "beneficiaryCount": 5697,
-        "totalEur": 1598441928.53,
-        "grantEur": 1189851353.51,
-        "paidEur": 419886757.99
+        "totalEur": 1598187448.02,
+        "grantEur": 1189720488.72,
+        "paidEur": 419867909.26
       }
     },
     {
@@ -148,20 +148,20 @@
       "rollup": {
         "contractCount": 2033,
         "beneficiaryCount": 1454,
-        "totalEur": 1438000745.74,
-        "grantEur": 1430110398.32,
-        "paidEur": 791613659.83
+        "totalEur": 1436966563.23,
+        "grantEur": 1429306501.96,
+        "paidEur": 823367135.46
       }
     },
     {
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
       "rollup": {
-        "contractCount": 634,
-        "beneficiaryCount": 531,
-        "totalEur": 776835432.1,
-        "grantEur": 776835432.1,
-        "paidEur": 302287631.56
+        "contractCount": 639,
+        "beneficiaryCount": 536,
+        "totalEur": 777376608.7,
+        "grantEur": 777376608.7,
+        "paidEur": 315118288.01
       }
     },
     {
@@ -170,8 +170,8 @@
       "rollup": {
         "contractCount": 376,
         "beneficiaryCount": 285,
-        "totalEur": 726057180.52,
-        "grantEur": 726057180.52,
+        "totalEur": 724936503.85,
+        "grantEur": 724936503.85,
         "paidEur": 680347686.11
       }
     },
@@ -192,9 +192,9 @@
       "rollup": {
         "contractCount": 64,
         "beneficiaryCount": 5,
-        "totalEur": 372682704.52,
-        "grantEur": 355601328.96,
-        "paidEur": 140448925.03
+        "totalEur": 373575475.37,
+        "grantEur": 356494099.81,
+        "paidEur": 140449337.72
       }
     },
     {
@@ -214,9 +214,9 @@
       "rollup": {
         "contractCount": 251,
         "beneficiaryCount": 225,
-        "totalEur": 225461745.56,
-        "grantEur": 225461745.56,
-        "paidEur": 182037029.75
+        "totalEur": 229263933.23,
+        "grantEur": 229263933.23,
+        "paidEur": 183376971.71
       }
     },
     {
@@ -271,7 +271,7 @@
         "beneficiaryCount": 80,
         "totalEur": 98716700.92,
         "grantEur": 98716700.92,
-        "paidEur": 35510614.21
+        "paidEur": 37441841.01
       }
     },
     {
@@ -282,7 +282,7 @@
         "beneficiaryCount": 12,
         "totalEur": 87472838.71,
         "grantEur": 87472838.71,
-        "paidEur": 30647375.13
+        "paidEur": 30702142.62
       }
     },
     {
@@ -293,7 +293,7 @@
         "beneficiaryCount": 103,
         "totalEur": 82145159.47,
         "grantEur": 66858375.57,
-        "paidEur": 20720098.79
+        "paidEur": 20965657.61
       }
     },
     {
@@ -304,7 +304,7 @@
         "beneficiaryCount": 97,
         "totalEur": 68912985.98,
         "grantEur": 68912985.98,
-        "paidEur": 6078278.03
+        "paidEur": 6141208.47
       }
     },
     {
@@ -326,7 +326,7 @@
         "beneficiaryCount": 13,
         "totalEur": 37144977.7,
         "grantEur": 37144977.7,
-        "paidEur": 14614653.3
+        "paidEur": 14673672.7
       }
     },
     {
@@ -478,8 +478,8 @@
       "rollup": {
         "contractCount": 1,
         "beneficiaryCount": 1,
-        "totalEur": 4153529.17,
-        "grantEur": 4153529.17,
+        "totalEur": 3984850.06,
+        "grantEur": 3984850.06,
         "paidEur": 0
       }
     },
@@ -509,10 +509,10 @@
       "programCode": "BNSF",
       "programName": "Фонд Научни Изследвания",
       "rollup": {
-        "contractCount": 118,
+        "contractCount": 119,
         "beneficiaryCount": 58,
-        "totalEur": 1085917.38,
-        "grantEur": 1041814.73,
+        "totalEur": 1091917.38,
+        "grantEur": 1047814.73,
         "paidEur": 0
       }
     },
@@ -543,50 +543,50 @@
     {
       "status": "В изпълнение (от дата на стартиране)",
       "rollup": {
-        "contractCount": 13611,
-        "beneficiaryCount": 8966,
-        "totalEur": 30903789045.4,
-        "grantEur": 22609330386.19,
-        "paidEur": 7561718349.9
+        "contractCount": 13513,
+        "beneficiaryCount": 8935,
+        "totalEur": 30736076051.87,
+        "grantEur": 22445451247.29,
+        "paidEur": 7872151474.17
       }
     },
     {
       "status": "Приключен (към датата на приключване)",
       "rollup": {
-        "contractCount": 52871,
-        "beneficiaryCount": 35870,
-        "totalEur": 11090182452.86,
-        "grantEur": 9585276425.9,
-        "paidEur": 9495243669.61
+        "contractCount": 52945,
+        "beneficiaryCount": 35883,
+        "totalEur": 11108686435.85,
+        "grantEur": 9603912362.04,
+        "paidEur": 9536299478.02
       }
     },
     {
       "status": "Сключен",
       "rollup": {
-        "contractCount": 12419,
-        "beneficiaryCount": 5943,
-        "totalEur": 3288848763.65,
-        "grantEur": 2409501219.03,
-        "paidEur": 2239296744.46
+        "contractCount": 12416,
+        "beneficiaryCount": 5941,
+        "totalEur": 3291982126.67,
+        "grantEur": 2412953994.6,
+        "paidEur": 2240616686.73
       }
     },
     {
       "status": "Прекратен (към дата на прекратяване)",
       "rollup": {
-        "contractCount": 4015,
-        "beneficiaryCount": 3181,
-        "totalEur": 126895132.1,
-        "grantEur": 86501533.75,
-        "paidEur": 10695443.8
+        "contractCount": 4068,
+        "beneficiaryCount": 3186,
+        "totalEur": 126905131.94,
+        "grantEur": 86511533.59,
+        "paidEur": 10774364.84
       }
     },
     {
       "status": "В изпълнение (временно спрян)",
       "rollup": {
-        "contractCount": 43,
-        "beneficiaryCount": 24,
-        "totalEur": 80893727.41,
-        "grantEur": 52216656.9,
+        "contractCount": 44,
+        "beneficiaryCount": 25,
+        "totalEur": 80847259.25,
+        "grantEur": 52153188.29,
         "paidEur": 13705214.92
       }
     },
@@ -936,6 +936,6 @@
     "ZOVII"
   ],
   "ekatteShardCount": 3280,
-  "eikShardCount": 46217,
-  "multiLocationCount": 3792
+  "eikShardCount": 46221,
+  "multiLocationCount": 3793
 }

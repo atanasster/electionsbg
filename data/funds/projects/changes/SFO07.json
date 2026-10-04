@@ -1,34 +1,104 @@
 {
   "obshtina": "SFO07",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.039-2300",
-      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда \"Инвестстрой-2\",гр. Ботевград, ж.к. Васил Левски, бл. 51, вх. А, Б, В, Г",
-      "type": "new",
-      "totalEur": 752230.79,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "contractNumber": "BG05SFPR003-1.001-0124",
+      "title": "Топъл обяд в Община Ботевград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 482061.32,
+      "totalEur": 597547.88,
+      "paidEur": 446799.76,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Ботевград",
-      "detectedAt": "2026-09-27"
+      "detectedAt": "2026-10-04"
     },
     {
-      "contractNumber": "BG14MFPR001-2.001-0006",
-      "title": "Въвеждане на иновативни процеси и продукти в дейността на съществуващо предприятие за преработка на риба",
+      "contractNumber": "BG05SFPR002-2.012-0058",
+      "title": "Иновативни здравно-социални услуги в община Ботевград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 748676.6,
-      "totalEur": 748676.6,
-      "paidEur": 349285,
+      "prevTotalEur": 418779.12,
+      "totalEur": 418779.12,
+      "paidEur": 232351.02,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "Обединени аквакултури ООД",
-      "detectedAt": "2026-09-27"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Ботевград",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0068",
+      "title": "„Изкуство в 5 сезона“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 105726.68,
+      "totalEur": 105726.68,
+      "paidEur": 84954.97,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Ботевград",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0144",
+      "title": "Музикални мостове: Tango Cats – културни пътеки между традиция, модерност и общности",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 9075.41,
+      "totalEur": 9075.41,
+      "paidEur": 8167.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение МОЗ АРТ",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0001",
+      "title": "Калейдоскоп",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 7856.35,
+      "totalEur": 7856.35,
+      "paidEur": 7070.72,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация Емили",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0048",
+      "title": "По забравените пътеки на наследството",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 5571.46,
+      "totalEur": 5571.46,
+      "paidEur": 5009.31,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"19-ти февруари 1906\"",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

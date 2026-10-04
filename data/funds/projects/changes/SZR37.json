@@ -1,38 +1,105 @@
 {
   "obshtina": "SZR37",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0112",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия В 680",
+      "contractNumber": "BG06AFSP001-1.001-0114",
+      "title": "Изпълнение на СВОМР на МИГ - Мъглиж, Николаево, Гурково за периода 2023-2027",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 181250.42,
-      "totalEur": 181250.42,
-      "paidEur": 90079.24,
+      "prevTotalEur": 749988.5,
+      "totalEur": 749988.5,
+      "paidEur": 124694.98,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Булметал АД",
-      "detectedAt": "2026-09-27"
+      "programCode": "2023BG06AFSP001",
+      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
+      "beneficiaryName": "Сдружение с нестопанска цел \"Местна инициативна група - Мъглиж, Николаево, Гурково\"",
+      "detectedAt": "2026-10-04"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0111",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия В 650",
+      "contractNumber": "BG05SFPR003-1.001-0163",
+      "title": "Топъл обяд в община Гурково",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 481936.87,
+      "totalEur": 518134.15,
+      "paidEur": 446675.31,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Гурково",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0243",
+      "title": "Енергийно обновяване на МЖС на бул. \"Княз Александър Батенберг\" № 16, гр. Гурково",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 181250.42,
-      "totalEur": 181250.42,
-      "paidEur": 90079.24,
+      "prevTotalEur": 358767.12,
+      "totalEur": 358767.12,
+      "paidEur": 282620.78,
       "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Гурково",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0246",
+      "title": "Енергийно обновяване на МЖС на бул. \"Княз Александър Батенберг\" № 11, гр. Гурково",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 265003.63,
+      "totalEur": 265003.63,
+      "paidEur": 159098.38,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Гурково",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0249",
+      "title": "Енергийно обновяване на МЖС на ул. \"Опълченска\" №12, гр. Гурково",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 161047.16,
+      "totalEur": 161047.16,
+      "paidEur": 125589.88,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Гурково",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0015",
+      "title": "Културно наследство и иновации за устойчиво развитие на Гурково",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 96410.13,
+      "totalEur": 96410.13,
+      "paidEur": 77128.08,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Булметал АД",
-      "detectedAt": "2026-09-27"
+      "beneficiaryName": "Община Гурково",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

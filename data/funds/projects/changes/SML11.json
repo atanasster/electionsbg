@@ -1,24 +1,54 @@
 {
   "obshtina": "SML11",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.024-0058",
-      "title": "„Инвестиции в енергийно ефективно обновяване на многофамилна жилищна сграда \"Кушлеви\" в град Златоград\".",
+      "contractNumber": "BG05SFPR002-2.012-0017",
+      "title": "Иновативни здравно-социални услуги в община Златоград",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 121885.64,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 167066.27,
+      "totalEur": 167066.27,
+      "paidEur": 133653.02,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Златоград",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0013",
+      "title": "Спектакълът „Аз мога“ при деца със СОП в район без регулярен достъп до култура",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8976.96,
+      "totalEur": 8976.96,
+      "paidEur": 8079.26,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Златоград",
-      "detectedAt": "2026-09-27"
+      "beneficiaryName": "Държавен куклен театър . Бургас",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0104",
+      "title": "\"Заведи ме вкъщи\" - прожекции с кауза",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8648.67,
+      "totalEur": 8648.67,
+      "paidEur": 7783.82,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Микс Медия Прадакшънс ЕООД",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

@@ -1,22 +1,102 @@
 {
   "obshtina": "GAB29",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0024",
-      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане в Дом за стари хора с. Добромирка, ул. \"Митьо Тодоров\" №16, общ. Севлиево",
+      "contractNumber": "BG-RRP-11.010-0025",
+      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане в Дом за стари хора Севлиево, ул. “Великотърновско шосе” 10, гр. Севлиево (бивш ДСХ с. Стоките, общ. Севлиево)",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2691411.32,
-      "totalEur": 2691411.32,
-      "paidEur": 2451234.2,
+      "prevTotalEur": 2528718.65,
+      "totalEur": 2528718.65,
+      "paidEur": 2079244.72,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-09-27"
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0214",
+      "title": "Топъл обяд в община Севлиево",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 234774.89,
+      "totalEur": 234774.89,
+      "paidEur": 171963.16,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Севлиево",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1711",
+      "title": "Адаптиране на работната среда в М-ПРЕС ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 173993.52,
+      "totalEur": 173993.52,
+      "paidEur": 173896.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "М-ПРЕС ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0076",
+      "title": "КАЙ И ПРИЧИНИ ДА БЪДЕШ ЩАСТЛИВ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 74128.42,
+      "totalEur": 74128.42,
+      "paidEur": 66715.64,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Енсоо Сдружение",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0091",
+      "title": "Представяне на аудиовизуален концерт \"Призрачни села\" в български села",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 6544.52,
+      "totalEur": 6544.52,
+      "paidEur": 5795.96,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Мирян Иванов Колев",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0008",
+      "title": "БАЛКОНЪТ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 5890.77,
+      "totalEur": 5890.77,
+      "paidEur": 5298.68,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Дуенде 14 ООД",
+      "detectedAt": "2026-10-04"
     }
   ]
 }

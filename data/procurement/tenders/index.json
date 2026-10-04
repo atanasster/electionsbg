@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-03T22:39:46.427Z",
+  "generatedAt": "2026-10-04T21:47:35.783Z",
   "source": "ЦАИС ЕОП (storage.eop.bg) — open-data поръчки feed; pre-2020 procedures backfilled from РОП (aop.bg cases register)",
   "valueSemantics": "estimatedValueEur is a FORECAST (прогнозна стойност), not contracted spend. Never sum it into contracted totals.",
   "coverage": {
     "firstDay": "2010-01-04",
-    "lastDay": "2026-10-02",
+    "lastDay": "2026-10-03",
     "months": [
       "2010-01",
       "2010-02",
@@ -211,11 +211,11 @@
     ]
   },
   "totals": {
-    "procedures": 240113,
+    "procedures": 240114,
     "lots": 204734,
     "cancelled": 19596,
-    "withEstimate": 217521,
-    "estimatedValueEur": 144830109783.42
+    "withEstimate": 217522,
+    "estimatedValueEur": 144830169434.14
   },
   "byYear": [
     {
@@ -316,9 +316,9 @@
     },
     {
       "year": "2026",
-      "procedures": 15086,
+      "procedures": 15087,
       "cancelled": 592,
-      "estimatedValueEur": 10720410131.17
+      "estimatedValueEur": 10720469781.89
     }
   ],
   "byProcedureType": [
@@ -334,8 +334,8 @@
     },
     {
       "type": "Публично състезание",
-      "procedures": 37326,
-      "estimatedValueEur": 10576921650.51
+      "procedures": 37327,
+      "estimatedValueEur": 10576981301.23
     },
     {
       "type": "Събиране на оферти с обява",

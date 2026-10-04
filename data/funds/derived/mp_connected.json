@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-27T23:05:28.938Z",
+  "generatedAt": "2026-10-04T22:29:19.629Z",
   "total": 181,
   "mpCount": 153,
   "beneficiaryCount": 170,
-  "contractedEur": 4851950448.44,
-  "paidEur": 1893457191.35,
+  "contractedEur": 4851938598.07,
+  "paidEur": 2253719413.64,
   "entries": [
     {
       "mpId": 4507,
@@ -24,7 +24,7 @@
       ],
       "contractCount": 17,
       "contractedEur": 2118180923.56,
-      "paidEur": 801863794.36
+      "paidEur": 981863794.36
     },
     {
       "mpId": 4838,
@@ -40,7 +40,7 @@
       ],
       "contractCount": 17,
       "contractedEur": 2118180923.56,
-      "paidEur": 801863794.36
+      "paidEur": 981863794.36
     },
     {
       "mpId": 3551,
@@ -378,7 +378,7 @@
       ],
       "contractCount": 6,
       "contractedEur": 1653201.16,
-      "paidEur": 306565.96
+      "paidEur": 339823.35
     },
     {
       "mpId": 5108,
@@ -1119,7 +1119,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 197629.77,
-      "paidEur": 115874.29
+      "paidEur": 166066.81
     },
     {
       "mpId": 2946,
@@ -1326,22 +1326,6 @@
       "paidEur": 76693.78
     },
     {
-      "mpId": 877,
-      "mpName": "Цветан Асенов Цветанов",
-      "beneficiaryEik": "205195378",
-      "beneficiaryName": "Дени Дистрибуция ООД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "partner",
-          "isCurrent": false
-        }
-      ],
-      "contractCount": 3,
-      "contractedEur": 153357.48,
-      "paidEur": 54104.96
-    },
-    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "beneficiaryEik": "107564054",
@@ -1364,6 +1348,22 @@
       "contractCount": 3,
       "contractedEur": 148512.62,
       "paidEur": 25564.59
+    },
+    {
+      "mpId": 877,
+      "mpName": "Цветан Асенов Цветанов",
+      "beneficiaryEik": "205195378",
+      "beneficiaryName": "Дени Дистрибуция ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": false
+        }
+      ],
+      "contractCount": 3,
+      "contractedEur": 141507.11,
+      "paidEur": 54104.96
     },
     {
       "mpId": 2985,
@@ -1585,7 +1585,7 @@
       ],
       "contractCount": 3,
       "contractedEur": 98370.68,
-      "paidEur": 34940.9
+      "paidEur": 81185.62
     },
     {
       "mpId": 3428,
@@ -1737,7 +1737,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 71605.58,
-      "paidEur": 0
+      "paidEur": 64062.19
     },
     {
       "mpId": 5333,
@@ -1769,7 +1769,7 @@
       ],
       "contractCount": 3,
       "contractedEur": 69412.24,
-      "paidEur": 22097.33
+      "paidEur": 59498.5
     },
     {
       "mpId": 3607,
@@ -1879,7 +1879,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 52571.34,
-      "paidEur": 16430.27
+      "paidEur": 47494.57
     },
     {
       "mpId": 627,

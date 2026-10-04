@@ -1,18 +1,512 @@
 {
   "obshtina": "VTR04",
-  "generatedAt": "2026-09-27T23:06:22.761Z",
+  "generatedAt": "2026-10-04T22:30:13.082Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.039-0847",
-      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Дебелец, община Велико Търново, ул. \"Иван Вазов\" №48, Вх. А, Б и В.",
-      "type": "new",
-      "totalEur": 651519.52,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-1.007-0113",
+      "title": "„Модернизация на образователна среда на Профилирана езикова гимназия „Проф. д-р Асен Златаров“, гр. Велико Търново ”",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2223143.91,
+      "totalEur": 2223143.91,
+      "paidEur": 1185392.7,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-09-27"
+      "beneficiaryName": "Община Велико Търново",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05M2OP001-2.016-0005",
+      "title": "Модернизация на Югозападен университет „Неофит Рилски“–гр. Благоевград, Национален военен университет \"Васил Левски\"–гр. Велико Търново и Софийски университет \"Св. Климент Охридски\"–гр. София, в професионални направления 5.3 Комуникационна и компютърна техника, 4.4 Науки за земята и 3.7 Администрация и управление",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 2293141.16,
+      "totalEur": 1172464.49,
+      "paidEur": 2339768.65,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2014BG05M2OP001",
+      "programName": "Наука и образование за интелигентен растеж",
+      "beneficiaryName": "Югозападен университет \"Неофит Рилски\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.021-0015",
+      "title": "Мета-култура: Велико Търново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 663869.24,
+      "totalEur": 663869.24,
+      "paidEur": 438153.67,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Велико Търново",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0127",
+      "title": "Топъл обяд в Община Велико Търново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 472873.28,
+      "totalEur": 472873.28,
+      "paidEur": 347249.82,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Велико Търново",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.035-0027",
+      "title": "Повишаване готовността на област Велико Търново за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 216297.42,
+      "totalEur": 216297.42,
+      "paidEur": 59470.82,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Велико Търново",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1354",
+      "title": "Адаптирана работна среда във Вемат ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 177161.83,
+      "totalEur": 176711.99,
+      "paidEur": 176711.98,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Вемат ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0169",
+      "title": "Подобряване и адаптиране на работната среда в ДЕНИ ЛАЙТИНГ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 138857.28,
+      "totalEur": 138857.28,
+      "paidEur": 137378.15,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Дени лайтинг ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0480",
+      "title": "Подобряване условията на труд в ЕТ \"РУМЯНА ХИНКОВА - ИВО ТАБАКОВ\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 126921.66,
+      "totalEur": 126921.66,
+      "paidEur": 126921.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЕТ Румяна Хинкова - ИВО Табаков",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0090",
+      "title": "\"Златните български песни в Европа и по света\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 70910.72,
+      "totalEur": 70910.72,
+      "paidEur": 63819.68,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ФАБЕР-ПРИНТ ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0152",
+      "title": "\"Гелина\" - скритата планинска традиция",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 70464.2,
+      "totalEur": 70464.2,
+      "paidEur": 63368.46,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Мейд ИН софия ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0031",
+      "title": "„Европейско документално кино без граници“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 68604.68,
+      "totalEur": 68604.68,
+      "paidEur": 60932.26,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АРТ Уинар ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0028",
+      "title": "„1SM of Art // 1SM of Artist – Творческа платформа на Forumul Artelor Vizuale в София и Велико Търново“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 66854.62,
+      "totalEur": 66854.62,
+      "paidEur": 60164.11,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Таляна Сдружение",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0032",
+      "title": "Европейска етно музика идва в България 2025",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 63671.97,
+      "totalEur": 63671.97,
+      "paidEur": 57304.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация \"Метаарт\"",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0011",
+      "title": "Мостове на културата: България – Румъния чрез танц и музика",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 59084.65,
+      "totalEur": 59084.65,
+      "paidEur": 53176.16,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище зорница 2010 - нено Щрегарски",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0175",
+      "title": "Реките на хората",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 57997.46,
+      "totalEur": 57997.46,
+      "paidEur": 52197.71,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Колективът Фондация",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0814",
+      "title": "Адаптиране на работната среда в МОБАЛ \"Д-р Стефан Черкезов\" АД, Велико Търново",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 57523.87,
+      "totalEur": 55996.89,
+      "paidEur": 44797.5,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Многопрофилна областна болница за активно лечение \"Д-Р стефан Черкезов\" АД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0048",
+      "title": "Представяне пред българската публика на произведенията на квартет \"Дестини\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 55167.13,
+      "totalEur": 55167.13,
+      "paidEur": 49650.41,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "4 Дестини ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0567",
+      "title": "Адаптирана работна среда 2023",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 65955.33,
+      "totalEur": 54104.96,
+      "paidEur": 54104.96,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Дени Дистрибуция ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0044",
+      "title": "“Слънце - Земно зависими”",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 52873.37,
+      "totalEur": 52873.37,
+      "paidEur": 47585.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Декидис Филмс ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0059",
+      "title": "\"Дигитални графити\" - изложба на Артур Незнанов",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 46703.09,
+      "totalEur": 46703.09,
+      "paidEur": 42032.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Контражур БГ ООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0067",
+      "title": "Културен маратон „По-близо, по-близки“ е проект за разпространение на 50 документални филми за културното наследство на страните в Европа, адаптирани за хора с увреден слух, над 120 хиляди в България",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 44551.85,
+      "totalEur": 44551.85,
+      "paidEur": 39763.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АРТ Уинар ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0060",
+      "title": "Представяне пред българска публика на Долината на необичайните любовници - самостоятелна изложба на Дриант Зенели",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 43215.88,
+      "totalEur": 43215.88,
+      "paidEur": 36174.35,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация за съвременно изкуство и медии Фондация",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0065",
+      "title": "Върти сe ТАВА",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 20597.51,
+      "totalEur": 20597.51,
+      "paidEur": 18535.7,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Тава ЕООД",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0027",
+      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска. 2. Изложба за Райна Кабаиванска. 3. Концерт на джаз/поп изпълнител 4. Изпълнение на танцов състав (народни танци). 5. Представяне на класически български филм за деца и възрастни.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8675.07,
+      "totalEur": 8675.07,
+      "paidEur": 7807.55,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Читалище \"\"Просвета 1907\", с. Беляковец",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0034",
+      "title": "Представяне пред българската публика на съвременна българска продукция - \"Прожекция на филм и изложба за Райна Кабаиванска\".",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8630.61,
+      "totalEur": 8630.61,
+      "paidEur": 7767.54,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Читалище \"\"Напредък-1911\", с. Шемшево",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0037",
+      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска. 2. Изложба за Райна Кабаиванска. 3. Концерт на джаз/поп изпълнител 4. Изпълнение на танцов състав (народни танци). 5. Представяне на класически български филм за деца и възрастни.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 8323.1,
+      "totalEur": 8323.1,
+      "paidEur": 7490.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Читалище \"Напредък - 1884\", гр. Килифарево",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0033",
+      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска 2. Представяне пред българската публика класически български филм. 3. Изпълнение на танцов състав (народни танци)",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 6116.09,
+      "totalEur": 6116.09,
+      "paidEur": 5504.48,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Читалище \"Напредък - 1903\", с. Ветринци",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0112",
+      "title": "Проект „Вдъхновени от България“:",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 6110.3,
+      "totalEur": 6110.3,
+      "paidEur": 5499.28,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Движение на просветителите",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0036",
+      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска. 2. Изложба за Райна Кабаиванска. 3. Концерт на джаз/поп изпълнител 4. Изпълнение на танцов състав (народни танци). 5. Представяне на класически български филм за деца и възрастни.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 5076.8,
+      "totalEur": 5076.8,
+      "paidEur": 4569.11,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Читалище \"Съгласие - Дебелец 1887\", гр. Дебелец",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0039",
+      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска 2. Представяне пред българската публика класически български филм. 3. Изпълнение на танцов състав (народни танци)",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 5060.51,
+      "totalEur": 5060.51,
+      "paidEur": 4554.46,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Читалище \"Просвета 1922\", с. Момин сбор",
+      "detectedAt": "2026-10-04"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1620",
+      "title": "Адаптиране на работната среда в \"ПЪМП СИСТЕМ ПРО\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 42572.46,
+      "totalEur": 3037.07,
+      "paidEur": 3037.07,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Пъмп систем ПРО ООД",
+      "detectedAt": "2026-10-04"
     }
   ]
 }
