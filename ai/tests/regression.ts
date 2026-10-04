@@ -1061,7 +1061,10 @@ const CASES: Case[] = [
     q: "Коя социологическа агенция е най-точна?",
     tool: "pollAccuracy",
     kind: "table",
-    facts: { most_accurate: "Алфа", best_grade: "A+" },
+    // Тренд since bab8f0e29b (2026-10-04): the corrected Alpha Research drafts moved AR's
+    // mean error to 1.86 pp against Trend's 1.62 (shrunk 1.96 vs 1.78). Both stay A+.
+    // This pins the corpus's answer, so re-pin it when the polls corpus moves it again.
+    facts: { most_accurate: "Тренд", best_grade: "A+" },
   },
   {
     q: "Колко е точна Алфа Рисърч?",
@@ -1113,7 +1116,7 @@ const CASES: Case[] = [
     q: "Как се променя точността на агенциите през годините?",
     tool: "accuracyTrend",
     kind: "series",
-    facts: { most_accurate: "Алфа" },
+    facts: { most_accurate: "Тренд" }, // see the pollAccuracy case above
   },
   // agency resolution fix: the 2-letter abbr "АР" (Алфа Рисърч) used to
   // substring-hit inside "маркет" and steal this query — now resolves to ML
