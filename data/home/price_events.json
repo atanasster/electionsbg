@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-02",
+  "computedAt": "2026-10-03",
   "thresholds": {
     "basketPids": [
       1,
@@ -81,7 +81,17 @@
       "promoEur": 0.79,
       "regularEur": 1.74,
       "discountPct": 54,
-      "stores": 26,
+      "stores": 24,
+      "chains": 2
+    },
+    {
+      "slug": "kartofi-miti",
+      "title": "КАРТОФИ МИТИ",
+      "atOrBelowSince": "2026-09-30",
+      "promoEur": 0.55,
+      "regularEur": 1.15,
+      "discountPct": 52,
+      "stores": 11,
       "chains": 2
     },
     {
@@ -93,16 +103,6 @@
       "discountPct": 48,
       "stores": 251,
       "chains": 6
-    },
-    {
-      "slug": "palmolive-sapun-cherna-orhideya-90-g",
-      "title": "PALMOLIVE сапун Черна орхидея 90 г",
-      "atOrBelowSince": "2026-10-01",
-      "promoEur": 0.65,
-      "regularEur": 1.22,
-      "discountPct": 47,
-      "stores": 40,
-      "chains": 2
     }
   ]
 }

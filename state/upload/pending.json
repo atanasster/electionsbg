@@ -1,0 +1,51 @@
+{
+  "session": "20261003T222643Z-f87f",
+  "createdAt": "2026-10-03T22:22:41.977Z",
+  "skills": [
+    "tr-daily-refresh",
+    "update-macro",
+    "update-procurement",
+    "update-prices",
+    "update-nzok",
+    "update-budget"
+  ],
+  "paths": [
+    "macro.json",
+    "macro_peers.json",
+    "administration",
+    "data_map.json",
+    "budget",
+    "prices",
+    "culture/derived/hub_stats.json",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "home",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "data-changes.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run prices:ingest:cloud",
+    "npm run db:load:nzok-hospital:pg:cloud",
+    "npm run db:load:nzok-hospital-map:pg:cloud",
+    "npm run db:load:budget:pg:cloud",
+    "npm run db:load:budget-hub:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:procurement-scopes:pg:cloud",
+    "npm run myarea:alerts:cloud"
+  ],
+  "notes": "HELD 2026-10-04: test:data red after db:refresh — sector_stats_tourism (default-scope labelled share 28.9% < 70% after the OCDS Jun-Sep backfill) + contract_risk_meta (rebuild >120s). Ordering: db:load:pg:cloud must precede annexes/persons-browse/graph/tr-company-place/procurement-scopes; budget-hub last of budget; home needs bucket:gz after sync."
+}

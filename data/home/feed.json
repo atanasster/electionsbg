@@ -8,8 +8,8 @@
       "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-02T00:00:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "occurredAt": "2026-10-03T00:00:00.000Z",
+      "firstSeenAt": "2026-10-03T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-02T00:00:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "occurredAt": "2026-10-03T00:00:00.000Z",
+      "firstSeenAt": "2026-10-03T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/kartofi-miti",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
-        "pct": 48,
-        "promoEur": "1.09",
-        "regularEur": "2.08",
-        "chains": 6
+        "title": "КАРТОФИ МИТИ",
+        "pct": 52,
+        "promoEur": "0.55",
+        "regularEur": "1.15",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.7428571428571429,
       "actionability": 0.85
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:palmolive-sapun-cherna-orhideya-90-g",
+      "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-02T00:00:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "occurredAt": "2026-10-03T00:00:00.000Z",
+      "firstSeenAt": "2026-10-03T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,19 +208,49 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/palmolive-sapun-cherna-orhideya-90-g",
+      "route": "/product/limoni",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "PALMOLIVE сапун Черна орхидея 90 г",
-        "pct": 47,
-        "promoEur": "0.65",
-        "regularEur": "1.22",
-        "chains": 2
+        "title": "ЛИМОНИ",
+        "pct": 48,
+        "promoEur": "1.09",
+        "regularEur": "2.08",
+        "chains": 6
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6714285714285714,
+      "materiality": 0.6857142857142857,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "macro:cpi_release:prc_hicp_minr:2026-09",
+      "kind": "cpi_released",
+      "category": "prices",
+      "publishedAt": "2026-10-02T09:00:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
+      "dateBasis": "published",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "eurostat_hicp",
+        "labelKey": "home_source_eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators",
+      "factKey": "home_fact_cpi_released",
+      "factArgs": {
+        "period": "2026-09",
+        "pct": "5.6"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8,
+      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -947,36 +977,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "macro:cpi_release:prc_hicp_minr:2026-08",
-      "kind": "cpi_released",
-      "category": "prices",
-      "publishedAt": "2026-09-17T09:00:00.000Z",
-      "firstSeenAt": "2026-09-17T00:00:00.000Z",
-      "dateBasis": "published",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "eurostat_hicp",
-        "labelKey": "home_source_eurostat",
-        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators",
-      "factKey": "home_fact_cpi_released",
-      "factArgs": {
-        "period": "2026-08",
-        "pct": "5.0"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
       "id": "funds:call_opened:isun:414016a7-a024-4da2-bcb7-8baa285bcc94",
       "kind": "call_opened",
       "category": "funds",
@@ -1249,7 +1249,7 @@
   "sourceCoverage": {
     "budget": {
       "available": true,
-      "asOf": "2026-07-31",
+      "asOf": "2026-08-31",
       "staleAfterDays": 120,
       "stale": false
     },
@@ -1274,8 +1274,8 @@
     },
     "macro": {
       "available": true,
-      "asOf": "2026-09-17",
-      "observedAt": "2026-09-17",
+      "asOf": "2026-10-02",
+      "observedAt": "2026-10-02",
       "staleAfterDays": 60,
       "stale": false
     },
@@ -1294,8 +1294,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-02",
-      "observedAt": "2026-10-02",
+      "asOf": "2026-10-03",
+      "observedAt": "2026-10-03",
       "staleAfterDays": 5,
       "stale": false
     }

@@ -1,6 +1,41 @@
 {
-  "updatedAt": "2026-10-03T01:19:29.260Z",
+  "updatedAt": "2026-10-03T23:40:21.358Z",
   "entries": [
+    {
+      "timestamp": "2026-10-03T23:40:21.358Z",
+      "date": "2026-10-03",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 853 лица, 125 087 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-03T22:37:02.329Z",
+      "date": "2026-10-03",
+      "skill": "update-budget",
+      "summary": "КФП feed through 2026-08 (310 observations); FY2026 frame rebuilt",
+      "source": "data.egov.bg бюджет"
+    },
+    {
+      "timestamp": "2026-10-03T22:34:42.989Z",
+      "date": "2026-10-03",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-03 (+1 daily archive; 950,638 store rows, 167 settlements, 72 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-03"
+    },
+    {
+      "timestamp": "2026-10-03T21:49:55.854Z",
+      "date": "2026-10-03",
+      "skill": "update-macro",
+      "summary": "Eurostat refresh: 10 datasets released (namq_10_gdp, nama_10_gdp, ei_bpm6ca_q, prc_hpi_q, une_rt_m …); labourIncome through 2026 Q2; macro_peers + food PLI + admin context rebuilt; WGI carried forward (World Bank API unreachable)",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-10-03T01:19:29.260Z",
       "date": "2026-10-03",
@@ -22,13 +57,6 @@
       "skill": "update-procurement",
       "summary": "ЦАИС ЕОП 2026-10-01: +217 договора (72 възложители), +10 анекса в текущата стойност; 407,073 договора",
       "source": "ЦАИС ЕОП open data"
-    },
-    {
-      "timestamp": "2026-10-03T00:00:10.279Z",
-      "date": "2026-10-03",
-      "skill": "update-persons",
-      "summary": "Профилите на публичните лица преизчислени — 64 843 лица, 125 075 длъжности",
-      "source": "Регистър на лицата (обединена самоличност)"
     },
     {
       "timestamp": "2026-10-02T00:48:13.188Z",

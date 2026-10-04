@@ -335,39 +335,39 @@
     {
       "actual": {
         "balance": {
-          "amount": -1927382939,
-          "amountEur": -1927382939,
+          "amount": -2070723218,
+          "amountEur": -2070723218,
           "currency": "EUR"
         },
         "euContribution": {
-          "amount": 661723909,
-          "amountEur": 661723909,
+          "amount": 756148097,
+          "amountEur": 756148097,
           "currency": "EUR"
         },
         "expenditure": {
-          "amount": 16516289946,
-          "amountEur": 16516289946,
+          "amount": 18943067212,
+          "amountEur": 18943067212,
           "currency": "EUR"
         },
         "financing": {
-          "amount": 1927382939,
-          "amountEur": 1927382939,
+          "amount": 2070723220,
+          "amountEur": 2070723220,
           "currency": "EUR"
         },
         "revenue": {
-          "amount": 15250630916,
-          "amountEur": 15250630916,
+          "amount": 17628492091,
+          "amountEur": 17628492091,
           "currency": "EUR"
         }
       },
-      "asOf": "2026-07-31",
+      "asOf": "2026-08-31",
       "complete": false,
       "currency": "EUR",
       "firstPeriod": "2026-01",
       "fiscalYear": 2026,
       "gdpEur": 128155604775,
-      "lastPeriod": "2026-07",
-      "monthsAvailable": 7,
+      "lastPeriod": "2026-08",
+      "monthsAvailable": 8,
       "planned": {
         "balance": {
           "amount": -7319804000,
@@ -397,44 +397,44 @@
       },
       "projected": {
         "balance": {
-          "amount": -3242431399,
-          "amountEur": -3242431399,
+          "amount": -2927804969,
+          "amountEur": -2927804969,
           "currency": "EUR"
         },
         "euContribution": {
-          "amount": 1154065723,
-          "amountEur": 1154065723,
+          "amount": 1173248250,
+          "amountEur": 1173248250,
           "currency": "EUR"
         },
         "expenditure": {
-          "amount": 29333528566,
-          "amountEur": 29333528566,
+          "amount": 29469126148,
+          "amountEur": 29469126148,
           "currency": "EUR"
         },
         "financing": {
-          "amount": 3242431399,
-          "amountEur": 3242431399,
+          "amount": 2927804969,
+          "amountEur": 2927804969,
           "currency": "EUR"
         },
         "revenue": {
-          "amount": 27245162890,
-          "amountEur": 27245162890,
+          "amount": 27714569429,
+          "amountEur": 27714569429,
           "currency": "EUR"
         }
       },
       "projectionBasis": 2025
     }
   ],
-  "generatedAt": "2026-09-06T22:13:46.752Z",
+  "generatedAt": "2026-10-03T22:36:39.275Z",
   "kfp": {
     "cadences": [
       "monthly"
     ],
     "firstPeriod": "2021-06",
-    "lastPeriod": "2026-07",
-    "observationCount": 305
+    "lastPeriod": "2026-08",
+    "observationCount": 310
   },
-  "lastIngest": "2026-09-06T22:13:46.752Z",
+  "lastIngest": "2026-10-03T22:36:39.275Z",
   "personnel": {
     "ministryCountByYear": {
       "2022": 1,
@@ -638,7 +638,8 @@
         "2026-04",
         "2026-05",
         "2026-06",
-        "2026-07"
+        "2026-07",
+        "2026-08"
       ],
       "stages": [
         "execution",

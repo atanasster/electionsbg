@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-08-31",
+  "computedAt": "2026-09-30",
   "homeMode": "standard",
   "figures": [
     {
@@ -17,9 +17,9 @@
     },
     {
       "id": "inflation_hicp",
-      "value": 5,
+      "value": 5.6,
       "basis": {
-        "period": "2026-08",
+        "period": "2026-09",
         "frequency": "monthly",
         "unit": "pct",
         "adjustment": "unadjusted",
@@ -29,9 +29,9 @@
     },
     {
       "id": "unemployment_sa",
-      "value": 3.6,
+      "value": 3.5,
       "basis": {
-        "period": "2026-07",
+        "period": "2026-08",
         "frequency": "monthly",
         "unit": "pct",
         "adjustment": "seasonally_adjusted",
@@ -79,7 +79,7 @@
     },
     "governance": {
       "tileId": "governance",
-      "value": 63560,
+      "value": 63570,
       "unit": "count",
       "basisKey": "home_basis_governance_people",
       "to": "/governance",
@@ -87,7 +87,7 @@
     },
     "procurement": {
       "tileId": "procurement",
-      "value": 94877776542,
+      "value": 94872941235,
       "unit": "eur",
       "basisKey": "home_basis_procurement_contracted_all",
       "to": "/procurement?pscope=all",
@@ -114,13 +114,13 @@
     },
     "eurostat_prc_hicp_minr": {
       "available": true,
-      "asOf": "2026-08",
+      "asOf": "2026-09",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
       "datasetCode": "prc_hicp_minr"
     },
     "eurostat_une_rt_m": {
       "available": true,
-      "asOf": "2026-07",
+      "asOf": "2026-08",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
       "datasetCode": "une_rt_m"
     },
