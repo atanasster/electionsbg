@@ -1263,6 +1263,7 @@ const EU_FUNDS: MacroPoint[] = [
   { year: 2022, value: 2.34 },
   { year: 2023, value: 2.81 },
   { year: 2024, value: 2.07 },
+  { year: 2025, value: 2.24 },
 ];
 
 const EU_CONTRIBUTION: MacroPoint[] = [
@@ -1284,6 +1285,7 @@ const EU_CONTRIBUTION: MacroPoint[] = [
   { year: 2022, value: 0.69 },
   { year: 2023, value: 0.78 },
   { year: 2024, value: 0.75 },
+  { year: 2025, value: 0.89 },
 ];
 
 const CURATED_INDICATORS: CuratedIndicator[] = [
