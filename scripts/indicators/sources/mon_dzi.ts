@@ -71,6 +71,7 @@ const fetchBuffer = async (url: string): Promise<Buffer> => {
 const round = (n: number, dp = 2) => Math.round(n * 10 ** dp) / 10 ** dp;
 
 type ResourceRef = {
+  /** Empty for a year carried from the local cache (no longer listed). */
   uuid: string;
   /** Calendar year the score belongs to. For an academic year like
    * "учебна 2023/2024", we report it as the latter year (2024). */
@@ -156,9 +157,49 @@ const cachedCsvIsValid = (dest: string): boolean => {
   return !/^\s*(<!doctype html|<html)/i.test(head);
 };
 
+/**
+ * The dataset is a ROLLING window of ~10 resources: when МОН publishes a new
+ * session the oldest drops off (2026-10: the 2025/26 Aug-Sep retake arrived and
+ * the 2021/22 primary session — our 2022 — left). A year that was published and
+ * is still cached is still true, so it is carried rather than dropped; without
+ * this every refresh after a rotation deletes a year from data/indicators.json.
+ * Listed years win; only years absent from the listing are carried.
+ */
+export const withCarriedCachedYears = (
+  listed: ResourceRef[],
+  cachedYears: number[],
+): ResourceRef[] => {
+  const have = new Set(listed.map((r) => r.year));
+  const carried = cachedYears
+    .filter((y) => !have.has(y))
+    .map(
+      (year): ResourceRef => ({
+        uuid: "",
+        year,
+        title: `cached ${year} (no longer listed on data.egov.bg)`,
+      }),
+    );
+  return [...listed, ...carried].sort((a, b) => a.year - b.year);
+};
+
+const cachedYears = (): number[] => {
+  if (!fs.existsSync(RAW_DIR)) return [];
+  return fs
+    .readdirSync(RAW_DIR)
+    .map((f) => /^(\d{4})\.csv$/.exec(f))
+    .filter((m): m is RegExpExecArray => !!m)
+    .map((m) => Number(m[1]))
+    .filter((y) => cachedCsvIsValid(path.join(RAW_DIR, `${y}.csv`)));
+};
+
 const ensureCsv = async (ref: ResourceRef, force: boolean): Promise<string> => {
   if (!fs.existsSync(RAW_DIR)) fs.mkdirSync(RAW_DIR, { recursive: true });
   const dest = path.join(RAW_DIR, `${ref.year}.csv`);
+  // A carried year has nothing to re-download from: reuse it even under --force.
+  if (!ref.uuid) {
+    if (cachedCsvIsValid(dest)) return dest;
+    throw new Error(`carried year ${ref.year} has no valid cached CSV`);
+  }
   if (!force && cachedCsvIsValid(dest)) return dest;
   const buf = await fetchBuffer(`${DOWNLOAD_BASE}/${ref.uuid}/csv`);
   fs.writeFileSync(dest, buf);
@@ -312,7 +353,10 @@ export type MonDziFetchResult = {
 export const fetchMonDzi = async (
   opts: MonDziFetchOpts = {},
 ): Promise<MonDziFetchResult> => {
-  const refs = await discoverDziResources();
+  const refs = withCarriedCachedYears(
+    await discoverDziResources(),
+    cachedYears(),
+  );
   const slice = opts.maxYears ? refs.slice(-opts.maxYears) : refs;
   if (opts.verbose) {
     console.log(

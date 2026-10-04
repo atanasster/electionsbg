@@ -57,18 +57,37 @@
         "capturedAt": "2026-09-09T22:04:41.514Z",
         "capturePath": "raw_data/polls/global_metrics/186",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+            "reviewedAt": "2026-10-04"
+          },
+          {
+            "race": "presidential",
+            "reason": "Topical attitude survey (not vote intention) — no electoral question",
+            "reviewedAt": "2026-10-04"
+          }
+        ]
       }
     ],
     "failures": {
       "capture": 0,
-      "extraction": 0
+      "extraction": 7
     },
     "errors": {
       "capture": null,
-      "extraction": null
+      "extraction": {
+        "message": "extractGlobalMetrics(186): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+        "at": "2026-10-04T02:17:52.986Z"
+      }
     },
-    "lastError": null
+    "lastError": {
+      "message": "extractGlobalMetrics(186): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+      "at": "2026-10-04T02:17:52.986Z",
+      "stage": "extraction"
+    }
   },
   {
     "pubId": "203",
@@ -87,18 +106,37 @@
         "capturedAt": "2026-09-09T22:04:41.391Z",
         "capturePath": "raw_data/polls/global_metrics/203",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+            "reviewedAt": "2026-10-04"
+          },
+          {
+            "race": "presidential",
+            "reason": "Topical attitude survey (not vote intention) — no electoral question",
+            "reviewedAt": "2026-10-04"
+          }
+        ]
       }
     ],
     "failures": {
       "capture": 0,
-      "extraction": 0
+      "extraction": 7
     },
     "errors": {
       "capture": null,
-      "extraction": null
+      "extraction": {
+        "message": "extractGlobalMetrics(203): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+        "at": "2026-10-04T02:17:52.997Z"
+      }
     },
-    "lastError": null
+    "lastError": {
+      "message": "extractGlobalMetrics(203): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+      "at": "2026-10-04T02:17:52.997Z",
+      "stage": "extraction"
+    }
   },
   {
     "pubId": "275",
@@ -117,18 +155,37 @@
         "capturedAt": "2026-09-09T22:04:41.222Z",
         "capturePath": "raw_data/polls/global_metrics/275",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+            "reviewedAt": "2026-10-04"
+          },
+          {
+            "race": "presidential",
+            "reason": "Topical attitude survey (not vote intention) — no electoral question",
+            "reviewedAt": "2026-10-04"
+          }
+        ]
       }
     ],
     "failures": {
       "capture": 0,
-      "extraction": 0
+      "extraction": 7
     },
     "errors": {
       "capture": null,
-      "extraction": null
+      "extraction": {
+        "message": "extractGlobalMetrics(275): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+        "at": "2026-10-04T02:17:53.008Z"
+      }
     },
-    "lastError": null
+    "lastError": {
+      "message": "extractGlobalMetrics(275): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+      "at": "2026-10-04T02:17:53.008Z",
+      "stage": "extraction"
+    }
   },
   {
     "pubId": "487",
@@ -147,17 +204,36 @@
         "capturedAt": "2026-09-09T22:04:41.027Z",
         "capturePath": "raw_data/polls/global_metrics/487",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+            "reviewedAt": "2026-10-04"
+          },
+          {
+            "race": "presidential",
+            "reason": "Topical attitude survey (not vote intention) — no electoral question",
+            "reviewedAt": "2026-10-04"
+          }
+        ]
       }
     ],
     "failures": {
       "capture": 0,
-      "extraction": 0
+      "extraction": 7
     },
     "errors": {
       "capture": null,
-      "extraction": null
+      "extraction": {
+        "message": "extractGlobalMetrics(487): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+        "at": "2026-10-04T02:17:53.017Z"
+      }
     },
-    "lastError": null
+    "lastError": {
+      "message": "extractGlobalMetrics(487): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+      "at": "2026-10-04T02:17:53.017Z",
+      "stage": "extraction"
+    }
   }
 ]
