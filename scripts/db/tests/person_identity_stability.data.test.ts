@@ -228,7 +228,29 @@ test.skipIf(skipIdentity)(
     // 09-16 647, 09-21 385), and tier-V private owners stand at 70,061 of the 135,009 (base
     // 64,948). Per the rule above, the partition split is not itself evidence; the controls are.
     // 5.9b/5.9c moved in the same commit to keep one vintage.
-    const BASELINE = 135_009;
+    //
+    // RE-BASELINED 2026-10-03, deliberately, for the sixth time — and this time a DROP in the
+    // controls that is ATTRIBUTED, which is the only kind a re-baseline may absorb. 5.9b's fold
+    // ROWS fell 9,773 → 9,638 (-135, past its 120 band); folds 3,457 → 3,417 (-40) and review
+    // groups 3,423 → 3,387 (-36) fell too, both just inside. The cause is a deliberate MERGE,
+    // e2e7e06423 (2026-09-27, `sameMayoralty` in cluster.ts): 101 mayors had been split into a
+    // municipal-roster record (official_muni) and an elected-mayor record (local) of the SAME
+    // община — each such pair was a two-person fold, so merging it removes fold rows by design.
+    // That commit updated person_resolve.data.test.ts and never re-pinned this gate, so it has
+    // been red since the first resolve after it. The drop is visible on Cloud SQL too, which
+    // resolved on 2026-09-27: 3,409 folds / 9,620 rows there.
+    //
+    // CHECKED rather than inherited, per 5.9b's rule ("did a SPECIFIC merged pair combine two
+    // people"): all 105 slugs retired 2026-09-26..28 point at a person holding BOTH an
+    // official_muni mayor and a local mayor role, and read by hand every one is the same name —
+    // 45 identical, 35 the roster's two-part name inside the three-part one, the rest
+    // transliteration variants (dimitar/dimitr, ivaylo/ivailo) or the MP slug of the same
+    // person (donka-mihaylova → mp-63). None joins two different people.
+    //
+    // The total did NOT need moving (135,009 → 135,249, +240, inside 500): tier-V private
+    // owners 70,061 → 70,396 from ordinary TR growth, base 64,948 → 64,853 — the base falling
+    // by about the merged pairs. Moved anyway to keep the three at one vintage.
+    const BASELINE = 135_249;
     const TOLERANCE = 500;
     assert.ok(
       Math.abs(persons - BASELINE) <= TOLERANCE,
@@ -289,7 +311,11 @@ test.skipIf(skipIdentity)(
               GROUP BY 1 HAVING count(*) > 1) q`,
     );
     const folds = Number(row.folds);
-    const FOLD_BASELINE = 3_457;
+    //
+    // RE-BASELINED 2026-10-03 with 5.9 (see its note): 3,457 → 3,417 folds, 9,773 → 9,638
+    // rows — a DROP, attributed to the deliberate sameMayoralty merge (e2e7e06423) and checked
+    // pair by pair. Not to be read as precedent for an unattributed fall.
+    const FOLD_BASELINE = 3_417;
     const FOLD_TOLERANCE = 40;
     assert.ok(
       Math.abs(folds - FOLD_BASELINE) <= FOLD_TOLERANCE,
@@ -307,7 +333,7 @@ test.skipIf(skipIdentity)(
     // hold >= 3 people, so that class is a fifth of the population, not a hypothetical.
     // Tolerance is FOLD_TOLERANCE scaled by the same ratio (40/3,495 ≈ 1.14% of 9,962).
     const foldRows = Number(row.rows);
-    const FOLD_ROWS_BASELINE = 9_773;
+    const FOLD_ROWS_BASELINE = 9_638;
     const FOLD_ROWS_TOLERANCE = 120;
     assert.ok(
       Math.abs(foldRows - FOLD_ROWS_BASELINE) <= FOLD_ROWS_TOLERANCE,
@@ -342,7 +368,10 @@ test.skipIf(skipIdentity)(
       `SELECT count(DISTINCT group_key)::text AS groups FROM person_review_candidate`,
     );
     const groups = Number(r.groups);
-    const GROUP_BASELINE = 3_423;
+    //
+    // RE-BASELINED 2026-10-03 with 5.9/5.9b on the same attribution: 3,423 → 3,387. A merged
+    // mayor pair no longer raises a "might be the same person" question.
+    const GROUP_BASELINE = 3_387;
     const GROUP_TOLERANCE = 40;
     assert.ok(
       Math.abs(groups - GROUP_BASELINE) <= GROUP_TOLERANCE,

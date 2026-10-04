@@ -535,19 +535,26 @@ describe("tourism sector — the beneficiaries", () => {
       rows.length >= 4,
       `${rows.length} supplier rows in the default scope (was 5) — the window predicate or the corpus moved`,
     );
-    const total = rows.reduce((a, r) => a + Number(r.eur), 0);
     const badged = new Set(TOURISM_STATE_BODY_CONTRACTORS);
-    const labelled = rows
-      .filter((r) => badged.has(r.eik))
-      .reduce((a, r) => a + Number(r.eur), 0);
-    const share = labelled / total;
-    // 84.0% at the audit (€262,500 of €312,500 across 4 of the 5 rows). A floor of
-    // 0.70 fails if ANY ONE of the four stops being reached; 0.50 would tolerate
-    // losing three of them, which is not what a floor here is for.
-    assert.ok(
-      share >= 0.7 && share <= 1,
-      `only ${(share * 100).toFixed(1)}% of the default scope's money is labelled — the state bodies topping it have lost their chip`,
-    );
+    // The four cycling-tour host cities that topped the scope at the audit (84.0%, €262,500 of
+    // €312,500). Asserted BY IDENTITY, not as a money share: the share was a property of the
+    // corpus on the audit day, not of the list. It went to 28.9% on 2026-10-03 when a €511,922
+    // award to Компания за международни конгреси (2026-10-02) entered the open window — a real
+    // private vendor legitimately topping the scope, with all four cities still present and
+    // still badged. A share floor fails on that and says nothing; this fails if ANY ONE of the
+    // four stops being reached, which is what the floor was for.
+    const HOST_CITIES = ["000696327", "000133634", "176182033", "208188531"];
+    const present = new Set(rows.map((r) => r.eik));
+    for (const eik of HOST_CITIES) {
+      assert.ok(
+        present.has(eik),
+        `host city ${eik} is no longer a default-scope supplier — the window predicate or the corpus moved`,
+      );
+      assert.ok(
+        badged.has(eik),
+        `host city ${eik} tops the default scope but has lost its state-body chip`,
+      );
+    }
   });
 
   test("no single contractor owns the whole all-scope leaderboard", async (t) => {

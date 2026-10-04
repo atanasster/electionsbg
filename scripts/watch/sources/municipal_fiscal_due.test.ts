@@ -227,6 +227,10 @@ describe("the source itself", () => {
     expect(held).toBe(a.meta?.held);
     expect(due).toBe(a.meta?.due);
     expect(gaps).toBe((a.meta?.gaps as string[]).join(","));
-    expect(held).not.toBe(due); // the corpus is behind today
+    // The corpus can be BEHIND the due quarter or caught up with it, never ahead.
+    // (This asserted „behind" until 2026-10-03, which was true only until someone
+    // ingested the due quarter — a statement about the corpus, not the source.)
+    expect(/^\d{4}-Q[1-4]$/.test(held)).toBe(true);
+    expect(held <= due).toBe(true);
   });
 });

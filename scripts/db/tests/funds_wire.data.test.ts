@@ -437,23 +437,43 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "funds_backfill reports the RAIL's window, which differs from the wire's",
   async () => {
-    // The measured case: the real 81,616-row load sits inside 60 days and outside 30. Without a
-    // per-window figure the rail drops those rows from cards that claim to cover 60 days and
-    // nothing on the page says so.
+    // The measured case: the real 81,616-row load (2026-07-04) once sat inside 60 days and
+    // outside 30. Without a per-window figure the rail drops those rows from cards that claim to
+    // cover 60 days and nothing on the page says so.
+    //
+    // The windows are sized around the most recent backfill rather than fixed at 30/90: with
+    // fixed windows the gate went red the day that load aged past 90 days (2026-10-03), which
+    // says nothing about the rule and everything about the calendar.
+    const [latest] = await allRows<{ age: number | null }>(
+      `SELECT (current_date - max(day))::int AS age
+         FROM funds_ingest_days(36500) WHERE is_backfill`,
+    );
+    assert.ok(
+      latest?.age != null,
+      "no backfill day anywhere in the corpus — it was bulk-loaded, so this is a broken changelog",
+    );
+    const age = latest.age!;
     const [short] = await allRows<{ backfill_rows: number }>(
-      `SELECT backfill_rows FROM funds_backfill(30)`,
+      `SELECT backfill_rows FROM funds_backfill($1)`,
+      [Math.max(age - 1, 1)],
     );
     const [long] = await allRows<{ backfill_rows: number }>(
-      `SELECT backfill_rows FROM funds_backfill(90)`,
+      `SELECT backfill_rows FROM funds_backfill($1)`,
+      [age + 1],
+    );
+    assert.ok(
+      long.backfill_rows > 0,
+      `funds_backfill(${age + 1}) misses the backfill ${age} day(s) ago`,
     );
     assert.ok(
       long.backfill_rows >= short.backfill_rows,
       "a longer window cannot contain fewer backfill rows",
     );
-    assert.ok(
-      long.backfill_rows > 0,
-      "no backfill found in 90 days — this corpus was bulk-loaded, so the rule has nothing to prove",
-    );
+    if (age > 1)
+      assert.ok(
+        short.backfill_rows < long.backfill_rows,
+        `funds_backfill(${age - 1}) still reports a backfill ${age} day(s) old — the window is not applied`,
+      );
   },
 );
 

@@ -173,9 +173,19 @@ test.skipIf(skip)(
       "an unknown place must resolve to null, not to a shell",
     );
 
-    // …and a covered council with no named votes is NOT null.
+    // …and a covered council with no named votes is NOT null. Resolution goes
+    // through council_muni_code, so ask by FRONTEND code: eight council keys
+    // are not frontend codes (RSE01 → RSE27), and an unordered LIMIT 1 over
+    // the internal key passed or failed on physical row order alone.
     const [quiet] = await allRows<{ code: string }>(
-      `SELECT obshtina_code AS code FROM council_muni WHERE NOT has_named_votes LIMIT 1`,
+      `SELECT c.frontend_code AS code
+         FROM council_muni m
+         JOIN council_muni_code c ON c.obshtina_code = m.obshtina_code
+        WHERE NOT m.has_named_votes
+        -- prefer a council whose key is NOT its frontend code, so the
+        -- mapping itself is exercised rather than sidestepped
+        ORDER BY (c.frontend_code = m.obshtina_code), m.obshtina_code, c.frontend_code
+        LIMIT 1`,
     );
     if (quiet) {
       const q = await one<{ hasNamedVotes: boolean; resolutionCount: number }>(
