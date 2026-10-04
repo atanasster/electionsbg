@@ -19,6 +19,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { normalize } from "../indicators/normalize";
 import { parseCsvRows, normRow } from "../lib/csv";
+import { findSchoolYearLoss } from "./year_guard";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -548,6 +549,20 @@ const main = () => {
     .flat()
     .filter((s) => s.loc).length;
 
+  const committed = fs.existsSync(OUT_FILE)
+    ? JSON.parse(fs.readFileSync(OUT_FILE, "utf8"))
+    : undefined;
+  const loss = findSchoolYearLoss(out, committed);
+  for (const l of loss)
+    console.error(
+      `SHRINK ${l.field}: lost year(s) ${l.lostYears.join(", ")} versus the committed ${OUT_FILE} — restore raw_data/indicators/${l.field === "ДЗИ" ? "mon" : "mon_nvo"}/<year>.csv`,
+    );
+  if (loss.length && !process.argv.includes("--allow-shrink")) {
+    console.error(
+      "refusing to write; pass --allow-shrink if the loss is intended.",
+    );
+    process.exit(1);
+  }
   fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2) + "\n");
   console.log(
     `Wrote ${OUT_FILE} — ${Object.keys(schoolsByObshtina).length} municípios, ${totalSchools} schools, ${geocoded} geocoded (${Math.round((100 * geocoded) / totalSchools)}%)`,

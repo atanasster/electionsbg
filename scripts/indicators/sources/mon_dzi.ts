@@ -358,6 +358,12 @@ export const fetchMonDzi = async (
     cachedYears(),
   );
   const slice = opts.maxYears ? refs.slice(-opts.maxYears) : refs;
+  for (const ref of slice) {
+    if (ref.uuid) continue;
+    console.warn(
+      `WARNING MON DZI ${ref.year}: no longer listed on data.egov.bg — carried from the cached raw_data/indicators/mon/${ref.year}.csv`,
+    );
+  }
   if (opts.verbose) {
     console.log(
       `MON DZI: discovered ${refs.length} primary May-June sessions (${refs[0]?.year}..${refs.at(-1)?.year}), processing ${slice.length}.`,

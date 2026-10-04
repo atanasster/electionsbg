@@ -67,12 +67,15 @@ If `unmatched > 0`: a row's municipality name doesn't map to an obshtina code. A
 
 If the safety floor trips (`safety check: ...`): investigate before re-running. The floors are 260 munis covered and median-muni ≥ 2 years.
 
+**The floors cannot see a lost YEAR, so a second guard does.** Before writing, the build is compared to the committed `data/indicators.json`; any indicator that lost a year, or vanished, prints `SHRINK [...]` and the run refuses to write. МОН's ДЗИ dataset is a rolling ~10-resource window — on 2026-10-03 the 2022 session rotated off it — so `dzi` carries such years twice over: first from the cached `raw_data/indicators/mon/<year>.csv` (`WARNING MON DZI <year>: no longer listed …`), then, on a machine without that cache, from the committed file itself (`WARNING [dzi] <year>: … carried N munis … (prior vintage)`). Both warnings are expected after a rotation; a `SHRINK` is not. `--source` and `--max-years` always trip it (they build a partial file) — use them as dry runs.
+
 ### Useful flags
 
 - `--max-years N` — only ingest the N most recent annual reviews. Useful for quick smoke tests.
 - `--force` — re-download cached XLSX files in `raw_data/indicators/az/`. Default is to reuse the local copy.
 - `--source <id>` — limit to one source (e.g. `unemployment`).
 - `--quiet` — suppress progress output.
+- `--allow-shrink` — write even when an indicator loses a year. Only when the loss is intended.
 
 ## Step 2 — Verify
 
@@ -142,6 +145,7 @@ npm run bucket:sync
 | Unrecognised XLSX layout | `parseXlsx(...): could not find header row (NUTS or ПОКАЗАТЕЛИ)` |
 | Per-source muni floor breach | `safety check: [<id>] covered <N> obshtina codes (floor M)` |
 | Median-years floor breach | `safety check: [<id>] median muni has <N> years (floor M)` |
+| A previously published year (or indicator) missing | `SHRINK [<id>]: lost year(s) …` → `refusing to write` |
 | Unmatched name with no alias | Logged, not fatal — investigate and update `_name_aliases.json` before committing |
 
 ## File map

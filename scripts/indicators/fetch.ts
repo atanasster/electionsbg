@@ -33,6 +33,7 @@ import {
   type NormalizeReport,
 } from "./normalize";
 import { buildPayload, writeMuniSlices, type IndicatorBuild } from "./build";
+import { carryPriorYears, findShrinkage, loadCommitted } from "./vintage";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -55,6 +56,10 @@ type SourceSpec = {
   };
   minMunis: number; // floor — abort if fewer than this many obshtina codes covered
   minYearsPerMuni: number; // floor — abort if median muni has fewer than this many points
+  /** Re-add, from the committed data/indicators.json, any year the source no
+   * longer returns. Only for sources whose upstream drops old years while they
+   * stay true (МОН's rolling ДЗИ window) — NOT for sources that revise. */
+  carryPriorVintage?: boolean;
 };
 
 type ScrapeOpts = {
@@ -128,6 +133,10 @@ const SOURCES: SourceSpec[] = [
     // upper-secondary school report no value. Floor is intentionally loose.
     minMunis: 150,
     minYearsPerMuni: 1,
+    // data.egov.bg keeps ~10 ДЗИ resources and rotates the oldest out; the
+    // source already carries years from raw_data/ (gitignored), this is the
+    // backstop for a machine without that cache.
+    carryPriorVintage: true,
   },
   {
     id: "populationChange",
@@ -253,6 +262,12 @@ const cli = command({
       long: "max-years",
       description: "Only ingest the N most recent annual reviews (smoke test)",
     }),
+    allowShrink: flag({
+      type: boolean,
+      long: "allow-shrink",
+      description:
+        "Write even when an indicator loses a year (or vanishes) versus the committed data/indicators.json",
+    }),
     quiet: flag({
       type: boolean,
       long: "quiet",
@@ -262,6 +277,7 @@ const cli = command({
   handler: async (args) => {
     const verbose = !args.quiet;
     const builds: IndicatorBuild[] = [];
+    const committed = loadCommitted(OUT_FILE);
 
     for (const src of SOURCES) {
       if (args.sourceFilter && src.id !== args.sourceFilter) continue;
@@ -273,6 +289,20 @@ const cli = command({
       });
       if (verbose) console.log(`[${src.id}] parsed ${rawRows.length} raw rows`);
       const report: NormalizeReport = normalize(rawRows);
+      if (src.carryPriorVintage && !args.maxYears) {
+        const { rows, carried } = carryPriorYears(
+          report.matched,
+          committed?.series[src.id],
+        );
+        report.matched = rows;
+        for (const [year, n] of [...carried].sort((a, b) => a[0] - b[0])) {
+          // Loud on purpose (not gated on --quiet): a carried year is published
+          // data the source no longer serves, and nothing re-validates it.
+          console.warn(
+            `WARNING [${src.id}] ${year}: absent from the source — carried ${n} munis from the committed data/indicators.json (prior vintage)`,
+          );
+        }
+      }
       if (verbose) {
         console.log(
           `[${src.id}] normalize: ${report.matched.length} matched, ${report.unmatched.length} unmatched`,
@@ -324,6 +354,22 @@ const cli = command({
     }
 
     const payload = buildPayload(builds);
+
+    // The floors above count munis and points; they cannot see a lost YEAR
+    // (2026-10-03: ДЗИ 2022 vanished upstream and 2023..2026 cleared both).
+    const shrinkage = findShrinkage(payload, committed);
+    for (const s of shrinkage) {
+      console.error(
+        s.missingIndicator
+          ? `SHRINK [${s.id}]: indicator absent from this build (a --source filter rewrites the whole file)`
+          : `SHRINK [${s.id}]: lost year(s) ${s.lostYears.join(", ")} versus the committed data/indicators.json`,
+      );
+    }
+    if (shrinkage.length && !args.allowShrink) {
+      throw new Error(
+        `refusing to write: ${shrinkage.length} indicator(s) shrank versus the committed file. Restore the missing source data, or pass --allow-shrink if the loss is intended.`,
+      );
+    }
     writeStable(OUT_FILE, payload);
     const sliceCodes = writeMuniSlices(payload, OUT_SLICE_DIR, MUNI_FILE);
 

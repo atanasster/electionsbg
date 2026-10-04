@@ -64,7 +64,12 @@ npm run db:load:schools:pg
 
 Sanity-check the build log: `build_index.ts` prints `НВО: 8 years, matched to
 ~540 schools` and `994 schools, 994 geocoded (100%)`; a `WARNING НВО <year>`
-means a source format changed — inspect that CSV before shipping. The
+means a source format changed — inspect that CSV before shipping. `build_index.ts`
+reads only the gitignored caches, so it also refuses (`SHRINK ДЗИ|НВО: lost
+year(s) …`, exit 1) to write an index with fewer years than the committed one —
+a missing `<year>.csv` is a `skip` warning, and МОН rotates old ДЗИ resources off
+data.egov.bg (2022, on 2026-10-03), so a cache that is gone cannot be re-fetched.
+Restore the CSV; `--allow-shrink` only if the loss is intended. The
 `fetch_nvo.ts` HTML-guard throws if data.egov.bg returns its portal shell
 instead of a file (the `/resource/download` outage — retry later).
 
