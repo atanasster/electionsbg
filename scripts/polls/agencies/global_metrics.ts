@@ -11,7 +11,12 @@ import { listWpPosts, titleContainsAny } from "./wp_lister";
 
 const SITE = "https://globalmetrics.eu";
 
-const ELECTORAL_TERMS = ["нагласи", "президент", "избори"];
+// NOT a bare „нагласи" ("attitudes"): it opens almost every GM title, so it
+// listed prosecutors', magistrates', education and child-policy surveys
+// (pubs 186/203/275/487) as electoral and they failed extraction nightly. The
+// one real electoral post („Президентски избори 2026: обществени нагласи юли")
+// is caught by the other terms anyway.
+const ELECTORAL_TERMS = ["политически нагласи", "президент", "избори"];
 
 export const listPublications = (opts: ListOpts = {}): Promise<Publication[]> =>
   listWpPosts(SITE, {

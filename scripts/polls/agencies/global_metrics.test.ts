@@ -59,6 +59,27 @@ describe("globalMetrics lister", () => {
     ).toBe(false);
   });
 
+  it("does not treat a topical attitude survey as electoral", async () => {
+    const { isElectoral } = await import("./global_metrics");
+    const pub = (title: string) => ({
+      id: 1,
+      url: "x",
+      title,
+      publishedAt: null,
+      kind: "html" as const,
+      attachments: [],
+    });
+    for (const title of [
+      "НАГЛАСИ НА ПРОКУРОРИТЕ ЗА РЕФОРМИ В ПРОКУРАТУРАТА И НАКАЗАТЕЛНОТО ПРОИЗВОДСТВО",
+      "НАГЛАСИ КЪМ ПРИОБЩАВАЩОТО ОБРАЗОВАНИЕ",
+    ])
+      expect(isElectoral(pub(title))).toBe(false);
+    expect(
+      isElectoral(pub("Президентски избори 2026: обществени нагласи юли")),
+    ).toBe(true);
+    expect(isElectoral(pub("Политически нагласи в България"))).toBe(true);
+  });
+
   it("is registered under the GM agency id", async () => {
     const { globalMetrics } = await import("./global_metrics");
     expect(globalMetrics.agencyId).toBe("GM");
