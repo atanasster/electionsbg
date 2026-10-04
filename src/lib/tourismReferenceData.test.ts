@@ -124,9 +124,10 @@ describe("TOURISM_STATE_BODY_CONTRACTORS", () => {
     for (const list of Object.values(siblings))
       for (const e of list)
         if (TOURISM_STATE_BODY_CONTRACTORS.includes(e)) shared.add(e);
-    // БНТ (social) and Топлофикация София (security + social) are the two МТ
-    // contractors that any sibling page badges. If this shrinks, either a sibling
-    // dropped an entry or this list did — both worth a look.
-    expect([...shared].sort()).toEqual(["000672350", "831609046"]);
+    // БНТ (social), Топлофикация София and Български пощи (security + social) are
+    // the МТ contractors that a sibling page badges — Български пощи since its
+    // first МТ award (2026-09-28). If this shrinks, either a sibling dropped an
+    // entry or this list did — both worth a look.
+    expect([...shared].sort()).toEqual(["000672350", "121396123", "831609046"]);
   });
 });

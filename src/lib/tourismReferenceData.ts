@@ -188,4 +188,9 @@ export const TOURISM_STATE_BODY_CONTRACTORS: readonly string[] = [
   // on this leaderboard, and badging one but not the other is the inconsistency
   // this list exists to remove. NOT the Български пощи precedent.
   "000672343", // Българско национално радио — държавна (€81,203)
+  // ON the rank bar: rank 8 at ns:2026_04_19 since its first МТ award (2026-09-28,
+  // €15,339; all-scope rank 120). Already badged „държавно" by both
+  // SOCIAL_STATE_BODY_CONTRACTORS and SECURITY_STATE_BODY_CONTRACTORS, so leaving it
+  // off rendered the same state company unbadged on a displayed row here only.
+  "121396123", // „Български пощи" ЕАД — 100% state (принципал МТС)
 ];
