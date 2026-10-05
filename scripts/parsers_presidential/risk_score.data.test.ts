@@ -70,7 +70,9 @@ describe.runIf(rounds.length > 0)("presidential section risk score", () => {
       const sized = scored.rows.filter((r) =>
         r.components.some((c) => c.id === "concentrated"),
       );
-      if (!sized.length) continue;
+      // A round with scorable sections must carry the signal — a landslide raises its bar, it
+      // never withdraws it.
+      expect(sized.length, id).toBeGreaterThan(0);
       const firing = sized.filter((r) =>
         r.components.some((c) => c.id === "concentrated" && c.normalized > 0),
       ).length;

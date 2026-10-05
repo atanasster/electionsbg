@@ -419,18 +419,19 @@ export const scorePresidentialSections = (
     );
     if (additional) components.push({ id: "additionalVoters", ...additional });
     const w = winnerShare(f);
-    if (
-      concentratedFloor < CAPS.concentratedPct &&
-      w !== null &&
-      f.ticketVotes >= MIN_DENOMINATOR
-    )
+    if (w !== null && f.ticketVotes >= MIN_DENOMINATOR)
       components.push({
         id: "concentrated",
         raw: round2(100 * w),
-        normalized: clip01(
-          (100 * w - concentratedFloor) /
-            (CAPS.concentratedPct - concentratedFloor),
-        ),
+        // ⚠ A FLOOR AT THE CAP KEEPS THE SIGNAL KNOWN AT 0 — never withdrawn, for the reason
+        // the floor's own comment gives — and avoids dividing by zero.
+        normalized:
+          concentratedFloor >= CAPS.concentratedPct
+            ? 0
+            : clip01(
+                (100 * w - concentratedFloor) /
+                  (CAPS.concentratedPct - concentratedFloor),
+              ),
       });
     const z = peer.get(f.s.code);
     if (z !== undefined)

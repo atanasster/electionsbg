@@ -52,10 +52,10 @@ export interface SuspiciousCategoryPayload {
    *  is EMPTY in that state by construction. */
   discriminating: boolean;
   top: SuspiciousPlace[];
-  /** ⚠ NO CONSUMER TODAY, and deliberately unvalidated for that reason — the guard checks the
-   *  leaves a surface dereferences and nothing more. Mirrored from the artifact because the
-   *  parliamentary `computeRiskComposite` vote-weights its composite on the same field, so a
-   *  presidential risk index would need no producer change. */
+  /** Actual voters in the flagged settlements. Read by the presidential Election Risk Index
+   *  (`presidentialRiskComposite.ts`), which vote-weights its concentration and procedural
+   *  components on it — the field the parliamentary `computeRiskComposite` uses — so the guard
+   *  validates it. */
   votesAffected: number;
 }
 
@@ -100,6 +100,9 @@ const isCategory = (v: unknown): v is SuspiciousCategoryPayload => {
     // exists to stop an unfair accusation. A dash is survivable; a fabricated 0 is not.
     !num(c.flaggedShare) ||
     typeof c.discriminating !== "boolean" ||
+    // ⚠ THE RISK INDEX VOTE-WEIGHTS ON THIS: a missing value would score its component as an
+    // available 0 and pull the headline down, rather than leaving it unavailable.
+    !num(c.votesAffected) ||
     !Array.isArray(c.top)
   )
     return false;

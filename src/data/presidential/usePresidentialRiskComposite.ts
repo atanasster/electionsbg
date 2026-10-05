@@ -9,7 +9,7 @@
 import { useMemo } from "react";
 import type { RiskComposite } from "@/data/riskScore/computeRiskComposite";
 import { usePresidentialPollsAccuracy } from "./usePresidentialPolls";
-import { useFlashDiff } from "./useFlashDiff";
+import { useFlashDiffQuery } from "./useFlashDiff";
 import { usePresidentialSuspicious } from "./useSuspiciousSettlements";
 import {
   usePresidentialRiskScore,
@@ -32,7 +32,7 @@ export const usePresidentialRiskIndex = (
   round: 1 | 2,
 ): PresidentialRiskIndexState => {
   const risk = usePresidentialRiskScore(cycle, round);
-  const flash = useFlashDiff(cycle, round);
+  const flash = useFlashDiffQuery(cycle, round);
   const suspicious = usePresidentialSuspicious(cycle, round);
   const polls = usePresidentialPollsAccuracy();
 
@@ -40,7 +40,7 @@ export const usePresidentialRiskIndex = (
     if (risk.status !== "ready") return risk;
     // Hold the index until the optional inputs have SETTLED, so it never renders once without
     // them and then jumps — the parliamentary hook's coherence rule.
-    if (suspicious.status === "loading" || polls.isPending)
+    if (suspicious.status === "loading" || polls.isPending || flash.isPending)
       return { status: "loading" };
     const pollMaes =
       polls.data?.cycles
@@ -51,11 +51,19 @@ export const usePresidentialRiskIndex = (
       risk: risk.risk,
       composite: computePresidentialRiskComposite({
         risk: risk.risk,
-        flash: flash ?? null,
+        flash: flash.data ?? null,
         suspicious:
           suspicious.status === "ready" ? suspicious.suspicious : null,
         pollMaes,
       }),
     };
-  }, [risk, flash, suspicious, polls.isPending, polls.data, cycle]);
+  }, [
+    risk,
+    flash.isPending,
+    flash.data,
+    suspicious,
+    polls.isPending,
+    polls.data,
+    cycle,
+  ]);
 };

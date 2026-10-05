@@ -128,7 +128,7 @@ export const computePresidentialRiskComposite = ({
     suspicious && voters > 0 && concentrated.length
       ? share(
           "concentration",
-          suspicious.concentrated.votesAffected ?? 0,
+          suspicious.concentrated.votesAffected,
           voters,
           CONCENTRATION_CAP_PCT,
         )
@@ -139,10 +139,7 @@ export const computePresidentialRiskComposite = ({
     suspicious && voters > 0 && procedural.length
       ? share(
           "procedural",
-          procedural.reduce(
-            (a, k) => a + (suspicious[k].votesAffected ?? 0),
-            0,
-          ),
+          procedural.reduce((a, k) => a + suspicious[k].votesAffected, 0),
           voters,
           PROCEDURAL_CAP_PCT,
         )

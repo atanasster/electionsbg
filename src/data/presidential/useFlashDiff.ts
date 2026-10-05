@@ -51,12 +51,11 @@ const isDiff = (v: unknown): v is PresidentialFlashDiff => {
   );
 };
 
-export const useFlashDiff = (
-  cycle: string,
-  round: 1 | 2,
-): PresidentialFlashDiff | undefined => {
+/** The flash query itself — for a caller that must tell „still loading" from „no flash records
+ *  for this election", which `useFlashDiff` folds into one `undefined`. */
+export const useFlashDiffQuery = (cycle: string, round: 1 | 2) => {
   const path = `${cycle}/tur${round}/flash.json`;
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["presidential_flash_diff", path],
     // A settled election's published records; they never change under a reader.
     staleTime: Infinity,
@@ -67,5 +66,10 @@ export const useFlashDiff = (
       return isDiff(body) ? body : null;
     },
   });
-  return data ?? undefined;
 };
+
+export const useFlashDiff = (
+  cycle: string,
+  round: 1 | 2,
+): PresidentialFlashDiff | undefined =>
+  useFlashDiffQuery(cycle, round).data ?? undefined;

@@ -30,14 +30,15 @@ export const PresidentialUpcomingPolls: FC<{
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { data: agencies } = useAgencies();
   const election = upcomingPresidentialElection();
+  const electionDate = election?.date;
   const view = useMemo(
     () =>
-      election
-        ? upcomingPresidentialPolls(polls, details, election.date, {
+      electionDate
+        ? upcomingPresidentialPolls(polls, details, electionDate, {
             agencyId,
           })
         : null,
-    [polls, details, election, agencyId],
+    [polls, details, electionDate, agencyId],
   );
   if (!election || !view) return null;
   if (!view.rows.length && !view.otherPolls.length) return null;
