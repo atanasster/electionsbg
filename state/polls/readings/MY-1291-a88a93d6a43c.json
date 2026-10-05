@@ -1,0 +1,131 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "MY",
+  "pubId": "1291",
+  "captureSha256": "a88a93d6a43c8ff5e6d4cb65bb7e38428e8446abe0c350c0a4b85c45baa65956",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:29:10+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2025-02-06",
+      "fieldworkEnd": "2025-02-16",
+      "fieldworkQuote": "проведено с таблети между 6 и 16 февруари 2025 г.",
+      "respondents": 803,
+      "respondentsQuote": "сред 803 пълнолетни български граждани",
+      "publishedAt": "2025-02-21",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително изследване „лице в лице“ с таблети сред 803 пълнолетни български граждани; максимално стандартно отклонение ±3,5 при 50% дялове.",
+        "en": "Nationally representative face-to-face survey using tablets among 803 adult Bulgarian citizens; maximum standard error ±3.5 at 50% shares."
+      },
+      "methodologyQuote": "Изследването е проведено „лице в лице“ с таблети между 6 и 16 февруари 2025 г. сред 803 пълнолетни български граждани. Максималното стандартно отклонение е ±3,5 при 50% дялове.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "от участващите",
+          "baseLabel": {
+            "bg": "Участващите в изборите",
+            "en": "Respondents who would take part in the election"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 26.5,
+              "quote": "Ако изборите бяха днес, 26,5% от участващите бяха гласували за ГЕРБ-СДС",
+              "image": null
+            },
+            {
+              "label": "Продължаваме промяната-Демократична България",
+              "kind": "choice",
+              "value": 13.9,
+              "quote": "13,9% – за „Продължаваме промяната-Демократична България“",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 13.5,
+              "quote": "13,5% за „Възраждане“",
+              "image": null
+            },
+            {
+              "label": "ДПС – Ново начало",
+              "kind": "choice",
+              "value": 10.1,
+              "quote": "10,1% за ДПС – Ново начало",
+              "image": null
+            },
+            {
+              "label": "ДПС-Демокрация, права и свободи",
+              "kind": "choice",
+              "value": 7.0,
+              "quote": "7,0% – за ДПС-Демокрация, права и свободи",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 6.8,
+              "quote": "6,8% – за БСП, 6,4% – за ИТН",
+              "image": null
+            },
+            {
+              "label": "ИТН",
+              "kind": "choice",
+              "value": 6.4,
+              "quote": "6,4% – за ИТН, 5,9% – за МЕЧ",
+              "image": null
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 5.9,
+              "quote": "5,9% – за МЕЧ, 4% за „Величие“",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 4.0,
+              "quote": "4% за „Величие“, а 5,9% – за други",
+              "image": null
+            },
+            {
+              "label": "други по-малки формации",
+              "kind": "other",
+              "value": 5.9,
+              "quote": "а 5,9% – за други по-малки формации",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от цялата извадка",
+          "baseLabel": {
+            "bg": "Цялата извадка",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 3.1,
+              "quote": "3,1% от цялата извадка заявяват, че биха гласували с „Не подкрепям никого“",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

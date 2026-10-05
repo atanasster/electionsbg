@@ -1,0 +1,65 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "977",
+  "captureSha256": "6b0e78607b683fa82fed9afe8cd37221dbffd50605b97bd1cac49639081c2d3a",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2021-02-26",
+      "fieldworkEnd": "2021-03-01",
+      "fieldworkQuote": "Анкетирани са 1013 пълнолетни граждани в периода 26 февруари – 1 март",
+      "respondents": 1013,
+      "respondentsQuote": "Анкетирани са 1013 пълнолетни граждани",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване; пряко стандартизирано интервю с таблет; 1013 пълнолетни граждани; двустепенна стратифицирана по регион и тип населено място извадка с квота по пол, възраст, образование.",
+        "en": "Nationally representative survey; face-to-face standardised tablet interview; 1013 adult citizens; two-stage sample stratified by region and settlement type with quotas by gender, age and education."
+      },
+      "methodologyQuote": "Анкетирани са 1013 пълнолетни граждани в периода 26 февруари – 1 март чрез пряко стандартизирано интервю с таблет, което позволява събирането на данните в реално време и регистрирането на най-последните промени в обществените нагласи. Използвана е двустепенна стратифицирана по регион и тип населено място извадка с квота по пол, възраст, образование.",
+      "sponsor": "Алфа Рисърч и БТВ",
+      "sponsorQuote": "съфинансирано от агенцията и БТВ",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "СРЕД ТВЪРДО РЕШИЛИТЕ ДА ГЛАСУВАТ",
+          "baseLabel": { "bg": "Твърдо решили да гласуват", "en": "Respondents firmly decided to vote" },
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 28.5, "quote": "Статистически значима преднина от пет пункт на ГЕРБ (28.5%)", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 23.2, "quote": "основния електорален конкурент БСП (23.2%)", "image": null },
+            { "label": "Има такъв народ", "kind": "choice", "value": 13.3, "quote": "ДПС (12.5%) и Има такъв народ (13.3%) за третото място", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 12.5, "quote": "Оспорвана надпревара между ДПС (12.5%)", "image": null },
+            { "label": "Демократична България", "kind": "choice", "value": 5.7, "quote": "подкрепата за Демократична България (5.7%)", "image": null },
+            { "label": "Изправи се! Мутри вън!", "kind": "choice", "value": 4.5, "quote": null, "image": "Chart_3.jpg" },
+            { "label": "ВМРО", "kind": "choice", "value": 3.7, "quote": "Коалицията на Мая Манолова (4.5%) и ВМРО (3.7%)", "image": null },
+            { "label": "Воля-НФСБ", "kind": "choice", "value": 1.8, "quote": null, "image": "Chart_3.jpg" },
+            { "label": "АБВ", "kind": "choice", "value": 0.9, "quote": null, "image": "Chart_3.jpg" },
+            { "label": "Републиканци за България", "kind": "choice", "value": 0.9, "quote": null, "image": "Chart_3.jpg" },
+            { "label": "КОД", "kind": "choice", "value": 0.8, "quote": null, "image": "Chart_3.jpg" },
+            { "label": "Възраждане", "kind": "choice", "value": 0.7, "quote": null, "image": "Chart_3.jpg" },
+            { "label": "Атака", "kind": "choice", "value": 0.5, "quote": null, "image": "Chart_3.jpg" },
+            { "label": "Други", "kind": "other", "value": 3.0, "quote": null, "image": "Chart_3.jpg" }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от пълнолетните българи",
+          "baseLabel": { "bg": "Всички анкетирани", "en": "All respondents" },
+          "answers": [
+            { "label": "Да, със сигурност", "kind": "choice", "value": 52.5, "quote": "Към момента 52.5% от пълнолетните българи заявяват, че със сигурност ще участват в изборите", "image": null },
+            { "label": "Колебаят се", "kind": "undecided", "value": 25.1, "quote": null, "image": "Chart_1.jpg" },
+            { "label": "Няма да гласуват", "kind": "wont_vote", "value": 22.4, "quote": null, "image": "Chart_1.jpg" }
+          ]
+        }
+      ]
+    }
+  ]
+}

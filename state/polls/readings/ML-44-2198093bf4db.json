@@ -1,0 +1,41 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "44",
+  "captureSha256": "2198093bf4dbaf656db2d680148494b3429486b321e55aae328178eb6e21096d",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:05Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "presidential",
+      "fieldworkStart": "2016-10-24",
+      "fieldworkEnd": "2016-10-30",
+      "fieldworkQuote": "24-30 ОКТОМВРИ 2016 г.",
+      "respondents": 1006,
+      "respondentsQuote": "БАЗА 1006 ЛИЦА 18+ г.",
+      "publishedAt": "2016-11-01",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване, база 1006 лица на 18+ години.",
+        "en": "Nationally representative survey, base of 1,006 persons aged 18+."
+      },
+      "methodologyQuote": "НАЦИОНАЛНО ПРЕДСТАВИТЕЛНО-ПРОУЧВАНЕ. БАЗА 1006 ЛИЦА 18+ г.",
+      "sponsor": "bTV",
+      "sponsorQuote": "национално-представително проучване на Маркет ЛИНКС, проведено по поръчка на bTV",
+      "questions": [
+        {
+          "measure": "runoff",
+          "round": 2,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            { "label": "Цецка Цачева", "kind": "choice", "value": 25.0, "quote": null, "image": "C.png" },
+            { "label": "Румен Радев", "kind": "choice", "value": 30.7, "quote": null, "image": "C.png" }
+          ]
+        }
+      ]
+    }
+  ]
+}

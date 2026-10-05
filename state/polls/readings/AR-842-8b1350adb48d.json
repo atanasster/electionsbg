@@ -1,0 +1,47 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "842",
+  "captureSha256": "8b1350adb48d983b7e1bb74355773ccc82b3f29cd960cb71e1da6fa5e36c6fd0",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2010-12-04",
+      "fieldworkEnd": "2010-12-12",
+      "fieldworkQuote": "проведено в периода  4 – 12 декември 2010г. сред 1002 пълнолетни граждани от цялата страна",
+      "respondents": 1002,
+      "respondentsQuote": "1002 ефективни интервюта",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване за пълнолетното население; квотна извадка (възраст, пол, образование, тип населено място); пряко стандартизирано интервю по домовете; 1002 интервюта.",
+        "en": "Nationally representative survey of the adult population; quota sample (age, sex, education, settlement type); face-to-face standardised interviews in respondents' homes; 1,002 interviews."
+      },
+      "methodologyQuote": "Квота въз основа на признаците възраст, пол, образование и тип на населеното място; Пряко стандартизирано интервю по домовете на интервюираните лица",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 27.0, "quote": "ГЕРБ запазва преднина пред политическите си опоненти с 27%", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 15.2, "quote": "БСП излиза от най-дълбоката си криза и леко подобрява позициите си (15.2%)", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 5.0, "quote": null, "image": "Public_opinion_AR_December_2010.pdf" },
+            { "label": "Синята коалиция", "kind": "choice", "value": 4.4, "quote": "Устойчиви остават позициите и на Синята коалиция (4.4%)", "image": null },
+            { "label": "АТАКА", "kind": "choice", "value": 3.0, "quote": "Атака е овладяла спада, който претърпя през предишните месеци и печели 3% електорална подкрепа", "image": null },
+            { "label": "РЗС", "kind": "choice", "value": 0.8, "quote": null, "image": "Public_opinion_AR_December_2010.pdf" },
+            { "label": "Друга партия", "kind": "other", "value": 4.8, "quote": null, "image": "Public_opinion_AR_December_2010.pdf" },
+            { "label": "Няма да гласувам", "kind": "wont_vote", "value": 39.8, "quote": null, "image": "Public_opinion_AR_December_2010.pdf" }
+          ]
+        }
+      ]
+    }
+  ]
+}

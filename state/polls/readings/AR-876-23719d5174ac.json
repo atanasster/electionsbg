@@ -1,0 +1,57 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "876",
+  "captureSha256": "23719d5174acf1124f380ede6fff2dc7f63ca0c5d20cdbdffdca9385c1b2cd58",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2013-09-19",
+      "fieldworkEnd": "2013-09-25",
+      "fieldworkQuote": "реализирано в периода 19–25 септември 2013г.",
+      "respondents": 1010,
+      "respondentsQuote": "извадка от 1010 пълнолетни граждани",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю сред стратифицирана по тип населено място квотна извадка от 1010 пълнолетни граждани (квоти по възраст, пол и образование); представително за пълнолетното население.",
+        "en": "Face-to-face standardised interview with a quota sample of 1,010 adult citizens stratified by settlement type (quotas on age, gender and education); representative of the adult population."
+      },
+      "methodologyQuote": "Проведено е по метода на пряко стандартизирано интервю сред стратифицирана по тип населено място извадка от 1010 пълнолетни граждани, подбрани по метода на квота въз основа на признаците възраст, пол и образование.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от общия брой избиратели",
+          "baseLabel": { "bg": "От общия брой избиратели", "en": "Of all voters (all respondents)" },
+          "answers": [
+            { "label": "БСП", "kind": "choice", "value": 17.9,
+              "quote": "електоралната подкрепа за социалистите е 17.9% от общия брой избиратели", "image": null },
+            { "label": "ГЕРБ", "kind": "choice", "value": 17.1,
+              "quote": "с подкрепа от 17.1% ГЕРБ скъсява значително дистанцията с БСП", "image": null },
+            { "label": "Реформаторски блок", "kind": "choice", "value": 7.0,
+              "quote": "ДПС (6.1%) и Реформаторският блок (7.0%) са другите две сигурни парламентарни партии", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 6.1,
+              "quote": "ДПС (6.1%) и Реформаторският блок (7.0%) са другите две сигурни парламентарни партии", "image": null },
+            { "label": "НФСБ", "kind": "choice", "value": 2.8,
+              "quote": "партиите в тази ниша – НФСБ (2.8%) и Атака (1.6%)", "image": null },
+            { "label": "Атака", "kind": "choice", "value": 1.6,
+              "quote": "партиите в тази ниша – НФСБ (2.8%) и Атака (1.6%)", "image": null },
+            { "label": "Друга партия на протестиращи", "kind": "choice", "value": 8.0,
+              "quote": null, "image": "1013-Public%20Opinion-Alpha%20Research.pdf" },
+            { "label": "Други партии", "kind": "other", "value": 5.1,
+              "quote": null, "image": "1013-Public%20Opinion-Alpha%20Research.pdf" },
+            { "label": "Няма да гласувам", "kind": "wont_vote", "value": 34.4,
+              "quote": null, "image": "1013-Public%20Opinion-Alpha%20Research.pdf" }
+          ]
+        }
+      ]
+    }
+  ]
+}

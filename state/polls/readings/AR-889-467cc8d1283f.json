@@ -1,0 +1,119 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "889",
+  "captureSha256": "467cc8d1283fdee08f1d15bdcf3f03fc1210fbdaaf434e73ad1aa6beec3ea725",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:24:17Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2014-08-31",
+      "fieldworkEnd": "2014-09-05",
+      "fieldworkQuote": "Изследването е проведено в периода 31.08 – 05.09. 2014г.",
+      "respondents": 1025,
+      "respondentsQuote": "сред 1025 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално-представително проучване; стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; пряко стандартизирано интервю по домовете на 1025 пълнолетни граждани.",
+        "en": "Nationally representative survey; stratified two-stage sample with quotas on the main socio-demographic characteristics; face-to-face standardised interviews at the homes of 1,025 adult citizens."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю по домовете на анкетираните лица.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "твърдо решилите да гласуват",
+          "baseLabel": {
+            "bg": "Твърдо решили да гласуват",
+            "en": "Respondents firmly decided to vote"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 36.2,
+              "quote": "към момента привлича 36.2% от твърдо решилите на гласуват",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 22.5,
+              "quote": "Социалистите получават подкрепата на 22.5% от твърдо решилите да гласуват",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 12.1,
+              "quote": "Движението получава традиционната си подкрепа (12.1% от решилите да гласуват към момента)",
+              "image": null
+            },
+            {
+              "label": "РБ",
+              "kind": "choice",
+              "value": 5.2,
+              "quote": "в следващия парламент (5.2% от твърдо решилите да гласуват)",
+              "image": null
+            },
+            {
+              "label": "ББЦ",
+              "kind": "choice",
+              "value": 4.4,
+              "quote": "значително по-скромна подкрепа – 4.4% от решилите за гласуват",
+              "image": null
+            },
+            {
+              "label": "АБВ",
+              "kind": "choice",
+              "value": 3.9,
+              "quote": "на границата на изборния праг от 4% – АБВ с 3.9%",
+              "image": null
+            },
+            {
+              "label": "Патриотичен фронт",
+              "kind": "choice",
+              "value": 3.7,
+              "quote": "АБВ с 3.9%, Патриотичният фронт с 3.7%",
+              "image": null
+            },
+            {
+              "label": "Атака",
+              "kind": "choice",
+              "value": 2.9,
+              "quote": "Атака остава малко под тях – с 2.9% от решилите да гласуват",
+              "image": null
+            },
+            {
+              "label": "\"Движение 21\"",
+              "kind": "choice",
+              "value": 1.5,
+              "quote": "„Движение 21“ на Т. Дончева (1.5% от решилите да гласуват)",
+              "image": null
+            },
+            {
+              "label": "Коалиция \"Десните\"",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "и коалиция „Десните“ с 1%",
+              "image": null
+            },
+            {
+              "label": "Други партии",
+              "kind": "other",
+              "value": 6.6,
+              "quote": "Други партии 6,6%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

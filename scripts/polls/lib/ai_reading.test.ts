@@ -290,6 +290,27 @@ describe("validateReading", () => {
     r.polls[0].questions[0].answers[0].quote = null;
     expect(validateReading(r).join()).toMatch(/quote or an image/);
   });
+  it("rejects a methodology that is not a {bg, en} pair", () => {
+    const r = myaraReading();
+    (r.polls[0] as unknown as Record<string, unknown>).methodology =
+      "лично интервю";
+    expect(validateReading(r).join()).toMatch(/methodology must be/);
+  });
+  it.each([
+    ["a blank English side", { bg: "лично интервю", en: "  " }],
+    ["a missing English side", { bg: "лично интервю" }],
+    ["a non-string side", { bg: "лично интервю", en: 5 }],
+  ])("rejects a methodology with %s", (_label, methodology) => {
+    const r = myaraReading();
+    (r.polls[0] as unknown as Record<string, unknown>).methodology =
+      methodology;
+    expect(validateReading(r).join()).toMatch(/methodology must be/);
+  });
+  it("accepts a null methodology", () => {
+    const r = myaraReading();
+    r.polls[0].methodology = null;
+    expect(validateReading(r)).toEqual([]);
+  });
   it("rejects a non-ISO date and a wrong schema tag", () => {
     const r = myaraReading() as unknown as Record<string, unknown>;
     r.schema = "v0";

@@ -1,0 +1,98 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "805",
+  "captureSha256": "e1c82056bd412e49161c74582c2e6f9e7874f3f7ae9ffaea4f596e470b0e24f0",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:25:55Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2009-01-30",
+      "fieldworkEnd": "2009-02-13",
+      "fieldworkQuote": "през периода 30 януари – 13 февруари 2009 г.",
+      "respondents": 1021,
+      "respondentsQuote": "сред 1021 души",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население изследване на Алфа Рисърч, 1021 души.",
+        "en": "Survey representative of the adult population by Alpha Research, 1021 people."
+      },
+      "methodologyQuote": "Данните са от представително за пълнолетното население на страната изследване, проведено от агенция Алфа Рисърч",
+      "sponsor": "вестник „Дневник”",
+      "sponsorQuote": "по поръчка на вестник „Дневник”",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от общия брой избиратели",
+          "baseLabel": {
+            "bg": "От общия брой избиратели",
+            "en": "Of all voters"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 21,
+              "quote": "ГЕРБ продължава да държи лидерска позиция с потенциал от 21 на сто",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 14.9,
+              "quote": "електоралният й потенциал спада на 14.9% от общия брой избиратели",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 6.9,
+              "quote": "ДПС получава традиционните си 6.9%",
+              "image": null
+            },
+            {
+              "label": "Атака",
+              "kind": "choice",
+              "value": 6.4,
+              "quote": "ДПС получава традиционните си 6.9%, а Атака – 6.4%",
+              "image": null
+            },
+            {
+              "label": "СДС",
+              "kind": "choice",
+              "value": 2.2,
+              "quote": "С подкрепа от 2.2% в началото на февруари тя е една от малкото",
+              "image": null
+            },
+            {
+              "label": "Движение „Напред”",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": "1.9% от избирателите са готови да дадат подкрепата си за Движение „Напред”",
+              "image": null
+            },
+            {
+              "label": "НДСВ",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": "към февруари НДСВ получава подкрепата на 1.9%",
+              "image": null
+            },
+            {
+              "label": "ДСБ",
+              "kind": "choice",
+              "value": 1,
+              "quote": "потенциалът на тъмносините към днешна дата е свит до 1% от общия брой избиратели",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

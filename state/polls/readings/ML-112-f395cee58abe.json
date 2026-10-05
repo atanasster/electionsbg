@@ -1,0 +1,278 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "112",
+  "captureSha256": "f395cee58abec5fe37ce41027f8365c064ea84adfdf09888e2ced8776d2cb442",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:04Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-03-07",
+      "fieldworkEnd": "2026-03-15",
+      "fieldworkQuote": "Период на провеждане   07 - 15 март 2026 г.",
+      "respondents": 1006,
+      "respondentsQuote": "Обем на извадката      1006 лица над 18 г. в страната",
+      "publishedAt": "2026-03-18",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално количествено проучване; пряко-лично интервю и онлайн анкета; 1006 лица над 18 г.",
+        "en": "National quantitative survey; face-to-face interviews and online questionnaire; 1,006 people aged 18+."
+      },
+      "methodologyQuote": "Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ и Маркет ЛИНКС",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Декларирали твърдо намерение да гласуват: 564",
+          "baseLabel": {
+            "bg": "Декларирали твърдо намерение да гласуват",
+            "en": "Respondents who declared a firm intention to vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция Прогресивна България",
+              "kind": "choice",
+              "value": 21.1,
+              "quote": "Коалиция Прогресивна България 19.0% 21.1%",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ – СДС",
+              "kind": "choice",
+              "value": 18.6,
+              "quote": "ГЕРБ – СДС 13.0% 18.6%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Продължаваме промяната –…",
+              "kind": "choice",
+              "value": 12.0,
+              "quote": "Коалиция Продължаваме промяната –… 8.0% 12.0%",
+              "image": null
+            },
+            {
+              "label": "Движение за права и свободи",
+              "kind": "choice",
+              "value": 7.2,
+              "quote": "Движение за права и свободи 7.0% 7.2%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 4.9,
+              "quote": "Възраждане 4.0% 4.9%",
+              "image": null
+            },
+            {
+              "label": "Коалиция БСП – Обединена левица",
+              "kind": "choice",
+              "value": 3.0,
+              "quote": "Коалиция БСП – Обединена левица 2.0% 3.0%",
+              "image": null
+            },
+            {
+              "label": "МЕЧ (Морал, единство, чест)",
+              "kind": "choice",
+              "value": 2.8,
+              "quote": "МЕЧ (Морал, единство, чест) 2.0% 2.8%",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 2.7,
+              "quote": "Величие 2.0% 2.7%",
+              "image": null
+            },
+            {
+              "label": "Алианс за права и свободи",
+              "kind": "choice",
+              "value": 1.3,
+              "quote": "Алианс за права и свободи 2.0% 1.3%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Синя България",
+              "kind": "choice",
+              "value": 1.2,
+              "quote": "Коалиция Синя България 1.0% 1.2%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Сияние",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "Коалиция Сияние 1.0% 1.0%",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 0.2,
+              "quote": "Има такъв народ 0.0% 0.2%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 3.1,
+              "quote": "Друга 3.0% 3.1%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 19.1,
+              "quote": "Не съм решил 24.0% 19.1%",
+              "image": null
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 0.0,
+              "quote": "Няма да гласувам 10.0% 0.0%",
+              "image": null
+            },
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 1.8,
+              "quote": "Не подкрепям никого 1.8%3.0%",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "Всички: 1006",
+          "baseLabel": {
+            "bg": "Всички пълнолетни",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Коалиция Прогресивна България",
+              "kind": "choice",
+              "value": 19.0,
+              "quote": "Коалиция Прогресивна България 19.0% 21.1%",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ – СДС",
+              "kind": "choice",
+              "value": 13.0,
+              "quote": "ГЕРБ – СДС 13.0% 18.6%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Продължаваме промяната –…",
+              "kind": "choice",
+              "value": 8.0,
+              "quote": "Коалиция Продължаваме промяната –… 8.0% 12.0%",
+              "image": null
+            },
+            {
+              "label": "Движение за права и свободи",
+              "kind": "choice",
+              "value": 7.0,
+              "quote": "Движение за права и свободи 7.0% 7.2%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 4.0,
+              "quote": "Възраждане 4.0% 4.9%",
+              "image": null
+            },
+            {
+              "label": "Коалиция БСП – Обединена левица",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": "Коалиция БСП – Обединена левица 2.0% 3.0%",
+              "image": null
+            },
+            {
+              "label": "МЕЧ (Морал, единство, чест)",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": "МЕЧ (Морал, единство, чест) 2.0% 2.8%",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": "Величие 2.0% 2.7%",
+              "image": null
+            },
+            {
+              "label": "Алианс за права и свободи",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": "Алианс за права и свободи 2.0% 1.3%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Синя България",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "Коалиция Синя България 1.0% 1.2%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Сияние",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "Коалиция Сияние 1.0% 1.0%",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 0.0,
+              "quote": "Има такъв народ 0.0% 0.2%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 3.0,
+              "quote": "Друга 3.0% 3.1%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 24.0,
+              "quote": "Не съм решил 24.0% 19.1%",
+              "image": null
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 10.0,
+              "quote": "Няма да гласувам 10.0% 0.0%",
+              "image": null
+            },
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 3.0,
+              "quote": "Не подкрепям никого 1.8%3.0%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

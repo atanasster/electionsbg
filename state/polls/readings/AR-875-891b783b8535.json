@@ -1,0 +1,57 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "875",
+  "captureSha256": "891b783b853514e8eb87fe153f8918462d4a722224b223c5f103297cd3a9d037",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:22:09Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2013-08-19",
+      "fieldworkEnd": "2013-08-27",
+      "fieldworkQuote": "Период на провеждане 19-27 Август 2013г.",
+      "respondents": 1028,
+      "respondentsQuote": "Обем на извадката 1028 ефективни интервюта",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване за пълнолетното население, 1028 ефективни интервюта, пряко стандартизирано интервю по домовете; стратифицирана извадка по тип населено място с квоти по възраст, пол и образование. Статистическа грешка не е посочена.",
+        "en": "Nationally representative survey of the adult population, 1028 effective interviews, face-to-face standardised interviews in respondents' homes; sample stratified by settlement type with quotas on age, gender and education. Margin of error not stated."
+      },
+      "methodologyQuote": "Национално представително проучване на агенция Алфа Рисърч, проведено в периода 19-27 август, сред 1028 граждани чрез пряко стандартизирано интервю по домовете",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от общия брой избиратели",
+          "baseLabel": { "bg": "Всички пълнолетни анкетирани", "en": "All adult respondents" },
+          "answers": [
+            { "label": "БСП", "kind": "choice", "value": 18.4,
+              "quote": "БСП има лек електорален превес (18.4%) над ГЕРБ (15.6%)", "image": null },
+            { "label": "ГЕРБ", "kind": "choice", "value": 15.6,
+              "quote": "БСП има лек електорален превес (18.4%) над ГЕРБ (15.6%)", "image": null },
+            { "label": "Реформаторски блок", "kind": "choice", "value": 7.6,
+              "quote": "Реформаторският блок привлича подкрепата на 7.6% от общия брой избиратели", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 5.8,
+              "quote": "ДПС поддържа традиционните си позиции – 5.8% от пълнолетните жители на страната", "image": null },
+            { "label": "НФСБ", "kind": "choice", "value": 3.1,
+              "quote": "Атака губи подкрепа (спадайки до 1.5%), която се отлива към НФСБ (3.1%)", "image": null },
+            { "label": "Атака", "kind": "choice", "value": 1.5,
+              "quote": "Атака губи подкрепа (спадайки до 1.5%), която се отлива към НФСБ (3.1%)", "image": null },
+            { "label": "Друга партия на протестиращи", "kind": "choice", "value": 10.2,
+              "quote": "Друга партия на протестиращи 10,2%", "image": null },
+            { "label": "Други партии", "kind": "other", "value": 11.4,
+              "quote": "Други партии 11,4%", "image": null },
+            { "label": "Няма да гласувам", "kind": "wont_vote", "value": 26.4,
+              "quote": "Няма да гласувам 26,4%", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

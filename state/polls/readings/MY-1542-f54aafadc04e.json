@@ -1,0 +1,102 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "MY",
+  "pubId": "1542",
+  "captureSha256": "f54aafadc04e5a0ce93ab227c2be2f831476e123cf747fdaa43eca985e6320ff",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:29:15.055671+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2025-09-04",
+      "fieldworkEnd": "2025-09-12",
+      "fieldworkQuote": "The survey was conducted between September 4 and 12, 2025",
+      "respondents": 802,
+      "respondentsQuote": "among 802 adult Bulgarian citizens",
+      "publishedAt": "2025-10-20",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко лично интервю с таблети, 802 пълнолетни български граждани, 4–12 септември 2025 г.; максимална стандартна грешка ±3,5% при дялове от 50%.",
+        "en": "Face-to-face interviews using tablets, 802 adult Bulgarian citizens, 4–12 September 2025; maximum standard deviation ±3.5 at 50% shares."
+      },
+      "methodologyQuote": "The survey was conducted face-to-face using tablets between September 4 and 12, 2025, among 802 adult Bulgarian citizens. The maximum standard deviation is ±3.5 at 50% shares.",
+      "sponsor": null,
+      "sponsorQuote": "The data comes from an independent survey conducted as part of the regular research program of the sociological agency “Myara.”",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "GERB-SDS",
+              "kind": "choice",
+              "value": 26.9,
+              "quote": "GERB-SDS would have received 26.9%",
+              "image": null
+            },
+            {
+              "label": "PP-DB",
+              "kind": "choice",
+              "value": 13.9,
+              "quote": "PP-DB – 13.9%, “Vazrazhdane” (Revival)",
+              "image": null
+            },
+            {
+              "label": "Vazrazhdane",
+              "kind": "choice",
+              "value": 13.7,
+              "quote": "“Vazrazhdane” (Revival) would have received 13.7%",
+              "image": null
+            },
+            {
+              "label": "DPS-New Beginning",
+              "kind": "choice",
+              "value": 13.6,
+              "quote": "DPS-New Beginning (or DPS-NN) would have received 13.6%",
+              "image": null
+            },
+            {
+              "label": "BSP",
+              "kind": "choice",
+              "value": 6.7,
+              "quote": "BSP receives 6.7%",
+              "image": null
+            },
+            {
+              "label": "METCH",
+              "kind": "choice",
+              "value": 6.6,
+              "quote": "“METCH” – 6.6%, which also adds to the intrigue",
+              "image": null
+            },
+            {
+              "label": "ITN",
+              "kind": "choice",
+              "value": 5.3,
+              "quote": "ITN has 5.3%",
+              "image": null
+            },
+            {
+              "label": "Velichie",
+              "kind": "choice",
+              "value": 4.5,
+              "quote": "and “Velichie” – 4.5%",
+              "image": null
+            },
+            {
+              "label": "Alliance for Rights and Freedoms",
+              "kind": "choice",
+              "value": 2.6,
+              "quote": "remains below the threshold with 2.6%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

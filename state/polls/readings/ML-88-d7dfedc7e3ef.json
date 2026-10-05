@@ -1,0 +1,269 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "88",
+  "captureSha256": "d7dfedc7e3efd71760c65cb90ccf58adfd19020b377135869ddccc4af3b35314",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:37Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2021-06-18",
+      "fieldworkEnd": "2021-06-25",
+      "fieldworkQuote": "в периода 18 – 25 юни 2021-ва година",
+      "respondents": 1075,
+      "respondentsQuote": "проведено сред 1075 лица над 18 г. в страната",
+      "publishedAt": "2021-07-05",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко лично интервю и онлайн анкета сред 1075 лица над 18 г. в страната, 18–25 юни 2021 г.",
+        "en": "Face-to-face interviews and an online survey among 1,075 people aged 18+ nationwide, 18–25 June 2021."
+      },
+      "methodologyQuote": "Проучване, финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС, проведено сред 1075 лица над 18 г. в страната в периода 18 – 25 юни 2021-ва година по методите на пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ",
+      "sponsorQuote": "Проучване, финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "всички 1075",
+          "baseLabel": {
+            "bg": "Всички анкетирани",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Коалиция ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 17.1,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 16.2,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 12.6,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 9.8,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 6.7,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Изправи се! Мутри вън!",
+              "kind": "choice",
+              "value": 4.9,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Българските патриоти -…",
+              "kind": "choice",
+              "value": 2.4,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 2.2,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Българско лято",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 1.0,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 17.2,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 8.9,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "гласуващи 626",
+          "baseLabel": {
+            "bg": "Гласуващи",
+            "en": "Respondents who will vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 19.7,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 18.8,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 16.9,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 12.5,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 9.5,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Изправи се! Мутри вън!",
+              "kind": "choice",
+              "value": 5.4,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Българските патриоти -…",
+              "kind": "choice",
+              "value": 2.9,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 2.4,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Българско лято",
+              "kind": "choice",
+              "value": 1.3,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 1.0,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 9.6,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 0.0,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "База: всички, 1075",
+          "baseLabel": {
+            "bg": "Всички анкетирани",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Със сигурност ще гласувам",
+              "kind": "choice",
+              "value": 58,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "По-скоро ще гласувам",
+              "kind": "choice",
+              "value": 20,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Колебая се",
+              "kind": "undecided",
+              "value": 9,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "По-скоро няма да гласувам",
+              "kind": "choice",
+              "value": 4,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            },
+            {
+              "label": "Със сигурност няма да гласувам",
+              "kind": "wont_vote",
+              "value": 9,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2006.2021.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

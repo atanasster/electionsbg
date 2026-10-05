@@ -1,0 +1,45 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "798",
+  "captureSha256": "887ec97f8bfe60d3f32fba9cb2805ffddb3650fedba0b624df78f42196d86363",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2008-12-06",
+      "fieldworkEnd": "2008-12-12",
+      "fieldworkQuote": "проведено от агенция Алфа Рисърч в периода 6 – 12 декември 2008, сред 1035 души",
+      "respondents": 1035,
+      "respondentsQuote": "в периода 6 – 12 декември 2008, сред 1035 души",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население на страната проучване, 1035 души, 6–12 декември 2008 г.",
+        "en": "Survey representative of the country's adult population, 1,035 people, 6–12 December 2008."
+      },
+      "methodologyQuote": "Данните са от представително за пълнолетното население на страната проучване, проведено от агенция Алфа Рисърч в периода 6 – 12 декември 2008, сред 1035 души.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 21,
+              "quote": "С 21% подкрепа той остава първа политическа сила", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 16,
+              "quote": "БСП, вече в национална изборна обстановка, ще се опита да задържи сегашните си около 16 на сто привърженици", "image": null },
+            { "label": "НДСВ", "kind": "choice", "value": 2.2,
+              "quote": "доведоха до лек ръст в електоралния потенциал на НДСВ (2.2%)", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

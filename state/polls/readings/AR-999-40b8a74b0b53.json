@@ -1,0 +1,55 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "999",
+  "captureSha256": "40b8a74b0b53e324b8323814b2f202e05e8e605e357242b104986085687ce778",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:25:03Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2022-06-25",
+      "fieldworkEnd": "2022-07-01",
+      "fieldworkQuote": "Проведено е в периода 25 юни – 1 юли 2022г.",
+      "respondents": 1017,
+      "respondentsQuote": "сред 1017 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване, пряко стандартизирано интервю с таблети, 1017 пълнолетни граждани; двустепенна стратифицирана извадка с квота по пол, възраст, образование.",
+        "en": "Nationally representative survey, face-to-face standardised tablet interviews, 1017 adult citizens; two-stage stratified sample with quotas by sex, age and education."
+      },
+      "methodologyQuote": "сред 1017 пълнолетни граждани от цялата страна, чрез пряко стандартизирано интервю с таблети. Използвана е двустепенна стратифицирана по регион и тип населено място извадка с квота по пол, възраст, образование.",
+      "sponsor": null,
+      "sponsorQuote": "Публикувано е на сайта на агенцията и се реализира със собствени средства.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 21.5, "quote": "ПП остава на малко над процент след ГЕРБ (21.5%)", "image": null },
+            { "label": "ПП", "kind": "choice", "value": 20.2, "quote": "С ръст от 2 пункта спрямо април и 20.2% потенциален вот, ПП остава", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 11.5, "quote": "успява за момента да стабилизира електоралните позиции на левицата (11.5%)", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 8, "quote": "Партията на К. Костадинов остава с 8% подкрепа.", "image": null },
+            { "label": "Демократична България", "kind": "choice", "value": 7.1, "quote": "Демократична България също запазва избирателите си в София и големите градски центрове, което й осигурява 7.1% потенциален вот.", "image": null },
+            { "label": "ИТН", "kind": "choice", "value": 3.3, "quote": "ИТН бележи нова загуба на избиратели и при избори днес би останала под парламентарната черта (3.3%)", "image": null }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            { "label": "Желаят да участват в изборите", "kind": "choice", "value": 38, "quote": "Измерените към момента електорални нагласи са при едва 38% изразили желание да участват в изборите.", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

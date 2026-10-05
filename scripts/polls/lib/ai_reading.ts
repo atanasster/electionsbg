@@ -14,6 +14,7 @@ import type {
   PollMeasure,
 } from "../../../src/data/polls/pollsTypes";
 import type { InboxDraft } from "./draft";
+import { isBilingualLabel } from "./question_validation";
 
 export const READING_SCHEMA = "polls-ai-reading/v1";
 
@@ -116,6 +117,8 @@ export const validateReading = (value: unknown): string[] => {
         errors.push(`${at}.${k} must be YYYY-MM-DD or null`);
     if (p.respondents !== null && !Number.isInteger(p.respondents))
       errors.push(`${at}.respondents must be an integer or null`);
+    if (p.methodology !== null && !isBilingualLabel(p.methodology))
+      errors.push(`${at}.methodology must be {bg, en} or null`);
     if (!Array.isArray(p.questions)) {
       errors.push(`${at}.questions must be an array`);
       return;

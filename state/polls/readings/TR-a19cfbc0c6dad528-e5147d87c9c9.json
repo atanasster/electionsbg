@@ -1,0 +1,199 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "TR",
+  "pubId": "a19cfbc0c6dad528",
+  "captureSha256": "e5147d87c9c9681ecdd4e28a0f7b2f1c516472b9f8f435538d53c04ab9d800c8",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:29:59Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2021-11-01",
+      "fieldworkEnd": "2021-11-07",
+      "fieldworkQuote": null,
+      "respondents": 1013,
+      "respondentsQuote": null,
+      "publishedAt": "2021-11-09",
+      "genre": "raw_attitudes",
+      "methodology": {
+        "bg": "Пряко полустандартизирано интервю „лице в лице“ чрез таблет; 1013 ефективни интервюта с респонденти на 18+ г., представително за пълнолетното население; максимална стохастична грешка ±3,1%.",
+        "en": "Direct semi-structured face-to-face tablet interviews; 1,013 effective interviews with respondents aged 18+, representative of the adult population; maximum sampling error ±3.1%."
+      },
+      "methodologyQuote": null,
+      "sponsor": "Вестник „24 часа“",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Сред заявилите, че ще гласуват",
+          "baseLabel": {
+            "bg": "Заявилите, че ще гласуват",
+            "en": "Respondents who said they will vote"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 22.9,
+              "quote": "ГЕРБ задържа лидерската си позиция с 22.9%",
+              "image": null
+            },
+            {
+              "label": "БСП за България",
+              "kind": "choice",
+              "value": 15.1,
+              "quote": "спорят БСП (15.1%) и „Продължаваме промяната“ (14.8%)",
+              "image": null
+            },
+            {
+              "label": "Продължаваме промяната",
+              "kind": "choice",
+              "value": 14.8,
+              "quote": "спорят БСП (15.1%) и „Продължаваме промяната“ (14.8%)",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 12.8,
+              "quote": "„Има такъв народ“ заема четвърта позиция с 12.8% от гласуващите",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 10.3,
+              "quote": "следван от ДПС с 10.3%",
+              "image": null
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 9.1,
+              "quote": "Демократична България събира подкрепата на 9.1%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 3.6,
+              "quote": "е „Възраждане“ с 3.6% и „Изправи се БГ! Ние идваме“ с 3.3%",
+              "image": null
+            },
+            {
+              "label": "Изправи се БГ! Ние идваме!",
+              "kind": "choice",
+              "value": 3.3,
+              "quote": "е „Възраждане“ с 3.6% и „Изправи се БГ! Ние идваме“ с 3.3%",
+              "image": null
+            },
+            {
+              "label": "ВМРО",
+              "kind": "choice",
+              "value": 2.2,
+              "quote": "Партията на Красимир Каракачанов остава с подкрепата на 2.2% от гласуващите",
+              "image": null
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 5.9,
+              "quote": null,
+              "image": "Slide3.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "race": "presidential",
+      "fieldworkStart": "2021-11-01",
+      "fieldworkEnd": "2021-11-07",
+      "fieldworkQuote": null,
+      "respondents": 1013,
+      "respondentsQuote": null,
+      "publishedAt": "2021-11-09",
+      "genre": "raw_attitudes",
+      "methodology": {
+        "bg": "Пряко полустандартизирано интервю „лице в лице“ чрез таблет; 1013 ефективни интервюта с респонденти на 18+ г., представително за пълнолетното население; максимална стохастична грешка ±3,1%.",
+        "en": "Direct semi-structured face-to-face tablet interviews; 1,013 effective interviews with respondents aged 18+, representative of the adult population; maximum sampling error ±3.1%."
+      },
+      "methodologyQuote": null,
+      "sponsor": "Вестник „24 часа“",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Сред заявилите, че ще гласуват",
+          "baseLabel": {
+            "bg": "Заявилите, че ще гласуват",
+            "en": "Respondents who said they will vote"
+          },
+          "answers": [
+            {
+              "label": "Румен Радев",
+              "kind": "choice",
+              "value": 46.8,
+              "quote": "Двойката Румен Радев-Илияна Йотова заема лидерската позиция в подреждането с 46.8%",
+              "image": null
+            },
+            {
+              "label": "Анастас Герджиков",
+              "kind": "choice",
+              "value": 24.4,
+              "quote": "следвана от Анастас Герджиков-Невяна Митева с 24.4% от гласуващите",
+              "image": null
+            },
+            {
+              "label": "Мустафа Карадайъ",
+              "kind": "choice",
+              "value": 9.9,
+              "quote": "Твърда трета позиция на Мустафа Карадайъ-Искра Михайлова (9.9%)",
+              "image": null
+            },
+            {
+              "label": "Лозан Панов",
+              "kind": "choice",
+              "value": 6.4,
+              "quote": "Четвърта позиция заема двойката Лозан Панов-Мария Касимова-Моасе с 6.4% от гласуващите",
+              "image": null
+            },
+            {
+              "label": "Костадин Костадинов",
+              "kind": "choice",
+              "value": 3.1,
+              "quote": "Следват Костадин Костадинов-Елена Гунчева с 3.1%",
+              "image": null
+            },
+            {
+              "label": "Милен Михов",
+              "kind": "choice",
+              "value": 1.6,
+              "quote": "Милен Михов-Мария Цветкова с 1.6%",
+              "image": null
+            },
+            {
+              "label": "Луна Йорданова",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "Луна Йорданова-Иглена Илиева с 1%",
+              "image": null
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 6.8,
+              "quote": null,
+              "image": "Slide4.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

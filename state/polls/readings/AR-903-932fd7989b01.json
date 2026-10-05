@@ -1,0 +1,49 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "903",
+  "captureSha256": "932fd7989b01727967491769b9e3e954ef0f526deda7b7e68462ac1c3ed9adca",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2016-02-18",
+      "fieldworkEnd": "2016-02-25",
+      "fieldworkQuote": "проведено в периода 18 – 25 февруари 2016г.",
+      "respondents": 1723,
+      "respondentsQuote": "Анкетирани са общо 1723 пълнолетни граждани.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване; 1723 пълнолетни граждани; двустепенна извадка, стратифицирана по регион и тип населено място, с квотен подбор по пол, възраст и образование. Регулярно проучване 18–25 февруари 2016 г. и експресно 28 февруари – 4 март 2016 г.; електоралната графика е обозначена „II.2016“.",
+        "en": "Nationally representative survey; 1,723 adult citizens; two-stage sample stratified by region and settlement type, with quota selection by sex, age and education. Regular survey 18–25 February 2016 and express survey 28 February – 4 March 2016; the electoral chart is labelled \"II.2016\"."
+      },
+      "methodologyQuote": "Анкетирани са общо 1723 пълнолетни граждани. Извадката е двустепенна, стратифицирана по регион и тип населено място, с подбор на респондентите по квота въз основа на признаците пол, възраст, образование.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ПАРЛАМЕНТАРЕН ВОТ",
+          "baseLabel": { "bg": "Всички анкетирани (включително „Няма да гласувам“)", "en": "All respondents (including \"Will not vote\")" },
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 21.3, "quote": "ГЕРБ губи 3% в сравнение с ноември, но запазва първо място (21.3%)", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 10.4, "quote": "С 10.4% БСП поддържа двойната дистанция от него", "image": null },
+            { "label": "РБ", "kind": "choice", "value": 5.9, "quote": "Реформаторският блок също бележи лек отлив (до 5.9%)", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 4.9, "quote": "отбелязва спад от 6.8% на 4.9%", "image": null },
+            { "label": "Патриотичен фронт", "kind": "choice", "value": 4.1, "quote": null, "image": "0316_Public_Opinion_Alpha_Research.pdf" },
+            { "label": "АБВ", "kind": "choice", "value": 3.1, "quote": null, "image": "0316_Public_Opinion_Alpha_Research.pdf" },
+            { "label": "Атака", "kind": "choice", "value": 2.2, "quote": null, "image": "0316_Public_Opinion_Alpha_Research.pdf" },
+            { "label": "Движение 21", "kind": "choice", "value": 1.9, "quote": null, "image": "0316_Public_Opinion_Alpha_Research.pdf" },
+            { "label": "Други партии", "kind": "other", "value": 6.5, "quote": null, "image": "0316_Public_Opinion_Alpha_Research.pdf" },
+            { "label": "Няма да гласувам", "kind": "wont_vote", "value": 39.7, "quote": null, "image": "0316_Public_Opinion_Alpha_Research.pdf" }
+          ]
+        }
+      ]
+    }
+  ]
+}

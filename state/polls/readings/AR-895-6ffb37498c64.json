@@ -1,0 +1,49 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "895",
+  "captureSha256": "6ffb37498c643f0a3ea9d7dd3123286d007868300c8dd2f53867dc51dac43595",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2015-01-15",
+      "fieldworkEnd": "2015-01-23",
+      "fieldworkQuote": "реализирано в периода 15-23 януари",
+      "respondents": 1026,
+      "respondentsQuote": "Анкетирани са по домовете им чрез пряко стандартизирано интервю 1026 пълнолетни жители в цялата страна.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване; стратифицирана по тип населено място извадка с квота по пол, възраст и образование; пряко стандартизирано интервю по домовете на 1026 пълнолетни жители.",
+        "en": "Nationally representative survey; sample stratified by settlement type with quotas by sex, age and education; face-to-face standardised interviews at home with 1,026 adult residents."
+      },
+      "methodologyQuote": "Резултатите са от национално-представително проучване на агенция Алфа Рисърч, реализирано в периода 15-23 януари, сред стратифицирана по тип населено място извадка и квота по пол, възраст и образование. Анкетирани са по домовете им чрез пряко стандартизирано интервю 1026 пълнолетни жители в цялата страна.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от имащите право на глас",
+          "baseLabel": { "bg": "Всички имащи право на глас (всички анкетирани)", "en": "All eligible voters (all respondents)" },
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 23.2, "quote": "ГЕРБ (23.2%) продължава да се ползва с два пъти по-висок електорален потенциал", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 11.4, "quote": "БСП събира 11.4% от имащите право на глас", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 7.5, "quote": "ДПС удържа традиционната си подкрепа от 7.5%", "image": null },
+            { "label": "РБ", "kind": "choice", "value": 6.5, "quote": "електоралната подкрепа за блока бележи лек ръст (6.5% от общия брой избиратели)", "image": null },
+            { "label": "Патриотичен фронт", "kind": "choice", "value": 5.1, "quote": "Подкрепящите правителството Патриотичен фронт и АБВ също стабилизират резултата си, съответно на 5.1% и 2.9%", "image": null },
+            { "label": "АБВ", "kind": "choice", "value": 2.9, "quote": "Подкрепящите правителството Патриотичен фронт и АБВ също стабилизират резултата си, съответно на 5.1% и 2.9%", "image": null },
+            { "label": "Атака", "kind": "choice", "value": 2.6, "quote": "С 2.6% Атака, макар и изпреварена от АБВ", "image": null },
+            { "label": "ББЦ", "kind": "choice", "value": 1.5, "quote": null, "image": "0115_Public_Opinion_Alpha_Research.pdf" },
+            { "label": "Други партии", "kind": "other", "value": 4.6, "quote": "Други партии 4,6%", "image": null },
+            { "label": "Няма да гласувам", "kind": "wont_vote", "value": 34.7, "quote": "Няма да гласувам 34,7%", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

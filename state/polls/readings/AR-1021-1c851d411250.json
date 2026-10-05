@@ -1,0 +1,60 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "1021",
+  "captureSha256": "1c851d411250965fec847ec09cead5f5561348fb166030916f45200de81d58ed",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:24:59Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2024-04-25",
+      "fieldworkEnd": "2024-05-02",
+      "fieldworkQuote": "Настоящото изследване е проведено в периода 25 април – 2 май 2024г. от Алфа Рисърч",
+      "respondents": 1000,
+      "respondentsQuote": "Проучването е проведено сред 1000 пълнолетни граждани от цялата страна.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю с таблети по домовете; стратифицирана двустепенна извадка с квота; 1000 пълнолетни граждани.",
+        "en": "Face-to-face standardised tablet interviews at respondents' homes; stratified two-stage quota sample; 1,000 adult citizens."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": null,
+      "sponsorQuote": "публикува се на сайта на агенцията и се реализира със собствени средства",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "СРЕД ТВЪРДО РЕШИЛИТЕ ДА ГЛАСУВАТ",
+          "baseLabel": { "bg": "Твърдо решили да гласуват", "en": "Respondents firmly decided to vote" },
+          "answers": [
+            { "label": "ГЕРБ-СДС", "kind": "choice", "value": 25.4, "quote": "ГЕРБ-СДС влизат в надпреварата като фаворити с гласовете на 25,4% от твърдо решилите да гласуват", "image": null },
+            { "label": "ПП-ДБ", "kind": "choice", "value": 17.5, "quote": "Към момента със 17.5% запазва второто място в предпочитанията на избирателите", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 14.9, "quote": "ДПС (14.9%) и Възраждане (14.6%) са с практически изравнени позиции", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 14.6, "quote": "ДПС (14.9%) и Възраждане (14.6%) са с практически изравнени позиции", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 8.5, "quote": "с 8.5% от вота на избирателите запазва преднина", "image": null },
+            { "label": "ИТН", "kind": "choice", "value": 5.2, "quote": null, "image": "Graph02.jpg" },
+            { "label": "Солидарна България", "kind": "choice", "value": 2.6, "quote": "в лицето на Солидарна България (2.6%) и Левицата (1.9%)", "image": null },
+            { "label": "Синя България", "kind": "choice", "value": 2.5, "quote": "единствено коалицията Синя България (2.5%), която също ще трябва", "image": null },
+            { "label": "Левицата", "kind": "choice", "value": 1.9, "quote": "в лицето на Солидарна България (2.6%) и Левицата (1.9%)", "image": null },
+            { "label": "Български възход", "kind": "choice", "value": 1.3, "quote": null, "image": "Graph02.jpg" },
+            { "label": "Други", "kind": "other", "value": 5.6, "quote": null, "image": "Graph02.jpg" }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от пълнолетните граждани",
+          "baseLabel": { "bg": "Пълнолетни граждани", "en": "Adult citizens" },
+          "answers": [
+            { "label": "Готовност да гласуват за Народно събрание", "kind": "choice", "value": 40, "quote": "Готовност да гласуват за Народно събрание заявяват около 40% от пълнолетните граждани", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

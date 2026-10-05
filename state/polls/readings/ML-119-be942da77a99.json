@@ -1,0 +1,192 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "119",
+  "captureSha256": "be942da77a9995e66b92ac0b14bb5ca50e76b4b76a17f8153d1ad498c9980723",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:09Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-09-22",
+      "fieldworkEnd": "2026-09-29",
+      "fieldworkQuote": "Период на провеждане 22 - 29 септември 2026 г.",
+      "respondents": 1006,
+      "respondentsQuote": "Обем на извадката 1006 лица над 18 г. в страната",
+      "publishedAt": "2026-09-30",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално количествено проучване; пряко-лично интервю и онлайн анкета; 1006 лица над 18 г.",
+        "en": "National quantitative survey; face-to-face interview and online questionnaire; 1,006 people aged 18+."
+      },
+      "methodologyQuote": "Метод на регистрация Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ и Маркет ЛИНКС",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Декларирали твърдо намерение да гласуват: 482",
+          "baseLabel": {
+            "bg": "Декларирали твърдо намерение да гласуват",
+            "en": "Respondents who declared a firm intention to vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция Прогресивна България",
+              "kind": "choice",
+              "value": 34.6,
+              "quote": "Коалиция Прогресивна България 34,6%",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ – СДС",
+              "kind": "choice",
+              "value": 10.3,
+              "quote": "ГЕРБ – СДС 10,3%",
+              "image": null
+            },
+            {
+              "label": "Продължаваме промяната",
+              "kind": "choice",
+              "value": 9.0,
+              "quote": "Продължаваме промяната 9,0%",
+              "image": null
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 7.2,
+              "quote": "Демократична България 7,2%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 5.4,
+              "quote": "Възраждане 5,4%",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 4.5,
+              "quote": "ДПС 4,5%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 9.4,
+              "quote": "Друга 9,4%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 18.1,
+              "quote": "Не съм решил 18,1%",
+              "image": null
+            },
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 1.6,
+              "quote": "Не подкрепям никого 1,6%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "race": "presidential",
+      "fieldworkStart": "2026-09-22",
+      "fieldworkEnd": "2026-09-29",
+      "fieldworkQuote": "Период на провеждане 22 - 29 септември 2026 г.",
+      "respondents": 1006,
+      "respondentsQuote": "Обем на извадката 1006 лица над 18 г. в страната",
+      "publishedAt": "2026-09-30",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално количествено проучване; пряко-лично интервю и онлайн анкета; 1006 лица над 18 г.",
+        "en": "National quantitative survey; face-to-face interview and online questionnaire; 1,006 people aged 18+."
+      },
+      "methodologyQuote": "Метод на регистрация Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ и Маркет ЛИНКС",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Декларирали твърдо намерение да гласуват на президентските избори: 463",
+          "baseLabel": {
+            "bg": "Декларирали твърдо намерение да гласуват на президентските избори",
+            "en": "Respondents who declared a firm intention to vote in the presidential election"
+          },
+          "answers": [
+            {
+              "label": "Илияна Йотова",
+              "kind": "choice",
+              "value": 41.4,
+              "quote": "Илияна Йотова и Кирил Вълчев 41,4%",
+              "image": null
+            },
+            {
+              "label": "Андрей Гюров",
+              "kind": "choice",
+              "value": 21.9,
+              "quote": "Андрей Гюров и Георги Кандев 21,9%",
+              "image": null
+            },
+            {
+              "label": "Костадин Костадинов",
+              "kind": "choice",
+              "value": 6.4,
+              "quote": "Костадин Костадинов и Петър Волгин 6,4%",
+              "image": null
+            },
+            {
+              "label": "Ивелин Михайлов",
+              "kind": "choice",
+              "value": 3.9,
+              "quote": "Ивелин Михайлов и Юлиана Матеева 3,9%",
+              "image": null
+            },
+            {
+              "label": "Радостин Василев",
+              "kind": "choice",
+              "value": 1.6,
+              "quote": "Радостин Василев и Красимир Манов 1,6%",
+              "image": null
+            },
+            {
+              "label": "Иван Христанов",
+              "kind": "choice",
+              "value": 0.9,
+              "quote": "Иван Христанов и Стоянка Черкезова 0,9%",
+              "image": null
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 3.7,
+              "quote": "Други 3,7%  Не съм решил/а 20,4%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил/а",
+              "kind": "undecided",
+              "value": 20.4,
+              "quote": "Не съм решил/а 20,4%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

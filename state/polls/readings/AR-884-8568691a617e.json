@@ -1,0 +1,10 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "884",
+  "captureSha256": "8568691a617e3b52125040369a79ac0b8aca332813acd52e08ce9be48266b013",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": "The only vote-intention figures in this publication (Alpha Research, fieldwork 23-26 April 2014, 1024 respondents) are for the European Parliament election of 25 May 2014 („ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ“: ГЕРБ 17,6%, БСП 15,9%, ДПС 6,2%, България без цензура/ВМРО 4,9%, Реформаторски блок 4,5%, АБВ 4,5%, НФСБ 3,0%, Атака 2,5%, Синьо единство 0,9%, Други партии 6,1%, Няма да гласувам 33,9% — base all respondents, PDF p.22). It carries no National Assembly (parliamentary) or presidential poll, the only races this schema records; the rest is institutional trust/approval ratings. Routed to a human to decide whether EP polls belong in the corpus.",
+  "polls": []
+}

@@ -1,0 +1,98 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "846",
+  "captureSha256": "3adf8ee4485ab50d5d03cf4a5cd506d43469c562051ce1de912774f9a123a77e",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:27:20Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2011-05-27",
+      "fieldworkEnd": "2011-06-02",
+      "fieldworkQuote": "27 май - 2 юни 2011",
+      "respondents": 1020,
+      "respondentsQuote": "проведено сред 1020 пълнолетни граждани чрез стандартизирани интервю по домовете на анкетираните",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване сред 1020 пълнолетни граждани чрез стандартизирано интервю по домовете на анкетираните.",
+        "en": "Nationally representative survey of 1,020 adult citizens via standardised face-to-face interviews in respondents' homes."
+      },
+      "methodologyQuote": "Регулярното тримесечно национално представително проучване на Социологическа агенция Алфа Рисърч , проведено сред 1020 пълнолетни граждани чрез стандартизирани интервю по домовете на анкетираните",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от всички избиратели",
+          "baseLabel": {
+            "bg": "Всички избиратели",
+            "en": "All voters (respondents)"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 24.4,
+              "quote": null,
+              "image": "Public_opinion_AR_June_2011.pdf"
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 17.5,
+              "quote": "БСП стабилизира и леко подобрява позициите си (от 16.6% през февруари до 17.5% в края на май)",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 4.3,
+              "quote": "Намаляват декларираните намерения за подкрепа на ДПС (от 4.9% на 4.3%)",
+              "image": null
+            },
+            {
+              "label": "Синята коалиция",
+              "kind": "choice",
+              "value": 3.9,
+              "quote": "слабо се увеличават тези за Синята коалиция (от 3.4 на 3.9%)",
+              "image": null
+            },
+            {
+              "label": "АТАКА",
+              "kind": "choice",
+              "value": 2.5,
+              "quote": "Атака запазва дела си от 2.5%",
+              "image": null
+            },
+            {
+              "label": "РЗС",
+              "kind": "choice",
+              "value": 0.8,
+              "quote": null,
+              "image": "Public_opinion_AR_June_2011.pdf"
+            },
+            {
+              "label": "Друга партия",
+              "kind": "other",
+              "value": 9.8,
+              "quote": "значимият ръст на евентуален вот в полза на „друга партия”, който достига 9.8% от всички избиратели",
+              "image": null
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 36.8,
+              "quote": null,
+              "image": "Public_opinion_AR_June_2011.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

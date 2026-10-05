@@ -1,0 +1,192 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "984",
+  "captureSha256": "50ef7912c855d6c2acc3aa6471c13d7558729fcf1db91f26386a48b38d62bc69",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:24:51Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2021-10-04",
+      "fieldworkEnd": "2021-10-10",
+      "fieldworkQuote": "проведено в периода 4 – 10 октомври 2021г.",
+      "respondents": 1123,
+      "respondentsQuote": "Проучването е проведено сред 1123 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; пряко стандартизирано интервю с таблети по домовете; 1123 пълнолетни граждани.",
+        "en": "Stratified two-stage sample with quotas on the main socio-demographic characteristics; face-to-face standardised tablet interviews at respondents' homes; 1,123 adult citizens."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": null,
+      "sponsorQuote": "публикува се на сайта на агенцията и се реализира със собствени средства",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "твърдо решилите да гласуват",
+          "baseLabel": {
+            "bg": "Твърдо решили да гласуват",
+            "en": "Respondents firmly decided to vote"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ - СДС",
+              "kind": "choice",
+              "value": 23.1,
+              "quote": "ГЕРБ стартира от първото място с 23.1%  от гласовете на твърдо решилите да гласуват",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 16.8,
+              "quote": "битката за второ място между БСП (16.8%)",
+              "image": null
+            },
+            {
+              "label": "Продължаваме промяната",
+              "kind": "choice",
+              "value": 15.9,
+              "quote": "„Продължаваме промяната“ на Кирил Петков и Асен Василев (15.9%)",
+              "image": null
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 10.9,
+              "quote": "Демократична България (10.9%) е на символична преднина",
+              "image": null
+            },
+            {
+              "label": "ИТН",
+              "kind": "choice",
+              "value": 10.4,
+              "quote": "пред партията на Слави Трифонов  (10.4%)",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 9.3,
+              "quote": "С 9.3% от гласовете на сигурните, че ще гласуват на 14-ти ноември, ДПС",
+              "image": null
+            },
+            {
+              "label": "Изправи се БГ! Ние идваме!",
+              "kind": "choice",
+              "value": 3.2,
+              "quote": null,
+              "image": "Graph2final.jpg"
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 2.9,
+              "quote": null,
+              "image": "Graph2final.jpg"
+            },
+            {
+              "label": "ВМРО",
+              "kind": "choice",
+              "value": 2.1,
+              "quote": null,
+              "image": "Graph2final.jpg"
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 5.4,
+              "quote": null,
+              "image": "Graph2final.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "race": "presidential",
+      "fieldworkStart": "2021-10-04",
+      "fieldworkEnd": "2021-10-10",
+      "fieldworkQuote": "проведено в периода 4 – 10 октомври 2021г.",
+      "respondents": 1123,
+      "respondentsQuote": "Проучването е проведено сред 1123 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; пряко стандартизирано интервю с таблети по домовете; 1123 пълнолетни граждани.",
+        "en": "Stratified two-stage sample with quotas on the main socio-demographic characteristics; face-to-face standardised tablet interviews at respondents' homes; 1,123 adult citizens."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": null,
+      "sponsorQuote": "публикува се на сайта на агенцията и се реализира със собствени средства",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "твърдо решилите да гласуват",
+          "baseLabel": {
+            "bg": "Твърдо решили да гласуват",
+            "en": "Respondents firmly decided to vote"
+          },
+          "answers": [
+            {
+              "label": "Румен Радев",
+              "kind": "choice",
+              "value": 42.6,
+              "quote": "Настоящият президент Румен Радев  влиза в надпреварата с 42.6% от вота на твърдо решилите да гласуват",
+              "image": null
+            },
+            {
+              "label": "Анастас Герджиков",
+              "kind": "choice",
+              "value": 28.1,
+              "quote": "На втора позиция се нарежда проф. Анастас Герджиков с 28.1%",
+              "image": null
+            },
+            {
+              "label": "Лозан Панов",
+              "kind": "choice",
+              "value": 8.2,
+              "quote": "Лозан Панов събира начална подкрепа от 8.2%",
+              "image": null
+            },
+            {
+              "label": "Костадин Костадинов",
+              "kind": "choice",
+              "value": 3.9,
+              "quote": null,
+              "image": "Graph3final.jpg"
+            },
+            {
+              "label": "Валери Симеонов",
+              "kind": "choice",
+              "value": 1.8,
+              "quote": null,
+              "image": "Graph3final.jpg"
+            },
+            {
+              "label": "Волен Сидеров",
+              "kind": "choice",
+              "value": 1.6,
+              "quote": null,
+              "image": "Graph3final.jpg"
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 13.8,
+              "quote": null,
+              "image": "Graph3final.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

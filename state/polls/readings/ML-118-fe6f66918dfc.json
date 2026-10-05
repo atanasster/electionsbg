@@ -1,0 +1,98 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "118",
+  "captureSha256": "fe6f66918dfcc5ceab0ddc777d7aa6520964a75d35477a5104867f3e6dbec5e7",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:36.446267+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-07-11",
+      "fieldworkEnd": "2026-07-19",
+      "fieldworkQuote": "Период на провеждане 11 - 19 юли 2026 г.",
+      "respondents": 1002,
+      "respondentsQuote": "Обем на извадката 1002 лица над 18 г. в страната",
+      "publishedAt": "2026-07-23",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално количествено проучване; пряко-лично интервю и онлайн анкета; 1002 лица над 18 г.",
+        "en": "National quantitative survey; face-to-face interview and online questionnaire; 1002 people aged 18+."
+      },
+      "methodologyQuote": "Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Декларирали твърдо намерение да гласуват: 459",
+          "baseLabel": {
+            "bg": "Декларирали твърдо намерение да гласуват",
+            "en": "Respondents who declared a firm intention to vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция Прогресивна България",
+              "kind": "choice",
+              "value": 39.2,
+              "quote": "Коалиция Прогресивна България 39.2%",
+              "image": null
+            },
+            {
+              "label": "Коалиция ПП-ДБ",
+              "kind": "choice",
+              "value": 14.4,
+              "quote": "Коалиция ПП-ДБ 14.4%",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ – СДС",
+              "kind": "choice",
+              "value": 12.8,
+              "quote": "ГЕРБ – СДС 12.8%",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 4.3,
+              "quote": "ДПС 4.3%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 3.6,
+              "quote": "Възраждане 3.6%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 9.2,
+              "quote": "Друга 9.2%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 14.2,
+              "quote": "Не съм решил 14.2%",
+              "image": null
+            },
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 2.3,
+              "quote": "Не подкрепям никого 2.3%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

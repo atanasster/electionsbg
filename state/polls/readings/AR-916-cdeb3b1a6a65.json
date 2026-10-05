@@ -1,0 +1,149 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "916",
+  "captureSha256": "cdeb3b1a6a6510e69a95c7ae1409ae9813e4b81d665a2cb7d8990b9b9af12692",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:24:52Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2017-01-14",
+      "fieldworkEnd": "2017-01-22",
+      "fieldworkQuote": "Проведено е в периода 14 – 22 януари 2017г.",
+      "respondents": 1024,
+      "respondentsQuote": "сред 1024 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "raw_attitudes",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю по домовете; стратифицирана двустепенна извадка с квота; 1024 пълнолетни граждани.",
+        "en": "Face-to-face standardised interview at respondents' homes; stratified two-stage sample with quotas; 1,024 adult citizens."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с   квота    по   основните    социално-демографски   признаци. Информацията е събрана чрез пряко стандартизирано интервю по домовете на анкетираните лица.",
+      "sponsor": "NOVA",
+      "sponsorQuote": "Проучването NOVA ALPHA INDEX е съвместен проект на NOVA и социологическата агенция „Алфа Рисърч”",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "СРЕД ТВЪРДО РЕШИЛИТЕ ДА ГЛАСУВАТ",
+          "baseLabel": {
+            "bg": "Твърдо решили да гласуват",
+            "en": "Respondents firmly decided to vote"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 32.6,
+              "quote": "ГЕРБ (32.6% от гласуващите) води с 3.8% преднина пред БСП",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 28.8,
+              "quote": "води с 3.8% преднина пред БСП (28.8%)",
+              "image": null
+            },
+            {
+              "label": "Обединени патриоти",
+              "kind": "choice",
+              "value": 10.7,
+              "quote": "Обединените патриоти постигат резултат близък до този на президентските избори (10.7%)",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 7.8,
+              "quote": "ДПС, което обикновено се представя по-слабо в проучванията има 7.8% подкрепа",
+              "image": null
+            },
+            {
+              "label": "ВОЛЯ",
+              "kind": "choice",
+              "value": 4.4,
+              "quote": null,
+              "image": "0117_Alpha_Research_Public_Opinion(1).pdf"
+            },
+            {
+              "label": "Реформаторски блок",
+              "kind": "choice",
+              "value": 3.8,
+              "quote": null,
+              "image": "0117_Alpha_Research_Public_Opinion(1).pdf"
+            },
+            {
+              "label": "Да, България",
+              "kind": "choice",
+              "value": 2.3,
+              "quote": "2.3% за Да, България",
+              "image": null
+            },
+            {
+              "label": "Движение 21",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": null,
+              "image": "0117_Alpha_Research_Public_Opinion(1).pdf"
+            },
+            {
+              "label": "Формация около ДСБ",
+              "kind": "choice",
+              "value": 1.4,
+              "quote": "1.4% за формация около ДСБ",
+              "image": null
+            },
+            {
+              "label": "АБВ",
+              "kind": "choice",
+              "value": 1.4,
+              "quote": "1.9% за Т.Дончева и 1.4% за АБВ",
+              "image": null
+            },
+            {
+              "label": "Други партии",
+              "kind": "other",
+              "value": 4.9,
+              "quote": null,
+              "image": "0117_Alpha_Research_Public_Opinion(1).pdf"
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "Да, със сигурност ще гласувам",
+              "kind": "choice",
+              "value": 65.9,
+              "quote": null,
+              "image": "0117_Alpha_Research_Public_Opinion(1).pdf"
+            },
+            {
+              "label": "Колебая се дали да гласувам",
+              "kind": "undecided",
+              "value": 22.9,
+              "quote": null,
+              "image": "0117_Alpha_Research_Public_Opinion(1).pdf"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 11.2,
+              "quote": null,
+              "image": "0117_Alpha_Research_Public_Opinion(1).pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

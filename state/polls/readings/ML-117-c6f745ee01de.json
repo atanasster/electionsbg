@@ -1,0 +1,145 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "117",
+  "captureSha256": "c6f745ee01de56b65bfc9bb3f53673f29809736c12cf073650aae70b0865f2c4",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:21Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-06-13",
+      "fieldworkEnd": "2026-06-21",
+      "fieldworkQuote": "13 - 21 юни 2026 г.",
+      "respondents": 1005,
+      "respondentsQuote": "1005 лица над 18 г. в страната",
+      "publishedAt": "2026-06-26",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално количествено проучване; пряко-лично интервю и онлайн анкета; 1005 лица над 18 г.",
+        "en": "National quantitative survey; face-to-face interviews and online questionnaire; 1005 people aged 18+."
+      },
+      "methodologyQuote": "Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ и Маркет ЛИНКС",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Декларирали твърдо намерение да гласуват: 562",
+          "baseLabel": {
+            "bg": "Декларирали твърдо намерение да гласуват",
+            "en": "Respondents who declared a firm intention to vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция Прогресивна България",
+              "kind": "choice",
+              "value": 39.1,
+              "quote": "Коалиция Прогресивна България 39.1%",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ – СДС",
+              "kind": "choice",
+              "value": 13.1,
+              "quote": "ГЕРБ – СДС 13.1%",
+              "image": null
+            },
+            {
+              "label": "Коалиция ПП-ДБ",
+              "kind": "choice",
+              "value": 11.8,
+              "quote": "Коалиция ПП-ДБ 11.8%",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 4.9,
+              "quote": "ДПС 4.9%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 4.2,
+              "quote": "Възраждане 4.2%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 9.8,
+              "quote": "Друга 9.8%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 15.5,
+              "quote": "Не съм решил 15.5%",
+              "image": null
+            },
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 1.6,
+              "quote": "Не подкрепям никого 1.6%",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "Всички: НИ юни 2026, 1005, 18+ г.",
+          "baseLabel": {
+            "bg": "Всички пълнолетни",
+            "en": "All respondents aged 18+"
+          },
+          "answers": [
+            {
+              "label": "Да",
+              "kind": "choice",
+              "value": 56,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf"
+            },
+            {
+              "label": "По-скоро да",
+              "kind": "choice",
+              "value": 19,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf"
+            },
+            {
+              "label": "Не зная / не мога да определя",
+              "kind": "undecided",
+              "value": 13,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf"
+            },
+            {
+              "label": "По-скоро не",
+              "kind": "choice",
+              "value": 4,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf"
+            },
+            {
+              "label": "Не",
+              "kind": "choice",
+              "value": 8,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

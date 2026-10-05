@@ -164,6 +164,26 @@ describe("polls:review", () => {
     expect(draft.poll.methodology).toBeUndefined();
     expect(process.exitCode ?? 0).toBe(0);
   });
+  it("sends a malformed sponsor to a human instead of dropping it", async () => {
+    const r = myaraReading();
+    (r.polls[0] as unknown as Record<string, unknown>).sponsor =
+      "Мяра (собствени средства)";
+    r.polls[0].sponsorQuote = "независимо изследване на „Мяра“";
+    writeReading(r);
+    await main([]);
+    expect(corpus()).toEqual([]);
+    expect(readDraftFile().aiReview?.diffs.join()).toMatch(/sponsor/);
+  });
+
+  it("fills a well-formed sponsor whose quote is in the capture", async () => {
+    const r = myaraReading();
+    r.polls[0].sponsor = { bg: "„Мяра“", en: "Myara" };
+    r.polls[0].sponsorQuote = "независимо изследване на „Мяра“";
+    writeReading(r);
+    await main([]);
+    expect(corpus()[0].sponsor).toEqual({ bg: "„Мяра“", en: "Myara" });
+  });
+
   it("restores the draft and continues when accept throws", async () => {
     fs.writeFileSync(
       path.join(root, "data/polls/presidential/polls.json"),

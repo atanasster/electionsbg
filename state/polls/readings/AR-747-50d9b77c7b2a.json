@@ -1,0 +1,49 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "747",
+  "captureSha256": "50d9b77c7b2ae138b77f95956fd152e0ef17564860fae856c4404fe1a3ae2879",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2007-07-27",
+      "fieldworkEnd": "2007-08-02",
+      "fieldworkQuote": "проведен между 27 юли и 2 август 2007 г.",
+      "respondents": 1056,
+      "respondentsQuote": "през периода 27 юли - 2 август 2007 сред 1056 души",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население на страната изследване, 1056 души.",
+        "en": "Survey representative of the country's adult population, 1056 people."
+      },
+      "methodologyQuote": "Данните са от представително за пълнолетното население на страната изследване, проведено от агенция Алфа Рисърч през периода 27 юли - 2 август 2007 сред 1056 души.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от общия брой избиратели в страната",
+          "baseLabel": { "bg": "Общ брой избиратели", "en": "All voters in the country" },
+          "answers": [
+            { "label": "БСП", "kind": "choice", "value": 17.8,
+              "quote": "Подкрепата за БСП остава на равнището от юни - 17.8%", "image": null },
+            { "label": "НДСВ", "kind": "choice", "value": 2.6,
+              "quote": "разполагат с потенциал от 2.6% от общия брой избиратели в страната", "image": null },
+            { "label": "СДС", "kind": "choice", "value": 2.4,
+              "quote": "Подкрепата за десните се запазва в равнището от последните месеци: СДС – 2.4%", "image": null },
+            { "label": "ДСБ", "kind": "choice", "value": 1.2,
+              "quote": "Подкрепата за десните се запазва в равнището от последните месеци: СДС – 2.4%, ДСБ – 1.2%", "image": null },
+            { "label": "ВМРО", "kind": "choice", "value": 1,
+              "quote": "На 1% от общия брой избиратели в страната възлиза и потенциала на ВМРО", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

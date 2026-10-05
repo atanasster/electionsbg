@@ -1,0 +1,109 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "928",
+  "captureSha256": "becd323e61016fa3712e68239f147724e0c3e81426a3a5a8ec18ee83d0e2faf3",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:24:58Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2017-12-07",
+      "fieldworkEnd": "2017-12-15",
+      "fieldworkQuote": "Проведено е в периода 7 – 15 декември 2017г.",
+      "respondents": 1017,
+      "respondentsQuote": "сред 1017 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване сред 1017 пълнолетни граждани; стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; пряко стандартизирано интервю по домовете.",
+        "en": "Nationally representative survey of 1,017 adult citizens; stratified two-stage sample with quotas on the main socio-demographic characteristics; face-to-face standardised interviews in respondents' homes."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю по домовете на анкетираните лица.",
+      "sponsor": "Нова телевизия",
+      "sponsorQuote": "Регулярното тримесечно проучване на Алфа Рисърч NOVA ALPHA INDEX се осъществява съвместно с Нова телевизия.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 25.0,
+              "quote": "С 25% вот, ако изборите бяха днес, ГЕРБ запазва водещи електорални позиции.",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 21.2,
+              "quote": "подкрепата за социалистите бележи лек ръст от 19.3% до 21.2%",
+              "image": null
+            },
+            {
+              "label": "Обединени патриоти",
+              "kind": "choice",
+              "value": 5.6,
+              "quote": "отколкото на електоралната подкрепа за коалицията. Тя остава в рамките на 5.6%.",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 4.7,
+              "quote": "ДПС запазва традиционния си дял симпатизанти от 4.7%",
+              "image": null
+            },
+            {
+              "label": "ВОЛЯ",
+              "kind": "choice",
+              "value": 2.1,
+              "quote": "След съществения спад в подкрепата за Воля през есента, привържениците й остават в рамките на 2.1%",
+              "image": null
+            },
+            {
+              "label": "Реформаторски блок",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": "(Реформаторски блок – 2%; Да, България 1.9%; Нова република – 0.6%)",
+              "image": null
+            },
+            {
+              "label": "“Да, България”",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": "(Реформаторски блок – 2%; Да, България 1.9%; Нова република – 0.6%)",
+              "image": null
+            },
+            {
+              "label": "Нова Република",
+              "kind": "choice",
+              "value": 0.6,
+              "quote": "(Реформаторски блок – 2%; Да, България 1.9%; Нова република – 0.6%)",
+              "image": null
+            },
+            {
+              "label": "Други партии",
+              "kind": "other",
+              "value": 8.1,
+              "quote": "Други партии 8,1%",
+              "image": null
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 28.4,
+              "quote": "Няма да гласувам 28,4%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

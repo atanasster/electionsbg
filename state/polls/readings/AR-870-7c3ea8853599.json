@@ -1,0 +1,133 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "870",
+  "captureSha256": "7c3ea88535997a416f4141f63aeb5587096009550c0ef98e927899ed450d9be3",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:22:04Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2013-04-10",
+      "fieldworkEnd": "2013-04-14",
+      "fieldworkQuote": "реализирано в периода 10-14 април 2013г.",
+      "respondents": 1030,
+      "respondentsQuote": "В допитването участват 1030 пълнолетни граждани",
+      "publishedAt": null,
+      "genre": "raw_attitudes",
+      "methodology": {
+        "bg": "Представителна за пълнолетното население извадка, стратифицирана по тип населено място; 1030 пълнолетни граждани, подбрани по метода на квота (пол, възраст, образование).",
+        "en": "Sample representative of the adult population, stratified by settlement type; 1,030 adult citizens selected by quota on sex, age and education."
+      },
+      "methodologyQuote": "сред представителна за пълнолетното население извадка, стратифицирана по тип населено място. В допитването участват 1030 пълнолетни граждани, подбрани по метода на квота въз основа на признаците пол, възраст и образование.",
+      "sponsor": "Дневник",
+      "sponsorQuote": "По поръчка на вестник Дневник Алфа Рисърч провежда две проучвания",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "Подкрепа от общия брой избиратели (%)",
+          "baseLabel": {
+            "bg": "Общ брой избиратели",
+            "en": "All eligible voters (all respondents)"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 22.5,
+              "quote": "подкрепата за ГЕРБ нараства от 21.9% до 22.5%",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 16.9,
+              "quote": "тази за БСП спада от 17.4% на 16.9%",
+              "image": null
+            },
+            {
+              "label": "Атака",
+              "kind": "choice",
+              "value": 4.9,
+              "quote": "Към момента Атака събира 4.9% от гласовете на пълнолетните избиратели",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 4.8,
+              "quote": "ДПС има традиционните си 4.8% последователи",
+              "image": null
+            },
+            {
+              "label": "България на гражданите",
+              "kind": "choice",
+              "value": 2.9,
+              "quote": "в началото на април за нея биха гласували около 2.9% от общия брой избиратели",
+              "image": null
+            },
+            {
+              "label": "ДСБ – БДФ",
+              "kind": "choice",
+              "value": 1.8,
+              "quote": "подкрепата за ДСБ се запазва непроменена (1.8%)",
+              "image": null
+            },
+            {
+              "label": "НФСБ",
+              "kind": "choice",
+              "value": 1.3,
+              "quote": "Националистическият вот се отлива обаче и към други формации – 1.3% за НФСБ",
+              "image": null
+            },
+            {
+              "label": "Лидер",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "Лидер 1.0 ~1.5 (таблица „Електорални нагласи (10 – 14 април 2013)“)",
+              "image": null
+            },
+            {
+              "label": "Зелените",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "Зелените 1.0 ~1.5 (таблица „Електорални нагласи (10 – 14 април 2013)“)",
+              "image": null
+            },
+            {
+              "label": "ВМРО-БНД",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "ВМРО-БНД 1.0 ~1.5 (таблица „Електорални нагласи (10 – 14 април 2013)“)",
+              "image": null
+            },
+            {
+              "label": "Горда България",
+              "kind": "choice",
+              "value": 0.7,
+              "quote": "1% - ВМРО-БНД, ГОРДа България – 0.7%",
+              "image": null
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 2.6,
+              "quote": "Други 2.6 ~6.6 (таблица „Електорални нагласи (10 – 14 април 2013)“)",
+              "image": null
+            },
+            {
+              "label": "Нерешили/няма да гласуват",
+              "kind": "undecided",
+              "value": 38.6,
+              "quote": "Нерешили/няма да гласуват 38.6 - (таблица „Електорални нагласи (10 – 14 април 2013)“)",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "86",
+  "captureSha256": "61eca54d503c5012348b124ebf679dafab75f2c11c2098eb47f50868215ea6fe",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:27:22+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2021-04-16",
+      "fieldworkEnd": "2021-04-23",
+      "fieldworkQuote": "в периода 16 – 23 април 2021-ва година",
+      "respondents": 1053,
+      "respondentsQuote": "проведено сред 1053 лица над 18 г. в страната",
+      "publishedAt": "2021-04-29",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко лично интервю и онлайн анкета сред 1053 лица над 18 г. в страната, 16–23 април 2021 г.",
+        "en": "Face-to-face interviews and an online survey among 1,053 people aged 18+ nationwide, 16–23 April 2021."
+      },
+      "methodologyQuote": "проведено сред 1053 лица над 18 г. в страната в периода 16 – 23 април 2021-ва година по методите на пряко-лично интервю и онлайн анкета",
+      "sponsor": "БТВ",
+      "sponsorQuote": "Проучване, финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "База: всички, гласуващи 636",
+          "baseLabel": {
+            "bg": "Гласуващи (636)",
+            "en": "Respondents who will vote (636)"
+          },
+          "answers": [
+            {
+              "label": "Коалиция ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 21.1,
+              "quote": "Коалиция ГЕРБ-СДС 21,1%",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 20.3,
+              "quote": "Има такъв народ 20,3%",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 16.5,
+              "quote": "БСП 16,5%",
+              "image": null
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 11.9,
+              "quote": "Демократична България 11,9%",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 9.4,
+              "quote": "ДПС 9,4%",
+              "image": null
+            },
+            {
+              "label": "Изправи се! Мутри вън!",
+              "kind": "choice",
+              "value": 5.9,
+              "quote": "Изправи се! Мутри вън! 5,9%",
+              "image": null
+            },
+            {
+              "label": "ВМРО",
+              "kind": "choice",
+              "value": 3.0,
+              "quote": "ВМРО 3,0%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 1.7,
+              "quote": "Възраждане 1,7%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 1.3,
+              "quote": "Друга 1,3%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 9.0,
+              "quote": "Не съм решил 9,0%",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "База: всички, 1053",
+          "baseLabel": {
+            "bg": "Всички анкетирани (1053)",
+            "en": "All respondents (1053)"
+          },
+          "answers": [
+            {
+              "label": "Със сигурност ще гласувам",
+              "kind": "choice",
+              "value": 60,
+              "quote": "Със сигурност ще гласувам; 60%",
+              "image": null
+            },
+            {
+              "label": "По-скоро ще гласувам",
+              "kind": "choice",
+              "value": 21,
+              "quote": "По-скоро ще гласувам; 21%",
+              "image": null
+            },
+            {
+              "label": "Колебая се",
+              "kind": "choice",
+              "value": 7,
+              "quote": "Колебая се; 7%",
+              "image": null
+            },
+            {
+              "label": "По-скоро няма да гласувам",
+              "kind": "choice",
+              "value": 2,
+              "quote": "По-скоро няма да гласувам; 2%",
+              "image": null
+            },
+            {
+              "label": "Със сигурност няма да гласувам",
+              "kind": "choice",
+              "value": 10,
+              "quote": "Със сигурност няма да гласувам; 10%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

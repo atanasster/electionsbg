@@ -1,0 +1,102 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "MY",
+  "pubId": "1533",
+  "captureSha256": "8330b807b110a60d229203d056127051017c9ca8bdb158304c304bf3766d00bd",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:49+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2025-09-04",
+      "fieldworkEnd": "2025-09-12",
+      "fieldworkQuote": "Изследването е проведено в периода 4-12 септември 2025 г.",
+      "respondents": 802,
+      "respondentsQuote": "сред 802 пълнолетни български граждани",
+      "publishedAt": "2025-09-22",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Лице в лице с таблети, 802 пълнолетни български граждани, 4–12 септември 2025 г.; максимално стандартно отклонение ±3,5 при 50% дялове.",
+        "en": "Face-to-face with tablets, 802 adult Bulgarian citizens, 4–12 September 2025; maximum standard error ±3.5 at 50% shares."
+      },
+      "methodologyQuote": "Изследването е проведено „лице в лице“ с таблети между 4 и 12 септември 2025 г. сред 802 пълнолетни български граждани. Максималното стандартно отклонение е ±3,5 при 50% дялове.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 26.9,
+              "quote": "Ако изборите бяха през септември, ГЕРБ-СДС щеше да получи 26,9%",
+              "image": null
+            },
+            {
+              "label": "ПП-ДБ",
+              "kind": "choice",
+              "value": 13.9,
+              "quote": "ПП-ДБ – 13,9%, „Възраждане“ – 13,7%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 13.7,
+              "quote": "„Възраждане“ – 13,7% и ДПС-Ново начало – 13,6%",
+              "image": null
+            },
+            {
+              "label": "ДПС-Ново начало",
+              "kind": "choice",
+              "value": 13.6,
+              "quote": "и ДПС-Ново начало – 13,6% се движат в „пакет“",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 6.7,
+              "quote": "БСП получава 6,7%, МЕЧ – 6,6%",
+              "image": null
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 6.6,
+              "quote": "БСП получава 6,7%, МЕЧ – 6,6% и това също показва интрига",
+              "image": null
+            },
+            {
+              "label": "ИТН",
+              "kind": "choice",
+              "value": 5.3,
+              "quote": "ИТН е с 5,3%, а „Величие“ – 4,5%",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 4.5,
+              "quote": "ИТН е с 5,3%, а „Величие“ – 4,5%",
+              "image": null
+            },
+            {
+              "label": "Алиансът за права и свободи",
+              "kind": "choice",
+              "value": 2.6,
+              "quote": "Алиансът за права и свободи трайно губи позиции и остава под „чертата“ с 2,6%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

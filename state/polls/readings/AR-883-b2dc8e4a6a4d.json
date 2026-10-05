@@ -1,0 +1,124 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "883",
+  "captureSha256": "b2dc8e4a6a4dbed8e8ddc39866a17ba66c0111077b5e9599d470a5c78eb357dd",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:24:32Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "european_parliament",
+      "raceNote": "The vote-intention chart is for the May 2014 European Parliament election („ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ“), not the National Assembly.",
+      "fieldworkStart": "2014-02-17",
+      "fieldworkEnd": "2014-02-22",
+      "fieldworkQuote": "проведено  в периода  17 – 22 февруари 2014г.",
+      "respondents": 1020,
+      "respondentsQuote": "чрез пряко стандартизирано интервю 1020 души",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю по домовете, 1020 души; стратифицирана по тип населено място и избирателни секции извадка с квоти по НСИ (преброяване 2011). Статистическа грешка не е посочена.",
+        "en": "Face-to-face standardised interviews at respondents' homes, 1,020 people; sample stratified by settlement type and polling sections with quotas from the NSI 2011 census structure. Margin of error not stated."
+      },
+      "methodologyQuote": "Анкетирани са по домовете им чрез пряко стандартизирано интервю 1020 души,  Изследването е направено чрез стратифицирана по тип населено място и избирателни секции  извадка",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 16.9,
+              "quote": "В края на февруари ГЕРБ (с 16.9%) има лек превес над БСП  (15.1%)",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 15.1,
+              "quote": "ГЕРБ (с 16.9%) има лек превес над БСП  (15.1%)",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 6.9,
+              "quote": "ДПС запазва стабилно трето място (6.9%)",
+              "image": null
+            },
+            {
+              "label": "АБВ",
+              "kind": "choice",
+              "value": 6.1,
+              "quote": "тя влиза в конкуренция с АБВ (6.1%)",
+              "image": null
+            },
+            {
+              "label": "България без цензура/ВМРО",
+              "kind": "choice",
+              "value": 5.5,
+              "quote": "„България без цензура“ отбелязва  през последния месец (достигайки 5.5%)",
+              "image": null
+            },
+            {
+              "label": "Реформаторски блок",
+              "kind": "choice",
+              "value": 5.0,
+              "quote": "АБВ (6.1%) и Реформаторския блок (5.0%)",
+              "image": null
+            },
+            {
+              "label": "НФСБ",
+              "kind": "choice",
+              "value": 3.2,
+              "quote": "най-висока подкрепа получава НФСБ (3.2%)",
+              "image": null
+            },
+            {
+              "label": "Атака",
+              "kind": "choice",
+              "value": 2.1,
+              "quote": "Атака остава с 2.1%, като значителна част",
+              "image": null
+            },
+            {
+              "label": "Зелените",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": null,
+              "image": "0214_Public_Opinion_Alpha%20Research.pdf"
+            },
+            {
+              "label": "Синьо единство",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": null,
+              "image": "0214_Public_Opinion_Alpha%20Research.pdf"
+            },
+            {
+              "label": "Други партии",
+              "kind": "other",
+              "value": 3.8,
+              "quote": null,
+              "image": "0214_Public_Opinion_Alpha%20Research.pdf"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 33.4,
+              "quote": null,
+              "image": "0214_Public_Opinion_Alpha%20Research.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

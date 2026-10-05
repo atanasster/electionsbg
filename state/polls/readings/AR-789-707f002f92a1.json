@@ -1,0 +1,49 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "789",
+  "captureSha256": "707f002f92a12bce3285478d6e241e4c51de50973d152ecddb8e2ad6dc88867c",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2008-07-15",
+      "fieldworkEnd": "2008-07-19",
+      "fieldworkQuote": "през периода 15 - 19 юли 2008 сред 1023 души",
+      "respondents": 1023,
+      "respondentsQuote": "през периода 15 - 19 юли 2008 сред 1023 души",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население на страната изследване на Алфа Рисърч сред 1023 души.",
+        "en": "Survey by Alpha Research representative of the country's adult population, among 1,023 people."
+      },
+      "methodologyQuote": "Данните са от представително за пълнолетното население на страната изследване, проведено от агенция Алфа Рисърч през периода 15 - 19 юли 2008 сред 1023 души.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от общия брой избиратели в страната",
+          "baseLabel": { "bg": "Всички избиратели в страната", "en": "All voters in the country" },
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 21.7, "quote": "Водещи позиции в предпочитанията на избирателите продължава да заема ГЕРБ с 21.7%", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 13.2, "quote": "подкрепата за социалистите се свива до 13.2% от общия брой избиратели в страната", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 6.2, "quote": "сигурни шансове да влязат в парламента към днешна дата са ДПС (6.2%)", "image": null },
+            { "label": "Атака", "kind": "choice", "value": 6.1, "quote": "към днешна дата са ДПС (6.2%) и Атака (6.1%)", "image": null },
+            { "label": "СДС", "kind": "choice", "value": 2.6, "quote": "Най-засегнат е СДС, чиято подкрепа отново тръгва надолу (2.6%)", "image": null },
+            { "label": "НДСВ", "kind": "choice", "value": 1.8, "quote": "тя е ограничена до 1.8% от най-силни симпатизанти на партията", "image": null },
+            { "label": "ДСБ", "kind": "choice", "value": 1.5, "quote": "Подкрепата за ДСБ е в рамките на 1.5%", "image": null },
+            { "label": "ВМРО", "kind": "choice", "value": 1.0, "quote": "Подкрепата за ДСБ е в рамките на 1.5%, ВМРО - 1.0%, БНД – 0.3%", "image": null },
+            { "label": "БНД", "kind": "choice", "value": 0.3, "quote": "Подкрепата за ДСБ е в рамките на 1.5%, ВМРО - 1.0%, БНД – 0.3%", "image": null },
+            { "label": "Твърдо нежелание да гласуват", "kind": "wont_vote", "value": 43, "quote": "делът на заявилите твърдо нежелание да гласуват нараства от 37% до 43%", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

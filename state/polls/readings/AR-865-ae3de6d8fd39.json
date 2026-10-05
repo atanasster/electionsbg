@@ -1,0 +1,154 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "865",
+  "captureSha256": "ae3de6d8fd39b0735b22da36fe6bdd99b3d106b4ce0d81312ce4bb148f52f261",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:22:38Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2013-01-12",
+      "fieldworkEnd": "2013-01-17",
+      "fieldworkQuote": "Национално представителното проучване е проведено в периода 12 – 17 януари 2013г.",
+      "respondents": 1023,
+      "respondentsQuote": "Интервюирани са по домовете им 1023 пълнолетни граждани чрез пряко стандартизирано интервю.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване на Алфа Рисърч, 12–17 януари 2013 г.; пряко стандартизирано интервю по домовете на 1023 пълнолетни граждани; квотна извадка, типологизирана по тип населено място. Статистическа грешка не е посочена.",
+        "en": "Nationally representative Alpha Research survey, 12–17 January 2013; face-to-face standardised interviews at home with 1,023 adult citizens; quota sample stratified by settlement type. No margin of error stated."
+      },
+      "methodologyQuote": "Интервюирани са по домовете им 1023 пълнолетни граждани чрез пряко стандартизирано интервю. Извадката е типологизирана по тип населено място, а подборът на респондентите е извършен по метода на квота.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от всички избиратели",
+          "baseLabel": {
+            "bg": "Всички пълнолетни респонденти",
+            "en": "All adult respondents"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 20.9,
+              "quote": "Намалява дистанцията между двете водещи политически сили ГЕРБ  и БСП - 20.9% : 18.5%",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 18.5,
+              "quote": "С електорална подкрепа от 18.5%, тя  скъсява дистанция с управляващите",
+              "image": null
+            },
+            {
+              "label": "България на гражданите",
+              "kind": "choice",
+              "value": 5.6,
+              "quote": "Движение България на Гражданите запазва добрите си позиции в електоралните нагласи (5.6%)",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 5.4,
+              "quote": "Новата партия, заедно с ДПС (5.4%) са практически единствените сигурни участници",
+              "image": null
+            },
+            {
+              "label": "ДСБ/Синята коалиция",
+              "kind": "choice",
+              "value": 2.8,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "Атака",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "СДС",
+              "kind": "choice",
+              "value": 1.6,
+              "quote": "Равна подкрепа (по 1.6%) имат СДС и НФСБ на Валери Симеонов",
+              "image": null
+            },
+            {
+              "label": "НФСБ (В. Симеонов)",
+              "kind": "choice",
+              "value": 1.6,
+              "quote": "Равна подкрепа (по 1.6%) имат СДС и НФСБ на Валери Симеонов",
+              "image": null
+            },
+            {
+              "label": "ВМРО",
+              "kind": "choice",
+              "value": 0.9,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "Коалиция РЗС-Марешки",
+              "kind": "choice",
+              "value": 0.5,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "Коалиция ЛИДЕР - НИЕ",
+              "kind": "choice",
+              "value": 0.5,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "НДСВ",
+              "kind": "choice",
+              "value": 0.4,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "ГОРД",
+              "kind": "choice",
+              "value": 0.3,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "Национал-демократическа партия",
+              "kind": "choice",
+              "value": 0.3,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 4.2,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            },
+            {
+              "label": "Няма да гласува",
+              "kind": "wont_vote",
+              "value": 34.6,
+              "quote": null,
+              "image": "Public_opinion_AR_January_2013.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

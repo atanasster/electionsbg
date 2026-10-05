@@ -1,0 +1,105 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "902",
+  "captureSha256": "b90e8157443720f43e1679cfbf37b949396f9e6e2e7043f3699a0208f714c5e2",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:23:53+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2015-11-10",
+      "fieldworkEnd": "2015-11-18",
+      "fieldworkQuote": "10 – 18 ноември 2015г.",
+      "respondents": 1100,
+      "respondentsQuote": "1100 ефективни интервюта",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване сред 1100 пълнолетни граждани чрез пряко стандартизирано интервю по домовете; стратифицирана извадка по тип населено място с квота по възраст, пол и образование.",
+        "en": "Nationally representative survey of 1,100 adult citizens via direct standardised face-to-face interviews at respondents' homes; sample stratified by settlement type with quotas on age, sex and education."
+      },
+      "methodologyQuote": "проведено в периода 10-18 ноември  сред 1100 пълнолетни граждани на страната чрез пряко стандартизирано интервю по домовете",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от гласовете на пълнолетните българи",
+          "baseLabel": {
+            "bg": "Всички пълнолетни анкетирани",
+            "en": "All adult respondents"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 24.5,
+              "quote": "Ако днес имаше избори, ГЕРБ би спечелил 24.5% от гласовете на пълнолетните българи",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 8.4,
+              "quote": null,
+              "image": "1115_Public_Opinion_Alpha_Research(1).pdf"
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 6.8,
+              "quote": "ДПС е сравнително устойчиво с 6.8 на сто от гласовете",
+              "image": null
+            },
+            {
+              "label": "РБ",
+              "kind": "choice",
+              "value": 6.5,
+              "quote": "Реформаторският блок увеличава електоралната си тежест с 1% (6.5%)",
+              "image": null
+            },
+            {
+              "label": "Патриотичен фронт",
+              "kind": "choice",
+              "value": 4.2,
+              "quote": "губи 1.5% влияние и достига (4.2%)",
+              "image": null
+            },
+            {
+              "label": "АБВ",
+              "kind": "choice",
+              "value": 3.5,
+              "quote": "Затвърждава влиянието си и АБВ (3.5%)",
+              "image": null
+            },
+            {
+              "label": "Атака",
+              "kind": "choice",
+              "value": 1.8,
+              "quote": "При избори днес Атака не би влязла в парламента (1.8%)",
+              "image": null
+            },
+            {
+              "label": "Други партии",
+              "kind": "other",
+              "value": 7.3,
+              "quote": null,
+              "image": "1115_Public_Opinion_Alpha_Research(1).pdf"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 37.0,
+              "quote": null,
+              "image": "1115_Public_Opinion_Alpha_Research(1).pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

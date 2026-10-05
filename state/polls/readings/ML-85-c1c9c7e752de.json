@@ -1,0 +1,187 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "85",
+  "captureSha256": "c1c9c7e752de3712b8e19d3fb819c0a7194f9ac0937aeee98ae9326a1e005028",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:07Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2021-03-18",
+      "fieldworkEnd": "2021-03-25",
+      "fieldworkQuote": "в периода 18 – 25 март 2021-ва година",
+      "respondents": 1026,
+      "respondentsQuote": "проведено сред 1026 лица над 18 г. в страната",
+      "publishedAt": "2021-03-29",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко лично интервю и онлайн анкета сред 1026 лица над 18 г. в страната, 18–25 март 2021 г.; финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС.",
+        "en": "Face-to-face interviews and an online survey among 1,026 people aged 18+ nationwide, 18–25 March 2021; funded and conducted jointly by bTV and Market Links."
+      },
+      "methodologyQuote": "Проучване, финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС, проведено сред 1026 лица над 18 г. в страната в периода 18 – 25 март 2021-ва година по методите на пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ",
+      "sponsorQuote": "финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "всички, 1026",
+          "baseLabel": {
+            "bg": "Всички анкетирани",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Коалиция ГЕРБ/СДС",
+              "kind": "choice",
+              "value": 18.4,
+              "quote": "Коалиция ГЕРБ/СДС 18,4%",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 15.7,
+              "quote": "БСП 15,7%",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 11.7,
+              "quote": "Има такъв народ 11,7%",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 8.2,
+              "quote": "ДПС 8,2%",
+              "image": null
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 5.1,
+              "quote": "Демократична България 5,1%",
+              "image": null
+            },
+            {
+              "label": "Изправи се! Мутри вън!",
+              "kind": "choice",
+              "value": 4.0,
+              "quote": "Изправи се! Мутри вън! 4,0%",
+              "image": null
+            },
+            {
+              "label": "ВМРО",
+              "kind": "choice",
+              "value": 2.7,
+              "quote": "ВМРО 2,7%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 5.7,
+              "quote": "Друга 5,7%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 18.7,
+              "quote": "Не съм решил 18,7%",
+              "image": null
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 9.7,
+              "quote": "Няма да гласувам 9,7%",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "гласуващи 473",
+          "baseLabel": {
+            "bg": "Гласуващи",
+            "en": "Respondents who will vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция ГЕРБ/СДС",
+              "kind": "choice",
+              "value": 22.8,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 18.0,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 12.7,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 9.0,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "Демократична България",
+              "kind": "choice",
+              "value": 7.5,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "Изправи се! Мутри вън!",
+              "kind": "choice",
+              "value": 4.5,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "ВМРО",
+              "kind": "choice",
+              "value": 3.3,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 10.3,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 11.9,
+              "quote": null,
+              "image": "INFOGRAPHIC%20NRS%20Politics%2003.2021.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

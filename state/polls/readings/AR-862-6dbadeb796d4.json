@@ -1,0 +1,161 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "862",
+  "captureSha256": "6dbadeb796d45f1cd01da4dc45281351160b54846686fc06929dcf0955417140",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:27:43Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2012-09-20",
+      "fieldworkEnd": "2012-09-28",
+      "fieldworkQuote": "Изследването е проведено в периода 20-28 септември",
+      "respondents": 1021,
+      "respondentsQuote": "сред 1021 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване; пряко стандартизирано интервю по домовете; стратифицирана квотна извадка; 1021 пълнолетни граждани; максимално стандартно отклонение ±3.2% при 50%-ни дялове.",
+        "en": "Nationally representative survey; face-to-face standardised interviews at respondents' homes; stratified quota sample; 1,021 adult citizens; maximum standard error ±3.2% for 50% shares."
+      },
+      "methodologyQuote": "анкетирани по домовете им чрез пряко стандартизирани интервю. Използвана е стратифицирана квотна извадка. Максимално допустимото стандартно отклонение при 50%-ни дялове е +/- 3.2%.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от всички избиратели",
+          "baseLabel": {
+            "bg": "Всички избиратели",
+            "en": "All voters (all respondents)"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 21.4,
+              "quote": "подкрепата за ГЕРБ спада от 22.3% до 21.4%",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 16.1,
+              "quote": "Нейната подкрепа спада от 18.4% през юни до 16.1% през септември",
+              "image": null
+            },
+            {
+              "label": "България на гражданите",
+              "kind": "choice",
+              "value": 6.4,
+              "quote": "от 5.5% до 6.4% за партията",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 5.1,
+              "quote": null,
+              "image": "Public%20Opinion%20Alpha%20Research_0912.pdf"
+            },
+            {
+              "label": "СДС",
+              "kind": "choice",
+              "value": 2,
+              "quote": "СДС – 2%, а ДСБ – 1.3% от всички избиратели",
+              "image": null
+            },
+            {
+              "label": "Атака",
+              "kind": "choice",
+              "value": 1.4,
+              "quote": "главни претенденти, за които са Атака (1.4%)",
+              "image": null
+            },
+            {
+              "label": "ДСБ",
+              "kind": "choice",
+              "value": 1.3,
+              "quote": "СДС – 2%, а ДСБ – 1.3% от всички избиратели",
+              "image": null
+            },
+            {
+              "label": "ВМРО",
+              "kind": "choice",
+              "value": 1,
+              "quote": "Атака (1.4%), ВМРО (1%)",
+              "image": null
+            },
+            {
+              "label": "ЛИДЕР",
+              "kind": "choice",
+              "value": 0.9,
+              "quote": "в тази ниша  са  ЛИДЕР (0.9%)",
+              "image": null
+            },
+            {
+              "label": "ГОРД",
+              "kind": "choice",
+              "value": 0.7,
+              "quote": "ВМРО (1%), ГОРД (0.7%)",
+              "image": null
+            },
+            {
+              "label": "РЗС",
+              "kind": "choice",
+              "value": 0.7,
+              "quote": "ЛИДЕР (0.9%), РЗС (0.7%)",
+              "image": null
+            },
+            {
+              "label": "НДСВ",
+              "kind": "choice",
+              "value": 0.5,
+              "quote": null,
+              "image": "Public%20Opinion%20Alpha%20Research_0912.pdf"
+            },
+            {
+              "label": "НФСБ (Валери Симеонов)",
+              "kind": "choice",
+              "value": 0.5,
+              "quote": "партията на Валери Симеонов НФСБ (0.5%)",
+              "image": null
+            },
+            {
+              "label": "Либерален алианс (В. Марешки)",
+              "kind": "choice",
+              "value": 0.4,
+              "quote": "Либералният алианс на Марешки (0.4%)",
+              "image": null
+            },
+            {
+              "label": "Национал-демократическа партия",
+              "kind": "choice",
+              "value": 0.2,
+              "quote": null,
+              "image": "Public%20Opinion%20Alpha%20Research_0912.pdf"
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 3.1,
+              "quote": null,
+              "image": "Public%20Opinion%20Alpha%20Research_0912.pdf"
+            },
+            {
+              "label": "Няма да гласува",
+              "kind": "wont_vote",
+              "value": 38.3,
+              "quote": null,
+              "image": "Public%20Opinion%20Alpha%20Research_0912.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

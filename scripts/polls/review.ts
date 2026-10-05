@@ -30,6 +30,7 @@ import type { InboxDraft } from "./lib/draft";
 import type { Poll } from "../../src/data/polls/pollsTypes";
 import { isProvisionalPollId } from "./lib/draft_identity";
 import { loadPartyAliases } from "./lib/party_aliases";
+import { isBilingualLabel } from "./lib/question_validation";
 import { readPublicationLedger } from "./lib/publication_ledger";
 import { acquireText, acquiredSourceText } from "./lib/text_acquisition";
 
@@ -212,13 +213,15 @@ export const fillFromReading = (
         methodology: read.methodologyQuote!,
       };
   }
-  if (
-    draft.poll.sponsor === undefined &&
-    read.sponsor &&
-    grounded(read.sponsorQuote)
-  ) {
-    draft.poll.sponsor = read.sponsor;
-    draft.evidence.sponsor = read.sponsorQuote!;
+  if (draft.poll.sponsor === undefined && read.sponsor !== null) {
+    // A sponsor the reader names but in the wrong shape is reported, never
+    // silently dropped — the source states it, so a human should see it.
+    if (!isBilingualLabel(read.sponsor))
+      return "sponsor: reader's value is not a {bg, en} label";
+    if (grounded(read.sponsorQuote)) {
+      draft.poll.sponsor = read.sponsor;
+      draft.evidence.sponsor = read.sponsorQuote!;
+    }
   }
   // Only a date the capture itself states — never the reader's alone.
   if (

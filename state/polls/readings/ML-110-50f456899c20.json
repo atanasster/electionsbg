@@ -1,0 +1,180 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "110",
+  "captureSha256": "50f456899c20d76319758af56bb219fd89c41ae59a377fe4e520a63aa4c43248",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:49Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2025-12-03",
+      "fieldworkEnd": "2025-12-07",
+      "fieldworkQuote": "Период на провеждане   03 - 07 декември 2025 г.",
+      "respondents": 1009,
+      "respondentsQuote": "Обем на извадката      1009 лица над 18 г. в страната",
+      "publishedAt": "2025-12-11",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално количествено проучване; 1009 лица над 18 г.; пряко-лично интервю и онлайн анкета.",
+        "en": "National quantitative survey; 1009 people aged 18+; face-to-face interview and online survey."
+      },
+      "methodologyQuote": "Метод на регистрация   Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "твърдо деклариралите, че ще гласуват",
+          "baseLabel": {
+            "bg": "Гласуващи",
+            "en": "Respondents declaring they will vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 17.0,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Коалиция ПП-ДБ",
+              "kind": "choice",
+              "value": 14.7,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 9.3,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "ДПС – Ново начало",
+              "kind": "choice",
+              "value": 9.1,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 5.3,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "БСП обединена левица",
+              "kind": "choice",
+              "value": 4.7,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 2.6,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 2.2,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "АПС – Ахмед Доган",
+              "kind": "choice",
+              "value": 1.2,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 4.4,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 24.5,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 0.0,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 4.9,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "Всички: НИ ноември 2025, 1009, 18+ г.",
+          "baseLabel": {
+            "bg": "Всички пълнолетни",
+            "en": "All adult respondents"
+          },
+          "answers": [
+            {
+              "label": "Да",
+              "kind": "choice",
+              "value": 51,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "По-скоро да",
+              "kind": "choice",
+              "value": 20,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Не зная / не мога да определя",
+              "kind": "undecided",
+              "value": 15,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "По-скоро не",
+              "kind": "choice",
+              "value": 4,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            },
+            {
+              "label": "Не",
+              "kind": "choice",
+              "value": 10,
+              "quote": null,
+              "image": "MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

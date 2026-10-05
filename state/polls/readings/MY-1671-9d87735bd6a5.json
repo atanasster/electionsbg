@@ -1,0 +1,150 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "MY",
+  "pubId": "1671",
+  "captureSha256": "9d87735bd6a5b192950352a5905b4525f9b22a1a728b93ccedf4b66a219d6f46",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:29:09Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-02-09",
+      "fieldworkEnd": "2026-02-15",
+      "fieldworkQuote": "Изследването е проведено в периода 9-15 февруари 2026 г.",
+      "respondents": 812,
+      "respondentsQuote": "сред 812 пълнолетни български граждани",
+      "publishedAt": "2026-02-17",
+      "genre": "raw_attitudes",
+      "methodology": {
+        "bg": "Лице в лице с таблети, 812 пълнолетни български граждани, 9–15 февруари 2026 г.; максимално стандартно отклонение ±3,5 при 50% дялове.",
+        "en": "Face-to-face tablet interviews with 812 adult Bulgarian citizens, 9–15 February 2026; maximum standard error ±3.5 at 50% shares."
+      },
+      "methodologyQuote": "Изследването е проведено „лице в лице“ с таблети между 9 и 15 февруари 2026 г. сред 812 пълнолетни български граждани. Максималното стандартно отклонение е ±3,5 при 50% дялове.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": null,
+          "baseLabel": {
+            "bg": "Всички анкетирани",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Ще гласуват",
+              "kind": "choice",
+              "value": 51.5,
+              "quote": "51,5% е декларацията за активност",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "decided_voters",
+          "basePhrase": "заявяващите, че ще гласуват за определена партия и коалиция",
+          "baseLabel": {
+            "bg": "Заявяващите, че ще гласуват за определена партия или коалиция",
+            "en": "Respondents stating they will vote for a specific party or coalition"
+          },
+          "answers": [
+            {
+              "label": "формация на Румен Радев",
+              "kind": "choice",
+              "value": 33.3,
+              "quote": "формация на Румен Радев има 33,3%",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 18.9,
+              "quote": "формация на Румен Радев има 33,3%, ГЕРБ-СДС – 18,9%",
+              "image": null
+            },
+            {
+              "label": "ПП-ДБ",
+              "kind": "choice",
+              "value": 12.7,
+              "quote": "ГЕРБ-СДС – 18,9%, ПП-ДБ – 12,7%",
+              "image": null
+            },
+            {
+              "label": "ДПС-НН",
+              "kind": "choice",
+              "value": 10.7,
+              "quote": "ПП-ДБ – 12,7%, ДПС-НН – 10,7%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 6.8,
+              "quote": "ДПС-НН – 10,7%, „Възраждане“ – 6,8%",
+              "image": null
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 3.9,
+              "quote": "МЕЧ получава 3,9%, БСП – 3,7%",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 3.7,
+              "quote": "МЕЧ получава 3,9%, БСП – 3,7% и 2,3% за „Величие“",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 2.3,
+              "quote": "БСП – 3,7% и 2,3% за „Величие“",
+              "image": null
+            },
+            {
+              "label": "ИТН",
+              "kind": "choice",
+              "value": 2.1,
+              "quote": "За ИТН и АПС заявяват, че ще гласуват съответно – 2,1% и 1,9%",
+              "image": null
+            },
+            {
+              "label": "АПС",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": "За ИТН и АПС заявяват, че ще гласуват съответно – 2,1% и 1,9%",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "всички заявяващи, че ще гласуват",
+          "baseLabel": {
+            "bg": "Всички заявяващи, че ще гласуват",
+            "en": "All respondents stating they will vote"
+          },
+          "answers": [
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 1.5,
+              "quote": "1,5% от всички заявяващи, че ще гласуват, възнамеряват да гласуват с „Не подкрепям никого“",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

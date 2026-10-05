@@ -1,0 +1,57 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "994",
+  "captureSha256": "40868ce157d583f3a77a7b698da11a56082a68fbda3c14dccdd39dcd9202e27f",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2022-02-06",
+      "fieldworkEnd": "2022-02-14",
+      "fieldworkQuote": "Проведено е в периода 6 – 14 февруари 2022г.",
+      "respondents": 1060,
+      "respondentsQuote": "сред  1060 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване; пряко стандартизирано интервю с таблети сред 1060 пълнолетни граждани; двустепенна стратифицирана извадка по регион и тип населено място с квота по пол, възраст, образование. Собствени средства.",
+        "en": "Nationally representative survey; face-to-face standardised tablet interviews with 1,060 adult citizens; two-stage sample stratified by region and settlement type with quotas by gender, age and education. Self-funded."
+      },
+      "methodologyQuote": "Настоящото национално представително проучване е част от регулярния мониторинг на Алфа Рисърч. Проведено е в периода 6 – 14 февруари 2022г., сред  1060 пълнолетни граждани от цялата страна, чрез пряко стандартизирано интервю с таблети. Използвана е двустепенна стратифицирана по регион и тип населено място извадка с квота по пол, възраст, образование.",
+      "sponsor": null,
+      "sponsorQuote": "Публикувано е на сайта на агенцията и се реализира със собствени средства.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "сред заявилите, че ще гласуват",
+          "baseLabel": { "bg": "Заявилите, че ще гласуват", "en": "Respondents who say they will vote" },
+          "answers": [
+            { "label": "Продължаваме промяната", "kind": "choice", "value": 24.4,
+              "quote": "„Продължаваме промяната“ запазва първото си място, с 24.4%", "image": null },
+            { "label": "ГЕРБ", "kind": "choice", "value": 18.1,
+              "quote": "на отчетлива дистанция пред основния си опонент ГЕРБ (18.1%)", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 9.8,
+              "quote": "БСП, която е на нива малко под 10% (9.8%)", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 7.2,
+              "quote": "ДПС получава традиционната си подкрепа от 7.2% от живеещите в страната избиратели.", "image": null },
+            { "label": "Има такъв народ", "kind": "choice", "value": 6.6,
+              "quote": "Готовност да гласуват за тях заявяват 6.6% от българите.", "image": null },
+            { "label": "Демократична България", "kind": "choice", "value": 6.4,
+              "quote": "Без промяна в сравнение с последните избори остава подкрепата за „Демократична България“ - 6.4%.", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 5.2,
+              "quote": "Към края на февруари тя печели гласовете на 5.2% от гласуващите.", "image": null },
+            { "label": "Други", "kind": "other", "value": 4.0,
+              "quote": null, "image": "Graph7.jpg" },
+            { "label": "Не знам/ не съм решил", "kind": "undecided", "value": 18.3,
+              "quote": null, "image": "Graph7.jpg" }
+          ]
+        }
+      ]
+    }
+  ]
+}

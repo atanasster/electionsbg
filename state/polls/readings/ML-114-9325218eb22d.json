@@ -1,0 +1,252 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "114",
+  "captureSha256": "9325218eb22d8c87f6b7f413c9b697a6695fdb1556fb8e0869da91b00d51a863",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:28:06+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-04-07",
+      "fieldworkEnd": "2026-04-14",
+      "fieldworkQuote": "Период на провеждане 07 - 14 април 2026 г.",
+      "respondents": 1003,
+      "respondentsQuote": "Обем на извадката 1003 лица над 18 г. в страната",
+      "publishedAt": "2026-04-16",
+      "genre": "both_published",
+      "methodology": {
+        "bg": "Национално количествено проучване; пряко-лично интервю и онлайн анкета; 1003 лица над 18 г.; 07–14 април 2026 г. Прогнозата е медиана на четири прогностични модела.",
+        "en": "National quantitative survey; face-to-face interview and online questionnaire; 1,003 people aged 18+; 7–14 April 2026. The forecast is the median of four forecasting models."
+      },
+      "methodologyQuote": "Метод на регистрация Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ и Маркет ЛИНКС",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Декларирали твърдо намерение да гласуват: 612",
+          "baseLabel": {
+            "bg": "Декларирали твърдо намерение да гласуват",
+            "en": "Respondents who declared a firm intention to vote"
+          },
+          "answers": [
+            {
+              "label": "Коалиция Прогресивна България",
+              "kind": "choice",
+              "value": 30.8,
+              "quote": "Коалиция Прогресивна България 30.8%",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ – СДС",
+              "kind": "choice",
+              "value": 18.0,
+              "quote": "ГЕРБ – СДС 18.0%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Продължаваме…",
+              "kind": "choice",
+              "value": 11.2,
+              "quote": "Коалиция Продължаваме… 11.2%",
+              "image": null
+            },
+            {
+              "label": "Движение за права и свободи",
+              "kind": "choice",
+              "value": 6.5,
+              "quote": "Движение за права и свободи 6.5%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 4.2,
+              "quote": "Възраждане 4.2%",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 3.1,
+              "quote": "Величие 3.1%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Сияние",
+              "kind": "choice",
+              "value": 2.3,
+              "quote": "Коалиция Сияние 2.3%",
+              "image": null
+            },
+            {
+              "label": "МЕЧ (Морал, единство, чест)",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": "МЕЧ (Морал, единство, чест) 2.0%",
+              "image": null
+            },
+            {
+              "label": "Коалиция БСП – Обединена…",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": "Коалиция БСП – Обединена… 2.0%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 3.8,
+              "quote": "Друга 3.8%",
+              "image": null
+            },
+            {
+              "label": "Не съм решил",
+              "kind": "undecided",
+              "value": 14.8,
+              "quote": "Не съм решил 14.8%",
+              "image": null
+            },
+            {
+              "label": "Не подкрепям никого",
+              "kind": "none",
+              "value": 1.3,
+              "quote": "Не подкрепям никого 1.3%",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": "Прогноза за изборните резултати",
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "Коалиция Прогресивна България",
+              "kind": "choice",
+              "value": 38.0,
+              "quote": "Прогресивна България е водеща сила с прогнозни 38% и 109 мандата",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ – СДС",
+              "kind": "choice",
+              "value": 19.8,
+              "quote": "ГЕРБ – СДС 19.8%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Продължаваме промяната – Демократична България",
+              "kind": "choice",
+              "value": 13.1,
+              "quote": "Коалиция Продължаваме промяната – Демократична България 13.1%",
+              "image": null
+            },
+            {
+              "label": "Движение за права и свободи",
+              "kind": "choice",
+              "value": 7.5,
+              "quote": "Движение за права и свободи 7.5%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 5.6,
+              "quote": "Възраждане 5.6%",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 3.4,
+              "quote": "Величие 3.4%",
+              "image": null
+            },
+            {
+              "label": "Коалиция Сияние",
+              "kind": "choice",
+              "value": 3.1,
+              "quote": "Коалиция Сияние 3.1%",
+              "image": null
+            },
+            {
+              "label": "МЕЧ (Морал, единство, чест)",
+              "kind": "choice",
+              "value": 3.1,
+              "quote": "МЕЧ (Морал, единство, чест) 3.1%",
+              "image": null
+            },
+            {
+              "label": "Коалиция БСП – Обединена левица",
+              "kind": "choice",
+              "value": 3.0,
+              "quote": "Коалиция БСП – Обединена левица 3.0%",
+              "image": null
+            },
+            {
+              "label": "Друга",
+              "kind": "other",
+              "value": 3.4,
+              "quote": "Друга 3.4%",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "Всички: НИ април 2026, 1003, 18+ г.",
+          "baseLabel": {
+            "bg": "Всички анкетирани",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Да",
+              "kind": "choice",
+              "value": 61,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf"
+            },
+            {
+              "label": "По-скоро да",
+              "kind": "choice",
+              "value": 22,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf"
+            },
+            {
+              "label": "Не зная / не мога да определя",
+              "kind": "undecided",
+              "value": 6,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf"
+            },
+            {
+              "label": "По-скоро не",
+              "kind": "choice",
+              "value": 2,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf"
+            },
+            {
+              "label": "Не",
+              "kind": "wont_vote",
+              "value": 9,
+              "quote": null,
+              "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "1007",
+  "captureSha256": "9f3477541c2b23f03c01f26d07104cfb9df709e744d5149c069d7a2fe04a7fc6",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T00:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2023-02-21",
+      "fieldworkEnd": "2023-02-27",
+      "fieldworkQuote": "проведено в периода 21 – 27 февруари 2023г. от Алфа Рисърч",
+      "respondents": 1007,
+      "respondentsQuote": "Проучването е проведено сред 1007 пълнолетни граждани от цялата страна.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю с таблети по домовете; двустепенна извадка, стратифицирана по регион и тип населено място, с квоти; 1007 пълнолетни граждани.",
+        "en": "Face-to-face standardised tablet interviews in respondents' homes; two-stage sample stratified by region and settlement type, with quotas; 1,007 adult citizens."
+      },
+      "methodologyQuote": "Използвана е двустепенна извадка, стратифицирана по регион и тип населено място, с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": null,
+      "sponsorQuote": "публикува се на сайта на агенцията и се реализира със собствени средства",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "от твърдо решилите да гласуват",
+          "baseLabel": { "bg": "Твърдо решили да гласуват", "en": "Respondents firmly decided to vote" },
+          "answers": [
+            { "label": "ПП-ДБ", "kind": "choice", "value": 26.4, "quote": "сочат паритет между коалициите ПП-ДБ (26.4%) и ГЕРБ-СДС (25.2%)", "image": null },
+            { "label": "ГЕРБ-СДС", "kind": "choice", "value": 25.2, "quote": "сочат паритет между коалициите ПП-ДБ (26.4%) и ГЕРБ-СДС (25.2%)", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 13.2, "quote": "Към момента тя се заема от ДПС с 13.2% от твърдо решилите да гласуват.", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 11.3, "quote": "В непосредствена близост до тях е Възраждане (11.3%)", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 7.4, "quote": "БСП стартира кампанията със 7.4%", "image": null },
+            { "label": "Български възход", "kind": "choice", "value": 3.8, "quote": "остават Български възход с 3.8%, Левицата с 3.6% и ИТН с 3.2%", "image": null },
+            { "label": "Левицата", "kind": "choice", "value": 3.6, "quote": "остават Български възход с 3.8%, Левицата с 3.6% и ИТН с 3.2%", "image": null },
+            { "label": "ИТН", "kind": "choice", "value": 3.2, "quote": "остават Български възход с 3.8%, Левицата с 3.6% и ИТН с 3.2%", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

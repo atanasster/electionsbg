@@ -22,8 +22,13 @@ const isoPublicationDate = (value: unknown): boolean => {
     day.toISOString().slice(0, 10) === value.slice(0, 10)
   );
 };
-const language = (value: unknown): boolean =>
+/** A non-empty `{ bg, en }` label — the one definition shared with
+ *  polls:review, so review and accept cannot disagree about it. */
+export const isBilingualLabel = (
+  value: unknown,
+): value is { bg: string; en: string } =>
   record(value) && text(value.bg) && text(value.en);
+const language = isBilingualLabel;
 const percentage = (value: unknown): boolean =>
   typeof value === "number" &&
   Number.isFinite(value) &&

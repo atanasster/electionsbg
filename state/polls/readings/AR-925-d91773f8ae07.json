@@ -1,0 +1,109 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "925",
+  "captureSha256": "d91773f8ae078e30ac8c8ea383148316b42dc02d5ecd735fe7278eb725b318e0",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:24:47.410108Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2017-09-13",
+      "fieldworkEnd": "2017-09-20",
+      "fieldworkQuote": "проведено в периода 13 – 20 септември 2017г.",
+      "respondents": 1030,
+      "respondentsQuote": "сред представителна извадка от 1030 пълнолетни жители от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю по домовете; стратифицирана двустепенна извадка от 1030 пълнолетни жители, представителна за страната.",
+        "en": "Face-to-face standardised interview in respondents' homes; stratified two-stage sample of 1,030 adult residents, nationally representative."
+      },
+      "methodologyQuote": "чрез пряко стандартизирано интервю сред представителна извадка от 1030 пълнолетни жители от цялата страна",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 25.1,
+              "quote": "ГЕРБ (25.1%) запазва електорална преднина от 6% пред БСП (19.3%)",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 19.3,
+              "quote": "ГЕРБ (25.1%) запазва електорална преднина от 6% пред БСП (19.3%)",
+              "image": null
+            },
+            {
+              "label": "Обединени патриоти",
+              "kind": "choice",
+              "value": 5.9,
+              "quote": "Обединените патриоти бележат известен електорален спад в сравнение с юни (от 7.2% на 5.9%)",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 4.8,
+              "quote": "Електоралната динамика на ДПС (4.8%)",
+              "image": null
+            },
+            {
+              "label": "Реформаторски блок",
+              "kind": "choice",
+              "value": 2.2,
+              "quote": "Реформаторски блок 2.2%",
+              "image": null
+            },
+            {
+              "label": "ВОЛЯ",
+              "kind": "choice",
+              "value": 1.8,
+              "quote": "а с 1.8% електорална подкрепа партията му би останала под чертата",
+              "image": null
+            },
+            {
+              "label": "“Да, България”",
+              "kind": "choice",
+              "value": 1.6,
+              "quote": "“Да, България” 1.6%",
+              "image": null
+            },
+            {
+              "label": "Нова Република",
+              "kind": "choice",
+              "value": 0.8,
+              "quote": "Нова Република 0.8%",
+              "image": null
+            },
+            {
+              "label": "Други партии",
+              "kind": "other",
+              "value": 7.9,
+              "quote": "Относително високият дял анкетирани (7.9%), твърдящи, че биха избрали \"друга\" политическа сила",
+              "image": null
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 30.5,
+              "quote": "Няма да гласувам 30.5%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
