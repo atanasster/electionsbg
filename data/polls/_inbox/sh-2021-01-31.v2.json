@@ -1,0 +1,177 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "sh-2021-01-31",
+    "agencyId": "SH",
+    "source": "https://sovaharris.com/%d1%81%d0%be%d1%86%d0%b8%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3-4/",
+    "electionDate": null,
+    "respondents": 1000,
+    "publishedAt": "2021-04-19",
+    "genre": "unclear",
+    "fieldwork": "Jan 26-31 2021",
+    "provenance": {
+      "url": "https://sovaharris.com/%d1%81%d0%be%d1%86%d0%b8%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3-4/",
+      "fetchedAt": "2026-09-26T07:58:33.846Z",
+      "sha256": "8b7a96394659a68dbff1400d363b95096f67a29df1e7ccac43508a53d95ca96b",
+      "extractor": "SH",
+      "fieldworkStart": "2021-01-26",
+      "fieldworkEnd": "2021-01-31",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "в периода 26 – 31 януари 2021",
+        "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/SH-3760-8b7a96394659.json; the extractor read no clean rows (bulletin OCR). Values are from the bulletin images — verify each before accepting.",
+        "share:ГЕРБ / СДС": "[bulletin image] page0004-1.jpg",
+        "share:БСП": "[bulletin image] page0004-1.jpg",
+        "share:Има такъв народ": "[bulletin image] page0004-1.jpg",
+        "share:ДПС": "[bulletin image] page0004-1.jpg",
+        "share:Изправи се.БГ": "[bulletin image] page0004-1.jpg",
+        "share:ВМРО": "[bulletin image] page0004-1.jpg",
+        "share:Да, България": "[bulletin image] page0004-1.jpg",
+        "share:Воля": "[bulletin image] page0004-1.jpg",
+        "share:НФСБ": "[bulletin image] page0004-1.jpg",
+        "share:АБВ": "[bulletin image] page0004-1.jpg",
+        "share:Републиканци за България": "[bulletin image] page0004-1.jpg",
+        "share:Атака": "[bulletin image] page0004-1.jpg",
+        "share:Възраждане": "[bulletin image] page0004-1.jpg",
+        "share:ДСБ": "[bulletin image] page0004-1.jpg",
+        "share:Не бих гласувал/а": "[bulletin image] page0004-1.jpg",
+        "share:Не мога да преценя/ Не съм решил/а": "[bulletin image] page0004-1.jpg"
+      }
+    },
+    "publicationId": "SH:3760",
+    "methodology": {
+      "bg": "Представително за пълнолетното население проучване, стандартизирано face-to-face интервю в дома на респондента, 1000 души над 18 години; 26–31 януари 2021 г.",
+      "en": "Survey representative of the adult population, standardised face-to-face interview at the respondent's home, 1000 people aged 18+; 26–31 January 2021."
+    }
+  },
+  "details": [
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 17.2,
+      "nickName_bg": "ГЕРБ - СДС",
+      "nickName_en": "GERB-SDS"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 15.8,
+      "nickName_bg": "БСП за България",
+      "nickName_en": "BSP for Bulgaria"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 9.8,
+      "nickName_bg": "ИТН",
+      "nickName_en": "ITN"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 5.9,
+      "nickName_bg": "ДПС",
+      "nickName_en": "DPS"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 3,
+      "nickName_bg": "Изправи се.БГ",
+      "nickName_en": "Stand Up.BG"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 2.8,
+      "nickName_bg": "ВМРО",
+      "nickName_en": "VMRO"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 2,
+      "nickName_bg": "Да, България",
+      "nickName_en": "Yes, Bulgaria"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 1.8,
+      "nickName_bg": "Воля",
+      "nickName_en": "Volya"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 1.1,
+      "nickName_bg": "НФСБ",
+      "nickName_en": "NFSB"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 1.1,
+      "nickName_bg": "АБВ",
+      "nickName_en": "ABV"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 1,
+      "nickName_bg": "Републиканци за България",
+      "nickName_en": "Republicans for Bulgaria"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 0.8,
+      "nickName_bg": "Атака",
+      "nickName_en": "Attack"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 0.7,
+      "nickName_bg": "Възраждане",
+      "nickName_en": "Revival"
+    },
+    {
+      "pollId": "sh-2021-01-31",
+      "agencyId": "SH",
+      "support": 0.6,
+      "nickName_bg": "ДСБ",
+      "nickName_en": "DSB"
+    }
+  ],
+  "residual": {
+    "undecided": 22.4,
+    "wontVote": 14,
+    "wontSay": null,
+    "otherNamedMinor": null,
+    "notes": "Base: all respondents. All-respondents series (as sh-2021-03-22). The bulletin also gives a valid-votes series (ГЕРБ 27.1, БСП 24.8, ИТН 15.3, ДПС 9.3 …) where „Да, България\" + ДСБ appear as „Демократична България\" 4.1. Pre-filled from the independent reading — verify against the bulletin images before accepting."
+  },
+  "genre": "unclear",
+  "extractor": "SH",
+  "evidence": {
+    "fieldwork": "в периода 26 – 31 януари 2021",
+    "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/SH-3760-8b7a96394659.json; the extractor read no clean rows (bulletin OCR). Values are from the bulletin images — verify each before accepting.",
+    "share:ГЕРБ / СДС": "[bulletin image] page0004-1.jpg",
+    "share:БСП": "[bulletin image] page0004-1.jpg",
+    "share:Има такъв народ": "[bulletin image] page0004-1.jpg",
+    "share:ДПС": "[bulletin image] page0004-1.jpg",
+    "share:Изправи се.БГ": "[bulletin image] page0004-1.jpg",
+    "share:ВМРО": "[bulletin image] page0004-1.jpg",
+    "share:Да, България": "[bulletin image] page0004-1.jpg",
+    "share:Воля": "[bulletin image] page0004-1.jpg",
+    "share:НФСБ": "[bulletin image] page0004-1.jpg",
+    "share:АБВ": "[bulletin image] page0004-1.jpg",
+    "share:Републиканци за България": "[bulletin image] page0004-1.jpg",
+    "share:Атака": "[bulletin image] page0004-1.jpg",
+    "share:Възраждане": "[bulletin image] page0004-1.jpg",
+    "share:ДСБ": "[bulletin image] page0004-1.jpg",
+    "share:Не бих гласувал/а": "[bulletin image] page0004-1.jpg",
+    "share:Не мога да преценя/ Не съм решил/а": "[bulletin image] page0004-1.jpg"
+  },
+  "refused": []
+}

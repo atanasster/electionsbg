@@ -1,0 +1,114 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "sh-2021-06-15",
+    "agencyId": "SH",
+    "source": "https://sovaharris.com/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1/",
+    "electionDate": null,
+    "respondents": 1000,
+    "publishedAt": "2021-06-18",
+    "genre": "unclear",
+    "fieldwork": "Jun 10-15 2021",
+    "provenance": {
+      "url": "https://sovaharris.com/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1/",
+      "fetchedAt": "2026-09-26T07:58:32.231Z",
+      "sha256": "3ab036a2bdbfa44a1b13e9a297c703dafd1e0d17eef456ce9c34f7ba4ebd656c",
+      "extractor": "SH",
+      "fieldworkStart": "2021-06-10",
+      "fieldworkEnd": "2021-06-15",
+      "basePhrase": "СРЕД ГЛАСУВАЛИТЕ ЗА КОНКРЕТНА ПАРТИЯ/КОАЛИЦИЯ",
+      "quotes": {
+        "fieldwork": "в периода 10-15 юни 2021",
+        "sampleSize": "сред 1000 български граждани",
+        "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/SH-3840-3ab036a2bdbf.json; the extractor read no clean rows (bulletin OCR). Values are from the bulletin images — verify each before accepting.",
+        "share:ГЕРБ - СДС": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+        "share:ИМА ТАКЪВ НАРОД": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+        "share:БСП ЗА БЪЛГАРИЯ": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+        "share:ДПС": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+        "share:ДЕМОКРАТИЧНА БЪЛГАРИЯ - ОБЕДИНЕНИЕ": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+        "share:ИЗПРАВИ СЕ! МУТРИ ВЪН!": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+        "share:БЪЛГАРСКИТЕ ПАТРИОТИ - ВМРО, ВОЛЯ и НФСБ": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+        "share:Друга партия / коалиция": "[bulletin image] publ_dirbg_180621-4-scaled.jpg"
+      }
+    },
+    "publicationId": "SH:3840",
+    "methodology": {
+      "bg": "Представително за пълнолетното население проучване сред 1000 български граждани, стандартизирано face-to-face интервю в дома на респондента, 10-15 юни 2021 г.",
+      "en": "Survey representative of the adult population among 1,000 Bulgarian citizens, standardised face-to-face interview in the respondent's home, 10-15 June 2021."
+    }
+  },
+  "details": [
+    {
+      "pollId": "sh-2021-06-15",
+      "agencyId": "SH",
+      "support": 22.4,
+      "nickName_bg": "ГЕРБ - СДС",
+      "nickName_en": "GERB-SDS"
+    },
+    {
+      "pollId": "sh-2021-06-15",
+      "agencyId": "SH",
+      "support": 21.7,
+      "nickName_bg": "ИТН",
+      "nickName_en": "ITN"
+    },
+    {
+      "pollId": "sh-2021-06-15",
+      "agencyId": "SH",
+      "support": 18.7,
+      "nickName_bg": "БСП за България",
+      "nickName_en": "BSP for Bulgaria"
+    },
+    {
+      "pollId": "sh-2021-06-15",
+      "agencyId": "SH",
+      "support": 11.4,
+      "nickName_bg": "ДПС",
+      "nickName_en": "DPS"
+    },
+    {
+      "pollId": "sh-2021-06-15",
+      "agencyId": "SH",
+      "support": 11.1,
+      "nickName_bg": "Демократична България",
+      "nickName_en": "Democratic Bulgaria"
+    },
+    {
+      "pollId": "sh-2021-06-15",
+      "agencyId": "SH",
+      "support": 5.4,
+      "nickName_bg": "Изправи се! Мутри вън!",
+      "nickName_en": "Stand Up! Mafia Out!"
+    },
+    {
+      "pollId": "sh-2021-06-15",
+      "agencyId": "SH",
+      "support": 4.9,
+      "nickName_bg": "Българските патриоти",
+      "nickName_en": "Bulgarian Patriots (VMRO, Volya, NFSB)"
+    }
+  ],
+  "residual": {
+    "undecided": null,
+    "wontVote": null,
+    "wontSay": null,
+    "otherNamedMinor": 4.4,
+    "notes": "Base: СРЕД ГЛАСУВАЛИТЕ ЗА КОНКРЕТНА ПАРТИЯ/КОАЛИЦИЯ. Pre-filled from the independent reading — verify against the bulletin images before accepting."
+  },
+  "genre": "unclear",
+  "extractor": "SH",
+  "evidence": {
+    "fieldwork": "в периода 10-15 юни 2021",
+    "sampleSize": "сред 1000 български граждани",
+    "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/SH-3840-3ab036a2bdbf.json; the extractor read no clean rows (bulletin OCR). Values are from the bulletin images — verify each before accepting.",
+    "share:ГЕРБ - СДС": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+    "share:ИМА ТАКЪВ НАРОД": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+    "share:БСП ЗА БЪЛГАРИЯ": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+    "share:ДПС": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+    "share:ДЕМОКРАТИЧНА БЪЛГАРИЯ - ОБЕДИНЕНИЕ": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+    "share:ИЗПРАВИ СЕ! МУТРИ ВЪН!": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+    "share:БЪЛГАРСКИТЕ ПАТРИОТИ - ВМРО, ВОЛЯ и НФСБ": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
+    "share:Друга партия / коалиция": "[bulletin image] publ_dirbg_180621-4-scaled.jpg"
+  },
+  "refused": []
+}
