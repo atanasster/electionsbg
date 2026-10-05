@@ -1,0 +1,65 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ml-pub-112-presidential",
+    "agencyId": "ML",
+    "source": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-mart-2026-112.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-mart-2026-112.html",
+      "fetchedAt": "2026-09-27T06:45:31.916Z",
+      "sha256": "f395cee58abec5fe37ce41027f8365c064ea84adfdf09888e2ced8776d2cb442",
+      "extractor": "ML",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "ML:112"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "ML",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Обществено–политически нагласи - Март 2026 - MarketLinks"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.938Z",
+    "draftHash": "a665bf9abff3e34929e4207f68a1ec075fe83848d72edc706af5e64b13222ab7",
+    "diffs": [
+      "provisional poll id",
+      "re-issued publication (.vN) — a correction needs a human",
+      "extractor refused: fieldwork, respondents, questions",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
+}

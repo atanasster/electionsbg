@@ -1,0 +1,52 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-801",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/801-izbori-pod-znaka-na-ikonomicheska-kriza-i-finansovi-sankcii-ot-briuksel.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/801-izbori-pod-znaka-na-ikonomicheska-kriza-i-finansovi-sankcii-ot-briuksel.html",
+      "fetchedAt": "2026-09-27T06:45:28.256Z",
+      "sha256": "1ad7e23ca493c5f20169e741ca567af384e42df7895dd39187d2e4521766abc0",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:801",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.890Z",
+    "draftHash": "57156c5c3e0522f32ff38278bb8c412d80f4e0f4162d574556f386ffb9b6253c",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, poll.id",
+      "reader says not a poll: Topical commentary on economic expectations ahead of the 2009 elections (December 2008 survey, 1035 respondents, for Дневник); it publishes no party or candidate vote-intention shares — only economic-outlook percentages and a mention of ~20% undecided voters.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2009-02-13",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/806-izbori-po-vreme-na-pochivka.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Jan 30 - Feb 13 2009",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/806-izbori-po-vreme-na-pochivka.html",
+      "fetchedAt": "2026-09-27T06:45:28.122Z",
+      "sha256": "14730ee8703c675f64b893fef0c112dc73a365c5ac87d59cd7de75132d1a5c1d",
+      "extractor": "AR",
+      "fieldworkStart": "2009-01-30",
+      "fieldworkEnd": "2009-02-13",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ може да загуби от преместване на изборите през активния отпускарски сезон е 3-4% от имащите право на глас",
+        "fieldwork": "в периода 30 януари – 13 февруари 2009 г"
+      }
+    },
+    "publicationId": "AR:806",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2009-02-13",
+      "agencyId": "AR",
+      "support": 4,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ може да загуби от преместване на изборите през активния отпускарски сезон е 3-4% от имащите право на глас",
+    "fieldwork": "в периода 30 януари – 13 февруари 2009 г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.756Z",
+    "draftHash": "579604a109480091082a9e69189da6139a696c590963e245db2b1affc5e55693",
+    "diffs": [
+      "extractor refused: sampleSize",
+      "reader says not a poll: Topical commentary on how a summer (holiday-season) election date would affect turnout by party electorate (survey for Капитал, 30 Jan - 13 Feb 2009, 1021 respondents). The text states no party or candidate vote-intention shares; the one chart (capital_elections_vote_0209.gif) is not included in the capture, so no electoral figures can be transcribed.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

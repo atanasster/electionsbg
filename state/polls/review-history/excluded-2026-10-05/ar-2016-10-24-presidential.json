@@ -1,0 +1,62 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-2016-10-24-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/908-informiranost-i-rolia-na-kampaniata-za-prezidentski-izbori-i-nacionalen-referendum.html",
+    "cycle": "2016_11_06_pvr",
+    "electionDate": "2016-11-06",
+    "publishedAt": null,
+    "fieldwork": "Oct 19-24 2016",
+    "respondents": 1013,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/908-informiranost-i-rolia-na-kampaniata-za-prezidentski-izbori-i-nacionalen-referendum.html",
+      "fetchedAt": "2026-09-26T07:51:38.093Z",
+      "sha256": "fd050de8c394b257266606c77c8a8fb6050d0a4a0510d6594319ff687ce380ae",
+      "extractor": "AR",
+      "fieldworkStart": "2016-10-19",
+      "fieldworkEnd": "2016-10-24",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 19 – 24 октомври 2016",
+        "sampleSize": "сред 1013 пълнолетни"
+      }
+    },
+    "publicationId": "AR:908"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "периода 19 – 24 октомври 2016",
+    "sampleSize": "сред 1013 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "ИНФОРМИРАНОСТ И РОЛЯ НА КАМПАНИЯТА ЗА ПРЕЗИДЕНТСКИ ИЗБОРИ И НАЦИОНАЛЕН РЕФЕРЕНДУМ -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.825Z",
+    "draftHash": "e258d10d15bd9ae00f837020951b3d9339fad986961fef0e25ead5461ed7e37b",
+    "diffs": [
+      "extractor refused: questions",
+      "reader finds the genre unclear",
+      "questions: extractor 1 vs reader 0",
+      "vote_intention r1: reader has no such question"
+    ]
+  }
+}

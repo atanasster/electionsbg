@@ -16,7 +16,17 @@
         "capturedAt": "2026-09-09T11:14:56.800Z",
         "capturePath": "raw_data/polls/alpha_research/1043",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2026-03-02",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-03T22:43:17.808Z",
+            "draftHash": "d285263870aced9d80a46ed647c9c225fc0c33f605621d5f9d3af25e50e5ebf8",
+            "refused": [
+              "share:МЕЧ"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -46,7 +56,17 @@
         "capturedAt": "2026-09-09T11:14:56.710Z",
         "capturePath": "raw_data/polls/alpha_research/1044",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2026-03-20",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-03T22:43:19.291Z",
+            "draftHash": "b1800f969089fcc6712e2b12bd7984a908935d0f29930dc96f16aff585efb956",
+            "refused": [
+              "shares"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -76,7 +96,17 @@
         "capturedAt": "2026-09-09T11:14:56.628Z",
         "capturePath": "raw_data/polls/alpha_research/1045",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2026-03-26",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-03T22:43:22.243Z",
+            "draftHash": "24f47caa46b8325558bb028af1025bab7f0a3f1c7c720f8a97800dcc510af353",
+            "refused": [
+              "shares"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -106,7 +136,17 @@
         "capturedAt": "2026-09-09T11:14:56.458Z",
         "capturePath": "raw_data/polls/alpha_research/1047",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "ar-2026-04-15",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-03T22:43:24.047Z",
+            "draftHash": "2ace52e51c17939777271073d36cadaf078897daa3c2f8039b045fe2b4e9d186",
+            "refused": [
+              "share:МЕЧ"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -948,6 +988,13 @@
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -1804,6 +1851,13 @@
               "poll.id"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical survey (BNT / Alpha Research, 28 Feb 2022, 500 respondents) on the Russia-Ukraine war: attitudes to Putin and Zelensky, EU sanctions, the defence minister's dismissal, and willingness to pay higher energy prices.",
+            "reviewedAt": "2026-10-05"
+          }
         ]
       }
     ],
@@ -2008,13 +2062,6 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-2021-11-09",
-            "race": "parliamentary",
-            "extractedAt": "2026-09-26T08:17:41.003Z",
-            "draftHash": "f9f60c06e7128c70148038a2d26a117fbf769a5c7a5d19013b7eb7ea44882f61",
-            "refused": []
-          },
-          {
             "pollId": "ar-2021-11-09-presidential",
             "race": "presidential",
             "extractedAt": "2026-09-26T08:41:41.474Z",
@@ -2023,6 +2070,16 @@
             "reviewedAt": "2026-09-26T08:49:50.616Z",
             "acceptedAt": "2026-09-26T08:49:50.616Z",
             "acceptedDraftHash": "2f8b6c618d02acc6ca1a04123a7c35a9736b3e7965666d7f97478ac6285cca4c"
+          },
+          {
+            "pollId": "ar-2021-11-09",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-26T08:17:41.003Z",
+            "draftHash": "abe51e9b66039208b2a39b0279308a11ed963e690b8c54cc2f95520505ce2c0e",
+            "refused": [],
+            "reviewedAt": "2026-10-05T02:37:49.961Z",
+            "acceptedAt": "2026-10-05T02:37:49.961Z",
+            "acceptedDraftHash": "abe51e9b66039208b2a39b0279308a11ed963e690b8c54cc2f95520505ce2c0e"
           }
         ]
       }
@@ -2146,8 +2203,8 @@
         "exclusions": [
           {
             "race": "presidential",
-            "reason": "Presidential participation is disclosed; no named-candidate vote distribution",
-            "reviewedAt": "2026-09-26"
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -2565,9 +2622,16 @@
           {
             "pollId": "ar-2020-10-29",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:13.964Z",
+            "extractedAt": "2026-10-05T02:55:51.700Z",
             "draftHash": "2a74c9e1596a0dddd916e513de615ecfcc4dfc4c8f32e6cc5ed85a46a267eab3",
             "refused": []
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical survey on public attitudes toward Bulgaria's position on North Macedonia's EU accession negotiations (October 2020, 800 respondents, commissioned by MEP Andrey Kovachev); no party or presidential vote-intention q",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -2879,13 +2943,18 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-930",
+            "pollId": "ar-2018-03-24",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:13.155Z",
-            "draftHash": "f919605cb3dd2c45fe027131c93ca57ea7882e1eb820afb19deb697758f2e95e",
+            "extractedAt": "2026-10-05T02:55:51.045Z",
+            "draftHash": "b97ce196466e2d20b8f811e761ee7c853bbac45c0fc39c04b71afcb4e2f26d4e",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:ГЕРБ",
+              "share:ГЕРБ",
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:ДПС",
+              "share:ВОЛЯ"
             ]
           }
         ]
@@ -2968,13 +3037,15 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-928",
+            "pollId": "ar-2017-12-15",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:12.625Z",
-            "draftHash": "fc7840aeab09cd38320d617c54746ab0e60e68c9157df01f680bc9dd0ce0a7f2",
+            "extractedAt": "2026-10-05T02:55:50.314Z",
+            "draftHash": "0d3883a87f182fe56e1bd584ae93ada1b74c2817ec3e4ffa13dc06f4a8c47c86",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:ДПС",
+              "share:ВОЛЯ"
             ]
           }
         ]
@@ -3009,13 +3080,20 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-925",
+            "pollId": "ar-2017-09-20",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:12.355Z",
-            "draftHash": "b3857979b9dc34e68142f129deb06e51273dcd745ecb655acb693820bca0f838",
+            "extractedAt": "2026-10-05T02:55:49.590Z",
+            "draftHash": "09debb95889516e397414497210de5c1ffa70d11684b525867efb4cadfc8edf4",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:Нова република",
+              "share:БСП",
+              "share:Воля",
+              "share:ГЕРБ",
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:ДПС",
+              "share:ВОЛЯ",
+              "sampleSize"
             ]
           }
         ]
@@ -3050,13 +3128,15 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-922",
+            "pollId": "ar-2017-06-22",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:12.076Z",
-            "draftHash": "53cd578b78895b43667a72bd467764cb7355f3eee3a0a4649395242c090b57cf",
+            "extractedAt": "2026-10-05T02:55:48.882Z",
+            "draftHash": "a2c2839b0bfa78a2aab113aaf87ac36048b0ca53d67c94abfea1b5611704c550",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:ДПС",
+              "share:ВОЛЯ"
             ]
           }
         ]
@@ -3204,16 +3284,6 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-918",
-            "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:11.777Z",
-            "draftHash": "812c1eb4921057bb9a672f564288a2a2a15e07d4a38fbebee15d88b11c2dbe77",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
-          },
-          {
             "pollId": "ar-2017-03-22-presidential",
             "race": "presidential",
             "extractedAt": "2026-09-27T06:46:11.781Z",
@@ -3222,6 +3292,23 @@
               "questions",
               "methodology"
             ]
+          },
+          {
+            "pollId": "ar-2017-03-22",
+            "race": "parliamentary",
+            "extractedAt": "2026-09-27T06:46:11.777Z",
+            "draftHash": "84d4a3dda91b53d6abc38725f71eccb0375c242963c19dce800d885014df5387",
+            "refused": [],
+            "reviewedAt": "2026-10-05T02:37:50.385Z",
+            "acceptedAt": "2026-10-05T02:37:50.385Z",
+            "acceptedDraftHash": "84d4a3dda91b53d6abc38725f71eccb0375c242963c19dce800d885014df5387"
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -3255,24 +3342,28 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-917",
+            "pollId": "ar-2017-02-23",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:11.614Z",
-            "draftHash": "d76bd3b3b447e1fc5506c8d51626f4ea4a6b3e56b37d00ae011b0002d314261b",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
+            "extractedAt": "2026-10-05T02:55:48.176Z",
+            "draftHash": "9fba344266324227b9728eb3d99700adf50a9b506ee418e969eb9dffe0236034",
+            "refused": []
           },
           {
             "pollId": "ar-2017-02-23-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-27T06:46:11.618Z",
+            "extractedAt": "2026-10-05T02:55:48.179Z",
             "draftHash": "7a76672808902c9045d05179e5ec1727d38e7efb4d3300014c6802b67712dcc0",
             "refused": [
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -3306,24 +3397,32 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-916",
+            "pollId": "ar-2017-01-22",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:11.356Z",
-            "draftHash": "2e4e9d0d8ddd5a06a61b1025805c30dffd87849af141052bb6da0d5b69ef0d38",
+            "extractedAt": "2026-10-05T02:55:47.472Z",
+            "draftHash": "bb6849e476c0a8d25aab0dc69e98cc600692c4bfb8283ddca3d7b933f4de06f7",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ДПС",
+              "share:БСП",
+              "share:ДПС"
             ]
           },
           {
             "pollId": "ar-2017-01-22-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-27T06:46:11.360Z",
+            "extractedAt": "2026-10-05T02:55:47.476Z",
             "draftHash": "7c893304db549c8abc05a9df8fd0fdf851fdb64e37fb74094268cd82058d1cda",
             "refused": [
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -3627,8 +3726,13 @@
         "exclusions": [
           {
             "race": "presidential",
-            "reason": "Campaign knowledge and participation report; no named-candidate vote distribution",
-            "reviewedAt": "2026-09-26"
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
+          },
+          {
+            "race": "parliamentary",
+            "reason": "Independent reading found no parliamentary vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -3703,16 +3807,6 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-906",
-            "race": "parliamentary",
-            "extractedAt": "2026-09-26T08:17:31.759Z",
-            "draftHash": "77878eeb2d5555ce307a4b97b45caa6ae3f8a55a6e4d1327e1412c68d557d9b5",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
-          },
-          {
             "pollId": "ar-pub-906-presidential",
             "race": "presidential",
             "extractedAt": "2026-09-26T08:17:31.761Z",
@@ -3722,13 +3816,20 @@
               "questions",
               "methodology"
             ]
+          },
+          {
+            "pollId": "ar-2016-09-15",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T02:55:46.759Z",
+            "draftHash": "f4edbcc3d42a0db182f273c586fbeb1591b7b28c3c1739835a189ba85e43be51",
+            "refused": []
           }
         ],
         "exclusions": [
           {
             "race": "presidential",
-            "reason": "Presidential participation and institutional attitudes; no named-candidate voting distribution",
-            "reviewedAt": "2026-09-26"
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -3762,16 +3863,6 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-905",
-            "race": "parliamentary",
-            "extractedAt": "2026-09-26T08:17:31.990Z",
-            "draftHash": "8582c42c189d9f1093ee744b951d04dc193774642b499296a65bd7a08c4253c3",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
-          },
-          {
             "pollId": "ar-pub-905-presidential",
             "race": "presidential",
             "extractedAt": "2026-09-26T08:17:31.992Z",
@@ -3782,13 +3873,22 @@
               "questions",
               "methodology"
             ]
+          },
+          {
+            "pollId": "ar-2016-06-14",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T02:55:46.003Z",
+            "draftHash": "96d41db8a3f1d9e57c664396dc246f9cad47b186edd8d483e77bf28b991d7959",
+            "refused": [
+              "sampleSize"
+            ]
           }
         ],
         "exclusions": [
           {
             "race": "presidential",
-            "reason": "Presidential participation and institutional attitudes; no named-candidate voting distribution",
-            "reviewedAt": "2026-09-26"
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -3822,16 +3922,6 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-903",
-            "race": "parliamentary",
-            "extractedAt": "2026-09-26T08:17:32.343Z",
-            "draftHash": "c38ba4fd53bcc674324969a64b54b72feffc8e353181d9b96ee436bb4623467c",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
-          },
-          {
             "pollId": "ar-2016-02-25-presidential",
             "race": "presidential",
             "extractedAt": "2026-09-26T08:17:32.345Z",
@@ -3841,13 +3931,22 @@
               "questions",
               "methodology"
             ]
+          },
+          {
+            "pollId": "ar-2016-02-25",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T02:55:45.252Z",
+            "draftHash": "631760371b52bed613bbcd556626eae3815b9d714405dcd33549d1593c30c4ac",
+            "refused": [
+              "sampleSize"
+            ]
           }
         ],
         "exclusions": [
           {
             "race": "presidential",
-            "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-            "reviewedAt": "2026-09-26"
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -3881,14 +3980,11 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-902",
+            "pollId": "ar-2015-11-18",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:09.438Z",
-            "draftHash": "54bce92cd74c38e4c1c769f7d68710ecd9cf47fb28eb9bf41f3f91fa438afcaf",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
+            "extractedAt": "2026-10-05T02:55:44.513Z",
+            "draftHash": "d371f54de603d486279edd566f771d371d5223a356bc7bd9d011997ff39ab33e",
+            "refused": []
           }
         ]
       }
@@ -4018,14 +4114,18 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-899",
+            "pollId": "ar-2015-10-05",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:09.141Z",
-            "draftHash": "5fb8868aed7b6664cc29787d9d3fc5c3b7d7a3b2bf2f225a3dfe89488c6603f8",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
+            "extractedAt": "2026-10-05T02:55:43.766Z",
+            "draftHash": "db89282c55dfb81ad55738cb81ade50f0e571a4fee3a1096eb623ebcd01400b2",
+            "refused": []
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical survey (1-5 October 2015) on attitudes before the 2015 local elections and the national referendum on electronic voting: campaign perception, vote buying, fairness of elections, intention to take part in the loca",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -4059,13 +4159,14 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-898",
+            "pollId": "ar-2015-06-13",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:08.884Z",
-            "draftHash": "3de69b35bafcf7cdc771c57d3a886c610e5e3c0458dde3b73f9c6c23fa10f3bd",
+            "extractedAt": "2026-10-05T02:55:43.052Z",
+            "draftHash": "721f203b5e3aceff8903e3c62cabad6e37c859489fc8c1bed852e2805880d8e7",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:БСП"
             ]
           }
         ]
@@ -4100,13 +4201,15 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-897",
+            "pollId": "ar-2015-04-15",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:08.611Z",
-            "draftHash": "ac43037d7c6b4c11a2793f5b178bb10e956462d88774df3021464f98199ba6fe",
+            "extractedAt": "2026-10-05T02:55:42.332Z",
+            "draftHash": "bccae0f6ac7a5b286aa443f13a66790183c91bce78ec0dd47882c384c405265a",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ДПС",
+              "share:ДПС",
+              "share:ГЕРБ",
+              "sampleSize"
             ]
           }
         ]
@@ -4141,13 +4244,13 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-895",
+            "pollId": "ar-2015-01-23",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:08.333Z",
-            "draftHash": "21221c3bbffc1316242b8731e06938333f55c0679690917ee27066695ab1a118",
+            "extractedAt": "2026-10-05T02:55:41.589Z",
+            "draftHash": "7201bff26bb087501de1b79b86f16f65bf1bc3509191c0ef1f292c9caf6c02a2",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ДПС",
+              "sampleSize"
             ]
           }
         ]
@@ -4326,14 +4429,14 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-890",
+            "pollId": "ar-2014-09-30",
             "race": "parliamentary",
             "extractedAt": "2026-09-27T06:46:07.880Z",
-            "draftHash": "1804e9db185c82e9b2b569a220ab169969b3c29d543561500cbdbb18fdb4d4a1",
-            "refused": [
-              "sampleSize",
-              "poll.id"
-            ]
+            "draftHash": "3f87a862a6de3adfa3c456032c99b8233a9d5bc7d3c17b78207c057c3e93bc5f",
+            "refused": [],
+            "reviewedAt": "2026-10-05T18:18:45.076Z",
+            "acceptedAt": "2026-10-05T18:18:45.076Z",
+            "acceptedDraftHash": "3f87a862a6de3adfa3c456032c99b8233a9d5bc7d3c17b78207c057c3e93bc5f"
           }
         ]
       }
@@ -4367,13 +4470,14 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-889",
+            "pollId": "ar-2014-09-05",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:07.727Z",
-            "draftHash": "2754689101a1b9571cc8348f9d02d8fa04b6e2dc850545e15371174fe9cc36de",
+            "extractedAt": "2026-10-05T02:55:40.855Z",
+            "draftHash": "fc056058bd38874d41dd0a0a45fe1afc346873f4fb1688e7465568a9a3c69a61",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:ГЕРБ",
+              "share:ББЦ"
             ]
           }
         ]
@@ -4566,13 +4670,20 @@
     ],
     "failures": {
       "capture": 0,
-      "extraction": 0
+      "extraction": 1
     },
     "errors": {
       "capture": null,
-      "extraction": null
+      "extraction": {
+        "message": "Draft ID collision: ar-2014-04-26; preserve both publications for review",
+        "at": "2026-10-05T02:55:40.148Z"
+      }
     },
-    "lastError": null
+    "lastError": {
+      "message": "Draft ID collision: ar-2014-04-26; preserve both publications for review",
+      "at": "2026-10-05T02:55:40.148Z",
+      "stage": "extraction"
+    }
   },
   {
     "pubId": "884",
@@ -4593,14 +4704,25 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-884",
+            "pollId": "ar-2014-04-26",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:07.017Z",
-            "draftHash": "ad6e9207e5e97ef2e0e5d37e3aba38d3c165b588c5d7f8ec1ce84b5effe0cadf",
+            "extractedAt": "2026-10-05T02:55:39.456Z",
+            "draftHash": "f60a6fa483e55f5dceb1c9749fa5f8355dc54c741d6ea51b103f0c08047fe784",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ББЦ",
+              "share:БСП",
+              "share:БСП",
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:ДПС"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): The only vote-intention figures in this publication (Alpha Research, fieldwork 23-26 April 2014, 1024 respondents) are for the European Parliament election of 25 May 2014 („ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ“: Г",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -4634,13 +4756,19 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-883",
+            "pollId": "ar-2014-02-22",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:06.762Z",
-            "draftHash": "730a15dbb4a953b0353116be768f89e866fde1fef7ff97769f5ed7ca441acdd9",
+            "extractedAt": "2026-10-05T02:55:38.752Z",
+            "draftHash": "50d97bd0c484842ede075daa165dce578590030b8a662db5fedd9874a438005e",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ДПС",
+              "share:БСП",
+              "share:Реформаторски блок",
+              "share:БСП",
+              "share:БСП",
+              "share:ГЕРБ",
+              "share:БСП",
+              "sampleSize"
             ]
           }
         ]
@@ -4675,14 +4803,22 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-880",
+            "pollId": "ar-2014-01-22",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:06.457Z",
-            "draftHash": "e89b246f79747bdc998d3ae169c4ce14ef87a51d764d2d9e99b75c767830c484",
+            "extractedAt": "2026-10-05T02:55:38.039Z",
+            "draftHash": "952019c08c7c6609b7f2aaebdf674db44f2e7b8c38f3092572048f0615f59804",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:БСП"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): The only electoral question in this publication (Alpha Research, fieldwork 18-22 January 2014, 1050 respondents) is vote intention for the EUROPEAN PARLIAMENT election („ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ“, PDF ",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -4716,13 +4852,15 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-879",
+            "pollId": "ar-2013-12-08",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:06.176Z",
-            "draftHash": "cb836cd62ac9d2588c9c068fdb7c016f22efc472f09ad986606eb99373d63918",
+            "extractedAt": "2026-10-05T02:55:37.331Z",
+            "draftHash": "b154b7676f05561d12e4e48b44691c02bb79ed1cf5027600770a2607f94b6812",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:БСП",
+              "share:БСП",
+              "share:ГЕРБ",
+              "sampleSize"
             ]
           }
         ]
@@ -4757,13 +4895,12 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-878",
+            "pollId": "ar-2013-10-31",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:05.903Z",
-            "draftHash": "8305919acd961476710fcc0413a3d55152cc19d4241b3dda8081ab0007e95172",
+            "extractedAt": "2026-10-05T02:55:36.592Z",
+            "draftHash": "d87afaf116803a2ed9bcdc6eca5b5c9de06c7ce890084b295bf04f980bb06168",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "sampleSize"
             ]
           }
         ]
@@ -4798,13 +4935,14 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-876",
+            "pollId": "ar-2013-09-25",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:05.614Z",
-            "draftHash": "f0a75fbf7d1cb0efe6b4258f22a2bd8e905340eec1b2f521fa30e36df4a87d2d",
+            "extractedAt": "2026-10-05T02:55:35.767Z",
+            "draftHash": "e002f83a44fb956fe7c31a814152d6888c5f1d58d5c04570d9825d09a9547b28",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:ДПС",
+              "sampleSize"
             ]
           }
         ]
@@ -4839,13 +4977,15 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-875",
+            "pollId": "ar-2013-08-27",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:05.291Z",
-            "draftHash": "ca2ca38bbd6953d6bd27e042b8e1c86249c437e589c86873c6882922d14def42",
+            "extractedAt": "2026-10-05T02:55:35.065Z",
+            "draftHash": "07f7bea6e4043ef360ad320508319ef0504f0634ddb3c6c07f991d2742c1a9dc",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:БСП",
+              "share:ГЕРБ",
+              "share:БСП",
+              "sampleSize"
             ]
           }
         ]
@@ -4880,14 +5020,22 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-874",
+            "pollId": "ar-2013-06-18",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:05.014Z",
-            "draftHash": "ee68f53cbf281d95bb06ed2cebca1e5f5d4466bf4e0d419fa0c964f3a5f942c3",
+            "extractedAt": "2026-10-05T02:55:34.359Z",
+            "draftHash": "4aef0f44d0bd223ec75514e37861437398431bb5bc2829839b0ca9caae313e83",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:БСП",
+              "share:БСП",
+              "sampleSize"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical public-opinion survey (Обществени нагласи – юни 2013, fieldwork 13–18 June 2013, 1019 respondents): it reports approval/trust ratings for parliament, government, president, judiciary and party leaders, support fo",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -5058,13 +5206,13 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-870",
+            "pollId": "ar-2013-04-14",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:04.585Z",
-            "draftHash": "ea73bd6b69b62971afb3326197afe936fc43e42a31f94b08c551cc55023edb8c",
+            "extractedAt": "2026-10-05T02:55:33.673Z",
+            "draftHash": "dc079331701018721332ff467447a598fc0dcd9e05e399d247d281aa3801c842",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:БСП",
+              "share:БСП"
             ]
           }
         ]
@@ -5099,13 +5247,15 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-869",
+            "pollId": "ar-2013-03-27",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:04.414Z",
-            "draftHash": "75e71af2a3c3805a7c0920b77843c05c2c3c208d8ca242a91b5440b73d97299a",
+            "extractedAt": "2026-10-05T02:55:33.062Z",
+            "draftHash": "b16f13161487a861357482975741e325a875d1b6001da2122ab89c46b3c10130",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:ГЕРБ",
+              "sampleSize"
             ]
           }
         ]
@@ -5140,25 +5290,35 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-865",
+            "pollId": "ar-2013-01-17",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:04.112Z",
-            "draftHash": "db72d179efaca38887e98c71d71a1dfe49de182a19934a65e81d80f4e0fb966a",
+            "extractedAt": "2026-10-05T02:55:32.351Z",
+            "draftHash": "6ea97598d4ad23122834d3298456a270ba56c859d07b6cbeae218cc8250f9ce3",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:БСП",
+              "share:БСП",
+              "share:ДПС",
+              "share:ГЕРБ",
+              "sampleSize"
             ]
           },
           {
             "pollId": "ar-2013-01-17-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-27T06:46:04.117Z",
+            "extractedAt": "2026-10-05T02:55:32.355Z",
             "draftHash": "2f6f5750796e27a8ebdb1bd5dc65eb20c80be42e7e8170efff39c1b00ba59db3",
             "refused": [
               "respondents",
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -5194,10 +5354,11 @@
           {
             "pollId": "ar-pub-862",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:03.820Z",
-            "draftHash": "0aed7b10a6b70d0b6caac87b6a470bd4e56bdf40d3cdb5014701eb732c1da354",
+            "extractedAt": "2026-10-05T02:55:31.606Z",
+            "draftHash": "c8aa3e379d86bdd805e348a3e3b7c49d8a99e355c6fa95e7a25281dc5b5d67a5",
             "refused": [
-              "sampleSize",
+              "fieldwork",
+              "fieldwork",
               "poll.id"
             ]
           }
@@ -5233,13 +5394,12 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-857",
+            "pollId": "ar-2012-06-07",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:03.530Z",
-            "draftHash": "d7116d891b480f897c957cdc3ceb03591796385c4a719475155389aefceb64ba",
+            "extractedAt": "2026-10-05T02:55:30.873Z",
+            "draftHash": "06ba6a352e982de3b7b8d62ca8e4c3fa2def22ab199ee1dfcec70762c295d3ee",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "sampleSize"
             ]
           }
         ]
@@ -5276,10 +5436,12 @@
           {
             "pollId": "ar-pub-855",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:03.254Z",
-            "draftHash": "9dde613019bd8f6cfd834d72ddf1b79dc2ffb2d9a7f5650f7039e319469ef71d",
+            "extractedAt": "2026-10-05T02:55:30.173Z",
+            "draftHash": "0c0e5d8ade3173018df1c4f272851772dd97167c781a6038e34e9809a24c0cb7",
             "refused": [
               "sampleSize",
+              "fieldwork",
+              "fieldwork",
               "poll.id"
             ]
           }
@@ -5317,23 +5479,35 @@
           {
             "pollId": "ar-pub-854",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:02.964Z",
-            "draftHash": "e2f5bc442e7a238f0ed85ee34d5f68fe2072f08c21a3a8fa5962b0bbc73a0612",
+            "extractedAt": "2026-10-05T02:55:29.427Z",
+            "draftHash": "9965fe2544aa5a9d572813209ca9157a7c4d7e2fbbd934d4d9890fcb5fa85df0",
             "refused": [
               "sampleSize",
+              "fieldwork",
+              "fieldwork",
+              "fieldwork",
+              "fieldwork",
+              "fieldwork",
               "poll.id"
             ]
           },
           {
             "pollId": "ar-pub-854-presidential",
             "race": "presidential",
-            "extractedAt": "2026-09-27T06:46:02.970Z",
+            "extractedAt": "2026-10-05T02:55:29.430Z",
             "draftHash": "d6bbef1fcd04d4abeae7534397339d2e51f8e6f33a82f6a0ac1760645856582c",
             "refused": [
               "fieldwork",
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -5602,10 +5776,13 @@
           {
             "pollId": "ar-pub-846",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:01.605Z",
-            "draftHash": "5fc960df95b3122a1742f045013a5f901657bfb5bc2910c2b5035b6c06a441ae",
+            "extractedAt": "2026-10-05T02:55:28.706Z",
+            "draftHash": "e71074bd23521b75682ebca70bfbb373246ae844a8ba1ff5ce78d1a0da1a7d91",
             "refused": [
-              "sampleSize",
+              "share:ГЕРБ",
+              "fieldwork",
+              "fieldwork",
+              "fieldwork",
               "poll.id"
             ]
           }
@@ -5733,13 +5910,13 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-842",
+            "pollId": "ar-2010-12-12",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:00.777Z",
-            "draftHash": "fef15c1306112d96c8511ff54247f9e606a10c97ec448331ed42e16d71b97054",
+            "extractedAt": "2026-10-05T02:55:27.990Z",
+            "draftHash": "d77d75d77a71a693eabdb02e7d6c5b67c6f50a2cf333db428fceb48c777d6b37",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:БСП",
+              "share:ДПС"
             ]
           }
         ]
@@ -6147,6 +6324,13 @@
               "sampleSize"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical commentary on how a summer (holiday-season) election date would affect turnout by party electorate (survey for Капитал, 30 Jan - 13 Feb 2009, 1021 respondents). The text states no party or candidate vote-intentio",
+            "reviewedAt": "2026-10-05"
+          }
         ]
       }
     ],
@@ -6228,6 +6412,13 @@
               "sampleSize",
               "poll.id"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical commentary on economic expectations ahead of the 2009 elections (December 2008 survey, 1035 respondents, for Дневник); it publishes no party or candidate vote-intention shares — only economic-outlook percentages ",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -6874,6 +7065,13 @@
               "methodology"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading found no presidential vote-intention question in this publication",
+            "reviewedAt": "2026-10-05"
+          }
         ]
       }
     ],
@@ -6962,6 +7160,13 @@
               "questions",
               "methodology"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Not an electoral poll (independent reading): Commentary article (Боряна Димитрова) on government approval among party supporters; the captured text states no vote-intention shares for any presidential candidate or party. The only figures are approval breakdowns by ",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -7053,6 +7258,13 @@
               "fieldwork",
               "poll.id"
             ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical analysis of right-wing voter potential and attitudes (survey 1-6 February 2005); it publishes governance priorities, an estimated 22-28% right-wing potential range and attitudes towards right-wing coalition confl",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -7292,14 +7504,14 @@
         ],
         "exclusions": [
           {
-            "race": "parliamentary",
+            "race": "presidential",
             "reason": "COVID survey",
             "reviewedAt": "2026-09-26"
           },
           {
-            "race": "presidential",
-            "reason": "COVID survey",
-            "reviewedAt": "2026-09-26"
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading): Topical survey on the COVID-19 pandemic's effects, returning pupils to classrooms and vaccination intentions (fieldwork 8-15 February 2021, 1007 respondents); the page text and all three charts carry no party vote intent",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }

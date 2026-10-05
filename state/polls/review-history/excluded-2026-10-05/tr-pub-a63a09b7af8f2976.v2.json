@@ -1,0 +1,59 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-pub-a63a09b7af8f2976",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8-2016/",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8-2016/",
+      "fetchedAt": "2026-09-10T08:21:11.271Z",
+      "sha256": "ef6b7a44e6fc3e1986d8f6ee6a93dfe3d49e853eece4304fc9015c1a36dd1016",
+      "extractor": "TR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ Цецка Цачева с 27,3% от заявилите, че ще гласуват"
+      }
+    },
+    "publicationId": "TR:a63a09b7af8f2976",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "tr-pub-a63a09b7af8f2976",
+      "agencyId": "TR",
+      "support": 27.3,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "TR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ Цецка Цачева с 27,3% от заявилите, че ще гласуват"
+  },
+  "refused": [
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the passport — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:28.001Z",
+    "draftHash": "61a1c28527ab3e3302e597d2d0062e200238b5bd1bac7d199cdb7c3293ffdef7",
+    "diffs": [
+      "provisional poll id",
+      "re-issued publication (.vN) — a correction needs a human",
+      "extractor refused: poll.id",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

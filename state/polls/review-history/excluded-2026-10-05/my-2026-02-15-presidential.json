@@ -1,0 +1,60 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "my-2026-02-15-presidential",
+    "agencyId": "MY",
+    "source": "https://myara.bg/electoral-snapshot-february-2026-1671/",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "fieldwork": "Feb 9-15 2026",
+    "respondents": 812,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://myara.bg/electoral-snapshot-february-2026-1671/",
+      "fetchedAt": "2026-09-09T22:04:39.231Z",
+      "sha256": "9d87735bd6a5b192950352a5905b4525f9b22a1a728b93ccedf4b66a219d6f46",
+      "extractor": "MY",
+      "fieldworkStart": "2026-02-09",
+      "fieldworkEnd": "2026-02-15",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 9-15 февруари 2026",
+        "sampleSize": "сред 812 пълнолетни"
+      }
+    },
+    "publicationId": "MY:1671"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "MY",
+  "evidence": {
+    "fieldwork": "периода 9-15 февруари 2026",
+    "sampleSize": "сред 812 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Ако изборите са в средата на февруари: формула „5+2“ - МЯРА"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.963Z",
+    "draftHash": "5533e490d366dedc3eac78636902ed5ba4ca784158685bec0de0f44d1fd9be3a",
+    "diffs": [
+      "extractor refused: questions",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-686",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/686-razminavaneto-mejdu-obshtestveni-naglasi-i-politicheski-deistvia-ogranichava-potencialnia-desen-vot.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/686-razminavaneto-mejdu-obshtestveni-naglasi-i-politicheski-deistvia-ogranichava-potencialnia-desen-vot.html",
+      "fetchedAt": "2026-09-27T06:45:29.828Z",
+      "sha256": "b2065bfb6aebb4fa0fecba13ef184e412c9e0cbbc009d995afa3fbf28a470908",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:686",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"на правителствената криза и продължават категорично да отказват сътрудничество помежду си\"",
+      "quote": "в периода на правителствената криза и продължават категорично да отказват сътрудничество помежду си"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.879Z",
+    "draftHash": "534e232af2a7c67665e7b62be3965dad9200be3cb507a87e8717a3f2cee4b6b9",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, fieldwork, poll.id",
+      "reader says not a poll: Topical analysis of right-wing voter potential and attitudes (survey 1-6 February 2005); it publishes governance priorities, an estimated 22-28% right-wing potential range and attitudes towards right-wing coalition conflicts, but no party or candidate vote-intention shares.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

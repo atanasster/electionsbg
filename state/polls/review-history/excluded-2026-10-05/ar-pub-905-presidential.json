@@ -1,0 +1,69 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-905-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/905-obshtestveni-naglasi-iuni-2016.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/905-obshtestveni-naglasi-iuni-2016.html",
+      "fetchedAt": "2026-09-26T07:51:38.690Z",
+      "sha256": "abea38c45c7b85a8a8c3fbc4195d20d9776528b7c03a8ce19ee58b2824ff696c",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:905"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "ОБЩЕСТВЕНИ НАГЛАСИ, ЮНИ 2016 -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.910Z",
+    "draftHash": "f3a8820d85238736c31d81f2ff3a1264a82dfd43a71bea01f16142d218eb53bb",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: fieldwork, respondents, questions",
+      "fieldwork start: extractor — vs reader 2016-06-08",
+      "fieldwork end: extractor — vs reader 2016-06-14",
+      "sample: extractor — vs reader 1023",
+      "reader finds the genre unclear",
+      "questions: extractor 1 vs reader 0",
+      "vote_intention r1: reader has no such question"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-995",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/995-voinata-rusia-ukraina-radikalna-promiana-v-obshtestvenite-naglasi-kum-ruskia-prezident-i-rust-na-solidarnost-s-evropeiskite-strani.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/995-voinata-rusia-ukraina-radikalna-promiana-v-obshtestvenite-naglasi-kum-ruskia-prezident-i-rust-na-solidarnost-s-evropeiskite-strani.html",
+      "fetchedAt": "2026-09-27T06:44:57.209Z",
+      "sha256": "d42ff24b538675ec1b038859309099f924d6563427ff82b4627d4a778844d6b9",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:995",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.917Z",
+    "draftHash": "39c8746f8e2123c32b27ceebac64bcd9600c04541aa3040ac1f80ed842f5aee8",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, poll.id",
+      "reader says not a poll: Topical survey (BNT / Alpha Research, 28 Feb 2022, 500 respondents) on the Russia-Ukraine war: attitudes to Putin and Zelensky, EU sanctions, the defence minister's dismissal, and willingness to pay higher energy prices. It contains no party or presidential vote-intention question.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

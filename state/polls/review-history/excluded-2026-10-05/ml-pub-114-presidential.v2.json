@@ -1,0 +1,65 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ml-pub-114-presidential",
+    "agencyId": "ML",
+    "source": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-april-2026-114.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-april-2026-114.html",
+      "fetchedAt": "2026-09-27T06:45:32.345Z",
+      "sha256": "9325218eb22d8c87f6b7f413c9b697a6695fdb1556fb8e0869da91b00d51a863",
+      "extractor": "ML",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "ML:114"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "ML",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Обществено–политически нагласи - Април 2026 - MarketLinks"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.940Z",
+    "draftHash": "51fa3ff70fef70f89759cfee7a054c8a2f5f8375a77a8512879072f38af9c31a",
+    "diffs": [
+      "provisional poll id",
+      "re-issued publication (.vN) — a correction needs a human",
+      "extractor refused: fieldwork, respondents, questions",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
+}

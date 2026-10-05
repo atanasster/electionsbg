@@ -1,0 +1,46 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2020-10-29",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/973-obshtestveni-naglasi-kum-poziciata-na-bulgaria-otnosno-zapochvaneto-na-pregovori-na-republika-severna-makedonia-za-chlenstvo-v-es.html",
+    "electionDate": null,
+    "respondents": 800,
+    "genre": "unclear",
+    "fieldwork": "Oct 26-29 2020",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/973-obshtestveni-naglasi-kum-poziciata-na-bulgaria-otnosno-zapochvaneto-na-pregovori-na-republika-severna-makedonia-za-chlenstvo-v-es.html",
+      "fetchedAt": "2026-09-27T06:44:58.627Z",
+      "sha256": "07208f6d5f20fe7a9944a86b86772999f29942a80929bc7a80074d257ed93723",
+      "extractor": "AR",
+      "fieldworkStart": "2020-10-26",
+      "fieldworkEnd": "2020-10-29",
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 800 пълнолетни",
+        "fieldwork": "в периода 26-29 октомври 2020г"
+      }
+    },
+    "publicationId": "AR:973",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 800 пълнолетни",
+    "fieldwork": "в периода 26-29 октомври 2020г"
+  },
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.847Z",
+    "draftHash": "2a74c9e1596a0dddd916e513de615ecfcc4dfc4c8f32e6cc5ed85a46a267eab3",
+    "diffs": [
+      "reader says not a poll: Topical survey on public attitudes toward Bulgaria's position on North Macedonia's EU accession negotiations (October 2020, 800 respondents, commissioned by MEP Andrey Kovachev); no party or presidential vote-intention question in the page or the PDF.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

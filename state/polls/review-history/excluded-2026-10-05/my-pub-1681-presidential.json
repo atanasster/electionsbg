@@ -1,0 +1,63 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "my-pub-1681-presidential",
+    "agencyId": "MY",
+    "source": "https://myara.bg/electoral-snapshot-march-2026-1681/",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": 809,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://myara.bg/electoral-snapshot-march-2026-1681/",
+      "fetchedAt": "2026-09-09T22:04:38.831Z",
+      "sha256": "8ba59a91d4dd0761277322e6ed51871dbd1f0d87a497116c69df15717ad627fa",
+      "extractor": "MY",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 809 пълнолетни"
+      }
+    },
+    "publicationId": "MY:1681"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "MY",
+  "evidence": {
+    "sampleSize": "сред 809 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Моментна картина на електоралните нагласи към средата на март - МЯРА"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.974Z",
+    "draftHash": "1e7e627ecaa61bac72b90e1846d1af4133dbc2e298fec39ea10669d5c750d43e",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: fieldwork, questions",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
+}

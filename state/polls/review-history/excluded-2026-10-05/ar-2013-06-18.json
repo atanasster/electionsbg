@@ -1,0 +1,75 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-06-18",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/874-obshtestveni-naglasi-iuni-2013g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Jun 13-18 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/874-obshtestveni-naglasi-iuni-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:18.387Z",
+      "sha256": "50e6b7ae1c1360a803a46499f3e30f1cf2c15732e17281734f9cf120ca3bc74f",
+      "extractor": "AR",
+      "fieldworkStart": "2013-06-13",
+      "fieldworkEnd": "2013-06-18",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ – 16% от неговите поддръжници са с по-ниско доверие към партията си, отколкото са били по време на изборите",
+        "fieldwork": "Период на провеждане 13 – 18 Юни 2013г"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "Press_Release_AR_June%202013.doc",
+        "fieldwork": "Public_opinion_AR_June_2013(2).pdf"
+      }
+    },
+    "publicationId": "AR:874",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-06-18",
+      "agencyId": "AR",
+      "support": 16,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ – 16% от неговите поддръжници са с по-ниско доверие към партията си, отколкото са били по време на изборите",
+    "fieldwork": "Период на провеждане 13 – 18 Юни 2013г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (96%), "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "mentioned 3 times with disagreeing values (40, 32%) — refusing rather than guessing which is current",
+      "quote": "БСП и 40% от тези на Атака | БСП и Атака.32% от симпатизантите на  | БСП и 40% от тези на Атака твърдят, че доверието им към партията, за която са гласували, е спаднало след петъчния вот в парламента и реакциите на техните политически сили"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.786Z",
+    "draftHash": "4aef0f44d0bd223ec75514e37861437398431bb5bc2829839b0ca9caae313e83",
+    "diffs": [
+      "extractor refused: share:БСП, share:БСП, sampleSize",
+      "reader says not a poll: Topical public-opinion survey (Обществени нагласи – юни 2013, fieldwork 13–18 June 2013, 1019 respondents): it reports approval/trust ratings for parliament, government, president, judiciary and party leaders, support for the Oresharski plan measures and attitudes to the Peevski protests, but publishes no vote-intention figures for any party or candidate, in the press release, the PDF text, or its charts.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

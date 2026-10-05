@@ -1,0 +1,50 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2015-10-05",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/899-obshtestveno-politicheski-naglasi-predi-mestnia-vot-i-nacionalnia-referendum.html",
+    "electionDate": null,
+    "respondents": 1026,
+    "genre": "unclear",
+    "fieldwork": "Oct 1-5 2015",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/899-obshtestveno-politicheski-naglasi-predi-mestnia-vot-i-nacionalnia-referendum.html",
+      "fetchedAt": "2026-09-27T06:45:05.013Z",
+      "sha256": "2ccc0ae9bb042ab88c10d207b031dea06ef2bba0d502b28bd7bcc5030114b2c7",
+      "extractor": "AR",
+      "fieldworkStart": "2015-10-01",
+      "fieldworkEnd": "2015-10-05",
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1026 пълнолетни",
+        "fieldwork": "Период на провеждане 1 – 5 октомври 2015г"
+      },
+      "quoteSources": {
+        "sampleSize": "1015_Mestniizbori&Referendum.pdf",
+        "fieldwork": "1015_Mestniizbori&Referendum.pdf"
+      }
+    },
+    "publicationId": "AR:899",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 1026 пълнолетни",
+    "fieldwork": "Период на провеждане 1 – 5 октомври 2015г"
+  },
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.811Z",
+    "draftHash": "db89282c55dfb81ad55738cb81ade50f0e571a4fee3a1096eb623ebcd01400b2",
+    "diffs": [
+      "reader says not a poll: Topical survey (1-5 October 2015) on attitudes before the 2015 local elections and the national referendum on electronic voting: campaign perception, vote buying, fairness of elections, intention to take part in the local vote and the referendum, and the referendum YES/NO split. It carries no party vote intention for the National Assembly and no presidential candidate poll.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

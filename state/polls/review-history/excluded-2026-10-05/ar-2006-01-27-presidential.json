@@ -1,0 +1,61 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-2006-01-27-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/703-ot-liavo-po-liavo-i-kazusut-prezidentski-izbori.html",
+    "cycle": "2006_10_22_pvr",
+    "electionDate": "2006-10-22",
+    "publishedAt": null,
+    "fieldwork": "Jan 20-27 2006",
+    "respondents": 1168,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/703-ot-liavo-po-liavo-i-kazusut-prezidentski-izbori.html",
+      "fetchedAt": "2026-09-27T06:45:29.698Z",
+      "sha256": "e87ff295db873d05cf884d6c5b206ad161426b3c046fadf0a6d80b83e76b838d",
+      "extractor": "AR",
+      "fieldworkStart": "2006-01-20",
+      "fieldworkEnd": "2006-01-27",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 20-27 януари 2006",
+        "sampleSize": "извадката: 1168 души"
+      }
+    },
+    "publicationId": "AR:703"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "периода 20-27 януари 2006",
+    "sampleSize": "извадката: 1168 души"
+  },
+  "refused": [
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "От ляво  по-ляво и казусът “президентски избори” -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.750Z",
+    "draftHash": "c1806ef0b55be7f0c50b8bbcd659e95f3200ac2fc282944e53f81698b0953f6f",
+    "diffs": [
+      "extractor refused: questions",
+      "reader says not a poll: Commentary article (Боряна Димитрова) on government approval among party supporters; the captured text states no vote-intention shares for any presidential candidate or party. The only figures are approval breakdowns by social group (e.g. 62% of workers negative toward the government). The page references one chart image (/userfiles/image/600_1a.gif) that is not present in the capture, so its contents cannot be read.",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
+}

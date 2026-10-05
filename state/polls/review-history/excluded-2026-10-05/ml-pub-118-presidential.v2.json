@@ -1,0 +1,65 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ml-pub-118-presidential",
+    "agencyId": "ML",
+    "source": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-yuli-2026-118.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-yuli-2026-118.html",
+      "fetchedAt": "2026-09-27T06:45:34.279Z",
+      "sha256": "fe6f66918dfcc5ceab0ddc777d7aa6520964a75d35477a5104867f3e6dbec5e7",
+      "extractor": "ML",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "ML:118"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "ML",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Обществено–политически нагласи - Юли 2026 - MarketLinks"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.947Z",
+    "draftHash": "e1fa26e202d3dd951184683f83426a0ebf046c3c2f9ce9dbb08592b287be77e6",
+    "diffs": [
+      "provisional poll id",
+      "re-issued publication (.vN) — a correction needs a human",
+      "extractor refused: fieldwork, respondents, questions",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
+}

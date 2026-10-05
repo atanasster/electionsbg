@@ -1,0 +1,78 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2014-01-22",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/880-obshtestveni-naglasi-ianuari-2014-purvi-elektoralni-trusove-sled-starta-na-abv.html",
+    "electionDate": null,
+    "respondents": 1050,
+    "genre": "unclear",
+    "fieldwork": "Jan 18-22 2014",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/880-obshtestveni-naglasi-ianuari-2014-purvi-elektoralni-trusove-sled-starta-na-abv.html",
+      "fetchedAt": "2026-09-27T06:45:12.883Z",
+      "sha256": "97e7123f8a983802872a225486a63c7d105c1a34997b1baceb55590f3539d487",
+      "extractor": "AR",
+      "fieldworkStart": "2014-01-18",
+      "fieldworkEnd": "2014-01-22",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС промяна няма (6.2%)",
+        "sampleSize": "сред 1050 пълнолетни",
+        "fieldwork": "в периода 18-22 януари 2014г"
+      },
+      "quoteSources": {
+        "share:ДПС": "01-2014_Public_Opinion_Alpha%20Research(1).doc",
+        "sampleSize": "01-2014_Public_Opinion_Alpha%20Research(1).doc",
+        "fieldwork": "01-2014_Public_Opinion_Alpha%20Research(1).doc"
+      }
+    },
+    "publicationId": "AR:880",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2014-01-22",
+      "agencyId": "AR",
+      "support": 6.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС промяна няма (6.2%)",
+    "sampleSize": "сред 1050 пълнолетни",
+    "fieldwork": "в периода 18-22 януари 2014г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: the number is 118 characters from the party name — too far to be its share",
+      "quote": "ГЕРБ успява за първи път от шест месеца насам да мобилизира симпатизантите си и да подобри позициите си, като постига 17.8%"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "БСП губи около 20% от избирателите, гласували за нея на парламентарните избори миналата година"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: another mention of this party carries a different number — refusing rather than choosing",
+      "quote": "БСП, тя запазва най-твърдия си електорат (53% от него са над 60г"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.794Z",
+    "draftHash": "952019c08c7c6609b7f2aaebdf674db44f2e7b8c38f3092572048f0615f59804",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:БСП, share:БСП",
+      "reader says not a poll: The only electoral question in this publication (Alpha Research, fieldwork 18-22 January 2014, 1050 respondents) is vote intention for the EUROPEAN PARLIAMENT election („ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ“, PDF slide 24: ГЕРБ 17,8%, БСП 15,0%, АБВ 7,0%, ДПС 6,2%, Реформаторски блок 5,2%, НФСБ 3,1%, България без цензура 2,6%, Атака 2,5%, Други партии 3,2%, Няма да гласувам 37,4% — base not stated). It carries no National Assembly (parliamentary) or presidential vote-intention question, so no poll is recorded under the parliamentary/presidential races; a human should decide whether a European-Parliament poll belongs in the corpus.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

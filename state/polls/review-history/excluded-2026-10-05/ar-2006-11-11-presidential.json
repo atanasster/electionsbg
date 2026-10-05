@@ -1,0 +1,60 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-2006-11-11-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/725-elektoralen-avans-za-favoritite-ot-prezidentskite-izbori.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "fieldwork": "Nov 4-11 2006",
+    "respondents": 1015,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/725-elektoralen-avans-za-favoritite-ot-prezidentskite-izbori.html",
+      "fetchedAt": "2026-09-27T06:45:29.603Z",
+      "sha256": "6f1162f6ba11e4b8f136a481ee7aa86959627ce71ec9ad8526b0c7da2c0ad6f6",
+      "extractor": "AR",
+      "fieldworkStart": "2006-11-04",
+      "fieldworkEnd": "2006-11-11",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 4 – 11 ноември 2006",
+        "sampleSize": "сред 1015 души"
+      }
+    },
+    "publicationId": "AR:725"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "периода 4 – 11 ноември 2006",
+    "sampleSize": "сред 1015 души"
+  },
+  "refused": [
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Електорален аванс за фаворитите от президентските избори -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.754Z",
+    "draftHash": "1b0208763e4ba74d149b325afff256af4f2fc76c5c9f80897590b57952985220",
+    "diffs": [
+      "extractor refused: questions",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
+}
