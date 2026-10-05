@@ -1094,7 +1094,13 @@ const CASES: Case[] = [
     q: "Какво показват последните президентски проучвания?",
     tool: "latestPresidentialPoll",
     kind: "table",
-    facts: { leader: /%/, agency: "Глобал" },
+    // The agency is whoever published LAST, which moves with every poll ingest
+    // (GM's July poll was overtaken by Сова Харис's 23–28 Sep 2026 one) — so
+    // assert that an agency is named, not which.
+    facts: {
+      leader: /%/,
+      agency: /Глобал|Сова|Алфа|Тренд|Маркет|Мяра|Галъп|Екзакта|Афис|CAM/,
+    },
   },
   // poll-history trend — the query that used to fall through to a candidate
   // lookup ("Маркет Линкс not found"); now plots the agency's poll trajectory.
