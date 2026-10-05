@@ -15,7 +15,8 @@ import { Title } from "@/ux/Title";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
 import { localDate } from "@/data/utils";
-import { useAgencies } from "@/data/polls/useAgencies";
+import { formatDecimal } from "@/lib/currency";
+import { agencyDisplayName, useAgencies } from "@/data/polls/useAgencies";
 import {
   usePresidentialPollsAccuracy,
   usePresidentialPollsList,
@@ -27,7 +28,7 @@ import {
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { ElectionsBreadcrumb } from "@/screens/components/ElectionsBreadcrumb";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import { agencyMaeBarStyle } from "@/screens/dashboard/agencyMaeBar";
+import { MaeBar } from "@/screens/dashboard/MaeBar";
 import { AccuracyTrendsBars } from "./polls/AccuracyTrendsBars";
 import { PollsRaceToggle } from "./polls/PollsRaceToggle";
 import { PollsSectionHeader } from "./polls/PollsSectionHeader";
@@ -62,10 +63,7 @@ export const PollsPresidentialScreen: FC = () => {
   const trend = useMemo(() => presidentialTrendRows(cycles), [cycles]);
   const polls = pq.data ?? [];
 
-  const nameOf = (id: string) => {
-    const ag = agencyList?.find((x) => x.id === id);
-    return ag ? (isBg ? ag.name_bg : ag.name_en) : id;
-  };
+  const nameOf = (id: string) => agencyDisplayName(agencyList, id, isBg);
   const goToCycle = useCallback(
     (date: string) => {
       const row = trend.find((r) => r.date === date);
@@ -121,7 +119,7 @@ export const PollsPresidentialScreen: FC = () => {
                   {nameOf(best.agencyId)}
                 </div>
                 <div className="text-xs text-muted-foreground tabular-nums">
-                  MAE {best.meanMae.toFixed(2)}
+                  MAE {formatDecimal(best.meanMae, i18n.language)}
                 </div>
               </>
             ) : (
@@ -163,10 +161,6 @@ export const PollsPresidentialScreen: FC = () => {
                   {t("polls_days_before")}
                 </span>
                 {standings.map((s, i) => {
-                  const { widthPct, hue } = agencyMaeBarStyle(
-                    s.meanMae,
-                    maxMae,
-                  );
                   return (
                     <div className="contents" key={s.agencyId}>
                       <span className="text-xs text-muted-foreground tabular-nums">
@@ -179,17 +173,9 @@ export const PollsPresidentialScreen: FC = () => {
                       >
                         {nameOf(s.agencyId)}
                       </Link>
-                      <div className="relative h-2 rounded-full bg-muted overflow-hidden">
-                        <div
-                          className="absolute top-0 bottom-0 left-0 rounded-full"
-                          style={{
-                            width: `${widthPct}%`,
-                            backgroundColor: `hsl(${hue} 70% 45%)`,
-                          }}
-                        />
-                      </div>
+                      <MaeBar mae={s.meanMae} maxMae={maxMae} />
                       <span className="tabular-nums text-xs font-semibold text-right">
-                        {s.meanMae.toFixed(2)}
+                        {formatDecimal(s.meanMae, i18n.language)}
                       </span>
                       <span className="tabular-nums text-xs text-muted-foreground text-right">
                         {s.cycles}

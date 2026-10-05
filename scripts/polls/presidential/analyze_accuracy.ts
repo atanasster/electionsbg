@@ -317,6 +317,15 @@ const BASE_RANK: Record<string, number> = {
   all_respondents: 2,
 };
 
+/** The undecided + won't-say share the parliamentary rule redistributes — raw attitudes only.
+ *  ⚠ WON'T-VOTE IS NOT IN IT: those respondents are outside the valid-vote denominator too. The
+ *  all-respondents gate below reads this same value, so a question whose only residual is
+ *  won't-vote cannot pass the gate and then be graded unscaled. */
+const redistributableResidual = (q: PollQuestion): number =>
+  q.genre === "raw_attitudes" || q.genre === "both_published"
+    ? (q.residual?.undecided ?? 0) + (q.residual?.wontSay ?? 0)
+    : 0;
+
 /**
  * The round-one agency leaderboard, graded by the PARLIAMENTARY rule
  * (`scripts/polls/analyze_accuracy.ts` `computeElectionAccuracy`), so the two dashboards grade
@@ -357,11 +366,7 @@ export const parliamentaryRuleAgencies = (
       if (q.round !== 1 || q.measure !== "vote_intention" || q.scenario)
         continue;
       const baseRank = BASE_RANK[q.base.kind] ?? 3;
-      const r = q.residual;
-      const hasResidual = [r?.undecided, r?.wontSay, r?.wontVote].some(
-        (v) => typeof v === "number" && v > 0,
-      );
-      if (baseRank >= 2 && !hasResidual) continue;
+      if (baseRank >= 2 && !(redistributableResidual(q) > 0)) continue;
       const prev = latest.get(poll.agencyId);
       if (
         !prev ||
@@ -388,10 +393,7 @@ export const parliamentaryRuleAgencies = (
       (d) => d.pollId === poll.id && d.questionId === q.id,
     );
     const sumNamed = rows.reduce((s, d) => s + d.support, 0);
-    const residual =
-      q.genre === "raw_attitudes" || q.genre === "both_published"
-        ? (q.residual?.undecided ?? 0) + (q.residual?.wontSay ?? 0)
-        : 0;
+    const residual = redistributableResidual(q);
     const scale = residual > 0 && sumNamed > 0 ? 1 + residual / sumNamed : 1;
     const errors: PresidentialCandidateResultError[] = [];
     for (const d of rows) {

@@ -31,9 +31,11 @@ const COMPARABLE_BASES = new Set([
   "likely_voters",
 ]);
 
-/** The official round result in the question's own base. ⚠ When the question did NOT offer
- *  „не подкрепям никого", the result is renormalised without it — the same rule the analyzer
- *  grades by, so a difference here agrees with the card above. */
+/** The official round result in the question's own base. When the question did NOT offer
+ *  „не подкрепям никого", the result is renormalised without it — the analyzer's rule.
+ *  ⚠ THE DIFFERENCE IS AGAINST THE PUBLISHED SHARE, as on the parliamentary agency list. The
+ *  profile card's grades also redistribute a poll's undecided share, so for a poll that
+ *  published one the two can differ by that redistribution. */
 const resultsFor = (
   cycle: PresidentialCycleAccuracy | undefined,
   q: PollQuestion | null,

@@ -613,6 +613,19 @@ describe("the parliamentary-rule leaderboard (agencies)", () => {
     expect(agencyOf(p, rowsFor(p))).toBeUndefined();
   });
 
+  it("refuses an all-respondents base whose only residual is won't-vote", () => {
+    const p = changeQuestion({
+      base: { ...question.base, kind: "all_respondents" },
+      residual: {
+        undecided: null,
+        wontSay: null,
+        wontVote: 17.7,
+        otherNamedMinor: null,
+      },
+    });
+    expect(agencyOf(p, rowsFor(p))).toBeUndefined();
+  });
+
   it("takes the agency's LAST pre-election poll and ignores one ending on election day", () => {
     const early = {
       ...poll,

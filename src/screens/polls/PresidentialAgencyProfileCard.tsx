@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
+import { formatDecimal } from "@/lib/currency";
 import type { Agency } from "@/data/polls/pollsTypes";
 import type { PresidentialAgencyProfile } from "@/data/presidential/presidentialPollAccuracy";
 import { PresidentialPersonName } from "@/screens/presidential/PresidentialPersonName";
@@ -86,7 +87,7 @@ export const PresidentialAgencyProfileCard: FC<{
   agency?: Agency;
   pollCount: number;
 }> = ({ profile, agency, pollCount }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const bias = profile.candidateBias.slice(0, TOP_BIAS);
   const maxAbs = Math.max(
     0.01,
@@ -103,12 +104,16 @@ export const PresidentialAgencyProfileCard: FC<{
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
         <Figure
           label="MAE"
-          value={profile.meanMae.toFixed(2)}
+          value={formatDecimal(profile.meanMae, i18n.language)}
           sub={t("presidential_agency_mae_sub")}
         />
         <Figure
           label={t("polls_plus_minus")}
-          value={pm === null ? "—" : `${pm > 0 ? "+" : ""}${pm.toFixed(2)}`}
+          value={
+            pm === null
+              ? "—"
+              : `${pm > 0 ? "+" : ""}${formatDecimal(pm, i18n.language)}`
+          }
           className={
             pm === null
               ? "text-muted-foreground"

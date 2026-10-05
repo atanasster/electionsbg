@@ -17,18 +17,15 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Activity, Target } from "lucide-react";
 import { usePresidentialPollsAccuracy } from "@/data/presidential/usePresidentialPolls";
-import { useAgencies } from "@/data/polls/useAgencies";
+import { agencyDisplayName, useAgencies } from "@/data/polls/useAgencies";
 import type { PresidentialAgencyError } from "@/data/polls/pollsTypes";
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { presidentialTrendRows } from "@/data/presidential/presidentialPollAccuracy";
 import { localDate } from "@/data/utils";
 import { formatDecimal, formatPct } from "@/lib/currency";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import {
-  agencyMaeBarStyle,
-  missColorClass,
-  missSign,
-} from "@/screens/dashboard/agencyMaeBar";
+import { missColorClass, missSign } from "@/screens/dashboard/agencyMaeBar";
+import { MaeBar } from "@/screens/dashboard/MaeBar";
 import {
   AccuracyTrendsBars,
   type AccuracyTrendRow,
@@ -92,10 +89,7 @@ export const PresidentialPollsTile: FC<{ cycle: string }> = ({ cycle }) => {
     ? [...entry.agencies].sort((a, b) => a.mae - b.mae)
     : [];
   const maxMae = Math.max(0.01, ...agencies.map((a) => a.mae));
-  const nameOf = (id: string) => {
-    const ag = agencyList?.find((x) => x.id === id);
-    return ag ? (isBg ? ag.name_bg : ag.name_en) : id;
-  };
+  const nameOf = (id: string) => agencyDisplayName(agencyList, id, isBg);
   const best = agencies[0];
   const winner = entry?.actualResults[0];
 
@@ -155,7 +149,6 @@ export const PresidentialPollsTile: FC<{ cycle: string }> = ({ cycle }) => {
               </span>
             </Hint>
             {agencies.map((a) => {
-              const { widthPct, hue } = agencyMaeBarStyle(a.mae, maxMae);
               return (
                 <div className="contents" key={a.agencyId}>
                   <Link
@@ -165,15 +158,7 @@ export const PresidentialPollsTile: FC<{ cycle: string }> = ({ cycle }) => {
                   >
                     {nameOf(a.agencyId)}
                   </Link>
-                  <div className="relative h-2 rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="absolute top-0 bottom-0 left-0 rounded-full"
-                      style={{
-                        width: `${widthPct}%`,
-                        backgroundColor: `hsl(${hue} 70% 45%)`,
-                      }}
-                    />
-                  </div>
+                  <MaeBar mae={a.mae} maxMae={maxMae} />
                   <span className="tabular-nums text-xs font-semibold text-right">
                     {a.mae.toFixed(2)}
                   </span>

@@ -16,3 +16,13 @@ export const useAgencies = () =>
       return (await res.json()) as Agency[];
     },
   });
+
+/** An agency's display name from the registry, falling back to its id when it is not listed. */
+export const agencyDisplayName = (
+  agencies: readonly Agency[] | undefined,
+  id: string,
+  isBg: boolean,
+): string => {
+  const a = agencies?.find((x) => x.id === id);
+  return a ? (isBg ? a.name_bg : a.name_en) : id;
+};

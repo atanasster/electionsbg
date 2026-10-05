@@ -19,7 +19,8 @@ vi.mock("@/data/presidential/usePresidentialPolls", () => ({
   usePresidentialPollsAccuracy: () => ({ data: accuracyRef.current }),
   usePresidentialPollsList: () => ({ data: pollsRef.current }),
 }));
-vi.mock("@/data/polls/useAgencies", () => ({
+vi.mock("@/data/polls/useAgencies", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/data/polls/useAgencies")>()),
   useAgencies: () => ({
     data: [
       {
@@ -109,7 +110,7 @@ describe("PollsPresidentialScreen", () => {
     ).toHaveAttribute("aria-pressed", "true");
     // TR averages (1.65 + 2.64) / 2 = 2.145 over two cycles and outranks SH's single 3.39.
     expect(screen.getAllByText("Тренд")[0]).toBeInTheDocument();
-    expect(screen.getByText("2.15")).toBeInTheDocument();
+    expect(screen.getByText("2,15")).toBeInTheDocument();
     expect(screen.getByTestId("accuracy-trends")).toBeInTheDocument();
     expect(screen.getByTestId("presidential-history")).toBeInTheDocument();
   });
