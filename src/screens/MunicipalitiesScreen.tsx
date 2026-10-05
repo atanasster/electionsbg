@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useParams, Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SEO } from "@/ux/SEO";
@@ -15,6 +16,9 @@ import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoun
 import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
 import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
+import { buildPlaceDigest } from "@/screens/elections/placeDigestFacts";
+import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
 
 export const MunicipalitiesScreen = () => {
   const { id: region } = useParams();
@@ -24,6 +28,27 @@ export const MunicipalitiesScreen = () => {
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
   const lang = i18n.language === "bg" ? "bg" : "en";
+  const localCycle = useLatestLocalCycle();
+  const presidentialCycle = useLatestPresidentialCycle();
+  // „Това място накратко" — the cross-view digest the município and settlement pages already
+  // carry. The page's own view (Парламент) is dropped, and at oblast level there is no Местни
+  // cell (no mayor), so it is Управление, Президент and Потребление: three LINKS, no figure a
+  // second resolver could get wrong. ⚠ THE OBLAST IS PASSED AS-IS, so МИР 32 reaches
+  // `isAbroadPlace` and the views that do not exist abroad drop their cell instead of
+  // templating `/governance/region/32`; below the two-cell floor the strip does not render.
+  const digest = useMemo(
+    () =>
+      region
+        ? buildPlaceDigest({
+            place: { level: "region", oblast: region },
+            parliamentaryCycle: selected,
+            localCycle,
+            presidentialCycle,
+            currentView: "parliamentary",
+          })
+        : undefined,
+    [region, selected, localCycle, presidentialCycle],
+  );
   if (!region) {
     return null;
   }
@@ -132,6 +157,7 @@ export const MunicipalitiesScreen = () => {
             surface={s}
             scope="header"
             currentView="parliamentary"
+            digest={digest}
           />
         )}
       </ElectionSurfaceBoundary>
