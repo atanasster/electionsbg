@@ -8,6 +8,7 @@ import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { stripSettlementFromAddress } from "./sectionAddress";
 
 const TOP_N = 15;
 
@@ -15,22 +16,6 @@ type Props = {
   ekatte?: string;
   sections?: SectionInfo[];
   seeDetailsHref?: string;
-};
-
-const stripSettlementFromAddress = (
-  address: string | undefined,
-  settlement: string | undefined,
-) => {
-  if (!address) return settlement || "";
-  if (!settlement) return address;
-  const settlementKey = settlement.replace(/\s+/g, "").toLowerCase();
-  const addressKey = address.replace(/\s+/g, "").toLowerCase();
-  const idx = addressKey.indexOf(settlementKey);
-  if (idx < 0) return address;
-  const numSpaces =
-    (address.slice(0, settlementKey.length).split(" ").length || 1) - 1;
-  const trimmed = address.slice(idx + settlementKey.length + numSpaces + 1);
-  return trimmed.trim() || address;
 };
 
 export const TopSectionsTile: FC<Props> = ({

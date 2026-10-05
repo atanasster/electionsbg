@@ -36,6 +36,11 @@ import type { LatLngBoundsExpression } from "leaflet";
 // Dynamic import keeps leaflet's CSS out of the render-blocking entry HTML; see LeafletMap.tsx.
 import("leaflet/dist/leaflet.css");
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { presidentialUrl } from "@/data/elections/presidentialRoutes";
+import { roundSearch } from "@/data/presidential/roundParam";
+import type { RollupEntry } from "@/data/presidential/useRoundRollup";
+import { PresidentialPlaceTip } from "./PresidentialPlaceTip";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import {
@@ -44,7 +49,6 @@ import {
 } from "@/data/presidential/useSectionRollup";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { MAP_BOX_HEIGHT_CLASS } from "@/screens/components/maps/MeasuredMapBox";
-import { formatInt, formatPct } from "@/lib/currency";
 
 /** ⚠ NEUTRAL, NEVER ANOTHER PAIR'S COLOUR — a ticket the ingest could not colour must not
  *  borrow one. Same rule as the country map's `NO_LEADER`. */
@@ -55,11 +59,16 @@ export const PresidentialSectionsMap: FC<{
   round: 1 | 2;
   ekatte: string;
 }> = ({ cycle, round, ekatte }) => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language;
+  const { t } = useTranslation();
   const { findSettlement } = useSettlementsInfo();
   const place = findSettlement(ekatte);
   const rollup = usePresidentialSectionRollup(cycle, round, place?.oblast);
+  // ⚠ THE OTHER ROUND FOR THE HOVER CARD. The place pages used to draw one canvas per round, so
+  // both shards were already downloaded; with the round toggle only this map is mounted and
+  // this read is what keeps the other one in hand. A cycle with no runoff answers `absent`.
+  const other: 1 | 2 = round === 1 ? 2 : 1;
+  const otherRollup = usePresidentialSectionRollup(cycle, other, place?.oblast);
+  const navigate = useNavigate();
   const tickets = useTicketsByNumber(cycle);
   // The parliamentary shard for the SAME settlement — read only for its stations' coordinates.
   const { settlement } = useSettlementVotes(ekatte);
@@ -71,6 +80,22 @@ export const PresidentialSectionsMap: FC<{
         : new Map<string, { number: number; votes: number; share: number }>(),
     [rollup, ekatte],
   );
+
+  // Each station's votes in BOTH rounds, as the shared card's entries.
+  const byRound = useMemo(() => {
+    const index = (st: typeof rollup) => {
+      const m = new Map<string, RollupEntry>();
+      if (st.status === "ready")
+        for (const r of st.rows)
+          if (r.ekatte === ekatte)
+            m.set(r.code, { key: r.code, results: { votes: r.votes } });
+      return m;
+    };
+    return { [round]: index(rollup), [other]: index(otherRollup) } as Record<
+      1 | 2,
+      Map<string, RollupEntry>
+    >;
+  }, [rollup, otherRollup, round, other, ekatte]);
 
   const points = useMemo(() => {
     const coords = new Map<string, { lat: number; lon: number }>();
@@ -121,6 +146,14 @@ export const PresidentialSectionsMap: FC<{
               key={p.code}
               center={[p.lat, p.lon]}
               radius={7}
+              // ⚠ A STATION OPENS ITS OWN PRESIDENTIAL PAGE, on the round on screen — the
+              // parliamentary station markers open `/section/:code` the same way.
+              eventHandlers={{
+                click: () => {
+                  const to = presidentialUrl(cycle, "section", p.code);
+                  if (to) navigate(to + roundSearch(round));
+                },
+              }}
               pathOptions={{
                 color: "#fff",
                 weight: 1.5,
@@ -129,19 +162,16 @@ export const PresidentialSectionsMap: FC<{
               }}
             >
               <Tooltip>
-                <div className="text-left">
-                  <div className="font-semibold">{p.code}</div>
-                  <div>
-                    {ticket?.president ?? p.lead.number} ·{" "}
-                    {formatPct(p.lead.share, lang, 1)} ·{" "}
-                    {formatInt(p.lead.votes, lang)}
-                  </div>
-                  {/* ⚠ THE ROUND IS NAMED. This page shows two of these maps, of electorates
-                      that differ; a marker with no round on it answers an unstated question. */}
-                  <div className="opacity-70">
-                    {t("election_round", { round })}
-                  </div>
-                </div>
+                {/* The shared presidential card: both rounds, top tickets, votes and share —
+                    what every other presidential map shows on hover. */}
+                <PresidentialPlaceTip
+                  title={`${t("section")} ${p.code}`}
+                  rounds={([1, 2] as const)
+                    .map((r) => ({ round: r, entry: byRound[r].get(p.code) }))
+                    .filter((r) => r.round === round || r.entry)}
+                  tickets={tickets}
+                  current={round}
+                />
               </Tooltip>
             </CircleMarker>
           );

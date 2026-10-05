@@ -40,6 +40,16 @@
 
 import { FC, useMemo } from "react";
 import { useElectionSurface } from "@/data/elections/useElectionSurface";
+import { useElectionContext } from "@/data/ElectionContext";
+import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
+import {
+  buildPlaceDigest,
+  localDigestFromSurface,
+} from "@/screens/elections/placeDigestFacts";
+import { CensusDemographicsTile } from "@/screens/dashboard/CensusDemographicsTile";
+import { useTopSections } from "@/data/presidential/useTopSections";
+import { PresidentialTopSectionsTile } from "./PresidentialTopSectionsTile";
 import { ABROAD_OBLAST } from "@/data/local/abroadOblast";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -72,7 +82,10 @@ import {
 } from "@/data/presidential/roundSurface";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Map as MapIcon } from "lucide-react";
-import type { ElectionSurfaceV1 } from "@/data/elections/surfaceTypes";
+import type {
+  ElectionSurfaceV1,
+  PlaceDigestCell,
+} from "@/data/elections/surfaceTypes";
 import type { ElectionPlaceLevel } from "@/data/elections/surfaceTypes";
 
 /** The levels this screen serves.
@@ -163,6 +176,68 @@ export const PresidentialPlaceScreen: FC<{
     cycle: cycle ?? "",
     id: level === "section" ? id : undefined,
   });
+  // ⚠ THE SETTLEMENT PAGE'S DIGEST AND STATION RANKING — `/sections/:ekatte` carries both.
+  // Every hook is called at every level (hook order) and passes no id elsewhere, which is no
+  // request. The digest's two foreign figures come from the SAME artifacts their own tabs render
+  // (the parliamentary and local settlement surfaces), never from a second resolver here — a
+  // digest naming one winner while the tab one click away names another is wrong about a named
+  // place.
+  const isSettlement = level === "settlement" && !!id;
+  const { selected: parliamentaryCycle } = useElectionContext();
+  const localCycle = useLatestLocalCycle();
+  const { findSettlement } = useSettlementsInfo();
+  const parliamentary = useElectionSurface({
+    kind: "parliamentary",
+    level: "settlement",
+    cycle: parliamentaryCycle,
+    id: isSettlement ? id : undefined,
+  });
+  const local = useElectionSurface({
+    kind: "local",
+    level: "settlement",
+    cycle: localCycle,
+    id: isSettlement ? id : undefined,
+  });
+  const digest = useMemo(() => {
+    if (!isSettlement || !id || !cycle) return undefined;
+    const lead =
+      parliamentary.status === "ready"
+        ? parliamentary.surface.ballots[0]?.preview[0]
+        : undefined;
+    return buildPlaceDigest({
+      // ⚠ THE OBLAST IS WHAT MAKES „ABROAD" VISIBLE to the digest (see SectionsScreen).
+      place: {
+        level: "settlement",
+        ekatte: id,
+        oblast: findSettlement(id)?.oblast,
+      },
+      parliamentaryCycle,
+      localCycle,
+      presidentialCycle: cycle,
+      winner:
+        lead && lead.marginPct !== undefined
+          ? { partyId: lead.partyId, pct: lead.pct, marginPct: lead.marginPct }
+          : undefined,
+      local: localDigestFromSurface(
+        local.status === "ready" ? local.surface : undefined,
+      ),
+      currentView: "presidential",
+    });
+  }, [
+    isSettlement,
+    id,
+    cycle,
+    parliamentary,
+    local,
+    parliamentaryCycle,
+    localCycle,
+    findSettlement,
+  ]);
+  const topSections = useTopSections(
+    cycle ?? "",
+    round,
+    isSettlement ? id : undefined,
+  );
 
   if (!cycle) return null;
 
@@ -261,6 +336,7 @@ export const PresidentialPlaceScreen: FC<{
         {(s) => (
           <RoundResults
             surface={s}
+            digest={digest}
             round={round}
             onRound={setRound}
             tickets={tickets}
@@ -299,6 +375,26 @@ export const PresidentialPlaceScreen: FC<{
       {level === "abroad" ? (
         <PresidentialAbroadGeography cycle={cycle} round={round} />
       ) : null}
+      {/* The settlement page's „География": its stations ranked, then the census profile —
+          `/sections/:ekatte`'s pair. The census is the place's, not the election's, so it is
+          the identical tile. ⚠ GATED ON THE STATION RANKING, which is the one that is usually
+          absent (a one-station village, an unpublished shard) — a heading over the census
+          alone would be a geography section with no election in it. */}
+      {isSettlement && id && topSections.length >= 2 ? (
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={MapIcon}
+          headingLevel={2}
+        >
+          <PresidentialTopSectionsTile
+            cycle={cycle}
+            round={round}
+            ekatte={id}
+          />
+          <CensusDemographicsTile regionCode={id} isSettlement />
+        </DashboardSection>
+      ) : null}
       <PresidentialPlaceNeighborhoods
         cycle={cycle}
         level={level}
@@ -320,10 +416,12 @@ export const PresidentialPlaceScreen: FC<{
  *  the other. The toggle shows one, and the map's hover card already carries both rounds. */
 const RoundResults: FC<{
   surface: ElectionSurfaceV1;
+  /** The cross-view digest, on the levels that carry one (the settlement page). */
+  digest?: PlaceDigestCell[];
   round: 1 | 2;
   onRound: (r: 1 | 2) => void;
   tickets: ReturnType<typeof useTicketsByNumber>;
-}> = ({ surface, round, onRound, tickets }) => {
+}> = ({ surface, digest, round, onRound, tickets }) => {
   const rounds = useMemo(() => surfaceRounds(surface), [surface]);
   // ⚠ A ROUND THIS PLACE HAS NO BALLOT FOR RESOLVES TO ITS FIRST — a `pollRound=2` link into a
   // place with no runoff ballot must not empty the page.
@@ -342,6 +440,8 @@ const RoundResults: FC<{
       <ElectionResultsShell
         surface={scoped}
         scope="header"
+        digest={digest}
+        currentView="presidential"
         rowColor={(r) =>
           r.localPartyNum === undefined
             ? undefined
