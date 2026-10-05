@@ -1,0 +1,53 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-836",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/836-obshtestveni-naglasi-fevruari-2010.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/836-obshtestveni-naglasi-fevruari-2010.html",
+      "fetchedAt": "2026-10-05T18:44:19.634Z",
+      "sha256": "72f9f66b1908c6bf3a9bca0c52cbdf51ec4ce9de9ba0490cb907b7d76948f914",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:836",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:47:02.667Z",
+    "draftHash": "70f5aac7f5287fefe92d65448e0ca018ebdbdb5f82af3d088423ecfe9c2c531c",
+    "diffs": [
+      "provisional poll id",
+      "re-issued publication (.vN) — a correction needs a human",
+      "extractor refused: sampleSize, poll.id",
+      "reader says not a poll: Topical public-opinion survey (Обществени нагласи – февруари 2010): government/minister/institution ratings, trust in parties („Доверие в политическите партии“) and party leaders, health/pension reform and economic attitudes. It asks no vote-intention question for any election, so it carries no electoral poll.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

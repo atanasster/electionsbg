@@ -58,5 +58,26 @@
       "reason": "text yielded only 1 share(s) and 1 chart image(s) look like a labelled table — likely a chart-only post (decision 18); the Gemini Vision fallback this needs is not yet built",
       "quote": ""
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.854Z",
+    "draftHash": "773d28ab367ffbac18a035ff00ff0159b94cda01dff5a64a015600c8e0d889a6",
+    "diffs": [
+      "re-issued publication (.vN) — a correction needs a human",
+      "extractor refused: share:БСП, share:Продължаваме промяната, shares",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ГЕРБ\" 23.1 — reader has no such answer",
+      "vote_intention r1: reader has „ГЕРБ - СДС\" 23.1 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 16.8 — extractor does not",
+      "vote_intention r1: reader has „Продължаваме промяната\" 15.9 — extractor does not",
+      "vote_intention r1: reader has „Демократична България\" 10.9 — extractor does not",
+      "vote_intention r1: reader has „ИТН\" 10.4 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 9.3 — extractor does not",
+      "vote_intention r1: reader has „Изправи се БГ! Ние идваме!\" 3.2 — extractor does not",
+      "vote_intention r1: reader has „Възраждане\" 2.9 — extractor does not",
+      "vote_intention r1: reader has „ВМРО\" 2.1 — extractor does not"
+    ]
+  }
 }

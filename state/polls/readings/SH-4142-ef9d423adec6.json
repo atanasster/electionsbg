@@ -1,0 +1,163 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "SH",
+  "pubId": "4142",
+  "captureSha256": "ef9d423adec659349eadc18ef9347ac677bd7fc44ea545dfe0b3e428188fb845",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:46:46Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-04-02",
+      "fieldworkEnd": "2026-04-06",
+      "fieldworkQuote": "в периода 2 – 6 април 2026 г.",
+      "respondents": 800,
+      "respondentsQuote": "сред 800 български граждани",
+      "publishedAt": "2026-04-09",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Стандартизирано face-to-face интервю в дома на респондента; представителна извадка от 800 пълнолетни български граждани; максимална грешка 3,5% при 95% доверително равнище.",
+        "en": "Standardised face-to-face interview at the respondent's home; representative sample of 800 adult Bulgarian citizens; maximum error 3.5% at 95% confidence level."
+      },
+      "methodologyQuote": "сред 800 български граждани по метода на стандартизираното face-to-face интервю в дома на респондента. Максимална грешка за 50% относителен дял при 95%  доверително равнище: 3,5%.",
+      "sponsor": "вестник „Труд“",
+      "sponsorQuote": "Изследването е по поръчка на вестник „Труд“.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "decided_voters",
+          "basePhrase": "САМО СРЕД ГЛАСУВАЩИТЕ ЗА КОНКРЕТНА ПАРТИЯ/КОАЛИЦИЯ",
+          "baseLabel": {
+            "bg": "Само сред гласуващите за конкретна партия/коалиция",
+            "en": "Only among those voting for a specific party/coalition"
+          },
+          "answers": [
+            {
+              "label": "ПРОГРЕСИВНА БЪЛГАРИЯ",
+              "kind": "choice",
+              "value": 33.6,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 19.0,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+              "kind": "choice",
+              "value": 11.2,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ - ДПС",
+              "kind": "choice",
+              "value": 9.7,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "ВЪЗРАЖДАНЕ",
+              "kind": "choice",
+              "value": 7.8,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "БСП - ОБЕДИНЕНА ЛЕВИЦА",
+              "kind": "choice",
+              "value": 4.5,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "ПП МЕЧ",
+              "kind": "choice",
+              "value": 3.1,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "КОАЛИЦИЯ СИЯНИЕ",
+              "kind": "choice",
+              "value": 3.1,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "АЛИАНС ЗА ПРАВА И СВОБОДИ - АПС",
+              "kind": "choice",
+              "value": 2.3,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "ПП ВЕЛИЧИЕ",
+              "kind": "choice",
+              "value": 2.0,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            },
+            {
+              "label": "Друга / Не подкрепям никого",
+              "kind": "other",
+              "value": 3.7,
+              "quote": null,
+              "image": "Buletin_0426_page-0009.jpg"
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "Напълно съм сигурен/сигурна",
+              "kind": "choice",
+              "value": 54.5,
+              "quote": null,
+              "image": "Buletin_0426_page-0008.jpg"
+            },
+            {
+              "label": "В известна степен съм сигурен/сигурна",
+              "kind": "choice",
+              "value": 18.4,
+              "quote": null,
+              "image": "Buletin_0426_page-0008.jpg"
+            },
+            {
+              "label": "Не съм особено сигурен/сигурна, може да променя решението си",
+              "kind": "choice",
+              "value": 6.8,
+              "quote": null,
+              "image": "Buletin_0426_page-0008.jpg"
+            },
+            {
+              "label": "Не съм решил/решила",
+              "kind": "undecided",
+              "value": 7.1,
+              "quote": null,
+              "image": "Buletin_0426_page-0008.jpg"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 13.3,
+              "quote": null,
+              "image": "Buletin_0426_page-0008.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

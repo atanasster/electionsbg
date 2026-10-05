@@ -1,0 +1,61 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-643",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/643-vuzmojnite-iznenadi-na-izborite.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/643-vuzmojnite-iznenadi-na-izborite.html",
+      "fetchedAt": "2026-09-27T06:45:29.892Z",
+      "sha256": "9d80895c44040f7474dccb642e119097bb30534d54744bcc20fa7fe1aae22f70",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:643",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"8-13 юни 2001 година\"",
+      "quote": "в периода 8-13 юни 2001 година"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.877Z",
+    "draftHash": "e74f4a0514ffa7e35fe48bb7201ff773ae30531258879277b6e15f8e8c7ce365",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, fieldwork, poll.id",
+      "fieldwork start: extractor — vs reader 2001-06-08",
+      "fieldwork end: extractor — vs reader 2001-06-13",
+      "sample: extractor — vs reader 1111",
+      "reader finds the genre unclear",
+      "questions: extractor 1 vs reader 0",
+      "vote_intention r1: reader has no such question"
+    ]
+  }
+}

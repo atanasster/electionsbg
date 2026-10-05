@@ -599,3 +599,39 @@ it("captures the historical Alpha Research candidate chart GIF", () => {
     ),
   ).toEqual(["https://alpharesearch.bg/userfiles/image/77_1.gif"]);
 });
+
+it('captures a lettered Alpha Research chart GIF („147_1a.gif")', () => {
+  expect(
+    discoverAgencyImages(
+      "AR",
+      '<img src="/userfiles/image/147_1a.gif"><img src="/userfiles/image/147_2a.gif">',
+      "https://alpharesearch.bg/post/643-example.html",
+    ),
+  ).toEqual([
+    "https://alpharesearch.bg/userfiles/image/147_1a.gif",
+    "https://alpharesearch.bg/userfiles/image/147_2a.gif",
+  ]);
+});
+
+it("captures a PowerPoint report link", () => {
+  expect(
+    discoverReportLinks(
+      '<a href="/userfiles/Public_opinion_AR_February_2010(1).ppt">Изтегли</a>',
+      "https://alpharesearch.bg/post/836-example.html",
+    ),
+  ).toEqual([
+    "https://alpharesearch.bg/userfiles/Public_opinion_AR_February_2010(1).ppt",
+  ]);
+});
+
+it("captures Мяра's numerically named charts, not its feature image", () => {
+  expect(
+    discoverAgencyImages(
+      "MY",
+      '<img src="https://myara.bg/wp/wp-content/uploads/2025/03/vote-3569999_1280.jpg"><img src="https://myara.bg/wp/wp-content/uploads/2026/10/2-1-1024x577.jpg">',
+      "https://myara.bg/electoral-snapshot-beginning-october-1918/",
+    ),
+  ).toEqual([
+    "https://myara.bg/wp/wp-content/uploads/2026/10/2-1-1024x577.jpg",
+  ]);
+});

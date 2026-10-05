@@ -1,0 +1,52 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-838",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/838-obshtestveni-naglasi-oktomvri-2010.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/838-obshtestveni-naglasi-oktomvri-2010.html",
+      "fetchedAt": "2026-09-27T06:45:27.521Z",
+      "sha256": "08827d4477552eaa4c5cc7bd22bf4a8459133b95f86dec49a7773b50508e922f",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:838",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.896Z",
+    "draftHash": "41ab1c29604b1c11ef9fce601e20a3127b55902510ea68cbc20ebbf61a4a6b35",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, poll.id",
+      "reader says not a poll: The capture contains only the title „ОБЩЕСТВЕНИ НАГЛАСИ ОКТОМВРИ 2010“ and a link to an attachment (Public_opinion_AR_October_2010.ppt) that is not in the capture directory; no poll figures, fieldwork, sample or methodology are stated in page.html, so nothing can be transcribed.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

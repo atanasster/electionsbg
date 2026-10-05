@@ -1,0 +1,48 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "837",
+  "captureSha256": "e9cb4beeb8065c590cd37df600984973121b2ef628db810cf055e4b1f2ecde0d",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T19:00:00.000Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2010-05-28",
+      "fieldworkEnd": "2010-06-03",
+      "fieldworkQuote": "Период на провеждане 28 Май – 3 Юни 2010",
+      "respondents": 1020,
+      "respondentsQuote": "Обем на извадката 1020 ефективни интервюта",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю по домовете; квотна извадка (възраст, пол, образование, тип населено място), представителна за пълнолетното население; 1020 ефективни интервюта. Грешка не е посочена.",
+        "en": "Face-to-face standardised interview at respondents' homes; quota sample (age, sex, education, settlement type), representative of the adult population; 1,020 effective interviews. Margin of error not stated."
+      },
+      "methodologyQuote": "Пряко стандартизирано интервю по домовете на интервюираните лица",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            { "label": "ГЕРБ", "kind": "choice", "value": 30.4, "quote": null, "image": "Public_opinion_AR_June_2010.ppt" },
+            { "label": "БСП", "kind": "choice", "value": 12.9, "quote": null, "image": "Public_opinion_AR_June_2010.ppt" },
+            { "label": "ДПС", "kind": "choice", "value": 5.1, "quote": null, "image": "Public_opinion_AR_June_2010.ppt" },
+            { "label": "Синята коалиция", "kind": "choice", "value": 4.3, "quote": "В резултат, потенциалът им в началото на юни достига 4.3%", "image": null },
+            { "label": "АТАКА", "kind": "choice", "value": 2.3, "quote": "В началото на юни готовност да гласуват за Атака заявяват 2.3%", "image": null },
+            { "label": "НДСВ", "kind": "choice", "value": 0.9, "quote": null, "image": "Public_opinion_AR_June_2010.ppt" },
+            { "label": "РЗС", "kind": "choice", "value": 0.6, "quote": null, "image": "Public_opinion_AR_June_2010.ppt" },
+            { "label": "Друга партия", "kind": "other", "value": 4.2, "quote": null, "image": "Public_opinion_AR_June_2010.ppt" },
+            { "label": "Няма да гласувам", "kind": "wont_vote", "value": 39.3, "quote": null, "image": "Public_opinion_AR_June_2010.ppt" }
+          ]
+        }
+      ]
+    }
+  ]
+}

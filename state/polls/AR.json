@@ -5942,7 +5942,7 @@
       "838"
     ],
     "discoveredAt": "2026-09-26T07:50:12.646Z",
-    "latestHash": "08827d4477552eaa4c5cc7bd22bf4a8459133b95f86dec49a7773b50508e922f",
+    "latestHash": "b98a3d285b1f6969c7882378c038692454965360372f1c5b235cf354454450f3",
     "versions": [
       {
         "sha256": "08827d4477552eaa4c5cc7bd22bf4a8459133b95f86dec49a7773b50508e922f",
@@ -5955,6 +5955,24 @@
             "race": "parliamentary",
             "extractedAt": "2026-09-27T06:46:00.470Z",
             "draftHash": "41ab1c29604b1c11ef9fce601e20a3127b55902510ea68cbc20ebbf61a4a6b35",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ]
+      },
+      {
+        "sha256": "b98a3d285b1f6969c7882378c038692454965360372f1c5b235cf354454450f3",
+        "capturePath": "raw_data/polls/alpha_research/838.v2",
+        "capturedAt": "2026-10-05T18:44:22.102Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-838",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T18:44:43.728Z",
+            "draftHash": "b42f5d569ba3f603e75466eaf0334f64d2085ce4054c5e0164c727c3f513f9a4",
             "refused": [
               "sampleSize",
               "poll.id"
@@ -5983,7 +6001,7 @@
       "837"
     ],
     "discoveredAt": "2026-09-26T07:50:12.646Z",
-    "latestHash": "a56bc6833fda6dcb5b58bbe087da5c58f9203fdb1f29ab9c95a1e50c197ee3a7",
+    "latestHash": "e9cb4beeb8065c590cd37df600984973121b2ef628db810cf055e4b1f2ecde0d",
     "versions": [
       {
         "sha256": "a56bc6833fda6dcb5b58bbe087da5c58f9203fdb1f29ab9c95a1e50c197ee3a7",
@@ -5996,6 +6014,24 @@
             "race": "parliamentary",
             "extractedAt": "2026-09-27T06:46:00.461Z",
             "draftHash": "9b6b119e181fb108229861dcd42147f0bde01e63bbdee636b0961d906215f78e",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ]
+      },
+      {
+        "sha256": "e9cb4beeb8065c590cd37df600984973121b2ef628db810cf055e4b1f2ecde0d",
+        "capturePath": "raw_data/polls/alpha_research/837.v2",
+        "capturedAt": "2026-10-05T18:44:20.699Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-837",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T18:44:43.210Z",
+            "draftHash": "d679a4390e4622f1cde9f13cc6c59206dea76a682c30aa9facee8d803c8f0fc9",
             "refused": [
               "sampleSize",
               "poll.id"
@@ -6024,7 +6060,7 @@
       "836"
     ],
     "discoveredAt": "2026-09-26T07:50:12.646Z",
-    "latestHash": "d83aff87fe9744ab87d3d0b1e3e1545b83eb97db4e97c645a3554c0bb57b4141",
+    "latestHash": "72f9f66b1908c6bf3a9bca0c52cbdf51ec4ce9de9ba0490cb907b7d76948f914",
     "versions": [
       {
         "sha256": "d83aff87fe9744ab87d3d0b1e3e1545b83eb97db4e97c645a3554c0bb57b4141",
@@ -6041,6 +6077,31 @@
               "sampleSize",
               "poll.id"
             ]
+          }
+        ]
+      },
+      {
+        "sha256": "72f9f66b1908c6bf3a9bca0c52cbdf51ec4ce9de9ba0490cb907b7d76948f914",
+        "capturePath": "raw_data/polls/alpha_research/836.v2",
+        "capturedAt": "2026-10-05T18:44:19.634Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-836",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T18:44:42.608Z",
+            "draftHash": "70f5aac7f5287fefe92d65448e0ca018ebdbdb5f82af3d088423ecfe9c2c531c",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll (independent reading of the re-captured .ppt): topical survey — government and institution ratings, trust in parties and leaders, reform attitudes; no vote-intention question",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -7289,7 +7350,7 @@
       "643"
     ],
     "discoveredAt": "2026-09-26T07:50:12.646Z",
-    "latestHash": "9d80895c44040f7474dccb642e119097bb30534d54744bcc20fa7fe1aae22f70",
+    "latestHash": "8da0a3b96a164337749d432552402fb35083ef83ab3c13695ce2887f8b540cb5",
     "versions": [
       {
         "sha256": "9d80895c44040f7474dccb642e119097bb30534d54744bcc20fa7fe1aae22f70",
@@ -7302,6 +7363,25 @@
             "race": "parliamentary",
             "extractedAt": "2026-09-27T06:45:58.734Z",
             "draftHash": "e74f4a0514ffa7e35fe48bb7201ff773ae30531258879277b6e15f8e8c7ce365",
+            "refused": [
+              "sampleSize",
+              "fieldwork",
+              "poll.id"
+            ]
+          }
+        ]
+      },
+      {
+        "sha256": "8da0a3b96a164337749d432552402fb35083ef83ab3c13695ce2887f8b540cb5",
+        "capturePath": "raw_data/polls/alpha_research/643.v2",
+        "capturedAt": "2026-10-05T18:44:23.200Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-643",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T18:44:44.748Z",
+            "draftHash": "2bacf9bc5c001c18e4135529beda0f0147c93eab5fca931f0e07946e15e8f7d9",
             "refused": [
               "sampleSize",
               "fieldwork",

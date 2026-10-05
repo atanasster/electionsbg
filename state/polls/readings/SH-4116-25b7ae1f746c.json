@@ -1,0 +1,173 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "SH",
+  "pubId": "4116",
+  "captureSha256": "25b7ae1f746c5595ebb960e53d03c6dda95ad24cb7f0113d4a2894c9996a62e4",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T18:46:30Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-03-07",
+      "fieldworkEnd": "2026-03-12",
+      "fieldworkQuote": "в периода 7 – 12 март 2026 г.",
+      "respondents": 1000,
+      "respondentsQuote": "сред 1000 български граждани по метода на стандартизираното face-to-face интервю",
+      "publishedAt": "2026-03-16",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население проучване; стандартизирано face-to-face интервю в дома на респондента; 1000 души; максимална грешка 3,1% при 95% гаранционна вероятност.",
+        "en": "Survey representative of the adult population; standardized face-to-face interview in the respondent's home; 1,000 people; maximum error 3.1% at 95% confidence."
+      },
+      "methodologyQuote": "проведено от Агенция СОВА ХАРИС в периода 7 – 12 март 2026 г. сред 1000 български граждани по метода на стандартизираното face-to-face интервю в дома на респондента. Максимална грешка за 50% относителен дял при 95% гаранционна вероятност: 3,1%.",
+      "sponsor": "вестник „Труд“",
+      "sponsorQuote": "Изследването е по поръчка на вестник „Труд“.",
+      "questions": [
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "Смятате ли да гласувате на тези избори?",
+          "baseLabel": {
+            "bg": "Всички респонденти",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Ще гласувам и вече съм решил/а за кого",
+              "kind": "choice",
+              "value": 46.8,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Ще гласувам, но още не съм решил/а за кого",
+              "kind": "choice",
+              "value": 19.3,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Не съм решил/а дали да гласувам",
+              "kind": "undecided",
+              "value": 16.1,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 17.0,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Без отговор",
+              "kind": "wont_say",
+              "value": 0.8,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "decided_voters",
+          "basePhrase": "сред гласуващите за конкретна политическа сила",
+          "baseLabel": {
+            "bg": "Гласуващи за конкретна политическа сила",
+            "en": "Voters naming a specific political party"
+          },
+          "answers": [
+            {
+              "label": "ПРОГРЕСИВНА БЪЛГАРИЯ",
+              "kind": "choice",
+              "value": 30.9,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "ГЕРБ - СДС",
+              "kind": "choice",
+              "value": 19.3,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Коалиция ПРОДЪЛЖАВАМЕ ПРОМЯНАТА и ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+              "kind": "choice",
+              "value": 12.2,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "ДПС Ново Начало",
+              "kind": "choice",
+              "value": 7.1,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "ВЪЗРАЖДАНЕ",
+              "kind": "choice",
+              "value": 6.7,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "БСП за БЪЛГАРИЯ",
+              "kind": "choice",
+              "value": 4.4,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 3.8,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Коалиция \"Сияние\"",
+              "kind": "choice",
+              "value": 2.9,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "ВЕЛИЧИЕ",
+              "kind": "choice",
+              "value": 2.5,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Има Такъв Народ",
+              "kind": "choice",
+              "value": 2.2,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "АПС",
+              "kind": "choice",
+              "value": 1.8,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            },
+            {
+              "label": "Друга партия",
+              "kind": "other",
+              "value": 6.2,
+              "quote": null,
+              "image": "Buletin_Pol0326_page-0009.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2010-10-04",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/838-obshtestveni-naglasi-oktomvri-2010.html",
+    "electionDate": null,
+    "respondents": 1036,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/838-obshtestveni-naglasi-oktomvri-2010.html",
+      "fetchedAt": "2026-10-05T18:44:22.102Z",
+      "sha256": "b98a3d285b1f6969c7882378c038692454965360372f1c5b235cf354454450f3",
+      "extractor": "AR",
+      "fieldworkStart": "2010-09-25",
+      "fieldworkEnd": "2010-10-04",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "25 Септември – 4 Октомври 2010",
+        "sampleSize": "1036 ефективни интервюта",
+        "methodology": "Пряко стандартизирано интервю по домовете на интервюираните лица",
+        "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/AR-838-b98a3d285b1f.json; the extractor read nothing (chart/.ppt only). Verify every value against the capture before accepting.",
+        "share:ГЕРБ": "В началото на октомври електоралната подкрепа спада до 27.5%",
+        "share:БСП": "подкрепата за БСП не надхвърля кръга на най-твърдите привърженици, което й носи потенциал от 13.6%",
+        "share:ДПС": "[chart] 2010%20Public_opinion_AR_October_2010.ppt",
+        "share:Синята коалиция": "Потенциалът на „сините” е 4.1%",
+        "share:АТАКА": "Симпатизантите на партията остават свити до равнището от 2.7%",
+        "share:РЗС": "[chart] 2010%20Public_opinion_AR_October_2010.ppt",
+        "share:Друга партия": "[chart] 2010%20Public_opinion_AR_October_2010.ppt",
+        "share:Няма да гласувам": "[chart] 2010%20Public_opinion_AR_October_2010.ppt"
+      }
+    },
+    "publicationId": "AR:838",
+    "publishedAt": null,
+    "fieldwork": "Sep 25 - Oct 4 2010",
+    "methodology": {
+      "bg": "Пряко стандартизирано интервю по домовете; квотна извадка (възраст, пол, образование, тип населено място), 1036 интервюта, представителна за пълнолетното население.",
+      "en": "Face-to-face standardised interview at respondents' homes; quota sample (age, sex, education, settlement type), 1036 interviews, representative of the adult population."
+    }
+  },
+  "details": [
+    {
+      "pollId": "ar-2010-10-04",
+      "agencyId": "AR",
+      "support": 27.5,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": "GERB"
+    },
+    {
+      "pollId": "ar-2010-10-04",
+      "agencyId": "AR",
+      "support": 13.6,
+      "nickName_bg": "БСП",
+      "nickName_en": "BSP"
+    },
+    {
+      "pollId": "ar-2010-10-04",
+      "agencyId": "AR",
+      "support": 5,
+      "nickName_bg": "ДПС",
+      "nickName_en": "DPS"
+    },
+    {
+      "pollId": "ar-2010-10-04",
+      "agencyId": "AR",
+      "support": 4.1,
+      "nickName_bg": "Синята коалиция",
+      "nickName_en": "Blue Coalition"
+    },
+    {
+      "pollId": "ar-2010-10-04",
+      "agencyId": "AR",
+      "support": 2.7,
+      "nickName_bg": "АТАКА",
+      "nickName_en": "Ataka"
+    },
+    {
+      "pollId": "ar-2010-10-04",
+      "agencyId": "AR",
+      "support": 0.9,
+      "nickName_bg": "РЗС",
+      "nickName_en": "RZS"
+    }
+  ],
+  "residual": {
+    "undecided": null,
+    "wontVote": 40.9,
+    "wontSay": null,
+    "otherNamedMinor": 5.3,
+    "notes": "Base: not stated in the publication; shares sum to 100 with the residuals. Pre-filled from the independent reading — verify against the capture before accepting."
+  },
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "25 Септември – 4 Октомври 2010",
+    "sampleSize": "1036 ефективни интервюта",
+    "methodology": "Пряко стандартизирано интервю по домовете на интервюираните лица",
+    "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/AR-838-b98a3d285b1f.json; the extractor read nothing (chart/.ppt only). Verify every value against the capture before accepting.",
+    "share:ГЕРБ": "В началото на октомври електоралната подкрепа спада до 27.5%",
+    "share:БСП": "подкрепата за БСП не надхвърля кръга на най-твърдите привърженици, което й носи потенциал от 13.6%",
+    "share:ДПС": "[chart] 2010%20Public_opinion_AR_October_2010.ppt",
+    "share:Синята коалиция": "Потенциалът на „сините” е 4.1%",
+    "share:АТАКА": "Симпатизантите на партията остават свити до равнището от 2.7%",
+    "share:РЗС": "[chart] 2010%20Public_opinion_AR_October_2010.ppt",
+    "share:Друга партия": "[chart] 2010%20Public_opinion_AR_October_2010.ppt",
+    "share:Няма да гласувам": "[chart] 2010%20Public_opinion_AR_October_2010.ppt"
+  },
+  "refused": []
+}

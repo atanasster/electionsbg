@@ -409,12 +409,13 @@ const discoverDocuments = (
 export const discoverPdfLinks = (html: string, pageUrl: string): string[] =>
   discoverDocuments(html, pageUrl, /\.pdf(?:[?#]|$)/i);
 
-/** Older Alpha Research releases link Word reports as well as PDFs. */
+/** Older Alpha Research releases link Word and PowerPoint reports (the
+ *  2010 monthly „Обществени нагласи" posts carry only a .ppt) as well as PDFs. */
 export const discoverReportLinks = (html: string, pageUrl: string): string[] =>
   discoverDocuments(
     html,
     pageUrl,
-    /(?:\.(?:pdf|docx?)(?:[?#]|$)|modules\/downloadResource\.php\?resource=\d+&hash=)/i,
+    /(?:\.(?:pdf|docx?|pptx?)(?:[?#]|$)|modules\/downloadResource\.php\?resource=\d+&hash=)/i,
   );
 
 /** Agency chart and methodology images, including historical naming schemes.
@@ -426,7 +427,7 @@ const AGENCY_IMAGE_PATTERNS: Record<string, RegExp> = {
   // Мяра's charts are numerically named uploads („2-1-1024x577.jpg");
   // the post's feature image is word-named („vote-3569999_1280.jpg").
   MY: /\/wp-content\/uploads\/\d{4}\/\d{2}\/\d+(?:-\d+)*(?:-\d+x\d+)?\.(?:png|jpe?g)(?:[?#]|$)/i,
-  AR: /(?:\/userfiles\/image\/\d+_\d+\.gif(?:[?#]|$)|\/(?:Graph\d*(?:_?final)?|Chart_?\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$))/i,
+  AR: /(?:\/userfiles\/image\/\d+_\d+[a-z]?\.gif(?:[?#]|$)|\/(?:Graph\d*(?:_?final)?|Chart_?\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$))/i,
 };
 
 export const discoverAgencyImages = (

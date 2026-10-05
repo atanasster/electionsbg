@@ -1,0 +1,118 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2010-06-03",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/837-obshtestveni-naglasi-iuni-2010.html",
+    "electionDate": null,
+    "respondents": 1020,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/837-obshtestveni-naglasi-iuni-2010.html",
+      "fetchedAt": "2026-10-05T18:44:20.699Z",
+      "sha256": "e9cb4beeb8065c590cd37df600984973121b2ef628db810cf055e4b1f2ecde0d",
+      "extractor": "AR",
+      "fieldworkStart": "2010-05-28",
+      "fieldworkEnd": "2010-06-03",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "Период на провеждане 28 Май – 3 Юни 2010",
+        "sampleSize": "Обем на извадката 1020 ефективни интервюта",
+        "methodology": "Пряко стандартизирано интервю по домовете на интервюираните лица",
+        "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/AR-837-e9cb4beeb806.json; the extractor read nothing (chart/.ppt only). Verify every value against the capture before accepting.",
+        "share:ГЕРБ": "[chart] Public_opinion_AR_June_2010.ppt",
+        "share:БСП": "[chart] Public_opinion_AR_June_2010.ppt",
+        "share:ДПС": "[chart] Public_opinion_AR_June_2010.ppt",
+        "share:Синята коалиция": "В резултат, потенциалът им в началото на юни достига 4.3%",
+        "share:АТАКА": "В началото на юни готовност да гласуват за Атака заявяват 2.3%",
+        "share:НДСВ": "[chart] Public_opinion_AR_June_2010.ppt",
+        "share:РЗС": "[chart] Public_opinion_AR_June_2010.ppt",
+        "share:Друга партия": "[chart] Public_opinion_AR_June_2010.ppt",
+        "share:Няма да гласувам": "[chart] Public_opinion_AR_June_2010.ppt"
+      }
+    },
+    "publicationId": "AR:837",
+    "publishedAt": null,
+    "fieldwork": "May 28 - Jun 3 2010",
+    "methodology": {
+      "bg": "Пряко стандартизирано интервю по домовете; квотна извадка (възраст, пол, образование, тип населено място), представителна за пълнолетното население; 1020 ефективни интервюта. Грешка не е посочена.",
+      "en": "Face-to-face standardised interview at respondents' homes; quota sample (age, sex, education, settlement type), representative of the adult population; 1,020 effective interviews. Margin of error not stated."
+    }
+  },
+  "details": [
+    {
+      "pollId": "ar-2010-06-03",
+      "agencyId": "AR",
+      "support": 30.4,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": "GERB"
+    },
+    {
+      "pollId": "ar-2010-06-03",
+      "agencyId": "AR",
+      "support": 12.9,
+      "nickName_bg": "БСП",
+      "nickName_en": "BSP"
+    },
+    {
+      "pollId": "ar-2010-06-03",
+      "agencyId": "AR",
+      "support": 5.1,
+      "nickName_bg": "ДПС",
+      "nickName_en": "DPS"
+    },
+    {
+      "pollId": "ar-2010-06-03",
+      "agencyId": "AR",
+      "support": 4.3,
+      "nickName_bg": "Синята коалиция",
+      "nickName_en": "Blue Coalition"
+    },
+    {
+      "pollId": "ar-2010-06-03",
+      "agencyId": "AR",
+      "support": 2.3,
+      "nickName_bg": "АТАКА",
+      "nickName_en": "Ataka"
+    },
+    {
+      "pollId": "ar-2010-06-03",
+      "agencyId": "AR",
+      "support": 0.9,
+      "nickName_bg": "НДСВ",
+      "nickName_en": "NDSV"
+    },
+    {
+      "pollId": "ar-2010-06-03",
+      "agencyId": "AR",
+      "support": 0.6,
+      "nickName_bg": "РЗС",
+      "nickName_en": "RZS"
+    }
+  ],
+  "residual": {
+    "undecided": null,
+    "wontVote": 39.3,
+    "wontSay": null,
+    "otherNamedMinor": 4.2,
+    "notes": "Base: not stated in the publication; shares sum to 100 with the residuals. Pre-filled from the independent reading — verify against the capture before accepting."
+  },
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "Период на провеждане 28 Май – 3 Юни 2010",
+    "sampleSize": "Обем на извадката 1020 ефективни интервюта",
+    "methodology": "Пряко стандартизирано интервю по домовете на интервюираните лица",
+    "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/AR-837-e9cb4beeb806.json; the extractor read nothing (chart/.ppt only). Verify every value against the capture before accepting.",
+    "share:ГЕРБ": "[chart] Public_opinion_AR_June_2010.ppt",
+    "share:БСП": "[chart] Public_opinion_AR_June_2010.ppt",
+    "share:ДПС": "[chart] Public_opinion_AR_June_2010.ppt",
+    "share:Синята коалиция": "В резултат, потенциалът им в началото на юни достига 4.3%",
+    "share:АТАКА": "В началото на юни готовност да гласуват за Атака заявяват 2.3%",
+    "share:НДСВ": "[chart] Public_opinion_AR_June_2010.ppt",
+    "share:РЗС": "[chart] Public_opinion_AR_June_2010.ppt",
+    "share:Друга партия": "[chart] Public_opinion_AR_June_2010.ppt",
+    "share:Няма да гласувам": "[chart] Public_opinion_AR_June_2010.ppt"
+  },
+  "refused": []
+}

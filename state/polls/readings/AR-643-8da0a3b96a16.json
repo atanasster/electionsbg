@@ -1,0 +1,45 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "643",
+  "captureSha256": "8da0a3b96a164337749d432552402fb35083ef83ab3c13695ce2887f8b540cb5",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T19:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2001-06-08",
+      "fieldworkEnd": "2001-06-13",
+      "fieldworkQuote": "проведено от агенция АЛФА РИСЪРЧ в периода 8-13 юни 2001 година",
+      "respondents": 1111,
+      "respondentsQuote": "По домовете им чрез пряко стандартизирано интервю са анкетирани 1111 пълнолетни граждани, подбрани по метода на квота",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население проучване; пряко стандартизирано интервю по домовете; 1111 пълнолетни граждани, квотна извадка.",
+        "en": "Survey representative of the adult population; face-to-face standardised interviews at respondents' homes; 1,111 adult citizens, quota sample."
+      },
+      "methodologyQuote": "Данните са от представително за пълнолетното население на страната проучване проведено от агенция АЛФА РИСЪРЧ в периода 8-13 юни 2001 година. По домовете им чрез пряко стандартизирано интервю са анкетирани 1111 пълнолетни граждани, подбрани по метода на квота.",
+      "sponsor": null,
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "СРЕД ВСИЧКИ ИЗБИРАТЕЛИ",
+          "baseLabel": { "bg": "Всички избиратели", "en": "All voters (respondents)" },
+          "answers": [
+            { "label": "НДСВ", "kind": "choice", "value": 32.5, "quote": null, "image": "147_1a.gif" },
+            { "label": "ОДС", "kind": "choice", "value": 18.1, "quote": null, "image": "147_1a.gif" },
+            { "label": "Коалиция за България", "kind": "choice", "value": 12.0, "quote": null, "image": "147_1a.gif" },
+            { "label": "ДПС", "kind": "choice", "value": 4.2, "quote": null, "image": "147_1a.gif" },
+            { "label": "Други", "kind": "other", "value": 6.4, "quote": null, "image": "147_1a.gif" },
+            { "label": "Не съм решил/няма да гласувам", "kind": "undecided", "value": 26.8, "quote": null, "image": "147_1a.gif" }
+          ]
+        }
+      ]
+    }
+  ]
+}

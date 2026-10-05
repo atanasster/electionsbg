@@ -9,7 +9,7 @@
       "4116"
     ],
     "discoveredAt": "2026-09-09T22:04:37.888Z",
-    "latestHash": "995f4eeea3b278243a23d1fbee8ec3eaa08f4b107a22710086d8730d4ed0294e",
+    "latestHash": "25b7ae1f746c5595ebb960e53d03c6dda95ad24cb7f0113d4a2894c9996a62e4",
     "versions": [
       {
         "sha256": "995f4eeea3b278243a23d1fbee8ec3eaa08f4b107a22710086d8730d4ed0294e",
@@ -27,6 +27,33 @@
               "questions",
               "methodology"
             ]
+          }
+        ]
+      },
+      {
+        "sha256": "25b7ae1f746c5595ebb960e53d03c6dda95ad24cb7f0113d4a2894c9996a62e4",
+        "capturePath": "raw_data/polls/sova_harris/4116.v2",
+        "capturedAt": "2026-10-05T18:44:16.952Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "sh-pub-4116-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-05T18:44:38.278Z",
+            "draftHash": "8d533d5397019d28900fd84d59129e4bb0eb0f610456de7dafe47eabb6aa5a06",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading of the re-captured bulletin: a parliamentary poll (already in the corpus as sh-2026-03-12) with no presidential vote-intention question",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }
@@ -51,7 +78,7 @@
       "4142"
     ],
     "discoveredAt": "2026-09-09T22:04:37.619Z",
-    "latestHash": "3f6b75cf74fa416a671268204f02b8783fe97d4299033eada650ee6ed3d5c6a6",
+    "latestHash": "ef9d423adec659349eadc18ef9347ac677bd7fc44ea545dfe0b3e428188fb845",
     "versions": [
       {
         "sha256": "3f6b75cf74fa416a671268204f02b8783fe97d4299033eada650ee6ed3d5c6a6",
@@ -69,6 +96,33 @@
               "questions",
               "methodology"
             ]
+          }
+        ]
+      },
+      {
+        "sha256": "ef9d423adec659349eadc18ef9347ac677bd7fc44ea545dfe0b3e428188fb845",
+        "capturePath": "raw_data/polls/sova_harris/4142.v2",
+        "capturedAt": "2026-10-05T18:44:18.537Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "sh-pub-4142-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-05T18:44:41.883Z",
+            "draftHash": "a91ef0f9b5bb8f593e5f7e283d6b5e74d76cd0026974d1d20bab7c90a2c604fc",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Independent reading of the re-captured bulletin: a parliamentary poll (already in the corpus as sh-2026-04-06) with no presidential vote-intention question",
+            "reviewedAt": "2026-10-05"
           }
         ]
       }

@@ -1,0 +1,91 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2001-06-13",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/643-vuzmojnite-iznenadi-na-izborite.html",
+    "electionDate": null,
+    "respondents": 1111,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/643-vuzmojnite-iznenadi-na-izborite.html",
+      "fetchedAt": "2026-10-05T18:44:23.200Z",
+      "sha256": "8da0a3b96a164337749d432552402fb35083ef83ab3c13695ce2887f8b540cb5",
+      "extractor": "AR",
+      "fieldworkStart": "2001-06-08",
+      "fieldworkEnd": "2001-06-13",
+      "basePhrase": "СРЕД ВСИЧКИ ИЗБИРАТЕЛИ",
+      "quotes": {
+        "fieldwork": "проведено от агенция АЛФА РИСЪРЧ в периода 8-13 юни 2001 година",
+        "sampleSize": "По домовете им чрез пряко стандартизирано интервю са анкетирани 1111 пълнолетни граждани, подбрани по метода на квота",
+        "methodology": "Данните са от представително за пълнолетното население на страната проучване проведено от агенция АЛФА РИСЪРЧ в периода 8-13 юни 2001 година. По домовете им чрез пряко стандартизирано интервю са анкетирани 1111 пълнолетни граждани, подбрани по метода на квота.",
+        "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/AR-643-8da0a3b96a16.json; the extractor read nothing (chart/.ppt only). Verify every value against the capture before accepting.",
+        "share:НДСВ": "[chart] 147_1a.gif",
+        "share:ОДС": "[chart] 147_1a.gif",
+        "share:Коалиция за България": "[chart] 147_1a.gif",
+        "share:ДПС": "[chart] 147_1a.gif",
+        "share:Други": "[chart] 147_1a.gif",
+        "share:Не съм решил/няма да гласувам": "[chart] 147_1a.gif"
+      }
+    },
+    "publicationId": "AR:643",
+    "publishedAt": null,
+    "fieldwork": "Jun 8-13 2001",
+    "methodology": {
+      "bg": "Представително за пълнолетното население проучване; пряко стандартизирано интервю по домовете; 1111 пълнолетни граждани, квотна извадка.",
+      "en": "Survey representative of the adult population; face-to-face standardised interviews at respondents' homes; 1,111 adult citizens, quota sample."
+    }
+  },
+  "details": [
+    {
+      "pollId": "ar-2001-06-13",
+      "agencyId": "AR",
+      "support": 32.5,
+      "nickName_bg": "НДСВ",
+      "nickName_en": "NDSV"
+    },
+    {
+      "pollId": "ar-2001-06-13",
+      "agencyId": "AR",
+      "support": 18.1,
+      "nickName_bg": "ОДС",
+      "nickName_en": "ODS"
+    },
+    {
+      "pollId": "ar-2001-06-13",
+      "agencyId": "AR",
+      "support": 12,
+      "nickName_bg": "Коалиция за България",
+      "nickName_en": "Coalition for Bulgaria"
+    },
+    {
+      "pollId": "ar-2001-06-13",
+      "agencyId": "AR",
+      "support": 4.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": "DPS"
+    }
+  ],
+  "residual": {
+    "undecided": 26.8,
+    "wontVote": null,
+    "wontSay": null,
+    "otherNamedMinor": 6.4,
+    "notes": "Base: СРЕД ВСИЧКИ ИЗБИРАТЕЛИ; shares sum to 100 with the residuals. \"Не съм решил/няма да гласувам\" pools undecided and won't-vote; stored as undecided. Pre-filled from the independent reading — verify against the capture before accepting."
+  },
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "проведено от агенция АЛФА РИСЪРЧ в периода 8-13 юни 2001 година",
+    "sampleSize": "По домовете им чрез пряко стандартизирано интервю са анкетирани 1111 пълнолетни граждани, подбрани по метода на квота",
+    "methodology": "Данните са от представително за пълнолетното население на страната проучване проведено от агенция АЛФА РИСЪРЧ в периода 8-13 юни 2001 година. По домовете им чрез пряко стандартизирано интервю са анкетирани 1111 пълнолетни граждани, подбрани по метода на квота.",
+    "review": "PRE-FILLED 2026-10-05 from the independent reading state/polls/readings/AR-643-8da0a3b96a16.json; the extractor read nothing (chart/.ppt only). Verify every value against the capture before accepting.",
+    "share:НДСВ": "[chart] 147_1a.gif",
+    "share:ОДС": "[chart] 147_1a.gif",
+    "share:Коалиция за България": "[chart] 147_1a.gif",
+    "share:ДПС": "[chart] 147_1a.gif",
+    "share:Други": "[chart] 147_1a.gif",
+    "share:Не съм решил/няма да гласувам": "[chart] 147_1a.gif"
+  },
+  "refused": []
+}
