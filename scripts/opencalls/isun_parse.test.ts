@@ -17,6 +17,7 @@ import {
   splitCodeTitle,
   toOpenCall,
 } from "./isun_parse";
+import { deriveAudience } from "./audience";
 import { validateCall } from "./types";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -234,7 +235,10 @@ describe("toOpenCall", () => {
     assert.equal(call.closesAt, detail.closesAt);
     assert.equal(call.opensAt, detail.opensAt);
     assert.equal(call.periodLabel, null);
-    assert.deepEqual(call.audience, []);
+    // Never `[]` — an empty audience matches no facet filter, so the call vanishes from every
+    // audience-scoped view (a farming question answered „0 отворени" that way).
+    assert.ok(call.audience.length > 0);
+    assert.deepEqual(call.audience, deriveAudience(null, row.title));
     assert.match(call.sourceUrl, /^https:\/\/eumis2020\.government\.bg\//u);
     assert.ok(call.docs.every((x) => x.url.startsWith("https://")));
   });

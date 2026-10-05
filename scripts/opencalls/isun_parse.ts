@@ -20,6 +20,7 @@
 // and the tests pin one winter and one summer date.
 
 import * as cheerio from "cheerio";
+import { deriveAudience } from "./audience";
 import type { CallDoc, CallKind, OpenCall } from "./types";
 
 /** Minutes Europe/Sofia is ahead of UTC at a given instant (+120 winter, +180 summer). */
@@ -301,7 +302,11 @@ export const toOpenCall = (
     grantMinEur: null,
     grantMaxEur: null,
     beneficiariesRaw: null,
-    audience: [],
+    // From the TITLE, through the shared derivation — the procedure page has no eligibility
+    // text. This used to be a bare `[]`, which matches NO facet filter: every ИСУН call vanished
+    // from „за земеделци" / „за бизнес" views, so a farming question answered „0 отворени" while
+    // a СПРЗСР procedure was open. No match resolves to `unknown`, never to a guess.
+    audience: deriveAudience(null, row.title),
     territory: null,
     sourceUrl: `${BASE}/bg/s/Procedure/Info/${row.guid}`,
     docs: detail.docs.map((d) => ({

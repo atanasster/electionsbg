@@ -405,8 +405,8 @@ export async function fundingQuestion(
         scope,
         coverage_note:
           ctx.lang === "bg"
-            ? "Отворени приеми сега. Периодът на отпуснатото финансиране не се прилага. Темата и мястото са контекст, не потвърдена допустимост. Interreg не е включен."
-            : "Open calls now. The award period is not applied. Theme and place are context, not confirmed eligibility. Interreg is not included.",
+            ? "Отворени приеми сега. Периодът на отпуснатото финансиране не се прилага. Темата и мястото са контекст, не потвърдена допустимост. От Interreg е включена само част от програмите."
+            : "Open calls now. The award period is not applied. Theme and place are context, not confirmed eligibility. Only part of Interreg is included.",
       },
     };
   }
@@ -538,8 +538,8 @@ export async function fundingQuestion(
   if (r?.kind === "clarification" && previous?.ok && r.reason === "P15") {
     const message =
       ctx.lang === "bg"
-        ? "Отворените приеми са възможности сега. Старият период на финансиране не се прилага; темата и мястото се запазват като контекст, не като проверена допустимост. Interreg не е включен."
-        : "Open calls are opportunities now. The prior award period does not apply; theme and place remain context, not verified eligibility. Interreg is not included.";
+        ? "Отворените приеми са възможности сега. Старият период на финансиране не се прилага; темата и мястото се запазват като контекст, не като проверена допустимост. От Interreg е включена само част от програмите."
+        : "Open calls are opportunities now. The prior award period does not apply; theme and place remain context, not verified eligibility. Only part of Interreg is included.";
     return {
       tool: "fundingQuestion",
       kind: "scalar",

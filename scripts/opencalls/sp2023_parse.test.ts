@@ -316,6 +316,18 @@ describe("audience derivation", () => {
     assert.deepEqual(deriveAudience(null, "Бюджетни линии"), ["institution"]);
   });
 
+  test("a technical-assistance title is NOT widened by the programme it quotes", () => {
+    // Live ИСУН title: the quoted programme name carries „предприятията", which the business
+    // rule matched — technical assistance then reached a small business's view.
+    assert.deepEqual(
+      deriveAudience(
+        null,
+        "„Осигуряване на техническа помощ за успешното изпълнение на програма „Конкурентоспособност и иновации в предприятията“",
+      ),
+      ["institution"],
+    );
+  });
+
   test("no text at all is unknown, not a guess", () => {
     assert.deepEqual(deriveAudience(null, null), ["unknown"]);
     assert.deepEqual(deriveAudience("", ""), ["unknown"]);

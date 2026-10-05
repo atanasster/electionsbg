@@ -407,6 +407,19 @@ const AGENCY_TOKENS = [
 // „кандидатств" and not „кандидат": the noun is an election candidate („кандидати за кмет"), the verb
 // is an applicant. „прием" does prefix-match „приемане на бюджета", but the budget and local-election
 // arms are both checked BEFORE this one, so those questions never reach it — verified.
+// „европрограми ЗА X" asks what X can get, i.e. an open call. Bare „европрограм" is not a token:
+// „колко пари от европрограми получи община Y" is a question about the AWARDED corpus. Named
+// separately because the COFOG arm must also yield to it — „EU programmes for agriculture"
+// resolved to the agriculture budget function before the open-calls arm was reached.
+const EU_PROGRAMME_FOR = [
+  "европрограми за",
+  "европрограма за",
+  "eu programmes for",
+  "eu programs for",
+  "eu programme for",
+  "eu program for",
+] as const;
+
 const APPLY_TOKENS = [
   "отворен",
   "кандидатств",
@@ -428,6 +441,7 @@ const APPLY_TOKENS = [
   "open grant",
   "open funding",
   "currently open",
+  ...EU_PROGRAMME_FOR,
 ] as const;
 
 const AWARDER_TOKENS = [
@@ -3753,7 +3767,10 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       args: promptYear ? { year: promptYear } : {},
     };
   const gf = resolveBudgetFunction(q);
-  if (gf && !has(q, "поръчк", "procurement", "аоп", " aop"))
+  if (
+    gf &&
+    !has(q, "поръчк", "procurement", "аоп", " aop", ...EU_PROGRAMME_FOR)
+  )
     return {
       tool: "budgetFunction",
       args: promptYear ? { category: gf, year: promptYear } : { category: gf },

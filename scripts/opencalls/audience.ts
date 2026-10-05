@@ -54,6 +54,8 @@ const RULES: { re: RegExp; facet: Audience }[] = [
   },
 ];
 
+const INTERNAL_TITLE = /техническа помощ|бюджетни линии/u;
+
 /** Free-text eligibility (and, optionally, the call's title) → the facets it implies.
  *
  *  The TITLE is consulted because ИСУН's procedure page publishes no eligibility text at all —
@@ -65,6 +67,11 @@ export const deriveAudience = (
 ): Audience[] => {
   const hay = `${beneficiaries ?? ""} ${title ?? ""}`.toLowerCase();
   if (!hay.trim()) return ["unknown"];
+  // „Техническа помощ" and „Бюджетни линии" are ALWAYS internal to the managing authority, so the
+  // title settles the audience on its own. Without this, the programme name the ИСУН title quotes
+  // widens it — „Техническа помощ … „Конкурентоспособност и иновации в ПРЕДПРИЯТИЯТА"" became
+  // business + institution and reached a small business's view.
+  if (!beneficiaries && INTERNAL_TITLE.test(hay)) return ["institution"];
   const out = new Set<Audience>();
   for (const { re, facet } of RULES) if (re.test(hay)) out.add(facet);
   // A row that is BOTH institution-titled and otherwise unmatched is institutional; a row that

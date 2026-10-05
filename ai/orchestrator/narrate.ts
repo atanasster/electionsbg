@@ -549,8 +549,8 @@ export const narrate = (env: Envelope, lang: Lang): string => {
     case "openCalls":
       if (!env.facts.calls) return env.title;
       return lang === "bg"
-        ? `${f(env, "calls")} процедури приемат проекти сега (проверено на ${f(env, "checked")}). Отделно: ${f(env, "indicative")} очаквани приема — период, не краен срок — и ${f(env, "consultations")} проекта на насоки за обсъждане. ${f(env, "coverage")}`
-        : `${f(env, "calls")} procedures are accepting applications (checked ${f(env, "checked")}). Separately: ${f(env, "indicative")} expected intakes — a month range, not a deadline — and ${f(env, "consultations")} draft guidance documents out for consultation. ${f(env, "coverage")}`;
+        ? `${env.facts.audience ? `За ${f(env, "audience")}: ` : ""}${f(env, "calls")} процедури приемат проекти сега (проверено на ${f(env, "checked")}). Отделно: ${f(env, "indicative")} очаквани приема — период, не краен срок — и ${f(env, "consultations")} проекта на насоки за обсъждане. ${[f(env, "sector_note"), f(env, "unclassified"), f(env, "coverage")].filter(Boolean).join(" ")}`
+        : `${env.facts.audience ? `For ${f(env, "audience")}: ` : ""}${f(env, "calls")} procedures are accepting applications (checked ${f(env, "checked")}). Separately: ${f(env, "indicative")} expected intakes — a month range, not a deadline — and ${f(env, "consultations")} draft guidance documents out for consultation. ${[f(env, "sector_note"), f(env, "unclassified"), f(env, "coverage")].filter(Boolean).join(" ")}`;
     case "subsidiesOverview":
       if (!env.facts.paid) return env.title;
       return lang === "bg"

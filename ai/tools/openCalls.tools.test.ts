@@ -123,13 +123,28 @@ describe("openCalls groups", () => {
     expect(env.facts.upcoming).toBeUndefined();
   });
 
-  it("puts ONLY real calls in the rows", async () => {
-    // The indicative row's title must not be in the table — a reader scanning it would read the
-    // month range as a deadline.
+  it("lists real calls FIRST and marks an indicative window as an expected intake", async () => {
+    // A reader scanning the table must never read the month range as a deadline: the indicative
+    // row comes after the calls and its deadline cell says „очакван прием" before the range.
     const env = await openCalls({}, ctxBg);
-    const titles = (env.rows ?? []).map((r) => String(r.title));
-    expect(titles).toContain("Внедряване на иновации в МСП");
-    expect(titles).not.toContain("Първична преработка на дървесина");
+    const rows = env.rows ?? [];
+    expect(rows[0].title).toBe("Внедряване на иновации в МСП");
+    const ind = rows.find(
+      (r) => r.title === "Първична преработка на дървесина",
+    );
+    expect(ind).toBeDefined();
+    expect(String(ind?.deadline)).toMatch(
+      /^очакван прием · В периода март-май/u,
+    );
+    expect(rows.indexOf(ind!)).toBeGreaterThan(0);
+  });
+
+  it("shows the expected intakes when there is no real call, rather than an empty table", async () => {
+    setDbFetcher(fixture(payload({ calls: [] })) as never);
+    const env = await openCalls({ audience: "farmer" }, ctxBg);
+    expect(env.rows?.length).toBe(1);
+    expect(env.facts.calls).toBe("0");
+    expect(String(env.facts.indicative_note)).toMatch(/не са отворени/u);
   });
 
   it("marks a not-yet-open call rather than giving it a plain deadline", async () => {
@@ -284,8 +299,21 @@ describe("resolveCallAudience", () => {
     // beat the facet the caller actually asked for.
     // The concatenated form resolves „ngo предприятие" to `business` (the longer alias wins the
     // substring scan); resolving the fields in order of authority keeps the caller's facet.
-    await openCalls({ audience: "ngo", query: "предприятие" }, ctxBg);
-    expect(lastParams.audience).toBe("ngo");
+    const env = await openCalls(
+      { audience: "ngo", query: "предприятие" },
+      ctxBg,
+    );
+    expect(env.facts.audience).toBe("НПО");
+  });
+
+  it("reads the SECTOR as the farmer facet — the question names no applicant", () => {
+    expect(
+      resolveCallAudience("покажи ми европрограми за селско стопанство"),
+    ).toBe("farmer");
+    expect(resolveCallAudience("програми за земеделие")).toBe("farmer");
+    expect(resolveCallAudience("Show me EU programmes for agriculture")).toBe(
+      "farmer",
+    );
   });
 
   it("returns undefined rather than guessing", () => {
@@ -295,17 +323,87 @@ describe("resolveCallAudience", () => {
     expect(resolveCallAudience("нещо съвсем друго")).toBeUndefined();
   });
 
-  it("reaches the route only when it resolved", async () => {
-    await openCalls({}, ctxBg);
-    expect(lastParams.audience).toBeUndefined();
-    clearDataCache();
+  it("never sends the facet to the route — membership is decided in the tool", async () => {
+    // The route's `audience @> [x]` cannot see a row tagged only by its programme, which is how an
+    // open СПРЗСР call vanished from a farming question.
     await openCalls({ audience: "земеделец" }, ctxBg);
-    expect(lastParams.audience).toBe("farmer");
+    expect(lastParams.audience).toBeUndefined();
   });
 
   it("reads the facet out of a free-text query too", async () => {
     // „има ли нещо за община" arrives as a query, not as a typed audience arg.
-    await openCalls({ query: "има ли нещо за община" }, ctxBg);
-    expect(lastParams.audience).toBe("municipality");
+    const env = await openCalls({ query: "има ли нещо за община" }, ctxBg);
+    expect(env.facts.audience).toBe("общини");
+  });
+});
+
+describe("openCalls by sector", () => {
+  // The live defect (2026-10-05): „покажи ми европрограми за селско стопанство" answered „0
+  // отворени" while BG06AFSP001-1.003, a CAP Strategic Plan procedure, was open — its title names
+  // no farmer and ИСУН rows carried an empty audience, so the facet filter dropped it.
+  const sprzsr = call({
+    code: "BG06AFSP001-1.003",
+    title: "Изпълнение на дейности за сътрудничество и тяхната подготовка",
+    programmeName:
+      "Стратегически план за развитие на земеделието и селските райони",
+    audience: [],
+  });
+  const fisheries = call({
+    code: "BG14MFPR001-2.014",
+    title: "Аквакултури, предоставящи екологични услуги",
+    audience: ["unknown"],
+  });
+  const asylum = call({
+    code: "BG65AMPR001-4.004",
+    title: "Солидарност",
+    audience: [],
+  });
+  const sme = call();
+
+  beforeEach(() => {
+    setDbFetcher(
+      fixture(payload({ calls: [sprzsr, fisheries, asylum, sme] })) as never,
+    );
+  });
+
+  it("includes a CAP Strategic Plan call for a farmer whatever its title says", async () => {
+    const env = await openCalls({ audience: "farmer" }, ctxBg);
+    const codes = (env.rows ?? []).map((r) => r.code);
+    expect(codes).toContain("BG06AFSP001-1.003");
+    // Fisheries is NOT the farming sector — an unclassified ПМДРА row stays out…
+    expect(codes).not.toContain("BG14MFPR001-2.014");
+    expect(codes).not.toContain("BG65AMPR001-4.004");
+    expect(codes).not.toContain("BG16RFPR001-1.011");
+    expect(env.facts.calls).toBe("1");
+    expect(String(env.facts.sector_note)).toMatch(/по програмата/u);
+  });
+
+  it("COUNTS the calls it could not classify instead of saying there is nothing", async () => {
+    const env = await openCalls({ audience: "farmer" }, ctxBg);
+    // The asylum and the unclassified fisheries call; the СПРЗСР row is claimed by its programme.
+    expect(String(env.facts.unclassified)).toMatch(/: 2\.$/u);
+  });
+
+  it("lets a fisheries call in through its OWN farmer facet", async () => {
+    // …while an aquaculture-farm call whose title-derived audience says farmer is included.
+    setDbFetcher(
+      fixture(
+        payload({ calls: [call({ ...fisheries, audience: ["farmer"] })] }),
+      ) as never,
+    );
+    const env = await openCalls({ audience: "farmer" }, ctxBg);
+    expect((env.rows ?? []).map((r) => r.code)).toContain("BG14MFPR001-2.014");
+  });
+
+  it("names the audience in words, never the stored code", async () => {
+    const env = await openCalls({ audience: "farmer" }, ctxBg);
+    expect(env.facts.audience).toBe("земеделски стопани");
+    expect(JSON.stringify(env.facts)).not.toMatch(/\bfarmer\b/u);
+  });
+
+  it("does not apply a sector programme to a different audience", async () => {
+    const env = await openCalls({ audience: "business" }, ctxBg);
+    const codes = (env.rows ?? []).map((r) => r.code);
+    expect(codes).toEqual(["BG16RFPR001-1.011"]);
   });
 });

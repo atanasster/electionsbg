@@ -3233,8 +3233,8 @@ export const exciseWarehouses = async (
 //
 // COVERAGE, ALSO DECLARED, because the honest answer to „is there a programme for X" sometimes
 // has to be „not in what we track": ИСУН 2020 (the 2021-2027 programmes + the Recovery Plan) and
-// the ДФЗ CAP Strategic Plan. NOT Interreg (it runs on Jems, so it is in neither register), and
-// not the АХУ/АЗ national schemes yet.
+// the ДФЗ CAP Strategic Plan, plus the Interreg programmes the Jems crawler can read (part of
+// them — Interreg runs on Jems, not ИСУН). Not the АХУ/АЗ national schemes yet.
 
 /** A timestamp as it arrives, which is NOT always a string.
  *
@@ -3322,6 +3322,12 @@ const OC_AUDIENCE_ALIASES: Record<string, string> = {
 const OC_SECTOR_QUALIFIERS: [string, string][] = [
   ["земеделск", "farmer"],
   ["селскостопанск", "farmer"],
+  // The SECTOR, not the applicant: „европрограми за селско стопанство" names no farmer at all, and
+  // resolved to no facet — every call, with the CAP Strategic Plan procedure lost among them.
+  ["селско стопан", "farmer"],
+  ["земедели", "farmer"],
+  ["agricultur", "farmer"],
+  ["farming", "farmer"],
   ["общинск", "municipality"],
 ];
 
@@ -3349,6 +3355,78 @@ export const resolveCallAudience = (raw: string): string | undefined => {
   return undefined;
 };
 
+/** Programmes that ARE a sector, whatever a call's title says. The audience facet is derived from
+ *  the title (ИСУН publishes no eligibility text), so a СПРЗСР procedure titled „Изпълнение на
+ *  дейности за сътрудничество…" carries no `farmer` tag — and a farming question answered
+ *  „0 отворени" while it was open. Matching the PROGRAMME is not an eligibility claim; the row
+ *  still names its programme, and `sector_note` says how it got in.
+ *
+ *  The fisheries programme (BG14MFPR) is deliberately NOT here. Adding it as „related" put ten
+ *  fisheries rows — „Морско наблюдение" and „Контрол и правоприлагане" among them — above the one
+ *  CAP call on a farming question. Its aquaculture-farm calls still arrive through their own
+ *  title-derived `farmer` facet. */
+const OC_SECTOR_PROGRAMMES: Record<string, string[]> = {
+  farmer: ["BG06AFSP"],
+};
+
+const OC_AUDIENCE_LABEL: Record<string, { bg: string; en: string }> = {
+  business: { bg: "фирми и МСП", en: "businesses and SMEs" },
+  farmer: { bg: "земеделски стопани", en: "farmers" },
+  municipality: { bg: "общини", en: "municipalities" },
+  ngo: { bg: "НПО", en: "NGOs" },
+  individual: { bg: "физически лица", en: "individuals" },
+  school: {
+    bg: "училища и научни организации",
+    en: "schools and research bodies",
+  },
+  institution: { bg: "държавни институции", en: "public institutions" },
+  unknown: { bg: "неуточнени кандидати", en: "unspecified applicants" },
+};
+
+/** Short programme label for the table. The ИСУН names are long and repeat „2021-2027". */
+const ocProgramme = (r: OpenCallApiRow, bg: boolean): string => {
+  const code = r.code ?? "";
+  if (code.startsWith("BG06AFSP"))
+    return bg
+      ? "Стратегически план (земеделие и селски райони)"
+      : "CAP Strategic Plan (agriculture and rural areas)";
+  if (code.startsWith("BG14MFPR"))
+    return bg
+      ? "Морско дело, рибарство и аквакултури"
+      : "Maritime, fisheries and aquaculture";
+  if (r.source === "sp2023")
+    return bg
+      ? "Стратегически план — график на ДФЗ"
+      : "CAP Strategic Plan — ДФЗ schedule";
+  const name = (r.programmeName ?? "")
+    .replace(/^Програма\s+/u, "")
+    .replace(/\s*\d{4}\s*-\s*\d{4}(\s*г\.)?\s*$/u, "")
+    .replace(/[„“"]/gu, "")
+    .trim();
+  return name || (r.source === "interreg" ? "Interreg" : "—");
+};
+
+/** Who a row is for, with respect to the asked audience. `unclassified` is a row whose audience
+ *  the source does not let us state — counted, never shown as excluded. */
+const ocMatch = (
+  r: OpenCallApiRow,
+  audience: string,
+): "audience" | "sector" | "unclassified" | null => {
+  const aud = r.audience ?? [];
+  if (aud.includes(audience)) return "audience";
+  if (
+    (OC_SECTOR_PROGRAMMES[audience] ?? []).some((p) =>
+      (r.code ?? "").startsWith(p),
+    )
+  )
+    return "sector";
+  // `[]` is the pre-fix ИСУН shape still on a database the loader has not re-run against;
+  // it means exactly what `unknown` means.
+  if (!aud.length || (aud.length === 1 && aud[0] === "unknown"))
+    return "unclassified";
+  return null;
+};
+
 export const openCalls = async (
   args: ToolArgs,
   ctx: ToolContext,
@@ -3359,17 +3437,56 @@ export const openCalls = async (
   const audience =
     resolveCallAudience(String(args.audience ?? "")) ??
     resolveCallAudience(String(args.query ?? args.metric ?? ""));
-  const d = await fetchDb<OpenCallsApi>("open-calls", {
-    limit: 12,
-    ...(audience ? { audience } : {}),
-  });
+  // THE AUDIENCE IS APPLIED HERE, NOT BY THE ROUTE. The route's facet is `audience @> [x]`, which a
+  // row tagged only by its programme can never satisfy — that is how the open СПРЗСР call was
+  // filtered out of a farming question. The whole register is a few dozen rows, so the tool reads
+  // it all and decides membership itself.
+  const d = await fetchDb<OpenCallsApi>("open-calls", { limit: 200 });
 
-  // THE THREE GROUPS STAY SEPARATE, here as on the page. An indicative ДФЗ window is a MONTH
-  // RANGE and a consultation is a comment deadline; folding either into „open now" would make
-  // the assistant assert a deadline that does not exist. The rows below are the real calls; the
-  // other two groups are stated as counts in `facts` and as an explicit note.
-  const rows: Row[] = d.calls.slice(0, 10).map((r) => ({
+  const pick = (rs: OpenCallApiRow[]) =>
+    audience
+      ? rs.filter((r) => {
+          const m = ocMatch(r, audience);
+          return m !== null && m !== "unclassified";
+        })
+      : rs;
+  const calls = pick(d.calls);
+  const indicative = pick(d.indicative);
+  const consultations = pick(d.consultations);
+  const unclassified = audience
+    ? d.calls.filter((r) => ocMatch(r, audience) === "unclassified").length
+    : 0;
+  const viaSector = audience
+    ? calls.filter((r) => ocMatch(r, audience) === "sector").length
+    : 0;
+
+  // Unfiltered, the route's totals are authoritative (it counts past the row limit). Filtered, the
+  // counts are the filtered arrays — exact while each group fits in 200 rows, which it does by an
+  // order of magnitude.
+  const totals = audience
+    ? {
+        calls: calls.length,
+        indicative: indicative.length,
+        consultations: consultations.length,
+      }
+    : d.totals;
+
+  const budgetCell = (r: OpenCallApiRow) =>
+    // NULL is „not published in the register", NOT zero — ИСУН's procedure page carries no
+    // budget at all; it lives in the „Условия" documents. Saying €0 would be a fabrication.
+    r.budgetEur !== null
+      ? fmtEurCompact(r.budgetEur, ctx.lang)
+      : bg
+        ? "не е публикуван"
+        : "not published";
+
+  // THE GROUPS STAY DISTINGUISHABLE. Real calls come first; an indicative ДФЗ window follows,
+  // and its deadline cell says „очакван прием" in front of the month range, so the row can never
+  // be read as a live deadline. Before, indicative rows were left out entirely — and when a
+  // farming question had 0 real calls the reader got a table with a header and nothing under it.
+  const callRows: Row[] = calls.slice(0, 10).map((r) => ({
     title: r.title,
+    programme: ocProgramme(r, bg),
     code: r.code ?? "—",
     deadline:
       r.status === "upcoming" && r.closesAt
@@ -3379,15 +3496,18 @@ export const openCalls = async (
         : r.closesAt
           ? `${stampDay(r.closesAt)}${r.daysLeft !== null ? (bg ? ` (${r.daysLeft} дни)` : ` (${r.daysLeft}d)`) : ""}`
           : "—",
-    // NULL is „not published in the register", NOT zero — ИСУН's procedure page carries no
-    // budget at all; it lives in the „Условия" documents. Saying €0 would be a fabrication.
-    budget:
-      r.budgetEur !== null
-        ? fmtEurCompact(r.budgetEur, ctx.lang)
-        : bg
-          ? "не е публикуван"
-          : "not published",
+    budget: budgetCell(r),
   }));
+  const indicativeRows: Row[] = indicative
+    .slice(0, callRows.length ? 6 : 10)
+    .map((r) => ({
+      title: r.title,
+      programme: ocProgramme(r, bg),
+      code: r.code ?? "—",
+      deadline: `${bg ? "очакван прием" : "expected intake"} · ${r.periodLabel ?? "—"}`,
+      budget: budgetCell(r),
+    }));
+  const rows = [...callRows, ...indicativeRows];
 
   // Max over the ISO form, never over the raw value — see `stampIso`.
   const newest = d.crawl
@@ -3396,17 +3516,19 @@ export const openCalls = async (
     .sort()
     .pop();
 
-  // Exact whenever the group fits under the limit, which it does at the default of 12 against 0
-  // upcoming rows today. It can only ever UNDER-state, and it is only used to decide whether the
-  // split is worth surfacing at all.
-  const upcomingN = d.calls.filter((r) => r.status === "upcoming").length;
+  // Exact whenever the group fits under the limit. It is only used to decide whether the split
+  // is worth surfacing at all.
+  const upcomingN = calls.filter((r) => r.status === "upcoming").length;
 
   const columns: Column[] = [
     { key: "title", label: bg ? "Процедура" : "Procedure" },
+    { key: "programme", label: bg ? "Програма" : "Programme" },
     { key: "code", label: bg ? "Код" : "Code" },
     { key: "deadline", label: bg ? "Краен срок" : "Deadline" },
     { key: "budget", label: bg ? "Бюджет" : "Budget", numeric: true },
   ];
+
+  const label = audience ? OC_AUDIENCE_LABEL[audience] : undefined;
 
   return {
     tool: "openCalls",
@@ -3416,8 +3538,8 @@ export const openCalls = async (
       ? "Отворени процедури — по какво може да се кандидатства"
       : "Open calls — what you can apply for",
     subtitle: bg
-      ? "ИСУН 2020 и Стратегическия план на ДФ „Земеделие“"
-      : "ИСУН 2020 and the ДФЗ CAP Strategic Plan",
+      ? `ИСУН 2020, графикът на ДФ „Земеделие“ и част от Interreg${label ? ` · за ${label.bg}` : ""}`
+      : `ИСУН 2020, the ДФЗ schedule and part of Interreg${label ? ` · for ${label.en}` : ""}`,
     columns,
     rows,
     viz: "none",
@@ -3426,15 +3548,35 @@ export const openCalls = async (
       // page renders them in one section with a per-row marker — but `facts` is a flat key→string map
       // with no marker, and it is the only thing the narrator and the grounding gate ever see. Calling
       // that sum „open" would let a model state a count of things you can apply to that includes ones
-      // you cannot yet. Harmless today only because upcoming is 0.
-      calls: fmtInt(d.totals.calls, ctx.lang),
+      // you cannot yet.
+      calls: fmtInt(totals.calls, ctx.lang),
       // Split out whenever non-zero, so the difference is visible rather than folded away.
       ...(upcomingN > 0 ? { upcoming: fmtInt(upcomingN, ctx.lang) } : {}),
       // Named separately rather than added: a forecast window and a draft guidance document are
       // not procedures you can apply to, and a single „N отворени" would imply they are.
-      indicative: fmtInt(d.totals.indicative, ctx.lang),
-      consultations: fmtInt(d.totals.consultations, ctx.lang),
-      ...(audience ? { audience } : {}),
+      indicative: fmtInt(totals.indicative, ctx.lang),
+      consultations: fmtInt(totals.consultations, ctx.lang),
+      indicative_note: bg
+        ? "Очакваните приеми са прогнозни периоди от графика на ДФ „Земеделие“ — още не са отворени процедури и нямат краен срок."
+        : "Expected intakes are forecast windows from the ДФЗ schedule — not yet open procedures, and they have no deadline.",
+      // The LABEL, never the stored code — „целева група farmer" reached a reader that way.
+      ...(label ? { audience: bg ? label.bg : label.en } : {}),
+      ...(viaSector > 0
+        ? {
+            sector_note: bg
+              ? `Добавени по програмата (Стратегически план за развитие на земеделието и селските райони), а не по заглавието: ${fmtInt(viaSector, ctx.lang)}. Допустимостта се проверява в условията на процедурата.`
+              : `Added by programme (the CAP Strategic Plan) rather than by title: ${fmtInt(viaSector, ctx.lang)}. Check eligibility in the call conditions.`,
+          }
+        : {}),
+      // Rows whose applicants the register does not state. Excluded from the list, but COUNTED —
+      // „нищо за вас" must not be said about calls we simply could not classify.
+      ...(unclassified > 0
+        ? {
+            unclassified: bg
+              ? `Невключени отворени процедури, за които регистърът не посочва кой може да кандидатства: ${fmtInt(unclassified, ctx.lang)}.`
+              : `Open calls not included because the register does not state who may apply: ${fmtInt(unclassified, ctx.lang)}.`,
+          }
+        : {}),
       // FRESHNESS IS PART OF THE ANSWER. A list of deadlines with no „checked at" is a claim
       // that it is current; the register is crawled daily and can lag.
       ...(newest
@@ -3442,10 +3584,14 @@ export const openCalls = async (
         : {
             checked: bg ? "няма зареждане" : "never loaded",
           }),
+      // „Част от" Interreg, never a count of programmes — the crawlable set moves (see the
+      // Interreg crawler's completeness guard), and a fraction here would go stale silently.
       coverage: bg
-        ? "ИСУН 2020 + ДФЗ Стратегически план. Interreg се управлява в Jems и не е включен."
-        : "ИСУН 2020 + the ДФЗ Strategic Plan. Interreg runs in Jems and is not included.",
+        ? "ИСУН 2020 (програмите 2021–2027 и ПВУ), графикът на ДФ „Земеделие“ и част от програмите Interreg, които се управляват в Jems."
+        : "ИСУН 2020 (the 2021–2027 programmes and the Recovery Plan), the ДФЗ schedule and part of the Interreg programmes, which run in Jems.",
     },
-    provenance: ["db:open-calls (ИСУН /Active + ДФЗ индикативен график)"],
+    provenance: [
+      "db:open-calls (ИСУН /Active + ДФЗ индикативен график + Interreg)",
+    ],
   };
 };
