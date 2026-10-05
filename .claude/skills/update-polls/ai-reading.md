@@ -12,6 +12,10 @@ automatically only if the two agree. Your value is independence.
    the text omits). Do NOT open anything under `data/polls/`, `state/polls/`
    (except to write your output file) or `scripts/polls/`. Never look at the
    extractor's draft.
+   A `.ppt` / `.pptx` report cannot be opened directly — convert it first and
+   read the PDF as if it were the presentation (cite the .ppt filename in any
+   `image` field; write the PDF to the scratchpad, never into the capture):
+   `npm run polls:ppt-pdf -- "<capture>/<file>.ppt" <scratch>/<file>.pdf`
 2. Transcribe; never compute, round, renormalise or infer. A value you cannot
    see stated is absent — leave it out. If something is ambiguous, still record
    what is stated; a disagreement simply routes the poll to a human, which is

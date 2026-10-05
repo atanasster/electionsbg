@@ -2,7 +2,9 @@
 // §6.2). Turns one capture directory (`raw_data/polls/<agency>/<pubId>/`,
 // written by `polls:fetch`) into plain text an extractor can run the
 // evidence gate (decision 5) against: the article's own narrative text,
-// every PDF attachment's `pdftotext -layout` output, and every discovered
+// every PDF attachment's `pdftotext -layout` output (Word reports via
+// textutil/antiword, PowerPoint reports via ppt_text.ts's PDF conversion),
+// and every discovered
 // image's OCR transcription.
 //
 // Deliberately returns raw, ungated material — the DETERMINISTIC EXTRACTOR
@@ -17,6 +19,7 @@ import path from "node:path";
 import * as cheerio from "cheerio";
 import { extractPdfText } from "../../council/lib/pdf_text";
 import { looksLikeLabelledTable, ocrImageFile } from "./ocr";
+import { PRESENTATION_RE, extractPresentationText } from "./ppt_text";
 
 /**
  * The article-body container, per agency — ONLY where a real capture has
@@ -153,7 +156,7 @@ export const acquireText = async (
   const html = fs.readFileSync(path.join(captureDir, "page.html"), "utf8");
   const articleText = extractArticleText(agencyId, html);
 
-  const pdfFiles = listAttachments(captureDir, /\.(?:pdf|docx?)$/i);
+  const pdfFiles = listAttachments(captureDir, /\.(?:pdf|docx?|pptx?)$/i);
   const imageFiles = listAttachments(captureDir, /\.(png|jpe?g|gif)$/i);
 
   const pdfTexts = await Promise.all(
@@ -161,15 +164,22 @@ export const acquireText = async (
       try {
         const text = /\.pdf$/i.test(file)
           ? await extractPdfText(fs.readFileSync(path.join(captureDir, file)))
-          : (
-              await promisify(execFile)(
-                process.platform === "darwin" ? "textutil" : "antiword",
-                process.platform === "darwin"
-                  ? ["-convert", "txt", "-stdout", path.join(captureDir, file)]
-                  : [path.join(captureDir, file)],
-                { maxBuffer: 8 * 1024 * 1024 },
-              )
-            ).stdout;
+          : PRESENTATION_RE.test(file)
+            ? await extractPresentationText(path.join(captureDir, file))
+            : (
+                await promisify(execFile)(
+                  process.platform === "darwin" ? "textutil" : "antiword",
+                  process.platform === "darwin"
+                    ? [
+                        "-convert",
+                        "txt",
+                        "-stdout",
+                        path.join(captureDir, file),
+                      ]
+                    : [path.join(captureDir, file)],
+                  { maxBuffer: 8 * 1024 * 1024 },
+                )
+              ).stdout;
         return { file, text };
       } catch {
         return { file, text: "" };

@@ -304,6 +304,7 @@
     "polls:accept": "tsx ./scripts/polls/accept.ts",
     "polls:exclude": "tsx ./scripts/polls/exclude.ts",
     "polls:review": "tsx ./scripts/polls/review.ts",
+    "polls:ppt-pdf": "tsx ./scripts/polls/lib/ppt_text.ts",
     "polls:restamp": "tsx ./scripts/polls/restamp.ts",
     "polls:crosscheck": "tsx ./scripts/polls/crosscheck.ts",
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",
