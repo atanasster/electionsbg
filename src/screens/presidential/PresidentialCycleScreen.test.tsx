@@ -7,6 +7,7 @@
 
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import {
+  cleanup,
   render,
   screen,
   fireEvent,
@@ -164,7 +165,26 @@ const mount = (body: unknown, ok = true, entry = ROUTE) => {
   return render(<PresidentialCycleScreen />, { wrapper: wrapperAt(entry) });
 };
 
-beforeEach(() => i18n.changeLanguage("bg"));
+/** The art. 93 (3) verdict and the ballot counts sit in ONE source-note block under the canvas
+ *  (the parliamentary shell's footnote slot), so assertions read its text rather than looking
+ *  for a standalone node per sentence. */
+const ruleText = () =>
+  document.querySelector("[data-presidential-rule]")?.textContent ?? "";
+const sourceText = () =>
+  document.querySelector("[data-presidential-source]")?.textContent ?? "";
+
+beforeEach(() => {
+  void i18n.changeLanguage("bg");
+  // jsdom has no `matchMedia`; the map's world inset sizes itself with it.
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn(() => ({
+      matches: false,
+      addEventListener() {},
+      removeEventListener() {},
+    })),
+  );
+});
 
 describe("the presidential country page", () => {
   it("uses the shared country heading layout from parliamentary and local results", async () => {
@@ -198,15 +218,10 @@ describe("the presidential country page", () => {
     // „nobody was elected" legible, and the producer decides them — this asserts the page
     // renders that verdict rather than re-deriving one.
     mount(SUMMARY);
-    expect(
-      await screen.findByText(bgCorpus.presidential_rule_runoff),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(bgCorpus.presidential_rule_majority_unmet),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(bgCorpus.presidential_rule_turnout_unmet),
-    ).toBeInTheDocument();
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
+    expect(ruleText()).toContain(bgCorpus.presidential_rule_runoff);
+    expect(ruleText()).toContain(bgCorpus.presidential_rule_majority_unmet);
+    expect(ruleText()).toContain(bgCorpus.presidential_rule_turnout_unmet);
   });
 
   it("switches the whole panel when the round toggle is used", async () => {
@@ -217,9 +232,7 @@ describe("the presidential country page", () => {
     const second = within(toggle).getAllByRole("button")[1];
     fireEvent.click(second);
     // Round 2 in this fixture WAS won outright — so the verdict must move with the round.
-    expect(
-      screen.getByText(bgCorpus.presidential_rule_won),
-    ).toBeInTheDocument();
+    expect(ruleText()).toContain(bgCorpus.presidential_rule_won);
   });
 
   it("renders no round toggle for a cycle with one round", async () => {
@@ -227,7 +240,7 @@ describe("the presidential country page", () => {
     // fixture — which is exactly why it is worth pinning: a control offering „2-и тур" on a
     // cycle that had none is a link to a round that never happened.
     mount({ ...SUMMARY, rounds: [ROUND], swing: null, decidedInRound: 1 });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     expect(
       screen.queryByRole("group", {
         name: bgCorpus.presidential_round_toggle_label,
@@ -246,16 +259,14 @@ describe("the presidential country page", () => {
       swing: null,
       decidedInRound: 1,
     });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
-    expect(
-      screen.queryByText(bgCorpus.presidential_none_of_the_above),
-    ).toBeNull();
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
+    expect(sourceText()).not.toContain(bgCorpus.presidential_none_of_the_above);
     // …and the control: with the key present it DOES render, so the absence above is the
     // rule firing rather than the label being missing from the corpus.
+    cleanup();
     mount(SUMMARY);
-    expect(
-      await screen.findByText(bgCorpus.presidential_none_of_the_above),
-    ).toBeInTheDocument();
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
+    expect(sourceText()).toContain(bgCorpus.presidential_none_of_the_above);
   });
 
   it("tells „not published“ apart from „unreadable“", async () => {
@@ -315,15 +326,13 @@ describe("the presidential country page", () => {
       name: bgCorpus.presidential_round_toggle_label,
     });
     fireEvent.click(within(toggle).getAllByRole("button")[1]);
-    expect(
-      screen.getByText(bgCorpus.presidential_rule_won),
-    ).toBeInTheDocument();
+    expect(ruleText()).toContain(bgCorpus.presidential_rule_won);
 
     fireEvent.click(screen.getByText("go"));
-    expect(
-      await screen.findByText(bgCorpus.presidential_rule_runoff),
-    ).toBeInTheDocument();
-    expect(screen.queryByText(bgCorpus.presidential_rule_won)).toBeNull();
+    await waitFor(() =>
+      expect(ruleText()).toContain(bgCorpus.presidential_rule_runoff),
+    );
+    expect(ruleText()).not.toContain(bgCorpus.presidential_rule_won);
   });
 
   it("says NOTHING about the oblasts while the roll-up has not answered", async () => {
@@ -334,18 +343,16 @@ describe("the presidential country page", () => {
     // votes. The text twin, correctly, rendered nothing at all: a choropleth with no text
     // equivalent, saying something false.
     mount(SUMMARY);
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     expect(document.body.textContent).not.toContain("няма подадени гласове");
-    expect(
-      screen.queryByText(bgCorpus.presidential_regions_heading),
-    ).toBeNull();
+    expect(document.querySelector("[data-canvas-slot=map]")).toBeNull();
     expect(document.querySelector("[data-map-question]")).toBeNull();
   });
 
-  it("mounts the map and its text twin TOGETHER once the roll-up answers", async () => {
-    // ⚠ BOTH OR NEITHER. §4's rule is that a map always has a text equivalent, and this pair
-    // is also the only route from the country page down to an oblast — so a state where one
-    // renders without the other is either an unlabelled choropleth or a dead end.
+  it("mounts the map beside the national ranking once the roll-up answers", async () => {
+    // ⚠ §4: a map always has a text equivalent. Here that is the national ranking sharing the
+    // canvas row, plus an aria-label per region naming its leader — and every region is a
+    // keyboard-operable link down to its oblast, so the map is no dead end without a table.
     globalThis.fetch = (async (url: RequestInfo | URL) => {
       const u = String(url);
       if (u.includes("national_summary.json"))
@@ -384,26 +391,18 @@ describe("the presidential country page", () => {
 
     render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
     expect(
-      await screen.findByText(bgCorpus.presidential_regions_heading),
+      await screen.findByText(bgCorpus.presidential_map_q_who_led_region),
     ).toBeInTheDocument();
     // The question heading is VISIBLE, as the shell renders it on every other kind.
     const q = document.querySelector("[data-map-question]");
     expect(q?.className ?? "").not.toContain("sr-only");
-    // ⚠ THE TWIN BESIDE THE MAP IS THE NATIONAL RANKING NOW, and the oblast table follows the
-    // canvas. §4's DOM rule binds on the pair that SHARE the row — the ranked result first, the
-    // map placed into column 1 at `lg` — which is `/parliamentary`'s arrangement.
+    // ⚠ §4's DOM rule binds on the pair that SHARE the row — the ranked result first, the map
+    // placed into column 1 at `lg` — which is `/parliamentary`'s arrangement.
     const canvas = document.querySelector("[data-outcome-canvas]")!;
     const ranked = canvas.querySelector("[data-canvas-slot=ranked]")!;
     const map = canvas.querySelector("[data-canvas-slot=map]")!;
     expect(
       ranked.compareDocumentPosition(map) & Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
-    // …and the oblast table is BELOW the canvas rather than inside it — still on the page,
-    // because it is the only route down to an oblast, and still gated with the map.
-    const list = screen.getByText(bgCorpus.presidential_regions_heading);
-    expect(canvas.contains(list)).toBe(false);
-    expect(
-      canvas.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -456,7 +455,7 @@ describe("the presidential country page", () => {
     // — nationally 5.7 points apart in 2021 — so a band lifted to the page would put round 1's
     // majority threshold above the runoff's result.
     mount(SUMMARY);
-    await screen.findByText(bgCorpus.presidential_rule_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     const codes = () =>
       [...document.querySelectorAll("[data-fact]")].map((n) =>
         n.getAttribute("data-fact"),
@@ -527,7 +526,7 @@ describe("the presidential country page", () => {
       return new Response("", { status: 404 });
     }) as typeof fetch;
     render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
-    await screen.findByText(bgCorpus.presidential_regions_heading);
+    await screen.findByText(bgCorpus.presidential_map_q_who_led_region);
     const slots = [...document.querySelectorAll("[data-canvas-slot]")].map(
       (n) => n.getAttribute("data-canvas-slot"),
     );
@@ -585,9 +584,36 @@ describe("the presidential country page", () => {
     ).toBeGreaterThan(0);
   });
 
+  it("prints the national result ONCE — the canvas list expands in place", async () => {
+    // ⚠ THERE USED TO BE A SECOND, FULL RESULTS TABLE further down that repeated every row of
+    // the canvas list. The list now offers the rest itself, so the page carries one ranking.
+    const many = Array.from({ length: 10 }, (_, i) => ({
+      ...ROUND.ranking[0],
+      number: 100 + i,
+      president: `Кандидат ${i}`,
+      votes: 1000 - i,
+    }));
+    mount({
+      ...SUMMARY,
+      rounds: [{ ...ROUND, ranking: many }],
+      swing: null,
+      decidedInRound: 1,
+    });
+    const ranked = (await waitFor(() => {
+      const n = document.querySelector("[data-canvas-slot=ranked]");
+      if (!n) throw new Error("no ranking");
+      return n;
+    })) as HTMLElement;
+    expect(ranked.querySelectorAll("tbody tr").length).toBe(8);
+    fireEvent.click(within(ranked).getByRole("button", { expanded: false }));
+    expect(ranked.querySelectorAll("tbody tr").length).toBe(10);
+    // …and no other table on the page lists the same pairs again.
+    expect(screen.getAllByText("Кандидат 9").length).toBe(1);
+  });
+
   it("never prints the cycle folder id as a date", async () => {
     mount(SUMMARY);
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     expect(document.body.textContent).not.toContain(LATEST_PRESIDENTIAL_CYCLE);
   });
 });
@@ -785,7 +811,7 @@ describe("the runoff-transfer section", () => {
 
   it("draws NOTHING when the file is absent — the ordinary state of this corpus", async () => {
     mountWithTransfer(null, 404);
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     expect(
       screen.queryByText(bgCorpus.presidential_transfer_heading),
     ).toBeNull();
@@ -796,7 +822,7 @@ describe("the runoff-transfer section", () => {
     // individual behaviour inferred from aggregates — at a 200, looking like a working chart.
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     mountWithTransfer({ ...TRANSFER, basis: "", basisEn: "" });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     expect(
       screen.queryByText(bgCorpus.presidential_transfer_heading),
     ).toBeNull();
@@ -870,7 +896,7 @@ describe("the geography section", () => {
       return new Response("", { status: 404 });
     }) as typeof fetch;
     render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     // ⚠ THE ROLL-UP MUST HAVE SETTLED BEFORE THE NEGATIVE ASSERTION, or the test passes against
     // the very gate it is written to reject — nothing renders while a query is still loading
     // either. Waiting for the request and then letting React Query commit is what makes the
@@ -991,7 +1017,7 @@ describe("the anomalies section", () => {
     // The ordinary state of this corpus: `data/*_pvr` is gitignored and both files reach the
     // bucket only through `bucket:gz`.
     const seen = serve({ "national_summary.json": SUMMARY });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     // ⚠ WAIT FOR THE REQUESTS, or the negative assertion passes against the very gate it is
     // written to reject — nothing renders while a query is still loading either.
     await waitFor(() =>
@@ -1028,7 +1054,7 @@ describe("the anomalies section", () => {
         }),
       },
     });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     await waitFor(() =>
       expect(seen.some((u) => u.includes("suspicious_settlements.json"))).toBe(
         true,
@@ -1094,7 +1120,7 @@ describe("the anomalies section", () => {
         tickets: [{ number: 6, machineVotes: 0, flashVotes: 0 }],
       },
     });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     await waitFor(() =>
       expect(seen.some((u) => u.includes("flash.json"))).toBe(true),
     );
@@ -1285,7 +1311,7 @@ describe("the risk-votes section", () => {
 
   it("renders NO heading when the artifact is not published", async () => {
     const seen = serve({ "national_summary.json": SUMMARY });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     await waitFor(() =>
       expect(seen.some((u) => u.includes("neighborhoods.json"))).toBe(true),
     );
@@ -1307,7 +1333,7 @@ describe("the risk-votes section", () => {
         places: [],
       },
     });
-    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
     await waitFor(() =>
       expect(seen.some((u) => u.includes("neighborhoods.json"))).toBe(true),
     );

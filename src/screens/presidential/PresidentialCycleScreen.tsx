@@ -14,10 +14,9 @@
 // exactly the drift that makes two surfaces disagree about who was elected.
 
 import { FC, useMemo } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePresidentialSummary } from "@/data/presidential/usePresidentialSummary";
-import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
@@ -30,20 +29,15 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import {
   AlertTriangle,
-  ArrowLeftRight,
   Building2,
-  Globe,
-  ListOrdered,
   // ⚠ ALIASED. A bare `Map` import from lucide-react SHADOWS the global `Map` constructor in
   // this module, and `new Map<string, RegionLeader>()` a hundred lines down then fails to
   // compile with an error that names neither the import nor the icon.
   Map as MapIcon,
-  Scale,
   Shuffle,
   GitFork,
   Split,
   Target,
-  UserCheck,
 } from "lucide-react";
 // ⚠ THE PARLIAMENTARY DASHBOARD'S OWN BAND AND ITS OWN GRID, imported rather than reproduced.
 // `/parliamentary` opens with a four-card KPI strip above a map-beside-a-table canvas, and this
@@ -57,7 +51,7 @@ import {
   CANVAS_RANKED_SLOT_CLASS,
 } from "@/screens/elections/electionSurfaceLayout";
 import { presidentialCountryFacts } from "@/data/presidential/countryFacts";
-import { formatInt, formatPct } from "@/lib/currency";
+import { formatInt } from "@/lib/currency";
 import { PresidentialPersonName } from "./PresidentialPersonName";
 import {
   PresidentialPollsTile,
@@ -67,13 +61,14 @@ import { PresidentialTicketRanking } from "./PresidentialTicketRanking";
 import {
   leadersByPlace,
   useRoundRollup,
+  type RollupState,
 } from "@/data/presidential/useRoundRollup";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import {
   PresidentialRegionsMap,
+  type PresidentialMapRound,
   type RegionLeader,
 } from "./PresidentialRegionsMap";
-import { PresidentialRegionsList } from "./PresidentialRegionsList";
 import { ToLocalSameDay } from "@/screens/components/SameDayElectionLink";
 import { useRunoffTransfer } from "@/data/presidential/useRunoffTransfer";
 import { useSplitTicket } from "@/data/presidential/useSplitTicket";
@@ -111,36 +106,31 @@ import {
 } from "./PresidentialRunoffSwing";
 import type { PresidentialSummaryRound } from "@/data/presidential/summary";
 
-// ⚠ THE REPO'S FORMATTERS, NOT `toLocaleString("bg-BG")` AND `toFixed`. A hardcoded locale
-// renders „1 322 385" on the English page and „49.42%" on the Bulgarian one, where Bulgarian
-// writes „49,42%"; and `formatInt`'s own header records what an unguarded `.toLocaleString()`
-// costs — a `TypeError` on a field the served JSON does not carry, which with no error
-// boundary in `src/` unmounts the React root. Both render „—" for an absent value, never 0.
-// `formatPct` takes a FRACTION, which is what `shareOfValid` and `turnout.pct` are.
-const PCT_DIGITS = 2;
-
-/** The nominator's kind → its label key. ⚠ THE THREE ARE NOT INTERCHANGEABLE: a ticket may be
- *  put up by a party, a coalition or an инициативен комитет, and calling a committee a party is
- *  a false statement about a named pair — the same reason the ranked row carries no `partyId`. */
-const NOMINATOR_KEY: Record<string, string> = {
-  party: "presidential_nominator_party",
-  coalition: "presidential_nominator_coalition",
-  committee: "presidential_nominator_committee",
-};
-
-const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
-  round,
-  cycle,
-}) => {
+const RoundPanel: FC<{
+  round: PresidentialSummaryRound;
+  cycle: string;
+  /** Every round the cycle has — the map's hover card shows them all. */
+  rounds: (1 | 2)[];
+}> = ({ round, cycle, rounds }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const entry = findPresidentialEntry(cycle);
   const info = entry?.rounds[round.round];
+  const hasRunoff = rounds.includes(2);
   // ⚠ THE REGION ROLL-UP IS THE ONE LEVEL SMALL ENOUGH TO SERVE A MAP — 113.9 KB for the whole
   // country at 2021, against 974.6 KB at municipality and 14.4 MB at settlement. Those two are
   // exactly what the per-place surface artifacts exist to avoid, which is why no map below this
   // one is drawn from them.
-  const rollup = useRoundRollup(cycle, round.round, "region");
+  //
+  // ⚠ BOTH ROUNDS ARE READ, because the map's hover card answers „how did this place vote" for
+  // each of them (the parliamentary card's job, for a two-round ballot). Each is one country-wide
+  // file per round, and React Query dedupes the shown round against the call below. The abroad
+  // roll-ups feed the world inset the same way. A one-round cycle never asks for round 2.
+  const region1 = useRoundRollup(cycle, 1, "region");
+  const region2 = useRoundRollup(hasRunoff ? cycle : undefined, 2, "region");
+  const abroad1 = useRoundRollup(cycle, 1, "abroad");
+  const abroad2 = useRoundRollup(hasRunoff ? cycle : undefined, 2, "abroad");
+  const rollup = round.round === 1 ? region1 : region2;
   // ⚠ ONLY A READY ROLL-UP MAY COLOUR A MAP. A place missing from a ready one genuinely cast
   // no votes, which is what the map's „няма подадени гласове" label says; a place missing
   // because nothing has loaded yet has not, and rendering that label for all 31 oblasts —
@@ -153,6 +143,15 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
         : new Map<string, RegionLeader>(),
     [rollup],
   );
+  const mapRounds = useMemo<PresidentialMapRound[]>(() => {
+    const ready = (s: RollupState) =>
+      s.status === "ready" ? s.rollup : undefined;
+    return rounds.map((n) => ({
+      round: n,
+      regions: ready(n === 1 ? region1 : region2),
+      abroad: ready(n === 1 ? abroad1 : abroad2),
+    }));
+  }, [rounds, region1, region2, abroad1, abroad2]);
   const tickets = useTicketsByNumber(cycle);
   // ⚠ PER ROUND, LIKE EVERY OTHER SECTION OF THIS PANEL. Round 1 and the runoff are different
   // electorates and different fields of candidates, so their cleavages are different analyses —
@@ -171,21 +170,20 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // ⚠ PER ROUND. The two rounds are different paperwork — 2011's invalid rate halves between
   // them — so the screen is rebuilt rather than lifted to the page.
   const screening = usePresidentialScreening(cycle, round.round);
+  // ⚠ PER CYCLE. Absent is the normal answer for both: a cycle decided in round 1 has no
+  // transfer to estimate, and only 2021's presidential vote shared its day with a parliamentary
+  // one, so four of the five cycles have no split-ticket file by construction.
+  const transfer = useRunoffTransfer(cycle);
+  const split = useSplitTicket(cycle);
   // ⚠⚠ CONTENT, NOT QUERY STATUS. `ready` is not „has something to draw" for either tile:
   // `isRollup` accepts an entries-empty or all-zero roll-up, and both tiles self-hide on an
-  // empty result — so a status gate leaves the heading standing over an empty grid, which is
-  // the one thing the section's own comment says it exists to prevent. `leaders.size > 0` is
-  // the same check the map and the oblast table above already use, and it is equivalent to the
-  // tile's own „at least one oblast cast a vote".
+  // empty result — so a status gate leaves the heading standing over an empty grid. `leaders.size
+  // > 0` is the check the map uses, and it is equivalent to the tile's own „at least one oblast
+  // cast a vote".
   const hasTopRegions = leaders.size > 0;
   const hasCleavages =
     cleavages.status === "ready" &&
     selectCleavageRows(cleavages.cleavages.rows).length > 0;
-  // ⚠⚠ CONTENT, NOT QUERY STATUS — the same rule as the geography pair above, and here each
-  // predicate is the TILE'S OWN. `flash` can be a readable file with no comparable ticket, and
-  // a `ready` suspicious payload can have no measurable rule at all; either would leave
-  // „Аномалии" standing over an empty grid, which reports the corpus's ordinary silence as a
-  // defect.
   // ⚠ THE TILE'S REAL PREDICATE, not `tickets.length`. `PresidentialFlashMemoryTile` renders
   // whenever it has any ticket and then filters to the rows worth reading — so an all-zero
   // ticket set opens the heading and draws a table with no body under it.
@@ -199,17 +197,16 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // over a blank is an insinuation about eight named districts with no figures under it.
   const hasHoods =
     hoods.status === "ready" && hasNeighborhoodContent(hoods.neighborhoods);
-  // ⚠ THE COUNTRY SCOPE IS THE ARTIFACT ITSELF — `scopeNeighborhoods` returns the published
-  // `tickets` array verbatim at this level rather than re-deriving it, so the country page and
-  // the place pages cannot disagree about a share by a rounding step.
   // ⚠⚠ THE SECTION'S OWN GATE, NOT THE TILE'S SELF-HIDE. `DashboardSection` CANNOT see through
   // a component boundary — `isRenderable` returns true for `<PresidentialFlowTile />` whatever
   // it renders — so a tile that returns null leaves the heading standing over nothing. Measured
-  // on 2006, whose flow the producer refuses on coverage: „Прехвърляне на гласове" drew with an
-  // empty body. React Query dedupes this call against the tile's own, so the gate costs no
-  // second request.
+  // on 2006, whose flow the producer refuses on coverage. React Query dedupes this call against
+  // the tile's own, so the gate costs no second request.
   const flow = usePresidentialFlow(cycle, round.round, "national");
   const hasFlow = flow.hasPair && flow.hasFile;
+  // ⚠ THE COUNTRY SCOPE IS THE ARTIFACT ITSELF — `scopeNeighborhoods` returns the published
+  // `tickets` array verbatim at this level rather than re-deriving it, so the country page and
+  // the place pages cannot disagree about a share by a rounding step.
   const scopedHoods = useMemo(
     () =>
       hoods.status === "ready"
@@ -221,7 +218,6 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // section was clean" when the truth is that none was measurable.
   const hasScreening =
     screening.status === "ready" && hasScreeningContent(screening.screening);
-  const abroadTo = presidentialUrl(cycle, "abroad");
   // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
   // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
   // section of this panel, rather than being lifted to the page.
@@ -235,27 +231,17 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
              first. */}
       <ElectionFactsGrid facts={facts} titleId={`pvr-facts-${round.round}`} />
 
-      {/* 2. the canvas — the map and the national result side by side, the arrangement
-             `/parliamentary` opens with and the reason this block moved above the rule strip
-             and the full table.
-
-             ⚠ THE PAIR BESIDE THE MAP IS THE NATIONAL RANKING, not the per-oblast table. §4's
-             rule is that a map has a text equivalent and that colour is never the only encoding
-             of a winner; on every other kind that equivalent is the ranked result, and putting
-             the oblast table there instead answered a different question one level down. The
-             oblast table follows immediately (section 3) and keeps BOTH of its own jobs: the
-             map's per-region twin, and the only route from this page to an oblast.
+      {/* 2. the canvas — the national ranking beside the map, `/parliamentary`'s arrangement.
 
              ⚠ THE RANKING IS UNGATED AND THE MAP IS NOT. `round.ranking` is in the summary this
              page already has; the map's fills come from a region ROLL-UP that is usually absent
              (`data/*_pvr` is gitignored and has no bucket copy). So the list renders alone in
              that state — a canvas with one column — rather than the whole first screen
-             disappearing with the map, which is what gating the pair on `leaders` would do.
+             disappearing with the map.
 
              ⚠ THE SHELL'S OWN GRID CONSTANTS. The DOM order is ranked-then-map and at `lg` the
              map is PLACED into column 1 — placement, never `order`, so the reading order on a
-             phone is the list first. Hand-writing the ratio here is what would drift from
-             `/parliamentary` the first time either side changed it. */}
+             phone is the list first. */}
       <section aria-labelledby={`pvr-canvas-${round.round}`}>
         <h2 id={`pvr-canvas-${round.round}`} className="text-lg font-semibold">
           {t("election_ballot_presidential_ticket")}
@@ -265,15 +251,7 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           data-outcome-canvas="presidential_ticket"
         >
           <div className={CANVAS_RANKED_SLOT_CLASS} data-canvas-slot="ranked">
-            <PresidentialTicketRanking
-              round={round}
-              tickets={tickets}
-              // ⚠ THE SHARED SECTION SHELL OWNS THE ID NOW — `DashboardSection` renders
-              // `id={id}` and derives its heading's id from it, so the anchor is the section's
-              // own name rather than a round-scoped one. Safe because the round is a toggle:
-              // exactly one `RoundPanel` is mounted at a time.
-              detailsHref="#presidential-ranking"
-            />
+            <PresidentialTicketRanking round={round} tickets={tickets} />
           </div>
           {leaders.size > 0 ? (
             <div className={CANVAS_MAP_SLOT_CLASS} data-canvas-slot="map">
@@ -287,35 +265,152 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
                 round={round.round}
                 leaders={leaders}
                 tickets={tickets}
+                rounds={mapRounds}
               />
             </div>
           ) : null}
         </div>
       </section>
 
-      {/* 3. the per-oblast table — the map's region-by-region twin, and the only route from
-             this page down to an oblast, which is why it renders on exactly the same condition
-             as the map. ⚠ BOTH OR NEITHER: they used to appear and disappear separately, and a
-             map with no per-region text at all asserts „няма подадени гласове" about 31 named
-             places in the state this corpus is usually in. */}
-      {leaders.size > 0 ? (
-        <PresidentialRegionsList
-          cycle={cycle}
-          leaders={leaders}
-          tickets={tickets}
-        />
+      {/* 3. source and method — the parliamentary shell's footnote slot. ⚠ ART. 93 (3) IS TWO
+             CONDITIONS AND THE NOTE SAYS BOTH: „49.42% and no winner" is the sentence a reader
+             needs, and the producer decides them (`outcome.meetsMajority` / `meetsTurnout`) so
+             this renders a verdict rather than re-deriving one. It used to be its own section
+             with its own heading, and the turnout/ballot counts a second one — both repeating
+             figures the strip above already carries. What is left here is only what the strip
+             cannot say: the verdict, the turnout basis, and the two counts outside it. */}
+      <section
+        aria-labelledby={`pvr-source-${round.round}`}
+        className="space-y-1 text-xs text-muted-foreground"
+        data-presidential-source
+      >
+        <h2 id={`pvr-source-${round.round}`} className="sr-only">
+          {t("election_source_title")}
+        </h2>
+        <p data-presidential-rule>
+          {t("election_source_cik")}{" "}
+          {round.outcome.winsOutright
+            ? t("presidential_rule_won")
+            : t("presidential_rule_runoff")}{" "}
+          {t(
+            round.outcome.meetsMajority
+              ? "presidential_rule_majority_met"
+              : "presidential_rule_majority_unmet",
+          )}{" "}
+          {t(
+            round.outcome.meetsTurnout
+              ? "presidential_rule_turnout_met"
+              : "presidential_rule_turnout_unmet",
+          )}
+        </p>
+        <p>
+          {/* ⚠ ABSENT BEFORE 2016 AND RENDERED AS ABSENT. The form did not carry „не подкрепям
+              никого", so a 0 here would claim nobody chose an option nobody was offered. */}
+          {round.votes.noneOfTheAbove !== undefined ? (
+            <>
+              {t("presidential_none_of_the_above")}:{" "}
+              <span className="tabular-nums">
+                {formatInt(round.votes.noneOfTheAbove, lang)}
+              </span>
+              {" · "}
+            </>
+          ) : null}
+          {t("presidential_invalid_ballots")}:{" "}
+          <span className="tabular-nums">
+            {formatInt(round.votes.invalid, lang)}
+          </span>
+          {". "}
+          {t("presidential_share_denominator")}{" "}
+          {/* ⚠ THE BASIS COMES FROM THE CATALOGUE'S CODE, NOT FROM THE SUMMARY'S SENTENCE —
+              `turnout.basis` is Bulgarian corpus prose and would ship untranslated to the
+              English band. 2006 is `domestic-only`: its 144 abroad sections report neither a
+              roll nor a signature count. */}
+          {info
+            ? t(
+                info.turnoutBasis === "domestic-only"
+                  ? "presidential_turnout_basis_domestic"
+                  : "presidential_turnout_basis_all",
+              )
+            : null}
+        </p>
+      </section>
+
+      {/* 4. where the votes went — `/parliamentary`'s „Гласове" band comes first after the
+             canvas there, and its vote-flow tile is this page's nearest kin. Three questions,
+             each under its OWN heading because each is a different kind of claim: the flow
+             from the parliamentary vote is an ESTIMATE, the runoff transfer is an ESTIMATE with
+             an arithmetic pickup beside it, and the split ticket is a LOWER BOUND. One heading
+             over all three is how a reader carries one licence over to numbers that do not
+             have it. */}
+      {hasFlow ? (
+        <DashboardSection
+          id="presidential-flow"
+          // ⚠ THE SECTION AND THE TILE MUST NOT SAY THE SAME THING — rendered with the tile's own
+          // title, the heading read „Как гласуваха партийните избиратели" twice in a row.
+          title={t("presidential_flow_section")}
+          icon={GitFork}
+          headingLevel={2}
+        >
+          <PresidentialFlowTile cycle={cycle} round={round.round} />
+        </DashboardSection>
       ) : null}
 
-      {/* 3b. geography — where the votes were, and which places went which way. The pair
-             `/parliamentary`'s own „География" section carries, in the same order.
+      {/* ⚠ ONLY WHEN THE ESTIMATE HAS ACTUALLY ARRIVED. `absent` is the ordinary answer, and
+          `unusable` (a payload that lost its caveat) must draw nothing at all. */}
+      {transfer.status === "ready" ? (
+        <DashboardSection
+          id="presidential-transfer"
+          title={t("presidential_transfer_heading")}
+          icon={Shuffle}
+          headingLevel={2}
+        >
+          <PresidentialTransferTile transfer={transfer.transfer} />
+          {/* ⚠ A SEPARATE QUESTION, ASKED SEPARATELY. Everything above this heading is an
+              estimate; everything below it is arithmetic on published protocols. */}
+          <h3
+            className="font-semibold"
+            data-map-question
+            id="pvr-transfer-pickup"
+          >
+            {t("presidential_pickup_heading", {
+              president: transfer.transfer.finalists[0].president,
+            })}
+          </h3>
+          <p className="text-xs text-muted-foreground">
+            {t("presidential_pickup_note")}
+          </p>
+          <PresidentialRunoffSwingList
+            cycle={cycle}
+            winner={transfer.transfer.finalists[0].president}
+            oblasts={transfer.transfer.oblasts}
+          />
+          <PresidentialRunoffSwingLegend />
+          <PresidentialRunoffSwingMap
+            cycle={cycle}
+            winner={transfer.transfer.finalists[0].president}
+            oblasts={transfer.transfer.oblasts}
+          />
+        </DashboardSection>
+      ) : null}
 
-             ⚠ EACH TILE SELF-HIDES ON ITS OWN INPUT. The regions tile needs the roll-up the map
-             also needs (usually absent — `data/*_pvr` is gitignored and reaches the bucket only
-             through `bucket:gz`); the cleavages tile needs its own per-round artifact, which the
-             producer writes only where two tickets clear its readability cut. A heading over an
-             empty grid would report a routine absence as a defect, so the SECTION is gated on
-             at least one of them having something to draw — the tiles' OWN predicates, not
-             their query status. */}
+      {/* ⚠ ROUND ONE ONLY, AND GATED ON THE VIEW. The comparison is against the parliamentary
+          ballot cast the SAME DAY, which is round 1's day; under a runoff view the tile would be
+          numbers from another ballot beneath a heading about this one. */}
+      {round.round === 1 && split.status === "ready" ? (
+        <DashboardSection
+          id="presidential-split"
+          title={t("presidential_split_heading")}
+          icon={Split}
+          headingLevel={2}
+        >
+          <PresidentialSplitTicketTile split={split.split} />
+        </DashboardSection>
+      ) : null}
+
+      {/* 5. geography — where the votes were, and which places went which way. The pair
+             `/parliamentary`'s own „География" section carries, in the same order.
+             ⚠ GATED ON THE TILES' OWN PREDICATES, not their query status: a heading over an
+             empty grid would report a routine absence as a defect. */}
       {hasTopRegions || hasCleavages ? (
         <DashboardSection
           id="geography"
@@ -336,147 +431,22 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
         </DashboardSection>
       ) : null}
 
-      {/* 3c. where the parliamentary vote went. ⚠ ITS OWN SECTION AND ITS OWN KIND OF CLAIM —
-             everything above it is arithmetic on published protocols and this is an ESTIMATE.
-             The tile self-hides on the three cycles that legitimately have none (no
-             parliamentary predecessor, a refused section join, an unshipped artifact) — and the
-             SECTION carries its own gate, because `DashboardSection` cannot see through a
-             component boundary and would otherwise draw the heading over nothing. */}
-      {hasFlow ? (
-        <DashboardSection
-          id="presidential-flow"
-          // ⚠ THE SECTION AND THE TILE MUST NOT SAY THE SAME THING. Rendered with the tile's own
-          // title, the heading read „Как гласуваха партийните избиратели" twice in a row — the
-          // duplication `/local` avoids by heading its section „Прехвърляне на гласове" and its
-          // card „Поток на гласовете".
-          title={t("presidential_flow_section")}
-          icon={GitFork}
-          headingLevel={2}
-        >
-          <PresidentialFlowTile cycle={cycle} round={round.round} />
-        </DashboardSection>
-      ) : null}
-
-      {/* 4. art. 93 (3), both conditions. ⚠ IT SITS BELOW THE CANVAS NOW and still above the
-             full table: the strip answers „why was there a second round", which is a question a
-             reader asks after seeing the result, not before it. */}
+      {/* 6. polls — `/parliamentary`'s „Социологически агенции" sits after geography too.
+             ⚠ THE PARLIAMENTARY SECTION'S SHAPE: the accuracy leaderboard and the accuracy
+             trend, nothing else. Both cards grade ROUND ONE whatever round is shown. */}
       <DashboardSection
-        id="presidential-rule"
-        title={t("presidential_rule_heading")}
-        icon={Scale}
+        id="presidential-polls"
+        title={t("presidential_polls_heading")}
+        icon={Target}
         headingLevel={2}
       >
-        {/* ⚠ THE BORDER MOVED INSIDE. It used to sit on the `<section>`, which under the shared
-            section shell would put the kicker and its rule inside the box — every other section
-            on this page keeps its heading outside and its content in a card. */}
-        <div className="rounded-lg border p-4">
-          <p className="text-sm">
-            {round.outcome.winsOutright
-              ? t("presidential_rule_won")
-              : t("presidential_rule_runoff")}
-          </p>
-          <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-            <li>
-              {t(
-                round.outcome.meetsMajority
-                  ? "presidential_rule_majority_met"
-                  : "presidential_rule_majority_unmet",
-              )}
-            </li>
-            <li>
-              {t(
-                round.outcome.meetsTurnout
-                  ? "presidential_rule_turnout_met"
-                  : "presidential_rule_turnout_unmet",
-              )}
-            </li>
-          </ul>
-        </div>
+        <PresidentialPollsTile cycle={cycle} />
+        <PresidentialPollsTrendTile cycle={cycle} />
       </DashboardSection>
 
-      {/* 5. the FULL table — every ticket, with the vice-president and the nominator. ⚠ NOT A
-             DUPLICATE OF THE CANVAS LIST: that one is a top-eight preview of one column, and
-             these three columns are what a canvas column cannot hold. For an инициативен
-             комитет the nominator is also the difference between a committee and a party, which
-             is a false statement about a named pair if it is dropped. */}
-      <DashboardSection
-        id="presidential-ranking"
-        title={t("presidential_ranking_heading")}
-        icon={ListOrdered}
-        headingLevel={2}
-      >
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-muted-foreground">
-                <th scope="col">{t("presidential_col_ticket")}</th>
-                <th scope="col">{t("presidential_col_pair")}</th>
-                <th scope="col">{t("presidential_col_nominator")}</th>
-                <th scope="col" className="text-right">
-                  {t("presidential_col_votes")}
-                </th>
-                <th scope="col" className="text-right">
-                  {t("presidential_col_share")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {round.ranking.map((r) => (
-                <tr key={r.number} className="border-t">
-                  <td>{r.number}</td>
-                  {/* ⚠ BULGARIAN IN BOTH LANGUAGES AND NEVER TRANSLITERATED — a reader is
-                      matching these against a ballot or a protocol scan, both Cyrillic. */}
-                  {/* ⚠ A LINK ONLY WHERE THE NAME RESOLVES TO EXACTLY ONE PUBLIC FIGURE.
-                      Measured over all five ballots, 17 of 140 names are shared — „Иван
-                      Стефанов Иванов" by 15 people — and linking one of them would attribute
-                      this candidacy, and everything else on that profile, to somebody who
-                      merely shares a name. The refusal renders as plain text; the name is
-                      still there, which is what a reader needs. */}
-                  <td>
-                    <PresidentialPersonName name={r.president} />
-                    <span className="block text-muted-foreground">
-                      <PresidentialPersonName name={r.vicePresident} />
-                    </span>
-                  </td>
-                  <td className="text-muted-foreground">
-                    {r.nominatedBy.name}
-                    {NOMINATOR_KEY[r.nominatedBy.kind] ? (
-                      <span className="block">
-                        {t(NOMINATOR_KEY[r.nominatedBy.kind])}
-                      </span>
-                    ) : null}
-                  </td>
-                  <td className="text-right tabular-nums">
-                    {formatInt(r.votes, lang)}
-                  </td>
-                  <td className="text-right tabular-nums">
-                    {formatPct(r.shareOfValid, lang, PCT_DIGITS)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-xs text-muted-foreground">
-          {t("presidential_share_denominator")}
-        </p>
-      </DashboardSection>
-
-      {/* 6. anomalies — the two „is anything odd here" surfaces, in one section, in the order
-             a reader can act on: first what the MACHINES recorded against what the commissions
-             wrote down, then the settlements whose protocols trip a threshold.
-
-             ⚠⚠ NEITHER TILE ALLEGES ANYTHING, and the section heading must not be read as
-             doing so either. „Аномалии" is the parliamentary dashboard's own heading for the
-             same pair of questions, which is why it is that key rather than a presidential
-             one — a second wording for one concept is how two dashboards come to imply
-             different things about the same kind of finding.
-
-             ⚠ FLASH SELF-HIDES ON FOUR OF THE FIVE CYCLES and that is the corpus, not a bug:
-             only 2021 published its СУЕМГ records. 2016 is the case that makes the
-             distinction — machines counted votes in 500 of its 12,340 round-1 sections and
-             ЦИК published nothing from them — so the tile keys on the RECORDS existing, never
-             on `machineVoting`. */}
+      {/* 7. anomalies — the parliamentary dashboard's own heading for the same pair of questions.
+             ⚠⚠ NEITHER TILE ALLEGES ANYTHING. ⚠ FLASH SELF-HIDES ON FOUR OF THE FIVE CYCLES and
+             that is the corpus, not a bug: only 2021 published its СУЕМГ records. */}
       {hasFlash || hasSuspicious || hasScreening ? (
         <DashboardSection
           id="anomalies"
@@ -484,38 +454,24 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           icon={AlertTriangle}
           headingLevel={2}
         >
-          {/* ⚠ ONE DISCIPLINE FOR BOTH TILES, and the same one the geography section uses:
-              the section's OWN predicate gates the mount, and the tile's early return is the
-              belt to that braces. Relying on the self-hide alone works until a tile loses it,
-              at which point the section silently regains the empty-grid failure it was built
-              to prevent — and a reader of this JSX cannot tell which gate is load-bearing. */}
           {hasFlash ? (
             <PresidentialFlashMemoryTile cycle={cycle} round={round.round} />
           ) : null}
           {hasSuspicious && suspicious.status === "ready" ? (
             <PresidentialSuspiciousTile suspicious={suspicious.suspicious} />
           ) : null}
-          {/* ⚠ THE SCREEN BELONGS WITH THE ANOMALIES, not in „Рискови гласове". Both this and
-              the settlement flags start from the whole country and let the protocols name the
-              places; the districts section starts from eight places somebody else named in
-              print. Putting the screen there would let it borrow that framing. */}
+          {/* ⚠ THE SCREEN BELONGS WITH THE ANOMALIES, not in „Рискови гласове": both start from
+              the whole country and let the protocols name the places. */}
           {hasScreening && screening.status === "ready" ? (
             <PresidentialScreeningTile screening={screening.screening} />
           ) : null}
         </DashboardSection>
       ) : null}
 
-      {/* 6b. рискови гласове — the eight flagged districts, under the SAME heading key the
-             parliamentary dashboard uses for the same question. It sits after „Аномалии"
-             because it is a lens on named places rather than a screen over the whole country,
-             and a reader arrives at it having already read what the protocol flags do and do
-             not prove.
-
-             ⚠ ITS OWN SECTION, NOT A THIRD TILE UNDER „Аномалии". The two are different kinds
-             of claim: the anomalies section screens every settlement and lets the numbers name
-             the places, while this one starts from eight districts somebody else has already
-             named in print. Folding them together would let the second borrow the first's
-             „we found this in the data" framing. */}
+      {/* 8. рискови гласове — the eight flagged districts, under the SAME heading key the
+             parliamentary dashboard uses. ⚠ ITS OWN SECTION, NOT A THIRD TILE UNDER
+             „Аномалии": this one starts from districts somebody else named in print, and folding
+             it in would let it borrow the anomalies' „we found this in the data" framing. */}
       {hasHoods && hoods.status === "ready" && scopedHoods ? (
         <DashboardSection
           id="neighborhoods"
@@ -523,10 +479,6 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           icon={Building2}
           headingLevel={2}
         >
-          {/* ⚠ THE PARLIAMENTARY DASHBOARD'S OWN PAIR OF TILES, in its order: the districts
-              first, then how the vote inside them split. One tile carrying both tables read as
-              a data dump rather than as the same block a reader already knows from
-              `/parliamentary`. */}
           <PresidentialProblemSectionsTile
             neighborhoods={hoods.neighborhoods}
             scoped={scopedHoods}
@@ -538,113 +490,12 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           />
         </DashboardSection>
       ) : null}
-
-      <DashboardSection
-        id="presidential-turnout"
-        title={t("presidential_turnout_heading")}
-        icon={UserCheck}
-        headingLevel={2}
-      >
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-4">
-          <div>
-            <dt className="text-muted-foreground">
-              {t("presidential_turnout_pct")}
-            </dt>
-            {/* ⚠ `null` IS „NO RATE", NEVER 0% — and `formatPct` already renders „—" for it,
-                which is why there is no ternary here. */}
-            <dd className="tabular-nums">
-              {formatPct(round.turnout.pct, lang, PCT_DIGITS)}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-muted-foreground">
-              {t("presidential_valid_votes")}
-            </dt>
-            <dd className="tabular-nums">
-              {formatInt(round.votes.valid, lang)}
-            </dd>
-          </div>
-          {/* ⚠ ABSENT BEFORE 2016 AND RENDERED AS ABSENT. The form did not carry „не
-              подкрепям никого", so a 0 here would claim nobody chose an option nobody was
-              offered — which is why the key is optional rather than defaulted. */}
-          {round.votes.noneOfTheAbove !== undefined ? (
-            <div>
-              <dt className="text-muted-foreground">
-                {t("presidential_none_of_the_above")}
-              </dt>
-              <dd className="tabular-nums">
-                {formatInt(round.votes.noneOfTheAbove, lang)}
-              </dd>
-            </div>
-          ) : null}
-          <div>
-            <dt className="text-muted-foreground">
-              {t("presidential_invalid_ballots")}
-            </dt>
-            <dd className="tabular-nums">
-              {formatInt(round.votes.invalid, lang)}
-            </dd>
-          </div>
-        </dl>
-        <p className="mt-2 text-xs text-muted-foreground">
-          {/* ⚠ THE BASIS COMES FROM THE CATALOGUE'S CODE, NOT FROM THE SUMMARY'S SENTENCE.
-              `turnout.basis` is Bulgarian corpus prose; rendering it would ship untranslated
-              copy to the English band. The catalogue stores `all-sections` / `domestic-only`
-              for exactly this, and 2006 is the second — its 144 abroad sections report neither
-              a roll nor a signature count while casting 46,113 valid votes, so they are in
-              neither half of the ratio. */}
-          {info
-            ? t(
-                info.turnoutBasis === "domestic-only"
-                  ? "presidential_turnout_basis_domestic"
-                  : "presidential_turnout_basis_all",
-              )
-            : null}
-        </p>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {t("presidential_invalid_note")}
-        </p>
-      </DashboardSection>
-
-      <DashboardSection
-        id="presidential-abroad"
-        title={t("presidential_abroad_heading")}
-        icon={Globe}
-        headingLevel={2}
-      >
-        <p className="text-sm">
-          {t("presidential_abroad_summary", {
-            sections: round.abroad.sections,
-            countries: round.abroad.countries,
-            ballots: formatInt(round.abroad.ballotsFound, lang),
-          })}
-        </p>
-        {/* ⚠ A COUNT, NEVER A PERCENTAGE. There is no registered-voter denominator outside the
-            country, and fed through this repo's own turnout rule the abroad rollup renders
-            87–98% for every country with the „cast > denom" guard never firing — plausible,
-            and forbidden by decision 6. */}
-        <p className="mt-1 text-xs text-muted-foreground">
-          {t("presidential_abroad_no_turnout")}
-        </p>
-        {abroadTo ? (
-          <Link className="inline-block text-sm underline" to={abroadTo}>
-            {t("presidential_abroad_link")}
-          </Link>
-        ) : null}
-      </DashboardSection>
     </div>
   );
 };
 
 const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
-  // ⚠ CALLED UNCONDITIONALLY, above every early return in this component — React hook order.
-  // The four states are handled at the mount site far below.
-  const transfer = useRunoffTransfer(cycle);
-  // ⚠ ABSENT IS THE NORMAL ANSWER HERE. Only 2021's presidential vote shared its day with a
-  // parliamentary one, so four of the five cycles have no such file by construction.
-  const split = useSplitTicket(cycle);
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language;
+  const { t } = useTranslation();
   const state = usePresidentialSummary(cycle);
   // ⚠ ROUND 1 IS THE DEFAULT, and that is the constitutional order rather than a preference:
   // art. 93 (3) is a test on round 1, and a page that opened on the runoff would answer „who
@@ -766,123 +617,11 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
         </div>
       ) : null}
 
-      <RoundPanel round={shown} cycle={cycle} />
-
-      {/* Polling history and result comparisons share the round selection. */}
-      {
-        <DashboardSection
-          id="presidential-polls"
-          title={t("presidential_polls_heading")}
-          icon={Target}
-          headingLevel={2}
-        >
-          {/* ⚠ THE PARLIAMENTARY SECTION'S SHAPE: the accuracy leaderboard and the accuracy
-              trend, nothing else. The campaign explorer lives on `/polls/presidential`, which
-              „see details" opens filtered to this cycle. Both cards grade ROUND ONE whatever
-              round is shown. */}
-          <PresidentialPollsTile cycle={cycle} />
-          <PresidentialPollsTrendTile cycle={cycle} />
-        </DashboardSection>
-      }
-
-      {/* ⚠ ONLY THE SURVIVING TICKETS, and the caption says so. A ticket absent from the runoff
-          did not fall to zero — it was not standing — so 2021's other 21 would each show a
-          delta equal to minus their whole round-1 vote, Карадайъ's 309,681 among them. */}
-      {summary.swing ? (
-        <DashboardSection
-          id="presidential-swing"
-          title={t("presidential_swing_heading")}
-          icon={ArrowLeftRight}
-          headingLevel={2}
-        >
-          <ul className="space-y-1 text-sm">
-            {summary.swing.tickets.map((s) => (
-              <li key={s.number}>
-                {/* The same rule as the ranked rows — one component, so a name cannot be a
-                    link in one list and bare text in the other on the same page. */}
-                <PresidentialPersonName name={s.president} />
-                {": "}
-                <span className="tabular-nums">
-                  {formatPct(s.round1Share, lang, PCT_DIGITS)} →{" "}
-                  {formatPct(s.round2Share, lang, PCT_DIGITS)}
-                </span>
-                <span className="text-muted-foreground">
-                  {" "}
-                  ({s.deltaVotes >= 0 ? "+" : ""}
-                  {formatInt(s.deltaVotes, lang)})
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-xs text-muted-foreground">
-            {t("presidential_swing_note")}
-          </p>
-        </DashboardSection>
-      ) : null}
-
-      {/* ⚠ ONLY WHEN THE ESTIMATE HAS ACTUALLY ARRIVED. `absent` is the ordinary answer — a
-          cycle decided in round 1 has no transfer to estimate, and `data/*_pvr` reaches the
-          bucket only through a sync, so „not published yet" is the common state. Neither is a
-          reason to draw an empty chart, and `unusable` (a payload that lost its caveat) must
-          draw nothing at all. */}
-      {transfer.status === "ready" ? (
-        <DashboardSection
-          id="presidential-transfer"
-          title={t("presidential_transfer_heading")}
-          icon={Shuffle}
-          headingLevel={2}
-        >
-          <PresidentialTransferTile transfer={transfer.transfer} />
-          {/* ⚠ A SEPARATE QUESTION, ASKED SEPARATELY. Everything above this heading is an
-              estimate; everything below it is arithmetic on published protocols. Running them
-              together under one heading is how a reader carries the estimate's licence over
-              to numbers that do not need it — and, worse, the other way round. */}
-          <h3
-            className="font-semibold"
-            data-map-question
-            id="pvr-transfer-pickup"
-          >
-            {t("presidential_pickup_heading", {
-              president: transfer.transfer.finalists[0].president,
-            })}
-          </h3>
-          <p className="text-xs text-muted-foreground">
-            {t("presidential_pickup_note")}
-          </p>
-          <PresidentialRunoffSwingList
-            cycle={cycle}
-            winner={transfer.transfer.finalists[0].president}
-            oblasts={transfer.transfer.oblasts}
-          />
-          <PresidentialRunoffSwingLegend />
-          <PresidentialRunoffSwingMap
-            cycle={cycle}
-            winner={transfer.transfer.finalists[0].president}
-            oblasts={transfer.transfer.oblasts}
-          />
-        </DashboardSection>
-      ) : null}
-
-      {/* ⚠ ITS OWN SECTION, AND ITS OWN KIND OF CLAIM. The transfer above is an ESTIMATE and
-          the pickup beside it is arithmetic; this is a LOWER BOUND — a third thing, and the
-          only one of the three that a reader is likely to quote as if it were a measurement.
-          Keeping it under its own heading is what stops the three licences blurring. */}
-      {/* ⚠ ROUND ONE ONLY, AND GATED ON THE VIEW. The comparison is against the parliamentary
-          ballot cast the SAME DAY, which is round 1's day; under a runoff view the tile would
-          be numbers from another ballot beneath a heading about this one. `coverage.basis`
-          says so in prose at the foot of the tile, but a reader who does not reach the last
-          paragraph has been shown the wrong round. Every other section on this page keys off
-          `shown.round`; this now does too. */}
-      {shown.round === 1 && split.status === "ready" ? (
-        <DashboardSection
-          id="presidential-split"
-          title={t("presidential_split_heading")}
-          icon={Split}
-          headingLevel={2}
-        >
-          <PresidentialSplitTicketTile split={split.split} />
-        </DashboardSection>
-      ) : null}
+      <RoundPanel
+        round={shown}
+        cycle={cycle}
+        rounds={summary.rounds.map((r) => r.round)}
+      />
     </section>
   );
 };

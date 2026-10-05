@@ -4,17 +4,15 @@
 // ⚠ IT IS THE MAP'S TEXT EQUIVALENT, WHICH IS WHY IT EXISTS AT ALL. §4's rule is that a map
 // always has one and that colour is never the only encoding of a winner; on `/parliamentary`
 // that equivalent is the party ranking beside the map, and this page's canvas used to put the
-// per-OBLAST table there instead — a different question, answered one level down. The oblast
-// table has not gone anywhere (`PresidentialRegionsList`, immediately below the canvas): it is
-// still the map's per-region twin and still the only route from here down to an oblast page.
-// What changed is that the first thing beside the map is now the national result, as it is on
-// every other kind.
+// per-OBLAST table there instead — a different question, answered one level down. The route down
+// to an oblast is the map itself (every region is a keyboard-operable link) and the „Топ
+// изборни райони" tile under „География", as on `/parliamentary`.
 //
-// ⚠ A PREVIEW, NOT THE RESULT. 2021 round 1 carried 23 tickets; the shell's own preview caps at
-// eight, so this does too, and the caption LINKS to the full table rather than truncating in
-// silence. The full table is where the vice-president and the nominator live — three columns
-// that do not fit a canvas column and, for an инициативен комитет, are the difference between a
-// committee and a party.
+// ⚠ A PREVIEW THAT EXPANDS IN PLACE, NOT A LINK TO A SECOND TABLE. 2021 round 1 carried 23
+// tickets; the shell's own preview caps at eight, so this does too, and the caption offers the
+// rest rather than truncating in silence. There used to be a full table further down the page
+// that repeated every row of this one; expanding here answers the same need without the page
+// printing the national result twice.
 //
 // ⚠ THE COLOUR IS A SECOND ENCODING, NEVER THE ONLY ONE, and it is frequently ABSENT. 17 of
 // 2021's 23 tickets carry a neutral-palette slot because an инициативен комитет has no party
@@ -22,7 +20,7 @@
 // missing swatch is the ordinary state here, and every row still carries its name, its votes
 // and its share.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatInt, formatPct } from "@/lib/currency";
 import type { PresidentialSummaryRound } from "@/data/presidential/summary";
@@ -39,12 +37,12 @@ const PCT_DIGITS = 2;
 export const PresidentialTicketRanking: FC<{
   round: PresidentialSummaryRound;
   tickets: Map<number, PresidentialTicket>;
-  /** In-page anchor to the full table — the `id` of its heading. */
-  detailsHref: string;
-}> = ({ round, tickets, detailsHref }) => {
+}> = ({ round, tickets }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const shown = round.ranking.slice(0, PREVIEW_ROWS);
+  const [expanded, setExpanded] = useState(false);
+  const canExpand = round.ranking.length > PREVIEW_ROWS;
+  const shown = expanded ? round.ranking : round.ranking.slice(0, PREVIEW_ROWS);
   // ⚠ SCALED TO THE LEADER, NOT TO 100% — `/parliamentary`'s rule, and the only scale on which a
   // 0.1% ticket is a visible bar rather than a hairline. It is a comparison WITHIN the preview
   // and never a claim about the ballot, which is why the share is printed beside it.
@@ -60,13 +58,19 @@ export const PresidentialTicketRanking: FC<{
             <span className="text-sm font-medium">
               {t("election_ranked_caption")}
             </span>
-            {round.ranking.length > shown.length ? (
-              <a
-                href={detailsHref}
+            {canExpand ? (
+              <button
+                type="button"
+                aria-expanded={expanded}
+                onClick={() => setExpanded((v) => !v)}
                 className="text-xs text-primary hover:underline"
               >
-                {t("dashboard_see_details")} →
-              </a>
+                {expanded
+                  ? t("presidential_ranking_show_less")
+                  : t("presidential_ranking_show_all", {
+                      total: round.ranking.length,
+                    })}
+              </button>
             ) : null}
           </span>
         </caption>

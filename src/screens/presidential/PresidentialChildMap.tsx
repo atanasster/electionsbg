@@ -47,6 +47,7 @@ import {
   foldPlace,
   leadersByPlace,
   useRoundRollup,
+  type RollupEntry,
   type RollupLevel,
 } from "@/data/presidential/useRoundRollup";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
@@ -55,6 +56,7 @@ import type {
   SettlementJSONProps,
 } from "@/screens/components/maps/mapTypes";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
+import { PresidentialPlaceTip } from "./PresidentialPlaceTip";
 
 /** Which child grain a parent level's map draws, and which roll-up carries it. */
 export type PresidentialChildGrain = Extract<
@@ -111,6 +113,26 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
   // quantity a parliamentary map sizes its pins by (there, the sum over all parties; here, the
   // sum over all tickets). `foldPlace` already computes it alongside the leader, so this is a
   // second read of the same rows rather than a second rule — see its own header.
+  // Each place's row, for the hover card — the shared presidential card, so a hover here lists
+  // the leading tickets with votes and share exactly as the country map does. ⚠ THE ROUND ON
+  // SCREEN ONLY: the other round's file at this grain is the 974.6 KB / 14.4 MB the header says
+  // no adapter fetches, so the country map is the one place the card carries both rounds.
+  const entries = useMemo(
+    () =>
+      rollup.status === "ready"
+        ? new Map(rollup.rollup.entries.map((e) => [e.key, e] as const))
+        : new Map<string, RollupEntry>(),
+    [rollup],
+  );
+  const tipOf = (key: string) => (
+    <PresidentialPlaceTip
+      title={nameOf(key)}
+      rounds={[{ round, entry: entries.get(key) }]}
+      tickets={tickets}
+      current={round}
+    />
+  );
+
   const totals = useMemo(() => {
     const out = new Map<string, number>();
     if (rollup.status === "ready")
@@ -172,7 +194,7 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
       mapGeo={muniGeo}
       colorOf={(p) => tickets.get(leaders.get(p.nuts4)?.number ?? -1)?.color}
       ariaLabelOf={(p) => labelOf(p.nuts4)}
-      tooltipOf={(p) => <Tip label={labelOf(p.nuts4)} round={round} />}
+      tooltipOf={(p) => tipOf(p.nuts4)}
       onClickPath={(p) => ({
         pathname:
           presidentialUrl(cycle, "municipality", p.nuts4) ??
@@ -187,7 +209,7 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
       mapGeo={settlementGeo}
       colorOf={(p) => tickets.get(leaders.get(p.ekatte)?.number ?? -1)?.color}
       ariaLabelOf={(p) => labelOf(p.ekatte)}
-      tooltipOf={(p) => <Tip label={labelOf(p.ekatte)} round={round} />}
+      tooltipOf={(p) => tipOf(p.ekatte)}
       onClickPath={(p) => ({
         pathname:
           presidentialUrl(cycle, "settlement", p.ekatte) ??
@@ -196,17 +218,5 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
       infoOf={(p) => findSettlement(p.ekatte)}
       markerValueOf={(p) => totals.get(p.ekatte)}
     />
-  );
-};
-
-/** ⚠ THE ROUND IS NAMED IN THE TOOLTIP, for the reason the country map's header gives: a map of
- *  an unstated round is a map of an unstated question, and this page shows two of them. */
-const Tip: FC<{ label: string; round: 1 | 2 }> = ({ label, round }) => {
-  const { t } = useTranslation();
-  return (
-    <div className="text-left">
-      <div>{label}</div>
-      <div className="opacity-70">{t("election_round", { round })}</div>
-    </div>
   );
 };

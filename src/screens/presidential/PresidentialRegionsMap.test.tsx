@@ -4,16 +4,16 @@
 // `FeatureMap` derives access as `!!ariaLabel && !!onClick`, so a region missing either is
 // silently mouse-only — the defect §6 names, and the one this file exists to pin.
 
-import { describe, expect, it, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, expect, it, beforeEach, vi } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { PresidentialRegionsMap } from "./PresidentialRegionsMap";
-import { PresidentialRegionsList } from "./PresidentialRegionsList";
 import type { PresidentialTicket } from "@/data/presidential/useTickets";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 await i18n.use(initReactI18next).init({
   lng: "bg",
@@ -102,12 +102,25 @@ const mount = (node: React.ReactNode, geo: unknown = GEO) => {
         new QueryClient({ defaultOptions: { queries: { retry: false } } })
       }
     >
-      <MemoryRouter>{node}</MemoryRouter>
+      <TooltipProvider>
+        <MemoryRouter>{node}</MemoryRouter>
+      </TooltipProvider>
     </QueryClientProvider>,
   );
 };
 
-beforeEach(() => i18n.changeLanguage("bg"));
+beforeEach(() => {
+  void i18n.changeLanguage("bg");
+  // jsdom has no `matchMedia`; the world inset sizes itself with it.
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn(() => ({
+      matches: false,
+      addEventListener() {},
+      removeEventListener() {},
+    })),
+  );
+});
 
 describe("PresidentialRegionsMap", () => {
   it("makes every region a keyboard-operable button naming its leading PAIR", async () => {
@@ -185,51 +198,118 @@ describe("PresidentialRegionsMap", () => {
   });
 });
 
-describe("PresidentialRegionsList", () => {
-  it("names Sofia's МИР in full rather than as a bare number", async () => {
-    // ⚠ WCAG 2.4.4 — link purpose from link text. „23" is not a place name, and because
-    // `localeCompare` sorts digits first these are the first three rows a reader meets.
+describe("the hover card", () => {
+  const entry = (key: string, votes: [number, number][]) => ({
+    key,
+    results: {
+      votes: votes.map(([partyNum, totalVotes]) => ({ partyNum, totalVotes })),
+    },
+  });
+  const rollup = (entries: ReturnType<typeof entry>[]) => ({
+    coverage: { basis: "x", sections: 1, excludedSections: 0 },
+    entries,
+  });
+  const TWO = new Map<number, PresidentialTicket>([
+    ...TICKETS,
+    [
+      2,
+      {
+        number: 2,
+        president: "Анастас Герджиков",
+        vicePresident: "Невяна Митева",
+        nominatedBy: { name: "ИК", kind: "committee" },
+        color: "rgb(4, 5, 6)",
+      },
+    ],
+  ]);
+
+  it("lists the leading pairs with votes and share for BOTH rounds, the shown one marked", async () => {
+    // ⚠ THE PARLIAMENTARY CARD'S JOB FOR A TWO-ROUND BALLOT. One sentence about the leader
+    // („води Радев с 55%") was what the card used to say; a reader hovering a place wants the
+    // result, and the two rounds are different results.
     mount(
-      <PresidentialRegionsList
+      <PresidentialRegionsMap
         cycle="2021_11_14_pvr"
+        round={2}
         leaders={LEADERS}
-        tickets={TICKETS}
+        tickets={TWO}
+        rounds={[
+          {
+            round: 1,
+            regions: rollup([
+              entry("BLG", [
+                [6, 60],
+                [2, 40],
+              ]),
+            ]),
+          },
+          {
+            round: 2,
+            regions: rollup([
+              entry("BLG", [
+                [6, 70],
+                [2, 30],
+              ]),
+            ]),
+            abroad: rollup([
+              entry("TR", [
+                [2, 5],
+                [6, 1],
+              ]),
+            ]),
+          },
+        ]}
       />,
     );
-    const link = await screen.findByRole("link", { name: /23/ });
-    expect(link.textContent).not.toBe("23");
-    expect(link.textContent).toContain("София");
+    const led = await screen.findByRole("button", { name: /Благоевград/ });
+    fireEvent.mouseEnter(led, { pageX: 10, pageY: 10 });
+    const tip = await waitFor(() => {
+      const n = document.querySelector("[data-presidential-tip]");
+      if (!n) throw new Error("no card");
+      return n as HTMLElement;
+    });
+    const r1 = tip.querySelector("[data-tip-round='1']")!;
+    const r2 = tip.querySelector("[data-tip-round='2']")!;
+    expect(r1.textContent).toContain("Румен Радев");
+    expect(r1.textContent).toContain("60%");
+    expect(r2.textContent).toContain("70%");
+    expect(r2.textContent).toContain("Анастас Герджиков");
+    // The round NOT on screen is dimmed rather than hidden.
+    expect(r1.className).toContain("opacity-75");
+    expect(r2.className).not.toContain("opacity-75");
   });
 
-  it("is the map's text twin AND the only route down to an oblast", async () => {
-    // ⚠ `ElectionResultsShell` draws no child navigation and the place pages have no
-    // `PlaceHeader`, so without this table `/presidential/:cycle/region/:oblast` is reachable
-    // only by typing it.
+  it("links the world inset to the abroad results, coloured by who led abroad", async () => {
     mount(
-      <PresidentialRegionsList
+      <PresidentialRegionsMap
         cycle="2021_11_14_pvr"
+        round={1}
         leaders={LEADERS}
-        tickets={TICKETS}
+        tickets={TWO}
+        rounds={[
+          {
+            round: 1,
+            regions: rollup([entry("BLG", [[6, 60]])]),
+            abroad: rollup([
+              entry("TR", [
+                [2, 5],
+                [6, 1],
+              ]),
+              entry("DE", [[6, 2]]),
+            ]),
+          },
+        ]}
       />,
     );
-    const link = await screen.findByRole("link", { name: "Благоевград" });
-    expect(link.getAttribute("href")).toBe(
-      "/presidential/2021_11_14_pvr/region/BLG",
+    const inset = await waitFor(() => {
+      const n = document.querySelector("[data-map-abroad-inset]");
+      if (!n) throw new Error("no inset");
+      return n;
+    });
+    expect(inset.getAttribute("href")).toBe(
+      "/presidential/2021_11_14_pvr/abroad",
     );
-    // …and the leader is named in TEXT, not only as a swatch — colour is never the only
-    // encoding, and 17 of 2021's 23 tickets share a neutral palette.
-    // Two rows now (Благоевград and София 23 МИР), both led by the same pair.
-    expect(screen.getAllByText("Румен Радев").length).toBe(2);
-  });
-
-  it("renders nothing when no place has a leader, rather than an empty table", async () => {
-    const { container } = mount(
-      <PresidentialRegionsList
-        cycle="2021_11_14_pvr"
-        leaders={new Map()}
-        tickets={TICKETS}
-      />,
-    );
-    expect(container.querySelector("table")).toBeNull();
+    // Summed across countries: Герджиков 5 against Радев 3.
+    expect(inset.querySelector("g")?.getAttribute("fill")).toBe("rgb(4, 5, 6)");
   });
 });
