@@ -38,31 +38,36 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-30",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-30T00:00:00.000Z",
-      "firstSeenAt": "2026-09-30T00:00:00.000Z",
+      "id": "prices:promotion:kartofi-miti",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-04T00:00:00.000Z",
+      "firstSeenAt": "2026-10-04T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
       },
       "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
       },
       "coverage": {
-        "complete": true
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/votes/2026-09-30",
-      "factKey": "home_fact_plenary_sitting",
+      "route": "/product/kartofi-miti",
+      "factKey": "home_fact_promotion",
       "factArgs": {
-        "items": 36
+        "title": "КАРТОФИ МИТИ",
+        "pct": 53,
+        "promoEur": "0.55",
+        "regularEur": "1.17",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.9,
-      "actionability": 0.4
+      "materiality": 0.7571428571428571,
+      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -95,39 +100,6 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:kartofi-miti",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-04T00:00:00.000Z",
-      "firstSeenAt": "2026-10-04T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/kartofi-miti",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "КАРТОФИ МИТИ",
-        "pct": 53,
-        "promoEur": "0.55",
-        "regularEur": "1.17",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7571428571428571,
-      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -180,14 +152,47 @@
         "complete": true
       },
       "route": "/votes/2026-10-01",
-      "factKey": "home_fact_plenary_sitting",
+      "factKey": "home_fact_plenary_sittings",
       "factArgs": {
-        "items": 30
+        "items": 30,
+        "sittings": 11,
+        "windowDays": 30
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.75,
+      "materiality": 1,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "debt:domestic_auction:BG-2026-09-28-119",
+      "kind": "debt_auction",
+      "category": "budget_debt",
+      "occurredAt": "2026-09-28T00:00:00.000Z",
+      "firstSeenAt": "2026-09-28T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "bnb_auctions",
+        "labelKey": "home_source_bnb"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators/fiscal",
+      "factKey": "home_fact_debt_auction_yield",
+      "factArgs": {
+        "millions": 150,
+        "currency": "EUR",
+        "years": 5,
+        "yieldPct": "4.02"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7263256490977231,
+      "actionability": 0.2
     },
     {
       "schemaVersion": 1,
@@ -381,65 +386,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "debt:domestic_auction:BG-2026-09-28-119",
-      "kind": "debt_auction",
-      "category": "budget_debt",
-      "occurredAt": "2026-09-28T00:00:00.000Z",
-      "firstSeenAt": "2026-09-28T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "bnb_auctions",
-        "labelKey": "home_source_bnb"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators/fiscal",
-      "factKey": "home_fact_debt_auction_yield",
-      "factArgs": {
-        "millions": 150,
-        "currency": "EUR",
-        "years": 5,
-        "yieldPct": "4.02"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7263256490977231,
-      "actionability": 0.2
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-25",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-25T00:00:00.000Z",
-      "firstSeenAt": "2026-09-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-25",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 26
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.65,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "funds:call_opened:isun:9a1210fb-84d1-44e2-bb6e-9d9f83d942c4",
       "kind": "call_opened",
       "category": "funds",
@@ -469,34 +415,6 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-17",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-17T00:00:00.000Z",
-      "firstSeenAt": "2026-09-17T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-17",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 53
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 1,
-      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -915,34 +833,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-23",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-23T00:00:00.000Z",
-      "firstSeenAt": "2026-09-23T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-23",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 19
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.475,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "funds:call_opened:isun:0cbfcb31-af33-4ccb-8a0a-a7f4208296b9",
       "kind": "call_opened",
       "category": "funds",
@@ -1103,34 +993,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-24",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-24T00:00:00.000Z",
-      "firstSeenAt": "2026-09-24T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-09-24",
-      "factKey": "home_fact_plenary_sitting",
-      "factArgs": {
-        "items": 12
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.3,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "funds:call_opened:isun:aacb04b2-7b42-46c4-9d03-d1a86f0f5f91",
       "kind": "call_opened",
       "category": "funds",
@@ -1194,59 +1056,65 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-16",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-16T00:00:00.000Z",
-      "firstSeenAt": "2026-09-16T00:00:00.000Z",
+      "id": "prices:basket_moved:2026-09-13",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-09-13T00:00:00.000Z",
+      "firstSeenAt": "2026-09-13T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
       },
       "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
       },
       "coverage": {
-        "complete": true
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/votes/2026-09-16",
-      "factKey": "home_fact_plenary_sitting",
+      "route": "/consumption",
+      "factKey": "home_fact_basket_up",
       "factArgs": {
-        "items": 22
+        "pct": "1.7",
+        "costEur": "15.72",
+        "days": 7
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.4
+      "materiality": 0.42975,
+      "actionability": 0.5
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-18",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-09-18T00:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
+      "id": "prices:basket_moved:2026-09-06",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-09-06T00:00:00.000Z",
+      "firstSeenAt": "2026-09-06T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
       },
       "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
       },
       "coverage": {
-        "complete": true
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/votes/2026-09-18",
-      "factKey": "home_fact_plenary_sitting",
+      "route": "/consumption",
+      "factKey": "home_fact_basket_down",
       "factArgs": {
-        "items": 10
+        "pct": "2.0",
+        "costEur": "15.52",
+        "days": 7
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.25,
-      "actionability": 0.4
+      "materiality": 0.495,
+      "actionability": 0.5
     }
   ],
   "sourceCoverage": {

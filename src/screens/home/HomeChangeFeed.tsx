@@ -2,8 +2,9 @@
 //
 // ⚠️ IT TAKES A PREFIX AND NEVER RE-RANKS. The artifact is already ordered and already
 // diversified (`diversify` in scripts/db/gen_home/feed.ts caps one category at two of six
-// and reaches for a third), so re-sorting here would silently produce a different feed from
-// the one the generator's gates checked.
+// and reaches for a third; `chronologicalPrefix` then puts those six newest first), so
+// re-sorting here would silently produce a different feed from the one the generator's gates
+// checked.
 //
 // ⚠️ AND IT IS NOT THE WHOLE ANSWER TO „what changed". `/data/updates` is the other one, and
 // the two answer DIFFERENT questions: this feed says when something HAPPENED, that page says

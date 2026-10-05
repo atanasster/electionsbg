@@ -391,9 +391,13 @@ describe("home feed — ranking and diversity", () => {
         `${cat} fills ${n} of the first ${RENDERED}`,
       ).toBeLessThanOrEqual(MAX_PER_CATEGORY);
     // „When the material permits" — asserted against what the corpus actually holds, so a
-    // thin day cannot fail the gate.
+    // thin day cannot fail the gate. A FLOOR, not an exact count: diversify's rank fill may
+    // legitimately land a fourth category (it does once the plenary sittings collapse into
+    // one row and free their second slot).
     const eligible = new Set(feed.events.map((e) => e.category)).size;
-    expect(counts.size).toBe(Math.min(MIN_CATEGORIES, eligible));
+    expect(counts.size).toBeGreaterThanOrEqual(
+      Math.min(MIN_CATEGORIES, eligible),
+    );
   });
 
   it("the order is stable under a re-sort of the same rows", () => {

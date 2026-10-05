@@ -55,8 +55,9 @@ const OUT = path.join(ROOT, "data/home/feed.json");
  *  home page takes six — so the tail exists for a later „see all" rather than for the hub. */
 export const MAX_EVENTS = 40;
 export const WINDOW_DAYS = 30;
-/** The home page renders this many. The artifact is already ranked, so the browser takes a
- *  prefix and never re-ranks. */
+/** The home page renders this many. The artifact is already ordered (ranked, then the six
+ *  shown re-sorted newest first by `chronologicalPrefix`), so the browser takes a prefix and
+ *  never re-orders. */
 export const RENDERED = 6;
 /** No more than this many of one category in the rendered prefix — or one busy source (the
  *  council shards are thousands of rows) becomes the whole feed. */
@@ -174,6 +175,71 @@ export const diversify = (ordered: HomeEventV1[]): HomeEventV1[] => {
   return [...prefix, ...rest];
 };
 
+/**
+ * Kinds that recur on a schedule, so several in-window rows are ONE ongoing activity rather
+ * than several pieces of news — mapped to the fact key the merged row uses.
+ *
+ * ⚠️ Without this a plenary week fills both of the category's prefix slots with near-identical
+ * „Заседание на Народното събрание" rows, and the rank (which weighs agenda size against
+ * recency) can put the older one first. The merged row is the LATEST sitting — its id, date
+ * and route — and states how many sittings the window held, so the date it shows is true.
+ */
+export const COLLAPSE_KINDS: Readonly<Record<string, string>> = {
+  plenary_sitting: "home_fact_plenary_sittings",
+};
+
+export const collapseRecurring = (events: HomeEventV1[]): HomeEventV1[] => {
+  const groups = new Map<string, HomeEventV1[]>();
+  const out: HomeEventV1[] = [];
+  for (const e of events) {
+    if (!(e.kind in COLLAPSE_KINDS)) {
+      out.push(e);
+      continue;
+    }
+    const g = groups.get(e.kind) ?? [];
+    g.push(e);
+    groups.set(e.kind, g);
+  }
+  for (const [kind, g] of groups) {
+    // Latest by the date the row is presented under; `id` breaks a same-day tie stably.
+    const latest = [...g].sort(
+      (a, b) =>
+        displayDate(b).localeCompare(displayDate(a)) ||
+        a.id.localeCompare(b.id),
+    )[0];
+    if (g.length === 1) {
+      out.push(latest);
+      continue;
+    }
+    out.push({
+      ...latest,
+      factKey: COLLAPSE_KINDS[kind],
+      factArgs: {
+        ...latest.factArgs,
+        // Always ≥ 2 here, so the copy needs no plural forms.
+        sittings: g.length,
+        windowDays: WINDOW_DAYS,
+      },
+      // The merged row stands for the whole activity, so it is worth its biggest day.
+      materiality: Math.max(...g.map((e) => e.materiality)),
+    });
+  }
+  return out;
+};
+
+/**
+ * Present the rendered prefix NEWEST FIRST. The rank decides WHICH six rows a reader sees;
+ * once chosen, every row prints its date, and a list whose dates jump around reads as a bug.
+ * The tail keeps its rank order — it is what a later „see all" pages through.
+ */
+export const chronologicalPrefix = (ranked: HomeEventV1[]): HomeEventV1[] => {
+  const head = ranked.slice(0, RENDERED).map((e, i) => ({ e, i }));
+  head.sort(
+    (a, b) => displayDate(b.e).localeCompare(displayDate(a.e)) || a.i - b.i,
+  );
+  return [...head.map((x) => x.e), ...ranked.slice(RENDERED)];
+};
+
 const run = async (): Promise<void> => {
   const ctx: AdapterContext = { root: ROOT, readJson };
 
@@ -266,7 +332,7 @@ const run = async (): Promise<void> => {
   // two different facts sharing an id means one of them is unreachable and the browser's
   // list keys are wrong.
   const byId = new Map<string, HomeEventV1>();
-  for (const e of inWindow) {
+  for (const e of collapseRecurring(inWindow)) {
     if (byId.has(e.id))
       throw new Error(
         `duplicate event id: ${e.id} — an adapter's id is not unique`,
@@ -274,7 +340,9 @@ const run = async (): Promise<void> => {
     byId.set(e.id, e);
   }
 
-  const ranked = diversify(orderEvents([...byId.values()], asOf));
+  const ranked = chronologicalPrefix(
+    diversify(orderEvents([...byId.values()], asOf)),
+  );
   // The artifact-level cap, applied to the RANKED order so each category keeps its best rows.
   const perCategory = new Map<HomeEventCategory, number>();
   const events = ranked

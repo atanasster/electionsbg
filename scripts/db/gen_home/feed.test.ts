@@ -8,6 +8,9 @@ import {
   MAX_PER_CATEGORY,
   MAX_PER_CATEGORY_ARTIFACT,
   RENDERED,
+  WINDOW_DAYS,
+  chronologicalPrefix,
+  collapseRecurring,
   diversify,
   orderEvents,
 } from "./feed";
@@ -158,5 +161,64 @@ describe("the window ends at an OBSERVATION, never at an event date", () => {
       const r = a.run({ root: process.cwd(), readJson: () => null });
       expect(["crawl", "event"], a.id).toContain(r.vintageBasis);
     }
+  });
+});
+
+describe("collapseRecurring", () => {
+  const sitting = (day: string, items: number) =>
+    ev({
+      id: `parliament:sitting:${day}`,
+      kind: "plenary_sitting",
+      category: "parliament_elections",
+      occurredAt: `${day}T00:00:00.000Z`,
+      factKey: "home_fact_plenary_sitting",
+      factArgs: { items },
+      materiality: Math.min(1, items / 40),
+    });
+
+  it("folds several sittings into the LATEST one, stating how many there were", () => {
+    // The 2026-10-04 artifact showed both sittings, the 36-item 30.09 one ABOVE the 30-item
+    // 1.10 one, because agenda size outweighed a day of recency.
+    const out = collapseRecurring([
+      sitting("2026-09-30", 36),
+      sitting("2026-10-01", 30),
+      ev({ id: "other" }),
+    ]);
+    expect(out).toHaveLength(2);
+    const merged = out.find((e) => e.kind === "plenary_sitting")!;
+    expect(merged.id).toBe("parliament:sitting:2026-10-01");
+    expect(merged.occurredAt).toBe("2026-10-01T00:00:00.000Z");
+    expect(merged.factKey).toBe("home_fact_plenary_sittings");
+    expect(merged.factArgs).toEqual({
+      items: 30,
+      sittings: 2,
+      windowDays: WINDOW_DAYS,
+    });
+    expect(merged.materiality).toBe(0.9);
+  });
+
+  it("leaves a lone sitting exactly as the adapter built it", () => {
+    const one = sitting("2026-10-01", 30);
+    expect(collapseRecurring([one])).toEqual([one]);
+  });
+});
+
+describe("chronologicalPrefix", () => {
+  it("puts the rendered six newest first and leaves the tail in rank order", () => {
+    const days = ["03", "05", "01", "06", "02", "04", "09", "07"];
+    const ranked = days.map((d, i) =>
+      ev({ id: `r${i}`, occurredAt: `2026-08-${d}T00:00:00.000Z` }),
+    );
+    const out = chronologicalPrefix(ranked);
+    expect(
+      out.slice(0, RENDERED).map((e) => e.occurredAt!.slice(8, 10)),
+    ).toEqual(["06", "05", "04", "03", "02", "01"]);
+    // The tail is NOT pulled into the head even though it is newer.
+    expect(out.slice(RENDERED).map((e) => e.id)).toEqual(["r6", "r7"]);
+  });
+
+  it("keeps rank order between two rows on the same instant", () => {
+    const ranked = [ev({ id: "b" }), ev({ id: "a" })];
+    expect(chronologicalPrefix(ranked).map((e) => e.id)).toEqual(["b", "a"]);
   });
 });
