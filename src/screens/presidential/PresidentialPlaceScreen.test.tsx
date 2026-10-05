@@ -7,7 +7,7 @@
 // `pending`, which is deliberately NOT a fallback and therefore never resolves on its own.
 
 import { describe, expect, it, beforeEach, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
@@ -298,26 +298,29 @@ describe("what the ranked rows say about a candidate", () => {
     });
   };
 
-  it("names the ROUND on each canvas, not just inside the table", async () => {
-    // ⚠ TWO CANVASES, ONE TITLE. Both ballots are `presidential_ticket`, so both headings read
-    // „Кандидатски двойки" and the round was recoverable only from a „Тур" column inside the
-    // table — with two MAPS below them, of electorates 5.7 points apart nationally that name
-    // different leaders in whole oblasts. A map under an unlabelled heading is a map of an
-    // unstated question.
+  it("shows ONE round at a time under a toggle, and names it on the canvas", async () => {
+    // ⚠ ONE CANVAS, NOT TWO. The artifact carries a ballot per round and the page used to draw
+    // both, stacked, each with its own map. It now follows the country page: a round toggle,
+    // one canvas, and the round still named in the canvas heading — a map under an unlabelled
+    // heading is a map of an unstated question.
     mountSurface();
-    // ⚠ WAIT ON THE CAPTION, NOT THE HEADING. The heading now carries the round in a child
-    // <span>, so its text is split across elements and an exact-string matcher never finds it —
-    // which is the change under test.
-    // Two canvases (one per round) means two captions — All, not one.
     await screen.findAllByText(bgCorpus.election_ranked_caption);
-    const rounds = [...document.querySelectorAll("h2")]
-      .map((h) => h.textContent ?? "")
-      .filter((t) => t.includes(bgCorpus.election_ballot_presidential_ticket));
-    expect(rounds).toHaveLength(2);
-    expect(rounds[0]).toContain(
+    const headings = () =>
+      [...document.querySelectorAll("h2")]
+        .map((h) => h.textContent ?? "")
+        .filter((t) =>
+          t.includes(bgCorpus.election_ballot_presidential_ticket),
+        );
+    expect(headings()).toHaveLength(1);
+    expect(headings()[0]).toContain(
       bgCorpus.election_round.replace("{{round}}", "1"),
     );
-    expect(rounds[1]).toContain(
+    const toggle = screen.getByRole("group", {
+      name: bgCorpus.presidential_round_toggle_label,
+    });
+    fireEvent.click(within(toggle).getAllByRole("button")[1]);
+    expect(headings()).toHaveLength(1);
+    expect(headings()[0]).toContain(
       bgCorpus.election_round.replace("{{round}}", "2"),
     );
   });

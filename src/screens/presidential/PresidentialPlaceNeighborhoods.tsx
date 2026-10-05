@@ -68,7 +68,10 @@ export const PresidentialPlaceNeighborhoods: FC<{
   /** ⚠ THE HOOKS BELOW ARE CALLED AT EVERY LEVEL — React hook order — and are simply scoped
    *  away where there is nothing to answer. */
   id: string | undefined;
-}> = ({ cycle, level, id }) => {
+  /** The round on screen. When given, only that round's districts render — the place pages'
+   *  round toggle, like every other section under it. Omitted, both rounds stack. */
+  round?: 1 | 2;
+}> = ({ cycle, level, id, round: shown }) => {
   const { t } = useTranslation();
   const scope = scopeFor(level, id);
   // ⚠ BOTH ROUNDS, UNCONDITIONALLY. React Query dedupes these against nothing else on the page,
@@ -94,6 +97,7 @@ export const PresidentialPlaceNeighborhoods: FC<{
     [1, r1],
     [2, r2],
   ] as const) {
+    if (shown !== undefined && round !== shown) continue;
     const n = readable(state);
     if (!n) continue;
     const scoped = scopeNeighborhoods(n, scope);

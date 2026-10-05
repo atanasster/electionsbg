@@ -70,6 +70,7 @@ import type { PresidentialTicket } from "@/data/presidential/useTickets";
 import type { RegionJSONProps } from "@/screens/components/maps/mapTypes";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { PresidentialPlaceTip } from "./PresidentialPlaceTip";
+import { roundSearch } from "@/data/presidential/roundParam";
 
 /** ⚠ THE FALLBACK IS A NEUTRAL GREY, NEVER ANOTHER PAIR'S COLOUR. A place with no leader —
  *  nobody voted — and a ticket the ingest could not colour must not borrow one. */
@@ -228,7 +229,9 @@ const Inner: FC<PresidentialRegionsMapProps & { size: MapCoordinates }> = ({
                 fillColor={ticket?.color ?? NO_LEADER}
                 opacity={withNames ? undefined : 0.5}
                 ariaLabel={to ? label : undefined}
-                onClick={to ? () => navigate(to) : undefined}
+                onClick={
+                  to ? () => navigate(to + roundSearch(round)) : undefined
+                }
                 onMouseEnter={(e) =>
                   tooltipEvents.onMouseEnter(
                     { pageX: e.pageX, pageY: e.pageY },

@@ -4,11 +4,11 @@
 // round panel has already fetched — the whole reason this tile is at oblast grain and not
 // finer: the municipality roll-up is 974.6 KB and the settlement one 14.4 MB.
 //
-// ⚠ IT IS NOT `PresidentialRegionsList`, AND THE TWO ANSWER DIFFERENT QUESTIONS. That table is
-// the map's text equivalent: every oblast, sorted BY NAME, so a reader can find their own. This
-// is the top of a ranking — where the country's votes actually are — which is the question
+// It is the top of a ranking — where the country's votes actually are — which is the question
 // `/parliamentary`'s own „Топ региони" tile answers and the one a reader asks after seeing a
-// national result.
+// national result. The card itself (`PresidentialTopPlacesCard`) is shared with the place pages,
+// where it ranks an oblast's municipalities or a município's settlements — `/parliamentary`'s
+// „Топ общини" / „Топ населени места" at those levels.
 //
 // ⚠⚠ THE SHARE IS OF THE TICKET VOTES IN THE ROLL-UP, AND THE CAPTION SAYS SO. The roll-up
 // carries per-ticket votes and no protocol, so „voted" here is votes CAST FOR A PAIR — not
@@ -21,7 +21,7 @@
 // a delta here would cost a request for a comparison across a different electorate and a
 // different field of candidates. Left out rather than approximated.
 
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
@@ -33,6 +33,7 @@ import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { formatInt, formatPct } from "@/lib/currency";
 import {
   foldPlace,
+  type RollupEntry,
   type RoundRollup,
 } from "@/data/presidential/useRoundRollup";
 import type { PresidentialTicket } from "@/data/presidential/useTickets";
@@ -49,22 +50,27 @@ type Row = {
   leader?: { name: string; color?: string };
 };
 
-export const PresidentialTopRegionsTile: FC<{
-  cycle: string;
-  rollup: RoundRollup;
+/** The ranked card, for any grain: the caller decides which places it covers and how each is
+ *  named and linked. ⚠ The share is of the ticket votes summed over THOSE places, so a place
+ *  page's card reads „share of this oblast's votes", not of the country's. */
+export const PresidentialTopPlacesCard: FC<{
+  entries: readonly RollupEntry[];
   tickets: Map<number, PresidentialTicket>;
-}> = ({ cycle, rollup, tickets }) => {
+  nameOf: (key: string) => string;
+  hrefOf: (key: string) => string | null | undefined;
+  title: string;
+  hint: string;
+  placeHeader: string;
+}> = ({ entries, tickets, nameOf, hrefOf, title, hint, placeHeader }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const isBg = lang?.startsWith("bg") ?? true;
-  const { findRegion } = useRegions();
 
   const { rows, total } = useMemo(() => {
     // ⚠ THE SHARED FOLD, NOT A COPY OF IT. „The lower ballot number breaks a tie" is the rule
     // the MAP colours by; a second copy here would let the two name different leaders for the
     // same oblast on the same page — which the comment used to assert could not happen while
     // nothing enforced it.
-    const counted = rollup.entries.map(foldPlace);
+    const counted = entries.map(foldPlace);
     const sum = counted.reduce((a, r) => a + r.total, 0);
     const top = counted
       .filter((r) => r.total > 0)
@@ -83,7 +89,7 @@ export const PresidentialTopRegionsTile: FC<{
             : undefined;
         return {
           code: r.key,
-          name: regionDisplayName(findRegion(r.key), isBg, r.key),
+          name: nameOf(r.key),
           votes: r.total,
           share: sum > 0 ? r.total / sum : 0,
           barPct: (r.total / max) * 100,
@@ -93,17 +99,17 @@ export const PresidentialTopRegionsTile: FC<{
         };
       }),
     };
-  }, [rollup, tickets, findRegion, isBg]);
+  }, [entries, tickets, nameOf]);
 
   if (rows.length === 0 || total === 0) return null;
 
   return (
     <StatCard
       label={
-        <Hint text={t("presidential_top_regions_hint")} underline={false}>
+        <Hint text={hint} underline={false}>
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
-            <span>{t("presidential_top_regions_title")}</span>
+            <span>{title}</span>
           </div>
         </Hint>
       }
@@ -111,7 +117,7 @@ export const PresidentialTopRegionsTile: FC<{
     >
       <div className="mt-1 grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_minmax(60px,1fr)_auto] items-center gap-x-3 gap-y-1.5 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("region")}
+          {placeHeader}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_winner")}
@@ -130,7 +136,7 @@ export const PresidentialTopRegionsTile: FC<{
           {t("dashboard_share")}
         </span>
         {rows.map((r) => {
-          const to = presidentialUrl(cycle, "region", r.code);
+          const to = hrefOf(r.code);
           const inner = (
             <>
               <span className="truncate font-medium">{r.name}</span>
@@ -182,5 +188,30 @@ export const PresidentialTopRegionsTile: FC<{
         {t("presidential_top_regions_note")}
       </p>
     </StatCard>
+  );
+};
+
+export const PresidentialTopRegionsTile: FC<{
+  cycle: string;
+  rollup: RoundRollup;
+  tickets: Map<number, PresidentialTicket>;
+}> = ({ cycle, rollup, tickets }) => {
+  const { t, i18n } = useTranslation();
+  const isBg = i18n.language?.startsWith("bg") ?? true;
+  const { findRegion } = useRegions();
+  const nameOf = useCallback(
+    (key: string) => regionDisplayName(findRegion(key), isBg, key),
+    [findRegion, isBg],
+  );
+  return (
+    <PresidentialTopPlacesCard
+      entries={rollup.entries}
+      tickets={tickets}
+      nameOf={nameOf}
+      hrefOf={(key) => presidentialUrl(cycle, "region", key)}
+      title={t("presidential_top_regions_title")}
+      hint={t("presidential_top_regions_hint")}
+      placeHeader={t("region")}
+    />
   );
 };

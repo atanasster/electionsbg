@@ -14,7 +14,7 @@
 // exactly the drift that makes two surfaces disagree about who was elected.
 
 import { FC, useMemo } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePresidentialSummary } from "@/data/presidential/usePresidentialSummary";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
@@ -53,6 +53,8 @@ import {
 import { presidentialCountryFacts } from "@/data/presidential/countryFacts";
 import { formatInt } from "@/lib/currency";
 import { PresidentialPersonName } from "./PresidentialPersonName";
+import { PresidentialRoundToggle } from "./PresidentialRoundToggle";
+import { usePresidentialRound } from "@/data/presidential/usePresidentialRound";
 import {
   PresidentialPollsTile,
   PresidentialPollsTrendTile,
@@ -510,22 +512,11 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
   // ⚠ ROUND 1 IS THE DEFAULT, and that is the constitutional order rather than a preference:
   // art. 93 (3) is a test on round 1, and a page that opened on the runoff would answer „who
   // won" while skipping „why there was a second round at all".
-  const [params, setParams] = useSearchParams();
-  const round: 1 | 2 =
-    params.get("pollRound") === "2" &&
-    state.status === "ready" &&
-    state.summary.rounds.some((r) => r.round === 2)
-      ? 2
-      : 1;
-  const setRound = (value: 1 | 2) =>
-    setParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        next.set("pollRound", String(value));
-        return next;
-      },
-      { replace: true },
-    );
+  // ⚠ THE SHARED HOOK, so the country page and the place pages read and write the round the
+  // same way — a reader who picks the runoff here keeps it on the way down into an oblast.
+  const [round, setRound] = usePresidentialRound(
+    state.status === "ready" ? state.summary.rounds.map((r) => r.round) : [],
+  );
 
   if (state.status === "loading")
     return (
@@ -601,31 +592,13 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
         <ToLocalSameDay cycle={cycle} className="mt-2" />
       </div>
 
-      {/* ⚠ RENDERED ONLY WHEN THERE IS A SECOND ROUND. A one-round cycle showing a disabled
-          „2-и тур" control offers a page that does not exist. All five committed cycles went
-          to a runoff, so the single-round arm is testable only against a future cycle — which
-          is why it is a data check rather than a constant. */}
-      {summary.rounds.length > 1 ? (
-        <div
-          role="group"
-          aria-label={t("presidential_round_toggle_label")}
-          className="flex gap-2"
-        >
-          {summary.rounds.map((r) => (
-            <button
-              key={r.round}
-              type="button"
-              aria-pressed={r.round === shown.round}
-              onClick={() => setRound(r.round)}
-              className={`rounded border px-3 py-1 text-sm ${
-                r.round === shown.round ? "bg-accent font-semibold" : ""
-              }`}
-            >
-              {t("election_round", { round: r.round })}
-            </button>
-          ))}
-        </div>
-      ) : null}
+      {/* ⚠ RENDERED ONLY WHEN THERE IS A SECOND ROUND (the component's own rule). A one-round
+          cycle showing a disabled „2-и тур" control offers a page that does not exist. */}
+      <PresidentialRoundToggle
+        rounds={summary.rounds.map((r) => r.round)}
+        round={shown.round}
+        onChange={setRound}
+      />
 
       <RoundPanel
         round={shown}

@@ -36,7 +36,7 @@
 // id; the artifact needs one, and `PRESIDENTIAL_ABROAD_ID` is the single value the producer and
 // this screen agree on. A value invented at either end is a page fetching a file nobody wrote.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
@@ -56,6 +56,17 @@ import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { personHrefForTicket } from "@/data/presidential/ticketPersons";
 import { PresidentialPlaceTransfer } from "./PresidentialPlaceTransfer";
 import { PresidentialPlaceNeighborhoods } from "./PresidentialPlaceNeighborhoods";
+import { PresidentialRoundToggle } from "./PresidentialRoundToggle";
+import { usePresidentialRound } from "@/data/presidential/usePresidentialRound";
+import { PresidentialChildTopTile } from "./PresidentialChildTopTile";
+import { useHasChildTop } from "@/data/presidential/useChildTop";
+import {
+  presidentialRoundSurface,
+  surfaceRounds,
+} from "@/data/presidential/roundSurface";
+import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import { Map as MapIcon } from "lucide-react";
+import type { ElectionSurfaceV1 } from "@/data/elections/surfaceTypes";
 import type { ElectionPlaceLevel } from "@/data/elections/surfaceTypes";
 
 /** The levels this screen serves.
@@ -95,6 +106,14 @@ const FACT_SLOTS: Record<PresidentialPlaceLevel, number> = {
  *  here would put the registry — and the `import()` edges to every adapter — into this screen's
  *  static closure, which is the one thing the lazy indirection exists to prevent. The pairing is
  *  held by `presidentialMaps.test.ts` instead, so the two cannot drift silently. */
+/** Which child grain a level's „Топ …" geography tile ranks — the same grain its map draws. */
+const CHILD_GRAIN: Partial<
+  Record<PresidentialPlaceLevel, "municipality" | "settlement">
+> = {
+  region: "municipality",
+  municipality: "settlement",
+};
+
 const MAPPED_LEVELS = new Set<PresidentialPlaceLevel>([
   "region",
   "municipality",
@@ -113,6 +132,12 @@ export const PresidentialPlaceScreen: FC<{
   const tickets = useTicketsByNumber(cycle ?? "");
   const id =
     level === "abroad" ? PRESIDENTIAL_ABROAD_ID : params[ID_PARAM[level]];
+  // ⚠ THE ROUND IS READ HERE, ABOVE THE BOUNDARY, because the sections below the results shell
+  // follow it too. Validated against the place's own ballots inside the boundary, where they are
+  // known; out here an unavailable round 2 just finds no files and those sections self-hide.
+  const [round, setRound] = usePresidentialRound([1, 2]);
+  const grain = CHILD_GRAIN[level];
+  const hasChildTop = useHasChildTop(cycle ?? "", round, id, grain);
 
   if (!cycle) return null;
 
@@ -200,47 +225,91 @@ export const PresidentialPlaceScreen: FC<{
         }
       >
         {(s) => (
-          <ElectionResultsShell
+          <RoundResults
             surface={s}
-            scope="header"
-            // ⚠ THE SHELL CANNOT RESOLVE EITHER OF THESE, for the same reason: a presidential
-            // ranked row is a PERSON with `partyId: null` — its nominator may be a party, a
-            // coalition or an инициативен комитет, so resolving all three to a canonical party
-            // would mislabel two — and the party corpus the shell reads colours and links from
-            // therefore has nothing to say about it. The ballot number rides in `localPartyNum`.
-            //
-            // ⚠ THE LINK RULE IS `personHrefForTicket` AND NOTHING ELSE — the same resolver
-            // `PresidentialPersonName` uses on the country page, so one candidate cannot be a
-            // link on one page and plain text on the other. It REFUSES a shared name (17 of the
-            // 140 names across the five ballots; „Иван Стефанов Иванов" is fifteen people), and
-            // an undefined href renders as plain text, which is the honest answer rather than a
-            // link that attributes this candidacy to somebody who merely shares a name.
-            rowColor={(r) =>
-              r.localPartyNum === undefined
-                ? undefined
-                : tickets.get(r.localPartyNum)?.color
-            }
-            rowHref={(r) =>
-              r.candidateName
-                ? (personHrefForTicket(r.candidateName) ?? undefined)
-                : undefined
-            }
+            round={round}
+            onRound={setRound}
+            tickets={tickets}
           />
         )}
       </ElectionSurfaceBoundary>
-      {/* ⚠ OUTSIDE THE BOUNDARY, DELIBERATELY. The transfer shard and the place surface are
-          different artifacts with different publish paths, so an oblast whose surface has not
-          shipped can still have its estimate — and gating one on the other would hide a file
-          that is there. It self-hides in every state but `ready`.
+      {/* ⚠ EVERYTHING BELOW IS OUTSIDE THE BOUNDARY, DELIBERATELY: each is a different
+          artifact with a different publish path, so an oblast whose surface has not shipped can
+          still have its estimate or its districts — and gating one on the other would hide a
+          file that is there. Each self-hides in every state but `ready`.
 
-          ⚠ WHICH LEVELS HAVE AN ARM IS THE COMPONENT'S OWN RULE (`TRANSFER_LEVELS`), not a
-          `level === "region"` written here: that is a fact about the corpus, and this screen
-          has no other reason to hold one. */}
+          ⚠ THE ORDER IS `/parliamentary`'s place page: where the votes went, then geography,
+          then the risk districts. The transfer arm's levels are the component's own rule
+          (`TRANSFER_LEVELS`), not a `level === "region"` written here. */}
       <PresidentialPlaceTransfer cycle={cycle} level={level} id={id} />
-      {/* ⚠ OUTSIDE THE BOUNDARY FOR THE SAME REASON AS THE TRANSFER ABOVE — a different
-          artifact with a different publish path — and self-hiding at every level and place
-          that has no catalogued district, which is almost all of them. */}
-      <PresidentialPlaceNeighborhoods cycle={cycle} level={level} id={id} />
+      {/* ⚠ THE SECTION CARRIES ITS OWN GATE — `DashboardSection` cannot see through the tile's
+          self-hide, and a „География" heading over nothing reports a routine absence (the
+          roll-ups are gitignored and often unpublished) as a defect. */}
+      {grain && id && hasChildTop ? (
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={MapIcon}
+          headingLevel={2}
+        >
+          <PresidentialChildTopTile
+            cycle={cycle}
+            round={round}
+            parentId={id}
+            grain={grain}
+          />
+        </DashboardSection>
+      ) : null}
+      <PresidentialPlaceNeighborhoods
+        cycle={cycle}
+        level={level}
+        id={id}
+        round={round}
+      />
     </section>
+  );
+};
+
+/** The results shell for ONE round, under the round toggle — the country page's arrangement.
+ *
+ *  ⚠ ONE CANVAS, NOT TWO. The artifact carries a ballot per round and the shell used to draw
+ *  both, stacked, each with its own map: two near-identical maps of the same place, one under
+ *  the other. The toggle shows one, and the map's hover card already carries both rounds. */
+const RoundResults: FC<{
+  surface: ElectionSurfaceV1;
+  round: 1 | 2;
+  onRound: (r: 1 | 2) => void;
+  tickets: ReturnType<typeof useTicketsByNumber>;
+}> = ({ surface, round, onRound, tickets }) => {
+  const rounds = useMemo(() => surfaceRounds(surface), [surface]);
+  // ⚠ A ROUND THIS PLACE HAS NO BALLOT FOR RESOLVES TO ITS FIRST — a `pollRound=2` link into a
+  // place with no runoff ballot must not empty the page.
+  const shown = rounds.includes(round) ? round : (rounds[0] ?? 1);
+  const scoped = useMemo(
+    () => presidentialRoundSurface(surface, shown),
+    [surface, shown],
+  );
+  return (
+    <div className="space-y-4">
+      <PresidentialRoundToggle
+        rounds={rounds}
+        round={shown}
+        onChange={onRound}
+      />
+      <ElectionResultsShell
+        surface={scoped}
+        scope="header"
+        rowColor={(r) =>
+          r.localPartyNum === undefined
+            ? undefined
+            : tickets.get(r.localPartyNum)?.color
+        }
+        rowHref={(r) =>
+          r.candidateName
+            ? (personHrefForTicket(r.candidateName) ?? undefined)
+            : undefined
+        }
+      />
+    </div>
   );
 };

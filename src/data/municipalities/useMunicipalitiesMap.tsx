@@ -18,6 +18,10 @@ export const useMunicipalitiesMap = (region: string) => {
   const { data } = useQuery({
     queryKey: ["municipalities_map", region],
     queryFn: queryFn,
+    // ⚠ An empty region is how a caller that must call this hook unconditionally (hook order)
+    // says „not this grain" — running the query anyway makes React Query log an error for the
+    // `undefined` it returns, as `useSettlementsMap` already avoids.
+    enabled: !!region,
   });
 
   return data;

@@ -57,6 +57,11 @@ import type {
 } from "@/screens/components/maps/mapTypes";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { PresidentialPlaceTip } from "./PresidentialPlaceTip";
+import { ROUND_PARAM } from "@/data/presidential/roundParam";
+
+/** The round travels with a click, so the child page opens on the round the reader chose. */
+const roundNav = (round: 1 | 2) =>
+  round === 2 ? { search: { [ROUND_PARAM]: "2" } } : {};
 
 /** Which child grain a parent level's map draws, and which roll-up carries it. */
 export type PresidentialChildGrain = Extract<
@@ -109,30 +114,39 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
     [rollup],
   );
 
-  // Total votes cast at each place — for the marker's size, the same "how much happened here"
-  // quantity a parliamentary map sizes its pins by (there, the sum over all parties; here, the
-  // sum over all tickets). `foldPlace` already computes it alongside the leader, so this is a
-  // second read of the same rows rather than a second rule — see its own header.
-  // Each place's row, for the hover card — the shared presidential card, so a hover here lists
-  // the leading tickets with votes and share exactly as the country map does. ⚠ THE ROUND ON
-  // SCREEN ONLY: the other round's file at this grain is the 974.6 KB / 14.4 MB the header says
-  // no adapter fetches, so the country map is the one place the card carries both rounds.
-  const entries = useMemo(
-    () =>
-      rollup.status === "ready"
-        ? new Map(rollup.rollup.entries.map((e) => [e.key, e] as const))
-        : new Map<string, RollupEntry>(),
-    [rollup],
-  );
+  // Each place's row in BOTH rounds, for the hover card — the shared presidential card, so a
+  // hover here lists the leading tickets with votes and share for round 1 and the runoff, as
+  // the country map does. ⚠ THE OTHER ROUND COSTS NO NEW BYTES: these pages used to draw one
+  // canvas per round, so both files were already downloaded; with the round toggle only one map
+  // is mounted and this hook is what keeps the other file in hand. A cycle with no runoff
+  // answers `absent` for round 2 and the card simply shows one block.
+  const other: 1 | 2 = round === 1 ? 2 : 1;
+  const otherRollup = useRoundRollup(cycle, other, grain);
+  const entriesByRound = useMemo(() => {
+    const index = (s: typeof rollup) =>
+      s.status === "ready"
+        ? new Map(s.rollup.entries.map((e) => [e.key, e] as const))
+        : new Map<string, RollupEntry>();
+    return { [round]: index(rollup), [other]: index(otherRollup) } as Record<
+      1 | 2,
+      Map<string, RollupEntry>
+    >;
+  }, [rollup, otherRollup, round, other]);
   const tipOf = (key: string) => (
     <PresidentialPlaceTip
       title={nameOf(key)}
-      rounds={[{ round, entry: entries.get(key) }]}
+      rounds={([1, 2] as const)
+        .map((r) => ({ round: r, entry: entriesByRound[r].get(key) }))
+        .filter((r) => r.round === round || r.entry)}
       tickets={tickets}
       current={round}
     />
   );
 
+  // Total votes cast at each place — for the marker's size, the same "how much happened here"
+  // quantity a parliamentary map sizes its pins by (there, the sum over all parties; here, the
+  // sum over all tickets). `foldPlace` already computes it alongside the leader, so this is a
+  // second read of the same rows rather than a second rule — see its own header.
   const totals = useMemo(() => {
     const out = new Map<string, number>();
     if (rollup.status === "ready")
@@ -199,6 +213,7 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
         pathname:
           presidentialUrl(cycle, "municipality", p.nuts4) ??
           `/presidential/${cycle}`,
+        ...roundNav(round),
       })}
       infoOf={(p) => findMunicipality(p.nuts4)}
       markerValueOf={(p) => totals.get(p.nuts4)}
@@ -214,6 +229,7 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
         pathname:
           presidentialUrl(cycle, "settlement", p.ekatte) ??
           `/presidential/${cycle}`,
+        ...roundNav(round),
       })}
       infoOf={(p) => findSettlement(p.ekatte)}
       markerValueOf={(p) => totals.get(p.ekatte)}
