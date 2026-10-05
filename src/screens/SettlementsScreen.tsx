@@ -15,11 +15,8 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { MunicipalityDashboardCards } from "./dashboard/MunicipalityDashboardCards";
 import { SectionsScreen } from "./SectionsScreen";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
-import { buildPartyIndex } from "@/data/elections/partyIndex";
-import { parliamentaryMunicipalitySurface } from "@/data/elections/canonicalSurface";
 import { useElectionSurface } from "@/data/elections/useElectionSurface";
 import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
 import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
@@ -28,7 +25,9 @@ import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkel
 import {
   buildPlaceDigest,
   localDigestFromSurface,
+  parliamentaryWinnerOf,
 } from "@/screens/elections/placeDigestFacts";
+import { useParliamentaryMunicipalitySurface } from "@/data/elections/useParliamentaryMunicipalitySurface";
 
 export const SettlementsScreen = () => {
   const { id: muniCode } = useParams();
@@ -37,31 +36,9 @@ export const SettlementsScreen = () => {
   const { municipality } = useMunicipalityVotes(muniCode);
   const { i18n, t } = useTranslation();
   const { selected } = useElectionContext();
-  const { data: canonicalParties } = useCanonicalParties();
   const localCycle = useLatestLocalCycle();
   const presidentialCycle = useLatestPresidentialCycle();
-  // ⚠ EVERY HOOK ABOVE THE EARLY RETURNS. This screen bails on four conditions — no code, an
-  // EKATTE, Sofia city, an unresolvable município — and a hook after any of them would be a
-  // conditional call.
-  const partyIndex = useMemo(
-    () => (canonicalParties ? buildPartyIndex(canonicalParties.parties) : null),
-    [canonicalParties],
-  );
-  const surface = useMemo(
-    () =>
-      municipality?.results?.votes && muniCode
-        ? parliamentaryMunicipalitySurface({
-            obshtina: muniCode,
-            cycle: selected,
-            votes: municipality.results.votes,
-            protocol: municipality.results.protocol,
-            partyIndex,
-            localCycle,
-            inLocalCycle: true,
-          })
-        : undefined,
-    [municipality, muniCode, selected, partyIndex, localCycle],
-  );
+  const surface = useParliamentaryMunicipalitySurface(muniCode);
   // ⚠ THE DIGEST'S МЕСТНИ CELL READS THE LOCAL SURFACE — the same artifact the Местни tab
   // renders (§Phase 5 item 4b). A second resolver here is how a digest ends up naming one mayor
   // while the tab one click away names another: wrong about a named individual, at a 200, with
@@ -79,15 +56,7 @@ export const SettlementsScreen = () => {
         parliamentaryCycle: selected,
         localCycle,
         presidentialCycle,
-        winner:
-          surface?.ballots[0]?.preview[0] &&
-          surface.ballots[0].preview[0].marginPct !== undefined
-            ? {
-                partyId: surface.ballots[0].preview[0].partyId,
-                pct: surface.ballots[0].preview[0].pct,
-                marginPct: surface.ballots[0].preview[0].marginPct,
-              }
-            : undefined,
+        winner: parliamentaryWinnerOf(surface),
         local: localDigestFromSurface(
           local.status === "ready" ? local.surface : undefined,
         ),

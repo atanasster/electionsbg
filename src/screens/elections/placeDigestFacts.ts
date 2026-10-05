@@ -45,6 +45,18 @@ export type ParliamentaryWinner = {
   marginPct: number;
 };
 
+/** The parliamentary winner a digest cell states, read off a parliamentary surface's first
+ *  ballot — `undefined` without a margin, since the cell prints one. One reader for every page
+ *  that builds a digest, so they cannot pick the winner differently. */
+export const parliamentaryWinnerOf = (
+  surface: ElectionSurfaceV1 | undefined,
+): ParliamentaryWinner | undefined => {
+  const lead = surface?.ballots[0]?.preview[0];
+  return lead && lead.marginPct !== undefined
+    ? { partyId: lead.partyId, pct: lead.pct, marginPct: lead.marginPct }
+    : undefined;
+};
+
 export const parliamentaryDigestCell = (args: {
   place: PlaceRef;
   cycle: string;

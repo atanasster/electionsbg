@@ -46,7 +46,9 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import {
   buildPlaceDigest,
   localDigestFromSurface,
+  parliamentaryWinnerOf,
 } from "@/screens/elections/placeDigestFacts";
+import { useParliamentaryMunicipalitySurface } from "@/data/elections/useParliamentaryMunicipalitySurface";
 import { CensusDemographicsTile } from "@/screens/dashboard/CensusDemographicsTile";
 import { useTopSections } from "@/data/presidential/useTopSections";
 import { PresidentialTopSectionsTile } from "./PresidentialTopSectionsTile";
@@ -176,58 +178,71 @@ export const PresidentialPlaceScreen: FC<{
     cycle: cycle ?? "",
     id: level === "section" ? id : undefined,
   });
-  // ⚠ THE SETTLEMENT PAGE'S DIGEST AND STATION RANKING — `/sections/:ekatte` carries both.
-  // Every hook is called at every level (hook order) and passes no id elsewhere, which is no
-  // request. The digest's two foreign figures come from the SAME artifacts their own tabs render
-  // (the parliamentary and local settlement surfaces), never from a second resolver here — a
-  // digest naming one winner while the tab one click away names another is wrong about a named
-  // place.
+  // ⚠ THE DIGEST („Това място накратко") — on the município and settlement pages, as on their
+  // parliamentary twins (`/settlement/:obshtina`, `/sections/:ekatte`). Every hook is called at
+  // every level (hook order) and is handed no id where it does not apply, which is no request.
+  // The two foreign figures come from what their own tabs render — the parliamentary surface
+  // (a fetched artifact for a settlement, the shared município builder for a município) and the
+  // local surface — never from a second resolver here: a digest naming one winner while the tab
+  // one click away names another is wrong about a named place.
   const isSettlement = level === "settlement" && !!id;
+  const isMunicipality = level === "municipality" && !!id;
+  const digestLevel = isSettlement
+    ? "settlement"
+    : isMunicipality
+      ? "municipality"
+      : undefined;
   const { selected: parliamentaryCycle } = useElectionContext();
   const localCycle = useLatestLocalCycle();
   const { findSettlement } = useSettlementsInfo();
-  const parliamentary = useElectionSurface({
+  const parliamentarySettlement = useElectionSurface({
     kind: "parliamentary",
     level: "settlement",
     cycle: parliamentaryCycle,
     id: isSettlement ? id : undefined,
   });
+  const parliamentaryMunicipality = useParliamentaryMunicipalitySurface(
+    isMunicipality ? id : undefined,
+  );
   const local = useElectionSurface({
     kind: "local",
-    level: "settlement",
+    level: digestLevel ?? "settlement",
     cycle: localCycle,
-    id: isSettlement ? id : undefined,
+    id: digestLevel ? id : undefined,
   });
   const digest = useMemo(() => {
-    if (!isSettlement || !id || !cycle) return undefined;
-    const lead =
-      parliamentary.status === "ready"
-        ? parliamentary.surface.ballots[0]?.preview[0]
-        : undefined;
+    if (!digestLevel || !id || !cycle) return undefined;
     return buildPlaceDigest({
-      // ⚠ THE OBLAST IS WHAT MAKES „ABROAD" VISIBLE to the digest (see SectionsScreen).
-      place: {
-        level: "settlement",
-        ekatte: id,
-        oblast: findSettlement(id)?.oblast,
-      },
+      // ⚠ THE OBLAST IS WHAT MAKES „ABROAD" VISIBLE to a settlement digest (see SectionsScreen).
+      place:
+        digestLevel === "settlement"
+          ? {
+              level: "settlement",
+              ekatte: id,
+              oblast: findSettlement(id)?.oblast,
+            }
+          : { level: "municipality", obshtina: id },
       parliamentaryCycle,
       localCycle,
       presidentialCycle: cycle,
-      winner:
-        lead && lead.marginPct !== undefined
-          ? { partyId: lead.partyId, pct: lead.pct, marginPct: lead.marginPct }
-          : undefined,
+      winner: parliamentaryWinnerOf(
+        digestLevel === "settlement"
+          ? parliamentarySettlement.status === "ready"
+            ? parliamentarySettlement.surface
+            : undefined
+          : parliamentaryMunicipality,
+      ),
       local: localDigestFromSurface(
         local.status === "ready" ? local.surface : undefined,
       ),
       currentView: "presidential",
     });
   }, [
-    isSettlement,
+    digestLevel,
     id,
     cycle,
-    parliamentary,
+    parliamentarySettlement,
+    parliamentaryMunicipality,
     local,
     parliamentaryCycle,
     localCycle,
