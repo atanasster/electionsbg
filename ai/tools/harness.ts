@@ -268,7 +268,8 @@ const run = async () => {
     ctxEn,
   )) as Envelope;
   assert(
-    ocFarmer.facts.audience === "farmer",
+    // The LABEL, never the stored code — „целева група farmer" reached a reader that way.
+    ocFarmer.facts.audience === "farmers",
     "openCalls resolves an audience alias and reports which facet it applied",
   );
 
