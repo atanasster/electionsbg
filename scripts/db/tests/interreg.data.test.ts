@@ -404,13 +404,25 @@ test.skipIf(skip)(
       "2014-2020 must carry no EIK",
     );
 
-    // ≥80%, measured 81.4% (336/413). The 87% an earlier draft used counted the
-    // RAW beneficiary_id field — 413 minus the 54 literal "N.a." rows — not the
-    // parsed column, so a gate set there goes red for the wrong reason.
-    const share = Number(by["2021-2027"].with_eik) / Number(by["2021-2027"].n);
+    // The RATIO is diluted by programmes whose template carries no id column at
+    // all, so it falls whenever keep.eu adds one — without anything breaking.
+    // Measured 2026-10-04 after the GRBG-2127 + EUROPE-2127 re-import: 74.9%
+    // (355/474), down from 82.0% (352/429), with every previously-identified
+    // partner still identified; the drop is EUROPE-2127 0/46, URBACT-2127 0/11
+    // and GRBG-2127 3/40. (The first cut measured 81.4% = 336/413; the 87% an
+    // earlier draft used counted the RAW beneficiary_id field, not the parsed
+    // column.) So the ratio is a loose sanity floor, and the regression arm is
+    // the ABSOLUTE count below: a parse break zeroes ids in the programmes that
+    // do publish them, which no amount of id-less growth can mask.
+    const withEik = Number(by["2021-2027"].with_eik);
+    const share = withEik / Number(by["2021-2027"].n);
     assert.ok(
-      share >= 0.8,
+      share >= 0.7,
       `2021-2027 EIK coverage ${(100 * share).toFixed(1)}%`,
+    );
+    assert.ok(
+      withEik >= 340,
+      `only ${withEik} 2021-2027 BG partners carry an EIK (measured 355) — the id parse regressed`,
     );
 
     const bad = await one<{ n: string }>(
