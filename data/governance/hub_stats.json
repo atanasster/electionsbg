@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-10-04T22:22:19.649Z",
+  "computedAt": "2026-10-05T23:05:45.712Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 94872941235,
+      "value": 94873030581,
       "basis": "contracts"
     },
     "sectors": {
@@ -13,7 +13,7 @@
     },
     "persons": {
       "kind": "count",
-      "value": 63570,
+      "value": 63572,
       "basis": "public_register"
     },
     "budget": {
@@ -35,7 +35,7 @@
     },
     "funds": {
       "kind": "eur",
-      "value": 45491230338,
+      "value": 45345118222,
       "basis": "contracted"
     },
     "municipal-finance": {
@@ -50,7 +50,7 @@
     },
     "connections": {
       "kind": "count",
-      "value": 205769,
+      "value": 205922,
       "basis": "edges"
     }
   },
@@ -122,16 +122,16 @@
     "52": {
       "parliament": {
         "kind": "count",
-        "value": 57,
+        "value": 58,
         "basis": "sessions",
-        "extra": 1503
+        "extra": 1504
       }
     }
   },
   "coverage": [
     {
       "id": "contracts",
-      "value": 416786,
+      "value": 416789,
       "to": "/procurement/contracts?pscope=all"
     },
     {
@@ -146,7 +146,7 @@
     },
     {
       "id": "fundsProjects",
-      "value": 82972,
+      "value": 82999,
       "to": "/funds/beneficiaries"
     }
   ],

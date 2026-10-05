@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-04",
+  "computedAt": "2026-10-05",
   "thresholds": {
     "basketPids": [
       1,
@@ -85,33 +85,33 @@
   ],
   "promotions": [
     {
-      "slug": "limoni",
-      "title": "ЛИМОНИ",
-      "atOrBelowSince": "2026-09-28",
+      "slug": "portokali",
+      "title": "ПОРТОКАЛИ",
+      "atOrBelowSince": "2026-10-04",
       "promoEur": 0.99,
-      "regularEur": 2.17,
+      "regularEur": 2.15,
       "discountPct": 54,
-      "stores": 285,
-      "chains": 6
+      "stores": 76,
+      "chains": 3
+    },
+    {
+      "slug": "shokolad-roshen-lakmi-mlechen-90gr",
+      "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
+      "atOrBelowSince": "2026-10-05",
+      "promoEur": 0.79,
+      "regularEur": 1.74,
+      "discountPct": 54,
+      "stores": 20,
+      "chains": 2
     },
     {
       "slug": "kartofi-miti",
       "title": "КАРТОФИ МИТИ",
       "atOrBelowSince": "2026-09-30",
       "promoEur": 0.55,
-      "regularEur": 1.17,
-      "discountPct": 53,
-      "stores": 11,
-      "chains": 2
-    },
-    {
-      "slug": "palmolive-sapun-cherna-orhideya-90-g",
-      "title": "PALMOLIVE сапун Черна орхидея 90 г",
-      "atOrBelowSince": "2026-10-01",
-      "promoEur": 0.65,
-      "regularEur": 1.22,
-      "discountPct": 47,
-      "stores": 40,
+      "regularEur": 1.15,
+      "discountPct": 52,
+      "stores": 7,
       "chains": 2
     }
   ]

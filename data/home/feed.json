@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-04T23:59:59.999Z",
+  "computedAt": "2026-10-05T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:portokali",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-04T00:00:00.000Z",
-      "firstSeenAt": "2026-10-04T00:00:00.000Z",
+      "occurredAt": "2026-10-05T00:00:00.000Z",
+      "firstSeenAt": "2026-10-05T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,14 +22,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/portokali",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
+        "title": "ПОРТОКАЛИ",
         "pct": 54,
         "promoEur": "0.99",
-        "regularEur": "2.17",
-        "chains": 6
+        "regularEur": "2.15",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
@@ -38,11 +38,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kartofi-miti",
+      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-04T00:00:00.000Z",
-      "firstSeenAt": "2026-10-04T00:00:00.000Z",
+      "occurredAt": "2026-10-05T00:00:00.000Z",
+      "firstSeenAt": "2026-10-05T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -55,18 +55,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kartofi-miti",
+      "route": "/product/shokolad-roshen-lakmi-mlechen-90gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КАРТОФИ МИТИ",
-        "pct": 53,
-        "promoEur": "0.55",
-        "regularEur": "1.17",
+        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
+        "pct": 54,
+        "promoEur": "0.79",
+        "regularEur": "1.74",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7571428571428571,
+      "materiality": 0.7714285714285715,
       "actionability": 0.85
     },
     {
@@ -135,11 +135,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-10-01",
+      "id": "parliament:sitting:2026-10-02",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
+      "occurredAt": "2026-10-02T00:00:00.000Z",
+      "firstSeenAt": "2026-10-02T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -151,11 +151,11 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-10-01",
+      "route": "/votes/2026-10-02",
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
-        "items": 30,
-        "sittings": 11,
+        "items": 1,
+        "sittings": 12,
         "windowDays": 30
       },
       "backfill": false,
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:palmolive-sapun-cherna-orhideya-90-g",
+      "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-04T00:00:00.000Z",
-      "firstSeenAt": "2026-10-04T00:00:00.000Z",
+      "occurredAt": "2026-10-05T00:00:00.000Z",
+      "firstSeenAt": "2026-10-05T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,18 +213,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/palmolive-sapun-cherna-orhideya-90-g",
+      "route": "/product/kartofi-miti",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "PALMOLIVE сапун Черна орхидея 90 г",
-        "pct": 47,
-        "promoEur": "0.65",
-        "regularEur": "1.22",
+        "title": "КАРТОФИ МИТИ",
+        "pct": 52,
+        "promoEur": "0.55",
+        "regularEur": "1.15",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6714285714285714,
+      "materiality": 0.7428571428571429,
       "actionability": 0.85
     },
     {
@@ -1159,14 +1159,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-10-01",
+      "asOf": "2026-10-02",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-04",
-      "observedAt": "2026-10-04",
+      "asOf": "2026-10-05",
+      "observedAt": "2026-10-05",
       "staleAfterDays": 5,
       "stale": false
     }

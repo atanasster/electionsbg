@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-03T21:49:30.680Z",
+  "fetchedAt": "2026-10-05T23:29:42.082Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -32561,7 +32561,7 @@
     }
   },
   "wgi": {
-    "fetchedAt": "2026-09-29T22:51:44.181Z",
+    "fetchedAt": "2026-10-05T23:29:42.077Z",
     "latestYear": 2025,
     "source": {
       "name": "World Bank — Worldwide Governance Indicators",
@@ -36434,9 +36434,6 @@
       }
     }
   },
-  "degraded": [
-    "wgi"
-  ],
   "pricePli": {
     "source": "Eurostat prc_ppp_ind_1 (PPP programme, EU27=100)",
     "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1",
