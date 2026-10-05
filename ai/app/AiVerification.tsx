@@ -46,6 +46,7 @@ export function AiVerification({
   const callback = useRef(onVerified);
   callback.current = onVerified;
   const [error, setError] = useState(false);
+  const [pending, setPending] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const siteKey = import.meta.env.VITE_AI_TURNSTILE_SITE_KEY;
   useEffect(() => {
@@ -53,11 +54,15 @@ export function AiVerification({
     let widget: { api: Turnstile; id: string } | undefined;
     if (!siteKey) return;
     setError(false);
+    setPending(false);
     void load()
       .then((turnstile) => {
         if (!active || !host.current) return;
         const failed = () => {
-          if (active) setError(true);
+          if (active) {
+            setPending(false);
+            setError(true);
+          }
           return true;
         };
         const id = turnstile.render(host.current, {
@@ -66,11 +71,14 @@ export function AiVerification({
           theme: "auto",
           language: lang,
           "response-field": false,
+          // The session request takes a second or more after the widget
+          // already reads "success", so say so — and report a success even
+          // if the dialog was closed meanwhile: the parent decides whether
+          // the reader still wants AI (closing is not cancelling).
           callback: (token: string) => {
+            if (active) setPending(true);
             void verifyAiSession(token)
-              .then(() => {
-                if (active) callback.current();
-              })
+              .then(() => callback.current())
               .catch(failed);
           },
           "error-callback": failed,
@@ -90,9 +98,13 @@ export function AiVerification({
   return (
     <div className="space-y-2" aria-live="polite">
       <p className="text-sm">
-        {lang === "bg"
-          ? "Завършете проверката, за да използвате AI. Без AI остава достъпно без проверка."
-          : "Complete verification to use AI. No AI remains available without verification."}
+        {pending
+          ? lang === "bg"
+            ? "Проверката е премината — включваме AI…"
+            : "Verification passed — turning on AI…"
+          : lang === "bg"
+            ? "Завършете проверката, за да използвате AI. Без AI остава достъпно без проверка."
+            : "Complete verification to use AI. No AI remains available without verification."}
       </p>
       <div ref={host} />
       {(!siteKey || error) && (

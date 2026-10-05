@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import {
   Popover,
@@ -32,6 +32,15 @@ export const ModelPicker = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [verifyId, setVerifyId] = useState<string | null>(null);
+  // The model a verification is FOR. Kept apart from `verifyId` (the dialog's
+  // open state) because the session request can finish after the reader has
+  // closed the dialog, and that success must still switch them to AI. Any later
+  // explicit choice overwrites it, so a late success never undoes "Без AI".
+  const pendingModel = useRef<string | null>(null);
+  const requestVerification = (id: string) => {
+    pendingModel.current = id;
+    setVerifyId(id);
+  };
   const notice = useSyncExternalStore(
     subscribeAiSession,
     aiSessionNotice,
@@ -80,8 +89,9 @@ export const ModelPicker = ({
               aria-pressed={engine.providerId === choice.id}
               className="flex w-full items-center justify-between rounded px-3 py-3 text-left hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
               onClick={() => {
+                pendingModel.current = null;
                 if (choice.id !== "rules" && !hasAiSession())
-                  setVerifyId(choice.id);
+                  requestVerification(choice.id);
                 else void engine.select(choice.id);
                 setOpen(false);
               }}
@@ -124,7 +134,9 @@ export const ModelPicker = ({
           <AiVerification
             lang={lang}
             onVerified={() => {
-              if (verifyId) void engine.select(verifyId);
+              const id = pendingModel.current;
+              pendingModel.current = null;
+              if (id) void engine.select(id);
               setVerifyId(null);
             }}
           />
@@ -149,7 +161,7 @@ export const ModelPicker = ({
           <button
             type="button"
             className="ml-1 underline"
-            onClick={() => setVerifyId(MODELS[0].id)}
+            onClick={() => requestVerification(MODELS[0].id)}
           >
             {t("Проверка", "Verify")}
           </button>

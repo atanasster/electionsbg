@@ -42,7 +42,23 @@ it("shows expiry recovery and replaces the expired widget on retry", async () =>
   expect(verified).not.toHaveBeenCalled();
 });
 
-it("does not select AI after the user closes verification while its request is pending", async () => {
+it("says it is switching on AI while the session request is pending", async () => {
+  const { renderWidget } = widget();
+  vi.mocked(verifyAiSession).mockImplementation(() => new Promise(() => {}));
+  render(<AiVerification lang="en" onVerified={vi.fn()} />);
+  await waitFor(() => expect(renderWidget).toHaveBeenCalledTimes(1));
+  const options = renderWidget.mock.calls[0][1] as Record<
+    string,
+    (token: string) => void
+  >;
+  act(() => options.callback("controlled-test-token"));
+  expect(screen.getByText(/Verification passed/)).toBeVisible();
+});
+
+// Closing the dialog is not cancelling: the widget already read "success",
+// and the session the request mints is kept either way. The parent decides
+// whether the reader still wants AI (ModelPicker.test.tsx).
+it("reports a success that lands after the user closed verification", async () => {
   const { renderWidget, remove } = widget();
   let finish!: () => void;
   vi.mocked(verifyAiSession).mockImplementation(
@@ -62,5 +78,5 @@ it("does not select AI after the user closes verification while its request is p
   view.unmount();
   await act(async () => finish());
   expect(remove).toHaveBeenCalledWith("widget");
-  expect(verified).not.toHaveBeenCalled();
+  expect(verified).toHaveBeenCalledTimes(1);
 });
