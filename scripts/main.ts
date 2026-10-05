@@ -467,6 +467,11 @@ const app = command({
       // party corpus by construction.
       const { writePresidentialScreening } =
         await import("./parsers_presidential/build_screening");
+      // ⚠ THE SEVENTH: the full section risk score (procedural + distribution) behind the
+      // presidential Election Risk Index. It reads the section shards of THIS cycle and of the
+      // previous presidential cycle (the swing signal), so a re-ingest of either moves it.
+      const { writePresidentialRiskScore } =
+        await import("./parsers_presidential/build_risk_score");
       const { buildNeighborhoodSectionCodes } =
         await import("./reports/problem_sections/index");
       // ⚠ WALKED ONCE FOR THE WHOLE RUN, which is that writer's own documented contract. It
@@ -483,6 +488,7 @@ const app = command({
           writePresidentialSuspicious,
           writePresidentialNeighborhoods,
           writePresidentialScreening,
+          writePresidentialRiskScore,
         ]) {
           // ⚠ ONE PATH OR MANY. Five of the six answer with an ARRAY — the transfer writes a
           // cycle file plus one shard per oblast (32 paths), and the cleavages, the

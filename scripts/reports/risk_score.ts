@@ -54,7 +54,11 @@ import type { ReportRow } from "@/data/dataTypes";
 // The remedy is the sub-scores below — see PROCEDURAL_SIGNALS /
 // DISTRIBUTION_SIGNALS.
 
-const WEIGHTS = {
+// ⚠ EXPORTED for the PRESIDENTIAL section risk score
+// (scripts/parsers_presidential/build_risk_score.ts), which scores the signals a
+// presidential protocol supports on these same weights — a second copy would let
+// „elevated" mean two things on two dashboards.
+export const WEIGHTS = {
   recount: 0.2,
   suemgMismatch: 0.2,
   invalidBallots: 0.15,

@@ -87,6 +87,8 @@ import { PresidentialProblemSectionsTile } from "./PresidentialProblemSectionsTi
 import { PresidentialProblemVotesTile } from "./PresidentialProblemVotesTile";
 import { scopeNeighborhoods } from "@/data/presidential/neighborhoodScope";
 import { PresidentialScreeningTile } from "./PresidentialScreeningTile";
+import { PresidentialRiskIndex } from "./PresidentialRiskIndex";
+import { usePresidentialRiskScore } from "@/data/presidential/useRiskScore";
 import {
   hasScreeningContent,
   usePresidentialScreening,
@@ -170,6 +172,10 @@ const RoundPanel: FC<{
   // ⚠ PER ROUND. The two rounds are different paperwork — 2011's invalid rate halves between
   // them — so the screen is rebuilt rather than lifted to the page.
   const screening = usePresidentialScreening(cycle, round.round);
+  // The Election Risk Index gates on the section risk score alone — its other inputs are optional.
+  // ⚠ READ HERE ONLY FOR THE SECTION GATE: `DashboardSection` cannot see that
+  // `PresidentialRiskIndex` self-hides; React Query shares this fetch with the component's own.
+  const riskScore = usePresidentialRiskScore(cycle, round.round);
   // ⚠ PER CYCLE. Absent is the normal answer for both: a cycle decided in round 1 has no
   // transfer to estimate, and only 2021's presidential vote shared its day with a parliamentary
   // one, so four of the five cycles have no split-ticket file by construction.
@@ -218,6 +224,7 @@ const RoundPanel: FC<{
   // section was clean" when the truth is that none was measurable.
   const hasScreening =
     screening.status === "ready" && hasScreeningContent(screening.screening);
+  const hasRisk = riskScore.status === "ready";
   // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
   // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
   // section of this panel, rather than being lifted to the page.
@@ -447,13 +454,16 @@ const RoundPanel: FC<{
       {/* 7. anomalies — the parliamentary dashboard's own heading for the same pair of questions.
              ⚠⚠ NEITHER TILE ALLEGES ANYTHING. ⚠ FLASH SELF-HIDES ON FOUR OF THE FIVE CYCLES and
              that is the corpus, not a bug: only 2021 published its СУЕМГ records. */}
-      {hasFlash || hasSuspicious || hasScreening ? (
+      {hasRisk || hasFlash || hasSuspicious || hasScreening ? (
         <DashboardSection
           id="anomalies"
           title={t("dashboard_section_anomalies")}
           icon={AlertTriangle}
           headingLevel={2}
         >
+          {/* The Election Risk Index first, as on /parliamentary: the composite ribbon and the
+              „Рискови секции" card. */}
+          <PresidentialRiskIndex cycle={cycle} round={round.round} />
           {hasFlash ? (
             <PresidentialFlashMemoryTile cycle={cycle} round={round.round} />
           ) : null}

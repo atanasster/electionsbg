@@ -152,5 +152,17 @@
   "presidential_upcoming_other_one": "{{count}} more poll ({{agencies}}) asks something else — support for a party's candidate or personal potential — and is not in the table.",
   "presidential_upcoming_other_other": "{{count}} more polls ({{agencies}}) ask something else — support for a party's candidate or personal potential — and are not in the table.",
   "presidential_ranking_show_all": "Show all {{total}}",
-  "presidential_ranking_show_less": "Show fewer"
+  "presidential_ranking_show_less": "Show fewer",
+  "presidential_risk_index_hint": "The Election Risk Index for this round: the mean of the available voting-integrity signals — risky sections, the flash-memory gap and machine votes it does not reach (2021 only), vote concentration and procedural anomalies by settlement. A screening, not a verdict; a missing signal is left out of the mean.",
+  "presidential_risk_score_title": "Risky sections",
+  "presidential_risk_score_hint": "A 0–100 score per section, as for parliamentary elections: procedural signals (invalid ballots, voters added on the day) and vote-distribution signals (concentration, deviation from neighbouring sections, an abrupt shift since the previous presidential election). Critical sections carrying at least two signals are listed.",
+  "presidential_risk_band_critical": "critical",
+  "presidential_risk_band_high": "high",
+  "presidential_risk_band_elevated": "elevated",
+  "presidential_risk_scored": "of {{total}} scored sections · {{pct}}% above “low”",
+  "presidential_risk_procedural_short": "proc.",
+  "presidential_risk_procedural_hint": "Procedural sub-score — invalid ballots and added voters only. The only one independent of who won the section; use it for any question about a candidate.",
+  "presidential_risk_none_named": "No critical section with at least two signals in this round.",
+  "presidential_risk_unavailable": "Signals not computable: {{list}}",
+  "presidential_risk_concentrated_floor": "The concentration bar is raised to {{floor}}% — the share above which the most lopsided 5% of this round's sections fall."
 }
