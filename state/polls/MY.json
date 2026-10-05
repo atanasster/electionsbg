@@ -16,7 +16,19 @@
         "capturedAt": "2026-09-09T22:04:40.809Z",
         "capturePath": "raw_data/polls/myara/1291",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "my-pub-1291-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.724Z",
+            "draftHash": "64aef3db82c493950d311e28fed59d0189f552322e39a00c0d82187c44dfc911",
+            "refused": [
+              "fieldwork",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -46,7 +58,19 @@
         "capturedAt": "2026-09-09T22:04:40.415Z",
         "capturePath": "raw_data/polls/myara/1391",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "my-pub-1391-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.735Z",
+            "draftHash": "babaf2414555dc4404a24870285d23764ebfcb5487d4d42f38aea24a82e3eab0",
+            "refused": [
+              "fieldwork",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -76,7 +100,18 @@
         "capturedAt": "2026-09-09T22:04:40.010Z",
         "capturePath": "raw_data/polls/myara/1533",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "my-2025-09-12-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.745Z",
+            "draftHash": "8c4a2a19a0a15808f9f65e1a83132107b6a86e0d6fc6ba693be9d8cafd44f74c",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -106,7 +141,20 @@
         "capturedAt": "2026-09-09T22:04:39.626Z",
         "capturePath": "raw_data/polls/myara/1542",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "my-pub-1542-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.761Z",
+            "draftHash": "85808c22aac3b6c9d33f352052519dcc13161432a6e342836fa955953460c64a",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -136,7 +184,18 @@
         "capturedAt": "2026-09-09T22:04:39.231Z",
         "capturePath": "raw_data/polls/myara/1671",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "my-2026-02-15-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.774Z",
+            "draftHash": "5533e490d366dedc3eac78636902ed5ba4ca784158685bec0de0f44d1fd9be3a",
+            "refused": [
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -166,7 +225,19 @@
         "capturedAt": "2026-09-09T22:04:38.831Z",
         "capturePath": "raw_data/polls/myara/1681",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "my-pub-1681-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.783Z",
+            "draftHash": "1e7e627ecaa61bac72b90e1846d1af4133dbc2e298fec39ea10669d5c750d43e",
+            "refused": [
+              "fieldwork",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
       }
     ],
     "failures": {
@@ -196,7 +267,60 @@
         "capturedAt": "2026-09-09T22:04:38.396Z",
         "capturePath": "raw_data/polls/myara/1712",
         "attachmentFailures": [],
-        "drafts": []
+        "drafts": [
+          {
+            "pollId": "my-pub-1712-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-09-27T06:46:50.798Z",
+            "draftHash": "f137c04bf0660805d83d30c8112a13b153421daf43454333bb693389db9a496e",
+            "refused": [
+              "fieldwork",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "1918",
+    "url": "https://myara.bg/electoral-snapshot-beginning-october-1918/",
+    "title": null,
+    "publishedAt": null,
+    "agencyId": "MY",
+    "pubIds": [
+      "1918"
+    ],
+    "discoveredAt": "2026-10-05T16:41:04.933Z",
+    "latestHash": "aec6dea9ec7eda56f15e901d1a78c0445e39c430c83102fafe49f724895aceaf",
+    "versions": [
+      {
+        "sha256": "aec6dea9ec7eda56f15e901d1a78c0445e39c430c83102fafe49f724895aceaf",
+        "capturePath": "raw_data/polls/myara/1918",
+        "capturedAt": "2026-10-05T16:41:05.770Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "my-2026-10-04-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-05T16:41:06.260Z",
+            "draftHash": "e9ab376f047612f323db3fe0cf9c3b1af12236c4057f8db6c5d767ee190fe10e",
+            "refused": [],
+            "reviewedAt": "2026-10-05T16:45:20.921Z",
+            "acceptedAt": "2026-10-05T16:45:20.921Z",
+            "acceptedDraftHash": "e9ab376f047612f323db3fe0cf9c3b1af12236c4057f8db6c5d767ee190fe10e"
+          }
+        ]
       }
     ],
     "failures": {

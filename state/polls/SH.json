@@ -573,7 +573,7 @@
       "4159"
     ],
     "discoveredAt": "2026-10-02T22:46:52.711Z",
-    "latestHash": "a8738141d7ee9451dbdfb8bda846e6671207154ba03adb338afa43788997d016",
+    "latestHash": "cea7e1582e272738c7443dbca475b71db68957485dccf19a4c75008226f4aa66",
     "versions": [
       {
         "sha256": "a8738141d7ee9451dbdfb8bda846e6671207154ba03adb338afa43788997d016",
@@ -588,6 +588,24 @@
           "https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0006.jpg"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "cea7e1582e272738c7443dbca475b71db68957485dccf19a4c75008226f4aa66",
+        "capturePath": "raw_data/polls/sova_harris/4159.v2",
+        "capturedAt": "2026-10-03T22:42:19.806Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "sh-2026-09-28-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-03T22:44:37.115Z",
+            "draftHash": "f2aa61653d7d58faf746d1d86f906ad53f85255ea8b1c28df1561cd042dd6778",
+            "refused": [],
+            "reviewedAt": "2026-10-04T02:42:34.984Z",
+            "acceptedAt": "2026-10-04T02:42:34.984Z",
+            "acceptedDraftHash": "f2aa61653d7d58faf746d1d86f906ad53f85255ea8b1c28df1561cd042dd6778"
+          }
+        ]
       }
     ],
     "failures": {
@@ -595,19 +613,9 @@
       "extraction": 1
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0001.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0002.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0003.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0004.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0005.jpg, https://sovaharris.com/wp-content/uploads/2026/10/Publ_Trud_021026_page-0006.jpg",
-        "at": "2026-10-02T23:21:24.072Z"
-      },
-      "extraction": {
-        "message": "Capture has unavailable attachments; retry capture before extraction",
-        "at": "2026-10-02T23:26:38.979Z"
-      }
+      "capture": null,
+      "extraction": null
     },
-    "lastError": {
-      "message": "Capture has unavailable attachments; retry capture before extraction",
-      "at": "2026-10-02T23:26:38.979Z",
-      "stage": "extraction"
-    }
+    "lastError": null
   }
 ]
