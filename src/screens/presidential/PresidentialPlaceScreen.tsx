@@ -56,6 +56,8 @@ import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { personHrefForTicket } from "@/data/presidential/ticketPersons";
 import { PresidentialPlaceTransfer } from "./PresidentialPlaceTransfer";
 import { PresidentialPlaceNeighborhoods } from "./PresidentialPlaceNeighborhoods";
+import { PresidentialAbroadGeography } from "./PresidentialAbroadGeography";
+import { DiasporaFaqSection } from "@/screens/components/DiasporaFaqSection";
 import { PresidentialRoundToggle } from "./PresidentialRoundToggle";
 import { usePresidentialRound } from "@/data/presidential/usePresidentialRound";
 import { PresidentialChildTopTile } from "./PresidentialChildTopTile";
@@ -115,6 +117,7 @@ const CHILD_GRAIN: Partial<
 };
 
 const MAPPED_LEVELS = new Set<PresidentialPlaceLevel>([
+  "abroad",
   "region",
   "municipality",
   "settlement",
@@ -260,12 +263,21 @@ export const PresidentialPlaceScreen: FC<{
           />
         </DashboardSection>
       ) : null}
+      {/* ⚠ ABROAD HAS NO CHILD GRAIN, SO IT GETS ITS OWN GEOGRAPHY: the countries and the
+          continents, the pair `/parliamentary`'s abroad page carries. The section owns its gate. */}
+      {level === "abroad" ? (
+        <PresidentialAbroadGeography cycle={cycle} round={round} />
+      ) : null}
       <PresidentialPlaceNeighborhoods
         cycle={cycle}
         level={level}
         id={id}
         round={round}
       />
+      {/* The voting-abroad FAQ — the same component, and so the same answers, as the
+          parliamentary abroad page. Election-agnostic by construction (eligibility, documents,
+          registration, hours), which is why it fits here unchanged. */}
+      {level === "abroad" ? <DiasporaFaqSection headingLevel={2} /> : null}
     </section>
   );
 };

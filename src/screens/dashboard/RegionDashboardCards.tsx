@@ -1,13 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AlertTriangle,
-  Briefcase,
-  Building2,
-  Gauge,
-  HelpCircle,
-  Map,
-} from "lucide-react";
+import { AlertTriangle, Briefcase, Building2, Gauge, Map } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useRegionSummary } from "@/data/dashboard/useRegionSummary";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
@@ -32,13 +25,8 @@ import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
 import { TopLocationsTile } from "./TopLocationsTile";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
-import { DIASPORA_FAQ, isDiasporaRegion } from "@/data/diaspora/diasporaFaq";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { isDiasporaRegion } from "@/data/diaspora/diasporaFaq";
+import { DiasporaFaqSection } from "@/screens/components/DiasporaFaqSection";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -68,8 +56,7 @@ type Props = {
  *  from each other: `ballotTotalsFrom` returns `turnoutBasis: "unavailable"` when the cast count
  *  exceeds the roll, and the abroad DESCRIPTOR omits `turnout` from its `factPriority` outright. */
 export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language === "en" ? "en" : "bg";
+  const { t } = useTranslation();
   // МИР 32 (abroad). Has no municipalities/census/local-government, so those
   // sections self-hide; we additionally swap the municipality map for the
   // per-country tile and append a voting-abroad FAQ (mirrors the prerendered
@@ -187,30 +174,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         </DashboardSection>
       )}
 
-      {diaspora ? (
-        <DashboardSection
-          id="diaspora_faq"
-          title={
-            lang === "en"
-              ? "Voting abroad — FAQ"
-              : "Гласуване в чужбина — въпроси"
-          }
-          icon={HelpCircle}
-        >
-          <Accordion type="single" collapsible className="w-full">
-            {DIASPORA_FAQ[lang].map((item, i) => (
-              <AccordionItem key={item.q} value={`faq-${i}`}>
-                <AccordionTrigger className="text-left text-base font-medium">
-                  {item.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {item.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </DashboardSection>
-      ) : null}
+      {diaspora ? <DiasporaFaqSection /> : null}
     </section>
   );
 };

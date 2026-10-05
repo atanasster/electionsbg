@@ -55,7 +55,11 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
    *  that declares an `interactive` posture to the election shell must pass it,
    *  because that posture is a claim this prop is what honours. */
   ariaLabelOf?: (props: DType) => string | undefined;
-  onClickPath: (props: DType) => NavigateParams;
+  /** Where a click on a feature goes. ⚠ OPTIONAL for a map whose features have no page of their
+   *  own (the presidential abroad map's countries): without it a feature is hover-only and,
+   *  per `FeatureMap`'s `!!ariaLabel && !!onClick`, not a keyboard stop — which is right for a
+   *  feature that activates nothing. */
+  onClickPath?: (props: DType) => NavigateParams;
   // Absolutely-positioned corner overlay(s) rendered over the map — e.g. the
   // Sofia-city shortcut tile. Positioned by the overlay itself relative to
   // `size`, matching the parliamentary RegionsMap (SofiaCity / WorldLink).
@@ -119,7 +123,11 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
                 onMouseMove({ pageX: e.pageX, pageY: e.pageY })
               }
               onMouseLeave={onMouseLeave}
-              onClick={() => navigate(onClickPath(feature.properties))}
+              onClick={
+                onClickPath
+                  ? () => navigate(onClickPath(feature.properties))
+                  : undefined
+              }
             />
           ))}
           {showNamesToggle &&

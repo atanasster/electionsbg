@@ -237,10 +237,11 @@ export const MAP_ADAPTERS: Partial<
   "presidential/settlement/winner": () =>
     import("./adapters/PresidentialSettlementMap"),
   //
-  // ⚠ `abroad` IS STILL UNREGISTERED, for a reason that is not about size. Its 241.3 KB file IS
-  // servable and the geo is the continents one the parliamentary МИР-32 adapter already loads.
-  // What is missing is the JOIN: this tree keys abroad by ISO-2 COUNTRY while that geo's
-  // features are continents, so there is no crosswalk to colour by without inventing one —
-  // work with its own decisions (which continent holds a section whose country the corpus
-  // cannot name?), not a registry line.
+  // ⚠ `abroad` IS DRAWN BY COUNTRY. It was refused while the only abroad geometry in view was
+  // the parliamentary МИР-32 continents file, which cannot be coloured from a roll-up keyed by
+  // ISO-2 country without a crosswalk. The six per-continent files under
+  // `maps/municipalities/` are that crosswalk — one feature per country, `ekatte` = ISO-2,
+  // `nuts4` = continent — so the map joins exactly and invents no placement.
+  "presidential/abroad/winner": () =>
+    import("./adapters/PresidentialAbroadMap"),
 };

@@ -41,17 +41,18 @@ describe("the presidential map registry", () => {
     // whole-country roll-up". The fetch is still whole-country — the tree has no per-place
     // shards — but the sizes were re-measured against what a reader actually pays, which is the
     // GZIPPED object, and two of them are servable: 0.96 MB → 47 KB at region, 14.63 MB →
-    // 346 KB at município. `settlement` and `abroad` stay refused for reasons that are NOT
-    // size (a marker map at section grain, and a missing country→continent crosswalk).
+    // 346 KB at município. `abroad` was refused for want of a country→continent crosswalk until
+    // the six per-continent geometry files were recognised as exactly that (one feature per
+    // ISO-2 country), so it is drawn by country now.
     //
     // Pinned as an exact set rather than „at least these": a third entry appearing here is
-    // either the section level, which needs a different component, or `abroad`, which needs a
-    // join nobody has built — both worth failing on.
+    // the section level, which needs a different component — worth failing on.
     expect(
       Object.keys(MAP_ADAPTERS)
         .filter((k) => k.startsWith("presidential/"))
         .sort(),
     ).toEqual([
+      "presidential/abroad/winner",
       "presidential/municipality/winner",
       "presidential/region/winner",
       "presidential/settlement/winner",
@@ -96,6 +97,7 @@ describe("the presidential map registry", () => {
     const NEEDED: Record<string, string> = {
       "presidential/region/winner": "municipality_votes.json",
       "presidential/municipality/winner": "settlement_votes.json",
+      "presidential/abroad/winner": "abroad.json",
       // ⚠ NOT A `PER_ROUND_FILES` MEMBER — the section shards are picked up by their own walk,
       // keyed on the directory rather than on a filename, because there is one per oblast. The
       // check below looks for that walk instead.
