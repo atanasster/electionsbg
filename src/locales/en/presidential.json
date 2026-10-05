@@ -153,15 +153,7 @@
   "presidential_flow_hint": "An estimate of where the parliamentary vote went in the presidential ballot. An estimate, not an observation: nobody sees an individual change their vote — only that a section’s numbers moved. The matrix is an ecological regression by oblast and shows movement CONSISTENT WITH the data, not counted people.",
   "presidential_flow_caption": "Estimated transfer from the parliamentary vote of {{from}} into round {{round}} of the presidential ballot. Pairs taking at least 1% of the valid vote are shown; the rest are in “Other pairs”. Hover a band to follow it; click a node to pin the detail.",
   "presidential_flow_section": "Vote transfer",
-  "presidential_polls_tile_hint": "Each agency's latest poll for this round against the official result. An overall grade (MAE) exists only when the poll covers every major candidate and the rest in a comparable base.",
-  "presidential_polls_tile_summary": "{{round}} · agencies polling: {{agencies}} · fully graded: {{complete}}.",
-  "presidential_polls_partial": "partial",
-  "presidential_polls_not_compared": "not compared",
-  "presidential_polls_no_grade_note": "No poll for this round covers every candidate in a base comparable with the result, so no overall grade is shown. For partial comparisons the biggest miss is among the published candidates only; for the rest the reason is given. Details below.",
-  "presidential_polls_trend_title": "Accuracy by election · {{round}}",
-  "presidential_polls_trend_hint": "Mean error (MAE) of the fully graded agencies at each presidential election. A dash means no poll was fully graded for that election.",
-  "presidential_polls_trend_cycle": "Election",
-  "presidential_polls_trend_mae_hint": "Arithmetic mean of the fully graded agencies' MAE, in percentage points.",
-  "presidential_polls_trend_coverage": "Coverage",
-  "presidential_polls_trend_counts": "agencies: {{agencies}} · full: {{scored}} · partial: {{partial}}"
+  "presidential_polls_tile_hint": "Each agency's last pre-election poll against the round-one result. MAE = mean absolute error in percentage points over the candidates the poll names; undecideds are redistributed proportionally, as for parliamentary elections.",
+  "presidential_polls_trend_hint": "Agencies' average round-one MAE at each presidential election. Click a bar to open that election.",
+  "presidential_polls_headline": "Most accurate in round one: {{agency}} — MAE {{mae}} pp, {{days}} days before the vote. {{winner}} won round one with {{pct}}."
 }

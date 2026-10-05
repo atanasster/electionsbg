@@ -273,6 +273,17 @@ export const formatEurWithOther = (
   return parts.join(" · ");
 };
 
+/** A plain number with a fixed count of decimals, localised („1,65" in BG, „1.65" in EN).
+ *  Null/non-finite → "—", the same absent-value marker as `formatPct`. */
+export const formatDecimal = (
+  v: number | null | undefined,
+  lang: string,
+  digits = 2,
+): string =>
+  v == null || !Number.isFinite(v)
+    ? "—"
+    : numberFormatter(lang, digits).format(v);
+
 /** A fraction (0..1) as a localised percentage. Shares `formatEurCompact`'s
  *  `lang` signature so the number-formatting helpers read alike at call sites.
  *  Null/non-finite → "—" (the НЗОК financial tiles feed nullable share columns). */

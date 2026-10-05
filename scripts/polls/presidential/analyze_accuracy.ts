@@ -308,6 +308,150 @@ const scoreQuestion = (
   };
 };
 
+/** Base preference when one poll publishes the same vote question on several bases: the one
+ *  closest to the official denominator wins. */
+const BASE_RANK: Record<string, number> = {
+  decided_voters: 0,
+  valid_votes: 0,
+  likely_voters: 1,
+  all_respondents: 2,
+};
+
+/**
+ * The round-one agency leaderboard, graded by the PARLIAMENTARY rule
+ * (`scripts/polls/analyze_accuracy.ts` `computeElectionAccuracy`), so the two dashboards grade
+ * an agency the same way: each agency's LAST pre-election vote-intention poll, MAE over the
+ * candidates it named, with the undecided + won't-say residual redistributed proportionally
+ * when the genre publishes raw attitudes.
+ *
+ * ⚠ THIS IS NOT THE QUESTION-LEVEL GRADE ABOVE, and the two answer different questions.
+ * `rounds[].comparisons` withholds an MAE unless coverage is complete; this one grades over what
+ * was published, exactly as the parliamentary side always has. A candidate the poll did not
+ * name is left out of the mean, never scored as zero.
+ *
+ * Refused, rather than graded: a scenario or runoff question, a placeholder row, a poll ending
+ * on or after election day, and an ALL-RESPONDENTS base with no residual to redistribute —
+ * that one compares a share of everybody asked against a share of valid votes, which is a
+ * denominator error rather than a polling error.
+ */
+export const parliamentaryRuleAgencies = (
+  summary: NationalSummaryFile,
+  tickets: ResolvableTicket[],
+  polls: Poll[],
+  details: PresidentialPollDetail[],
+): PresidentialAgencyError[] => {
+  const target = summary.rounds.find((r) => r.round === 1);
+  const date = target ? dateOfRound(summary, target) : null;
+  if (!target || !date) return [];
+  const nonePct =
+    ((target.votes.noneOfTheAbove ?? 0) / target.votes.valid) * 100;
+
+  const latest = new Map<
+    string,
+    { poll: Poll; q: PollQuestion; end: string; baseRank: number }
+  >();
+  for (const poll of polls.filter((p) => p.cycle === summary.cycle)) {
+    const end = endOfFieldwork(poll);
+    if (!end || end >= date) continue;
+    for (const q of poll.questions ?? []) {
+      if (q.round !== 1 || q.measure !== "vote_intention" || q.scenario)
+        continue;
+      const baseRank = BASE_RANK[q.base.kind] ?? 3;
+      const r = q.residual;
+      const hasResidual = [r?.undecided, r?.wontSay, r?.wontVote].some(
+        (v) => typeof v === "number" && v > 0,
+      );
+      if (baseRank >= 2 && !hasResidual) continue;
+      const prev = latest.get(poll.agencyId);
+      if (
+        !prev ||
+        end > prev.end ||
+        (end === prev.end && baseRank < prev.baseRank)
+      )
+        latest.set(poll.agencyId, { poll, q, end, baseRank });
+    }
+  }
+
+  const out: PresidentialAgencyError[] = [];
+  for (const { poll, q, end } of latest.values()) {
+    const includesNone = q.base.includesNone === true;
+    const denominator = includesNone ? 100 : 100 - nonePct;
+    const actual = new Map(
+      target.ranking.map((t) => [
+        foldCandidateName(t.president),
+        { name: t.president, pct: (t.shareOfValid * 100 * 100) / denominator },
+      ]),
+    );
+    if (includesNone && target.votes.noneOfTheAbove !== undefined)
+      actual.set("none", { name: "Не подкрепям никого", pct: nonePct });
+    const rows = details.filter(
+      (d) => d.pollId === poll.id && d.questionId === q.id,
+    );
+    const sumNamed = rows.reduce((s, d) => s + d.support, 0);
+    const residual =
+      q.genre === "raw_attitudes" || q.genre === "both_published"
+        ? (q.residual?.undecided ?? 0) + (q.residual?.wontSay ?? 0)
+        : 0;
+    const scale = residual > 0 && sumNamed > 0 ? 1 + residual / sumNamed : 1;
+    const errors: PresidentialCandidateResultError[] = [];
+    for (const d of rows) {
+      if (d.placeholderFor !== null) continue;
+      const resolved =
+        d.candidateKey === "none"
+          ? { resolved: true, candidateKey: "none" }
+          : resolveCandidate(d.candidateName_bg, tickets, summary.cycle);
+      const key = resolved.resolved ? resolved.candidateKey : null;
+      const a = key ? actual.get(key) : undefined;
+      if (!key || !a) continue;
+      const polled = round(d.support * scale);
+      errors.push({
+        key,
+        name_bg: a.name,
+        polled,
+        actual: round(a.pct),
+        error: round(polled - a.pct),
+      });
+    }
+    if (!errors.length) continue;
+    errors.sort((x, y) => Math.abs(y.error) - Math.abs(x.error));
+    const abs = errors.map((e) => Math.abs(e.error));
+    const ranked = errors
+      .filter((e) => e.key !== "none")
+      .sort((x, y) => y.polled - x.polled);
+    const actualLeader = foldCandidateName(target.ranking[0].president);
+    const actualPair = target.ranking
+      .slice(0, 2)
+      .map((r) => foldCandidateName(r.president));
+    out.push({
+      agencyId: poll.agencyId,
+      pollId: poll.id,
+      fieldworkEnd: end,
+      daysBefore: Math.round((Date.parse(date) - Date.parse(end)) / 86400000),
+      respondents: poll.respondents,
+      genre: q.genre,
+      errors,
+      mae: round(mean(abs)),
+      rmse: round(Math.sqrt(mean(abs.map((e) => e * e)))),
+      biggestMiss: { key: errors[0].key, error: errors[0].error },
+      leaderCalled:
+        ranked.length > 1 && ranked[0].polled !== ranked[1].polled
+          ? ranked[0].key === actualLeader
+          : null,
+      runoffPairCalled:
+        summary.decidedInRound === 2 &&
+        ranked.length > 2 &&
+        ranked[1].polled !== ranked[2].polled
+          ? ranked.slice(0, 2).every((r) => actualPair.includes(r.key))
+          : null,
+      decidedInRoundCalled: null,
+      runoff: null,
+    });
+  }
+  return out.sort(
+    (a, b) => a.mae - b.mae || a.agencyId.localeCompare(b.agencyId),
+  );
+};
+
 export const computeCycleAccuracy = (
   summary: NationalSummaryFile,
   tickets: ResolvableTicket[],
@@ -423,27 +567,7 @@ export const computeCycleAccuracy = (
       return [{ round: target.round, date, actualResults, comparisons }];
     },
   );
-  // Compatibility projection for the existing compact round-one tile. Incomplete
-  // comparisons stay in rounds with null grades, never a fabricated zero.
-  const agencies: PresidentialAgencyError[] = (
-    rounds.find((r) => r.round === 1)?.comparisons ?? []
-  )
-    .filter((c) => c.mae !== null && c.rmse !== null)
-    .map((c) => ({
-      agencyId: c.agencyId,
-      pollId: c.pollId,
-      fieldworkEnd: c.fieldworkEnd,
-      daysBefore: c.daysBefore,
-      respondents: c.respondents,
-      errors: c.errors,
-      mae: c.mae!,
-      rmse: c.rmse!,
-      biggestMiss: { key: c.errors[0].key, error: c.errors[0].error },
-      leaderCalled: c.leaderCalled,
-      runoffPairCalled: c.runoffPairCalled,
-      decidedInRoundCalled: null,
-      runoff: null,
-    }));
+  const agencies = parliamentaryRuleAgencies(summary, tickets, polls, details);
   return {
     cycle: summary.cycle,
     round1Date: summary.round1Date,

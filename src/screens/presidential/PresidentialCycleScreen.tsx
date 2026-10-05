@@ -64,7 +64,7 @@ import {
   PresidentialPollsTile,
   PresidentialPollsTrendTile,
 } from "./PresidentialPollsTile";
-import { PRESIDENTIAL_POLLS_DETAIL_ID } from "@/data/presidential/presidentialPollRows";
+import { PRESIDENTIAL_POLLS_DETAIL_ID } from "./presidentialPollsAnchor";
 import { PresidentialTicketRanking } from "./PresidentialTicketRanking";
 import {
   leadersByPlace,
@@ -778,12 +778,12 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           icon={Target}
           headingLevel={2}
         >
-          {/* ⚠ THE PARLIAMENTARY SECTION'S SHAPE: an accuracy leaderboard and an accuracy trend
-              as cards first, the explorer after. Both cards render nothing until the polls
-              artifacts load and nothing on a failed fetch — `PresidentialHistory` owns the
-              loading status and the retryable alert, and two copies would be two alerts. */}
-          <PresidentialPollsTile cycle={cycle} round={round} />
-          <PresidentialPollsTrendTile cycle={cycle} round={round} />
+          {/* ⚠ THE PARLIAMENTARY SECTION'S SHAPE: the accuracy leaderboard and the accuracy
+              trend as cards first, the explorer after. Both grade ROUND ONE whatever round is
+              shown, and render nothing until the polls artifact loads or on a failed fetch —
+              `PresidentialHistory` owns the loading status and the retryable alert. */}
+          <PresidentialPollsTile cycle={cycle} />
+          <PresidentialPollsTrendTile cycle={cycle} />
           <div id={PRESIDENTIAL_POLLS_DETAIL_ID} className="scroll-mt-24">
             <PresidentialHistory cycle={cycle} round={round} />
           </div>

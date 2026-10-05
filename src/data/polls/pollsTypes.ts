@@ -400,10 +400,12 @@ export type PresidentialAgencyError = {
   daysBefore: number;
   respondents: number | null;
   genre?: PollGenre;
-  /** Compatibility projection of complete round-one comparisons. Every required
-   * major candidate and the full minor-candidate bucket are covered; unresolved
-   * or missing answers withhold this overall grade. Full and partial question
-   * comparisons live in PresidentialCycleAccuracy.rounds. */
+  /** The round-one leaderboard row, graded by the PARLIAMENTARY rule
+   * (`parliamentaryRuleAgencies` in scripts/polls/presidential/analyze_accuracy.ts):
+   * the agency's last pre-election poll, MAE over the candidates it named, with the
+   * undecided/won't-say residual redistributed for raw attitudes. It does NOT require
+   * full coverage — the strict question-level comparisons, which do, live in
+   * PresidentialCycleAccuracy.rounds and may carry a null MAE for the same poll. */
   errors: PresidentialCandidateResultError[];
   mae: number;
   rmse: number;

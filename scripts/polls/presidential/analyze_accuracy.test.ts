@@ -430,7 +430,9 @@ describe("question and round aware accuracy against real CIK results", () => {
       daysBefore: 4,
       respondents: 1000,
     });
-    expect(result.agencies.map((a) => a.agencyId)).toEqual(["TEST"]);
+    // The leaderboard grades by the parliamentary rule, over what each poll published —
+    // so the partial OTHER is graded there while its question-level comparison stays null.
+    expect(result.agencies.map((a) => a.agencyId)).toEqual(["OTHER", "TEST"]);
   });
   it("calls an incorrect leader or pair only for complete distributions, and treats ties as unknown", () => {
     const rows = rowsFor();
@@ -542,7 +544,12 @@ describe("analyzer corpus output", () => {
         fs.readFileSync("data/polls/presidential/runoffs.json", "utf8"),
       );
     const r = compute(polls, details, runoffs);
-    expect(r.agencies).toEqual([]);
+    expect(r.agencies.map((a) => [a.agencyId, a.mae])).toEqual([
+      ["TR", 1.65],
+      ["ML", 2.03],
+      ["AR", 3.22],
+      ["SH", 3.39],
+    ]);
     expect(comparison(r)).toMatchObject({ agencyId: "SH", mae: null });
     expect(comparison(r).coverage.missingKeys).toContain(
       "костадин тодоров костадинов",
@@ -563,4 +570,88 @@ it("orders mixed-offset publication timestamps by their instant", () => {
       compute([earlier, later], [...rowsFor(earlier), ...rowsFor(later)]),
     ).pollId,
   ).toBe("later");
+});
+
+describe("the parliamentary-rule leaderboard (agencies)", () => {
+  const agencyOf = (p: Poll, rows: PresidentialPollDetail[]) =>
+    compute([p], rows).agencies.find((a) => a.agencyId === p.agencyId);
+
+  it("redistributes the undecided and won't-say residual for raw attitudes, never won't-vote", () => {
+    const p = changeQuestion({
+      residual: {
+        undecided: 10,
+        wontSay: 5,
+        wontVote: 30,
+        otherNamedMinor: null,
+      },
+    });
+    const rows = rowsFor(p).map((r) => ({ ...r, support: r.support * 0.85 }));
+    const a = agencyOf(p, rows)!;
+    // 85% of the true shares, scaled by 1 + 15/85, lands back on the result.
+    expect(a.mae).toBeCloseTo(0, 1);
+  });
+
+  it("does not redistribute a forecast", () => {
+    const p = changeQuestion({
+      genre: "forecast",
+      residual: {
+        undecided: 10,
+        wontSay: 5,
+        wontVote: null,
+        otherNamedMinor: null,
+      },
+    });
+    const rows = rowsFor(p).map((r) => ({ ...r, support: r.support * 0.85 }));
+    expect(agencyOf(p, rows)!.mae).toBeGreaterThan(0.5);
+  });
+
+  it("refuses an all-respondents base with no residual to redistribute", () => {
+    const p = changeQuestion({
+      base: { ...question.base, kind: "all_respondents" },
+      residual: null,
+    });
+    expect(agencyOf(p, rowsFor(p))).toBeUndefined();
+  });
+
+  it("takes the agency's LAST pre-election poll and ignores one ending on election day", () => {
+    const early = {
+      ...poll,
+      id: "early",
+      fieldwork: "Oct 1-5 2021",
+      publishedAt: "2021-10-06",
+    };
+    const onDay = {
+      ...poll,
+      id: "on-day",
+      fieldwork: "Nov 12-14 2021",
+      publishedAt: "2021-11-14",
+    };
+    const result = compute(
+      [early, poll, onDay],
+      [...rowsFor(early), ...rowsFor(), ...rowsFor(onDay)],
+    );
+    expect(result.agencies.map((a) => a.pollId)).toEqual(["test"]);
+  });
+
+  it("prefers the decided-voters base when one poll publishes several", () => {
+    const decided = { ...question, id: "decided" };
+    const all = {
+      ...question,
+      id: "all",
+      base: { ...question.base, kind: "all_respondents" as const },
+      residual: {
+        undecided: 20,
+        wontSay: null,
+        wontVote: null,
+        otherNamedMinor: null,
+      },
+    };
+    const p = { ...poll, questions: [all, decided] };
+    const rows = [
+      ...rowsFor({ ...p, questions: [all] }),
+      ...rowsFor({ ...p, questions: [decided] }),
+    ];
+    const a = compute([p], rows).agencies[0];
+    expect(a.mae).toBeCloseTo(0, 2);
+  });
 });
