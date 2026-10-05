@@ -5,6 +5,7 @@ import type {
 } from "@/data/polls/pollsTypes";
 import {
   presidentialAgencyCycles,
+  presidentialAgencyProfile,
   presidentialAgencyStandings,
   presidentialTrendRows,
 } from "./presidentialPollAccuracy";
@@ -74,5 +75,25 @@ describe("presidentialAgencyCycles", () => {
       presidentialAgencyCycles(CYCLES, "TR").map((r) => r.cycle.cycle),
     ).toEqual(["2021_11_14_pvr", "2016_11_06_pvr"]);
     expect(presidentialAgencyCycles(CYCLES, "AR")).toEqual([]);
+  });
+});
+
+describe("presidentialAgencyProfile", () => {
+  it("compares against the OTHER agencies in the same cycles, never itself", () => {
+    const p = presidentialAgencyProfile(CYCLES, "TR")!;
+    expect(p.meanMae).toBe(2);
+    expect(p.cycles).toBe(2);
+    // 2021: SH 3.5 − TR 1.5 = +2; 2016 has no other agency and contributes nothing.
+    expect(p.plusMinus).toBe(2);
+    expect(p.history.map((h) => h.electionDate)).toEqual([
+      "2016-11-06",
+      "2021-11-14",
+    ]);
+    // Field means: 2016 = 2.5, 2021 = 2.5.
+    expect(p.consensusMae).toBe(2.5);
+  });
+
+  it("is null for an agency with no graded cycle", () => {
+    expect(presidentialAgencyProfile(CYCLES, "AR")).toBeNull();
   });
 });

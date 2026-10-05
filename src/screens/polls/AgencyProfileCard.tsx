@@ -175,7 +175,10 @@ export const AgencyProfileCard: FC<Props> = ({
       </div>
 
       {consensusMAE !== undefined ? (
-        <AgencyMaeHistory profile={profile} consensusMAE={consensusMAE} />
+        <AgencyMaeHistory
+          history={profile.maeHistory}
+          consensusMAE={consensusMAE}
+        />
       ) : null}
 
       {/* Bloc lean diverging bars */}

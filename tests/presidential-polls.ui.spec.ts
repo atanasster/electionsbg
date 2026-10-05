@@ -52,9 +52,10 @@ for (const language of ["bg", "en"]) {
       language === "bg" ? "Глобал Метрикс" : "Global Metrics",
     );
     await expect(root.locator("article section")).toHaveCount(2);
-    await expect(
-      root.getByRole("button", { name: "JSON", exact: true }),
-    ).toBeVisible();
+    const allPolls = root.getByText(
+      language === "bg" ? /Всички проучвания \(1\)/ : /All polls \(1\)/,
+    );
+    await expect(allPolls).toBeVisible();
     expect(await root.innerText()).not.toMatch(/pp_(history|insight|reason)_/);
     for (const theme of ["corporate", "sunset"]) {
       await page.evaluate((theme) => {
@@ -62,9 +63,7 @@ for (const language of ["bg", "en"]) {
       }, theme);
       await page.reload();
       await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
-      await expect(
-        root.getByRole("button", { name: "JSON", exact: true }),
-      ).toBeVisible();
+      await expect(allPolls).toBeVisible();
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= window.innerWidth + 1,
@@ -81,8 +80,9 @@ for (const language of ["bg", "en"]) {
 test("filters, chart/table agreement, keyboard access and provenance downloads", async ({
   page,
 }, testInfo) => {
+  // The campaign explorer lives on the hub's presidential side; the agency filter is a param.
   await page.goto(
-    "/en/polls/SH/presidential?pollCycle=2021_11_14_pvr&pollRound=1&keep=1",
+    "/en/polls/presidential?pollAgency=SH&pollCycle=2021_11_14_pvr&pollRound=1&keep=1",
   );
   const root = page.locator("#root");
   const table = root.getByRole("table", {
@@ -217,6 +217,6 @@ test("failed data fetch offers a working retry", async ({ page }) => {
   fail = false;
   await retry.click();
   await expect(
-    page.locator("#root").getByRole("button", { name: "JSON", exact: true }),
+    page.locator("#root").getByText(/All polls \(1\)/),
   ).toBeVisible();
 });

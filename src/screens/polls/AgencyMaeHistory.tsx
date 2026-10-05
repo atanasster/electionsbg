@@ -11,7 +11,6 @@ import {
   YAxis,
 } from "recharts";
 import { localDate } from "@/data/utils";
-import { AgencyProfile } from "@/data/polls/pollsTypes";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { cn } from "@/lib/utils";
 
@@ -31,13 +30,16 @@ const TooltipBody: FC<{ active?: boolean; payload?: TooltipDatum[] }> = ({
   );
 };
 
+/** One agency's MAE per election as a line against the field's consensus. Race-neutral: the
+ *  parliamentary profile card passes `AgencyProfile.maeHistory`, the presidential one its
+ *  per-cycle round-one grades. */
 export const AgencyMaeHistory: FC<{
-  profile: AgencyProfile;
+  history: readonly { electionDate: string; mae: number }[];
   consensusMAE: number;
-}> = ({ profile, consensusMAE }) => {
+}> = ({ history, consensusMAE }) => {
   const { t } = useTranslation();
-  if (profile.maeHistory.length < 2) return null;
-  const data = profile.maeHistory.map((h) => ({
+  if (history.length < 2) return null;
+  const data = history.map((h) => ({
     date: h.electionDate,
     label: localDate(h.electionDate.replace(/-/g, "_")),
     mae: h.mae,

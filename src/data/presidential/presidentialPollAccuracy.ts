@@ -90,3 +90,85 @@ export const presidentialAgencyCycles = (
         .map((grade) => ({ cycle: c, grade })),
     )
     .sort((a, b) => b.cycle.round1Date.localeCompare(a.cycle.round1Date));
+
+export type PresidentialAgencyProfile = {
+  agencyId: string;
+  /** Mean round-one MAE over the cycles the agency was graded in. */
+  meanMae: number;
+  cycles: number;
+  /** Mean over its graded cycles of (the OTHER graded agencies' mean MAE − this agency's MAE).
+   *  Positive = beat the field. Null when no cycle had another graded agency to compare with. */
+  plusMinus: number | null;
+  /** Share of graded cycles whose poll put the actual round-one leader first. */
+  leaderCalledRate: number | null;
+  leaderCalledTotal: number;
+  /** Oldest first, for the MAE-by-election line. */
+  history: { electionDate: string; mae: number }[];
+  /** Mean of the field's average MAE over the same cycles — the line's reference. */
+  consensusMae: number;
+  /** Mean signed error per candidate across cycles, largest absolute first. */
+  candidateBias: {
+    key: string;
+    name_bg: string;
+    meanError: number;
+    samples: number;
+  }[];
+};
+
+/** The presidential counterpart of the parliamentary `AgencyProfile`, built only from what the
+ *  round-one grades support. ⚠ No A–F grade and no shrinkage: with at most a handful of graded
+ *  cycles per agency those would claim a track record the corpus does not have. Null when the
+ *  agency has no graded cycle. */
+export const presidentialAgencyProfile = (
+  cycles: readonly PresidentialCycleAccuracy[],
+  agencyId: string,
+): PresidentialAgencyProfile | null => {
+  const pairs = cycles
+    .flatMap((c) => {
+      const a = c.agencies.find((x) => x.agencyId === agencyId);
+      return a ? [{ cycle: c, grade: a }] : [];
+    })
+    .sort((a, b) => a.cycle.round1Date.localeCompare(b.cycle.round1Date));
+  if (!pairs.length) return null;
+  const graded = pairs.map((p) => p.cycle);
+  const own = pairs.map((p) => p.grade);
+  const mean = (xs: number[]) => xs.reduce((s, v) => s + v, 0) / xs.length;
+
+  const deltas = graded.flatMap((c, i) => {
+    const others = c.agencies.filter((a) => a.agencyId !== agencyId);
+    return others.length ? [mean(others.map((a) => a.mae)) - own[i].mae] : [];
+  });
+  const called = own.filter((a) => a.leaderCalled !== null);
+
+  const bias = new Map<string, { name_bg: string; errors: number[] }>();
+  for (const a of own)
+    for (const e of a.errors) {
+      const b = bias.get(e.key) ?? { name_bg: e.name_bg, errors: [] };
+      b.errors.push(e.error);
+      bias.set(e.key, b);
+    }
+
+  return {
+    agencyId,
+    meanMae: mean(own.map((a) => a.mae)),
+    cycles: graded.length,
+    plusMinus: deltas.length ? mean(deltas) : null,
+    leaderCalledRate: called.length
+      ? called.filter((a) => a.leaderCalled).length / called.length
+      : null,
+    leaderCalledTotal: called.length,
+    history: graded.map((c, i) => ({
+      electionDate: c.round1Date,
+      mae: own[i].mae,
+    })),
+    consensusMae: mean(graded.map((c) => mean(c.agencies.map((a) => a.mae)))),
+    candidateBias: [...bias.entries()]
+      .map(([key, b]) => ({
+        key,
+        name_bg: b.name_bg,
+        meanError: mean(b.errors),
+        samples: b.errors.length,
+      }))
+      .sort((a, b) => Math.abs(b.meanError) - Math.abs(a.meanError)),
+  };
+};
