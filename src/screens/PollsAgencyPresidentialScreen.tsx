@@ -23,6 +23,7 @@ import {
   PresidentialAgencyProfileCard,
 } from "./polls/PresidentialAgencyProfileCard";
 import { PresidentialAgencyPollsList } from "./polls/PresidentialAgencyPollsList";
+import { PresidentialUpcomingPolls } from "./polls/PresidentialUpcomingPolls";
 
 const SkeletonCard: FC<{ className: string }> = ({ className }) => (
   <div
@@ -97,6 +98,11 @@ export const PollsAgencyPresidentialScreen: FC = () => {
           </>
         ) : (
           <>
+            <PresidentialUpcomingPolls
+              polls={polls}
+              details={details}
+              agencyId={agencyId}
+            />
             {profile ? (
               <PresidentialAgencyProfileCard
                 profile={profile}

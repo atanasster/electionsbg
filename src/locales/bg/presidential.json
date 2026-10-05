@@ -159,5 +159,17 @@
   "presidential_agency_mae_sub": "средно за първи тур",
   "presidential_agency_leader_called": "Познат лидер",
   "presidential_agency_candidate_bias": "Отклонения по кандидат (топ 5)",
-  "presidential_agency_not_graded": "Нито едно президентско проучване на агенцията не може да се сравни с резултат от първи тур — затова няма оценка на точността. Проучванията са по-долу."
+  "presidential_agency_not_graded": "Нито едно президентско проучване на агенцията не може да се сравни с резултат от първи тур — затова няма оценка на точността. Проучванията са по-долу.",
+  "presidential_upcoming_title": "Предстоящи президентски избори — {{date}}",
+  "presidential_upcoming_hint": "Всички публикувани проучвания за предстоящия първи тур — гласуване за кандидатските двойки. Без оценка на точността, докато няма резултат.",
+  "presidential_upcoming_days_one": "Остава {{count}} ден.",
+  "presidential_upcoming_days_other": "Остават {{count}} дни.",
+  "presidential_upcoming_days_estimated_one": "Очаквана дата — остава около {{count}} ден.",
+  "presidential_upcoming_days_estimated_other": "Очаквана дата — остават около {{count}} дни.",
+  "presidential_upcoming_note": "Агенциите публикуват при различни бази, затова всеки ред остава в своята и редовете не се осредняват.",
+  "presidential_upcoming_fieldwork": "Терен",
+  "presidential_upcoming_undecided": "Нерешили",
+  "presidential_upcoming_base": "База",
+  "presidential_upcoming_other_one": "Още {{count}} проучване ({{agencies}}) пита за друго — подкрепа за кандидат на партия или потенциал на личности — и не е в таблицата.",
+  "presidential_upcoming_other_other": "Още {{count}} проучвания ({{agencies}}) питат за друго — подкрепа за кандидат на партия или потенциал на личности — и не са в таблицата."
 }

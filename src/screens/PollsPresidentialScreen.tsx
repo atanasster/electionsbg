@@ -18,6 +18,7 @@ import { localDate } from "@/data/utils";
 import { formatDecimal } from "@/lib/currency";
 import { agencyDisplayName, useAgencies } from "@/data/polls/useAgencies";
 import {
+  usePresidentialPollDetails,
   usePresidentialPollsAccuracy,
   usePresidentialPollsList,
 } from "@/data/presidential/usePresidentialPolls";
@@ -34,6 +35,7 @@ import { PollsRaceToggle } from "./polls/PollsRaceToggle";
 import { PollsSectionHeader } from "./polls/PollsSectionHeader";
 import { PresidentialHistory } from "./polls/PresidentialHistory";
 import { PresidentialPollsSection } from "./polls/PresidentialPollsSection";
+import { PresidentialUpcomingPolls } from "./polls/PresidentialUpcomingPolls";
 
 const Stat: FC<{ label: string; children: React.ReactNode }> = ({
   label,
@@ -53,6 +55,7 @@ export const PollsPresidentialScreen: FC = () => {
   const navigate = useNavigate();
   const aq = usePresidentialPollsAccuracy();
   const pq = usePresidentialPollsList();
+  const dq = usePresidentialPollDetails();
   const { data: agencyList } = useAgencies();
 
   const cycles = useMemo(() => aq.data?.cycles ?? [], [aq.data]);
@@ -88,6 +91,7 @@ export const PollsPresidentialScreen: FC = () => {
       <Title description={t("polls_presidential_description")}>{title}</Title>
       <section className="pb-12">
         <PollsRaceToggle race="presidential" />
+        <PresidentialUpcomingPolls polls={polls} details={dq.data ?? []} />
 
         <PollsSectionHeader
           icon={<Globe2 className="h-3.5 w-3.5" />}

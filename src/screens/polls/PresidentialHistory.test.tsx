@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen, within, fireEvent } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
@@ -45,7 +46,9 @@ function show(
         new QueryClient({ defaultOptions: { queries: { retry: false } } })
       }
     >
-      <MemoryRouter initialEntries={[path]}>{component}</MemoryRouter>
+      <MemoryRouter initialEntries={[path]}>
+        <TooltipProvider>{component}</TooltipProvider>
+      </MemoryRouter>
     </QueryClientProvider>,
   );
 }

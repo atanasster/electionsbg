@@ -159,5 +159,17 @@
   "presidential_agency_mae_sub": "round-one average",
   "presidential_agency_leader_called": "Leader called",
   "presidential_agency_candidate_bias": "Bias by candidate (top 5)",
-  "presidential_agency_not_graded": "None of this agency's presidential polls can be compared with a round-one result, so there is no accuracy grade. The polls are below."
+  "presidential_agency_not_graded": "None of this agency's presidential polls can be compared with a round-one result, so there is no accuracy grade. The polls are below.",
+  "presidential_upcoming_title": "Upcoming presidential election — {{date}}",
+  "presidential_upcoming_hint": "Every published poll for the upcoming first round — vote intention for the tickets. No accuracy grade until there is a result.",
+  "presidential_upcoming_days_one": "{{count}} day to go.",
+  "presidential_upcoming_days_other": "{{count}} days to go.",
+  "presidential_upcoming_days_estimated_one": "Estimated date — about {{count}} day to go.",
+  "presidential_upcoming_days_estimated_other": "Estimated date — about {{count}} days to go.",
+  "presidential_upcoming_note": "Agencies publish on different bases, so each row keeps its own and rows are not averaged.",
+  "presidential_upcoming_fieldwork": "Fieldwork",
+  "presidential_upcoming_undecided": "Undecided",
+  "presidential_upcoming_base": "Base",
+  "presidential_upcoming_other_one": "{{count}} more poll ({{agencies}}) asks something else — support for a party's candidate or personal potential — and is not in the table.",
+  "presidential_upcoming_other_other": "{{count}} more polls ({{agencies}}) ask something else — support for a party's candidate or personal potential — and are not in the table."
 }

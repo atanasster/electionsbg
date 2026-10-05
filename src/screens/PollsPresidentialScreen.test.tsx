@@ -18,6 +18,7 @@ const pollsRef = vi.hoisted(() => ({ current: [] as Poll[] }));
 vi.mock("@/data/presidential/usePresidentialPolls", () => ({
   usePresidentialPollsAccuracy: () => ({ data: accuracyRef.current }),
   usePresidentialPollsList: () => ({ data: pollsRef.current }),
+  usePresidentialPollDetails: () => ({ data: [] }),
 }));
 vi.mock("@/data/polls/useAgencies", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/data/polls/useAgencies")>()),
