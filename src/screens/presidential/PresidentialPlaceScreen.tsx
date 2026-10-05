@@ -23,20 +23,24 @@
 // EKATTE codes (e.g. `SFO18` is Etropole everywhere), so `PlaceHeader`'s own resolution works
 // without this screen doing anything special.
 //
-// `section` and `abroad` keep the ORIGINAL bare header instead — `PlaceLevel` has no "abroad"
-// member at all (one page, no PlaceRef), and a section's PARENT SETTLEMENT id is not directly
-// in this screen's props (the route only carries the polling-station `code`), so `PlaceHeader`'s
-// breadcrumb has nothing to drill up to. Both simply render no pills, same as any place where
-// fewer than two views resolve. The cost is stated rather than hidden: a reader on either level
-// gets a link back to the country page and nothing upward, so the parent/child navigation
-// `ElectionResultsShell` does not draw is missing there. Closing it properly means a parent link
-// built from `surface.place.parent`, which the artifact already carries and nothing reads.
+// `section` and `abroad` use it too, as their parliamentary twins do:
+//   - abroad is `PlaceHeader`'s region level at the МИР-32 oblast („Извън страната"), which
+//     `presidentialViewUrl` already maps back to `/presidential/:cycle/abroad`;
+//   - a section needs its PARENT SETTLEMENT for the breadcrumb, and the route carries only the
+//     polling-station code. The artifact names it: every section ballot's `completeResult`
+//     links to the settlement page the producer placed that section in. That link is read
+//     (`parentEkatteOf`) rather than a second placement being derived here, so the header and
+//     the „see the complete result" link cannot disagree about where the section is. Until it
+//     loads — or for an abroad section, whose parent is no settlement — the header names the
+//     section alone, which is the honest partial.
 //
 // ⚠ THE ABROAD ID IS A CONSTANT, NOT A ROUTE PARAM. `/presidential/:cycle/abroad` carries no
 // id; the artifact needs one, and `PRESIDENTIAL_ABROAD_ID` is the single value the producer and
 // this screen agree on. A value invented at either end is a page fetching a file nobody wrote.
 
 import { FC, useMemo } from "react";
+import { useElectionSurface } from "@/data/elections/useElectionSurface";
+import { ABROAD_OBLAST } from "@/data/local/abroadOblast";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
@@ -108,6 +112,15 @@ const FACT_SLOTS: Record<PresidentialPlaceLevel, number> = {
  *  here would put the registry — and the `import()` edges to every adapter — into this screen's
  *  static closure, which is the one thing the lazy indirection exists to prevent. The pairing is
  *  held by `presidentialMaps.test.ts` instead, so the two cannot drift silently. */
+/** The settlement a section artifact places its section in — read off the producer's own
+ *  „complete result" link, which points at that settlement's page. `undefined` for a section
+ *  whose link is not a settlement (abroad). */
+const parentEkatteOf = (s: ElectionSurfaceV1): string | undefined => {
+  const to =
+    s.destinations?.completeResult?.to ?? s.ballots[0]?.completeResult?.to;
+  return to?.match(/\/settlement\/(\d+)$/)?.[1];
+};
+
 /** Which child grain a level's „Топ …" geography tile ranks — the same grain its map draws. */
 const CHILD_GRAIN: Partial<
   Record<PresidentialPlaceLevel, "municipality" | "settlement">
@@ -141,6 +154,15 @@ export const PresidentialPlaceScreen: FC<{
   const [round, setRound] = usePresidentialRound([1, 2]);
   const grain = CHILD_GRAIN[level];
   const hasChildTop = useHasChildTop(cycle ?? "", round, id, grain);
+  // ⚠ THE SAME QUERY THE RESULTS BOUNDARY MAKES (React Query dedupes it), read here only for
+  // the section's parent settlement. Every other level passes no id, which is `loading` with no
+  // request — hook order requires the call either way.
+  const sectionSurface = useElectionSurface({
+    kind: "presidential",
+    level: "section",
+    cycle: cycle ?? "",
+    id: level === "section" ? id : undefined,
+  });
 
   if (!cycle) return null;
 
@@ -151,17 +173,25 @@ export const PresidentialPlaceScreen: FC<{
   // here — a route param is `string | undefined` until React Router has matched — and that
   // is the one case with nothing to name, which the boundary then reports as `loading`.
   const name = id ? placeLabel(level, id) : "";
+  const sectionParent =
+    sectionSurface.status === "ready"
+      ? parentEkatteOf(sectionSurface.surface)
+      : undefined;
 
   // The header's PlaceRef, for the three levels this screen has an exact id for — see the
   // file header for why `section` and `abroad` keep the bare fallback below instead.
   const placeRef: PlaceRef | null =
-    id && level === "region"
-      ? { level: "region", oblast: id }
-      : id && level === "municipality"
-        ? { level: "municipality", obshtina: id }
-        : id && level === "settlement"
-          ? { level: "settlement", ekatte: id }
-          : null;
+    level === "abroad"
+      ? { level: "region", oblast: ABROAD_OBLAST }
+      : id && level === "section"
+        ? { level: "section", ekatte: sectionParent }
+        : id && level === "region"
+          ? { level: "region", oblast: id }
+          : id && level === "municipality"
+            ? { level: "municipality", obshtina: id }
+            : id && level === "settlement"
+              ? { level: "settlement", ekatte: id }
+              : null;
 
   // ⚠ THE ROUND-1 DATE, NOT THE CYCLE ID — `cycleIsoDate` returns "" for a `_pvr` folder and
   // `formatDate` would print the folder name verbatim. A cycle the build does not catalogue
@@ -176,6 +206,7 @@ export const PresidentialPlaceScreen: FC<{
         <PlaceHeader
           active="presidential"
           level={placeRef.level}
+          sectionCode={level === "section" ? id : undefined}
           ekatte={placeRef.ekatte}
           obshtina={placeRef.obshtina}
           oblast={placeRef.oblast}
