@@ -467,6 +467,7 @@ export type PlaceDigestCellKind = "figure" | "link";
  *  fixed here is the SHAPE — a union, so the gate can enumerate it. */
 export type PlaceDigestDescriptorKey =
   | "place_digest_governance_desc"
+  | "place_digest_governance_region_desc"
   | "place_digest_presidential_desc"
   | "place_digest_consumption_desc";
 

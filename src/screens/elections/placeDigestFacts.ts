@@ -132,9 +132,13 @@ export const linkDigestCell = (
     kind: "link",
     view,
     to,
+    // ⚠ AN OBLAST HAS NO MUNICIPAL COUNCIL, so the region page's governance cell says only what
+    // `/governance/region/:oblast` actually holds rather than promising a council.
     descriptorKey:
       view === "governance"
-        ? "place_digest_governance_desc"
+        ? place.level === "region"
+          ? "place_digest_governance_region_desc"
+          : "place_digest_governance_desc"
         : "place_digest_consumption_desc",
   };
 };

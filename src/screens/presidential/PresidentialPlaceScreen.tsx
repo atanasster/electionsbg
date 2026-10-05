@@ -127,6 +127,12 @@ const FACT_SLOTS: Record<PresidentialPlaceLevel, number> = {
  *  here would put the registry — and the `import()` edges to every adapter — into this screen's
  *  static closure, which is the one thing the lazy indirection exists to prevent. The pairing is
  *  held by `presidentialMaps.test.ts` instead, so the two cannot drift silently. */
+/** A surface query's payload when it has one. */
+const readySurface = (
+  s: ReturnType<typeof useElectionSurface>,
+): ElectionSurfaceV1 | undefined =>
+  s.status === "ready" ? s.surface : undefined;
+
 /** The settlement a section artifact places its section in — read off the producer's own
  *  „complete result" link, which points at that settlement's page. `undefined` for a section
  *  whose link is not a settlement (abroad). */
@@ -178,8 +184,10 @@ export const PresidentialPlaceScreen: FC<{
     cycle: cycle ?? "",
     id: level === "section" ? id : undefined,
   });
-  // ⚠ THE DIGEST („Това място накратко") — on the município and settlement pages, as on their
-  // parliamentary twins (`/settlement/:obshtina`, `/sections/:ekatte`). Every hook is called at
+  // ⚠ THE DIGEST („Това място накратко") — on the region, município and settlement pages. The
+  // last two mirror their parliamentary twins (`/settlement/:obshtina`, `/sections/:ekatte`); the
+  // region page carries it too, with no Местни cell — there is no mayor at oblast level, and
+  // `localDigestCell` drops a cell with no mayor rather than stating a vacancy. Every hook is called at
   // every level (hook order) and is handed no id where it does not apply, which is no request.
   // The two foreign figures come from what their own tabs render — the parliamentary surface
   // (a fetched artifact for a settlement, the shared município builder for a município) and the
@@ -187,11 +195,14 @@ export const PresidentialPlaceScreen: FC<{
   // one click away names another is wrong about a named place.
   const isSettlement = level === "settlement" && !!id;
   const isMunicipality = level === "municipality" && !!id;
+  const isRegion = level === "region" && !!id;
   const digestLevel = isSettlement
     ? "settlement"
     : isMunicipality
       ? "municipality"
-      : undefined;
+      : isRegion
+        ? "region"
+        : undefined;
   const { selected: parliamentaryCycle } = useElectionContext();
   const localCycle = useLatestLocalCycle();
   const { findSettlement } = useSettlementsInfo();
@@ -204,11 +215,23 @@ export const PresidentialPlaceScreen: FC<{
   const parliamentaryMunicipality = useParliamentaryMunicipalitySurface(
     isMunicipality ? id : undefined,
   );
+  // ⚠ THE ARTIFACT `/municipality/:oblast` RENDERS — the parliamentary region level is an
+  // artifact, not a canonical shard, so this is the same fetch that page makes.
+  const parliamentaryRegion = useElectionSurface({
+    kind: "parliamentary",
+    level: "region",
+    cycle: parliamentaryCycle,
+    id: isRegion ? id : undefined,
+  });
+  const localLevel =
+    digestLevel === "settlement" || digestLevel === "municipality"
+      ? digestLevel
+      : undefined;
   const local = useElectionSurface({
     kind: "local",
-    level: digestLevel ?? "settlement",
+    level: localLevel ?? "settlement",
     cycle: localCycle,
-    id: digestLevel ? id : undefined,
+    id: localLevel ? id : undefined,
   });
   const digest = useMemo(() => {
     if (!digestLevel || !id || !cycle) return undefined;
@@ -221,16 +244,18 @@ export const PresidentialPlaceScreen: FC<{
               ekatte: id,
               oblast: findSettlement(id)?.oblast,
             }
-          : { level: "municipality", obshtina: id },
+          : digestLevel === "municipality"
+            ? { level: "municipality", obshtina: id }
+            : { level: "region", oblast: id },
       parliamentaryCycle,
       localCycle,
       presidentialCycle: cycle,
       winner: parliamentaryWinnerOf(
         digestLevel === "settlement"
-          ? parliamentarySettlement.status === "ready"
-            ? parliamentarySettlement.surface
-            : undefined
-          : parliamentaryMunicipality,
+          ? readySurface(parliamentarySettlement)
+          : digestLevel === "municipality"
+            ? parliamentaryMunicipality
+            : readySurface(parliamentaryRegion),
       ),
       local: localDigestFromSurface(
         local.status === "ready" ? local.surface : undefined,
@@ -243,6 +268,7 @@ export const PresidentialPlaceScreen: FC<{
     cycle,
     parliamentarySettlement,
     parliamentaryMunicipality,
+    parliamentaryRegion,
     local,
     parliamentaryCycle,
     localCycle,
