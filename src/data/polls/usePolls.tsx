@@ -1,11 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  Agency,
-  Poll,
-  PollDetail,
-  PollsAccuracy,
-  PollsAnalysis,
-} from "./pollsTypes";
+import { Poll, PollDetail, PollsAccuracy, PollsAnalysis } from "./pollsTypes";
 import { dataUrl } from "@/data/dataUrl";
 
 // Polls span elections, so these queries are not keyed on the selected election.
@@ -29,11 +23,8 @@ export const usePollDetails = () =>
     queryFn: () => fetchJson<PollDetail[]>("/polls/polls_details.json"),
   });
 
-export const useAgencies = () =>
-  useQuery({
-    queryKey: ["polls", "agencies"],
-    queryFn: () => fetchJson<Agency[]>("/polls/agencies.json"),
-  });
+// The registry is race-neutral and lives in its own module; re-exported for existing callers.
+export { useAgencies } from "./useAgencies";
 
 export const usePollsAccuracy = () =>
   useQuery({
