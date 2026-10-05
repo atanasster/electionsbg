@@ -423,6 +423,9 @@ const AGENCY_IMAGE_PATTERNS: Record<string, RegExp> = {
   ML: /(?:^|\/)storage1\/images\/articles\/item\d+\/pic\d+\/C\.(?:png|jpe?g)(?:[?#]|$)/i,
   SH: /\/(?:Buletin_|publ|page\d)[^/?#]*\.jpe?g(?:[?#]|$)/i,
   TR: /\/(?:Slide\d+|zadl\d*|Presentation-TREND-[^/?#]+|Trend-[^/?#]+)(?:-\d+)?\.png(?:[?#]|$)/i,
+  // Мяра's charts are numerically named uploads („2-1-1024x577.jpg");
+  // the post's feature image is word-named („vote-3569999_1280.jpg").
+  MY: /\/wp-content\/uploads\/\d{4}\/\d{2}\/\d+(?:-\d+)*(?:-\d+x\d+)?\.(?:png|jpe?g)(?:[?#]|$)/i,
   AR: /(?:\/userfiles\/image\/\d+_\d+\.gif(?:[?#]|$)|\/(?:Graph\d*(?:_?final)?|Chart_?\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$))/i,
 };
 

@@ -172,6 +172,26 @@ describe("polls corpus integrity", () => {
     expect(unlocked).toEqual([]);
   });
 
+  it("records a well-formed AI review whenever one is claimed (both families)", () => {
+    // docs/plans/polls-ai-review-v1.md — `locked.review` means polls:review
+    // promoted the poll on extractor/reader agreement. A malformed stamp is a
+    // claim nobody can audit.
+    const presidential = readJson<Poll[]>("presidential/polls.json");
+    const bad = [...polls, ...presidential]
+      .filter((p) => p.locked?.review !== undefined)
+      .filter(({ locked }) => {
+        const r = locked!.review!;
+        return (
+          r.kind !== "ai_agreement" ||
+          !r.model ||
+          !/^\d{4}-\d{2}-\d{2}T/.test(r.reviewedAt) ||
+          !/^[0-9a-f]{64}$/.test(r.draftHash)
+        );
+      })
+      .map((p) => p.id);
+    expect(bad).toEqual([]);
+  });
+
   it("cites a Wikipedia host only under third_party_consensus", () => {
     // Wikipedia is a cross-check, never a source. The three rows that name it
     // are agencies that archived no primary, verified across press citations.

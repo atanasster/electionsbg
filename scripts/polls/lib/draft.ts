@@ -40,6 +40,21 @@ interface InboxDraftCommon {
    *  zero accepted shares is still written" contract; the operator reviews
    *  this list rather than being told nothing was found. */
   refused: Refusal[];
+  /** Written by `polls:review` (docs/plans/polls-ai-review-v1.md). `accept`
+   *  stamps `locked.review` only when `verdict === "agree"` AND
+   *  `draftHash` still matches the draft — a hand edit after the review
+   *  voids the claim that the AI checked these exact numbers. */
+  aiReview?: AiReview;
+}
+
+export interface AiReview {
+  verdict: "agree" | "needs_human";
+  model: string;
+  reviewedAt: string;
+  /** `reviewDraftHash` of the draft as reviewed (excluding this field). */
+  draftHash: string;
+  /** Every disagreement / unverifiable item, human-readable. Empty on agree. */
+  diffs: string[];
 }
 
 export interface ParliamentaryInboxDraft extends InboxDraftCommon {

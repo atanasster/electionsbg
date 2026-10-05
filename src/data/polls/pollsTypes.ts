@@ -45,6 +45,17 @@ export type PollLock = {
     | "third_party_consensus";
   note?: string;
   lockedAt: string;
+  // WHO checked the numbers — orthogonal to `by`, which is the source's
+  // authority tier. Absent = a human reviewed the draft (every poll accepted
+  // before docs/plans/polls-ai-review-v1.md). Present = `polls:review`
+  // promoted it because the deterministic extractor and an independent
+  // Claude reading of the same capture agreed on every figure.
+  review?: {
+    kind: "ai_agreement";
+    model: string;
+    reviewedAt: string;
+    draftHash: string;
+  };
   // Recorded by `polls:accept --replace` when a locked poll is overwritten —
   // decision 7. Absent on every poll that has never been superseded.
   // Deliberately the FULL prior `Poll` (not a flattened summary) — a poll

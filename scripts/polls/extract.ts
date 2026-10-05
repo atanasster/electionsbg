@@ -8,6 +8,7 @@ import { isExitPollTitle } from "./agencies/wp_lister";
 import { extractAgencyPresidential } from "./extractors/agency_presidential";
 import { extractAlphaResearch } from "./extractors/alpha_research";
 import { extractGlobalMetrics } from "./extractors/global_metrics";
+import { extractMyaraPresidential } from "./extractors/myara_presidential";
 import { extractTrend } from "./extractors/trend";
 import { extractTrendPresidential } from "./extractors/trend_presidential";
 import { flagReader } from "./lib/argv";
@@ -89,8 +90,9 @@ const EXTRACTORS: Record<string, Extractor> = {
   TR: extractJoint("TR"),
   AR: extractJoint("AR"),
   GM: extractGlobalMetrics,
+  MY: extractMyaraPresidential,
   ...Object.fromEntries(
-    ["ML", "SH", "MY", "GIB"].map((agency) => [
+    ["ML", "SH", "GIB"].map((agency) => [
       agency,
       (dir: string, pub: string) => extractAgencyPresidential(agency, dir, pub),
     ]),

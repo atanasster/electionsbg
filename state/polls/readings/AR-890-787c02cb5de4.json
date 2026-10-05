@@ -1,0 +1,122 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "890",
+  "captureSha256": "787c02cb5de413db093a544d6aa423fda17c3e417c041c09f8f8bd300ae8d5f3",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-05T17:06:40Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2014-09-28",
+      "fieldworkEnd": "2014-09-30",
+      "fieldworkQuote": "Изследването е проведено в периода 28–30.09. 2014г.",
+      "respondents": 1100,
+      "respondentsQuote": "сред 1100 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "forecast",
+      "methodology": {
+        "bg": "Национално представително проучване чрез пряко стандартизирано интервю по домовете; стратифицирана двустепенна извадка с квота, 1100 пълнолетни граждани.",
+        "en": "Nationally representative survey via face-to-face standardised home interviews; stratified two-stage quota sample of 1,100 adults."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю по домовете на анкетираните лица.",
+      "sponsor": "Алфа Рисърч (собствени средства)",
+      "sponsorQuote": "провежда със собствени средства",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "% от твърдо решилите да гласуват",
+          "answers": [
+            {
+              "label": "ГЕРБ",
+              "kind": "choice",
+              "value": 34.1,
+              "quote": "ГЕРБ 34.1% 98-100",
+              "image": null
+            },
+            {
+              "label": "БСП",
+              "kind": "choice",
+              "value": 19.1,
+              "quote": "БСП 19.1% 53-55",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 15.4,
+              "quote": "ДПС 15.4% 44-46",
+              "image": null
+            },
+            {
+              "label": "Реформаторски блок",
+              "kind": "choice",
+              "value": 6.0,
+              "quote": "Реформаторски блок 6.0% 16-18",
+              "image": null
+            },
+            {
+              "label": "България без цензура",
+              "kind": "choice",
+              "value": 6.0,
+              "quote": "България без цензура 6.0% 16-18",
+              "image": null
+            },
+            {
+              "label": "Патриотичен фронт",
+              "kind": "choice",
+              "value": 4.2,
+              "quote": "Патриотичен фронт 4.2% 12",
+              "image": null
+            },
+            {
+              "label": "АТАКА",
+              "kind": "choice",
+              "value": 3.9,
+              "quote": "АТАКА 3.9%",
+              "image": null
+            },
+            {
+              "label": "АБВ",
+              "kind": "choice",
+              "value": 3.8,
+              "quote": "АБВ 3.8%",
+              "image": null
+            },
+            {
+              "label": "Движение 21",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": "Движение 21 1.9%",
+              "image": null
+            },
+            {
+              "label": "ЗЕЛЕНИТЕ",
+              "kind": "choice",
+              "value": 0.9,
+              "quote": "ЗЕЛЕНИТЕ 0.9%",
+              "image": null
+            },
+            {
+              "label": "\"Десните\"",
+              "kind": "choice",
+              "value": 0.8,
+              "quote": "\"Десните\" 0.8%",
+              "image": null
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 3.9,
+              "quote": "Други 3.9%",
+              "image": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

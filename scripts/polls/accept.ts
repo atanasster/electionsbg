@@ -58,6 +58,7 @@ import { validateQuestions } from "./lib/question_validation";
 import { isProvisionalPollId } from "./lib/draft_identity";
 import { presidentialSurveySignature } from "./lib/survey_identity";
 import { recordAcceptance } from "./lib/publication_ledger";
+import { aiReviewStamp } from "./lib/ai_review";
 import type {
   InboxDraft,
   ParliamentaryInboxDraft,
@@ -389,6 +390,19 @@ const buildLockOrRefuse = (
   };
 };
 
+/** docs/plans/polls-ai-review-v1.md — record that `polls:review` promoted
+ *  this draft on agreement, only while its review still matches it. */
+const stampAiReview = (
+  locked: NonNullable<Poll["locked"]>,
+  draft: InboxDraft,
+): void => {
+  const review = aiReviewStamp(draft);
+  if (!review) return;
+  locked.review = review;
+  locked.note =
+    "auto-accepted: extractor and an independent AI reading agree; evidence in provenance";
+};
+
 const replacedNoteFor = (existing: Poll | undefined): string =>
   !existing
     ? ""
@@ -475,6 +489,7 @@ const acceptParliamentary = (
     process.exitCode = 1;
     return;
   }
+  stampAiReview(locked, draft);
   // Non-null: validateDraft above already confirmed each of these is a
   // non-empty string/object — TS cannot see across that call, since
   // DraftPoll (lib/draft.ts) marks every one of them optional.
@@ -669,6 +684,7 @@ const acceptPresidential = (
     process.exitCode = 1;
     return;
   }
+  stampAiReview(locked, draft);
   // Non-null: validatePresidentialDraft above already confirmed each of
   // these — see validateDraft's identical comment above.
   const poll: Poll = {

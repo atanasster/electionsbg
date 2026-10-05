@@ -160,6 +160,47 @@ Drafts are written under data/polls/_inbox/. A provisional publication-based
 ID must be resolved from supported fieldwork metadata before acceptance.
 A refusal remains visible in the ledger/backlog on subsequent unchanged runs.
 
+### Step 1a — AI review: auto-accept on independent agreement
+
+Run this BEFORE the manual review below; it clears every draft the
+extractor got fully right, so the human pass only sees the rest.
+Plan: `docs/plans/polls-ai-review-v1.md`. No API key — the reading is done by
+subagents in this session, on the operator's subscription.
+
+```bash
+npm run polls:review -- --prepare      # JSON list: pollId, captureDir, captureSha256, readingPath
+```
+
+For EVERY task listed, launch one `general-purpose` subagent (in parallel, one
+message) with this prompt — fill the four values from the task, nothing else:
+
+> Read `.claude/skills/update-polls/ai-reading.md` and follow it exactly.
+> Capture directory: `<captureDir>`. agencyId `<agencyId>`, pubId `<pubId>`,
+> captureSha256 `<captureSha256>`. Write your reading to `<readingPath>`.
+
+Do NOT give the subagent the draft, its values, or this conversation's view
+of the poll — independence is the whole guarantee. Do not write or edit a
+reading yourself. When all subagents have finished:
+
+```bash
+npm run polls:review                   # compare; accept every agreeing draft
+```
+
+- `ACCEPTED` — promoted with `locked.review = { kind: "ai_agreement", … }`,
+  scored like any other poll. Nothing more to do.
+- `NEEDS HUMAN` — the diffs are printed and written to the draft's
+  `aiReview`. Typical: the extractor refused something (chart-only values,
+  ticket phrasing), a share differs, a residual was missed. Continue with the
+  manual review below for these. The reading in `state/polls/readings/` is a
+  ready source for pre-filling: copy from it ONLY values you have confirmed
+  against the capture yourself, then accept with `polls:accept` (no
+  `locked.review` is stamped once a human has edited the draft — correct).
+- `NO READING` — a subagent failed or wrote an invalid file; re-run that one.
+
+The script never auto-accepts: a provisional id, a `.vN` correction, an
+existing locked poll (`--replace`), an unclear genre, any extractor refusal,
+or a methodology whose Bulgarian quote is not in the captured text.
+
 **Print the evidence table and review each draft before accepting.** For
 every file under `data/polls/_inbox/`:
 
@@ -464,10 +505,11 @@ do.
 
 ## Common pitfalls
 
-- **Never run `polls:accept` on a whole batch unattended.** Decision 7's
-  whole point is a human reviews the evidence table once per run — an
-  `--auto-accept` mode is explicitly future work (Tier 5, ⚑ §11.2), not
-  something to fake by scripting repeated `polls:accept` calls.
+- **Never run `polls:accept` on a whole batch unattended.** The ONLY
+  unattended path is `polls:review` (Step 1a), which accepts a draft solely
+  when an independent reading agrees on every figure. Do not fake it by
+  scripting repeated `polls:accept` calls, and never write a reading
+  yourself from a draft you have seen.
 - **`data/polls/polls.json`/`polls_details.json` stay MINIFIED, single-line
   JSON** — `polls:accept`/`polls:restamp` already write them that way;
   never hand-format them. `_inbox/*.json` is pretty-printed on purpose (for
@@ -491,6 +533,8 @@ do.
 ```bash
 npm run polls:fetch                                       # Step 1 (capture pending publications)
 npm run polls:extract                                     # Step 1 (text/OCR + extractor + evidence gate)
+npm run polls:review -- --prepare                          # Step 1a (tasks for reader subagents)
+npm run polls:review                                       # Step 1a (auto-accept on agreement)
 #    review data/polls/_inbox/*.json by hand               # Step 1
 npm run polls:accept -- <pollId>                           # Step 1 (promote a reviewed draft)
 npm run polls:restamp -- --race parliamentary --to <iso>   # Step 1.5 (only when a vote is scheduled)

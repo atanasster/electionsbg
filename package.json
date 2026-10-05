@@ -303,6 +303,7 @@
     "polls:extract": "tsx ./scripts/polls/extract.ts",
     "polls:accept": "tsx ./scripts/polls/accept.ts",
     "polls:exclude": "tsx ./scripts/polls/exclude.ts",
+    "polls:review": "tsx ./scripts/polls/review.ts",
     "polls:restamp": "tsx ./scripts/polls/restamp.ts",
     "polls:crosscheck": "tsx ./scripts/polls/crosscheck.ts",
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",
