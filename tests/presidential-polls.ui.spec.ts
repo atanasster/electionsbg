@@ -166,8 +166,12 @@ test("filters, chart/table agreement, keyboard access and provenance downloads",
 });
 
 test("election round two and explicit no-coverage state", async ({ page }) => {
-  await page.goto("/en/presidential/2016_11_06_pvr?pollRound=2");
-  const section = page.locator("#presidential-polls");
+  // The campaign explorer lives on the polls hub's presidential side; the cycle page carries
+  // only the accuracy cards and links here filtered to its cycle.
+  await page.goto(
+    "/en/polls/presidential?pollCycle=2016_11_06_pvr&pollRound=2",
+  );
+  const section = page.locator("#root");
   await expect(
     section.getByRole("table", {
       name: "All displayed observations",
@@ -176,15 +180,27 @@ test("election round two and explicit no-coverage state", async ({ page }) => {
   ).toContainText("49.6%");
   await expect(section).toContainText("39.1%");
   await expect(section).toContainText("11.3%");
-  await page.goto("/en/presidential/2001_11_11_pvr");
-  await expect(page.locator("#presidential-polls")).toContainText(
-    "No accepted",
-  );
+  await page.goto("/en/polls/presidential?pollCycle=2001_11_11_pvr");
+  await expect(page.locator("#root")).toContainText("No accepted");
   await expect(
     page
-      .locator("#presidential-polls summary")
+      .locator("#root summary")
       .filter({ hasText: "Coverage and methodology" }),
   ).toBeVisible();
+});
+
+test("the cycle page links its polls cards to the hub filtered to that cycle", async ({
+  page,
+}) => {
+  await page.goto("/en/presidential/2021_11_14_pvr");
+  const section = page.locator("#presidential-polls");
+  await expect(section).toContainText("Trend");
+  await expect(
+    section.getByRole("link", { name: /See details/ }).first(),
+  ).toHaveAttribute(
+    "href",
+    /\/polls\/presidential\?.*pollCycle=2021_11_14_pvr/,
+  );
 });
 
 test("failed data fetch offers a working retry", async ({ page }) => {

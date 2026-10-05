@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { initTestI18n } from "./dashboard/testI18n";
@@ -225,7 +225,7 @@ describe("PollsScreen", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("renders the presidential section once the presidential corpus has at least one poll", () => {
+  it("opens on the parliamentary side of the race toggle and leaves presidential polls to /polls/presidential", () => {
     pollsRef.current = [];
     agenciesRef.current = [AGENCY_GM];
     accuracyRef.current = emptyAccuracy();
@@ -243,22 +243,16 @@ describe("PollsScreen", () => {
         cycle: null,
       },
     ];
-    presDetailsRef.current = [
-      {
-        pollId: "gm-2026-07-11",
-        agencyId: "GM",
-        candidateKey: "provisional:илияна-йотова",
-        candidateName_bg: "Илияна Йотова",
-        candidateName_en: "Iliana Yotova",
-        nominator: null,
-        placeholderFor: null,
-        support: 30,
-      },
-    ];
 
     renderScreen();
 
-    expect(screen.getByText("Президентски проучвания")).toBeInTheDocument();
-    expect(screen.getByText("Илияна Йотова")).toBeInTheDocument();
+    const toggle = screen.getByRole("group", { name: "Вид избори" });
+    expect(
+      within(toggle).getByRole("button", { name: "Парламентарни" }),
+    ).toHaveAttribute("aria-pressed", "true");
+    expect(
+      within(toggle).getByRole("button", { name: "Президентски" }),
+    ).toHaveAttribute("aria-pressed", "false");
+    expect(screen.queryByText("Глобал Метрикс")).toBeNull();
   });
 });

@@ -16,7 +16,7 @@ import { PollsLeaderboardTile } from "./polls/PollsLeaderboardTile";
 import { PollsLatestElectionTile } from "./polls/PollsLatestElectionTile";
 import { PollsMethodologyTile } from "./polls/PollsMethodologyTile";
 import { PollsSectionHeader } from "./polls/PollsSectionHeader";
-import { PresidentialPollsSection } from "./polls/PresidentialPollsSection";
+import { PollsRaceToggle } from "./polls/PollsRaceToggle";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -75,6 +75,7 @@ export const PollsScreen: FC = () => {
     <>
       <Title description={t("polls_description")}>{title}</Title>
       <section className="pb-12">
+        <PollsRaceToggle race="parliamentary" />
         {/* All-time section: cross-election aggregate stats */}
         <PollsSectionHeader
           icon={<Globe2 className="h-3.5 w-3.5" />}
@@ -176,14 +177,6 @@ export const PollsScreen: FC = () => {
             </div>
           )}
         </div>
-
-        {/* Tier 4 T4.4 Increment B — kept as a SECTION on the shared hub, not its own route,
-            per the plan's own recommendation (decision 10/11, §11 item 3): a dedicated
-            `/polls/presidential` route is worth minting only once the 2026 cycle carries
-            ≥5 polls. `PresidentialPollsSection` renders its OWN header as part of the same
-            self-hiding unit — never mounted here unconditionally — so this never orphans a
-            header above an empty corpus while the family is still thin. */}
-        <PresidentialPollsSection agencies={agencies} />
 
         <div className="text-[10px] text-muted-foreground text-center mt-6">
           {t("polls_data_source")}

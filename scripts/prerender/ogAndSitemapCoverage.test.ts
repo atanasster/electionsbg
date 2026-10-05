@@ -246,6 +246,8 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
   const DYNAMIC_STATIC_PAGES: Record<string, string> = {
     votes: "buildVotesRoutes() — data/parliament/votes/index.json",
     polls: "buildPollsRoutes() — public/polls/agencies.json",
+    // The presidential side of the polls hub's race toggle — emitted by the same producer.
+    "polls/presidential": "buildPollsRoutes() — public/polls/agencies.json",
     articles: "buildArticleRoutes() — public/articles/index.json",
     // The /council HUB is emitted by buildCouncilRoutes() rather than declared
     // in routes.ts, because its whole argument is a COVERAGE figure ("16 of

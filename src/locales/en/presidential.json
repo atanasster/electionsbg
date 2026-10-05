@@ -155,5 +155,6 @@
   "presidential_flow_section": "Vote transfer",
   "presidential_polls_tile_hint": "Each agency's last pre-election poll against the round-one result. MAE = mean absolute error in percentage points over the candidates the poll names; undecideds are redistributed proportionally, as for parliamentary elections.",
   "presidential_polls_trend_hint": "Agencies' average round-one MAE at each presidential election. Click a bar to open that election.",
-  "presidential_polls_headline": "Most accurate in round one: {{agency}} — MAE {{mae}} pp, {{days}} days before the vote. {{winner}} won round one with {{pct}}."
+  "presidential_polls_headline": "Most accurate in round one: {{agency}} — MAE {{mae}} pp, {{days}} days before the vote. {{winner}} won round one with {{pct}}.",
+  "presidential_polls_trend_cycle": "Election"
 }

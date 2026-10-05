@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import i18n from "i18next";
@@ -115,7 +115,7 @@ const renderTiles = () => {
       </MemoryRouter>
     </QueryClientProvider>,
   );
-  return { ...view, client };
+  return view;
 };
 
 beforeEach(() => {
@@ -163,18 +163,19 @@ describe("PresidentialPollsTile", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders nothing on a failed fetch, leaving the alert to the explorer", async () => {
+  it("shows one retryable alert on a failed fetch, never the unscored message", async () => {
     vi.spyOn(globalThis, "fetch").mockResolvedValue(
       new Response("", { status: 503 }),
     );
-    const { container, client } = renderTiles();
-    // Settled ERROR, not still pending: both render nothing, so only the error path is tested.
-    await waitFor(() =>
-      expect(
-        client.getQueryState(["presidential_polls", "accuracy"])?.status,
-      ).toBe("error"),
-    );
-    expect(container.textContent).toBe("");
+    renderTiles();
+    expect(await screen.findAllByRole("alert")).toHaveLength(1);
+    expect(
+      screen.getByText(bgCorpus.pp_history_load_error),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: bgCorpus.pp_history_retry }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(bgCorpus.presidential_polls_unscored)).toBeNull();
   });
 });
 

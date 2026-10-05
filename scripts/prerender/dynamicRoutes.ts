@@ -81,6 +81,7 @@ import {
   buildPollsAgencyBody,
   buildPresidentialAgencyPollsSection,
   buildPollsBody,
+  buildPresidentialPollsHubBody,
   buildSectionBody,
   buildSectionsListBody,
   buildSettlementBody,
@@ -2742,6 +2743,42 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
       ],
     },
   ];
+  {
+    const path = "polls/presidential";
+    const title = "Точност на президентските проучвания | Наясно";
+    const description =
+      "Колко точно социологическите агенции предвидиха първия тур на президентските избори в България — средна абсолютна грешка по агенция и по избори.";
+    const titleEn = "Presidential polling accuracy | Naiasno";
+    const descriptionEn =
+      "How accurately polling agencies predicted round one of Bulgaria's presidential elections — mean absolute error by agency and by election.";
+    result.push({
+      path,
+      title,
+      description,
+      ogImage: "/og/polls.png",
+      bodyHtml: buildPresidentialPollsHubBody(publicFolder),
+      jsonLd: [
+        buildWebPageLd({ title, description, url: `${SITE_URL}/${path}` }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Социологически проучвания", url: `${SITE_URL}/polls` },
+          { name: "Президентски", url: `${SITE_URL}/${path}` },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: buildPresidentialPollsHubBody(publicFolder, "en"),
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: `${SITE_URL}/en/${path}`,
+          }),
+        ],
+      },
+    });
+  }
   for (const a of agencies) {
     const presidentialPath = `polls/${a.id}/presidential`;
     const presidentialTitle = `${a.name_bg} — президентски проучвания | Наясно`;

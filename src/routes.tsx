@@ -1312,7 +1312,14 @@ const PollsScreen = lazy(() =>
     default: m.PollsScreen,
   })),
 );
-const PollsAgencyPresidentialScreen = lazy(() =>
+// ⚠ `withBundle("presidential", …)` — both presidential polls pages render the presidential
+// accuracy cards' strings, which live in that deferred locale bundle.
+const PollsPresidentialScreen = withBundle("presidential", () =>
+  import("./screens/PollsPresidentialScreen").then((m) => ({
+    default: m.PollsPresidentialScreen,
+  })),
+);
+const PollsAgencyPresidentialScreen = withBundle("presidential", () =>
   import("./screens/PollsAgencyPresidentialScreen").then((m) => ({
     default: m.PollsAgencyPresidentialScreen,
   })),
@@ -4244,6 +4251,16 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <PollsScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* ⚠ A STATIC SEGMENT, ranked above `polls/:agencyId` by React Router — the race
+              toggle's presidential side of the hub, not an agency called „presidential". */}
+          <Route
+            path="polls/presidential"
+            element={
+              <LayoutScreen>
+                <PollsPresidentialScreen />
               </LayoutScreen>
             }
           />

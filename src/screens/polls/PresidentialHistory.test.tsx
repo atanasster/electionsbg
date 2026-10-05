@@ -91,9 +91,10 @@ describe("presidential history", () => {
     });
     expect(within(party).queryByText("Илияна Йотова")).not.toBeInTheDocument();
     expect(within(potential).getAllByText("Илияна Йотова")).toHaveLength(3);
+    const toggle = screen.getByRole("group", { name: "Election type" });
     expect(
-      screen.getByRole("link", { name: "Agency overview" }),
-    ).toHaveAttribute("href", "/polls/GM");
+      within(toggle).getByRole("button", { name: "Presidential" }),
+    ).toHaveAttribute("aria-pressed", "true");
   });
   it("keeps question sample sizes unknown and filters every question by round", async () => {
     show(<PresidentialHistory agencyId="SH" />);

@@ -8,9 +8,9 @@
 // is graded the same way on both dashboards. It is a ROUND-ONE grade on every view, which is why
 // the headline names the round. The stricter question-level comparisons stay in the explorer.
 //
-// ⚠ RENDERS NOTHING WHILE LOADING OR ON A FAILED FETCH. `PresidentialHistory` below reads the
-// same query and owns the loading status and the retryable alert; a second copy here would put
-// two alerts in one section for one failure.
+// ⚠ A FAILED FETCH IS AN ALERT WITH A RETRY, never the „not verified yet" sentence — a fetch
+// error must not read as an unscored election. Only the leaderboard reports it; the trend card
+// reads the same query and stays silent so one failure is one alert.
 
 import { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,6 +20,7 @@ import { usePresidentialPollsAccuracy } from "@/data/presidential/usePresidentia
 import { useAgencies } from "@/data/polls/useAgencies";
 import type { PresidentialAgencyError } from "@/data/polls/pollsTypes";
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
+import { presidentialTrendRows } from "@/data/presidential/presidentialPollAccuracy";
 import { localDate } from "@/data/utils";
 import { formatDecimal, formatPct } from "@/lib/currency";
 import { StatCard } from "@/screens/dashboard/StatCard";
@@ -35,17 +36,18 @@ import {
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
 import { PresidentialPersonName } from "./PresidentialPersonName";
-import { PRESIDENTIAL_POLLS_DETAIL_ID } from "./presidentialPollsAnchor";
 
-const SeeDetails: FC = () => {
+/** Opens the presidential polls hub filtered to this cycle — the campaign explorer lives there. */
+const SeeDetails: FC<{ cycle: string }> = ({ cycle }) => {
   const { t } = useTranslation();
   return (
-    <a
-      href={`#${PRESIDENTIAL_POLLS_DETAIL_ID}`}
+    <Link
+      to={{ pathname: "/polls/presidential", search: { pollCycle: cycle } }}
       className="text-[10px] normal-case text-primary hover:underline"
+      underline={false}
     >
       {t("dashboard_see_details")} →
-    </a>
+    </Link>
   );
 };
 
@@ -66,7 +68,25 @@ export const PresidentialPollsTile: FC<{ cycle: string }> = ({ cycle }) => {
   const aq = usePresidentialPollsAccuracy();
   const { data: agencyList } = useAgencies();
 
-  if (aq.isPending || aq.isError) return null;
+  if (aq.isPending)
+    return (
+      <p role="status" className="text-sm text-muted-foreground">
+        {t("pp_history_loading")}
+      </p>
+    );
+  if (aq.isError)
+    return (
+      <div role="alert" className="text-sm">
+        {t("pp_history_load_error")}{" "}
+        <button
+          type="button"
+          className="underline text-primary"
+          onClick={() => void aq.refetch()}
+        >
+          {t("pp_history_retry")}
+        </button>
+      </div>
+    );
   const entry = aq.data?.cycles.find((c) => c.cycle === cycle);
   const agencies = entry
     ? [...entry.agencies].sort((a, b) => a.mae - b.mae)
@@ -89,7 +109,7 @@ export const PresidentialPollsTile: FC<{ cycle: string }> = ({ cycle }) => {
               <span>{t("polls_title")}</span>
             </div>
           </Hint>
-          <SeeDetails />
+          <SeeDetails cycle={cycle} />
         </div>
       }
     >
@@ -192,21 +212,11 @@ export const PresidentialPollsTrendTile: FC<{ cycle: string }> = ({
 
   const rows = useMemo<(AccuracyTrendRow & { cycle: string })[]>(
     () =>
-      (aq.data?.cycles ?? [])
-        .filter((c) => c.agencies.length > 0)
-        .map((c) => {
-          const maes = c.agencies.map((a) => a.mae);
-          return {
-            cycle: c.cycle,
-            date: c.round1Date,
-            label: localDate(c.round1Date.replace(/-/g, "_")),
-            avgMae: maes.reduce((s, v) => s + v, 0) / maes.length,
-            maxMae: Math.max(...maes),
-            agencyCount: maes.length,
-            isSelected: c.cycle === cycle,
-          };
-        })
-        .sort((a, b) => a.date.localeCompare(b.date)),
+      presidentialTrendRows(aq.data?.cycles ?? []).map((r) => ({
+        ...r,
+        label: localDate(r.date.replace(/-/g, "_")),
+        isSelected: r.cycle === cycle,
+      })),
     [aq.data, cycle],
   );
 
@@ -232,7 +242,7 @@ export const PresidentialPollsTrendTile: FC<{ cycle: string }> = ({
               <span>{t("dashboard_accuracy_trends")}</span>
             </div>
           </Hint>
-          <SeeDetails />
+          <SeeDetails cycle={cycle} />
         </div>
       }
       className="overflow-hidden"

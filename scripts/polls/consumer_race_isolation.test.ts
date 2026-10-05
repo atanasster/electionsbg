@@ -44,6 +44,10 @@ const read = (relPath: string): string =>
  *  reference ONLY the parliamentary corpus. */
 const PARLIAMENTARY_ONLY_CONSUMERS = [
   "src/screens/dashboard/PollsTile.tsx",
+  // The race toggle moved the presidential side to its own routes, so the hub and the agency
+  // page each read ONE corpus again.
+  "src/screens/PollsScreen.tsx",
+  "src/screens/PollsAgencyScreen.tsx",
   "src/screens/dashboard/PartyPollingDeltaTile.tsx",
   "src/screens/dashboard/PartyAgencyForecastsTile.tsx",
   "src/screens/dashboard/AccuracyTrendsTile.tsx",
@@ -75,6 +79,9 @@ const PARLIAMENTARY_ONLY_CONSUMERS = [
 const PRESIDENTIAL_ONLY_CONSUMERS = [
   "src/data/presidential/usePresidentialPolls.ts",
   "src/screens/presidential/PresidentialPollsTile.tsx",
+  "src/screens/PollsPresidentialScreen.tsx",
+  "src/screens/PollsAgencyPresidentialScreen.tsx",
+  "src/data/presidential/presidentialPollAccuracy.ts",
   "src/screens/presidential/PresidentialCycleScreen.tsx",
   "src/screens/polls/PresidentialPollsSection.tsx",
   "src/screens/polls/AgencyPresidentialPollsList.tsx",
@@ -87,8 +94,6 @@ const PRESIDENTIAL_ONLY_CONSUMERS = [
  *  keeps its own dedicated tests proving the two fetches stay separate; this gate only
  *  asserts the exemption is still load-bearing, i.e. the file still genuinely reads both. */
 const MIXED_COMPOSERS = [
-  "src/screens/PollsScreen.tsx",
-  "src/screens/PollsAgencyScreen.tsx",
   "scripts/prerender/bodyBuilders.ts",
   "scripts/prerender/dynamicRoutes.ts",
 ];

@@ -695,6 +695,20 @@ export const agencyHasPresidentialPoll = (
     (p) => p.agencyId === agencyId,
   );
 
+/** `/polls/presidential` — the presidential side of the polls hub's race toggle. Each agency's
+ *  latest presidential poll; an empty corpus says so rather than rendering an empty table. */
+export const buildPresidentialPollsHubBody = (
+  publicFolder: string,
+  lang: "bg" | "en" = "bg",
+): string => {
+  const section = buildPresidentialPollsSection(publicFolder);
+  return lang === "bg"
+    ? `<h1>Точност на президентските проучвания</h1>` +
+        (section || "<p>Няма приети президентски проучвания.</p>")
+    : `<h1>Presidential polling accuracy</h1>` +
+        (section || "<p>No accepted presidential polls.</p>");
+};
+
 export const buildPollsBody = (publicFolder: string): string => {
   const agenciesFile = path.join(publicFolder, "polls", "agencies.json");
   const analysisFile = path.join(publicFolder, "polls", "analysis.json");

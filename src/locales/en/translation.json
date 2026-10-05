@@ -5880,5 +5880,13 @@
   "pp_media_neutral": "neutral",
   "pp_media_favorable": "favourable",
   "pp_media_strongly_favorable": "strongly favourable",
-  "pp_media_frozen": "Coverage data about people is frozen as of {{asOf}} until the end of election day ({{until}})."
+  "pp_media_frozen": "Coverage data about people is frozen as of {{asOf}} until the end of election day ({{until}}).",
+  "polls_race_label": "Election type",
+  "polls_race_parliamentary": "Parliamentary",
+  "polls_race_presidential": "Presidential",
+  "polls_presidential_title": "Presidential polling accuracy",
+  "polls_presidential_description": "How accurately polling agencies predicted round one of Bulgaria's presidential elections — mean absolute error by agency and by election, every published poll and its comparison with the result.",
+  "polls_presidential_all_time_hint": "Presidential polls from every election. Accuracy is for round one and is computed as for parliamentary elections.",
+  "polls_presidential_leaderboard_hint": "The agency's average round-one MAE across the presidential elections it has a graded poll for. A few elections are not a track record — the count is shown beside each agency.",
+  "polls_presidential_cycles_graded": "Elections"
 }

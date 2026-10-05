@@ -856,6 +856,9 @@ const readJson = <T>(file: string): T | null => {
 const enumeratePolls = (route: RouteDef, rootUrl: string) => {
   const indexUrl = `${rootUrl}/${route.path}`;
   pushUrl(indexUrl, today);
+  // The presidential side of the race toggle — its own prerendered page.
+  pushUrl(`${indexUrl}/presidential`, today);
+  pushUrl(`${rootUrl}/en/${route.path}/presidential`, today);
   const agenciesFile = `${projectPath}/data/polls/agencies.json`;
   if (!fs.existsSync(agenciesFile)) return;
   const agencies: PollAgency[] = JSON.parse(

@@ -11,9 +11,9 @@ import {
   usePollsAccuracy,
   usePollsAnalysis,
 } from "@/data/polls/usePolls";
-import { usePresidentialPollsList } from "@/data/presidential/usePresidentialPolls";
 import { AgencyProfileCard } from "./polls/AgencyProfileCard";
 import { AgencyPollsList } from "./polls/AgencyPollsList";
+import { PollsRaceToggle } from "./polls/PollsRaceToggle";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -36,17 +36,8 @@ export const PollsAgencyScreen: FC = () => {
   const { data: accuracy } = usePollsAccuracy();
   const { data: analysis } = usePollsAnalysis();
   const { data: agencies } = useAgencies();
-  // Presidential coverage is independent of the parliamentary profile.
-  // The overview links to its dedicated route once the poll list settles.
-  const presPolls = usePresidentialPollsList();
 
-  const ready =
-    !!polls &&
-    !!details &&
-    !!accuracy &&
-    !!analysis &&
-    !!agencies &&
-    !presPolls.isPending;
+  const ready = !!polls && !!details && !!accuracy && !!analysis && !!agencies;
 
   const agency = useMemo(
     () => agencies?.find((a) => a.id === agencyId),
@@ -67,10 +58,6 @@ export const PollsAgencyScreen: FC = () => {
   const agencyDetails = useMemo(
     () => details?.filter((d) => d.agencyId === agencyId) ?? [],
     [details, agencyId],
-  );
-  const agencyPresidentialPolls = useMemo(
-    () => presPolls.data?.filter((p) => p.agencyId === agencyId) ?? [],
-    [presPolls.data, agencyId],
   );
   // Cross-agency mean MAE — used as the "consensus" reference line on the per-agency
   // MAE-history chart, so a viewer can see at a glance which cycles the agency beat or
@@ -95,6 +82,9 @@ export const PollsAgencyScreen: FC = () => {
         className="mt-4 mb-1"
       />
       <Title>{title ?? ""}</Title>
+      <div className="w-full max-w-7xl mx-auto px-4">
+        <PollsRaceToggle race="parliamentary" agencyId={agencyId} />
+      </div>
     </>
   );
 
@@ -179,17 +169,6 @@ export const PollsAgencyScreen: FC = () => {
               elections={accuracy.elections}
             />
           </div>
-          {agencyPresidentialPolls.length > 0 ? (
-            <div className="mt-3">
-              <Link
-                className="text-primary underline"
-                to={`/polls/${agencyId}/presidential`}
-              >
-                {t("polls_presidential_polls")} (
-                {agencyPresidentialPolls.length}) →
-              </Link>
-            </div>
-          ) : null}
         </section>
       </>
     );
@@ -216,17 +195,6 @@ export const PollsAgencyScreen: FC = () => {
             elections={accuracy.elections}
           />
         </div>
-        {agencyPresidentialPolls.length > 0 ? (
-          <div className="mt-3">
-            <Link
-              className="text-primary underline"
-              to={`/polls/${agencyId}/presidential`}
-            >
-              {t("polls_presidential_polls")} ({agencyPresidentialPolls.length})
-              →
-            </Link>
-          </div>
-        ) : null}
 
         <div className="text-[10px] text-muted-foreground text-center mt-6">
           {t("polls_data_source")}

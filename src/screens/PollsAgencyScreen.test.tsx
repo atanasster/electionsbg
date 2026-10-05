@@ -10,7 +10,7 @@
 
 import "@testing-library/jest-dom/vitest";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { initTestI18n } from "./dashboard/testI18n";
 import type {
@@ -174,7 +174,7 @@ describe("PollsAgencyScreen", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("links to presidential history for an agency without a parliamentary profile", () => {
+  it("offers the presidential side of the race toggle for an agency without a parliamentary profile", () => {
     // The real-world case Tier 4 T4.4 Increment B exists for: GM has zero
     // SCORED parliamentary polls (the no-profile branch above) but one real,
     // accepted presidential poll — the two lists must render side by side,
@@ -215,13 +215,14 @@ describe("PollsAgencyScreen", () => {
     expect(
       screen.getByText("Все още няма проучвания за тази агенция."),
     ).toBeInTheDocument();
-    // ...and the presidential list renders alongside it, never suppressing it.
+    // ...and the presidential side is one toggle away, never suppressed by it.
+    const toggle = screen.getByRole("group", { name: "Вид избори" });
     expect(
-      screen.getByText(/Президентски проучвания \(1\)/),
+      within(toggle).getByRole("button", { name: "Парламентарни" }),
+    ).toHaveAttribute("aria-pressed", "true");
+    expect(
+      within(toggle).getByRole("button", { name: "Президентски" }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /Президентски проучвания/ }),
-    ).toHaveAttribute("href", "/polls/GM/presidential");
   });
 
   it("surfaces the agency's own resolved eik as a /company link in the no-profile panel", () => {

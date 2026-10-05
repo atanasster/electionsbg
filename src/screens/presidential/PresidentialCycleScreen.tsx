@@ -59,12 +59,10 @@ import {
 import { presidentialCountryFacts } from "@/data/presidential/countryFacts";
 import { formatInt, formatPct } from "@/lib/currency";
 import { PresidentialPersonName } from "./PresidentialPersonName";
-import { PresidentialHistory } from "@/screens/polls/PresidentialHistory";
 import {
   PresidentialPollsTile,
   PresidentialPollsTrendTile,
 } from "./PresidentialPollsTile";
-import { PRESIDENTIAL_POLLS_DETAIL_ID } from "./presidentialPollsAnchor";
 import { PresidentialTicketRanking } from "./PresidentialTicketRanking";
 import {
   leadersByPlace,
@@ -779,14 +777,11 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           headingLevel={2}
         >
           {/* ⚠ THE PARLIAMENTARY SECTION'S SHAPE: the accuracy leaderboard and the accuracy
-              trend as cards first, the explorer after. Both grade ROUND ONE whatever round is
-              shown, and render nothing until the polls artifact loads or on a failed fetch —
-              `PresidentialHistory` owns the loading status and the retryable alert. */}
+              trend, nothing else. The campaign explorer lives on `/polls/presidential`, which
+              „see details" opens filtered to this cycle. Both cards grade ROUND ONE whatever
+              round is shown. */}
           <PresidentialPollsTile cycle={cycle} />
           <PresidentialPollsTrendTile cycle={cycle} />
-          <div id={PRESIDENTIAL_POLLS_DETAIL_ID} className="scroll-mt-24">
-            <PresidentialHistory cycle={cycle} round={round} />
-          </div>
         </DashboardSection>
       }
 
