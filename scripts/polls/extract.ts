@@ -9,6 +9,7 @@ import { extractAgencyPresidential } from "./extractors/agency_presidential";
 import { extractAlphaResearch } from "./extractors/alpha_research";
 import { extractGlobalMetrics } from "./extractors/global_metrics";
 import { extractMyaraPresidential } from "./extractors/myara_presidential";
+import { extractSovaHarris } from "./extractors/sova_harris";
 import { extractTrend } from "./extractors/trend";
 import { extractTrendPresidential } from "./extractors/trend_presidential";
 import { flagReader } from "./lib/argv";
@@ -48,7 +49,7 @@ type Extractor = (
 
 /** The capture is one publication; a joint release yields one draft per race. */
 const extractJoint =
-  (agencyId: "TR" | "AR"): Extractor =>
+  (agencyId: "TR" | "AR" | "SH"): Extractor =>
   async (captureDir, pubId) => {
     const html = fs.readFileSync(path.join(captureDir, "page.html"), "utf8");
     if (isExitPollTitle(extractPageTitle(html)))
@@ -63,11 +64,13 @@ const extractJoint =
     const drafts: InboxDraft[] = [];
     if (races.includes("parliamentary"))
       drafts.push(
-        await (agencyId === "TR" ? extractTrend : extractAlphaResearch)(
-          captureDir,
-          pubId,
-          acquired,
-        ),
+        await (
+          agencyId === "TR"
+            ? extractTrend
+            : agencyId === "SH"
+              ? extractSovaHarris
+              : extractAlphaResearch
+        )(captureDir, pubId, acquired),
       );
     if (races.includes("presidential"))
       drafts.push(
@@ -89,10 +92,11 @@ const extractJoint =
 const EXTRACTORS: Record<string, Extractor> = {
   TR: extractJoint("TR"),
   AR: extractJoint("AR"),
+  SH: extractJoint("SH"),
   GM: extractGlobalMetrics,
   MY: extractMyaraPresidential,
   ...Object.fromEntries(
-    ["ML", "SH", "GIB"].map((agency) => [
+    ["ML", "GIB"].map((agency) => [
       agency,
       (dir: string, pub: string) => extractAgencyPresidential(agency, dir, pub),
     ]),
