@@ -322,3 +322,141 @@ describe("extractAlphaResearch — synthetic captures (no real binaries needed)"
     expect(draft.poll.fieldwork).toBe("Mar 1-5 2026");
   });
 });
+
+// Pre-2017 AR posts are an empty page linking one Word attachment that
+// carries every figure (measured: 871, 890, 918). These feed the converted
+// attachment text in through `preAcquired`, so no Word converter is needed.
+describe("extractAlphaResearch — attachment text", () => {
+  let scratchRoot: string;
+  beforeEach(() => {
+    scratchRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ar-attach-test-"));
+  });
+  afterEach(() => {
+    fs.rmSync(scratchRoot, { recursive: true, force: true });
+  });
+
+  const EMPTY_PAGE =
+    '<html><head><title>ЕЛЕКТОРАЛНИ НАГЛАСИ НА ФИНАЛА НА ПРЕДИЗБОРНАТА КАМПАНИЯ — Алфа Рисърч</title></head><body><div id="content">За повече информация от проучването, натиснете следния линк: report.doc</div></body></html>';
+  const capture = (pubId: string): string => {
+    const dir = path.join(scratchRoot, pubId);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "page.html"), EMPTY_PAGE);
+    fs.writeFileSync(
+      path.join(dir, "SOURCE.json"),
+      JSON.stringify({
+        url: `https://alpharesearch.bg/post/${pubId}.html`,
+        fetchedAt: "2026-09-27T00:00:00.000Z",
+        sha256: "c".repeat(64),
+      }),
+    );
+    return dir;
+  };
+  const acquired = (articleText: string, docText: string) => ({
+    articleText,
+    pdfTexts: [{ file: "report.doc", text: docText }],
+    imageTexts: [],
+  });
+
+  it("reads shares and the passport from the attachment when the page carries none", async () => {
+    const doc =
+      "Изследването е проведено в периода 28–30.09. 2014г. сред 1100 пълнолетни граждани от цялата страна. " +
+      // The real 890 table: share, then the projected seat range.
+      "Прогноза за Парламентарни избори 2014 % от твърдо решилите да гласуват мандати " +
+      "ГЕРБ 34.1% 98-100 БСП 19.1% 53-55 ДПС 15.4% 44-46";
+    const draft = await extractAlphaResearch(
+      capture("890"),
+      "890",
+      acquired("За повече информация от проучването", doc),
+    );
+    expect(draft.poll.id).toBe("ar-2014-09-30");
+    expect(draft.poll.fieldwork).toBe("Sep 28-30 2014");
+    expect(draft.poll.respondents).toBe(1100);
+    expect(
+      Object.fromEntries(draft.details.map((d) => [d.nickName_bg, d.support])),
+    ).toEqual({ ГЕРБ: 34.1, БСП: 19.1, ДПС: 15.4 });
+    // Every quote names the document it came from.
+    expect(draft.poll.provenance?.quoteSources).toMatchObject({
+      "share:ГЕРБ": "report.doc",
+      sampleSize: "report.doc",
+      fieldwork: "report.doc",
+    });
+  });
+
+  it("keeps the article as the share source when it already carries enough shares", async () => {
+    const article =
+      "Проучването е проведено в периода 1 - 5 март 2026г. сред 1000 пълнолетни граждани. " +
+      "ГЕРБ-СДС е с 20,4%. ПП-ДБ е с 12,6%. Възраждане е с 6,4%.";
+    const draft = await extractAlphaResearch(
+      capture("1050"),
+      "1050",
+      acquired(article, "ГЕРБ-СДС 99.9% ДПС 50.5% БСП 40.4%"),
+    );
+    expect(draft.details.map((d) => d.support).sort()).toEqual([
+      12.6, 20.4, 6.4,
+    ]);
+    expect(draft.poll.provenance?.quoteSources).toBeUndefined();
+  });
+
+  it("refuses a number far from the party name, and an approximate figure", async () => {
+    const doc =
+      "Изследването е проведено в периода 20 – 22 март 2017г. сред 1033 пълнолетни граждани. " +
+      "ГЕРБ (31.7%) и БСП (29.1%) водят. " +
+      "ДПС, за която мнозина политици и анализатори сочеха, че ще е големият печеливш от изборите, губи ореола си (48% я виждат като губеща влияние). " +
+      "Воля е с около 6.8% подкрепа.";
+    const draft = await extractAlphaResearch(
+      capture("918"),
+      "918",
+      acquired("", doc),
+    );
+    const labels = draft.details.map((d) => d.nickName_bg);
+    expect(labels).toEqual(expect.arrayContaining(["ГЕРБ", "БСП"]));
+    expect(labels).not.toContain("ДПС");
+    expect(labels).not.toContain("Воля");
+    expect(draft.refused.map((r) => r.reason).join("\n")).toMatch(
+      /characters from the party name/,
+    );
+    expect(draft.refused.map((r) => r.reason).join("\n")).toMatch(
+      /approximate or ranged figure/,
+    );
+  });
+
+  it("refuses a party whose other mention was refused with a different number, rather than keeping the survivor", async () => {
+    // Without the conflict rule, refusing the ranged "19-20%" left the
+    // stray "80%" looking like БСП's only — uncontested — share.
+    const doc =
+      "Изследването е проведено в периода 28–30.09. 2014г. сред 1100 пълнолетни граждани. " +
+      "ГЕРБ 34.1% ДПС 15.4% БСП остава втора политическа сила с около 19-20% от твърдо решилите. " +
+      "Реформаторски блок 6.0% БСП 80% от симпатизантите й.";
+    const draft = await extractAlphaResearch(
+      capture("890"),
+      "890",
+      acquired("", doc),
+    );
+    expect(draft.details.map((d) => d.nickName_bg)).not.toContain("БСП");
+  });
+});
+
+// Real Word attachment, converted the way production converts it
+// (`textutil` on macOS, `antiword` elsewhere) — skipped where neither exists.
+const HAS_DOC_CONVERTER =
+  hasBinary("textutil", "-help") || hasBinary("antiword", "-h");
+const runDoc = HAS_TESSERACT && HAS_DOC_CONVERTER ? it : it.skip;
+
+describe("extractAlphaResearch — real Word attachment", () => {
+  runDoc(
+    "918: the March 2017 finals resolve from the .doc linked by an otherwise empty page",
+    async () => {
+      const draft = await extractAlphaResearch(captureDir("918"), "918");
+      expect(draft.poll.id).toBe("ar-2017-03-22");
+      expect(draft.poll.respondents).toBe(1033);
+      expect(draft.poll.fieldwork).toBe("Mar 20-22 2017");
+      const byLabel = Object.fromEntries(
+        draft.details.map((d) => [d.nickName_bg, d.support]),
+      );
+      expect(byLabel).toMatchObject({ ГЕРБ: 31.7, БСП: 29.1 });
+      expect(draft.poll.provenance?.quoteSources?.["share:ГЕРБ"]).toBe(
+        "0317-Public_Opinion_Alpha_Research.doc",
+      );
+    },
+  );
+});

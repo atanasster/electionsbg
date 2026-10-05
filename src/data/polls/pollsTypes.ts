@@ -135,6 +135,10 @@ export type PollProvenance = {
   // that grounds it. Only ACCEPTED claims appear here — a refused one is
   // never silently promoted by carrying its quote along anyway.
   quotes: Record<string, string>;
+  // field name → the attachment filename its quote was taken from, for any
+  // quote NOT taken from the article body (an agency .doc/.pdf linked from
+  // the page). Absent when every quote came from the page itself.
+  quoteSources?: Record<string, string>;
 };
 
 export type Poll = {

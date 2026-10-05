@@ -37,13 +37,15 @@ export interface ParsedFieldwork {
 /**
  * Bulgarian period text → the canonical fieldwork string (`formatFieldwork`
  * both writes it and is the ONE thing that can throw on an unrepresentable
- * date, per its own contract). Handles the three shapes real captures use:
+ * date, per its own contract). Handles the shapes real captures use:
  *
  *   "7 – 14 април 2026"       →  { endIso: "2026-04-14", fieldwork: "Apr 7-14 2026" }
  *   "30 март – 5 април 2026"  →  { endIso: "2026-04-05", fieldwork: "Mar 30 - Apr 5 2026" }
  *   "19 април 2026"           →  { endIso: "2026-04-19", fieldwork: "Apr 19 2026" }
+ *   "28–30.09. 2014г"         →  { endIso: "2014-09-30", fieldwork: "Sep 28-30 2014" }
+ *   "24.02 – 03.03.2014г"     →  { endIso: "2014-03-03", fieldwork: "Feb 24 - Mar 3 2014" }
  *
- * Returns `null` — never throws — on text that matches none of the three
+ * Returns `null` — never throws — on text that matches none of these
  * shapes, or names a month `formatFieldwork` cannot represent (an
  * impossible day, a range spanning two years): decision 5's rule that an
  * unparseable field is refused, not guessed, applies to a date exactly as
@@ -90,7 +92,34 @@ export const parseBgFieldworkRange = (raw: string): ParsedFieldwork | null => {
     }
   };
 
+  // Numeric months — Alpha Research's pre-2017 Word attachments write
+  // "28–30.09. 2014г" and "24.02 – 03.03.2014г". The trailing "." after
+  // the month is optional and may be followed by a space before the year.
+  const reNumRange = new RegExp(
+    `^(\\d{1,2})\\s*-\\s*(\\d{1,2})\\.(\\d{1,2})\\.?\\s*(\\d{4})${YEAR_SUFFIX}$`,
+  );
+  const reNumCross = new RegExp(
+    `^(\\d{1,2})\\.(\\d{1,2})\\.?\\s*-\\s*(\\d{1,2})\\.(\\d{1,2})\\.?\\s*(\\d{4})${YEAR_SUFFIX}$`,
+  );
+  const numMonth = (m: string): number => {
+    const n = Number(m);
+    return n >= 1 && n <= 12 ? n - 1 : -1;
+  };
+
   let mr: RegExpMatchArray | null;
+  if ((mr = cleaned.match(reNumCross))) {
+    const [, d1, m1, d2, m2, year] = mr;
+    const mo1 = numMonth(m1);
+    const mo2 = numMonth(m2);
+    if (mo1 < 0 || mo2 < 0) return null;
+    return write(iso(year, mo1, d1), iso(year, mo2, d2));
+  }
+  if ((mr = cleaned.match(reNumRange))) {
+    const [, d1, d2, m, year] = mr;
+    const mo = numMonth(m);
+    if (mo < 0) return null;
+    return write(iso(year, mo, d1), iso(year, mo, d2));
+  }
   if ((mr = cleaned.match(reCross))) {
     const [, d1, mo1Bg, d2, mo2Bg, year] = mr;
     const mo1 = monthIndex(mo1Bg);

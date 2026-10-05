@@ -60,7 +60,26 @@ describe("parseBgFieldworkRange", () => {
     });
   });
 
-  it("returns null for text matching none of the three shapes", () => {
+  it("parses numeric-month ranges (real Alpha Research .doc attachments)", () => {
+    // AR 890 (Oct 2014 finals): "проведено в периода 28–30.09. 2014г."
+    expect(parseBgFieldworkRange("28–30.09. 2014г")).toEqual({
+      startIso: "2014-09-28",
+      endIso: "2014-09-30",
+      fieldwork: "Sep 28-30 2014",
+    });
+    expect(parseBgFieldworkRange("24.02 – 03.03.2014г")).toEqual({
+      startIso: "2014-02-24",
+      endIso: "2014-03-03",
+      fieldwork: "Feb 24 - Mar 3 2014",
+    });
+  });
+
+  it("refuses a numeric month outside 1-12 rather than guessing", () => {
+    expect(parseBgFieldworkRange("28–30.13. 2014г")).toBeNull();
+    expect(parseBgFieldworkRange("28–30.00.2014")).toBeNull();
+  });
+
+  it("returns null for text matching none of the shapes", () => {
     expect(parseBgFieldworkRange("garbage")).toBeNull();
     expect(parseBgFieldworkRange("")).toBeNull();
   });
