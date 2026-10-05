@@ -3350,7 +3350,10 @@ export const resolveCallAudience = (raw: string): string | undefined => {
   const t = raw.toLowerCase().trim();
   if (!t) return undefined;
   if (OC_AUDIENCE_ALIASES[t]) return OC_AUDIENCE_ALIASES[t];
-  for (const [k, v] of OC_SECTOR_QUALIFIERS) if (t.includes(k)) return v;
+  // A sector word inside an institution's NAME is not the applicant: „министерство на
+  // земеделието" is the ministry, not a farmer.
+  if (!/министерств|агенци|ministry|agency/u.test(t))
+    for (const [k, v] of OC_SECTOR_QUALIFIERS) if (t.includes(k)) return v;
   for (const [k, v] of OC_ALIASES_BY_LENGTH) if (t.includes(k)) return v;
   return undefined;
 };

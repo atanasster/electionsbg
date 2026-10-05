@@ -20,6 +20,10 @@
 
 import type { Audience } from "./types";
 
+/** Titles that are ALWAYS internal to the managing authority. One source for the institution rule
+ *  and for the title pin in `deriveAudience`, so the two cannot drift. */
+const INTERNAL_TITLE_SRC = "техническа помощ|бюджетни линии";
+
 /** Ordered rules. Each is (regex, facet); every match contributes, so a row open to farmers
  *  and processors gets both. Negative lookarounds carry the anti-over-match guards. */
 const RULES: { re: RegExp; facet: Audience }[] = [
@@ -49,12 +53,15 @@ const RULES: { re: RegExp; facet: Audience }[] = [
   // keeping institutional procedures out of a business's view. Named beneficiaries: ministries,
   // agencies, state bodies, and the two title patterns that are always internal.
   {
-    re: /министерств|агенци|държавн(?:и|а)\s+(?:орган|структур|предприят)|бабх|дирекци|техническа помощ|бюджетни линии|конкретни бенефициенти/u,
+    re: new RegExp(
+      `министерств|агенци|държавн(?:и|а)\\s+(?:орган|структур|предприят)|бабх|дирекци|${INTERNAL_TITLE_SRC}|конкретни бенефициенти`,
+      "u",
+    ),
     facet: "institution",
   },
 ];
 
-const INTERNAL_TITLE = /техническа помощ|бюджетни линии/u;
+const INTERNAL_TITLE = new RegExp(INTERNAL_TITLE_SRC, "u");
 
 /** Free-text eligibility (and, optionally, the call's title) → the facets it implies.
  *

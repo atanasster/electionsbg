@@ -316,6 +316,12 @@ describe("resolveCallAudience", () => {
     );
   });
 
+  it("does not read a ministry's NAME as the farmer facet", () => {
+    expect(
+      resolveCallAudience("има ли нещо за министерство на земеделието"),
+    ).not.toBe("farmer");
+  });
+
   it("returns undefined rather than guessing", () => {
     // Undefined means „no facet", i.e. every call. A wrong facet returns an empty list, and
     // „there is nothing for you" is a much worse answer than a broad one.

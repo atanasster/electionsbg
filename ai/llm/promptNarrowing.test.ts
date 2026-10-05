@@ -37,12 +37,12 @@ import {
 // values; anything else failing here means the no-candidate path was altered.
 const FULL_CATALOGUE = {
   bg: {
-    bytes: 85_365,
-    sha256: "fc3e43a71bc5c0b86faf38225c01357b65a18dc17945d81c1150de45eb7e37d3",
+    bytes: 85_366,
+    sha256: "da21408961a0242168bb90953db5dce30614bdec4bbc543648932fcd8ed52092",
   },
   en: {
-    bytes: 56_737,
-    sha256: "6f9fceed577a0065f71e336aa4c348e656365c14306d24b0587839fa7516d9a4",
+    bytes: 56_738,
+    sha256: "2f620cbdad88d3b7ab39ae281e69cbcbed12f12b03e5ae0ebb31acf0e54f476c",
   },
 } as const;
 

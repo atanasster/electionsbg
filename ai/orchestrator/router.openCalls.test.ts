@@ -18,10 +18,13 @@ describe("„EU programmes for X“ routes to open calls", () => {
     expect(route(q, ctx)?.tool).toBe("openCalls");
   });
 
-  it("leaves an AWARDED-money question to the funds arm", () => {
-    // Bare „европрограми" is not a token: this asks who already received money.
-    expect(
-      route("Колко пари от европрограми получи община Русе?", ctx)?.tool,
-    ).not.toBe("openCalls");
+  it.each([
+    "Колко пари от европрограми получи община Русе?",
+    "Колко пари от европрограми за образование получи община Русе?",
+    "Колко пари са дадени по европрограми за земеделие през 2023?",
+    "How much did EU programmes for agriculture pay out in 2022?",
+  ])("leaves an AWARDED-money question elsewhere: %s", (q) => {
+    // „за" alone does not make it an open-call question — these ask who already received money.
+    expect(route(q, ctx)?.tool).not.toBe("openCalls");
   });
 });

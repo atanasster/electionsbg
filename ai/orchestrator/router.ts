@@ -408,9 +408,11 @@ const AGENCY_TOKENS = [
 // is an applicant. „прием" does prefix-match „приемане на бюджета", but the budget and local-election
 // arms are both checked BEFORE this one, so those questions never reach it — verified.
 // „европрограми ЗА X" asks what X can get, i.e. an open call. Bare „европрограм" is not a token:
-// „колко пари от европрограми получи община Y" is a question about the AWARDED corpus. Named
-// separately because the COFOG arm must also yield to it — „EU programmes for agriculture"
-// resolved to the agriculture budget function before the open-calls arm was reached.
+// „колко пари от европрограми получи община Y" is a question about the AWARDED corpus — and so is
+// „колко пари са дадени по европрограми за земеделие", which carries „за" too, hence the
+// AWARDED_MONEY exclusion. Checked separately because the COFOG arm must also yield to it — „EU
+// programmes for agriculture" resolved to the agriculture budget function before the open-calls
+// arm was reached.
 const EU_PROGRAMME_FOR = [
   "европрограми за",
   "европрограма за",
@@ -419,6 +421,21 @@ const EU_PROGRAMME_FOR = [
   "eu programme for",
   "eu program for",
 ] as const;
+
+const AWARDED_MONEY = [
+  "получи",
+  "усвои",
+  "изплат",
+  "дадени",
+  "колко пари",
+  "how much",
+  "paid",
+  "received",
+  "spent",
+] as const;
+
+const asksEuProgrammeFor = (q: string): boolean =>
+  has(q, ...EU_PROGRAMME_FOR) && !has(q, ...AWARDED_MONEY);
 
 const APPLY_TOKENS = [
   "отворен",
@@ -441,7 +458,6 @@ const APPLY_TOKENS = [
   "open grant",
   "open funding",
   "currently open",
-  ...EU_PROGRAMME_FOR,
 ] as const;
 
 const AWARDER_TOKENS = [
@@ -3769,7 +3785,8 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   const gf = resolveBudgetFunction(q);
   if (
     gf &&
-    !has(q, "поръчк", "procurement", "аоп", " aop", ...EU_PROGRAMME_FOR)
+    !has(q, "поръчк", "procurement", "аоп", " aop") &&
+    !asksEuProgrammeFor(q)
   )
     return {
       tool: "budgetFunction",
@@ -4193,7 +4210,7 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   //
   // This matters most on the RULES-FIRST providers: webllm.ts consults the model only when `route()`
   // returns null, and provider.ts is rules-only. Without this arm `openCalls` is unreachable there.
-  if (has(q, ...APPLY_TOKENS))
+  if (has(q, ...APPLY_TOKENS) || asksEuProgrammeFor(q))
     return { tool: "openCalls", args: { query: question } };
   if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове")) {
     // place-scoped EU projects ("европроекти в община X") -> placeEuProjects,
