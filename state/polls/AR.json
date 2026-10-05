@@ -7605,5 +7605,88 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "1054",
+    "url": "https://alpharesearch.bg/post/1054-predizborni-naglasi-na-starta-na-kampaniata-za-prezidentski-izbori-2026.html",
+    "title": "Предизборни нагласи на старта на кампанията за Президентски избори 2026",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1054"
+    ],
+    "discoveredAt": "2026-10-05T21:14:22.744Z",
+    "latestHash": "8e40a429c175d18d50007756160982aa5bf255de3c1dd0e610e69ab94bcf86f3",
+    "versions": [
+      {
+        "sha256": "27c62bd8c97cc557f1e7f093a96952dc2b988d58061ad47b4c623ed5f519af55",
+        "capturePath": "raw_data/polls/alpha_research/1054",
+        "capturedAt": "2026-10-05T21:15:16.758Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-2026-10-01",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T21:16:47.830Z",
+            "draftHash": "58e59cfa82c354a1bc876b47c4c9ece5ec288229a48f6f119e28f7ec3f8864c8",
+            "refused": []
+          },
+          {
+            "pollId": "ar-pub-1054-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-05T21:16:47.835Z",
+            "draftHash": "9cab8f84721668776c6ed4f17e57c273ea2ad7a7be4fb84057eb48defb1cc775",
+            "refused": [
+              "fieldwork",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
+      },
+      {
+        "sha256": "8e40a429c175d18d50007756160982aa5bf255de3c1dd0e610e69ab94bcf86f3",
+        "capturePath": "raw_data/polls/alpha_research/1054.v2",
+        "capturedAt": "2026-10-05T21:17:01.128Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-2026-10-01",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-05T21:17:14.690Z",
+            "draftHash": "0f7e5293413445b26f69db376cf83b6a60a5c438cb611232c5c999518375a8c2",
+            "refused": [
+              "shares"
+            ]
+          },
+          {
+            "pollId": "ar-2026-10-01-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-05T21:17:14.695Z",
+            "draftHash": "3ad62f745f5701d1753dbb4866b8b75317f904e86b73b01c500e0a8ce6c1d12f",
+            "refused": [],
+            "reviewedAt": "2026-10-05T21:19:10.699Z",
+            "acceptedAt": "2026-10-05T21:19:10.699Z",
+            "acceptedDraftHash": "3ad62f745f5701d1753dbb4866b8b75317f904e86b73b01c500e0a8ce6c1d12f"
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Presidential campaign-start survey; publishes no parliamentary vote intention",
+            "reviewedAt": "2026-10-05"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
   }
 ]

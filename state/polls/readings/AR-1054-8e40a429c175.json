@@ -1,0 +1,53 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "1054",
+  "captureSha256": "8e40a429c175d18d50007756160982aa5bf255de3c1dd0e610e69ab94bcf86f3",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-06T00:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "presidential",
+      "fieldworkStart": "2026-09-24",
+      "fieldworkEnd": "2026-10-01",
+      "fieldworkQuote": "проведено в периода 24 септември – 1 октомври 2026г.",
+      "respondents": 1000,
+      "respondentsQuote": "проведено сред 1000 пълнолетни граждани от цялата страна",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю с таблети по домовете; двустепенна извадка с квота по основните социално-демографски признаци; 1000 пълнолетни граждани от цялата страна.",
+        "en": "Face-to-face standardised tablet interviews in respondents' homes; two-stage sample with quotas on the main socio-demographic characteristics; 1,000 adult citizens nationwide."
+      },
+      "methodologyQuote": "Проучването е проведено сред 1000 пълнолетни граждани от цялата страна. Използвана е двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": "Алфа Рисърч (собствени средства)",
+      "sponsorQuote": "Публикува се на сайта на агенцията и е реализирано със собствени средства.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "твърдо решилите да гласуват",
+          "baseLabel": { "bg": "Твърдо решили да гласуват", "en": "Respondents firmly decided to vote" },
+          "answers": [
+            { "label": "Илияна Йотова", "kind": "choice", "value": 44.5,
+              "quote": "Водеща позиция за двойката Йотова – Вълчев (44.5%)", "image": null },
+            { "label": "Андрей Гюров", "kind": "choice", "value": 26.1,
+              "quote": "следвана от Гюров – Кандев (26.1%)", "image": null },
+            { "label": "Костадин Костадинов", "kind": "choice", "value": 10.5,
+              "quote": "На трета позиция с 10.5% са кандидатите на Възраждане Костадинов и Волгин", "image": null },
+            { "label": "Иван Христанов", "kind": "choice", "value": 3.4, "quote": null, "image": "Slide5.jpg" },
+            { "label": "Радостин Василев", "kind": "choice", "value": 2.5, "quote": null, "image": "Slide5.jpg" },
+            { "label": "Ивелин Михайлов", "kind": "choice", "value": 2.2, "quote": null, "image": "Slide5.jpg" },
+            { "label": "Николай Ненчев", "kind": "choice", "value": 1.8, "quote": null, "image": "Slide5.jpg" },
+            { "label": "Ивайло Симеонов", "kind": "choice", "value": 1.6, "quote": null, "image": "Slide5.jpg" },
+            { "label": "Георги Димов", "kind": "choice", "value": 0.9, "quote": null, "image": "Slide5.jpg" },
+            { "label": "Друг", "kind": "other", "value": 3.6, "quote": null, "image": "Slide5.jpg" },
+            { "label": "Не подкрепям никого", "kind": "none", "value": 2.9, "quote": null, "image": "Slide5.jpg" }
+          ]
+        }
+      ]
+    }
+  ]
+}

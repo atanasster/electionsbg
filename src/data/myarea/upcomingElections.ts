@@ -39,11 +39,11 @@ export type UpcomingElection = {
 };
 
 export const UPCOMING_ELECTIONS: UpcomingElection[] = [
-  // ⚠ STILL AN ESTIMATE as of 2026-09-06 — no decree has been recorded here. When one is
-  // published, replace the date with the decreed day and set `confidence: "scheduled"`;
-  // nothing else in the file changes, and the cadence gate stands down for a scheduled
-  // entry because a decree outranks a pattern.
-  { date: "2026-11-08", kind: "presidential", confidence: "estimated" },
+  // SCHEDULED: round one is 25 October 2026. Recorded 2026-10-06 from the agencies' own
+  // captured questionnaires — Маркет ЛИНКС's September report asks „На 25 октомври предстоят
+  // избори за президент и вицепрезидент…" and Сова Харис's „На 25 октомври 2026 г. ще се
+  // проведат избори за президент". It replaced a 2026-11-08 estimate.
+  { date: "2026-10-25", kind: "presidential", confidence: "scheduled" },
   { date: "2027-10-24", kind: "local", confidence: "estimated" },
   { date: "2029-06-06", kind: "european", confidence: "estimated" },
 ];

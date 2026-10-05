@@ -427,7 +427,8 @@ const AGENCY_IMAGE_PATTERNS: Record<string, RegExp> = {
   // Мяра's charts are numerically named uploads („2-1-1024x577.jpg");
   // the post's feature image is word-named („vote-3569999_1280.jpg").
   MY: /\/wp-content\/uploads\/\d{4}\/\d{2}\/\d+(?:-\d+)*(?:-\d+x\d+)?\.(?:png|jpe?g)(?:[?#]|$)/i,
-  AR: /(?:\/userfiles\/image\/\d+_\d+[a-z]?\.gif(?:[?#]|$)|\/(?:Graph\d*(?:_?final)?|Chart_?\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$))/i,
+  // AR's October 2026 campaign-start post publishes its tables as „SlideN.jpg" exports.
+  AR: /(?:\/userfiles\/image\/\d+_\d+[a-z]?\.gif(?:[?#]|$)|\/(?:Graph\d*(?:_?final)?|Chart_?\d+|Slide\d+|G\d+|\d+_(?:President|Pravitelstvo|Ochakvaniya|Izbori_data|Electoral|Izbori_chestnost))(?:-\d+)?\.jpe?g(?:[?#]|$))/i,
 };
 
 export const discoverAgencyImages = (

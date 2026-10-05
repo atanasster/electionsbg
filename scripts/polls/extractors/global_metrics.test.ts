@@ -1,3 +1,4 @@
+import { UPCOMING_ELECTIONS } from "../../../src/data/myarea/upcomingElections";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
@@ -52,7 +53,9 @@ describe("extractGlobalMetrics — real capture (658, July 2026 presidential)", 
       );
       // Decision 11: a presidential poll's electionDate is the current
       // best estimate from UPCOMING_ELECTIONS, not a literal here.
-      expect(draft.poll.electionDate).toBe("2026-11-08");
+      expect(draft.poll.electionDate).toBe(
+        UPCOMING_ELECTIONS.find((e) => e.kind === "presidential")?.date,
+      );
       expect(draft.poll.cycle).toBeNull();
       expect(draft.runoffs).toEqual([]);
       expect(draft.residual).toBeNull();

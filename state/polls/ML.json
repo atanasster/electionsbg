@@ -1190,16 +1190,14 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ml-pub-119-presidential",
+            "pollId": "ml-2026-09-29-presidential",
             "race": "presidential",
             "extractedAt": "2026-09-30T23:44:29.665Z",
-            "draftHash": "7fcb09dc55c20b06e9568304fcbe4eed1ead9b695cc7fcb77cd176d8b694639e",
-            "refused": [
-              "fieldwork",
-              "respondents",
-              "questions",
-              "methodology"
-            ]
+            "draftHash": "52fa8eb0a0a8ff71346c5acb292444439d616368e52af284188a4973b4153a08",
+            "refused": [],
+            "reviewedAt": "2026-10-05T21:18:44.351Z",
+            "acceptedAt": "2026-10-05T21:18:44.351Z",
+            "acceptedDraftHash": "52fa8eb0a0a8ff71346c5acb292444439d616368e52af284188a4973b4153a08"
           }
         ]
       }

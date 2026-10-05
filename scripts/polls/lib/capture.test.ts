@@ -403,6 +403,20 @@ describe("discoverAgencyImages", () => {
     ]);
   });
 
+  it("AR: extracts SlideN.jpg exports (the 2026 presidential campaign-start post)", () => {
+    const html = `<img src="../api/uploads/Articles%202026/05%20Oct%20-%20Campaign%20Start/Slide3.jpg">
+      <img src="https://alpharesearch.bg/api/uploads/blog/1054/b-1054-i-1.jpg">`;
+    expect(
+      discoverAgencyImages(
+        "AR",
+        html,
+        "https://alpharesearch.bg/post/1054-x.html",
+      ),
+    ).toEqual([
+      "https://alpharesearch.bg/api/uploads/Articles%202026/05%20Oct%20-%20Campaign%20Start/Slide3.jpg",
+    ]);
+  });
+
   it("returns an empty array for an agency with no known image-as-primary-source pattern", () => {
     const html = `<img src="https://x/Graph1.jpg"><img src="https://x/Slide1.png">`;
     expect(discoverAgencyImages("ML", html, "https://x/")).toEqual([]);
