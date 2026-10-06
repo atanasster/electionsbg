@@ -40,6 +40,7 @@ const PCT_DIGITS = 1;
 export const MARGIN_GAP_LOUD = 0.3;
 
 export const PresidentialTransferCard: FC<{
+  cycle: string;
   basis: string;
   basisEn: string;
   matrix: VoteFlowMatrix;
@@ -47,7 +48,7 @@ export const PresidentialTransferCard: FC<{
   /** The coverage paragraph — the one thing the two callers genuinely differ on, because the
    *  cycle file and a shard declare different fields. */
   coverage: ReactNode;
-}> = ({ basis, basisEn, matrix, marginGap, coverage }) => {
+}> = ({ cycle, basis, basisEn, matrix, marginGap, coverage }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const loud = marginGap >= MARGIN_GAP_LOUD;
@@ -64,22 +65,36 @@ export const PresidentialTransferCard: FC<{
       }
       className="overflow-hidden"
     >
-      <p className="text-xs text-muted-foreground">
-        {lang === "en" ? basisEn : basis}
+      <PresidentialTransferChart cycle={cycle} matrix={matrix} />
+      {/* ⚠ ONE SHORT CAPTION UNDER THE CHART, the method behind „Как се изчислява" — the shape
+          of the flow chart above it on the same page. The caveat (`basis`) is still on the page
+          and one click away, not removed: it is what makes the chart an ESTIMATE. */}
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+        {t("presidential_transfer_caption")}
       </p>
-      <PresidentialTransferChart matrix={matrix} />
-      {/* ⚠ A TOKEN, NEVER A LITERAL COLOUR — `text-foreground` stays legible in both themes,
-          which a hardcoded grey or red would not. */}
-      <p
-        className={`mt-2 text-xs ${
-          loud ? "font-medium text-foreground" : "text-muted-foreground"
-        }`}
-      >
-        {t("presidential_transfer_precision", {
-          pct: formatPct(marginGap, lang, PCT_DIGITS),
-        })}
-      </p>
-      <p className="mt-1 text-xs text-muted-foreground">{coverage}</p>
+      {/* ⚠ A LARGE GAP STAYS VISIBLE. On a region page the ribbons can miss their column labels
+          by up to 70%, and that qualifies the chart rather than footnoting it. */}
+      {loud ? (
+        <p className="mt-2 text-xs font-medium text-foreground">
+          {t("presidential_transfer_precision", {
+            pct: formatPct(marginGap, lang, PCT_DIGITS),
+          })}
+        </p>
+      ) : null}
+      <details className="mt-2 text-xs text-muted-foreground">
+        <summary className="cursor-pointer">
+          {t("vote_flow_tile_methodology_link")}
+        </summary>
+        <p className="mt-1">{lang === "en" ? basisEn : basis}</p>
+        {loud ? null : (
+          <p className="mt-1">
+            {t("presidential_transfer_precision", {
+              pct: formatPct(marginGap, lang, PCT_DIGITS),
+            })}
+          </p>
+        )}
+        <p className="mt-1">{coverage}</p>
+      </details>
     </StatCard>
   );
 };

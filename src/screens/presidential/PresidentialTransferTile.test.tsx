@@ -9,12 +9,12 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
-import { SANKEY_MAX_FROM_NODES } from "./PresidentialTransferTable";
 import { MARGIN_GAP_LOUD } from "./PresidentialTransferCard";
 import type { RunoffTransfer } from "@/data/presidential/useRunoffTransfer";
 
@@ -82,11 +82,17 @@ const transfer = (over: Partial<RunoffTransfer> = {}): RunoffTransfer =>
 // tile.
 const mount = (t: RunoffTransfer) =>
   render(
-    <MemoryRouter>
-      <TooltipProvider>
-        <PresidentialTransferTile transfer={t} />
-      </TooltipProvider>
-    </MemoryRouter>,
+    <QueryClientProvider
+      client={
+        new QueryClient({ defaultOptions: { queries: { retry: false } } })
+      }
+    >
+      <MemoryRouter>
+        <TooltipProvider>
+          <PresidentialTransferTile transfer={t} />
+        </TooltipProvider>
+      </MemoryRouter>
+    </QueryClientProvider>,
   );
 
 beforeEach(async () => {
@@ -131,10 +137,14 @@ describe("PresidentialTransferTile", () => {
           national: { ...transfer().national, marginGap: gap },
         }),
       );
-      return screen.getByText(/лентите се разминават/).className;
+      return screen.getByText(/лентите се разминават/);
     };
-    expect(caption(MARGIN_GAP_LOUD - 0.01)).toContain("text-muted-foreground");
-    expect(caption(MARGIN_GAP_LOUD)).toContain("text-foreground");
+    // A footnote-sized gap sits with the method, behind „Как се изчислява"; a loud one is
+    // printed under the chart, outside it.
+    expect(caption(MARGIN_GAP_LOUD - 0.01).closest("details")).not.toBeNull();
+    const loud = caption(MARGIN_GAP_LOUD);
+    expect(loud.closest("details")).toBeNull();
+    expect(loud.className).toContain("text-foreground");
     // ⚠ THE THRESHOLD IS PINNED TOO, so it cannot silently drift above every shard the corpus
     // has and stop discriminating. Measured: 16 of 155 shards are ≥ 0.30, 8 are ≥ 0.50.
     expect(MARGIN_GAP_LOUD).toBeGreaterThan(0.05);
@@ -166,32 +176,33 @@ describe("PresidentialTransferTile", () => {
     expect(screen.getAllByText("Румен Радев").length).toBeGreaterThan(0);
   });
 
-  /** A matrix with `n` from-nodes, for straddling `SANKEY_MAX_FROM_NODES`. */
-  const wideMatrix = (n: number) => ({
-    fromNodes: Array.from({ length: n }, (_, i) =>
-      node(`t${i}`, `Кандидат ${i}`, 1000 - i),
-    ),
-    toNodes: [node("t0", "Кандидат 0", 1200)],
-    flows: [{ from: "t0", to: "t0", votes: 900 }],
-  });
-  const withMatrix = (n: number) =>
-    transfer({
-      national: { ...transfer().national, matrix: wideMatrix(n) },
-    });
-
-  it("switches to the TABLE once the round-1 side is too wide to trace", () => {
-    // ⚠⚠ THE LINE THE WHOLE CHANGE TURNS ON, and nothing exercised it: both fixtures in this
-    // file and in `PresidentialCycleScreen.test.tsx` carry 2 and 1 from-nodes, so every test
-    // ran the Sankey branch. Inverting the condition kept them all green, because the table
-    // renders the same candidate names the chart's mobile twin does.
-    mount(withMatrix(SANKEY_MAX_FROM_NODES + 1));
-    expect(screen.getByRole("table")).toBeTruthy();
-  });
-
-  it("keeps the CHART at the threshold, so 2001 (8) and 2006 (9) are unaffected", () => {
-    // ⚠ THE BOUNDARY CASE, which is what pins `>` against `>=`. The real cycles sit at 8, 9,
-    // 20, 24 and 26 from-nodes.
-    mount(withMatrix(SANKEY_MAX_FROM_NODES));
+  it("draws a Sankey even for a wide round, grouping the candidates under 1%", () => {
+    // ⚠ 2011, 2016 and 2021 carry 20-26 round-1 candidates. They used to fall back to a table
+    // of percentages; the small ones are now grouped into „Други двойки" instead.
+    const fromNodes = [
+      node("t0", "Кандидат 0", 50000),
+      ...Array.from({ length: 22 }, (_, i) =>
+        node(`t${i + 1}`, `Кандидат ${i + 1}`, 10),
+      ),
+    ];
+    mount(
+      transfer({
+        national: {
+          ...transfer().national,
+          matrix: {
+            fromNodes,
+            toNodes: [node("t0", "Кандидат 0", 50220)],
+            flows: fromNodes.map((n) => ({
+              from: n.id,
+              to: "t0",
+              votes: n.votes,
+            })),
+          },
+        },
+      }),
+    );
     expect(screen.queryByRole("table")).toBeNull();
+    expect(screen.getAllByText("Други двойки").length).toBeGreaterThan(0);
+    expect(screen.queryByText("Кандидат 7")).toBeNull();
   });
 });

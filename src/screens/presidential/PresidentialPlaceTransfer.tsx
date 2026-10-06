@@ -70,7 +70,7 @@ export const PresidentialPlaceTransfer: FC<{
           <div aria-hidden="true" style={{ minHeight: TILE_MIN_HEIGHT }} />
         }
       >
-        <OblastTransferTile transfer={state.transfer} />
+        <OblastTransferTile cycle={cycle} transfer={state.transfer} />
       </Suspense>
     </DashboardSection>
   );

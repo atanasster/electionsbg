@@ -107,12 +107,16 @@ const mount = (level: PresidentialPlaceLevel, id: string | undefined = "BGS") =>
 describe("PresidentialPlaceTransfer", () => {
   it("asks for a shard on a REGION page and renders the estimate's own caveat", async () => {
     mount("region");
-    // ⚠ THE CAVEAT FROM THE SHARD, not from a locale file. A region page fetches this file and
-    // nothing else, so there is no cycle file in the document to fall back on.
+    // ⚠ THE CAVEAT FROM THE SHARD, not from a locale file. The one transfer file a region
+    // page fetches is this shard, so there is no cycle file in the document to fall back on.
+    // (The chart also reads `tickets.json` for candidate colours — not a transfer file.)
     expect(await screen.findByText("БЪЛГАРСКАТА ОГРАДА")).toBeTruthy();
     expect(screen.getByText(/ОБХВАТ БГ/)).toBeTruthy();
-    expect(fetchSpy).toHaveBeenCalledTimes(1);
-    expect(String(fetchSpy.mock.calls[0][0])).toContain(
+    const transferCalls = fetchSpy.mock.calls
+      .map((c) => String(c[0]))
+      .filter((u) => u.includes("runoff_transfer"));
+    expect(transferCalls).toHaveLength(1);
+    expect(transferCalls[0]).toContain(
       "2021_11_14_pvr/runoff_transfer/BGS.json",
     );
   });

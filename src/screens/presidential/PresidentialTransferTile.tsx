@@ -29,6 +29,7 @@ export const PresidentialTransferTile: FC<{ transfer: RunoffTransfer }> = ({
 
   return (
     <PresidentialTransferCard
+      cycle={transfer.cycle}
       basis={transfer.basis}
       basisEn={transfer.basisEn}
       matrix={matrix}

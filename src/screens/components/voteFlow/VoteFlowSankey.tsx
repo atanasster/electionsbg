@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 import {
   sankey,
   sankeyLeft,
@@ -63,6 +63,9 @@ export const VoteFlowSankey = ({
   /** Click on a node body — parent pins the overlay. */
   onClickNode?: (info: SankeyClickInfo) => void;
 }) => {
+  // ⚠ THE GRADIENT IDS ARE PER CHART. SVG ids are document-global, so two Sankeys on one page
+  // sharing `vfgrad-0…` made the second chart's ribbons paint with the first chart's colours.
+  const gradId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const { i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
@@ -148,7 +151,7 @@ export const VoteFlowSankey = ({
           return (
             <linearGradient
               key={`grad-${i}`}
-              id={`vfgrad-${i}`}
+              id={`vfgrad-${gradId}-${i}`}
               gradientUnits="userSpaceOnUse"
               x1={s.x1 ?? 0}
               x2={t.x0 ?? 0}
@@ -171,7 +174,7 @@ export const VoteFlowSankey = ({
               key={`link-${i}`}
               d={linkPath(link) ?? ""}
               fill="none"
-              stroke={`url(#vfgrad-${i})`}
+              stroke={`url(#vfgrad-${gradId}-${i})`}
               strokeOpacity={opacity}
               strokeWidth={Math.max(1, link.width ?? 1)}
               onMouseEnter={(e) =>

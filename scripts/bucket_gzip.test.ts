@@ -200,7 +200,7 @@ describe("the presidential tree this pass publishes", () => {
     // no file today, and all five are `warnOnce` LOG KEYS — `useOblastTransfer`'s
     // `${cycle}/${oblast}`, and the per-round `${cycle}/tur${round}` built by
     // `usePresidentialCleavages`, `useSuspiciousSettlements`, `useNeighborhoods` and
-    // `useScreening`. A SIXTH is either another log key (added here, deliberately) or an
+    // `useRiskScore`. A SIXTH is either another log key (added here, deliberately) or an
     // unguarded fetch path, and an unbounded filter cannot tell those apart — which is the
     // shape that left two artifacts 404 in production, per this describe block's own header.
     //

@@ -54,7 +54,9 @@ export const PresidentialFlowTile: FC<{
   round: 1 | 2;
   /** Presidential oblast code; omitted → national. */
   oblast?: string;
-}> = ({ cycle, round, oblast }) => {
+  /** Name the round in the title — when the page shows one of these per round. */
+  showRound?: boolean;
+}> = ({ cycle, round, oblast, showRound }) => {
   const { t } = useTranslation();
   const isMd = useMediaQueryMatch("md");
   const { matrix, from, isLoading, hasFile, hasPair } = usePresidentialFlow(
@@ -132,7 +134,10 @@ export const PresidentialFlowTile: FC<{
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <GitFork className="h-4 w-4" />
-            <span>{t("presidential_flow_title")}</span>
+            <span>
+              {t("presidential_flow_title")}
+              {showRound ? ` · ${t("election_round", { round })}` : ""}
+            </span>
           </div>
           <Link
             to="/where-did-votes-go/methodology"

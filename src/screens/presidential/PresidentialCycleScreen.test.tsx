@@ -426,9 +426,7 @@ describe("the presidential country page", () => {
     ).toBeInTheDocument();
     // ⚠ AND NOT THE OBLAST TABLE'S COLUMNS. „Област" in this slot is the regression.
     expect(
-      within(ranked as HTMLElement).queryByText(
-        bgCorpus.presidential_col_region,
-      ),
+      within(ranked as HTMLElement).queryByText(bgCorpus.region),
     ).toBeNull();
   });
 
@@ -793,20 +791,18 @@ describe("the runoff-transfer section", () => {
     );
   });
 
-  it("renders the estimate and the observed pickup as SEPARATE claims", async () => {
-    // ⚠ TWO HEADINGS, NOT ONE. Above the second everything is an estimate; below it everything
-    // is arithmetic on published protocols. Running them together is how a reader carries the
-    // estimate's licence over to numbers that do not need it — and, worse, the other way round.
+  it("renders the runoff transfer as a Sankey with its caveat one click away", async () => {
+    // The caveat travels in the artifact; it sits behind „Как се изчислява" under a short
+    // caption, and the arithmetic pickup that used to follow the chart is gone.
     mountWithTransfer(TRANSFER);
     expect(
       await screen.findByText(bgCorpus.presidential_transfer_heading),
     ).toBeInTheDocument();
     expect(screen.getByText("ОГРАДАТА ОТ ФАЙЛА")).toBeInTheDocument();
-    expect(screen.getByText(bgCorpus.presidential_pickup_note)).toBeInTheDocument(); // prettier-ignore
-    // The winner is threaded into the observed half, so its table links down to the oblast.
     expect(
-      screen.getByRole("link", { name: "Благоевград" }).getAttribute("href"),
-    ).toBe(`/presidential/${LATEST_PRESIDENTIAL_CYCLE}/region/BLG`);
+      screen.getByText(bgCorpus.presidential_transfer_caption),
+    ).toBeInTheDocument();
+    expect(document.getElementById("pvr-transfer-pickup")).toBeNull();
   });
 
   it("draws NOTHING when the file is absent — the ordinary state of this corpus", async () => {
@@ -1130,10 +1126,11 @@ describe("the anomalies section", () => {
     expect(screen.queryByText(bgCorpus.dashboard_section_anomalies)).toBeNull();
   });
 
-  it("renders the heading for the SCREENING alone — any of the three is enough", async () => {
-    // The three artifacts have three publish paths and three availability profiles, so gating
-    // the section on all of them would hide the ones that are there.
-    serve({
+  it("draws no section screen, even where its file is published", async () => {
+    // The procedural-only screen is gone from the page: the Election Risk Index carries the
+    // same procedural signals and names the sections, and the screen singled nothing out. A
+    // published `section_screening.json` alone must therefore open no „Аномалии" heading.
+    const seen = serve({
       "national_summary.json": SUMMARY,
       "section_screening.json": {
         cycle: LATEST_PRESIDENTIAL_CYCLE,
@@ -1159,10 +1156,13 @@ describe("the anomalies section", () => {
         top: [],
       },
     });
-    expect(
-      await screen.findByText(bgCorpus.dashboard_section_anomalies),
-    ).toBeInTheDocument();
-    expect(screen.getByText("СКРИНИНГОВАТА ОГРАДА")).toBeTruthy();
+    await screen.findByText(bgCorpus.election_ballot_presidential_ticket);
+    await waitFor(() =>
+      expect(document.querySelector("[data-outcome-canvas]")).toBeTruthy(),
+    );
+    expect(seen.some((u) => u.includes("section_screening.json"))).toBe(false);
+    expect(screen.queryByText(bgCorpus.dashboard_section_anomalies)).toBeNull();
+    expect(screen.queryByText("СКРИНИНГОВАТА ОГРАДА")).toBeNull();
   });
 
   it("names the flash column after the president alone, and links them", async () => {

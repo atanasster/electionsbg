@@ -36,7 +36,6 @@ import {
   Map as MapIcon,
   Shuffle,
   GitFork,
-  Split,
   Target,
 } from "lucide-react";
 // ⚠ THE PARLIAMENTARY DASHBOARD'S OWN BAND AND ITS OWN GRID, imported rather than reproduced.
@@ -73,8 +72,6 @@ import {
 } from "./PresidentialRegionsMap";
 import { ToLocalSameDay } from "@/screens/components/SameDayElectionLink";
 import { useRunoffTransfer } from "@/data/presidential/useRunoffTransfer";
-import { useSplitTicket } from "@/data/presidential/useSplitTicket";
-import { PresidentialSplitTicketTile } from "./PresidentialSplitTicketTile";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
 import { PresidentialFlashMemoryTile } from "./PresidentialFlashMemoryTile";
 import { PresidentialSuspiciousTile } from "./PresidentialSuspiciousTile";
@@ -88,13 +85,8 @@ import { usePresidentialFlow } from "@/data/presidential/usePresidentialFlow";
 import { PresidentialProblemSectionsTile } from "./PresidentialProblemSectionsTile";
 import { PresidentialProblemVotesTile } from "./PresidentialProblemVotesTile";
 import { scopeNeighborhoods } from "@/data/presidential/neighborhoodScope";
-import { PresidentialScreeningTile } from "./PresidentialScreeningTile";
 import { PresidentialRiskIndex } from "./PresidentialRiskIndex";
 import { usePresidentialRiskScore } from "@/data/presidential/useRiskScore";
-import {
-  hasScreeningContent,
-  usePresidentialScreening,
-} from "@/data/presidential/useScreening";
 import {
   hasNeighborhoodContent,
   usePresidentialNeighborhoods,
@@ -103,11 +95,6 @@ import { PresidentialTopRegionsTile } from "./PresidentialTopRegionsTile";
 import { PresidentialCleavagesTile } from "./PresidentialCleavagesTile";
 import { usePresidentialCleavages } from "@/data/presidential/usePresidentialCleavages";
 import { selectCleavageRows } from "@/screens/dashboard/selectCleavageRows";
-import {
-  PresidentialRunoffSwingLegend,
-  PresidentialRunoffSwingList,
-  PresidentialRunoffSwingMap,
-} from "./PresidentialRunoffSwing";
 import type { PresidentialSummaryRound } from "@/data/presidential/summary";
 
 const RoundPanel: FC<{
@@ -171,18 +158,13 @@ const RoundPanel: FC<{
   // protocols are not — 2021's runoff turnout there is 20.5% against 23.9% in round 1 — so the
   // figures are rebuilt rather than lifted to the page.
   const hoods = usePresidentialNeighborhoods(cycle, round.round);
-  // ⚠ PER ROUND. The two rounds are different paperwork — 2011's invalid rate halves between
-  // them — so the screen is rebuilt rather than lifted to the page.
-  const screening = usePresidentialScreening(cycle, round.round);
   // The Election Risk Index gates on the section risk score alone — its other inputs are optional.
   // ⚠ READ HERE ONLY FOR THE SECTION GATE: `DashboardSection` cannot see that
   // `PresidentialRiskIndex` self-hides; React Query shares this fetch with the component's own.
   const riskScore = usePresidentialRiskScore(cycle, round.round);
-  // ⚠ PER CYCLE. Absent is the normal answer for both: a cycle decided in round 1 has no
-  // transfer to estimate, and only 2021's presidential vote shared its day with a parliamentary
-  // one, so four of the five cycles have no split-ticket file by construction.
+  // ⚠ PER CYCLE. Absent is the normal answer: a cycle decided in round 1 has no transfer to
+  // estimate.
   const transfer = useRunoffTransfer(cycle);
-  const split = useSplitTicket(cycle);
   // ⚠⚠ CONTENT, NOT QUERY STATUS. `ready` is not „has something to draw" for either tile:
   // `isRollup` accepts an entries-empty or all-zero roll-up, and both tiles self-hide on an
   // empty result — so a status gate leaves the heading standing over an empty grid. `leaders.size
@@ -210,8 +192,18 @@ const RoundPanel: FC<{
   // it renders — so a tile that returns null leaves the heading standing over nothing. Measured
   // on 2006, whose flow the producer refuses on coverage. React Query dedupes this call against
   // the tile's own, so the gate costs no second request.
-  const flow = usePresidentialFlow(cycle, round.round, "national");
-  const hasFlow = flow.hasPair && flow.hasFile;
+  // ⚠ BOTH ROUNDS, whatever the toggle shows: „how did each party's voters vote" has an answer
+  // per round (the parliamentary vote → round 1, and → the runoff), and reading them one above
+  // the other is the comparison. A cycle with one round, or whose flow the producer refused,
+  // simply has no second (or first) file.
+  const flow1 = usePresidentialFlow(cycle, 1, "national");
+  const flow2 = usePresidentialFlow(
+    rounds.includes(2) ? cycle : undefined,
+    2,
+    "national",
+  );
+  const hasFlow1 = flow1.hasPair && flow1.hasFile;
+  const hasFlow2 = flow2.hasPair && flow2.hasFile;
   // ⚠ THE COUNTRY SCOPE IS THE ARTIFACT ITSELF — `scopeNeighborhoods` returns the published
   // `tickets` array verbatim at this level rather than re-deriving it, so the country page and
   // the place pages cannot disagree about a share by a rounding step.
@@ -222,10 +214,6 @@ const RoundPanel: FC<{
         : null,
     [hoods],
   );
-  // ⚠ CONTENT. A round nothing could be scored publishes four zero bands, which reads as „every
-  // section was clean" when the truth is that none was measurable.
-  const hasScreening =
-    screening.status === "ready" && hasScreeningContent(screening.screening);
   const hasRisk = riskScore.status === "ready";
   // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
   // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
@@ -345,13 +333,11 @@ const RoundPanel: FC<{
       </section>
 
       {/* 4. where the votes went — `/parliamentary`'s „Гласове" band comes first after the
-             canvas there, and its vote-flow tile is this page's nearest kin. Three questions,
-             each under its OWN heading because each is a different kind of claim: the flow
-             from the parliamentary vote is an ESTIMATE, the runoff transfer is an ESTIMATE with
-             an arithmetic pickup beside it, and the split ticket is a LOWER BOUND. One heading
-             over all three is how a reader carries one licence over to numbers that do not
-             have it. */}
-      {hasFlow ? (
+             canvas there, and its vote-flow tile is this page's nearest kin. Two questions, each
+             under its OWN heading: how each party's voters voted for president (one Sankey per
+             round), and where round 1's votes went in the runoff. Both are ESTIMATES and both
+             say so. */}
+      {hasFlow1 || hasFlow2 ? (
         <DashboardSection
           id="presidential-flow"
           // ⚠ THE SECTION AND THE TILE MUST NOT SAY THE SAME THING — rendered with the tile's own
@@ -360,7 +346,20 @@ const RoundPanel: FC<{
           icon={GitFork}
           headingLevel={2}
         >
-          <PresidentialFlowTile cycle={cycle} round={round.round} />
+          {hasFlow1 ? (
+            <PresidentialFlowTile
+              cycle={cycle}
+              round={1}
+              showRound={hasFlow2}
+            />
+          ) : null}
+          {hasFlow2 ? (
+            <PresidentialFlowTile
+              cycle={cycle}
+              round={2}
+              showRound={hasFlow1}
+            />
+          ) : null}
         </DashboardSection>
       ) : null}
 
@@ -374,45 +373,6 @@ const RoundPanel: FC<{
           headingLevel={2}
         >
           <PresidentialTransferTile transfer={transfer.transfer} />
-          {/* ⚠ A SEPARATE QUESTION, ASKED SEPARATELY. Everything above this heading is an
-              estimate; everything below it is arithmetic on published protocols. */}
-          <h3
-            className="font-semibold"
-            data-map-question
-            id="pvr-transfer-pickup"
-          >
-            {t("presidential_pickup_heading", {
-              president: transfer.transfer.finalists[0].president,
-            })}
-          </h3>
-          <p className="text-xs text-muted-foreground">
-            {t("presidential_pickup_note")}
-          </p>
-          <PresidentialRunoffSwingList
-            cycle={cycle}
-            winner={transfer.transfer.finalists[0].president}
-            oblasts={transfer.transfer.oblasts}
-          />
-          <PresidentialRunoffSwingLegend />
-          <PresidentialRunoffSwingMap
-            cycle={cycle}
-            winner={transfer.transfer.finalists[0].president}
-            oblasts={transfer.transfer.oblasts}
-          />
-        </DashboardSection>
-      ) : null}
-
-      {/* ⚠ ROUND ONE ONLY, AND GATED ON THE VIEW. The comparison is against the parliamentary
-          ballot cast the SAME DAY, which is round 1's day; under a runoff view the tile would be
-          numbers from another ballot beneath a heading about this one. */}
-      {round.round === 1 && split.status === "ready" ? (
-        <DashboardSection
-          id="presidential-split"
-          title={t("presidential_split_heading")}
-          icon={Split}
-          headingLevel={2}
-        >
-          <PresidentialSplitTicketTile split={split.split} />
         </DashboardSection>
       ) : null}
 
@@ -457,7 +417,7 @@ const RoundPanel: FC<{
       {/* 7. anomalies — the parliamentary dashboard's own heading for the same pair of questions.
              ⚠⚠ NEITHER TILE ALLEGES ANYTHING. ⚠ FLASH SELF-HIDES ON FOUR OF THE FIVE CYCLES and
              that is the corpus, not a bug: only 2021 published its СУЕМГ records. */}
-      {hasRisk || hasFlash || hasSuspicious || hasScreening ? (
+      {hasRisk || hasFlash || hasSuspicious ? (
         <DashboardSection
           id="anomalies"
           title={t("dashboard_section_anomalies")}
@@ -473,11 +433,9 @@ const RoundPanel: FC<{
           {hasSuspicious && suspicious.status === "ready" ? (
             <PresidentialSuspiciousTile suspicious={suspicious.suspicious} />
           ) : null}
-          {/* ⚠ THE SCREEN BELONGS WITH THE ANOMALIES, not in „Рискови гласове": both start from
-              the whole country and let the protocols name the places. */}
-          {hasScreening && screening.status === "ready" ? (
-            <PresidentialScreeningTile screening={screening.screening} />
-          ) : null}
+          {/* ⚠ NO SEPARATE PROTOCOL SCREEN. The procedural-only section screen sat here; the
+              Election Risk Index above carries the same procedural signals as its sub-score and
+              NAMES the sections, while the screen — by its own copy — singled nothing out. */}
         </DashboardSection>
       ) : null}
 

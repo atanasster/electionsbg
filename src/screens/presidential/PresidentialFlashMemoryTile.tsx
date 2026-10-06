@@ -25,6 +25,9 @@ import { useFlashDiff } from "@/data/presidential/useFlashDiff";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { PresidentialPersonName } from "./PresidentialPersonName";
 
+/** Rows shown — the parliamentary flash tile's own cap. */
+const TOP_N = 6;
+
 /** ⚠ ZERO IS ITS OWN CASE AND STAYS MUTED. A green „0" reads as a gain and a red one as a
  *  problem; an exact match between two independent documents is neither. */
 const toneOf = (d: number): string =>
@@ -46,9 +49,13 @@ export const PresidentialFlashMemoryTile: FC<{
   const compared = diff.tickets.reduce((a, r) => a + r.machineVotes, 0);
   const total = compared + diff.coverage.uncomparedMachineVotes;
   // Only the rows worth reading: a ticket with no machine votes on either side says nothing.
-  const rows = diff.tickets.filter(
-    (r) => r.machineVotes > 0 || r.flashVotes > 0,
-  );
+  // ⚠ THE TOP CANDIDATES ONLY, as the parliamentary flash tile shows the top parties: 23 rows
+  // of single-digit differences buried the six that carry almost every machine vote. The
+  // coverage line below still counts every candidate's votes.
+  const rows = diff.tickets
+    .filter((r) => r.machineVotes > 0 || r.flashVotes > 0)
+    .sort((a, b) => b.machineVotes - a.machineVotes || a.number - b.number)
+    .slice(0, TOP_N);
   const maxAbs = Math.max(
     1,
     ...rows.map((r) => Math.abs(r.flashVotes - r.machineVotes)),

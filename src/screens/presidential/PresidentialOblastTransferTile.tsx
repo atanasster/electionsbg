@@ -28,8 +28,9 @@ import { formatInt } from "@/lib/currency";
 import type { OblastTransfer } from "@/data/presidential/useOblastTransfer";
 
 export const PresidentialOblastTransferTile: FC<{
+  cycle: string;
   transfer: OblastTransfer;
-}> = ({ transfer }) => {
+}> = ({ cycle, transfer }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const isEn = lang === "en";
@@ -37,6 +38,7 @@ export const PresidentialOblastTransferTile: FC<{
 
   return (
     <PresidentialTransferCard
+      cycle={cycle}
       basis={transfer.basis}
       basisEn={transfer.basisEn}
       matrix={transfer.matrix}
