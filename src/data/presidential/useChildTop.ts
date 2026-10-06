@@ -54,7 +54,12 @@ export const useHasChildTop = (
     round,
     grain ?? "municipality",
   );
-  const keys = useChildKeys(parentId ?? "", grain ?? "municipality");
+  // ⚠ NO GRAIN, NO PARENT: a level with no child map (settlement, section, abroad) must not
+  // ask for `/maps/regions/<its id>.json` under the municipality default.
+  const keys = useChildKeys(
+    grain ? (parentId ?? "") : "",
+    grain ?? "municipality",
+  );
   return useMemo(() => {
     if (!grain || !parentId || rollup.status !== "ready" || !keys) return false;
     return rollup.rollup.entries.some(

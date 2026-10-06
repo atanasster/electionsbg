@@ -430,6 +430,7 @@ const RoundPanel: FC<{
           {hasTopRegions && rollup.status === "ready" ? (
             <PresidentialTopRegionsTile
               cycle={cycle}
+              round={round.round}
               rollup={rollup.rollup}
               tickets={tickets}
             />

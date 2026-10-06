@@ -31,13 +31,19 @@ import {
   foldPlace,
   leadersByPlace,
   useRoundRollup,
-  type RollupEntry,
 } from "@/data/presidential/useRoundRollup";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { useAbroadCountriesGeo } from "@/data/presidential/useAbroadCountriesGeo";
 import type { SettlementJSONProps } from "@/screens/components/maps/mapTypes";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { PresidentialPlaceTip } from "./PresidentialPlaceTip";
+import {
+  entriesByRound,
+  indexRollup,
+  localizedName,
+  otherRound,
+  tipRounds,
+} from "@/data/presidential/tipRounds";
 
 type Props = { cycle: string; round: 1 | 2 };
 
@@ -56,10 +62,9 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
   const rollup = useRoundRollup(cycle, round, "abroad");
   // ⚠ THE OTHER ROUND FOR THE HOVER CARD — the same file the country page's world inset reads,
   // so React Query usually already holds it.
-  const other: 1 | 2 = round === 1 ? 2 : 1;
-  const otherRollup = useRoundRollup(cycle, other, "abroad");
+  const otherRollup = useRoundRollup(cycle, otherRound(round), "abroad");
   const tickets = useTicketsByNumber(cycle);
-  const geo = useAbroadCountriesGeo();
+  const { geo, failed: geoFailed } = useAbroadCountriesGeo();
   const { findSettlement } = useSettlementsInfo();
 
   const leaders = useMemo(
@@ -67,20 +72,14 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
       rollup.status === "ready" ? leadersByPlace(rollup.rollup) : new Map(),
     [rollup],
   );
-  const byRound = useMemo(() => {
-    const index = (s: typeof rollup) =>
-      s.status === "ready"
-        ? new Map(s.rollup.entries.map((e) => [e.key, e] as const))
-        : new Map<string, RollupEntry>();
-    return { [round]: index(rollup), [other]: index(otherRollup) } as Record<
-      1 | 2,
-      Map<string, RollupEntry>
-    >;
-  }, [rollup, otherRollup, round, other]);
+  const byRound = useMemo(
+    () => entriesByRound(round, indexRollup(rollup), indexRollup(otherRollup)),
+    [rollup, otherRollup, round],
+  );
 
   const nameOf = (key: string): string => {
     const s = findSettlement(key);
-    return (isBg ? s?.name : s?.name_en) || s?.name || key;
+    return localizedName(s, isBg, key);
   };
   const labelOf = (key: string): string => {
     const lead = leaders.get(key);
@@ -94,14 +93,16 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
       : t("presidential_map_region_label_empty", { place: nameOf(key) });
   };
 
-  if (rollup.status === "loading" || !geo)
+  // ⚠ A FAILED GEOMETRY FILE IS NOT „STILL LOADING": it falls through to the no-data line
+  // below rather than leaving a pulsing placeholder that promises a map that will not come.
+  if (rollup.status === "loading" || (!geo && !geoFailed))
     return (
       <div
         className={`w-full animate-pulse rounded bg-muted ${MAP_BOX_HEIGHT_CLASS}`}
         aria-hidden="true"
       />
     );
-  if (leaders.size === 0)
+  if (leaders.size === 0 || !geo)
     return (
       <p className="text-sm text-muted-foreground" data-map-no-data>
         {t("election_map_no_data_here")}
@@ -117,9 +118,7 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
       tooltipOf={(p) => (
         <PresidentialPlaceTip
           title={nameOf(p.ekatte)}
-          rounds={([1, 2] as const)
-            .map((r) => ({ round: r, entry: byRound[r].get(p.ekatte) }))
-            .filter((r) => r.round === round || r.entry)}
+          rounds={tipRounds(byRound, p.ekatte, round)}
           tickets={tickets}
           current={round}
         />

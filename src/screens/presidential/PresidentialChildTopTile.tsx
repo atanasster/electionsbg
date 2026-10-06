@@ -23,6 +23,7 @@ import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { roundSearch } from "@/data/presidential/roundParam";
 import { useRoundRollup } from "@/data/presidential/useRoundRollup";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
+import { localizedName } from "@/data/presidential/tipRounds";
 import { useChildKeys, type ChildGrain } from "@/data/presidential/useChildTop";
 import { PresidentialTopPlacesCard } from "./PresidentialTopRegionsTile";
 
@@ -59,7 +60,7 @@ export const PresidentialChildTopTile: FC<PresidentialChildTopTileProps> = ({
   const nameOf = useCallback(
     (key: string) => {
       const info = isMuni ? findMunicipality(key) : findSettlement(key);
-      return (isBg ? info?.name : info?.name_en) || info?.name || key;
+      return localizedName(info, isBg, key);
     },
     [isMuni, isBg, findMunicipality, findSettlement],
   );

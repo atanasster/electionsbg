@@ -6,9 +6,11 @@
 // the country's ISO-2 key (the presidential abroad roll-up's key, Kosovo's Cyrillic `КО`
 // included) and its `nuts4` the continent.
 //
-// ⚠ `undefined` UNTIL ALL SIX HAVE ANSWERED. A map drawn from five of them would show a
+// ⚠ NO GEOMETRY UNTIL ALL SIX HAVE ANSWERED. A map drawn from five of them would show a
 // continent's countries as „no station" — a false statement about named places — while the
-// sixth was merely still in flight. A file that fails stays failed rather than being skipped.
+// sixth was merely still in flight. A file that fails stays failed rather than being skipped,
+// and `failed` says so, so the caller can stop showing a loading state for data that will not
+// arrive.
 
 import { useMemo } from "react";
 import { useQueries } from "@tanstack/react-query";
@@ -23,7 +25,10 @@ const fetchContinent = async (code: string): Promise<SettlementGeoJSON> => {
   return res.json();
 };
 
-export const useAbroadCountriesGeo = (): SettlementGeoJSON | undefined => {
+export const useAbroadCountriesGeo = (): {
+  geo: SettlementGeoJSON | undefined;
+  failed: boolean;
+} => {
   const results = useQueries({
     queries: ABROAD_CONTINENTS.map((code) => ({
       // ⚠ THE SAME KEY `useSettlementsMap` USES, so a reader arriving from a parliamentary
@@ -35,7 +40,7 @@ export const useAbroadCountriesGeo = (): SettlementGeoJSON | undefined => {
   const parts = results.map((r) => r.data);
   // ⚠ MEMOISED ON THE SIX DATA REFERENCES — the map's projection is memoised on this object, so
   // a fresh one per render would re-project the world on every hover.
-  return useMemo(() => {
+  const geo = useMemo(() => {
     if (!parts.every((d) => d && Array.isArray(d.features))) return undefined;
     return {
       type: "FeatureCollection" as const,
@@ -43,4 +48,5 @@ export const useAbroadCountriesGeo = (): SettlementGeoJSON | undefined => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, parts);
+  return { geo, failed: results.some((r) => r.isError) };
 };

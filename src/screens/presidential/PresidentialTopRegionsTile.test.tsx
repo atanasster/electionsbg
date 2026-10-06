@@ -54,12 +54,13 @@ const rollup = (
   })),
 });
 
-const mount = (r: RoundRollup) =>
+const mount = (r: RoundRollup, round: 1 | 2 = 1) =>
   render(
     <MemoryRouter>
       <TooltipProvider>
         <PresidentialTopRegionsTile
           cycle="2021_11_14_pvr"
+          round={round}
           rollup={r}
           tickets={TICKETS}
         />
@@ -188,5 +189,11 @@ describe("PresidentialTopRegionsTile", () => {
   it("renders NOTHING when no oblast cast a vote", () => {
     const { container } = mount(rollup([{ key: "SML", votes: [[6, 0]] }]));
     expect(container.textContent).toBe("");
+  });
+  it("carries the runoff on each oblast link, as the map's own clicks do", () => {
+    mount(rollup([{ key: "BLG", votes: [[6, 9]] }]), 2);
+    expect(rows().map((a) => a.getAttribute("href"))).toEqual([
+      "/presidential/2021_11_14_pvr/region/BLG?pollRound=2",
+    ]);
   });
 });

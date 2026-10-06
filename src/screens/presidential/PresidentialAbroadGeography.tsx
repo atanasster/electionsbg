@@ -24,6 +24,7 @@ import {
   type RollupEntry,
 } from "@/data/presidential/useRoundRollup";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
+import { localizedName } from "@/data/presidential/tipRounds";
 import { PresidentialTopPlacesCard } from "./PresidentialTopRegionsTile";
 
 export const PresidentialAbroadGeography: FC<{
@@ -65,14 +66,14 @@ export const PresidentialAbroadGeography: FC<{
   const countryName = useCallback(
     (key: string) => {
       const s = findSettlement(key);
-      return (isBg ? s?.name : s?.name_en) || s?.name || key;
+      return localizedName(s, isBg, key);
     },
     [findSettlement, isBg],
   );
   const continentName = useCallback(
     (key: string) => {
       const m = findMunicipality(key);
-      return (isBg ? m?.name : m?.name_en) || m?.name || key;
+      return localizedName(m, isBg, key);
     },
     [findMunicipality, isBg],
   );

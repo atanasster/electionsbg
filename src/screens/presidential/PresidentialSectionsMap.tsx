@@ -41,6 +41,11 @@ import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { roundSearch } from "@/data/presidential/roundParam";
 import type { RollupEntry } from "@/data/presidential/useRoundRollup";
 import { PresidentialPlaceTip } from "./PresidentialPlaceTip";
+import {
+  entriesByRound,
+  otherRound,
+  tipRounds,
+} from "@/data/presidential/tipRounds";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import {
@@ -66,8 +71,11 @@ export const PresidentialSectionsMap: FC<{
   // ⚠ THE OTHER ROUND FOR THE HOVER CARD. The place pages used to draw one canvas per round, so
   // both shards were already downloaded; with the round toggle only this map is mounted and
   // this read is what keeps the other one in hand. A cycle with no runoff answers `absent`.
-  const other: 1 | 2 = round === 1 ? 2 : 1;
-  const otherRollup = usePresidentialSectionRollup(cycle, other, place?.oblast);
+  const otherRollup = usePresidentialSectionRollup(
+    cycle,
+    otherRound(round),
+    place?.oblast,
+  );
   const navigate = useNavigate();
   const tickets = useTicketsByNumber(cycle);
   // The parliamentary shard for the SAME settlement — read only for its stations' coordinates.
@@ -91,11 +99,8 @@ export const PresidentialSectionsMap: FC<{
             m.set(r.code, { key: r.code, results: { votes: r.votes } });
       return m;
     };
-    return { [round]: index(rollup), [other]: index(otherRollup) } as Record<
-      1 | 2,
-      Map<string, RollupEntry>
-    >;
-  }, [rollup, otherRollup, round, other, ekatte]);
+    return entriesByRound(round, index(rollup), index(otherRollup));
+  }, [rollup, otherRollup, round, ekatte]);
 
   const points = useMemo(() => {
     const coords = new Map<string, { lat: number; lon: number }>();
@@ -166,9 +171,7 @@ export const PresidentialSectionsMap: FC<{
                     what every other presidential map shows on hover. */}
                 <PresidentialPlaceTip
                   title={`${t("section")} ${p.code}`}
-                  rounds={([1, 2] as const)
-                    .map((r) => ({ round: r, entry: byRound[r].get(p.code) }))
-                    .filter((r) => r.round === round || r.entry)}
+                  rounds={tipRounds(byRound, p.code, round)}
                   tickets={tickets}
                   current={round}
                 />

@@ -11,6 +11,7 @@ import { stripSettlementFromAddress } from "@/screens/dashboard/sectionAddress";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { usePresidentialSectionRollup } from "./useSectionRollup";
+import { foldPlace } from "./useRoundRollup";
 
 export type TopSectionRow = {
   code: string;
@@ -41,22 +42,19 @@ export const useTopSections = (
     return rollup.rows
       .filter((r) => r.ekatte === ekatte)
       .map<TopSectionRow>((r) => {
-        let best: TopSectionRow["leader"];
-        let total = 0;
-        for (const v of r.votes) {
-          total += v.totalVotes;
-          if (
-            !best ||
-            v.totalVotes > best.votes ||
-            (v.totalVotes === best.votes && v.partyNum < best.number)
-          )
-            best = { number: v.partyNum, votes: v.totalVotes };
-        }
+        // `foldPlace` is the one definition of a place's total and leader (and its tie break).
+        const { total, best } = foldPlace({
+          key: r.code,
+          results: { votes: r.votes },
+        });
         return {
           code: r.code,
           address: address.get(r.code) ?? "",
           total,
-          leader: best && best.votes > 0 ? best : undefined,
+          leader:
+            best && best.totalVotes > 0
+              ? { number: best.partyNum, votes: best.totalVotes }
+              : undefined,
         };
       })
       .filter((r) => r.total > 0)

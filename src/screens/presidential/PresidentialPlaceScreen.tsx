@@ -13,7 +13,7 @@
 // page has nothing else to show, so the fallback is a stated absence — „this cycle's place
 // pages are not published" — rather than `null`, which would render a heading over nothing.
 //
-// ⚠ `PlaceHeader` IS MOUNTED FOR region/municipality/settlement — the same colored-card
+// ⚠ `PlaceHeader` IS MOUNTED AT EVERY LEVEL — the same colored-card
 // header (left border, eyebrow badge, h1, narrative, thumbnail) governance/parliamentary/local
 // already share, now that presidential is a fifth `PlaceView` (`placeViews.ts`) with a working
 // URL builder for those three levels. `useSurfaceLabels` (this screen's own identity source)
@@ -121,12 +121,6 @@ const FACT_SLOTS: Record<PresidentialPlaceLevel, number> = {
   section: 4,
 };
 
-/** The levels whose map slot `MAP_ADAPTERS` actually fills.
- *
- *  ⚠ IT MIRRORS THE REGISTRY AND IS NOT DERIVED FROM IT ON PURPOSE. Importing `MAP_ADAPTERS`
- *  here would put the registry — and the `import()` edges to every adapter — into this screen's
- *  static closure, which is the one thing the lazy indirection exists to prevent. The pairing is
- *  held by `presidentialMaps.test.ts` instead, so the two cannot drift silently. */
 /** A surface query's payload when it has one. */
 const readySurface = (
   s: ReturnType<typeof useElectionSurface>,
@@ -150,6 +144,12 @@ const CHILD_GRAIN: Partial<
   municipality: "settlement",
 };
 
+/** The levels whose map slot `MAP_ADAPTERS` actually fills.
+ *
+ *  ⚠ IT MIRRORS THE REGISTRY AND IS NOT DERIVED FROM IT ON PURPOSE. Importing `MAP_ADAPTERS`
+ *  here would put the registry — and the `import()` edges to every adapter — into this screen's
+ *  static closure, which is the one thing the lazy indirection exists to prevent. The pairing is
+ *  held by `presidentialMaps.test.ts` instead, so the two cannot drift silently. */
 const MAPPED_LEVELS = new Set<PresidentialPlaceLevel>([
   "abroad",
   "region",
@@ -294,8 +294,9 @@ export const PresidentialPlaceScreen: FC<{
       ? parentEkatteOf(sectionSurface.surface)
       : undefined;
 
-  // The header's PlaceRef, for the three levels this screen has an exact id for — see the
-  // file header for why `section` and `abroad` keep the bare fallback below instead.
+  // The header's PlaceRef — every level has one once its id resolves (abroad at the МИР-32
+  // oblast, a section through its parent settlement; see the file header). The bare fallback
+  // below is only the moment before the route param resolves.
   const placeRef: PlaceRef | null =
     level === "abroad"
       ? { level: "region", oblast: ABROAD_OBLAST }
@@ -359,12 +360,11 @@ export const PresidentialPlaceScreen: FC<{
           <ElectionSurfaceSkeleton
             facts={FACT_SLOTS[level]}
             // ⚠ RESERVE WHAT THE PAGE RENDERS, WHICH IS NOT WHAT THE DESCRIPTOR DECLARES.
-            // Every level except `section` declares a map slot; three have an adapter to fill
-            // it (`presidential/region|municipality|settlement/winner`). A section has no
-            // geography to answer a question about — the repo's canonical map-free page — and
-            // `abroad` declares a slot `MAP_ADAPTERS` deliberately does not serve (no
-            // country→continent crosswalk), so reserving 360px on those two is the layout shift
-            // in the other direction.
+            // Every level except `section` declares a map slot, and every one of those has an
+            // adapter to fill it (`presidential/abroad|region|municipality|settlement/winner`).
+            // A section has no geography to answer a question about — the repo's canonical
+            // map-free page — so reserving 360px there is the layout shift in the other
+            // direction.
             withMap={MAPPED_LEVELS.has(level)}
           />
         }
@@ -457,7 +457,8 @@ export const PresidentialPlaceScreen: FC<{
  *  the other. The toggle shows one, and the map's hover card already carries both rounds. */
 const RoundResults: FC<{
   surface: ElectionSurfaceV1;
-  /** The cross-view digest, on the levels that carry one (the settlement page). */
+  /** The cross-view digest, on the levels that carry one (the region, municipality and
+   *  settlement pages). */
   digest?: PlaceDigestCell[];
   round: 1 | 2;
   onRound: (r: 1 | 2) => void;

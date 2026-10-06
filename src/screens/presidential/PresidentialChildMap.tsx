@@ -47,7 +47,6 @@ import {
   foldPlace,
   leadersByPlace,
   useRoundRollup,
-  type RollupEntry,
   type RollupLevel,
 } from "@/data/presidential/useRoundRollup";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
@@ -57,6 +56,13 @@ import type {
 } from "@/screens/components/maps/mapTypes";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { PresidentialPlaceTip } from "./PresidentialPlaceTip";
+import {
+  entriesByRound,
+  indexRollup,
+  localizedName,
+  otherRound,
+  tipRounds,
+} from "@/data/presidential/tipRounds";
 import { ROUND_PARAM } from "@/data/presidential/roundParam";
 
 /** The round travels with a click, so the child page opens on the round the reader chose. */
@@ -120,24 +126,15 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
   // canvas per round, so both files were already downloaded; with the round toggle only one map
   // is mounted and this hook is what keeps the other file in hand. A cycle with no runoff
   // answers `absent` for round 2 and the card simply shows one block.
-  const other: 1 | 2 = round === 1 ? 2 : 1;
-  const otherRollup = useRoundRollup(cycle, other, grain);
-  const entriesByRound = useMemo(() => {
-    const index = (s: typeof rollup) =>
-      s.status === "ready"
-        ? new Map(s.rollup.entries.map((e) => [e.key, e] as const))
-        : new Map<string, RollupEntry>();
-    return { [round]: index(rollup), [other]: index(otherRollup) } as Record<
-      1 | 2,
-      Map<string, RollupEntry>
-    >;
-  }, [rollup, otherRollup, round, other]);
+  const otherRollup = useRoundRollup(cycle, otherRound(round), grain);
+  const byRound = useMemo(
+    () => entriesByRound(round, indexRollup(rollup), indexRollup(otherRollup)),
+    [rollup, otherRollup, round],
+  );
   const tipOf = (key: string) => (
     <PresidentialPlaceTip
       title={nameOf(key)}
-      rounds={([1, 2] as const)
-        .map((r) => ({ round: r, entry: entriesByRound[r].get(key) }))
-        .filter((r) => r.round === round || r.entry)}
+      rounds={tipRounds(byRound, key, round)}
       tickets={tickets}
       current={round}
     />
@@ -157,10 +154,10 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
   const nameOf = (key: string): string => {
     if (isMuni) {
       const m = findMunicipality(key);
-      return (isBg ? m?.name : m?.name_en) || m?.name || key;
+      return localizedName(m, isBg, key);
     }
     const s = findSettlement(key);
-    return (isBg ? s?.name : s?.name_en) || s?.name || key;
+    return localizedName(s, isBg, key);
   };
 
   const labelOf = (key: string): string => {

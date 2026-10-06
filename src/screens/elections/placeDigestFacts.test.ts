@@ -11,7 +11,9 @@ import {
   linkDigestCell,
   localDigestCell,
   parliamentaryDigestCell,
+  parliamentaryWinnerOf,
 } from "./placeDigestFacts";
+import type { ElectionSurfaceV1 } from "@/data/elections/surfaceTypes";
 import {
   PLACE_DIGEST_FIGURE_VIEWS,
   PLACE_DIGEST_LINK_VIEWS,
@@ -268,5 +270,70 @@ describe("the digest as a whole", () => {
     let blob = JSON.stringify(full());
     blob = blob.split(local.mayorName).join("");
     expect(blob).not.toMatch(/[Ѐ-ӿ]/);
+  });
+});
+
+describe("the region-level digest", () => {
+  it("has no Местни cell and no council in the governance wording at an oblast", () => {
+    // ⚠ AN OBLAST HAS NO MAYOR AND NO MUNICIPAL COUNCIL. The region pages supply no local
+    // source, which drops the cell rather than stating a vacancy; and the governance cell must
+    // not promise a council the page does not have.
+    const cells = buildPlaceDigest({
+      place: { level: "region", oblast: "PVN" },
+      parliamentaryCycle: CYCLE,
+      localCycle: LOCAL,
+      presidentialCycle: PRESIDENTIAL,
+      winner,
+      currentView: "presidential",
+    });
+    expect(cells.map((c) => c.view)).not.toContain("local");
+    const gov = cells.find((c) => c.view === "governance");
+    expect(gov && "descriptorKey" in gov ? gov.descriptorKey : undefined).toBe(
+      "place_digest_governance_region_desc",
+    );
+    // …and a município keeps the council wording — the control.
+    const muni = linkDigestCell("governance", MUNI);
+    expect(muni?.descriptorKey).toBe("place_digest_governance_desc");
+  });
+
+  it("renders NOTHING for МИР 32, where fewer than two views resolve", () => {
+    expect(
+      buildPlaceDigest({
+        place: { level: "region", oblast: "32" },
+        parliamentaryCycle: CYCLE,
+        localCycle: LOCAL,
+        presidentialCycle: PRESIDENTIAL,
+        currentView: "parliamentary",
+      }),
+    ).toEqual([]);
+  });
+});
+
+describe("parliamentaryWinnerOf", () => {
+  const surfaceWith = (lead: {
+    pct: number;
+    marginPct?: number;
+  }): ElectionSurfaceV1 =>
+    ({
+      ballots: [
+        {
+          preview: [{ partyId: "p_20", votes: 10, ...lead }],
+        },
+      ],
+    }) as unknown as ElectionSurfaceV1;
+
+  it("reads the first ballot's leader with its margin", () => {
+    expect(
+      parliamentaryWinnerOf(surfaceWith({ pct: 51.84, marginPct: 38.5 })),
+    ).toEqual({
+      partyId: "p_20",
+      pct: 51.84,
+      marginPct: 38.5,
+    });
+  });
+
+  it("returns undefined without a margin — the cell prints one, it never invents it", () => {
+    expect(parliamentaryWinnerOf(surfaceWith({ pct: 51.84 }))).toBeUndefined();
+    expect(parliamentaryWinnerOf(undefined)).toBeUndefined();
   });
 });

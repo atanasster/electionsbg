@@ -30,6 +30,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { useRegions } from "@/data/regions/useRegions";
 import { regionDisplayName } from "@/data/presidential/regionName";
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
+import { roundSearch } from "@/data/presidential/roundParam";
 import { formatInt, formatPct } from "@/lib/currency";
 import {
   foldPlace,
@@ -193,9 +194,11 @@ export const PresidentialTopPlacesCard: FC<{
 
 export const PresidentialTopRegionsTile: FC<{
   cycle: string;
+  /** The round on screen — carried on each oblast link, as every other drill-down does. */
+  round: 1 | 2;
   rollup: RoundRollup;
   tickets: Map<number, PresidentialTicket>;
-}> = ({ cycle, rollup, tickets }) => {
+}> = ({ cycle, round, rollup, tickets }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language?.startsWith("bg") ?? true;
   const { findRegion } = useRegions();
@@ -208,7 +211,10 @@ export const PresidentialTopRegionsTile: FC<{
       entries={rollup.entries}
       tickets={tickets}
       nameOf={nameOf}
-      hrefOf={(key) => presidentialUrl(cycle, "region", key)}
+      hrefOf={(key) => {
+        const to = presidentialUrl(cycle, "region", key);
+        return to ? to + roundSearch(round) : to;
+      }}
       title={t("presidential_top_regions_title")}
       hint={t("presidential_top_regions_hint")}
       placeHeader={t("region")}
