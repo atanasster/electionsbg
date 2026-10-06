@@ -1,0 +1,50 @@
+{
+  "session": "20261006T214914Z-26ed",
+  "createdAt": "2026-10-06T22:53:30.555Z",
+  "skills": [
+    "update-polls",
+    "tr-daily-refresh",
+    "update-procurement",
+    "update-budget",
+    "update-prices",
+    "update-nzok",
+    "update-persons"
+  ],
+  "paths": [
+    "budget/nzok/activities_overview.json",
+    "culture/derived",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "home",
+    "polls/accuracy.json",
+    "polls/presidential",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "data_map.json",
+    "data-changes.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run prices:ingest:cloud",
+    "npm run db:load:nzok-drug-prices:pg:cloud",
+    "npm run db:load:nzok-activities:pg:cloud"
+  ],
+  "notes": "TR +108 cos; EOP +129 contracts; TED +105; prices 2026-10-06 (Billa/Kaufland feed collapse); NZOK Справка 5 08.2026. home/ needs bucket:gz after sync."
+}

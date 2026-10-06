@@ -1,48 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-05T23:59:59.999Z",
+  "computedAt": "2026-10-06T23:59:59.999Z",
   "windowDays": 30,
   "events": [
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:portokali",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-05T00:00:00.000Z",
-      "firstSeenAt": "2026-10-05T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/portokali",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "ПОРТОКАЛИ",
-        "pct": 54,
-        "promoEur": "0.99",
-        "regularEur": "2.15",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7714285714285715,
-      "actionability": 0.85
-    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-05T00:00:00.000Z",
-      "firstSeenAt": "2026-10-05T00:00:00.000Z",
+      "occurredAt": "2026-10-06T00:00:00.000Z",
+      "firstSeenAt": "2026-10-06T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -67,6 +34,39 @@
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.7714285714285715,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:kartofi-miti",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-06T00:00:00.000Z",
+      "firstSeenAt": "2026-10-06T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/kartofi-miti",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "КАРТОФИ МИТИ",
+        "pct": 53,
+        "promoEur": "0.55",
+        "regularEur": "1.17",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kartofi-miti",
+      "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-05T00:00:00.000Z",
-      "firstSeenAt": "2026-10-05T00:00:00.000Z",
+      "occurredAt": "2026-10-06T00:00:00.000Z",
+      "firstSeenAt": "2026-10-06T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,14 +213,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kartofi-miti",
+      "route": "/product/limoni",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КАРТОФИ МИТИ",
+        "title": "ЛИМОНИ",
         "pct": 52,
-        "promoEur": "0.55",
-        "regularEur": "1.15",
-        "chains": 2
+        "promoEur": "1.09",
+        "regularEur": "2.25",
+        "chains": 6
       },
       "backfill": false,
       "verification": "automatic",
@@ -1084,37 +1084,6 @@
       "verification": "automatic",
       "materiality": 0.42975,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-09-06",
-      "kind": "basket_moved",
-      "category": "prices",
-      "occurredAt": "2026-09-06T00:00:00.000Z",
-      "firstSeenAt": "2026-09-06T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/consumption",
-      "factKey": "home_fact_basket_down",
-      "factArgs": {
-        "pct": "2.0",
-        "costEur": "15.52",
-        "days": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.495,
-      "actionability": 0.5
     }
   ],
   "sourceCoverage": {
@@ -1165,8 +1134,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-05",
-      "observedAt": "2026-10-05",
+      "asOf": "2026-10-06",
+      "observedAt": "2026-10-06",
       "staleAfterDays": 5,
       "stale": false
     }

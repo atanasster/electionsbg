@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-05",
+  "computedAt": "2026-10-06",
   "thresholds": {
     "basketPids": [
       1,
@@ -34,7 +34,7 @@
   "basketMoves": [
     {
       "peakDay": "2026-09-06",
-      "startDay": "2026-09-04",
+      "startDay": "2026-09-05",
       "endDay": "2026-09-07",
       "pctChange": -1.98,
       "costEur": 15.521,
@@ -85,16 +85,6 @@
   ],
   "promotions": [
     {
-      "slug": "portokali",
-      "title": "ПОРТОКАЛИ",
-      "atOrBelowSince": "2026-10-04",
-      "promoEur": 0.99,
-      "regularEur": 2.15,
-      "discountPct": 54,
-      "stores": 76,
-      "chains": 3
-    },
-    {
       "slug": "shokolad-roshen-lakmi-mlechen-90gr",
       "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
       "atOrBelowSince": "2026-10-05",
@@ -109,10 +99,20 @@
       "title": "КАРТОФИ МИТИ",
       "atOrBelowSince": "2026-09-30",
       "promoEur": 0.55,
-      "regularEur": 1.15,
-      "discountPct": 52,
-      "stores": 7,
+      "regularEur": 1.17,
+      "discountPct": 53,
+      "stores": 6,
       "chains": 2
+    },
+    {
+      "slug": "limoni",
+      "title": "ЛИМОНИ",
+      "atOrBelowSince": "2026-09-28",
+      "promoEur": 1.09,
+      "regularEur": 2.25,
+      "discountPct": 52,
+      "stores": 251,
+      "chains": 6
     }
   ]
 }

@@ -1,0 +1,62 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "tr-2026-10-02-presidential",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/212997/",
+    "electionDate": null,
+    "cycle": null,
+    "respondents": 1003,
+    "genre": "raw_attitudes",
+    "fieldwork": "Sep 26 - Oct 2 2026",
+    "provenance": {
+      "url": "https://rctrend.bg/project/212997/",
+      "fetchedAt": "2026-10-06T21:49:48.501Z",
+      "sha256": "b6db8ae874c3771a6c921154b596ae7b19d8da018c29b95a4f3c92482851da56",
+      "extractor": "TR",
+      "fieldworkStart": "2026-09-26",
+      "fieldworkEnd": "2026-10-02",
+      "basePhrase": "от заявилите, че ще гласуват",
+      "quotes": {
+        "share:Прогресивна България": "Прогресивна България“ остава лидер, ползвайки се с подкрепата на 40,8% от гласуващите",
+        "sampleSize": "1003 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 26 септември - 2 октомври 2026 г"
+      }
+    },
+    "publicationId": "TR:212997",
+    "publishedAt": "2026-10-05"
+  },
+  "details": [
+    {
+      "pollId": "tr-2026-10-02-presidential",
+      "agencyId": "TR",
+      "candidateKey": "provisional:прогресивна-българия",
+      "candidateName_bg": "Прогресивна България",
+      "candidateName_en": "",
+      "nominator": null,
+      "placeholderFor": null,
+      "support": 40.8
+    }
+  ],
+  "runoffs": [],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:Прогресивна България": "Прогресивна България“ остава лидер, ползвайки се с подкрепата на 40,8% от гласуващите",
+    "sampleSize": "1003 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 26 септември - 2 октомври 2026 г"
+  },
+  "refused": [
+    {
+      "field": "residual.otherNamedMinor",
+      "reason": "the passport/chart image mentions a \"Други\" (Others) residual row whose value cannot be reliably read from OCR — a human should confirm the real percentage from the source image and set residual.otherNamedMinor (the draft's own top-level field) before accepting",
+      "quote": "БСП Величие Сияние Други\n\nБългария сдс промя"
+    },
+    {
+      "field": "poll.cycle",
+      "reason": "no presidential cycle in the fieldwork year covers fieldwork end 2026-10-02",
+      "quote": ""
+    }
+  ]
+}

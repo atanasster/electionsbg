@@ -1,0 +1,94 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2026-10-02",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/212997/",
+    "electionDate": null,
+    "respondents": 1003,
+    "genre": "raw_attitudes",
+    "fieldwork": "Sep 26 - Oct 2 2026",
+    "provenance": {
+      "url": "https://rctrend.bg/project/212997/",
+      "fetchedAt": "2026-10-06T21:49:48.501Z",
+      "sha256": "b6db8ae874c3771a6c921154b596ae7b19d8da018c29b95a4f3c92482851da56",
+      "extractor": "TR",
+      "fieldworkStart": "2026-09-26",
+      "fieldworkEnd": "2026-10-02",
+      "basePhrase": "подкрепата на 47,8% от заявилите, че ще гласуват",
+      "quotes": {
+        "share:Прогресивна България": "Прогресивна България“ остава лидер, ползвайки се с подкрепата на 40,8% от гласуващите",
+        "share:ГЕРБ": "ГЕРБ с 14,2%",
+        "share:ДПС": "ДПС остава с подкрепата на 6,2%, а „",
+        "share:Сияние": "Сияние с 2,2%",
+        "sampleSize": "1003 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 26 септември - 2 октомври 2026 г"
+      }
+    },
+    "publicationId": "TR:212997",
+    "publishedAt": "2026-10-05"
+  },
+  "details": [
+    {
+      "pollId": "tr-2026-10-02",
+      "agencyId": "TR",
+      "support": 40.8,
+      "nickName_bg": "Прогресивна България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-10-02",
+      "agencyId": "TR",
+      "support": 14.2,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-10-02",
+      "agencyId": "TR",
+      "support": 6.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-10-02",
+      "agencyId": "TR",
+      "support": 2.2,
+      "nickName_bg": "Сияние",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:Прогресивна България": "Прогресивна България“ остава лидер, ползвайки се с подкрепата на 40,8% от гласуващите",
+    "share:ГЕРБ": "ГЕРБ с 14,2%",
+    "share:ДПС": "ДПС остава с подкрепата на 6,2%, а „",
+    "share:Сияние": "Сияние с 2,2%",
+    "sampleSize": "1003 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 26 септември - 2 октомври 2026 г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (3,6%)"
+    },
+    {
+      "field": "share:Възраждане",
+      "reason": "mentioned 2 times with disagreeing values (9.7, 5.7%) — refusing rather than guessing which is current",
+      "quote": "Възраждане“ Костадинов-Волгин с 9,7% от гласовете | Възраждане“ с 5,7%"
+    },
+    {
+      "field": "share:МЕЧ",
+      "reason": "mentioned 2 times with disagreeing values (4.6, 3.8%) — refusing rather than guessing which is current",
+      "quote": "МЕЧ Василев-Манов се ползват с подкрепата на 4,6%, а Михайлов-Матеева от „ | МЕЧ (3,8%) и "
+    },
+    {
+      "field": "share:Величие",
+      "reason": "mentioned 2 times with disagreeing values (2.4, 2.7%) — refusing rather than guessing which is current",
+      "quote": "Величие“ заемат пета позиция с 2,4% | Величие с 2,7% и "
+    }
+  ]
+}
