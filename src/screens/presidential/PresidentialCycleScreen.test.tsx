@@ -1217,6 +1217,33 @@ describe("the anomalies section", () => {
       await screen.findByText(bgCorpus.dashboard_section_anomalies),
     ).toBeInTheDocument();
   });
+
+  it("lists only the six candidates with the most machine votes, largest first", async () => {
+    // As the parliamentary flash tile lists the top parties. Ticket N has N×1000 machine votes,
+    // so the ballot order is the REVERSE of the vote order — an unsorted or inverted slice
+    // shows the wrong six.
+    serve({
+      "national_summary.json": SUMMARY,
+      "flash.json": {
+        ...FLASH,
+        tickets: Array.from({ length: 8 }, (_, i) => ({
+          number: i + 1,
+          machineVotes: (i + 1) * 1000,
+          flashVotes: (i + 1) * 1000 + 1,
+        })),
+      },
+    });
+    const header = await screen.findByText(
+      bgCorpus.presidential_flash_col_protocol,
+    );
+    const rows = [
+      ...(header.closest("table")?.querySelectorAll("tbody tr") ?? []),
+    ];
+    expect(rows).toHaveLength(6);
+    expect(rows.map((r) => r.querySelector("td")?.textContent?.trim())).toEqual(
+      ["8", "7", "6", "5", "4", "3"],
+    );
+  });
 });
 
 describe("the risk-votes section", () => {
@@ -1357,5 +1384,78 @@ describe("the risk-votes section", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("КВАРТАЛНАТА ОГРАДА")).toBeTruthy();
     expect(screen.getByText("Столипиново / Шекер махала")).toBeTruthy();
+  });
+});
+
+describe("the vote-flow section", () => {
+  const FLOW = {
+    matrix: {
+      fromNodes: [
+        {
+          id: "p1",
+          label: "ПАРТИЯ",
+          labelEn: "PARTY",
+          color: "#111",
+          votes: 100,
+        },
+      ],
+      toNodes: [
+        {
+          id: "t6",
+          label: "Румен Георгиев Радев",
+          labelEn: "R",
+          color: "#222",
+          votes: 100,
+        },
+      ],
+      flows: [{ from: "p1", to: "t6", votes: 100 }],
+    },
+  };
+  const serve = (summary: unknown, files: Record<string, unknown>) => {
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      if (u.includes("national_summary.json"))
+        return new Response(JSON.stringify(summary), { status: 200 });
+      for (const [needle, body] of Object.entries(files))
+        if (u.includes(needle))
+          return new Response(JSON.stringify(body), { status: 200 });
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    return render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+  };
+  const titles = () =>
+    [...document.querySelectorAll("#presidential-flow span")]
+      .map((n) => n.textContent ?? "")
+      .filter((t) => t.startsWith(bgCorpus.presidential_flow_title));
+  const pair = (round: 1 | 2) => ({
+    from: "2021_11_14",
+    to: `${LATEST_PRESIDENTIAL_CYCLE}_tur${round}`,
+  });
+
+  it("draws one flow per round, each titled with its round", async () => {
+    serve(SUMMARY, {
+      "transitions_presidential/index.json": { pairs: [pair(1), pair(2)] },
+      "pvr_tur1/national.json": FLOW,
+      "pvr_tur2/national.json": FLOW,
+    });
+    await waitFor(() => expect(titles()).toHaveLength(2));
+    expect(titles()[0]).toContain(
+      bgCorpus.election_round.replace("{{round}}", "1"),
+    );
+    expect(titles()[1]).toContain(
+      bgCorpus.election_round.replace("{{round}}", "2"),
+    );
+  });
+
+  it("draws ONE unsuffixed flow for a cycle with one round", async () => {
+    serve(
+      { ...SUMMARY, rounds: [ROUND], swing: null, decidedInRound: 1 },
+      {
+        "transitions_presidential/index.json": { pairs: [pair(1)] },
+        "pvr_tur1/national.json": FLOW,
+      },
+    );
+    await waitFor(() => expect(titles()).toHaveLength(1));
+    expect(titles()[0]).toBe(bgCorpus.presidential_flow_title);
   });
 });

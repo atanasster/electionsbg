@@ -146,24 +146,26 @@ const PER_ELECTION_FILES = [
 const SECTION_SHARD_GZIP_MIN = 120_000;
 
 // Presidential CYCLE-ROOT files (`<cycle>/…`). ⚠ NOT `PER_ELECTION_FILES`, which is matched
-// at the root of EVERY election folder — these three exist only under a `_pvr` cycle, and the
+// at the root of EVERY election folder — these exist only under a `_pvr` cycle, and the
 // list they would join is already the reason `region_votes.json` was looked for in the wrong
 // place once.
 //
-// ⚠⚠ TWO OF THEM WERE 404 IN PRODUCTION UNTIL 2026-09-07 — measured against the live bucket,
-// `runoff_transfer.json` and `split_ticket.json` both answered 404 while `tickets.json` and
-// `national_summary.json` answered 200. Nothing failed: both hooks read a missing file as
-// `absent` by design, so „Откъде дойдоха гласовете на балотажа" and the split-ticket tile
+// ⚠⚠ `runoff_transfer.json` WAS 404 IN PRODUCTION UNTIL 2026-09-07 — measured against the live
+// bucket, while `tickets.json` and `national_summary.json` answered 200. Nothing failed: the
+// hook reads a missing file as `absent` by design, so „Откъде дойдоха гласовете на балотажа"
 // simply never rendered on the live site while working perfectly on a developer's machine.
 // That is precisely the failure the per-round header below warns about, and it had already
 // happened.
+
 //
 // The per-oblast `runoff_transfer/` shards ride the same branch, walked rather than listed —
 // measured 6.3-15.2 KB raw each, ~2.3 KB gzipped, 155 files.
 const PER_CYCLE_FILES = [
   "runoff_transfer.json",
-  "split_ticket.json",
   "tickets.json",
+  // ⚠ `split_ticket.json` is NOT listed: its producer still writes it, but the page no longer
+  // reads it (the split-ticket tile was removed). This comment also keeps the array one entry
+  // per line, which `bucket_gzip.test.ts`'s `arrayLiteral` reader requires.
 ];
 
 // Presidential per-round roll-ups (`<cycle>/tur<1|2>/…`). The tree has NO per-place shards
@@ -210,7 +212,11 @@ const PER_ROUND_FILES = [
   // new per-round artifact needs a line here or it is 404 in production, silently, because
   // every presidential hook reads a missing file as `absent`.
   "neighborhoods.json",
-  "section_screening.json",
+  // The section risk score behind the Election Risk Index („Аномалии") — `useRiskScore`
+  // reads it and, like every hook here, reads a missing file as `absent`.
+  "risk_score.json",
+  // ⚠ `section_screening.json` is NOT listed: its producer still writes it, but the page no
+  // longer reads it (the section-screen tile was removed in favour of the risk index).
 ];
 
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors

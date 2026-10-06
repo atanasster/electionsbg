@@ -1,4 +1,4 @@
-// The runoff Sankey's grouping rule: candidates under 1% of round 1's ballots collapse into one
+// The runoff Sankey's grouping rule: candidates under 1% of round 1's valid votes collapse into one
 // node, with nothing lost — every column must still total what the estimate published.
 
 import { describe, expect, it } from "vitest";
@@ -15,7 +15,7 @@ const node = (id: string, votes: number, pseudo = false) => ({
   ...(pseudo ? { pseudo } : {}),
 });
 
-// Two big candidates, three under 1% of the 10,000 ballots, and the pseudo nodes.
+// Two big candidates, three under 1% of the 10,000 valid votes, and the pseudo nodes.
 const MATRIX: VoteFlowMatrix = {
   fromNodes: [
     node("t6", 6000),
@@ -57,7 +57,7 @@ const TICKETS = new Map<number, PresidentialTicket>([
   ],
 ]);
 
-const LABEL = { bg: "Други двойки", en: "Other tickets" };
+const LABEL = { bg: "Други двойки", en: "Other pairs" };
 const sumFrom = (m: VoteFlowMatrix, id: string) =>
   m.flows.filter((f) => f.from === id).reduce((a, f) => a + f.votes, 0);
 const sumTo = (m: VoteFlowMatrix, id: string) =>
@@ -100,5 +100,27 @@ describe("transferSankeyMatrix", () => {
     expect(
       transferSankeyMatrix(one, TICKETS, LABEL).fromNodes.map((n) => n.id),
     ).toContain("t1");
+  });
+  it("measures the 1% against VALID votes — invalid ballots are not in the denominator", () => {
+    // t1 holds 120 of 10,000 valid votes (1.2%): a named lane, as in the flow chart. Counting
+    // 4,000 invalid ballots too would drop it to 0.86% and group it.
+    const m: VoteFlowMatrix = {
+      ...MATRIX,
+      fromNodes: [
+        node("t6", 6000),
+        node("t15", 3700),
+        node("t1", 120),
+        node("t2", 50),
+        node("t3", 30),
+        node("__none__", 100, true),
+        node("__invalid__", 4000, true),
+        node("__abstain__", 50000, true),
+      ],
+    };
+    const ids = transferSankeyMatrix(m, TICKETS, LABEL).fromNodes.map(
+      (n) => n.id,
+    );
+    expect(ids).toContain("t1");
+    expect(ids).not.toContain("t2");
   });
 });

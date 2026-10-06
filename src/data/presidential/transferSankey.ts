@@ -1,11 +1,12 @@
-// Shape a runoff-transfer matrix for the Sankey: candidates below 1% of round 1's ballots are
+// Shape a runoff-transfer matrix for the Sankey: candidates below 1% of round 1's valid votes are
 // grouped into one „Други двойки" node, and each candidate gets their own colour.
 //
 // ⚠ WHY GROUPING AND NOT A TABLE. 2011, 2016 and 2021 carry 20-26 round-1 nodes, past what a
 // Sankey can label, so the chart used to fall back to a 23-row table of percentages. The
 // parliamentary→presidential flow chart on the same page already answers that density by
-// grouping candidates under 1% of the valid vote; this applies the same rule, so the two Sankeys
-// beside each other read the same way. Nothing is dropped: the group's ribbons are the exact sum
+// grouping candidates under 1% of the valid vote (`reconcile_parl_presidential.ts`'s
+// `TICKET_THRESHOLD`, label and colour); this applies the same rule, so the two Sankeys beside
+// each other read the same way. Nothing is dropped: the group's ribbons are the exact sum
 // of its members' ribbons, so every column still totals what the estimate published.
 //
 // ⚠ THE COLOUR COMES FROM `tickets.json`. The producer writes a neutral grey on every ticket
@@ -21,10 +22,11 @@ import type { PresidentialTicket } from "./useTickets";
 
 export const OTHER_TICKETS_ID = "__other_tickets__";
 
-/** The share of round 1's ballots below which a candidate is grouped. */
+/** The share of round 1's valid votes below which a candidate is grouped. */
 export const MIN_TICKET_SHARE = 0.01;
 
-const OTHER_COLOR = "#9ca3af";
+/** The flow producer's colour for its „Други двойки" lane. */
+const OTHER_COLOR = "#94a3b8";
 
 /** `t17` → 17. The producer keys ticket nodes by ballot number. */
 const ticketNumber = (id: string): number | undefined => {
@@ -53,9 +55,10 @@ export const transferSankeyMatrix = (
   tickets: Map<number, PresidentialTicket>,
   otherLabel: { bg: string; en: string },
 ): VoteFlowMatrix => {
-  // The denominator is round 1's BALLOTS — every from-node except those who did not vote.
-  const ballots = matrix.fromNodes
-    .filter((n) => n.id !== "__abstain__")
+  // The denominator is round 1's VALID votes — the tickets plus „не подкрепям никого" — the
+  // flow producer's own denominator; invalid ballots and non-voters are not in it.
+  const valid = matrix.fromNodes
+    .filter((n) => n.id !== "__abstain__" && n.id !== "__invalid__")
     .reduce((a, n) => a + n.votes, 0);
   const small = new Set(
     matrix.fromNodes
@@ -63,8 +66,8 @@ export const transferSankeyMatrix = (
         (n) =>
           !n.pseudo &&
           ticketNumber(n.id) !== undefined &&
-          ballots > 0 &&
-          n.votes / ballots < MIN_TICKET_SHARE,
+          valid > 0 &&
+          n.votes / valid < MIN_TICKET_SHARE,
       )
       .map((n) => n.id),
   );

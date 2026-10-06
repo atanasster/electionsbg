@@ -145,7 +145,7 @@ describe("bucket_gzip upload set", () => {
  *     2021_11_14_pvr/tickets.json           200
  *     2021_11_14_pvr/national_summary.json  200
  *     2021_11_14_pvr/runoff_transfer.json   404   ← „Откъде дойдоха гласовете на балотажа"
- *     2021_11_14_pvr/split_ticket.json      404   ← the split-ticket tile
+ *     2021_11_14_pvr/split_ticket.json      404   ← the split-ticket tile (since removed)
  *
  * So the gate is derived from the BROWSER's own path builders rather than from a list somebody
  * maintains: every `${cycle}/…` template in `src/data/presidential/` must be reachable from
@@ -263,14 +263,16 @@ describe("the presidential tree this pass publishes", () => {
     expect(PER_ROUND_FILES).toContain(NEIGHBORHOODS_FILE);
   });
 
-  test("the presidential section-screening file is published", () => {
-    expect(PER_ROUND_FILES).toContain(SCREENING_FILE);
+  test("the section-screening file is NOT published — nothing on the page reads it", () => {
+    // Its tile was removed in favour of the Election Risk Index; the producer still writes it.
+    expect(PER_ROUND_FILES).not.toContain(SCREENING_FILE);
   });
 
-  test("the two files that were 404 in production are named", () => {
+  test("the file that was 404 in production is named", () => {
     // ⚠ THE REGRESSION ANCHOR. The derived gate above passes the day somebody deletes both the
-    // list entry AND the hook; this says the artifacts themselves stay published.
+    // list entry AND the hook; this says the artifact itself stays published.
     expect(PER_CYCLE_FILES).toContain("runoff_transfer.json");
-    expect(PER_CYCLE_FILES).toContain("split_ticket.json");
+    // …and the split-ticket file, whose tile was removed, is not uploaded for nobody.
+    expect(PER_CYCLE_FILES).not.toContain("split_ticket.json");
   });
 });

@@ -3,7 +3,7 @@
 //
 // ⚠ ALWAYS A SANKEY. Wide rounds (2011, 2016, 2021: 20-26 candidates) used to fall back to a
 // table of percentages; `transferSankeyMatrix` groups the candidates under 1% of round 1's
-// ballots into „Други двойки" instead — the rule the parliamentary→presidential flow chart on
+// valid votes into „Други двойки" instead — the rule the parliamentary→presidential flow chart on
 // the same page already uses — and colours each candidate from `tickets.json`.
 //
 // ⚠ IT REUSES `VoteFlowSankey`, DELIBERATELY. A second flow chart would be a second visual
@@ -30,7 +30,7 @@ import { transferSankeyMatrix } from "@/data/presidential/transferSankey";
 import type { VoteFlowMatrix } from "@/data/voteFlows/voteFlowTypes";
 
 /** Node labels are data, in both languages — the flow producer's own wording for the group. */
-const OTHER_LABEL = { bg: "Други двойки", en: "Other tickets" };
+const OTHER_LABEL = { bg: "Други двойки", en: "Other pairs" };
 
 export const PresidentialTransferChart: FC<{
   cycle: string;
