@@ -1,15 +1,51 @@
 {
   "session": "20261007T214842Z-0d05",
-  "createdAt": "2026-10-07T22:18:52.387Z",
+  "createdAt": "2026-10-07T23:37:41.585Z",
+  "commit": "4a2895d125",
   "skills": [
-    "tr-daily-refresh"
+    "tr-daily-refresh",
+    "update-procurement",
+    "update-persons",
+    "update-rollcall",
+    "update-macro",
+    "update-council-minutes",
+    "update-prices"
   ],
-  "paths": [],
+  "paths": [
+    "macro.json",
+    "macro_peers.json",
+    "administration/context.json",
+    "culture/derived",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "home",
+    "parliament/votes/derived/hub_stats.json",
+    "data_map.json",
+    "data-changes.json"
+  ],
   "cloudCommands": [
     "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
     "npm run db:load:graph:pg:cloud",
     "npm run db:load:tr-company-place:pg:cloud",
-    "npm run db:refresh:risk:cloud"
+    "npm run db:refresh:risk:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:rollcall:pg:cloud",
+    "npm run db:load:rollcall-derived:pg:cloud",
+    "npm run db:load:council:pg:cloud",
+    "npm run prices:ingest:cloud"
   ],
-  "notes": "HELD 2026-10-08: host disk full (260 MiB free), Docker Desktop crashed mid db:refresh (db:load:pg pgsql_tmp I/O error). update-procurement unstamped and will re-queue; rollcall/macro/council/prices/persons not run."
+  "notes": "Re-run after host disk freed; db:refresh green (2,303 tests). Rollcall 2026-10-07, Eurostat Q2, council +38 PDV01, prices 2026-10-07, TED/tenders, TR."
 }
