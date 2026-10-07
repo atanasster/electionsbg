@@ -1,0 +1,50 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-2017-02-23-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/917-na-starta-na-predizbornata-kampania-goliamata-intriga-e-v-malkite-distancii.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "fieldwork": "Feb 16-23 2017",
+    "respondents": 1024,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/917-na-starta-na-predizbornata-kampania-goliamata-intriga-e-v-malkite-distancii.html",
+      "fetchedAt": "2026-09-27T06:45:02.440Z",
+      "sha256": "00bee1490b30572a51924f4448cf00688e042a3d49f6ce2747ba9a6d83cda8fb",
+      "extractor": "AR",
+      "fieldworkStart": "2017-02-16",
+      "fieldworkEnd": "2017-02-23",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 16 – 23 февруари\n2017",
+        "sampleSize": "сред 1024 пълнолетни"
+      }
+    },
+    "publicationId": "AR:917"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "периода 16 – 23 февруари\n2017",
+    "sampleSize": "сред 1024 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "НА СТАРТА НА ПРЕДИЗБОРНАТА КАМПАНИЯ: ГОЛЯМАТА ИНТРИГА Е В МАЛКИТЕ ДИСТАНЦИИ -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

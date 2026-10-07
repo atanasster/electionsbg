@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-865",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/865-obshtestveni-naglasi-ianuari-2013g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/865-obshtestveni-naglasi-ianuari-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:20.217Z",
+      "sha256": "ae3de6d8fd39b0735b22da36fe6bdd99b3d106b4ce0d81312ce4bb148f52f261",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:865",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

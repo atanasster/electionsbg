@@ -1,0 +1,102 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2014-04-26",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/885-obshtestveni-naglasi-april-2014.html",
+    "electionDate": null,
+    "respondents": 1024,
+    "genre": "unclear",
+    "fieldwork": "Apr 23-26 2014",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/885-obshtestveni-naglasi-april-2014.html",
+      "fetchedAt": "2026-09-27T06:45:10.209Z",
+      "sha256": "133b5adf039abaa51c377226d18d9eec91494ac54a322c7524127de28b066424",
+      "extractor": "AR",
+      "fieldworkStart": "2014-04-23",
+      "fieldworkEnd": "2014-04-26",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (17.6%) пред ",
+        "share:ДПС": "ДПС заема устойчиво третото място (6.2%), но активизира по-малък брой избиратели, поне към настоящия момент",
+        "share:България без цензура": "България без цензура/ВМРО 4,9% ",
+        "sampleSize": "сред 1024 пълнолетни",
+        "fieldwork": "Период на провеждане 23 – 26 Април 2014г"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "0414_Public_Opinion_AlphaResearch.pdf",
+        "share:ДПС": "0414_Public_Opinion_AlphaResearch.pdf",
+        "share:България без цензура": "0414_Public_Opinion_AlphaResearch.pdf",
+        "sampleSize": "0414_Public_Opinion_AlphaResearch.pdf",
+        "fieldwork": "0414_Public_Opinion_AlphaResearch.pdf"
+      }
+    },
+    "publicationId": "AR:885",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2014-04-26",
+      "agencyId": "AR",
+      "support": 17.6,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2014-04-26",
+      "agencyId": "AR",
+      "support": 6.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2014-04-26",
+      "agencyId": "AR",
+      "support": 4.9,
+      "nickName_bg": "България без цензура",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (17.6%) пред ",
+    "share:ДПС": "ДПС заема устойчиво третото място (6.2%), но активизира по-малък брой избиратели, поне към настоящия момент",
+    "share:България без цензура": "България без цензура/ВМРО 4,9% ",
+    "sampleSize": "сред 1024 пълнолетни",
+    "fieldwork": "Период на провеждане 23 – 26 Април 2014г"
+  },
+  "refused": [
+    {
+      "field": "share:ББЦ",
+      "reason": "attachment text: the number is 124 characters from the party name — too far to be its share",
+      "quote": "ББЦ е най- разпознаваема и популярна, но с най-мобилни и непоследователни избиратели, което води до лек спад през април (до 4.9%)"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: the number is 63 characters from the party name — too far to be its share",
+      "quote": "БСП, формацията на бившия президент частично възвръща позиции (4.5%)"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (15.9%)"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 17,6% "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 15,9% "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС 6,2% "
+    }
+  ]
+}

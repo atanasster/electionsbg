@@ -20,7 +20,7 @@
           {
             "pollId": "ar-2026-03-02",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:43:17.808Z",
+            "extractedAt": "2026-10-05T21:57:55.764Z",
             "draftHash": "d285263870aced9d80a46ed647c9c225fc0c33f605621d5f9d3af25e50e5ebf8",
             "refused": [
               "share:МЕЧ"
@@ -60,7 +60,7 @@
           {
             "pollId": "ar-2026-03-20",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:43:19.291Z",
+            "extractedAt": "2026-10-05T21:57:56.174Z",
             "draftHash": "b1800f969089fcc6712e2b12bd7984a908935d0f29930dc96f16aff585efb956",
             "refused": [
               "shares"
@@ -100,7 +100,7 @@
           {
             "pollId": "ar-2026-03-26",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:43:22.243Z",
+            "extractedAt": "2026-10-05T21:57:57.012Z",
             "draftHash": "24f47caa46b8325558bb028af1025bab7f0a3f1c7c720f8a97800dcc510af353",
             "refused": [
               "shares"
@@ -140,7 +140,7 @@
           {
             "pollId": "ar-2026-04-15",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:43:24.047Z",
+            "extractedAt": "2026-10-05T21:57:57.565Z",
             "draftHash": "2ace52e51c17939777271073d36cadaf078897daa3c2f8039b045fe2b4e9d186",
             "refused": [
               "share:МЕЧ"
@@ -4656,13 +4656,17 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ar-pub-885",
+            "pollId": "ar-2014-04-26",
             "race": "parliamentary",
-            "extractedAt": "2026-09-27T06:46:07.283Z",
-            "draftHash": "abc81768a5bd330c70cf73e8ab3dd12da361c5e36ffc1b555cc68d815396730f",
+            "extractedAt": "2026-10-05T21:58:15.346Z",
+            "draftHash": "cfc014b8f045ee81016ba3914c2ada902e0a9d8c24eab0fa1b82e0ec50d98c4a",
             "refused": [
-              "sampleSize",
-              "poll.id"
+              "share:ББЦ",
+              "share:БСП",
+              "share:БСП",
+              "share:ГЕРБ",
+              "share:БСП",
+              "share:ДПС"
             ]
           }
         ]
@@ -4674,16 +4678,9 @@
     },
     "errors": {
       "capture": null,
-      "extraction": {
-        "message": "Draft ID collision: ar-2014-04-26; preserve both publications for review",
-        "at": "2026-10-05T02:55:40.148Z"
-      }
+      "extraction": null
     },
-    "lastError": {
-      "message": "Draft ID collision: ar-2014-04-26; preserve both publications for review",
-      "at": "2026-10-05T02:55:40.148Z",
-      "stage": "extraction"
-    }
+    "lastError": null
   },
   {
     "pubId": "884",
@@ -5976,6 +5973,18 @@
             "refused": [
               "sampleSize",
               "poll.id"
+            ]
+          },
+          {
+            "pollId": "ar-pub-838-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-05T21:58:09.406Z",
+            "draftHash": "9ede7c3aa7581e201ff91964337ab8ad6af061e6770b8b71d55969357d2ad81e",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
             ]
           }
         ]

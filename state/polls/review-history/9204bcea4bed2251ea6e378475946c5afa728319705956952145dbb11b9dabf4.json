@@ -1,0 +1,52 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-1054-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1054-predizborni-naglasi-na-starta-na-kampaniata-za-prezidentski-izbori-2026.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": 1000,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1054-predizborni-naglasi-na-starta-na-kampaniata-za-prezidentski-izbori-2026.html",
+      "fetchedAt": "2026-10-05T21:15:16.758Z",
+      "sha256": "27c62bd8c97cc557f1e7f093a96952dc2b988d58061ad47b4c623ed5f519af55",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1000 пълнолетни"
+      }
+    },
+    "publicationId": "AR:1054"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 1000 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Предизборни нагласи на старта на кампанията за Президентски избори 2026 -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

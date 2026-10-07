@@ -1,0 +1,86 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-855",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/855-obshtestveni-naglasi-fevruari-2012g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/855-obshtestveni-naglasi-fevruari-2012g.html",
+      "fetchedAt": "2026-09-27T06:45:22.884Z",
+      "sha256": "95924bb14bf4cc3c28cd2230c6ce86ff55545e70f244c4cbb58cc9b414b44362",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС и доверието в Ахмед Доган са в рамките на традиционните 5% от избирателите"
+      },
+      "quoteSources": {
+        "share:ДПС": "Pressrelease_Alpah_Resrarch_February%202012(1).doc"
+      }
+    },
+    "publicationId": "AR:855",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-855",
+      "agencyId": "AR",
+      "support": 5,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС и доверието в Ахмед Доган са в рамките на традиционните 5% от избирателите"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"22-29 февруари сред представителна извадка от пълнолетното население на страната\"",
+      "quote": "в периода 22-29 февруари сред представителна извадка от пълнолетното население на страната"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"22-29 февруари 2012 За пълнолетното население на Представителност страната Обем на извадката 1015 ефективни интервюта Квота въз основа на признаците Метод на формиране на възраст\"",
+      "quote": "Период на провеждане 22-29 февруари 2012 За пълнолетното население на Представителност страната Обем на извадката 1015 ефективни интервюта Квота въз основа на признаците Метод на формиране на възраст"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.907Z",
+    "draftHash": "0c0e5d8ade3173018df1c4f272851772dd97167c781a6038e34e9809a24c0cb7",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, fieldwork, fieldwork, poll.id",
+      "fieldwork start: extractor — vs reader 2012-02-22",
+      "fieldwork end: extractor — vs reader 2012-02-29",
+      "sample: extractor — vs reader 1015",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ДПС\" extractor 5 vs reader 5.4",
+      "vote_intention r1: reader has „ГЕРБ\" 23.9 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 17.1 — extractor does not",
+      "vote_intention r1: reader has „Синята коалиция\" 2.9 — extractor does not",
+      "vote_intention r1: reader has „АТАКА\" 1.9 — extractor does not",
+      "vote_intention r1: reader has „РЗС\" 0.6 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 39.7"
+    ]
+  }
+}

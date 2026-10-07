@@ -1,0 +1,78 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2010-12-12",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/842-obshtestveni-naglasi-dekemvri-2010g.html",
+    "electionDate": null,
+    "respondents": 1002,
+    "genre": "unclear",
+    "fieldwork": "Dec 4-12 2010",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/842-obshtestveni-naglasi-dekemvri-2010g.html",
+      "fetchedAt": "2026-09-27T06:45:27.360Z",
+      "sha256": "8b1350adb48d983b7e1bb74355773ccc82b3f29cd960cb71e1da6fa5e36c6fd0",
+      "extractor": "AR",
+      "fieldworkStart": "2010-12-04",
+      "fieldworkEnd": "2010-12-12",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ запазва преднина пред политическите си опоненти с 27%",
+        "sampleSize": "сред 1002 пълнолетни",
+        "fieldwork": "в периода 4 – 12 декември 2010г"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "Press_release_December_2010(2).doc",
+        "sampleSize": "Press_release_December_2010(2).doc",
+        "fieldwork": "Press_release_December_2010(2).doc"
+      }
+    },
+    "publicationId": "AR:842",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2010-12-12",
+      "agencyId": "AR",
+      "support": 27,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ запазва преднина пред политическите си опоненти с 27%",
+    "sampleSize": "сред 1002 пълнолетни",
+    "fieldwork": "в периода 4 – 12 декември 2010г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: the number is 68 characters from the party name — too far to be its share",
+      "quote": "БСП излиза от най-дълбоката си криза и леко подобрява позициите си (15.2%), но все още остава на значима дистанция от "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "ДПС пази електоралното си ядро от около 5%"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.758Z",
+    "draftHash": "d77d75d77a71a693eabdb02e7d6c5b67c6f50a2cf333db428fceb48c777d6b37",
+    "diffs": [
+      "extractor refused: share:БСП, share:ДПС",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „БСП\" 15.2 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 5 — extractor does not",
+      "vote_intention r1: reader has „Синята коалиция\" 4.4 — extractor does not",
+      "vote_intention r1: reader has „АТАКА\" 3 — extractor does not",
+      "vote_intention r1: reader has „РЗС\" 0.8 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 39.8"
+    ]
+  }
+}

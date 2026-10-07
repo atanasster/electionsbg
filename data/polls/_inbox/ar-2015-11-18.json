@@ -1,0 +1,57 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2015-11-18",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/902-obshtestveni-naglasi-noemvri-2015.html",
+    "electionDate": null,
+    "respondents": 1100,
+    "genre": "unclear",
+    "fieldwork": "Nov 10-18 2015",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/902-obshtestveni-naglasi-noemvri-2015.html",
+      "fetchedAt": "2026-09-27T06:45:04.061Z",
+      "sha256": "b90e8157443720f43e1679cfbf37b949396f9e6e2e7043f3699a0208f714c5e2",
+      "extractor": "AR",
+      "fieldworkStart": "2015-11-10",
+      "fieldworkEnd": "2015-11-18",
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1100 пълнолетни",
+        "fieldwork": "Период на провеждане 10 – 18 ноември 2015г"
+      },
+      "quoteSources": {
+        "sampleSize": "1115_Press_Release_Alpha_Research(1).doc",
+        "fieldwork": "1115_Public_Opinion_Alpha_Research(1).pdf"
+      }
+    },
+    "publicationId": "AR:902",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 1100 пълнолетни",
+    "fieldwork": "Период на провеждане 10 – 18 ноември 2015г"
+  },
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.813Z",
+    "draftHash": "d371f54de603d486279edd566f771d371d5223a356bc7bd9d011997ff39ab33e",
+    "diffs": [
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 24.5 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 8.4 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 6.8 — extractor does not",
+      "vote_intention r1: reader has „РБ\" 6.5 — extractor does not",
+      "vote_intention r1: reader has „Патриотичен фронт\" 4.2 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 3.5 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 1.8 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 37"
+    ]
+  }
+}

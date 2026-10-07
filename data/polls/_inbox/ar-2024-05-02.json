@@ -1,0 +1,117 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2024-05-02",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1021-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-za-nacionalen-i-evropeiski-parlament.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Apr 25 - May 2 2024",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1021-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-za-nacionalen-i-evropeiski-parlament.html",
+      "fetchedAt": "2026-09-27T06:44:54.774Z",
+      "sha256": "1c851d411250965fec847ec09cead5f5561348fb166030916f45200de81d58ed",
+      "extractor": "AR",
+      "fieldworkStart": "2024-04-25",
+      "fieldworkEnd": "2024-05-02",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ-СДС": "ГЕРБ-СДС влизат в надпреварата като фаворити с гласовете на 25,4% от твърдо решилите да гласуват",
+        "share:БСП": "БСП е в лек низходящ тренд, но с 8.5% от вота на избирателите запазва преднина пред откъсналите се от нея „дисиденти“ в лицето на ",
+        "share:Солидарна България": "Солидарна България (2.6%) и ",
+        "share:Левицата": "Левицата (1.9%)",
+        "share:Синя България": "Синя България (2.5%), която също ще трябва да разчита на кампанията, за да излезе от Синя София и да постигне по-добър национален резултат",
+        "share:ПП-ДБ": "ПП-ДБ (до 18.5%), при запазване на вота за ",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 25 април – 2 май 2024г"
+      }
+    },
+    "publicationId": "AR:1021",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2024-05-02",
+      "agencyId": "AR",
+      "support": 25.4,
+      "nickName_bg": "ГЕРБ-СДС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-05-02",
+      "agencyId": "AR",
+      "support": 8.5,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-05-02",
+      "agencyId": "AR",
+      "support": 2.6,
+      "nickName_bg": "Солидарна България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-05-02",
+      "agencyId": "AR",
+      "support": 1.9,
+      "nickName_bg": "Левицата",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-05-02",
+      "agencyId": "AR",
+      "support": 2.5,
+      "nickName_bg": "Синя България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2024-05-02",
+      "agencyId": "AR",
+      "support": 18.5,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ-СДС": "ГЕРБ-СДС влизат в надпреварата като фаворити с гласовете на 25,4% от твърдо решилите да гласуват",
+    "share:БСП": "БСП е в лек низходящ тренд, но с 8.5% от вота на избирателите запазва преднина пред откъсналите се от нея „дисиденти“ в лицето на ",
+    "share:Солидарна България": "Солидарна България (2.6%) и ",
+    "share:Левицата": "Левицата (1.9%)",
+    "share:Синя България": "Синя България (2.5%), която също ще трябва да разчита на кампанията, за да излезе от Синя София и да постигне по-добър национален резултат",
+    "share:ПП-ДБ": "ПП-ДБ (до 18.5%), при запазване на вота за ",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 25 април – 2 май 2024г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "mentioned 2 times with disagreeing values (14.9, 14.4%) — refusing rather than guessing which is current",
+      "quote": "ДПС (14.9%) и  | ДПС (14.4%) пред "
+    },
+    {
+      "field": "share:Възраждане",
+      "reason": "mentioned 2 times with disagreeing values (14.6, 14.8%) — refusing rather than guessing which is current",
+      "quote": "Възраждане (14.6%) са с практически изравнени позиции на старта на кампанията и с много висока степен на мобилизация на техните симпатизанти | Възраждане (14.8%), но двете партии отново са с близки позиции"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.874Z",
+    "draftHash": "fb7ef38cbf24a0184361612d9bda7c491598e5d9e42d0c0624d35edea50012ec",
+    "diffs": [
+      "extractor refused: share:ДПС, share:Възраждане",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ПП-ДБ\" extractor 18.5 vs reader 17.5",
+      "vote_intention r1: reader has „ДПС\" 14.9 — extractor does not",
+      "vote_intention r1: reader has „Възраждане\" 14.6 — extractor does not",
+      "vote_intention r1: reader has „ИТН\" 5.2 — extractor does not",
+      "vote_intention r1: reader has „Български възход\" 1.3 — extractor does not"
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2014-02-22",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/883-obshtestveni-naglasi-fevruari-2014.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Feb 17-22 2014",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/883-obshtestveni-naglasi-fevruari-2014.html",
+      "fetchedAt": "2026-09-27T06:45:12.079Z",
+      "sha256": "b2dc8e4a6a4dbed8e8ddc39866a17ba66c0111077b5e9599d470a5c78eb357dd",
+      "extractor": "AR",
+      "fieldworkStart": "2014-02-17",
+      "fieldworkEnd": "2014-02-22",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (с 16.9%) има лек превес над ",
+        "share:ДПС": "ДПС запазва стабилно трето място (6.9%)",
+        "share:България без цензура": "България без цензура/ВМРО 5,5% ",
+        "fieldwork": "Период на провеждане 17 – 22 Февруари 2014г"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "0214_Public_Opinion_Alpha%20Research.pdf",
+        "share:ДПС": "0214_Public_Opinion_Alpha%20Research.pdf",
+        "share:България без цензура": "0214_Public_Opinion_Alpha%20Research.pdf",
+        "fieldwork": "0214_Public_Opinion_Alpha%20Research.pdf"
+      }
+    },
+    "publicationId": "AR:883",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2014-02-22",
+      "agencyId": "AR",
+      "support": 16.9,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2014-02-22",
+      "agencyId": "AR",
+      "support": 6.9,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2014-02-22",
+      "agencyId": "AR",
+      "support": 5.5,
+      "nickName_bg": "България без цензура",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (с 16.9%) има лек превес над ",
+    "share:ДПС": "ДПС запазва стабилно трето място (6.9%)",
+    "share:България без цензура": "България без цензура/ВМРО 5,5% ",
+    "fieldwork": "Период на провеждане 17 – 22 Февруари 2014г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "attachment text: the number is 77 characters from the party name — too far to be its share",
+      "quote": "ДПС запазва традиционните си избиратели и дори засилва мобилизацията им - до 6.9% подкрепа, след като изведе на преден план етническата проблематика"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "БСП (до 66%)"
+    },
+    {
+      "field": "share:Реформаторски блок",
+      "reason": "attachment text: the number is 312 characters from the party name — too far to be its share",
+      "quote": "Реформаторски блок 5,2 5 НФСБ 3,1 3,2 Атака 2,5 2,1 Други партии 3,2 5,8 Няма да гласувам 37,4 33,4 23 НАГЛАСИ КЪМ ПРОВЕЖДАНЕТО НА РЕФЕРЕНДУМ ПО ВЪПРОСИТЕ НА ИЗБОРНОТО ЗАКОНОДАТЕЛСТВО 24 НАГЛАСИ КЪМ ПРОВЕЖДАНЕТО НА РЕФЕРЕНДУМ ПО ВЪПРОСИТЕ НА ИЗБОРНОТО ЗАКОНОДАТЕЛСТВО Преобладаваща част от българското общество (54%) подкрепя инициативата на президента за провеждане на референдум по въпроси на изборното законодателство"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: another mention of this party carries a different number — refusing rather than choosing",
+      "quote": "БСП (15.1%), но с наближаването на изборите надпреварата се очертава като все по- оспорвана"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: another mention of this party carries a different number — refusing rather than choosing",
+      "quote": "БСП (15.1%), но като цяло подкрепата е много сходна и битката за първото място ще е изключително оспорвана"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 16,9% "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 15,1% "
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2015-04-15",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/897-obshtestveni-naglasi-april-2015.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Apr 7-15 2015",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/897-obshtestveni-naglasi-april-2015.html",
+      "fetchedAt": "2026-09-27T06:45:06.679Z",
+      "sha256": "8005294085ea52bb176155bc057ec52bac5244981bb4a5fd010111b191091591",
+      "extractor": "AR",
+      "fieldworkStart": "2015-04-07",
+      "fieldworkEnd": "2015-04-15",
+      "basePhrase": null,
+      "quotes": {
+        "share:ПФ": "ПФ и 23% от тези на РБ дават кредит на доверие на Борисов",
+        "share:БСП": "БСП (10.2%), която продължава бавната си ерозия и се доближава все повече до ",
+        "fieldwork": "в периода 7 – 15 април 2015г"
+      },
+      "quoteSources": {
+        "share:ПФ": "0415_Pressrelease_Alpha_Research.doc",
+        "share:БСП": "0415_Pressrelease_Alpha_Research.doc",
+        "fieldwork": "0415_Pressrelease_Alpha_Research.doc"
+      }
+    },
+    "publicationId": "AR:897",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2015-04-15",
+      "agencyId": "AR",
+      "support": 23,
+      "nickName_bg": "ПФ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2015-04-15",
+      "agencyId": "AR",
+      "support": 10.2,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ПФ": "ПФ и 23% от тези на РБ дават кредит на доверие на Борисов",
+    "share:БСП": "БСП (10.2%), която продължава бавната си ерозия и се доближава все повече до ",
+    "fieldwork": "в периода 7 – 15 април 2015г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "ДПС електорат от 6-7% (в момента подкрепата му е сведена единствено до тези избиратели) , докато Бареков и партията му на практика изчезват от политическия пейзаж"
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (7%)"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 2 times with disagreeing values (30, 22.4%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ, 30% от тези на  | ГЕРБ (22.4%) пред втората политическа сила "
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.803Z",
+    "draftHash": "bccae0f6ac7a5b286aa443f13a66790183c91bce78ec0dd47882c384c405265a",
+    "diffs": [
+      "extractor refused: share:ДПС, share:ДПС, share:ГЕРБ, sampleSize",
+      "sample: extractor — vs reader 1020",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ПФ\" extractor 23 vs reader 5.7",
+      "vote_intention r1: reader has „ГЕРБ\" 22.4 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 7 — extractor does not",
+      "vote_intention r1: reader has „РБ\" 5.8 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 3.1 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 2.2 — extractor does not",
+      "vote_intention r1: reader has „ББЦ\" 1.1 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 36.5"
+    ]
+  }
+}

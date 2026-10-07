@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-880",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/880-obshtestveni-naglasi-ianuari-2014-purvi-elektoralni-trusove-sled-starta-na-abv.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/880-obshtestveni-naglasi-ianuari-2014-purvi-elektoralni-trusove-sled-starta-na-abv.html",
+      "fetchedAt": "2026-09-27T06:45:12.883Z",
+      "sha256": "97e7123f8a983802872a225486a63c7d105c1a34997b1baceb55590f3539d487",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:880",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

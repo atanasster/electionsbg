@@ -1,0 +1,84 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-pub-209588",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82-6/",
+    "electionDate": null,
+    "respondents": 1006,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82-6/",
+      "fetchedAt": "2026-09-26T08:39:49.474Z",
+      "sha256": "c0a1b84cf83488b6163fc7245fa527a62c62dc9f018bda84bdceb4fcca7a4f05",
+      "extractor": "TR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:Има такъв народ": "Има такъв народ“ от 0.8%, но този месец в полза на партията на Борисов",
+        "share:Българско лято": "Българско лято с 1.1%",
+        "sampleSize": "1006 ефективни интервюта"
+      }
+    },
+    "publicationId": "TR:209588",
+    "publishedAt": "2021-08-05"
+  },
+  "details": [
+    {
+      "pollId": "tr-pub-209588",
+      "agencyId": "TR",
+      "support": 0.8,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-pub-209588",
+      "agencyId": "TR",
+      "support": 1.1,
+      "nickName_bg": "Българско лято",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "TR",
+  "evidence": {
+    "share:Има такъв народ": "Има такъв народ“ от 0.8%, но този месец в полза на партията на Борисов",
+    "share:Българско лято": "Българско лято с 1.1%",
+    "sampleSize": "1006 ефективни интервюта"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"23-30 юли2021г\"",
+      "quote": "Период на провеждане: 23-30 юли2021г"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the passport — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.995Z",
+    "draftHash": "f93f83949b6003161d18835c8fc63db400057f86ad9e3a851b358eaf53d7f77c",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: fieldwork, poll.id",
+      "fieldwork start: extractor — vs reader 2021-07-23",
+      "fieldwork end: extractor — vs reader 2021-07-30",
+      "reader finds the genre unclear",
+      "vote_intention r1: „Има такъв народ\" extractor 0.8 vs reader 21.6",
+      "vote_intention r1: reader has „ГЕРБ-СДС\" 22.4 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 14.5 — extractor does not",
+      "vote_intention r1: reader has „Демократична България\" 14.1 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 10.2 — extractor does not",
+      "vote_intention r1: reader has „Изправи се БГ! Ние идваме!\" 4.4 — extractor does not",
+      "vote_intention r1: reader has „Възраждане\" 2.9 — extractor does not",
+      "vote_intention r1: reader has „ВМРО\" 1.9 — extractor does not"
+    ]
+  }
+}

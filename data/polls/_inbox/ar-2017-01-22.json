@@ -1,0 +1,106 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2017-01-22",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/916-obshtestveni-naglasi-ianuari-2017.html",
+    "electionDate": null,
+    "respondents": 1024,
+    "genre": "raw_attitudes",
+    "fieldwork": "Jan 14-22 2017",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/916-obshtestveni-naglasi-ianuari-2017.html",
+      "fetchedAt": "2026-09-27T06:45:02.705Z",
+      "sha256": "cdeb3b1a6a6510e69a95c7ae1409ae9813e4b81d665a2cb7d8990b9b9af12692",
+      "extractor": "AR",
+      "fieldworkStart": "2017-01-14",
+      "fieldworkEnd": "2017-01-22",
+      "basePhrase": "от гласуващите) води с 3.8% преднина пред БСП (28.8%)",
+      "quotes": {
+        "share:Да, България": "Да, България; 1.4% за формация около ДСБ",
+        "share:ГЕРБ": "ГЕРБ, а 8% - на патриотите с ",
+        "share:БСП": "БСП (5.3%) и повторно управление на ",
+        "sampleSize": "сред 1024 пълнолетни",
+        "fieldwork": "в периода 14 – 22 януари 2017г"
+      },
+      "quoteSources": {
+        "share:Да, България": "0117-AR-Public%20Opinion(1).doc",
+        "share:ГЕРБ": "0117-AR-Public%20Opinion(1).doc",
+        "share:БСП": "0117-AR-Public%20Opinion(1).doc",
+        "sampleSize": "0117-AR-Public%20Opinion(1).doc",
+        "fieldwork": "0117-AR-Public%20Opinion(1).doc"
+      }
+    },
+    "publicationId": "AR:916",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2017-01-22",
+      "agencyId": "AR",
+      "support": 1.4,
+      "nickName_bg": "Да, България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-01-22",
+      "agencyId": "AR",
+      "support": 8,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-01-22",
+      "agencyId": "AR",
+      "support": 5.3,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "AR",
+  "evidence": {
+    "share:Да, България": "Да, България; 1.4% за формация около ДСБ",
+    "share:ГЕРБ": "ГЕРБ, а 8% - на патриотите с ",
+    "share:БСП": "БСП (5.3%) и повторно управление на ",
+    "sampleSize": "сред 1024 пълнолетни",
+    "fieldwork": "в периода 14 – 22 януари 2017г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "attachment text: the number is 63 characters from the party name — too far to be its share",
+      "quote": "ДПС, което обикновено се представя по-слабо в проучванията има 7.8% подкрепа"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (28.8%)"
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (4.2%)"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.828Z",
+    "draftHash": "bb6849e476c0a8d25aab0dc69e98cc600692c4bfb8283ddca3d7b933f4de06f7",
+    "diffs": [
+      "extractor refused: share:ДПС, share:БСП, share:ДПС",
+      "vote_intention r1: „Да, България\" extractor 1.4 vs reader 2.3",
+      "vote_intention r1: „ГЕРБ\" extractor 8 vs reader 32.6",
+      "vote_intention r1: „БСП\" extractor 5.3 vs reader 28.8",
+      "vote_intention r1: reader has „Обединени патриоти\" 10.7 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 7.8 — extractor does not",
+      "vote_intention r1: reader has „ВОЛЯ\" 4.4 — extractor does not",
+      "vote_intention r1: reader has „Реформаторски блок\" 3.8 — extractor does not",
+      "vote_intention r1: reader has „Движение 21\" 1.9 — extractor does not",
+      "vote_intention r1: reader has „Формация около ДСБ\" 1.4 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 1.4 — extractor does not"
+    ]
+  }
+}

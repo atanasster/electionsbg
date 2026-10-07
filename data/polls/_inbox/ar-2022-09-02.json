@@ -1,0 +1,112 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2022-09-02",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1000-elektoralni-naglasi-na-starta-na-predizborna-kampania-parlamentarni-izbori-oktomvri-2022.html",
+    "electionDate": null,
+    "respondents": 1117,
+    "genre": "unclear",
+    "fieldwork": "Aug 27 - Sep 2 2022",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1000-elektoralni-naglasi-na-starta-na-predizborna-kampania-parlamentarni-izbori-oktomvri-2022.html",
+      "fetchedAt": "2026-09-27T06:44:56.609Z",
+      "sha256": "88488005087742bba3746934b12fcf6d44173124c1714e248b0d563cfed1da01",
+      "extractor": "AR",
+      "fieldworkStart": "2022-08-27",
+      "fieldworkEnd": "2022-09-02",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДБ": "ДБ е единственият с по-ниски нива на неодобрение (49%)",
+        "share:Продължаваме промяната": "Продължаваме промяната (17.5%) от почти шест процентни пункта",
+        "share:ДПС": "ДПС с 10.9% от твърдо решилите да гласуват",
+        "share:БСП": "БСП (9.8%) и ",
+        "share:Възраждане": "Възраждане (9.5%)",
+        "share:Български възход": "Български възход на Стефан Янев (4.2%), с малко прескача изборната бариера, но спрямо юни е в низходящ тренд",
+        "sampleSize": "сред 1117 пълнолетни",
+        "fieldwork": "в периода 27 август – 2 септември 2022г"
+      }
+    },
+    "publicationId": "AR:1000",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2022-09-02",
+      "agencyId": "AR",
+      "support": 49,
+      "nickName_bg": "ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-02",
+      "agencyId": "AR",
+      "support": 17.5,
+      "nickName_bg": "Продължаваме промяната",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-02",
+      "agencyId": "AR",
+      "support": 10.9,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-02",
+      "agencyId": "AR",
+      "support": 9.8,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-02",
+      "agencyId": "AR",
+      "support": 9.5,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-09-02",
+      "agencyId": "AR",
+      "support": 4.2,
+      "nickName_bg": "Български възход",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДБ": "ДБ е единственият с по-ниски нива на неодобрение (49%)",
+    "share:Продължаваме промяната": "Продължаваме промяната (17.5%) от почти шест процентни пункта",
+    "share:ДПС": "ДПС с 10.9% от твърдо решилите да гласуват",
+    "share:БСП": "БСП (9.8%) и ",
+    "share:Възраждане": "Възраждане (9.5%)",
+    "share:Български възход": "Български възход на Стефан Янев (4.2%), с малко прескача изборната бариера, но спрямо юни е в низходящ тренд",
+    "sampleSize": "сред 1117 пълнолетни",
+    "fieldwork": "в периода 27 август – 2 септември 2022г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 2 times with disagreeing values (23.4, 24.2%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ (23.4%) пред основния конкурент  | ГЕРБ, 24.2% - около "
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.862Z",
+    "draftHash": "22d9c701a478c93ba125e0a3ed6964bcf32916ec4ed4112f895979427e3b06c5",
+    "diffs": [
+      "extractor refused: share:ГЕРБ",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ДБ\" extractor 49 vs reader 7.5",
+      "vote_intention r1: reader has „ГЕРБ\" 23.4 — extractor does not",
+      "vote_intention r1: reader has „ИТН\" 3.9 — extractor does not",
+      "vote_intention r1: reader has „Изправи се България\" 2 — extractor does not",
+      "vote_intention r1: undecided extractor — vs reader 7.5"
+    ]
+  }
+}

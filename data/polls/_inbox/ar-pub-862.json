@@ -1,0 +1,92 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-862",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/862-obshtestveni-naglasi-septemvri-2012g.html",
+    "electionDate": null,
+    "respondents": 1021,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/862-obshtestveni-naglasi-septemvri-2012g.html",
+      "fetchedAt": "2026-09-27T06:45:21.223Z",
+      "sha256": "6dbadeb796d45f1cd01da4dc45281351160b54846686fc06929dcf0955417140",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС запазва своите традиционни 5% в неизборна обстановка",
+        "sampleSize": "сред 1021 пълнолетни"
+      },
+      "quoteSources": {
+        "share:ДПС": "Apha%20Research-press%20release_0912.doc",
+        "sampleSize": "Apha%20Research-press%20release_0912.doc"
+      }
+    },
+    "publicationId": "AR:862",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-862",
+      "agencyId": "AR",
+      "support": 5,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС запазва своите традиционни 5% в неизборна обстановка",
+    "sampleSize": "сред 1021 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"20-28 септември сред 1021 пълнолетни граждани от цялата страна\"",
+      "quote": "в периода 20-28 септември сред 1021 пълнолетни граждани от цялата страна"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"20-28 септември 2012г За пълнолетното население на Представителност страната Обем на извадката 1021 ефективни интервюта Квота въз основа на признаците Метод на формиране на извадката възраст\"",
+      "quote": "Период на провеждане 20-28 септември 2012г За пълнолетното население на Представителност страната Обем на извадката 1021 ефективни интервюта Квота въз основа на признаците Метод на формиране на извадката възраст"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.909Z",
+    "draftHash": "c8aa3e379d86bdd805e348a3e3b7c49d8a99e355c6fa95e7a25281dc5b5d67a5",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: fieldwork, fieldwork, poll.id",
+      "fieldwork start: extractor — vs reader 2012-09-20",
+      "fieldwork end: extractor — vs reader 2012-09-28",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ДПС\" extractor 5 vs reader 5.1",
+      "vote_intention r1: reader has „ГЕРБ\" 21.4 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 16.1 — extractor does not",
+      "vote_intention r1: reader has „България на гражданите\" 6.4 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 2 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 1.4 — extractor does not",
+      "vote_intention r1: reader has „ДСБ\" 1.3 — extractor does not",
+      "vote_intention r1: reader has „ВМРО\" 1 — extractor does not",
+      "vote_intention r1: reader has „ЛИДЕР\" 0.9 — extractor does not",
+      "vote_intention r1: reader has „ГОРД\" 0.7 — extractor does not",
+      "vote_intention r1: reader has „РЗС\" 0.7 — extractor does not",
+      "vote_intention r1: reader has „НДСВ\" 0.5 — extractor does not",
+      "vote_intention r1: reader has „НФСБ (Валери Симеонов)\" 0.5 — extractor does not",
+      "vote_intention r1: reader has „Либерален алианс (В. Марешки)\" 0.4 — extractor does not",
+      "vote_intention r1: reader has „Национал-демократическа партия\" 0.2 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 38.3"
+    ]
+  }
+}

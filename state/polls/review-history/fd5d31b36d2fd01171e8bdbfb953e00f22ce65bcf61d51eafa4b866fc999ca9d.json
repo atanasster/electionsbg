@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-889",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/889-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-septemvri-2014.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/889-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-septemvri-2014.html",
+      "fetchedAt": "2026-09-27T06:45:09.159Z",
+      "sha256": "467cc8d1283fdee08f1d15bdcf3f03fc1210fbdaaf434e73ad1aa6beec3ea725",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:889",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-767",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/767-znachitelna-elektoralna-prednina-za-gerb-sled-mestnia-vot.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/767-znachitelna-elektoralna-prednina-za-gerb-sled-mestnia-vot.html",
+      "fetchedAt": "2026-09-27T06:45:28.511Z",
+      "sha256": "430f968bffdee52976379b843aa4144793bed61a98141d0bc6e5ca920c596d19",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП през ноември възлиза на 18% от общия брой избиратели"
+      }
+    },
+    "publicationId": "AR:767",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-767",
+      "agencyId": "AR",
+      "support": 18,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП през ноември възлиза на 18% от общия брой избиратели"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "mentioned 2 times with disagreeing values (7, 69%) — refusing rather than guessing which is current",
+      "quote": "ДПС се ползва с подкрепа от 7% от общия брой избиратели в страната | ДПС в местната власт обаче, оценката за дейността на правителството продължава да бъде силно негативна (69%)"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.882Z",
+    "draftHash": "5f65b7c25863d762587a4f90aff2004daa46792270429778c0234deb08328b28",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: share:ДПС, sampleSize, poll.id",
+      "fieldwork start: extractor — vs reader 2007-11-12",
+      "fieldwork end: extractor — vs reader 2007-11-17",
+      "sample: extractor — vs reader 1015",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 26 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 7 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 1.9 — extractor does not",
+      "vote_intention r1: reader has „НДСВ\" 1.9 — extractor does not",
+      "vote_intention r1: reader has „ДСБ\" 1.6 — extractor does not",
+      "vote_intention r1: reader has „ВМРО\" 1.4 — extractor does not"
+    ]
+  }
+}

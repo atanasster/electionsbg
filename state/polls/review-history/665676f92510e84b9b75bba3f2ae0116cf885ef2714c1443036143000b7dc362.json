@@ -1,0 +1,52 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-854-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/854-obshtestveni-naglasi-dekemvri-2011g.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": 1050,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/854-obshtestveni-naglasi-dekemvri-2011g.html",
+      "fetchedAt": "2026-09-27T06:45:23.898Z",
+      "sha256": "0837aacc472d61348867bfd3abcfa0043cb3d2df4d7c6b611befc5ccc457d840",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1050 души"
+      }
+    },
+    "publicationId": "AR:854"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 1050 души"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "ОБЩЕСТВЕНИ НАГЛАСИ – ДЕКЕМВРИ 2011г. -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

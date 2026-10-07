@@ -1,0 +1,93 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-846",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/846-obshtestveni-naglasi-iuni-2011g.html",
+    "electionDate": null,
+    "respondents": 1020,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/846-obshtestveni-naglasi-iuni-2011g.html",
+      "fetchedAt": "2026-09-26T08:39:41.643Z",
+      "sha256": "3adf8ee4485ab50d5d03cf4a5cd506d43469c562051ce1de912774f9a123a77e",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП, който има лек ръст в персоналния си рейтинг (16%)",
+        "sampleSize": "сред 1020 пълнолетни"
+      },
+      "quoteSources": {
+        "share:БСП": "Press_release_062011(2).doc",
+        "sampleSize": "Press_release_062011(2).doc"
+      }
+    },
+    "publicationId": "AR:846",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-846",
+      "agencyId": "AR",
+      "support": 16,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП, който има лек ръст в персоналния си рейтинг (16%)",
+    "sampleSize": "сред 1020 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: the number is 91 characters from the party name — too far to be its share",
+      "quote": "ГЕРБ запазва подкрепата си сред избирателите , които отчита т икономическо подобрение (6 - 7% от анкетираните)"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"на присъединява на България към ЕС около 80% от гражданите подкрепяха строежа на централата\"",
+      "quote": "В периода на присъединява на България към ЕС около 80% от гражданите подкрепяха строежа на централата"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"27 май - 2 юни 2011 За пълнолетното население на Представителност страната Обем на извадката 1020 ефективни интервюта Квота въз основа на признаците Метод на формиране на възраст\"",
+      "quote": "Период на провеждане 27 май - 2 юни 2011 За пълнолетното население на Представителност страната Обем на извадката 1020 ефективни интервюта Квота въз основа на признаците Метод на формиране на възраст"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"на присъединява на България към ЕС около 80% от гражданите подкрепяха строежа на централата\"",
+      "quote": "В периода на присъединява на България към ЕС около 80% от гражданите подкрепяха строежа на централата"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.898Z",
+    "draftHash": "e71074bd23521b75682ebca70bfbb373246ae844a8ba1ff5ce78d1a0da1a7d91",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: share:ГЕРБ, fieldwork, fieldwork, fieldwork, poll.id",
+      "fieldwork start: extractor — vs reader 2011-05-27",
+      "fieldwork end: extractor — vs reader 2011-06-02",
+      "reader finds the genre unclear",
+      "vote_intention r1: „БСП\" extractor 16 vs reader 17.5",
+      "vote_intention r1: reader has „ГЕРБ\" 24.4 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 4.3 — extractor does not",
+      "vote_intention r1: reader has „Синята коалиция\" 3.9 — extractor does not",
+      "vote_intention r1: reader has „АТАКА\" 2.5 — extractor does not",
+      "vote_intention r1: reader has „РЗС\" 0.8 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 36.8"
+    ]
+  }
+}

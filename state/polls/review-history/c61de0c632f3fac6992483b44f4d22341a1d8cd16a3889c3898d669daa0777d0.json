@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-2013-01-17-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/865-obshtestveni-naglasi-ianuari-2013g.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "fieldwork": "Jan 12-17 2013",
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/865-obshtestveni-naglasi-ianuari-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:20.217Z",
+      "sha256": "ae3de6d8fd39b0735b22da36fe6bdd99b3d106b4ce0d81312ce4bb148f52f261",
+      "extractor": "AR",
+      "fieldworkStart": "2013-01-12",
+      "fieldworkEnd": "2013-01-17",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "периода 12 – 17 януари 2013"
+      }
+    },
+    "publicationId": "AR:865"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "периода 12 – 17 януари 2013"
+  },
+  "refused": [
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "ОБЩЕСТВЕНИ НАГЛАСИ – ЯНУАРИ 2013г. -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

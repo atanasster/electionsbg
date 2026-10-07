@@ -1,0 +1,61 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-10-31",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/878-obshtestveni-naglasi-oktomvri-2013g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Oct 26-31 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/878-obshtestveni-naglasi-oktomvri-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:15.025Z",
+      "sha256": "f772ca9c6707cb702878b2785e3b269b1815ff82ef5bca7385dfa665c824e7b6",
+      "extractor": "AR",
+      "fieldworkStart": "2013-10-26",
+      "fieldworkEnd": "2013-10-31",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "Период на провеждане 26-31 Октомври 2013г"
+      },
+      "quoteSources": {
+        "fieldwork": "1013_Public_Opinion_Alpha%20Research.pdf"
+      }
+    },
+    "publicationId": "AR:878",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "Период на провеждане 26-31 Октомври 2013г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.791Z",
+    "draftHash": "d87afaf116803a2ed9bcdc6eca5b5c9de06c7ce890084b295bf04f980bb06168",
+    "diffs": [
+      "extractor refused: sampleSize",
+      "sample: extractor — vs reader 1030",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „БСП\" 16.9 — extractor does not",
+      "vote_intention r1: reader has „ГЕРБ\" 16.5 — extractor does not",
+      "vote_intention r1: reader has „Реформаторски блок\" 6.4 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 6.1 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 3 — extractor does not",
+      "vote_intention r1: reader has „НФСБ\" 2.6 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 40.3"
+    ]
+  }
+}

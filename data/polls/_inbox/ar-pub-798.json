@@ -1,0 +1,62 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-798",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/798-omagiosan-krug-na-starta-na-izbornata-2009.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/798-omagiosan-krug-na-starta-na-izbornata-2009.html",
+      "fetchedAt": "2026-09-27T06:45:28.324Z",
+      "sha256": "887ec97f8bfe60d3f32fba9cb2805ffddb3650fedba0b624df78f42196d86363",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:798",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"6 – 12 декември 2008, сред 1035 души\"",
+      "quote": "в периода 6 – 12 декември 2008, сред 1035 души"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.887Z",
+    "draftHash": "0538925d8868d1d6e81a505b86741419ef9f8beab6a8d02ce407aeef8859316e",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, fieldwork, poll.id",
+      "fieldwork start: extractor — vs reader 2008-12-06",
+      "fieldwork end: extractor — vs reader 2008-12-12",
+      "sample: extractor — vs reader 1035",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 21 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 16 — extractor does not",
+      "vote_intention r1: reader has „НДСВ\" 2.2 — extractor does not"
+    ]
+  }
+}

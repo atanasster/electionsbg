@@ -1,0 +1,83 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-789",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/789-kritikite-na-evropeiskata-komisia-v-ton-s-obshtestvenite-naglasi.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/789-kritikite-na-evropeiskata-komisia-v-ton-s-obshtestvenite-naglasi.html",
+      "fetchedAt": "2026-09-27T06:45:28.392Z",
+      "sha256": "707f002f92a12bce3285478d6e241e4c51de50973d152ecddb8e2ad6dc88867c",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ с 21.7%",
+        "share:БСП": "БСП през май-юни е последвано от по-силен отлив през юли и в края на месеца подкрепата за социалистите се свива до 13.2% от общия брой избиратели в страната"
+      }
+    },
+    "publicationId": "AR:789",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-789",
+      "agencyId": "AR",
+      "support": 21.7,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-pub-789",
+      "agencyId": "AR",
+      "support": 13.2,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ с 21.7%",
+    "share:БСП": "БСП през май-юни е последвано от по-силен отлив през юли и в края на месеца подкрепата за социалистите се свива до 13.2% от общия брой избиратели в страната"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.884Z",
+    "draftHash": "47a0501d380c185f6c8258bd615f3efb8054ab226cbee31db66587f633a3847f",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, poll.id",
+      "fieldwork start: extractor — vs reader 2008-07-15",
+      "fieldwork end: extractor — vs reader 2008-07-19",
+      "sample: extractor — vs reader 1023",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ДПС\" 6.2 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 6.1 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 2.6 — extractor does not",
+      "vote_intention r1: reader has „НДСВ\" 1.8 — extractor does not",
+      "vote_intention r1: reader has „ДСБ\" 1.5 — extractor does not",
+      "vote_intention r1: reader has „ВМРО\" 1 — extractor does not",
+      "vote_intention r1: reader has „БНД\" 0.3 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 43"
+    ]
+  }
+}

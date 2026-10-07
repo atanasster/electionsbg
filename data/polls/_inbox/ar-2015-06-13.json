@@ -1,0 +1,93 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2015-06-13",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/898-obshtestveni-naglasi-iuni-2015.html",
+    "electionDate": null,
+    "respondents": 1026,
+    "genre": "unclear",
+    "fieldwork": "Jun 7-13 2015",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/898-obshtestveni-naglasi-iuni-2015.html",
+      "fetchedAt": "2026-09-27T06:45:05.861Z",
+      "sha256": "1184948e8485092f8dba5536eed48c998cbe848e1e2854d2ab07d6fa1b77f3d4",
+      "extractor": "AR",
+      "fieldworkStart": "2015-06-07",
+      "fieldworkEnd": "2015-06-13",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС запазва устойчиви позиции (7.3%)",
+        "share:ГЕРБ": "ГЕРБ запазва доминиращата си лидерска позиция ( 21.9%), но бележи плавен спад спрямо началото на мандата",
+        "sampleSize": "сред 1026 пълнолетни",
+        "fieldwork": "в периода 07-13 юни 2015г"
+      },
+      "quoteSources": {
+        "share:ДПС": "0615-Pressrelease_Alpha_Research.doc",
+        "share:ГЕРБ": "0615-Pressrelease_Alpha_Research.doc",
+        "sampleSize": "0615-Pressrelease_Alpha_Research.doc",
+        "fieldwork": "0615-Pressrelease_Alpha_Research.doc"
+      }
+    },
+    "publicationId": "AR:898",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2015-06-13",
+      "agencyId": "AR",
+      "support": 7.3,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2015-06-13",
+      "agencyId": "AR",
+      "support": 21.9,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС запазва устойчиви позиции (7.3%)",
+    "share:ГЕРБ": "ГЕРБ запазва доминиращата си лидерска позиция ( 21.9%), но бележи плавен спад спрямо началото на мандата",
+    "sampleSize": "сред 1026 пълнолетни",
+    "fieldwork": "в периода 07-13 юни 2015г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: the number is 67 characters from the party name — too far to be its share",
+      "quote": "ГЕРБ бележи постепенен лек спад, но остава първа политическа сила (21.9%)"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: the number is 64 characters from the party name — too far to be its share",
+      "quote": "БСП излиза от най-ниската си точка и реализира символичен ръст (11.5%), "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: the number is 70 characters from the party name — too far to be its share",
+      "quote": "БСП остава втора политическа сила и дори леко подобрява позициите си (11.5% ), но все така е на минимална преднина пред "
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.806Z",
+    "draftHash": "721f203b5e3aceff8903e3c62cabad6e37c859489fc8c1bed852e2805880d8e7",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:БСП, share:БСП",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „БСП\" 11.5 — extractor does not",
+      "vote_intention r1: reader has „РБ\" 5.7 — extractor does not",
+      "vote_intention r1: reader has „Патриотичен фронт\" 5.7 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 3.5 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 3.2 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 36"
+    ]
+  }
+}

@@ -1,15 +1,34 @@
 [
   {
+    "agencyId": "AF",
+    "publicationId": "21e4d050089a937f",
+    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxObDJBQ1RsdUZvRTY1Mko1LUNzamVZNktmUWgyUkV5NUtqLXRwbE5PdkE5d1VOYjh1aHZ0dU1lZTBfN1pQUVQ3TXprYUVDcVdMYnZ1LTd2YWVMVjl3Q1RLeFBrZEhHRkNwcy1nSmxRVElZSnQ5ZlRJR0c5d01ETlpLTEl0QUwybnhQaExYQko4c0dyajZpdTJOcjNtM29WWXJFWFBv?oc=5",
+    "title": "АФИС вижда ясен победител на изборите, но рухване на два монопола в НС - News.bg",
+    "publishedAt": "2021-04-01T07:00:00.000Z",
+    "status": "pending_capture",
+    "error": null,
+    "exclusions": [],
+    "refused": [],
+    "drafts": []
+  },
+  {
     "agencyId": "AR",
     "publicationId": "1043",
     "url": "https://alpharesearch.bg/post/1043-obshtestveno-politicheski-i-elektoralni-naglasi-fevruari-2026.html",
     "title": "Обществено-политически и електорални нагласи – февруари 2026",
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:МЕЧ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2026-03-02",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -17,11 +36,18 @@
     "url": "https://alpharesearch.bg/post/1044-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
     "title": "Електорални нагласи на старта на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "shares"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2026-03-20",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -29,11 +55,18 @@
     "url": "https://alpharesearch.bg/post/1045-obshtestveni-i-elektoralni-naglasi.html",
     "title": "Обществени и електорални нагласи. Проблемите, стратегическите партньори, очаквана управленска конфигурация",
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "shares"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2026-03-26",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -41,11 +74,18 @@
     "url": "https://alpharesearch.bg/post/1047-obshtestveni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "Oбществени нагласи на финала на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:МЕЧ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2026-04-15",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -53,11 +93,22 @@
     "url": "https://alpharesearch.bg/post/1052-obshtestveni-naglasi-v-navecherieto-na-100-te-dni-na-kabineta-radev.html",
     "title": "Обществени нагласи в навечерието на 100-те дни на кабинета „Радев\"",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2026-07-23; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2026-07-23",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -65,11 +116,25 @@
     "url": "https://alpharesearch.bg/post/1049-19-april-2026-demografski-profil-na-glasuvalite-na-izborite-za-narodno-subranie.html",
     "title": "19 Април 2026: Демографски профил на гласувалите на изборите за Народно събрание",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1049",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -77,11 +142,25 @@
     "url": "https://alpharesearch.bg/post/1048-19-april-2026-izbori-za-narodno-subranie-19-april-2026-general-elections.html",
     "title": "19 Април 2026: Избори за Народно събрание / 19 April 2026: General Elections",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1048",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -89,11 +168,25 @@
     "url": "https://alpharesearch.bg/post/1046-sociologicheska-agencia-alfa-risurch-publikuva-informacia-za-mediite-s-koito-shte-raboti-v-izbornia-den-na-19-april-2026g.html",
     "title": "Социологическа агенция Алфа Рисърч публикува информация за медиите, с които ще работи в изборния ден на 19 април 2026г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "CIK-mandated exit-poll media disclosure notice, not a survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1046",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -101,11 +194,22 @@
     "url": "https://alpharesearch.bg/post/1042-obshtestveno-politicheski-naglasi-dekemvri-2025.html",
     "title": "Обществено-политически нагласи: декември 2025",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2025-12-12; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2025-12-12",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -113,11 +217,25 @@
     "url": "https://alpharesearch.bg/post/1040-obshtestveni-naglasi-za-vuvejdaneto-na-evroto-v-bulgaria-iuli-2025g.html",
     "title": "Обществени нагласи за въвеждането на еврото в България – юли 2025г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1040",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -125,11 +243,25 @@
     "url": "https://alpharesearch.bg/post/1038-obshtestveno-politicheski-naglasi-iuli-2025.html",
     "title": "Обществено-политически нагласи – юли 2025",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2025-07-14; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "share:МЕЧ",
+      "share:ДПС-Ново начало"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2025-07-14",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -137,11 +269,26 @@
     "url": "https://alpharesearch.bg/post/1037-obshtestveni-naglasi-za-vuvejdaneto-na-evroto-v-bulgaria.html",
     "title": "Обществени нагласи за въвеждането на еврото в България",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1037",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -149,11 +296,22 @@
     "url": "https://alpharesearch.bg/post/1031-obshtestveno-politicheski-naglasi-ianuari-2025.html",
     "title": "Обществено-политически нагласи: януари 2025",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2025-01-20; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2025-01-20",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -161,11 +319,25 @@
     "url": "https://alpharesearch.bg/post/1029-27-oktomvri-2024-demografski-profil-na-glasuvalite-na-izborite-za-narodno-subranie.html",
     "title": "27 Октомври 2024: Демографски профил на гласувалите на изборите за Народно събрание",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1029",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -173,11 +345,25 @@
     "url": "https://alpharesearch.bg/post/1028-27-oktomvri-2024-izbori-za-narodno-subranie-27-october-2024-general-elections.html",
     "title": "27 Октомври 2024: Избори за Народно събрание / 27 October 2024: General Elections",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1028",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -185,11 +371,25 @@
     "url": "https://alpharesearch.bg/post/1027-sociologicheska-agencia-alfa-risurch-publikuva-informacia-za-mediite-s-koito-shte-raboti-v-izbornia-den-na-27-oktomvri-2024g.html",
     "title": "Социологическа агенция Алфа Рисърч публикува информация за медиите, с които ще работи в изборния ден на 27 октомври 2024г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "CIK-mandated exit-poll media disclosure notice, not a survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1027",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -197,11 +397,25 @@
     "url": "https://alpharesearch.bg/post/1024-09-iuni-2024-izbori-za-narodno-subranie-i-za-chlenove-na-evropeiski-parlament-09-june-2024-general-elections-national-assembly-and-members-of-european-parliament.html",
     "title": "9 Юни 2024: Избори за Народно събрание и за Европейски парламент / 9 June 2024: General Elections - National Assembly and European Parliament",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1024",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -209,11 +423,25 @@
     "url": "https://alpharesearch.bg/post/1023-sociologicheska-agencia-alfa-risurch-publikuva-informacia-za-mediite-s-koito-shte-raboti-v-izbornia-den-na-9-iuni-2024g.html",
     "title": "Социологическа агенция Алфа Рисърч публикува информация за медиите, с които ще работи в изборния ден на 9 юни 2024г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "CIK-mandated exit-poll media disclosure notice, not a survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1023",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -221,11 +449,28 @@
     "url": "https://alpharesearch.bg/post/1022-elektoralni-naglasi-na-finala-na-predizbornata-kampania-za-nacionalen-i-evropeiski-parlament.html",
     "title": "Електорални нагласи на финала на предизборната кампания за Национален и Европейски парламент",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2024-06-04; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "share:БСП",
+      "share:ГЕРБ-СДС",
+      "share:Възраждане",
+      "share:ДПС",
+      "share:ИТН"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2024-06-04",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -233,11 +478,19 @@
     "url": "https://alpharesearch.bg/post/1021-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-za-nacionalen-i-evropeiski-parlament.html",
     "title": "Обществени нагласи на старта на предизборната кампания за Национален и Европейски парламент",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ДПС",
+      "share:Възраждане"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2024-05-02",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -245,11 +498,22 @@
     "url": "https://alpharesearch.bg/post/1020-obshtestveni-ocenki-kum-osnovni-politiki-na-es-i-ranni-elektoralni-naglasi-za-evrovota.html",
     "title": "Oбществени оценки към основни политики на EC и ранни електорални нагласи за евровота",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "European Parliament vote intention, not a national parliamentary race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2024-03-07",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -257,11 +521,26 @@
     "url": "https://alpharesearch.bg/post/1019-obshtestveno-politicheski-naglasi-mart-2024.html",
     "title": "Обществено-политически нагласи: март 2024",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1019-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -269,11 +548,16 @@
     "url": "https://alpharesearch.bg/post/1017-obshtestveni-naglasi-noemvri-2023g.html",
     "title": "Обществени нагласи – ноември 2023г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "accepted",
     "error": null,
     "exclusions": [],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2023-11-30",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -281,11 +565,25 @@
     "url": "https://alpharesearch.bg/post/1016-5-noemvri-2023-ii-tur-na-mestni-izbori-5-november-2023-ii-run-of-local-elections.html",
     "title": "5 Ноември 2023: II тур на Местни избори / 5 November 2023: II Run of Local Elections",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1016",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -293,11 +591,25 @@
     "url": "https://alpharesearch.bg/post/1015-29-oktomvri-2023-mestni-izbori-29-october-2023-local-elections.html",
     "title": "29 Октомври 2023: Местни избори / 29 October 2023: Local Elections",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1015",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -305,11 +617,25 @@
     "url": "https://alpharesearch.bg/post/1014-sociologicheska-agencia-alfa-risurch-publikuva-informacia-za-mediite-s-koito-shte-raboti-v-izbornia-den-na-29-oktomvri-2023-g.html",
     "title": "Социологическа агенция Алфа Рисърч публикува информация за медиите, с които ще работи в изборните дни на 29 октомври 2023 г. и 5 ноември 2023 г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "CIK-mandated exit-poll media disclosure notice, not a survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1014",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -317,11 +643,24 @@
     "url": "https://alpharesearch.bg/post/1013-obshtestveno-politicheski-naglasi-sofia.html",
     "title": "Електорални нагласи в София",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Local-election poll (mayor/municipal council), not a national race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2023-10-24",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -329,11 +668,22 @@
     "url": "https://alpharesearch.bg/post/1012-obshtestveno-politicheski-naglasi-iuni-2023g.html",
     "title": "Обществено-политически нагласи: юни 2023г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:БСП",
+      "share:ИТН",
+      "share:ГЕРБ",
+      "share:ПП-ДБ",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2023-06-26",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -341,11 +691,25 @@
     "url": "https://alpharesearch.bg/post/1011-02-april-2023-demografski-profil-na-glasuvalite-na-izborite-za-narodno-subranie.html",
     "title": "02 Април 2023: Демографски профил на гласувалите на изборите за Народно събрание",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1011",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -353,11 +717,25 @@
     "url": "https://alpharesearch.bg/post/1010-02-april-2023-izbori-za-narodno-subranie-02-april-2023-general-elections.html",
     "title": "02 Април 2023: Избори за Народно събрание / 02 April 2023: General Elections",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1010",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -365,11 +743,22 @@
     "url": "https://alpharesearch.bg/post/1009-bez-razvruzka-do-samia-krai-na-predizbornata-kampania.html",
     "title": "Без развръзка до самия край на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2023-03-25; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2023-03-29",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -377,11 +766,25 @@
     "url": "https://alpharesearch.bg/post/1008-sociologicheska-agencia-alfa-risurch-publikuva-informacia-za-mediite-s-koito-shte-raboti-v-izbornia-den-na-4-april-2023-g.html",
     "title": "Социологическа агенция Алфа Рисърч публикува информация за медиите, с които ще работи в изборния ден на 2 април 2023 г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "CIK-mandated exit-poll media disclosure notice, not a survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1008",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -389,11 +792,19 @@
     "url": "https://alpharesearch.bg/post/1007-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
     "title": "Електорални нагласи на старта на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ИТН",
+      "share:ГЕРБ-СДС"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2023-02-27",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -401,11 +812,24 @@
     "url": "https://alpharesearch.bg/post/1004-obshtestveni-naglasi-za-vuvejdaneto-na-evroto-v-bulgaria.html",
     "title": "Обществени нагласи за въвеждането на еврото в България",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2022-11-17",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -413,11 +837,25 @@
     "url": "https://alpharesearch.bg/post/1002-02-oktomvri-2022-izbori-za-narodno-subranie-02-october-2022-general-elections.html",
     "title": "02 Октомври 2022: Избори за Народно събрание / 02 October 2022: General Elections",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1002",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -425,11 +863,24 @@
     "url": "https://alpharesearch.bg/post/1001-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "Електорални нагласи на финала на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2022-09-28; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "share:ИТН"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2022-09-29",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -437,11 +888,18 @@
     "url": "https://alpharesearch.bg/post/1000-elektoralni-naglasi-na-starta-na-predizborna-kampania-parlamentarni-izbori-oktomvri-2022.html",
     "title": "Електорални нагласи на старта на предизборна кампания – парламентарни избори „октомври 2022\"",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2022-09-02",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -449,11 +907,18 @@
     "url": "https://alpharesearch.bg/post/999-useshtaneto-za-predsrochni-izbori-razmestva-elektoralnite-plastove.html",
     "title": "Усещането за предсрочни избори размества електоралните пластове",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2022-07-01",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -461,11 +926,16 @@
     "url": "https://alpharesearch.bg/post/997-poliarizacia-v-obshtestvenite-naglasi-i-dinamika-v-otnoshenieto-kum-kliuchovi-politicheski-igrachi-april-2022.html",
     "title": "Поляризация в обществените нагласи и динамика в отношението към ключови политически играчи – април 2022",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "accepted",
     "error": null,
     "exclusions": [],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2022-04-14",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -473,11 +943,22 @@
     "url": "https://alpharesearch.bg/post/996-obshtestveni-naglasi-kum-antisemitizma-i-ezika-na-omrazata-mnenieto-na-shirokata-obshtestvenost-i-na-evreiskata-obshtnost.html",
     "title": "Обществени нагласи към антисемитизма и езика на омразата – мнението на широката общественост и на еврейската общност",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2022-02-21",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -485,11 +966,25 @@
     "url": "https://alpharesearch.bg/post/995-voinata-rusia-ukraina-radikalna-promiana-v-obshtestvenite-naglasi-kum-ruskia-prezident-i-rust-na-solidarnost-s-evropeiskite-strani.html",
     "title": "Войната Русия – Украйна: радикална промяна в обществените нагласи към руския президент и ръст на солидарност с европейските страни",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical survey (BNT / Alpha Research, 28 Feb 2022, 500 respondents) on the Russia-Ukraine war: attitudes to Putin and Zelensky, EU sanctions, the defence minister's dismissal, and willingness to pay higher energy prices.",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-995",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -497,11 +992,23 @@
     "url": "https://alpharesearch.bg/post/994-obshtestveni-naglasi-fevruari-2022.html",
     "title": "Обществени нагласи – февруари 2022",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ИТН",
+      "share:ГЕРБ",
+      "share:Продължаваме промяната",
+      "share:БСП",
+      "share:ГЕРБ",
+      "share:ДБ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2022-02-14",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -519,8 +1026,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Presidential round-two exit poll",
-        "reviewedAt": "2026-09-26"
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -546,14 +1053,14 @@
     "error": null,
     "exclusions": [
       {
-        "race": "parliamentary",
-        "reason": "Presidential round-one exit poll",
-        "reviewedAt": "2026-09-26"
+        "race": "presidential",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       },
       {
-        "race": "presidential",
-        "reason": "Presidential round-one exit poll",
-        "reviewedAt": "2026-09-26"
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -581,18 +1088,18 @@
     "url": "https://alpharesearch.bg/post/985-obshtestveni-naglasi-na-finala-na-kampaniata-za-izbori-dve-v-edno.html",
     "title": "Обществени нагласи на финала на кампанията за избори две в едно",
     "publishedAt": null,
-    "status": "pending_review",
+    "status": "accepted",
     "error": null,
     "exclusions": [],
     "refused": [],
     "drafts": [
       {
-        "id": "ar-2021-11-09",
-        "race": "parliamentary"
-      },
-      {
         "id": "ar-2021-11-09-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "ar-2021-11-09",
+        "race": "parliamentary"
       }
     ]
   },
@@ -627,29 +1134,28 @@
     "url": "https://alpharesearch.bg/post/983-elektoralna-dinamika-i-vuzmojni-elektoralni-trusove-obshtestveno-politicheski-naglasi-septemvri-2021g.html",
     "title": "Електорална динамика и възможни електорални трусове: обществено-политически нагласи, септември 2021г.",
     "publishedAt": null,
-    "status": "pending_review",
+    "status": "reviewed",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Presidential participation is disclosed; no named-candidate vote distribution",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
-      "sampleSize",
       "respondents",
       "questions",
       "methodology"
     ],
     "drafts": [
       {
-        "id": "ar-2021-09-15",
-        "race": "parliamentary"
-      },
-      {
         "id": "ar-2021-09-15-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "ar-2021-09-15",
+        "race": "parliamentary"
       }
     ]
   },
@@ -663,14 +1169,14 @@
     "error": null,
     "exclusions": [
       {
-        "race": "parliamentary",
+        "race": "presidential",
         "reason": "Parliamentary exit poll",
         "reviewedAt": "2026-09-26"
       },
       {
-        "race": "presidential",
-        "reason": "Parliamentary exit poll",
-        "reviewedAt": "2026-09-26"
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -690,7 +1196,7 @@
     "url": "https://alpharesearch.bg/post/981-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "Електорални нагласи на финала на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_review",
+    "status": "reviewed",
     "error": null,
     "exclusions": [
       {
@@ -713,7 +1219,7 @@
     "url": "https://alpharesearch.bg/post/980-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
     "title": "Електорални нагласи на старта на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_review",
+    "status": "reviewed",
     "error": null,
     "exclusions": [
       {
@@ -722,10 +1228,7 @@
         "reviewedAt": "2026-09-26"
       }
     ],
-    "refused": [
-      "share:ИТН",
-      "share:ИТН"
-    ],
+    "refused": [],
     "drafts": [
       {
         "id": "ar-2021-06-07",
@@ -743,14 +1246,14 @@
     "error": null,
     "exclusions": [
       {
-        "race": "parliamentary",
+        "race": "presidential",
         "reason": "Parliamentary exit poll",
         "reviewedAt": "2026-09-26"
       },
       {
-        "race": "presidential",
-        "reason": "Parliamentary exit poll",
-        "reviewedAt": "2026-09-26"
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -770,13 +1273,18 @@
     "url": "https://alpharesearch.bg/post/978-obshtestveni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "Обществени нагласи на финала на предизборната кампания",
     "publishedAt": null,
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
         "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll ar-2021-04-01; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -825,7 +1333,7 @@
     "url": "https://alpharesearch.bg/post/975-predizboren-politicheski-triugulnik-kovid-19-ikonomika-aktivnost.html",
     "title": "Предизборен политически триъгълник: КОВИД-19, икономика, активност",
     "publishedAt": null,
-    "status": "pending_review",
+    "status": "reviewed",
     "error": null,
     "exclusions": [
       {
@@ -834,9 +1342,7 @@
         "reviewedAt": "2026-09-26"
       }
     ],
-    "refused": [
-      "sampleSize"
-    ],
+    "refused": [],
     "drafts": [
       {
         "id": "ar-2020-12-21",
@@ -850,11 +1356,22 @@
     "url": "https://alpharesearch.bg/post/973-obshtestveni-naglasi-kum-poziciata-na-bulgaria-otnosno-zapochvaneto-na-pregovori-na-republika-severna-makedonia-za-chlenstvo-v-es.html",
     "title": "Обществени нагласи към позицията на България относно започването на преговори на Република Северна Македония за членство в ЕС",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical survey on public attitudes toward Bulgaria's position on North Macedonia's EU accession negotiations (October 2020, 800 respondents, commissioned by MEP Andrey Kovachev); no party or presidential vote-intention q",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2020-10-29",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -862,11 +1379,25 @@
     "url": "https://alpharesearch.bg/post/962-obshtestveni-naglasi-kum-donorstvoto-na-organi.html",
     "title": "Обществени нагласи към донорството на органи",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-962",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -874,11 +1405,16 @@
     "url": "https://alpharesearch.bg/post/956-obshtestveni-naglasi-v-nachaloto-na-novia-politicheski-sezon-stari-problemi-novi-igrachi-i-vuzmojni-intrigi-v-mestnia-vot.html",
     "title": "Обществени нагласи в началото на новия политически сезон – стари проблеми, нови играчи и възможни интриги в местния вот",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "accepted",
     "error": null,
     "exclusions": [],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2019-09-16",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -886,11 +1422,25 @@
     "url": "https://alpharesearch.bg/post/955-izbori-za-chlenove-na-evropeiski-parlament-26-mai-2019.html",
     "title": "Избори за членове на Европейски парламент, 26 май, 2019",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-955",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -898,11 +1448,22 @@
     "url": "https://alpharesearch.bg/post/952-na-finala-na-predizbornata-kampania-gerb-vuzvrushta-prednina-pred-bsp.html",
     "title": "На финала на предизборната кампания: ГЕРБ възвръща преднина пред БСП",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "European Parliament vote intention, not a national parliamentary race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2019-05-22",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -910,11 +1471,24 @@
     "url": "https://alpharesearch.bg/post/951-na-starta-na-predizbornata-kampania-za-evropeiski-parlament-namaliavashta-izbiratelna-aktivnost-i-paritet-mejdu-bsp-i-gerb.html",
     "title": "На старта на предизборната кампания за европейски парламент – намаляваща избирателна активност и паритет между БСП и ГЕРБ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "European Parliament vote intention, not a national parliamentary race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2019-04-30",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -922,11 +1496,26 @@
     "url": "https://alpharesearch.bg/post/950-reputacionni-shteti-za-gerb-ot-skandala-s-apartamentite-i-paritet-v-elektoralnite-naglasi-za-evrovota.html",
     "title": "Репутационни щети за ГЕРБ от скандала с апартаментите и паритет в електоралните нагласи за евровота",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "European Parliament vote intention, not a national parliamentary race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "share:ГЕРБ",
+      "share:БСП",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2019-03-26",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -934,11 +1523,24 @@
     "url": "https://alpharesearch.bg/post/930-obshtestveni-naglasi-mart-2018.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, МАРТ 2018",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:ГЕРБ",
+      "share:ГЕРБ",
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:ДПС",
+      "share:ВОЛЯ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2018-03-24",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -946,11 +1548,25 @@
     "url": "https://alpharesearch.bg/post/929-obshtestveni-naglasi-kum-merki-za-preodoliavane-na-problema-sus-zamursenia-vuzduh-v-sofia.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ КЪМ МЕРКИ ЗА ПРЕОДОЛЯВАНЕ НА ПРОБЛЕМА СЪС ЗАМЪРСЕНИЯ ВЪЗДУХ В СОФИЯ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-929",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -958,11 +1574,21 @@
     "url": "https://alpharesearch.bg/post/928-obshtestveni-naglasi-dekemvri-2017.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, ДЕКЕМВРИ 2017",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:ДПС",
+      "share:ВОЛЯ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2017-12-15",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -970,11 +1596,26 @@
     "url": "https://alpharesearch.bg/post/925-obshtestveni-naglasi-septemvri-2017.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, СЕПТЕМВРИ 2017",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:Нова република",
+      "share:БСП",
+      "share:Воля",
+      "share:ГЕРБ",
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:ДПС",
+      "share:ВОЛЯ",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2017-09-20",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -982,11 +1623,21 @@
     "url": "https://alpharesearch.bg/post/922-obshtestveni-naglasi-iuni-2017.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, ЮНИ 2017",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:ДПС",
+      "share:ВОЛЯ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2017-06-22",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -994,11 +1645,25 @@
     "url": "https://alpharesearch.bg/post/920-socialno-demografski-profil-na-glasuvalite-v-parlamentarnite-izbori-2017.html",
     "title": "СОЦИАЛНО-ДЕМОГРАФСКИ ПРОФИЛ НА ГЛАСУВАЛИТЕ В ПАРЛАМЕНТАРНИТЕ ИЗБОРИ 2017",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-920",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1006,11 +1671,38 @@
     "url": "https://alpharesearch.bg/post/919-parlamentarni-izbori-2017-26-mart-2017.html",
     "title": "ПАРЛАМЕНТАРНИ ИЗБОРИ 2017 - 26 МАРТ 2017",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id",
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-919",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ar-pub-919-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1018,11 +1710,29 @@
     "url": "https://alpharesearch.bg/post/918-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "ЕЛЕКТОРАЛНИ НАГЛАСИ НА ФИНАЛА НА ПРЕДИЗБОРНАТА КАМПАНИЯ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "reviewed",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2017-03-22-presidential",
+        "race": "presidential"
+      },
+      {
+        "id": "ar-2017-03-22",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1030,11 +1740,29 @@
     "url": "https://alpharesearch.bg/post/917-na-starta-na-predizbornata-kampania-goliamata-intriga-e-v-malkite-distancii.html",
     "title": "НА СТАРТА НА ПРЕДИЗБОРНАТА КАМПАНИЯ: ГОЛЯМАТА ИНТРИГА Е В МАЛКИТЕ ДИСТАНЦИИ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2017-02-23",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ar-2017-02-23-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1042,11 +1770,32 @@
     "url": "https://alpharesearch.bg/post/916-obshtestveni-naglasi-ianuari-2017.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, ЯНУАРИ 2017",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "share:ДПС",
+      "share:БСП",
+      "share:ДПС",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2017-01-22",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ar-2017-01-22-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1064,8 +1813,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Retrospective accuracy article, not a new survey",
-        "reviewedAt": "2026-09-26"
+        "reason": "Retrospective on the agency's own forecast accuracy, not a survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -1097,8 +1846,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Round-two exit poll",
-        "reviewedAt": "2026-09-26"
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -1147,8 +1896,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Round-one exit poll",
-        "reviewedAt": "2026-09-26"
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -1187,13 +1936,18 @@
     "url": "https://alpharesearch.bg/post/908-informiranost-i-rolia-na-kampaniata-za-prezidentski-izbori-i-nacionalen-referendum.html",
     "title": "ИНФОРМИРАНОСТ И РОЛЯ НА КАМПАНИЯТА ЗА ПРЕЗИДЕНТСКИ ИЗБОРИ И НАЦИОНАЛЕН РЕФЕРЕНДУМ",
     "publishedAt": null,
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Campaign knowledge and participation report; no named-candidate vote distribution",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Independent reading found no parliamentary vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
@@ -1241,25 +1995,23 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Presidential participation and institutional attitudes; no named-candidate voting distribution",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
-      "sampleSize",
-      "poll.id",
       "fieldwork",
       "questions",
       "methodology"
     ],
     "drafts": [
       {
-        "id": "ar-pub-906",
-        "race": "parliamentary"
-      },
-      {
         "id": "ar-pub-906-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "ar-2016-09-15",
+        "race": "parliamentary"
       }
     ]
   },
@@ -1274,26 +2026,25 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Presidential participation and institutional attitudes; no named-candidate voting distribution",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
-      "sampleSize",
-      "poll.id",
       "fieldwork",
       "respondents",
       "questions",
-      "methodology"
+      "methodology",
+      "sampleSize"
     ],
     "drafts": [
       {
-        "id": "ar-pub-905",
-        "race": "parliamentary"
-      },
-      {
         "id": "ar-pub-905-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "ar-2016-06-14",
+        "race": "parliamentary"
       }
     ]
   },
@@ -1308,25 +2059,24 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
-      "sampleSize",
-      "poll.id",
       "respondents",
       "questions",
-      "methodology"
+      "methodology",
+      "sampleSize"
     ],
     "drafts": [
       {
-        "id": "ar-pub-903",
-        "race": "parliamentary"
-      },
-      {
         "id": "ar-2016-02-25-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "ar-2016-02-25",
+        "race": "parliamentary"
       }
     ]
   },
@@ -1336,11 +2086,16 @@
     "url": "https://alpharesearch.bg/post/902-obshtestveni-naglasi-noemvri-2015.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, НОЕМВРИ 2015",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2015-11-18",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1348,11 +2103,25 @@
     "url": "https://alpharesearch.bg/post/901-socialno-demografski-profil-na-podkrepata-za-kmetove-na-vtori-tur-na-mestni-izbori-2015-01-noemvri-2015.html",
     "title": "СОЦИАЛНО ДЕМОГРАФСКИ ПРОФИЛ НА ПОДКРЕПАТА ЗА КМЕТОВЕ НА ВТОРИ ТУР НА МЕСТНИ ИЗБОРИ 2015 - 01 НОЕМВРИ 2015",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-901",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1360,11 +2129,25 @@
     "url": "https://alpharesearch.bg/post/900-socialno-demografski-profil-na-podkrepata-za-kmetove-i-obshtinski-listi-v-mestni-izbori-i-nacionalen-referendum-2015-25-oktomvri-2015.html",
     "title": "СОЦИАЛНО ДЕМОГРАФСКИ ПРОФИЛ НА ПОДКРЕПАТА ЗА КМЕТОВЕ И ОБЩИНСКИ ЛИСТИ В МЕСТНИ ИЗБОРИ И НАЦИОНАЛЕН РЕФЕРЕНДУМ 2015 - 25 ОКТОМВРИ 2015",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-900",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1372,11 +2155,22 @@
     "url": "https://alpharesearch.bg/post/899-obshtestveno-politicheski-naglasi-predi-mestnia-vot-i-nacionalnia-referendum.html",
     "title": "ОБЩЕСТВЕНО-ПОЛИТИЧЕСКИ НАГЛАСИ ПРЕДИ МЕСТНИЯ ВОТ И НАЦИОНАЛНИЯ РЕФЕРЕНДУМ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical survey (1-5 October 2015) on attitudes before the 2015 local elections and the national referendum on electronic voting: campaign perception, vote buying, fairness of elections, intention to take part in the loca",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2015-10-05",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1384,11 +2178,20 @@
     "url": "https://alpharesearch.bg/post/898-obshtestveni-naglasi-iuni-2015.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, ЮНИ 2015",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:БСП"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2015-06-13",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1396,11 +2199,21 @@
     "url": "https://alpharesearch.bg/post/897-obshtestveni-naglasi-april-2015.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, АПРИЛ 2015",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ДПС",
+      "share:ДПС",
+      "share:ГЕРБ",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2015-04-15",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1408,11 +2221,19 @@
     "url": "https://alpharesearch.bg/post/895-obshtestveni-naglasi-ianuari-2015.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, ЯНУАРИ 2015",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ДПС",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2015-01-23",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1420,11 +2241,25 @@
     "url": "https://alpharesearch.bg/post/893-pametnicite-v-sofia-prouchvane-na-obshtestvenite-naglasi-na-stolichani.html",
     "title": "ПАМЕТНИЦИТЕ В СОФИЯ - ПРОУЧВАНЕ НА ОБЩЕСТВЕНИТЕ НАГЛАСИ НА СТОЛИЧАНИ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-893",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1432,11 +2267,25 @@
     "url": "https://alpharesearch.bg/post/892-socialno-demografski-profil-na-glasuvalite-v-parlamentarnite-izbori-2014.html",
     "title": "СОЦИАЛНО-ДЕМОГРАФСКИ ПРОФИЛ НА ГЛАСУВАЛИТЕ В ПАРЛАМЕНТАРНИТЕ ИЗБОРИ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-892",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1444,11 +2293,25 @@
     "url": "https://alpharesearch.bg/post/891-parlamentarni-izbori-2014-05-oktomvri-2014.html",
     "title": "ПАРЛАМЕНТАРНИ ИЗБОРИ 2014 - 05 ОКТОМВРИ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-891",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1456,11 +2319,16 @@
     "url": "https://alpharesearch.bg/post/890-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "ЕЛЕКТОРАЛНИ НАГЛАСИ НА ФИНАЛА НА ПРЕДИЗБОРНАТА КАМПАНИЯ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "accepted",
     "error": null,
     "exclusions": [],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "ar-2014-09-30",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1468,11 +2336,20 @@
     "url": "https://alpharesearch.bg/post/889-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-septemvri-2014.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ НА СТАРТА НА ПРЕДИЗБОРНАТА КАМПАНИЯ, СЕПТЕМВРИ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:ГЕРБ",
+      "share:ББЦ"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2014-09-05",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1480,11 +2357,25 @@
     "url": "https://alpharesearch.bg/post/888-socialno-demografski-profil-na-glasuvalite-v-izborite-za-evropeiski-parlament-2014.html",
     "title": "СОЦИАЛНО ДЕМОГРАФСКИ ПРОФИЛ НА ГЛАСУВАЛИТЕ В ИЗБОРИТЕ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-888",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1492,11 +2383,25 @@
     "url": "https://alpharesearch.bg/post/887-izbori-za-deputati-za-evropeiski-parlament-25-mai-2014.html",
     "title": "ИЗБОРИ ЗА ДЕПУТАТИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ - 25 МАЙ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-887",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1504,11 +2409,25 @@
     "url": "https://alpharesearch.bg/post/886-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "ЕЛЕКТОРАЛНИ НАГЛАСИ НА ФИНАЛА НА ПРЕДИЗБОРНАТА КАМПАНИЯ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "European Parliament vote intention, not a national parliamentary race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-886",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1516,11 +2435,23 @@
     "url": "https://alpharesearch.bg/post/885-obshtestveni-naglasi-april-2014.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, АПРИЛ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ББЦ",
+      "share:БСП",
+      "share:БСП",
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:ДПС"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2014-04-26",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1528,11 +2459,29 @@
     "url": "https://alpharesearch.bg/post/884-obshtestveni-naglasi-mart-2014.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, МАРТ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): The only vote-intention figures in this publication (Alpha Research, fieldwork 23-26 April 2014, 1024 respondents) are for the European Parliament election of 25 May 2014 („ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ“: Г",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "share:ББЦ",
+      "share:БСП",
+      "share:БСП",
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:ДПС"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2014-04-26",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1540,11 +2489,25 @@
     "url": "https://alpharesearch.bg/post/883-obshtestveni-naglasi-fevruari-2014.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, ФЕВРУАРИ 2014",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ДПС",
+      "share:БСП",
+      "share:Реформаторски блок",
+      "share:БСП",
+      "share:БСП",
+      "share:ГЕРБ",
+      "share:БСП",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2014-02-22",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1552,11 +2515,26 @@
     "url": "https://alpharesearch.bg/post/880-obshtestveni-naglasi-ianuari-2014-purvi-elektoralni-trusove-sled-starta-na-abv.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ, ЯНУАРИ 2014 - ПЪРВИ ЕЛЕКТОРАЛНИ ТРУСОВЕ СЛЕД СТАРТА НА АБВ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): The only electoral question in this publication (Alpha Research, fieldwork 18-22 January 2014, 1050 respondents) is vote intention for the EUROPEAN PARLIAMENT election („ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ“, PDF ",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:БСП"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2014-01-22",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1564,11 +2542,21 @@
     "url": "https://alpharesearch.bg/post/879-obshtestveni-naglasi-dekemvri-2013g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ДЕКЕМВРИ 2013г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:БСП",
+      "share:БСП",
+      "share:ГЕРБ",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-12-08",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1576,11 +2564,18 @@
     "url": "https://alpharesearch.bg/post/878-obshtestveni-naglasi-oktomvri-2013g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ОКТОМВРИ 2013г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-10-31",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1588,11 +2583,20 @@
     "url": "https://alpharesearch.bg/post/876-obshtestveni-naglasi-septemvri-2013g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – СЕПТЕМВРИ 2013г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:ДПС",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-09-25",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1600,11 +2604,21 @@
     "url": "https://alpharesearch.bg/post/875-obshtestveni-naglasi-v-navecherieto-na-100-te-dni-na-kabineta-oresharski.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ В НАВЕЧЕРИЕТО НА 100-ТЕ ДНИ НА КАБИНЕТА „ОРЕШАРСКИ“",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:БСП",
+      "share:ГЕРБ",
+      "share:БСП",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-08-27",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1612,11 +2626,26 @@
     "url": "https://alpharesearch.bg/post/874-obshtestveni-naglasi-iuni-2013g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ЮНИ 2013г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical public-opinion survey (Обществени нагласи – юни 2013, fieldwork 13–18 June 2013, 1019 respondents): it reports approval/trust ratings for parliament, government, president, judiciary and party leaders, support fo",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "share:БСП",
+      "share:БСП",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-06-18",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1624,11 +2653,25 @@
     "url": "https://alpharesearch.bg/post/873-socialno-demografski-profil-na-glasuvalite-v-parlamentarnite-izbori-2013.html",
     "title": "СОЦИАЛНО-ДЕМОГРАФСКИ ПРОФИЛ НА ГЛАСУВАЛИТЕ В ПАРЛАМЕНТАРНИТЕ ИЗБОРИ 2013",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-873",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1636,11 +2679,25 @@
     "url": "https://alpharesearch.bg/post/872-parlamentarni-izbori-2013.html",
     "title": "ПАРЛАМЕНТАРНИ ИЗБОРИ 2013",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-872",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1648,11 +2705,19 @@
     "url": "https://alpharesearch.bg/post/871-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
     "title": "ЕЛЕКТОРАЛНИ НАГЛАСИ НА ФИНАЛА НА ПРЕДИЗБОРНАТА КАМПАНИЯ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-871",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1660,11 +2725,19 @@
     "url": "https://alpharesearch.bg/post/870-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
     "title": "ЕЛЕКТОРАЛНИ НАГЛАСИ НА СТАРТА НА ПРЕДИЗБОРНАТА КАМПАНИЯ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:БСП",
+      "share:БСП"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-04-14",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1672,11 +2745,21 @@
     "url": "https://alpharesearch.bg/post/869-obshtestveni-naglasi-mart-2013g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – МАРТ 2013г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:БСП",
+      "share:ГЕРБ",
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-03-27",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1684,11 +2767,35 @@
     "url": "https://alpharesearch.bg/post/865-obshtestveni-naglasi-ianuari-2013g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ЯНУАРИ 2013г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "share:БСП",
+      "share:БСП",
+      "share:ДПС",
+      "share:ГЕРБ",
+      "sampleSize",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2013-01-17",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ar-2013-01-17-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1696,11 +2803,20 @@
     "url": "https://alpharesearch.bg/post/862-obshtestveni-naglasi-septemvri-2012g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – СЕПТЕМВРИ 2012г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "fieldwork",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-862",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1708,11 +2824,18 @@
     "url": "https://alpharesearch.bg/post/857-obshtestveni-naglasi-iuni-2012g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ЮНИ 2012г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2012-06-07",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1720,11 +2843,21 @@
     "url": "https://alpharesearch.bg/post/855-obshtestveni-naglasi-fevruari-2012g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ФЕВРУАРИ 2012г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-855",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1732,11 +2865,37 @@
     "url": "https://alpharesearch.bg/post/854-obshtestveni-naglasi-dekemvri-2011g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ДЕКЕМВРИ 2011г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "fieldwork",
+      "fieldwork",
+      "fieldwork",
+      "fieldwork",
+      "poll.id",
+      "fieldwork",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-854",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ar-pub-854-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1744,11 +2903,25 @@
     "url": "https://alpharesearch.bg/post/853-obshtestveni-naglasi-kum-spiraneto-na-proekta-burgas-aleksandrupolis.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ КЪМ СПИРАНЕТО НА ПРОЕКТА „БУРГАС –АЛЕКСАНДРУПОЛИС“",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-853",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1756,11 +2929,25 @@
     "url": "https://alpharesearch.bg/post/852-elektoralni-naglasi-na-izbiratelite-v-obshtina-plovdiv.html",
     "title": "ЕЛЕКТОРАЛНИ НАГЛАСИ НА ИЗБИРАТЕЛИТЕ В ОБЩИНА ПЛОВДИВ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Local-election poll (mayor/municipal council), not a national race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-852",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1768,11 +2955,25 @@
     "url": "https://alpharesearch.bg/post/851-elektoralni-naglasi-v-sofia.html",
     "title": "ЕЛЕКТОРАЛНИ НАГЛАСИ В СОФИЯ",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Local-election poll (mayor/municipal council), not a national race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-851",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1797,11 +2998,25 @@
     "url": "https://alpharesearch.bg/post/847-obshtestveni-naglasi-kum-iadrenata-energetika-iuni-2011g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ КЪМ ЯДРЕНАТА ЕНЕРГЕТИКА ЮНИ 2011Г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-847",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1809,7 +3024,7 @@
     "url": "https://alpharesearch.bg/post/846-obshtestveni-naglasi-iuni-2011g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ЮНИ 2011г.",
     "publishedAt": null,
-    "status": "excluded",
+    "status": "pending_review",
     "error": null,
     "exclusions": [
       {
@@ -1818,8 +3033,19 @@
         "reviewedAt": "2026-09-26"
       }
     ],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "fieldwork",
+      "fieldwork",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-846",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1827,11 +3053,25 @@
     "url": "https://alpharesearch.bg/post/845-obshtestveni-naglasi-kum-iadrenata-energetika.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ КЪМ ЯДРЕНАТА ЕНЕРГЕТИКА",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-845",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1857,11 +3097,19 @@
     "url": "https://alpharesearch.bg/post/842-obshtestveni-naglasi-dekemvri-2010g.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ДЕКЕМВРИ 2010г.",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:БСП",
+      "share:ДПС"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2010-12-12",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1869,11 +3117,27 @@
     "url": "https://alpharesearch.bg/post/838-obshtestveni-naglasi-oktomvri-2010.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ ОКТОМВРИ 2010",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "poll.id",
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-838",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ar-pub-838-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1881,11 +3145,19 @@
     "url": "https://alpharesearch.bg/post/837-obshtestveni-naglasi-iuni-2010.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ЮНИ 2010",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-837",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1893,11 +3165,25 @@
     "url": "https://alpharesearch.bg/post/836-obshtestveni-naglasi-fevruari-2010.html",
     "title": "ОБЩЕСТВЕНИ НАГЛАСИ – ФЕВРУАРИ 2010",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading of the re-captured .ppt): topical survey — government and institution ratings, trust in parties and leaders, reform attitudes; no vote-intention question",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-836",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1905,11 +3191,26 @@
     "url": "https://alpharesearch.bg/post/831-uchastie-na-bulgarite-v-hazartni-igri-i-obshtestveni-naglasi-kum-zakona-za-hazarta.html",
     "title": "Участие на българите в хазартни игри и обществени нагласи към закона за хазарта",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-831",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1917,11 +3218,25 @@
     "url": "https://alpharesearch.bg/post/830-izborite-v-sofia-dvuboi-mejdu-tvurdi-partiini-simpatizanti.html",
     "title": "Изборите в София: двубой между твърди партийни симпатизанти",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Local-election poll (mayor/municipal council), not a national race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-830",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1929,11 +3244,25 @@
     "url": "https://alpharesearch.bg/post/829-chastichni-izbori-za-kmet-na-sofia-2009.html",
     "title": "Частични избори за кмет на София 2009",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Local-election poll (mayor/municipal council), not a national race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-829",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1941,11 +3270,26 @@
     "url": "https://alpharesearch.bg/post/825-obshtestveni-naglasi-kum-biudjet-2010.html",
     "title": "Обществени нагласи към бюджет 2010",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-825",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1953,11 +3297,25 @@
     "url": "https://alpharesearch.bg/post/817-promenite-v-zakona-za-izborite-krivoto-ogledalo-na-obshtestvenite-naglasi.html",
     "title": "Промените в закона за изборите: кривото огледало на обществените нагласи",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-817",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1965,11 +3323,24 @@
     "url": "https://alpharesearch.bg/post/806-izbori-po-vreme-na-pochivka.html",
     "title": "Избори по време на почивка",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical commentary on how a summer (holiday-season) election date would affect turnout by party electorate (survey for Капитал, 30 Jan - 13 Feb 2009, 1021 respondents). The text states no party or candidate vote-intentio",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2009-02-13",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1977,11 +3348,19 @@
     "url": "https://alpharesearch.bg/post/805-krizisnite-subitia-razkolebavat-elektoralnite-naglasi.html",
     "title": "Кризисните събития разколебават електоралните нагласи",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-805",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -1989,11 +3368,25 @@
     "url": "https://alpharesearch.bg/post/801-izbori-pod-znaka-na-ikonomicheska-kriza-i-finansovi-sankcii-ot-briuksel.html",
     "title": "Избори под знака на икономическа криза и финансови санкции от Брюксел",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical commentary on economic expectations ahead of the 2009 elections (December 2008 survey, 1035 respondents, for Дневник); it publishes no party or candidate vote-intention shares — only economic-outlook percentages ",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-801",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2001,11 +3394,20 @@
     "url": "https://alpharesearch.bg/post/798-omagiosan-krug-na-starta-na-izbornata-2009.html",
     "title": "Омагьосан кръг на старта на изборната 2009",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-798",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2013,11 +3415,19 @@
     "url": "https://alpharesearch.bg/post/789-kritikite-na-evropeiskata-komisia-v-ton-s-obshtestvenite-naglasi.html",
     "title": "Критиките на Европейската комисия в тон с обществените нагласи",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-789",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2025,11 +3435,20 @@
     "url": "https://alpharesearch.bg/post/767-znachitelna-elektoralna-prednina-za-gerb-sled-mestnia-vot.html",
     "title": "Значителна електорална преднина за ГЕРБ след местния вот",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ДПС",
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-767",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2037,11 +3456,25 @@
     "url": "https://alpharesearch.bg/post/752-kmetski-izbori-v-sofia-iasen-vodach-iasni-problemi-neiasni-otgovori.html",
     "title": "Кметски избори в София: Ясен водач, ясни проблеми, неясни отговори",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Local-election poll (mayor/municipal council), not a national race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-752",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2049,11 +3482,19 @@
     "url": "https://alpharesearch.bg/post/747-mestnite-izbori-tradicionni-partii-vs-regionalni-listi-.html",
     "title": "Местните избори: традиционни партии vs. регионални листи",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-747",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2061,11 +3502,26 @@
     "url": "https://alpharesearch.bg/post/746-zakonut-za-mestnite-izbori-razminavane-s-obshtestvenite-ochakvania.html",
     "title": "Законът за местните избори: разминаване с обществените очаквания",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-746",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2073,11 +3529,25 @@
     "url": "https://alpharesearch.bg/post/745-ekoproblemite-prerogativ-na-partiite.html",
     "title": "Екопроблемите – прерогатив на партиите",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-745",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2085,11 +3555,25 @@
     "url": "https://alpharesearch.bg/post/740-socialno-demografski-profil-na-glasuvalite-v-izborite-za-evropeiski-parlament.html",
     "title": "Социално демографски профил на гласувалите в изборите за европейски парламент",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Voter demographic profile from an exit poll, not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-740",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2097,11 +3581,25 @@
     "url": "https://alpharesearch.bg/post/739-v-denia-na-izborite-za-evrodeputati.html",
     "title": "В деня на изборите за евродепутати",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-739",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2109,11 +3607,27 @@
     "url": "https://alpharesearch.bg/post/737-izbori-za-deputati-za-evropeiski-parlament-izbiratelna-aktivnost.html",
     "title": "Избори за депутати за Европейски Парламент - избирателна активност",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-737-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2121,11 +3635,27 @@
     "url": "https://alpharesearch.bg/post/734-ekspresno-elektoralno-prouchvane-2-4-mai.html",
     "title": "Експресно електорално проучване 2 - 4 Май",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "European Parliament vote intention, not a national parliamentary race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "share:БСП",
+      "share:ДПС",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-734",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2133,11 +3663,26 @@
     "url": "https://alpharesearch.bg/post/729-obshtestveno-mnenie-za-principa-na-usednalost-pri-izbora-na-evrodeputati.html",
     "title": "Обществено мнение за принципа на уседналост при избора на евродепутати",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-729",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2145,11 +3690,25 @@
     "url": "https://alpharesearch.bg/post/728-izborite-za-evrodeputati-niska-zapoznatost-slab-interes.html",
     "title": "Изборите за евродепутати – ниска запознатост, слаб интерес",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "European Parliament vote intention, not a national parliamentary race",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-728",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2157,11 +3716,25 @@
     "url": "https://alpharesearch.bg/post/725-elektoralen-avans-za-favoritite-ot-prezidentskite-izbori.html",
     "title": "Електорален аванс за фаворитите от президентските избори",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2006-11-11-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2186,11 +3759,25 @@
     "url": "https://alpharesearch.bg/post/703-ot-liavo-po-liavo-i-kazusut-prezidentski-izbori.html",
     "title": "От ляво по-ляво и казусът “президентски избори”",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Not an electoral poll (independent reading): Commentary article (Боряна Димитрова) on government approval among party supporters; the captured text states no vote-intention shares for any presidential candidate or party. The only figures are approval breakdowns by ",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2006-01-27-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2198,11 +3785,26 @@
     "url": "https://alpharesearch.bg/post/689-obshtestvenite-naglasi-kum-novo-razshiriavane-na-evropeiskia-suiuz.html",
     "title": "Обществените нагласи към ново разширяване на Европейския Съюз",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-689",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2210,11 +3812,26 @@
     "url": "https://alpharesearch.bg/post/686-razminavaneto-mejdu-obshtestveni-naglasi-i-politicheski-deistvia-ogranichava-potencialnia-desen-vot.html",
     "title": "Разминаването между обществени нагласи и политически действия ограничава потенциалния десен вот",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical analysis of right-wing voter potential and attitudes (survey 1-6 February 2005); it publishes governance priorities, an estimated 22-28% right-wing potential range and attitudes towards right-wing coalition confl",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-686",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2222,11 +3839,20 @@
     "url": "https://alpharesearch.bg/post/643-vuzmojnite-iznenadi-na-izborite.html",
     "title": "Възможните изненади на изборите",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "sampleSize",
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-643",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2234,11 +3860,24 @@
     "url": "https://alpharesearch.bg/post/634-rodopite-obshtestveni-naglasi-i-potencial-za-razvitie.html",
     "title": "Родопите - обществени нагласи и потенциал за развитие",
     "publishedAt": null,
-    "status": "pending_capture",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical survey with no vote-intention figures",
+        "reviewedAt": "2026-10-03"
+      }
+    ],
+    "refused": [
+      "sampleSize"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2000-11-15",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "AR",
@@ -2250,14 +3889,14 @@
     "error": null,
     "exclusions": [
       {
-        "race": "parliamentary",
+        "race": "presidential",
         "reason": "Publication clarification, not a new survey",
         "reviewedAt": "2026-09-26"
       },
       {
-        "race": "presidential",
-        "reason": "Publication clarification, not a new survey",
-        "reviewedAt": "2026-09-26"
+        "race": "parliamentary",
+        "reason": "Agency/association statement, not a survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -2281,14 +3920,14 @@
     "error": null,
     "exclusions": [
       {
-        "race": "parliamentary",
+        "race": "presidential",
         "reason": "BAMOR election-code statement, not a survey",
         "reviewedAt": "2026-09-26"
       },
       {
-        "race": "presidential",
-        "reason": "BAMOR election-code statement, not a survey",
-        "reviewedAt": "2026-09-26"
+        "race": "parliamentary",
+        "reason": "Agency/association statement, not a survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -2312,14 +3951,14 @@
     "error": null,
     "exclusions": [
       {
-        "race": "parliamentary",
+        "race": "presidential",
         "reason": "COVID survey",
         "reviewedAt": "2026-09-26"
       },
       {
-        "race": "presidential",
-        "reason": "COVID survey",
-        "reviewedAt": "2026-09-26"
+        "race": "parliamentary",
+        "reason": "Not an electoral poll (independent reading): Topical survey on the COVID-19 pandemic's effects, returning pupils to classrooms and vaccination intentions (fieldwork 8-15 February 2021, 1007 respondents); the page text and all three charts carry no party vote intent",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
@@ -2331,6 +3970,47 @@
         "race": "parliamentary"
       }
     ]
+  },
+  {
+    "agencyId": "AR",
+    "publicationId": "1054",
+    "url": "https://alpharesearch.bg/post/1054-predizborni-naglasi-na-starta-na-kampaniata-za-prezidentski-izbori-2026.html",
+    "title": "Предизборни нагласи на старта на кампанията за Президентски избори 2026",
+    "publishedAt": null,
+    "status": "reviewed",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Presidential campaign-start survey; publishes no parliamentary vote intention",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "shares"
+    ],
+    "drafts": [
+      {
+        "id": "ar-2026-10-01",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ar-2026-10-01-presidential",
+        "race": "presidential"
+      }
+    ]
+  },
+  {
+    "agencyId": "EX",
+    "publicationId": "1bdb98cca076fcce",
+    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOYzFsY0twWnZaemVlQ05HUjlaSm9CWmpKUUN6SFFpUmphQ0N3R2NlNWJhQ2VqZVN0U21EQmtreFp6NUl1dWRobGZMczhLckE2cVdfT21IaUkwdF9xV1FjbzN2VkFqRi1JUzQwZ1RpR1JrckwtV3c3SWM3azZNVEhpLXk0XzZCVzVTeWwxejFseHhQMWc4eURwVQ?oc=5",
+    "title": "\"Екзакта\": ГЕРБ-СДС бие ПП-ДБ с над 4% при избори днес - segabg.com",
+    "publishedAt": "2023-06-26T07:00:00.000Z",
+    "status": "pending_capture",
+    "error": null,
+    "exclusions": [],
+    "refused": [],
+    "drafts": []
   },
   {
     "agencyId": "GM",
@@ -2355,9 +4035,20 @@
     "url": "https://globalmetrics.eu/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%bf%d1%80%d0%be%d0%ba%d1%83%d1%80%d0%be%d1%80%d0%b8%d1%82%d0%b5-%d0%b7%d0%b0-%d1%80%d0%b5%d1%84%d0%be%d1%80%d0%bc%d0%b8-%d0%b2-%d0%bf%d1%80/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
-    "error": null,
-    "exclusions": [],
+    "status": "excluded",
+    "error": "extractGlobalMetrics(186): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+        "reviewedAt": "2026-10-04"
+      },
+      {
+        "race": "presidential",
+        "reason": "Topical attitude survey (not vote intention) — no electoral question",
+        "reviewedAt": "2026-10-04"
+      }
+    ],
     "refused": [],
     "drafts": []
   },
@@ -2367,9 +4058,20 @@
     "url": "https://globalmetrics.eu/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%ba%d1%8a%d0%bc-%d0%bf%d1%80%d0%b8%d0%be%d0%b1%d1%89%d0%b0%d0%b2%d0%b0%d1%89%d0%be%d1%82%d0%be-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
-    "error": null,
-    "exclusions": [],
+    "status": "excluded",
+    "error": "extractGlobalMetrics(203): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+        "reviewedAt": "2026-10-04"
+      },
+      {
+        "race": "presidential",
+        "reason": "Topical attitude survey (not vote intention) — no electoral question",
+        "reviewedAt": "2026-10-04"
+      }
+    ],
     "refused": [],
     "drafts": []
   },
@@ -2379,9 +4081,20 @@
     "url": "https://globalmetrics.eu/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%bc%d0%b0%d0%b3%d0%b8%d1%81%d1%82%d1%80%d0%b0%d1%82%d0%b8%d1%82%d0%b5-%d0%b7%d0%b0-%d1%80%d0%b5%d1%84%d0%be%d1%80%d0%bc%d0%b8-%d0%b2-%d1%81/",
     "title": "НАГЛАСИ НА МАГИСТРАТИТЕ ЗА РЕФОРМИ В СЪДЕБНАТА СИСТЕМА В БЪЛГАРИЯ",
     "publishedAt": "2016-07-08",
-    "status": "pending_extraction",
-    "error": null,
-    "exclusions": [],
+    "status": "excluded",
+    "error": "extractGlobalMetrics(275): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+        "reviewedAt": "2026-10-04"
+      },
+      {
+        "race": "presidential",
+        "reason": "Topical attitude survey (not vote intention) — no electoral question",
+        "reviewedAt": "2026-10-04"
+      }
+    ],
     "refused": [],
     "drafts": []
   },
@@ -2391,9 +4104,20 @@
     "url": "https://globalmetrics.eu/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%ba%d1%8a%d0%bc-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d0%ba%d0%b8%d1%82%d0%b5-%d0%b7%d0%b0-%d0%b4%d0%b5%d1%86%d0%b0%d1%82%d0%b0-%d0%b8-%d0%bf%d1%80%d0%be/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
-    "error": null,
-    "exclusions": [],
+    "status": "excluded",
+    "error": "extractGlobalMetrics(487): classifyRace resolved \"parliamentary\" for this capture — this extractor only builds presidential drafts",
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Topical attitude survey (not vote intention) — classifyRace mislabels it parliamentary",
+        "reviewedAt": "2026-10-04"
+      },
+      {
+        "race": "presidential",
+        "reason": "Topical attitude survey (not vote intention) — no electoral question",
+        "reviewedAt": "2026-10-04"
+      }
+    ],
     "refused": [],
     "drafts": []
   },
@@ -2403,11 +4127,27 @@
     "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-noemvri-2025-110.html",
     "title": null,
     "publishedAt": null,
-    "status": "capture_error",
-    "error": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20%D0%9E%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%B8%20%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%2012.2025.pdf",
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-110-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2415,11 +4155,27 @@
     "url": "https://www.marketlinks.bg/bg/news/analiz-ot-natsionalno-prouchvane-na-sotsialno-politicheskite-naglasi-na-market-links-i-btv-provedeno-v-parvata-polovina-na-fevruari-2026-111.html",
     "title": null,
     "publishedAt": null,
-    "status": "capture_error",
-    "error": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2001.2026.pdf",
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-111-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2427,11 +4183,27 @@
     "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-mart-2026-112.html",
     "title": null,
     "publishedAt": null,
-    "status": "capture_error",
-    "error": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2002.2026.pdf",
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-112-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2439,11 +4211,27 @@
     "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-april-2026-114.html",
     "title": null,
     "publishedAt": null,
-    "status": "capture_error",
-    "error": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2004.2026.pdf",
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-114-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2451,11 +4239,27 @@
     "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-may-2026-116.html",
     "title": null,
     "publishedAt": null,
-    "status": "capture_error",
-    "error": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2005.2026.pdf",
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-116-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2463,11 +4267,27 @@
     "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-yuni-2026-117.html",
     "title": null,
     "publishedAt": null,
-    "status": "capture_error",
-    "error": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2006.2026.pdf",
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-117-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2475,11 +4295,27 @@
     "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-yuli-2026-118.html",
     "title": null,
     "publishedAt": null,
-    "status": "capture_error",
-    "error": "Attachments unavailable: https://www.marketlinks.bg/bg/news/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2007.2026.pdf",
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-118-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2497,8 +4333,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Media-content retrospective",
-        "reviewedAt": "2026-09-26"
+        "reason": "Not an electoral poll (independent reading): The capture is a media-content analysis („Анализ на медийното съдържание в периода 6 октомври - 13 ноември 2016 година.\"), not an electoral poll; the page carries no vote shares and the linked presentation was not captur",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [],
@@ -2510,11 +4346,21 @@
     "url": "https://www.marketlinks.bg/bg/news/komentar-na-rezultati-ot-natsionalno-predstavitelno-prouchvane-na-market-links-provedeno-po-porachka-na-btv-44.html",
     "title": "Коментар на резултати от национално-представително проучване на Маркет ЛИНКС, проведено по поръчка на bTV",
     "publishedAt": "2016-11-01",
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-44-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2522,11 +4368,21 @@
     "url": "https://www.marketlinks.bg/bg/news/komentar-na-rezultati-ot-natsionalno-ekspresno-prouchvane-na-market-links-provedeno-po-porachka-na-btv-43.html",
     "title": "Коментар на резултати от национално експресно проучване на Маркет ЛИНКС, проведено по поръчка на bTV",
     "publishedAt": "2016-10-05",
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-43-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2534,11 +4390,27 @@
     "url": "https://www.marketlinks.bg/bg/news/obshtestveno-politicheski-naglasi-predi-prezidentskite-izbori-2016-g-42.html",
     "title": "Обществено-политически нагласи преди президентските избори 2016 г.",
     "publishedAt": "2016-08-30",
-    "status": "pending_extraction",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ml-pub-42-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "ML",
@@ -2556,8 +4428,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Controlled-vote study",
-        "reviewedAt": "2026-09-26"
+        "reason": "Study of controlled voting, not a presidential vote-intention survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -2601,8 +4473,8 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
@@ -2627,8 +4499,8 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
@@ -2653,8 +4525,8 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
@@ -2679,8 +4551,8 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
@@ -2705,8 +4577,8 @@
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
@@ -2775,16 +4647,48 @@
     "drafts": []
   },
   {
+    "agencyId": "ML",
+    "publicationId": "119",
+    "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-septemvri-2026-119.html",
+    "title": "Обществено–политически нагласи - Септември 2026",
+    "publishedAt": "2026-09-30",
+    "status": "accepted",
+    "error": null,
+    "exclusions": [],
+    "refused": [],
+    "drafts": [
+      {
+        "id": "ml-2026-09-29-presidential",
+        "race": "presidential"
+      }
+    ]
+  },
+  {
     "agencyId": "MY",
     "publicationId": "1291",
     "url": "https://myara.bg/current-data-on-political-and-public-issues-1291/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "my-pub-1291-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "MY",
@@ -2792,11 +4696,26 @@
     "url": "https://myara.bg/public-attitudes-government-1391/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "my-pub-1391-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "MY",
@@ -2804,11 +4723,25 @@
     "url": "https://myara.bg/public-attitudes-september-2025-1533/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "my-2025-09-12-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "MY",
@@ -2816,11 +4749,27 @@
     "url": "https://myara.bg/en/political-attitudes-in-september-1542/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "my-pub-1542-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "MY",
@@ -2828,11 +4777,25 @@
     "url": "https://myara.bg/electoral-snapshot-february-2026-1671/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "my-2026-02-15-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "MY",
@@ -2840,11 +4803,26 @@
     "url": "https://myara.bg/electoral-snapshot-march-2026-1681/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "excluded",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "my-pub-1681-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "MY",
@@ -2852,35 +4830,127 @@
     "url": "https://myara.bg/election-formula-5-1-2-1712/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "my-pub-1712-presidential",
+        "race": "presidential"
+      }
+    ]
+  },
+  {
+    "agencyId": "MY",
+    "publicationId": "1918",
+    "url": "https://myara.bg/electoral-snapshot-beginning-october-1918/",
+    "title": "Моментна картина на електоралните нагласи към началото на октомври",
+    "publishedAt": "2026-10-05",
+    "status": "accepted",
     "error": null,
     "exclusions": [],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "my-2026-10-04-presidential",
+        "race": "presidential"
+      }
+    ]
   },
   {
     "agencyId": "SH",
     "publicationId": "4116",
     "url": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f-2/",
-    "title": null,
-    "publishedAt": null,
-    "status": "pending_extraction",
+    "title": "Политически нагласи в  България",
+    "publishedAt": "2026-03-16",
+    "status": "pending_review",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading of the re-captured bulletin: a parliamentary poll (already in the corpus as sh-2026-03-12) with no presidential vote-intention question",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology",
+      "share:ГЕРБ - САС",
+      "share:Коалиция ПРОДЪЛЖАВАМЕ ПРОМЯНАТА и ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+      "share:АПС Ново Начало",
+      "share:Коалиция \"Сияние\"",
+      "share:ВЕЛИЧИЕ",
+      "share:МЕЧ",
+      "share:АПС",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "sh-pub-4116-presidential",
+        "race": "presidential"
+      },
+      {
+        "id": "sh-2026-03-12",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "SH",
     "publicationId": "4142",
     "url": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f/",
-    "title": null,
-    "publishedAt": null,
-    "status": "pending_extraction",
+    "title": "Политически нагласи в България",
+    "publishedAt": "2026-04-09",
+    "status": "pending_review",
     "error": null,
-    "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Independent reading of the re-captured bulletin: a parliamentary poll (already in the corpus as sh-2026-04-06) with no presidential vote-intention question",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology",
+      "share:ГЕРБ-СДС С",
+      "share:КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - па",
+      "share:ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+      "share:ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ - ДПС шега",
+      "share:ВЪЗРАЖДАНЕ",
+      "share:БСП- ОБЕДИНЕНА ЛЕВИЦА",
+      "share:ПП МЕЧ ози",
+      "share:КОАЛИЦИЯ СИЯНИЕ за",
+      "share:АЛИАНС ЗА ПРАВА И СВОБОДИ - АПС",
+      "share:ПП ВЕЛИЧИЕ",
+      "share:Друга / Не подкрепям никого",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "sh-pub-4142-presidential",
+        "race": "presidential"
+      },
+      {
+        "id": "sh-2026-04-06",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "SH",
@@ -2915,8 +4985,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Presidential exit-poll profile",
-        "reviewedAt": "2026-09-26"
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -2948,8 +5018,8 @@
       },
       {
         "race": "presidential",
-        "reason": "Presidential exit-poll profile",
-        "reviewedAt": "2026-09-26"
+        "reason": "Election-day page (results, exit poll or turnout), not a pre-election survey",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -2979,6 +5049,10 @@
       {
         "id": "sh-2021-11-02-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "sh-2021-11-02",
+        "race": "parliamentary"
       }
     ]
   },
@@ -2988,14 +5062,27 @@
     "url": "https://sovaharris.com/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1-3/",
     "title": "Електорални и политически нагласи в България, Октомври 2021",
     "publishedAt": "2021-10-15",
-    "status": "accepted",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
+    "refused": [
+      "share:ООН С--:",
+      "share:решението си",
+      "share:2. АКО ДНЕС СЕ ПРОВЕДАТ ПАРЛАМЕНТАРНИ ИЗБОРИ, ВИЕ ЛИЧНО ЗА КОЯ ПАРТИЯ/ КОАЛИЦИЯ",
+      "share:БИХТЕ ГЛАСУВАЛИ? (САМО СРЕД ГЛАСУВАЩИТЕ ЗА КОНКРЕТНА ПАРТИЯ/КОАЛИЦИЯ)",
+      "share:ООН Бой",
+      "share:разнетиваттивваяене он",
+      "share:ЗНННИЯ НИ:",
+      "methodology"
+    ],
     "drafts": [
       {
         "id": "sh-2021-10-12-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "sh-2021-10-12",
+        "race": "parliamentary"
       }
     ]
   },
@@ -3005,24 +5092,42 @@
     "url": "https://sovaharris.com/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1-2/",
     "title": "Електорални и политически нагласи в България, Юли 2021",
     "publishedAt": "2021-07-08",
-    "status": "excluded",
+    "status": "pending_review",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
       "respondents",
       "questions",
+      "methodology",
+      "share:Не съм сигурен/ сигурна, може да",
+      "share:променя решението си",
+      "share:Сигурен/ сигурна съм, че няма да",
+      "share:гласувам",
+      "share:2. АКО ДНЕС СЕ ПРОВЕДАТ ПАРЛАМЕНТАРНИ ИЗБОРИ, ВИЕ ЛИЧНО ЗА КОЯ ПАРТИЯ/ КОАЛИЦИЯ",
+      "share:БИХТЕ ГЛАСУВАЛИ? (СРЕД ГЛАСУВАЛИТЕ ЗА КОНКРЕТНА ПАРТИЯ/КОАЛИЦИЯ)",
+      "share:ДЕМОКРАТИЧНА БЪЛГАРИЯ - зла",
+      "share:ОБЕДИНЕНИЕ",
+      "share:ИЗПРАВИ СЕ! МУТРИ ВЪН!",
+      "share:БЪЛГАРСКИТЕ ПАТРИОТИ - ВМРО, ще",
+      "share:ВОЛЯ и НФСБ",
+      "share:3. СЧИТАТЕ ЛИ, ЧЕ ПАРЛАМЕНТАРНИТЕ ИЗБОРИ ЩЕ ИЗЛЪЧАТ СТАБИЛНО УПРАВЛЕНИЕ?",
+      "share:Еро",
       "methodology"
     ],
     "drafts": [
       {
         "id": "sh-2021-07-06-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "sh-2021-07-06",
+        "race": "parliamentary"
       }
     ]
   },
@@ -3032,24 +5137,42 @@
     "url": "https://sovaharris.com/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1/",
     "title": "Електорални и политически нагласи в България, Юни 2021",
     "publishedAt": "2021-06-18",
-    "status": "excluded",
+    "status": "pending_review",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
       "respondents",
       "questions",
+      "methodology",
+      "share:Не съм сигурен/ сигурна, може да",
+      "share:променя решението си",
+      "share:Сигурен/ сигурна съм, че няма да",
+      "share:гласувам",
+      "share:2. АКО ДНЕС СЕ ПРОВЕДАТ ПАРЛАМЕНТАРНИ ИЗБОРИ, ВИЕ ЛИЧНО ЗА КОЯ ПАРТИЯ/ КОАЛИЦИЯ",
+      "share:БИХТЕ ГЛАСУВАЛИ? (СРЕД ГЛАСУВАЛИТЕ ЗА КОНКРЕТНА ПАРТИЯ/КОАЛИЦИЯ)",
+      "share:ДЕМОКРАТИЧНА БЪЛГАРИЯ - за",
+      "share:ОБЕДИНЕНИЕ",
+      "share:ИЗПРАВИ СЕ! МУТРИ ВЪН!",
+      "share:БЪЛГАРСКИТЕ ПАТРИОТИ - ВМРО, Щи",
+      "share:ВОЛЯ и НФСБ",
+      "share:3. СЧИТАТЕ ЛИ, ЧЕ ПАРЛАМЕНТАРНИТЕ ИЗБОРИ ЩЕ ИЗЛЪЧАТ СТАБИЛНО УПРАВЛЕНИЕ?",
+      "share:Еро",
       "methodology"
     ],
     "drafts": [
       {
         "id": "sh-2021-06-15-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "sh-2021-06-15",
+        "race": "parliamentary"
       }
     ]
   },
@@ -3059,25 +5182,33 @@
     "url": "https://sovaharris.com/%d1%81%d0%be%d1%86%d0%b8%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3-5/",
     "title": "Социални и политически нагласи в България, Март 2021 г.",
     "publishedAt": "2021-04-19",
-    "status": "excluded",
+    "status": "pending_review",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
       "fieldwork",
       "respondents",
       "questions",
+      "methodology",
+      "sampleSize",
+      "share:Дао",
+      "share:Не мога да преценя",
       "methodology"
     ],
     "drafts": [
       {
         "id": "sh-pub-3772-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "sh-2021-03-16",
+        "race": "parliamentary"
       }
     ]
   },
@@ -3087,25 +5218,57 @@
     "url": "https://sovaharris.com/%d1%81%d0%be%d1%86%d0%b8%d0%b0%d0%bb%d0%bd%d0%b8-%d0%b8-%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3-4/",
     "title": "Социални и политически нагласи в България, Януари 2021 г.",
     "publishedAt": "2021-04-19",
-    "status": "excluded",
+    "status": "pending_review",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
-        "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
-        "reviewedAt": "2026-09-26"
+        "reason": "Independent reading found no presidential vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
       }
     ],
     "refused": [
       "fieldwork",
       "respondents",
       "questions",
+      "methodology",
+      "sampleSize",
       "methodology"
     ],
     "drafts": [
       {
         "id": "sh-pub-3760-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "sh-2021-01-31",
+        "race": "parliamentary"
+      }
+    ]
+  },
+  {
+    "agencyId": "SH",
+    "publicationId": "4159",
+    "url": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f-3/",
+    "title": "Политически нагласи в България",
+    "publishedAt": "2026-10-02",
+    "status": "pending_review",
+    "error": null,
+    "exclusions": [],
+    "refused": [
+      "share:волковориов 1",
+      "share:волани 1",
+      "share:Пувликацияв-к „Труд 02 октомви2026 е ПППППППП",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "sh-2026-09-28-presidential",
+        "race": "presidential"
+      },
+      {
+        "id": "sh-2026-09-28",
+        "race": "parliamentary"
       }
     ]
   },
@@ -3115,11 +5278,16 @@
     "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
     "refused": [],
-    "drafts": []
+    "drafts": [
+      {
+        "id": "tr-2025-01-30",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3127,11 +5295,18 @@
     "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-2/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:МЕЧ"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2025-03-16",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3139,11 +5314,18 @@
     "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-3/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ИТН"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2025-05-18",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3151,11 +5333,18 @@
     "url": "https://rctrend.bg/project/%d0%be%d0%b1%d1%89%d0%b5%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5-4/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ИТН"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2025-09-20",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3163,11 +5352,18 @@
     "url": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:МЕЧ"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2026-02-18",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3175,11 +5371,18 @@
     "url": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-2/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:МЕЧ"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2026-03-19",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3187,11 +5390,18 @@
     "url": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-3/",
     "title": null,
     "publishedAt": null,
-    "status": "pending_extraction",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ДПС"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2026-04-16",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3199,14 +5409,22 @@
     "url": "https://rctrend.bg/project/%D0%BD%D0%B0%D0%B3%D0%BB%D0%B0%D1%81%D0%B8-%D0%BD%D0%B0-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B5-%D1%81%D0%BF%D1%80%D1%8F%D0%BC%D0%BE-%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%BE%D1%8F-8/",
     "title": "Нагласи на българите спрямо предстоящите парламентарни и президентски избори (ноември 2021)",
     "publishedAt": "2021-11-09",
-    "status": "accepted",
+    "status": "pending_review",
     "error": null,
     "exclusions": [],
-    "refused": [],
+    "refused": [
+      "share:ДПС",
+      "fieldwork",
+      "poll.id"
+    ],
     "drafts": [
       {
         "id": "tr-2021-11-07-presidential",
         "race": "presidential"
+      },
+      {
+        "id": "tr-pub-a19cfbc0c6dad528",
+        "race": "parliamentary"
       }
     ]
   },
@@ -3216,14 +5434,26 @@
     "url": "https://rctrend.bg/project/%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8-2016/",
     "title": "Президентски избори 2016",
     "publishedAt": "2016-11-02",
-    "status": "accepted",
+    "status": "reviewed",
     "error": null,
-    "exclusions": [],
-    "refused": [],
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Independent reading found no parliamentary vote-intention question in this publication",
+        "reviewedAt": "2026-10-05"
+      }
+    ],
+    "refused": [
+      "poll.id"
+    ],
     "drafts": [
       {
         "id": "tr-2016-10-26",
         "race": "presidential"
+      },
+      {
+        "id": "tr-pub-a63a09b7af8f2976",
+        "race": "parliamentary"
       }
     ]
   },
@@ -3233,13 +5463,18 @@
     "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-7/",
     "title": "Нагласи на българите спрямо предстоящите предсрочни парламентарни избори (юли 2021)",
     "publishedAt": "2021-07-08",
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
         "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll tr-2021-07-07; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -3258,13 +5493,18 @@
     "url": "https://rctrend.bg/project/209520/",
     "title": "Наглагаси на българите спрямо предсточните парламентарни избори (юни 2021)",
     "publishedAt": "2021-06-21",
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
         "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll tr-2021-06-18; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -3283,13 +5523,18 @@
     "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-6/",
     "title": "Нагласи на българите спрямо предстоящите парламентарни избори (април 2021)",
     "publishedAt": "2021-04-01",
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
         "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll tr-2021-03-30; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -3308,13 +5553,18 @@
     "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-5/",
     "title": "Нагласи на българите спрямо предстоящите парламентарни избори (март 2021)",
     "publishedAt": "2021-03-17",
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
         "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll tr-2021-03-14; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [],
@@ -3331,13 +5581,18 @@
     "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-4/",
     "title": "Нагласи на българите спрямо предстоящите парламентарни избори (февруари 2021)",
     "publishedAt": "2021-02-25",
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
         "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll tr-2021-02-19; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -3356,13 +5611,18 @@
     "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82%d0%b5/",
     "title": "Нагласи на българие спрямо основните институции и партии (януари 2021)",
     "publishedAt": "2021-01-26",
-    "status": "pending_review",
+    "status": "excluded",
     "error": null,
     "exclusions": [
       {
         "race": "presidential",
         "reason": "Reviewed publication covers parliamentary voting and/or institutional approval, not a presidential candidate-vote series",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll tr-2021-01-19; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
     "refused": [
@@ -3388,10 +5648,25 @@
         "race": "presidential",
         "reason": "September 2021: parliamentary shares and presidential job approval",
         "reviewedAt": "2026-09-26"
+      },
+      {
+        "race": "parliamentary",
+        "reason": "Duplicate of accepted corpus poll tr-2021-09-15; the corpus values were checked against this source",
+        "reviewedAt": "2026-10-03"
       }
     ],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "share:ГЕРБ",
+      "share:ДПС",
+      "share:БСП",
+      "share:Демократична България"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2021-09-15",
+        "race": "parliamentary"
+      }
+    ]
   },
   {
     "agencyId": "TR",
@@ -3399,7 +5674,7 @@
     "url": "https://rctrend.bg/project/%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%bd%d0%b0-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%82%d0%b5-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%be%d1%81%d0%bd%d0%be%d0%b2%d0%bd%d0%b8%d1%82-6/",
     "title": "Нагласи на българите спрямо основните институции и политически формации (юли 2021)",
     "publishedAt": "2021-08-05",
-    "status": "excluded",
+    "status": "pending_review",
     "error": null,
     "exclusions": [
       {
@@ -3408,7 +5683,43 @@
         "reviewedAt": "2026-09-26"
       }
     ],
-    "refused": [],
-    "drafts": []
+    "refused": [
+      "fieldwork",
+      "poll.id"
+    ],
+    "drafts": [
+      {
+        "id": "tr-pub-209588",
+        "race": "parliamentary"
+      }
+    ]
+  },
+  {
+    "agencyId": "TR",
+    "publicationId": "212997",
+    "url": "https://rctrend.bg/project/212997/",
+    "title": "Обществени нагласи спрямо предстоящите президентски избори",
+    "publishedAt": "2026-10-05",
+    "status": "pending_review",
+    "error": null,
+    "exclusions": [],
+    "refused": [
+      "share:БСП",
+      "share:Възраждане",
+      "share:МЕЧ",
+      "share:Величие",
+      "residual.otherNamedMinor",
+      "poll.cycle"
+    ],
+    "drafts": [
+      {
+        "id": "tr-2026-10-02",
+        "race": "parliamentary"
+      },
+      {
+        "id": "tr-2026-10-02-presidential",
+        "race": "presidential"
+      }
+    ]
   }
 ]

@@ -1,0 +1,126 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2017-06-22",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/922-obshtestveni-naglasi-iuni-2017.html",
+    "electionDate": null,
+    "respondents": 1024,
+    "genre": "unclear",
+    "fieldwork": "Jun 12-22 2017",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/922-obshtestveni-naglasi-iuni-2017.html",
+      "fetchedAt": "2026-09-27T06:45:01.863Z",
+      "sha256": "835a56ba635b5d0c35d35c8f95e4e22d62d796ca3275fa21f99a4179dcbaf222",
+      "extractor": "AR",
+      "fieldworkStart": "2017-06-12",
+      "fieldworkEnd": "2017-06-22",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС запазва устойчивите си позиции от 5.2% електорална подкрепа",
+        "share:Да, България": "Да, България“ – 1.5% и за ",
+        "share:Нова Република": "Нова Република – 0.6%",
+        "share:Обединени патриоти": "Обединени патриоти 6.3% ",
+        "share:Реформаторски блок": "Реформаторски блок 2.7% “",
+        "sampleSize": "сред 1024 пълнолетни",
+        "fieldwork": "Период на провеждане 12 – 22 юни 2017г"
+      },
+      "quoteSources": {
+        "share:ДПС": "0617-Alpha_Research_Public_Opinion.pdf",
+        "share:Да, България": "0617-Alpha_Research_Public_Opinion.pdf",
+        "share:Нова Република": "0617-Alpha_Research_Public_Opinion.pdf",
+        "share:Обединени патриоти": "0617-Alpha_Research_Public_Opinion.pdf",
+        "share:Реформаторски блок": "0617-Alpha_Research_Public_Opinion.pdf",
+        "sampleSize": "0617_Alpha_Research_Public_opinion.doc",
+        "fieldwork": "0617-Alpha_Research_Public_Opinion.pdf"
+      }
+    },
+    "publicationId": "AR:922",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2017-06-22",
+      "agencyId": "AR",
+      "support": 5.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-06-22",
+      "agencyId": "AR",
+      "support": 1.5,
+      "nickName_bg": "Да, България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-06-22",
+      "agencyId": "AR",
+      "support": 0.6,
+      "nickName_bg": "Нова Република",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-06-22",
+      "agencyId": "AR",
+      "support": 6.3,
+      "nickName_bg": "Обединени патриоти",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-06-22",
+      "agencyId": "AR",
+      "support": 2.7,
+      "nickName_bg": "Реформаторски блок",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС запазва устойчивите си позиции от 5.2% електорална подкрепа",
+    "share:Да, България": "Да, България“ – 1.5% и за ",
+    "share:Нова Република": "Нова Република – 0.6%",
+    "share:Обединени патриоти": "Обединени патриоти 6.3% ",
+    "share:Реформаторски блок": "Реформаторски блок 2.7% “",
+    "sampleSize": "сред 1024 пълнолетни",
+    "fieldwork": "Период на провеждане 12 – 22 юни 2017г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 25.7% "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 19.6% "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС 5.2% "
+    },
+    {
+      "field": "share:ВОЛЯ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ВОЛЯ 3.7% "
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.836Z",
+    "draftHash": "a2c2839b0bfa78a2aab113aaf87ac36048b0ca53d67c94abfea1b5611704c550",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:БСП, share:ДПС, share:ВОЛЯ",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 25.7 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 19.6 — extractor does not",
+      "vote_intention r1: reader has „ВОЛЯ\" 3.7 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 29.3"
+    ]
+  }
+}

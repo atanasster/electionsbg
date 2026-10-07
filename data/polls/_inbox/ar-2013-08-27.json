@@ -1,0 +1,105 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-08-27",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/875-obshtestveni-naglasi-v-navecherieto-na-100-te-dni-na-kabineta-oresharski.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Aug 19-27 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/875-obshtestveni-naglasi-v-navecherieto-na-100-te-dni-na-kabineta-oresharski.html",
+      "fetchedAt": "2026-09-27T06:45:17.209Z",
+      "sha256": "891b783b853514e8eb87fe153f8918462d4a722224b223c5f103297cd3a9d037",
+      "extractor": "AR",
+      "fieldworkStart": "2013-08-19",
+      "fieldworkEnd": "2013-08-27",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (15.6%), чиито симпатизанти, обратно на ",
+        "share:ДПС": "ДПС поддържа традиционните си позиции – 5.8% от пълнолетните жители на страната",
+        "share:Реформаторски блок": "Реформаторски блок 7,6% ",
+        "fieldwork": "Период на провеждане 19-27 Август 2013г"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "0813-Public%20Opinion-Alpha%20Research.pdf",
+        "share:ДПС": "0813-Public%20Opinion-Alpha%20Research.pdf",
+        "share:Реформаторски блок": "0813-Public%20Opinion-Alpha%20Research.pdf",
+        "fieldwork": "0813-Public%20Opinion-Alpha%20Research.pdf"
+      }
+    },
+    "publicationId": "AR:875",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-08-27",
+      "agencyId": "AR",
+      "support": 15.6,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2013-08-27",
+      "agencyId": "AR",
+      "support": 5.8,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2013-08-27",
+      "agencyId": "AR",
+      "support": 7.6,
+      "nickName_bg": "Реформаторски блок",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (15.6%), чиито симпатизанти, обратно на ",
+    "share:ДПС": "ДПС поддържа традиционните си позиции – 5.8% от пълнолетните жители на страната",
+    "share:Реформаторски блок": "Реформаторски блок 7,6% ",
+    "fieldwork": "Период на провеждане 19-27 Август 2013г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 18,4% "
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 15,6% "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "mentioned 2 times with disagreeing values (58, 18.4%) — refusing rather than guessing which is current",
+      "quote": "БСП и 58% от тези на  | БСП има лек електорален превес (18.4%) над "
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.787Z",
+    "draftHash": "07f7bea6e4043ef360ad320508319ef0504f0634ddb3c6c07f991d2742c1a9dc",
+    "diffs": [
+      "extractor refused: share:БСП, share:ГЕРБ, share:БСП, sampleSize",
+      "sample: extractor — vs reader 1028",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „БСП\" 18.4 — extractor does not",
+      "vote_intention r1: reader has „НФСБ\" 3.1 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 1.5 — extractor does not",
+      "vote_intention r1: reader has „Друга партия на протестиращи\" 10.2 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 26.4"
+    ]
+  }
+}

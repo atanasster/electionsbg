@@ -1,0 +1,149 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2017-09-20",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/925-obshtestveni-naglasi-septemvri-2017.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Sep 13-20 2017",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/925-obshtestveni-naglasi-septemvri-2017.html",
+      "fetchedAt": "2026-09-27T06:45:01.439Z",
+      "sha256": "d91773f8ae078e30ac8c8ea383148316b42dc02d5ecd735fe7278eb725b318e0",
+      "extractor": "AR",
+      "fieldworkStart": "2017-09-13",
+      "fieldworkEnd": "2017-09-20",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП (19.3%), което означава че при нови избори днес, двете партии биха разполагали с приблизително настоящия си брой депутати",
+        "share:ДПС": "ДПС (4.8%) и неговия лидер по обичайному е слаба, като за момента позициите на Движението сред избирателите му не изглеждат разклатени",
+        "share:Обединени патриоти": "Обединени патриоти 5.9% ",
+        "share:Реформаторски блок": "Реформаторски блок 2.2% ",
+        "share:Да, България": "Да, България” 1.6% ",
+        "fieldwork": "Период на провеждане 13 – 20 септември 2017г"
+      },
+      "quoteSources": {
+        "share:БСП": "0917-Alpha_Research_Public_Opinion.pdf",
+        "share:ДПС": "0917-Alpha_Research_Public_Opinion.pdf",
+        "share:Обединени патриоти": "0917-Alpha_Research_Public_Opinion.pdf",
+        "share:Реформаторски блок": "0917-Alpha_Research_Public_Opinion.pdf",
+        "share:Да, България": "0917-Alpha_Research_Public_Opinion.pdf",
+        "fieldwork": "0917-Alpha_Research_Public_Opinion.pdf"
+      }
+    },
+    "publicationId": "AR:925",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2017-09-20",
+      "agencyId": "AR",
+      "support": 19.3,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-09-20",
+      "agencyId": "AR",
+      "support": 4.8,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-09-20",
+      "agencyId": "AR",
+      "support": 5.9,
+      "nickName_bg": "Обединени патриоти",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-09-20",
+      "agencyId": "AR",
+      "support": 2.2,
+      "nickName_bg": "Реформаторски блок",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-09-20",
+      "agencyId": "AR",
+      "support": 1.6,
+      "nickName_bg": "Да, България",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП (19.3%), което означава че при нови избори днес, двете партии биха разполагали с приблизително настоящия си брой депутати",
+    "share:ДПС": "ДПС (4.8%) и неговия лидер по обичайному е слаба, като за момента позициите на Движението сред избирателите му не изглеждат разклатени",
+    "share:Обединени патриоти": "Обединени патриоти 5.9% ",
+    "share:Реформаторски блок": "Реформаторски блок 2.2% ",
+    "share:Да, България": "Да, България” 1.6% ",
+    "fieldwork": "Период на провеждане 13 – 20 септември 2017г"
+  },
+  "refused": [
+    {
+      "field": "share:Нова република",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "Нова република”, се ползва със сумарната подкрепа на около 4.5% от избирателите в страната, но нито една от тях не се откроява като фаворит"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (19.3%)"
+    },
+    {
+      "field": "share:Воля",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "Воля (1.8%)"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ (49%)"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 25.1% "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 19.3% "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС 4.8% "
+    },
+    {
+      "field": "share:ВОЛЯ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ВОЛЯ 1.8% “"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.839Z",
+    "draftHash": "09debb95889516e397414497210de5c1ffa70d11684b525867efb4cadfc8edf4",
+    "diffs": [
+      "extractor refused: share:Нова република, share:БСП, share:Воля, share:ГЕРБ, share:ГЕРБ, share:БСП, share:ДПС, share:ВОЛЯ, sampleSize",
+      "sample: extractor — vs reader 1030",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 25.1 — extractor does not",
+      "vote_intention r1: reader has „ВОЛЯ\" 1.8 — extractor does not",
+      "vote_intention r1: reader has „Нова Република\" 0.8 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 30.5"
+    ]
+  }
+}

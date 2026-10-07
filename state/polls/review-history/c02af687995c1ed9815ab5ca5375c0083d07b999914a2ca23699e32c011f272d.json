@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-917",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/917-na-starta-na-predizbornata-kampania-goliamata-intriga-e-v-malkite-distancii.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/917-na-starta-na-predizbornata-kampania-goliamata-intriga-e-v-malkite-distancii.html",
+      "fetchedAt": "2026-09-27T06:45:02.440Z",
+      "sha256": "00bee1490b30572a51924f4448cf00688e042a3d49f6ce2747ba9a6d83cda8fb",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:917",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

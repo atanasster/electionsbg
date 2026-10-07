@@ -1,0 +1,114 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2023-02-27",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1007-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1007,
+    "genre": "unclear",
+    "fieldwork": "Feb 21-27 2023",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1007-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-27T06:44:56.149Z",
+      "sha256": "9f3477541c2b23f03c01f26d07104cfb9df709e744d5149c069d7a2fe04a7fc6",
+      "extractor": "AR",
+      "fieldworkStart": "2023-02-21",
+      "fieldworkEnd": "2023-02-27",
+      "basePhrase": null,
+      "quotes": {
+        "share:ПП-ДБ": "ПП-ДБ (26.4%) и ",
+        "share:ДПС": "ДПС с 13.2% от твърдо решилите да гласуват",
+        "share:Възраждане": "Възраждане (11.3%), която се откроява като една от малкото формации, мобилизирали подкрепа в периода между двата избора",
+        "share:БСП": "БСП стартира кампанията със 7.4%, като дори на този ранен етап се регистрира ясен спад в електоралната ѝ подкрепа",
+        "share:Български възход": "Български възход с 3.8%, ",
+        "share:Левицата": "Левицата с 3.6% и ",
+        "sampleSize": "сред 1007 пълнолетни",
+        "fieldwork": "в периода 21 – 27 февруари 2023г"
+      }
+    },
+    "publicationId": "AR:1007",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2023-02-27",
+      "agencyId": "AR",
+      "support": 26.4,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-02-27",
+      "agencyId": "AR",
+      "support": 13.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-02-27",
+      "agencyId": "AR",
+      "support": 11.3,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-02-27",
+      "agencyId": "AR",
+      "support": 7.4,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-02-27",
+      "agencyId": "AR",
+      "support": 3.8,
+      "nickName_bg": "Български възход",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-02-27",
+      "agencyId": "AR",
+      "support": 3.6,
+      "nickName_bg": "Левицата",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ПП-ДБ": "ПП-ДБ (26.4%) и ",
+    "share:ДПС": "ДПС с 13.2% от твърдо решилите да гласуват",
+    "share:Възраждане": "Възраждане (11.3%), която се откроява като една от малкото формации, мобилизирали подкрепа в периода между двата избора",
+    "share:БСП": "БСП стартира кампанията със 7.4%, като дори на този ранен етап се регистрира ясен спад в електоралната ѝ подкрепа",
+    "share:Български възход": "Български възход с 3.8%, ",
+    "share:Левицата": "Левицата с 3.6% и ",
+    "sampleSize": "сред 1007 пълнолетни",
+    "fieldwork": "в периода 21 – 27 февруари 2023г"
+  },
+  "refused": [
+    {
+      "field": "share:ИТН",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ИТН с 3.2%"
+    },
+    {
+      "field": "share:ГЕРБ-СДС",
+      "reason": "mentioned 2 times with disagreeing values (25.2, 5%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ-СДС (25.2%) | ГЕРБ-СДС е категорично подкрепена от едва 5% от пълнолетните българи и още 28 на сто я приемат за възможен компромис, като изразяват умерено одобрение за нея"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.866Z",
+    "draftHash": "67efc3105e5e40f97d05ebdba452108ff14520cad834b262854d366ba8d8271c",
+    "diffs": [
+      "extractor refused: share:ИТН, share:ГЕРБ-СДС",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ-СДС\" 25.2 — extractor does not",
+      "vote_intention r1: reader has „ИТН\" 3.2 — extractor does not"
+    ]
+  }
+}

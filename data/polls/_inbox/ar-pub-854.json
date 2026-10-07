@@ -1,0 +1,109 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-854",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/854-obshtestveni-naglasi-dekemvri-2011g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/854-obshtestveni-naglasi-dekemvri-2011g.html",
+      "fetchedAt": "2026-09-27T06:45:23.898Z",
+      "sha256": "0837aacc472d61348867bfd3abcfa0043cb3d2df4d7c6b611befc5ccc457d840",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ да запази отчетливо предимство с подкрепа от 25.9%",
+        "share:БСП": "БСП остава на позициите си от преди изборите (16%)"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "Pressrelease_Alpha_Research_December2011.doc",
+        "share:БСП": "Pressrelease_Alpha_Research_December2011.doc"
+      }
+    },
+    "publicationId": "AR:854",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-854",
+      "agencyId": "AR",
+      "support": 25.9,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-pub-854",
+      "agencyId": "AR",
+      "support": 16,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ да запази отчетливо предимство с подкрепа от 25.9%",
+    "share:БСП": "БСП остава на позициите си от преди изборите (16%)"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"9-14 декември\"",
+      "quote": "в периода 9-14 декември"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"преди разгара на кризата 2008-2009 г\"",
+      "quote": "в периода преди разгара на кризата 2008-2009 г"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"9-14 Декември 2011 За пълнолетното население на Представителност страната Обем на извадката 1050 ефективни интервюта Квота въз основа на признаците Метод на формиране на възраст\"",
+      "quote": "Период на провеждане 9-14 Декември 2011 За пълнолетното население на Представителност страната Обем на извадката 1050 ефективни интервюта Квота въз основа на признаците Метод на формиране на възраст"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"9-14 декември\"",
+      "quote": "в периода 9-14 декември"
+    },
+    {
+      "field": "fieldwork",
+      "reason": "could not parse a date range from \"преди разгара на кризата 2008-2009 г\"",
+      "quote": "в периода преди разгара на кризата 2008-2009 г"
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.904Z",
+    "draftHash": "9965fe2544aa5a9d572813209ca9157a7c4d7e2fbbd934d4d9890fcb5fa85df0",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, fieldwork, fieldwork, fieldwork, fieldwork, fieldwork, poll.id",
+      "fieldwork start: extractor — vs reader 2011-12-09",
+      "fieldwork end: extractor — vs reader 2011-12-14",
+      "sample: extractor — vs reader 1050",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ДПС\" 4.8 — extractor does not",
+      "vote_intention r1: reader has „Синята коалиция\" 2.3 — extractor does not",
+      "vote_intention r1: reader has „АТАКА\" 2.1 — extractor does not",
+      "vote_intention r1: reader has „РЗС\" 0.7 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 40.8"
+    ]
+  }
+}

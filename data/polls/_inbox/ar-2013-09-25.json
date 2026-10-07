@@ -1,0 +1,83 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-09-25",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/876-obshtestveni-naglasi-septemvri-2013g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Sep 19-25 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/876-obshtestveni-naglasi-septemvri-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:16.126Z",
+      "sha256": "23719d5174acf1124f380ede6fff2dc7f63ca0c5d20cdbdffdca9385c1b2cd58",
+      "extractor": "AR",
+      "fieldworkStart": "2013-09-19",
+      "fieldworkEnd": "2013-09-25",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП и 17.1% за ",
+        "fieldwork": "в периода 19–25 септември 2013г"
+      },
+      "quoteSources": {
+        "share:БСП": "1013-Press%20release.doc",
+        "fieldwork": "1013-Press%20release.doc"
+      }
+    },
+    "publicationId": "AR:876",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-09-25",
+      "agencyId": "AR",
+      "support": 17.1,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП и 17.1% за ",
+    "fieldwork": "в периода 19–25 септември 2013г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: the number is 68 characters from the party name — too far to be its share",
+      "quote": "ГЕРБ след период на по-ясно изразено преимущество за управляващите (17.9% за "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (6.1%)"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.789Z",
+    "draftHash": "e002f83a44fb956fe7c31a814152d6888c5f1d58d5c04570d9825d09a9547b28",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:ДПС, sampleSize",
+      "sample: extractor — vs reader 1010",
+      "reader finds the genre unclear",
+      "vote_intention r1: „БСП\" extractor 17.1 vs reader 17.9",
+      "vote_intention r1: reader has „ГЕРБ\" 17.1 — extractor does not",
+      "vote_intention r1: reader has „Реформаторски блок\" 7 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 6.1 — extractor does not",
+      "vote_intention r1: reader has „НФСБ\" 2.8 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 1.6 — extractor does not",
+      "vote_intention r1: reader has „Друга партия на протестиращи\" 8 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 34.4"
+    ]
+  }
+}

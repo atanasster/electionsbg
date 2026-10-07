@@ -1,0 +1,110 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2023-06-26",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1012-obshtestveno-politicheski-naglasi-iuni-2023g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Jun 20-26 2023",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1012-obshtestveno-politicheski-naglasi-iuni-2023g.html",
+      "fetchedAt": "2026-09-27T06:44:55.765Z",
+      "sha256": "9853338014f9080d92c4ba237f363b741ecc4da72ebcd518ecac904c034b0d32",
+      "extractor": "AR",
+      "fieldworkStart": "2023-06-20",
+      "fieldworkEnd": "2023-06-26",
+      "basePhrase": null,
+      "quotes": {
+        "share:Възраждане": "Възраждане с 15.4%, следвани от ",
+        "share:ДПС": "ДПС (12.6%), ",
+        "share:БСП": "БСП също е идентична с тази от последните избори – 8.8%, както и одобрението за лидера К",
+        "share:ИТН": "ИТН печели потенциалния вот на 4.1% от избирателите, а лидерът Сл",
+        "fieldwork": "в периода 20 – 26 юни 2023г"
+      }
+    },
+    "publicationId": "AR:1012",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2023-06-26",
+      "agencyId": "AR",
+      "support": 15.4,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-06-26",
+      "agencyId": "AR",
+      "support": 12.6,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-06-26",
+      "agencyId": "AR",
+      "support": 8.8,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2023-06-26",
+      "agencyId": "AR",
+      "support": 4.1,
+      "nickName_bg": "ИТН",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:Възраждане": "Възраждане с 15.4%, следвани от ",
+    "share:ДПС": "ДПС (12.6%), ",
+    "share:БСП": "БСП също е идентична с тази от последните избори – 8.8%, както и одобрението за лидера К",
+    "share:ИТН": "ИТН печели потенциалния вот на 4.1% от избирателите, а лидерът Сл",
+    "fieldwork": "в периода 20 – 26 юни 2023г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП (8.8%), "
+    },
+    {
+      "field": "share:ИТН",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ИТН (4.1%)"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 3 times with disagreeing values (25.1, 76%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ получава подкрепата на 25.1% от решените да гласуват (около 2 пункта по-малко от април) , а  | ГЕРБ, 76% от тези на  | ГЕРБ губи малко под 2 пункта и в момента се ползва с подкрепата на 25.1%"
+    },
+    {
+      "field": "share:ПП-ДБ",
+      "reason": "mentioned 3 times with disagreeing values (20.2, 13%) — refusing rather than guessing which is current",
+      "quote": "ПП-ДБ – 20.2% (спад от около 5 пункта) | ПП-ДБ е предателство към собствените им избиратели, а 13% - че то е вредно за страната | ПП-ДБ отливът е малко под 5 пункта и заемат втората позиция с 20.2%"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "2 candidate sample sizes found — refusing rather than guessing which is the poll's own",
+      "quote": "сред 1000 пълнолетни | сред 1000 пълнолетни"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.872Z",
+    "draftHash": "02527edc2254532f1ac54ea82fa719a8d81b439ad5ae287175e5785a3c9d9991",
+    "diffs": [
+      "extractor refused: share:БСП, share:ИТН, share:ГЕРБ, share:ПП-ДБ, sampleSize",
+      "sample: extractor — vs reader 1000",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 25.1 — extractor does not",
+      "vote_intention r1: reader has „ПП-ДБ\" 20.2 — extractor does not"
+    ]
+  }
+}

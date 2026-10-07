@@ -1,0 +1,103 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-05-08",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/871-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1025,
+    "genre": "forecast",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/871-elektoralni-naglasi-na-finala-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-27T06:45:18.724Z",
+      "sha256": "0304aa7a4d7d1245d8815787089b395b862eb5f04317df09c6ef86c28d2dfc02",
+      "extractor": "AR",
+      "fieldworkStart": "2013-05-07",
+      "fieldworkEnd": "2013-05-08",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "в периода 07-08 май 2013г",
+        "sampleSize": "В допитването участват 1025 пълнолетни граждани",
+        "share:ГЕРБ": "ГЕРБ ще вземе около 33% от действителните гласове",
+        "share:Коалиция за България (БСП)": "БСП – около 28%",
+        "share:ДПС": "ДПС би събрало около 10% от бюлетините в урните",
+        "share:Атака": "Атака, която в най-голяма степен спечели от протестите, достига 7.5% от вота"
+      }
+    },
+    "publicationId": "AR:871",
+    "publishedAt": null,
+    "fieldwork": "May 7-8 2013",
+    "methodology": {
+      "bg": "Национално представително проучване на Алфа Рисърч по поръчка на в. „Дневник“. Извадка, стратифицирана по тип населено място; респондентите са подбрани по квота по пол, възраст и образование.",
+      "en": "Alpha Research nationally representative survey commissioned by Dnevnik. Sample stratified by settlement type; respondents selected by quota on sex, age and education."
+    }
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-05-08",
+      "agencyId": "AR",
+      "support": 33,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": "GERB"
+    },
+    {
+      "pollId": "ar-2013-05-08",
+      "agencyId": "AR",
+      "support": 28,
+      "nickName_bg": "Коалиция за България (БСП)",
+      "nickName_en": "Coalition for Bulgaria (BSP)"
+    },
+    {
+      "pollId": "ar-2013-05-08",
+      "agencyId": "AR",
+      "support": 10,
+      "nickName_bg": "ДПС",
+      "nickName_en": "DPS"
+    },
+    {
+      "pollId": "ar-2013-05-08",
+      "agencyId": "AR",
+      "support": 7.5,
+      "nickName_bg": "Атака",
+      "nickName_en": "Attack"
+    }
+  ],
+  "runoffs": [],
+  "residual": {
+    "undecided": null,
+    "wontVote": null,
+    "wontSay": null,
+    "otherNamedMinor": null,
+    "notes": "Final pre-election wave for 12 May 2013, commissioned by Dnevnik. Shares are AR's ROUNDED expected share of valid votes (\"около\"), among firm decided voters — not raw attitudes. ДПС excludes votes from Turkey. Not stored: ДБГ 2.5% (base = ALL voters, not valid votes) and ДСБ/НФСБ/СДС/РЗС/ВМРО \"между 2 и 2.7%\" (range, no per-party figure). Hand-transcribed 2026-10-05 from the agency .doc attachment (Data-Pre election-study.doc); the extractor read nothing from it."
+  },
+  "genre": "forecast",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "в периода 07-08 май 2013г",
+    "sampleSize": "В допитването участват 1025 пълнолетни граждани",
+    "share:ГЕРБ": "ГЕРБ ще вземе около 33% от действителните гласове",
+    "share:Коалиция за България (БСП)": "БСП – около 28%",
+    "share:ДПС": "ДПС би събрало около 10% от бюлетините в урните",
+    "share:Атака": "Атака, която в най-голяма степен спечели от протестите, достига 7.5% от вота"
+  },
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.780Z",
+    "draftHash": "48240e8f78264636c3919406947e935ab5cb28d7c9bcd5896700af23032294a7",
+    "diffs": [
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „Движение „България на гражданите“\" 4 — extractor does not",
+      "vote_intention r1: reader has „Коалиция „ДСБ и Български демократически форум“\" 2.7 — extractor does not",
+      "vote_intention r1: reader has „„Национален фронт за спасение на България“\" 2.3 — extractor does not",
+      "vote_intention r1: reader has „Коалиция „Съюз на демократичните сили“\" 2 — extractor does not",
+      "vote_intention r1: reader has „„Ред, законност и справедливост“\" 2 — extractor does not",
+      "vote_intention r1: reader has „„ВМРО – Българско национално движение“\" 1.9 — extractor does not",
+      "vote_intention r1: reader has „Лидер\" 1.7 — extractor does not",
+      "vote_intention r1: reader has „Коалиция „Център – Свобода и достойнство“\" 1.5 — extractor does not",
+      "vote_intention r1: reader has „Зелените\" 0.5 — extractor does not",
+      "vote_intention r1: reader has „Коалиция „ГОРДа България“\" 0.5 — extractor does not"
+    ]
+  }
+}

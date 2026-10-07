@@ -1,0 +1,70 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-747",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/747-mestnite-izbori-tradicionni-partii-vs-regionalni-listi-.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/747-mestnite-izbori-tradicionni-partii-vs-regionalni-listi-.html",
+      "fetchedAt": "2026-09-27T06:45:28.647Z",
+      "sha256": "50d9b77c7b2ae138b77f95956fd152e0ef17564860fae856c4404fe1a3ae2879",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП остава на равнището от юни - 17.8% с тенденция към отлив на привърженици през следващите месеци"
+      }
+    },
+    "publicationId": "AR:747",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-pub-747",
+      "agencyId": "AR",
+      "support": 17.8,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП остава на равнището от юни - 17.8% с тенденция към отлив на привърженици през следващите месеци"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.880Z",
+    "draftHash": "1440b9bdd7fc767fe130fedd586090b2bab407bd82bcc15aa3961460152d215c",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: sampleSize, poll.id",
+      "fieldwork start: extractor — vs reader 2007-07-27",
+      "fieldwork end: extractor — vs reader 2007-08-02",
+      "sample: extractor — vs reader 1056",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „НДСВ\" 2.6 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 2.4 — extractor does not",
+      "vote_intention r1: reader has „ДСБ\" 1.2 — extractor does not",
+      "vote_intention r1: reader has „ВМРО\" 1 — extractor does not"
+    ]
+  }
+}

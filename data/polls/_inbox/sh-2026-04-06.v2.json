@@ -1,0 +1,107 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "sh-2026-04-06",
+    "agencyId": "SH",
+    "source": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f/",
+    "electionDate": null,
+    "respondents": 800,
+    "publishedAt": null,
+    "genre": "unclear",
+    "fieldwork": "Apr 2-6 2026",
+    "provenance": {
+      "url": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f/",
+      "fetchedAt": "2026-10-05T18:44:18.537Z",
+      "sha256": "ef9d423adec659349eadc18ef9347ac677bd7fc44ea545dfe0b3e428188fb845",
+      "extractor": "SH",
+      "fieldworkStart": "2026-04-02",
+      "fieldworkEnd": "2026-04-06",
+      "basePhrase": "САМО СРЕД ГЛАСУВАЩИТЕ ЗА КОНКРЕТНА ПАРТИЯ/КОАЛИЦИЯ",
+      "quotes": {
+        "fieldwork": "в периода 2 – 6 април 2026",
+        "sampleSize": "сред 800 български граждани",
+        "share:ПРОГРЕСИВНА БЪЛГАРИЯ": "ПРОГРЕСИВНА БЪЛГАРИЯ 33,6"
+      }
+    },
+    "publicationId": "SH:4142"
+  },
+  "details": [
+    {
+      "pollId": "sh-2026-04-06",
+      "agencyId": "SH",
+      "support": 33.6,
+      "nickName_bg": "ПРОГРЕСИВНА БЪЛГАРИЯ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "SH",
+  "evidence": {
+    "fieldwork": "в периода 2 – 6 април 2026",
+    "sampleSize": "сред 800 български граждани",
+    "share:ПРОГРЕСИВНА БЪЛГАРИЯ": "ПРОГРЕСИВНА БЪЛГАРИЯ 33,6"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ-СДС С",
+      "reason": "OCR value \"190\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "ГЕРБ-СДС С 190"
+    },
+    {
+      "field": "share:КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - па",
+      "reason": "OCR value unreadable (bulletin image)",
+      "quote": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - па"
+    },
+    {
+      "field": "share:ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+      "reason": "OCR value unreadable (bulletin image)",
+      "quote": "ДЕМОКРАТИЧНА БЪЛГАРИЯ ,"
+    },
+    {
+      "field": "share:ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ - ДПС шега",
+      "reason": "OCR value unreadable (bulletin image)",
+      "quote": "| ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ - ДПС шега"
+    },
+    {
+      "field": "share:ВЪЗРАЖДАНЕ",
+      "reason": "OCR value \"78\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "ВЪЗРАЖДАНЕ 78"
+    },
+    {
+      "field": "share:БСП- ОБЕДИНЕНА ЛЕВИЦА",
+      "reason": "OCR value \"146\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "„БСП- ОБЕДИНЕНА ЛЕВИЦА 146"
+    },
+    {
+      "field": "share:ПП МЕЧ ози",
+      "reason": "OCR value unreadable (bulletin image)",
+      "quote": "„ПП МЕЧ ози"
+    },
+    {
+      "field": "share:КОАЛИЦИЯ СИЯНИЕ за",
+      "reason": "OCR value unreadable (bulletin image)",
+      "quote": "КОАЛИЦИЯ СИЯНИЕ за"
+    },
+    {
+      "field": "share:АЛИАНС ЗА ПРАВА И СВОБОДИ - АПС",
+      "reason": "OCR value \"23\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "АЛИАНС ЗА ПРАВА И СВОБОДИ - АПС 23"
+    },
+    {
+      "field": "share:ПП ВЕЛИЧИЕ",
+      "reason": "OCR value \"20\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "ПП ВЕЛИЧИЕ 20"
+    },
+    {
+      "field": "share:Друга / Не подкрепям никого",
+      "reason": "pools another party with „Не подкрепям никого\" — a human decides",
+      "quote": "| Друга / Не подкрепям никого | 3,7 |"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method and English translation",
+      "quote": ""
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2017-02-23",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/917-na-starta-na-predizbornata-kampania-goliamata-intriga-e-v-malkite-distancii.html",
+    "electionDate": null,
+    "respondents": 1024,
+    "genre": "unclear",
+    "fieldwork": "Feb 16-23 2017",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/917-na-starta-na-predizbornata-kampania-goliamata-intriga-e-v-malkite-distancii.html",
+      "fetchedAt": "2026-09-27T06:45:02.440Z",
+      "sha256": "00bee1490b30572a51924f4448cf00688e042a3d49f6ce2747ba9a6d83cda8fb",
+      "extractor": "AR",
+      "fieldworkStart": "2017-02-16",
+      "fieldworkEnd": "2017-02-23",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ запазва лидерство от 31.5%, следван от ",
+        "share:БСП": "БСП с 29.6% от решилите да гласуват",
+        "share:ДПС": "ДПС привлича 6.8% от решилите да гласуват, а партия „",
+        "share:Воля": "Воля” стартира кампанията с 5.7% подкрепа от решилите да гласуват",
+        "share:Да, България": "Да, България” стартира кампанията с 2.6%, а „",
+        "share:Нова Република": "Нова Република” с 1.5% от решилите да гласуват",
+        "share:АБВ – Движение 21": "АБВ – Движение 21” влиза в кампанията с подкрепата на 2.9% от решилите да гласуват",
+        "sampleSize": "сред 1024 пълнолетни",
+        "fieldwork": "в периода 16 – 23 февруари 2017г"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "share:БСП": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "share:ДПС": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "share:Воля": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "share:Да, България": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "share:Нова Република": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "share:АБВ – Движение 21": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "sampleSize": "0217-Public_Opinion_Alpha_Research(1).doc",
+        "fieldwork": "0217-Public_Opinion_Alpha_Research(1).doc"
+      }
+    },
+    "publicationId": "AR:917",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2017-02-23",
+      "agencyId": "AR",
+      "support": 31.5,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-02-23",
+      "agencyId": "AR",
+      "support": 29.6,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-02-23",
+      "agencyId": "AR",
+      "support": 6.8,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-02-23",
+      "agencyId": "AR",
+      "support": 5.7,
+      "nickName_bg": "Воля",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-02-23",
+      "agencyId": "AR",
+      "support": 2.6,
+      "nickName_bg": "Да, България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-02-23",
+      "agencyId": "AR",
+      "support": 1.5,
+      "nickName_bg": "Нова Република",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-02-23",
+      "agencyId": "AR",
+      "support": 2.9,
+      "nickName_bg": "АБВ – Движение 21",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ запазва лидерство от 31.5%, следван от ",
+    "share:БСП": "БСП с 29.6% от решилите да гласуват",
+    "share:ДПС": "ДПС привлича 6.8% от решилите да гласуват, а партия „",
+    "share:Воля": "Воля” стартира кампанията с 5.7% подкрепа от решилите да гласуват",
+    "share:Да, България": "Да, България” стартира кампанията с 2.6%, а „",
+    "share:Нова Република": "Нова Република” с 1.5% от решилите да гласуват",
+    "share:АБВ – Движение 21": "АБВ – Движение 21” влиза в кампанията с подкрепата на 2.9% от решилите да гласуват",
+    "sampleSize": "сред 1024 пълнолетни",
+    "fieldwork": "в периода 16 – 23 февруари 2017г"
+  },
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.831Z",
+    "draftHash": "9fba344266324227b9728eb3d99700adf50a9b506ee418e969eb9dffe0236034",
+    "diffs": [
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „Обединени патриоти\" 10.8 — extractor does not",
+      "vote_intention r1: reader has „Реформаторски блок\" 3.9 — extractor does not",
+      "vote_intention r1: reader has „Не подкрепям никого\" 2.7 — extractor does not"
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-01-17",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/865-obshtestveni-naglasi-ianuari-2013g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "raw_attitudes",
+    "fieldwork": "Jan 12-17 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/865-obshtestveni-naglasi-ianuari-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:20.217Z",
+      "sha256": "ae3de6d8fd39b0735b22da36fe6bdd99b3d106b4ce0d81312ce4bb148f52f261",
+      "extractor": "AR",
+      "fieldworkStart": "2013-01-12",
+      "fieldworkEnd": "2013-01-17",
+      "basePhrase": "от гласуващите",
+      "quotes": {
+        "share:ДПС": "ДПС (5.4%) са практически единствените сигурни участници в следващия парламент извън основните конкуренти ",
+        "fieldwork": "в периода 12 – 17 януари 2013г"
+      },
+      "quoteSources": {
+        "share:ДПС": "Press_Release_January_2013.doc",
+        "fieldwork": "Press_Release_January_2013.doc"
+      }
+    },
+    "publicationId": "AR:865",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-01-17",
+      "agencyId": "AR",
+      "support": 5.4,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС (5.4%) са практически единствените сигурни участници в следващия парламент извън основните конкуренти ",
+    "fieldwork": "в периода 12 – 17 януари 2013г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: the number is 91 characters from the party name — too far to be its share",
+      "quote": "БСП за ядрен референдум мобилизира симпатизантите й и тя успява да увеличи подкрепата си с 2%"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "БСП и на няколко партии до 4%-та бариера, оформя две главни оси на напрежение в оставащите до изборите месеци: 1/за първото място и 2/ за прескачане на бариерата, които технологично могат да зависят дори от няколко хиляди гласа"
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (5.4%)"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 3 times with disagreeing values (0.5, 20.9, 2%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ бележи лек спад (от 0.5 %), докато проектът на  | ГЕРБ (20.9%),  | ГЕРБ, обуславя ръста й от 2%"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.768Z",
+    "draftHash": "6ea97598d4ad23122834d3298456a270ba56c859d07b6cbeae218cc8250f9ce3",
+    "diffs": [
+      "extractor refused: share:БСП, share:БСП, share:ДПС, share:ГЕРБ, sampleSize",
+      "sample: extractor — vs reader 1023",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 20.9 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 18.5 — extractor does not",
+      "vote_intention r1: reader has „България на гражданите\" 5.6 — extractor does not",
+      "vote_intention r1: reader has „ДСБ/Синята коалиция\" 2.8 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 1.9 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 1.6 — extractor does not",
+      "vote_intention r1: reader has „НФСБ (В. Симеонов)\" 1.6 — extractor does not",
+      "vote_intention r1: reader has „ВМРО\" 0.9 — extractor does not",
+      "vote_intention r1: reader has „Коалиция РЗС-Марешки\" 0.5 — extractor does not",
+      "vote_intention r1: reader has „Коалиция ЛИДЕР - НИЕ\" 0.5 — extractor does not",
+      "vote_intention r1: reader has „НДСВ\" 0.4 — extractor does not",
+      "vote_intention r1: reader has „ГОРД\" 0.3 — extractor does not",
+      "vote_intention r1: reader has „Национал-демократическа партия\" 0.3 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 34.6"
+    ]
+  }
+}

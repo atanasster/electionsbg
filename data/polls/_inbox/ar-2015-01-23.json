@@ -1,0 +1,87 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2015-01-23",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/895-obshtestveni-naglasi-ianuari-2015.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Jan 15-23 2015",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/895-obshtestveni-naglasi-ianuari-2015.html",
+      "fetchedAt": "2026-09-27T06:45:07.771Z",
+      "sha256": "6ffb37498c643f0a3ea9d7dd3123286d007868300c8dd2f53867dc51dac43595",
+      "extractor": "AR",
+      "fieldworkStart": "2015-01-15",
+      "fieldworkEnd": "2015-01-23",
+      "basePhrase": null,
+      "quotes": {
+        "share:ГЕРБ": "ГЕРБ (23.2%) продължава да се ползва с два пъти по-висок електорален потенциал от ",
+        "share:БСП": "БСП (11.4%), която спада до своеобразно електорално дъно",
+        "fieldwork": "Период на провеждане 15 – 23 Януари 2015г"
+      },
+      "quoteSources": {
+        "share:ГЕРБ": "0115-Press%20release.doc",
+        "share:БСП": "0115-Press%20release.doc",
+        "fieldwork": "0115_Public_Opinion_Alpha_Research.pdf"
+      }
+    },
+    "publicationId": "AR:895",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2015-01-23",
+      "agencyId": "AR",
+      "support": 23.2,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2015-01-23",
+      "agencyId": "AR",
+      "support": 11.4,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ГЕРБ": "ГЕРБ (23.2%) продължава да се ползва с два пъти по-висок електорален потенциал от ",
+    "share:БСП": "БСП (11.4%), която спада до своеобразно електорално дъно",
+    "fieldwork": "Период на провеждане 15 – 23 Януари 2015г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "mentioned 3 times with disagreeing values (7.5, 48%) — refusing rather than guessing which is current",
+      "quote": "ДПС удържа традиционната си подкрепа от 7.5%, но при значителен спад на одобрението за неговия лидер Лютви Местан, което се затваря изцяло в рамките на движението | ДПС и 48% от тези на  | ДПС получава електорален резултат в рамките на обичайния (7.5%), което й отрежда трета позиция"
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.801Z",
+    "draftHash": "7201bff26bb087501de1b79b86f16f65bf1bc3509191c0ef1f292c9caf6c02a2",
+    "diffs": [
+      "extractor refused: share:ДПС, sampleSize",
+      "sample: extractor — vs reader 1026",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ДПС\" 7.5 — extractor does not",
+      "vote_intention r1: reader has „РБ\" 6.5 — extractor does not",
+      "vote_intention r1: reader has „Патриотичен фронт\" 5.1 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 2.9 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 2.6 — extractor does not",
+      "vote_intention r1: reader has „ББЦ\" 1.5 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 34.7"
+    ]
+  }
+}

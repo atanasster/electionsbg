@@ -1,0 +1,69 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2016-09-15",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/906-obshtestveni-naglasi-septemvri-2016.html",
+    "electionDate": null,
+    "respondents": 1026,
+    "genre": "unclear",
+    "fieldwork": "Sep 9-15 2016",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/906-obshtestveni-naglasi-septemvri-2016.html",
+      "fetchedAt": "2026-09-26T07:51:38.524Z",
+      "sha256": "72ccc1a14ea48123a38dc4656335fa4eee1ff5254d2dedd5005818355f1dd014",
+      "extractor": "AR",
+      "fieldworkStart": "2016-09-09",
+      "fieldworkEnd": "2016-09-15",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП – 18.3% за Г",
+        "sampleSize": "сред 1026 пълнолетни",
+        "fieldwork": "Период на провеждане 09 септември – 15 септември 2016г"
+      },
+      "quoteSources": {
+        "share:БСП": "0916-Press_release_Alpha_Research.doc",
+        "sampleSize": "0916-Press_release_Alpha_Research.doc",
+        "fieldwork": "0916_Alpha_Research_Public_Opinion.pdf"
+      }
+    },
+    "publicationId": "AR:906",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2016-09-15",
+      "agencyId": "AR",
+      "support": 18.3,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП – 18.3% за Г",
+    "sampleSize": "сред 1026 пълнолетни",
+    "fieldwork": "Период на провеждане 09 септември – 15 септември 2016г"
+  },
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.822Z",
+    "draftHash": "f4edbcc3d42a0db182f273c586fbeb1591b7b28c3c1739835a189ba85e43be51",
+    "diffs": [
+      "reader finds the genre unclear",
+      "vote_intention r1: „БСП\" extractor 18.3 vs reader 15.7",
+      "vote_intention r1: reader has „ГЕРБ\" 23.5 — extractor does not",
+      "vote_intention r1: reader has „Реформаторски блок\" 5.5 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 5.1 — extractor does not",
+      "vote_intention r1: reader has „Патриотичен фронт\" 4.6 — extractor does not",
+      "vote_intention r1: reader has „Движение 21\" 3.9 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 2.9 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 2.3 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 33.2"
+    ]
+  }
+}

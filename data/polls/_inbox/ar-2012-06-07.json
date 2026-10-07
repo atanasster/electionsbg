@@ -1,0 +1,84 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2012-06-07",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/857-obshtestveni-naglasi-iuni-2012g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "May 31 - Jun 7 2012",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/857-obshtestveni-naglasi-iuni-2012g.html",
+      "fetchedAt": "2026-09-27T06:45:21.917Z",
+      "sha256": "e8dac9a3e52d12b3558ab1b109821c7bc65514228605c0bbe99415464f6cb3fa",
+      "extractor": "AR",
+      "fieldworkStart": "2012-05-31",
+      "fieldworkEnd": "2012-06-07",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП добавя процент подкрепа и достига равнище от 18%",
+        "share:ДПС": "ДПС се запазва в традиционните за Движението граници от 5%",
+        "fieldwork": "в периода 31 май – 7 юни 2012г"
+      },
+      "quoteSources": {
+        "share:БСП": "0612-Press-release-12-06-2012(1).doc",
+        "share:ДПС": "0612-Press-release-12-06-2012(1).doc",
+        "fieldwork": "0612-Press-release-12-06-2012(1).doc"
+      }
+    },
+    "publicationId": "AR:857",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2012-06-07",
+      "agencyId": "AR",
+      "support": 18,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2012-06-07",
+      "agencyId": "AR",
+      "support": 5,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП добавя процент подкрепа и достига равнище от 18%",
+    "share:ДПС": "ДПС се запазва в традиционните за Движението граници от 5%",
+    "fieldwork": "в периода 31 май – 7 юни 2012г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.763Z",
+    "draftHash": "06ba6a352e982de3b7b8d62ca8e4c3fa2def22ab199ee1dfcec70762c295d3ee",
+    "diffs": [
+      "extractor refused: sampleSize",
+      "sample: extractor — vs reader 1025",
+      "reader finds the genre unclear",
+      "vote_intention r1: „БСП\" extractor 18 vs reader 18.4",
+      "vote_intention r1: „ДПС\" extractor 5 vs reader 5.4",
+      "vote_intention r1: reader has „ГЕРБ\" 22.3 — extractor does not",
+      "vote_intention r1: reader has „България на гражданите на Меглена Кунева\" 5.5 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 2.1 — extractor does not",
+      "vote_intention r1: reader has „ДСБ\" 1.7 — extractor does not",
+      "vote_intention r1: reader has „АТАКА\" 1.5 — extractor does not",
+      "vote_intention r1: reader has „РЗС\" 0.5 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 37.2"
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2022-02-14",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/994-obshtestveni-naglasi-fevruari-2022.html",
+    "electionDate": null,
+    "respondents": 1060,
+    "genre": "raw_attitudes",
+    "fieldwork": "Feb 6-14 2022",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/994-obshtestveni-naglasi-fevruari-2022.html",
+      "fetchedAt": "2026-09-27T06:44:58.410Z",
+      "sha256": "40868ce157d583f3a77a7b698da11a56082a68fbda3c14dccdd39dcd9202e27f",
+      "extractor": "AR",
+      "fieldworkStart": "2022-02-06",
+      "fieldworkEnd": "2022-02-14",
+      "basePhrase": "от гласуващите",
+      "quotes": {
+        "share:Демократична България": "Демократична България“ - 6.4%",
+        "share:ДПС": "ДПС получава традиционната си подкрепа от 7.2% от живеещите в страната избиратели",
+        "share:Възраждане": "Възраждане, 65% от които са срещу Евроатлантическия съюз",
+        "share:ИТН": "ИТН (едва по 22% и от двете партии са за силна евроатлантическа интеграция), до категоричното нежелание за интеграция сред ",
+        "sampleSize": "сред 1060 пълнолетни",
+        "fieldwork": "в периода 6 – 14 февруари 2022г"
+      }
+    },
+    "publicationId": "AR:994",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2022-02-14",
+      "agencyId": "AR",
+      "support": 6.4,
+      "nickName_bg": "Демократична България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-02-14",
+      "agencyId": "AR",
+      "support": 7.2,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-02-14",
+      "agencyId": "AR",
+      "support": 65,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-02-14",
+      "agencyId": "AR",
+      "support": 22,
+      "nickName_bg": "ИТН",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "AR",
+  "evidence": {
+    "share:Демократична България": "Демократична България“ - 6.4%",
+    "share:ДПС": "ДПС получава традиционната си подкрепа от 7.2% от живеещите в страната избиратели",
+    "share:Възраждане": "Възраждане, 65% от които са срещу Евроатлантическия съюз",
+    "share:ИТН": "ИТН (едва по 22% и от двете партии са за силна евроатлантическа интеграция), до категоричното нежелание за интеграция сред ",
+    "sampleSize": "сред 1060 пълнолетни",
+    "fieldwork": "в периода 6 – 14 февруари 2022г"
+  },
+  "refused": [
+    {
+      "field": "share:ИТН",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ИТН (67%)"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ (38%)"
+    },
+    {
+      "field": "share:Продължаваме промяната",
+      "reason": "mentioned 3 times with disagreeing values (66, 78, 24.4%) — refusing rather than guessing which is current",
+      "quote": "Продължаваме промяната“ (66%) и са практически единствените, които нямат критики към кабинета | Продължаваме промяната“ (78%), на  | Продължаваме промяната“ запазва първото си място, с 24.4%, на отчетлива дистанция пред основния си опонент "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "mentioned 2 times with disagreeing values (91, 71%) — refusing rather than guessing which is current",
+      "quote": "БСП (91%), на  | БСП (71%), на "
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 2 times with disagreeing values (18.1, 62%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ (18.1%), чиято подкрепа търпи ерозия от 4 пункта | ГЕРБ (62%) формират групата на хората с доминиращи позитивни нагласи към НАТО"
+    },
+    {
+      "field": "share:ДБ",
+      "reason": "mentioned 2 times with disagreeing values (63, 47%) — refusing rather than guessing which is current",
+      "quote": "ДБ (63%) и на  | ДБ (47%), а след радикалния разлом с Радев - и тези на "
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.856Z",
+    "draftHash": "f6bbafeb58bcee3a45b7141cd46bd0f8290528e194b59d301e38fc8634d068f5",
+    "diffs": [
+      "extractor refused: share:ИТН, share:ГЕРБ, share:Продължаваме промяната, share:БСП, share:ГЕРБ, share:ДБ",
+      "reader finds the genre unclear",
+      "vote_intention r1: „Възраждане\" extractor 65 vs reader 5.2",
+      "vote_intention r1: „ИТН\" extractor 22 vs reader 6.6",
+      "vote_intention r1: reader has „Продължаваме промяната\" 24.4 — extractor does not",
+      "vote_intention r1: reader has „ГЕРБ\" 18.1 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 9.8 — extractor does not",
+      "vote_intention r1: undecided extractor — vs reader 18.3"
+    ]
+  }
+}

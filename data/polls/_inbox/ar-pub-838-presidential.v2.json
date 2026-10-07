@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-838-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/838-obshtestveni-naglasi-oktomvri-2010.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/838-obshtestveni-naglasi-oktomvri-2010.html",
+      "fetchedAt": "2026-10-05T18:44:22.102Z",
+      "sha256": "b98a3d285b1f6969c7882378c038692454965360372f1c5b235cf354454450f3",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:838"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "ОБЩЕСТВЕНИ НАГЛАСИ ОКТОМВРИ 2010 -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

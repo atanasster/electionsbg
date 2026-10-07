@@ -20,7 +20,7 @@
           {
             "pollId": "tr-2025-01-30",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:42:34.342Z",
+            "extractedAt": "2026-10-05T21:57:43.452Z",
             "draftHash": "0364946df903934f262d8e6e1f6b84cf91ee5f73954e64b106d57cd6250de945",
             "refused": []
           }
@@ -58,7 +58,7 @@
           {
             "pollId": "tr-2025-03-16",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:42:37.686Z",
+            "extractedAt": "2026-10-05T21:57:44.589Z",
             "draftHash": "1cffe1874c22729613446c343c180f885d91f25d24ed98e23a0d2bb74071894c",
             "refused": [
               "share:МЕЧ"
@@ -98,7 +98,7 @@
           {
             "pollId": "tr-2025-05-18",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:42:42.857Z",
+            "extractedAt": "2026-10-05T21:57:45.962Z",
             "draftHash": "b3d2ef94ccb66374ec4de539960d14bdb78420716fcfbf1766b860e1e5ebf8d3",
             "refused": [
               "share:ИТН"
@@ -138,7 +138,7 @@
           {
             "pollId": "tr-2025-09-20",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:42:48.173Z",
+            "extractedAt": "2026-10-05T21:57:47.102Z",
             "draftHash": "2826f2aac996180ac48a1920a37a0151a42725b1ce54d79c36f5a0c3947d495d",
             "refused": [
               "share:ИТН"
@@ -178,7 +178,7 @@
           {
             "pollId": "tr-2026-02-18",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:42:51.016Z",
+            "extractedAt": "2026-10-05T21:57:47.564Z",
             "draftHash": "fe83d07266ed2ae60f1a4d33df2d1114280adf204ab1b2f3cff911420f1d2daf",
             "refused": [
               "share:МЕЧ"
@@ -218,7 +218,7 @@
           {
             "pollId": "tr-2026-03-19",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:42:53.063Z",
+            "extractedAt": "2026-10-05T21:57:47.997Z",
             "draftHash": "cf9ef37b44805091812ba646542841eec1b1bc34c14fff759b0e2e00328bc226",
             "refused": [
               "share:МЕЧ"
@@ -258,7 +258,7 @@
           {
             "pollId": "tr-2026-04-16",
             "race": "parliamentary",
-            "extractedAt": "2026-10-03T22:42:55.441Z",
+            "extractedAt": "2026-10-05T21:57:48.484Z",
             "draftHash": "fe4ba4520f1edbadca7d5db23839a2cd01329a30a3fc7ffdbcaf9da029bee314",
             "refused": [
               "share:ДПС"
@@ -808,6 +808,59 @@
             "race": "presidential",
             "reason": "July 2021: parliamentary shares and presidential job approval",
             "reviewedAt": "2026-09-26"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "212997",
+    "url": "https://rctrend.bg/project/212997/",
+    "title": "Обществени нагласи спрямо предстоящите президентски избори",
+    "publishedAt": "2026-10-05",
+    "agencyId": "TR",
+    "pubIds": [
+      "212997"
+    ],
+    "discoveredAt": "2026-10-06T21:44:36.530Z",
+    "latestHash": "b6db8ae874c3771a6c921154b596ae7b19d8da018c29b95a4f3c92482851da56",
+    "versions": [
+      {
+        "sha256": "b6db8ae874c3771a6c921154b596ae7b19d8da018c29b95a4f3c92482851da56",
+        "capturePath": "raw_data/polls/trend/212997",
+        "capturedAt": "2026-10-06T21:49:48.501Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "tr-2026-10-02",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-06T21:49:58.118Z",
+            "draftHash": "7ad44935e3eea56f44a73dc83136e854657f0d5cdae7ce6909ad4f9861672f43",
+            "refused": [
+              "share:БСП",
+              "share:Възраждане",
+              "share:МЕЧ",
+              "share:Величие"
+            ]
+          },
+          {
+            "pollId": "tr-2026-10-02-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-06T21:49:58.122Z",
+            "draftHash": "a3de51ac353766ba420ce0b5b10ba05d6bb1526821cf968df3ef04ce379d85d3",
+            "refused": [
+              "residual.otherNamedMinor",
+              "poll.cycle"
+            ]
           }
         ]
       }

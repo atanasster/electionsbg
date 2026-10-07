@@ -1,0 +1,121 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "sh-2026-03-12",
+    "agencyId": "SH",
+    "source": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f-2/",
+    "electionDate": null,
+    "respondents": 1000,
+    "publishedAt": null,
+    "genre": "unclear",
+    "fieldwork": "Mar 7-12 2026",
+    "provenance": {
+      "url": "https://sovaharris.com/%d0%bf%d0%be%d0%bb%d0%b8%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d0%b2-%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f-2/",
+      "fetchedAt": "2026-10-05T18:44:16.952Z",
+      "sha256": "25b7ae1f746c5595ebb960e53d03c6dda95ad24cb7f0113d4a2894c9996a62e4",
+      "extractor": "SH",
+      "fieldworkStart": "2026-03-07",
+      "fieldworkEnd": "2026-03-12",
+      "basePhrase": "сред гласуващите за конкретна политическа сила",
+      "quotes": {
+        "fieldwork": "в периода 7 – 12 март 2026",
+        "sampleSize": "сред 1000 български граждани",
+        "share:ПРОГРЕСИВНА БЪЛГАРИЯ": "ПРОГРЕСИВНА БЪЛГАРИЯ 30,9",
+        "share:ВЪЗРАЖДАНЕ": "ВЪЗРАЖДАНЕ 6,7",
+        "share:БСП за БЪЛГАРИЯ": "БСП за БЪЛГАРИЯ 4,4",
+        "share:Има Такъв Народ": "Има Такъв Народ 2,2",
+        "share:Друга партия": "| Друга партия 6,2 |"
+      }
+    },
+    "publicationId": "SH:4116"
+  },
+  "details": [
+    {
+      "pollId": "sh-2026-03-12",
+      "agencyId": "SH",
+      "support": 30.9,
+      "nickName_bg": "ПРОГРЕСИВНА БЪЛГАРИЯ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "sh-2026-03-12",
+      "agencyId": "SH",
+      "support": 6.7,
+      "nickName_bg": "ВЪЗРАЖДАНЕ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "sh-2026-03-12",
+      "agencyId": "SH",
+      "support": 4.4,
+      "nickName_bg": "БСП за БЪЛГАРИЯ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "sh-2026-03-12",
+      "agencyId": "SH",
+      "support": 2.2,
+      "nickName_bg": "Има Такъв Народ",
+      "nickName_en": ""
+    }
+  ],
+  "residual": {
+    "undecided": null,
+    "wontVote": null,
+    "wontSay": null,
+    "otherNamedMinor": 6.2
+  },
+  "genre": "unclear",
+  "extractor": "SH",
+  "evidence": {
+    "fieldwork": "в периода 7 – 12 март 2026",
+    "sampleSize": "сред 1000 български граждани",
+    "share:ПРОГРЕСИВНА БЪЛГАРИЯ": "ПРОГРЕСИВНА БЪЛГАРИЯ 30,9",
+    "share:ВЪЗРАЖДАНЕ": "ВЪЗРАЖДАНЕ 6,7",
+    "share:БСП за БЪЛГАРИЯ": "БСП за БЪЛГАРИЯ 4,4",
+    "share:Има Такъв Народ": "Има Такъв Народ 2,2",
+    "share:Друга партия": "| Друга партия 6,2 |"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ - САС",
+      "reason": "OCR value \"193\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "| ГЕРБ - САС Г 193"
+    },
+    {
+      "field": "share:Коалиция ПРОДЪЛЖАВАМЕ ПРОМЯНАТА и ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+      "reason": "OCR value \"122\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "| Коалиция ПРОДЪЛЖАВАМЕ ПРОМЯНАТА и | 122 | ДЕМОКРАТИЧНА БЪЛГАРИЯ"
+    },
+    {
+      "field": "share:АПС Ново Начало",
+      "reason": "OCR value \"74\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "АПС Ново Начало 74"
+    },
+    {
+      "field": "share:Коалиция \"Сияние\"",
+      "reason": "OCR value \"292\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "Коалиция \"Сияние\" | 292"
+    },
+    {
+      "field": "share:ВЕЛИЧИЕ",
+      "reason": "OCR value \"25\" has no decimal comma — not repaired (bulletin image)",
+      "quote": "ВЕЛИЧИЕ 25"
+    },
+    {
+      "field": "share:МЕЧ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "МЕЧ 3,8"
+    },
+    {
+      "field": "share:АПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "АПС 1,8"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method and English translation",
+      "quote": ""
+    }
+  ]
+}

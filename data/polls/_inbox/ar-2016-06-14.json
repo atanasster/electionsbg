@@ -1,0 +1,63 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2016-06-14",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/905-obshtestveni-naglasi-iuni-2016.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Jun 8-14 2016",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/905-obshtestveni-naglasi-iuni-2016.html",
+      "fetchedAt": "2026-09-26T07:51:38.690Z",
+      "sha256": "abea38c45c7b85a8a8c3fbc4195d20d9776528b7c03a8ce19ee58b2824ff696c",
+      "extractor": "AR",
+      "fieldworkStart": "2016-06-08",
+      "fieldworkEnd": "2016-06-14",
+      "basePhrase": null,
+      "quotes": {
+        "fieldwork": "Период на провеждане 8 юни – 14 юни 2016г"
+      },
+      "quoteSources": {
+        "fieldwork": "0616_Alpha_Research_Public_Opinion.pdf"
+      }
+    },
+    "publicationId": "AR:905",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "fieldwork": "Период на провеждане 8 юни – 14 юни 2016г"
+  },
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.820Z",
+    "draftHash": "96d41db8a3f1d9e57c664396dc246f9cad47b186edd8d483e77bf28b991d7959",
+    "diffs": [
+      "extractor refused: sampleSize",
+      "sample: extractor — vs reader 1023",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 21.9 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 12.8 — extractor does not",
+      "vote_intention r1: reader has „Реформаторски блок\" 5 — extractor does not",
+      "vote_intention r1: reader has „Патриотичен фронт\" 4.9 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 4.5 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 3.5 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 2.6 — extractor does not",
+      "vote_intention r1: reader has „Движение 21\" 2.6 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 37.5"
+    ]
+  }
+}

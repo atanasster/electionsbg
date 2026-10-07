@@ -1,0 +1,82 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-04-14",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/870-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1030,
+    "genre": "unclear",
+    "fieldwork": "Apr 10-14 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/870-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-27T06:45:18.837Z",
+      "sha256": "7c3ea88535997a416f4141f63aeb5587096009550c0ef98e927899ed450d9be3",
+      "extractor": "AR",
+      "fieldworkStart": "2013-04-10",
+      "fieldworkEnd": "2013-04-14",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС има традиционните си 4.8% последователи, но с висока готовност да гласуват",
+        "sampleSize": "участват 1030 пълнолетни",
+        "fieldwork": "в периода 10-14 април 2013г"
+      },
+      "quoteSources": {
+        "share:ДПС": "2013-Electoral-attitudes-April.doc",
+        "sampleSize": "2013-Electoral-attitudes-April.doc",
+        "fieldwork": "2013-Electoral-attitudes-April.doc"
+      }
+    },
+    "publicationId": "AR:870",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-04-14",
+      "agencyId": "AR",
+      "support": 4.8,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС има традиционните си 4.8% последователи, но с висока готовност да гласуват",
+    "sampleSize": "участват 1030 пълнолетни",
+    "fieldwork": "в периода 10-14 април 2013г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: the number is 89 characters from the party name — too far to be its share",
+      "quote": "БСП, както и силната фрагментация на вота към по-малките партии (възможно е до около 15- 18% от вота да бъде даден за партии, които не прескачат изборната бариера) очертава поредица от интересни интриги пред току що стартиралата кампания: Ще запази ли "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: another mention of this party carries a different number — refusing rather than choosing",
+      "quote": "БСП е в рамките на 5.6%"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.774Z",
+    "draftHash": "dc079331701018721332ff467447a598fc0dcd9e05e399d247d281aa3801c842",
+    "diffs": [
+      "extractor refused: share:БСП, share:БСП",
+      "vote_intention r1: reader has „ГЕРБ\" 22.5 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 16.9 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 4.9 — extractor does not",
+      "vote_intention r1: reader has „България на гражданите\" 2.9 — extractor does not",
+      "vote_intention r1: reader has „ДСБ – БДФ\" 1.8 — extractor does not",
+      "vote_intention r1: reader has „НФСБ\" 1.3 — extractor does not",
+      "vote_intention r1: reader has „Лидер\" 1 — extractor does not",
+      "vote_intention r1: reader has „Зелените\" 1 — extractor does not",
+      "vote_intention r1: reader has „ВМРО-БНД\" 1 — extractor does not",
+      "vote_intention r1: reader has „Горда България\" 0.7 — extractor does not",
+      "vote_intention r1: undecided extractor — vs reader 38.6"
+    ]
+  }
+}

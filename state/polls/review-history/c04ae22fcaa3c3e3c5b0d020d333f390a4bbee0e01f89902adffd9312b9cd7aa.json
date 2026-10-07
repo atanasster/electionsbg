@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-pub-870",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/870-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/870-elektoralni-naglasi-na-starta-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-27T06:45:18.837Z",
+      "sha256": "7c3ea88535997a416f4141f63aeb5587096009550c0ef98e927899ed450d9be3",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:870",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    },
+    {
+      "field": "poll.id",
+      "reason": "no fieldwork end date resolved from the text — using a provisional pubId-keyed id",
+      "quote": ""
+    }
+  ]
+}

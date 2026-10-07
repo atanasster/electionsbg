@@ -1,0 +1,94 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-03-27",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/869-obshtestveni-naglasi-mart-2013g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Mar 22-27 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/869-obshtestveni-naglasi-mart-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:19.398Z",
+      "sha256": "308468146ac46bd3a9d722c46a42d4149e02563a5b02a6889192f1d3867ceff0",
+      "extractor": "AR",
+      "fieldworkStart": "2013-03-22",
+      "fieldworkEnd": "2013-03-27",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС запазва в общи линии позициите си (4.8%)",
+        "fieldwork": "в периода 22-27 март 2013г"
+      },
+      "quoteSources": {
+        "share:ДПС": "0313_Press-Release.doc",
+        "fieldwork": "0313_Press-Release.doc"
+      }
+    },
+    "publicationId": "AR:869",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-03-27",
+      "agencyId": "AR",
+      "support": 4.8,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС запазва в общи линии позициите си (4.8%)",
+    "fieldwork": "в периода 22-27 март 2013г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "ГЕРБ би могъл да достигне около 35-38% от действителните гласове, "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "БСП – около 30%, Атака и "
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: another mention of this party carries a different number — refusing rather than choosing",
+      "quote": "ГЕРБ срещу 17.4% "
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.772Z",
+    "draftHash": "b16f13161487a861357482975741e325a875d1b6001da2122ab89c46b3c10130",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:БСП, share:ГЕРБ, sampleSize",
+      "sample: extractor — vs reader 1050",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 21.9 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 17.4 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 5.5 — extractor does not",
+      "vote_intention r1: reader has „България на гражданите\" 3.9 — extractor does not",
+      "vote_intention r1: reader has „ДСБ - Единство\" 1.8 — extractor does not",
+      "vote_intention r1: reader has „НФСБ\" 1.6 — extractor does not",
+      "vote_intention r1: reader has „Лидер - \"НИЕ\"\" 1 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 0.6 — extractor does not",
+      "vote_intention r1: reader has „НДСВ\" 0.5 — extractor does not",
+      "vote_intention r1: reader has „РЗС\" 0.5 — extractor does not",
+      "vote_intention r1: reader has „Нова алтернатива\" 0.3 — extractor does not",
+      "vote_intention r1: reader has „ПП Зелените\" 0.3 — extractor does not",
+      "vote_intention r1: reader has „ГОРД\" 0.2 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 37.7"
+    ]
+  }
+}

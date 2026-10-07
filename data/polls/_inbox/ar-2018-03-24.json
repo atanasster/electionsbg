@@ -1,0 +1,107 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2018-03-24",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/930-obshtestveni-naglasi-mart-2018.html",
+    "electionDate": null,
+    "respondents": 1025,
+    "genre": "unclear",
+    "fieldwork": "Mar 15-24 2018",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/930-obshtestveni-naglasi-mart-2018.html",
+      "fetchedAt": "2026-09-27T06:45:00.384Z",
+      "sha256": "690bb87349f047a2a82ed77910daed627c0caa1289dadee80821fd9407baab32",
+      "extractor": "AR",
+      "fieldworkStart": "2018-03-15",
+      "fieldworkEnd": "2018-03-24",
+      "basePhrase": null,
+      "quotes": {
+        "share:Обединени патриоти": "Обединени патриоти 5.2% ",
+        "sampleSize": "сред 1025 пълнолетни",
+        "fieldwork": "Период на провеждане 15 – 24 март 2018г"
+      },
+      "quoteSources": {
+        "share:Обединени патриоти": "0318-Alpha_Research_Public_Opinion.pdf",
+        "sampleSize": "0318_Alpha_Research_Public_opinion.doc",
+        "fieldwork": "0318-Alpha_Research_Public_Opinion.pdf"
+      }
+    },
+    "publicationId": "AR:930",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2018-03-24",
+      "agencyId": "AR",
+      "support": 5.2,
+      "nickName_bg": "Обединени патриоти",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:Обединени патриоти": "Обединени патриоти 5.2% ",
+    "sampleSize": "сред 1025 пълнолетни",
+    "fieldwork": "Период на провеждане 15 – 24 март 2018г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "ГЕРБ до 2.5%"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: the number is 64 characters from the party name — too far to be its share",
+      "quote": "ГЕРБ запазва мястото си на първа политическа сила с подкрепа от 23.1% от всички избиратели"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: another mention of this party carries a different number — refusing rather than choosing",
+      "quote": "ГЕРБ нараства на 7%"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 23.1% "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 20.5% "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС 5.1% "
+    },
+    {
+      "field": "share:ВОЛЯ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ВОЛЯ 2.0% \""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.844Z",
+    "draftHash": "b97ce196466e2d20b8f811e761ee7c853bbac45c0fc39c04b71afcb4e2f26d4e",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:ГЕРБ, share:ГЕРБ, share:ГЕРБ, share:БСП, share:ДПС, share:ВОЛЯ",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 23.1 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 20.5 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 5.1 — extractor does not",
+      "vote_intention r1: reader has „ВОЛЯ\" 2 — extractor does not",
+      "vote_intention r1: reader has „\"Да, България\"\" 1.8 — extractor does not",
+      "vote_intention r1: reader has „СДС\" 1 — extractor does not",
+      "vote_intention r1: reader has „ДБГ\" 1 — extractor does not",
+      "vote_intention r1: reader has „ДСБ\" 0.6 — extractor does not",
+      "vote_intention r1: reader has „Възраждане\" 0.6 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 33.2"
+    ]
+  }
+}

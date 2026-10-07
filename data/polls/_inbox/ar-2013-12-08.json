@@ -1,0 +1,103 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2013-12-08",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/879-obshtestveni-naglasi-dekemvri-2013g.html",
+    "electionDate": null,
+    "respondents": null,
+    "genre": "unclear",
+    "fieldwork": "Nov 30 - Dec 8 2013",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/879-obshtestveni-naglasi-dekemvri-2013g.html",
+      "fetchedAt": "2026-09-27T06:45:13.886Z",
+      "sha256": "d9ad640e2292657f37064bb519a044a2ee03ff3efa8cfca88395123881520698",
+      "extractor": "AR",
+      "fieldworkStart": "2013-11-30",
+      "fieldworkEnd": "2013-12-08",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП (16.5%) и ",
+        "share:ГЕРБ": "ГЕРБ (15.8%) остават почти плътно една до друга, но с по-ниска подкрепа, отколкото в края на октомври",
+        "share:Реформаторски блок": "Реформаторски блок 6,9% ",
+        "fieldwork": "Период на провеждане 30 Ноември – 8 Декември 2013г"
+      },
+      "quoteSources": {
+        "share:БСП": "1213_Public_Opinion_Alpha%20Research(1).pdf",
+        "share:ГЕРБ": "1213_Public_Opinion_Alpha%20Research(1).pdf",
+        "share:Реформаторски блок": "1213_Public_Opinion_Alpha%20Research(1).pdf",
+        "fieldwork": "1213_Public_Opinion_Alpha%20Research(1).pdf"
+      }
+    },
+    "publicationId": "AR:879",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2013-12-08",
+      "agencyId": "AR",
+      "support": 16.5,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2013-12-08",
+      "agencyId": "AR",
+      "support": 15.8,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2013-12-08",
+      "agencyId": "AR",
+      "support": 6.9,
+      "nickName_bg": "Реформаторски блок",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП (16.5%) и ",
+    "share:ГЕРБ": "ГЕРБ (15.8%) остават почти плътно една до друга, но с по-ниска подкрепа, отколкото в края на октомври",
+    "share:Реформаторски блок": "Реформаторски блок 6,9% ",
+    "fieldwork": "Период на провеждане 30 Ноември – 8 Декември 2013г"
+  },
+  "refused": [
+    {
+      "field": "share:БСП",
+      "reason": "attachment text: an approximate or ranged figure, not a published share",
+      "quote": "БСП с леки колебания запазва около 16.5% избиратели"
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 16,5% "
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 15,8% "
+    },
+    {
+      "field": "sampleSize",
+      "reason": "no sample-size pattern matched the extracted text",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.792Z",
+    "draftHash": "b154b7676f05561d12e4e48b44691c02bb79ed1cf5027600770a2607f94b6812",
+    "diffs": [
+      "extractor refused: share:БСП, share:БСП, share:ГЕРБ, sampleSize",
+      "sample: extractor — vs reader 1011",
+      "vote_intention r1: reader has „ДПС\" 6.1 — extractor does not",
+      "vote_intention r1: reader has „НФСБ\" 3.5 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 2.7 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 38.8"
+    ]
+  }
+}

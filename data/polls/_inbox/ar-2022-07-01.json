@@ -1,0 +1,104 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2022-07-01",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/999-useshtaneto-za-predsrochni-izbori-razmestva-elektoralnite-plastove.html",
+    "electionDate": null,
+    "respondents": 1017,
+    "genre": "unclear",
+    "fieldwork": "Jun 25 - Jul 1 2022",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/999-useshtaneto-za-predsrochni-izbori-razmestva-elektoralnite-plastove.html",
+      "fetchedAt": "2026-09-27T06:44:56.686Z",
+      "sha256": "40b8a74b0b53e324b8323814b2f202e05e8e605e357242b104986085687ce778",
+      "extractor": "AR",
+      "fieldworkStart": "2022-06-25",
+      "fieldworkEnd": "2022-07-01",
+      "basePhrase": null,
+      "quotes": {
+        "share:ИТН": "ИТН бележи нова загуба на избиратели и при избори днес би останала под парламентарната черта (3.3%)",
+        "share:левицата": "левицата (11.5%), но динамиката в този сектор е твърде силна",
+        "share:Български възход": "Български възход“ стартира с малко над 5% подкрепа и едва следващите месеци ще покажат как ще се разпределят гласовете между него, ",
+        "share:Демократична България": "Демократична България също запазва избирателите си в София и големите градски центрове, което й осигурява 7.1% потенциален вот",
+        "share:Възраждане": "Възраждане губи 4 на сто доверие (до 13%), а на ",
+        "sampleSize": "сред 1017 пълнолетни",
+        "fieldwork": "в периода 25 юни – 1 юли 2022г"
+      }
+    },
+    "publicationId": "AR:999",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2022-07-01",
+      "agencyId": "AR",
+      "support": 3.3,
+      "nickName_bg": "ИТН",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-07-01",
+      "agencyId": "AR",
+      "support": 11.5,
+      "nickName_bg": "левицата",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-07-01",
+      "agencyId": "AR",
+      "support": 5,
+      "nickName_bg": "Български възход",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-07-01",
+      "agencyId": "AR",
+      "support": 7.1,
+      "nickName_bg": "Демократична България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2022-07-01",
+      "agencyId": "AR",
+      "support": 13,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ИТН": "ИТН бележи нова загуба на избиратели и при избори днес би останала под парламентарната черта (3.3%)",
+    "share:левицата": "левицата (11.5%), но динамиката в този сектор е твърде силна",
+    "share:Български възход": "Български възход“ стартира с малко над 5% подкрепа и едва следващите месеци ще покажат как ще се разпределят гласовете между него, ",
+    "share:Демократична България": "Демократична България също запазва избирателите си в София и големите градски центрове, което й осигурява 7.1% потенциален вот",
+    "share:Възраждане": "Възраждане губи 4 на сто доверие (до 13%), а на ",
+    "sampleSize": "сред 1017 пълнолетни",
+    "fieldwork": "в периода 25 юни – 1 юли 2022г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "mentioned 2 times with disagreeing values (21.5, 25.2%) — refusing rather than guessing which is current",
+      "quote": "ГЕРБ (21.5%) | ГЕРБ постепенно успяват да излязат от изолация – едва 6 на сто по-малко (25.2%) смятат, че партията на Борисов би се справила по-успешно в сегашната ситуация"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.859Z",
+    "draftHash": "e3d8cf9e35ac9e96ef13a61867223ed7f4c67011adc9213cc83b0525aa9febe4",
+    "diffs": [
+      "extractor refused: share:ГЕРБ",
+      "reader finds the genre unclear",
+      "vote_intention r1: „левицата\" 11.5 — reader has no such answer",
+      "vote_intention r1: „Български възход\" 5 — reader has no such answer",
+      "vote_intention r1: „Възраждане\" extractor 13 vs reader 8",
+      "vote_intention r1: reader has „ГЕРБ\" 21.5 — extractor does not",
+      "vote_intention r1: reader has „ПП\" 20.2 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 11.5 — extractor does not"
+    ]
+  }
+}

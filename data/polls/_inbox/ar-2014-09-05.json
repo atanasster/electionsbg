@@ -1,0 +1,104 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2014-09-05",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/889-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-septemvri-2014.html",
+    "electionDate": null,
+    "respondents": 1025,
+    "genre": "unclear",
+    "fieldwork": "Aug 31 - Sep 5 2014",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/889-obshtestveni-naglasi-na-starta-na-predizbornata-kampania-septemvri-2014.html",
+      "fetchedAt": "2026-09-27T06:45:09.159Z",
+      "sha256": "467cc8d1283fdee08f1d15bdcf3f03fc1210fbdaaf434e73ad1aa6beec3ea725",
+      "extractor": "AR",
+      "fieldworkStart": "2014-08-31",
+      "fieldworkEnd": "2014-09-05",
+      "basePhrase": null,
+      "quotes": {
+        "share:БСП": "БСП остава на позициите си от месец май и подкрепа от 22.5% от решилите да гласуват",
+        "share:ДПС": "ДПС влиза в кампанията като трета политическа сила (12.1%)",
+        "share:Патриотичен фронт": "Патриотичен фронт (3.7%)",
+        "sampleSize": "сред 1025 пълнолетни",
+        "fieldwork": "в периода 31.08 – 05.09. 2014г"
+      },
+      "quoteSources": {
+        "share:БСП": "0914_Press_release(1).doc",
+        "share:ДПС": "0914_Press_release(1).doc",
+        "share:Патриотичен фронт": "0914_Press_release(1).doc",
+        "sampleSize": "0914_Press_release(1).doc",
+        "fieldwork": "0914_Press_release(1).doc"
+      }
+    },
+    "publicationId": "AR:889",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2014-09-05",
+      "agencyId": "AR",
+      "support": 22.5,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2014-09-05",
+      "agencyId": "AR",
+      "support": 12.1,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2014-09-05",
+      "agencyId": "AR",
+      "support": 3.7,
+      "nickName_bg": "Патриотичен фронт",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:БСП": "БСП остава на позициите си от месец май и подкрепа от 22.5% от решилите да гласуват",
+    "share:ДПС": "ДПС влиза в кампанията като трета политическа сила (12.1%)",
+    "share:Патриотичен фронт": "Патриотичен фронт (3.7%)",
+    "sampleSize": "сред 1025 пълнолетни",
+    "fieldwork": "в периода 31.08 – 05.09. 2014г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: the number is 80 characters from the party name — too far to be its share",
+      "quote": "ГЕРБ, който повишава подкрепата си от евроизборите насам и към момента привлича 36.2% от твърдо решилите на гласуват"
+    },
+    {
+      "field": "share:ГЕРБ",
+      "reason": "attachment text: the number is 68 characters from the party name — too far to be its share",
+      "quote": "ГЕРБ е във възходяща тенденция и влиза в кампанията с подкрепата на 36.2% от решилите да гласуват избиратели"
+    },
+    {
+      "field": "share:ББЦ",
+      "reason": "attachment text: the number is 120 characters from the party name — too far to be its share",
+      "quote": "ББЦ запазва шансовете си за представителство в парламента, но е в низходящ тренд и със значително по-скромна подкрепа – 4.4% от решилите за гласуват"
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.799Z",
+    "draftHash": "fc056058bd38874d41dd0a0a45fe1afc346873f4fb1688e7465568a9a3c69a61",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:ГЕРБ, share:ББЦ",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 36.2 — extractor does not",
+      "vote_intention r1: reader has „РБ\" 5.2 — extractor does not",
+      "vote_intention r1: reader has „ББЦ\" 4.4 — extractor does not",
+      "vote_intention r1: reader has „АБВ\" 3.9 — extractor does not",
+      "vote_intention r1: reader has „Атака\" 2.9 — extractor does not",
+      "vote_intention r1: reader has „\"Движение 21\"\" 1.5 — extractor does not",
+      "vote_intention r1: reader has „Коалиция \"Десните\"\" 1 — extractor does not"
+    ]
+  }
+}

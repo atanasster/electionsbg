@@ -1,0 +1,135 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2017-12-15",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/928-obshtestveni-naglasi-dekemvri-2017.html",
+    "electionDate": null,
+    "respondents": 1017,
+    "genre": "unclear",
+    "fieldwork": "Dec 7-15 2017",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/928-obshtestveni-naglasi-dekemvri-2017.html",
+      "fetchedAt": "2026-09-27T06:45:01.075Z",
+      "sha256": "becd323e61016fa3712e68239f147724e0c3e81426a3a5a8ec18ee83d0e2faf3",
+      "extractor": "AR",
+      "fieldworkStart": "2017-12-07",
+      "fieldworkEnd": "2017-12-15",
+      "basePhrase": null,
+      "quotes": {
+        "share:ДПС": "ДПС запазва традиционния си дял симпатизанти от 4.7%, а М",
+        "share:Воля": "Воля през есента, привържениците й остават в рамките на 2.1%, а на В",
+        "share:Реформаторски блок": "Реформаторски блок – 2%; ",
+        "share:Да, България": "Да, България 1.9%; ",
+        "share:Нова република": "Нова република – 0.6%)",
+        "share:Обединени патриоти": "Обединени патриоти 5,6% ",
+        "sampleSize": "сред 1017 пълнолетни",
+        "fieldwork": "Период на провеждане 07 – 15 декември 2017г"
+      },
+      "quoteSources": {
+        "share:ДПС": "1217-Alpha_Research_Public_Opinion(3).pdf",
+        "share:Воля": "1217-Alpha_Research_Public_Opinion(3).pdf",
+        "share:Реформаторски блок": "1217-Alpha_Research_Public_Opinion(3).pdf",
+        "share:Да, България": "1217-Alpha_Research_Public_Opinion(3).pdf",
+        "share:Нова република": "1217-Alpha_Research_Public_Opinion(3).pdf",
+        "share:Обединени патриоти": "1217-Alpha_Research_Public_Opinion(3).pdf",
+        "sampleSize": "1217_Alpha_Research_Public_opinion(2)(1).doc",
+        "fieldwork": "1217-Alpha_Research_Public_Opinion(3).pdf"
+      }
+    },
+    "publicationId": "AR:928",
+    "publishedAt": null
+  },
+  "details": [
+    {
+      "pollId": "ar-2017-12-15",
+      "agencyId": "AR",
+      "support": 4.7,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-12-15",
+      "agencyId": "AR",
+      "support": 2.1,
+      "nickName_bg": "Воля",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-12-15",
+      "agencyId": "AR",
+      "support": 2,
+      "nickName_bg": "Реформаторски блок",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-12-15",
+      "agencyId": "AR",
+      "support": 1.9,
+      "nickName_bg": "Да, България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-12-15",
+      "agencyId": "AR",
+      "support": 0.6,
+      "nickName_bg": "Нова република",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2017-12-15",
+      "agencyId": "AR",
+      "support": 5.6,
+      "nickName_bg": "Обединени патриоти",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "share:ДПС": "ДПС запазва традиционния си дял симпатизанти от 4.7%, а М",
+    "share:Воля": "Воля през есента, привържениците й остават в рамките на 2.1%, а на В",
+    "share:Реформаторски блок": "Реформаторски блок – 2%; ",
+    "share:Да, България": "Да, България 1.9%; ",
+    "share:Нова република": "Нова република – 0.6%)",
+    "share:Обединени патриоти": "Обединени патриоти 5,6% ",
+    "sampleSize": "сред 1017 пълнолетни",
+    "fieldwork": "Период на провеждане 07 – 15 декември 2017г"
+  },
+  "refused": [
+    {
+      "field": "share:ГЕРБ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ГЕРБ 25,0% "
+    },
+    {
+      "field": "share:БСП",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "БСП 21,2% "
+    },
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС 4,7% "
+    },
+    {
+      "field": "share:ВОЛЯ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ВОЛЯ 2,1% "
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-10-05T18:30:27.842Z",
+    "draftHash": "0d3883a87f182fe56e1bd584ae93ada1b74c2817ec3e4ffa13dc06f4a8c47c86",
+    "diffs": [
+      "extractor refused: share:ГЕРБ, share:БСП, share:ДПС, share:ВОЛЯ",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ГЕРБ\" 25 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 21.2 — extractor does not",
+      "vote_intention r1: wont_vote extractor — vs reader 28.4"
+    ]
+  }
+}
