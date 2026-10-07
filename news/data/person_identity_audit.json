@@ -1,5 +1,531 @@
 {
  "_comment": "news-person-sentiment-v1 §4.3. Identity-audit decisions from the review workspace (queue „Самоличност“): confirmed = the articles are about this gazetteer person (lets a two_part-only person get a page); refused = never link these surfaces (or any, when surfaces is empty) to the id; mixed = these surfaces link only with a context cue. Written by the tool, not by hand.",
  "version": 1,
- "decisions": []
+ "decisions": [
+  {
+   "id": "mp-5186",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:14+00:00"
+  },
+  {
+   "id": "mp-5104",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:20+00:00"
+  },
+  {
+   "id": "mp-5100",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:25+00:00"
+  },
+  {
+   "id": "mp-5244",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:31+00:00"
+  },
+  {
+   "id": "mp-3401",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:36+00:00"
+  },
+  {
+   "id": "mp-5117",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:40+00:00"
+  },
+  {
+   "id": "mp-5067",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:44+00:00"
+  },
+  {
+   "id": "katya-georgieva-ivkova-cccb95",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:51+00:00"
+  },
+  {
+   "id": "mp-5158",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:26:58+00:00"
+  },
+  {
+   "id": "nataliya-dimitrova-efremova-225958",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:04+00:00"
+  },
+  {
+   "id": "mp-5164",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:08+00:00"
+  },
+  {
+   "id": "mp-5237",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:11+00:00"
+  },
+  {
+   "id": "mp-5091",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:15+00:00"
+  },
+  {
+   "id": "mp-2211",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:19+00:00"
+  },
+  {
+   "id": "mp-5213",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:22+00:00"
+  },
+  {
+   "id": "todor-veselov-kantardzhiev-50bf79",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:27+00:00"
+  },
+  {
+   "id": "darin-dimitrov-kostov-afe30a",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:32+00:00"
+  },
+  {
+   "id": "mp-5229",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:37+00:00"
+  },
+  {
+   "id": "mp-3600",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:53+00:00"
+  },
+  {
+   "id": "mp-5141",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:27:57+00:00"
+  },
+  {
+   "id": "evgeni-simeonov-simeonov-e721bd",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:08+00:00"
+  },
+  {
+   "id": "mp-4122",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:12+00:00"
+  },
+  {
+   "id": "mp-5234",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:16+00:00"
+  },
+  {
+   "id": "mp-3639",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:22+00:00"
+  },
+  {
+   "id": "mp-5291",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:28+00:00"
+  },
+  {
+   "id": "mp-5335",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:34+00:00"
+  },
+  {
+   "id": "evtim-petrov-miloshev-297aea",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:40+00:00"
+  },
+  {
+   "id": "stefan-dimitrov-bakalov-dc54d4",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:46+00:00"
+  },
+  {
+   "id": "andrei-ivanov-yankulov-a69b18",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:51+00:00"
+  },
+  {
+   "id": "asen-georgiev-medzhidiev-401708",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:55+00:00"
+  },
+  {
+   "id": "tsvetelina-marinova-penkova-0817fe",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:28:59+00:00"
+  },
+  {
+   "id": "mp-5063",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:10+00:00"
+  },
+  {
+   "id": "tsveta-zhekova-timeva-447a33",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:16+00:00"
+  },
+  {
+   "id": "mp-1568",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:25+00:00"
+  },
+  {
+   "id": "mp-1576",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:30+00:00"
+  },
+  {
+   "id": "mp-4601",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:32+00:00"
+  },
+  {
+   "id": "toma-georgiev-belev-c20c07",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:35+00:00"
+  },
+  {
+   "id": "mp-2344",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:41+00:00"
+  },
+  {
+   "id": "mihaela-georgieva-karadimova-6cd737",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:46+00:00"
+  },
+  {
+   "id": "mp-5075",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:51+00:00"
+  },
+  {
+   "id": "mp-5106",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:29:57+00:00"
+  },
+  {
+   "id": "mp-5293",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:01+00:00"
+  },
+  {
+   "id": "tanya-ralcheva-pancheva-3227c2",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:07+00:00"
+  },
+  {
+   "id": "asparuh-asparuhov-15vy1a",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:10+00:00"
+  },
+  {
+   "id": "mp-4131",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:13+00:00"
+  },
+  {
+   "id": "mp-4265",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:16+00:00"
+  },
+  {
+   "id": "mp-5250",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:22+00:00"
+  },
+  {
+   "id": "traicho-dimitrov-traikov-207438",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:26+00:00"
+  },
+  {
+   "id": "kostadin-atanasov-pachedzhiev-f64f42",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:34+00:00"
+  },
+  {
+   "id": "lyubomir-vasilev-datsov-b772c7",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:38+00:00"
+  },
+  {
+   "id": "mp-2484",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:41+00:00"
+  },
+  {
+   "id": "mp-5006",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:49+00:00"
+  },
+  {
+   "id": "mp-5231",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:53+00:00"
+  },
+  {
+   "id": "mp-1588",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:30:56+00:00"
+  },
+  {
+   "id": "mp-5142",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:00+00:00"
+  },
+  {
+   "id": "mp-4160",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:03+00:00"
+  },
+  {
+   "id": "georgi-dimitrov-kandev-b0ac71",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:07+00:00"
+  },
+  {
+   "id": "petr-petrov-volgin-7d7596",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:12+00:00"
+  },
+  {
+   "id": "kiril-aleksandrov-vlchev-4bbcaa",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:14+00:00"
+  },
+  {
+   "id": "nikolai-simeonov-naidenov-6d2c87",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:19+00:00"
+  },
+  {
+   "id": "blagomir-kotsev-122tn9",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:25+00:00"
+  },
+  {
+   "id": "mp-3931",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:31+00:00"
+  },
+  {
+   "id": "mp-2812",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:35+00:00"
+  },
+  {
+   "id": "mp-5118",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:39+00:00"
+  },
+  {
+   "id": "georgi-bogdanov-yanev-1cf3ea",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:42+00:00"
+  },
+  {
+   "id": "mp-1845",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:31:51+00:00"
+  },
+  {
+   "id": "ognyan-ognyanov-atanasov-312800",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:32:03+00:00"
+  },
+  {
+   "id": "mp-5066",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:32:18+00:00"
+  },
+  {
+   "id": "mp-5188",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:32:26+00:00"
+  },
+  {
+   "id": "todor-dinkov-ivanov-453851",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:32:33+00:00"
+  },
+  {
+   "id": "bozhin-petrov-bozhinov-283fd0",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:32:38+00:00"
+  },
+  {
+   "id": "vasil-aleksandrov-terziev-049f64",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T08:20:41+00:00"
+  },
+  {
+   "id": "mp-2863",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T08:20:49+00:00"
+  },
+  {
+   "id": "iva-ivanova-vlcheva-2de201",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T08:20:59+00:00"
+  },
+  {
+   "id": "mp-5258",
+   "decision": "confirmed",
+   "surfaces": [],
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T08:21:11+00:00"
+  }
+ ]
 }

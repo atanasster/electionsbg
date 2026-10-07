@@ -1,5 +1,116 @@
 {
  "_comment": "news-person-sentiment-v1 §3.1 step 3. HUMAN-REVIEWED surname aliases, written by the review workspace (npm run news:review, queue „Фамилии“) — never generated or hand-guessed. An entry applies only when status is accepted, the article date falls in [valid_from, valid_to], and no other person with the same surname is named in the article; requires_cue additionally needs a party or office cue.",
  "version": 1,
- "aliases": []
+ "aliases": [
+  {
+   "surface": "Радев",
+   "id": "mp-5142",
+   "status": "accepted",
+   "valid_from": "2026-08-15",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:33:39+00:00"
+  },
+  {
+   "surface": "Йотова",
+   "id": "mp-1588",
+   "status": "accepted",
+   "valid_from": "2026-08-15",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:33:46+00:00"
+  },
+  {
+   "surface": "Гюров",
+   "id": "mp-4160",
+   "status": "accepted",
+   "valid_from": "2026-08-29",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:33:54+00:00"
+  },
+  {
+   "surface": "Борисов",
+   "id": "mp-5186",
+   "status": "accepted",
+   "valid_from": "2026-08-22",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:34:28+00:00"
+  },
+  {
+   "surface": "Кандев",
+   "id": "georgi-dimitrov-kandev-b0ac71",
+   "status": "accepted",
+   "valid_from": "2026-08-29",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:34:36+00:00"
+  },
+  {
+   "surface": "Пеевски",
+   "id": "mp-5100",
+   "status": "accepted",
+   "valid_from": "2026-08-22",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:34:44+00:00"
+  },
+  {
+   "surface": "Волгин",
+   "id": "petr-petrov-volgin-7d7596",
+   "status": "accepted",
+   "valid_from": "2026-09-23",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:34:49+00:00"
+  },
+  {
+   "surface": "Костадинов",
+   "id": "mp-5258",
+   "status": "accepted",
+   "valid_from": "2026-09-23",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T06:34:57+00:00"
+  },
+  {
+   "surface": "Терзиев",
+   "id": "vasil-aleksandrov-terziev-049f64",
+   "status": "accepted",
+   "valid_from": "2026-09-20",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T08:21:25+00:00"
+  },
+  {
+   "surface": "Демерджиев",
+   "id": "mp-5104",
+   "status": "accepted",
+   "valid_from": "2026-09-02",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T08:26:11+00:00"
+  },
+  {
+   "surface": "Мирчев",
+   "id": "mp-5244",
+   "status": "accepted",
+   "valid_from": "2026-08-29",
+   "valid_to": "2027-03-26",
+   "requires_cue": false,
+   "reviewer": "Atanas",
+   "reviewed_at": "2026-09-27T08:30:58+00:00"
+  }
+ ]
 }
