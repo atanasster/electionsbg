@@ -1,0 +1,15 @@
+{
+  "session": "20261007T214842Z-0d05",
+  "createdAt": "2026-10-07T22:18:52.387Z",
+  "skills": [
+    "tr-daily-refresh"
+  ],
+  "paths": [],
+  "cloudCommands": [
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:refresh:risk:cloud"
+  ],
+  "notes": "HELD 2026-10-08: host disk full (260 MiB free), Docker Desktop crashed mid db:refresh (db:load:pg pgsql_tmp I/O error). update-procurement unstamped and will re-queue; rollcall/macro/council/prices/persons not run."
+}
