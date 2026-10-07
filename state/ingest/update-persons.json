@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-10-06T22:51:11.221Z",
+  "lastSuccessfulIngest": "2026-10-07T22:54:37.987Z",
   "skill": "update-persons",
-  "summary": "person layer re-derived locally in db:refresh after TR refresh (61,743/61,743 declarations attributed); cloud resolve not triggered — TR flip only"
+  "summary": "db:resolve:persons: 64865 persons, 125087 roles (+29078 tr bridge-B), +70521 tier-V private owners minted; 23798 mention(s) keyed by the register person id (1052 aliased to an MP id); 77009 aliases (136 dup folds collapsed); 3393 review group(s) over 12558 person(s); 0 slug(s) retired to a redirect; 0 dead slug(s) with no redirect; 2 human override(s) applied (0 fold-merge, 2 ref-merge, 0 fold-split, 0 ref-split). person-elections load runs separately."
 }

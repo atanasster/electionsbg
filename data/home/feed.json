@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-06T23:59:59.999Z",
+  "computedAt": "2026-10-07T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-06T00:00:00.000Z",
-      "firstSeenAt": "2026-10-06T00:00:00.000Z",
+      "occurredAt": "2026-10-07T00:00:00.000Z",
+      "firstSeenAt": "2026-10-07T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -38,11 +38,41 @@
     },
     {
       "schemaVersion": 1,
+      "id": "parliament:sitting:2026-10-07",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-10-07T00:00:00.000Z",
+      "firstSeenAt": "2026-10-07T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-10-07",
+      "factKey": "home_fact_plenary_sittings",
+      "factArgs": {
+        "items": 34,
+        "sittings": 13,
+        "windowDays": 30
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 1,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
       "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-06T00:00:00.000Z",
-      "firstSeenAt": "2026-10-06T00:00:00.000Z",
+      "occurredAt": "2026-10-07T00:00:00.000Z",
+      "firstSeenAt": "2026-10-07T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -59,14 +89,14 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "КАРТОФИ МИТИ",
-        "pct": 53,
+        "pct": 52,
         "promoEur": "0.55",
-        "regularEur": "1.17",
+        "regularEur": "1.15",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7571428571428571,
+      "materiality": 0.7428571428571429,
       "actionability": 0.85
     },
     {
@@ -135,36 +165,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-10-02",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-10-02T00:00:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-10-02",
-      "factKey": "home_fact_plenary_sittings",
-      "factArgs": {
-        "items": 1,
-        "sittings": 12,
-        "windowDays": 30
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 1,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "debt:domestic_auction:BG-2026-09-28-119",
       "kind": "debt_auction",
       "category": "budget_debt",
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:krave-maslo-rodopsko-chudo-250g",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-06T00:00:00.000Z",
-      "firstSeenAt": "2026-10-06T00:00:00.000Z",
+      "occurredAt": "2026-10-07T00:00:00.000Z",
+      "firstSeenAt": "2026-10-07T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,14 +213,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/krave-maslo-rodopsko-chudo-250g",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
+        "title": "КРАВЕ МАСЛО РОДОПСКО ЧУДО 250Г",
         "pct": 52,
-        "promoEur": "1.09",
-        "regularEur": "2.25",
-        "chains": 6
+        "promoEur": "1.99",
+        "regularEur": "4.19",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
@@ -1128,14 +1128,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-10-02",
+      "asOf": "2026-10-07",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-06",
-      "observedAt": "2026-10-06",
+      "asOf": "2026-10-07",
+      "observedAt": "2026-10-07",
       "staleAfterDays": 5,
       "stale": false
     }
