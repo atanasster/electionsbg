@@ -1,18 +1,19 @@
-# Watch report — 2026-10-07 (08.10.2026 г., 00:44 Europe/Sofia)
+# Watch report — 2026-10-08 (09.10.2026 г., 00:40 Europe/Sofia)
 
 ## Changed
-- **Parliament roll-call votes**: 1 new roll-call session(s) since 2026-10-05 (latest: 2026-10-07)
-- **data.egov.bg Commerce Registry (Търговски регистър)**: 1 new resource(s) on top: b6d469c4-6836-4e96-b2fc-b7651548067d
-- **ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)**: latest published day 2026-10-05; 10/12 recent days published, hash 048b3ec0cfb5b41e (no new days)
-- **Eurostat macro (BG): 29 datasets**: new release · nama_10_gdp 2026-10-07T11:00:00+0200, nama_10_lp_ulc 2026-10-07T23:00:00+0200, namq_10_a10 2026-10-07T23:00:00+0200, namq_10_gdp 2026-10-07T23:00:00+0200, sts_inpr_q 2026-10-07T11:00:00+0200, sts_trtu_m 2026-10-06T11:00:00+0200
-- **TED — обявления за България (api.ted.europa.eu)**: 138 new BG notices (22,653 this year)
-- **Council resolutions + vote tallies**: periodic safety re-check (no count change) · 16 município(s) wired, 843 session-link(s) total
-- **КЗП Колко струва (retail prices, kolkostruva.bg)**: new daily price archive: 2026-10-07 (was 2026-10-06)
+- **Parliament roll-call votes**: 1 new roll-call session(s) since 2026-10-07 (latest: 2026-10-08)
+- **BG Wikipedia polls (cross-check only)**: presidential +2 rows (8 → 10) since 2026-10-06
+- **data.egov.bg Commerce Registry (Търговски регистър)**: 1 new resource(s) on top: d2a56936-a17e-40c1-93fc-01fbbcf9b990
+- **ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)**: 1 new publication day(s) (latest 2026-10-07) — run the incremental EOP gap-fill + geo refresh in /update-procurement
+- **ИСУН — отворени процедури**: 57 отворени · 0 за обсъждане (1 затворени)
+- **Агенция "Митници" — регистър на лицензираните акцизни складодържатели**: Register changed (-1 active) — run `npm run customs:excise-register`.
+- **Eurostat macro (BG): 29 datasets**: new release · sts_inpr_q 2026-10-08T11:00:00+0200, une_rt_m 2026-10-08T11:00:00+0200
+- **TED — обявления за България (api.ted.europa.eu)**: 123 new BG notices (22,776 this year)
+- **КЗП Колко струва (retail prices, kolkostruva.bg)**: new daily price archive: 2026-10-08 (was 2026-10-07)
 
 ## Unchanged
 - Parliament MPs (active roster): unchanged (52-ро Народно събрание — 240 MPs)
 - Курирани решения за идентичност на лица: unchanged (2 audited person identity decision(s))
-- BG Wikipedia polls (cross-check only): unchanged (115 parliamentary + 8 presidential poll table rows)
 - Polls — Тренд (rctrend.bg): unchanged (no new electoral publications (newest id 212997))
 - Polls — Алфа Рисърч: unchanged (no new electoral publications (newest id 1054))
 - Polls — Маркет ЛИНКС: unchanged (no new electoral publications (newest id 119))
@@ -26,10 +27,9 @@
 - Сметна палата declarations — municipal (mayors & councillors): unchanged (6499 declarations in scope for 2026, hash 5dbbf6f1df11f716)
 - МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo): unchanged (4512 institutions)
 - Interreg — трансгранични покани: unchanged (7 покани от 1 програми · недостъпни: interreg-bsb)
-- ИСУН — отворени процедури: unchanged (58 отворени · 0 за обсъждане)
-- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК): unchanged (бр. 92 от 2026-10-06 · 9 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени)
+- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК): unchanged (бр. 93 от 2026-10-09 · 4 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени)
 - МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение: unchanged (IPOP CSV sample 32768B · hash b98ff637ad35b796)
-- NATO defence-expenditure compendium: unchanged (compendium edition(s): 2025, 2026)
+- Eurostat regional (BG): 5 NUTS3 datasets: unchanged (5 datasets · latest update 2026-07-21T23:00:00+0200)
 - AZ (Агенция по заетостта): annual unemployment reviews: unchanged (18 annual reviews · latest 2025)
 - МОН: ДЗИ резултати (data.egov.bg): unchanged (10 resources)
 - МОН: НВО 7. клас резултати (data.egov.bg): unchanged (9 resources)
@@ -39,8 +39,9 @@
 - ГРАО: население по постоянен и настоящ адрес (по населени места): unchanged (2026-09-15 · 505573 bytes)
 - CIK local-elections results bundles: unchanged (0/2 regular bundle(s) reachable · 14 partial cycle(s) tracked)
 - ЦИК presidential-elections results bundles: unchanged (4 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle)
-- МО — доклад за отбраната: unchanged (10 МО PDFs · latest year 2025)
-- МИ — износ на оръжие: unchanged (54 export-report links · latest year 0)
+- ИВСС — декларации на магистрати: unchanged (register years 2017-2026 (290 letter pages) · 4 ИВСС lists, 37 named)
+- Council resolutions + vote tallies: unchanged (16 município(s) wired, 843 session-link(s) total · 1 fetch error(s))
+- НАТО — разходи за отбрана: unchanged (6 def-exp PDFs · latest edition 2026)
 - Procurement scope windows (calendar / election rollover): unchanged (16 year window(s) 2011..2026 + 13 election window(s) (+ all))
 
 ## Skipped (off-cadence)
@@ -76,7 +77,6 @@
 - Eurostat e-government (isoc_ciegi_ac) (monthly): isoc_ciegi_ac updated 2026-04-17T11:00:00+0200 · next check 2026-10-10
 - Eurostat digital skills (isoc_sk_dskl_i21) (monthly): isoc_sk_dskl_i21 updated 2026-04-17T11:00:00+0200 · next check 2026-10-13
 - Агенция "Митници" — Митническа хроника annual reports (weekly): 4 report(s) tracked · latest 2025 · hash 9fb6d66edb03d199 · next check 2026-10-10
-- Агенция "Митници" — регистър на лицензираните акцизни складодържатели (monthly): 808 licences (356 active) · hash b2e7dea1b1ce3f11 · next check 2026-10-08
 - НАП — Годишен отчет за дейността (weekly): 1 report(s) tracked · latest 2024 · hash 516ba7f51998b8d1 · next check 2026-10-10
 - НОИ — месечни B1 отчети по фондове (ДОО, УчПФ, ГВРС) (weekly): 0/6 B1 file(s) reachable · tracking 2025, 2026 × 3 funds · hash d9f966646e49e06c · next check 2026-10-10
 - НОИ — статистически годишник „Пенсии“ (ZIP) (weekly): 1/3 yearbook ZIP(s) published · tracking 2024, 2025, 2026 · hash 2622b65c951e7e7a · next check 2026-10-10
@@ -92,13 +92,13 @@
 - Tax Foundation — EU excise rates (fuel + cigarettes) (monthly): BG fuel 363/330 €/1000L · DE cig 196 €/1000 · 9ccbe86c9fb54ffd · next check 2026-10-10
 - EC TEDB — EU alcohol excise (spirits + wine) (monthly): BG spirits 562 · SE 4775 · IE wine 425 €/hl · f11a3384724d7009 · next check 2026-10-10
 - OECD Family DB — paid parental leave (PF2.5) (monthly): DE total 58w · SE 55.7w · EE 82.1w (paid leave) · f64a735fa3ae13e9 · next check 2026-10-10
+- NATO defence-expenditure compendium (monthly): compendium edition(s): 2025, 2026 · next check 2026-11-05
 - EC economic forecast — Bulgaria (weekly): latest edition: spring 2026 · next check 2026-10-10
 - НСИ EDP notification — deficit/debt outturn (weekly): latest GFS press release: balgariya-i-es-deficit-i-dalg-na-institucionalen-sektor-darjavno-upravlenie-prez-2025-godina-predvaritelni-danni-9533 · next check 2026-10-10
 - EC VAT gap report (monthly): latest edition: VAT Gap Report 2025 · next check 2026-11-04
 - IMF WEO — Bulgaria vintage (monthly): BGR real-growth series through 2031 (latest 2.6%) · d4d5d8a4acdd6acb · next check 2026-11-04
 - Фискален съвет — publications (weekly): 15 publication(s) · latest: opinion-on-the-ministry-of-finances-autumn-macroeconomic-forecast-for-the-period-2026-2029 · next check 2026-10-10
 - АПИ — годишни приходи от пътни такси (винетки + тол) (weekly): АПИ road-charge revenue: latest FY2025 (no revenue press release on the front page) · next check 2026-10-09
-- Eurostat regional (BG): 5 NUTS3 datasets (monthly): 5 datasets · latest update 2026-07-21T23:00:00+0200 · next check 2026-10-08
 - Eurostat rail (BG): жп пътници (rail_pa_total) (monthly): rail_pa_total · update 2026-09-03T23:00:00+0200 · next check 2026-10-12
 - Eurostat environment (BG): рециклиране на отпадъци (cei_wm011) (monthly): cei_wm011 · update 2026-03-30T23:00:00+0200 · next check 2026-10-13
 - НСИ regional open-data (BG): 4 oblast datasets (monthly): 4 datasets · latest update 2026-06-17T11:00:00 · next check 2026-11-01
@@ -118,7 +118,6 @@
 - ИАОС air quality (data.egov.bg) (weekly): 2 total resources · PM10 2 res · next check 2026-10-09
 - Прозрачност без граници — LISI (monthly): latest year on page: 2024 · next check 2026-10-24
 - ВСС — съдебна статистика (monthly): 33 statistics PDFs · latest year 2025 · next check 2026-11-04
-- ИВСС — декларации на магистрати (monthly): register years 2017-2026 (290 letter pages) · 4 ИВСС lists, 37 named · next check 2026-10-08
 - ИПИ — Местни данъци (265 общини) (monthly): 5/5 indicator CSVs · latest year 2025 · next check 2026-10-24
 - Общински наредби за местни данъци (weekly): 10 município(s) wired · next check 2026-10-10
 - EC Weekly Oil Bulletin: consumer fuel prices (petrol 95 & diesel) (weekly): history XLSX 906e60ca… · next check 2026-10-10
@@ -130,7 +129,8 @@
 - НЗОК касово изпълнение B1 (nhif.bg) (monthly): newest B1 execution: 2026-08 · next check 2026-11-01
 - НЗОК — брой случаи и ЗОЛ по клинични пътеки (месечно) (monthly): newest activity file: 2026-08 · next check 2026-11-04
 - НЗОК — НРД цени на КП/АПр/КПр (договор + изменения) (monthly): 6 НРД contract/era links · next check 2026-10-31
-- НАТО — разходи за отбрана (monthly): 6 def-exp PDFs · latest edition 2026 · next check 2026-10-08
+- МО — доклад за отбраната (monthly): 10 МО PDFs · latest year 2025 · next check 2026-11-05
+- МИ — износ на оръжие (monthly): 54 export-report links · latest year 0 · next check 2026-11-05
 - АСП — отчети и доклади (monthly): 21 годишни отчета на АСП · next check 2026-10-13
 - ГИТ — доклади за дейността (monthly): 5 годишни доклада на ГИТ · next check 2026-10-13
 - Eurostat road safety (BG): пътни жертви (sdg_11_40) (monthly): sdg_11_40 · update 2026-08-25T23:00:00+0200 · next check 2026-10-10
@@ -142,4 +142,4 @@
 - **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata
 
 ---
-_Watcher run at 2026-10-07T21:44:40.798Z UTC._
+_Watcher run at 2026-10-08T21:40:41.193Z UTC._
