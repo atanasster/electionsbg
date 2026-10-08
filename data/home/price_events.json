@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-07",
+  "computedAt": "2026-10-08",
   "thresholds": {
     "basketPids": [
       1,
@@ -33,14 +33,14 @@
   },
   "basketMoves": [
     {
-      "peakDay": "2026-09-06",
-      "startDay": "2026-09-06",
+      "peakDay": "2026-09-07",
+      "startDay": "2026-09-07",
       "endDay": "2026-09-07",
-      "pctChange": -1.98,
-      "costEur": 15.521,
-      "prevCostEur": 15.834,
+      "pctChange": -1.633,
+      "costEur": 15.536,
+      "prevCostEur": 15.794,
       "cohortCells": 1687,
-      "cohortShare": 0.9294
+      "cohortShare": 0.9305
     },
     {
       "peakDay": "2026-09-13",
@@ -89,8 +89,8 @@
       "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
       "atOrBelowSince": "2026-10-05",
       "promoEur": 0.79,
-      "regularEur": 1.74,
-      "discountPct": 54,
+      "regularEur": 1.78,
+      "discountPct": 56,
       "stores": 18,
       "chains": 2
     },
@@ -99,20 +99,20 @@
       "title": "КАРТОФИ МИТИ",
       "atOrBelowSince": "2026-09-30",
       "promoEur": 0.55,
-      "regularEur": 1.15,
-      "discountPct": 52,
-      "stores": 4,
+      "regularEur": 1.19,
+      "discountPct": 54,
+      "stores": 39,
       "chains": 2
     },
     {
-      "slug": "krave-maslo-rodopsko-chudo-250g",
-      "title": "КРАВЕ МАСЛО РОДОПСКО ЧУДО 250Г",
-      "atOrBelowSince": "2026-09-17",
-      "promoEur": 1.99,
-      "regularEur": 4.19,
-      "discountPct": 52,
-      "stores": 20,
-      "chains": 2
+      "slug": "zele",
+      "title": "ЗЕЛЕ",
+      "atOrBelowSince": "2026-10-08",
+      "promoEur": 0.44,
+      "regularEur": 0.89,
+      "discountPct": 51,
+      "stores": 229,
+      "chains": 3
     }
   ]
 }

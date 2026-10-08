@@ -1,6 +1,68 @@
 {
-  "updatedAt": "2026-10-07T23:35:27.839Z",
+  "updatedAt": "2026-10-08T22:56:52.575Z",
   "entries": [
+    {
+      "timestamp": "2026-10-08T22:56:52.575Z",
+      "date": "2026-10-08",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-08 (+1 daily archive; 836,337 store rows, 162 settlements, 71 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-08"
+    },
+    {
+      "timestamp": "2026-10-08T22:50:02.608Z",
+      "date": "2026-10-08",
+      "skill": "update-macro",
+      "summary": "Eurostat: sts_inpr_q + une_rt_m release; macro + peers refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-08T22:49:34.257Z",
+      "date": "2026-10-08",
+      "skill": "customs_excise_register",
+      "summary": "Акцизен регистър: 566 оператора (294 активни), 355 склада",
+      "source": "Агенция Митници — акцизни складодържатели"
+    },
+    {
+      "timestamp": "2026-10-08T22:49:21.010Z",
+      "date": "2026-10-08",
+      "skill": "update-open-calls",
+      "summary": "ИСУН: 57 отворени процедури (1 затворена); open_calls 88 реда",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-10-08T22:47:28.723Z",
+      "date": "2026-10-08",
+      "skill": "update-procurement",
+      "summary": "EOP self-heal +155 contracts (72 buyers); tenders refreshed; TED 221,414 BG notices (+123)",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-10-08T22:35:38.544Z",
+      "date": "2026-10-08",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 869 лица, 125 087 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-08T21:51:19.134Z",
+      "date": "2026-10-08",
+      "skill": "update-rollcall",
+      "summary": "1 new session 2026-10-08; 634 plenary days, 17128 items (15439 stand)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-10-07T23:35:27.839Z",
       "date": "2026-10-07",

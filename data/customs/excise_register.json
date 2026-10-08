@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-10T05:20:50.721Z",
+  "generatedAt": "2026-10-08T22:49:28.293Z",
   "source": {
     "publisher": "Агенция „Митници“",
     "register": "Регистър на лицензираните складодържатели и данъчните складове",
     "url": "http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing"
   },
   "totalOperators": 566,
-  "activeOperators": 295,
+  "activeOperators": 294,
   "operators": [
     {
       "eik": "121699202",
@@ -28,8 +28,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 513001200.36,
-      "contractCount": 2177
+      "procurementEur": 513742186.2,
+      "contractCount": 2183
     },
     {
       "eik": "131245283",
@@ -51,8 +51,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 152700375.23,
-      "contractCount": 61
+      "procurementEur": 174339700.35,
+      "contractCount": 62
     },
     {
       "eik": "115624227",
@@ -85,8 +85,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 33333688.03,
-      "contractCount": 283
+      "procurementEur": 33618718.03,
+      "contractCount": 285
     },
     {
       "eik": "824033568",
@@ -107,8 +107,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 19888723.63,
-      "contractCount": 60
+      "procurementEur": 20430091.98,
+      "contractCount": 63
     },
     {
       "eik": "121759222",
@@ -118,8 +118,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 18491675.83,
-      "contractCount": 119
+      "procurementEur": 18531675.83,
+      "contractCount": 120
     },
     {
       "eik": "147188777",
@@ -184,8 +184,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 5037755.29,
-      "contractCount": 193
+      "procurementEur": 5278447.6,
+      "contractCount": 197
     },
     {
       "eik": "106067341",
@@ -1560,17 +1560,6 @@
       "name": "ГАЗ ТРАНС ПЕТРОЛИУМ ЕООД",
       "categories": [
         "energy"
-      ],
-      "warehouses": 1,
-      "active": true,
-      "procurementEur": 0,
-      "contractCount": 0
-    },
-    {
-      "eik": "201217133",
-      "name": "ГАМА - СМ ООД",
-      "categories": [
-        "alcohol"
       ],
       "warehouses": 1,
       "active": true,
@@ -3349,8 +3338,8 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 19337000.29,
-      "contractCount": 126
+      "procurementEur": 19402451.08,
+      "contractCount": 127
     },
     {
       "eik": "117679603",
@@ -4623,6 +4612,17 @@
       "eik": "828063345",
       "name": "ГАЛАКС ОЙЛ EООД",
       "categories": [],
+      "warehouses": 0,
+      "active": false,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
+      "eik": "201217133",
+      "name": "ГАМА - СМ ООД",
+      "categories": [
+        "alcohol"
+      ],
       "warehouses": 0,
       "active": false,
       "procurementEur": 0,
