@@ -1,6 +1,26 @@
 {
-  "updatedAt": "2026-10-08T22:56:52.575Z",
+  "updatedAt": "2026-10-09T22:01:53.304Z",
   "entries": [
+    {
+      "timestamp": "2026-10-09T22:01:53.304Z",
+      "date": "2026-10-09",
+      "skill": "update-energy",
+      "summary": "Eurostat nrg_pc_204/202 revision; latest 2026-S1 BG €0.1341/kWh electricity (46% of EU27), gas €0.0654/kWh",
+      "source": "Eurostat energy prices (BG)"
+    },
+    {
+      "timestamp": "2026-10-09T22:01:37.895Z",
+      "date": "2026-10-09",
+      "skill": "update-macro",
+      "summary": "Eurostat nama_10_gdp/lp_ulc/namq/sts releases + WGI 2025 (RL -0.046); macro + peers + PLI refreshed",
+      "source": "Eurostat macro (BG) + World Bank WGI",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-10-08T22:56:52.575Z",
       "date": "2026-10-08",
