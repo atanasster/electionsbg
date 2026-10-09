@@ -1,0 +1,24 @@
+{
+  "session": "20261009T214457Z-92c0",
+  "createdAt": "2026-10-09T22:02:31.709Z",
+  "commit": "267dd20946",
+  "skills": [
+    "update-rollcall",
+    "update-macro",
+    "update-energy"
+  ],
+  "paths": [
+    "macro.json",
+    "macro_peers.json",
+    "energy",
+    "administration",
+    "data_map.json",
+    "data-changes.json",
+    "parliament/votes/derived/hub_stats.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:rollcall:pg:cloud",
+    "npm run db:load:rollcall-derived:pg:cloud"
+  ],
+  "notes": "HELD: local Postgres down this run; rollcall local PG load + pins pending; TR/persons/procurement/prices not ingested"
+}
