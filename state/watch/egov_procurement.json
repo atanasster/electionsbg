@@ -1,8 +1,8 @@
 {
-  "detail": "6 datasets on page 1, hash d8b16370e2438a0f",
-  "fingerprint": "d8b16370e2438a0f",
-  "lastChanged": "2026-10-03T20:22:42.950Z",
-  "lastChecked": "2026-10-03T20:22:42.950Z",
+  "detail": "6 datasets on page 1, latest OCDS resource „Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 30.09.2026 г., съгласно стандарт OCDS\", hash 2972f356fba8503d",
+  "fingerprint": "2972f356fba8503d",
+  "lastChanged": "2026-10-09T21:40:27.435Z",
+  "lastChecked": "2026-10-09T21:40:27.435Z",
   "meta": {
     "topUuids": [
       "30437d16-3fec-4fad-8ac8-1eddee200e7c",
@@ -39,6 +39,10 @@
         "kind": "annual",
         "year": "2024"
       }
-    ]
+    ],
+    "latestOcdsResource": {
+      "uuid": "ab3c591a-9302-4d32-af13-5530284c6b03",
+      "label": "Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 30.09.2026 г., съгласно стандарт OCDS"
+    }
   }
 }
