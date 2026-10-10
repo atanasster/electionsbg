@@ -1,15 +1,48 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-09T23:59:59.999Z",
+  "computedAt": "2026-10-10T23:59:59.999Z",
   "windowDays": 30,
   "events": [
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-10T00:00:00.000Z",
+      "firstSeenAt": "2026-10-10T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/krave-maslo-d-markenbutter-250gr",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+        "pct": 61,
+        "promoEur": "1.59",
+        "regularEur": "4.10",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8714285714285714,
+      "actionability": 0.85
+    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:kartofi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-09T00:00:00.000Z",
-      "firstSeenAt": "2026-10-09T00:00:00.000Z",
+      "occurredAt": "2026-10-10T00:00:00.000Z",
+      "firstSeenAt": "2026-10-10T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -58,46 +91,13 @@
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 15,
-        "sittings": 14,
+        "sittings": 13,
         "windowDays": 30
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 1,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:kartofi-miti",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-09T00:00:00.000Z",
-      "firstSeenAt": "2026-10-09T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/kartofi-miti",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "КАРТОФИ МИТИ",
-        "pct": 54,
-        "promoEur": "0.55",
-        "regularEur": "1.19",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7714285714285715,
-      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -199,8 +199,8 @@
       "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-09T00:00:00.000Z",
-      "firstSeenAt": "2026-10-09T00:00:00.000Z",
+      "occurredAt": "2026-10-10T00:00:00.000Z",
+      "firstSeenAt": "2026-10-10T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -1134,8 +1134,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-09",
-      "observedAt": "2026-10-09",
+      "asOf": "2026-10-10",
+      "observedAt": "2026-10-10",
       "staleAfterDays": 5,
       "stale": false
     }

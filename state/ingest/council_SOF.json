@@ -1,6 +1,16 @@
 {
   "skill": "council_SOF",
-  "lastSuccessfulIngest": "2026-10-07T23:17:57.496Z",
+  "lastSuccessfulIngest": "2026-10-10T22:22:48.571Z",
   "summary": "0 prot(s) → 0+/0=/416 total",
-  "sinceDate": "2026-08-20"
+  "sinceDate": "2026-08-20",
+  "deferred": [
+    {
+      "url": "https://council.sofia.bg/meetings-mandat-2023-2027",
+      "kind": "discovery",
+      "message": "browserType.launch: Executable doesn't exist at /Users/atanasster/Library/Caches/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-mac-arm64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+      "firstSeen": "2026-10-10T22:22:48.571Z",
+      "attempts": 1,
+      "givenUp": false
+    }
+  ]
 }

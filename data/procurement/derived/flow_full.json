@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T02:39:42.718Z",
+  "generatedAt": "2026-10-10T21:47:50.694Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -6067,6 +6067,11 @@
       "label": "Топлофикация - София АД"
     },
     {
+      "id": "contractor:203947743",
+      "type": "contractor",
+      "label": "ЕвроИнфра ООД"
+    },
+    {
       "id": "awarder:831616418",
       "type": "awarder",
       "label": "Дирекция Специална куриерска служба /ДСКС/ - МВР, /старо наименование - Специална куриерска служба /СКС//"
@@ -8077,6 +8082,16 @@
       "label": "Жаклен Йосиф Коен"
     },
     {
+      "id": "official:kaloyan-ivanov-kdriiski-7a8103",
+      "type": "official",
+      "label": "Калоян Иванов Къдрийски"
+    },
+    {
+      "id": "official:kliment-hristov-todorov-b9eb33",
+      "type": "official",
+      "label": "Климент Христов Тодоров"
+    },
+    {
       "id": "contractor:203201875",
       "type": "contractor",
       "label": "Матрикс моторс ЕООД"
@@ -8125,16 +8140,6 @@
       "id": "official:ivanka-petrova-nikolova-59d810",
       "type": "official",
       "label": "Иванка Петрова Николова"
-    },
-    {
-      "id": "official:kaloyan-ivanov-kdriiski-7a8103",
-      "type": "official",
-      "label": "Калоян Иванов Къдрийски"
-    },
-    {
-      "id": "official:kliment-hristov-todorov-b9eb33",
-      "type": "official",
-      "label": "Климент Христов Тодоров"
     },
     {
       "id": "official:ivan-bobev-bobev-08fc95",
@@ -8215,6 +8220,11 @@
       "id": "official:krasimir-gavrilov-dobrev-5a489a",
       "type": "official",
       "label": "Красимир Гаврилов Добрев"
+    },
+    {
+      "id": "official:valentin-georgiev-terziiski-2a05c3",
+      "type": "official",
+      "label": "Валентин Георгиев Терзийски"
     },
     {
       "id": "official:atanas-asenov-kostov-ed51bb",
@@ -8575,16 +8585,6 @@
       "id": "official:anatoli-stoyanov-chaushev-53ed48",
       "type": "official",
       "label": "Анатоли Стоянов Чаушев"
-    },
-    {
-      "id": "contractor:203947743",
-      "type": "contractor",
-      "label": "ЕвроИнфра ООД"
-    },
-    {
-      "id": "official:valentin-georgiev-terziiski-2a05c3",
-      "type": "official",
-      "label": "Валентин Георгиев Терзийски"
     },
     {
       "id": "official:aneliya-atanasova-dimitrova-77bd86",
@@ -9402,6 +9402,16 @@
       "label": "Таня Цвяткова Игнева-Данова"
     },
     {
+      "id": "contractor:820146942",
+      "type": "contractor",
+      "label": "в и К - стенето ЕООД"
+    },
+    {
+      "id": "official:stefan-konstantinov-rusenov-ac2b08",
+      "type": "official",
+      "label": "Стефан Константинов Русенов"
+    },
+    {
       "id": "contractor:000715054",
       "type": "contractor",
       "label": "Университетска многопрофилна болница за активно лечение \"СВ. Иван Рилски\" ЕАД"
@@ -9840,16 +9850,6 @@
       "id": "official:angel-georgiev-tsigularov-ef24cd",
       "type": "official",
       "label": "Ангел Георгиев Цигуларов"
-    },
-    {
-      "id": "contractor:820146942",
-      "type": "contractor",
-      "label": "в и К - стенето ЕООД"
-    },
-    {
-      "id": "official:stefan-konstantinov-rusenov-ac2b08",
-      "type": "official",
-      "label": "Стефан Константинов Русенов"
     },
     {
       "id": "official:georgi-pavlov-nikolov-963ffc",
@@ -12071,7 +12071,7 @@
     {
       "source": "awarder:000024695",
       "target": "contractor:206785563",
-      "valueEur": 2907406.49
+      "valueEur": 2933806.49
     },
     {
       "source": "awarder:000024695",
@@ -18776,7 +18776,7 @@
     {
       "source": "awarder:131282355",
       "target": "contractor:831641791",
-      "valueEur": 16021770.64
+      "valueEur": 16491930.64
     },
     {
       "source": "awarder:131282355",
@@ -20339,6 +20339,11 @@
       "valueEur": 10402907.52
     },
     {
+      "source": "awarder:831609046",
+      "target": "contractor:203947743",
+      "valueEur": 3084726.83
+    },
+    {
       "source": "awarder:831616418",
       "target": "contractor:831609046",
       "valueEur": 22847.84
@@ -20586,7 +20591,7 @@
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 359429745.45
+      "valueEur": 359899905.45
     },
     {
       "source": "contractor:121396123",
@@ -21261,32 +21266,32 @@
     {
       "source": "contractor:831641791",
       "target": "official:diyana-georgieva-tomova-704486",
-      "valueEur": 359429745.45
+      "valueEur": 359899905.45
     },
     {
       "source": "contractor:831641791",
       "target": "official:ivailo-borisov-filipov-65173d",
-      "valueEur": 359429745.45
+      "valueEur": 359899905.45
     },
     {
       "source": "contractor:831641791",
       "target": "official:nikolina-todorova-naidenova-640c03",
-      "valueEur": 359429745.45
+      "valueEur": 359899905.45
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-7e7aff",
-      "valueEur": 359429745.45
+      "valueEur": 359899905.45
     },
     {
       "source": "contractor:831641791",
       "target": "official:valeri-petrov-borisov-0ec362",
-      "valueEur": 359429745.45
+      "valueEur": 359899905.45
     },
     {
       "source": "contractor:831641791",
       "target": "official:yuliyana-petrova-kalcheva-9ed43d",
-      "valueEur": 359429745.45
+      "valueEur": 359899905.45
     },
     {
       "source": "contractor:130800278",
@@ -21446,47 +21451,47 @@
     {
       "source": "contractor:205677435",
       "target": "official:branislav-krasimirov-georgiev-107d3f",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:georgi-dimitrov-stamov-ce57cc",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:marin-marinov-hristov-35e694",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:mihail-aleksandrov-ivanov-388e5c",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:nikola-marinov-mihalev-aa98ff",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:simeon-pavlov-tonev-1e0170",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:todor-angelov-esev-0c49c0",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:todor-hristov-kondakov-c0cd92",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:205677435",
       "target": "official:vano-todorov-todorov-38fa6b",
-      "valueEur": 108053166.57
+      "valueEur": 108173126.57
     },
     {
       "source": "contractor:129008074",
@@ -22384,6 +22389,16 @@
       "valueEur": 7159901.41
     },
     {
+      "source": "contractor:824106518",
+      "target": "official:kaloyan-ivanov-kdriiski-7a8103",
+      "valueEur": 6533864.2
+    },
+    {
+      "source": "contractor:824106518",
+      "target": "official:kliment-hristov-todorov-b9eb33",
+      "valueEur": 6533864.2
+    },
+    {
       "source": "contractor:203201875",
       "target": "official:svetozar-veselinov-krstev-d5743b",
       "valueEur": 6478356.21
@@ -22432,16 +22447,6 @@
       "source": "contractor:102006848",
       "target": "official:ivanka-petrova-nikolova-59d810",
       "valueEur": 5972156.65
-    },
-    {
-      "source": "contractor:824106518",
-      "target": "official:kaloyan-ivanov-kdriiski-7a8103",
-      "valueEur": 5808418.12
-    },
-    {
-      "source": "contractor:824106518",
-      "target": "official:kliment-hristov-todorov-b9eb33",
-      "valueEur": 5808418.12
     },
     {
       "source": "contractor:130175896",
@@ -22522,6 +22527,11 @@
       "source": "contractor:204233598",
       "target": "official:krasimir-gavrilov-dobrev-5a489a",
       "valueEur": 3962337.87
+    },
+    {
+      "source": "contractor:203947743",
+      "target": "official:valentin-georgiev-terziiski-2a05c3",
+      "valueEur": 3840731.12
     },
     {
       "source": "contractor:121758166",
@@ -22606,22 +22616,22 @@
     {
       "source": "contractor:128000893",
       "target": "official:hristina-georgieva-mikutseva-petrova-f76d09",
-      "valueEur": 2973409.68
+      "valueEur": 2983534.38
     },
     {
       "source": "contractor:128000893",
       "target": "official:tsvetan-svetozarov-sikov-93716d",
-      "valueEur": 2973409.68
+      "valueEur": 2983534.38
     },
     {
       "source": "contractor:206785563",
       "target": "official:ivan-vladimirov-todorov-8e8358",
-      "valueEur": 2907406.49
+      "valueEur": 2933806.49
     },
     {
       "source": "contractor:206785563",
       "target": "official:yurii-todorov-voev-b5db78",
-      "valueEur": 2907406.49
+      "valueEur": 2933806.49
     },
     {
       "source": "contractor:812115210",
@@ -22887,11 +22897,6 @@
       "source": "contractor:201222671",
       "target": "official:anatoli-stoyanov-chaushev-53ed48",
       "valueEur": 1793421.04
-    },
-    {
-      "source": "contractor:203947743",
-      "target": "official:valentin-georgiev-terziiski-2a05c3",
-      "valueEur": 1739484.33
     },
     {
       "source": "contractor:831040933",
@@ -23739,6 +23744,11 @@
       "valueEur": 298988.72
     },
     {
+      "source": "contractor:820146942",
+      "target": "official:stefan-konstantinov-rusenov-ac2b08",
+      "valueEur": 298403.6
+    },
+    {
       "source": "contractor:000715054",
       "target": "official:atanas-ivanov-kundurdzhiev-3093b4",
       "valueEur": 298078.05
@@ -24142,11 +24152,6 @@
       "source": "contractor:204169900",
       "target": "official:tanya-tsvyatkova-igneva-danova-64bef6",
       "valueEur": 140948.39
-    },
-    {
-      "source": "contractor:820146942",
-      "target": "official:stefan-konstantinov-rusenov-ac2b08",
-      "valueEur": 138588.62
     },
     {
       "source": "contractor:130920692",
@@ -25839,16 +25844,6 @@
       "valueEur": 2041168.99
     },
     {
-      "source": "awarder:831609046",
-      "target": "contractor:203947743",
-      "valueEur": 983480.04
-    },
-    {
-      "source": "awarder:130175000",
-      "target": "contractor:203947743",
-      "valueEur": 756004.29
-    },
-    {
       "source": "awarder:000093442",
       "target": "contractor:000703415",
       "valueEur": 738563.16
@@ -26059,6 +26054,31 @@
       "valueEur": 117515.71
     },
     {
+      "source": "awarder:129010029",
+      "target": "contractor:820146942",
+      "valueEur": 286447.69
+    },
+    {
+      "source": "awarder:129008829",
+      "target": "contractor:820146942",
+      "valueEur": 8119.69
+    },
+    {
+      "source": "awarder:130277958",
+      "target": "contractor:820146942",
+      "valueEur": 2607.59
+    },
+    {
+      "source": "awarder:175201304",
+      "target": "contractor:820146942",
+      "valueEur": 1022.58
+    },
+    {
+      "source": "awarder:121396123",
+      "target": "contractor:820146942",
+      "valueEur": 206.05
+    },
+    {
       "source": "awarder:130367715",
       "target": "contractor:000715054",
       "valueEur": 298078.05
@@ -26252,31 +26272,6 @@
       "source": "awarder:000133965",
       "target": "contractor:104054085",
       "valueEur": 21167.49
-    },
-    {
-      "source": "awarder:129010029",
-      "target": "contractor:820146942",
-      "valueEur": 126632.71
-    },
-    {
-      "source": "awarder:129008829",
-      "target": "contractor:820146942",
-      "valueEur": 8119.69
-    },
-    {
-      "source": "awarder:130277958",
-      "target": "contractor:820146942",
-      "valueEur": 2607.59
-    },
-    {
-      "source": "awarder:175201304",
-      "target": "contractor:820146942",
-      "valueEur": 1022.58
-    },
-    {
-      "source": "awarder:121396123",
-      "target": "contractor:820146942",
-      "valueEur": 206.05
     },
     {
       "source": "awarder:000414154",
