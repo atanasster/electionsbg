@@ -1,11 +1,15 @@
 {
-  "session": "20261009T214457Z-92c0",
+  "session": "20261010T021832Z-9c1b",
   "createdAt": "2026-10-09T22:02:31.709Z",
-  "commit": "267dd20946",
+  "commit": "355ff219c6",
   "skills": [
     "update-rollcall",
     "update-macro",
-    "update-energy"
+    "update-energy",
+    "tr-daily-refresh",
+    "update-persons",
+    "update-procurement",
+    "update-prices"
   ],
   "paths": [
     "macro.json",
@@ -14,11 +18,38 @@
     "administration",
     "data_map.json",
     "data-changes.json",
-    "parliament/votes/derived/hub_stats.json"
+    "parliament/votes/derived/hub_stats.json",
+    "culture/derived",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "home",
+    "parliament/votes/derived",
+    "parliament/votes/index.json",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json"
   ],
   "cloudCommands": [
     "npm run db:load:rollcall:pg:cloud",
-    "npm run db:load:rollcall-derived:pg:cloud"
+    "npm run db:load:rollcall-derived:pg:cloud",
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run prices:ingest:cloud"
   ],
-  "notes": "HELD: local Postgres down this run; rollcall local PG load + pins pending; TR/persons/procurement/prices not ingested"
+  "notes": "Retry after Postgres restored: all deferred skills ingested; АОП OCDS day 30.09 still pending (data.egov.bg TLS cert expired 2026-10-09 19:33Z)"
 }
