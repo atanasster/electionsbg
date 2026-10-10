@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-10-10T02:20:49.440Z",
+  "updatedAt": "2026-10-10T03:28:53.456Z",
   "entries": [
+    {
+      "timestamp": "2026-10-10T03:28:53.456Z",
+      "date": "2026-10-10",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-09 (+1 daily archive; 1,086,426 store rows, 168 settlements, 72 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-09"
+    },
+    {
+      "timestamp": "2026-10-10T03:21:26.237Z",
+      "date": "2026-10-10",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП self-heal +171 contracts (76 buyers), tenders 240,343 procedures, TED 221,534 notices; АОП OCDS day held (data.egov.bg TLS cert expired)",
+      "source": "ЦАИС ЕОП + TED"
+    },
+    {
+      "timestamp": "2026-10-10T03:10:23.772Z",
+      "date": "2026-10-10",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 872 лица, 125 088 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-10-10T02:20:49.440Z",
       "date": "2026-10-10",
