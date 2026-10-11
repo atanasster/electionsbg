@@ -21,6 +21,7 @@ import { useKultura } from "@/data/procurement/useKultura";
 import type { ScopeWindow } from "@/data/procurement/useKultura";
 import { categoryLabel } from "@/lib/kulturaReferenceData";
 import { KulturaCategoryTile } from "./KulturaCategoryTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const MINISTRY_PAGE = "/budget/ministry/admin-ministerstvo-na-kulturata";
 
@@ -68,10 +69,7 @@ export const KulturaPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     return out;
   }, [model, lang, bg]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   const hasModel = !!model && model.totalEur > 0;
   if (!hasModel) return null;
 

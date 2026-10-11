@@ -33,6 +33,7 @@ import {
 } from "@/lib/vssReferenceData";
 import { VssBudgetBridgeTile } from "./VssBudgetBridgeTile";
 import { VssCategoryTile } from "./VssCategoryTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const VssPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -132,10 +133,7 @@ export const VssPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     return out.slice(0, 5);
   }, [model, lang, bg]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   // The budget-bridge tile is the point of the pack and does NOT depend on the
   // contract corpus — so only hide the whole pack when there is genuinely
   // nothing to show. The procurement-derived pieces (KPI, insights, category)

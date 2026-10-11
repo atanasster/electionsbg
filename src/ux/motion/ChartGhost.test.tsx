@@ -29,4 +29,20 @@ describe("ChartGhost", () => {
     const b = render(<ChartGhost />).container.innerHTML;
     expect(a).toBe(b);
   });
+
+  it("draws a ranking as label stubs and descending bars", () => {
+    const { container } = render(<ChartGhost shape="rows" />);
+    const widths = Array.from(container.querySelectorAll("rect"))
+      .filter((r) => r.getAttribute("x") === "22")
+      .map((r) => Number(r.getAttribute("width")));
+    expect(widths.length).toBeGreaterThan(3);
+    expect(widths).toEqual([...widths].sort((a, b) => b - a));
+  });
+
+  it("draws a map that keeps its proportions instead of stretching with the card", () => {
+    const { container } = render(<ChartGhost shape="map" />);
+    const svg = container.querySelector("svg")!;
+    expect(svg.getAttribute("preserveAspectRatio")).toBe("xMidYMid meet");
+    expect(container.querySelector("path")).not.toBeNull();
+  });
 });

@@ -51,6 +51,7 @@ import { MvrDirectorateMap } from "./MvrDirectorateMap";
 import { MvrRoadSafetyTile } from "./MvrRoadSafetyTile";
 import { MvrCrimeScatterTile } from "./MvrCrimeScatterTile";
 import { MvrTransparencyTile } from "./MvrTransparencyTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type UniverseFilter = SecurityUniverse | "all" | "no_health";
 
@@ -183,10 +184,7 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   // Deep-link anchors settle as the model arrives; re-fire the scroll then.
   useHashScroll([model, units, isLoading]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   const hasModel = !!model && model.totalEur > 0;
   if (!hasModel) return null;
 

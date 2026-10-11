@@ -50,6 +50,7 @@ import { SocialValueForMoneyTile } from "./SocialValueForMoneyTile";
 import { SocialEuPeerTile } from "./SocialEuPeerTile";
 import { SocialCategoryTile } from "./SocialCategoryTile";
 import { SocialCompetitionTile } from "./SocialCompetitionTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type UniverseFilter = SocialUniverse | "all";
 
@@ -163,10 +164,7 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
   useHashScroll([model, units, isLoading]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
 
   return (
     <section className="space-y-4">

@@ -42,6 +42,7 @@ import {
   type CustomsLineId,
 } from "@/lib/customsReferenceData";
 import type { SectorPackProps } from "../sectorPacks";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const SECONDS_PER_YEAR = 365 * 24 * 3600;
 
@@ -105,7 +106,7 @@ export const CustomsPack: FC<SectorPackProps> = () => {
     return (
       <section className="space-y-4">
         {strip}
-        <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+        <ChartGhost className="my-4 h-[280px]" />
       </section>
     );
   if (!file || total <= 0)

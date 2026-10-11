@@ -33,6 +33,7 @@ import { RoadCostBenchmarkTile } from "./RoadCostBenchmarkTile";
 import { RoadChainageStripTile } from "./RoadChainageStripTile";
 import { RoadNetworkMap, type RoadMetric } from "./RoadNetworkMap";
 import { WARN_CHIP_COLORS } from "../chipStyles";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const pctFmt = (v: number | undefined, lang: string) =>
   v == null
@@ -103,10 +104,7 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
   // Loading / empty — the host already renders its awarder header + KPIs, so a
   // quiet skeleton (or nothing) keeps the page coherent while the corpus loads.
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   if (!model || model.totalEur === 0) return null;
 
   return (

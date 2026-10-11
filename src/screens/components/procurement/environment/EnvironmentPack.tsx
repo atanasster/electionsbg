@@ -52,6 +52,7 @@ import { EnvironmentCategoryTile } from "./EnvironmentCategoryTile";
 import { EnvironmentCompetitionTile } from "./EnvironmentCompetitionTile";
 import { EnvironmentWasteTile } from "./EnvironmentWasteTile";
 import { EnvironmentNatureTile } from "./EnvironmentNatureTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type UniverseFilter = EnvUniverse | "all";
 
@@ -146,10 +147,7 @@ export const EnvironmentPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
   useHashScroll([model, units, isLoading]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   const hasModel = !!model && model.totalEur > 0;
   if (!hasModel) return null;
 

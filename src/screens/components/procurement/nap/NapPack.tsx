@@ -84,6 +84,7 @@ import {
   TAX_GAP,
 } from "@/lib/napReferenceData";
 import type { SectorPackProps } from "../sectorPacks";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const num = (v: number, lang: string, dp = 1) =>
   v.toLocaleString(lang, { maximumFractionDigits: dp });
@@ -187,7 +188,7 @@ export const NapPack: FC<SectorPackProps> = () => {
     return (
       <section className="space-y-4">
         {strip}
-        <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+        <ChartGhost className="my-4 h-[280px]" />
       </section>
     );
   if (!comp)

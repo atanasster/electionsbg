@@ -26,6 +26,7 @@ import { NoiAdminBenchmarkTile } from "./NoiAdminBenchmarkTile";
 import { NoiCategoryTile } from "./NoiCategoryTile";
 import { NoiStrategicSuppliersTile } from "./NoiStrategicSuppliersTile";
 import { NoiIntegrityTile } from "./NoiIntegrityTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const NoiPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -94,10 +95,7 @@ export const NoiPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     return out;
   }, [model, lang, bg]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   if (!model || model.totalEur === 0) return null;
 
   return (

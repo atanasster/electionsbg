@@ -29,6 +29,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { PackSection } from "../PackSection";
 import { TextbookConcentrationTile } from "./TextbookConcentrationTile";
 import { SchoolRiskTile } from "./SchoolRiskTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   scopeWindow,
@@ -110,10 +111,7 @@ export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       )
     : null;
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   if (!market) return null;
 
   return (

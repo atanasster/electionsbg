@@ -37,6 +37,7 @@ import { VikCategoryTile } from "./VikCategoryTile";
 import { VikEuFundsTile } from "./VikEuFundsTile";
 import { VikContractorHhiTile } from "./VikContractorHhiTile";
 import { VikCompetitionTile } from "./VikCompetitionTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -79,10 +80,7 @@ export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     [model, lang],
   );
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   const hasModel = !!model && model.totalEur > 0;
   if (!hasModel) return null;
 

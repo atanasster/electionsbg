@@ -145,6 +145,7 @@ import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { formatOwnerShare, formatOwnerAmount } from "@/lib/ownerShare";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 interface Company {
   uic: string;
@@ -1385,11 +1386,7 @@ export const CompanyDbScreen: FC = () => {
                   Sector-lead awarders (НЗОК/НАП/…) instead cross-link to their
                   /sector/:id dashboard, where the disbursement pack now lives. */}
               {showPack && (
-                <Suspense
-                  fallback={
-                    <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-                  }
-                >
+                <Suspense fallback={<ChartGhost className="my-4 h-[280px]" />}>
                   <SectorPack eik={eik} scopeWindow={packWindow} />
                 </Suspense>
               )}

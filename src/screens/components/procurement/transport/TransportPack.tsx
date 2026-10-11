@@ -56,6 +56,7 @@ import { TransportCompetitionTile } from "./TransportCompetitionTile";
 import { TransportTopContractsTile } from "./TransportTopContractsTile";
 import { TransportRoadSafetyTile } from "./TransportRoadSafetyTile";
 import { TransportRoadsLinkTile } from "./TransportRoadsLinkTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type UniverseFilter = TransportUniverse | "all";
 
@@ -167,10 +168,7 @@ export const TransportPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   // Deep-link anchors settle as the model arrives; re-fire the scroll then.
   useHashScroll([model, units, isLoading]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   const hasModel = !!model && model.totalEur > 0;
   if (!hasModel) return null;
 

@@ -170,6 +170,13 @@ deliberately skipped are in the session that chose them; the skipped ones are li
    over for a `null` scope (a year the corpus does not cover).
 3. **`ChartGhost` rollout, batch 1** — add `rows` (ranked list) and `map` shapes, convert the
    first batch of chart/list/map-shaped `animate-pulse rounded-xl border bg-card` placeholders.
+   ✅ shipped: `rows` (label stub + descending bar per row) and `map` (a soft landmass with a
+   few points — deliberately not a real outline, so the ghost claims no geography; drawn
+   `meet` so it does not stretch with the card), and the 16 sector-pack slots
+   (`my-4 h-[280px]` in the 15 `*Pack.tsx` files and on `/company`) converted to `bars`.
+   Of the ~80 pulse boxes, these stay pulsing on purpose: small KPI cards, the generic
+   dashboard-card skeletons, header / text blocks, and whole-page `h-40` loaders — none is
+   chart-shaped, and a ghost chart there would promise content the page does not have.
 4. **`ChartGhost` rollout, batch 2.**
 5. **`ChartGhost` rollout, batch 3** — the remainder that are chart-, list- or map-shaped;
    non-chart placeholders (search boxes, text blocks) keep their pulse.

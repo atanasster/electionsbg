@@ -52,6 +52,7 @@ import { RegionalBudgetTile } from "./RegionalBudgetTile";
 import { RegionalCategoryTile } from "./RegionalCategoryTile";
 import { RegionalCompetitionTile } from "./RegionalCompetitionTile";
 import { RegionalCrossLinkTile } from "./RegionalCrossLinkTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type UniverseFilter = RegionalUniverse | "all";
 
@@ -149,10 +150,7 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
   useHashScroll([model, units, isLoading]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   const hasModel = !!model && model.totalEur > 0;
   if (!hasModel) return null;
 

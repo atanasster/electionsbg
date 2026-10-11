@@ -51,6 +51,7 @@ import { NzokHospitalRiskTile } from "./NzokHospitalRiskTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 import { NzokPublicPrivateBand } from "./NzokPublicPrivateBand";
 import { NzokHospitalMap } from "./NzokHospitalMap";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 // Sections stay in money-first order: the fund's whole budget and the flows that
 // actually spend it come first; ЗОП (~1.5%) closes the page. The banded layout
@@ -148,10 +149,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     return out;
   }, [model, lang, bg]);
 
-  if (isLoading)
-    return (
-      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="my-4 h-[280px]" />;
   // The budget-bridge, hospital-payments and drug-reimbursement tiles are the
   // point of the pack (the ~98.5% of НЗОК that flows OUTSIDE ЗОП) and do NOT
   // depend on the contract corpus — so only hide the whole pack when there is
