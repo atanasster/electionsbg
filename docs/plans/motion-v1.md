@@ -36,8 +36,8 @@ eye should follow) · one curve, `--motion-ease-out` = `easeOutCubic`.
 
 | piece | where | what moves, and when |
 | ----- | ----- | -------------------- |
-| **Rolling KPI figures** | `AnimatedText` / `useTweenedText` in `HubHead`'s `KpiCell` | A hub KPI rolls from its old to its new value when the scope changes. |
-| **Region re-fill** | `.motion-fill` on `FeatureMap`'s path | A choropleth region cross-fades to its new colour on an election / metric switch. A CSS transition never fires on an element's first style, so a fresh map paints at once. |
+| **Rolling KPI figures** | `AnimatedText` / `useTweenedText` in `HubHead`'s `KpiCell` | A hub KPI rolls from its old to its new value when the scope changes — **only where the cell stays mounted**, i.e. the new scope's stats are already in memory (`/procurement` reads one blob). A hub that fetches per scope without `placeholderData` (`useAgriHubStats` on `/subsidies`) drops to the skeleton on an uncached scope, and the figure then arrives verbatim. Adding `placeholderData: keepPreviousData` to those hooks is open work. |
+| **Region re-fill** | `.motion-fill` via `FeatureMap`'s opt-in `animateFill` | An election-map region (`MapElement`) cross-fades to its new colour on an election switch. Opt-in because a fill transition repaints every path for its duration, and `MapElement` sets it only once a real party colour exists, so a map never fades in from its grey loading placeholder. The other choropleths do not opt in. |
 | **Growing shift arrows** | `.motion-grow` in `MapShiftArrow` | Arrows grow out of their centroid when the shift layer is turned on or the comparison changes; the biggest shifts land first. Keyed on `deltaPp`, so a re-render of the same comparison does not replay. |
 | **Pen loop on a flipped region** | `handDrawnLoopPath` + `.motion-draw-on` in `MapShiftArrow` | Where the leading party CHANGED, a coral hand-drawn loop is drawn around the arrow — the editorial „circle the thing that matters". Seeded by EKATTE, so each loop is unique and identical on every render. |
 | **Freshness spark** | `MotionSpark` + `isFreshlySeen` in `HomeChangeCard` | A row first seen in the last 24 h of the reader's clock carries a coral asterisk that flutters three times and then rests. Never on a backfill. |
@@ -48,7 +48,8 @@ eye should follow) · one curve, `--motion-ease-out` = `easeOutCubic`.
 `HubKpi.value` is an already-formatted string, so the tween reads the figure's own text as its
 template. Every ambiguity is a **snap, never a wrong number**: a unit change (`€930 млн.` →
 `€1,2 млрд.`), two numeric runs (`2019–2023`), a precision change, or a lone `,`/`.` before
-exactly three digits (`1,234` is 1234 in en and 1.234 in bg). At t = 1 it returns the target
+exactly three digits (`1,234` is 1234 in en and 1.234 in bg) — unless the hook passes the
+locale's decimal separator, which it does from `i18n.language`. At t = 1 it returns the target
 string verbatim.
 
 ### Verifying it in the in-app browser

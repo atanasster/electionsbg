@@ -24,7 +24,7 @@ describe("handDrawnLoopPath", () => {
     for (let i = 0; i < xs.length; i += 2) pts.push([xs[i], xs[i + 1]]);
     for (const [x, y] of pts) {
       expect(Math.abs(x - 50)).toBeLessThan(20 * 1.4);
-      expect(Math.abs(y - 40)).toBeLessThan(20 * 1.4);
+      expect(Math.abs(y - 40)).toBeLessThan(10 * 1.4);
     }
   });
 });

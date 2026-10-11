@@ -12,10 +12,18 @@
 //   · prefix or suffix differs   — „€930 млн." → „€1,2 млрд." changes UNIT; rolling the
 //                                  digits across it would show „€540 млрд." on the way down;
 //   · not exactly one numeric run — „2019–2023" has two;
-//   · a lone „,"/„." before exactly three digits — „1,234" is 1234 in en and 1.234 in bg;
+//   · a lone „,"/„." before exactly three digits — „1,234" is 1234 in en and 1.234 in bg —
+//     unless the caller passes the locale's decimal separator, which settles it;
 //   · the fraction length differs — the two figures were rounded to different precisions.
 // And whatever the frames show, t = 1 returns the target string VERBATIM, so the settled
 // figure is always exactly what the caller formatted.
+
+/** The decimal separator of the locale that formatted the figure: „," for bg, „." for en. */
+export type DecimalSep = "," | ".";
+
+/** Integer length at which each locale starts grouping thousands: en groups „1,234", bg
+ *  leaves „1234" and groups „12 345". */
+const GROUP_FROM: Record<DecimalSep, number> = { ".": 4, ",": 5 };
 
 const WS_SEP = new Set([" ", "\u00a0", "\u202f"]);
 
@@ -33,7 +41,7 @@ interface Parsed {
   grouped: boolean;
 }
 
-const parse = (text: string): Parsed | null => {
+const parse = (text: string, decimalHint?: DecimalSep): Parsed | null => {
   const runs = [...text.matchAll(RUN)];
   if (runs.length !== 1) return null;
   const m = runs[0];
@@ -74,6 +82,9 @@ const parse = (text: string): Parsed | null => {
   } else if (before.length > 0) {
     decimalSep = last;
     groupSeps = before;
+  } else if (decimalHint) {
+    decimalSep = last === decimalHint ? last : null;
+    groupSeps = decimalSep ? [] : seps;
   } else {
     return null; // „1,234" — locale-ambiguous
   }
@@ -107,10 +118,11 @@ const groupDigits = (int: string, sep: string): string =>
 export const tweenNumberText = (
   from: string,
   to: string,
+  decimalHint?: DecimalSep,
 ): ((t: number) => string) | null => {
   if (from === to) return null;
-  const a = parse(from);
-  const b = parse(to);
+  const a = parse(from, decimalHint);
+  const b = parse(to, decimalHint);
   if (!a || !b) return null;
   if (a.prefix !== b.prefix || a.suffix !== b.suffix) return null;
   if (a.frac.length !== b.frac.length) return null;
@@ -120,15 +132,17 @@ export const tweenNumberText = (
   if (a.groupSep && b.groupSep && a.groupSep !== b.groupSep) return null;
   const groupSep = a.groupSep ?? b.groupSep;
 
-  // When does an intermediate frame get grouped? Learn it from the two endpoints: the
-  // shortest integer printed WITH grouping, unless an endpoint printed a longer one WITHOUT
-  // (bg leaves 4-digit integers ungrouped, en does not).
+  // When does an intermediate frame get grouped? With a locale hint, the locale's own
+  // threshold. Without one, learn it from the two endpoints: the shortest integer printed WITH
+  // grouping, unless an endpoint printed a longer one WITHOUT (bg leaves 4-digit integers
+  // ungrouped, en does not).
   const groupedLens = [a, b].filter((p) => p.grouped).map((p) => p.int.length);
   const ungroupedLens = [a, b]
     .filter((p) => !p.grouped)
     .map((p) => p.int.length);
   let minGroupLen = groupedLens.length ? Math.min(...groupedLens) : Infinity;
   for (const l of ungroupedLens) if (l >= minGroupLen) minGroupLen = l + 1;
+  if (decimalHint) minGroupLen = GROUP_FROM[decimalHint];
 
   const k = b.frac.length;
   const scale = Math.pow(10, k);

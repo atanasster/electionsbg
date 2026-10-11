@@ -2,6 +2,7 @@ import type { GeoPath } from "d3-geo";
 import { GeoFeature } from "@/screens/components/maps/mapTypes";
 import { useTouch } from "@/ux/TouchProvider";
 import { useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export const FeatureMap: React.FC<
   React.PropsWithChildren<
@@ -18,6 +19,11 @@ export const FeatureMap: React.FC<
       // maps (thousands of paths) where a giant tab order would hurt; the
       // low-count choropleths (28 oblasts) opt in.
       ariaLabel?: string;
+      // Opt-in re-fill transition (`.motion-fill`, docs/plans/motion-v1.md). Off by
+      // default: a fill transition repaints every path for its whole duration, which the
+      // high-cardinality maps cannot afford, and a caller that paints a placeholder fill
+      // while loading must not fade from it. Pass it only once the real fill is known.
+      animateFill?: boolean;
     }
   >
 > = ({
@@ -31,6 +37,7 @@ export const FeatureMap: React.FC<
   onMouseLeave,
   opacity,
   ariaLabel,
+  animateFill = false,
 }) => {
   const [active, setActive] = useState<boolean>(false);
   const keyboard = !!ariaLabel && !!onClick;
@@ -71,11 +78,11 @@ export const FeatureMap: React.FC<
         cursor={onCursor ? onCursor() : "pointer"}
         // Keyboard focus ring via CSS :focus-visible (index.css) when the
         // region opts into keyboard access.
-        // `motion-fill`: a region re-fills (≈480 ms) when its colour changes — the
-        // election / metric switch — instead of blinking. Never on first paint.
-        className={
-          keyboard ? "path motion-fill kbd-focus-ring" : "path motion-fill"
-        }
+        className={cn(
+          "path",
+          animateFill && "motion-fill",
+          keyboard && "kbd-focus-ring",
+        )}
         tabIndex={keyboard ? 0 : undefined}
         role={keyboard ? "button" : undefined}
         aria-label={keyboard ? ariaLabel : undefined}

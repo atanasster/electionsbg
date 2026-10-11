@@ -71,4 +71,21 @@ describe("AnimatedText", () => {
     rerender(<AnimatedText value="€1,2 млрд." />);
     expect(container.textContent).toBe("€1,2 млрд.");
   });
+
+  it("continues a mid-roll change from the frame on screen, not the old target", () => {
+    setReducedMotion(false);
+    const { rerender, container } = render(<AnimatedText value="€3,3 млрд." />);
+    rerender(<AnimatedText value="€12,1 млрд." />);
+    advance(100);
+    const visible = Number(
+      container.textContent!.match(/[\d,]+/)![0].replace(",", "."),
+    );
+    rerender(<AnimatedText value="€20,0 млрд." />);
+    advance(16);
+    const next = Number(
+      container.textContent!.match(/[\d,]+/)![0].replace(",", "."),
+    );
+    expect(next).toBeGreaterThanOrEqual(visible);
+    expect(next).toBeLessThan(20);
+  });
 });

@@ -131,7 +131,8 @@ a {
    the element's first style, so a fresh map paints at once; it only runs when the SAME path
    changes fill — the election / metric switch the eye should follow. */
 .motion-fill {
-  transition: fill var(--motion-slow) var(--motion-ease-out),
+  transition:
+    fill var(--motion-slow) var(--motion-ease-out),
     fill-opacity var(--motion-slow) var(--motion-ease-out);
 }
 
@@ -157,7 +158,8 @@ a {
 .motion-draw-on {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: motion-draw-on 720ms var(--motion-ease-out) forwards;
+  animation: motion-draw-on calc(var(--motion-slow) * 1.5)
+    var(--motion-ease-out) forwards;
 }
 @keyframes motion-draw-on {
   to {
@@ -165,7 +167,9 @@ a {
   }
 }
 
-/* The freshness spark: three gentle flutters, then rest. */
+/* The freshness spark: three gentle flutters, then rest. Deliberately off the token scale and
+   the ease-out curve: a flutter is a cycle that returns to rest, not an arrival, so it wants a
+   symmetric ease-in-out and a period long enough to read as gentle. */
 .motion-spark {
   transform-origin: center;
   animation: motion-spark 1.6s ease-in-out 3;

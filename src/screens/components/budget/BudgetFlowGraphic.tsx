@@ -538,7 +538,7 @@ const FlowSvg: FC<{
     if (!targetLayouts) return;
     const modelKey = `${model.fiscalYear}`;
     const sameModel = previousRef.current.modelKey === modelKey;
-    // Reduced motion keeps the year switch and drops the morph (motion-v1 §4).
+    // Reduced motion keeps the year switch and drops the morph (motion-v1 §2).
     if (sameModel || !previousRef.current.layouts || reducedMotion) {
       setDisplayed(targetLayouts);
       previousRef.current = { layouts: targetLayouts, modelKey };

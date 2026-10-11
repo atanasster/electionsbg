@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { easeOutCubic, MOTION_MS } from "./motionTokens";
-import { tweenNumberText } from "./tweenNumberText";
+import { type DecimalSep, tweenNumberText } from "./tweenNumberText";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 /** The text to show for `value`, rolled from the previous value when the two are tweenable.
@@ -13,6 +14,12 @@ export const useTweenedText = (
   duration: number = MOTION_MS.slow,
 ): string => {
   const reduced = usePrefersReducedMotion();
+  const { i18n } = useTranslation();
+  const decimalHint: DecimalSep | undefined = i18n.language?.startsWith("bg")
+    ? ","
+    : i18n.language?.startsWith("en")
+      ? "."
+      : undefined;
   const [shown, setShown] = useState(value);
   // What is on screen RIGHT NOW, so a change arriving mid-roll continues from the frame the
   // reader is looking at rather than jumping back to the previous target.
@@ -23,7 +30,7 @@ export const useTweenedText = (
     const interp =
       reduced || typeof requestAnimationFrame === "undefined"
         ? null
-        : tweenNumberText(shownRef.current, value);
+        : tweenNumberText(shownRef.current, value, decimalHint);
     if (!interp) {
       shownRef.current = value;
       setShown(value);
@@ -40,7 +47,7 @@ export const useTweenedText = (
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [value, reduced, duration]);
+  }, [value, reduced, duration, decimalHint]);
 
   return shown;
 };

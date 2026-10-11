@@ -69,6 +69,8 @@ export function MapElement<DType extends GeoJSONProps>({
       <FeatureMap
         geoPath={geoPath}
         fillColor={party?.color}
+        // Re-fill on an election switch, but never fade in from the grey placeholder.
+        animateFill={!!party?.color}
         opacity={opacity}
         feature={feature}
         ariaLabel={ariaLabel}

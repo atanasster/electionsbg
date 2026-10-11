@@ -51,4 +51,22 @@ describe("tweenNumberText", () => {
     expect(tweenNumberText("—", "12")).toBeNull();
     expect(tweenNumberText("12", "12")).toBeNull();
   });
+
+  it("with an en hint, a lone comma is grouping — en counts roll", () => {
+    const f = tweenNumberText("12,345", "20,000", ".")!;
+    expect(f(0.5)).toBe("16,173");
+    expect(f(1)).toBe("20,000");
+  });
+
+  it("with an en hint, intermediate frames keep their grouping", () => {
+    const f = tweenNumberText("1,234,567", "999", ".")!;
+    expect(f(0.995)).toBe("7,167");
+  });
+
+  it("with a bg hint, a lone comma is the decimal separator", () => {
+    expect(frames2("1,250 млн.", "2,750 млн.", ",")).toBe("2,000 млн.");
+  });
 });
+
+const frames2 = (from: string, to: string, hint: "," | ".") =>
+  tweenNumberText(from, to, hint)!(0.5);
