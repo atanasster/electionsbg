@@ -1,12 +1,10 @@
-import { ARTICLE_CHAPTERS } from "@/lib/flyover/programmes/tour";
+import {
+  ARTICLE_CHAPTERS,
+  resolveArticleChapters,
+} from "@/lib/flyover/programmes/tour";
 import { articlePresentationState } from "@/lib/flyover/articlePresentation";
 import { smoothstep } from "@/lib/flyover/math";
-import {
-  applyPartial,
-  blend,
-  STATE_ZERO,
-  type FlyoverState,
-} from "@/lib/flyover/state";
+import { blend, type FlyoverState } from "@/lib/flyover/state";
 
 export const MONEY_MAP_SLUG = "2026-09-07-money-map";
 export const MONEY_MAP_ELECTION_FROM = "2024_10_27";
@@ -44,15 +42,8 @@ export const splitMoneyMapChapters = (body: string): MoneyMapChapterBody[] => {
 };
 
 /** Resolve the accreting partials once; omitted fields inherit the preceding chapter. */
-export const MONEY_MAP_STATES: readonly FlyoverState[] = (() => {
-  const states: FlyoverState[] = [];
-  let running = STATE_ZERO;
-  for (const chapter of ARTICLE_CHAPTERS) {
-    running = applyPartial(running, chapter.state);
-    states.push(articlePresentationState(running));
-  }
-  return states;
-})();
+export const MONEY_MAP_STATES: readonly FlyoverState[] =
+  resolveArticleChapters().map((state) => articlePresentationState(state));
 
 export const moneyMapStateAt = (
   chapter: number,

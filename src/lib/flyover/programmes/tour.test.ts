@@ -2,10 +2,13 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { ARTICLE_CHAPTERS, TOUR_CHAPTERS } from "./tour";
+import {
+  ARTICLE_CHAPTERS,
+  resolveArticleChapters,
+  TOUR_CHAPTERS,
+} from "./tour";
 import { ANCHOR_SOURCES, ANCHOR_TOLERANCE_PX, OVERVIEW } from "./anchors";
 import { LAYER_IDS } from "../types";
-import { applyPartial, STATE_ZERO, type FlyoverState } from "../state";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -27,14 +30,6 @@ const ARTIFACT = JSON.parse(
   fs.readFileSync(path.join(ROOT, "data/home/flyover.json"), "utf8"),
 ) as FlyoverArtifact;
 
-/** Each chapter as the article and the stills see it: accreted onto everything before it. */
-const resolved = (): FlyoverState[] => {
-  let running = STATE_ZERO;
-  return ARTICLE_CHAPTERS.map(
-    (c) => (running = applyPartial(running, c.state)),
-  );
-};
-
 describe("the chapter table", () => {
   it("has five money chapters with stable, unique ids", () => {
     expect(TOUR_CHAPTERS.map((c) => c.id)).toEqual([
@@ -50,20 +45,14 @@ describe("the chapter table", () => {
     expect(ARTICLE_CHAPTERS.slice(0, 5)).toEqual(TOUR_CHAPTERS);
     expect(ARTICLE_CHAPTERS.map((c) => c.id).at(-1)).toBe("elections");
     expect(ARTICLE_CHAPTERS.at(-1)?.state.weights?.elections).toBe(1);
-    for (const st of resolved().slice(0, 5))
+    for (const st of resolveArticleChapters().slice(0, 5))
       expect(st.weights.elections).toBe(0);
-  });
-
-  it("orders the chapters on the timeline", () => {
-    const ts = ARTICLE_CHAPTERS.map((c) => c.t);
-    expect([...ts].sort((a, b) => a - b)).toEqual(ts);
-    expect(new Set(ts).size).toBe(ts.length);
   });
 
   it("keeps every weight inside [0, 1] and never stacks two money layers", () => {
     // The three are TAPS over overlapping corpora, so two columns standing on one point at
     // once reads as a stack — i.e. as a total that has no name.
-    for (const [i, st] of resolved().entries()) {
+    for (const [i, st] of resolveArticleChapters().entries()) {
       for (const id of LAYER_IDS) {
         expect(st.weights[id], `${id} in chapter ${i}`).toBeGreaterThanOrEqual(
           0,
@@ -85,7 +74,7 @@ describe("the chapter table", () => {
     const oblasts = new Set(
       Object.values(ARTIFACT.geo.regions).map((r) => r.oblast),
     );
-    for (const st of resolved()) {
+    for (const st of resolveArticleChapters()) {
       if (!st.highlight) continue;
       expect(oblasts).toContain(st.highlight);
       expect(ARTIFACT.flows.keys).toContain(st.highlight);

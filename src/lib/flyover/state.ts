@@ -45,7 +45,7 @@ export const ZERO_WEIGHTS: Record<LayerId, number> = {
 };
 
 /**
- * The neutral state: the whole country in view, nothing weighted, nothing said.
+ * The neutral state: the whole country in view, nothing weighted.
  *
  * It is the base `resolveTimeline` and the article accrete onto, and the fallback a host
  * renders before anything has been resolved — so it must be a legible picture of Bulgaria rather than

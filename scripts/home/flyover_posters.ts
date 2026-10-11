@@ -35,12 +35,11 @@ import {
   ARTICLE_PALETTE,
   articlePresentationState,
 } from "../../src/lib/flyover/articlePresentation";
-import { ARTICLE_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
 import {
-  applyPartial,
-  STATE_ZERO,
-  type FlyoverState,
-} from "../../src/lib/flyover/state";
+  ARTICLE_CHAPTERS,
+  resolveArticleChapters,
+} from "../../src/lib/flyover/programmes/tour";
+import type { FlyoverState } from "../../src/lib/flyover/state";
 import type { FlyoverWorld } from "../../src/lib/flyover/types";
 import type { FlyoverPalette } from "../../src/lib/flyover/layers";
 
@@ -78,14 +77,14 @@ export const loadWorld = (): FlyoverWorld => {
  * state drawn from one chapter's patch alone would be missing every field the earlier ones set.
  */
 export const chapterState = (id: string): FlyoverState => {
-  let running = STATE_ZERO;
-  for (const chapter of ARTICLE_CHAPTERS) {
-    running = applyPartial(running, chapter.state);
-    if (chapter.id === id) return running;
+  const i = ARTICLE_CHAPTERS.findIndex((c) => c.id === id);
+  const state = i === -1 ? undefined : resolveArticleChapters()[i];
+  if (!state) {
+    throw new Error(
+      `flyover_posters: no chapter \`${id}\` — one of ${ARTICLE_CHAPTERS.map((c) => c.id).join(", ")}`,
+    );
   }
-  throw new Error(
-    `flyover_posters: no chapter \`${id}\` — one of ${ARTICLE_CHAPTERS.map((c) => c.id).join(", ")}`,
-  );
+  return state;
 };
 
 export interface FrameSpec {
@@ -182,26 +181,21 @@ export const renderOgCard = (world: FlyoverWorld): WrittenFile => {
 
 /** One still per article chapter, from the same table the article's sections are built on. */
 export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
-  const out: WrittenFile[] = [];
-  let running = STATE_ZERO;
-  for (const chapter of ARTICLE_CHAPTERS) {
-    // The chapters ACCRETE, exactly as `chapterState` does.
-    running = applyPartial(running, chapter.state);
+  return ARTICLE_CHAPTERS.map((chapter) => {
     const rel = `public/articles/money-map/${chapter.id}.webp`;
-    out.push({
+    return {
       rel,
       bytes: writeImage(
         drawFrame({
           world,
-          state: articlePresentationState(running),
+          state: articlePresentationState(chapterState(chapter.id)),
           width: POSTER_W,
           height: POSTER_H,
         }),
         rel,
       ),
-    });
-  }
-  return out;
+    };
+  });
 };
 
 export interface PosterArgs {

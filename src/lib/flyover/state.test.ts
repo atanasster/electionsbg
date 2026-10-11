@@ -54,8 +54,8 @@ describe("blend", () => {
   });
 
   it("clamps a NaN k to the start rather than producing a NaN frame", () => {
-    // Every host derives `k` by division — a rAF clock, a scroll ratio, `frame / (fps *
-    // duration)` — so `0/0` on a first frame is ordinary. Ungated, every number in the state
+    // Both hosts derive `k` by division — a scroll ratio, `frame / (fps * duration)` — so
+    // `0/0` on a first frame is ordinary. Ungated, every number in the state
     // becomes NaN (a blank canvas) while `highlight` still advances to `b`, because
     // `NaN < 0.5` is false: a highlighted oblast on an empty picture.
     const out = blend(A, B, Number.NaN);
