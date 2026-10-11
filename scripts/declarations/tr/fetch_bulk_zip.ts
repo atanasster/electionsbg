@@ -12,6 +12,7 @@
  * range (no 206), the existing file is rewritten from scratch.
  */
 
+import "../../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import { Readable } from "stream";

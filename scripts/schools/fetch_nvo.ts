@@ -10,6 +10,7 @@
 //
 // Run: `npx tsx scripts/schools/fetch_nvo.ts`
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "node:fs";
 import path from "node:path";
 

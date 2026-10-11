@@ -21,6 +21,7 @@
 // Run: `npx tsx scripts/air/build_index.ts`
 // Writes: data/air/index.json
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "node:fs";
 import path from "node:path";
 

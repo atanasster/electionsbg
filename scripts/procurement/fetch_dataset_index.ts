@@ -28,6 +28,7 @@
 // walk (`UnrecognisedOcdsLabelError`) — a new shape must be taught here, never
 // skipped.
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import { load } from "cheerio";
 import type { BundleEntry } from "./types";
 import { entryKind, sortEntries } from "./bundle_registry";

@@ -22,6 +22,7 @@
 //   tsx scripts/procurement/ingest_tenders.ts --backfill --from 2020-01-01 --apply # full history
 //   tsx scripts/procurement/ingest_tenders.ts --apply --upload                     # + bucket sync
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import zlib from "zlib";

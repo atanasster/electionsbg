@@ -8,6 +8,7 @@
 // download cost is negligible, and content equality is the only signal we
 // trust (the page itself doesn't expose a usable "updated" timestamp).
 
+import "../../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import type { Fingerprint, WatchSource, WatchState } from "../types";
 import { sha256Short } from "../fingerprint";
 

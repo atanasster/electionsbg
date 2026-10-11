@@ -22,6 +22,7 @@
  * a human to review (typically a handful of legacy renamings).
  */
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import { OBLAST_CODES_BY_BG_NAME, SOFIA_EKATTE } from "../lib/oblast_names";

@@ -33,6 +33,7 @@
 //
 // Needs .env.local GEMINI_API_KEY + the local Postgres (for the sanity gate).
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import { execFileSync } from "node:child_process";
 import {
   existsSync,

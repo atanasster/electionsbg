@@ -6,6 +6,7 @@
 // corpus shape: beneficiary count + contract count + contracted/paid EUR.
 // cadence: weekly — EU-funds disbursement data moves slowly.
 
+import "../../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { sha256Short } from "../fingerprint";
 import { parseBeneficiaries } from "../../funds/parse";

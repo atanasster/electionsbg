@@ -4,6 +4,7 @@
 // gzipped under raw_data/procurement/ (gitignored, alongside raw_data/tr/)
 // so re-runs of the normalizer don't re-fetch.
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import zlib from "zlib";
 import path from "path";

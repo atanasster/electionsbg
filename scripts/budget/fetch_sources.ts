@@ -12,6 +12,7 @@
 //     fetched best-effort, never fatal. The egov feed already carries the
 //     state-budget execution series Phase 1 needs.
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import zlib from "zlib";
 import path from "path";

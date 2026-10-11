@@ -26,6 +26,7 @@
 // Run: `npx tsx scripts/procurement/mon_ri_crawl.ts`  (then re-run
 // awarder_geo_map.ts + npm run procurement:ingest to apply).
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

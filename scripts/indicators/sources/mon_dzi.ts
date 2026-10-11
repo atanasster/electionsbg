@@ -23,6 +23,7 @@
  * years are not published on data.egov.bg.
  */
 
+import "../../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

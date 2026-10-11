@@ -1,3 +1,4 @@
+import "../../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 // Thin client for the data.egov.bg JSON API.
 //
 // Two endpoints we rely on, both POST + JSON body (NOT GET query-string):

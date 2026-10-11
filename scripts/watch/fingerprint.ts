@@ -1,3 +1,4 @@
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import { createHash } from "crypto";
 import { spawnSync } from "child_process";
 import { Agent, fetch as undiciFetch } from "undici";

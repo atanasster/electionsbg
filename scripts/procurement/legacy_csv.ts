@@ -44,6 +44,7 @@
 // We resolve columns by name patterns rather than position so each year's
 // quirks are isolated to a small per-year config block.
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import { parse } from "csv-parse/sync";
 import { Open as Unzip } from "unzipper";
 import { canonicalEik, isValidEik, isPlaceholderId } from "./eik";

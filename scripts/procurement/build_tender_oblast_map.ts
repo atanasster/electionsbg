@@ -24,6 +24,7 @@
 // Output: data/procurement/derived/buyer_oblast_map.json
 //   { generatedAt, buyers, awarders: { <eik>: { nuts, n, distinct } } }
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import zlib from "zlib";

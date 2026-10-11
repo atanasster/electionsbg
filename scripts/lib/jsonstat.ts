@@ -1,3 +1,4 @@
+import "./egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 /**
  * Minimal JSON-stat v2 reader for NSI's open-data API.
  *

@@ -21,6 +21,7 @@
 // Usage:
 //   npx tsx scripts/budget/run_policy_baseline.ts
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

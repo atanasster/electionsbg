@@ -22,6 +22,7 @@
 // (day, length) set flips the fingerprint when a new day appears OR an existing
 // day is republished with different content.
 
+import "../../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { sha256Short } from "../fingerprint";
 

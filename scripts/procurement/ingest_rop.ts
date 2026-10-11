@@ -17,6 +17,7 @@
 // (single-sourced in ingest.ts), or just `npm run db:load:pg` which reads the
 // shards straight into Postgres.
 
+import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
 import zlib from "zlib";
