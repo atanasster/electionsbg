@@ -202,3 +202,26 @@ a {
     stroke-dashoffset: 0;
   }
 }
+
+/* Route transitions (motion-v1 §3.2). A hub-tile click runs its navigation inside
+   `document.startViewTransition` itself — `src/ux/motion/titleTransition.ts`, because the
+   declarative <BrowserRouter> ignores <Link viewTransition>. The root cross-fades and the tile's
+   title morphs into the destination <h1>; the name is handed out for that one navigation. */
+:root[data-vt-title] h1 {
+  view-transition-name: page-title;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--motion-base);
+}
+::view-transition-group(page-title) {
+  animation-duration: var(--motion-slow);
+  animation-timing-function: var(--motion-ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

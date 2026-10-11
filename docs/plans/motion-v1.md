@@ -69,8 +69,24 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
    `BudgetFlowGraphic` (spending beads run the path in reverse — both layouts are leaf → total
    in source → target terms) and `VoteFlowSankey`. Nothing under reduced motion. The flyover
    arcs needed nothing: `render.ts` already animates their dash offset.
-2. **Shared-element route transitions** — `<Link viewTransition>` from a hub tile to its
-   detail header; needs measuring against lazy routes + Suspense before rolling out.
+2. **Shared-element route transitions** — ✅ shipped for hub tiles. Clicking an
+   `InfographicTile` morphs its title into the destination `<h1>` over a root cross-fade
+   (`src/ux/motion/titleTransition.ts` + the `::view-transition-*` rules in `index.css`).
+   Two findings shaped it:
+   - **`<Link viewTransition>` does nothing here** — the app runs the declarative
+     `<BrowserRouter>`, and that prop needs a data router. The tile calls
+     `document.startViewTransition` itself.
+   - **`flushSync` cannot commit the navigation** — React Router v7 dispatches it inside
+     `startTransition`, so the "new" snapshot was still the hub (measured: the only named
+     element after the update was the tile). The update callback instead resolves when the
+     clicked tile has left the DOM, capped at 1.5 s. That same wait covers lazy routes, because
+     React keeps the old page mounted while the chunk loads.
+   Names are unique per snapshot by construction: at click time the old page's `<h1>`s are
+   opted out inline and only the tile is named; `:root[data-vt-title] h1` names the new page's
+   heading. Modified clicks, browsers without the API, and reduced motion get the plain link.
+   ⚠️ The Claude desktop browser pane, when hidden, aborts EVERY view transition with
+   „aborted because of invalid state" (an empty `startViewTransition(() => {})` does too), so
+   the morph itself must be checked in a visible browser; the navigation still completes.
 3. **Map drill-down camera** — reuse the flyover's blendable `FlyoverState`
    (`src/lib/flyover/state.ts`) for country → oblast → município instead of a hard route jump.
 4. **Chart object constancy** — recharts is `isAnimationActive={false}` in 58 places; enable

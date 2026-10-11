@@ -9,9 +9,10 @@
 // component. Text/badge/CTA colours are derived from the accent by mixing toward
 // the theme foreground, so they stay legible as the theme flips.
 
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import { FC, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { usePreserveParams } from "@/ux/usePreserveParams";
+import { navigateWithTitleTransition } from "@/ux/motion/titleTransition";
 
 export interface InfographicTileProps {
   /** Destination route. */
@@ -114,125 +115,139 @@ export const InfographicTile: FC<InfographicTileProps> = ({
   metric,
   metricCaption,
   metricSecondary,
-}) => (
-  <Link
-    to={useTileHref(to, dropParams)}
-    style={{ ["--sector" as string]: accent }}
-    className="group relative flex flex-row overflow-hidden rounded-xl border border-border bg-card transition-all duration-150 hover:border-[color-mix(in_srgb,var(--sector)_55%,hsl(var(--border)))] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none sm:flex-col sm:rounded-2xl sm:hover:-translate-y-0.5 motion-reduce:sm:hover:translate-y-0"
-  >
-    <div
-      className="relative flex w-24 shrink-0 items-center border-r border-border sm:w-full sm:border-b sm:border-r-0"
-      style={{
-        background:
-          "linear-gradient(160deg, color-mix(in srgb, var(--sector) 14%, hsl(var(--card))), hsl(var(--card)))",
-      }}
+}) => {
+  const titleRef = useRef<HTMLSpanElement>(null);
+  const href = useTileHref(to, dropParams);
+  const navigate = useNavigate();
+  return (
+    <Link
+      to={href}
+      // The tile's title morphs into the destination's <h1> (motion-v1 §3.2).
+      onClick={(e) =>
+        navigateWithTitleTransition(e, titleRef.current, href, () =>
+          navigate(href),
+        )
+      }
+      style={{ ["--sector" as string]: accent }}
+      className="group relative flex flex-row overflow-hidden rounded-xl border border-border bg-card transition-all duration-150 hover:border-[color-mix(in_srgb,var(--sector)_55%,hsl(var(--border)))] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none sm:flex-col sm:rounded-2xl sm:hover:-translate-y-0.5 motion-reduce:sm:hover:translate-y-0"
     >
-      <Scene />
-      {metric ? (
-        <>
-          {/* Soft card-coloured scrim in the bottom-left corner so the number
+      <div
+        className="relative flex w-24 shrink-0 items-center border-r border-border sm:w-full sm:border-b sm:border-r-0"
+        style={{
+          background:
+            "linear-gradient(160deg, color-mix(in srgb, var(--sector) 14%, hsl(var(--card))), hsl(var(--card)))",
+        }}
+      >
+        <Scene />
+        {metric ? (
+          <>
+            {/* Soft card-coloured scrim in the bottom-left corner so the number
               lifts off whatever scene marks sit under it (bars, coins, a
               receipt). Fades to nothing, so it's invisible where the corner is
               already clear. Card layout only. */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 hidden sm:block"
-            style={{
-              background:
-                "radial-gradient(72% 72% at 6% 100%, color-mix(in srgb, hsl(var(--card)) 74%, transparent), transparent 62%)",
-            }}
-          />
-          <span className="pointer-events-none absolute bottom-1.5 left-3 hidden flex-col sm:flex">
             <span
-              className="text-2xl font-bold leading-none tabular-nums xl:text-3xl"
-              style={{ color: metricColor, textShadow: metricShadow }}
-            >
-              {metric}
-            </span>
-            {metricCaption ? (
+              aria-hidden
+              className="pointer-events-none absolute inset-0 hidden sm:block"
+              style={{
+                background:
+                  "radial-gradient(72% 72% at 6% 100%, color-mix(in srgb, hsl(var(--card)) 74%, transparent), transparent 62%)",
+              }}
+            />
+            <span className="pointer-events-none absolute bottom-1.5 left-3 hidden flex-col sm:flex">
               <span
-                className="mt-0.5 text-[10px] font-semibold uppercase leading-none tracking-wide"
-                style={{ color: captionColor, textShadow: metricShadow }}
-              >
-                {metricCaption}
-              </span>
-            ) : null}
-            {metricSecondary ? (
-              <span
-                className="mt-1 max-w-[13rem] truncate text-[11px] leading-none"
-                style={{ color: captionColor, textShadow: metricShadow }}
-              >
-                {metricSecondary}
-              </span>
-            ) : null}
-          </span>
-        </>
-      ) : null}
-    </div>
-    <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5 sm:justify-start sm:gap-1.5 sm:p-3.5">
-      <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-        <span className="min-w-0 break-words text-base font-semibold tracking-tight sm:text-lg">
-          {title}
-        </span>
-        {/* On the card, the number rides the banner (above) — so
-            only the badge shows here. On the mobile row the banner is a small
-            thumbnail, so the number and badge sit below the full-width title.
-            Long captions wrap without squeezing the destination label. */}
-        <div className="flex min-w-0 max-w-full items-center gap-1.5 empty:hidden sm:shrink-0">
-          {metric ? (
-            <span className="flex min-w-0 flex-col items-start leading-none sm:hidden">
-              <span
-                className="text-base font-bold tabular-nums"
-                style={{ color: metricColor }}
+                className="text-2xl font-bold leading-none tabular-nums xl:text-3xl"
+                style={{ color: metricColor, textShadow: metricShadow }}
               >
                 {metric}
               </span>
               {metricCaption ? (
                 <span
-                  className="mt-0.5 break-words text-[9px] font-semibold uppercase leading-snug tracking-wide"
-                  style={{ color: captionColor }}
+                  className="mt-0.5 text-[10px] font-semibold uppercase leading-none tracking-wide"
+                  style={{ color: captionColor, textShadow: metricShadow }}
                 >
                   {metricCaption}
                 </span>
               ) : null}
+              {metricSecondary ? (
+                <span
+                  className="mt-1 max-w-[13rem] truncate text-[11px] leading-none"
+                  style={{ color: captionColor, textShadow: metricShadow }}
+                >
+                  {metricSecondary}
+                </span>
+              ) : null}
             </span>
-          ) : null}
-          {badge ? (
-            <span
-              className="shrink-0 rounded-md border px-2 py-0.5 text-[11px] font-bold tracking-wide"
-              style={{
-                color:
-                  "color-mix(in srgb, var(--sector) 72%, hsl(var(--foreground)))",
-                background:
-                  "color-mix(in srgb, var(--sector) 16%, transparent)",
-                borderColor:
-                  "color-mix(in srgb, var(--sector) 30%, transparent)",
-              }}
-            >
-              {badge}
-            </span>
-          ) : null}
-        </div>
+          </>
+        ) : null}
       </div>
-      {desc ? (
-        <span className="truncate text-xs text-muted-foreground sm:whitespace-normal sm:text-sm">
-          {desc}
-        </span>
-      ) : null}
-      {cta ? (
-        <span
-          className="mt-auto hidden items-center gap-1.5 pt-1.5 text-xs font-semibold sm:inline-flex"
-          style={{
-            color:
-              "color-mix(in srgb, var(--sector) 70%, hsl(var(--foreground)))",
-          }}
-        >
-          {cta}
-          <span className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:transition-none">
-            →
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5 sm:justify-start sm:gap-1.5 sm:p-3.5">
+        <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+          <span
+            ref={titleRef}
+            className="min-w-0 break-words text-base font-semibold tracking-tight sm:text-lg"
+          >
+            {title}
           </span>
-        </span>
-      ) : null}
-    </div>
-  </Link>
-);
+          {/* On the card, the number rides the banner (above) — so
+            only the badge shows here. On the mobile row the banner is a small
+            thumbnail, so the number and badge sit below the full-width title.
+            Long captions wrap without squeezing the destination label. */}
+          <div className="flex min-w-0 max-w-full items-center gap-1.5 empty:hidden sm:shrink-0">
+            {metric ? (
+              <span className="flex min-w-0 flex-col items-start leading-none sm:hidden">
+                <span
+                  className="text-base font-bold tabular-nums"
+                  style={{ color: metricColor }}
+                >
+                  {metric}
+                </span>
+                {metricCaption ? (
+                  <span
+                    className="mt-0.5 break-words text-[9px] font-semibold uppercase leading-snug tracking-wide"
+                    style={{ color: captionColor }}
+                  >
+                    {metricCaption}
+                  </span>
+                ) : null}
+              </span>
+            ) : null}
+            {badge ? (
+              <span
+                className="shrink-0 rounded-md border px-2 py-0.5 text-[11px] font-bold tracking-wide"
+                style={{
+                  color:
+                    "color-mix(in srgb, var(--sector) 72%, hsl(var(--foreground)))",
+                  background:
+                    "color-mix(in srgb, var(--sector) 16%, transparent)",
+                  borderColor:
+                    "color-mix(in srgb, var(--sector) 30%, transparent)",
+                }}
+              >
+                {badge}
+              </span>
+            ) : null}
+          </div>
+        </div>
+        {desc ? (
+          <span className="truncate text-xs text-muted-foreground sm:whitespace-normal sm:text-sm">
+            {desc}
+          </span>
+        ) : null}
+        {cta ? (
+          <span
+            className="mt-auto hidden items-center gap-1.5 pt-1.5 text-xs font-semibold sm:inline-flex"
+            style={{
+              color:
+                "color-mix(in srgb, var(--sector) 70%, hsl(var(--foreground)))",
+            }}
+          >
+            {cta}
+            <span className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:transition-none">
+              →
+            </span>
+          </span>
+        ) : null}
+      </div>
+    </Link>
+  );
+};
