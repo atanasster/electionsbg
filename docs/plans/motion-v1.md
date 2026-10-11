@@ -103,8 +103,28 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
    the zoom must outlive the clicked region when the next route reuses the map with fewer
    features. A call during a flight is ignored, so a double click or a held Enter cannot
    navigate twice.
-4. **Chart object constancy** — recharts is `isAnimationActive={false}` in 58 places; enable
-   a keyed morph only on a state change (never on mount), chart by chart.
+4. **Chart object constancy** — ✅ shipped as a primitive plus its first two charts.
+   `useChartMotion(key)` (`src/ux/motion/`) returns a per-series `motion(id)` to spread onto
+   each series: animation stays off on mount and turns on IN THE SAME RENDER the
+   reader-controlled `key` first changes, so the series morphs from its previous points. It is
+   PER SERIES because mount is per series — a peer added after the year moved, or polygons
+   arriving after a loading skeleton, appear still; a series not drawn in a commit is
+   forgotten. Wired into the two WGI radars on `/indicators/compare` (`EuCompareWgiRadar`,
+   `EuCompareWgiSmallMultiples`), which redraw when the cabinet anchor moves the snapshot year.
+   What the recharts source settled, so nobody re-derives it:
+   - **Turning animation on in a later render, without a data change, plays the MOUNT
+     animation a frame late** — the series records its previous points only when
+     `animationId` changes, so they are still unset. Hence „same render as the change".
+   - **Bar, Line, Area and Radar morph correctly**: their `getDerivedStateFromProps` keeps the
+     previous points regardless of `isAnimationActive`, and a data change bumps `animationId`.
+   - **`<Pie>` does not**: it checks an `isAnimationActive` flip first and resets
+     `prevSectors` to `[]`, so its first change sweeps the donut from nothing. `BudgetDonut`
+     (which redraws per fiscal year) is therefore left static. A zero `animationDuration` is no
+     workaround — react-smooth computes t = 0/0 on its first frame.
+   The other files with `isAnimationActive={false}` were screened by a grep for reader state
+   (`useState` / `useScope` / a year selector), not read one by one; the remaining candidates it
+   surfaced (`GovernmentTimeline`, `NzokReportCardTile`, the pension tiles, …) are open work —
+   opt each in only after confirming it redraws on a reader action and is not a `<Pie>`.
 5. **Shape-aware skeletons** — a chart's ghost (axis + baseline) whose bars grow into the
    real values, replacing generic `animate-pulse` blocks; keep reserved heights for the
    `data-kpi-cell` height gates.

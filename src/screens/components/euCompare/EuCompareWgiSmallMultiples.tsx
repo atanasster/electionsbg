@@ -37,6 +37,7 @@ import {
   usePeerSelection,
 } from "./usePeerSelection";
 import { pickByYear, useCompareSnapshotYear } from "./useElectionYear";
+import { useChartMotion } from "@/ux/motion/useChartMotion";
 
 // Per-panel tooltip — shows the three series in scope (BG, the assigned peer,
 // EU27) for whichever axis the cursor is over, sorted descending so the
@@ -114,6 +115,8 @@ const PeerPanel: FC<{
    *  box at the same height as the one that replaces it. */
   pending?: boolean;
 }> = ({ peerGeo, rows, shortLabel, lang, pending = false }) => {
+  // Still on load; the shapes morph when the cabinet anchor moves the year (motion-v1 §3.4).
+  const motion = useChartMotion(useCompareSnapshotYear());
   return (
     <div className="flex flex-col gap-1.5 rounded-lg border bg-card p-3">
       <div className="flex items-center justify-between text-[11px]">
@@ -154,7 +157,7 @@ const PeerPanel: FC<{
                 strokeDasharray="4 3"
                 fill={GEO_COLOR.EU27_2020}
                 fillOpacity={0}
-                isAnimationActive={false}
+                {...motion("EU27_2020")}
               />
               <Radar
                 key={peerGeo}
@@ -164,7 +167,7 @@ const PeerPanel: FC<{
                 strokeWidth={1.5}
                 fill={GEO_COLOR[peerGeo]}
                 fillOpacity={0.1}
-                isAnimationActive={false}
+                {...motion(peerGeo)}
               />
               <Radar
                 key="BG"
@@ -174,7 +177,7 @@ const PeerPanel: FC<{
                 strokeWidth={2.2}
                 fill={GEO_COLOR.BG}
                 fillOpacity={0.28}
-                isAnimationActive={false}
+                {...motion("BG")}
               />
               <Tooltip
                 cursor={{

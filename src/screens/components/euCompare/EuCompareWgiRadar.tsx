@@ -34,6 +34,7 @@ import {
   usePeerSelection,
 } from "./usePeerSelection";
 import { pickByYear, useCompareSnapshotYear } from "./useElectionYear";
+import { useChartMotion } from "@/ux/motion/useChartMotion";
 
 // Short, localized labels for the six axes. Full names live in the
 // explanatory copy below the chart.
@@ -147,6 +148,7 @@ export const EuCompareWgiRadar: FC = () => {
   const { data: peers, isPending: peersPending } = useMacroPeers();
   const { geos } = usePeerSelection();
   const electionYear = useCompareSnapshotYear();
+  const motion = useChartMotion(electionYear);
   const wgi = peers?.wgi;
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
 
@@ -253,7 +255,8 @@ export const EuCompareWgiRadar: FC = () => {
                   strokeDasharray={isEu ? "4 3" : undefined}
                   fill={GEO_COLOR[geo]}
                   fillOpacity={isBg ? 0.28 : 0}
-                  isAnimationActive={false}
+                  // Still on load; the shape morphs when the cabinet anchor moves the year.
+                  {...motion(geo)}
                 />
               );
             })}
