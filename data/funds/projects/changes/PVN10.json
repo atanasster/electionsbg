@@ -1,38 +1,40 @@
 {
   "obshtina": "PVN10",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0007",
-      "title": "Иновативни здравно-социални услуги в община Долна Митрополия",
+      "contractNumber": "BG-RRP-4.033-0027",
+      "title": "Подкрепа на ЗЕНОН СОЛАР ООД за нови мощности за производство на електроенергия от ВИ в комбинация с ЛСС",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 325718.58,
-      "totalEur": 325718.58,
-      "paidEur": 243096.88,
+      "prevTotalEur": 4125000,
+      "totalEur": 4125000,
+      "paidEur": 1641707.1,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Долна Митрополия",
-      "detectedAt": "2026-10-04"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Зенон солар ООД",
+      "detectedAt": "2026-10-11"
     },
     {
-      "contractNumber": "BG05SFPR002-2.005-0045",
-      "title": "Равностоен и достоен живот",
+      "contractNumber": "BG-RRP-11.010-0011",
+      "title": "\"Реконструкция, ремонт и повишаване на енергийната ефективност на сградата на \"Дом за стари хора\" в с. Горна Митрополия, Община Долна Митрополия\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 199455.93,
-      "totalEur": 199455.93,
-      "paidEur": 178444.94,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Институт за изследване на промяната Фондация",
-      "detectedAt": "2026-10-04"
+      "prevTotalEur": 846411.09,
+      "totalEur": 829089.28,
+      "paidEur": 829089.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Долна митрополия",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

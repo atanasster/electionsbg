@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-10T23:59:59.999Z",
+  "computedAt": "2026-10-11T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-10T00:00:00.000Z",
-      "firstSeenAt": "2026-10-10T00:00:00.000Z",
+      "occurredAt": "2026-10-11T00:00:00.000Z",
+      "firstSeenAt": "2026-10-11T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -41,8 +41,8 @@
       "id": "prices:promotion:kartofi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-10T00:00:00.000Z",
-      "firstSeenAt": "2026-10-10T00:00:00.000Z",
+      "occurredAt": "2026-10-11T00:00:00.000Z",
+      "firstSeenAt": "2026-10-11T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -91,7 +91,7 @@
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 15,
-        "sittings": 13,
+        "sittings": 12,
         "windowDays": 30
       },
       "backfill": false,
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
+      "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-10T00:00:00.000Z",
-      "firstSeenAt": "2026-10-10T00:00:00.000Z",
+      "occurredAt": "2026-10-11T00:00:00.000Z",
+      "firstSeenAt": "2026-10-11T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,18 +213,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-roshen-lakmi-mlechen-90gr",
+      "route": "/product/kartofi-miti",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
-        "pct": 54,
-        "promoEur": "0.79",
-        "regularEur": "1.74",
+        "title": "КАРТОФИ МИТИ",
+        "pct": 53,
+        "promoEur": "0.55",
+        "regularEur": "1.17",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7714285714285715,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -1134,8 +1134,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-10",
-      "observedAt": "2026-10-10",
+      "asOf": "2026-10-11",
+      "observedAt": "2026-10-11",
       "staleAfterDays": 5,
       "stale": false
     }

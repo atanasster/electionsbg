@@ -1,54 +1,94 @@
 {
   "obshtina": "TGV35",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-2.006-0087",
-      "title": "Устойчиво развитие на територията, обновяване и модернизиране на градската среда в град Търговище",
+      "contractNumber": "BG-RRP-8.013-0015",
+      "title": "Устойчива градска мобилност в общините Шумен и Търговище",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 853233.25,
-      "totalEur": 853233.25,
-      "paidEur": 289915.34,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Национална агенция за приходите",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0464",
-      "title": "Енергийна ефективност чрез използване и съхранение на енергия от възобновяеми източници в АрМе ООД",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 78628.16,
-      "totalEur": 78628.16,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "АрМе ООД",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.016-0044",
-      "title": "“Слънце - Земно зависими”",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 52873.37,
-      "totalEur": 52873.37,
-      "paidEur": 47585.99,
+      "prevTotalEur": 4336342.89,
+      "totalEur": 4336342.89,
+      "paidEur": 3909844.18,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Декидис Филмс ЕООД",
-      "detectedAt": "2026-10-04"
+      "beneficiaryName": "Община Шумен",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG16FFPR002-2.002-0008",
+      "title": "Техническа и биологична рекултивация и проект за газоотвеждаща система на съществуваща клетка на регионално депо за неопасни отпадъци в с.Пайдушко за общините Търговище и Попово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2066654.43,
+      "totalEur": 2066654.43,
+      "paidEur": 531761.79,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Търговище",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2713",
+      "title": "Подкрепа за семейнo предприятиe ТЕХНОИНДУСТРИЯ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 98568.38,
+      "totalEur": 95446.33,
+      "paidEur": 71584.74,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Техноиндустрия ЕООД",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2594",
+      "title": "Подобряване на производствения капацитет на НЕД-КАР СЕРВИЗ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 48828.37,
+      "totalEur": 48311.77,
+      "paidEur": 41065,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "НЕД-КАР Сервиз ЕООД",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0236",
+      "title": "Създаване на Дигитален клуб към НЧ \"Васил Левски-1925\" за повишаване на дигиталната грамотност и насърчаване на приобщаващо участие в електронното управление, образование и културния живот на местната общност.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14256.97,
+      "totalEur": 8817.09,
+      "paidEur": 9092.46,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Васил Левски-1925\"",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

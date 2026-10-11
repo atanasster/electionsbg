@@ -1,121 +1,58 @@
 {
   "obshtina": "LOV34",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0189",
-      "title": "Топъл обяд в Община Троян",
+      "contractNumber": "BG-RRP-11.010-0012",
+      "title": "Реформиране на Дом за стари хора в с. Добродан, община Троян",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
-        "durationMonths"
+        "status"
       ],
-      "prevTotalEur": 283583.8,
-      "totalEur": 291484,
-      "paidEur": 261545.33,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 866100.59,
+      "totalEur": 736424.13,
+      "paidEur": 736424.13,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Троян",
-      "detectedAt": "2026-10-04"
+      "detectedAt": "2026-10-11"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0279",
-      "title": "Производство и съхранение на чиста енергия от Оптимал енерджи ООД",
+      "contractNumber": "BG05SFPR002-1.004-0090",
+      "title": "Гарантиране здравето и безопасността на заетите в АС - ДС ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 196555.26,
+      "totalEur": 190729.42,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "АС - ДС ООД",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG16FFPR003-2.006-0022",
+      "title": "Единно здраве за Северозападен регион",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 227013.6,
-      "totalEur": 227013.6,
-      "paidEur": 113000.62,
+      "prevTotalEur": 2188.33,
+      "totalEur": 2188.33,
+      "paidEur": 2186.01,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Оптимал енерджи ООД",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.006-0008",
-      "title": "Заедно живеем, учим, успяваме",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 127822.96,
-      "totalEur": 127822.96,
-      "paidEur": 44911.14,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище /ОУ/ \"Иван Хаджийски\" - Троян",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0164",
-      "title": "Проектът Възраждане е насочен към създаване на нова българска керамика и популяризиране й като пластично изкуство чрез иновативни техники на база на традиционните за България постижения в пластичното изкуство. Той обединява екип от знакови творци, които предизвикват себе си, включително и чрез създаването на авторски модел КратуноСпис в стила на вазописването и прерастването му в керамични форми.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 68485.35,
-      "totalEur": 68485.35,
-      "paidEur": 61629.97,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕТ Евгения Георгиева - 96",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0096",
-      "title": "Запознайте се със староселци",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 9083.56,
-      "totalEur": 9083.56,
-      "paidEur": 8175.19,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Искра – 1930 г.“",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0021",
-      "title": "На фокус: \"Жълт олеандър\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 8916.93,
-      "totalEur": 8916.93,
-      "paidEur": 8025.24,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Док Студиос ЕООД",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0125",
-      "title": "\"No More Many More – четвърти албум „Един от тях“ – достъп до българската публика\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 8557.45,
-      "totalEur": 8557.45,
-      "paidEur": 7697.48,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Методи Любомиров Кръстев",
-      "detectedAt": "2026-10-04"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Троян",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

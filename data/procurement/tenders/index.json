@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-10T21:47:06.851Z",
+  "generatedAt": "2026-10-11T22:28:41.747Z",
   "source": "ЦАИС ЕОП (storage.eop.bg) — open-data поръчки feed; pre-2020 procedures backfilled from РОП (aop.bg cases register)",
   "valueSemantics": "estimatedValueEur is a FORECAST (прогнозна стойност), not contracted spend. Never sum it into contracted totals.",
   "coverage": {
     "firstDay": "2010-01-04",
-    "lastDay": "2026-10-09",
+    "lastDay": "2026-10-10",
     "months": [
       "2010-01",
       "2010-02",
@@ -211,11 +211,11 @@
     ]
   },
   "totals": {
-    "procedures": 240427,
+    "procedures": 240428,
     "lots": 205106,
     "cancelled": 19596,
-    "withEstimate": 217835,
-    "estimatedValueEur": 144942757628.39
+    "withEstimate": 217836,
+    "estimatedValueEur": 144942768783.63
   },
   "byYear": [
     {
@@ -316,9 +316,9 @@
     },
     {
       "year": "2026",
-      "procedures": 15400,
+      "procedures": 15401,
       "cancelled": 592,
-      "estimatedValueEur": 10833057976.14
+      "estimatedValueEur": 10833069131.38
     }
   ],
   "byProcedureType": [
@@ -394,8 +394,8 @@
     },
     {
       "type": "Ограничена процедура по ДСП",
-      "procedures": 636,
-      "estimatedValueEur": 1597398387.99
+      "procedures": 637,
+      "estimatedValueEur": 1597409543.23
     },
     {
       "type": "договаряне с предварителна покана за участие",

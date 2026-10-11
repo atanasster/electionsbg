@@ -1,22 +1,24 @@
 {
   "obshtina": "MON04",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0040",
-      "title": "„Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в обект ФЕЦ КАРО ТРЕЙДИНГ – Бойчиновци 4.039 МW“",
+      "contractNumber": "BG-RRP-1.024-0320",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ГОЦО НИКОЛОВ - 1960\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1342798.19,
-      "totalEur": 1342798.19,
-      "paidEur": 671263.59,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 14316.18,
+      "totalEur": 13311.7,
+      "paidEur": 13311.7,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Каро трейдинг ООД",
-      "detectedAt": "2026-10-04"
+      "beneficiaryName": "Народно читалище \"Гоцо Николов - 1960\"",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

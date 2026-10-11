@@ -1,98 +1,54 @@
 {
   "obshtina": "DOB28",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0303",
-      "title": "Заедно без агресия",
-      "type": "new",
-      "totalEur": 115915.26,
+      "contractNumber": "BG16FFPR002-2.004-0016",
+      "title": "„Разширение и надграждане на система за разделно събиране и компостиране на биоразградимите отпадъци на общините Град Добрич, Добричка и Крушари“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 4455672.17,
+      "totalEur": 4455672.17,
+      "paidEur": 770807.31,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Град добрич",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.001-0374",
+      "title": "Разработване на иновативен продукт от фирма \"КОЛОВАГ\" АД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 639114.85,
+      "totalEur": 639114.85,
+      "paidEur": 158728.24,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Коловаг АД",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0068",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 9488.55,
+      "totalEur": 9488.55,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "\"Сдружение частна профилирана гимназия по туризъм и предприемачество \"Райко Цончев\"",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0206",
-      "title": "Изграждане на локално съоръжение за съхранение (ЛСС) на електрическа енергия с инсталирана мощност от 1.715 MW, съвместно с новострояща се Фотоволтаична електрическа централа (ФвЕЦ) с инсталирана мощност 4.2 MW, находяща се в ПИ с идентификатор 72624.176.103, гр. Добрич, обл. Добрич",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 852147.66,
-      "totalEur": 852147.66,
-      "paidEur": 407667.89,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "КПМ Солар 1 ЕООД",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0065",
-      "title": "Иновативни здравно-социални услуги в община град Добрич",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 736915,
-      "totalEur": 736915,
-      "paidEur": 589532,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Град добрич",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.021-0007",
-      "title": "„Добруджа – културен компас: традиция, съвременност и общност“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 216487.66,
-      "totalEur": 216487.66,
-      "paidEur": 144300.62,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Град Добрич",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2404",
-      "title": "Осигуравяна на адаптирана работна среда в Булкредо ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 148564.68,
-      "totalEur": 148564.68,
-      "paidEur": 144332.07,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Булкредо ООД",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0102",
-      "title": "Джаз пътеки",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 51887.85,
-      "totalEur": 51887.85,
-      "paidEur": 46699.07,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Нова АРТ проджект Сдружение",
-      "detectedAt": "2026-10-04"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Счетоводни услуги - РАЯ ЕООД",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

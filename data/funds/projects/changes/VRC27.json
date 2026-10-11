@@ -1,54 +1,94 @@
 {
   "obshtina": "VRC27",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.017-0068",
-      "title": "Представяне пред българската публика в Северозападна България на филмите \"Хвърчащите\" и \"Подир сенките на облаците\"",
+      "contractNumber": "BG-RRP-13.009-0043",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Мездра\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 9071.41,
-      "totalEur": 9071.41,
-      "paidEur": 8164.27,
+      "prevTotalEur": 296008.86,
+      "totalEur": 211552.24,
+      "paidEur": 200305.18,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "АРТ Асоциация водолей Сдружение",
-      "detectedAt": "2026-10-04"
+      "beneficiaryName": "Община Мездра",
+      "detectedAt": "2026-10-11"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0103",
-      "title": "\"Ева\" - в подкрепа на донорството",
+      "contractNumber": "BG05SFPR002-1.013-0108",
+      "title": "Проект Северозапад - модел за устойчиви възможности и включваща икономика за лица в неравностойно положение",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 8804.24,
-      "totalEur": 8804.24,
-      "paidEur": 7923.83,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "АРТ Будилник Сдружение",
-      "detectedAt": "2026-10-04"
+      "prevTotalEur": 155967.79,
+      "totalEur": 155967.79,
+      "paidEur": 31193.56,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Фондация Проект Северозапад",
+      "detectedAt": "2026-10-11"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0121",
-      "title": "Четири лапи – мостове между хората",
+      "contractNumber": "BG-RRP-13.011-0023",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социалните услуги в Община Мездра",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 8797.06,
-      "totalEur": 8797.06,
-      "paidEur": 7917.38,
+      "prevTotalEur": 88143.29,
+      "totalEur": 79080.53,
+      "paidEur": 79080.53,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Ес-приста ЕООД",
-      "detectedAt": "2026-10-04"
+      "beneficiaryName": "Община Мездра",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0651",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ-1927- с.ЕЛИСЕЙНА",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13363.23,
+      "paidEur": 13363.23,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище христо БОТЕВ-1927",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0064",
+      "title": "Изграждане на дигитален клуб в 000184575 НАРОДНО ЧИТАЛИЩЕ\"ПОДЕМ-1926-ДЪРМАНЦИ\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 11336.33,
+      "paidEur": 11336.33,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно ЧИТАЛИЩЕ\"ПОДЕМ-1926-ДЪРМАНЦИ\" 000184575",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

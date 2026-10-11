@@ -1,22 +1,40 @@
 {
   "obshtina": "HKV09",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.020-0076",
-      "title": "КАЙ И ПРИЧИНИ ДА БЪДЕШ ЩАСТЛИВ",
+      "contractNumber": "BG05SFPR002-1.004-2344",
+      "title": "Подобряване на работната среда в МАРВИН ООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 74128.42,
-      "totalEur": 74128.42,
-      "paidEur": 66715.64,
+      "prevTotalEur": 51786.69,
+      "totalEur": 51786.69,
+      "paidEur": 22757.46,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Марвин ООД",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0451",
+      "title": "Подобряване на работната среда в ЖЕТ ЛОГИСТИК И КО ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 48679.68,
+      "totalEur": 13528.41,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Енсоо Сдружение",
-      "detectedAt": "2026-10-04"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЖЕТ Логистик и КО ООД",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

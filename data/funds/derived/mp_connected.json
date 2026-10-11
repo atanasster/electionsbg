@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-04T22:29:19.629Z",
+  "generatedAt": "2026-10-11T21:56:04.289Z",
   "total": 181,
   "mpCount": 153,
   "beneficiaryCount": 170,
-  "contractedEur": 4851938598.07,
-  "paidEur": 2253719413.64,
+  "contractedEur": 4851933586.52,
+  "paidEur": 2256262144.49,
   "entries": [
     {
       "mpId": 4507,
@@ -253,8 +253,8 @@
         }
       ],
       "contractCount": 4,
-      "contractedEur": 4553788.9,
-      "paidEur": 175440.69
+      "contractedEur": 4552162.99,
+      "paidEur": 303664.99
     },
     {
       "mpId": 3427,
@@ -294,7 +294,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 4125000,
-      "paidEur": 0
+      "paidEur": 1641707.1
     },
     {
       "mpId": 2093,
@@ -475,7 +475,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 1265447.41,
-      "paidEur": 0
+      "paidEur": 627610.71
     },
     {
       "mpId": 3249,
@@ -887,7 +887,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 449672.57,
-      "paidEur": 160037.55
+      "paidEur": 185941.49
     },
     {
       "mpId": 2946,
@@ -1109,7 +1109,7 @@
       "mpId": 599,
       "mpName": "Милена Иванова Милотинова-Колева",
       "beneficiaryEik": "205388313",
-      "beneficiaryName": "МПроект ЕООД",
+      "beneficiaryName": "Мпроект ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1141,7 +1141,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 194369.46,
-      "paidEur": 74492.67
+      "paidEur": 193777.47
     },
     {
       "mpId": 5201,
@@ -1840,22 +1840,6 @@
       "paidEur": 28049.47
     },
     {
-      "mpId": 4985,
-      "mpName": "Никола Тошков Джамбазов",
-      "beneficiaryEik": "000868979",
-      "beneficiaryName": "НЧ \"СВ.СВ.КИРИЛ и Методий - 1882\" гр. Попово",
-      "orgType": "Нестопанска организация",
-      "relations": [
-        {
-          "kind": "trustee",
-          "isCurrent": true
-        }
-      ],
-      "contractCount": 2,
-      "contractedEur": 54133.53,
-      "paidEur": 45402.42
-    },
-    {
       "mpId": 3792,
       "mpName": "Младен Тодоров Запрянов",
       "beneficiaryEik": "205738219",
@@ -1880,6 +1864,22 @@
       "contractCount": 2,
       "contractedEur": 52571.34,
       "paidEur": 47494.57
+    },
+    {
+      "mpId": 4985,
+      "mpName": "Никола Тошков Джамбазов",
+      "beneficiaryEik": "000868979",
+      "beneficiaryName": "НЧ \"СВ.СВ.КИРИЛ и Методий - 1882\" гр. Попово",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "trustee",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 50747.89,
+      "paidEur": 45402.42
     },
     {
       "mpId": 627,

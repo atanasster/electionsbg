@@ -1,38 +1,23 @@
 {
   "obshtina": "SLV16",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0061",
-      "title": "Иновативни здравно-социални услуги в община Нова Загора",
+      "contractNumber": "BG16FFPR003-4.001-0217",
+      "title": "\"Подобряване на енергийната ефективност в многофамилна жилищна сграда с адрес: гр. Нова Загора, ж.к. \"Загоре\", бл. № 11\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 391335.77,
-      "totalEur": 391335.77,
-      "paidEur": 278764.1,
+      "prevTotalEur": 520100.44,
+      "totalEur": 516719.86,
+      "paidEur": 182035.15,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Нова загора",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0055",
-      "title": "Традиционната носия на българката – опознаване чрез картини, лекции и работилници",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 7985.75,
-      "totalEur": 7985.75,
-      "paidEur": 7172,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Дора Колева Куршумова",
-      "detectedAt": "2026-10-04"
+      "detectedAt": "2026-10-11"
     }
   ]
 }

@@ -1,54 +1,112 @@
 {
   "obshtina": "MON29",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG06AFSP001-1.001-0043",
-      "title": "Изпълнение на операции, включително дейности за сътрудничество и тяхната подготовка, избрани в рамките на стратегията за местно развитие на територията на МИГ Медковец - Монтана",
+      "contractNumber": "BG05SFPR001-1.010-0168",
+      "title": "„Промяна чрез подкрепа: устойчив модел за намаляване на агресията и укрепване на позитивния училищен климат“",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 572646.91,
-      "totalEur": 572646.91,
-      "paidEur": 36882.58,
+      "prevTotalEur": 143870.45,
+      "totalEur": 143870.45,
+      "paidEur": 28774.09,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2023BG06AFSP001",
-      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
-      "beneficiaryName": "Сдружение \"Местна инициативна група медковец - монтана\"",
-      "detectedAt": "2026-10-04"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Трето основно училище „Д‑р Петър Берон“ — гр. Монтана",
+      "detectedAt": "2026-10-11"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0401",
-      "title": "Адаптирана работна среда в ТРИАДА ИНЖЕНЕРИНГ ООД",
+      "contractNumber": "BG-RRP-1.024-1273",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ НАУКА - 1928",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 143976.51,
-      "totalEur": 143976.51,
-      "paidEur": 143976.52,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Триада инженеринг ООД",
-      "detectedAt": "2026-10-04"
-    },
-    {
-      "contractNumber": "BG-RRP-11.016-0029",
-      "title": "Представяне пред българска публика на европейската продукция – италианският филм „ЗАВРЪЩАНЕ НА ИЗТОК“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 66971.71,
-      "totalEur": 66971.71,
-      "paidEur": 60274.54,
+      "prevTotalEur": 14316.18,
+      "totalEur": 13549.73,
+      "paidEur": 13549.73,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "БЪФ Пикчърс ЕООД",
-      "detectedAt": "2026-10-04"
+      "beneficiaryName": "Народно читалище наука - 1928",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0184",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"ХРИСТО БОТЕВ - 1929\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13426.81,
+      "paidEur": 13426.81,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев - 1929\"",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0134",
+      "title": "Изграждане на дигитален клуб в \"НАРОДЕН БУДИТЕЛ - 1927 г.\" с. Николово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13175.29,
+      "paidEur": 13175.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народен будител - 1927 г.\"",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0567",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ЕЛЕНКО ЦЕНОВ - 1896г.\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 11735.99,
+      "paidEur": 11735.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Еленко Ценов - 1896г",
+      "detectedAt": "2026-10-11"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0190",
+      "title": "Изграждане на дигитален клуб в Народно читалище ПРОБУДА - 1928 С. КРАПЧЕНЕ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 10443.77,
+      "paidEur": 10443.77,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Пробуда - 1928 с. Крапчене",
+      "detectedAt": "2026-10-11"
     }
   ]
 }

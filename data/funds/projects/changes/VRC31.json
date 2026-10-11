@@ -1,22 +1,24 @@
 {
   "obshtina": "VRC31",
-  "generatedAt": "2026-10-04T22:30:13.082Z",
+  "generatedAt": "2026-10-11T21:57:02.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.025-0053",
-      "title": "\"Възвишение\" и ролята на художник костюми",
+      "contractNumber": "BG-RRP-13.009-0222",
+      "title": "\"Инсталиране на фотоволтаична система (ФЕЦ) и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Център за обществена подкрепа гр.Оряхово\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 8968.56,
-      "totalEur": 8968.56,
-      "paidEur": 8071.69,
+      "prevTotalEur": 99142.65,
+      "totalEur": 99033.86,
+      "paidEur": 99033.86,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Майори ЕООД",
-      "detectedAt": "2026-10-04"
+      "beneficiaryName": "Община Оряхово",
+      "detectedAt": "2026-10-11"
     }
   ]
 }
