@@ -24,6 +24,8 @@ export const FeatureMap: React.FC<
       // high-cardinality maps cannot afford, and a caller that paints a placeholder fill
       // while loading must not fade from it. Pass it only once the real fill is known.
       animateFill?: boolean;
+      /** The region's own <path>, for a caller that needs its geometry (the drill-down zoom). */
+      pathRef?: React.Ref<SVGPathElement>;
     }
   >
 > = ({
@@ -38,6 +40,7 @@ export const FeatureMap: React.FC<
   opacity,
   ariaLabel,
   animateFill = false,
+  pathRef,
 }) => {
   const [active, setActive] = useState<boolean>(false);
   const keyboard = !!ariaLabel && !!onClick;
@@ -70,6 +73,7 @@ export const FeatureMap: React.FC<
   return (
     <g>
       <path
+        ref={pathRef}
         fill={fillColor}
         fillOpacity={opacity}
         onContextMenu={(e) => e.preventDefault()}

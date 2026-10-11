@@ -14,6 +14,8 @@ import { RegionShift } from "./computeShifts";
 import { useOptions } from "@/layout/dataview/OptionsContext";
 import { useElectionContext } from "@/data/ElectionContext";
 import { formatPct, localDate } from "@/data/utils";
+import { useRef } from "react";
+import type { MapDrill } from "@/ux/motion/useMapDrillDown";
 
 export function MapElement<DType extends GeoJSONProps>({
   feature,
@@ -27,6 +29,7 @@ export function MapElement<DType extends GeoJSONProps>({
   onClick,
   opacity,
   ariaLabel,
+  drill,
 }: {
   feature: GeoJSONFeature<DType>;
   geoPath: GeoPath;
@@ -47,9 +50,13 @@ export function MapElement<DType extends GeoJSONProps>({
    *  maps carry thousands of paths, and a tab order that long is worse than none. A caller
    *  supplies a label where the cardinality is small enough for the tab order to be usable. */
   ariaLabel?: string;
+  /** The map's drill-down zoom (`useMapDrillDown`, one per map): fly into this region, then
+   *  navigate. Without it the region navigates at once. */
+  drill?: MapDrill;
 } & TooltipEvents) {
   const { properties: props } = feature;
   const navigate = useNavigateParams();
+  const pathRef = useRef<SVGPathElement>(null);
   const { t, i18n } = useTranslation();
   const { topVotesParty } = usePartyInfo();
   const party = topVotesParty(votes);
@@ -135,7 +142,13 @@ export function MapElement<DType extends GeoJSONProps>({
         }}
         onMouseMove={(e) => onMouseMove({ pageX: e.pageX, pageY: e.pageY })}
         onMouseLeave={onMouseLeave}
-        onClick={() => navigate(onClick(props))}
+        // Fly into the region, then open its page (motion-v1 §3.3).
+        pathRef={pathRef}
+        onClick={() => {
+          const go = () => navigate(onClick(props));
+          if (drill) drill(pathRef.current, go);
+          else go();
+        }}
       />
     </>
   );

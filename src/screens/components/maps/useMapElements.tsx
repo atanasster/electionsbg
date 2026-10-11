@@ -13,6 +13,7 @@ import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { NavigateParams } from "@/ux/useNavigateParams";
 import { TooltipEvents } from "@/ux/useTooltip";
 import { useOptions } from "@/layout/dataview/OptionsContext";
+import { useMapDrillDown } from "@/ux/motion/useMapDrillDown";
 
 type MapElementsList = {
   maps: (ReactNode | undefined)[];
@@ -65,6 +66,8 @@ export function useMapElements<DType extends GeoJSONProps>({
     [mapGeo, size],
   );
   const { withNames, withShiftArrows } = useOptions();
+  // One drill-down zoom for the whole map (motion-v1 §3.3) — never one per region.
+  const drill = useMapDrillDown();
   const { maxVotes, minVotes } = useMemo(() => minMaxVotes(votes), [votes]);
   return {
     bounds,
@@ -89,6 +92,7 @@ export function useMapElements<DType extends GeoJSONProps>({
                       votes={v?.results.votes}
                       shift={shift}
                       onClick={onClick}
+                      drill={drill}
                       ariaLabel={
                         featureLabel && feature
                           ? featureLabel(feature.properties, info, v)
@@ -152,6 +156,7 @@ export function useMapElements<DType extends GeoJSONProps>({
       minVotes,
       maxVotes,
       showMarkers,
+      drill,
     ]),
   };
 }

@@ -87,8 +87,22 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
    ⚠️ The Claude desktop browser pane, when hidden, aborts EVERY view transition with
    „aborted because of invalid state" (an empty `startViewTransition(() => {})` does too), so
    the morph itself must be checked in a visible browser; the navigation still completes.
-3. **Map drill-down camera** — reuse the flyover's blendable `FlyoverState`
-   (`src/lib/flyover/state.ts`) for country → oblast → município instead of a hard route jump.
+3. **Map drill-down camera** — ✅ shipped for the election maps. Clicking (or Enter on) a
+   region in a `MapElement` map flies the map into that region, then opens its page
+   (`useMapDrillDown` + the pure `drillTransform` fit in `src/ux/motion/`). Measured on
+   `/parliamentary`: Варна zooms 3.87× and the route lands on `/municipality/VAR` with no
+   leftover animation on the new map.
+   **Not built on the flyover camera, deliberately**: `src/lib/flyover/camera.ts` is a 3D
+   pinhole projector over a pre-projected canvas world, while these maps are a Leaflet tile
+   layer under an SVG overlay. The zoom is one composited Web Animation on their shared
+   parent box, so tiles, regions, arrows and labels move as one picture; the magnification is
+   capped at 4× because the tiles are raster. Navigation fires at 80% of the flight, and the
+   zoom is cancelled on the next location change rather than on finish, because
+   `startTransition` keeps the old page up until the new route commits. The hook runs ONCE
+   PER MAP (`useMapElements`), never per region: settlement maps carry thousands of paths, and
+   the zoom must outlive the clicked region when the next route reuses the map with fewer
+   features. A call during a flight is ignored, so a double click or a held Enter cannot
+   navigate twice.
 4. **Chart object constancy** — recharts is `isAnimationActive={false}` in 58 places; enable
    a keyed morph only on a state change (never on mount), chart by chart.
 5. **Shape-aware skeletons** — a chart's ghost (axis + baseline) whose bars grow into the
