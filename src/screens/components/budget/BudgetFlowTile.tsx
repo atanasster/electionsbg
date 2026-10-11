@@ -37,6 +37,7 @@ import {
   BudgetFlowCapitalDrilldown,
   BudgetFlowCapitalTrigger,
 } from "./BudgetFlowCapitalDrilldown";
+import { HandDrawnMark } from "@/ux/motion/HandDrawnMark";
 
 // Below this width labels overlap; the SVG falls back to horizontal scroll
 // inside the card, mirroring the procurement Sankey's mobile policy. The
@@ -274,7 +275,11 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
                   : "text-emerald-600 tabular-nums"
               }
             >
-              {formatEur(Math.abs(balanceEur))}{" "}
+              {/* The one figure the headline sets apart — underlined in its own colour, drawn
+                  on when it scrolls into view (motion-v1 §3.6). */}
+              <HandDrawnMark seed="budget-balance">
+                {formatEur(Math.abs(balanceEur))}
+              </HandDrawnMark>{" "}
               {isDeficit
                 ? t("budget_deficit") || "deficit"
                 : t("budget_surplus") || "surplus"}

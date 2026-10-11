@@ -1,11 +1,12 @@
-// A pen-drawn loop: the editorial „circle the thing that matters" mark, made to look like a
-// hand did it — an ellipse that wobbles a little and overshoots its own start, the way a
-// marker never quite closes.
+// Pen marks: the editorial „circle / underline the thing that matters", made to look like a
+// hand did it. Two shapes — a loop (an ellipse that wobbles a little and overshoots its own
+// start, the way a marker never quite closes; used on flipped map regions) and an underline (a
+// slight wave that overshoots its end; used by `HandDrawnMark` on inline figures).
 //
 // ⚠️ DETERMINISTIC BY SEED, never Math.random(). The same mark must come out identical on
 // every render and on both sides of hydration; a random wobble would redraw itself on every
-// state change and read as the map twitching. Seed it with something stable about WHAT is
-// being marked (a region id), so two marks on one map differ while each stays put.
+// state change and read as the page twitching. Seed it with something stable about WHAT is
+// being marked (a region id, a figure's role), so two marks differ while each stays put.
 
 /** mulberry32 — tiny, fast, good enough for a wobble. */
 const prng = (seed: number) => () => {
@@ -63,6 +64,28 @@ export const handDrawnLoopPath = (
     const c2x = p2[0] - (p3[0] - p1[0]) / 6;
     const c2y = p2[1] - (p3[1] - p1[1]) / 6;
     d += ` C${f(c1x)},${f(c1y)} ${f(c2x)},${f(c2y)} ${f(p2[0])},${f(p2[1])}`;
+  }
+  return d;
+};
+
+/** SVG path data for a hand-drawn underline across a 100 × 10 box: a slight wave that starts a
+ *  little in and overshoots its end, as a marker stroke does. Deterministic by seed, like the
+ *  loop. Draw it with `pathLength="1"` and `.motion-draw-on`. */
+export const handDrawnUnderlinePath = (seed: string): string => {
+  const rand = prng(hash(seed));
+  const POINTS = 6;
+  const pts: [number, number][] = [];
+  for (let i = 0; i <= POINTS; i++) {
+    const x = -1 + (i / POINTS) * 104;
+    // Drift down a touch left to right, wobbling a pixel either way.
+    const y = 4 + (i / POINTS) * 2 + (rand() - 0.5) * 2.4;
+    pts.push([x, y]);
+  }
+  let d = `M${f(pts[0][0])},${f(pts[0][1])}`;
+  for (let i = 1; i < pts.length; i++) {
+    const [px, py] = pts[i - 1];
+    const [x, y] = pts[i];
+    d += ` Q${f((px + x) / 2)},${f(py + (rand() - 0.5) * 2)} ${f(x)},${f(y)}`;
   }
   return d;
 };

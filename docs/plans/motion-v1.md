@@ -136,4 +136,12 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
    grey. The shimmer is the only motion (it means „loading") and stops under reduced motion.
    `ElectionSurfaceSkeleton` was left alone: it reserves exact per-level geometry measured
    against the producer, which a generic ghost would loosen.
-6. **Hand-drawn mark for HTML** — the same loop / underline around one key figure in a tile.
+6. **Hand-drawn mark for HTML** — ✅ shipped as `HandDrawnMark` (`src/ux/motion/`): a pen
+   underline under inline content, drawn on once it scrolls into view, stroked in
+   `currentColor` so it takes the figure's own colour and adds no new encoding. First and only
+   use: the budget balance in `BudgetFlowTile`'s headline („€2 137 906 718 дефицит"), the one
+   figure that line already sets apart in rose. ONE per block, and only on a figure the copy
+   already singles out — sprinkled, the mark stops meaning anything.
+   ⚠️ `IntersectionObserver` never fires in the hidden Claude desktop browser pane (it rides
+   the rendering loop the pane suspends), so the mark stays at `opacity-0` there; check it in
+   a visible browser.

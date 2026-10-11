@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { handDrawnLoopPath } from "./handDrawn";
+import { handDrawnLoopPath, handDrawnUnderlinePath } from "./handDrawn";
 
 const coords = (d: string) =>
   [...d.matchAll(/-?\d+(?:\.\d+)?/g)].map((m) => Number(m[0]));
@@ -25,6 +25,27 @@ describe("handDrawnLoopPath", () => {
     for (const [x, y] of pts) {
       expect(Math.abs(x - 50)).toBeLessThan(20 * 1.4);
       expect(Math.abs(y - 40)).toBeLessThan(10 * 1.4);
+    }
+  });
+});
+
+describe("handDrawnUnderlinePath", () => {
+  it("is deterministic per seed and differs between seeds", () => {
+    expect(handDrawnUnderlinePath("a")).toBe(handDrawnUnderlinePath("a"));
+    expect(handDrawnUnderlinePath("a")).not.toBe(handDrawnUnderlinePath("b"));
+  });
+
+  it("spans the box, overshooting a little, and stays inside its height", () => {
+    const nums = [
+      ...handDrawnUnderlinePath("x").matchAll(/-?\d+(?:\.\d+)?/g),
+    ].map((m) => Number(m[0]));
+    const xs = nums.filter((_, i) => i % 2 === 0);
+    const ys = nums.filter((_, i) => i % 2 === 1);
+    expect(Math.min(...xs)).toBeLessThan(0);
+    expect(Math.max(...xs)).toBeGreaterThan(100);
+    for (const y of ys) {
+      expect(y).toBeGreaterThanOrEqual(0);
+      expect(y).toBeLessThanOrEqual(10);
     }
   });
 });
