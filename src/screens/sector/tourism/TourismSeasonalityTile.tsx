@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatCompact } from "@/lib/currency";
 import { MONTH_NAMES_BG, MONTH_NAMES_EN } from "@/lib/tourismLabels";
 import { useTourismVisitors } from "@/data/tourism/useTourismVisitors";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 // Single-letter axis labels are a tile-specific rendering choice (the full names
 // come from the shared @/lib/tourismLabels).
@@ -24,10 +25,7 @@ export const TourismSeasonalityTile: FC = () => {
   const locale = bg ? "bg-BG" : "en-US";
   const { data, isLoading } = useTourismVisitors();
 
-  if (isLoading)
-    return (
-      <div className="h-[220px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[220px]" />;
   if (!data || data.seasonality.length < 12) return null;
 
   const months = MONTHS_BG.map((_, i) => (bg ? MONTHS_BG[i] : MONTHS_EN[i]));

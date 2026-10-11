@@ -212,9 +212,7 @@ export const EducationScreen: FC = () => {
         <CardContent>
           <div data-og="schools-map">
             <Suspense
-              fallback={
-                <div className="h-[460px] w-full animate-pulse rounded-xl border bg-card" />
-              }
+              fallback={<ChartGhost className="h-[460px] w-full" shape="map" />}
             >
               <SchoolsMap schools={dir.schools} />
             </Suspense>

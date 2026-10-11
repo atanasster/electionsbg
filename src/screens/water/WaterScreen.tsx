@@ -25,6 +25,7 @@ import { VikCompetitionTile } from "@/screens/components/procurement/vik/VikComp
 import { WaterFloodTile } from "./WaterFloodTile";
 import { WaterStatsTile } from "./WaterStatsTile";
 import { WaterSearchBox } from "./WaterSearchBox";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const WaterScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -73,7 +74,7 @@ export const WaterScreen: FC = () => {
       <WaterOperatorMap operators={mapOperators} />
 
       {isLoading ? (
-        <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
+        <ChartGhost className="h-[280px]" />
       ) : model && model.totalEur > 0 ? (
         <div className="space-y-4">
           <VikSubsidiaryTile operators={operators} universeEiks={groupEiks} />

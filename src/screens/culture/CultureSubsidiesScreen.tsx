@@ -42,6 +42,7 @@ import { CultureOblastMapTile } from "./CultureOblastMapTile";
 import { CultureAwardersTile } from "./CultureAwardersTile";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { CultureSearchBox } from "./CultureSearchBox";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const CultureSubsidiesScreen = () => {
   const { i18n } = useTranslation();
@@ -127,9 +128,7 @@ export const CultureSubsidiesScreen = () => {
           flight or has failed. */}
       <CultureSearchBox />
 
-      {isLoading && (
-        <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
-      )}
+      {isLoading && <ChartGhost className="my-4 h-[320px]" />}
 
       {!isLoading && (isError || !data) && (
         <div className="my-4 rounded-xl border bg-card p-6 text-center text-sm text-muted-foreground">

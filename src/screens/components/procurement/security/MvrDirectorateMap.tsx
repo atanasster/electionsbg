@@ -31,6 +31,7 @@ import {
   type MvrDirectoratePoint,
   type ScopeWindow,
 } from "@/data/procurement/useMvrDirectorateMap";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type Metric = "spend" | "singleBid";
 
@@ -164,10 +165,7 @@ export const MvrDirectorateMap: FC<{
       });
   }, [directorates, hidden, metric, bg, fmtPct, i18n.language]);
 
-  if (isLoading)
-    return (
-      <div className="h-[420px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[420px]" shape="map" />;
   if (!directorates.length) return null;
 
   const toggleUniverse = (u: SecurityUniverse) =>

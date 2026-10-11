@@ -25,6 +25,7 @@ import {
   MIN_RANK_COHORT,
   type ContextVerdict,
 } from "@/data/schools/useSchoolDirectory";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 // Lazy — the SVG scatter + its D3 helpers are only needed on the report card.
 const ContextScatter = lazy(() =>
@@ -370,7 +371,7 @@ export const SchoolScreen: FC = () => {
           <CardContent>
             <Suspense
               fallback={
-                <div className="h-[300px] w-full animate-pulse rounded-xl border bg-card" />
+                <ChartGhost className="h-[300px] w-full" shape="dots" />
               }
             >
               <ContextScatter dir={dir} highlightId={school.id} />

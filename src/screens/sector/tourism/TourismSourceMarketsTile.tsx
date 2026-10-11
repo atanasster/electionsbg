@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatCompact } from "@/lib/currency";
 import { TOURISM_MARKET_NAMES_BG } from "@/lib/tourismLabels";
 import { useTourismVisitors } from "@/data/tourism/useTourismVisitors";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const TourismSourceMarketsTile: FC = () => {
   const { i18n } = useTranslation();
@@ -17,10 +18,7 @@ export const TourismSourceMarketsTile: FC = () => {
   const locale = bg ? "bg-BG" : "en-US";
   const { data, isLoading } = useTourismVisitors();
 
-  if (isLoading)
-    return (
-      <div className="h-[220px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[220px]" shape="rows" />;
   const markets = data?.sourceMarkets ?? [];
   if (markets.length < 3) return null;
 

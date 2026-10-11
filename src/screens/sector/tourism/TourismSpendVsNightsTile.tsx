@@ -42,6 +42,7 @@ import { formatCompact } from "@/lib/currency";
 import { useAwarderContracts } from "@/data/procurement/useAwarderContracts";
 import { useTourismVisitors } from "@/data/tourism/useTourismVisitors";
 import { TOURISM_MINISTRY_EIK } from "@/lib/tourismReferenceData";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const CHART_H = 170; // px — in the family of seasonality (150) / spend-by-year (220)
 
@@ -53,10 +54,7 @@ export const TourismSpendVsNightsTile: FC = () => {
     useAwarderContracts(TOURISM_MINISTRY_EIK);
   const { data: visitors, isLoading: vLoading } = useTourismVisitors();
 
-  if (cLoading || vLoading)
-    return (
-      <div className="h-[240px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (cLoading || vLoading) return <ChartGhost className="h-[240px]" />;
   if (!visitors || !contracts) return null;
 
   // МТ's contract € per calendar year. `tag === "contract"` excludes amendments,

@@ -34,6 +34,7 @@ import {
   type TransportProjectPoint,
   type ScopeWindow,
 } from "@/data/procurement/useTransportProjectMap";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type Metric = "spend" | "singleBid";
 
@@ -215,10 +216,7 @@ export const TransportProjectMap: FC<{
     [points, styleOf, detailOf, metric, bg],
   );
 
-  if (isLoading)
-    return (
-      <div className="h-[460px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[460px]" shape="map" />;
   if (!segments.length && !points.length) return null;
 
   const bands = metric === "spend" ? SPEND_BANDS : BID_BANDS;

@@ -177,7 +177,13 @@ deliberately skipped are in the session that chose them; the skipped ones are li
    Of the ~80 pulse boxes, these stay pulsing on purpose: small KPI cards, the generic
    dashboard-card skeletons, header / text blocks, and whole-page `h-40` loaders — none is
    chart-shaped, and a ghost chart there would promise content the page does not have.
-4. **`ChartGhost` rollout, batch 2.**
+4. **`ChartGhost` rollout, batch 2.** ✅ shipped — 17 sites, each shape chosen from what the
+   placeholder actually stands in for, not its name: `map` for the МВР directorate, transport
+   facility / project, school and riverbed-cleaning maps; `dots` for the school context
+   scatter; `rows` for the tourism source-market ranking and the tourism thematic card (the
+   loading state of two ranked-list tiles); `bars` for the time-series tiles (tourism
+   spend-vs-nights and seasonality, water stats, rail subsidy) and the page-body loaders of /water, /judiciary, /pensions, /defense and the culture
+   subsidies page.
 5. **`ChartGhost` rollout, batch 3** — the remainder that are chart-, list- or map-shaped;
    non-chart placeholders (search boxes, text blocks) keep their pulse.
 

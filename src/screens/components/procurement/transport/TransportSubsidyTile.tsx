@@ -15,6 +15,7 @@ import { TrainFront } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useRailSubsidy } from "@/data/procurement/useRailSubsidy";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const TransportSubsidyTile: FC = () => {
   const { i18n } = useTranslation();
@@ -23,10 +24,7 @@ export const TransportSubsidyTile: FC = () => {
   const loc = bg ? "bg-BG" : "en-US";
   const { rows, latest, isLoading } = useRailSubsidy();
 
-  if (isLoading)
-    return (
-      <div className="h-[260px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[260px]" />;
   if (!latest || latest.perPassenger == null) return null;
 
   const perPax = latest.perPassenger;

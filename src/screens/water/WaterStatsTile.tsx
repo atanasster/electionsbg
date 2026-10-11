@@ -17,6 +17,7 @@ import {
 } from "@/data/governments/useGovernments";
 import { cabinetShortLabel } from "@/data/governments/cabinetLabel";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const CARETAKER_COLOR = "#9ca3af";
 const NO_GOV_COLOR = "var(--muted-foreground)";
@@ -56,10 +57,7 @@ export const WaterStatsTile: FC = () => {
         ? `${cabinetShortLabel(g, governments, lang)} · ${bg ? "служебен" : "caretaker"}`
         : `${cabinetShortLabel(g, governments, lang)} (${(bg ? g.parties : g.partiesEn).join(", ")})`;
 
-  if (isLoading)
-    return (
-      <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[280px]" />;
   if (!data || !data.years.length) return null;
 
   const years = data.years;

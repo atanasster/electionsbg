@@ -37,6 +37,7 @@ import { DefenseExportsTile } from "./DefenseExportsTile";
 import { DefenseReadinessTile } from "./DefenseReadinessTile";
 import { DefenseAwardersTile } from "./DefenseAwardersTile";
 import { DefenseSearchBox } from "./DefenseSearchBox";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const DefenseScreen = () => {
   const { i18n } = useTranslation();
@@ -151,9 +152,7 @@ export const DefenseScreen = () => {
           is the gate. */}
       <DefenseSearchBox />
 
-      {isLoading && (
-        <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
-      )}
+      {isLoading && <ChartGhost className="my-4 h-[320px]" />}
 
       {!isLoading && (isError || !gdp.data) && (
         <div className="my-4 rounded-xl border bg-card p-6 text-center text-sm text-muted-foreground">

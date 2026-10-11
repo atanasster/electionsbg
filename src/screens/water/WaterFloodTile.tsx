@@ -17,6 +17,7 @@ import { useFloodMaintenance } from "@/data/water/useFloodMaintenance";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { buildFloodModel } from "@/lib/floodModel";
 import { WaterFloodMap } from "./WaterFloodMap";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const WaterFloodTile: FC = () => {
   const { i18n } = useTranslation();
@@ -31,10 +32,7 @@ export const WaterFloodTile: FC = () => {
     [data, from, to],
   );
 
-  if (isLoading)
-    return (
-      <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[280px]" shape="map" />;
   if (!data || !model) return null;
   if (model.totalEur <= 0)
     return (

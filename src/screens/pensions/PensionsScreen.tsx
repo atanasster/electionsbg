@@ -27,6 +27,7 @@ import { PensionReformTile } from "./PensionReformTile";
 import { PensionReplacementTile } from "./PensionReplacementTile";
 import { PensionProjectionTile } from "./PensionProjectionTile";
 import { PensionsSearchBox } from "./PensionsSearchBox";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const PensionsScreen = () => {
   const { i18n } = useTranslation();
@@ -67,9 +68,7 @@ export const PensionsScreen = () => {
       {/* The finder, above the tiles. */}
       <PensionsSearchBox />
 
-      {isLoading && (
-        <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
-      )}
+      {isLoading && <ChartGhost className="my-4 h-[320px]" />}
 
       {!isLoading && (isError || !data) && (
         <div className="my-4 rounded-xl border bg-card p-6 text-center text-sm text-muted-foreground">

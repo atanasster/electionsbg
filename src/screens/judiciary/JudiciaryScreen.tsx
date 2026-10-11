@@ -34,6 +34,7 @@ import { IntegrityListsTile } from "./IntegrityListsTile";
 import { MagistrateHoldingsTile } from "./MagistrateHoldingsTile";
 import { JudicialAwardersTile } from "./JudicialAwardersTile";
 import { JudiciarySearchBox } from "./JudiciarySearchBox";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const JudiciaryScreen = () => {
   const { i18n } = useTranslation();
@@ -99,9 +100,7 @@ export const JudiciaryScreen = () => {
       {/* The finder, above the tiles. */}
       <JudiciarySearchBox />
 
-      {isLoading && (
-        <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
-      )}
+      {isLoading && <ChartGhost className="my-4 h-[320px]" />}
 
       {/* React Query settles a failed fetch as isLoading:false, data:undefined —
           without this branch the reader would get the title above nothing. */}

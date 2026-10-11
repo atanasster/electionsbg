@@ -39,12 +39,11 @@ import { TourismSeasonalityTile } from "./TourismSeasonalityTile";
 import { TourismSourceMarketsTile } from "./TourismSourceMarketsTile";
 import { TourismSpendVsNightsTile } from "./TourismSpendVsNightsTile";
 import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const EIKS = [TOURISM_MINISTRY_EIK] as const;
 
-const CardSkeleton: FC = () => (
-  <div className="h-[220px] animate-pulse rounded-xl border bg-card" />
-);
+const CardSkeleton: FC = () => <ChartGhost className="h-[220px]" shape="rows" />;
 
 /** Campaign-category split (CPV → advertising / events / digital / …). */
 const CampaignCategoriesTile: FC = () => {
