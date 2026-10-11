@@ -169,6 +169,15 @@ const EXEMPT: Record<string, string> = {
   // the repository's committed presidential-poll corpus.
   "scripts/polls/presidential/rekey.test.ts → unasserted-committed-input: data/polls/presidential":
     "synthetic scratch path whose absence is the behavior under test",
+  // Same shape as rekey.test.ts: every one of these is written under the per-test
+  // temporary root (`__setReviewRootForTests`) in beforeEach, never read from the
+  // repository's committed corpus.
+  "scripts/polls/review.test.ts → unasserted-committed-input: data/polls/presidential/polls.json":
+    "synthetic fixture written under a per-test temporary root",
+  "scripts/polls/review.test.ts → unasserted-committed-input: data/polls/presidential":
+    "synthetic fixture written under a per-test temporary root",
+  "scripts/polls/review.test.ts → unasserted-committed-input: data/polls/_inbox":
+    "synthetic fixture written under a per-test temporary root",
 };
 
 /**

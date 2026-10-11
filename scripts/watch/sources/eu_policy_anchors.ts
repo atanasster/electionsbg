@@ -578,10 +578,11 @@ interface SdmxSeries {
 const fetchSdmxJson = async (url: string, tries = 6): Promise<unknown> => {
   for (let i = 0; i < tries; i++) {
     try {
-      const r = await fetch(url, {
-        headers: { Accept: "application/vnd.sdmx.data+json" },
-        signal: AbortSignal.timeout(60_000),
-      });
+      // No Accept header: the URL's `format=jsondata` selects SDMX-JSON, and
+      // since ~2026-07-15 the endpoint answers an explicit
+      // `Accept: application/vnd.sdmx.data+json` with 500 "Internal server
+      // error" — which this loop swallowed as "flaky" for three months.
+      const r = await fetch(url, { signal: AbortSignal.timeout(60_000) });
       const t = await r.text();
       if (r.status === 200 && t.startsWith("{")) return JSON.parse(t);
     } catch {
@@ -599,13 +600,18 @@ export const oecdPitParams: WatchSource = {
   cadence: "monthly",
 
   async fingerprint(): Promise<Fingerprint> {
+    // SDMX-JSON 2.0 carries `structures[0]`, 1.0 a singular `structure`;
+    // which one arrives depends on content negotiation, so accept either.
     const j = (await fetchSdmxJson(OECD_PIT_URL)) as {
       data: {
-        structures: { dimensions: { series: SdmxDim[] } }[];
+        structures?: { dimensions: { series: SdmxDim[] } }[];
+        structure?: { dimensions: { series: SdmxDim[] } };
         dataSets: { series: Record<string, SdmxSeries> }[];
       };
     };
-    const sDims = j.data.structures[0].dimensions.series;
+    const structure = j.data.structures?.[0] ?? j.data.structure;
+    if (!structure) throw new Error("OECD PIT: response carries no structure");
+    const sDims = structure.dimensions.series;
     const pos = (id: string): number => sDims.findIndex((d) => d.id === id);
     const pRef = pos("REF_AREA");
     const pTx = pos("TRANSACTION");
