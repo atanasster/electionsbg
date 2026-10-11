@@ -32,6 +32,7 @@ import { OblastTrendTable } from "./OblastTrendTable";
 import { buildOblastRows } from "./oblastRows";
 import { EducationSearchBox } from "./EducationSearchBox";
 import { bareOblastName } from "@/lib/oblastName";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 // Leaflet + react-leaflet are heavy; keep them out of the /education chunk until
 // the map actually renders.
@@ -276,7 +277,7 @@ export const EducationScreen: FC = () => {
               <div data-og="context-scatter">
                 <Suspense
                   fallback={
-                    <div className="h-[300px] w-full animate-pulse rounded-xl border bg-card" />
+                    <ChartGhost className="h-[300px] w-full" shape="dots" />
                   }
                 >
                   <ContextScatter dir={dir} />

@@ -48,6 +48,7 @@ import {
   SectorTopContractorsTile,
 } from "./SectorCharts";
 import { SECTORS_HUB_PATH } from "@/screens/components/procurement/SectorBreadcrumb";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 // The generic dashboard needs headline money/competition, not a CPV taxonomy —
 // fold every contract into one bucket.
@@ -360,11 +361,7 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
         // Pack-backed sector: the disbursement/delivery pack is the content,
         // plus the one route to the buy-side it would otherwise swallow.
         <>
-          <Suspense
-            fallback={
-              <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
-            }
-          >
+          <Suspense fallback={<ChartGhost className="h-[280px]" />}>
             <Pack eik={config.leadEik} scopeWindow={scopeWindow} />
           </Suspense>
           {/* …unless the pack already routes there itself — see
@@ -442,21 +439,13 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
       )}
 
       {ThematicPack && (
-        <Suspense
-          fallback={
-            <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
-          }
-        >
+        <Suspense fallback={<ChartGhost className="h-[280px]" />}>
           <ThematicPack eik={config.leadEik} scopeWindow={scopeWindow} />
         </Suspense>
       )}
 
       {ThematicTiles && (
-        <Suspense
-          fallback={
-            <div className="h-[200px] animate-pulse rounded-xl border bg-card" />
-          }
-        >
+        <Suspense fallback={<ChartGhost className="h-[200px]" />}>
           <ThematicTiles />
         </Suspense>
       )}

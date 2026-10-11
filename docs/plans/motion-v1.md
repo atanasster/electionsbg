@@ -125,7 +125,15 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
    (`useState` / `useScope` / a year selector), not read one by one; the remaining candidates it
    surfaced (`GovernmentTimeline`, `NzokReportCardTile`, the pension tiles, …) are open work —
    opt each in only after confirming it redraws on a reader action and is not a `<Pie>`.
-5. **Shape-aware skeletons** — a chart's ghost (axis + baseline) whose bars grow into the
-   real values, replacing generic `animate-pulse` blocks; keep reserved heights for the
-   `data-kpi-cell` height gates.
+5. **Shape-aware skeletons** — ✅ shipped as `ChartGhost` (`src/ux/motion/`): a baseline and
+   faint bars (or scatter dots) under a slow shimmer, in the same `rounded-xl border bg-card`
+   shell and height class as the pulsing box it replaces, so nothing moves on arrival. Wired
+   into the chart-shaped `Suspense` fallbacks: the three sector-pack slots in
+   `SectorDashboardScreen` and the context scatter on `/education`.
+   **The ghost does NOT grow into the real values**, against the original wording: the marks
+   are invented, and morphing them into real bars would animate data arriving on first paint —
+   the fade-from-placeholder §0 rules out, and the reason `FeatureMap` never fades in from its
+   grey. The shimmer is the only motion (it means „loading") and stops under reduced motion.
+   `ElectionSurfaceSkeleton` was left alone: it reserves exact per-level geometry measured
+   against the producer, which a generic ghost would loosen.
 6. **Hand-drawn mark for HTML** — the same loop / underline around one key figure in a tile.

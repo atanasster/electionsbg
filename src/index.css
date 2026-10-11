@@ -225,3 +225,28 @@ a {
     animation: none !important;
   }
 }
+
+/* Loading shimmer for `ChartGhost` (motion-v1 §3.5): a soft band passing over the ghost marks.
+   Motion that means „loading", so it is allowed by §0; still under reduced motion. */
+.motion-shimmer {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    hsl(var(--card) / 0.65) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: motion-shimmer 1.8s ease-in-out infinite;
+}
+@keyframes motion-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-shimmer {
+    animation: none;
+    transform: none;
+    background: none;
+  }
+}
