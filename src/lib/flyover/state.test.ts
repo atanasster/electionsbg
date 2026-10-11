@@ -14,7 +14,6 @@ const A: FlyoverState = {
   arcs: 0,
   labels: 0.2,
   highlight: "SOF",
-  captionId: "columns_proc",
 };
 
 const B: FlyoverState = {
@@ -23,7 +22,6 @@ const B: FlyoverState = {
   arcs: 1,
   labels: 1,
   highlight: "VAR",
-  captionId: "columns_funds",
 };
 
 describe("blend", () => {
@@ -49,24 +47,21 @@ describe("blend", () => {
     expect(Object.keys(mid.weights).sort()).toEqual([...LAYER_IDS].sort());
   });
 
-  it("switches the identities at the halfway point instead of fading through", () => {
-    // There is nothing between „София" and „Варна", and a caption that faded through a third
-    // would say something nobody wrote.
+  it("switches the highlight at the halfway point instead of fading through", () => {
+    // There is nothing between „София" and „Варна".
     expect(blend(A, B, 0.49).highlight).toBe("SOF");
     expect(blend(A, B, 0.5).highlight).toBe("VAR");
-    expect(blend(A, B, 0.49).captionId).toBe("columns_proc");
-    expect(blend(A, B, 0.5).captionId).toBe("columns_funds");
   });
 
   it("clamps a NaN k to the start rather than producing a NaN frame", () => {
     // Every host derives `k` by division — a rAF clock, a scroll ratio, `frame / (fps *
     // duration)` — so `0/0` on a first frame is ordinary. Ungated, every number in the state
-    // becomes NaN (a blank canvas) while `highlight` and `captionId` still advance to `b`,
-    // because both `NaN < 0.5` comparisons are false: a caption narrating an empty picture.
+    // becomes NaN (a blank canvas) while `highlight` still advances to `b`, because
+    // `NaN < 0.5` is false: a highlighted oblast on an empty picture.
     const out = blend(A, B, Number.NaN);
     expect(out).toEqual(A);
     expect(Number.isNaN(out.camera.distance)).toBe(false);
-    expect(out.captionId).toBe("columns_proc");
+    expect(out.highlight).toBe("SOF");
   });
 
   it("is continuous in every number it interpolates", () => {
@@ -91,12 +86,12 @@ describe("blend", () => {
 
 describe("STATE_ZERO", () => {
   it("frames the whole country rather than nothing", () => {
-    // It is the base Remotion accretes onto AND what a host renders before a programme has
-    // produced anything, so „neutral" must still be a legible picture.
+    // It is the base Remotion and the article accrete onto AND what a host renders before
+    // anything is resolved, so „neutral" must still be a legible picture.
     expect(STATE_ZERO.camera.distance).toBeGreaterThan(400);
     expect(STATE_ZERO.camera.target[0]).toBeGreaterThan(300);
     expect(STATE_ZERO.camera.target[0]).toBeLessThan(700);
-    expect(STATE_ZERO.captionId).toBeNull();
+    expect(STATE_ZERO.highlight).toBeNull();
     for (const id of LAYER_IDS) expect(STATE_ZERO.weights[id], id).toBe(0);
   });
 
@@ -123,14 +118,12 @@ describe("applyPartial", () => {
     expect(out.arcs).toBe(1);
     expect(out.weights).toEqual(A.weights);
     expect(out.highlight).toBe("SOF");
-    expect(out.captionId).toBe("columns_proc");
   });
 
-  it("lets a patch CLEAR an identity, which `??` alone would not", () => {
-    // `null` is a meaningful value for both — „stop highlighting", „say nothing" — so the test
-    // is the presence of the key, not the truthiness of the value.
+  it("lets a patch CLEAR the highlight, which `??` alone would not", () => {
+    // `null` is a meaningful value — „stop highlighting" — so the test is the presence of the
+    // key, not the truthiness of the value.
     expect(applyPartial(A, { highlight: null }).highlight).toBeNull();
-    expect(applyPartial(A, { captionId: null }).captionId).toBeNull();
     expect(applyPartial(A, {}).highlight).toBe("SOF");
   });
 

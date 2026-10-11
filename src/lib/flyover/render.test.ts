@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { render, type RenderOptions } from "./render";
 import { createRecorder } from "./recorder";
 import { STATE_ZERO, type FlyoverState } from "./state";
-import { captionFor } from "./captions";
 import { TEST_PALETTE, TEST_WORLD } from "./testWorld";
 
 const VIEW = { w: 800, h: 500 };
@@ -55,7 +54,7 @@ describe("render", () => {
       (c) => c.args[0] as string,
     );
     expect(texts.length).toBeGreaterThan(0);
-    // Every one is a proper noun out of the artifact — the captions are DOM text, so the
+    // Every one is a proper noun out of the artifact — the article's prose is DOM text, so the
     // canvas must never be the place a translatable sentence lives.
     const cities = Object.values(TEST_WORLD.geo.cities).flatMap((c) => [
       c[2],
@@ -378,37 +377,5 @@ describe("render", () => {
     expect(rec.ops("fillText")).toHaveLength(0);
     expect(rec.ops("strokeText")).toHaveLength(0);
     expect(rec.ops("quadraticCurveTo")).toHaveLength(0);
-  });
-});
-
-describe("captions", () => {
-  it("resolves to a literal key and never to prose", () => {
-    const c = captionFor("arcs_coverage", TEST_WORLD)!;
-    expect(c.key).toBe("flyover_caption_arcs_coverage");
-    // Nothing the engine returns may contain Cyrillic: the host renders it through `t()`.
-    expect(JSON.stringify(c)).not.toMatch(/[Ѐ-ӿ]/);
-  });
-
-  it("carries the coverage beside the number, so a translation cannot drop it", () => {
-    const c = captionFor("arcs_coverage", TEST_WORLD)!;
-    // From `TEST_WORLD`, refreshed to one post-T3.3 artifact vintage on 2026-09-06 (it read
-    // 22.1 / 94.1 / 23.5 before). The point of the assertion is that all three params SHIP —
-    // a translation that dropped the coverage would leave a bare number — not what they are.
-    expect(c.params.placedBn).toBeCloseTo(43.9, 1);
-    expect(c.params.totalBn).toBeCloseTo(94.2, 1);
-    expect(c.params.placedPct).toBeCloseTo(46.6, 1);
-  });
-
-  it("publishes both funds figures, never the numerator alone", () => {
-    // 4.6% of rows carry no oblast and they hold 52% of the money.
-    const c = captionFor("columns_funds", TEST_WORLD)!;
-    expect(c.params.placedBn).toBeCloseTo(16.1, 1);
-    expect(c.params.totalBn).toBeCloseTo(33.7, 1);
-    expect(Number(c.params.placedBn)).toBeLessThan(Number(c.params.totalBn));
-  });
-
-  it("says nothing for a null id and for an id it does not know", () => {
-    expect(captionFor(null, TEST_WORLD)).toBeNull();
-    expect(captionFor("nope", TEST_WORLD)).toBeNull();
   });
 });

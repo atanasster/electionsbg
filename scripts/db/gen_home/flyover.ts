@@ -1,11 +1,11 @@
-// The ONE artifact behind the home flyover, the article and the video —
+// The ONE artifact behind the money-map article and the video —
 // `docs/plans/home-flyover-v1.md` §3 and §6.2.
 //
 //   npm run db:gen-home-flyover
 //
 // Writes the COMMITTED `data/home/flyover.json`: pre-projected geometry, three money layers
 // by oblast, the buyer→contractor flow matrix, the elections and prices overlays, and the
-// caption figures. `/` fetches this one object AFTER the band arms, and nothing else.
+// headline figures. `/` does not fetch it — the home flyover band was retired.
 //
 // ⚠️⚠️ THE THREE MONEY LAYERS ARE THREE TAPS, NEVER A TOTAL. An ИСУН-funded contract is in
 // `fund_projects` AND in `contracts`; a farm subsidy is in neither. Summing them is not an

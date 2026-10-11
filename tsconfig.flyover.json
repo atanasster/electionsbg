@@ -35,7 +35,7 @@
     // friends come from `lib: ["DOM"]`, and the tests that do need node: are excluded below.
     "types": []
   },
-  // ⚠️ RECURSIVE. Plan §4 puts the programmes in `src/lib/flyover/programmes/`, and a
+  // ⚠️ RECURSIVE. Plan §4 puts the chapter table in `src/lib/flyover/programmes/`, and a
   // non-recursive glob would drop that whole directory out of this gate the day it lands —
   // green, and checking less.
   "include": ["src/lib/flyover/**/*.ts"],

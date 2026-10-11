@@ -19,10 +19,10 @@ export const COLUMN_MAX_H = 150;
 /** Column footprint, in frame pixels. */
 export const COLUMN_W = 9;
 
-/** How many flows the arcs programme draws before the picture becomes a ball of string. */
+/** How many flows the arcs draw before the picture becomes a ball of string. */
 export const TOP_FLOWS = 40;
 
-/** The narrow-viewport count — plan §8.5, where the band also drops to 24 fps. */
+/** The narrow-viewport count — plan §8.5. */
 export const TOP_FLOWS_NARROW = 20;
 
 /**

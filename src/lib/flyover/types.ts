@@ -59,8 +59,8 @@ export interface WorldCoverage {
  * ⚠️ OPTIONAL HERE AND REQUIRED THERE, DELIBERATELY. The generator always emits it, but the
  * browser fetches whatever object the bucket currently holds — and between shipping the bundle
  * and syncing the artifact, that is an object minted before this field existed. Required, the
- * shape gate in `useFlyoverArtifact` would reject it and `/` would fall back to the poster for
- * the length of a deploy; optional, the arcs still draw and only the one caption stays quiet.
+ * shape gate in `useFlyoverArtifact` would reject it and the article would fall back to its
+ * frozen stills for the length of a deploy; optional, the arcs still draw without it.
  */
 export interface WorldCarrierLead {
   /** Money placed at a lead member. A SUBSET of `coverage.bothPlacedEur`. */

@@ -5,20 +5,15 @@ import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import { GlobalFonts, createCanvas, type Canvas } from "@napi-rs/canvas";
 import {
-  BRAND_PALETTE,
   OG_H,
   OG_W,
   POSTER_H,
   POSTER_W,
+  chapterState,
   drawFrame,
   loadWorld,
   parseArgs,
 } from "./flyover_posters";
-import {
-  PROGRAMMES,
-  PROGRAMME_IDS,
-  stateAt,
-} from "../../src/lib/flyover/programmes";
 import { ARTICLE_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
 import { assertCommitted } from "../lib/assert_committed";
 import {
@@ -120,7 +115,7 @@ describe("the committed posters", () => {
 
   it("is not a blank frame", () => {
     // A poster that failed to draw is still a valid image of the right size, so „it decodes"
-    // proves nothing. The scene is a lot of dark blue with land, columns and labels on it; a
+    // proves nothing. The scene is land, columns and labels over the article's ground; a
     // backdrop-only render compresses to a small fraction of this.
     for (const rel of ARTICLE_IMAGES) {
       expect(read(rel).length, rel).toBeGreaterThan(8_000);
@@ -130,45 +125,33 @@ describe("the committed posters", () => {
 
 describe("drawFrame", () => {
   const world = loadWorld();
+  const goes = articlePresentationState(chapterState("goes"));
 
   it("is deterministic — two renders of one state are byte-identical", () => {
     // The clock is pinned to 0, so nothing in a poster may depend on when it was drawn.
-    const a = drawFrame({
-      world,
-      programme: "arcs",
-      t: 3,
-      width: 320,
-      height: 200,
-    });
-    const b = drawFrame({
-      world,
-      programme: "arcs",
-      t: 3,
-      width: 320,
-      height: 200,
-    });
+    const a = drawFrame({ world, state: goes, width: 320, height: 200 });
+    const b = drawFrame({ world, state: goes, width: 320, height: 200 });
     expect(a.toBuffer("image/png").equals(b.toBuffer("image/png"))).toBe(true);
   });
 
-  it("draws something different for each programme", () => {
-    const png = (id: (typeof PROGRAMME_IDS)[number]) =>
-      drawFrame({ world, programme: id, t: 0, width: 320, height: 200 })
+  it("draws something different for each article chapter", () => {
+    const png = (id: string) =>
+      drawFrame({
+        world,
+        state: articlePresentationState(chapterState(id)),
+        width: 320,
+        height: 200,
+      })
         .toBuffer("image/png")
         .toString("base64");
-    const seen = new Set(PROGRAMME_IDS.map(png));
-    expect(seen.size).toBe(PROGRAMME_IDS.length);
+    const ids = ARTICLE_CHAPTERS.map((c) => c.id);
+    expect(new Set(ids.map(png)).size).toBe(ids.length);
   });
 
   it("paints an opaque backdrop, because the engine clears to transparent", () => {
-    // A poster is an `<img>` over the page's own background; a transparent one would show the
-    // theme through the sea and stop being the reserved box it exists to be.
-    const canvas = drawFrame({
-      world,
-      programme: "tour",
-      t: 0,
-      width: 40,
-      height: 25,
-    });
+    // A still is an `<img>` over the page's own background; a transparent one would show the
+    // theme through the sea.
+    const canvas = drawFrame({ world, state: goes, width: 40, height: 25 });
     const ctx = (canvas as Canvas).getContext("2d");
     const { data } = ctx.getImageData(0, 0, 40, 25);
     for (let i = 3; i < data.length; i += 4) expect(data[i]).toBe(255);
@@ -179,17 +162,17 @@ describe("drawFrame", () => {
     // image nobody reviews pixel by pixel, at the right size, over the byte floor, past every
     // other assertion in this file. `drawFrame` registers, so this asserts the registration
     // actually took AND that the labels are drawn at all.
-    drawFrame({ world, programme: "tour", t: 0, width: 200, height: 125 });
+    drawFrame({ world, state: goes, width: 200, height: 125 });
     expect(GlobalFonts.families.map((f) => f.family)).toContain("Inter");
     const withLabels = drawFrame({
       world,
-      state: { ...stateAt(PROGRAMMES.tour, 0), labels: 1 },
+      state: { ...goes, labels: 1 },
       width: 400,
       height: 250,
     }).toBuffer("image/png");
     const without = drawFrame({
       world,
-      state: { ...stateAt(PROGRAMMES.tour, 0), labels: 0 },
+      state: { ...goes, labels: 0 },
       width: 400,
       height: 250,
     }).toBuffer("image/png");
@@ -197,12 +180,26 @@ describe("drawFrame", () => {
   });
 
   it("uses a hex palette, which `mixHex` is the reason for", () => {
-    for (const [key, value] of Object.entries(BRAND_PALETTE)) {
+    for (const [key, value] of Object.entries(ARTICLE_PALETTE)) {
       const values = typeof value === "string" ? [value] : Object.values(value);
       for (const v of values) {
         expect(v, `${key}: ${v}`).toMatch(/^#[0-9a-f]{6}$/i);
       }
     }
+  });
+});
+
+describe("chapterState", () => {
+  it("accretes every chapter before the one asked for", () => {
+    let running = STATE_ZERO;
+    for (const c of ARTICLE_CHAPTERS) {
+      running = applyPartial(running, c.state);
+      expect(chapterState(c.id)).toEqual(running);
+    }
+  });
+
+  it("refuses a chapter the table does not carry", () => {
+    expect(() => chapterState("columns")).toThrow(/no chapter/);
   });
 });
 
@@ -212,9 +209,9 @@ describe("parseArgs", () => {
   });
 
   it("reads the single-frame tuning flags", () => {
-    expect(parseArgs(["--programme", "arcs", "--t", "12"])).toEqual({
-      programme: "arcs",
-      t: 12,
+    expect(parseArgs(["--chapter", "agri", "--out", "/tmp/f.png"])).toEqual({
+      chapter: "agri",
+      out: "/tmp/f.png",
     });
   });
 
@@ -226,11 +223,12 @@ describe("parseArgs", () => {
     expect(path.join(ROOT, "/tmp/f.png")).not.toBe("/tmp/f.png");
   });
 
-  it("refuses a flag with no value or an unknown programme", () => {
-    expect(() => parseArgs(["--programme"])).toThrow(/needs a value/);
-    expect(() => parseArgs(["--programme", "map"])).toThrow(/not one of/);
-    expect(() => parseArgs(["--t", "soon"])).toThrow(/not a number/);
-    expect(() => parseArgs(["--chapters"])).toThrow(/unknown argument/);
+  it("refuses a flag with no value or an unknown chapter", () => {
+    expect(() => parseArgs(["--chapter"])).toThrow(/needs a value/);
+    expect(() => parseArgs(["--chapter", "map"])).toThrow(/not one of/);
+    expect(() => parseArgs(["--programme", "arcs"])).toThrow(
+      /unknown argument/,
+    );
     expect(() => parseArgs(["--out", "/tmp/f.png", "typo"])).toThrow(
       /unknown argument/,
     );

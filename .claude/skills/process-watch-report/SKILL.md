@@ -644,8 +644,8 @@ invokes `/upload-watch-changes` (Procedure step 14), which is what actually push
   and chapter stills are FROZEN committed images. `npm run home:flyover-posters` still renders
   them, by hand only — it writes into `public/`, which only a hosting deploy ships, so running
   it here would leave a pending deploy after every run for pictures nobody asked to change.
-- `db:gen-home-flyover` must FOLLOW `db:gen-home-hub-stats`: its caption headline is that
-  file's procurement figure, read from disk rather than recomputed, precisely so the money-map
+- `db:gen-home-flyover` must FOLLOW `db:gen-home-hub-stats`: its `figures.procTotalEur` is
+  that file's procurement figure, read from disk rather than recomputed, precisely so the money-map
   article's live canvas and the `/procurement` tile cannot show two different euro totals. Run
   the other way round it quotes the previous vintage and they disagree by whatever the reload
   moved, with every count reconciling. `ORDER_PAIRS` holds it for the `db:refresh` chain.

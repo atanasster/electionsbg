@@ -48,11 +48,9 @@ const ENGINES = [
   "lib/roadAttributes.ts",
   // The flyover scene engine (docs/plans/home-flyover-v1.md §8.4). It is mounted by the
   // money-map article, a lazy route, so nothing in the entry chunk may name it — and these two
-  // modules' closure is the whole engine, including the programmes and the caption table.
-  // Seeded BEFORE the host exists, because a gate that arrives after the thing it guards has
-  // already let the edge through once.
+  // modules' closure is the whole engine, including the chapter table.
   "lib/flyover/render.ts",
-  "lib/flyover/programmes/index.ts",
+  "lib/flyover/programmes/tour.ts",
 ];
 
 /** The whole point of the fix: an import-free module a nav surface may name. */
@@ -115,7 +113,7 @@ describe("the entry chunk's static import graph", () => {
     // The flyover half, pinned for the same reason: deleting its two `ENGINES` entries would
     // otherwise leave every assertion here green while the guard stopped guarding.
     expect(names).toContain("src/lib/flyover/render.ts");
-    expect(names).toContain("src/lib/flyover/programmes/tour.ts"); // via the closure
+    expect(names).toContain("src/lib/flyover/programmes/anchors.ts"); // via the closure
     expect(names).not.toContain("src/lib/roadsAwarder.ts");
   });
 

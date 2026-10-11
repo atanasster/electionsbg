@@ -73,10 +73,8 @@ export const TEST_WORLD: FlyoverWorld = {
     // invariant rather than tidiness. `carrierLead` was added with post-T3.3 values while these
     // were left at their pre-T3.1 ones, which made the fixture assert simultaneously that 2,049
     // carriers had been placed at a lead member AND that the `carriers` bucket still held every
-    // euro of unplaced consortium money — a state the generator cannot produce. The pair is
-    // rendered together in the ARCS loop, so `arcs_consortia` beside `arcs_coverage` then read
-    // „€9.8bn of €22.1bn" (44%) where production reads 22%, and any eyeball or snapshot check
-    // of the two captions calibrated against a relationship that cannot occur.
+    // euro of unplaced consortium money — a state the generator cannot produce, so any check
+    // reading the two together calibrated against a relationship that cannot occur.
     // Refreshed 2026-09-06 from `data/home/flyover.json`.
     coverage: {
       totalEur: 94_189_514_880,
@@ -90,11 +88,7 @@ export const TEST_WORLD: FlyoverWorld = {
         buyerUnplaced: 279_483_961,
       },
     },
-    // ⚠️ PRESENT HERE EVEN THOUGH THE FIELD IS OPTIONAL. `captions.test.ts` resolves every
-    // caption against this world and asserts each gives at least one finite number, so a
-    // fixture without it would make `arcs_consortia` return null and drop out of that sweep —
-    // a caption shipped to readers with nothing checking its params. The absent case is
-    // covered by its own test instead, which is the half that must not be the default.
+    // Present even though the field is optional, so the fixture matches a current artifact.
     carrierLead: {
       eur: 9_791_395_167,
       consortia: 2_031,

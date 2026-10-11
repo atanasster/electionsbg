@@ -32,7 +32,7 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 const ALLOWED_BARE: string[] = [];
 
 describe("the flyover engine's import isolation", () => {
-  // ⚠️ RECURSIVE. Plan §4 puts the programmes in `src/lib/flyover/programmes/`, and a flat
+  // ⚠️ RECURSIVE. Plan §4 puts the chapter table in `src/lib/flyover/programmes/`, and a flat
   // readdir would drop that directory out of this gate the day it lands — passing, and
   // checking less. `tsconfig.flyover.json` carries the same fix for the same reason.
   const walk = (dir: string): string[] =>

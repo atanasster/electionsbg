@@ -77,9 +77,8 @@ describe("the public artifacts are the ones something builds and publishes", () 
   it("names the three the home page fetches, and not the intermediate", () => {
     // `price_events.json` is committed and published for inspectability, but no browser reads
     // it — so a 404 on it is not a page failure and must not be reported as one.
-    // `flyover.json` IS read, just later than the other two: the band fetches it only once it
-    // arms, which is what keeps first paint at two requests. „Committed but never uploaded"
-    // does not care when the fetch happens, so it belongs here all the same.
+    // `flyover.json` is read by the money-map article rather than by `/`, but „committed but
+    // never uploaded" does not care which page fetches it, so it belongs here all the same.
     expect(PUBLIC_ARTIFACTS.map((a) => a.object)).toEqual([
       "home/hub_stats.json",
       "home/feed.json",

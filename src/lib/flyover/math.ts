@@ -8,13 +8,13 @@
  * Clamp to [0, 1].
  *
  * ⚠️ `NaN` CLAMPS TO 0 rather than passing through, and this is the ONE gate in front of
- * `blend`, `blendCamera` and `smoothstep`. All three hosts derive `k` by division — `/` from a
- * rAF clock, the article from a scroll ratio, Remotion from `frame / (fps * duration)` — so a
+ * `blend`, `blendCamera` and `smoothstep`. Both hosts derive `k` by division — the article
+ * from a scroll ratio, Remotion from `frame / (fps * duration)` — so a
  * `0/0` on a first frame, a zero duration or a scroll measured before layout all produce one.
  * Left ungated, every number in the state becomes NaN and the canvas draws nothing, while
- * `highlight` and `captionId` still advance (both `NaN < 0.5` comparisons are false, so both
- * take the `b` branch): a blank picture with a caption confidently narrating it, which reads
- * as a renderer bug three modules from the caller that produced the NaN.
+ * `highlight` still advances (`NaN < 0.5` is false, so it takes the `b` branch): a blank
+ * picture with an oblast picked out, which reads as a renderer bug three modules from the
+ * caller that produced the NaN.
  *
  * The test is inverted for that reason — the fall-through case is 0, not `k`.
  */

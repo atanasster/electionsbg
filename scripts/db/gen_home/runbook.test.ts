@@ -124,8 +124,8 @@ describe("the home generators are operationally reachable", () => {
     expect(at("db:gen-home-price-events")).toBeGreaterThan(
       at("db:gen-home-hub-stats"),
     );
-    // The flyover reads hub_stats.json's procurement tile OFF DISK, precisely so the moving
-    // band and the /procurement tile one screen below cannot show two different euro totals.
+    // The flyover reads hub_stats.json's procurement tile OFF DISK, precisely so the money-map
+    // article and the /procurement tile cannot show two different euro totals.
     // Run first it quotes the previous vintage and they disagree with nothing failing —
     // ORDER_PAIRS covers the db:refresh chain, and this covers the orchestrator's.
     expect(at("db:gen-home-flyover")).toBeGreaterThan(

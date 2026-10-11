@@ -1,34 +1,29 @@
-// „The guided tour" — five home chapters, plus the article-only elections chapter.
+// „The guided tour" — the money-map article's six chapters.
 //
-// ⚠️ THIS TABLE IS THE SPINE OF THREE SURFACES, WHICH IS WHY THE CHAPTER STATES ARE EXPORTED
-// SEPARATELY FROM THE PROGRAMME. The home band reads it through `stateAt` on a timer; the
-// ARTICLE maps scroll position to (chapter, intra-chapter t) and reads the same table; and the
-// VIDEO takes the chapter STATES and gives them the durations the narration measured, because
-// Remotion has no loop. If the three ever derived their camera from three tables, the same
-// chapter would show three different pictures of the same sentence.
+// ⚠️ THIS TABLE IS THE SPINE OF THREE SURFACES. The ARTICLE maps scroll position to (chapter,
+// intra-chapter t); the committed chapter stills and share card (`npm run
+// home:flyover-posters`) are drawn from it; and the VIDEO takes the chapter STATES and gives
+// them the durations the narration measured. If the three ever derived their camera from
+// three tables, the same chapter would show three different pictures of the same sentence.
 //
-// ⚠️ THE ELECTIONS OVERLAY IS DELIBERATELY NOT HERE. It is chapter 6 of the article (plan §5)
-// — the home tour ends on prices. A tour that ended on an election result would make the
-// entry page's moving band a claim about a party rather than about money.
+// The first five chapters were the retired home band's tour, which is why they are a separate
+// export: `TOUR_CHAPTERS` is the money story, and the elections chapter is appended only for
+// the article.
 
 import { ZERO_WEIGHTS as OFF, type FlyoverState } from "../state";
-import type { Programme } from "./index";
 import { OVERVIEW, PLOVDIV, SOFIA, STARA_ZAGORA, VARNA } from "./anchors";
 
 export interface TourChapter {
   /** Stable id — the article's `<section data-chapter>` and the video's scene key. */
   id: string;
-  /** Seconds into the 40-second loop where this chapter begins. */
+  /** The chapter's position on the article's timeline, in seconds. */
   t: number;
   /** The chapter's own state, as a PARTIAL accreted onto the one before it. */
   state: Partial<FlyoverState>;
   dwell: number;
 }
 
-/**
- * The five HOME chapters, in order. The article and video extend this table below; only the
- * home band reads `t`.
- */
+/** The five money chapters, in order. `ARTICLE_CHAPTERS` extends this table below. */
 export const TOUR_CHAPTERS: readonly TourChapter[] = [
   {
     // 1. Where the state buys — the buyer side, 56% of it in the capital.
@@ -40,7 +35,6 @@ export const TOUR_CHAPTERS: readonly TourChapter[] = [
       arcs: 0,
       labels: 0.4,
       highlight: null,
-      captionId: "tour_buys",
     },
     dwell: 3,
   },
@@ -53,7 +47,6 @@ export const TOUR_CHAPTERS: readonly TourChapter[] = [
       weights: { ...OFF },
       arcs: 1,
       highlight: "SOF",
-      captionId: "tour_goes",
     },
     dwell: 3,
   },
@@ -66,7 +59,6 @@ export const TOUR_CHAPTERS: readonly TourChapter[] = [
       weights: { ...OFF, funds: 1 },
       arcs: 0,
       highlight: null,
-      captionId: "tour_funds",
     },
     dwell: 3,
   },
@@ -77,7 +69,6 @@ export const TOUR_CHAPTERS: readonly TourChapter[] = [
     state: {
       camera: { target: PLOVDIV, distance: 640, pitch: 40, yaw: 10 },
       weights: { ...OFF, agri: 1 },
-      captionId: "tour_agri",
     },
     dwell: 3,
   },
@@ -89,16 +80,14 @@ export const TOUR_CHAPTERS: readonly TourChapter[] = [
       camera: { target: VARNA, distance: 820, pitch: 50, yaw: -12 },
       weights: { ...OFF, prices: 1 },
       labels: 0.7,
-      captionId: "tour_prices",
     },
     dwell: 4,
   },
 ];
 
 /**
- * The article's six chapters. The first five are the exact home-tour objects; the sixth keeps
- * the election result off `/` while still sharing the same camera/state vocabulary with the
- * article posters and Remotion. Keeping this as one exported table is what prevents those two
+ * The article's six chapters: the five money chapters plus the elections overlay, sharing the
+ * same camera/state vocabulary with the article stills and Remotion. Keeping this as one exported table is what prevents those two
  * surfaces from quietly acquiring different pictures for the same chapter.
  */
 export const ARTICLE_CHAPTERS: readonly TourChapter[] = [
@@ -112,18 +101,7 @@ export const ARTICLE_CHAPTERS: readonly TourChapter[] = [
       arcs: 0,
       labels: 0.55,
       highlight: null,
-      captionId: null,
     },
     dwell: 4,
   },
 ];
-
-export const TOUR: Programme = {
-  id: "tour",
-  duration: 40,
-  keyframes: TOUR_CHAPTERS.map((c) => ({
-    t: c.t,
-    state: c.state,
-    dwell: c.dwell,
-  })),
-};

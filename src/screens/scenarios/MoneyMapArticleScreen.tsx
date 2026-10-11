@@ -19,7 +19,7 @@ import { ARTICLE_CHAPTERS } from "@/lib/flyover/programmes/tour";
 import { render } from "@/lib/flyover/render";
 import type { FlyoverState } from "@/lib/flyover/state";
 import type { Viewport } from "@/lib/flyover/types";
-import { useFlyoverArtifact } from "@/screens/home/flyover/useFlyoverArtifact";
+import { useFlyoverArtifact } from "./useFlyoverArtifact";
 import {
   ARTICLE_BACKGROUND,
   ARTICLE_PALETTE,
@@ -95,7 +95,7 @@ const MoneyMapCanvas: FC<{
   label: string;
   lang: "bg" | "en";
 }> = ({ state, chapter, progress, poster, label, lang }) => {
-  const { world } = useFlyoverArtifact(true);
+  const { world } = useFlyoverArtifact();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [painted, setPainted] = useState(false);
 

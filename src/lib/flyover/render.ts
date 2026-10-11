@@ -101,7 +101,7 @@ const CAPITAL = "SOF";
  * `coverage.unplaced.notInTr` combines foreign suppliers and Bulgarian public bodies that
  * have no Commerce-Registry row. Giving either population an oblast would be a guess, so the
  * renderer keeps the amount in SCREEN space, beyond the geography, instead of inventing a
- * world coordinate. The first arcs caption names what the marker means; the canvas carries
+ * world coordinate. The article's prose names what the marker means; the canvas carries
  * only the euro figure, preserving the rule that translatable prose stays in the DOM.
  */
 const drawOffMapEndpoint = (

@@ -1,12 +1,11 @@
 // The money-map article's static images, drawn in Node by the SAME engine the browser runs.
 // `docs/plans/home-flyover-v1.md` §8.3.
 //
-//   npm run home:flyover-posters                       # the article's share card + chapter stills
-//   npm run home:flyover-posters -- --programme columns --t 12 --out /tmp/f.png
+//   npm run home:flyover-posters                          # the article's share card + chapter stills
+//   npm run home:flyover-posters -- --chapter goes --out /tmp/f.png   # one chapter, uncommitted
 //
-// ⚠️ A MANUAL, OPERATOR-RUN TOOL — it is in no chain. The home flyover band these posters were
-// built for was replaced by the chat invitation, so what remains is one dated article's share
-// card (`public/og/money-map.png`) and its six chapter stills. They are COMMITTED and FROZEN:
+// ⚠️ A MANUAL, OPERATOR-RUN TOOL — it is in no chain. What it renders is one dated article's
+// share card (`public/og/money-map.png`) and its six chapter stills. They are COMMITTED and FROZEN:
 // nothing requires them to track the daily `data/home/flyover.json`, and re-rendering them on
 // every watcher run only put a pending hosting deploy on every day. Re-run this by hand when
 // the article's pictures should change, then commit and deploy hosting.
@@ -20,7 +19,9 @@
 // an image nobody reviews pixel by pixel. The brand art has the same requirement and the same
 // call.
 //
-// The single-frame mode is the camera-tuning harness (plan §4 and §13).
+// The single-frame mode (`--chapter`) is the camera-tuning harness: it draws one chapter
+// exactly as the committed still would be drawn, wherever it is told, and touches nothing
+// committed.
 
 import fs from "node:fs";
 import os from "node:os";
@@ -34,17 +35,12 @@ import {
   ARTICLE_PALETTE,
   articlePresentationState,
 } from "../../src/lib/flyover/articlePresentation";
+import { ARTICLE_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
 import {
-  PROGRAMMES,
-  PROGRAMME_IDS,
-  stateAt,
-} from "../../src/lib/flyover/programmes";
-import {
-  ARTICLE_CHAPTERS,
-  TOUR_CHAPTERS,
-} from "../../src/lib/flyover/programmes/tour";
-import { applyPartial, STATE_ZERO } from "../../src/lib/flyover/state";
-import type { ProgrammeId } from "../../src/lib/flyover/programmes";
+  applyPartial,
+  STATE_ZERO,
+  type FlyoverState,
+} from "../../src/lib/flyover/state";
 import type { FlyoverWorld } from "../../src/lib/flyover/types";
 import type { FlyoverPalette } from "../../src/lib/flyover/layers";
 
@@ -73,43 +69,28 @@ export const POSTER_H = 625;
 export const OG_W = 2400;
 export const OG_H = 1260;
 
-/**
- * The brand palette, in HEX.
- *
- * ⚠️ HEX IS A CONTRACT, not a style choice — `mixHex` parses nothing else and silently
- * collapses to an endpoint otherwise, which flattens the column shading, posterises the price
- * ramp and turns the election cross-fade into a hard cut, all at once. `FlyoverPalette`'s own
- * doc says so; this is the Node/Remotion side of it, where the values are ours rather than a
- * theme's.
- */
-export const BRAND_PALETTE: FlyoverPalette = {
-  land: "#132038",
-  landEdge: "#25344f",
-  landHighlight: "#df6b43",
-  column: { proc: "#4ea3d8", funds: "#9b7fd4", agri: "#5fbf78" },
-  arcIn: "#df6b43",
-  arcOut: "#5fbf78",
-  arcNeutral: "#7d8ba4",
-  label: "#f2f5f8",
-  labelHalo: "#0b1224",
-  priceDown: "#5fbf78",
-  priceUp: "#df6b43",
-};
-
-/** The ground the scene sits on. The engine clears to transparent; posters are opaque. */
-const BACKDROP = BRAND_PALETTE.labelHalo;
-
 export const loadWorld = (): FlyoverWorld => {
   return JSON.parse(artifactBytes().toString("utf8")) as FlyoverWorld;
 };
 
+/**
+ * A chapter's state as the article sees it: accreted onto every chapter before it, because a
+ * state drawn from one chapter's patch alone would be missing every field the earlier ones set.
+ */
+export const chapterState = (id: string): FlyoverState => {
+  let running = STATE_ZERO;
+  for (const chapter of ARTICLE_CHAPTERS) {
+    running = applyPartial(running, chapter.state);
+    if (chapter.id === id) return running;
+  }
+  throw new Error(
+    `flyover_posters: no chapter \`${id}\` — one of ${ARTICLE_CHAPTERS.map((c) => c.id).join(", ")}`,
+  );
+};
+
 export interface FrameSpec {
   world: FlyoverWorld;
-  programme?: ProgrammeId;
-  /** Seconds into the programme's loop. */
-  t?: number;
-  /** A state to draw directly, instead of a programme at `t`. */
-  state?: Parameters<typeof render>[2];
+  state: FlyoverState;
   width: number;
   height: number;
   lang?: "bg" | "en";
@@ -135,11 +116,9 @@ export const drawFrame = (spec: FrameSpec): Canvas => {
   registerFonts();
   const canvas = createCanvas(spec.width, spec.height) as Canvas;
   const ctx = canvas.getContext("2d") as SKRSContext2D;
-  const state =
-    spec.state ?? stateAt(PROGRAMMES[spec.programme ?? "columns"], spec.t ?? 0);
-  render(ctx as unknown as Ctx2D, spec.world, state, {
+  render(ctx as unknown as Ctx2D, spec.world, spec.state, {
     viewport: { w: spec.width, h: spec.height },
-    palette: spec.palette ?? BRAND_PALETTE,
+    palette: spec.palette ?? ARTICLE_PALETTE,
     clock: 0,
     lang: spec.lang ?? "bg",
     maxFlows: spec.maxFlows,
@@ -149,7 +128,7 @@ export const drawFrame = (spec: FrameSpec): Canvas => {
   // theme shows. `destination-over` is what puts it under the scene instead.
   ctx.save();
   ctx.globalCompositeOperation = "destination-over";
-  ctx.fillStyle = spec.background ?? BACKDROP;
+  ctx.fillStyle = spec.background ?? ARTICLE_BACKGROUND;
   ctx.fillRect(0, 0, spec.width, spec.height);
   ctx.restore();
   return canvas;
@@ -185,11 +164,7 @@ export interface WrittenFile {
  * not captures: `scripts/og/capture-screens.ts` has no entry for any article.
  */
 export const renderOgCard = (world: FlyoverWorld): WrittenFile => {
-  const chapter = TOUR_CHAPTERS.find((c) => c.id === "goes");
-  if (!chapter) {
-    throw new Error("flyover_posters: the tour has no `goes` chapter");
-  }
-  const state = applyPartial(STATE_ZERO, chapter.state);
+  const state = chapterState("goes");
   const rel = "public/og/money-map.png";
   return {
     rel,
@@ -197,8 +172,6 @@ export const renderOgCard = (world: FlyoverWorld): WrittenFile => {
       drawFrame({
         world,
         state: articlePresentationState(state),
-        palette: ARTICLE_PALETTE,
-        background: ARTICLE_BACKGROUND,
         width: OG_W,
         height: OG_H,
       }),
@@ -212,9 +185,7 @@ export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
   const out: WrittenFile[] = [];
   let running = STATE_ZERO;
   for (const chapter of ARTICLE_CHAPTERS) {
-    // The chapters ACCRETE, exactly as the loop does — a still drawn from one chapter's patch
-    // alone would be missing every field the chapters before it set.
-    // The article keeps its labels and full flow detail; home posters use a simpler preview.
+    // The chapters ACCRETE, exactly as `chapterState` does.
     running = applyPartial(running, chapter.state);
     const rel = `public/articles/money-map/${chapter.id}.webp`;
     out.push({
@@ -223,8 +194,6 @@ export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
         drawFrame({
           world,
           state: articlePresentationState(running),
-          palette: ARTICLE_PALETTE,
-          background: ARTICLE_BACKGROUND,
           width: POSTER_W,
           height: POSTER_H,
         }),
@@ -236,13 +205,12 @@ export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
 };
 
 export interface PosterArgs {
-  programme?: ProgrammeId;
-  t?: number;
+  chapter?: string;
   out?: string;
 }
 
 export const parseArgs = (argv: readonly string[]): PosterArgs => {
-  const valueFlags = new Set(["--programme", "--t", "--out"]);
+  const valueFlags = new Set(["--chapter", "--out"]);
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (!valueFlags.has(arg)) {
@@ -263,21 +231,16 @@ export const parseArgs = (argv: readonly string[]): PosterArgs => {
     }
     return v;
   };
-  const programme = flag("programme");
-  if (programme && !(PROGRAMME_IDS as readonly string[]).includes(programme)) {
+  const chapter = flag("chapter");
+  const ids = ARTICLE_CHAPTERS.map((c) => c.id);
+  if (chapter && !ids.includes(chapter)) {
     throw new Error(
-      `flyover_posters: --programme ${programme} is not one of ${PROGRAMME_IDS.join(", ")}`,
+      `flyover_posters: --chapter ${chapter} is not one of ${ids.join(", ")}`,
     );
-  }
-  const rawT = flag("t");
-  const t = rawT === undefined ? undefined : Number(rawT);
-  if (t !== undefined && !Number.isFinite(t)) {
-    throw new Error(`flyover_posters: --t ${rawT} is not a number`);
   }
   const out = flag("out");
   return {
-    ...(programme ? { programme: programme as ProgrammeId } : {}),
-    ...(t === undefined ? {} : { t }),
+    ...(chapter ? { chapter } : {}),
     ...(out ? { out } : {}),
   };
 };
@@ -289,21 +252,19 @@ const run = (argv: readonly string[]): void => {
 
   // Single-frame mode: the camera-tuning harness. It writes ONE file wherever it is told and
   // touches nothing committed.
-  if (args.programme !== undefined || args.t !== undefined || args.out) {
+  if (args.chapter !== undefined || args.out) {
+    const chapter = args.chapter ?? "buys";
     const rel = args.out ?? path.join(os.tmpdir(), "flyover_frame.png");
     const bytes = writeImage(
       drawFrame({
         world,
-        programme: args.programme ?? "columns",
-        t: args.t ?? 0,
+        state: articlePresentationState(chapterState(chapter)),
         width: POSTER_W,
         height: POSTER_H,
       }),
       rel,
     );
-    console.log(
-      `flyover_posters: ${args.programme ?? "columns"} @ t=${args.t ?? 0} → ${rel} (${bytes} B)`,
-    );
+    console.log(`flyover_posters: ${chapter} → ${rel} (${bytes} B)`);
     return;
   }
 

@@ -99,9 +99,9 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     after: "db:gen-home-flyover",
     before: "db:gen-home-hub-stats",
     why:
-      "the flyover's caption headline is data/home/hub_stats.json's procurement tile, READ " +
+      "the flyover's figures.procTotalEur is data/home/hub_stats.json's procurement tile, READ " +
       "from disk rather than recomputed \u2014 so run first it quotes the PREVIOUS vintage " +
-      "of a number the reader meets again on the tile one screen below, and the two " +
+      "of a number the reader meets again on the /procurement tile, and the two " +
       "disagree by whatever the reload moved with nothing failing",
   },
   {

@@ -63,9 +63,9 @@ const GLOBAL_FILES = [
   // fetches it. `runbook.test.ts` asserts this list covers `PUBLIC_ARTIFACTS`.
   "home/hub_stats.json",
   "home/feed.json",
-  // The flyover band's one object. It is fetched later than the other two (only once the band
-  // arms), but it is the largest of the three and compresses hard — 34 KB of geometry and
-  // integers — so serving it `identity` would undo most of what deferring the request buys.
+  // The money-map article's one object (no longer fetched by `/`). It is the largest of the
+  // three and compresses hard — 34 KB of geometry and integers — so serving it `identity`
+  // would waste most of it.
   "home/flyover.json",
   // parliament/index.json retired from the bucket (persons-pg-retirement-v1 T2.4): useMps + the
   // partyMps AI tool read mp_profile + mp_roster_meta via /api/db/mp-roster, so the roster is no
