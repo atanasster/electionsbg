@@ -43,7 +43,9 @@ import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const EIKS = [TOURISM_MINISTRY_EIK] as const;
 
-const CardSkeleton: FC = () => <ChartGhost className="h-[220px]" shape="rows" />;
+const CardSkeleton: FC = () => (
+  <ChartGhost className="h-[220px]" shape="rows" />
+);
 
 /** Campaign-category split (CPV → advertising / events / digital / …). */
 const CampaignCategoriesTile: FC = () => {
