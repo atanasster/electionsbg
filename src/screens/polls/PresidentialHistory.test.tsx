@@ -157,7 +157,14 @@ describe("presidential history", () => {
     expect(
       await screen.findByText("Source unavailable at last check"),
     ).toBeInTheDocument();
-    expect(screen.getByText("2026-09-25")).toBeInTheDocument();
+    // The last-check date is the watcher's, refreshed on every check — read it from the
+    // fixture the component renders rather than pinning one day.
+    const gib = (
+      coverage as unknown as {
+        agencies: { agencyId: string; lastChecked: string }[];
+      }
+    ).agencies.find((a) => a.agencyId === "GIB")!;
+    expect(screen.getByText(gib.lastChecked.slice(0, 10))).toBeInTheDocument();
   });
   it("keeps the 2001 historical gap visible with no accepted surveys", async () => {
     show(<PresidentialHistory cycle="2001_11_11_pvr" />);

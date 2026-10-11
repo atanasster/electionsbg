@@ -20,6 +20,10 @@ const polls = rawPolls as unknown as Poll[],
   details = rawDetails as PresidentialPollDetail[],
   runoffs = rawRunoffs as Runoff[],
   accuracy = rawAccuracy as PresidentialPollsAccuracy;
+// Pinned shares are for the CLOSED cycles; the live 2026 race keeps gaining accepted polls.
+const historicalPolls = polls.filter(
+  (p) => p.electionDate != null && p.electionDate < "2026-01-01",
+);
 describe("presidential insights", () => {
   it("separates hypothetical matchups from genuine between-round questions without dropping none", () => {
     const rows = matchupObservations(polls, details, runoffs, accuracy, 2);
@@ -41,7 +45,7 @@ describe("presidential insights", () => {
     expect(new Set(residuals.map((r) => r.series)).size).toBe(2);
   });
   it("retains source participation and unknown complements as distinct observations", () => {
-    const rows = residualObservations(polls, 1).filter(
+    const rows = residualObservations(historicalPolls, 1).filter(
       (r) => r.question.measure === "participation",
     );
     expect(
