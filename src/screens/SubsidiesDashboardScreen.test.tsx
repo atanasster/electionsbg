@@ -119,8 +119,19 @@ vi.mock("@/data/agri/useAgriOverview", () => ({
 // Stubbed as `undefined` rather than as data on purpose: it makes every test below exercise
 // the „a tile whose figure is absent renders without one" path, so a metric mapper that
 // crashes on a missing source fails here rather than on a cold cache in production.
+// `heldOver` stands in for the KPI band's keep-previous observer (motion-v1 §4.2): the PLAIN
+// hook stays undefined (the next scope still loading) while the band's observer returns the
+// PREVIOUS scope's payload. Undefined by default, so every other test sees no figures.
+const hubStats = vi.hoisted(() => ({
+  heldOver: undefined as Record<string, unknown> | undefined,
+}));
 vi.mock("@/data/agri/useAgriHubStats", () => ({
-  useAgriHubStats: () => ({ data: undefined }),
+  useAgriHubStats: (
+    _scope: string | null,
+    opts?: { keepPrevious?: boolean },
+  ) => ({
+    data: opts?.keepPrevious ? hubStats.heldOver : undefined,
+  }),
 }));
 vi.mock("@/data/procurement/useRailSubsidy", () => ({
   useRailSubsidy: () => ({ rows: [], latest: null, isLoading: false }),
@@ -162,6 +173,7 @@ const skeletons = () =>
 beforeEach(() => {
   hook.mode = "ok";
   hook.refetch.mockClear();
+  hubStats.heldOver = undefined;
 });
 
 describe("SubsidiesDashboardScreen", () => {
@@ -307,5 +319,28 @@ describe("SubsidiesDashboardScreen", () => {
     // The section is the CURRENT crumb on its own landing, so it is text, not a
     // link back to itself.
     expect(hrefs).not.toContain("/subsidies");
+  });
+
+  it("a held-over KPI band still names ITS OWN window while the next scope loads", () => {
+    // The reader picked 2024; the 2024 figures are in flight and the band holds the previous
+    // payload so it can roll. Every caption must name THAT payload's window — a band captioned
+    // with the selected year over another window's numbers is one window shown and another
+    // counted. i18next resolves no copy under vitest (a caption renders as its key), so the
+    // held-over payload is the ALL-YEARS one: built from the payload the caption is
+    // `…_window_all`; built from the selected scope it would be `…_window_year`.
+    hubStats.heldOver = {
+      scopeKey: "all",
+      scopeYear: null,
+      totalEur: 11_040_000_000,
+      entityCountExPayer: 16701,
+    };
+    at("/subsidies?pscope=y:2024");
+    const cells = Array.from(document.querySelectorAll("[data-kpi-cell]"));
+    expect(cells.length).toBeGreaterThan(0);
+    // Cells that wrap the window in their own sentence render only that sentence's key here,
+    // so the window is checked where it shows and the selected year is checked everywhere.
+    const text = cells.map((c) => c.textContent ?? "");
+    expect(text.some((t) => /subsidies_kpi_window_all/.test(t))).toBe(true);
+    for (const t of text) expect(t).not.toMatch(/subsidies_kpi_window_year/);
   });
 });

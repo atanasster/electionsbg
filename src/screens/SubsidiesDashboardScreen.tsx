@@ -347,12 +347,17 @@ export const SubsidiesDashboardScreen: FC = () => {
   const { scope, data } = gate;
   const payloadKey = agriScopeToKey(scope);
   const { data: hub } = useAgriHubStats(payloadKey);
+  // The KPI band alone holds the previous scope's figures while the next loads, so it stays
+  // mounted and ROLLS to the new values (motion-v1 §4.2). Safe for the band only: each caption
+  // is built from the blob that carried its number, so a held-over band still names its own
+  // window. Same query key as above — one fetch, two observers.
+  const { data: kpiHub } = useAgriHubStats(payloadKey, { keepPrevious: true });
 
   /** The head's four figures — see `subsidiesHubFigures.ts` for why every caption is built
    *  from the same blob that carried its number. */
   const kpis: HubKpi[] = useMemo(
-    () => subsidiesHubKpis(hub, AGRI_FINANCIAL_YEARS, L, bg, t),
-    [hub, L, bg, t],
+    () => subsidiesHubKpis(kpiHub, AGRI_FINANCIAL_YEARS, L, bg, t),
+    [kpiHub, L, bg, t],
   );
   // ⚠️ Derived from the cells that RENDERED, never a constant list: this blob withholds a
   // figure rather than publishing a zero, so a cell can legitimately be absent and blanking

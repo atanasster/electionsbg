@@ -162,7 +162,12 @@ deliberately skipped are in the session that chose them; the skipped ones are li
    in the original wording is not a separate one.)
 2. **`/subsidies` KPIs roll between scopes** — `placeholderData: keepPreviousData` on
    `useAgriHubStats`, the only hub-stats hook keyed per scope, so the band stays mounted while
-   the next scope loads (closes the §2 gap noted against the rolling KPI row).
+   the next scope loads (closes the §2 gap noted against the rolling KPI row). ✅ shipped as
+   an OPT-IN `{ keepPrevious }` on the hook, used by a second observer (same query key, one
+   fetch) that feeds ONLY the KPI band: during the load the payload is the old scope's, which
+   is truthful only where every caption is built from the payload (`subsidiesWindow(hub, …)`),
+   as the band's are — every other consumer keeps the plain hook. Never held
+   over for a `null` scope (a year the corpus does not cover).
 3. **`ChartGhost` rollout, batch 1** — add `rows` (ranked list) and `map` shapes, convert the
    first batch of chart/list/map-shaped `animate-pulse rounded-xl border bg-card` placeholders.
 4. **`ChartGhost` rollout, batch 2.**

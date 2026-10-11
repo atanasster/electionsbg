@@ -10,7 +10,7 @@
 // migration to `null` as well, so a consumer must treat `undefined` as „still
 // loading" and `null` as „no figures" — a tile with no metric, never a zero.
 
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 /** One scope's figures. Every money key names its basis — see 162's header. */
 export interface AgriHubStats {
@@ -58,10 +58,23 @@ const fetchHubStats = async (scope: string): Promise<AgriHubStats | null> => {
   return (await r.json()) as AgriHubStats | null;
 };
 
-export const useAgriHubStats = (scope: string | null) =>
+/** `keepPrevious` holds the PREVIOUS scope's figures while the next one loads, so a KPI
+ *  band stays mounted and rolls to the new values (motion-v1 §4.2) instead of dropping to its
+ *  skeleton and snapping. Opt-in, because during that load the payload is the OLD scope's:
+ *  only a consumer that labels every figure FROM the payload (`subsidiesWindow(hub, …)`)
+ *  stays truthful — one that captions from the selected scope would show one window and
+ *  count another. */
+export const useAgriHubStats = (
+  scope: string | null,
+  { keepPrevious = false }: { keepPrevious?: boolean } = {},
+) =>
   useQuery({
     queryKey: ["agri", "hub-stats", scope ?? "(none)"],
     queryFn: () => fetchHubStats(scope as string),
     enabled: scope !== null,
     staleTime: Infinity,
+    // Never for a `null` scope: that query is disabled because the corpus has no such year,
+    // and a held-over band would sit beside the page's „no data for 2019" with real numbers.
+    placeholderData:
+      keepPrevious && scope !== null ? keepPreviousData : undefined,
   });
