@@ -18,6 +18,8 @@ import { ChevronRight } from "lucide-react";
 import { formatDate } from "@/lib/formatDate";
 import type { HomeEventV1 } from "@/data/home/homeTypes";
 import { daysUntil } from "./daysUntil";
+import { MotionSpark } from "@/ux/motion/MotionSpark";
+import { isFreshlySeen } from "@/ux/motion/isFreshlySeen";
 
 export const HomeChangeCard: FC<{ event: HomeEventV1 }> = ({ event }) => {
   const { t, i18n } = useTranslation();
@@ -35,6 +37,9 @@ export const HomeChangeCard: FC<{ event: HomeEventV1 }> = ({ event }) => {
             : event.firstSeenAt;
 
   const left = event.deadlineAt ? daysUntil(event.deadlineAt) : null;
+  // „Found in the last 24 h" — a bulk load is excluded for the same reason it carries its
+  // own badge: a backfill is not news, and a spark on it would say it was.
+  const fresh = !event.backfill && isFreshlySeen(event.firstSeenAt);
 
   return (
     <li className="border-b last:border-b-0">
@@ -44,6 +49,12 @@ export const HomeChangeCard: FC<{ event: HomeEventV1 }> = ({ event }) => {
       >
         <div className="flex-1 min-w-0">
           <div className="text-xs font-medium leading-snug">
+            {fresh ? (
+              <MotionSpark
+                label={t("home_event_new")}
+                className="mr-1 -mt-0.5 align-middle"
+              />
+            ) : null}
             {t(event.factKey, event.factArgs)}
           </div>
           <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[10px] text-muted-foreground tabular-nums">

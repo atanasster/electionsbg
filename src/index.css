@@ -113,3 +113,88 @@ a {
     box-shadow: 0 0 0 3px hsl(var(--ring) / 0.45);
   }
 }
+
+/* ── Motion (docs/plans/motion-v1.md) ──────────────────────────────────────────────────────
+   One rule: MOTION MEANS STATE. Nothing here runs on first paint for its own sake — a region
+   re-fills because the reader changed the election, an arrow grows because they turned the
+   shift layer on, a spark flutters because the row is new. Same values as
+   `src/ux/motion/motionTokens.ts` so a CSS keyframe and a JS tween finish together.
+   Transform / opacity / SVG paint only: nothing here can move layout (CLS). */
+:root {
+  --motion-fast: 120ms;
+  --motion-base: 240ms;
+  --motion-slow: 480ms;
+  --motion-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* A map region re-fills instead of blinking to its new colour. A transition never fires on
+   the element's first style, so a fresh map paints at once; it only runs when the SAME path
+   changes fill — the election / metric switch the eye should follow. */
+.motion-fill {
+  transition: fill var(--motion-slow) var(--motion-ease-out),
+    fill-opacity var(--motion-slow) var(--motion-ease-out);
+}
+
+/* A mark grows out of its own centre (shift arrows). Delay is set inline so bigger shifts
+   land first. */
+.motion-grow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: motion-grow var(--motion-slow) var(--motion-ease-out) both;
+}
+@keyframes motion-grow {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* A pen stroke drawn on. Needs `pathLength="1"` on the path. */
+.motion-draw-on {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: motion-draw-on 720ms var(--motion-ease-out) forwards;
+}
+@keyframes motion-draw-on {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The freshness spark: three gentle flutters, then rest. */
+.motion-spark {
+  transform-origin: center;
+  animation: motion-spark 1.6s ease-in-out 3;
+}
+@keyframes motion-spark {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  35% {
+    transform: rotate(18deg) scale(0.82);
+  }
+  70% {
+    transform: rotate(-6deg) scale(1.08);
+  }
+}
+
+/* Reduced motion keeps every STATE and drops only the travel: regions take their new colour
+   at once, arrows and loops are simply there, the spark is still. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-fill {
+    transition: none;
+  }
+  .motion-grow,
+  .motion-spark {
+    animation: none;
+  }
+  .motion-draw-on {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

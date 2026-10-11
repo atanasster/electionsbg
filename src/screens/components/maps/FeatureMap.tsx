@@ -71,7 +71,11 @@ export const FeatureMap: React.FC<
         cursor={onCursor ? onCursor() : "pointer"}
         // Keyboard focus ring via CSS :focus-visible (index.css) when the
         // region opts into keyboard access.
-        className={keyboard ? "path kbd-focus-ring" : "path"}
+        // `motion-fill`: a region re-fills (≈480 ms) when its colour changes — the
+        // election / metric switch — instead of blinking. Never on first paint.
+        className={
+          keyboard ? "path motion-fill kbd-focus-ring" : "path motion-fill"
+        }
         tabIndex={keyboard ? 0 : undefined}
         role={keyboard ? "button" : undefined}
         aria-label={keyboard ? ariaLabel : undefined}

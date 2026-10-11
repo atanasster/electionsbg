@@ -20,6 +20,7 @@ import { usePreserveParams } from "@/ux/usePreserveParams";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
+import { AnimatedText } from "@/ux/motion/AnimatedText";
 
 /** One figure in the KPI band. `basis` is REQUIRED and is the whole point: the band is the
  *  largest type on the page, so it is the highest-stakes place for a number that is
@@ -109,7 +110,9 @@ const KpiCell: FC<{ kpi: HubKpi; href: (to: To) => To }> = ({ kpi, href }) => {
   const body = (
     <>
       <span className="block text-2xl font-bold leading-none tracking-tight tabular-nums xl:text-3xl">
-        {kpi.value}
+        {/* Rolls to a new figure when the reader changes scope; the first paint is the
+            prerendered value verbatim (motion-v1 §2). */}
+        <AnimatedText value={kpi.value} />
       </span>
       <span className="mt-2 block text-[13px] font-semibold leading-tight text-foreground/80">
         {kpi.label}

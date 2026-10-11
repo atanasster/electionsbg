@@ -230,3 +230,37 @@ describe("HomeChangeFeed", () => {
     expect(container).toBeEmptyDOMElement();
   });
 });
+
+describe("HomeChangeCard — the freshness spark", () => {
+  // The spark is motion-v1's „motion means state" rule on the feed: it appears only beside a
+  // row found in the last 24 h of the READER'S clock, and never on a bulk load.
+  const minutesAgo = (m: number) =>
+    new Date(Date.now() - m * 60_000).toISOString();
+
+  it("marks a row found within the last 24 hours", () => {
+    renderCard({
+      ...HOME_EVENT_FIRST_SEEN_FIXTURE,
+      backfill: false,
+      firstSeenAt: minutesAgo(30),
+    });
+    expect(screen.getByRole("img", { name: "home_event_new" })).toBeTruthy();
+  });
+
+  it("does not mark an older row", () => {
+    renderCard({
+      ...HOME_EVENT_FIRST_SEEN_FIXTURE,
+      backfill: false,
+      firstSeenAt: minutesAgo(60 * 30),
+    });
+    expect(screen.queryByRole("img", { name: "home_event_new" })).toBeNull();
+  });
+
+  it("never marks a backfill, however recent — a bulk load is not news", () => {
+    renderCard({
+      ...HOME_EVENT_BACKFILL_FIXTURE,
+      backfill: true,
+      firstSeenAt: minutesAgo(5),
+    });
+    expect(screen.queryByRole("img", { name: "home_event_new" })).toBeNull();
+  });
+});

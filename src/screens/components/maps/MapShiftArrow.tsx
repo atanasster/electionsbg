@@ -2,6 +2,8 @@ import type { GeoProjection } from "d3-geo";
 import { LocationInfo } from "@/data/dataTypes";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { RegionShift } from "./computeShifts";
+import { handDrawnLoopPath } from "@/ux/motion/handDrawn";
+import { MOTION_MS } from "@/ux/motion/motionTokens";
 
 const ARROW_W = 18;
 const ARROW_H = 22;
@@ -47,13 +49,45 @@ export const MapShiftArrow = ({
       className="pointer-events-none"
       transform={`translate(${p[0] - (ARROW_W * scale) / 2}, ${p[1] - (ARROW_H * scale) / 2}) scale(${scale})`}
     >
-      <path
-        d={isUp ? upPath : downPath}
-        fill={fill}
-        stroke={stroke}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
+      {/* Keyed on the delta so a NEW comparison (another election, another prior) replays
+          the growth, while a re-render of the same one does not. Bigger shifts land first. */}
+      <g
+        key={shift.deltaPp}
+        className="motion-grow"
+        style={{
+          animationDelay: `${Math.round((1 - clamped / 8) * MOTION_MS.base)}ms`,
+        }}
+      >
+        <path
+          d={isUp ? upPath : downPath}
+          fill={fill}
+          stroke={stroke}
+          strokeWidth={strokeWidth}
+          strokeLinejoin="round"
+        />
+        {shift.flipped && (
+          // The leader CHANGED here — the one shift on the map worth circling. Pen-drawn
+          // around the arrow, seeded by the region so it is the same loop every render.
+          <path
+            className="motion-draw-on"
+            style={{ animationDelay: `${MOTION_MS.slow}ms` }}
+            d={handDrawnLoopPath(
+              ARROW_W / 2,
+              ARROW_H / 2 + 1,
+              ARROW_W * 0.95,
+              ARROW_H * 0.8,
+              info?.ekatte || loc.join(","),
+            )}
+            pathLength={1}
+            fill="none"
+            stroke="hsl(var(--accent))"
+            strokeWidth={1.75}
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+            aria-hidden
+          />
+        )}
+      </g>
     </g>
   );
 };

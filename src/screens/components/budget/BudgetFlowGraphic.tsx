@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import { formatEur } from "@/lib/currency";
 import { useTooltip } from "@/ux/useTooltip";
 import type { BudgetFlowModel, FlowGraph, FlowNode } from "./budgetFlowModel";
+import { usePrefersReducedMotion } from "@/ux/motion/usePrefersReducedMotion";
 
 type NodeDatum = SankeyExtraProperties & FlowNode;
 type LinkDatum = SankeyExtraProperties & { value: number };
@@ -522,6 +523,7 @@ const FlowSvg: FC<{
     };
   }, [model, sideWidth, height]);
 
+  const reducedMotion = usePrefersReducedMotion();
   const [displayed, setDisplayed] = useState<AnimatedLayouts | null>(
     targetLayouts,
   );
@@ -536,7 +538,8 @@ const FlowSvg: FC<{
     if (!targetLayouts) return;
     const modelKey = `${model.fiscalYear}`;
     const sameModel = previousRef.current.modelKey === modelKey;
-    if (sameModel || !previousRef.current.layouts) {
+    // Reduced motion keeps the year switch and drops the morph (motion-v1 §4).
+    if (sameModel || !previousRef.current.layouts || reducedMotion) {
       setDisplayed(targetLayouts);
       previousRef.current = { layouts: targetLayouts, modelKey };
       return;
@@ -554,7 +557,7 @@ const FlowSvg: FC<{
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [targetLayouts, model.fiscalYear]);
+  }, [targetLayouts, model.fiscalYear, reducedMotion]);
 
   const layouts = displayed;
 
