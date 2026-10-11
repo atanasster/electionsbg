@@ -30,6 +30,8 @@ import { formatEur } from "@/lib/currency";
 import { useTooltip } from "@/ux/useTooltip";
 import type { BudgetFlowModel, FlowGraph, FlowNode } from "./budgetFlowModel";
 import { usePrefersReducedMotion } from "@/ux/motion/usePrefersReducedMotion";
+import { FlowParticles } from "@/ux/motion/FlowParticles";
+import { particleCount } from "@/ux/motion/particleCount";
 
 type NodeDatum = SankeyExtraProperties & FlowNode;
 type LinkDatum = SankeyExtraProperties & { value: number };
@@ -629,6 +631,7 @@ const FlowSvg: FC<{
     // labels in any inner column (groups + direct-to-total leaves) get the
     // tighter cap to keep them from bleeding into the leaf column.
     const columnXs = [...columns.keys()].sort((a, b) => a - b);
+    const maxLinkValue = Math.max(0, ...layout.links.map((l) => l.value));
     const outerColumnX = mirrored
       ? (columnXs[columnXs.length - 1] ?? -Infinity)
       : (columnXs[0] ?? Infinity);
@@ -704,6 +707,29 @@ const FlowSvg: FC<{
             );
           })}
         </g>
+        {focus.id != null && (
+          // Money moving along the focused node's own links, toward the total on the
+          // revenue side and away from it on the spending side. Both layouts run leaf →
+          // total in source → target terms, so the spending beads travel the path in
+          // reverse (motion-v1 §3.1).
+          <g>
+            {layout.links.map((link, i) => {
+              const s = link.source as SankeyNode<NodeDatum, LinkDatum>;
+              const tgt = link.target as SankeyNode<NodeDatum, LinkDatum>;
+              if (s.isPhantom || tgt.isPhantom) return null;
+              if (s.id !== focus.id && tgt.id !== focus.id) return null;
+              return (
+                <FlowParticles
+                  key={`${sidePrefix}-flow-${i}`}
+                  d={pathOf(link) ?? ""}
+                  count={particleCount(link.value, maxLinkValue)}
+                  width={Math.max(1, link.width ?? 1)}
+                  reverse={mirrored}
+                />
+              );
+            })}
+          </g>
+        )}
         <g>
           {layout.nodes.map((node) => {
             if (node.isPhantom) return null;

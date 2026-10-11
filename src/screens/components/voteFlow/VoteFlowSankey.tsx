@@ -11,6 +11,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { VoteFlowMatrix } from "@/data/voteFlows/voteFlowTypes";
 import { VoteFlowHover } from "./VoteFlowTooltip";
+import { FlowParticles } from "@/ux/motion/FlowParticles";
+import { particleCount } from "@/ux/motion/particleCount";
 
 type NodeDatum = SankeyExtraProperties & {
   id: string;
@@ -135,6 +137,7 @@ export const VoteFlowSankey = ({
   };
 
   const linkPath = sankeyLinkHorizontal<NodeDatum, LinkDatum>();
+  const maxLinkValue = Math.max(0, ...layout.links.map((l) => l.value));
 
   return (
     <svg
@@ -203,6 +206,19 @@ export const VoteFlowSankey = ({
             />
           );
         })}
+      </g>
+      <g>
+        {/* Votes moving along the focused party's own flows (motion-v1 §3.1). */}
+        {layout.links.map((link, i) =>
+          isLinkHighlightedByNode(link) === true ? (
+            <FlowParticles
+              key={`flow-${i}`}
+              d={linkPath(link) ?? ""}
+              count={particleCount(link.value, maxLinkValue)}
+              width={Math.max(1, link.width ?? 1)}
+            />
+          ) : null,
+        )}
       </g>
       <g>
         {layout.nodes.map((node) => {

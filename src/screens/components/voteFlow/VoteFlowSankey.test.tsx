@@ -54,4 +54,42 @@ describe("VoteFlowSankey", () => {
       for (const s of strokes) expect(ids).toContain(s);
     }
   });
+
+  it("flows beads only along the focused node's links, and none with no focus", () => {
+    const twoFlows: VoteFlowMatrix = {
+      fromNodes: [
+        { id: "a", label: "A", labelEn: "A", color: "#f00", votes: 10 },
+        { id: "c", label: "C", labelEn: "C", color: "#0f0", votes: 10 },
+      ],
+      toNodes: [
+        { id: "b", label: "B", labelEn: "B", color: "#00f", votes: 20 },
+      ],
+      flows: [
+        { from: "a", to: "b", votes: 10 },
+        { from: "c", to: "b", votes: 10 },
+      ],
+    };
+    const { container, rerender } = render(
+      <VoteFlowSankey matrix={twoFlows} width={400} height={200} />,
+    );
+    expect(container.querySelectorAll("animateMotion")).toHaveLength(0);
+
+    rerender(
+      <VoteFlowSankey
+        matrix={twoFlows}
+        width={400}
+        height={200}
+        hoveredId="a"
+      />,
+    );
+    const paths = new Set(
+      [...container.querySelectorAll("animateMotion")].map((m) =>
+        m.getAttribute("path"),
+      ),
+    );
+    // Both flows carry the same share, so each gets the maximum bead count — but only the
+    // focused node's ONE link carries any.
+    expect(container.querySelectorAll("animateMotion")).toHaveLength(4);
+    expect(paths.size).toBe(1);
+  });
 });

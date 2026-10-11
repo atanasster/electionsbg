@@ -59,10 +59,16 @@ freezes CSS animation timelines at t = 0.** A 480 ms roll therefore completes in
 frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not the code —
 `document.getAnimations().forEach(a => a.finish())` shows the end state. Measured 2026-10-12.
 
-## §3 Tier 2 — proposed
+## §3 Tier 2
 
-1. **Money that visibly flows** — particles along Sankey links (`BudgetFlowGraphic`,
-   `VoteFlowSankey`) and flyover arcs, rate ∝ €; paused on hover; off under reduced motion.
+1. **Money that visibly flows** — ✅ shipped. `FlowParticles` (`src/ux/motion/`) puts beads
+   on a Sankey link via SMIL `<animateMotion>`, count ∝ the link's share of the largest
+   (`particleCount`, 1–4). **They flow only on the links of the node the reader is tracing**,
+   not always: §0's rule over the original „paused on hover" wording, because every link
+   flowing at once drowns the one path the reader asked about. Wired into
+   `BudgetFlowGraphic` (spending beads run the path in reverse — both layouts are leaf → total
+   in source → target terms) and `VoteFlowSankey`. Nothing under reduced motion. The flyover
+   arcs needed nothing: `render.ts` already animates their dash offset.
 2. **Shared-element route transitions** — `<Link viewTransition>` from a hub tile to its
    detail header; needs measuring against lazy routes + Suspense before rolling out.
 3. **Map drill-down camera** — reuse the flyover's blendable `FlyoverState`
