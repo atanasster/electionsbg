@@ -145,3 +145,30 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
    ⚠️ `IntersectionObserver` never fires in the hidden Claude desktop browser pane (it rides
    the rendering loop the pane suspends), so the mark stays at `opacity-0` there; check it in
    a visible browser.
+
+## §4 Tier 3
+
+Selected 2026-10-12 from what Tiers 1–2 left open, by reach × cost (the ranking and the items
+deliberately skipped are in the session that chose them; the skipped ones are listed at the end).
+
+1. **Settle the connection graph before revealing it** (the brainstorm's #8). `GraphCanvas`
+   draws every tick of a force simulation (`alphaDecay 0.025`, ~270 ticks), so `/connections`
+   jiggles for seconds on arrival. ✅ shipped: `preSettle` (`src/ux/motion/`) stops the
+   sim's timer and ticks it in ≤8 ms `setTimeout` chunks (no long task; timers, unlike rAF,
+   keep running in hidden tabs) until alpha ≤ 0.05 or a 1.5 s budget, then the canvas fades
+   in and the faint remainder plays on screen. Reduced motion settles all the way and appears
+   still. Measured on `/connections`: hidden → shown 764 ms after navigation, data load
+   included. (`GraphCanvas` is the only force simulation in the app; the „person ego graph"
+   in the original wording is not a separate one.)
+2. **`/subsidies` KPIs roll between scopes** — `placeholderData: keepPreviousData` on
+   `useAgriHubStats`, the only hub-stats hook keyed per scope, so the band stays mounted while
+   the next scope loads (closes the §2 gap noted against the rolling KPI row).
+3. **`ChartGhost` rollout, batch 1** — add `rows` (ranked list) and `map` shapes, convert the
+   first batch of chart/list/map-shaped `animate-pulse rounded-xl border bg-card` placeholders.
+4. **`ChartGhost` rollout, batch 2.**
+5. **`ChartGhost` rollout, batch 3** — the remainder that are chart-, list- or map-shaped;
+   non-chart placeholders (search boxes, text blocks) keep their pulse.
+
+Deliberately not in Tier 3: drill-down on the non-election choropleths, `useChartMotion` on
+more charts (only two candidates surfaced), title morph on more link families (unverifiable in
+the hidden pane), and more hand-drawn marks / sparks (they lose meaning when common).

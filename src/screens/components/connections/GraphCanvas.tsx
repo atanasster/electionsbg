@@ -8,7 +8,8 @@
 // matches exactly what the BFS path-finder blocks (graphBlob.hiddenNodeIds). The draw loop idles when
 // the sim has settled and nothing is dirty, instead of repainting ~500 nodes at 60fps forever.
 
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
+import { preSettle } from "@/ux/motion/preSettle";
 import {
   forceCenter,
   forceLink,
@@ -38,6 +39,10 @@ type Props = {
   height?: number;
 };
 
+/** Reveal once the simulation has cooled to this: what is left of the cool-down then reads as
+ *  the graph easing into place rather than being thrown together. */
+const REVEAL_ALPHA = 0.05;
+
 const isDark = (): boolean =>
   typeof document !== "undefined" &&
   document.documentElement.classList.contains("dark");
@@ -56,6 +61,9 @@ export const GraphCanvas: FC<Props> = ({
   const sizeRef = useRef({ w: 0, h: height });
   const hoverRef = useRef<string | null>(null);
   const dirtyRef = useRef(true); // force at least one paint
+  // Hidden until the layout has settled off screen; the ref is what the draw loop reads.
+  const [revealed, setRevealed] = useState(false);
+  const revealedRef = useRef(false);
 
   // Latest-props refs so the single long-lived draw loop reads current values without re-subscribing.
   const propsRef = useRef({ selectedId, pathIds, pathEdges, hiddenFacets });
@@ -95,8 +103,29 @@ export const GraphCanvas: FC<Props> = ({
       .alpha(1)
       .alphaDecay(0.025);
     simRef.current = sim;
-    dirtyRef.current = true;
+    // Settle the hot phase off screen, then reveal (motion-v1 §4.1): the first seconds of a
+    // force layout are nodes flung across the canvas, which means nothing. Under reduced motion
+    // it settles all the way and appears still; otherwise the faint remainder plays on screen.
+    const reduced =
+      typeof window !== "undefined" &&
+      !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    revealedRef.current = false;
+    setRevealed(false);
+    const cancelSettle = preSettle(
+      sim,
+      { revealAlpha: reduced ? sim.alphaMin() : REVEAL_ALPHA },
+      () => {
+        // Reduced motion: freeze wherever the budget left it — a stopped sim with alpha above
+        // alphaMin would keep the draw loop from ever idling.
+        if (reduced) sim.alpha(0);
+        else sim.restart();
+        revealedRef.current = true;
+        setRevealed(true);
+        dirtyRef.current = true;
+      },
+    );
     return () => {
+      cancelSettle();
       sim.stop();
       simRef.current = null;
     };
@@ -136,6 +165,10 @@ export const GraphCanvas: FC<Props> = ({
     if (!ctx) return;
     let raf = 0;
     const draw = () => {
+      if (!revealedRef.current) {
+        raf = requestAnimationFrame(draw);
+        return;
+      }
       const sim = simRef.current;
       const settled = !sim || sim.alpha() <= sim.alphaMin();
       if (settled && !dirtyRef.current) {
@@ -340,7 +373,7 @@ export const GraphCanvas: FC<Props> = ({
   return (
     <canvas
       ref={canvasRef}
-      className="w-full touch-none rounded-md bg-muted/20"
+      className={`w-full touch-none rounded-md bg-muted/20 transition-opacity duration-[240ms] motion-reduce:transition-none ${revealed ? "opacity-100" : "pointer-events-none opacity-0"}`}
       style={{ height, cursor: "grab" }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
