@@ -630,7 +630,8 @@ Everything below is an operator action; none of it runs automatically. Order mat
    # read-only for every current consumer; until it lands, the procurement page shows the
    # competition card WITHOUT a national baseline (by design, never a mismatched one) and
    # the generator refuses to run against that database.
-2. npm run funds:install-query:cloud
+2. DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+     npx tsx scripts/funds/install_query.ts --cloud
    # reinstalls the funding-query catalog from PROCUREMENT_BUYER_SECTORS — puts НКСИП in
    # the roads entry — with no corpus reload (install_query.ts gained --cloud in T8; the
    # loaders that also call it run guards first and publish a corpus as a side effect).

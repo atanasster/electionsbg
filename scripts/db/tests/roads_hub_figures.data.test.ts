@@ -11,11 +11,11 @@
 //   · the generator's rows and the browser route's rows are the same columns.
 // and asserts the REJECTED bases differ, so a regression onto one of them fails.
 //
-// Auto-skips when Postgres is down or the artifact has never been generated.
+// Auto-skips only when Postgres is down; the two committed inputs must exist.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { roadRowAliases } from "../lib/roadsRows";
@@ -25,6 +25,7 @@ import {
 } from "@/lib/roadsReferenceData";
 import type { RoadsHubStats } from "@/data/roads/hubStats";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const ROOT = process.cwd();
 const ARTIFACT = path.resolve(ROOT, "data/roads/derived/hub_stats.json");
@@ -33,12 +34,14 @@ const SECTOR_STATS = path.resolve(
   "data/procurement/derived/sector_stats.json",
 );
 
+// Both are COMMITTED, so a missing copy is a broken checkout — fail, never skip.
+assertCommitted(
+  "data/roads/derived/hub_stats.json",
+  "data/procurement/derived/sector_stats.json",
+);
+
 const haveDb = await dbReachable();
-const skip = !haveDb
-  ? "Postgres unreachable"
-  : !existsSync(ARTIFACT)
-    ? "data/roads/derived/hub_stats.json absent — run db:gen-roads-hub-stats"
-    : false;
+const skip = !haveDb ? "Postgres unreachable" : false;
 reportSkip(import.meta.url, skip);
 
 afterAll(async () => {

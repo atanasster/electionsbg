@@ -5,7 +5,11 @@
 // :cloud reload just to reach the call at its end.
 //
 //   npx tsx scripts/funds/install_query.ts           # local docker Postgres
-//   npm run funds:install-query:cloud                # Cloud SQL via the proxy
+//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+//     npx tsx scripts/funds/install_query.ts --cloud # Cloud SQL via the proxy
+//
+// Deliberately NOT an npm `:cloud` script: those are corpus publishes, gated by
+// cloud_loader_coverage.test.ts to be emitted by a skill. This reloads no corpus.
 
 import { installFundingQuery } from "../db/lib/installFundingQuery";
 import { pinLocalDatabase, end } from "../db/lib/pg";
@@ -13,9 +17,7 @@ import { pinLocalDatabase, end } from "../db/lib/pg";
 const cloud = process.argv.includes("--cloud");
 if (!cloud) pinLocalDatabase();
 else if (!process.env.DATABASE_URL)
-  throw new Error(
-    "--cloud needs DATABASE_URL (use npm run funds:install-query:cloud)",
-  );
+  throw new Error("--cloud needs DATABASE_URL (the Cloud SQL proxy URL)");
 try {
   await installFundingQuery();
   console.log(
