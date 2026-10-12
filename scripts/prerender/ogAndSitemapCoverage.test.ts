@@ -1369,24 +1369,34 @@ describe("a hub's og capture anchors on its head", () => {
       }
     > = {
       [HEAD]: {
-        sha: "61071a74371e45812bb8988ae474e60ce408af98",
+        sha: "3227c20fb4732daa1f6aae7e18c4b2514c3ec615",
         why:
-          "61071a7437 (`home: compact the money map beside search`) adds an OPTIONAL " +
-          "`searchPreview` slot, rendered only when a caller passes one. `HomeDashboardScreen` " +
-          "is the only caller that does — every other hub renders `null` there, so the node " +
-          "does not exist in their DOM at all. `home` is therefore NOT exempted by this entry " +
-          "and is re-shot on its own merits; its own screen dates it. " +
-          "Verified 2026-09-10 by re-shooting all seventeen head cards: these five came back " +
-          "BYTE-IDENTICAL (md5s below), and the twelve that moved did so because their " +
-          "PAYLOADS moved, not because of this commit — they were re-shot and committed " +
-          "rather than exempted. The previous entry (cf9c4f9578, useHeadHref's `parsePath` " +
-          "switch) had already expired, which is the sha doing its job.",
+          "3227c20fb4 (`ui: motion v1`) wraps each KPI figure in `AnimatedText`, which " +
+          "renders the value VERBATIM on first paint and only rolls when the value later " +
+          "changes (a scope switch) — so a capture of a freshly loaded head draws exactly " +
+          "the text it drew before. Verified 2026-10-12 by re-shooting all seventeen head " +
+          "cards: these four came back BYTE-IDENTICAL (md5s below, equal to the committed " +
+          "files); the thirteen that moved did so because their payloads had moved since " +
+          "their last shoot, and were re-shot and committed rather than exempted. The " +
+          "previous entry (61071a7437, the `searchPreview` slot) expired with that commit, " +
+          "which is the sha doing its job.",
         verifiedCardMd5: {
           elections: "7f3d468b6b5926020f6406e7d264d230",
           subsidies: "bbbcbae84bcb772138f1743fb5bccb64",
-          "analysis-hub": "079c108c8da62782bd870470365c8c49",
           "reports-hub": "84755eef0ef715b93def925a5a808efd",
-          "governance-sectors": "f26e9c36e6cd54262430cef77c380f86",
+          "governance-mayor-pay": "afc09776b278482dcabf47a46d3b8b21",
+        },
+      },
+      "src/screens/SubsidiesDashboardScreen.tsx": {
+        sha: "db6682302628b4765442227e2c115ea532bbf621",
+        why:
+          "db66823026 (`/subsidies KPI band rolls between scopes`) feeds the KPI band from a " +
+          "second observer of the SAME hub-stats query with `keepPrevious` — which differs " +
+          "from the plain observer only WHILE a new scope is loading. On a fresh page load " +
+          "both hold the same payload, so the captured band is unchanged. Verified " +
+          "2026-10-12 by re-shooting: byte-identical (md5 below).",
+        verifiedCardMd5: {
+          subsidies: "bbbcbae84bcb772138f1743fb5bccb64",
         },
       },
       // ⚠️ THE TWO DATA ENTRIES THAT USED TO SIT HERE ARE GONE, and deliberately not
