@@ -43,7 +43,7 @@ const NAV_ROUTES = [
   { path: "/sofia", name: "Sofia" },
   { path: "/parties", name: "All parties" },
   { path: "/regions", name: "All regions" },
-  { path: "/timeline", name: "Timeline" },
+  { path: "/parliamentary", name: "Parliamentary result" },
   { path: "/simulator", name: "Simulator" },
   { path: "/compare", name: "Compare" },
   { path: "/polls", name: "Polls" },
@@ -158,7 +158,7 @@ test.describe("UI rendering", () => {
     expect(datePresent).toBe(true);
   });
 
-  test("client-side routing: home → /parties → /timeline updates the URL", async ({
+  test("client-side routing: home → /parties → /parliamentary updates the URL", async ({
     page,
   }) => {
     const c = startCollecting(page);
@@ -170,8 +170,9 @@ test.describe("UI rendering", () => {
     await expect(page).toHaveURL(/\/parties\/?$/);
     await expect(liveHeading(page)).toBeVisible();
 
-    await page.goto("/timeline", { waitUntil: "domcontentloaded" });
-    await expect(page).toHaveURL(/\/timeline\/?$/);
+    await page.goto("/parliamentary", { waitUntil: "domcontentloaded" });
+    await expect(page).toHaveURL(/\/parliamentary\/?$/);
+    await expect(liveHeading(page)).toBeVisible();
 
     expect(filterErrors(c.errors), "console errors during navigation").toEqual(
       [],

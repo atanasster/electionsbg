@@ -1047,7 +1047,10 @@ test.describe("performance", () => {
     { path: "/sofia", label: "sofia" },
     { path: "/parties", label: "parties" },
     { path: "/regions", label: "regions" },
-    { path: "/timeline", label: "timeline" },
+    // The national result dashboard — where the trend charts of the retired
+    // /timeline pages now live (HistoricalTrendsTile, f53cea0a93). /timeline
+    // itself rendered the 404 page here until 2026-10-12.
+    { path: "/parliamentary", label: "parliamentary result" },
     { path: "/simulator", label: "simulator" },
     { path: "/compare", label: "compare" },
     { path: "/polls", label: "polls" },
@@ -1066,7 +1069,9 @@ test.describe("performance", () => {
       path: "/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1",
       label: "party detail",
     },
-    { path: "/municipality/SOF", label: "municipality detail" },
+    // /municipality/:id is keyed by МИР code — Sofia is S23/S24/S25. The `SOF`
+    // that stood here is not an id and measured the 404 page.
+    { path: "/municipality/S23", label: "municipality detail" },
     { path: "/reports/section/turnout", label: "report — section turnout" },
     {
       path: "/reports/section/concentrated",
@@ -1104,9 +1109,19 @@ test.describe("performance", () => {
     },
   ];
 
+  // A route that 404s measures the error page and passes vacuously — /timeline
+  // and /municipality/SOF did exactly that until 2026-10-12. The NotFound screen
+  // carries no marker, so match its `page_not_found` copy in both languages.
+  const NOT_FOUND_COPY =
+    /Страницата, която търсите не съществува|The page you are looking for does not exist/;
+
   for (const { path, label } of CLS_ROUTES) {
     test(`CLS stays under 0.1 — ${label} (${path})`, async ({ page }) => {
       await page.goto(path, { waitUntil: "networkidle" });
+      await expect(
+        page.getByText(NOT_FOUND_COPY),
+        `${path} renders the 404 page — the CLS gate would measure nothing`,
+      ).toHaveCount(0);
       const cls = await page.evaluate(
         () =>
           new Promise<number>((resolve) => {
