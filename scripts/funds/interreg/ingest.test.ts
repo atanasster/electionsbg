@@ -162,7 +162,10 @@ describe("the committed corpus", () => {
   // The plan's headline figures, pinned against the artifact rather than a
   // throwaway script (plan §5.1).
   it("reproduces the T0 gate's measured totals", () => {
-    // Re-measured 2026-09-26 against the 2026-09-22 watch re-import (a41ee16d41):
+    // Re-measured 2026-10-12 against the 2026-10 watch re-imports (4a74ce4f0b `--full`,
+    // 6b10bf79ea re-crawl): 1,970 → 2,038 operations, 12,142 → 12,731 partnerships,
+    // 1,509 → 1,554 BG rows, €405.39m → €406.26m; the integrity test above stayed green.
+    // Previously re-measured 2026-09-26 against the 2026-09-22 watch re-import (a41ee16d41):
     // 1,959 → 1,970 operations, 12,120 → 12,142 partnerships, 1,498 → 1,509 BG
     // rows, €402.42m → €405.39m; the integrity test above stayed green.
     // Previously re-measured 2026-09-10 against the 2026-09-08 watch re-import (50ff5eb7aa):
@@ -183,16 +186,16 @@ describe("the committed corpus", () => {
     // rows themselves, so a drift here with that one green is a corpus that
     // moved, and a drift here with that one RED is a corpus that broke. Read
     // them together before re-pinning.
-    expect(index.operationCount).toBe(1970);
-    expect(index.partnerCount).toBe(12142);
-    expect(index.bgPartnerCount).toBe(1509);
+    expect(index.operationCount).toBe(2038);
+    expect(index.partnerCount).toBe(12731);
+    expect(index.bgPartnerCount).toBe(1554);
     const bgMoney = partners
       .filter(isBulgarianPartner)
       .reduce(
         (a: number, p: { budgetEur: number | null }) => a + (p.budgetEur ?? 0),
         0,
       );
-    expect(bgMoney / 1e6).toBeCloseTo(405.39, 1);
+    expect(bgMoney / 1e6).toBeCloseTo(406.26, 1);
   });
 
   it("splits the money the way §5.1 records — Tier P is the larger half", () => {

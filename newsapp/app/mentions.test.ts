@@ -227,6 +227,11 @@ describe("absent vs empty", () => {
       expect(invented).toBe(0);
       expect(dropped).toBe(0);
     },
+    // A FULL-CORPUS scan, not a unit test: every bundle (57 files, 288 MB) and one source
+    // analysis per analysed article (~95k files, 951 MB, measured 2026-10-12) — ~14 s on a dev
+    // machine and growing with the corpus, so the 5 s default timed it out. The assertions are
+    // unchanged; only the budget is. Sampling would miss exactly the rare record it guards.
+    60_000,
   );
 
   it("distinguishes the two states at the type level", () => {

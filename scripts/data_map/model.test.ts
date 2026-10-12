@@ -626,10 +626,14 @@ describe("the lateral-links tour", () => {
     // ⚠ Re-pinned 2026-09-26, all three read out of `data/data_map.json`:
     // connections↔procurement 18,735 → 18,757, connections↔funds 40,271 → 40,273 and
     // connections↔officials 5,604 → 5,601.
+    //
+    // ⚠ Re-pinned 2026-10-12 against `data/data_map.json` as committed by the 6b10bf79ea watch
+    // run: connections↔procurement 18,757 → 18,794, connections↔funds 40,273 → 40,280 and
+    // connections↔officials 5,601 → 5,628 — all three read from the manifest, both languages.
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18757],
-      ["connections", "funds", "eik", 40273],
-      ["connections", "officials", "person_id", 5601],
+      ["connections", "procurement", "eik", 18794],
+      ["connections", "funds", "eik", 40280],
+      ["connections", "officials", "person_id", 5628],
     ];
     const drifted = quoted
       .filter(([a, b, k, n]) => overlapOf(a, b, k) !== n)
