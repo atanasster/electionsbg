@@ -97,8 +97,20 @@ export const RoadNetworkMap: FC<{
     const c = byName.get(name);
     const v = c ? valueOf(c, metric) : undefined;
     if (v == null) return bg ? "няма данни" : "no data";
+    // The €/km median is over one work class — say which, so a repair median
+    // on a II-class road is not read against a motorway build median.
+    const cls =
+      c?.eurPerKmClass === "build"
+        ? bg
+          ? " (строителство)"
+          : " (build)"
+        : c?.eurPerKmClass === "rehab"
+          ? bg
+            ? " (ремонт)"
+            : " (repair)"
+          : "";
     return metric === "perKm"
-      ? `${formatEurCompact(v, i18n.language)}/km`
+      ? `${formatEurCompact(v, i18n.language)}/km${cls}`
       : `${(v * 100).toLocaleString(i18n.language, { maximumFractionDigits: 0 })}%`;
   };
 

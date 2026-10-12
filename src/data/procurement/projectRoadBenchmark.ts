@@ -12,11 +12,11 @@ import { workTypeOf, lengthOf, eurPerKmOf } from "@/lib/roadAttributes";
 
 export interface CorpusUnitCost {
   /** VALUE-WEIGHTED median €/km — the rate at which half the sample's MONEY sits
-   *  below. A plain per-contract median is dragged down by the many cheap survey /
-   *  archaeology contracts that each span km but carry little value (and which the
-   *  workType gate misclassifies as physical works); weighting by contracted value
-   *  lets the big construction contracts — where the money actually is — set the
-   *  figure, so it reads as the real cost of building the road per km. */
+   *  below. The workType gate now drops archaeology / supervision / design rows
+   *  (roadAttributes.workTypeOf), but small physical lots that span km yet carry
+   *  little value still exist; weighting by contracted value lets the big
+   *  construction contracts — where the money actually is — set the figure, so
+   *  it reads as the real cost of building the road per km. */
   eurPerKmMedian: number;
   /** How many member contracts carried a defensible €/km (the evidence base). */
   sampleCount: number;
@@ -33,6 +33,7 @@ export interface CorpusUnitCost {
 type RoadRow = {
   title?: string | null;
   cpv?: string | null;
+  contractorName?: string | null;
   amountEur?: number | null;
   tag?: string | null;
 };
@@ -73,11 +74,15 @@ export function computeCorpusEurPerKm(
   let contractedInSampleEur = 0;
   for (const c of contracts) {
     if ((c.tag ?? "contract") !== "contract") continue;
-    const workType = workTypeOf(c.title ?? "", c.cpv ?? undefined);
+    const workType = workTypeOf(
+      c.title ?? "",
+      c.cpv ?? undefined,
+      c.contractorName ?? undefined,
+    );
     const len = lengthOf(c.title ?? "");
-    // eurPerKmOf reads only amountEur — its parameter is now that minimal shape.
+    // eurPerKmOf reads only amountEur + title — its parameter is that minimal shape.
     const pk = eurPerKmOf(
-      { amountEur: c.amountEur ?? undefined },
+      { amountEur: c.amountEur ?? undefined, title: c.title },
       workType,
       len,
     );

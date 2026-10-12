@@ -11,8 +11,11 @@
 //
 // €/km is deliberately gated (see eurPerKmOf): a contract amount divided by a
 // parsed length is only meaningful for a single-segment physical-works contract
-// with a real amount — frameworks, design and supervision contracts are
-// excluded rather than shown a meaningless unit cost.
+// with a real amount — frameworks, design, supervision and archaeology contracts
+// are excluded rather than shown a meaningless unit cost. Those service contracts
+// routinely REPEAT the works lot's title and chainage („Участък Русе – Бяла от км
+// 0+400 до км 40+640" is both the €448M build lot and its €6.5M supervision), so
+// the title alone cannot tell them apart — CPV 71 and the contractor name can.
 
 import type { ProcurementContract } from "@/data/dataTypes";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
@@ -444,6 +447,7 @@ export type WorkType =
   | "area_maint"
   | "design"
   | "supervision"
+  | "archaeology"
   | "other";
 
 /** Physical work types whose cost-per-km is meaningful. */
@@ -475,18 +479,64 @@ const workTypeFromCpv = (cpv?: string): WorkType | undefined => {
   return undefined;
 };
 
-/** Coarse classification of a contract's work type — title verbs first, then a
- *  CPV-code fallback for verb-less titles. */
-export const workTypeOf = (title: string, cpv?: string): WorkType => {
+// A design-AND-build (инженеринг) contract is physical works even when it is
+// CPV-coded 71 (ДЗЗД Проход Маказа, 71311220, €6.4M) — the services rules below
+// must not swallow it.
+const DESIGN_BUILD =
+  /(?:проект[а-я]*|проектиране|проектантски работи)\s*(?:и|с)\s*(?:строителство|изграждане|изпълнение)|инженеринг/;
+
+/** Archaeology contracts (пълно спасително археологическо проучване, наблюдение,
+ *  разкопки — НАИМ-БАН, CPV 71351914) carry the motorway's chainage in their
+ *  title but are a survey service, not road works. A works lot that merely sits
+ *  „при археологически обект" (CPV 45…, e.g. a retaining wall) stays physical;
+ *  CPV 451124 is archaeological EXCAVATION and counts as archaeology. */
+const isArchaeology = (n: string, cpv?: string): boolean =>
+  /археолог/.test(n) &&
+  !DESIGN_BUILD.test(n) &&
+  !(cpv?.startsWith("45") && !cpv.startsWith("451124"));
+
+/** Coarse classification of a contract's work type — title verbs first, then
+ *  CPV 71 / the contractor's name for the service contracts whose title is just
+ *  the works lot they oversee, then a CPV-code fallback for verb-less titles. */
+export const workTypeOf = (
+  title: string,
+  cpv?: string,
+  contractorName?: string,
+): WorkType => {
   const n = (title || "").toLowerCase();
+  const designBuild = DESIGN_BUILD.test(n);
+  if (isArchaeology(n, cpv)) return "archaeology";
   if (
-    /надзор|консултант|инвеститорски|оценка на съответст|одит|овос|експертиз|инвентаризац/.test(
+    /надзор|консултант|супервизи|конс\.\s*услуг|инвеститорски|оценка на съответст|одит|овос|експертиз|инвентаризац/.test(
       n,
     )
   )
     return "supervision";
+  // CPV 71 (architecture / engineering / supervision services) is a service
+  // whatever the title says: a supervision lot is titled after the section it
+  // oversees, and an „Изготвяне на идеен проект за доизграждане" design job
+  // otherwise reads as „изграждане". Only a design-and-build title escapes.
+  if (cpv?.startsWith("71") && !designBuild)
+    return /^715[0-4]/.test(cpv) ? "supervision" : "design";
+  // Same shape with no CPV at all: a supervision ДЗЗД („КОНСУЛТАНТИ СТРУМА 1",
+  // „Консултанти АМ Хемус 2020") whose lot title is the works section. Only when
+  // CPV is absent — a consortium of builders with one „…консулт ЕООД" member is
+  // CPV 45 and real works (АМ „Струма" Лот 3.1, €89.9M).
+  if (!cpv && !designBuild && /консулт/i.test(contractorName ?? ""))
+    return "supervision";
   if (/поддър|снегопочист|зимно/.test(n)) return "area_maint";
   if (n.includes("проектиране") && !/строителств|ремонт/.test(n))
+    return "design";
+  // „Изготвяне / изработване на (технически|идеен) проект за …", ПУП, and
+  // предпроектни / геоложки проучвания — a deliverable on paper, even when the
+  // title goes on to name the works it is for (основен ремонт, доизграждане).
+  if (
+    !designBuild &&
+    (/(?:изготвяне|изработване|актуализация)\s+на\s[^.]{0,60}?(?:проект|пуп\b|план)/.test(
+      n,
+    ) ||
+      (/проучван/.test(n) && !cpv?.startsWith("45")))
+  )
     return "design";
   if (n.includes("основен ремонт")) return "rehab_major";
   if (/рехабилитац/.test(n)) return "rehab";
@@ -499,7 +549,10 @@ export const workTypeOf = (title: string, cpv?: string): WorkType => {
   // Without this, guardrail / marking / tunnel / bridge installs and bare
   // "ОПУ X" framework lots (big-money rows) all collapse into "other".
   const comp = workComponentOf(title, cpv, "other");
-  if (comp === "tunnel" || comp === "bridge") return "new_build";
+  // A repair of a structure is not new build: „ремонтно – възстановителни
+  // дейности на виадукти … на АМ Хемус" was a 5.65 M€/km „new build".
+  if (comp === "tunnel" || comp === "bridge")
+    return /ремонт|възстанов|рехабил/.test(n) ? "rehab" : "new_build";
   if (comp === "retaining") return "reconstruction";
   if (
     comp === "markings_signs" ||
@@ -528,6 +581,8 @@ export const workGroupOf = (w: WorkType): WorkGroup => {
     return "rehab";
   if (w === "maintenance" || w === "area_maint") return "maintenance";
   if (w === "design" || w === "supervision") return "design";
+  // Archaeology is a survey service, but not „Проектиране и надзор" — it reads
+  // under „Друго" in the donut and is named as its own component in the table.
   return "other";
 };
 
@@ -547,17 +602,30 @@ export interface EurPerKm {
   confidence: "high" | "med";
 }
 
+/** A contract for a FRACTION of a lot whose title still carries the whole lot's
+ *  chainage: „допълнителни строителни работи / СМР" on a finished lot, „допълнително
+ *  възникнали видове СМР", or one „Подобект". Dividing its amount by the lot's
+ *  length is a scope mismatch (АМ „Струма" Лот 1 Подобект № 1: €1.7M over 16.8 km
+ *  = 0.05 M€/km). NOT „допълнително проектиране и строителство" — that is the
+ *  FIDIC design-and-build form of a MAIN contract (Мездра – Ботевград Лот 2,
+ *  €113.8M over 13.4 km). */
+export const isPartialScope = (title: string | null | undefined): boolean =>
+  /допълнителн[иа]\s+(?:строител|строително|смр|работи)|допълнително\s+възникнал|подобект/i.test(
+    title ?? "",
+  );
+
 /** Defensible €/km for one contract, or undefined if it should not carry one.
- *  Reads only `amountEur`, so the parameter is the minimal shape — this keeps
- *  callers that hold just an amount (e.g. the project-file €/km cross-check)
- *  type-checked without an unsafe cast. */
+ *  Reads only `amountEur` and (optionally) `title`, so the parameter is the
+ *  minimal shape — this keeps callers that hold just an amount (e.g. the
+ *  project-file €/km cross-check) type-checked without an unsafe cast. */
 export const eurPerKmOf = (
-  c: Pick<ProcurementContract, "amountEur">,
+  c: Pick<ProcurementContract, "amountEur"> & { title?: string | null },
   workType: WorkType,
   len: ParsedLength | undefined,
 ): EurPerKm | undefined => {
   if (!PHYSICAL.has(workType)) return undefined;
   if (!len) return undefined;
+  if (isPartialScope(c.title)) return undefined;
   const { lengthKm, segments } = len;
   if (!(lengthKm >= 0.5 && lengthKm <= 50)) return undefined;
   const amt = c.amountEur ?? 0;
@@ -589,6 +657,7 @@ export type WorkComponent =
   | "winter_maint"
   | "roadway"
   | "design_supervision"
+  | "archaeology"
   | "other";
 
 const eqAny = (cpv: string | undefined, codes: string[]): boolean =>
@@ -607,6 +676,7 @@ export const workComponentOf = (
   const n = (title || "").toLowerCase();
   if (workType === "supervision" || workType === "design")
     return "design_supervision";
+  if (workType === "archaeology") return "archaeology";
   if (/тунел/.test(n)) return "tunnel";
   if (/мост|надлез|подлез|естакад|виадукт/.test(n) || cpv?.startsWith("45221"))
     return "bridge";
@@ -693,6 +763,10 @@ export const COMPONENT_LABEL: Record<
     bg: "Проектиране и надзор",
     en: "Design & supervision",
   },
+  archaeology: {
+    bg: "Археологически проучвания",
+    en: "Archaeological surveys",
+  },
   other: { bg: "Друго", en: "Other" },
 };
 
@@ -734,14 +808,25 @@ export interface CorridorAgg {
   isMotorway: boolean;
   totalEur: number;
   contractCount: number;
-  /** Undefined below EUR_PER_KM_MIN_N defensible rows. */
+  /** The ONE work class the €/km median is taken over — never a mix. „build"
+   *  (new build + reconstruction) when it has EUR_PER_KM_MIN_N defensible rows,
+   *  else „rehab" (основен ремонт / рехабилитация / превантивен), else none. A
+   *  motorway median that pooled a €448M build lot with a viaduct repair and a
+   *  widening answered no question at all. */
+  eurPerKmClass?: PerKmClass;
+  /** Undefined below EUR_PER_KM_MIN_N defensible rows in either class. */
   eurPerKmMedian?: number;
   eurPerKmIqr?: [number, number];
-  /** Defensible €/km rows, whether or not the median is published. */
+  /** Defensible €/km rows in `eurPerKmClass` — or, when no class publishes, in
+   *  both classes together (the evidence that exists but is too thin). */
   eurPerKmN: number;
   singleBidShare?: number; // over rows with a known bidder count
   directShare: number; // € via direct/no-notice procedures
 }
+
+/** The work classes a corridor €/km median may be taken over (WorkGroup subset:
+ *  every PHYSICAL work type maps into one of the two). */
+export type PerKmClass = Extract<WorkGroup, "build" | "rehab">;
 
 export interface WorkGroupAgg {
   group: WorkGroup;
@@ -839,7 +924,7 @@ export const buildRoadsModel = (
     if (!isSpendRow(c)) continue;
     if (c.consortiumRole === "member") continue;
     const ref = roadRefOf(c.title);
-    const workType = workTypeOf(c.title, c.cpv);
+    const workType = workTypeOf(c.title, c.cpv, c.contractorName);
     const len = lengthOf(c.title);
     rows.push({
       c,
@@ -870,9 +955,25 @@ export const buildRoadsModel = (
   const corridors: CorridorAgg[] = [...byCorridor.entries()].map(
     ([corridor, arr]) => {
       const ref = arr[0].ref!;
-      const perKms = arr
-        .map((r) => r.perKm?.eurPerKm)
-        .filter((x): x is number => x != null);
+      const perKmOfClass = (g: PerKmClass) =>
+        arr
+          .filter((r) => r.group === g)
+          .map((r) => r.perKm?.eurPerKm)
+          .filter((x): x is number => x != null);
+      const build = perKmOfClass("build");
+      const rehab = perKmOfClass("rehab");
+      const perKmClass: PerKmClass | undefined =
+        build.length >= EUR_PER_KM_MIN_N
+          ? "build"
+          : rehab.length >= EUR_PER_KM_MIN_N
+            ? "rehab"
+            : undefined;
+      const perKms =
+        perKmClass === "build"
+          ? build
+          : perKmClass === "rehab"
+            ? rehab
+            : [...build, ...rehab];
       const bidKnown = arr.filter((r) => r.c.numberOfTenderers != null);
       const single = bidKnown.filter((r) =>
         isSingleBid(r.c.numberOfTenderers),
@@ -892,12 +993,11 @@ export const buildRoadsModel = (
         isMotorway: ref.isMotorway,
         totalEur: tot,
         contractCount: arr.length,
-        eurPerKmMedian:
-          perKms.length >= EUR_PER_KM_MIN_N ? median(perKms) : undefined,
-        eurPerKmIqr:
-          perKms.length >= EUR_PER_KM_MIN_N
-            ? [quantile(perKms, 0.25), quantile(perKms, 0.75)]
-            : undefined,
+        eurPerKmClass: perKmClass,
+        eurPerKmMedian: perKmClass ? median(perKms) : undefined,
+        eurPerKmIqr: perKmClass
+          ? [quantile(perKms, 0.25), quantile(perKms, 0.75)]
+          : undefined,
         eurPerKmN: perKms.length,
         singleBidShare: bidKnown.length ? single / bidKnown.length : undefined,
         directShare: tot > 0 ? directEur / tot : 0,

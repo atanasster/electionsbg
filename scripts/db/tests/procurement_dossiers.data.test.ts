@@ -214,10 +214,20 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "ruse: €/km reads as a real motorway rate, not a survey outlier (Fix 2)",
   () => {
-    // Value-weighted €/km ≈ €11M/km; the pre-fix plain median was €156k/km.
+    // The pre-fix plain median was €156k/km, dragged down by archaeology digs and
+    // supervision lots carrying the motorway's chainage. Since workTypeOf drops
+    // those, only the two construction lots carry a €/km (≈ 11.1 and 9.5 M€/km)
+    // — below the 3-sample floor, so the file publishes NO rate rather than a
+    // two-contract one. Checked at a floor of 2 so the samples themselves are
+    // still pinned to the build band.
+    const atTwo = computeCorpusEurPerKm(RUSE!.contracts, 2);
     assert.ok(
-      RUSE!.eurPerKm != null && RUSE!.eurPerKm > 1_000_000,
-      `ruse €/km €${((RUSE!.eurPerKm ?? 0) / 1e6).toFixed(2)}M too low — value-weighting regressed`,
+      atTwo != null && atTwo.sampleCount >= 2 && atTwo.eurPerKmMedian > 5e6,
+      `ruse €/km samples ${atTwo?.sampleCount} at €${((atTwo?.eurPerKmMedian ?? 0) / 1e6).toFixed(2)}M/km — a service row leaked back in`,
+    );
+    assert.ok(
+      RUSE!.eurPerKm == null || RUSE!.eurPerKm > 5e6,
+      `ruse €/km €${((RUSE!.eurPerKm ?? 0) / 1e6).toFixed(2)}M`,
     );
   },
 );

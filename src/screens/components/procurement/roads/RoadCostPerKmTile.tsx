@@ -1,7 +1,9 @@
 // "Цена на километър по коридор" — gated €/km by corridor. Only corridors with
 // a defensible unit cost (single-segment physical-works contracts) appear; the
-// rest of the corpus is intentionally not unit-costed. Sorted by €/km so the
-// most expensive-per-km corridors surface first (the value-for-money story).
+// rest of the corpus is intentionally not unit-costed. Each corridor's median is
+// taken over ONE work class (CorridorAgg.eurPerKmClass) — new build when it has
+// enough rows, else repair — and the row says which, so a motorway build median
+// never sits unlabelled beside a repair median. Sorted by €/km.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,6 +11,7 @@ import { Ruler } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { CorridorAgg } from "@/lib/roadAttributes";
+import { GROUP_META } from "./roadLabels";
 import { UnitCostMethodologyLink } from "@/screens/components/UnitCostMethodologyLink";
 
 export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
@@ -43,6 +46,24 @@ export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
             >
               {c.corridor}
             </span>
+            <span
+              className="w-16 shrink-0 truncate text-[10px] text-muted-foreground"
+              title={
+                c.eurPerKmClass
+                  ? lang === "bg"
+                    ? GROUP_META[c.eurPerKmClass].bg
+                    : GROUP_META[c.eurPerKmClass].en
+                  : undefined
+              }
+            >
+              {c.eurPerKmClass === "build"
+                ? lang === "bg"
+                  ? "строителство"
+                  : "build"
+                : lang === "bg"
+                  ? "ремонт"
+                  : "repair"}
+            </span>
             <span className="flex-1 h-2.5 rounded bg-muted overflow-hidden">
               <span
                 className="block h-full bg-primary/60"
@@ -62,8 +83,8 @@ export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
         ))}
         <p className="text-[11px] text-muted-foreground/80 pt-1">
           {lang === "bg"
-            ? "Само договори с разчетен участък (км) и физически строителни работи. Останалата част от обема не се остойностява на километър."
-            : "Only contracts with a parsed segment (km) and physical works. The rest of the volume is not unit-costed per kilometre."}
+            ? "Само договори с разчетен участък (км) и физически строителни работи — без проектиране, надзор, археологически проучвания и допълнителни работи по вече възложен участък. Медианата е по един вид работа: ново строителство и реконструкция, а където те са под 3 договора — ремонт. Останалата част от обема не се остойностява на километър."
+            : "Only contracts with a parsed segment (km) and physical works — no design, supervision, archaeological surveys or additional works on an already-awarded section. Each median is over one kind of work: new build and reconstruction, or repair where build has fewer than 3 contracts. The rest of the volume is not unit-costed per kilometre."}
         </p>
         <UnitCostMethodologyLink className="mt-2 inline-block" />
       </CardContent>

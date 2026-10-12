@@ -5,10 +5,16 @@ import {
   buildChainageStrips,
   buildRoadsModel,
   EUR_PER_KM_MIN_N,
+  eurPerKmOf,
+  isPartialScope,
+  lengthOf,
   MULTI_REGION,
   regionOf,
   roadRefOf,
   RUSE_VT_CORRIDOR,
+  workComponentOf,
+  workGroupOf,
+  workTypeOf,
 } from "./roadAttributes";
 
 let seq = 0;
@@ -196,5 +202,244 @@ describe("buildChainageStrips (R14, R15)", () => {
     expect(strip.axis.axisKey).toBe("Струма");
     expect(strip.maxBin).toBeGreaterThan(1);
     expect(strip.coveredPct).toBe(0);
+  });
+});
+
+// Real titles from the АПИ corpus (measured 2026-10-12): service contracts that
+// carry a motorway's chainage and used to be unit-costed as road works.
+describe("non-physical work carries no €/km", () => {
+  const perKmOf = (
+    title: string,
+    amountEur: number,
+    cpv?: string,
+    name?: string,
+  ) =>
+    eurPerKmOf(
+      { amountEur, title },
+      workTypeOf(title, cpv, name),
+      lengthOf(title),
+    );
+
+  it.each([
+    [
+      "Извършване на пълно спасително археологическо проучване – разкопки на Обект № 9 от км 51+600 до км 52+040 по трасето на обект: АМ „Русе – Велико Търново“",
+      "71351914",
+    ],
+    [
+      "„Пълно спасително археологическо проучване – разкопки на Обект №5 от км 165+300 и км 166+160 по проект 2015 г. и от км 166+700 до 167+560 по нов проект“",
+      "71351914",
+    ],
+    [
+      '„Извършване на археологическо проучване на обект № 16 ( от км 419+670 до км 420+384) по трасето на автомагистрала "Струма", Лот 3.3”.',
+      "71351914",
+    ],
+    // No CPV at all: the title alone decides.
+    [
+      "Извършване на археологическо проучване на обекти от км 39+300 до км 39+480 и от км 57+500 до км 57+700 по трасето",
+      undefined,
+    ],
+  ])("archaeology: %s", (title, cpv) => {
+    const wt = workTypeOf(title, cpv);
+    expect(wt).toBe("archaeology");
+    expect(workGroupOf(wt)).toBe("other");
+    expect(workComponentOf(title, cpv, wt)).toBe("archaeology");
+    expect(perKmOf(title, 1_700_000, cpv)).toBeUndefined();
+  });
+
+  it("a works lot merely sited at an archaeological object stays physical", () => {
+    const t =
+      "Изготвяне на технически проект и изграждане на подпорна стена при археологически Обект № 15 по трасето на АМ „Струма“";
+    expect(workTypeOf(t, "45233120")).not.toBe("archaeology");
+  });
+
+  it("supervision titled after the works lot it oversees (CPV 71521000)", () => {
+    // ДЗЗД „Лидер консулт", €6.5M — same title as the €448.2M build lot.
+    const t =
+      "Обособена позиция № 1: Участък Русе – Бяла от км 0+400 до км 40+640";
+    expect(workTypeOf(t, "71521000", 'Дружество по ЗЗД "Лидер консулт"')).toBe(
+      "supervision",
+    );
+    expect(perKmOf(t, 6_510_000, "71521000")).toBeUndefined();
+    // …while the construction lot on the identical title keeps its €/km.
+    const works = perKmOf(t, 448_160_000, "45233120");
+    expect(works?.eurPerKm).toBeGreaterThan(10e6);
+  });
+
+  it("a supervision ДЗЗД with no CPV is read from its name", () => {
+    const t =
+      'Лот 3.2.1, участък "Крупник - Кресна" – ляво платно от км 375+860 до км 389+100 и пътни връзки';
+    expect(workTypeOf(t, undefined, "ДЗЗД КОНСУЛТАНТИ СТРУМА 1")).toBe(
+      "supervision",
+    );
+  });
+
+  it("a builders' consortium with a „…консулт“ member and CPV 45 stays works", () => {
+    const t =
+      "„Проектиране и строителство на Автомагистрала „Струма“ Лот 3.1. участък от км 373+300 до км 376+000";
+    const wt = workTypeOf(
+      t,
+      "45233120",
+      "Обединение: АБ АД, Алве консулт ЕООД",
+    );
+    expect(wt).toBe("new_build");
+  });
+
+  it("a CPV-71 design-and-build (инженеринг) stays works", () => {
+    expect(
+      workTypeOf(
+        "„Определяне на изпълнител за Проектиране и строителство (инженеринг) на нови пътни връзки и мерки за укрепване",
+        "71311220",
+      ),
+    ).toBe("new_build");
+  });
+
+  it.each([
+    [
+      '„Супервизия на проектиране и строителство на автомагистрала "Струма" Лот 3.3',
+      "71520000",
+    ],
+    [
+      'Изготвяне на идеен проект за доизграждане на автомагистрала "Хемус" (етап 2)',
+      "71311000",
+    ],
+    [
+      "Изработване на технически проект за основен ремонт на „Път II-15 Враца – Борован от км 0+000 до км 40+000",
+      "71320000",
+    ],
+  ])("CPV-71 service: %s", (title, cpv) => {
+    const wt = workTypeOf(title, cpv);
+    expect(workGroupOf(wt)).toBe("design");
+    expect(workComponentOf(title, cpv, wt)).toBe("design_supervision");
+  });
+
+  it("a design job with no CPV is still design", () => {
+    expect(
+      workTypeOf(
+        "Изработване на технически проект за основен ремонт на път I-3 от км 38+800 до км 88+842",
+      ),
+    ).toBe("design");
+  });
+
+  it("a repair of a structure is rehab, not new build", () => {
+    expect(
+      workTypeOf(
+        "„Извършване на ремонтно – възстановителни дейности на виадукти при км 33+910, км 34+220 и км 36+450 на АМ Хемус",
+        "45233110",
+      ),
+    ).toBe("rehab");
+  });
+});
+
+describe("partial-scope contracts carry no €/km", () => {
+  it.each([
+    "Избор на изпълнител за извършване на строителни работи на Обект: „АМ ”СТРУМА” ЛОТ №1 „ДОЛНА ДИКАНЯ – ДУПНИЦА ОТ КМ 305+220 ДО КМ 322+000” Подобект № 1",
+    'Определяне на изпълнител за извършване на допълнителни строителни работи на обект: "АМ "СТРУМА" ЛОТ №1 ДОЛНА ДИКАНЯ – ДУПНИЦА ОТ КМ 305+220 ДО КМ 322+000"',
+    "„Изпълнение на допълнително възникнали видове СМР относно Обект: Лот 15: Рехабилитация на път ІІІ-181 от км 0+000 до км 20+000",
+  ])("%s", (t) => {
+    expect(isPartialScope(t)).toBe(true);
+    expect(
+      eurPerKmOf({ amountEur: 3_000_000, title: t }, "new_build", lengthOf(t)),
+    ).toBeUndefined();
+  });
+
+  it("„допълнително проектиране и строителство“ is a MAIN contract and keeps it", () => {
+    const t =
+      "„Определяне на изпълнител за допълнително проектиране и строителство на обект: Път I-1 (E-79) „Мездра – Ботевград“ Лот 2 от км 161+367 до км 174+800“";
+    expect(isPartialScope(t)).toBe(false);
+    expect(
+      eurPerKmOf({ amountEur: 113_750_000, title: t }, "new_build", lengthOf(t))
+        ?.eurPerKm,
+    ).toBeGreaterThan(8e6);
+  });
+});
+
+describe("corridor €/km median is over ONE work class", () => {
+  const ruseVt = [
+    // The two construction lots (mediapool.bg 2022-11-05: 876.5M лв / 40.2 km,
+    // 660.4M лв / 35.4 km) …
+    row({
+      title:
+        "Обособена позиция № 1: Участък Русе – Бяла от км 0+400 до км 40+640",
+      amountEur: 448_160_000,
+      cpv: "45233120",
+    }),
+    row({
+      title: "ОП №2: Обход на гр. Бяла от км 40+640 до км 76+040",
+      amountEur: 337_670_000,
+      cpv: "45233120",
+    }),
+    // … their supervision on the identical titles …
+    row({
+      title:
+        "Обособена позиция № 1: Участък Русе – Бяла от км 0+400 до км 40+640",
+      amountEur: 6_510_000,
+      cpv: "71521000",
+      contractorName: 'Дружество по ЗЗД "Лидер консулт"',
+    }),
+    row({
+      title:
+        "Обособена позиция № 2: Обход на гр. Бяла от км 40+640 до км 76+040“,",
+      amountEur: 5_530_000,
+      cpv: "71521000",
+      contractorName: 'Дружество по ЗЗД "Лидер консулт"',
+    }),
+    // … and two archaeology digs on the route.
+    ...[
+      [51, 52],
+      [46, 47],
+    ].map(([a, b]) =>
+      row({
+        title: `Извършване на пълно спасително археологическо проучване – разкопки на Обект от км ${a}+600 до км ${b}+040 по трасето на обект: АМ „Русе – Велико Търново“`,
+        amountEur: 1_650_000,
+        cpv: "71351914",
+      }),
+    ),
+  ];
+
+  it("Русе – В. Търново keeps only its two works lots — too few to publish", () => {
+    const m = buildRoadsModel(ruseVt);
+    const c = m.corridors.find((x) => x.corridor === RUSE_VT_CORRIDOR)!;
+    const perKm = m.rows
+      .filter((r) => r.ref?.corridor === RUSE_VT_CORRIDOR && r.perKm)
+      .map((r) => r.perKm!.eurPerKm);
+    expect(perKm).toHaveLength(2);
+    expect(Math.min(...perKm)).toBeGreaterThan(5e6);
+    // Before: n=6, median 0.16 M€/km. Now: below the floor, not published.
+    expect(c.eurPerKmN).toBe(2);
+    expect(c.eurPerKmMedian).toBeUndefined();
+    expect(c.eurPerKmClass).toBeUndefined();
+  });
+
+  it("build wins when it has enough rows; repair rows stay out of its median", () => {
+    const lot = (from: number, eur: number, verb: string) =>
+      row({
+        title: `${verb} на АМ „Хемус“ от км ${from}+000 до км ${from + 10}+000`,
+        amountEur: eur,
+        cpv: "45233110",
+      });
+    const m = buildRoadsModel([
+      lot(10, 30_000_000, "Изграждане"),
+      lot(30, 40_000_000, "Изграждане"),
+      lot(50, 50_000_000, "Изграждане"),
+      lot(70, 2_000_000, "Рехабилитация"),
+      lot(90, 3_000_000, "Рехабилитация"),
+    ]);
+    const c = m.corridors[0];
+    expect(c.eurPerKmClass).toBe("build");
+    expect(c.eurPerKmN).toBe(3);
+    expect(c.eurPerKmMedian).toBe(4_000_000);
+  });
+
+  it("falls back to the repair class, never to a mix", () => {
+    const m = buildRoadsModel(
+      [10, 30, 50].map((from) =>
+        row({
+          title: `Рехабилитация на път II-18 от км ${from}+000 до км ${from + 10}+000`,
+          amountEur: 2_000_000,
+        }),
+      ),
+    );
+    expect(m.corridors[0].eurPerKmClass).toBe("rehab");
+    expect(m.corridors[0].eurPerKmMedian).toBe(200_000);
   });
 });

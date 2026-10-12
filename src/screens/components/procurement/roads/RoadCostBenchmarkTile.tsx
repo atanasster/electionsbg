@@ -2,7 +2,9 @@
 // the key-factors prose only gestures at. Each corridor is drawn as its p25–p75
 // interquartile band with a median tick on a shared €/km axis, with the World
 // Bank ROCKS / BG / RO / GR reference levels marked. Read straight from
-// model.corridors (same gated €/km as RoadCostPerKmTile); no engine change.
+// model.corridors (same gated €/km as RoadCostPerKmTile), BUILD-class medians
+// only: every reference here is a construction cost, so a corridor whose median
+// is over repair contracts has nothing to be compared with on this axis.
 //
 // The references are NOT like-for-like (ROCKS is a two-lane road without
 // structures; the country figures are motorways) — the caption keeps that
@@ -39,7 +41,13 @@ export const RoadCostBenchmarkTile: FC<{ corridors: CorridorAgg[] }> = ({
   const lang = i18n.language;
 
   const rows = corridors
-    .filter((c) => c.eurPerKmMedian != null && c.eurPerKmN > 0 && c.eurPerKmIqr)
+    .filter(
+      (c) =>
+        c.eurPerKmClass === "build" &&
+        c.eurPerKmMedian != null &&
+        c.eurPerKmN > 0 &&
+        c.eurPerKmIqr,
+    )
     .sort((a, b) => (b.eurPerKmMedian ?? 0) - (a.eurPerKmMedian ?? 0))
     .slice(0, 8);
   if (rows.length < 2) return null;
@@ -135,8 +143,8 @@ export const RoadCostBenchmarkTile: FC<{ corridors: CorridorAgg[] }> = ({
 
         <p className="mt-2 text-[11px] text-muted-foreground/80">
           {lang === "bg"
-            ? "Лентата е p25–p75 на €/км за коридора, чертичката — медианата. Зелената зона е ориентир €3–6 млн/км (ново строителство на магистрала в BG). Ориентирите не са пряко сравними — ROCKS е двулентов път без съоръжения, а страните са магистрали."
-            : "Bar is the corridor's p25–p75 €/km, the tick is the median. The green zone marks €3–6M/km (BG new motorway). References are not like-for-like — ROCKS is a two-lane road without structures, the country figures are motorways."}
+            ? "Само договори за ново строителство и реконструкция. Лентата е p25–p75 на €/км за коридора, чертичката — медианата. Зелената зона е ориентир €3–6 млн/км (ново строителство на магистрала в BG). Ориентирите не са пряко сравними — ROCKS е двулентов път без съоръжения, а страните са магистрали."
+            : "New-build and reconstruction contracts only. Bar is the corridor's p25–p75 €/km, the tick is the median. The green zone marks €3–6M/km (BG new motorway). References are not like-for-like — ROCKS is a two-lane road without structures, the country figures are motorways."}
         </p>
         <UnitCostMethodologyLink className="mt-2 inline-block" />
       </CardContent>

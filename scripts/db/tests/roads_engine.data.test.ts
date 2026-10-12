@@ -12,6 +12,9 @@
 //   R14  the 0–165 Струма cap rejected every construction lot (13 contracts on
 //        the strip against a €943.9M corridor)
 //   R1/O the model total must stay the hub headline's basis
+//   €/km archaeology (НАИМ-БАН, CPV 71351914) and supervision lots titled after
+//        the works section carried a €/km: Русе – В. Търново published a median
+//        of 0.16 M€/km (n=6) against two build lots at ~10–11 M€/km
 //
 // Bands and inequalities, never exact figures — the corpus reloads fortnightly.
 // Auto-skips only when Postgres is down or the corpus is not loaded.
@@ -24,7 +27,9 @@ import {
   API_EIK,
   buildChainageStrips,
   buildRoadsModel,
+  lengthOf,
   MULTI_REGION,
+  RUSE_VT_CORRIDOR,
 } from "@/lib/roadAttributes";
 import { reportSkip } from "../../lib/report_skip";
 import { readFileSync } from "node:fs";
@@ -239,6 +244,106 @@ test.skipIf(skip)(
     assert.ok(
       Number(r.spent) < 2e7,
       `spent €${r.spent} as a buyer — revisit D1`,
+    );
+  },
+);
+
+// ── €/km is physical works only, and a corridor median is one work class.
+// The service predicates here are written INDEPENDENTLY of workTypeOf (title
+// stem / CPV / contractor name straight off the row), so a classifier that
+// regressed cannot also redefine what this gate looks for.
+
+const DESIGN_BUILD_RE = /инженеринг|проектиране\s+и\s+строителств/i;
+const isArchaeologyRow = (r: ProcurementContract) =>
+  /археолог/i.test(r.title ?? "") &&
+  !DESIGN_BUILD_RE.test(r.title ?? "") &&
+  !((r.cpv ?? "").startsWith("45") && !(r.cpv ?? "").startsWith("451124"));
+const isServiceRow = (r: ProcurementContract) =>
+  ((r.cpv ?? "").startsWith("71") && !DESIGN_BUILD_RE.test(r.title ?? "")) ||
+  /надзор|консултант|супервизи/i.test(r.title ?? "") ||
+  (!r.cpv && /консулт/i.test(r.contractorName ?? ""));
+
+test.skipIf(skip)(
+  "no archaeology or supervision/design row carries a €/km",
+  async () => {
+    const m = buildRoadsModel(await rowsOf());
+    const arch = m.rows.filter((r) => isArchaeologyRow(r.c));
+    const svc = m.rows.filter((r) => isServiceRow(r.c));
+    // Non-vacuity: these rows exist and carry a parseable length — exactly the
+    // population that used to be unit-costed.
+    assert.ok(
+      arch.filter((r) => lengthOf(r.c.title)).length >= 10,
+      `only ${arch.length} archaeology rows with a length — retire this arm`,
+    );
+    assert.ok(
+      svc.filter((r) => lengthOf(r.c.title) && r.amountEur > 1e6).length >= 5,
+      "too few €1M+ service rows with a length to mean anything",
+    );
+    const leaked = [...arch, ...svc].filter((r) => r.perKm);
+    assert.equal(
+      leaked.length,
+      0,
+      `service rows unit-costed:\n${leaked
+        .slice(0, 5)
+        .map((r) => `  ${r.workType} ${r.c.cpv} ${r.c.title.slice(0, 90)}`)
+        .join("\n")}`,
+    );
+    for (const r of arch) assert.equal(r.workType, "archaeology", r.c.title);
+  },
+);
+
+test.skipIf(skip)(
+  "Русе – В. Търново: only the build lots carry a €/km, in a plausible band",
+  async () => {
+    const m = buildRoadsModel(await rowsOf());
+    const c = m.corridors.find((x) => x.corridor === RUSE_VT_CORRIDOR);
+    assert.ok(c, "no Русе – В. Търново corridor");
+    const perKm = m.rows
+      .filter((r) => r.ref?.corridor === RUSE_VT_CORRIDOR && r.perKm)
+      .map((r) => r.perKm!.eurPerKm);
+    // The two lots: 876.5M лв / 40.2 km and 660.4M лв / 35.4 km (≈ 11.1 and
+    // 9.5 M€/km). Anything under 5 M€/km is a service row leaking back in.
+    assert.ok(perKm.length >= 2, `only ${perKm.length} €/km rows`);
+    assert.ok(
+      perKm.every((v) => v > 5e6 && v < 25e6),
+      `€/km rows ${perKm.map((v) => (v / 1e6).toFixed(2)).join(", ")} M€`,
+    );
+    // Below EUR_PER_KM_MIN_N it publishes nothing; if a third lot ever lands,
+    // its median must stay in the same band rather than fall to 0.16.
+    if (c.eurPerKmMedian != null)
+      assert.ok(
+        c.eurPerKmMedian > 5e6,
+        `median ${(c.eurPerKmMedian / 1e6).toFixed(2)} M€/km`,
+      );
+  },
+);
+
+test.skipIf(skip)(
+  "every published corridor median is over ONE work class",
+  async () => {
+    const m = buildRoadsModel(await rowsOf());
+    const published = m.corridors.filter((c) => c.eurPerKmMedian != null);
+    assert.ok(published.length >= 5, "too few corridors publish a median");
+    for (const c of published) {
+      assert.ok(c.eurPerKmClass, `${c.corridor} has a median and no class`);
+      const own = m.rows.filter(
+        (r) => r.ref?.corridor === c.corridor && r.perKm,
+      );
+      const inClass = own.filter((r) => r.group === c.eurPerKmClass);
+      assert.equal(c.eurPerKmN, inClass.length, c.corridor);
+    }
+    // Non-vacuity of the split: some corridor HAS rows of both classes, so the
+    // restriction is excluding something real.
+    assert.ok(
+      published.some((c) => {
+        const groups = new Set(
+          m.rows
+            .filter((r) => r.ref?.corridor === c.corridor && r.perKm)
+            .map((r) => r.group),
+        );
+        return groups.size > 1;
+      }),
+      "no corridor mixes classes — the per-class arm is vacuous",
     );
   },
 );
