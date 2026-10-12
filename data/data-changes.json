@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-10-11T23:34:32.952Z",
+  "updatedAt": "2026-10-12T23:03:32.107Z",
   "entries": [
+    {
+      "timestamp": "2026-10-12T23:03:32.107Z",
+      "date": "2026-10-12",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП self-heal (+133 new contracts, 417,471 rows), 240,428 tenders, TED 221,798 notices (+23,160 in 2026); db:refresh complete",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-10-12T22:50:57.144Z",
+      "date": "2026-10-12",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 875 лица, 125 088 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-12T22:04:13.539Z",
+      "date": "2026-10-12",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-12 (+1 daily archive; 1,021,275 store rows, 168 settlements, 72 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-12"
+    },
     {
       "timestamp": "2026-10-11T23:34:32.952Z",
       "date": "2026-10-11",

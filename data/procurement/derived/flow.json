@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T21:47:50.694Z",
+  "generatedAt": "2026-10-12T22:15:04.475Z",
   "nodes": [
     {
       "id": "contractor:121699202",
@@ -582,6 +582,36 @@
       "label": "Ваньо Тодоров Тодоров"
     },
     {
+      "id": "official:chavdar-naidenov-gigov-2f8dce",
+      "type": "official",
+      "label": "Чавдар Найденов Гигов"
+    },
+    {
+      "id": "official:delyana-antonova-panaiotova-100fac",
+      "type": "official",
+      "label": "Деляна Антонова Панайотова"
+    },
+    {
+      "id": "official:kamen-vasilev-pchelarov-2c4d9c",
+      "type": "official",
+      "label": "Камен Василев Пчеларов"
+    },
+    {
+      "id": "official:nikola-aleksandrov-onov-49c17f",
+      "type": "official",
+      "label": "Никола Александров Онов"
+    },
+    {
+      "id": "official:ralitsa-takeva-takeva-37b875",
+      "type": "official",
+      "label": "Ралица Такева Такева"
+    },
+    {
+      "id": "official:vasil-dimitrov-nekov-2c7e63",
+      "type": "official",
+      "label": "Васил Димитров Неков"
+    },
+    {
       "id": "official:anton-metodiev-lazarov-74a78e",
       "type": "official",
       "label": "Антон Методиев Лазаров"
@@ -615,36 +645,6 @@
       "id": "official:filip-andreev-vasilev-dbcd40",
       "type": "official",
       "label": "Филип Андреев Василев"
-    },
-    {
-      "id": "official:chavdar-naidenov-gigov-2f8dce",
-      "type": "official",
-      "label": "Чавдар Найденов Гигов"
-    },
-    {
-      "id": "official:delyana-antonova-panaiotova-100fac",
-      "type": "official",
-      "label": "Деляна Антонова Панайотова"
-    },
-    {
-      "id": "official:kamen-vasilev-pchelarov-2c4d9c",
-      "type": "official",
-      "label": "Камен Василев Пчеларов"
-    },
-    {
-      "id": "official:nikola-aleksandrov-onov-49c17f",
-      "type": "official",
-      "label": "Никола Александров Онов"
-    },
-    {
-      "id": "official:ralitsa-takeva-takeva-37b875",
-      "type": "official",
-      "label": "Ралица Такева Такева"
-    },
-    {
-      "id": "official:vasil-dimitrov-nekov-2c7e63",
-      "type": "official",
-      "label": "Васил Димитров Неков"
     },
     {
       "id": "official:aleksandr-plamenov-tsrnorechki-e022da",
@@ -1234,6 +1234,36 @@
       "valueEur": 87417359.91
     },
     {
+      "source": "contractor:206671456",
+      "target": "official:chavdar-naidenov-gigov-2f8dce",
+      "valueEur": 85762621.87
+    },
+    {
+      "source": "contractor:206671456",
+      "target": "official:delyana-antonova-panaiotova-100fac",
+      "valueEur": 85762621.87
+    },
+    {
+      "source": "contractor:206671456",
+      "target": "official:kamen-vasilev-pchelarov-2c4d9c",
+      "valueEur": 85762621.87
+    },
+    {
+      "source": "contractor:206671456",
+      "target": "official:nikola-aleksandrov-onov-49c17f",
+      "valueEur": 85762621.87
+    },
+    {
+      "source": "contractor:206671456",
+      "target": "official:ralitsa-takeva-takeva-37b875",
+      "valueEur": 85762621.87
+    },
+    {
+      "source": "contractor:206671456",
+      "target": "official:vasil-dimitrov-nekov-2c7e63",
+      "valueEur": 85762621.87
+    },
+    {
       "source": "contractor:129008074",
       "target": "official:anton-metodiev-lazarov-74a78e",
       "valueEur": 85207311.23
@@ -1264,6 +1294,11 @@
       "valueEur": 85207311.23
     },
     {
+      "source": "awarder:000696327",
+      "target": "contractor:206671456",
+      "valueEur": 84926404
+    },
+    {
       "source": "awarder:000695324",
       "target": "contractor:129008074",
       "valueEur": 84369815.13
@@ -1277,36 +1312,6 @@
       "source": "awarder:180680495",
       "target": "contractor:831641791",
       "valueEur": 81982839.45
-    },
-    {
-      "source": "contractor:206671456",
-      "target": "official:chavdar-naidenov-gigov-2f8dce",
-      "valueEur": 78762621.87
-    },
-    {
-      "source": "contractor:206671456",
-      "target": "official:delyana-antonova-panaiotova-100fac",
-      "valueEur": 78762621.87
-    },
-    {
-      "source": "contractor:206671456",
-      "target": "official:kamen-vasilev-pchelarov-2c4d9c",
-      "valueEur": 78762621.87
-    },
-    {
-      "source": "contractor:206671456",
-      "target": "official:nikola-aleksandrov-onov-49c17f",
-      "valueEur": 78762621.87
-    },
-    {
-      "source": "contractor:206671456",
-      "target": "official:ralitsa-takeva-takeva-37b875",
-      "valueEur": 78762621.87
-    },
-    {
-      "source": "contractor:206671456",
-      "target": "official:vasil-dimitrov-nekov-2c7e63",
-      "valueEur": 78762621.87
     },
     {
       "source": "contractor:831373560",
@@ -1367,11 +1372,6 @@
       "source": "contractor:831373560",
       "target": "official:veselina-lchezarova-kanatova-buchkova-e71979",
       "valueEur": 78637643.66
-    },
-    {
-      "source": "awarder:000696327",
-      "target": "contractor:206671456",
-      "valueEur": 77926404
     },
     {
       "source": "awarder:000695406",

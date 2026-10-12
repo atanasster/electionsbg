@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-12T22:33:34.081Z",
+  "generatedAt": "2026-10-12T22:57:31.112Z",
   "nodes": [
     {
       "id": "src:water",
@@ -7396,8 +7396,8 @@
         {
           "node": "ds:officials",
           "text": {
-            "bg": "А през лицата се затваря кръгът: 5 628 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-            "en": "And people close the circle: 5,628 officials who file asset declarations also hold a role in the company registry."
+            "bg": "А през лицата се затваря кръгът: 5 627 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,627 officials who file asset declarations also hold a role in the company registry."
           }
         }
       ]
@@ -7728,7 +7728,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5628,
+      "overlap": 5627,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7741,7 +7741,7 @@
         "bg": "кой кандидат после заема публична длъжност",
         "en": "which candidates later hold public office"
       },
-      "overlap": 3212
+      "overlap": 3211
     },
     {
       "id": "connections|elections|person_id",
@@ -7753,7 +7753,7 @@
         "bg": "кой кандидат участва и във фирми",
         "en": "which candidates also hold company roles"
       },
-      "overlap": 7377
+      "overlap": 7376
     }
   ]
 }
