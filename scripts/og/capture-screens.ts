@@ -108,6 +108,34 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "water-floods",
+    routePath: "water/floods?pscope=all",
+    // The riverbed tile is static-data (flood_maintenance.json) — no /api/db
+    // dependency — and carries the headline €, the oblast map and the awarders,
+    // so it is a robust card for the floods sub-page (water-hub-v1 G-F).
+    waitFor: "#flood",
+    anchor: "#flood",
+    // A full-width card wider than the clip: pin the clip to its left edge and
+    // render at the clip viewport so the card fits rather than being sliced.
+    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "water-services",
+    routePath: "water/services",
+    // The НСИ rationing chart — static water_stats.json, whole history.
+    waitFor: "#water-stats",
+    anchor: "#water-stats",
+    // A full-width card wider than the clip: pin the clip to its left edge and
+    // render at the clip viewport so the card fits rather than being sliced.
+    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "risk-analysis",
     routePath: "risk-analysis",
     // CompositeIndexHero is the first card on the page; it always renders

@@ -218,7 +218,7 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
   "db:gen-water-flood": {
     artifact: "data/water/flood_maintenance.json",
     reason:
-      "the /water riverbed-cleaning tile, the AI riverbedCleaning tool and the prerendered /water title all read it. It reads contracts and awarder_seats (its oblast choropleth), so it must follow db:load:pg and db:load:awarder-seats:pg; it sits beside db:gen-roads-hub-stats. Until 2026-10-12 NOTHING ran it and it served a 2026-07-12 snapshot €103.5M (32%) below the corpus (docs/plans/water-hub-v1.md D1)",
+      "the /water/floods riverbed tile, the AI riverbedCleaning tool, the /water and /water/floods prerender bodies and the water hub blob's riverbed figure all read it. It reads contracts and awarder_seats (its oblast choropleth), so it must follow db:load:pg and db:load:awarder-seats:pg; it sits beside db:gen-roads-hub-stats. Until 2026-10-12 NOTHING ran it and it served a 2026-07-12 snapshot €103.5M (32%) below the corpus (docs/plans/water-hub-v1.md D1)",
     bucketPath: "water/flood_maintenance.json",
   },
   "db:gen-water-hub-stats": {

@@ -67,12 +67,12 @@ export const WaterIntraGroupCard: FC<{
         {g?.contracts ? (
           <p className="text-muted-foreground">
             {bg
-              ? `За целия период: ${eur(g.eur)} по ${formatInt(g.contracts, lang)} договора, от тях ${eur(g.loansToHoldingEur)} по ${formatInt(g.loansToHoldingContracts, lang)} договора за заем към Български ВиК холдинг и ${eur(g.selfEur)} по ${formatInt(g.selfContracts, lang)} договора, в които възложителят е посочен и като изпълнител.`
-              : `Over the whole period: ${eur(g.eur)} across ${formatInt(g.contracts, lang)} contracts, of which ${eur(g.loansToHoldingEur)} across ${formatInt(g.loansToHoldingContracts, lang)} are loan agreements to the Bulgarian Water Holding and ${eur(g.selfEur)} across ${formatInt(g.selfContracts, lang)} name the awarder as its own contractor.`}
+              ? `За целия период: ${eur(g.eur - g.selfEur)} по ${formatInt(g.contracts - g.selfContracts, lang)} договора между дружества от сектора, от тях ${eur(g.loansToHoldingEur)} по ${formatInt(g.loansToHoldingContracts, lang)} договора за заем към Български ВиК холдинг. Отделно ${eur(g.selfEur)} по ${formatInt(g.selfContracts, lang)} договора, в които възложителят е посочен и като изпълнител.`
+              : `Over the whole period: ${eur(g.eur - g.selfEur)} across ${formatInt(g.contracts - g.selfContracts, lang)} contracts between sector companies, of which ${eur(g.loansToHoldingEur)} across ${formatInt(g.loansToHoldingContracts, lang)} are loan agreements to the Bulgarian Water Holding. Separately, ${eur(g.selfEur)} across ${formatInt(g.selfContracts, lang)} name the awarder as its own contractor.`}
             {hub?.credits.contracts
               ? bg
-                ? ` Отделно ${eur(hub.credits.eur)} по ${formatInt(hub.credits.contracts, lang)} договора са кредити от банки — външни доставчици, които остават в класацията.`
-                : ` Separately, ${eur(hub.credits.eur)} across ${formatInt(hub.credits.contracts, lang)} contracts are bank credit — external suppliers, which stay in the ranking.`
+                ? ` Кредитите от банки — ${eur(hub.credits.eur)} по ${formatInt(hub.credits.contracts, lang)} договора — са от външни доставчици и остават в класацията.`
+                : ` Bank credit — ${eur(hub.credits.eur)} across ${formatInt(hub.credits.contracts, lang)} contracts — comes from external suppliers, which stay in the ranking.`
               : ""}
           </p>
         ) : null}

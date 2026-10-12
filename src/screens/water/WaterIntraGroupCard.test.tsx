@@ -43,4 +43,16 @@ describe("WaterIntraGroupCard", () => {
     expect(screen.getByText(/Over the whole period/)).toBeTruthy();
     expect(screen.getByText(/stay in the ranking/)).toBeTruthy();
   });
+
+  it("states the whole period on the same ex-self basis as the in-window lead", () => {
+    const { container } = render(
+      <WaterIntraGroupCard suppliers={[]} totalEur={100} />,
+    );
+    // 29.0M − 0.082M self = €28.9M between sector companies; self apart.
+    const text = container.textContent ?? "";
+    expect(text).toMatch(
+      /€28[.,]9.{0,8} across 48 contracts between sector companies/,
+    );
+    expect(text).toMatch(/Separately, €82.{0,8} across 2 name the awarder/);
+  });
 });

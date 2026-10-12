@@ -19,10 +19,9 @@ import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import type { VikCategory } from "@/lib/vikAttributes";
 
+// Every key below is read by the hub (skill rule: a hub blob carries only what
+// its head and tiles render). Add a field when a tile needs it, not before.
 export interface WaterHubStats {
-  /** Newest contract date in the corpus the blob was built from (ISO date) —
-   *  a property of the data, so two rebuilds of one corpus are byte-identical. */
-  corpusThrough: string;
   procurement: {
     /** Σ amount_eur at tag='contract' over WATER_SECTOR_EIKS. Equals
      *  sector_stats.json all.water; the data gate holds that. */
@@ -45,7 +44,7 @@ export interface WaterHubStats {
   register: { eiks: number; operators: number; liveOperators: number };
   /** Top water OPERATORS by € (whole corpus; WATER_OPERATOR_TYPES only), for
    *  the evidence rail. */
-  topOperators: { eik: string; name: string; eur: number; contracts: number }[];
+  topOperators: { eik: string; name: string; eur: number }[];
   /** Every operator's € (whole corpus), for the finder. */
   operatorIndex: { eik: string; eur: number }[];
   /** € by water function (src/lib/vikAttributes.ts categoryOfCpv). No count:
@@ -72,7 +71,6 @@ export interface WaterHubStats {
   /** ИСУН — fund_beneficiaries over WATER_SECTOR_EIKS, lifetime (W4). */
   euFunds: {
     beneficiaries: number;
-    projects: number;
     contractedEur: number;
     paidEur: number;
   };
@@ -81,7 +79,6 @@ export interface WaterHubStats {
   services: {
     year: number;
     rationingPct: number | null;
-    connectedWaterPct: number | null;
     wasteTreatmentPct: number | null;
   } | null;
   /** data/water/flood_maintenance.json — the riverbed TOPIC (W5). */

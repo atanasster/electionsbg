@@ -97,8 +97,8 @@ const KulturaPack = lazy(() =>
   import("./kultura/KulturaPack").then((m) => ({ default: m.KulturaPack })),
 );
 // No VIK_AWARDER_PATH export (deliberately, like ВСС/culture): the water view's
-// home will be the /water dashboard (plan §0b.4); the ВиК-холдинг awarder page is
-// reached from there. The Phase-1 pack still registers by EIK below and renders
+// home is the /water sector hub (docs/plans/water-hub-v1.md); the ВиК-холдинг
+// awarder page is reached from its „Холдинговата група" tile. The Phase-1 pack still registers by EIK below and renders
 // off the existing corpus (consolidated group + by-function) with no new ingest.
 const VikPack = lazy(() =>
   import("./vik/VikPack").then((m) => ({ default: m.VikPack })),
@@ -289,6 +289,28 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     // VikBrowseSection's strip reads the rollup on the same basis (exMembers=1).
     // Measured 2026-10-12: 10,966 rows all-in against 10,336 ex-members.
     excludeConsortiumMembers: true,
+    // The operators are ИСУН beneficiaries under their own EIKs — 26 of the 45,
+    // 73 projects, €1.41bn contracted (measured 2026-10-13); the hub's EU-funds
+    // KPI reads them.
+    beneficiaryCorpora: ["fund_projects"],
+    beneficiaryWithheld: [
+      {
+        corpus: "agri_subsidies",
+        rowsAtDecision: 1,
+        // Decided 2026-10-13 (water-hub-v1 gap audit G-K). The one match is real
+        // money: ВиК Враца (816090199), €2,464,629 in 2023 under ПРСР Мярка 7 —
+        // rural basic services, i.e. village water infrastructure ДФЗ pays out.
+        // Withheld, not denied: no water surface reads the ДФЗ corpus (the hub's
+        // EU-funds KPI is ИСУН fund_beneficiaries), so declaring it would claim a
+        // ДФЗ arm that renders one row nowhere. Re-decide if ПРСР Мярка 7 is ever
+        // brought onto /water/funds — then it belongs IN, beside ИСУН, never summed.
+        reason:
+          "One row: ВиК Враца, €2.46M (2023) under ПРСР Мярка 7 (rural basic " +
+          "services — village water infrastructure). No water surface reads the ДФЗ " +
+          "corpus; the hub's EU-funds figure is ИСУН only. Declaring it would claim " +
+          "a ДФЗ arm that renders nowhere.",
+      },
+    ],
   },
   roads: {
     id: "roads",

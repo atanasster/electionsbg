@@ -24,7 +24,7 @@ const eur = (basis: SectorStat["basis"], value: number, year?: number) =>
 
 const STATS: Record<string, SectorStat> = {
   roads: eur("procurement", 8822447923),
-  water: eur("procurement", 3273381511),
+  water: eur("procurement", 3326158810),
   transport: eur("procurement", 7268093632),
   energy: eur("procurement", 10271933257),
   defense: eur("budget", 2568607900, 2026),
@@ -41,7 +41,7 @@ const STATS: Record<string, SectorStat> = {
   },
 };
 
-const PROC_TOTAL = 8822447923 + 3273381511 + 7268093632 + 10271933257;
+const PROC_TOTAL = 8822447923 + 3326158810 + 7268093632 + 10271933257;
 
 /** Renders the key plus its interpolations, so a basis built from the wrong argument shows
  *  up in the assertion rather than collapsing to a bare key. */

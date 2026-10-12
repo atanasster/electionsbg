@@ -99,21 +99,22 @@ const main = async () => {
        FROM contracts WHERE tag = 'contract' AND awarder_eik = ANY($1)`,
     [eiks],
   );
-  const [through] = await allRows<{ max: string | null }>(
-    `SELECT max(date) AS max FROM contracts
-      WHERE tag = 'contract' AND date ~ '^[12][0-9]{3}-'`,
-  );
   const [nat] = await allRows<{
     r: { singleBidExMembers?: number; bidKnownExMembers?: number };
   }>("SELECT national_competition(NULL, NULL) AS r");
-  if (nat?.r?.bidKnownExMembers == null)
-    throw new Error(
-      "national_competition() lacks the ex-member keys — apply 167_national_competition.sql",
+  if (nat?.r?.bidKnownExMembers == null) {
+    // Skip-and-warn, never abort db:refresh: the committed blob stays as it is.
+    warnSkip(
+      "water hub_stats",
+      "national_competition() lacks the ex-member keys",
+      "Apply 167_national_competition.sql",
     );
+    await end();
+    process.exit(0);
+  }
 
-  const byOperator = await allRows<{ eik: string; eur: string; n: string }>(
-    `SELECT awarder_eik eik, sum(amount_eur) eur,
-            count(*) FILTER (WHERE consortium_role IS DISTINCT FROM 'member') n
+  const byOperator = await allRows<{ eik: string; eur: string }>(
+    `SELECT awarder_eik eik, sum(amount_eur) eur
        FROM contracts WHERE tag = 'contract' AND awarder_eik = ANY($1)
       GROUP BY 1 ORDER BY sum(amount_eur) DESC NULLS LAST, 1`,
     [eiks],
@@ -136,6 +137,18 @@ const main = async () => {
     [eiks],
   );
 
+  const [hasGm] = await allRows<{ ok: boolean }>(
+    `SELECT to_regprocedure('awarder_group_model(text[],text,text)') IS NOT NULL AS ok`,
+  );
+  if (!hasGm?.ok) {
+    warnSkip(
+      "water hub_stats",
+      "awarder_group_model() is absent",
+      "Apply 061_awarder_group_model.sql",
+    );
+    await end();
+    process.exit(0);
+  }
   const [gm] = await allRows<{ r: GroupModelPayload }>(
     "SELECT awarder_group_model($1, NULL, NULL) AS r",
     [eiks],
@@ -143,7 +156,7 @@ const main = async () => {
   const model = buildVikModelFromAggregates(gm.r);
 
   const [eu] = await allRows<Record<string, string | null>>(
-    `SELECT count(*) beneficiaries, sum(contract_count) projects,
+    `SELECT count(*) beneficiaries,
             sum(contracted_eur) contracted, sum(paid_eur) paid
        FROM fund_beneficiaries WHERE eik = ANY($1)`,
     [eiks],
@@ -154,7 +167,6 @@ const main = async () => {
     years: {
       year: number;
       rationingPct: number | null;
-      connectedWaterPct: number | null;
       wasteTreatmentPct: number | null;
     }[];
   };
@@ -170,7 +182,6 @@ const main = async () => {
   );
 
   const out: WaterHubStats = {
-    corpusThrough: (through.max ?? "").slice(0, 10),
     procurement: {
       eur: round(num(proc.eur)),
       contracts: num(proc.n),
@@ -197,7 +208,6 @@ const main = async () => {
         eik: o.eik,
         name: operatorByEik(o.eik)?.name ?? o.eik,
         eur: round(num(o.eur)),
-        contracts: num(o.n),
       })),
     operatorIndex: byOperator.map((o) => ({
       eik: o.eik,
@@ -218,7 +228,6 @@ const main = async () => {
     credits: { eur: round(num(credit.eur)), contracts: num(credit.n) },
     euFunds: {
       beneficiaries: num(eu.beneficiaries),
-      projects: num(eu.projects),
       contractedEur: round(num(eu.contracted)),
       paidEur: round(num(eu.paid)),
     },
@@ -226,7 +235,6 @@ const main = async () => {
       ? {
           year: latest.year,
           rationingPct: latest.rationingPct,
-          connectedWaterPct: latest.connectedWaterPct,
           wasteTreatmentPct: latest.wasteTreatmentPct,
         }
       : null,

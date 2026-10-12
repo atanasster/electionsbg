@@ -724,9 +724,10 @@ Mechanics that are easy to get wrong:
 .recharts-surface`, a Leaflet tile pane. A container mounts empty, and the card becomes a
   screenshot of a skeleton. Put a `data-og="…"` attribute on the element rather than keying
   on class names, which a refactor renames silently.
-- **Prefer a static-data anchor over an `/api/db` one.** The `water` capture anchors on the
-  riverbed tile for exactly this reason: a capture whose visual depends on a live route
-  quietly produces an empty card whenever that route is down.
+- **Prefer a static-data anchor over an `/api/db` one.** A capture whose visual depends on a
+  live route quietly produces an empty card whenever that route is down. The `water-floods`
+  card anchors on the riverbed tile (static `flood_maintenance.json`) for this reason; the
+  `water` HUB card now anchors on the hub head, whose band comes from a static blob too.
 - **1280 is Tailwind's `xl` and the clip is 1200 wide.** A hub IS a tile grid, so at the
   default viewport it renders four columns and the clip slices the fourth down the middle.
   Set the per-capture `viewport` below 1280 for three full columns.

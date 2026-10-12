@@ -281,6 +281,10 @@ and the Danube agency, and several copy items. Left open, each for a stated reas
   (€12.3M) and a Ruse drain/snow-clearing lot (€7.9M), together ~10% of the total. Their
   scale across the remaining 980 rows is unmeasured. Tightening the predicate changes a
   published figure, so it needs its own measured pass.
+  Measured 2026-10-13 as part of the same class: seven Sofia-seated bodies (МЗ, МРРБ, МОСВ,
+  ДП РАО, АЯР, НИМХ, НКЖИ; ~€0.9M) match only through non-riverbed contracts (lab kit, guides,
+  dosimetry, waterproofing). They are deliberately NOT on `FLOOD_NATIONAL_AWARDERS`, which
+  would present them as national riverbed awarders.
 - **The governance-sectors tile figure is scoped, the hub is not.** Water shows €213.6M at the
   default parliament window and links to an unscoped hub. Roads has the same pattern, so this
   is a hub-wide decision.
@@ -289,3 +293,23 @@ and the Danube agency, and several copy items. Left open, each for a stated reas
 - **G19's „(28)" on the holding tile.** Not added: the registry forbids figures in copy. The
   description says „по-тесен кръг от целия сектор" instead.
 - **The rationing chart's cabinet colouring.** An editorial question, flagged only.
+
+### Deviations from the plan text, recorded (gap audit, 2026-10-13)
+
+- T0.1's `water:flood` alias shipped as **`db:gen-water-flood`**: a `REFRESH_GENERATORS` entry must be a
+  `db:gen-*` script (`refresh_coverage.test.ts`). `water:stats` shipped as written.
+- G6's `generatedAt` was **omitted on purpose**: a run timestamp would make every rebuild of one
+  corpus a diff. `corpusThrough` (the newest contract date) dates the file instead.
+- T0.3's watcher is routed to a **manual row** in `process-watch-report` (`npm run water:stats --
+  --refresh` + a `stamp-ingest` step), not to an `update-procurement` step: no update-* skill owns
+  the НСИ series.
+- The hub blob carries only fields the hub reads (skill rule). `corpusThrough`, `euFunds.projects`,
+  `services.connectedWaterPct` and `topOperators[].contracts` were dropped; the riverbed vintage
+  now shows on the hub's riverbed tile.
+- The water browse pack now declares `beneficiaryCorpora: ["fund_projects"]` and withholds
+  `agri_subsidies` with a recorded reason (one row: ВиК Враца, ПРСР Мярка 7, €2.46M).
+- Two sub-pages ship their own og cards (`water-floods`, `water-services`). `/water/procurement`
+  and `/water/funds` keep the hub card: their figures are scope- or `/api/db`-driven, and a capture
+  that depends on a live route produces an empty card when it is down (dashboard-hub skill).
+- Open: there is no water-sector AI tool (the router notes „water has no tool"; roads has
+  `roadsSpending`). That is out of the hub's scope.

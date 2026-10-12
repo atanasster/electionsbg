@@ -1462,7 +1462,7 @@ ${hubBack(true)}`.trim(),
     }),
     staticPage({
       path: "water/services",
-      ogImage: "/og/water.png",
+      ogImage: "/og/water-services.png",
       title: "Воден режим и достъп до водни услуги — по години | Наясно",
       description: `Делът на населението с воден режим${f.rationingBg && f.rationingYear ? ` (${f.rationingBg}% през ${f.rationingYear} г.)` : ""}, с обществено водоснабдяване и с пречистване на отпадъчните води, по години — по данни на НСИ.`,
       breadcrumbName: "Воден режим и достъп",
@@ -1485,7 +1485,7 @@ ${hubBack(true)}`.trim(),
     }),
     staticPage({
       path: "water/floods",
-      ogImage: "/og/water.png",
+      ogImage: "/og/water-floods.png",
       title: "Почистване на речни корита — кой възлага и къде | Наясно",
       description: `${f.floodEurMln} млн. € по ${f.floodContracts} договора от ${f.floodAwarders} възложителя за почистване и корекция на речни корита и дерета, по възложител, година и област.`,
       breadcrumbName: "Речни корита",
@@ -4240,7 +4240,7 @@ ${accumulationGapHtml("en")}`.trim(),
     breadcrumbName: "ВиК оператори",
     bodyHtml: `
 <h1>ВиК оператори</h1>
-<p>Таблица на всички водоснабдителни дружества в България: обществените им поръчки (АОП/ЦАИС ЕОП), делът на договорите с една оферта и усвояването на европейските средства по програмите (ИСУН) — по дружество и област, сортируема.</p>
+<p>Карта и таблица на всички възложители във водния сектор — ВиК операторите, холдинга, Напоителни системи и язовирите, всеки с вида си: обществените им поръчки (АОП/ЦАИС ЕОП), делът на договорите с една оферта и усвояването на европейските средства по програмите (ИСУН), по дружество и област. Дружествата в ликвидация, несъстоятелност или без дейност са отбелязани, а операторите, чието седалище картата не разпознава, са изброени под нея.</p>
 <p>Виж и <a href="${SITE_URL}/water">обзора на водния сектор</a> и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг</a>.</p>`.trim(),
     english: {
       title:
@@ -4250,7 +4250,7 @@ ${accumulationGapHtml("en")}`.trim(),
       breadcrumbName: "Water operators",
       bodyHtml: `
 <h1>Water operators</h1>
-<p>A table of every water utility in Bulgaria: their public procurement (АОП/ЦАИС ЕОП), the share of single-bidder contracts, and their absorption of EU funds (ИСУН) — by company and region, sortable.</p>
+<p>A map and a table of every buyer in the water sector — the water operators, the holding, the irrigation enterprise and the dams company, each with its type: their public procurement (АОП/ЦАИС ЕОП), the share of single-bidder contracts and their absorption of EU funds (ИСУН), by company and region. Companies in liquidation, insolvency or inactive are marked, and operators whose seat the map cannot place are listed under it.</p>
 <p>See also the <a href="${SITE_URL}/en/water">water-sector overview</a> and the <a href="${SITE_URL}/en/awarder/206086428">Bulgarian Water Holding</a>.</p>`.trim(),
     },
   }),

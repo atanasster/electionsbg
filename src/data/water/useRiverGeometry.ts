@@ -1,4 +1,4 @@
-// Major-river geometry for the /water flood-maintenance choropleth's decorative
+// Major-river geometry for the /water/floods riverbed choropleth's decorative
 // "river spine". Static GeoJSON emitted offline by
 // scripts/water/ingest_osm_rivers.ts (OSM, ODbL) — major-river LineStrings
 // tagged with the river name, BG-clipped. Context only, not coloured by spend.

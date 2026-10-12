@@ -15,12 +15,16 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { readFileSync, statSync } from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { allRows, dbReachable, end } from "../lib/pg";
 import {
   VIK_HOLDING_EIK,
   VIK_HOLDING_SUB_EIKS,
+  WATER_OPERATORS,
+  WATER_OPERATOR_TYPES,
   WATER_SECTOR_EIKS,
+  operatorByEik,
 } from "@/lib/vikReferenceData";
 import type { WaterHubStats } from "@/data/water/hubStats";
 import { CREDIT_TITLE, LOAN_TITLE } from "../../water/water_titles";
@@ -31,6 +35,19 @@ const BLOB = "data/water/derived/hub_stats.json";
 const SECTOR_STATS = "data/procurement/derived/sector_stats.json";
 const WATER_STATS = "data/water/water_stats.json";
 const FLOOD = "data/water/flood_maintenance.json";
+
+// The registry engine behind /procurement/contracts — CJS, so require()d.
+const { runDbTable } = createRequire(import.meta.url)(
+  "../../../functions/db_table.js",
+) as {
+  runDbTable: (
+    q: (sql: string, params: unknown[]) => Promise<unknown[]>,
+    req: Record<string, unknown>,
+  ) => Promise<{
+    total: number;
+    aggregates?: { count?: number; sumAmountEur?: number };
+  }>;
+};
 
 // All COMMITTED, so a missing copy is a broken checkout — fail, never skip.
 assertCommitted(BLOB, SECTOR_STATS, WATER_STATS, FLOOD);
@@ -108,7 +125,113 @@ test.skipIf(skip)("the rejected money bases differ from KPI 1", async () => {
   assert.ok(Math.abs(Number(r.all_tag) - eur) > eur * 0.05);
   // The holding group alone — the F1 framing the 2026-08-13 audit removed.
   assert.ok(Math.abs(Number(r.holding) - eur) > eur * 0.05);
+  // The value at SIGNING — KPI 1 is current value after annexes.
+  // Annex growth is ~2% of the sector — the width of the drift band — so a band
+  // test cannot separate the bases. Compare both LIVE sums instead: the blob must
+  // sit nearer the current-value basis than the at-signing one.
+  const [sig] = await allRows<{ current: string; at_signing: string }>(
+    `SELECT sum(amount_eur) current,
+            sum(coalesce(signing_amount_eur, amount_eur)) at_signing
+       FROM contracts WHERE tag = 'contract' AND awarder_eik = ANY($1)`,
+    [eiks],
+  );
+  assert.ok(
+    Math.abs(eur - Number(sig.current)) <
+      Math.abs(eur - Number(sig.at_signing)),
+    "KPI 1 is nearer the pre-annex sum than the current value",
+  );
 });
+
+test.skipIf(skip)(
+  "the „Всички договори“ tile opens a browser that counts what the hub counts",
+  async () => {
+    // /procurement/contracts?sector=water sends tag + the pack's awarder set +
+    // not_consortium_member (excludeConsortiumMembers, G1). Run through the real
+    // engine, not a restated WHERE; waterRegistry.test.ts pins the pack's flag.
+    const q = (sql: string, params: unknown[]) => allRows(sql, params);
+    const run = (extra: Record<string, unknown>[]) =>
+      runDbTable(q, {
+        resource: "contracts",
+        page: 0,
+        pageSize: 1,
+        filters: {
+          columns: [
+            { id: "tag", value: ["contract"] },
+            { id: "awarder_eik", value: eiks },
+            { id: "not_consortium_member", value: "member" },
+            ...extra,
+          ],
+        },
+      });
+    const b = blob().procurement;
+    // Within the file's band, like every recompute here: the corpus moves under
+    // the committed blob between regenerations. The member-inclusive count is
+    // ~6% away, so the band still tells the two bases apart (asserted below).
+    const all = await run([]);
+    near(all.aggregates?.count ?? all.total, b.contracts, "browser count");
+    const single = await run([{ id: "number_of_tenderers", min: 1, max: 1 }]);
+    near(
+      single.aggregates?.count ?? single.total,
+      b.singleBid,
+      "browser single-bid",
+    );
+    const withMembers = await runDbTable(q, {
+      resource: "contracts",
+      page: 0,
+      pageSize: 1,
+      filters: {
+        columns: [
+          { id: "tag", value: ["contract"] },
+          { id: "awarder_eik", value: eiks },
+        ],
+      },
+    });
+    const n = withMembers.aggregates?.count ?? withMembers.total;
+    assert.ok(
+      Math.abs(n - b.contracts) > b.contracts * TOLERANCE,
+      `without the member filter the browser counts ${n} — the band must reject it`,
+    );
+  },
+);
+
+test("the register counts are the reference data's", () => {
+  const ops = WATER_OPERATORS.filter((o) =>
+    WATER_OPERATOR_TYPES.includes(o.type),
+  );
+  const r = blob().register;
+  assert.equal(r.eiks, WATER_SECTOR_EIKS.length);
+  assert.equal(r.operators, ops.length);
+  assert.equal(r.liveOperators, ops.filter((o) => !o.status).length);
+});
+
+test.skipIf(skip)(
+  "the operator index and the rail are the per-operator sums, operators only on the rail",
+  async () => {
+    const rows = await allRows<{ eik: string; eur: string }>(
+      `SELECT awarder_eik eik, sum(amount_eur) eur FROM contracts
+        WHERE tag = 'contract' AND awarder_eik = ANY($1)
+        GROUP BY 1 ORDER BY sum(amount_eur) DESC NULLS LAST, 1`,
+      [eiks],
+    );
+    const live = new Map(rows.map((r) => [r.eik, Number(r.eur)]));
+    const b = blob();
+    for (const o of b.operatorIndex)
+      near(live.get(o.eik) ?? 0, o.eur, `operator ${o.eik}`);
+    assert.equal(b.operatorIndex.length, rows.length);
+    const expected = rows
+      .filter((r) => {
+        const type = operatorByEik(r.eik)?.type;
+        return !!type && WATER_OPERATOR_TYPES.includes(type);
+      })
+      .slice(0, b.topOperators.length)
+      .map((r) => r.eik);
+    assert.deepEqual(
+      b.topOperators.map((o) => o.eik),
+      expected,
+    );
+    assert.equal(b.topOperators.length, 5);
+  },
+);
 
 test.skipIf(skip)(
   "the national baseline is migration 167's ex-member pair",

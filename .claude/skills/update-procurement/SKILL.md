@@ -314,7 +314,7 @@ The `/procurement` HUB reads its stat-tile numbers (money, contracts, contractor
 npm run db:gen-hub-stats      # ~22 s: reads PG, writes data/procurement/derived/hub_stats.json (one entry per parliament / year / all)
 npm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_stats.json — per-sector all-time procurement € for the /governance/sectors + featured-sectors tiles
 npm run db:gen-roads-hub-stats # ~1 s: writes data/roads/derived/hub_stats.json — the /sector/roads hub; MUST follow gen-sector-stats (its KPI 1 equals sector_stats all.roads)
-npm run db:gen-water-flood     # ~2 s: writes data/water/flood_maintenance.json — the /water riverbed tile + the prerendered /water title
+npm run db:gen-water-flood     # ~2 s: writes data/water/flood_maintenance.json — the /water/floods riverbed tile + the /water and /water/floods prerender bodies
 npm run db:gen-water-hub-stats # ~1 s: writes data/water/derived/hub_stats.json — the /water hub; MUST follow gen-sector-stats AND gen-water-flood
 ```
 

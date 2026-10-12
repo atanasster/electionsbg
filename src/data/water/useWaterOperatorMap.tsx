@@ -1,4 +1,4 @@
-// Geolocated ВиК operators for the marker map at the top of /water — one point per
+// Geolocated ВиК operators for the marker map on /water/operators#map — one point per
 // operator HQ city, coloured by single-bidder-contract share (the awarder-pack risk
 // metric), badge = contract count. Served from Postgres (schema 073) in ONE
 // scope-aware call (water_operator_map) rather than geocoding in the browser: the fn

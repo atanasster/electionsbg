@@ -1,5 +1,5 @@
 // Re-aggregate the riverbed-maintenance corpus to a [from, to) scope window,
-// client-side — so the /water flood tile (KPIs, oblast choropleth, top awarders,
+// client-side — so the /water/floods riverbed tile (KPIs, oblast choropleth, top awarders,
 // by-year, top contracts) honours the page's ?pscope like every other pack,
 // instead of being frozen whole-corpus. Pure + deterministic (€ desc with a
 // stable id tiebreak), mirroring the precomputed aggregates in
@@ -33,6 +33,11 @@ export const FLOOD_NATIONAL_AWARDERS: Readonly<Record<string, string>> = {
   "831901762": "Изпълнителна агенция по околна среда",
   // Seated in Ruse, but its dredging is the whole Bulgarian Danube fairway.
   "000513106": "ИА „Проучване и поддържане на река Дунав“",
+  // NOT here, deliberately: МЗ, МРРБ, МОСВ, ДП РАО, АЯР, НИМХ and НКЖИ also
+  // sit in Sofia (~€0.9M, measured 2026-10-13), but their matched contracts are
+  // not riverbed work (lab kit, guides, dosimetry, waterproofing) — topic
+  // over-capture by the predicate, recorded open in docs/plans/water-hub-v1.md §5.
+  // Listing them would present them as national riverbed awarders.
 };
 
 export interface FloodModel {

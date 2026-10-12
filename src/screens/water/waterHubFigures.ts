@@ -181,10 +181,13 @@ export const waterTileMetric = (
         : undefined;
     }
     case "contractors": {
+      // Ex-self: the destination's in-window figure comes from the group model,
+      // which drops awarder-as-own-contractor rows — so the tile states the same
+      // number the card leads with at the all-time scope (G-C).
       const g = s.intraGroup;
-      return g.contracts
+      return g.contracts - g.selfContracts > 0
         ? {
-            metric: eur(g.eur),
+            metric: eur(g.eur - g.selfEur),
             metricCaption: bg ? "остават в сектора" : "stay inside the sector",
             metricSecondary: bg
               ? `от тях ${eur(g.loansToHoldingEur)} заеми към холдинга`
@@ -217,9 +220,16 @@ export const waterTileMetric = (
             metricCaption: bg
               ? "за речни корита и дерета"
               : "on riverbeds and gullies",
-            metricSecondary: bg
-              ? `${int(s.riverbed.contracts)} договора, всички възложители`
-              : `${int(s.riverbed.contracts)} contracts, every awarder`,
+            metricSecondary: [
+              bg
+                ? `${int(s.riverbed.contracts)} договора, всички възложители`
+                : `${int(s.riverbed.contracts)} contracts, every awarder`,
+              s.riverbed.corpusThrough
+                ? `${bg ? "към" : "as of"} ${s.riverbed.corpusThrough.split("-").reverse().join(".")}`
+                : null,
+            ]
+              .filter(Boolean)
+              .join(" · "),
           }
         : undefined;
     default:

@@ -2729,8 +2729,8 @@ export const FEATURES: FeatureDef[] = [
     label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
     detail: { bg: "поръчки на водния сектор", en: "water-sector procurement" },
     desc: {
-      bg: "Кой купува във водния сектор — консолидираните поръчки на Български ВиК холдинг и дружествата му, какво купуват по функция, и парите за почистване на речни корита.",
-      en: "Who buys in the water sector — the Bulgarian Water Holding group's consolidated procurement, what they buy by function, and the money spent cleaning riverbeds.",
+      bg: "Водният сектор — ВиК операторите и обществените им поръчки по функция, конкуренцията в тях спрямо средното за страната, европейските средства, водният режим и достъпът до водни услуги (НСИ) и почистването на речни корита.",
+      en: "The water sector — the water operators and their procurement by function, their competition against the national average, EU funds, water rationing and access to water services (NSI), and riverbed cleaning.",
     },
     route: "/water",
     tags: ["fiscal"],
@@ -3171,6 +3171,9 @@ export const EDGES: [string, string][] = [
   ["src:water", "ds:water"],
   ["src:egov", "ds:water"],
   ["ds:water", "f:water"],
+  // The hub's KPI band reads the procurement corpus and ИСУН fund_beneficiaries.
+  ["ds:procurement", "f:water"],
+  ["ds:funds", "f:water"],
   ["src:culture", "ds:culture"],
   ["ds:culture", "f:culture"],
   ["src:ministries", "ds:pensions"],

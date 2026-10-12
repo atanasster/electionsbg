@@ -51,7 +51,7 @@ export const WaterOperatorsScreen: FC = () => {
     isLoading: rollupLoading,
     isError: rollupError,
   } = useVikGroupRollup(WATER_SECTOR_EIKS);
-  const { funds } = useVikFunds(WATER_SECTOR_EIKS);
+  const { funds, isError: fundsError } = useVikFunds(WATER_SECTOR_EIKS);
   const {
     operators: mapRaw,
     isLoading: mapLoading,
@@ -249,6 +249,14 @@ export const WaterOperatorsScreen: FC = () => {
         )}
       </section>
 
+      {fundsError ? (
+        // The EU columns would otherwise read „—", i.e. „no EU funds".
+        <p className="text-xs text-amber-700 dark:text-amber-400">
+          {bg
+            ? "Европейските средства не се заредиха — колоните „ЕС“ са празни, а не нулеви."
+            : "EU funds failed to load — the EU columns are empty, not zero."}
+        </p>
+      ) : null}
       <DataTable<OpRow, unknown>
         columns={columns}
         data={rows}

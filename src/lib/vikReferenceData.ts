@@ -62,7 +62,7 @@ export type WaterOperatorType =
   // of thing as one, but the sector already carries Напоителни системи on the
   // same footing: publicly-owned water infrastructure whose ЗОП flow belongs in
   // the water sector's money rather than nowhere. ⚠ That precedent covers the
-  // SECTOR MONEY only: the /water flood tile's Напоителни split (floodModel.ts,
+  // SECTOR MONEY only: the /water/floods riverbed tile's Напоителни split (floodModel.ts,
   // scripts/water/write_flood_maintenance.ts) is built from riverbed-maintenance
   // criteria and knows nothing about dams, so dam-safety spend is deliberately
   // absent there.
