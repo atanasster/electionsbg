@@ -328,3 +328,14 @@ export const UPLOAD_PUBLISHED_ARTIFACTS: Record<
       "the /parliament hub's per-NS figures AND the parliament arm of the /governance hub-of-hubs, which folds this file from disk. Published only by `rebuildDerived --upload`, i.e. only on a roll-call ingest — so any change to its SHAPE that is not accompanied by an ingest never reaches the bucket",
   },
 };
+
+/** Every registered committed, bucket-served artifact — both registries — as
+ *  (artifact, bucketPath) pairs. The one list the upload manifest reads. */
+export const publishedArtifacts = (): {
+  artifact: string;
+  bucketPath: string;
+}[] =>
+  [
+    ...Object.values(REFRESH_GENERATORS),
+    ...Object.values(UPLOAD_PUBLISHED_ARTIFACTS),
+  ].map(({ artifact, bucketPath }) => ({ artifact, bucketPath }));

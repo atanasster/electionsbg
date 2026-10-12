@@ -1313,6 +1313,17 @@ npm run db:load:employer-links:pg:cloud     # 165+168 — a pure derivation over
     derived from step 11's `git status`, never a guess. `data_map.json` and `data-changes.json` are
     almost always among them. PG-served trees do NOT go here (see step 9).
 
+    **The generated blobs are added FOR you.** Given `--commit`, the writer reads that commit's
+    changed files and appends the `bucketPath` of every `REFRESH_GENERATORS` /
+    `UPLOAD_PUBLISHED_ARTIFACTS` artifact it touched (`generatedPathsTouched`,
+    `scripts/lib/upload-manifest.ts`), and prints them as `+ generated artifacts touched by …`.
+    That covers what `db:refresh` rewrites beside the tree a skill was asked about —
+    `procurement/derived/*`, `roads/derived/hub_stats.json`, `water/derived/hub_stats.json`,
+    `water/flood_maintenance.json`, the culture/governance/home blobs — which is the class a
+    hand-written `--paths` kept dropping. Pass `--commit` always. ⚠️ It reads THAT commit only: a
+    blob another process committed mid-session is not in it, which is why `/upload-watch-changes`
+    Step 3 also syncs anything `db:check-generated` still finds unpublished.
+
     Then apply the gate. **The publish follows automatically (step 14) unless the run hit a
     MAJOR ISSUE**, which means any of:
 

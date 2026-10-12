@@ -219,6 +219,14 @@ npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
 `--ok-exit 1` because both exit 1 when they FIND something — that is the finding, not a crash, and
 recording it as a trace failure every run would make the failure count meaningless.
 
+**When `db:check-generated` names an artifact, publish it — do not just report it.** The manifest
+adds the generated blobs its own commit touched, but a blob another process committed mid-session
+(the concurrent auto-committer) is in no manifest. So: confirm with the md5 check below that the
+object really differs (it reports a false `STALE` right after a sync), then run the exact
+`npm run bucket:sync:paths -- …` line it printed and re-run the check. Only the committed copy is
+ever pushed — if `git status` shows the artifact modified-but-uncommitted, it belongs to an
+in-flight run: leave it and say so.
+
 ⚠️ **`db:check-generated` reports a FALSE `STALE` immediately after a successful sync.** It
 compares over HTTP and does not cache-bust. Measured 2026-08-27: right after `bucket:sync:paths`
 reported all 9 paths synced, it still called two artifacts stale, quoting a `served` date from the

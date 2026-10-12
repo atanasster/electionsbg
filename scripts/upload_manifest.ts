@@ -11,16 +11,30 @@
 // `write` MERGES into any pending manifest rather than replacing it — see
 // mergeManifest's header for why that matters.
 
+import { execFileSync } from "child_process";
 import path from "path";
 import {
   clearPending,
   csv,
+  generatedPathsTouched,
   HISTORY,
+  parseNameOnly,
   mergeManifest,
   PENDING,
   readPending,
   writePending,
 } from "./lib/upload-manifest";
+import { publishedArtifacts } from "./db/refresh_coverage";
+
+/** Files the commit changed, or [] when there is no commit to read. */
+const filesInCommit = (sha: string | undefined): string[] =>
+  sha
+    ? parseNameOnly(
+        execFileSync("git", ["show", "--name-only", "--format=", sha], {
+          encoding: "utf8",
+        }),
+      )
+    : [];
 
 const argv = process.argv.slice(2);
 const sub = argv[0];
@@ -43,15 +57,25 @@ const rel = (p: string): string => path.relative(process.cwd(), p);
 
 switch (sub) {
   case "write": {
+    // The registered generated artifacts the run's commit touched join the
+    // given paths automatically (see generatedPathsTouched).
+    const generated = generatedPathsTouched(
+      filesInCommit(flag("commit")),
+      publishedArtifacts(),
+    );
     const manifest = mergeManifest(readPending(), {
       session: flag("session") ?? readPending()?.session ?? "unknown",
       commit: flag("commit"),
       skills: csv(flag("skills")),
-      paths: csv(flag("paths")),
+      paths: [...csv(flag("paths")), ...generated],
       cloudCommands: repeated("cloud"),
       notes: flag("notes"),
     });
     writePending(manifest);
+    if (generated.length)
+      console.log(
+        `  + generated artifacts touched by ${flag("commit")}: ${generated.join(", ")}`,
+      );
     console.log(
       `✓ upload manifest: ${manifest.skills.length} skill(s), ` +
         `${manifest.paths.length} bucket path(s), ` +

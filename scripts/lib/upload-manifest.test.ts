@@ -17,6 +17,8 @@ import {
   readPending,
   writePending,
   type UploadManifest,
+  generatedPathsTouched,
+  parseNameOnly,
 } from "./upload-manifest";
 
 const dirs: string[] = [];
@@ -149,5 +151,61 @@ describe("csv", () => {
   it("trims and drops empties so `--paths a, ,b` is two paths", () => {
     expect(csv("a, ,b ")).toEqual(["a", "b"]);
     expect(csv(undefined)).toEqual([]);
+  });
+});
+
+describe("generatedPathsTouched", () => {
+  it("maps a commit's changed files onto the registered bucket paths", async () => {
+    const { publishedArtifacts } = await import("../db/refresh_coverage");
+    const registry = publishedArtifacts();
+    // A db:refresh commit: the procurement blobs a skill was asked about, plus
+    // the roads and water blobs the chain rewrote beside them.
+    const touched = generatedPathsTouched(
+      [
+        "data/procurement/derived/sector_stats.json",
+        "data/roads/derived/hub_stats.json",
+        "data/water/derived/hub_stats.json",
+        "data/water/flood_maintenance.json",
+        "src/screens/water/WaterHubScreen.tsx",
+      ],
+      registry,
+    );
+    expect(touched.sort()).toEqual(
+      [
+        "procurement/derived/sector_stats.json",
+        "roads/derived/hub_stats.json",
+        "water/derived/hub_stats.json",
+        "water/flood_maintenance.json",
+      ].sort(),
+    );
+  });
+
+  it("adds nothing for a commit that touched no registered artifact", () => {
+    expect(
+      generatedPathsTouched(
+        ["src/a.ts"],
+        [{ artifact: "data/x.json", bucketPath: "x.json" }],
+      ),
+    ).toEqual([]);
+  });
+});
+
+describe("parseNameOnly + merge", () => {
+  it("reads git's name-only output, blank lines and trailing newline included", () => {
+    expect(
+      parseNameOnly("\ndata/roads/derived/hub_stats.json\nsrc/a.ts\n\n"),
+    ).toEqual(["data/roads/derived/hub_stats.json", "src/a.ts"]);
+  });
+
+  it("lists a path given both by hand and by the commit once", () => {
+    const m = mergeManifest(null, {
+      session: "s",
+      paths: [
+        "roads/derived/hub_stats.json",
+        "myarea",
+        "roads/derived/hub_stats.json",
+      ],
+    });
+    expect(m.paths).toEqual(["roads/derived/hub_stats.json", "myarea"]);
   });
 });

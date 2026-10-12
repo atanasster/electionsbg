@@ -127,3 +127,40 @@ export const clearPending = (
   fs.rmSync(pendingFile);
   return manifest;
 };
+
+/** A committed, bucket-served artifact and the `bucket:sync:paths` argument
+ *  that publishes it (REFRESH_GENERATORS / UPLOAD_PUBLISHED_ARTIFACTS). */
+export interface PublishedArtifact {
+  artifact: string;
+  bucketPath: string;
+}
+
+/**
+ * The bucket paths of the registered generated artifacts a commit touched.
+ *
+ * ⚠️ `--paths` used to be derived by hand from `git status`, and the generated
+ * blobs are the ones that slip: `db:refresh` rewrites roads/derived,
+ * water/derived and water/flood_maintenance.json beside the procurement tree a
+ * skill was asked about, and a manifest naming only that tree left them stale
+ * on the bucket at a 200 (culture/derived served 404 for two days that way).
+ * The registry already says which file publishes where, so this reads the
+ * commit instead of the operator's memory.
+ */
+export const generatedPathsTouched = (
+  changedFiles: readonly string[],
+  registry: readonly PublishedArtifact[],
+): string[] => {
+  const changed = new Set(changedFiles);
+  return [
+    ...new Set(
+      registry.filter((r) => changed.has(r.artifact)).map((r) => r.bucketPath),
+    ),
+  ];
+};
+
+/** `git show --name-only --format= <sha>` output → repo-relative paths. */
+export const parseNameOnly = (stdout: string): string[] =>
+  stdout
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
