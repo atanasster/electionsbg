@@ -1179,6 +1179,7 @@ var WATER_OPERATORS = [
     oblast: "\u041F\u0430\u0437\u0430\u0440\u0434\u0436\u0438\u043A",
     type: "holding_sub",
     status: "liquidated",
+    statusSource: "\u0432 \u043B\u0438\u043A\u0432\u0438\u0434\u0430\u0446\u0438\u044F \u043F\u043E \u043D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435\u0442\u043E \u0441\u0438; \u043D\u044F\u043C\u0430 \u0437\u0430\u043F\u0438\u0441 \u0432 \u0422\u044A\u0440\u0433\u043E\u0432\u0441\u043A\u0438\u044F \u0440\u0435\u0433\u0438\u0441\u0442\u044A\u0440; \u043F\u043E\u0441\u043B\u0435\u0434\u0435\u043D \u0434\u043E\u0433\u043E\u0432\u043E\u0440 2019 (2026-10-12)",
     successorEik: "205323041"
   },
   {
@@ -1193,7 +1194,9 @@ var WATER_OPERATORS = [
     eik: "122052207",
     name: "\u0412\u0438\u041A \u0411\u0435\u0431\u0440\u0435\u0448 \u0415\u041E\u041E\u0414 (\u0411\u043E\u0442\u0435\u0432\u0433\u0440\u0430\u0434)",
     oblast: "\u0421\u043E\u0444\u0438\u0439\u0441\u043A\u0430 \u043E\u0431\u043B\u0430\u0441\u0442",
-    type: "municipal"
+    type: "municipal",
+    status: "liquidated",
+    statusSource: "\u0422\u044A\u0440\u0433\u043E\u0432\u0441\u043A\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u044A\u0440: \u0432 \u043B\u0438\u043A\u0432\u0438\u0434\u0430\u0446\u0438\u044F (tr_companies, 2026-10-12); \u043F\u043E\u0441\u043B\u0435\u0434\u0435\u043D \u0434\u043E\u0433\u043E\u0432\u043E\u0440 2019-01"
   },
   {
     eik: "820146942",
@@ -1205,13 +1208,17 @@ var WATER_OPERATORS = [
     eik: "836005135",
     name: "\u0412\u0438\u041A \u0414\u0438\u043C\u0438\u0442\u0440\u043E\u0432\u0433\u0440\u0430\u0434 \u041E\u041E\u0414",
     oblast: "\u0425\u0430\u0441\u043A\u043E\u0432\u043E",
-    type: "municipal"
+    type: "municipal",
+    status: "liquidated",
+    statusSource: "\u0422\u044A\u0440\u0433\u043E\u0432\u0441\u043A\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u044A\u0440: \u0432 \u043B\u0438\u043A\u0432\u0438\u0434\u0430\u0446\u0438\u044F (tr_companies, 2026-10-12); \u043F\u043E\u0441\u043B\u0435\u0434\u0435\u043D \u0434\u043E\u0433\u043E\u0432\u043E\u0440 2021-07"
   },
   {
     eik: "834026369",
     name: "\u0412\u0438\u041A \u0414\u043E\u0431\u0440\u0438\u0447 \u0415\u041E\u041E\u0414",
     oblast: "\u0414\u043E\u0431\u0440\u0438\u0447",
-    type: "municipal"
+    type: "municipal",
+    status: "dormant",
+    statusSource: "\u043D\u044F\u043C\u0430 \u0437\u0430\u043F\u0438\u0441 \u0432 \u0422\u044A\u0440\u0433\u043E\u0432\u0441\u043A\u0438\u044F \u0440\u0435\u0433\u0438\u0441\u0442\u044A\u0440; \u043F\u043E\u0441\u043B\u0435\u0434\u0435\u043D \u0434\u043E\u0433\u043E\u0432\u043E\u0440 2013-07 (2026-10-12)"
   },
   {
     eik: "101005019",
@@ -1229,18 +1236,24 @@ var WATER_OPERATORS = [
     eik: "819364771",
     name: "\u0412\u0438\u041A \u0414\u0443\u043F\u043D\u0438\u0446\u0430 \u0415\u041E\u041E\u0414",
     oblast: "\u041A\u044E\u0441\u0442\u0435\u043D\u0434\u0438\u043B",
-    type: "municipal"
+    type: "municipal",
+    status: "bankrupt",
+    statusSource: "\u0422\u044A\u0440\u0433\u043E\u0432\u0441\u043A\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u044A\u0440: \u0432 \u043D\u0435\u0441\u044A\u0441\u0442\u043E\u044F\u0442\u0435\u043B\u043D\u043E\u0441\u0442 (tr_companies, 2026-10-12); \u043F\u043E\u0441\u043B\u0435\u0434\u0435\u043D \u0434\u043E\u0433\u043E\u0432\u043E\u0440 2022-10"
   },
   {
     eik: "200736851",
     name: "\u0412\u0438\u041A \u0421\u0432\u0438\u0449\u043E\u0432 \u0415\u0410\u0414",
     oblast: "\u0412\u0435\u043B\u0438\u043A\u043E \u0422\u044A\u0440\u043D\u043E\u0432\u043E",
-    type: "municipal"
+    type: "municipal",
+    status: "dormant",
+    statusSource: "\u043D\u044F\u043C\u0430 \u0437\u0430\u043F\u0438\u0441 \u0432 \u0422\u044A\u0440\u0433\u043E\u0432\u0441\u043A\u0438\u044F \u0440\u0435\u0433\u0438\u0441\u0442\u044A\u0440; \u043F\u043E\u0441\u043B\u0435\u0434\u0435\u043D \u0434\u043E\u0433\u043E\u0432\u043E\u0440 2017-02 (2026-10-12)"
   },
   // ВиК Свищов's defunct old EIK (000120252) is intentionally omitted: it would
   // render as a second row for the same company in /water/operators and double-
   // count the org in the group totals. Its footprint is negligible (~1 contract,
-  // ~€54k) and it operates under 200736851 now.
+  // ~€54k). 200736851 is no longer evidence of a live operator either — no TR
+  // record and no contract since 2017-02 — so who serves Свищов today is
+  // UNVERIFIED; do not restate it as known.
   {
     eik: "111037645",
     name: "\u0412\u0438\u041A \u0411\u0435\u0440\u043A\u043E\u0432\u0438\u0446\u0430 \u0415\u041E\u041E\u0414",
@@ -1268,6 +1281,7 @@ var WATER_OPERATORS = [
     // Last awarded a contract in Feb 2013 (3 contracts, €158,731) — kept for the
     // history, but it is not current coverage.
     status: "dormant",
+    statusSource: "\u043F\u043E\u0441\u043B\u0435\u0434\u0435\u043D \u0434\u043E\u0433\u043E\u0432\u043E\u0440 2013-02; \u0422\u044A\u0440\u0433\u043E\u0432\u0441\u043A\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u044A\u0440: \u0430\u043A\u0442\u0438\u0432\u043D\u043E (tr_companies, 2026-10-12)",
     aliases: ["\u0412\u043E\u0434\u043E\u0441\u043D\u0430\u0431\u0434\u044F\u0432\u0430\u043D\u0435, \u043A\u0430\u043D\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F \u0438 \u0442\u0435\u0440\u0438\u0442\u043E\u0440\u0438\u0430\u043B\u0435\u043D \u0432\u043E\u0434\u043E\u0438\u043D\u0436\u0435\u043D\u0435\u0440\u0438\u043D\u0433"]
   },
   {
@@ -1286,6 +1300,7 @@ var VIK_HOLDING_SUB_EIKS = WATER_OPERATORS.filter(
 var WATER_SECTOR_EIKS = [
   ...new Set(WATER_OPERATORS.map((o) => o.eik))
 ];
+var WATER_SECTOR_EIK_SET = new Set(WATER_SECTOR_EIKS);
 
 // src/lib/roadsAwarder.ts
 var API_EIK = "000695089";
