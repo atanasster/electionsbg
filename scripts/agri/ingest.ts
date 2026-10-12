@@ -26,6 +26,7 @@ import type { PoolClient } from "pg";
 import { AGRI_YEARS, loadYearSheet } from "./source";
 import { AGRI_SEU_YEARS, parseSeuYear } from "./seu_fetch";
 import { parseAmount } from "./parse_amount";
+import { AGRI_NAME_CAP, restoreTruncatedName } from "./restore_name";
 import {
   exec,
   getPool,
@@ -544,6 +545,51 @@ export const runAgriIngest = async ({
   });
 
   await exec("ANALYZE agri_subsidies_stage");
+
+  // Restore names the source cut at 35 chars, from the Commerce Registry name of
+  // the SAME EIK — prefix-verified, see restore_name.ts. Done on the STAGE so the
+  // detail rows, agri_beneficiary, the search, the hub and every matview over
+  // agri_subsidies carry one spelling, and mirrored into `recipients` for the
+  // /farm payloads. Skipped (not failed) on a database with no TR corpus: the
+  // names then stay as ДФЗ published them, which is today's behaviour.
+  await withClient(async (c) => {
+    const { rows: hasTr } = await c.query<{ ok: boolean }>(
+      "SELECT to_regclass('tr_companies') IS NOT NULL AS ok",
+    );
+    if (!hasTr[0].ok) {
+      console.warn("  ⚠ tr_companies absent — cut ДФЗ names left as published");
+      return;
+    }
+    const { rows } = await c.query<{ eik: string; name: string; tr: string }>(
+      `SELECT DISTINCT s.eik, s.name, t.name AS tr
+         FROM agri_subsidies_stage s
+         JOIN tr_companies t ON t.uic = s.eik
+        WHERE s.eik IS NOT NULL AND char_length(s.name) >= $1`,
+      [AGRI_NAME_CAP],
+    );
+    const eiks: string[] = [];
+    const olds: string[] = [];
+    const news: string[] = [];
+    for (const r of rows) {
+      const full = restoreTruncatedName(r.name, r.tr);
+      if (!full) continue;
+      eiks.push(r.eik);
+      olds.push(r.name);
+      news.push(full);
+      const rec = recipients.get(r.eik);
+      if (rec && full.length > rec.name.length) rec.name = full;
+    }
+    if (eiks.length)
+      await c.query(
+        `UPDATE agri_subsidies_stage s SET name = u.full_name
+           FROM unnest($1::text[], $2::text[], $3::text[]) AS u(eik, old, full_name)
+          WHERE s.eik = u.eik AND s.name = u.old`,
+        [eiks, olds, news],
+      );
+    console.log(
+      `  restored ${new Set(eiks).size} cut beneficiary names from the Commerce Registry`,
+    );
+  });
 
   // Shrink guard (same shape as sync_cloud's): a half-parsed source must not
   // replace a full corpus. Growth is fine; an empty or sharply smaller stage
