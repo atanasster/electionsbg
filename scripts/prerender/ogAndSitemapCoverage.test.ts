@@ -1717,7 +1717,7 @@ describe("a hub's og capture anchors on its head", () => {
     "governance-sectors": {
       payloads: ["data/procurement/derived/sector_stats.json"],
       project: sectorsFigures,
-      md5: "f26e9c36e6cd54262430cef77c380f86",
+      md5: "d64d1c207924a22936b4d20e307eeab1",
       // ⚠️ RE-SHOT 2026-09-03, AND IT FIRED EXACTLY AS THE 08-31 NOTE PREDICTED. That note
       // measured the procurement total at €8.6m (0.029%) below the boundary into
       // „€29,7 млрд." and said the entry was „expected to fire soon, for real" — it did, on
@@ -1728,18 +1728,26 @@ describe("a hub's og capture anchors on its head", () => {
       //
       // Shot 2026-09-03 00:28 local (+03:00); the date recorded is the UTC one the clause
       // compares in — see the field's own note.
-      shot: "2026-09-02",
+      // ⚠️ RE-SHOT 2026-10-12 (UTC) — one of seventeen re-shot because their commit dates had
+      // fallen behind `HubHead.tsx` (motion-v1's rolling KPI figures, a change with no visual
+      // effect on first paint). LOOKED AT: the procurement total moved €29,7 → €29,8 млрд.
+      // and roads €8,8 → €8,9 млрд.; the other six values are unchanged.
+      shot: "2026-10-12",
       figures:
-        "sectors_kpi_procurement=€29,7 млрд. [sectors_kpi_procurement_basis:4] " +
+        "sectors_kpi_procurement=€29,8 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
         "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
         "administration=133 275 [sectors_kpi_headcount_basis:2025] " +
-        "| energy=€10,3 млрд. roads=€8,8 млрд. transport=€7,3 млрд. water=€3,3 млрд.",
+        "| energy=€10,3 млрд. roads=€8,9 млрд. transport=€7,3 млрд. water=€3,3 млрд.",
     },
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
       project: indicatorsFigures,
-      md5: "3ffec74c70da2f9bdc452879a4bb55c9",
+      md5: "f8ba0f9063e793ad87e645df2c99feea",
+      // ⚠️ RE-SHOT 2026-10-12 (UTC) — re-shot with the sixteen other hub cards whose commit
+      // dates had fallen behind `HubHead.tsx`. LOOKED AT: the four KPIs are unchanged; the
+      // rank rail now reads „9 от 27" for growth (a 27th member state has reported 2026-Q2)
+      // and no longer lists inflation, which matches the payload's projection.
       // ⚠️ RE-SHOT 2026-09-11 — unemployment advanced from 2026-Q1 to Q2,
       // moving 3.0% / rank 1 of 27 to 3.4% / rank 3 of 27. Visually
       // inspected after capture; the other three headline figures are unchanged.
@@ -1768,7 +1776,7 @@ describe("a hub's og capture anchors on its head", () => {
       // lands on, because its 2026-Q2 return is the one still coming in. Expect it again
       // until the band clamps past 2026-Q2, at which point the capture entry's own
       // „THIS CLAUSE HAS AN EXPIRY" note takes over and the rail drops out entirely.
-      shot: "2026-09-11",
+      shot: "2026-10-12",
       figures:
         "gdpGrowth=2.8% [Растеж на реалния БВП · % спрямо същия период предходна " +
         "година (реален, SCA) · 2026-Q2] " +
@@ -1777,7 +1785,7 @@ describe("a hub's og capture anchors on its head", () => {
         "unemployment=3.4% [Безработица · % от активното население (сезонно " +
         "изгладено) · 2026-Q2] " +
         "govDebt=28.5% [Брутен държавен дълг · % от БВП · 2026-Q1] " +
-        "| gdpGrowth=9/26 inflation=26/27 unemployment=3/27 govDebt=3/27",
+        "| gdpGrowth=9/27 unemployment=3/27 govDebt=3/27",
     },
   };
 
