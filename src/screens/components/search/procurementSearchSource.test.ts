@@ -600,8 +600,6 @@ describe("no search surface emits a scope-free entity destination", () => {
   const ALLOWED: Record<string, string> = {
     "screens/components/procurement/nzok/NzokSearchBox.tsx":
       "the МЗ second-level roster rows carry no figure — navigational, see above",
-    "screens/water/WaterSearchBox.tsx":
-      "the ВиК operator roster carries no figure — navigational, see above",
   };
 
   it("builds every /company and /awarder href with a scope", () => {

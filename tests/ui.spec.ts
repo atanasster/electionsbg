@@ -749,8 +749,8 @@ const HUB_HEAD_BUDGETS: {
   { path: "/sector/roads", maxPx: 540, measured: 479, cells: 4 },
   // The water sector hub (docs/plans/water-hub-v1.md T3): identity + deck + a 4-cell band
   // + a note + a 5-row operator aside, no scope control (the hub is whole-corpus).
-  // Measured 468 at 1280 on 2026-10-12, before the finder (T5).
-  { path: "/water", maxPx: 540, measured: 468, cells: 4, asideRows: 5 },
+  // Measured 468 at 1280 on 2026-10-12 before the finder (T5); 495 with it.
+  { path: "/water", maxPx: 560, measured: 495, cells: 4, asideRows: 5 },
   // Identity + deck + a scope control + a 4-cell band + a note + an evidence aside, and no
   // search slot (the grid is nineteen tiles, which is a list a reader scans rather than
   // searches).

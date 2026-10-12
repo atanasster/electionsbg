@@ -12,25 +12,16 @@
 //     search the whole register; a group that cannot be scoped is labelled,
 //     never presented as scoped (the culture finder's rule).
 
-import { Briefcase, MapPinned, Receipt } from "lucide-react";
-import type { SearchItem } from "@/ux/search/EntitySearchTile";
-import {
-  seeAllAbove,
-  type HubSearchSource,
-  type IndexSource,
-  type ServerSource,
+import { MapPinned } from "lucide-react";
+import type {
+  HubSearchSource,
+  IndexSource,
 } from "@/ux/search/hubSearchSources";
 import { buildEntityIndex, type EntityIndex } from "@/lib/entitySearchIndex";
-import {
-  companyItems,
-  contractItems,
-  sharedProcurementSearch,
-} from "@/screens/components/search/procurementSearchSource";
+import { wholeRegisterSources } from "@/screens/components/search/wholeRegisterSources";
 import type { RoadsHubStats } from "@/data/roads/hubStats";
 import { formatEurCompact } from "@/lib/currency";
 import { ROADS_PATHS } from "./roadsRegistry";
-
-const QUOTA = 5;
 
 /** Corridors from the blob; each opens the network page focused on it.
  *
@@ -73,37 +64,5 @@ export const roadsSearchSources = (
         } as IndexSource,
       ]
     : []),
-  {
-    kind: "server",
-    id: "contractors",
-    label: {
-      bg: "Изпълнители — в целия регистър",
-      en: "Contractors — across the whole register",
-    },
-    icon: Briefcase,
-    limit: QUOTA,
-    fetch: async (q: string, signal: AbortSignal): Promise<SearchItem[]> =>
-      companyItems(await sharedProcurementSearch(q, signal), bg).slice(
-        0,
-        QUOTA,
-      ),
-  } as ServerSource,
-  {
-    kind: "server",
-    id: "contracts",
-    label: {
-      bg: "Договори — в целия регистър",
-      en: "Contracts — across the whole register",
-    },
-    icon: Receipt,
-    limit: QUOTA,
-    fetch: async (q: string, signal: AbortSignal): Promise<SearchItem[]> =>
-      contractItems(await sharedProcurementSearch(q, signal)).slice(0, QUOTA),
-    // The SAME set the group searched — the whole register. A ?sector=roads
-    // see-all would drop the non-road rows the preview just showed.
-    seeAll: seeAllAbove(
-      bg ? "Всички договори" : "All contracts",
-      (q) => `/procurement/contracts?pscope=all&q=${encodeURIComponent(q)}`,
-    ),
-  } as ServerSource,
+  ...wholeRegisterSources(bg),
 ];

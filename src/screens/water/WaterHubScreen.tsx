@@ -15,7 +15,9 @@ import { isBg } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
+import { HubSearch } from "@/ux/search/HubSearch";
 import { useWaterHubStats } from "@/data/water/hubStats";
+import { waterSearchSources } from "./waterSearch";
 import { WATER_BANDS, WATER_HUB_COPY } from "./waterRegistry";
 import { WATER_SCENES } from "./waterScenes";
 import {
@@ -41,6 +43,12 @@ export const WaterHubScreen: FC = () => {
   const kpis = useMemo(() => waterHubKpis(stats, lang, bg), [stats, lang, bg]);
   const evidence = useMemo(
     () => waterHubEvidence(stats, lang, bg),
+    [stats, lang, bg],
+  );
+  // HubSearch diffs `sources` by identity, so rebuild only when the blob or the
+  // language changes — never per render.
+  const sources = useMemo(
+    () => waterSearchSources(stats, lang, bg),
     [stats, lang, bg],
   );
   const bandOwned = new Set<string>(WATER_BAND_TILES);
@@ -81,6 +89,24 @@ export const WaterHubScreen: FC = () => {
         kpisPending={isPending ? 4 : undefined}
         kpiNote={kpis.length || isPending ? waterKpiNote(bg) : undefined}
         evidence={evidence}
+        search={
+          <HubSearch
+            idPrefix="water-finder"
+            sources={sources}
+            title={{
+              bg: "Търси във водния сектор",
+              en: "Search the water sector",
+            }}
+            placeholder={{
+              bg: "ВиК оператор, област, фирма, договор…",
+              en: "water operator, province, company, contract…",
+            }}
+            hint={{
+              bg: "Операторите се търсят в сектора; фирмите и договорите — в целия регистър.",
+              en: "Operators are searched in the sector; companies and contracts across the whole register.",
+            }}
+          />
+        }
       />
       {/* HubHead drops the band when it has no figures; without this a failed or
           absent blob just removes the head's numbers, with nothing saying why. */}
