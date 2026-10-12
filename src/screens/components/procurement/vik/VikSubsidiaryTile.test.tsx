@@ -53,6 +53,7 @@ const row = (eik: string, totalEur: number): VikOperatorAgg => ({
   contractCount: 3,
   singleBidShare: null,
   bidKnownN: 0,
+  singleBidN: 0,
 });
 
 const renderTile = (

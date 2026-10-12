@@ -60,6 +60,9 @@ export interface VikOperatorAgg {
    *  none carry a count. Drives the competition heatmap. */
   singleBidShare: number | null;
   bidKnownN: number;
+  /** The single-bid COUNT behind `singleBidShare`, so a consumer summing across
+   *  operators adds integers rather than reconstructing them from a share. */
+  singleBidN: number;
 }
 
 export interface VikData {
@@ -108,6 +111,7 @@ const useVikOver = (
             contractCount: u.contractCount,
             singleBidShare: u.bidKnownN > 0 ? u.singleBidN / u.bidKnownN : null,
             bidKnownN: u.bidKnownN,
+            singleBidN: u.singleBidN,
           };
         })
         .filter((o) => o.contractCount > 0)
@@ -162,7 +166,14 @@ export const useWaterSector = (windowOverride?: ScopeWindow): VikData =>
 export const useVikGroupRollup = (
   eiks: readonly string[],
   windowOverride?: ScopeWindow,
-): { operators: VikOperatorAgg[]; isLoading: boolean } => {
+): {
+  operators: VikOperatorAgg[];
+  isLoading: boolean;
+  /** True only when the SERVER confirms it dropped consortium member rows — a
+   *  function deployed before the switch ignores the param, and its counts must
+   *  then not be set beside an ex-member national rate. */
+  exMembers: boolean;
+} => {
   const urlWindow = useScopeWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
@@ -178,6 +189,7 @@ export const useVikGroupRollup = (
         bidKnownN: number;
         singleBidN: number;
       }[];
+      exMembers?: boolean;
     }> => {
       // Ex-member basis: the water browse pack sets excludeConsortiumMembers, so
       // this strip and /water/operators must count the rows the table beneath
@@ -205,12 +217,13 @@ export const useVikGroupRollup = (
           contractCount: o.contractCount,
           singleBidShare: o.bidKnownN > 0 ? o.singleBidN / o.bidKnownN : null,
           bidKnownN: o.bidKnownN,
+          singleBidN: o.singleBidN,
         };
       }),
     [data],
   );
 
-  return { operators, isLoading };
+  return { operators, isLoading, exMembers: data?.exMembers === true };
 };
 
 /** One EU-fund (ИСУН) row per operator across a set of EIKs — contracted vs paid

@@ -24,15 +24,17 @@ function mockDb() {
 const route = DB_ROUTES["awarder-group-rollup"];
 const MEMBER_CLAUSE = "consortium_role IS DISTINCT FROM 'member'";
 
-test("default basis counts consortium member rows", async () => {
+test("default basis counts consortium member rows and says so", async () => {
   const db = mockDb();
-  await route(db, { eiks: "130175000,206086428" });
+  const res = await route(db, { eiks: "130175000,206086428" });
+  assert.equal(res.body.exMembers, false);
   assert.ok(!db.calls[0].sql.includes(MEMBER_CLAUSE));
 });
 
-test("exMembers=1 drops consortium member rows", async () => {
+test("exMembers=1 drops consortium member rows and says so", async () => {
   const db = mockDb();
-  await route(db, { eiks: "130175000", exMembers: "1" });
+  const res = await route(db, { eiks: "130175000", exMembers: "1" });
+  assert.equal(res.body.exMembers, true);
   assert.ok(db.calls[0].sql.includes(MEMBER_CLAUSE));
   // The switch adds a literal clause only — nothing from the request is
   // interpolated, and the parameters are unchanged.

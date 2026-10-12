@@ -3213,7 +3213,10 @@ const DB_ROUTES = {
        ORDER BY sum(amount_eur) DESC NULLS LAST, awarder_eik`,
       [eiks, from, to],
     );
-    return { body: { operators } };
+    // Echo the basis: a client comparing these counts against an ex-member
+    // national rate must be able to tell a function that applied the filter from
+    // one deployed before it existed, which would ignore the param silently.
+    return { body: { operators, exMembers } };
   },
   // FULL sector-pack model over a SET of EIKs in ONE aggregate — the server-side
   // replacement for the 25+-request client fan-out (awarder-contracts × each
