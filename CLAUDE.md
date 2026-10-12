@@ -308,7 +308,9 @@ browser-cached one pointing at a deleted `/assets/index-<hash>.js`is a white scr
   with it. Those still serve the homepage's head; giving them their own via a `loadPerson`
   arm on `spa_page.js` is open work.
 
-The function fetches the SPA shell from `https://electionsbg.com/` and swaps the
+The function fetches the SPA shell from `https://elections-bg.web.app/` (Hosting's default
+domain — never the Cloudflare-fronted naiasno.bg, whose bot rules could challenge a
+server-to-server fetch; see `SPA_SHELL_ORIGIN` in `functions/index.js`) and swaps the
 prerender's `<!-- SEO -->` / `<!-- BODY -->` marker blocks, caching it per instance for
 `SPA_SHELL_TTL_MS` (10 min). Two consequences worth knowing: a cold instance makes one
 extra outbound request, and if that fetch fails the page still serves correct head tags

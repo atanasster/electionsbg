@@ -375,6 +375,12 @@ const getDbPool = async (password) => {
 // Shared route table (functions/db_routes.js) — also mounted by the Vite dev
 // plugin (vite/db-api.ts), so dev == prod by construction.
 const { DB_ROUTES } = require("./db_routes.js");
+const {
+  applyEdgeGate,
+  clientIp,
+  edgeStatus,
+  isProdProject,
+} = require("./edge_gate.js");
 const { dbCacheControl } = require("./db_cache_policy.js");
 
 // In-memory sliding-window rate limit per instance (same approach as /api/sql
@@ -414,12 +420,19 @@ const dbRateLimited = (ip) => {
 // one deploy's worth of stale hashes and costs one extra request per instance
 // per ten minutes.
 const SPA_SHELL_TTL_MS = 10 * 60 * 1000;
+// Fetched from Hosting's default domain, NOT from SITE_ORIGIN. Both serve the
+// same release, but naiasno.bg sits behind Cloudflare, whose bot heuristics
+// (Browser Integrity Check, Security Level) may challenge a server-to-server
+// request from a Google IP — and a challenged shell degrades every contract,
+// company and person page to the bundle-less FALLBACK_SHELL: fine for a
+// crawler, a dead page for a human. web.app never passes through Cloudflare.
+const SPA_SHELL_ORIGIN = "https://elections-bg.web.app";
 let spaShellCache = null;
 let spaShellCachedAt = 0;
 const loadSpaShell = async () => {
   if (spaShellCache && Date.now() - spaShellCachedAt < SPA_SHELL_TTL_MS)
     return spaShellCache;
-  const r = await fetch(`${SITE_ORIGIN}/`, {
+  const r = await fetch(`${SPA_SHELL_ORIGIN}/`, {
     headers: { "User-Agent": "naiasno-spa-shell" },
     // Never let a CDN hand us the very stale copy the TTL exists to escape.
     cache: "no-store",
@@ -480,19 +493,29 @@ const resolveRetiredPersonTarget = async (pool, slug) => {
 
 const makeDb = () => {
   const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
+  // Bound on prod only — staging has no Cloudflare in front and no such secret.
+  const EDGE_SECRET = defineSecret("EDGE_SHARED_SECRET");
+  const edgeSecret = () => (isProdProject() ? EDGE_SECRET.value() : "");
   return onRequest(
     // minInstances: 1 (PROD ONLY) keeps one container + its pooled DB connection
     // warm, so "first run" of a /api/db page skips the cold container boot +
     // Cloud SQL connector handshake (the most-perceptible slice of first-load
     // latency). Staging / ai stay at 0 — no always-on bill for non-prod.
     {
-      secrets: [DB_PASSWORD],
+      secrets: isProdProject() ? [DB_PASSWORD, EDGE_SECRET] : [DB_PASSWORD],
       region: "europe-west3",
       minInstances:
         (process.env.GCLOUD_PROJECT || "") === "elections-bg" ? 1 : 0,
       maxInstances: 10,
     },
     async (req, res) => {
+      // ---- edge gate: only Cloudflare-forwarded requests reach the data -----------
+      //
+      // FIRST, ahead of the page branches too: the server-rendered pages carry the
+      // same data as the API, and web.app / run.app / direct-to-IP all skip
+      // Cloudflare. See edge_gate.js — in "log" mode this never blocks.
+      if (applyEdgeGate(req, res, { secretValue: edgeSecret() })) return;
+
       // ---- /officials/<slug> -> /person/<slug>, 301 -------------------------------
       //
       // FIRST, ahead of every gate below, because this is a PAGE URL and those gates are
@@ -663,10 +686,7 @@ const makeDb = () => {
       if (req.method !== "GET")
         return res.status(405).json({ error: "GET only" });
 
-      const ip =
-        String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
-        req.ip ||
-        "?";
+      const ip = clientIp(req, edgeStatus(req, edgeSecret()));
       if (dbRateLimited(ip))
         return res
           .status(429)
@@ -795,9 +815,17 @@ const sqlRateLimited = (ip) => {
 
 const makeSql = () => {
   const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
+  const EDGE_SECRET = defineSecret("EDGE_SHARED_SECRET");
+  const edgeSecret = () => (isProdProject() ? EDGE_SECRET.value() : "");
   return onRequest(
-    { secrets: [DB_PASSWORD], region: "europe-west3", maxInstances: 3 },
+    {
+      secrets: isProdProject() ? [DB_PASSWORD, EDGE_SECRET] : [DB_PASSWORD],
+      region: "europe-west3",
+      maxInstances: 3,
+    },
     async (req, res) => {
+      // Same gate as the db function: sql-<n>.run.app and web.app skip Cloudflare.
+      if (applyEdgeGate(req, res, { secretValue: edgeSecret() })) return;
       const origin = req.headers.origin || "";
       const originOk =
         !origin || DB_ALLOWED_ORIGINS.some((re) => re.test(origin));
@@ -811,10 +839,7 @@ const makeSql = () => {
       }
       if (!originOk) return res.status(403).json({ error: "forbidden origin" });
 
-      const ip =
-        String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
-        req.ip ||
-        "?";
+      const ip = clientIp(req, edgeStatus(req, edgeSecret()));
       if (sqlRateLimited(ip))
         return res
           .status(429)
