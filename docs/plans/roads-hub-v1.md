@@ -584,6 +584,12 @@ runtime `<title>`/`<h1>` with the prerendered head.
 - `procurement/roads.json` geometry: no change. Optionally give `ingest_osm_roads.ts` an npm
   alias (N4).
 
+**Done 2026-10-12.** The generator is wired into `update-procurement` Step 2c and
+`update-funds` Step 4 (its inputs are moved by both), and `process-watch-report` step 8 now lists
+ELEVEN published artifacts (it said nine and omitted `home/flyover.json`) with the roads blob's inputs and sync line. `npm run proc:osm-roads`
+aliases the geometry ingest. No new table, so no `recent_updates` row and no Data Map entry.
+The full publish checklist is §5.
+
 ### T9: gates (last, separate)
 
 Collected from the tiers above, plus the audit-sectors Phase 4 pins:
@@ -599,24 +605,41 @@ Break each gate's clauses and watch it fire before calling it done (sector-dashb
 
 ---
 
-## 5. Shipping order (B5)
+## 5. Shipping order (B5) — the publish checklist, as built
+
+Everything below is an operator action; none of it runs automatically. Order matters.
 
 ```
-1. T1 engine + 167 locally          → npx tsx scripts/db/apply_functions.ts 167…  (local)
-2. npm run db:gen-sector-stats && npm run db:gen-roads-hub-stats   → commit both artifacts
-3. npm run dev  →  npx tsx scripts/og/capture-screens.ts sector-roads sector-roads-network sector-roads-costs
-                                                        → commit PNGs (after screen + figures)
-4. npm run sitemap                                      → commit public/sitemap*.xml
-5. Cloud: apply_functions.ts 167_national_competition.sql (the :5434 proxy)
-6. npm run bucket:sync:paths -- roads/derived/hub_stats.json procurement/derived/sector_stats.json
-7. npm run db:check-generated
-8. npm run build && npm run deploy
+# Cloud SQL (proxy on 127.0.0.1:5434, PGPASSFILE=.pgpass)
+1. DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+     npx tsx scripts/db/apply_functions.ts 167_national_competition.sql
+   # adds singleBidExMembers/bidKnownExMembers beside the existing keys. Additive and
+   # read-only for every current consumer; until it lands, the procurement page shows the
+   # competition card WITHOUT a national baseline (by design, never a mismatched one) and
+   # the generator refuses to run against that database.
+2. npm run funds:install-query:cloud
+   # reinstalls the funding-query catalog from PROCUREMENT_BUYER_SECTORS — puts НКСИП in
+   # the roads entry — with no corpus reload (install_query.ts gained --cloud in T8; the
+   # loaders that also call it run guards first and publish a corpus as a side effect).
+
+# Function — awarder-contracts now SELECTs consortium_role (R10), and the generated
+# ?sector validator carries НКСИП. Additive: an older bundle ignores the extra column.
+3. npm run deploy:db
+
+# Bucket — the two committed PG-derived blobs this work moved
+4. npm run bucket:sync:paths -- roads/derived/hub_stats.json procurement/derived/sector_stats.json
+5. npm run db:check-generated            # both must report OK
+
+# Hosting LAST (the hub fetches roads/derived/hub_stats.json; ship it first)
+6. npm run build && npm run deploy
+   # then, because the bundle hash moves and the db function serves page shells:
+   npm run deploy:db && SKIP_PREDEPLOY=1 npm run deploy   (CLAUDE.md „THREE steps")
 ```
 
-`deploy:db` is needed only if T1.8 (the route `tag` filter) or a new route ships. If so, it goes
-after step 5 and before step 8.
-
----
+Verify on prod: `/sector/roads` renders four KPI cells (`curl` the API for
+`national-competition` and check the ex-member keys), `/procurement/roads` redirects to
+`/sector/roads`, `/awarder/000695089` still renders without the roads pack, and the
+`/governance/sectors` roads tile reads €9,1 млрд.
 
 ## 6. Not in v1
 

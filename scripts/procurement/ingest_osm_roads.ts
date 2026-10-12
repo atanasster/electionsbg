@@ -1,5 +1,5 @@
 // One-off ingest of the Bulgarian national-road network geometry from
-// OpenStreetMap, for the АПИ road dashboard hero map (/procurement/roads).
+// OpenStreetMap, for the roads network map (/sector/roads/network).
 // Emits data/procurement/roads.json — a GeoJSON FeatureCollection of road
 // LineStrings tagged with the corridor name + class, clipped to Bulgaria and
 // decimated for a small country-scale payload.
@@ -14,8 +14,8 @@
 // fetched; their spend stays in the dashboard's tiles.
 //
 // Usage (network is only touched with --fetch; otherwise reads the cache):
-//   npx tsx scripts/procurement/ingest_osm_roads.ts            # from cache
-//   npx tsx scripts/procurement/ingest_osm_roads.ts --fetch    # re-pull OSM
+//   npm run proc:osm-roads                 # from cache
+//   npm run proc:osm-roads -- --fetch      # re-pull OSM
 // ODbL: data © OpenStreetMap contributors.
 
 import fs from "fs";

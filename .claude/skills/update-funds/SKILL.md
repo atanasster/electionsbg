@@ -263,6 +263,10 @@ npm run db:load:funds:pg          # fund_beneficiaries + fund_projects + fund_pa
 npm run db:load:funds-fit:pg      # 143+144+145 — keep local in step with prod, or
                                   # funds_fit.data.test.ts fails with "the rollup and
                                   # the corpus disagree", which reads as a derivation bug
+npm run db:gen-roads-hub-stats    # the /sector/roads EU-funds tile reads fund_projects
+                                  # (АПИ is an ИСУН beneficiary) — commit
+                                  # data/roads/derived/hub_stats.json and
+                                  # bucket:sync:paths -- roads/derived/hub_stats.json
 
 # 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
 npm run db:load:funds:pg:cloud -- --full   # the flag is REQUIRED — see the scope note

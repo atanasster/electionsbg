@@ -313,7 +313,12 @@ The `/procurement` HUB reads its stat-tile numbers (money, contracts, contractor
 ```bash
 npm run db:gen-hub-stats      # ~22 s: reads PG, writes data/procurement/derived/hub_stats.json (one entry per parliament / year / all)
 npm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_stats.json — per-sector all-time procurement € for the /governance/sectors + featured-sectors tiles
+npm run db:gen-roads-hub-stats # ~1 s: writes data/roads/derived/hub_stats.json — the /sector/roads hub; MUST follow gen-sector-stats (its KPI 1 equals sector_stats all.roads)
 ```
+
+The roads blob is NOT under `procurement/` and so is not covered by the publish note below —
+sync it with `npm run bucket:sync:paths -- roads/derived/hub_stats.json`. Its gate is
+`roads_hub_figures.data.test.ts`.
 
 ⚠️ **`db:refresh` REWRITES TWO MORE COMMITTED ARTIFACTS, AND THEY ARE NOT UNDER
 `procurement/`.** The chain's last step is `db:gen-culture-hub-stats`
