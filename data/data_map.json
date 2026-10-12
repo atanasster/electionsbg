@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-12T01:00:23.688Z",
+  "generatedAt": "2026-10-12T20:21:12.188Z",
   "nodes": [
     {
       "id": "src:water",
@@ -14,16 +14,25 @@
         "en": "procurement & river cleaning"
       },
       "desc": {
-        "bg": "Обществените поръчки на Български ВиК холдинг и регионалните ВиК дружества, и договорите за почистване и корекция на речни корита и дерета — изведени от регистъра на обществените поръчки (АОП/ЦАИС ЕОП). Предстоят показателите на КЕВР (загуби на вода, цени), водният режим (НСИ) и нивата на язовирите (МОСВ).",
-        "en": "Public procurement of the Bulgarian Water Holding and the regional water operators, plus contracts for cleaning and regulating riverbeds — derived from the public-procurement register (АОП/ЦАИС ЕОП). КЕВР indicators (water loss, tariffs), water rationing (NSI) and reservoir levels (МОСВ) are planned."
+        "bg": "Обществените поръчки на ВиК операторите — регионалните дружества, общинските оператори, концесията за София, Напоителни системи и язовирите — и договорите за почистване и корекция на речни корита и дерета, изведени от регистъра на обществените поръчки (АОП/ЦАИС ЕОП); плюс водният режим и достъпът до водни услуги по данни на НСИ.",
+        "en": "Public procurement of the water operators — the regional companies, the municipal operators, the Sofia concession, the irrigation enterprise and the dams — plus contracts for cleaning and regulating riverbeds, derived from the public-procurement register (АОП/ЦАИС ЕОП); and water rationing and access to water services from NSI."
       },
       "tags": [
         "fiscal"
       ],
       "url": "https://www.vikholding.bg/",
       "origin": "state",
-      "skills": [],
+      "cadence": "daily",
+      "skills": [
+        "update-procurement"
+      ],
       "sources": [
+        {
+          "id": "nsi_water_stats",
+          "label": "НСИ: Население с водни услуги / воден режим (Ecology_9.8)",
+          "url": "https://www.nsi.bg/sites/default/files/files/data/timeseries/Ecology_9.8.xlsx",
+          "cadence": "daily"
+        },
         {
           "id": "static:https://www.eop.bg/",
           "label": "АОП/ЦАИС ЕОП — обществени поръчки · АОП/ЦАИС ЕОП — public procurement",
@@ -2805,8 +2814,8 @@
         "en": "water-sector procurement"
       },
       "desc": {
-        "bg": "Консолидираните обществени поръчки на групата на Български ВиК холдинг (по дружества и по функция) и договорите за почистване на речни корита (по възложител, по години, най-големи), от АОП/ЦАИС ЕОП.",
-        "en": "The Bulgarian Water Holding group's consolidated public procurement (by operator and by function) and the riverbed-cleaning contracts (by awarder, by year, largest), from the АОП/ЦАИС ЕОП register."
+        "bg": "Консолидираните обществени поръчки на всички ВиК оператори в сектора (по дружества и по функция), договорите за почистване на речни корита (по възложител, по години, най-големи) от АОП/ЦАИС ЕОП, и водният режим и достъпът до водни услуги (НСИ).",
+        "en": "The consolidated public procurement of every water operator in the sector (by operator and by function), the riverbed-cleaning contracts (by awarder, by year, largest) from the АОП/ЦАИС ЕОП register, and water rationing and access to water services (NSI)."
       },
       "tags": [
         "fiscal"

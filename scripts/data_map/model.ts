@@ -274,12 +274,12 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "procurement & river cleaning",
     },
     desc: {
-      bg: "Обществените поръчки на Български ВиК холдинг и регионалните ВиК дружества, и договорите за почистване и корекция на речни корита и дерета — изведени от регистъра на обществените поръчки (АОП/ЦАИС ЕОП). Предстоят показателите на КЕВР (загуби на вода, цени), водният режим (НСИ) и нивата на язовирите (МОСВ).",
-      en: "Public procurement of the Bulgarian Water Holding and the regional water operators, plus contracts for cleaning and regulating riverbeds — derived from the public-procurement register (АОП/ЦАИС ЕОП). КЕВР indicators (water loss, tariffs), water rationing (NSI) and reservoir levels (МОСВ) are planned.",
+      bg: "Обществените поръчки на ВиК операторите — регионалните дружества, общинските оператори, концесията за София, Напоителни системи и язовирите — и договорите за почистване и корекция на речни корита и дерета, изведени от регистъра на обществените поръчки (АОП/ЦАИС ЕОП); плюс водният режим и достъпът до водни услуги по данни на НСИ.",
+      en: "Public procurement of the water operators — the regional companies, the municipal operators, the Sofia concession, the irrigation enterprise and the dams — plus contracts for cleaning and regulating riverbeds, derived from the public-procurement register (АОП/ЦАИС ЕОП); and water rationing and access to water services from NSI.",
     },
     url: "https://www.vikholding.bg/",
     origin: "state",
-    members: [],
+    members: ["nsi_water_stats"],
     extras: [
       {
         label: {
@@ -303,7 +303,9 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
         url: "https://www.nsi.bg/bg/content/2603",
       },
     ],
-    skills: [],
+    // The operator procurement and the riverbed artifact are regenerated from
+    // the contracts corpus, so update-procurement is what moves them.
+    skills: ["update-procurement"],
     tags: ["fiscal"],
   },
   {
@@ -1867,8 +1869,8 @@ export const DATASETS: DatasetDef[] = [
     label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
     detail: { bg: "поръчки на ВиК сектора", en: "water-sector procurement" },
     desc: {
-      bg: "Консолидираните обществени поръчки на групата на Български ВиК холдинг (по дружества и по функция) и договорите за почистване на речни корита (по възложител, по години, най-големи), от АОП/ЦАИС ЕОП.",
-      en: "The Bulgarian Water Holding group's consolidated public procurement (by operator and by function) and the riverbed-cleaning contracts (by awarder, by year, largest), from the АОП/ЦАИС ЕОП register.",
+      bg: "Консолидираните обществени поръчки на всички ВиК оператори в сектора (по дружества и по функция), договорите за почистване на речни корита (по възложител, по години, най-големи) от АОП/ЦАИС ЕОП, и водният режим и достъпът до водни услуги (НСИ).",
+      en: "The consolidated public procurement of every water operator in the sector (by operator and by function), the riverbed-cleaning contracts (by awarder, by year, largest) from the АОП/ЦАИС ЕОП register, and water rationing and access to water services (NSI).",
     },
     path: "data/water/",
     serving: "both",

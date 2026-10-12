@@ -3344,7 +3344,7 @@ ${accumulationGapHtml("en")}`.trim(),
 <h2>Инфраструктура</h2>
 <ul>
 <li><a href="${SITE_URL}/sector/roads">Пътища (АПИ, НКСИП)</a> — договори, поддръжка, километри път.</li>
-<li><a href="${SITE_URL}/water">Води (ВиК)</a> — ВиК холдинг, загуби, язовири.</li>
+<li><a href="${SITE_URL}/water">Води (ВиК)</a> — ВиК операторите: поръчки, конкуренция, еврофондове, воден режим.</li>
 <li><a href="${SITE_URL}/awarder/000695388">Транспорт (МТС)</a> — железници, пристанища, БДЖ.</li>
 </ul>
 <h2>Социална държава</h2>
@@ -3382,7 +3382,7 @@ ${accumulationGapHtml("en")}`.trim(),
 <h2>Infrastructure</h2>
 <ul>
 <li><a href="${SITE_URL}/en/sector/roads">Roads (АПИ, НКСИП)</a> — contracts, maintenance, kilometres of road.</li>
-<li><a href="${SITE_URL}/en/water">Water (ВиК)</a> — the ВиК holding, losses, reservoirs.</li>
+<li><a href="${SITE_URL}/en/water">Water (ВиК)</a> — the water operators: procurement, competition, EU funds, rationing.</li>
 <li><a href="${SITE_URL}/en/awarder/000695388">Transport (МТС)</a> — rail, ports, БДЖ.</li>
 </ul>
 <h2>Social state</h2>
@@ -4039,9 +4039,12 @@ ${accumulationGapHtml("en")}`.trim(),
 <ul>
 <li><strong>Дружествата във водния сектор</strong> — поръчките на всеки оператор, с връзка към неговата страница.</li>
 <li><strong>Какво купуват — по функция</strong> — строителство на мрежи, водоснабдяване, канализация и пречистване, тръби и помпи, електроенергия.</li>
-<li><strong>Почистване на речни корита</strong> — ${waterFacts.floodEurMln} млн. € по ${waterFacts.floodContracts} договора от ${waterFacts.floodAwarders} възложителя за почистване и корекция на речни корита и дерета — отговорност, поделена между общини, областни управители и „Напоителни системи".</li>
+<li><strong>Карта на операторите</strong> — седалището на всеки оператор и делът на договорите му с една оферта.</li>
+<li><strong>Конкуренция и концентрация</strong> — дял на договорите с една оферта по оператор и концентрацията на изпълнителите (HHI).</li>
+<li><strong>Европейски средства</strong> — договорени срещу изплатени средства по програмите (ИСУН), за целия програмен период.</li>
+<li><strong>Воден режим и достъп до услугите</strong> — делът на населението с воден режим, свързано с обществено водоснабдяване и с пречиствателни станции (НСИ).</li>
+<li><strong>Почистване на речни корита</strong> — ${waterFacts.floodEurMln} млн. € по ${waterFacts.floodContracts} договора от ${waterFacts.floodAwarders} възложителя за почистване и корекция на речни корита и дерета — отговорност, поделена между общини, областни управители и „Напоителни системи". Тази сума е по предмет на договора, не по възложител, и не се сумира с поръчките на операторите.</li>
 </ul>
-<p>Предстои: показателите на КЕВР (загуби на вода, цени по области), водният режим (НСИ), нивата на язовирите (МОСВ) и картата на риска от наводнения (РЗПРН).</p>
 <p>Виж и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг като възложител</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
     english: {
       title: "Water (ВиК) — public procurement of the water sector | Наясно",
@@ -4054,9 +4057,12 @@ ${accumulationGapHtml("en")}`.trim(),
 <ul>
 <li><strong>Operators in the water sector</strong> — each operator's procurement, linking to its own page.</li>
 <li><strong>What they buy — by function</strong> — network construction, water supply, sewerage and treatment, pipes and pumps, electricity.</li>
-<li><strong>Riverbed cleaning</strong> — €${waterFacts.floodEurMln}M across ${waterFacts.floodContracts} contracts from ${waterFacts.floodAwarders} awarders for cleaning and regulating riverbeds and gullies — responsibility split between municipalities, regional governors and Irrigation Systems.</li>
+<li><strong>Operator map</strong> — each operator's seat and its share of single-bidder contracts.</li>
+<li><strong>Competition and concentration</strong> — single-bidder share per operator and contractor concentration (HHI).</li>
+<li><strong>EU funds</strong> — contracted vs paid programme funds (ИСУН), over the whole programme period.</li>
+<li><strong>Water rationing and access</strong> — the share of the population under water rationing, connected to public water supply and to wastewater treatment (NSI).</li>
+<li><strong>Riverbed cleaning</strong> — €${waterFacts.floodEurMln}M across ${waterFacts.floodContracts} contracts from ${waterFacts.floodAwarders} awarders for cleaning and regulating riverbeds and gullies — responsibility split between municipalities, regional governors and Irrigation Systems. This figure is selected by contract subject, not by awarder, and is never added to the operators' procurement.</li>
 </ul>
-<p>Coming next: КЕВР indicators (water loss, tariffs by region), water rationing (NSI), reservoir levels (МОСВ) and the flood-risk map (РЗПРН).</p>
 <p>See also the <a href="${SITE_URL}/awarder/206086428">Bulgarian Water Holding as a buyer</a> and <a href="${SITE_URL}/procurement">public procurement</a>.</p>`.trim(),
     },
   }),

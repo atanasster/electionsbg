@@ -6,12 +6,21 @@
 // geodata half (who is at risk) is a later phase; this shows who spent on
 // cleaning and where.
 //
-// Run: npx tsx scripts/water/write_flood_maintenance.ts
+// Run: npm run db:gen-water-flood (a db:refresh step — REFRESH_GENERATORS).
+//
+// ⚠️ THIS FILE WENT THREE MONTHS STALE ONCE. Until 2026-10-12 nothing ran it — no
+// npm script, no chain step, no skill — so the 2026-07-12 snapshot kept serving
+// €324.4M / 688 contracts while the corpus held €427.9M / 985 (docs/plans/
+// water-hub-v1.md D1), including in the prerendered /water <title>. It now runs
+// in db:refresh after the awarder seats it joins, carries `corpusThrough` so the
+// tile can date itself, and water_flood_maintenance.data.test.ts fails when the
+// file trails the corpus.
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import { allRows, end } from "../db/lib/pg";
 import { NAPOITELNI_EIK } from "../../src/lib/vikReferenceData";
 import { OBLAST_BG } from "../lib/oblast_names";
+import { FLOOD_WHERE as WHERE } from "./flood_predicate";
 
 // Reverse OBLAST_BG (canonical code → Bulgarian name) into name → canonical
 // nuts3 code, so the awarder_seats oblast name joins to the region GeoJSON key
@@ -27,16 +36,6 @@ const NAME_TO_CODE: Record<string, string> = (() => {
   m["Пловдив"] = "PDV";
   return m;
 })();
-
-// The riverbed-works discriminator: CPV (river regulation / flood-defence works)
-// OR title keywords. Kept in one place so every aggregate below counts the same
-// corpus. No user input — inline literals are safe.
-const WHERE = `tag = 'contract' AND (
-  cpv LIKE '45246%' OR cpv LIKE '45247%' OR cpv LIKE '90721%'
-  OR title ILIKE '%речно корито%' OR title ILIKE '%речни корита%'
-  OR title ILIKE '%проводимост%' OR title ILIKE '%корекция на река%'
-  OR title ILIKE '%почистване%дере%'
-)`;
 
 interface HeadRow {
   contract_count: string;
@@ -83,7 +82,35 @@ interface AllContractRow {
 
 const num = (v: string | null): number => Math.round(Number(v ?? 0));
 
+interface PreflightRow {
+  contracts: string | null;
+  seats: string | null;
+}
+
 const main = async () => {
+  // Skip-and-warn, never degrade (the REFRESH_GENERATORS contract): a partial
+  // artifact would overwrite a good served file with a worse one.
+  const [pre] = await allRows<PreflightRow>(`
+    SELECT to_regclass('contracts')::text AS contracts,
+           to_regclass('awarder_seats')::text AS seats`);
+  if (!pre?.contracts || !pre?.seats) {
+    console.warn(
+      `flood_maintenance: skipped — ${!pre?.contracts ? "contracts" : "awarder_seats"} is absent (run db:load:pg / db:load:awarder-seats:pg first); the committed file is left untouched`,
+    );
+    await end();
+    return;
+  }
+  const [through] = await allRows<{ max: string | null }>(
+    `SELECT max(date) AS max FROM contracts WHERE tag = 'contract' AND date ~ '^[12][0-9]{3}-'`,
+  );
+  if (!through?.max) {
+    console.warn(
+      "flood_maintenance: skipped — contracts is empty; the committed file is left untouched",
+    );
+    await end();
+    return;
+  }
+
   const [head] = await allRows<HeadRow>(`
     SELECT
       count(*)::text AS contract_count,
@@ -143,6 +170,10 @@ const main = async () => {
     // rebuilds unless the underlying data changed; the query is the provenance.
     source:
       "АОП/ЦАИС ЕОП — договори за почистване/корекция на речни корита и дерета",
+    // The newest contract date in the WHOLE corpus this was built from — a
+    // property of the data, not of the run, so the file stays byte-stable across
+    // rebuilds of one corpus while the tile can still say how current it is.
+    corpusThrough: through.max.slice(0, 10),
     totalEur: num(head.eur),
     contractCount: Number(head.contract_count),
     awarderCount: Number(head.awarder_count),

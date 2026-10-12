@@ -48,6 +48,10 @@ export interface FloodContractRow {
 }
 export interface FloodMaintenanceFile {
   source: string;
+  /** Newest contract date (YYYY-MM-DD) in the corpus the file was built from.
+   *  Optional: a file written before 2026-10-12 does not carry it, and then the
+   *  tile states no vintage rather than inventing one. */
+  corpusThrough?: string;
   // The precomputed aggregates below are whole-corpus (all years) — kept for the
   // AI `riverbedCleaning` tool. The tile derives its own scoped figures from
   // `contracts` via buildFloodModel (src/lib/floodModel.ts).

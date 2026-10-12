@@ -5,7 +5,11 @@
 // treatment — by year. Static-JSON served like the flood artifact (plan §0b.5 /
 // §3 Tier B). The same NSI timeseries fetch pattern as scripts/indicators.
 //
-// Run: npx tsx scripts/water/write_water_stats.ts
+// Run: npm run water:stats -- --refresh
+//
+// `--refresh` re-downloads the XLSX. Without it the raw_data/ cache wins, so a
+// re-run after the `nsi_water_stats` watcher flips would re-parse the OLD file
+// and report success.
 
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -20,7 +24,8 @@ const URL =
 const CACHE = path.join(RAW_DIR, "Ecology_9.8.xlsx");
 
 const fetchXlsx = async (): Promise<Buffer> => {
-  if (existsSync(CACHE)) return readFileSync(CACHE);
+  if (existsSync(CACHE) && !process.argv.includes("--refresh"))
+    return readFileSync(CACHE);
   const res = await fetch(URL, { headers: { "User-Agent": UA } });
   if (!res.ok) throw new Error(`NSI fetch ${URL} -> ${res.status}`);
   const buf = Buffer.from(await res.arrayBuffer());

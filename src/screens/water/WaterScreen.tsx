@@ -2,8 +2,10 @@
 // §0b.4 this is the PRIMARY surface (the awarder pack on /awarder/206086428 is
 // the "money half"). Phase 1 (Tier-A) shows what the existing procurement corpus
 // already knows — the consolidated water SECTOR and its by-function spend —
-// scope-aware via the shared ?pscope control. The КЕВР loss/tariff choropleths,
-// NSI rationing series and the flood-risk feature (§4.5) arrive in later phases.
+// scope-aware via the shared ?pscope control, plus the NSI water-services series
+// (WaterStatsTile) and the riverbed-cleaning spend (WaterFloodTile). The КЕВР
+// loss/tariff indicators, МОСВ reservoirs and РЗПРН flood-risk are NOT built —
+// see docs/plans/water-hub-v1.md §5; nothing on the page may promise them.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

@@ -33,7 +33,7 @@
 // live procurement was absent. €56.2M between them.
 //
 // The rule has exactly TWO named exceptions, and stating them is what makes it
-// checkable (water_sector.test.ts holds it):
+// checkable (vikReferenceData.test.ts holds it):
 //
 //   - **София (столица)** has no `holding_sub` row and never will — the capital is
 //     served by the Софийска вода CONCESSION.

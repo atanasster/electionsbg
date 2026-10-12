@@ -69,6 +69,7 @@ import { indicatorsMonNvo } from "./indicators_mon_nvo";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
 import { indicatorsNsiVital } from "./indicators_nsi_vital";
 import { nsiLanduse } from "./nsi_landuse";
+import { nsiWaterStats } from "./nsi_water_stats";
 import { grao } from "./grao";
 import { smetnaPalata } from "./smetna_palata";
 import { financingReports } from "./financing_reports";
@@ -244,6 +245,7 @@ export const SOURCES: WatchSource[] = [
   indicatorsNsiPop,
   indicatorsNsiVital,
   nsiLanduse,
+  nsiWaterStats,
   grao,
   tedBg,
   transparencyCpi,

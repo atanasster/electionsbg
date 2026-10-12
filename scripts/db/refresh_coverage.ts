@@ -215,6 +215,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /sector/roads hub's KPI band, corridor rail, finder index and annex-option figures, computed by running the roads engine (buildRoadsModel) over the roll-up's contract rows in Node. It reads contracts, contract_risk_cache, procurement_annexes and fund_projects, and its headline must equal sector_stats.json all.roads — so its slot is IMMEDIATELY AFTER db:gen-sector-stats; anywhere earlier it publishes a different vintage of the same number one click away",
     bucketPath: "roads/derived/hub_stats.json",
   },
+  "db:gen-water-flood": {
+    artifact: "data/water/flood_maintenance.json",
+    reason:
+      "the /water riverbed-cleaning tile, the AI riverbedCleaning tool and the prerendered /water title all read it. It reads contracts and awarder_seats (its oblast choropleth), so it must follow db:load:pg and db:load:awarder-seats:pg; it sits beside db:gen-roads-hub-stats. Until 2026-10-12 NOTHING ran it and it served a 2026-07-12 snapshot €103.5M (32%) below the corpus (docs/plans/water-hub-v1.md D1)",
+    bucketPath: "water/flood_maintenance.json",
+  },
   "db:gen-governance-hub-stats": {
     artifact: "data/governance/hub_stats.json",
     reason:

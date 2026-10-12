@@ -109,6 +109,18 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     why: "its EU-funds arm reads fund_projects for the roll-up EIKs",
   },
   {
+    after: "db:gen-water-flood",
+    before: "db:load:pg",
+    why: "the riverbed artifact is a selection over contracts, which that loader rebuilds",
+  },
+  {
+    after: "db:gen-water-flood",
+    before: "db:load:awarder-seats:pg",
+    why:
+      "its choropleth places each contract by the awarder's seat \u2014 run first, the " +
+      "oblast split is the PREVIOUS vintage's placement while the totals are current",
+  },
+  {
     after: "db:gen-home-flyover",
     before: "db:load:tr-company-place:pg",
     why:
