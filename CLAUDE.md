@@ -359,11 +359,13 @@ times and `/person/**` did not — do not read one family as evidence for the ot
 with
 
 ```bash
-curl -s https://electionsbg.com/person/mp-3643 | grep -oE '/assets/index-[^"]+\.js'
-curl -s https://electionsbg.com/ | grep -oE '/assets/index-[^"]+\.js'
+curl -sL https://electionsbg.com/person/mp-3643 | grep -oE '/assets/index-[^"]+\.js'
+curl -sL https://electionsbg.com/ | grep -oE '/assets/index-[^"]+\.js'
 ```
 
-— the two hashes must match. The 25,167 PRERENDERED person pages are never affected (they
+— the two hashes must match. ⚠️ **`-L` is required**: electionsbg.com now 301s to
+naiasno.bg, so a bare `curl -s` returns the redirect body, both greps print nothing, and
+two empty outputs read as a match. The 25,167 PRERENDERED person pages are never affected (they
 carry the build's own hash), which is exactly what makes this easy to miss: spot-checking a
 person page picks a prerendered one and looks fine.
 
