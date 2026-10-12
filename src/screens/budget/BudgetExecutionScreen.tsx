@@ -45,6 +45,7 @@ import { useBudgetSeries } from "@/data/budget/useBudgetSeries";
 import { BudgetTrendChart } from "./BudgetTrendChart";
 import { buildSamePoint } from "./budgetSamePoint";
 import { BudgetSamePointPanels } from "./BudgetSamePointPanels";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 /** The identity's terms, in the order they appear in it. `financing` is
  *  deliberately absent — it is `-balance` and gets its own note. */
@@ -266,7 +267,7 @@ export const BudgetExecutionScreen: FC = () => {
         ) : null}
 
         {isLoading ? (
-          <div className="h-64 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-64" shape="rows" />
         ) : !figures ? (
           <p className="text-sm text-muted-foreground">
             {t("budget_exec_empty")}

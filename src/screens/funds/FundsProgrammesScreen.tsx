@@ -22,6 +22,7 @@ import { Card, CardContent } from "@/ux/Card";
 import { useFundsProjectsIndex } from "@/data/funds/useFundsProjectsIndex";
 import { useFundsHubStats } from "@/data/funds/useFundsHubStats";
 import { formatEur, formatInt } from "@/lib/currency";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const pctFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 1 });
 
@@ -117,7 +118,7 @@ export const FundsProgrammesScreen: FC = () => {
         </p>
 
         {isLoading ? (
-          <div className="h-96 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-96" shape="rows" />
         ) : rows.length ? (
           <Card>
             <CardContent className="p-3 text-sm md:p-4">

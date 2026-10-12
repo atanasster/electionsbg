@@ -20,6 +20,7 @@ import {
   CUSTOMS_AWARDER_PATH,
   exciseCategoryLabel,
 } from "@/lib/customsReferenceData";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const ExciseRegisterScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -120,7 +121,7 @@ export const ExciseRegisterScreen: FC = () => {
       </div>
 
       {isLoading ? (
-        <div className="h-[360px] animate-pulse rounded-xl border bg-card" />
+        <ChartGhost className="h-[360px]" shape="rows" />
       ) : rows.length === 0 ? (
         <p className="rounded-xl border bg-card p-6 text-center text-sm text-muted-foreground">
           {bg

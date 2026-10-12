@@ -27,6 +27,7 @@ import {
   useBudgetMuniCapital,
   type CapitalMuniRow,
 } from "@/data/budget/useBudgetMuniCapital";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 /** The funding sources, in the order the списък lists them. Each is NULL — not
  *  zero — where a municipality publishes no such column. */
@@ -155,7 +156,7 @@ export const BudgetMuniCapitalScreen: FC = () => {
         ) : null}
 
         {isLoading ? (
-          <div className="h-96 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-96" shape="rows" />
         ) : capital == null ? (
           <p className="text-sm text-muted-foreground">
             {t("budget_cap_unavailable")}

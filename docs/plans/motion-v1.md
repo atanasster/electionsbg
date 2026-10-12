@@ -5,7 +5,7 @@ Status: **Tier 1 shipped 2026-10-12.** Tier 2 is proposed, not started.
 ## §0 Why, and the one rule
 
 Anthropic's published motion language is thin but consistent: the Claude „spark" is still
-while Claude listens and flutters only while it responds (Kinfolk, *The Artisans of AI*); the
+while Claude listens and flutters only while it responds (Kinfolk, _The Artisans of AI_); the
 identity „leans into the imperfections of human, handmade things"; the aim is trust, not
 spectacle. The Claude Code spinner proves personality needs no animation library — it is
 cycling glyphs.
@@ -34,14 +34,14 @@ eye should follow) · one curve, `--motion-ease-out` = `easeOutCubic`.
 
 ## §2 Tier 1 — shipped
 
-| piece | where | what moves, and when |
-| ----- | ----- | -------------------- |
-| **Rolling KPI figures** | `AnimatedText` / `useTweenedText` in `HubHead`'s `KpiCell` | A hub KPI rolls from its old to its new value when the scope changes — **only where the cell stays mounted**, i.e. the new scope's stats are already in memory (`/procurement` reads one blob). A hub that fetches per scope without `placeholderData` (`useAgriHubStats` on `/subsidies`) drops to the skeleton on an uncached scope, and the figure then arrives verbatim. Adding `placeholderData: keepPreviousData` to those hooks is open work. |
-| **Region re-fill** | `.motion-fill` via `FeatureMap`'s opt-in `animateFill` | An election-map region (`MapElement`) cross-fades to its new colour on an election switch. Opt-in because a fill transition repaints every path for its duration, and `MapElement` sets it only once a real party colour exists, so a map never fades in from its grey loading placeholder. The other choropleths do not opt in. |
-| **Growing shift arrows** | `.motion-grow` in `MapShiftArrow` | Arrows grow out of their centroid when the shift layer is turned on or the comparison changes; the biggest shifts land first. Keyed on `deltaPp`, so a re-render of the same comparison does not replay. |
-| **Pen loop on a flipped region** | `handDrawnLoopPath` + `.motion-draw-on` in `MapShiftArrow` | Where the leading party CHANGED, a coral hand-drawn loop is drawn around the arrow — the editorial „circle the thing that matters". Seeded by EKATTE, so each loop is unique and identical on every render. |
-| **Freshness spark** | `MotionSpark` + `isFreshlySeen` in `HomeChangeCard` | A row first seen in the last 24 h of the reader's clock carries a coral asterisk that flutters three times and then rests. Never on a backfill. |
-| **Reduced-motion budget morph** | `BudgetFlowGraphic` | The existing fiscal-year morph now snaps under `prefers-reduced-motion`. |
+| piece                            | where                                                      | what moves, and when                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| -------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Rolling KPI figures**          | `AnimatedText` / `useTweenedText` in `HubHead`'s `KpiCell` | A hub KPI rolls from its old to its new value when the scope changes — **only where the cell stays mounted**, i.e. the new scope's stats are already in memory (`/procurement` reads one blob). A hub that fetches per scope without `placeholderData` (`useAgriHubStats` on `/subsidies`) drops to the skeleton on an uncached scope, and the figure then arrives verbatim. Adding `placeholderData: keepPreviousData` to those hooks is open work. |
+| **Region re-fill**               | `.motion-fill` via `FeatureMap`'s opt-in `animateFill`     | An election-map region (`MapElement`) cross-fades to its new colour on an election switch. Opt-in because a fill transition repaints every path for its duration, and `MapElement` sets it only once a real party colour exists, so a map never fades in from its grey loading placeholder. The other choropleths do not opt in.                                                                                                                     |
+| **Growing shift arrows**         | `.motion-grow` in `MapShiftArrow`                          | Arrows grow out of their centroid when the shift layer is turned on or the comparison changes; the biggest shifts land first. Keyed on `deltaPp`, so a re-render of the same comparison does not replay.                                                                                                                                                                                                                                             |
+| **Pen loop on a flipped region** | `handDrawnLoopPath` + `.motion-draw-on` in `MapShiftArrow` | Where the leading party CHANGED, a coral hand-drawn loop is drawn around the arrow — the editorial „circle the thing that matters". Seeded by EKATTE, so each loop is unique and identical on every render.                                                                                                                                                                                                                                          |
+| **Freshness spark**              | `MotionSpark` + `isFreshlySeen` in `HomeChangeCard`        | A row first seen in the last 24 h of the reader's clock carries a coral asterisk that flutters three times and then rests. Never on a backfill.                                                                                                                                                                                                                                                                                                      |
+| **Reduced-motion budget morph**  | `BudgetFlowGraphic`                                        | The existing fiscal-year morph now snaps under `prefers-reduced-motion`.                                                                                                                                                                                                                                                                                                                                                                             |
 
 ### `tweenNumberText` refuses rather than guesses
 
@@ -81,12 +81,12 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
      element after the update was the tile). The update callback instead resolves when the
      clicked tile has left the DOM, capped at 1.5 s. That same wait covers lazy routes, because
      React keeps the old page mounted while the chunk loads.
-   Names are unique per snapshot by construction: at click time the old page's `<h1>`s are
-   opted out inline and only the tile is named; `:root[data-vt-title] h1` names the new page's
-   heading. Modified clicks, browsers without the API, and reduced motion get the plain link.
-   ⚠️ The Claude desktop browser pane, when hidden, aborts EVERY view transition with
-   „aborted because of invalid state" (an empty `startViewTransition(() => {})` does too), so
-   the morph itself must be checked in a visible browser; the navigation still completes.
+     Names are unique per snapshot by construction: at click time the old page's `<h1>`s are
+     opted out inline and only the tile is named; `:root[data-vt-title] h1` names the new page's
+     heading. Modified clicks, browsers without the API, and reduced motion get the plain link.
+     ⚠️ The Claude desktop browser pane, when hidden, aborts EVERY view transition with
+     „aborted because of invalid state" (an empty `startViewTransition(() => {})` does too), so
+     the morph itself must be checked in a visible browser; the navigation still completes.
 3. **Map drill-down camera** — ✅ shipped for the election maps. Clicking (or Enter on) a
    region in a `MapElement` map flies the map into that region, then opens its page
    (`useMapDrillDown` + the pure `drillTransform` fit in `src/ux/motion/`). Measured on
@@ -121,10 +121,10 @@ frame and reads as a snap, and arrows sit at `scale(0)`. That is the pane, not t
      `prevSectors` to `[]`, so its first change sweeps the donut from nothing. `BudgetDonut`
      (which redraws per fiscal year) is therefore left static. A zero `animationDuration` is no
      workaround — react-smooth computes t = 0/0 on its first frame.
-   The other files with `isAnimationActive={false}` were screened by a grep for reader state
-   (`useState` / `useScope` / a year selector), not read one by one; the remaining candidates it
-   surfaced (`GovernmentTimeline`, `NzokReportCardTile`, the pension tiles, …) are open work —
-   opt each in only after confirming it redraws on a reader action and is not a `<Pie>`.
+     The other files with `isAnimationActive={false}` were screened by a grep for reader state
+     (`useState` / `useScope` / a year selector), not read one by one; the remaining candidates it
+     surfaced (`GovernmentTimeline`, `NzokReportCardTile`, the pension tiles, …) are open work —
+     opt each in only after confirming it redraws on a reader action and is not a `<Pie>`.
 5. **Shape-aware skeletons** — ✅ shipped as `ChartGhost` (`src/ux/motion/`): a baseline and
    faint bars (or scatter dots) under a slow shimmer, in the same `rounded-xl border bg-card`
    shell and height class as the pulsing box it replaces, so nothing moves on arrival. Wired
@@ -185,7 +185,20 @@ deliberately skipped are in the session that chose them; the skipped ones are li
    spend-vs-nights and seasonality, water stats, rail subsidy) and the page-body loaders of /water, /judiciary, /pensions, /defense and the culture
    subsidies page.
 5. **`ChartGhost` rollout, batch 3** — the remainder that are chart-, list- or map-shaped;
-   non-chart placeholders (search boxes, text blocks) keep their pulse.
+   non-chart placeholders (search boxes, text blocks) keep their pulse. ✅ shipped — 20 sites:
+   `rows` for the МВР and transport top-contracts tiles, the sector / ВиК / defense browse
+   sections, the excise register, the funds programmes and beneficiaries rankings, and nine
+   /budget lists and tables (deviations, ministries, execution, municipal, municipal
+   investments and capital, both of the law page's lists, composition lines, investments);
+   `bars` for the /budget personnel and functional charts. `/budget/social-funds` keeps its
+   pulse — it loads into per-fund figure cards, not a chart or a ranking.
+   **`AgriScopeFallback` keeps its pulse on purpose**: it is the generic four-state gate for
+   whole /subsidies page bodies (one height per caller via `loadingClassName`), and
+   `SubsidiesDashboardScreen.test.tsx` counts its `.animate-pulse` skeleton as the
+   „loading" state — converting it is a change to that contract, not a placeholder swap.
+   Net across Tier 2–3: 57 placeholders converted (4 + 16 + 17 + 20); the remaining pulse
+   boxes are the non-chart kinds listed under item 3, `/budget/social-funds`, and the scope
+   gate.
 
 Deliberately not in Tier 3: drill-down on the non-election choropleths, `useChartMotion` on
 more charts (only two candidates surfaced), title morph on more link families (unverifiable in

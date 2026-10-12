@@ -27,6 +27,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { BudgetPersonnelChart } from "./BudgetPersonnelChart";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetPersonnel } from "@/data/budget/useBudgetPersonnel";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const num = (v: number | null): string =>
   v == null ? "—" : new Intl.NumberFormat("bg-BG").format(v);
@@ -97,7 +98,7 @@ export const BudgetPersonnelScreen: FC = () => {
         </p>
 
         {isLoading ? (
-          <div className="h-72 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-72" />
         ) : points.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             {t("budget_staff_empty")}

@@ -30,6 +30,7 @@ import { OBS_BUDGET_DOCS, OBS_DOC_COUNT } from "@/lib/obsBudgetDocs";
 import { useBudgetLawDocuments } from "@/data/budget/useBudgetLawDocuments";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 import { orderJourney, packageProgress } from "./budgetJourney";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const BudgetLawScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -143,7 +144,7 @@ export const BudgetLawScreen: FC = () => {
               })}
             </ul>
           ) : (
-            <div className="h-72 animate-pulse rounded-xl border bg-card" />
+            <ChartGhost className="h-72" shape="rows" />
           )}
         </div>
 
@@ -252,7 +253,7 @@ export const BudgetLawScreen: FC = () => {
           ) : null}
 
           {isLoading ? (
-            <div className="h-40 animate-pulse rounded-xl border bg-card" />
+            <ChartGhost className="h-40" shape="rows" />
           ) : rows.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               {t("budget_law_year_empty")}

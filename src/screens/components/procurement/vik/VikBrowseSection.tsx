@@ -13,16 +13,14 @@ import { FC } from "react";
 import { useVikGroupRollup } from "@/data/procurement/useVik";
 import type { SectorBrowseSectionProps } from "../sectorPacks";
 import { VikSubsidiaryTile } from "./VikSubsidiaryTile";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const VikBrowseSection: FC<SectorBrowseSectionProps> = ({
   scope,
   eiks,
 }) => {
   const { operators, isLoading } = useVikGroupRollup(eiks, scope);
-  if (isLoading)
-    return (
-      <div className="h-[200px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[200px]" shape="rows" />;
   if (!operators.length) return null;
   return <VikSubsidiaryTile operators={operators} universeEiks={eiks} />;
 };

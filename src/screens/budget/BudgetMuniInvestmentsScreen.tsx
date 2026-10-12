@@ -29,6 +29,7 @@ import { formatEur } from "@/lib/currency";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetMuniIpop } from "@/data/budget/useBudgetMuniIpop";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const BudgetMuniInvestmentsScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -191,7 +192,7 @@ export const BudgetMuniInvestmentsScreen: FC = () => {
         />
 
         {isLoading ? (
-          <div className="h-96 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-96" shape="rows" />
         ) : ipop == null ? (
           /* „Няма намерени общини" is a claim about the CORPUS. A route that
              degraded has told us nothing about it. */

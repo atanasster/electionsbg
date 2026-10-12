@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Filter } from "lucide-react";
 import type { SectorBrowsePack } from "./sectorPacks";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const SectorBrowseSlot: FC<{
   pack: SectorBrowsePack;
@@ -32,11 +33,7 @@ export const SectorBrowseSlot: FC<{
         </span>
       </div>
       {Section && (
-        <Suspense
-          fallback={
-            <div className="h-[200px] animate-pulse rounded-xl border bg-card" />
-          }
-        >
+        <Suspense fallback={<ChartGhost className="h-[200px]" shape="rows" />}>
           <Section scope={scope} eiks={pack.eiks} />
         </Suspense>
       )}

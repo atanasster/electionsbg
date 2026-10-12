@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useDefenseGroupRollup } from "@/data/procurement/useDefense";
 import type { SectorBrowseSectionProps } from "../sectorPacks";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const TOP_N = 12;
 
@@ -24,10 +25,7 @@ export const DefenseBrowseSection: FC<SectorBrowseSectionProps> = ({
   const bg = lang === "bg";
   const { units, isLoading } = useDefenseGroupRollup(eiks, scope);
 
-  if (isLoading)
-    return (
-      <div className="h-[180px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[180px]" shape="rows" />;
   if (!units.length) return null;
   const rows = units.slice(0, TOP_N);
   const max = Math.max(...rows.map((u) => u.totalEur), 1);

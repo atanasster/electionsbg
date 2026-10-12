@@ -31,6 +31,7 @@ import {
   useInvestmentProgramIndex,
   useInvestmentProgram,
 } from "@/data/budget/useBudget";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 type Dim = "category" | "oblast";
 
@@ -124,7 +125,7 @@ export const BudgetInvestmentsScreen: FC = () => {
             the untouched page announced „Няма данни" on first paint, before it
             had asked for anything. */}
         {isLoading || fy == null ? (
-          <div className="h-72 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-72" shape="rows" />
         ) : !program ? (
           <p className="text-sm text-muted-foreground">
             {t("budget_inv_empty")}

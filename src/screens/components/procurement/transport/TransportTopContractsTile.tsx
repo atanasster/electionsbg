@@ -15,6 +15,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { TRANSPORT_SECTOR_EIKS } from "@/lib/transportReferenceData";
 import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 interface TopContract {
   key: string;
@@ -57,10 +58,7 @@ export const TransportTopContractsTile: FC = () => {
   const [params] = useSearchParams();
   const { data: rows, isLoading } = useTransportTopContracts(from, to);
 
-  if (isLoading)
-    return (
-      <div className="h-[260px] animate-pulse rounded-xl border bg-card" />
-    );
+  if (isLoading) return <ChartGhost className="h-[260px]" shape="rows" />;
   if (!rows || rows.length < 2) return null;
 
   // "See all" → the sector-filtered browse table, carrying the current scope forward.

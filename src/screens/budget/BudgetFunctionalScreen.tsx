@@ -31,6 +31,7 @@ import { useBudgetFunctional } from "@/data/budget/useBudgetFunctional";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 import { BudgetFunctionalChart } from "./BudgetFunctionalChart";
 import { functionalBars } from "./budgetFunctionalBars";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 /** Server-resolved bases.
  *
@@ -189,7 +190,7 @@ export const BudgetFunctionalScreen: FC = () => {
         </div>
 
         {isLoading ? (
-          <div className="h-80 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-80" />
         ) : rows.length === 0 ? (
           <p className="max-w-3xl text-sm text-muted-foreground">
             {t("budget_func_empty")}{" "}

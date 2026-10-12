@@ -24,6 +24,7 @@ import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetMunicipal } from "@/data/budget/useBudgetMunicipal";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const BASES = ["total", "capita"] as const;
 type Basis = (typeof BASES)[number];
@@ -256,7 +257,7 @@ export const BudgetMunicipalScreen: FC = () => {
         </p>
 
         {isLoading ? (
-          <div className="h-96 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-96" shape="rows" />
         ) : rows.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             {t("budget_muni_empty")}

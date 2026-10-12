@@ -28,6 +28,7 @@ import { buildSlices } from "./budgetSlices";
 import { BudgetDonut } from "./BudgetDonut";
 import { useBudgetSeries } from "@/data/budget/useBudgetSeries";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export interface BudgetCompositionProps {
   /** The КФП section kind this page is about. */
@@ -235,7 +236,7 @@ export const BudgetCompositionScreen: FC<BudgetCompositionProps> = ({
             </p>
           ) : null}
           {isLoading ? (
-            <div className="h-56 animate-pulse rounded-xl border bg-card" />
+            <ChartGhost className="h-56" shape="rows" />
           ) : topLines.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               {t("budget_comp_empty")}

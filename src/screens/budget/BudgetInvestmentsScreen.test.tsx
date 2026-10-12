@@ -235,7 +235,8 @@ describe("BudgetInvestmentsScreen", () => {
     );
     renderIt();
     await waitFor(() =>
-      expect(document.querySelector(".animate-pulse")).toBeTruthy(),
+      // The loading state is a `ChartGhost` (motion-v1 §4.5), found by its own marker.
+      expect(document.querySelector("[data-chart-ghost]")).toBeTruthy(),
     );
     expect(screen.queryByText(dict.budget_inv_empty)).toBeNull();
   });

@@ -28,6 +28,7 @@ import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetVariance } from "@/data/budget/useBudgetVariance";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 /** A signed euro delta. `null` renders as an em dash rather than as zero —
  *  „no report" and „spent exactly the appropriation" are different facts. */
@@ -167,7 +168,7 @@ export const BudgetDeviationsScreen: FC = () => {
         ) : null}
 
         {isLoading ? (
-          <div className="h-64 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-64" shape="rows" />
         ) : rows.length === 0 ? null : (
           <div className="overflow-x-auto rounded-xl border bg-card shadow-sm">
             <table className="w-full min-w-[52rem] text-sm">

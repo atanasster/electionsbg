@@ -39,6 +39,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { useFundsIndex } from "@/data/funds/useFundsIndex";
 import { TopBeneficiariesCard } from "./TopBeneficiariesCard";
 import { formatEur, formatInt } from "@/lib/currency";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const FundsBeneficiariesScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -127,7 +128,7 @@ export const FundsBeneficiariesScreen: FC = () => {
             "Подредени по договорена стойност. „Свързан с депутат“ е сигнал за проверка, не заключение."}
         </p>
         {isLoading ? (
-          <div className="h-64 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-64" shape="rows" />
         ) : rows.length ? (
           // 25, not the hub's 15 — this is the page the reader came to for the ranking, and
           // the list is already in hand.

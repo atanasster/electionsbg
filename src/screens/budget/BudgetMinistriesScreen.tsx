@@ -26,6 +26,7 @@ import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetAdminList } from "@/data/budget/useBudgetAdminList";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const BudgetMinistriesScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -140,7 +141,7 @@ export const BudgetMinistriesScreen: FC = () => {
         ) : null}
 
         {isLoading ? (
-          <div className="h-64 animate-pulse rounded-xl border bg-card" />
+          <ChartGhost className="h-64" shape="rows" />
         ) : rows.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             {t("budget_units_empty")}
