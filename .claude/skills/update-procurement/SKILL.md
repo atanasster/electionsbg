@@ -315,11 +315,15 @@ npm run db:gen-hub-stats      # ~22 s: reads PG, writes data/procurement/derived
 npm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_stats.json — per-sector all-time procurement € for the /governance/sectors + featured-sectors tiles
 npm run db:gen-roads-hub-stats # ~1 s: writes data/roads/derived/hub_stats.json — the /sector/roads hub; MUST follow gen-sector-stats (its KPI 1 equals sector_stats all.roads)
 npm run db:gen-water-flood     # ~2 s: writes data/water/flood_maintenance.json — the /water riverbed tile + the prerendered /water title
+npm run db:gen-water-hub-stats # ~1 s: writes data/water/derived/hub_stats.json — the /water hub; MUST follow gen-sector-stats AND gen-water-flood
 ```
 
-The riverbed artifact is the same shape as the roads blob: committed, bucket-served, NOT
-under `procurement/`. Sync it with `npm run bucket:sync:paths -- water/flood_maintenance.json`.
-⚠️ Until 2026-10-12 nothing regenerated it and it served a three-month-old snapshot 32%
+The two water artifacts are the same shape as the roads blob: committed, bucket-served, NOT
+under `procurement/`. Sync them with
+`npm run bucket:sync:paths -- water/flood_maintenance.json water/derived/hub_stats.json`.
+The hub blob's gate is `water_hub_figures.data.test.ts` (KPI 1 must equal `sector_stats.json`
+all.water).
+⚠️ Until 2026-10-12 nothing regenerated the riverbed file, and it served a three-month-old snapshot 32%
 below the corpus (docs/plans/water-hub-v1.md D1). Its gate is
 `water_flood_maintenance.data.test.ts`, which fails when the file trails the corpus by
 more than 45 days.
