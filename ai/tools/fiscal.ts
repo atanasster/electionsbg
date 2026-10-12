@@ -2004,7 +2004,7 @@ export const procurementNormalcy = async (
 };
 
 // ---- АПИ road spending ------------------------------------------------------
-// The chat analog of the /procurement/roads dashboard: reuses the same
+// The chat analog of the /sector/roads dashboard: reuses the same
 // roadAttributes engine over АПИ's per-contract rows to answer roads-specific
 // questions (kind-of-work mix + per-market competition, top corridors, headline
 // integrity) that the generic awarderProcurement can't.

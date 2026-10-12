@@ -60,7 +60,7 @@ const ANTI_ALLOWLIST: { eik: string; what: string }[] = [
   { eik: "000695089", what: "АПИ — the separate /sector/roads" },
   {
     eik: "831646048",
-    what: "„Автомагистрали“ ЕАД — the separate /sector/roads",
+    what: "„Автомагистрали“ ЕАД — roads' in-house contractor (/sector/roads)",
   },
 ];
 

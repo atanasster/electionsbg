@@ -1,4 +1,4 @@
-// The АПИ awarder key and the canonical path to its dashboard — and NOTHING
+// The АПИ awarder key and the canonical paths to its pages — and NOTHING
 // else. This file must stay import-free.
 //
 // It sits apart from the roads engine (@/lib/roadAttributes, which re-exports
@@ -18,7 +18,12 @@
  *  Shared by the FE hook, the AI tool and the ingest scripts. */
 export const API_EIK = "000695089";
 
-/** Canonical path to the packed АПИ awarder dashboard. Single source for the
- *  nav surfaces (the /procurement/roads redirect in routes.tsx) so re-keying
- *  the pack cannot drift a hardcoded EIK. */
+/** The АПИ awarder page. It renders the generic buyer view only — the roads
+ *  pack moved to the sector hub (CompanyDbScreen suppresses a pack whose EIK
+ *  leads a sector dashboard), so link here for "АПИ as a buyer", never for the
+ *  road-specific tiles. */
 export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
+
+/** The roads sector hub — where the map, €/km and competition tiles live. The
+ *  legacy /procurement/roads redirect points here (routes.tsx). */
+export const ROADS_SECTOR_PATH = "/sector/roads";

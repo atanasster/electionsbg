@@ -1,6 +1,6 @@
-// Data hook for the АПИ road-spending dashboard (/procurement/roads) —
+// Data hook for the АПИ road-spending dashboard (/sector/roads) —
 // DB-backed. The full per-contract row set comes from /api/db/awarder-contracts
-// (АПИ ≈ 2.1k rows) and feeds the pure roadAttributes engine; the headline
+// (АПИ ≈ 3k rows) and feeds the pure roadAttributes engine; the headline
 // rollup (totals + byContractor) is derived from the same rows plus the
 // grouped counterparty list, so no static JSON shard is involved.
 //
@@ -8,7 +8,7 @@
 // one calendar year) is applied CLIENT-SIDE here: the awarder-contracts query
 // fetches the whole corpus once (cached), and the [from, to) window from
 // useScopeWindow simply filters the rows before they reach
-// buildRoadsModel. Windowing the already-loaded ~2.1k rows keeps scope switches
+// buildRoadsModel. Windowing the already-loaded ~3k rows keeps scope switches
 // instant (no refetch) and matches the overview's half-open [from, to) on the
 // contract `date`. The headline rollup is derived from the SAME windowed rows
 // so every number on the page re-scopes together.

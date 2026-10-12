@@ -426,7 +426,7 @@ pages(
 );
 pages(
   ["roadsSpending"],
-  "/procurement/roads",
+  "/sector/roads",
   "Пътно строителство",
   "Road construction",
 );

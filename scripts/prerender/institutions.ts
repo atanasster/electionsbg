@@ -61,17 +61,17 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     titleEn:
       "Road Infrastructure Agency (АПИ) — public procurement for roads | Наясно",
     descriptionBg:
-      "Обществените поръчки на Агенция „Пътна инфраструктура“ (ЕИК 000695089) — магистрали и пътища на карта, цена на километър, вид строителство, тръжен поток, повтарящи се изпълнители и конкуренция спрямо праговете на ЕС. По данни от АОП.",
+      "Обществените поръчки на Агенция „Пътна инфраструктура“ (ЕИК 000695089) като възложител — общо възложена стойност, договори, изпълнители, паричен поток и конкуренция. Картата на пътищата, цената на километър и тръжният поток са в сектор „Пътища“. По данни от АОП.",
     descriptionEn:
-      "Public procurement of the Road Infrastructure Agency (АПИ, EIK 000695089) — motorways and roads on a map, cost per kilometre, construction category, the tender pipeline, repeat winners and competition versus the EU thresholds. Sourced from the АОП register.",
+      "Public procurement of the Road Infrastructure Agency (АПИ, EIK 000695089) as a buyer — total awarded value, contracts, contractors, money flow and competition. The road map, cost per kilometre and tender pipeline live on the Roads sector page. Sourced from the АОП register.",
     bodyBg: `
 <h1>Агенция „Пътна инфраструктура“ — обществени поръчки за пътища</h1>
-<p>Агенция „Пътна инфраструктура“ (АПИ, ЕИК 000695089) е държавната агенция, която възлага строителството и поддръжката на републиканската пътна мрежа. Тук са всичките ѝ обществени поръчки от регистъра на АОП — общо възложена стойност, брой договори и изпълнители, плюс пътно-специфичен разрез: магистрали и пътища на карта, разпознат участък, цена на километър, вид строеж и компоненти, тръжен поток и повтарящи се изпълнители.</p>
-<p>Страницата показва и конкуренцията спрямо праговете на ЕС — дял на поръчките с една оферта и без обявление. Виж и <a href="${SITE}/procurement">общия преглед на обществените поръчки</a> и <a href="${SITE}/procurement/awarders">топ възложителите</a>.</p>`.trim(),
+<p>Агенция „Пътна инфраструктура“ (АПИ, ЕИК 000695089) е държавната агенция, която възлага строителството и поддръжката на републиканската пътна мрежа. Тук са всичките ѝ обществени поръчки от регистъра на АОП като възложител — общо възложена стойност, брой договори и изпълнители, паричен поток и конкуренция.</p>
+<p>Пътно-специфичният разрез — магистрали и пътища на карта, цена на километър, видове работа, тръжен поток и повтарящи се изпълнители — е в <a href="${SITE}/sector/roads">сектор „Пътища“</a>. Виж и <a href="${SITE}/procurement">общия преглед на обществените поръчки</a> и <a href="${SITE}/procurement/awarders">топ възложителите</a>.</p>`.trim(),
     bodyEn: `
 <h1>Road Infrastructure Agency — public procurement for roads</h1>
-<p>The Road Infrastructure Agency (АПИ, EIK 000695089) is the state agency that awards construction and maintenance of the national road network. This page collects all of its public procurement from the АОП register — total awarded value, contract and contractor counts — plus a road-specific breakdown: motorways and roads on a map, matched road segments, cost per kilometre, construction category and work components, the tender pipeline and repeat winners.</p>
-<p>It also shows competition versus the EU thresholds — the share of contracts with a single bid and with no prior call. See also the <a href="${SITE}/en/procurement">procurement overview</a> and the <a href="${SITE}/en/procurement/awarders">top awarders</a>.</p>`.trim(),
+<p>The Road Infrastructure Agency (АПИ, EIK 000695089) is the state agency that awards construction and maintenance of the national road network. This page collects all of its public procurement from the АОП register as a buyer — total awarded value, contract and contractor counts, money flow and competition.</p>
+<p>The road-specific breakdown — motorways and roads on a map, cost per kilometre, work types, the tender pipeline and repeat winners — lives on the <a href="${SITE}/en/sector/roads">Roads sector page</a>. See also the <a href="${SITE}/en/procurement">procurement overview</a> and the <a href="${SITE}/en/procurement/awarders">top awarders</a>.</p>`.trim(),
     // Its domain pack MOVED to /sector/:id — CompanyDbScreen computes
     // `showPack = SectorPack && !sectorDash`, so an awarder that leads a sector
     // dashboard renders only the generic hero/KPIs/flow here. The old anchor

@@ -51,8 +51,9 @@ export interface SectorPackProps {
 // surfaces (procurement pill, report menu) so re-keying a pack — or giving a
 // pack a pill — can't drift the hardcoded EIK.
 //
-// ROADS_AWARDER_PATH is the exception and does NOT live here: routes.tsx needs
-// it for the /procurement/roads redirect, and routes.tsx is entry code, so the
+// The roads paths are the exception and do NOT live here: routes.tsx needs
+// ROADS_SECTOR_PATH for the /procurement/roads redirect, and routes.tsx is entry
+// code, so taking a roads constant from this file (as it once did) made the
 // import made this registry — and the ~20 reference-data modules below — a
 // static import of the entry chunk. It lives in @/lib/roadsAwarder, which
 // imports nothing. Don't re-export it here for symmetry; that only re-opens

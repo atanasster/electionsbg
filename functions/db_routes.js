@@ -3154,7 +3154,7 @@ const DB_ROUTES = {
     return { body: rows[0]?.r ?? null };
   },
   // Every contract row for one awarder (ProcurementContract shape) — the road
-  // dashboard's model input. Bounded: the biggest buyer (АПИ) has ~2.1k rows.
+  // dashboard's model input. Bounded: the biggest buyer (АПИ) has ~3k rows.
   "awarder-contracts": async (dbRows, q) => {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
@@ -3317,7 +3317,7 @@ const DB_ROUTES = {
   // DELIBERATELY UNBOUNDED — a known exception to this file's LIMIT policy:
   // these are the "see everyone" breakdown pages, and the result is naturally
   // capped by grouping (one row per distinct counterparty; the biggest buyer,
-  // АПИ, has ~2.1k). The 1h CDN cache absorbs the two aggregate scans.
+  // АПИ, has ~3k). The 1h CDN cache absorbs the two aggregate scans.
   "company-counterparties": async (dbRows, q) => {
     const eik = s(q, "eik");
     const side = s(q, "side") === "awarder" ? "awarder" : "contractor";

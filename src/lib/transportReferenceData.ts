@@ -18,11 +18,13 @@
 // as an awarder within it (€44.8M from НКЖИ + БДЖ), so it widens the intra-group flow
 // the mode-split footnote names.
 //
-// ⚠ ROADS INFRASTRUCTURE IS A SEPARATE SECTOR. АПИ (000695089, ~€5.6bn) and
-// „Автомагистрали" ЕАД (831646048) live in the dedicated `roads` sector (/sector/roads)
-// and are DELIBERATELY EXCLUDED here — the transport dashboard keeps only a minimal
-// roads cross-link, never folds АПИ's road-building billions (which would drown the
-// rail/port/safety story and double-count the roads sector). Road *regulation* and
+// ⚠ ROADS INFRASTRUCTURE IS A SEPARATE SECTOR. АПИ (000695089, ~€8.9bn) is a BUYER in
+// the dedicated `roads` sector (/sector/roads); „Автомагистрали" ЕАД (831646048) is
+// roads' state in-house CONTRACTOR (€983M from АПИ, ~€1M as a buyer) — declared there
+// beside the buyer lists, never inside them. Both are DELIBERATELY EXCLUDED here — the
+// transport dashboard keeps only a minimal roads cross-link, never folds АПИ's
+// road-building billions (which would drown the rail/port/safety story and
+// double-count the roads sector). Road *regulation* and
 // *safety* (ИА „Автомобилна администрация", ДАБДП) DO belong to МТС's remit and are
 // included; road *building* does not.
 //

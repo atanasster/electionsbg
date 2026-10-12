@@ -141,7 +141,7 @@ export const staticRoutedPages = (routerSrc: string): string[] =>
     .sort();
 
 /** `path=` attributes that are not string literals, so the walk cannot resolve
- *  them. Zero today — but `ROADS_AWARDER_PATH` is already imported into
+ *  them. Zero today — but `ROADS_SECTOR_PATH` is already imported into
  *  `routes.tsx` and used in an `element=`, so the idiom is present in the file
  *  and a `path={SOME_CONST}` would otherwise enter the census as the literal
  *  segment `"{SOME_CONST}"` — a silent wrong answer rather than a loud one. */

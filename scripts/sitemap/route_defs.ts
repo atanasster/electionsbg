@@ -670,8 +670,8 @@ export const routeDefs = (year: string): RouteDefs => [
   // Public procurement. Every sub-page in the ProcurementNav pills, plus the
   // tile-linked drill-downs (contractors/awarders/mps/sectors), is a
   // prerendered static page (scripts/prerender/routes.ts), so each gets a
-  // sitemap entry. The personal /procurement/watchlist and the still-unreleased
-  // /procurement/roads (bucket-synced data only, dev-gated) are intentionally
+  // sitemap entry. The personal /procurement/watchlist and /procurement/roads
+  // (a redirect to /sector/roads, which has its own entry) are intentionally
   // omitted.
   { path: "procurement", file: `src/screens/ProcurementScreen.tsx` },
   {

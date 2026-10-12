@@ -19,7 +19,7 @@ import { HubBreadcrumb } from "@/screens/components/HubBreadcrumb";
 // From the import-free module, NEVER from sectorPacks: that registry names
 // every sector pack, so importing it here puts ~20 reference-data modules on
 // the entry chunk's critical path. Gated by src/entryGraph.test.ts.
-import { ROADS_AWARDER_PATH } from "./lib/roadsAwarder";
+import { ROADS_SECTOR_PATH } from "./lib/roadsAwarder";
 import { loadBundle } from "@/i18n";
 // Import-free by construction — see the module header. routes.tsx is a static
 // import of the entry chunk, so naming a bundle must not drag anything in.
@@ -3198,14 +3198,13 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {/* АПИ road-spending dashboard — retired into the generic awarder
-              page, where it renders as the roads sector pack (map, construction
-              categories, cost/km …) below the buy-side KPIs. Redirect keeps old
-              links + the nav pill working. See components/procurement/roads/
-              RoadsPack + sectorPacks. */}
+          {/* АПИ road-spending dashboard — retired into the roads sector hub
+              (/sector/roads), which carries the map, cost/km and competition
+              tiles. The awarder page no longer renders the pack, so the
+              redirect goes to the hub. Keeps old links + the nav pill working. */}
           <Route
             path="procurement/roads"
-            element={<Navigate to={ROADS_AWARDER_PATH} replace />}
+            element={<Navigate to={ROADS_SECTOR_PATH} replace />}
           />
           <Route
             path="procurement/flags"

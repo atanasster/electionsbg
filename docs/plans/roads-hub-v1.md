@@ -1,6 +1,6 @@
 # Roads hub v1: `/sector/roads` becomes a sector dashboard
 
-Status: **IMPLEMENTATION PLAN**, audited 2026-10-12.
+Status: **IMPLEMENTATION PLAN**, audited 2026-10-12. D1–D8 all accepted 2026-10-12; implementation started.
 
 **Template.** The `/culture` migration: `culture-investigative-v1.md` §1.7, commits
 `c990d36dcf` → `61be083e18`.
@@ -34,9 +34,9 @@ so a reviewer can trace it back.
 | **D3** | **Keep `/sector/roads`.** Sub-pages go under it. |
 | **D4** | **The ×1.5 annex figure is not a KPI.** It ships as a labelled section after Tier 5. ⚠ The audit **changed the premise**; see R9. It is not an „ал.2 overrun", so the section is an *option-exercise* story, not an overrun story. |
 
-### ⛔ Still open — needed before the tier named
+### Accepted by the operator, 2026-10-12 (second round)
 
-| id | question | € impact | recommendation | blocks |
+| id | question | € impact | decision (recommendation accepted) | tier |
 | --- | --- | --- | --- | --- |
 | **D5** | **НКСИП (`202062287`)**: roll-up or adjacent? It is a state company that procured АМ Струма lots 3.1/3.3, plus НАИМ archaeology, 2013–2019. | +€220.7M all-time (+2.5%); 0 in every parliament window since 2019 | **Roll-up.** It is a buyer of the same network under the same principal (МРРБ). Leaving it out makes Струма's construction history start mid-way. | T2 |
 | **D6** | **How to caption post-annex money.** The headline sums current value (CLAUDE.md „current-value"), so 28–29% of 2024 and of `ns:2024_06_09` is annex growth booked at the signing date (R8). | Caption only | Basis line „текуща стойност след анекси". The time spine gains a signing-vs-growth split. The ×1.5 cluster is labelled „упражнени опции (чл. 116, ал. 1, т. 1)", never „преразход". | T4, T5 |

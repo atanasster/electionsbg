@@ -4042,7 +4042,7 @@ const routeText = (question: string, ctx: ToolContext): Route => {
     }
   }
   // АПИ road spending — kind-of-work + competition, top corridors, €/km, trend
-  // (the /procurement/roads dashboard, via roadsSpending). Roads-specific intent
+  // (the /sector/roads dashboard, via roadsSpending). Roads-specific intent
   // only, so the generic procurement/awarder routing keeps its traffic. Guards:
   // railway ("железопътна инфраструктура" = НКЖИ) and road-charge REVENUE
   // (винетки/тол, handled far above) are excluded; a bare contractor name

@@ -690,7 +690,7 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     // Every `path=` resolves to a string literal. A `path={SOME_CONST}` would
     // otherwise enter the census as the literal segment "{SOME_CONST}" — a
     // silent wrong answer rather than a loud one, and the idiom is already in
-    // the file (`ROADS_AWARDER_PATH` is imported and used in an `element=`).
+    // the file (`ROADS_SECTOR_PATH` is imported and used in an `element=`).
     expect(
       unresolvedPaths(routerSrc),
       "a path= that is not a string literal — the walk cannot resolve it",
