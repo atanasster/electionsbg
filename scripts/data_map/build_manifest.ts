@@ -45,6 +45,7 @@ import {
   type Origin,
   type SourceIssue,
 } from "./model";
+import { renderTourText, unresolvedTourTokens } from "./tourText";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -932,6 +933,16 @@ const main = async (): Promise<void> => {
   // validate(); it skips (loudly) when Postgres is unreachable.
   await validateRelationCoverage();
   const linkOverlaps = await measureLinks();
+  // A tour token naming a link the build could not measure would publish a raw `{{…}}` in the
+  // narration — refuse the build instead.
+  const unresolved = unresolvedTourTokens(
+    TOURS.flatMap((t) => t.steps.map((st) => st.text)),
+    (id) => linkOverlaps[id]?.overlap,
+  );
+  if (unresolved.length)
+    fail(
+      `tour prose quotes link overlap(s) with no measurement: ${unresolved.join(", ")}`,
+    );
   // One close, after the last consumer: a pooled connection otherwise keeps the
   // process alive ~9.4s past the final write.
   await closePoolIfOpen();
@@ -958,7 +969,14 @@ const main = async (): Promise<void> => {
     views: VIEWS,
     tiers,
     layouts,
-    tours: TOURS,
+    // Measured overlaps written into the tour prose (see tourText.ts).
+    tours: TOURS.map((t) => ({
+      ...t,
+      steps: t.steps.map((st) => ({
+        ...st,
+        text: renderTourText(st.text, (id) => linkOverlaps[id]?.overlap),
+      })),
+    })),
     // NOT in `edges`: these never reach ELK (§1.1 — 15 of them shatter the
     // dataset tier into five columns and double the graph width).
     links: LINKS.map((l) => {

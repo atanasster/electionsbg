@@ -23,6 +23,8 @@ import {
 import type { DatasetDef } from "./model";
 import { validateDatasetServing, validateLinks } from "./build_manifest";
 import { assertCommitted } from "../lib/assert_committed";
+import { formatCount, renderTourText, tourTokens } from "./tourText";
+import type { Lang } from "./model";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 
@@ -45,6 +47,7 @@ const manifest = JSON.parse(
     key?: string;
     overlap?: number;
   }[];
+  tours: { id: string; steps: { node: string; text: Lang }[] }[];
 };
 
 const pair = (e: { from: string; to: string }) => `${e.from} -> ${e.to}`;
@@ -586,75 +589,44 @@ describe("the lateral-links tour", () => {
     expect(tour!.steps.filter((s) => !ids.has(s.node))).toEqual([]);
   });
 
-  it("quotes numbers that still match the measured overlaps", () => {
-    // Each pair is (link, the figure the tour states).
-    //
-    // ⚠ RE-PIN BOTH SIDES OR NEITHER. The numbers live in `model.ts`'s tour prose, in BOTH
-    // languages, and the vacuity check below reads the English spelling out of that prose — so
-    // updating this table alone turns the gate red on the second assertion instead of the
-    // first, and updating only the English string leaves the Bulgarian one quoting a figure
-    // nobody measured. Re-measured 2026-09-04 against the watch-run reload (9f68471bb4):
-    // connections↔procurement 18,717 → 18,723 and connections↔officials 5,612 → 5,609, with
-    // connections↔funds unmoved at 40,269.
-    //
-    // ⚠ Re-measured again 2026-09-06: connections↔procurement 18,723 → 18,729, under a
-    // concurrent contracts reload. It read 18,728 and then 18,729 minutes apart while that
-    // load ran and settled at 18,729 across two readings twenty seconds apart — which is the
-    // only reason it is pinned rather than left: a value written mid-load is stale before it
-    // is committed.
-    //
-    // ⚠ Re-pinned 2026-09-07 against the manifest the 07:17Z watch run committed:
-    // connections↔funds 40,269 → 40,271 and connections↔officials 5,609 → 5,602, with
-    // connections↔procurement unmoved at 18,729. THE OFFICIALS FIGURE HAD BEEN STALE THROUGH
-    // AT LEAST TWO REGENERATIONS — the manifest before this one carried 5,643 against the
-    // prose's 5,609 — so this gate was already red when it was last re-pinned, and only the
-    // procurement pair was updated. Read all three out of `data/data_map.json` when re-pinning,
-    // not just the one the failure names.
-    //
-    // ⚠ Re-pinned 2026-09-09 against `data/data_map.json` as committed: connections↔procurement
-    // 18,729 → 18,730 and connections↔officials 5,602 → 5,604, with connections↔funds unmoved
-    // at 40,271.
-    //
-    // ⚠ Re-pinned 2026-09-11: connections↔procurement 18,731 → 18,734, with
-    // connections↔funds (40,271) and connections↔officials (5,604) unmoved. All three were
-    // read out of the manifest, not only the one the failure named — see the 2026-09-07
-    // note above for why that distinction is the whole point of this clause.
-    //
-    // ⚠ Re-pinned 2026-09-13: connections↔procurement 18,734 → 18,735, with
-    // connections↔funds (40,271) and connections↔officials (5,604) unmoved.
-    //
-    // ⚠ Re-pinned 2026-09-26, all three read out of `data/data_map.json`:
-    // connections↔procurement 18,735 → 18,757, connections↔funds 40,271 → 40,273 and
-    // connections↔officials 5,604 → 5,601.
-    //
-    // ⚠ Re-pinned 2026-10-12 against `data/data_map.json` as committed by the 6b10bf79ea watch
-    // run: connections↔procurement 18,757 → 18,794, connections↔funds 40,273 → 40,280 and
-    // connections↔officials 5,601 → 5,628 — all three read from the manifest, both languages.
-    const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18794],
-      ["connections", "funds", "eik", 40280],
-      ["connections", "officials", "person_id", 5628],
-    ];
-    const drifted = quoted
-      .filter(([a, b, k, n]) => overlapOf(a, b, k) !== n)
-      .map(
-        ([a, b, k, n]) =>
-          `${a}↔${b} (${k}): tour says ${n}, measured ${overlapOf(a, b, k)}`,
-      );
-    expect(drifted).toEqual([]);
-    // and the prose really does contain them, so the check is not vacuous.
-    //
-    // ⚠ BOTH LANGUAGES. Checking only the English spelling leaves the Bulgarian one free to
-    // quote a figure nobody measured — on the side most readers actually read, and on a panel
-    // that renders the live number next to it. The two spellings differ only in the thousands
-    // separator (a plain space in bg, a comma in en; verified as U+0020, not a non-breaking
-    // space), so both are derived here rather than typed.
-    const prose = JSON.stringify(tour);
-    for (const [, , , n] of quoted) {
-      const en = n.toLocaleString("en-US");
-      expect(prose, `the English prose does not quote ${en}`).toContain(en);
-      const bg = en.replace(/,/g, " ");
-      expect(prose, `the Bulgarian prose does not quote ${bg}`).toContain(bg);
-    }
+  it("quotes every overlap through a token, rendered from the link's measured value", () => {
+    // ⚠ NO NUMBER IS PINNED HERE, AND THAT IS THE FIX. The prose used to carry the overlaps as
+    // literals and this test pinned the same literals, so every corpus reload that moved a join
+    // by a few rows went red until somebody re-typed three numbers in two languages — eleven
+    // re-pins between 2026-08-15 and 2026-10-12, none of them a defect. The source prose now
+    // names the LINK (`{{overlap:<id>}}`) and build_manifest writes the measured figure in
+    // (tourText.ts), so what this asserts is the invariant that survives any reload: the
+    // published narration states exactly the overlap the published map carries.
+    const sourceTokens = tour!.steps.flatMap((st) => [
+      ...tourTokens(st.text.bg),
+      ...tourTokens(st.text.en),
+    ]);
+    // Non-vacuous: the tour does quote measured overlaps, in both languages.
+    expect(new Set(sourceTokens).size).toBeGreaterThanOrEqual(3);
+
+    const published = manifest.tours.find((t) => t.id === "linked");
+    expect(published).toBeDefined();
+    const overlapById = (id: string) => {
+      const [a, b, key] = id.split("|");
+      return overlapOf(a, b, key);
+    };
+    tour!.steps.forEach((st, idx) => {
+      const out = published!.steps[idx].text;
+      // The committed manifest is the same render of the same source, token for token.
+      expect(out).toEqual(renderTourText(st.text, overlapById));
+      for (const lang of ["bg", "en"] as const) {
+        expect(
+          out[lang],
+          `step ${idx} (${lang}) ships a raw token`,
+        ).not.toMatch(/\{\{/);
+        for (const id of tourTokens(st.text[lang])) {
+          const n = overlapById(id);
+          expect(n, `${id} has no measured overlap in the manifest`).toBeTypeOf(
+            "number",
+          );
+          expect(out[lang]).toContain(formatCount(n!, lang));
+        }
+      }
+    });
   });
 });

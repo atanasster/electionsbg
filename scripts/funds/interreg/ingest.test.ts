@@ -126,12 +126,18 @@ describe("the committed corpus", () => {
   // A missing row and a zero row mean opposite things: "we never asked" versus
   // "we asked and keep.eu holds nothing".
   it("has one index row per admitted programme, including the empty ones", () => {
-    expect(index.programmes.length).toBe(INTERREG_PROGRAMMES.length);
-    const empty = index.programmes.filter((p) => p.operationCount === 0);
-    expect(empty.map((p) => p.code).sort()).toEqual([
-      "INTERREG-BGRS-2127",
-      "INTERREG-ESPON-2127",
-    ]);
+    // WHICH programmes are empty is a fact about keep.eu on the day of the crawl (BGRS-2127 and
+    // ESPON-2127 in 2026-10) and was pinned by name until 2026-10-12 — the first operation either
+    // publishes would have read as a defect. The rule is the row, not the list: every admitted
+    // programme is present, and an empty one states a numeric 0 rather than going missing.
+    expect(index.programmes.map((p) => p.code).sort()).toEqual(
+      INTERREG_PROGRAMMES.map((p) => p.code).sort(),
+    );
+    for (const p of index.programmes) {
+      expect(typeof p.operationCount, p.code).toBe("number");
+      expect(typeof p.bgBudgetEur, p.code).toBe("number");
+      expect(p.operationCount, p.code).toBeGreaterThanOrEqual(0);
+    }
   });
 
   it("reconciles every programme's rollup against the rows", () => {
@@ -159,43 +165,42 @@ describe("the committed corpus", () => {
     }
   });
 
-  // The plan's headline figures, pinned against the artifact rather than a
-  // throwaway script (plan §5.1).
-  it("reproduces the T0 gate's measured totals", () => {
-    // Re-measured 2026-10-12 against the 2026-10 watch re-imports (4a74ce4f0b `--full`,
-    // 6b10bf79ea re-crawl): 1,970 → 2,038 operations, 12,142 → 12,731 partnerships,
-    // 1,509 → 1,554 BG rows, €405.39m → €406.26m; the integrity test above stayed green.
-    // Previously re-measured 2026-09-26 against the 2026-09-22 watch re-import (a41ee16d41):
-    // 1,959 → 1,970 operations, 12,120 → 12,142 partnerships, 1,498 → 1,509 BG
-    // rows, €402.42m → €405.39m; the integrity test above stayed green.
-    // Previously re-measured 2026-09-10 against the 2026-09-08 watch re-import (50ff5eb7aa):
-    // 1,958 → 1,959 operations, 12,114 → 12,120 partnerships, 1,497 → 1,498 BG
-    // rows, €402.20m → €402.42m. The integrity test ABOVE was green through it,
-    // which is what says the corpus moved rather than broke — read that
-    // sentence below before re-pinning again. Previously re-measured 2026-09-04
-    // against 9f68471bb4 (12,015 → 12,114 partnerships, 1,494 → 1,497 BG rows,
-    // €401.77m → €402.20m, operations unmoved at 1,958), and 2026-08-15 against
-    // ccae86938c (1,954 → 1,958 operations, 12,141 → 12,015 partnerships,
-    // 1,493 → 1,494 BG rows, €396.39m → €401.77m).
-    //
-    // The pins are DELIBERATELY exact — a re-import that moves the headline
-    // figures should have to say so here — so update them with the vintage when
-    // the corpus is rebuilt, rather than widening them into a band. ⚠ THE
-    // INTEGRITY CHECK IS THE TEST ABOVE, NOT THIS ONE: it reconciles every
-    // programme's operation, partner, BG-row and BG-money totals against the
-    // rows themselves, so a drift here with that one green is a corpus that
-    // moved, and a drift here with that one RED is a corpus that broke. Read
-    // them together before re-pinning.
-    expect(index.operationCount).toBe(2038);
-    expect(index.partnerCount).toBe(12731);
-    expect(index.bgPartnerCount).toBe(1554);
+  // The plan's headline figures (§5.1), checked as INVARIANTS rather than pinned values.
+  //
+  // ⚠ THEY WERE PINNED EXACTLY UNTIL 2026-10-12, AND THAT WAS THE WRONG SHAPE. Every watcher
+  // re-import moved them by a few operations and turned this red until somebody re-typed four
+  // numbers — five re-pins in two months, each with this file's own reconciliation green, i.e.
+  // the corpus had MOVED rather than BROKEN every time. What the pin was protecting is now
+  // asserted directly:
+  //   · the headline totals are the sum of the per-programme rollups (a re-import cannot
+  //     publish an index whose top line disagrees with its own breakdown);
+  //   · the corpus has not silently SHRUNK below the T0 measurement — a fixed historical
+  //     baseline (2026-08-07: 1,954 operations, 1,493 BG rows, €396.39m), which growth can
+  //     never make stale. 5% headroom, because the partnership count has dipped once before
+  //     (12,141 → 12,015 on a re-crawl) without anything being wrong.
+  it("keeps the headline totals consistent with the rollups and above the T0 baseline", () => {
+    const sum = (k: "operationCount" | "partnerCount" | "bgPartnerCount") =>
+      index.programmes.reduce((a, p) => a + p[k], 0);
+    expect(index.operationCount).toBe(sum("operationCount"));
+    expect(index.partnerCount).toBe(sum("partnerCount"));
+    expect(index.bgPartnerCount).toBe(sum("bgPartnerCount"));
+
     const bgMoney = partners
       .filter(isBulgarianPartner)
       .reduce(
         (a: number, p: { budgetEur: number | null }) => a + (p.budgetEur ?? 0),
         0,
       );
-    expect(bgMoney / 1e6).toBeCloseTo(406.26, 1);
+    const rolledUp = index.programmes.reduce((a, p) => a + p.bgBudgetEur, 0);
+    expect(bgMoney).toBeCloseTo(rolledUp, 0);
+
+    const T0 = { operations: 1954, bgRows: 1493, bgMoneyEur: 396.39e6 };
+    const HEADROOM = 0.95;
+    expect(index.operationCount).toBeGreaterThanOrEqual(
+      T0.operations * HEADROOM,
+    );
+    expect(index.bgPartnerCount).toBeGreaterThanOrEqual(T0.bgRows * HEADROOM);
+    expect(bgMoney).toBeGreaterThanOrEqual(T0.bgMoneyEur * HEADROOM);
   });
 
   it("splits the money the way §5.1 records — Tier P is the larger half", () => {

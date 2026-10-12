@@ -3408,8 +3408,10 @@ export const TIERS: { kind: "source" | "dataset" | "feature"; label: Lang }[] =
 export const TOURS: TourDef[] = [
   {
     // The lateral-link tour: five hops that are only reachable BECAUSE the
-    // corpora share keys. Every figure quoted here is a measured overlap from
-    // LINKS above, so the tour cannot drift from what the map draws.
+    // corpora share keys. Every overlap is written as `{{overlap:<link id>}}`
+    // and filled in by build_manifest from the link's MEASURED overlap
+    // (scripts/data_map/tourText.ts), so the prose cannot drift from the map
+    // and a reload needs no re-typing.
     id: "linked",
     title: {
       bg: "Как се свързват данните",
@@ -3426,15 +3428,15 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:connections",
         text: {
-          bg: "Този ЕИК е ключът към Търговския регистър — 18 794 изпълнителя се намират там като фирми със собственици и управители.",
-          en: "That company number is the key into the Commerce Registry — 18,794 contractors are found there as companies with owners and directors.",
+          bg: "Този ЕИК е ключът към Търговския регистър — {{overlap:connections|procurement|eik}} изпълнителя се намират там като фирми със собственици и управители.",
+          en: "That company number is the key into the Commerce Registry — {{overlap:connections|procurement|eik}} contractors are found there as companies with owners and directors.",
         },
       },
       {
         node: "ds:funds",
         text: {
-          bg: "Същият ключ показва кой получава и европейски средства: 40 280 фирми се появяват и в двата масива.",
-          en: "The same key shows who also receives EU money: 40,280 companies appear in both corpora.",
+          bg: "Същият ключ показва кой получава и европейски средства: {{overlap:connections|funds|eik}} фирми се появяват и в двата масива.",
+          en: "The same key shows who also receives EU money: {{overlap:connections|funds|eik}} companies appear in both corpora.",
         },
       },
       {
@@ -3447,8 +3449,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:officials",
         text: {
-          bg: "А през лицата се затваря кръгът: 5 628 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-          en: "And people close the circle: 5,628 officials who file asset declarations also hold a role in the company registry.",
+          bg: "А през лицата се затваря кръгът: {{overlap:connections|officials|person_id}} деклариращи публични длъжности се водят и в регистъра на фирмите.",
+          en: "And people close the circle: {{overlap:connections|officials|person_id}} officials who file asset declarations also hold a role in the company registry.",
         },
       },
     ],
