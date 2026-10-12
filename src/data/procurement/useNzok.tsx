@@ -1,4 +1,4 @@
-// Data hook for the НЗОК (health) sector pack. Same shape as useNoi/useRoads:
+// Data hook for the НЗОК (health) sector pack. Same shape as useNoi:
 // the buyer's full per-contract corpus comes once from /api/db/awarder-contracts
 // (НЗОК ≈ 1.4k rows), is windowed CLIENT-SIDE to the host's [from, to) scope,
 // then fed to the pure buildNzokModel engine. The pack also loads НЗОК's annual

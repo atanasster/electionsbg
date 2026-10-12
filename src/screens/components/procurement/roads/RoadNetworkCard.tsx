@@ -1,5 +1,5 @@
-// The motorway-network map card — the roads sector's hero visual, shared by the
-// /sector/roads/network page and the (awarder-suppressed) RoadsPack. The focused
+// The motorway-network map card — the roads sector's hero visual on the
+// /sector/roads/network page. The focused
 // corridor is CONTROLLED by the caller, so a page can seed it from the URL
 // (?corridor=) and the map stays a pure view.
 //

@@ -1,6 +1,6 @@
 // €/km international reference levels for road construction — single-sourced so
 // the benchmark chart (RoadCostBenchmarkTile) and the key-factors prose
-// (RoadsPack) can never drift apart. Rough orientation only, NOT like-for-like:
+// (RoadCostExplainer) can never drift apart. Rough orientation only, NOT like-for-like:
 // ROCKS is a two-lane road without structures; the country figures are motorways.
 export const ROAD_EUR_PER_KM = {
   rocks: 1_400_000, // World Bank ROCKS, 2-lane road w/o structures

@@ -1,4 +1,4 @@
-// Data hook for the НОИ (ДОО) sector pack. Same shape as useRoads: the buyer's
+// Data hook for the НОИ (ДОО) sector pack. Same shape as every awarder-corpus pack hook: the buyer's
 // full per-contract corpus comes once from /api/db/awarder-contracts (НОИ ≈ 2.3k
 // rows), is windowed CLIENT-SIDE to the host's [from, to) scope, then fed to the
 // pure buildNoiModel engine. The pack also fuses the ДОО fund-execution snapshot

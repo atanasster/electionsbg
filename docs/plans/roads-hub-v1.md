@@ -664,11 +664,6 @@ Verify on prod: `/sector/roads` renders four KPI cells (`curl` the API for
 - НКЖИ rail as a second engine instance.
 - Folding consortium *member* political links into the carrier (R24's €59.2M).
 - An ИСУН alias fold for `000698085` (R26).
-- Deleting `RoadsPack` / `useRoads`. Both are unreachable since T4 — the roads
-  dashboard entry no longer renders and the awarder page suppresses the pack — but
-  the pack-backed-sector gates in `sectorDashboards.test.ts` count roads, so
-  removing it means re-deciding those gates for a bespoke hub. Kept registered;
-  its pre-R11 „capture" chips must not be revived as they are.
 - A dedicated `sector-roads-procurement.png` og card (that page reuses the hub's).
 
 ## 7. Post-implementation audit (2026-10-12)
@@ -711,3 +706,8 @@ fixed in the audit commits:
 - **Accessibility:** a corridor picker beside the map (the SVG paths take no focus),
   and a text alternative on the time-spine chart.
 - **R26** is recorded in `ROADS_EXCLUDED`.
+- **`RoadsPack` and `useRoads` deleted** (follow-up, same day). Both were unreachable
+  since T4. Roads is now a non-pack `SECTOR_DASHBOARDS` entry like `administration`,
+  so the pack-backed-sector gates in `sectorDashboards.test.ts` no longer count it
+  (B3's „keep it registered" is superseded). Every roads tile it rendered is still
+  used by a sub-page; none became dead.

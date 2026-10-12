@@ -17,7 +17,7 @@ import type { CorridorAgg } from "@/lib/roadAttributes";
 import { ROAD_EUR_PER_KM } from "@/lib/roadBenchmarks";
 import { UnitCostMethodologyLink } from "@/screens/components/UnitCostMethodologyLink";
 
-// Reference levels (€/km) — shared with the key-factors prose in RoadsPack.
+// Reference levels (€/km) — shared via @/lib/roadBenchmarks.
 const {
   rocks: ROCKS,
   bgLo: BG_LO,

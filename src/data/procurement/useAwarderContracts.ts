@@ -1,5 +1,5 @@
 // Buyer-agnostic corpus fetch + scope-window helpers shared by every sector
-// pack (roads, НОИ, and any future one). Extracted out of useRoads.tsx once a
+// pack (roads, НОИ, and any future one). Extracted out of the (since deleted) useRoads.tsx once a
 // second pack (НОИ) started importing it — the same single-source-of-truth move
 // awarderModel.ts made for the aggregation rules, applied to the data-access
 // layer so the fetch key and the half-open window semantics can't drift.

@@ -1,7 +1,7 @@
 // The roads engine model over the WHOLE roll-up (ROADS_SECTOR_EIKS — АПИ +
 // НКСИП), scoped to the page's window. The /sector/roads sub-pages read this.
 //
-// Why not useRoads: that hook models ONE awarder and also fetches the
+// Why not the old useRoads (deleted): that hook modelled ONE awarder and also fetched the
 // counterparty rollup, which the roads sub-pages never render. The hub blob
 // (db:gen-roads-hub-stats) models the roll-up, so a sub-page modelling АПИ alone
 // would put a different Струма total one click under the hub's (€208.9M of

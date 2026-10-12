@@ -526,7 +526,9 @@ describe("packRendersOwnContractsLink", () => {
     const relying = packBackedIds().filter(
       (id) => !SECTOR_DASHBOARDS[id].packRendersOwnContractsLink,
     );
-    expect(relying).toEqual(["customs", "health", "revenue", "roads"]);
+    // roads left this list when RoadsPack was deleted (roads-hub audit): it is a
+    // bespoke hub now, a non-pack entry like `administration`.
+    expect(relying).toEqual(["customs", "health", "revenue"]);
   });
 
   it("is never set on a thematic sector, where it is inert", () => {

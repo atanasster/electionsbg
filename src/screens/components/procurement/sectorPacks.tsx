@@ -8,17 +8,16 @@ import { PROCUREMENT_BUYER_SECTORS } from "@/lib/procurementBuyerSectors";
 //
 // The generic path stays cheap: awarders with no pack render purely from the
 // server-aggregated jsonb (no row download). Only packed buyers pay for the
-// corpus fetch — see RoadsPack / useRoads.
+// corpus fetch — see NoiPack / useNoi.
+//
+// Roads has NO pack: /sector/roads is the bespoke RoadsHubScreen and its
+// sub-pages (docs/plans/roads-hub-v1.md), which build the roads model over the
+// whole buyer roll-up themselves. RoadsPack was deleted once nothing rendered it.
 //
 // To add a pack (e.g. НОИ/ДОО): write a <Pack eik window /> component with its
 // own classifier + tiles and register its EIK below.
 
 import { lazy, type ComponentType } from "react";
-// API_EIK from the import-free @/lib/roadsAwarder rather than from the
-// roadAttributes engine that re-exports it — this file is imported by screens
-// only, but the EIK is also read by routes.tsx, and that edge used to drag
-// every import below into the ENTRY chunk. See src/entryGraph.test.ts.
-import { API_EIK } from "@/lib/roadsAwarder";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/healthReferenceData";
 import { VSS_EIK } from "@/lib/vssReferenceData";
@@ -79,9 +78,6 @@ export const DFZ_AWARDER_PATH = `/awarder/${AGRI_PAYER_EIK}`;
 // (no standalone view yet), so the nav points straight at the awarder page.
 export { NAP_AWARDER_PATH, CUSTOMS_AWARDER_PATH };
 
-const RoadsPack = lazy(() =>
-  import("./roads/RoadsPack").then((m) => ({ default: m.RoadsPack })),
-);
 const NoiPack = lazy(() =>
   import("./noi/NoiPack").then((m) => ({ default: m.NoiPack })),
 );
@@ -175,7 +171,6 @@ const AgriPack = lazy(() =>
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [AGRI_LEAD_EIK]: AgriPack,
-  [API_EIK]: RoadsPack,
   [NOI_EIK]: NoiPack,
   [NZOK_EIK]: NzokPack,
   [VSS_EIK]: VssPack,

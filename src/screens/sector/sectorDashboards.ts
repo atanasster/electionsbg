@@ -318,15 +318,12 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // bespoke RoadsHubScreen, routed as a static literal ahead of sector/:id, so this
   // entry no longer renders. It stays COMPLETE on purpose — the administration
   // precedent: SECTOR_DASHBOARD_IDS still drives the sitemap slug and the prerender
-  // guard, `agency` must keep matching sectorRegistry, and `leadEik` is what makes
-  // CompanyDbScreen's `showPack = SectorPack && !sectorDash` suppress RoadsPack on
-  // /awarder/000695089. Do not trim it.
+  // guard, `agency` must keep matching sectorRegistry, and `leadEik` resolves
+  // the awarder page's „this buyer has a sector page" cross-link. Do not trim it.
   //
-  // RoadsPack itself is therefore UNREACHABLE: this entry no longer renders and
-  // the awarder page suppresses it. It stays registered only because the
-  // pack-backed-sector gates (sectorDashboards.test.ts) count it; deleting it
-  // means re-deciding those gates for a bespoke hub, which v1 did not do. Its
-  // „без търг" / ≥80% capture chips predate R11 — do not revive them as-is.
+  // Roads has NO registered pack (RoadsPack and useRoads were deleted after the
+  // roads-hub audit — nothing rendered them), so this is a non-pack entry like
+  // `administration`, and the pack-backed-sector gates no longer count it.
   roads: {
     id: "roads",
     titleKey: "sector_roads_title",
