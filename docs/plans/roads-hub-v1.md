@@ -519,6 +519,12 @@ appears only where the destination reads `?q` (`/procurement/contracts` does).
 
 Gate: `roadsSearch.test.ts`.
 
+**Done 2026-10-12.** `roadsSearch.ts`: a corridor index over the blob's `corridorIndex`, and
+contractor + contract groups on ONE memoised `procurement-search` request, both labelled „в целия
+регистър", with a see-all to the same whole-register set (no `?sector`). **ОПУ rows were dropped in
+review**: the procurement page has no per-oblast filter and its ОПУ tile shows only the top 12 with
+≥3 bid-known contracts, so a region hit would land on a list that never names it. Head 465 → 479 px.
+
 ### T7: page layer (B1, B4, C5–C7)
 
 **Prerender (B1).**

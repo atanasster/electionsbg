@@ -742,10 +742,10 @@ const HUB_HEAD_BUDGETS: {
   // all is a bonus — it doubles as a bucket-freshness gate.
   // 483 with the band alone; 495 once the evidence aside landed.
   { path: "/culture", maxPx: 560, measured: 495, cells: 4 },
-  // The roads sector hub (docs/plans/roads-hub-v1.md): identity + deck + a 4-cell band + a
-  // note + a 5-row corridor aside, no scope control (the hub is whole-corpus) and — until T6
-  // — no search slot. Measured 465 at 1280 on 2026-10-12.
-  { path: "/sector/roads", maxPx: 540, measured: 465, cells: 4 },
+  // The roads sector hub (docs/plans/roads-hub-v1.md): identity + deck + search + a 4-cell
+  // band + a note + a 5-row corridor aside, no scope control (the hub is whole-corpus).
+  // Measured 465 at 1280 on 2026-10-12 before the finder; 479 with it.
+  { path: "/sector/roads", maxPx: 540, measured: 479, cells: 4 },
   // Identity + deck + a scope control + a 4-cell band + a note + an evidence aside, and no
   // search slot (the grid is nineteen tiles, which is a list a reader scans rather than
   // searches).
