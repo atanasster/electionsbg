@@ -497,6 +497,14 @@ coverage gates fail on a routed page without them — so T7 shipped here, not la
 - Single-bid captions name the statutory share (R20, D7): €493.6M in-house + €267.3M
   negotiated-without-notice of the single-bid €. Do not re-score.
 
+**Done 2026-10-12.** `RoadCompetitionCard` (`#competition` on `/procurement`) puts the scoped
+single-bid share beside `useNationalCompetition()`'s ex-member pair on the same window — and shows
+NO baseline when the deployed function predates those keys, rather than a mismatched one. It names
+the single-bid € that went through „вътрешен конкурентен избор по РС" — which is a framework
+MINI-COMPETITION, not an in-house award as §2 R20 called it — and through negotiation without
+notice. The ОПУ tile carries the same-window baseline, worded „за проверка". Measured on the
+default (2026) window: 24.1% vs 48.9%; all-time, the ОПУ baseline reads 42%.
+
 ### T6: finder
 
 `roadsSearch.ts` on `HubSearch`:

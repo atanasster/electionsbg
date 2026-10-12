@@ -1,7 +1,8 @@
 // /sector/roads/procurement — the money over time and who receives it.
 //
-// Sections carry ids the hub links to: #contractors, #inhouse, #regions,
-// #annexes, #pipeline. roadsRegistry.test.ts fails a hub link to a fragment this
+// Sections carry ids: #contractors, #inhouse, #regions, #annexes and #pipeline
+// are hub link targets; #competition is not (the hub's competition tile and KPI
+// go to the single-bid contracts browser, which names the rows). roadsRegistry.test.ts fails a hub link to a fragment this
 // page does not render.
 //
 // The page is SCOPED (ScopeControl) except two blocks that say so: the option
@@ -22,6 +23,11 @@ import { RoadRepeatWinnersTile } from "@/screens/components/procurement/roads/Ro
 import { RoadPlannedTendersTile } from "@/screens/components/procurement/roads/RoadPlannedTendersTile";
 import { RoadAnnexOptionsTile } from "@/screens/components/procurement/roads/RoadAnnexOptionsTile";
 import { useRoadsHubStats } from "@/data/roads/hubStats";
+import {
+  nationalSingleBidExMembers,
+  useNationalCompetition,
+} from "@/data/procurement/useNationalCompetition";
+import { RoadCompetitionCard } from "@/screens/components/procurement/roads/RoadCompetitionCard";
 import { ROADS_INHOUSE_CONTRACTORS } from "@/lib/roadsReferenceData";
 import type { RoadsModel } from "@/lib/roadAttributes";
 import { RoadsPageFrame } from "./RoadsPageFrame";
@@ -81,15 +87,22 @@ const InhouseCard: FC<{ model: RoadsModel }> = ({ model }) => {
 
 const ProcurementBody: FC<{ model: RoadsModel }> = ({ model }) => {
   const { data: stats } = useRoadsHubStats();
+  const { data: national } = useNationalCompetition();
+  // Same window, same basis (ex-member pair) as the engine's rows — or none.
+  const baseline = nationalSingleBidExMembers(national);
   return (
     <>
       <RoadTimeSpineTile years={model.years} />
+      <RoadCompetitionCard model={model} nationalRate={baseline} />
       <section id="contractors" className="scroll-mt-24">
         <RoadTopContractorsTile contractors={model.contractors} />
       </section>
       <InhouseCard model={model} />
       <section id="regions" className="scroll-mt-24 grid gap-4 xl:grid-cols-2">
-        <RoadRegionCompetitionTile regions={model.regions} />
+        <RoadRegionCompetitionTile
+          regions={model.regions}
+          baseline={baseline}
+        />
         <RoadRepeatWinnersTile rows={model.rows} />
       </section>
       {stats ? <RoadAnnexOptionsTile options={stats.annexOptions} /> : null}

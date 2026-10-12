@@ -22,9 +22,12 @@ const shareColor = (s: number): string => {
   return "bg-emerald-500/70";
 };
 
-export const RoadRegionCompetitionTile: FC<{ regions: RegionAgg[] }> = ({
-  regions,
-}) => {
+export const RoadRegionCompetitionTile: FC<{
+  regions: RegionAgg[];
+  /** The national single-bid share (0..1) on the page's window and basis — the
+   *  peer group a directorate's rate is read against. Omitted, no baseline. */
+  baseline?: number | null;
+}> = ({ regions, baseline }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
 
@@ -96,6 +99,11 @@ export const RoadRegionCompetitionTile: FC<{ regions: RegionAgg[] }> = ({
           {lang === "bg"
             ? "Дял на договорите с една оферта по ОПУ. Дължината на лентата е вложените средства. Червено = слаба конкуренция."
             : "Single-bid share per regional directorate. Bar length is € spent. Red = weak competition."}
+          {baseline != null
+            ? lang === "bg"
+              ? ` Средно за всички възложители в същия период: ${Math.round(baseline * 100)}%. Сигнал за проверка, не доказателство.`
+              : ` All buyers in the same window: ${Math.round(baseline * 100)}%. A signal for review, not proof.`
+            : null}
         </p>
       </CardContent>
     </Card>

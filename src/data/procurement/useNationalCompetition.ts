@@ -38,3 +38,13 @@ export const useNationalCompetition = () => {
     staleTime: Infinity,
   });
 };
+
+/** The national single-bid SHARE without consortium-member rows (0..1), or null
+ *  when the deployed function predates those keys — never a 0, which would draw a
+ *  baseline nobody measured. The one definition for every roads surface. */
+export const nationalSingleBidExMembers = (
+  n: NationalCompetition | null | undefined,
+): number | null =>
+  n?.bidKnownExMembers && n.singleBidExMembers != null
+    ? n.singleBidExMembers / n.bidKnownExMembers
+    : null;
