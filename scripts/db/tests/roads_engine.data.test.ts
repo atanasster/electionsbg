@@ -347,3 +347,32 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "noise-barrier lots carry no €/km, sibling lots included",
+  async () => {
+    const rows = await rowsOf();
+    // Independent of the engine: every lot of a procedure that ANY lot names as
+    // шумозащитни, minus the design/supervision lots (CPV 71).
+    const unps = new Set(
+      rows
+        .filter((r) => r.unp && /шумозащит/i.test(r.title ?? ""))
+        .map((r) => r.unp!),
+    );
+    assert.ok(unps.size >= 1, "no noise-barrier procedure — retire this arm");
+    const m = buildRoadsModel(rows);
+    const lots = m.rows.filter(
+      (r) => r.c.unp && unps.has(r.c.unp) && !(r.c.cpv ?? "").startsWith("71"),
+    );
+    // Non-vacuity: the procedure has place-and-chainage lots that name no work.
+    assert.ok(
+      lots.filter((r) => !/шумозащит/i.test(r.c.title) && lengthOf(r.c.title))
+        .length >= 2,
+      "no untitled sibling lots — the procedure-level rule is untested",
+    );
+    for (const r of lots) {
+      assert.equal(r.workType, "noise_barrier", r.c.title.slice(0, 90));
+      assert.equal(r.perKm, undefined, r.c.title.slice(0, 90));
+    }
+  },
+);

@@ -448,6 +448,7 @@ export type WorkType =
   | "design"
   | "supervision"
   | "archaeology"
+  | "noise_barrier"
   | "other";
 
 /** Physical work types whose cost-per-km is meaningful. */
@@ -538,6 +539,11 @@ export const workTypeOf = (
       (/проучван/.test(n) && !cpv?.startsWith("45")))
   )
     return "design";
+  // Шумозащитни съоръжения (noise walls along a motorway past housing): physical
+  // works, but a wall's € over the chainage it shields is not a road cost — the
+  // Шумен / Ботевград lots read 1.5 and 3.0 M€/km „reconstruction" on АМ „Хемус".
+  // Placed AFTER the design rules so a wall's acoustic design stays design.
+  if (/шумозащит/.test(n)) return "noise_barrier";
   if (n.includes("основен ремонт")) return "rehab_major";
   if (/рехабилитац/.test(n)) return "rehab";
   if (/реконструкц/.test(n)) return "reconstruction";
@@ -573,10 +579,38 @@ export const workTypeOf = (
   return workTypeFromCpv(cpv) ?? "other";
 };
 
+/** УНПs of the procedures whose lots are noise barriers. Only ONE lot of such a
+ *  procedure tends to say so — 00044-2023-0103's „ОП 2: в.з. Зелин, гр. Ботевград
+ *  … АМ „Хемус“ от км 44+717 до км 45+474" names a place and a chainage and no
+ *  work at all — so the work type is read off the procedure, i.e. off any sibling
+ *  lot that names it. */
+export const noiseBarrierUnps = (
+  rows: ReadonlyArray<{ title?: string | null; unp?: string | null }>,
+): Set<string> => {
+  const out = new Set<string>();
+  for (const r of rows)
+    if (r.unp && /шумозащит/i.test(r.title ?? "")) out.add(r.unp);
+  return out;
+};
+
+/** A lot's work type in the context of its procedure: a physical-works lot of a
+ *  noise-barrier procedure is a noise barrier. Design / supervision / archaeology
+ *  lots of the same procedure keep their own type. */
+export const workTypeInProcedure = (
+  workType: WorkType,
+  unp: string | null | undefined,
+  noiseUnps: ReadonlySet<string>,
+): WorkType =>
+  unp && noiseUnps.has(unp) && PHYSICAL.has(workType)
+    ? "noise_barrier"
+    : workType;
+
 // Display grouping for the build-vs-repair donut.
 export type WorkGroup = "build" | "rehab" | "maintenance" | "design" | "other";
 export const workGroupOf = (w: WorkType): WorkGroup => {
-  if (w === "new_build" || w === "reconstruction") return "build";
+  // A noise wall is newly built, even though it carries no €/km.
+  if (w === "new_build" || w === "reconstruction" || w === "noise_barrier")
+    return "build";
   if (w === "rehab_major" || w === "rehab" || w === "preventive")
     return "rehab";
   if (w === "maintenance" || w === "area_maint") return "maintenance";
@@ -651,6 +685,7 @@ export type WorkComponent =
   | "tolling_its"
   | "markings_signs"
   | "safety_barriers"
+  | "noise_barriers"
   | "lighting"
   | "drainage"
   | "retaining"
@@ -677,6 +712,7 @@ export const workComponentOf = (
   if (workType === "supervision" || workType === "design")
     return "design_supervision";
   if (workType === "archaeology") return "archaeology";
+  if (workType === "noise_barrier") return "noise_barriers";
   if (/тунел/.test(n)) return "tunnel";
   if (/мост|надлез|подлез|естакад|виадукт/.test(n) || cpv?.startsWith("45221"))
     return "bridge";
@@ -754,6 +790,7 @@ export const COMPONENT_LABEL: Record<
   tolling_its: { bg: "Тол и ИТС", en: "Tolling & ITS" },
   markings_signs: { bg: "Маркировка и знаци", en: "Markings & signs" },
   safety_barriers: { bg: "Ограничителни системи", en: "Safety barriers" },
+  noise_barriers: { bg: "Шумозащитни съоръжения", en: "Noise barriers" },
   lighting: { bg: "Осветление", en: "Lighting" },
   drainage: { bg: "Отводняване", en: "Drainage" },
   retaining: { bg: "Подпорни стени", en: "Retaining walls" },
@@ -920,11 +957,16 @@ export const buildRoadsModel = (
   // No € moves. The awarder route counts the same way (consortium_role IS
   // DISTINCT FROM 'member').
   const rows: RoadContract[] = [];
+  const noiseUnps = noiseBarrierUnps(contracts);
   for (const c of contracts) {
     if (!isSpendRow(c)) continue;
     if (c.consortiumRole === "member") continue;
     const ref = roadRefOf(c.title);
-    const workType = workTypeOf(c.title, c.cpv, c.contractorName);
+    const workType = workTypeInProcedure(
+      workTypeOf(c.title, c.cpv, c.contractorName),
+      c.unp,
+      noiseUnps,
+    );
     const len = lengthOf(c.title);
     rows.push({
       c,

@@ -23,6 +23,9 @@ export const ROAD_ROW_COLUMNS = [
   `procurement_method AS "procurementMethod"`,
   `number_of_tenderers AS "numberOfTenderers"`,
   `consortium_role AS "consortiumRole"`,
+  // The procedure: a lot's work type can only be read off a SIBLING lot's title
+  // (noise barriers — roadAttributes.noiseBarrierUnps).
+  `unp`,
 ] as const;
 
 /** Every row (all tags — the engine drops amendments itself) for a buyer set. */

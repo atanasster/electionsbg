@@ -9,6 +9,7 @@ import {
   isPartialScope,
   lengthOf,
   MULTI_REGION,
+  noiseBarrierUnps,
   regionOf,
   roadRefOf,
   RUSE_VT_CORRIDOR,
@@ -441,5 +442,63 @@ describe("corridor €/km median is over ONE work class", () => {
     );
     expect(m.corridors[0].eurPerKmClass).toBe("rehab");
     expect(m.corridors[0].eurPerKmMedian).toBe(200_000);
+  });
+});
+
+describe("noise barriers — read off the procedure, no €/km", () => {
+  // УНП 00044-2023-0103: only the first lot says what the work is.
+  const unp = "00044-2023-0103";
+  const lots = [
+    row({
+      unp,
+      cpv: "45233120",
+      amountEur: 1_018_593,
+      title:
+        "„Определяне на изпълнител за проектиране и строителство (инженеринг) на шумозащитни съоръжения на жилищни територии с установено наднормено ниво на шум",
+    }),
+    row({
+      unp,
+      cpv: "45233120",
+      amountEur: 3_155_308,
+      title:
+        "ОП 2: в.з. Зелин, гр. Ботевград, обл. Софийска - АМ „Хемус“ от км 44+717 до км 45+474 и дясно платно от км 45+211 до км 45+516",
+    }),
+    row({
+      unp,
+      cpv: "45233120",
+      amountEur: 1_271_072,
+      contractorName: "ДЗЗД Шумозащитни съоръжения",
+      title:
+        "Обособена позиция 4: кв. Макак, гр. Шумен, обл. Шумен - АМ „Хемус“ от км 348+100 до км 348+955",
+    }),
+  ];
+
+  it("the titled lot is a noise barrier on its own", () => {
+    expect(workTypeOf(lots[0].title, "45233120")).toBe("noise_barrier");
+  });
+
+  it("an acoustic DESIGN for noise walls stays design", () => {
+    expect(
+      workTypeOf(
+        "„Изработване на акустичен и конструктивен проект за шумозащитни стени, съобразно ситуацията на главен път Е-79 от км 363+000",
+        "71320000",
+      ),
+    ).toBe("design");
+  });
+
+  it("place-and-chainage sibling lots inherit it and carry no €/km", () => {
+    expect(noiseBarrierUnps(lots)).toEqual(new Set([unp]));
+    const m = buildRoadsModel(lots);
+    for (const r of m.rows) {
+      expect(r.workType).toBe("noise_barrier");
+      expect(r.group).toBe("build");
+      expect(r.component).toBe("noise_barriers");
+      expect(r.perKm).toBeUndefined();
+    }
+  });
+
+  it("without the procedure key a bare lot is still unit-costed — the УНП is load-bearing", () => {
+    const m = buildRoadsModel([{ ...lots[1], unp: undefined }]);
+    expect(m.rows[0].perKm).toBeDefined();
   });
 });

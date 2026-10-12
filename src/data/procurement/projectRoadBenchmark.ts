@@ -8,7 +8,13 @@
 // €/km count — per the roads-effectiveness audit only ~7% of road rows do, so this is
 // often null, which the caller renders as "absent", never as zero.
 
-import { workTypeOf, lengthOf, eurPerKmOf } from "@/lib/roadAttributes";
+import {
+  workTypeOf,
+  workTypeInProcedure,
+  noiseBarrierUnps,
+  lengthOf,
+  eurPerKmOf,
+} from "@/lib/roadAttributes";
 
 export interface CorpusUnitCost {
   /** VALUE-WEIGHTED median €/km — the rate at which half the sample's MONEY sits
@@ -34,6 +40,7 @@ type RoadRow = {
   title?: string | null;
   cpv?: string | null;
   contractorName?: string | null;
+  unp?: string | null;
   amountEur?: number | null;
   tag?: string | null;
 };
@@ -72,12 +79,17 @@ export function computeCorpusEurPerKm(
   const pairs: { perKm: number; weight: number }[] = [];
   let totalKm = 0;
   let contractedInSampleEur = 0;
+  const noiseUnps = noiseBarrierUnps(contracts);
   for (const c of contracts) {
     if ((c.tag ?? "contract") !== "contract") continue;
-    const workType = workTypeOf(
-      c.title ?? "",
-      c.cpv ?? undefined,
-      c.contractorName ?? undefined,
+    const workType = workTypeInProcedure(
+      workTypeOf(
+        c.title ?? "",
+        c.cpv ?? undefined,
+        c.contractorName ?? undefined,
+      ),
+      c.unp,
+      noiseUnps,
     );
     const len = lengthOf(c.title ?? "");
     // eurPerKmOf reads only amountEur + title — its parameter is that minimal shape.
