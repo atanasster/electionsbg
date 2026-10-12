@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "../edgeTest";
 import fs from "node:fs";
 import path from "node:path";
 

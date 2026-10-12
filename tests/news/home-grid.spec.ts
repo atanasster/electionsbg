@@ -31,7 +31,7 @@
 // holds is what makes that survivable, and it earns its keep whether or not any
 // annotation is currently in use.
 
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "../edgeTest";
 import fs from "node:fs/promises";
 import path from "node:path";
 import {

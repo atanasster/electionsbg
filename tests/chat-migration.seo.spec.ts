@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./edgeTest";
 
 for (const prefix of ["", "/en"])
   for (const path of ["chat", "chat/tools", "chat/evals"]) {

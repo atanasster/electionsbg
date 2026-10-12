@@ -14,7 +14,7 @@
 // the `db` function, so the emulator forwards the navigation itself to the deployed one. See
 // serveLocalShell below for why that is fatal here rather than merely slow.
 
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type Page } from "./edgeTest";
 
 const PROFILE = {
   slug: "e2e-person",

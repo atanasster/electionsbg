@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { test, expect, type APIResponse } from "@playwright/test";
+import { test, expect, type APIResponse } from "./edgeTest";
 
 // Per-segment percent-encode (matches scripts/prerender/index.ts:encodeUrlPath).
 const enc = (p: string): string =>

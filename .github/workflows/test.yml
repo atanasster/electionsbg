@@ -113,10 +113,15 @@ jobs:
         env:
           VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com
 
+      # The emulator forwards /api/db, /api/sql and the function-served pages to the
+      # DEPLOYED functions, whose edge gate refuses anything that did not come through
+      # Cloudflare. EDGE_CI_TOKEN is the CI-only token in EDGE_SHARED_SECRET;
+      # tests/edgeTest.ts attaches it to emulator-origin function requests only.
       - name: Run Playwright tests
         run: npm test
         env:
           CI: "true"
+          EDGE_CI_TOKEN: ${{ secrets.EDGE_CI_TOKEN }}
 
       - name: Upload Playwright report
         if: always()

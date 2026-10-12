@@ -1,4 +1,4 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type Page } from "./edgeTest";
 import fs from "node:fs";
 import { brotliCompressSync, constants } from "node:zlib";
 import { fileURLToPath } from "node:url";

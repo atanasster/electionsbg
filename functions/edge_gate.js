@@ -19,7 +19,13 @@
  * checks it. Hosting forwards request headers to the function, the other four
  * routes never carry it, and the value is in Secret Manager
  * (`EDGE_SHARED_SECRET`). The secret may hold several comma-separated tokens,
- * so a rotation (old + new) and a CI-only token can coexist.
+ * so a rotation (old + new) and a CI-only token can coexist. The CI token is the
+ * GitHub secret `EDGE_CI_TOKEN`: CI's hosting emulator forwards function rewrites
+ * to the DEPLOYED functions (via europe-west3-elections-bg.cloudfunctions.net — a
+ * sixth route, covered like the rest), and `tests/edgeTest.ts` attaches it.
+ *
+ * ⚠️ A deployed function PINS the secret version it was deployed with, so a new
+ * version reaches nothing until `firebase deploy --only functions:db,functions:sql`.
  *
  * Modes, set by EDGE_GATE_MODE below and active ONLY on the prod project:
  *   "log"     — never blocks; logs every request that would have been refused.

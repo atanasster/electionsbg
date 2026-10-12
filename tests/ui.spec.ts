@@ -1,6 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { test, expect, type Page, type ConsoleMessage } from "@playwright/test";
+import {
+  test,
+  expect,
+  attachEdgeToken,
+  type Page,
+  type ConsoleMessage,
+} from "./edgeTest";
 import { TICK_MAX_CHARS } from "../src/screens/budget/budgetFunctionalBars";
 import { MAYOR_PAY_BAND_CELLS } from "../src/screens/governance/mayorPayHubFigures";
 import { stripJsxComments } from "../src/ux/infographic/stripJsxComments";
@@ -263,6 +269,7 @@ test.describe("UI: theme and layout", () => {
     browser,
   }) => {
     const context = await browser.newContext({ colorScheme: "dark" });
+    await attachEdgeToken(context);
     const page = await context.newPage();
     const c = startCollecting(page);
     await page.goto("/", { waitUntil: "networkidle" });

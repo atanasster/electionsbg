@@ -29,7 +29,7 @@
 //
 //   npm run build && npx playwright test --project=surfaces
 
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type Page } from "./edgeTest";
 import { DIASPORA_REGION } from "../src/data/diaspora/diasporaFaq";
 
 // ⚠ TWO 25 s WAITS AND A REAL CROSS-ORIGIN BUCKET FETCH DO NOT FIT PLAYWRIGHT'S 30 s DEFAULT,
