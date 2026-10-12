@@ -362,9 +362,29 @@ const AdminServicesBrowseScreen = lazy(() =>
     default: m.AdminServicesBrowseScreen,
   })),
 );
-const WaterScreen = lazy(() =>
-  import("./screens/water/WaterScreen").then((m) => ({
-    default: m.WaterScreen,
+const WaterHubScreen = lazy(() =>
+  import("./screens/water/WaterHubScreen").then((m) => ({
+    default: m.WaterHubScreen,
+  })),
+);
+const WaterProcurementScreen = lazy(() =>
+  import("./screens/water/WaterProcurementScreen").then((m) => ({
+    default: m.WaterProcurementScreen,
+  })),
+);
+const WaterServicesScreen = lazy(() =>
+  import("./screens/water/WaterServicesScreen").then((m) => ({
+    default: m.WaterServicesScreen,
+  })),
+);
+const WaterFloodsScreen = lazy(() =>
+  import("./screens/water/WaterFloodsScreen").then((m) => ({
+    default: m.WaterFloodsScreen,
+  })),
+);
+const WaterFundsScreen = lazy(() =>
+  import("./screens/water/WaterFundsScreen").then((m) => ({
+    default: m.WaterFundsScreen,
   })),
 );
 const ExciseRegisterScreen = lazy(() =>
@@ -2256,11 +2276,51 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          {/* The water hub lives at /water (docs/plans/water-hub-v1.md W1); the
+              /sector/:id form every other infrastructure sector uses redirects
+              here rather than falling through to SectorDashboardScreen, which
+              has no water entry. */}
+          <Route
+            path="sector/water"
+            element={<Navigate to="/water" replace />}
+          />
           <Route
             path="water"
             element={
               <LayoutScreen>
-                <WaterScreen />
+                <WaterHubScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="water/procurement"
+            element={
+              <LayoutScreen>
+                <WaterProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="water/services"
+            element={
+              <LayoutScreen>
+                <WaterServicesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="water/floods"
+            element={
+              <LayoutScreen>
+                <WaterFloodsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="water/funds"
+            element={
+              <LayoutScreen>
+                <WaterFundsScreen />
               </LayoutScreen>
             }
           />

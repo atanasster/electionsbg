@@ -460,6 +460,25 @@ const ROUTES: RouteCheck[] = [
     expectedCanonical: path,
     hasEnglishMirror: true,
   })),
+
+  // The water sector hub and its four new sub-pages (docs/plans/water-hub-v1.md T3) —
+  // hand-authored, so each needs its own check that it is not serving the homepage's head.
+  ...(
+    [
+      ["/water", "Води (ВиК)", 700],
+      ["/water/procurement", "Поръчките на ВиК сектора", 300],
+      ["/water/services", "Воден режим и достъп до водни услуги", 300],
+      ["/water/floods", "Почистване на речни корита", 300],
+      ["/water/funds", "Еврофондове за ВиК операторите", 300],
+    ] as const
+  ).map(([path, h1, minBodyChars]) => ({
+    path,
+    titleIncludes: h1,
+    h1Includes: h1,
+    minBodyChars,
+    expectedCanonical: path,
+    hasEnglishMirror: true,
+  })),
 ];
 
 // English mirrors that must serve the EN prerender (not the EN home fallback).

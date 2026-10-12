@@ -213,6 +213,10 @@ const HUB_SCREENS = [
   // together for the /budget reason. Its basis names the corpus window („2011–2026").
   "src/screens/roads/RoadsHubScreen.tsx",
   "src/screens/roads/roadsHubFigures.ts",
+  // The water sector hub (docs/plans/water-hub-v1.md T3) and its band module, for the
+  // same reason. Its basis names the corpus start („от 2011 г.") and an НСИ year.
+  "src/screens/water/WaterHubScreen.tsx",
+  "src/screens/water/waterHubFigures.ts",
 ];
 
 /** Every `<HubHead` call site under src/screens, comment-stripped so a screen that merely

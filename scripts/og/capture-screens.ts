@@ -94,13 +94,18 @@ const captures: Capture[] = [
   {
     slug: "water",
     routePath: "water",
-    // The riverbed-cleaning tile (#flood) is static-data — always renders with
-    // no /api/db dependency — and carries the headline € plus the year bars, so
-    // it's a robust, self-contained OG hero for the water view.
-    waitFor: "#flood",
-    anchor: "#flood",
-    centerOnAnchor: true,
-    settleMs: 1500,
+    // The water sector hub's head (docs/plans/water-hub-v1.md T3). All four band
+    // cells come from one blob (water/derived/hub_stats.json), so the wait names
+    // the two whose destinations no other head link shares — the services page
+    // and the funds page — and an absent blob times out instead of overwriting a
+    // good card. (Until 2026-10-12 this framed the riverbed tile, which moved to
+    // /water/floods.)
+    waitFor:
+      '[data-hub-head]:has([data-kpi-cell][href*="/water/services"]):has([data-kpi-cell][href*="/water/funds"]) [data-kpi-cell]',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
     slug: "risk-analysis",

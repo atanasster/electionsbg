@@ -991,6 +991,7 @@ describe("a hub's og capture anchors on its head", () => {
     subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
     "culture-hub": "src/screens/culture/CultureHubScreen.tsx",
     "sector-roads": "src/screens/roads/RoadsHubScreen.tsx",
+    water: "src/screens/water/WaterHubScreen.tsx",
     "governance-sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
     indicators: "src/screens/indicators/IndicatorsLandingScreen.tsx",
     prices: "src/screens/PricesScreen.tsx",
@@ -1302,6 +1303,7 @@ describe("a hub's og capture anchors on its head", () => {
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
       "sector-roads": "src/screens/roads/roadsHubFigures.ts",
+      water: "src/screens/water/waterHubFigures.ts",
       indicators: "src/screens/indicators/indicatorsHubFigures.ts",
       "governance-sectors": "src/screens/governance/sectorsHubFigures.ts",
       "governance-declarations":

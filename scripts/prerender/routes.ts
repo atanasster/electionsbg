@@ -1355,6 +1355,178 @@ const BESPOKE_SECTOR_PAGE_IDS = new Set(["roads"]);
     );
 }
 
+/** /water and its four new sub-pages (/water/operators is its own entry) —
+ *  hand-authored. Plan: docs/plans/water-hub-v1.md T3. Every figure comes from
+ *  waterFacts (the committed hub blob + flood_maintenance.json). */
+const waterStaticPages = (): PrerenderRoute[] => {
+  const f = waterFacts;
+  const links = (en: boolean) => {
+    const b = `${SITE_URL}${en ? "/en" : ""}/water`;
+    return en
+      ? `<ul>
+<li><a href="${b}/operators">Water operators</a> — every operator with its procurement, single-bidder share and EU funds, on a map and in a table.</li>
+<li><a href="${b}/procurement">Water-sector procurement</a> — what the operators buy by function, competition by operator and the contractors.</li>
+<li><a href="${b}/services">Rationing and access</a> — the share of people under water rationing, on public water supply and with wastewater treatment (NSI).</li>
+<li><a href="${b}/floods">Riverbed cleaning</a> — spend on cleaning and regulating riverbeds and gullies, by awarder and province.</li>
+<li><a href="${b}/funds">EU funds</a> — programme funds contracted and paid to the water operators (ИСУН).</li>
+</ul>`
+      : `<ul>
+<li><a href="${b}/operators">ВиК операторите</a> — всеки оператор с поръчките, дела с една оферта и европейските средства, на карта и в таблица.</li>
+<li><a href="${b}/procurement">Поръчките на сектора</a> — какво купуват операторите по функция, конкуренцията по оператор и изпълнителите.</li>
+<li><a href="${b}/services">Воден режим и достъп</a> — делът на хората с воден режим, с обществено водоснабдяване и с пречистване на отпадъчните води (НСИ).</li>
+<li><a href="${b}/floods">Речни корита</a> — разходите за почистване и корекция на речни корита и дерета, по възложител и област.</li>
+<li><a href="${b}/funds">Еврофондове</a> — договорените и изплатените средства по програмите за ВиК операторите (ИСУН).</li>
+</ul>`;
+  };
+  const rationingBg =
+    f.rationingBg && f.rationingYear
+      ? ` През ${f.rationingYear} г. ${f.rationingBg}% от населението е с воден режим (НСИ).`
+      : "";
+  const rationingEn =
+    f.rationingEn && f.rationingYear
+      ? ` In ${f.rationingYear}, ${f.rationingEn}% of the population lived under water rationing (NSI).`
+      : "";
+  const competitionBg =
+    f.singleBidBg && f.nationalBg
+      ? ` ${f.singleBidBg}% от договорите им са с една оферта — при ${f.nationalBg}% средно за всички възложители.`
+      : "";
+  const competitionEn =
+    f.singleBidEn && f.nationalEn
+      ? ` ${f.singleBidEn}% of their contracts drew a single bid — against ${f.nationalEn}% across all buyers.`
+      : "";
+  const competitionDescBg =
+    f.singleBidBg && f.nationalBg
+      ? `, дял с една оферта ${f.singleBidBg}% при ${f.nationalBg}% средно`
+      : "";
+  const competitionDescEn =
+    f.singleBidEn && f.nationalEn
+      ? `, a ${f.singleBidEn}% single-bidder share against ${f.nationalEn}% on average`
+      : "";
+  const hubBack = (en: boolean) =>
+    en
+      ? `<p>See also the <a href="${SITE_URL}/en/water">water sector</a>.</p>`
+      : `<p>Виж и <a href="${SITE_URL}/water">сектор „Води“</a>.</p>`;
+  return [
+    staticPage({
+      path: "water",
+      ogImage: "/og/water.png",
+      title: "Води (ВиК) — операторите, поръчките им и водният режим | Наясно",
+      description: `Водният сектор на България: ${f.operatorCount} възложители, от тях ${f.utilities} ВиК оператора, с ${f.procEurBnBg} млрд. € обществени поръчки${f.sinceYear ? ` от ${f.sinceYear} г.` : ""}${competitionDescBg}, европейски средства и воден режим.`,
+      breadcrumbName: "Води (ВиК)",
+      bodyHtml: `
+<h1>Води (ВиК)</h1>
+<p>Почти всяка област има свое регионално ВиК дружество; София се обслужва от концесия, а в Пазарджик регионалното дружество е в ликвидация и услугата е разпределена между общински оператори. Български ВиК холдинг е принципал на ${f.regionalCount} от регионалните дружества, но централата почти не купува — поръчките са в самите оператори.</p>
+<p>В сектора има ${f.operatorCount} възложители, от тях ${f.utilities} ВиК оператора, с ${f.procEurBnBg} млрд. € обществени поръчки${f.sinceYear ? ` от ${f.sinceYear} г.` : ""} (текуща стойност след анекси).${competitionBg} По европейските програми са им договорени ${f.euMlnContracted} млн. €, изплатени ${f.euMlnPaid} млн. €.${rationingBg}</p>
+<h2>Какво ще намерите тук</h2>
+${links(false)}
+<p>Тези числа са от различни източници и не се събират. Почистването на речни корита (${f.floodEurMln} млн. €) е по предмет на договора, от всички възложители — не е част от поръчките на операторите.</p>
+<p>Виж и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг като възложител</a> и <a href="${SITE_URL}/governance/sectors">всички сектори</a>.</p>
+<p>Източник: АОП/ЦАИС ЕОП, ИСУН, НСИ.</p>`.trim(),
+      english: {
+        title:
+          "Water (ВиК) — the operators, their procurement and water rationing | Naiasno",
+        description: `Bulgaria's water sector: ${f.operatorCount} buyers, ${f.utilities} of them water utilities, with €${f.procEurBnEn}bn of public procurement${f.sinceYear ? ` since ${f.sinceYear}` : ""}${competitionDescEn}, EU funds and water rationing.`,
+        breadcrumbName: "Water (ВиК)",
+        bodyHtml: `
+<h1>Water (ВиК)</h1>
+<p>Almost every province has its own regional water company; Sofia is served by a concession, and in Pazardzhik the regional company is in liquidation with the service split across municipal operators. The Bulgarian Water Holding is the principal of ${f.regionalCount} of the regional companies, but the parent buys almost nothing — the procurement is in the operators themselves.</p>
+<p>The sector is ${f.operatorCount} buyers, ${f.utilities} of them water utilities, with €${f.procEurBnEn}bn of public procurement${f.sinceYear ? ` since ${f.sinceYear}` : ""} (current value after annexes).${competitionEn} EU programmes have contracted them €${f.euMlnContracted}M and paid €${f.euMlnPaid}M.${rationingEn}</p>
+<h2>What you'll find</h2>
+${links(true)}
+<p>These figures come from different sources and do not add up. Riverbed cleaning (€${f.floodEurMln}M) is selected by contract subject, from every awarder — it is not part of the operators' procurement.</p>
+<p>See also the <a href="${SITE_URL}/en/awarder/206086428">Bulgarian Water Holding as a buyer</a> and <a href="${SITE_URL}/en/governance/sectors">all sectors</a>.</p>
+<p>Source: АОП/ЦАИС ЕОП, ИСУН, NSI.</p>`.trim(),
+      },
+    }),
+    staticPage({
+      path: "water/procurement",
+      ogImage: "/og/water.png",
+      title:
+        "Поръчките на ВиК сектора — по функция, конкуренция и изпълнители | Наясно",
+      description: `Какво купуват ${f.utilities} ВиК оператора и другите възложители във водния сектор — ${f.procEurBnBg} млрд. € по функция, дял с една оферта по оператор и концентрация на изпълнителите.`,
+      breadcrumbName: "Поръчките на ВиК сектора",
+      bodyHtml: `
+<h1>Поръчките на ВиК сектора</h1>
+<p>Обществените поръчки на ${f.operatorCount} възложители във водния сектор — ${f.procEurBnBg} млрд. €: по оператор, по функция (строителство на мрежи, водоснабдяване, материали, електроенергия за помпите), делът на договорите с една оферта по оператор и концентрацията на изпълнителите. Филтрира се по парламент или година.</p>
+${hubBack(false)}`.trim(),
+      english: {
+        title:
+          "Water-sector procurement — by function, competition and contractors | Naiasno",
+        description: `What the ${f.utilities} water utilities and the other buyers in the water sector buy — €${f.procEurBnEn}bn by function, single-bidder share by operator and contractor concentration.`,
+        breadcrumbName: "Water-sector procurement",
+        bodyHtml: `
+<h1>Water-sector procurement</h1>
+<p>The public procurement of the ${f.operatorCount} buyers in the water sector — €${f.procEurBnEn}bn: by operator, by function (network construction, water supply, materials, electricity for the pumps), the single-bidder share by operator and contractor concentration. Filterable by parliament or year.</p>
+${hubBack(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "water/services",
+      ogImage: "/og/water.png",
+      title: "Воден режим и достъп до водни услуги — по години | Наясно",
+      description: `Делът на населението с воден режим${f.rationingBg && f.rationingYear ? ` (${f.rationingBg}% през ${f.rationingYear} г.)` : ""}, с обществено водоснабдяване и с пречистване на отпадъчните води, по години — по данни на НСИ.`,
+      breadcrumbName: "Воден режим и достъп",
+      bodyHtml: `
+<h1>Воден режим и достъп до водни услуги</h1>
+<p>Делът на населението с режим на водоподаване — сезонен и целогодишен — и делът, свързан с обществено водоснабдяване и с пречистване на отпадъчните води, по години.${rationingBg}</p>
+<p>Източник: НСИ, Статистика на водите.</p>
+${hubBack(false)}`.trim(),
+      english: {
+        title:
+          "Water rationing and access to water services — by year | Naiasno",
+        description: `The share of the population under water rationing${f.rationingEn && f.rationingYear ? ` (${f.rationingEn}% in ${f.rationingYear})` : ""}, on public water supply and with wastewater treatment, by year — from NSI.`,
+        breadcrumbName: "Rationing and access",
+        bodyHtml: `
+<h1>Water rationing and access to water services</h1>
+<p>The share of the population under water rationing — seasonal and year-round — and the share connected to public water supply and to wastewater treatment, by year.${rationingEn}</p>
+<p>Source: NSI, water statistics.</p>
+${hubBack(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "water/floods",
+      ogImage: "/og/water.png",
+      title: "Почистване на речни корита — кой възлага и къде | Наясно",
+      description: `${f.floodEurMln} млн. € по ${f.floodContracts} договора от ${f.floodAwarders} възложителя за почистване и корекция на речни корита и дерета, по възложител, година и област.`,
+      breadcrumbName: "Речни корита",
+      bodyHtml: `
+<h1>Почистване на речни корита</h1>
+<p>${f.floodEurMln} млн. € по ${f.floodContracts} договора от ${f.floodAwarders} възложителя за почистване, корекция и укрепване на речни корита и дерета — отговорност, поделена между общини, областни управители и „Напоителни системи". Сумата е по предмет на договора, от всички възложители, и не се събира с поръчките на ВиК операторите.</p>
+${hubBack(false)}`.trim(),
+      english: {
+        title: "Riverbed cleaning — who awards it and where | Naiasno",
+        description: `€${f.floodEurMln}M across ${f.floodContracts} contracts from ${f.floodAwarders} awarders for cleaning and regulating riverbeds and gullies, by awarder, year and province.`,
+        breadcrumbName: "Riverbed cleaning",
+        bodyHtml: `
+<h1>Riverbed cleaning</h1>
+<p>€${f.floodEurMln}M across ${f.floodContracts} contracts from ${f.floodAwarders} awarders for cleaning, regulating and reinforcing riverbeds and gullies — responsibility split between municipalities, regional governors and Irrigation Systems. The figure is selected by contract subject, from every awarder, and is never added to the water operators' procurement.</p>
+${hubBack(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "water/funds",
+      ogImage: "/og/water.png",
+      title: "Еврофондове за ВиК операторите — договорени и изплатени | Наясно",
+      description: `${f.euMlnContracted} млн. € договорени и ${f.euMlnPaid} млн. € изплатени по европейските програми (ИСУН) за ВиК операторите, за целия програмен период.`,
+      breadcrumbName: "Еврофондове за ВиК",
+      bodyHtml: `
+<h1>Еврофондове за ВиК операторите</h1>
+<p>Договорените (${f.euMlnContracted} млн. €) и изплатените (${f.euMlnPaid} млн. €) средства по европейските програми за ВиК операторите, по оператор — за целия програмен период. Това е отделен източник (ИСУН) и не се събира с обществените поръчки.</p>
+${hubBack(false)}`.trim(),
+      english: {
+        title:
+          "EU funds for the water operators — contracted and paid | Naiasno",
+        description: `€${f.euMlnContracted}M contracted and €${f.euMlnPaid}M paid under EU programmes (ИСУН) to the water operators, over the whole programme period.`,
+        breadcrumbName: "EU funds for water",
+        bodyHtml: `
+<h1>EU funds for the water operators</h1>
+<p>EU programme funds contracted (€${f.euMlnContracted}M) and paid (€${f.euMlnPaid}M) to the water operators, by operator — over the whole programme period. This is a separate source (ИСУН) and is never added to public procurement.</p>
+${hubBack(true)}`.trim(),
+      },
+    }),
+  ];
+};
+
 /** /sector/roads and its three sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
  *  Plan: docs/plans/roads-hub-v1.md T7. The hub keeps the „обществени поръчки на
  *  АПИ" vocabulary the generic page was indexed under. */
@@ -1830,6 +2002,62 @@ export const buildDataCatalog = (lang: "bg" | "en") =>
     ),
   });
 
+// The /water hub's figures, from the committed hub blob
+// (data/water/derived/hub_stats.json, db:gen-water-hub-stats) — never literals.
+// Rounded as the hub's band renders them. `utilities` is the register's
+// OPERATOR count (G11): the 45 sector EIKs include the holding parent, the
+// irrigation enterprise and the dams company, which are not water utilities.
+function waterHubFacts() {
+  const h = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/water/derived/hub_stats.json"),
+      "utf-8",
+    ),
+  ) as {
+    procurement: {
+      eur: number;
+      singleBid: number;
+      bidKnown: number;
+      nationalSingleBid: number;
+      nationalBidKnown: number;
+      firstDate: string | null;
+    };
+    register: { operators: number };
+    euFunds: { contractedEur: number; paidEur: number };
+    services: { year: number; rationingPct: number | null } | null;
+  };
+  const p = h.procurement;
+  const fmt = (v: number, loc: string) =>
+    v.toLocaleString(loc, { maximumFractionDigits: 1 });
+  // null — never 0 — when there is no denominator: the hub drops the figure
+  // rather than state „0%", and the prerender must say the same thing.
+  const pct = (a: number, b: number): number | null =>
+    b > 0 ? (a / b) * 100 : null;
+  const pf = (v: number | null, loc: string) =>
+    v == null ? null : fmt(v, loc);
+  return {
+    procEurBnBg: fmt(p.eur / 1e9, "bg-BG"),
+    procEurBnEn: fmt(p.eur / 1e9, "en-US"),
+    utilities: h.register.operators,
+    sinceYear: p.firstDate?.slice(0, 4) ?? "",
+    singleBidBg: pf(pct(p.singleBid, p.bidKnown), "bg-BG"),
+    singleBidEn: pf(pct(p.singleBid, p.bidKnown), "en-US"),
+    nationalBg: pf(pct(p.nationalSingleBid, p.nationalBidKnown), "bg-BG"),
+    nationalEn: pf(pct(p.nationalSingleBid, p.nationalBidKnown), "en-US"),
+    euMlnContracted: Math.round(h.euFunds.contractedEur / 1e6),
+    euMlnPaid: Math.round(h.euFunds.paidEur / 1e6),
+    rationingYear: h.services?.year ?? null,
+    rationingBg:
+      h.services?.rationingPct != null
+        ? fmt(h.services.rationingPct, "bg-BG")
+        : null,
+    rationingEn:
+      h.services?.rationingPct != null
+        ? fmt(h.services.rationingPct, "en-US")
+        : null,
+  };
+}
+
 // The /water body quotes the real riverbed-cleaning total from the committed
 // flood_maintenance.json so the prerendered HTML matches the page. Build-time
 // read; if the artifact is ever moved behind bucket:sync, make this a lazy read.
@@ -1854,6 +2082,7 @@ const waterFacts = (() => {
     // precisely because every hand-written copy of it went stale at once.
     operatorCount: WATER_SECTOR_EIKS.length,
     regionalCount: VIK_HOLDING_SUB_EIKS.length,
+    ...waterHubFacts(),
   };
 })();
 
@@ -4026,46 +4255,7 @@ ${accumulationGapHtml("en")}`.trim(),
 <p>See also the <a href="${SITE_URL}/water">water-sector overview</a> and the <a href="${SITE_URL}/awarder/206086428">Bulgarian Water Holding</a>.</p>`.trim(),
     },
   }),
-  staticPage({
-    path: "water",
-    title: "Води (ВиК) — обществените поръчки на водния сектор | Наясно",
-    description: `Консолидиран изглед на обществените поръчки на ${waterFacts.operatorCount} оператора във водния сектор — регионалните ВиК дружества, общинските оператори, концесията за София, Напоителни системи и язовирите — плюс ${waterFacts.floodEurMln} млн. € за почистване и корекция на речни корита и дерета, по данни от регистъра на обществените поръчки (АОП/ЦАИС ЕОП).`,
-    breadcrumbName: "Води (ВиК)",
-    ogImage: "/og/water.png",
-    bodyHtml: `
-<h1>Води (ВиК) — обществените поръчки на водния сектор</h1>
-<p>Почти всяка област има свое регионално ВиК дружество; София се обслужва от концесия, а в Пазарджик регионалното дружество е в ликвидация и услугата е разпределена между общински оператори. Български ВиК холдинг е принципал на ${waterFacts.regionalCount} от регионалните дружества, но централата почти не купува — поръчките са в самите оператори. Тази страница събира и ${waterFacts.operatorCount}-те оператора на едно място: консолидираните им обществени поръчки и какво купуват по функция.</p>
-<h2>Какво ще намерите тук</h2>
-<ul>
-<li><strong>Дружествата във водния сектор</strong> — поръчките на всеки оператор, с връзка към неговата страница.</li>
-<li><strong>Какво купуват — по функция</strong> — строителство на мрежи, водоснабдяване, канализация и пречистване, тръби и помпи, електроенергия.</li>
-<li><strong>Карта на операторите</strong> — седалището на всеки оператор и делът на договорите му с една оферта.</li>
-<li><strong>Конкуренция и концентрация</strong> — дял на договорите с една оферта по оператор и концентрацията на изпълнителите (HHI).</li>
-<li><strong>Европейски средства</strong> — договорени срещу изплатени средства по програмите (ИСУН), за целия програмен период.</li>
-<li><strong>Воден режим и достъп до услугите</strong> — делът на населението с воден режим, свързано с обществено водоснабдяване и с пречиствателни станции (НСИ).</li>
-<li><strong>Почистване на речни корита</strong> — ${waterFacts.floodEurMln} млн. € по ${waterFacts.floodContracts} договора от ${waterFacts.floodAwarders} възложителя за почистване и корекция на речни корита и дерета — отговорност, поделена между общини, областни управители и „Напоителни системи". Тази сума е по предмет на договора, не по възложител, и не се сумира с поръчките на операторите.</li>
-</ul>
-<p>Виж и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг като възложител</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
-    english: {
-      title: "Water (ВиК) — public procurement of the water sector | Наясно",
-      description: `A consolidated view of the public procurement of ${waterFacts.operatorCount} operators in Bulgaria's water sector — the regional water companies, the municipal operators, the Sofia concession, the irrigation enterprise and the dams — plus €${waterFacts.floodEurMln}M on cleaning and regulating riverbeds and gullies, from the public-procurement register (АОП/ЦАИС ЕОП).`,
-      breadcrumbName: "Water (ВиК)",
-      bodyHtml: `
-<h1>Water (ВиК) — public procurement of the water sector</h1>
-<p>Almost every province has its own regional water company; Sofia is served by a concession, and in Pazardzhik the regional company is in liquidation with the service split across municipal operators. The Bulgarian Water Holding is the principal of ${waterFacts.regionalCount} of the regional companies, but the parent buys almost nothing — the procurement is in the operators themselves. This page brings all ${waterFacts.operatorCount} together: their consolidated public procurement and what they buy by function.</p>
-<h2>What you'll find</h2>
-<ul>
-<li><strong>Operators in the water sector</strong> — each operator's procurement, linking to its own page.</li>
-<li><strong>What they buy — by function</strong> — network construction, water supply, sewerage and treatment, pipes and pumps, electricity.</li>
-<li><strong>Operator map</strong> — each operator's seat and its share of single-bidder contracts.</li>
-<li><strong>Competition and concentration</strong> — single-bidder share per operator and contractor concentration (HHI).</li>
-<li><strong>EU funds</strong> — contracted vs paid programme funds (ИСУН), over the whole programme period.</li>
-<li><strong>Water rationing and access</strong> — the share of the population under water rationing, connected to public water supply and to wastewater treatment (NSI).</li>
-<li><strong>Riverbed cleaning</strong> — €${waterFacts.floodEurMln}M across ${waterFacts.floodContracts} contracts from ${waterFacts.floodAwarders} awarders for cleaning and regulating riverbeds and gullies — responsibility split between municipalities, regional governors and Irrigation Systems. This figure is selected by contract subject, not by awarder, and is never added to the operators' procurement.</li>
-</ul>
-<p>See also the <a href="${SITE_URL}/awarder/206086428">Bulgarian Water Holding as a buyer</a> and <a href="${SITE_URL}/procurement">public procurement</a>.</p>`.trim(),
-    },
-  }),
+  ...waterStaticPages(),
   staticPage({
     path: "pensions",
     title:

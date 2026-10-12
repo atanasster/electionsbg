@@ -399,7 +399,12 @@ pages(
   "Околна среда",
   "Environment",
 );
-pages(["riverbedCleaning"], "/water", "Води", "Water");
+pages(
+  ["riverbedCleaning"],
+  "/water/floods",
+  "Почистване на речни корита",
+  "Riverbed cleaning",
+);
 pages(
   ["generationMix", "powerPlants"],
   "/sector/energy",
@@ -608,7 +613,12 @@ pages(
   "Инвестиционна програма",
   "Investment programme",
 );
-pages(["waterServices"], "/water", "Води", "Water");
+pages(
+  ["waterServices"],
+  "/water/services",
+  "Воден режим и достъп",
+  "Rationing and access",
+);
 pages(["landUse"], "/sector/environment", "Земеползване", "Land use");
 pages(
   ["localTaxes", "transparencyScore"],

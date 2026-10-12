@@ -72,6 +72,8 @@ export interface VikData {
    *  `readonly` so a consumer cannot mutate the shared constant it may be. */
   groupEiks: readonly string[];
   isLoading: boolean;
+  /** The group-model request failed — distinct from „no contracts in window". */
+  isError: boolean;
 }
 
 /** The shared body — model + per-operator rollup over an EXPLICIT EIK set.
@@ -122,6 +124,7 @@ const useVikOver = (
     operators,
     groupEiks: eiks,
     isLoading: gm.isLoading,
+    isError: gm.isError,
   };
 };
 
@@ -224,9 +227,9 @@ export interface VikFundOp {
 
 export const useVikFunds = (
   eiks: readonly string[],
-): { funds: VikFundOp[]; isLoading: boolean } => {
+): { funds: VikFundOp[]; isLoading: boolean; isError: boolean } => {
   const eikParam = useEikParam(eiks);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["db", "awarder-funds-rollup", eikParam] as const,
     queryFn: async (): Promise<{
       operators: {
@@ -239,7 +242,9 @@ export const useVikFunds = (
       const r = await fetch(
         `/api/db/awarder-funds-rollup?eiks=${encodeURIComponent(eikParam)}`,
       );
-      if (!r.ok) return { operators: [] };
+      // Throw rather than return an empty set: a failed request must not read as
+      // „no operator holds EU funds" (/water/funds shows an error instead).
+      if (!r.ok) throw new Error(`awarder-funds-rollup -> ${r.status}`);
       return r.json();
     },
     enabled: eiks.length > 0,
@@ -262,5 +267,5 @@ export const useVikFunds = (
     [data],
   );
 
-  return { funds, isLoading };
+  return { funds, isLoading, isError };
 };

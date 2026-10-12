@@ -9,12 +9,16 @@ import { FC, useMemo } from "react";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Title } from "@/ux/Title";
 import { DataTable } from "@/ux/data_table/DataTable";
-import { Breadcrumbs } from "@/ux/Breadcrumbs";
-import { ScopeControl } from "@/screens/components/ScopeControl";
 import { useVikGroupRollup, useVikFunds } from "@/data/procurement/useVik";
-import { WATER_SECTOR_EIKS, operatorByEik } from "@/lib/vikReferenceData";
+import { useWaterOperatorMap } from "@/data/water/useWaterOperatorMap";
+import {
+  WATER_SECTOR_EIKS,
+  operatorByEik,
+  operatorStatusLabel,
+} from "@/lib/vikReferenceData";
+import { WaterOperatorMap } from "./WaterOperatorMap";
+import { WaterPageFrame } from "./WaterPageFrame";
 import { formatEurCompact } from "@/lib/currency";
 
 interface OpRow {
@@ -26,14 +30,17 @@ interface OpRow {
   singleBidShare: number | null;
   euContracted: number;
   euPaid: number;
+  /** Non-live status label, or null for a working operator (D6). */
+  status: string | null;
 }
 
 export const WaterOperatorsScreen: FC = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const { operators } = useVikGroupRollup(WATER_SECTOR_EIKS);
   const { funds } = useVikFunds(WATER_SECTOR_EIKS);
+  const { operators: mapOperators } = useWaterOperatorMap();
 
   const rows = useMemo<OpRow[]>(() => {
     const fundByEik = new Map(funds.map((f) => [f.eik, f]));
@@ -51,6 +58,7 @@ export const WaterOperatorsScreen: FC = () => {
         singleBidShare: o.singleBidShare,
         euContracted: f?.contractedEur ?? 0,
         euPaid: f?.paidEur ?? 0,
+        status: operatorStatusLabel(operatorByEik(o.eik)?.status, bg),
       });
     }
     // Operators with EU funds but no in-scope procurement still belong here.
@@ -66,10 +74,11 @@ export const WaterOperatorsScreen: FC = () => {
         singleBidShare: null,
         euContracted: f.contractedEur,
         euPaid: f.paidEur,
+        status: operatorStatusLabel(op?.status, bg),
       });
     }
     return out.sort((a, b) => b.procEur - a.procEur);
-  }, [operators, funds]);
+  }, [operators, funds, bg]);
 
   const columns = useMemo<ColumnDef<OpRow>[]>(
     () => [
@@ -90,6 +99,19 @@ export const WaterOperatorsScreen: FC = () => {
         id: "oblast",
         accessorFn: (r) => r.oblast,
         header: bg ? "Област" : "Oblast",
+      },
+      {
+        id: "status",
+        accessorFn: (r) => r.status ?? "",
+        header: bg ? "Статус" : "Status",
+        cell: ({ row }) =>
+          row.original.status ? (
+            <span className="text-amber-700 dark:text-amber-400">
+              {row.original.status}
+            </span>
+          ) : (
+            ""
+          ),
       },
       {
         id: "procEur",
@@ -161,30 +183,19 @@ export const WaterOperatorsScreen: FC = () => {
   );
 
   return (
-    <div className="space-y-4">
-      <Title
-        description={
-          bg
-            ? "Всички ВиК оператори — обществени поръчки, конкуренция и европейски средства, по дружество."
-            : "Every water operator — public procurement, competition and EU funds, by company."
-        }
-      >
-        {bg ? "ВиК оператори" : "Water operators"}
-      </Title>
-
-      <Breadcrumbs
-        className="mt-2"
-        items={[
-          { label: t("nav_governance"), to: "/governance" },
-          { label: t("procurement_link_label"), to: "/procurement" },
-          { label: t("sectors_hub_nav"), to: "/governance/sectors" },
-          { label: t("procurement_water_nav"), to: "/water" },
-          { label: bg ? "ВиК оператори" : "Water operators" },
-        ]}
-      />
-      <div className="my-3">
-        <ScopeControl mode="toggle" />
-      </div>
+    <WaterPageFrame
+      title={{ bg: "ВиК оператори", en: "Water operators" }}
+      description={{
+        bg: "Всички ВиК оператори — обществени поръчки, конкуренция и европейски средства, по дружество.",
+        en: "Every water operator — public procurement, competition and EU funds, by company.",
+      }}
+      scoped
+      ready={[mapOperators.length, rows.length]}
+    >
+      {/* The map is a section of THIS page: the hub's „Карта" tile links #map. */}
+      <section id="map" className="scroll-mt-20">
+        <WaterOperatorMap operators={mapOperators} />
+      </section>
 
       <DataTable<OpRow, unknown>
         columns={columns}
@@ -196,9 +207,9 @@ export const WaterOperatorsScreen: FC = () => {
 
       <p className="text-[11px] text-muted-foreground/80">
         {bg
-          ? "Поръчките и делът с една оферта следват избрания обхват (парламент/година); европейските средства (ИСУН) са за целия програмен период. Договори от АОП/ЦАИС ЕОП."
-          : "Procurement and single-bid share follow the selected scope (parliament/year); EU funds (ИСУН) are programme-period totals. Contracts from АОП/ЦАИС ЕОП."}
+          ? "Поръчките и делът с една оферта следват избрания обхват (парламент/година); европейските средства (ИСУН) са за целия програмен период. Договори от АОП/ЦАИС ЕОП — без нулевите дялове на членовете в обединения."
+          : "Procurement and single-bid share follow the selected scope (parliament/year); EU funds (ИСУН) are programme-period totals. Contracts from АОП/ЦАИС ЕОП — excluding consortium members' €0 shares."}
       </p>
-    </div>
+    </WaterPageFrame>
   );
 };

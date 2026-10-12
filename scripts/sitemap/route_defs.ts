@@ -126,6 +126,10 @@ export const ENGLISH_STATIC_PAGES = [
   "defense",
   "water",
   "water/operators",
+  "water/procurement",
+  "water/services",
+  "water/floods",
+  "water/funds",
   "customs/warehouses",
   "pensions",
   "culture",
@@ -292,11 +296,21 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/judiciary/MagistrateHoldingsBrowseScreen.tsx`,
   },
   { path: "defense", file: `src/screens/defense/DefenseScreen.tsx` },
-  { path: "water", file: `src/screens/water/WaterScreen.tsx` },
+  // The water hub (docs/plans/water-hub-v1.md). Its figures live in a committed
+  // blob, so its lastmod follows that blob; each sub-page follows the tracked
+  // file whose data it renders.
+  { path: "water", file: `data/water/derived/hub_stats.json` },
   {
     path: "water/operators",
     file: `src/screens/water/WaterOperatorsScreen.tsx`,
   },
+  {
+    path: "water/procurement",
+    file: `src/screens/water/WaterProcurementScreen.tsx`,
+  },
+  { path: "water/services", file: `data/water/water_stats.json` },
+  { path: "water/floods", file: `data/water/flood_maintenance.json` },
+  { path: "water/funds", file: `src/screens/water/WaterFundsScreen.tsx` },
   {
     path: "customs/warehouses",
     file: `src/screens/customs/ExciseRegisterScreen.tsx`,

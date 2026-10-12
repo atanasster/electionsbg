@@ -4,7 +4,7 @@
 // thematic-tiles slot, and the SectorAwardersTile listing the member
 // institutions — each deep-linking to its own /awarder/:eik page.
 //
-// The anatomy mirrors WaterScreen (breadcrumb up to the sectors hub + the shared
+// The anatomy mirrors the old /water screen (breadcrumb up to the sectors hub + the shared
 // ?pscope control + tiles), but this shell is config-driven (SECTOR_DASHBOARDS)
 // so a sector graduates by adding config, not a bespoke screen.
 
