@@ -87,6 +87,28 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:gen-roads-hub-stats",
+    before: "db:gen-sector-stats",
+    why:
+      "the roads hub's KPI 1 must equal sector_stats.json all.roads (roads_hub_figures.data.test.ts) " +
+      "\u2014 run first, the two files carry different vintages of one number",
+  },
+  {
+    after: "db:gen-roads-hub-stats",
+    before: "db:load:pg",
+    why: "it models the roll-up's contracts and reads contract_risk_cache, both rebuilt by that loader",
+  },
+  {
+    after: "db:gen-roads-hub-stats",
+    before: "db:load:annexes:pg",
+    why: "its option cluster is grouped by procurement_annexes.change_reason, which that loader rebuilds",
+  },
+  {
+    after: "db:gen-roads-hub-stats",
+    before: "db:load:funds:pg",
+    why: "its EU-funds arm reads fund_projects for the roll-up EIKs",
+  },
+  {
     after: "db:gen-home-flyover",
     before: "db:load:tr-company-place:pg",
     why:

@@ -401,6 +401,17 @@ the script. Byte budget < 4096, the same as culture.
   `db:gen-sector-stats`.
 - Preflight is a relation→loader map with skip-and-warn, as in `gen_culture/hub_stats.ts`.
 
+**Done 2026-10-12 — deviations:** the blob is 4,092 B, so the budget is **5,120 B** (the
+finder's corridor/ОПУ index is ~2.6 KB of Cyrillic names; the finder index keeps corridors
+≥ €10M, 41 entries). Annex reasons are stored as codes (`src/lib/annexReasons.ts`), not the
+register's sentences. Measured: €9,138,095,867 / 2,367 contracts / 793 contractors; single-bid
+374/1,456 = 25.7% vs national ex-members 108,482/259,899 = 41.7%; in-house €982.9M; option
+cluster 45 contracts / €1,018.5M growth, 33 of them ал. 1 т. 1 options (€942.6M), national
+539 / €1,084.5M (±0.005 tolerance). The `sources` map is not shipped: this blob is not a
+fold of sibling hubs (dashboard-hub §1.1) — every figure is computed here from Postgres, and a
+missing input skips the whole write rather than one figure. The hub models the ROLL-UP
+(АПИ + НКСИП) while the pre-T4 sub-pages model АПИ alone — T4 closes that.
+
 **Gate `roads_hub_figures.data.test.ts`:**
 - re-derives every figure from PG;
 - rejected bases are `notEqual`: all-tag sum, member-inclusive counts, pre-annex sum;

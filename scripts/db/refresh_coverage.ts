@@ -209,6 +209,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /culture hub's headline figures, which shipped as FROZEN STRINGS in the tile copy beside film figures the prerender interpolates — half the page self-updating and half not. It reads contracts, tenders, fund_projects, agri_subsidies, person_role AND interreg_partners, so its slot is after db:load:interreg:pg, the LAST loader in the chain: placed beside its two siblings (~40 steps earlier, after db:load:ngo-funding:pg) it would regenerate the ИСУН and Interreg arms from the previous vintage and commit them",
     bucketPath: "culture/derived/hub_stats.json",
   },
+  "db:gen-roads-hub-stats": {
+    artifact: "data/roads/derived/hub_stats.json",
+    reason:
+      "the /sector/roads hub's KPI band, corridor rail, finder index and annex-option figures, computed by running the roads engine (buildRoadsModel) over the roll-up's contract rows in Node. It reads contracts, contract_risk_cache, procurement_annexes and fund_projects, and its headline must equal sector_stats.json all.roads — so its slot is IMMEDIATELY AFTER db:gen-sector-stats; anywhere earlier it publishes a different vintage of the same number one click away",
+    bucketPath: "roads/derived/hub_stats.json",
+  },
   "db:gen-governance-hub-stats": {
     artifact: "data/governance/hub_stats.json",
     reason:
