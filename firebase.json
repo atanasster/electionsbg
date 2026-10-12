@@ -50,6 +50,16 @@
       ],
       "redirects": [
         {
+          "source": "/sector/water",
+          "destination": "/water",
+          "type": 301
+        },
+        {
+          "source": "/en/sector/water",
+          "destination": "/en/water",
+          "type": 301
+        },
+        {
           "source": "/mp/company",
           "destination": "/companies?political=1",
           "type": 301

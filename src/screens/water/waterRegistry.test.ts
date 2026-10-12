@@ -166,4 +166,24 @@ describe("the water hub registry", () => {
       /язовир|reservoir|загуби|water loss|тарифи|tariff|риск от наводн|flood risk/,
     );
   });
+
+  it("301s /sector/water to the hub at the edge, in both languages (W1)", () => {
+    // The SPA <Navigate> alone serves crawlers the homepage head at a 200.
+    const fb = JSON.parse(read("firebase.json")) as {
+      hosting: {
+        target?: string;
+        redirects?: { source: string; destination: string; type: number }[];
+      }[];
+    };
+    const main = fb.hosting.find((h) => h.target === "main");
+    for (const [source, destination] of [
+      ["/sector/water", "/water"],
+      ["/en/sector/water", "/en/water"],
+    ])
+      expect(main?.redirects, source).toContainEqual({
+        source,
+        destination,
+        type: 301,
+      });
+  });
 });
