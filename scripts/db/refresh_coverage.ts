@@ -221,6 +221,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /water riverbed-cleaning tile, the AI riverbedCleaning tool and the prerendered /water title all read it. It reads contracts and awarder_seats (its oblast choropleth), so it must follow db:load:pg and db:load:awarder-seats:pg; it sits beside db:gen-roads-hub-stats. Until 2026-10-12 NOTHING ran it and it served a 2026-07-12 snapshot €103.5M (32%) below the corpus (docs/plans/water-hub-v1.md D1)",
     bucketPath: "water/flood_maintenance.json",
   },
+  "db:gen-water-hub-stats": {
+    artifact: "data/water/derived/hub_stats.json",
+    reason:
+      "the /water hub's KPI band, operator rail, finder index and band figures. It reads contracts, national_competition() and fund_beneficiaries AND the two committed water artifacts — its KPI 1 must equal sector_stats.json all.water and its riverbed figure is READ from data/water/flood_maintenance.json — so its slot is immediately after db:gen-water-flood, which itself follows db:gen-sector-stats",
+    bucketPath: "water/derived/hub_stats.json",
+  },
   "db:gen-governance-hub-stats": {
     artifact: "data/governance/hub_stats.json",
     reason:

@@ -109,6 +109,23 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     why: "its EU-funds arm reads fund_projects for the roll-up EIKs",
   },
   {
+    after: "db:gen-water-hub-stats",
+    before: "db:gen-sector-stats",
+    why:
+      "the water hub's KPI 1 must equal sector_stats.json all.water (water_hub_figures.data.test.ts) " +
+      "\u2014 run first, the two files carry different vintages of one number",
+  },
+  {
+    after: "db:gen-water-hub-stats",
+    before: "db:gen-water-flood",
+    why: "its riverbed figure is READ from data/water/flood_maintenance.json, which that generator rewrites",
+  },
+  {
+    after: "db:gen-water-hub-stats",
+    before: "db:load:funds:pg",
+    why: "its EU-funds KPI reads fund_beneficiaries, which that loader rebuilds",
+  },
+  {
     after: "db:gen-water-flood",
     before: "db:load:pg",
     why: "the riverbed artifact is a selection over contracts, which that loader rebuilds",

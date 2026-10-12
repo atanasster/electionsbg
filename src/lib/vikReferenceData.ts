@@ -493,3 +493,24 @@ export const operatorStatusLabel = (
 export const WATER_SECTOR_EIKS: string[] = [
   ...new Set(WATER_OPERATORS.map((o) => o.eik)),
 ];
+
+const WATER_SECTOR_EIK_SET = new Set(WATER_SECTOR_EIKS);
+
+/** Is this contractor key itself a water-sector EIK? A contract whose supplier
+ *  is one is money that stays inside the sector — a subsidiary's loan to the
+ *  holding, or an awarder recorded as its own contractor. It stays IN the
+ *  headline (the register's basis) but is disclosed and kept out of the
+ *  top-contractor list and the HHI (docs/plans/water-hub-v1.md W2). The hub
+ *  generator states the same rule in SQL (`contractor_eik = ANY(<the sector>)`);
+ *  this is its TypeScript form for the procurement tiles. */
+export const isWaterSectorEik = (eik: string | null | undefined): boolean =>
+  !!eik && WATER_SECTOR_EIK_SET.has(eik);
+
+/** The register types that ARE water operators — the holding parent, the
+ *  irrigation enterprise and the dams company are sector bodies, not operators
+ *  (G11). Prose that says „N оператора" counts these. */
+export const WATER_OPERATOR_TYPES: readonly WaterOperatorType[] = [
+  "holding_sub",
+  "municipal",
+  "concession",
+];
