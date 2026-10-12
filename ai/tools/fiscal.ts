@@ -18,10 +18,10 @@ import type {
 } from "@/lib/customsReferenceData";
 import {
   buildRoadsModel,
-  API_EIK,
   COMPONENT_LABEL,
   type WorkComponent,
 } from "@/lib/roadAttributes";
+import { ROADS_SECTOR_EIKS, isRoadsInhouse } from "@/lib/roadsReferenceData";
 import {
   normalcyDeviationSummary,
   normalcyVerdict,
@@ -2003,11 +2003,12 @@ export const procurementNormalcy = async (
   };
 };
 
-// ---- АПИ road spending ------------------------------------------------------
-// The chat analog of the /sector/roads dashboard: reuses the same
-// roadAttributes engine over АПИ's per-contract rows to answer roads-specific
-// questions (kind-of-work mix + per-market competition, top corridors, headline
-// integrity) that the generic awarderProcurement can't.
+// ---- road spending (АПИ + НКСИП) ---------------------------------------------
+// The chat analog of the /sector/roads hub: the same roadAttributes engine over
+// the same buyer roll-up (ROADS_SECTOR_EIKS — АПИ + НКСИП, D5), so the answer and
+// the page it links to state the same total. It modelled АПИ alone until the
+// roads-hub audit: €8.92bn here against €9.14bn on the page, and Струма short
+// НКСИП's lots.
 
 // Lowercased for in-sentence narration; the canonical Title-Case map is shared
 // with the dashboard tiles in @/lib/roadAttributes (one source of truth).
@@ -2021,18 +2022,18 @@ export const roadsSpending = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  // Every АПИ contract row (the road model input) + the canonical awarder rollup,
-  // both from Postgres — the same routes the /awarder/:eik page uses. Headline
-  // total + count come from the rollup so the chat answer matches the dashboard
-  // KPI exactly (the rollup is the canonical multi-currency headline); the model
-  // drives the per-component breakdown + competition signals below.
-  const [file, rollup] = await Promise.all([
-    fetchDb<{
-      contracts: Parameters<typeof buildRoadsModel>[0];
-    }>("awarder-contracts", { eik: API_EIK }),
-    fetchDb<AwarderRollup>("awarder-procurement", { eik: API_EIK }),
-  ]);
-  const m = buildRoadsModel(file.contracts);
+  // Every roll-up buyer's contract rows, from the route the sub-pages read. The
+  // headline comes from the MODEL, not from a per-awarder rollup: the engine
+  // drops amendments and €0 consortium-member rows, which is the basis the hub
+  // blob (db:gen-roads-hub-stats) and every sub-page count on.
+  const files = await Promise.all(
+    ROADS_SECTOR_EIKS.map((eik) =>
+      fetchDb<{
+        contracts: Parameters<typeof buildRoadsModel>[0];
+      }>("awarder-contracts", { eik }),
+    ),
+  );
+  const m = buildRoadsModel(files.flatMap((f) => f.contracts ?? []));
 
   const comps = m.components.filter((c) => c.totalEur > 0).slice(0, 7);
   const rows: Row[] = comps.map((c) => ({
@@ -2044,22 +2045,22 @@ export const roadsSpending = async (
   const topCorr = m.corridors[0];
   const peak = [...m.years].sort((a, b) => b.totalEur - a.totalEur)[0];
   const topCon = m.topContractors[0];
-  // The strongest capture signal: a recurring-commodity component near 100%
-  // single-bid (markings / barriers).
-  const captured = [...m.components]
-    .filter((c) => c.contractCount >= 3 && (c.singleBidShare ?? 0) >= 0.8)
-    .sort((a, b) => (b.singleBidShare ?? 0) - (a.singleBidShare ?? 0))[0];
+  // D7: „Автомагистрали" ЕАД is the state's own in-house contractor, awarded
+  // under the statutory чл. 14 exception — named as such, never as a market
+  // winner. (A „most captured kind of work" fact used to sit here; the ≥80%
+  // single-bid component it picked is that one statutory award, R11.)
+  const inhouse = topCon && isRoadsInhouse(topCon.eik);
 
   return {
     tool: "roadsSpending",
     domain: "fiscal",
     kind: "table",
     title: bg
-      ? 'Пътна инфраструктура — Агенция "Пътна инфраструктура" (АПИ)'
-      : "Road infrastructure — Road Infrastructure Agency (АПИ)",
+      ? "Пътна инфраструктура — АПИ и НКСИП"
+      : "Road infrastructure — АПИ and НКСИП",
     subtitle: bg
-      ? "Обществени поръчки по вид работа + конкуренция (АОП)"
-      : "Procurement by kind of work + competition (AOP)",
+      ? "Обществени поръчки по вид работа + конкуренция (АОП); текуща стойност след анекси"
+      : "Procurement by kind of work + competition (AOP); current value after annexes",
     columns: [
       { key: "work", label: bg ? "Вид работа" : "Kind of work" },
       { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
@@ -2072,9 +2073,15 @@ export const roadsSpending = async (
     rows,
     viz: "none",
     facts: {
-      total_value: fmtEurCompact(rollup.totalEur, ctx.lang),
-      contracts: fmtInt(rollup.contractCount, ctx.lang),
+      total_value: fmtEurCompact(m.totalEur, ctx.lang),
+      contracts: fmtInt(m.rows.length, ctx.lang),
+      buyers: bg
+        ? "АПИ (с областните пътни управления) и НКСИП"
+        : "АПИ (with its regional directorates) and НКСИП",
       single_bid_share: pctStr(m.singleBidShare),
+      single_bid_note: bg
+        ? "включва законови изключения (напр. вътрешни възлагания)"
+        : "includes statutory exceptions (e.g. in-house awards)",
       direct_award_share: pctStr(m.directShare),
       top_corridor: topCorr
         ? `${topCorr.corridor} (${fmtEurCompact(topCorr.totalEur, ctx.lang)})`
@@ -2083,13 +2090,16 @@ export const roadsSpending = async (
         ? `${peak.year} (${fmtEurCompact(peak.totalEur, ctx.lang)})`
         : "—",
       top_contractor: topCon
-        ? `${topCon.name} (${fmtEurCompact(topCon.totalEur, ctx.lang)})`
-        : "—",
-      most_captured_work: captured
-        ? `${compLabel(captured.component, bg)} (${pctStr(captured.singleBidShare)} ${bg ? "една оферта" : "single bid"})`
+        ? `${topCon.name}${
+            inhouse
+              ? bg
+                ? " — държавна, вътрешен изпълнител"
+                : " — state-owned in-house contractor"
+              : ""
+          } (${fmtEurCompact(topCon.totalEur, ctx.lang)})`
         : "—",
     },
-    provenance: ["db:awarder-procurement", "db:awarder-contracts"],
+    provenance: ["db:awarder-contracts"],
   };
 };
 

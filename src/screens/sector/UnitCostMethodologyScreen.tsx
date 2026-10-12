@@ -43,7 +43,7 @@ import { usePreserveParams } from "@/ux/usePreserveParams";
 // needs the case-mix adjustment this page's second law describes.
 const LEGS: { key: string; to: string }[] = [
   { key: "unit_cost_leg_courts", to: "/judiciary" },
-  { key: "unit_cost_leg_roads", to: "/awarder/000695089" },
+  { key: "unit_cost_leg_roads", to: "/sector/roads/costs" },
 ];
 
 export const UnitCostMethodologyScreen = () => {

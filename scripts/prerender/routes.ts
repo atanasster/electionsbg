@@ -3343,7 +3343,7 @@ ${accumulationGapHtml("en")}`.trim(),
 <p>Обединен вход към всяка голяма държавна структура и сектор. Всяка страница проследява договорите, разходите и отговорните институции. Секторите са част от <a href="${SITE_URL}/governance">управленското табло</a>.</p>
 <h2>Инфраструктура</h2>
 <ul>
-<li><a href="${SITE_URL}/awarder/000695089">Пътища (АПИ)</a> — договори, поддръжка, километри път.</li>
+<li><a href="${SITE_URL}/sector/roads">Пътища (АПИ, НКСИП)</a> — договори, поддръжка, километри път.</li>
 <li><a href="${SITE_URL}/water">Води (ВиК)</a> — ВиК холдинг, загуби, язовири.</li>
 <li><a href="${SITE_URL}/awarder/000695388">Транспорт (МТС)</a> — железници, пристанища, БДЖ.</li>
 </ul>
@@ -3381,7 +3381,7 @@ ${accumulationGapHtml("en")}`.trim(),
 <p>A single entry to every major state body and sector. Each page tracks the contracts, the spending and the institutions responsible. The sectors are part of the <a href="${SITE_URL}/en/governance">governance dashboard</a>.</p>
 <h2>Infrastructure</h2>
 <ul>
-<li><a href="${SITE_URL}/en/awarder/000695089">Roads (АПИ)</a> — contracts, maintenance, kilometres of road.</li>
+<li><a href="${SITE_URL}/en/sector/roads">Roads (АПИ, НКСИП)</a> — contracts, maintenance, kilometres of road.</li>
 <li><a href="${SITE_URL}/en/water">Water (ВиК)</a> — the ВиК holding, losses, reservoirs.</li>
 <li><a href="${SITE_URL}/en/awarder/000695388">Transport (МТС)</a> — rail, ports, БДЖ.</li>
 </ul>
@@ -6950,7 +6950,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Всяко число се смята там, където живеят данните му, и носи собствения си обхват:</p>
 <ul>
 <li><a href="${SITE_URL}/judiciary">Разход за свършено дело</a> — бюджетът на съдилищата, разделен на свършените от тях дела; изключва прокуратура, ВКС и ВАС от двете страни.</li>
-<li><a href="${SITE_URL}/awarder/000695089">Цена на километър</a> — стойност на договора, разделена на дължината на отсечката, само където видът работа позволява защитимо число.</li>
+<li><a href="${SITE_URL}/sector/roads/costs">Цена на километър</a> — стойност на договора, разделена на дължината на отсечката, само където видът работа позволява защитимо число.</li>
 </ul>
 <p>Здравеопазването все още няма такава плочка. Национално числото се смята — около 586 € на случай за 2025 г. — но сравнение между болници изисква корекция по състав на случаите и затова не се публикува.</p>
 <h2>Не е индекс</h2>
@@ -6980,7 +6980,7 @@ ${buildDataDirectory("en")}`.trim(),
 <p>Each number is computed where its data lives, and carries its own scope:</p>
 <ul>
 <li><a href="${SITE_URL}/en/judiciary">Cost per resolved case</a> — the courts' own appropriation divided by the cases they resolved; excludes the prosecution, the Supreme Court of Cassation and the Supreme Administrative Court on both sides.</li>
-<li><a href="${SITE_URL}/en/awarder/000695089">Cost per kilometre</a> — contract value divided by the length of the section, only where the type of work allows a defensible figure.</li>
+<li><a href="${SITE_URL}/en/sector/roads/costs">Cost per kilometre</a> — contract value divided by the length of the section, only where the type of work allows a defensible figure.</li>
 </ul>
 <p>Health has no such tile yet. Nationally the number is computable — about €586 per case for 2025 — but comparison between hospitals requires a case-mix adjustment and is therefore not published.</p>
 <h2>It is not an index</h2>

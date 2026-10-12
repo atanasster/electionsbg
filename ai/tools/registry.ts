@@ -3353,8 +3353,8 @@ export const TOOLS: ToolDef[] = [
     name: "roadsSpending",
     domain: "fiscal",
     description: {
-      bg: 'Разходи на Агенция "Пътна инфраструктура" (АПИ) по обществени поръчки за пътища и магистрали — по вид работа (тунели, мостове, маркировка, ограничителни системи…) с дял „една оферта“, най-големи коридори, цена на километър, по години и най-големи изпълнители.',
-      en: "Road Infrastructure Agency (АПИ) procurement spending on roads and motorways — by kind of work (tunnels, bridges, markings, safety barriers…) with single-bid share, largest corridors, cost per kilometre, by year and largest contractors.",
+      bg: 'Разходи по обществени поръчки за републиканските пътища и магистрали — Агенция "Пътна инфраструктура" (АПИ, с областните пътни управления) и НКСИП — по вид работа (тунели, мостове, маркировка, ограничителни системи…) с дял „една оферта“, най-големи коридори, цена на километър, по години и най-големи изпълнители.',
+      en: "Procurement spending on Bulgaria's national roads and motorways — the Road Infrastructure Agency (АПИ, with its regional directorates) and НКСИП — by kind of work (tunnels, bridges, markings, safety barriers…) with single-bid share, largest corridors, cost per kilometre, by year and largest contractors.",
     },
     params: [],
     examples: [

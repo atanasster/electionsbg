@@ -60,7 +60,7 @@ describe("UnitCostMethodologyScreen", () => {
     renderPage();
     const legs = [
       ["unit_cost_leg_courts", "/judiciary"],
-      ["unit_cost_leg_roads", "/awarder/000695089"],
+      ["unit_cost_leg_roads", "/sector/roads/costs"],
     ] as const;
     for (const [key, href] of legs) {
       const link = screen.getByRole("link", { name: `${key}_name` });
