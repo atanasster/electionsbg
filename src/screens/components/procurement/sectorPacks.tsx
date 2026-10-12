@@ -255,6 +255,14 @@ export interface SectorBrowsePack {
    *  `rowsAtDecision` is what makes it expire rather than be inherited: the gate
    *  fails once the match grows past it, so a judgement made about 2 rows cannot
    *  quietly go on standing for 200. */
+  /** Count on the ex-member basis: drop the €0 consortium MEMBER rows
+   *  (`consortium_role = 'member'`) from the browse table, its count and its
+   *  single-bid share. Set when the sector's own hub counts that way — the roads
+   *  engine skips member rows, so without this the hub's „2,367 договора / 25.7%
+   *  с една оферта" opened onto 2,866 rows and 24.7% one click away. The € is
+   *  unaffected (member rows carry €0). Opt-in, because the other packs' strips
+   *  were sized on the all-rows basis and nothing re-measured them. */
+  excludeConsortiumMembers?: true;
   beneficiaryWithheld?: readonly {
     corpus: BeneficiaryCorpus;
     reason: string;
@@ -290,6 +298,8 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     // D8 (2026-10-12): АПИ is an ИСУН beneficiary under its own EIK — 71
     // projects / €2.40bn total. НКСИП has none; the reach gate counts the set.
     beneficiaryCorpora: ["fund_projects"],
+    // The hub blob and the sub-pages run the roads engine, which skips member rows.
+    excludeConsortiumMembers: true,
   },
   noi: {
     id: "noi",

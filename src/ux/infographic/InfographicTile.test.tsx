@@ -73,4 +73,23 @@ describe("InfographicTile — preserved params", () => {
   it("is a no-op when there is nothing to drop", () => {
     expect(hrefFor("/budget", "", ["pscope"])).toBe("/budget");
   });
+
+  it("keeps the tile's own query AND its #anchor when both are present", () => {
+    // The roads hub's options tile is `/sector/roads/procurement?pscope=all#annexes`.
+    // Splitting on "?" read the hash into the query (`pscope=all%23annexes`): an
+    // unknown scope that fell back to `ns`, and an anchor that never scrolled.
+    expect(hrefFor("/sector/roads/procurement?pscope=all#annexes", "")).toBe(
+      "/sector/roads/procurement?pscope=all#annexes",
+    );
+  });
+
+  it("merges a preserved param into the search, never after the hash", () => {
+    const merged = hrefFor("/x?pscope=all#a", "?elections=2013_05_12");
+    expect(merged).toMatch(/^\/x\?[^#]*pscope=all[^#]*#a$/);
+    expect(merged).toContain("elections=2013_05_12");
+  });
+
+  it("keeps a hash-only link as it is", () => {
+    expect(hrefFor("/culture#films", "")).toBe("/culture#films");
+  });
 });

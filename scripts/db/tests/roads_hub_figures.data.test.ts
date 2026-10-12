@@ -16,6 +16,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { allRows, dbReachable, end } from "../lib/pg";
 import { roadRowAliases } from "../lib/roadsRows";
@@ -39,6 +40,16 @@ assertCommitted(
   "data/roads/derived/hub_stats.json",
   "data/procurement/derived/sector_stats.json",
 );
+
+// The registry engine behind /procurement/contracts — CJS, so require()d.
+const { runDbTable } = createRequire(import.meta.url)(
+  "../../../functions/db_table.js",
+) as {
+  runDbTable: (
+    q: (sql: string, params: unknown[]) => Promise<unknown[]>,
+    req: Record<string, unknown>,
+  ) => Promise<{ total: number; aggregates?: { count?: number } }>;
+};
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
@@ -214,5 +225,37 @@ test.skipIf(skip)(
       [eiks],
     );
     near(Number(eu.paid), b.euFunds.paidEur, "EU paid €");
+  },
+);
+
+test.skipIf(skip)(
+  "the KPI links open a browser that counts what the hub counts",
+  async () => {
+    // ROADS_KPI_TO.eur / .singleBid land on /procurement/contracts?sector=roads.
+    // That screen sends tag + the pack's awarder set + (excludeConsortiumMembers)
+    // not_consortium_member. Without the last one the hub's 2,367 contracts
+    // opened onto 2,866 rows. Run through the real engine, not a restated WHERE.
+    // (sectorPacks.tsx is a JSX module; roadsRegistry.test.ts pins the pack's
+    // flag and its EIK set, so this arm takes the set from the register.)
+    const q = (sql: string, params: unknown[]) => allRows(sql, params);
+    const run = (extra: Record<string, unknown>[]) =>
+      runDbTable(q, {
+        resource: "contracts",
+        page: 0,
+        pageSize: 1,
+        filters: {
+          columns: [
+            { id: "tag", value: ["contract"] },
+            { id: "awarder_eik", value: eiks },
+            { id: "not_consortium_member", value: "member" },
+            ...extra,
+          ],
+        },
+      });
+    const b = blob().procurement;
+    const all = await run([]);
+    assert.equal(all.aggregates?.count ?? all.total, b.contracts);
+    const single = await run([{ id: "number_of_tenderers", min: 1, max: 1 }]);
+    assert.equal(single.aggregates?.count ?? single.total, b.singleBid);
   },
 );

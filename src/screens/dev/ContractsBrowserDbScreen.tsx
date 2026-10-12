@@ -100,7 +100,14 @@ const CorpusContractsBrowse: FC = () => {
   // facet/KPI query so the analysis strip matches the rows. (The old window-only
   // facet ignored this scope, so its dropdowns disagreed with the sector table.)
   const awarderScope = useMemo<DbColumnFilter[]>(() => {
-    if (browsePack) return [{ id: "awarder_eik", value: [...browsePack.eiks] }];
+    if (browsePack)
+      return [
+        { id: "awarder_eik", value: [...browsePack.eiks] },
+        // A pack whose hub counts ex-members must open onto the same count.
+        ...(browsePack.excludeConsortiumMembers
+          ? [{ id: "not_consortium_member", value: "member" }]
+          : []),
+      ];
     if (awarderParam) {
       const eiks = awarderParam
         .split(",")

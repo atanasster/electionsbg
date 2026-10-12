@@ -16,6 +16,7 @@ import {
 import { ROADS_SCENES } from "./roadsScenes";
 import { ROADS_KPI_TO } from "./roadsHubFigures";
 import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPacks";
+import { ROADS_SECTOR_EIKS } from "@/lib/roadsReferenceData";
 
 const read = (rel: string) =>
   readFileSync(path.resolve(process.cwd(), rel), "utf8");
@@ -109,6 +110,15 @@ describe("the roads hub registry", () => {
       const sector = params(l.to).get("sector");
       if (sector) expect(SECTOR_BROWSE_PACKS[sector], l.id).toBeTruthy();
     }
+  });
+
+  it("the roads browse pack opens onto the hub's count basis", () => {
+    // The hub counts ex-member rows (the engine skips consortium members); the
+    // ?sector=roads browser must too. roads_hub_figures.data.test.ts runs the
+    // engine with this filter set and compares the count to the blob.
+    const pack = SECTOR_BROWSE_PACKS.roads;
+    expect(pack.excludeConsortiumMembers).toBe(true);
+    expect([...pack.eiks].sort()).toEqual([...ROADS_SECTOR_EIKS].sort());
   });
 
   it("emits only risk grades the roads corpus has (no F)", () => {

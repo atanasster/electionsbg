@@ -10,7 +10,7 @@
 // the theme foreground, so they stay legible as the theme flips.
 
 import { FC, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, parsePath, useNavigate } from "react-router-dom";
 import { usePreserveParams } from "@/ux/usePreserveParams";
 import { navigateWithTitleTransition } from "@/ux/motion/titleTransition";
 
@@ -90,7 +90,13 @@ const captionColor =
  *  keeps a clean path with no trailing `?`. */
 const useTileHref = (to: string, dropParams?: string[]): string => {
   const preserve = usePreserveParams();
-  const [path, ownQuery] = to.split("?");
+  // parsePath, not split("?"): a `to` carrying BOTH a query and a hash
+  // (`/sector/roads/procurement?pscope=all#annexes`) would otherwise read the
+  // hash as part of the query — `pscope=all%23annexes`, an unknown scope that
+  // falls back to `ns`, and an anchor that never scrolls. HubHead's KPI href
+  // was fixed the same way for the same reason.
+  const { pathname: path = "", search: rawSearch, hash = "" } = parsePath(to);
+  const ownQuery = rawSearch?.replace(/^\?/, "");
   const own = ownQuery
     ? Object.fromEntries(new URLSearchParams(ownQuery))
     : undefined;
@@ -100,7 +106,7 @@ const useTileHref = (to: string, dropParams?: string[]): string => {
   for (const key of dropParams ?? [])
     if (!own || !(key in own)) merged.delete(key);
   const search = merged.toString();
-  return search ? `${path}?${search}` : path;
+  return `${path}${search ? `?${search}` : ""}${hash}`;
 };
 
 export const InfographicTile: FC<InfographicTileProps> = ({
