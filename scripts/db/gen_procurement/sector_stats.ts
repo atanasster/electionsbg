@@ -76,7 +76,7 @@ import {
   parliamentWindow,
   type ElectionRef,
 } from "../../../src/data/scope/windows";
-import { API_EIK } from "../../../src/lib/roadAttributes";
+import { ROADS_SECTOR_EIKS } from "../../../src/lib/roadsReferenceData";
 import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
 import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
@@ -109,7 +109,7 @@ const readJson = <T>(p: string): T =>
 // administration carry a bespoke figure — all far more meaningful than a thin
 // procurement line.
 const SECTOR_EIKS: Record<string, string[]> = {
-  roads: [API_EIK],
+  roads: [...ROADS_SECTOR_EIKS], // АПИ + НКСИП (D5); „Автомагистрали“ ЕАД is a contractor, never here
   water: WATER_SECTOR_EIKS,
   transport: TRANSPORT_SECTOR_EIKS, // МТС group (rail/ports/aviation/road-reg — АПИ roads excluded)
   energy: [...ENERGY_SECTOR_EIKS],

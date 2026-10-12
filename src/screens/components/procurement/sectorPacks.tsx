@@ -285,7 +285,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   },
   roads: {
     id: "roads",
-    label: { bg: "Пътища (АПИ)", en: "Roads (АПИ)" },
+    label: { bg: "Пътища (АПИ, НКСИП)", en: "Roads (АПИ, НКСИП)" },
     eiks: PROCUREMENT_BUYER_SECTORS.roads.eiks,
   },
   noi: {

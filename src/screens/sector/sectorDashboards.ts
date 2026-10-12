@@ -21,6 +21,7 @@ import { lazy, type ComponentType } from "react";
 // naming the engine here pulls cpvSectors + awarderModel behind it. Same rule
 // as sectorPacks.tsx; gated by src/entryGraph.test.ts.
 import { API_EIK } from "@/lib/roadsAwarder";
+import { ROADS_ROLLUP } from "@/lib/roadsReferenceData";
 import { NZOK_EIK, HEALTH_ENTITIES } from "@/lib/healthReferenceData";
 import {
   EDU_LEAD_EIK,
@@ -320,15 +321,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     agency: "АПИ",
     leadEik: API_EIK,
     browsePackId: "roads",
-    members: [
-      {
-        eik: API_EIK,
-        name: {
-          bg: "Агенция „Пътна инфраструктура“",
-          en: "Road Infrastructure Agency",
-        },
-      },
-    ],
+    members: ROADS_ROLLUP.map((b) => ({ eik: b.eik, name: b.name })),
   },
   // Транспорт — the МТС state transport group: rail (НКЖИ + БДЖ + ИАЖА + ДП ТСВ),
   // ports and the Danube (Пристанищна инфраструктура + Морска администрация + ИАППД),

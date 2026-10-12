@@ -1,6 +1,6 @@
 // Audited buyer rosters shared by analytics and browse screens; current membership.
 import { WATER_SECTOR_EIKS } from "./vikReferenceData";
-import { API_EIK } from "./roadsAwarder";
+import { ROADS_SECTOR_EIKS } from "./roadsReferenceData";
 import { NOI_EIK } from "./noiBenchmarks";
 import { HEALTH_SECTOR_EIKS } from "./healthReferenceData";
 import { AGRI_SECTOR_EIKS } from "./agriReferenceData";
@@ -32,8 +32,8 @@ export const PROCUREMENT_BUYER_SECTORS: Record<string, ProcurementBuyerSector> =
     },
     roads: {
       id: "roads",
-      label: { bg: "Пътища (АПИ)", en: "Roads (АПИ)" },
-      eiks: [API_EIK],
+      label: { bg: "Пътища (АПИ, НКСИП)", en: "Roads (АПИ, НКСИП)" },
+      eiks: ROADS_SECTOR_EIKS,
     },
     noi: {
       id: "noi",

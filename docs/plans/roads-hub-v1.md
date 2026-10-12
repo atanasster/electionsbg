@@ -337,9 +337,23 @@ with bands.
 - ⚠ **`entryGraph.test.ts` forbids `*ReferenceData` on the entry path.** `routes.tsx` and the
   hub registry import only from `roadsAwarder.ts`.
 - If D5 is roll-up:
-  - regenerate `sector_stats.json`; `all.roads` goes €8.92bn → ~€9.14bn, ns windows unchanged;
+  - regenerate `sector_stats.json`; `all.roads` goes €8.92bn → ~€9.14bn, windows from the 2019
+    parliament on unchanged (the 2013/2014/2017 ns windows and y:2013–2019 gain НКСИП);
   - commit it with the code;
   - `bucket:sync:paths -- procurement/derived/sector_stats.json`.
+- **Done 2026-10-12.** Regenerated `sector_stats.json`: only `roads` moved — all
+  €8,917,376,622 → €9,138,095,867; ns:2014_10_05 / ns:2017_03_26 / ns:2013_05_12 and
+  y:2013–2019 gain НКСИП; ns:2019+ unchanged. The sweep (contracts ∪ tenders, €1M floor)
+  leaves no unclassified buyer. NOTE: the roads PAGE still computes over АПИ only until T4
+  makes `useRoads` roster-wide — the hub/sector_stats figure and the engine pages agree only
+  after T4.
+- **The roll-up reaches TWO more places that are not the four copies, and both need a publish
+  step** (found in T2 review): `functions/generated/procurement_query.js` (the deployed
+  `?sector=roads` validator, rebuilt by `node --import tsx scripts/ai/buildProcurementQuery.ts
+  --write` — ships with `npm run deploy:db`), and the Postgres funding-query catalog
+  (`installFundingQuery`, copied from `PROCUREMENT_BUYER_SECTORS`; refreshed locally by
+  `npx tsx scripts/funds/install_query.ts`, and on Cloud SQL by the next funds/interreg/agri
+  `:cloud` load — or run it against the cloud URL by hand).
 - Gate `roads_register.data.test.ts`:
   - stem sweep of **contracts and tenders** (`пътн|магистрал|областно пътно|ОПУ|тол|винет|НКСИП|стратегически инфраструктурни`),
     with a money floor; every buyer above the floor sits in exactly one list;

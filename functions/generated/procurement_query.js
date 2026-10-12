@@ -1291,6 +1291,34 @@ var WATER_SECTOR_EIKS = [
 var API_EIK = "000695089";
 var ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
 
+// src/lib/roadsReferenceData.ts
+var ROADS_ROLLUP = [
+  {
+    eik: API_EIK,
+    name: {
+      bg: "\u0410\u0433\u0435\u043D\u0446\u0438\u044F \u201E\u041F\u044A\u0442\u043D\u0430 \u0438\u043D\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430\u201C",
+      en: "Road Infrastructure Agency"
+    },
+    why: "principal buyer of the republican road network; the \u041E\u041F\u0423 file under it"
+  },
+  {
+    // D5, accepted 2026-10-12. A state company that procured АМ „Струма" lots
+    // 3.1/3.3 and their rescue archaeology for МРРБ, 2013–2019: €220.7M over 40
+    // contracts. Leaving it out made Струма's construction history start
+    // mid-way. It has no contract after 2019, so no window from the 2019
+    // parliament on moves; the 2013, 2014 and 2017 windows and y:2013–2019 do.
+    eik: "202062287",
+    name: {
+      bg: "\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F \u201E\u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0447\u0435\u0441\u043A\u0438 \u0438\u043D\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u043D\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0438\u201C",
+      en: "National Company Strategic Infrastructure Projects"
+    },
+    why: "procured \u0410\u041C \u201E\u0421\u0442\u0440\u0443\u043C\u0430\u201C lots for \u041C\u0420\u0420\u0411, 2013\u20132019"
+  }
+];
+var ROADS_SECTOR_EIKS = ROADS_ROLLUP.map(
+  (b) => b.eik
+);
+
 // src/lib/noiBenchmarks.ts
 var NOI_EIK = "121082521";
 
@@ -2852,8 +2880,8 @@ var PROCUREMENT_BUYER_SECTORS = {
   },
   roads: {
     id: "roads",
-    label: { bg: "\u041F\u044A\u0442\u0438\u0449\u0430 (\u0410\u041F\u0418)", en: "Roads (\u0410\u041F\u0418)" },
-    eiks: [API_EIK]
+    label: { bg: "\u041F\u044A\u0442\u0438\u0449\u0430 (\u0410\u041F\u0418, \u041D\u041A\u0421\u0418\u041F)", en: "Roads (\u0410\u041F\u0418, \u041D\u041A\u0421\u0418\u041F)" },
+    eiks: ROADS_SECTOR_EIKS
   },
   noi: {
     id: "noi",

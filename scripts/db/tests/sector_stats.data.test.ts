@@ -125,7 +125,7 @@ import {
 import { NZOK_SUPPLIER_CONTEXT } from "@/lib/nzokBenchmarks";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
-import { API_EIK } from "@/lib/roadAttributes";
+import { ROADS_SECTOR_EIKS } from "@/lib/roadsReferenceData";
 // The pension gates read funds.json through the SAME accessors the generator
 // and /pensions use. Re-deriving "which year is complete" or "which fund is
 // ДОО" here would let a bug in that module satisfy its own gate.
@@ -419,7 +419,7 @@ describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () =>
       transport: TRANSPORT_SECTOR_EIKS,
       energy: ENERGY_SECTOR_EIKS,
       social: SOCIAL_SECTOR_EIKS,
-      roads: [API_EIK],
+      roads: ROADS_SECTOR_EIKS,
     };
     for (const [id, eiks] of Object.entries(procurementSets))
       assert.ok(
@@ -1280,7 +1280,7 @@ describe("pension sector (payout / ДОО)", () => {
         transport: TRANSPORT_SECTOR_EIKS,
         energy: ENERGY_SECTOR_EIKS,
         social: SOCIAL_SECTOR_EIKS,
-        roads: [API_EIK],
+        roads: ROADS_SECTOR_EIKS,
       }))
         assert.ok(
           !eiks.includes(NOI_EIK),
