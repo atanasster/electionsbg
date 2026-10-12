@@ -1506,21 +1506,20 @@ ${hubBack(true)}`.trim(),
     staticPage({
       path: "water/funds",
       ogImage: "/og/water.png",
-      title: "Еврофондове за ВиК операторите — договорени и изплатени | Наясно",
-      description: `${f.euMlnContracted} млн. € договорени и ${f.euMlnPaid} млн. € изплатени по европейските програми (ИСУН) за ВиК операторите, за целия програмен период.`,
-      breadcrumbName: "Еврофондове за ВиК",
+      title: "Еврофондове във водния сектор — договорени и изплатени | Наясно",
+      description: `${f.euMlnContracted} млн. € договорени и ${f.euMlnPaid} млн. € изплатени по европейските програми (ИСУН) за ВиК операторите и другите дружества във водния сектор, за целия програмен период.`,
+      breadcrumbName: "Еврофондове във водния сектор",
       bodyHtml: `
-<h1>Еврофондове за ВиК операторите</h1>
-<p>Договорените (${f.euMlnContracted} млн. €) и изплатените (${f.euMlnPaid} млн. €) средства по европейските програми за ВиК операторите, по оператор — за целия програмен период. Това е отделен източник (ИСУН) и не се събира с обществените поръчки.</p>
+<h1>Еврофондове във водния сектор</h1>
+<p>Договорените (${f.euMlnContracted} млн. €) и изплатените (${f.euMlnPaid} млн. €) средства по европейските програми за ВиК операторите и другите дружества във водния сектор (Напоителни системи, язовирите), по дружество — за целия програмен период. Това е отделен източник (ИСУН) и не се събира с обществените поръчки.</p>
 ${hubBack(false)}`.trim(),
       english: {
-        title:
-          "EU funds for the water operators — contracted and paid | Naiasno",
-        description: `€${f.euMlnContracted}M contracted and €${f.euMlnPaid}M paid under EU programmes (ИСУН) to the water operators, over the whole programme period.`,
-        breadcrumbName: "EU funds for water",
+        title: "EU funds in the water sector — contracted and paid | Naiasno",
+        description: `€${f.euMlnContracted}M contracted and €${f.euMlnPaid}M paid under EU programmes (ИСУН) to the water operators and the other water-sector companies, over the whole programme period.`,
+        breadcrumbName: "EU funds in the water sector",
         bodyHtml: `
-<h1>EU funds for the water operators</h1>
-<p>EU programme funds contracted (€${f.euMlnContracted}M) and paid (€${f.euMlnPaid}M) to the water operators, by operator — over the whole programme period. This is a separate source (ИСУН) and is never added to public procurement.</p>
+<h1>EU funds in the water sector</h1>
+<p>EU programme funds contracted (€${f.euMlnContracted}M) and paid (€${f.euMlnPaid}M) to the water operators and the other water-sector companies (irrigation, dams), by company — over the whole programme period. This is a separate source (ИСУН) and is never added to public procurement.</p>
 ${hubBack(true)}`.trim(),
       },
     }),
@@ -4240,7 +4239,7 @@ ${accumulationGapHtml("en")}`.trim(),
       "Всички ВиК оператори в България — обществени поръчки, дял с една оферта и европейски средства (ИСУН, договорени срещу усвоени), по дружество и област.",
     breadcrumbName: "ВиК оператори",
     bodyHtml: `
-<h1>ВиК оператори — поръчки, конкуренция и европейски средства</h1>
+<h1>ВиК оператори</h1>
 <p>Таблица на всички водоснабдителни дружества в България: обществените им поръчки (АОП/ЦАИС ЕОП), делът на договорите с една оферта и усвояването на европейските средства по програмите (ИСУН) — по дружество и област, сортируема.</p>
 <p>Виж и <a href="${SITE_URL}/water">обзора на водния сектор</a> и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг</a>.</p>`.trim(),
     english: {
@@ -4250,9 +4249,9 @@ ${accumulationGapHtml("en")}`.trim(),
         "Every water operator in Bulgaria — public procurement, single-bidder share and EU funds (ИСУН, contracted vs absorbed), by company and region.",
       breadcrumbName: "Water operators",
       bodyHtml: `
-<h1>Water operators — procurement, competition and EU funds</h1>
+<h1>Water operators</h1>
 <p>A table of every water utility in Bulgaria: their public procurement (АОП/ЦАИС ЕОП), the share of single-bidder contracts, and their absorption of EU funds (ИСУН) — by company and region, sortable.</p>
-<p>See also the <a href="${SITE_URL}/water">water-sector overview</a> and the <a href="${SITE_URL}/awarder/206086428">Bulgarian Water Holding</a>.</p>`.trim(),
+<p>See also the <a href="${SITE_URL}/en/water">water-sector overview</a> and the <a href="${SITE_URL}/en/awarder/206086428">Bulgarian Water Holding</a>.</p>`.trim(),
     },
   }),
   ...waterStaticPages(),

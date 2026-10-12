@@ -169,6 +169,8 @@ export const useVikGroupRollup = (
 ): {
   operators: VikOperatorAgg[];
   isLoading: boolean;
+  /** The request failed — distinct from „no operator has contracts here". */
+  isError: boolean;
   /** True only when the SERVER confirms it dropped consortium member rows — a
    *  function deployed before the switch ignores the param, and its counts must
    *  then not be set beside an ex-member national rate. */
@@ -179,7 +181,7 @@ export const useVikGroupRollup = (
   const to = windowOverride ? windowOverride.to : urlWindow.to;
   const eikParam = useEikParam(eiks);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["db", "awarder-group-rollup", eikParam, from, to, "ex"] as const,
     queryFn: async (): Promise<{
       operators: {
@@ -198,7 +200,9 @@ export const useVikGroupRollup = (
       if (from) p.set("from", from);
       if (to) p.set("to", to);
       const r = await fetch(`/api/db/awarder-group-rollup?${p.toString()}`);
-      if (!r.ok) return { operators: [] };
+      // Throw rather than return an empty set: a failed request must not read
+      // as „no operator has contracts" on /water/operators or the browse strip.
+      if (!r.ok) throw new Error(`awarder-group-rollup -> ${r.status}`);
       return r.json();
     },
     enabled: eiks.length > 0,
@@ -223,7 +227,12 @@ export const useVikGroupRollup = (
     [data],
   );
 
-  return { operators, isLoading, exMembers: data?.exMembers === true };
+  return {
+    operators,
+    isLoading,
+    isError,
+    exMembers: data?.exMembers === true,
+  };
 };
 
 /** One EU-fund (ИСУН) row per operator across a set of EIKs — contracted vs paid

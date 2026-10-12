@@ -10,6 +10,7 @@ import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
+import { isBg } from "@/i18n";
 import { Waves } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
@@ -22,7 +23,7 @@ import { ChartGhost } from "@/ux/motion/ChartGhost";
 export const WaterFloodTile: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const bg = lang === "bg";
+  const bg = isBg(lang);
   const { data, isLoading } = useFloodMaintenance();
   // Re-aggregate to the page's ?pscope window (like every other pack) rather
   // than showing the whole-corpus precomputed figures.
@@ -129,8 +130,15 @@ export const WaterFloodTile: FC = () => {
           // block, so a window where ONLY they spent still states their €.
           <p className="text-[11px] text-muted-foreground">
             {bg
-              ? `Извън картата: ${formatEurCompact(model.nationalEur, lang)} по ${model.nationalCount.toLocaleString(lang)} ${model.nationalCount === 1 ? "договор" : "договора"} на национални възложители (${nationalNames}) — без място, защото работят в цялата страна, а седалището им е в София.`
-              : `Off the map: ${formatEurCompact(model.nationalEur, lang)} across ${model.nationalCount.toLocaleString(lang)} ${model.nationalCount === 1 ? "contract" : "contracts"} by national bodies (${nationalNames}) — no place, because they work nationwide from a Sofia seat.`}
+              ? `Извън картата: ${formatEurCompact(model.nationalEur, lang)} по ${model.nationalCount.toLocaleString(lang)} ${model.nationalCount === 1 ? "договор" : "договора"} на национални възложители (${nationalNames}) — без място, защото работят в цялата страна, а не в областта на седалището си.`
+              : `Off the map: ${formatEurCompact(model.nationalEur, lang)} across ${model.nationalCount.toLocaleString(lang)} ${model.nationalCount === 1 ? "contract" : "contracts"} by national bodies (${nationalNames}) — no place, because they work nationwide, not in their seat's province.`}
+          </p>
+        ) : null}
+        {model.unplacedCount > 0 ? (
+          <p className="text-[11px] text-muted-foreground">
+            {bg
+              ? `Без разпознато място: ${formatEurCompact(model.unplacedEur, lang)} по ${model.unplacedCount.toLocaleString(lang)} ${model.unplacedCount === 1 ? "договор" : "договора"} — седалището на възложителя не е разпознато; включени са в общата сума.`
+              : `No recognised place: ${formatEurCompact(model.unplacedEur, lang)} across ${model.unplacedCount.toLocaleString(lang)} ${model.unplacedCount === 1 ? "contract" : "contracts"} — the awarder's seat did not resolve; included in the total.`}
           </p>
         ) : null}
 
@@ -220,7 +228,7 @@ export const WaterFloodTile: FC = () => {
         {data.corpusThrough && (
           <p className="text-[11px] text-muted-foreground/80">
             {bg
-              ? `Данни към ${data.corpusThrough} (последен договор в регистъра).`
+              ? `Данни към ${data.corpusThrough.split("-").reverse().join(".")} г. (последен договор в регистъра).`
               : `Data as of ${data.corpusThrough} (latest contract in the register).`}
           </p>
         )}

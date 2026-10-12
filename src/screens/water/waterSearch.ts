@@ -22,24 +22,9 @@ import type { WaterHubStats } from "@/data/water/hubStats";
 import { formatEurCompact } from "@/lib/currency";
 import {
   WATER_OPERATORS,
+  WATER_TYPE_LABEL,
   operatorStatusLabel,
-  type WaterOperatorType,
 } from "@/lib/vikReferenceData";
-
-/** Reading order for the type label — the holding parent and the concession are
- *  not the same kind of thing as a regional monopoly, and the reader can see it.
- *
- *  Keyed on the UNION, not `string`: an unlabelled type folds to `undefined`,
- *  which `buildEntityIndex` drops silently, so a new operator kind would become
- *  unsearchable by its type name with nothing red anywhere. */
-const TYPE_LABEL: Record<WaterOperatorType, { bg: string; en: string }> = {
-  holding_parent: { bg: "Холдинг", en: "Holding" },
-  holding_sub: { bg: "Регионално ВиК", en: "Regional operator" },
-  concession: { bg: "Концесия", en: "Concession" },
-  irrigation: { bg: "Напоителни системи", en: "Irrigation" },
-  dams: { bg: "Язовири", en: "Dams" },
-  municipal: { bg: "Общинско", en: "Municipal" },
-};
 
 /** Every body in the sector register. Ranked by whole-corpus € when the blob is
  *  in, so a query that fills the cap („Пазарджик" — five operators) shows the
@@ -82,8 +67,8 @@ export const waterOperatorsIndex = (
       o.name,
       o.oblast,
       o.eik,
-      TYPE_LABEL[o.type].bg,
-      TYPE_LABEL[o.type].en,
+      WATER_TYPE_LABEL[o.type].bg,
+      WATER_TYPE_LABEL[o.type].en,
       ...(o.aliases ?? []),
     ],
     s ? (o) => (o.successorEik ? 0 : (eurOf.get(o.eik) ?? 0)) : undefined,

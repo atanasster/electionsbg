@@ -61,8 +61,8 @@ export const WaterIntraGroupCard: FC<{
             {eur(inWindow)}
           </span>{" "}
           {bg
-            ? `в избрания период са договори, при които изпълнителят е също дружество от ВиК сектора${share ? ` (${share} от сумата)` : ""}.`
-            : `in the selected window are contracts whose contractor is itself a water-sector company${share ? ` (${share} of the total)` : ""}.`}
+            ? `в избрания период са договори, при които изпълнителят е друго дружество от ВиК сектора${share ? ` (${share} от сумата)` : ""} — без договорите, в които възложителят е посочен и като изпълнител.`
+            : `in the selected window are contracts whose contractor is another water-sector company${share ? ` (${share} of the total)` : ""} — excluding contracts that name the awarder as its own contractor.`}
         </p>
         {g?.contracts ? (
           <p className="text-muted-foreground">

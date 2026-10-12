@@ -39,7 +39,8 @@ describe("buildFloodModel — national awarders off the map", () => {
       .filter((c) => !(c.awarderEik in FLOOD_NATIONAL_AWARDERS) && !c.oblast)
       .reduce((s, c) => s + c.eur, 0);
     const mapped = m.byOblast.reduce((s, o) => s + o.eur, 0);
-    expect(mapped + m.nationalEur + unplaced).toBe(m.totalEur);
+    expect(m.unplacedEur).toBe(unplaced);
+    expect(mapped + m.nationalEur + m.unplacedEur).toBe(m.totalEur);
   });
 
   it("covers Напоителни системи, the case that drove the rule", () => {

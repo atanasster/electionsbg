@@ -13,12 +13,12 @@ export const WaterFundsScreen: FC = () => {
   return (
     <WaterPageFrame
       title={{
-        bg: "Еврофондове за ВиК операторите",
-        en: "EU funds for the water operators",
+        bg: "Еврофондове във водния сектор",
+        en: "EU funds in the water sector",
       }}
       description={{
-        bg: "Договорените и изплатените средства по европейските програми (ИСУН) за ВиК операторите — за целия програмен период, отделно от обществените поръчки.",
-        en: "EU programme funds (ИСУН) contracted and paid to the water operators — over the whole programme period, separate from public procurement.",
+        bg: "Договорените и изплатените средства по европейските програми (ИСУН) за ВиК операторите и другите дружества във водния сектор — за целия програмен период, отделно от обществените поръчки.",
+        en: "EU programme funds (ИСУН) contracted and paid to the water operators and the other water-sector companies — over the whole programme period, separate from public procurement.",
       }}
       scoped={false}
       status={{ isLoading, isError }}

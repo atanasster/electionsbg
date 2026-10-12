@@ -14,12 +14,15 @@ import { useVikGroupRollup, useVikFunds } from "@/data/procurement/useVik";
 import { useWaterOperatorMap } from "@/data/water/useWaterOperatorMap";
 import {
   WATER_SECTOR_EIKS,
+  WATER_TYPE_LABEL,
   operatorByEik,
   operatorStatusLabel,
 } from "@/lib/vikReferenceData";
+import { isBg } from "@/i18n";
 import { WaterOperatorMap } from "./WaterOperatorMap";
 import { WaterPageFrame } from "./WaterPageFrame";
 import { unpinnedOperators } from "./unpinnedOperators";
+import { withRollupCounts } from "./pinCounts";
 import { formatEurCompact } from "@/lib/currency";
 
 interface OpRow {
@@ -33,18 +36,38 @@ interface OpRow {
   euPaid: number;
   /** Non-live status label, or null for a working operator (D6). */
   status: string | null;
+  /** What kind of body this is — the register holds three that are not water
+   *  operators (the holding parent, the irrigation and dams companies), so the
+   *  table says which, rather than let a reader count them as operators. */
+  kind: string;
 }
 
 export const WaterOperatorsScreen: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const bg = lang === "bg";
-  const { operators } = useVikGroupRollup(WATER_SECTOR_EIKS);
+  const bg = isBg(lang);
+  const {
+    operators,
+    isLoading: rollupLoading,
+    isError: rollupError,
+  } = useVikGroupRollup(WATER_SECTOR_EIKS);
   const { funds } = useVikFunds(WATER_SECTOR_EIKS);
-  const { operators: mapOperators, isLoading: mapLoading } =
-    useWaterOperatorMap();
+  const {
+    operators: mapRaw,
+    isLoading: mapLoading,
+    isError: mapError,
+  } = useWaterOperatorMap();
+  // F3: pins take the table's ex-member counts (see pinCounts.ts).
+  const mapOperators = useMemo(
+    () => withRollupCounts(mapRaw, operators),
+    [mapRaw, operators],
+  );
 
   const rows = useMemo<OpRow[]>(() => {
+    const kindOf = (eik: string) => {
+      const type = operatorByEik(eik)?.type;
+      return type ? WATER_TYPE_LABEL[type][bg ? "bg" : "en"] : "";
+    };
     const fundByEik = new Map(funds.map((f) => [f.eik, f]));
     const seen = new Set<string>();
     const out: OpRow[] = [];
@@ -61,6 +84,7 @@ export const WaterOperatorsScreen: FC = () => {
         euContracted: f?.contractedEur ?? 0,
         euPaid: f?.paidEur ?? 0,
         status: operatorStatusLabel(operatorByEik(o.eik)?.status, bg),
+        kind: kindOf(o.eik),
       });
     }
     // Operators with EU funds but no in-scope procurement still belong here.
@@ -77,6 +101,7 @@ export const WaterOperatorsScreen: FC = () => {
         euContracted: f.contractedEur,
         euPaid: f.paidEur,
         status: operatorStatusLabel(op?.status, bg),
+        kind: kindOf(f.eik),
       });
     }
     return out.sort((a, b) => b.procEur - a.procEur);
@@ -112,6 +137,11 @@ export const WaterOperatorsScreen: FC = () => {
         id: "oblast",
         accessorFn: (r) => r.oblast,
         header: bg ? "Област" : "Oblast",
+      },
+      {
+        id: "kind",
+        accessorFn: (r) => r.kind,
+        header: bg ? "Вид" : "Type",
       },
       {
         id: "status",
@@ -204,10 +234,19 @@ export const WaterOperatorsScreen: FC = () => {
       }}
       scoped
       ready={[mapOperators.length, rows.length]}
+      status={{ isLoading: rollupLoading, isError: rollupError }}
     >
       {/* The map is a section of THIS page: the hub's „Карта" tile links #map. */}
       <section id="map" className="scroll-mt-20">
-        <WaterOperatorMap operators={mapOperators} unpinned={unpinned} />
+        {mapError ? (
+          <p className="rounded-xl border border-dashed border-border p-3 text-sm text-muted-foreground">
+            {bg
+              ? "Картата на операторите не се зареди — таблицата по-долу съдържа всички оператори."
+              : "The operator map failed to load — the table below lists every operator."}
+          </p>
+        ) : (
+          <WaterOperatorMap operators={mapOperators} unpinned={unpinned} />
+        )}
       </section>
 
       <DataTable<OpRow, unknown>

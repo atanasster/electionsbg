@@ -50,17 +50,19 @@ const EIK_PARAM = WATER_SECTOR_EIKS.join(",");
 export const useWaterOperatorMap = (): {
   operators: WaterOperatorPoint[];
   isLoading: boolean;
+  isError: boolean;
 } => {
   const { from, to } = useScopeWindow();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["db", "water-operator-map", from, to] as const,
     queryFn: async (): Promise<Payload> => {
       const p = new URLSearchParams({ eiks: EIK_PARAM });
       if (from) p.set("from", from);
       if (to) p.set("to", to);
       const r = await fetch(`/api/db/water-operator-map?${p.toString()}`);
-      if (!r.ok) return { operators: [] };
+      // Throw: an empty answer would make every operator read as unplaceable.
+      if (!r.ok) throw new Error(`water-operator-map -> ${r.status}`);
       return r.json();
     },
     staleTime: Infinity,
@@ -84,5 +86,5 @@ export const useWaterOperatorMap = (): {
     [data],
   );
 
-  return { operators, isLoading };
+  return { operators, isLoading, isError };
 };

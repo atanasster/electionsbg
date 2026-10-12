@@ -31,6 +31,8 @@ export const FLOOD_NATIONAL_AWARDERS: Readonly<Record<string, string>> = {
   "000695388": "Министерство на транспорта и съобщенията",
   "000695089": "Агенция „Пътна инфраструктура“",
   "831901762": "Изпълнителна агенция по околна среда",
+  // Seated in Ruse, but its dredging is the whole Bulgarian Danube fairway.
+  "000513106": "ИА „Проучване и поддържане на река Дунав“",
 };
 
 export interface FloodModel {
@@ -48,6 +50,9 @@ export interface FloodModel {
   /** Which national awarders contributed in this window, € desc — so the note
    *  names the bodies actually behind the figure. */
   nationalAwarders: { eik: string; name: string; eur: number }[];
+  /** Neither on the map nor national: the awarder's seat did not resolve. */
+  unplacedEur: number;
+  unplacedCount: number;
   topAwarders: FloodAwarder[];
   topContracts: FloodContract[];
 }
@@ -65,6 +70,8 @@ export const buildFloodModel = (
   let nationalEur = 0;
   let nationalCount = 0;
   const nationalByEik = new Map<string, number>();
+  let unplacedEur = 0;
+  let unplacedCount = 0;
   const awarderSet = new Set<string>();
   const byYear = new Map<number, { eur: number; count: number }>();
   const byOblast = new Map<string, { eur: number; count: number }>();
@@ -99,6 +106,9 @@ export const buildFloodModel = (
       o.eur += r.eur;
       o.count += 1;
       byOblast.set(r.oblast, o);
+    } else {
+      unplacedEur += r.eur;
+      unplacedCount += 1;
     }
     const a = byAwarder.get(r.awarderEik) ?? {
       name: r.awarderName,
@@ -147,6 +157,8 @@ export const buildFloodModel = (
         eur,
       }))
       .sort((a, b) => b.eur - a.eur || a.eik.localeCompare(b.eik)),
+    unplacedEur,
+    unplacedCount,
     byYear: [...byYear.entries()]
       .map(([year, v]) => ({ year, eur: v.eur, count: v.count }))
       .sort((a, b) => a.year - b.year),

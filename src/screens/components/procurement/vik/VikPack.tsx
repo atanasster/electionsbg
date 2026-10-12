@@ -164,8 +164,8 @@ export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       <p className="text-[11px] text-muted-foreground/80">
         {bg
-          ? "Консолидиран изглед по всички дружества в групата на Български ВиК холдинг; поръчките са от регистъра на обществените поръчки (АОП/ЦАИС ЕОП). Плащанията към ВиК операторите по тарифа (сметките за вода) са извън ЗОП и не са част от договорите тук. Показателите на КЕВР (загуби на вода, цени) предстои да бъдат добавени."
-          : "Consolidated across every operator in the Bulgarian Water Holding group; procurement is from the public-procurement register (АОП/ЦАИС ЕОП). Tariff payments to the operators (household water bills) are outside procurement and are not part of the contracts here. КЕВР indicators (water loss, tariffs) are coming in a later phase."}
+          ? "Консолидиран изглед по всички дружества в групата на Български ВиК холдинг; поръчките са от регистъра на обществените поръчки (АОП/ЦАИС ЕОП). Плащанията към ВиК операторите по тарифа (сметките за вода) са извън ЗОП и не са част от договорите тук. Показателите на КЕВР (загуби на вода, цени) не са включени."
+          : "Consolidated across every operator in the Bulgarian Water Holding group; procurement is from the public-procurement register (АОП/ЦАИС ЕОП). Tariff payments to the operators (household water bills) are outside procurement and are not part of the contracts here. КЕВР indicators (water loss, tariffs) are not included."}
       </p>
     </section>
   );

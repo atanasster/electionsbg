@@ -67,7 +67,7 @@ export const WATER_HUB_COPY: Record<string, { bg: string; en: string }> = {
   },
   water_band_procurement: { bg: "Поръчките", en: "The procurement" },
   water_band_procurement_desc: {
-    bg: "Какво купуват операторите, при каква конкуренция и от кого — делът с една оферта е до средното за страната.",
+    bg: "Какво купуват операторите, при каква конкуренция и от кого — делът с една оферта е в сравнение със средното за страната.",
     en: "What the operators buy, with how much competition and from whom — the single-bid share sits beside the national average.",
   },
   water_band_service: {
@@ -119,8 +119,8 @@ export const WATER_HUB_COPY: Record<string, { bg: string; en: string }> = {
     en: "Contractors and concentration",
   },
   water_tile_contractors_desc: {
-    bg: "Кои фирми печелят поръчките на операторите и колко са концентрирани — без парите, които остават в сектора.",
-    en: "Which firms win the operators' contracts and how concentrated they are — excluding money that stays inside the sector.",
+    bg: "Кои фирми печелят поръчките на операторите, колко са концентрирани и колко от парите остават в сектора.",
+    en: "Which firms win the operators' contracts, how concentrated they are and how much of the money stays inside the sector.",
   },
   water_tile_contracts: { bg: "Всички договори", en: "Every contract" },
   water_tile_contracts_desc: {

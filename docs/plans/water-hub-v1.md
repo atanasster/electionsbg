@@ -265,3 +265,27 @@ Then add the blob and riverbed regeneration plus the sync line to the `process-w
 - D8: `company_politicians` drift, which closes with the next cloud TR / person publish.
 
 Band 3 leaves room for these, but **no tile may promise them**; the „загуби, язовири" over-claim (§0) is exactly that failure.
+
+### Left open by the T9 audit (2026-10-13)
+
+The T9 audit (`/audit-sectors`-style pass, read-only) found every headline figure reconciled
+across local PG, Cloud SQL, the blob and the bucket. Fixed in T9: the governance-sectors tile
+promising „загуби · язовири", the VikPack КЕВР promise, the operators-table type column and
+ex-member map pins, the per-category counts on a second basis, the contractors tile pointing
+away from its own figure, the self-contracting gap in the intra-group lead, silent failures in
+the rollup and map hooks, the unlisted remainder of the EU-funds list, unplaced riverbed rows
+and the Danube agency, and several copy items. Left open, each for a stated reason:
+
+- **Riverbed topic over-capture.** The CPV/title selection admits a few non-riverbed contracts.
+  Measured on the top 5: a Bansko ПСОВ + network job (€21.7M), Danube fairway dredging
+  (€12.3M) and a Ruse drain/snow-clearing lot (€7.9M), together ~10% of the total. Their
+  scale across the remaining 980 rows is unmeasured. Tightening the predicate changes a
+  published figure, so it needs its own measured pass.
+- **The governance-sectors tile figure is scoped, the hub is not.** Water shows €213.6M at the
+  default parliament window and links to an unscoped hub. Roads has the same pattern, so this
+  is a hub-wide decision.
+- **Heading levels and the shared DataTable's icon-only buttons.** Site-wide patterns, not
+  water defects.
+- **G19's „(28)" on the holding tile.** Not added: the registry forbids figures in copy. The
+  description says „по-тесен кръг от целия сектор" instead.
+- **The rationing chart's cabinet colouring.** An editorial question, flagged only.

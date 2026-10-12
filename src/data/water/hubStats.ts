@@ -53,8 +53,9 @@ export interface WaterHubStats {
    *  sit on a different basis from `procurement.contracts`. */
   functions: { id: VikCategory; eur: number }[];
   /** W2: money that stays inside the sector — a water EIK awarding a contract to
-   *  another water EIK (loans to the holding) or to itself. IN the headline,
-   *  disclosed, and kept out of the top-contractor list and the HHI. */
+   *  another water EIK (loans to the holding) or to itself. IN the headline and
+   *  disclosed; the concentration tile labels these suppliers „в групата" rather
+   *  than filtering them (W2 as amended at T4). */
   intraGroup: {
     eur: number;
     contracts: number;

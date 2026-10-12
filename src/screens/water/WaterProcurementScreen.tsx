@@ -26,7 +26,12 @@ export const WaterProcurementScreen: FC = () => {
   // headline add up to it, and „both sides exclude members" is true of every
   // figure in #competition. The by-function model (useWaterSector) carries €,
   // which member rows (€0) cannot move.
-  const { operators, exMembers } = useVikGroupRollup(WATER_SECTOR_EIKS);
+  const {
+    operators,
+    exMembers,
+    isLoading: rollupLoading,
+    isError: rollupError,
+  } = useVikGroupRollup(WATER_SECTOR_EIKS);
   return (
     <WaterPageFrame
       title={{
@@ -39,7 +44,10 @@ export const WaterProcurementScreen: FC = () => {
       }}
       scoped
       ready={[model]}
-      status={{ isLoading, isError }}
+      status={{
+        isLoading: isLoading || rollupLoading,
+        isError: isError || rollupError,
+      }}
     >
       {model && model.totalEur > 0 ? (
         <>
@@ -50,6 +58,7 @@ export const WaterProcurementScreen: FC = () => {
             <VikCategoryTile
               categories={model.categories}
               totalEur={model.totalEur}
+              showCounts={false}
             />
           </section>
           <section id="competition" className="scroll-mt-20 space-y-4">
@@ -59,15 +68,17 @@ export const WaterProcurementScreen: FC = () => {
             />
             <VikCompetitionTile operators={operators} />
           </section>
-          <section id="contractors" className="scroll-mt-20">
+          <section id="contractors" className="scroll-mt-20 space-y-4">
+            {/* The hub's contractors tile quotes the intra-group € — it is
+                disclosed here, beside the concentration it is labelled in. */}
+            <div id="intragroup" className="scroll-mt-20">
+              <WaterIntraGroupCard
+                suppliers={model.suppliers}
+                totalEur={model.totalEur}
+              />
+            </div>
             <VikContractorHhiTile
               memberEiks={groupEiks}
-              suppliers={model.suppliers}
-              totalEur={model.totalEur}
-            />
-          </section>
-          <section id="intragroup" className="scroll-mt-20">
-            <WaterIntraGroupCard
               suppliers={model.suppliers}
               totalEur={model.totalEur}
             />

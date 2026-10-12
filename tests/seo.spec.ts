@@ -469,7 +469,7 @@ const ROUTES: RouteCheck[] = [
       ["/water/procurement", "Поръчките на ВиК сектора", 300],
       ["/water/services", "Воден режим и достъп до водни услуги", 300],
       ["/water/floods", "Почистване на речни корита", 300],
-      ["/water/funds", "Еврофондове за ВиК операторите", 300],
+      ["/water/funds", "Еврофондове във водния сектор", 300],
     ] as const
   ).map(([path, h1, minBodyChars]) => ({
     path,

@@ -73,8 +73,8 @@ export const waterHubKpis = (
       label: bg ? "с една оферта" : "single-bidder",
       basis: national
         ? bg
-          ? `при ${national} средно за всички възложители; без дяловете в обединения`
-          : `against ${national} across all buyers; consortium shares excluded`
+          ? `при ${national} средно за всички възложители; без редовете на участниците в обединения`
+          : `against ${national} across all buyers; consortium-member rows excluded`
         : bg
           ? "от договорите с известен брой оферти"
           : "of contracts with a known bid count",
@@ -110,7 +110,7 @@ export const waterHubKpis = (
 /** The note under the band: what the four figures are, and what they are not. */
 export const waterKpiNote = (bg: boolean): string =>
   bg
-    ? "Четирите числа са от различни източници и не се събират: поръчките на операторите, делът им с една оферта (до средното за страната), европейски проекти (ИСУН) и дял от населението (НСИ). Почистването на речни корита е отделно — по предмет на договора, от всички възложители."
+    ? "Четирите числа са от различни източници и не се събират: поръчките на операторите, делът им с една оферта (в сравнение със средното за страната), европейски проекти (ИСУН) и дял от населението (НСИ). Почистването на речни корита е отделно — по предмет на договора, от всички възложители."
     : "The four figures come from different sources and do not add up: the operators' procurement, their single-bid share (beside the national average), EU projects (ИСУН) and a population share (NSI). Riverbed cleaning is separate — by contract subject, from every awarder.";
 
 /** The evidence rail: the operators that buy the most. */
@@ -164,8 +164,8 @@ export const waterTileMetric = (
           : "operating water utilities",
         metricSecondary: dead
           ? bg
-            ? `още ${int(dead)} в ликвидация, несъстоятелност или неактивни`
-            : `${int(dead)} more in liquidation, insolvency or inactive`
+            ? `още ${int(dead)} неработещи`
+            : `${int(dead)} more not operating`
           : undefined,
       };
     }

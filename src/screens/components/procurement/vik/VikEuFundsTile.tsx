@@ -8,6 +8,7 @@
 import { FC } from "react";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
+import { isBg } from "@/i18n";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
@@ -18,7 +19,7 @@ const TOP_N = 10;
 export const VikEuFundsTile: FC<{ funds: VikFundOp[] }> = ({ funds }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const bg = lang === "bg";
+  const bg = isBg(lang);
   const rows = funds.filter((f) => f.contractedEur > 0);
   if (rows.length < 2) return null;
 
@@ -27,6 +28,10 @@ export const VikEuFundsTile: FC<{ funds: VikFundOp[] }> = ({ funds }) => {
   const absorption = totalContracted > 0 ? totalPaid / totalContracted : 0;
   const max = Math.max(...rows.map((f) => f.contractedEur), 1);
   const shown = rows.slice(0, TOP_N);
+  // The rows past the cap are counted, never dropped silently: the tile's
+  // totals include them, so the list must say how much it is not showing.
+  const rest = rows.slice(TOP_N);
+  const restEur = rest.reduce((s, f) => s + f.contractedEur, 0);
 
   return (
     <Card id="eu-funds">
@@ -108,6 +113,13 @@ export const VikEuFundsTile: FC<{ funds: VikFundOp[] }> = ({ funds }) => {
               </div>
             );
           })}
+          {rest.length ? (
+            <p className="pt-1 text-[11px] text-muted-foreground">
+              {bg
+                ? `+ още ${rest.length} с общо ${formatEurCompact(restEur, lang)} договорени`
+                : `+ ${rest.length} more with ${formatEurCompact(restEur, lang)} contracted in total`}
+            </p>
+          ) : null}
         </div>
 
         <p className="text-[11px] text-muted-foreground/80">

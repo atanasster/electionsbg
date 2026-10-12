@@ -25,7 +25,11 @@ const CATEGORY_COLOR: Record<VikCategory, string> = {
 export const VikCategoryTile: FC<{
   categories: VikCategoryAgg[];
   totalEur: number;
-}> = ({ categories, totalEur }) => {
+  /** Per-category contract counts come from awarder_group_model, which counts
+   *  €0 consortium MEMBER rows. A page that counts ex-members everywhere else
+   *  (/water/procurement) hides them rather than print a second basis. */
+  showCounts?: boolean;
+}> = ({ categories, totalEur, showCounts = true }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -71,7 +75,9 @@ export const VikCategoryTile: FC<{
               </div>
               <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-muted-foreground">
                 <span>
-                  {c.contractCount} {bg ? "договора" : "contracts"} ·{" "}
+                  {showCounts
+                    ? `${c.contractCount} ${bg ? "договора" : "contracts"} · `
+                    : ""}
                   {c.supplierCount} {bg ? "изпълнители" : "suppliers"}
                 </span>
                 {c.topSupplier && (

@@ -514,3 +514,21 @@ export const WATER_OPERATOR_TYPES: readonly WaterOperatorType[] = [
   "municipal",
   "concession",
 ];
+
+/** Reading order for the type label — the holding parent and the concession are
+ *  not the same kind of thing as a regional monopoly, and the reader can see it.
+ *
+ *  Keyed on the UNION, not `string`: an unlabelled type folds to `undefined`,
+ *  which `buildEntityIndex` drops silently, so a new operator kind would become
+ *  unsearchable by its type name with nothing red anywhere. */
+export const WATER_TYPE_LABEL: Record<
+  WaterOperatorType,
+  { bg: string; en: string }
+> = {
+  holding_parent: { bg: "Холдинг", en: "Holding" },
+  holding_sub: { bg: "Регионално ВиК", en: "Regional operator" },
+  concession: { bg: "Концесия", en: "Concession" },
+  irrigation: { bg: "Напоителни системи", en: "Irrigation" },
+  dams: { bg: "Язовири", en: "Dams" },
+  municipal: { bg: "Общинско", en: "Municipal" },
+};
