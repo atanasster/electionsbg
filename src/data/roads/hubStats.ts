@@ -40,6 +40,10 @@ export interface RoadsHubStats {
     nationalBidKnown: number;
     /** € through direct / no-notice procedures (procedureBucket = "direct"). */
     directEur: number;
+    /** € with NO recorded procedure (procedureBucket = "unknown") — inside the
+     *  direct share's denominator, so the KPI states it (~32% today). Optional:
+     *  a blob minted before the roads audit lacks it. */
+    unknownMethodEur?: number;
     /** Of `eur`, what annexes added (current − signing value). */
     growthEur: number;
   };

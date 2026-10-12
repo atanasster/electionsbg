@@ -63,7 +63,10 @@ export const RoadCostBenchmarkTile: FC<{ corridors: CorridorAgg[] }> = ({
       </CardHeader>
       <CardContent className="p-3 md:p-4">
         {/* Reference labels row */}
-        <div className="relative h-4 mb-1 ml-24">
+        {/* Aligned to the bar track: w-24 label + gap-2 (104px) on the left, w-20
+            value + gap-2 (88px) on the right. ml-24 alone sat the labels 8px off
+            their lines and let the right-most one spill past the card. */}
+        <div className="relative h-4 mb-1 ml-[104px] mr-[88px]">
           {POINT_REFS.map((r) => (
             <span
               key={r.label}
@@ -121,7 +124,7 @@ export const RoadCostBenchmarkTile: FC<{ corridors: CorridorAgg[] }> = ({
                     style={{ left: pct(med) }}
                   />
                 </span>
-                <span className="w-16 shrink-0 text-right tabular-nums">
+                <span className="w-20 shrink-0 whitespace-nowrap text-right tabular-nums">
                   {formatEurCompact(med, lang)}
                   <span className="text-muted-foreground">/km</span>
                 </span>

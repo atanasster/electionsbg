@@ -664,3 +664,50 @@ Verify on prod: `/sector/roads` renders four KPI cells (`curl` the API for
 - НКЖИ rail as a second engine instance.
 - Folding consortium *member* political links into the carrier (R24's €59.2M).
 - An ИСУН alias fold for `000698085` (R26).
+- Deleting `RoadsPack` / `useRoads`. Both are unreachable since T4 — the roads
+  dashboard entry no longer renders and the awarder page suppresses the pack — but
+  the pack-backed-sector gates in `sectorDashboards.test.ts` count roads, so
+  removing it means re-deciding those gates for a bespoke hub. Kept registered;
+  its pre-R11 „capture" chips must not be revived as they are.
+- A dedicated `sector-roads-procurement.png` og card (that page reuses the hub's).
+
+## 7. Post-implementation audit (2026-10-12)
+
+Three read-only audits ran against the code as built: plan compliance, the blob
+against independent SQL, and the presentation layer. **Every hub figure
+reconciled with the database**, and the committed blob was current. The gaps, all
+fixed in the audit commits:
+
+- **Count basis one click away.** The KPI links open `/procurement/contracts?sector=roads`,
+  which counted €0 consortium-member rows: the hub's 2,367 / 374 single-bid became
+  2,866 / 458. The browse pack now carries `excludeConsortiumMembers`, gated through
+  the real `db_table` engine.
+- **Tile links lost both scope and anchor.** `InfographicTile` split its href on
+  `?`, so `…?pscope=all#annexes` became `pscope=all%23annexes`: an unknown scope
+  (fell back to `ns`) and no scroll. It now parses with `parsePath`. Roads was the
+  first hub to put a query and a hash in one tile link. The sub-pages also needed
+  `useHashScroll`, since their sections mount only after the model is built.
+- **The AI `roadsSpending` tool modelled АПИ alone** (€8.92bn against the page's
+  €9.14bn), with no in-house label and a „captured work" fact R11 had refuted. It now
+  runs the engine over the roll-up.
+- **€/km and governance/sectors links** still pointed at `/awarder/000695089`.
+- **The „Няколко ОПУ" bucket (€744.3M) appeared nowhere.** It is shown beneath the
+  ОПУ ranking, outside it (R12 as written).
+- **D7 single-bid captions** now say „включва законови изключения" on KPI 2 and the
+  ОПУ tile.
+- **The direct-award KPI's denominator** includes the 31.7% of value with no recorded
+  procedure. The blob now carries `unknownMethodEur` and the basis line states it.
+- **`#pipeline`** listed АПИ's 12 largest procedures of all time, awarded ones included,
+  as „Планирани". It now lists the newest procedures with no contract yet, labelled
+  АПИ-only and „текущо, без период", and shows „—" rather than „~€0" for an unknown
+  forecast.
+- **Empty and failed states:** `#annexes` and `#pipeline` keep their ids and say when
+  the data failed; the map says it failed instead of loading for ever; the hub says
+  when its figures failed instead of dropping the band silently.
+- **Mobile:** the `#regions` grid had no explicit column, so one long contractor name
+  stretched its card to 1,088 px (clipped, not scrolled). Also the map legend did not
+  wrap, the donut legend had no width, and the benchmark labels and values were off
+  their columns.
+- **Accessibility:** a corridor picker beside the map (the SVG paths take no focus),
+  and a text alternative on the time-spine chart.
+- **R26** is recorded in `ROADS_EXCLUDED`.

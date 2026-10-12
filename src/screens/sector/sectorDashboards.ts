@@ -321,6 +321,12 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // guard, `agency` must keep matching sectorRegistry, and `leadEik` is what makes
   // CompanyDbScreen's `showPack = SectorPack && !sectorDash` suppress RoadsPack on
   // /awarder/000695089. Do not trim it.
+  //
+  // RoadsPack itself is therefore UNREACHABLE: this entry no longer renders and
+  // the awarder page suppresses it. It stays registered only because the
+  // pack-backed-sector gates (sectorDashboards.test.ts) count it; deleting it
+  // means re-deciding those gates for a bespoke hub, which v1 did not do. Its
+  // „без търг" / ≥80% capture chips predate R11 — do not revive them as-is.
   roads: {
     id: "roads",
     titleKey: "sector_roads_title",

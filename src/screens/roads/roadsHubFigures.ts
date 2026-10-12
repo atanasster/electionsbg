@@ -71,8 +71,8 @@ export const roadsHubKpis = (
       label: bg ? "с една оферта" : "single-bidder",
       basis: national
         ? bg
-          ? `при ${national} средно за всички възложители`
-          : `against ${national} across all buyers`
+          ? `при ${national} средно за всички възложители; вкл. законови изключения`
+          : `against ${national} across all buyers; incl. statutory exceptions`
         : bg
           ? "от договорите с известен брой оферти"
           : "of contracts with a known bid count",
@@ -80,13 +80,22 @@ export const roadsHubKpis = (
     });
 
   const direct = pctOf(p.directEur, p.eur, bg);
+  // The denominator is ALL value, and about a third of it carries no recorded
+  // procedure — so the share is a floor, and the basis says how much is unknown.
+  const unknownPct = p.unknownMethodEur
+    ? pctOf(p.unknownMethodEur, p.eur, bg)
+    : null;
   if (direct)
     out.push({
       value: direct,
       label: bg ? "без обявена процедура" : "without an open call",
-      basis: bg
-        ? `${eur(p.directEur)} от стойността — пряко възлагане и договаряне без обявление`
-        : `${eur(p.directEur)} of the value — direct awards and negotiation without notice`,
+      basis: unknownPct
+        ? bg
+          ? `${eur(p.directEur)} — пряко възлагане и договаряне без обявление; за ${unknownPct} от стойността процедурата не е посочена`
+          : `${eur(p.directEur)} — direct awards and negotiation without notice; ${unknownPct} of the value records no procedure`
+        : bg
+          ? `${eur(p.directEur)} от стойността — пряко възлагане и договаряне без обявление`
+          : `${eur(p.directEur)} of the value — direct awards and negotiation without notice`,
       to: ROADS_KPI_TO.direct,
     });
 

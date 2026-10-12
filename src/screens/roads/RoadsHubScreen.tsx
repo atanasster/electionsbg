@@ -32,7 +32,7 @@ export const RoadsHubScreen: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
-  const { data: stats, isPending } = useRoadsHubStats();
+  const { data: stats, isPending, isError } = useRoadsHubStats();
   // A registry typo would make the lookup undefined and `.bg` throw, taking the
   // hub down; roadsRegistry.test.ts holds the keys, this degrades the rest.
   const t = (k: string) => {
@@ -105,6 +105,15 @@ export const RoadsHubScreen: FC = () => {
           />
         }
       />
+      {/* HubHead drops the band when it has no figures; without this a failed or
+          absent blob just removes the head's numbers, with nothing saying why. */}
+      {!isPending && (isError || !stats) ? (
+        <p className="mt-4 rounded-xl border border-dashed border-border p-3 text-sm text-muted-foreground">
+          {bg
+            ? "Обобщените числа не можаха да се заредят — плочките по-долу водят към страниците с данните."
+            : "The summary figures could not be loaded — the tiles below lead to the pages with the data."}
+        </p>
+      ) : null}
       <TileHubGrid className="mt-6" sections={sections} />
     </>
   );

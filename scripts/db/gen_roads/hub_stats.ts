@@ -172,6 +172,12 @@ const main = async () => {
       nationalSingleBid: num(nat.r.singleBidExMembers),
       nationalBidKnown: num(nat.r.bidKnownExMembers),
       directEur: round(m.directShare * m.totalEur),
+      // The direct share's denominator includes this; the KPI says how much.
+      unknownMethodEur: round(
+        m.methods
+          .filter((x) => x.bucket === "unknown")
+          .reduce((t, x) => t + x.totalEur, 0),
+      ),
       growthEur: round(m.years.reduce((s, y) => s + y.growthEur, 0)),
     },
     inhouse: {

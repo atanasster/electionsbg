@@ -14,7 +14,7 @@
 // a list of spenders and a list of institutions.
 //
 // ⚠ ROADS (АПИ) AND WATER (ВиК) ARE SEPARATE SECTORS. Агенция „Пътна
-// инфраструктура" (000695089, ~€6.33bn — ~63× the whole МРРБ group) lives in
+// инфраструктура" (000695089, ~€8.9bn as of 2026-10 — dwarfing the whole МРРБ group) lives in
 // /sector/roads, and Български ВиК холдинг (206086428) + the operating ВиК
 // utilities live in /water. Both are administratively МРРБ's children but are
 // DELIBERATELY EXCLUDED here — the dashboard keeps only a cross-link strip (§4

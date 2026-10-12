@@ -1,8 +1,15 @@
-// "Планирани поръчки" — АПИ's announced tender procedures (the pipeline of what
-// is planned to be built), from the tender-STAGE corpus. Every value here is the
-// прогнозна (estimated) value — a forecast set before contracting, NOT money
-// spent — so it's labelled as such and never mixed with the signed-contract
-// totals elsewhere on the page.
+// "Процедури без договор" — АПИ's most recent announced tender procedures that
+// carry no signed contract yet (the pipeline), from the tender-STAGE corpus.
+// Every value here is the прогнозна (estimated) value — a forecast set before
+// contracting, NOT money spent — so it's labelled as such and never mixed with
+// the signed-contract totals elsewhere on the page.
+//
+// АПИ ONLY, and it says so: the tender route is per buyer and НКСИП's handful of
+// procedures are all awarded. CURRENT, not windowed: it sits on a scoped page,
+// so the header says „текущо, без период" (plan O3).
+//
+// It used to list АПИ's 12 LARGEST procedures of all time under „Планирани" —
+// already-awarded ones included. A row with a contract is not planned.
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -10,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useAwarderTenders } from "@/data/procurement/useAwarderTenders";
-import { API_EIK } from "@/data/procurement/useRoads";
+import { API_EIK } from "@/lib/roadsAwarder";
 import { formatEurCompact } from "@/lib/currency";
 import {
   roadRefOf,
@@ -46,12 +53,32 @@ const tenderKind = (subject: string, lang: string): string => {
 export const RoadPlannedTendersTile: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const { data } = useAwarderTenders(API_EIK, 12, "value");
-  if (!data) return null;
-
+  const bg = lang === "bg";
+  // Newest first, wide enough that the not-yet-awarded slice survives the filter.
+  const { data, isPending } = useAwarderTenders(API_EIK, 60, "date");
+  if (isPending) return null;
+  const planned = (data?.recent ?? [])
+    .filter(
+      (t) =>
+        !t.is_cancelled && t.awarded_eur == null && !(t.award_contracts ?? 0),
+    )
+    .slice(0, 8);
+  // Absent route, failed fetch, or nothing open: say which, keep the section.
+  if (!data || planned.length === 0)
+    return (
+      <p className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
+        {!data
+          ? bg
+            ? "Обявените процедури на АПИ не можаха да се заредят."
+            : "АПИ's announced procedures could not be loaded."
+          : bg
+            ? "Няма обявени процедури на АПИ без сключен договор."
+            : "АПИ has no announced procedures without a signed contract."}
+      </p>
+    );
   const summary = data.summary;
-  const planned = data.recent.filter((t) => !t.is_cancelled).slice(0, 8);
-  if (planned.length === 0) return null;
+  const est = (v: number | null | undefined) =>
+    v == null ? "—" : `~${formatEurCompact(v, lang)}`;
 
   const numFmt = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en");
 
@@ -60,11 +87,13 @@ export const RoadPlannedTendersTile: FC = () => {
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <ClipboardList className="h-4 w-4" />
-          {lang === "bg" ? "Планирани поръчки" : "Planned procurements"}
+          {bg
+            ? "Процедури на АПИ без сключен договор"
+            : "АПИ procedures without a signed contract"}
           <span className="text-xs text-muted-foreground font-normal">
-            {lang === "bg"
-              ? "обявени процедури · прогнозна стойност"
-              : "announced procedures · estimated value"}
+            {bg
+              ? "текущо, без период · прогнозна стойност"
+              : "current, not windowed · estimated value"}
           </span>
         </CardTitle>
       </CardHeader>
@@ -80,9 +109,15 @@ export const RoadPlannedTendersTile: FC = () => {
                 {lang === "bg" ? "прекратени" : "cancelled"}
               </>
             ) : null}
-            {" · ~"}
-            {formatEurCompact(summary.forecast_eur ?? 0, lang)}{" "}
-            {lang === "bg" ? "прогнозни" : "estimated"}
+            {summary.forecast_eur != null ? (
+              <>
+                {" · "}
+                {est(summary.forecast_eur)}{" "}
+                {bg
+                  ? "прогнозни, всички процедури"
+                  : "estimated, all procedures"}
+              </>
+            ) : null}
           </div>
         ) : null}
         <ul className="divide-y divide-border text-sm">
@@ -106,7 +141,7 @@ export const RoadPlannedTendersTile: FC = () => {
                   </span>
                 ) : null}
                 <span className="ml-auto tabular-nums font-medium text-foreground">
-                  ~{formatEurCompact(t.forecast_eur ?? 0, lang)}
+                  {est(t.forecast_eur)}
                 </span>
               </div>
             </li>

@@ -4,8 +4,9 @@
 // Why not useRoads: that hook models ONE awarder and also fetches the
 // counterparty rollup, which the roads sub-pages never render. The hub blob
 // (db:gen-roads-hub-stats) models the roll-up, so a sub-page modelling АПИ alone
-// would put a different Струма total one click under the hub's (НКСИП's €220.7M
-// is all Струма) — the same number, two buyer sets.
+// would put a different Струма total one click under the hub's (€208.9M of
+// НКСИП's €220.7M is Струма; the engine places €3.9M on Хемус and leaves the
+// rest without a corridor) — the same number, two buyer sets.
 //
 // Each EIK is fetched through the shared awarderContractsQuery, so the cache key
 // is the one every other awarder surface uses and a sub-page → sub-page hop

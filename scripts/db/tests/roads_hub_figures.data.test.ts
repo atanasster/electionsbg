@@ -259,3 +259,20 @@ test.skipIf(skip)(
     assert.equal(single.aggregates?.count ?? single.total, b.singleBid);
   },
 );
+
+test.skipIf(skip)(
+  "the direct-award KPI's unknown-procedure share is the database's",
+  async () => {
+    // procedureBucket's "unknown" is an empty method; independent SQL, not the engine.
+    const [r] = await allRows<{ eur: string }>(
+      `SELECT sum(amount_eur) eur FROM contracts
+        WHERE tag = 'contract' AND awarder_eik = ANY($1)
+          AND consortium_role IS DISTINCT FROM 'member'
+          AND coalesce(btrim(procurement_method), '') = ''`,
+      [eiks],
+    );
+    const b = blob().procurement;
+    assert.ok(b.unknownMethodEur != null, "re-run db:gen-roads-hub-stats");
+    near(Number(r.eur), b.unknownMethodEur, "unknown-method €");
+  },
+);

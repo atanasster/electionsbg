@@ -13,6 +13,9 @@ import { PackSelect } from "../PackSelect";
 import type { CorridorAgg } from "@/lib/roadAttributes";
 import { RoadNetworkMap, type RoadMetric } from "./RoadNetworkMap";
 
+// Sentinel for „no corridor focused" — not a corridor id any road ref produces.
+const ALL = "__all__";
+
 export const RoadNetworkCard: FC<{
   corridors: CorridorAgg[];
   focusCorridor: string | null;
@@ -65,6 +68,29 @@ export const RoadNetworkCard: FC<{
         </div>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
+        {/* The keyboard path to a corridor: the map's lines are SVG paths with
+            no focus, so without this a corridor was reachable only by mouse or
+            by editing ?corridor= in the URL. Same setter, same state. */}
+        <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
+          <span>{lang === "bg" ? "Коридор:" : "Corridor:"}</span>
+          <PackSelect
+            value={focusCorridor ?? ALL}
+            onChange={(v) => onFocusCorridor(v === ALL ? null : v)}
+            ariaLabel={
+              lang === "bg"
+                ? "Открои коридор на картата"
+                : "Highlight a corridor"
+            }
+            className="h-8 min-w-0"
+            options={[
+              { value: ALL, label: lang === "bg" ? "Всички" : "All" },
+              ...corridors.map((c) => ({
+                value: c.corridor,
+                label: c.corridor,
+              })),
+            ]}
+          />
+        </div>
         <RoadNetworkMap
           corridors={corridors}
           metric={mapMetric}
@@ -73,8 +99,8 @@ export const RoadNetworkCard: FC<{
         />
         <p className="text-[11px] text-muted-foreground/80 mt-2">
           {lang === "bg"
-            ? "Автомагистрали и финансирани републикански пътища (I и II клас). Дебелината на линията показва вложените средства. Кликни коридор, за да го откроиш на картата."
-            : "Motorways and funded republican roads (class I and II). Line thickness reflects € spent. Click a corridor to highlight it on the map."}
+            ? "Автомагистрали и финансирани републикански пътища (I и II клас). Дебелината на линията показва вложените средства. Избери или кликни коридор, за да го откроиш на картата."
+            : "Motorways and funded republican roads (class I and II). Line thickness reflects € spent. Pick or click a corridor to highlight it on the map."}
         </p>
       </CardContent>
     </Card>

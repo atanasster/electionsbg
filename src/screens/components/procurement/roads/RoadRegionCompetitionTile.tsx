@@ -5,7 +5,9 @@
 // both how much a region spends and how contested it is. Data straight from
 // model.regions (regionOf → RegionAgg). The „Няколко ОПУ" bucket (lots spanning
 // several directorates, e.g. a whole-motorway maintenance lot) is left out of
-// the ranking — it is no one directorate's competition.
+// the RANKING — it is no one directorate's competition — but shown beneath it
+// as its own line (plan T1.4/R12): it is ~€0.7bn, and dropping it made that
+// money appear nowhere on the site.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -45,6 +47,7 @@ export const RoadRegionCompetitionTile: FC<{
         .slice(0, 12),
     [regions],
   );
+  const multi = regions.find((r) => r.region === MULTI_REGION);
   if (rows.length < 3) return null;
 
   const maxEur = Math.max(...rows.map((r) => r.totalEur), 1);
@@ -95,10 +98,22 @@ export const RoadRegionCompetitionTile: FC<{
             </div>
           );
         })}
+        {multi && multi.totalEur > 0 ? (
+          <p className="mt-2 border-t border-border pt-2 text-xs text-muted-foreground">
+            {lang === "bg"
+              ? `Извън класацията: обособени позиции за няколко ОПУ наведнъж — ${formatEurCompact(multi.totalEur, lang)} в ${multi.contractCount.toLocaleString(lang)} договора`
+              : `Outside the ranking: lots spanning several directorates at once — ${formatEurCompact(multi.totalEur, lang)} in ${multi.contractCount.toLocaleString(lang)} contracts`}
+            {multi.singleBidShare != null
+              ? lang === "bg"
+                ? `, ${Math.round(multi.singleBidShare * 100)}% с една оферта.`
+                : `, ${Math.round(multi.singleBidShare * 100)}% single-bid.`
+              : "."}
+          </p>
+        ) : null}
         <p className="pt-1 text-[11px] text-muted-foreground/80">
           {lang === "bg"
-            ? "Дял на договорите с една оферта по ОПУ. Дължината на лентата е вложените средства. Червено = слаба конкуренция."
-            : "Single-bid share per regional directorate. Bar length is € spent. Red = weak competition."}
+            ? "Дял на договорите с една оферта по ОПУ; включва законови изключения (вътрешни възлагания, рамкови споразумения). Дължината на лентата е вложените средства. Червено = слаба конкуренция."
+            : "Single-bid share per regional directorate; includes statutory exceptions (in-house awards, framework call-offs). Bar length is € spent. Red = weak competition."}
           {baseline != null
             ? lang === "bg"
               ? ` Средно за всички възложители в същия период: ${Math.round(baseline * 100)}%. Сигнал за проверка, не доказателство.`

@@ -141,7 +141,17 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
         </div>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
-        <div className="h-56">
+        <div
+          className="h-56"
+          role="img"
+          aria-label={(() => {
+            const top = [...years].sort((a, b) => b.totalEur - a.totalEur)[0];
+            const span = `${years[0].year}–${years[years.length - 1].year}`;
+            return lang === "bg"
+              ? `Стойност на договорите по години, ${span}; най-много през ${top.year}: ${formatEurCompact(top.totalEur, lang)}.`
+              : `Contract value by year, ${span}; highest in ${top.year}: ${formatEurCompact(top.totalEur, lang)}.`;
+          })()}
+        >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={data}

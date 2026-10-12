@@ -128,6 +128,17 @@ export const ROADS_EXCLUDED: readonly RoadsBody[] = [
     },
     why: "a school the ОПУ stem matched",
   },
+  {
+    // R26: named АПИ in ИСУН, one project (€0.65M), no contracts — almost
+    // certainly a mistyped 000695089. Recorded so the next sweep does not
+    // rediscover it; NOT folded, because an EIK we cannot verify is not АПИ.
+    eik: "000698085",
+    name: {
+      bg: "„Агенция Пътна инфраструктура“ (ЕИК в ИСУН)",
+      en: "„Road Infrastructure Agency“ (EIK as filed in ИСУН)",
+    },
+    why: "probable ИСУН typo for АПИ's EIK — 1 project, €0.65M, no contracts",
+  },
 ];
 
 /** The sector's state in-house CONTRACTOR — a supplier, never a buyer.

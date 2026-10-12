@@ -5,6 +5,7 @@
 
 import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { isBg } from "@/i18n";
 import { useSofiaMergedRegionsMap } from "@/data/regions/useSofiaMergedRegionsMap";
 import {
   useRoadGeometry,
@@ -34,8 +35,12 @@ export const RoadNetworkMap: FC<{
   onFocusCorridor?: (corridor: string | null) => void;
 }> = ({ corridors, metric, focusCorridor, onFocusCorridor }) => {
   const { i18n } = useTranslation();
+  const bg = isBg(i18n.language);
   const mapGeo = useSofiaMergedRegionsMap();
-  const { data: geo } = useRoadGeometry();
+  const { data: geo, isPending: geoPending } = useRoadGeometry();
+  // A failed fetch and a 404 (null) are not „loading" — say the map is missing
+  // rather than spin for ever.
+  const geoFailed = !geoPending && !geo;
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
@@ -91,7 +96,7 @@ export const RoadNetworkMap: FC<{
   const fmtVal = (name: string): string => {
     const c = byName.get(name);
     const v = c ? valueOf(c, metric) : undefined;
-    if (v == null) return i18n.language === "bg" ? "няма данни" : "no data";
+    if (v == null) return bg ? "няма данни" : "no data";
     return metric === "perKm"
       ? `${formatEurCompact(v, i18n.language)}/km`
       : `${(v * 100).toLocaleString(i18n.language, { maximumFractionDigits: 0 })}%`;
@@ -149,7 +154,7 @@ export const RoadNetworkMap: FC<{
             className="overflow-visible"
             role="img"
             aria-label={
-              i18n.language === "bg"
+              bg
                 ? "Магистрална мрежа по коридори"
                 : "Motorway network by corridor"
             }
@@ -215,10 +220,10 @@ export const RoadNetworkMap: FC<{
                       </span>
                       <span className="tabular-nums">
                         {metric === "perKm"
-                          ? i18n.language === "bg"
+                          ? bg
                             ? "Цена/км: "
                             : "Cost/km: "
-                          : i18n.language === "bg"
+                          : bg
                             ? "Една оферта: "
                             : "Single bid: "}
                         {fmtVal(f.properties.corridor)}
@@ -265,24 +270,30 @@ export const RoadNetworkMap: FC<{
           </svg>
         ) : (
           <div className="absolute inset-0 grid place-items-center text-sm text-muted-foreground">
-            {i18n.language === "bg" ? "Зареждане на картата…" : "Loading map…"}
+            {geoFailed
+              ? bg
+                ? "Картата на пътната мрежа не можа да се зареди."
+                : "The road network map could not be loaded."
+              : bg
+                ? "Зареждане на картата…"
+                : "Loading map…"}
           </div>
         )}
       </div>
       {/* Legend */}
-      <div className="mt-1 flex items-center gap-2 text-[11px] text-muted-foreground">
-        <span>{i18n.language === "bg" ? "ниско" : "low"}</span>
+      <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted-foreground">
+        <span>{bg ? "ниско" : "low"}</span>
         <span className="flex">
           {RAMP.map((c) => (
             <span key={c} className="h-2.5 w-6" style={{ background: c }} />
           ))}
         </span>
-        <span>{i18n.language === "bg" ? "високо" : "high"}</span>
+        <span>{bg ? "високо" : "high"}</span>
         <span className="ml-3 inline-flex items-center gap-1">
           <span className="h-2.5 w-6" style={{ background: NO_DATA }} />
-          {i18n.language === "bg" ? "няма данни" : "no data"}
+          {bg ? "няма данни" : "no data"}
         </span>
-        <span className="ml-auto">
+        <span className="w-full sm:ml-auto sm:w-auto">
           {geo?.attribution ?? "© OpenStreetMap (ODbL)"}
         </span>
       </div>

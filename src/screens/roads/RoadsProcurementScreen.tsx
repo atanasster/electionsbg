@@ -85,8 +85,22 @@ const InhouseCard: FC<{ model: RoadsModel }> = ({ model }) => {
   );
 };
 
+/** A block whose source failed or is absent says so, rather than vanishing —
+ *  a hub tile links here and an empty section reads as „nothing to show". */
+const Unavailable: FC<{ what: { bg: string; en: string } }> = ({ what }) => {
+  const { i18n } = useTranslation();
+  const bg = isBg(i18n.language);
+  return (
+    <p className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
+      {bg
+        ? `${what.bg}: данните не можаха да се заредят.`
+        : `${what.en}: the data could not be loaded.`}
+    </p>
+  );
+};
+
 const ProcurementBody: FC<{ model: RoadsModel }> = ({ model }) => {
-  const { data: stats } = useRoadsHubStats();
+  const { data: stats, isPending: statsPending } = useRoadsHubStats();
   const { data: national } = useNationalCompetition();
   // Same window, same basis (ex-member pair) as the engine's rows — or none.
   const baseline = nationalSingleBidExMembers(national);
@@ -98,14 +112,30 @@ const ProcurementBody: FC<{ model: RoadsModel }> = ({ model }) => {
         <RoadTopContractorsTile contractors={model.contractors} />
       </section>
       <InhouseCard model={model} />
-      <section id="regions" className="scroll-mt-24 grid gap-4 xl:grid-cols-2">
+      <section
+        id="regions"
+        className="scroll-mt-24 grid grid-cols-1 gap-4 xl:grid-cols-2 [&>*]:min-w-0"
+      >
         <RoadRegionCompetitionTile
           regions={model.regions}
           baseline={baseline}
         />
         <RoadRepeatWinnersTile rows={model.rows} />
       </section>
-      {stats ? <RoadAnnexOptionsTile options={stats.annexOptions} /> : null}
+      {/* The section owns the id, so a hub link to #annexes always lands —
+          even while the blob loads or when it failed. */}
+      <section id="annexes" className="scroll-mt-24">
+        {stats ? (
+          <RoadAnnexOptionsTile options={stats.annexOptions} />
+        ) : statsPending ? null : (
+          <Unavailable
+            what={{
+              bg: "Анексите за точно +50%",
+              en: "The exactly-+50% annexes",
+            }}
+          />
+        )}
+      </section>
       <section id="pipeline" className="scroll-mt-24">
         <RoadPlannedTendersTile />
       </section>

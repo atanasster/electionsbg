@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Hammer } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEur } from "@/lib/currency";
+import { formatEurCompact } from "@/lib/currency";
 import type { WorkGroupAgg } from "@/lib/roadAttributes";
 import { GROUP_META as GROUP } from "./roadLabels";
 
@@ -36,7 +36,7 @@ export const RoadWorkGroupDonut: FC<{
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center gap-4 sm:flex-row">
           <div className="h-40 w-40 shrink-0">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -57,7 +57,7 @@ export const RoadWorkGroupDonut: FC<{
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex-1 space-y-1.5 text-xs">
+          <div className="w-full min-w-0 flex-1 space-y-1.5 text-xs">
             {rows.map((g) => (
               <div key={g.group} className="flex items-center gap-2">
                 <span
@@ -68,7 +68,7 @@ export const RoadWorkGroupDonut: FC<{
                   {lang === "bg" ? GROUP[g.group].bg : GROUP[g.group].en}
                 </span>
                 <span className="tabular-nums text-muted-foreground">
-                  {formatEur(g.totalEur)}
+                  {formatEurCompact(g.totalEur, lang)}
                 </span>
                 <span className="w-9 text-right tabular-nums font-medium">
                   {pct(g.totalEur)}

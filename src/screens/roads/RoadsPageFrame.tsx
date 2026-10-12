@@ -11,6 +11,7 @@ import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcr
 import { ScopeControl } from "@/screens/components/ScopeControl";
 import { ChartGhost } from "@/ux/motion/ChartGhost";
 import { useRoadsModel } from "@/data/roads/useRoadsModel";
+import { useHashScroll } from "@/ux/useHashScroll";
 import type { RoadsModel } from "@/lib/roadAttributes";
 import { ROADS_PATHS } from "./roadsRegistry";
 
@@ -22,6 +23,10 @@ export const RoadsPageFrame: FC<{
   const { i18n } = useTranslation();
   const bg = isBg(i18n.language);
   const { model, isLoading, isError } = useRoadsModel();
+  // The hub's tiles deep-link #contractors / #annexes / #regions / #inhouse, and
+  // those sections mount only once the model is built — well after the router's
+  // own hash handling has given up. Restart the watch when the model lands.
+  useHashScroll([model]);
   const heading = bg ? title.bg : title.en;
   return (
     <>
