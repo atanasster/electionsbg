@@ -381,6 +381,45 @@ export const IndicatorsFiscalScreen = () => {
         </div>
       </section>
 
+      {/* Фискален съвет, 2015–2024. Two bases on one axis, deliberately labelled
+          apart: ДБ against the UPDATED plan, КФП against the annual plan — the
+          100% line is the only thing they share. A dated publication, so the
+          series ends at 2024 rather than following the КФП feed. */}
+      <section id="capital-spending" className="mb-10 scroll-mt-20">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("capex_execution_heading")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("capex_execution_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://www.fiscal-council.bg/bg/publikacii/analiz-na-publichnite-investicionni-razhodi-v-bulgaria-2015-2024",
+              label: t("capex_execution_source"),
+            },
+          ]}
+        />
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          macroPending={macroPending}
+          indicatorKeys={["capexExecStateBudget", "capexExecKfp"]}
+          yAxisFormatter={(v) => `${v}%`}
+          unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+          yDomain={[0, 120]}
+          height={280}
+          horizontalReferences={[
+            {
+              y: 100,
+              label: t("capex_execution_plan_line"),
+              color: "#64748b",
+            },
+          ]}
+        />
+      </section>
+
       <section id="fdi-monthly" className="mb-10 scroll-mt-20">
         <h2 className="text-lg font-semibold mb-3">
           {t("fdi_monthly_heading")}

@@ -96,7 +96,10 @@ export type MacroIndicatorKey =
   | "trustGovernment"
   | "trustEu"
   | "euFunds"
-  | "euContribution";
+  | "euContribution"
+  // Curated — Фискален съвет, capital spending executed vs plan (annual %)
+  | "capexExecStateBudget"
+  | "capexExecKfp";
 
 export type MacroCadence = "annual" | "quarterly" | "monthly";
 

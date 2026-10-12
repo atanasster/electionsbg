@@ -24,6 +24,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { CASH_META } from "./fetch_cash_balance";
+import { fiscalCouncilCapexIndicators } from "./fiscal_council_capex";
 import {
   MUNICIPAL_STOCK_KEYS,
   municipalStockIndicators,
@@ -1535,6 +1536,11 @@ CURATED_INDICATORS.push({
 // this page — the consolidated cash balance books a municipal payment when it
 // is made, so they are invisible nationally until paid.
 CURATED_INDICATORS.push(...municipalStockIndicators());
+
+// Capital-expenditure execution vs plan, 2015–2024 (ДБ and КФП), transcribed
+// from the Фискален съвет analysis. A static, dated publication — built in
+// `./fiscal_council_capex`, which also carries the transcription check.
+CURATED_INDICATORS.push(...fiscalCouncilCapexIndicators());
 
 // Cash budget balance (касов баланс по КФП) — the МФ headline cash deficit/
 // surplus, distinct from the Eurostat ESA balance above. Recent years come from

@@ -122,6 +122,9 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   // Minfin КФП — cash balance + arrears (annual)
   cashBalance: "#f43f5e",
   arrears: "#b45309",
+  // Фискален съвет capex execution (% of plan) — ДБ darker, КФП lighter
+  capexExecStateBudget: "#1d4ed8",
+  capexExecKfp: "#0891b2",
   // The three municipal liability stocks. They are never drawn on THIS
   // timeline — they belong to MunicipalCommitmentsTile, which owns the palette
   // — but this map is total, so they need an entry. Read from that tile's own
