@@ -384,6 +384,36 @@ const defenseFacts = (() => {
   };
 })();
 
+// The /sector/roads prerender bodies quote figures from the committed hub blob
+// (data/roads/derived/hub_stats.json, db:gen-roads-hub-stats) — never literals.
+const roadsFacts = (() => {
+  const s = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/roads/derived/hub_stats.json"),
+      "utf-8",
+    ),
+  ) as {
+    firstDate: string | null;
+    lastDate: string | null;
+    procurement: { eur: number; contracts: number; contractors: number };
+    inhouse: { eur: number };
+  };
+  // One decimal, as the hub's band renders it — never a more precise figure
+  // than the page a crawler's reader lands on.
+  const bn = (v: number, loc: string) =>
+    (v / 1e9).toLocaleString(loc, { maximumFractionDigits: 1 });
+  return {
+    eurBnBg: bn(s.procurement.eur, "bg-BG"),
+    eurBnEn: bn(s.procurement.eur, "en-US"),
+    contracts: s.procurement.contracts,
+    contractors: s.procurement.contractors,
+    inhouseBnBg: bn(s.inhouse.eur, "bg-BG"),
+    inhouseBnEn: bn(s.inhouse.eur, "en-US"),
+    from: s.firstDate?.slice(0, 4) ?? "",
+    to: s.lastDate?.slice(0, 4) ?? "",
+  };
+})();
+
 // The /culture prerender body quotes real figures from the НФЦ overview blob —
 // committed and required at build time (data/culture/overview.json).
 const cultureFacts = (() => {
@@ -944,8 +974,9 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
 // The sectors that graduated from a single-awarder deep-link to a proper
 // /sector/<id> dashboard (SectorDashboardScreen). Kept as a data table + one
 // template so all nine share one prose shell; the sitemap enumerates the same
-// ids. When a sector grows bespoke thematic data, replace its entry with a
-// hand-authored staticPage() like /defense.
+// ids. When a sector grows bespoke thematic data, either give it hand-authored
+// pages and list it in BESPOKE_SECTOR_PAGE_IDS (as roads is), or replace its
+// entry with a hand-authored staticPage() like /defense.
 type SectorPageContent = {
   id: string;
   eik: string;
@@ -1026,28 +1057,6 @@ const SECTOR_PAGES: SectorPageContent[] = [
       h1: "Health — the NHIF's public procurement",
       intro:
         "The National Health Insurance Fund administers ~€5.26bn in 2026; public procurement is ~1.5% of it — the rest (hospitals, drugs, doctors) is paid outside the procurement law. This page summarises the fund's tenders.",
-    },
-  },
-  {
-    id: "roads",
-    eik: "000695089",
-    bg: {
-      title: "Пътища — обществените поръчки на АПИ | Наясно",
-      description:
-        "Обществените поръчки на Агенция „Пътна инфраструктура“ (АПИ): общо възложени, изпълнители и разбивка по договори за строителство и поддръжка на пътища.",
-      breadcrumb: "Пътища",
-      h1: "Пътища — обществените поръчки на АПИ",
-      intro:
-        "Агенция „Пътна инфраструктура“ е най-големият възложител в пътния сектор. Тази страница обобщава нейните поръчки — строителство, рехабилитация и поддръжка — по избрания парламент или за цялата история.",
-    },
-    en: {
-      title: "Roads — the Road Infrastructure Agency's procurement | Naiasno", // prettier-ignore
-      description:
-        "The public procurement of Bulgaria's Road Infrastructure Agency (АПИ): total awarded, contractors and the breakdown of road construction and maintenance contracts.",
-      breadcrumb: "Roads",
-      h1: "Roads — the Road Infrastructure Agency's procurement",
-      intro:
-        "The Road Infrastructure Agency is the largest awarder in the roads sector. This page summarises its tenders — construction, rehabilitation and maintenance — for the selected parliament or the full history.",
     },
   },
   {
@@ -1316,13 +1325,21 @@ const sectorBody = (c: SectorPageContent, lang: "bg" | "en"): string => {
 <p>See the <a href="${base}/awarder/${c.eik}">awarder page</a> for the full breakdown and <a href="${base}/governance/sectors">all state sectors</a>.</p>`.trim();
 };
 
+// Sectors whose /sector/<id> is a BESPOKE hub with hand-authored pages, so they
+// have NO SECTOR_PAGES entry (the generic template would emit a second
+// `sector/<id>` route — last wins, silently). They stay in SECTOR_DASHBOARD_IDS
+// for the sitemap slug and the dashboard registry (plan B1).
+const BESPOKE_SECTOR_PAGE_IDS = new Set(["roads"]);
+
 // Fail the build if a graduated sector dashboard has no prerender copy here —
 // otherwise it would ship without prerendered HTML (crawlers never see its
 // <meta>). SECTOR_PAGES can't be auto-generated (it carries per-sector SEO
 // prose), but its coverage of the source-of-truth id list is asserted.
 {
   const missing = SECTOR_DASHBOARD_IDS.filter(
-    (id) => !SECTOR_PAGES.some((p) => p.id === id),
+    (id) =>
+      !BESPOKE_SECTOR_PAGE_IDS.has(id) &&
+      !SECTOR_PAGES.some((p) => p.id === id),
   );
   if (missing.length)
     throw new Error(
@@ -1337,6 +1354,149 @@ const sectorBody = (c: SectorPageContent, lang: "bg" | "en"): string => {
       `prerender SECTOR_PAGES duplicate sector(s): ${dupes.join(", ")}`,
     );
 }
+
+/** /sector/roads and its three sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
+ *  Plan: docs/plans/roads-hub-v1.md T7. The hub keeps the „обществени поръчки на
+ *  АПИ" vocabulary the generic page was indexed under. */
+const roadsStaticPages = (): PrerenderRoute[] => {
+  const f = roadsFacts;
+  const span = f.from && f.to ? `${f.from}–${f.to}` : "";
+  const links = (en: boolean) => {
+    const b = `${SITE_URL}${en ? "/en" : ""}/sector/roads`;
+    return en
+      ? `<ul>
+<li><a href="${b}/network">The road network</a> — motorways and roads on a map, and coverage along each motorway.</li>
+<li><a href="${b}/costs">Cost per kilometre</a> — unit cost by corridor where it is defensible, against international reference levels.</li>
+<li><a href="${b}/procurement">Road contracts</a> — spending by year, contractors, competition by regional directorate, annexes of exactly +50% and planned procedures.</li>
+</ul>`
+      : `<ul>
+<li><a href="${b}/network">Пътната мрежа</a> — магистралите и пътищата на карта и покритието по километри.</li>
+<li><a href="${b}/costs">Цена на километър</a> — единичната цена по коридор, където е защитима, спрямо международни ориентири.</li>
+<li><a href="${b}/procurement">Пътните поръчки</a> — разходи по години, изпълнители, конкуренция по ОПУ, анекси за точно +50% и планирани процедури.</li>
+</ul>`;
+  };
+  return [
+    staticPage({
+      path: "sector/roads",
+      ogImage: "/og/sector-roads.png",
+      title:
+        "Пътища — обществените поръчки на АПИ, цена на километър и конкуренция | Наясно",
+      description: `Обществените поръчки за републиканските пътища — АПИ, областните пътни управления и НКСИП: €${f.eurBnBg} млрд. по ${f.contracts} договора${span ? ` (${span})` : ""}, кой ги печели, цена на километър и конкуренция.`,
+      breadcrumbName: "Пътища",
+      bodyHtml: `
+<h1>Пътища</h1>
+<p>Обществените поръчки на Агенция „Пътна инфраструктура“ (АПИ), нейните областни пътни управления и Национална компания „Стратегически инфраструктурни проекти“: €${f.eurBnBg} млрд. по ${f.contracts} договора${span ? ` за ${span} г.` : ""}, при ${f.contractors} изпълнители. Сумата е текущата стойност на договорите след анекси.</p>
+<p>Сред изпълнителите е и държавното „Автомагистрали“ ЕАД — €${f.inhouseBnBg} млрд., възлагани вътрешно по чл. 14 ЗОП.</p>
+<h2>Какво ще намерите тук</h2>
+${links(false)}
+<p>Виж и <a href="${SITE_URL}/awarder/000695089">страницата на АПИ като възложител</a> и <a href="${SITE_URL}/governance/sectors">всички сектори</a>.</p>
+<p>Източник: АОП/ЦАИС ЕОП, ИСУН.</p>`.trim(),
+      english: {
+        title:
+          "Roads — Road Infrastructure Agency procurement, cost per km and competition | Naiasno",
+        description: `Public procurement for Bulgaria's national roads — АПИ, its regional directorates and НКСИП: €${f.eurBnEn}bn over ${f.contracts} contracts${span ? ` (${span})` : ""}, who wins them, cost per kilometre and competition.`,
+        breadcrumbName: "Roads",
+        bodyHtml: `
+<h1>Roads</h1>
+<p>The public procurement of Bulgaria's Road Infrastructure Agency (АПИ), its regional road directorates and the National Company Strategic Infrastructure Projects: €${f.eurBnEn}bn over ${f.contracts} contracts${span ? ` in ${span}` : ""}, with ${f.contractors} contractors. The total is the contracts' current value after annexes.</p>
+<p>Among the contractors is the state-owned Avtomagistrali EAD — €${f.inhouseBnEn}bn, awarded in-house under ЗОП Art. 14.</p>
+<h2>What you'll find</h2>
+${links(true)}
+<p>See also <a href="${SITE_URL}/en/awarder/000695089">АПИ as a buyer</a> and <a href="${SITE_URL}/en/governance/sectors">all sectors</a>.</p>
+<p>Source: АОП/ЦАИС ЕОП, ИСУН.</p>`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/roads/network",
+      ogImage: "/og/sector-roads-network.png",
+      title: "Пътната мрежа — магистрали и пътища на карта | Наясно",
+      description:
+        "Магистралите и републиканските пътища на карта по вложени средства и конкуренция, и покритието по километри на всяка магистрала — по договорите на АПИ и НКСИП.",
+      breadcrumbName: "Пътната мрежа",
+      bodyHtml: `
+<h1>Пътната мрежа</h1>
+<p>Картата показва магистралите и финансираните републикански пътища (I и II клас), оцветени по дела на договорите с една оферта или по цена на километър. Под нея — колко от дължината на всяка магистрала е покрита с договорени капитални работи, по километри.</p>
+<p>Пътят се разпознава от заглавието на договора; договорите без пътна референция (областни поддръжки, мрежови рамки) не се показват на картата.</p>
+<p>Виж и <a href="${SITE_URL}/sector/roads">сектор „Пътища“</a>.</p>`.trim(),
+      english: {
+        title: "The road network — motorways and roads on a map | Naiasno",
+        description:
+          "Bulgaria's motorways and national roads mapped by money spent and competition, with kilometre coverage along each motorway — from АПИ and НКСИП contracts.",
+        breadcrumbName: "The road network",
+        bodyHtml: `
+<h1>The road network</h1>
+<p>The map shows the motorways and funded class I and II national roads, coloured by the single-bidder share or by cost per kilometre. Below it — how much of each motorway's length carries contracted capital works, kilometre by kilometre.</p>
+<p>A road is recognised from the contract title; contracts without a road reference (regional maintenance, network-wide frameworks) are not on the map.</p>
+<p>See also the <a href="${SITE_URL}/en/sector/roads">roads sector</a>.</p>`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/roads/costs",
+      ogImage: "/og/sector-roads-costs.png",
+      title:
+        "Цена на километър път — по коридор и спрямо международни ориентири | Наясно",
+      description:
+        "Колко струва километър път по коридор — само за договорите със защитима единична цена — сравнено с международни ориентири, и какви видове работа купуват АПИ и НКСИП.",
+      breadcrumbName: "Цена на километър",
+      bodyHtml: `
+<h1>Цена на километър</h1>
+<p>Единичната цена се показва само за договори за физически строителни работи с разчетен участък и реална стойност — повечето договори нямат защитима цена на километър и умишлено не се остойностяват. Медиана по коридор се публикува при поне три такива договора.</p>
+<p>До нея — сравнение с ориентирите на Световната банка (ROCKS), България, Румъния и Гърция, и разбивка на парите по вид работа: строителство, ремонт, поддръжка, мостове, тунели, маркировка.</p>
+<p>Виж и <a href="${SITE_URL}/sector/roads">сектор „Пътища“</a>.</p>`.trim(),
+      english: {
+        title:
+          "Road cost per kilometre — by corridor and against international benchmarks | Naiasno",
+        description:
+          "What a kilometre of road costs by corridor — only for contracts with a defensible unit cost — against international reference levels, and what kinds of work АПИ and НКСИП buy.",
+        breadcrumbName: "Cost per kilometre",
+        bodyHtml: `
+<h1>Cost per kilometre</h1>
+<p>A unit cost is shown only for physical-works contracts with a parsed segment and a real value — most contracts carry no defensible cost per kilometre and are deliberately not unit-costed. A corridor median is published from at least three such contracts.</p>
+<p>Beside it — a comparison with the World Bank (ROCKS), Bulgarian, Romanian and Greek reference levels, and the money split by kind of work: construction, repair, maintenance, bridges, tunnels, markings.</p>
+<p>See also the <a href="${SITE_URL}/en/sector/roads">roads sector</a>.</p>`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/roads/procurement",
+      ogImage: "/og/sector-roads.png",
+      title: "Пътните поръчки — изпълнители, конкуренция и анекси | Наясно",
+      description:
+        "Обществените поръчки за пътища по години — кой ги печели, конкуренцията по областни пътни управления, държавното дружество „Автомагистрали“, анексите за точно +50% и планираните процедури.",
+      breadcrumbName: "Пътните поръчки",
+      bodyHtml: `
+<h1>Пътните поръчки</h1>
+<p>Договорите на АПИ и НКСИП по години, по вид работа, коридор и областно пътно управление — по текуща стойност след анекси, с ръста по анекс отнесен към годината на подписване.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Изпълнителите</strong> — класация по стойност, с конкуренцията за всеки.</li>
+<li><strong>„Автомагистрали“ ЕАД</strong> — държавното дружество, което получава поръчки чрез вътрешно възлагане (чл. 14 ЗОП).</li>
+<li><strong>Областните пътни управления</strong> — делът на договорите с една оферта по ОПУ.</li>
+<li><strong>Анекси за точно +50%</strong> — повечето по клауза за опция в самия договор (чл. 116, ал. 1, т. 1 ЗОП), т.е. упражнено право, а не преразход; останалите по непредвидени обстоятелства.</li>
+<li><strong>Планирани процедури</strong> — обявените бъдещи поръчки на АПИ.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/sector/roads">сектор „Пътища“</a>.</p>`.trim(),
+      english: {
+        title:
+          "Road contracts — contractors, competition and annexes | Naiasno",
+        description:
+          "Road procurement by year — who wins it, competition by regional road directorate, the state company Avtomagistrali, the annexes of exactly +50% and the planned procedures.",
+        breadcrumbName: "Road contracts",
+        bodyHtml: `
+<h1>Road contracts</h1>
+<p>АПИ and НКСИП contracts by year, by work type, corridor and regional road directorate — at current value after annexes, with annex growth booked to the signing year.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>The contractors</strong> — ranked by value, with each one's competition.</li>
+<li><strong>Avtomagistrali EAD</strong> — the state company that receives work by in-house award (ЗОП Art. 14).</li>
+<li><strong>The regional directorates</strong> — the single-bidder share by ОПУ.</li>
+<li><strong>Annexes of exactly +50%</strong> — most under an option clause in the contract itself (ЗОП Art. 116(1)(1)), a right exercised rather than an overrun; the rest for unforeseeable circumstances.</li>
+<li><strong>Planned procedures</strong> — АПИ's announced upcoming tenders.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/sector/roads">roads sector</a>.</p>`.trim(),
+      },
+    }),
+  ];
+};
 
 const sectorStaticPages = (): PrerenderRoute[] =>
   SECTOR_PAGES.map((c) =>
@@ -1786,6 +1946,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   },
   ...sectorStaticPages(),
+  ...roadsStaticPages(),
   {
     path: "",
     title: GLOBAL_HOME_TITLE,

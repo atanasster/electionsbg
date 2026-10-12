@@ -314,6 +314,13 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     ),
     members: HEALTH_ENTITIES.map((e) => ({ eik: e.eik, name: e.name })),
   },
+  // ⚠ INERT (2026-10-12, docs/plans/roads-hub-v1.md T4). /sector/roads is the
+  // bespoke RoadsHubScreen, routed as a static literal ahead of sector/:id, so this
+  // entry no longer renders. It stays COMPLETE on purpose — the administration
+  // precedent: SECTOR_DASHBOARD_IDS still drives the sitemap slug and the prerender
+  // guard, `agency` must keep matching sectorRegistry, and `leadEik` is what makes
+  // CompanyDbScreen's `showPack = SectorPack && !sectorDash` suppress RoadsPack on
+  // /awarder/000695089. Do not trim it.
   roads: {
     id: "roads",
     titleKey: "sector_roads_title",

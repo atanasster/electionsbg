@@ -14,13 +14,10 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MapPin, Waypoints, X } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { MapPin, Waypoints } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import { PackSelect } from "../PackSelect";
 import { useRoads, type ScopeWindow } from "@/data/procurement/useRoads";
 import { formatEurCompact } from "@/lib/currency";
-import { ROAD_EUR_PER_KM, eurPerKmMln } from "@/lib/roadBenchmarks";
 import { RoadCostPerKmTile } from "./RoadCostPerKmTile";
 import { RoadWorkGroupDonut } from "./RoadWorkGroupDonut";
 import { RoadComponentsTile } from "./RoadComponentsTile";
@@ -31,7 +28,8 @@ import { RoadRegionCompetitionTile } from "./RoadRegionCompetitionTile";
 import { RoadRepeatWinnersTile } from "./RoadRepeatWinnersTile";
 import { RoadCostBenchmarkTile } from "./RoadCostBenchmarkTile";
 import { RoadChainageStripTile } from "./RoadChainageStripTile";
-import { RoadNetworkMap, type RoadMetric } from "./RoadNetworkMap";
+import { RoadNetworkCard } from "./RoadNetworkCard";
+import { RoadCostExplainer } from "./RoadCostExplainer";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { ChartGhost } from "@/ux/motion/ChartGhost";
 
@@ -46,12 +44,8 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const [mapMetric, setMapMetric] = useState<RoadMetric>("singleBid");
   const [focusCorridor, setFocusCorridor] = useState<string | null>(null);
   const { model, isLoading } = useRoads(eik, scopeWindow);
-  // Shared €/km reference levels, formatted for the key-factors prose below.
-  const { rocks, bgLo, bgHi, ro, gr } = ROAD_EUR_PER_KM;
-  const km = (v: number) => eurPerKmMln(v, lang);
 
   // Auto-generated plain-language headlines from the model (road-specific: peak
   // year, largest corridor, captured component, clean big contractor, direct %).
@@ -161,58 +155,12 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         </div>
       ) : null}
 
-      {/* Hero — motorway network coloured by the selected metric.
-          data-og: OG-card anchor (scripts/og/capture-screens.ts). */}
-      <Card data-og="roads-map">
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between gap-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Waypoints className="h-4 w-4" />
-              {lang === "bg" ? "Магистрална мрежа" : "Motorway network"}
-              {focusCorridor ? (
-                <button
-                  type="button"
-                  onClick={() => setFocusCorridor(null)}
-                  className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
-                >
-                  {focusCorridor}
-                  <X className="h-3 w-3" />
-                </button>
-              ) : null}
-            </CardTitle>
-            <PackSelect
-              value={mapMetric}
-              onChange={setMapMetric}
-              ariaLabel={lang === "bg" ? "Показател на картата" : "Map metric"}
-              className="h-8 min-w-0"
-              options={[
-                {
-                  value: "singleBid" as RoadMetric,
-                  label: lang === "bg" ? "Една оферта" : "Single bidder",
-                },
-                {
-                  value: "perKm" as RoadMetric,
-                  label:
-                    lang === "bg" ? "Цена на километър" : "Cost per kilometre",
-                },
-              ]}
-            />
-          </div>
-        </CardHeader>
-        <CardContent className="p-3 md:p-4">
-          <RoadNetworkMap
-            corridors={model.corridors}
-            metric={mapMetric}
-            focusCorridor={focusCorridor}
-            onFocusCorridor={setFocusCorridor}
-          />
-          <p className="text-[11px] text-muted-foreground/80 mt-2">
-            {lang === "bg"
-              ? "Автомагистрали и финансирани републикански пътища (I и II клас). Дебелината на линията показва вложените средства. Кликни коридор, за да го откроиш на картата."
-              : "Motorways and funded republican roads (class I and II). Line thickness reflects € spent. Click a corridor to highlight it on the map."}
-          </p>
-        </CardContent>
-      </Card>
+      {/* Hero — motorway network coloured by the selected metric. */}
+      <RoadNetworkCard
+        corridors={model.corridors}
+        focusCorridor={focusCorridor}
+        onFocusCorridor={setFocusCorridor}
+      />
 
       {/* Where the money landed along each motorway (km axis, spend density) */}
       <RoadChainageStripTile rows={model.rows} />
@@ -244,57 +192,7 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {/* Planned procurements (tender pipeline — what is announced to be built) */}
       <RoadPlannedTendersTile />
 
-      {/* Key factors explainer (static context) */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base">
-            {lang === "bg"
-              ? "Какво влияе на цената на километър"
-              : "What drives cost per kilometre"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-3 md:p-4 text-sm text-muted-foreground">
-          {lang === "bg" ? (
-            <>
-              <p>
-                Цената на километър не е сравнима между различни видове работа и
-                терен. Ново строителство на автомагистрала, основен ремонт на
-                път III клас и съоръжения (мостове, тунели) се различават
-                многократно — тунелните участъци достигат десетки милиони на
-                километър. Затова сравняваме всеки участък спрямо вътрешен
-                еталон за същия клас път и вид работа, а не директно с други
-                държави.
-              </p>
-              <p className="mt-2 text-xs">
-                За груб ориентир (не пряко сравнение): ново строителство на
-                магистрала в България е средно около €{km(bgLo)}–{km(bgHi)}{" "}
-                млн/км, в Румъния ~€{km(ro)} млн/км, в Гърция ~€{km(gr)} млн/км;
-                базата на Световната банка (ROCKS) дава ~€{km(rocks)} млн/км за
-                двулентов път без съоръжения.
-              </p>
-            </>
-          ) : (
-            <>
-              <p>
-                Cost per kilometre is not comparable across work types or
-                terrain. New motorway construction, major rehabilitation of a
-                class III road and structures (bridges, tunnels) differ by an
-                order of magnitude — tunnel sections reach tens of millions per
-                kilometre. Each segment is therefore benchmarked against an
-                internal reference class for the same road class and work type,
-                not directly against other countries.
-              </p>
-              <p className="mt-2 text-xs">
-                As a rough, non-comparable benchmark: new motorway construction
-                averages ~€{km(bgLo)}–{km(bgHi)}M/km in Bulgaria, ~€{km(ro)}M/km
-                in Romania, ~€{km(gr)}M/km in Greece; the World Bank ROCKS
-                database gives ~€{km(rocks)}M/km for a two-lane road excluding
-                structures.
-              </p>
-            </>
-          )}
-        </CardContent>
-      </Card>
+      <RoadCostExplainer />
 
       <p className="text-[11px] text-muted-foreground/80">
         {lang === "bg"

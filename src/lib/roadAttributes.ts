@@ -802,7 +802,10 @@ export interface RoadsModel {
   workGroups: WorkGroupAgg[];
   components: ComponentAgg[];
   years: YearAgg[];
+  /** The 12 largest contractors (AI tool, chips). */
   topContractors: TopContractor[];
+  /** Every contractor, by € — what the roads procurement page lists. */
+  contractors: TopContractor[];
   methods: MethodAgg[];
   topProjects: RoadContract[];
   // Corpus integrity headline (over rows with a known value).
@@ -1062,9 +1065,8 @@ export const buildRoadsModel = (
     e.byComp.set(r.component, (e.byComp.get(r.component) ?? 0) + r.amountEur);
     conMap.set(r.c.contractorEik, e);
   }
-  const topContractors: TopContractor[] = [...conMap.values()]
+  const contractors: TopContractor[] = [...conMap.values()]
     .sort((a, b) => b.totalEur - a.totalEur)
-    .slice(0, 12)
     .map((e) => ({
       eik: e.eik,
       name: e.name,
@@ -1073,6 +1075,7 @@ export const buildRoadsModel = (
       singleBidShare: e.known ? e.single / e.known : undefined,
       topComponent: [...e.byComp.entries()].sort((a, b) => b[1] - a[1])[0][0],
     }));
+  const topContractors = contractors.slice(0, 12);
 
   // Procedure mix.
   const mMap = new Map<ProcedureBucket, number>();
@@ -1096,6 +1099,7 @@ export const buildRoadsModel = (
     components,
     years,
     topContractors,
+    contractors,
     methods,
     topProjects,
     singleBidShare: stats.singleBidShare ?? undefined,

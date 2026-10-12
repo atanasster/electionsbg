@@ -990,6 +990,7 @@ describe("a hub's og capture anchors on its head", () => {
     consumption: "src/screens/ConsumptionScreen.tsx",
     subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
     "culture-hub": "src/screens/culture/CultureHubScreen.tsx",
+    "sector-roads": "src/screens/roads/RoadsHubScreen.tsx",
     "governance-sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
     indicators: "src/screens/indicators/IndicatorsLandingScreen.tsx",
     prices: "src/screens/PricesScreen.tsx",
@@ -1300,6 +1301,7 @@ describe("a hub's og capture anchors on its head", () => {
       prices: "src/screens/prices/pricesHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
+      "sector-roads": "src/screens/roads/roadsHubFigures.ts",
       indicators: "src/screens/indicators/indicatorsHubFigures.ts",
       "governance-sectors": "src/screens/governance/sectorsHubFigures.ts",
       "governance-declarations":
@@ -1727,7 +1729,7 @@ describe("a hub's og capture anchors on its head", () => {
     "governance-sectors": {
       payloads: ["data/procurement/derived/sector_stats.json"],
       project: sectorsFigures,
-      md5: "d64d1c207924a22936b4d20e307eeab1",
+      md5: "f2df7236d121a7b56c74e5712ca31024",
       // ⚠️ RE-SHOT 2026-09-03, AND IT FIRED EXACTLY AS THE 08-31 NOTE PREDICTED. That note
       // measured the procurement total at €8.6m (0.029%) below the boundary into
       // „€29,7 млрд." and said the entry was „expected to fire soon, for real" — it did, on
@@ -1742,13 +1744,16 @@ describe("a hub's og capture anchors on its head", () => {
       // fallen behind `HubHead.tsx` (motion-v1's rolling KPI figures, a change with no visual
       // effect on first paint). LOOKED AT: the procurement total moved €29,7 → €29,8 млрд.
       // and roads €8,8 → €8,9 млрд.; the other six values are unchanged.
+      // ⚠️ RE-SHOT AGAIN 2026-10-12 (UTC) — roads-hub-v1 T2 put НКСИП in the roads roll-up
+      // (D5). LOOKED AT: roads €8,9 → €9,1 млрд. and the procurement total €29,8 → €30
+      // млрд.; the other six values are unchanged.
       shot: "2026-10-12",
       figures:
-        "sectors_kpi_procurement=€29,8 млрд. [sectors_kpi_procurement_basis:4] " +
+        "sectors_kpi_procurement=€30 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
         "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
         "administration=133 275 [sectors_kpi_headcount_basis:2025] " +
-        "| energy=€10,3 млрд. roads=€8,9 млрд. transport=€7,3 млрд. water=€3,3 млрд.",
+        "| energy=€10,3 млрд. roads=€9,1 млрд. transport=€7,3 млрд. water=€3,3 млрд.",
     },
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],

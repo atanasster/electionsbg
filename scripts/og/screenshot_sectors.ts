@@ -31,7 +31,9 @@ const BASE = process.env.OG_BASE_URL ?? "http://localhost:5173";
 // overwrite. Run those scripts separately:
 //   transport → scripts/og/screenshot_transport.ts  (Leaflet infrastructure map)
 //   regional  → scripts/og/screenshot_regional.ts   (d3 oblast choropleth + scatter)
-const HAND_FRAMED = ["transport", "regional"];
+//   roads     → scripts/og/capture-screens.ts `sector-roads` (a bespoke HubHead hub —
+//               the generic clip waits for #sector-dashboard, which it does not have)
+const HAND_FRAMED = ["transport", "regional", "roads"];
 const ALL_SECTOR_IDS = SECTOR_DASHBOARD_IDS.filter(
   (id) => !HAND_FRAMED.includes(id),
 );

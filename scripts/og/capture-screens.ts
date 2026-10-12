@@ -1352,6 +1352,46 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "sector-roads",
+    routePath: "sector/roads",
+    // The roads sector hub's head (docs/plans/roads-hub-v1.md T7). All four band cells
+    // come from one blob (roads/derived/hub_stats.json), so the wait names the two whose
+    // destinations no other link on the head shares — the single-bid browse and the
+    // direct-award browse — and an absent blob times out instead of overwriting a good card.
+    waitFor:
+      '[data-hub-head]:has([data-kpi-cell][href*="single=1"]):has([data-kpi-cell][href*="proc=direct"]) [data-kpi-cell]',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "sector-roads-network",
+    routePath: "sector/roads/network?pscope=all",
+    // The network page's argument is the map — frame it, after the geometry paints.
+    waitFor: '[data-og="roads-map"] svg path',
+    anchor: '[data-og="roads-map"]',
+    // A full-width card wider than the clip: pin the clip to its left edge and
+    // render at the clip viewport so the card fits rather than being sliced.
+    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "sector-roads-costs",
+    routePath: "sector/roads/costs?pscope=all",
+    // The €/km benchmark against ROCKS/BG/RO/GR is the costs page's argument.
+    waitFor: '[data-og="roads-benchmark"]',
+    anchor: '[data-og="roads-benchmark"]',
+    // A full-width card wider than the clip: pin the clip to its left edge and
+    // render at the clip viewport so the card fits rather than being sliced.
+    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "culture",
     // /culture/subsidies, NOT /culture: the film dashboard this shot frames moved
     // there when /culture became the sector hub (2026-08-18), and

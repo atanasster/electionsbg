@@ -287,6 +287,9 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "roads",
     label: { bg: "Пътища (АПИ, НКСИП)", en: "Roads (АПИ, НКСИП)" },
     eiks: PROCUREMENT_BUYER_SECTORS.roads.eiks,
+    // D8 (2026-10-12): АПИ is an ИСУН beneficiary under its own EIK — 71
+    // projects / €2.40bn total. НКСИП has none; the reach gate counts the set.
+    beneficiaryCorpora: ["fund_projects"],
   },
   noi: {
     id: "noi",

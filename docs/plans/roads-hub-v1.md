@@ -475,6 +475,20 @@ reads `?sector` before the tile links to it.
 - `RoadsHubScreen.test.tsx`.
 - `roadsHubFigures.test.ts`.
 
+**Done 2026-10-12, with T7's page layer folded in.** The dashboard-hub skill requires the
+static page, the sitemap `<loc>` and the og:image IN THE SAME COMMIT AS THE SCREEN, and the
+coverage gates fail on a routed page without them — so T7 shipped here, not later. Deviations:
+- The in-house tile links `/sector/roads/procurement#inhouse` (a scoped card naming the company
+  and linking `/company/831646048`), not the company page directly.
+- The EU-funds tile links `/company/000695089/funds`: no funds page reads `?sector` yet, so D8's
+  `beneficiaryCorpora` is a reach declaration for the gates, not a link target.
+- `sector_beneficiary_reach.data.test.ts` used roads as its example of a buyer-only pack; it
+  now checks every pack declaring none and pins roads to `fund_projects` only.
+- The `governance-sectors` og card was re-shot (T2 moved roads €8,9 → €9,1 млрд.).
+- Head height measured 465 px at 1280 (budget 540, 4 cells); no horizontal overflow at 375.
+- RoadsPack stays registered (B3) but now shares `RoadNetworkCard` / `RoadCostExplainer` with the
+  sub-pages instead of carrying its own copies.
+
 ### T5: competition baselines and annex wording on the sub-pages
 
 - KPI 2 basis and the `/procurement` competition tile, both against `national_competition` on

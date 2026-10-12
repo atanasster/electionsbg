@@ -1,9 +1,14 @@
-// "Кой получава парите" — the largest АПИ contractors by € (all of them, not
+// "Кой получава парите" — the largest roads contractors by € (all of them, not
 // only the politically-connected slice), each with a competition profile
-// (single-bidder share) + their dominant component + a connected badge where
-// the firm is linked to an MP/official. Click → /company/:eik.
+// (single-bidder share) + their dominant component. Click → /company/:eik.
+//
+// The state in-house contractor („Автомагистрали" ЕАД, ROADS_INHOUSE_CONTRACTORS)
+// is LABELLED where it ranks, never filtered out (plan D7): it is the largest
+// single recipient, and its single-bid share is a statutory in-house award, not
+// a market that failed. An optional connected badge marks firms the caller knows
+// to be linked to an MP/official.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Banknote, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -11,14 +16,19 @@ import { formatEur } from "@/lib/currency";
 import type { TopContractor } from "@/lib/roadAttributes";
 import { COMPONENT_LABEL } from "./roadLabels";
 import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
+import { isRoadsInhouse } from "@/lib/roadsReferenceData";
 
 export const RoadTopContractorsTile: FC<{
   contractors: TopContractor[];
-  connectedEiks: Set<string>;
+  connectedEiks?: ReadonlySet<string>;
 }> = ({ contractors, connectedEiks }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
+  // The hub's contractor KPI counts every one of these, so the page must be able
+  // to name them all — 12 by default, the rest one click away.
+  const [all, setAll] = useState(false);
   if (contractors.length === 0) return null;
+  const shown = all ? contractors : contractors.slice(0, 12);
   const max = Math.max(...contractors.map((c) => c.totalEur));
   const pct = (v: number | undefined) =>
     v == null
@@ -51,8 +61,9 @@ export const RoadTopContractorsTile: FC<{
           </span>
         </div>
         <div className="space-y-1.5">
-          {contractors.map((c, i) => {
-            const connected = connectedEiks.has(c.eik);
+          {shown.map((c, i) => {
+            const connected = connectedEiks?.has(c.eik) ?? false;
+            const inhouse = isRoadsInhouse(c.eik);
             const single = c.singleBidShare ?? 0;
             return (
               <div key={c.eik} className="flex items-center gap-2 text-xs">
@@ -72,9 +83,13 @@ export const RoadTopContractorsTile: FC<{
                     ) : null}
                   </span>
                   <span className="block text-[10px] text-muted-foreground truncate">
-                    {lang === "bg"
-                      ? COMPONENT_LABEL[c.topComponent].bg
-                      : COMPONENT_LABEL[c.topComponent].en}
+                    {inhouse
+                      ? lang === "bg"
+                        ? "държавно дружество, вътрешно възлагане (чл. 14 ЗОП)"
+                        : "state company, in-house award (ЗОП Art. 14)"
+                      : lang === "bg"
+                        ? COMPONENT_LABEL[c.topComponent].bg
+                        : COMPONENT_LABEL[c.topComponent].en}
                   </span>
                 </span>
                 <span className="w-20 shrink-0">
@@ -102,10 +117,25 @@ export const RoadTopContractorsTile: FC<{
             );
           })}
         </div>
+        {contractors.length > 12 ? (
+          <button
+            type="button"
+            onClick={() => setAll((v) => !v)}
+            className="mt-2 text-xs font-medium text-primary hover:underline"
+          >
+            {all
+              ? lang === "bg"
+                ? "Покажи само първите 12"
+                : "Show only the top 12"
+              : lang === "bg"
+                ? `Покажи всички ${contractors.length}`
+                : `Show all ${contractors.length}`}
+          </button>
+        ) : null}
         <p className="text-[11px] text-muted-foreground/80 pt-2">
           {lang === "bg"
-            ? "Иконата за свързаност маркира фирми със свързано лице в парламента или администрацията. Консорциумите за големи обекти се водят като отделни изпълнители."
-            : "The link icon marks firms tied to an MP/official. Per-project consortia are counted as separate contractors."}
+            ? "Консорциумите за големи обекти се водят като отделни изпълнители. Делът с една оферта при държавното дружество отразява вътрешно възлагане по закон, а не неуспял търг."
+            : "Per-project consortia are counted as separate contractors. The state company's single-bid share reflects statutory in-house awards, not a failed market."}
         </p>
       </CardContent>
     </Card>

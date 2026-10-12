@@ -44,13 +44,26 @@ const BENEFICIARY_CORPORA: { table: BeneficiaryCorpus; col: string }[] = [
 ];
 
 test("sectorBeneficiaryEiks gates PER CORPUS, not per pack", () => {
-  // A buyer-only pack must never hand its EIKs to any beneficiary corpus.
-  for (const c of BENEFICIARY_CORPORA)
-    assert.equal(
-      sectorBeneficiaryEiks(SECTOR_BROWSE_PACKS.roads, c.table),
-      null,
-      `a pack declaring no beneficiary corpora leaked its buyer set to ${c.table}`,
-    );
+  // A buyer-only pack must never hand its EIKs to any beneficiary corpus. (This
+  // pinned `roads` until 2026-10-12, when roads declared fund_projects — D8 of
+  // docs/plans/roads-hub-v1.md — so it now checks every pack that declares none.)
+  const buyerOnly = Object.values(SECTOR_BROWSE_PACKS).filter(
+    (p) => !p.beneficiaryCorpora?.length,
+  );
+  assert.ok(buyerOnly.length > 0, "no buyer-only pack left — retire this arm");
+  for (const pack of buyerOnly)
+    for (const c of BENEFICIARY_CORPORA)
+      assert.equal(
+        sectorBeneficiaryEiks(pack, c.table),
+        null,
+        `${pack.id} declares no beneficiary corpora and leaked its buyer set to ${c.table}`,
+      );
+  // Roads reaches ИСУН only — АПИ is a beneficiary under its own EIK there, and
+  // is in neither the ДФЗ nor the Interreg partner corpus.
+  const roads = SECTOR_BROWSE_PACKS.roads;
+  assert.ok(sectorBeneficiaryEiks(roads, "fund_projects")?.length);
+  assert.equal(sectorBeneficiaryEiks(roads, "agri_subsidies"), null);
+  assert.equal(sectorBeneficiaryEiks(roads, "interreg_partners"), null);
   const culture = SECTOR_BROWSE_PACKS.culture;
   assert.ok(culture, "the culture pack is missing");
   // The whole point of the per-corpus shape: culture is a recipient, and still

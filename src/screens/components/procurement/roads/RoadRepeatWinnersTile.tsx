@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { RoadContract } from "@/lib/roadAttributes";
 import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
+import { isRoadsInhouse } from "@/lib/roadsReferenceData";
 
 interface CorridorLeader {
   corridor: string;
@@ -108,6 +109,13 @@ export const RoadRepeatWinnersTile: FC<{ rows: RoadContract[] }> = ({
                 >
                   {l.leaderName}
                 </CompanyLink>
+                {/* D7: the state in-house contractor is labelled where it ranks —
+                    its share is statutory in-house work, not a captured market. */}
+                {isRoadsInhouse(l.leaderEik) ? (
+                  <span className="shrink-0 rounded border px-1 text-[10px] text-muted-foreground">
+                    {lang === "bg" ? "държавно, вътрешно" : "state, in-house"}
+                  </span>
+                ) : null}
                 <span
                   className={`shrink-0 tabular-nums font-semibold ${
                     l.share >= 0.6

@@ -441,6 +441,25 @@ const ROUTES: RouteCheck[] = [
     expectedCanonical: `/pension-fund/${SAMPLE_FUND}`,
     hasEnglishMirror: true,
   },
+
+  // The roads sector hub and its three sub-pages (docs/plans/roads-hub-v1.md) —
+  // hand-authored pages, not the generic SECTOR_PAGES template, so each needs its own
+  // check that it is not serving the homepage's head.
+  ...(
+    [
+      ["/sector/roads", "Пътища", 700],
+      ["/sector/roads/network", "Пътната мрежа", 500],
+      ["/sector/roads/costs", "Цена на километър", 500],
+      ["/sector/roads/procurement", "Пътните поръчки", 700],
+    ] as const
+  ).map(([path, h1, minBodyChars]) => ({
+    path,
+    titleIncludes: h1,
+    h1Includes: h1,
+    minBodyChars,
+    expectedCanonical: path,
+    hasEnglishMirror: true,
+  })),
 ];
 
 // English mirrors that must serve the EN prerender (not the EN home fallback).

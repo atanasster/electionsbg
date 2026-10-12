@@ -332,6 +332,26 @@ const SectorDashboardScreen = lazy(() =>
 // administration-view-v1.md §4). It keeps its /sector/administration slug (so
 // sitemap/OG/prerender stay intact) but the static route below intercepts the
 // generic SectorDashboardScreen.
+const RoadsHubScreen = lazy(() =>
+  import("./screens/roads/RoadsHubScreen").then((m) => ({
+    default: m.RoadsHubScreen,
+  })),
+);
+const RoadsNetworkScreen = lazy(() =>
+  import("./screens/roads/RoadsNetworkScreen").then((m) => ({
+    default: m.RoadsNetworkScreen,
+  })),
+);
+const RoadsCostsScreen = lazy(() =>
+  import("./screens/roads/RoadsCostsScreen").then((m) => ({
+    default: m.RoadsCostsScreen,
+  })),
+);
+const RoadsProcurementScreen = lazy(() =>
+  import("./screens/roads/RoadsProcurementScreen").then((m) => ({
+    default: m.RoadsProcurementScreen,
+  })),
+);
 const AdministrationScreen = lazy(() =>
   import("./screens/administration/AdministrationScreen").then((m) => ({
     default: m.AdministrationScreen,
@@ -2189,6 +2209,42 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <AdminServicesBrowseScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The roads sector hub and its three sub-pages — static literals, so
+              the registry gate and the router census can read them
+              (docs/plans/roads-hub-v1.md T4). They win over sector/:id, whose
+              SECTOR_DASHBOARDS.roads entry is now INERT. */}
+          <Route
+            path="sector/roads"
+            element={
+              <LayoutScreen>
+                <RoadsHubScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/roads/network"
+            element={
+              <LayoutScreen>
+                <RoadsNetworkScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/roads/costs"
+            element={
+              <LayoutScreen>
+                <RoadsCostsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/roads/procurement"
+            element={
+              <LayoutScreen>
+                <RoadsProcurementScreen />
               </LayoutScreen>
             }
           />

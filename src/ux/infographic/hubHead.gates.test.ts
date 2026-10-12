@@ -209,6 +209,10 @@ const HUB_SCREENS = [
   "src/screens/governance/GovernanceMayorPayScreen.tsx",
   "src/screens/governance/mayorPayHubFigures.ts",
   "src/screens/indicators/IndicatorsLandingScreen.tsx",
+  // The roads sector hub (docs/plans/roads-hub-v1.md T4) and its band module — listed
+  // together for the /budget reason. Its basis names the corpus window („2011–2026").
+  "src/screens/roads/RoadsHubScreen.tsx",
+  "src/screens/roads/roadsHubFigures.ts",
 ];
 
 /** Every `<HubHead` call site under src/screens, comment-stripped so a screen that merely

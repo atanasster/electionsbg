@@ -52,7 +52,7 @@ export const RoadCostBenchmarkTile: FC<{ corridors: CorridorAgg[] }> = ({
     `${Math.max(0, Math.min(100, (v / scaleMax) * 100))}%`;
 
   return (
-    <Card>
+    <Card data-og="roads-benchmark">
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <Scale className="h-4 w-4" />
