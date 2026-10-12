@@ -3,7 +3,7 @@
   "totals": {
     "categories": 19,
     "leaves": 87,
-    "chat": 367,
+    "chat": 369,
     "sql": 74,
     "dual": 15,
     "tools": 235,
@@ -361,6 +361,8 @@
         "macro-budgetBalance",
         "macro-esaBalanceAnnual",
         "macro-budgetBalanceNominal",
+        "macro-capexExecKfp",
+        "macro-capexExecStateBudget",
         "macro-govRevenue",
         "macro-govExpenditure",
         "macro-arrears",

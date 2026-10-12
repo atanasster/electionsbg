@@ -3424,6 +3424,38 @@
     }
   },
   {
+    "id": "macro-capexExecKfp",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Изпълнение на капиталовите разходи — КФП“.",
+    "en": "Show the indicator “Capital spending executed — consolidated programme (КФП)”.",
+    "args": {
+      "bg": {
+        "indicator": "capexExecKfp"
+      },
+      "en": {
+        "indicator": "capexExecKfp"
+      }
+    }
+  },
+  {
+    "id": "macro-capexExecStateBudget",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Изпълнение на капиталовите разходи — държавен бюджет“.",
+    "en": "Show the indicator “Capital spending executed — state budget”.",
+    "args": {
+      "bg": {
+        "indicator": "capexExecStateBudget"
+      },
+      "en": {
+        "indicator": "capexExecStateBudget"
+      }
+    }
+  },
+  {
     "id": "macro-currentAccountNominal",
     "tool": "macroIndicator",
     "category": "economy-work",

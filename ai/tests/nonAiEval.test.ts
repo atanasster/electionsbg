@@ -20,7 +20,7 @@ describe("Non AI shared bilingual evals (known failures are explicit)", () => {
     ).toHaveLength(40);
   });
   it("carries the starter bank as its own group, with its arguments measured", () => {
-    // The bank is the repo's richest argument ground truth (241 BG / 242 EN
+    // The bank is the repo's richest argument ground truth (243 BG / 244 EN
     // starters declare expected args). It must not silently drop out of the
     // suite, and it must not be folded into another group where its argument
     // cases would be indistinguishable from the 53 legacy ones.
@@ -29,11 +29,13 @@ describe("Non AI shared bilingual evals (known failures are explicit)", () => {
     // rename would otherwise remove every starter pointing at it in silence.
     expect(droppedStarters()).toEqual([]);
     expect(STARTER_CASES).toHaveLength(STARTERS.length);
-    expect(starters).toHaveLength(367);
+    // 367 → 369 on 2026-10-13: the two capex macro starters (macro-capexExecKfp,
+    // macro-capexExecStateBudget), each declaring its expected `indicator` arg.
+    expect(starters).toHaveLength(369);
     const argScored = (lang: "en" | "bg") =>
       starters.filter((c) => expectedArgs(c, lang) !== undefined).length;
-    expect(argScored("bg")).toBe(241);
-    expect(argScored("en")).toBe(242);
+    expect(argScored("bg")).toBe(243);
+    expect(argScored("en")).toBe(244);
     // The bank is recall-tainted, so it must never be the denominator of the
     // legacy floor.
     expect(LEGACY_GROUPS as readonly string[]).not.toContain("starter");

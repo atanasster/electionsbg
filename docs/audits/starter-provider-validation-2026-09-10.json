@@ -10922,6 +10922,86 @@
     "clarify": false
   },
   {
+    "id": "macro-capexExecKfp",
+    "lang": "bg",
+    "text": "Покажи показателя „Изпълнение на капиталовите разходи — КФП“.",
+    "tool": "macroIndicator",
+    "args": {
+      "indicator": "capexExecKfp"
+    },
+    "title": "Изпълнение на капиталовите разходи — КФП (% от годишния план (Фискален съвет))",
+    "rows": null,
+    "facts": {
+      "indicator": "Изпълнение на капиталовите разходи — КФП",
+      "latest_period": "2024",
+      "latest_value": 67.3
+    },
+    "provenance": [
+      "macro.json"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "macro-capexExecKfp",
+    "lang": "en",
+    "text": "Show the indicator “Capital spending executed — consolidated programme (КФП)”.",
+    "tool": "macroIndicator",
+    "args": {
+      "indicator": "capexExecKfp"
+    },
+    "title": "Capital spending executed — consolidated programme (КФП) (% of the annual plan (Fiscal Council))",
+    "rows": null,
+    "facts": {
+      "indicator": "Capital spending executed — consolidated programme (КФП)",
+      "latest_period": "2024",
+      "latest_value": 67.3
+    },
+    "provenance": [
+      "macro.json"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "macro-capexExecStateBudget",
+    "lang": "bg",
+    "text": "Покажи показателя „Изпълнение на капиталовите разходи — държавен бюджет“.",
+    "tool": "macroIndicator",
+    "args": {
+      "indicator": "capexExecStateBudget"
+    },
+    "title": "Изпълнение на капиталовите разходи — държавен бюджет (% от актуализирания план (Фискален съвет))",
+    "rows": null,
+    "facts": {
+      "indicator": "Изпълнение на капиталовите разходи — държавен бюджет",
+      "latest_period": "2024",
+      "latest_value": 48.9
+    },
+    "provenance": [
+      "macro.json"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "macro-capexExecStateBudget",
+    "lang": "en",
+    "text": "Show the indicator “Capital spending executed — state budget”.",
+    "tool": "macroIndicator",
+    "args": {
+      "indicator": "capexExecStateBudget"
+    },
+    "title": "Capital spending executed — state budget (% of the updated plan (Fiscal Council))",
+    "rows": null,
+    "facts": {
+      "indicator": "Capital spending executed — state budget",
+      "latest_period": "2024",
+      "latest_value": 48.9
+    },
+    "provenance": [
+      "macro.json"
+    ],
+    "clarify": false
+  },
+  {
     "id": "macro-currentAccountNominal",
     "lang": "bg",
     "text": "Покажи показателя „Текуща сметка (номинална)“.",
