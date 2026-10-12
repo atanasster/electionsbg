@@ -27,6 +27,10 @@ import {
   MULTI_REGION,
 } from "@/lib/roadAttributes";
 import { reportSkip } from "../../lib/report_skip";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { isRoadsInhouse, ROADS_SECTOR_EIKS } from "@/lib/roadsReferenceData";
+import { ROAD_ROWS_SQL } from "../lib/roadsRows";
 
 const haveDb = await dbReachable();
 const [{ n } = { n: "0" }] = haveDb
@@ -46,19 +50,13 @@ afterAll(async () => {
   await end();
 });
 
-// The columns the engine reads, in the route's casing. Kept to what
-// buildRoadsModel touches so a renamed column fails here, not on the page.
+// The roll-up's rows through the ONE shared row query (scripts/db/lib/roadsRows.ts)
+// — the same SQL the hub generator runs — fetched once for the whole file.
+let rowsCache: Promise<ProcurementContract[]> | null = null;
 const rowsOf = () =>
-  allRows<ProcurementContract>(
-    `SELECT key, tag, date, contractor_eik AS "contractorEik",
-            contractor_name AS "contractorName", amount_eur AS "amountEur",
-            signing_amount_eur AS "signingAmountEur", title, cpv,
-            procurement_method AS "procurementMethod",
-            number_of_tenderers AS "numberOfTenderers",
-            consortium_role AS "consortiumRole"
-       FROM contracts WHERE awarder_eik = $1`,
-    [API_EIK],
-  );
+  (rowsCache ??= allRows<ProcurementContract>(ROAD_ROWS_SQL, [
+    [...ROADS_SECTOR_EIKS],
+  ]));
 
 test.skipIf(skip)(
   "the model total is the headline basis and counts no consortium member (R1, R10)",
@@ -69,8 +67,8 @@ test.skipIf(skip)(
       `SELECT sum(amount_eur) eur,
               count(*) FILTER (WHERE consortium_role IS DISTINCT FROM 'member') n,
               count(*) FILTER (WHERE consortium_role = 'member') members
-         FROM contracts WHERE awarder_eik = $1 AND tag = 'contract'`,
-      [API_EIK],
+         FROM contracts WHERE awarder_eik = ANY($1) AND tag = 'contract'`,
+      [[...ROADS_SECTOR_EIKS]],
     );
     assert.ok(
       Math.abs(m.totalEur - Number(sql.eur)) < 1,
@@ -148,5 +146,99 @@ test.skipIf(skip)(
       "167 lacks the ex-member keys — apply 167_national_competition.sql",
     );
     assert.ok(r.bidKnownExMembers! < r.bidKnown, "the two pairs are equal");
+  },
+);
+
+// ── T9: the audit-sectors Phase 4 pins (plan §4 T9). Bands, shares and basis
+// agreement — never a contractor's rank or absolute €, which move every reload.
+// Each reference below is INDEPENDENT of the code under test: the committed
+// sector_stats.json (written by a different generator), or the corpus itself.
+
+const sectorStats = () =>
+  JSON.parse(
+    readFileSync(
+      path.resolve(process.cwd(), "data/procurement/derived/sector_stats.json"),
+      "utf8",
+    ),
+  ) as Record<string, Record<string, { value: number; basis: string }>>;
+
+test.skipIf(skip)("the headline bands each catch the failure they name", () => {
+  const s = sectorStats();
+  assert.equal(s.all.roads.basis, "procurement");
+  // АПИ alone is €8.92bn; with НКСИП (D5) €9.14bn. The floor sits between, so a
+  // roll-up that loses НКСИП fails; the ceiling catches a leaked EIK (НКЖИ €3.5bn).
+  assert.ok(
+    s.all.roads.value > 9.05e9 && s.all.roads.value < 11e9,
+    `all: €${s.all.roads.value}`,
+  );
+  // НКСИП's money is 2013–2019, so only an old window can see it go missing:
+  // ns:2014_10_05 is €384M with it and €171M without.
+  const ns14 = s["ns:2014_10_05"]?.roads?.value ?? 0;
+  assert.ok(ns14 > 3e8 && ns14 < 4.5e8, `ns:2014_10_05: €${ns14}`);
+});
+
+test.skipIf(skip)(
+  "the engine's contractor leaderboard sums to sector_stats per year (failure O)",
+  async () => {
+    // The page's leaderboard and the hub tile are built by DIFFERENT code from the
+    // same corpus; a tag, member or window rule drifting in either shows here.
+    const rows = await rowsOf();
+    const s = sectorStats();
+    const years = Object.keys(s)
+      .filter((k) => /^y:\d{4}$/.test(k) && s[k].roads)
+      .map((k) => Number(k.slice(2)));
+    assert.ok(years.length >= 5, "too few y: scopes to compare");
+    for (const y of years) {
+      const m = buildRoadsModel(
+        rows.filter((r) => (r.date ?? "").startsWith(String(y))),
+      );
+      const board = m.contractors.reduce((a, c) => a + c.totalEur, 0);
+      assert.ok(
+        Math.abs(board - s[`y:${y}`].roads.value) < 2,
+        `y:${y} leaderboard €${board} vs sector_stats €${s[`y:${y}`].roads.value}`,
+      );
+    }
+    const all = buildRoadsModel(rows).contractors.reduce(
+      (a, c) => a + c.totalEur,
+      0,
+    );
+    assert.ok(Math.abs(all - s.all.roads.value) < 2, `all: €${all}`);
+  },
+);
+
+test.skipIf(skip)(
+  "no single recipient dominates the all-time leaderboard",
+  async () => {
+    // The in-house company holds ~11%. A rollup change crediting a consortium's
+    // full value to each member would push one firm past this as a SHARE.
+    const m = buildRoadsModel(await rowsOf());
+    const top = m.contractors[0];
+    assert.ok(
+      top.totalEur / m.totalEur < 0.2,
+      `${top.name} holds ${((top.totalEur / m.totalEur) * 100).toFixed(1)}%`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the in-house company is a contractor in the corpus, not a buyer",
+  async () => {
+    // Evidence from the corpus, not from the register's own lookup: it RECEIVES
+    // roads money at scale and SPENDS next to none. If it ever starts buying at
+    // scale, its place outside the roll-up (D1) needs a fresh decision.
+    const [r] = await allRows<{ received: string; spent: string }>(
+      `SELECT
+         (SELECT sum(amount_eur) FROM contracts
+           WHERE tag = 'contract' AND awarder_eik = ANY($1) AND contractor_eik = $2) received,
+         (SELECT coalesce(sum(amount_eur), 0) FROM contracts
+           WHERE tag = 'contract' AND awarder_eik = $2) spent`,
+      [[...ROADS_SECTOR_EIKS], "831646048"],
+    );
+    assert.ok(isRoadsInhouse("831646048"));
+    assert.ok(Number(r.received) > 5e8, `received €${r.received}`);
+    assert.ok(
+      Number(r.spent) < 2e7,
+      `spent €${r.spent} as a buyer — revisit D1`,
+    );
   },
 );

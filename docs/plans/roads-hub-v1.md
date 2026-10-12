@@ -603,6 +603,19 @@ Collected from the tiers above, plus the audit-sectors Phase 4 pins:
 
 Break each gate's clauses and watch it fire before calling it done (sector-dashboard §13).
 
+**Done 2026-10-12.** `roads_engine.data.test.ts` now reads the roll-up through the shared
+`ROAD_ROWS_SQL` and adds, each against an INDEPENDENT reference: headline bands that separate the
+with- and without-НКСИП values (`all` floor €9.05bn; `ns:2014_10_05` €300–450M, the only kind of
+window that can see НКСИП go missing); the engine leaderboard Σ == `sector_stats.json` for `all`
+and every `y:` scope (failure O — two generators, one corpus); a top-recipient share ceiling
+(< 20%); and corpus evidence that „Автомагистрали" ЕАД receives (> €500M) and barely buys
+(< €20M). The pack-count == non-member-count pin is the file's first test, now roll-up wide. A
+first draft compared the leaderboard with the model's own total — equal by construction — and was
+caught in review. **Mutation-checked, each fired:** dropping the member skip (3 red), dropping the
+amendment filter (2 red incl. failure O), removing НКСИП from the roll-up (failure O red), dropping
+the multi-ОПУ bucket, deleting the НКЖИ exclusion, emitting `grade=D,E,F`, relabelling the option
+metric.
+
 ---
 
 ## 5. Shipping order (B5) — the publish checklist, as built
