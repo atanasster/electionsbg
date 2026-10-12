@@ -19,6 +19,7 @@ import {
 } from "@/lib/vikReferenceData";
 import { WaterOperatorMap } from "./WaterOperatorMap";
 import { WaterPageFrame } from "./WaterPageFrame";
+import { unpinnedOperators } from "./unpinnedOperators";
 import { formatEurCompact } from "@/lib/currency";
 
 interface OpRow {
@@ -40,7 +41,8 @@ export const WaterOperatorsScreen: FC = () => {
   const bg = lang === "bg";
   const { operators } = useVikGroupRollup(WATER_SECTOR_EIKS);
   const { funds } = useVikFunds(WATER_SECTOR_EIKS);
-  const { operators: mapOperators } = useWaterOperatorMap();
+  const { operators: mapOperators, isLoading: mapLoading } =
+    useWaterOperatorMap();
 
   const rows = useMemo<OpRow[]>(() => {
     const fundByEik = new Map(funds.map((f) => [f.eik, f]));
@@ -79,6 +81,17 @@ export const WaterOperatorsScreen: FC = () => {
     }
     return out.sort((a, b) => b.procEur - a.procEur);
   }, [operators, funds, bg]);
+
+  // D3: operators active in the window that the map cannot place.
+  const unpinned = useMemo(
+    () =>
+      unpinnedOperators(
+        operators,
+        mapOperators.map((o) => o.eik),
+        !mapLoading,
+      ),
+    [mapLoading, mapOperators, operators],
+  );
 
   const columns = useMemo<ColumnDef<OpRow>[]>(
     () => [
@@ -194,7 +207,7 @@ export const WaterOperatorsScreen: FC = () => {
     >
       {/* The map is a section of THIS page: the hub's „Карта" tile links #map. */}
       <section id="map" className="scroll-mt-20">
-        <WaterOperatorMap operators={mapOperators} />
+        <WaterOperatorMap operators={mapOperators} unpinned={unpinned} />
       </section>
 
       <DataTable<OpRow, unknown>

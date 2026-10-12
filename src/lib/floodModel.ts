@@ -3,10 +3,12 @@
 // by-year, top contracts) honours the page's ?pscope like every other pack,
 // instead of being frozen whole-corpus. Pure + deterministic (€ desc with a
 // stable id tiebreak), mirroring the precomputed aggregates in
-// scripts/water/write_flood_maintenance.ts.
+// scripts/water/write_flood_maintenance.ts — EXCEPT `byOblast`, which here
+// deliberately leaves out the national-scope awarders (W3) while the file's
+// precomputed copy (read by nothing) still includes them.
 
 import { scopeByWindow } from "@/data/procurement/useAwarderContracts";
-import { NAPOITELNI_EIK } from "@/lib/vikReferenceData";
+import { NAPOITELNI_EIK, USYA_EIK } from "@/lib/vikReferenceData";
 import type {
   FloodAwarder,
   FloodContract,
@@ -15,6 +17,22 @@ import type {
   FloodYear,
 } from "@/data/water/useFloodMaintenance";
 
+/** Riverbed awarders whose works are NATIONAL in scope, so their HQ seat (all
+ *  Sofia) is not where the money went (docs/plans/water-hub-v1.md W3 / D2). On
+ *  the 2026-10-12 corpus they put €124M of Sofia's €153M choropleth figure there
+ *  (81%), €103M of it Напоителни системи alone. They stay in every total and in the awarder
+ *  list; only the oblast map leaves them out and states their € beside it.
+ *  A curated list: the rule is „a national body", which no column records. */
+export const FLOOD_NATIONAL_AWARDERS: Readonly<Record<string, string>> = {
+  [NAPOITELNI_EIK]: "Напоителни системи ЕАД",
+  [USYA_EIK]: "ДП „Управление и стопанисване на язовири“",
+  "000649348": "Национална електрическа компания ЕАД",
+  "831909905": "Министерство на земеделието и храните",
+  "000695388": "Министерство на транспорта и съобщенията",
+  "000695089": "Агенция „Пътна инфраструктура“",
+  "831901762": "Изпълнителна агенция по околна среда",
+};
+
 export interface FloodModel {
   totalEur: number;
   contractCount: number;
@@ -22,7 +40,14 @@ export interface FloodModel {
   napoitelniEur: number;
   napoitelniCount: number;
   byYear: FloodYear[];
+  /** Oblast spend EXCLUDING the national-scope awarders (W3). */
   byOblast: FloodOblast[];
+  /** What the national-scope awarders spent — off the map, stated beside it. */
+  nationalEur: number;
+  nationalCount: number;
+  /** Which national awarders contributed in this window, € desc — so the note
+   *  names the bodies actually behind the figure. */
+  nationalAwarders: { eik: string; name: string; eur: number }[];
   topAwarders: FloodAwarder[];
   topContracts: FloodContract[];
 }
@@ -37,6 +62,9 @@ export const buildFloodModel = (
   let totalEur = 0;
   let napoitelniEur = 0;
   let napoitelniCount = 0;
+  let nationalEur = 0;
+  let nationalCount = 0;
+  const nationalByEik = new Map<string, number>();
   const awarderSet = new Set<string>();
   const byYear = new Map<number, { eur: number; count: number }>();
   const byOblast = new Map<string, { eur: number; count: number }>();
@@ -59,7 +87,14 @@ export const buildFloodModel = (
       y.count += 1;
       byYear.set(yr, y);
     }
-    if (r.oblast) {
+    if (r.awarderEik in FLOOD_NATIONAL_AWARDERS) {
+      nationalEur += r.eur;
+      nationalCount += 1;
+      nationalByEik.set(
+        r.awarderEik,
+        (nationalByEik.get(r.awarderEik) ?? 0) + r.eur,
+      );
+    } else if (r.oblast) {
       const o = byOblast.get(r.oblast) ?? { eur: 0, count: 0 };
       o.eur += r.eur;
       o.count += 1;
@@ -103,6 +138,15 @@ export const buildFloodModel = (
     awarderCount: awarderSet.size,
     napoitelniEur,
     napoitelniCount,
+    nationalEur,
+    nationalCount,
+    nationalAwarders: [...nationalByEik.entries()]
+      .map(([eik, eur]) => ({
+        eik,
+        name: FLOOD_NATIONAL_AWARDERS[eik],
+        eur,
+      }))
+      .sort((a, b) => b.eur - a.eur || a.eik.localeCompare(b.eik)),
     byYear: [...byYear.entries()]
       .map(([year, v]) => ({ year, eur: v.eur, count: v.count }))
       .sort((a, b) => a.year - b.year),

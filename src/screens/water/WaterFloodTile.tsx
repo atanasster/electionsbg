@@ -61,6 +61,11 @@ export const WaterFloodTile: FC = () => {
   const max = Math.max(...top.map((a) => a.eur), 1);
   const yearMax = Math.max(...model.byYear.map((y) => y.eur), 1);
   const topContracts = model.topContracts.slice(0, 5);
+  // The bodies actually behind the off-map figure in THIS window, largest first.
+  const nationalNames = [
+    ...model.nationalAwarders.slice(0, 3).map((a) => a.name),
+    ...(model.nationalAwarders.length > 3 ? [bg ? "и др." : "and others"] : []),
+  ].join(", ");
 
   return (
     <Card id="flood">
@@ -118,6 +123,16 @@ export const WaterFloodTile: FC = () => {
             <WaterFloodMap byOblast={model.byOblast} />
           </div>
         )}
+        {model.nationalCount > 0 ? (
+          // W3: national bodies are seated in Sofia but work country-wide; on the
+          // map they would paint Sofia with money spent elsewhere. Outside the map
+          // block, so a window where ONLY they spent still states their €.
+          <p className="text-[11px] text-muted-foreground">
+            {bg
+              ? `Извън картата: ${formatEurCompact(model.nationalEur, lang)} по ${model.nationalCount.toLocaleString(lang)} ${model.nationalCount === 1 ? "договор" : "договора"} на национални възложители (${nationalNames}) — без място, защото работят в цялата страна, а седалището им е в София.`
+              : `Off the map: ${formatEurCompact(model.nationalEur, lang)} across ${model.nationalCount.toLocaleString(lang)} ${model.nationalCount === 1 ? "contract" : "contracts"} by national bodies (${nationalNames}) — no place, because they work nationwide from a Sofia seat.`}
+          </p>
+        ) : null}
 
         <div className="space-y-1.5">
           <div className="text-xs font-medium text-muted-foreground">

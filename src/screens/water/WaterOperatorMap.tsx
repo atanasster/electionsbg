@@ -36,9 +36,14 @@ const bandColor = (share: number | null) =>
     ? UNKNOWN_COLOR
     : (BANDS.find((b) => share <= b.max) ?? BANDS[BANDS.length - 1]).color;
 
-export const WaterOperatorMap: FC<{ operators: WaterOperatorPoint[] }> = ({
-  operators,
-}) => {
+export const WaterOperatorMap: FC<{
+  operators: WaterOperatorPoint[];
+  /** Operators with contracts in the window that the map CANNOT place (their
+   *  seat did not geo-resolve — water_operator_geo). Named under the map with
+   *  their €, so the map's total visibly differs from the table's for a stated
+   *  reason rather than silently (docs/plans/water-hub-v1.md D3). */
+  unpinned?: { eik: string; name: string; totalEur: number }[];
+}> = ({ operators, unpinned = [] }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -140,6 +145,19 @@ export const WaterOperatorMap: FC<{ operators: WaterOperatorPoint[] }> = ({
             ? "Всеки маркер е един ВиК оператор по седалище; числото е броят договори, а цветът — делът поръчки само с един кандидат (индикатор за слаба конкуренция). Градовете с няколко оператора се разгръщат в изскачащата карта. Обхватът следва избрания период."
             : "Each marker is one water operator at its seat; the number is its contract count and the colour is the share of contracts with a single bidder (a weak-competition signal). Cities with several operators page through them in the popup. Scope follows the selected period."}
         </p>
+        {unpinned.length ? (
+          <p className="text-[11px] text-muted-foreground">
+            {bg
+              ? "Не са на картата (седалището им не е разпознато): "
+              : "Not on the map (their seat did not resolve): "}
+            {unpinned
+              .map((u) => `${u.name} (${formatEurCompact(u.totalEur, lang)})`)
+              .join(", ")}
+            {bg
+              ? " — те са в таблицата по-долу."
+              : " — they are in the table below."}
+          </p>
+        ) : null}
       </CardContent>
     </Card>
   );
