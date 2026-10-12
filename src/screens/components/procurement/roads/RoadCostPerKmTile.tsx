@@ -11,7 +11,7 @@ import { Ruler } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { CorridorAgg } from "@/lib/roadAttributes";
-import { GROUP_META } from "./roadLabels";
+import { GROUP_META, PER_KM_CLASS_LABEL } from "./roadLabels";
 import { UnitCostMethodologyLink } from "@/screens/components/UnitCostMethodologyLink";
 
 export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
@@ -56,13 +56,10 @@ export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
                   : undefined
               }
             >
-              {c.eurPerKmClass === "build"
-                ? lang === "bg"
-                  ? "строителство"
-                  : "build"
-                : lang === "bg"
-                  ? "ремонт"
-                  : "repair"}
+              {c.eurPerKmClass &&
+                PER_KM_CLASS_LABEL[c.eurPerKmClass][
+                  lang === "bg" ? "bg" : "en"
+                ]}
             </span>
             <span className="flex-1 h-2.5 rounded bg-muted overflow-hidden">
               <span

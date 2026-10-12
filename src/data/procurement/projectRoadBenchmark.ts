@@ -88,6 +88,7 @@ export function computeCorpusEurPerKm(
         c.cpv ?? undefined,
         c.contractorName ?? undefined,
       ),
+      c.title,
       c.unp,
       noiseUnps,
     );

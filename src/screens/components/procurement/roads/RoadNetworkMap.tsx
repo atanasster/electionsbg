@@ -16,6 +16,7 @@ import { useTooltip } from "@/ux/useTooltip";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import type { CorridorAgg } from "@/lib/roadAttributes";
+import { PER_KM_CLASS_LABEL } from "./roadLabels";
 
 export type RoadMetric = "perKm" | "singleBid";
 
@@ -99,16 +100,9 @@ export const RoadNetworkMap: FC<{
     if (v == null) return bg ? "няма данни" : "no data";
     // The €/km median is over one work class — say which, so a repair median
     // on a II-class road is not read against a motorway build median.
-    const cls =
-      c?.eurPerKmClass === "build"
-        ? bg
-          ? " (строителство)"
-          : " (build)"
-        : c?.eurPerKmClass === "rehab"
-          ? bg
-            ? " (ремонт)"
-            : " (repair)"
-          : "";
+    const cls = c?.eurPerKmClass
+      ? ` (${PER_KM_CLASS_LABEL[c.eurPerKmClass][bg ? "bg" : "en"]})`
+      : "";
     return metric === "perKm"
       ? `${formatEurCompact(v, i18n.language)}/km${cls}`
       : `${(v * 100).toLocaleString(i18n.language, { maximumFractionDigits: 0 })}%`;

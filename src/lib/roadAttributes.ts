@@ -533,7 +533,7 @@ export const workTypeOf = (
   // title goes on to name the works it is for (основен ремонт, доизграждане).
   if (
     !designBuild &&
-    (/(?:изготвяне|изработване|актуализация)\s+на\s[^.]{0,60}?(?:проект|пуп\b|план)/.test(
+    (/(?:изготвяне|изработване|актуализация)\s+на\s[^.]{0,60}?(?:проект|пуп(?![\p{L}\p{N}])|план)/u.test(
       n,
     ) ||
       (/проучван/.test(n) && !cpv?.startsWith("45")))
@@ -594,14 +594,22 @@ export const noiseBarrierUnps = (
 };
 
 /** A lot's work type in the context of its procedure: a physical-works lot of a
- *  noise-barrier procedure is a noise barrier. Design / supervision / archaeology
- *  lots of the same procedure keep their own type. */
+ *  noise-barrier procedure that names no work of its own is a noise barrier. A
+ *  lot whose title states its own work („Рехабилитация на …") keeps it, so a
+ *  mixed procedure does not lose its road lots' €/km. Design / supervision /
+ *  archaeology lots keep their own type. */
 export const workTypeInProcedure = (
   workType: WorkType,
+  title: string | null | undefined,
   unp: string | null | undefined,
   noiseUnps: ReadonlySet<string>,
 ): WorkType =>
-  unp && noiseUnps.has(unp) && PHYSICAL.has(workType)
+  unp &&
+  noiseUnps.has(unp) &&
+  PHYSICAL.has(workType) &&
+  !/строител|изграждане|реконструкц|рехабилитац|ремонт|превантив|поддър/i.test(
+    title ?? "",
+  )
     ? "noise_barrier"
     : workType;
 
@@ -964,6 +972,7 @@ export const buildRoadsModel = (
     const ref = roadRefOf(c.title);
     const workType = workTypeInProcedure(
       workTypeOf(c.title, c.cpv, c.contractorName),
+      c.title,
       c.unp,
       noiseUnps,
     );

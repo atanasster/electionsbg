@@ -313,6 +313,14 @@ describe("non-physical work carries no €/km", () => {
     expect(workComponentOf(title, cpv, wt)).toBe("design_supervision");
   });
 
+  it("a ПУП (parcel plan) job is design", () => {
+    expect(
+      workTypeOf(
+        "Изготвяне на ПУП-ПП за обект път II-35 от км 10+000 до км 20+000",
+      ),
+    ).toBe("design");
+  });
+
   it("a design job with no CPV is still design", () => {
     expect(
       workTypeOf(
@@ -495,6 +503,19 @@ describe("noise barriers — read off the procedure, no €/km", () => {
       expect(r.component).toBe("noise_barriers");
       expect(r.perKm).toBeUndefined();
     }
+  });
+
+  it("a sibling lot that names its own work keeps it", () => {
+    const rehab = row({
+      unp,
+      cpv: "45233120",
+      amountEur: 4_000_000,
+      title: "ОП 6: Рехабилитация на път II-29 от км 4+529 до км 14+529",
+    });
+    const m = buildRoadsModel([...lots, rehab]);
+    const r = m.rows.find((x) => x.c.key === rehab.key)!;
+    expect(r.workType).toBe("rehab");
+    expect(r.perKm).toBeDefined();
   });
 
   it("without the procedure key a bare lot is still unit-costed — the УНП is load-bearing", () => {
