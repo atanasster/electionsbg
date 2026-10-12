@@ -17,6 +17,7 @@ import { buildEntityIndex } from "@/lib/entitySearchIndex";
 import {
   WATER_OPERATORS,
   type WaterOperatorType,
+  operatorStatusLabel,
 } from "@/lib/vikReferenceData";
 
 /** Reading order for the type label — the holding parent and the concession are
@@ -40,22 +41,24 @@ export const WaterSearchBox: FC = () => {
     () =>
       buildEntityIndex(
         WATER_OPERATORS,
-        (o) => ({
-          id: o.eik,
-          label: o.name,
-          // A defunct operator says so on its own row. Пазарджик puts five rows
-          // in one result list, one of them a liquidated shell distinguished
-          // only by a parenthetical the label can truncate away.
-          sub:
-            o.status === "liquidated" ? `${o.oblast} · в ликвидация` : o.oblast,
-          // /company/:eik, not /awarder/:eik — a ВиК operator is a company that
-          // also happens to buy, and the company page carries both sides. A
-          // liquidated row goes to its SUCCESSOR: 822106665 has no tr_companies
-          // record at all, so its own page would render a company that is not
-          // there (the person_slug_retired rule — resolve a dead id to a live
-          // target rather than serving a dead end).
-          href: `/company/${o.successorEik ?? o.eik}`,
-        }),
+        (o) => {
+          const status = operatorStatusLabel(o.status, true);
+          return {
+            id: o.eik,
+            label: o.name,
+            // A defunct operator says so on its own row. Пазарджик puts five rows
+            // in one result list, one of them a liquidated shell distinguished
+            // only by a parenthetical the label can truncate away.
+            sub: status ? `${o.oblast} · ${status}` : o.oblast,
+            // /company/:eik, not /awarder/:eik — a ВиК operator is a company that
+            // also happens to buy, and the company page carries both sides. A
+            // liquidated row goes to its SUCCESSOR: 822106665 has no tr_companies
+            // record at all, so its own page would render a company that is not
+            // there (the person_slug_retired rule — resolve a dead id to a live
+            // target rather than serving a dead end).
+            href: `/company/${o.successorEik ?? o.eik}`,
+          };
+        },
         (o) => [
           o.name,
           o.oblast,

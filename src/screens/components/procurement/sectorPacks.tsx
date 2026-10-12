@@ -285,6 +285,10 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
     eiks: PROCUREMENT_BUYER_SECTORS.water.eiks,
     Section: VikBrowseSection,
+    // The water hub counts ex-members (docs/plans/water-hub-v1.md G1/G3), and
+    // VikBrowseSection's strip reads the rollup on the same basis (exMembers=1).
+    // Measured 2026-10-12: 10,966 rows all-in against 10,336 ex-members.
+    excludeConsortiumMembers: true,
   },
   roads: {
     id: "roads",

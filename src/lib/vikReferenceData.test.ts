@@ -26,6 +26,7 @@ import {
   NAPOITELNI_EIK,
   USYA_EIK,
   operatorByEik,
+  operatorStatusLabel,
 } from "./vikReferenceData";
 
 // The two oblasti the completeness rule deliberately exempts, and WHY — see the
@@ -181,5 +182,22 @@ describe("liveness is a field, never a display string", () => {
   it("never marks a national row as an oblast's coverage", () => {
     for (const o of WATER_OPERATORS.filter((x) => x.national))
       expect(o.type, `${o.name} is national`).not.toBe("holding_sub");
+  });
+});
+
+describe("operator liveness", () => {
+  it("every non-live status names its source", () => {
+    const unsourced = WATER_OPERATORS.filter(
+      (o) => o.status && !o.statusSource?.trim(),
+    ).map((o) => o.eik);
+    expect(unsourced).toEqual([]);
+  });
+
+  it("every status has a reader-facing label in both languages", () => {
+    for (const o of WATER_OPERATORS.filter((x) => x.status)) {
+      expect(operatorStatusLabel(o.status, true)).toBeTruthy();
+      expect(operatorStatusLabel(o.status, false)).toBeTruthy();
+    }
+    expect(operatorStatusLabel(undefined, true)).toBeNull();
   });
 });

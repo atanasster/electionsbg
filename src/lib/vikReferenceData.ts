@@ -80,10 +80,13 @@ export interface WaterOperator {
   /** Nationwide scope, so `oblast` is its seat and it is not any oblast's
    *  regional coverage — the completeness rule in the header skips these. */
   national?: true;
-  /** Absent = live. A `liquidated` / `dormant` row is kept because its € is real
+  /** Absent = live. A `liquidated` / `bankrupt` / `dormant` row is kept because its € is real
    *  history, but it must never count as an oblast's regional coverage — that is
    *  verbatim the Пазарджик failure the header describes. */
-  status?: "liquidated" | "dormant";
+  status?: "liquidated" | "bankrupt" | "dormant";
+  /** Where the status comes from — required beside every `status`, so a
+   *  liveness claim about a named company is never unsourced (the gate holds it). */
+  statusSource?: string;
   /** The EIK now doing this operator's job, where one exists. A reader who lands
    *  on the dead row is sent here rather than to a page with no company. */
   successorEik?: string;
@@ -307,6 +310,8 @@ export const WATER_OPERATORS: WaterOperator[] = [
     oblast: "Пазарджик",
     type: "holding_sub",
     status: "liquidated",
+    statusSource:
+      "в ликвидация по наименованието си; няма запис в Търговския регистър; последен договор 2019 (2026-10-12)",
     successorEik: "205323041",
   },
   {
@@ -323,6 +328,9 @@ export const WATER_OPERATORS: WaterOperator[] = [
     name: "ВиК Бебреш ЕООД (Ботевград)",
     oblast: "Софийска област",
     type: "municipal",
+    status: "liquidated",
+    statusSource:
+      "Търговски регистър: в ликвидация (tr_companies, 2026-10-12); последен договор 2019-01",
   },
   {
     eik: "820146942",
@@ -335,12 +343,18 @@ export const WATER_OPERATORS: WaterOperator[] = [
     name: "ВиК Димитровград ООД",
     oblast: "Хасково",
     type: "municipal",
+    status: "liquidated",
+    statusSource:
+      "Търговски регистър: в ликвидация (tr_companies, 2026-10-12); последен договор 2021-07",
   },
   {
     eik: "834026369",
     name: "ВиК Добрич ЕООД",
     oblast: "Добрич",
     type: "municipal",
+    status: "dormant",
+    statusSource:
+      "няма запис в Търговския регистър; последен договор 2013-07 (2026-10-12)",
   },
   {
     eik: "101005019",
@@ -359,17 +373,25 @@ export const WATER_OPERATORS: WaterOperator[] = [
     name: "ВиК Дупница ЕООД",
     oblast: "Кюстендил",
     type: "municipal",
+    status: "bankrupt",
+    statusSource:
+      "Търговски регистър: в несъстоятелност (tr_companies, 2026-10-12); последен договор 2022-10",
   },
   {
     eik: "200736851",
     name: "ВиК Свищов ЕАД",
     oblast: "Велико Търново",
     type: "municipal",
+    status: "dormant",
+    statusSource:
+      "няма запис в Търговския регистър; последен договор 2017-02 (2026-10-12)",
   },
   // ВиК Свищов's defunct old EIK (000120252) is intentionally omitted: it would
   // render as a second row for the same company in /water/operators and double-
   // count the org in the group totals. Its footprint is negligible (~1 contract,
-  // ~€54k) and it operates under 200736851 now.
+  // ~€54k). 200736851 is no longer evidence of a live operator either — no TR
+  // record and no contract since 2017-02 — so who serves Свищов today is
+  // UNVERIFIED; do not restate it as known.
   {
     eik: "111037645",
     name: "ВиК Берковица ЕООД",
@@ -397,6 +419,8 @@ export const WATER_OPERATORS: WaterOperator[] = [
     // Last awarded a contract in Feb 2013 (3 contracts, €158,731) — kept for the
     // history, but it is not current coverage.
     status: "dormant",
+    statusSource:
+      "последен договор 2013-02; Търговски регистър: активно (tr_companies, 2026-10-12)",
     aliases: ["Водоснабдяване, канализация и териториален водоинженеринг"],
   },
   {
@@ -426,6 +450,23 @@ export const operatorByEik = (eik: string): WaterOperator | undefined =>
 export const VIK_HOLDING_SUB_EIKS: string[] = WATER_OPERATORS.filter(
   (o) => o.type === "holding_sub",
 ).map((o) => o.eik);
+
+/** Short reader-facing label for a non-live `status`, or null for a live row. */
+export const operatorStatusLabel = (
+  status: WaterOperator["status"],
+  bg: boolean,
+): string | null => {
+  switch (status) {
+    case "liquidated":
+      return bg ? "в ликвидация" : "in liquidation";
+    case "bankrupt":
+      return bg ? "в несъстоятелност" : "insolvent";
+    case "dormant":
+      return bg ? "неактивен" : "inactive";
+    default:
+      return null;
+  }
+};
 
 /** Every row in WATER_OPERATORS, whatever its `type` — adding a union member
  *  widens this set automatically and is meant to. This is THE sector universe:

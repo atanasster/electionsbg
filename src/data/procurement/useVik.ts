@@ -154,7 +154,8 @@ export const useWaterSector = (windowOverride?: ScopeWindow): VikData =>
 /** Lightweight per-operator rollup for a SET of EIKs via ONE grouped aggregate
  *  (/api/db/awarder-group-rollup) — for the sector browse pack's context strip,
  *  which needs only the per-operator €/count (VikSubsidiaryTile), not the full
- *  by-function model the group-model call also builds. */
+ *  by-function model the group-model call also builds. Counts are EX-MEMBER
+ *  (the €0 consortium member rows are dropped); € is the same either way. */
 export const useVikGroupRollup = (
   eiks: readonly string[],
   windowOverride?: ScopeWindow,
@@ -165,7 +166,7 @@ export const useVikGroupRollup = (
   const eikParam = useEikParam(eiks);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["db", "awarder-group-rollup", eikParam, from, to] as const,
+    queryKey: ["db", "awarder-group-rollup", eikParam, from, to, "ex"] as const,
     queryFn: async (): Promise<{
       operators: {
         eik: string;
@@ -175,7 +176,10 @@ export const useVikGroupRollup = (
         singleBidN: number;
       }[];
     }> => {
-      const p = new URLSearchParams({ eiks: eikParam });
+      // Ex-member basis: the water browse pack sets excludeConsortiumMembers, so
+      // this strip and /water/operators must count the rows the table beneath
+      // them lists (docs/plans/water-hub-v1.md G1/G3).
+      const p = new URLSearchParams({ eiks: eikParam, exMembers: "1" });
       if (from) p.set("from", from);
       if (to) p.set("to", to);
       const r = await fetch(`/api/db/awarder-group-rollup?${p.toString()}`);

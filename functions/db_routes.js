@@ -3190,6 +3190,12 @@ const DB_ROUTES = {
     if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
     const from = orNull(q, "from");
     const to = orNull(q, "to");
+    // exMembers=1 drops the €0 consortium MEMBER rows (087) from the counts and
+    // the single-bid pair — the basis a sector that counts ex-members (the water
+    // hub, docs/plans/water-hub-v1.md G3) must show beside the browser it links
+    // to. € is unaffected either way (member rows carry €0). Opt-in: the default
+    // stays the member-inclusive basis the defense strip was sized on.
+    const exMembers = s(q, "exMembers") === "1";
     const operators = await dbRows(
       `SELECT awarder_eik AS eik,
               count(*)::int AS "contractCount",
@@ -3202,6 +3208,7 @@ const DB_ROUTES = {
        WHERE awarder_eik = ANY($1) AND tag = 'contract'
          AND date >= COALESCE($2, '')
          AND date <  COALESCE($3, '99999999')
+         ${exMembers ? "AND consortium_role IS DISTINCT FROM 'member'" : ""}
        GROUP BY awarder_eik
        ORDER BY sum(amount_eur) DESC NULLS LAST, awarder_eik`,
       [eiks, from, to],
