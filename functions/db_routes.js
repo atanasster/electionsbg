@@ -3168,7 +3168,8 @@ const DB_ROUTES = {
               procurement_method AS "procurementMethod",
               number_of_tenderers AS "numberOfTenderers",
               CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",
-              eu_program AS "euProgram", category, source_url AS "sourceUrl"
+              eu_program AS "euProgram", category, source_url AS "sourceUrl",
+              consortium_role AS "consortiumRole"
        FROM contracts WHERE awarder_eik = $1
        ORDER BY date DESC, key LIMIT $2`,
       [eik, limit],

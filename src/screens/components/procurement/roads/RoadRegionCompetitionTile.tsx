@@ -3,14 +3,16 @@
 // upkeep is where competition quietly collapses: a captured ОПУ awards most of
 // its lots to one contractor with a single bid. Sized by € so the reader sees
 // both how much a region spends and how contested it is. Data straight from
-// model.regions (regionOf → RegionAgg); no engine change.
+// model.regions (regionOf → RegionAgg). The „Няколко ОПУ" bucket (lots spanning
+// several directorates, e.g. a whole-motorway maintenance lot) is left out of
+// the ranking — it is no one directorate's competition.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { MapPinned } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import type { RegionAgg } from "@/lib/roadAttributes";
+import { MULTI_REGION, type RegionAgg } from "@/lib/roadAttributes";
 
 // Green (competitive) → amber → red (captured), on the same red-line intuition
 // as the EU benchmarks: ≤30% amber start, >60% deep red.
@@ -30,7 +32,12 @@ export const RoadRegionCompetitionTile: FC<{ regions: RegionAgg[] }> = ({
   const rows = useMemo(
     () =>
       regions
-        .filter((r) => r.singleBidShare != null && r.contractCount >= 3)
+        .filter(
+          (r) =>
+            r.region !== MULTI_REGION &&
+            r.singleBidShare != null &&
+            r.contractCount >= 3,
+        )
         .sort((a, b) => (b.singleBidShare ?? 0) - (a.singleBidShare ?? 0))
         .slice(0, 12),
     [regions],

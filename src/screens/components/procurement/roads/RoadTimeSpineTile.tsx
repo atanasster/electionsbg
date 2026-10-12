@@ -16,7 +16,11 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { PackSelect } from "../PackSelect";
 import { formatEurCompact } from "@/lib/currency";
-import type { YearAgg, WorkGroup } from "@/lib/roadAttributes";
+import {
+  regionLabel,
+  type YearAgg,
+  type WorkGroup,
+} from "@/lib/roadAttributes";
 import { GROUP_META } from "./roadLabels";
 
 type Mode = "group" | "corridor" | "region";
@@ -80,6 +84,17 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
     return out;
   }, [years, mode, activeKeys, keyedField]);
 
+  // The year with the most annex growth in €, named in the caption so a peak
+  // that is partly options exercised later (2024: ~28%) is not read as that
+  // year's new awards alone.
+  const growthPeak = useMemo(
+    () =>
+      [...years]
+        .filter((y) => y.totalEur > 0 && y.growthEur > 0)
+        .sort((a, b) => b.growthEur - a.growthEur)[0],
+    [years],
+  );
+
   if (years.length === 0) return null;
   // The residual means something different per lens: corridor mode lumps the
   // ref-less regional/diverse work, region mode lumps national-corridor work
@@ -92,7 +107,8 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
       : lang === "bg"
         ? "Без коридор"
         : "No corridor";
-  const keyLabel = (k: string) => (k === "other" ? otherLabel : k);
+  const keyLabel = (k: string) =>
+    k === "other" ? otherLabel : regionLabel(k, lang);
 
   return (
     <Card>
@@ -213,8 +229,12 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
         </div>
         <p className="text-[11px] text-muted-foreground/80 pt-1">
           {lang === "bg"
-            ? "По година на договора. Празни години (напр. 2018, 2020) отразяват липси в източника, не липса на разход."
-            : "By contract year. Empty years (e.g. 2018, 2020) reflect source gaps, not the absence of spending."}
+            ? "По година на договора, текуща стойност след анекси — ръстът по анекс се отнася към годината на подписване. Празни години (напр. 2018, 2020) отразяват липси в източника, не липса на разход."
+            : "By contract year, at current value after annexes — annex growth is booked to the signing year. Empty years (e.g. 2018, 2020) reflect source gaps, not the absence of spending."}
+          {growthPeak &&
+            (lang === "bg"
+              ? ` ${growthPeak.year}: ${formatEurCompact(growthPeak.growthEur, lang)} от ${formatEurCompact(growthPeak.totalEur, lang)} са ръст по анекси.`
+              : ` ${growthPeak.year}: ${formatEurCompact(growthPeak.growthEur, lang)} of ${formatEurCompact(growthPeak.totalEur, lang)} is annex growth.`)}
         </p>
       </CardContent>
     </Card>

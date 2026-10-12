@@ -303,6 +303,22 @@ Each fix needs a unit test with a fixture row that fails before the fix.
 Gate: a `roads_engine.data.test.ts` arm reproduces the R10/R12/R14 measured figures from PG
 with bands.
 
+**Implementation notes (2026-10-12):**
+- **T1.2 deviates from the text above.** 167 gains `singleBidExMembers` / `bidKnownExMembers`
+  BESIDE its original keys rather than changing them. Culture's blob, its `/culture/procurement`
+  baseline and `awarder_group_model` (061) all count members, so changing 167's existing keys
+  would have moved another sector's published figures. Roads WILL compare against the
+  ex-member pair (T3's blob, T5's sub-page); no consumer reads it yet after T1. A corpus-wide
+  basis change stays a separate decision. Local national rate ex-members:
+  108,482 / 259,899 = 41.7% (41.05% with members).
+- **T1.8 skipped.** `awarder-contracts` also feeds the tourism tiles and the МОН textbook
+  tile, so a `tag='contract'` filter would change pages outside roads. The route instead gains
+  `consortium_role`, which R10 needs. That is a `deploy:db` change; until it ships, the deployed
+  route omits the column and the engine counts members as before.
+- Measured after T1: model rows 2,327 (members dropped), total €8,917.4M (unchanged);
+  `refCoverageEur` 52.6% → **58.8%** (the ~62% estimate was high); „Няколко ОПУ" €744M;
+  Струма I-1 strip 38 contracts / €433.8M; 2024 growth €809.5M of €2,884.1M.
+
 ### T2: register (sector-dashboard §1); needs D5
 
 - New `src/lib/roadsReferenceData.ts`.

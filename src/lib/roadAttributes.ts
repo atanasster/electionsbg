@@ -87,9 +87,35 @@ export interface RoadRef {
   isMotorway: boolean;
 }
 
+// АМ „Русе – Велико Търново" (under construction, no OSM geometry yet). Its titles
+// name the motorway, or only one of its two lots: „Участък Русе – Бяла" (km
+// 0–40.6) and „Обход на гр. Бяла" (km 40.6–76). Measured 2026-10-12: €448.2M
+// („Участък Русе – Бяла") + €348.5M (the Бяла bypass lot) + the archaeology
+// rescue digs sat unattributed — or worse, the „ДЗЗД ХЕМУС" consortium's
+// Русе–Бяла lot read as Хемус money. The OLD republican road I-5 is also titled
+// „Русе – Бяла – Велико Търново", so the lot forms require their own label
+// („участък" / „обход на гр.") and never match a bare place pair.
+const RUSE_VT =
+  /(?<![а-я])(?:ам|автомагистрал[аи]?)\s*[„"“]?\s*русе\s*[-–—]\s*(?:велико|в\.)\s*търново|участък\s*[„"“]?\s*русе\s*[-–—]\s*бяла|обход\s+на\s+(?:гр\.?|град)\s*бяла/;
+export const RUSE_VT_CORRIDOR = "Русе – В. Търново";
+
 /** Extract the road designation from a contract title, if any. */
 export const roadRefOf = (title: string): RoadRef | undefined => {
   const n = (title || "").toLowerCase();
+  if (RUSE_VT.test(n))
+    return { corridor: RUSE_VT_CORRIDOR, roadClass: "АМ", isMotorway: true };
+  // The Железница tunnel is АМ „Струма" Lot 3.2; its sub-lot titles name the
+  // tunnel and the I-1 chainage only (€94.8M „Подучастък № 2 … тунел Железница").
+  const tunnelOnStruma = /тунел\s*[„"“]?железница/.test(n);
+  for (const m of MOTORWAYS) {
+    if (tunnelOnStruma && m.match === "струма")
+      return {
+        corridor: m.name,
+        osmRef: m.osmRef,
+        roadClass: "АМ",
+        isMotorway: true,
+      };
+  }
   for (const m of MOTORWAYS) {
     if (n.includes(m.match)) {
       return {
@@ -171,21 +197,48 @@ const OBLASTI = [
   "ямбол",
 ].sort((a, b) => b.length - a.length);
 
+/** The bucket for a lot that names two or more ОПУ directorates — a motorway
+ *  maintenance lot („АМ „Тракия" на територията на ОПУ София, ОПУ Пазарджик, …")
+ *  or a multi-oblast framework „Район". Its € belongs to no single oblast. */
+export const MULTI_REGION = "Няколко ОПУ";
+
+/** Display label for a region key — the oblast names are Bulgarian proper
+ *  nouns on both locales, MULTI_REGION is not. */
+export const regionLabel = (region: string, lang: string): string =>
+  region === MULTI_REGION && lang !== "bg" ? "Several ОПУ" : region;
+
+const titleCaseOblast = (o: string) =>
+  o.replace(/(^|\s)[а-яё]/g, (c) => c.toUpperCase());
+
 /** Oblast for a regional-directorate (ОПУ) maintenance lot, e.g. "Обособена
  *  позиция №4 – ОПУ Хасково" → "Хасково". These framework lots carry no single
  *  road reference; the region is the meaningful unit. Returns undefined when the
- *  title is not an ОПУ-region lot. */
+ *  title is not an ОПУ-region lot, and MULTI_REGION when it names several ОПУ.
+ *
+ *  It reads the oblast written AFTER „ОПУ", not the first oblast anywhere in the
+ *  title. The old rule (longest oblast name anywhere) sent 87 multi-ОПУ lots /
+ *  €800.6M — 23.5% of the region tile — to one oblast: АМ „Тракия" OP3, €193.1M
+ *  across 7 ОПУ, became „Стара Загора", and Шумен showed €0.6M (measured
+ *  2026-10-12). A „Граница ОПУ-Видин" is a road ENDPOINT, not the directorate,
+ *  so it is not counted; with no directorate named the title falls back to the
+ *  longest oblast it mentions (II-11 „Граница ОПУ-Видин – Лом – Граница
+ *  ОПУ-Враца … област Монтана" → Монтана). */
 export const regionOf = (title: string): string | undefined => {
   const n = (title || "").toLowerCase();
   if (!/опу/.test(n)) return undefined;
-  // TODO(heuristic): returns the first oblast name found anywhere (longest-first),
-  // not necessarily the one right after "ОПУ". A title naming two equal-length
-  // oblasti (e.g. "ОПУ Видин … път I-1 София–Видин") can pick the wrong bucket.
-  // Low impact (only mislabels a regional-maintenance lot); anchor the match to
-  // the text immediately after "ОПУ" if it ever proves wrong in the data.
+  const named = new Set<string>();
+  const re = /(граница\s+)?опу[\s\-–—"„“]*/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(n)) !== null) {
+    if (m[1]) continue;
+    const rest = n.slice(m.index + m[0].length);
+    const o = OBLASTI.find((x) => rest.startsWith(x));
+    if (o) named.add(o);
+  }
+  if (named.size >= 2) return MULTI_REGION;
+  if (named.size === 1) return titleCaseOblast([...named][0]);
   for (const o of OBLASTI) {
-    if (n.includes(o))
-      return o.replace(/(^|\s)[а-яё]/g, (c) => c.toUpperCase());
+    if (n.includes(o)) return titleCaseOblast(o);
   }
   return undefined;
 };
@@ -241,6 +294,142 @@ export const lengthOf = (title: string): ParsedLength | undefined => {
     };
   }
   return undefined;
+};
+
+// --- Motorway km axes (chainage strip) --------------------------------------
+
+/** One km axis a named motorway's contracts are placed on. `lo`/`hi` are the
+ *  plausible chainage bounds; they also reject km markers a title borrowed from
+ *  a cross-referenced road. */
+export interface MotorwayAxis {
+  corridor: string;
+  /** Distinguishes a second axis on the same motorway (Струма). */
+  axisKey: string;
+  lo: number;
+  hi: number;
+  /** BG/EN suffix shown after the motorway name, when an axis needs one. */
+  suffix?: { bg: string; en: string };
+}
+
+/** Struma has TWO chainages in the register: its own (km 0 – ~166.5, the
+ *  maintenance lots) and the I-1/E79 chainage every construction lot uses
+ *  (Lot 1 km 305–322, Lot 2 322–359, Lot 3 359–440). A single 0–165 cap
+ *  rejected every construction contract: the strip showed Струма at 13
+ *  contracts / €47.7M against a corridor total of €943.9M (2026-10-12), and the
+ *  OP6 maintenance lot „км 56+170 до 166+500" fell off the end by 1.5 km. */
+export const MOTORWAY_AXES: MotorwayAxis[] = [
+  { corridor: "Тракия", axisKey: "Тракия", lo: 0, hi: 380 },
+  { corridor: "Хемус", axisKey: "Хемус", lo: 0, hi: 434 },
+  { corridor: "Струма", axisKey: "Струма", lo: 0, hi: 167 },
+  {
+    corridor: "Струма",
+    axisKey: "Струма I-1",
+    lo: 300,
+    hi: 445,
+    suffix: { bg: "км по път I-1 (Е79)", en: "km along road I-1 (E79)" },
+  },
+  { corridor: "Марица", axisKey: "Марица", lo: 0, hi: 120 },
+  { corridor: "Черно море", axisKey: "Черно море", lo: 0, hi: 110 },
+  { corridor: "Люлин", axisKey: "Люлин", lo: 0, hi: 25 },
+  { corridor: "Европа", axisKey: "Европа", lo: 0, hi: 95 },
+  { corridor: RUSE_VT_CORRIDOR, axisKey: RUSE_VT_CORRIDOR, lo: 0, hi: 140 },
+];
+
+/** Average spend per km a bin must reach to count as „covered". A road-safety
+ *  audit or an archaeology dig is a €0–€5M contract over many kilometres; under
+ *  the old any-€>0 rule three near-€0 audits plus one dig made „Хемус 68%
+ *  покритие" (ns:2026).
+ *
+ *  Coverage is measured on CAPITAL work only (every group but `maintenance`).
+ *  A maintenance framework is priced over the whole motorway — €4.78M over Тракия
+ *  km 208–359, €44M over Струма km 0–56 — so with it in the numerator one lot
+ *  „covered" 27 points of Тракия and all of Струма's own axis. Its € still
+ *  shades the bins; it just does not count as works done on that stretch. */
+export const CHAINAGE_COVER_EUR_PER_KM = 25_000;
+const CHAINAGE_BINS = 44;
+
+export interface ChainageStrip {
+  axis: MotorwayAxis;
+  bins: number[]; // € per bin
+  maxBin: number;
+  totalEur: number;
+  contracts: number;
+  /** Share of the AXIS length (lo..hi) whose bins carry at least
+   *  CHAINAGE_COVER_EUR_PER_KM of CAPITAL work — never the span between the
+   *  outermost contracted markers, which reads as „68% of the motorway". */
+  coveredPct: number;
+}
+
+/** Place every named-motorway row that carries absolute chainage on its axis.
+ *  Needs at least `minContracts` locatable rows per axis. */
+export const buildChainageStrips = (
+  rows: RoadContract[],
+  minContracts = 3,
+): ChainageStrip[] => {
+  const segsByAxis = new Map<
+    string,
+    {
+      axis: MotorwayAxis;
+      segs: { from: number; to: number; eur: number; capital: boolean }[];
+    }
+  >();
+  for (const r of rows) {
+    if (!r.ref?.isMotorway) continue;
+    const len = lengthOf(r.c.title);
+    if (len?.kmFrom == null || len.kmTo == null) continue;
+    let from = len.kmFrom;
+    let to = len.kmTo;
+    if (to < from) [from, to] = [to, from];
+    // Non-degenerate, and not a whole-network row borrowing two far-apart
+    // markers from another road.
+    if (to - from < 0.2 || to - from > 200) continue;
+    const axis = MOTORWAY_AXES.find(
+      (a) => a.corridor === r.ref!.corridor && from >= a.lo && to <= a.hi,
+    );
+    if (!axis) continue;
+    const e = segsByAxis.get(axis.axisKey) ?? { axis, segs: [] };
+    e.segs.push({
+      from,
+      to,
+      eur: r.amountEur,
+      capital: r.group !== "maintenance",
+    });
+    segsByAxis.set(axis.axisKey, e);
+  }
+  const out: ChainageStrip[] = [];
+  for (const { axis, segs } of segsByAxis.values()) {
+    if (segs.length < minContracts) continue;
+    const binW = (axis.hi - axis.lo) / CHAINAGE_BINS;
+    const bins = new Array<number>(CHAINAGE_BINS).fill(0);
+    const capitalBins = new Array<number>(CHAINAGE_BINS).fill(0);
+    for (const s of segs) {
+      const perKm = s.eur / Math.max(0.1, s.to - s.from);
+      const b0 = Math.floor((s.from - axis.lo) / binW);
+      const b1 = Math.min(
+        CHAINAGE_BINS - 1,
+        Math.floor((s.to - axis.lo) / binW),
+      );
+      for (let b = Math.max(0, b0); b <= b1; b++) {
+        const binStart = axis.lo + b * binW;
+        const overlap =
+          Math.min(s.to, binStart + binW) - Math.max(s.from, binStart);
+        if (overlap > 0) {
+          bins[b] += perKm * overlap;
+          if (s.capital) capitalBins[b] += perKm * overlap;
+        }
+      }
+    }
+    const floor = CHAINAGE_COVER_EUR_PER_KM * binW;
+    out.push({
+      axis,
+      bins,
+      maxBin: Math.max(...bins, 1),
+      totalEur: segs.reduce((a, s) => a + s.eur, 0),
+      contracts: segs.length,
+      coveredPct: capitalBins.filter((v) => v >= floor).length / CHAINAGE_BINS,
+    });
+  }
+  return out.sort((a, b) => b.totalEur - a.totalEur);
 };
 
 // --- Work type --------------------------------------------------------------
@@ -343,6 +532,10 @@ export const workGroupOf = (w: WorkType): WorkGroup => {
 };
 
 // --- €/km gating ------------------------------------------------------------
+
+/** A corridor's €/km median needs at least this many defensible rows. ns:2026
+ *  Струма published €33.3M/km from ONE contract (Lot 3.1 over 2.7 km). */
+export const EUR_PER_KM_MIN_N = 3;
 
 const BUILD_FLOOR = 1_000_000;
 const REHAB_FLOOR = 150_000;
@@ -505,6 +698,16 @@ export const COMPONENT_LABEL: Record<
 
 // --- Per-contract enrichment + corpus aggregation ---------------------------
 
+/** What annexes added to one contract: current value − signing value, when both
+ *  are known and the contract grew. 0 otherwise. */
+export const annexGrowthOf = (
+  c: Pick<ProcurementContract, "amountEur" | "signingAmountEur">,
+): number => {
+  const cur = c.amountEur ?? 0;
+  const sig = c.signingAmountEur ?? 0;
+  return sig > 0 && cur > sig ? cur - sig : 0;
+};
+
 export interface RoadContract {
   c: ProcurementContract;
   ref?: RoadRef;
@@ -531,8 +734,10 @@ export interface CorridorAgg {
   isMotorway: boolean;
   totalEur: number;
   contractCount: number;
+  /** Undefined below EUR_PER_KM_MIN_N defensible rows. */
   eurPerKmMedian?: number;
   eurPerKmIqr?: [number, number];
+  /** Defensible €/km rows, whether or not the median is published. */
   eurPerKmN: number;
   singleBidShare?: number; // over rows with a known bidder count
   directShare: number; // € via direct/no-notice procedures
@@ -572,6 +777,9 @@ export interface YearAgg {
   regions: Record<string, number>;
   /** Single-bidder share over rows with a known bidder count that year. */
   singleBidShare?: number;
+  /** Of totalEur, the growth annexes added (current − signing value), booked —
+   *  like every figure here — in the year the contract was SIGNED. */
+  growthEur: number;
 }
 
 export interface TopContractor {
@@ -615,9 +823,18 @@ export const buildRoadsModel = (
   // by key dropped those real records and under-counted ~1%. The ingest already
   // dedups true repeats by (releaseId, contractId, contractor, tag), so every
   // surviving row is a distinct contract — count them all, matching the rollup.
+  //
+  // Consortium MEMBER rows (migration 087) are dropped too. They carry €0 — the
+  // joint award sits on the carrier — but inherit the procedure's tenderer
+  // count, so keeping them counted every consortium contract 1 + members times
+  // in every count and single-bid share: 499 of 2,826 АПИ rows, winter
+  // maintenance shown at 90.0% single-bid against a true 76.9% (2026-10-12).
+  // No € moves. The awarder route counts the same way (consortium_role IS
+  // DISTINCT FROM 'member').
   const rows: RoadContract[] = [];
   for (const c of contracts) {
     if (!isSpendRow(c)) continue;
+    if (c.consortiumRole === "member") continue;
     const ref = roadRefOf(c.title);
     const workType = workTypeOf(c.title, c.cpv);
     const len = lengthOf(c.title);
@@ -672,10 +889,12 @@ export const buildRoadsModel = (
         isMotorway: ref.isMotorway,
         totalEur: tot,
         contractCount: arr.length,
-        eurPerKmMedian: perKms.length ? median(perKms) : undefined,
-        eurPerKmIqr: perKms.length
-          ? [quantile(perKms, 0.25), quantile(perKms, 0.75)]
-          : undefined,
+        eurPerKmMedian:
+          perKms.length >= EUR_PER_KM_MIN_N ? median(perKms) : undefined,
+        eurPerKmIqr:
+          perKms.length >= EUR_PER_KM_MIN_N
+            ? [quantile(perKms, 0.25), quantile(perKms, 0.75)]
+            : undefined,
         eurPerKmN: perKms.length,
         singleBidShare: bidKnown.length ? single / bidKnown.length : undefined,
         directShare: tot > 0 ? directEur / tot : 0,
@@ -782,8 +1001,10 @@ export const buildRoadsModel = (
       } as Record<WorkGroup, number>,
       corridors: {},
       regions: {},
+      growthEur: 0,
     };
     ya.totalEur += r.amountEur;
+    ya.growthEur += annexGrowthOf(r.c);
     ya.groups[r.group] += r.amountEur;
     const ck =
       r.ref && topCorridorNames.has(r.ref.corridor) ? r.ref.corridor : "other";

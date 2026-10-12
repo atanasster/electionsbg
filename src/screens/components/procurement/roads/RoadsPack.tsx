@@ -69,7 +69,12 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
             ? " — най-силна година"
             : " — peak year"
           : "";
-      out.push({ text: `${topYear.year}: ${eur(topYear.totalEur)}${suffix}` });
+      // Current value after annexes, booked to the signing year (D6) — say so,
+      // or a peak that is ~⅓ options exercised later reads as new awards.
+      const basis = lang === "bg" ? " (след анекси)" : " (after annexes)";
+      out.push({
+        text: `${topYear.year}: ${eur(topYear.totalEur)}${basis}${suffix}`,
+      });
     }
     const topCor = model.corridors[0];
     if (topCor)

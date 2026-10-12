@@ -17,6 +17,10 @@ export interface NationalCompetition {
   singleBid: number;
   bidKnown: number;
   contracts: number;
+  /** The same pair without €0 consortium-member rows — the basis the roads
+   *  engine counts on. Optional: absent until migration 167 is re-applied. */
+  singleBidExMembers?: number;
+  bidKnownExMembers?: number;
 }
 
 export const useNationalCompetition = () => {

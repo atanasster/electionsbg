@@ -28,7 +28,21 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- rounded differently from the other.
     'singleBid', count(*) FILTER (WHERE number_of_tenderers = 1),
     'bidKnown',  count(*) FILTER (WHERE number_of_tenderers IS NOT NULL),
-    'contracts', count(*)
+    'contracts', count(*),
+    -- The same pair WITHOUT €0 consortium-member rows (migration 087). A member
+    -- inherits the procedure's tenderer count, so the pair above counts a joint
+    -- award once per member firm. A surface whose own rate already excludes
+    -- members (the roads engine, since 2026-10-12) must compare against THIS
+    -- pair, never the one above — or the two sides are on different bases.
+    -- Added beside, not instead of, the original keys: culture's figures and
+    -- awarder_group_model (061) count members, and changing their basis is a
+    -- separate, corpus-wide decision.
+    'singleBidExMembers', count(*) FILTER (
+      WHERE number_of_tenderers = 1
+        AND consortium_role IS DISTINCT FROM 'member'),
+    'bidKnownExMembers',  count(*) FILTER (
+      WHERE number_of_tenderers IS NOT NULL
+        AND consortium_role IS DISTINCT FROM 'member')
   )
   FROM contracts
   WHERE tag = 'contract'
