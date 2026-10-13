@@ -1,4 +1,22 @@
+import { readFileSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
+
+// The edge token tests/edgeTest.ts attaches to function-bound requests. CI sets
+// EDGE_CI_TOKEN from a GitHub secret; locally it comes from the gitignored
+// `.env.edge` (a local-only token inside Secret Manager EDGE_SHARED_SECRET).
+// Without it, once functions/edge_gate.js enforces, every spec that reaches the
+// deployed db/sql functions through the emulator is refused. Only this one key is
+// read — the file is not a general env loader. Workers inherit process.env.
+if (!process.env.EDGE_CI_TOKEN) {
+  try {
+    const m = readFileSync(".env.edge", "utf8").match(
+      /^EDGE_CI_TOKEN=(\S+)\s*$/m,
+    );
+    if (m) process.env.EDGE_CI_TOKEN = m[1];
+  } catch {
+    // No .env.edge: the base fixtures run without a token (log mode needs none).
+  }
+}
 
 // Tests run against the Firebase Hosting emulator so that prerendered HTML
 // files at /about/index.html, /party/X/index.html etc. are served exactly as

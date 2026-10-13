@@ -23,7 +23,13 @@ const mkRes = () => {
   r.set = (k, v) => ((r.headers[k] = v), r);
   r.status = (c) => ((r.statusCode = c), r);
   r.json = (b) => ((r.body = b), r);
-  r.redirect = (c, loc) => ((r.statusCode = c), (r.location = loc), r);
+  r.type = (t) => ((r.contentType = t), r);
+  r.send = (b) => ((r.body = b), r);
+  // A refusal must NEVER be a redirect: Hosting caches a 3xx under the
+  // firebase.json rule's s-maxage, over the function's own no-store.
+  r.redirect = () => {
+    throw new Error("edge gate must not redirect");
+  };
   return r;
 };
 
@@ -71,7 +77,10 @@ test("CF-Connecting-IP is trusted only behind a valid edge token", () => {
   // A client that bypasses Cloudflare can send the header itself.
   assert.equal(clientIp(req, "missing"), "2.2.2.2");
   assert.equal(clientIp(req, "bad"), "2.2.2.2");
-  assert.equal(clientIp(mkReq({ "x-forwarded-for": "4.4.4.4" }), "ok"), "4.4.4.4");
+  assert.equal(
+    clientIp(mkReq({ "x-forwarded-for": "4.4.4.4" }), "ok"),
+    "4.4.4.4",
+  );
 });
 
 test("off the prod project the gate never acts, even in enforce mode", () => {
@@ -108,19 +117,62 @@ test("enforce: API miss is a no-store 403", () => {
   });
 });
 
-test("enforce: page miss is a no-store 301 to naiasno.bg, query kept", () => {
+const enforcePage = (host, originalUrl, method = "GET") => {
+  let res;
   withProject(PROD_PROJECT, () => {
-    const res = mkRes();
-    const req = mkReq({}, "/company/200970780");
-    req.originalUrl = "/company/200970780?x=1";
+    res = mkRes();
+    const req = mkReq({ host }, "/company/200970780", method);
+    req.originalUrl = originalUrl;
     assert.equal(
       applyEdgeGate(req, res, { secretValue: "s", mode: "enforce" }),
       true,
     );
-    assert.equal(res.statusCode, 301);
-    assert.equal(res.location, "https://naiasno.bg/company/200970780?x=1");
-    assert.equal(res.headers["Cache-Control"], "no-store");
   });
+  return res;
+};
+
+test("enforce: page miss is a no-store 403 HTML page, never a redirect", () => {
+  const res = enforcePage("elections-bg.web.app", "/company/200970780?x=1");
+  assert.equal(res.statusCode, 403);
+  assert.equal(res.headers["Cache-Control"], "no-store");
+  assert.equal(res.contentType, "html");
+  assert.match(
+    res.body,
+    /href="https:\/\/naiasno\.bg\/company\/200970780\?x=1"/,
+  );
+  assert.match(res.body, /name="robots" content="noindex"/);
+});
+
+test("enforce: a foreign host gets a meta refresh to naiasno.bg", () => {
+  const res = enforcePage("elections-bg.web.app", "/company/1");
+  assert.match(
+    res.body,
+    /http-equiv="refresh" content="0;url=https:\/\/naiasno\.bg\/company\/1"/,
+  );
+});
+
+test("enforce: Host naiasno.bg (direct-to-IP) gets NO refresh — it would loop", () => {
+  for (const host of ["naiasno.bg", "NAIASNO.BG:443"]) {
+    const res = enforcePage(host, "/company/1");
+    assert.equal(res.statusCode, 403);
+    assert.doesNotMatch(res.body, /http-equiv="refresh"/);
+  }
+});
+
+test("enforce: the echoed path is HTML-escaped", () => {
+  const res = enforcePage(
+    "elections-bg.web.app",
+    '/company/"><script>x</script>',
+  );
+  assert.doesNotMatch(res.body, /<script>/);
+  assert.match(res.body, /&quot;&gt;&lt;script&gt;/);
+});
+
+test("enforce: HEAD page miss is a bodiless no-store 403", () => {
+  const res = enforcePage("naiasno.bg", "/company/1", "HEAD");
+  assert.equal(res.statusCode, 403);
+  assert.equal(res.headers["Cache-Control"], "no-store");
+  assert.equal(res.body, "");
 });
 
 test("enforce: a valid token passes untouched", () => {

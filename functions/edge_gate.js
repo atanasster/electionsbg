@@ -32,15 +32,23 @@
  *               Ship this first: until the Cloudflare rule exists EVERY request
  *               misses, and the log is how we confirm real traffic carries the
  *               header before anything is enforced.
- *   "enforce" — API requests get a no-store 403; PAGE requests get a 301 to
- *               naiasno.bg, so a human who lands on web.app is moved to the real
- *               site instead of shown an error.
+ *   "enforce" — every miss gets a no-store 403. A PAGE miss carries a small HTML
+ *               body linking to the same path on naiasno.bg, so a human who lands
+ *               on web.app has a way through (see refusalPage below).
  *
- * ⚠️ A refused response must be `no-store`. firebase.json gives /api/db/** an
- * `s-maxage=3600`, and the direct-to-IP route above arrives under the REAL
- * naiasno.bg cache key — a cacheable 403 there would be served to real readers
- * for an hour. (A 4xx measured MISS twice on 2026-10-12, but do not rely on the
- * CDN's default.)
+ * ⚠️⚠️ NEVER ANSWER A MISS WITH A REDIRECT (or any 2xx/3xx). The direct-to-IP
+ * route above arrives under the REAL naiasno.bg cache key, and Firebase Hosting
+ * applies firebase.json's header rules to 2xx/3xx responses OVER the function's
+ * own Cache-Control — so a 301 on /company/** left as `public, s-maxage=3600`.
+ * Measured 2026-10-13 in the first enforce deploy (reverted after ~10 min): one
+ * direct-to-IP request with browser-like Accept/Accept-Encoding cached the 301,
+ * and readers coming through Cloudflare then got `x-cache: HIT` and a 301 to the
+ * SAME URL — a redirect loop on every page a bypassing crawler touched.
+ *
+ * A 4xx keeps the function's own Cache-Control (measured the same day: the API
+ * 403 came back `no-store` under a rule that says `public, s-maxage=3600`, and a
+ * function 404 kept its own `max-age=600`). So the refusal must be a 4xx AND must
+ * say `no-store` — a 4xx with a cacheable header IS cached (that 404 was a HIT).
  */
 const crypto = require("node:crypto");
 const { SITE_ORIGIN } = require("./site_origin");
@@ -96,6 +104,42 @@ const clientIp = (req, edge) => {
   );
 };
 
+const escapeHtml = (s) =>
+  String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
+
+const SITE_HOST = new URL(SITE_ORIGIN).host;
+
+/**
+ * The body of a refused PAGE request: a link to the same path on the real site.
+ * A meta refresh is added only when the request named ANOTHER host (web.app,
+ * firebaseapp.com, run.app) — on the direct-to-IP route the host is already
+ * naiasno.bg, and a client stuck on a stale DNS answer would refresh straight
+ * back into this page. Nothing here may be cached, which is why it is a 403
+ * body rather than a redirect (see the header).
+ */
+const refusalPage = (req, host) => {
+  const raw = String(req.originalUrl || req.url || "/");
+  const target = SITE_ORIGIN + (raw.startsWith("/") ? raw : "/");
+  const href = escapeHtml(target);
+  const foreign = host.split(":")[0].toLowerCase() !== SITE_HOST;
+  return (
+    "<!doctype html>" +
+    '<html lang="bg"><head><meta charset="utf-8">' +
+    '<meta name="robots" content="noindex">' +
+    (foreign ? `<meta http-equiv="refresh" content="0;url=${href}">` : "") +
+    "<title>Наясно</title></head><body>" +
+    `<p>Отворете страницата на <a href="${href}">${href}</a>.</p>` +
+    `<p lang="en">Open this page on <a href="${href}">${href}</a>.</p>` +
+    "</body></html>"
+  );
+};
+
 /**
  * Run the gate. Returns true when the request was answered (refused) and the
  * caller must stop; false to continue. Anything under /api/ is an API call;
@@ -120,8 +164,11 @@ const applyEdgeGate = (req, res, { secretValue, mode = EDGE_GATE_MODE }) => {
   );
   if (mode !== "enforce") return false;
   res.set("Cache-Control", "no-store");
-  if (kind === "page" && (req.method === "GET" || req.method === "HEAD")) {
-    res.redirect(301, `${SITE_ORIGIN}${req.originalUrl || req.url || "/"}`);
+  if (kind === "page") {
+    res
+      .status(403)
+      .type("html")
+      .send(req.method === "HEAD" ? "" : refusalPage(req, host));
     return true;
   }
   res.status(403).json({ error: "forbidden" });
