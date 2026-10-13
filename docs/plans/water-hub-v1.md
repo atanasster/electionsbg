@@ -283,7 +283,7 @@ and the Danube agency, and several copy items. Left open, each for a stated reas
   repairs, drinking-water reservoirs and a landfill dike. The rule in
   `scripts/water/flood_predicate.ts` is now ENTRY (CPV 45246 or a title naming the work) AND
   RIVER (the title names a river, bed, gully, bank, dike or flood) AND NOT EXCLUDE. The figure
-  went from 985 contracts / €427.9M to 1,011 / €313.1M — the old rule erred both ways, since it
+  went from 985 contracts / €427.9M to 1,009 / €312.1M — the old rule erred both ways, since it
   also never matched „(почистване на) коритото на р./река", missing dozens of genuine clean-ups.
   Every exclusion is a PHRASE, not a bare noun („депо", „канализац" and „водоем" alone dropped
   real river work). `water_flood_maintenance.data.test.ts` pins

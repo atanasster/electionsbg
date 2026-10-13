@@ -151,12 +151,14 @@ test.skipIf(skip)(
       `SELECT key,
               CASE WHEN title ILIKE '%хидромелиоративни съоръжения за напояване%' THEN 'irrigation'
                    WHEN title ILIKE '%фарватер%' THEN 'navigation dredging'
+                   WHEN title ILIKE '%изграждане на пешеходен мост%' THEN 'footbridge'
                    ELSE 'street gullies' END AS what
          FROM contracts
         WHERE tag = 'contract'
           AND (title ILIKE '%хидромелиоративни съоръжения за напояване%'
                OR title ILIKE '%фарватер%'
-               OR title ILIKE '%дъждоприемните шахти%')`,
+               OR title ILIKE '%дъждоприемните шахти%'
+               OR title ILIKE '%изграждане на пешеходен мост%')`,
     );
     // Non-vacuity: these rows exist in the corpus — the test is not passing on
     // an empty search.

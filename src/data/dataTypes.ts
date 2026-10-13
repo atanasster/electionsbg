@@ -1560,6 +1560,11 @@ export type ProcurementContract = {
    * present for ~51% of contracts (those with a matching tender). See
    * scripts/db/schema/pg/009_tenders.sql estimated_value_eur. */
   estimatedValueEur?: number;
+  /** Lot count of the originating procedure, and THIS lot's own estimate
+   * (matched by „Обособена позиция N" → lots[].lotId). For a multi-lot procedure
+   * the contract compares against the lot, never the whole procedure. */
+  lotsCount?: number;
+  lotEstimatedValueEur?: number;
   /** The поръчки source day-file (storage.eop.bg) the matched tender was
    * published in — a richer provenance link alongside the договори source.
    * Present only with `estimatedValueEur` (same tender join). */

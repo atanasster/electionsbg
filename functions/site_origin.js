@@ -11,7 +11,7 @@
  * the test names the other.
  *
  * What reads it: `spa_page.js` (the head tags for the ~256k function-served
- * `/funds/contract`, `/funds/interreg` and `/company` pages, plus the
+ * `/funds/contract`, `/procurement/contract`, `/funds/interreg` and `/company` pages, plus the
  * non-prerendered `/person` URLs) and `index.js` (the OpenRouter
  * `HTTP-Referer`). The SPA shell is deliberately NOT fetched from here — see
  * SPA_SHELL_ORIGIN in index.js.

@@ -30,7 +30,7 @@ const token = (process.env.EDGE_CI_TOKEN || "").trim();
  */
 const reachesFunction = (url: URL): boolean =>
   url.origin === EDGE_ORIGIN &&
-  /^\/(en\/)?(api\/(db|sql)\/|company\/|funds\/(contract|interreg)\/|council\/resolution\/|person\/|officials\/)/.test(
+  /^\/(en\/)?(api\/(db|sql)\/|company\/|funds\/(contract|interreg)\/|procurement\/contract\/|council\/resolution\/|person\/|officials\/)/.test(
     url.pathname,
   );
 

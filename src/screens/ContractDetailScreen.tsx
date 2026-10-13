@@ -4,6 +4,10 @@
 // Layout container (no narrow max-w cap), header full width, then a 2/3 + 1/3
 // grid of cards on wide screens.
 
+import {
+  contractEstimateBasis,
+  formatDeltaPct,
+} from "@/lib/contractEstimateBasis";
 import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -510,7 +514,11 @@ export const ContractDetailScreen: FC = () => {
 // replaced an inline "текуща стойност · при сключване €X (+Δ)" run that read as a
 // contradiction (текуща = current) and repeated the same figure + delta twice.
 // Only the bases that exist are shown:
-//   • прогнозна  — the procedure estimate (estimatedValueEur), whole-procedure
+//   • прогнозна  — the procedure estimate (estimatedValueEur), whole-procedure;
+//     for a multi-lot procedure, THIS lot's estimate (lotEstimatedValueEur), or no
+//     estimate row at all when the lot cannot be matched — a lot read against the
+//     whole procedure printed „48.5% под прогнозната" for a lot signed €285 under
+//     its own estimate
 //   • при сключване — the at-signing value (signingAmountEur); present ONLY when
 //     an annex later moved the value, so current ≠ signed
 //   • текуща     — the current (post-annex) value (amountEur), the emphasised row
@@ -527,7 +535,7 @@ const ContractValueBases: FC<{ contract: ProcurementContract }> = ({
   );
   const current = c.amountEur;
   const signed = c.signingAmountEur ?? null;
-  const estimated = c.estimatedValueEur ?? null;
+  const { estimated, multiLot } = contractEstimateBasis(c);
   const fmt = (v: number) =>
     formatAmountEur(v, undefined, "EUR", i18n.language).primary;
 
@@ -546,7 +554,9 @@ const ContractValueBases: FC<{ contract: ProcurementContract }> = ({
       stages.push({
         key: "estimated",
         label: t("contract_estimated_short") || "estimated",
-        qualifier: t("contract_estimated_qualifier") || "(whole procedure)",
+        qualifier: multiLot
+          ? t("contract_estimated_qualifier_lot") || "(this lot)"
+          : t("contract_estimated_qualifier") || "(whole procedure)",
         value: estimated,
       });
     if (signed != null)
@@ -589,7 +599,7 @@ const ContractValueBases: FC<{ contract: ProcurementContract }> = ({
   // Read the note as natural language: "{p} над/под {baseline}" where p is the
   // ABSOLUTE percentage (the sign lives in the над/под word, not a "-" prefix).
   const over = deltaPct >= 0;
-  const p = `${Math.abs(deltaPct).toFixed(1)}%`;
+  const p = formatDeltaPct(deltaPct, false);
   const growthNote = !showDelta
     ? null
     : signed != null
@@ -604,17 +614,27 @@ const ContractValueBases: FC<{ contract: ProcurementContract }> = ({
             defaultValue:
               "Current value is {{p}} below the signed value (annexes).",
           })
-      : over
-        ? t("contract_value_over_estimated", {
-            p,
-            defaultValue:
-              "Current value is {{p}} above the procedure estimate.",
-          })
-        : t("contract_value_under_estimated", {
-            p,
-            defaultValue:
-              "Current value is {{p}} below the procedure estimate.",
-          });
+      : multiLot
+        ? over
+          ? t("contract_value_over_lot_estimated", {
+              p,
+              defaultValue: "Current value is {{p}} above this lot's estimate.",
+            })
+          : t("contract_value_under_lot_estimated", {
+              p,
+              defaultValue: "Current value is {{p}} below this lot's estimate.",
+            })
+        : over
+          ? t("contract_value_over_estimated", {
+              p,
+              defaultValue:
+                "Current value is {{p}} above the procedure estimate.",
+            })
+          : t("contract_value_under_estimated", {
+              p,
+              defaultValue:
+                "Current value is {{p}} below the procedure estimate.",
+            });
 
   return (
     <div className="space-y-2 max-w-xl">
@@ -647,8 +667,7 @@ const ContractValueBases: FC<{ contract: ProcurementContract }> = ({
                       (deltaPct >= 0 ? "text-red-600" : "text-emerald-600")
                     }
                   >
-                    {deltaPct >= 0 ? "+" : ""}
-                    {deltaPct.toFixed(1)}%
+                    {formatDeltaPct(deltaPct, true)}
                   </span>
                 ) : null}
               </span>

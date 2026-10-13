@@ -31,6 +31,7 @@ const {
 const {
   handleSpaPageRequest,
   contractPage,
+  procurementContractPage,
   companyPage,
   interregPage,
   interregProgrammePage,
@@ -587,7 +588,8 @@ const makeDb = () => {
         return;
       }
 
-      // ---- /funds/contract/<n> and /company/<eik>: server-rendered head + body -----
+      // ---- /funds/contract/<n>, /procurement/contract/<key>, /company/<eik> …:
+      //      server-rendered head + body -------------------------------------------
       //
       // Ahead of the API gates for the same reason as the /officials 301 above:
       // these are PAGE urls, and an origin allowlist / GET-only / per-IP limit
@@ -604,6 +606,20 @@ const makeDb = () => {
               [key],
             );
             return rows[0]?.r ? contractPage(rows[0].r, lang, selfUrl) : null;
+          },
+          // A PK seek on contracts.key — the hot path a crawler walks.
+          loadProcurementContract: async (key, lang, selfUrl) => {
+            const p = await getDbPool(DB_PASSWORD.value());
+            const { rows } = await p.query(
+              `SELECT key, tag, title, lot_name, awarder_eik, awarder_name,
+                      contractor_eik, contractor_name, amount_eur, cpv,
+                      date, date_signed, number_of_tenderers
+                 FROM contracts WHERE key = $1`,
+              [key],
+            );
+            return rows[0]
+              ? procurementContractPage(rows[0], lang, selfUrl)
+              : null;
           },
           loadInterreg: async (keepId, lang, selfUrl) => {
             const p = await getDbPool(DB_PASSWORD.value());

@@ -263,6 +263,12 @@ Deploying the hosting rewrite BEFORE the function is the one ordering that break
 that works today: the rewrite would route every contract and company URL to a function
 with no handler for it. `deploy:db` first, then `deploy`.
 
+**`/procurement/contract/**` joined the family on 2026-10-13** (~417k contracts, the same
+file-count wall), so it carries the same ordering rule — `deploy:db` before `deploy`, or the
+rewrite points every contract URL at a function with no handler for it. Amendment rows
+(`tag = 'contractAmendment'`, 6,764) share the key space and are worded as amendments, never as
+their base contract.
+
 **`/council/resolution/**`is a fifth member, and the only one that is function-served for a
 CONTENT reason rather than a file-count one.** 4,813 resolutions as of 2026-08-25 (9,626 with the EN mirror)
 would fit under the Firebase ceiling comfortably — but each body is one title and a vote

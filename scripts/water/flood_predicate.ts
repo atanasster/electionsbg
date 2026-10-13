@@ -23,12 +23,14 @@
 //   RIVER — the title must name a river, riverbed, gully, bank, dike or flood:
 //           45246 alone also carried a block of flats and a bike-path slope;
 //   EXCL  — irrigation, navigation dredging, street gullies, drinking-water
-//           reservoirs and landfill-cell dikes are out even when a river word
+//           reservoirs, landfill-cell dikes and a new footbridge that merely
+//           runs along a dike („…пешеходен мост … над р. Тунджа … западна дига")
+//           are out even when a river word
 //           appears beside them. Each pattern is PHRASED, not a bare noun: a bare
 //           „депо", „канализац" or „водоем" also dropped genuine river work whose
 //           title merely mentions hauling debris to a landfill, a repaired sewer, or
 //           a reservoir as a location (~€1.5M, review 2026-10-13).
-// Measured on the 2026-10-13 corpus: 1,011 contracts / €313.1M, from 985 / €427.9M.
+// Measured on the 2026-10-13 corpus: 1,009 contracts / €312.1M, from 985 / €427.9M.
 // The old rule erred BOTH ways: it over-counted irrigation and dredging, and it
 // never matched „(почистване на) коритото на р./река" — 49+ genuine clean-ups.
 // Known and kept: mixed contracts that bundle a river correction with other works
@@ -38,7 +40,7 @@ const ENTRY =
 const RIVER =
   '(\\mречн|корит|дере|\\mрек[аи]\\M|\\mр\\.\\s*[А-ЯA-Z„"]|брегов|наводн|охранител[а-я]* канал|\\mдиг[аи]\\M|вредното въздействие на водите)';
 const EXCLUDE =
-  "(напояван|хидромелиоратив|дъждоприем|снегопочист|фарватер|корабоплав|драг[иа]|питейн[а-я]* водоем|водоеми за питейн|клетк[аи] №|регионално депо|депо за (отпадъци|ТБО|неопасни))";
+  "(напояван|хидромелиоратив|дъждоприем|снегопочист|фарватер|корабоплав|драг[иа]|питейн[а-я]* водоем|водоеми за питейн|клетк[аи] №|регионално депо|депо за (отпадъци|ТБО|неопасни)|изграждане на пешеходен мост)";
 
 export const FLOOD_WHERE = `tag = 'contract'
   AND (cpv LIKE '45246%' OR title ~* '${ENTRY}')

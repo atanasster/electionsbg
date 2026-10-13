@@ -1,5 +1,6 @@
-// Server-rendered head + crawlable body for the two page families that are too
-// numerous to prerender: /funds/contract/<number> and /company/<eik>.
+// Server-rendered head + crawlable body for the page families that are too
+// numerous to prerender: /funds/contract/<number>, /procurement/contract/<key>
+// and /company/<eik> (plus the Interreg and council families, below).
 //
 // WHY THIS EXISTS
 // Both are real routes with real data behind them, and both served the SPA
@@ -37,6 +38,11 @@ const SITE_URL = SITE_ORIGIN;
 
 /** ИСУН contract numbers are [-.0-9A-Z] by construction (verified at ingest). */
 const CONTRACT_NUMBER = /^[A-Za-z0-9.\-\s]{3,120}$/;
+/** contracts.key: a 12-hex content hash, or `obed-` + one for a consortium
+ *  carrier row (087). Measured 2026-10-13: 414,731 + 2,740, no other shape. */
+const PROCUREMENT_KEY = /^(?:obed-)?[0-9a-f]{12}$/;
+/** An awarder id that has a page: 9–13 digits (ЕСО and АДФИ sit outside 9/13). */
+const AWARDER_ID = /^\d{9,13}$/;
 /** Bulgarian EIK/BULSTAT: 9 or 13 digits. */
 const EIK = /^\d{9}(\d{4})?$/;
 
@@ -104,6 +110,15 @@ const matchSpaPage = (path) => {
     const number = safeDecode(contract[1]);
     if (!number || !CONTRACT_NUMBER.test(number)) return null;
     return { kind: "contract", key: number, lang: en ? "en" : "bg" };
+  }
+
+  // One public-procurement contract. ~417k of them — the same file-count wall as
+  // /funds/contract, and the same failure without a head: every one served the
+  // HOMEPAGE's <title> and canonical.
+  const procurement = /^\/procurement\/contract\/([^/]+)$/.exec(rest);
+  if (procurement) {
+    if (!PROCUREMENT_KEY.test(procurement[1])) return null;
+    return { kind: "procurement", key: procurement[1], lang: en ? "en" : "bg" };
   }
 
   // The company page's sub-tabs (/company/<eik>/funds etc.) are the same entity
@@ -180,7 +195,9 @@ const selfUrlFor = (match) => {
   const path =
     match.kind === "contract"
       ? `/funds/contract/${encodeURIComponent(match.key)}`
-      : match.kind === "company"
+      : match.kind === "procurement"
+        ? `/procurement/contract/${match.key}`
+        : match.kind === "company"
         ? `/company/${match.key}`
         : match.kind === "council"
           ? `/council/resolution/${match.key}`
@@ -204,10 +221,12 @@ const isSpaPagePath = (path) => {
   const stripped = rest.replace(/\/+$/, "");
   return (
     stripped === "/funds/contract" ||
+    stripped === "/procurement/contract" ||
     stripped === "/company" ||
     stripped === "/funds/interreg" ||
     stripped === "/council/resolution" ||
     rest.startsWith("/funds/contract/") ||
+    rest.startsWith("/procurement/contract/") ||
     rest.startsWith("/company/") ||
     rest.startsWith("/funds/interreg/") ||
     rest.startsWith("/council/resolution/")
@@ -633,6 +652,75 @@ ${muniList ? `<h2>${bg ? "Общини" : "Municipalities"}</h2><ul>${muniList}<
   };
 };
 
+/** The <head> block and the crawlable body for one procurement contract.
+ *
+ *  The <title> leads with the LOT name when there is one: a multi-lot
+ *  procedure's contracts share one title („…, по обособени позиции“), so the
+ *  procedure title alone would give every lot the same <title>. */
+const procurementContractPage = (c, lang, selfUrl) => {
+  const bg = lang === "bg";
+  const base = bg ? SITE_URL : `${SITE_URL}/en`;
+  const subject = String(c.lot_name || c.title || "").trim();
+  // Lots of one procedure share a long prefix and differ only at the end
+  // („… – първи етап“ / „… – втори етап“), so the cut is generous.
+  const name = truncateAtWord(subject, 130);
+  // 6,764 rows are amendments (tag 'contractAmendment') carrying their base
+  // contract's text; worded as contracts they would duplicate its <title> and
+  // describe an annex as an award.
+  const amendment = c.tag === "contractAmendment";
+  const awarderShort = truncateAtWord(c.awarder_name, 50);
+  const title = amendment
+    ? bg
+      ? `Анекс: ${name} — ${awarderShort}`
+      : `Amendment: ${name} — ${awarderShort}`
+    : bg
+      ? `${name} — договор на ${awarderShort}`
+      : `${name} — contract by ${awarderShort}`;
+  const value = eurOrBlank(c.amount_eur, lang);
+  const date = String(c.date_signed || c.date || "").slice(0, 10);
+  const bids = c.number_of_tenderers;
+  const description = amendment
+    ? bg
+      ? `Анекс към договор на ${c.awarder_name} с ${c.contractor_name || "изпълнител"}${value ? `, стойност ${value}` : ""}${date ? ` (${date})` : ""}. ${truncateAtWord(subject, 160)}`
+      : `Amendment to a contract between ${c.awarder_name} and ${c.contractor_name || "a contractor"}${value ? `, value ${value}` : ""}${date ? ` (${date})` : ""}. ${truncateAtWord(subject, 160)}`
+    : bg
+    ? `${c.awarder_name} възлага на ${c.contractor_name || "изпълнител"}${value ? ` договор за ${value}` : " договор"}${date ? ` (${date})` : ""}${bids != null ? `, ${bids} оферти` : ""}. ${truncateAtWord(subject, 160)}`
+    : `${c.awarder_name} awarded ${c.contractor_name || "a contractor"} ${value ? `a ${value} contract` : "a contract"}${date ? ` (${date})` : ""}${bids != null ? `, ${bids} bids` : ""}. ${truncateAtWord(subject, 160)}`;
+  const awarder = AWARDER_ID.test(String(c.awarder_eik ?? ""))
+    ? `<a href="${base}/awarder/${escapeHtml(c.awarder_eik)}">${escapeHtml(c.awarder_name)}</a>`
+    : escapeHtml(c.awarder_name);
+  // Only a key a reader can check against a register gets a link — the
+  // isLinkableCompanyKey rule: a 9/13-digit EIK or a consortium carrier.
+  const ck = String(c.contractor_eik ?? "");
+  const contractor =
+    EIK.test(ck) || ck.startsWith("obed-")
+      ? `<a href="${base}/company/${escapeHtml(ck)}">${escapeHtml(c.contractor_name)}</a>`
+      : escapeHtml(c.contractor_name);
+  const rows = [
+    [bg ? "Възложител" : "Awarder", awarder],
+    [bg ? "Изпълнител" : "Contractor", c.contractor_name ? contractor : ""],
+    [bg ? "Стойност" : "Value", value],
+    [bg ? "Подписан" : "Signed", escapeHtml(date)],
+    [bg ? "Брой оферти" : "Bids", bids != null ? String(bids) : ""],
+    ["CPV", escapeHtml(c.cpv)],
+  ]
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${v}</td></tr>`)
+    .join("");
+  return {
+    title,
+    description,
+    selfUrl,
+    // Contract texts are published in Bulgarian only — see contractPage.
+    canonicalUrl: bg ? selfUrl : selfUrl.replace(`${SITE_URL}/en`, SITE_URL),
+    ogImage: "/og/procurement.webp",
+    lang,
+    bodyHtml: `<h1>${escapeHtml(subject)}</h1>
+<table><tbody>${rows}</tbody></table>
+<p><a href="${base}/procurement/contracts">${bg ? "Всички договори" : "All contracts"}</a> · <a href="${base}/procurement">${bg ? "Обществени поръчки" : "Public procurement"}</a></p>`,
+  };
+};
+
 /** The <head> block and the crawlable body for one company. */
 const companyPage = (co, money, lang, selfUrl) => {
   const bg = lang === "bg";
@@ -845,6 +933,8 @@ const handleSpaPageRequest = async (req, res, deps) => {
     page =
       match.kind === "contract"
         ? await deps.loadContract(match.key, match.lang, selfUrl)
+        : match.kind === "procurement"
+        ? await deps.loadProcurementContract(match.key, match.lang, selfUrl)
         : match.kind === "company"
           ? await deps.loadCompany(match.key, match.lang, selfUrl)
           : match.kind === "council"
@@ -872,6 +962,7 @@ module.exports = {
   isSpaPagePath,
   renderIntoShell,
   contractPage,
+  procurementContractPage,
   companyPage,
   handleSpaPageRequest,
   FALLBACK_SHELL,

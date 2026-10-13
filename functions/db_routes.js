@@ -182,8 +182,20 @@ const CONTRACT_COLS = `
 // The procedure's PROGNOZA (estimated value) + поръчки source-day provenance,
 // from the УНП-matched tender (tenders.unp is the PK → single-row seek). NULL for
 // the ~49% of contracts with no matching tender — the UI degrades to two bases.
+//
+// A multi-lot procedure's estimate is NOT this contract's: one lot's contract read
+// against the whole procedure showed Разград's Бели Лом lot 1 as „48.5% под
+// прогнозната" when it was signed €285 under its own lot. So the lot's own
+// estimate rides along, matched by the same „Обособена позиция N" → lots[].lotId
+// rule that fills contracts.lot_name (050); NULL when no lot matches.
 const TENDER_COLS = `
   t.estimated_value_eur AS "estimatedValueEur",
+  t.lots_count AS "lotsCount",
+  (SELECT (elem->>'estimatedValueEur')::float8
+     FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(t.lots) = 'array' THEN t.lots ELSE '[]'::jsonb END) elem
+    WHERE elem->>'lotId' = substring(c.title from 'Обособена позиция\\s+(\\d+)')
+    LIMIT 1) AS "lotEstimatedValueEur",
   t.source_url AS "tenderSourceUrl",
   t.source_day AS "tenderSourceDay"`;
 // The per-contract risk index (112), carried on contracts_list only. The detail
