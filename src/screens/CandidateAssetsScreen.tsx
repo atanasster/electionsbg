@@ -5,12 +5,8 @@ import { Coins, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
-import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
-import {
-  CandidateNotFound,
-  CandidateResolving,
-} from "./components/candidates/CandidateRouteStates";
-import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { useCandidateRoute } from "@/data/candidates/useCandidateRoute";
+import { CandidateRouteFallback } from "./components/candidates/CandidateRouteStates";
 import { CandidateProfileHeader } from "@/screens/components/candidates/CandidateProfileHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
 import { formatEur, formatEurSigned } from "@/lib/currency";
@@ -412,22 +408,11 @@ export const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
 
 export const CandidateAssetsScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { canonical, isResolving, notFound } =
-    useResolvedCandidateWithFallback(id);
-  const { isEn, nameForBg } = useCandidateName();
-  const fallback =
-    id && !id.startsWith("mp-") && !id.startsWith("c-")
-      ? decodeURIComponent(id)
-      : "";
-  const lookupName = canonical?.name ?? fallback;
-  const displayName = canonical
-    ? isEn
-      ? canonical.name_en
-      : canonical.name
-    : nameForBg(lookupName);
+  const route = useCandidateRoute(id);
+  const { canonical, lookupName, displayName } = route;
   const { t, i18n } = useTranslation();
-  const { rollup } = useMpAssets(lookupName);
-  const { declarations } = useMpDeclarations(lookupName);
+  const { rollup } = useMpAssets(lookupName ?? "");
+  const { declarations } = useMpDeclarations(lookupName ?? "");
 
   const latestDecl = useMemo(() => {
     if (!rollup || declarations.length === 0) return undefined;
@@ -462,9 +447,8 @@ export const CandidateAssetsScreen: FC = () => {
 
   const lang = i18n.language;
 
-  // Probing other elections for a slug minted elsewhere (and switching to it).
-  if (isResolving) return <CandidateResolving minHeight="min-h-[800px]" />;
-  if (notFound || !lookupName) return <CandidateNotFound />;
+  if (route.isResolving || !lookupName)
+    return <CandidateRouteFallback route={route} />;
 
   if (!rollup || !latestDecl) {
     return (
@@ -490,7 +474,7 @@ export const CandidateAssetsScreen: FC = () => {
         idParam={id ?? lookupName}
         displayName={displayName}
         lookupName={lookupName}
-        mpId={canonical?.mpId}
+        mpId={canonical?.mpId ?? route.rosterMp?.id}
         cikRows={canonical?.cikRows}
         backTo={`/candidate/${id ?? encodeURIComponent(lookupName)}`}
         subtitle={subtitle}

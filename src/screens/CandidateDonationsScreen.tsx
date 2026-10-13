@@ -3,12 +3,8 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
-import {
-  CandidateNotFound,
-  CandidateResolving,
-} from "./components/candidates/CandidateRouteStates";
-import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { useCandidateRoute } from "@/data/candidates/useCandidateRoute";
+import { CandidateRouteFallback } from "./components/candidates/CandidateRouteStates";
 import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ErrorSection } from "./components/ErrorSection";
 import { CandidateDonationsTable } from "./components/candidates/CandidateDonationsTable";
@@ -17,22 +13,11 @@ export const CandidateDonationsScreen: FC = () => {
   const { id } = useParams();
   const { selected, electionStats } = useElectionContext();
   const { t } = useTranslation();
-  const { canonical, isResolving, notFound } =
-    useResolvedCandidateWithFallback(id);
-  const { isEn, nameForBg } = useCandidateName();
+  const route = useCandidateRoute(id);
+  const { canonical, lookupName, displayName } = route;
   if (!id) return null;
-  // Probing other elections for a slug minted elsewhere (and switching to it).
-  if (isResolving) return <CandidateResolving minHeight="min-h-[800px]" />;
-  if (notFound) return <CandidateNotFound />;
-  const lookupName =
-    canonical?.name ??
-    (id.startsWith("mp-") || id.startsWith("c-") ? null : id);
-  if (!lookupName) return <CandidateNotFound />;
-  const displayName = canonical
-    ? isEn
-      ? canonical.name_en
-      : canonical.name
-    : nameForBg(lookupName);
+  if (route.isResolving || !lookupName)
+    return <CandidateRouteFallback route={route} />;
   if (!electionStats?.hasFinancials) {
     return (
       <ErrorSection
@@ -47,7 +32,7 @@ export const CandidateDonationsScreen: FC = () => {
         idParam={id}
         displayName={displayName}
         lookupName={lookupName}
-        mpId={canonical?.mpId}
+        mpId={canonical?.mpId ?? route.rosterMp?.id}
         cikRows={canonical?.cikRows}
         subtitle={t("donations")}
       />

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNoindex } from "@/lib/useNoindex";
+import type { CandidateRoute } from "@/data/candidates/useCandidateRoute";
 import { ErrorSection } from "../ErrorSection";
 
 /** Placeholder while a /candidate/:id URL resolves or probes other elections.
@@ -31,4 +32,21 @@ export const CandidateNotFound: FC = () => {
       description={t("candidate_not_found_desc") || ""}
     />
   );
+};
+
+/** A fetch failed before we could tell whether the candidate exists. Not a
+ * not-found: no noindex, since the page may be perfectly real. */
+export const CandidateLoadError: FC = () => {
+  const { t } = useTranslation();
+  return <ErrorSection title={t("data_load_failed")} />;
+};
+
+/** What a /candidate/:id sub-route renders while it has no name to render
+ * from: a placeholder while resolving, else an error or a not-found. */
+export const CandidateRouteFallback: FC<{
+  route: Pick<CandidateRoute, "isResolving" | "isError">;
+}> = ({ route }) => {
+  if (route.isResolving)
+    return <CandidateResolving minHeight="min-h-[800px]" />;
+  return route.isError ? <CandidateLoadError /> : <CandidateNotFound />;
 };

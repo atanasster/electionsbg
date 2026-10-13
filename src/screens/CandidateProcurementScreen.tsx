@@ -7,13 +7,8 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
-import {
-  CandidateNotFound,
-  CandidateResolving,
-} from "./components/candidates/CandidateRouteStates";
-import { useCandidateName } from "@/data/candidates/useCandidateName";
-import { useMps } from "@/data/parliament/useMps";
+import { useCandidateRoute } from "@/data/candidates/useCandidateRoute";
+import { CandidateRouteFallback } from "./components/candidates/CandidateRouteStates";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ErrorSection } from "./components/ErrorSection";
@@ -25,33 +20,12 @@ import { formatEurWithOther } from "@/lib/currency";
 export const CandidateProcurementScreen: FC = () => {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
-  const { canonical, isResolving, notFound } =
-    useResolvedCandidateWithFallback(id);
-  const { isEn, nameForBg } = useCandidateName();
-  const { findMpById, isLoading: rosterLoading } = useMps();
-
-  // The election-scoped resolver above only knows candidates on the *selected*
-  // ballot. This page is reached from the procurement scanner for any MP with
-  // declared business ties — many of whom aren't on the current ballot, so
-  // their by-slug shard 404s and `canonical` is null. Fall back to the global,
-  // election-independent parliament roster keyed by the `mp-<id>` param.
-  const mpIdParam = id && /^mp-(\d+)$/.test(id) ? Number(id.slice(3)) : null;
-  const rosterMp = mpIdParam != null ? findMpById(mpIdParam) : undefined;
-
-  const fallback =
-    id && !id.startsWith("mp-") && !id.startsWith("c-")
-      ? decodeURIComponent(id)
-      : null;
-  const lookupName = canonical?.name ?? rosterMp?.name ?? fallback;
-  const displayName = canonical
-    ? isEn
-      ? canonical.name_en
-      : canonical.name
-    : rosterMp
-      ? isEn
-        ? rosterMp.name_en
-        : rosterMp.name
-      : nameForBg(fallback);
+  // This page is reached from the procurement scanner for any MP with
+  // declared business ties — many of whom were never on a ballot we hold, so
+  // the route falls back to the election-independent parliament roster.
+  const route = useCandidateRoute(id);
+  const { canonical, lookupName, displayName, rosterMp } = route;
+  const mpIdParam = route.parsed?.kind === "mp" ? route.parsed.mpId : null;
   const { entries, summary, isLoading } = useMpConnectedContracts(lookupName);
 
   // Min/max year across every company's by-year breakdown — surfaces a period
@@ -67,11 +41,8 @@ export const CandidateProcurementScreen: FC = () => {
   }
 
   if (!id) return null;
-  // Probing other elections for a slug minted elsewhere (and switching to it);
-  // an MP no election holds still renders from the roster once it loads.
-  if (isResolving || (notFound && mpIdParam != null && rosterLoading))
-    return <CandidateResolving minHeight="min-h-[800px]" />;
-  if (!lookupName) return <CandidateNotFound />;
+  if (route.isResolving || !lookupName)
+    return <CandidateRouteFallback route={route} />;
 
   if (!isLoading && entries.length === 0) {
     return (

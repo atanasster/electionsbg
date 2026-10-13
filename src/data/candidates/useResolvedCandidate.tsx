@@ -50,6 +50,9 @@ export type ResolveResult = {
   /** The parsed shape of the input, for callers that want to know whether
    * the URL was a slug or a bare name. */
   parsed: ParsedSlug | null;
+  /** The shard fetch failed with something other than a 404 — the candidate's
+   * presence in this election is unknown, not absent. */
+  isError: boolean;
 };
 
 // MP photos are written into the index/shards as a relative path
@@ -115,7 +118,7 @@ export const useResolvedCandidate = (
   const { selected } = useElectionContext();
   const parsed = useMemo(() => parseSlug(idParam), [idParam]);
 
-  const { data, isPending, isFetching } = useQuery({
+  const { data, isPending, isFetching, isError } = useQuery({
     queryKey: [
       "candidate_resolved",
       selected,
@@ -131,7 +134,13 @@ export const useResolvedCandidate = (
 
   return useMemo<ResolveResult>(() => {
     if (!parsed) {
-      return { isLoading: false, matches: [], canonical: null, parsed: null };
+      return {
+        isLoading: false,
+        matches: [],
+        canonical: null,
+        parsed: null,
+        isError: false,
+      };
     }
     if (data === undefined) {
       // No data yet — loading unless the query is disabled for lack of an
@@ -141,6 +150,7 @@ export const useResolvedCandidate = (
         matches: [],
         canonical: null,
         parsed,
+        isError,
       };
     }
     // Dedup by slug (a bare name can map to the same person twice — e.g. the
@@ -157,8 +167,9 @@ export const useResolvedCandidate = (
       matches: unique,
       canonical: unique.length === 1 ? unique[0] : null,
       parsed,
+      isError: false,
     };
-  }, [parsed, data, isPending, isFetching]);
+  }, [parsed, data, isPending, isFetching, isError]);
 };
 
 /** Convenience for sub-route screens (regions / sections / donations / etc.)

@@ -38,6 +38,9 @@ const probeElection = async (
   parsed: ParsedSlug,
 ): Promise<boolean> => {
   const res = await fetch(dataUrl(probePath(election, parsed)));
+  // A server fault is not an answer: throw so the caller can tell "no
+  // election holds it" from "we could not ask". 4xx stays a miss.
+  if (res.status >= 500) throw new Error(`probe failed: ${res.status}`);
   // Dev's data middleware and Firebase Hosting both fall through to
   // index.html (HTTP 200) for missing files, so `res.ok` alone would count
   // every election as a hit — confirm the body is actually JSON.
@@ -62,7 +65,13 @@ const probeElection = async (
 export const useCandidateElectionFallback = (
   parsed: ParsedSlug | null | undefined,
   enabled: boolean,
-): { isProbing: boolean; fallbackElection: string | null } => {
+): {
+  isProbing: boolean;
+  fallbackElection: string | null;
+  /** At least one probe failed (network / 5xx), so "no election holds it"
+   * cannot be concluded. */
+  hasError: boolean;
+} => {
   const { elections, selected } = useElectionContext();
 
   // elections[] is newest-first. Skip the selected election — the caller only
@@ -84,7 +93,7 @@ export const useCandidateElectionFallback = (
   });
 
   if (!active) {
-    return { isProbing: false, fallbackElection: null };
+    return { isProbing: false, fallbackElection: null, hasError: false };
   }
   const isProbing = results.some((r) => r.isLoading);
   // probeTargets is newest-first, so the first hit is the most recent cycle.
@@ -92,6 +101,7 @@ export const useCandidateElectionFallback = (
   return {
     isProbing,
     fallbackElection: hitIdx >= 0 ? probeTargets[hitIdx] : null,
+    hasError: results.some((r) => r.isError),
   };
 };
 
@@ -102,6 +112,9 @@ export type CandidateRouteResolution = ResolveResult & {
   /** A slug URL (`mp-`/`c-`) that resolves in NO election. Bare names never
    * set this: their pages still render whatever name-keyed history exists. */
   notFound: boolean;
+  /** A fetch failed before an answer was reached. Never read this as
+   * not-found — the candidate may well exist. */
+  isError: boolean;
 };
 
 /** `useResolvedCandidate` plus the cross-election fallback, for every
@@ -119,15 +132,16 @@ export const useResolvedCandidateWithFallback = (
   const [switchedFor, setSwitchedFor] = useState<string | null>(null);
   const switched = !!idParam && switchedFor === idParam;
 
+  // A failed shard fetch says nothing about whether the selected election
+  // holds the candidate, so it must not trigger a switch to another one.
   const needsFallback =
     !resolved.isLoading &&
+    !resolved.isError &&
     resolved.matches.length === 0 &&
     !!resolved.parsed &&
     !switched;
-  const { isProbing, fallbackElection } = useCandidateElectionFallback(
-    resolved.parsed,
-    needsFallback,
-  );
+  const { isProbing, fallbackElection, hasError } =
+    useCandidateElectionFallback(resolved.parsed, needsFallback);
   useEffect(() => {
     if (fallbackElection && fallbackElection !== selected && idParam) {
       setSwitchedFor(idParam);
@@ -137,9 +151,13 @@ export const useResolvedCandidateWithFallback = (
 
   const isResolving =
     resolved.isLoading || (needsFallback && (isProbing || !!fallbackElection));
+  const isError =
+    resolved.isError ||
+    (needsFallback && !isResolving && !fallbackElection && hasError);
   const notFound =
     !isResolving &&
+    !isError &&
     resolved.matches.length === 0 &&
     (resolved.parsed?.kind === "mp" || resolved.parsed?.kind === "cik");
-  return { ...resolved, isResolving, notFound };
+  return { ...resolved, isResolving, notFound, isError };
 };

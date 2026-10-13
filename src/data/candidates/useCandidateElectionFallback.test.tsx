@@ -6,7 +6,8 @@
 //   2. an HTML 200 is not a hit (dev middleware and Firebase both serve the SPA shell for a
 //      missing file), so the content-type decides;
 //   3. the NEWEST hit wins and the election context is switched to it;
-//   4. a slug no election holds is reported as not-found rather than left loading or empty.
+//   4. a slug no election holds is reported as not-found rather than left loading or empty;
+//   5. a FAILED fetch is never read as not-found — that page would be noindexed while real.
 
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import { renderHook, waitFor, cleanup } from "@testing-library/react";
@@ -71,6 +72,15 @@ const notFound = () =>
     status: 404,
     headers: new Headers(),
     json: () => Promise.reject(new Error("404")),
+  }) as Response;
+
+const serverError = () =>
+  ({
+    ok: false,
+    status: 500,
+    url: "",
+    headers: new Headers(),
+    json: () => Promise.reject(new Error("500")),
   }) as Response;
 
 /** Serve `files` (path suffix → body); everything else 404s. */
@@ -171,6 +181,7 @@ describe("useCandidateElectionFallback", () => {
     expect(result.current).toEqual({
       isProbing: false,
       fallbackElection: null,
+      hasError: false,
     });
     expect(seen).toEqual([]);
   });
@@ -223,5 +234,29 @@ describe("useResolvedCandidateWithFallback", () => {
     await waitFor(() => expect(result.current.isResolving).toBe(false));
     expect(result.current.notFound).toBe(false);
     expect(result.current.matches).toEqual([]);
+  });
+
+  it("reports an error, not not-found, when the selected shard fetch fails", async () => {
+    vi.stubGlobal("fetch", () => Promise.resolve(serverError()));
+    const { result } = renderHook(
+      () => useResolvedCandidateWithFallback(SLUG),
+      { wrapper },
+    );
+    await waitFor(() => expect(result.current.isError).toBe(true));
+    expect(result.current.notFound).toBe(false);
+    expect(result.current.isResolving).toBe(false);
+    expect(setSelected).not.toHaveBeenCalled();
+  });
+
+  it("reports an error, not not-found, when a probe fails and nothing is found", async () => {
+    vi.stubGlobal("fetch", (url: string) =>
+      Promise.resolve(url.includes(ELECTIONS[2]) ? serverError() : notFound()),
+    );
+    const { result } = renderHook(
+      () => useResolvedCandidateWithFallback(SLUG),
+      { wrapper },
+    );
+    await waitFor(() => expect(result.current.isError).toBe(true));
+    expect(result.current.notFound).toBe(false);
   });
 });

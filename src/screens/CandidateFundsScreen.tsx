@@ -6,12 +6,8 @@ import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Euro } from "lucide-react";
-import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
-import {
-  CandidateNotFound,
-  CandidateResolving,
-} from "./components/candidates/CandidateRouteStates";
-import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { useCandidateRoute } from "@/data/candidates/useCandidateRoute";
+import { CandidateRouteFallback } from "./components/candidates/CandidateRouteStates";
 import { useMpConnectedFunds } from "@/data/funds/useMpConnectedFunds";
 import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ErrorSection } from "./components/ErrorSection";
@@ -22,25 +18,13 @@ import { formatEur } from "@/lib/currency";
 export const CandidateFundsScreen: FC = () => {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
-  const { canonical, isResolving, notFound } =
-    useResolvedCandidateWithFallback(id);
-  const { isEn, nameForBg } = useCandidateName();
-  const fallback =
-    id && !id.startsWith("mp-") && !id.startsWith("c-")
-      ? decodeURIComponent(id)
-      : null;
-  const lookupName = canonical?.name ?? fallback;
-  const displayName = canonical
-    ? isEn
-      ? canonical.name_en
-      : canonical.name
-    : nameForBg(fallback);
+  const route = useCandidateRoute(id);
+  const { canonical, lookupName, displayName } = route;
   const { entries, summary, isLoading } = useMpConnectedFunds(lookupName);
 
   if (!id) return null;
-  // Probing other elections for a slug minted elsewhere (and switching to it).
-  if (isResolving) return <CandidateResolving minHeight="min-h-[800px]" />;
-  if (notFound || !lookupName) return <CandidateNotFound />;
+  if (route.isResolving || !lookupName)
+    return <CandidateRouteFallback route={route} />;
 
   if (!isLoading && entries.length === 0) {
     return (
@@ -60,7 +44,7 @@ export const CandidateFundsScreen: FC = () => {
         idParam={id}
         displayName={displayName}
         lookupName={lookupName}
-        mpId={canonical?.mpId}
+        mpId={canonical?.mpId ?? route.rosterMp?.id}
         cikRows={canonical?.cikRows}
         subtitle={
           t("funds_page_title") || "Connected companies receiving EU funds"

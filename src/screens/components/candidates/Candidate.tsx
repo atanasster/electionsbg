@@ -12,7 +12,11 @@ import { MpManagementRoles } from "./MpManagementRoles";
 import { MpProfileSections } from "./MpProfileSections";
 import { MpScorecardTile } from "./MpScorecardTile";
 import { CandidateNamesakeChooser } from "./CandidateNamesakeChooser";
-import { CandidateNotFound, CandidateResolving } from "./CandidateRouteStates";
+import {
+  CandidateLoadError,
+  CandidateNotFound,
+  CandidateResolving,
+} from "./CandidateRouteStates";
 import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardCards";
 
 /** Render the dashboard for a single candidate.
@@ -33,7 +37,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   // election), probes the other elections and switches context to the newest
   // one that has them — search-engine results and old shared links carry no
   // `?elections=`, so they land on the latest election.
-  const { isResolving, notFound, matches, canonical, parsed } =
+  const { isResolving, notFound, isError, matches, canonical, parsed } =
     useResolvedCandidateWithFallback(name);
   const { isEn, nameForBg } = useCandidateName();
 
@@ -106,6 +110,9 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   // A slug URL that no election holds (and, for an MP, no roster entry): say
   // so rather than rendering an empty body under the homepage's head.
   if (notFound) return <CandidateNotFound />;
+  // A slug whose shard fetch failed: we can't tell whether it exists, and the
+  // bare-name body below would key its data on the slug itself.
+  if (isError && parsed?.kind !== "name") return <CandidateLoadError />;
 
   if (matches.length === 0) {
     // No candidate matches a bare-name URL — render the bare-name page so the
