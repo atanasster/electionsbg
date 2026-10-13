@@ -83,6 +83,58 @@ export const trackSearch = (resultCount?: number) => {
   trackEvent("search", { result_count: resultCount });
 };
 
+/** How long the header search term must sit unchanged before it counts as one search. */
+export const SEARCH_SETTLE_MS = 1500;
+
+/**
+ * Turns the header search's per-keystroke recomputation into ONE `search` event per settled
+ * query. Before this, `trackSearch` fired on every keystroke: Umami recorded 1,075 `search`
+ * events in 7 days against ~69 `select_search_result` (one session sent 257 in 47 min), so the
+ * metric counted keystrokes and every one was a write into the shared Cloud SQL instance.
+ *
+ * - `update(term, count)` (re)arms a `delayMs` timer; only the last term before a pause sends.
+ * - `flush()` sends the pending term now — call it on result selection and on blur, so a reader
+ *   who picks a result inside the window is still counted, and counted BEFORE the selection.
+ * - A term is never sent twice in a row (compared case/whitespace-folded), so person rows
+ *   landing after a flush, or a blur after a selection, cannot double-count it.
+ * - An empty term cancels whatever is pending.
+ *
+ * The term is held in memory only to compare against — it never leaves the page; only the
+ * result COUNT is sent, through `trackSearch`.
+ */
+export const createSettledSearchTracker = (delayMs = SEARCH_SETTLE_MS) => {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let pending: { term: string; count: number } | undefined;
+  let lastSent: string | undefined;
+  const clear = () => {
+    if (timer !== undefined) clearTimeout(timer);
+    timer = undefined;
+  };
+  const flush = () => {
+    clear();
+    const p = pending;
+    pending = undefined;
+    if (!p || p.term === lastSent) return;
+    lastSent = p.term;
+    trackSearch(p.count);
+  };
+  const update = (term: string, count: number) => {
+    clear();
+    const folded = term.trim().toLowerCase();
+    if (!folded || folded === lastSent) {
+      pending = undefined;
+      return;
+    }
+    pending = { term: folded, count };
+    timer = setTimeout(flush, delayMs);
+  };
+  const cancel = () => {
+    clear();
+    pending = undefined;
+  };
+  return { update, flush, cancel };
+};
+
 /** A search result was picked. Only its TYPE is recorded — never the term, key or label. */
 export const trackSearchSelection = (selectedType: string) => {
   trackEvent("select_search_result", { result_type: selectedType });

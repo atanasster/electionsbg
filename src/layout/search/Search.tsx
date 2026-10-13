@@ -31,8 +31,15 @@ const SearchInternal: FC = () => {
   const navigate = useNavigateParams();
   const [open, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState("");
-  const { arrowDown, arrowUp, selected, setSelected, setSearchTerm, activate } =
-    useContext(SearchContext);
+  const {
+    arrowDown,
+    arrowUp,
+    selected,
+    setSelected,
+    setSearchTerm,
+    activate,
+    flushSearch,
+  } = useContext(SearchContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const setOpen = useCallback(
@@ -58,7 +65,10 @@ const SearchInternal: FC = () => {
   const isWide = useMediaQueryMatch("2xl");
   const handleSelectOption = useCallback(
     (selectedOption: FuseResult<SearchIndexType>) => {
-      // Only the result TYPE is recorded — the term, key and label are often a person's name.
+      // The search that led here is counted first (if its debounce has not fired yet), then the
+      // selection. Only the result TYPE is recorded — the term, key and label are often a
+      // person's name.
+      flushSearch();
       trackSearchSelection(selectedOption.item.type);
 
       // Synthetic entries (София / Столична община) carry an explicit path
@@ -112,7 +122,7 @@ const SearchInternal: FC = () => {
       setOpen(false);
       inputRef?.current?.blur();
     },
-    [navigate, setOpen],
+    [navigate, setOpen, flushSearch],
   );
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
@@ -163,8 +173,9 @@ const SearchInternal: FC = () => {
   );
 
   const handleBlur = useCallback(() => {
+    flushSearch();
     setOpen(false);
-  }, [setOpen]);
+  }, [setOpen, flushSearch]);
   const command = (
     <CommandPrimitive onKeyDown={handleKeyDown}>
       <div className="text-secondary-foreground bg-secondary">

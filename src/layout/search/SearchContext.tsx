@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { trackSearch } from "@/lib/analytics";
+import { createSettledSearchTracker } from "@/lib/analytics";
 // The office + place that tell two namesakes apart, read off person_browse_table (120) by
 // 082's `person_browse_card`. All three keys are always PRESENT in the payload and may be
 // null — a null means "this person has no such value", never "this build predates the field".
@@ -64,6 +64,9 @@ type SearchContextType = {
   // never fetched — the header search appears on every page, and most
   // pages don't need it.
   activate: () => void;
+  // Record the current term as a settled search NOW instead of waiting out the debounce —
+  // call on result selection (before `trackSearchSelection`) and on blur. Idempotent.
+  flushSearch: () => void;
 };
 // eslint-disable-next-line react-refresh/only-export-components
 export const SearchContext = createContext<SearchContextType>({
@@ -73,6 +76,7 @@ export const SearchContext = createContext<SearchContextType>({
   setSearchTerm: () => {},
   setSelected: () => {},
   activate: () => {},
+  flushSearch: () => {},
 });
 
 type SearchFn = (q: string) => FuseResult<SearchIndexType>[] | undefined;
@@ -212,7 +216,6 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         })
         .map(({ r }) => r);
       setSearchItems(newItems);
-      trackSearch(newItems.length);
       if (selectedItem) {
         const newIndex = newItems.findIndex(
           (n) =>
@@ -250,6 +253,23 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchReady]);
 
+  // One `search` event per SETTLED query, never per keystroke (see createSettledSearchTracker).
+  // Driven off the merged `items` so the count includes the person rows, which land ~200 ms
+  // after the static ones; each change re-arms the timer, so the event carries the final count.
+  // Gated on `searchReady`: before the index loads every term reads 0 results, which would
+  // record a search that never ran.
+  const trackerRef = useRef<ReturnType<
+    typeof createSettledSearchTracker
+  > | null>(null);
+  if (!trackerRef.current) trackerRef.current = createSettledSearchTracker();
+  useEffect(() => {
+    const tracker = trackerRef.current!;
+    if (!term) tracker.cancel();
+    else if (searchReady) tracker.update(term, items.length);
+  }, [term, items.length, searchReady]);
+  useEffect(() => () => trackerRef.current?.flush(), []);
+  const flushSearch = useCallback(() => trackerRef.current?.flush(), []);
+
   const arrowDown = () => {
     const newIndex = selected < items.length - 1 ? selected + 1 : 0;
     setSelected(newIndex);
@@ -276,6 +296,7 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setSelected,
         searchTerm: term,
         activate,
+        flushSearch,
       }}
     >
       {children}

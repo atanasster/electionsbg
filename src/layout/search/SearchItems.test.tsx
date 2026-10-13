@@ -85,6 +85,7 @@ const renderItems = (items: Item[]) =>
         setSearchTerm: () => {},
         setSelected: () => {},
         activate: () => {},
+        flushSearch: () => {},
         searchTerm: "бойчев",
       }}
     >

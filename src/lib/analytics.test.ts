@@ -9,6 +9,8 @@ import {
   BEFORE_SEND_HOOK,
   beforeSend,
   buildTrackerScript,
+  createSettledSearchTracker,
+  SEARCH_SETTLE_MS,
   sanitizeProps,
   shouldLoadAnalytics,
   trackEvent,
@@ -130,5 +132,60 @@ describe("the tracker <script>", () => {
     expect(
       attrs.filter((a) => /replay|heatmap|performance|recorder/.test(a)),
     ).toEqual([]);
+  });
+});
+
+describe("createSettledSearchTracker — one event per settled query", () => {
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  const typeOut = (
+    tracker: ReturnType<typeof createSettledSearchTracker>,
+    word: string,
+  ) => {
+    for (let i = 1; i <= word.length; i++) {
+      tracker.update(word.slice(0, i), 10 - i);
+      vi.advanceTimersByTime(200);
+    }
+  };
+
+  it("typing a word char-by-char sends exactly one event, with the final count", () => {
+    const tracker = createSettledSearchTracker();
+    typeOut(tracker, "софия");
+    expect(track).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS);
+    expect(track).toHaveBeenCalledTimes(1);
+    expect(track).toHaveBeenCalledWith("search", { result_count: 5 });
+  });
+
+  it("flush sends the pending term at once, and never twice for the same term", () => {
+    const tracker = createSettledSearchTracker();
+    tracker.update("софия", 3);
+    tracker.flush();
+    expect(track).toHaveBeenCalledTimes(1);
+    tracker.flush(); // e.g. the blur that follows a selection
+    tracker.update(" СОФИЯ ", 4); // late person rows for the same term
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS * 2);
+    expect(track).toHaveBeenCalledTimes(1);
+  });
+
+  it("a cleared term sends nothing, and a new term after a pause sends again", () => {
+    const tracker = createSettledSearchTracker();
+    tracker.update("соф", 2);
+    tracker.update("", 0);
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS * 2);
+    expect(track).not.toHaveBeenCalled();
+    tracker.update("пловдив", 1);
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS);
+    tracker.update("варна", 2);
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS);
+    expect(track).toHaveBeenCalledTimes(2);
+  });
+
+  it("never sends the term itself", () => {
+    const tracker = createSettledSearchTracker();
+    tracker.update("Иван Петров", 1);
+    tracker.flush();
+    expect(JSON.stringify(track.mock.calls)).not.toMatch(/Иван|иван/);
   });
 });
