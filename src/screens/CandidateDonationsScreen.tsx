@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
+import {
+  CandidateNotFound,
+  CandidateResolving,
+} from "./components/candidates/CandidateRouteStates";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ErrorSection } from "./components/ErrorSection";
@@ -13,13 +17,17 @@ export const CandidateDonationsScreen: FC = () => {
   const { id } = useParams();
   const { selected, electionStats } = useElectionContext();
   const { t } = useTranslation();
-  const { canonical } = useResolvedCandidate(id);
+  const { canonical, isResolving, notFound } =
+    useResolvedCandidateWithFallback(id);
   const { isEn, nameForBg } = useCandidateName();
   if (!id) return null;
+  // Probing other elections for a slug minted elsewhere (and switching to it).
+  if (isResolving) return <CandidateResolving minHeight="min-h-[800px]" />;
+  if (notFound) return <CandidateNotFound />;
   const lookupName =
     canonical?.name ??
     (id.startsWith("mp-") || id.startsWith("c-") ? null : id);
-  if (!lookupName) return null;
+  if (!lookupName) return <CandidateNotFound />;
   const displayName = canonical
     ? isEn
       ? canonical.name_en

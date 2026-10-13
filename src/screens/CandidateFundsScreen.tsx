@@ -6,7 +6,11 @@ import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Euro } from "lucide-react";
-import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
+import {
+  CandidateNotFound,
+  CandidateResolving,
+} from "./components/candidates/CandidateRouteStates";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { useMpConnectedFunds } from "@/data/funds/useMpConnectedFunds";
 import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
@@ -18,7 +22,8 @@ import { formatEur } from "@/lib/currency";
 export const CandidateFundsScreen: FC = () => {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
-  const { canonical } = useResolvedCandidate(id);
+  const { canonical, isResolving, notFound } =
+    useResolvedCandidateWithFallback(id);
   const { isEn, nameForBg } = useCandidateName();
   const fallback =
     id && !id.startsWith("mp-") && !id.startsWith("c-")
@@ -32,7 +37,10 @@ export const CandidateFundsScreen: FC = () => {
     : nameForBg(fallback);
   const { entries, summary, isLoading } = useMpConnectedFunds(lookupName);
 
-  if (!id || !lookupName) return null;
+  if (!id) return null;
+  // Probing other elections for a slug minted elsewhere (and switching to it).
+  if (isResolving) return <CandidateResolving minHeight="min-h-[800px]" />;
+  if (notFound || !lookupName) return <CandidateNotFound />;
 
   if (!isLoading && entries.length === 0) {
     return (

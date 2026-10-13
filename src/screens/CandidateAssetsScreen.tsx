@@ -5,7 +5,11 @@ import { Coins, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
-import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
+import {
+  CandidateNotFound,
+  CandidateResolving,
+} from "./components/candidates/CandidateRouteStates";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { CandidateProfileHeader } from "@/screens/components/candidates/CandidateProfileHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
@@ -408,7 +412,8 @@ export const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
 
 export const CandidateAssetsScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { canonical } = useResolvedCandidate(id);
+  const { canonical, isResolving, notFound } =
+    useResolvedCandidateWithFallback(id);
   const { isEn, nameForBg } = useCandidateName();
   const fallback =
     id && !id.startsWith("mp-") && !id.startsWith("c-")
@@ -456,6 +461,10 @@ export const CandidateAssetsScreen: FC = () => {
   );
 
   const lang = i18n.language;
+
+  // Probing other elections for a slug minted elsewhere (and switching to it).
+  if (isResolving) return <CandidateResolving minHeight="min-h-[800px]" />;
+  if (notFound || !lookupName) return <CandidateNotFound />;
 
   if (!rollup || !latestDecl) {
     return (

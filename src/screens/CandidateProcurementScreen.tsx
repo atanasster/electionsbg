@@ -7,7 +7,11 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useResolvedCandidateWithFallback } from "@/data/candidates/useCandidateElectionFallback";
+import {
+  CandidateNotFound,
+  CandidateResolving,
+} from "./components/candidates/CandidateRouteStates";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { useMps } from "@/data/parliament/useMps";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
@@ -21,9 +25,10 @@ import { formatEurWithOther } from "@/lib/currency";
 export const CandidateProcurementScreen: FC = () => {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
-  const { canonical } = useResolvedCandidate(id);
+  const { canonical, isResolving, notFound } =
+    useResolvedCandidateWithFallback(id);
   const { isEn, nameForBg } = useCandidateName();
-  const { findMpById } = useMps();
+  const { findMpById, isLoading: rosterLoading } = useMps();
 
   // The election-scoped resolver above only knows candidates on the *selected*
   // ballot. This page is reached from the procurement scanner for any MP with
@@ -61,7 +66,12 @@ export const CandidateProcurementScreen: FC = () => {
     }
   }
 
-  if (!id || !lookupName) return null;
+  if (!id) return null;
+  // Probing other elections for a slug minted elsewhere (and switching to it);
+  // an MP no election holds still renders from the roster once it loads.
+  if (isResolving || (notFound && mpIdParam != null && rosterLoading))
+    return <CandidateResolving minHeight="min-h-[800px]" />;
+  if (!lookupName) return <CandidateNotFound />;
 
   if (!isLoading && entries.length === 0) {
     return (
