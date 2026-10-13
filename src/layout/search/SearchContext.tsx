@@ -96,10 +96,10 @@ const GROUP_ORDER = Object.fromEntries(
 const SearchDataLoader: FC<{ onSearchReady: (search: SearchFn) => void }> = ({
   onSearchReady,
 }) => {
-  const { search } = useSearchItems();
+  const { search, ready } = useSearchItems();
   useEffect(() => {
-    onSearchReady(search);
-  }, [search, onSearchReady]);
+    if (ready) onSearchReady(search);
+  }, [search, ready, onSearchReady]);
   return null;
 };
 
@@ -116,7 +116,12 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const [term, setTerm] = useState("");
   const [searchItems, setSearchItems] = useState<SearchItemType[]>([]);
-  const [personHits, setPersonHits] = useState<PersonHit[]>([]);
+  // Tagged with the term they answer, so a consumer can tell the current term's people from
+  // the previous term's, which stay on screen until the new lookup lands.
+  const [personHits, setPersonHits] = useState<{
+    term: string;
+    hits: PersonHit[];
+  }>({ term: "", hits: [] });
   const [selected, setSelected] = useState<number>(-1);
 
   // Debounced live person lookup — runs in parallel with the static Fuse search, so the
@@ -126,12 +131,12 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
     // char query would seq-scan every person server-side (~150ms) for noise. Mirror the SQL
     // gate here so the keystroke never round-trips; the static index still answers at 2 chars.
     if (!term || term.length < 3) {
-      setPersonHits([]);
+      setPersonHits({ term, hits: [] });
       return;
     }
     let live = true;
     const h = setTimeout(() => {
-      fetchPersons(term).then((hits) => live && setPersonHits(hits));
+      fetchPersons(term).then((hits) => live && setPersonHits({ term, hits }));
     }, 180);
     return () => {
       live = false;
@@ -149,7 +154,7 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         .filter((r) => r.item.type === "o")
         .map((r) => norm(r.item.name)),
     );
-    const personItems: SearchItemType[] = personHits
+    const personItems: SearchItemType[] = personHits.hits
       .filter((p) => !staticNames.has(norm(p.name)))
       .map((p) => ({
         item: {
@@ -254,19 +259,24 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [searchReady]);
 
   // One `search` event per SETTLED query, never per keystroke (see createSettledSearchTracker).
-  // Driven off the merged `items` so the count includes the person rows, which land ~200 ms
-  // after the static ones; each change re-arms the timer, so the event carries the final count.
-  // Gated on `searchReady`: before the index loads every term reads 0 results, which would
+  // Driven off the merged `items` so the count includes the person rows. Armed only once those
+  // rows belong to the current term — until the lookup lands, `items` still carries the
+  // previous term's people, so nothing is pending in that window and a flush sends nothing rather
+  // than a wrong count.
+  // Gated on `searchReady` too: before the index loads every term reads 0 results, which would
   // record a search that never ran.
   const trackerRef = useRef<ReturnType<
     typeof createSettledSearchTracker
   > | null>(null);
   if (!trackerRef.current) trackerRef.current = createSettledSearchTracker();
+  const personsSettled = term.length < 3 || personHits.term === term;
   useEffect(() => {
-    const tracker = trackerRef.current!;
+    const tracker = trackerRef.current;
+    if (!tracker) return;
     if (!term) tracker.cancel();
-    else if (searchReady) tracker.update(term, items.length);
-  }, [term, items.length, searchReady]);
+    else if (searchReady && personsSettled) tracker.update(term, items.length);
+    else tracker.discard();
+  }, [term, items.length, searchReady, personsSettled]);
   useEffect(() => () => trackerRef.current?.flush(), []);
   const flushSearch = useCallback(() => trackerRef.current?.flush(), []);
 

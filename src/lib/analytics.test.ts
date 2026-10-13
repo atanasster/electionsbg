@@ -182,6 +182,31 @@ describe("createSettledSearchTracker — one event per settled query", () => {
     expect(track).toHaveBeenCalledTimes(2);
   });
 
+  it("searching the same term again after clearing the box counts twice", () => {
+    const tracker = createSettledSearchTracker();
+    tracker.update("софия", 3);
+    tracker.flush();
+    tracker.cancel();
+    tracker.update("софия", 3);
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS);
+    expect(track).toHaveBeenCalledTimes(2);
+  });
+
+  it("discard drops the pending term but keeps the duplicate guard", () => {
+    const tracker = createSettledSearchTracker();
+    tracker.update("соф", 2);
+    tracker.discard();
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS * 2);
+    tracker.flush();
+    expect(track).not.toHaveBeenCalled();
+    tracker.update("софия", 3);
+    tracker.flush();
+    tracker.discard();
+    tracker.update("софия", 3);
+    vi.advanceTimersByTime(SEARCH_SETTLE_MS);
+    expect(track).toHaveBeenCalledTimes(1);
+  });
+
   it("never sends the term itself", () => {
     const tracker = createSettledSearchTracker();
     tracker.update("Иван Петров", 1);

@@ -97,7 +97,9 @@ export const SEARCH_SETTLE_MS = 1500;
  *   who picks a result inside the window is still counted, and counted BEFORE the selection.
  * - A term is never sent twice in a row (compared case/whitespace-folded), so person rows
  *   landing after a flush, or a blur after a selection, cannot double-count it.
- * - An empty term cancels whatever is pending.
+ * - `discard()` drops the pending term (the caller cannot vouch for its count yet).
+ * - An empty term cancels whatever is pending and resets the duplicate guard, so searching the
+ *   same term again after clearing the box counts as a new search.
  *
  * The term is held in memory only to compare against — it never leaves the page; only the
  * result COUNT is sent, through `trackSearch`.
@@ -128,11 +130,15 @@ export const createSettledSearchTracker = (delayMs = SEARCH_SETTLE_MS) => {
     pending = { term: folded, count };
     timer = setTimeout(flush, delayMs);
   };
-  const cancel = () => {
+  const discard = () => {
     clear();
     pending = undefined;
   };
-  return { update, flush, cancel };
+  const cancel = () => {
+    discard();
+    lastSent = undefined;
+  };
+  return { update, flush, discard, cancel };
 };
 
 /** A search result was picked. Only its TYPE is recorded — never the term, key or label. */

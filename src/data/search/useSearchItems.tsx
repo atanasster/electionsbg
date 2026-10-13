@@ -321,5 +321,7 @@ export const useSearchItems = () => {
   const search = (searchTern: string) => {
     return fuse?.search(searchTern);
   };
-  return { search };
+  // `search` exists from the first render and returns undefined until the index is built;
+  // `ready` says whether it can answer yet.
+  return { search, ready: !!fuse };
 };
