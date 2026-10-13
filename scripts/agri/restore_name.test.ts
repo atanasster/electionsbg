@@ -35,6 +35,24 @@ describe("restoreTruncatedName", () => {
     ).toBeNull();
   });
 
+  it("restores a name cut just before a space (trimmed to 34 chars)", () => {
+    expect(
+      restoreTruncatedName(
+        "Асоциация на млекопреработвателите",
+        "Асоциация на млекопреработвателите в България",
+      ),
+    ).toBe("Асоциация на млекопреработвателите в България");
+  });
+
+  it("drops quotes wrapping the whole registry name, keeps inner ones", () => {
+    expect(
+      restoreTruncatedName(
+        "Фондация за Развитие на Артистични",
+        "&quot; Фондация за Развитие на Артистични Таланти &quot;",
+      ),
+    ).toBe("Фондация за Развитие на Артистични Таланти");
+  });
+
   it("refuses when the registry adds nothing, or is missing", () => {
     const n = "Народно читалище Отец Паисий - 1919";
     expect(

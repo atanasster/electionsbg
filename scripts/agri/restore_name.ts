@@ -14,8 +14,12 @@
 
 import { decodeEntities } from "../../src/lib/decodeEntities";
 
-/** The source register's name width. Names shorter than this were not cut. */
+/** The source register's name width. */
 export const AGRI_NAME_CAP = 35;
+
+/** Shortest name that can still be a cut one: the ingest trims each name, so a
+ *  cut that lands just before a space is stored at AGRI_NAME_CAP - 1. */
+export const AGRI_CUT_MIN = AGRI_NAME_CAP - 1;
 
 const fold = (s: string): string =>
   s
@@ -31,8 +35,12 @@ export const restoreTruncatedName = (
   agriName: string,
   trName: string | null | undefined,
 ): string | null => {
-  if (!trName || [...agriName].length < AGRI_NAME_CAP) return null;
-  const full = decodeEntities(trName).replace(/\s+/g, " ").trim();
+  if (!trName || [...agriName].length < AGRI_CUT_MIN) return null;
+  const raw = decodeEntities(trName).replace(/\s+/g, " ").trim();
+  // The registry sometimes wraps the WHOLE name in quotes; drop that pair only
+  // when nothing inside is a quote, so balanced inner quotes stay intact.
+  const m = raw.match(/^["“„](.*)["”“]$/);
+  const full = m && !/["“”„]/.test(m[1]) ? m[1].trim() : raw;
   const a = fold(agriName);
   const t = fold(full);
   if (!a || t.length <= a.length || !t.startsWith(a)) return null;

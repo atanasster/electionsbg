@@ -26,7 +26,7 @@ import type { PoolClient } from "pg";
 import { AGRI_YEARS, loadYearSheet } from "./source";
 import { AGRI_SEU_YEARS, parseSeuYear } from "./seu_fetch";
 import { parseAmount } from "./parse_amount";
-import { AGRI_NAME_CAP, restoreTruncatedName } from "./restore_name";
+import { AGRI_CUT_MIN, restoreTruncatedName } from "./restore_name";
 import {
   exec,
   getPool,
@@ -565,7 +565,7 @@ export const runAgriIngest = async ({
          FROM agri_subsidies_stage s
          JOIN tr_companies t ON t.uic = s.eik
         WHERE s.eik IS NOT NULL AND char_length(s.name) >= $1`,
-      [AGRI_NAME_CAP],
+      [AGRI_CUT_MIN],
     );
     const eiks: string[] = [];
     const olds: string[] = [];
