@@ -14,7 +14,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { allRows, dbReachable, end } from "../lib/pg";
-import { FLOOD_WHERE } from "../../water/flood_predicate";
+import { FLOOD_EXCLUDE, FLOOD_WHERE } from "../../water/flood_predicate";
 import { NAPOITELNI_EIK } from "@/lib/vikReferenceData";
 import type { FloodMaintenanceFile } from "@/data/water/useFloodMaintenance";
 import { reportSkip } from "../../lib/report_skip";
@@ -138,3 +138,82 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "the selection leaves out the work it once mis-counted as riverbed cleaning",
+  async () => {
+    // Each of these sat in the first version of the rule (€146M of €428M) and is
+    // NOT riverbed work: irrigation-canal reconstruction, navigation dredging on
+    // the Danube, street gullies with snow clearing. A rule that lets any of them
+    // back in fails here, by name, rather than as a quietly bigger total.
+    const keys = new Set(file().contracts.map((c) => c.key));
+    const rows = await allRows<{ key: string; what: string }>(
+      `SELECT key,
+              CASE WHEN title ILIKE '%хидромелиоративни съоръжения за напояване%' THEN 'irrigation'
+                   WHEN title ILIKE '%фарватер%' THEN 'navigation dredging'
+                   ELSE 'street gullies' END AS what
+         FROM contracts
+        WHERE tag = 'contract'
+          AND (title ILIKE '%хидромелиоративни съоръжения за напояване%'
+               OR title ILIKE '%фарватер%'
+               OR title ILIKE '%дъждоприемните шахти%')`,
+    );
+    // Non-vacuity: these rows exist in the corpus — the test is not passing on
+    // an empty search.
+    assert.ok(rows.length > 50, `only ${rows.length} reference rows found`);
+    const leaked = rows.filter((r) => keys.has(r.key)).map((r) => r.what);
+    assert.deepEqual(
+      leaked,
+      [],
+      "over-captured work is back in the riverbed file",
+    );
+  },
+);
+
+test.skipIf(skip)("it still keeps genuine flood-protection work", async () => {
+  // The other direction: tightening must not throw out the work the topic is
+  // about — Напоителни's dike repairs and the Tsarevo flood-recovery contract.
+  // Both classes are required — one survivor of either is not enough.
+  const rows = await allRows<{ key: string; dike: boolean }>(
+    `SELECT key, title ILIKE '%дига на р.Марица%' AS dike FROM contracts
+        WHERE tag = 'contract'
+          AND (title ILIKE '%дига на р.Марица%' OR title ILIKE '%вредното въздействие на водите%')`,
+  );
+  const keys = new Set(file().contracts.map((c) => c.key));
+  const kept = rows.filter((r) => keys.has(r.key));
+  assert.ok(
+    kept.some((r) => r.dike),
+    "the Марица dike repair was dropped",
+  );
+  assert.ok(
+    kept.some((r) => !r.dike),
+    "the flood-recovery contract was dropped",
+  );
+  // „(почистване на) коритото на р." — the phrasing the first rule never
+  // matched; dozens of genuine clean-ups hang on it.
+  const [korito] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM contracts
+      WHERE key = ANY($1::text[]) AND title ~* 'коритото на р'`,
+    [[...keys]],
+  );
+  assert.ok(
+    Number(korito.n) > 40,
+    `only ${korito.n} „коритото на р." rows kept`,
+  );
+});
+
+test.skipIf(skip)("no selected title matches the exclusion list", async () => {
+  // The whole list, not three hand-picked families: dropping any pattern from
+  // the NOT clause lets its rows back in, and this counts them.
+  const [r] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM contracts
+      WHERE key = ANY($1::text[]) AND title ~* '${FLOOD_EXCLUDE}'`,
+    [file().contracts.map((c) => c.key)],
+  );
+  assert.equal(Number(r.n), 0);
+  // Non-vacuity: the list matches real corpus rows.
+  const [all] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM contracts WHERE tag = 'contract' AND title ~* '${FLOOD_EXCLUDE}'`,
+  );
+  assert.ok(Number(all.n) > 100, `exclusion list matches only ${all.n} rows`);
+});

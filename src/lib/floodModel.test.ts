@@ -50,7 +50,8 @@ describe("buildFloodModel — national awarders off the map", () => {
   });
 
   it("names the national bodies behind the figure, largest first", () => {
-    expect(m.nationalAwarders[0].eik).toBe(NAPOITELNI_EIK);
+    const eur = m.nationalAwarders.map((a) => a.eur);
+    expect(eur).toEqual([...eur].sort((a, b) => b - a));
     expect(m.nationalAwarders.reduce((s, a) => s + a.eur, 0)).toBe(
       m.nationalEur,
     );

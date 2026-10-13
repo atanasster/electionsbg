@@ -276,15 +276,20 @@ away from its own figure, the self-contracting gap in the intra-group lead, sile
 the rollup and map hooks, the unlisted remainder of the EU-funds list, unplaced riverbed rows
 and the Danube agency, and several copy items. Left open, each for a stated reason:
 
-- **Riverbed topic over-capture.** The CPV/title selection admits a few non-riverbed contracts.
-  Measured on the top 5: a Bansko ПСОВ + network job (€21.7M), Danube fairway dredging
-  (€12.3M) and a Ruse drain/snow-clearing lot (€7.9M), together ~10% of the total. Their
-  scale across the remaining 980 rows is unmeasured. Tightening the predicate changes a
-  published figure, so it needs its own measured pass.
-  Measured 2026-10-13 as part of the same class: seven Sofia-seated bodies (МЗ, МРРБ, МОСВ,
-  ДП РАО, АЯР, НИМХ, НКЖИ; ~€0.9M) match only through non-riverbed contracts (lab kit, guides,
-  dosimetry, waterproofing). They are deliberately NOT on `FLOOD_NATIONAL_AWARDERS`, which
-  would present them as national riverbed awarders.
+- ~~**Riverbed topic over-capture.**~~ **Resolved 2026-10-13.** The first rule took every
+  CPV 45247 row (dams, canals, irrigation channels), every 90721 row and the bare word
+  „проводимост", so „riverbed cleaning" carried Напоителни's irrigation-canal reconstruction
+  (74 contracts / €48.3M), Danube navigation dredging, street gullies with snow clearing, sewer
+  repairs, drinking-water reservoirs and a landfill dike. The rule in
+  `scripts/water/flood_predicate.ts` is now ENTRY (CPV 45246 or a title naming the work) AND
+  RIVER (the title names a river, bed, gully, bank, dike or flood) AND NOT EXCLUDE. The figure
+  went from 985 contracts / €427.9M to 1,011 / €313.1M — the old rule erred both ways, since it
+  also never matched „(почистване на) коритото на р./река", missing dozens of genuine clean-ups.
+  Every exclusion is a PHRASE, not a bare noun („депо", „канализац" and „водоем" alone dropped
+  real river work). `water_flood_maintenance.data.test.ts` pins
+  the excluded classes by name and the kept flood-protection work, mutation-checked against the
+  old file. Still kept, because a title cannot split them: mixed contracts that bundle a river
+  correction with other works (Банско's ПСОВ + network + river correction, €21.7M).
 - **The governance-sectors tile figure is scoped, the hub is not.** Water shows €213.6M at the
   default parliament window and links to an unscoped hub. Roads has the same pattern, so this
   is a hub-wide decision.
