@@ -41,8 +41,8 @@ const withProject = (id, fn) => {
   }
 };
 
-test("ships in enforce mode — reverting to log must be a deliberate commit", () => {
-  assert.equal(EDGE_GATE_MODE, "enforce");
+test("ships in log mode — flipping to enforce must be a deliberate commit", () => {
+  assert.equal(EDGE_GATE_MODE, "log");
 });
 
 test("tokenMatches accepts any configured token, nothing else", () => {
@@ -71,10 +71,7 @@ test("CF-Connecting-IP is trusted only behind a valid edge token", () => {
   // A client that bypasses Cloudflare can send the header itself.
   assert.equal(clientIp(req, "missing"), "2.2.2.2");
   assert.equal(clientIp(req, "bad"), "2.2.2.2");
-  assert.equal(
-    clientIp(mkReq({ "x-forwarded-for": "4.4.4.4" }), "ok"),
-    "4.4.4.4",
-  );
+  assert.equal(clientIp(mkReq({ "x-forwarded-for": "4.4.4.4" }), "ok"), "4.4.4.4");
 });
 
 test("off the prod project the gate never acts, even in enforce mode", () => {
@@ -92,10 +89,7 @@ test("log mode never blocks a request, valid or not", () => {
   withProject(PROD_PROJECT, () => {
     for (const h of [{}, { [EDGE_HEADER]: "wrong" }]) {
       const res = mkRes();
-      assert.equal(
-        applyEdgeGate(mkReq(h), res, { secretValue: "s", mode: "log" }),
-        false,
-      );
+      assert.equal(applyEdgeGate(mkReq(h), res, { secretValue: "s" }), false);
       assert.equal(res.statusCode, 200);
       assert.deepEqual(res.headers, {});
     }
