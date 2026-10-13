@@ -479,7 +479,7 @@ const IvssFilingRow: FC<{
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((o) => !o)}
-          className="flex flex-1 items-center gap-2 px-3 py-2 text-left text-sm"
+          className="flex min-w-0 flex-1 items-center gap-2 px-3 py-2 text-left text-sm"
         >
           {open ? (
             <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -644,7 +644,7 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((o) => !o)}
-          className="flex flex-1 items-center gap-2 px-3 py-2 text-left text-sm"
+          className="flex min-w-0 flex-1 items-center gap-2 px-3 py-2 text-left text-sm"
         >
           {open ? (
             <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />

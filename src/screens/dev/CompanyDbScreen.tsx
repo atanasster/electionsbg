@@ -1907,67 +1907,71 @@ export const CompanyDbScreen: FC = () => {
                     Няма вписани лица.
                   </div>
                 ) : (
-                  <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
-                    <thead className="text-left text-xs text-muted-foreground">
-                      <tr>
-                        <th className="py-1">Лице</th>
-                        <th className="py-1">Роля</th>
-                        <th className="py-1 text-right">Дял</th>
-                        <th className="py-1">От</th>
-                        <th className="py-1">Статус</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {officers.slice(0, OFFICERS_PREVIEW).map((o, i) => (
-                        <tr
-                          key={`${o.name}-${o.role}-${i}`}
-                          className="border-t border-border"
-                        >
-                          <td className="py-1">
-                            <Link
-                              to={`/person/${encodeURIComponent(o.name)}`}
-                              className="text-accent hover:underline"
-                            >
-                              {o.name}
-                            </Link>
-                          </td>
-                          <td className="py-1 text-muted-foreground">
-                            {trRoleLabel(o.role, t)}
-                          </td>
-                          <td className="py-1 text-right tabular-nums">
-                            {formatOwnerShare(o.share)}
-                            {formatOwnerAmount(
-                              o.share_eur,
-                              o.share_amount,
-                              o.share_currency,
-                            ) && (
-                              <span className="ml-1 text-xs text-muted-foreground/70">
-                                (
-                                {formatOwnerAmount(
-                                  o.share_eur,
-                                  o.share_amount,
-                                  o.share_currency,
-                                )}
-                                )
-                              </span>
-                            )}
-                          </td>
-                          <td className="py-1 tabular-nums text-muted-foreground">
-                            {day(o.added_at)}
-                          </td>
-                          <td className="py-1">
-                            {o.active ? (
-                              <span className="text-emerald-600">активен</span>
-                            ) : (
-                              <span className="text-muted-foreground">
-                                бивш · {day(o.erased_at)}
-                              </span>
-                            )}
-                          </td>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
+                      <thead className="text-left text-xs text-muted-foreground">
+                        <tr>
+                          <th className="py-1">Лице</th>
+                          <th className="py-1">Роля</th>
+                          <th className="py-1 text-right">Дял</th>
+                          <th className="py-1">От</th>
+                          <th className="py-1">Статус</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {officers.slice(0, OFFICERS_PREVIEW).map((o, i) => (
+                          <tr
+                            key={`${o.name}-${o.role}-${i}`}
+                            className="border-t border-border"
+                          >
+                            <td className="py-1">
+                              <Link
+                                to={`/person/${encodeURIComponent(o.name)}`}
+                                className="text-accent hover:underline"
+                              >
+                                {o.name}
+                              </Link>
+                            </td>
+                            <td className="py-1 text-muted-foreground">
+                              {trRoleLabel(o.role, t)}
+                            </td>
+                            <td className="py-1 text-right tabular-nums">
+                              {formatOwnerShare(o.share)}
+                              {formatOwnerAmount(
+                                o.share_eur,
+                                o.share_amount,
+                                o.share_currency,
+                              ) && (
+                                <span className="ml-1 text-xs text-muted-foreground/70">
+                                  (
+                                  {formatOwnerAmount(
+                                    o.share_eur,
+                                    o.share_amount,
+                                    o.share_currency,
+                                  )}
+                                  )
+                                </span>
+                              )}
+                            </td>
+                            <td className="py-1 tabular-nums text-muted-foreground">
+                              {day(o.added_at)}
+                            </td>
+                            <td className="py-1">
+                              {o.active ? (
+                                <span className="text-emerald-600">
+                                  активен
+                                </span>
+                              ) : (
+                                <span className="text-muted-foreground">
+                                  бивш · {day(o.erased_at)}
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
                 {officers.length > OFFICERS_PREVIEW && (
                   <Link

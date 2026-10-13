@@ -141,8 +141,13 @@ export const CompanySectorsTile: FC<{
                   ) : (
                     <ChevronRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground mt-0.5" />
                   )}
-                  <Tooltip content={name}>
-                    <span className="text-sm font-medium truncate max-w-[55%]">
+                  {/* The 55% cap lives on Tooltip's TOUCH-ONLY wrapper: there a span sits
+                      between the row and this label, so a percentage on the label resolved
+                      against that span and never truncated (overflowed 384px phones). On
+                      desktop there is no wrapper and no cap — the label truncates against
+                      the rank badge instead. */}
+                  <Tooltip content={name} triggerClassName="block max-w-[55%]">
+                    <span className="block min-w-0 text-sm font-medium truncate">
                       {name}
                     </span>
                   </Tooltip>
