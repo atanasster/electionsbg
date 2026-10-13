@@ -54,7 +54,7 @@ const crypto = require("node:crypto");
 const { SITE_ORIGIN } = require("./site_origin");
 
 const EDGE_HEADER = "x-naiasno-edge";
-const EDGE_GATE_MODE = "log";
+const EDGE_GATE_MODE = "enforce";
 const PROD_PROJECT = "elections-bg";
 
 const isProdProject = () => (process.env.GCLOUD_PROJECT || "") === PROD_PROJECT;

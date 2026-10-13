@@ -47,8 +47,8 @@ const withProject = (id, fn) => {
   }
 };
 
-test("ships in log mode — flipping to enforce must be a deliberate commit", () => {
-  assert.equal(EDGE_GATE_MODE, "log");
+test("ships in enforce mode — reverting to log must be a deliberate commit", () => {
+  assert.equal(EDGE_GATE_MODE, "enforce");
 });
 
 test("tokenMatches accepts any configured token, nothing else", () => {
@@ -98,7 +98,10 @@ test("log mode never blocks a request, valid or not", () => {
   withProject(PROD_PROJECT, () => {
     for (const h of [{}, { [EDGE_HEADER]: "wrong" }]) {
       const res = mkRes();
-      assert.equal(applyEdgeGate(mkReq(h), res, { secretValue: "s" }), false);
+      assert.equal(
+        applyEdgeGate(mkReq(h), res, { secretValue: "s", mode: "log" }),
+        false,
+      );
       assert.equal(res.statusCode, 200);
       assert.deepEqual(res.headers, {});
     }
