@@ -95,6 +95,32 @@ acquire_lock() {
 if ! acquire_lock; then exit 0; fi
 trap 'release_lock; exit 130' HUP INT TERM
 
+# Local housekeeping, under the lock so two runs never trim concurrently.
+# Best-effort: never changes a run's outcome, and skipped on --dry-run.
+# - cron.log: cron/launchd append to it (`>> var/cron.log`) and nothing else
+#   ever shrinks it — it reached 2.5 GB. Trimmed IN PLACE to its tail, never
+#   renamed: the scheduler holds the file open in append mode for this run, so
+#   a rename would leave the run writing into the rotated copy.
+# - data/_nightly: one ~7 MB report + stages file per hourly run (~1 GB per
+#   fortnight). measure_publish_baseline.py reads it, so keep a window, not 0.
+if [ "$DRY" -eq 0 ]; then
+  CRON_LOG="$VAR_DIR/cron.log"
+  CRON_LOG_MAX_BYTES=$(( ${NEWS_CRON_LOG_MAX_MB:-100} * 1024 * 1024 ))
+  if [ -f "$CRON_LOG" ] && \
+      [ "$(wc -c < "$CRON_LOG" | tr -d ' ')" -gt "$CRON_LOG_MAX_BYTES" ]; then
+    CRON_LOG_TAIL="$VAR_DIR/cron.log.tail.$$"
+    if tail -n "${NEWS_CRON_LOG_KEEP_LINES:-20000}" "$CRON_LOG" > "$CRON_LOG_TAIL"; then
+      cat "$CRON_LOG_TAIL" > "$CRON_LOG"
+    fi
+    rm -f "$CRON_LOG_TAIL"
+  fi
+  if [ -d "$NEWS_ROOT/data/_nightly" ]; then
+    find "$NEWS_ROOT/data/_nightly" -maxdepth 1 -type f \
+      \( -name '*.json' -o -name '*.stages.jsonl' \) \
+      -mtime +"${NEWS_NIGHTLY_KEEP_DAYS:-14}" -delete 2>/dev/null || :
+  fi
+fi
+
 case ${NEWS_GCS_ACTIVATE_SERVICE_ACCOUNT:-0} in
   0) ;;
   1)
