@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-10-12T23:03:22.240Z",
+  "lastSuccessfulIngest": "2026-10-14T02:24:54.248Z",
   "skill": "update-procurement",
-  "summary": "ЦАИС ЕОП self-heal (+133 new contracts, 417,471 rows), 240,428 tenders, TED 221,798 notices (+23,160 in 2026); db:refresh complete"
+  "summary": "ЦАИС ЕОП self-heal (+153 new contracts), 240,513 tenders, TED 221,891 notices; db:refresh complete (test:data 1 load-flaky failure, passes alone)"
 }

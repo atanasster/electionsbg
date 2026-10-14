@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-12T23:59:59.999Z",
+  "computedAt": "2026-10-14T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
+      "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-12T00:00:00.000Z",
-      "firstSeenAt": "2026-10-12T00:00:00.000Z",
+      "occurredAt": "2026-10-13T00:00:00.000Z",
+      "firstSeenAt": "2026-10-13T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,27 +22,27 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krave-maslo-d-markenbutter-250gr",
+      "route": "/product/kartofi-miti",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-        "pct": 61,
-        "promoEur": "1.59",
-        "regularEur": "4.10",
-        "chains": 2
+        "title": "КАРТОФИ МИТИ",
+        "pct": 66,
+        "promoEur": "0.40",
+        "regularEur": "1.17",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8714285714285714,
+      "materiality": 0.9428571428571428,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kartofi",
+      "id": "prices:promotion:kartofi-chetkani-na-kg",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-12T00:00:00.000Z",
-      "firstSeenAt": "2026-10-12T00:00:00.000Z",
+      "occurredAt": "2026-10-13T00:00:00.000Z",
+      "firstSeenAt": "2026-10-13T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -55,18 +55,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kartofi",
+      "route": "/product/kartofi-chetkani-na-kg",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КАРТОФИ",
-        "pct": 54,
-        "promoEur": "0.39",
-        "regularEur": "0.85",
+        "title": "КАРТОФИ ЧЕТКАНИ НА КГ",
+        "pct": 62,
+        "promoEur": "0.30",
+        "regularEur": "0.79",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7714285714285715,
+      "materiality": 0.8857142857142857,
       "actionability": 0.85
     },
     {
@@ -199,8 +199,8 @@
       "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-12T00:00:00.000Z",
-      "firstSeenAt": "2026-10-12T00:00:00.000Z",
+      "occurredAt": "2026-10-13T00:00:00.000Z",
+      "firstSeenAt": "2026-10-13T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -1053,37 +1053,6 @@
       "verification": "automatic",
       "materiality": 0.39525,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-09-13",
-      "kind": "basket_moved",
-      "category": "prices",
-      "occurredAt": "2026-09-13T00:00:00.000Z",
-      "firstSeenAt": "2026-09-13T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/consumption",
-      "factKey": "home_fact_basket_up",
-      "factArgs": {
-        "pct": "1.7",
-        "costEur": "15.72",
-        "days": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.42975,
-      "actionability": 0.5
     }
   ],
   "sourceCoverage": {
@@ -1122,7 +1091,7 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-09-21",
-      "observedAt": "2026-10-08",
+      "observedAt": "2026-10-14",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -1134,8 +1103,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-12",
-      "observedAt": "2026-10-12",
+      "asOf": "2026-10-13",
+      "observedAt": "2026-10-13",
       "staleAfterDays": 5,
       "stale": false
     }
