@@ -193,7 +193,11 @@ const wrapText = (
 export type BarCardSpec = {
   kicker?: string; // small label above the headline
   title: string; // the claim, 1-2 lines (auto-wrapped)
-  bars: { label: string; value: number; note?: string }[]; // value = signed %
+  /** value = signed %. `highlight` marks the row the card is ABOUT: when any
+   *  row carries it, every other row's bar and value is dimmed and the
+   *  highlighted label is set bold. Colour still carries direction (accent /
+   *  cool), so a highlight never changes what a sign means. */
+  bars: { label: string; value: number; note?: string; highlight?: boolean }[];
   unit?: string; // appended to each bar value, default "%"
   legend?: [string, string]; // [positive, negative], e.g. ["поскъпва", "поевтинява"]
   footnote?: string; // methodology caveat, above the footer
@@ -226,6 +230,12 @@ export type BarCardSpec = {
  * in colour (accent = up, cool = down) plus an explicit +/- in the value, so the
  * direction survives greyscale and thumbnail-size rendering.
  */
+/** Row-spacing ceiling, bar-thickness ceiling and the opacity of non-highlighted
+ *  rows on a bar card (see the layout comment inside renderBarCard). */
+const STEP_MAX = 104;
+const BAR_H_MAX = 44;
+const DIM_ALPHA = 0.35;
+
 export const renderBarCard = (spec: BarCardSpec): Buffer => {
   const S = 1080;
   const pal = THEME[spec.theme ?? "dark"];
@@ -331,30 +341,44 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   // turns negative the bar loop walks UPWARD from `by` and draws the rows over the
   // headline. These cards get published, so refuse rather than emit garbage.
   const avail = ruleY - 28 - (y + 40);
-  const step = Math.min(64, avail / rows.length);
+  // A short card spreads its rows over the room it has instead of bunching
+  // them under the title (the old 64px cap left ~200px empty above the
+  // footnote on a 4-bar card); the block is then centred in what remains.
+  // The cap still exists so 2–3 bars do not drift a third of the card apart,
+  // and bar thickness is capped separately so a wide step does not turn the
+  // bars into slabs. A 6-bar card is bounded by `avail`, not the cap, so it
+  // lays out exactly as before.
+  const step = Math.min(STEP_MAX, avail / rows.length);
   if (step < 34)
     throw new Error(
       `renderBarCard: ${rows.length} bars do not fit (step ${step.toFixed(1)}px, need >= 34) — shorten the title/footnote or drop a bar`,
     );
-  const barH = Math.max(18, step * 0.52);
+  const barH = Math.min(BAR_H_MAX, Math.max(18, step * 0.52));
+  const anyHighlight = rows.some((r) => r.highlight);
 
-  let by = y + 40 + step / 2;
+  let by = y + 40 + (avail - step * rows.length) / 2 + step / 2;
   for (const row of rows) {
     const w = Math.max(4, (Math.abs(row.value) / peak) * MAX_W);
     const up = row.value >= 0;
+    const dim = anyHighlight && !row.highlight;
 
     ctx.fillStyle = pal.text;
-    ctx.font = `600 34px ${FONT}`;
+    ctx.font = `${row.highlight ? 800 : 600} 34px ${FONT}`;
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
     ctx.fillText(row.label, 80 + GUTTER, by);
 
+    ctx.globalAlpha = dim ? DIM_ALPHA : 1;
     ctx.fillStyle = up ? pal.accent : pal.cool;
     // Radius must not exceed HALF THE SHORTER SIDE. A bar far below the peak is
     // narrower than it is tall, and a barH/2 radius on it makes arcTo double
     // back — the stub renders as an S-squiggle, not a short bar.
     roundRect(ctx, X0, by - barH / 2, w, barH, Math.min(barH, w) / 2);
     ctx.fill();
+    // Only the BAR is dimmed — a dimmed value stays fully legible in the muted
+    // ink, since the numbers on the other rows are still part of the claim.
+    ctx.globalAlpha = 1;
+    if (dim) ctx.fillStyle = pal.muted;
 
     ctx.textAlign = "left";
     ctx.font = `700 34px ${FONT}`;
