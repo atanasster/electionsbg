@@ -2227,7 +2227,7 @@ export const BudgetPolicySimulator: FC = () => {
   ]);
 
   // ----- multi-year balance & debt projection --------------------------------
-  // ESA general-government grain (EC Spring 2026 baseline) — distinct from
+  // ESA general-government grain (МФ ПБП-2027 baseline) — distinct from
   // the КФП cash grain of the rest of the screen; the projection card says so.
   // In dynamic mode the year-1 scalar is the Tier-1 adjusted total and the
   // Tier-2 feedback rides the fixed path next to the pension slice; the
