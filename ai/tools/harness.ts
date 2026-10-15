@@ -26,6 +26,7 @@ import {
   scoreSpendingChange,
   sscSelfPaidRetained,
 } from "../../src/lib/bgTaxPolicy";
+import { NOMINAL_GDP_2026_EUR } from "../../src/lib/bgFiscalProjection";
 import type { PolicyBaselineFile } from "../../src/data/budget/types";
 import type { Envelope, ToolContext } from "./types";
 
@@ -1495,11 +1496,12 @@ const run = async () => {
       scoreMinWageFreeze(baseline.earnings.bands, exp!.minWage).netEur,
     ],
     // Phase-5 levers (same balance convention). Defense is priced against
-    // the projection's €123.9B 2026 GDP (commit a760b1d5d) — (3.0−2.06)% ×
-    // €123.9B ≈ −€1165M. Current NATO-definition defense = 2.06% of GDP
-    // (NATO 2025 estimate; commit a640026dc moved it off the old 2.2% rounded
-    // grid, which is where the −€991M figure came from).
-    ["отбраната да стане 3% от бвп", -1165e6],
+    // the projection's own 2026 GDP — (3.0−2.06)% × NOMINAL_GDP_2026_EUR —
+    // derived rather than pinned, because that GDP moves with every
+    // re-anchor (EC Spring €123.9B → −€1165M; ПБП-2027 €130.4B → −€1226M).
+    // Current NATO-definition defense = 2.06% of GDP (NATO 2025 estimate;
+    // commit a640026dc moved it off the old 2.2% rounded grid).
+    ["отбраната да стане 3% от бвп", -(0.03 - 0.0206) * NOMINAL_GDP_2026_EUR],
     // Wage indexation & health are NET of the labour-tax feedback (the budget
     // recovers ~30.6% of indexed pay as PIT+SSC; the employee health-share is
     // PIT-deductible) — consistent with the administration-cut lever.
