@@ -6,7 +6,7 @@ import {
   railSubsidyAnchor,
   railSubsidyRows,
   type RailSubsidyRow,
-} from "./useRailSubsidy";
+} from "./railSubsidy";
 
 const row = (year: number, perPassenger: number | null): RailSubsidyRow => ({
   year,

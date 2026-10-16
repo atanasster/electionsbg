@@ -1,12 +1,13 @@
 // Транспорт tools — the chat surface for the /sector/transport hub. The transport
-// group's procurement is served live from Postgres (the same awarder-group-model the
-// dashboard uses), so these tools aggregate the curated state-transport group (every
-// EIK in TRANSPORT_ENTITIES) the way
-// the pack does, and add the EU-funds absorption the corpus can't show on its own.
+// group's procurement is served live from Postgres (the same awarder-group-model and
+// ex-member rollup the hub's sub-pages read), so these tools aggregate the curated
+// state-transport group (every EIK in TRANSPORT_ENTITIES) on the hub's own rules
+// (docs/plans/transport-hub-v1.md C8).
 //
 //   transportSpending  — group procurement by MODE (rail/maritime/aviation/road) +
 //                        what it buys by function + competition signals.
-//   transportEuFunds   — ИСУН EU-funds contracted vs paid (absorption) per beneficiary.
+//   transportEuFunds   — ИСУН grant aid (БФП) vs paid, per beneficiary.
+//   railSubsidy        — the PSO subsidy per passenger + the total rail subsidy.
 //
 // ⚠ ROADS ARE A SEPARATE SECTOR — АПИ/Автомагистрали are NOT in this group; the roads
 // dashboard has its own `roadsSpending` tool. Every fact goes through ctx.lang and the
@@ -17,6 +18,12 @@ import { fetchDb, fetchData } from "./dataClient";
 import { fmtEurCompact, fmtInt, fmtPct } from "./format";
 import type { Envelope, Row, ToolArgs, ToolContext } from "./types";
 import type { GroupModelPayload } from "@/lib/awarderModel";
+import {
+  railSubsidyRows,
+  railSubsidyAnchor,
+  type RailSubsidyFile,
+  type RailRidershipFile,
+} from "@/lib/railSubsidy";
 import {
   buildTransportModelFromAggregates,
   categoryLabel,
@@ -136,7 +143,9 @@ export const transportSpending = async (
     viz: "none",
     facts: {
       total_value: fmtEurCompact(total, ctx.lang),
-      contracts: fmtInt(contracts || m.contractCount, ctx.lang),
+      // Ex-member basis only — the group model's own count includes the €0
+      // consortium-member rows and would disagree with the hub.
+      contracts: rollup.exMembers ? fmtInt(contracts, ctx.lang) : "—",
       rail_share: total > 0 ? pct(railEur / total, ctx.lang) : "—",
       rail_share_by_awarder:
         total > 0 ? pct(rawRailEur / total, ctx.lang) : "—",
@@ -265,19 +274,6 @@ export const transportEuFunds = async (
   };
 };
 
-interface RailSubsidyFile {
-  years: {
-    fiscalYear: number;
-    bdzPassengerPsoEur: number | null;
-    nkzhiOperatingEur: number | null;
-    bdzCapitalEur: number | null;
-    nkzhiCapitalEur: number | null;
-  }[];
-}
-interface RailRidershipFile {
-  series: { year: number; passengers: number | null }[];
-}
-
 const fmtEur2 = (v: number, lang: "bg" | "en"): string =>
   lang === "bg"
     ? `${v.toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`
@@ -294,26 +290,10 @@ export const railSubsidy = async (
     fetchData<RailSubsidyFile>("/transport/rail_subsidy.json"),
     fetchData<RailRidershipFile>("/transport/rail_ridership.json"),
   ]);
-  const paxByYear = new Map(ride.series.map((s) => [s.year, s.passengers]));
-  const rows = sub.years
-    .map((y) => {
-      const pso = y.bdzPassengerPsoEur;
-      const pax = paxByYear.get(y.fiscalYear) ?? null;
-      return {
-        year: y.fiscalYear,
-        pso,
-        nkzhi: (y.nkzhiOperatingEur ?? 0) + (y.nkzhiCapitalEur ?? 0),
-        bdzCapital: y.bdzCapitalEur ?? 0,
-        pax,
-        perPax: pso != null && pax && pax > 0 ? pso / pax : null,
-      };
-    })
-    .filter((r) => r.perPax != null)
-    .sort((a, b) => a.year - b.year);
-  const latest = rows[rows.length - 1];
-
-  const total =
-    (latest?.pso ?? 0) + (latest?.nkzhi ?? 0) + (latest?.bdzCapital ?? 0);
+  // The hub's own rules (src/lib/railSubsidy.ts): a null capital transfer is
+  // UNPUBLISHED, not zero, so the total and НКЖИ are null for such a year (T9 F3).
+  const rows = railSubsidyRows(sub, ride).filter((r) => r.perPassenger != null);
+  const latest = railSubsidyAnchor(rows);
 
   return {
     tool: "railSubsidy",
@@ -323,26 +303,31 @@ export const railSubsidy = async (
       ? "Субсидия за железниците на пътник"
       : "Rail subsidy per passenger",
     viz: "line",
-    value: latest?.perPax ?? 0,
+    value: latest?.perPassenger ?? 0,
     categories: rows.map((r) => r.year),
     series: [
       {
         key: "perPax",
         label: bg ? "Субсидия/пътник (PSO)" : "Subsidy/passenger (PSO)",
-        points: rows.map((r) => ({ x: r.year, y: r.perPax as number })),
+        points: rows.map((r) => ({ x: r.year, y: r.perPassenger as number })),
       },
     ],
     facts: {
       latest_year: String(latest?.year ?? "—"),
       subsidy_per_passenger:
-        latest?.perPax != null ? fmtEur2(latest.perPax, ctx.lang) : "—",
-      total_rail_subsidy: fmtEurCompact(total, ctx.lang),
+        latest?.perPassenger != null
+          ? fmtEur2(latest.perPassenger, ctx.lang)
+          : "—",
+      total_rail_subsidy:
+        latest?.total != null ? fmtEurCompact(latest.total, ctx.lang) : "—",
       bdz_pso: latest?.pso != null ? fmtEurCompact(latest.pso, ctx.lang) : "—",
-      nkzhi_subsidy: fmtEurCompact(latest?.nkzhi ?? 0, ctx.lang),
-      passengers: latest?.pax != null ? fmtInt(latest.pax, ctx.lang) : "—",
+      nkzhi_subsidy:
+        latest?.nkzhi != null ? fmtEurCompact(latest.nkzhi, ctx.lang) : "—",
+      passengers:
+        latest?.passengers != null ? fmtInt(latest.passengers, ctx.lang) : "—",
       note: bg
-        ? "Субсидията на пътник ползва само PSO (оперативната субсидия за превоза); НКЖИ е инфраструктура. Бюджетирана субсидия (ЗДБ); пътници от Eurostat (национален жп ≈ БДЖ)."
-        : "“Per passenger” uses the PSO (operating) subsidy only; НКЖИ is infrastructure. Budgeted subsidy (State Budget Law); passengers from Eurostat (national rail ≈ БДЖ).",
+        ? `Субсидията на пътник ползва само PSO (оперативната субсидия за превоза); НКЖИ е инфраструктура. Бюджетирана субсидия (ЗДБ); пътници от Eurostat (национален жп ≈ БДЖ).${latest?.capitalMissing ? ` Капиталовите трансфери за ${latest.year} г. не са разписани в закона, затова обща сума за годината няма.` : ""}`
+        : `“Per passenger” uses the PSO (operating) subsidy only; НКЖИ is infrastructure. Budgeted subsidy (State Budget Law); passengers from Eurostat (national rail ≈ БДЖ).${latest?.capitalMissing ? ` The law does not set the ${latest.year} capital transfers, so there is no total for that year.` : ""}`,
     },
     provenance: [
       "transport/rail_subsidy.json (ЗДБ)",

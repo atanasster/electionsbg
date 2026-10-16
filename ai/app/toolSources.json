@@ -465,8 +465,14 @@
   "tourismSeasonality": ["tourism/visitors.json"],
   "tourismSourceMarkets": ["tourism/visitors.json"],
   "transparencyScore": ["municipal_transparency/index.json"],
-  "transportEuFunds": ["db:awarder-funds-rollup (ИСУН)"],
-  "transportSpending": ["db:awarder-group-model"],
+  "transportEuFunds": [
+    "db:awarder-funds-rollup?basis=grant (ИСУН fund_projects)"
+  ],
+  "transportSpending": [
+    "db:awarder-group-model",
+    "db:awarder-group-rollup (exMembers)",
+    "db:national-competition"
+  ],
   "turnout": ["elections.json"],
   "turnoutSeries": ["elections.json"],
   "voteSearch": ["parliament/votes/derived/topic_index.json"],

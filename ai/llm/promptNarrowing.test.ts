@@ -35,14 +35,15 @@ import {
 // adding narrowing cannot quietly change the prompt every published eval baseline
 // was measured against. A DELIBERATE registry or prompt change re-pins these two
 // values; anything else failing here means the no-candidate path was altered.
+// Re-pinned 2026-10-17: transport-hub-v1 moved the transportEuFunds description to the grant (БФП) basis.
 const FULL_CATALOGUE = {
   bg: {
-    bytes: 85_467,
-    sha256: "60b5df98d97dc2e5a8e0a36fdc704ddd4092c3be33d9c958157728456dfe2326",
+    bytes: 85_499,
+    sha256: "d098ce3a68fef0d557659a3985552dacf1ea41c831b524e05cd1f9fa32dec97c",
   },
   en: {
-    bytes: 56_813,
-    sha256: "15764039a381128df9abf62231c5eea83daf5ac4c2091e698189d33b04f788ed",
+    bytes: 56_821,
+    sha256: "fc771673fc7dfc576d0aba2f81afbeaef06b95ea85771a270ff6885b5233a178",
   },
 } as const;
 

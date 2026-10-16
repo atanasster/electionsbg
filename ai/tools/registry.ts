@@ -2479,8 +2479,8 @@ export const TOOLS: ToolDef[] = [
     name: "transportEuFunds",
     domain: "fiscal",
     description: {
-      bg: "Европейските средства за транспорт (ИСУН) — договорени срещу реално изплатени (усвояване) по бенефициенти (НКЖИ, БДЖ, пристанища). Показва колко от парите наистина се усвояват.",
-      en: "EU funds for transport (ИСУН) — contracted vs actually paid (absorption) by beneficiary (НКЖИ, БДЖ, ports). Shows how much money is actually drawn down.",
+      bg: "Европейските средства за транспорт (ИСУН) — безвъзмездната помощ (БФП) срещу реално изплатеното (усвояване) по бенефициенти (НКЖИ, БДЖ, пристанища). Показва колко от парите наистина се усвояват.",
+      en: "EU funds for transport (ИСУН) — grant aid (БФП) vs actually paid (absorption) by beneficiary (НКЖИ, БДЖ, ports). Shows how much money is actually drawn down.",
     },
     params: [],
     examples: [
