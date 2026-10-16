@@ -75,3 +75,27 @@ export const transportContractsHref = (
   for (const [k, v] of Object.entries(extra)) p.set(k, v);
   return `/procurement/contracts?${p.toString()}`;
 };
+
+/** The project map's feature link: the contracts browser over exactly the bodies the
+ *  map draws, on the page's scope. The whole sector is the browse pack (`?sector=`);
+ *  any narrower set is an explicit `?awarder=` list. `?mode` is dropped. */
+export const projectMapContractsHref = (
+  params: URLSearchParams,
+  eiks: readonly string[],
+  q: string,
+): string => {
+  const p = new URLSearchParams(params);
+  p.delete("mode");
+  const whole =
+    eiks.length === TRANSPORT_SECTOR_EIKS.length &&
+    TRANSPORT_SECTOR_EIKS.every((e) => eiks.includes(e));
+  if (whole) {
+    p.delete("awarder");
+    p.set("sector", "transport");
+  } else {
+    p.delete("sector");
+    p.set("awarder", eiks.join(","));
+  }
+  p.set("q", q);
+  return `/procurement/contracts?${p.toString()}`;
+};

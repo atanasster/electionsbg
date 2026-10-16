@@ -51,9 +51,20 @@ export interface TransportProjectPoint extends ProjectMetric {
   facility: FacilityType | null;
 }
 
+/** How much of the window's money the map places at all, by DISTINCT contract
+ *  (migration 076; a contract carries at most one link, so this never double-counts).
+ *  Absent on a database whose 076 predates it. */
+export interface TransportProjectCoverage {
+  placedContracts: number;
+  placedEur: number;
+  totalContracts: number;
+  totalEur: number;
+}
+
 interface ProjectMapPayload {
   segments: TransportProjectSegment[];
   points: TransportProjectPoint[];
+  coverage?: TransportProjectCoverage;
 }
 
 const EMPTY_SEG: TransportProjectSegment[] = [];
@@ -68,6 +79,7 @@ export const useTransportProjectMap = (
 ): {
   segments: TransportProjectSegment[];
   points: TransportProjectPoint[];
+  coverage: TransportProjectCoverage | null;
   isLoading: boolean;
 } => {
   const urlWindow = useScopeWindow();
@@ -101,5 +113,5 @@ export const useTransportProjectMap = (
     [data],
   );
 
-  return { segments, points, isLoading };
+  return { segments, points, coverage: data?.coverage ?? null, isLoading };
 };

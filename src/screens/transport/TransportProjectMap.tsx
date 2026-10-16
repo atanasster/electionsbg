@@ -33,6 +33,8 @@ import {
 } from "@/data/procurement/useTransportProjectMap";
 import { ChartGhost } from "@/ux/motion/ChartGhost";
 import { contractsWord } from "./transportCopy";
+import { useSearchParams } from "react-router-dom";
+import { projectMapContractsHref } from "./transportMode";
 
 type Metric = "spend" | "singleBid";
 
@@ -92,7 +94,14 @@ export const TransportProjectMap: FC<{
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
 
-  const { segments, points, isLoading } = useTransportProjectMap(
+  const [params] = useSearchParams();
+  // Every feature links to the contracts browser over the SAME bodies the card draws
+  // (the `eiks` prop) and the page's scope (A8); ?mode never leaks into it.
+  const contractsHref = useCallback(
+    (q: string) => projectMapContractsHref(params, eiks, q),
+    [params, eiks],
+  );
+  const { segments, points, coverage, isLoading } = useTransportProjectMap(
     eiks,
     scopeWindow,
   );
@@ -182,12 +191,10 @@ export const TransportProjectMap: FC<{
               ? `Жп участък · ${s.contractCount} ${contractsWord(s.contractCount, true)}`
               : `Rail section · ${s.contractCount} ${contractsWord(s.contractCount, false)}`,
           detail: detailOf(s),
-          href: `/procurement/contracts?sector=transport&q=${encodeURIComponent(
-            `${s.aTown} ${s.bTown}`,
-          )}`,
+          href: contractsHref(`${s.aTown} ${s.bTown}`),
         };
       }),
-    [segments, styleOf, detailOf, bg],
+    [segments, styleOf, detailOf, bg, contractsHref],
   );
 
   const mapPoints = useMemo<SectorMapPoint[]>(
@@ -209,11 +216,18 @@ export const TransportProjectMap: FC<{
               ? `${d.contractCount} ${contractsWord(d.contractCount, true)}`
               : `${d.contractCount} ${contractsWord(d.contractCount, false)}`,
           detail: detailOf(d),
-          href: `/procurement/contracts?sector=transport&q=${encodeURIComponent(d.town)}`,
+          href: contractsHref(d.town),
         };
       }),
-    [points, styleOf, detailOf, metric, bg],
+    [points, styleOf, detailOf, metric, bg, contractsHref],
   );
+
+  const placedPct =
+    coverage && coverage.totalEur > 0
+      ? new Intl.NumberFormat(bg ? "bg-BG" : "en-GB", {
+          maximumFractionDigits: 1,
+        }).format((coverage.placedEur / coverage.totalEur) * 100)
+      : null;
 
   if (isLoading) return <ChartGhost className="h-[460px]" shape="map" />;
   if (!segments.length && !points.length)
@@ -284,7 +298,9 @@ export const TransportProjectMap: FC<{
               className="inline-block h-2.5 w-2.5 rounded-full"
               style={{ background: "#3c527a" }}
             />
-            {bg ? "гара / пристанище / възел" : "station / port / junction"}
+            {Object.values(FACILITY_LABEL)
+              .map((l) => (bg ? l.bg : l.en).toLowerCase())
+              .join(" / ")}
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
@@ -307,10 +323,17 @@ export const TransportProjectMap: FC<{
             </span>
           ))}
         </div>
+        {coverage && coverage.totalEur > 0 ? (
+          <p className="text-xs text-muted-foreground">
+            {bg
+              ? `На картата са ${placedPct}% от средствата в периода (${formatEurCompact(coverage.placedEur, i18n.language)} от ${formatEurCompact(coverage.totalEur, i18n.language)}) — договорите, в чието наименование е назовано място. Останалите са мрежови или не посочват място.`
+              : `The map places ${placedPct}% of the window's money (${formatEurCompact(coverage.placedEur, i18n.language)} of ${formatEurCompact(coverage.totalEur, i18n.language)}) — the contracts whose title names a place. The rest are network-wide or name none.`}
+          </p>
+        ) : null}
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? `Картата показва физическата инфраструктура, посочена в наименованията на договорите, в избрания обхват${periodLabel ? ` (${periodLabel})` : ""}. Линиите са жп участъци между два града (напр. Костенец–Септември) и са схематични — между населените места, не по трасето; точките са единични обекти — гари, пристанища, възли, които може да се застъпват. Дебелината и цветът следват размера на разхода. Превозите, подвижният състав и горивата са мрежови, нямат една точка и не са тук. Пътищата (АПИ) са отделен сектор.`
-            : `The map shows the physical infrastructure named in the contract titles, in the selected scope${periodLabel ? ` (${periodLabel})` : ""}. Lines are rail sections between two towns (e.g. Костенец–Септември) and are schematic — between the places, not along the route; points are single sites — stations, ports, junctions — and can overlap. Line width and colour follow the spend. Train operations, rolling stock and fuel are network-wide, have no single point and are not shown. Roads (АПИ) are a separate sector.`}
+            ? `Картата показва физическата инфраструктура, посочена в наименованията на договорите, в избрания обхват${periodLabel ? ` (${periodLabel})` : ""}. Линиите са жп участъци между два града (напр. Костенец–Септември) и са схематични — между населените места, не по трасето; точките са единични обекти — гари, пристанища, летища, възли — и може да се застъпват; „проект по линията“ е линия, чийто конкретен участък не може да бъде разпознат. Дебелината и цветът следват размера на разхода. Превозите, подвижният състав и горивата са мрежови, нямат една точка и не са тук. Пътищата (АПИ) са отделен сектор.`
+            : `The map shows the physical infrastructure named in the contract titles, in the selected scope${periodLabel ? ` (${periodLabel})` : ""}. Lines are rail sections between two towns (e.g. Костенец–Септември) and are schematic — between the places, not along the route; points are single sites — stations, ports, airports, junctions — and can overlap; a "project on the line" is a line whose specific section could not be placed. Line width and colour follow the spend. Train operations, rolling stock and fuel are network-wide, have no single point and are not shown. Roads (АПИ) are a separate sector.`}
         </p>
       </CardContent>
     </Card>
