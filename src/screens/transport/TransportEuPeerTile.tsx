@@ -37,7 +37,7 @@ const GEO_NAME: Record<string, { bg: string; en: string }> = {
 const geoName = (geo: string, bg: boolean): string =>
   GEO_NAME[geo]?.[bg ? "bg" : "en"] ?? geo;
 
-const PEER_GEOS = ["BG", "RO", "HR", "HU"] as const;
+const PEER_GEOS = ["BG", "RO", "GR", "HR", "HU"] as const;
 
 export const TransportEuPeerTile: FC = () => {
   const { i18n } = useTranslation();
