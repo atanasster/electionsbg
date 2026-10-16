@@ -1394,13 +1394,23 @@ describe("a hub's og capture anchors on its head", () => {
           "governance-mayor-pay": "afc09776b278482dcabf47a46d3b8b21",
         },
       },
-      "src/screens/SubsidiesDashboardScreen.tsx": {
-        sha: "4f9830db9a888ec2e4f0db294e15bbdb5da1cfa1",
+      "src/screens/transport/transportHubFigures.ts": {
+        sha: "724985c37ded18a68c23587459b7d2ded922d4c1",
         why:
-          "4f9830db9a (transport audit C) and its T9 predecessor change only the rail-subsidy " +
-          "TILE — the unpublished-capital wording and the per-passenger lead — below the " +
-          "`[data-hub-head]` clip, so the head card draws nothing new. Verified 2026-10-17 by " +
-          "re-shooting: byte-identical (md5 below).",
+          "724985c37d (transport audit D) changes only the ENGLISH KPI basis lines and rail " +
+          "names; the card is the Bulgarian head. Verified 2026-10-17 by re-shooting: " +
+          "byte-identical (md5 below).",
+        verifiedCardMd5: {
+          "sector-transport": "fedb9c52789c932dad4a9200dbc10c1c",
+        },
+      },
+      "src/screens/SubsidiesDashboardScreen.tsx": {
+        sha: "724985c37ded18a68c23587459b7d2ded922d4c1",
+        why:
+          "724985c37d (transport audit D: the rail tile's €5,55 prefix) and its C/T9 " +
+          "predecessors change only the rail-subsidy TILE below the `[data-hub-head]` clip, so " +
+          "the head card draws nothing new. Verified 2026-10-17 by re-shooting: byte-identical " +
+          "(md5 below).",
         verifiedCardMd5: {
           subsidies: "bbbcbae84bcb772138f1743fb5bccb64",
         },
