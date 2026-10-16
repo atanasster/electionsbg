@@ -227,6 +227,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /water hub's KPI band, operator rail, finder index and band figures. It reads contracts, national_competition() and fund_beneficiaries AND the two committed water artifacts — its KPI 1 must equal sector_stats.json all.water and its riverbed figure is READ from data/water/flood_maintenance.json — so its slot is immediately after db:gen-water-flood, which itself follows db:gen-sector-stats",
     bucketPath: "water/derived/hub_stats.json",
   },
+  "db:gen-transport-hub-stats": {
+    artifact: "data/transport/derived/hub_stats.json",
+    reason:
+      "the /sector/transport hub's KPI band, body rail, finder index and band figures (transport-hub-v1 T2). It reads contracts, procurement_annexes, fund_projects and the project map's coverage through transport_project_map(), so its slot is immediately AFTER db:load:transport-facility-map:pg (which follows db:load:transport-project-map:pg) — placed beside db:gen-sector-stats, where the other sector hubs sit, it would publish the PREVIOUS vintage of the map coverage. Its KPI 1 must equal sector_stats.json all.transport, which runs earlier in the chain",
+    bucketPath: "transport/derived/hub_stats.json",
+  },
   "db:gen-governance-hub-stats": {
     artifact: "data/governance/hub_stats.json",
     reason:

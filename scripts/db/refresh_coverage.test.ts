@@ -126,6 +126,26 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     why: "its EU-funds KPI reads fund_beneficiaries, which that loader rebuilds",
   },
   {
+    after: "db:gen-transport-hub-stats",
+    before: "db:gen-sector-stats",
+    why: "the transport hub's KPI 1 must equal sector_stats.json all.transport (transport_hub_figures.data.test.ts)",
+  },
+  {
+    after: "db:gen-transport-hub-stats",
+    before: "db:load:transport-project-map:pg",
+    why: "its map-coverage figure reads transport_project_link through transport_project_map()",
+  },
+  {
+    after: "db:gen-transport-hub-stats",
+    before: "db:load:annexes:pg",
+    why: "its annex-growth figure reads procurement_annexes",
+  },
+  {
+    after: "db:gen-transport-hub-stats",
+    before: "db:load:funds:pg",
+    why: "its EU-funds figures read fund_projects (grant basis, D6)",
+  },
+  {
     after: "db:gen-water-flood",
     before: "db:load:pg",
     why: "the riverbed artifact is a selection over contracts, which that loader rebuilds",
