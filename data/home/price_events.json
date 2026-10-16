@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-13",
+  "computedAt": "2026-10-15",
   "thresholds": {
     "basketPids": [
       1,
@@ -32,16 +32,6 @@
     "promoMaxEvents": 3
   },
   "basketMoves": [
-    {
-      "peakDay": "2026-09-13",
-      "startDay": "2026-09-13",
-      "endDay": "2026-09-13",
-      "pctChange": 1.719,
-      "costEur": 15.721,
-      "prevCostEur": 15.456,
-      "cohortCells": 1626,
-      "cohortShare": 0.9
-    },
     {
       "peakDay": "2026-09-20",
       "startDay": "2026-09-20",
@@ -75,34 +65,34 @@
   ],
   "promotions": [
     {
-      "slug": "kartofi-miti",
-      "title": "КАРТОФИ МИТИ",
-      "atOrBelowSince": "2026-10-01",
-      "promoEur": 0.4,
-      "regularEur": 1.17,
-      "discountPct": 66,
-      "stores": 40,
-      "chains": 3
-    },
-    {
       "slug": "kartofi-chetkani-na-kg",
       "title": "КАРТОФИ ЧЕТКАНИ НА КГ",
       "atOrBelowSince": "2026-10-05",
       "promoEur": 0.3,
       "regularEur": 0.79,
       "discountPct": 62,
-      "stores": 210,
+      "stores": 147,
       "chains": 2
     },
     {
-      "slug": "shokolad-roshen-lakmi-mlechen-90gr",
-      "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
-      "atOrBelowSince": "2026-10-12",
-      "promoEur": 0.79,
-      "regularEur": 1.74,
-      "discountPct": 54,
-      "stores": 15,
+      "slug": "krave-maslo-d-markenbutter-250gr",
+      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+      "atOrBelowSince": "2026-10-10",
+      "promoEur": 1.59,
+      "regularEur": 4.07,
+      "discountPct": 61,
+      "stores": 221,
       "chains": 2
+    },
+    {
+      "slug": "limoni",
+      "title": "ЛИМОНИ",
+      "atOrBelowSince": "2026-10-15",
+      "promoEur": 0.89,
+      "regularEur": 1.99,
+      "discountPct": 55,
+      "stores": 426,
+      "chains": 6
     }
   ]
 }

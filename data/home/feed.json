@@ -1,48 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-14T23:59:59.999Z",
+  "computedAt": "2026-10-16T23:59:59.999Z",
   "windowDays": 30,
   "events": [
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:kartofi-miti",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-13T00:00:00.000Z",
-      "firstSeenAt": "2026-10-13T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/kartofi-miti",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "КАРТОФИ МИТИ",
-        "pct": 66,
-        "promoEur": "0.40",
-        "regularEur": "1.17",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.9428571428571428,
-      "actionability": 0.85
-    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:kartofi-chetkani-na-kg",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-13T00:00:00.000Z",
-      "firstSeenAt": "2026-10-13T00:00:00.000Z",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -71,11 +38,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-10-09",
+      "id": "parliament:sitting:2026-10-15",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-10-09T00:00:00.000Z",
-      "firstSeenAt": "2026-10-09T00:00:00.000Z",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -87,17 +54,50 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-10-09",
+      "route": "/votes/2026-10-15",
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
-        "items": 15,
-        "sittings": 12,
+        "items": 27,
+        "sittings": 14,
         "windowDays": 30
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 1,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/krave-maslo-d-markenbutter-250gr",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+        "pct": 61,
+        "promoEur": "1.59",
+        "regularEur": "4.07",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8714285714285714,
+      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-roshen-lakmi-mlechen-90gr",
+      "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-13T00:00:00.000Z",
-      "firstSeenAt": "2026-10-13T00:00:00.000Z",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,18 +213,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-roshen-lakmi-mlechen-90gr",
+      "route": "/product/limoni",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД РОШЕН ЛАКМИ МЛЕЧЕН 90ГР",
-        "pct": 54,
-        "promoEur": "0.79",
-        "regularEur": "1.74",
-        "chains": 2
+        "title": "ЛИМОНИ",
+        "pct": 55,
+        "promoEur": "0.89",
+        "regularEur": "1.99",
+        "chains": 6
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7714285714285715,
+      "materiality": 0.7857142857142857,
       "actionability": 0.85
     },
     {
@@ -1091,20 +1091,20 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-09-21",
-      "observedAt": "2026-10-14",
+      "observedAt": "2026-10-16",
       "staleAfterDays": 45,
       "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-10-09",
+      "asOf": "2026-10-15",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-13",
-      "observedAt": "2026-10-13",
+      "asOf": "2026-10-15",
+      "observedAt": "2026-10-15",
       "staleAfterDays": 5,
       "stale": false
     }

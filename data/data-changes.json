@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-10-14T02:44:17.875Z",
+  "updatedAt": "2026-10-16T08:48:31.814Z",
   "entries": [
+    {
+      "timestamp": "2026-10-16T08:48:31.814Z",
+      "date": "2026-10-16",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-15 (+2 daily archives; 1,118,314 store rows, 168 settlements, 71 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-15"
+    },
+    {
+      "timestamp": "2026-10-16T08:40:15.040Z",
+      "date": "2026-10-16",
+      "skill": "update-macro",
+      "summary": "Eurostat refresh (8 releases: nama/namq GDP, une_rt_m, sts_*); WGI clean",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-16T08:39:18.698Z",
+      "date": "2026-10-16",
+      "skill": "update-open-calls",
+      "summary": "ИСУН: 56 open procedures (1 opened, 1 closed)",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-10-16T08:37:14.876Z",
+      "date": "2026-10-16",
+      "skill": "update-procurement",
+      "summary": "EOP gap-fill +403 rows (2026-10-15), TED 222,000 notices; no new АОП OCDS bundles",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-10-16T08:26:08.321Z",
+      "date": "2026-10-16",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 882 лица, 125 088 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-15T21:52:30.112Z",
+      "date": "2026-10-15",
+      "skill": "update-rollcall",
+      "summary": "3 new sessions through 2026-10-15 (45 items)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-10-14T02:44:17.875Z",
       "date": "2026-10-14",
