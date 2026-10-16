@@ -270,6 +270,10 @@ npm run db:gen-roads-hub-stats    # the /sector/roads EU-funds tile reads fund_p
 npm run db:gen-water-hub-stats    # the /water EU-funds KPI reads fund_beneficiaries —
                                   # commit data/water/derived/hub_stats.json and
                                   # bucket:sync:paths -- water/derived/hub_stats.json
+npm run db:gen-transport-hub-stats # the /sector/transport EU-funds figures read
+                                  # fund_projects on the GRANT basis (transport-hub-v1 D6) —
+                                  # commit data/transport/derived/hub_stats.json and
+                                  # bucket:sync:paths -- transport/derived/hub_stats.json
 
 # 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
 npm run db:load:funds:pg:cloud -- --full   # the flag is REQUIRED — see the scope note

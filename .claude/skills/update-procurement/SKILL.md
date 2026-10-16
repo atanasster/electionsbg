@@ -316,6 +316,18 @@ npm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_sta
 npm run db:gen-roads-hub-stats # ~1 s: writes data/roads/derived/hub_stats.json — the /sector/roads hub; MUST follow gen-sector-stats (its KPI 1 equals sector_stats all.roads)
 npm run db:gen-water-flood     # ~2 s: writes data/water/flood_maintenance.json — the /water/floods riverbed tile + the /water and /water/floods prerender bodies
 npm run db:gen-water-hub-stats # ~1 s: writes data/water/derived/hub_stats.json — the /water hub; MUST follow gen-sector-stats AND gen-water-flood
+npm run db:load:transport-project-map:pg && npm run db:load:transport-facility-map:pg
+npm run db:gen-transport-hub-stats # ~1 s: writes data/transport/derived/hub_stats.json — the /sector/transport hub; MUST follow BOTH map loaders (its coverage figure reads transport_project_map()) and gen-sector-stats (KPI 1 = sector_stats all.transport)
+```
+
+The transport blob is the same shape: committed, bucket-served, not under `procurement/`.
+Sync it with `npm run bucket:sync:paths -- transport/derived/hub_stats.json`. Its gates are
+`transport_hub_figures.data.test.ts` (KPI 1 must equal `sector_stats.json` all.transport;
+every field re-derived), `transport_project_map.data.test.ts` and
+`transport_facility_map.data.test.ts` — run all three after regenerating:
+
+```bash
+npx vitest run scripts/db/tests/transport_hub_figures.data.test.ts scripts/db/tests/transport_project_map.data.test.ts scripts/db/tests/transport_facility_map.data.test.ts
 ```
 
 The two water artifacts are the same shape as the roads blob: committed, bucket-served, NOT
