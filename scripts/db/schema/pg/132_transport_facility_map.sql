@@ -6,8 +6,9 @@
 -- the same bridge the МВР / water-operator maps use:
 --   EIK -> awarder_seats seat (ekatte) -> data/settlements.json centroid [lng, lat],
 -- with a curated PHYSICAL-facility override pinning the two maritime bodies
--- (ИА „Морска администрация", ДП „Пристанищна инфраструктура") to Варна — all 11
--- group entities are Sofia-REGISTERED, so without it the map is a single pin.
+-- (ИА „Морска администрация", ДП „Пристанищна инфраструктура") to Варна — most
+-- group entities are Sofia-REGISTERED (ИАППД is Русе, Летище Пловдив Крумово), so
+-- without it the map is nearly a single pin.
 --
 -- HISTORY: this is the REBUILD of work written 2026-07-16 under migration slot
 -- 076 and never committed (076 was since taken by transport_project_map); the

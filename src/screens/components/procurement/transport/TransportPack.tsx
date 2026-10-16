@@ -245,8 +245,8 @@ export const TransportPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
             to={anchorHref("mode-split")}
             hint={
               bg
-                ? "Дял на железниците (НКЖИ + БДЖ) в стойността на групата. Виж разбивката по вид →"
-                : "Railways' (НКЖИ + БДЖ) share of the group's value. See the mode split →"
+                ? "Дял на железниците (НКЖИ, БДЖ, ИАЖА, ДП ТСВ) в стойността на групата. Виж разбивката по вид →"
+                : "Railways' (НКЖИ, БДЖ, ИАЖА, ДП ТСВ) share of the group's value. See the mode split →"
             }
           >
             <span className="text-2xl font-bold tabular-nums">

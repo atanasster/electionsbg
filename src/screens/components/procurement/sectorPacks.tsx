@@ -120,7 +120,7 @@ const MvrPack = lazy(() =>
 // No TRANSPORT_AWARDER_PATH export (deliberately, like ВСС/culture/defense/МВР): the
 // transport view's home is the /sector/transport dashboard, which the nav points at;
 // the МТС awarder page is reached from there. The pack registers by EIK below and
-// renders off the existing corpus (11-unit group roll-up) with no new ingest. Road
+// renders off the existing corpus (the TRANSPORT_ENTITIES group roll-up) with no new ingest. Road
 // building (АПИ) is a SEPARATE sector — the pack cross-links to it, never folds it.
 const TransportPack = lazy(() =>
   import("./transport/TransportPack").then((m) => ({

@@ -2385,8 +2385,8 @@ export const DATASETS: DatasetDef[] = [
       en: "rail subsidy & passengers",
     },
     desc: {
-      bg: "Данните до парите на транспорта: държавната субсидия за железниците (БДЖ PSO + НКЖИ) от Закона за държавния бюджет и жп пътниците от Eurostat, за плочката „субсидия на пътник“ на /sector/transport. Обществените поръчки на групата (~€7,3 млрд., 15 структури) идват от корпуса на договорите; пътната инфраструктура (АПИ) е отделен сектор.",
-      en: "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (~€7.3bn, 15 entities) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector.",
+      bg: "Данните до парите на транспорта: държавната субсидия за железниците (БДЖ PSO + НКЖИ) от Закона за държавния бюджет и жп пътниците от Eurostat, за плочката „субсидия на пътник“ на /sector/transport. Обществените поръчки на групата (структурите на МТС) идват от корпуса на договорите; пътната инфраструктура (АПИ) е отделен сектор.",
+      en: "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (the МТС bodies) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector.",
     },
     path: "data/transport/",
     serving: "both",
