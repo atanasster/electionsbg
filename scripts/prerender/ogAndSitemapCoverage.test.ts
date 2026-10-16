@@ -1395,13 +1395,13 @@ describe("a hub's og capture anchors on its head", () => {
         },
       },
       "src/screens/SubsidiesDashboardScreen.tsx": {
-        sha: "0d8bebb03fce848e925904e88800bb21a6d5e515",
+        sha: "e939d5c5de1f39236faed8003a8b47ba3d8fe02f",
         why:
-          "0d8bebb03f (transport-hub-v1 T3) re-points the rail-subsidy TILE to " +
-          "/sector/transport/money and anchors its figure on the scope year — a band tile " +
-          "below the `[data-hub-head]` clip, so the head card draws nothing new. Verified " +
-          "2026-10-16 by re-shooting: byte-identical (md5 below). (The previous entry, " +
-          "db66823026's keepPrevious KPI observer, expired with that commit.)",
+          "e939d5c5de (transport-hub-v1 T9) changes only the rail-subsidy TILE — a year " +
+          "with unpublished capital transfers now leads with the per-passenger figure " +
+          "instead of a €0-filled total. It sits below the `[data-hub-head]` clip, so the " +
+          "head card draws nothing new. Verified 2026-10-16 by re-shooting: byte-identical " +
+          "(md5 below). (0d8bebb03f's T3 repoint entry expired with that commit.)",
         verifiedCardMd5: {
           subsidies: "bbbcbae84bcb772138f1743fb5bccb64",
         },
