@@ -67,7 +67,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { canonicalJson, findDuplicateKeys } from "./validate";
+import { rawJson, findDuplicateKeys } from "./validate";
 import { describeRow } from "./cross_source";
 import { analyzeStaleBaseKeys, preflightOrder } from "./stale_base_keys";
 import { stripOneTimeBlock } from "./lib/retire_one_time";
@@ -414,7 +414,9 @@ const main = async (): Promise<void> => {
 
   let written = 0;
   for (const [p, rows] of nextShards) {
-    const next = canonicalJson(rows);
+    // rawJson, NOT canonicalJson: month shards keep full-precision amountEur (ingest.ts
+    // writeMonthShards writes rawJson); canonicalJson rounds money keys on every shard it touches.
+    const next = rawJson(rows);
     if (next === fs.readFileSync(p, "utf8")) continue;
     fs.writeFileSync(p, next);
     written++;

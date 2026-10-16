@@ -349,3 +349,66 @@ for corpus integrity and to close the recurring mechanism, not for the money.
 - Reuse `cross_source.ts` / `measure_cross_source.ts`; do not re-implement a lookalike.
 - Typecheck with `npx tsc -b`. Data gates: `npx vitest run scripts/db/tests/`.
 - Production (Cloud SQL) carries A1 too; see v2 §T6 for the loader chain and ordering.
+
+## 7. A3 — contract-number-less legacy twins (found 2026-10-17, CLEARED)
+
+**Found by the transport hub audit** (`docs/plans/transport-hub-v1.md`): 156 pairs over the
+transport awarders, €107,326,060, the largest the ДЗЗД Джисиеф Стара Загора–Завой rehabilitation
+counted twice (€77,479,127 under keys `62583709a53d` and `4fafad32949f`). Corpus-wide it is the
+largest same-feed class this plan has measured, **100× A1**, and every earlier measurement missed
+it for one reason: §3.1's full-content identity INCLUDES `contract_id`, and this class differs on
+exactly that field.
+
+**The defect.** An earlier legacy parse emitted every row with NO contract number and a filler
+signing date (the publication day, or 31 December of the dump year). A later parse read the
+column, the re-ingested rows took new keys, and the union merge left the old ones in place — the
+third occurrence of the §4 mechanism.
+
+**Measured** on the shards, with the sibling identity `(releaseId, native amount, currency,
+title)` — native amount, not `amountEur`, because the annex fold flips `amountEur` on the live
+twin and the orphans carry no annexes:
+
+| | rows | € |
+| --- | ---: | ---: |
+| contract-number-less twins (evicted) | **12,397** | **1,183,983,859.08** |
+| …of which `tag = 'contract'` | 12,397 | all |
+| …with a `procurement_annexes` row | 0 | — |
+| lone contract-number-less rows (no twin — NOT touched) | 14 | ~20.5M |
+| contract-number-less rows a fresh parse DOES produce (kept) | 11 | — |
+
+By year 2011–2021, 1.1–2.1k rows a year. Sector headline impact: energy −€145.6M, transport
+−€107.3M, water −€44.6M, roads −€6.4M (Postgres, `tag='contract'`, before the reload).
+
+**Validation, not inference.** Every raw dump was re-parsed with today's `parseLegacyCsv`. In every
+group (12,386 in Postgres, 12,397 on the shards — the 11 extra are pairs whose live twin was later
+annexed, caught by matching on native `amount`) the number-less row is NOT produced and every
+sibling IS. The sweep requires both conditions per row, also refuses a row whose identity the
+fresh parse produces WITHOUT a contract number (a key can move with the batch), and refuses a dump
+it cannot parse. That last clause was added after `--apply` and re-run against the pre-sweep
+backup (`--shards data/procurement/.contracts_backup_pre_contract_id`): see below.
+
+**Conflicts.** 8,965 pairs differ on a non-identity field: `numberOfTenderers` on 5,722 (5,307
+where the orphan had none; ~415 where the orphan said 1 and the live row says ≥2 — removing those
+CLEARS false single-bidder flags), `awarderName`/`contractorName` case drift, 14 `euFunded`. The
+survivor's value wins: it is what a fresh parse produces.
+
+**Shipped:**
+- `scripts/procurement/pre_contract_id_twins.ts` — the rule, unit-tested (`.test.ts`);
+- `npm run proc:dedup-pre-cid` (dry run) / `-- --apply` — validated sweep, pairs logged, 1 GB
+  backup at `data/procurement/.contracts_backup_pre_contract_id`, 108 shards rewritten with
+  `rawJson` (the old `dedup_stale_base_keys.ts` used `canonicalJson`, which rounds money keys —
+  fixed there too);
+- the `writeMonthShards` self-heal in `ingest.ts` + `ingest_legacy.ts`
+  (`evictPreContractIdTwins`, keyed on the arriving batch), source-pinned by a test;
+- the standing gate `scripts/db/tests/pre_contract_id_twins.data.test.ts`, with a rolled-back
+  planted-twin mutation check.
+
+Cloud side, nothing automatic: `db:load:pg:cloud` → `db:load:annexes:pg:cloud` → the derived
+reloads CLAUDE.md lists for a contracts change (graph, tr-company-place, persons-browse,
+person-search), then `bucket:sync` of every regenerated committed blob.
+
+**Re-validated after the hardening** (2026-10-17): the dry run against the pre-sweep backup with
+the added clause names the same **12,397 pairs, €1,183,983,859.08, and refuses none** — no
+evicted row was a genuine number-less row whose key had moved. After `db:load:pg` the gate
+(`pre_contract_id_twins.data.test.ts`) passes: 0 twins left; the 11 kept number-less rows have
+no numbered sibling, so the gate does not see them.

@@ -27,6 +27,7 @@ import {
   validateContract,
 } from "./validate";
 import { evictStaleBaseKeys, type StalePair } from "./stale_base_keys";
+import { evictPreContractIdTwins } from "./pre_contract_id_twins";
 import { readLegacyManifest, recordLegacyIngest } from "./legacy_manifest";
 import type { Contract } from "./types";
 
@@ -113,7 +114,16 @@ const writeMonthShards = (
           (p.conflicts.length ? `  [conflict: ${p.conflicts.join("; ")}]` : ""),
       );
     staleEvicted.push(...stale.evicted);
-    const merged = stale.rows.sort(rowSort);
+    // …and legacy rows minted before the parser read the contract-number column — the third
+    // occurrence of this mechanism (pre_contract_id_twins.ts). Only rows whose numbered twin
+    // THIS batch produced are evicted, so an untouched year is never re-judged.
+    const preCid = evictPreContractIdTwins(stale.rows, freshRows);
+    for (const p of preCid.evicted)
+      console.log(
+        `    → self-healed contract-number-less twin ${p.evicted.key} → ${p.survivor.key}  ` +
+          `${p.evicted.ocid} €${(p.evicted.amountEur ?? 0).toFixed(2)}`,
+      );
+    const merged = preCid.rows.sort(rowSort);
     assertUniqueKeys(merged, `${month}.json`);
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     const next = canonicalJson(merged);
