@@ -249,7 +249,7 @@ describe("SubsidiesDashboardScreen", () => {
       const text = tile!.textContent ?? "";
       expect(text).toMatch(/5[,.]08 €/);
       expect(text).toMatch(
-        /капиталовите трансфери не са публикувани|capital transfers not published/,
+        /капиталовите трансфери не са разписани в бюджета|capital transfers not set out in the budget law/,
       );
       expect(text).not.toMatch(/€0\b/);
       expect(text).toMatch(/2024/);

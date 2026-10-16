@@ -3292,8 +3292,8 @@ const DB_ROUTES = {
   // EU-funds (ИСУН) rollup over a SET of EIKs. Not date-windowed: EU-funds
   // figures are programme-period lifetime totals, not a parliament slice. Two
   // bases: the default — contracted/paid from the already-rolled
-  // fund_beneficiaries table (one row per EIK; the water pack's EU-investment tile
-  // and the transport pack) — and ?basis=grant, below.
+  // fund_beneficiaries table (one row per EIK; the water pack's EU-investment tile)
+  // — and ?basis=grant, below (the /sector/transport hub and its AI tool).
   "awarder-funds-rollup": async (dbRows, q) => {
     const eiks = s(q, "eiks")
       .split(",")
@@ -3309,6 +3309,15 @@ const DB_ROUTES = {
     // transport-hub-v1 D6 / A11. Opt-in and echoed, so every default caller is
     // byte-identical.
     if (s(q, "basis") === "grant") {
+      // ?exclude=<contract_number,…> drops named projects a sector declares out of
+      // scope (transport: МТС's RRP broadband project — „съобщения", D1; audit
+      // 2026-10-17). Echoed, so a client can tell a function that applied it from
+      // one deployed before it existed.
+      const exclude = s(q, "exclude")
+        .split(",")
+        .map((e) => e.trim())
+        .filter((e) => /^[A-Za-z0-9.-]{3,40}$/.test(e))
+        .slice(0, 50);
       const operators = await dbRows(
         `SELECT beneficiary_eik AS eik,
                 round(sum(grant_eur))::double precision AS "grantEur",
@@ -3317,11 +3326,12 @@ const DB_ROUTES = {
                 count(*)::int AS "projectCount"
          FROM fund_projects
          WHERE beneficiary_eik = ANY($1)
+           AND NOT (contract_number = ANY($2::text[]))
          GROUP BY beneficiary_eik
          ORDER BY sum(grant_eur) DESC NULLS LAST, beneficiary_eik`,
-        [eiks],
+        [eiks, exclude],
       );
-      return { body: { basis: "grant", operators } };
+      return { body: { basis: "grant", excluded: exclude, operators } };
     }
     const operators = await dbRows(
       `SELECT eik,

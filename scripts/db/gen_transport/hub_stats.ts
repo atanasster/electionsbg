@@ -29,6 +29,7 @@ import {
   TRANSPORT_INGROUP_CONTRACTORS,
   TRANSPORT_PUBLIC_CONTRACTOR_EIKS,
   TRANSPORT_VERIFY,
+  TRANSPORT_EU_FUNDS_EXCLUDED,
   transportEntityByEik,
   transportUniverseOf,
 } from "../../../src/lib/transportReferenceData";
@@ -36,6 +37,7 @@ import {
   reattributedModes,
   isPsoAward,
   passThroughOf,
+  operatingInputOf,
   directShareKnown,
 } from "../../../src/lib/transportAttributes";
 import type { GroupModelPayload } from "../../../src/lib/awarderModel";
@@ -170,25 +172,32 @@ const main = async () => {
   // Row-level rules (PSO, pass-through) run in Node, over the same rows.
   const rows = await allRows<{
     awarder_eik: string;
+    contractor_eik: string | null;
     cpv: string | null;
     title: string | null;
     amount_eur: number | null;
   }>(
-    `SELECT awarder_eik, cpv, title, amount_eur::float8 amount_eur
+    `SELECT awarder_eik, contractor_eik, cpv, title, amount_eur::float8 amount_eur
        FROM contracts WHERE tag = 'contract' AND awarder_eik = ANY($1)
         AND consortium_role IS DISTINCT FROM 'member'`,
     [eiks],
   );
   const pso = { eur: 0, contracts: 0 };
-  const passThrough = { vouchers: 0, fuel: 0, electricity: 0, insurance: 0 };
+  const passThrough = { staffBenefits: 0 };
+  const operatingInputs = { fuel: 0, electricity: 0, insurance: 0 };
+  const groupSet = new Set([...eiks, ...ingroup]);
+  let inGroupPso = 0;
   for (const r of rows) {
     const eur = num(r.amount_eur);
     if (isPsoAward(r.awarder_eik, r.cpv ?? undefined)) {
       pso.eur += eur;
       pso.contracts++;
+      if (r.contractor_eik && groupSet.has(r.contractor_eik)) inGroupPso += eur;
     }
     const kind = passThroughOf(r);
     if (kind) passThrough[kind] += eur;
+    const input = operatingInputOf(r);
+    if (input) operatingInputs[input] += eur;
   }
 
   const direct = directShareKnown(gm.r.byMethod);
@@ -220,11 +229,17 @@ const main = async () => {
       "Re-run db:load:transport-project-map:pg (applies 076)",
     );
 
+  // Grant basis (D6), without the declared out-of-sector projects (audit
+  // 2026-10-17, T2) and with no total project value (T3 — phased projects carry a
+  // total per phase, so a sum double-counts).
+  const excluded = TRANSPORT_EU_FUNDS_EXCLUDED.map((x) => x.contractNumber);
   const [eu] = await allRows<Record<string, string | null>>(
-    `SELECT count(DISTINCT beneficiary_eik) beneficiaries,
-            sum(grant_eur) grant_eur, sum(paid_eur) paid, sum(total_eur) total
+    `SELECT count(DISTINCT beneficiary_eik) FILTER (WHERE NOT (contract_number = ANY($2))) beneficiaries,
+            sum(grant_eur) FILTER (WHERE NOT (contract_number = ANY($2))) grant_eur,
+            sum(paid_eur) FILTER (WHERE NOT (contract_number = ANY($2))) paid,
+            sum(grant_eur) FILTER (WHERE contract_number = ANY($2)) excluded_grant
        FROM fund_projects WHERE beneficiary_eik = ANY($1)`,
-    [eiks],
+    [eiks, excluded],
   );
 
   const out: TransportHubStats = {
@@ -244,6 +259,7 @@ const main = async () => {
       eur: round(num(intra.eur)),
       contracts: num(intra.n),
       contractorEur: round(num(intra.contractor_eur)),
+      psoEur: round(inGroupPso),
     },
     publicContractors: {
       eur: round(num(pub.eur)),
@@ -252,11 +268,11 @@ const main = async () => {
     },
     annexGrowthEur: round(num(annex.eur)),
     pso: { eur: round(pso.eur), contracts: pso.contracts },
-    passThrough: {
-      vouchers: round(passThrough.vouchers),
-      fuel: round(passThrough.fuel),
-      electricity: round(passThrough.electricity),
-      insurance: round(passThrough.insurance),
+    passThrough: { staffBenefits: round(passThrough.staffBenefits) },
+    operatingInputs: {
+      fuel: round(operatingInputs.fuel),
+      electricity: round(operatingInputs.electricity),
+      insurance: round(operatingInputs.insurance),
     },
     direct: { directEur: round(direct.directEur), knownEur: round(direct.knownEur) }, // prettier-ignore
     topBodies: byBody.slice(0, RAIL).map((b) => ({
@@ -279,7 +295,7 @@ const main = async () => {
       beneficiaries: num(eu.beneficiaries),
       grantEur: round(num(eu.grant_eur)),
       paidEur: round(num(eu.paid)),
-      totalEur: round(num(eu.total)),
+      excludedGrantEur: round(num(eu.excluded_grant)),
     },
   };
 

@@ -1,9 +1,11 @@
 // "Европейски средства за транспорт (ИСУН)" — on /sector/transport/money#funds.
 // The bodies' EU-funds absorption per beneficiary on the GRANT basis (D6): the
-// БФП awarded (fund_projects.grant_eur) against what has actually been paid,
-// with the total project value — own contribution included — as a secondary
-// figure. The old tile divided paid by fund_beneficiaries' TOTAL project value,
-// which read НКЖИ's absorption as 30.8% for a real 65.9%.
+// БФП awarded (fund_projects.grant_eur) against what has actually been paid. No
+// total project value (audit 2026-10-17, T3): a phased project carries its total
+// once per phase — Елин Пелин–Костенец 2014 €806M and 2021 €670M — so a sum
+// double-counts. The RRP broadband project is excluded (T2, D1). The old tile
+// divided paid by fund_beneficiaries' TOTAL project value, which read НКЖИ's
+// absorption as 30.8% for a real 65.9%.
 //
 // Lifetime figures (programme periods), never scoped — the page says „без
 // период". Mirrors VikEuFundsTile.
@@ -16,12 +18,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { isBg } from "@/i18n";
 import type { TransportFundOp } from "@/data/transport/useTransportSector";
+import {
+  euFundsExcludedCaption,
+  euFundsPassThroughCaption,
+} from "@/lib/transportReferenceData";
 
 const TOP_N = 10;
 
-export const TransportEuFundsTile: FC<{ funds: TransportFundOp[] }> = ({
-  funds,
-}) => {
+export const TransportEuFundsTile: FC<{
+  funds: TransportFundOp[];
+  /** The server dropped TRANSPORT_EU_FUNDS_EXCLUDED; false on an older function,
+   *  whose figures still include them — the caption then says so. */
+  excludedApplied?: boolean;
+}> = ({ funds, excludedApplied = true }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
@@ -39,7 +48,6 @@ export const TransportEuFundsTile: FC<{ funds: TransportFundOp[] }> = ({
 
   const grant = rows.reduce((s, f) => s + f.grantEur, 0);
   const paid = rows.reduce((s, f) => s + f.paidEur, 0);
-  const projectTotal = rows.reduce((s, f) => s + f.totalEur, 0);
   const absorption = grant > 0 ? paid / grant : 0;
   const max = Math.max(...rows.map((f) => f.grantEur), 1);
   const eur = (n: number) => formatEurCompact(n, lang);
@@ -79,13 +87,12 @@ export const TransportEuFundsTile: FC<{ funds: TransportFundOp[] }> = ({
             </div>
           </div>
         </div>
-        {projectTotal > grant ? (
-          <p className="text-xs text-muted-foreground">
-            {bg
-              ? `Общата стойност на проектите, със собственото участие, е ${eur(projectTotal)}`
-              : `The projects' total value, own contribution included, is ${eur(projectTotal)}.`}
-          </p>
-        ) : null}
+        <p className="text-xs text-muted-foreground">
+          {/* The declared exclusions and pass-throughs, through the ONE caption
+              builder the hub tile, the AI tool and the prerender also use. */}
+          {euFundsExcludedCaption(bg ? "bg" : "en", excludedApplied)}{" "}
+          {euFundsPassThroughCaption(bg ? "bg" : "en")}
+        </p>
 
         <div className="space-y-1.5">
           {rows.slice(0, TOP_N).map((f) => {

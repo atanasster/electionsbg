@@ -23,6 +23,7 @@
 import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
 import type { TransportHubStats } from "@/data/transport/hubStats";
 import { formatEurCompact, formatInt } from "@/lib/currency";
+import { euFundsExcludedShort } from "@/lib/transportReferenceData";
 import { isBg } from "@/i18n";
 import {
   ALL,
@@ -133,9 +134,20 @@ export const transportHubKpis = (
     out.push({
       value: eur2(s.inGroup.eur, lang),
       label: bg ? "в държавната група" : "inside the state group",
-      basis: bg
-        ? "договори между структури на МТС, вкл. ТСВ ЕАД; не се изваждат от общата сума"
-        : "contracts between МТС bodies, incl. ТСВ ЕАД; not subtracted from the total",
+      // T7 (audit 2026-10-17): most of this is ONE multi-year estimate — the PSO
+      // contract МТС → БДЖ-ПП — so the basis line says so.
+      basis: [
+        bg
+          ? "договори между структури на МТС, вкл. ТСВ ЕАД; не се изваждат от общата сума"
+          : "contracts between МТС bodies, incl. ТСВ ЕАД; not subtracted from the total",
+        s.inGroup.psoEur
+          ? bg
+            ? `от тях ${eur2(s.inGroup.psoEur, lang)} е прогнозната стойност на договора за обществена услуга с БДЖ`
+            : `of which ${eur2(s.inGroup.psoEur, lang)} is the estimated value of the public-service contract with БДЖ`
+          : null,
+      ]
+        .filter(Boolean)
+        .join(" · "),
       to: TRANSPORT_KPI_TO.inGroup,
     });
 
@@ -294,9 +306,15 @@ export const transportTileMetric = (
             metricCaption: bg
               ? "безвъзмездна помощ (ИСУН)"
               : "grant aid (ИСУН)",
-            metricSecondary: bg
-              ? `изплатени ${eur(f.paidEur)}, за целия програмен период`
-              : `${eur(f.paidEur)} paid, over the whole programme period`,
+            // T2 (audit 2026-10-17): the RRP broadband project is out of the
+            // sector, and the tile says so rather than silently shrinking.
+            metricSecondary: f.excludedGrantEur
+              ? bg
+                ? `изплатени ${eur(f.paidEur)}; ${euFundsExcludedShort("bg")}`
+                : `${eur(f.paidEur)} paid; ${euFundsExcludedShort("en")}`
+              : bg
+                ? `изплатени ${eur(f.paidEur)}, за целия програмен период`
+                : `${eur(f.paidEur)} paid, over the whole programme period`,
           }
         : undefined;
     }

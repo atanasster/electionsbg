@@ -11,8 +11,8 @@
 //   · the browse every KPI links to lands on the blob's contract count;
 // and asserts the REJECTED bases differ, so a regression onto one of them fails:
 // the member-inclusive single-bid pair, the un-re-attributed rail share,
-// fund_beneficiaries' contracted (total-project) figure, and a CPV-only voucher
-// rule.
+// fund_beneficiaries' contracted (total-project) figure, the grant WITH the
+// out-of-sector RRP broadband project, and a CPV-only voucher rule.
 //
 // Auto-skips only when Postgres is down; the committed inputs must exist.
 
@@ -28,10 +28,12 @@ import {
   TRANSPORT_INGROUP_CONTRACTORS,
   TRANSPORT_PUBLIC_CONTRACTOR_EIKS,
   TRANSPORT_VERIFY,
+  TRANSPORT_EU_FUNDS_EXCLUDED,
 } from "@/lib/transportReferenceData";
 import {
   isPsoAward,
   passThroughOf,
+  operatingInputOf,
   directShareKnown,
 } from "@/lib/transportAttributes";
 import type { TransportHubStats } from "@/data/transport/hubStats";
@@ -194,12 +196,21 @@ test.skipIf(skip)(
 );
 
 test.skipIf(skip)(
-  "EU funds sit on the grant basis, not fund_beneficiaries' total (D6)",
+  "EU funds sit on the grant basis, without the out-of-sector projects (D6, audit T2/T3)",
   async () => {
-    const [p] = await allRows<{ grant: string; paid: string; total: string }>(
-      `SELECT sum(grant_eur) "grant", sum(paid_eur) paid, sum(total_eur) total
+    const excluded = TRANSPORT_EU_FUNDS_EXCLUDED.map((x) => x.contractNumber);
+    const [p] = await allRows<{
+      grant: string;
+      paid: string;
+      excl: string;
+      with_excl: string;
+    }>(
+      `SELECT sum(grant_eur) FILTER (WHERE NOT (contract_number = ANY($2))) "grant",
+              sum(paid_eur) FILTER (WHERE NOT (contract_number = ANY($2))) paid,
+              sum(grant_eur) FILTER (WHERE contract_number = ANY($2)) excl,
+              sum(grant_eur) with_excl
        FROM fund_projects WHERE beneficiary_eik = ANY($1)`,
-      [eiks],
+      [eiks, excluded],
     );
     const [fb] = await allRows<{ contracted: string }>(
       "SELECT sum(contracted_eur) contracted FROM fund_beneficiaries WHERE eik = ANY($1)",
@@ -208,7 +219,12 @@ test.skipIf(skip)(
     const f = blob().euFunds;
     near(Number(p.grant), f.grantEur, "euFunds.grantEur");
     near(Number(p.paid), f.paidEur, "euFunds.paidEur");
-    near(Number(p.total), f.totalEur, "euFunds.totalEur");
+    near(Number(p.excl), f.excludedGrantEur ?? 0, "euFunds.excludedGrantEur");
+    // Rejected basis: the grant WITH the RRP broadband project (€240M, D1).
+    assert.ok(Number(p.excl) > 0, "the excluded project is no longer in fund_projects — re-check TRANSPORT_EU_FUNDS_EXCLUDED"); // prettier-ignore
+    assert.notEqual(Math.round(Number(p.with_excl)), f.grantEur, "the out-of-sector project is back in the grant"); // prettier-ignore
+    // T3: no total project value in the blob at all (phases double-count).
+    assert.equal((f as Record<string, unknown>).totalEur, undefined, "euFunds.totalEur is back"); // prettier-ignore
     assert.ok(Math.abs(Number(fb.contracted) - f.grantEur) > f.grantEur * 0.2, "grant ≈ fund_beneficiaries contracted — the basis is not discriminating"); // prettier-ignore
   },
 );
@@ -222,7 +238,7 @@ test.skipIf(skip)(
         AND consortium_role IS DISTINCT FROM 'member'`,
       [eiks],
     );
-    assert.ok(blob().passThrough.vouchers > Number(r.cpv_only) * 1.2, "the title rule finds no voucher the CPV misses — НКЖИ's 98000000 rows are back out"); // prettier-ignore
+    assert.ok(blob().passThrough.staffBenefits > Number(r.cpv_only) * 1.2, "the title rule finds no voucher the CPV misses — НКЖИ's 98000000 rows are back out"); // prettier-ignore
   },
 );
 
@@ -285,11 +301,12 @@ test.skipIf(skip)("the rest of the blob re-derives from Postgres", async () => {
 
   const rows = await allRows<{
     awarder_eik: string;
+    contractor_eik: string | null;
     cpv: string | null;
     title: string | null;
     amount_eur: number | null;
   }>(
-    `SELECT awarder_eik, cpv, title, amount_eur::float8 amount_eur FROM contracts
+    `SELECT awarder_eik, contractor_eik, cpv, title, amount_eur::float8 amount_eur FROM contracts
       WHERE tag = 'contract' AND awarder_eik = ANY($1)
         AND consortium_role IS DISTINCT FROM 'member'`,
     [eiks],
@@ -301,14 +318,34 @@ test.skipIf(skip)("the rest of the blob re-derives from Postgres", async () => {
     "pso.eur",
   );
   assert.equal(pso.length, b.pso.contracts, "pso.contracts");
-  for (const kind of ["vouchers", "fuel", "electricity", "insurance"] as const)
+  near(
+    rows
+      .filter((r) => passThroughOf(r) === "staffBenefits")
+      .reduce((a, r) => a + Number(r.amount_eur ?? 0), 0),
+    b.passThrough.staffBenefits,
+    "passThrough.staffBenefits",
+  );
+  for (const kind of ["fuel", "electricity", "insurance"] as const)
     near(
       rows
-        .filter((r) => passThroughOf(r) === kind)
+        .filter((r) => operatingInputOf(r) === kind)
         .reduce((a, r) => a + Number(r.amount_eur ?? 0), 0),
-      b.passThrough[kind],
-      `passThrough.${kind}`,
+      b.operatingInputs[kind],
+      `operatingInputs.${kind}`,
     );
+  // T7: the in-group PSO estimate, re-derived over in-group rows only.
+  const group = new Set([
+    ...eiks,
+    ...TRANSPORT_INGROUP_CONTRACTORS.map((e) => e.eik),
+  ]);
+  near(
+    pso
+      .filter((r) => r.contractor_eik && group.has(r.contractor_eik))
+      .reduce((a, r) => a + Number(r.amount_eur ?? 0), 0),
+    b.inGroup.psoEur ?? 0,
+    "inGroup.psoEur",
+  );
+  assert.ok((b.inGroup.psoEur ?? 0) < b.inGroup.eur, "inGroup.psoEur is a subset of inGroup.eur"); // prettier-ignore
 
   const methods = await allRows<{ method: string | null; totalEur: number }>(
     `SELECT procurement_method method, sum(amount_eur)::float8 "totalEur" FROM contracts
@@ -344,8 +381,8 @@ test.skipIf(skip)("the rest of the blob re-derives from Postgres", async () => {
   near(m.r.coverage.totalEur, b.mapCoverage.totalEur, "mapCoverage.totalEur");
 
   const [eu] = await allRows<{ n: number }>(
-    "SELECT count(DISTINCT beneficiary_eik)::int n FROM fund_projects WHERE beneficiary_eik = ANY($1)",
-    [eiks],
+    "SELECT count(DISTINCT beneficiary_eik)::int n FROM fund_projects WHERE beneficiary_eik = ANY($1) AND NOT (contract_number = ANY($2))",
+    [eiks, TRANSPORT_EU_FUNDS_EXCLUDED.map((x) => x.contractNumber)],
   );
   assert.equal(eu.n, b.euFunds.beneficiaries, "euFunds.beneficiaries");
 });

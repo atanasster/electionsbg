@@ -36,9 +36,8 @@ export const TransportMoneyScreen: FC = () => {
   // tile does not show. Same query as the tile's, so no second fetch.
   const { latest } = useRailSubsidy(year);
   const railYear = year != null ? (latest?.year ?? null) : null;
-  const { funds, grantBasis, isLoading, isError } = useTransportFunds(
-    TRANSPORT_SECTOR_EIKS,
-  );
+  const { funds, grantBasis, excludedApplied, isLoading, isError } =
+    useTransportFunds(TRANSPORT_SECTOR_EIKS);
   const sectorWide = bg
     ? "Данните тук са за целия сектор и не се разделят по вид транспорт."
     : "The figures here are for the whole sector and are not split by mode.";
@@ -87,7 +86,10 @@ export const TransportMoneyScreen: FC = () => {
               : "The EU funds on the grant basis are not published yet."}
           </p>
         ) : (
-          <TransportEuFundsTile funds={funds} />
+          <TransportEuFundsTile
+            funds={funds}
+            excludedApplied={excludedApplied}
+          />
         )}
       </section>
       <section id="peers" className="scroll-mt-24">

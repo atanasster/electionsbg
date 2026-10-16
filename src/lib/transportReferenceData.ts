@@ -232,6 +232,52 @@ export const TRANSPORT_PUBLIC_CONTRACTORS: {
     principal: "state",
   },
   { eik: "202218735", name: "„Център за градска мобилност“ ЕАД", principal: "municipal" }, // prettier-ignore
+  // transport-hub-v1 audit 2026-10-17 (T10): the МТС HQ's heat and gas suppliers.
+  // EIKs taken from contracts.contractor_eik (€805,973 and €359,479).
+  { eik: "831609046", name: "„Топлофикация София“ ЕАД", principal: "municipal" }, // prettier-ignore
+  { eik: "175203485", name: "„Булгаргаз“ ЕАД", principal: "state" },
+];
+
+/** EU-FUNDED PROJECTS OUTSIDE THE SECTOR — fund_projects rows held by a transport
+ *  body whose subject is not the movement of people or goods (D1). Excluded from
+ *  every transport EU-funds figure (the hub blob, /money#funds, the AI tool) by
+ *  contract number, and named in the caption. transport-hub-v1 audit 2026-10-17. */
+export const TRANSPORT_EU_FUNDS_EXCLUDED: {
+  contractNumber: string;
+  eik: string;
+  label: { bg: string; en: string };
+  why: string;
+}[] = [
+  {
+    // МТС's RRP broadband project, €240,251,787 grant, nothing paid by 2026-10:
+    // the „съобщения" half of the ministry, outside the sector under D1.
+    contractNumber: "BG-RRP-7.001-0001",
+    eik: TRANSPORT_EIK,
+    label: {
+      bg: "проекта за цифрова инфраструктура (съобщения)",
+      en: "the digital-infrastructure project (communications)",
+    },
+    why: "широколентова инфраструктура — „съобщения“, извън сектора (D1)",
+  },
+];
+
+/** EU-funded projects that PASS THROUGH a transport body to others — kept in the
+ *  figure (the body is the beneficiary of record) and captioned where they rank.
+ *  transport-hub-v1 audit 2026-10-17. */
+export const TRANSPORT_EU_FUNDS_PASS_THROUGH: {
+  contractNumber: string;
+  eik: string;
+  label: { bg: string; en: string };
+}[] = [
+  {
+    // ОПИК 2.079, €13.3M: aid the ministry passed on to bus operators (COVID).
+    contractNumber: "BG16RFOP002-2.079-0002",
+    eik: TRANSPORT_EIK,
+    label: {
+      bg: "помощ, предоставена на автобусни превозвачи",
+      en: "aid passed on to bus operators",
+    },
+  },
 ];
 
 /** The HHI / top-suppliers tiles' `memberEiks`: the roll-up PLUS the in-group
@@ -246,3 +292,45 @@ export const TRANSPORT_GROUP_EIKS: string[] = [
 /** The tiles' `stateBodyEiks` — public bodies outside the group (D9). */
 export const TRANSPORT_PUBLIC_CONTRACTOR_EIKS: string[] =
   TRANSPORT_PUBLIC_CONTRACTORS.map((e) => e.eik);
+
+// ── The ONE caption builder for the two lists above (review 2026-10-17, DUP-004) ──
+// The hub tile, /money#funds, the AI tool and the prerendered /money body all
+// name the exclusions through these, so a second entry reaches every surface and
+// the verb agrees with the count („който е" / „които са").
+const joinLabels = (
+  xs: { label: { bg: string; en: string } }[],
+  lang: "bg" | "en",
+): string => xs.map((x) => x.label[lang]).join(lang === "bg" ? " и " : " and ");
+
+/** „без проекта за цифрова инфраструктура (съобщения)" — the short form. */
+export const euFundsExcludedShort = (lang: "bg" | "en"): string =>
+  TRANSPORT_EU_FUNDS_EXCLUDED.length
+    ? `${lang === "bg" ? "без" : "without"} ${joinLabels(TRANSPORT_EU_FUNDS_EXCLUDED, lang)}`
+    : "";
+
+/** The full sentence; `applied` false is a function deployed before ?exclude=,
+ *  whose figure still includes the projects. */
+export const euFundsExcludedCaption = (
+  lang: "bg" | "en",
+  applied: boolean,
+): string => {
+  const n = TRANSPORT_EU_FUNDS_EXCLUDED.length;
+  if (!n) return "";
+  const labels = joinLabels(TRANSPORT_EU_FUNDS_EXCLUDED, lang);
+  const one = n === 1;
+  if (lang === "bg")
+    return applied
+      ? `Без ${labels} — ${one ? "той е" : "те са"} извън сектора.`
+      : `Сумата все още включва ${labels}, ${one ? "който е" : "които са"} извън сектора.`;
+  return applied
+    ? `Without ${labels} — ${one ? "it is" : "they are"} outside the sector.`
+    : `The figure still includes ${labels}, ${one ? "which is" : "which are"} outside the sector.`;
+};
+
+/** The pass-through projects, as one sentence. */
+export const euFundsPassThroughCaption = (lang: "bg" | "en"): string =>
+  TRANSPORT_EU_FUNDS_PASS_THROUGH.length
+    ? lang === "bg"
+      ? `Сумата включва и ${joinLabels(TRANSPORT_EU_FUNDS_PASS_THROUGH, "bg")} — тези средства не остават в сектора.`
+      : `The figure also includes ${joinLabels(TRANSPORT_EU_FUNDS_PASS_THROUGH, "en")} — money that does not stay in the sector.`
+    : "";

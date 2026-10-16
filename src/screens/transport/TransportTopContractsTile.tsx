@@ -2,12 +2,16 @@
 // level accountability view the aggregates can't give. On
 // /sector/transport/procurement#top-contracts.
 //
-// TWO KINDS OF ROW ARE CAPTIONED, NEVER FILTERED (G2 / G9):
+// THREE KINDS OF ROW ARE CAPTIONED, NEVER FILTERED (G2 / G9, audit 2026-10-17):
 //   • the rail public-service awards (МТС + CPV 6021*, isPsoAward) carry a
 //     multi-year „прогнозна стойност" — €1.40bn against an annual PSO of ~€110M —
 //     so each reads „многогодишен договор за обществена услуга, прогнозна стойност";
-//   • pass-through spend (food vouchers, fuel, electricity, insurance —
-//     passThroughOf) ranks as procurement but buys no transport; it is labelled.
+//   • staff benefits (food vouchers, food in kind, the pension top-up —
+//     passThroughOf) pass through to the staff and buy no transport;
+//   • loans (isLoanRow — the Eurofima „паричен заем", intra-group credit) are
+//     borrowed money, not a purchase.
+// Fuel, electricity and insurance are the operator's running inputs, not
+// pass-through, and carry no caption (T6).
 // The route returns awarderEik + cpv for exactly this; an older function omits
 // them and the rows then simply carry no caption. The group model carries no
 // per-contract rows, so this queries the `awarder-group-top-contracts` PG endpoint —
@@ -25,6 +29,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { TRANSPORT_SECTOR_EIKS } from "@/lib/transportReferenceData";
 import {
+  isLoanRow,
   isPsoAward,
   passThroughOf,
   type PassThrough,
@@ -48,10 +53,10 @@ interface TopContract {
 }
 
 const PASS_LABEL: Record<PassThrough, { bg: string; en: string }> = {
-  vouchers: { bg: "ваучери за храна", en: "food vouchers" },
-  fuel: { bg: "горива", en: "fuel" },
-  electricity: { bg: "електроенергия", en: "electricity" },
-  insurance: { bg: "застраховки", en: "insurance" },
+  staffBenefits: {
+    bg: "придобивки за служителите (ваучери, храна)",
+    en: "staff benefits (vouchers, food)",
+  },
 };
 
 const useTransportTopContracts = (
@@ -192,6 +197,11 @@ export const TransportTopContractsTile: FC<{ eiks?: readonly string[] }> = ({
                   </span>
                 ) : null;
               })()}
+              {isLoanRow(c.title, c.cpv) ? (
+                <span className="rounded bg-muted px-1 font-medium text-foreground">
+                  {bg ? "заем, не покупка" : "a loan, not a purchase"}
+                </span>
+              ) : null}
               {c.numberOfTenderers === 1 && (
                 <span className="rounded bg-amber-500/15 px-1 font-medium text-amber-600 dark:text-amber-400">
                   {bg ? "1 оферта" : "1 bid"}

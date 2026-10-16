@@ -46,10 +46,6 @@ const FACT_LABELS: Record<string, { bg: string; en: string }> = {
   total_contracted: { bg: "Общо договорено", en: "Total contracted" },
   total_paid: { bg: "Общо платено", en: "Total paid" },
   total_grant: { bg: "Безвъзмездна помощ", en: "Grant aid" },
-  total_project_value: {
-    bg: "Обща стойност на проектите",
-    en: "Total project value",
-  },
   avg_contract: { bg: "Среден договор", en: "Avg contract" },
   top_contractor: { bg: "Топ изпълнител", en: "Top contractor" },
   top_awarder: { bg: "Топ възложител", en: "Top buyer" },

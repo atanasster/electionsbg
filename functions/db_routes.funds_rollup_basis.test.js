@@ -25,7 +25,20 @@ test("basis=grant reads fund_projects and echoes its basis", async () => {
   assert.match(calls[0].sql, /FROM fund_projects/);
   assert.match(calls[0].sql, /sum\(grant_eur\)/);
   assert.equal(r.body.basis, "grant");
-  assert.deepEqual(calls[0].params, [["130823243"]]);
+  assert.deepEqual(calls[0].params, [["130823243"], []]);
+  assert.deepEqual(r.body.excluded, []);
+});
+
+test("basis=grant drops the named projects and echoes what it excluded", async () => {
+  const { r, calls } = await capture({
+    eiks: "000695388",
+    basis: "grant",
+    exclude: "BG-RRP-7.001-0001, x' OR 1=1",
+  });
+  assert.match(calls[0].sql, /NOT \(contract_number = ANY\(\$2::text\[\]\)\)/);
+  // A malformed contract number is dropped, never interpolated.
+  assert.deepEqual(calls[0].params[1], ["BG-RRP-7.001-0001"]);
+  assert.deepEqual(r.body.excluded, ["BG-RRP-7.001-0001"]);
 });
 
 test("an unknown basis falls back to the default, never to SQL", async () => {

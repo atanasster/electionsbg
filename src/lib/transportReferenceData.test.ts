@@ -38,6 +38,10 @@ import {
   TRANSPORT_INGROUP_CONTRACTORS,
   TRANSPORT_PUBLIC_CONTRACTORS,
   TRANSPORT_GROUP_EIKS,
+  TRANSPORT_EU_FUNDS_EXCLUDED,
+  TRANSPORT_EU_FUNDS_PASS_THROUGH,
+  euFundsExcludedCaption,
+  euFundsExcludedShort,
   TRANSPORT_PUBLIC_CONTRACTOR_EIKS,
   transportEntityByEik,
   transportUniverseOf,
@@ -239,5 +243,46 @@ describe("lookup helpers", () => {
     }
     expect(transportEntityByEik("000000000")).toBeUndefined();
     expect(transportUniverseOf("000000000")).toBeUndefined();
+  });
+});
+
+describe("the EU-funds exclusion and pass-through lists (audit 2026-10-17, T2)", () => {
+  it("names each project once, on a sector body, with a reason", () => {
+    const nums = [
+      ...TRANSPORT_EU_FUNDS_EXCLUDED,
+      ...TRANSPORT_EU_FUNDS_PASS_THROUGH,
+    ].map((x) => x.contractNumber);
+    expect(new Set(nums).size).toBe(nums.length);
+    for (const x of [
+      ...TRANSPORT_EU_FUNDS_EXCLUDED,
+      ...TRANSPORT_EU_FUNDS_PASS_THROUGH,
+    ]) {
+      expect(TRANSPORT_SECTOR_EIKS).toContain(x.eik);
+      expect(x.label.bg && x.label.en).toBeTruthy();
+    }
+    for (const x of TRANSPORT_EU_FUNDS_EXCLUDED)
+      expect(x.why.length).toBeGreaterThan(10);
+  });
+
+  it("excludes the RRP broadband project (D1 — „съобщения“)", () => {
+    expect(TRANSPORT_EU_FUNDS_EXCLUDED.map((x) => x.contractNumber)).toContain(
+      "BG-RRP-7.001-0001",
+    );
+  });
+});
+
+describe("the shared EU-funds caption builder (DUP-004)", () => {
+  it("names the exclusion with a verb that agrees with the count, both ways", () => {
+    const one = TRANSPORT_EU_FUNDS_EXCLUDED.length === 1;
+    expect(euFundsExcludedCaption("bg", true)).toMatch(
+      one ? /— той е извън сектора\.$/ : /— те са извън сектора\.$/,
+    );
+    expect(euFundsExcludedCaption("bg", false)).toMatch(
+      one ? /, който е извън сектора\.$/ : /, които са извън сектора\.$/,
+    );
+    expect(euFundsExcludedCaption("en", true)).toMatch(/^Without /);
+    expect(euFundsExcludedShort("bg")).toMatch(/^без /);
+    for (const x of TRANSPORT_EU_FUNDS_EXCLUDED)
+      expect(euFundsExcludedCaption("bg", true)).toContain(x.label.bg);
   });
 });

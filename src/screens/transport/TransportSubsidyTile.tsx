@@ -95,8 +95,8 @@ export const TransportSubsidyTile: FC<{
           <p className="text-xs text-muted-foreground">
             {latest.capitalMissing
               ? bg
-                ? `Капиталовите трансфери за ${latest.year} г. (за БДЖ и НКЖИ) не са публикувани, затова общата субсидия за железниците за годината не се показва. Субсидията на пътник по-горе ползва само PSO и е пълна.`
-                : `The capital transfers for ${latest.year} (to БДЖ and НКЖИ) are not published, so no total rail subsidy is shown for the year. The per-passenger figure above uses the PSO only and is complete.`
+                ? `Капиталовите трансфери за ${latest.year} г. (за БДЖ и НКЖИ) не са разписани в Закона за държавния бюджет, затова общата субсидия за железниците за годината не се показва. Субсидията на пътник по-горе ползва само PSO и е пълна.`
+                : `The capital transfers for ${latest.year} (to БДЖ and НКЖИ) are not set out in the State Budget Law, so no total rail subsidy is shown for the year. The per-passenger figure above uses the PSO only and is complete.`
               : bg
                 ? `Общата субсидия за железниците за ${latest.year} г. не може да се състави — част от нея не е публикувана.`
                 : `The total rail subsidy for ${latest.year} cannot be assembled — part of it is not published.`}

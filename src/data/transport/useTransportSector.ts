@@ -30,6 +30,7 @@ import {
 } from "@/lib/transportAttributes";
 import {
   TRANSPORT_EIK,
+  TRANSPORT_EU_FUNDS_EXCLUDED,
   transportEntityByEik,
   type TransportUniverse,
 } from "@/lib/transportReferenceData";
@@ -169,18 +170,23 @@ export const useTransportRollup = (
   };
 };
 
-/** One ИСУН beneficiary on the grant basis (D6). */
+/** One ИСУН beneficiary on the grant basis (D6). No total project value: a
+ *  phased project carries its total once per phase, so summing it double-counts
+ *  (transport-hub-v1 audit 2026-10-17, T3). */
 export interface TransportFundOp {
   eik: string;
   name: string;
   universe: TransportUniverse | "";
   /** БФП — the grant awarded. The contracted figure on this basis. */
   grantEur: number;
-  /** Total project value, own contribution included — secondary. */
-  totalEur: number;
   paidEur: number;
   projectCount: number;
 }
+
+/** Declared out-of-sector projects (audit 2026-10-17, T2), sent as ?exclude. */
+const EXCLUDE = TRANSPORT_EU_FUNDS_EXCLUDED.map((x) => x.contractNumber).join(
+  ",",
+);
 
 export const useTransportFunds = (
   eiks: readonly string[],
@@ -189,14 +195,24 @@ export const useTransportFunds = (
   /** The server confirmed the grant basis; an older function ignores the param
    *  and answers on fund_beneficiaries' total-project-value basis instead. */
   grantBasis: boolean;
+  /** The server confirmed it dropped TRANSPORT_EU_FUNDS_EXCLUDED (audit T2). A
+   *  function deployed before ?exclude answers WITH them, and the page says so. */
+  excludedApplied: boolean;
   isLoading: boolean;
   isError: boolean;
 } => {
   const eikParam = useEikParam(eiks);
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["db", "awarder-funds-rollup", "grant", eikParam] as const,
+    queryKey: [
+      "db",
+      "awarder-funds-rollup",
+      "grant",
+      eikParam,
+      EXCLUDE,
+    ] as const,
     queryFn: async (): Promise<{
       basis?: string;
+      excluded?: string[];
       operators: {
         eik: string;
         grantEur?: number;
@@ -206,7 +222,7 @@ export const useTransportFunds = (
       }[];
     }> => {
       const r = await fetch(
-        `/api/db/awarder-funds-rollup?basis=grant&eiks=${encodeURIComponent(eikParam)}`,
+        `/api/db/awarder-funds-rollup?basis=grant&eiks=${encodeURIComponent(eikParam)}&exclude=${encodeURIComponent(EXCLUDE)}`,
       );
       if (!r.ok) throw new Error(`awarder-funds-rollup -> ${r.status}`);
       return r.json();
@@ -225,7 +241,6 @@ export const useTransportFunds = (
               name: ent?.name ?? `ЕИК ${o.eik}`,
               universe: ent?.universe ?? ("" as const),
               grantEur: o.grantEur ?? 0,
-              totalEur: o.totalEur ?? 0,
               paidEur: o.paidEur,
               projectCount: o.projectCount,
             };
@@ -233,5 +248,8 @@ export const useTransportFunds = (
         : [],
     [data, grantBasis],
   );
-  return { funds, grantBasis, isLoading, isError };
+  const excludedApplied = EXCLUDE.split(",").every((c) =>
+    (data?.excluded ?? []).includes(c),
+  );
+  return { funds, grantBasis, excludedApplied, isLoading, isError };
 };

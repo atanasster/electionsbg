@@ -79,6 +79,7 @@ export const TransportEuPeerTile: FC = () => {
       />
     );
 
+  const greeceMissing = row.GR?.GF0405 == null;
   const euPct = row["EU27_2020"]?.GF0405 ?? band.euAvgPctGdp ?? null;
   const max = Math.max(...rows.map((r) => r.pct), euPct ?? 0, 1);
   const topGeo = band.top?.geo ?? "BG";
@@ -165,6 +166,16 @@ export const TransportEuPeerTile: FC = () => {
             {bg
               ? `в ЕС по разход за транспорт (% от БВП, ${band.year} г.)`
               : `in the EU on transport spend (% of GDP, ${band.year})`}
+            {/* G13 (audit 2026-10-17): data/cofog.json was fetched asking Eurostat
+                for GR, which it codes EL, so Greece is missing from bands minted
+                before scripts/macro/fetch_cofog.ts was fixed. Keyed on GREECE'S OWN
+                value, never on the member count — a lagging reporter also makes
+                the count 26 (review FINDING-002). */}
+            {greeceMissing
+              ? bg
+                ? " — без Гърция"
+                : " — Greece not included"
+              : null}
           </span>
         </div>
 

@@ -187,13 +187,28 @@ export const isMinistryRailCpv = (
   isPsoAward(awarderEik, cpv) ||
   (awarderEik === TRANSPORT_EIK && normCpv(cpv).startsWith("346"));
 
+/** A ministry contract that IS maritime / Danube spending (transport-hub-v1
+ *  audit 2026-10-17, T9): river dredging works (CPV 45247*) and the marker and
+ *  survey boats (3451*). Only these two: the rest of the ministry's residue
+ *  (~€80M — ICT, the e-government portal, the digital-TV campaign, HQ upkeep) has
+ *  no clean CPV rule and stays on the ministry row, captioned on #modes. */
+export const isMinistryMaritimeCpv = (
+  awarderEik: string,
+  cpv: string | undefined,
+): boolean => {
+  if (awarderEik !== TRANSPORT_EIK) return false;
+  const c = normCpv(cpv);
+  return c.startsWith("45247") || c.startsWith("3451");
+};
+
 export interface ModeEur {
   universe: TransportUniverse;
   eur: number;
 }
 
 /**
- * Per-mode € with the ministry's rail contracts re-attributed to rail (D8).
+ * Per-mode € with the ministry's rail contracts re-attributed to rail (D8), and
+ * its dredging and boats to maritime (audit 2026-10-17).
  * `byUnit` is the group's per-awarder €; `ministryByCpv` is the ministry's own
  * per-CPV € (an awarder-group-model call over [TRANSPORT_EIK]). Σ in == Σ out:
  * money only moves between modes, so the total is the headline's.
@@ -208,13 +223,17 @@ export const reattributedModes = (
     if (!uni) continue;
     acc.set(uni, (acc.get(uni) ?? 0) + u.totalEur);
   }
-  const moved = ministryByCpv
-    .filter((c) => isMinistryRailCpv(TRANSPORT_EIK, c.cpv))
-    .reduce((a, c) => a + c.totalEur, 0);
-  if (moved) {
-    acc.set("ministry", (acc.get("ministry") ?? 0) - moved);
-    acc.set("rail", (acc.get("rail") ?? 0) + moved);
-  }
+  const move = (to: TransportUniverse, eur: number) => {
+    if (!eur) return;
+    acc.set("ministry", (acc.get("ministry") ?? 0) - eur);
+    acc.set(to, (acc.get(to) ?? 0) + eur);
+  };
+  const sumOf = (rule: (eik: string, cpv: string) => boolean) =>
+    ministryByCpv
+      .filter((c) => rule(TRANSPORT_EIK, c.cpv))
+      .reduce((a, c) => a + c.totalEur, 0);
+  move("rail", sumOf(isMinistryRailCpv));
+  move("maritime", sumOf(isMinistryMaritimeCpv));
   return [...acc].map(([universe, eur]) => ({ universe, eur }));
 };
 
@@ -229,30 +248,80 @@ export function isPsoAward(
   return awarderEik === TRANSPORT_EIK && normCpv(cpv).startsWith("6021");
 }
 
-export type PassThrough = "vouchers" | "fuel" | "electricity" | "insurance";
+// ── Pass-through vs operating inputs (transport-hub-v1 audit 2026-10-17, T6) ──
+//
+// Only STAFF BENEFITS pass through the buyer to someone else: food vouchers, food
+// in kind („безплатна храна", CPV 15*) and the voluntary pension top-up. Fuel,
+// electricity and insurance are OPERATING INPUTS of a transport operator —
+// traction diesel and power, rolling-stock and fleet insurance — and are NOT
+// pass-through; they are typed (operatingInputOf) but never captioned as such.
+
+export type PassThrough = "staffBenefits";
+export type OperatingInput = "fuel" | "electricity" | "insurance";
 
 // „талон" counts only next to „храна": bare, it is ИААА's €28.4M „контролни талони"
 // print run and the Sofia parking coupons, neither of which is a staff voucher.
 const VOUCHER_TITLE =
-  /(?<![\p{L}\p{N}])ваучер\p{L}*(?![\p{L}\p{N}])|карти за храна|храна[^.]{0,40}(?:ваучер|талон)|талон\p{L}*\s+за\s+храна/iu;
+  /(?<![\p{L}\p{N}])ваучер\p{L}*(?![\p{L}\p{N}])|карти за храна|храна[^.]{0,40}(?:ваучер|талон)|талон\p{L}*\s+за\s+храна|безплатна\s+храна/iu;
 
 /**
- * Spending that passes through the buyer to its staff or a utility rather than
- * buying transport (G9): food vouchers, fuel, electricity, insurance. CPV alone is
- * not enough — НКЖИ's vouchers from Български пощи are filed under CPV 98000000 —
- * so vouchers are matched on the title. Captioned where they rank; never filtered.
+ * Spending that passes through the buyer to its STAFF rather than buying
+ * transport: food vouchers (CPV 30199770, or by title — НКЖИ's from Български пощи
+ * are filed under 98000000, so CPV alone misses them), food in kind (CPV 15*,
+ * „безплатна храна") and the voluntary pension insurance (CPV 6652*). Captioned
+ * where they rank; never filtered.
  */
 export const passThroughOf = (row: {
   title?: string | null;
   cpv?: string | null;
 }): PassThrough | null => {
   const c = normCpv(row.cpv);
-  if (c.startsWith("30199770") || VOUCHER_TITLE.test(row.title ?? ""))
-    return "vouchers";
-  if (c.startsWith("0931")) return "electricity";
-  if (c.startsWith("091")) return "fuel";
-  if (c.startsWith("665")) return "insurance";
+  if (
+    c.startsWith("30199770") ||
+    c.startsWith("15") ||
+    c.startsWith("6652") ||
+    VOUCHER_TITLE.test(row.title ?? "")
+  )
+    return "staffBenefits";
   return null;
+};
+
+/**
+ * The operator's running inputs: fuel (091*), electricity (0931*, and grid access
+ * and transmission, CPV 653*) and insurance (6600* and 665*, minus the pension
+ * top-up 6652*, a staff benefit). A staff benefit wins: it is checked first.
+ */
+export const operatingInputOf = (row: {
+  title?: string | null;
+  cpv?: string | null;
+}): OperatingInput | null => {
+  if (passThroughOf(row)) return null;
+  const c = normCpv(row.cpv);
+  if (c.startsWith("0931") || c.startsWith("653")) return "electricity";
+  if (c.startsWith("091")) return "fuel";
+  // POSITIVE match (review 2026-10-17, FINDING-005): 66* also holds banking
+  // (6610*), brokerage and fund management (6613*–6616*) and treasury (666*),
+  // none of which is insurance.
+  if (c.startsWith("6600") || (c.startsWith("665") && !c.startsWith("6652")))
+    return "insurance";
+  return null;
+};
+
+const LOAN_TITLE =
+  /(?<![\p{L}\p{N}])(?:паричен|банков|дългосрочен|краткосрочен)\s+заем|(?<![\p{L}\p{N}])кредит(?![\p{L}\p{N}])/iu;
+
+/**
+ * A loan or credit facility recorded as a contract (audit 2026-10-17, T8): the
+ * Eurofima „паричен заем" and the intra-group credit (CPV 66113*, credit granting).
+ * The amount is borrowed money, not a purchase — captioned where it ranks, never
+ * excluded (it is in the register's own total).
+ */
+export const isLoanRow = (
+  title: string | null | undefined,
+  cpv: string | null | undefined,
+): boolean => {
+  const c = normCpv(cpv);
+  return c.startsWith("66113") || LOAN_TITLE.test(title ?? "");
 };
 
 /**

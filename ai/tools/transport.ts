@@ -32,7 +32,10 @@ import {
 } from "@/lib/transportAttributes";
 import {
   TRANSPORT_EIK,
+  TRANSPORT_EU_FUNDS_EXCLUDED,
   TRANSPORT_SECTOR_EIKS,
+  euFundsExcludedCaption,
+  euFundsPassThroughCaption,
   TRANSPORT_UNIVERSES,
   transportEntityByEik,
   transportUniverseLabel,
@@ -181,10 +184,10 @@ export const transportSpending = async (
 
 interface FundsRollup {
   basis?: string;
+  excluded?: string[];
   operators: {
     eik: string;
     grantEur?: number;
-    totalEur?: number;
     paidEur: number;
     projectCount: number;
   }[];
@@ -192,24 +195,31 @@ interface FundsRollup {
 
 // "Колко европейски пари усвоява транспортът?" — ИСУН on the GRANT basis (БФП,
 // fund_projects — D6): the grant awarded against what has been paid, the hub's
-// /money#funds figure. The total project value (own contribution included) is a
-// secondary fact; dividing paid by it halved the absorption rate.
+// /money#funds figure. Without the declared out-of-sector projects (the RRP
+// broadband project — transport-hub-v1 audit 2026-10-17, T2) and with NO total
+// project value: a phased project carries its total once per phase, so a sum
+// double-counts (T3).
 export const transportEuFunds = async (
   _args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const { operators, basis } = await fetchDb<FundsRollup>(
+  const exclude = TRANSPORT_EU_FUNDS_EXCLUDED.map((x) => x.contractNumber);
+  const { operators, basis, excluded } = await fetchDb<FundsRollup>(
     "awarder-funds-rollup",
-    { eiks: TRANSPORT_SECTOR_EIKS.join(","), basis: "grant" },
+    {
+      eiks: TRANSPORT_SECTOR_EIKS.join(","),
+      basis: "grant",
+      exclude: exclude.join(","),
+    },
   );
+  const excludedApplied = exclude.every((c) => (excluded ?? []).includes(c));
   // An older function ignores ?basis and answers on the total-value basis; refuse
   // to label that as grant aid.
   const rows0 =
     basis === "grant" ? operators.filter((o) => (o.grantEur ?? 0) > 0) : [];
   const grant = rows0.reduce((s, o) => s + (o.grantEur ?? 0), 0);
   const paid = rows0.reduce((s, o) => s + o.paidEur, 0);
-  const projectTotal = rows0.reduce((s, o) => s + (o.totalEur ?? 0), 0);
   const absorption = grant > 0 ? paid / grant : 0;
 
   const named = rows0
@@ -257,8 +267,6 @@ export const transportEuFunds = async (
     facts: {
       total_grant: grant > 0 ? fmtEurCompact(grant, ctx.lang) : "—",
       total_paid: grant > 0 ? fmtEurCompact(paid, ctx.lang) : "—",
-      total_project_value:
-        projectTotal > 0 ? fmtEurCompact(projectTotal, ctx.lang) : "—",
       absorption: grant > 0 ? pct(absorption, ctx.lang) : "—",
       top_beneficiary: top
         ? `${top.name} (${fmtEurCompact(top.grantEur, ctx.lang)}, ${pct(top.abs, ctx.lang)})`
@@ -266,9 +274,15 @@ export const transportEuFunds = async (
       lowest_absorber: stalled
         ? `${stalled.name} (${fmtEurCompact(stalled.grantEur, ctx.lang)}, ${pct(stalled.abs, ctx.lang)})`
         : "—",
-      note: bg
-        ? "Безвъзмездната финансова помощ (БФП) по проектите в ИСУН, за целия програмен период — не по избран парламент. Общата стойност на проектите включва и собственото участие."
-        : "The grant aid (БФП) on the ИСУН projects, over the whole programme period — not scoped to a parliament. The total project value includes the own contribution.",
+      note: [
+        bg
+          ? "Безвъзмездната финансова помощ (БФП) по проектите в ИСУН, за целия програмен период — не по избран парламент."
+          : "The grant aid (БФП) on the ИСУН projects, over the whole programme period — not scoped to a parliament.",
+        euFundsExcludedCaption(ctx.lang, excludedApplied),
+        euFundsPassThroughCaption(ctx.lang),
+      ]
+        .filter(Boolean)
+        .join(" "),
     },
     provenance: ["db:awarder-funds-rollup?basis=grant (ИСУН fund_projects)"],
   };
@@ -326,8 +340,8 @@ export const railSubsidy = async (
       passengers:
         latest?.passengers != null ? fmtInt(latest.passengers, ctx.lang) : "—",
       note: bg
-        ? `Субсидията на пътник ползва само PSO (оперативната субсидия за превоза); НКЖИ е инфраструктура. Бюджетирана субсидия (ЗДБ); пътници от Eurostat (национален жп ≈ БДЖ).${latest?.capitalMissing ? ` Капиталовите трансфери за ${latest.year} г. не са разписани в закона, затова обща сума за годината няма.` : ""}`
-        : `“Per passenger” uses the PSO (operating) subsidy only; НКЖИ is infrastructure. Budgeted subsidy (State Budget Law); passengers from Eurostat (national rail ≈ БДЖ).${latest?.capitalMissing ? ` The law does not set the ${latest.year} capital transfers, so there is no total for that year.` : ""}`,
+        ? `Субсидията на пътник ползва само PSO (оперативната субсидия за превоза); НКЖИ е инфраструктура. Бюджетирана субсидия (ЗДБ); пътници от Eurostat (национален жп ≈ БДЖ).${latest?.capitalMissing ? ` Капиталовите трансфери за ${latest.year} г. не са разписани в Закона за държавния бюджет, затова обща сума за годината няма.` : ""}`
+        : `“Per passenger” uses the PSO (operating) subsidy only; НКЖИ is infrastructure. Budgeted subsidy (State Budget Law); passengers from Eurostat (national rail ≈ БДЖ).${latest?.capitalMissing ? ` The capital transfers for ${latest.year} are not set out in the State Budget Law, so there is no total for that year.` : ""}`,
     },
     provenance: [
       "transport/rail_subsidy.json (ЗДБ)",

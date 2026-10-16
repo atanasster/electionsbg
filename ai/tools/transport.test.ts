@@ -77,6 +77,32 @@ describe("transportEuFunds", () => {
     }); // prettier-ignore
     const env = await transportEuFunds({}, ctx);
     expect(env.facts?.absorption).toBe("66%");
+    // T3 (audit 2026-10-17): no total project value — phases double-count.
+    expect(env.facts?.total_project_value).toBeUndefined();
+  });
+
+  it("asks the route to drop the out-of-sector projects and says whether it did (T2)", async () => {
+    vi.mocked(fetchDb).mockResolvedValue({
+      basis: "grant",
+      excluded: ["BG-RRP-7.001-0001"],
+      operators: [{ eik: NKZHI, grantEur: 1_000_000_000, paidEur: 660_000_000, projectCount: 40 }],
+    }); // prettier-ignore
+    const env = await transportEuFunds({}, ctx);
+    expect(vi.mocked(fetchDb).mock.calls.at(-1)?.[1]).toMatchObject({
+      exclude: "BG-RRP-7.001-0001",
+    });
+    expect(String(env.facts?.note)).toMatch(
+      /^The grant aid.*Without the digital-infrastructure project.*it is outside the sector/,
+    );
+
+    vi.mocked(fetchDb).mockResolvedValue({
+      basis: "grant",
+      operators: [{ eik: NKZHI, grantEur: 1_000_000_000, paidEur: 660_000_000, projectCount: 40 }],
+    }); // prettier-ignore
+    const old = await transportEuFunds({}, ctx);
+    expect(String(old.facts?.note)).toMatch(
+      /still includes the digital-infrastructure project/,
+    );
   });
 });
 
@@ -93,7 +119,7 @@ describe("railSubsidy", () => {
     expect(env.facts?.nkzhi_subsidy).toBe("—");
     expect(env.facts?.subsidy_per_passenger).toBe("€5.00");
     expect(String(env.facts?.note)).toMatch(
-      /does not set the 2024 capital transfers/,
+      /capital transfers for 2024 are not set out in the State Budget Law/,
     );
   });
 });

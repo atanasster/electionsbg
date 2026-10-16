@@ -43,7 +43,15 @@ export interface TransportHubStats {
   modes: { universe: TransportUniverse; eur: number; rawEur: number }[];
   /** Contracts between group members, plus those to the in-group contractors
    *  (ТСВ ЕАД — D4). A subset of `procurement.eur`. */
-  inGroup: { eur: number; contracts: number; contractorEur: number };
+  inGroup: {
+    eur: number;
+    contracts: number;
+    contractorEur: number;
+    /** Of `eur`, the rail PSO estimate МТС → БДЖ-ПП (isPsoAward over in-group
+     *  rows): a multi-year „прогнозна стойност", most of the in-group € —
+     *  transport-hub-v1 audit 2026-10-17 (T7). Optional for older blobs. */
+    psoEur?: number;
+  };
   /** Public bodies outside the sector paid by the group (Пощи, НЕК … — D9).
    *  `consortiumEur` is the FULL value of consortia they were members of — a
    *  different basis, never added to `eur`. */
@@ -53,13 +61,13 @@ export interface TransportHubStats {
   annexGrowthEur: number;
   /** The rail PSO awards (МТС + CPV 6021*): multi-year estimates (G2). */
   pso: { eur: number; contracts: number };
-  /** Pass-through spend by kind (G9) — captioned where it ranks. */
-  passThrough: {
-    vouchers: number;
-    fuel: number;
-    electricity: number;
-    insurance: number;
-  };
+  /** Pass-through spend (G9, as narrowed by the audit of 2026-10-17, T6): STAFF
+   *  BENEFITS only — food vouchers, food in kind, the pension top-up. Captioned
+   *  where it ranks. */
+  passThrough: { staffBenefits: number };
+  /** The operator's running inputs — traction fuel, electricity (incl. grid
+   *  access), insurance. NOT pass-through; disclosed, never captioned as such. */
+  operatingInputs: { fuel: number; electricity: number; insurance: number };
   /** „Без обявление" over method-KNOWN € (A4), with the coverage. */
   direct: { directEur: number; knownEur: number };
   /** Top bodies by € (evidence rail). */
@@ -71,12 +79,16 @@ export interface TransportHubStats {
   /** Top map features by € (the finder) and the map's placed share (C3). */
   topSegments: { aTown: string; bTown: string; eur: number }[];
   mapCoverage: { placedEur: number; totalEur: number };
-  /** ИСУН, grant basis (D6). */
+  /** ИСУН, grant basis (D6), WITHOUT the projects TRANSPORT_EU_FUNDS_EXCLUDED
+   *  declares out of the sector (the RRP broadband project — audit 2026-10-17, T2).
+   *  No total project value: a phased project carries its total once per phase,
+   *  so summing it double-counts (T3). */
   euFunds: {
     beneficiaries: number;
     grantEur: number;
     paidEur: number;
-    totalEur: number;
+    /** The excluded projects' grant — stated in the caption, never added. */
+    excludedGrantEur?: number;
   };
 }
 

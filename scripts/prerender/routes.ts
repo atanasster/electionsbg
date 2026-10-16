@@ -87,6 +87,7 @@ import { oblastLabel } from "@/lib/oblastName";
 // Derived, not a literal — same reason as scripts/prerender/institutions.ts:
 // these strings are prerendered, indexed page bodies.
 import { MO_ENTITIES } from "@/lib/defenseReferenceData";
+import { euFundsExcludedCaption } from "@/lib/transportReferenceData";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 import {
@@ -1883,7 +1884,7 @@ ${up(true)}`.trim(),
       bodyHtml: `
 <h1>Парите извън поръчките</h1>
 <p>Бюджетът на Министерството на транспорта и съобщенията, годишната държавна субсидия за железниците — за пътническите превози и за инфраструктурата — и колко е тя на пътник.</p>
-<p>Европейските средства на структурите на база безвъзмездна помощ: €${f.grantBnBg} млрд. за целия програмен период. Разходът за транспорт спрямо ЕС е на целия сектор „Държавно управление“, включително пътищата и общинските метрополитени. Всяка от тези суми е на своя база и не се събира с обществените поръчки.</p>
+<p>Европейските средства на структурите на база безвъзмездна помощ: €${f.grantBnBg} млрд. за целия програмен период. ${euFundsExcludedCaption("bg", true)} Разходът за транспорт спрямо ЕС е на целия сектор „Държавно управление“, включително пътищата и общинските метрополитени. Всяка от тези суми е на своя база и не се събира с обществените поръчки.</p>
 ${up(false)}`.trim(),
       english: {
         title:
@@ -1894,7 +1895,7 @@ ${up(false)}`.trim(),
         bodyHtml: `
 <h1>The money outside procurement</h1>
 <p>The budget of the Ministry of Transport and Communications, the annual state subsidy for the railways — for passenger services and for the infrastructure — and what it is per passenger.</p>
-<p>The bodies' EU funds on the grant basis: €${f.grantBnEn}bn over the whole programme period. Transport spending against the EU is the whole of general government, road building and municipal metros included. Each of these sums is on its own basis and is never added to public procurement.</p>
+<p>The bodies' EU funds on the grant basis: €${f.grantBnEn}bn over the whole programme period. ${euFundsExcludedCaption("en", true)} Transport spending against the EU is the whole of general government, road building and municipal metros included. Each of these sums is on its own basis and is never added to public procurement.</p>
 ${up(true)}`.trim(),
       },
     }),

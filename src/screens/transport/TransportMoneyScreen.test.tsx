@@ -93,7 +93,9 @@ describe("TransportMoneyScreen", () => {
     mount(`/sector/transport/money?pscope=y:${gap}`);
     expect(
       await screen.findByText(
-        new RegExp(`capital transfers for ${gap} .*are not published`),
+        new RegExp(
+          `capital transfers for ${gap} .*are not set out in the State Budget Law`,
+        ),
       ),
     ).toBeTruthy();
     expect(screen.queryByText("Total rail subsidy")).toBeNull();
@@ -108,5 +110,75 @@ describe("TransportMoneyScreen", () => {
     await screen.findByText(/No period/);
     for (const id of ["budget", "subsidy", "funds", "peers", "road-safety"])
       expect(container.querySelector(`#${id}`), id).toBeTruthy();
+  });
+});
+
+// TEST-007 (review 2026-10-17): the deploy-order case. A function deployed before
+// ?exclude= ignores it and answers WITH the RRP broadband project; the hook must
+// notice (no `excluded` echo) and the tile must say the figure still includes it.
+describe("TransportMoneyScreen — the EU-funds exclusion", () => {
+  const fundsStub = (echo: boolean) => {
+    const urls: string[] = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: string) => {
+        const url = String(input);
+        urls.push(url);
+        if (url.includes("/api/db/awarder-funds-rollup"))
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              basis: "grant",
+              ...(echo ? { excluded: ["BG-RRP-7.001-0001"] } : {}),
+              operators: [
+                {
+                  eik: "130823243",
+                  grantEur: 1.5e9,
+                  paidEur: 1e9,
+                  projectCount: 40,
+                },
+                {
+                  eik: "000695388",
+                  grantEur: 0.5e9,
+                  paidEur: 0.3e9,
+                  projectCount: 9,
+                },
+              ],
+            }),
+          };
+        if (url.includes("rail_subsidy.json"))
+          return { ok: true, status: 200, json: async () => subsidy };
+        if (url.includes("rail_ridership.json"))
+          return { ok: true, status: 200, json: async () => ridership };
+        return { ok: false, status: 404, json: async () => null };
+      }),
+    );
+    return urls;
+  };
+
+  it("asks the route to drop the project, and says it is excluded when the route confirms", async () => {
+    const urls = fundsStub(true);
+    mount("/sector/transport/money");
+    expect(
+      await screen.findByText(/Without the digital-infrastructure project/),
+    ).toBeTruthy();
+    const req = urls.find((u) => u.includes("awarder-funds-rollup"))!;
+    expect(new URL(req, "http://x").searchParams.get("exclude")).toBe(
+      "BG-RRP-7.001-0001",
+    );
+  });
+
+  it("says the figure still includes it when an older function ignores ?exclude=", async () => {
+    fundsStub(false);
+    mount("/sector/transport/money");
+    expect(
+      await screen.findByText(
+        /still includes the digital-infrastructure project/,
+      ),
+    ).toBeTruthy();
+    expect(
+      screen.queryByText(/Without the digital-infrastructure project/),
+    ).toBeNull();
   });
 });

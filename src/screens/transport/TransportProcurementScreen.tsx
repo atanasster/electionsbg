@@ -274,6 +274,12 @@ const InGroupCard: FC<{
             {bg
               ? `За целия период: ${eur(hub.inGroup.eur)} по ${formatInt(hub.inGroup.contracts, lang)} договора, от тях ${eur(hub.inGroup.contractorEur)} към ТСВ ЕАД — държавното дружество, наследник на ДП ТСВ, което получава поръчки, но не възлага.`
               : `Over the whole period: ${eur(hub.inGroup.eur)} across ${formatInt(hub.inGroup.contracts, lang)} contracts, of which ${eur(hub.inGroup.contractorEur)} to ТСВ ЕАД — the state company that succeeded ДП ТСВ, which wins work but awards none.`}
+            {/* T7 (audit 2026-10-17): most of the in-group € is ONE estimate. */}
+            {hub.inGroup.psoEur
+              ? bg
+                ? ` От общата сума ${eur(hub.inGroup.psoEur)} е прогнозната стойност на договора за обществена услуга на МТС с „БДЖ — Пътнически превози“ за целия му многогодишен срок.`
+                : ` Of the total, ${eur(hub.inGroup.psoEur)} is the estimated value of МТС's public-service contract with БДЖ — Пътнически превози over its whole multi-year term.`
+              : null}
           </p>
         ) : null}
         {publicRows.length ? (

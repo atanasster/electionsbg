@@ -2,8 +2,9 @@
 // 076_transport_project_map.sql) that the /sector/transport map is drawn from.
 // A SERVING loader — never writes JSON back. It links each of the transport group's
 // contracts to AT MOST ONE piece of physical infrastructure its title names,
-// geocoded against data/settlements.json (towns) and data/ekatte_index.json (the
-// unique-name village pass for section ends). The rules live in
+// geocoded against data/settlements.json (towns) and data/ekatte_index.json (every
+// settlement, for section ends — a shared name is settled by distance to the other
+// end, and refused when distance cannot settle it). The rules live in
 // lib/transport_project_links.ts, with fixture tests:
 //
 //   • a rail awarder's title naming a SECTION -> a SEGMENT (line). An explicitly
@@ -40,9 +41,10 @@ import {
 } from "../../src/lib/transportReferenceData";
 import {
   linkForContract,
-  uniquePlaceIndex,
+  placeCandidatesIndex,
   type LinkDecision,
   type Place,
+  type SectionRefusal,
 } from "./lib/transport_project_links";
 
 const ROOT = path.resolve(
@@ -134,30 +136,28 @@ const run = async (): Promise<void> => {
     "g",
   );
 
-  // Section ends: a town first, else a settlement whose name is UNIQUE in the
-  // whole register (a shared village name is refused, never guessed).
-  const villages = uniquePlaceIndex(
+  // Section ends: EVERY settlement of that name — towns and villages alike —
+  // settled by distance to the other end in pickSectionEnds (audit 2026-10-17, T4).
+  // A name the register does not hold falls back to the town gazetteer (Sofia's
+  // pinned centroid).
+  const places = placeCandidatesIndex(
     JSON.parse(readFileSync(EKATTE_INDEX, "utf8")) as {
       name: string;
       loc: string | null;
+      is_village?: boolean;
     }[],
   );
-  let villageRefused = 0;
   const lookupTown = (n: string): Place | null => {
     const t = town.get(n);
     return t ? { name: n, loc: t.loc, village: false } : null;
   };
-  const lookupSectionEnd = (n: string): Place | null => {
+  const sectionEndCandidates = (n: string): Place[] => {
+    const c = places.get(n);
+    if (c?.length) return c;
     const t = lookupTown(n);
-    if (t) return t;
-    if (!villages.has(n)) return null;
-    const loc = villages.get(n);
-    if (!loc) {
-      villageRefused++;
-      return null;
-    }
-    return { name: n, loc, village: true };
+    return t ? [t] : [];
   };
+  const refused = new Map<SectionRefusal, number>();
 
   const contracts = await allRows<{
     key: string;
@@ -187,9 +187,11 @@ const run = async (): Promise<void> => {
       [...found],
       transportUniverseOf(c.awarder_eik),
       lookupTown,
-      lookupSectionEnd,
+      sectionEndCandidates,
       MAX_TOWNS_PER_CONTRACT,
     );
+    if (d.sectionRefused)
+      refused.set(d.sectionRefused, (refused.get(d.sectionRefused) ?? 0) + 1);
     const l = d.link;
     if (!l) {
       if (d.skipped) skipped.set(d.skipped, (skipped.get(d.skipped) ?? 0) + 1);
@@ -221,7 +223,9 @@ const run = async (): Promise<void> => {
     `transport_project_link: ${segN} segments (${lineOnlyN} parent-line only, ` +
       `${villageEnds} village ends) + ${ptN} points (from ${contracts.length} contracts) → ` +
       `${segTowns.size} places on lines, ${ptTowns.size} towns as points; ` +
-      `${villageRefused} shared village names + ${ambiguousTown.size} shared town names refused; skipped ` +
+      `${ambiguousTown.size} shared town names refused as points; named sections refused ` +
+      ([...refused].map(([k, v]) => `${k}=${v}`).join(" ") || "none") +
+      "; skipped " +
       [...skipped].map(([k, v]) => `${k}=${v}`).join(" "),
   );
   await end();

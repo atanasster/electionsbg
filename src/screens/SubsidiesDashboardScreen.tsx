@@ -256,8 +256,8 @@ const tileMetric = (
           `${bg ? "на пътник (PSO)" : "per passenger (PSO)"}, ${b3.railYear ?? ""}`.trim(),
           b3.railCapitalMissing
             ? bg
-              ? "капиталовите трансфери не са публикувани"
-              : "capital transfers not published"
+              ? "капиталовите трансфери не са разписани в бюджета"
+              : "capital transfers not set out in the budget law"
             : null,
         );
       return m(

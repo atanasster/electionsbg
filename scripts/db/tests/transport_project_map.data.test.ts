@@ -8,7 +8,12 @@
 //   • no segment comes from a non-rail awarder (БУЛАТСА demolitions and МТС heating
 //     gas were drawn as rail sections — A6);
 //   • a contract carries at most one link, so placed € cannot double-count (C3);
-//   • coverage is returned and agrees with an independent recount from contracts.
+//   • coverage is returned and agrees with an independent recount from contracts;
+//   • the section-end REFUSAL mechanism is real (audit 2026-10-17, T4/C4): on the
+//     committed register a name collision is settled by distance or refused —
+//     asserted, not just logged — and the stored links obey it;
+//   • a named section never falls back to a point, and non-work-site titles
+//     (utilities, operating services, rolling-stock repair) stay unplaced (T4b, T5).
 //
 // Auto-skips only when Postgres is down; an EMPTY link table is a failure — the
 // loader is unconditional in db:refresh and reads only committed inputs.
@@ -21,6 +26,14 @@ import {
   TRANSPORT_ENTITIES,
 } from "../../../src/lib/transportReferenceData";
 import { reportSkip } from "../../lib/report_skip";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import {
+  namesAWorkSite,
+  pickSectionEnds,
+  placeCandidatesIndex,
+  sectionPair,
+} from "../lib/transport_project_links";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
@@ -136,3 +149,64 @@ test.skipIf(skip)(
     }
   },
 );
+
+// ── Section-end refusal, re-derived from the COMMITTED register (no DB needed) ──
+const REGISTER = placeCandidatesIndex(
+  JSON.parse(
+    readFileSync(path.resolve(process.cwd(), "data/ekatte_index.json"), "utf8"),
+  ) as { name: string; loc: string | null; is_village?: boolean }[],
+);
+const cands = (n: string) => REGISTER.get(n) ?? [];
+
+test("the register settles a shared name by distance and refuses what distance cannot", () => {
+  // Shared names on both sides: „Стражица" (a town and a village) and
+  // „Славяново" (a town and two villages) — the adjacent pair wins.
+  assert.ok(cands("Стражица").length > 1 && cands("Славяново").length > 1, "the collision fixture is gone from ekatte_index.json"); // prettier-ignore
+  const p = pickSectionEnds(cands("Стражица"), cands("Славяново"));
+  assert.ok("a" in p, "Стражица–Славяново was refused");
+  if ("a" in p) assert.equal(p.b.village, true, "picked the Плевен TOWN Славяново, 100 km off"); // prettier-ignore
+  // A unique pair too far apart for adjacent stations is refused, never drawn.
+  assert.deepEqual(pickSectionEnds(cands("Медковец"), cands("Срацимир")), { refused: "none-within" }); // prettier-ignore
+  // And a name the register does not hold is refused as unknown.
+  assert.deepEqual(pickSectionEnds(cands("Несъществуващо"), cands("Медковец")), { refused: "unknown" }); // prettier-ignore
+});
+
+test.skipIf(skip)(
+  "stored section ends are within reach of each other, and a named section is never a point (T4)",
+  async () => {
+    const segs =
+      await allRows<{ a_lng: number; a_lat: number; b_lng: number; b_lat: number; scope: string }>( // prettier-ignore
+        "SELECT a_lng, a_lat, b_lng, b_lat, scope FROM transport_project_link WHERE kind = 'segment' AND scope = 'section'",
+      );
+    assert.ok(segs.length > 0, "no section segments — the check is vacuous");
+    const km = (s: (typeof segs)[number]) => {
+      const r = Math.PI / 180;
+      const h =
+        Math.sin(((s.b_lat - s.a_lat) * r) / 2) ** 2 +
+        Math.cos(s.a_lat * r) * Math.cos(s.b_lat * r) * Math.sin(((s.b_lng - s.a_lng) * r) / 2) ** 2; // prettier-ignore
+      return 2 * 6371 * Math.asin(Math.sqrt(h));
+    };
+    const far = segs.filter((s) => km(s) > 120);
+    assert.deepEqual(
+      far.length,
+      0,
+      "a 'section' segment spans more than MAX_SECTION_KM",
+    );
+
+    const points = await allRows<{ title: string }>(
+      `SELECT c.title FROM transport_project_link l JOIN contracts c ON c.key = l.key
+        WHERE l.kind = 'point' AND c.awarder_eik = ANY($1)`,
+      [RAIL],
+    );
+    const sectioned = points.filter((p) => sectionPair(p.title));
+    assert.deepEqual(sectioned.map((p) => p.title).slice(0, 3), [], "a title naming its section became a point"); // prettier-ignore
+  },
+);
+
+test.skipIf(skip)("non-work-site titles stay off the map (T5)", async () => {
+  const rows = await allRows<{ title: string; kind: string }>(
+    `SELECT c.title, l.kind FROM transport_project_link l JOIN contracts c ON c.key = l.key`,
+  );
+  const bad = rows.filter((r) => !namesAWorkSite(r.title, r.kind === "point"));
+  assert.deepEqual(bad.map((r) => r.title).slice(0, 3), [], "a utility / operating / rolling-stock title is on the map"); // prettier-ignore
+});

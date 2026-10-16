@@ -9,6 +9,9 @@ import {
   reattributedModes,
   isPsoAward,
   passThroughOf,
+  operatingInputOf,
+  isLoanRow,
+  isMinistryMaritimeCpv,
   directShareKnown,
   type TransportCategory,
 } from "./transportAttributes";
@@ -121,30 +124,90 @@ describe("PSO awards (G2/G3)", () => {
   });
 });
 
-describe("passThroughOf (G9)", () => {
+describe("passThroughOf — staff benefits only (G9, audit 2026-10-17 T6)", () => {
   it("catches НКЖИ's vouchers filed under CPV 98000000 by their title", () => {
     expect(
       passThroughOf({
         cpv: "98000000",
         title: "Доставка на ваучери за храна за служителите на ДП НКЖИ",
       }),
-    ).toBe("vouchers");
+    ).toBe("staffBenefits");
   });
 
-  it("types fuel, electricity and insurance by CPV", () => {
-    expect(passThroughOf({ cpv: "09134100", title: "дизелово гориво" })).toBe("fuel"); // prettier-ignore
-    expect(passThroughOf({ cpv: "09310000", title: "ел. енергия" })).toBe("electricity"); // prettier-ignore
-    expect(passThroughOf({ cpv: "66510000", title: "застраховки" })).toBe("insurance"); // prettier-ignore
+  it("counts food in kind and the pension top-up as staff benefits", () => {
+    expect(passThroughOf({ cpv: "15890000", title: "Доставка на безплатна храна и/или добавки" })).toBe("staffBenefits"); // prettier-ignore
+    expect(passThroughOf({ cpv: "22000000", title: "Избор на оператор за изработване и доставка на ваучери за безплатна храна" })).toBe("staffBenefits"); // prettier-ignore
+    expect(passThroughOf({ cpv: "66520000", title: "Допълнително доброволно пенсионно осигуряване" })).toBe("staffBenefits"); // prettier-ignore
+  });
+
+  it("does NOT call fuel, electricity or insurance pass-through — they are operating inputs", () => {
+    for (const cpv of ["09134100", "09310000", "66510000", "65300000"])
+      expect(passThroughOf({ cpv, title: "x" }), cpv).toBeNull();
   });
 
   it("does not read a bare „талон“ as a voucher (ИААА inspection coupons, parking)", () => {
     expect(passThroughOf({ cpv: "79800000", title: "Отпечатване на документи и контролни талони" })).toBeNull(); // prettier-ignore
     expect(passThroughOf({ cpv: "79800000", title: "Печат на талони за паркиране" })).toBeNull(); // prettier-ignore
-    expect(passThroughOf({ cpv: "79800000", title: "Доставка на талони за храна" })).toBe("vouchers"); // prettier-ignore
+    expect(passThroughOf({ cpv: "79800000", title: "Доставка на талони за храна" })).toBe("staffBenefits"); // prettier-ignore
   });
 
   it("leaves real procurement alone", () => {
     expect(passThroughOf({ cpv: "45234100", title: "Рехабилитация на жп участък" })).toBeNull(); // prettier-ignore
+  });
+});
+
+describe("operatingInputOf (T6)", () => {
+  it("types fuel, electricity and insurance, with the added recall", () => {
+    expect(operatingInputOf({ cpv: "09134100", title: "дизелово гориво" })).toBe("fuel"); // prettier-ignore
+    expect(operatingInputOf({ cpv: "09310000", title: "ел. енергия" })).toBe("electricity"); // prettier-ignore
+    // Grid access and transmission is electricity too (CPV 653*).
+    expect(operatingInputOf({ cpv: "65300000", title: "Достъп и пренос на електрическа енергия" })).toBe("electricity"); // prettier-ignore
+    expect(operatingInputOf({ cpv: "66510000", title: "застраховки" })).toBe("insurance"); // prettier-ignore
+    // The whole 66 insurance family, not just 665*.
+    expect(operatingInputOf({ cpv: "66000000", title: "Групова застраховка „Живот“" })).toBe("insurance"); // prettier-ignore
+  });
+
+  it("leaves credit, consulting and staff benefits out", () => {
+    expect(operatingInputOf({ cpv: "66113000", title: "Договор за паричен заем" })).toBeNull(); // prettier-ignore
+    expect(operatingInputOf({ cpv: "66170000", title: "Договор за консултантски услуги" })).toBeNull(); // prettier-ignore
+    expect(operatingInputOf({ cpv: "66520000", title: "пенсионно осигуряване" })).toBeNull(); // prettier-ignore
+    // Banking, fund management and treasury are not insurance (FINDING-005).
+    expect(operatingInputOf({ cpv: "66100000", title: "банкови услуги" })).toBeNull(); // prettier-ignore
+    expect(operatingInputOf({ cpv: "66140000", title: "управление на портфейл" })).toBeNull(); // prettier-ignore
+    expect(operatingInputOf({ cpv: "66600000", title: "трезорни услуги" })).toBeNull(); // prettier-ignore
+  });
+});
+
+describe("isLoanRow (T8)", () => {
+  it("reads the Eurofima loan and intra-group credit, not a purchase", () => {
+    expect(isLoanRow("Договор за паричен заем", "66113000")).toBe(true);
+    expect(isLoanRow("Договор за паричен заем с EUROFIMA", null)).toBe(true);
+    expect(isLoanRow("Договор за кредит", "66000000")).toBe(true);
+    expect(isLoanRow("Доставка на кредитни карти", "30000000")).toBe(false);
+    expect(isLoanRow("Акредитиране на лаборатория", "79000000")).toBe(false);
+  });
+});
+
+describe("isMinistryMaritimeCpv (T9)", () => {
+  it("moves the ministry's dredging and boats, nothing else", () => {
+    expect(isMinistryMaritimeCpv(TRANSPORT_EIK, "45247100")).toBe(true);
+    expect(isMinistryMaritimeCpv(TRANSPORT_EIK, "34513550")).toBe(true);
+    expect(isMinistryMaritimeCpv(TRANSPORT_EIK, "72000000")).toBe(false);
+    expect(isMinistryMaritimeCpv("130316140", "45247100")).toBe(false);
+  });
+
+  it("re-attributes them to maritime with Σ unchanged", () => {
+    const modes = reattributedModes(
+      [{ eik: TRANSPORT_EIK, totalEur: 100 }],
+      [
+        { cpv: "45247100", totalEur: 30 },
+        { cpv: "72000000", totalEur: 70 },
+      ],
+    );
+    const by = Object.fromEntries(modes.map((m) => [m.universe, m.eur]));
+    expect(by.maritime).toBe(30);
+    expect(by.ministry).toBe(70);
+    expect(modes.reduce((a, m) => a + m.eur, 0)).toBe(100);
   });
 });
 

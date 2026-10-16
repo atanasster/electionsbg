@@ -62,6 +62,9 @@ export const TransportModeSplitTile: FC<{ modes: ModeRow[] }> = ({ modes }) => {
     `${((v / total) * 100).toLocaleString(loc, { maximumFractionDigits: 0 })}%`;
   const rail = rows.find((m) => m.universe === "rail");
   const moved = rail ? rail.eur - rail.rawEur : 0;
+  const maritime = rows.find((m) => m.universe === "maritime");
+  const maritimeMoved = maritime ? maritime.eur - maritime.rawEur : 0;
+  const ministryLeft = rows.find((m) => m.universe === "ministry")?.eur ?? 0;
 
   return (
     <Card>
@@ -110,8 +113,23 @@ export const TransportModeSplitTile: FC<{ modes: ModeRow[] }> = ({ modes }) => {
               ? `Договорите на министерството за обществена услуга в железопътния транспорт (CPV 6021) и за подвижен състав (CPV 346) — ${formatEurCompact(moved, lang)} — са отнесени към железниците: МТС ги възлага централно, но купува жп превози и влакове. Ред „по възложител“ показва разпределението преди това.`
               : `The ministry's rail public-service contracts (CPV 6021) and rolling-stock orders (CPV 346) — ${formatEurCompact(moved, lang)} — are counted as rail: МТС awards them centrally, but they buy rail services and trains. The "by awarder" line shows the split before that.`
             : bg
-              ? "В избрания период министерството няма договори за жп превози или подвижен състав, затова двете разпределения съвпадат."
-              : "In the selected window the ministry has no rail-service or rolling-stock contracts, so the two splits coincide."}{" "}
+              ? maritimeMoved > 0
+                ? "В избрания период министерството няма договори за жп превози или подвижен състав."
+                : "В избрания период министерството няма договори за жп превози или подвижен състав, затова двете разпределения съвпадат."
+              : maritimeMoved > 0
+                ? "In the selected window the ministry has no rail-service or rolling-stock contracts."
+                : "In the selected window the ministry has no rail-service or rolling-stock contracts, so the two splits coincide."}{" "}
+          {/* Only when THIS window holds such rows (review FINDING-006). */}
+          {maritimeMoved > 0
+            ? bg
+              ? `Драгирането на Дунав и корабите за маркиране и изследвания, които министерството купува (${formatEurCompact(maritimeMoved, lang)}), са към „Море, пристанища и Дунав“. `
+              : `The Danube dredging and the marker and survey boats the ministry buys (${formatEurCompact(maritimeMoved, lang)}) are counted under maritime. `
+            : null}
+          {ministryLeft > 0
+            ? bg
+              ? "Останалото в реда на министерството са главно информационни системи, кампании и издръжка на сградите — част от тях е „съобщения“, но няма чисто правило по CPV, по което да се отделят. "
+              : "The rest of the ministry row is mainly IT systems, campaigns and building upkeep — some of it communications, but with no clean CPV rule to separate it. "
+            : null}
           {bg
             ? "Пътната инфраструктура (АПИ) е отделен сектор и не е включена."
             : "Road infrastructure (АПИ) is a separate sector and is not included."}
