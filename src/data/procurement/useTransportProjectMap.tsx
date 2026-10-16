@@ -16,7 +16,13 @@ import type { ScopeWindow } from "./useAwarderContracts";
 
 export type { ScopeWindow };
 
-type FacilityType = "rail" | "port" | "station" | "junction";
+type FacilityType =
+  | "rail"
+  | "port"
+  | "station"
+  | "junction"
+  | "aviation"
+  | "site";
 
 interface ProjectMetric {
   totalEur: number;
@@ -32,6 +38,9 @@ export interface TransportProjectSegment extends ProjectMetric {
   b: [number, number];
   aTown: string;
   bTown: string;
+  /** Only the parent LINE resolved — the title's own section could not be placed,
+   *  so the line is the project's, not the work site's. */
+  lineOnly?: boolean;
 }
 
 /** A single-site facility named in ≥1 contract (drawn as a typed marker). */

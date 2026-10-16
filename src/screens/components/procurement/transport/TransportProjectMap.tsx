@@ -48,6 +48,8 @@ const FACILITY_LABEL: Record<string, { bg: string; en: string }> = {
   station: { bg: "Гара", en: "Station" },
   junction: { bg: "Възел", en: "Junction" },
   rail: { bg: "Жп обект", en: "Rail works" },
+  aviation: { bg: "Обект на въздушния транспорт", en: "Aviation site" },
+  site: { bg: "Обект", en: "Site" },
 };
 
 interface Band {
@@ -179,9 +181,13 @@ export const TransportProjectMap: FC<{
           color,
           weight,
           title: label,
-          subtitle: bg
-            ? `Жп участък · ${s.contractCount} договора`
-            : `Rail section · ${s.contractCount} contracts`,
+          subtitle: s.lineOnly
+            ? bg
+              ? `Проект по линията · ${s.contractCount} договора`
+              : `Project on the line · ${s.contractCount} contracts`
+            : bg
+              ? `Жп участък · ${s.contractCount} договора`
+              : `Rail section · ${s.contractCount} contracts`,
           detail: detailOf(s),
           href: `/procurement/contracts?sector=transport&q=${encodeURIComponent(
             `${s.aTown} ${s.bTown}`,

@@ -1,18 +1,24 @@
 // Build the transport-project geo crosswalk (transport_project_link, schema
 // 076_transport_project_map.sql) that the /sector/transport map is drawn from.
 // A SERVING loader — never writes JSON back. It links each of the transport group's
-// contracts to the physical INFRASTRUCTURE its title names, geocoded against
-// data/settlements.json:
+// contracts to AT MOST ONE piece of physical infrastructure its title names,
+// geocoded against data/settlements.json (towns) and data/ekatte_index.json (the
+// unique-name village pass for section ends). The rules live in
+// lib/transport_project_links.ts, with fixture tests:
 //
-//   • title names TWO towns  -> a rail SEGMENT (line) between the two centroids
-//                               "Костенец–Септември", "Пловдив–Бургас", "Горна Оряховица–Шумен"
-//   • title names ONE town   -> a POINT, typed by keyword (port / station / junction / rail)
-//                               "Пристанище Бургас", "гара Каспичан", "Видин"
+//   • a rail awarder's title naming a SECTION -> a SEGMENT (line). An explicitly
+//     named section („участък Медковец – Срацимир") beats the parent line.
+//   • one town                                -> a POINT, typed by keyword, else by
+//                                                the awarder's universe
+//   • two towns with no section word, 3+ towns, nothing placeable -> no link
 //
-// The state-transport entities are all Sofia-registered, so a seat map is degenerate; the
-// meaningful geography is what the money builds — rail sections, ports, junctions — which the
-// titles name. A contract naming no town (train operations, rolling stock, fuel — network-
-// wide, ~70% of value) is simply absent from the map.
+// A contract naming no town (train operations, rolling stock, fuel — network-
+// wide) is simply absent from the map; 076 reports the placed share as coverage.
+//
+// The rebuild is a STAGE MERGE, never TRUNCATE-in-a-transaction: the old form held
+// an AccessExclusiveLock on a served table for the whole load (210 s on Cloud SQL),
+// blocking every map request. Readers keep the previous vintage until the merge
+// COMMIT, then the table is vacuumed so its visibility map survives the rewrite.
 //
 // Run: `npm run db:load:transport-project-map:pg` (local) / `:cloud` (Cloud SQL proxy).
 // Depends only on the loaded contracts table.
@@ -20,8 +26,24 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, allRows, withClient, end } from "./lib/pg";
-import { TRANSPORT_SECTOR_EIKS } from "../../src/lib/transportReferenceData";
+import { exec, allRows, withTx, end, vacuumAfterReload } from "./lib/pg";
+import { copyRows } from "./lib/copy";
+import {
+  createStageTable,
+  addStagePrimaryKey,
+  mergeFromStage,
+  type StageMergeSpec,
+} from "./lib/stage_merge";
+import {
+  TRANSPORT_SECTOR_EIKS,
+  transportUniverseOf,
+} from "../../src/lib/transportReferenceData";
+import {
+  linkForContract,
+  uniquePlaceIndex,
+  type LinkDecision,
+  type Place,
+} from "./lib/transport_project_links";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -33,6 +55,7 @@ const SCHEMA = path.join(
   "scripts/db/schema/pg/076_transport_project_map.sql",
 );
 const SETTLEMENTS = path.join(ROOT, "data/settlements.json");
+const EKATTE_INDEX = path.join(ROOT, "data/ekatte_index.json");
 
 const SOFIA = "София";
 const SOFIA_EKATTE = "68134";
@@ -49,18 +72,6 @@ const DENY = new Set([
 // multi-station framework, not a single section, so we only draw a line for an exact pair.
 const MAX_TOWNS_PER_CONTRACT = 6;
 
-type Facility = "rail" | "port" | "station" | "junction";
-
-// Classify a single-town point from title keywords. Order matters (port before station).
-const facilityOf = (title: string): Facility => {
-  const t = title.toLowerCase();
-  if (/пристанищ|\bпорт\b|терминал|\bкей\b/.test(t)) return "port";
-  if (/летищ|аерогар/.test(t)) return "junction"; // aviation grouped with junctions (rare)
-  if (/жп възел|разпределит/.test(t)) return "junction";
-  if (/жп гар|железопътна гар|\bгара\b|\bгарата\b/.test(t)) return "station";
-  return "rail";
-};
-
 interface Settlement {
   ekatte: string;
   name: string;
@@ -68,17 +79,24 @@ interface Settlement {
   loc?: string;
 }
 
-interface LinkRow {
-  key: string;
-  kind: "segment" | "point";
-  facility: Facility | null;
-  a_town: string;
-  a_lng: number;
-  a_lat: number;
-  b_town: string;
-  b_lng: number | null;
-  b_lat: number | null;
-}
+const COLS = [
+  "key",
+  "kind",
+  "facility",
+  "a_town",
+  "a_lng",
+  "a_lat",
+  "b_town",
+  "b_lng",
+  "b_lat",
+  "scope",
+];
+const SPEC: StageMergeSpec = {
+  table: "transport_project_link",
+  source: "transport_project_link_stage",
+  keys: ["key", "a_town", "b_town"],
+  cols: COLS,
+};
 
 const run = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA, "utf8"));
@@ -89,10 +107,18 @@ const run = async (): Promise<void> => {
     readFileSync(SETTLEMENTS, "utf8"),
   ) as Settlement[];
   const town = new Map<string, { ekatte: string; loc: [number, number] }>();
+  const ambiguousTown = new Set<string>();
   for (const s of settlements) {
     if (s.t_v_m !== "гр." || !s.loc) continue;
     const nm = s.name.trim();
-    if (nm.length < 4 || DENY.has(nm) || town.has(nm)) continue;
+    if (nm.length < 4 || DENY.has(nm)) continue;
+    if (town.has(nm) || ambiguousTown.has(nm)) {
+      // Two towns share the name (Бяла — обл. Русе and обл. Варна): refuse it, the
+      // same rule as the village pass. First-writer-wins drew a 180 km line.
+      town.delete(nm);
+      ambiguousTown.add(nm);
+      continue;
+    }
     const [lng, lat] = s.loc.split(",").map(Number);
     if (!Number.isFinite(lng) || !Number.isFinite(lat)) continue;
     town.set(nm, { ekatte: s.ekatte, loc: [lng, lat] });
@@ -108,96 +134,95 @@ const run = async (): Promise<void> => {
     "g",
   );
 
-  const contracts = await allRows<{ key: string; title: string }>(
-    `SELECT key, title FROM contracts
+  // Section ends: a town first, else a settlement whose name is UNIQUE in the
+  // whole register (a shared village name is refused, never guessed).
+  const villages = uniquePlaceIndex(
+    JSON.parse(readFileSync(EKATTE_INDEX, "utf8")) as {
+      name: string;
+      loc: string | null;
+    }[],
+  );
+  let villageRefused = 0;
+  const lookupTown = (n: string): Place | null => {
+    const t = town.get(n);
+    return t ? { name: n, loc: t.loc, village: false } : null;
+  };
+  const lookupSectionEnd = (n: string): Place | null => {
+    const t = lookupTown(n);
+    if (t) return t;
+    if (!villages.has(n)) return null;
+    const loc = villages.get(n);
+    if (!loc) {
+      villageRefused++;
+      return null;
+    }
+    return { name: n, loc, village: true };
+  };
+
+  const contracts = await allRows<{
+    key: string;
+    title: string;
+    awarder_eik: string;
+  }>(
+    `SELECT key, title, awarder_eik FROM contracts
        WHERE awarder_eik = ANY($1) AND tag = 'contract' AND title IS NOT NULL`,
     [TRANSPORT_SECTOR_EIKS],
   );
 
-  const rows: LinkRow[] = [];
+  const rows: unknown[][] = [];
+  const skipped = new Map<NonNullable<LinkDecision["skipped"]>, number>();
   let segN = 0;
+  let lineOnlyN = 0;
   let ptN = 0;
+  let villageEnds = 0;
+  const segTowns = new Set<string>();
+  const ptTowns = new Set<string>();
   for (const c of contracts) {
     const found = new Set<string>();
     RE.lastIndex = 0;
     let m: RegExpExecArray | null;
     while ((m = RE.exec(c.title)) !== null) found.add(m[2]);
-    if (found.size === 0 || found.size > MAX_TOWNS_PER_CONTRACT) continue;
-
-    if (found.size === 2) {
-      // A rail section between the two named towns → a line.
-      const [na, nb] = [...found];
-      const a = town.get(na)!;
-      const b = town.get(nb)!;
-      rows.push({
-        key: c.key,
-        kind: "segment",
-        facility: null,
-        a_town: na,
-        a_lng: a.loc[0],
-        a_lat: a.loc[1],
-        b_town: nb,
-        b_lng: b.loc[0],
-        b_lat: b.loc[1],
-      });
-      segN++;
-    } else if (found.size === 1) {
-      // A single-site facility → a typed point.
-      const nm = [...found][0];
-      const g = town.get(nm)!;
-      rows.push({
-        key: c.key,
-        kind: "point",
-        facility: facilityOf(c.title),
-        a_town: nm,
-        a_lng: g.loc[0],
-        a_lat: g.loc[1],
-        b_town: "",
-        b_lng: null,
-        b_lat: null,
-      });
-      ptN++;
+    const d = linkForContract(
+      c.title,
+      [...found],
+      transportUniverseOf(c.awarder_eik),
+      lookupTown,
+      lookupSectionEnd,
+      MAX_TOWNS_PER_CONTRACT,
+    );
+    const l = d.link;
+    if (!l) {
+      if (d.skipped) skipped.set(d.skipped, (skipped.get(d.skipped) ?? 0) + 1);
+      continue;
     }
-    // 3..MAX towns: a multi-site framework — counted in neither shape (would mislead).
+    if (l.kind === "segment") {
+      rows.push([c.key, "segment", null, l.a.name, l.a.loc[0], l.a.loc[1], l.b.name, l.b.loc[0], l.b.loc[1], l.scope]); // prettier-ignore
+      segN++;
+      if (l.scope === "line") lineOnlyN++;
+      villageEnds += Number(l.a.village) + Number(l.b.village);
+      segTowns.add(l.a.name).add(l.b.name);
+    } else {
+      rows.push([c.key, "point", l.facility, l.a.name, l.a.loc[0], l.a.loc[1], "", null, null, null]); // prettier-ignore
+      ptN++;
+      ptTowns.add(l.a.name);
+    }
   }
 
-  await withClient(async (client) => {
-    await client.query("BEGIN");
-    await client.query("TRUNCATE transport_project_link");
-    for (const r of rows) {
-      await client.query(
-        `INSERT INTO transport_project_link
-           (key, kind, facility, a_town, a_lng, a_lat, b_town, b_lng, b_lat)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
-         ON CONFLICT (key, a_town, b_town) DO NOTHING`,
-        [
-          r.key,
-          r.kind,
-          r.facility,
-          r.a_town,
-          r.a_lng,
-          r.a_lat,
-          r.b_town,
-          r.b_lng,
-          r.b_lat,
-        ],
-      );
-    }
-    await client.query("COMMIT");
+  await withTx(async (client) => {
+    await createStageTable(client, SPEC);
+    await copyRows(client, SPEC.source, COLS, rows);
+    await addStagePrimaryKey(client, SPEC);
+    await mergeFromStage(client, SPEC);
+    await client.query(`DROP TABLE ${SPEC.source}`);
   });
+  await vacuumAfterReload(SPEC.table);
 
-  const segTowns = new Set(
-    rows
-      .filter((r) => r.kind === "segment")
-      .flatMap((r) => [r.a_town, r.b_town]),
-  ).size;
-  const ptTowns = new Set(
-    rows.filter((r) => r.kind === "point").map((r) => r.a_town),
-  ).size;
   console.log(
-    `transport_project_link: ${segN} segments + ${ptN} points ` +
-      `(from ${contracts.length} contracts) → ` +
-      `${segTowns} towns on lines, ${ptTowns} towns as points`,
+    `transport_project_link: ${segN} segments (${lineOnlyN} parent-line only, ` +
+      `${villageEnds} village ends) + ${ptN} points (from ${contracts.length} contracts) → ` +
+      `${segTowns.size} places on lines, ${ptTowns.size} towns as points; ` +
+      `${villageRefused} shared village names + ${ambiguousTown.size} shared town names refused; skipped ` +
+      [...skipped].map(([k, v]) => `${k}=${v}`).join(" "),
   );
   await end();
 };

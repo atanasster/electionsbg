@@ -28,15 +28,20 @@ DROP TABLE IF EXISTS transport_project_site;
 CREATE TABLE IF NOT EXISTS transport_project_link (
   key      text NOT NULL,          -- contracts.key (PK there)
   kind     text NOT NULL,          -- 'segment' | 'point'
-  facility text,                   -- point only: 'rail' | 'port' | 'station' | 'junction'
+  facility text,                   -- point only: 'rail' | 'port' | 'station' | 'junction' | 'aviation' | 'site'
   a_town   text NOT NULL,
   a_lng    double precision,
   a_lat    double precision,
   b_town   text NOT NULL DEFAULT '', -- segment only; '' for a point (keeps the PK non-null)
   b_lng    double precision,
   b_lat    double precision,
+  -- segment only: 'section' = the title names the worked section; 'line' = only the
+  -- parent line resolved, so the segment is the project's line, not the work site.
+  scope    text,
   PRIMARY KEY (key, a_town, b_town)
 );
+-- Warm databases predate the column (CREATE TABLE IF NOT EXISTS is a no-op there).
+ALTER TABLE transport_project_link ADD COLUMN IF NOT EXISTS scope text;
 CREATE INDEX IF NOT EXISTS idx_transport_project_link_key ON transport_project_link (key);
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
@@ -45,9 +50,13 @@ DO $$ BEGIN
 END $$;
 
 -- Windowed [from, to) with sargable COALESCE bounds (matches scopeByWindow's half-open,
--- string-compared guard so the awarder_eik index is kept), tag='contract' only. Returns two
+-- string-compared guard so the awarder_eik index is kept), tag='contract' only, consortium
+-- MEMBER rows excluded — they carry €0 and inherit the carrier's tenderer count, so counting
+-- them made „Видин – София" 11 contracts when it is 2 (transport-hub-v1 A1). Returns two
 -- collections: line segments (rail sections) and points (stations/ports/junctions), each
--- ranked by spend DESC with a name tiebreak for byte-deterministic ordering.
+-- ranked by spend DESC with a name tiebreak for byte-deterministic ordering, plus `coverage`:
+-- how much of the window's money the map places at all, by DISTINCT contract key (a contract
+-- carries at most one link, so placed € never double-counts).
 DROP FUNCTION IF EXISTS transport_project_map(text[], text, text);
 CREATE OR REPLACE FUNCTION transport_project_map(
   p_eiks text[],
@@ -59,6 +68,7 @@ WITH base AS (
   SELECT key, number_of_tenderers, amount_eur
   FROM contracts
   WHERE awarder_eik = ANY(p_eiks) AND tag = 'contract'
+    AND consortium_role IS DISTINCT FROM 'member'
     AND date >= COALESCE(p_from, '')
     AND date <  COALESCE(p_to, '99999999')
 ),
@@ -74,7 +84,8 @@ seg AS (
          (COUNT(*))::int                                                 AS contract_count,
          ROUND(COALESCE(SUM(b.amount_eur), 0))::double precision         AS total_eur,
          (COUNT(*) FILTER (WHERE b.number_of_tenderers IS NOT NULL))::int AS bid_known_n,
-         (COUNT(*) FILTER (WHERE b.number_of_tenderers = 1))::int         AS single_bid_n
+         (COUNT(*) FILTER (WHERE b.number_of_tenderers = 1))::int         AS single_bid_n,
+         bool_and(l.scope = 'line')                                       AS line_only
   FROM base b
   JOIN transport_project_link l ON l.key = b.key AND l.kind = 'segment'
   WHERE l.a_lng IS NOT NULL AND l.a_lat IS NOT NULL
@@ -93,6 +104,12 @@ pt AS (
   JOIN transport_project_link l ON l.key = b.key AND l.kind = 'point'
   WHERE l.a_lng IS NOT NULL AND l.a_lat IS NOT NULL
   GROUP BY l.a_town, l.a_lng, l.a_lat
+),
+placed AS (
+  SELECT COUNT(*)::int AS n, ROUND(COALESCE(SUM(b.amount_eur), 0))::double precision AS eur
+  FROM base b
+  WHERE EXISTS (SELECT 1 FROM transport_project_link l
+                WHERE l.key = b.key AND l.a_lng IS NOT NULL)
 )
 SELECT jsonb_build_object(
   'segments', COALESCE((
@@ -104,7 +121,8 @@ SELECT jsonb_build_object(
       'contractCount', contract_count,
       'totalEur',      total_eur,
       'bidKnownN',     bid_known_n,
-      'singleBidN',    single_bid_n
+      'singleBidN',    single_bid_n,
+      'lineOnly',      COALESCE(line_only, false)
     ) ORDER BY total_eur DESC NULLS LAST, t1, t2)
     FROM seg), '[]'::jsonb),
   'points', COALESCE((
@@ -117,7 +135,14 @@ SELECT jsonb_build_object(
       'bidKnownN',     bid_known_n,
       'singleBidN',    single_bid_n
     ) ORDER BY total_eur DESC NULLS LAST, town)
-    FROM pt), '[]'::jsonb)
+    FROM pt), '[]'::jsonb),
+  'coverage', (
+    SELECT jsonb_build_object(
+      'placedContracts', p.n,
+      'placedEur',       p.eur,
+      'totalContracts',  (SELECT COUNT(*)::int FROM base),
+      'totalEur',        (SELECT ROUND(COALESCE(SUM(amount_eur), 0))::double precision FROM base)
+    ) FROM placed p)
 );
 $$;
 DO $$ BEGIN
